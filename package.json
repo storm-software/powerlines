@@ -1,11 +1,11 @@
 {
-  "name": "@monorepo-template/monorepo",
+  "name": "@powerlines/monorepo",
   "version": "0.0.1",
   "type": "module",
   "description": "⚡ A monorepo containing TypeScript utility packages with shared functionality common to many Storm Software applications.",
   "repository": {
     "type": "github",
-    "url": "https://github.com/storm-software/monorepo-template.git"
+    "url": "https://github.com/storm-software/powerlines.git"
   },
   "homepage": "https://stormsoftware.com",
   "bugs": {
@@ -50,7 +50,7 @@
     "graph": "nx graph",
     "help": "nx help",
     "lint": "pnpm exec zx tools/scripts/src/lint.mjs",
-    "local-registry": "nx local-registry @monorepo-template/monorepo",
+    "local-registry": "nx local-registry @powerlines/monorepo",
     "nuke": "pnpm exec zx tools/scripts/src/nuke.mjs",
     "nx": "nx",
     "postinstall": "pnpm bootstrap",
@@ -111,7 +111,7 @@
     "defaultBranch": "main",
     "workspaceProtocol": "require"
   },
-  "namespace": "@monorepo-template",
+  "namespace": "@powerlines",
   "nx": {
     "includedScripts": [
       "lint-knip",

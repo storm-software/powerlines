@@ -10,6 +10,6 @@ ports:
     visibility: public
 
 env:
-  STORM_NAME: monorepo-template
+  STORM_NAME: powerlines
   STORM_ORG: storm-software
   STORM_ENV: staging

@@ -5,8 +5,8 @@ on:
   issues:
     branches:
       - main
-      - alpha
-      - beta
+      - canary
+      - experimental
 
 permissions: {}
 

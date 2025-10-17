@@ -100,7 +100,7 @@ pre-push:
     readme:
       glob: "**/*"
       run: 'pnpm exec storm-git readme --templates="tools/readme-templates"
-        --project="@monorepo-template/monorepo" '
+        --project="@powerlines/monorepo" '
       stage_fixed: true
     format:
       glob: "**/*"

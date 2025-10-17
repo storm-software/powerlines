@@ -9,8 +9,8 @@ on:
   push:
     branches:
       - main
-      - alpha
-      - beta
+      - canary
+      - experimental
 
 env:
   CI: true
@@ -28,7 +28,7 @@ jobs:
       contents: write
       id-token: write
     if:
-      github.repository == 'storm-software/monorepo-template' && (github.ref ==
+      github.repository == 'storm-software/powerlines' && (github.ref ==
       'refs/heads/main' || github.ref == 'refs/heads/alpha' || github.ref ==
       'refs/heads/beta')
     steps:

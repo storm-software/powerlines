@@ -6,7 +6,7 @@ Thank you good citizen for your hard work! Please provide the below details
 describing your PR.
 
 **Note:** Please read the
-[contributing guide](https://github.com/storm-software/monorepo-template/blob/main/.github/CONTRIBUTING.md)
+[contributing guide](https://github.com/storm-software/powerlines/blob/main/.github/CONTRIBUTING.md)
 before raising a pull request.
 
 ## Pull request type

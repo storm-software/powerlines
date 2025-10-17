@@ -4,19 +4,19 @@
 <div align="center">
 <b>
 <a href="https://stormsoftware.com" target="_blank">Website</a>  •
-<a href="https://github.com/storm-software/monorepo-template" target="_blank">GitHub</a>  •
+<a href="https://github.com/storm-software/powerlines" target="_blank">GitHub</a>  •
 <a href="https://discord.gg/MQ6YVzakM5">Discord</a>  •  <a href="https://stormstack.github.io/stormstack/" target="_blank">Docs</a>  •  <a href="https://stormsoftware.com/contact" target="_blank">Contact</a>  •
 <a href="https://github.com/storm-software/stack/issues/new?assignees=&labels=bug&template=bug-report.yml&title=Bug Report%3A+">Report a Bug</a>
 </b>
 </div>
 <br />
 
-Storm Software's **Monorepo Template** monorepo containing TypeScript utility packages
+Storm Software's **Powerlines** monorepo containing TypeScript utility packages
 with shared functionality common to many Storm Software applications
 
 <br />
 
-**Monorepo Template** is built using <a href="https://nx.dev/" target="_blank">Nx</a>, a
+**Powerlines** is built using <a href="https://nx.dev/" target="_blank">Nx</a>, a
 set of extensible dev tools for monorepos, which helps you develop like Google,
 Facebook, and Microsoft. Building on top of Nx, the Open System provides a set
 of tools and patterns that help you scale your monorepo to many teams while
@@ -25,7 +25,7 @@ keeping the codebase maintainable.
 <h3 align="center">💻 Visit <a href="https://stormsoftware.com" target="_blank">stormsoftware.com</a> to stay up to date with this developer</h3>
 <br />
 
-[![github](https://img.shields.io/github/package-json/v/storm-software/monorepo-template?style=for-the-badge&color=1fb2a6)](https://github.com/storm-software/monorepo-template)&nbsp;[![Nx](https://img.shields.io/badge/Nx-17.0.2-lightgrey?style=for-the-badge&logo=nx&logoWidth=20&&color=1fb2a6)](http://nx.dev/)&nbsp;[![NextJs](https://img.shields.io/badge/Next.js-14.0.2-lightgrey?style=for-the-badge&logo=nextdotjs&logoWidth=20&color=1fb2a6)](https://nextjs.org/)&nbsp;[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=for-the-badge&logo=commitlint&color=1fb2a6)](http://commitizen.github.io/cz-cli/)&nbsp;![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=for-the-badge&color=1fb2a6)&nbsp;![documented with docusaurus](https://img.shields.io/badge/documented_with-docusaurus-success.svg?style=for-the-badge&logo=readthedocs&color=1fb2a6)&nbsp;![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/storm-software/monorepo-template/cr.yml?style=for-the-badge&logo=github-actions&color=1fb2a6)
+[![github](https://img.shields.io/github/package-json/v/storm-software/powerlines?style=for-the-badge&color=1fb2a6)](https://github.com/storm-software/powerlines)&nbsp;[![Nx](https://img.shields.io/badge/Nx-17.0.2-lightgrey?style=for-the-badge&logo=nx&logoWidth=20&&color=1fb2a6)](http://nx.dev/)&nbsp;[![NextJs](https://img.shields.io/badge/Next.js-14.0.2-lightgrey?style=for-the-badge&logo=nextdotjs&logoWidth=20&color=1fb2a6)](https://nextjs.org/)&nbsp;[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=for-the-badge&logo=commitlint&color=1fb2a6)](http://commitizen.github.io/cz-cli/)&nbsp;![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=for-the-badge&color=1fb2a6)&nbsp;![documented with docusaurus](https://img.shields.io/badge/documented_with-docusaurus-success.svg?style=for-the-badge&logo=readthedocs&color=1fb2a6)&nbsp;![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/storm-software/powerlines/cr.yml?style=for-the-badge&logo=github-actions&color=1fb2a6)
 
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -60,7 +60,7 @@ keeping the codebase maintainable.
   - [Running End-to-End Tests](#running-end-to-end-tests)
   - [Understand your workspace](#understand-your-workspace)
 - [☁ Nx Cloud](#-nx-cloud)
-  - [Distributed Computation Caching & Distributed Task Execution](#distributed-computation-caching--distributed-task-execution)
+  - [Distributed Computation Caching \& Distributed Task Execution](#distributed-computation-caching--distributed-task-execution)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [Support](#support)
@@ -90,10 +90,10 @@ information.
 # Getting Started
 
 Once the code is pulled locally, open a command prompt and run `pnpm install` in
-the root repo directory (/monorepo-template).
+the root repo directory (/powerlines).
 
 More information can be found in the
-[Monorepo Template documentation](https://storm-software.github.io/monorepo-template/docs/getting-started/installation).
+[Powerlines documentation](https://storm-software.github.io/powerlines/docs/getting-started/installation).
 
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
 <br />
@@ -160,14 +160,14 @@ Run `nx g @storm-software/workspace:lib my-lib` to generate a library.
 > You can also use any of the plugins above to generate libraries as well.
 
 Libraries are shareable across libraries and applications. They can be imported
-from `@monorepo-template/my-lib`.
+from `@powerlines/my-lib`.
 
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
 <br />
 
 ## Code Scaffolding
 
-Run `nx g @nx/react:component my-component --project=monorepo-template` to generate a new
+Run `nx g @nx/react:component my-component --project=powerlines` to generate a new
 component.
 
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
@@ -239,14 +239,14 @@ Visit [Nx Cloud](https://nx.app/) to learn more.
 
 # Roadmap
 
-See the [open issues](https://github.com/storm-software/monorepo-template/issues) for a
+See the [open issues](https://github.com/storm-software/powerlines/issues) for a
 list of proposed features (and known issues).
 
-- [Top Feature Requests](https://github.com/storm-software/monorepo-template/issues?q=label%3Aenhancement+is%3Aopen+sort%3Areactions-%2B1-desc)
+- [Top Feature Requests](https://github.com/storm-software/powerlines/issues?q=label%3Aenhancement+is%3Aopen+sort%3Areactions-%2B1-desc)
   (Add your votes using the 👍 reaction)
-- [Top Bugs](https://github.com/storm-software/monorepo-template/issues?q=is%3Aissue+is%3Aopen+label%3Abug+sort%3Areactions-%2B1-desc)
+- [Top Bugs](https://github.com/storm-software/powerlines/issues?q=is%3Aissue+is%3Aopen+label%3Abug+sort%3Areactions-%2B1-desc)
   (Add your votes using the 👍 reaction)
-- [Newest Bugs](https://github.com/storm-software/monorepo-template/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
+- [Newest Bugs](https://github.com/storm-software/powerlines/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
 <br />
@@ -269,7 +269,7 @@ Please try to create bug reports that are:
 Please adhere to this project's [code of conduct](.github/CODE_OF_CONDUCT.md).
 
 You can use
-[markdownlint-cli](https://github.com/storm-software/monorepo-template/markdownlint-cli) to
+[markdownlint-cli](https://github.com/storm-software/powerlines/markdownlint-cli) to
 check for common markdown style inconsistency.
 
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
@@ -280,7 +280,7 @@ check for common markdown style inconsistency.
 Reach out to the maintainer at one of the following places:
 
 - [Contact](https://stormsoftware.com/contact)
-- [GitHub discussions](https://github.com/storm-software/monorepo-template/discussions)
+- [GitHub discussions](https://github.com/storm-software/powerlines/discussions)
 - <contact@stormsoftware.com>
 
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
@@ -296,7 +296,7 @@ See [LICENSE](LICENSE) for more information.
 
 <br />
 
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fstorm-software%2Fmonorepo-template.svg?type=large&issueType=license)](https://app.fossa.io/projects/git%2Bgithub.com%2Fstorm-software%2Fmonorepo-template?ref=badge_large&issueType=license)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fstorm-software%2Fpowerlines.svg?type=large&issueType=license)](https://app.fossa.io/projects/git%2Bgithub.com%2Fstorm-software%2Fpowerlines?ref=badge_large&issueType=license)
 
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
 <br />
@@ -312,7 +312,7 @@ Thanks goes to these wonderful people
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="http://www.sullypat.com/"><img src="https://avatars.githubusercontent.com/u/99053093?v=4?s=100" width="100px;" alt="Patrick Sullivan"/><br /><sub><b>Patrick Sullivan</b></sub></a><br /><a href="#design-sullivanpj" title="Design">🎨</a> <a href="https://github.com/storm-software/monorepo-template/commits?author=sullivanpj" title="Code">💻</a> <a href="#tool-sullivanpj" title="Tools">🔧</a> <a href="https://github.com/storm-software/monorepo-template/commits?author=sullivanpj" title="Documentation">📖</a> <a href="https://github.com/storm-software/monorepo-template/commits?author=sullivanpj" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.sullypat.com/"><img src="https://avatars.githubusercontent.com/u/99053093?v=4?s=100" width="100px;" alt="Patrick Sullivan"/><br /><sub><b>Patrick Sullivan</b></sub></a><br /><a href="#design-sullivanpj" title="Design">🎨</a> <a href="https://github.com/storm-software/powerlines/commits?author=sullivanpj" title="Code">💻</a> <a href="#tool-sullivanpj" title="Tools">🔧</a> <a href="https://github.com/storm-software/powerlines/commits?author=sullivanpj" title="Documentation">📖</a> <a href="https://github.com/storm-software/powerlines/commits?author=sullivanpj" title="Tests">⚠️</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://tylerbenning.com/"><img src="https://avatars.githubusercontent.com/u/7265547?v=4?s=100" width="100px;" alt="Tyler Benning"/><br /><sub><b>Tyler Benning</b></sub></a><br /><a href="#design-tbenning" title="Design">🎨</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://stormsoftware.com"><img src="https://avatars.githubusercontent.com/u/149802440?v=4?s=100" width="100px;" alt="Stormie"/><br /><sub><b>Stormie</b></sub></a><br /><a href="#maintenance-stormie-bot" title="Maintenance">🚧</a></td>
     </tr>

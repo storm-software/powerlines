@@ -12,14 +12,14 @@ maintainable.
 
 ## Roadmap
 
-See the [open issues](https://github.com/storm-software/monorepo-template/issues) for
+See the [open issues](https://github.com/storm-software/powerlines/issues) for
 a list of proposed features (and known issues).
 
-- [Top Feature Requests](https://github.com/storm-software/monorepo-template/issues?q=label%3Aenhancement+is%3Aopen+sort%3Areactions-%2B1-desc)
+- [Top Feature Requests](https://github.com/storm-software/powerlines/issues?q=label%3Aenhancement+is%3Aopen+sort%3Areactions-%2B1-desc)
   (Add your votes using the 👍 reaction)
-- [Top Bugs](https://github.com/storm-software/monorepo-template/issues?q=is%3Aissue+is%3Aopen+label%3Abug+sort%3Areactions-%2B1-desc)
+- [Top Bugs](https://github.com/storm-software/powerlines/issues?q=is%3Aissue+is%3Aopen+label%3Abug+sort%3Areactions-%2B1-desc)
   (Add your votes using the 👍 reaction)
-- [Newest Bugs](https://github.com/storm-software/monorepo-template/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
+- [Newest Bugs](https://github.com/storm-software/powerlines/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
 <br />
@@ -29,7 +29,7 @@ a list of proposed features (and known issues).
 Reach out to the maintainer at one of the following places:
 
 - [Contact](https://stormsoftware.com/contact)
-- [GitHub discussions](https://github.com/storm-software/monorepo-template/discussions)
+- [GitHub discussions](https://github.com/storm-software/powerlines/discussions)
 - <support@stormsoftware.com>
 
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
@@ -73,7 +73,7 @@ Please try to create bug reports that are:
 Please adhere to this project's [code of conduct](.github/CODE_OF_CONDUCT.md).
 
 You can use
-[markdownlint-cli](https://github.com/storm-software/monorepo-template/markdownlint-cli)
+[markdownlint-cli](https://github.com/storm-software/powerlines/markdownlint-cli)
 to check for common markdown style inconsistency.
 
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
@@ -89,7 +89,7 @@ Thanks goes to these wonderful people
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="http://www.sullypat.com/"><img src="https://avatars.githubusercontent.com/u/99053093?v=4?s=100" width="100px;" alt="Patrick Sullivan"/><br /><sub><b>Patrick Sullivan</b></sub></a><br /><a href="#design-sullivanpj" title="Design">🎨</a> <a href="https://github.com/storm-software/monorepo-template/commits?author=sullivanpj" title="Code">💻</a> <a href="#tool-sullivanpj" title="Tools">🔧</a> <a href="https://github.com/storm-software/monorepo-template/commits?author=sullivanpj" title="Documentation">📖</a> <a href="https://github.com/storm-software/monorepo-template/commits?author=sullivanpj" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.sullypat.com/"><img src="https://avatars.githubusercontent.com/u/99053093?v=4?s=100" width="100px;" alt="Patrick Sullivan"/><br /><sub><b>Patrick Sullivan</b></sub></a><br /><a href="#design-sullivanpj" title="Design">🎨</a> <a href="https://github.com/storm-software/powerlines/commits?author=sullivanpj" title="Code">💻</a> <a href="#tool-sullivanpj" title="Tools">🔧</a> <a href="https://github.com/storm-software/powerlines/commits?author=sullivanpj" title="Documentation">📖</a> <a href="https://github.com/storm-software/powerlines/commits?author=sullivanpj" title="Tests">⚠️</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://tylerbenning.com/"><img src="https://avatars.githubusercontent.com/u/7265547?v=4?s=100" width="100px;" alt="Tyler Benning"/><br /><sub><b>Tyler Benning</b></sub></a><br /><a href="#design-tbenning" title="Design">🎨</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://stormsoftware.com"><img src="https://avatars.githubusercontent.com/u/149802440?v=4?s=100" width="100px;" alt="Stormie"/><br /><sub><b>Stormie</b></sub></a><br /><a href="#maintenance-stormie-bot" title="Maintenance">🚧</a></td>
     </tr>

@@ -5,7 +5,7 @@
 If you want to make a small change, go ahead and raise a pull request, otherwise
 follow these steps:
 
-1. View the [Issues](https://github.com/storm-software/monorepo-template/issues)
+1. View the [Issues](https://github.com/storm-software/powerlines/issues)
    page to see a To-Do list of things to be implemented.
 2. Raise an issue or comment on an existing issue with what you want to
    contribute if one does not already exist.

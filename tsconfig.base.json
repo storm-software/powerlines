@@ -1,14 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@storm-software/tsconfig/core.json",
-  "display": "Storm Software - TypeScript Monorepo",
+  "display": "Powerlines - Monorepo",
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
-      "@monorepo-template/tools-scripts": ["tools/scripts/src/index.ts"],
-      "@monorepo-template/tools-scripts/*": ["tools/scripts/src/*"],
-      "@monorepo-template/tools-config/*": ["tools/config/*"]
+      "@powerlines/tools-scripts": ["tools/scripts/src/index.ts"],
+      "@powerlines/tools-scripts/*": ["tools/scripts/src/*"],
+      "@powerlines/tools-config/*": ["tools/config/*"]
     }
   }
 }
