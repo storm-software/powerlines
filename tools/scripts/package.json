@@ -1,0 +1,12 @@
+{
+  "name": "@monorepo-template/tools-scripts",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "esbuild": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:"
+  }
+}

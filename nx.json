@@ -1,0 +1,18 @@
+{
+  "$schema": "https://cdn.jsdelivr.net/npm/nx/schemas/nx-schema.json",
+  "extends": "@storm-software/workspace-tools/config/base.json",
+  "release": {
+    "groups": {
+      "packages": {
+        "projects": ["packages/*"],
+        "projectsRelationship": "independent",
+        "releaseTagPattern": "{projectName}@{version}"
+      }
+    }
+  },
+  "plugins": [
+    "@storm-software/workspace-tools/plugins/typescript",
+    "@storm-software/workspace-tools/plugins/typescript/untyped",
+    "@storm-software/workspace-tools/plugins/typescript/tsup"
+  ]
+}
