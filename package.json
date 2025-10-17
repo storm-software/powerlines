@@ -1,0 +1,131 @@
+{
+  "name": "@monorepo-template/monorepo",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "⚡ A monorepo containing TypeScript utility packages with shared functionality common to many Storm Software applications.",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/monorepo-template.git"
+  },
+  "homepage": "https://stormsoftware.com",
+  "bugs": {
+    "url": "https://stormsoftware.com/support",
+    "email": "support@stormsoftware.com"
+  },
+  "author": {
+    "name": "Storm Software",
+    "email": "contact@stormsoftware.com",
+    "url": "https://stormsoftware.com"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
+  "private": true,
+  "packageManager": "pnpm@10.18.3",
+  "engines": {
+    "node": ">=22.20.0",
+    "pnpm": ">=10.18.3"
+  },
+  "keywords": [
+    "storm-software",
+    "storm",
+    "storm-ops",
+    "sullivanpj",
+    "typescript",
+    "monorepo"
+  ],
+  "scripts": {
+    "adr": "pnpm log4brains adr new",
+    "adr-preview": "pnpm log4brains preview",
+    "bootstrap": "pnpm exec zx tools/scripts/src/bootstrap.mjs",
+    "build": "pnpm exec zx tools/scripts/src/build.mjs --prod",
+    "build-dev": "pnpm exec zx tools/scripts/src/build.mjs --dev",
+    "clean": "pnpm exec rimraf dist",
+    "commit": "pnpm exec storm-git commit",
+    "dep-graph": "nx dep-graph",
+    "e2e": "nx e2e",
+    "format": "pnpm exec zx tools/scripts/src/format.mjs",
+    "graph": "nx graph",
+    "help": "nx help",
+    "lint": "pnpm exec zx tools/scripts/src/lint.mjs",
+    "local-registry": "nx local-registry @monorepo-template/monorepo",
+    "nuke": "pnpm exec zx tools/scripts/src/nuke.mjs",
+    "nx": "nx",
+    "postinstall": "pnpm bootstrap",
+    "push": "git push origin main:main",
+    "release": "pnpm exec zx tools/scripts/src/release.mjs",
+    "sherif": "pnpm exec sherif -f -i typescript -i react -i react-dom",
+    "start": "nx serve",
+    "update-storm": "pnpm exec zx tools/scripts/src/update-storm.mjs",
+    "view-config": "pnpm exec storm-config"
+  },
+  "devDependencies": {
+    "@ls-lint/ls-lint": "catalog:",
+    "@nx/devkit": "catalog:",
+    "@nx/eslint-plugin": "catalog:",
+    "@nx/jest": "catalog:",
+    "@nx/js": "catalog:",
+    "@nx/plugin": "catalog:",
+    "@nx/workspace": "catalog:",
+    "@storm-software/config": "catalog:",
+    "@storm-software/config-tools": "catalog:",
+    "@storm-software/cspell": "catalog:",
+    "@storm-software/esbuild": "catalog:",
+    "@storm-software/eslint": "catalog:",
+    "@storm-software/git-tools": "catalog:",
+    "@storm-software/linting-tools": "catalog:",
+    "@storm-software/markdownlint": "catalog:",
+    "@storm-software/prettier": "catalog:",
+    "@storm-software/testing-tools": "catalog:",
+    "@storm-software/tsconfig": "catalog:",
+    "@storm-software/unbuild": "catalog:",
+    "@storm-software/untyped": "catalog:",
+    "@storm-software/workspace-tools": "catalog:",
+    "@swc-node/register": "catalog:",
+    "@swc/core": "catalog:",
+    "@swc/helpers": "catalog:",
+    "@taplo/cli": "catalog:",
+    "@types/jest": "catalog:",
+    "@types/node": "catalog:",
+    "copyfiles": "catalog:",
+    "eslint": "catalog:",
+    "jest": "catalog:",
+    "jest-environment-jsdom": "catalog:",
+    "jest-environment-node": "catalog:",
+    "lefthook": "catalog:",
+    "log4brains": "catalog:",
+    "nx": "catalog:",
+    "prettier": "catalog:",
+    "rimraf": "catalog:",
+    "sherif": "catalog:",
+    "ts-jest": "catalog:",
+    "ts-node": "catalog:",
+    "tslib": "catalog:",
+    "typescript": "5.8.3",
+    "verdaccio": "catalog:",
+    "zx": "catalog:"
+  },
+  "manypkg": {
+    "defaultBranch": "main",
+    "workspaceProtocol": "require"
+  },
+  "namespace": "@monorepo-template",
+  "nx": {
+    "includedScripts": [
+      "lint-knip",
+      "lint-sherif",
+      "lint-ls",
+      "lint",
+      "format-readme",
+      "format-prettier",
+      "format-toml",
+      "format-sherif",
+      "commit",
+      "release"
+    ]
+  },
+  "prettier": "@storm-software/prettier/config.json",
+  "triggerEmptyDevReleaseByIncrementingThisNumber": 0
+}
