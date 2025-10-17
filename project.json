@@ -1,0 +1,15 @@
+{
+  "name": "@monorepo-template/monorepo",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "targets": {
+    "local-registry": {
+      "executor": "@nx/js:verdaccio",
+      "options": {
+        "port": 4873,
+        "config": "tools/config/verdaccio.yml",
+        "storage": "tmp/local-registry/storage"
+      }
+    }
+  }
+}
