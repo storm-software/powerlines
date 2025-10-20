@@ -20,7 +20,7 @@ import { computed, splitProps } from "@alloy-js/core";
 import { ResolvedEntryTypeDefinition } from "powerlines/types/resolved";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
-import { useStorm } from "../../core/contexts/context";
+import { usePowerlines } from "../../core/contexts/context";
 import { TypescriptFile, TypescriptFileProps } from "./typescript-file";
 
 export type EntryFileProps = TypescriptFileProps & {
@@ -49,7 +49,7 @@ export function EntryFile(props: EntryFileProps) {
     ["children", "meta", "tsx", "path", "typeDefinition"]
   );
 
-  const context = useStorm();
+  const context = usePowerlines();
   const fullPath = computed(() =>
     joinPaths(
       context?.value?.entryPath || "./",

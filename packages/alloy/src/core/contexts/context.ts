@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -20,7 +20,7 @@ import type { ComponentContext, Ref } from "@alloy-js/core";
 import { createContext, useContext } from "@alloy-js/core";
 import type { PluginContext } from "powerlines/types/context";
 
-export interface StormStackContextInterface<
+export interface PowerlinesContextInterface<
   TContext extends PluginContext = PluginContext
 > {
   ref: Ref<TContext>;
@@ -29,19 +29,19 @@ export interface StormStackContextInterface<
 /**
  * The Powerlines context used in template rendering.
  */
-export const StormStackContext: ComponentContext<
-  StormStackContextInterface<any>
-> = createContext<StormStackContextInterface<any>>();
+export const PowerlinesContext: ComponentContext<
+  PowerlinesContextInterface<any>
+> = createContext<PowerlinesContextInterface<any>>();
 
 /**
  * Hook to access the Powerlines Context.
  *
  * @returns The Context.
  */
-export function useStormStack<
+export function usePowerlinesContext<
   TContext extends PluginContext = PluginContext
->(): StormStackContextInterface<TContext> | undefined {
-  return useContext<StormStackContextInterface<TContext>>(StormStackContext);
+>(): PowerlinesContextInterface<TContext> | undefined {
+  return useContext<PowerlinesContextInterface<TContext>>(PowerlinesContext);
 }
 
 /**
@@ -49,11 +49,10 @@ export function useStormStack<
  *
  * @returns The reactive context ref.
  */
-export function useStorm<TContext extends PluginContext = PluginContext>():
-  | Ref<TContext>
-  | undefined {
-  const storm =
-    useContext<StormStackContextInterface<TContext>>(StormStackContext);
+export function usePowerlines<
+  TContext extends PluginContext = PluginContext
+>(): Ref<TContext> | undefined {
+  const storm = usePowerlinesContext<TContext>();
 
   return storm?.ref;
 }

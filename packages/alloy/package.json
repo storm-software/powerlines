@@ -390,7 +390,7 @@
     "@vue/reactivity": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.1.1",
+    "powerlines": "workspace:*",
     "prettier": "catalog:"
   },
   "devDependencies": {

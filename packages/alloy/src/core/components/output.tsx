@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -24,9 +24,9 @@ import {
   Show,
   splitProps
 } from "@alloy-js/core";
-import type { PluginContext } from "powerlines/types/context";
 import { replacePath } from "@stryke/path/replace";
-import { StormStackContext } from "../contexts/context";
+import type { PluginContext } from "powerlines/types/context";
+import { PowerlinesContext } from "../contexts/context";
 
 export interface OutputProps<TContext extends PluginContext = PluginContext>
   extends OutputPropsExternal {
@@ -57,9 +57,9 @@ export function Output<TContext extends PluginContext = PluginContext>(
 
   return (
     <OutputExternal {...rest} basePath={basePathRef.value}>
-      <StormStackContext.Provider value={{ ref: contextRef }}>
+      <PowerlinesContext.Provider value={{ ref: contextRef }}>
         <Show when={Boolean(contextRef.value)}>{children}</Show>
-      </StormStackContext.Provider>
+      </PowerlinesContext.Provider>
     </OutputExternal>
   );
 }
