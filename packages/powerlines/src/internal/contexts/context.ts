@@ -122,7 +122,6 @@ export class PowerlinesContext<
       configFile: config.configFile,
       customLogger: config.customLogger,
       logLevel: config.logLevel,
-      builtinPrefix: config.builtinPrefix,
       tsconfig: config.tsconfig,
       tsconfigRaw: config.tsconfigRaw,
       skipCache: config.skipCache,
@@ -553,7 +552,9 @@ export class PowerlinesContext<
           output: {
             outputPath: joinPaths("dist", cacheKey.projectRoot),
             mode: "virtual" as OutputModeType,
-            dts: joinPaths(cacheKey.projectRoot, "storm.d.ts"),
+            dts: joinPaths(cacheKey.projectRoot, "powerlines.d.ts"),
+            builtinPrefix: "powerlines",
+            runtimeFolder: joinPaths(cacheKey.projectRoot, ".powerlines"),
             assets: [
               {
                 glob: "LICENSE"
@@ -577,7 +578,6 @@ export class PowerlinesContext<
           mode: "production",
           projectType: "application",
           logLevel: "info",
-          builtinPrefix: "storm",
           preview: false,
           environments: {},
           transform: {

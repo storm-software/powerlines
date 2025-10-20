@@ -160,9 +160,29 @@ export interface OutputConfig {
   /**
    * The path of the generated runtime declaration file relative to the workspace root.
    *
-   * @defaultValue "\{projectRoot\}/storm.d.ts"
+   * @defaultValue "\{projectRoot\}/powerlines.d.ts"
    */
   dts?: string | false;
+
+  /**
+   * A prefix to use for identifying builtin modules
+   *
+   * @remarks
+   * This prefix will be used to identify all builtin modules generated during the "prepare" phase. An example builtin ID for a module called `"utils"` would be `"{builtinPrefix}:utils"`.
+   *
+   * @defaultValue "powerlines"
+   */
+  builtinPrefix?: string;
+
+  /**
+   * The folder where the generated runtime modules/builtins will be located
+   *
+   * @remarks
+   * This folder will contain all runtime modules and builtins generated during the "prepare" phase.
+   *
+   * @defaultValue "\{projectRoot\}/.powerlines"
+   */
+  runtimeFolder?: string;
 
   /**
    * The module format of the output files
@@ -265,14 +285,12 @@ export interface BaseConfig {
   build?: BuildConfig;
 
   /**
-   * A prefix to use for identifying builtin modules
+   * Configuration for documentation generation
    *
    * @remarks
-   * This prefix will be used to identify all builtin modules generated during the "prepare" phase. An example builtin ID for a module called `"utils"` would be `"{builtinPrefix}:utils"`.
-   *
-   * @defaultValue "storm"
+   * This configuration will be used by the documentation generation plugins during the `docs` command.
    */
-  builtinPrefix?: string;
+  docs?: Record<string, any>;
 
   /**
    * The path to the tsconfig file to be used by the compiler

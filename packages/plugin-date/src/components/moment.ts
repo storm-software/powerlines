@@ -30,7 +30,7 @@ export function momentModule(context: DatePluginContext) {
 /**
  * The Powerlines date module provides utility functions for date manipulation and formatting
  *
- * @module ${context.config.builtinPrefix}:date
+ * @module ${context.config.output.builtinPrefix}:date
  */
 
 ${getFileHeader()}

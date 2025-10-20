@@ -80,9 +80,11 @@ export type LintResolvedConfig = Required<LintConfig>;
 
 export type ResolvedAssetGlob = AssetGlob & Required<Pick<AssetGlob, "input">>;
 
-export type OutputResolvedConfig = Required<Omit<OutputConfig, "assets">> & {
-  assets: ResolvedAssetGlob[];
-};
+export type OutputResolvedConfig = Required<
+  Omit<OutputConfig, "assets"> & {
+    assets: ResolvedAssetGlob[];
+  }
+>;
 
 /**
  * The resolved options for the Powerlines project configuration.
@@ -103,7 +105,6 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
   | "root"
   | "variant"
   | "type"
-  | "builtinPrefix"
   | "output"
   | "logLevel"
 > &
@@ -119,7 +120,6 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
       | "build"
       | "transform"
       | "override"
-      | "builtinPrefix"
     >
   > & {
     /**

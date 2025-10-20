@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -362,7 +362,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns Whether the ID is a valid runtime ID.
    */
   public isValidBuiltinId(id: string): boolean {
-    return id.startsWith(`${this.#context.config.builtinPrefix}:`);
+    return id.startsWith(`${this.#context.config.output.builtinPrefix}:`);
   }
 
   /**
@@ -1292,7 +1292,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     return path
-      .replace(new RegExp(`^${this.#context.config.builtinPrefix}:`), "")
+      .replace(new RegExp(`^${this.#context.config.output.builtinPrefix}:`), "")
       .replace(/^\\0/, "");
   }
 
@@ -1326,7 +1326,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns The formatted runtime ID.
    */
   public formatRuntimeId(id: string): string {
-    return `${this.#context.config.builtinPrefix}:${this.formatFilePath(
+    return `${this.#context.config.output.builtinPrefix}:${this.formatFilePath(
       id
     ).replace(/\.[m|c]?[t|j]sx?$/, "")}`;
   }
@@ -1341,7 +1341,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     pathOrId: string,
     options: ResolvePathOptions = {}
   ): string | false {
-    if (pathOrId.startsWith(`${this.#context.config.builtinPrefix}:`)) {
+    if (pathOrId.startsWith(`${this.#context.config.output.builtinPrefix}:`)) {
       return false;
     }
 
