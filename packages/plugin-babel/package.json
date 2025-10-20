@@ -158,11 +158,11 @@
     "chalk": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.1.0",
+    "powerlines": "0.1.1",
     "unplugin": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "0.1.0",
+    "@powerlines/nx": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

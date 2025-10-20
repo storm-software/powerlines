@@ -166,7 +166,7 @@
     "defu": "catalog:",
     "jiti": "catalog:",
     "nx": "catalog:",
-    "powerlines": "0.1.0"
+    "powerlines": "0.1.1"
   },
   "devDependencies": {
     "@nx/workspace": "catalog:",
