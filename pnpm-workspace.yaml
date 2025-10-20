@@ -63,7 +63,7 @@ catalog:
   '@storm-software/testing-tools': ^1.119.6
   '@storm-software/tsconfig': ^0.47.6
   '@storm-software/tsdoc': ^0.13.6
-  '@storm-software/tsup': ^0.1.1
+  '@storm-software/tsup': ^0.2.4
   '@storm-software/unbuild': ^0.57.6
   '@storm-software/untyped': ^0.23.6
   '@storm-software/workspace-tools': ^1.292.6

@@ -711,7 +711,7 @@
     "memfs": "catalog:",
     "minimatch": "catalog:",
     "tsup": "catalog:",
-    "typescript": "^5.9.3"
+    "typescript": "5.9.3"
   },
   "publishConfig": {
     "access": "public"
