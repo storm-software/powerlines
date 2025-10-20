@@ -6,8 +6,6 @@
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
-      "powerlines": ["packages/powerlines/src/index.ts"],
-      "powerlines/*": ["packages/powerlines/src/*"],
       "@powerlines/alloy": ["packages/alloy/src/index.ts"],
       "@powerlines/alloy/*": ["packages/alloy/src/*"],
       "@powerlines/nx": ["packages/nx/index.ts"],
@@ -26,11 +24,13 @@
       "@powerlines/plugin-tsup/*": ["packages/plugin-tsup/src/*"],
       "@powerlines/plugin-vite": ["packages/plugin-vite/src/index.ts"],
       "@powerlines/plugin-vite/*": ["packages/plugin-vite/src/*"],
-      "@powerlines/tsconfig/*": ["packages/tsconfig/src/*"],
-      "@powerlines/tsdoc/*": ["packages/tsdoc/src/*"],
+      "@powerlines/tools-config/*": ["tools/config/*"],
       "@powerlines/tools-scripts": ["tools/scripts/src/index.ts"],
       "@powerlines/tools-scripts/*": ["tools/scripts/src/*"],
-      "@powerlines/tools-config/*": ["tools/config/*"]
+      "@powerlines/tsconfig/*": ["packages/tsconfig/src/*"],
+      "@powerlines/tsdoc/*": ["packages/tsdoc/src/*"],
+      "powerlines": ["packages/powerlines/src/index.ts"],
+      "powerlines/*": ["packages/powerlines/src/*"]
     },
     "verbatimModuleSyntax": false
   }

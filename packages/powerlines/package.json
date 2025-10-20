@@ -1,6 +1,6 @@
 {
   "name": "powerlines",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "description": "A build toolkit and runtime used by Storm Software in TypeScript applications",
   "repository": {
@@ -522,12 +522,7 @@
   },
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*",
-    "files/**/*",
-    "schemas/*",
-    "scripts/*"
-  ],
+  "files": ["dist/**/*", "files/**/*", "schemas/*", "scripts/*"],
   "keywords": [
     "powerlines",
     "storm-software",
