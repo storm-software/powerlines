@@ -142,17 +142,24 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*"],
-  "keywords": ["vite", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "vite",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
-    "vite": "catalog:",
-    "powerlines": "workspace:*",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
-    "@stryke/types": "catalog:",
     "@stryke/type-checks": "catalog:",
+    "@stryke/types": "catalog:",
     "defu": "catalog:",
-    "jiti": "catalog:"
+    "jiti": "catalog:",
+    "powerlines": "workspace:*",
+    "vite": "catalog:"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",

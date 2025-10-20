@@ -142,23 +142,30 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*"],
-  "keywords": ["babel", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "babel",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
-    "@storm-software/config-tools": "catalog:",
-    "powerlines": "workspace:*",
-    "@stryke/fs": "catalog:",
-    "@stryke/path": "catalog:",
-    "@stryke/types": "catalog:",
-    "@stryke/type-checks": "catalog:",
     "@babel/core": "catalog:",
     "@babel/generator": "catalog:",
+    "@babel/helper-plugin-utils": "catalog:",
     "@babel/parser": "catalog:",
     "@babel/types": "catalog:",
-    "@babel/helper-plugin-utils": "catalog:",
+    "@storm-software/config-tools": "catalog:",
+    "@stryke/fs": "catalog:",
+    "@stryke/path": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "@stryke/types": "catalog:",
     "chalk": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
+    "powerlines": "workspace:*",
     "unplugin": "catalog:"
   },
   "devDependencies": {

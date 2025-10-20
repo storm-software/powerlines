@@ -158,7 +158,6 @@
     "@storm-software/esbuild": "catalog:",
     "@storm-software/unbuild": "catalog:",
     "@storm-software/workspace-tools": "catalog:",
-    "powerlines": "workspace:*",
     "@stryke/fs": "catalog:",
     "@stryke/hash": "catalog:",
     "@stryke/path": "catalog:",
@@ -166,7 +165,8 @@
     "@stryke/type-checks": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "nx": "catalog:"
+    "nx": "catalog:",
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@nx/workspace": "catalog:",

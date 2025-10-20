@@ -142,17 +142,24 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*"],
-  "keywords": ["esbuild", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "esbuild",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
-    "powerlines": "workspace:*",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
-    "@stryke/types": "catalog:",
     "@stryke/type-checks": "catalog:",
-    "esbuild": "catalog:",
+    "@stryke/types": "catalog:",
     "defu": "catalog:",
+    "esbuild": "catalog:",
     "jiti": "catalog:",
+    "powerlines": "workspace:*",
     "unplugin": "catalog:"
   },
   "devDependencies": {
