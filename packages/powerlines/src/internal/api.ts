@@ -21,7 +21,7 @@ import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
 import { copyFiles } from "@stryke/fs/copy-file";
 import { existsSync } from "@stryke/fs/exists";
-import { createDirectory, removeDirectory } from "@stryke/fs/helpers";
+import { createDirectory } from "@stryke/fs/helpers";
 import { install } from "@stryke/fs/install";
 import { listFiles } from "@stryke/fs/list-files";
 import { isPackageExists } from "@stryke/fs/package-fns";
@@ -38,7 +38,6 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { MaybePromise } from "@stryke/types/base";
 import chalk from "chalk";
 import Handlebars from "handlebars";
-import { initTypedoc } from "../lib/typedoc/init";
 import { getParsedTypeScriptConfig } from "../lib/typescript/tsconfig";
 import { getFileHeader } from "../lib/utilities/file-header";
 import { writeMetaFile } from "../lib/utilities/meta";
@@ -539,43 +538,20 @@ export class PowerlinesAPI<
   public async docs(inlineConfig: DocsInlineConfig = { command: "docs" }) {
     this.context.log(
       LogLevelLabel.INFO,
-      "Generating documentation for the Powerlines project"
+      "📓 Generating documentation for the Powerlines project"
     );
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
       context.log(
         LogLevelLabel.TRACE,
-        "Writing API-Reference documentation for the Powerlines project artifacts."
+        "Writing documentation for the Powerlines project artifacts."
       );
 
-      await this.callPreHook(context, "docs");
-
-      const outputPath = joinPaths(
-        context.config.projectRoot,
-        "docs",
-        "generated",
-        "api-reference"
-      );
-
-      if (existsSync(outputPath)) {
-        await removeDirectory(outputPath);
-      }
-
-      await createDirectory(outputPath);
-
-      await this.callNormalHook(context, "docs");
-
-      const { generateDocs, getReflections } = await initTypedoc(context, {
-        outputPath
+      await this.prepare(inlineConfig);
+      await this.#executeEnvironments(async context => {
+        await this.callHook(context, "docs");
       });
-
-      const project = await getReflections();
-      if (project) {
-        await generateDocs({ project });
-      }
-
-      await this.callPostHook(context, "docs");
     });
 
     this.#context.log(

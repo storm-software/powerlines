@@ -376,48 +376,6 @@
         "default": "./dist/lib/deepkit/*.js"
       }
     },
-    "./lib/typedoc": {
-      "import": {
-        "types": "./dist/lib/typedoc/index.d.ts",
-        "default": "./dist/lib/typedoc/index.js"
-      },
-      "require": {
-        "types": "./dist/lib/typedoc/index.d.cts",
-        "default": "./dist/lib/typedoc/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/typedoc/index.d.ts",
-        "default": "./dist/lib/typedoc/index.js"
-      }
-    },
-    "./lib/typedoc/*": {
-      "import": {
-        "types": "./dist/lib/typedoc/*.d.ts",
-        "default": "./dist/lib/typedoc/*.js"
-      },
-      "require": {
-        "types": "./dist/lib/typedoc/*.d.cts",
-        "default": "./dist/lib/typedoc/*.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/typedoc/*.d.ts",
-        "default": "./dist/lib/typedoc/*.js"
-      }
-    },
-    "./lib/typedoc/helpers/*": {
-      "import": {
-        "types": "./dist/lib/typedoc/helpers/*.d.ts",
-        "default": "./dist/lib/typedoc/helpers/*.js"
-      },
-      "require": {
-        "types": "./dist/lib/typedoc/helpers/*.d.cts",
-        "default": "./dist/lib/typedoc/helpers/*.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/typedoc/helpers/*.d.ts",
-        "default": "./dist/lib/typedoc/helpers/*.js"
-      }
-    },
     "./lib/typescript": {
       "import": {
         "types": "./dist/lib/typescript/index.d.ts",
@@ -527,7 +485,6 @@
     "powerlines",
     "storm-software",
     "unplugin",
-    "typedoc",
     "typescript",
     "deepkit",
     "dotenv",
@@ -683,9 +640,6 @@
     "nanotar": "catalog:",
     "prettier": "catalog:",
     "rollup-plugin-typescript2": "catalog:",
-    "typedoc": "catalog:",
-    "typedoc-plugin-frontmatter": "catalog:",
-    "typedoc-plugin-markdown": "catalog:",
     "unimport": "catalog:",
     "unionfs": "catalog:",
     "unplugin": "catalog:",

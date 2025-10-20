@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -16,6 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./comment";
-export * from "./markdown-theme";
-export * from "./toc";
+import plugin from "@powerlines/plugin-plugin";
+import { defineConfig } from "powerlines/define-config";
+
+export default defineConfig({
+  skipCache: true,
+  entry: ["src/index.ts", "src/types/*.ts", "src/components/*.ts"],
+  plugins: [
+    plugin({
+      alloy: false
+    })
+  ]
+});

@@ -21,7 +21,6 @@ export * from "./config-file";
 export * from "./deepkit";
 export * from "./entry";
 export * from "./logger";
-export * from "./typedoc";
 export * from "./typescript";
 export * from "./unplugin";
 export * from "./utilities";

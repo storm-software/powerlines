@@ -9,8 +9,8 @@ tmp
 /out-tsc
 out
 .nx
-**/.storm
-# \!examples/**/.storm
+**/.powerlines
+# \!examples/**/.powerlines
 
 # build
 

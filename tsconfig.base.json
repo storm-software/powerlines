@@ -22,6 +22,8 @@
       "@powerlines/plugin-plugin/*": ["packages/plugin-plugin/src/*"],
       "@powerlines/plugin-tsup": ["packages/plugin-tsup/src/index.ts"],
       "@powerlines/plugin-tsup/*": ["packages/plugin-tsup/src/*"],
+      "@powerlines/plugin-typedoc": ["packages/plugin-typedoc/src/index.ts"],
+      "@powerlines/plugin-typedoc/*": ["packages/plugin-typedoc/src/*"],
       "@powerlines/plugin-vite": ["packages/plugin-vite/src/index.ts"],
       "@powerlines/plugin-vite/*": ["packages/plugin-vite/src/*"],
       "@powerlines/tools-config/*": ["tools/config/*"],
