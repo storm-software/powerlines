@@ -1,0 +1,155 @@
+/* -------------------------------------------------------------------
+
+                  ⚡ Storm Software - Powerlines
+
+ This code was released as part of the Powerlines project. Powerlines
+ is maintained by Storm Software under the Apache-2.0 license, and is
+ free for commercial and private use. For more information, please visit
+ our licensing page at https://stormsoftware.com/licenses/projects/powerlines.
+
+ Website:                  https://stormsoftware.com
+ Repository:               https://github.com/storm-software/powerlines
+ Documentation:            https://docs.stormsoftware.com/projects/powerlines
+ Contact:                  https://stormsoftware.com/contact
+
+ SPDX-License-Identifier:  Apache-2.0
+
+ ------------------------------------------------------------------- */
+
+import { NodePath } from "@babel/core";
+import { BabelAPI, declare } from "@babel/helper-plugin-utils";
+import template from "@babel/template";
+import * as t from "@babel/types";
+import { toArray } from "@stryke/convert/to-array";
+import { BabelTransformPluginOptions } from "../../types/babel";
+
+/**
+ * Generate a helper that will explicitly set up the prototype chain manually
+ * for each constructed instance.
+ */
+const buildHelper = template(`
+    function HELPER(cls){
+        function ExtendableBuiltin(){
+            // Not passing "newTarget" because core-js would fall back to non-exotic
+            // object creation.
+            var instance = Reflect.construct(cls, Array.from(arguments));
+            Object.setPrototypeOf(instance, Object.getPrototypeOf(this));
+            return instance;
+        }
+        ExtendableBuiltin.prototype = Object.create(cls.prototype, {
+            constructor: {
+                value: cls,
+                enumerable: false,
+                writable: true,
+                configurable: true,
+            },
+        });
+        if (Object.setPrototypeOf){
+            Object.setPrototypeOf(ExtendableBuiltin, cls);
+        } else {
+            ExtendableBuiltin.__proto__ = cls;
+        }
+
+        return ExtendableBuiltin;
+    }
+`);
+
+/**
+ * Generate a helper that will approximate extending builtins with simple
+ * ES5-style inheritance.
+ *
+ * This is essentially the behavior that was the default in Babel 5.
+ */
+const buildHelperApproximate = template(`
+    function HELPER(cls){
+        function ExtendableBuiltin(){
+            cls.apply(this, arguments);
+        }
+        ExtendableBuiltin.prototype = Object.create(cls.prototype, {
+            constructor: {
+                value: cls,
+                enumerable: false,
+                writable: true,
+                configurable: true,
+            },
+        });
+        if (Object.setPrototypeOf){
+            Object.setPrototypeOf(ExtendableBuiltin, cls);
+        } else {
+            ExtendableBuiltin.__proto__ = cls;
+        }
+
+        return ExtendableBuiltin;
+    }
+`);
+
+type BuiltinExtendPluginOptions = BabelTransformPluginOptions & {
+  /**
+   * The names of the built-in classes that should be extended.
+   *
+   * @remarks
+   * This is used to determine which classes should be transformed.
+   *
+   * @defaultValue ["Error"]
+   */
+  globals?: string[];
+
+  /**
+   * Whether to use the approximate behavior of extending built-ins.
+   *
+   * @remarks
+   * This is used to determine whether to use the approximate helper or the full helper.
+   *
+   * @defaultValue true
+   */
+  approximate?: boolean;
+};
+
+export const builtinExtendBabelPlugin = declare<BuiltinExtendPluginOptions>(
+  (_: BabelAPI, options: BuiltinExtendPluginOptions) => {
+    return {
+      name: "powerlines:builtin-extend",
+      visitor: {
+        Class(path: NodePath<t.ClassDeclaration | t.ClassExpression>) {
+          const globals = toArray<string>(options.globals);
+          if (!globals.includes("Error")) {
+            globals.push("Error");
+          }
+
+          const superClass = path.get("superClass");
+          if (
+            !superClass?.node ||
+            !globals.some(name => superClass.isIdentifier({ name }))
+          ) {
+            return;
+          }
+
+          if (
+            path.scope.hasBinding((superClass.node as t.Identifier)?.name, {
+              noGlobals: true
+            })
+          ) {
+            return;
+          }
+
+          const name = path.scope.generateUidIdentifier(
+            "stormExtendableBuiltin"
+          );
+
+          const helper = (
+            (this.opts as BuiltinExtendPluginOptions).approximate
+              ? buildHelperApproximate
+              : buildHelper
+          )({
+            HELPER: name
+          });
+          (
+            path.scope.getProgramParent().path as NodePath<t.Program>
+          ).unshiftContainer("body", helper);
+
+          superClass.replaceWith(t.callExpression(name, [superClass.node]));
+        }
+      }
+    };
+  }
+);

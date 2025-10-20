@@ -1,0 +1,96 @@
+{
+  "id": "#",
+  "title": "Build Executor",
+  "description": "A type definition for the Powerlines - Build executor schema",
+  "required": [],
+  "properties": {
+    "outputPath": {
+      "title": "Output Path",
+      "type": "string",
+      "format": "path",
+      "description": "The output path for the build",
+      "id": "#outputPath",
+      "default": "dist/{projectRoot}"
+    },
+    "tsconfig": {
+      "title": "TypeScript Configuration File",
+      "type": "string",
+      "format": "path",
+      "description": "The path to the tsconfig file",
+      "id": "#tsconfig",
+      "default": "{projectRoot}/tsconfig.json"
+    },
+    "configFile": {
+      "title": "Powerlines Configuration File",
+      "type": "string",
+      "format": "path",
+      "description": "The path to the Powerlines configuration file",
+      "id": "#configFile",
+      "default": "{projectRoot}/powerlines.config.ts"
+    },
+    "mode": {
+      "title": "Mode",
+      "type": "string",
+      "description": "The build mode",
+      "enum": [
+        "development",
+        "test",
+        "production"
+      ],
+      "id": "#mode"
+    },
+    "skipInstalls": {
+      "title": "Skip Installs",
+      "type": "boolean",
+      "description": "Skip installing dependencies before building",
+      "id": "#skipInstalls"
+    },
+    "skipCache": {
+      "title": "Skip Cache",
+      "type": "boolean",
+      "description": "Skip the cache when building",
+      "id": "#skipCache"
+    },
+    "logLevel": {
+      "title": "Log Level",
+      "type": "string",
+      "description": "The log level to use for the build process",
+      "enum": [
+        "fatal",
+        "error",
+        "warn",
+        "success",
+        "info",
+        "debug",
+        "trace",
+        "silent"
+      ],
+      "id": "#logLevel"
+    },
+    "entry": {
+      "title": "Entry Path(s)",
+      "description": "The entry path(s) for the package",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "id": "#entry",
+      "type": "any",
+      "default": {}
+    }
+  },
+  "type": "object",
+  "default": {
+    "outputPath": "dist/{projectRoot}",
+    "tsconfig": "{projectRoot}/tsconfig.json",
+    "configFile": "{projectRoot}/powerlines.config.ts",
+    "entry": {}
+  }
+}

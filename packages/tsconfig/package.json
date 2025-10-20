@@ -1,0 +1,72 @@
+{
+  "name": "@powerlines/tsconfig",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "A package containing shared TypeScript configuration files (tsconfig.json) used in Powerlines projects.",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/tsconfig"
+  },
+  "homepage": "https://stormsoftware.com",
+  "bugs": {
+    "url": "https://stormsoftware.com/support",
+    "email": "support@stormsoftware.com"
+  },
+  "author": {
+    "name": "Storm Software",
+    "email": "contact@stormsoftware.com",
+    "url": "https://stormsoftware.com"
+  },
+  "maintainers": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
+  "private": false,
+  "exports": {
+    "./package.json": "./package.json",
+    "./base.json": "./base.json",
+    "./plugin.json": "./plugin.json",
+    "./workspace.json": "./workspace.json",
+    "./recommended.json": "./recommended.json",
+    "./strict.json": "./strict.json"
+  },
+  "files": [
+    "./base.json",
+    "./plugin.json",
+    "./recommended.json",
+    "./strict.json",
+    "./workspace.json"
+  ],
+  "keywords": ["powerlines", "storm-software", "typescript", "tsconfig"],
+  "peerDependencies": {
+    "@storm-software/tsconfig": "*"
+  },
+  "peerDependenciesMeta": {
+    "@storm-software/tsconfig": {
+      "optional": false
+    }
+  },
+  "devDependencies": {
+    "@storm-software/tsconfig": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

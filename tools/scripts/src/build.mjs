@@ -1,7 +1,7 @@
 #!/usr/bin/env zx
 /* -------------------------------------------------------------------
 
-            ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -31,42 +31,132 @@ try {
     }
   }
 
-  echo`${chalk.whiteBright(
-    `🏗️  Building the monorepo in ${configuration} mode...`
-  )}`;
+  let filter = argv.filter;
+  if (!filter) {
+    if (argv.cli) {
+      filter = "cli";
+    } else if (argv.plugins) {
+      filter = "plugins";
+    } else {
+      filter = "all";
+    }
+  }
+
+  echo`${chalk.whiteBright(`🏗️  Building the monorepo in ${configuration} mode...`)}`;
 
   let proc = $`pnpm bootstrap`.timeout(`${1 * 60}s`);
   proc.stdout.on("data", data => {
     echo`${data}`;
   });
   let result = await proc;
-  if (result.exitCode !== 0) {
+  if (!result.ok) {
     throw new Error(
-      `An error occurred while bootstrapping the monorepo: \n\n${
-        result.message
-      }\n`
+      `An error occurred while bootstrapping the monorepo: \n\n${result.message}\n`
     );
   }
 
   proc =
-    $`pnpm nx run-many --target=build --exclude="@powerlines/monorepo" --configuration=${
-      configuration
-    } --outputStyle=dynamic-legacy --parallel=5`.timeout(`${10 * 60}s`);
+    $`pnpm nx run powerlines:build:${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+      `${3 * 60}s`
+    );
   proc.stdout.on("data", data => {
     echo`${data}`;
   });
   result = await proc;
-  if (result.exitCode !== 0) {
+  if (!result.ok) {
     throw new Error(
-      `An error occurred while building the monorepo in ${
-        configuration
-      } mode: \n\n${result.message}\n`
+      `An error occurred while building the core Powerlines package in ${configuration} mode: \n\n${result.message}\n`
     );
   }
 
-  echo`${chalk.green(
-    `✅  Successfully built the monorepo in ${configuration} mode!`
-  )}`;
+  proc =
+    $`pnpm nx run nx:build:${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+      `${5 * 60}s`
+    );
+  proc.stdout.on("data", data => {
+    echo`${data}`;
+  });
+  result = await proc;
+  if (!result.ok) {
+    throw new Error(
+      `An error occurred while building the Nx plugin package in ${configuration} mode: \n\n${result.message}\n`
+    );
+  }
+
+  proc = $`pnpm nx reset --onlyDaemon`.timeout(`${2 * 60}s`);
+  proc.stdout.on("data", data => {
+    echo`${data}`;
+  });
+  result = await proc;
+  if (!result.ok) {
+    throw new Error(
+      `An error occurred while resetting the Nx daemon process: \n\n${result.message}\n`
+    );
+  }
+
+  if (filter === "plugin" || filter === "cli" || filter === "all") {
+    proc =
+      $`pnpm nx run-many --target=build --projects="plugin-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+        `${8 * 60}s`
+      );
+    proc.stdout.on("data", data => {
+      echo`${data}`;
+    });
+    result = await proc;
+    if (!result.ok) {
+      throw new Error(
+        `An error occurred while building the monorepo's plugins and presets in ${configuration} mode: \n\n${result.message}\n`
+      );
+    }
+
+    if (filter === "cli" || filter === "all") {
+      //   proc =
+      //     $`pnpm nx run cli:build:${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+      //       `${10 * 60}s`
+      //     );
+      //   proc.stdout.on("data", data => {
+      //     echo`${data}`;
+      //   });
+      //   result = await proc;
+      //   if (!result.ok) {
+      //     throw new Error(
+      //       `An error occurred while building the CLI application in ${configuration} mode: \n\n${result.message}\n`
+      //     );
+      //   }
+
+      if (filter === "all") {
+        // proc =
+        //   $`pnpm nx run-many --target=build --projects="examples-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+        //     `${8 * 60}s`
+        //   );
+        // proc.stdout.on("data", data => {
+        //   echo`${data}`;
+        // });
+        // result = await proc;
+        // if (!result.ok) {
+        //   throw new Error(
+        //     `An error occurred while building the monorepo's examples in ${configuration} mode: \n\n${result.message}\n`
+        //   );
+        // }
+
+        proc =
+          $`pnpm nx run-many --target=build --exclude="@powerlines/monorepo,examples-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+            `${10 * 60}s`
+          );
+        proc.stdout.on("data", data => {
+          echo`${data}`;
+        });
+        result = await proc;
+        if (!result.ok) {
+          throw new Error(
+            `An error occurred while building the monorepo in ${configuration} mode: \n\n${result.message}\n`
+          );
+        }
+      }
+    }
+  }
+
+  echo`${chalk.green(`✅ Successfully built the monorepo in ${configuration} mode!`)}`;
 } catch (error) {
   echo`${chalk.red(error?.message ? error.message : "A failure occurred while building the monorepo")}`;
 

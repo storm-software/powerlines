@@ -1,0 +1,32 @@
+{
+  "name": "{{ options.packageName }}",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "{{ options.description }}",
+  "repository": {
+    "type": "github",
+    "url": "{{ workspaceConfig.repository }}",
+    "directory": "{{ options.projectRoot }}"
+  },
+  "private": false,
+  "keywords": [
+    "powerlines"
+  ],
+  "dependencies": {
+    "powerlines": "workspace:*"
+  },
+  "devDependencies": {
+    "@powerlines/devkit": "workspace:*",
+    "@stryke/types": "catalog:"
+  },
+  "storm": {
+    "name": "{{ options.name }}",
+    "projectType": "library",
+    "plugins": [
+      "@powerlines/devkit/plugins/library"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

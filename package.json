@@ -2,7 +2,7 @@
   "name": "@powerlines/monorepo",
   "version": "0.0.1",
   "type": "module",
-  "description": "⚡ A monorepo containing TypeScript utility packages with shared functionality common to many Storm Software applications.",
+  "description": "🔌 The \"any framework\" framework that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git"
@@ -23,10 +23,10 @@
   },
   "license": "Apache-2.0",
   "private": true,
-  "packageManager": "pnpm@10.10.0",
+  "packageManager": "pnpm@10.18.3",
   "engines": {
     "node": ">=22.14.0",
-    "pnpm": ">=10.10.0"
+    "pnpm": ">=10.18.0"
   },
   "keywords": [
     "storm-software",
@@ -72,7 +72,6 @@
     "@storm-software/config": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@storm-software/cspell": "catalog:",
-    "@storm-software/esbuild": "catalog:",
     "@storm-software/eslint": "catalog:",
     "@storm-software/git-tools": "catalog:",
     "@storm-software/linting-tools": "catalog:",
@@ -80,12 +79,8 @@
     "@storm-software/prettier": "catalog:",
     "@storm-software/testing-tools": "catalog:",
     "@storm-software/tsconfig": "catalog:",
-    "@storm-software/unbuild": "catalog:",
     "@storm-software/untyped": "catalog:",
     "@storm-software/workspace-tools": "catalog:",
-    "@swc-node/register": "catalog:",
-    "@swc/core": "catalog:",
-    "@swc/helpers": "catalog:",
     "@taplo/cli": "catalog:",
     "@types/jest": "catalog:",
     "@types/node": "catalog:",
@@ -103,7 +98,7 @@
     "ts-jest": "catalog:",
     "ts-node": "catalog:",
     "tslib": "catalog:",
-    "typescript": "5.8.3",
+    "typescript": "^5.9.3",
     "verdaccio": "catalog:",
     "zx": "catalog:"
   },

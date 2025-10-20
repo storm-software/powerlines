@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@powerlines/tsconfig/base.json",
+  "display": "Powerlines - Recommended Configuration",
+  "compilerOptions": {
+    "verbatimModuleSyntax": false,
+    "strict": true,
+    "noPropertyAccessFromIndexSignature": false
+  },
+  "reflection": true,
+  "reflectionLevel": "minimal"
+}

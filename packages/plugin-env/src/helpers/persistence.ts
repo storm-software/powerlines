@@ -1,0 +1,347 @@
+/* -------------------------------------------------------------------
+
+                   ⚡ Storm Software - Powerlines
+
+ This code was released as part of the Powerlines project. Powerlines
+ is maintained by Storm Software under the Apache-2.0 license, and is
+ free for commercial and private use. For more information, please visit
+ our licensing page at https://stormsoftware.com/licenses/projects/powerlines.
+
+ Website:                  https://stormsoftware.com
+ Repository:               https://github.com/storm-software/powerlines
+ Documentation:            https://docs.stormsoftware.com/projects/powerlines
+ Contact:                  https://stormsoftware.com/contact
+
+ SPDX-License-Identifier:  Apache-2.0
+
+ ------------------------------------------------------------------- */
+
+import * as capnp from "@stryke/capnp";
+import { readFileBuffer } from "@stryke/fs/buffer";
+import { joinPaths } from "@stryke/path/join-paths";
+import { isEmptyObject } from "@stryke/type-checks/is-empty-object";
+import type { TypeDefinition } from "@stryke/types/configuration";
+import { Buffer } from "node:buffer";
+import { existsSync } from "node:fs";
+import {
+  deserializeType,
+  ReflectionClass,
+  ReflectionKind,
+  resolveClassType
+} from "powerlines/deepkit/type";
+import { convertFromCapnp, convertToCapnp } from "powerlines/lib/capnp";
+import { getReflectionsPath } from "powerlines/lib/deepkit/resolve-reflections";
+import { SerializedTypes } from "powerlines/schemas/reflection";
+import { Context, Reflection } from "powerlines/types/context";
+import {
+  EnvPluginContext,
+  EnvPluginResolvedConfig,
+  EnvType
+} from "../types/plugin";
+import { createEnvReflection } from "./reflect";
+
+/**
+ * Gets the default type definition for the environment variables.
+ *
+ * @param context - The plugin context.
+ * @returns The default type definition for the environment variables.
+ */
+export function getEnvDefaultTypeDefinition(
+  context: Context<EnvPluginResolvedConfig>
+): TypeDefinition {
+  return {
+    file: process.env.POWERLINES_LOCAL
+      ? joinPaths(
+          context.workspaceConfig.workspaceRoot,
+          "dist/packages/types/dist/esm/src/shared/env.js"
+        )
+      : "powerlines/runtime-types/shared/env",
+    name: "__ΩEnvInterface"
+  };
+}
+
+/** Gets the default type definition for the environment secrets.
+ *
+ * @param context - The plugin context.
+ * @returns The default type definition for the environment secrets.
+ */
+export function getSecretsDefaultTypeDefinition(
+  context: Context<EnvPluginResolvedConfig>
+): TypeDefinition {
+  return {
+    file: process.env.POWERLINES_LOCAL
+      ? joinPaths(
+          context.workspaceConfig.workspaceRoot,
+          "dist/packages/types/dist/esm/src/shared/env.js"
+        )
+      : "powerlines/runtime-types/shared/env",
+    name: "__ΩSecretsInterface"
+  };
+}
+
+/**
+ * Gets the path to the environment type reflections.
+ *
+ * @param context - The plugin context.
+ * @param name - The name of the type reflections.
+ * @returns The path to the environment type reflections.
+ */
+export function getEnvTypeReflectionsPath(
+  context: Context<EnvPluginResolvedConfig>,
+  name: EnvType = "env"
+): string {
+  return joinPaths(getReflectionsPath(context), "env", `${name}-types.bin`);
+}
+
+/**
+ * Reads the environment type reflection from the file system.
+ *
+ * @param context - The plugin context.
+ * @param name - The name of the type reflections.
+ * @returns The environment type reflection.
+ */
+export async function readEnvTypeReflection(
+  context: EnvPluginContext,
+  name: EnvType = "env"
+): Promise<ReflectionClass<any>> {
+  const filePath = getEnvTypeReflectionsPath(context, name);
+  if (!existsSync(filePath)) {
+    if (!context.env.types.env || isEmptyObject(context.env.types.env)) {
+      const reflection = createEnvReflection(context) as Reflection;
+
+      const message = new capnp.Message();
+      reflection.messageRoot = message.initRoot(SerializedTypes);
+      reflection.dataBuffer = message.toArrayBuffer();
+
+      context.env.types.env = reflection;
+      await writeEnvTypeReflection(context, context.env.types.env, name);
+    }
+
+    return context.env.types.env;
+  }
+
+  const buffer = await readFileBuffer(filePath);
+  const message = new capnp.Message(buffer, false);
+  const messageRoot = message.getRoot(SerializedTypes);
+
+  const reflection = resolveClassType(
+    deserializeType(convertFromCapnp(messageRoot.types))
+  );
+
+  context.env.types[name] = reflection;
+  context.env.types[name].messageRoot = messageRoot;
+  context.env.types[name].dataBuffer = buffer;
+
+  return reflection;
+}
+
+/**
+ * Writes the environment type reflection to the file system.
+ *
+ * @param context - The plugin context.
+ * @param reflection - The environment type reflection to write.
+ * @param name - The name of the type reflections.
+ */
+export async function writeEnvTypeReflection(
+  context: EnvPluginContext,
+  reflection: ReflectionClass<any>,
+  name: EnvType = "env"
+) {
+  const serialized = reflection.serializeType();
+
+  const message = new capnp.Message();
+  const root = message.initRoot(SerializedTypes);
+
+  convertToCapnp(serialized, root._initTypes(serialized.length));
+
+  await context.fs.writeFile(
+    getEnvTypeReflectionsPath(context, name),
+    Buffer.from(message.toArrayBuffer()),
+    {
+      encoding: "binary",
+      mode: "fs"
+    }
+  );
+}
+
+export function getEnvReflectionsPath(
+  context: EnvPluginContext,
+  name: EnvType
+): string {
+  return joinPaths(getReflectionsPath(context), "env", `${name}.bin`);
+}
+
+/**
+ * Reads the environment reflection data from the file system.
+ *
+ * @param context - The plugin context.
+ * @returns The environment reflection data.
+ */
+export async function readEnvReflection(
+  context: EnvPluginContext
+): Promise<ReflectionClass<any>> {
+  const filePath = getEnvReflectionsPath(context, "env");
+  if (!existsSync(filePath)) {
+    if (!context.env.types.env) {
+      context.env.types.env = await readEnvTypeReflection(context, "env");
+    }
+
+    if (!context.env.used.env || isEmptyObject(context.env.used.env)) {
+      const reflection = createEnvReflection(context, {
+        type: {
+          kind: ReflectionKind.objectLiteral,
+          typeName: "StormEnv",
+          description: `An object containing the environment configuration parameters that are used (at least once) by the ${
+            context.config.name
+              ? `${context.config.name} application`
+              : "application"
+          }.`,
+          types: []
+        },
+        superReflection: context.env.types.env
+      }) as Reflection;
+      reflection.name = "StormEnv";
+
+      const message = new capnp.Message();
+      reflection.messageRoot = message.initRoot(SerializedTypes);
+      reflection.dataBuffer = message.toArrayBuffer();
+
+      context.env.used.env = reflection;
+      await writeEnvReflection(context, context.env.used.env, "env");
+    }
+
+    return context.env.used.env;
+  }
+
+  const buffer = await readFileBuffer(filePath);
+  const message = new capnp.Message(buffer, false);
+  const messageRoot = message.getRoot(SerializedTypes);
+
+  const reflection = resolveClassType(
+    deserializeType(convertFromCapnp(messageRoot.types))
+  );
+
+  context.env.used.env = reflection;
+  context.env.used.env.messageRoot = messageRoot;
+  context.env.used.env.dataBuffer = buffer;
+
+  return reflection;
+}
+
+/**
+ * Reads the secret environment reflection data from the file system.
+ *
+ * @param context - The plugin context.
+ * @returns The environment reflection data.
+ */
+export async function readSecretsReflection(
+  context: EnvPluginContext
+): Promise<ReflectionClass<any>> {
+  const filePath = getEnvReflectionsPath(context, "secrets");
+  if (!existsSync(filePath)) {
+    if (!context.env.types.secrets) {
+      context.env.types.secrets = await readEnvTypeReflection(
+        context,
+        "secrets"
+      );
+    }
+
+    if (!context.env.used.secrets || isEmptyObject(context.env.used.secrets)) {
+      const reflection = createEnvReflection(context, {
+        type: {
+          kind: ReflectionKind.objectLiteral,
+          typeName: "StormSecrets",
+          description: `An object containing the secret configuration parameters that are used (at least once) by the ${
+            context.config.name
+              ? `${context.config.name} application`
+              : "application"
+          }.`,
+          types: []
+        },
+        superReflection: context.env.types.secrets
+      }) as Reflection;
+      reflection.name = "StormSecrets";
+
+      const message = new capnp.Message();
+      reflection.messageRoot = message.initRoot(SerializedTypes);
+      reflection.dataBuffer = message.toArrayBuffer();
+
+      context.env.used.secrets = reflection;
+      await writeEnvReflection(context, context.env.used.secrets, "secrets");
+    }
+
+    return context.env.used.secrets;
+  }
+
+  const buffer = await readFileBuffer(filePath);
+  const message = new capnp.Message(buffer, false);
+  const messageRoot = message.getRoot(SerializedTypes);
+
+  const reflection = resolveClassType(
+    deserializeType(convertFromCapnp(messageRoot.types))
+  );
+
+  context.env.used.secrets = reflection;
+  context.env.used.secrets.messageRoot = messageRoot;
+  context.env.used.secrets.dataBuffer = buffer;
+
+  return reflection;
+}
+
+/**
+ * Writes the environment reflection data to the file system.
+ *
+ * @param context - The plugin context.
+ * @param reflection - The reflection data to write.
+ * @param name - The name of the reflection (either "env" or "secrets").
+ */
+export async function writeEnvReflection(
+  context: EnvPluginContext,
+  reflection: ReflectionClass<any>,
+  name: EnvType = "env"
+) {
+  const serialized = reflection.serializeType();
+
+  const message = new capnp.Message();
+  const root = message.initRoot(SerializedTypes);
+
+  convertToCapnp(serialized, root._initTypes(serialized.length));
+
+  await context.fs.writeFile(
+    getEnvReflectionsPath(context, name),
+    Buffer.from(message.toArrayBuffer()),
+    {
+      encoding: "binary",
+      mode: "fs"
+    }
+  );
+}
+
+/**
+ * Writes the environment reflection data to the file system.
+ *
+ * @param context - The plugin context.
+ * @param reflection - The reflection data to write.
+ * @param name - The name of the reflection (either "env" or "secrets").
+ */
+export function writeEnvReflectionSync(
+  context: EnvPluginContext,
+  reflection: ReflectionClass<any>,
+  name: EnvType = "env"
+) {
+  const serialized = reflection.serializeType();
+
+  const message = new capnp.Message();
+  const root = message.initRoot(SerializedTypes);
+
+  convertToCapnp(serialized, root._initTypes(serialized.length));
+
+  context.fs.writeFileSync(
+    getEnvReflectionsPath(context, name),
+    Buffer.from(message.toArrayBuffer()),
+    {
+      encoding: "binary",
+      mode: "fs"
+    }
+  );
+}

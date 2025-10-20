@@ -1,0 +1,185 @@
+{
+  "name": "@powerlines/nx",
+  "version": "0.0.1",
+  "description": "A Nx plugin to support Powerlines development in Nx monorepos.",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/nx"
+  },
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "exports": {
+    "./package.json": "./package.json",
+    "./docs/*": "./docs/*",
+    "./migrations.json": "./migrations.json",
+    "./executors.json": "./executors.json",
+    "./executors/*/schema.json": "./dist/src/executors/*/schema.json",
+    "./generators.json": "./generators.json",
+    "./generators/*/schema.json": "./dist/src/generators/*/schema.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./index": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./plugin": {
+      "import": {
+        "types": "./dist/src/plugin/index.d.mts",
+        "default": "./dist/src/plugin/index.mjs"
+      },
+      "require": {
+        "types": "./dist/src/plugin/index.d.ts",
+        "default": "./dist/src/plugin/index.js"
+      },
+      "default": {
+        "types": "./dist/src/plugin/index.d.ts",
+        "default": "./dist/src/plugin/index.js"
+      }
+    },
+    "./executors": {
+      "import": {
+        "types": "./dist/executors.d.mts",
+        "default": "./dist/executors.mjs"
+      },
+      "require": {
+        "types": "./dist/executors.d.ts",
+        "default": "./dist/executors.js"
+      },
+      "default": {
+        "types": "./dist/executors.d.ts",
+        "default": "./dist/executors.js"
+      }
+    },
+    "./generators": {
+      "import": {
+        "types": "./dist/generators.d.mts",
+        "default": "./dist/generators.mjs"
+      },
+      "require": {
+        "types": "./dist/generators.d.ts",
+        "default": "./dist/generators.js"
+      },
+      "default": {
+        "types": "./dist/generators.d.ts",
+        "default": "./dist/generators.js"
+      }
+    },
+    "./executors/*/untyped": {
+      "import": {
+        "types": "./dist/src/executors/*/untyped.d.mts",
+        "default": "./dist/src/executors/*/untyped.mjs"
+      },
+      "require": {
+        "types": "./dist/src/executors/*/untyped.d.ts",
+        "default": "./dist/src/executors/*/untyped.js"
+      },
+      "default": {
+        "types": "./dist/src/executors/*/untyped.d.ts",
+        "default": "./dist/src/executors/*/untyped.js"
+      }
+    },
+    "./generators/*/untyped": {
+      "import": {
+        "types": "./dist/src/generators/*/untyped.d.mts",
+        "default": "./dist/src/generators/*/untyped.mjs"
+      },
+      "require": {
+        "types": "./dist/src/generators/*/untyped.d.ts",
+        "default": "./dist/src/generators/*/untyped.js"
+      },
+      "default": {
+        "types": "./dist/src/generators/*/untyped.d.ts",
+        "default": "./dist/src/generators/*/untyped.js"
+      }
+    },
+    "./executors/*/executor": {
+      "import": {
+        "types": "./dist/src/executors/*/executor.d.mts",
+        "default": "./dist/src/executors/*/executor.mjs"
+      },
+      "require": {
+        "types": "./dist/src/executors/*/executor.d.ts",
+        "default": "./dist/src/executors/*/executor.js"
+      },
+      "default": {
+        "types": "./dist/src/executors/*/executor.d.ts",
+        "default": "./dist/src/executors/*/executor.js"
+      }
+    },
+    "./generators/*/generator": {
+      "import": {
+        "types": "./dist/src/generators/*/generator.d.mts",
+        "default": "./dist/src/generators/*/generator.mjs"
+      },
+      "require": {
+        "types": "./dist/src/generators/*/generator.d.ts",
+        "default": "./dist/src/generators/*/generator.js"
+      },
+      "default": {
+        "types": "./dist/src/generators/*/generator.d.ts",
+        "default": "./dist/src/generators/*/generator.js"
+      }
+    },
+    "./generators/*/generator.js": "./dist/src/generators/*/generator.js",
+    "./generators/*/executors.js": "./dist/src/executors/*/executor.js",
+    "./generators/*/generator.mjs": "./dist/src/generators/*/generator.mjs",
+    "./generators/*/executors.mjs": "./dist/src/executors/*/executor.mjs"
+  },
+  "typings": "dist/index.d.ts",
+  "dependencies": {
+    "@nx/devkit": "catalog:",
+    "@storm-software/build-tools": "catalog:",
+    "@storm-software/config": "catalog:",
+    "@storm-software/config-tools": "catalog:",
+    "@storm-software/esbuild": "catalog:",
+    "@storm-software/unbuild": "catalog:",
+    "@storm-software/workspace-tools": "catalog:",
+    "powerlines": "workspace:*",
+    "@stryke/fs": "catalog:",
+    "@stryke/hash": "catalog:",
+    "@stryke/path": "catalog:",
+    "@stryke/string-format": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "defu": "catalog:",
+    "jiti": "catalog:",
+    "nx": "catalog:"
+  },
+  "devDependencies": {
+    "@nx/workspace": "catalog:",
+    "@storm-software/testing-tools": "catalog:",
+    "@types/node": "catalog:",
+    "eslint-flat-config-utils": "catalog:",
+    "jsonc-eslint-parser": "catalog:",
+    "tsup": "catalog:",
+    "untyped": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "executors": "./executors.json",
+  "generators": "./generators.json"
+}

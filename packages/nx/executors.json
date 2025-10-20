@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "executors": {
+    "clean": {
+      "implementation": "./dist/src/executors/clean/executor",
+      "schema": "./dist/src/executors/clean/schema.json",
+      "description": "Run the `clean` Powerlines command on the given project"
+    },
+    "prepare": {
+      "implementation": "./dist/src/executors/prepare/executor",
+      "schema": "./dist/src/executors/prepare/schema.json",
+      "description": "Run the `prepare` Powerlines command on the given project"
+    },
+    "lint": {
+      "implementation": "./dist/src/executors/lint/executor",
+      "schema": "./dist/src/executors/lint/schema.json",
+      "description": "Run the `lint` Powerlines command on the given project"
+    },
+    "build": {
+      "implementation": "./dist/src/executors/build/executor",
+      "schema": "./dist/src/executors/build/schema.json",
+      "description": "Run the `build` Powerlines command on the given project"
+    },
+    "docs": {
+      "implementation": "./dist/src/executors/docs/executor",
+      "schema": "./dist/src/executors/docs/schema.json",
+      "description": "Run the `docs` Powerlines command on the given project"
+    }
+  }
+}

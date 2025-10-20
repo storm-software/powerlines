@@ -6,9 +6,32 @@
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
+      "powerlines": ["packages/powerlines/src/index.ts"],
+      "powerlines/*": ["packages/powerlines/src/*"],
+      "@powerlines/alloy": ["packages/alloy/src/index.ts"],
+      "@powerlines/alloy/*": ["packages/alloy/src/*"],
+      "@powerlines/nx": ["packages/nx/index.ts"],
+      "@powerlines/nx/*": ["packages/nx/src/*"],
+      "@powerlines/plugin-babel": ["packages/plugin-babel/src/index.ts"],
+      "@powerlines/plugin-babel/*": ["packages/plugin-babel/src/*"],
+      "@powerlines/plugin-date": ["packages/plugin-date/src/index.ts"],
+      "@powerlines/plugin-date/*": ["packages/plugin-date/src/*"],
+      "@powerlines/plugin-env": ["packages/plugin-env/src/index.ts"],
+      "@powerlines/plugin-env/*": ["packages/plugin-env/src/*"],
+      "@powerlines/plugin-esbuild": ["packages/plugin-esbuild/src/index.ts"],
+      "@powerlines/plugin-esbuild/*": ["packages/plugin-esbuild/src/*"],
+      "@powerlines/plugin-plugin": ["packages/plugin-plugin/src/index.ts"],
+      "@powerlines/plugin-plugin/*": ["packages/plugin-plugin/src/*"],
+      "@powerlines/plugin-tsup": ["packages/plugin-tsup/src/index.ts"],
+      "@powerlines/plugin-tsup/*": ["packages/plugin-tsup/src/*"],
+      "@powerlines/plugin-vite": ["packages/plugin-vite/src/index.ts"],
+      "@powerlines/plugin-vite/*": ["packages/plugin-vite/src/*"],
+      "@powerlines/tsconfig/*": ["packages/tsconfig/src/*"],
+      "@powerlines/tsdoc/*": ["packages/tsdoc/src/*"],
       "@powerlines/tools-scripts": ["tools/scripts/src/index.ts"],
       "@powerlines/tools-scripts/*": ["tools/scripts/src/*"],
       "@powerlines/tools-config/*": ["tools/config/*"]
-    }
+    },
+    "verbatimModuleSyntax": false
   }
 }

@@ -11,8 +11,7 @@
 </div>
 <br />
 
-Storm Software's **Powerlines** monorepo containing TypeScript utility packages
-with shared functionality common to many Storm Software applications
+Storm Software's **🔌 Powerlines** is a "framework framework" that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.
 
 <br />
 

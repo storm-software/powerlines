@@ -1,0 +1,28 @@
+{
+  "name": "{{ options.packageName }}",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "{{ options.description }}",
+  "repository": {
+    "type": "github",
+    "url": "{{ workspaceConfig.repository }}",
+    "directory": "{{ options.projectRoot }}"
+  },
+  "private": false,
+  "keywords": [
+    "powerlines"
+  ],
+  "dependencies": {
+    "powerlines": "workspace:*"
+  },
+  "devDependencies": {
+    "@stryke/types": "catalog:"
+  },
+  "storm": {
+    "name": "{{ options.name }}",
+    "projectType": "application"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
