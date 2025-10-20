@@ -1,7 +1,7 @@
 import { declarePackage } from "@storm-software/testing-tools";
 
 export default declarePackage({
-  projectRoot: "packages/core",
+  projectRoot: "packages/powerlines",
   isNode: true,
-  displayName: "core"
+  displayName: "powerlines"
 });
