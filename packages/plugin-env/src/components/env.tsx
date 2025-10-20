@@ -35,7 +35,7 @@ import {
   TypeDeclaration,
   VarDeclaration
 } from "@alloy-js/typescript";
-import { useStorm } from "@powerlines/alloy/core/contexts/context";
+import { usePowerlines } from "@powerlines/alloy/core/contexts/context";
 import { refkey } from "@powerlines/alloy/helpers/refkey";
 import { ComponentProps } from "@powerlines/alloy/types/components";
 import {
@@ -79,7 +79,7 @@ export function EnvTypeDefinition(
     "reflection"
   ]);
 
-  const context = useStorm<EnvPluginContext>();
+  const context = usePowerlines<EnvPluginContext>();
 
   return (
     <>
@@ -273,7 +273,7 @@ const envSerializerRefkey = refkey("EnvSerializer");
 export function EnvBuiltin(props: EnvBuiltinProps) {
   const [{ defaultConfig }, rest] = splitProps(props, ["defaultConfig"]);
 
-  const context = useStorm<EnvPluginContext>();
+  const context = usePowerlines<EnvPluginContext>();
 
   const defaultValue = computed(
     () => context && loadEnvFromContext(context.value, process.env)
