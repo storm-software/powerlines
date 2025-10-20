@@ -39,7 +39,6 @@ import { isError } from "@stryke/type-checks/is-error";
 import type { PackageJson } from "@stryke/types/package-json";
 import defu from "defu";
 import { createJiti } from "jiti";
-import { join } from "node:path";
 import { readNxJson } from "nx/src/config/nx-json.js";
 import type { ProjectConfiguration } from "nx/src/config/workspace-json-project-json.js";
 import type { PackageJson as PackageJsonNx } from "nx/src/utils/package-json.js";
@@ -52,13 +51,22 @@ import { CONFIG_INPUTS } from "../helpers/constants";
 
 export const name = "powerlines/nx/plugin";
 
-const stormConfigGlob =
-  "**/{package.json,storm.json,storm.*.json,storm.jsonc,storm.*.jsonc,storm.json5,storm.*.json5,storm.yaml,storm.*.yaml,storm.yml,storm.*.yml,storm.toml,storm.*.toml,storm.js,storm.*.js,storm.ts,storm.*.ts,storm.mjs,storm.*.mjs,storm.cjs,storm.*.cjs,storm.mts,storm.*.mts,storm.cts,storm.*.cts}";
-
-export interface NxPluginOptions {}
+export interface NxPluginOptions {
+  /**
+   * The folder where the generated runtime modules/builtins will be located. This path should be relative to the project root.
+   *
+   * @remarks
+   * This folder will contain all runtime modules and builtins generated during the "prepare" phase.
+   *
+   * @defaultValue ".powerlines"
+   */
+  runtimeFolder?: string;
+}
 
 export const createNodesV2: CreateNodesV2<NxPluginOptions> = [
-  stormConfigGlob,
+  `**/{${CONFIG_INPUTS.map(input => input.replace("{projectRoot}/", "")).join(
+    ","
+  )}}`,
   async (configFiles, optionsV2, contextV2): Promise<CreateNodesResultV2> => {
     const envPaths = getEnvPaths({
       orgId: "storm-software",
@@ -68,6 +76,8 @@ export const createNodesV2: CreateNodesV2<NxPluginOptions> = [
     if (!envPaths.cache) {
       throw new Error("The cache directory could not be determined.");
     }
+
+    const runtimeFolder = optionsV2?.runtimeFolder || ".powerlines";
 
     const nxJson = readNxJson(contextV2.workspaceRoot);
 
@@ -169,8 +179,8 @@ export const createNodesV2: CreateNodesV2<NxPluginOptions> = [
 
           targets.prepare = {
             cache: true,
-            inputs: withNamedInputs(CONFIG_INPUTS, ["typescript"]),
-            outputs: ["{projectRoot}/.storm"],
+            inputs: withNamedInputs(CONFIG_INPUTS as any, ["typescript"]),
+            outputs: [`{projectRoot}/${runtimeFolder}`],
             dependsOn: ["clean", "^prepare"],
             executor: "@powerlines/nx:prepare",
             defaultConfiguration: "production",
@@ -195,22 +205,9 @@ export const createNodesV2: CreateNodesV2<NxPluginOptions> = [
             }
           };
 
-          targets["type-check"] ??= {
-            cache: true,
-            inputs: ["typescript", "^production"],
-            outputs: ["{workspaceRoot}/dist/{projectRoot}"],
-            executor: "nx:run-commands",
-            dependsOn: ["^type-check", "^build"],
-            options: {
-              command: `pnpm exec tsc --noEmit --pretty --project ${
-                userConfig.tsconfig || join(projectConfig.root, "tsconfig.json")
-              }`
-            }
-          };
-
           targets.build = {
             cache: true,
-            inputs: withNamedInputs(CONFIG_INPUTS, ["typescript"]),
+            inputs: withNamedInputs(CONFIG_INPUTS as any, ["typescript"]),
             outputs: ["{options.outputPath}"],
             dependsOn: ["prepare", "^build"],
             executor: "@powerlines/nx:build",
@@ -240,10 +237,13 @@ export const createNodesV2: CreateNodesV2<NxPluginOptions> = [
           targets.lint = {
             cache: true,
             inputs: withNamedInputs(
-              [...CONFIG_INPUTS, "{projectRoot}/.storm"],
+              [...CONFIG_INPUTS, `{projectRoot}/${runtimeFolder}`],
               ["linting", "typescript"]
             ),
-            outputs: withNamedInputs(["{projectRoot}/.storm"], ["typescript"]),
+            outputs: withNamedInputs(
+              [`{projectRoot}/${runtimeFolder}`],
+              ["typescript"]
+            ),
             dependsOn: ["prepare", "^lint"],
             executor: "@powerlines/nx:lint",
             defaultConfiguration: "production",
@@ -271,7 +271,7 @@ export const createNodesV2: CreateNodesV2<NxPluginOptions> = [
           targets.docs = {
             cache: true,
             inputs: withNamedInputs(
-              [...CONFIG_INPUTS, "{projectRoot}/.storm"],
+              [...CONFIG_INPUTS, `{projectRoot}/${runtimeFolder}`],
               ["documentation", "typescript"]
             ),
             outputs: ["{projectRoot}/docs/generated"],
@@ -334,180 +334,3 @@ export const createNodesV2: CreateNodesV2<NxPluginOptions> = [
     );
   }
 ];
-
-// function getInputs(
-//   namedInputs: NxJsonConfiguration["namedInputs"],
-//   configFilePath: string,
-//   tsConfig: ParsedTsconfigData,
-//   internalProjectReferences: Record<string, ParsedTsconfigData>,
-//   workspaceRoot: string,
-//   projectRoot: string
-// ): TargetConfiguration["inputs"] {
-//   const configFiles = new Set<string>();
-//   const externalDependencies = ["typescript"];
-
-//   const extendedConfigFiles = getExtendedConfigFiles(tsConfig, workspaceRoot);
-//   extendedConfigFiles.files.forEach(configPath => {
-//     configFiles.add(configPath);
-//   });
-//   externalDependencies.push(...extendedConfigFiles.packages);
-
-//   const includePaths = new Set<string>();
-//   const excludePaths = new Set<string>();
-//   const projectTsConfigFiles: [string, ParsedTsconfigData][] = [
-//     [configFilePath, tsConfig],
-//     ...Object.entries(internalProjectReferences)
-//   ];
-//   const absoluteProjectRoot = join(workspaceRoot, projectRoot);
-
-//   if (!ts) {
-//     ts = require("typescript");
-//   }
-//   // https://github.com/microsoft/TypeScript/blob/19b777260b26aac5707b1efd34202054164d4a9d/src/compiler/utilities.ts#L9869
-//   const supportedTSExtensions: readonly Extension[] = [
-//     ts.Extension.Ts,
-//     ts.Extension.Tsx,
-//     ts.Extension.Dts,
-//     ts.Extension.Cts,
-//     ts.Extension.Dcts,
-//     ts.Extension.Mts,
-//     ts.Extension.Dmts
-//   ];
-//   // https://github.com/microsoft/TypeScript/blob/19b777260b26aac5707b1efd34202054164d4a9d/src/compiler/utilities.ts#L9878
-//   const allSupportedExtensions: readonly Extension[] = [
-//     ts.Extension.Ts,
-//     ts.Extension.Tsx,
-//     ts.Extension.Dts,
-//     ts.Extension.Js,
-//     ts.Extension.Jsx,
-//     ts.Extension.Cts,
-//     ts.Extension.Dcts,
-//     ts.Extension.Cjs,
-//     ts.Extension.Mts,
-//     ts.Extension.Dmts,
-//     ts.Extension.Mjs
-//   ];
-
-//   const normalizeInput = (
-//     input: string,
-//     config: ParsedTsconfigData
-//   ): string[] => {
-//     const extensions = config.options.allowJs
-//       ? [...allSupportedExtensions]
-//       : [...supportedTSExtensions];
-//     if (config.options.resolveJsonModule) {
-//       extensions.push(ts.Extension.Json);
-//     }
-
-//     const segments = input.split("/");
-//     // An "includes" path "foo" is implicitly a glob "foo/**/*" if its last
-//     // segment has no extension, and does not contain any glob characters
-//     // itself.
-//     // https://github.com/microsoft/TypeScript/blob/19b777260b26aac5707b1efd34202054164d4a9d/src/compiler/utilities.ts#L9577-L9585
-//     if (!/[.*?]/.test(segments.at(-1))) {
-//       return extensions.map(ext => `${segments.join("/")}/**/*${ext}`);
-//     }
-
-//     return [input];
-//   };
-
-//   const configDirTemplate = "${configDir}";
-//   const substituteConfigDir = (p: string) =>
-//     p.startsWith(configDirTemplate) ? p.replace(configDirTemplate, "./") : p;
-
-//   projectTsConfigFiles.forEach(([configPath, config]) => {
-//     configFiles.add(configPath);
-//     const offset = relative(absoluteProjectRoot, dirname(configPath));
-//     (config.raw?.include ?? []).forEach((p: string) => {
-//       const normalized = normalizeInput(
-//         join(offset, substituteConfigDir(p)),
-//         config
-//       );
-//       normalized.forEach(input => includePaths.add(input));
-//     });
-
-//     if (config.raw?.exclude) {
-//       /**
-//        * We need to filter out the exclude paths that are already included in
-//        * other tsconfig files. If they are not included in other tsconfig files,
-//        * they still correctly apply to the current file and we should keep them.
-//        */
-//       const otherFilesInclude: string[] = [];
-//       projectTsConfigFiles.forEach(([path, c]) => {
-//         if (path !== configPath) {
-//           otherFilesInclude.push(
-//             ...(c.raw?.include ?? []).map(substituteConfigDir)
-//           );
-//         }
-//       });
-//       const normalize = (p: string) => (p.startsWith("./") ? p.slice(2) : p);
-//       config.raw.exclude.forEach((e: string) => {
-//         const excludePath = substituteConfigDir(e);
-//         if (
-//           !otherFilesInclude.some(
-//             includePath =>
-//               picomatch(normalize(excludePath))(normalize(includePath)) ||
-//               picomatch(normalize(includePath))(normalize(excludePath))
-//           )
-//         ) {
-//           excludePaths.add(excludePath);
-//         }
-//       });
-//     }
-//   });
-
-//   const inputs: TargetConfiguration["inputs"] = [];
-//   if (includePaths.size) {
-//     if (existsSync(join(workspaceRoot, projectRoot, "package.json"))) {
-//       inputs.push("{projectRoot}/package.json");
-//     }
-//     inputs.push(
-//       ...Array.from(configFiles).map((p: string) =>
-//         pathToInputOrOutput(p, workspaceRoot, projectRoot)
-//       ),
-//       ...Array.from(includePaths).map((p: string) =>
-//         pathToInputOrOutput(
-//           joinPathFragments(projectRoot, p),
-//           workspaceRoot,
-//           projectRoot
-//         )
-//       )
-//     );
-//   } else {
-//     // If we couldn't identify any include paths, we default to the default
-//     // named inputs.
-//     inputs.push("production" in namedInputs ? "production" : "default");
-//   }
-
-//   if (excludePaths.size) {
-//     inputs.push(
-//       ...Array.from(excludePaths).map(
-//         (p: string) =>
-//           `!${pathToInputOrOutput(
-//             joinPathFragments(projectRoot, p),
-//             workspaceRoot,
-//             projectRoot
-//           )}`
-//       )
-//     );
-//   }
-
-//   if (
-//     hasExternalProjectReferences(
-//       configFilePath,
-//       tsConfig,
-//       workspaceRoot,
-//       projectRoot
-//     )
-//   ) {
-//     // Importing modules from a referenced project will load its output declaration files (d.ts)
-//     // https://www.typescriptlang.org/docs/handbook/project-references.html#what-is-a-project-reference
-//     inputs.push({ dependentTasksOutputFiles: "**/*.d.ts" });
-//   } else {
-//     inputs.push("production" in namedInputs ? "^production" : "^default");
-//   }
-
-//   inputs.push({ externalDependencies });
-
-//   return inputs;
-// }

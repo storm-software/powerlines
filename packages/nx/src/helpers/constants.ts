@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -20,29 +20,29 @@
  * A list of Nx input strings that describe the Powerlines configuration file
  */
 export const CONFIG_INPUTS = [
-  "{projectRoot}/.storm",
-  "{projectRoot}/storm.json",
-  "{projectRoot}/storm.*.json",
-  "{projectRoot}/storm.jsonc",
-  "{projectRoot}/storm.*.jsonc",
-  "{projectRoot}/storm.json5",
-  "{projectRoot}/storm.*.json5",
-  "{projectRoot}/storm.yaml",
-  "{projectRoot}/storm.*.yaml",
-  "{projectRoot}/storm.yml",
-  "{projectRoot}/storm.*.yml",
-  "{projectRoot}/storm.toml",
-  "{projectRoot}/storm.*.toml",
-  "{projectRoot}/storm.js",
-  "{projectRoot}/storm.*.js",
-  "{projectRoot}/storm.cjs",
-  "{projectRoot}/storm.*.cjs",
-  "{projectRoot}/storm.mjs",
-  "{projectRoot}/storm.*.mjs",
-  "{projectRoot}/storm.ts",
-  "{projectRoot}/storm.*.ts",
-  "{projectRoot}/storm.cts",
-  "{projectRoot}/storm.*.cts",
-  "{projectRoot}/storm.mts",
-  "{projectRoot}/storm.*.mts"
-];
+  "{projectRoot}/package.json",
+  "{projectRoot}/powerlines.json",
+  "{projectRoot}/powerlines.*.json",
+  "{projectRoot}/powerlines.jsonc",
+  "{projectRoot}/powerlines.*.jsonc",
+  "{projectRoot}/powerlines.json5",
+  "{projectRoot}/powerlines.*.json5",
+  "{projectRoot}/powerlines.yaml",
+  "{projectRoot}/powerlines.*.yaml",
+  "{projectRoot}/powerlines.yml",
+  "{projectRoot}/powerlines.*.yml",
+  "{projectRoot}/powerlines.toml",
+  "{projectRoot}/powerlines.*.toml",
+  "{projectRoot}/powerlines.js",
+  "{projectRoot}/powerlines.*.js",
+  "{projectRoot}/powerlines.cjs",
+  "{projectRoot}/powerlines.*.cjs",
+  "{projectRoot}/powerlines.mjs",
+  "{projectRoot}/powerlines.*.mjs",
+  "{projectRoot}/powerlines.ts",
+  "{projectRoot}/powerlines.*.ts",
+  "{projectRoot}/powerlines.cts",
+  "{projectRoot}/powerlines.*.cts",
+  "{projectRoot}/powerlines.mts",
+  "{projectRoot}/powerlines.*.mts"
+] as const;
