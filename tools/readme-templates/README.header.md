@@ -11,7 +11,7 @@
 </div>
 
 <br />
-This package is part of the ⚡<b>Powerlines</b> monorepo. The Powerlines packages include CLI utility applications, tools, and various libraries used to create modern, scalable web applications.
+This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "any framework" framework that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.
 <br />
 
 <h3 align="center">💻 Visit <a href="https://stormsoftware.com" target="_blank">stormsoftware.com</a> to stay up to date with this developer</h3><br />
