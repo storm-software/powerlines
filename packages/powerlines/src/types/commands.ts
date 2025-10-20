@@ -20,7 +20,7 @@ import type { ArrayValues } from "@stryke/types/array";
 import type { MaybePromise } from "@stryke/types/base";
 import type { Context } from "./context";
 
-export const SUPPORTED_TASKS = [
+export const SUPPORTED_COMMANDS = [
   "new",
   "clean",
   "prepare",
@@ -32,8 +32,8 @@ export const SUPPORTED_TASKS = [
   "finalize"
 ] as const;
 
-export type TaskType = ArrayValues<typeof SUPPORTED_TASKS>;
-export type Tasks<TContext extends Context = Context> = Record<
-  TaskType,
+export type CommandType = ArrayValues<typeof SUPPORTED_COMMANDS>;
+export type Commands<TContext extends Context = Context> = Record<
+  CommandType,
   (this: TContext) => MaybePromise<void>
 >;

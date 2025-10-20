@@ -26,10 +26,10 @@ import type {
   UnpluginOptions
 } from "unplugin";
 import type { UnpluginBuildVariant } from "./build";
+import type { CommandType } from "./commands";
 import type { EnvironmentConfig, PluginConfig } from "./config";
 import type { BuildPluginContext, Context, PluginContext } from "./context";
 import type { EnvironmentResolvedConfig, ResolvedConfig } from "./resolved";
-import type { TaskType } from "./tasks";
 
 export type PackageDependencyMeta =
   | "dependency"
@@ -65,7 +65,7 @@ export type PluginHook<
 
 export interface BasePluginHookFunctions<
   TContext extends PluginContext = PluginContext
-> extends Record<TaskType, (this: TContext) => MaybePromise<void>> {
+> extends Record<CommandType, (this: TContext) => MaybePromise<void>> {
   /**
    * A function that returns configuration options to be merged with the build context's options.
    *

@@ -22,6 +22,7 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { AnyFunction } from "@stryke/types/base";
 import { ResolvedConfig } from "powerlines/types/resolved";
+import { SUPPORTED_COMMANDS } from "../../types/commands";
 import {
   PluginConfig,
   PluginConfigObject,
@@ -35,7 +36,6 @@ import {
   HookKeys
 } from "../../types/hooks";
 import { Plugin, PluginHook, PluginHookObject } from "../../types/plugin";
-import { SUPPORTED_TASKS } from "../../types/tasks";
 
 /**
  * Type guard to check if an object is a {@link Plugin}
@@ -61,7 +61,7 @@ export function isPlugin<
       ("dependsOn" in value &&
         Array.isArray(value.dependsOn) &&
         value.dependsOn.every(isPluginConfig))) &&
-    SUPPORTED_TASKS.every(
+    SUPPORTED_COMMANDS.every(
       command =>
         isUndefined(
           (value as Plugin<PluginContext<TResolvedConfig>>)[command]
