@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -44,7 +44,7 @@ import {
   StormDateInterface,
   DateFormats,
   TimeUnit
-} from "powerlines/runtime-types/shared/date";
+} from "@powerlines/plugin-date/types/runtime";
 
 defaultDayjs.extend(customParseFormatPlugin);
 defaultDayjs.extend(localizedFormatPlugin);
