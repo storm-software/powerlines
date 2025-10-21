@@ -170,6 +170,7 @@ overrides:
   "@powerlines/alloy": workspace:*
   "@powerlines/nx": workspace:*
   "@powerlines/plugin-babel": workspace:*
+  "@powerlines/plugin-crypto": workspace:*
   "@powerlines/plugin-date": workspace:*
   "@powerlines/plugin-deepkit": workspace:*
   "@powerlines/plugin-env": workspace:*
