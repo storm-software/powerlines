@@ -22,6 +22,7 @@ import { Worker as JestWorker } from "jest-worker";
 import type { Jiti } from "jiti";
 import type { DirectoryJSON } from "memfs";
 import { ReflectionClass } from "powerlines/deepkit/type";
+import { Range } from "semver";
 import type { Unimport } from "unimport";
 import type { UnpluginBuildContext, UnpluginContext } from "unplugin";
 import type { SerializedTypes as CapnpSerializedTypes } from "../../schemas/reflection";
@@ -40,7 +41,7 @@ import type {
   InferHookParameters,
   InferHookReturnType
 } from "./hooks";
-import type { PackageDependencies, Plugin } from "./plugin";
+import type { Plugin } from "./plugin";
 import type {
   EnvironmentResolvedConfig,
   ResolvedConfig,
@@ -200,14 +201,6 @@ export interface Context<
   relativeToWorkspaceRoot: string;
 
   /**
-   * The path to the \powerlines package
-   *
-   * @remarks
-   * This is used to determine the path to the Powerlines core package, which contains the runtime files.
-   */
-  corePackagePath: string;
-
-  /**
    * The Powerlines artifacts directory
    */
   artifactsPath: string;
@@ -243,9 +236,19 @@ export interface Context<
   envPaths: EnvPaths;
 
   /**
-   * The installations required by the project
+   * The file system path to the Powerlines package installation
    */
-  dependencies: PackageDependencies;
+  powerlinesPath: string;
+
+  /**
+   * The dependency installations required by the project
+   */
+  dependencies: Record<string, string | Range>;
+
+  /**
+   * The development dependency installations required by the project
+   */
+  devDependencies: Record<string, string | Range>;
 
   /**
    * The project's `package.json` file content

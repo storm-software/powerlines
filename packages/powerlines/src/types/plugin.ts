@@ -18,7 +18,6 @@
 
 import type { ArrayValues } from "@stryke/types/array";
 import type { FunctionLike, MaybePromise } from "@stryke/types/base";
-import type { Range } from "semver";
 import type {
   ExternalIdResult,
   HookFilter,
@@ -30,13 +29,6 @@ import type { CommandType } from "./commands";
 import type { EnvironmentConfig, PluginConfig } from "./config";
 import type { BuildPluginContext, Context, PluginContext } from "./context";
 import type { EnvironmentResolvedConfig, ResolvedConfig } from "./resolved";
-
-export type PackageDependencyMeta =
-  | "dependency"
-  | "devDependency"
-  | { version?: string | Range; type?: "dependency" | "devDependency" };
-
-export type PackageDependencies = Record<string, PackageDependencyMeta>;
 
 export interface PluginHookObject<
   THookFunction extends FunctionLike,

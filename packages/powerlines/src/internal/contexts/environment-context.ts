@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { resolvePackage } from "@stryke/fs/resolve";
-import { joinPaths } from "@stryke/path/join-paths";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isObject } from "@stryke/type-checks/is-object";
 import { ArrayValues } from "@stryke/types/array";
@@ -78,11 +77,9 @@ export class PowerlinesEnvironmentContext<
     );
     await context.init();
 
-    context.corePackagePath = process.env.POWERLINES_LOCAL
-      ? joinPaths(context.workspaceConfig.workspaceRoot, "packages/core")
-      : await resolvePackage("powerlines");
-    if (!context.corePackagePath) {
-      throw new Error("Could not resolve powerlines package location.");
+    context.powerlinesPath = await resolvePackage("powerlines");
+    if (!context.powerlinesPath) {
+      throw new Error("Could not resolve `powerlines` package location.");
     }
 
     return context;

@@ -175,14 +175,14 @@ export interface OutputConfig {
   builtinPrefix?: string;
 
   /**
-   * The folder where the generated runtime modules/builtins will be located
+   * The folder where the generated runtime artifacts will be located
    *
    * @remarks
-   * This folder will contain all runtime modules and builtins generated during the "prepare" phase.
+   * This folder will contain all runtime artifacts and builtins generated during the "prepare" phase.
    *
    * @defaultValue "\{projectRoot\}/.powerlines"
    */
-  runtimeFolder?: string;
+  artifactsFolder?: string;
 
   /**
    * The module format of the output files

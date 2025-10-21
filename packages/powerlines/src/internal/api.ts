@@ -329,7 +329,7 @@ export class PowerlinesAPI<
       await this.callPreHook(context, "new");
 
       const files = await listFiles(
-        joinPaths(context.corePackagePath, "files/common/**/*.hbs")
+        joinPaths(context.powerlinesPath, "files/common/**/*.hbs")
       );
       for (const file of files) {
         context.log(LogLevelLabel.TRACE, `Adding template file: ${file}`);
@@ -346,7 +346,7 @@ export class PowerlinesAPI<
 
       if (context.config.projectType === "application") {
         const files = await listFiles(
-          joinPaths(context.corePackagePath, "files/application/**/*.hbs")
+          joinPaths(context.powerlinesPath, "files/application/**/*.hbs")
         );
         for (const file of files) {
           context.log(
@@ -363,7 +363,7 @@ export class PowerlinesAPI<
         }
       } else {
         const files = await listFiles(
-          joinPaths(context.corePackagePath, "files/library/**/*.hbs")
+          joinPaths(context.powerlinesPath, "files/library/**/*.hbs")
         );
         for (const file of files) {
           context.log(

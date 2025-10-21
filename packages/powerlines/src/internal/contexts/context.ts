@@ -37,6 +37,7 @@ import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
 import defu from "defu";
 import { DirectoryJSON } from "memfs";
+import { Range } from "semver";
 import { loadUserConfigFile, loadWorkspaceConfig } from "../../lib/config-file";
 import { getUniqueEntries, resolveEntriesSync } from "../../lib/entry";
 import { createLog, extendLog } from "../../lib/logger";
@@ -61,7 +62,6 @@ import {
   MetaInfo,
   Resolver
 } from "../../types/context";
-import { PackageDependencies } from "../../types/plugin";
 import {
   ResolvedConfig,
   ResolvedEntryTypeDefinition
@@ -156,23 +156,29 @@ export class PowerlinesContext<
     );
     await context.withUserConfig(config);
 
-    context.corePackagePath = process.env.POWERLINES_LOCAL
-      ? joinPaths(context.workspaceConfig.workspaceRoot, "packages/core")
-      : await resolvePackage("powerlines");
-    if (!context.corePackagePath) {
-      throw new Error("Could not resolve powerlines package location.");
+    context.powerlinesPath = await resolvePackage("powerlines");
+    if (!context.powerlinesPath) {
+      throw new Error("Could not resolve `powerlines` package location.");
     }
 
     return context;
   }
 
-  public dependencies: PackageDependencies = {};
+  /**
+   * An object containing the dependencies that should be installed for the project
+   */
+  public dependencies: Record<string, string | Range> = {};
+
+  /**
+   * An object containing the development dependencies that should be installed for the project
+   */
+  public devDependencies: Record<string, string | Range> = {};
 
   public reflections: Context["reflections"] = {} as Context["reflections"];
 
   public persistedMeta: MetaInfo | undefined = undefined;
 
-  public corePackagePath!: string;
+  public powerlinesPath!: string;
 
   public packageJson!: PackageJson;
 
@@ -286,7 +292,7 @@ export class PowerlinesContext<
     return joinPaths(
       this.workspaceConfig.workspaceRoot,
       this.config.projectRoot,
-      ".storm"
+      this.config.output.artifactsFolder
     );
   }
 
@@ -558,7 +564,7 @@ export class PowerlinesContext<
               `${config.framework ?? "powerlines"}.d.ts`
             ),
             builtinPrefix: config.framework ?? "powerlines",
-            runtimeFolder: joinPaths(
+            artifactsFolder: joinPaths(
               cacheKey.projectRoot,
               `.${config.framework ?? "powerlines"}`
             ),

@@ -114,8 +114,14 @@
     }
   },
   "typings": "dist/src/index.d.ts",
-  "files": ["dist/**/*"],
-  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@alloy-js/babel-plugin": "catalog:",
     "@alloy-js/babel-plugin-jsx-dom-expressions": "catalog:",
@@ -126,8 +132,8 @@
     "@babel/plugin-syntax-jsx": "catalog:",
     "@babel/plugin-syntax-typescript": "catalog:",
     "@babel/plugin-transform-typescript": "catalog:",
-    "@powerlines/plugin-babel": "0.3.0",
-    "@powerlines/plugin-tsup": "0.3.0",
+    "@powerlines/plugin-babel": "workspace:*",
+    "@powerlines/plugin-tsup": "workspace:*",
     "@stryke/fs": "catalog:",
     "@stryke/json": "catalog:",
     "@stryke/path": "catalog:",
@@ -136,12 +142,12 @@
     "defu": "catalog:",
     "esbuild-plugin-babel": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.3.0",
+    "powerlines": "workspace:*",
     "prettier": "catalog:"
   },
   "devDependencies": {
     "@alloy-js/rollup-plugin": "catalog:",
-    "@powerlines/nx": "0.3.0",
+    "@powerlines/nx": "workspace:*",
     "@rollup/plugin-commonjs": "catalog:",
     "@rollup/plugin-node-resolve": "catalog:",
     "@types/babel__helper-plugin-utils": "catalog:",

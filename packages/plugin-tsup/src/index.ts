@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -54,17 +54,6 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
           variant: "tsup"
         }
       } as Partial<TsupUserConfig>;
-    },
-    configResolved() {
-      this.log(
-        LogLevelLabel.TRACE,
-        "The Powerlines `tsup` build plugin has resolved the final configuration."
-      );
-
-      this.dependencies["@storm-software/tsup"] = {
-        type: "devDependency",
-        version: "^0.1.1"
-      };
     },
     async build() {
       this.log(LogLevelLabel.TRACE, "Building the Powerlines plugin.");

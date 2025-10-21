@@ -56,10 +56,7 @@ export const plugin = <
     configResolved: {
       order: "pre",
       handler() {
-        this.dependencies["@babel/core"] = {
-          type: "devDependency",
-          version: "^7.28.4"
-        };
+        this.devDependencies["@babel/core"] = "^7.28.4";
 
         this.config.transform.babel = defu(this.config.transform.babel ?? {}, {
           plugins: [],
@@ -69,8 +66,7 @@ export const plugin = <
     },
     async transform(code: string, id: string) {
       if (
-        (process.env.POWERLINES_LOCAL &&
-          isParentPath(id, this.corePackagePath)) ||
+        isParentPath(id, this.powerlinesPath) ||
         code.includes("/* @storm-ignore */") ||
         code.includes("/* @storm-disable */")
       ) {

@@ -19,7 +19,6 @@
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
 import { resolvePackage } from "@stryke/fs/resolve";
-import { joinPaths } from "@stryke/path/join-paths";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import chalk from "chalk";
 import { loadWorkspaceConfig } from "../../lib/config-file";
@@ -71,11 +70,9 @@ export class PowerlinesAPIContext<
     );
     await context.withUserConfig(config);
 
-    context.corePackagePath = process.env.POWERLINES_LOCAL
-      ? joinPaths(context.workspaceConfig.workspaceRoot, "packages/core")
-      : await resolvePackage("powerlines");
-    if (!context.corePackagePath) {
-      throw new Error("Could not resolve powerlines package location.");
+    context.powerlinesPath = await resolvePackage("powerlines");
+    if (!context.powerlinesPath) {
+      throw new Error("Could not resolve `powerlines` package location.");
     }
 
     return context;
