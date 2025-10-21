@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.6.0) (2025-10-21)
+
+### Features
+
+- **plugin-plugin:** Merge in all required plugin functionality
+  ([8ed6862](https://github.com/storm-software/powerlines/commit/8ed6862))
+- **plugin-rollup:** Initial check-in of the `rollup` plugin
+  ([6df7f8e](https://github.com/storm-software/powerlines/commit/6df7f8e))
+- **plugin-eslint:** Initial check-in of the `eslint` plugin
+  ([8551a38](https://github.com/storm-software/powerlines/commit/8551a38))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.6.0
+- Updated powerlines to 0.5.0
+
 ## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.5.0) (2025-10-21)
 
 ### Features

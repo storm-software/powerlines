@@ -1,0 +1,17 @@
+![Storm Software's logo banner](https://public.storm-cdn.com/brand-banner.png)
+
+# Changelog for Powerlines - Plugin Rollup
+
+## [0.1.0](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.1.0) (2025-10-21)
+
+### Features
+
+- **plugin-plugin:** Merge in all required plugin functionality
+  ([8ed6862](https://github.com/storm-software/powerlines/commit/8ed6862))
+- **plugin-rollup:** Initial check-in of the `rollup` plugin
+  ([6df7f8e](https://github.com/storm-software/powerlines/commit/6df7f8e))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.6.0
+- Updated powerlines to 0.5.0

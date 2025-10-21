@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.3.0) (2025-10-21)
+
+### Features
+
+- **plugin-eslint:** Initial check-in of the `eslint` plugin
+  ([8551a38](https://github.com/storm-software/powerlines/commit/8551a38))
+
+### Updated Dependencies
+
+- Updated plugin-env to 0.5.0
+- Updated powerlines to 0.5.0
+
 ## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.2.0) (2025-10-21)
 
 ### Features

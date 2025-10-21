@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-eslint",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "description": "A package containing a Powerlines plugin for running TypeDoc on the codebase.",
   "repository": {
@@ -103,7 +103,7 @@
     "@storm-software/config-tools": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
-    "powerlines": "workspace:*",
+    "powerlines": "0.5.0",
     "defu": "catalog:",
     "eslint": "catalog:"
   },

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.5.0) (2025-10-21)
+
+### Features
+
+- **plugin-eslint:** Initial check-in of the `eslint` plugin
+  ([8551a38](https://github.com/storm-software/powerlines/commit/8551a38))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.5.0
+
 ## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.4.0) (2025-10-21)
 
 ### Features

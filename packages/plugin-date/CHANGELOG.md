@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.6.0) (2025-10-21)
+
+### Features
+
+- **plugin-eslint:** Initial check-in of the `eslint` plugin
+  ([8551a38](https://github.com/storm-software/powerlines/commit/8551a38))
+
+### Updated Dependencies
+
+- Updated plugin-env to 0.5.0
+- Updated powerlines to 0.5.0
+
 ## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.5.0) (2025-10-21)
 
 ### Features

@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.5.0) (2025-10-21)
+
+### Features
+
+- **plugin-plugin:** Merge in all required plugin functionality
+  ([8ed6862](https://github.com/storm-software/powerlines/commit/8ed6862))
+- **plugin-eslint:** Initial check-in of the `eslint` plugin
+  ([8551a38](https://github.com/storm-software/powerlines/commit/8551a38))
+
+### Miscellaneous
+
+- **powerlines:** Clean up dependency installation code
+  ([a5a46d8](https://github.com/storm-software/powerlines/commit/a5a46d8))
+- **powerlines:** Remove old unused eslint module
+  ([63ea901](https://github.com/storm-software/powerlines/commit/63ea901))
+
 ## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.4.0) (2025-10-21)
 
 ### Features
