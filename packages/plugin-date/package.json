@@ -125,14 +125,8 @@
       }
     }
   },
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@powerlines/plugin-env": "workspace:*",
     "@storm-software/config-tools": "catalog:",
@@ -142,8 +136,7 @@
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
     "@storm-software/tsup": "catalog:",
-    "@types/node": "catalog:",
-    "tsup": "catalog:"
+    "@types/node": "catalog:"
   },
   "publishConfig": {
     "access": "public"

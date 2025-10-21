@@ -20,6 +20,8 @@
       "@powerlines/plugin-env/*": ["packages/plugin-env/src/*"],
       "@powerlines/plugin-esbuild": ["packages/plugin-esbuild/src/index.ts"],
       "@powerlines/plugin-esbuild/*": ["packages/plugin-esbuild/src/*"],
+      "@powerlines/plugin-id": ["packages/plugin-id/src/index.ts"],
+      "@powerlines/plugin-id/*": ["packages/plugin-id/src/*"],
       "@powerlines/plugin-plugin": ["packages/plugin-plugin/src/index.ts"],
       "@powerlines/plugin-plugin/*": ["packages/plugin-plugin/src/*"],
       "@powerlines/plugin-tsup": ["packages/plugin-tsup/src/index.ts"],

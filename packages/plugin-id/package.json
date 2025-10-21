@@ -1,12 +1,12 @@
 {
-  "name": "@powerlines/plugin-deepkit",
+  "name": "@powerlines/plugin-id",
   "version": "0.0.1",
   "type": "module",
-  "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
+  "description": "A Powerlines plugin that provides unique identifier generation capabilities at runtime by adding the `id` builtin module.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-deepkit"
+    "directory": "packages/plugin-id"
   },
   "homepage": "https://stormsoftware.com",
   "bugs": {
@@ -38,8 +38,6 @@
   },
   "license": "Apache-2.0",
   "private": false,
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -57,20 +55,6 @@
       }
     },
     "./index": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "default": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
-    },
-    "./plugin": {
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
@@ -112,60 +96,46 @@
         "default": "./dist/types/*.js"
       }
     },
-    "./helpers": {
+    "./components": {
       "import": {
-        "types": "./dist/helpers/index.d.ts",
-        "default": "./dist/helpers/index.js"
+        "types": "./dist/components/index.d.ts",
+        "default": "./dist/components/index.js"
       },
       "require": {
-        "types": "./dist/helpers/index.d.cts",
-        "default": "./dist/helpers/index.cjs"
+        "types": "./dist/components/index.d.cts",
+        "default": "./dist/components/index.cjs"
       },
       "default": {
-        "types": "./dist/helpers/index.d.ts",
-        "default": "./dist/helpers/index.js"
+        "types": "./dist/components/index.d.ts",
+        "default": "./dist/components/index.js"
       }
     },
-    "./helpers/*": {
+    "./components/*": {
       "import": {
-        "types": "./dist/helpers/*.d.ts",
-        "default": "./dist/helpers/*.js"
+        "types": "./dist/components/*.d.ts",
+        "default": "./dist/components/*.js"
       },
       "require": {
-        "types": "./dist/helpers/*.d.cts",
-        "default": "./dist/helpers/*.cjs"
+        "types": "./dist/components/*.d.cts",
+        "default": "./dist/components/*.cjs"
       },
       "default": {
-        "types": "./dist/helpers/*.d.ts",
-        "default": "./dist/helpers/*.js"
+        "types": "./dist/components/*.d.ts",
+        "default": "./dist/components/*.js"
       }
     }
   },
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "deepkit",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
-    "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
-    "@stryke/type-checks": "catalog:",
-    "@stryke/types": "catalog:",
-    "chalk": "catalog:",
     "defu": "catalog:",
-    "jiti": "catalog:",
-    "powerlines": "workspace:*",
-    "typescript": "^5.9.3",
-    "unplugin": "catalog:"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
+    "@storm-software/tsup": "catalog:",
     "@types/node": "catalog:"
   },
   "publishConfig": {

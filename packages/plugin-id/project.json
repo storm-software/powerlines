@@ -1,8 +1,8 @@
 {
-  "name": "plugin-env",
+  "name": "plugin-id",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "packages/plugin-env/src",
+  "sourceRoot": "packages/plugin-id/src",
   "targets": {
     "clean": {
       "executor": "@powerlines/nx:clean"
