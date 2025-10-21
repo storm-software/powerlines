@@ -16,14 +16,18 @@
 
  ------------------------------------------------------------------- */
 
-import babel from "@powerlines/plugin-babel";
-import tsup from "@powerlines/plugin-tsup";
+import alloyBabelPreset from "@alloy-js/babel-preset";
+import typescriptBabelPreset from "@babel/preset-typescript";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
+import { build, resolveOptions } from "@storm-software/tsup";
 import { copyFiles } from "@stryke/fs/copy-file";
 import { StormJSON } from "@stryke/json/storm-json";
 import { appendPath } from "@stryke/path/append";
-import { findFileExtension } from "@stryke/path/find";
+import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join";
+import { defu } from "defu";
+import eslintBabelPlugin from "esbuild-plugin-babel";
+import { extractTsupConfig, resolveTsupEntry } from "powerlines/lib/build/tsup";
 import { Plugin } from "powerlines/types/plugin";
 import {
   PluginPluginContext,
@@ -43,7 +47,6 @@ export const plugin = <
 ): Plugin<TContext> => {
   return {
     name: "plugin",
-    dependsOn: options.alloy ? [babel(), tsup()] : [tsup()],
     config() {
       this.log(
         LogLevelLabel.TRACE,
@@ -58,31 +61,6 @@ export const plugin = <
           projectDistPath: "dist",
           format: ["cjs", "esm"]
         },
-        transform: options.alloy
-          ? {
-              babel: {
-                presets: [
-                  [
-                    "@babel/preset-typescript",
-                    {
-                      allExtensions: true,
-                      allowDeclareFields: true,
-                      isTSX: true
-                    },
-                    (code: string, id: string) =>
-                      findFileExtension(id) === "tsx"
-                  ],
-                  [
-                    "@alloy-js/babel-preset",
-                    {},
-                    (code: string, id: string) =>
-                      findFileExtension(id) === "jsx" ||
-                      findFileExtension(id) === "tsx"
-                  ]
-                ]
-              }
-            }
-          : undefined,
         build: {
           external: ["powerlines"],
           bundle: false,
@@ -115,32 +93,73 @@ export const plugin = <
         );
       }
     },
-    build: {
-      order: "post",
-      async handler() {
-        if (
-          this.config.override.outputPath &&
-          this.config.override.outputPath !== this.config.output.outputPath
-        ) {
-          this.log(
-            LogLevelLabel.INFO,
-            `Copying built files from override output path (${this.config.override.outputPath}) to final output path (${this.config.output.outputPath}).`
-          );
+    async build() {
+      await build(
+        await resolveOptions(
+          defu(
+            {
+              config: false,
+              entry: Object.fromEntries(
+                Object.entries(resolveTsupEntry(this, this.entry)).map(
+                  ([key, value]) => [
+                    key,
+                    isParentPath(value, this.config.projectRoot)
+                      ? value
+                      : joinPaths(this.config.projectRoot, value)
+                  ]
+                )
+              )
+            },
+            extractTsupConfig(this),
+            {
+              esbuildPlugins: options.alloy
+                ? [
+                    eslintBabelPlugin({
+                      filter: /\.tsx$/,
+                      config: {
+                        presets: [
+                          [
+                            typescriptBabelPreset,
+                            {
+                              allExtensions: true,
+                              allowDeclareFields: true,
+                              isTSX: true
+                            }
+                          ],
+                          alloyBabelPreset
+                        ]
+                      },
+                      excludeNodeModules: true
+                    })
+                  ]
+                : []
+            }
+          )
+        )
+      );
 
-          await copyFiles(
+      if (
+        this.config.override.outputPath &&
+        this.config.override.outputPath !== this.config.output.outputPath
+      ) {
+        this.log(
+          LogLevelLabel.INFO,
+          `Copying built files from override output path (${this.config.override.outputPath}) to final output path (${this.config.output.outputPath}).`
+        );
+
+        await copyFiles(
+          appendPath(
+            this.config.override.outputPath,
+            this.workspaceConfig.workspaceRoot
+          ),
+          joinPaths(
             appendPath(
-              this.config.override.outputPath,
+              this.config.output.outputPath,
               this.workspaceConfig.workspaceRoot
             ),
-            joinPaths(
-              appendPath(
-                this.config.output.outputPath,
-                this.workspaceConfig.workspaceRoot
-              ),
-              "dist"
-            )
-          );
-        }
+            "dist"
+          )
+        );
       }
     }
   };

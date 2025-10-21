@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -16,9 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-declare module "@babel/plugin-syntax-typescript" {
-  function typescript(): {
-    manipulateOptions: (opts: any, parserOpts: { plugins: string[] }) => void;
-  };
-  export default typescript;
-}
+import plugin from "@powerlines/plugin-plugin";
+import { defineConfig } from "powerlines/define-config";
+
+export default defineConfig({
+  skipCache: true,
+  entry: ["src/index.ts", "src/types/*.ts", "src/helpers/*.ts"],
+  plugins: [
+    plugin({
+      alloy: false
+    })
+  ]
+});

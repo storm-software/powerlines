@@ -16,13 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-import { definePluginTsupConfig } from "@powerlines/tools-config/tsup.plugin";
+import plugin from "@powerlines/plugin-plugin";
+import { defineConfig } from "powerlines/define-config";
 
-const config = definePluginTsupConfig([
-  {
-    name: "plugin-babel",
-    entry: ["src/*.ts", "src/types/*.ts", "src/helpers/*.ts"]
-  }
-]);
-
-export default config;
+export default defineConfig({
+  skipCache: true,
+  entry: ["src/index.ts", "src/types/*.ts", "src/helpers/*.ts"],
+  plugins: [
+    plugin({
+      alloy: false
+    })
+  ]
+});

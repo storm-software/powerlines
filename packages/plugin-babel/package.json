@@ -142,15 +142,8 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "babel",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["babel", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@babel/core": "catalog:",
     "@babel/generator": "catalog:",
@@ -170,6 +163,7 @@
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

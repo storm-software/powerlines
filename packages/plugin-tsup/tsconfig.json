@@ -1,10 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "rootDir": "../..",
-    "types": ["node"],
-    "outDir": "dist"
-  },
-  "include": ["src/**/*.ts", "tsup.config.ts"],
-  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+  "compilerOptions": { "types": ["node"], "outDir": "../../dist/out-tsc" },
+  "include": ["src/**/*.ts", "powerlines.config.ts"],
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "reflection": true
 }

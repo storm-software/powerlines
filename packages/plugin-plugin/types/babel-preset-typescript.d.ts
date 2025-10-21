@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -16,9 +16,18 @@
 
  ------------------------------------------------------------------- */
 
-declare module "@babel/plugin-syntax-jsx" {
-  function jsx(): {
-    manipulateOptions: (opts: any, parserOpts: { plugins: string[] }) => void;
+declare module "@babel/preset-typescript" {
+  interface TypeScriptPresetOptions {
+    isTSX?: boolean;
+    allExtensions?: boolean;
+    allowDeclareFields?: boolean;
+    allowNamespaces?: boolean;
+    onlyRemoveTypeImports?: boolean;
+  }
+
+  function preset(options?: TypeScriptPresetOptions): {
+    visitor: any;
   };
-  export default jsx;
+
+  export default preset;
 }

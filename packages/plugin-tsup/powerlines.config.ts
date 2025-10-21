@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -16,16 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-import { defineTsupConfig } from "@powerlines/tools-config/tsup.shared";
+import plugin from "@powerlines/plugin-plugin";
+import { defineConfig } from "powerlines/define-config";
 
-const config = defineTsupConfig([
-  {
-    name: "plugin-esbuild",
-    entry: ["src/*.ts", "src/types/*.ts", "src/helpers/*.ts"],
-    clean: true,
-    sourcemap: true,
-    skipNodeModulesBundle: true
-  }
-]);
-
-export default config;
+export default defineConfig({
+  skipCache: true,
+  entry: ["src/index.ts", "src/types/*.ts", "src/helpers/*.ts"],
+  plugins: [
+    plugin({
+      alloy: false
+    })
+  ]
+});

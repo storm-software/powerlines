@@ -37,6 +37,7 @@ const config = defineTsupConfig([
     name: "core-lib",
     entry: [
       "src/lib/*.ts",
+      "src/lib/build/*.ts",
       "src/lib/deepkit/*.ts",
       "src/lib/typedoc/*.ts",
       "src/lib/typedoc/helpers/*.ts",
