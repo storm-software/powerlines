@@ -95,7 +95,7 @@ pre-push:
         - "*.tsx"
         - "*.json"
         - "*.jsonc"
-      run: pnpm exec sherif -f -i typescript -i react -i react-dom
+      run: pnpm exec sherif -i typescript -i react -i react-dom
       stage_fixed: true
     readme:
       glob: "**/*"
