@@ -71,7 +71,6 @@ import type { Plugin } from "../types/plugin";
 import { EnvironmentResolvedConfig, ResolvedConfig } from "../types/resolved";
 import { __VFS_INIT__, __VFS_REVERT__ } from "../types/vfs";
 import { PowerlinesAPIContext } from "./contexts/api-context";
-import { eslint } from "./helpers/eslint";
 import { generateTypes } from "./helpers/generate-types";
 import { callHook, CallHookOptions } from "./helpers/hooks";
 import { installDependencies } from "./helpers/install-dependencies";
@@ -444,7 +443,6 @@ export class PowerlinesAPI<
         await this.callPreHook(context, "lint");
 
         await typeCheck(context);
-        await eslint(context, true, context.config.lint.eslint);
 
         await this.callNormalHook(context, "lint");
 
