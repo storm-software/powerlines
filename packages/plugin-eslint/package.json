@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-eslint",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "A package containing a Powerlines plugin for running TypeDoc on the codebase.",
   "repository": {
@@ -108,7 +108,7 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/nx": "0.5.1",
     "@storm-software/tsup": "catalog:",
     "@types/node": "catalog:"
   },

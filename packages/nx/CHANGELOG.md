@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.5.1](https://github.com/storm-software/powerlines/releases/tag/nx%400.5.1) (2025-10-21)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository `package.json` files
+  ([dc79d28](https://github.com/storm-software/powerlines/commit/dc79d28))
+
 ## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/nx%400.5.0) (2025-10-21)
 
 ### Features

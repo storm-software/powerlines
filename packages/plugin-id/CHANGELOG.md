@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.4.1](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.4.1) (2025-10-21)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository `package.json` files
+  ([dc79d28](https://github.com/storm-software/powerlines/commit/dc79d28))
+
+### Updated Dependencies
+
+- Updated nx to 0.5.1
+
 ## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.4.0) (2025-10-21)
 
 ### Features

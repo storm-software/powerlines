@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Alloy
 
+## [0.5.1](https://github.com/storm-software/powerlines/releases/tag/alloy%400.5.1) (2025-10-21)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository `package.json` files
+  ([dc79d28](https://github.com/storm-software/powerlines/commit/dc79d28))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.6.1
+- Updated nx to 0.5.1
+
 ## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/alloy%400.5.0) (2025-10-21)
 
 ### Features

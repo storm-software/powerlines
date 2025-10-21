@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.6.1](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.6.1) (2025-10-21)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository `package.json` files
+  ([dc79d28](https://github.com/storm-software/powerlines/commit/dc79d28))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.6.1
+- Updated nx to 0.5.1
+
 ## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.6.0) (2025-10-21)
 
 ### Features

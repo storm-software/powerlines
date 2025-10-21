@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-plugin",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
@@ -136,7 +136,7 @@
   },
   "devDependencies": {
     "@alloy-js/rollup-plugin": "catalog:",
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/nx": "0.5.1",
     "@rollup/plugin-commonjs": "catalog:",
     "@rollup/plugin-node-resolve": "catalog:",
     "@types/babel__helper-plugin-utils": "catalog:",
