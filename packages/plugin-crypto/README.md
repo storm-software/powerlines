@@ -47,6 +47,13 @@ This package is part of the ⚡<b>Powerlines</b> monorepo. Powerlines packages i
 
 A Powerlines plugin that provides cryptography capabilities at runtime by adding the `crypto` builtin module.
 
+Since cryptography is such a complex and nuanced topic, this plugin relies on the noble cryptography packages since they are audited for security and written in pure TypeScript.
+
+The noble packages used can be found below:
+
+- [`@noble/ciphers`](https://www.npmjs.com/package/@noble/ciphers)
+- [`@noble/hashes`](https://www.npmjs.com/package/@noble/hashes)
+
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents

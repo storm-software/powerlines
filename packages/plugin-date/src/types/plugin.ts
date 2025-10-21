@@ -18,6 +18,7 @@
 
 import {
   EnvPluginContext,
+  EnvPluginOptions,
   EnvPluginResolvedConfig,
   EnvPluginUserConfig
 } from "@powerlines/plugin-env/types/plugin";
@@ -38,20 +39,25 @@ export interface DatePluginOptions {
    * @defaultValue "date-fns"
    */
   type?: DateLibraryType;
+
+  /**
+   * Options for the Env plugin.
+   */
+  env?: EnvPluginOptions;
 }
 
 export interface DatePluginUserConfig extends EnvPluginUserConfig {
   /**
    * Options for the date plugin.
    */
-  date?: DatePluginOptions;
+  date?: Omit<DatePluginOptions, "env">;
 }
 
 export interface DatePluginResolvedConfig extends EnvPluginResolvedConfig {
   /**
    * Options for the date plugin.
    */
-  date: Required<DatePluginOptions>;
+  date: Required<Omit<DatePluginOptions, "env">>;
 }
 
 export type DatePluginContext<

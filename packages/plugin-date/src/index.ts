@@ -42,7 +42,7 @@ export function plugin(
 ): Plugin<DatePluginContext> {
   return {
     name: "date",
-    dependsOn: [env()],
+    dependsOn: [env(options.env)],
     async config() {
       this.log(
         LogLevelLabel.TRACE,
