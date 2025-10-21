@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Alloy
 
+## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/alloy%400.4.0) (2025-10-21)
+
+### Features
+
+- **plugin-crypto:** Added the `hash` function to generated builtin module
+  ([380c79a](https://github.com/storm-software/powerlines/commit/380c79a))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.5.0
+- Updated nx to 0.5.0
+
 ## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/alloy%400.3.0) (2025-10-21)
 
 ### Features

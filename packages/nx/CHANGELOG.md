@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/nx%400.5.0) (2025-10-21)
+
+### Features
+
+- **plugin-crypto:** Added the `hash` function to generated builtin module
+  ([380c79a](https://github.com/storm-software/powerlines/commit/380c79a))
+
 ## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/nx%400.4.0) (2025-10-21)
 
 ### Features

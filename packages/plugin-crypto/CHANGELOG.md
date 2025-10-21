@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.2.0) (2025-10-21)
+
+### Features
+
+- **plugin-crypto:** Added the `hash` function to generated builtin module
+  ([380c79a](https://github.com/storm-software/powerlines/commit/380c79a))
+
+### Miscellaneous
+
+- **monorepo:** Added `jsx` configuration to clear TypeScript warning
+  ([f107f5d](https://github.com/storm-software/powerlines/commit/f107f5d))
+
+### Updated Dependencies
+
+- Updated plugin-env to 0.4.0
+- Updated nx to 0.5.0
+
 ## [0.1.0](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.1.0) (2025-10-21)
 
 ### Features
