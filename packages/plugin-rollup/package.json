@@ -145,20 +145,20 @@
   "files": ["dist/**/*"],
   "keywords": ["rollup", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
+    "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
-    "@stryke/convert": "catalog:",
     "defu": "catalog:",
-    "rollup": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.5.0",
+    "powerlines": "workspace:*",
+    "rollup": "catalog:",
     "unplugin": "catalog:"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
-    "@powerlines/plugin-plugin": "0.6.0",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

@@ -375,7 +375,7 @@
     "@babel/plugin-syntax-jsx": "catalog:",
     "@babel/plugin-syntax-typescript": "catalog:",
     "@babel/plugin-transform-typescript": "catalog:",
-    "@powerlines/plugin-plugin": "0.6.0",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",
@@ -390,7 +390,7 @@
     "@vue/reactivity": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.5.0",
+    "powerlines": "workspace:*",
     "prettier": "catalog:"
   },
   "devDependencies": {

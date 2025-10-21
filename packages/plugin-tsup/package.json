@@ -150,11 +150,11 @@
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "defu": "catalog:",
-    "powerlines": "0.5.0"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
-    "@powerlines/plugin-plugin": "0.6.0",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

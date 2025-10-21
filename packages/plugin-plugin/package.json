@@ -123,16 +123,16 @@
     "@alloy-js/markdown": "catalog:",
     "@alloy-js/typescript": "catalog:",
     "@babel/preset-typescript": "catalog:",
+    "@storm-software/tsup": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/json": "catalog:",
-    "@storm-software/tsup": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "defu": "catalog:",
     "esbuild-plugin-babel": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.5.0"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@alloy-js/rollup-plugin": "catalog:",
