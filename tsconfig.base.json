@@ -26,6 +26,8 @@
       "@powerlines/plugin-id/*": ["packages/plugin-id/src/*"],
       "@powerlines/plugin-plugin": ["packages/plugin-plugin/src/index.ts"],
       "@powerlines/plugin-plugin/*": ["packages/plugin-plugin/src/*"],
+      "@powerlines/plugin-rolldown": ["packages/plugin-rolldown/src/index.ts"],
+      "@powerlines/plugin-rolldown/*": ["packages/plugin-rolldown/src/*"],
       "@powerlines/plugin-rollup": ["packages/plugin-rollup/src/index.ts"],
       "@powerlines/plugin-rollup/*": ["packages/plugin-rollup/src/*"],
       "@powerlines/plugin-tsup": ["packages/plugin-tsup/src/index.ts"],

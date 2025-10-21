@@ -97,8 +97,14 @@
       }
     }
   },
-  "files": ["dist/**/*"],
-  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
     "@stryke/fs": "catalog:",
@@ -108,7 +114,7 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@powerlines/nx": "0.5.1",
+    "@powerlines/nx": "workspace:*",
     "@storm-software/tsup": "catalog:",
     "@types/node": "catalog:"
   },

@@ -1,12 +1,12 @@
 {
-  "name": "@powerlines/plugin-vite",
-  "version": "0.6.1",
+  "name": "@powerlines/plugin-rolldown",
+  "version": "0.1.0",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-vite"
+    "directory": "packages/plugin-rolldown"
   },
   "homepage": "https://stormsoftware.com",
   "bugs": {
@@ -142,16 +142,10 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "vite",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["rolldown", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
+    "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
@@ -159,7 +153,8 @@
     "defu": "catalog:",
     "jiti": "catalog:",
     "powerlines": "workspace:*",
-    "vite": "catalog:"
+    "rolldown": "catalog:",
+    "unplugin": "catalog:"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
