@@ -121,22 +121,6 @@ export type BabelUserConfig = Parameters<typeof transformAsync>[1] & {
   presets?: BabelTransformPluginOptions[];
 };
 
-export interface ESLintConfig {
-  eslintOptions?: any;
-  reportErrorsOnly?: boolean;
-  maxWarnings?: number;
-  formatter?: string | null;
-  outputFile?: string | null;
-  type?: "base" | "recommended" | "strict";
-}
-
-export interface LintConfig {
-  /**
-   * Configuration options for ESLint
-   */
-  eslint?: ESLintConfig;
-}
-
 export interface OutputConfig {
   /**
    * The path to output the final compiled files to
@@ -252,7 +236,7 @@ export interface BaseConfig {
   /**
    * Configuration for linting the source code
    */
-  lint?: LintConfig | false;
+  lint?: Record<string, any> | false;
 
   /**
    * Configuration for the output of the build process

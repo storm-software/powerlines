@@ -38,7 +38,8 @@ export function plugin(
     config() {
       return {
         crypto: {
-          salt: options.salt
+          salt: options.salt,
+          encryptionKey: options.encryptionKey
         }
       };
     },
@@ -52,6 +53,15 @@ export function plugin(
           LogLevelLabel.WARN,
           `No salt provided for the Crypto plugin. ` +
             `It's highly recommended to provide a unique salt via the plugin options or the SALT environment variable.`
+        );
+      }
+
+      this.config.crypto.encryptionKey ??= this.env.parsed.ENCRYPTION_KEY;
+      if (!this.config.crypto.encryptionKey) {
+        this.log(
+          LogLevelLabel.WARN,
+          `No encryption key provided for the Crypto plugin. ` +
+            `It's highly recommended to provide a secure encryption key via the plugin options or the ENCRYPTION_KEY environment variable.`
         );
       }
     },

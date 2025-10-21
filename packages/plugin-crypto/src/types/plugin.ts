@@ -33,6 +33,14 @@ export interface CryptoPluginOptions {
   salt?: string;
 
   /**
+   * The encryption key used for encrypting and decrypting data.
+   *
+   * @remarks
+   * If not provided, the plugin will attempt to read the key from the `ENCRYPTION_KEY` environment variable.
+   */
+  encryptionKey?: string;
+
+  /**
    * Options for the Env plugin.
    */
   env?: EnvPluginOptions;

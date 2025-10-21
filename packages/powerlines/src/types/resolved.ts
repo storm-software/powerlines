@@ -28,7 +28,6 @@ import type {
   ESBuildUserConfig,
   FarmUserConfig,
   InlineConfig,
-  LintConfig,
   OutputConfig,
   RolldownUserConfig,
   RollupUserConfig,
@@ -76,8 +75,6 @@ export type EnvironmentResolvedConfig = Omit<
     preview?: ResolvedPreviewOptions;
   };
 
-export type LintResolvedConfig = Required<LintConfig>;
-
 export type ResolvedAssetGlob = AssetGlob & Required<Pick<AssetGlob, "input">>;
 
 export type OutputResolvedConfig = Required<
@@ -118,6 +115,7 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
       | "mode"
       | "environments"
       | "tsconfig"
+      | "lint"
       | "build"
       | "transform"
       | "override"
@@ -160,11 +158,6 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
      * The output configuration options to use for the build process
      */
     output: OutputResolvedConfig;
-
-    /**
-     * The linting configuration options to use for the build process
-     */
-    lint: LintResolvedConfig | false;
 
     /**
      * The log level to use for the Powerlines processes.

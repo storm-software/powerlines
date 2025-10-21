@@ -253,7 +253,7 @@ export interface Context<
   /**
    * The project's `package.json` file content
    */
-  packageJson: PackageJson;
+  packageJson: PackageJson & Record<string, any>;
 
   /**
    * The project's `project.json` file content

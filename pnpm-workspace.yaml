@@ -67,14 +67,14 @@ catalog:
   '@storm-software/unbuild': ^0.57.6
   '@storm-software/untyped': ^0.23.6
   '@storm-software/workspace-tools': ^1.292.6
-  '@stryke/capnp': ^0.11.24
+  '@stryke/capnp': ^0.12.0
   '@stryke/convert': ^0.6.0
-  '@stryke/env': ^0.19.12
-  '@stryke/fs': ^0.31.4
+  '@stryke/env': ^0.20.0
+  '@stryke/fs': ^0.32.0
   '@stryke/hash': ^0.12.0
   '@stryke/helpers': ^0.9.2
   '@stryke/json': ^0.9.3
-  '@stryke/path': ^0.15.5
+  '@stryke/path': ^0.16.0
   '@stryke/string-format': ^0.12.0
   '@stryke/type-checks': ^0.3.10
   '@stryke/types': ^0.10.0

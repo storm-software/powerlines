@@ -39,12 +39,13 @@ import { xchacha20poly1305, chacha20poly1305 } from "@noble/ciphers/chacha.js";
 import { randomBytes, managedNonce } from "@noble/ciphers/utils.js";
 import { scrypt } from "@noble/hashes/scrypt.js";
 import { blake3 } from "@noble/hashes/blake3.js";
-
-const CIPHER_KEY_LENGTH = 32; // https://stackoverflow.com/a/28307668/4397028
-const CIPHER_NONCE_LENGTH = 24;
-
-const nonce = randomBytes(CIPHER_NONCE_LENGTH);
-const chacha = xchacha20poly1305("${context.env.parsed.ENCRYPTION_KEY}", nonce);
+${
+  context.config.crypto.encryptionKey
+    ? `
+const nonce = randomBytes(24);
+const chacha = xchacha20poly1305(new TextEncoder().encode("${
+        context.config.crypto.encryptionKey
+      }"), nonce);
 
 /**
  * Symmetrically encrypts data using the [ChaCha20-Poly1305](https://en.wikipedia.org/wiki/ChaCha20-Poly1305) cipher.
@@ -79,6 +80,9 @@ export function decrypt(encrypted: string): string {
 
   return new TextDecoder().decode(decrypted);
 }
+`
+    : ""
+}
 
 /**
  * Symmetrically encrypts data using the [ChaCha20-Poly1305](https://en.wikipedia.org/wiki/ChaCha20-Poly1305) cipher with a password.
@@ -96,7 +100,7 @@ export function encryptWithPassword(password: string, plaintext: string): string
     1048576, // requires 1GB of RAM to calculate
     8,
     1,
-    CIPHER_KEY_LENGTH
+    32
   );
 
   return chacha20poly1305(key).encrypt(
@@ -122,7 +126,7 @@ export function decryptWithPassword(password: string, encrypted: string): string
     1048576, // requires 1GB of RAM to calculate
     8,
     1,
-    CIPHER_KEY_LENGTH
+    32
   );
 
   const decrypted = chacha20poly1305(key).decrypt(
