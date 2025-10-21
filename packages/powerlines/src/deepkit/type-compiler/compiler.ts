@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./isolated-decl";
-export * from "./program";
-export * from "./transpile";
-export * from "./tsconfig";
+// Re-exported Deepkit - Type Compiler module
+
+export * from "@deepkit/type-compiler/compiler";

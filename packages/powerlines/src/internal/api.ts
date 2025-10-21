@@ -295,7 +295,7 @@ export class PowerlinesAPI<
       //   }
       // );
 
-      context.fs[__VFS_REVERT__]();
+      // context.fs[__VFS_REVERT__]();
     });
 
     this.context.log(

@@ -5550,7 +5550,7 @@ index 4bdf427c767f2b89fc30bfea8a1ebb97ea9d2fc7..4c993d6cf7db1b6d4633028a8a5560d0
 +  console.log("Deepkit Type: Injected TypeScript transformer at", file);
  }
 diff --git a/package.json b/package.json
-index ada14263460c814d2ee7a056d5b6974607aec13a..8302ce976f8d7d3e01e766c2a43dc462c237ca4d 100644
+index ada14263460c814d2ee7a056d5b6974607aec13a..4cec39560655c127a284e0390bab88dcd1e34012 100644
 --- a/package.json
 +++ b/package.json
 @@ -2,7 +2,6 @@
@@ -5561,7 +5561,7 @@ index ada14263460c814d2ee7a056d5b6974607aec13a..8302ce976f8d7d3e01e766c2a43dc462
    "main": "./dist/cjs/index.js",
    "module": "./dist/esm/index.js",
    "types": "./dist/cjs/index.d.ts",
-@@ -16,6 +15,11 @@
+@@ -16,6 +15,16 @@
        "types": "./dist/cjs/plugin.d.ts",
        "require": "./dist/cjs/plugin.js",
        "default": "./dist/esm/plugin.js"
@@ -5570,10 +5570,15 @@ index ada14263460c814d2ee7a056d5b6974607aec13a..8302ce976f8d7d3e01e766c2a43dc462
 +      "types": "./dist/cjs/src/compiler.d.ts",
 +      "require": "./dist/cjs/src/compiler.js",
 +      "default": "./dist/esm/src/compiler.js"
++    },
++    "./config": {
++      "types": "./dist/cjs/src/config.d.ts",
++      "require": "./dist/cjs/src/config.js",
++      "default": "./dist/esm/src/config.js"
      }
    },
    "bin": {
-@@ -27,7 +31,7 @@
+@@ -27,7 +36,7 @@
      "access": "public"
    },
    "scripts": {
@@ -5582,7 +5587,7 @@ index ada14263460c814d2ee7a056d5b6974607aec13a..8302ce976f8d7d3e01e766c2a43dc462
      "install": "rm -rf node_modules/typescript && node ./deepkit-type-install.js || exit 0"
    },
    "repository": "https://github.com/deepkit/deepkit-framework",
-@@ -41,7 +45,7 @@
+@@ -41,7 +50,7 @@
      "@types/micromatch": "^4.0.2"
    },
    "dependencies": {
@@ -5591,6 +5596,17 @@ index ada14263460c814d2ee7a056d5b6974607aec13a..8302ce976f8d7d3e01e766c2a43dc462
      "@marcj/ts-clone-node": "^2.0.0",
      "@rollup/pluginutils": "^5.1.0",
      "@typescript/vfs": "1.5.0",
+@@ -60,9 +69,7 @@
+         }
+       ]
+     },
+-    "testMatch": [
+-      "**/tests/**/*.spec.ts"
+-    ],
++    "testMatch": ["**/tests/**/*.spec.ts"],
+     "moduleNameMapper": {
+       "(.+)\\.js": "$1"
+     }
 diff --git a/src/compiler.ts b/src/compiler.ts
 index 3b6d5a984e15c739a6e2477e4baa29767e3776d6..4cc0246201ddf22bef146f4122625ff1eae6c40d 100644
 --- a/src/compiler.ts

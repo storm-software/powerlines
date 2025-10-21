@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -23,12 +23,12 @@ import {
   InterfaceMember,
   InterfaceMemberProps
 } from "@alloy-js/typescript";
+import { pascalCase } from "@stryke/string-format/pascal-case";
 import {
   ReflectionClass,
   ReflectionProperty,
   stringifyType
 } from "powerlines/deepkit/type";
-import { pascalCase } from "@stryke/string-format/pascal-case";
 import {
   ReflectionClassContext,
   ReflectionPropertyContext

@@ -54,7 +54,7 @@ import type {
 } from "./build";
 import type { PluginContext } from "./context";
 import type { Plugin } from "./plugin";
-import type { DeepkitOptions, TSConfig } from "./tsconfig";
+import type { TSConfig } from "./tsconfig";
 import type { OutputModeType } from "./vfs";
 
 export type LogFn = (type: LogLevelLabel, ...args: string[]) => void;
@@ -203,21 +203,6 @@ export interface OutputConfig {
   assets?: Array<string | AssetGlob>;
 }
 
-export interface TransformConfig {
-  /**
-   * The Babel configuration options to use for the build process
-   */
-  babel?: BabelUserConfig;
-
-  /**
-   * Reflection configuration options for the Deepkit TSC custom transformers
-   *
-   * @remarks
-   * These options will be merged with the `tsconfig.json` file and the `tsconfigRaw` options.
-   */
-  deepkit?: DeepkitOptions;
-}
-
 export interface BaseConfig {
   /**
    * The name of the project
@@ -277,7 +262,7 @@ export interface BaseConfig {
   /**
    * Configuration for the transformation of the source code
    */
-  transform?: TransformConfig;
+  transform?: Record<string, any>;
 
   /**
    * Options to to provide to the build process

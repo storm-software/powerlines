@@ -71,7 +71,7 @@ const config = defineTsupConfig([
   },
   {
     name: "core-deepkit-compiler",
-    entry: ["src/deepkit/type-compiler.ts"],
+    entry: ["src/deepkit/type-compiler/**/*.ts"],
     outDir: "dist/deepkit",
     platform: "node",
     target: "esnext",

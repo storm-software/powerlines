@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -18,7 +18,7 @@
 
 import { camelCase } from "@stryke/string-format/camel-case";
 import { titleCase } from "@stryke/string-format/title-case";
-import { isUndefined } from "powerlines/deepkit/core";
+import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { ReflectionClass } from "powerlines/deepkit/type";
 import { stringifyValue } from "powerlines/lib/deepkit/utilities";
 
