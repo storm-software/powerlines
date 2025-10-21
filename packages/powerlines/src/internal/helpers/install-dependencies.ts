@@ -35,11 +35,19 @@ export async function installDependencies<TContext extends Context = Context>(
   );
 
   context.dependencies ??= {};
-  context.dependencies.powerlines = "latest";
 
-  if (context.config.projectType === "application") {
-    context.dependencies.unstorage = "latest";
-  }
+  context.log(
+    LogLevelLabel.TRACE,
+    `The following packages are required: \nDependencies: \n${Object.entries(
+      context.dependencies
+    )
+      .map(([name, version]) => `- ${name}@${String(version)}`)
+      .join(" \n")}\n\nDevDependencies: \n${Object.entries(
+      context.devDependencies
+    )
+      .map(([name, version]) => `- ${name}@${String(version)}`)
+      .join(" \n")}`
+  );
 
   await Promise.all([
     Promise.all(

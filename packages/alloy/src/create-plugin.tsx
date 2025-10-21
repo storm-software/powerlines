@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -23,7 +23,11 @@ import {
   RenderedTextTree,
   renderTree
 } from "@alloy-js/core";
+import { PluginPluginAlloyOptions } from "@powerlines/plugin-plugin/types/plugin";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
+import { isParentPath } from "@stryke/path/is-parent-path";
+import { replacePath } from "@stryke/path/replace";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import {
   getHookHandler,
   isPluginHook,
@@ -32,10 +36,6 @@ import {
 } from "powerlines/lib/utilities/plugin-helpers";
 import { PluginContext } from "powerlines/types/context";
 import { Plugin } from "powerlines/types/plugin";
-import { PluginPluginAlloyOptions } from "@powerlines/plugin-plugin/types/plugin";
-import { isParentPath } from "@stryke/path/is-parent-path";
-import { replacePath } from "@stryke/path/replace";
-import { isSetString } from "@stryke/type-checks/is-set-string";
 import { Doc } from "prettier";
 import { printer } from "prettier/doc.js";
 import { Output } from "./core/components/output";

@@ -78,7 +78,6 @@ import {
   initializeTsconfig,
   resolveTsconfig
 } from "./helpers/resolve-tsconfig";
-import { typeCheck } from "./helpers/tsc";
 
 /**
  * The Powerlines API class
@@ -440,17 +439,9 @@ export class PowerlinesAPI<
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
       if (context.config.lint !== false) {
-        await this.callPreHook(context, "lint");
-
-        await typeCheck(context);
-
-        await this.callNormalHook(context, "lint");
-
-        await this.callPostHook(context, "lint");
+        await this.callHook(context, "lint");
       }
     });
-
-    // await lint(this.context, this.#hooks);
 
     this.context.log(LogLevelLabel.TRACE, "Powerlines linting completed");
   }

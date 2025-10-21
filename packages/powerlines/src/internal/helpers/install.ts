@@ -43,10 +43,11 @@ export async function installPackage(
   packageName: string,
   dev = false
 ) {
-  const isListed = await isPackageListed(packageName, {
-    cwd: context.config.projectRoot
-  });
-  if (!isListed) {
+  if (
+    !(await isPackageListed(getPackageName(packageName), {
+      cwd: context.config.projectRoot
+    }))
+  ) {
     if (context.config.skipInstalls !== true && !process.env.POWERLINES_LOCAL) {
       context.log(
         LogLevelLabel.WARN,
