@@ -79,7 +79,7 @@ export function plugin(
         `Environment plugin configuration has been resolved for the Powerlines project.`
       );
 
-      this.dependencies[this.config.date.type] = { type: "dependency" };
+      this.dependencies[this.config.date.type] = "latest";
     },
     async prepare() {
       this.log(
