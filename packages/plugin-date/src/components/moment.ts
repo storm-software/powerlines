@@ -28,12 +28,12 @@ import { DatePluginContext } from "../types/plugin";
 export function momentModule(context: DatePluginContext) {
   return `
 /**
- * The Powerlines date module provides utility functions for date manipulation and formatting
+ * The Date module provides utility functions for date manipulation and formatting
  *
  * @module ${context.config.output.builtinPrefix}:date
  */
 
-${getFileHeader()}
+${getFileHeader(context)}
 
 import defaultMoment, { LongDateFormatKey } from "moment";
 import {

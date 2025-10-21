@@ -408,6 +408,13 @@ export interface CommonUserConfig extends BaseConfig {
    * Environment-specific configurations
    */
   environments?: Record<string, EnvironmentConfig>;
+
+  /**
+   * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
+   *
+   * @defaultValue "powerlines"
+   */
+  framework?: string;
 }
 
 export type UserConfig<

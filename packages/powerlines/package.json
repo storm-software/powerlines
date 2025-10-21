@@ -508,12 +508,7 @@
   },
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*",
-    "files/**/*",
-    "schemas/*",
-    "scripts/*"
-  ],
+  "files": ["dist/**/*", "files/**/*", "schemas/*", "scripts/*"],
   "keywords": [
     "powerlines",
     "storm-software",

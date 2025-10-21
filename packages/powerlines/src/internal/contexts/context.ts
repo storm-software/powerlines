@@ -133,7 +133,8 @@ export class PowerlinesContext<
       lint: config.lint,
       transform: config.transform,
       build: config.build,
-      override: config.override
+      override: config.override,
+      framework: config.framework
     };
   }
 
@@ -552,9 +553,15 @@ export class PowerlinesContext<
           output: {
             outputPath: joinPaths("dist", cacheKey.projectRoot),
             mode: "virtual" as OutputModeType,
-            dts: joinPaths(cacheKey.projectRoot, "powerlines.d.ts"),
-            builtinPrefix: "powerlines",
-            runtimeFolder: joinPaths(cacheKey.projectRoot, ".powerlines"),
+            dts: joinPaths(
+              cacheKey.projectRoot,
+              `${config.framework ?? "powerlines"}.d.ts`
+            ),
+            builtinPrefix: config.framework ?? "powerlines",
+            runtimeFolder: joinPaths(
+              cacheKey.projectRoot,
+              `.${config.framework ?? "powerlines"}`
+            ),
             assets: [
               {
                 glob: "LICENSE"
@@ -574,6 +581,7 @@ export class PowerlinesContext<
         {
           inlineConfig: {},
           userConfig: {},
+          framework: "powerlines",
           platform: "neutral",
           mode: "production",
           projectType: "application",

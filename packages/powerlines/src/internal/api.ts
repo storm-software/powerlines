@@ -244,7 +244,7 @@ export class PowerlinesAPI<
           "index",
           joinPaths(context.builtinsPath, "index.ts"),
           `
-  ${getFileHeader()}
+  ${getFileHeader(context)}
 
   ${(await context.fs.listBuiltinFiles())
     .filter(
@@ -295,7 +295,7 @@ export class PowerlinesAPI<
       //   }
       // );
 
-      // context.fs[__VFS_REVERT__]();
+      context.fs[__VFS_REVERT__]();
     });
 
     this.context.log(

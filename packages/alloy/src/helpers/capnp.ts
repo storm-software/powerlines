@@ -215,7 +215,7 @@ export async function generateCapnp(
   const capnpId = await generateCapnpId();
 
   return `${capnpId.trim()};
-${getBaseFileHeader()
+${getBaseFileHeader(context)
   .replace(/^\r*\n*/g, "")
   .replaceAll("//", "#")}
 ${

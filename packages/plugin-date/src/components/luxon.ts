@@ -28,12 +28,12 @@ import { DatePluginContext } from "../types/plugin";
 export function luxonModule(context: DatePluginContext) {
   return `
 /**
- * The Powerlines date module provides utility functions for date manipulation and formatting
+ * The Date module provides utility functions for date manipulation and formatting
  *
  * @module ${context.config.output.builtinPrefix}:date
  */
 
-${getFileHeader()}
+${getFileHeader(context)}
 
 import { DateTime, Settings, Info } from "luxon";
 import {
