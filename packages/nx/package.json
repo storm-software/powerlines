@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/nx",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A Nx plugin to support Powerlines development in Nx monorepos.",
   "repository": {
     "type": "github",
@@ -166,7 +166,7 @@
     "defu": "catalog:",
     "jiti": "catalog:",
     "nx": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.4.0"
   },
   "devDependencies": {
     "@nx/workspace": "catalog:",

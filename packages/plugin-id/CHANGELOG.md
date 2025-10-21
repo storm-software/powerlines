@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.2.0) (2025-10-21)
+
+### Features
+
+- **powerlines:** Added separate `devDependencies` node on contexts
+  ([c6f1fab](https://github.com/storm-software/powerlines/commit/c6f1fab))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.4.0
+- Updated nx to 0.4.0
+
 ## [0.1.0](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.1.0) (2025-10-21)
 
 ### Features

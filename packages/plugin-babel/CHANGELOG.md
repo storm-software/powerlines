@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.4.0) (2025-10-21)
+
+### Features
+
+- **powerlines:** Added separate `devDependencies` node on contexts
+  ([c6f1fab](https://github.com/storm-software/powerlines/commit/c6f1fab))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.4.0
+- Updated nx to 0.4.0
+
 ## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.3.0) (2025-10-21)
 
 ### Features
