@@ -1,12 +1,12 @@
 {
-  "name": "@powerlines/plugin-typedoc",
-  "version": "0.1.0",
+  "name": "@powerlines/plugin-deepkit",
+  "version": "0.0.1",
   "type": "module",
-  "description": "A package containing a Powerlines plugin for running TypeDoc on the codebase.",
+  "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-typedoc"
+    "directory": "packages/plugin-deepkit"
   },
   "homepage": "https://stormsoftware.com",
   "bugs": {
@@ -38,6 +38,8 @@
   },
   "license": "Apache-2.0",
   "private": false,
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -55,6 +57,20 @@
       }
     },
     "./index": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./plugin": {
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
@@ -95,23 +111,55 @@
         "types": "./dist/types/*.d.ts",
         "default": "./dist/types/*.js"
       }
+    },
+    "./helpers": {
+      "import": {
+        "types": "./dist/helpers/index.d.ts",
+        "default": "./dist/helpers/index.js"
+      },
+      "require": {
+        "types": "./dist/helpers/index.d.cts",
+        "default": "./dist/helpers/index.cjs"
+      },
+      "default": {
+        "types": "./dist/helpers/index.d.ts",
+        "default": "./dist/helpers/index.js"
+      }
+    },
+    "./helpers/*": {
+      "import": {
+        "types": "./dist/helpers/*.d.ts",
+        "default": "./dist/helpers/*.js"
+      },
+      "require": {
+        "types": "./dist/helpers/*.d.cts",
+        "default": "./dist/helpers/*.cjs"
+      },
+      "default": {
+        "types": "./dist/helpers/*.d.ts",
+        "default": "./dist/helpers/*.js"
+      }
     }
   },
+  "typings": "dist/index.d.ts",
   "files": ["dist/**/*"],
-  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": ["deepkit", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
+    "typescript": "^5.9.3",
     "@storm-software/config-tools": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "@stryke/types": "catalog:",
+    "chalk": "catalog:",
+    "defu": "catalog:",
+    "jiti": "catalog:",
     "powerlines": "workspace:*",
-    "typedoc": "catalog:",
-    "typedoc-plugin-markdown": "catalog:"
+    "unplugin": "catalog:"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
-    "@storm-software/tsup": "catalog:",
-    "@types/node": "catalog:",
-    "tsup": "catalog:"
+    "@types/node": "catalog:"
   },
   "publishConfig": {
     "access": "public"
