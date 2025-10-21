@@ -67,10 +67,10 @@ catalog:
   '@storm-software/unbuild': ^0.57.6
   '@storm-software/untyped': ^0.23.6
   '@storm-software/workspace-tools': ^1.292.6
-  '@stryke/capnp': ^0.12.0
+  '@stryke/capnp': ^0.12.2
   '@stryke/convert': ^0.6.0
-  '@stryke/env': ^0.20.0
-  '@stryke/fs': ^0.32.0
+  '@stryke/env': ^0.20.2
+  '@stryke/fs': ^0.32.2
   '@stryke/hash': ^0.12.0
   '@stryke/helpers': ^0.9.2
   '@stryke/json': ^0.9.3
@@ -177,6 +177,7 @@ overrides:
   '@powerlines/plugin-esbuild': workspace:*
   '@powerlines/plugin-id': workspace:*
   '@powerlines/plugin-plugin': workspace:*
+  '@powerlines/plugin-rollup': workspace:*
   '@powerlines/plugin-tsup': workspace:*
   '@powerlines/plugin-typedoc': workspace:*
   '@powerlines/plugin-vite': workspace:*

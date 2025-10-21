@@ -56,8 +56,6 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
       } as Partial<TsupUserConfig>;
     },
     async build() {
-      this.log(LogLevelLabel.TRACE, "Building the Powerlines plugin.");
-
       return build(
         await resolveOptions(
           defu(
