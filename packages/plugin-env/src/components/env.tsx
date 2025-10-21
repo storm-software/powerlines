@@ -388,7 +388,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
             "TypeProperty",
             "TypePropertySignature"
           ],
-          "powerlines/runtime-types/shared/env": [{ name: "EnvInterface" }]
+          "@powerlines/plugin-env/types/runtime": [{ name: "EnvInterface" }]
         },
         rest.imports ?? {}
       )}>

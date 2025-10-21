@@ -27,7 +27,10 @@ import { createDirectory } from "@stryke/fs/helpers";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join";
 import { constantCase } from "@stryke/string-format/constant-case";
-import { TypeDefinition } from "@stryke/types/configuration";
+import {
+  TypeDefinition,
+  TypeDefinitionParameter
+} from "@stryke/types/configuration";
 import defu from "defu";
 import {
   ReflectionClass,
@@ -50,11 +53,7 @@ import {
   writeEnvTypeReflection
 } from "./helpers/persistence";
 import { reflectEnv, reflectSecrets } from "./helpers/reflect";
-import {
-  EnvPluginContext,
-  EnvPluginOptions,
-  EnvPluginUserConfig
-} from "./types/plugin";
+import { EnvPluginContext, EnvPluginOptions } from "./types/plugin";
 
 export * from "./babel";
 export * from "./components";
@@ -77,7 +76,7 @@ export const plugin = createAlloyPlugin<EnvPluginOptions, EnvPluginContext>(
 
         const config = {
           env: defu(options, {
-            types: {},
+            types: {} as TypeDefinitionParameter,
             prefix: []
           }),
           transform: {
@@ -85,7 +84,7 @@ export const plugin = createAlloyPlugin<EnvPluginOptions, EnvPluginContext>(
               plugins: [envBabelPlugin]
             }
           }
-        } as EnvPluginUserConfig;
+        };
 
         if (config.env.types) {
           config.env.types = parseTypeDefinition(
@@ -117,9 +116,9 @@ export const plugin = createAlloyPlugin<EnvPluginOptions, EnvPluginContext>(
         }
 
         config.env.prefix = toArray(
-          config.env.prefix ?? ([] as string[])
+          (config.env.prefix ?? []) as string[]
         ).reduce(
-          (ret, prefix) => {
+          (ret: string[], prefix: string) => {
             const formattedPrefix = constantCase(prefix);
             if (!ret.includes(formattedPrefix)) {
               ret.push(formattedPrefix);
@@ -127,7 +126,7 @@ export const plugin = createAlloyPlugin<EnvPluginOptions, EnvPluginContext>(
 
             return ret;
           },
-          [...ENV_PREFIXES] as string[]
+          [...ENV_PREFIXES, "POWERLINES_"] as string[]
         );
 
         config.env.prefix = config.env.prefix.reduce((ret, prefix) => {
