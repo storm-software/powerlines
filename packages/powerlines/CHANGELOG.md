@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.3.0) (2025-10-21)
+
+### Features
+
+- **powerlines:** Added `framework` option to configuration
+  ([f6754a6](https://github.com/storm-software/powerlines/commit/f6754a6))
+
+### Miscellaneous
+
+- **powerlines:** Exposed additional `deepkit` modules in vendored code
+  ([60b433a](https://github.com/storm-software/powerlines/commit/60b433a))
+
 ## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.2.0) (2025-10-21)
 
 ### Features

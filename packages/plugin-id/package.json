@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-id",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "description": "A Powerlines plugin that provides unique identifier generation capabilities at runtime by adding the `id` builtin module.",
   "repository": {
@@ -131,10 +131,10 @@
     "@storm-software/config-tools": "catalog:",
     "@stryke/path": "catalog:",
     "defu": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.3.0"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/nx": "0.3.0",
     "@storm-software/tsup": "catalog:",
     "@types/node": "catalog:"
   },

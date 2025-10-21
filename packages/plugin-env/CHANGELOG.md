@@ -2,6 +2,27 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.2.0) (2025-10-21)
+
+### Features
+
+- **plugin-id:** Initial check-in of the `id` plugin
+  ([22a9d37](https://github.com/storm-software/powerlines/commit/22a9d37))
+
+### Bug Fixes
+
+- **plugin-env:** Resolve invalid import in component and added `POWERLINES`
+  default prefix
+  ([a914a81](https://github.com/storm-software/powerlines/commit/a914a81))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.3.0
+- Updated plugin-babel to 0.3.0
+- Updated powerlines to 0.3.0
+- Updated alloy to 0.2.0
+- Updated nx to 0.3.0
+
 ## [0.1.1](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.1.1) (2025-10-21)
 
 ### Miscellaneous

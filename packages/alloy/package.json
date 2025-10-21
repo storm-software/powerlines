@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/alloy",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "type": "module",
   "description": "A package containing various Alloy framework components and helper utilities.",
   "repository": {
@@ -375,7 +375,7 @@
     "@babel/plugin-syntax-jsx": "catalog:",
     "@babel/plugin-syntax-typescript": "catalog:",
     "@babel/plugin-transform-typescript": "catalog:",
-    "@powerlines/plugin-plugin": "workspace:*",
+    "@powerlines/plugin-plugin": "0.3.0",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",
@@ -390,12 +390,12 @@
     "@vue/reactivity": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*",
+    "powerlines": "0.3.0",
     "prettier": "catalog:"
   },
   "devDependencies": {
     "@babel/core": "catalog:",
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/nx": "0.3.0",
     "@storm-software/tsup": "catalog:",
     "@types/node": "catalog:"
   },

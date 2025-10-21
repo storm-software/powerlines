@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-babel",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
@@ -158,11 +158,11 @@
     "chalk": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*",
+    "powerlines": "0.3.0",
     "unplugin": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/nx": "0.3.0",
     "@types/node": "catalog:"
   },
   "publishConfig": {
