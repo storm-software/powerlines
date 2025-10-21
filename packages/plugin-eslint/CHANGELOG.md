@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.2.0) (2025-10-21)
+
+### Features
+
+- **plugin-rolldown:** Initial check-in of the `rolldown` plugin
+  ([f21578f](https://github.com/storm-software/powerlines/commit/f21578f))
+
 ## [0.1.1](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.1.1) (2025-10-21)
 
 ### Miscellaneous

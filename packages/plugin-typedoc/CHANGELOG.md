@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.6.0) (2025-10-21)
+
+### Features
+
+- **plugin-rolldown:** Initial check-in of the `rolldown` plugin
+  ([f21578f](https://github.com/storm-software/powerlines/commit/f21578f))
+
 ## [0.5.1](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.5.1) (2025-10-21)
 
 ### Miscellaneous

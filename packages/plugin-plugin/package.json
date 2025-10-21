@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-plugin",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
@@ -114,14 +114,8 @@
     }
   },
   "typings": "dist/src/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@alloy-js/babel-preset": "catalog:",
     "@alloy-js/core": "catalog:",

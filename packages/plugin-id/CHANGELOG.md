@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.5.0) (2025-10-21)
+
+### Features
+
+- **plugin-rolldown:** Initial check-in of the `rolldown` plugin
+  ([f21578f](https://github.com/storm-software/powerlines/commit/f21578f))
+
 ## [0.4.1](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.4.1) (2025-10-21)
 
 ### Miscellaneous

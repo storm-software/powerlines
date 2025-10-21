@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.7.0](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.7.0) (2025-10-21)
+
+### Features
+
+- **plugin-rolldown:** Initial check-in of the `rolldown` plugin
+  ([f21578f](https://github.com/storm-software/powerlines/commit/f21578f))
+
+### Updated Dependencies
+
+- Updated plugin-env to 0.6.0
+
 ## [0.6.1](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.6.1) (2025-10-21)
 
 ### Bug Fixes
