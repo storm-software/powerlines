@@ -16,7 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import { transform } from "oxc-transform";
+import { findFileExtension, findFileExtensionSafe } from "@stryke/path/find";
+import defu from "defu";
+import { transformAsync } from "oxc-transform";
 import { Plugin } from "powerlines/types/plugin";
 import {
   OxcTransformPluginContext,
@@ -42,12 +44,25 @@ export const plugin = <
     config() {
       return {
         transform: {
-          oxc: options
+          oxc: defu(options, {
+            sourceType: "module",
+            cwd: this.config.projectRoot,
+            envName: this.config.mode,
+            outputPath: this.config.output.outputPath,
+            sourcemap: this.config.mode === "development"
+          })
         }
       } as Partial<OxcTransformPluginUserConfig>;
     },
     async transform(code, id) {
-      return transform(id, code, this.config.transform.oxc);
+      const result = await transformAsync(id, code, {
+        lang: (["d.ts", "d.cts", "d.mts"].includes(findFileExtensionSafe(id))
+          ? "dts"
+          : findFileExtension(id)) as OxcTransformPluginOptions["lang"],
+        ...this.config.transform.oxc
+      });
+
+      return { id, code: result.code, map: result.map };
     }
   };
 };

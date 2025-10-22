@@ -1,8 +1,8 @@
 {
   "name": "@powerlines/plugin-oxc-transform",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "type": "module",
-  "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
+  "description": "A Powerlines plugin to transform project code with Oxc Transformer.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
@@ -152,6 +152,7 @@
   "dependencies": {
     "defu": "catalog:",
     "powerlines": "workspace:*",
+    "@stryke/path": "catalog:",
     "oxc-transform": "catalog:"
   },
   "devDependencies": {
