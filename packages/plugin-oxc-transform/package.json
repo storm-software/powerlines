@@ -1,12 +1,12 @@
 {
-  "name": "@powerlines/plugin-babel",
-  "version": "0.7.0",
+  "name": "@powerlines/plugin-oxc-transform",
+  "version": "0.1.0",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-babel"
+    "directory": "packages/plugin-oxc-transform"
   },
   "homepage": "https://stormsoftware.com",
   "bugs": {
@@ -142,31 +142,17 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
+  "files": ["dist/**/*"],
   "keywords": [
-    "babel",
+    "oxc-transform",
     "powerlines",
     "storm-software",
     "powerlines-plugin"
   ],
   "dependencies": {
-    "@babel/core": "catalog:",
-    "@babel/generator": "catalog:",
-    "@babel/helper-plugin-utils": "catalog:",
-    "@babel/parser": "catalog:",
-    "@babel/types": "catalog:",
-    "@storm-software/config-tools": "catalog:",
-    "@stryke/fs": "catalog:",
-    "@stryke/path": "catalog:",
-    "@stryke/type-checks": "catalog:",
-    "@stryke/types": "catalog:",
-    "chalk": "catalog:",
     "defu": "catalog:",
-    "jiti": "catalog:",
     "powerlines": "workspace:*",
-    "unplugin": "catalog:"
+    "oxc-transform": "catalog:"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",

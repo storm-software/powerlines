@@ -24,6 +24,12 @@
       "@powerlines/plugin-esbuild/*": ["packages/plugin-esbuild/src/*"],
       "@powerlines/plugin-id": ["packages/plugin-id/src/index.ts"],
       "@powerlines/plugin-id/*": ["packages/plugin-id/src/*"],
+      "@powerlines/plugin-oxc-transform": [
+        "packages/plugin-oxc-transform/src/index.ts"
+      ],
+      "@powerlines/plugin-oxc-transform/*": [
+        "packages/plugin-oxc-transform/src/*"
+      ],
       "@powerlines/plugin-plugin": ["packages/plugin-plugin/src/index.ts"],
       "@powerlines/plugin-plugin/*": ["packages/plugin-plugin/src/*"],
       "@powerlines/plugin-rolldown": ["packages/plugin-rolldown/src/index.ts"],

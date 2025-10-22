@@ -117,6 +117,7 @@ catalog:
   minimatch: ^10.0.3
   nanotar: ^0.2.0
   nx: 21.5.3
+  oxc-transform: ^0.95.0
   prettier: ^3.6.2
   rimraf: ^6.0.1
   rolldown: 1.0.0-beta.44
@@ -177,6 +178,7 @@ overrides:
   "@powerlines/plugin-env": workspace:*
   "@powerlines/plugin-esbuild": workspace:*
   "@powerlines/plugin-id": workspace:*
+  "@powerlines/plugin-oxc-transform": workspace:*
   "@powerlines/plugin-plugin": workspace:*
   "@powerlines/plugin-rolldown": workspace:*
   "@powerlines/plugin-rollup": workspace:*
