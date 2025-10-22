@@ -1,12 +1,12 @@
 {
-  "name": "@powerlines/plugin-eslint",
-  "version": "0.2.0",
+  "name": "@powerlines/plugin-oxlint",
+  "version": "0.0.1",
   "type": "module",
-  "description": "A package containing a Powerlines plugin for running ESLint on the codebase.",
+  "description": "A package containing a Powerlines plugin for running Oxlint on the codebase.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-eslint"
+    "directory": "packages/plugin-oxlint"
   },
   "homepage": "https://stormsoftware.com",
   "bugs": {
@@ -98,13 +98,15 @@
     }
   },
   "files": ["dist/**/*"],
-  "keywords": ["eslint", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": ["oxlint", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
+    "@stryke/cli": "catalog:",
     "defu": "catalog:",
-    "eslint": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
     "powerlines": "workspace:*"
   },
   "devDependencies": {

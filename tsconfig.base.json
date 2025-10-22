@@ -22,6 +22,8 @@
       "@powerlines/plugin-env/*": ["packages/plugin-env/src/*"],
       "@powerlines/plugin-esbuild": ["packages/plugin-esbuild/src/index.ts"],
       "@powerlines/plugin-esbuild/*": ["packages/plugin-esbuild/src/*"],
+      "@powerlines/plugin-eslint": ["packages/plugin-eslint/src/index.ts"],
+      "@powerlines/plugin-eslint/*": ["packages/plugin-eslint/src/*"],
       "@powerlines/plugin-id": ["packages/plugin-id/src/index.ts"],
       "@powerlines/plugin-id/*": ["packages/plugin-id/src/*"],
       "@powerlines/plugin-oxc-transform": [
@@ -30,6 +32,8 @@
       "@powerlines/plugin-oxc-transform/*": [
         "packages/plugin-oxc-transform/src/*"
       ],
+      "@powerlines/plugin-oxlint": ["packages/plugin-oxlint/src/index.ts"],
+      "@powerlines/plugin-oxlint/*": ["packages/plugin-oxlint/src/*"],
       "@powerlines/plugin-plugin": ["packages/plugin-plugin/src/index.ts"],
       "@powerlines/plugin-plugin/*": ["packages/plugin-plugin/src/*"],
       "@powerlines/plugin-rolldown": ["packages/plugin-rolldown/src/index.ts"],

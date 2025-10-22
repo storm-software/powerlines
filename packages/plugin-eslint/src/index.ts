@@ -33,6 +33,7 @@ import { Plugin } from "powerlines/types/plugin";
 import { formatMessage } from "./helpers/format-message";
 import { ESLintPluginContext, ESLintPluginOptions } from "./types/plugin";
 
+export * from "./helpers";
 export * from "./types";
 
 /**

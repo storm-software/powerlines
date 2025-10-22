@@ -43,15 +43,15 @@ This package is part of the ⚡<b>Powerlines</b> monorepo. Powerlines packages i
 
 <!-- END header -->
 
-# Powerlines - ESLint Plugin
+# Powerlines - Oxlint Plugin
 
-A package containing a Powerlines plugin that integrates ESLint into the Powerlines linting process, allowing for automatic linting of TypeScript source code.
+A package containing a Powerlines plugin that integrates Oxlint into the Powerlines linting process, allowing for automatic linting of TypeScript source code.
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Powerlines - ESLint Plugin](#powerlines---eslint-plugin)
+- [Powerlines - Oxlint Plugin](#powerlines---oxlint-plugin)
   - [Table of Contents](#table-of-contents)
   - [Installing](#installing)
   - [Reduced Package Size](#reduced-package-size)
@@ -74,14 +74,14 @@ A package containing a Powerlines plugin that integrates ESLint into the Powerli
 Using [pnpm](http://pnpm.io):
 
 ```bash
-pnpm add @powerlines/plugin-eslint
+pnpm add @powerlines/plugin-oxlint
 ```
 
 <details>
   <summary>Using npm</summary>
 
 ```bash
-npm install @powerlines/plugin-eslint
+npm install @powerlines/plugin-oxlint
 ```
 
 </details>
@@ -90,7 +90,7 @@ npm install @powerlines/plugin-eslint
   <summary>Using yarn</summary>
 
 ```bash
-yarn add @powerlines/plugin-eslint
+yarn add @powerlines/plugin-oxlint
 ```
 
 </details>
@@ -109,17 +109,17 @@ commands are available to assist in development.
 
 ### Building
 
-Run `nx build plugin-eslint` to build the library.
+Run `nx build plugin-oxlint` to build the library.
 
 ### Running unit tests
 
-Run `nx test plugin-eslint` to execute the unit tests via
+Run `nx test plugin-oxlint` to execute the unit tests via
 [Jest](https://jestjs.io).
 
 ### Linting
 
-Run `nx lint plugin-eslint` to run
-[ESLint](https://eslint.org/) on the package.
+Run `nx lint plugin-oxlint` to run
+[ESLint](https://oxlint.org/) on the package.
 
 <!-- START footer -->
 <!-- prettier-ignore-start -->
