@@ -22,7 +22,10 @@ import { isObject } from "@stryke/type-checks/is-object";
 import defu from "defu";
 import { transform } from "esbuild";
 import { TransformResult } from "unplugin";
-import { UnbuildResolvedBuildConfig } from "../../types/build";
+import {
+  UnbuildBuildConfig,
+  UnbuildResolvedBuildConfig
+} from "../../types/build";
 // eslint-disable-next-line camelcase
 import { Context, Internal_PluginContext } from "../../types/context";
 import { getString } from "../utilities/source-file";
@@ -49,7 +52,7 @@ export const DEFAULT_UNBUILD_CONFIG = {
     commonjs: {},
     alias: {}
   }
-} as const;
+} as Partial<UnbuildBuildConfig>;
 
 // eslint-disable-next-line camelcase
 export const unbuildLoader = (context: Internal_PluginContext): Loader => {
@@ -198,6 +201,7 @@ export function extractUnbuildConfig(
       orgName: isObject(context.workspaceConfig.organization)
         ? context.workspaceConfig.organization.name
         : context.workspaceConfig.organization,
+      sourceRoot: context.config.sourceRoot,
       projectRoot: context.config.projectRoot,
       outputPath: context.config.output.outputPath || "dist",
       platform: context.config.build.platform,

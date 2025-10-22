@@ -45,7 +45,7 @@ This package is part of the ⚡<b>Powerlines</b> monorepo. Powerlines packages i
 
 # Powerlines - ESBuild Plugin
 
-A package containing a Powerlines plugin to assist in developing other Powerlines plugins.
+A package containing a Powerlines plugin to build projects using ESBuild.
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->

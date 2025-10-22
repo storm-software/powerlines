@@ -152,7 +152,7 @@
     "@stryke/types": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.6.0",
+    "powerlines": "workspace:*",
     "rolldown": "catalog:",
     "unplugin": "catalog:"
   },

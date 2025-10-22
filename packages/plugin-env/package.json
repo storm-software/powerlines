@@ -202,7 +202,7 @@
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
-    "powerlines": "0.6.0"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@alloy-js/babel-preset": "catalog:",

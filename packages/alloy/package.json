@@ -363,8 +363,15 @@
       }
     }
   },
-  "files": ["dist/**/*"],
-  "keywords": ["alloy-js", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "alloy-js",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@alloy-js/babel-plugin": "catalog:",
     "@alloy-js/babel-plugin-jsx-dom-expressions": "catalog:",
@@ -390,7 +397,7 @@
     "@vue/reactivity": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.6.0",
+    "powerlines": "workspace:*",
     "prettier": "catalog:"
   },
   "devDependencies": {

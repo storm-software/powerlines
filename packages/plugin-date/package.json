@@ -128,10 +128,10 @@
   "files": ["dist/**/*"],
   "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
-    "@powerlines/plugin-env": "0.7.1",
+    "@powerlines/plugin-env": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/path": "catalog:",
-    "powerlines": "0.6.0"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
