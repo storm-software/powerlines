@@ -47,7 +47,7 @@ export function extractRspackConfig(context: Context): ExternalRspackOptions {
         )
       }
     },
-    context.config.build.variant === "webpack" ? context.config.override : {},
+    context.config.build.variant === "rspack" ? context.config.override : {},
     {
       external: context.config.build.external,
       noExternal: context.config.build.noExternal,
@@ -75,13 +75,13 @@ export function extractRspackConfig(context: Context): ExternalRspackOptions {
           : ("production" as const),
       recordsInputPath: joinPaths(
         context.cachePath,
-        "webpack",
-        ".webpack-records.json"
+        "rspack",
+        ".rspack-records.json"
       ),
       recordsOutputPath: joinPaths(
         context.cachePath,
-        "webpack",
-        ".webpack-records.json"
+        "rspack",
+        ".rspack-records.json"
       ),
       context: joinPaths(
         context.workspaceConfig.workspaceRoot,
@@ -89,7 +89,7 @@ export function extractRspackConfig(context: Context): ExternalRspackOptions {
       ),
       noExternal: Array.from(context.fs.builtinIdMap.keys())
     },
-    context.config.build.variant === "webpack" ? context.config.build : {},
+    context.config.build.variant === "rspack" ? context.config.build : {},
     {
       cache: context.config.mode === "development",
       devtool: (context.config.mode !== "development"
