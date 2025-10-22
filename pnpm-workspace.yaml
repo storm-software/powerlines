@@ -183,6 +183,7 @@ overrides:
   "@powerlines/plugin-plugin": workspace:*
   "@powerlines/plugin-rolldown": workspace:*
   "@powerlines/plugin-rollup": workspace:*
+  "@powerlines/plugin-swc": workspace:*
   "@powerlines/plugin-tsup": workspace:*
   "@powerlines/plugin-typedoc": workspace:*
   "@powerlines/plugin-vite": workspace:*
