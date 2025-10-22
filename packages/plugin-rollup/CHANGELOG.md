@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Rollup
 
+## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.3.0) (2025-10-22)
+
+### Features
+
+- **plugin-oxc-transform:** Initial check-in of the `oxc-transform` plugin
+  ([6a6b339](https://github.com/storm-software/powerlines/commit/6a6b339))
+
 ## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.2.0) (2025-10-21)
 
 ### Features

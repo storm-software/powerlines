@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.7.0](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.7.0) (2025-10-22)
+
+### Features
+
+- **plugin-oxc-transform:** Initial check-in of the `oxc-transform` plugin
+  ([6a6b339](https://github.com/storm-software/powerlines/commit/6a6b339))
+
+### Updated Dependencies
+
+- Updated plugin-babel to 0.8.0
+- Updated alloy to 0.7.0
+
 ## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.6.0) (2025-10-21)
 
 ### Features

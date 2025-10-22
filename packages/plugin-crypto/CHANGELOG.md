@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.5.0) (2025-10-22)
+
+### Features
+
+- **plugin-oxc-transform:** Initial check-in of the `oxc-transform` plugin
+  ([6a6b339](https://github.com/storm-software/powerlines/commit/6a6b339))
+
+### Updated Dependencies
+
+- Updated plugin-env to 0.7.0
+
 ## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.4.0) (2025-10-21)
 
 ### Features
