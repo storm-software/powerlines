@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.6.1](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.6.1) (2025-10-22)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository files and resolve lefthook issue
+  ([7b25a63](https://github.com/storm-software/powerlines/commit/7b25a63))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.6.1
+- Updated nx to 0.5.2
+
 ## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.6.0) (2025-10-21)
 
 ### Features

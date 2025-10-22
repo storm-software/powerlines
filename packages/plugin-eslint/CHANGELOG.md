@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.3.0) (2025-10-22)
+
+### Features
+
+- **plugin-oxlint:** Initial check-in of the `oxlint` plugin
+  ([a6a660d](https://github.com/storm-software/powerlines/commit/a6a660d))
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository files and resolve lefthook issue
+  ([7b25a63](https://github.com/storm-software/powerlines/commit/7b25a63))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.6.1
+- Updated nx to 0.5.2
+
 ## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.2.0) (2025-10-21)
 
 ### Features

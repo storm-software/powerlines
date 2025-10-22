@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.7.2](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.7.2) (2025-10-22)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository files and resolve lefthook issue
+  ([7b25a63](https://github.com/storm-software/powerlines/commit/7b25a63))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.7.1
+- Updated plugin-babel to 0.8.1
+- Updated powerlines to 0.6.1
+- Updated alloy to 0.7.1
+- Updated nx to 0.5.2
+
 ## [0.7.1](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.7.1) (2025-10-22)
 
 ### Miscellaneous

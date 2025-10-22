@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.6.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.6.1) (2025-10-22)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository files and resolve lefthook issue
+  ([7b25a63](https://github.com/storm-software/powerlines/commit/7b25a63))
+
 ## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.6.0) (2025-10-22)
 
 ### Features

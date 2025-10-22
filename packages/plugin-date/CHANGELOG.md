@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.8.2](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.8.2) (2025-10-22)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository files and resolve lefthook issue
+  ([7b25a63](https://github.com/storm-software/powerlines/commit/7b25a63))
+
+### Updated Dependencies
+
+- Updated plugin-env to 0.7.2
+- Updated powerlines to 0.6.1
+- Updated nx to 0.5.2
+
 ## [0.8.1](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.8.1) (2025-10-22)
 
 ### Miscellaneous

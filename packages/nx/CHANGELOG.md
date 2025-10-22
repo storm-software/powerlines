@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.5.2](https://github.com/storm-software/powerlines/releases/tag/nx%400.5.2) (2025-10-22)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository files and resolve lefthook issue
+  ([7b25a63](https://github.com/storm-software/powerlines/commit/7b25a63))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.6.1
+
 ## [0.5.1](https://github.com/storm-software/powerlines/releases/tag/nx%400.5.1) (2025-10-21)
 
 ### Miscellaneous
