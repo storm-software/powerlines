@@ -145,9 +145,9 @@
   "files": ["dist/**/*"],
   "keywords": ["swc", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
+    "@swc/core": "catalog:",
     "defu": "catalog:",
-    "powerlines": "workspace:*",
-    "@swc/core": "catalog:"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",

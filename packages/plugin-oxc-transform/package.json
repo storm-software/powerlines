@@ -150,10 +150,10 @@
     "powerlines-plugin"
   ],
   "dependencies": {
-    "defu": "catalog:",
-    "powerlines": "workspace:*",
     "@stryke/path": "catalog:",
-    "oxc-transform": "catalog:"
+    "defu": "catalog:",
+    "oxc-transform": "catalog:",
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
