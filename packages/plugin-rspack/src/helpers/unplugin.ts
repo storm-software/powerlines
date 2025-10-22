@@ -16,11 +16,14 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./esbuild";
-export * from "./rolldown";
-export * from "./rollup";
-export * from "./rspack";
-export * from "./tsup";
-export * from "./unbuild";
-export * from "./vite";
-export * from "./webpack";
+import { createUnplugin } from "powerlines/lib/unplugin";
+import { createRspackPlugin as createRspackUnplugin } from "unplugin";
+import { RspackPluginContext } from "../types/plugin";
+
+export function createRspackPlugin(context: RspackPluginContext) {
+  return createRspackUnplugin(
+    createUnplugin(context, {
+      skipResolve: true
+    })
+  )({});
+}

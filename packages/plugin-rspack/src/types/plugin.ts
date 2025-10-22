@@ -16,11 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./esbuild";
-export * from "./rolldown";
-export * from "./rollup";
-export * from "./rspack";
-export * from "./tsup";
-export * from "./unbuild";
-export * from "./vite";
-export * from "./webpack";
+import { RspackBuildConfig } from "powerlines/types/build";
+import { PluginContext } from "powerlines/types/context";
+import { RspackResolvedConfig } from "powerlines/types/resolved";
+
+export type RspackPluginOptions = Partial<RspackBuildConfig>;
+
+export type RspackPluginResolvedConfig = RspackResolvedConfig;
+
+export type RspackPluginContext<
+  TResolvedConfig extends
+    RspackPluginResolvedConfig = RspackPluginResolvedConfig
+> = PluginContext<TResolvedConfig>;

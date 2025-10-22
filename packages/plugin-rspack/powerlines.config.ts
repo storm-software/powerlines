@@ -16,11 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./esbuild";
-export * from "./rolldown";
-export * from "./rollup";
-export * from "./rspack";
-export * from "./tsup";
-export * from "./unbuild";
-export * from "./vite";
-export * from "./webpack";
+import plugin from "@powerlines/plugin-plugin";
+import { defineConfig } from "powerlines/define-config";
+
+export default defineConfig({
+  skipCache: true,
+  entry: ["src/index.ts", "src/types/*.ts", "src/helpers/*.ts"],
+  plugins: [
+    plugin({
+      alloy: false
+    })
+  ]
+});
