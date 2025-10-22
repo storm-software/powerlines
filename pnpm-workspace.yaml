@@ -189,6 +189,7 @@ overrides:
   '@powerlines/plugin-swc': workspace:*
   '@powerlines/plugin-tsup': workspace:*
   '@powerlines/plugin-typedoc': workspace:*
+  '@powerlines/plugin-unbuild': workspace:*
   '@powerlines/plugin-vite': workspace:*
   '@powerlines/plugin-webpack': workspace:*
   '@powerlines/tools-config': workspace:*
