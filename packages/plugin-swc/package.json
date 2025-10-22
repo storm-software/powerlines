@@ -147,7 +147,7 @@
   "dependencies": {
     "@swc/core": "catalog:",
     "defu": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.6.0"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",

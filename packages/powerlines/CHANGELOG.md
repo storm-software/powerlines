@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.6.0) (2025-10-22)
+
+### Features
+
+- **plugin-rspack:** Initial check-in of `rspack` plugin
+  ([64a8925](https://github.com/storm-software/powerlines/commit/64a8925))
+- **plugin-webpack:** Initial check-in of the `webpack` plugin
+  ([d8efe57](https://github.com/storm-software/powerlines/commit/d8efe57))
+
+### Bug Fixes
+
+- **powerlines:** Resolved issue in `rspack` config
+  ([d4dbb0c](https://github.com/storm-software/powerlines/commit/d4dbb0c))
+
 ## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.5.0) (2025-10-21)
 
 ### Features

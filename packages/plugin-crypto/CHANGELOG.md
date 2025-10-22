@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.5.1](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.5.1) (2025-10-22)
+
+### Miscellaneous
+
+- **monorepo:** Updated `package.json` with sherif fix
+  ([8cdb9cf](https://github.com/storm-software/powerlines/commit/8cdb9cf))
+
+### Updated Dependencies
+
+- Updated plugin-env to 0.7.1
+- Updated powerlines to 0.6.0
+
 ## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.5.0) (2025-10-22)
 
 ### Features

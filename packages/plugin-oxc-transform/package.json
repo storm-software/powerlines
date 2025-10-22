@@ -153,7 +153,7 @@
     "@stryke/path": "catalog:",
     "defu": "catalog:",
     "oxc-transform": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.6.0"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",

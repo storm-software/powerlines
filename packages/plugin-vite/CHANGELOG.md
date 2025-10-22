@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.9.0](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.9.0) (2025-10-22)
+
+### Features
+
+- **plugin-webpack:** Initial check-in of the `webpack` plugin
+  ([d8efe57](https://github.com/storm-software/powerlines/commit/d8efe57))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.6.0
+
 ## [0.8.0](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.8.0) (2025-10-22)
 
 ### Features
