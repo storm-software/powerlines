@@ -22,3 +22,4 @@ export * from "./rollup";
 export * from "./tsup";
 export * from "./unbuild";
 export * from "./vite";
+export * from "./webpack";

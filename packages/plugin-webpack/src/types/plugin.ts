@@ -16,14 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-import { createUnplugin } from "powerlines/lib/unplugin";
-import { createVitePlugin as createViteUnplugin } from "unplugin";
-import { VitePluginContext } from "../types/plugin";
+import { WebpackBuildConfig } from "powerlines/types/build";
+import { PluginContext } from "powerlines/types/context";
+import { WebpackResolvedConfig } from "powerlines/types/resolved";
 
-export function createVitePlugin(context: VitePluginContext) {
-  return createViteUnplugin(
-    createUnplugin(context, {
-      skipResolve: true
-    })
-  )({});
-}
+export type WebpackPluginOptions = Partial<WebpackBuildConfig>;
+
+export type WebpackPluginResolvedConfig = WebpackResolvedConfig;
+
+export type WebpackPluginContext<
+  TResolvedConfig extends
+    WebpackPluginResolvedConfig = WebpackPluginResolvedConfig
+> = PluginContext<TResolvedConfig>;

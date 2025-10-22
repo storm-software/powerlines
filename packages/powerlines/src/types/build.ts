@@ -139,7 +139,7 @@ export type ViteResolvedBuildConfig = ExternalViteUserConfig &
 // Webpack
 export type WebpackBuildConfig = Omit<
   ExternalWebpackOptions,
-  "name" | "entry" | "entryPoints" | "tsconfig" | "tsconfigRaw" | "mode" | "env"
+  "name" | "entry" | "entryPoints" | "tsconfig" | "tsconfigRaw"
 > &
   BuildConfig;
 export type WebpackResolvedBuildConfig = ExternalWebpackOptions &
@@ -148,7 +148,7 @@ export type WebpackResolvedBuildConfig = ExternalWebpackOptions &
 // Rspack
 export type RspackBuildConfig = Omit<
   ExternalRspackOptions,
-  "name" | "entry" | "entryPoints" | "tsconfig" | "tsconfigRaw" | "mode" | "env"
+  "name" | "entry" | "entryPoints" | "tsconfig" | "tsconfigRaw"
 > &
   BuildConfig;
 export type RspackResolvedBuildConfig = ExternalRspackOptions &

@@ -1,0 +1,56 @@
+{
+  "name": "plugin-webpack",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/plugin-webpack/src",
+  "targets": {
+    "clean": {
+      "executor": "@powerlines/nx:clean"
+    },
+    "prepare": {
+      "cache": true,
+      "inputs": ["typescript", "^production"],
+      "outputs": ["{projectRoot}/.powerlines"],
+      "dependsOn": ["^build"],
+      "executor": "@powerlines/nx:prepare",
+      "defaultConfiguration": "production",
+      "configurations": {
+        "production": {
+          "mode": "production"
+        },
+        "test": {
+          "mode": "test"
+        },
+        "development": {
+          "mode": "development",
+          "skipCache": true,
+          "logLevel": "debug"
+        }
+      }
+    },
+    "build": {
+      "cache": true,
+      "inputs": ["typescript", "^production"],
+      "outputs": ["{options.outputPath}"],
+      "executor": "@powerlines/nx:build",
+      "dependsOn": ["prepare"],
+      "defaultConfiguration": "production",
+      "configurations": {
+        "production": {
+          "mode": "production"
+        },
+        "test": {
+          "mode": "test"
+        },
+        "development": {
+          "mode": "development",
+          "skipCache": true,
+          "logLevel": "debug"
+        }
+      }
+    },
+    "nx-release-publish": {
+      "executor": "@storm-software/workspace-tools:npm-publish"
+    }
+  }
+}

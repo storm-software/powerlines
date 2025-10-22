@@ -137,6 +137,7 @@ catalog:
   untyped: 1.5.2
   verdaccio: 6.1.2
   vite: ^7.1.11
+  webpack: ^0.0.0
   zx: ^8.8.5
 
 catalogMode: prefer

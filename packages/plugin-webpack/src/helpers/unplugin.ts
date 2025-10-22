@@ -17,11 +17,11 @@
  ------------------------------------------------------------------- */
 
 import { createUnplugin } from "powerlines/lib/unplugin";
-import { createVitePlugin as createViteUnplugin } from "unplugin";
-import { VitePluginContext } from "../types/plugin";
+import { createWebpackPlugin as createWebpackUnplugin } from "unplugin";
+import { WebpackPluginContext } from "../types/plugin";
 
-export function createVitePlugin(context: VitePluginContext) {
-  return createViteUnplugin(
+export function createWebpackPlugin(context: WebpackPluginContext) {
+  return createWebpackUnplugin(
     createUnplugin(context, {
       skipResolve: true
     })

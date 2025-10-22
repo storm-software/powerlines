@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                   ⚡ Storm Software - Powerlines
+                  ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -16,14 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-import { createUnplugin } from "powerlines/lib/unplugin";
-import { createVitePlugin as createViteUnplugin } from "unplugin";
-import { VitePluginContext } from "../types/plugin";
-
-export function createVitePlugin(context: VitePluginContext) {
-  return createViteUnplugin(
-    createUnplugin(context, {
-      skipResolve: true
-    })
-  )({});
-}
+export * from "./unplugin";

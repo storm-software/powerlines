@@ -16,14 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-import { createUnplugin } from "powerlines/lib/unplugin";
-import { createVitePlugin as createViteUnplugin } from "unplugin";
-import { VitePluginContext } from "../types/plugin";
+import plugin from "@powerlines/plugin-plugin";
+import { defineConfig } from "powerlines/define-config";
 
-export function createVitePlugin(context: VitePluginContext) {
-  return createViteUnplugin(
-    createUnplugin(context, {
-      skipResolve: true
+export default defineConfig({
+  skipCache: true,
+  entry: ["src/index.ts", "src/types/*.ts", "src/helpers/*.ts"],
+  plugins: [
+    plugin({
+      alloy: false
     })
-  )({});
-}
+  ]
+});
