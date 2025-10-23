@@ -183,9 +183,6 @@ catalogs:
     '@storm-software/tsconfig':
       specifier: ^0.47.11
       version: 0.47.11
-    '@storm-software/tsdoc':
-      specifier: ^0.13.11
-      version: 0.13.11
     '@storm-software/tsup':
       specifier: ^0.2.9
       version: 0.2.9
@@ -451,7 +448,6 @@ overrides:
   '@powerlines/tools-readme-templates': workspace:*
   '@powerlines/tools-scripts': workspace:*
   '@powerlines/tsconfig': workspace:*
-  '@powerlines/tsdoc': workspace:*
   debug: '>=4.3.7'
   follow-redirects: '>=1.15.9'
   got: '>=14.4.2'
@@ -1658,9 +1654,6 @@ importers:
       '@nuxt/schema':
         specifier: ^4.1.1
         version: 4.1.3
-      '@powerlines/tsdoc':
-        specifier: workspace:*
-        version: link:../tsdoc
       '@rollup/plugin-alias':
         specifier: 'catalog:'
         version: 5.1.1(rollup@4.52.5)
@@ -1878,28 +1871,6 @@ importers:
       '@storm-software/tsconfig':
         specifier: 'catalog:'
         version: 0.47.11
-
-  packages/tsdoc:
-    dependencies:
-      '@microsoft/api-extractor':
-        specifier: '>=7.52.0'
-        version: 7.53.2(@types/node@22.18.12)
-      '@microsoft/tsdoc':
-        specifier: '>=0.15.0'
-        version: 0.15.1
-      '@microsoft/tsdoc-config':
-        specifier: '>=0.17.0'
-        version: 0.17.1
-    devDependencies:
-      '@storm-software/tsdoc':
-        specifier: 'catalog:'
-        version: 0.13.11(@microsoft/api-extractor@7.53.2(@types/node@22.18.12))(@microsoft/tsdoc-config@0.17.1)(@microsoft/tsdoc@0.15.1)
-      '@types/node':
-        specifier: 'catalog:'
-        version: 22.18.12
-      tsup:
-        specifier: 'catalog:'
-        version: 8.4.0(@microsoft/api-extractor@7.53.2(@types/node@22.18.12))(@swc/core@1.13.5(@swc/helpers@0.5.17))(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.1)
 
   tools/config: {}
 

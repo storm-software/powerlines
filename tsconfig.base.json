@@ -58,7 +58,6 @@
       "@powerlines/tools-scripts": ["tools/scripts/src/index.ts"],
       "@powerlines/tools-scripts/*": ["tools/scripts/src/*"],
       "@powerlines/tsconfig/*": ["packages/tsconfig/src/*"],
-      "@powerlines/tsdoc/*": ["packages/tsdoc/src/*"],
       "powerlines": ["packages/powerlines/src/index.ts"],
       "powerlines/*": ["packages/powerlines/src/*"]
     },

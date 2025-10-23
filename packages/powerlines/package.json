@@ -82,18 +82,18 @@
         "default": "./dist/define-config.js"
       }
     },
-    "./create-plugin": {
+    "./extend-plugin": {
       "import": {
-        "types": "./dist/create-plugin.d.ts",
-        "default": "./dist/create-plugin.js"
+        "types": "./dist/extend-plugin.d.ts",
+        "default": "./dist/extend-plugin.js"
       },
       "require": {
-        "types": "./dist/create-plugin.d.cts",
-        "default": "./dist/create-plugin.cjs"
+        "types": "./dist/extend-plugin.d.cts",
+        "default": "./dist/extend-plugin.cjs"
       },
       "default": {
-        "types": "./dist/create-plugin.d.ts",
-        "default": "./dist/create-plugin.js"
+        "types": "./dist/extend-plugin.d.ts",
+        "default": "./dist/extend-plugin.js"
       }
     },
     "./types": {
@@ -549,7 +549,6 @@
     "@farmfe/core": "^1.7.11",
     "@nuxt/kit": "^4.1.1",
     "@nuxt/schema": "^4.1.1",
-    "@powerlines/tsdoc": "*",
     "@rspack/cli": "^1.5.0",
     "@rspack/core": "^1.5.0",
     "astro": "^5.13.5",
@@ -582,9 +581,6 @@
     },
     "@rspack/core": {
       "optional": true
-    },
-    "@powerlines/tsdoc": {
-      "optional": false
     },
     "astro": {
       "optional": true

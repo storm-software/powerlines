@@ -63,7 +63,6 @@ catalog:
   '@storm-software/prettier': ^0.57.11
   '@storm-software/testing-tools': ^1.119.11
   '@storm-software/tsconfig': ^0.47.11
-  '@storm-software/tsdoc': ^0.13.11
   '@storm-software/tsup': ^0.2.9
   '@storm-software/unbuild': ^0.57.11
   '@storm-software/untyped': ^0.23.11
@@ -156,10 +155,6 @@ minimumReleaseAgeExclude:
   - '@storm-software/*'
   - '@stryke/*'
   - '@powerlines/*'
-  - nx
-  - '@nx/*'
-  - oxlint
-  - oxlint-tsgolint
 
 onlyBuiltDependencies:
   - '@biomejs/biome'
@@ -204,7 +199,6 @@ overrides:
   '@powerlines/tools-readme-templates': workspace:*
   '@powerlines/tools-scripts': workspace:*
   '@powerlines/tsconfig': workspace:*
-  '@powerlines/tsdoc': workspace:*
   debug: '>=4.3.7'
   follow-redirects: '>=1.15.9'
   got: '>=14.4.2'
