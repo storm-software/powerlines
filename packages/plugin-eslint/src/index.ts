@@ -24,7 +24,6 @@ import { readFile } from "@stryke/fs/read-file";
 import { parseVersion } from "@stryke/fs/semver-fns";
 import { writeFile } from "@stryke/fs/write-file";
 import { findFileName } from "@stryke/path/find";
-import { joinPaths } from "@stryke/path/join-paths";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { defu } from "defu";
 import type { ESLint as FlatESLint } from "eslint";
@@ -87,13 +86,12 @@ export function plugin(
       };
     },
     async configResolved() {
-      let generateReason: string | undefined;
       if (
         !isSetObject(this.packageJson.eslintConfig) &&
         (!this.config.lint.eslint.configFile ||
           !existsSync(this.config.lint.eslint.configFile))
       ) {
-        generateReason = "No ESLint configuration file found";
+        throw new Error("No ESLint configuration file could be found");
       } else if (
         this.config.lint.eslint.configFile &&
         existsSync(this.config.lint.eslint.configFile)
@@ -105,7 +103,9 @@ export function plugin(
           content?.trim().replace(/\s/g, "") === "{}" ||
           content?.trim().replace(/\s/g, "") === "module.exports={}"
         ) {
-          generateReason = `The ESLint configuration file at "${this.config.lint.eslint.configFile}" is empty`;
+          throw new Error(
+            `The ESLint configuration file at "${this.config.lint.eslint.configFile}" is empty`
+          );
         }
       }
 
@@ -118,37 +118,37 @@ export function plugin(
         );
       }
 
-      if (generateReason) {
-        this.log(
-          LogLevelLabel.WARN,
-          `${generateReason}. Generating a default configuration at the project root.`
-        );
+      //       if (generateReason) {
+      //         this.log(
+      //           LogLevelLabel.WARN,
+      //           `${generateReason}. Generating a default configuration at the project root.`
+      //         );
 
-        this.devDependencies["eslint-config-powerlines"] = "*";
-        this.config.lint.eslint.configFile = joinPaths(
-          this.config.projectRoot,
-          "eslint.config.js"
-        );
+      //         this.devDependencies["eslint-config-powerlines"] = "*";
+      //         this.config.lint.eslint.configFile = joinPaths(
+      //           this.config.projectRoot,
+      //           "eslint.config.js"
+      //         );
 
-        await writeFile(
-          this.config.lint.eslint.configFile,
-          `import { defineConfig } from "eslint-config-powerlines";
+      //         await writeFile(
+      //           this.config.lint.eslint.configFile,
+      //           `import { defineConfig } from "eslint-config-powerlines";
 
-Error.stackTraceLimit = Number.POSITIVE_INFINITY;
+      // Error.stackTraceLimit = Number.POSITIVE_INFINITY;
 
-/** @type {import('eslint').Linter.Config[]} */
-export default defineConfig({${
-            this.config.name
-              ? `
-  name: "${this.config.name}", `
-              : ""
-          }
-  powerlines: ${this.config.lint.eslint.type}
-});
+      // /** @type {import('eslint').Linter.Config[]} */
+      // export default defineConfig({${
+      //             this.config.name
+      //               ? `
+      //   name: "${this.config.name}", `
+      //               : ""
+      //           }
+      //   powerlines: ${this.config.lint.eslint.type}
+      // });
 
-`
-        );
-      }
+      // `
+      //         );
+      //       }
 
       const module = await this.resolver.import<typeof import("eslint")>(
         this.resolver.esmResolve("eslint")

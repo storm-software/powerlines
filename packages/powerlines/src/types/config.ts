@@ -20,7 +20,7 @@ import type { transformAsync } from "@babel/core";
 import type { Format } from "@storm-software/build-tools/types";
 import type { LogLevelLabel } from "@storm-software/config-tools/types";
 import type { StormWorkspaceConfig } from "@storm-software/config/types";
-import type { DeepPartial } from "@stryke/types/base";
+import type { DeepPartial, MaybePromise } from "@stryke/types/base";
 import type { TypeDefinitionParameter } from "@stryke/types/configuration";
 import type { AssetGlob } from "@stryke/types/file";
 import type { ConfigLayer, ResolvedConfig as ParsedConfig } from "c12";
@@ -66,28 +66,28 @@ export type WorkspaceConfig = Partial<StormWorkspaceConfig> &
   Required<Pick<StormWorkspaceConfig, "workspaceRoot">>;
 
 export type PluginFactory<
-  TProps = unknown,
-  in out TContext extends PluginContext = PluginContext
-> = (options: TProps) => Plugin<TContext>;
+  in out TContext extends PluginContext = PluginContext,
+  TOptions = any
+> = (options: TOptions) => MaybePromise<Plugin<TContext>>;
 
 /**
  * A configuration tuple for a Powerlines plugin.
  */
 export type PluginConfigTuple<
-  TProps = unknown,
-  TContext extends PluginContext = PluginContext
-> = [string | PluginFactory<TProps, TContext>, TProps] | [Plugin<TContext>];
+  TContext extends PluginContext = PluginContext,
+  TOptions = any
+> = [string | PluginFactory<TContext, TOptions>, TOptions] | [Plugin<TContext>];
 
 /**
  * A configuration object for a Powerlines plugin.
  */
 export type PluginConfigObject<
-  TProps = unknown,
-  TContext extends PluginContext = PluginContext
+  TContext extends PluginContext = PluginContext,
+  TOptions = any
 > =
   | {
-      plugin: string | PluginFactory<TProps, TContext>;
-      options: TProps;
+      plugin: string | PluginFactory<TContext, TOptions>;
+      options: TOptions;
     }
   | {
       plugin: Plugin<TContext>;
@@ -97,15 +97,13 @@ export type PluginConfigObject<
 /**
  * A configuration tuple for a Powerlines plugin.
  */
-export type PluginConfig<
-  TContext extends PluginContext = PluginContext,
-  TProps = unknown
-> =
+export type PluginConfig<TContext extends PluginContext = PluginContext> =
   | string
-  | PluginFactory<void, TContext>
+  | PluginFactory<TContext, void>
   | Plugin<TContext>
-  | PluginConfigTuple<TProps>
-  | PluginConfigObject<TProps>;
+  | Promise<Plugin<TContext>>
+  | PluginConfigTuple<TContext>
+  | PluginConfigObject<TContext>;
 
 export type ProjectType = "application" | "library";
 

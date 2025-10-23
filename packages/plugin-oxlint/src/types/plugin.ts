@@ -24,7 +24,7 @@ export interface OxlintPluginOptions {
   /**
    * A glob pattern or path to ignore files and directories.
    */
-  ignorePattern?: string;
+  ignorePatterns?: string | string[];
 
   /**
    * The path to the Oxlint configuration file.

@@ -32,6 +32,7 @@ import { replacePath } from "@stryke/path/replace";
 import { isError } from "@stryke/type-checks/is-error";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isNumber } from "@stryke/type-checks/is-number";
+import { isPromiseLike } from "@stryke/type-checks/is-promise";
 import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -57,6 +58,8 @@ import type {
   LintInlineConfig,
   NewInlineConfig,
   PluginConfig,
+  PluginConfigObject,
+  PluginConfigTuple,
   PluginFactory,
   PrepareInlineConfig,
   ReleaseInlineConfig
@@ -842,39 +845,47 @@ export class PowerlinesAPI<
   async #initPlugin(
     config: PluginConfig<PluginContext<TResolvedConfig>>
   ): Promise<Plugin<PluginContext<TResolvedConfig>> | null> {
-    if (!isPluginConfig(config)) {
+    let awaited = config;
+    if (isPromiseLike(config)) {
+      awaited = await Promise.resolve(config);
+    }
+
+    if (!isPluginConfig(awaited)) {
       throw new Error(
-        `Invalid plugin specified in the configuration - ${JSON.stringify(config)}. Please ensure the value is a plugin name, an object with the \`plugin\` and \`props\` properties, or an instance of \`Plugin\`.`
+        `Invalid plugin specified in the configuration - ${JSON.stringify(awaited)}. Please ensure the value is a plugin name, an object with the \`plugin\` and \`props\` properties, or an instance of \`Plugin\`.`
       );
     }
 
     let plugin!: Plugin<PluginContext<TResolvedConfig>>;
-    if (isPlugin<TResolvedConfig>(config)) {
-      plugin = config;
-    } else if (isFunction(config)) {
-      plugin = (await Promise.resolve(config())) as Plugin<
+    if (isPlugin<TResolvedConfig>(awaited)) {
+      plugin = awaited;
+    } else if (isFunction(awaited)) {
+      plugin = (await Promise.resolve(awaited())) as Plugin<
         PluginContext<TResolvedConfig>
       >;
-    } else if (isSetString(config)) {
-      const resolved = await this.#resolvePlugin(config);
+    } else if (isSetString(awaited)) {
+      const resolved = await this.#resolvePlugin(awaited);
       if (isFunction(resolved)) {
         plugin = await Promise.resolve(resolved());
       } else {
         plugin = resolved;
       }
-    } else if (isPluginConfigTuple(config) || isPluginConfigObject(config)) {
+    } else if (isPluginConfigTuple(awaited) || isPluginConfigObject(awaited)) {
       let pluginConfig!:
         | string
-        | PluginFactory<unknown>
+        | PluginFactory<PluginContext<TResolvedConfig>>
         | Plugin<PluginContext<TResolvedConfig>>;
-      let pluginOptions: unknown;
+      let pluginOptions: any;
 
-      if (isPluginConfigTuple(config)) {
-        pluginConfig = config[0] as Plugin<PluginContext<TResolvedConfig>>;
-        pluginOptions = config?.length === 2 ? config[1] : undefined;
+      if (isPluginConfigTuple(awaited)) {
+        pluginConfig = awaited[0] as Plugin<PluginContext<TResolvedConfig>>;
+        pluginOptions =
+          (awaited as PluginConfigTuple)?.length === 2 ? awaited[1] : undefined;
       } else {
-        pluginConfig = config.plugin as Plugin<PluginContext<TResolvedConfig>>;
-        pluginOptions = config.options;
+        pluginConfig = (awaited as PluginConfigObject).plugin as Plugin<
+          PluginContext<TResolvedConfig>
+        >;
+        pluginOptions = (awaited as PluginConfigObject).options;
       }
 
       if (isSetString(pluginConfig)) {
@@ -895,7 +906,7 @@ export class PowerlinesAPI<
 
     if (!plugin) {
       throw new Error(
-        `The plugin configuration ${JSON.stringify(config)} is invalid. This configuration must point to a valid Powerlines plugin module.`
+        `The plugin configuration ${JSON.stringify(awaited)} is invalid. This configuration must point to a valid Powerlines plugin module.`
       );
     }
 
@@ -924,12 +935,12 @@ export class PowerlinesAPI<
     return plugin;
   }
 
-  async #resolvePlugin<TProps>(
+  async #resolvePlugin<TOptions>(
     pluginPath: string
   ): Promise<
     | Plugin<PluginContext<TResolvedConfig>>
     | ((
-        options?: TProps
+        options?: TOptions
       ) => MaybePromise<Plugin<PluginContext<TResolvedConfig>>>)
   > {
     if (
@@ -969,12 +980,12 @@ export class PowerlinesAPI<
         plugin?:
           | Plugin<PluginContext<TResolvedConfig>>
           | ((
-              options?: TProps
+              options?: TOptions
             ) => MaybePromise<Plugin<PluginContext<TResolvedConfig>>>);
         default?:
           | Plugin<PluginContext<TResolvedConfig>>
           | ((
-              options?: TProps
+              options?: TOptions
             ) => MaybePromise<Plugin<PluginContext<TResolvedConfig>>>);
       }>(
         this.context.resolver.plugin.esmResolve(joinPaths(pluginPath, "plugin"))
@@ -994,12 +1005,12 @@ export class PowerlinesAPI<
           plugin?:
             | Plugin<PluginContext<TResolvedConfig>>
             | ((
-                options?: TProps
+                options?: TOptions
               ) => MaybePromise<Plugin<PluginContext<TResolvedConfig>>>);
           default?:
             | Plugin<PluginContext<TResolvedConfig>>
             | ((
-                options?: TProps
+                options?: TOptions
               ) => MaybePromise<Plugin<PluginContext<TResolvedConfig>>>);
         }>(this.context.resolver.plugin.esmResolve(pluginPath));
 

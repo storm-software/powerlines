@@ -24,10 +24,7 @@
   "license": "Apache-2.0",
   "private": true,
   "packageManager": "pnpm@10.18.3",
-  "engines": {
-    "node": ">=22.14.0",
-    "pnpm": ">=10.18.0"
-  },
+  "engines": { "node": ">=22.14.0", "pnpm": ">=10.18.0" },
   "keywords": [
     "storm-software",
     "storm",
@@ -63,7 +60,6 @@
   },
   "devDependencies": {
     "@ls-lint/ls-lint": "catalog:",
-    "@nx/devkit": "catalog:",
     "@nx/eslint-plugin": "catalog:",
     "@nx/jest": "catalog:",
     "@nx/js": "catalog:",
@@ -102,10 +98,7 @@
     "verdaccio": "catalog:",
     "zx": "catalog:"
   },
-  "manypkg": {
-    "defaultBranch": "main",
-    "workspaceProtocol": "require"
-  },
+  "manypkg": { "defaultBranch": "main", "workspaceProtocol": "require" },
   "namespace": "@powerlines",
   "nx": {
     "includedScripts": [

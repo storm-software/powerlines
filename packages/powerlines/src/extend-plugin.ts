@@ -16,21 +16,26 @@
 
  ------------------------------------------------------------------- */
 
-import { Children } from "@alloy-js/core/jsx-runtime";
-import type { PluginPluginAlloyOptions } from "@powerlines/plugin-plugin/types/plugin";
-import type { MaybePromise } from "@stryke/types/base";
-import { PluginContext } from "powerlines/types/context";
-import type { Plugin } from "powerlines/types/plugin";
+import defu from "defu";
+import { PluginFactory } from "./types/config";
+import { PluginContext } from "./types/context";
+import { Plugin } from "./types/plugin";
 
-export interface AlloyPluginOptions {
-  alloy?: PluginPluginAlloyOptions;
+/**
+ * Adds additional helper functionality to a plugin via a plugin builder function.
+ *
+ * @param builder - The plugin builder function. This function receives the plugin options and returns a plugin object.
+ * @returns An object representing the plugin.
+ */
+export function extendPlugin<TContext extends PluginContext = PluginContext>(
+  builder: PluginFactory<TContext>
+) {
+  return async (
+    options: Parameters<typeof builder>[0] &
+      Partial<Omit<Plugin<TContext>, "name">>
+  ) => {
+    const result = await Promise.resolve(builder(options));
+
+    return defu(options ?? {}, result) as Plugin<TContext>;
+  };
 }
-
-export type AlloyPluginBuilder<
-  TOptions = any,
-  TContext extends PluginContext = PluginContext
-> = (options: TOptions) => MaybePromise<
-  Plugin<TContext> & {
-    render: (this: TContext) => Children;
-  }
->;

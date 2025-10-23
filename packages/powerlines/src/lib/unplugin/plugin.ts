@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -25,8 +25,8 @@ import type {
   UnpluginContext,
   UnpluginFactory
 } from "unplugin";
-// eslint-disable-next-line camelcase
-import { Internal_PluginContext, PluginContext } from "../../types/context";
+import { PluginContext } from "../../types/context";
+import { UNSAFE_PluginContext } from "../../types/internal";
 import { extendLog } from "../logger";
 import { getString } from "../utilities/source-file";
 import { handleResolveId } from "./resolve-id";
@@ -54,8 +54,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
   context: TContext,
   options: CreateUnpluginOptions = {}
 ): UnpluginFactory<object> {
-  // eslint-disable-next-line camelcase
-  const ctx = context as unknown as Internal_PluginContext;
+  const ctx = context as unknown as UNSAFE_PluginContext;
 
   return () => {
     const log = extendLog(ctx.log, "unplugin");
@@ -238,7 +237,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
         load: {
           filter: {
             id: {
-              include: [/.*/, /^storm:/]
+              include: [/.*/]
             }
           },
           handler: load

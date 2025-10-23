@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -21,7 +21,6 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { AnyFunction } from "@stryke/types/base";
-import { ResolvedConfig } from "powerlines/types/resolved";
 import { SUPPORTED_COMMANDS } from "../../types/commands";
 import {
   PluginConfig,
@@ -36,6 +35,7 @@ import {
   HookKeys
 } from "../../types/hooks";
 import { Plugin, PluginHook, PluginHookObject } from "../../types/plugin";
+import { ResolvedConfig } from "../../types/resolved";
 
 /**
  * Type guard to check if an object is a {@link Plugin}
@@ -243,10 +243,13 @@ export function checkDedupe<
   TContext extends
     PluginContext<TResolvedConfig> = PluginContext<TResolvedConfig>
 >(plugin: Plugin<TContext>, plugins: Plugin<TContext>[]) {
-  return plugins.some(
-    p =>
-      p.dedupe !== false &&
-      ((isFunction(p.dedupe) && p.dedupe(plugin)) || p.name === plugin.name)
+  return (
+    plugin.dedupe === false ||
+    plugins.some(
+      p =>
+        p.dedupe !== false &&
+        ((isFunction(p.dedupe) && p.dedupe(plugin)) || p.name === plugin.name)
+    )
   );
 }
 

@@ -29,7 +29,8 @@ import { PowerlinesAPI } from "./internal/api";
 import { plugins } from "./unplugin";
 
 export * from "./define-config";
+export * from "./extend-plugin";
 export * from "./types";
 
-export { plugins, PowerlinesAPI as StormAPI };
+export { plugins, PowerlinesAPI };
 export default PowerlinesAPI;

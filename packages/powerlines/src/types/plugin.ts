@@ -333,17 +333,17 @@ export interface Plugin<
    * A function to determine if two plugins are the same and can be de-duplicated.
    *
    * @remarks
-   * If this is not provided, the plugin will not be de-duplicated.
+   * If this is not provided, plugins are de-duplicated by comparing their names.
    *
    * @param other - The other plugin to compare against.
    * @returns `true` if the two plugins are the same, `false` otherwise.
    */
-  dedupe?: false | ((other: PluginConfig<any>) => boolean);
+  dedupe?: false | ((other: Plugin<any>) => boolean);
 
   /**
    * A list of pre-requisite plugins that must be loaded before this plugin can be used.
    */
-  dependsOn?: PluginConfig<TContext>[];
+  dependsOn?: PluginConfig<any>[];
 
   /**
    * Define environments where this plugin should be active. By default, the plugin is active in all environments.

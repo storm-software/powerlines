@@ -22,16 +22,13 @@ import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isString } from "@stryke/type-checks/is-string";
 import { UnpluginMessage } from "unplugin";
 import { LogFn } from "../../types/config";
-import {
-  EnvironmentContext,
-  Internal_PluginContext,
-  PluginContext
-} from "../../types/context";
+import { EnvironmentContext, PluginContext } from "../../types/context";
 import {
   HookKeys,
   InferHookParameters,
   InferHookReturnType
 } from "../../types/hooks";
+import { UNSAFE_PluginContext } from "../../types/internal";
 import { Plugin } from "../../types/plugin";
 import { ResolvedConfig } from "../../types/resolved";
 import { callHook, CallHookOptions } from "../helpers/hooks";
@@ -41,7 +38,7 @@ export function createPluginContext<
 >(
   plugin: Plugin<PluginContext<TResolvedConfig>>,
   environment: EnvironmentContext<TResolvedConfig>
-): Internal_PluginContext<TResolvedConfig> {
+): UNSAFE_PluginContext<TResolvedConfig> {
   const normalizeMessage = (message: string | UnpluginMessage): string => {
     return isString(message) ? message : message.message;
   };
@@ -68,7 +65,7 @@ export function createPluginContext<
     );
   };
 
-  return new Proxy({} as Internal_PluginContext<TResolvedConfig>, {
+  return new Proxy({} as UNSAFE_PluginContext<TResolvedConfig>, {
     get(_, prop) {
       if (prop === "$$internal") {
         return {

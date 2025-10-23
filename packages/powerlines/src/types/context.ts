@@ -26,7 +26,6 @@ import { Range } from "semver";
 import type { Unimport } from "unimport";
 import type { UnpluginBuildContext, UnpluginContext } from "unplugin";
 import type { SerializedTypes as CapnpSerializedTypes } from "../../schemas/reflection";
-import type { CallHookOptions } from "../internal/helpers/hooks";
 import type { SourceFile } from "./compiler";
 import type {
   InlineConfig,
@@ -34,13 +33,7 @@ import type {
   UserConfig,
   WorkspaceConfig
 } from "./config";
-import type {
-  HookKeys,
-  Hooks,
-  HooksList,
-  InferHookParameters,
-  InferHookReturnType
-} from "./hooks";
+import type { HookKeys, Hooks, HooksList } from "./hooks";
 import type { Plugin } from "./plugin";
 import type {
   EnvironmentResolvedConfig,
@@ -447,37 +440,6 @@ export interface PluginContext<
 export type BuildPluginContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > = PluginContext<TResolvedConfig> & UnpluginBuildContext;
-
-/**
- * Internal fields and methods for the internal plugin context
- *
- * @internal
- */
-// eslint-disable-next-line ts/naming-convention
-export interface Internal_PluginContextInternal<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> {
-  environment: EnvironmentContext<TResolvedConfig>;
-  callHook: <TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
-    hook: TKey,
-    options: CallHookOptions,
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) => Promise<
-    InferHookReturnType<PluginContext<TResolvedConfig>, TKey> | undefined
-  >;
-}
-
-/**
- * An internal representation of the plugin context, used for managing hooks and environment data.
- *
- * @internal
- */
-// eslint-disable-next-line ts/naming-convention
-export interface Internal_PluginContext<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> extends PluginContext<TResolvedConfig> {
-  $$internal: Internal_PluginContextInternal<TResolvedConfig>;
-}
 
 export interface SerializedVirtualFileSystem {
   builtinIdMap: Record<string, string>;

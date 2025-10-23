@@ -26,8 +26,8 @@ import {
   UnbuildBuildConfig,
   UnbuildResolvedBuildConfig
 } from "../../types/build";
-// eslint-disable-next-line camelcase
-import { Context, Internal_PluginContext } from "../../types/context";
+import { Context } from "../../types/context";
+import { UNSAFE_PluginContext } from "../../types/internal";
 import { getString } from "../utilities/source-file";
 import { extractRollupConfig } from "./rollup";
 
@@ -54,8 +54,7 @@ export const DEFAULT_UNBUILD_CONFIG = {
   }
 } as Partial<UnbuildBuildConfig>;
 
-// eslint-disable-next-line camelcase
-export const unbuildLoader = (context: Internal_PluginContext): Loader => {
+export const unbuildLoader = (context: UNSAFE_PluginContext): Loader => {
   return async (input, { options }) => {
     if (
       !/\.(?:c|m)?[jt]sx?$/.test(input.path) ||
@@ -212,8 +211,8 @@ export function extractUnbuildConfig(
 
         return ret;
       }, context.config.build.external ?? []) as string[],
-      // eslint-disable-next-line camelcase
-      loaders: [unbuildLoader(context as Internal_PluginContext)],
+
+      loaders: [unbuildLoader(context as UNSAFE_PluginContext)],
       jiti: {
         interopDefault: true,
         fsCache: joinPaths(context.envPaths.cache, "jiti"),

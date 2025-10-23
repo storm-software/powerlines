@@ -16,21 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-import { Children } from "@alloy-js/core/jsx-runtime";
-import type { PluginPluginAlloyOptions } from "@powerlines/plugin-plugin/types/plugin";
-import type { MaybePromise } from "@stryke/types/base";
-import { PluginContext } from "powerlines/types/context";
-import type { Plugin } from "powerlines/types/plugin";
-
-export interface AlloyPluginOptions {
-  alloy?: PluginPluginAlloyOptions;
-}
-
-export type AlloyPluginBuilder<
-  TOptions = any,
-  TContext extends PluginContext = PluginContext
-> = (options: TOptions) => MaybePromise<
-  Plugin<TContext> & {
-    render: (this: TContext) => Children;
-  }
->;
+export * from "./generate-config";

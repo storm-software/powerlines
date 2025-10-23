@@ -68,6 +68,62 @@
         "default": "./dist/index.js"
       }
     },
+    "./define-config": {
+      "import": {
+        "types": "./dist/define-config.d.ts",
+        "default": "./dist/define-config.js"
+      },
+      "require": {
+        "types": "./dist/define-config.d.cts",
+        "default": "./dist/define-config.cjs"
+      },
+      "default": {
+        "types": "./dist/define-config.d.ts",
+        "default": "./dist/define-config.js"
+      }
+    },
+    "./create-plugin": {
+      "import": {
+        "types": "./dist/create-plugin.d.ts",
+        "default": "./dist/create-plugin.js"
+      },
+      "require": {
+        "types": "./dist/create-plugin.d.cts",
+        "default": "./dist/create-plugin.cjs"
+      },
+      "default": {
+        "types": "./dist/create-plugin.d.ts",
+        "default": "./dist/create-plugin.js"
+      }
+    },
+    "./types": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/types/index.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/types/index.cjs"
+      },
+      "default": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/types/index.js"
+      }
+    },
+    "./types/*": {
+      "import": {
+        "types": "./dist/types/*.d.ts",
+        "default": "./dist/types/*.js"
+      },
+      "require": {
+        "types": "./dist/types/*.d.cts",
+        "default": "./dist/types/*.cjs"
+      },
+      "default": {
+        "types": "./dist/types/*.d.ts",
+        "default": "./dist/types/*.js"
+      }
+    },
     "./astro": {
       "import": {
         "types": "./dist/astro.d.ts",
@@ -220,48 +276,6 @@
       "default": {
         "types": "./dist/unplugin.d.ts",
         "default": "./dist/unplugin.js"
-      }
-    },
-    "./define-config": {
-      "import": {
-        "types": "./dist/define-config.d.ts",
-        "default": "./dist/define-config.js"
-      },
-      "require": {
-        "types": "./dist/define-config.d.cts",
-        "default": "./dist/define-config.cjs"
-      },
-      "default": {
-        "types": "./dist/define-config.d.ts",
-        "default": "./dist/define-config.js"
-      }
-    },
-    "./types": {
-      "import": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/types/index.js"
-      },
-      "require": {
-        "types": "./dist/types/index.d.cts",
-        "default": "./dist/types/index.cjs"
-      },
-      "default": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/types/index.js"
-      }
-    },
-    "./types/*": {
-      "import": {
-        "types": "./dist/types/*.d.ts",
-        "default": "./dist/types/*.js"
-      },
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.ts",
-        "default": "./dist/types/*.js"
       }
     },
     "./deepkit/*": {

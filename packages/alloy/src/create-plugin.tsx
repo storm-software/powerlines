@@ -51,11 +51,11 @@ import { AlloyPluginBuilder, AlloyPluginOptions } from "./types/plugin";
 export function createAlloyPlugin<
   TOptions = any,
   TContext extends PluginContext = PluginContext
->(
-  builder: AlloyPluginBuilder<TOptions, TContext>
-): (options: TOptions & AlloyPluginOptions) => Promise<Plugin<TContext>> {
+>(builder: AlloyPluginBuilder<TOptions, TContext>) {
   return async (
-    options: TOptions & AlloyPluginOptions
+    options: TOptions &
+      AlloyPluginOptions &
+      Partial<Omit<Plugin<TContext>, "name">>
   ): Promise<Plugin<TContext>> => {
     const result = await Promise.resolve(builder(options));
 
