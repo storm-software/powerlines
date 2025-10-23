@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.4.0) (2025-10-23)
+
+### Features
+
+- **powerlines:** Added the `extendPlugin` helper function
+  ([4cd8b1e](https://github.com/storm-software/powerlines/commit/4cd8b1e))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.7.0
+- Updated nx to 0.6.0
+
 ## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.3.0) (2025-10-22)
 
 ### Features

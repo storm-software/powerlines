@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.8.0](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.8.0) (2025-10-23)
+
+### Features
+
+- **powerlines:** Added the `extendPlugin` helper function
+  ([4cd8b1e](https://github.com/storm-software/powerlines/commit/4cd8b1e))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.8.0
+- Updated plugin-babel to 0.9.0
+- Updated powerlines to 0.7.0
+- Updated alloy to 0.8.0
+- Updated nx to 0.6.0
+
 ## [0.7.2](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.7.2) (2025-10-22)
 
 ### Miscellaneous
