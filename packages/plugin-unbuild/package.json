@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-unbuild",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "description": "A package containing a Powerlines plugin to build projects using Unbuild.",
   "repository": {
@@ -142,15 +142,8 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "unbuild",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["unbuild", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@storm-software/unbuild": "catalog:",
     "@stryke/fs": "catalog:",
@@ -159,12 +152,12 @@
     "@stryke/types": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*",
+    "powerlines": "0.7.1",
     "unplugin": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
+    "@powerlines/nx": "0.6.1",
+    "@powerlines/plugin-plugin": "0.8.1",
     "@types/node": "catalog:"
   },
   "publishConfig": {

@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.10.1](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.10.1) (2025-10-23)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([26d5877](https://github.com/storm-software/powerlines/commit/26d5877))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.8.1
+- Updated powerlines to 0.7.1
+- Updated nx to 0.6.1
+
 ## [0.10.0](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.10.0) (2025-10-23)
 
 ### Features

@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.7.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.7.1) (2025-10-23)
+
+### Miscellaneous
+
+- **monorepo:** Remove `tsdoc` package to make repo less opinionated
+  ([1a07423](https://github.com/storm-software/powerlines/commit/1a07423))
+
 ## [0.7.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.7.0) (2025-10-23)
 
 ### Features
