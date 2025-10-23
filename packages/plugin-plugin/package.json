@@ -114,8 +114,14 @@
     }
   },
   "typings": "dist/src/index.d.ts",
-  "files": ["dist/**/*"],
-  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@alloy-js/babel-preset": "catalog:",
     "@alloy-js/core": "catalog:",
@@ -132,11 +138,11 @@
     "defu": "catalog:",
     "esbuild-plugin-babel": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.7.0"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@alloy-js/rollup-plugin": "catalog:",
-    "@powerlines/nx": "0.6.0",
+    "@powerlines/nx": "workspace:*",
     "@rollup/plugin-commonjs": "catalog:",
     "@rollup/plugin-node-resolve": "catalog:",
     "@types/babel__helper-plugin-utils": "catalog:",

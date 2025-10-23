@@ -97,8 +97,15 @@
       }
     }
   },
-  "files": ["dist/**/*"],
-  "keywords": ["oxlint", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "oxlint",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
     "@stryke/cli": "catalog:",
@@ -108,10 +115,10 @@
     "defu": "catalog:",
     "oxlint": "catalog:",
     "oxlint-tsgolint": "catalog:",
-    "powerlines": "0.7.0"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@powerlines/nx": "0.6.0",
+    "@powerlines/nx": "workspace:*",
     "@storm-software/tsup": "catalog:",
     "@types/node": "catalog:"
   },
