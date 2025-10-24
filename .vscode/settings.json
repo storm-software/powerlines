@@ -22,8 +22,8 @@
   "files.exclude": {
     "**/common/temp/**": true,
     "**/obj/**": true,
-    "**/bin/**": true,
-    "**/.git": true,
+    "**/bin/**": false,
+    "**/.git": false,
     "**/.DS_Store": true
   },
   "relay.autoStartCompiler": true,
