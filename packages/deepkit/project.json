@@ -30,8 +30,8 @@
     },
     "build-scripts": {
       "cache": false,
-      "inputs": ["{projectRoot}/scripts"],
-      "outputs": ["{projectRoot}/scripts"],
+      "inputs": ["{projectRoot}/scripts/*.ts"],
+      "outputs": ["{projectRoot}/scripts/*.cjs"],
       "executor": "nx:run-commands",
       "options": {
         "command": "tsup --config=tsup.scripts.ts",
@@ -64,7 +64,7 @@
           "pnpm copyfiles LICENSE dist/packages/deepkit",
           "pnpm copyfiles --up=2 ./packages/deepkit/*.md ./packages/deepkit/package.json dist/packages/deepkit",
           "pnpm copyfiles --up=3 \"./packages/deepkit/dist/**/*\" dist/packages/deepkit/dist",
-          "pnpm copyfiles --up=3 \"./packages/deepkit/scripts/*.cjs\" \"./packages/deepkit/scripts/*.js\" dist/packages/deepkit/bin",
+          "pnpm copyfiles --up=3 \"./packages/deepkit/scripts/*.cjs\" dist/packages/deepkit/bin",
           "pnpm copyfiles --up=3 \"./packages/deepkit/schemas/*.js\" \"./packages/deepkit/schemas/*.d.ts\" \"./packages/deepkit/schemas/*.cjs\" \"./packages/deepkit/schemas/*.d.cts\" \"./packages/deepkit/schemas/*.capnp\" dist/packages/deepkit/schemas"
         ]
       }

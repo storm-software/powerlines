@@ -455,10 +455,6 @@
     "webpack",
     "astro"
   ],
-  "scripts": {
-    "install": "rm -rf node_modules/typescript || exit 0",
-    "postinstall": "node ./scripts/post-install.cjs || exit 0"
-  },
   "peerDependencies": {
     "@farmfe/cli": "^1.0.5",
     "@farmfe/core": "^1.7.11",
