@@ -142,7 +142,9 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "keywords": [
     "oxc-transform",
     "powerlines",
@@ -153,11 +155,11 @@
     "@stryke/path": "catalog:",
     "defu": "catalog:",
     "oxc-transform": "catalog:",
-    "powerlines": "0.10.1"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@powerlines/nx": "0.8.2",
-    "@powerlines/plugin-plugin": "0.10.2",
+    "@powerlines/nx": "workspace:*",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {
