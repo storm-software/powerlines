@@ -142,15 +142,22 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*"],
-  "keywords": ["tsc", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "tsc",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
-    "powerlines": "0.10.0",
     "defu": "catalog:",
+    "powerlines": "workspace:*",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@powerlines/nx": "0.8.1",
+    "@powerlines/nx": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

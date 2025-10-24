@@ -363,8 +363,15 @@
       }
     }
   },
-  "files": ["dist/**/*"],
-  "keywords": ["alloy-js", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "alloy-js",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@alloy-js/babel-plugin": "catalog:",
     "@alloy-js/babel-plugin-jsx-dom-expressions": "catalog:",
@@ -375,7 +382,7 @@
     "@babel/plugin-syntax-jsx": "catalog:",
     "@babel/plugin-syntax-typescript": "catalog:",
     "@babel/plugin-transform-typescript": "catalog:",
-    "@powerlines/plugin-plugin": "0.10.1",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",
@@ -390,12 +397,12 @@
     "@vue/reactivity": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.10.0",
+    "powerlines": "workspace:*",
     "prettier": "catalog:"
   },
   "devDependencies": {
     "@babel/core": "catalog:",
-    "@powerlines/nx": "0.8.1",
+    "@powerlines/nx": "workspace:*",
     "@storm-software/tsup": "catalog:",
     "@types/node": "catalog:"
   },
