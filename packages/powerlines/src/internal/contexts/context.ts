@@ -73,14 +73,15 @@ import { OutputModeType, VirtualFileSystemInterface } from "../../types/vfs";
 import { createResolver } from "../helpers/resolver";
 import { createVfs } from "../helpers/vfs";
 
-interface CacheKey {
+interface ConfigCacheKey {
   projectRoot: string;
   mode: "test" | "development" | "production";
   skipCache: boolean;
   configFile?: string;
   command?: string;
 }
-interface CacheData {
+
+interface ConfigCacheResult {
   projectJson: Context["projectJson"];
   packageJson: Context["packageJson"];
   checksum: string;
@@ -88,7 +89,13 @@ interface CacheData {
   userConfig: ParsedUserConfig;
 }
 
-const cache = new WeakMap<CacheKey, CacheData>();
+interface ParseCacheKey {
+  code: string;
+  options: Partial<ParserOptions> | null;
+}
+
+const configCache = new WeakMap<ConfigCacheKey, ConfigCacheResult>();
+const parseCache = new WeakMap<ParseCacheKey, ParseResult>();
 
 export class PowerlinesContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
@@ -400,7 +407,11 @@ export class PowerlinesContext<
     id: string,
     options: ParserOptions | null = {}
   ): Promise<ParseResult> {
-    return parseAsync(
+    if (parseCache.has({ code, options })) {
+      return parseCache.get({ code, options })!;
+    }
+
+    const result = await parseAsync(
       id,
       code,
       defu(options ?? {}, {
@@ -410,6 +421,21 @@ export class PowerlinesContext<
         showSemanticErrors: false
       }) as ParserOptions
     );
+    if (result.errors && result.errors.length > 0) {
+      throw new Error(
+        `Powerlines parsing errors in file: ${id}\n${result.errors
+          .map(
+            error =>
+              `  [${error.severity}] ${error.message}${
+                error.codeframe ? ` (${error.codeframe})` : ""
+              }${error.helpMessage ? `\n    Help: ${error.helpMessage}` : ""}`
+          )
+          .join("\n")}`
+      );
+    }
+    parseCache.set({ code, options }, result);
+
+    return result;
   }
 
   /**
@@ -524,7 +550,7 @@ export class PowerlinesContext<
       isHighPriority: true
     }
   ) {
-    const cacheKey: CacheKey = {
+    const cacheKey: ConfigCacheKey = {
       projectRoot:
         config.root ??
         this.config.projectRoot ??
@@ -536,8 +562,8 @@ export class PowerlinesContext<
       command: this.config.inlineConfig?.command
     };
 
-    if (cache.has(cacheKey)) {
-      const result = cache.get(cacheKey)!;
+    if (configCache.has(cacheKey)) {
+      const result = configCache.get(cacheKey)!;
 
       this.projectJson = result.projectJson;
       this.packageJson = result.packageJson;
@@ -574,7 +600,7 @@ export class PowerlinesContext<
       );
       this.mergeUserConfig(userConfig.config);
 
-      cache.set(cacheKey, {
+      configCache.set(cacheKey, {
         projectJson: this.projectJson,
         packageJson: this.packageJson,
         checksum: this.#checksum,
