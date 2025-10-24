@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.10.0](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.10.0) (2025-10-24)
+
+### Features
+
+- **deepkit:** Initial check-in of the `deepkit` package
+  ([d3372b8](https://github.com/storm-software/powerlines/commit/d3372b8))
+
+### Updated Dependencies
+
+- Updated plugin-env to 0.9.0
+- Updated powerlines to 0.8.0
+- Updated nx to 0.7.0
+
 ## [0.9.1](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.9.1) (2025-10-23)
 
 ### Miscellaneous

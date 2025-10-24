@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.8.0](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.8.0) (2025-10-24)
+
+### Features
+
+- **deepkit:** Initial check-in of the `deepkit` package
+  ([d3372b8](https://github.com/storm-software/powerlines/commit/d3372b8))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.8.0
+- Updated nx to 0.7.0
+
 ## [0.7.1](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.7.1) (2025-10-23)
 
 ### Miscellaneous

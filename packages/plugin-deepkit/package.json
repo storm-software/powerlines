@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-deepkit",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
@@ -153,13 +153,13 @@
     "chalk": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*",
-    "@powerlines/deepkit": "workspace:*",
+    "powerlines": "0.8.0",
+    "@powerlines/deepkit": "0.1.0",
     "typescript": "^5.9.3",
     "unplugin": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/nx": "0.7.0",
     "@types/node": "catalog:"
   },
   "publishConfig": {

@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.5.0) (2025-10-24)
+
+### Features
+
+- **deepkit:** Initial check-in of the `deepkit` package
+  ([d3372b8](https://github.com/storm-software/powerlines/commit/d3372b8))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.9.0
+- Updated powerlines to 0.8.0
+- Updated nx to 0.7.0
+
 ## [0.4.1](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.4.1) (2025-10-23)
 
 ### Miscellaneous
