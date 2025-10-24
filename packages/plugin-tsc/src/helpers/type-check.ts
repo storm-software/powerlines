@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -17,9 +17,12 @@
  ------------------------------------------------------------------- */
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
+import {
+  createVirtualProgram,
+  SourcesMap
+} from "powerlines/lib/typescript/program";
+import { Context } from "powerlines/types/context";
 import ts from "typescript";
-import { createVirtualProgram, SourcesMap } from "../../lib/typescript/program";
-import { Context } from "../../types/context";
 
 /**
  * Perform type checks on the provided sources using TypeScript's compiler API.

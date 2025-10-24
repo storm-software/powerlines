@@ -20,4 +20,3 @@ export * from "./environment";
 export * from "./generate-types";
 export * from "./install";
 export * from "./resolve-tsconfig";
-export * from "./tsc";

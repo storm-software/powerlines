@@ -16,14 +16,17 @@
 
  ------------------------------------------------------------------- */
 
+import defu from "defu";
 import { Plugin } from "powerlines/types/plugin";
 import ts from "typescript";
+import { typeCheck } from "./helpers/type-check";
 import {
   TypeScriptCompilerPluginContext,
   TypeScriptCompilerPluginOptions,
   TypeScriptCompilerPluginUserConfig
 } from "./types/plugin";
 
+export * from "./helpers";
 export * from "./types";
 
 /**
@@ -43,9 +46,16 @@ export const plugin = <
     config() {
       return {
         transform: {
-          tsc: options ?? {}
+          tsc: defu(options ?? {}, {
+            typeCheck: false
+          })
         }
       } as Partial<TypeScriptCompilerPluginUserConfig>;
+    },
+    async lint() {
+      if (this.config.transform.tsc.typeCheck) {
+        await typeCheck(this);
+      }
     },
     async transform(code: string, id: string) {
       const result = ts.transpileModule(code, {

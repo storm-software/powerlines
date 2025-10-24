@@ -23,14 +23,22 @@ import ts from "typescript";
 
 export type TypeScriptCompilerPluginOptions = Partial<
   Omit<ts.TranspileOptions, "fileName">
->;
+> & {
+  /**
+   * Whether to perform type checking during the `lint` task.
+   *
+   * @defaultValue false
+   */
+  typeCheck?: boolean;
+};
 
 export interface TypeScriptCompilerPluginUserConfig extends UserConfig {
   transform: {
     /**
      * TypeScript Compiler transformation options
      */
-    tsc: Partial<TypeScriptCompilerPluginOptions>;
+    tsc: Partial<Omit<TypeScriptCompilerPluginOptions, "typeCheck">> &
+      Required<Pick<TypeScriptCompilerPluginOptions, "typeCheck">>;
   };
 }
 
@@ -39,7 +47,8 @@ export interface TypeScriptCompilerPluginResolvedConfig extends ResolvedConfig {
     /**
      * Resolved TypeScript Compiler transformation options
      */
-    tsc: TypeScriptCompilerPluginOptions;
+    tsc: Partial<Omit<TypeScriptCompilerPluginOptions, "typeCheck">> &
+      Required<Pick<TypeScriptCompilerPluginOptions, "typeCheck">>;
   };
 }
 

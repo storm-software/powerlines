@@ -1430,6 +1430,9 @@ importers:
 
   packages/plugin-tsc:
     dependencies:
+      defu:
+        specifier: 'catalog:'
+        version: 6.1.4
       powerlines:
         specifier: workspace:*
         version: link:../powerlines
