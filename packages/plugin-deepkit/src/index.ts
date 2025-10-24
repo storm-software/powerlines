@@ -20,8 +20,8 @@ import {
   createDeclarationTransformer,
   createTransformer
 } from "@powerlines/deepkit/transformer";
+import tsc from "@powerlines/plugin-tsc";
 import { Plugin } from "powerlines/types/plugin";
-import ts from "typescript";
 import {
   DeepkitPluginContext,
   DeepkitPluginOptions,
@@ -43,6 +43,7 @@ export const plugin = <
 ): Plugin<TContext> => {
   return {
     name: "deepkit",
+    dependsOn: [tsc(options)],
     config() {
       return {
         transform: {
@@ -51,9 +52,12 @@ export const plugin = <
       } as Partial<DeepkitPluginUserConfig>;
     },
     configResolved: {
-      order: "pre",
+      order: "post",
       handler() {
-        this.config.transform.deepkit = {
+        this.config.transform.tsc ??=
+          {} as TContext["config"]["transform"]["tsc"];
+        this.config.transform.tsc.compilerOptions = {
+          ...(this.config.transform.tsc.compilerOptions ?? {}),
           exclude: this.config.transform.deepkit.exclude ?? [],
           reflection:
             this.config.transform.deepkit.reflection ||
@@ -67,59 +71,18 @@ export const plugin = <
             "minimal"
         };
 
-        this.deepkit ??= {} as TContext["deepkit"];
-        this.deepkit.transformer ??= createTransformer(
-          this,
-          this.config.transform.deepkit
-        );
+        this.config.transform.tsc.transformers ??= {
+          before: [],
+          after: []
+        };
 
-        this.deepkit.declarationTransformer ??= createDeclarationTransformer(
-          this,
-          this.config.transform.deepkit
+        this.config.transform.tsc.transformers.before!.push(
+          createTransformer(this, this.config.transform.deepkit)
+        );
+        this.config.transform.tsc.transformers.after!.push(
+          createDeclarationTransformer(this, this.config.transform.deepkit)
         );
       }
-    },
-    async transform(code: string, id: string) {
-      const result = ts.transpileModule(code, {
-        compilerOptions: {
-          ...this.tsconfig.options,
-          ...this.config.transform.deepkit
-        },
-        fileName: id,
-        transformers: {
-          before: [this.deepkit.transformer],
-          after: [this.deepkit.declarationTransformer]
-        }
-      });
-      if (
-        result.diagnostics &&
-        result.diagnostics.length > 0 &&
-        result.diagnostics?.some(
-          diagnostic => diagnostic.category === ts.DiagnosticCategory.Error
-        )
-      ) {
-        throw new Error(
-          `Deepkit - TypeScript transpilation errors in file: ${id}\n${ts.formatDiagnostics(
-            result.diagnostics,
-            {
-              getCanonicalFileName: fileName =>
-                ts.sys.useCaseSensitiveFileNames
-                  ? fileName
-                  : fileName.toLowerCase(),
-              getCurrentDirectory: () => ts.sys.getCurrentDirectory(),
-              getNewLine: () => ts.sys.newLine
-            }
-          )}`
-        );
-      }
-
-      if (!result.outputText) {
-        throw new Error(
-          `Deepkit - No output generated for file during TypeScript transpilation: ${id}`
-        );
-      }
-
-      return { code: result.outputText, id };
     }
   } as Plugin<TContext>;
 };

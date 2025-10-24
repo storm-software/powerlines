@@ -1,12 +1,12 @@
 {
-  "name": "@powerlines/plugin-deepkit",
-  "version": "0.8.0",
+  "name": "@powerlines/plugin-tsc",
+  "version": "0.0.1",
   "type": "module",
-  "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
+  "description": "A package containing the TypeScript compiler plugin for Powerlines.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-deepkit"
+    "directory": "packages/plugin-tsc"
   },
   "homepage": "https://stormsoftware.com",
   "bugs": {
@@ -115,10 +115,8 @@
   },
   "typings": "dist/index.d.ts",
   "files": ["dist/**/*"],
-  "keywords": ["deepkit", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": ["tsc", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
-    "@powerlines/deepkit": "workspace:*",
-    "@powerlines/plugin-tsc": "workspace:*",
     "powerlines": "workspace:*",
     "typescript": "^5.9.3"
   },

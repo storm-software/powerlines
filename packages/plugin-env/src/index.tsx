@@ -275,7 +275,7 @@ export const plugin = createAlloyPlugin<EnvPluginOptions, EnvPluginContext>(
           this.env.used.env = new ReflectionClass(
             {
               kind: ReflectionKind.objectLiteral,
-              typeName: "StormEnv",
+              typeName: "Env",
               description: `An object containing the environment configuration parameters used by the ${
                 this.config.name
                   ? `${this.config.name} application`
@@ -298,7 +298,7 @@ export const plugin = createAlloyPlugin<EnvPluginOptions, EnvPluginContext>(
             this.env.used.secrets = new ReflectionClass(
               {
                 kind: ReflectionKind.objectLiteral,
-                typeName: "StormSecrets",
+                typeName: "Secrets",
                 description: `An object containing the secret configuration parameters used by the ${
                   this.config.name
                     ? `${this.config.name} application`

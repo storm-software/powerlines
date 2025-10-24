@@ -192,6 +192,7 @@ overrides:
   '@powerlines/plugin-rollup': workspace:*
   '@powerlines/plugin-rspack': workspace:*
   '@powerlines/plugin-swc': workspace:*
+  '@powerlines/plugin-tsc': workspace:*
   '@powerlines/plugin-tsup': workspace:*
   '@powerlines/plugin-typedoc': workspace:*
   '@powerlines/plugin-unbuild': workspace:*

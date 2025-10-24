@@ -17,44 +17,36 @@
  ------------------------------------------------------------------- */
 
 import { ReflectionConfig } from "@powerlines/deepkit/vendor/type-compiler/config";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
-import ts from "typescript";
+import {
+  TypeScriptCompilerPluginContext,
+  TypeScriptCompilerPluginOptions,
+  TypeScriptCompilerPluginResolvedConfig,
+  TypeScriptCompilerPluginUserConfig
+} from "@powerlines/plugin-tsc/types/plugin";
 
-export type DeepkitPluginOptions = Partial<ReflectionConfig>;
+export type DeepkitPluginOptions = Partial<ReflectionConfig> &
+  TypeScriptCompilerPluginOptions;
 
-export interface DeepkitPluginUserConfig extends UserConfig {
+export type DeepkitPluginUserConfig = TypeScriptCompilerPluginUserConfig & {
   transform: {
     /**
      * Deepkit transformation options
      */
     deepkit: DeepkitPluginOptions;
   };
-}
+};
 
-export interface DeepkitPluginResolvedConfig extends ResolvedConfig {
-  transform: {
-    /**
-     * Resolved deepkit transformation options
-     */
-    deepkit: Required<DeepkitPluginOptions>;
+export type DeepkitPluginResolvedConfig =
+  TypeScriptCompilerPluginResolvedConfig & {
+    transform: {
+      /**
+       * Resolved deepkit transformation options
+       */
+      deepkit: Required<DeepkitPluginOptions>;
+    };
   };
-}
 
 export type DeepkitPluginContext<
   TResolvedConfig extends
     DeepkitPluginResolvedConfig = DeepkitPluginResolvedConfig
-> = PluginContext<TResolvedConfig> & {
-  deepkit: {
-    /**
-     * Deepkit - TypeScript Transformer Factory
-     */
-    transformer: ts.CustomTransformerFactory;
-
-    /**
-     * Deepkit - TypeScript Declaration Transformer Factory
-     */
-    declarationTransformer: ts.CustomTransformerFactory;
-  };
-};
+> = TypeScriptCompilerPluginContext<TResolvedConfig>;

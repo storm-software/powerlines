@@ -443,6 +443,7 @@ overrides:
   '@powerlines/plugin-rollup': workspace:*
   '@powerlines/plugin-rspack': workspace:*
   '@powerlines/plugin-swc': workspace:*
+  '@powerlines/plugin-tsc': workspace:*
   '@powerlines/plugin-tsup': workspace:*
   '@powerlines/plugin-typedoc': workspace:*
   '@powerlines/plugin-unbuild': workspace:*
@@ -949,39 +950,15 @@ importers:
       '@powerlines/deepkit':
         specifier: workspace:*
         version: link:../deepkit
-      '@storm-software/config-tools':
-        specifier: 'catalog:'
-        version: 1.188.11(magicast@0.3.5)
-      '@stryke/fs':
-        specifier: 'catalog:'
-        version: 0.32.2(magicast@0.3.5)(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.13.5(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.13.5(@swc/helpers@0.5.17)))
-      '@stryke/path':
-        specifier: 'catalog:'
-        version: 0.16.0
-      '@stryke/type-checks':
-        specifier: 'catalog:'
-        version: 0.3.10
-      '@stryke/types':
-        specifier: 'catalog:'
-        version: 0.10.0
-      chalk:
-        specifier: 'catalog:'
-        version: 5.6.2
-      defu:
-        specifier: 'catalog:'
-        version: 6.1.4
-      jiti:
-        specifier: 'catalog:'
-        version: 2.6.1
+      '@powerlines/plugin-tsc':
+        specifier: workspace:*
+        version: link:../plugin-tsc
       powerlines:
         specifier: workspace:*
         version: link:../powerlines
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
-      unplugin:
-        specifier: 'catalog:'
-        version: 2.3.10
     devDependencies:
       '@powerlines/nx':
         specifier: workspace:*
@@ -1447,6 +1424,22 @@ importers:
       '@powerlines/plugin-plugin':
         specifier: workspace:*
         version: link:../plugin-plugin
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.18.12
+
+  packages/plugin-tsc:
+    dependencies:
+      powerlines:
+        specifier: workspace:*
+        version: link:../powerlines
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+    devDependencies:
+      '@powerlines/nx':
+        specifier: workspace:*
+        version: link:../nx
       '@types/node':
         specifier: 'catalog:'
         version: 22.18.12
@@ -7139,8 +7132,8 @@ packages:
     resolution: {integrity: sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==}
     engines: {node: ^4.5.0 || >= 5.9}
 
-  baseline-browser-mapping@2.8.19:
-    resolution: {integrity: sha512-zoKGUdu6vb2jd3YOq0nnhEDQVbPcHhco3UImJrv5dSkvxTc2pl2WjOPsjZXDwPDSl5eghIMuY3R6J9NDKF3KcQ==}
+  baseline-browser-mapping@2.8.20:
+    resolution: {integrity: sha512-JMWsdF+O8Orq3EMukbUN1QfbLK9mX2CkUmQBcW2T0s8OmdAUL5LLM/6wFwSrqXzlXB13yhyK9gTKS1rIizOduQ==}
     hasBin: true
 
   batch@0.6.1:
@@ -21297,7 +21290,7 @@ snapshots:
 
   base64id@2.0.0: {}
 
-  baseline-browser-mapping@2.8.19: {}
+  baseline-browser-mapping@2.8.20: {}
 
   batch@0.6.1: {}
 
@@ -21451,7 +21444,7 @@ snapshots:
 
   browserslist@4.27.0:
     dependencies:
-      baseline-browser-mapping: 2.8.19
+      baseline-browser-mapping: 2.8.20
       caniuse-lite: 1.0.30001751
       electron-to-chromium: 1.5.239
       node-releases: 2.0.26
