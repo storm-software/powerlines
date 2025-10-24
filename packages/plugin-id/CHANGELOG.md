@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.8.0](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.8.0) (2025-10-24)
+
+### Features
+
+- **powerlines:** Added `parse` function to `context` objects
+  ([5a56c5c](https://github.com/storm-software/powerlines/commit/5a56c5c))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.9.0
+- Updated nx to 0.8.0
+
 ## [0.7.0](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.7.0) (2025-10-24)
 
 ### Features

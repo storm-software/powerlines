@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.9.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.9.0) (2025-10-24)
+
+### Features
+
+- **powerlines:** Added `parse` function to `context` objects
+  ([5a56c5c](https://github.com/storm-software/powerlines/commit/5a56c5c))
+
 ## [0.8.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.8.0) (2025-10-24)
 
 ### Features
