@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-rspack",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "type": "module",
   "description": "A package containing a Powerlines plugin to build projects using Webpack.",
   "repository": {
@@ -142,15 +142,8 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "rspack",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["rspack", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@rspack/core": "catalog:",
     "@stryke/fs": "catalog:",
@@ -159,11 +152,11 @@
     "@stryke/types": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.10.2"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
+    "@powerlines/nx": "0.8.3",
+    "@powerlines/plugin-plugin": "0.10.3",
     "@types/node": "catalog:"
   },
   "publishConfig": {

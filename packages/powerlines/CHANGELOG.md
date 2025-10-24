@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.10.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.10.2) (2025-10-24)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issues with `scripts` build
+  ([2605653](https://github.com/storm-software/powerlines/commit/2605653))
+
 ## [0.10.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.10.1) (2025-10-24)
 
 ### Source Code Improvements
