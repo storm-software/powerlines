@@ -153,12 +153,13 @@
     "chalk": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.7.1",
+    "powerlines": "workspace:*",
+    "@powerlines/deepkit": "workspace:*",
     "typescript": "^5.9.3",
     "unplugin": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "0.6.1",
+    "@powerlines/nx": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

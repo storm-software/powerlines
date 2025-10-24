@@ -8,6 +8,8 @@
     "paths": {
       "@powerlines/alloy": ["packages/alloy/src/index.ts"],
       "@powerlines/alloy/*": ["packages/alloy/src/*"],
+      "@powerlines/deepkit": ["packages/deepkit/src/index.ts"],
+      "@powerlines/deepkit/*": ["packages/deepkit/src/*"],
       "@powerlines/nx": ["packages/nx/index.ts"],
       "@powerlines/nx/*": ["packages/nx/src/*"],
       "@powerlines/plugin-babel": ["packages/plugin-babel/src/index.ts"],

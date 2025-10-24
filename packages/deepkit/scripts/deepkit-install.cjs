@@ -27,7 +27,7 @@ function getCode(deepkitDistPath, varName, id) {
     var typeTransformer;
 
     try {
-      typeTransformer = require("powerlines/deepkit/type-compiler");
+      typeTransformer = require("@powerlines/plugin-deepkit/vendor/type-compiler");
     } catch (error) {
       typeTransformer = require(${JSON.stringify(deepkitDistPath)});
     }
@@ -90,8 +90,8 @@ function patchGetTransformers(deepkitDistPath, code) {
   return code;
 }
 __name(patchGetTransformers, "patchGetTransformers");
-var postinstallTimeout = setTimeout(() => {
-  logger.writeError("powerlines@post-install: Timeout reached.", {
+var deepkitInstallTimeout = setTimeout(() => {
+  logger.writeError("powerlines@deepkit-install: Timeout reached.", {
     logLevel: "all"
   });
   process.exit(0);
@@ -99,7 +99,7 @@ var postinstallTimeout = setTimeout(() => {
 (async () => {
   const start = /* @__PURE__ */ new Date();
   try {
-    logger.writeInfo("powerlines@post-install: Patching TypeScript package with Deepkit transformer", {
+    logger.writeInfo("powerlines@deepkit-install: Patching TypeScript package with Deepkit transformer", {
       logLevel: "all"
     });
     const typeScriptPath = path.dirname(__require.resolve("typescript", {
@@ -123,31 +123,31 @@ var postinstallTimeout = setTimeout(() => {
         continue;
       }
       await promises.writeFile(file, content);
-      logger.writeSuccess(`powerlines@post-install: Injected Deepkit TypeScript transformer at ${file}`, {
+      logger.writeSuccess(`powerlines@deepkit-install: Injected Deepkit TypeScript transformer at ${file}`, {
         logLevel: "all"
       });
     }
   } catch (e) {
-    logger.writeError(`powerlines@post-install: Exception occurred - ${e?.message}`, {
+    logger.writeError(`powerlines@deepkit-install: Exception occurred - ${e?.message}`, {
       logLevel: "all"
     });
   } finally {
     const end = /* @__PURE__ */ new Date();
-    logger.writeDebug(`powerlines@post-install: Process took ${end.getTime() - start.getTime()}ms`, {
+    logger.writeDebug(`powerlines@deepkit-install: Process took ${end.getTime() - start.getTime()}ms`, {
       logLevel: "all"
     });
-    clearTimeout(postinstallTimeout);
+    clearTimeout(deepkitInstallTimeout);
     process.exit(0);
   }
 })();
 process.on("uncaughtException", (e) => {
-  logger.writeFatal(`powerlines@post-install: Uncaught Exception occurred - ${e.message}`, {
+  logger.writeFatal(`powerlines@deepkit-install: Uncaught Exception occurred - ${e.message}`, {
     logLevel: "all"
   });
   process.exit(0);
 });
 process.on("unhandledRejection", (e) => {
-  logger.writeFatal(`powerlines@post-install: Unhandled Rejection occurred - ${e?.message}`, {
+  logger.writeFatal(`powerlines@deepkit-install: Unhandled Rejection occurred - ${e?.message}`, {
     logLevel: "all"
   });
   process.exit(0);

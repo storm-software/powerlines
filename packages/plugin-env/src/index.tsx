@@ -17,6 +17,11 @@
  ------------------------------------------------------------------- */
 
 import { createAlloyPlugin } from "@powerlines/alloy/create-plugin";
+import {
+  ReflectionClass,
+  ReflectionKind,
+  stringifyType
+} from "@powerlines/deepkit/vendor/type";
 import babel from "@powerlines/plugin-babel";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
@@ -32,11 +37,6 @@ import {
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
 import defu from "defu";
-import {
-  ReflectionClass,
-  ReflectionKind,
-  stringifyType
-} from "powerlines/deepkit/type";
 import { writeFile } from "powerlines/lib/utilities/write-file";
 import { envBabelPlugin } from "./babel/plugin";
 import { EnvBuiltin } from "./components/env";

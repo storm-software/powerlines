@@ -17,10 +17,9 @@
  ------------------------------------------------------------------- */
 
 import {
-  Cache,
-  DeclarationTransformer,
-  ReflectionTransformer
-} from "powerlines/deepkit/type-compiler";
+  createDeclarationTransformer,
+  createTransformer
+} from "@powerlines/deepkit/transformer";
 import { Plugin } from "powerlines/types/plugin";
 import ts from "typescript";
 import {
@@ -69,24 +68,15 @@ export const plugin = <
         };
 
         this.deepkit ??= {} as TContext["deepkit"];
-        this.deepkit.cache ??= new Cache();
+        this.deepkit.transformer ??= createTransformer(
+          this,
+          this.config.transform.deepkit
+        );
 
-        this.deepkit.transformer ??= (ctx: ts.TransformationContext) => {
-          this.deepkit.cache.tick();
-          return new ReflectionTransformer(
-            ctx,
-            this.deepkit.cache
-          ).withReflection(this.config.transform.deepkit);
-        };
-
-        this.deepkit.declarationTransformer ??= (
-          ctx: ts.TransformationContext
-        ) => {
-          return new DeclarationTransformer(
-            ctx,
-            this.deepkit.cache
-          ).withReflection(this.config.transform.deepkit);
-        };
+        this.deepkit.declarationTransformer ??= createDeclarationTransformer(
+          this,
+          this.config.transform.deepkit
+        );
       }
     },
     async transform(code: string, id: string) {

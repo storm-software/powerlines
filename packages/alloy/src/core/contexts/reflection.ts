@@ -23,7 +23,7 @@ import {
   ReflectionMethod,
   ReflectionParameter,
   ReflectionProperty
-} from "powerlines/deepkit/type";
+} from "@powerlines/deepkit/vendor/type";
 import { ReflectionOverrideInterface } from "../../types/components";
 
 export interface ReflectionClassContextInterface<

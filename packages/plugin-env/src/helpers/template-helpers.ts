@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+import { ReflectionClass } from "@powerlines/deepkit/vendor/type";
 import { titleCase } from "@stryke/string-format/title-case";
-import { ReflectionClass } from "powerlines/deepkit/type";
 import { EnvPluginContext, EnvType } from "../types/plugin";
 import { readEnvTypeReflection } from "./persistence";
 

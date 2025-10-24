@@ -18,21 +18,21 @@
 
 import { NodePath } from "@babel/core";
 import * as t from "@babel/types";
+import { convertFromCapnp } from "@powerlines/deepkit/capnp";
+import { SerializedTypes as CapnpSerializedTypes } from "@powerlines/deepkit/schemas/reflection";
+import { stringifyDefaultValue } from "@powerlines/deepkit/utilities";
+import {
+  deserializeType,
+  ReflectionClass,
+  ReflectionKind,
+  resolveClassType
+} from "@powerlines/deepkit/vendor/type";
 import { createBabelPlugin } from "@powerlines/plugin-babel/helpers/create-plugin";
 import { addImport } from "@powerlines/plugin-babel/helpers/module-helpers";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import * as capnp from "@stryke/capnp";
 import { readFileBufferSync } from "@stryke/fs/buffer";
 import { existsSync } from "node:fs";
-import {
-  deserializeType,
-  ReflectionClass,
-  ReflectionKind,
-  resolveClassType
-} from "powerlines/deepkit/type";
-import { convertFromCapnp } from "powerlines/lib/capnp";
-import { stringifyDefaultValue } from "powerlines/lib/deepkit/utilities";
-import { SerializedTypes as CapnpSerializedTypes } from "powerlines/schemas/reflection";
 import { BabelPluginPass } from "powerlines/types/babel";
 import { getEnvReflectionsPath } from "../helpers/persistence";
 import { EnvPluginContext } from "../types/plugin";

@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { joinPaths } from "@stryke/path/join-paths";
-import type { Context } from "../../types/context";
+import type { Context } from "powerlines/types/context";
 
 /**
  * Returns the path to the reflections artifact directory.

@@ -174,8 +174,6 @@ export class PowerlinesContext<
    */
   public devDependencies: Record<string, string | Range> = {};
 
-  public reflections: Context["reflections"] = {} as Context["reflections"];
-
   public persistedMeta: MetaInfo | undefined = undefined;
 
   public powerlinesPath!: string;

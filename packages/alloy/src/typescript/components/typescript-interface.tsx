@@ -23,12 +23,12 @@ import {
   InterfaceMember,
   InterfaceMemberProps
 } from "@alloy-js/typescript";
-import { pascalCase } from "@stryke/string-format/pascal-case";
 import {
   ReflectionClass,
   ReflectionProperty,
   stringifyType
-} from "powerlines/deepkit/type";
+} from "@powerlines/deepkit/vendor/type";
+import { pascalCase } from "@stryke/string-format/pascal-case";
 import {
   ReflectionClassContext,
   ReflectionPropertyContext

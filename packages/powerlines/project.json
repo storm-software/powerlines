@@ -4,30 +4,6 @@
   "projectType": "library",
   "sourceRoot": "packages/powerlines/src",
   "targets": {
-    "generate-schemas": {
-      "cache": true,
-      "inputs": ["{projectRoot}/schemas/*.capnp"],
-      "outputs": ["{projectRoot}/schemas/*.ts"],
-      "executor": "nx:run-commands",
-      "dependsOn": ["clean", "^build"],
-      "options": {
-        "commands": [
-          "pnpm exec storm-capnpc --project-root packages/powerlines --schema ./{projectRoot}/schemas"
-        ],
-        "parallel": false
-      }
-    },
-    "build-schemas": {
-      "cache": true,
-      "inputs": ["{projectRoot}/schemas/*.ts"],
-      "outputs": ["{projectRoot}/dist/schemas"],
-      "executor": "nx:run-commands",
-      "dependsOn": ["generate-schemas"],
-      "options": {
-        "command": "tsup --config=tsup.schemas.ts",
-        "cwd": "{projectRoot}"
-      }
-    },
     "build-base": {
       "cache": true,
       "inputs": ["typescript", "^production"],
@@ -36,16 +12,6 @@
       "dependsOn": ["clean", "^build"],
       "options": {
         "command": "tsup --config=tsup.config.ts",
-        "cwd": "{projectRoot}"
-      }
-    },
-    "build-scripts": {
-      "cache": false,
-      "inputs": ["{projectRoot}/scripts"],
-      "outputs": ["{projectRoot}/bin"],
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "tsup --config=tsup.scripts.ts",
         "cwd": "{projectRoot}"
       }
     },
@@ -63,13 +29,7 @@
       "inputs": ["{projectRoot}/dist"],
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "type-check",
-        "build-base",
-        "build-scripts",
-        "build-schemas",
-        "build-babel-types"
-      ],
+      "dependsOn": ["type-check", "build-base", "build-babel-types"],
       "options": {
         "commands": [
           "pnpm copyfiles LICENSE dist/packages/powerlines",
@@ -77,11 +37,8 @@
           "pnpm copyfiles --up=3 \"./packages/powerlines/files/**/*\" dist/packages/powerlines/files",
           "pnpm copyfiles --up=3 \"./packages/powerlines/dist/*.js\" \"./packages/powerlines/dist/*.d.ts\" \"./packages/powerlines/dist/*.cjs\" \"./packages/powerlines/dist/*.d.cts\" dist/packages/powerlines/dist",
           "pnpm copyfiles --up=3 \"./packages/powerlines/dist/internal/**/*\" dist/packages/powerlines/dist",
-          "pnpm copyfiles --up=3 \"./packages/powerlines/dist/deepkit/**/*\" dist/packages/powerlines/dist",
           "pnpm copyfiles --up=3 \"./packages/powerlines/dist/lib/**/*\" dist/packages/powerlines/dist",
-          "pnpm copyfiles --up=3 \"./packages/powerlines/dist/types/**/*\" dist/packages/powerlines/dist",
-          "pnpm copyfiles --up=3 \"./packages/powerlines/schemas/*.js\" \"./packages/powerlines/schemas/*.d.ts\" \"./packages/powerlines/schemas/*.cjs\" \"./packages/powerlines/schemas/*.d.cts\" \"./packages/powerlines/schemas/*.capnp\" dist/packages/powerlines/schemas",
-          "pnpm copyfiles --up=3 \"./packages/powerlines/scripts/*.cjs\" \"./packages/powerlines/scripts/*.js\" dist/packages/powerlines/scripts"
+          "pnpm copyfiles --up=3 \"./packages/powerlines/dist/types/**/*\" dist/packages/powerlines/dist"
         ]
       }
     },

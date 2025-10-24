@@ -16,31 +16,18 @@
 
  ------------------------------------------------------------------- */
 
-import { defineTsupConfig } from "@powerlines/tools-config/tsup.shared";
+import { ReflectionClass } from "@powerlines/deepkit/vendor/type";
+import type { SerializedTypes as CapnpSerializedTypes } from "../schemas/reflection";
 
-const config = defineTsupConfig([
-  {
-    name: "core",
-    entry: ["src/*.ts", "src/internal/api.ts", "src/types/*.ts"],
-    outDir: "dist",
-    clean: false,
-    sourcemap: true,
-    skipNodeModulesBundle: true
-  },
-  {
-    name: "core-lib",
-    entry: [
-      "src/lib/*.ts",
-      "src/lib/build/*.ts",
-      "src/lib/typescript/*.ts",
-      "src/lib/unplugin/*.ts",
-      "src/lib/utilities/*.ts"
-    ],
-    outDir: "dist/lib",
-    clean: false,
-    skipNodeModulesBundle: true,
-    sourcemap: true
-  }
-]);
+export type Reflection<T extends Record<string, any> = Record<string, any>> =
+  ReflectionClass<T> & {
+    dataBuffer?: ArrayBuffer;
+    messageRoot?: CapnpSerializedTypes;
+  };
+export type ReflectionRecord<
+  T extends Record<string, any> = Record<string, any>
+> = Record<string, Reflection<T>>;
 
-export default config;
+export interface ContextReflectionRecord<
+  T extends Record<string, any> = Record<string, any>
+> extends Record<string, Reflection<T> | ContextReflectionRecord<T>> {}

@@ -18,8 +18,6 @@
 
 /* eslint-disable camelcase */
 
-import { List } from "@stryke/capnp";
-import { isInteger, isSetObject, isUndefined } from "@stryke/type-checks";
 import {
   ReflectionKind,
   ReflectionVisibility,
@@ -44,7 +42,9 @@ import {
   SerializedTypeUnion,
   SimpleSerializedType,
   TagsReflection
-} from "powerlines/deepkit/type";
+} from "@powerlines/deepkit/vendor/type";
+import { List } from "@stryke/capnp";
+import { isInteger, isSetObject, isUndefined } from "@stryke/type-checks";
 import {
   DefaultValueReflection as CapnpDefaultValueReflection,
   IndexAccessOrigin as CapnpIndexAccessOrigin,
@@ -70,7 +70,7 @@ import {
   SimpleSerializedType as CapnpSimpleSerializedType,
   TagsReflection as CapnpTagsReflection,
   SerializedType_Type
-} from "../../schemas/reflection";
+} from "../schemas/reflection";
 
 /**
  * Converts a Deepkit serialized type to a Cap'n Proto serialized type.

@@ -16,11 +16,11 @@
 
  ------------------------------------------------------------------- */
 
+import { stringifyValue } from "@powerlines/deepkit/utilities";
+import { ReflectionClass } from "@powerlines/deepkit/vendor/type";
 import { camelCase } from "@stryke/string-format/camel-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
-import { ReflectionClass } from "powerlines/deepkit/type";
-import { stringifyValue } from "powerlines/lib/deepkit/utilities";
 
 export interface GenerateTypeScriptInterfaceOptions<T> {
   overrideName?: string;

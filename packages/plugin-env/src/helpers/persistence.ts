@@ -16,6 +16,16 @@
 
  ------------------------------------------------------------------- */
 
+import { convertFromCapnp, convertToCapnp } from "@powerlines/deepkit/capnp";
+import { getReflectionsPath } from "@powerlines/deepkit/resolve-reflections";
+import { SerializedTypes } from "@powerlines/deepkit/schemas/reflection";
+import { Reflection } from "@powerlines/deepkit/types";
+import {
+  deserializeType,
+  ReflectionClass,
+  ReflectionKind,
+  resolveClassType
+} from "@powerlines/deepkit/vendor/type";
 import * as capnp from "@stryke/capnp";
 import { readFileBuffer } from "@stryke/fs/buffer";
 import { joinPaths } from "@stryke/path/join-paths";
@@ -23,16 +33,7 @@ import { isEmptyObject } from "@stryke/type-checks/is-empty-object";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import { Buffer } from "node:buffer";
 import { existsSync } from "node:fs";
-import {
-  deserializeType,
-  ReflectionClass,
-  ReflectionKind,
-  resolveClassType
-} from "powerlines/deepkit/type";
-import { convertFromCapnp, convertToCapnp } from "powerlines/lib/capnp";
-import { getReflectionsPath } from "powerlines/lib/deepkit/resolve-reflections";
-import { SerializedTypes } from "powerlines/schemas/reflection";
-import { Context, Reflection } from "powerlines/types/context";
+import { Context } from "powerlines/types/context";
 import {
   EnvPluginContext,
   EnvPluginResolvedConfig,

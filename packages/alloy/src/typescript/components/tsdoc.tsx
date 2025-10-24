@@ -26,9 +26,9 @@ import {
   splitProps
 } from "@alloy-js/core";
 import { JSDocExampleProps, ParameterDescriptor } from "@alloy-js/typescript";
+import { stringifyDefaultValue } from "@powerlines/deepkit/utilities";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
-import { stringifyDefaultValue } from "powerlines/lib/deepkit/utilities";
 import { usePowerlines } from "../../core/contexts/context";
 import { ComponentProps } from "../../types/components";
 

@@ -1,0 +1,76 @@
+{
+  "name": "deepkit",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/deepkit/src",
+  "targets": {
+    "generate-schemas": {
+      "cache": true,
+      "inputs": ["{projectRoot}/schemas/*.capnp"],
+      "outputs": ["{projectRoot}/schemas/*.ts"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["clean", "^build"],
+      "options": {
+        "commands": [
+          "pnpm exec storm-capnpc --project-root packages/deepkit --schema ./{projectRoot}/schemas"
+        ],
+        "parallel": false
+      }
+    },
+    "build-schemas": {
+      "cache": true,
+      "inputs": ["{projectRoot}/schemas/*.ts"],
+      "outputs": ["{projectRoot}/dist/schemas"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["generate-schemas"],
+      "options": {
+        "command": "tsup --config=tsup.schemas.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "build-scripts": {
+      "cache": false,
+      "inputs": ["{projectRoot}/scripts"],
+      "outputs": ["{projectRoot}/scripts"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsup --config=tsup.scripts.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "build-base": {
+      "cache": false,
+      "inputs": ["typescript", "^production"],
+      "outputs": ["{projectRoot}/dist"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsup --config=tsup.config.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "build": {
+      "cache": true,
+      "inputs": ["{projectRoot}/dist"],
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "type-check",
+        "build-base",
+        "build-scripts",
+        "build-schemas"
+      ],
+      "options": {
+        "commands": [
+          "pnpm copyfiles LICENSE dist/packages/deepkit",
+          "pnpm copyfiles --up=2 ./packages/deepkit/*.md ./packages/deepkit/package.json dist/packages/deepkit",
+          "pnpm copyfiles --up=3 \"./packages/deepkit/dist/**/*\" dist/packages/deepkit/dist",
+          "pnpm copyfiles --up=3 \"./packages/deepkit/scripts/*.cjs\" \"./packages/deepkit/scripts/*.js\" dist/packages/deepkit/bin",
+          "pnpm copyfiles --up=3 \"./packages/deepkit/schemas/*.js\" \"./packages/deepkit/schemas/*.d.ts\" \"./packages/deepkit/schemas/*.cjs\" \"./packages/deepkit/schemas/*.d.cts\" \"./packages/deepkit/schemas/*.capnp\" dist/packages/deepkit/schemas"
+        ]
+      }
+    },
+    "nx-release-publish": {
+      "executor": "@storm-software/workspace-tools:npm-publish"
+    }
+  }
+}

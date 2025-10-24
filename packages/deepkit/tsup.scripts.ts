@@ -20,26 +20,14 @@ import { defineTsupConfig } from "@powerlines/tools-config/tsup.shared";
 
 const config = defineTsupConfig([
   {
-    name: "core",
-    entry: ["src/*.ts", "src/internal/api.ts", "src/types/*.ts"],
-    outDir: "dist",
+    name: "deepkit-scripts",
+    entry: ["scripts/deepkit-install.ts"],
+    outDir: "scripts",
+    target: "node20",
+    format: ["cjs"],
+    dts: false,
     clean: false,
-    sourcemap: true,
-    skipNodeModulesBundle: true
-  },
-  {
-    name: "core-lib",
-    entry: [
-      "src/lib/*.ts",
-      "src/lib/build/*.ts",
-      "src/lib/typescript/*.ts",
-      "src/lib/unplugin/*.ts",
-      "src/lib/utilities/*.ts"
-    ],
-    outDir: "dist/lib",
-    clean: false,
-    skipNodeModulesBundle: true,
-    sourcemap: true
+    noExternal: ["@powerlines/deepkit/vendor/type-compiler"]
   }
 ]);
 

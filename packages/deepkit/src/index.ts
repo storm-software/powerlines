@@ -16,7 +16,10 @@
 
  ------------------------------------------------------------------- */
 
+export * from "./capnp";
 export * from "./reflect-type";
 export * from "./resolve-reflections";
 export * from "./transformer";
+export * from "./transpile";
+export * from "./types";
 export * from "./utilities";

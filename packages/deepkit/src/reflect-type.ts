@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -16,15 +16,15 @@
 
  ------------------------------------------------------------------- */
 
+import type { Type } from "@powerlines/deepkit/vendor/type";
+import { reflect } from "@powerlines/deepkit/vendor/type";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import { build, BuildOptions } from "esbuild";
-import type { Type } from "powerlines/deepkit/type";
-import { reflect } from "powerlines/deepkit/type";
+import { extractESBuildConfig } from "powerlines/lib/build";
+import { resolvePath } from "powerlines/lib/utilities/resolve-path";
 import { ESBuildResolvedBuildConfig } from "powerlines/types/build";
-import type { Context } from "../../types/context";
-import { extractESBuildConfig } from "../build";
-import { resolvePath } from "../utilities/resolve-path";
+import type { Context } from "powerlines/types/context";
 
 /**
  * Compiles a type definition to a module.

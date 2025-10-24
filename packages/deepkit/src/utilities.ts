@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -16,11 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { getUniqueBy } from "@stryke/helpers/get-unique";
-import { StormJSON } from "@stryke/json/storm-json";
-import { isNull } from "@stryke/type-checks/is-null";
-import { isString } from "@stryke/type-checks/is-string";
-import { isUndefined } from "@stryke/type-checks/is-undefined";
 import {
   ReflectionKind,
   ReflectionParameter,
@@ -28,7 +23,12 @@ import {
   Type,
   TypeNumber,
   TypeString
-} from "powerlines/deepkit/type";
+} from "@powerlines/deepkit/vendor/type";
+import { getUniqueBy } from "@stryke/helpers/get-unique";
+import { StormJSON } from "@stryke/json/storm-json";
+import { isNull } from "@stryke/type-checks/is-null";
+import { isString } from "@stryke/type-checks/is-string";
+import { isUndefined } from "@stryke/type-checks/is-undefined";
 
 /**
  * Converts any {@link ReflectionProperty} or {@link ReflectionParameter}'s value to string representation.

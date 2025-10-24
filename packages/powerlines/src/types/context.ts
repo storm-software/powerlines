@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -21,11 +21,9 @@ import type { PackageJson } from "@stryke/types/package-json";
 import { Worker as JestWorker } from "jest-worker";
 import type { Jiti } from "jiti";
 import type { DirectoryJSON } from "memfs";
-import { ReflectionClass } from "powerlines/deepkit/type";
 import { Range } from "semver";
 import type { Unimport } from "unimport";
 import type { UnpluginBuildContext, UnpluginContext } from "unplugin";
-import type { SerializedTypes as CapnpSerializedTypes } from "../../schemas/reflection";
 import type { SourceFile } from "./compiler";
 import type {
   InlineConfig,
@@ -116,19 +114,6 @@ export type UnimportContext = Omit<Unimport, "injectImports"> & {
   refreshRuntimeImports: () => Promise<void>;
 };
 
-export type Reflection<T extends Record<string, any> = Record<string, any>> =
-  ReflectionClass<T> & {
-    dataBuffer?: ArrayBuffer;
-    messageRoot?: CapnpSerializedTypes;
-  };
-export type ReflectionRecord<
-  T extends Record<string, any> = Record<string, any>
-> = Record<string, Reflection<T>>;
-
-export interface ContextReflectionRecord<
-  T extends Record<string, any> = Record<string, any>
-> extends Record<string, Reflection<T> | ContextReflectionRecord<T>> {}
-
 export interface SelectHooksOptions {
   order?: "pre" | "post" | "normal";
 }
@@ -169,14 +154,6 @@ export interface Context<
    * The metadata information currently written to disk
    */
   persistedMeta?: MetaInfo;
-
-  /**
-   * The reflections found and used by Powerlines plugins
-   *
-   * @remarks
-   * These reflections are used by plugins to store data that will be passed around the Powerlines processes. Please note: these values are not persisted to disk by default.
-   */
-  reflections: { [P in keyof unknown]: ReflectionRecord };
 
   /**
    * The parsed TypeScript configuration from the `tsconfig.json` file

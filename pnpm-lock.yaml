@@ -376,8 +376,8 @@ catalogs:
       specifier: ^0.36.0
       version: 0.36.0
     sherif:
-      specifier: ^1.6.1
-      version: 1.6.1
+      specifier: ^1.7.0
+      version: 1.7.0
     ts-jest:
       specifier: 29.4.0
       version: 29.4.0
@@ -423,6 +423,7 @@ catalogs:
 
 overrides:
   '@powerlines/alloy': workspace:*
+  '@powerlines/deepkit': workspace:*
   '@powerlines/nx': workspace:*
   '@powerlines/plugin-babel': workspace:*
   '@powerlines/plugin-crypto': workspace:*
@@ -584,7 +585,7 @@ importers:
         version: 6.0.1
       sherif:
         specifier: 'catalog:'
-        version: 1.6.1
+        version: 1.7.0
       ts-jest:
         specifier: 'catalog:'
         version: 29.4.0(@babel/core@7.28.4)(@jest/transform@30.2.0)(@jest/types@30.2.0)(babel-jest@30.2.0(@babel/core@7.28.4))(jest-util@30.2.0)(jest@30.0.5(@types/node@22.18.12)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@swc/core@1.7.26(@swc/helpers@0.5.17))(@types/node@22.18.12)(typescript@5.9.3)))(typescript@5.9.3)
@@ -694,6 +695,64 @@ importers:
       '@storm-software/tsup':
         specifier: 'catalog:'
         version: 0.2.9(@nx/devkit@21.6.6(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.13.5(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.13.5(@swc/helpers@0.5.17))))(@nx/js@21.6.6(@babel/traverse@7.28.4)(@swc-node/register@1.10.10(@swc/core@1.13.5(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.13.5(@swc/helpers@0.5.17))(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.13.5(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.13.5(@swc/helpers@0.5.17)))(verdaccio@6.1.2(typanion@3.14.0)))(@swc/helpers@0.5.17)(magicast@0.3.5)(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.13.5(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.13.5(@swc/helpers@0.5.17)))(typescript@5.9.3)
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.18.12
+
+  packages/deepkit:
+    dependencies:
+      '@storm-software/config-tools':
+        specifier: 'catalog:'
+        version: 1.188.11(magicast@0.3.5)
+      '@stryke/capnp':
+        specifier: 'catalog:'
+        version: 0.12.2(magicast@0.3.5)(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.13.5(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.13.5(@swc/helpers@0.5.17)))(typescript@5.9.3)
+      '@stryke/fs':
+        specifier: 'catalog:'
+        version: 0.32.2(magicast@0.3.5)(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.13.5(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.13.5(@swc/helpers@0.5.17)))
+      '@stryke/path':
+        specifier: 'catalog:'
+        version: 0.16.0
+      '@stryke/type-checks':
+        specifier: 'catalog:'
+        version: 0.3.10
+      '@stryke/types':
+        specifier: 'catalog:'
+        version: 0.10.0
+      chalk:
+        specifier: 'catalog:'
+        version: 5.6.2
+      defu:
+        specifier: 'catalog:'
+        version: 6.1.4
+      jiti:
+        specifier: 'catalog:'
+        version: 2.6.1
+      powerlines:
+        specifier: workspace:*
+        version: link:../powerlines
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+      unplugin:
+        specifier: 'catalog:'
+        version: 2.3.10
+    devDependencies:
+      '@deepkit/core':
+        specifier: 'catalog:'
+        version: 1.0.5(patch_hash=8c3beca4372c6a8941162780ddd0f977ef3d461c2018f0809f86f416260ba440)
+      '@deepkit/type':
+        specifier: 'catalog:'
+        version: 1.0.5(patch_hash=b2d2ba2e4ddca11757d65b5c17ef456439accd6f1b86325f0a81d5ff13bb2d17)(@deepkit/core@1.0.5(patch_hash=8c3beca4372c6a8941162780ddd0f977ef3d461c2018f0809f86f416260ba440))
+      '@deepkit/type-compiler':
+        specifier: 'catalog:'
+        version: 1.0.5(patch_hash=88e8267ac73f46799c551ae3696181dc1f272895f490f8c98f04b08f347b6ead)(rollup@4.52.5)(typescript@5.9.3)
+      '@deepkit/type-spec':
+        specifier: 'catalog:'
+        version: 1.0.1(patch_hash=f3c3a4fd486751022d78f17d39a5a79f493bca20b185964ca1aba41fbfc93244)
+      '@powerlines/nx':
+        specifier: workspace:*
+        version: link:../nx
       '@types/node':
         specifier: 'catalog:'
         version: 22.18.12
@@ -884,6 +943,9 @@ importers:
 
   packages/plugin-deepkit:
     dependencies:
+      '@powerlines/deepkit':
+        specifier: workspace:*
+        version: link:../deepkit
       '@storm-software/config-tools':
         specifier: 'catalog:'
         version: 1.188.11(magicast@0.3.5)
@@ -1687,9 +1749,6 @@ importers:
       '@storm-software/unbuild':
         specifier: 'catalog:'
         version: 0.57.11(@nx/devkit@21.6.6(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.7.26(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.7.26(@swc/helpers@0.5.17))))(@nx/js@21.6.6(@babel/traverse@7.28.4)(@swc-node/register@1.10.10(@swc/core@1.7.26(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.7.26(@swc/helpers@0.5.17))(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.7.26(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.7.26(@swc/helpers@0.5.17)))(verdaccio@6.1.2(typanion@3.14.0)))(@swc/core@1.7.26(@swc/helpers@0.5.17))(@swc/helpers@0.5.17)(magicast@0.3.5)(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.7.26(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.7.26(@swc/helpers@0.5.17)))(rollup@4.52.5)(typescript@5.9.3)
-      '@stryke/capnp':
-        specifier: 'catalog:'
-        version: 0.12.2(magicast@0.3.5)(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.7.26(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.7.26(@swc/helpers@0.5.17)))(typescript@5.9.3)
       '@stryke/convert':
         specifier: 'catalog:'
         version: 0.6.0
@@ -1805,18 +1864,6 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1(webpack@5.102.1)
     devDependencies:
-      '@deepkit/core':
-        specifier: 'catalog:'
-        version: 1.0.5(patch_hash=8c3beca4372c6a8941162780ddd0f977ef3d461c2018f0809f86f416260ba440)
-      '@deepkit/type':
-        specifier: 'catalog:'
-        version: 1.0.5(patch_hash=b2d2ba2e4ddca11757d65b5c17ef456439accd6f1b86325f0a81d5ff13bb2d17)(@deepkit/core@1.0.5(patch_hash=8c3beca4372c6a8941162780ddd0f977ef3d461c2018f0809f86f416260ba440))
-      '@deepkit/type-compiler':
-        specifier: 'catalog:'
-        version: 1.0.5(patch_hash=88e8267ac73f46799c551ae3696181dc1f272895f490f8c98f04b08f347b6ead)(rollup@4.52.5)(typescript@5.9.3)
-      '@deepkit/type-spec':
-        specifier: 'catalog:'
-        version: 1.0.1(patch_hash=f3c3a4fd486751022d78f17d39a5a79f493bca20b185964ca1aba41fbfc93244)
       '@microsoft/tsdoc':
         specifier: 'catalog:'
         version: 0.15.1
@@ -8174,8 +8221,8 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
-  electron-to-chromium@1.5.238:
-    resolution: {integrity: sha512-khBdc+w/Gv+cS8e/Pbnaw/FXcBUeKrRVik9IxfXtgREOWyJhR4tj43n3amkVogJ/yeQUqzkrZcFhtIxIdqmmcQ==}
+  electron-to-chromium@1.5.239:
+    resolution: {integrity: sha512-1y5w0Zsq39MSPmEjHjbizvhYoTaulVtivpxkp5q5kaPmQtsK6/2nvAzGRxNMS9DoYySp9PkW0MAQDwU1m764mg==}
 
   elliptic@6.6.1:
     resolution: {integrity: sha512-RaddvvMatK2LJHqFJ+YA4WysVN5Ita9E35botqIYspQ4TkRAlCicdzKOjlyv/1Za5RyTNn7di//eEV0uTAfe3g==}
@@ -12840,38 +12887,38 @@ packages:
     resolution: {integrity: sha512-ObmnIF4hXNg1BqhnHmgbDETF8dLPCggZWBjkQfhZpbszZnYur5DUljTcCHii5LC3J5E0yeO/1LIMyH+UvHQgyw==}
     engines: {node: '>= 0.4'}
 
-  sherif-darwin-arm64@1.6.1:
-    resolution: {integrity: sha512-J15oBJcrnCAZ0rQE8WbMShYw3204A18akCH6C/uZrILTwX/vZyJIqi7lAt5L00LzsadA3HcyQqVjLNNCvuihoQ==}
+  sherif-darwin-arm64@1.7.0:
+    resolution: {integrity: sha512-ziIJoGx+VFcP6G01XwOJh8cNLfDXj3CWSdDtaj9kXHaGT9oPj68z1xAoFuKHQCukj2jhmwyBrSZy4Zvli9MmaQ==}
     cpu: [arm64]
     os: [darwin]
 
-  sherif-darwin-x64@1.6.1:
-    resolution: {integrity: sha512-oLA/GtvUasi+qCl35LczOhQ4g/xY2mxE5/eiTYQGT3Ow7FKLscnkE6v5l28bgkFeR/uke0AgZ/CgHhozAf0ulg==}
+  sherif-darwin-x64@1.7.0:
+    resolution: {integrity: sha512-GKQw0zFqUWGbYrk+HU1Nzhr93p8VlEsjAkUhJ5UQVPxGtAf8VyRHQFJKWdoqYdhs0kckV04LfSfOHeaj/VFu5w==}
     cpu: [x64]
     os: [darwin]
 
-  sherif-linux-arm64@1.6.1:
-    resolution: {integrity: sha512-OoltlucT7v9BZdkYZRbs1QU0DYMCQ5qgpMqQdMW1Rq3w3amr7+oEiV9NHntD83udOo8xRxKq0uPXfNYu+VptJw==}
+  sherif-linux-arm64@1.7.0:
+    resolution: {integrity: sha512-qW08gpfjhrURkKoi0OaLlk+O/xvMqpD1oVRpeHLtyFqTof6msBqmfPKdQful2tPLWFVmNoU27emOgRUh5pAPBQ==}
     cpu: [arm64]
     os: [linux]
 
-  sherif-linux-x64@1.6.1:
-    resolution: {integrity: sha512-qyDyYqpi3ABGkRuCnjnxN3OMT8DxMiiLzhS9p9xC05Y9nr5hjkxvqP4DdJ4e5opm4E7vzRAS7VQoZ6m7h6tsgQ==}
+  sherif-linux-x64@1.7.0:
+    resolution: {integrity: sha512-1yPKSPXXZqIbbIbQPjoxO8yL8ASNy3lbRXpEvj+NT7rk6KNkGqarG3BlI6PtNdN2JZnFPwIp0FAVNVGTv01yqQ==}
     cpu: [x64]
     os: [linux]
 
-  sherif-windows-arm64@1.6.1:
-    resolution: {integrity: sha512-wAbCiqP//lo7bZUlHmZUV3/sGjnJxo6QB5/fqhz5/GUeWh4CTyvlSacJKZxLnXnzpiUSeFnWutquWnHkRov5Ug==}
+  sherif-windows-arm64@1.7.0:
+    resolution: {integrity: sha512-edVI8PScUI42i11IH3SP9CIqLVrHS9CNzXFJHgbbSAZ/EC7B0ixcFYQxD4eiYpz/K2QIVZOPYXTt+FMQWqgyGg==}
     cpu: [arm64]
     os: [win32]
 
-  sherif-windows-x64@1.6.1:
-    resolution: {integrity: sha512-2r0qMxZGCMO2aq8Hlq7npxtAsUFVDsEFtUM/6dFo1npa/jHe2mbU7ii/Ymy0bloSa/qw/azrSfRV6GLU7Gjtxg==}
+  sherif-windows-x64@1.7.0:
+    resolution: {integrity: sha512-QKzMkpk6S1Tp8Q6L/wChA44ZHyJ1Uah+WuM4X+O6+vSG4cQ/xWGCF+7AqDJpuC0y6D1k7GgC1lUEt0ZwTEuHLA==}
     cpu: [x64]
     os: [win32]
 
-  sherif@1.6.1:
-    resolution: {integrity: sha512-ZnwyTnmXoUOPClkOA37JWIyFxCoozMGHmhk/p7XbTREI554XXCnBAn3BMX8UsqkhSzQ9eNQsq4U+jnImEIppsQ==}
+  sherif@1.7.0:
+    resolution: {integrity: sha512-kf+WTg/oEpG7O5QX1t67LsY+dXB4hkdqbR/nNNepVPH6OsKuZ4lIR74OESuQkvRGdU2vytrRTmWTXLQrx4Kc/A==}
     hasBin: true
 
   shiki@0.14.7:
@@ -19258,18 +19305,6 @@ snapshots:
       - magicast
       - nx
 
-  '@stryke/capnp@0.12.2(magicast@0.3.5)(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.7.26(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.7.26(@swc/helpers@0.5.17)))(typescript@5.9.3)':
-    dependencies:
-      '@stryke/fs': 0.32.2(magicast@0.3.5)(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.7.26(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.7.26(@swc/helpers@0.5.17)))
-      '@stryke/path': 0.16.0
-      defu: 6.1.4
-      hex2dec: 1.1.2
-      nanotar: 0.2.0
-      typescript: 5.9.3
-    transitivePeerDependencies:
-      - magicast
-      - nx
-
   '@stryke/cli@0.12.3(magicast@0.3.5)(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.13.5(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.13.5(@swc/helpers@0.5.17)))':
     dependencies:
       '@antfu/ni': 23.3.1
@@ -21258,7 +21293,7 @@ snapshots:
     dependencies:
       caniuse-lite: 1.0.30001751
       colorette: 1.4.0
-      electron-to-chromium: 1.5.238
+      electron-to-chromium: 1.5.239
       escalade: 3.2.0
       node-releases: 1.1.77
 
@@ -21266,7 +21301,7 @@ snapshots:
     dependencies:
       baseline-browser-mapping: 2.8.19
       caniuse-lite: 1.0.30001751
-      electron-to-chromium: 1.5.238
+      electron-to-chromium: 1.5.239
       node-releases: 2.0.26
       update-browserslist-db: 1.1.4(browserslist@4.27.0)
 
@@ -22434,7 +22469,7 @@ snapshots:
     dependencies:
       jake: 10.9.4
 
-  electron-to-chromium@1.5.238: {}
+  electron-to-chromium@1.5.239: {}
 
   elliptic@6.6.1:
     dependencies:
@@ -26507,7 +26542,7 @@ snapshots:
   micromark-factory-space@2.0.1:
     dependencies:
       micromark-util-character: 2.1.1
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
 
   micromark-factory-title@2.0.1:
     dependencies:
@@ -26574,7 +26609,7 @@ snapshots:
 
   micromark-util-resolve-all@2.0.1:
     dependencies:
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
 
   micromark-util-sanitize-uri@2.0.1:
     dependencies:
@@ -26587,7 +26622,7 @@ snapshots:
       devlop: 1.1.0
       micromark-util-chunked: 2.0.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
 
   micromark-util-symbol@2.0.1: {}
 
@@ -28737,32 +28772,32 @@ snapshots:
 
   shell-quote@1.8.3: {}
 
-  sherif-darwin-arm64@1.6.1:
+  sherif-darwin-arm64@1.7.0:
     optional: true
 
-  sherif-darwin-x64@1.6.1:
+  sherif-darwin-x64@1.7.0:
     optional: true
 
-  sherif-linux-arm64@1.6.1:
+  sherif-linux-arm64@1.7.0:
     optional: true
 
-  sherif-linux-x64@1.6.1:
+  sherif-linux-x64@1.7.0:
     optional: true
 
-  sherif-windows-arm64@1.6.1:
+  sherif-windows-arm64@1.7.0:
     optional: true
 
-  sherif-windows-x64@1.6.1:
+  sherif-windows-x64@1.7.0:
     optional: true
 
-  sherif@1.6.1:
+  sherif@1.7.0:
     optionalDependencies:
-      sherif-darwin-arm64: 1.6.1
-      sherif-darwin-x64: 1.6.1
-      sherif-linux-arm64: 1.6.1
-      sherif-linux-x64: 1.6.1
-      sherif-windows-arm64: 1.6.1
-      sherif-windows-x64: 1.6.1
+      sherif-darwin-arm64: 1.7.0
+      sherif-darwin-x64: 1.7.0
+      sherif-linux-arm64: 1.7.0
+      sherif-linux-x64: 1.7.0
+      sherif-windows-arm64: 1.7.0
+      sherif-windows-x64: 1.7.0
 
   shiki@0.14.7:
     dependencies:

@@ -16,9 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./capnp";
 export * from "./config-file";
-export * from "./deepkit";
 export * from "./entry";
 export * from "./logger";
 export * from "./typescript";

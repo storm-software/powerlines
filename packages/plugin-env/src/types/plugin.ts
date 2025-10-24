@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { Children } from "@alloy-js/core/jsx-runtime";
+import { Reflection } from "@powerlines/deepkit/types";
 import {
   BabelPluginContext,
   BabelPluginOptions,
@@ -29,7 +30,6 @@ import {
   TypeDefinition,
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
-import { Reflection } from "powerlines/types/context";
 import { EnvInterface, SecretsInterface } from "./runtime";
 
 export type EnvType = "env" | "secrets";

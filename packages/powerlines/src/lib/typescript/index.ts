@@ -18,5 +18,4 @@
 
 export * from "./isolated-decl";
 export * from "./program";
-export * from "./transpile";
 export * from "./tsconfig";

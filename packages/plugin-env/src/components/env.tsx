@@ -56,14 +56,14 @@ import {
   TypeScriptInterfaceProps
 } from "@powerlines/alloy/typescript/components/typescript-interface";
 import { TypescriptObject } from "@powerlines/alloy/typescript/components/typescript-object";
-import { titleCase } from "@stryke/string-format/title-case";
-import { isNull } from "@stryke/type-checks/is-null";
-import defu from "defu";
 import {
   ReflectionClass,
   ReflectionKind,
   ReflectionProperty
-} from "powerlines/deepkit/type";
+} from "@powerlines/deepkit/vendor/type";
+import { titleCase } from "@stryke/string-format/title-case";
+import { isNull } from "@stryke/type-checks/is-null";
+import defu from "defu";
 import { loadEnvFromContext } from "../helpers/load";
 import { readEnvTypeReflection } from "../helpers/persistence";
 import { EnvPluginContext } from "../types/plugin";
@@ -376,7 +376,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       description="The Powerlines environment configuration module provides an interface to define environment configuration parameters."
       imports={defu(
         {
-          "powerlines/deepkit/type": [
+          "@powerlines/deepkit/vendor/type": [
             "Type",
             "stringify",
             "serializer",

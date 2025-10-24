@@ -16,8 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Cache } from "powerlines/deepkit/type-compiler";
-import { ReflectionConfig } from "powerlines/deepkit/type-compiler/config";
+import { ReflectionConfig } from "@powerlines/deepkit/vendor/type-compiler/config";
 import { UserConfig } from "powerlines/types/config";
 import { PluginContext } from "powerlines/types/context";
 import { ResolvedConfig } from "powerlines/types/resolved";
@@ -48,11 +47,6 @@ export type DeepkitPluginContext<
     DeepkitPluginResolvedConfig = DeepkitPluginResolvedConfig
 > = PluginContext<TResolvedConfig> & {
   deepkit: {
-    /**
-     * Type Compiler Cache Instance
-     */
-    cache: Cache;
-
     /**
      * Deepkit - TypeScript Transformer Factory
      */

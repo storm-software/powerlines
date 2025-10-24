@@ -16,13 +16,9 @@
 
  ------------------------------------------------------------------- */
 
+import { Context } from "powerlines/types/context";
 import ts from "typescript";
-import { TranspilerOptions } from "../../types/compiler";
-import { Context } from "../../types/context";
-import {
-  createDeclarationTransformer,
-  createTransformer
-} from "../deepkit/transformer";
+import { createDeclarationTransformer, createTransformer } from "./transformer";
 
 /**
  * Transpile TypeScript code using the provided context and options.
@@ -35,11 +31,10 @@ import {
 export function transpile(
   context: Context,
   code: string,
-  id: string,
-  options: TranspilerOptions = {}
+  id: string
 ): ts.TranspileOutput {
-  const transformer = createTransformer(context, options);
-  const declarationTransformer = createDeclarationTransformer(context, options);
+  const transformer = createTransformer(context);
+  const declarationTransformer = createDeclarationTransformer(context);
 
   return ts.transpileModule(code, {
     compilerOptions: {

@@ -278,48 +278,6 @@
         "default": "./dist/unplugin.js"
       }
     },
-    "./deepkit/*": {
-      "import": {
-        "types": "./dist/deepkit/*.d.ts",
-        "default": "./dist/deepkit/*.js"
-      },
-      "require": {
-        "types": "./dist/deepkit/*.d.cts",
-        "default": "./dist/deepkit/*.cjs"
-      },
-      "default": {
-        "types": "./dist/deepkit/*.d.ts",
-        "default": "./dist/deepkit/*.js"
-      }
-    },
-    "./deepkit/type-compiler": {
-      "import": {
-        "types": "./dist/deepkit/type-compiler/index.d.ts",
-        "default": "./dist/deepkit/type-compiler/index.js"
-      },
-      "require": {
-        "types": "./dist/deepkit/type-compiler/index.d.cts",
-        "default": "./dist/deepkit/type-compiler/index.cjs"
-      },
-      "default": {
-        "types": "./dist/deepkit/type-compiler/index.d.ts",
-        "default": "./dist/deepkit/type-compiler/index.js"
-      }
-    },
-    "./deepkit/type-compiler/*": {
-      "import": {
-        "types": "./dist/deepkit/type-compiler/*.d.ts",
-        "default": "./dist/deepkit/type-compiler/*.js"
-      },
-      "require": {
-        "types": "./dist/deepkit/type-compiler/*.d.cts",
-        "default": "./dist/deepkit/type-compiler/*.cjs"
-      },
-      "default": {
-        "types": "./dist/deepkit/type-compiler/*.d.ts",
-        "default": "./dist/deepkit/type-compiler/*.js"
-      }
-    },
     "./api": {
       "import": {
         "types": "./dist/internal/api.d.ts",
@@ -388,34 +346,6 @@
       "default": {
         "types": "./dist/lib/build/*.d.ts",
         "default": "./dist/lib/build/*.js"
-      }
-    },
-    "./lib/deepkit": {
-      "import": {
-        "types": "./dist/lib/deepkit/index.d.ts",
-        "default": "./dist/lib/deepkit/index.js"
-      },
-      "require": {
-        "types": "./dist/lib/deepkit/index.d.cts",
-        "default": "./dist/lib/deepkit/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/deepkit/index.d.ts",
-        "default": "./dist/lib/deepkit/index.js"
-      }
-    },
-    "./lib/deepkit/*": {
-      "import": {
-        "types": "./dist/lib/deepkit/*.d.ts",
-        "default": "./dist/lib/deepkit/*.js"
-      },
-      "require": {
-        "types": "./dist/lib/deepkit/*.d.cts",
-        "default": "./dist/lib/deepkit/*.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/deepkit/*.d.ts",
-        "default": "./dist/lib/deepkit/*.js"
       }
     },
     "./lib/typescript": {
@@ -502,33 +432,18 @@
         "default": "./dist/lib/utilities/*.js"
       }
     },
-    "./schemas/*": {
-      "import": {
-        "types": "./schemas/*.d.ts",
-        "default": "./schemas/*.js"
-      },
-      "require": {
-        "types": "./schemas/*.d.cts",
-        "default": "./schemas/*.cjs"
-      },
-      "default": {
-        "types": "./schemas/*.d.ts",
-        "default": "./schemas/*.js"
-      }
-    },
     "./files/common/*": "./dist/files/common/*",
     "./files/library/*": "./dist/files/library/*",
     "./files/application/*": "./dist/files/application/*"
   },
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*", "files/**/*", "schemas/*", "scripts/*"],
+  "files": ["dist/**/*", "files/**/*"],
   "keywords": [
     "powerlines",
     "storm-software",
     "unplugin",
     "typescript",
-    "deepkit",
     "dotenv",
     "babel",
     "esbuild",
@@ -651,7 +566,6 @@
     "@storm-software/esbuild": "catalog:",
     "@storm-software/tsup": "catalog:",
     "@storm-software/unbuild": "catalog:",
-    "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",
     "@stryke/env": "catalog:",
     "@stryke/fs": "catalog:",
@@ -684,10 +598,6 @@
     "vite": "catalog:"
   },
   "devDependencies": {
-    "@deepkit/core": "catalog:",
-    "@deepkit/type": "catalog:",
-    "@deepkit/type-compiler": "catalog:",
-    "@deepkit/type-spec": "catalog:",
     "@microsoft/tsdoc": "catalog:",
     "@storm-software/testing-tools": "catalog:",
     "@stryke/types": "catalog:",

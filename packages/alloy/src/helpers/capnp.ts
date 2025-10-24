@@ -16,6 +16,20 @@
 
  ------------------------------------------------------------------- */
 
+import { getUnionTypes, kindToName } from "@powerlines/deepkit/utilities";
+import { getClassName } from "@powerlines/deepkit/vendor/core";
+import {
+  memberNameToString,
+  ReflectionClass,
+  ReflectionKind,
+  ReflectionMethod,
+  ReflectionParameter,
+  ReflectionProperty,
+  Type,
+  TypeEnum,
+  TypeLiteral,
+  TypeUnion
+} from "@powerlines/deepkit/vendor/type";
 import { capnpc } from "@stryke/capnp/compile";
 import { resolveOptions } from "@stryke/capnp/helpers";
 import type { CapnpcOptions, CapnpcResult } from "@stryke/capnp/types";
@@ -36,20 +50,6 @@ import defu from "defu";
 import { Buffer } from "node:buffer";
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
-import { getClassName } from "powerlines/deepkit/core";
-import {
-  memberNameToString,
-  ReflectionClass,
-  ReflectionKind,
-  ReflectionMethod,
-  ReflectionParameter,
-  ReflectionProperty,
-  Type,
-  TypeEnum,
-  TypeLiteral,
-  TypeUnion
-} from "powerlines/deepkit/type";
-import { getUnionTypes, kindToName } from "powerlines/lib/deepkit/utilities";
 import { getBaseFileHeader } from "powerlines/lib/utilities/file-header";
 import { Context, PluginContext } from "powerlines/types/context";
 

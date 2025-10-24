@@ -34,12 +34,15 @@ import {
   useTSNamePolicy,
   VarDeclarationProps
 } from "@alloy-js/typescript";
+import { stringifyDefaultValue } from "@powerlines/deepkit/utilities";
+import {
+  ReflectionClass,
+  ReflectionProperty
+} from "@powerlines/deepkit/vendor/type";
 import { camelCase } from "@stryke/string-format/camel-case";
 import { pascalCase } from "@stryke/string-format/pascal-case";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { ComputedRef } from "@vue/reactivity";
-import { ReflectionClass, ReflectionProperty } from "powerlines/deepkit/type";
-import { stringifyDefaultValue } from "powerlines/lib/deepkit/utilities";
 import {
   ReflectionClassContext,
   ReflectionPropertyContext

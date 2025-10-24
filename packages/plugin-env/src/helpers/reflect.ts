@@ -16,9 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { isParentPath } from "@stryke/path/is-parent-path";
-import { joinPaths } from "@stryke/path/join-paths";
-import { titleCase } from "@stryke/string-format/title-case";
+import { reflectType } from "@powerlines/deepkit/reflect-type";
 import {
   merge,
   ReflectionClass,
@@ -26,8 +24,10 @@ import {
   resolveClassType,
   TypeClass,
   TypeObjectLiteral
-} from "powerlines/deepkit/type";
-import { reflectType } from "powerlines/lib/deepkit/reflect-type";
+} from "@powerlines/deepkit/vendor/type";
+import { isParentPath } from "@stryke/path/is-parent-path";
+import { joinPaths } from "@stryke/path/join-paths";
+import { titleCase } from "@stryke/string-format/title-case";
 import { EnvPluginContext } from "../types/plugin";
 import { EnvInterface, SecretsInterface } from "../types/runtime";
 import {
