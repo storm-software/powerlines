@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.8.2](https://github.com/storm-software/powerlines/releases/tag/nx%400.8.2) (2025-10-24)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([4c97cf8](https://github.com/storm-software/powerlines/commit/4c97cf8))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.10.1
+
 ## [0.8.1](https://github.com/storm-software/powerlines/releases/tag/nx%400.8.1) (2025-10-24)
 
 ### Miscellaneous

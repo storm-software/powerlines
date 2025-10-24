@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/deepkit",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
@@ -145,16 +145,8 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*",
-    "bin/*",
-    "schemas/*"
-  ],
-  "keywords": [
-    "deepkit",
-    "powerlines",
-    "storm-software"
-  ],
+  "files": ["dist/**/*", "bin/*", "schemas/*"],
+  "keywords": ["deepkit", "powerlines", "storm-software"],
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
@@ -165,7 +157,7 @@
     "chalk": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*",
+    "powerlines": "0.10.1",
     "typescript": "^5.9.3",
     "unplugin": "catalog:"
   },
@@ -174,7 +166,7 @@
     "@deepkit/type": "catalog:",
     "@deepkit/type-compiler": "catalog:",
     "@deepkit/type-spec": "catalog:",
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/nx": "0.8.2",
     "@types/node": "catalog:"
   },
   "publishConfig": {

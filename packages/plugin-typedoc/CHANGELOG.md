@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.9.2](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.9.2) (2025-10-24)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([4c97cf8](https://github.com/storm-software/powerlines/commit/4c97cf8))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.10.1
+- Updated nx to 0.8.2
+
 ## [0.9.1](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.9.1) (2025-10-24)
 
 ### Miscellaneous

@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.10.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.10.1) (2025-10-24)
+
+### Source Code Improvements
+
+- **powerlines:** Large scale improvements to the `vfs` module
+  ([8d1de0f](https://github.com/storm-software/powerlines/commit/8d1de0f))
+
 ## [0.10.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.10.0) (2025-10-24)
 
 ### Features

@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.8.2](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.8.2) (2025-10-24)
+
+### Source Code Improvements
+
+- **powerlines:** Large scale improvements to the `vfs` module
+  ([8d1de0f](https://github.com/storm-software/powerlines/commit/8d1de0f))
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([4c97cf8](https://github.com/storm-software/powerlines/commit/4c97cf8))
+
+### Updated Dependencies
+
+- Updated plugin-env to 0.11.1
+- Updated powerlines to 0.10.1
+- Updated nx to 0.8.2
+
 ## [0.8.1](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.8.1) (2025-10-24)
 
 ### Miscellaneous

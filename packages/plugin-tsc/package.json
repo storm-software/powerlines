@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-tsc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "A package containing the TypeScript compiler plugin for Powerlines.",
   "repository": {
@@ -142,22 +142,15 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "tsc",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["tsc", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "defu": "catalog:",
-    "powerlines": "workspace:*",
+    "powerlines": "0.10.1",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/nx": "0.8.2",
     "@types/node": "catalog:"
   },
   "publishConfig": {
