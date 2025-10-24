@@ -412,8 +412,8 @@ catalogs:
       specifier: 6.1.2
       version: 6.1.2
     vite:
-      specifier: ^7.1.11
-      version: 7.1.11
+      specifier: ^7.1.12
+      version: 7.1.12
     webpack:
       specifier: ^5.102.1
       version: 5.102.1
@@ -1061,7 +1061,7 @@ importers:
         version: 5.9.3
       vite:
         specifier: 'catalog:'
-        version: 7.1.11(@types/node@22.18.12)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1)
+        version: 7.1.12(@types/node@22.18.12)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1)
 
   packages/plugin-esbuild:
     dependencies:
@@ -1578,7 +1578,7 @@ importers:
         version: link:../powerlines
       vite:
         specifier: 'catalog:'
-        version: 7.1.11(@types/node@22.18.12)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1)
+        version: 7.1.12(@types/node@22.18.12)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1)
     devDependencies:
       '@powerlines/nx':
         specifier: workspace:*
@@ -1781,7 +1781,7 @@ importers:
         version: 0.3.5(magicast@0.3.5)(nx@21.6.6(@swc-node/register@1.10.10(@swc/core@1.7.26(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.7.26(@swc/helpers@0.5.17)))
       astro:
         specifier: ^5.13.5
-        version: 5.14.8(@types/node@22.18.12)(jiti@2.6.1)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1)
+        version: 5.15.0(@types/node@22.18.12)(jiti@2.6.1)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1)
       babel-dead-code-elimination:
         specifier: 'catalog:'
         version: 1.0.10
@@ -1856,7 +1856,7 @@ importers:
         version: 2.3.10
       vite:
         specifier: 'catalog:'
-        version: 7.1.11(@types/node@22.18.12)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1)
+        version: 7.1.12(@types/node@22.18.12)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1)
       webpack:
         specifier: ^5.101.3
         version: 5.102.1(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.11)(webpack-cli@6.0.1)
@@ -6842,8 +6842,8 @@ packages:
     resolution: {integrity: sha512-JepyLROIad6f44uyqMF6HKE2QbunNzp3mYKRcPoDGt0QkxXmH222FAFC64WTyQu2Kg8NNEXHTN/sWuUId9sSxw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  astro@5.14.8:
-    resolution: {integrity: sha512-nKqCLs7BFvGQL9QWQOUqxHhlHtV0UMLXz1ANJygozvjcexBWS7FYkWI2LzRPMNYmbW4msIWNWnX2RvLdvI5Cnw==}
+  astro@5.15.0:
+    resolution: {integrity: sha512-hPfCc+5BoieeDuFLiGanLMeeFngOuKH/XqgQn4x2ZZW9klpb9PzI4PTuZb4siw5YhOFfeaeQAbgBgzhut8Kvfw==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -14186,8 +14186,8 @@ packages:
       yaml:
         optional: true
 
-  vite@7.1.11:
-    resolution: {integrity: sha512-uzcxnSDVjAopEUjljkWh8EIrg6tlzrjFUfMcR1EVsRDGwf/ccef0qQPRyOrROwhrTDaApueq+ja+KLPlzR/zdg==}
+  vite@7.1.12:
+    resolution: {integrity: sha512-ZWyE8YXEXqJrrSLvYgrRP7p62OziLW7xI5HYGWFzOvupfAlrLvURSzv/FyGyy0eidogEM3ujU+kUG1zuHgb6Ug==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -20819,7 +20819,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  astro@5.14.8(@types/node@22.18.12)(jiti@2.6.1)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1):
+  astro@5.15.0(@types/node@22.18.12)(jiti@2.6.1)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1):
     dependencies:
       '@astrojs/compiler': 2.13.0
       '@astrojs/internal-helpers': 0.7.4
@@ -20853,7 +20853,6 @@ snapshots:
       http-cache-semantics: 4.2.0
       import-meta-resolve: 4.2.0
       js-yaml: 4.1.0
-      kleur: 4.1.5
       magic-string: 0.30.19
       magicast: 0.3.5
       mrmime: 2.0.1
@@ -20861,6 +20860,7 @@ snapshots:
       p-limit: 6.2.0
       p-queue: 8.1.1
       package-manager-detector: 1.5.0
+      picocolors: 1.1.1
       picomatch: 4.0.3
       prompts: 2.4.2
       rehype: 13.0.2
@@ -30353,7 +30353,7 @@ snapshots:
       terser: 5.44.0
       yaml: 2.8.1
 
-  vite@7.1.11(@types/node@22.18.12)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1):
+  vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1):
     dependencies:
       esbuild: 0.25.11
       fdir: 6.5.0(picomatch@4.0.3)
