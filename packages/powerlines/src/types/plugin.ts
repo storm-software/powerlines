@@ -121,7 +121,7 @@ export interface BasePluginHookFunctions<
    * @param this - The build context and unplugin build context.
    * @returns A promise that resolves when the hook is complete.
    */
-  buildEnd: (
+  buildFinish: (
     this: BuildPluginContext<TContext["config"]> & TContext
   ) => MaybePromise<void>;
 

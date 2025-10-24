@@ -388,7 +388,7 @@ export const plugin = createAlloyPlugin<EnvPluginOptions, EnvPluginContext>(
       `
         );
       },
-      async buildEnd() {
+      async buildFinish() {
         const reflectionPath = getEnvReflectionsPath(this, "env");
 
         this.log(

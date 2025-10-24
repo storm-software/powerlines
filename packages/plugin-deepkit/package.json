@@ -142,9 +142,17 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*"],
-  "keywords": ["deepkit", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "deepkit",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
+    "@powerlines/deepkit": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
@@ -153,13 +161,12 @@
     "chalk": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.8.0",
-    "@powerlines/deepkit": "0.1.0",
+    "powerlines": "workspace:*",
     "typescript": "^5.9.3",
     "unplugin": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "0.7.0",
+    "@powerlines/nx": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
+import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
 import type {
   ExternalIdResult,
@@ -199,7 +200,10 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
           "transform"
         )) {
           const result: TransformResult | string | undefined =
-            await handler.apply(defu(ctx, this), [getString(transformed), id]);
+            await handler.apply(defu(ctx, omit(this, ["parse"])), [
+              getString(transformed),
+              id
+            ]);
           if (result) {
             transformed = result;
           }
@@ -208,10 +212,10 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
         return transformed;
       }
 
-      async function buildEnd(this: UnpluginBuildContext): Promise<void> {
+      async function buildFinish(this: UnpluginBuildContext): Promise<void> {
         log(LogLevelLabel.DEBUG, "Powerlines build plugin finishing...");
 
-        return ctx.$$internal.callHook("buildEnd", {
+        return ctx.$$internal.callHook("buildFinish", {
           sequential: true
         });
       }
@@ -244,7 +248,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
         },
         transform,
         buildStart,
-        buildFinish: buildEnd,
+        buildFinish,
         writeBundle,
         vite: {
           sharedDuringBuild: true

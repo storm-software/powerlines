@@ -94,7 +94,7 @@ export const plugin = <
       }
     },
     async build() {
-      await build(
+      return build(
         await resolveOptions(
           defu(
             {
@@ -137,7 +137,8 @@ export const plugin = <
           )
         )
       );
-
+    },
+    async buildFinish() {
       if (
         this.config.override.outputPath &&
         this.config.override.outputPath !== this.config.output.outputPath

@@ -21,6 +21,7 @@ import type { PackageJson } from "@stryke/types/package-json";
 import { Worker as JestWorker } from "jest-worker";
 import type { Jiti } from "jiti";
 import type { DirectoryJSON } from "memfs";
+import { ParseResult, ParserOptions } from "oxc-parser";
 import { Range } from "semver";
 import type { Unimport } from "unimport";
 import type { UnpluginBuildContext, UnpluginContext } from "unplugin";
@@ -241,6 +242,15 @@ export interface Context<
   resolver: Resolver;
 
   /**
+   * Parses the source code and returns a {@link ParseResult} object.
+   */
+  parse: (
+    code: string,
+    id: string,
+    options?: ParserOptions | null
+  ) => Promise<ParseResult>;
+
+  /**
    * A function to update the context fields using a new user configuration options
    */
   withUserConfig: (
@@ -416,7 +426,7 @@ export interface PluginContext<
 
 export type BuildPluginContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> = PluginContext<TResolvedConfig> & UnpluginBuildContext;
+> = PluginContext<TResolvedConfig> & Omit<UnpluginBuildContext, "parse">;
 
 export interface SerializedVirtualFileSystem {
   builtinIdMap: Record<string, string>;

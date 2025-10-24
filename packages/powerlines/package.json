@@ -590,6 +590,7 @@
     "jiti": "catalog:",
     "magic-string": "catalog:",
     "nanotar": "catalog:",
+    "oxc-parser": "catalog:",
     "prettier": "catalog:",
     "rollup-plugin-typescript2": "catalog:",
     "unimport": "catalog:",

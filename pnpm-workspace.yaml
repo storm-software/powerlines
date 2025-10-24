@@ -119,6 +119,7 @@ catalog:
   minimatch: ^10.0.3
   nanotar: ^0.2.0
   nx: 21.6.6
+  oxc-parser: ^0.95.0
   oxc-transform: ^0.95.0
   oxlint: ^1.24.0
   oxlint-tsgolint: ^0.2.1

@@ -26,6 +26,7 @@ import { murmurhash } from "@stryke/hash/murmurhash";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
 import { appendPath } from "@stryke/path/append";
+import { hasFileExtension } from "@stryke/path/file-path-fns";
 import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
 import { titleCase } from "@stryke/string-format/title-case";
@@ -37,6 +38,7 @@ import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
 import defu from "defu";
 import { DirectoryJSON } from "memfs";
+import { parseAsync, ParseResult, ParserOptions } from "oxc-parser";
 import { Range } from "semver";
 import { loadUserConfigFile, loadWorkspaceConfig } from "../../lib/config-file";
 import { getUniqueEntries, resolveEntriesSync } from "../../lib/entry";
@@ -174,16 +176,34 @@ export class PowerlinesContext<
    */
   public devDependencies: Record<string, string | Range> = {};
 
+  /**
+   * The persisted meta information about the current build
+   */
   public persistedMeta: MetaInfo | undefined = undefined;
 
+  /**
+   * The path to the Powerlines package
+   */
   public powerlinesPath!: string;
 
+  /**
+   * The parsed `package.json` file for the project
+   */
   public packageJson!: PackageJson;
 
+  /**
+   * The parsed `project.json` file for the project
+   */
   public projectJson: Record<string, any> | undefined = undefined;
 
+  /**
+   * The module resolver for the project
+   */
   public resolver!: Resolver;
 
+  /**
+   * The resolved entry type definitions for the project
+   */
   public get entry(): ResolvedEntryTypeDefinition[] {
     return resolveEntriesSync(this, toArray(this.config.entry));
   }
@@ -201,10 +221,16 @@ export class PowerlinesContext<
     return this.#tsconfig;
   }
 
+  /**
+   * Sets the TypeScript configuration parsed from the tsconfig file
+   */
   public set tsconfig(value: ParsedTypeScriptConfig) {
     this.#tsconfig = value;
   }
 
+  /**
+   * The virtual file system interface for the project
+   */
   public get fs(): VirtualFileSystemInterface {
     if (!this.#fs) {
       this.#fs = createVfs(this);
@@ -271,6 +297,9 @@ export class PowerlinesContext<
     return this.#workspaceConfig;
   }
 
+  /**
+   * The environment paths for the project
+   */
   public get envPaths(): EnvPaths {
     if (!this.#envPaths) {
       this.#envPaths = getEnvPaths({
@@ -356,6 +385,31 @@ export class PowerlinesContext<
    */
   public get relativeToWorkspaceRoot() {
     return relativeToWorkspaceRoot(this.config.projectRoot);
+  }
+
+  /**
+   * Parses the source code and returns a {@link ParseResult} object.
+   *
+   * @param code - The source code to parse.
+   * @param id - The unique identifier for the source file.
+   * @param options - Optional parser options.
+   * @returns The parsed {@link ParseResult} object.
+   */
+  public async parse(
+    code: string,
+    id: string,
+    options: ParserOptions | null = {}
+  ): Promise<ParseResult> {
+    return parseAsync(
+      id,
+      code,
+      defu(options ?? {}, {
+        lang: hasFileExtension(id) ? undefined : "ts",
+        astType: hasFileExtension(id) ? undefined : "ts",
+        sourceType: "module",
+        showSemanticErrors: false
+      }) as ParserOptions
+    );
   }
 
   /**
