@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.8.1](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.8.1) (2025-10-24)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([413adce](https://github.com/storm-software/powerlines/commit/413adce))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.10.0
+- Updated nx to 0.8.1
+
 ## [0.8.0](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.8.0) (2025-10-24)
 
 ### Features

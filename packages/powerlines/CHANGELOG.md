@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.10.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.10.0) (2025-10-24)
+
+### Features
+
+- **plugin-tsc:** Added the `typeCheck` configuration option
+  ([3ec4780](https://github.com/storm-software/powerlines/commit/3ec4780))
+
+### Miscellaneous
+
+- **powerlines:** Added `parse` function cache to `Context` class
+  ([7f90532](https://github.com/storm-software/powerlines/commit/7f90532))
+
 ## [0.9.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.9.0) (2025-10-24)
 
 ### Features
