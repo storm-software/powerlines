@@ -168,7 +168,7 @@ export function extractRollupConfig(
           return false;
         }
 
-        if (Array.from(context.fs.builtinIdMap.keys()).includes(source)) {
+        if (context.builtins.includes(source)) {
           return context.config.projectType !== "application";
         }
 
@@ -180,10 +180,10 @@ export function extractRollupConfig(
           tsconfig: context.tsconfig.tsconfigFilePath
         }),
         alias({
-          entries: context.fs.builtinIdMap.keys().reduce(
+          entries: context.builtins.reduce(
             (ret, id) => {
               if (!ret.find(e => e.find === id)) {
-                const path = context.fs.builtinIdMap.get(id);
+                const path = context.fs.ids[id];
                 if (path) {
                   ret.push({ find: id, replacement: path });
                 }

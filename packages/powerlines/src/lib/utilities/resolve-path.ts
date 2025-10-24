@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -31,7 +31,7 @@ export async function resolvePath(
   context: Context,
   file: string
 ): Promise<string | undefined> {
-  let path = context.fs.resolvePath(file);
+  let path = context.fs.resolve(file);
   if (path) {
     return path;
   }

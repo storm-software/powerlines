@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { joinPaths } from "@stryke/path/join";
 import defu from "defu";
 import { Plugin } from "powerlines/types/plugin";
 import { nanoidModule } from "./components/nanoid";
@@ -81,10 +80,10 @@ export function plugin(options: IdPluginOptions = {}): Plugin<IdPluginContext> {
           break;
       }
 
-      await this.fs.writeBuiltinFile(
+      await this.writeBuiltin(
+        await Promise.resolve(idModule(this)),
         "id",
-        joinPaths(this.builtinsPath, "id.ts"),
-        await Promise.resolve(idModule(this))
+        "id.ts"
       );
     }
   };

@@ -40,7 +40,12 @@ import type {
   ResolvedEntryTypeDefinition
 } from "./resolved";
 import type { ParsedTypeScriptConfig } from "./tsconfig";
-import type { VirtualFileSystemInterface } from "./vfs";
+import type {
+  PowerlinesWriteFileOptions,
+  VirtualFile,
+  VirtualFileSystemInterface,
+  VirtualFileSystemMetadata
+} from "./vfs";
 
 /**
  * The severity level of a {@link LogRecord}.
@@ -242,6 +247,44 @@ export interface Context<
   resolver: Resolver;
 
   /**
+   * The builtin module id that exist in the Powerlines virtual file system
+   */
+  builtins: string[];
+
+  /**
+   * The Powerlines builtin virtual files
+   */
+  getBuiltins: () => Promise<VirtualFile[]>;
+
+  /**
+   * Resolves a builtin virtual file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the builtin file
+   * @param id - The unique identifier of the builtin file
+   * @param path - An optional path to write the builtin file to
+   * @param options - Options for writing the file
+   */
+  writeBuiltin: (
+    code: string,
+    id: string,
+    path?: string,
+    options?: PowerlinesWriteFileOptions
+  ) => Promise<void>;
+
+  /**
+   * Resolves a entry virtual file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the entry file
+   * @param path - An optional path to write the entry file to
+   * @param options - Options for writing the file
+   */
+  writeEntry: (
+    code: string,
+    path: string,
+    options?: PowerlinesWriteFileOptions
+  ) => Promise<void>;
+
+  /**
    * Parses the source code and returns a {@link ParseResult} object.
    */
   parse: (
@@ -429,6 +472,6 @@ export type BuildPluginContext<
 > = PluginContext<TResolvedConfig> & Omit<UnpluginBuildContext, "parse">;
 
 export interface SerializedVirtualFileSystem {
-  builtinIdMap: Record<string, string>;
-  virtualFiles: DirectoryJSON<string | null>;
+  virtualFiles: DirectoryJSON;
+  virtualFilesMeta: Record<string, Partial<VirtualFileSystemMetadata>>;
 }

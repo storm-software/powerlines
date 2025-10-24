@@ -18,7 +18,6 @@
 
 import env from "@powerlines/plugin-env";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { joinPaths } from "@stryke/path/join";
 import defu from "defu";
 import { Plugin } from "powerlines/types/plugin";
 import { dateFnsModule } from "./components/date-fns";
@@ -105,10 +104,10 @@ export function plugin(
           break;
       }
 
-      await this.fs.writeBuiltinFile(
+      await this.writeBuiltin(
+        await Promise.resolve(dateModule(this)),
         "date",
-        joinPaths(this.builtinsPath, "date.ts"),
-        await Promise.resolve(dateModule(this))
+        "date.ts"
       );
     }
   };

@@ -27,6 +27,7 @@ import { getUnique } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
 import { appendPath } from "@stryke/path/append";
 import { hasFileExtension } from "@stryke/path/file-path-fns";
+import { isAbsolute } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
 import { titleCase } from "@stryke/string-format/title-case";
@@ -69,7 +70,12 @@ import {
   ResolvedEntryTypeDefinition
 } from "../../types/resolved";
 import { ParsedTypeScriptConfig } from "../../types/tsconfig";
-import { OutputModeType, VirtualFileSystemInterface } from "../../types/vfs";
+import {
+  OutputModeType,
+  PowerlinesWriteFileOptions,
+  VirtualFile,
+  VirtualFileSystemInterface
+} from "../../types/vfs";
 import { createResolver } from "../helpers/resolver";
 import { createVfs } from "../helpers/vfs";
 
@@ -392,6 +398,75 @@ export class PowerlinesContext<
    */
   public get relativeToWorkspaceRoot() {
     return relativeToWorkspaceRoot(this.config.projectRoot);
+  }
+
+  /**
+   * The builtin module id that exist in the Powerlines virtual file system
+   */
+  public get builtins(): string[] {
+    return Object.values(this.fs.meta)
+      .filter(meta => meta && meta.variant === "builtin")
+      .map(meta => meta?.id)
+      .filter(Boolean) as string[];
+  }
+
+  /**
+   * Get the project root relative to the workspace root
+   */
+  public async getBuiltins() {
+    return Promise.all(
+      Object.entries(this.fs.meta)
+        .filter(([, meta]) => meta && meta.variant === "builtin")
+        .map(async ([path, meta]) => {
+          const code = await this.fs.readFile(path);
+
+          return { ...meta, path, code } as VirtualFile;
+        })
+    );
+  }
+
+  /**
+   * Resolves a entry virtual file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the entry file
+   * @param path - A path to write the entry file to
+   * @param options - Optional write file options
+   */
+  public async writeEntry(
+    code: string,
+    path: string,
+    options: PowerlinesWriteFileOptions = {}
+  ): Promise<void> {
+    return this.fs.writeFile(
+      isAbsolute(path) ? path : appendPath(path, this.entryPath),
+      { code, variant: "entry" },
+      defu(options, { mode: this.config.output.mode })
+    );
+  }
+
+  /**
+   * Resolves a builtin virtual file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the builtin file
+   * @param id - The unique identifier of the builtin file
+   * @param path - An optional path to write the builtin file to
+   * @param options - Optional write file options
+   */
+  public async writeBuiltin(
+    code: string,
+    id: string,
+    path?: string,
+    options: PowerlinesWriteFileOptions = {}
+  ): Promise<void> {
+    return this.fs.writeFile(
+      path
+        ? isAbsolute(path)
+          ? path
+          : joinPaths(this.builtinsPath, path)
+        : appendPath(id, this.builtinsPath),
+      { id, code, variant: "builtin" },
+      defu(options, { mode: this.config.output.mode })
+    );
   }
 
   /**

@@ -31,9 +31,9 @@ export function extractWebpackConfig(context: Context): ExternalWebpackOptions {
   return defu(
     {
       resolve: {
-        alias: context.fs.builtinIdMap.keys().reduce(
+        alias: context.builtins.reduce(
           (ret, id) => {
-            const path = context.fs.builtinIdMap.get(id);
+            const path = context.fs.ids[id];
             if (path) {
               ret[id] = path;
             }
@@ -88,7 +88,7 @@ export function extractWebpackConfig(context: Context): ExternalWebpackOptions {
         context.workspaceConfig.workspaceRoot,
         context.config.projectRoot
       ),
-      noExternal: Array.from(context.fs.builtinIdMap.keys())
+      noExternal: context.builtins
     },
     context.config.build.variant === "webpack" ? context.config.build : {},
     {

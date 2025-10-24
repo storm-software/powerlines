@@ -18,7 +18,6 @@
 
 import env from "@powerlines/plugin-env";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { joinPaths } from "@stryke/path/join";
 import { Plugin } from "../../powerlines/src/types/plugin";
 import { cryptoModule } from "./components/crypto";
 import { CryptoPluginContext, CryptoPluginOptions } from "./types/plugin";
@@ -71,10 +70,10 @@ export function plugin(
         `Preparing the Crypto runtime artifacts for the Powerlines project.`
       );
 
-      await this.fs.writeBuiltinFile(
+      await this.writeBuiltin(
+        await Promise.resolve(cryptoModule(this)),
         "crypto",
-        joinPaths(this.builtinsPath, "crypto.ts"),
-        await Promise.resolve(cryptoModule(this))
+        "crypto.ts"
       );
     }
   };

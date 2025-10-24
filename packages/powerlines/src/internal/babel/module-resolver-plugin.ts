@@ -38,7 +38,7 @@ function resolveModulePath(
   const sourcePath = nodePath.node.value;
   // const currentFile = state.file.opts.filename;
 
-  const resolvedPath = state.context?.fs.resolvePath(sourcePath);
+  const resolvedPath = state.context?.fs.resolve(sourcePath);
   if (resolvedPath) {
     nodePath.replaceWith(
       t.stringLiteral(

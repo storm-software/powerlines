@@ -128,7 +128,7 @@ export function extractRolldownConfig(
           return false;
         }
 
-        if (Array.from(context.fs.builtinIdMap.keys()).includes(source)) {
+        if (context.builtins.includes(source)) {
           return context.config.projectType !== "application";
         }
 
@@ -140,10 +140,10 @@ export function extractRolldownConfig(
           tsconfig: context.tsconfig.tsconfigFilePath
         }),
         aliasPlugin({
-          entries: context.fs.builtinIdMap.keys().reduce(
+          entries: context.builtins.reduce(
             (ret, id) => {
               if (!ret.find(e => e.find === id)) {
-                const path = context.fs.builtinIdMap.get(id);
+                const path = context.fs.ids[id];
                 if (path) {
                   ret.push({ find: id, replacement: path });
                 }
@@ -185,7 +185,17 @@ export function extractRolldownConfig(
       : {},
     {
       resolve: {
-        alias: Object.fromEntries(context.fs.builtinIdMap.entries())
+        alias: context.builtins.reduce(
+          (ret, id) => {
+            const path = context.fs.ids[id];
+            if (path) {
+              ret[id] = path;
+            }
+
+            return ret;
+          },
+          {} as Record<string, string>
+        )
       },
       platform: context.config.build.platform,
       tsconfig: context.tsconfig.tsconfigFilePath,

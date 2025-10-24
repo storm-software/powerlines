@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -54,17 +54,17 @@ export async function handleResolveId(
 ): Promise<ExternalIdResult | null | undefined> {
   if (args.id) {
     if (
-      context.fs.isVirtualFile(args.id) ||
+      context.fs.isVirtual(args.id) ||
       (args.importer &&
-        context.fs.isVirtualFile(args.id, {
+        context.fs.isVirtual(args.id, {
           paths: [args.importer]
         }))
     ) {
       const resolvedPath = args.importer
-        ? context.fs.resolvePath(args.id, {
+        ? context.fs.resolve(args.id, {
             paths: [args.importer]
           })
-        : context.fs.resolvePath(args.id);
+        : context.fs.resolve(args.id);
       if (resolvedPath) {
         return {
           id: resolvedPath,
@@ -116,13 +116,12 @@ export async function handleResolveId(
         };
       }
     } else {
+      const resolvedPath = context.fs.resolve(args.id, {
+        paths: args.importer ? [args.importer] : []
+      });
       if (
         match(args.id, options.noExternal) ||
-        context.fs.isBuiltinFile(args.id) ||
-        (args.importer &&
-          context.fs.isBuiltinFile(args.id, {
-            paths: [args.importer]
-          }))
+        (resolvedPath && context.fs.meta[resolvedPath]?.variant === "builtin")
       ) {
         return undefined;
       }

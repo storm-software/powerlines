@@ -60,44 +60,44 @@ export async function generateTypes<TContext extends Context>(
     "Transforming built-ins runtime modules files."
   );
 
-  const builtinFiles = await Promise.all(
-    (await context.fs.listBuiltinFiles())
-      .filter(file => !context.fs.isMatchingBuiltinId("index", file.id))
-      .map(async file => {
-        const result = await transformAsync(file.contents, {
-          highlightCode: true,
-          code: true,
-          ast: false,
-          cloneInputAst: false,
-          comments: true,
-          sourceType: "module",
-          configFile: false,
-          babelrc: false,
-          envName: context.config.mode,
-          caller: {
-            name: "powerlines"
-          },
-          ...context.config.transform.babel,
-          filename: file.path,
-          plugins: [
-            ["@babel/plugin-syntax-typescript"],
-            [moduleResolverBabelPlugin(context)]
-          ]
-        });
-        if (!result?.code) {
-          throw new Error(
-            `Powerlines - Generate Types failed to compile ${file.id}`
-          );
-        }
+  const builtinFiles = await context.getBuiltins();
 
-        context.log(
-          LogLevelLabel.TRACE,
-          `Writing transformed built-in runtime file ${file.id}.`
+  const builtinFilePaths = await Promise.all(
+    builtinFiles.map(async file => {
+      const result = await transformAsync(file.code.toString(), {
+        highlightCode: true,
+        code: true,
+        ast: false,
+        cloneInputAst: false,
+        comments: true,
+        sourceType: "module",
+        configFile: false,
+        babelrc: false,
+        envName: context.config.mode,
+        caller: {
+          name: "powerlines"
+        },
+        ...context.config.transform.babel,
+        filename: file.path,
+        plugins: [
+          ["@babel/plugin-syntax-typescript"],
+          [moduleResolverBabelPlugin(context)]
+        ]
+      });
+      if (!result?.code) {
+        throw new Error(
+          `Powerlines - Generate Types failed to compile ${file.id}`
         );
+      }
 
-        await context.fs.writeBuiltinFile(file.id, file.path, result.code);
-        return file.path;
-      })
+      context.log(
+        LogLevelLabel.TRACE,
+        `Writing transformed built-in runtime file ${file.id}.`
+      );
+
+      await context.writeBuiltin(result.code, file.id, file.path);
+      return file.path;
+    })
   );
 
   const typescriptPath = await resolvePackage("typescript");
@@ -107,7 +107,7 @@ export async function generateTypes<TContext extends Context>(
     );
   }
 
-  const files = builtinFiles.reduce<string[]>(
+  const files = builtinFilePaths.reduce<string[]>(
     (ret, fileName) => {
       const formatted = replacePath(
         fileName,
@@ -176,9 +176,15 @@ export async function generateTypes<TContext extends Context>(
     (fileName, text, _, __, sourceFiles, _data) => {
       const sourceFile = sourceFiles?.[0];
       if (sourceFile?.fileName && !fileName.endsWith(".map")) {
-        if (context.fs.isBuiltinFile(sourceFile.fileName)) {
+        if (
+          builtinFiles.some(
+            file =>
+              file.id === sourceFile.fileName ||
+              file.path === sourceFile.fileName
+          )
+        ) {
           builtinModules += `
-declare module "${context.fs.resolveId(sourceFile.fileName)}" {
+declare module "${context.fs.resolve(sourceFile.fileName)}" {
     ${text
       .trim()
       .replace(/^\s*export\s*declare\s*/gm, "export ")
@@ -270,7 +276,9 @@ ${builtinModules}`
   //     );
   //   });
 
-  await context.fs.writeFileToDisk(sourceFile.id, getString(sourceFile.code));
+  await context.fs.writeFile(sourceFile.id, getString(sourceFile.code), {
+    mode: "fs"
+  });
 
   // context.vfs[__VFS_REVERT__]();
 }

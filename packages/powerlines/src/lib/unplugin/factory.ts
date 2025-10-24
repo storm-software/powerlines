@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -124,9 +124,7 @@ export function createUnpluginFactory<
         const environment = await api.context.getEnvironment();
 
         if (id) {
-          const resolvedPath = environment.fs.resolvePath(id, {
-            type: "file"
-          });
+          const resolvedPath = environment.fs.resolve(id);
           if (resolvedPath) {
             return environment.fs.readFile(resolvedPath);
           }

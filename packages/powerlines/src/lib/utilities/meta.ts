@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -146,16 +146,19 @@ export async function writeMetaFile(context: Context): Promise<void> {
     `Writing runtime metadata to ${metaFilePath}`
   );
 
-  await context.fs.writeFileToDisk(
+  await context.fs.writeFile(
     metaFilePath,
     JSON.stringify(
       {
         ...context.meta,
-        builtinIdMap: Object.fromEntries(context.fs.builtinIdMap.entries()),
-        virtualFiles: context.fs[__VFS_VIRTUAL__].toJSON(context.artifactsPath)
+        virtualFiles: context.fs[__VFS_VIRTUAL__].toJSON(context.artifactsPath),
+        virtualFilesMeta: context.fs.getPartialMeta()
       },
       null,
       2
-    )
+    ),
+    {
+      mode: "fs"
+    }
   );
 }

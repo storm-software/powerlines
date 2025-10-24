@@ -181,9 +181,9 @@ export function extractUnbuildConfig(
 ): UnbuildResolvedBuildConfig {
   return defu(
     {
-      alias: context.fs.builtinIdMap.keys().reduce(
+      alias: context.builtins.reduce(
         (ret, id) => {
-          const path = context.fs.builtinIdMap.get(id);
+          const path = context.fs.ids[id];
           if (path) {
             ret[id] = path;
           }
@@ -204,7 +204,7 @@ export function extractUnbuildConfig(
       projectRoot: context.config.projectRoot,
       outputPath: context.config.output.outputPath || "dist",
       platform: context.config.build.platform,
-      external: context.fs.builtinIdMap.keys().reduce((ret, id) => {
+      external: context.builtins.reduce((ret, id) => {
         if (!ret.includes(id)) {
           ret.push(id);
         }

@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { PrimitiveJsonValue } from "@stryke/json/types";
 import type { Volume } from "memfs";
 import type {
   MakeDirectoryOptions as FsMakeDirectoryOptions,
@@ -50,29 +51,56 @@ export const __VFS_VIRTUAL__ = "__VFS_VIRTUAL__";
 // eslint-disable-next-line ts/naming-convention
 export const __VFS_UNIFIED__ = "__VFS_UNIFIED__";
 
+export type OutputModeType = "fs" | "virtual";
+
 export interface VirtualFile {
-  /**
-   * A virtual path to the file in the virtual file system.
-   */
-  path: string;
-
-  /**
-   * The contents of the virtual file.
-   */
-  contents: string;
-}
-
-export interface VirtualBuiltinFile extends VirtualFile {
   /**
    * The unique identifier for the virtual file.
    *
    * @remarks
-   * This property is read-only and is set when the file is created.
+   * If no specific id is provided, it defaults to the file's {@link path}.
    */
   id: string;
+
+  /**
+   * Additional metadata associated with the virtual file.
+   */
+  details: Record<string, PrimitiveJsonValue>;
+
+  /**
+   * The variant of the file.
+   *
+   * @remarks
+   * This string represents the purpose/function of the file in the virtual file system. A potential list of variants includes:
+   * - `builtin`: Indicates that the file is a built-in module provided by the system.
+   * - `entry`: Indicates that the file is an entry point for execution.
+   * - `normal`: Indicates that the file is a standard file without any special role.
+   */
+  variant: string;
+
+  /**
+   * The output mode of the file.
+   *
+   * @remarks
+   * This indicates whether the file is intended to be written to the actual file system (`fs`) or kept in the virtual file system (`virtual`).
+   */
+  mode: OutputModeType;
+
+  /**
+   * A virtual (or actual) path to the file in the file system.
+   */
+  path: string;
+
+  /**
+   * The contents of the file.
+   */
+  code: string | NodeJS.ArrayBufferView;
 }
 
-export type OutputModeType = "fs" | "virtual";
+export type VirtualFileSystemMetadata = Pick<
+  VirtualFile,
+  "id" | "details" | "variant" | "mode"
+>;
 
 export interface ResolveFSOptions {
   mode?: OutputModeType;
@@ -80,6 +108,26 @@ export interface ResolveFSOptions {
 
 export type MakeDirectoryOptions = (Mode | FsMakeDirectoryOptions) &
   ResolveFSOptions;
+
+export interface PowerlinesWriteFileOptions extends ResolveFSOptions {
+  skipFormat?: boolean;
+}
+
+export type NodeWriteFileOptions = FsWriteFileOptions;
+
+export type WriteFileOptions =
+  | NodeWriteFileOptions
+  | PowerlinesWriteFileOptions;
+
+export type PowerLinesWriteFileData = Partial<
+  Omit<VirtualFile, "path" | "mode" | "code">
+> &
+  Pick<VirtualFile, "code">;
+
+export type WriteFileData =
+  | string
+  | NodeJS.ArrayBufferView
+  | PowerLinesWriteFileData;
 
 export interface ResolvePathOptions extends ResolveFSOptions {
   /**
@@ -100,71 +148,37 @@ export interface ResolvePathOptions extends ResolveFSOptions {
   type?: "file" | "directory";
 }
 
-export type WriteFileOptions = FsWriteFileOptions & ResolveFSOptions;
-
-export interface WriteBuiltinFileOptions extends ResolveFSOptions {
-  skipFormat?: boolean;
-}
-
 export interface VirtualFileSystemInterface {
   [__VFS_INIT__]: () => void;
   [__VFS_REVERT__]: () => void;
 
   /**
-   * The underlying builtin module Ids.
+   * The underlying file metadata.
    */
-  builtinIdMap: Map<string, string>;
+  meta: Record<string, VirtualFileSystemMetadata | undefined>;
 
   /**
-   * Checks if a path or ID corresponds to a builtin file.
-   *
-   * @param id - The id of the builtin file to check against.
-   * @param pathOrId - The path or id of the file to check.
-   * @returns Whether the path or ID corresponds to a builtin file.
+   * A map of module ids to their file paths.
    */
-  isMatchingBuiltinId: (id: string, pathOrId: string) => boolean;
+  ids: Record<string, string>;
 
   /**
-   * Checks if a provided string is a valid builtin ID (does not need to already be created in the file system).
+   * Check if a path or id corresponds to a virtual file **(does not actually exists on disk)**.
    *
-   * @param id - The ID to check.
-   * @returns Whether the ID is a valid builtin ID.
-   */
-  isValidBuiltinId: (id: string) => boolean;
-
-  /**
-   * Check if a path or ID corresponds to a virtual file.
-   *
-   * @param pathOrId - The path or ID to check.
+   * @param pathOrId - The path or id to check.
    * @param options - Optional parameters for resolving the path.
-   * @returns Whether the path or ID corresponds to a virtual file.
+   * @returns Whether the path or id corresponds to a virtual file **(does not actually exists on disk)**.
    */
-  isVirtualFile: (pathOrId: string, options?: ResolvePathOptions) => boolean;
+  isVirtual: (pathOrId: string, options?: ResolvePathOptions) => boolean;
 
   /**
-   * Check if a path exists within one of the directories specified in the tsconfig.json's `path` field.
+   * Check if a path or id corresponds to a file written to the file system **(actually exists on disk)**.
    *
-   * @see https://www.typescriptlang.org/tsconfig#paths
-   *
-   * @param pathOrId - The path or ID to check.
-   * @returns Whether the path or ID corresponds to a virtual file.
+   * @param pathOrId - The path or id to check.
+   * @param options - Optional parameters for resolving the path.
+   * @returns Whether the path or id corresponds to a file written to the file system **(actually exists on disk)**.
    */
-  isTsconfigPath: (pathOrId: string) => boolean;
-
-  /**
-   * Checks if a given path or ID corresponds to a builtin module file.
-   */
-  isBuiltinFile: (pathOrID: string, options?: ResolvePathOptions) => boolean;
-
-  /**
-   * Returns a list of builtin module files in the virtual file system.
-   */
-  listBuiltinFiles: () => Promise<VirtualBuiltinFile[]>;
-
-  /**
-   * Checks if a file exists in the virtual file system (VFS).
-   */
-  existsSync: (pathOrId: string) => boolean;
+  isFs: (pathOrId: string, options?: ResolvePathOptions) => boolean;
 
   /**
    * Checks if a file exists in the virtual file system (VFS).
@@ -172,7 +186,7 @@ export interface VirtualFileSystemInterface {
    * @param path - The path of the file to check.
    * @returns `true` if the file exists, otherwise `false`.
    */
-  fileExistsSync: (path: string) => boolean;
+  isFile: (path: string) => boolean;
 
   /**
    * Checks if a directory exists in the virtual file system (VFS).
@@ -180,15 +194,25 @@ export interface VirtualFileSystemInterface {
    * @param path - The path of the directory to check.
    * @returns `true` if the directory exists, otherwise `false`.
    */
-  directoryExistsSync: (path: string) => boolean;
+  isDirectory: (path: string) => boolean;
 
   /**
-   * Checks if a path exists in the virtual file system (VFS).
+   * Check if a path exists within one of the directories specified in the tsconfig.json's `path` field.
    *
-   * @param path - The path to check.
-   * @returns `true` if the path exists, otherwise `false`.
+   * @see https://www.typescriptlang.org/tsconfig#paths
+   *
+   * @param pathOrId - The path or id to check.
+   * @returns Whether the path or id corresponds to a virtual file.
    */
-  pathExistsSync: (path: string) => boolean;
+  isTsconfigPath: (pathOrId: string) => boolean;
+
+  /**
+   * Checks if a file exists in the virtual file system (VFS).
+   *
+   * @param pathOrId - The path or id of the file.
+   * @returns `true` if the file exists, otherwise `false`.
+   */
+  existsSync: (pathOrId: string) => boolean;
 
   /**
    * Gets the stats of a file in the virtual file system (VFS).
@@ -371,100 +395,38 @@ export interface VirtualFileSystemInterface {
   /**
    * Writes a file to the virtual file system (VFS).
    *
-   * @param file - The path to the file.
+   * @param path - The path to the file.
    * @param data - The contents of the file.
    * @param options - Optional parameters for writing the file.
    * @returns A promise that resolves when the file is written.
    */
   writeFile: (
-    file: PathOrFileDescriptor,
-    data: string | NodeJS.ArrayBufferView,
+    path: PathOrFileDescriptor,
+    data?: WriteFileData,
     options?: WriteFileOptions
   ) => Promise<void>;
 
   /**
    * Writes a file to the virtual file system (VFS).
    *
-   * @param file - The path to the file.
+   * @param path - The path to the file.
    * @param data - The contents of the file.
    * @param options - Optional parameters for writing the file.
    */
   writeFileSync: (
-    file: PathOrFileDescriptor,
-    data: string | NodeJS.ArrayBufferView,
+    path: PathOrFileDescriptor,
+    data?: WriteFileData,
     options?: WriteFileOptions
   ) => void;
 
   /**
-   * Adds a builtin module file to the virtual file system.
-   *
-   * @param id - The unique identifier for the builtin module file.
-   * @param path - The path to the builtin module file.
-   * @param contents - The contents of the builtin module file.
-   * @param options - Optional parameters for writing the builtin module file.
-   */
-  writeBuiltinFile: (
-    id: string,
-    path: string,
-    contents: string,
-    options?: WriteBuiltinFileOptions
-  ) => Promise<void>;
-
-  /**
-   * Adds an entry file to the virtual file system.
-   *
-   * @param name - The unique identifier for the entry file.
-   * @param contents - The contents of the entry file.
-   * @param options - Optional parameters for writing the entry file.
-   */
-  writeEntryFile: (
-    name: string,
-    contents: string,
-    options?: WriteBuiltinFileOptions
-  ) => Promise<void>;
-
-  /**
-   * Writes a file to disk from the physical file system (on disk).
-   *
-   * @param path - The path to the file to write.
-   * @param contents - The contents of the file to write.
-   * @param options - Optional parameters for writing the file.
-   * @returns A promise that resolves when the file is written.
-   */
-  writeFileToDisk: (
-    path: string,
-    contents: string,
-    options?: { skipFormat?: boolean }
-  ) => Promise<void>;
-
-  /**
-   * Resolves a path or ID to a file path in the virtual file system.
+   * Resolves a path or id to a file path in the virtual file system.
    *
    * @param pathOrId - The path or id of the file to resolve.
    * @param options - Optional parameters for resolving the path.
    * @returns The resolved path of the file if it exists, otherwise false.
    */
-  resolvePath: (
-    pathOrId: string,
-    options?: ResolvePathOptions
-  ) => string | false;
-
-  /**
-   * Resolves a path or ID to a file path in the virtual file system.
-   *
-   * @param pathOrId - The path or id of the file to resolve.
-   * @returns The resolved path of the file if it exists, otherwise false.
-   */
-  realpathSync: (pathOrId: string) => string;
-
-  /**
-   * Resolves a path or ID to a builtin module file id in the virtual file system.
-   *
-   * @param pathOrId - The path or id of the file to resolve.
-   * @param paths - Optional array of paths to search for the file.
-   * @returns The resolved id of the builtin module file if it exists, otherwise false.
-   */
-  resolveId: (pathOrId: string) => string | false;
+  resolve: (pathOrId: string, options?: ResolvePathOptions) => string | false;
 
   /**
    * Resolves a path based on TypeScript's `tsconfig.json` paths.
@@ -485,6 +447,21 @@ export interface VirtualFileSystemInterface {
    * @returns The resolved package name if it exists, otherwise undefined.
    */
   resolveTsconfigPathPackage: (path: string) => string | false;
+
+  /**
+   * Resolves a path or id to a file path in the virtual file system.
+   *
+   * @param pathOrId - The path or id of the file to resolve.
+   * @returns The resolved path of the file if it exists, otherwise false.
+   */
+  realpathSync: (pathOrId: string) => string;
+
+  /**
+   * Retrieves a partial metadata mapping of all files in the virtual file system (VFS).
+   *
+   * @returns A record mapping file paths to their partial metadata.
+   */
+  getPartialMeta: () => Record<string, Partial<VirtualFileSystemMetadata>>;
 
   /**
    * A map of cached file paths to their underlying file content.

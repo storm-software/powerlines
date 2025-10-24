@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -32,7 +32,6 @@ import { joinPaths } from "@stryke/path/join-paths";
 import { titleCase } from "@stryke/string-format/title-case";
 import { TsConfigJson } from "@stryke/types/tsconfig";
 import chalk from "chalk";
-import { ResolvedConfig } from "powerlines/types/resolved";
 import ts from "typescript";
 import {
   getParsedTypeScriptConfig,
@@ -41,6 +40,7 @@ import {
 } from "../../lib/typescript/tsconfig";
 import { writeFile } from "../../lib/utilities/write-file";
 import type { EnvironmentContext } from "../../types/context";
+import { ResolvedConfig } from "../../types/resolved";
 
 async function resolveTsconfigChanges<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
@@ -258,9 +258,12 @@ export async function initializeTsconfig<
   context.tsconfig.tsconfigJson =
     await resolveTsconfigChanges<TResolvedConfig>(context);
 
-  await context.fs.writeFileToDisk(
+  await context.fs.writeFile(
     tsconfigFilePath,
-    StormJSON.stringify(context.tsconfig.tsconfigJson)
+    StormJSON.stringify(context.tsconfig.tsconfigJson),
+    {
+      mode: "fs"
+    }
   );
 
   context.tsconfig = getParsedTypeScriptConfig(

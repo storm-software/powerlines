@@ -66,15 +66,18 @@ export function isDuplicatePlugin(
  * Filters a Babel plugin by its runtime ID.
  *
  * @param context - The context in which the filter is applied.
- * @param runtimeId - The runtime ID to filter by.
+ * @param fileId - The file ID to filter by.
  * @returns A filter function that checks if a plugin's ID matches the runtime ID.
  */
-export function filterPluginByRuntimeId<TContext extends Context = Context>(
+export function filterPluginByFileId<TContext extends Context = Context>(
   context: TContext,
-  runtimeId: string
+  fileId: string
 ): BabelTransformPluginFilter {
   return (code: string, id: string): boolean =>
-    !context.fs.isMatchingBuiltinId(runtimeId, id);
+    fileId !== id &&
+    context.fs.ids[fileId] !== id &&
+    fileId !== context.fs.ids[id] &&
+    context.fs.ids[fileId] !== context.fs.ids[id];
 }
 
 /**

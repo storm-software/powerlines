@@ -142,9 +142,9 @@ export function extractESBuildConfig(
 ): ESBuildResolvedBuildConfig {
   return defu(
     {
-      alias: context.fs.builtinIdMap.keys().reduce(
+      alias: context.builtins.reduce(
         (ret, id) => {
-          const path = context.fs.builtinIdMap.get(id);
+          const path = context.fs.ids[id];
           if (path) {
             ret[id] = path;
           }

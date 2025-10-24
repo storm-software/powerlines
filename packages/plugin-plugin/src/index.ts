@@ -80,9 +80,10 @@ export const plugin = <
           this.tsconfig.tsconfigJson.compilerOptions!.jsx = "preserve";
         }
 
-        await this.fs.writeFileToDisk(
+        await this.fs.writeFile(
           this.tsconfig.tsconfigFilePath,
-          StormJSON.stringify(this.tsconfig.tsconfigJson)
+          StormJSON.stringify(this.tsconfig.tsconfigJson),
+          { mode: "fs" }
         );
       }
 

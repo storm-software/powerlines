@@ -170,9 +170,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
         }
 
         if (id) {
-          const resolvedPath = ctx.fs.resolvePath(id, {
-            type: "file"
-          });
+          const resolvedPath = ctx.fs.resolve(id);
           if (resolvedPath) {
             return ctx.fs.readFile(resolvedPath);
           }

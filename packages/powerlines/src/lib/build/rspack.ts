@@ -34,9 +34,9 @@ export function extractRspackConfig(context: Context): ExternalRspackOptions {
   return defu(
     {
       resolve: {
-        alias: context.fs.builtinIdMap.keys().reduce(
+        alias: context.builtins.reduce(
           (ret, id) => {
-            const path = context.fs.builtinIdMap.get(id);
+            const path = context.fs.ids[id];
             if (path) {
               ret[id] = path;
             }
@@ -87,7 +87,7 @@ export function extractRspackConfig(context: Context): ExternalRspackOptions {
         context.workspaceConfig.workspaceRoot,
         context.config.projectRoot
       ),
-      noExternal: Array.from(context.fs.builtinIdMap.keys())
+      noExternal: context.builtins
     },
     context.config.build.variant === "rspack" ? context.config.build : {},
     {

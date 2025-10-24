@@ -79,7 +79,7 @@ export function createCompilerHost(
   return {
     ...host,
     require(baseDir: string, moduleName: string) {
-      const modulePath = context.fs.resolvePath(moduleName);
+      const modulePath = context.fs.resolve(moduleName);
       if (modulePath) {
         return {
           module: context.fs.readFileSync(modulePath),
@@ -103,11 +103,11 @@ export function createCompilerHost(
     },
     getCanonicalFileName(fileName: string): string {
       return (
-        context.fs.resolvePath(fileName) || host.getCanonicalFileName(fileName)
+        context.fs.resolve(fileName) || host.getCanonicalFileName(fileName)
       );
     },
     realpath(fileName: string) {
-      return context.fs.resolvePath(fileName) || host.realpath?.(fileName);
+      return context.fs.resolve(fileName) || host.realpath?.(fileName);
     },
     fileExists(fileName: string): boolean {
       if (context.fs.existsSync(fileName)) {
@@ -152,7 +152,7 @@ export function createCompilerHost(
       onError?: (message: string) => void,
       shouldCreateNewSourceFile?: boolean
     ): SourceFile | undefined {
-      const path = context.fs.resolvePath(fileName);
+      const path = context.fs.resolve(fileName);
       if (path) {
         try {
           return createSourceFile(

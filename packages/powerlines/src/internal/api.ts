@@ -25,8 +25,6 @@ import { createDirectory } from "@stryke/fs/helpers";
 import { install } from "@stryke/fs/install";
 import { listFiles } from "@stryke/fs/list-files";
 import { isPackageExists } from "@stryke/fs/package-fns";
-import { findFileExtensionSafe } from "@stryke/path/file-path-fns";
-import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import { isError } from "@stryke/type-checks/is-error";
@@ -40,7 +38,6 @@ import { MaybePromise } from "@stryke/types/base";
 import chalk from "chalk";
 import Handlebars from "handlebars";
 import { getParsedTypeScriptConfig } from "../lib/typescript/tsconfig";
-import { getFileHeader } from "../lib/utilities/file-header";
 import { writeMetaFile } from "../lib/utilities/meta";
 import {
   checkDedupe,
@@ -241,28 +238,28 @@ export class PowerlinesAPI<
       if (context.config.projectType === "application") {
         context.log(LogLevelLabel.TRACE, "Generating built-in barrel file");
 
-        await context.fs.writeBuiltinFile(
-          "index",
-          joinPaths(context.builtinsPath, "index.ts"),
-          `
-  ${getFileHeader(context)}
+        //       await context.fs.writeBuiltinFile(
+        //         "index",
+        //         joinPaths(context.builtinsPath, "index.ts"),
+        //         `
+        // ${getFileHeader(context)}
 
-  ${(await context.fs.listBuiltinFiles())
-    .filter(
-      file =>
-        !isParentPath(file.path, joinPaths(context.builtinsPath, "log")) &&
-        !isParentPath(file.path, joinPaths(context.builtinsPath, "storage"))
-    )
-    .map(
-      file =>
-        `export * from "./${replacePath(
-          file.path,
-          context.builtinsPath
-        ).replace(`.${findFileExtensionSafe(file.path)}`, "")}";`
-    )
-    .join("\n")}
-  `
-        );
+        // ${(await context.fs.listBuiltinFiles())
+        //   .filter(
+        //     file =>
+        //       !isParentPath(file.path, joinPaths(context.builtinsPath, "log")) &&
+        //       !isParentPath(file.path, joinPaths(context.builtinsPath, "storage"))
+        //   )
+        //   .map(
+        //     file =>
+        //       `export * from "./${replacePath(
+        //         file.path,
+        //         context.builtinsPath
+        //       ).replace(`.${findFileExtensionSafe(file.path)}`, "")}";`
+        //   )
+        //   .join("\n")}
+        // `
+        //       );
       }
 
       if (context.config.output.dts !== false) {
