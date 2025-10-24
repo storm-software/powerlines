@@ -145,8 +145,16 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*", "bin/*", "schemas/*"],
-  "keywords": ["deepkit", "powerlines", "storm-software"],
+  "files": [
+    "dist/**/*",
+    "bin/*",
+    "schemas/*"
+  ],
+  "keywords": [
+    "deepkit",
+    "powerlines",
+    "storm-software"
+  ],
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
@@ -157,7 +165,7 @@
     "chalk": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.9.0",
+    "powerlines": "workspace:*",
     "typescript": "^5.9.3",
     "unplugin": "catalog:"
   },
@@ -166,7 +174,7 @@
     "@deepkit/type": "catalog:",
     "@deepkit/type-compiler": "catalog:",
     "@deepkit/type-spec": "catalog:",
-    "@powerlines/nx": "0.8.0",
+    "@powerlines/nx": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {
