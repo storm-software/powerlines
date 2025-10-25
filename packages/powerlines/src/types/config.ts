@@ -237,6 +237,11 @@ export interface BaseConfig {
   lint?: Record<string, any> | false;
 
   /**
+   * Configuration for testing the source code
+   */
+  test?: Record<string, any> | false;
+
+  /**
    * Configuration for the output of the build process
    */
   output?: OutputConfig;
