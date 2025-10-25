@@ -111,10 +111,10 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
       sourcemap: context.config.mode === "development",
       dts: context.config.projectType !== "application",
       silent:
-        context.config.logLevel === "silent" ||
+        context.config.logLevel === null ||
         context.config.mode === "production",
       verbose:
-        context.config.logLevel === "all" ||
+        context.config.logLevel === null ||
         context.config.logLevel === "trace" ||
         context.config.mode === "development"
     },

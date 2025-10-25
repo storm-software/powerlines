@@ -29,7 +29,7 @@ import { OxlintPluginContext, OxlintPluginOptions } from "./types/plugin";
 export * from "./types";
 
 /**
- * A Powerlines plugin to assist in linting a project with Oxlint.
+ * A Powerlines plugin to assist in linting a project with Biome.
  */
 export function plugin(
   options: OxlintPluginOptions = {}
@@ -39,7 +39,7 @@ export function plugin(
     async config() {
       this.log(
         LogLevelLabel.TRACE,
-        "Providing default configuration for the Powerlines `oxlint` build plugin."
+        "Providing default configuration for the Powerlines `oxlint` linting plugin."
       );
 
       return {
@@ -74,9 +74,9 @@ export function plugin(
 
       if (
         !args.includes("--ignore-pattern") &&
-        this.config.lint.oxlint.ignorePattern
+        this.config.lint.oxlint.ignorePatterns
       ) {
-        args.push(`--ignore-pattern=${this.config.lint.oxlint.ignorePattern}`);
+        args.push(`--ignore-pattern=${this.config.lint.oxlint.ignorePatterns}`);
       }
 
       this.config.lint.oxlint.deny.forEach(d => args.push("-D", d));

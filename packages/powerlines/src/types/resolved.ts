@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import type { LogLevelLabel } from "@storm-software/config-tools/types";
 import type { NonUndefined } from "@stryke/types/base";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import type { AssetGlob } from "@stryke/types/file";
@@ -166,7 +165,7 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
      *
      * @defaultValue "info"
      */
-    logLevel: LogLevelLabel | null;
+    logLevel: "error" | "warn" | "info" | "debug" | "trace" | null;
   };
 
 export type ViteResolvedConfig = ResolvedConfig<ViteUserConfig>;

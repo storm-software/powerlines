@@ -14,6 +14,8 @@
       "@powerlines/nx/*": ["packages/nx/src/*"],
       "@powerlines/plugin-babel": ["packages/plugin-babel/src/index.ts"],
       "@powerlines/plugin-babel/*": ["packages/plugin-babel/src/*"],
+      "@powerlines/plugin-biome": ["packages/plugin-biome/src/index.ts"],
+      "@powerlines/plugin-biome/*": ["packages/plugin-biome/src/*"],
       "@powerlines/plugin-crypto": ["packages/plugin-crypto/src/index.ts"],
       "@powerlines/plugin-crypto/*": ["packages/plugin-crypto/src/*"],
       "@powerlines/plugin-date": ["packages/plugin-date/src/index.ts"],
