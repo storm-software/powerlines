@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.12.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.12.0) (2025-10-25)
+
+### Features
+
+- **plugin-jest:** Initial check-in of `jest` plugin
+  ([902f57f](https://github.com/storm-software/powerlines/commit/902f57f))
+
 ## [0.11.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.11.0) (2025-10-25)
 
 ### Features

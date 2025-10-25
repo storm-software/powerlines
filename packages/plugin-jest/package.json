@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-jest",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "description": "A package containing the Jest testing plugin for Powerlines.",
   "repository": {
@@ -127,10 +127,10 @@
     "jest-util": "catalog:",
     "jest": "catalog:",
     "chalk": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.12.0"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/nx": "0.9.1",
     "@types/jest": "catalog:",
     "@jest/types": "catalog:"
   },

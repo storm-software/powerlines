@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Swc
 
+## [0.5.1](https://github.com/storm-software/powerlines/releases/tag/plugin-swc%400.5.1) (2025-10-25)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([80c47bf](https://github.com/storm-software/powerlines/commit/80c47bf))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.11.1
+- Updated powerlines to 0.12.0
+- Updated nx to 0.9.1
+
 ## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/plugin-swc%400.5.0) (2025-10-25)
 
 ### Features

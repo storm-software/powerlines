@@ -28,6 +28,8 @@
       "@powerlines/plugin-eslint/*": ["packages/plugin-eslint/src/*"],
       "@powerlines/plugin-id": ["packages/plugin-id/src/index.ts"],
       "@powerlines/plugin-id/*": ["packages/plugin-id/src/*"],
+      "@powerlines/plugin-jest": ["packages/plugin-jest/src/index.ts"],
+      "@powerlines/plugin-jest/*": ["packages/plugin-jest/src/*"],
       "@powerlines/plugin-oxc-transform": [
         "packages/plugin-oxc-transform/src/index.ts"
       ],
@@ -38,8 +40,6 @@
       "@powerlines/plugin-oxlint/*": ["packages/plugin-oxlint/src/*"],
       "@powerlines/plugin-plugin": ["packages/plugin-plugin/src/index.ts"],
       "@powerlines/plugin-plugin/*": ["packages/plugin-plugin/src/*"],
-      "@powerlines/plugin-jest": ["packages/plugin-jest/src/index.ts"],
-      "@powerlines/plugin-jest/*": ["packages/plugin-jest/src/*"],
       "@powerlines/plugin-rolldown": ["packages/plugin-rolldown/src/index.ts"],
       "@powerlines/plugin-rolldown/*": ["packages/plugin-rolldown/src/*"],
       "@powerlines/plugin-rollup": ["packages/plugin-rollup/src/index.ts"],

@@ -295,7 +295,7 @@ catalogs:
       specifier: ^3.3.1
       version: 3.3.1
     chalk:
-      specifier: ^5.6.2
+      specifier: 5.6.2
       version: 5.6.2
     copyfiles:
       specifier: ^2.4.1
@@ -1178,6 +1178,9 @@ importers:
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.17.0
+      chalk:
+        specifier: 'catalog:'
+        version: 5.6.2
       defu:
         specifier: 'catalog:'
         version: 6.1.4
@@ -26337,7 +26340,7 @@ snapshots:
   micromark-factory-space@2.0.1:
     dependencies:
       micromark-util-character: 2.1.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-factory-title@2.0.1:
     dependencies:
@@ -26366,7 +26369,7 @@ snapshots:
     dependencies:
       micromark-util-character: 2.1.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-combine-extensions@2.0.1:
     dependencies:
@@ -26404,7 +26407,7 @@ snapshots:
 
   micromark-util-resolve-all@2.0.1:
     dependencies:
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-sanitize-uri@2.0.1:
     dependencies:
@@ -26417,7 +26420,7 @@ snapshots:
       devlop: 1.1.0
       micromark-util-chunked: 2.0.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-symbol@2.0.1: {}
 
