@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.10.0](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.10.0) (2025-10-25)
+
+### Features
+
+- **powerlines:** Added the `createProgram` helper function
+  ([98b9323](https://github.com/storm-software/powerlines/commit/98b9323))
+
+### Updated Dependencies
+
+- Updated plugin-tsc to 0.2.0
+- Updated powerlines to 0.11.0
+- Updated deepkit to 0.3.0
+- Updated nx to 0.9.0
+
 ## [0.9.2](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.9.2) (2025-10-24)
 
 ### Miscellaneous

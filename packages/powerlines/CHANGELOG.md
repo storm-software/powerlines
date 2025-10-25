@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.11.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.11.0) (2025-10-25)
+
+### Features
+
+- **powerlines:** Added the `createProgram` helper function
+  ([98b9323](https://github.com/storm-software/powerlines/commit/98b9323))
+
+### Miscellaneous
+
+- **powerlines:** Resolve linting errors
+  ([cb9da73](https://github.com/storm-software/powerlines/commit/cb9da73))
+
 ## [0.10.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.10.2) (2025-10-24)
 
 ### Bug Fixes

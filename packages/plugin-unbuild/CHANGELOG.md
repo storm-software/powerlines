@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Unbuild
 
+## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.0) (2025-10-25)
+
+### Features
+
+- **powerlines:** Added the `createProgram` helper function
+  ([98b9323](https://github.com/storm-software/powerlines/commit/98b9323))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.11.0
+- Updated powerlines to 0.11.0
+- Updated nx to 0.9.0
+
 ## [0.4.3](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.4.3) (2025-10-24)
 
 ### Miscellaneous

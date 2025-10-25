@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-plugin",
-  "version": "0.10.3",
+  "version": "0.11.0",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
@@ -114,14 +114,8 @@
     }
   },
   "typings": "dist/src/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@alloy-js/babel-preset": "catalog:",
     "@alloy-js/core": "catalog:",
@@ -138,11 +132,11 @@
     "defu": "catalog:",
     "esbuild-plugin-babel": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.11.0"
   },
   "devDependencies": {
     "@alloy-js/rollup-plugin": "catalog:",
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/nx": "0.9.0",
     "@rollup/plugin-commonjs": "catalog:",
     "@rollup/plugin-node-resolve": "catalog:",
     "@types/babel__helper-plugin-utils": "catalog:",

@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-env",
-  "version": "0.11.2",
+  "version": "0.12.0",
   "type": "module",
   "description": "A package containing a Powerlines plugin for injecting static .env configuration values to the code so that they're accessible at runtime.",
   "repository": {
@@ -191,9 +191,9 @@
     "@alloy-js/typescript": "catalog:",
     "@babel/core": "catalog:",
     "@babel/types": "catalog:",
-    "@powerlines/alloy": "workspace:*",
-    "@powerlines/plugin-babel": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
+    "@powerlines/alloy": "0.11.0",
+    "@powerlines/plugin-babel": "0.12.0",
+    "@powerlines/plugin-plugin": "0.11.0",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/env": "catalog:",
@@ -202,12 +202,12 @@
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.11.0"
   },
   "devDependencies": {
     "@alloy-js/babel-preset": "catalog:",
     "@babel/preset-typescript": "catalog:",
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/nx": "0.9.0",
     "@storm-software/tsup": "catalog:",
     "@types/node": "catalog:",
     "tsup": "catalog:",
