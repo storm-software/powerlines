@@ -215,6 +215,14 @@ export interface VirtualFileSystemInterface {
   existsSync: (pathOrId: string) => boolean;
 
   /**
+   * Gets the metadata of a file in the virtual file system (VFS).
+   *
+   * @param pathOrId - The path or id of the file.
+   * @returns The metadata of the file if it exists, otherwise undefined.
+   */
+  getMetadata: (pathOrId: PathLike) => VirtualFileSystemMetadata | undefined;
+
+  /**
    * Gets the stats of a file in the virtual file system (VFS).
    *
    * @param pathOrId - The path or id of the file.
@@ -345,13 +353,21 @@ export interface VirtualFileSystemInterface {
   ) => Promise<void>;
 
   /**
-   * Removes a file in the virtual file system (VFS).
+   * Removes a file or directory in the virtual file system (VFS).
    *
-   * @param path - The path to the file to remove.
-   * @param options - Options for removing the file.
-   * @returns A promise that resolves when the file is removed.
+   * @param path - The path to the file or directory to remove.
+   * @param options - Options for removing the file or directory.
+   * @returns A promise that resolves when the file or directory is removed.
    */
   rm: (path: PathLike, options?: RmOptions & ResolveFSOptions) => Promise<void>;
+
+  /**
+   * Synchronously removes a file or directory in the virtual file system (VFS).
+   *
+   * @param path - The path to the file or directory to remove.
+   * @param options - Options for removing the file or directory.
+   */
+  rmSync: (path: PathLike, options?: RmOptions & ResolveFSOptions) => void;
 
   /**
    * Creates a directory in the virtual file system (VFS).
@@ -418,6 +434,54 @@ export interface VirtualFileSystemInterface {
     data?: WriteFileData,
     options?: WriteFileOptions
   ) => void;
+
+  /**
+   * Moves a file from one path to another in the virtual file system (VFS).
+   *
+   * @param srcPath - The source path to move
+   * @param destPath - The destination path to move to
+   */
+  move: (srcPath: string, destPath: string) => Promise<void>;
+
+  /**
+   * Synchronously moves a file from one path to another in the virtual file system (VFS).
+   *
+   * @param srcPath - The source path to move
+   * @param destPath - The destination path to move to
+   */
+  moveSync: (srcPath: string, destPath: string) => void;
+
+  /**
+   * Copies a file from one path to another in the virtual file system (VFS).
+   *
+   * @param srcPath - The source path to copy
+   * @param destPath - The destination path to copy to
+   */
+  copy: (srcPath: string, destPath: string) => Promise<void>;
+
+  /**
+   * Synchronously copies a file from one path to another in the virtual file system (VFS).
+   *
+   * @param srcPath - The source path to copy
+   * @param destPath - The destination path to copy to
+   */
+  copySync: (srcPath: string, destPath: string) => void;
+
+  /**
+   * Glob files in the virtual file system (VFS) based on the provided pattern(s).
+   *
+   * @param pattern - A pattern (or multiple patterns) to use to determine the file paths to return
+   * @returns An array of file paths matching the provided pattern(s)
+   */
+  glob: (pattern: string | string[]) => Promise<string[]>;
+
+  /**
+   * Synchronously glob files in the virtual file system (VFS) based on the provided pattern(s).
+   *
+   * @param pattern - A pattern (or multiple patterns) to use to determine the file paths to return
+   * @returns An array of file paths matching the provided pattern(s)
+   */
+  globSync: (pattern: string | string[]) => string[];
 
   /**
    * Resolves a path or id to a file path in the virtual file system.

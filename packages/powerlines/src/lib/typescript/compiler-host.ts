@@ -64,6 +64,54 @@ export interface TypeScriptSystem extends System {
 // }
 
 /**
+ * Creates an in-memory System object which can be used in a TypeScript program, this
+ * is what provides read/write aspects of the virtual fs
+ */
+export function createVirtualSystem(context: Context): System {
+  return {
+    args: [],
+    createDirectory: path => {
+      context.fs.mkdirSync(path);
+    },
+    // TODO: could make a real file tree
+    directoryExists: (directoryName: string): boolean => {
+      return context.fs.existsSync(directoryName);
+    },
+    exit: () => {
+      throw new Error("Not implemented: exit");
+    },
+    fileExists: fileName => context.fs.existsSync(fileName),
+    getCurrentDirectory: () => "/",
+    getDirectories: () => [],
+    getExecutingFilePath: () => {
+      throw new Error("Not implemented: getExecutingFilePath");
+    },
+    readDirectory: (directoryName: string): string[] => {
+      return context.fs.readdirSync(directoryName);
+    },
+    readFile: (fileName: string): string | undefined => {
+      if (context.fs.existsSync(fileName)) {
+        return context.fs.readFileSync(fileName);
+      }
+
+      return undefined;
+    },
+    resolvePath: path => context.fs.resolve(path) || path,
+    newLine: "\n",
+    useCaseSensitiveFileNames: true,
+    write: () => {
+      throw new Error("Not implemented: write");
+    },
+    writeFile: (fileName, contents) => {
+      context.fs.writeFileSync(fileName, contents);
+    },
+    deleteFile: fileName => {
+      context.fs.unlinkSync(fileName);
+    }
+  };
+}
+
+/**
  * Creates a TypeScript compiler host that uses the virtual file system (VFS) from the provided context to resolve paths.
  *
  * @param context - The context containing the virtual file system.

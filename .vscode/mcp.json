@@ -1,12 +1,3 @@
 {
-  "servers": {
-    "github-mcp": {
-      "type": "sse",
-      "url": "https://api.github.com/sse"
-    },
-    "npm-mcp": {
-      "type": "sse",
-      "url": "https://registry.npmjs.org/sse"
-    }
-  }
+	"servers": {}
 }

@@ -96,9 +96,10 @@ export const plugin = createAlloyPlugin<EnvPluginOptions, EnvPluginContext>(
             "The `env.types` configuration parameter was not provided. Please ensure this is expected."
           );
 
+          const envDefaultTypeDefinition = await getEnvDefaultTypeDefinition(this);
           config.env.types = parseTypeDefinition(
-            `${getEnvDefaultTypeDefinition(this).file}#${
-              getEnvDefaultTypeDefinition(this).name
+            `${envDefaultTypeDefinition.file}#${
+              envDefaultTypeDefinition.name
             }`
           ) as TypeDefinition;
         }
@@ -108,9 +109,10 @@ export const plugin = createAlloyPlugin<EnvPluginOptions, EnvPluginContext>(
             config.env.secrets
           ) as TypeDefinition;
         } else {
+          const secretsDefaultTypeDefinition = await getSecretsDefaultTypeDefinition(this);
           config.env.secrets = parseTypeDefinition(
-            `${getSecretsDefaultTypeDefinition(this).file}#${
-              getSecretsDefaultTypeDefinition(this).name
+            `${secretsDefaultTypeDefinition.file}#${
+              secretsDefaultTypeDefinition.name
             }`
           ) as TypeDefinition;
         }

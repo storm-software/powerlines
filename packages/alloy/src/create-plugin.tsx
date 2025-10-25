@@ -53,9 +53,7 @@ export function createAlloyPlugin<
   TContext extends PluginContext = PluginContext
 >(builder: AlloyPluginBuilder<TOptions, TContext>) {
   return async (
-    options: TOptions &
-      AlloyPluginOptions &
-      Partial<Omit<Plugin<TContext>, "name">>
+    options: TOptions & AlloyPluginOptions
   ): Promise<Plugin<TContext>> => {
     const result = await Promise.resolve(builder(options));
 

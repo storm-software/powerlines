@@ -28,6 +28,7 @@ import {
 } from "@powerlines/deepkit/vendor/type";
 import * as capnp from "@stryke/capnp";
 import { readFileBuffer } from "@stryke/fs/buffer";
+import { resolvePackage } from "@stryke/fs/resolve";
 import { joinPaths } from "@stryke/path/join-paths";
 import { isEmptyObject } from "@stryke/type-checks/is-empty-object";
 import type { TypeDefinition } from "@stryke/types/configuration";
@@ -42,22 +43,37 @@ import {
 import { createEnvReflection } from "./reflect";
 
 /**
+ * Resolves the runtime type definition file for the environment variables.
+ *
+ * @param context - The plugin context.
+ * @returns The runtime type definition file for the environment variables.
+ */
+export async function resolveRuntimeTypeFile(
+  context: Context<EnvPluginResolvedConfig>
+): Promise<string> {
+  return resolvePackage("@powerlines/plugin-env/types/runtime", {
+    paths: [
+      context.workspaceConfig.workspaceRoot,
+      joinPaths(
+        context.workspaceConfig.workspaceRoot,
+        context.config.projectRoot
+      )
+    ]
+  });
+}
+
+/**
  * Gets the default type definition for the environment variables.
  *
  * @param context - The plugin context.
  * @returns The default type definition for the environment variables.
  */
-export function getEnvDefaultTypeDefinition(
+export async function getEnvDefaultTypeDefinition(
   context: Context<EnvPluginResolvedConfig>
-): TypeDefinition {
+): Promise<TypeDefinition> {
   return {
-    file: process.env.POWERLINES_LOCAL
-      ? joinPaths(
-          context.workspaceConfig.workspaceRoot,
-          "dist/packages/types/dist/esm/src/shared/env.js"
-        )
-      : "powerlines/runtime-types/shared/env",
-    name: "__ΩEnvInterface"
+    file: await resolveRuntimeTypeFile(context),
+    name: "EnvInterface"
   };
 }
 
@@ -66,17 +82,12 @@ export function getEnvDefaultTypeDefinition(
  * @param context - The plugin context.
  * @returns The default type definition for the environment secrets.
  */
-export function getSecretsDefaultTypeDefinition(
+export async function getSecretsDefaultTypeDefinition(
   context: Context<EnvPluginResolvedConfig>
-): TypeDefinition {
+): Promise<TypeDefinition> {
   return {
-    file: process.env.POWERLINES_LOCAL
-      ? joinPaths(
-          context.workspaceConfig.workspaceRoot,
-          "dist/packages/types/dist/esm/src/shared/env.js"
-        )
-      : "powerlines/runtime-types/shared/env",
-    name: "__ΩSecretsInterface"
+    file: await resolveRuntimeTypeFile(context),
+    name: "SecretsInterface"
   };
 }
 
@@ -191,7 +202,7 @@ export async function readEnvReflection(
       const reflection = createEnvReflection(context, {
         type: {
           kind: ReflectionKind.objectLiteral,
-          typeName: "StormEnv",
+          typeName: "Env",
           description: `An object containing the environment configuration parameters that are used (at least once) by the ${
             context.config.name
               ? `${context.config.name} application`
@@ -201,7 +212,7 @@ export async function readEnvReflection(
         },
         superReflection: context.env.types.env
       }) as Reflection;
-      reflection.name = "StormEnv";
+      reflection.name = "Env";
 
       const message = new capnp.Message();
       reflection.messageRoot = message.initRoot(SerializedTypes);
@@ -251,7 +262,7 @@ export async function readSecretsReflection(
       const reflection = createEnvReflection(context, {
         type: {
           kind: ReflectionKind.objectLiteral,
-          typeName: "StormSecrets",
+          typeName: "Secrets",
           description: `An object containing the secret configuration parameters that are used (at least once) by the ${
             context.config.name
               ? `${context.config.name} application`
@@ -261,7 +272,7 @@ export async function readSecretsReflection(
         },
         superReflection: context.env.types.secrets
       }) as Reflection;
-      reflection.name = "StormSecrets";
+      reflection.name = "Secrets";
 
       const message = new capnp.Message();
       reflection.messageRoot = message.initRoot(SerializedTypes);

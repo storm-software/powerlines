@@ -162,21 +162,6 @@ export interface Context<
   persistedMeta?: MetaInfo;
 
   /**
-   * The parsed TypeScript configuration from the `tsconfig.json` file
-   */
-  tsconfig: ParsedTypeScriptConfig;
-
-  /**
-   * The entry points of the source code
-   */
-  entry: ResolvedEntryTypeDefinition[];
-
-  /**
-   * The relative path to the Powerlines workspace root directory
-   */
-  relativeToWorkspaceRoot: string;
-
-  /**
    * The Powerlines artifacts directory
    */
   artifactsPath: string;
@@ -217,14 +202,9 @@ export interface Context<
   powerlinesPath: string;
 
   /**
-   * The dependency installations required by the project
+   * The relative path to the Powerlines workspace root directory
    */
-  dependencies: Record<string, string | Range>;
-
-  /**
-   * The development dependency installations required by the project
-   */
-  devDependencies: Record<string, string | Range>;
+  relativeToWorkspaceRoot: string;
 
   /**
    * The project's `package.json` file content
@@ -235,6 +215,26 @@ export interface Context<
    * The project's `project.json` file content
    */
   projectJson?: Record<string, any>;
+
+  /**
+   * The dependency installations required by the project
+   */
+  dependencies: Record<string, string | Range>;
+
+  /**
+   * The development dependency installations required by the project
+   */
+  devDependencies: Record<string, string | Range>;
+
+  /**
+   * The parsed TypeScript configuration from the `tsconfig.json` file
+   */
+  tsconfig: ParsedTypeScriptConfig;
+
+  /**
+   * The entry points of the source code
+   */
+  entry: ResolvedEntryTypeDefinition[];
 
   /**
    * The virtual file system manager used during the build process to reference generated runtime files

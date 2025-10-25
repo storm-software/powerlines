@@ -64,7 +64,7 @@ export interface CreateEnvReflectionOptions {
   superReflection?: ReflectionClass<any>;
 }
 
-export class StormBaseEnv implements EnvInterface {
+export class BaseEnv implements EnvInterface {
   POWERLINES_LOCAL: boolean = false;
 
   APP_NAME!: string;
@@ -114,7 +114,7 @@ export class StormBaseEnv implements EnvInterface {
   CI: boolean = false;
 }
 
-export class StormBaseSecrets implements SecretsInterface {
+export class BaseSecrets implements SecretsInterface {
   ENCRYPTION_KEY!: string;
 }
 
@@ -129,7 +129,7 @@ export function createEnvReflection(
       description: `The base environment configuration definition for the ${titleCase(
         context.config.name
       )} project.`,
-      classType: StormBaseEnv,
+      classType: BaseEnv,
       types: [],
       implements: [
         {
@@ -142,12 +142,12 @@ export function createEnvReflection(
         }
       ]
     });
-  parent.name = "StormEnv";
+  parent.name = "Env";
 
   const result = new ReflectionClass(
     options.type ?? {
       kind: ReflectionKind.objectLiteral,
-      typeName: "StormEnv",
+      typeName: "Env",
       description: `A schema describing the list of available environment variables that can be used by the ${
         context.config.name
           ? `${titleCase(context.config.name)} application`
@@ -157,7 +157,7 @@ export function createEnvReflection(
     },
     parent
   );
-  result.name = "StormEnv";
+  result.name = "Env";
 
   return result;
 }
@@ -173,7 +173,7 @@ export function createSecretsReflection(
       description: `The base secrets configuration definition for the ${titleCase(
         context.config.name
       )} project.`,
-      classType: StormBaseSecrets,
+      classType: BaseSecrets,
       types: [],
       implements: [
         {
@@ -186,12 +186,12 @@ export function createSecretsReflection(
         }
       ]
     });
-  parent.name = "StormSecrets";
+  parent.name = "Secrets";
 
   const result = new ReflectionClass(
     options.type ?? {
       kind: ReflectionKind.objectLiteral,
-      typeName: "StormSecrets",
+      typeName: "Secrets",
       description: `A schema describing the list of available environment secrets that can be used by the ${
         context.config.name
           ? `${titleCase(context.config.name)} application`
@@ -201,7 +201,7 @@ export function createSecretsReflection(
     },
     parent
   );
-  result.name = "StormSecrets";
+  result.name = "Secrets";
 
   return result;
 }
@@ -231,7 +231,7 @@ export async function reflectEnv(
 
   const defaultConfigType = await reflectType(
     context,
-    getEnvDefaultTypeDefinition(context)
+    await getEnvDefaultTypeDefinition(context)
   );
 
   const reflection = await readEnvTypeReflection(context, "env");
@@ -280,7 +280,7 @@ export async function reflectSecrets(
 
   const defaultSecretsType = await reflectType(
     context,
-    getSecretsDefaultTypeDefinition(context)
+    await getSecretsDefaultTypeDefinition(context)
   );
 
   const reflection = await readSecretsReflection(context);

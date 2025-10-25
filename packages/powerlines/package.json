@@ -589,10 +589,12 @@
     "oxc-parser": "catalog:",
     "prettier": "catalog:",
     "rollup-plugin-typescript2": "catalog:",
+    "ts-morph": "catalog:",
     "unimport": "catalog:",
     "unionfs": "catalog:",
     "unplugin": "catalog:",
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "@typescript-eslint/utils": "catalog:"
   },
   "devDependencies": {
     "@microsoft/tsdoc": "catalog:",

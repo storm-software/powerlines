@@ -23,7 +23,7 @@ import { bufferToString } from "@stryke/convert/buffer-to-string";
 import { toArray } from "@stryke/convert/to-array";
 import { murmurhash } from "@stryke/hash/murmurhash";
 import {
-  findFileExtensionSafe,
+  findFileDotExtensionSafe,
   findFilePath
 } from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
@@ -849,6 +849,25 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   }
 
   /**
+   * Synchronously removes a file or directory in the virtual file system (VFS).
+   *
+   * @param path - The path to the file or directory to remove.
+   * @param options - Options for removing the file or directory.
+   */
+  public rmSync(
+    path: fs.PathLike,
+    options: fs.RmOptions & ResolveFSOptions = {}
+  ) {
+    this.#log(LogLevelLabel.TRACE, `Removing: ${toFilePath(path)}`);
+
+    if (this.isDirectory(path)) {
+      return this.rmdirSync(path, options);
+    }
+
+    return this.unlinkSync(path, options);
+  }
+
+  /**
    * Creates a directory in the virtual file system (VFS).
    *
    * @param path - The path to create the directory at.
@@ -903,6 +922,214 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
     this.clearResolverCache(filePath);
     return result;
+  }
+
+  /**
+   * Glob files in the virtual file system (VFS) based on the provided pattern(s).
+   *
+   * @param patterns - A pattern (or multiple patterns) to use to determine the file paths to return
+   * @returns An array of file paths matching the provided pattern(s)
+   */
+  public async glob(patterns: string | string[]): Promise<string[]> {
+    const results: string[] = [];
+    for (const pattern of toArray(patterns)) {
+      const normalized = this.formatPath(pattern);
+
+      // No glob characters: treat as a single file path
+      if (!/[*?[\]{}]/.test(normalized) && !normalized.includes("**")) {
+        const resolved = this.resolve(normalized, { type: "file" });
+        if (resolved && !results.includes(resolved)) {
+          results.push(resolved);
+        }
+        continue;
+      }
+
+      // Make absolute pattern for matching
+      const absPattern = isAbsolutePath(normalized)
+        ? normalized
+        : this.formatPath(
+            joinPaths(this.#context.workspaceConfig.workspaceRoot, normalized)
+          );
+
+      // Determine the base directory to start walking from (up to the first glob segment)
+      const firstGlobIdx = absPattern.search(/[*?[\]{}]/);
+      const baseDir =
+        firstGlobIdx === -1
+          ? findFilePath(absPattern)
+          : absPattern.slice(
+              0,
+              Math.max(0, absPattern.lastIndexOf("/", firstGlobIdx))
+            );
+
+      const stack: string[] = [
+        baseDir && isAbsolutePath(baseDir)
+          ? baseDir
+          : this.#context.workspaceConfig.workspaceRoot
+      ];
+
+      while (stack.length) {
+        const dir = stack.pop()!;
+        let entries: string[] = [];
+
+        try {
+          entries = await this.readdir(dir);
+        } catch {
+          continue;
+        }
+
+        for (const entry of entries) {
+          const full = this.formatPath(joinPaths(dir, entry));
+          let stats: Stats | undefined;
+
+          try {
+            stats = this.#unifiedFS.lstatSync(full);
+          } catch {
+            stats = undefined;
+          }
+          if (!stats) continue;
+
+          if (stats.isDirectory()) {
+            stack.push(full);
+          } else if (stats.isFile()) {
+            if (this.buildRegex(absPattern).test(full)) {
+              const resolved = this.resolve(full, { type: "file" });
+              if (resolved && !results.includes(resolved)) {
+                results.push(resolved);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return results;
+  }
+
+  /**
+   * Synchronously glob files in the virtual file system (VFS) based on the provided pattern(s).
+   *
+   * @param patterns - A pattern (or multiple patterns) to use to determine the file paths to return
+   * @returns An array of file paths matching the provided pattern(s)
+   */
+  public globSync(patterns: string | string[]): string[] {
+    const results: string[] = [];
+    for (const pattern of toArray(patterns)) {
+      const normalized = this.formatPath(pattern);
+
+      // No glob characters: treat as a single file path
+      if (!/[*?[\]{}]/.test(normalized) && !normalized.includes("**")) {
+        const resolved = this.resolve(normalized, { type: "file" });
+        if (resolved && !results.includes(resolved)) {
+          results.push(resolved);
+        }
+        continue;
+      }
+
+      // Make absolute pattern for matching
+      const absPattern = isAbsolutePath(normalized)
+        ? normalized
+        : this.formatPath(
+            joinPaths(this.#context.workspaceConfig.workspaceRoot, normalized)
+          );
+
+      // Determine the base directory to start walking from (up to the first glob segment)
+      const firstGlobIdx = absPattern.search(/[*?[\]{}]/);
+      const baseDir =
+        firstGlobIdx === -1
+          ? findFilePath(absPattern)
+          : absPattern.slice(
+              0,
+              Math.max(0, absPattern.lastIndexOf("/", firstGlobIdx))
+            );
+
+      const stack: string[] = [
+        baseDir && isAbsolutePath(baseDir)
+          ? baseDir
+          : this.#context.workspaceConfig.workspaceRoot
+      ];
+
+      while (stack.length) {
+        const dir = stack.pop()!;
+        let entries: string[] = [];
+
+        try {
+          entries = this.readdirSync(dir);
+        } catch {
+          continue;
+        }
+
+        for (const entry of entries) {
+          const full = this.formatPath(joinPaths(dir, entry));
+          let stats: Stats | undefined;
+
+          try {
+            stats = this.#unifiedFS.lstatSync(full);
+          } catch {
+            stats = undefined;
+          }
+          if (!stats) continue;
+
+          if (stats.isDirectory()) {
+            stack.push(full);
+          } else if (stats.isFile()) {
+            if (this.buildRegex(absPattern).test(full)) {
+              const resolved = this.resolve(full, { type: "file" });
+              if (resolved && !results.includes(resolved)) {
+                results.push(resolved);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return results;
+  }
+
+  /**
+   * Moves a file from one path to another in the virtual file system (VFS).
+   *
+   * @param srcPath - The source path to move
+   * @param destPath - The destination path to move to
+   */
+  public async move(srcPath: string, destPath: string) {
+    const content = await this.readFile(srcPath);
+    await this.writeFile(destPath, content);
+    await this.rm(srcPath);
+  }
+
+  /**
+   * Synchronously moves a file from one path to another in the virtual file system (VFS).
+   *
+   * @param srcPath - The source path to move
+   * @param destPath - The destination path to move to
+   */
+  public moveSync(srcPath: string, destPath: string) {
+    const content = this.readFileSync(srcPath);
+    this.writeFileSync(destPath, content);
+    this.rmSync(srcPath);
+  }
+
+  /**
+   * Copies a file from one path to another in the virtual file system (VFS).
+   *
+   * @param srcPath - The source path to copy
+   * @param destPath - The destination path to copy to
+   */
+  public async copy(srcPath: string, destPath: string) {
+    const content = await this.readFile(srcPath);
+    await this.writeFile(destPath, content);
+  }
+
+  /**
+   * Synchronously copies a file from one path to another in the virtual file system (VFS).
+   *
+   * @param srcPath - The source path to copy
+   * @param destPath - The destination path to copy to
+   */
+  public copySync(srcPath: string, destPath: string) {
+    const content = this.readFileSync(srcPath);
+    this.writeFileSync(destPath, content);
   }
 
   /**
@@ -1150,6 +1377,23 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   }
 
   /**
+   * Retrieves the metadata of a file in the virtual file system (VFS).
+   *
+   * @param pathOrId - The path or ID of the file to retrieve metadata for.
+   * @returns The metadata of the file, or undefined if the file does not exist.
+   */
+  public getMetadata(
+    pathOrId: PathLike
+  ): VirtualFileSystemMetadata | undefined {
+    const resolved = this.resolve(pathOrId);
+    if (resolved && this.meta[resolved]) {
+      return this.meta[resolved];
+    }
+
+    return undefined;
+  }
+
+  /**
    * Checks if a file exists in the virtual file system (VFS).
    *
    * @remarks
@@ -1392,6 +1636,19 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     );
   }
 
+  private buildRegex(strPattern: string): RegExp {
+    const token = "::GLOBSTAR::";
+
+    return new RegExp(
+      `^${this.formatPath(strPattern)
+        .replace(/\*\*/g, token)
+        .replace(/[.+^${}()|[\]\\]/g, "\\$&")
+        .replace(/\*/g, "[^/]*")
+        .replace(/\?/g, "[^/]")
+        .replace(new RegExp(token, "g"), ".*")}$`
+    );
+  }
+
   /**
    * Converts a relative path to an absolute path based on the workspace and project root.
    *
@@ -1427,7 +1684,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     return `${this.#context.config.output.builtinPrefix}:${formattedId
       .replace(new RegExp(`^${this.#context.config.output.builtinPrefix}:`), "")
       .replace(/^\\0/, "")
-      .replace(findFileExtensionSafe(formattedId), "")}`;
+      .replace(findFileDotExtensionSafe(formattedId), "")}`;
   }
 
   /**

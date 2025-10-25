@@ -217,16 +217,11 @@ interface VirtualCompilerHostReturn {
  * instances to the in-memory file system.
  */
 export function createVirtualCompilerHost(
+  context: Context,
   sys: ts.System,
   compilerOptions: ts.CompilerOptions
 ) {
-  const sourceFiles = new Map<string, ts.SourceFile>();
-  const save = (sourceFile: ts.SourceFile) => {
-    sourceFiles.set(sourceFile.fileName, sourceFile);
-    return sourceFile;
-  };
-
-  const vHost: VirtualCompilerHostReturn = {
+  return {
     compilerHost: {
       ...sys,
       getCanonicalFileName: fileName => fileName,
@@ -234,34 +229,33 @@ export function createVirtualCompilerHost(
         `/${ts.getDefaultLibFileName(compilerOptions)}`, // '/lib.d.ts',
       // getDefaultLibLocation: () => '/',
       getNewLine: () => sys.newLine,
-      getSourceFile: (fileName, languageVersionOrOptions) => {
-        return (
-          sourceFiles.get(fileName) ??
-          save(
-            ts.createSourceFile(
-              fileName,
-              sys.readFile(fileName)!,
-              languageVersionOrOptions ?? compilerOptions.target,
-              false
-            )
-          )
+      getSourceFile: (
+        fileName: string,
+        languageVersionOrOptions: ts.ScriptTarget | ts.CreateSourceFileOptions
+      ) => {
+        const resolved = context.fs.resolve(fileName);
+        if (resolved && context.fs.existsSync(resolved)) {
+          return context.fs.readFileSync(resolved);
+        }
+
+        return ts.createSourceFile(
+          fileName,
+          sys.readFile(fileName)!,
+          languageVersionOrOptions ?? compilerOptions.target,
+          false
         );
       },
       useCaseSensitiveFileNames: () => sys.useCaseSensitiveFileNames
     },
     updateFile: sourceFile => {
-      const alreadyExists = sourceFiles.has(sourceFile.fileName);
+      const alreadyExists = context.fs.existsSync(sourceFile.fileName);
       sys.writeFile(sourceFile.fileName, sourceFile.text);
-      sourceFiles.set(sourceFile.fileName, sourceFile);
       return alreadyExists;
     },
     deleteFile: sourceFile => {
-      const alreadyExists = sourceFiles.has(sourceFile.fileName);
-      sourceFiles.delete(sourceFile.fileName);
+      const alreadyExists = context.fs.existsSync(sourceFile.fileName);
       sys.deleteFile!(sourceFile.fileName);
       return alreadyExists;
     }
-  };
-
-  return vHost;
+  } as VirtualCompilerHostReturn;
 }
