@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.13.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.13.0) (2025-10-25)
+
+### Features
+
+- **plugin-biome:** Initial check-in of the `biome` plugin
+  ([f21f10d](https://github.com/storm-software/powerlines/commit/f21f10d))
+
 ## [0.12.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.12.0) (2025-10-25)
 
 ### Features

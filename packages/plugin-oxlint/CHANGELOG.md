@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Oxlint
 
+## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.6.0) (2025-10-25)
+
+### Features
+
+- **plugin-biome:** Initial check-in of the `biome` plugin
+  ([f21f10d](https://github.com/storm-software/powerlines/commit/f21f10d))
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([b0f9c74](https://github.com/storm-software/powerlines/commit/b0f9c74))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.13.0
+- Updated nx to 0.9.2
+
 ## [0.5.1](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.5.1) (2025-10-25)
 
 ### Miscellaneous

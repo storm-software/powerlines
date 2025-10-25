@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-swc",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "type": "module",
   "description": "A Powerlines plugin to transform project code with SWC.",
   "repository": {
@@ -142,23 +142,16 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "swc",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["swc", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@swc/core": "catalog:",
     "defu": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.13.0"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
+    "@powerlines/nx": "0.9.2",
+    "@powerlines/plugin-plugin": "0.11.2",
     "@types/node": "catalog:"
   },
   "publishConfig": {
