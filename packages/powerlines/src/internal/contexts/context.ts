@@ -41,7 +41,6 @@ import defu from "defu";
 import { DirectoryJSON } from "memfs";
 import { parseAsync, ParseResult, ParserOptions } from "oxc-parser";
 import { Range } from "semver";
-import { Project } from "ts-morph";
 import { loadUserConfigFile, loadWorkspaceConfig } from "../../lib/config-file";
 import { getUniqueEntries, resolveEntriesSync } from "../../lib/entry";
 import { createLog, extendLog } from "../../lib/logger";
@@ -123,10 +122,6 @@ export class PowerlinesContext<
   #fs!: VirtualFileSystemInterface;
 
   #tsconfig!: ParsedTypeScriptConfig;
-
-  #project!: Project;
-
-  // #entry: ResolvedEntryTypeDefinition[] = [] as ResolvedEntryTypeDefinition[];
 
   #getConfigProps(config: Partial<TResolvedConfig["userConfig"]> = {}) {
     return {
