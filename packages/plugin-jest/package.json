@@ -114,25 +114,32 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*"],
-  "keywords": ["jest", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "jest",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@jest/reporters": "catalog:",
     "@jest/test-result": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
+    "chalk": "catalog:",
     "defu": "catalog:",
+    "jest": "catalog:",
     "jest-config": "catalog:",
     "jest-resolve": "catalog:",
     "jest-util": "catalog:",
-    "jest": "catalog:",
-    "chalk": "catalog:",
-    "powerlines": "0.12.0"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@powerlines/nx": "0.9.1",
-    "@types/jest": "catalog:",
-    "@jest/types": "catalog:"
+    "@jest/types": "catalog:",
+    "@powerlines/nx": "workspace:*",
+    "@types/jest": "catalog:"
   },
   "publishConfig": {
     "access": "public"
