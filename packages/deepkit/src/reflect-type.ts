@@ -19,7 +19,7 @@
 import type { Type } from "@powerlines/deepkit/vendor/type";
 import { reflect } from "@powerlines/deepkit/vendor/type";
 import type { TypeDefinition } from "@stryke/types/configuration";
-import { bundle } from "powerlines/lib/bundle";
+import { resolve } from "powerlines/lib/utilities/resolve";
 import { ESBuildResolvedBuildConfig } from "powerlines/types/build";
 import type { Context } from "powerlines/types/context";
 
@@ -27,42 +27,14 @@ import type { Context } from "powerlines/types/context";
  * Compiles a type definition to a module.
  *
  * @param context - The context object containing the environment paths.
- * @param entry - The type definition to compile.
- * @param overrides - Optional overrides for the ESBuild configuration.
- * @returns A promise that resolves to the compiled module.
- */
-export async function resolveType<TResult = any>(
-  context: Context,
-  entry: TypeDefinition,
-  overrides: Partial<ESBuildResolvedBuildConfig> = {}
-): Promise<TResult> {
-  const result = await bundle(context, entry.file, overrides);
-
-  const resolved = (await context.resolver.evalModule(result.text, {
-    filename: result.path,
-    forceTranspile: true
-  })) as Record<string, any>;
-
-  let exportName = entry.name;
-  if (!exportName) {
-    exportName = "default";
-  }
-
-  return resolved[exportName] ?? resolved[`__Ω${exportName}`];
-}
-
-/**
- * Compiles a type definition to a module.
- *
- * @param context - The context object containing the environment paths.
- * @param entry - The type definition to compile.
+ * @param type - The type definition to compile.
  * @param overrides - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the compiled module.
  */
 export async function reflectType(
   context: Context,
-  entry: TypeDefinition,
+  type: TypeDefinition,
   overrides?: Partial<ESBuildResolvedBuildConfig>
 ): Promise<Type> {
-  return reflect(await resolveType(context, entry, overrides));
+  return reflect(await resolve(context, type, overrides));
 }

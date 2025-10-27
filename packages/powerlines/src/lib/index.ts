@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./bundle";
 export * from "./config-file";
 export * from "./create-program";
 export * from "./entry";

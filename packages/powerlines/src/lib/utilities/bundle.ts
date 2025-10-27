@@ -18,10 +18,10 @@
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { build, BuildOptions, OutputFile } from "esbuild";
-import { ESBuildResolvedBuildConfig } from "powerlines/types/build";
-import { Context } from "../types/context";
-import { extractESBuildConfig } from "./build/esbuild";
-import { resolvePath } from "./utilities/resolve-path";
+import { ESBuildResolvedBuildConfig } from "../../types/build";
+import { Context } from "../../types/context";
+import { extractESBuildConfig } from "../build/esbuild";
+import { resolvePath } from "./resolve-path";
 
 /**
  * Bundle a type definition to a module.
