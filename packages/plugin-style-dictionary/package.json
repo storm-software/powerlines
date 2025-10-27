@@ -114,7 +114,9 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "keywords": [
     "style-dictionary",
     "powerlines",
@@ -123,16 +125,16 @@
   ],
   "dependencies": {
     "@stryke/path": "catalog:",
-    "@stryke/types": "catalog:",
     "@stryke/type-checks": "catalog:",
+    "@stryke/types": "catalog:",
     "defu": "catalog:",
-    "style-dictionary": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.14.0"
+    "powerlines": "workspace:*",
+    "style-dictionary": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "0.9.3",
-    "@powerlines/plugin-plugin": "0.11.3",
+    "@powerlines/nx": "workspace:*",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {
