@@ -98,8 +98,8 @@ export function plugin(
         this.log(LogLevelLabel.INFO, result.report);
 
         const totalWarnings = result.results
-          .map(r => r.warnings.filter(w => w.severity === "warning"))
-          .reduce((prev, r) => prev + r.length, 0);
+          .map(res => res.warnings.filter(warn => warn.severity === "warning"))
+          .reduce((prev, res) => prev + res.length, 0);
         if (totalWarnings > 0) {
           this.log(
             LogLevelLabel.WARN,
