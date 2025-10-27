@@ -105,6 +105,8 @@ export function plugin(
             fix: true,
             logKind: "pretty",
             format: "stylish",
+            vcsEnabled: true,
+            vcsDefaultBranch: this.workspaceConfig.branch || "main",
             ...options
           }
         }
@@ -287,6 +289,16 @@ export function plugin(
           !args.includes("--vcs-use-ignore-file")
         ) {
           args.push("--vcs-use-ignore-file");
+        }
+
+        if (
+          this.config.lint.biome.vcsDefaultBranch &&
+          !args.includes("--vcs-default-branch")
+        ) {
+          args.push(
+            "--vcs-default-branch",
+            this.config.lint.biome.vcsDefaultBranch
+          );
         }
       }
 

@@ -174,6 +174,13 @@ export interface BiomePluginOptions {
   vcsUseIgnoreFile?: boolean;
 
   /**
+   * The default branch name in the version control system.
+   *
+   * @defaultValue "main"
+   */
+  vcsDefaultBranch?: string;
+
+  /**
    * Whether to lint only staged files in the version control system.
    */
   staged?: boolean;
