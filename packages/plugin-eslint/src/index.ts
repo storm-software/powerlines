@@ -36,7 +36,7 @@ export * from "./helpers";
 export * from "./types";
 
 /**
- * A Powerlines plugin to assist in generating documentation with TypeDoc.
+ * A Powerlines plugin to lint a project's source code with ESLint.
  */
 export function plugin(
   options: ESLintPluginOptions = {}

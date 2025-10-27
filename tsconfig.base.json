@@ -54,6 +54,10 @@
       "@powerlines/plugin-style-dictionary/*": [
         "packages/plugin-style-dictionary/src/*"
       ],
+      "@powerlines/plugin-stylelint": [
+        "packages/plugin-stylelint/src/index.ts"
+      ],
+      "@powerlines/plugin-stylelint/*": ["packages/plugin-stylelint/src/*"],
       "@powerlines/plugin-swc": ["packages/plugin-swc/src/index.ts"],
       "@powerlines/plugin-swc/*": ["packages/plugin-swc/src/*"],
       "@powerlines/plugin-tsc": ["packages/plugin-tsc/src/index.ts"],

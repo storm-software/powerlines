@@ -43,15 +43,15 @@ This package is part of the ⚡<b>Powerlines</b> monorepo. Powerlines packages i
 
 <!-- END header -->
 
-# Powerlines - Oxlint Plugin
+# Powerlines - Stylelint Plugin
 
-A package containing a Powerlines plugin that integrates Oxlint into the Powerlines linting process, allowing for automatic linting of TypeScript source code.
+A package containing a Powerlines plugin that integrates [Stylelint](https://stylelint.io/) into the Powerlines linting process, allowing for automatic linting of CSS and other style files.
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Powerlines - Oxlint Plugin](#powerlines---oxlint-plugin)
+- [Powerlines - Stylelint Plugin](#powerlines---stylelint-plugin)
   - [Table of Contents](#table-of-contents)
   - [Installing](#installing)
   - [Reduced Package Size](#reduced-package-size)
@@ -74,14 +74,14 @@ A package containing a Powerlines plugin that integrates Oxlint into the Powerli
 Using [pnpm](http://pnpm.io):
 
 ```bash
-pnpm add @powerlines/plugin-oxlint
+pnpm add @powerlines/plugin-stylelint
 ```
 
 <details>
   <summary>Using npm</summary>
 
 ```bash
-npm install @powerlines/plugin-oxlint
+npm install @powerlines/plugin-stylelint
 ```
 
 </details>
@@ -90,7 +90,7 @@ npm install @powerlines/plugin-oxlint
   <summary>Using yarn</summary>
 
 ```bash
-yarn add @powerlines/plugin-oxlint
+yarn add @powerlines/plugin-stylelint
 ```
 
 </details>
@@ -109,16 +109,16 @@ commands are available to assist in development.
 
 ### Building
 
-Run `nx build plugin-oxlint` to build the library.
+Run `nx build plugin-stylelint` to build the library.
 
 ### Running unit tests
 
-Run `nx test plugin-oxlint` to execute the unit tests via
+Run `nx test plugin-stylelint` to execute the unit tests via
 [Jest](https://jestjs.io).
 
 ### Linting
 
-Run `nx lint plugin-oxlint` to run
+Run `nx lint plugin-stylelint` to run
 [ESLint](https://eslint.org/) on the package.
 
 <!-- START footer -->

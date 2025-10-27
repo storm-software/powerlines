@@ -138,6 +138,7 @@ catalog:
   rollup-plugin-typescript2: ^0.36.0
   sherif: ^1.7.0
   style-dictionary: ^5.1.1
+  stylelint: ^16.25.0
   ts-jest: 29.4.0
   ts-morph: ^27.0.2
   ts-node: ^10.9.2
@@ -204,6 +205,7 @@ overrides:
   '@powerlines/plugin-rollup': workspace:*
   '@powerlines/plugin-rspack': workspace:*
   '@powerlines/plugin-style-dictionary': workspace:*
+  '@powerlines/plugin-stylelint': workspace:*
   '@powerlines/plugin-swc': workspace:*
   '@powerlines/plugin-tsc': workspace:*
   '@powerlines/plugin-tsup': workspace:*
