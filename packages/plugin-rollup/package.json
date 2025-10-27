@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-rollup",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
@@ -142,15 +142,8 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "rollup",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["rollup", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",
@@ -165,7 +158,7 @@
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
+    "@powerlines/plugin-plugin": "0.11.5",
     "@types/node": "catalog:"
   },
   "publishConfig": {

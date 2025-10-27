@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.5](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.5) (2025-10-27)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([53218d7](https://github.com/storm-software/powerlines/commit/53218d7))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.11.5
+
 ## [0.5.4](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.4) (2025-10-27)
 
 ### Miscellaneous

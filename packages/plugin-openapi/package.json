@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-openapi",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "A Powerlines plugin to generate project code with Style Dictionary.",
   "repository": {
@@ -133,7 +133,7 @@
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
+    "@powerlines/plugin-plugin": "0.11.5",
     "@types/node": "catalog:"
   },
   "publishConfig": {

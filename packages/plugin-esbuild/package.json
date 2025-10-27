@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-esbuild",
-  "version": "0.13.4",
+  "version": "0.13.5",
   "type": "module",
   "description": "A package containing a Powerlines plugin to build projects using esbuild.",
   "repository": {
@@ -142,15 +142,8 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "esbuild",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["esbuild", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
@@ -164,7 +157,7 @@
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
+    "@powerlines/plugin-plugin": "0.11.5",
     "@types/node": "catalog:"
   },
   "publishConfig": {

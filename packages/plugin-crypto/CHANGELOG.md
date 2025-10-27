@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.9.5](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.9.5) (2025-10-27)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([53218d7](https://github.com/storm-software/powerlines/commit/53218d7))
+
+### Updated Dependencies
+
+- Updated plugin-env to 0.13.2
+
 ## [0.9.4](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.9.4) (2025-10-27)
 
 ### Miscellaneous
