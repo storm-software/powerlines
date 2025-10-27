@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.8.0](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.0) (2025-10-27)
+
+### Features
+
+- **plugin-stylelint:** Initial check-in of the `stylelint` plugin
+  ([26b1623](https://github.com/storm-software/powerlines/commit/26b1623))
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([fce8f05](https://github.com/storm-software/powerlines/commit/fce8f05))
+
+### Updated Dependencies
+
+- Updated nx to 0.9.4
+
 ## [0.7.3](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.7.3) (2025-10-27)
 
 ### Miscellaneous

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.4.1](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.1) (2025-10-27)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([fce8f05](https://github.com/storm-software/powerlines/commit/fce8f05))
+
+### Updated Dependencies
+
+- Updated nx to 0.9.4
+
 ## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.0) (2025-10-27)
 
 ### Features

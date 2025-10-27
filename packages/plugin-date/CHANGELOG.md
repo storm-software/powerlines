@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.4](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.4) (2025-10-27)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([fce8f05](https://github.com/storm-software/powerlines/commit/fce8f05))
+
+### Updated Dependencies
+
+- Updated plugin-env to 0.13.1
+- Updated nx to 0.9.4
+
 ## [0.12.3](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.3) (2025-10-27)
 
 ### Miscellaneous
