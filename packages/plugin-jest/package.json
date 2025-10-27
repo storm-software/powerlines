@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-jest",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "description": "A package containing the Jest testing plugin for Powerlines.",
   "repository": {
@@ -114,15 +114,8 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "jest",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["jest", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@jest/reporters": "catalog:",
     "@jest/test-result": "catalog:",
@@ -134,11 +127,11 @@
     "jest-config": "catalog:",
     "jest-resolve": "catalog:",
     "jest-util": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.14.0"
   },
   "devDependencies": {
     "@jest/types": "catalog:",
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/nx": "0.9.3",
     "@types/jest": "catalog:"
   },
   "publishConfig": {

@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.13.0](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.0) (2025-10-27)
+
+### Features
+
+- **powerlines:** Added the `resolve` helper utility function
+  ([c0f5197](https://github.com/storm-software/powerlines/commit/c0f5197))
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([e6425b1](https://github.com/storm-software/powerlines/commit/e6425b1))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.11.3
+- Updated plugin-babel to 0.12.3
+- Updated powerlines to 0.14.0
+- Updated alloy to 0.11.3
+- Updated nx to 0.9.3
+
 ## [0.12.2](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.12.2) (2025-10-25)
 
 ### Miscellaneous

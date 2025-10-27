@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.3](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.3) (2025-10-27)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([e6425b1](https://github.com/storm-software/powerlines/commit/e6425b1))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.14.0
+- Updated nx to 0.9.3
+
 ## [0.2.2](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.2) (2025-10-25)
 
 ### Miscellaneous

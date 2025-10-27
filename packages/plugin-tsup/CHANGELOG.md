@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.3](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.3) (2025-10-27)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([e6425b1](https://github.com/storm-software/powerlines/commit/e6425b1))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.11.3
+- Updated powerlines to 0.14.0
+- Updated nx to 0.9.3
+
 ## [0.12.2](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.2) (2025-10-25)
 
 ### Miscellaneous

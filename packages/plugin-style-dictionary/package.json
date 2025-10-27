@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-style-dictionary",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "description": "A Powerlines plugin to generate project code with Style Dictionary.",
   "repository": {
@@ -128,11 +128,11 @@
     "defu": "catalog:",
     "style-dictionary": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.14.0"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
+    "@powerlines/nx": "0.9.3",
+    "@powerlines/plugin-plugin": "0.11.3",
     "@types/node": "catalog:"
   },
   "publishConfig": {

@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.14.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.14.0) (2025-10-27)
+
+### Features
+
+- **powerlines:** Added the `resolve` helper utility function
+  ([c0f5197](https://github.com/storm-software/powerlines/commit/c0f5197))
+
 ## [0.13.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.13.0) (2025-10-25)
 
 ### Features
