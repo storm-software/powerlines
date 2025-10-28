@@ -2,7 +2,7 @@
   "name": "@powerlines/plugin-asyncapi",
   "version": "0.1.0",
   "type": "module",
-  "description": "A Powerlines plugin to generate project code with Style Dictionary.",
+  "description": "A Powerlines plugin to generate project code from AsyncAPI specifications.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
@@ -117,14 +117,14 @@
   "files": ["dist/**/*"],
   "keywords": ["asyncapi", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
-    "@stryke/path": "catalog:",
-    "@stryke/fs": "catalog:",
-    "@stryke/convert": "catalog:",
-    "@stryke/http": "catalog:",
-    "defu": "catalog:",
-    "powerlines": "0.14.1",
     "@asyncapi/generator": "catalog:",
-    "@asyncapi/parser": "catalog:"
+    "@asyncapi/parser": "catalog:",
+    "@stryke/convert": "catalog:",
+    "@stryke/fs": "catalog:",
+    "@stryke/http": "catalog:",
+    "@stryke/path": "catalog:",
+    "defu": "catalog:",
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",

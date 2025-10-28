@@ -2,7 +2,7 @@
   "name": "@powerlines/plugin-openapi",
   "version": "0.2.1",
   "type": "module",
-  "description": "A Powerlines plugin to generate project code with Style Dictionary.",
+  "description": "A Powerlines plugin to generate project code from OpenAPI specifications.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
@@ -129,7 +129,7 @@
     "defu": "catalog:",
     "jiti": "catalog:",
     "openapi-typescript": "catalog:",
-    "powerlines": "0.14.1"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",

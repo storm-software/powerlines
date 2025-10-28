@@ -114,7 +114,9 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "keywords": [
     "style-dictionary",
     "powerlines",
@@ -127,7 +129,7 @@
     "@stryke/types": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "0.14.1",
+    "powerlines": "workspace:*",
     "style-dictionary": "catalog:"
   },
   "devDependencies": {

@@ -114,8 +114,15 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*"],
-  "keywords": ["jest", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "jest",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@jest/reporters": "catalog:",
     "@jest/test-result": "catalog:",
@@ -127,7 +134,7 @@
     "jest-config": "catalog:",
     "jest-resolve": "catalog:",
     "jest-util": "catalog:",
-    "powerlines": "0.14.1"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@jest/types": "catalog:",
