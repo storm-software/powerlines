@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.14.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.14.1) (2025-10-28)
+
+### Miscellaneous
+
+- **powerlines:** Update the string casing in the example
+  ([d0ab6cf](https://github.com/storm-software/powerlines/commit/d0ab6cf))
+
 ## [0.14.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.14.0) (2025-10-27)
 
 ### Features

@@ -146,7 +146,7 @@
   "keywords": ["tsc", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "defu": "catalog:",
-    "powerlines": "workspace:*",
+    "powerlines": "0.14.1",
     "typescript": "^5.9.3"
   },
   "devDependencies": {

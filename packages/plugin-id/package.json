@@ -131,7 +131,7 @@
     "@storm-software/config-tools": "catalog:",
     "@stryke/path": "catalog:",
     "defu": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.14.1"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",

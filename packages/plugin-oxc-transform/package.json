@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-oxc-transform",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "type": "module",
   "description": "A Powerlines plugin to transform project code with Oxc Transformer.",
   "repository": {
@@ -114,9 +114,7 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
+  "files": ["dist/**/*"],
   "keywords": [
     "oxc-transform",
     "powerlines",
@@ -127,7 +125,7 @@
     "@stryke/path": "catalog:",
     "defu": "catalog:",
     "oxc-transform": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.14.1"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",

@@ -132,7 +132,7 @@
     "defu": "catalog:",
     "esbuild-plugin-babel": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.14.1"
   },
   "devDependencies": {
     "@alloy-js/rollup-plugin": "catalog:",

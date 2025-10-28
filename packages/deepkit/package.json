@@ -157,7 +157,7 @@
     "chalk": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*",
+    "powerlines": "0.14.1",
     "typescript": "^5.9.3",
     "unplugin": "catalog:"
   },

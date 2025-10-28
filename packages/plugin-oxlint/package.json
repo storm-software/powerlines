@@ -108,7 +108,7 @@
     "defu": "catalog:",
     "oxlint": "catalog:",
     "oxlint-tsgolint": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.14.1"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",

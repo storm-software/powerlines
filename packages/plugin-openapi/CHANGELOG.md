@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Openapi
 
+## [0.2.1](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.1) (2025-10-28)
+
+### Miscellaneous
+
+- **plugin-openapi:** Use `builtinPath` for `outputFile` defaults
+  ([2e85a56](https://github.com/storm-software/powerlines/commit/2e85a56))
+- **monorepo:** Update workspace dependencies
+  ([15905dc](https://github.com/storm-software/powerlines/commit/15905dc))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.14.1
+
 ## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.0) (2025-10-27)
 
 ### Features

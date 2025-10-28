@@ -109,7 +109,7 @@
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
     "defu": "catalog:",
-    "powerlines": "workspace:*",
+    "powerlines": "0.14.1",
     "stylelint": "catalog:"
   },
   "devDependencies": {

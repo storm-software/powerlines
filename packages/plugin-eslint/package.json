@@ -105,7 +105,7 @@
     "@stryke/path": "catalog:",
     "defu": "catalog:",
     "eslint": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.14.1"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",

@@ -127,7 +127,7 @@
     "jest-config": "catalog:",
     "jest-resolve": "catalog:",
     "jest-util": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "0.14.1"
   },
   "devDependencies": {
     "@jest/types": "catalog:",

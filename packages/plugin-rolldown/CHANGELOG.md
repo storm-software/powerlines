@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.6](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.6) (2025-10-28)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace dependencies
+  ([15905dc](https://github.com/storm-software/powerlines/commit/15905dc))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.14.1
+
 ## [0.7.5](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.5) (2025-10-27)
 
 ### Miscellaneous

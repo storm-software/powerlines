@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/alloy",
-  "version": "0.11.5",
+  "version": "0.11.6",
   "type": "module",
   "description": "A package containing various Alloy framework components and helper utilities.",
   "repository": {
@@ -363,15 +363,8 @@
       }
     }
   },
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "alloy-js",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["alloy-js", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@alloy-js/babel-plugin": "catalog:",
     "@alloy-js/babel-plugin-jsx-dom-expressions": "catalog:",
@@ -397,7 +390,7 @@
     "@vue/reactivity": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*",
+    "powerlines": "0.14.1",
     "prettier": "catalog:"
   },
   "devDependencies": {

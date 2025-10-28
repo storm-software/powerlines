@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Alloy
 
+## [0.11.6](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.6) (2025-10-28)
+
+### Bug Fixes
+
+- **alloy:** Resolve typing issue with `capnp` changes
+  ([9b6a31f](https://github.com/storm-software/powerlines/commit/9b6a31f))
+
+### Miscellaneous
+
+- **monorepo:** Update workspace dependencies
+  ([15905dc](https://github.com/storm-software/powerlines/commit/15905dc))
+
+### Updated Dependencies
+
+- Updated powerlines to 0.14.1
+
 ## [0.11.5](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.5) (2025-10-27)
 
 ### Miscellaneous
