@@ -73,7 +73,7 @@ export async function compile(
     projectRoot: context.config.projectRoot,
     workspaceRoot: context.workspaceConfig.workspaceRoot,
     tty: true
-  }) as CapnpcOptions;
+  }) as Parameters<typeof resolveOptions>[0];
 
   const resolvedOptions = await resolveOptions(opts);
   if (!resolvedOptions) {
