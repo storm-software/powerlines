@@ -49,7 +49,6 @@ export const plugin = <
             this.config.projectRoot,
             "schema.yaml"
           ),
-          outputFile: joinPaths(this.artifactsPath, "openapi.ts"),
           cwd: joinPaths(
             this.workspaceConfig.workspaceRoot,
             this.config.projectRoot
@@ -64,12 +63,16 @@ export const plugin = <
         this.config.openapi
       );
 
-      await this.fs.writeFile(
-        this.config.openapi.outputFile,
-        astToString(ast, {
-          fileName: this.config.openapi.outputFile
-        })
-      );
+      if (this.config.openapi.outputFile) {
+        await this.fs.writeFile(
+          this.config.openapi.outputFile,
+          astToString(ast, {
+            fileName: this.config.openapi.outputFile
+          })
+        );
+      } else {
+        await this.writeBuiltin(astToString(ast), "openapi");
+      }
     }
   };
 };
