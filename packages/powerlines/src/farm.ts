@@ -27,10 +27,10 @@ import { createUnpluginFactory } from "./lib/unplugin/factory";
  * @example
  * ```js
  * // farm.config.js
- * import Powerlines from 'powerlines/farm'
+ * import powerlines from 'powerlines/farm'
  *
  * export default {
- *  plugins: [Powerlines({ ...options })],
+ *  plugins: [powerlines({ ...options })],
  * }
  * ```
  */

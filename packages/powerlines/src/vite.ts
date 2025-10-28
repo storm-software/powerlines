@@ -30,10 +30,10 @@ import { createUnpluginFactory } from "./lib/unplugin/factory";
  * @example
  * ```ts
  * // vite.config.ts
- * import Powerlines from 'powerlines/vite'
+ * import powerlines from 'powerlines/vite'
  *
  * export default defineConfig({
- *   plugins: [Powerlines()],
+ *   plugins: [powerlines()],
  * })
  * ```
  */

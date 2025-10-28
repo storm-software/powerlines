@@ -27,10 +27,10 @@ import { createUnpluginFactory } from "./lib/unplugin/factory";
  * @example
  * ```js
  * // webpack.config.js
- * import Powerlines from 'powerlines/webpack'
+ * import powerlines from 'powerlines/webpack'
  *
  * export default {
- *  plugins: [Powerlines()],
+ *  plugins: [powerlines()],
  * }
  * ```
  */

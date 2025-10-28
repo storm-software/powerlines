@@ -28,10 +28,10 @@ import PowerlinesVite from "./vite";
  * @example
  * ```js
  * // astro.config.js
- * import Powerlines from 'powerlines/astro'
+ * import powerlines from 'powerlines/astro'
  *
  * default export {
- *  plugins: [Powerlines()],
+ *  plugins: [powerlines()],
  * }
  * ```
  */

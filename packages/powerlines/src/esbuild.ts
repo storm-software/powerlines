@@ -31,10 +31,10 @@ import type { ESBuildResolvedBuildConfig } from "./types/build";
  * @example
  * ```js
  * // esbuild.config.js
- * import Powerlines from 'powerlines/esbuild'
+ * import powerlines from 'powerlines/esbuild'
  *
  * default export {
- *  plugins: [Powerlines()],
+ *  plugins: [powerlines()],
  * }
  * ```
  */

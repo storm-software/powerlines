@@ -25,10 +25,10 @@ import { createUnpluginFactory } from "./lib/unplugin/factory";
  * @example
  * ```ts
  * // unloader.config.js
- * import Powerlines from 'powerlines/unloader'
+ * import powerlines from 'powerlines/unloader'
  *
  * export default defineConfig({
- *   plugins: [Powerlines()],
+ *   plugins: [powerlines()],
  * })
  * ```
  */

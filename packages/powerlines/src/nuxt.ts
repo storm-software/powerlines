@@ -29,10 +29,10 @@ import PowerlinesWebpack from "./webpack";
  * @example
  * ```js
  * // nuxt.config.js
- * import Powerlines from 'powerlines/nuxt'
+ * import powerlines from 'powerlines/nuxt'
  *
  * default export {
- *  plugins: [Powerlines()],
+ *  plugins: [powerlines()],
  * }
  * ```
  */

@@ -27,10 +27,10 @@ import { createUnpluginFactory } from "./lib/unplugin/factory";
  * @example
  * ```ts
  * // rollup.config.ts
- * import Powerlines from 'powerlines/rollup'
+ * import powerlines from 'powerlines/rollup'
  *
  * export default defineConfig({
- *   plugins: [Powerlines()],
+ *   plugins: [powerlines()],
  * })
  * ```
  */
