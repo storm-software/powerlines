@@ -184,16 +184,22 @@
       }
     }
   },
-  "files": ["dist/**/*"],
-  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/typescript": "catalog:",
     "@babel/core": "catalog:",
     "@babel/types": "catalog:",
-    "@powerlines/alloy": "0.11.5",
-    "@powerlines/plugin-babel": "0.12.5",
-    "@powerlines/plugin-plugin": "0.11.5",
+    "@powerlines/alloy": "workspace:*",
+    "@powerlines/plugin-babel": "workspace:*",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/env": "catalog:",
