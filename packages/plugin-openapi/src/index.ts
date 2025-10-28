@@ -29,7 +29,7 @@ import {
 export * from "./types";
 
 /**
- * A Powerlines plugin to integrate Open-API for code generation.
+ * A Powerlines plugin to integrate OpenAPI for code generation.
  *
  * @param options - The plugin options.
  * @returns A Powerlines plugin instance.
@@ -63,11 +63,11 @@ export const plugin = <
         this.config.openapi
       );
 
-      if (this.config.openapi.outputFile) {
+      if (this.config.openapi.generatedPath) {
         await this.fs.writeFile(
-          this.config.openapi.outputFile,
+          this.config.openapi.generatedPath,
           astToString(ast, {
-            fileName: this.config.openapi.outputFile
+            fileName: this.config.openapi.generatedPath
           })
         );
       } else {

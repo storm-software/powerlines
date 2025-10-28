@@ -42,7 +42,7 @@ export type OpenAPIPluginOptions = Omit<OpenAPITSOptions, "cwd"> & {
    *
    * @defaultValue "\{builtinPath\}/openapi.ts"
    */
-  outputFile?: string;
+  generatedPath?: string;
 };
 
 export type OpenAPIPluginUserConfig = UserConfig & {
