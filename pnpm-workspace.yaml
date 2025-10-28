@@ -199,6 +199,7 @@ overrides:
   '@powerlines/plugin-asyncapi': workspace:*
   '@powerlines/plugin-babel': workspace:*
   '@powerlines/plugin-biome': workspace:*
+  '@powerlines/plugin-capnp': workspace:*
   '@powerlines/plugin-crypto': workspace:*
   '@powerlines/plugin-date': workspace:*
   '@powerlines/plugin-deepkit': workspace:*
