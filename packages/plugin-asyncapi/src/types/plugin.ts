@@ -49,7 +49,7 @@ export interface AsyncAPIPluginOptions {
    *
    * @defaultValue "\{builtinPath\}/asyncapi"
    */
-  targetDir?: string;
+  generatedPath?: string;
 
   /**
    * Name of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template.
@@ -112,14 +112,14 @@ export interface AsyncAPIPluginOptions {
 export type AsyncAPIPluginUserConfig = UserConfig & {
   asyncapi?: GeneratorOptions &
     Required<
-      Pick<AsyncAPIPluginOptions, "schema" | "templateName" | "targetDir">
+      Pick<AsyncAPIPluginOptions, "schema" | "templateName" | "generatedPath">
     >;
 };
 
 export type AsyncAPIPluginResolvedConfig = ResolvedConfig & {
   asyncapi: GeneratorOptions &
     Required<
-      Pick<AsyncAPIPluginOptions, "schema" | "templateName" | "targetDir">
+      Pick<AsyncAPIPluginOptions, "schema" | "templateName" | "generatedPath">
     > & {
       document: string | AsyncAPIDocument;
     };

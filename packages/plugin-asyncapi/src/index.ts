@@ -34,7 +34,7 @@ import {
 export * from "./types";
 
 /**
- * A Powerlines plugin to integrate Open-API for code generation.
+ * A Powerlines plugin to integrate AsyncAPI for code generation.
  *
  * @param options - The plugin options.
  * @returns A Powerlines plugin instance.
@@ -109,9 +109,9 @@ export const plugin = <
         );
       }
 
-      if (!this.config.asyncapi.targetDir) {
+      if (!this.config.asyncapi.generatedPath) {
         throw new Error(
-          'AsyncAPI target directory is required. Please specify it in the plugin options or your Powerlines configuration under "asyncapi.targetDir".'
+          'AsyncAPI generated path is required. Please specify it in the plugin options or your Powerlines configuration under "asyncapi.generatedPath".'
         );
       }
 
@@ -122,15 +122,16 @@ export const plugin = <
         this.devDependencies[this.config.asyncapi.templateName] = "latest";
       }
 
-      this.config.asyncapi.targetDir = this.config.asyncapi.targetDir.replace(
-        "{builtinPath}",
-        this.builtinsPath
-      );
+      this.config.asyncapi.generatedPath =
+        this.config.asyncapi.generatedPath.replace(
+          "{builtinPath}",
+          this.builtinsPath
+        );
     },
     async prepare() {
       const generator = new Generator(
         this.config.asyncapi.templateName,
-        this.config.asyncapi.targetDir,
+        this.config.asyncapi.generatedPath,
         this.config.asyncapi
       );
 
