@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.11.6](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.6) (2025-10-28)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([321d621](https://github.com/storm-software/powerlines/commit/321d621))
+
+### Updated Dependencies
+
+- Updated nx to 0.9.5
+
 ## [0.11.5](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.5) (2025-10-27)
 
 ### Miscellaneous

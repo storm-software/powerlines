@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-webpack",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "type": "module",
   "description": "A package containing a Powerlines plugin to build projects using Webpack.",
   "repository": {
@@ -142,15 +142,8 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "webpack",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["webpack", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
@@ -162,8 +155,8 @@
     "webpack": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
+    "@powerlines/nx": "0.9.5",
+    "@powerlines/plugin-plugin": "0.11.6",
     "@types/node": "catalog:"
   },
   "publishConfig": {

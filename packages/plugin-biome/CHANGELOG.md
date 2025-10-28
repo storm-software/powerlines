@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Biome
 
+## [0.2.3](https://github.com/storm-software/powerlines/releases/tag/plugin-biome%400.2.3) (2025-10-28)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([321d621](https://github.com/storm-software/powerlines/commit/321d621))
+
+### Updated Dependencies
+
+- Updated nx to 0.9.5
+
 ## [0.2.2](https://github.com/storm-software/powerlines/releases/tag/plugin-biome%400.2.2) (2025-10-27)
 
 ### Miscellaneous

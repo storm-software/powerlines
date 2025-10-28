@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.13.4](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.4) (2025-10-28)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([321d621](https://github.com/storm-software/powerlines/commit/321d621))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.11.6
+- Updated plugin-babel to 0.12.7
+- Updated alloy to 0.11.7
+- Updated nx to 0.9.5
+
 ## [0.13.3](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.3) (2025-10-28)
 
 ### Miscellaneous

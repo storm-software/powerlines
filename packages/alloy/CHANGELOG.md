@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Alloy
 
+## [0.11.7](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.7) (2025-10-28)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([321d621](https://github.com/storm-software/powerlines/commit/321d621))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.11.6
+- Updated nx to 0.9.5
+
 ## [0.11.6](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.6) (2025-10-28)
 
 ### Bug Fixes

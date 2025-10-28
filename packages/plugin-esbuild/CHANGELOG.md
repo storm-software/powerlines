@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.7](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.7) (2025-10-28)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([321d621](https://github.com/storm-software/powerlines/commit/321d621))
+
+### Updated Dependencies
+
+- Updated plugin-plugin to 0.11.6
+- Updated nx to 0.9.5
+
 ## [0.13.6](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.6) (2025-10-28)
 
 ### Miscellaneous
