@@ -45,35 +45,37 @@ A package containing tools for managing a Storm workspace. It includes various
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Installing](#installing)
-- [Executors](#executors)
-- [Powerlines Clean Executor](#powerlines-clean-executor)
-  - [Example](#example)
-  - [Options](#options)
-- [Powerlines Prepare Executor](#powerlines-prepare-executor)
-  - [Example](#example-1)
-  - [Options](#options-1)
-- [Powerlines Lint Executor](#powerlines-lint-executor)
-  - [Example](#example-2)
-  - [Options](#options-2)
-- [Powerlines Build Executor](#powerlines-build-executor)
-  - [Example](#example-3)
-  - [Options](#options-3)
-- [Powerlines Docs Executor](#powerlines-docs-executor)
-  - [Example](#example-4)
-  - [Options](#options-4)
-- [Generators](#generators)
-- [Powerlines Sync Generator](#powerlines-sync-generator)
-  - [Options](#options-5)
-- [Building](#building)
-- [Running unit tests](#running-unit-tests)
-- [Storm Workspaces](#storm-workspaces)
-- [Roadmap](#roadmap)
-- [Support](#support)
-- [License](#license)
-- [Changelog](#changelog)
-- [Contributing](#contributing)
-- [Contributors](#contributors)
+- [Powerlines - Nx Plugin](#powerlines---nx-plugin)
+  - [Table of Contents](#table-of-contents)
+  - [Installing](#installing)
+  - [Executors](#executors)
+  - [Powerlines Clean Executor](#powerlines-clean-executor)
+    - [Example](#example)
+    - [Options](#options)
+  - [Powerlines Prepare Executor](#powerlines-prepare-executor)
+    - [Example](#example-1)
+    - [Options](#options-1)
+  - [Powerlines Lint Executor](#powerlines-lint-executor)
+    - [Example](#example-2)
+    - [Options](#options-2)
+  - [Powerlines Build Executor](#powerlines-build-executor)
+    - [Example](#example-3)
+    - [Options](#options-3)
+  - [Powerlines Docs Executor](#powerlines-docs-executor)
+    - [Example](#example-4)
+    - [Options](#options-4)
+  - [Generators](#generators)
+  - [Powerlines Sync Generator](#powerlines-sync-generator)
+    - [Options](#options-5)
+  - [Building](#building)
+  - [Running unit tests](#running-unit-tests)
+  - [Storm Workspaces](#storm-workspaces)
+  - [Roadmap](#roadmap)
+  - [Support](#support)
+  - [License](#license)
+  - [Changelog](#changelog)
+  - [Contributing](#contributing)
+  - [Contributors](#contributors)
 
 <!-- END doctoc -->
 
@@ -86,14 +88,14 @@ This library was generated with [Nx](https://nx.dev).
 Using [pnpm](http://pnpm.io):
 
 ```bash
-pnpm add -D @powerlines/devkit-nx
+pnpm add -D @powerlines/nx
 ```
 
 <details>
   <summary>Using npm</summary>
 
 ```bash
-npm install -D @powerlines/devkit-nx
+npm install -D @powerlines/nx
 ```
 
 </details>
@@ -102,7 +104,7 @@ npm install -D @powerlines/devkit-nx
   <summary>Using yarn</summary>
 
 ```bash
-yarn add -D @powerlines/devkit-nx
+yarn add -D @powerlines/nx
 ```
 
 </details>

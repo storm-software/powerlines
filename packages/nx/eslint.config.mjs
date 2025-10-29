@@ -25,8 +25,6 @@ export default composer(baseConfig).append({
     "./package.json",
     "./generators.json",
     "./executors.json",
-    "./generators.json",
-    "./executors.json",
     "./migrations.json"
   ],
   rules: {
