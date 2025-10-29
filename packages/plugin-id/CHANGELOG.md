@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.9.7](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.7) (2025-10-29)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([5e94ac8](https://github.com/storm-software/powerlines/commit/5e94ac8))
+
 ## [0.9.6](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.6) (2025-10-28)
 
 ### Miscellaneous

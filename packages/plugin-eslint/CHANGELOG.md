@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.8.3](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.3) (2025-10-29)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([5e94ac8](https://github.com/storm-software/powerlines/commit/5e94ac8))
+
 ## [0.8.2](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.2) (2025-10-28)
 
 ### Miscellaneous
