@@ -1,0 +1,88 @@
+{
+  "name": "@powerlines/tools-nx",
+  "version": "0.0.1",
+  "description": "An internal Nx plugin used by the Powerlines monorepo to manage and streamline development workflows.",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "tools/nx"
+  },
+  "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./index": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./plugin": {
+      "import": {
+        "types": "./dist/src/plugin/index.d.mts",
+        "default": "./dist/src/plugin/index.mjs"
+      },
+      "require": {
+        "types": "./dist/src/plugin/index.d.ts",
+        "default": "./dist/src/plugin/index.js"
+      },
+      "default": {
+        "types": "./dist/src/plugin/index.d.ts",
+        "default": "./dist/src/plugin/index.js"
+      }
+    }
+  },
+  "typings": "dist/index.d.ts",
+  "dependencies": {
+    "@nx/devkit": "catalog:",
+    "@storm-software/build-tools": "catalog:",
+    "@storm-software/config": "catalog:",
+    "@storm-software/config-tools": "catalog:",
+    "@storm-software/esbuild": "catalog:",
+    "@storm-software/unbuild": "catalog:",
+    "@storm-software/workspace-tools": "catalog:",
+    "@stryke/fs": "catalog:",
+    "@stryke/hash": "catalog:",
+    "@stryke/path": "catalog:",
+    "@stryke/string-format": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "defu": "catalog:",
+    "jiti": "catalog:",
+    "nx": "catalog:"
+  },
+  "devDependencies": {
+    "@nx/workspace": "catalog:",
+    "@storm-software/testing-tools": "catalog:",
+    "@types/node": "catalog:",
+    "eslint-flat-config-utils": "catalog:",
+    "jsonc-eslint-parser": "catalog:",
+    "tsup": "catalog:",
+    "untyped": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
