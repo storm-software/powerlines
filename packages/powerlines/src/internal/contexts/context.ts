@@ -84,6 +84,7 @@ interface ConfigCacheKey {
   mode: "test" | "development" | "production";
   skipCache: boolean;
   configFile?: string;
+  framework: string;
   command?: string;
 }
 
@@ -632,6 +633,7 @@ export class PowerlinesContext<
       mode: (config.mode ?? this.config.mode) || this.workspaceConfig.mode,
       skipCache: config.skipCache ?? this.config.skipCache ?? false,
       configFile: config.configFile ?? this.config.configFile,
+      framework: config.framework ?? this.config.framework ?? "powerlines",
       command: this.config.inlineConfig?.command
     };
 
@@ -669,7 +671,8 @@ export class PowerlinesContext<
         this.resolver,
         cacheKey.command as PowerlinesCommand | undefined,
         cacheKey.mode,
-        cacheKey.configFile
+        cacheKey.configFile,
+        cacheKey.framework
       );
       this.mergeUserConfig(userConfig.config);
 

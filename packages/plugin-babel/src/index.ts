@@ -97,13 +97,6 @@ export const plugin = <
         Array.isArray(presets) &&
         presets.length === 0
       ) {
-        // this.log(
-        //   LogLevelLabel.TRACE,
-        //   `No Babel plugins or presets configured for ${
-        //     id
-        //   }. Skipping Babel transformation.`
-        // );
-
         return { code, id };
       }
 
@@ -118,7 +111,7 @@ export const plugin = <
         babelrc: false,
         envName: this.config.mode,
         caller: {
-          name: "powerlines"
+          name: this.config.framework
         },
         ...(this.config.transform.babel ?? {}),
         filename: id,

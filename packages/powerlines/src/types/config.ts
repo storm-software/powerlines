@@ -399,6 +399,9 @@ export interface CommonUserConfig extends BaseConfig {
   /**
    * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
    *
+   * @remarks
+   * If no values are provided for {@link OutputConfig.dts | output.dts}, {@link OutputConfig.builtinPrefix | output.builtinPrefix}, or {@link OutputConfig.artifactsFolder | output.artifactsFolder}, this value will be used as the default.
+   *
    * @defaultValue "powerlines"
    */
   framework?: string;

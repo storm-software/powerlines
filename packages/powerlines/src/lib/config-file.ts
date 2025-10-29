@@ -70,6 +70,8 @@ export async function loadWorkspaceConfig(
  * @param jiti - An instance of Jiti to resolve modules from
  * @param command - The {@link PowerlinesCommand} string associated with the current running process
  * @param mode - The mode in which the project is running (default is "production").
+ * @param configFile - An optional path to a specific configuration file.
+ * @param framework - The framework name to use for default configuration file names.
  * @returns A promise that resolves to the resolved user configuration.
  */
 export async function loadUserConfigFile(
@@ -77,7 +79,8 @@ export async function loadUserConfigFile(
   jiti: Jiti,
   command?: PowerlinesCommand,
   mode?: string,
-  configFile?: string
+  configFile?: string,
+  framework = "powerlines"
 ): Promise<ParsedUserConfig> {
   let resolvedUserConfig: Partial<ParsedUserConfig> = {};
 
@@ -86,14 +89,14 @@ export async function loadUserConfigFile(
       ? configFile
       : configFile && existsSync(joinPaths(projectRoot, configFile))
         ? joinPaths(projectRoot, configFile)
-        : existsSync(joinPaths(projectRoot, "powerlines.config.ts"))
-          ? joinPaths(projectRoot, "powerlines.config.ts")
-          : existsSync(joinPaths(projectRoot, "powerlines.config.js"))
-            ? joinPaths(projectRoot, "powerlines.config.js")
-            : existsSync(joinPaths(projectRoot, "powerlines.config.mts"))
-              ? joinPaths(projectRoot, "powerlines.config.mts")
-              : existsSync(joinPaths(projectRoot, "powerlines.config.mjs"))
-                ? joinPaths(projectRoot, "powerlines.config.mjs")
+        : existsSync(joinPaths(projectRoot, `${framework}.config.ts`))
+          ? joinPaths(projectRoot, `${framework}.config.ts`)
+          : existsSync(joinPaths(projectRoot, `${framework}.config.js`))
+            ? joinPaths(projectRoot, `${framework}.config.js`)
+            : existsSync(joinPaths(projectRoot, `${framework}.config.mts`))
+              ? joinPaths(projectRoot, `${framework}.config.mts`)
+              : existsSync(joinPaths(projectRoot, `${framework}.config.mjs`))
+                ? joinPaths(projectRoot, `${framework}.config.mjs`)
                 : undefined;
   if (resolvedUserConfigFile) {
     const resolved = await jiti.import(jiti.esmResolve(resolvedUserConfigFile));
@@ -122,7 +125,7 @@ export async function loadUserConfigFile(
 
   const result = await loadConfigC12({
     cwd: projectRoot,
-    name: "powerlines",
+    name: framework,
     envName: mode,
     globalRc: true,
     packageJson: true,
