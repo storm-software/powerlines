@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Jest
 
+## [0.1.6](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.6) (2025-10-29)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace package links
+  ([5e94ac8](https://github.com/storm-software/powerlines/commit/5e94ac8))
+
 ## [0.1.5](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.5) (2025-10-28)
 
 ### Miscellaneous
