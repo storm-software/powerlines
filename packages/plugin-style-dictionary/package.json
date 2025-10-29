@@ -114,7 +114,9 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "keywords": [
     "style-dictionary",
     "powerlines",
@@ -131,8 +133,8 @@
     "style-dictionary": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "0.9.5",
-    "@powerlines/plugin-plugin": "0.11.6",
+    "@powerlines/nx": "workspace:*",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

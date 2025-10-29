@@ -97,7 +97,9 @@
       }
     }
   },
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "keywords": [
     "stylelint",
     "powerlines",
@@ -113,7 +115,7 @@
     "stylelint": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "0.9.5",
+    "@powerlines/nx": "workspace:*",
     "@storm-software/tsup": "catalog:",
     "@types/node": "catalog:"
   },
