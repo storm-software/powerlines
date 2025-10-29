@@ -23,8 +23,11 @@
   },
   "license": "Apache-2.0",
   "private": true,
-  "packageManager": "pnpm@10.18.3",
-  "engines": { "node": ">=22.14.0", "pnpm": ">=10.18.0" },
+  "packageManager": "pnpm@10.20.0",
+  "engines": {
+    "node": ">=22.14.0",
+    "pnpm": ">=10.18.0"
+  },
   "keywords": [
     "storm-software",
     "storm",
@@ -98,7 +101,10 @@
     "verdaccio": "catalog:",
     "zx": "catalog:"
   },
-  "manypkg": { "defaultBranch": "main", "workspaceProtocol": "require" },
+  "manypkg": {
+    "defaultBranch": "main",
+    "workspaceProtocol": "require"
+  },
   "namespace": "@powerlines",
   "nx": {
     "includedScripts": [
