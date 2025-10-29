@@ -18,17 +18,12 @@
 
 import { PrintTreeOptions } from "@alloy-js/core";
 import {
-  BabelPluginContext,
-  BabelPluginOptions,
-  BabelPluginResolvedConfig,
-  BabelPluginUserConfig
-} from "@powerlines/plugin-babel/types/plugin";
-import {
-  TsupPluginContext,
-  TsupPluginResolvedConfig,
-  TsupPluginUserConfig
-} from "@powerlines/plugin-tsup/types/plugin";
-import { OutputConfig } from "powerlines/types/config";
+  TsupBuildConfig,
+  TsupResolvedBuildConfig
+} from "powerlines/types/build";
+import { OutputConfig, UserConfig } from "powerlines/types/config";
+import { PluginContext } from "powerlines/types/context";
+import { ResolvedConfig } from "powerlines/types/resolved";
 
 export type PluginPluginAlloyOptions = Partial<PrintTreeOptions> & {
   /**
@@ -56,14 +51,6 @@ export interface PluginPluginOptions {
    * @defaultValue false
    */
   alloy?: PluginPluginAlloyOptions | boolean;
-
-  /**
-   * Babel configuration options to use during the transformation process.
-   *
-   * @remarks
-   * This option allows you to customize the Babel transformation process used during the build. If not provided, the plugin will use default Babel settings.
-   */
-  babel?: BabelPluginOptions;
 }
 
 export type PluginPluginOutputConfig = OutputConfig & {
@@ -78,19 +65,21 @@ export type PluginPluginOutputConfig = OutputConfig & {
   projectDistPath: string;
 };
 
-export type PluginPluginUserConfig = TsupPluginUserConfig &
-  BabelPluginUserConfig & {
-    alloy?: false | Partial<PluginPluginAlloyOptions>;
-    output?: Partial<PluginPluginOutputConfig>;
-  };
+export interface PluginPluginUserConfig extends UserConfig {
+  alloy?: false | Partial<PluginPluginAlloyOptions>;
+  output?: Partial<PluginPluginOutputConfig>;
+  build?: Partial<TsupBuildConfig>;
+  override?: Partial<TsupResolvedBuildConfig>;
+}
 
-export type PluginPluginResolvedConfig = TsupPluginResolvedConfig &
-  BabelPluginResolvedConfig & {
-    alloy: false | Required<PluginPluginAlloyOptions>;
-    output: PluginPluginOutputConfig;
-  };
+export type PluginPluginResolvedConfig = ResolvedConfig & {
+  alloy: false | Required<PluginPluginAlloyOptions>;
+  output: PluginPluginOutputConfig;
+  build: TsupResolvedBuildConfig;
+  override: TsupResolvedBuildConfig;
+};
 
 export type PluginPluginContext<
   TResolvedConfig extends
     PluginPluginResolvedConfig = PluginPluginResolvedConfig
-> = BabelPluginContext<TResolvedConfig> & TsupPluginContext<TResolvedConfig>;
+> = PluginContext<TResolvedConfig>;
