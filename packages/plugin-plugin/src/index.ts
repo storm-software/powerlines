@@ -62,6 +62,7 @@ export const plugin = <
           format: ["cjs", "esm"]
         },
         build: {
+          variant: "tsup",
           external: ["powerlines"],
           bundle: false,
           skipNodeModulesBundle: true,
@@ -88,14 +89,14 @@ export const plugin = <
       }
 
       if (this.config.output.projectDistPath) {
-        this.config.override.outputPath ??= joinPaths(
+        this.config.override.outputPath = joinPaths(
           this.config.projectRoot,
           this.config.output.projectDistPath
         );
       }
     },
     async build() {
-      return build(
+      await build(
         await resolveOptions(
           defu(
             {
@@ -138,30 +139,30 @@ export const plugin = <
           )
         )
       );
-    },
-    async buildFinish() {
-      if (
-        this.config.override.outputPath &&
-        this.config.override.outputPath !== this.config.output.outputPath
-      ) {
-        this.log(
-          LogLevelLabel.INFO,
-          `Copying built files from override output path (${this.config.override.outputPath}) to final output path (${this.config.output.outputPath}).`
-        );
 
-        await copyFiles(
+      if (this.config.override.outputPath) {
+        const sourcePath = appendPath(
+          this.config.override.outputPath,
+          this.workspaceConfig.workspaceRoot
+        );
+        const destinationPath = joinPaths(
           appendPath(
-            this.config.override.outputPath,
+            this.config.output.outputPath,
             this.workspaceConfig.workspaceRoot
           ),
-          joinPaths(
-            appendPath(
-              this.config.output.outputPath,
-              this.workspaceConfig.workspaceRoot
-            ),
-            "dist"
-          )
+          "dist"
         );
+
+        if (sourcePath !== destinationPath) {
+          this.log(
+            LogLevelLabel.INFO,
+            `Copying build output files from project directory (${
+              this.config.override.outputPath
+            }) to output directory (${this.config.output.outputPath}).`
+          );
+
+          await copyFiles({ input: sourcePath, glob: "**/*" }, destinationPath);
+        }
       }
     }
   };

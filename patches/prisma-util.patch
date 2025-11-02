@@ -1,0 +1,359 @@
+diff --git a/package.json b/package.json
+index ea8a02c6fd0475e91f4fa5bd2773659927db5fa1..ae9ff535d71a758f4483d9a053863cf478f39c28 100644
+--- a/package.json
++++ b/package.json
+@@ -36,6 +36,21 @@
+     "type": "git",
+     "url": "https://github.com/DavidHancu/prisma-util.git"
+   },
++  "exports": {
++    ".": {
++      "default": "./index.js",
++      "types": "./index.d.ts"
++    },
++    "./schema-creator": {
++      "default": "./schema-creator/index.js",
++      "types": "./schema-creator/index.d.ts"
++    },
++    "./schema-creator/*": {
++      "default": "./schema-creator/*.js",
++      "types": "./schema-creator/*.d.ts"
++    },
++    "./package.json": "./package.json"
++  },
+   "dependencies": {
+     "@esbuild-kit/esm-loader": "^2.5.1",
+     "@prisma/generator-helper": "^4.6.1",
+diff --git a/schema-creator/creator.d.ts b/schema-creator/creator.d.ts
+index ecbb47fb034b15de1926bcf82bfdb21a7b9bc544..937954f24fcefed1ed706cb5663bd60078a462fb 100644
+--- a/schema-creator/creator.d.ts
++++ b/schema-creator/creator.d.ts
+@@ -2,10 +2,10 @@ import Enum from "./enum.js";
+ import Model from "./model.js";
+ /** Abstract Creator that Model and Enum extend. */
+ export default abstract class AbstractCreator {
+-    /** Create a new model. */
+-    abstract model(name: string): Model;
+-    /** Create a new enum. */
+-    abstract enum(name: string): Enum;
+-    /** Build the schema into a string that can be parsed. */
+-    abstract build(): string;
++  /** Create a new model. */
++  abstract model(name: string): Model;
++  /** Create a new enum. */
++  abstract enum(name: string): Enum;
++  /** Build the schema into a string that can be parsed. */
++  abstract build(): string;
+ }
+diff --git a/schema-creator/index.d.ts b/schema-creator/index.d.ts
+index 3fd5f87addf2208d7711cfe9b33b9bf1c04f5980..c6adaf0cb92dda12268f06ffaaa41bbfad1d6629 100644
+--- a/schema-creator/index.d.ts
++++ b/schema-creator/index.d.ts
+@@ -3,33 +3,36 @@ import Enum from "./enum.js";
+ import Model from "./model.js";
+ /** Allows schema creation via code. */
+ export declare class SchemaCreator extends AbstractCreator {
+-    /** Models that will be generated */
+-    private models;
+-    /** Enums that will be generated */
+-    private enums;
+-    /** Singleton pattern. */
+-    private static instance;
+-    private constructor();
+-    /** Internal method for assigning creators. */
+-    private static getInstance;
+-    /** Method to push models. You should not use this manually, as it's handled internally. */
+-    pushModel(model: Model): this;
+-    /** Method to push enums. You should not use this manually, as it's handled internally. */
+-    pushEnum(e: Enum): this;
+-    /** Create a new model. */
+-    static model(name: string): Model;
+-    /** Create a new enum. */
+-    static enum(name: string): Enum;
+-    /** Build the schema into a string that can be parsed. */
+-    static build(): string;
+-    model(name: string): Model;
+-    enum(name: string): Enum;
+-    build(): string;
++  /** Models that will be generated */
++  protected models: Model[];
++  /** Enums that will be generated */
++  protected enums: Enum[];
++  /** Singleton pattern. */
++  protected static instance: SchemaCreator;
++  protected constructor();
++  /** Internal method for assigning creators. */
++  protected static getInstance(): SchemaCreator;
++  /** Method to push models. You should not use this manually, as it's handled internally. */
++  public pushModel(model: Model): this;
++  /** Method to push enums. You should not use this manually, as it's handled internally. */
++  public pushEnum(e: Enum): this;
++  /** Create a new model. */
++  public static model(name: string): Model;
++  /** Create a new enum. */
++  static enum(name: string): Enum;
++  /** Build the schema into a string that can be parsed. */
++  public static build(): string;
++  public model(name: string): Model;
++  public enum(name: string): Enum;
++  public build(): string;
+ }
+ /** Utility for including files using glob.
+  * Will always return an array of {@link https://prisma-util.gitbook.io/prisma-util/api-documentation#path Path}s.
+-*/
+-export declare function globModels(base: (((model?: string, column?: string) => string) | string), globPattern?: string): string[];
++ */
++export declare function globModels(
++  base: ((model?: string, column?: string) => string) | string,
++  globPattern?: string
++): string[];
+ /**
+  * Utility for running commands in migration hooks.
+  * This function will return a Promise that resolves when the command has finished execution.
+@@ -40,118 +43,149 @@ export declare function execCommand(command: string): Promise<void>;
+  *
+  * This function will return an array of functions.
+  */
+-export declare function functionsFolder(folderPath: string): Promise<Function[]>;
++export declare function functionsFolder(
++  folderPath: string
++): Promise<Function[]>;
+ /**
+  * Import an .env file to the Virtual Environment.
+  * @param path Path relative to your project root pointing to the env file that needs to be imported.
+  */
+ export declare function useEnv(path: string): void;
+ /** Utility for easier file:model.column associations. */
+-export declare function constantModel(path: string): (model?: string, column?: string) => string;
++export declare function constantModel(
++  path: string
++): (model?: string, column?: string) => string;
+ /** Utility for easier file:generator associations. */
+-export declare function constantGenerator(path: string): (generator?: string) => string;
++export declare function constantGenerator(
++  path: string
++): (generator?: string) => string;
+ /** Utility for importing types inside of JavaScript. */
+ export declare function importType(path: string, typeName: string): string;
+ /** Utility function for accessing environment variables. */
+ export declare function env(variable: string, def?: string): string;
+-declare type ReferentialAction = "Cascade" | "NoAction" | "Restrict" | "SetDefault" | "SetNull";
++declare type ReferentialAction =
++  | "Cascade"
++  | "NoAction"
++  | "Restrict"
++  | "SetDefault"
++  | "SetNull";
+ /** Constraints that you can add to your columns and models. */
+ export declare const Constraints: {
+-    /** These constraints can be used anywhere. */
+-    DB: (method: string, ...args: string[]) => string;
+-    /** These constraints can only be applied to columns. */
+-    Column: {
+-        /** Defines a single-field ID on the model. */
+-        ID: (args?: {
+-            map?: string;
+-            length?: number;
+-            sort?: string;
+-            clustered?: boolean;
+-        }) => string;
+-        /** Defines a default value for a field. */
+-        DEFAULT: (value: string, args?: {
+-            map?: string;
+-        }) => string;
+-        /** Defines a unique constraint for this field. */
+-        UNIQUE: (args?: {
+-            map?: string;
+-            length?: number;
+-            sort?: string;
+-            clustered?: boolean;
+-        }) => string;
+-        /** Defines meta information about the relation */
+-        RELATION: (args: {
+-            name?: string;
+-            fields: string[];
+-            references: string[];
+-            onDelete?: ReferentialAction;
+-            onUpdate?: ReferentialAction;
+-            map?: string;
+-        }) => string;
+-        /** Maps a field name or enum value from the Prisma schema to a column or document field with a different name in the database. If you do not use @map, the Prisma field name matches the column name or document field name exactly. */
+-        MAP: (name: string) => string;
+-        /** Automatically stores the time when a record was last updated. If you do not supply a time yourself, the Prisma Client will automatically set the value for fields with this attribute. */
+-        UPDATEDAT: () => string;
+-        /** In 2.17.0 and later, Prisma adds @ignore to fields that refer to invalid models when you introspect. */
+-        IGNORE: () => string;
+-    };
+-    /** These constraints can only be applied to models. */
+-    Model: {
+-        /** Defines a multi-field ID on the model. */
+-        ID: (fields: string[], args?: {
+-            map?: string;
+-            length?: number;
+-            sort?: string;
+-            clustered?: boolean;
+-        }) => string;
+-        /** Defines a compound unique constraint  for the specified fields. */
+-        UNIQUE: (fields: string[], args?: {
+-            map?: string;
+-            length?: number;
+-            sort?: string;
+-            clustered?: boolean;
+-        }) => string;
+-        /** Defines an index in the database. */
+-        INDEX: (fields: string[], args?: {
+-            name?: string;
+-            type?: string;
+-            map?: string;
+-            length?: number;
+-            sort?: string;
+-            clustered?: boolean;
+-            ops?: string;
+-        }) => string;
+-        /** Maps the Prisma schema model name to a table (relational databases) or collection (MongoDB) with a different name, or an enum name to a different underlying enum in the database. If you do not use @@map, the model name matches the table (relational databases) or collection (MongoDB) name exactly. */
+-        MAP: (name: string) => string;
+-        /** In 2.17.0 and later, Prisma adds @@ignore to an invalid model instead of commenting it out. */
+-        IGNORE: () => string;
+-    };
++  /** These constraints can be used anywhere. */
++  DB: (method: string, ...args: string[]) => string;
++  /** These constraints can only be applied to columns. */
++  Column: {
++    /** Defines a single-field ID on the model. */
++    ID: (args?: {
++      map?: string;
++      length?: number;
++      sort?: string;
++      clustered?: boolean;
++    }) => string;
++    /** Defines a default value for a field. */
++    DEFAULT: (
++      value: string,
++      args?: {
++        map?: string;
++      }
++    ) => string;
++    /** Defines a unique constraint for this field. */
++    UNIQUE: (args?: {
++      map?: string;
++      length?: number;
++      sort?: string;
++      clustered?: boolean;
++    }) => string;
++    /** Defines meta information about the relation */
++    RELATION: (args: {
++      name?: string;
++      fields: string[];
++      references: string[];
++      onDelete?: ReferentialAction;
++      onUpdate?: ReferentialAction;
++      map?: string;
++    }) => string;
++    /** Maps a field name or enum value from the Prisma schema to a column or document field with a different name in the database. If you do not use @map, the Prisma field name matches the column name or document field name exactly. */
++    MAP: (name: string) => string;
++    /** Automatically stores the time when a record was last updated. If you do not supply a time yourself, the Prisma Client will automatically set the value for fields with this attribute. */
++    UPDATEDAT: () => string;
++    /** In 2.17.0 and later, Prisma adds @ignore to fields that refer to invalid models when you introspect. */
++    IGNORE: () => string;
++  };
++  /** These constraints can only be applied to models. */
++  Model: {
++    /** Defines a multi-field ID on the model. */
++    ID: (
++      fields: string[],
++      args?: {
++        map?: string;
++        length?: number;
++        sort?: string;
++        clustered?: boolean;
++      }
++    ) => string;
++    /** Defines a compound unique constraint  for the specified fields. */
++    UNIQUE: (
++      fields: string[],
++      args?: {
++        map?: string;
++        length?: number;
++        sort?: string;
++        clustered?: boolean;
++      }
++    ) => string;
++    /** Defines an index in the database. */
++    INDEX: (
++      fields: string[],
++      args?: {
++        name?: string;
++        type?: string;
++        map?: string;
++        length?: number;
++        sort?: string;
++        clustered?: boolean;
++        ops?: string;
++      }
++    ) => string;
++    /** Maps the Prisma schema model name to a table (relational databases) or collection (MongoDB) with a different name, or an enum name to a different underlying enum in the database. If you do not use @@map, the model name matches the table (relational databases) or collection (MongoDB) name exactly. */
++    MAP: (name: string) => string;
++    /** In 2.17.0 and later, Prisma adds @@ignore to an invalid model instead of commenting it out. */
++    IGNORE: () => string;
++  };
+ };
+ /** Functions that you can use in your constraints. */
+ export declare const Functions: {
+-    /** Represents default values that are automatically generated by the database. */
+-    AUTO: () => string;
+-    /** Create a sequence of integers in the underlying database and assign the incremented values to the ID values of the created records based on the sequence. */
+-    AUTOINCREMENT: () => string;
+-    /** Create a sequence of integers in the underlying database and assign the incremented values to the values of the created records based on the sequence. */
+-    SEQUENCE: (argument?: "virtual" | {
+-        cache: number;
+-    } | {
+-        increment: number;
+-    } | {
+-        minValue: number;
+-    } | {
+-        maxValue: number;
+-    } | {
+-        start: number;
+-    }) => string;
+-    /** Generate a globally unique identifier based on the cuid spec.*/
+-    CUID: () => string;
+-    /** Generate a globally unique identifier based on the UUID spec.*/
+-    UUID: () => string;
+-    /** Set a timestamp of the time when a record is created. */
+-    NOW: () => string;
+-    /**Represents default values that cannot be expressed in the Prisma schema (such as random()). */
+-    DBGENERATED: (argument?: string) => string;
++  /** Represents default values that are automatically generated by the database. */
++  AUTO: () => string;
++  /** Create a sequence of integers in the underlying database and assign the incremented values to the ID values of the created records based on the sequence. */
++  AUTOINCREMENT: () => string;
++  /** Create a sequence of integers in the underlying database and assign the incremented values to the values of the created records based on the sequence. */
++  SEQUENCE: (
++    argument?:
++      | "virtual"
++      | {
++          cache: number;
++        }
++      | {
++          increment: number;
++        }
++      | {
++          minValue: number;
++        }
++      | {
++          maxValue: number;
++        }
++      | {
++          start: number;
++        }
++  ) => string;
++  /** Generate a globally unique identifier based on the cuid spec.*/
++  CUID: () => string;
++  /** Generate a globally unique identifier based on the UUID spec.*/
++  UUID: () => string;
++  /** Set a timestamp of the time when a record is created. */
++  NOW: () => string;
++  /**Represents default values that cannot be expressed in the Prisma schema (such as random()). */
++  DBGENERATED: (argument?: string) => string;
+ };
+ export {};
