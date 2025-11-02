@@ -22,21 +22,7 @@ import { $, chalk, echo } from "zx";
 try {
   echo`${chalk.whiteBright("💣  Nuking the monorepo...")}`;
 
-  // let proc =
-  //   $`pnpm nx run-many --target=clean --all --exclude="@powerlines/monorepo" --outputStyle=dynamic-legacy --parallel=5`.timeout(
-  //     `${2 * 60}s`
-  //   );
-  // proc.stdout.on("data", data => {
-  //   echo`${data}`;
-  // });
-  // let result = await proc;
-  // if (result.exitCode !== 0) {
-  //   throw new Error(
-  //     `An error occurred while cleaning the monorepo projects: \n\n${result.message}\n`
-  //   );
-  // }
-
-  let proc = $`pnpm nx clear-cache`.timeout(`${5 * 60}s`);
+  let proc = $`pnpm clean`.timeout(`${5 * 60}s`);
   proc.stdout.on("data", data => {
     echo`${data}`;
   });
@@ -44,19 +30,6 @@ try {
   if (result.exitCode !== 0) {
     throw new Error(
       `An error occurred while clearing Nx cache: \n\n${result.message}\n`
-    );
-  }
-
-  proc = $`rm -rf ./.nx/cache ./.nx/workspace-data ./dist ./tmp`.timeout(
-    `${5 * 60}s`
-  );
-  proc.stdout.on("data", data => {
-    echo`${data}`;
-  });
-  result = await proc;
-  if (result.exitCode !== 0) {
-    throw new Error(
-      `An error occurred while removing cache directories: \n\n${result.message}\n`
     );
   }
 
@@ -93,7 +66,7 @@ try {
     );
   }
 
-  echo`${chalk.green("✅  Successfully nuked the cache, node modules, and build folders \n\n")}`;
+  echo`${chalk.green(" ✔ Successfully nuked the cache, node modules, and build folders \n\n")}`;
 } catch (error) {
   echo`${chalk.red(error?.message ? error.message : "A failure occurred while nuking the monorepo")}`;
 }

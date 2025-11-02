@@ -17,38 +17,24 @@
 
  ------------------------------------------------------------------- */
 
-import { $, argv, chalk, echo } from "zx";
+import { $, chalk, echo } from "zx";
 
 try {
-  let base = argv.base;
-  if (!base) {
-    base = process.env.NX_BASE;
-  }
-  let head = argv.head;
-  if (!head) {
-    head = process.env.NX_HEAD;
-  }
-  if (!base && !head) {
-    throw new Error(
-      `Base and head arguments are required. Please provide them using the --base and --head flags.`
-    );
-  }
+  echo`${chalk.whiteBright("🧹  Cleaning the monorepo...")}`;
 
-  await echo`${chalk.whiteBright(`📦  Releasing workspace packages (Base tag: "${base}", Head tag: "${head}")`)}`;
-
-  let proc = $`pnpm build`.timeout(`${30 * 60}s`);
+  let proc = $`pnpm nx clear-cache`.timeout(`${5 * 60}s`);
   proc.stdout.on("data", data => {
     echo`${data}`;
   });
   let result = await proc;
   if (result.exitCode !== 0) {
     throw new Error(
-      `An error occurred while building workspace packages: \n\n${result.message}\n`
+      `An error occurred while clearing Nx cache: \n\n${result.message}\n`
     );
   }
 
-  proc = $`pnpm exec storm-git release --base=${base} --head=${head}`.timeout(
-    `${30 * 60}s`
+  proc = $`rm -rf ./.nx/cache ./.nx/workspace-data ./dist ./tmp`.timeout(
+    `${5 * 60}s`
   );
   proc.stdout.on("data", data => {
     echo`${data}`;
@@ -56,13 +42,22 @@ try {
   result = await proc;
   if (result.exitCode !== 0) {
     throw new Error(
-      `An error occurred while releasing workspace packages: \n\n${result.message}\n`
+      `An error occurred while removing cache directories: \n\n${result.message}\n`
     );
   }
 
-  echo`${chalk.green(" ✔ Successfully released workspace packages")}`;
-} catch (error) {
-  echo`${chalk.red(error?.message ? error.message : "A failure occurred while releasing workspace packages")}`;
+  proc = $`rm -rf ./packages/*/dist`.timeout(`${5 * 60}s`);
+  proc.stdout.on("data", data => {
+    echo`${data}`;
+  });
+  result = await proc;
+  if (result.exitCode !== 0) {
+    throw new Error(
+      `An error occurred while removing build directories from the monorepo's projects: \n\n${result.message}\n`
+    );
+  }
 
-  process.exit(1);
+  echo`${chalk.green(" ✔ Successfully cleaned the cache and build folders \n\n")}`;
+} catch (error) {
+  echo`${chalk.red(error?.message ? error.message : "A failure occurred while cleaning the monorepo")}`;
 }
