@@ -17,6 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
+import { isPackageExists } from "@stryke/fs/package-fns";
+import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
 import {
   DEFAULT_VITE_CONFIG,
@@ -24,7 +26,7 @@ import {
 } from "powerlines/lib/build/vite";
 import { ViteUserConfig } from "powerlines/types/config";
 import { Plugin } from "powerlines/types/plugin";
-import { build } from "vite";
+import { InlineConfig } from "rolldown-vite";
 import { createVitePlugin } from "./helpers/unplugin";
 import { VitePluginContext, VitePluginOptions } from "./types/plugin";
 
@@ -59,18 +61,63 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
     async build() {
       this.log(LogLevelLabel.TRACE, `Building the Powerlines plugin.`);
 
-      await build(
-        defu(
-          {
-            config: false,
-            entry: this.entry
-          },
-          extractViteConfig(this),
-          {
-            plugins: [createVitePlugin(this)]
-          }
-        )
+      const config = defu(
+        {
+          config: false,
+          entry: this.entry
+        },
+        extractViteConfig(this),
+        {
+          plugins: [createVitePlugin(this)]
+        }
       );
+
+      let importPath = "vite";
+      if (
+        options.rolldown &&
+        isPackageExists("rolldown-vite", {
+          paths: [
+            joinPaths(
+              this.workspaceConfig.workspaceRoot,
+              this.config.projectRoot
+            ),
+            this.workspaceConfig.workspaceRoot
+          ]
+        })
+      ) {
+        importPath = "rolldown-vite";
+      }
+
+      if (
+        !isPackageExists(importPath, {
+          paths: [
+            joinPaths(
+              this.workspaceConfig.workspaceRoot,
+              this.config.projectRoot
+            ),
+            this.workspaceConfig.workspaceRoot
+          ]
+        })
+      ) {
+        throw new Error(
+          `Failed to find the "${importPath}" package required for the Powerlines "vite" plugin${
+            options.rolldown ? " with the `rolldown` option enabled" : ""
+          }. Please run "npm install ${importPath} -D" to install it.`
+        );
+      }
+
+      const vite = await this.resolver.import<{
+        build: (opts: InlineConfig) => Promise<void>;
+      }>(importPath);
+      if (!vite) {
+        throw new Error(
+          `Failed to load the "${importPath}" module - this package is required when using the Powerlines "vite" plugin${
+            options.rolldown ? " with the `rolldown` option enabled" : ""
+          }. Please ensure it is installed correctly.`
+        );
+      }
+
+      await vite.build(config as InlineConfig);
     }
   };
 };

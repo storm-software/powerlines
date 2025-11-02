@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -20,7 +20,14 @@ import { ViteBuildConfig } from "powerlines/types/build";
 import { PluginContext } from "powerlines/types/context";
 import { ViteResolvedConfig } from "powerlines/types/resolved";
 
-export type VitePluginOptions = Partial<ViteBuildConfig>;
+export type VitePluginOptions = Partial<ViteBuildConfig> & {
+  /**
+   * Whether to use [rolldown-vite](https://vite.dev/guide/rolldown.html) for the build.
+   *
+   * @defaultValue false
+   */
+  rolldown?: boolean;
+};
 
 export type VitePluginResolvedConfig = ViteResolvedConfig;
 

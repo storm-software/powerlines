@@ -167,6 +167,7 @@
   },
   "devDependencies": {
     "vite": "catalog:",
+    "rolldown-vite": "catalog:",
     "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
