@@ -47,7 +47,7 @@ export function defineTsupConfig(options: TsupOptions | TsupOptions[]) {
           ...defaultOptions,
           onSuccess: async () => {
             // eslint-disable-next-line no-console
-            console.log(`✅ ${option.name} build completed successfully!`);
+            console.log(` ✔ ${option.name} build completed successfully!`);
           },
           ...option
         }))
@@ -56,7 +56,7 @@ export function defineTsupConfig(options: TsupOptions | TsupOptions[]) {
         ...defaultOptions,
         onSuccess: async () => {
           // eslint-disable-next-line no-console
-          console.log(`✅ ${options.name} build completed successfully!`);
+          console.log(` ✔ ${options.name} build completed successfully!`);
         },
         ...options
       });

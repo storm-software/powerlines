@@ -37,7 +37,7 @@ export function definePluginTsupConfig(options: TsupOptions | TsupOptions[]) {
           onSuccess: async () => {
             // eslint-disable-next-line no-console
             console.log(
-              `✅ ${option.name
+              ` ✔ ${option.name
                 ?.replace(/^plugin-/, "")
                 .replace(/-plugin$/, "")} plugin build completed successfully!`
             );
@@ -50,7 +50,7 @@ export function definePluginTsupConfig(options: TsupOptions | TsupOptions[]) {
         onSuccess: async () => {
           // eslint-disable-next-line no-console
           console.log(
-            `✅ ${options.name?.replace(/^plugin-/, "").replace(/-plugin$/, "")} plugin build completed successfully!`
+            ` ✔ ${options.name?.replace(/^plugin-/, "").replace(/-plugin$/, "")} plugin build completed successfully!`
           );
         },
         ...options
