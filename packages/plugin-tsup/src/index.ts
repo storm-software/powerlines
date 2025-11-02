@@ -18,11 +18,10 @@
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { build, resolveOptions } from "@storm-software/tsup";
-import { isParentPath } from "@stryke/path/is-parent-path";
-import { joinPaths } from "@stryke/path/join";
-import { isFunction } from "@stryke/type-checks/is-function";
+import { appendPath } from "@stryke/path/append";
 import defu from "defu";
 import { extractTsupConfig, resolveTsupEntry } from "powerlines/lib/build/tsup";
+import { TsupResolvedBuildConfig } from "powerlines/types/build";
 import { TsupUserConfig } from "powerlines/types/config";
 import { Plugin } from "powerlines/types/plugin";
 import { createTsupPlugin } from "./helpers/unplugin";
@@ -32,7 +31,7 @@ export * from "./helpers";
 export * from "./types";
 
 /**
- * A Powerlines plugin to assist in developing other Powerlines plugins.
+ * A Powerlines plugin to use Tsup to build the project.
  */
 export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
   options: TsupPluginOptions = {}
@@ -61,26 +60,50 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
           defu(
             {
               config: false,
-              esbuildOptions: (buildOptions, ctx) => {
-                if (isFunction(options.esbuildOptions)) {
-                  options.esbuildOptions(buildOptions, ctx);
-                }
-
-                buildOptions.alias = defu(
-                  buildOptions.alias ?? {},
-                  Object.fromEntries(this.fs.builtinIdMap.entries())
-                );
-              },
               entry: Object.fromEntries(
                 Object.entries(resolveTsupEntry(this, this.entry)).map(
                   ([key, value]) => [
                     key,
-                    isParentPath(value, this.config.projectRoot)
-                      ? value
-                      : joinPaths(this.config.projectRoot, value)
+                    appendPath(value, this.config.projectRoot)
                   ]
                 )
-              )
+              ),
+              esbuildOptions: (options, ctx) => {
+                if (this.config.build.variant === "tsup") {
+                  if (
+                    (this.config.build as TsupResolvedBuildConfig)
+                      .esbuildOptions
+                  ) {
+                    (
+                      this.config.build as TsupResolvedBuildConfig
+                    ).esbuildOptions?.(options, ctx);
+                  } else if (
+                    (this.config.override as TsupResolvedBuildConfig)
+                      .esbuildOptions
+                  ) {
+                    (
+                      this.config.override as TsupResolvedBuildConfig
+                    ).esbuildOptions?.(options, ctx);
+                  }
+                }
+
+                options.alias = {
+                  ...this.builtins.reduce(
+                    (ret, id) => {
+                      const path = this.fs.ids[id];
+                      if (path) {
+                        ret[id] = path;
+                      }
+
+                      return ret;
+                    },
+                    {} as Record<string, string>
+                  ),
+                  ...options.alias
+                };
+              },
+              silent: false,
+              verbose: true
             },
             extractTsupConfig(this),
             {

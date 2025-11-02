@@ -95,7 +95,7 @@ export function EnvTypeDefinition(
 
       <TypeDeclaration name="Env" export={true}>
         {code` {
-    [Key in keyof EnvBase as Key ${context?.value?.config.env.prefix
+    [Key in keyof EnvBase as Key ${context?.config.env.prefix
       .map(prefix => `| \`${prefix.replace(/_$/g, "")}_\${Key}\``)
       .join(" ")}]: EnvBase[Key];
 }
@@ -276,11 +276,11 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
   const context = usePowerlines<EnvPluginContext>();
 
   const defaultValue = computed(
-    () => context && loadEnvFromContext(context.value, process.env)
+    () => context && loadEnvFromContext(context, process.env)
   );
 
   const reflection = createResource(async () => {
-    if (!context?.value) {
+    if (!context) {
       return new ReflectionClass({
         kind: ReflectionKind.objectLiteral,
         description: `The initial environment configuration state for the Powerlines project.`,
@@ -288,7 +288,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       });
     }
 
-    const result = await readEnvTypeReflection(context?.value, "env");
+    const result = await readEnvTypeReflection(context, "env");
     result.getProperties().forEach(prop => {
       const aliases = prop.getAlias();
       aliases.filter(Boolean).forEach(alias => {
@@ -339,7 +339,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       {
         kind: ReflectionKind.objectLiteral,
         description: `The initial environment configuration state for the ${titleCase(
-          context?.value?.config?.name
+          context?.config?.name
         )} project.`,
         types: []
       },
@@ -513,7 +513,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           {`The initialized Powerlines configuration object.`}
         </TSDocReturns>
       </TSDoc>
-      <Show when={Boolean(context?.value?.entryPath)}>
+      <Show when={Boolean(context?.entryPath)}>
         <FunctionDeclaration
           refkey={createEnvRefkey}
           async={false}
@@ -542,7 +542,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
             {(property: ReflectionProperty, index: number) => (
               <ConfigPropertyGet
                 index={index}
-                context={context?.value}
+                context={context}
                 property={property}
               />
             )}
@@ -560,7 +560,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
             {(property: ReflectionProperty, index: number) => (
               <ConfigPropertySet
                 index={index}
-                context={context?.value}
+                context={context}
                 property={property}
               />
             )}

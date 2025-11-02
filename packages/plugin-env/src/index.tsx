@@ -61,10 +61,10 @@ export * from "./helpers";
 export * from "./types";
 
 /**
- * A Powerlines plugin to assist in developing other Powerlines plugins.
+ * A Powerlines plugin to inject environment variables into the source code.
  */
-export const plugin = createAlloyPlugin<EnvPluginOptions, EnvPluginContext>(
-  options => {
+export const plugin = createAlloyPlugin<EnvPluginContext>(
+  (options: EnvPluginOptions) => {
     return {
       name: "env",
       dependsOn: [babel()],
@@ -390,7 +390,7 @@ export const plugin = createAlloyPlugin<EnvPluginOptions, EnvPluginContext>(
       `
         );
       },
-      async buildFinish() {
+      async buildEnd() {
         const reflectionPath = getEnvReflectionsPath(this, "env");
 
         this.log(

@@ -114,15 +114,8 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "asyncapi",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["asyncapi", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@asyncapi/generator": "catalog:",
     "@asyncapi/parser": "catalog:",

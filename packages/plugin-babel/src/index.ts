@@ -18,6 +18,10 @@
 
 import { transformAsync } from "@babel/core";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
+import {
+  findFileExtension,
+  findFileExtensionSafe
+} from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import defu from "defu";
@@ -37,11 +41,9 @@ export * from "./types";
  * @param options - The Babel plugin user configuration options.
  * @returns A Powerlines plugin that integrates Babel transformations.
  */
-export const plugin = <
-  TContext extends BabelPluginContext = BabelPluginContext
->(
+export const plugin = (
   options: BabelPluginOptions = {}
-): Plugin<TContext> => {
+): Plugin<BabelPluginContext> => {
   return {
     name: "babel",
     config() {
@@ -100,6 +102,17 @@ export const plugin = <
         return { code, id };
       }
 
+      if (
+        ["ts", "cts", "mts", "tsx"].includes(findFileExtensionSafe(id)) &&
+        !isDuplicatePlugin(plugins, "@babel/plugin-syntax-typescript") &&
+        !isDuplicatePlugin(presets, "@babel/preset-typescript")
+      ) {
+        plugins.unshift([
+          "@babel/plugin-syntax-typescript",
+          { isTSX: findFileExtension(id) === ".tsx" }
+        ]);
+      }
+
       const result = await transformAsync(code, {
         highlightCode: true,
         code: true,
@@ -146,7 +159,7 @@ export const plugin = <
 
       return { code: result.code, id };
     }
-  } as Plugin<TContext>;
+  } as Plugin<BabelPluginContext>;
 };
 
 export default plugin;

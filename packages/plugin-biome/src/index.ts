@@ -322,7 +322,7 @@ export function plugin(
                 this.workspaceConfig.workspaceRoot,
                 this.config.projectRoot
               )
-            : this.workspaceConfig.workspaceRoot
+            : this.config.projectRoot
         );
         if (result.failed) {
           throw new Error(`Biome process exited with code ${result.exitCode}.`);

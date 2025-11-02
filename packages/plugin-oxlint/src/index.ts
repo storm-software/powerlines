@@ -23,7 +23,7 @@ import { getParentPath } from "@stryke/fs/get-parent-path";
 import { isPackageListed } from "@stryke/fs/package-fns";
 import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
-import { Plugin } from "../../powerlines/src/types/plugin";
+import { Plugin } from "powerlines/types/plugin";
 import { OxlintPluginContext, OxlintPluginOptions } from "./types/plugin";
 
 export * from "./types";

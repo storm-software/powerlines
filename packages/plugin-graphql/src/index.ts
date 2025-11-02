@@ -27,7 +27,7 @@ import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import defu from "defu";
-import { existsSync } from "node:fs";
+import { getConfigPath } from "powerlines/plugin-utils/get-config-path";
 import { Plugin } from "powerlines/types/plugin";
 import {
   GraphQLPluginContext,
@@ -53,125 +53,14 @@ export const plugin = <
     config() {
       let configFile = options.configFile;
       if (!configFile) {
-        if (
-          existsSync(
-            joinPaths(
-              this.workspaceConfig.workspaceRoot,
-              this.config.projectRoot,
-              "codegen.yml"
-            )
-          )
-        ) {
-          configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            this.config.projectRoot,
-            "codegen.yml"
-          );
-        } else if (
-          existsSync(
-            joinPaths(
-              this.workspaceConfig.workspaceRoot,
-              this.config.projectRoot,
-              "codegen.yaml"
-            )
-          )
-        ) {
-          configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            this.config.projectRoot,
-            "codegen.yaml"
-          );
-        } else if (
-          existsSync(
-            joinPaths(
-              this.workspaceConfig.workspaceRoot,
-              this.config.projectRoot,
-              "codegen.json"
-            )
-          )
-        ) {
-          configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            this.config.projectRoot,
-            "codegen.json"
-          );
-        } else if (
-          existsSync(
-            joinPaths(
-              this.workspaceConfig.workspaceRoot,
-              this.config.projectRoot,
-              "codegen.js"
-            )
-          )
-        ) {
-          configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            this.config.projectRoot,
-            "codegen.js"
-          );
-        } else if (
-          existsSync(
-            joinPaths(
-              this.workspaceConfig.workspaceRoot,
-              this.config.projectRoot,
-              "codegen.cjs"
-            )
-          )
-        ) {
-          configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            this.config.projectRoot,
-            "codegen.cjs"
-          );
-        } else if (
-          existsSync(
-            joinPaths(this.workspaceConfig.workspaceRoot, "codegen.yml")
-          )
-        ) {
-          configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            "codegen.yml"
-          );
-        } else if (
-          existsSync(
-            joinPaths(this.workspaceConfig.workspaceRoot, "codegen.yaml")
-          )
-        ) {
-          configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            "codegen.yaml"
-          );
-        } else if (
-          existsSync(
-            joinPaths(this.workspaceConfig.workspaceRoot, "codegen.json")
-          )
-        ) {
-          configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            "codegen.json"
-          );
-        } else if (
-          existsSync(
-            joinPaths(this.workspaceConfig.workspaceRoot, "codegen.js")
-          )
-        ) {
-          configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            "codegen.js"
-          );
-        } else if (
-          existsSync(
-            joinPaths(this.workspaceConfig.workspaceRoot, "codegen.cjs")
-          )
-        ) {
-          configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            "codegen.cjs"
-          );
-        } else {
-          throw new Error(
-            `No GraphQL Codegen configuration file found. Please specify a valid config file path in the Biome plugin's \`configFile\` options.`
-          );
+        configFile = getConfigPath(this, "codegen");
+        if (!configFile) {
+          configFile = getConfigPath(this, "graphql-codegen");
+          if (!configFile) {
+            throw new Error(
+              `No GraphQL Codegen configuration file found. Please specify a valid config file path in the Biome plugin's \`configFile\` options.`
+            );
+          }
         }
       }
 

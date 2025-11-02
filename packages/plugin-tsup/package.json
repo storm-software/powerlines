@@ -142,15 +142,8 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "tsup",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["tsup", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@storm-software/tsup": "catalog:",
     "@stryke/path": "catalog:",

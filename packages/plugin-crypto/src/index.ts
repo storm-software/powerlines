@@ -18,7 +18,7 @@
 
 import env from "@powerlines/plugin-env";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { Plugin } from "../../powerlines/src/types/plugin";
+import { Plugin } from "powerlines/types/plugin";
 import { cryptoModule } from "./components/crypto";
 import { CryptoPluginContext, CryptoPluginOptions } from "./types/plugin";
 

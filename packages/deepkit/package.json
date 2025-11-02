@@ -167,7 +167,8 @@
     "@deepkit/type-compiler": "catalog:",
     "@deepkit/type-spec": "catalog:",
     "@powerlines/nx": "workspace:*",
-    "@types/node": "catalog:"
+    "@types/node": "catalog:",
+    "tsup": "catalog:"
   },
   "publishConfig": {
     "access": "public"
