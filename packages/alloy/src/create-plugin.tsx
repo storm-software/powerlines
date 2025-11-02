@@ -49,13 +49,12 @@ import { AlloyPluginBuilder, AlloyPluginOptions } from "./types/plugin";
  * @returns An object representing the Alloy plugin.
  */
 export function createAlloyPlugin<
-  TOptions = any,
   TContext extends PluginContext = PluginContext
->(builder: AlloyPluginBuilder<TOptions, TContext>) {
-  return async (
-    options: TOptions & AlloyPluginOptions
-  ): Promise<Plugin<TContext>> => {
-    const result = await Promise.resolve(builder(options));
+>(
+  builder: AlloyPluginBuilder<TContext>
+) {
+  return (options: Parameters<typeof builder>[0] & AlloyPluginOptions) => {
+    const result = builder(options);
 
     return {
       ...result,

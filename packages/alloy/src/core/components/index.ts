@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -17,6 +17,5 @@
  ------------------------------------------------------------------- */
 
 export * from "./output";
-export * from "./record-expression";
 export * from "./single-line-comment";
 export * from "./source-file";

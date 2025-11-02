@@ -475,7 +475,7 @@ export function TSDocModule(props: TSDocModuleProps) {
           <hbr />
         </Show>
         {"@module "}
-        {prefix || context?.value.config.output.builtinPrefix}:{name}
+        {prefix || context?.config.output.builtinPrefix}:{name}
       </align>
       <hbr />
       {` */`}

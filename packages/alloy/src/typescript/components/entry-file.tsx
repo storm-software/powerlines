@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -17,9 +17,9 @@
  ------------------------------------------------------------------- */
 
 import { computed, splitProps } from "@alloy-js/core";
-import { ResolvedEntryTypeDefinition } from "powerlines/types/resolved";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
+import { ResolvedEntryTypeDefinition } from "powerlines/types/resolved";
 import { usePowerlines } from "../../core/contexts/context";
 import { TypescriptFile, TypescriptFileProps } from "./typescript-file";
 
@@ -51,10 +51,7 @@ export function EntryFile(props: EntryFileProps) {
 
   const context = usePowerlines();
   const fullPath = computed(() =>
-    joinPaths(
-      context?.value?.entryPath || "./",
-      `${path}${tsx ? ".tsx" : ".ts"}`
-    )
+    joinPaths(context?.entryPath || "./", `${path}${tsx ? ".tsx" : ".ts"}`)
   );
 
   return (

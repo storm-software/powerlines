@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -26,9 +26,9 @@ import {
   useContext,
   useFormatOptions
 } from "@alloy-js/core";
-import { OutputModeType } from "powerlines/types/vfs";
 import { appendPath } from "@stryke/path/append";
 import defu from "defu";
+import { OutputModeType } from "powerlines/types/vfs";
 import { ComponentProps } from "../../types/components";
 
 export type SourceFileProps = SourceFilePropsExternal &

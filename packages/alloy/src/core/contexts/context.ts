@@ -51,8 +51,8 @@ export function usePowerlinesContext<
  */
 export function usePowerlines<
   TContext extends PluginContext = PluginContext
->(): Ref<TContext> | undefined {
-  const storm = usePowerlinesContext<TContext>();
+>(): TContext | undefined {
+  const powerlines = usePowerlinesContext<TContext>();
 
-  return storm?.ref;
+  return powerlines?.ref?.value;
 }
