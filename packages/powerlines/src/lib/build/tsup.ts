@@ -70,17 +70,39 @@ export function resolveTsupEntry(
 export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
   return defu(
     {
-      alias: context.builtins.reduce(
-        (ret, id) => {
-          const path = context.fs.ids[id];
-          if (path) {
-            ret[id] = path;
+      esbuildOptions: (options, ctx) => {
+        if (context.config.build.variant === "tsup") {
+          if (
+            (context.config.build as TsupResolvedBuildConfig).esbuildOptions
+          ) {
+            (context.config.build as TsupResolvedBuildConfig).esbuildOptions?.(
+              options,
+              ctx
+            );
+          } else if (
+            (context.config.override as TsupResolvedBuildConfig).esbuildOptions
+          ) {
+            (
+              context.config.override as TsupResolvedBuildConfig
+            ).esbuildOptions?.(options, ctx);
           }
+        }
 
-          return ret;
-        },
-        {} as Record<string, string>
-      ),
+        options.alias = {
+          ...context.builtins.reduce(
+            (ret, id) => {
+              const path = context.fs.ids[id];
+              if (path) {
+                ret[id] = path;
+              }
+
+              return ret;
+            },
+            {} as Record<string, string>
+          ),
+          ...options.alias
+        };
+      },
       noExternal: context.builtins
     },
     context.config.build.variant === "tsup" ? context.config.override : {},

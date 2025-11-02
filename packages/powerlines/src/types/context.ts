@@ -20,12 +20,13 @@ import type { EnvPaths } from "@stryke/env/get-env-paths";
 import type { PackageJson } from "@stryke/types/package-json";
 import { Worker as JestWorker } from "jest-worker";
 import type { Jiti } from "jiti";
+import type MagicString from "magic-string";
+import type { SourceMap } from "magic-string";
 import type { DirectoryJSON } from "memfs";
 import { ParseResult, ParserOptions } from "oxc-parser";
 import { Range } from "semver";
 import type { Unimport } from "unimport";
 import type { UnpluginBuildContext, UnpluginContext } from "unplugin";
-import type { SourceFile } from "./compiler";
 import type {
   InlineConfig,
   LogFn,
@@ -112,6 +113,36 @@ export interface MetaInfo {
 
 export interface Resolver extends Jiti {
   plugin: Jiti;
+}
+
+export interface TransformResult {
+  code: string;
+  map: SourceMap | null;
+}
+
+/**
+ * The format for providing source code to the compiler
+ */
+export interface SourceFile {
+  /**
+   * The name of the file to be compiled
+   */
+  id: string;
+
+  /**
+   * The source code to be compiled
+   */
+  code: MagicString;
+
+  /**
+   * The environment variables used in the source code
+   */
+  env: string[];
+
+  /**
+   * The result of the transformation
+   */
+  result?: TransformResult;
 }
 
 export type UnimportContext = Omit<Unimport, "injectImports"> & {

@@ -18,7 +18,7 @@
 
 import Diff from "diff-match-patch";
 import type MagicString from "magic-string";
-import type { CompilerResult } from "../../types/compiler";
+import type { TransformResult } from "../../types/context";
 
 const dmp = new Diff();
 
@@ -34,7 +34,7 @@ export function generateSourceMap(
   code: MagicString,
   id: string,
   transpiled?: string
-): CompilerResult {
+): TransformResult | undefined {
   if (!transpiled) {
     return;
   }

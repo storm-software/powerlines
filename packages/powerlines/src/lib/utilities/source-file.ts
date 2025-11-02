@@ -21,7 +21,7 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isString } from "@stryke/type-checks/is-string";
 import MagicString from "magic-string";
 import { TransformResult } from "unplugin";
-import { SourceFile } from "../../types/compiler";
+import { SourceFile } from "../../types/context";
 
 /**
  * Get the string from the source.

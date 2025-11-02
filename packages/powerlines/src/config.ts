@@ -29,14 +29,3 @@ export function defineConfig(
 ): AnyUserConfig {
   return config;
 }
-
-// export function defineConfig(
-//   config: Promise<DeepPartial<UserConfig>>
-// ): Promise<DeepPartial<UserConfig>>;
-// export function defineConfig(config: UserConfigFnObject): UserConfigFnObject;
-// export function defineConfig(config: UserConfigFnPromise): UserConfigFnPromise;
-// export function defineConfig(config: UserConfigFn): UserConfigFn;
-// export function defineConfig(config: UserConfigExport): UserConfigExport;
-// export function defineConfig(config: UserConfigExport): UserConfigExport {
-//   return config;
-// }

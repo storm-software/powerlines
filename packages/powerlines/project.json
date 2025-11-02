@@ -36,9 +36,7 @@
           "pnpm copyfiles --up=2 ./packages/powerlines/*.md ./packages/powerlines/package.json dist/packages/powerlines",
           "pnpm copyfiles --up=3 \"./packages/powerlines/files/**/*\" dist/packages/powerlines/files",
           "pnpm copyfiles --up=3 \"./packages/powerlines/dist/*.js\" \"./packages/powerlines/dist/*.d.ts\" \"./packages/powerlines/dist/*.cjs\" \"./packages/powerlines/dist/*.d.cts\" dist/packages/powerlines/dist",
-          "pnpm copyfiles --up=3 \"./packages/powerlines/dist/internal/**/*\" dist/packages/powerlines/dist",
-          "pnpm copyfiles --up=3 \"./packages/powerlines/dist/lib/**/*\" dist/packages/powerlines/dist",
-          "pnpm copyfiles --up=3 \"./packages/powerlines/dist/types/**/*\" dist/packages/powerlines/dist"
+          "pnpm copyfiles --up=3 \"./packages/powerlines/dist/types/**/*\" \"./packages/powerlines/dist/lib/**/*\" \"./packages/powerlines/dist/plugin-utils/**/*\" dist/packages/powerlines/dist"
         ]
       }
     },

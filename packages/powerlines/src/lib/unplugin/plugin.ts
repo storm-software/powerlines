@@ -210,10 +210,10 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
         return transformed;
       }
 
-      async function buildFinish(this: UnpluginBuildContext): Promise<void> {
+      async function buildEnd(this: UnpluginBuildContext): Promise<void> {
         log(LogLevelLabel.DEBUG, "Powerlines build plugin finishing...");
 
-        return ctx.$$internal.callHook("buildFinish", {
+        return ctx.$$internal.callHook("buildEnd", {
           sequential: true
         });
       }
@@ -246,7 +246,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
         },
         transform,
         buildStart,
-        buildFinish,
+        buildEnd,
         writeBundle,
         vite: {
           sharedDuringBuild: true

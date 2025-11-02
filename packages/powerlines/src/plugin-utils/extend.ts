@@ -16,15 +16,26 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./babel";
-export * from "./build";
-export * from "./commands";
-export * from "./config";
-export * from "./context";
-export * from "./hooks";
-export * from "./plugin";
-export * from "./resolved";
-export * from "./tsconfig";
-export * from "./typedoc";
-export * from "./unplugin";
-export * from "./vfs";
+import defu from "defu";
+import { PluginFactory } from "../types/config";
+import { PluginContext } from "../types/context";
+import { Plugin } from "../types/plugin";
+
+/**
+ * Adds additional helper functionality to a plugin via a plugin builder function.
+ *
+ * @param builder - The plugin builder function. This function receives the plugin options and returns a plugin object.
+ * @returns An object representing the plugin.
+ */
+export function extendPlugin<TContext extends PluginContext = PluginContext>(
+  builder: PluginFactory<TContext>
+) {
+  return async (
+    options: Parameters<typeof builder>[0] &
+      Partial<Omit<Plugin<TContext>, "name">>
+  ) => {
+    const result = await Promise.resolve(builder(options));
+
+    return defu(options ?? {}, result) as Plugin<TContext>;
+  };
+}

@@ -68,32 +68,18 @@
         "default": "./dist/index.js"
       }
     },
-    "./define-config": {
+    "./config": {
       "import": {
-        "types": "./dist/define-config.d.ts",
-        "default": "./dist/define-config.js"
+        "types": "./dist/config.d.ts",
+        "default": "./dist/config.js"
       },
       "require": {
-        "types": "./dist/define-config.d.cts",
-        "default": "./dist/define-config.cjs"
+        "types": "./dist/config.d.cts",
+        "default": "./dist/config.cjs"
       },
       "default": {
-        "types": "./dist/define-config.d.ts",
-        "default": "./dist/define-config.js"
-      }
-    },
-    "./extend-plugin": {
-      "import": {
-        "types": "./dist/extend-plugin.d.ts",
-        "default": "./dist/extend-plugin.js"
-      },
-      "require": {
-        "types": "./dist/extend-plugin.d.cts",
-        "default": "./dist/extend-plugin.cjs"
-      },
-      "default": {
-        "types": "./dist/extend-plugin.d.ts",
-        "default": "./dist/extend-plugin.js"
+        "types": "./dist/config.d.ts",
+        "default": "./dist/config.js"
       }
     },
     "./types": {
@@ -280,16 +266,16 @@
     },
     "./api": {
       "import": {
-        "types": "./dist/internal/api.d.ts",
-        "default": "./dist/internal/api.js"
+        "types": "./dist/api.d.ts",
+        "default": "./dist/api.js"
       },
       "require": {
-        "types": "./dist/internal/api.d.cts",
-        "default": "./dist/internal/api.cjs"
+        "types": "./dist/api.d.cts",
+        "default": "./dist/api.cjs"
       },
       "default": {
-        "types": "./dist/internal/api.d.ts",
-        "default": "./dist/internal/api.js"
+        "types": "./dist/api.d.ts",
+        "default": "./dist/api.js"
       }
     },
     "./lib": {
@@ -430,6 +416,34 @@
       "default": {
         "types": "./dist/lib/utilities/*.d.ts",
         "default": "./dist/lib/utilities/*.js"
+      }
+    },
+    "./plugin-utils": {
+      "import": {
+        "types": "./dist/plugin-utils/index.d.ts",
+        "default": "./dist/plugin-utils/index.js"
+      },
+      "require": {
+        "types": "./dist/plugin-utils/index.d.cts",
+        "default": "./dist/plugin-utils/index.cjs"
+      },
+      "default": {
+        "types": "./dist/plugin-utils/index.d.ts",
+        "default": "./dist/plugin-utils/index.js"
+      }
+    },
+    "./plugin-utils/*": {
+      "import": {
+        "types": "./dist/plugin-utils/*.d.ts",
+        "default": "./dist/plugin-utils/*.js"
+      },
+      "require": {
+        "types": "./dist/plugin-utils/*.d.cts",
+        "default": "./dist/plugin-utils/*.cjs"
+      },
+      "default": {
+        "types": "./dist/plugin-utils/*.d.ts",
+        "default": "./dist/plugin-utils/*.js"
       }
     },
     "./files/common/*": "./dist/files/common/*",

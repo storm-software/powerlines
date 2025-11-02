@@ -16,8 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { findFileExtensionSafe } from "@stryke/path/file-path-fns";
-import { replacePath } from "@stryke/path/replace";
+import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { isString } from "@stryke/type-checks/is-string";
 import defu from "defu";
 import { Format, LogLevel, Platform } from "esbuild";
@@ -112,10 +111,12 @@ export function resolveESBuildEntry(
     (ret, entry) => {
       if (isString(entry)) {
         ret[
-          replacePath(
-            entry,
-            context.config.sourceRoot || context.config.projectRoot
-          ).replace(`.${findFileExtensionSafe(entry)}`, "")
+          replaceExtension(
+            replacePath(
+              entry,
+              context.config.sourceRoot || context.config.projectRoot
+            )
+          )
         ] = replacePath(
           entry,
           context.config.sourceRoot || context.config.projectRoot

@@ -18,7 +18,7 @@
 
 import type { UserConfig as ExternalFarmOptions } from "@farmfe/core";
 import type { Configuration as ExternalRspackOptions } from "@rspack/core";
-import type { ESBuildOptions as ExternalTsupOptions } from "@storm-software/esbuild/types";
+import type { BuildOptions as ExternalTsupOptions } from "@storm-software/tsup/types";
 import type { UnbuildOptions as ExternalUnbuildOptions } from "@storm-software/unbuild/types";
 import type { BuildOptions as ExternalESBuildOptions } from "esbuild";
 import type {

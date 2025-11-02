@@ -37,16 +37,24 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { MaybePromise } from "@stryke/types/base";
 import chalk from "chalk";
 import Handlebars from "handlebars";
-import { getParsedTypeScriptConfig } from "../lib/typescript/tsconfig";
-import { writeMetaFile } from "../lib/utilities/meta";
+import { PowerlinesAPIContext } from "./internal/contexts/api-context";
+import { generateTypes } from "./internal/helpers/generate-types";
+import { callHook, CallHookOptions } from "./internal/helpers/hooks";
+import { installDependencies } from "./internal/helpers/install-dependencies";
+import {
+  initializeTsconfig,
+  resolveTsconfig
+} from "./internal/helpers/resolve-tsconfig";
+import { getParsedTypeScriptConfig } from "./lib/typescript/tsconfig";
+import { writeMetaFile } from "./lib/utilities/meta";
 import {
   checkDedupe,
   isPlugin,
   isPluginConfig,
   isPluginConfigObject,
   isPluginConfigTuple
-} from "../lib/utilities/plugin-helpers";
-import { writeFile } from "../lib/utilities/write-file";
+} from "./lib/utilities/plugin-helpers";
+import { writeFile } from "./lib/utilities/write-file";
 import type {
   BuildInlineConfig,
   CleanInlineConfig,
@@ -60,24 +68,16 @@ import type {
   PluginFactory,
   PrepareInlineConfig,
   ReleaseInlineConfig
-} from "../types/config";
+} from "./types/config";
 import type {
   APIContext,
   EnvironmentContext,
   PluginContext
-} from "../types/context";
-import { HookKeys, InferHookParameters } from "../types/hooks";
-import type { Plugin } from "../types/plugin";
-import { EnvironmentResolvedConfig, ResolvedConfig } from "../types/resolved";
-import { __VFS_INIT__, __VFS_REVERT__ } from "../types/vfs";
-import { PowerlinesAPIContext } from "./contexts/api-context";
-import { generateTypes } from "./helpers/generate-types";
-import { callHook, CallHookOptions } from "./helpers/hooks";
-import { installDependencies } from "./helpers/install-dependencies";
-import {
-  initializeTsconfig,
-  resolveTsconfig
-} from "./helpers/resolve-tsconfig";
+} from "./types/context";
+import { HookKeys, InferHookParameters } from "./types/hooks";
+import type { Plugin } from "./types/plugin";
+import { EnvironmentResolvedConfig, ResolvedConfig } from "./types/resolved";
+import { __VFS_INIT__, __VFS_REVERT__ } from "./types/vfs";
 
 /**
  * The Powerlines API class

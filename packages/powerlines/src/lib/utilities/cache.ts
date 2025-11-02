@@ -26,7 +26,7 @@ import { murmurhash } from "@stryke/hash/murmurhash";
 import { findFileName } from "@stryke/path/file-path-fns";
 import { joinPaths } from "@stryke/path/join-paths";
 import type MagicString from "magic-string";
-import type { SourceFile } from "../../types/compiler";
+import type { SourceFile } from "../../types/context";
 import { getString } from "./source-file";
 
 /**

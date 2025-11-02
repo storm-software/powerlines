@@ -24,7 +24,6 @@ const config = defineTsupConfig([
     entry: ["src/*.ts", "src/internal/api.ts", "src/types/*.ts"],
     outDir: "dist",
     clean: false,
-    sourcemap: true,
     skipNodeModulesBundle: true
   },
   {
@@ -38,8 +37,14 @@ const config = defineTsupConfig([
     ],
     outDir: "dist/lib",
     clean: false,
-    skipNodeModulesBundle: true,
-    sourcemap: true
+    skipNodeModulesBundle: true
+  },
+  {
+    name: "core-plugin-utils",
+    entry: ["src/plugin-utils/*.ts"],
+    outDir: "dist/plugin-utils",
+    clean: false,
+    skipNodeModulesBundle: true
   }
 ]);
 

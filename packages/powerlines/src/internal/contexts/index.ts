@@ -16,15 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./babel";
-export * from "./build";
-export * from "./commands";
-export * from "./config";
+export * from "./api-context";
 export * from "./context";
-export * from "./hooks";
-export * from "./plugin";
-export * from "./resolved";
-export * from "./tsconfig";
-export * from "./typedoc";
-export * from "./unplugin";
-export * from "./vfs";
+export * from "./environment-context";
+export * from "./plugin-context";

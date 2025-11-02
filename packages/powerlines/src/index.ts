@@ -25,11 +25,10 @@
  * @packageDocumentation
  */
 
-import { PowerlinesAPI } from "./internal/api";
+import { PowerlinesAPI } from "./api";
 import { plugins } from "./unplugin";
 
-export * from "./define-config";
-export * from "./extend-plugin";
+export * from "./config";
 export * from "./types";
 
 export { plugins, PowerlinesAPI };

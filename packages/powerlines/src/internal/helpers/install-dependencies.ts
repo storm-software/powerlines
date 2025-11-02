@@ -35,9 +35,21 @@ export async function installDependencies<TContext extends Context = Context>(
   );
 
   context.dependencies ??= {};
+  context.devDependencies ??= {};
+
+  if (
+    Object.keys(context.dependencies).length === 0 &&
+    Object.keys(context.devDependencies).length === 0
+  ) {
+    context.log(
+      LogLevelLabel.TRACE,
+      `No dependencies or devDependencies to install. Skipping installation step.`
+    );
+    return;
+  }
 
   context.log(
-    LogLevelLabel.TRACE,
+    LogLevelLabel.DEBUG,
     `The following packages are required: \nDependencies: \n${Object.entries(
       context.dependencies
     )

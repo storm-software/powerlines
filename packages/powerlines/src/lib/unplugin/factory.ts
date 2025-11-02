@@ -25,7 +25,7 @@ import type {
   UnpluginContext,
   UnpluginOptions
 } from "unplugin";
-import { PowerlinesAPI } from "../../internal/api";
+import { PowerlinesAPI } from "../../api";
 import { UnpluginBuildVariant } from "../../types/build";
 import { Context } from "../../types/context";
 import { InferResolvedConfig } from "../../types/resolved";

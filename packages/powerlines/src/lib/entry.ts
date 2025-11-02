@@ -18,13 +18,13 @@
 
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
+import { isFile } from "@stryke/fs/is-file";
 import { listFiles, listFilesSync } from "@stryke/fs/list-files";
 import { murmurhash } from "@stryke/hash/murmurhash";
 import { getUniqueBy } from "@stryke/helpers/get-unique";
 import { appendPath } from "@stryke/path/append";
-import { findFileExtensionSafe } from "@stryke/path/file-path-fns";
 import { joinPaths } from "@stryke/path/join-paths";
-import { replacePath } from "@stryke/path/replace";
+import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import type {
   TypeDefinition,
@@ -57,27 +57,29 @@ export function resolveEntryOutput(
   context: Context,
   typeDefinition: TypeDefinition
 ): string {
-  return joinPaths(
-    replacePath(
+  return replaceExtension(
+    joinPaths(
       replacePath(
         replacePath(
           replacePath(
-            typeDefinition.file,
+            replacePath(
+              typeDefinition.file,
+              joinPaths(
+                context.workspaceConfig.workspaceRoot,
+                context.config.sourceRoot
+              )
+            ),
             joinPaths(
               context.workspaceConfig.workspaceRoot,
-              context.config.sourceRoot
+              context.config.projectRoot
             )
           ),
-          joinPaths(
-            context.workspaceConfig.workspaceRoot,
-            context.config.projectRoot
-          )
+          context.config.sourceRoot
         ),
-        context.config.sourceRoot
-      ),
-      context.config.projectRoot
+        context.config.projectRoot
+      )
     )
-  ).replace(`.${findFileExtensionSafe(typeDefinition.file)}`, "");
+  );
 }
 
 export function resolveEntry(
@@ -109,6 +111,14 @@ export async function resolveEntries(
       typeDefinitions.map(async typeDefinition => {
         const parsed = parseTypeDefinition(typeDefinition)!;
 
+        const filePath = appendPath(parsed.file, context.config.projectRoot);
+        if (isFile(filePath)) {
+          return resolveEntry(context, {
+            file: replacePath(filePath, context.config.projectRoot),
+            name: parsed.name
+          });
+        }
+
         return (
           await listFiles(appendPath(parsed.file, context.config.projectRoot))
         ).map(file =>
@@ -139,9 +149,15 @@ export function resolveEntriesSync(
     .map(typeDefinition => {
       const parsed = parseTypeDefinition(typeDefinition)!;
 
-      return listFilesSync(
-        appendPath(parsed.file, context.config.projectRoot)
-      ).map(file =>
+      const filePath = appendPath(parsed.file, context.config.projectRoot);
+      if (isFile(filePath)) {
+        return resolveEntry(context, {
+          file: replacePath(filePath, context.config.projectRoot),
+          name: parsed.name
+        });
+      }
+
+      return listFilesSync(filePath).map(file =>
         resolveEntry(context, {
           file,
           name: parsed.name
