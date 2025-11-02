@@ -1,12 +1,13 @@
 {
-  "$schema": "https://cdn.jsdelivr.net/npm/nx/schemas/nx-schema.json",
   "extends": "@storm-software/workspace-tools/config/base.json",
   "release": {
     "groups": {
       "packages": {
         "projects": ["packages/*"],
         "projectsRelationship": "independent",
-        "releaseTagPattern": "{projectName}@{version}"
+        "releaseTag": {
+          "pattern": "{projectName}@{version}"
+        }
       }
     }
   },

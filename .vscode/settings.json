@@ -1,6 +1,19 @@
 {
   "files.eol": "\n",
   "files.insertFinalNewline": true,
+  "files.exclude": {
+    "**/common/temp/**": true,
+    "**/obj/**": true,
+    "**/bin/**": false,
+    "**/.git": false,
+    "**/.DS_Store": true
+  },
+  "files.associations": {
+    "*.hbs": "handlebars",
+    "*.acid": "acidic",
+    "*.acidic": "acidic",
+    "*.json": "jsonc"
+  },
   "search.exclude": {
     "**/bower_components": true,
     "**/*.code-search": true,
@@ -18,13 +31,6 @@
     "packages/website/versioned_docs/**": true,
     "packages/http-client-csharp/**/Generated/**": true,
     "packages/samples/scratch/**": false // Those files are in gitignore but we still want to search for them
-  },
-  "files.exclude": {
-    "**/common/temp/**": true,
-    "**/obj/**": true,
-    "**/bin/**": false,
-    "**/.git": false,
-    "**/.DS_Store": true
   },
   "relay.autoStartCompiler": true,
   "relay.rootDirectory": "../",
@@ -106,6 +112,7 @@
     "enable": true
   },
   "eslint.useFlatConfig": true,
+  "eslint.format.enable": true,
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": "active",
   "editor.tabCompletion": "on",
@@ -115,11 +122,6 @@
     "source.organizeImports": "never"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "files.associations": {
-    "*.hbs": "handlebars",
-    "*.acid": "acidic",
-    "*.acidic": "acidic"
-  },
   "[javascript]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",

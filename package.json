@@ -42,7 +42,7 @@
     "bootstrap": "pnpm exec zx tools/scripts/src/bootstrap.mjs",
     "build": "pnpm exec zx tools/scripts/src/build.mjs --prod",
     "build-dev": "pnpm exec zx tools/scripts/src/build.mjs --dev",
-    "clean": "pnpm exec rimraf dist",
+    "clean": "pnpm exec zx tools/scripts/src/clean.mjs",
     "commit": "pnpm exec storm-git commit",
     "dep-graph": "nx dep-graph",
     "e2e": "nx e2e",
