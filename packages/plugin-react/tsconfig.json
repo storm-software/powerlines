@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "@alloy-js/core",
+    "lib": ["esnext", "DOM"],
+    "types": ["node", "@alloy-js/core/testing/matchers"],
+    "strict": true,
+    "outDir": "../../dist/out-tsc"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "powerlines.config.ts"],
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "reflection": true
+}
