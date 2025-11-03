@@ -1,0 +1,89 @@
+diff --git a/dist/index.d.mts b/dist/index.d.mts
+index eed169ec0bea0a33e85dccf7961089323629aa16..9162835cce0f0983fecded94ba5c0d9255bbd63f 100644
+--- a/dist/index.d.mts
++++ b/dist/index.d.mts
+@@ -1,4 +1,8 @@
+ interface Block {
++    /**
++     * The full markdown content of the document.
++     */
++    md: string;
+     /**
+      * The name of the generator to use for updates.
+      */
+@@ -139,6 +143,13 @@ interface Config {
+     }) => void;
+     /** Custom generators */
+     generators?: Record<string, Generator>;
++    /**
++     * Alternate prefix strings to use for finding generators
++     *
++     * @remarks
++     * By default, AutoMD looks for generators with the "automd" prefix, so that any <!-- automd:generator [...args] --> comments will be picked up. If you want to use different prefixes (for example, to avoid conflicts with other tools), you would provide a value like "myPrefix" and AutoMD would also look for <!-- myPrefix:generator --> comments.
++     */
++    prefix?: string | string[];
+ }
+ declare const RESOLVED_CONFIG_SYMBOL: unique symbol;
+ type ResolvedConfig = {
+diff --git a/dist/shared/automd.CjwUz8DJ.mjs b/dist/shared/automd.CjwUz8DJ.mjs
+index 8998ce4c3c3585b061c2bac65e68fb2cd55cf77c..dbec14bbd2f3365e87d149063e2bc304cd2b35cc 100644
+--- a/dist/shared/automd.CjwUz8DJ.mjs
++++ b/dist/shared/automd.CjwUz8DJ.mjs
+@@ -627,10 +627,14 @@ const builtinGenerators = {
+   "with-automd": withAutomd,
+   contributors
+ };
+-
+-function findBlocks(md) {
++function getPrefixes(config) {
++  return !config?.prefix || !Array.isArray(config.prefix) ? "automd" : config.prefix.length > 1 ? `(${config.prefix.join("|")})` : config.prefix;
++}
++function findBlocks(md, config) {
+   const blocks = [];
+-  const AUTOMD_RE = /^(?<open><!--\s*automd:(?<generator>.+?)\s+(?<args>.*?)\s*-->)(?<contents>.+?)(?<close>^<!--\s*\/automd\s*-->)/gimsu;
++  const prefix = getPrefixes(config);
++
++  const AUTOMD_RE = new RegExp(`^(?<open><!--\\s*${prefix}:(?<generator>.+?)\\s+(?<args>.*?)\\s*-->)(?<contents>.+?)(?<close>^<!--\\s*\\/${prefix}\\s*-->)`, "gimsu");
+   for (const match of md.matchAll(AUTOMD_RE)) {
+     if (match.index === void 0 || !match.groups) {
+       continue;
+@@ -638,6 +642,7 @@ function findBlocks(md) {
+     const start = match.index + match.groups.open.length;
+     const end = start + match.groups.contents.length;
+     blocks.push({
++      md,
+       generator: match.groups.generator,
+       rawArgs: match.groups.args,
+       contents: match.groups.contents,
+@@ -648,7 +653,8 @@ function findBlocks(md) {
+   return blocks;
+ }
+ function containsAutomd(md) {
+-  return /^<!--\s*automd:/gimsu.test(md);
++  const prefix = getPrefixes(config);
++  return new RegExp(`^<!--\\s*${prefix}:`, "gimsu").test(md);
+ }
+ function parseRawArgs(rawArgs) {
+   const args = /* @__PURE__ */ Object.create(null);
+@@ -680,6 +686,12 @@ function resolveConfig(config) {
+   };
+   _config.dir = resolve(_config.dir);
+   _config.input = (Array.isArray(_config.input) ? _config.input : [_config.input]).filter(Boolean);
++
++  _config.prefix = Array.isArray(_config.prefix) ? _config.prefix : [_config.prefix];
++  if (!_config.prefix.includes("automd")) {
++    _config.prefix.push("automd");
++  }
++
+   return _config;
+ }
+ async function loadConfig(dir = ".", overrides) {
+@@ -707,7 +719,7 @@ async function transform(contents, _config, url) {
+     ...builtinGenerators,
+     ...config.generators
+   };
+-  const blocks = findBlocks(contents);
++  const blocks = findBlocks(contents, config);
+   for (const block of blocks) {
+     const result = await _transformBlock(block, config, generators, url);
+     if (result.unwrap) {

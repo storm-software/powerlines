@@ -26,5 +26,6 @@ export default defineConfig({
     plugin({
       alloy: false
     })
-  ]
+  ],
+  noExternal: ["automd"]
 });

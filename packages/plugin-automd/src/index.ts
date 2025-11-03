@@ -23,20 +23,34 @@ import { appendPath } from "@stryke/path/append";
 import { isAbsolutePath } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
-import { Config, loadConfig, resolveConfig, transform } from "automd";
+import {
+  Config,
+  GenerateContext,
+  GenerateResult,
+  loadConfig,
+  resolveConfig,
+  transform
+} from "automd";
 import { loadConfig as loadConfigFile } from "c12";
 import defu from "defu";
+import toc from "markdown-toc";
 import { Plugin } from "powerlines/types/plugin";
 import {
   AutoMDPluginContext,
   AutoMDPluginOptions,
   AutoMDPluginUserConfig
 } from "./types/plugin";
+import { TOCOptions } from "./types/toc";
 
 export * from "./types";
 
 /**
- * A Powerlines plugin to integrate AutoMD for code generation.
+ * AutoMD Plugin
+ *
+ * @remarks
+ * A Powerlines plugin to use the AutoMD markdown transformer during the prepare task.
+ *
+ * @see https://automd.unjs.io/
  *
  * @param options - The plugin options.
  * @returns A Powerlines plugin instance.
@@ -54,13 +68,28 @@ export const plugin = <
         options
       );
 
+      if (!config.prefix || !Array.isArray(config.prefix)) {
+        config.prefix = toArray(config.prefix ?? []);
+      }
+
+      if (!config.prefix.includes("automd")) {
+        config.prefix.push("automd");
+      }
+      if (!config.prefix.includes("powerlines")) {
+        config.prefix.push("powerlines");
+      }
+
       return {
         automd: defu(config ?? {}, {
           configFile: options.configFile,
           allowIssues: true,
           dir: this.config.projectRoot,
           watch: false,
-          input: "README.md"
+          input: "README.md",
+          toc: {
+            maxDepth: 6,
+            bullets: "-"
+          }
         })
       } as Partial<AutoMDPluginUserConfig>;
     },
@@ -75,7 +104,12 @@ export const plugin = <
           }
         });
 
-        this.config.automd = resolveConfig(defu(this.config.automd, config));
+        this.config.automd = resolveConfig(
+          defu(this.config.automd, {
+            ...config,
+            prefix: toArray(config.prefix ?? [])
+          }) as Config
+        );
       }
 
       this.config.automd.input = (
@@ -108,8 +142,27 @@ export const plugin = <
           this.config.projectRoot
         );
       }
+
+      this.config.automd.generators ??= {};
+
+      if (this.config.automd.toc !== false) {
+        this.config.automd.generators.toc ??= {
+          name: "toc",
+          generate: (ctx: GenerateContext): GenerateResult => {
+            const opts = (this.config.automd.toc ?? {}) as TOCOptions;
+
+            return {
+              contents: toc(ctx.block.md, {
+                ...opts,
+                maxdepth: opts.maxDepth,
+                firsth1: opts.firstH1
+              }).content
+            };
+          }
+        };
+      }
     },
-    async prepare() {
+    async docs() {
       await Promise.all(
         toArray(this.config.automd.input).map(async input => {
           const contents = await this.fs.readFile(input);
@@ -117,7 +170,9 @@ export const plugin = <
             const result = await transform(contents, this.config.automd);
             if (result.hasIssues && this.config.automd.allowIssues === false) {
               throw new Error(
-                `AutoMD found issues in file "${input}". Please resolve the issues or set "allowIssues" to true in the plugin configuration to ignore them.`
+                `AutoMD found issues in file "${
+                  input
+                }". Please resolve the issues or set \`allowIssues\` to true in the plugin configuration to ignore them.`
               );
             }
 

@@ -114,23 +114,25 @@
     }
   },
   "typings": "dist/index.d.ts",
+
   "files": ["dist/**/*"],
   "keywords": ["automd", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@stryke/convert": "catalog:",
-    "@stryke/path": "catalog:",
     "@stryke/fs": "catalog:",
+    "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
-    "defu": "catalog:",
-    "automd": "catalog:",
     "c12": "catalog:",
+    "defu": "catalog:",
+    "markdown-toc": "catalog:",
     "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
-    "@types/node": "catalog:"
+    "@types/node": "catalog:",
+    "automd": "catalog:"
   },
   "publishConfig": {
     "access": "public"

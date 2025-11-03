@@ -20,8 +20,12 @@ import { Config } from "automd";
 import { UserConfig } from "powerlines/types/config";
 import { PluginContext } from "powerlines/types/context";
 import { ResolvedConfig } from "powerlines/types/resolved";
+import { TOCOptions } from "./toc";
 
-export type AutoMDPluginOptions = Omit<Config, "dir" | "watch" | "onWatch"> & {
+export type AutoMDPluginOptions = Omit<
+  Config,
+  "dir" | "watch" | "onWatch" | "prefix"
+> & {
   /**
    * Path to the AutoMD configuration file.
    *
@@ -36,14 +40,34 @@ export type AutoMDPluginOptions = Omit<Config, "dir" | "watch" | "onWatch"> & {
    * @defaultValue true
    */
   allowIssues?: boolean;
+
+  /**
+   * Alternate prefix strings to use for finding generators
+   *
+   * @remarks
+   * By default, AutoMD looks for generators with the "automd" prefix, so that any `<!-- automd:generator [...args] --> ... <!-- /automd -->` comments will be picked up. If you want to use different prefixes (for example, to avoid conflicts with other tools), you would provide a value like "myPrefix" and AutoMD would also look for `<!-- myPrefix:generator [...args] --> ... <!-- /myPrefix -->` comments.
+   *
+   * @defaultValue ["automd", "powerlines"]
+   */
+  prefix?: string | string[];
+
+  /**
+   * Table of Contents generator options
+   *
+   * @remarks
+   * If set to `false`, the built-in Table of Contents generator will be disabled.
+   */
+  toc?: false | TOCOptions;
 };
 
 export type AutoMDPluginUserConfig = UserConfig & {
-  automd?: Config & Pick<AutoMDPluginOptions, "configFile" | "allowIssues">;
+  automd?: Config &
+    Pick<AutoMDPluginOptions, "configFile" | "allowIssues" | "toc">;
 };
 
 export type AutoMDPluginResolvedConfig = ResolvedConfig & {
-  automd: Config & Pick<AutoMDPluginOptions, "configFile" | "allowIssues">;
+  automd: Config &
+    Pick<AutoMDPluginOptions, "configFile" | "allowIssues" | "toc">;
 };
 
 export type AutoMDPluginContext<
