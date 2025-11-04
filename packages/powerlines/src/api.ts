@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { transformAsync } from "@babel/core";
 import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
@@ -25,6 +26,7 @@ import { createDirectory } from "@stryke/fs/helpers";
 import { install } from "@stryke/fs/install";
 import { listFiles } from "@stryke/fs/list-files";
 import { isPackageExists } from "@stryke/fs/package-fns";
+import { resolvePackage } from "@stryke/fs/resolve";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import { isError } from "@stryke/type-checks/is-error";
@@ -35,10 +37,13 @@ import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { MaybePromise } from "@stryke/types/base";
+import { TsConfigJson } from "@stryke/types/tsconfig";
 import chalk from "chalk";
+import defu from "defu";
 import Handlebars from "handlebars";
+import { moduleResolverBabelPlugin } from "./internal/babel/module-resolver-plugin";
 import { PowerlinesAPIContext } from "./internal/contexts/api-context";
-import { generateTypes } from "./internal/helpers/generate-types";
+import { emitTypes, formatTypes } from "./internal/helpers/generate-types";
 import { callHook, CallHookOptions } from "./internal/helpers/hooks";
 import { installDependencies } from "./internal/helpers/install-dependencies";
 import {
@@ -46,6 +51,7 @@ import {
   resolveTsconfig
 } from "./internal/helpers/resolve-tsconfig";
 import { getParsedTypeScriptConfig } from "./lib/typescript/tsconfig";
+import { getFileHeader } from "./lib/utilities/file-header";
 import { writeMetaFile } from "./lib/utilities/meta";
 import {
   checkDedupe,
@@ -74,7 +80,11 @@ import type {
   EnvironmentContext,
   PluginContext
 } from "./types/context";
-import { HookKeys, InferHookParameters } from "./types/hooks";
+import {
+  HookKeys,
+  InferHookParameters,
+  InferHookReturnType
+} from "./types/hooks";
 import type { Plugin } from "./types/plugin";
 import { EnvironmentResolvedConfig, ResolvedConfig } from "./types/resolved";
 import { __VFS_INIT__, __VFS_REVERT__ } from "./types/vfs";
@@ -234,39 +244,197 @@ export class PowerlinesAPI<
       }
 
       await this.callPreHook(context, "prepare");
-
-      if (context.config.projectType === "application") {
-        context.log(LogLevelLabel.TRACE, "Generating built-in barrel file");
-
-        //       await context.fs.writeBuiltinFile(
-        //         "index",
-        //         joinPaths(context.builtinsPath, "index.ts"),
-        //         `
-        // ${getFileHeader(context)}
-
-        // ${(await context.fs.listBuiltinFiles())
-        //   .filter(
-        //     file =>
-        //       !isParentPath(file.path, joinPaths(context.builtinsPath, "log")) &&
-        //       !isParentPath(file.path, joinPaths(context.builtinsPath, "storage"))
-        //   )
-        //   .map(
-        //     file =>
-        //       `export * from "./${replacePath(
-        //         file.path,
-        //         context.builtinsPath
-        //       ).replace(`.${findFileExtensionSafe(file.path)}`, "")}";`
-        //   )
-        //   .join("\n")}
-        // `
-        //       );
-      }
+      await this.callNormalHook(context, "prepare");
 
       if (context.config.output.dts !== false) {
-        await generateTypes(context);
-      }
+        context.log(
+          LogLevelLabel.TRACE,
+          `Preparing the TypeScript definitions for the Powerlines project.`
+        );
 
-      await this.callNormalHook(context, "prepare");
+        // await context.vfs.rm(context.runtimeDtsFilePath);
+
+        context.log(
+          LogLevelLabel.TRACE,
+          "Transforming built-ins runtime modules files."
+        );
+
+        const builtinFilePaths = await Promise.all(
+          (await context.getBuiltins()).map(async file => {
+            const result = await transformAsync(file.code.toString(), {
+              highlightCode: true,
+              code: true,
+              ast: false,
+              cloneInputAst: false,
+              comments: true,
+              sourceType: "module",
+              configFile: false,
+              babelrc: false,
+              envName: context.config.mode,
+              caller: {
+                name: "powerlines"
+              },
+              ...context.config.transform.babel,
+              filename: file.path,
+              plugins: [
+                ["@babel/plugin-syntax-typescript"],
+                [moduleResolverBabelPlugin(context)]
+              ]
+            });
+            if (!result?.code) {
+              throw new Error(
+                `Powerlines - Generate Types failed to compile ${file.id}`
+              );
+            }
+
+            context.log(
+              LogLevelLabel.TRACE,
+              `Writing transformed built-in runtime file ${file.id}.`
+            );
+
+            await context.writeBuiltin(result.code, file.id, file.path);
+            return file.path;
+          })
+        );
+
+        const typescriptPath = await resolvePackage("typescript");
+        if (!typescriptPath) {
+          throw new Error(
+            "Could not resolve TypeScript package location. Please ensure TypeScript is installed."
+          );
+        }
+
+        const files = builtinFilePaths.reduce<string[]>(
+          (ret, fileName) => {
+            const formatted = replacePath(
+              fileName,
+              context.workspaceConfig.workspaceRoot
+            );
+            if (!ret.includes(formatted)) {
+              ret.push(formatted);
+            }
+
+            return ret;
+          },
+          [joinPaths(typescriptPath, "lib", "lib.esnext.full.d.ts")]
+        );
+
+        context.log(
+          LogLevelLabel.TRACE,
+          "Parsing TypeScript configuration for the Powerlines project."
+        );
+
+        const resolvedTsconfig = getParsedTypeScriptConfig(
+          context.workspaceConfig.workspaceRoot,
+          context.config.projectRoot,
+          context.tsconfig.tsconfigFilePath,
+          defu(
+            {
+              compilerOptions: {
+                strict: false,
+                noEmit: false,
+                declaration: true,
+                declarationMap: false,
+                emitDeclarationOnly: true,
+                skipLibCheck: true
+              },
+              exclude: ["node_modules", "dist"],
+              include: files
+            },
+            context.config.tsconfigRaw ?? {}
+          ) as TsConfigJson
+        );
+        resolvedTsconfig.options.configFilePath = joinPaths(
+          context.workspaceConfig.workspaceRoot,
+          context.tsconfig.tsconfigFilePath
+        );
+        resolvedTsconfig.options.pathsBasePath =
+          context.workspaceConfig.workspaceRoot;
+        resolvedTsconfig.options.suppressOutputPathCheck = true;
+
+        let generatedTypes = await emitTypes(context, resolvedTsconfig, files);
+
+        context.log(
+          LogLevelLabel.TRACE,
+          `Generating TypeScript declaration file in ${context.config.output.dts}.`
+        );
+
+        const directives = [] as string[];
+
+        let result = await this.callPreHook(
+          context,
+          "generateTypes",
+          generatedTypes
+        );
+        if (result) {
+          if (isSetObject(result)) {
+            generatedTypes = result.code;
+            if (
+              Array.isArray(result.directives) &&
+              result.directives.length > 0
+            ) {
+              directives.push(...result.directives);
+            }
+          } else if (isSetString(result)) {
+            generatedTypes = result;
+          }
+        }
+
+        result = await this.callNormalHook(
+          context,
+          "generateTypes",
+          generatedTypes
+        );
+        if (result) {
+          if (isSetObject(result)) {
+            generatedTypes = result.code;
+            if (
+              Array.isArray(result.directives) &&
+              result.directives.length > 0
+            ) {
+              directives.push(...result.directives);
+            }
+          } else if (isSetString(result)) {
+            generatedTypes = result;
+          }
+        }
+
+        result = await this.callPostHook(
+          context,
+          "generateTypes",
+          generatedTypes
+        );
+        if (result) {
+          if (isSetObject(result)) {
+            generatedTypes = result.code;
+            if (
+              Array.isArray(result.directives) &&
+              result.directives.length > 0
+            ) {
+              directives.push(...result.directives);
+            }
+          } else if (isSetString(result)) {
+            generatedTypes = result;
+          }
+        }
+
+        await context.fs.writeFile(
+          context.config.output.dts,
+          `${
+            directives
+              ? `${directives.map(directive => `/// <reference types="${directive}" />`).join("\n")}
+
+`
+              : ""
+          }${getFileHeader(context, { directive: null, prettierIgnore: false })}
+
+${formatTypes(generatedTypes)}
+`,
+          {
+            mode: "fs"
+          }
+        );
+      }
 
       // Re-resolve the tsconfig to ensure it is up to date
       context.tsconfig = getParsedTypeScriptConfig(
@@ -612,7 +780,7 @@ export class PowerlinesAPI<
       environment?: string | EnvironmentContext<TResolvedConfig>;
     },
     ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) {
+  ): Promise<InferHookReturnType<PluginContext<TResolvedConfig>, TKey>> {
     return callHook<TResolvedConfig>(
       isSetObject(options?.environment)
         ? options.environment
@@ -639,7 +807,7 @@ export class PowerlinesAPI<
       environment?: string | EnvironmentContext<TResolvedConfig>;
     },
     ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) {
+  ): Promise<InferHookReturnType<PluginContext<TResolvedConfig>, TKey>> {
     return callHook<TResolvedConfig>(
       isSetObject(options?.environment)
         ? options.environment

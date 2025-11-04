@@ -55,6 +55,14 @@ export type PluginHook<
   TFilter extends keyof HookFilter | undefined = undefined
 > = THookFunction | PluginHookObject<THookFunction, TFilter>;
 
+/**
+ * A result returned by the plugin from the `generateTypes` hook that describes the declaration types output file.
+ */
+export interface GenerateTypesResult {
+  directives?: string[];
+  code: string;
+}
+
 export interface BasePluginHookFunctions<
   TContext extends PluginContext = PluginContext
 > extends Record<CommandType, (this: TContext) => MaybePromise<void>> {
@@ -104,6 +112,18 @@ export interface BasePluginHookFunctions<
    * @returns A promise that resolves when the hook is complete.
    */
   configResolved: (this: TContext) => MaybePromise<void>;
+
+  /**
+   * A hook that is called to overwrite the generated declaration types file (.d.ts). The generated type definitions should describe the built-in modules/logic added during the `prepare` task.
+   *
+   * @param this - The build context.
+   * @param code - The source code to generate types for.
+   * @returns A promise that resolves when the hook is complete.
+   */
+  generateTypes: (
+    this: TContext,
+    code: string
+  ) => MaybePromise<GenerateTypesResult | string | undefined | null>;
 
   /**
    * A hook that is called at the start of the build process.

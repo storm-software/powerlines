@@ -16,13 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { transformAsync } from "@babel/core";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { resolvePackage } from "@stryke/fs/resolve";
-import { joinPaths } from "@stryke/path/join-paths";
-import { replacePath } from "@stryke/path/replace";
-import { TsConfigJson } from "@stryke/types/tsconfig";
-import defu from "defu";
 import {
   createCompilerHost,
   createProgram,
@@ -30,145 +24,53 @@ import {
   getLineAndCharacterOfPosition,
   getPreEmitDiagnostics
 } from "typescript";
-import { getParsedTypeScriptConfig } from "../../lib/typescript/tsconfig";
-import { getFileHeader } from "../../lib/utilities/file-header";
-import { getSourceFile, getString } from "../../lib/utilities/source-file";
 import { Context } from "../../types/context";
-import { moduleResolverBabelPlugin } from "../babel/module-resolver-plugin";
+import { ParsedTypeScriptConfig } from "../../types/tsconfig";
 
 /**
- * Prepares the TypeScript definitions for the Powerlines project.
+ * Formats the generated TypeScript types source code.
  *
- * @remarks
- * This function calls the `prepare:types` hook and generates type declarations for the runtime artifacts if enabled.
+ * @param code - The generated TypeScript code.
+ * @returns The formatted TypeScript code.
+ */
+export function formatTypes(code: string): string {
+  return code
+    .replace(
+      // eslint-disable-next-line regexp/no-super-linear-backtracking
+      /import\s*(?:type\s*)?\{?[\w,\s]*(?:\}\s*)?from\s*(?:'|")@?[a-zA-Z0-9-\\/.]*(?:'|");?/g,
+      ""
+    )
+    .replaceAll("#private;", "")
+    .replace(/__Ω/g, "");
+}
+
+/**
+ * Emits TypeScript declaration types for the provided files using the given TypeScript configuration.
  *
  * @param context - The context containing options and environment paths.
- * @returns A promise that resolves when the preparation is complete.
+ * @param tsconfig - The TypeScript configuration to use for the compilation.
+ * @param files - The list of files to generate types for.
+ * @returns A promise that resolves to the generated TypeScript declaration types.
  */
-export async function generateTypes<TContext extends Context>(
-  context: TContext
+export async function emitTypes<TContext extends Context>(
+  context: TContext,
+  tsconfig: ParsedTypeScriptConfig,
+  files: string[]
 ) {
-  context.log(
-    LogLevelLabel.TRACE,
-    `Preparing the TypeScript definitions for the Powerlines project.`
-  );
-
-  // await context.vfs.rm(context.runtimeDtsFilePath);
-
-  context.log(
-    LogLevelLabel.TRACE,
-    "Transforming built-ins runtime modules files."
-  );
-
-  const builtinFiles = await context.getBuiltins();
-
-  const builtinFilePaths = await Promise.all(
-    builtinFiles.map(async file => {
-      const result = await transformAsync(file.code.toString(), {
-        highlightCode: true,
-        code: true,
-        ast: false,
-        cloneInputAst: false,
-        comments: true,
-        sourceType: "module",
-        configFile: false,
-        babelrc: false,
-        envName: context.config.mode,
-        caller: {
-          name: "powerlines"
-        },
-        ...context.config.transform.babel,
-        filename: file.path,
-        plugins: [
-          ["@babel/plugin-syntax-typescript"],
-          [moduleResolverBabelPlugin(context)]
-        ]
-      });
-      if (!result?.code) {
-        throw new Error(
-          `Powerlines - Generate Types failed to compile ${file.id}`
-        );
-      }
-
-      context.log(
-        LogLevelLabel.TRACE,
-        `Writing transformed built-in runtime file ${file.id}.`
-      );
-
-      await context.writeBuiltin(result.code, file.id, file.path);
-      return file.path;
-    })
-  );
-
-  const typescriptPath = await resolvePackage("typescript");
-  if (!typescriptPath) {
-    throw new Error(
-      "Could not resolve TypeScript package location. Please ensure TypeScript is installed."
-    );
-  }
-
-  const files = builtinFilePaths.reduce<string[]>(
-    (ret, fileName) => {
-      const formatted = replacePath(
-        fileName,
-        context.workspaceConfig.workspaceRoot
-      );
-      if (!ret.includes(formatted)) {
-        ret.push(formatted);
-      }
-
-      return ret;
-    },
-    [joinPaths(typescriptPath, "lib", "lib.esnext.full.d.ts")]
-  );
-
-  context.log(
-    LogLevelLabel.TRACE,
-    "Parsing TypeScript configuration for the Powerlines project."
-  );
-
-  const resolvedTsconfig = getParsedTypeScriptConfig(
-    context.workspaceConfig.workspaceRoot,
-    context.config.projectRoot,
-    context.tsconfig.tsconfigFilePath,
-    defu(
-      {
-        compilerOptions: {
-          strict: false,
-          noEmit: false,
-          declaration: true,
-          declarationMap: false,
-          emitDeclarationOnly: true,
-          skipLibCheck: true
-        },
-        exclude: ["node_modules", "dist"],
-        include: files
-      },
-      context.config.tsconfigRaw ?? {}
-    ) as TsConfigJson
-  );
-  resolvedTsconfig.options.configFilePath = joinPaths(
-    context.workspaceConfig.workspaceRoot,
-    context.tsconfig.tsconfigFilePath
-  );
-  resolvedTsconfig.options.pathsBasePath =
-    context.workspaceConfig.workspaceRoot;
-  resolvedTsconfig.options.suppressOutputPathCheck = true;
-
   context.log(LogLevelLabel.TRACE, "Creating the TypeScript compiler host");
 
   const program = createProgram(
     files,
-    resolvedTsconfig.options,
-    createCompilerHost(resolvedTsconfig.options)
-  );
-
-  context.log(
-    LogLevelLabel.TRACE,
-    `Running TypeScript compiler on ${builtinFiles.length} built-in runtime files.`
+    tsconfig.options,
+    createCompilerHost(tsconfig.options)
   );
 
   // const transformer = createImportTransformer(context);
+
+  context.log(
+    LogLevelLabel.TRACE,
+    `Running the TypeScript compiler for ${context.builtins.length} built-in runtime files.`
+  );
 
   let builtinModules = "";
   const emitResult = program.emit(
@@ -177,10 +79,11 @@ export async function generateTypes<TContext extends Context>(
       const sourceFile = sourceFiles?.[0];
       if (sourceFile?.fileName && !fileName.endsWith(".map")) {
         if (
-          builtinFiles.some(
+          context.builtins.some(
             file =>
-              file.id === sourceFile.fileName ||
-              file.path === sourceFile.fileName
+              file === sourceFile.fileName ||
+              (context.fs.meta[file]?.id &&
+                context.fs.meta[file]?.id === sourceFile.fileName)
           )
         ) {
           builtinModules += `
@@ -236,49 +139,5 @@ declare module "${context.fs.resolve(sourceFile.fileName)}" {
     );
   }
 
-  context.log(
-    LogLevelLabel.TRACE,
-    `Generating TypeScript declaration file in ${context.config.output.dts}.`
-  );
-
-  const sourceFile = getSourceFile(
-    String(context.config.output.dts),
-    `/// <reference types="powerlines/shared" />${
-      context.config.build.platform !== "neutral"
-        ? `
-/// <reference types="powerlines/${context.config.build.platform}" />`
-        : ""
-    }
-
-${getFileHeader(context, { directive: null, prettierIgnore: false })}
-
-${builtinModules}`
-      .replace(
-        // eslint-disable-next-line regexp/no-super-linear-backtracking
-        /import\s*(?:type\s*)?\{?[\w,\s]*(?:\}\s*)?from\s*(?:'|")@?[a-zA-Z0-9-\\/.]*(?:'|");?/g,
-        ""
-      )
-      .replaceAll("#private;", "")
-      .replace(/__Ω/g, "")
-  );
-
-  // await hooks
-  //   .callHook("prepare:types", context, sourceFile)
-  //   .catch((error: Error) => {
-  //     context.log(
-  //       LogLevelLabel.ERROR,
-  //       `An error occurred while preparing the TypeScript definitions for the Powerlines project: ${error.message} \n${error.stack ?? ""}`
-  //     );
-
-  //     throw new Error(
-  //       "An error occurred while preparing the TypeScript definitions for the Powerlines project",
-  //       { cause: error }
-  //     );
-  //   });
-
-  await context.fs.writeFile(sourceFile.id, getString(sourceFile.code), {
-    mode: "fs"
-  });
-
-  // context.vfs[__VFS_REVERT__]();
+  return formatTypes(builtinModules);
 }

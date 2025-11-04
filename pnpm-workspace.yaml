@@ -33,7 +33,7 @@ catalog:
   '@babel/template': ^7.27.2
   '@babel/traverse': ^7.28.5
   '@babel/types': ^7.28.5
-  '@biomejs/biome': ^2.3.2
+  '@biomejs/biome': ^2.3.3
   '@deepkit/core': 1.0.5
   '@deepkit/type': 1.0.5
   '@deepkit/type-compiler': 1.0.5
@@ -100,7 +100,7 @@ catalog:
   '@types/babel__traverse': ^7.28.0
   '@types/diff-match-patch': ^1.0.36
   '@types/jest': ^30.0.0
-  '@types/node': ^22.18.13
+  '@types/node': ^22.19.0
   '@types/semver': ^7.7.1
   '@typescript-eslint/utils': ^8.46.2
   '@vitejs/plugin-react': ^5.1.0
