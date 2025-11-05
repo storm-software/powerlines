@@ -1,8 +1,8 @@
 {
   "name": "@powerlines/plugin-unimport",
-  "version": "0.2.3",
+  "version": "0.0.1",
   "type": "module",
-  "description": "A Powerlines plugin to generate project code from OpenAPI specifications.",
+  "description": "A Powerlines plugin to add imports to source code automatically via unimport.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
