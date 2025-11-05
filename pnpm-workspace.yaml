@@ -61,22 +61,22 @@ catalog:
   '@rollup/plugin-commonjs': ^28.0.9
   '@rollup/plugin-node-resolve': ^16.0.3
   '@rspack/core': ^1.6.0
-  '@storm-software/build-tools': ^0.158.16
-  '@storm-software/config': ^1.134.16
-  '@storm-software/config-tools': ^1.188.16
-  '@storm-software/cspell': ^0.45.16
-  '@storm-software/esbuild': ^0.53.16
-  '@storm-software/eslint': ^0.169.16
-  '@storm-software/git-tools': ^2.123.16
-  '@storm-software/linting-tools': ^1.132.16
-  '@storm-software/markdownlint': ^0.30.16
-  '@storm-software/prettier': ^0.57.16
-  '@storm-software/testing-tools': ^1.119.16
-  '@storm-software/tsconfig': ^0.47.16
-  '@storm-software/tsup': ^0.2.14
-  '@storm-software/unbuild': ^0.57.16
-  '@storm-software/untyped': ^0.23.16
-  '@storm-software/workspace-tools': ^1.292.16
+  '@storm-software/build-tools': ^0.158.19
+  '@storm-software/config': ^1.134.19
+  '@storm-software/config-tools': ^1.188.19
+  '@storm-software/cspell': ^0.45.19
+  '@storm-software/esbuild': ^0.53.19
+  '@storm-software/eslint': ^0.169.19
+  '@storm-software/git-tools': ^2.124.0
+  '@storm-software/linting-tools': ^1.132.19
+  '@storm-software/markdownlint': ^0.30.19
+  '@storm-software/prettier': ^0.57.19
+  '@storm-software/testing-tools': ^1.119.19
+  '@storm-software/tsconfig': ^0.47.19
+  '@storm-software/tsup': ^0.2.17
+  '@storm-software/unbuild': ^0.57.19
+  '@storm-software/untyped': ^0.23.19
+  '@storm-software/workspace-tools': ^1.292.19
   '@stryke/capnp': ^0.12.18
   '@stryke/cli': ^0.12.4
   '@stryke/convert': ^0.6.0
@@ -236,6 +236,7 @@ overrides:
   '@powerlines/plugin-typedoc': workspace:*
   '@powerlines/plugin-unbuild': workspace:*
   '@powerlines/plugin-unimport': workspace:*
+  '@powerlines/plugin-untyped': workspace:*
   '@powerlines/plugin-vite': workspace:*
   '@powerlines/plugin-webpack': workspace:*
   '@powerlines/tools-config': workspace:*

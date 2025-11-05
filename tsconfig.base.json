@@ -84,6 +84,8 @@
       "@powerlines/plugin-unbuild/*": ["packages/plugin-unbuild/src/*"],
       "@powerlines/plugin-unimport": ["packages/plugin-unimport/src/index.ts"],
       "@powerlines/plugin-unimport/*": ["packages/plugin-unimport/src/*"],
+      "@powerlines/plugin-untyped": ["packages/plugin-untyped/src/index.ts"],
+      "@powerlines/plugin-untyped/*": ["packages/plugin-untyped/src/*"],
       "@powerlines/plugin-vite": ["packages/plugin-vite/src/index.ts"],
       "@powerlines/plugin-vite/*": ["packages/plugin-vite/src/*"],
       "@powerlines/plugin-webpack": ["packages/plugin-webpack/src/index.ts"],
