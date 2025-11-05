@@ -45,7 +45,7 @@ catalog:
   '@jest/test-result': ^30.2.0
   '@jest/types': ^30.2.0
   '@ls-lint/ls-lint': ^2.3.1
-  '@microsoft/api-extractor': ^7.53.3
+  '@microsoft/api-extractor': ^7.54.0
   '@microsoft/tsdoc': ^0.15.1
   '@microsoft/tsdoc-config': ^0.17.1
   '@nx/devkit': ^22.0.2
@@ -91,7 +91,7 @@ catalog:
   '@stryke/type-checks': ^0.3.10
   '@stryke/types': ^0.10.0
   '@stryke/unique-id': ^0.3.5
-  '@swc/core': ^1.14.0
+  '@swc/core': ^1.15.0
   '@taplo/cli': ^0.7.0
   '@types/babel__core': ^7.20.5
   '@types/babel__helper-module-imports': ^7.18.3
@@ -102,7 +102,7 @@ catalog:
   '@types/jest': ^30.0.0
   '@types/node': ^22.19.0
   '@types/semver': ^7.7.1
-  '@typescript-eslint/utils': ^8.46.2
+  '@typescript-eslint/utils': ^8.46.3
   '@vitejs/plugin-react': ^5.1.0
   '@vue/reactivity': ^3.5.22
   automd: ^0.4.2
@@ -117,7 +117,7 @@ catalog:
   diff-match-patch: ^1.0.5
   esbuild: ^0.25.12
   esbuild-plugin-babel: ^0.2.3
-  eslint: ^9.39.0
+  eslint: ^9.39.1
   eslint-flat-config-utils: ^2.1.4
   fp-ts: ^2.16.11
   github-slugger: ^2.0.0
@@ -161,7 +161,7 @@ catalog:
   tsup: 8.4.0
   typedoc: 0.25.12
   typedoc-plugin-markdown: 4.0.0-next.20
-  unimport: ^4.2.0
+  unimport: ^5.5.0
   unionfs: ^4.6.0
   unplugin: ^2.3.10
   untyped: 1.5.2
@@ -182,7 +182,6 @@ minimumReleaseAgeExclude:
   - '@storm-software/*'
   - '@stryke/*'
   - '@powerlines/*'
-  - '@vitest/eslint-plugin'
 
 onlyBuiltDependencies:
   - '@biomejs/biome'
@@ -236,6 +235,7 @@ overrides:
   '@powerlines/plugin-tsup': workspace:*
   '@powerlines/plugin-typedoc': workspace:*
   '@powerlines/plugin-unbuild': workspace:*
+  '@powerlines/plugin-unimport': workspace:*
   '@powerlines/plugin-vite': workspace:*
   '@powerlines/plugin-webpack': workspace:*
   '@powerlines/tools-config': workspace:*
