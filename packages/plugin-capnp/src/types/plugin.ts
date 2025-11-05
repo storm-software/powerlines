@@ -39,17 +39,17 @@ export type CapnpPluginOptions = Partial<
    *
    * @defaultValue "\{builtinPath\}/capnp"
    */
-  generatedPath?: string;
+  outputPath?: string;
 };
 
 export type CapnpPluginUserConfig = UserConfig & {
-  capnp?: Omit<CapnpPluginOptions, "schema" | "generatedPath"> &
-    Required<Pick<CapnpPluginOptions, "schema" | "generatedPath">>;
+  capnp?: Omit<CapnpPluginOptions, "schema" | "outputPath"> &
+    Required<Pick<CapnpPluginOptions, "schema" | "outputPath">>;
 };
 
 export type CapnpPluginResolvedConfig = ResolvedConfig & {
-  capnp: Omit<CapnpPluginOptions, "schema" | "generatedPath"> &
-    Required<Pick<CapnpPluginOptions, "schema" | "generatedPath">>;
+  capnp: Omit<CapnpPluginOptions, "schema" | "outputPath"> &
+    Required<Pick<CapnpPluginOptions, "schema" | "outputPath">>;
 };
 
 export type CapnpPluginContext<

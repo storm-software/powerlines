@@ -72,18 +72,17 @@ export const plugin = <
             this.config.logLevel === LogLevelLabel.DEBUG ||
             this.config.logLevel === LogLevelLabel.TRACE,
           debug: this.config.mode === "development",
-          generatedPath: joinPaths("{builtinPath}", "graphql")
+          outputPath: joinPaths("{builtinPath}", "graphql")
         })
       } as Partial<GraphQLPluginUserConfig>;
     },
     async configResolved() {
       this.dependencies.graphql = "latest";
 
-      this.config.graphql.generatedPath =
-        this.config.graphql.generatedPath.replace(
-          "{builtinPath}",
-          this.builtinsPath
-        );
+      this.config.graphql.outputPath = this.config.graphql.outputPath.replace(
+        "{builtinPath}",
+        this.builtinsPath
+      );
 
       this.graphql ??= {} as GraphQLPluginContext["graphql"];
 
@@ -109,7 +108,7 @@ export const plugin = <
         false
       );
 
-      if (isParentPath(this.config.graphql.generatedPath, this.builtinsPath)) {
+      if (isParentPath(this.config.graphql.outputPath, this.builtinsPath)) {
         await Promise.all(
           result.map(async output =>
             this.writeBuiltin(
@@ -117,14 +116,14 @@ export const plugin = <
               findFileName(
                 joinPaths(
                   replacePath(
-                    this.config.graphql.generatedPath,
+                    this.config.graphql.outputPath,
                     this.builtinsPath
                   ),
                   output.filename
                 ),
                 { withExtension: false }
               ),
-              joinPaths(this.config.graphql.generatedPath, output.filename)
+              joinPaths(this.config.graphql.outputPath, output.filename)
             )
           )
         );
@@ -132,7 +131,7 @@ export const plugin = <
         await Promise.all(
           result.map(async output =>
             this.fs.writeFile(
-              joinPaths(this.config.graphql.generatedPath, output.filename),
+              joinPaths(this.config.graphql.outputPath, output.filename),
               output.content
             )
           )

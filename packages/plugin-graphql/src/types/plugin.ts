@@ -40,7 +40,7 @@ export type GraphQLPluginOptions = Partial<
    *
    * @defaultValue "\{builtinPath\}/graphql"
    */
-  generatedPath?: string;
+  outputPath?: string;
 };
 
 export type GraphQLPluginUserConfig = UserConfig & {
@@ -48,8 +48,8 @@ export type GraphQLPluginUserConfig = UserConfig & {
     YamlCliFlags,
     "config" | "watch" | "project" | "overwrite" | "require"
   > &
-    Omit<GraphQLPluginOptions, "generatedPath" | "configFile"> &
-    Required<Pick<GraphQLPluginOptions, "generatedPath" | "configFile">>;
+    Omit<GraphQLPluginOptions, "outputPath" | "configFile"> &
+    Required<Pick<GraphQLPluginOptions, "outputPath" | "configFile">>;
 };
 
 export type GraphQLPluginResolvedConfig = ResolvedConfig & {
@@ -57,8 +57,8 @@ export type GraphQLPluginResolvedConfig = ResolvedConfig & {
     YamlCliFlags,
     "config" | "watch" | "project" | "overwrite" | "require"
   > &
-    Omit<GraphQLPluginOptions, "generatedPath" | "configFile"> &
-    Required<Pick<GraphQLPluginOptions, "generatedPath" | "configFile">>;
+    Omit<GraphQLPluginOptions, "outputPath" | "configFile"> &
+    Required<Pick<GraphQLPluginOptions, "outputPath" | "configFile">>;
 };
 
 export type GraphQLPluginContext<

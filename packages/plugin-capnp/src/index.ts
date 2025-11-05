@@ -59,12 +59,12 @@ export const plugin = <
             this.config.projectRoot,
             "*.capnp"
           ),
-          generatedPath: joinPaths("{builtinPath}", "capnp")
+          outputPath: joinPaths("{builtinPath}", "capnp")
         })
       } as Partial<CapnpPluginUserConfig>;
     },
     configResolved() {
-      this.config.capnp.generatedPath = this.config.capnp.generatedPath.replace(
+      this.config.capnp.outputPath = this.config.capnp.outputPath.replace(
         "{builtinPath}",
         this.builtinsPath
       );
@@ -87,22 +87,19 @@ export const plugin = <
 
       const result = await capnpc(resolvedOptions);
 
-      if (isParentPath(this.config.capnp.generatedPath, this.builtinsPath)) {
+      if (isParentPath(this.config.capnp.outputPath, this.builtinsPath)) {
         await Promise.all(
           Object.entries(result.files).map(async ([filePath, content]) =>
             this.writeBuiltin(
               content,
               findFileName(
                 joinPaths(
-                  replacePath(
-                    this.config.capnp.generatedPath,
-                    this.builtinsPath
-                  ),
+                  replacePath(this.config.capnp.outputPath, this.builtinsPath),
                   filePath
                 ),
                 { withExtension: false }
               ),
-              joinPaths(this.config.capnp.generatedPath, filePath)
+              joinPaths(this.config.capnp.outputPath, filePath)
             )
           )
         );
@@ -110,7 +107,7 @@ export const plugin = <
         await Promise.all(
           Object.entries(result.files).map(async ([filePath, content]) =>
             this.fs.writeFile(
-              joinPaths(this.config.capnp.generatedPath, filePath),
+              joinPaths(this.config.capnp.outputPath, filePath),
               content
             )
           )

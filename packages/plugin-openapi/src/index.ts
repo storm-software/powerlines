@@ -63,11 +63,11 @@ export const plugin = <
         this.config.openapi
       );
 
-      if (this.config.openapi.generatedPath) {
+      if (this.config.openapi.outputPath) {
         await this.fs.writeFile(
-          this.config.openapi.generatedPath,
+          this.config.openapi.outputPath,
           astToString(ast, {
-            fileName: this.config.openapi.generatedPath
+            fileName: this.config.openapi.outputPath
           })
         );
       } else {

@@ -70,10 +70,10 @@ export { ${configuration.collections
     createDataFiles: async (collections: Array<DataFileCollection>) => {
       await Promise.all(
         collections.map(async collection => {
-          if (context.config.contentCollections.generatedPath) {
+          if (context.config.contentCollections.outputPath) {
             return context.fs.writeFile(
               joinPaths(
-                context.config.contentCollections.generatedPath,
+                context.config.contentCollections.outputPath,
                 kebabCase(collection.name)
               ),
               serialize(collection.documents.map(doc => doc.document))

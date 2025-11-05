@@ -53,7 +53,7 @@ export const plugin = <
           schema: joinPaths(this.config.projectRoot, "prisma", "schema.prisma"),
           configFile:
             options.configFile || getConfigPath(this, "prisma.config"),
-          generatedPath: joinPaths("{builtinPath}", "prisma")
+          outputPath: joinPaths("{builtinPath}", "prisma")
         })
       } as Partial<PrismaPluginUserConfig>;
     },
@@ -76,13 +76,13 @@ export const plugin = <
         this.config.projectRoot
       );
 
-      if (!this.config.prisma.generatedPath) {
+      if (!this.config.prisma.outputPath) {
         throw new Error(
           `Prisma generated path is not defined. Please specify a valid path in the plugin configuration.`
         );
       }
 
-      this.config.prisma.generatedPath = this.config.prisma.generatedPath
+      this.config.prisma.outputPath = this.config.prisma.outputPath
         .replace(
           "{projectRoot}",
           joinPaths(this.workspaceConfig.workspaceRoot, this.config.projectRoot)
@@ -113,7 +113,7 @@ export const plugin = <
             fromEnvVar: null
           },
           output: {
-            value: this.config.prisma.generatedPath,
+            value: this.config.prisma.outputPath,
             fromEnvVar: null
           },
           config: {},
@@ -123,7 +123,7 @@ export const plugin = <
         });
       } else {
         generator.output ??= {
-          value: this.config.prisma.generatedPath,
+          value: this.config.prisma.outputPath,
           fromEnvVar: null
         };
       }

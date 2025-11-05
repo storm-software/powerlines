@@ -54,7 +54,7 @@ export interface ContentCollectionsPluginOptions {
    *
    * @defaultValue "\{builtinPath\}/content"
    */
-  generatedPath?: string;
+  outputPath?: string;
 }
 
 export type ContentCollectionsPluginUserConfig = UserConfig & {
@@ -63,9 +63,9 @@ export type ContentCollectionsPluginUserConfig = UserConfig & {
 
 export type ContentCollectionsPluginResolvedConfig = ResolvedConfig & {
   contentCollections: Required<
-    Omit<ContentCollectionsPluginOptions, "generatedPath">
+    Omit<ContentCollectionsPluginOptions, "outputPath">
   > &
-    Pick<ContentCollectionsPluginOptions, "generatedPath">;
+    Pick<ContentCollectionsPluginOptions, "outputPath">;
 };
 
 export type ContentCollectionsPluginContext<

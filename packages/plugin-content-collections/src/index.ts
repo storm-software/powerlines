@@ -67,8 +67,8 @@ export const plugin = <
           joinPaths(this.workspaceConfig.workspaceRoot, this.config.projectRoot)
         );
 
-      this.config.contentCollections.generatedPath ||=
-        this.config.contentCollections.generatedPath
+      this.config.contentCollections.outputPath ||=
+        this.config.contentCollections.outputPath
           ?.replace(
             "{projectRoot}",
             joinPaths(
@@ -108,7 +108,7 @@ export const plugin = <
           this.config.projectRoot
         ),
         outputDirectory:
-          this.config.contentCollections.generatedPath ||
+          this.config.contentCollections.outputPath ||
           joinPaths(this.builtinsPath, "content"),
         configuration
       });

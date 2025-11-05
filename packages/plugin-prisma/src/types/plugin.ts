@@ -48,7 +48,7 @@ export interface PrismaPluginOptions {
    *
    * @defaultValue "\{builtinPath\}/prisma"
    */
-  generatedPath?: string;
+  outputPath?: string;
 
   /**
    * Additional parameters to pass to the Prisma CLI
@@ -62,20 +62,13 @@ export interface PrismaPluginOptions {
 }
 
 export type PrismaPluginUserConfig = UserConfig & {
-  prisma?: Omit<
-    PrismaPluginOptions,
-    "schema" | "generatedPath" | "configFile"
-  > &
-    Required<
-      Pick<PrismaPluginOptions, "schema" | "generatedPath" | "configFile">
-    >;
+  prisma?: Omit<PrismaPluginOptions, "schema" | "outputPath" | "configFile"> &
+    Required<Pick<PrismaPluginOptions, "schema" | "outputPath" | "configFile">>;
 };
 
 export type PrismaPluginResolvedConfig = ResolvedConfig & {
-  prisma: Omit<PrismaPluginOptions, "schema" | "generatedPath" | "configFile"> &
-    Required<
-      Pick<PrismaPluginOptions, "schema" | "generatedPath" | "configFile">
-    >;
+  prisma: Omit<PrismaPluginOptions, "schema" | "outputPath" | "configFile"> &
+    Required<Pick<PrismaPluginOptions, "schema" | "outputPath" | "configFile">>;
 };
 
 export type PrismaPluginContext<

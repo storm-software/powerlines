@@ -109,9 +109,9 @@ export const plugin = <
         );
       }
 
-      if (!this.config.asyncapi.generatedPath) {
+      if (!this.config.asyncapi.outputPath) {
         throw new Error(
-          'AsyncAPI generated path is required. Please specify it in the plugin options or your Powerlines configuration under "asyncapi.generatedPath".'
+          'AsyncAPI output path is required. Please specify it in the plugin options or your Powerlines configuration under "asyncapi.outputPath".'
         );
       }
 
@@ -122,16 +122,15 @@ export const plugin = <
         this.devDependencies[this.config.asyncapi.templateName] = "latest";
       }
 
-      this.config.asyncapi.generatedPath =
-        this.config.asyncapi.generatedPath.replace(
-          "{builtinPath}",
-          this.builtinsPath
-        );
+      this.config.asyncapi.outputPath = this.config.asyncapi.outputPath.replace(
+        "{builtinPath}",
+        this.builtinsPath
+      );
     },
     async prepare() {
       const generator = new Generator(
         this.config.asyncapi.templateName,
-        this.config.asyncapi.generatedPath,
+        this.config.asyncapi.outputPath,
         this.config.asyncapi
       );
 
