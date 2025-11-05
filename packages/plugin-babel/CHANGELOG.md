@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.9](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.9) (11/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update `defined-config` module to `config`
+  ([7aafd48](https://github.com/storm-software/powerlines/commit/7aafd48))
+- **powerlines:** Update resolving logic to use `framework` to determine
+  `configFile` path
+  ([749901b](https://github.com/storm-software/powerlines/commit/749901b))
+- **monorepo:** Added internal `tools-nx` package to manage monorepo
+  ([4cffe3a](https://github.com/storm-software/powerlines/commit/4cffe3a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.8**
+- Updated **powerlines** to **v0.15.0**
+- Updated **nx** to **v0.10.0**
+
 ## [0.12.8](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.8) (2025-10-29)
 
 ### Miscellaneous

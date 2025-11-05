@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.4.5](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.5) (11/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update `defined-config` module to `config`
+  ([7aafd48](https://github.com/storm-software/powerlines/commit/7aafd48))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.15.0**
+- Updated **nx** to **v0.10.0**
+
 ## [0.4.4](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.4) (2025-10-29)
 
 ### Miscellaneous

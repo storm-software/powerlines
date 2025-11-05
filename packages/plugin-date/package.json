@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-date",
-  "version": "0.12.8",
+  "version": "0.12.9",
   "type": "module",
   "description": "A package containing a Powerlines plugin for injecting static .env configuration values to the code so that they're accessible at runtime.",
   "repository": {
@@ -125,14 +125,8 @@
       }
     }
   },
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@powerlines/plugin-env": "workspace:*",
     "@storm-software/config-tools": "catalog:",

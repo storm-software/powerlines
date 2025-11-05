@@ -1,0 +1,22 @@
+![Storm Software's logo banner](https://public.storm-cdn.com/brand-banner.png)
+
+# Changelog for Powerlines - Plugin Prisma
+
+## [0.1.0](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.1.0) (11/05/2025)
+
+### Miscellaneous
+
+- **plugin-prisma:** Added logic to replace `{projectRoot}` on `generatedPath`
+  config
+  ([c9072bc](https://github.com/storm-software/powerlines/commit/c9072bc))
+
+### Features
+
+- **plugin-prisma:** Initial check-in of the `prisma` plugin
+  ([72bb57d](https://github.com/storm-software/powerlines/commit/72bb57d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.8**
+- Updated **powerlines** to **v0.15.0**
+- Updated **nx** to **v0.10.0**

@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-graphql",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "A Powerlines plugin to generate project code from GraphQL schemas.",
   "repository": {
@@ -114,15 +114,8 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "graphql",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["graphql", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@graphql-codegen/cli": "catalog:",
     "@stryke/path": "catalog:",

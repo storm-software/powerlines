@@ -1,0 +1,18 @@
+![Storm Software's logo banner](https://public.storm-cdn.com/brand-banner.png)
+
+# Changelog for Powerlines - Plugin Automd
+
+## [0.1.0](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.0) (11/05/2025)
+
+### Features
+
+- **plugin-automd:** Added the `prefix` option and `toc` markdown generator
+  ([049f45e](https://github.com/storm-software/powerlines/commit/049f45e))
+- **plugin-automd:** Initial check-in of the `automd` plugin
+  ([6b1eb35](https://github.com/storm-software/powerlines/commit/6b1eb35))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.8**
+- Updated **powerlines** to **v0.15.0**
+- Updated **nx** to **v0.10.0**

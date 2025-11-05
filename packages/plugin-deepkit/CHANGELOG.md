@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.10.9](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.10.9) (11/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update `defined-config` module to `config`
+  ([7aafd48](https://github.com/storm-software/powerlines/commit/7aafd48))
+- **monorepo:** Added internal `tools-nx` package to manage monorepo
+  ([4cffe3a](https://github.com/storm-software/powerlines/commit/4cffe3a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.8**
+- Updated **plugin-tsc** to **v0.2.8**
+- Updated **powerlines** to **v0.15.0**
+- Updated **deepkit** to **v0.4.5**
+- Updated **nx** to **v0.10.0**
+
 ## [0.10.8](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.10.8) (2025-10-29)
 
 ### Miscellaneous

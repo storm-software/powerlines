@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.11.8](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.8) (11/05/2025)
+
+### Bug Fixes
+
+- **plugin-plugin:** Resolve typing issues during `type-check` target
+  ([1d2fff1](https://github.com/storm-software/powerlines/commit/1d2fff1))
+
+### Features
+
+- **plugin-prisma:** Initial check-in of the `prisma` plugin
+  ([72bb57d](https://github.com/storm-software/powerlines/commit/72bb57d))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.15.0**
+- Updated **nx** to **v0.10.0**
+
 ## [0.11.7](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.7) (2025-10-29)
 
 ### Miscellaneous

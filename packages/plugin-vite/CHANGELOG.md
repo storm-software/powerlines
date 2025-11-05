@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.0](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.0) (11/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Added internal `tools-nx` package to manage monorepo
+  ([4cffe3a](https://github.com/storm-software/powerlines/commit/4cffe3a))
+
+### Features
+
+- **plugin-vite:** Added the `rolldown` option to support `vite-rolldown`
+  ([ccbd5da](https://github.com/storm-software/powerlines/commit/ccbd5da))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.8**
+- Updated **powerlines** to **v0.15.0**
+- Updated **nx** to **v0.10.0**
+
 ## [0.13.8](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.13.8) (2025-10-29)
 
 ### Miscellaneous

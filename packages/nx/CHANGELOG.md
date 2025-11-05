@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.0](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.0) (11/05/2025)
+
+### Features
+
+- **nx:** Enhancement to improve Nx plugin reusablilty and customization
+  ([c76c9e2](https://github.com/storm-software/powerlines/commit/c76c9e2))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.15.0**
+
 ## [0.9.5](https://github.com/storm-software/powerlines/releases/tag/nx%400.9.5) (2025-10-28)
 
 ### Miscellaneous

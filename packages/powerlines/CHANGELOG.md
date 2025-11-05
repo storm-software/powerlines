@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.15.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.15.0) (11/05/2025)
+
+### Miscellaneous
+
+- **powerlines:** Move helpers into the `plugin-utils` module
+  ([a235978](https://github.com/storm-software/powerlines/commit/a235978))
+- **powerlines:** Update resolving logic to use `framework` to determine
+  `configFile` path
+  ([749901b](https://github.com/storm-software/powerlines/commit/749901b))
+
+### Features
+
+- **powerlines:** Added the `generateTypes` plugin hook
+  ([20a2879](https://github.com/storm-software/powerlines/commit/20a2879))
+- **powerlines:** Added the `plugin-utils` export module
+  ([6e3144b](https://github.com/storm-software/powerlines/commit/6e3144b))
+
 ## [0.14.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.14.1) (2025-10-28)
 
 ### Miscellaneous

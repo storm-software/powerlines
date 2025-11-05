@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Webpack
 
+## [0.5.9](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.9) (11/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update `defined-config` module to `config`
+  ([7aafd48](https://github.com/storm-software/powerlines/commit/7aafd48))
+- **monorepo:** Update Nx packages to v22.0.2
+  ([441f6dd](https://github.com/storm-software/powerlines/commit/441f6dd))
+- **monorepo:** Added internal `tools-nx` package to manage monorepo
+  ([4cffe3a](https://github.com/storm-software/powerlines/commit/4cffe3a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.8**
+- Updated **powerlines** to **v0.15.0**
+- Updated **nx** to **v0.10.0**
+
 ## [0.5.8](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.8) (2025-10-29)
 
 ### Miscellaneous
