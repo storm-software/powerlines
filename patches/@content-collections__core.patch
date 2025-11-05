@@ -1,0 +1,191 @@
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index 8d0f8c8365b3602f6d95d882cfb22d8e0d792402..643b6bb0d73f6d0bf053459e97638c0e1a3761b9 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -714,6 +714,7 @@ type DefineParserResult<TArgument extends Parser | ParseFn> = TArgument extends
+ declare function defineParser<TArgument extends Parser | ParseFn>(parser: TArgument): DefineParserResult<TArgument>;
+ //#endregion
+ //#region src/serializer.d.ts
++declare function serialize(value: Array<unknown>): string;
+ declare const literalSchema: ZodMiniUnion<readonly [ZodMiniString<string>, ZodMiniNumber<number>, ZodMiniBoolean<boolean>, ZodMiniNull, ZodMiniUndefined, ZodMiniDate<Date>, ZodMiniMap<ZodMiniUnknown, ZodMiniUnknown>, ZodMiniSet<ZodMiniUnknown>, ZodMiniBigInt<bigint>, ZodMiniObject<{
+   __cc_import: ZodMiniLiteral<true>;
+   path: ZodMiniString<string>;
+@@ -919,14 +920,14 @@ declare class ConfigurationError extends Error {
+   type: ErrorType;
+   constructor(type: ErrorType, message: string);
+ }
+-type InternalConfiguration = {
++export type InternalConfiguration = {
+   collections: Array<AnyCollection>;
+   path: string;
+   inputPaths: Array<string>;
+   checksum: string;
+   generateTypes?: boolean;
+ };
+-type Options = {
++export type Options = {
+   configName: string;
+   cacheDir?: string;
+ };
+@@ -1003,4 +1004,130 @@ declare const deprecations: {
+ type Deprecation = keyof typeof deprecations;
+ declare function suppressDeprecatedWarnings(...suppresses: Array<Deprecation | "all">): void;
+ //#endregion
+-export { AnyCollection, AnyConfiguration, Builder, BuilderEvents, CollectError, Collection, CollectionRequest, Configuration, ConfigurationError, ConfigurationReloadError, Context, type Document, type GetTypeByName, Meta, type Modification, Schema, SkippedSignal, TransformError, type Watcher, createBuilder, createDefaultImport, createInternalBuilder, createNamedImport, defineCollection, defineConfig, defineParser, skippedSymbol, suppressDeprecatedWarnings };
+\ No newline at end of file
++
++declare function createConfigurationReader(): (
++  configurationPath: string,
++  options: Options,
++) => Promise<InternalConfiguration>;
++
++type Dependencies = {
++  emitter: Emitter;
++  outputDirectory: string;
++  baseDirectory: string;
++  configuration: InternalConfiguration;
++};
++
++export type FileCollection = Pick<
++  AnyCollection,
++  "directory" | "include" | "exclude" | "parser"
++>;
++
++type Collector = {
++  collect<T extends FileCollection>(
++    unresolvedCollections: Array<T>,
++  ): Promise<Array<T>>;
++  collectFile<T extends FileCollection>(
++    collection: T,
++    filePath: string,
++  ): Promise<CollectionFile | null>;
++};
++
++type CacheManager = {
++  cache(collection: string, file: string): Promise<unknown | null>;
++  flush(): Promise<void>;
++}
++
++type ResolvedCollection = AnyCollection & {
++  files: Array<CollectionFile>;
++};
++
++type TransformedCollection = AnyCollection & {
++  documents: Array<any>;
++};
++
++
++type JavaScriptFileConfiguration = {
++  collections: Array<Pick<TransformedCollection, "name">>;
++};
++
++type TypeDefinitionFileConfiguration = Pick<
++  InternalConfiguration,
++  "path" | "generateTypes"
++> & {
++  collections: Array<Pick<TransformedCollection, "name" | "typeName">>;
++};
++
++type DataFileCollection = Pick<
++  TransformedCollection,
++  "name" | "documents"
++>;
++
++type Writer = {
++  createJavaScriptFile: (configuration: JavaScriptFileConfiguration) => Promise<void>;
++  createTypeDefinitionFile: (configuration: TypeDefinitionFileConfiguration) => Promise<void>;
++  createDataFiles: (collections: Array<DataFileCollection>) => Promise<void>;
++};
++
++type Synchronizer = {
++  changed(filePath: string): Promise<boolean>;
++  deleted(filePath: string): Promise<boolean>;
++};
++
++declare function createBuildContext(
++  deps: Dependencies
++): Promise<Omit<Dependencies, "outputDirectory" | "baseDirectory"> & {
++  collector: Collector;
++  writer: Writer;
++  resolved: Array<FileCollection>;
++  synchronizer: Synchronizer;
++  transform: (untransformedCollections: Array<ResolvedCollection>) => Promise<Array<TransformedCollection>>;
++  cacheManager: CacheManager;
++}>;
++type BuildContext = Awaited<ReturnType<typeof createBuildContext>>;
++
++declare function build(context: BuildContext): Promise<void>;
++
++export {
++  AnyCollection,
++  AnyConfiguration,
++  Builder,
++  BuildContext,
++  BuilderEvents,
++  CollectError,
++  Collection,
++  CollectionRequest,
++  Configuration,
++  ConfigurationError,
++  ConfigurationReloadError,
++  Context,
++  type Document,
++  type GetTypeByName,
++  Meta,
++  type Modification,
++  Schema,
++  SkippedSignal,
++  TransformError,
++  type Watcher,
++  Writer,
++  Collector,
++  CacheManager,
++  Synchronizer,
++  ResolvedCollection,
++  TransformedCollection,
++  JavaScriptFileConfiguration,
++  TypeDefinitionFileConfiguration,
++  DataFileCollection,
++  createConfigurationReader,
++  createBuilder,
++  createDefaultImport,
++  createBuildContext,
++  createInternalBuilder,
++  createNamedImport,
++  defineCollection,
++  defineConfig,
++  defineParser,
++  build,
++  serialize,
++  skippedSymbol,
++  suppressDeprecatedWarnings
++};
+diff --git a/dist/index.js b/dist/index.js
+index 788eb12ba6159a4d52aa388cb196dc708b247ee5..bc4773acefab4db7ae609237a8e6dee017286fbb 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -2289,4 +2289,22 @@ async function createInternalBuilder(initialConfiguration, baseDirectory, option
+ }
+ 
+ //#endregion
+-export { CollectError, ConfigurationError, ConfigurationReloadError, TransformError, createBuilder, createDefaultImport, createInternalBuilder, createNamedImport, defineCollection, defineConfig, defineParser, skippedSymbol, suppressDeprecatedWarnings };
+\ No newline at end of file
++export {
++  CollectError,
++  ConfigurationError,
++  ConfigurationReloadError,
++  TransformError,
++  createConfigurationReader,
++  createBuilder,
++  createDefaultImport,
++  createBuildContext,
++  createInternalBuilder,
++  createNamedImport,
++  defineCollection,
++  defineConfig,
++  defineParser,
++  build$1 as build,
++  serialize,
++  skippedSymbol,
++  suppressDeprecatedWarnings
++};

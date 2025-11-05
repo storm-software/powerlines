@@ -22,6 +22,12 @@
       "@powerlines/plugin-biome/*": ["packages/plugin-biome/src/*"],
       "@powerlines/plugin-capnp": ["packages/plugin-capnp/src/index.ts"],
       "@powerlines/plugin-capnp/*": ["packages/plugin-capnp/src/*"],
+      "@powerlines/plugin-content-collections": [
+        "packages/plugin-content-collections/src/index.ts"
+      ],
+      "@powerlines/plugin-content-collections/*": [
+        "packages/plugin-content-collections/src/*"
+      ],
       "@powerlines/plugin-crypto": ["packages/plugin-crypto/src/index.ts"],
       "@powerlines/plugin-crypto/*": ["packages/plugin-crypto/src/*"],
       "@powerlines/plugin-date": ["packages/plugin-date/src/index.ts"],
