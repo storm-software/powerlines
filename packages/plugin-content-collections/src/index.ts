@@ -26,6 +26,7 @@ import { existsSync } from "@stryke/fs/exists";
 import { joinPaths } from "@stryke/path/join";
 import defu from "defu";
 import { createHash } from "node:crypto";
+import { replacePathTokens } from "powerlines/plugin-utils/paths";
 import { Plugin } from "powerlines/types/plugin";
 import { createEmitter } from "./helpers/create-emitter";
 import { createWriter } from "./helpers/create-writer";
@@ -61,22 +62,15 @@ export const plugin = <
       } as Partial<ContentCollectionsPluginUserConfig>;
     },
     async configResolved() {
-      this.config.contentCollections.configFile ||=
-        this.config.contentCollections.configFile?.replace(
-          "{projectRoot}",
-          joinPaths(this.workspaceConfig.workspaceRoot, this.config.projectRoot)
-        );
+      this.config.contentCollections.configFile ||= replacePathTokens(
+        this,
+        this.config.contentCollections.configFile
+      );
 
-      this.config.contentCollections.outputPath ||=
+      this.config.contentCollections.outputPath ||= replacePathTokens(
+        this,
         this.config.contentCollections.outputPath
-          ?.replace(
-            "{projectRoot}",
-            joinPaths(
-              this.workspaceConfig.workspaceRoot,
-              this.config.projectRoot
-            )
-          )
-          ?.replace("{builtinPath}", this.builtinsPath);
+      );
 
       const emitter = createEmitter();
       const readConfiguration = createConfigurationReader();

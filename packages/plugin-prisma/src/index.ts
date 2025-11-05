@@ -23,6 +23,7 @@ import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import defu from "defu";
 import { getConfigPath } from "powerlines/plugin-utils/get-config-path";
+import { replacePathTokens } from "powerlines/plugin-utils/paths";
 import { Plugin } from "powerlines/types/plugin";
 import { getSchema } from "./helpers/get-schema";
 import { PrismaSchemaCreator } from "./helpers/schema-creator";
@@ -60,9 +61,9 @@ export const plugin = <
     async configResolved() {
       this.dependencies["@prisma/client"] = "latest";
 
-      this.config.prisma.configFile = this.config.prisma.configFile?.replace(
-        "{projectRoot}",
-        this.config.projectRoot
+      this.config.prisma.configFile = replacePathTokens(
+        this,
+        this.config.prisma.configFile
       );
 
       if (!this.config.prisma.schema) {
@@ -71,9 +72,9 @@ export const plugin = <
         );
       }
 
-      this.config.prisma.schema = this.config.prisma.schema.replace(
-        "{projectRoot}",
-        this.config.projectRoot
+      this.config.prisma.schema = replacePathTokens(
+        this,
+        this.config.prisma.schema
       );
 
       if (!this.config.prisma.outputPath) {
@@ -82,12 +83,10 @@ export const plugin = <
         );
       }
 
-      this.config.prisma.outputPath = this.config.prisma.outputPath
-        .replace(
-          "{projectRoot}",
-          joinPaths(this.workspaceConfig.workspaceRoot, this.config.projectRoot)
-        )
-        .replace("{builtinPath}", this.builtinsPath);
+      this.config.prisma.outputPath = replacePathTokens(
+        this,
+        this.config.prisma.outputPath
+      );
 
       this.prisma ??= {} as TContext["prisma"];
       if (!existsSync(this.config.prisma.schema)) {

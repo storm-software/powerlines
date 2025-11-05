@@ -24,6 +24,7 @@ import { isPackageExists } from "@stryke/fs/package-fns";
 import { fetchRequest } from "@stryke/http/fetch";
 import { joinPaths } from "@stryke/path/join";
 import defu from "defu";
+import { replacePathTokens } from "powerlines/plugin-utils/paths";
 import { Plugin } from "powerlines/types/plugin";
 import {
   AsyncAPIPluginContext,
@@ -122,9 +123,9 @@ export const plugin = <
         this.devDependencies[this.config.asyncapi.templateName] = "latest";
       }
 
-      this.config.asyncapi.outputPath = this.config.asyncapi.outputPath.replace(
-        "{builtinPath}",
-        this.builtinsPath
+      this.config.asyncapi.outputPath = replacePathTokens(
+        this,
+        this.config.asyncapi.outputPath
       );
     },
     async prepare() {

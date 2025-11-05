@@ -28,6 +28,7 @@ import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import defu from "defu";
 import { getConfigPath } from "powerlines/plugin-utils/get-config-path";
+import { replacePathTokens } from "powerlines/plugin-utils/paths";
 import { Plugin } from "powerlines/types/plugin";
 import {
   GraphQLPluginContext,
@@ -79,9 +80,9 @@ export const plugin = <
     async configResolved() {
       this.dependencies.graphql = "latest";
 
-      this.config.graphql.outputPath = this.config.graphql.outputPath.replace(
-        "{builtinPath}",
-        this.builtinsPath
+      this.config.graphql.outputPath = replacePathTokens(
+        this,
+        this.config.graphql.outputPath
       );
 
       this.graphql ??= {} as GraphQLPluginContext["graphql"];

@@ -24,6 +24,7 @@ import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import defu from "defu";
+import { replacePathTokens } from "powerlines/plugin-utils/paths";
 import { Plugin } from "powerlines/types/plugin";
 import {
   CapnpPluginContext,
@@ -64,9 +65,9 @@ export const plugin = <
       } as Partial<CapnpPluginUserConfig>;
     },
     configResolved() {
-      this.config.capnp.outputPath = this.config.capnp.outputPath.replace(
-        "{builtinPath}",
-        this.builtinsPath
+      this.config.capnp.outputPath = replacePathTokens(
+        this,
+        this.config.capnp.outputPath
       );
     },
     async prepare() {
