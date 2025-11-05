@@ -33,7 +33,7 @@ import {
   isPluginHook,
   isPluginHookFunction,
   isPluginHookObject
-} from "powerlines/lib/utilities/plugin-helpers";
+} from "powerlines/plugin-utils/helpers";
 import { PluginContext } from "powerlines/types/context";
 import { Plugin } from "powerlines/types/plugin";
 import { Doc } from "prettier";
@@ -50,9 +50,7 @@ import { AlloyPluginBuilder, AlloyPluginOptions } from "./types/plugin";
  */
 export function createAlloyPlugin<
   TContext extends PluginContext = PluginContext
->(
-  builder: AlloyPluginBuilder<TContext>
-) {
+>(builder: AlloyPluginBuilder<TContext>) {
   return (options: Parameters<typeof builder>[0] & AlloyPluginOptions) => {
     const result = builder(options);
 

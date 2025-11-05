@@ -26,7 +26,7 @@ import {
   isHookExternal,
   isPlugin,
   isPluginHook
-} from "../../lib/utilities/plugin-helpers";
+} from "../../plugin-utils/helpers";
 import { WorkspaceConfig } from "../../types/config";
 import {
   EnvironmentContext,

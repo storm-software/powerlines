@@ -53,14 +53,14 @@ import {
 import { getParsedTypeScriptConfig } from "./lib/typescript/tsconfig";
 import { getFileHeader } from "./lib/utilities/file-header";
 import { writeMetaFile } from "./lib/utilities/meta";
+import { writeFile } from "./lib/utilities/write-file";
 import {
   checkDedupe,
   isPlugin,
   isPluginConfig,
   isPluginConfigObject,
   isPluginConfigTuple
-} from "./lib/utilities/plugin-helpers";
-import { writeFile } from "./lib/utilities/write-file";
+} from "./plugin-utils/helpers";
 import type {
   BuildInlineConfig,
   CleanInlineConfig,
@@ -1025,9 +1025,7 @@ ${formatTypes(generatedTypes)}
     if (isPlugin<TResolvedConfig>(awaited)) {
       plugin = awaited;
     } else if (isFunction(awaited)) {
-      plugin = (await Promise.resolve(awaited())) as Plugin<
-        PluginContext<TResolvedConfig>
-      >;
+      plugin = await Promise.resolve(awaited());
     } else if (isSetString(awaited)) {
       const resolved = await this.#resolvePlugin(awaited);
       if (isFunction(resolved)) {

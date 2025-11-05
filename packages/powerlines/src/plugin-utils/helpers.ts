@@ -21,21 +21,21 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { AnyFunction } from "@stryke/types/base";
-import { SUPPORTED_COMMANDS } from "../../types/commands";
+import { SUPPORTED_COMMANDS } from "../types/commands";
 import {
   PluginConfig,
   PluginConfigObject,
   PluginConfigTuple
-} from "../../types/config";
-import { PluginContext } from "../../types/context";
+} from "../types/config";
+import { PluginContext } from "../types/context";
 import {
   BaseHookKeys,
   BaseHooksListItem,
   ExternalHookKeys,
   HookKeys
-} from "../../types/hooks";
-import { Plugin, PluginHook, PluginHookObject } from "../../types/plugin";
-import { ResolvedConfig } from "../../types/resolved";
+} from "../types/hooks";
+import { Plugin, PluginHook, PluginHookObject } from "../types/plugin";
+import { ResolvedConfig } from "../types/resolved";
 
 /**
  * Type guard to check if an object is a {@link Plugin}

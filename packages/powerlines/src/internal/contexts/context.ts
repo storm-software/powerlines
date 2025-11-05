@@ -50,7 +50,7 @@ import {
   getPrefixedProjectRootHash,
   PROJECT_ROOT_HASH_LENGTH
 } from "../../lib/utilities/meta";
-import { checkDedupe, isPlugin } from "../../lib/utilities/plugin-helpers";
+import { checkDedupe, isPlugin } from "../../plugin-utils/helpers";
 import {
   InitialUserConfig,
   LogFn,
