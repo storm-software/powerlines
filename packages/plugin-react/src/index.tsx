@@ -126,6 +126,16 @@ export const plugin = createAlloyPlugin(
         this.devDependencies["@types/react"] = "^19.2.2";
         this.devDependencies["@types/react-dom"] = "^19.2.2";
 
+        if (this.config.react.compiler !== false) {
+          this.config.transform.babel ??= {} as BabelResolvedConfig;
+
+          this.config.transform.babel.plugins ??= [];
+          this.config.transform.babel.plugins.push([
+            "babel-plugin-react-compiler",
+            this.config.react.compiler
+          ]);
+        }
+
         this.tsconfig.tsconfigJson.compilerOptions ??= {};
         this.tsconfig.tsconfigJson.compilerOptions.module ??= "esnext";
         this.tsconfig.tsconfigJson.compilerOptions.jsxImportSource =
@@ -181,19 +191,7 @@ export const plugin = createAlloyPlugin(
               "vite/client"
             );
           }
-        }
 
-        if (this.config.react.compiler !== false) {
-          this.config.transform.babel ??= {} as BabelResolvedConfig;
-
-          this.config.transform.babel.plugins ??= [];
-          this.config.transform.babel.plugins.push([
-            "babel-plugin-react-compiler",
-            this.config.react.compiler
-          ]);
-        }
-
-        if (this.config.build.variant === "vite") {
           const viteBuildConfig = this.config.build as ViteResolvedBuildConfig;
           viteBuildConfig.build ??= {};
           viteBuildConfig.build.target = "chrome95";
@@ -209,7 +207,10 @@ export const plugin = createAlloyPlugin(
           );
         }
 
-        if (this.env?.types?.env) {
+        if (
+          this.env?.types?.env &&
+          !this.env.types.env.hasProperty("DISABLE_REACT_COMPILER")
+        ) {
           this.env.types.env.addProperty({
             name: "DISABLE_REACT_COMPILER",
             optional: true,
