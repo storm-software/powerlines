@@ -202,8 +202,8 @@ catalogs:
       specifier: ^0.169.19
       version: 0.169.19
     '@storm-software/git-tools':
-      specifier: ^2.124.1
-      version: 2.124.1
+      specifier: ^2.124.2
+      version: 2.124.2
     '@storm-software/linting-tools':
       specifier: ^1.132.19
       version: 1.132.19
@@ -448,8 +448,8 @@ catalogs:
       specifier: 1.0.0-beta.45
       version: 1.0.0-beta.45
     rolldown-vite:
-      specifier: ^7.1.20
-      version: 7.1.20
+      specifier: ^7.2.0
+      version: 7.2.0
     rollup:
       specifier: ^4.52.5
       version: 4.52.5
@@ -505,8 +505,8 @@ catalogs:
       specifier: 6.1.2
       version: 6.1.2
     vite:
-      specifier: ^7.1.12
-      version: 7.1.12
+      specifier: ^7.2.0
+      version: 7.2.0
     webpack:
       specifier: ^5.102.1
       version: 5.102.1
@@ -640,7 +640,7 @@ importers:
         version: 0.169.19(109a2fdab15f66376295ede8f261c233)
       '@storm-software/git-tools':
         specifier: 'catalog:'
-        version: 2.124.1(@babel/traverse@7.28.5)(@swc-node/register@1.10.10(@swc/core@1.7.26(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.7.26(@swc/helpers@0.5.17))(@types/node@22.19.0)(conventional-changelog-storm-software@0.3.4(conventional-changelog-conventionalcommits@9.1.0)(magicast@0.3.5))(magicast@0.3.5)(verdaccio@6.1.2(typanion@3.14.0))(zod@4.1.12)
+        version: 2.124.2(@babel/traverse@7.28.5)(@swc-node/register@1.10.10(@swc/core@1.7.26(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.7.26(@swc/helpers@0.5.17))(@types/node@22.19.0)(conventional-changelog-storm-software@0.3.4(conventional-changelog-conventionalcommits@9.1.0)(magicast@0.3.5))(magicast@0.3.5)(verdaccio@6.1.2(typanion@3.14.0))(zod@4.1.12)
       '@storm-software/linting-tools':
         specifier: 'catalog:'
         version: 1.132.19(chokidar@4.0.3)
@@ -1358,7 +1358,7 @@ importers:
         version: 5.9.3
       vite:
         specifier: 'catalog:'
-        version: 7.1.12(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1)
+        version: 7.2.0(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1)
 
   packages/plugin-esbuild:
     dependencies:
@@ -1800,7 +1800,7 @@ importers:
         version: 0.18.5
       '@vitejs/plugin-react':
         specifier: 'catalog:'
-        version: 5.1.0(vite@7.1.12(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1))
+        version: 5.1.0(vite@7.2.0(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1))
       babel-plugin-react-compiler:
         specifier: 'catalog:'
         version: 1.0.0
@@ -2288,10 +2288,10 @@ importers:
         version: 22.19.0
       rolldown-vite:
         specifier: 'catalog:'
-        version: 7.1.20(@types/node@22.19.0)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1)
+        version: 7.2.0(@types/node@22.19.0)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1)
       vite:
         specifier: 'catalog:'
-        version: 7.1.12(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1)
+        version: 7.2.0(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1)
 
   packages/plugin-webpack:
     dependencies:
@@ -2568,7 +2568,7 @@ importers:
         version: 2.3.10
       vite:
         specifier: 'catalog:'
-        version: 7.1.12(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1)
+        version: 7.2.0(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1)
       webpack:
         specifier: ^5.101.3
         version: 5.102.1(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack-cli@6.0.1)
@@ -6146,8 +6146,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@oxc-project/runtime@0.95.0':
-    resolution: {integrity: sha512-qJS5pNepwMGnafO9ayKGz7rfPQgUBuunHpnP1//9Qa0zK3oT3t1EhT+I+pV9MUA+ZKez//OFqxCxf1vijCKb2Q==}
+  '@oxc-project/runtime@0.96.0':
+    resolution: {integrity: sha512-34lh4o9CcSw09Hx6fKihPu85+m+4pmDlkXwJrLvN5nMq5JrcGhhihVM415zDqT8j8IixO1PYYdQZRN4SwQCncg==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
   '@oxc-project/types@0.95.0':
@@ -7344,8 +7344,8 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
       prettier-plugin-astro: ^0.14.0
 
-  '@storm-software/git-tools@2.124.1':
-    resolution: {integrity: sha512-GqitlFScoljPG74IUosds9p04kmwOW54799yA930lrOLv5J7pZRr7u/SV6U9tEOe0egKMlMCT/jjRUk+MJYQ4A==}
+  '@storm-software/git-tools@2.124.2':
+    resolution: {integrity: sha512-7oP50FKWB1l6Nvamzk4oKSnKr/lxBdHy6cEjEmhaXAHUJWINlCqRcVfjUCG7LIm/+27rQ9OkMgxRfi1Fsd7xtA==}
     engines: {node: '>=22.4.0', pnpm: '>=10.3.0'}
     hasBin: true
     peerDependencies:
@@ -15436,8 +15436,8 @@ packages:
       vue-tsc:
         optional: true
 
-  rolldown-vite@7.1.20:
-    resolution: {integrity: sha512-iXo6JzhBnNl+MY5Wky2Qr4RnB1gLJ3798YUMC3uBXSjCDM/bV+ALcnm5M23eOy9Nldi18aUioLpTB/PtqvwSZQ==}
+  rolldown-vite@7.2.0:
+    resolution: {integrity: sha512-Xc1zN+Jd5Gv7U6Slculz9IomyIMp/X+dS7NTrGFxfkBqjIF5flKrE0bLBu/TAIve0AGabVI2IxEQsCujypF6mA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -17207,8 +17207,8 @@ packages:
       yaml:
         optional: true
 
-  vite@7.1.12:
-    resolution: {integrity: sha512-ZWyE8YXEXqJrrSLvYgrRP7p62OziLW7xI5HYGWFzOvupfAlrLvURSzv/FyGyy0eidogEM3ujU+kUG1zuHgb6Ug==}
+  vite@7.2.0:
+    resolution: {integrity: sha512-C/Naxf8H0pBx1PA4BdpT+c/5wdqI9ILMdwjSMILw7tVIh3JsxzZqdeTLmmdaoh5MYUEOyBnM9K3o0DzoZ/fe+w==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -22719,7 +22719,7 @@ snapshots:
   '@oxc-parser/binding-win32-x64-msvc@0.95.0':
     optional: true
 
-  '@oxc-project/runtime@0.95.0': {}
+  '@oxc-project/runtime@0.96.0': {}
 
   '@oxc-project/types@0.95.0': {}
 
@@ -23804,7 +23804,7 @@ snapshots:
       - verdaccio
       - vitest
 
-  '@storm-software/git-tools@2.124.1(@babel/traverse@7.28.5)(@swc-node/register@1.10.10(@swc/core@1.7.26(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.7.26(@swc/helpers@0.5.17))(@types/node@22.19.0)(conventional-changelog-storm-software@0.3.4(conventional-changelog-conventionalcommits@9.1.0)(magicast@0.3.5))(magicast@0.3.5)(verdaccio@6.1.2(typanion@3.14.0))(zod@4.1.12)':
+  '@storm-software/git-tools@2.124.2(@babel/traverse@7.28.5)(@swc-node/register@1.10.10(@swc/core@1.7.26(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.7.26(@swc/helpers@0.5.17))(@types/node@22.19.0)(conventional-changelog-storm-software@0.3.4(conventional-changelog-conventionalcommits@9.1.0)(magicast@0.3.5))(magicast@0.3.5)(verdaccio@6.1.2(typanion@3.14.0))(zod@4.1.12)':
     dependencies:
       '@commitlint/ensure': 19.8.1
       '@commitlint/rules': 19.8.1
@@ -25286,7 +25286,7 @@ snapshots:
       minimatch: 7.4.6
       semver: 7.7.1
 
-  '@vitejs/plugin-react@5.1.0(vite@7.1.12(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1))':
+  '@vitejs/plugin-react@5.1.0(vite@7.2.0(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1))':
     dependencies:
       '@babel/core': 7.28.5
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.5)
@@ -25294,7 +25294,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.43
       '@types/babel__core': 7.20.5
       react-refresh: 0.18.0
-      vite: 7.1.12(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1)
+      vite: 7.2.0(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -34538,14 +34538,14 @@ snapshots:
       - oxc-resolver
       - supports-color
 
-  rolldown-vite@7.1.20(@types/node@22.19.0)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1):
+  rolldown-vite@7.2.0(@types/node@22.19.0)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1):
     dependencies:
-      '@oxc-project/runtime': 0.95.0
+      '@oxc-project/runtime': 0.96.0
       fdir: 6.5.0(picomatch@4.0.3)
       lightningcss: 1.30.2
       picomatch: 4.0.3
       postcss: 8.5.6
-      rolldown: 1.0.0-beta.45
+      rolldown: 1.0.0-beta.47
       tinyglobby: 0.2.15
     optionalDependencies:
       '@types/node': 22.19.0
@@ -36812,7 +36812,7 @@ snapshots:
       terser: 5.44.0
       yaml: 2.8.1
 
-  vite@7.1.12(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1):
+  vite@7.2.0(@types/node@22.19.0)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1):
     dependencies:
       esbuild: 0.25.12
       fdir: 6.5.0(picomatch@4.0.3)

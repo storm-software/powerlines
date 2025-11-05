@@ -69,7 +69,7 @@ catalog:
   '@storm-software/cspell': ^0.45.19
   '@storm-software/esbuild': ^0.53.19
   '@storm-software/eslint': ^0.169.19
-  '@storm-software/git-tools': ^2.124.1
+  '@storm-software/git-tools': ^2.124.2
   '@storm-software/linting-tools': ^1.132.19
   '@storm-software/markdownlint': ^0.30.19
   '@storm-software/prettier': ^0.57.19
@@ -151,7 +151,7 @@ catalog:
   prettier: ^3.6.2
   rimraf: ^6.1.0
   rolldown: 1.0.0-beta.45
-  rolldown-vite: ^7.1.20
+  rolldown-vite: ^7.2.0
   rollup: ^4.52.5
   rollup-plugin-typescript2: ^0.36.0
   sherif: ^1.8.0
@@ -170,7 +170,7 @@ catalog:
   unplugin: ^2.3.10
   untyped: 1.5.2
   verdaccio: 6.1.2
-  vite: ^7.1.12
+  vite: ^7.2.0
   webpack: ^5.102.1
   zx: ^8.8.5
 
