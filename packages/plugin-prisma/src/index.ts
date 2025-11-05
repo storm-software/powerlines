@@ -82,11 +82,12 @@ export const plugin = <
         );
       }
 
-      this.config.prisma.generatedPath =
-        this.config.prisma.generatedPath.replace(
-          "{builtinPath}",
-          this.builtinsPath
-        );
+      this.config.prisma.generatedPath = this.config.prisma.generatedPath
+        .replace(
+          "{projectRoot}",
+          joinPaths(this.workspaceConfig.workspaceRoot, this.config.projectRoot)
+        )
+        .replace("{builtinPath}", this.builtinsPath);
 
       this.prisma ??= {} as TContext["prisma"];
       if (!existsSync(this.config.prisma.schema)) {
