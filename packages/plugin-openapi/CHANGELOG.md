@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Openapi
 
+## [0.2.5](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.5) (11/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Rename `generatedPath` to `outputPath` to be consistent
+  ([68799b3](https://github.com/storm-software/powerlines/commit/68799b3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.9**
+- Updated **powerlines** to **v0.16.0**
+- Updated **nx** to **v0.10.1**
+
 ## [0.2.4](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.4) (11/05/2025)
 
 ### Miscellaneous

@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Graphql
 
+## [0.1.2](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.2) (11/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Rename `generatedPath` to `outputPath` to be consistent
+  ([68799b3](https://github.com/storm-software/powerlines/commit/68799b3))
+
+### Features
+
+- **powerlines:** Added the `replacePathTokens` helper utility
+  ([659fc2a](https://github.com/storm-software/powerlines/commit/659fc2a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.9**
+- Updated **powerlines** to **v0.16.0**
+- Updated **nx** to **v0.10.1**
+
 ## [0.1.1](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.1) (11/05/2025)
 
 ### Miscellaneous

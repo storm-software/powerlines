@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.16.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.16.0) (11/05/2025)
+
+### Features
+
+- **powerlines:** Added the `replacePathTokens` helper utility
+  ([659fc2a](https://github.com/storm-software/powerlines/commit/659fc2a))
+
 ## [0.15.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.15.0) (11/05/2025)
 
 ### Miscellaneous
