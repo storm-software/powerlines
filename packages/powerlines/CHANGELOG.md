@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.17.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.17.0) (11/07/2025)
+
+### Miscellaneous
+
+- **powerlines:** Resolve TypeScript linting issue
+  ([bb727a8](https://github.com/storm-software/powerlines/commit/bb727a8))
+
+### Features
+
+- **powerlines:** Added the `extend` and `merge` plugin helpers
+  ([9cc1ec9](https://github.com/storm-software/powerlines/commit/9cc1ec9))
+
 ## [0.16.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.16.0) (11/05/2025)
 
 ### Features

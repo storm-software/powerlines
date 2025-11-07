@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Satori
 
+## [0.1.1](https://github.com/storm-software/powerlines/releases/tag/plugin-satori%400.1.1) (11/07/2025)
+
+### Bug Fixes
+
+- **plugin-satori:** Update resolver logic to use `jiti` on context
+  ([1d1dc48](https://github.com/storm-software/powerlines/commit/1d1dc48))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.10**
+- Updated **powerlines** to **v0.17.0**
+- Updated **nx** to **v0.10.2**
+
 ## [0.1.0](https://github.com/storm-software/powerlines/releases/tag/plugin-satori%400.1.0) (11/05/2025)
 
 ### Features
