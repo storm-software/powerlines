@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+export * from "./enforce";
 export * from "./extend";
 export * from "./get-config-path";
 export * from "./helpers";

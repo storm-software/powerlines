@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { createDefu } from "defu";
+import defu, { createDefu } from "defu";
 import { PartialPlugin } from "../types/config";
 import { PluginContext } from "../types/context";
 import { Plugin } from "../types/plugin";
@@ -44,9 +44,7 @@ const mergePlugin = createDefu((obj, key, value) => {
           getHookHandler(value)(...params)
         ]);
 
-        return resultB && resultA
-          ? [...resultA, ...resultB]
-          : resultA || resultB;
+        return resultB && resultA ? defu(resultA, resultB) : resultA || resultB;
       }
     };
     return true;
