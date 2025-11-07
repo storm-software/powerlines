@@ -105,6 +105,15 @@ export type PluginConfig<TContext extends PluginContext = PluginContext> =
   | PluginConfigTuple<TContext>
   | PluginConfigObject<TContext>;
 
+export type PartialPlugin<
+  in out TContext extends PluginContext = PluginContext
+> = DeepPartial<Plugin<TContext>>;
+
+export type PartialPluginFactory<
+  in out TContext extends PluginContext = PluginContext,
+  TOptions = any
+> = (options: TOptions) => MaybePromise<PartialPlugin<TContext>>;
+
 export type ProjectType = "application" | "library";
 
 export type BabelUserConfig = Parameters<typeof transformAsync>[1] & {
@@ -600,17 +609,19 @@ export type ConfigEnv = Pick<
   "command" | "mode" | "environments" | "preview"
 >;
 
-export type AnyUserConfig =
-  | Partial<UserConfig>
-  | Partial<WebpackUserConfig>
-  | Partial<RspackUserConfig>
-  | Partial<ViteUserConfig>
-  | Partial<ESBuildUserConfig>
-  | Partial<UnbuildUserConfig>
-  | Partial<TsupUserConfig>
-  | Partial<RolldownUserConfig>
-  | Partial<RollupUserConfig>
-  | Partial<FarmUserConfig>;
+export type AnyUserConfig = Record<string, any> &
+  (
+    | Partial<UserConfig>
+    | Partial<WebpackUserConfig>
+    | Partial<RspackUserConfig>
+    | Partial<ViteUserConfig>
+    | Partial<ESBuildUserConfig>
+    | Partial<UnbuildUserConfig>
+    | Partial<TsupUserConfig>
+    | Partial<RolldownUserConfig>
+    | Partial<RollupUserConfig>
+    | Partial<FarmUserConfig>
+  );
 
 export type UserConfigFnObject = (env: ConfigEnv) => DeepPartial<UserConfig>;
 export type UserConfigFnPromise = (

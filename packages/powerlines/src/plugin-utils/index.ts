@@ -19,4 +19,5 @@
 export * from "./extend";
 export * from "./get-config-path";
 export * from "./helpers";
+export * from "./merge";
 export * from "./paths";

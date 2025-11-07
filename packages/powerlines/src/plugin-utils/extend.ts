@@ -16,26 +16,61 @@
 
  ------------------------------------------------------------------- */
 
-import defu from "defu";
-import { PluginFactory } from "../types/config";
+import { isFunction } from "@stryke/type-checks/is-function";
+import {
+  PartialPlugin,
+  PartialPluginFactory,
+  PluginFactory
+} from "../types/config";
 import { PluginContext } from "../types/context";
 import { Plugin } from "../types/plugin";
+import { merge } from "./merge";
 
 /**
  * Adds additional helper functionality to a plugin via a plugin builder function.
  *
- * @param builder - The plugin builder function. This function receives the plugin options and returns a plugin object.
- * @returns An object representing the plugin.
+ * @param plugin - The base plugin object or factory function to extend.
+ * @param extension - The plugin extension object or factory function. This function receives the plugin options and returns a plugin object.
+ * @returns A function accepting the plugin options and returning the extended plugin.
  */
-export function extendPlugin<TContext extends PluginContext = PluginContext>(
-  builder: PluginFactory<TContext>
-) {
-  return async (
-    options: Parameters<typeof builder>[0] &
-      Partial<Omit<Plugin<TContext>, "name">>
-  ) => {
-    const result = await Promise.resolve(builder(options));
+export function extend<TContext extends PluginContext = PluginContext>(
+  plugin: Plugin<TContext> | PluginFactory<TContext>,
+  extension: PartialPlugin<TContext> | PartialPluginFactory<TContext>
+): typeof plugin extends PluginFactory<TContext>
+  ? PluginFactory<
+      TContext,
+      (typeof extension extends PluginFactory<TContext>
+        ? Parameters<typeof extension>[0]
+        : never) &
+        Parameters<typeof plugin>[0]
+    >
+  : typeof plugin extends PluginFactory<TContext>
+    ? PluginFactory<TContext>
+    : Plugin<TContext> {
+  if (isFunction(plugin)) {
+    if (isFunction(extension)) {
+      return async (
+        options: Parameters<typeof plugin>[0] & Parameters<typeof extension>[0]
+      ) => {
+        const pluginResult = await Promise.resolve(plugin(options));
+        const extensionResult = await Promise.resolve(extension(options));
 
-    return defu(options ?? {}, result) as Plugin<TContext>;
-  };
+        return merge(extensionResult, pluginResult) as Plugin<TContext>;
+      };
+    }
+
+    return async (options: Parameters<typeof plugin>[0]) => {
+      const result = await Promise.resolve(plugin(options));
+
+      return merge(extension, result) as Plugin<TContext>;
+    };
+  } else if (isFunction(extension)) {
+    return async (options: Parameters<typeof extension>[0]) => {
+      const result = await Promise.resolve(extension(options));
+
+      return merge(plugin, result);
+    };
+  }
+
+  return merge(plugin, extension) as Plugin<TContext>;
 }
