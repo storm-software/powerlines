@@ -51,6 +51,8 @@ const mergePlugin = createDefu((obj, key, value) => {
     };
     return true;
   }
+
+  return false;
 });
 
 /**
