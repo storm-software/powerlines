@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.18.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.18.0) (11/07/2025)
+
+### Features
+
+- **powerlines:** Added the `enforceVariant` helper utility
+  ([cd90565](https://github.com/storm-software/powerlines/commit/cd90565))
+
 ## [0.17.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.17.0) (11/07/2025)
 
 ### Miscellaneous
