@@ -24,7 +24,6 @@ import { findFileExtensionSafe } from "@stryke/path/file-path-fns";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import defu from "defu";
-import { resolve } from "powerlines/lib/utilities/resolve";
 import { replacePathTokens } from "powerlines/plugin-utils/paths";
 import type { Plugin } from "powerlines/types/plugin";
 import satori from "satori";
@@ -91,7 +90,8 @@ export const plugin = <
       await Promise.all(
         this.config.satori.inputs.map(async input => {
           try {
-            const mod = await resolve<SatoriComponentModule>(this, input);
+            const mod =
+              await this.resolver.import<SatoriComponentModule>(input);
             if (mod && mod.default) {
               const result = await satori(
                 mod.default,
