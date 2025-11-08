@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.19.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.19.0) (11/08/2025)
+
+### Features
+
+- **powerlines:** Added log helper functions to `Context` object
+  ([6189d68](https://github.com/storm-software/powerlines/commit/6189d68))
+
 ## [0.18.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.18.0) (11/07/2025)
 
 ### Features
