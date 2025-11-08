@@ -26,7 +26,11 @@ import type { DirectoryJSON } from "memfs";
 import { ParseResult, ParserOptions } from "oxc-parser";
 import { Range } from "semver";
 import type { Unimport } from "unimport";
-import type { UnpluginBuildContext, UnpluginContext } from "unplugin";
+import type {
+  UnpluginBuildContext,
+  UnpluginContext,
+  UnpluginMessage
+} from "unplugin";
 import type {
   InlineConfig,
   LogFn,
@@ -181,6 +185,36 @@ export interface Context<
    * A logging function for the Powerlines engine
    */
   log: LogFn;
+
+  /**
+   * A logging function for fatal messages
+   */
+  fatal: (message: string | UnpluginMessage) => void;
+
+  /**
+   * A logging function for error messages
+   */
+  error: (message: string | UnpluginMessage) => void;
+
+  /**
+   * A logging function for warning messages
+   */
+  warn: (message: string | UnpluginMessage) => void;
+
+  /**
+   * A logging function for informational messages
+   */
+  info: (message: string | UnpluginMessage) => void;
+
+  /**
+   * A logging function for debug messages
+   */
+  debug: (message: string | UnpluginMessage) => void;
+
+  /**
+   * A logging function for trace messages
+   */
+  trace: (message: string | UnpluginMessage) => void;
 
   /**
    * The metadata information

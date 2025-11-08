@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
 import { EnvPaths, getEnvPaths } from "@stryke/env/get-env-paths";
 import { existsSync } from "@stryke/fs/exists";
@@ -25,6 +26,7 @@ import { resolvePackage } from "@stryke/fs/resolve";
 import { murmurhash } from "@stryke/hash/murmurhash";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
+import { StormJSON } from "@stryke/json/storm-json";
 import { appendPath } from "@stryke/path/append";
 import { hasFileExtension } from "@stryke/path/file-path-fns";
 import { isAbsolute } from "@stryke/path/is-type";
@@ -41,6 +43,7 @@ import defu from "defu";
 import { DirectoryJSON } from "memfs";
 import { parseAsync, ParseResult, ParserOptions } from "oxc-parser";
 import { Range } from "semver";
+import { UnpluginMessage } from "unplugin";
 import { loadUserConfigFile, loadWorkspaceConfig } from "../../lib/config-file";
 import { getUniqueEntries, resolveEntriesSync } from "../../lib/entry";
 import { createLog, extendLog } from "../../lib/logger";
@@ -564,6 +567,78 @@ export class PowerlinesContext<
     }
 
     await this.init(this.config.inlineConfig, options);
+  }
+
+  /**
+   * A logging function for fatal messages
+   *
+   * @param message - The message to log.
+   */
+  public fatal(message: string | UnpluginMessage) {
+    this.log(
+      LogLevelLabel.FATAL,
+      isString(message) ? message : StormJSON.stringify(message)
+    );
+  }
+
+  /**
+   * A logging function for error messages
+   *
+   * @param message - The message to log.
+   */
+  public error(message: string | UnpluginMessage) {
+    this.log(
+      LogLevelLabel.ERROR,
+      isString(message) ? message : StormJSON.stringify(message)
+    );
+  }
+
+  /**
+   * A logging function for warning messages
+   *
+   * @param message - The message to log.
+   */
+  public warn(message: string | UnpluginMessage) {
+    this.log(
+      LogLevelLabel.WARN,
+      isString(message) ? message : StormJSON.stringify(message)
+    );
+  }
+
+  /**
+   * A logging function for informational messages
+   *
+   * @param message - The message to log.
+   */
+  public info(message: string | UnpluginMessage) {
+    this.log(
+      LogLevelLabel.INFO,
+      isString(message) ? message : StormJSON.stringify(message)
+    );
+  }
+
+  /**
+   * A logging function for debug messages
+   *
+   * @param message - The message to log.
+   */
+  public debug(message: string | UnpluginMessage) {
+    this.log(
+      LogLevelLabel.DEBUG,
+      isString(message) ? message : StormJSON.stringify(message)
+    );
+  }
+
+  /**
+   * A logging function for trace messages
+   *
+   * @param message - The message to log.
+   */
+  public trace(message: string | UnpluginMessage) {
+    this.log(
+      LogLevelLabel.TRACE,
+      isString(message) ? message : StormJSON.stringify(message)
+    );
   }
 
   /**
