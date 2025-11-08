@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.19.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.19.2) (11/08/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue applying `filter` to plugin hooks
+  ([38701ee](https://github.com/storm-software/powerlines/commit/38701ee))
+
 ## [0.19.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.19.1) (11/08/2025)
 
 ### Bug Fixes
