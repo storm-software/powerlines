@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.19.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.19.1) (11/08/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolved issue with nested ouput path on `entry` values
+  ([b95bba9](https://github.com/storm-software/powerlines/commit/b95bba9))
+
 ## [0.19.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.19.0) (11/08/2025)
 
 ### Features
