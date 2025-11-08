@@ -32,7 +32,7 @@ import type { EnvironmentResolvedConfig, ResolvedConfig } from "./resolved";
 
 export interface PluginHookObject<
   THookFunction extends FunctionLike,
-  TFilter extends keyof HookFilter | undefined = undefined
+  TFilter extends keyof HookFilter = never
 > {
   /**
    * The order in which the plugin should be applied.
@@ -42,7 +42,7 @@ export interface PluginHookObject<
   /**
    * A filter to determine when the hook should be called.
    */
-  filter?: TFilter;
+  filter?: Pick<HookFilter, TFilter>;
 
   /**
    * The hook function to be called.
@@ -52,7 +52,7 @@ export interface PluginHookObject<
 
 export type PluginHook<
   THookFunction extends FunctionLike,
-  TFilter extends keyof HookFilter | undefined = undefined
+  TFilter extends keyof HookFilter = never
 > = THookFunction | PluginHookObject<THookFunction, TFilter>;
 
 /**
