@@ -58,7 +58,7 @@ export function resolveEntryOutput(
   typeDefinition: TypeDefinition
 ): string {
   return replaceExtension(
-    joinPaths(
+    replacePath(
       replacePath(
         replacePath(
           replacePath(
@@ -77,7 +77,8 @@ export function resolveEntryOutput(
           context.config.sourceRoot
         ),
         context.config.projectRoot
-      )
+      ),
+      replacePath(context.config.sourceRoot, context.config.projectRoot)
     )
   );
 }
