@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.19.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.19.3) (11/12/2025)
+
+### Miscellaneous
+
+- **powerlines:** Reduce type strictness on `defineConfig` parameter
+  ([ef031db](https://github.com/storm-software/powerlines/commit/ef031db))
+
 ## [0.19.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.19.2) (11/08/2025)
 
 ### Bug Fixes
