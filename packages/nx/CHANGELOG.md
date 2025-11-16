@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.9](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.9) (11/16/2025)
+
+### Miscellaneous
+
+- **powerlines:** Added debug initialization logging for the Nx plugin
+  ([845b5db](https://github.com/storm-software/powerlines/commit/845b5db))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.19.5**
+
 ## [0.10.8](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.8) (11/16/2025)
 
 ### Bug Fixes
