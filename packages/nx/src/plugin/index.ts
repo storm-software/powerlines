@@ -16,13 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import type { CreateNodesV2 } from "@nx/devkit";
 import { createNxPlugin } from "../helpers/plugin-utilities";
 import { NxPluginOptions } from "../types/plugin";
 
-export const name = "powerlines/nx/plugin";
-
-export const createNodesV2: CreateNodesV2<NxPluginOptions> = createNxPlugin({
-  name,
+export const createNodesV2 = createNxPlugin<NxPluginOptions>({
   framework: "powerlines"
 });

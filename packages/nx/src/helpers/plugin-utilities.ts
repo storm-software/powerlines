@@ -37,6 +37,7 @@ import { readJsonFileSync } from "@stryke/fs/json";
 import { murmurhash } from "@stryke/hash/murmurhash";
 import { joinPaths } from "@stryke/path/join-paths";
 import { kebabCase } from "@stryke/string-format/kebab-case";
+import { titleCase } from "@stryke/string-format/title-case";
 import { isError } from "@stryke/type-checks/is-error";
 import type { PackageJson } from "@stryke/types/package-json";
 import defu from "defu";
@@ -104,9 +105,15 @@ export interface CreateNxPluginOptions {
   framework?: string;
 }
 
-export function createNxPlugin(
-  opts?: CreateNxPluginOptions
-): CreateNodesV2<NxPluginOptions> {
+/**
+ * Creates an Nx plugin that integrates Powerlines into the Nx build process.
+ *
+ * @param opts - Options for creating the Nx plugin
+ * @returns A CreateNodesV2 function that can be used as an Nx plugin
+ */
+export function createNxPlugin<
+  TOptions extends NxPluginOptions = NxPluginOptions
+>(opts?: CreateNxPluginOptions): CreateNodesV2<TOptions> {
   const framework = opts?.framework || "powerlines";
   const name = opts?.name || `${framework}/plugin/nx`;
   const artifactsFolder =
@@ -114,6 +121,10 @@ export function createNxPlugin(
 
   const targetInputs = getNxTargetInputs(framework);
   const pluginInputs = getNxPluginInputs(framework);
+
+  console.debug(
+    `[${name}]: Initializing the ${titleCase(framework)} Nx plugin for the following inputs: ${pluginInputs}`
+  );
 
   return [
     pluginInputs,
