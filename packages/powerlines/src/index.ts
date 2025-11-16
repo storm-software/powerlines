@@ -28,6 +28,7 @@
 import { PowerlinesAPI } from "./api";
 import { plugins } from "./unplugin";
 
+export * from "../schemas/fs";
 export * from "./config";
 export * from "./types";
 

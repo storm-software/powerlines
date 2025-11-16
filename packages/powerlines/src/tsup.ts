@@ -28,11 +28,11 @@ import PowerlinesESBuild from "./esbuild";
  * @example
  * ```ts
  * // tsup.config.ts
- * import withPowerlines from 'powerlines/tsup'
+ * import withPowerlines from "powerlines/tsup"
  *
  * export default withPowerlines({
- *  entry: ['src/index.ts'],
- *  format: ['cjs', 'esm'],
+ *  entry: ["src/index.ts"],
+ *  format: ["cjs", "esm"],
  *  dts: true,
  *  sourcemap: true,
  *  clean: true,

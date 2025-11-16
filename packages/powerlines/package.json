@@ -448,11 +448,16 @@
     },
     "./files/common/*": "./dist/files/common/*",
     "./files/library/*": "./dist/files/library/*",
-    "./files/application/*": "./dist/files/application/*"
+    "./files/application/*": "./dist/files/application/*",
+    "./schemas/*": "./dist/schemas/*"
   },
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*", "files/**/*"],
+  "files": [
+    "dist/**/*",
+    "files/**/*",
+    "schemas/**/*"
+  ],
   "keywords": [
     "powerlines",
     "storm-software",
@@ -576,6 +581,7 @@
     "@storm-software/esbuild": "catalog:",
     "@storm-software/tsup": "catalog:",
     "@storm-software/unbuild": "catalog:",
+    "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",
     "@stryke/env": "catalog:",
     "@stryke/fs": "catalog:",
@@ -586,6 +592,7 @@
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/unique-id": "catalog:",
+    "@typescript-eslint/utils": "catalog:",
     "babel-dead-code-elimination": "catalog:",
     "babel-plugin-parameter-decorator": "catalog:",
     "bundle-require": "catalog:",
@@ -607,8 +614,8 @@
     "unimport": "catalog:",
     "unionfs": "catalog:",
     "unplugin": "catalog:",
-    "vite": "catalog:",
-    "@typescript-eslint/utils": "catalog:"
+    "unstorage": "catalog:",
+    "vite": "catalog:"
   },
   "devDependencies": {
     "@microsoft/tsdoc": "catalog:",
