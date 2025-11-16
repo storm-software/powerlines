@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.19.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.19.4) (11/16/2025)
+
+### Miscellaneous
+
+- **powerlines:** Added a Cap'n Proto schema for file system storage
+  ([012891d](https://github.com/storm-software/powerlines/commit/012891d))
+
 ## [0.19.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.19.3) (11/12/2025)
 
 ### Miscellaneous

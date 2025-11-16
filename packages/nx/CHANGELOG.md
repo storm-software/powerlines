@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.8](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.8) (11/16/2025)
+
+### Bug Fixes
+
+- **nx:** Resolved issue with selecting config files in Nx plugin
+  ([0f3535f](https://github.com/storm-software/powerlines/commit/0f3535f))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.19.4**
+
 ## [0.10.7](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.7) (11/12/2025)
 
 ### Updated Dependencies
