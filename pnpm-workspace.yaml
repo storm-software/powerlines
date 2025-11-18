@@ -96,6 +96,8 @@ catalog:
   '@stryke/types': ^0.10.2
   '@stryke/unique-id': ^0.3.8
   '@swc/core': ^1.15.2
+  '@tamagui/static-worker': ^1.138.0
+  '@tamagui/types': ^1.138.0
   '@taplo/cli': ^0.7.0
   '@types/babel__core': ^7.20.5
   '@types/babel__helper-module-imports': ^7.18.3
@@ -176,7 +178,7 @@ catalog:
   unstorage: ^1.17.2
   untyped: 1.5.2
   verdaccio: 6.1.2
-  vite: ^7.2.2
+  vite: 7.2.2
   webpack: ^5.102.1
   zx: ^8.8.5
 
@@ -243,6 +245,7 @@ overrides:
   '@powerlines/plugin-style-dictionary': workspace:*
   '@powerlines/plugin-stylelint': workspace:*
   '@powerlines/plugin-swc': workspace:*
+  '@powerlines/plugin-tamagui': workspace:*
   '@powerlines/plugin-tsc': workspace:*
   '@powerlines/plugin-tsup': workspace:*
   '@powerlines/plugin-typedoc': workspace:*
