@@ -50,31 +50,6 @@ export class UnifiedFS extends Union implements IFS {
    */
   #context: Context;
 
-  #wrapFS(fsModule: IFS): IFS {
-    const writeFile = (
-      file: Parameters<typeof fsModule.writeFile>[0],
-      data: Parameters<typeof fsModule.writeFile>[1],
-      options: Parameters<typeof fsModule.writeFile>[2]
-    ) => {
-      return fsModule.writeFile(file, data, options);
-    };
-    writeFile.__promisify__ = fsModule.writeFile.__promisify__.bind(fsModule);
-
-    const writeFileSync = (
-      file: Parameters<typeof fsModule.writeFileSync>[0],
-      data: Parameters<typeof fsModule.writeFileSync>[1],
-      options: Parameters<typeof fsModule.writeFileSync>[2]
-    ) => {
-      return fsModule.writeFileSync(file, data, options);
-    };
-
-    return {
-      ...fsModule,
-      writeFile,
-      writeFileSync
-    } as IFS;
-  }
-
   /**
    * Gets the virtual file system (VFS).
    */
