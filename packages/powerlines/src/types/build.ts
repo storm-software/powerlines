@@ -60,6 +60,21 @@ export interface BuildConfig {
   platform?: "node" | "browser" | "neutral";
 
   /**
+   * Array of strings indicating the polyfills to include for the build.
+   *
+   * @remarks
+   * This option allows you to specify which polyfills should be included in the build process to ensure compatibility with the target environment. The paths for the polyfills can use placeholder tokens (the `replacePathTokens` helper function will be used to resolve the actual values).
+   *
+   * @example
+   * ```ts
+   * {
+   *   polyfill: ['{projectRoot}/custom-polyfill.ts']
+   * }
+   * ```
+   */
+  polyfill?: string[];
+
+  /**
    * Array of strings indicating the order in which fields in a package.json file should be resolved to determine the entry point for a module.
    *
    * @defaultValue `['browser', 'module', 'jsnext:main', 'jsnext']`

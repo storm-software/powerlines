@@ -50,6 +50,17 @@ export class UnifiedFS extends Union implements IFS {
    */
   #context: Context;
 
+  public static create(context: Context, data: FileSystemData): UnifiedFS {
+    let result = new UnifiedFS(context, data);
+
+    result = result.use(result.#physicalFS);
+    if (result.#context.config.output.mode !== "fs") {
+      result = result.use(result.#virtualFS as any);
+    }
+
+    return result;
+  }
+
   /**
    * Gets the virtual file system (VFS).
    */
@@ -70,7 +81,7 @@ export class UnifiedFS extends Union implements IFS {
    * @param context - The context of the virtual file system, typically containing options and logging functions.
    * @param data - A buffer containing the serialized virtual file system data.
    */
-  public constructor(context: Context, data: FileSystemData) {
+  private constructor(context: Context, data: FileSystemData) {
     super();
     this.#context = context;
 
@@ -105,7 +116,6 @@ export class UnifiedFS extends Union implements IFS {
       );
     }
 
-    this.use(this.#physicalFS);
     if (this.#context.config.output.mode !== "fs") {
       this.#virtualFS = Volume.fromJSON(
         data._hasFiles() && data.files.length > 0
@@ -140,8 +150,6 @@ export class UnifiedFS extends Union implements IFS {
           recursive: true
         });
       }
-
-      this.use(this.#virtualFS as any);
     } else if (this.#context.config.projectType === "application") {
       if (!this.#physicalFS.existsSync(this.#context.artifactsPath)) {
         this.#physicalFS.mkdirSync(this.#context.artifactsPath, {

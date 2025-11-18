@@ -247,7 +247,7 @@ export class PowerlinesContext<
    */
   public get fs(): VirtualFileSystemInterface {
     if (!this.#fs) {
-      this.#fs = VirtualFileSystem.create(this);
+      this.#fs = VirtualFileSystem.createSync(this);
     }
 
     return this.#fs;
@@ -913,6 +913,8 @@ export class PowerlinesContext<
 
         return ret;
       }, [] as PluginConfig[]);
+
+    this.#fs ??= await VirtualFileSystem.create(this);
   }
 
   protected mergeUserConfig(

@@ -18,6 +18,9 @@
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { omit } from "@stryke/helpers/omit";
+import { findFileName } from "@stryke/path/file-path-fns";
+import { replaceExtension } from "@stryke/path/replace";
+import { isString } from "@stryke/type-checks/is-string";
 import defu from "defu";
 import type {
   ExternalIdResult,
@@ -78,65 +81,99 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
           isEntry: boolean;
         } = { isEntry: false }
       ): Promise<string | ExternalIdResult | null | undefined> {
-        let result = await ctx.$$internal.callHook(
-          "resolveId",
-          {
-            sequential: true,
-            result: "first",
-            order: "pre"
-          },
-          id,
-          importer,
-          opts
-        );
-        if (result) {
-          return result;
-        }
-
-        result = await ctx.$$internal.callHook(
-          "resolveId",
-          {
-            sequential: true,
-            result: "first",
-            order: "normal"
-          },
-          id,
-          importer,
-          opts
-        );
-        if (result) {
-          return result;
-        }
-
-        result = await handleResolveId(
-          ctx,
-          {
+        const resolved = await (async () => {
+          let result = await ctx.$$internal.callHook(
+            "resolveId",
+            {
+              sequential: true,
+              result: "first",
+              order: "pre"
+            },
             id,
             importer,
-            options: opts
-          },
-          {
-            skipResolve: options.skipResolve,
-            skipNodeModulesBundle: ctx.config.build.skipNodeModulesBundle,
-            external: ctx.config.build.external,
-            noExternal: ctx.config.build.noExternal
+            opts
+          );
+          if (result) {
+            return result;
           }
-        );
-        if (result) {
-          return result;
+
+          result = await ctx.$$internal.callHook(
+            "resolveId",
+            {
+              sequential: true,
+              result: "first",
+              order: "normal"
+            },
+            id,
+            importer,
+            opts
+          );
+          if (result) {
+            return result;
+          }
+
+          result = await handleResolveId(
+            ctx,
+            {
+              id,
+              importer,
+              options: opts
+            },
+            {
+              skipResolve: options.skipResolve,
+              skipNodeModulesBundle: ctx.config.build.skipNodeModulesBundle,
+              external: ctx.config.build.external,
+              noExternal: ctx.config.build.noExternal
+            }
+          );
+          if (result) {
+            return result;
+          }
+
+          return ctx.$$internal.callHook(
+            "resolveId",
+            {
+              sequential: true,
+              result: "first",
+              order: "post"
+            },
+            id,
+            importer,
+            opts
+          );
+        })();
+        if (
+          resolved &&
+          opts.isEntry &&
+          ctx.config.build.polyfill &&
+          ctx.config.build.polyfill.length > 0
+        ) {
+          const entry = ctx.entry.find(
+            entry =>
+              entry.file === (isString(resolved) ? resolved : resolved.id)
+          );
+          if (entry) {
+            entry.file = `${replaceExtension(isString(resolved) ? resolved : resolved.id)}-polyfill.ts`;
+            entry.output ||= entry.output?.replace(
+              findFileName(entry.output, { withExtension: true }),
+              entry.file
+            );
+
+            await ctx.writeEntry(
+              `
+${ctx.config.build.polyfill.map(p => `import "${p}";`).join("\n")}
+
+export * from "${isString(resolved) ? resolved : resolved.id}";
+`,
+              entry.file,
+              { mode: "virtual" }
+            );
+
+            return entry.file;
+          }
         }
 
-        return ctx.$$internal.callHook(
-          "resolveId",
-          {
-            sequential: true,
-            result: "first",
-            order: "post"
-          },
-          id,
-          importer,
-          opts
-        );
+        return resolved;
       }
 
       async function load(

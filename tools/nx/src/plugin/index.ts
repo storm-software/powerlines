@@ -133,7 +133,7 @@ export const createNodesV2: CreateNodesV2 = [
             inputs: ["typescript", "^production"],
             outputs: ["{options.outputPath}"],
             executor: "@powerlines/nx:build",
-            dependsOn: ["^build", "prepare"],
+            dependsOn: ["^build", "clean"],
             defaultConfiguration: "production",
             configurations: {
               production: {

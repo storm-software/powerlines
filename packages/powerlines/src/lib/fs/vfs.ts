@@ -20,7 +20,11 @@ import { LogLevelLabel } from "@storm-software/config-tools/types";
 import * as capnp from "@stryke/capnp";
 import { bufferToString } from "@stryke/convert/buffer-to-string";
 import { toArray } from "@stryke/convert/to-array";
-import { readFileBufferSync, writeFileBuffer } from "@stryke/fs/buffer";
+import {
+  readFileBuffer,
+  readFileBufferSync,
+  writeFileBuffer
+} from "@stryke/fs/buffer";
 import { existsSync } from "@stryke/fs/exists";
 import { removeFile } from "@stryke/fs/remove-file";
 import { murmurhash } from "@stryke/hash/murmurhash";
@@ -405,13 +409,41 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * Creates a virtual file system (VFS) that is backed up to a Cap'n Proto message buffer.
    *
    * @param context - The context of the virtual file system, typically containing options and logging functions.
+   * @returns A promise that resolves to a new virtual file system instance.
+   */
+  public static async create(context: Context): Promise<VirtualFileSystem> {
+    if (
+      !context.config.skipCache &&
+      existsSync(joinPaths(context.cachePath, "fs.bin"))
+    ) {
+      const buffer = await readFileBuffer(
+        joinPaths(context.cachePath, "fs.bin")
+      );
+
+      const message = new capnp.Message(buffer, false);
+
+      return new VirtualFileSystem(context, message.getRoot(FileSystemData));
+    }
+
+    const message = new capnp.Message();
+
+    return new VirtualFileSystem(context, message.initRoot(FileSystemData));
+  }
+
+  /**
+   * Synchronously creates a virtual file system (VFS) that is backed up to a Cap'n Proto message buffer.
+   *
+   * @param context - The context of the virtual file system, typically containing options and logging functions.
    * @returns A new virtual file system instance.
    */
-  public static create(context: Context): VirtualFileSystem {
-    if (existsSync(joinPaths(context.cachePath, "fs.bin"))) {
+  public static createSync(context: Context): VirtualFileSystem {
+    if (
+      !context.config.skipCache &&
+      existsSync(joinPaths(context.cachePath, "fs.bin"))
+    ) {
       const buffer = readFileBufferSync(joinPaths(context.cachePath, "fs.bin"));
 
-      const message = new capnp.Message(buffer, true);
+      const message = new capnp.Message(buffer, false);
 
       return new VirtualFileSystem(context, message.getRoot(FileSystemData));
     }
@@ -443,14 +475,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   }
 
   /**
-   * Creates a new instance of the VirtualFileSystem.
+   * Creates a new instance of the {@link VirtualFileSystem}.
    *
    * @param context - The context of the virtual file system, typically containing options and logging functions.
    * @param data - A buffer containing the serialized virtual file system data.
    */
   private constructor(context: Context, data: FileSystemData) {
     this.#context = context;
-    this.#unifiedFS = new UnifiedFS(context, data);
+    this.#unifiedFS = UnifiedFS.create(context, data);
 
     this.#metadata = {} as Record<string, VirtualFileMetadata>;
     if (data._hasMetadata()) {
@@ -501,32 +533,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     this.#log = extendLog(this.#context.log, "file-system");
-  }
-
-  /**
-   * Initializes the virtual file system (VFS) by patching the file system module if necessary.
-   */
-  public [__VFS_PATCH__]() {
-    if (!this.#isPatched && this.#context.config.output.mode !== "fs") {
-      this.#revert = patchFS(fs, this);
-      this.#isPatched = true;
-    }
-  }
-
-  /**
-   * Reverts the file system module to its original state if it was previously patched.
-   */
-  public [__VFS_REVERT__]() {
-    if (this.#isPatched && this.#context.config.output.mode !== "fs") {
-      if (!this.#revert) {
-        throw new Error(
-          "Attempting to revert File System patch prior to calling `__init__` function"
-        );
-      }
-
-      this.#revert?.();
-      this.#isPatched = false;
-    }
   }
 
   /**
@@ -1491,6 +1497,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    */
   public async dispose() {
     if (!this.#isDisposed) {
+      this.#isDisposed = true;
+
+      this.#log(LogLevelLabel.DEBUG, "Disposing virtual file system...");
+
       await removeFile(joinPaths(this.#context.cachePath, "fs.bin"));
 
       const message = new capnp.Message();
@@ -1533,10 +1543,34 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
       await writeFileBuffer(
         joinPaths(this.#context.cachePath, "fs.bin"),
-        message.toPackedArrayBuffer()
+        message.toArrayBuffer()
       );
+    }
+  }
 
-      this.#isDisposed = true;
+  /**
+   * Initializes the virtual file system (VFS) by patching the file system module if necessary.
+   */
+  public [__VFS_PATCH__]() {
+    if (!this.#isPatched && this.#context.config.output.mode !== "fs") {
+      this.#revert = patchFS(fs, this);
+      this.#isPatched = true;
+    }
+  }
+
+  /**
+   * Reverts the file system module to its original state if it was previously patched.
+   */
+  public [__VFS_REVERT__]() {
+    if (this.#isPatched && this.#context.config.output.mode !== "fs") {
+      if (!this.#revert) {
+        throw new Error(
+          "Attempting to revert File System patch prior to calling `__init__` function"
+        );
+      }
+
+      this.#revert?.();
+      this.#isPatched = false;
     }
   }
 

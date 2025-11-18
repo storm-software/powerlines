@@ -26,10 +26,12 @@ import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { isSetString } from "@stryke/type-checks/is-set-string";
+import { isString } from "@stryke/type-checks/is-string";
 import type {
   TypeDefinition,
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
+import { replacePathTokens } from "../plugin-utils/paths";
 import type { Context } from "../types/context";
 import { ResolvedEntryTypeDefinition } from "../types/resolved";
 
@@ -147,6 +149,11 @@ export function resolveEntriesSync(
   typeDefinitions: TypeDefinitionParameter[]
 ): ResolvedEntryTypeDefinition[] {
   return typeDefinitions
+    .map(entry =>
+      isString(entry)
+        ? replacePathTokens(context, entry)
+        : replacePathTokens(context, entry.file)
+    )
     .map(typeDefinition => {
       const parsed = parseTypeDefinition(typeDefinition)!;
 
