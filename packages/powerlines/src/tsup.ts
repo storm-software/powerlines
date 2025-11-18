@@ -60,7 +60,8 @@ export function tsup(options: Options = {}): Options {
             "outDir",
             "format",
             "minify",
-            "pure"
+            "pure",
+            "inject"
           ]),
           minify: Boolean(options.minify),
           pure: Array.isArray(options.pure)

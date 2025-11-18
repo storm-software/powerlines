@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { EnvPaths } from "@stryke/env/get-env-paths";
+import { NonUndefined } from "@stryke/types/base";
 import type { PackageJson } from "@stryke/types/package-json";
 import { Worker as JestWorker } from "jest-worker";
 import type { Jiti } from "jiti";
@@ -168,7 +169,13 @@ export interface InitContextOptions {
   isHighPriority: boolean;
 }
 
-export interface Context<
+/**
+ * The unresolved Powerlines context.
+ *
+ * @remarks
+ * This context is used before the user configuration has been fully resolved after the `config`.
+ */
+export interface UnresolvedContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > {
   /**
@@ -179,7 +186,11 @@ export interface Context<
   /**
    * An object containing the options provided to Powerlines
    */
-  config: TResolvedConfig;
+  config: Omit<TResolvedConfig["userConfig"], "build" | "output"> &
+    Required<Pick<TResolvedConfig["userConfig"], "build" | "output">> & {
+      projectRoot: NonUndefined<TResolvedConfig["userConfig"]["root"]>;
+      output: TResolvedConfig["output"];
+    };
 
   /**
    * A logging function for the Powerlines engine
@@ -390,6 +401,14 @@ export interface Context<
    */
   extendLog: (name: string) => LogFn;
 }
+
+export type Context<TResolvedConfig extends ResolvedConfig = ResolvedConfig> =
+  Omit<UnresolvedContext<TResolvedConfig>, "config"> & {
+    /**
+     * The fully resolved Powerlines configuration
+     */
+    config: TResolvedConfig;
+  };
 
 export interface APIContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig

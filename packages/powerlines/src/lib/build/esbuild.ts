@@ -16,10 +16,13 @@
 
  ------------------------------------------------------------------- */
 
+import { omit } from "@stryke/helpers/omit";
+import { joinPaths } from "@stryke/path/join-paths";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
+import { camelCase } from "@stryke/string-format/camel-case";
 import { isString } from "@stryke/type-checks/is-string";
 import defu from "defu";
-import { Format, LogLevel, Platform } from "esbuild";
+import { BuildOptions, Format, LogLevel, Platform } from "esbuild";
 import {
   ESBuildBuildConfig,
   ESBuildResolvedBuildConfig,
@@ -138,9 +141,57 @@ export function resolveESBuildEntry(
  * @param context - The build context.
  * @returns The resolved esbuild options.
  */
-export function extractESBuildConfig(
-  context: Context
-): ESBuildResolvedBuildConfig {
+export function extractESBuildConfig(context: Context): BuildOptions {
+  const inject =
+    context.config.build.override.inject ?? context.config.build.inject;
+  if (inject && Object.keys(inject).length > 0) {
+    context.fs.writeFileSync(
+      joinPaths(
+        context.workspaceConfig.workspaceRoot,
+        context.config.projectRoot,
+        context.artifactsPath,
+        "inject-shim.js"
+      ),
+      Object.entries(inject)
+        .map(([key, value]) => {
+          if (value) {
+            if (Array.isArray(value)) {
+              if (camelCase(key) !== key) {
+                if (value.length === 1) {
+                  return `
+import ${camelCase(key)} from "${value[0]}";
+export { ${camelCase(key)} as "${key}" }`;
+                } else if (value.length > 1) {
+                  return `
+import ${value[1] === "*" ? `* as ${camelCase(key)}` : `{ ${value[1]} as ${camelCase(key)} }`} from "${value[0]}";
+export { ${camelCase(key)} as "${key}" }`;
+                }
+              } else if (value.length === 1) {
+                return `
+import ${key} from "${value[0]}";
+export { ${key} };`;
+              } else if (value.length > 1) {
+                return `
+import ${value[1] === "*" ? `* as ${key}` : `{ ${value[1]} as ${key} }`} from "${value[0]}";
+export { ${key} };`;
+              }
+            } else if (camelCase(key) !== key) {
+              return `
+import ${camelCase(key)} from "${value[0]}";
+export { ${camelCase(key)} as "${key}" }`;
+            } else {
+              return `
+import ${key} from "${value}";
+export { ${key} };`;
+            }
+          }
+
+          return "";
+        })
+        .join("\n")
+    );
+  }
+
   return defu(
     {
       alias: context.builtins.reduce(
@@ -152,11 +203,42 @@ export function extractESBuildConfig(
 
           return ret;
         },
-        {} as Record<string, string>
-      )
+        context.config.build.override.alias ??
+          context.config.build.alias ??
+          ({} as Record<string, string>)
+      ),
+      inject:
+        inject && Object.keys(inject).length > 0
+          ? [
+              joinPaths(
+                context.workspaceConfig.workspaceRoot,
+                context.config.projectRoot,
+                context.artifactsPath,
+                "inject-shim.js"
+              )
+            ]
+          : undefined
     },
-    context.config.build.variant === "esbuild" ? context.config.override : {},
+    context.config.build.variant === "esbuild"
+      ? (omit(context.config.build.override, [
+          "alias",
+          "inject",
+          "external",
+          "noExternal",
+          "skipNodeModulesBundle",
+          "extensions"
+        ]) as BuildOptions)
+      : {},
     {
+      mainFields: context.config.build.mainFields,
+      conditions: context.config.build.conditions,
+      define: context.config.build.define,
+      resolveExtensions: context.config.build.extensions,
+      packages: context.config.build.skipNodeModulesBundle
+        ? "external"
+        : context.config.build.variant === "esbuild"
+          ? (context.config.build as ESBuildBuildConfig).packages
+          : undefined,
       format: (Array.isArray(context.config.output.format)
         ? context.config.output.format[0]
         : context.config.output.format) as Format,
@@ -168,12 +250,21 @@ export function extractESBuildConfig(
       tsconfig: context.tsconfig.tsconfigFilePath,
       tsconfigRaw: context.tsconfig.tsconfigJson
     },
-    context.config.build.variant === "esbuild" ? context.config.build : {},
+    context.config.build.variant === "esbuild"
+      ? (omit(context.config.build, [
+          "alias",
+          "inject",
+          "external",
+          "noExternal",
+          "skipNodeModulesBundle",
+          "extensions"
+        ]) as BuildOptions)
+      : {},
     {
       minify: context.config.mode !== "development",
       metafile: context.config.mode === "development",
       sourcemap: context.config.mode === "development"
     },
     DEFAULT_ESBUILD_CONFIG
-  );
+  ) as BuildOptions;
 }

@@ -19,11 +19,7 @@
 import type { StormWorkspaceConfig } from "@storm-software/config/types";
 import { getGenerateAction } from "@storm-software/untyped/generate";
 import type { Plugin } from "powerlines/types/plugin";
-import {
-  UntypedPluginContext,
-  UntypedPluginOptions,
-  UntypedPluginUserConfig
-} from "./types/plugin";
+import { UntypedPluginContext, UntypedPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
@@ -46,7 +42,7 @@ export const plugin = <
           schema: "**/{untyped.ts,*.untyped.ts}",
           ...options
         }
-      } as Partial<UntypedPluginUserConfig>;
+      };
     },
     async configResolved() {
       this.untyped ??= getGenerateAction(

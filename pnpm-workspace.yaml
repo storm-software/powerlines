@@ -33,7 +33,7 @@ catalog:
   '@babel/template': ^7.27.2
   '@babel/traverse': ^7.28.5
   '@babel/types': ^7.28.5
-  '@biomejs/biome': ^2.3.5
+  '@biomejs/biome': ^2.3.6
   '@content-collections/core': ^0.12.0
   '@deepkit/core': 1.0.5
   '@deepkit/type': 1.0.5
@@ -57,28 +57,30 @@ catalog:
   '@nx/workspace': ^22.0.3
   '@prisma/get-platform': ^6.19.0
   '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
-  '@rollup/plugin-alias': ^5.1.1
+  '@rollup/plugin-alias': ^6.0.0
   '@rollup/plugin-babel': ^6.1.0
   '@rollup/plugin-commonjs': ^28.0.9
+  '@rollup/plugin-inject': ^5.0.5
   '@rollup/plugin-node-resolve': ^16.0.3
+  '@rollup/plugin-replace': ^6.0.3
   '@rspack/core': ^1.6.3
   '@standard-schema/spec': ^1.0.0
-  '@storm-software/build-tools': ^0.158.39
-  '@storm-software/config': ^1.134.39
-  '@storm-software/config-tools': ^1.188.39
-  '@storm-software/cspell': ^0.45.39
-  '@storm-software/esbuild': ^0.53.39
-  '@storm-software/eslint': ^0.169.39
-  '@storm-software/git-tools': ^2.124.22
-  '@storm-software/linting-tools': ^1.132.39
-  '@storm-software/markdownlint': ^0.30.39
-  '@storm-software/prettier': ^0.57.39
-  '@storm-software/testing-tools': ^1.119.39
-  '@storm-software/tsconfig': ^0.47.39
-  '@storm-software/tsup': ^0.2.37
-  '@storm-software/unbuild': ^0.57.39
-  '@storm-software/untyped': ^0.24.20
-  '@storm-software/workspace-tools': ^1.293.9
+  '@storm-software/build-tools': ^0.158.40
+  '@storm-software/config': ^1.134.40
+  '@storm-software/config-tools': ^1.188.40
+  '@storm-software/cspell': ^0.45.40
+  '@storm-software/esbuild': ^0.53.40
+  '@storm-software/eslint': ^0.169.40
+  '@storm-software/git-tools': ^2.124.23
+  '@storm-software/linting-tools': ^1.132.40
+  '@storm-software/markdownlint': ^0.30.40
+  '@storm-software/prettier': ^0.57.40
+  '@storm-software/testing-tools': ^1.119.40
+  '@storm-software/tsconfig': ^0.47.40
+  '@storm-software/tsup': ^0.2.38
+  '@storm-software/unbuild': ^0.57.40
+  '@storm-software/untyped': ^0.24.21
+  '@storm-software/workspace-tools': ^1.293.10
   '@stryke/capnp': ^0.12.21
   '@stryke/cli': ^0.12.7
   '@stryke/convert': ^0.6.2
@@ -147,7 +149,7 @@ catalog:
   openapi-typescript: ^7.10.1
   oxc-parser: ^0.95.0
   oxc-transform: ^0.95.0
-  oxlint: ^1.28.0
+  oxlint: ^1.29.0
   oxlint-tsgolint: ^0.2.1
   pluralize: ^8.0.0
   prettier: ^3.6.2

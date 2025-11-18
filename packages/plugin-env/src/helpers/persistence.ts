@@ -34,7 +34,7 @@ import { isEmptyObject } from "@stryke/type-checks/is-empty-object";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import { Buffer } from "node:buffer";
 import { existsSync } from "node:fs";
-import { Context } from "powerlines/types/context";
+import { Context, UnresolvedContext } from "powerlines/types/context";
 import {
   EnvPluginContext,
   EnvPluginResolvedConfig,
@@ -49,7 +49,7 @@ import { createEnvReflection } from "./reflect";
  * @returns The runtime type definition file for the environment variables.
  */
 export async function resolveRuntimeTypeFile(
-  context: Context<EnvPluginResolvedConfig>
+  context: UnresolvedContext<EnvPluginResolvedConfig>
 ): Promise<string> {
   return resolvePackage("@powerlines/plugin-env/types/runtime", {
     paths: [
@@ -69,7 +69,7 @@ export async function resolveRuntimeTypeFile(
  * @returns The default type definition for the environment variables.
  */
 export async function getEnvDefaultTypeDefinition(
-  context: Context<EnvPluginResolvedConfig>
+  context: UnresolvedContext<EnvPluginResolvedConfig>
 ): Promise<TypeDefinition> {
   return {
     file: await resolveRuntimeTypeFile(context),
@@ -83,7 +83,7 @@ export async function getEnvDefaultTypeDefinition(
  * @returns The default type definition for the environment secrets.
  */
 export async function getSecretsDefaultTypeDefinition(
-  context: Context<EnvPluginResolvedConfig>
+  context: UnresolvedContext<EnvPluginResolvedConfig>
 ): Promise<TypeDefinition> {
   return {
     file: await resolveRuntimeTypeFile(context),

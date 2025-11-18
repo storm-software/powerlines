@@ -21,7 +21,9 @@ import {
   getBabelInputPlugin,
   RollupBabelInputPluginOptions
 } from "@rollup/plugin-babel";
+import inject from "@rollup/plugin-inject";
 import resolve from "@rollup/plugin-node-resolve";
+import replace from "@rollup/plugin-replace";
 import { toArray } from "@stryke/convert/to-array";
 import { joinPaths } from "@stryke/path/join-paths";
 import { isFunction } from "@stryke/type-checks/is-function";
@@ -99,25 +101,25 @@ export function extractRollupConfig(
       ) => {
         const externalFn =
           context.config.build.variant === "rollup" &&
-          context.config.override.external
-            ? isFunction(context.config.override.external)
-              ? context.config.override.external
+          context.config.build.override.external
+            ? isFunction(context.config.build.override.external)
+              ? context.config.build.override.external
               : (id: string) =>
                   toArray(
                     (
-                      context.config
+                      context.config.build
                         .override as Partial<RollupResolvedBuildConfig>
                     ).external
                   ).includes(id)
             : context.config.build.variant === "vite" &&
-                (context.config.override as ViteResolvedBuildConfig).build
+                (context.config.build.override as ViteResolvedBuildConfig).build
                   ?.rollupOptions?.external
               ? isFunction(
-                  (context.config.override as ViteResolvedBuildConfig).build
-                    ?.rollupOptions?.external
+                  (context.config.build.override as ViteResolvedBuildConfig)
+                    .build?.rollupOptions?.external
                 )
-                ? (context.config.override as ViteResolvedBuildConfig).build
-                    ?.rollupOptions?.external
+                ? (context.config.build.override as ViteResolvedBuildConfig)
+                    .build?.rollupOptions?.external
                 : (id: string) =>
                     toArray(
                       (context.config.build as ViteResolvedBuildConfig)?.build
@@ -179,6 +181,20 @@ export function extractRollupConfig(
           check: false,
           tsconfig: context.tsconfig.tsconfigFilePath
         }),
+        context.config.build.define &&
+          Object.keys(context.config.build.define).length > 0 &&
+          replace({
+            sourceMap: context.config.mode === "development",
+            preventAssignment: true,
+            ...(context.config.build.define ?? {})
+          }),
+        context.config.build.inject &&
+          Object.keys(context.config.build.inject).length > 0 &&
+          // eslint-disable-next-line ts/no-unsafe-call
+          inject({
+            sourceMap: context.config.mode === "development",
+            ...context.config.build.inject
+          }),
         alias({
           entries: context.builtins.reduce(
             (ret, id) => {
@@ -191,7 +207,18 @@ export function extractRollupConfig(
 
               return ret;
             },
-            [] as { find: string; replacement: string }[]
+            (context.config.build.alias
+              ? Object.entries(context.config.build.alias).reduce(
+                  (ret, [id, path]) => {
+                    if (!ret.find(e => e.find === id)) {
+                      ret.push({ find: id, replacement: path });
+                    }
+
+                    return ret;
+                  },
+                  [] as { find: string; replacement: string }[]
+                )
+              : []) as { find: string; replacement: string }[]
           )
         }),
         getBabelInputPlugin(
@@ -213,11 +240,13 @@ export function extractRollupConfig(
           preferBuiltins: true
         }),
         dtsBundlePlugin
-      ]
+      ].filter(Boolean) as Plugin[]
     },
-    context.config.build.variant === "rollup" ? context.config.override : {},
+    context.config.build.variant === "rollup"
+      ? context.config.build.override
+      : {},
     context.config.build.variant === "vite"
-      ? (context.config.override as ViteBuildConfig).build?.rollupOptions
+      ? (context.config.build.override as ViteBuildConfig).build?.rollupOptions
       : {},
     {
       cache: !context.config.skipCache

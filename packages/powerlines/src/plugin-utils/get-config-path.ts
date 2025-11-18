@@ -18,7 +18,7 @@
 
 import { joinPaths } from "@stryke/path/join";
 import { existsSync } from "node:fs";
-import { Context } from "../types/context";
+import { UnresolvedContext } from "../types/context";
 
 /**
  * Get the configuration file path for a given name.
@@ -28,7 +28,7 @@ import { Context } from "../types/context";
  * @returns The absolute path to the configuration file, or undefined if not found.
  */
 export function getConfigPath(
-  context: Context,
+  context: UnresolvedContext,
   name: string
 ): string | undefined {
   if (

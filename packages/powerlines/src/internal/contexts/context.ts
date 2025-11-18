@@ -150,7 +150,6 @@ export class PowerlinesContext<
       lint: config.lint,
       transform: config.transform,
       build: config.build,
-      override: config.override,
       framework: config.framework
     };
   }
@@ -833,9 +832,9 @@ export class PowerlinesContext<
             eslint: {}
           },
           build: {
-            target: "esnext"
-          },
-          override: {}
+            target: "esnext",
+            override: {}
+          }
         }
       ) as TResolvedConfig;
     }

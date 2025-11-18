@@ -55,14 +55,9 @@ export type BabelResolvedConfig = Omit<BabelUserConfig, "plugins" | "presets"> &
 
 export type EnvironmentResolvedConfig = Omit<
   EnvironmentConfig,
-  "consumer" | "mode" | "ssr" | "preview" | "mainFields" | "extensions"
+  "consumer" | "mode" | "ssr" | "preview"
 > &
-  Required<
-    Pick<
-      EnvironmentConfig,
-      "consumer" | "mode" | "ssr" | "mainFields" | "extensions"
-    >
-  > & {
+  Required<Pick<EnvironmentConfig, "consumer" | "mode" | "ssr">> & {
     /**
      * The name of the environment
      */
@@ -98,8 +93,6 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
   | "test"
   | "build"
   | "transform"
-  | "override"
-  | "root"
   | "variant"
   | "type"
   | "output"
@@ -119,7 +112,6 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
       | "test"
       | "build"
       | "transform"
-      | "override"
       | "framework"
     >
   > & {
@@ -159,6 +151,15 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
      * The output configuration options to use for the build process
      */
     output: OutputResolvedConfig;
+
+    /**
+     * Configuration provided to build processes
+     *
+     * @remarks
+     * This configuration can be used by plugins during the `build` command. It will generally contain options specific to the selected {@link BuildVariant | build variant}.
+     */
+    build: Omit<TUserConfig["build"], "override"> &
+      Required<Pick<Required<TUserConfig["build"]>, "override">>;
 
     /**
      * The log level to use for the Powerlines processes.

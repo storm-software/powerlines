@@ -241,19 +241,25 @@ export interface BaseConfig {
   entry?: TypeDefinitionParameter | TypeDefinitionParameter[];
 
   /**
+   * Configuration for the output of the build process
+   */
+  output?: OutputConfig;
+
+  /**
    * Configuration for linting the source code
+   *
+   * @remarks
+   * If set to `false`, linting will be disabled.
    */
   lint?: Record<string, any> | false;
 
   /**
    * Configuration for testing the source code
+   *
+   * @remarks
+   * If set to `false`, testing will be disabled.
    */
   test?: Record<string, any> | false;
-
-  /**
-   * Configuration for the output of the build process
-   */
-  output?: OutputConfig;
 
   /**
    * Configuration for the transformation of the source code
@@ -261,7 +267,10 @@ export interface BaseConfig {
   transform?: Record<string, any>;
 
   /**
-   * Options to to provide to the build process
+   * Configuration provided to build processes
+   *
+   * @remarks
+   * This configuration can be used by plugins during the `build` command. It will generally contain options specific to the selected {@link BuildVariant | build variant}.
    */
   build?: BuildConfig;
 
@@ -295,43 +304,6 @@ export interface BaseConfig {
 }
 
 export interface EnvironmentConfig extends BaseConfig {
-  /**
-   * Array of strings indicating the order in which fields in a package.json file should be resolved to determine the entry point for a module.
-   *
-   * @defaultValue `['browser', 'module', 'jsnext:main', 'jsnext']`
-   */
-  mainFields?: string[];
-
-  /**
-   * Array of strings indicating what conditions should be used for module resolution.
-   */
-  conditions?: string[];
-
-  /**
-   * Array of strings indicating what conditions should be used for external modules.
-   */
-  externalConditions?: string[];
-
-  /**
-   * Array of strings indicating what file extensions should be used for module resolution.
-   *
-   * @defaultValue `['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json']`
-   */
-  extensions?: string[];
-
-  /**
-   * Array of strings indicating what modules should be deduplicated to a single version in the build.
-   *
-   * @remarks
-   * This option is useful for ensuring that only one version of a module is included in the bundle, which can help reduce bundle size and avoid conflicts.
-   */
-  dedupe?: string[];
-
-  /**
-   * Array of strings or regular expressions that indicate what modules are builtin for the environment.
-   */
-  builtins?: (string | RegExp)[];
-
   /**
    * Configuration options for the preview server
    */
@@ -420,15 +392,27 @@ export type UserConfig<
   TBuildConfig extends BuildConfig = BuildConfig,
   TBuildResolvedConfig extends BuildResolvedConfig = BuildResolvedConfig,
   TBuildVariant extends string = any
-> = CommonUserConfig & {
-  build?: TBuildConfig & {
+> = Omit<CommonUserConfig, "build"> & {
+  /**
+   * Configuration provided to build processes
+   *
+   * @remarks
+   * This configuration can be used by plugins during the `build` command. It will generally contain options specific to the selected {@link BuildVariant | build variant}.
+   */
+  build: Omit<TBuildConfig, "override"> & {
     /**
      * The build variant being used by the Powerlines engine.
      */
     variant?: TBuildVariant;
-  };
 
-  override?: Partial<TBuildResolvedConfig>;
+    /**
+     * An optional set of override options to apply to the selected build variant.
+     *
+     * @remarks
+     * This option allows you to provide configuration options with the guarantee that they will **not** be overridden and will take precedence over other build configurations.
+     */
+    override?: Partial<TBuildResolvedConfig>;
+  };
 };
 
 export type WebpackUserConfig = UserConfig<

@@ -61,7 +61,8 @@ export const vite = createVitePlugin(
 
           return defu(
             extractViteConfig(api.context),
-            result?.build ?? {},
+            // Need to use `any` here to avoid excessive type complexity
+            (result?.build as any) ?? {},
             config
           );
         },

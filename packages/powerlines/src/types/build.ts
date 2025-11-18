@@ -60,6 +60,80 @@ export interface BuildConfig {
   platform?: "node" | "browser" | "neutral";
 
   /**
+   * Array of strings indicating the order in which fields in a package.json file should be resolved to determine the entry point for a module.
+   *
+   * @defaultValue `['browser', 'module', 'jsnext:main', 'jsnext']`
+   */
+  mainFields?: string[];
+
+  /**
+   * Array of strings indicating what conditions should be used for module resolution.
+   */
+  conditions?: string[];
+
+  /**
+   * Array of strings indicating what file extensions should be used for module resolution.
+   *
+   * @defaultValue `['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json']`
+   */
+  extensions?: string[];
+
+  /**
+   * Array of strings indicating what modules should be deduplicated to a single version in the build.
+   *
+   * @remarks
+   * This option is useful for ensuring that only one version of a module is included in the bundle, which can help reduce bundle size and avoid conflicts.
+   */
+  dedupe?: string[];
+
+  /**
+   * Array of strings or regular expressions that indicate what modules are builtin for the environment.
+   */
+  builtins?: (string | RegExp)[];
+
+  /**
+   * Define global variable replacements.
+   *
+   * @remarks
+   * This option allows you to specify global constants that will be replaced in the code during the build process. It is similar to the `define` option in esbuild and Vite, enabling you to replace specific identifiers with constant expressions at build time.
+   *
+   * @example
+   * ```ts
+   * {
+   *   define: {
+   *     __VERSION__: '"1.0.0"',
+   *     __DEV__: 'process.env.NODE_ENV !== "production"'
+   *   }
+   * }
+   * ```
+   *
+   * @see https://esbuild.github.io/api/#define
+   * @see https://vitejs.dev/config/build-options.html#define
+   * @see https://github.com/rollup/plugins/tree/master/packages/replace
+   */
+  define?: Record<string, any>;
+
+  /**
+   * Global variables that will have import statements injected where necessary
+   *
+   * @remarks
+   * This option allows you to specify global variables that should be automatically imported from specified modules whenever they are used in the code. This is particularly useful for polyfilling Node.js globals in a browser environment.
+   *
+   * @example
+   * ```ts
+   * {
+   *   inject: {
+   *     process: 'process/browser',
+   *     Buffer: ['buffer', 'Buffer'],
+   *   }
+   * }
+   * ```
+   *
+   * @see https://github.com/rollup/plugins/tree/master/packages/inject
+   */
+  inject?: Record<string, string | string[]>;
+
+  /**
    * The alias mappings to use for module resolution during the build process.
    *
    * @remarks
@@ -74,6 +148,8 @@ export interface BuildConfig {
    *   }
    * }
    * ```
+   *
+   * @see https://github.com/rollup/plugins/tree/master/packages/alias
    */
   alias?: Record<string, string>;
 
@@ -96,13 +172,14 @@ export interface BuildConfig {
   skipNodeModulesBundle?: boolean;
 
   /**
-   * Should the Powerlines processes skip the `"prepare"` task prior to building?
+   * An optional set of override options to apply to the selected build variant.
    *
-   * @defaultValue false
+   * @remarks
+   * This option allows you to provide configuration options with the guarantee that they will **not** be overridden and will take precedence over other build configurations.
    */
-  skipPrepare?: boolean;
+  override?: Record<string, any>;
 }
-export type BuildResolvedConfig = BuildConfig;
+export type BuildResolvedConfig = Omit<BuildConfig, "override">;
 
 // ESBuild
 export type ESBuildBuildConfig = Omit<
@@ -114,12 +191,16 @@ export type ESBuildBuildConfig = Omit<
   | "env"
   | "assets"
   | "external"
+  | "inject"
   | "tsconfig"
   | "tsconfigRaw"
   | "logLevel"
 > &
   BuildConfig;
-export type ESBuildResolvedBuildConfig = ExternalESBuildOptions &
+export type ESBuildResolvedBuildConfig = Omit<
+  ExternalESBuildOptions,
+  "inject"
+> &
   BuildResolvedConfig;
 
 // Vite

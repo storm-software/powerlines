@@ -22,10 +22,13 @@ import { appendPath } from "@stryke/path/append";
 import defu from "defu";
 import { extractTsupConfig, resolveTsupEntry } from "powerlines/lib/build/tsup";
 import { TsupResolvedBuildConfig } from "powerlines/types/build";
-import { TsupUserConfig } from "powerlines/types/config";
 import { Plugin } from "powerlines/types/plugin";
 import { createTsupPlugin } from "./helpers/unplugin";
-import { TsupPluginContext, TsupPluginOptions } from "./types/plugin";
+import {
+  TsupPluginContext,
+  TsupPluginOptions,
+  TsupPluginResolvedConfig
+} from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -52,7 +55,7 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
           ...options,
           variant: "tsup"
         }
-      } as Partial<TsupUserConfig>;
+      } as Partial<TsupPluginResolvedConfig>;
     },
     async build() {
       return build(
@@ -71,18 +74,18 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
               esbuildOptions: (options, ctx) => {
                 if (this.config.build.variant === "tsup") {
                   if (
-                    (this.config.build as TsupResolvedBuildConfig)
-                      .esbuildOptions
+                    (
+                      this.config.build as Omit<
+                        TsupResolvedBuildConfig,
+                        "projectRoot"
+                      >
+                    ).esbuildOptions
                   ) {
                     (
-                      this.config.build as TsupResolvedBuildConfig
-                    ).esbuildOptions?.(options, ctx);
-                  } else if (
-                    (this.config.override as TsupResolvedBuildConfig)
-                      .esbuildOptions
-                  ) {
-                    (
-                      this.config.override as TsupResolvedBuildConfig
+                      this.config.build as Omit<
+                        TsupResolvedBuildConfig,
+                        "projectRoot"
+                      >
                     ).esbuildOptions?.(options, ctx);
                   }
                 }

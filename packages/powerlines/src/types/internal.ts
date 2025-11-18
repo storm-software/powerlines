@@ -16,6 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+/* eslint-disable ts/naming-convention */
+
 import { CallHookOptions } from "../internal/helpers/hooks";
 import { EnvironmentContext, PluginContext } from "./context";
 import { HookKeys, InferHookParameters, InferHookReturnType } from "./hooks";

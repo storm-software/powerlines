@@ -44,12 +44,9 @@ export function extractWebpackConfig(context: Context): ExternalWebpackOptions {
         )
       }
     },
-    context.config.build.variant === "webpack" ? context.config.override : {},
-    {
-      external: context.config.build.external,
-      noExternal: context.config.build.noExternal,
-      skipNodeModulesBundle: context.config.build.skipNodeModulesBundle
-    },
+    context.config.build.variant === "webpack"
+      ? context.config.build.override
+      : {},
     {
       output: {
         path: joinPaths(

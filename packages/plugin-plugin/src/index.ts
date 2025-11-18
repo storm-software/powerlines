@@ -29,11 +29,7 @@ import { defu } from "defu";
 import eslintBabelPlugin from "esbuild-plugin-babel";
 import { extractTsupConfig, resolveTsupEntry } from "powerlines/lib/build/tsup";
 import { Plugin } from "powerlines/types/plugin";
-import {
-  PluginPluginContext,
-  PluginPluginOptions,
-  PluginPluginUserConfig
-} from "./types/plugin";
+import { PluginPluginContext, PluginPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
@@ -68,7 +64,7 @@ export const plugin = <
           skipNodeModulesBundle: true,
           platform: "node"
         }
-      } as Partial<PluginPluginUserConfig>;
+      };
     },
     async configResolved() {
       this.log(
@@ -89,7 +85,7 @@ export const plugin = <
       }
 
       if (this.config.output.projectDistPath) {
-        this.config.override.outputPath = joinPaths(
+        this.config.build.override.outputPath = joinPaths(
           this.config.projectRoot,
           this.config.output.projectDistPath
         );
@@ -140,9 +136,9 @@ export const plugin = <
         )
       );
 
-      if (this.config.override.outputPath) {
+      if (this.config.build.override.outputPath) {
         const sourcePath = appendPath(
-          this.config.override.outputPath,
+          this.config.build.override.outputPath,
           this.workspaceConfig.workspaceRoot
         );
         const destinationPath = joinPaths(
@@ -157,7 +153,7 @@ export const plugin = <
           this.log(
             LogLevelLabel.INFO,
             `Copying build output files from project directory (${
-              this.config.override.outputPath
+              this.config.build.override.outputPath
             }) to output directory (${this.config.output.outputPath}).`
           );
 

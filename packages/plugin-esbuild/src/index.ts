@@ -53,9 +53,6 @@ export const plugin = <
         }
       } as Partial<ESBuildUserConfig>;
     },
-    configResolved() {
-      this.config.build = extractESBuildConfig(this);
-    },
     async build() {
       await build(
         defu(

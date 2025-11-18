@@ -47,7 +47,9 @@ export function extractRspackConfig(context: Context): ExternalRspackOptions {
         )
       }
     },
-    context.config.build.variant === "rspack" ? context.config.override : {},
+    context.config.build.variant === "rspack"
+      ? context.config.build.override
+      : {},
     {
       external: context.config.build.external,
       noExternal: context.config.build.noExternal,

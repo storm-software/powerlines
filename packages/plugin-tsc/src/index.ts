@@ -17,13 +17,12 @@
  ------------------------------------------------------------------- */
 
 import defu from "defu";
-import { Plugin } from "powerlines/types/plugin";
+import { ConfigResult, Plugin } from "powerlines/types/plugin";
 import ts from "typescript";
 import { typeCheck } from "./helpers/type-check";
 import {
   TypeScriptCompilerPluginContext,
-  TypeScriptCompilerPluginOptions,
-  TypeScriptCompilerPluginUserConfig
+  TypeScriptCompilerPluginOptions
 } from "./types/plugin";
 
 export * from "./helpers";
@@ -50,7 +49,7 @@ export const plugin = <
             typeCheck: false
           })
         }
-      } as Partial<TypeScriptCompilerPluginUserConfig>;
+      } as ConfigResult<TContext>;
     },
     async lint() {
       if (this.config.transform.tsc.typeCheck) {

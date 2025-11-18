@@ -27,7 +27,11 @@ import type {
 import type { UnpluginBuildVariant } from "./build";
 import type { CommandType } from "./commands";
 import type { EnvironmentConfig, PluginConfig } from "./config";
-import type { BuildPluginContext, Context, PluginContext } from "./context";
+import type {
+  BuildPluginContext,
+  PluginContext,
+  UnresolvedContext
+} from "./context";
 import type { EnvironmentResolvedConfig, ResolvedConfig } from "./resolved";
 
 export interface PluginHookObject<
@@ -63,6 +67,13 @@ export interface GenerateTypesResult {
   code: string;
 }
 
+type DeepPartial<T> = {
+  [K in keyof T]?: DeepPartial<T[K]>;
+};
+
+export type ConfigResult<TContext extends PluginContext = PluginContext> =
+  DeepPartial<TContext["config"]> & Record<string, any>;
+
 export interface BasePluginHookFunctions<
   TContext extends PluginContext = PluginContext
 > extends Record<CommandType, (this: TContext) => MaybePromise<void>> {
@@ -81,8 +92,8 @@ export interface BasePluginHookFunctions<
    * @returns A promise that resolves to a partial configuration object.
    */
   config: (
-    this: Context<TContext["config"]>
-  ) => MaybePromise<Partial<TContext["config"]["userConfig"]>>;
+    this: UnresolvedContext<TContext["config"]>
+  ) => MaybePromise<ConfigResult<TContext>>;
 
   /**
    * Modify environment configs before it's resolved. The hook can either mutate the passed-in environment config directly, or return a partial config object that will be deeply merged into existing config.
@@ -256,10 +267,10 @@ export type PluginHooks<TContext extends PluginContext = PluginContext> = {
   config:
     | PluginHook<
         (
-          this: Context<TContext["config"]>
-        ) => MaybePromise<Partial<TContext["config"]["userConfig"]>>
+          this: UnresolvedContext<TContext["config"]>
+        ) => MaybePromise<ConfigResult<TContext>>
       >
-    | Partial<TContext["config"]["userConfig"]>;
+    | ConfigResult<TContext>;
 
   /**
    * A hook that is called to transform the source code.

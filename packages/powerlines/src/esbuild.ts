@@ -21,7 +21,6 @@ import type { BuildOptions, PluginBuild } from "esbuild";
 import { createEsbuildPlugin } from "unplugin";
 import { extractESBuildConfig } from "./lib/build/esbuild";
 import { createUnpluginFactory } from "./lib/unplugin/factory";
-import type { ESBuildResolvedBuildConfig } from "./types/build";
 
 /**
  * An ESBuild plugin that will invoke the Powerlines API hooks during the build process.
@@ -44,16 +43,16 @@ export const esbuild = createEsbuildPlugin(
       ...plugin,
       esbuild: {
         config: options => {
-          options ??= {} as ESBuildResolvedBuildConfig;
+          options ??= {} as BuildOptions;
 
           const result = extractESBuildConfig(api.context);
           for (const key in result) {
             if (
               isUndefined(options[key as keyof BuildOptions]) &&
-              !isUndefined(result[key as keyof ESBuildResolvedBuildConfig])
+              !isUndefined(result[key as keyof BuildOptions])
             ) {
               options[key as keyof BuildOptions] = result[
-                key as keyof ESBuildResolvedBuildConfig
+                key as keyof BuildOptions
               ] as any;
             }
           }

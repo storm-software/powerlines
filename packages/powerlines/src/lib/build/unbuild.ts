@@ -193,7 +193,9 @@ export function extractUnbuildConfig(
         {} as Record<string, string>
       )
     },
-    context.config.build.variant === "unbuild" ? context.config.override : {},
+    context.config.build.variant === "unbuild"
+      ? context.config.build.override
+      : {},
     {
       projectName: context.config.name,
       name: context.config.name,

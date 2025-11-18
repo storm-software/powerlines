@@ -19,11 +19,7 @@
 import { transform } from "@swc/core";
 import defu from "defu";
 import { Plugin } from "powerlines/types/plugin";
-import {
-  SwcPluginContext,
-  SwcPluginOptions,
-  SwcPluginUserConfig
-} from "./types/plugin";
+import { SwcPluginContext, SwcPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
@@ -48,7 +44,7 @@ export const plugin = <TContext extends SwcPluginContext = SwcPluginContext>(
             configFile: false
           })
         }
-      } as Partial<SwcPluginUserConfig>;
+      };
     },
     async transform(code, id) {
       const result = await transform(code, {

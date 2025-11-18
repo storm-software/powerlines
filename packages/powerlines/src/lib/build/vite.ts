@@ -54,16 +54,18 @@ export function extractViteConfig(context: Context): ViteResolvedBuildConfig {
             return ret;
           },
           {} as Record<string, string>
-        )
+        ),
+        dedupe: context.config.build.dedupe,
+        mainFields: context.config.build.mainFields,
+        conditions: context.config.build.conditions,
+        extensions: context.config.build.extensions
       }
     },
-    context.config.build.variant === "vite" ? context.config.override : {},
+    context.config.build.variant === "vite"
+      ? context.config.build.override
+      : {},
     {
-      external: context.config.build.external,
-      noExternal: context.config.build.noExternal,
-      skipNodeModulesBundle: context.config.build.skipNodeModulesBundle
-    },
-    {
+      define: context.config.build.define,
       rootDir: context.config.sourceRoot,
       platform: context.config.build.platform,
       mode:
@@ -76,8 +78,7 @@ export function extractViteConfig(context: Context): ViteResolvedBuildConfig {
       },
       esbuild: extractESBuildConfig(context) as ESBuildOptions,
       logLevel: context.config.logLevel ?? undefined,
-      envDir: context.config.projectRoot,
-      noExternal: context.builtins
+      envDir: context.config.projectRoot
     },
     context.config.build.variant === "vite" ? context.config.build : {},
     {

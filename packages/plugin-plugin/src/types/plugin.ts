@@ -65,19 +65,20 @@ export type PluginPluginOutputConfig = OutputConfig & {
   projectDistPath: string;
 };
 
-export interface PluginPluginUserConfig extends UserConfig {
+export type PluginPluginUserConfig = UserConfig<
+  TsupBuildConfig,
+  TsupResolvedBuildConfig,
+  "tsup"
+> & {
   alloy?: false | Partial<PluginPluginAlloyOptions>;
   output?: Partial<PluginPluginOutputConfig>;
-  build?: Partial<TsupBuildConfig>;
-  override?: Partial<TsupResolvedBuildConfig>;
-}
-
-export type PluginPluginResolvedConfig = ResolvedConfig & {
-  alloy: false | Required<PluginPluginAlloyOptions>;
-  output: PluginPluginOutputConfig;
-  build: TsupResolvedBuildConfig;
-  override: TsupResolvedBuildConfig;
 };
+
+export type PluginPluginResolvedConfig =
+  ResolvedConfig<PluginPluginUserConfig> & {
+    alloy: false | Required<PluginPluginAlloyOptions>;
+    output: PluginPluginOutputConfig;
+  };
 
 export type PluginPluginContext<
   TResolvedConfig extends

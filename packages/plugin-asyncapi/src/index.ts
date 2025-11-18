@@ -26,11 +26,7 @@ import { joinPaths } from "@stryke/path/join";
 import defu from "defu";
 import { replacePathTokens } from "powerlines/plugin-utils/paths";
 import { Plugin } from "powerlines/types/plugin";
-import {
-  AsyncAPIPluginContext,
-  AsyncAPIPluginOptions,
-  AsyncAPIPluginUserConfig
-} from "./types/plugin";
+import { AsyncAPIPluginContext, AsyncAPIPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
@@ -64,7 +60,7 @@ export const plugin = <
             this.config.logLevel === "trace",
           targetDir: joinPaths(this.builtinsPath, "asyncapi")
         })
-      } as Partial<AsyncAPIPluginUserConfig>;
+      };
     },
     async configResolved() {
       if (!this.config.asyncapi.schema) {

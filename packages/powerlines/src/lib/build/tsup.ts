@@ -73,17 +73,25 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
       esbuildOptions: (options, ctx) => {
         if (context.config.build.variant === "tsup") {
           if (
-            (context.config.build as TsupResolvedBuildConfig).esbuildOptions
-          ) {
-            (context.config.build as TsupResolvedBuildConfig).esbuildOptions?.(
-              options,
-              ctx
-            );
-          } else if (
-            (context.config.override as TsupResolvedBuildConfig).esbuildOptions
+            (
+              context.config.build as Omit<
+                TsupResolvedBuildConfig,
+                "projectRoot"
+              >
+            ).esbuildOptions
           ) {
             (
-              context.config.override as TsupResolvedBuildConfig
+              context.config.build as Omit<
+                TsupResolvedBuildConfig,
+                "projectRoot"
+              >
+            ).esbuildOptions?.(options, ctx);
+          } else if (
+            (context.config.build.override as TsupResolvedBuildConfig)
+              .esbuildOptions
+          ) {
+            (
+              context.config.build.override as TsupResolvedBuildConfig
             ).esbuildOptions?.(options, ctx);
           }
         }
@@ -105,20 +113,19 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
       },
       noExternal: context.builtins
     },
-    context.config.build.variant === "tsup" ? context.config.override : {},
+    context.config.build.variant === "tsup"
+      ? context.config.build.override
+      : {},
     {
       name: context.config.name,
       assets: context.config.output.assets as (string | AssetGlob)[],
-      external: context.config.build.external,
-      noExternal: context.config.build.noExternal,
-      skipNodeModulesBundle: context.config.build.skipNodeModulesBundle,
+      resolveExtensions: context.config.build.extensions,
       outputPath: context.config.output.outputPath,
       projectRoot: context.config.projectRoot,
       tsconfig: context.tsconfig.tsconfigFilePath,
       tsconfigRaw: context.tsconfig.tsconfigJson,
       format: context.config.output.format,
       mode: context.config.mode,
-      platform: context.config.build.platform,
       treeshake:
         context.config.build.variant === "tsup"
           ? (context.config.build as TsupBuildConfig)?.treeshake
