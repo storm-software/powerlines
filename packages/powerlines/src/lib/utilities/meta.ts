@@ -27,7 +27,6 @@ import { hasFileExtension } from "@stryke/path/file-path-fns";
 import { joinPaths } from "@stryke/path/join-paths";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { Context, MetaInfo } from "../../types/context";
-import { __VFS_VIRTUAL__ } from "../../types/vfs";
 
 export interface CreateContextOptions {
   name?: string;
@@ -148,15 +147,7 @@ export async function writeMetaFile(context: Context): Promise<void> {
 
   await context.fs.writeFile(
     metaFilePath,
-    JSON.stringify(
-      {
-        ...context.meta,
-        virtualFiles: context.fs[__VFS_VIRTUAL__].toJSON(context.artifactsPath),
-        virtualFilesMeta: context.fs.getPartialMeta()
-      },
-      null,
-      2
-    ),
+    JSON.stringify(context.meta, null, 2),
     {
       mode: "fs"
     }

@@ -49,8 +49,8 @@ import type { ParsedTypeScriptConfig } from "./tsconfig";
 import type {
   PowerlinesWriteFileOptions,
   VirtualFile,
-  VirtualFileSystemInterface,
-  VirtualFileSystemMetadata
+  VirtualFileMetadata,
+  VirtualFileSystemInterface
 } from "./vfs";
 
 /**
@@ -557,5 +557,5 @@ export type BuildPluginContext<
 
 export interface SerializedVirtualFileSystem {
   virtualFiles: DirectoryJSON;
-  virtualFilesMeta: Record<string, Partial<VirtualFileSystemMetadata>>;
+  virtualFilesMeta: Record<string, Partial<VirtualFileMetadata>>;
 }

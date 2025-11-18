@@ -46,6 +46,7 @@ import { Range } from "semver";
 import { UnpluginMessage } from "unplugin";
 import { loadUserConfigFile, loadWorkspaceConfig } from "../../lib/config-file";
 import { getUniqueEntries, resolveEntriesSync } from "../../lib/entry";
+import { VirtualFileSystem } from "../../lib/fs/vfs";
 import { createLog, extendLog } from "../../lib/logger";
 import {
   CACHE_HASH_LENGTH,
@@ -80,7 +81,6 @@ import {
   VirtualFileSystemInterface
 } from "../../types/vfs";
 import { createResolver } from "../helpers/resolver";
-import { createVfs } from "../helpers/vfs";
 
 interface ConfigCacheKey {
   projectRoot: string;
@@ -247,7 +247,7 @@ export class PowerlinesContext<
    */
   public get fs(): VirtualFileSystemInterface {
     if (!this.#fs) {
-      this.#fs = createVfs(this);
+      this.#fs = VirtualFileSystem.create(this);
     }
 
     return this.#fs;
@@ -405,18 +405,18 @@ export class PowerlinesContext<
    * The builtin module id that exist in the Powerlines virtual file system
    */
   public get builtins(): string[] {
-    return Object.values(this.fs.meta)
+    return Object.values(this.fs.metadata)
       .filter(meta => meta && meta.variant === "builtin")
       .map(meta => meta?.id)
       .filter(Boolean) as string[];
   }
 
   /**
-   * Get the project root relative to the workspace root
+   * Get the builtin virtual files that exist in the Powerlines virtual file system
    */
   public async getBuiltins() {
     return Promise.all(
-      Object.entries(this.fs.meta)
+      Object.entries(this.fs.metadata)
         .filter(([, meta]) => meta && meta.variant === "builtin")
         .map(async ([path, meta]) => {
           const code = await this.fs.readFile(path);

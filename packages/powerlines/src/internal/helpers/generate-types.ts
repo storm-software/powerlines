@@ -82,8 +82,8 @@ export async function emitTypes<TContext extends Context>(
           context.builtins.some(
             file =>
               file === sourceFile.fileName ||
-              (context.fs.meta[file]?.id &&
-                context.fs.meta[file]?.id === sourceFile.fileName)
+              (context.fs.metadata[file]?.id &&
+                context.fs.metadata[file]?.id === sourceFile.fileName)
           )
         ) {
           builtinModules += `

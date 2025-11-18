@@ -87,7 +87,7 @@ import {
 } from "./types/hooks";
 import type { Plugin } from "./types/plugin";
 import { EnvironmentResolvedConfig, ResolvedConfig } from "./types/resolved";
-import { __VFS_INIT__, __VFS_REVERT__ } from "./types/vfs";
+import { __VFS_PATCH__, __VFS_REVERT__ } from "./types/vfs";
 
 /**
  * The Powerlines API class
@@ -230,7 +230,7 @@ export class PowerlinesAPI<
         )}`
       );
 
-      context.fs[__VFS_INIT__]();
+      context.fs[__VFS_PATCH__]();
 
       await writeMetaFile(context);
       context.persistedMeta = context.meta;
@@ -756,6 +756,7 @@ ${formatTypes(generatedTypes)}
       await this.callHook(context, "finalize");
 
       context.fs[__VFS_REVERT__]();
+      await context.fs.dispose();
     });
 
     this.context.log(

@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { PrimitiveJsonValue } from "@stryke/json/types";
-import type { Volume } from "memfs";
 import type {
   MakeDirectoryOptions as FsMakeDirectoryOptions,
   WriteFileOptions as FsWriteFileOptions,
@@ -29,27 +28,14 @@ import type {
   Stats,
   StatSyncOptions
 } from "node:fs";
-import type { IUnionFs } from "unionfs";
 
 export type VirtualFileExtension = "js" | "ts" | "jsx" | "tsx";
 
 // eslint-disable-next-line ts/naming-convention
-export const __VFS_INIT__ = "__VFS_INIT__";
+export const __VFS_PATCH__ = Symbol("__VFS_PATCH__");
 
 // eslint-disable-next-line ts/naming-convention
-export const __VFS_REVERT__ = "__VFS_REVERT__";
-
-// eslint-disable-next-line ts/naming-convention
-export const __VFS_CACHE__ = "__VFS_CACHE__";
-
-// eslint-disable-next-line ts/naming-convention
-export const __VFS_RESOLVER__ = "__VFS_RESOLVER__";
-
-// eslint-disable-next-line ts/naming-convention
-export const __VFS_VIRTUAL__ = "__VFS_VIRTUAL__";
-
-// eslint-disable-next-line ts/naming-convention
-export const __VFS_UNIFIED__ = "__VFS_UNIFIED__";
+export const __VFS_REVERT__ = Symbol("__VFS_REVERT__");
 
 export type OutputModeType = "fs" | "virtual";
 
@@ -97,10 +83,39 @@ export interface VirtualFile {
   code: string | NodeJS.ArrayBufferView;
 }
 
-export type VirtualFileSystemMetadata = Pick<
-  VirtualFile,
-  "id" | "details" | "variant" | "mode"
->;
+export interface VirtualFileMetadata {
+  /**
+   * The identifier for the file data.
+   */
+  id: string;
+
+  /**
+   * The variant of the file.
+   */
+  variant: string;
+
+  /**
+   * The output mode of the file.
+   */
+  mode: string;
+
+  /**
+   * Additional metadata associated with the file.
+   */
+  properties: Record<string, string>;
+}
+
+export interface VirtualFileIdentifier {
+  /**
+   * The identifier for the file data.
+   */
+  id: string;
+
+  /**
+   * A virtual (or actual) path to the file in the file system.
+   */
+  path: string;
+}
 
 export interface ResolveFSOptions {
   mode?: OutputModeType;
@@ -149,13 +164,20 @@ export interface ResolvePathOptions extends ResolveFSOptions {
 }
 
 export interface VirtualFileSystemInterface {
-  [__VFS_INIT__]: () => void;
+  /**
+   * Patches the File System to include the virtual file system (VFS) contents.
+   */
+  [__VFS_PATCH__]: () => void;
+
+  /**
+   * Reverts the virtual file system (VFS) to its previous state.
+   */
   [__VFS_REVERT__]: () => void;
 
   /**
    * The underlying file metadata.
    */
-  meta: Record<string, VirtualFileSystemMetadata | undefined>;
+  metadata: Record<string, VirtualFileMetadata | undefined>;
 
   /**
    * A map of module ids to their file paths.
@@ -178,7 +200,7 @@ export interface VirtualFileSystemInterface {
    * @param options - Optional parameters for resolving the path.
    * @returns Whether the path or id corresponds to a file written to the file system **(actually exists on disk)**.
    */
-  isFs: (pathOrId: string, options?: ResolvePathOptions) => boolean;
+  isPhysical: (pathOrId: string, options?: ResolvePathOptions) => boolean;
 
   /**
    * Checks if a file exists in the virtual file system (VFS).
@@ -197,16 +219,6 @@ export interface VirtualFileSystemInterface {
   isDirectory: (path: string) => boolean;
 
   /**
-   * Check if a path exists within one of the directories specified in the tsconfig.json's `path` field.
-   *
-   * @see https://www.typescriptlang.org/tsconfig#paths
-   *
-   * @param pathOrId - The path or id to check.
-   * @returns Whether the path or id corresponds to a virtual file.
-   */
-  isTsconfigPath: (pathOrId: string) => boolean;
-
-  /**
    * Checks if a file exists in the virtual file system (VFS).
    *
    * @param pathOrId - The path or id of the file.
@@ -220,7 +232,7 @@ export interface VirtualFileSystemInterface {
    * @param pathOrId - The path or id of the file.
    * @returns The metadata of the file if it exists, otherwise undefined.
    */
-  getMetadata: (pathOrId: PathLike) => VirtualFileSystemMetadata | undefined;
+  getMetadata: (pathOrId: PathLike) => VirtualFileMetadata | undefined;
 
   /**
    * Gets the stats of a file in the virtual file system (VFS).
@@ -493,24 +505,12 @@ export interface VirtualFileSystemInterface {
   resolve: (pathOrId: string, options?: ResolvePathOptions) => string | false;
 
   /**
-   * Resolves a path based on TypeScript's `tsconfig.json` paths.
+   * Formats a path to match the virtual file system (VFS) structure.
    *
-   * @see https://www.typescriptlang.org/tsconfig#paths
-   *
-   * @param path - The path to check.
-   * @returns The resolved file path if it exists, otherwise undefined.
+   * @param path - The path to format.
+   * @returns The formatted path.
    */
-  resolveTsconfigPath: (path: string) => string | false;
-
-  /**
-   * Resolves a package name based on TypeScript's `tsconfig.json` paths.
-   *
-   * @see https://www.typescriptlang.org/tsconfig#paths
-   *
-   * @param path - The path to check.
-   * @returns The resolved package name if it exists, otherwise undefined.
-   */
-  resolveTsconfigPathPackage: (path: string) => string | false;
+  formatPath: (path: string) => string;
 
   /**
    * Resolves a path or id to a file path in the virtual file system.
@@ -521,24 +521,7 @@ export interface VirtualFileSystemInterface {
   realpathSync: (pathOrId: string) => string;
 
   /**
-   * Retrieves a partial metadata mapping of all files in the virtual file system (VFS).
-   *
-   * @returns A record mapping file paths to their partial metadata.
+   * Disposes of the virtual file system (VFS), writes any virtual file changes to disk, and releases any associated resources.
    */
-  getPartialMeta: () => Record<string, Partial<VirtualFileSystemMetadata>>;
-
-  /**
-   * A map of cached file paths to their underlying file content.
-   */
-  [__VFS_CACHE__]: Map<string, string>;
-
-  /**
-   * A reference to the underlying virtual file system.
-   */
-  [__VFS_VIRTUAL__]: Volume;
-
-  /**
-   * A reference to the underlying unified file system.
-   */
-  [__VFS_UNIFIED__]: IUnionFs;
+  dispose: () => Promise<void>;
 }

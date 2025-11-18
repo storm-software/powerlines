@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { joinPaths } from "@stryke/path/join";
 import { match } from "bundle-require";
 import type { ExternalIdResult } from "unplugin";
 import type { Context } from "../../types/context";
@@ -73,11 +74,62 @@ export async function handleResolveId(
       }
     }
 
-    if (context.fs.isTsconfigPath(args.id)) {
-      const tsconfigPath = context.fs.resolveTsconfigPath(args.id);
-      const tsconfigPathPackage = context.fs.resolveTsconfigPathPackage(
-        args.id
-      );
+    if (
+      !!context.tsconfig.options.paths &&
+      Object.keys(context.tsconfig.options.paths).some(path =>
+        args.id.startsWith(path.replaceAll("*", ""))
+      )
+    ) {
+      let tsconfigPath: string | false = false;
+      if (context.tsconfig.options.paths) {
+        for (const tsconfigPathKey of Object.keys(
+          context.tsconfig.options.paths
+        ).filter(tsconfigPath =>
+          args.id.startsWith(tsconfigPath.replaceAll("*", ""))
+        )) {
+          const resolvedPath = context.tsconfig.options.paths[
+            tsconfigPathKey
+          ]?.find(
+            tsconfigPath =>
+              context.fs.resolve(
+                joinPaths(
+                  context.workspaceConfig.workspaceRoot,
+                  tsconfigPath.replaceAll("*", ""),
+                  args.id.replace(tsconfigPathKey.replaceAll("*", ""), "")
+                )
+              ) ||
+              context.fs.formatPath(tsconfigPath) ===
+                context.fs.formatPath(args.id)
+          );
+          if (resolvedPath) {
+            tsconfigPath =
+              context.fs.formatPath(resolvedPath) ===
+              context.fs.formatPath(args.id)
+                ? context.fs.formatPath(resolvedPath)
+                : context.fs.resolve(
+                    joinPaths(
+                      context.workspaceConfig.workspaceRoot,
+                      resolvedPath.replaceAll("*", ""),
+                      args.id.replace(tsconfigPathKey.replaceAll("*", ""), "")
+                    )
+                  );
+          }
+        }
+      }
+
+      let tsconfigPathPackage: string | false = false;
+      if (context.tsconfig.options.paths) {
+        const tsconfigPathKeys = Object.keys(
+          context.tsconfig.options.paths
+        ).filter(tsconfigPath =>
+          args.id.startsWith(tsconfigPath.replaceAll("*", ""))
+        );
+
+        if (tsconfigPathKeys.length > 0 && tsconfigPathKeys[0]) {
+          tsconfigPathPackage = tsconfigPathKeys[0].replace(/\/\*$/, "");
+        }
+      }
+
       if (tsconfigPath && tsconfigPathPackage) {
         return {
           id: tsconfigPath,
@@ -121,7 +173,8 @@ export async function handleResolveId(
       });
       if (
         match(args.id, options.noExternal) ||
-        (resolvedPath && context.fs.meta[resolvedPath]?.variant === "builtin")
+        (resolvedPath &&
+          context.fs.metadata[resolvedPath]?.variant === "builtin")
       ) {
         return undefined;
       }
