@@ -92,6 +92,8 @@
       "@powerlines/plugin-typedoc/*": ["packages/plugin-typedoc/src/*"],
       "@powerlines/plugin-unbuild": ["packages/plugin-unbuild/src/index.ts"],
       "@powerlines/plugin-unbuild/*": ["packages/plugin-unbuild/src/*"],
+      "@powerlines/plugin-unenv": ["packages/plugin-unenv/src/index.ts"],
+      "@powerlines/plugin-unenv/*": ["packages/plugin-unenv/src/*"],
       "@powerlines/plugin-unimport": ["packages/plugin-unimport/src/index.ts"],
       "@powerlines/plugin-unimport/*": ["packages/plugin-unimport/src/*"],
       "@powerlines/plugin-untyped": ["packages/plugin-untyped/src/index.ts"],
