@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.20.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.20.0) (11/17/2025)
+
+### Features
+
+- **powerlines:** Added `UnresolvedContext` and other type improvements for
+  accuracy
+  ([da156cb](https://github.com/storm-software/powerlines/commit/da156cb))
+
 ## [0.19.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.19.4) (11/16/2025)
 
 ### Miscellaneous

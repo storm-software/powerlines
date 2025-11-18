@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.18](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.18) (11/17/2025)
+
+### Features
+
+- **powerlines:** Added `UnresolvedContext` and other type improvements for
+  accuracy
+  ([da156cb](https://github.com/storm-software/powerlines/commit/da156cb))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.18**
+- Updated **powerlines** to **v0.20.0**
+- Updated **nx** to **v0.10.10**
+
 ## [0.2.17](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.17) (11/16/2025)
 
 ### Updated Dependencies

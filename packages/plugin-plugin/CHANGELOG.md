@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.11.18](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.18) (11/17/2025)
+
+### Features
+
+- **powerlines:** Added `UnresolvedContext` and other type improvements for
+  accuracy
+  ([da156cb](https://github.com/storm-software/powerlines/commit/da156cb))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.20.0**
+- Updated **nx** to **v0.10.10**
+
 ## [0.11.17](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.17) (11/16/2025)
 
 ### Updated Dependencies

@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Asyncapi
 
+## [0.1.13](https://github.com/storm-software/powerlines/releases/tag/plugin-asyncapi%400.1.13) (11/17/2025)
+
+### Features
+
+- **powerlines:** Added `UnresolvedContext` and other type improvements for
+  accuracy
+  ([da156cb](https://github.com/storm-software/powerlines/commit/da156cb))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.18**
+- Updated **powerlines** to **v0.20.0**
+- Updated **nx** to **v0.10.10**
+
 ## [0.1.12](https://github.com/storm-software/powerlines/releases/tag/plugin-asyncapi%400.1.12) (11/16/2025)
 
 ### Updated Dependencies
