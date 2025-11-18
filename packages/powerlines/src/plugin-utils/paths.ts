@@ -18,7 +18,7 @@
 
 import { replacePath } from "@stryke/path/replace";
 import { IsUndefined } from "@stryke/types/base";
-import { Context } from "../types/context";
+import { UnresolvedContext } from "../types/context";
 
 /**
  * Replaces tokens in the given path string with their corresponding values from the context.
@@ -43,7 +43,7 @@ import { Context } from "../types/context";
  * @returns The path string with tokens replaced by their corresponding values from the context.
  */
 export function replacePathTokens(
-  context: Context,
+  context: UnresolvedContext,
   path?: string
 ): IsUndefined<typeof path> extends true ? undefined : string {
   if (!path) {

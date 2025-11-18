@@ -172,6 +172,90 @@ export function getConfigPath(
       `${name}.mjs`
     );
   } else if (
+    existsSync(
+      joinPaths(
+        context.workspaceConfig.workspaceRoot,
+        context.config.projectRoot,
+        `${name}.config.ts`
+      )
+    )
+  ) {
+    return joinPaths(
+      context.workspaceConfig.workspaceRoot,
+      context.config.projectRoot,
+      `${name}.config.ts`
+    );
+  } else if (
+    existsSync(
+      joinPaths(
+        context.workspaceConfig.workspaceRoot,
+        context.config.projectRoot,
+        `${name}.config.cts`
+      )
+    )
+  ) {
+    return joinPaths(
+      context.workspaceConfig.workspaceRoot,
+      context.config.projectRoot,
+      `${name}.config.cts`
+    );
+  } else if (
+    existsSync(
+      joinPaths(
+        context.workspaceConfig.workspaceRoot,
+        context.config.projectRoot,
+        `${name}.config.mts`
+      )
+    )
+  ) {
+    return joinPaths(
+      context.workspaceConfig.workspaceRoot,
+      context.config.projectRoot,
+      `${name}.config.mts`
+    );
+  } else if (
+    existsSync(
+      joinPaths(
+        context.workspaceConfig.workspaceRoot,
+        context.config.projectRoot,
+        `${name}.config.js`
+      )
+    )
+  ) {
+    return joinPaths(
+      context.workspaceConfig.workspaceRoot,
+      context.config.projectRoot,
+      `${name}.config.js`
+    );
+  } else if (
+    existsSync(
+      joinPaths(
+        context.workspaceConfig.workspaceRoot,
+        context.config.projectRoot,
+        `${name}.config.cjs`
+      )
+    )
+  ) {
+    return joinPaths(
+      context.workspaceConfig.workspaceRoot,
+      context.config.projectRoot,
+      `${name}.config.cjs`
+    );
+  } else if (
+    existsSync(
+      joinPaths(
+        context.workspaceConfig.workspaceRoot,
+        context.config.projectRoot,
+        `${name}.config.mjs`
+      )
+    )
+  ) {
+    return joinPaths(
+      context.workspaceConfig.workspaceRoot,
+      context.config.projectRoot,
+      `${name}.config.mjs`
+    );
+  } else if (
     existsSync(joinPaths(context.workspaceConfig.workspaceRoot, `${name}.yml`))
   ) {
     return joinPaths(context.workspaceConfig.workspaceRoot, `${name}.yml`);
@@ -213,6 +297,60 @@ export function getConfigPath(
     existsSync(joinPaths(context.workspaceConfig.workspaceRoot, `${name}.mjs`))
   ) {
     return joinPaths(context.workspaceConfig.workspaceRoot, `${name}.mjs`);
+  } else if (
+    existsSync(
+      joinPaths(context.workspaceConfig.workspaceRoot, `${name}.config.ts`)
+    )
+  ) {
+    return joinPaths(
+      context.workspaceConfig.workspaceRoot,
+      `${name}.config.ts`
+    );
+  } else if (
+    existsSync(
+      joinPaths(context.workspaceConfig.workspaceRoot, `${name}.config.cts`)
+    )
+  ) {
+    return joinPaths(
+      context.workspaceConfig.workspaceRoot,
+      `${name}.config.cts`
+    );
+  } else if (
+    existsSync(
+      joinPaths(context.workspaceConfig.workspaceRoot, `${name}.config.mts`)
+    )
+  ) {
+    return joinPaths(
+      context.workspaceConfig.workspaceRoot,
+      `${name}.config.mts`
+    );
+  } else if (
+    existsSync(
+      joinPaths(context.workspaceConfig.workspaceRoot, `${name}.config.js`)
+    )
+  ) {
+    return joinPaths(
+      context.workspaceConfig.workspaceRoot,
+      `${name}.config.js`
+    );
+  } else if (
+    existsSync(
+      joinPaths(context.workspaceConfig.workspaceRoot, `${name}.config.cjs`)
+    )
+  ) {
+    return joinPaths(
+      context.workspaceConfig.workspaceRoot,
+      `${name}.config.cjs`
+    );
+  } else if (
+    existsSync(
+      joinPaths(context.workspaceConfig.workspaceRoot, `${name}.config.mjs`)
+    )
+  ) {
+    return joinPaths(
+      context.workspaceConfig.workspaceRoot,
+      `${name}.config.mjs`
+    );
   }
 
   return undefined;

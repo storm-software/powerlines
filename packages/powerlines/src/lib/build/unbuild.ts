@@ -183,14 +183,29 @@ export function extractUnbuildConfig(
     {
       alias: context.builtins.reduce(
         (ret, id) => {
-          const path = context.fs.ids[id];
-          if (path) {
-            ret[id] = path;
+          if (!ret[id]) {
+            const path = context.fs.ids[id];
+            if (path) {
+              ret[id] = path;
+            }
           }
 
           return ret;
         },
-        {} as Record<string, string>
+        context.config.build.alias
+          ? Array.isArray(context.config.build.alias)
+            ? context.config.build.alias.reduce(
+                (ret, alias) => {
+                  if (!ret[alias.find.toString()]) {
+                    ret[alias.find.toString()] = alias.replacement;
+                  }
+
+                  return ret;
+                },
+                {} as Record<string, string>
+              )
+            : context.config.build.alias
+          : {}
       )
     },
     context.config.build.variant === "unbuild"

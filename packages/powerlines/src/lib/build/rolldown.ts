@@ -150,7 +150,6 @@ export function extractRolldownConfig(
           }),
         context.config.build.inject &&
           Object.keys(context.config.build.inject).length > 0 &&
-          // eslint-disable-next-line ts/no-unsafe-call
           inject({
             sourceMap: context.config.mode === "development",
             ...context.config.build.inject
@@ -168,16 +167,18 @@ export function extractRolldownConfig(
               return ret;
             },
             (context.config.build.alias
-              ? Object.entries(context.config.build.alias).reduce(
-                  (ret, [id, path]) => {
-                    if (!ret.find(e => e.find === id)) {
-                      ret.push({ find: id, replacement: path });
-                    }
+              ? Array.isArray(context.config.build.alias)
+                ? context.config.build.alias
+                : Object.entries(context.config.build.alias).reduce(
+                    (ret, [id, path]) => {
+                      if (!ret.find(e => e.find === id)) {
+                        ret.push({ find: id, replacement: path });
+                      }
 
-                    return ret;
-                  },
-                  [] as { find: string; replacement: string }[]
-                )
+                      return ret;
+                    },
+                    [] as { find: string; replacement: string }[]
+                  )
               : []) as { find: string; replacement: string }[]
           )
         }),

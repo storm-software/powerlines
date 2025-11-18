@@ -46,14 +46,29 @@ export function extractViteConfig(context: Context): ViteResolvedBuildConfig {
       resolve: {
         alias: context.builtins.reduce(
           (ret, id) => {
-            const path = context.fs.ids[id];
-            if (path) {
-              ret[id] = path;
+            if (!ret.find(e => e.find === id)) {
+              const path = context.fs.ids[id];
+              if (path) {
+                ret.push({ find: id, replacement: path });
+              }
             }
 
             return ret;
           },
-          {} as Record<string, string>
+          (context.config.build.alias
+            ? Array.isArray(context.config.build.alias)
+              ? context.config.build.alias
+              : Object.entries(context.config.build.alias).reduce(
+                  (ret, [id, path]) => {
+                    if (!ret.find(e => e.find === id)) {
+                      ret.push({ find: id, replacement: path });
+                    }
+
+                    return ret;
+                  },
+                  [] as { find: string; replacement: string }[]
+                )
+            : []) as { find: string; replacement: string }[]
         ),
         dedupe: context.config.build.dedupe,
         mainFields: context.config.build.mainFields,

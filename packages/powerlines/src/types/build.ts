@@ -151,7 +151,12 @@ export interface BuildConfig {
    *
    * @see https://github.com/rollup/plugins/tree/master/packages/alias
    */
-  alias?: Record<string, string>;
+  alias?:
+    | Record<string, string>
+    | Array<{
+        find: string | RegExp;
+        replacement: string;
+      }>;
 
   /**
    * A list of modules that should not be bundled, even if they are external dependencies.
@@ -179,6 +184,7 @@ export interface BuildConfig {
    */
   override?: Record<string, any>;
 }
+
 export type BuildResolvedConfig = Omit<BuildConfig, "override">;
 
 // ESBuild
