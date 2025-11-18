@@ -28,7 +28,7 @@ export const SUPPORTED_COMMANDS = [
   "test",
   "build",
   "docs",
-  "release",
+  "deploy",
   "finalize"
 ] as const;
 

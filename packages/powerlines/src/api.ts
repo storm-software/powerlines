@@ -61,9 +61,11 @@ import {
   isPluginConfigObject,
   isPluginConfigTuple
 } from "./plugin-utils/helpers";
+import { replacePathTokens } from "./plugin-utils/paths";
 import type {
   BuildInlineConfig,
   CleanInlineConfig,
+  DeployInlineConfig,
   DocsInlineConfig,
   InitialUserConfig,
   LintInlineConfig,
@@ -72,8 +74,7 @@ import type {
   PluginConfigObject,
   PluginConfigTuple,
   PluginFactory,
-  PrepareInlineConfig,
-  ReleaseInlineConfig
+  PrepareInlineConfig
 } from "./types/config";
 import type {
   APIContext,
@@ -173,7 +174,7 @@ export class PowerlinesAPI<
       | BuildInlineConfig
       | LintInlineConfig
       | DocsInlineConfig
-      | ReleaseInlineConfig = { command: "prepare" }
+      | DeployInlineConfig = { command: "prepare" }
   ) {
     this.context.log(
       LogLevelLabel.TRACE,
@@ -222,6 +223,12 @@ export class PowerlinesAPI<
       await installDependencies(context);
 
       await this.callPostHook(context, "configResolved");
+
+      if (context.config.build.polyfill) {
+        context.config.build.polyfill = context.config.build.polyfill.map(
+          polyfill => replacePathTokens(context, polyfill)
+        );
+      }
 
       context.log(
         LogLevelLabel.TRACE,
@@ -718,24 +725,24 @@ ${formatTypes(generatedTypes)}
   }
 
   /**
-   * Release the project
+   * Deploy the project source code
    *
    * @remarks
-   * This method will prepare and build the Powerlines project, generating the necessary artifacts for release.
+   * This method will prepare and build the Powerlines project, generating the necessary artifacts for the deployment.
    *
-   * @param inlineConfig - The inline configuration for the release command
+   * @param inlineConfig - The inline configuration for the deploy command
    */
-  public async release(
-    inlineConfig: ReleaseInlineConfig = { command: "release" }
+  public async deploy(
+    inlineConfig: DeployInlineConfig = { command: "deploy" }
   ) {
-    this.context.log(LogLevelLabel.INFO, "📦 Releasing the Powerlines project");
+    this.context.log(LogLevelLabel.INFO, "📦 Deploying the Powerlines project");
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
-      await this.callHook(context, "release");
+      await this.callHook(context, "deploy");
     });
 
-    this.context.log(LogLevelLabel.TRACE, "Powerlines release completed");
+    this.context.log(LogLevelLabel.TRACE, "Powerlines deploy completed");
   }
 
   /**

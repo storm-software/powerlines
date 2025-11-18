@@ -283,6 +283,14 @@ export interface BaseConfig {
   docs?: Record<string, any>;
 
   /**
+   * Configuration for deploying the source code
+   *
+   * @remarks
+   * If set to `false`, the deployment will be disabled.
+   */
+  deploy?: Record<string, any> | false;
+
+  /**
    * The path to the tsconfig file to be used by the compiler
    *
    * @remarks
@@ -512,7 +520,7 @@ export type PowerlinesCommand =
   | "lint"
   | "test"
   | "docs"
-  | "release"
+  | "deploy"
   | "clean";
 
 /**
@@ -580,12 +588,12 @@ export type DocsInlineConfig<TUserConfig extends UserConfig = UserConfig> =
     command: "docs";
   };
 
-export type ReleaseInlineConfig<TUserConfig extends UserConfig = UserConfig> =
+export type DeployInlineConfig<TUserConfig extends UserConfig = UserConfig> =
   InlineConfig<TUserConfig> & {
     /**
      * A string identifier for the Powerlines command being executed
      */
-    command: "release";
+    command: "deploy";
   };
 
 export type ConfigEnv = Pick<

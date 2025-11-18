@@ -93,6 +93,7 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
   | "test"
   | "build"
   | "transform"
+  | "deploy"
   | "variant"
   | "type"
   | "output"
@@ -112,6 +113,7 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
       | "test"
       | "build"
       | "transform"
+      | "deploy"
       | "framework"
     >
   > & {
