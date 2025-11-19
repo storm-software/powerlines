@@ -104,16 +104,6 @@ export interface MetaInfo {
    * A hash that represents the path to the project root directory
    */
   configHash: string;
-
-  /**
-   * A mapping of runtime ids to their corresponding file paths
-   */
-  builtinIdMap: Record<string, string>;
-
-  /**
-   * A mapping of virtual file paths to their corresponding file contents
-   */
-  virtualFiles: Record<string, string | null>;
 }
 
 export interface Resolver extends Jiti {

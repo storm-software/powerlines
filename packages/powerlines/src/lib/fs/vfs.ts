@@ -26,7 +26,6 @@ import {
   writeFileBuffer
 } from "@stryke/fs/buffer";
 import { existsSync } from "@stryke/fs/exists";
-import { removeFile } from "@stryke/fs/remove-file";
 import { murmurhash } from "@stryke/hash/murmurhash";
 import {
   findFileDotExtensionSafe,
@@ -1500,8 +1499,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       this.#isDisposed = true;
 
       this.#log(LogLevelLabel.DEBUG, "Disposing virtual file system...");
-
-      await removeFile(joinPaths(this.#context.cachePath, "fs.bin"));
+      await this.unlink(joinPaths(this.#context.cachePath, "fs.bin"));
 
       const message = new capnp.Message();
       const data = message.initRoot(FileSystemData);

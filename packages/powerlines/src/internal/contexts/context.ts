@@ -40,7 +40,6 @@ import { isString } from "@stryke/type-checks/is-string";
 import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
 import defu from "defu";
-import { DirectoryJSON } from "memfs";
 import { parseAsync, ParseResult, ParserOptions } from "oxc-parser";
 import { Range } from "semver";
 import { UnpluginMessage } from "unplugin";
@@ -280,9 +279,7 @@ export class PowerlinesContext<
       ),
       configHash: murmurhash(this.config, {
         maxLength: CACHE_HASH_LENGTH
-      }),
-      builtinIdMap: {} as Record<string, string>,
-      virtualFiles: {} as DirectoryJSON<string | null>
+      })
     } as MetaInfo;
   }
 
