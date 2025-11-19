@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.23.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.0) (11/19/2025)
+
+### Features
+
+- **powerlines:** Added the `distPath` output directory option
+  ([e76c15c](https://github.com/storm-software/powerlines/commit/e76c15c))
+
 ## [0.22.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.22.1) (11/19/2025)
 
 ### Miscellaneous

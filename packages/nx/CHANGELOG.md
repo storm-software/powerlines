@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.17](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.17) (11/19/2025)
+
+### Miscellaneous
+
+- **nx:** Added `types` module to the package exports
+  ([b9b9887](https://github.com/storm-software/powerlines/commit/b9b9887))
+- **nx:** Ensure the `base` and `helpers` modules are included in package
+  exports
+  ([342be61](https://github.com/storm-software/powerlines/commit/342be61))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.23.0**
+
 ## [0.10.16](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.16) (11/19/2025)
 
 ### Miscellaneous

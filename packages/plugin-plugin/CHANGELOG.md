@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.11.25](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.25) (11/19/2025)
+
+### Features
+
+- **powerlines:** Added the `distPath` output directory option
+  ([e76c15c](https://github.com/storm-software/powerlines/commit/e76c15c))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.23.0**
+- Updated **nx** to **v0.10.17**
+
 ## [0.11.24](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.24) (11/19/2025)
 
 ### Updated Dependencies

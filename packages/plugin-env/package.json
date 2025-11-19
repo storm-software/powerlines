@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-env",
-  "version": "0.13.22",
+  "version": "0.13.23",
   "type": "module",
   "description": "A package containing a Powerlines plugin for injecting static .env configuration values to the code so that they're accessible at runtime.",
   "repository": {

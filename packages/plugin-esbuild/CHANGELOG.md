@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.26](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.26) (11/19/2025)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.25**
+- Updated **powerlines** to **v0.23.0**
+- Updated **nx** to **v0.10.17**
+
 ## [0.13.25](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.25) (11/19/2025)
 
 ### Updated Dependencies
