@@ -185,7 +185,7 @@ export function createNxPlugin<
               jiti,
               "build",
               "development",
-              configFile,
+              joinPaths(contextV2.workspaceRoot, configFile),
               framework
             );
 
