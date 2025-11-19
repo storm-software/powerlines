@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.13](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.13) (11/19/2025)
+
+### Bug Fixes
+
+- **nx:** Resolved issue with selecting input targets in Nx plugin
+  ([a4d103d](https://github.com/storm-software/powerlines/commit/a4d103d))
+
 ## [0.10.12](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.12) (11/18/2025)
 
 ### Updated Dependencies

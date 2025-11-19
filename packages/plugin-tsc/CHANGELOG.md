@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.21](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.21) (11/19/2025)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.21**
+- Updated **nx** to **v0.10.13**
+
 ## [0.2.20](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.20) (11/18/2025)
 
 ### Updated Dependencies
