@@ -15,7 +15,7 @@
     {
       "plugin": "@storm-software/workspace-tools/plugins/typescript",
       "options": {
-        "enableTypeCheck": true
+        "enableTypecheck": true
       }
     },
     "@storm-software/workspace-tools/plugins/typescript/untyped",

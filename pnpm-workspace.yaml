@@ -66,22 +66,22 @@ catalog:
   '@rollup/plugin-replace': ^6.0.3
   '@rspack/core': ^1.6.4
   '@standard-schema/spec': ^1.0.0
-  '@storm-software/build-tools': ^0.158.40
-  '@storm-software/config': ^1.134.40
-  '@storm-software/config-tools': ^1.188.40
-  '@storm-software/cspell': ^0.45.40
-  '@storm-software/esbuild': ^0.53.40
-  '@storm-software/eslint': ^0.169.40
-  '@storm-software/git-tools': ^2.124.23
-  '@storm-software/linting-tools': ^1.132.40
-  '@storm-software/markdownlint': ^0.30.40
-  '@storm-software/prettier': ^0.57.40
-  '@storm-software/testing-tools': ^1.119.40
-  '@storm-software/tsconfig': ^0.47.40
-  '@storm-software/tsup': ^0.2.38
-  '@storm-software/unbuild': ^0.57.40
-  '@storm-software/untyped': ^0.24.21
-  '@storm-software/workspace-tools': ^1.293.10
+  '@storm-software/build-tools': ^0.158.42
+  '@storm-software/config': ^1.134.42
+  '@storm-software/config-tools': ^1.188.42
+  '@storm-software/cspell': ^0.45.42
+  '@storm-software/esbuild': ^0.53.42
+  '@storm-software/eslint': ^0.169.42
+  '@storm-software/git-tools': ^2.124.25
+  '@storm-software/linting-tools': ^1.132.42
+  '@storm-software/markdownlint': ^0.30.42
+  '@storm-software/prettier': ^0.57.42
+  '@storm-software/testing-tools': ^1.119.42
+  '@storm-software/tsconfig': ^0.47.42
+  '@storm-software/tsup': ^0.2.40
+  '@storm-software/unbuild': ^0.57.42
+  '@storm-software/untyped': ^0.24.23
+  '@storm-software/workspace-tools': ^1.293.12
   '@stryke/capnp': ^0.12.21
   '@stryke/cli': ^0.12.7
   '@stryke/convert': ^0.6.2
@@ -107,7 +107,7 @@ catalog:
   '@types/babel__traverse': ^7.28.0
   '@types/diff-match-patch': ^1.0.36
   '@types/jest': ^30.0.0
-  '@types/node': ^22.19.1
+  '@types/node': ^24.10.1
   '@types/pluralize': ^0.0.33
   '@types/react': ^19.2.6
   '@types/react-dom': ^19.2.3
@@ -158,8 +158,8 @@ catalog:
   prettier: ^3.6.2
   rimraf: ^6.1.0
   rolldown: 1.0.0-beta.45
-  rolldown-vite: ^7.2.5
-  rollup: ^4.53.2
+  rolldown-vite: ^7.2.6
+  rollup: ^4.53.3
   rollup-plugin-typescript2: ^0.36.0
   satori: ^0.18.3
   sherif: ^1.9.0
@@ -199,10 +199,12 @@ minimumReleaseAgeExclude:
 
 onlyBuiltDependencies:
   - '@biomejs/biome'
+  - '@deepkit/type-compiler'
   - '@hyperjump/json-pointer'
   - '@hyperjump/json-schema'
   - '@hyperjump/json-schema-core'
   - '@hyperjump/pact'
+  - '@parcel/watcher'
   - '@swc/core'
   - bufferutil
   - core-js
@@ -210,6 +212,7 @@ onlyBuiltDependencies:
   - lefthook
   - nx
   - oxc-resolver
+  - protobufjs
   - sharp
   - unrs-resolver
   - utf-8-validate
@@ -292,3 +295,7 @@ patchedDependencies:
   prisma-util: patches/prisma-util.patch
 
 preferWorkspacePackages: true
+
+shamefullyHoist: true
+
+useNodeVersion: 24.11.1
