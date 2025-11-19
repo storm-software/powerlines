@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.15](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.15) (11/19/2025)
+
+### Bug Fixes
+
+- **nx:** Resolve issue reading `package.json` file in Nx plugin
+  ([ce68929](https://github.com/storm-software/powerlines/commit/ce68929))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.22.1**
+
 ## [0.10.14](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.14) (11/19/2025)
 
 ### Bug Fixes
