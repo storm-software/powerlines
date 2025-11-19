@@ -32,7 +32,7 @@ export * from "./types";
 export const plugin = <
   TContext extends UntypedPluginContext = UntypedPluginContext
 >(
-  options: UntypedPluginOptions
+  options: UntypedPluginOptions = {}
 ): Plugin<TContext> => {
   return {
     name: "untyped",

@@ -25,7 +25,7 @@ export interface UntypedPluginOptions {
   /**
    * A path or glob pattern (or an array of paths and glob patterns) to schemas containing the Untyped type definitions used during generation.
    *
-   * @defaultValue "**\/{untyped.ts,*.untyped.ts}"
+   * @defaultValue "**\/\{untyped.ts,*.untyped.ts\}"
    */
   schema?: string | string[];
 
