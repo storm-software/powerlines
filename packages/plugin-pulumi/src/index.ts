@@ -24,7 +24,10 @@ import { omit } from "@stryke/helpers/index";
 import { joinPaths } from "@stryke/path/join";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import defu from "defu";
-import { getOrganizationName } from "powerlines/plugin-utils/context-helpers";
+import {
+  getOrganizationName,
+  getWorkspaceName
+} from "powerlines/plugin-utils/context-helpers";
 import { Plugin } from "powerlines/types/plugin";
 import { PulumiPluginContext, PulumiPluginOptions } from "./types/plugin";
 
@@ -57,7 +60,9 @@ export const plugin = <
     async configResolved() {
       this.config.deploy.pulumi.stackName ??= fullyQualifiedStackName(
         kebabCase(getOrganizationName(this) || "default"),
-        kebabCase(this.config.name),
+        `${
+          getWorkspaceName(this) ? `${kebabCase(getWorkspaceName(this))}-` : ""
+        }${kebabCase(this.config.name)}`,
         this.config.mode
       );
 

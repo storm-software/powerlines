@@ -80,5 +80,42 @@ export function getOrganizationName(
     }
   }
 
+  if (!result && isSetString(context.packageJson.namespace)) {
+    result = context.packageJson.namespace.replace(/^@/, "");
+  }
+
+  if (!result && isSetString(context.packageJson.name)) {
+    result = context.packageJson.name.replace(/^@/, "").replace(/\/.*$/, "");
+  }
+
+  return result;
+}
+
+/**
+ * Get the organization name from the context
+ *
+ * @param context - The Powerlines plugin context.
+ * @returns The organization name or undefined if not found.
+ */
+export function getWorkspaceName(
+  context: UnresolvedContext
+): string | undefined {
+  let result: string | undefined;
+  if (isSetString(context.workspaceConfig.name)) {
+    result = context.workspaceConfig.name;
+  }
+
+  if (!result && isSetString(context.workspaceConfig.namespace)) {
+    result = context.workspaceConfig.namespace.replace(/^@/, "");
+  }
+
+  if (!result && isSetString(context.packageJson.namespace)) {
+    result = context.packageJson.namespace.replace(/^@/, "");
+  }
+
+  if (!result && isSetString(context.packageJson.name)) {
+    result = context.packageJson.name.replace(/^@/, "").replace(/\/.*$/, "");
+  }
+
   return result;
 }
