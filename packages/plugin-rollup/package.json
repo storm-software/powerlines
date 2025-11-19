@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-rollup",
-  "version": "0.7.24",
+  "version": "0.7.25",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {

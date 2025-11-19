@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.16](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.16) (11/19/2025)
+
+### Miscellaneous
+
+- **nx:** Update plugin name to match package pattern
+  ([02d128a](https://github.com/storm-software/powerlines/commit/02d128a))
+
+### Bug Fixes
+
+- **nx:** Resolve issue with relative project roots in Nx plugin
+  ([7f61f8a](https://github.com/storm-software/powerlines/commit/7f61f8a))
+
 ## [0.10.15](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.15) (11/19/2025)
 
 ### Bug Fixes
