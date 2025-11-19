@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.23.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.1) (11/19/2025)
+
+### Miscellaneous
+
+- **powerlines:** Added `outputPath` and `distPath` to `replacePathTokens`
+  utility's replacements
+  ([80fb71b](https://github.com/storm-software/powerlines/commit/80fb71b))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with invalid `rolldown/experimental` import
+  ([abbd42e](https://github.com/storm-software/powerlines/commit/abbd42e))
+
 ## [0.23.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.0) (11/19/2025)
 
 ### Features
