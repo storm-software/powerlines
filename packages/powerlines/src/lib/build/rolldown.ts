@@ -29,7 +29,7 @@ import { isFunction } from "@stryke/type-checks/is-function";
 import { isString } from "@stryke/type-checks/is-string";
 import defu from "defu";
 import { globSync } from "node:fs";
-import { aliasPlugin as alias } from "rolldown/experimental";
+import { viteAliasPlugin as alias } from "rolldown/experimental";
 import typescriptPlugin from "rollup-plugin-typescript2";
 import {
   RolldownResolvedBuildConfig,

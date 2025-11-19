@@ -480,7 +480,7 @@
     "astro": "^5.13.5",
     "esbuild": "^0.27.0",
     "next": "^15.5.4",
-    "rolldown": "^1.0.0-beta.50",
+    "rolldown": "^1.0.0-beta.51",
     "rollup": "^4.46.4",
     "tsup": "8.4.0",
     "unbuild": "^3.5.0",
