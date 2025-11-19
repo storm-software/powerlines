@@ -57,13 +57,14 @@ catalog:
   "@nx/workspace": ^22.0.4
   "@prisma/get-platform": ^6.19.0
   "@prisma/prisma-schema-wasm": 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
+  "@pulumi/pulumi": "^3.207.0"
   "@rollup/plugin-alias": ^6.0.0
   "@rollup/plugin-babel": ^6.1.0
   "@rollup/plugin-commonjs": ^28.0.9
   "@rollup/plugin-inject": ^5.0.5
   "@rollup/plugin-node-resolve": ^16.0.3
   "@rollup/plugin-replace": ^6.0.3
-  "@rspack/core": ^1.6.3
+  "@rspack/core": ^1.6.4
   "@standard-schema/spec": ^1.0.0
   "@storm-software/build-tools": ^0.158.40
   "@storm-software/config": ^1.134.40
@@ -172,7 +173,7 @@ catalog:
   tsup: 8.4.0
   typedoc: 0.25.12
   typedoc-plugin-markdown: 4.0.0-next.20
-  unenv: npm:unenv-nightly
+  unenv: npm:unenv-nightly@2.0.0-rc.24
   unimport: ^5.5.0
   unionfs: ^4.6.0
   unplugin: ^2.3.10
@@ -180,7 +181,7 @@ catalog:
   untyped: ^1.5.2
   verdaccio: 6.1.2
   vite: ^7.2.2
-  webpack: ^5.102.1
+  webpack: ^5.103.0
   zx: ^8.8.5
 
 catalogMode: prefer
@@ -238,6 +239,7 @@ overrides:
   "@powerlines/plugin-oxlint": workspace:*
   "@powerlines/plugin-plugin": workspace:*
   "@powerlines/plugin-prisma": workspace:*
+  "@powerlines/plugin-pulumi": workspace:*
   "@powerlines/plugin-react": workspace:*
   "@powerlines/plugin-rolldown": workspace:*
   "@powerlines/plugin-rollup": workspace:*

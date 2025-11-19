@@ -60,6 +60,8 @@
       "@powerlines/plugin-plugin/*": ["packages/plugin-plugin/src/*"],
       "@powerlines/plugin-prisma": ["packages/plugin-prisma/src/index.ts"],
       "@powerlines/plugin-prisma/*": ["packages/plugin-prisma/src/*"],
+      "@powerlines/plugin-pulumi": ["packages/plugin-pulumi/src/index.ts"],
+      "@powerlines/plugin-pulumi/*": ["packages/plugin-pulumi/src/*"],
       "@powerlines/plugin-react": ["packages/plugin-react/src/index.tsx"],
       "@powerlines/plugin-react/*": ["packages/plugin-react/src/*"],
       "@powerlines/plugin-rolldown": ["packages/plugin-rolldown/src/index.ts"],
