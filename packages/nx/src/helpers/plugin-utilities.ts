@@ -115,7 +115,7 @@ export function createNxPlugin<
   TOptions extends NxPluginOptions = NxPluginOptions
 >(opts?: CreateNxPluginOptions): CreateNodesV2<TOptions> {
   const framework = opts?.framework || "powerlines";
-  const name = opts?.name || `${framework}/plugin/nx`;
+  const name = opts?.name || `${framework}/nx/plugin`;
   const artifactsFolder =
     opts?.artifactsFolder || `{projectRoot}/.${framework}`;
 
