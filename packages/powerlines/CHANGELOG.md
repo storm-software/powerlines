@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.23.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.2) (11/19/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with order of assets copy post-build
+  ([a852bf6](https://github.com/storm-software/powerlines/commit/a852bf6))
+
 ## [0.23.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.1) (11/19/2025)
 
 ### Miscellaneous
