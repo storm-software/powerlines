@@ -2,6 +2,30 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.21.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.21.0) (11/18/2025)
+
+### Miscellaneous
+
+- **powerlines:** Renamed `release` command to `deploy`
+  ([10197a8](https://github.com/storm-software/powerlines/commit/10197a8))
+- **powerlines:** Remove unused function from `UnifiedFS` class
+  ([25bfb8d](https://github.com/storm-software/powerlines/commit/25bfb8d))
+- **powerlines:** Update `vfs` to load file data from a cache buffer
+  ([7f17a66](https://github.com/storm-software/powerlines/commit/7f17a66))
+- **powerlines:** Expanded the `alias` build option and improved plugin utility
+  helpers
+  ([7e468d3](https://github.com/storm-software/powerlines/commit/7e468d3))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with removing pre-existing `fs.bin` buffer files
+  ([6141aa0](https://github.com/storm-software/powerlines/commit/6141aa0))
+
+### Features
+
+- **powerlines:** Added the `polyfill` build option
+  ([993218c](https://github.com/storm-software/powerlines/commit/993218c))
+
 ## [0.20.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.20.0) (11/17/2025)
 
 ### Features
