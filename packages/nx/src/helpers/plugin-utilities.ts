@@ -68,9 +68,9 @@ export function getNxTargetInputs(framework: string): string[] {
  * @returns An array of Nx input strings for the configuration file
  */
 export function getNxPluginInputs(framework: string): string {
-  return `**/${getNxTargetInputs(framework)
+  return `**/{${getNxTargetInputs(framework)
     .map(input => input.replace("{projectRoot}/", ""))
-    .join(",")}`;
+    .join(",")}}`;
 }
 
 export interface CreateNxPluginOptions {
