@@ -34,9 +34,11 @@ import { UnresolvedContext } from "../types/context";
  * - `{logPath}` - The environment's directory for log files.
  * - `{tempPath}` - The environment's directory for temporary files.
  * - `{configPath}` - The environment's directory for configuration files.
+ * - `{outputPath}` - The configured output directory for the project.
+ * - `{distPath}` - The configured distribution directory for the project.
  * - `{artifactsPath}` - The configured directory for build artifacts.
- * - `{builtinPath}` - The configured directory for built-in plugins.
- * - `{entryPath}` - The configured directory for entry files.
+ * - `{builtinPath}` - The configured directory for generated built-in plugins.
+ * - `{entryPath}` - The configured directory for generated entry files.
  *
  * @param context - The context containing the values for the path tokens.
  * @param path - The path string with tokens to replace.
@@ -60,6 +62,8 @@ export function replacePathTokens(
     .replaceAll("{logPath}", context.envPaths.log)
     .replaceAll("{tempPath}", context.envPaths.temp)
     .replaceAll("{configPath}", context.envPaths.config)
+    .replaceAll("{outputPath}", context.config.output.outputPath)
+    .replaceAll("{distPath}", context.config.output.distPath)
     .replaceAll(
       "{artifactsPath}",
       replacePath(context.artifactsPath, context.workspaceConfig.workspaceRoot)
