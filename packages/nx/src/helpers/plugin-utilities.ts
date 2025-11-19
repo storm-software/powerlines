@@ -159,8 +159,8 @@ export function createNxPlugin<
 
             const cacheDir = joinPaths(
               envPaths.cache,
-              "projects",
-              murmurhash(joinPaths(contextV2.workspaceRoot, projectRoot), {
+              "nx-plugin",
+              murmurhash(contextV2.workspaceRoot, {
                 maxLength: PROJECT_ROOT_HASH_LENGTH
               })
             );
@@ -174,8 +174,14 @@ export function createNxPlugin<
               }
             );
 
+            console.debug(
+              `[${name}] - ${new Date().toISOString()} - Loading ${
+                framework
+              } user configuration for project in root directory ${projectRoot}.`
+            );
+
             const userConfig = await loadUserConfigFile(
-              projectRoot,
+              joinPaths(contextV2.workspaceRoot, projectRoot),
               jiti,
               "build",
               "development",
@@ -183,12 +189,16 @@ export function createNxPlugin<
               framework
             );
 
-            if (!existsSync(joinPaths(contextV2.workspaceRoot, projectRoot))) {
+            if (
+              !existsSync(
+                joinPaths(contextV2.workspaceRoot, projectRoot, "package.json")
+              )
+            ) {
               console.warn(
-                `[${name}] - ${new Date().toISOString()} - Project root directory does not exist (cannot find \`package.json\` file): ${joinPaths(
+                `[${name}] - ${new Date().toISOString()} - Cannot find \`package.json\` file in the project's root directory (path: "${joinPaths(
                   contextV2.workspaceRoot,
                   projectRoot
-                )}`
+                )}"). Skipping project configuration.`
               );
 
               return {};
@@ -240,6 +250,10 @@ export function createNxPlugin<
                 projectRoot,
                 context.workspaceRoot
               );
+
+            console.debug(
+              `[${name}] - ${new Date().toISOString()} - Preparing Nx targets for project in root directory ${projectRoot}.`
+            );
 
             if (
               options?.clean !== false &&
@@ -461,6 +475,10 @@ export function createNxPlugin<
               {
                 overwrite: true
               }
+            );
+
+            console.debug(
+              `[${name}] - ${new Date().toISOString()} - Completed preparing Nx configuration for project in root directory ${projectRoot}.`
             );
 
             return {
