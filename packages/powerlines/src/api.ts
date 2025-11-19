@@ -669,6 +669,31 @@ ${formatTypes(generatedTypes)}
       await this.callPreHook(context, "build");
       await this.callNormalHook(context, "build");
 
+      if (context.config.output.distPath !== context.config.output.outputPath) {
+        const sourcePath = appendPath(
+          context.config.output.distPath,
+          context.workspaceConfig.workspaceRoot
+        );
+        const destinationPath = joinPaths(
+          appendPath(
+            context.config.output.outputPath,
+            context.workspaceConfig.workspaceRoot
+          ),
+          "dist"
+        );
+
+        if (sourcePath !== destinationPath) {
+          context.log(
+            LogLevelLabel.INFO,
+            `Copying build output files from project's build directory (${
+              context.config.output.distPath
+            }) to the workspace's output directory (${context.config.output.outputPath}).`
+          );
+
+          await copyFiles({ input: sourcePath, glob: "**/*" }, destinationPath);
+        }
+      }
+
       await Promise.all(
         context.config.output.assets.map(async asset => {
           context.log(
@@ -703,31 +728,6 @@ ${formatTypes(generatedTypes)}
           await copyFiles(asset, asset.output);
         })
       );
-
-      if (context.config.output.distPath !== context.config.output.outputPath) {
-        const sourcePath = appendPath(
-          context.config.output.distPath,
-          context.workspaceConfig.workspaceRoot
-        );
-        const destinationPath = joinPaths(
-          appendPath(
-            context.config.output.outputPath,
-            context.workspaceConfig.workspaceRoot
-          ),
-          "dist"
-        );
-
-        if (sourcePath !== destinationPath) {
-          context.log(
-            LogLevelLabel.INFO,
-            `Copying build output files from project's \`dist\` directory (${
-              context.config.output.distPath
-            }) to the output directory (${context.config.output.outputPath}).`
-          );
-
-          await copyFiles({ input: sourcePath, glob: "**/*" }, destinationPath);
-        }
-      }
 
       await this.callPostHook(context, "build");
     });

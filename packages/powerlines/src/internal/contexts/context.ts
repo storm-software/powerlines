@@ -895,10 +895,10 @@ export class PowerlinesContext<
           output: appendPath(
             isSetObject(asset) && asset.output
               ? joinPaths(
-                  this.config.output.distPath,
-                  replacePath(asset.output, this.config.output.distPath)
+                  this.config.output.outputPath,
+                  replacePath(asset.output, this.config.output.outputPath)
                 )
-              : this.config.output.distPath,
+              : this.config.output.outputPath,
             this.workspaceConfig.workspaceRoot
           ),
           ignore:
