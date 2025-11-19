@@ -142,6 +142,16 @@ export interface OutputConfig {
   outputPath?: string;
 
   /**
+   * The output directory path for the project build.
+   *
+   * @remarks
+   * This path is used to determine where the built files will be placed after the build process completes. This will be used in scenarios where the monorepo uses TSConfig paths to link packages together.
+   *
+   * @defaultValue "\{projectRoot\}/dist"
+   */
+  distPath?: string;
+
+  /**
    * The format of the output files
    *
    * @defaultValue "virtual"

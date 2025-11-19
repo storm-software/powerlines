@@ -101,14 +101,14 @@ export class UnifiedFS extends Union implements IFS {
       !this.#physicalFS.existsSync(
         joinPaths(
           this.#context.workspaceConfig.workspaceRoot,
-          this.#context.config.output.outputPath
+          this.#context.config.output.distPath
         )
       )
     ) {
       this.#physicalFS.mkdirSync(
         joinPaths(
           this.#context.workspaceConfig.workspaceRoot,
-          this.#context.config.output.outputPath
+          this.#context.config.output.distPath
         ),
         {
           recursive: true
@@ -230,7 +230,7 @@ export class UnifiedFS extends Union implements IFS {
         toFilePath(pathOrUrl),
         joinPaths(
           this.#context.workspaceConfig.workspaceRoot,
-          this.#context.config.output.outputPath
+          this.#context.config.output.distPath
         )
       )
     ) {

@@ -32,10 +32,10 @@ import type {
 export type VirtualFileExtension = "js" | "ts" | "jsx" | "tsx";
 
 // eslint-disable-next-line ts/naming-convention
-export const __VFS_PATCH__ = Symbol("__VFS_PATCH__");
+export const __VFS_PATCH__ = "__VFS_PATCH__";
 
 // eslint-disable-next-line ts/naming-convention
-export const __VFS_REVERT__ = Symbol("__VFS_REVERT__");
+export const __VFS_REVERT__ = "__VFS_REVERT__";
 
 export type OutputModeType = "fs" | "virtual";
 

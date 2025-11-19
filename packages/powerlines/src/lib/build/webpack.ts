@@ -66,7 +66,7 @@ export function extractWebpackConfig(context: Context): ExternalWebpackOptions {
       output: {
         path: joinPaths(
           context.workspaceConfig.workspaceRoot,
-          context.config.output.outputPath
+          context.config.output.distPath
         )
       },
       name: context.config.name,

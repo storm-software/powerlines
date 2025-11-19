@@ -259,7 +259,7 @@ export { ${key} };`;
       treeShaking:
         Boolean((context.config.build as TsupBuildConfig)?.treeshake) ||
         (context.config.build as ESBuildBuildConfig)?.treeShaking,
-      outdir: context.config.output.outputPath,
+      outdir: context.config.output.distPath,
       tsconfig: context.tsconfig.tsconfigFilePath,
       tsconfigRaw: context.tsconfig.tsconfigJson
     },

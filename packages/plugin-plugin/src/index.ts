@@ -20,9 +20,7 @@ import alloyBabelPreset from "@alloy-js/babel-preset";
 import typescriptBabelPreset from "@babel/preset-typescript";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { build, resolveOptions } from "@storm-software/tsup";
-import { copyFiles } from "@stryke/fs/copy-file";
 import { StormJSON } from "@stryke/json/storm-json";
-import { appendPath } from "@stryke/path/append";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join";
 import { defu } from "defu";
@@ -54,7 +52,6 @@ export const plugin = <
         entry: ["src/**/*.ts", "src/**/*.tsx"],
         output: {
           dts: false,
-          projectDistPath: "dist",
           format: ["cjs", "esm"]
         },
         build: {
@@ -81,13 +78,6 @@ export const plugin = <
           this.tsconfig.tsconfigFilePath,
           StormJSON.stringify(this.tsconfig.tsconfigJson),
           { mode: "fs" }
-        );
-      }
-
-      if (this.config.output.projectDistPath) {
-        this.config.build.override.outputPath = joinPaths(
-          this.config.projectRoot,
-          this.config.output.projectDistPath
         );
       }
     },
@@ -135,31 +125,6 @@ export const plugin = <
           )
         )
       );
-
-      if (this.config.build.override.outputPath) {
-        const sourcePath = appendPath(
-          this.config.build.override.outputPath,
-          this.workspaceConfig.workspaceRoot
-        );
-        const destinationPath = joinPaths(
-          appendPath(
-            this.config.output.outputPath,
-            this.workspaceConfig.workspaceRoot
-          ),
-          "dist"
-        );
-
-        if (sourcePath !== destinationPath) {
-          this.log(
-            LogLevelLabel.INFO,
-            `Copying build output files from project directory (${
-              this.config.build.override.outputPath
-            }) to output directory (${this.config.output.outputPath}).`
-          );
-
-          await copyFiles({ input: sourcePath, glob: "**/*" }, destinationPath);
-        }
-      }
     }
   };
 };

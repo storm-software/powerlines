@@ -860,10 +860,26 @@ export class PowerlinesContext<
           (this.config.projectType === "library" ? ["cjs", "esm"] : ["esm"])
       )
     );
-    this.config.output.outputPath ??= joinPaths(
-      "dist",
-      this.config.projectRoot || "."
-    );
+
+    if (
+      this.config.projectRoot &&
+      this.config.projectRoot !== "." &&
+      this.config.projectRoot !== "./" &&
+      this.config.projectRoot !== this.workspaceConfig.workspaceRoot
+    ) {
+      this.config.output.outputPath ??= joinPaths(
+        "dist",
+        this.config.projectRoot
+      );
+      this.config.output.distPath ??= joinPaths(
+        this.config.projectRoot,
+        "dist"
+      );
+    } else {
+      this.config.output.outputPath ??= "dist";
+      this.config.output.distPath ??= "dist";
+    }
+
     this.config.output.assets = getUnique(
       this.config.output.assets.map(asset => {
         return {
@@ -879,10 +895,10 @@ export class PowerlinesContext<
           output: appendPath(
             isSetObject(asset) && asset.output
               ? joinPaths(
-                  this.config.output.outputPath,
-                  replacePath(asset.output, this.config.output.outputPath)
+                  this.config.output.distPath,
+                  replacePath(asset.output, this.config.output.distPath)
                 )
-              : this.config.output.outputPath,
+              : this.config.output.distPath,
             this.workspaceConfig.workspaceRoot
           ),
           ignore:

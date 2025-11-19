@@ -21,7 +21,7 @@ import {
   TsupBuildConfig,
   TsupResolvedBuildConfig
 } from "powerlines/types/build";
-import { OutputConfig, UserConfig } from "powerlines/types/config";
+import { UserConfig } from "powerlines/types/config";
 import { PluginContext } from "powerlines/types/context";
 import { ResolvedConfig } from "powerlines/types/resolved";
 
@@ -53,31 +53,17 @@ export interface PluginPluginOptions {
   alloy?: PluginPluginAlloyOptions | boolean;
 }
 
-export type PluginPluginOutputConfig = OutputConfig & {
-  /**
-   * The output directory path for the project build.
-   *
-   * @remarks
-   * This path is used to determine where the built files will be placed after the build process completes. This will be used in scenarios where the monorepo uses TSConfig paths to link packages together.
-   *
-   * @defaultValue "dist"
-   */
-  projectDistPath: string;
-};
-
 export type PluginPluginUserConfig = UserConfig<
   TsupBuildConfig,
   TsupResolvedBuildConfig,
   "tsup"
 > & {
   alloy?: false | Partial<PluginPluginAlloyOptions>;
-  output?: Partial<PluginPluginOutputConfig>;
 };
 
 export type PluginPluginResolvedConfig =
   ResolvedConfig<PluginPluginUserConfig> & {
     alloy: false | Required<PluginPluginAlloyOptions>;
-    output: PluginPluginOutputConfig;
   };
 
 export type PluginPluginContext<

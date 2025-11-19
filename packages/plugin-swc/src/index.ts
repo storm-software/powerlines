@@ -38,7 +38,7 @@ export const plugin = <TContext extends SwcPluginContext = SwcPluginContext>(
       return {
         transform: {
           swc: defu(options, {
-            outputPath: this.config.output.outputPath,
+            outputPath: this.config.output.distPath,
             cwd: this.config.projectRoot,
             envName: this.config.mode,
             configFile: false

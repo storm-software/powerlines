@@ -27,6 +27,7 @@ import { install } from "@stryke/fs/install";
 import { listFiles } from "@stryke/fs/list-files";
 import { isPackageExists } from "@stryke/fs/package-fns";
 import { resolvePackage } from "@stryke/fs/resolve";
+import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import { isError } from "@stryke/type-checks/is-error";
@@ -580,6 +581,24 @@ ${formatTypes(generatedTypes)}
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
+      this.context.log(
+        LogLevelLabel.TRACE,
+        "Cleaning the project's dist and artifacts directories."
+      );
+
+      await context.fs.rmdir(
+        joinPaths(
+          context.workspaceConfig.workspaceRoot,
+          context.config.output.distPath
+        )
+      );
+      await context.fs.rmdir(
+        joinPaths(
+          context.workspaceConfig.workspaceRoot,
+          context.config.output.artifactsFolder
+        )
+      );
+
       await callHook<TResolvedConfig>(context, "clean", {
         sequential: true
       });
@@ -684,6 +703,31 @@ ${formatTypes(generatedTypes)}
           await copyFiles(asset, asset.output);
         })
       );
+
+      if (context.config.output.distPath !== context.config.output.outputPath) {
+        const sourcePath = appendPath(
+          context.config.output.distPath,
+          context.workspaceConfig.workspaceRoot
+        );
+        const destinationPath = joinPaths(
+          appendPath(
+            context.config.output.outputPath,
+            context.workspaceConfig.workspaceRoot
+          ),
+          "dist"
+        );
+
+        if (sourcePath !== destinationPath) {
+          context.log(
+            LogLevelLabel.INFO,
+            `Copying build output files from project's \`dist\` directory (${
+              context.config.output.distPath
+            }) to the output directory (${context.config.output.outputPath}).`
+          );
+
+          await copyFiles({ input: sourcePath, glob: "**/*" }, destinationPath);
+        }
+      }
 
       await this.callPostHook(context, "build");
     });

@@ -48,7 +48,7 @@ export const plugin = <
             sourceType: "module",
             cwd: this.config.projectRoot,
             envName: this.config.mode,
-            outputPath: this.config.output.outputPath,
+            outputPath: this.config.output.distPath,
             sourcemap: this.config.mode === "development"
           })
         }

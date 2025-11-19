@@ -59,7 +59,7 @@ export function extractRspackConfig(context: Context): ExternalRspackOptions {
       output: {
         path: joinPaths(
           context.workspaceConfig.workspaceRoot,
-          context.config.output.outputPath
+          context.config.output.distPath
         )
       },
       name: context.config.name,
