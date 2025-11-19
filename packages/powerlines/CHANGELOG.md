@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.22.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.22.0) (11/18/2025)
+
+### Features
+
+- **powerlines:** Added the `getOrganizationName` utility and `context-helpers`
+  module
+  ([40a5fd0](https://github.com/storm-software/powerlines/commit/40a5fd0))
+
 ## [0.21.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.21.0) (11/18/2025)
 
 ### Miscellaneous
