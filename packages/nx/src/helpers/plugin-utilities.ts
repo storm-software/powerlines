@@ -33,7 +33,6 @@ import {
 } from "@storm-software/workspace-tools/utils/project-tags";
 import { getEnvPaths } from "@stryke/env/get-env-paths";
 import { existsSync } from "@stryke/fs/exists";
-import { readJsonFileSync } from "@stryke/fs/json";
 import { murmurhash } from "@stryke/hash/murmurhash";
 import { joinPaths } from "@stryke/path/join-paths";
 import { kebabCase } from "@stryke/string-format/kebab-case";
@@ -42,6 +41,7 @@ import { isError } from "@stryke/type-checks/is-error";
 import type { PackageJson } from "@stryke/types/package-json";
 import defu from "defu";
 import { createJiti } from "jiti";
+import { readFile } from "node:fs/promises";
 import { readNxJson } from "nx/src/config/nx-json.js";
 import type { ProjectConfiguration } from "nx/src/config/workspace-json-project-json.js";
 import type { PackageJson as PackageJsonNx } from "nx/src/utils/package-json.js";
@@ -123,7 +123,7 @@ export function createNxPlugin<
   const pluginInputs = getNxPluginInputs(framework);
 
   console.debug(
-    `[${name}]: Initializing the ${titleCase(framework)} Nx plugin for the following inputs: ${pluginInputs}`
+    `[${name}] - ${new Date().toISOString()} - Initializing the ${titleCase(framework)} Nx plugin for the following inputs: ${pluginInputs}`
   );
 
   return [
@@ -149,7 +149,7 @@ export function createNxPlugin<
             );
             if (!projectRoot) {
               console.error(
-                `[${name}]: package.json and ${framework} configuration files (i.e. ${framework}.config.ts) must be located in the project root directory: ${configFile}`
+                `[${name}] - ${new Date().toISOString()} - package.json and ${framework} configuration files (i.e. ${framework}.config.ts) must be located in the project root directory: ${configFile}`
               );
 
               return {};
@@ -182,13 +182,34 @@ export function createNxPlugin<
               configFile,
               framework
             );
-            const packageJson = readJsonFileSync<PackageJson>(
-              joinPaths(projectRoot, "package.json")
-            );
 
-            if (!userConfig.configFile && !packageJson.storm) {
+            if (!existsSync(joinPaths(contextV2.workspaceRoot, projectRoot))) {
+              console.warn(
+                `[${name}] - ${new Date().toISOString()} - Project root directory does not exist (cannot find \`package.json\` file): ${joinPaths(
+                  contextV2.workspaceRoot,
+                  projectRoot
+                )}`
+              );
+
+              return {};
+            }
+
+            const packageJsonContent = await readFile(
+              joinPaths(contextV2.workspaceRoot, projectRoot, "package.json"),
+              "utf8"
+            );
+            if (!packageJsonContent) {
+              console.warn(
+                `[${name}] - ${new Date().toISOString()} - No package.json file found for project in root directory ${projectRoot}`
+              );
+
+              return {};
+            }
+
+            const packageJson: PackageJson = JSON.parse(packageJsonContent);
+            if (!userConfig.configFile && !packageJson?.storm) {
               console.debug(
-                `[${name}]: Skipping ${projectRoot} - no ${framework} configuration found for project in root directory.`
+                `[${name}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${framework} configuration found for project in root directory.`
               );
 
               return {};
@@ -200,7 +221,7 @@ export function createNxPlugin<
             );
             if (!projectConfig) {
               console.warn(
-                `[${name}]: No project configuration found for project in root directory ${projectRoot}`
+                `[${name}] - ${new Date().toISOString()} - No project configuration found for project in root directory ${projectRoot}`
               );
 
               return {};
@@ -455,7 +476,7 @@ export function createNxPlugin<
             };
           } catch (error) {
             console.error(
-              `[${name}]: ${isError(error) ? error.message : "Unknown fatal error"}`
+              `[${name}] - ${new Date().toISOString()} - ${isError(error) ? error.message : "Unknown fatal error"}`
             );
 
             return {};
