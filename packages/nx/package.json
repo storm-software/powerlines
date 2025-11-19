@@ -46,6 +46,34 @@
         "default": "./dist/index.js"
       }
     },
+    "./base/*": {
+      "import": {
+        "types": "./dist/src/base/*.d.mts",
+        "default": "./dist/src/base/*.mjs"
+      },
+      "require": {
+        "types": "./dist/src/base/*.d.ts",
+        "default": "./dist/src/base/*.js"
+      },
+      "default": {
+        "types": "./dist/src/base/*.d.ts",
+        "default": "./dist/src/base/*.js"
+      }
+    },
+    "./helpers/*": {
+      "import": {
+        "types": "./dist/src/helpers/*.d.mts",
+        "default": "./dist/src/helpers/*.mjs"
+      },
+      "require": {
+        "types": "./dist/src/helpers/*.d.ts",
+        "default": "./dist/src/helpers/*.js"
+      },
+      "default": {
+        "types": "./dist/src/helpers/*.d.ts",
+        "default": "./dist/src/helpers/*.js"
+      }
+    },
     "./plugin": {
       "import": {
         "types": "./dist/src/plugin/index.d.mts",

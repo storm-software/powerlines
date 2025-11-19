@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -25,6 +25,7 @@ const config = defineTsupConfig({
     "./executors.ts",
     "./generators.ts",
     "./src/base/*.ts",
+    "./src/helpers/*.ts",
     "./src/plugin/index.ts",
     "./src/executors/*/executor.ts",
     "./src/executors/*/untyped.ts",
