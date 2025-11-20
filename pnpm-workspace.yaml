@@ -188,9 +188,6 @@ catalog:
 configDependencies:
   pnpm-plugin-storm-software: 0.1.4+sha512-Hegfb70ijqCc65CZwy8aLYhxrYQv3Wo+MZXqSfNAfcge7iSGYm2J3ydU5zkmf89JSvMOJy8J6lo/TMynBGvgtA==
 
-minimumReleaseAgeExclude:
-  - rollup
-
 onlyBuiltDependencies:
   - '@biomejs/biome'
   - '@deepkit/type-compiler'
