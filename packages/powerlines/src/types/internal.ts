@@ -19,9 +19,59 @@
 /* eslint-disable ts/naming-convention */
 
 import { CallHookOptions } from "../internal/helpers/hooks";
-import { EnvironmentContext, PluginContext } from "./context";
+import { API } from "./api";
+import {
+  APIContext,
+  Context,
+  EnvironmentContext,
+  PluginContext
+} from "./context";
 import { HookKeys, InferHookParameters, InferHookReturnType } from "./hooks";
 import { ResolvedConfig } from "./resolved";
+
+/**
+ * Internal fields and methods for internal contexts
+ *
+ * @internal
+ */
+export interface UNSAFE_ContextInternal<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+> {
+  api: API<TResolvedConfig>;
+}
+
+/**
+ * An internal representation of the context, used for managing hooks and environment data.
+ *
+ * @internal
+ */
+export interface UNSAFE_Context<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+> extends Context<TResolvedConfig> {
+  $$internal: UNSAFE_ContextInternal<TResolvedConfig>;
+}
+
+/**
+ * An internal representation of the API context, used for managing hooks and environment data.
+ *
+ * @internal
+ */
+export interface UNSAFE_APIContext<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+> extends APIContext<TResolvedConfig> {
+  $$internal: UNSAFE_ContextInternal<TResolvedConfig>;
+}
+
+/**
+ * An internal representation of the environment context, used for managing hooks and environment data.
+ *
+ * @internal
+ */
+export interface UNSAFE_EnvironmentContext<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+> extends EnvironmentContext<TResolvedConfig> {
+  $$internal: UNSAFE_ContextInternal<TResolvedConfig>;
+}
 
 /**
  * Internal fields and methods for the internal plugin context
@@ -30,8 +80,9 @@ import { ResolvedConfig } from "./resolved";
  */
 export interface UNSAFE_PluginContextInternal<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> {
-  environment: EnvironmentContext<TResolvedConfig>;
+> extends UNSAFE_ContextInternal<TResolvedConfig> {
+  api: API<TResolvedConfig>;
+  environment: UNSAFE_EnvironmentContext<TResolvedConfig>;
   callHook: <TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
     hook: TKey,
     options: CallHookOptions,

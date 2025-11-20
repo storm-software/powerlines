@@ -16,37 +16,45 @@
 
  ------------------------------------------------------------------- */
 
-import type {
-  UnpluginContextMeta,
-  UnpluginFactory,
-  UnpluginOptions
-} from "unplugin";
-import type {
-  BuildVariant,
-  InferUnpluginVariant,
-  UnpluginBuildVariant
-} from "./build";
+import type { UnpluginContextMeta, UnpluginOptions } from "unplugin";
+import { API } from "./api";
+import type { InferUnpluginVariant, UnpluginBuildVariant } from "./build";
 import type { InferUserConfig } from "./config";
 import type { PluginContext } from "./context";
 import type { BuildPlugin } from "./plugin";
 import type { InferResolvedConfig } from "./resolved";
 
-export type InferUnpluginOptions<TBuildVariant extends BuildVariant> =
-  UnpluginOptions & {
+export type PowerlinesUnpluginOptions<
+  TBuildVariant extends UnpluginBuildVariant
+> = UnpluginOptions & {
+  /**
+   * An API object that can be used for inter-plugin communication.
+   *
+   * @see https://rollupjs.org/plugin-development/#direct-plugin-communication
+   */
+  api: API<InferResolvedConfig<TBuildVariant>>;
+};
+
+export type InferUnpluginOptions<TBuildVariant extends UnpluginBuildVariant> =
+  PowerlinesUnpluginOptions<TBuildVariant> & {
     [TKey in InferUnpluginVariant<TBuildVariant>]: BuildPlugin<
       PluginContext<InferResolvedConfig<TBuildVariant>>,
       TKey
     >;
   };
 
-export type UnpluginUserConfig<TBuildVariant extends BuildVariant | undefined> =
-  InferUserConfig<TBuildVariant> & {
-    /**
-     * The meta information for the unplugin context
-     */
-    unplugin: UnpluginContextMeta;
-  };
+export type UnpluginUserConfig<
+  TBuildVariant extends UnpluginBuildVariant | undefined
+> = InferUserConfig<TBuildVariant> & {
+  /**
+   * The meta information for the unplugin context
+   */
+  unplugin: UnpluginContextMeta;
+};
 
-export type StormStackUnpluginFactory<
+export type PowerlinesUnpluginFactory<
   TBuildVariant extends UnpluginBuildVariant
-> = UnpluginFactory<Partial<InferUserConfig<TBuildVariant>>, false>;
+> = (
+  options: Partial<InferUserConfig<TBuildVariant>>,
+  meta: UnpluginContextMeta
+) => PowerlinesUnpluginOptions<TBuildVariant>;

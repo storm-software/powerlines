@@ -16,5 +16,20 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./babel";
-export * from "./helpers";
+import { defu } from "defu";
+import { UnpluginBuildContext, UnpluginContext } from "unplugin";
+import { PluginContext } from "../../types/context";
+
+/**
+ * Merges a base plugin context with an unplugin context, combining their properties.
+ *
+ * @param context - The base plugin context to merge into.
+ * @param unplugin - The unplugin context to merge from.
+ * @returns The merged context.
+ */
+export function combineContexts<TContext extends PluginContext = PluginContext>(
+  context: TContext,
+  unplugin: UnpluginBuildContext & UnpluginContext
+) {
+  return defu(context, unplugin);
+}

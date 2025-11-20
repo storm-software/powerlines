@@ -22,8 +22,7 @@ import { tsconfigPathsToRegExp } from "bundle-require";
 import type {
   TransformResult,
   UnpluginBuildContext,
-  UnpluginContext,
-  UnpluginOptions
+  UnpluginContext
 } from "unplugin";
 import { PowerlinesAPI } from "../../api";
 import { UnpluginBuildVariant } from "../../types/build";
@@ -31,7 +30,8 @@ import { Context } from "../../types/context";
 import { InferResolvedConfig } from "../../types/resolved";
 import {
   InferUnpluginOptions,
-  StormStackUnpluginFactory
+  PowerlinesUnpluginFactory,
+  PowerlinesUnpluginOptions
 } from "../../types/unplugin";
 import { createLog } from "../logger";
 import { getString } from "../utilities/source-file";
@@ -53,9 +53,9 @@ export function createUnpluginFactory<
   variant: TBuildVariant,
   decorate?: (
     api: PowerlinesAPI<TContext["config"]>,
-    plugin: Omit<UnpluginOptions, UnpluginBuildVariant>
+    plugin: Omit<PowerlinesUnpluginOptions<TBuildVariant>, UnpluginBuildVariant>
   ) => InferUnpluginOptions<TBuildVariant>
-): StormStackUnpluginFactory<TBuildVariant> {
+): PowerlinesUnpluginFactory<TBuildVariant> {
   return (config, meta) => {
     const log = createLog("unplugin", config);
     log(LogLevelLabel.DEBUG, "Initializing Unplugin");
@@ -193,6 +193,7 @@ export function createUnpluginFactory<
 
       const result = {
         name: "powerlines",
+        api,
         resolveId: {
           filter: {
             id: {
@@ -212,7 +213,7 @@ export function createUnpluginFactory<
         transform,
         buildStart,
         writeBundle
-      };
+      } satisfies PowerlinesUnpluginOptions<TBuildVariant>;
 
       return decorate ? decorate(api, result) : result;
     } catch (error) {

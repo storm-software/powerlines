@@ -53,9 +53,9 @@ import type {
   WebpackResolvedBuildConfig
 } from "./build";
 import type { PluginContext } from "./context";
+import type { OutputModeType } from "./fs";
 import type { Plugin } from "./plugin";
 import type { TSConfig } from "./tsconfig";
-import type { OutputModeType } from "./vfs";
 
 export type LogFn = (type: LogLevelLabel, ...args: string[]) => void;
 

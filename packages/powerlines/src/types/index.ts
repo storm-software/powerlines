@@ -16,15 +16,16 @@
 
  ------------------------------------------------------------------- */
 
+export * from "./api";
 export * from "./babel";
 export * from "./build";
 export * from "./commands";
 export * from "./config";
 export * from "./context";
+export * from "./fs";
 export * from "./hooks";
 export * from "./plugin";
 export * from "./resolved";
 export * from "./tsconfig";
 export * from "./typedoc";
 export * from "./unplugin";
-export * from "./vfs";

@@ -19,6 +19,7 @@
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isString } from "@stryke/type-checks/is-string";
 import { UnpluginMessage } from "unplugin";
+import { callHook, CallHookOptions } from "../../internal/helpers/hooks";
 import { LogFn } from "../../types/config";
 import { EnvironmentContext, PluginContext } from "../../types/context";
 import {
@@ -26,16 +27,25 @@ import {
   InferHookParameters,
   InferHookReturnType
 } from "../../types/hooks";
-import { UNSAFE_PluginContext } from "../../types/internal";
+import {
+  UNSAFE_EnvironmentContext,
+  UNSAFE_PluginContext
+} from "../../types/internal";
 import { Plugin } from "../../types/plugin";
 import { ResolvedConfig } from "../../types/resolved";
-import { callHook, CallHookOptions } from "../helpers/hooks";
 
+/**
+ * Create a Proxy-based PluginContext
+ *
+ * @param plugin - The plugin instance
+ * @param environment - The environment context
+ * @returns The proxied plugin context
+ */
 export function createPluginContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 >(
   plugin: Plugin<PluginContext<TResolvedConfig>>,
-  environment: EnvironmentContext<TResolvedConfig>
+  environment: UNSAFE_EnvironmentContext<TResolvedConfig>
 ): UNSAFE_PluginContext<TResolvedConfig> {
   const normalizeMessage = (message: string | UnpluginMessage): string => {
     return isString(message) ? message : message.message;
@@ -67,6 +77,7 @@ export function createPluginContext<
     get(_, prop) {
       if (prop === "$$internal") {
         return {
+          ...environment.$$internal,
           environment,
           callHook: callHookFn
         };
@@ -85,6 +96,24 @@ export function createPluginContext<
       if (prop === "warn") {
         return (message: string | UnpluginMessage) => {
           log(LogLevelLabel.WARN, normalizeMessage(message));
+        };
+      }
+
+      if (prop === "info") {
+        return (message: string | UnpluginMessage) => {
+          log(LogLevelLabel.INFO, normalizeMessage(message));
+        };
+      }
+
+      if (prop === "debug") {
+        return (message: string | UnpluginMessage) => {
+          log(LogLevelLabel.DEBUG, normalizeMessage(message));
+        };
+      }
+
+      if (prop === "trace") {
+        return (message: string | UnpluginMessage) => {
+          log(LogLevelLabel.TRACE, normalizeMessage(message));
         };
       }
 

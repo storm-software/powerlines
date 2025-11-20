@@ -24,7 +24,6 @@ import type { Jiti } from "jiti";
 import type MagicString from "magic-string";
 import type { SourceMap } from "magic-string";
 import type { DirectoryJSON } from "memfs";
-import { ParseResult, ParserOptions } from "oxc-parser";
 import { Range } from "semver";
 import type { Unimport } from "unimport";
 import type {
@@ -38,6 +37,12 @@ import type {
   UserConfig,
   WorkspaceConfig
 } from "./config";
+import type {
+  PowerlinesWriteFileOptions,
+  VirtualFile,
+  VirtualFileMetadata,
+  VirtualFileSystemInterface
+} from "./fs";
 import type { HookKeys, Hooks, HooksList } from "./hooks";
 import type { Plugin } from "./plugin";
 import type {
@@ -46,12 +51,6 @@ import type {
   ResolvedEntryTypeDefinition
 } from "./resolved";
 import type { ParsedTypeScriptConfig } from "./tsconfig";
-import type {
-  PowerlinesWriteFileOptions,
-  VirtualFile,
-  VirtualFileMetadata,
-  VirtualFileSystemInterface
-} from "./vfs";
 
 /**
  * The severity level of a {@link LogRecord}.
@@ -330,7 +329,7 @@ export interface UnresolvedContext<
    * @param path - An optional path to write the builtin file to
    * @param options - Options for writing the file
    */
-  writeBuiltin: (
+  emitBuiltin: (
     code: string,
     id: string,
     path?: string,
@@ -344,20 +343,11 @@ export interface UnresolvedContext<
    * @param path - An optional path to write the entry file to
    * @param options - Options for writing the file
    */
-  writeEntry: (
+  emitEntry: (
     code: string,
     path: string,
     options?: PowerlinesWriteFileOptions
   ) => Promise<void>;
-
-  /**
-   * Parses the source code and returns a {@link ParseResult} object.
-   */
-  parse: (
-    code: string,
-    id: string,
-    options?: ParserOptions | null
-  ) => Promise<ParseResult>;
 
   /**
    * A function to update the context fields using a new user configuration options

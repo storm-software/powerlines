@@ -23,8 +23,8 @@ import {
   Project,
   RuntimeDirEntry
 } from "ts-morph";
-import { Context } from "../types/context";
-import { VirtualFileSystemInterface } from "../types/vfs";
+import { Context } from "../../types/context";
+import { VirtualFileSystemInterface } from "../../types/fs";
 
 class VirtualFileSystemHost
   extends InMemoryFileSystemHost

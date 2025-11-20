@@ -17,11 +17,9 @@
  ------------------------------------------------------------------- */
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { omit } from "@stryke/helpers/omit";
 import { findFileName } from "@stryke/path/file-path-fns";
 import { replaceExtension } from "@stryke/path/replace";
 import { isString } from "@stryke/type-checks/is-string";
-import defu from "defu";
 import type {
   ExternalIdResult,
   TransformResult,
@@ -33,6 +31,7 @@ import { PluginContext } from "../../types/context";
 import { UNSAFE_PluginContext } from "../../types/internal";
 import { extendLog } from "../logger";
 import { getString } from "../utilities/source-file";
+import { combineContexts } from "./helpers";
 import { handleResolveId } from "./resolve-id";
 
 export interface CreateUnpluginOptions {
@@ -159,7 +158,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
               entry.file
             );
 
-            await ctx.writeEntry(
+            await ctx.emitEntry(
               `
 ${ctx.config.build.polyfill.map(p => `import "${p}";`).join("\n")}
 
@@ -235,7 +234,7 @@ export * from "${isString(resolved) ? resolved : resolved.id}";
           "transform"
         )) {
           const result: TransformResult | string | undefined =
-            await handler.apply(defu(ctx, omit(this, ["parse"])), [
+            await handler.apply(combineContexts(ctx, this), [
               getString(transformed),
               id
             ]);
@@ -265,6 +264,7 @@ export * from "${isString(resolved) ? resolved : resolved.id}";
 
       return {
         name: "powerlines",
+        api: ctx.$$internal.api,
         resolveId: {
           filter: {
             id: {

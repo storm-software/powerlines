@@ -28,7 +28,6 @@ import { getUnique } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
 import { StormJSON } from "@stryke/json/storm-json";
 import { appendPath } from "@stryke/path/append";
-import { hasFileExtension } from "@stryke/path/file-path-fns";
 import { isAbsolute } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
@@ -40,20 +39,11 @@ import { isString } from "@stryke/type-checks/is-string";
 import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
 import defu from "defu";
-import { parseAsync, ParseResult, ParserOptions } from "oxc-parser";
 import { Range } from "semver";
 import { UnpluginMessage } from "unplugin";
-import { loadUserConfigFile, loadWorkspaceConfig } from "../../lib/config-file";
-import { getUniqueEntries, resolveEntriesSync } from "../../lib/entry";
-import { VirtualFileSystem } from "../../lib/fs/vfs";
-import { createLog, extendLog } from "../../lib/logger";
-import {
-  CACHE_HASH_LENGTH,
-  getChecksum,
-  getPrefixedProjectRootHash,
-  PROJECT_ROOT_HASH_LENGTH
-} from "../../lib/utilities/meta";
+import { createResolver } from "../../internal/helpers/resolver";
 import { checkDedupe, isPlugin } from "../../plugin-utils/helpers";
+import { API } from "../../types/api";
 import {
   InitialUserConfig,
   LogFn,
@@ -69,17 +59,27 @@ import {
   Resolver
 } from "../../types/context";
 import {
-  ResolvedConfig,
-  ResolvedEntryTypeDefinition
-} from "../../types/resolved";
-import { ParsedTypeScriptConfig } from "../../types/tsconfig";
-import {
   OutputModeType,
   PowerlinesWriteFileOptions,
   VirtualFile,
   VirtualFileSystemInterface
-} from "../../types/vfs";
-import { createResolver } from "../helpers/resolver";
+} from "../../types/fs";
+import { UNSAFE_ContextInternal } from "../../types/internal";
+import {
+  ResolvedConfig,
+  ResolvedEntryTypeDefinition
+} from "../../types/resolved";
+import { ParsedTypeScriptConfig } from "../../types/tsconfig";
+import { loadUserConfigFile, loadWorkspaceConfig } from "../config-file";
+import { getUniqueEntries, resolveEntriesSync } from "../entry";
+import { VirtualFileSystem } from "../fs/vfs";
+import { createLog, extendLog } from "../logger";
+import {
+  CACHE_HASH_LENGTH,
+  getChecksum,
+  getPrefixedProjectRootHash,
+  PROJECT_ROOT_HASH_LENGTH
+} from "../utilities/meta";
 
 interface ConfigCacheKey {
   projectRoot: string;
@@ -98,18 +98,19 @@ interface ConfigCacheResult {
   userConfig: ParsedUserConfig;
 }
 
-interface ParseCacheKey {
-  code: string;
-  options: Partial<ParserOptions> | null;
-}
-
 const configCache = new WeakMap<ConfigCacheKey, ConfigCacheResult>();
-const parseCache = new WeakMap<ParseCacheKey, ParseResult>();
 
 export class PowerlinesContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > implements Context<TResolvedConfig>
 {
+  /**
+   * Internal reference to the API instance
+   *
+   * @internal
+   */
+  #api!: API<TResolvedConfig>;
+
   #workspaceConfig: WorkspaceConfig;
 
   #checksum: string | null = null;
@@ -213,6 +214,17 @@ export class PowerlinesContext<
    * The module resolver for the project
    */
   public resolver!: Resolver;
+
+  /**
+   * Internal context fields and methods
+   *
+   * @internal
+   */
+  public get $$internal(): UNSAFE_ContextInternal<TResolvedConfig> {
+    return {
+      api: this.#api
+    };
+  }
 
   /**
    * The resolved entry type definitions for the project
@@ -403,7 +415,7 @@ export class PowerlinesContext<
    */
   public get builtins(): string[] {
     return Object.values(this.fs.metadata)
-      .filter(meta => meta && meta.variant === "builtin")
+      .filter(meta => meta && meta.type === "builtin")
       .map(meta => meta?.id)
       .filter(Boolean) as string[];
   }
@@ -414,7 +426,7 @@ export class PowerlinesContext<
   public async getBuiltins() {
     return Promise.all(
       Object.entries(this.fs.metadata)
-        .filter(([, meta]) => meta && meta.variant === "builtin")
+        .filter(([, meta]) => meta && meta.type === "builtin")
         .map(async ([path, meta]) => {
           const code = await this.fs.readFile(path);
 
@@ -430,14 +442,14 @@ export class PowerlinesContext<
    * @param path - A path to write the entry file to
    * @param options - Optional write file options
    */
-  public async writeEntry(
+  public async emitEntry(
     code: string,
     path: string,
     options: PowerlinesWriteFileOptions = {}
   ): Promise<void> {
     return this.fs.writeFile(
       isAbsolute(path) ? path : appendPath(path, this.entryPath),
-      { code, variant: "entry" },
+      { code, type: "entry" },
       defu(options, { mode: this.config.output.mode })
     );
   }
@@ -450,7 +462,7 @@ export class PowerlinesContext<
    * @param path - An optional path to write the builtin file to
    * @param options - Optional write file options
    */
-  public async writeBuiltin(
+  public async emitBuiltin(
     code: string,
     id: string,
     path?: string,
@@ -462,53 +474,9 @@ export class PowerlinesContext<
           ? path
           : joinPaths(this.builtinsPath, path)
         : appendPath(id, this.builtinsPath),
-      { id, code, variant: "builtin" },
+      { id, code, type: "builtin" },
       defu(options, { mode: this.config.output.mode })
     );
-  }
-
-  /**
-   * Parses the source code and returns a {@link ParseResult} object.
-   *
-   * @param code - The source code to parse.
-   * @param id - The unique identifier for the source file.
-   * @param options - Optional parser options.
-   * @returns The parsed {@link ParseResult} object.
-   */
-  public async parse(
-    code: string,
-    id: string,
-    options: ParserOptions | null = {}
-  ): Promise<ParseResult> {
-    if (parseCache.has({ code, options })) {
-      return parseCache.get({ code, options })!;
-    }
-
-    const result = await parseAsync(
-      id,
-      code,
-      defu(options ?? {}, {
-        lang: hasFileExtension(id) ? undefined : "ts",
-        astType: hasFileExtension(id) ? undefined : "ts",
-        sourceType: "module",
-        showSemanticErrors: false
-      }) as ParserOptions
-    );
-    if (result.errors && result.errors.length > 0) {
-      throw new Error(
-        `Powerlines parsing errors in file: ${id}\n${result.errors
-          .map(
-            error =>
-              `  [${error.severity}] ${error.message}${
-                error.codeframe ? ` (${error.codeframe})` : ""
-              }${error.helpMessage ? `\n    Help: ${error.helpMessage}` : ""}`
-          )
-          .join("\n")}`
-      );
-    }
-    parseCache.set({ code, options }, result);
-
-    return result;
   }
 
   /**

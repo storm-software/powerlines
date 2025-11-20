@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { PrimitiveJsonValue } from "@stryke/json/types";
 import type {
   MakeDirectoryOptions as FsMakeDirectoryOptions,
   WriteFileOptions as FsWriteFileOptions,
@@ -39,50 +38,6 @@ export const __VFS_REVERT__ = "__VFS_REVERT__";
 
 export type OutputModeType = "fs" | "virtual";
 
-export interface VirtualFile {
-  /**
-   * The unique identifier for the virtual file.
-   *
-   * @remarks
-   * If no specific id is provided, it defaults to the file's {@link path}.
-   */
-  id: string;
-
-  /**
-   * Additional metadata associated with the virtual file.
-   */
-  details: Record<string, PrimitiveJsonValue>;
-
-  /**
-   * The variant of the file.
-   *
-   * @remarks
-   * This string represents the purpose/function of the file in the virtual file system. A potential list of variants includes:
-   * - `builtin`: Indicates that the file is a built-in module provided by the system.
-   * - `entry`: Indicates that the file is an entry point for execution.
-   * - `normal`: Indicates that the file is a standard file without any special role.
-   */
-  variant: string;
-
-  /**
-   * The output mode of the file.
-   *
-   * @remarks
-   * This indicates whether the file is intended to be written to the actual file system (`fs`) or kept in the virtual file system (`virtual`).
-   */
-  mode: OutputModeType;
-
-  /**
-   * A virtual (or actual) path to the file in the file system.
-   */
-  path: string;
-
-  /**
-   * The contents of the file.
-   */
-  code: string | NodeJS.ArrayBufferView;
-}
-
 export interface VirtualFileMetadata {
   /**
    * The identifier for the file data.
@@ -90,9 +45,20 @@ export interface VirtualFileMetadata {
   id: string;
 
   /**
-   * The variant of the file.
+   * The timestamp of the virtual file.
    */
-  variant: string;
+  timestamp: number;
+
+  /**
+   * The type of the file.
+   *
+   * @remarks
+   * This string represents the purpose/function of the file in the virtual file system. A potential list of variants includes:
+   * - `builtin`: Indicates that the file is a built-in module provided by the system.
+   * - `entry`: Indicates that the file is an entry point for execution.
+   * - `normal`: Indicates that the file is a standard file without any special role.
+   */
+  type: string;
 
   /**
    * The output mode of the file.
@@ -105,16 +71,54 @@ export interface VirtualFileMetadata {
   properties: Record<string, string>;
 }
 
-export interface VirtualFileIdentifier {
+export interface VirtualFileData {
   /**
    * The identifier for the file data.
    */
-  id: string;
+  id?: string;
 
   /**
-   * A virtual (or actual) path to the file in the file system.
+   * The contents of the virtual file.
+   */
+  code: string;
+
+  /**
+   * The type of the file.
+   *
+   * @remarks
+   * This string represents the purpose/function of the file in the virtual file system. A potential list of variants includes:
+   * - `builtin`: Indicates that the file is a built-in module provided by the system.
+   * - `entry`: Indicates that the file is an entry point for execution.
+   * - `chunk`: Indicates that the file is a code chunk, typically used in code-splitting scenarios.
+   * - `prebuilt-chunk`: Indicates that the file is a prebuilt code chunk.
+   * - `asset`: Indicates that the file is a static asset, such as an image or stylesheet.
+   * - `normal`: Indicates that the file is a standard file without any special role.
+   */
+  type?: string;
+
+  /**
+   * The output mode of the file.
+   */
+  mode?: string;
+
+  /**
+   * Additional metadata associated with the file.
+   */
+  properties?: Record<string, string>;
+}
+
+export interface VirtualFile
+  extends Required<VirtualFileData>,
+    VirtualFileMetadata {
+  /**
+   * An additional name for the file.
    */
   path: string;
+
+  /**
+   * The timestamp of the virtual file.
+   */
+  timestamp: number;
 }
 
 export interface ResolveFSOptions {
@@ -125,6 +129,11 @@ export type MakeDirectoryOptions = (Mode | FsMakeDirectoryOptions) &
   ResolveFSOptions;
 
 export interface PowerlinesWriteFileOptions extends ResolveFSOptions {
+  /**
+   * Should the file skip formatting before being written?
+   *
+   * @defaultValue false
+   */
   skipFormat?: boolean;
 }
 
@@ -134,15 +143,7 @@ export type WriteFileOptions =
   | NodeWriteFileOptions
   | PowerlinesWriteFileOptions;
 
-export type PowerLinesWriteFileData = Partial<
-  Omit<VirtualFile, "path" | "mode" | "code">
-> &
-  Pick<VirtualFile, "code">;
-
-export type WriteFileData =
-  | string
-  | NodeJS.ArrayBufferView
-  | PowerLinesWriteFileData;
+export type WriteFileData = string | NodeJS.ArrayBufferView | VirtualFileData;
 
 export interface ResolvePathOptions extends ResolveFSOptions {
   /**
@@ -160,7 +161,7 @@ export interface ResolvePathOptions extends ResolveFSOptions {
   /**
    * The type of the path to resolve.
    */
-  type?: "file" | "directory";
+  pathType?: "file" | "directory";
 }
 
 export interface VirtualFileSystemInterface {

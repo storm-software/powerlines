@@ -173,8 +173,7 @@ export async function handleResolveId(
       });
       if (
         match(args.id, options.noExternal) ||
-        (resolvedPath &&
-          context.fs.metadata[resolvedPath]?.variant === "builtin")
+        (resolvedPath && context.fs.metadata[resolvedPath]?.type === "builtin")
       ) {
         return undefined;
       }

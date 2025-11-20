@@ -25,12 +25,12 @@ import { isUndefined } from "@stryke/type-checks/is-undefined";
 import fs, { PathOrFileDescriptor } from "node:fs";
 import {
   NodeWriteFileOptions,
-  PowerLinesWriteFileData,
   PowerlinesWriteFileOptions,
+  VirtualFileData,
   VirtualFileSystemInterface,
   WriteFileData,
   WriteFileOptions
-} from "../../types/vfs";
+} from "../../types/fs";
 
 export function isBufferEncoding(
   options: WriteFileOptions
@@ -59,10 +59,8 @@ export function isNodeWriteFileOptions(
   );
 }
 
-export function isPowerLinesWriteFileData(
-  data: WriteFileData
-): data is PowerLinesWriteFileData {
-  return !!(isSetObject(data) && "code" in data && data.code);
+export function isVirtualFileData(obj: WriteFileData): obj is VirtualFileData {
+  return !!(isSetObject(obj) && "code" in obj && obj.code);
 }
 
 const FILE_PREFIX = "file://";

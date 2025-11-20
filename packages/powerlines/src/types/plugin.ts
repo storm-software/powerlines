@@ -322,6 +322,13 @@ export type PluginHooks<TContext extends PluginContext = PluginContext> = {
     ) => MaybePromise<string | ExternalIdResult | null | undefined>,
     "id"
   >;
+
+  /**
+   * An API object that can be used for inter-plugin communication.
+   *
+   * @see https://rollupjs.org/plugin-development/#direct-plugin-communication
+   */
+  api?: Record<string, any>;
 };
 
 export type PluginBuildPlugins<TContext extends PluginContext = PluginContext> =

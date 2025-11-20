@@ -21,7 +21,10 @@ import { toArray } from "@stryke/convert/to-array";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import chalk from "chalk";
-import { loadWorkspaceConfig } from "../../lib/config-file";
+import {
+  createDefaultEnvironment,
+  createEnvironment
+} from "../../internal/helpers/environment";
 import { InitialUserConfig, LogFn, WorkspaceConfig } from "../../types/config";
 import {
   APIContext,
@@ -33,10 +36,7 @@ import {
   EnvironmentResolvedConfig,
   ResolvedConfig
 } from "../../types/resolved";
-import {
-  createDefaultEnvironment,
-  createEnvironment
-} from "../helpers/environment";
+import { loadWorkspaceConfig } from "../config-file";
 import { PowerlinesContext } from "./context";
 import { PowerlinesEnvironmentContext } from "./environment-context";
 

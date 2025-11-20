@@ -20,11 +20,11 @@ import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join";
 import { DirectoryJSON } from "memfs";
 import { Volume } from "memfs/lib/node/volume";
-import fs, { PathOrFileDescriptor } from "node:fs";
+import _fs, { PathOrFileDescriptor } from "node:fs";
 import { IFS, Union } from "unionfs";
-import { FileSystemData } from "../../../schemas/fs";
+import { FileSystem } from "../../../schemas/fs";
 import { Context } from "../../types/context";
-import { OutputModeType, ResolveFSOptions } from "../../types/vfs";
+import { OutputModeType, ResolveFSOptions } from "../../types/fs";
 import { cloneFS, toFilePath } from "./helpers";
 
 export interface FileSystemInterface extends IFS {
@@ -43,15 +43,15 @@ export class UnifiedFS extends Union implements IFS {
   /**
    * The physical file system.
    */
-  #physicalFS: typeof fs = cloneFS(fs);
+  #physicalFS: typeof _fs = cloneFS(_fs);
 
   /**
    * The context of the unified file system.
    */
   #context: Context;
 
-  public static create(context: Context, data: FileSystemData): UnifiedFS {
-    let result = new UnifiedFS(context, data);
+  public static create(context: Context, fs: FileSystem): UnifiedFS {
+    let result = new UnifiedFS(context, fs);
 
     result = result.use(result.#physicalFS);
     if (result.#context.config.output.mode !== "fs") {
@@ -79,9 +79,9 @@ export class UnifiedFS extends Union implements IFS {
    * Creates a new instance of the VirtualFileSystem.
    *
    * @param context - The context of the virtual file system, typically containing options and logging functions.
-   * @param data - A buffer containing the serialized virtual file system data.
+   * @param fs - A buffer containing the serialized virtual file system data.
    */
-  private constructor(context: Context, data: FileSystemData) {
+  private constructor(context: Context, fs: FileSystem) {
     super();
     this.#context = context;
 
@@ -118,9 +118,9 @@ export class UnifiedFS extends Union implements IFS {
 
     if (this.#context.config.output.mode !== "fs") {
       this.#virtualFS = Volume.fromJSON(
-        data._hasFiles() && data.files.length > 0
-          ? data.files.values().reduce((ret, file) => {
-              ret[file.path] = file.content;
+        fs._hasFiles() && fs.files.length > 0
+          ? fs.files.values().reduce((ret, file) => {
+              ret[file.path] = file.code;
 
               return ret;
             }, {} as DirectoryJSON)

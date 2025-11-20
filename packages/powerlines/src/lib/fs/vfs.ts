@@ -48,7 +48,7 @@ import fs, {
 } from "node:fs";
 import { format, resolveConfig } from "prettier";
 import { IFS } from "unionfs";
-import { FileSystemData } from "../../../schemas/fs";
+import { FileSystem } from "../../../schemas/fs";
 import { LogFn } from "../../types/config";
 import { Context } from "../../types/context";
 import {
@@ -61,12 +61,12 @@ import {
   VirtualFileSystemInterface,
   WriteFileData,
   WriteFileOptions
-} from "../../types/vfs";
+} from "../../types/fs";
 import { extendLog } from "../logger";
 import {
   isNodeWriteFileOptions,
-  isPowerLinesWriteFileData,
   isPowerlinesWriteFileOptions,
+  isVirtualFileData,
   patchFS,
   toFilePath
 } from "./helpers";
@@ -421,12 +421,12 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
       const message = new capnp.Message(buffer, false);
 
-      return new VirtualFileSystem(context, message.getRoot(FileSystemData));
+      return new VirtualFileSystem(context, message.getRoot(FileSystem));
     }
 
     const message = new capnp.Message();
 
-    return new VirtualFileSystem(context, message.initRoot(FileSystemData));
+    return new VirtualFileSystem(context, message.initRoot(FileSystem));
   }
 
   /**
@@ -444,12 +444,12 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
       const message = new capnp.Message(buffer, false);
 
-      return new VirtualFileSystem(context, message.getRoot(FileSystemData));
+      return new VirtualFileSystem(context, message.getRoot(FileSystem));
     }
 
     const message = new capnp.Message();
 
-    return new VirtualFileSystem(context, message.initRoot(FileSystemData));
+    return new VirtualFileSystem(context, message.initRoot(FileSystem));
   }
 
   /**
@@ -477,22 +477,23 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * Creates a new instance of the {@link VirtualFileSystem}.
    *
    * @param context - The context of the virtual file system, typically containing options and logging functions.
-   * @param data - A buffer containing the serialized virtual file system data.
+   * @param fs - A buffer containing the serialized virtual file system data.
    */
-  private constructor(context: Context, data: FileSystemData) {
+  private constructor(context: Context, fs: FileSystem) {
     this.#context = context;
-    this.#unifiedFS = UnifiedFS.create(context, data);
+    this.#unifiedFS = UnifiedFS.create(context, fs);
 
     this.#metadata = {} as Record<string, VirtualFileMetadata>;
-    if (data._hasMetadata()) {
-      this.#metadata = data.metadata.values().reduce(
-        (ret, data) => {
-          ret[data.id] = {
-            id: data.id,
-            variant: data.variant,
-            mode: data.mode,
-            properties: data._hasProperties()
-              ? data.properties.values().reduce(
+    if (fs._hasMetadata()) {
+      this.#metadata = fs.metadata.values().reduce(
+        (ret, metadata) => {
+          ret[metadata.id] = {
+            id: metadata.id,
+            type: metadata.type,
+            mode: metadata.mode,
+            timestamp: metadata.timestamp || Date.now(),
+            properties: metadata._hasProperties()
+              ? metadata.properties.values().reduce(
                   (ret, item) => {
                     ret[item.key] = item.value;
                     return ret;
@@ -511,20 +512,18 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     this.#ids = {} as Record<string, string>;
     this.#paths = {} as Record<string, string>;
 
-    if (data._hasIds()) {
-      this.#ids = data.ids.values().reduce(
-        (ret, data) => {
-          ret[data.id] ??= data.path;
-          ret[data.path] ??= data.path;
+    if (fs._hasIds()) {
+      this.#ids = fs.ids.values().reduce(
+        (ret, identifier) => {
+          ret[identifier.path] ??= identifier.id;
 
           return ret;
         },
         {} as Record<string, string>
       );
-      this.#paths = data.ids.values().reduce(
-        (ret, data) => {
-          ret[data.path] ??= data.id;
-
+      this.#paths = fs.ids.values().reduce(
+        (ret, identifier) => {
+          ret[identifier.id] ??= identifier.path;
           return ret;
         },
         {} as Record<string, string>
@@ -551,7 +550,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
     const resolvedPath = this.resolve(pathOrId, {
       ...options,
-      type: "file"
+      pathType: "file"
     });
     if (!resolvedPath) {
       return false;
@@ -577,7 +576,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
     const resolvedPath = this.resolve(pathOrId, {
       ...options,
-      type: "file"
+      pathType: "file"
     });
     if (!resolvedPath) {
       return false;
@@ -848,7 +847,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
       // No glob characters: treat as a single file path
       if (!/[*?[\]{}]/.test(normalized) && !normalized.includes("**")) {
-        const resolved = this.resolve(normalized, { type: "file" });
+        const resolved = this.resolve(normalized, { pathType: "file" });
         if (resolved && !results.includes(resolved)) {
           results.push(resolved);
         }
@@ -903,7 +902,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
             stack.push(full);
           } else if (stats.isFile()) {
             if (this.#buildRegex(absPattern).test(full)) {
-              const resolved = this.resolve(full, { type: "file" });
+              const resolved = this.resolve(full, { pathType: "file" });
               if (resolved && !results.includes(resolved)) {
                 results.push(resolved);
               }
@@ -929,7 +928,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
       // No glob characters: treat as a single file path
       if (!/[*?[\]{}]/.test(normalized) && !normalized.includes("**")) {
-        const resolved = this.resolve(normalized, { type: "file" });
+        const resolved = this.resolve(normalized, { pathType: "file" });
         if (resolved && !results.includes(resolved)) {
           results.push(resolved);
         }
@@ -984,7 +983,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
             stack.push(full);
           } else if (stats.isFile()) {
             if (this.#buildRegex(absPattern).test(full)) {
-              const resolved = this.resolve(full, { type: "file" });
+              const resolved = this.resolve(full, { pathType: "file" });
               if (resolved && !results.includes(resolved)) {
                 results.push(resolved);
               }
@@ -1084,7 +1083,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     const filePath = this.resolve(toFilePath(pathOrId), {
-      type: "file"
+      pathType: "file"
     });
     if (filePath) {
       let result: string | Buffer;
@@ -1128,7 +1127,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     const filePath = this.resolve(toFilePath(pathOrId), {
-      type: "file"
+      pathType: "file"
     });
     if (filePath) {
       const result = this.#unifiedFS
@@ -1163,7 +1162,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
     }
 
-    let code = isPowerLinesWriteFileData(data) ? data.code : data;
+    let code = isVirtualFileData(data) ? data.code : data;
     if (
       (!isPowerlinesWriteFileOptions(options) || !options.skipFormat) &&
       isSetString(code)
@@ -1192,7 +1191,8 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     this.metadata[formattedPath] = {
       mode: outputMode,
       variant: "normal",
-      ...(isPowerLinesWriteFileData(data) ? data : {})
+      timestamp: Date.now(),
+      ...(isVirtualFileData(data) ? data : {})
     } as VirtualFileMetadata;
     this.#clearResolverCache(formattedPath);
 
@@ -1236,7 +1236,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
     }
 
-    const code = isPowerLinesWriteFileData(data) ? data.code : data;
+    const code = isVirtualFileData(data) ? data.code : data;
     const outputMode = this.#unifiedFS.resolveMode(
       formattedPath,
       isPowerlinesWriteFileOptions(options) ? options : undefined
@@ -1252,7 +1252,8 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     this.metadata[formattedPath] = {
       mode: outputMode,
       variant: "normal",
-      ...(isPowerLinesWriteFileData(data) ? data : {})
+      timestamp: Date.now(),
+      ...(isVirtualFileData(data) ? data : {})
     } as VirtualFileMetadata;
     this.#clearResolverCache(formattedPath);
 
@@ -1444,7 +1445,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     const resolverKey = `${formattedPathOrId}${
       options.withExtension ? "-ext" : ""
     }${options.paths ? `-${murmurhash(options.paths)}` : ""}${
-      options.type ? `-${options.type}` : ""
+      options.pathType ? `-${options.pathType}` : ""
     }`;
     if (this.#cachedResolver.has(resolverKey)) {
       return this.#cachedResolver.get(resolverKey)!;
@@ -1502,31 +1503,35 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       await this.unlink(joinPaths(this.#context.cachePath, "fs.bin"));
 
       const message = new capnp.Message();
-      const data = message.initRoot(FileSystemData);
+      const fs = message.initRoot(FileSystem);
 
       const virtualFS = this.#unifiedFS.toJSON();
-      const files = data._initFiles(Object.keys(virtualFS).length);
-      Object.entries(virtualFS)
-        .filter(([_, content]) => content)
-        .forEach(([path, content], index) => {
-          const fileData = files.get(index);
-          fileData.path = path;
-          fileData.content = content!;
-        });
+      const virtualFiles = Object.entries(virtualFS).filter(
+        ([_, code]) => code
+      );
 
-      const ids = data._initIds(Object.keys(this.ids).length);
+      const files = fs._initFiles(virtualFiles.length);
+      virtualFiles.forEach(([path, code], index) => {
+        const fd = files.get(index);
+        fd.path = path;
+        fd.code = code!;
+      });
+
+      const ids = fs._initIds(Object.keys(this.ids).length);
       Object.entries(this.ids).forEach(([id, path], index) => {
         const fileId = ids.get(index);
         fileId.id = id;
         fileId.path = path;
       });
 
-      const metadata = data._initMetadata(Object.keys(this.metadata).length);
+      const metadata = fs._initMetadata(Object.keys(this.metadata).length);
       Object.entries(this.metadata).forEach(([id, value], index) => {
         const fileMetadata = metadata.get(index);
         fileMetadata.id = id;
         fileMetadata.mode = value.mode;
-        fileMetadata.variant = value.variant;
+        fileMetadata.type = value.type;
+        fileMetadata.timestamp = value.timestamp ?? BigInt(Date.now());
+
         if (value.properties) {
           const props = fileMetadata._initProperties(
             Object.keys(value.properties).length

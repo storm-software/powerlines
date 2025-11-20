@@ -43,7 +43,6 @@ import chalk from "chalk";
 import defu from "defu";
 import Handlebars from "handlebars";
 import { moduleResolverBabelPlugin } from "./internal/babel/module-resolver-plugin";
-import { PowerlinesAPIContext } from "./internal/contexts/api-context";
 import { emitTypes, formatTypes } from "./internal/helpers/generate-types";
 import { callHook, CallHookOptions } from "./internal/helpers/hooks";
 import { installDependencies } from "./internal/helpers/install-dependencies";
@@ -51,6 +50,7 @@ import {
   initializeTsconfig,
   resolveTsconfig
 } from "./internal/helpers/resolve-tsconfig";
+import { PowerlinesAPIContext } from "./lib/contexts/api-context";
 import { getParsedTypeScriptConfig } from "./lib/typescript/tsconfig";
 import { getFileHeader } from "./lib/utilities/file-header";
 import { writeMetaFile } from "./lib/utilities/meta";
@@ -63,6 +63,7 @@ import {
   isPluginConfigTuple
 } from "./plugin-utils/helpers";
 import { replacePathTokens } from "./plugin-utils/paths";
+import { API } from "./types/api";
 import type {
   BuildInlineConfig,
   CleanInlineConfig,
@@ -82,14 +83,15 @@ import type {
   EnvironmentContext,
   PluginContext
 } from "./types/context";
+import { __VFS_PATCH__, __VFS_REVERT__ } from "./types/fs";
 import {
   HookKeys,
   InferHookParameters,
   InferHookReturnType
 } from "./types/hooks";
+import { UNSAFE_APIContext } from "./types/internal";
 import type { Plugin } from "./types/plugin";
 import { EnvironmentResolvedConfig, ResolvedConfig } from "./types/resolved";
-import { __VFS_PATCH__, __VFS_REVERT__ } from "./types/vfs";
 
 /**
  * The Powerlines API class
@@ -100,18 +102,19 @@ import { __VFS_PATCH__, __VFS_REVERT__ } from "./types/vfs";
  * @public
  */
 export class PowerlinesAPI<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> implements AsyncDisposable
+    TResolvedConfig extends ResolvedConfig = ResolvedConfig
+  >
+  implements API<TResolvedConfig>, AsyncDisposable
 {
   /**
    * The Powerlines context
    */
-  #context: APIContext<TResolvedConfig>;
+  #context: UNSAFE_APIContext<TResolvedConfig>;
 
   /**
    * The Powerlines context
    */
-  public get context() {
+  public get context(): APIContext<TResolvedConfig> {
     return this.#context;
   }
 
@@ -121,7 +124,7 @@ export class PowerlinesAPI<
    * @param context - The Powerlines context
    */
   private constructor(context: APIContext<TResolvedConfig>) {
-    this.#context = context;
+    this.#context = context as UNSAFE_APIContext<TResolvedConfig>;
   }
 
   /**
@@ -136,6 +139,7 @@ export class PowerlinesAPI<
     const api = new PowerlinesAPI<TResolvedConfig>(
       await PowerlinesAPIContext.from(workspaceRoot, config)
     );
+    api.#context.$$internal.api = api;
 
     for (const plugin of api.context.config.plugins ?? []) {
       await api.#addPlugin(plugin);
@@ -166,6 +170,11 @@ export class PowerlinesAPI<
 
   /**
    * Prepare the Powerlines API
+   *
+   * @remarks
+   * This method will prepare the Powerlines API for use, initializing any necessary resources.
+   *
+   * @param inlineConfig - The inline configuration for the prepare command
    */
   public async prepare(
     inlineConfig:
@@ -300,7 +309,7 @@ export class PowerlinesAPI<
               `Writing transformed built-in runtime file ${file.id}.`
             );
 
-            await context.writeBuiltin(result.code, file.id, file.path);
+            await context.emitBuiltin(result.code, file.id, file.path);
             return file.path;
           })
         );
@@ -732,8 +741,6 @@ ${formatTypes(generatedTypes)}
       await this.callPostHook(context, "build");
     });
 
-    // await build(this.context, this.#hooks);
-
     this.context.log(LogLevelLabel.TRACE, "Powerlines build completed");
   }
 
@@ -952,7 +959,13 @@ ${formatTypes(generatedTypes)}
     return this.callHookSequential(hook, { environment }, ...args);
   }
 
-  async [Symbol.asyncDispose]() {
+  /**
+   * Dispose of the Powerlines API instance
+   *
+   * @remarks
+   * This method will finalize the Powerlines API instance, cleaning up any resources used.
+   */
+  public async [Symbol.asyncDispose]() {
     await this.finalize();
   }
 

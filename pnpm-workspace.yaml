@@ -49,12 +49,12 @@ catalog:
   '@microsoft/api-extractor': ^7.55.0
   '@microsoft/tsdoc': ^0.15.1
   '@microsoft/tsdoc-config': ^0.17.1
-  '@nx/devkit': ^22.0.4
-  '@nx/eslint-plugin': ^22.0.4
-  '@nx/jest': ^22.0.4
-  '@nx/js': ^22.0.4
-  '@nx/plugin': ^22.0.4
-  '@nx/workspace': ^22.0.4
+  '@nx/devkit': ^22.1.0
+  '@nx/eslint-plugin': ^22.1.0
+  '@nx/jest': ^22.1.0
+  '@nx/js': ^22.1.0
+  '@nx/plugin': ^22.1.0
+  '@nx/workspace': ^22.1.0
   '@prisma/get-platform': ^6.19.0
   '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
   '@pulumi/pulumi': ^3.207.0
@@ -66,23 +66,23 @@ catalog:
   '@rollup/plugin-replace': ^6.0.3
   '@rspack/core': ^1.6.4
   '@standard-schema/spec': ^1.0.0
-  '@storm-software/build-tools': ^0.158.45
-  '@storm-software/config': ^1.134.45
-  '@storm-software/config-tools': ^1.188.45
-  '@storm-software/cspell': ^0.45.45
-  '@storm-software/esbuild': ^0.53.45
-  '@storm-software/eslint': ^0.169.45
-  '@storm-software/git-tools': ^2.124.28
-  '@storm-software/linting-tools': ^1.132.45
-  '@storm-software/markdownlint': ^0.30.45
-  '@storm-software/pnpm-tools': ^0.6.45
-  '@storm-software/prettier': ^0.57.45
-  '@storm-software/testing-tools': ^1.119.45
-  '@storm-software/tsconfig': ^0.47.45
-  '@storm-software/tsup': ^0.2.43
-  '@storm-software/unbuild': ^0.57.45
-  '@storm-software/untyped': ^0.24.26
-  '@storm-software/workspace-tools': ^1.293.15
+  '@storm-software/build-tools': ^0.158.47
+  '@storm-software/config': ^1.134.47
+  '@storm-software/config-tools': ^1.188.47
+  '@storm-software/cspell': ^0.45.47
+  '@storm-software/esbuild': ^0.53.47
+  '@storm-software/eslint': ^0.169.47
+  '@storm-software/git-tools': ^2.124.30
+  '@storm-software/linting-tools': ^1.132.47
+  '@storm-software/markdownlint': ^0.30.47
+  '@storm-software/pnpm-tools': ^0.6.47
+  '@storm-software/prettier': ^0.57.47
+  '@storm-software/testing-tools': ^1.119.47
+  '@storm-software/tsconfig': ^0.47.47
+  '@storm-software/tsup': ^0.2.45
+  '@storm-software/unbuild': ^0.57.47
+  '@storm-software/untyped': ^0.24.28
+  '@storm-software/workspace-tools': ^1.293.17
   '@stryke/capnp': ^0.12.21
   '@stryke/cli': ^0.12.7
   '@stryke/convert': ^0.6.2
@@ -149,7 +149,7 @@ catalog:
   memfs: ^4.51.0
   minimatch: ^10.1.1
   nanotar: ^0.2.0
-  nx: ^22.0.4
+  nx: ^22.1.0
   openapi-typescript: ^7.10.1
   oxc-parser: ^0.95.0
   oxc-transform: ^0.95.0
@@ -157,9 +157,9 @@ catalog:
   oxlint-tsgolint: ^0.2.1
   pluralize: ^8.0.0
   prettier: ^3.6.2
-  rimraf: ^6.1.0
+  rimraf: ^6.1.2
   rolldown: 1.0.0-beta.45
-  rolldown-vite: ^7.2.6
+  rolldown-vite: ^7.2.7
   rollup: ^4.53.3
   rollup-plugin-typescript2: ^0.36.0
   satori: ^0.18.3
@@ -181,23 +181,15 @@ catalog:
   unstorage: ^1.17.2
   untyped: ^1.5.2
   verdaccio: 6.1.2
-  vite: ^7.2.2
+  vite: ^7.2.4
   webpack: ^5.103.0
   zx: ^8.8.5
 
-catalogMode: prefer
-
-cleanupUnusedCatalogs: true
-
-linkWorkspacePackages: true
-
-minimumReleaseAge: 800
+configDependencies:
+  pnpm-plugin-storm-software: 0.1.4+sha512-Hegfb70ijqCc65CZwy8aLYhxrYQv3Wo+MZXqSfNAfcge7iSGYm2J3ydU5zkmf89JSvMOJy8J6lo/TMynBGvgtA==
 
 minimumReleaseAgeExclude:
-  - '@storm-software/*'
-  - '@stryke/*'
-  - '@powerlines/*'
-  - powerlines
+  - rollup
 
 onlyBuiltDependencies:
   - '@biomejs/biome'
@@ -296,15 +288,8 @@ patchedDependencies:
   automd: patches/automd.patch
   prisma-util: patches/prisma-util.patch
 
-preferWorkspacePackages: true
-
 shamefullyHoist: true
 
-shellEmulator: true
-
-supportedArchitectures:
-  cpu: [current, wasm32]
+trustPolicy: off
 
 useNodeVersion: 24.11.1
-
-verifyDepsBeforeRun: install

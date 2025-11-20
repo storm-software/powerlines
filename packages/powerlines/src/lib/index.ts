@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 export * from "./config-file";
-export * from "./create-program";
+export * from "./contexts";
 export * from "./entry";
 export * from "./fs";
 export * from "./logger";

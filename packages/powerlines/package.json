@@ -306,6 +306,34 @@
         "default": "./dist/lib/*.js"
       }
     },
+    "./lib/contexts": {
+      "import": {
+        "types": "./dist/lib/contexts/index.d.ts",
+        "default": "./dist/lib/contexts/index.js"
+      },
+      "require": {
+        "types": "./dist/lib/contexts/index.d.cts",
+        "default": "./dist/lib/contexts/index.cjs"
+      },
+      "default": {
+        "types": "./dist/lib/contexts/index.d.ts",
+        "default": "./dist/lib/contexts/index.js"
+      }
+    },
+    "./lib/contexts/*": {
+      "import": {
+        "types": "./dist/lib/contexts/*.d.ts",
+        "default": "./dist/lib/contexts/*.js"
+      },
+      "require": {
+        "types": "./dist/lib/contexts/*.d.cts",
+        "default": "./dist/lib/contexts/*.cjs"
+      },
+      "default": {
+        "types": "./dist/lib/contexts/*.d.ts",
+        "default": "./dist/lib/contexts/*.js"
+      }
+    },
     "./lib/build": {
       "import": {
         "types": "./dist/lib/build/index.d.ts",

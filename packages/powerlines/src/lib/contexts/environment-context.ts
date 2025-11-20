@@ -54,6 +54,9 @@ export class PowerlinesEnvironmentContext<
   extends PowerlinesContext<TResolvedConfig>
   implements EnvironmentContext<TResolvedConfig>
 {
+  /**
+   * The hooks registered by plugins in this environment
+   */
   #hooks: HooksList<PluginContext<TResolvedConfig>> = {} as HooksList<
     PluginContext<TResolvedConfig>
   >;
@@ -85,8 +88,14 @@ export class PowerlinesEnvironmentContext<
     return context;
   }
 
+  /**
+   * The resolved environment configuration
+   */
   public environment!: EnvironmentResolvedConfig;
 
+  /**
+   * The list of plugins applied to this environment
+   */
   public plugins: EnvironmentContextPlugin<TResolvedConfig>[] = [];
 
   /**

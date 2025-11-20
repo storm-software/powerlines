@@ -18,4 +18,5 @@
 
 export * from "./isolated-decl";
 export * from "./program";
+export * from "./ts-morph";
 export * from "./tsconfig";
