@@ -249,11 +249,11 @@ async function writeTree<TContext extends PluginContext = PluginContext>(
       if (sub.kind === "directory") {
         await writeOutput(context, sub);
       } else if (sub.kind === "builtin") {
-        await context.writeBuiltin(sub.contents, sub.id, sub.path, {
+        await context.emitBuiltin(sub.contents, sub.id, sub.path, {
           mode: sub.mode
         });
       } else if (sub.kind === "entry") {
-        await context.writeEntry(sub.contents, sub.path, {
+        await context.emitEntry(sub.contents, sub.path, {
           mode: sub.mode
         });
       } else if (sub.kind === "file") {

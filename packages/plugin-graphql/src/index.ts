@@ -112,7 +112,7 @@ export const plugin = <
       if (isParentPath(this.config.graphql.outputPath, this.builtinsPath)) {
         await Promise.all(
           result.map(async output =>
-            this.writeBuiltin(
+            this.emitBuiltin(
               output.content,
               findFileName(
                 joinPaths(

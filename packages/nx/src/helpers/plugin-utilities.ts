@@ -352,8 +352,9 @@ export function createNxPlugin<
                   `@${framework}/nx:${options?.build?.targetName || "build"}`,
                 dependsOn: [
                   `^${options?.build?.targetName || "build"}`,
-                  "prepare"
-                ],
+                  options?.prepare !== false &&
+                    `^${options?.prepare?.targetName || "prepare"}`
+                ].filter(Boolean) as string[],
                 defaultConfiguration:
                   options?.build?.defaultConfiguration || "production",
                 options: {
@@ -399,8 +400,9 @@ export function createNxPlugin<
                   `@${framework}/nx:${options?.lint?.targetName || "lint"}`,
                 dependsOn: [
                   `^${options?.lint?.targetName || "lint"}`,
-                  "prepare"
-                ],
+                  options?.prepare !== false &&
+                    `^${options?.prepare?.targetName || "prepare"}`
+                ].filter(Boolean) as string[],
                 defaultConfiguration:
                   options?.lint?.defaultConfiguration || "production",
                 options: {
@@ -442,9 +444,59 @@ export function createNxPlugin<
                 executor:
                   options?.docs?.executor ||
                   `@${framework}/nx:${options?.docs?.targetName || "docs"}`,
-                dependsOn: [`^${options?.docs?.targetName || "docs"}`, "build"],
+                dependsOn: [
+                  `^${options?.docs?.targetName || "docs"}`,
+                  options?.build !== false &&
+                    `^${options?.build?.targetName || "build"}`
+                ].filter(Boolean) as string[],
                 defaultConfiguration:
                   options?.docs?.defaultConfiguration || "production",
+                options: {
+                  entry: userConfig.entry || "{sourceRoot}/index.ts",
+                  projectType: projectConfig.projectType || userConfig.type,
+                  tsconfig,
+                  skipInstalls: userConfig.skipInstalls,
+                  skipCache: userConfig.skipCache
+                },
+                configurations: {
+                  production: {
+                    mode: "production"
+                  },
+                  test: {
+                    mode: "test"
+                  },
+                  development: {
+                    mode: "development",
+                    skipCache: true
+                  }
+                }
+              };
+            }
+
+            if (
+              options?.deploy !== false &&
+              !targets[options?.deploy?.targetName || "deploy"]
+            ) {
+              targets[options?.deploy?.targetName || "deploy"] = {
+                inputs: Array.isArray(options?.deploy?.inputs)
+                  ? options.deploy.inputs
+                  : withNamedInputs(
+                      [...targetInputs, artifactsFolder],
+                      options?.deploy?.inputs
+                        ? [options.deploy.inputs]
+                        : ["documentation", "typescript"]
+                    ),
+                outputs: options?.deploy?.outputs ?? ["{options.outputPath}"],
+                executor:
+                  options?.deploy?.executor ||
+                  `@${framework}/nx:${options?.deploy?.targetName || "deploy"}`,
+                dependsOn: [
+                  `^${options?.deploy?.targetName || "deploy"}`,
+                  options?.build !== false &&
+                    `^${options?.build?.targetName || "build"}`
+                ].filter(Boolean) as string[],
+                defaultConfiguration:
+                  options?.deploy?.defaultConfiguration || "production",
                 options: {
                   entry: userConfig.entry || "{sourceRoot}/index.ts",
                   projectType: projectConfig.projectType || userConfig.type,

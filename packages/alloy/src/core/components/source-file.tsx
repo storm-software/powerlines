@@ -28,7 +28,7 @@ import {
 } from "@alloy-js/core";
 import { appendPath } from "@stryke/path/append";
 import defu from "defu";
-import { OutputModeType } from "powerlines/types/vfs";
+import { OutputModeType } from "powerlines/types/fs";
 import { ComponentProps } from "../../types/components";
 
 export type SourceFileProps = SourceFilePropsExternal &

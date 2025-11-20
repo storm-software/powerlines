@@ -104,7 +104,7 @@ export function plugin(
           break;
       }
 
-      await this.writeBuiltin(
+      await this.emitBuiltin(
         await Promise.resolve(dateModule(this)),
         "date",
         "date.ts"

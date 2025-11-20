@@ -91,7 +91,7 @@ export const plugin = <
       if (isParentPath(this.config.capnp.outputPath, this.builtinsPath)) {
         await Promise.all(
           Object.entries(result.files).map(async ([filePath, content]) =>
-            this.writeBuiltin(
+            this.emitBuiltin(
               content,
               findFileName(
                 joinPaths(

@@ -80,7 +80,7 @@ export function plugin(options: IdPluginOptions = {}): Plugin<IdPluginContext> {
           break;
       }
 
-      await this.writeBuiltin(
+      await this.emitBuiltin(
         await Promise.resolve(idModule(this)),
         "id",
         "id.ts"

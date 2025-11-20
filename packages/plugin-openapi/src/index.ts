@@ -71,7 +71,7 @@ export const plugin = <
           })
         );
       } else {
-        await this.writeBuiltin(astToString(ast), "openapi");
+        await this.emitBuiltin(astToString(ast), "openapi");
       }
     }
   };

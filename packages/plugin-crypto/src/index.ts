@@ -70,7 +70,7 @@ export function plugin(
         `Preparing the Crypto runtime artifacts for the Powerlines project.`
       );
 
-      await this.writeBuiltin(
+      await this.emitBuiltin(
         await Promise.resolve(cryptoModule(this)),
         "crypto",
         "crypto.ts"

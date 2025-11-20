@@ -19,8 +19,8 @@
 import type { Context } from "@alloy-js/core";
 import type { Children } from "@alloy-js/core/jsx-runtime";
 import type { SourceFileContext } from "@alloy-js/typescript";
+import type { OutputModeType } from "powerlines/types/fs";
 import { ResolvedEntryTypeDefinition } from "powerlines/types/resolved";
-import type { OutputModeType } from "powerlines/types/vfs";
 
 export interface CopyOutputFile {
   kind: "file";

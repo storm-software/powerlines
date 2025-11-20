@@ -49,7 +49,7 @@ export const createWriter = (
     createJavaScriptFile: async (
       configuration: JavaScriptFileConfiguration
     ) => {
-      return context.writeBuiltin(
+      return context.emitBuiltin(
         `${getBaseFileHeader(context)}
 ${configuration.collections
   .map(
@@ -80,7 +80,7 @@ export { ${configuration.collections
             );
           }
 
-          return context.writeBuiltin(
+          return context.emitBuiltin(
             serialize(collection.documents.map(doc => doc.document)),
             joinPaths("content", kebabCase(collection.name))
           );
