@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.23.7](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.7) (11/20/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with unexpected package exports
+  ([0ece8cd](https://github.com/storm-software/powerlines/commit/0ece8cd))
+
 ## [0.23.6](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.6) (11/20/2025)
 
 ### Miscellaneous
