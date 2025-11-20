@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.21](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.21) (11/20/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update child packages to use updated function names
+  ([2e20b2d](https://github.com/storm-software/powerlines/commit/2e20b2d))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.23.4**
+
 ## [0.10.20](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.20) (11/19/2025)
 
 ### Updated Dependencies

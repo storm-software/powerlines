@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Openapi
 
+## [0.2.25](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.25) (11/20/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update child packages to use updated function names
+  ([2e20b2d](https://github.com/storm-software/powerlines/commit/2e20b2d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.29**
+- Updated **powerlines** to **v0.23.4**
+- Updated **nx** to **v0.10.21**
+
 ## [0.2.24](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.24) (11/19/2025)
 
 ### Updated Dependencies

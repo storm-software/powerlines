@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.0) (11/20/2025)
+
+### Features
+
+- **plugin-pulumi:** Added support for inline Pulumi stacks
+  ([7080bd7](https://github.com/storm-software/powerlines/commit/7080bd7))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.29**
+- Updated **powerlines** to **v0.23.4**
+- Updated **nx** to **v0.10.21**
+
 ## [0.1.8](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.1.8) (11/19/2025)
 
 ### Updated Dependencies

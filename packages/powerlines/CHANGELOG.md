@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.23.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.4) (11/20/2025)
+
+### Miscellaneous
+
+- **powerlines:** Expose `contexts` package exports and reorganize file system
+  ([bdb08b0](https://github.com/storm-software/powerlines/commit/bdb08b0))
+
 ## [0.23.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.2) (11/19/2025)
 
 ### Bug Fixes

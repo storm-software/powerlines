@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/tsconfig",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "type": "module",
   "description": "A package containing shared TypeScript configuration files (tsconfig.json) used in Powerlines projects.",
   "repository": {

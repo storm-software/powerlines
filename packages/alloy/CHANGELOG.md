@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Alloy
 
+## [0.11.30](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.30) (11/20/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update child packages to use updated function names
+  ([2e20b2d](https://github.com/storm-software/powerlines/commit/2e20b2d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.29**
+- Updated **powerlines** to **v0.23.4**
+- Updated **deepkit** to **v0.4.26**
+- Updated **nx** to **v0.10.21**
+
 ## [0.11.29](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.29) (11/19/2025)
 
 ### Updated Dependencies

@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.9.29](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.29) (11/20/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update child packages to use updated function names
+  ([2e20b2d](https://github.com/storm-software/powerlines/commit/2e20b2d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.29**
+- Updated **powerlines** to **v0.23.4**
+- Updated **nx** to **v0.10.21**
+
 ## [0.9.28](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.28) (11/19/2025)
 
 ### Updated Dependencies
