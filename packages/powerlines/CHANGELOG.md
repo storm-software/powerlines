@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.23.6](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.6) (11/20/2025)
+
+### Miscellaneous
+
+- **powerlines:** Clean up unused dependencies and move `memfs` info deps
+  ([971c73c](https://github.com/storm-software/powerlines/commit/971c73c))
+
 ## [0.23.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.5) (11/20/2025)
 
 ### Bug Fixes
