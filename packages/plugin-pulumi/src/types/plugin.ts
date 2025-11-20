@@ -16,24 +16,17 @@
 
  ------------------------------------------------------------------- */
 
-import { LocalWorkspaceOptions, Stack } from "@pulumi/pulumi/automation";
+import {
+  LocalWorkspaceOptions,
+  PulumiFn,
+  Stack,
+  StackSettings
+} from "@pulumi/pulumi/automation";
 import { UserConfig } from "powerlines/types/config";
 import { PluginContext } from "powerlines/types/context";
 import { ResolvedConfig } from "powerlines/types/resolved";
 
-export interface PulumiPluginOptions {
-  /**
-   * The associated stack name.
-   */
-  stackName?: string;
-
-  /**
-   * The working directory of the program.
-   *
-   * @defaultValue "\{artifactsPath\}/infrastructure"
-   */
-  workDir?: string;
-
+export interface PulumiPluginBaseOptions {
   /**
    * Whether to destroy the stack during the `destroy` lifecycle phase.
    *
@@ -42,10 +35,84 @@ export interface PulumiPluginOptions {
   destroy?: boolean;
 
   /**
+   * Additional stack settings.
+   */
+  settings?: StackSettings;
+}
+
+export interface PulumiPluginExistingStackOptions
+  extends PulumiPluginBaseOptions {
+  /**
+   * The Pulumi Stack instance to use for deployment operations.
+   */
+  stack?: Stack;
+}
+
+export interface PulumiPluginCreateStackOptions
+  extends PulumiPluginBaseOptions {
+  /**
+   * The associated stack name.
+   */
+  stackName?: string;
+
+  /**
    * Additional options for the Pulumi Workspace.
    */
   options?: LocalWorkspaceOptions;
 }
+
+export interface PulumiPluginExistingStackOptions {
+  /**
+   * The Pulumi Stack instance to use for deployment operations.
+   */
+  stack?: Stack;
+}
+
+export interface PulumiPluginCreateStackInlineOptions
+  extends PulumiPluginCreateStackOptions {
+  /**
+   * The associated project name.
+   */
+  projectName?: string;
+
+  /**
+   * The inline (in-process) Pulumi program to use with update and preview operations.
+   */
+  program?: PulumiFn;
+}
+
+export interface PulumiPluginCreateStackLocalOptions
+  extends PulumiPluginCreateStackOptions {
+  /**
+   * The working directory of the program.
+   *
+   * @defaultValue "\{artifactsPath\}/infrastructure"
+   */
+  workDir?: string;
+}
+
+export type PulumiPluginOptions =
+  | PulumiPluginExistingStackOptions
+  | PulumiPluginCreateStackInlineOptions
+  | PulumiPluginCreateStackLocalOptions;
+
+export type PulumiPluginResolvedOptions =
+  | (Omit<PulumiPluginExistingStackOptions, "stack"> &
+      Required<Pick<PulumiPluginExistingStackOptions, "stack">>)
+  | (Omit<
+      PulumiPluginCreateStackInlineOptions,
+      "stackName" | "projectName" | "program"
+    > &
+      Required<
+        Pick<
+          PulumiPluginCreateStackInlineOptions,
+          "stackName" | "projectName" | "program"
+        >
+      >)
+  | (Omit<PulumiPluginCreateStackLocalOptions, "stackName" | "workDir"> &
+      Required<
+        Pick<PulumiPluginCreateStackLocalOptions, "stackName" | "workDir">
+      >);
 
 export interface PulumiPluginUserConfig extends UserConfig {
   deploy: {
@@ -55,14 +122,11 @@ export interface PulumiPluginUserConfig extends UserConfig {
 
 export interface PulumiPluginResolvedConfig extends ResolvedConfig {
   deploy: {
-    pulumi: Omit<PulumiPluginOptions, "stackName" | "workDir"> &
-      Required<Pick<PulumiPluginOptions, "stackName" | "workDir">>;
+    pulumi: PulumiPluginResolvedOptions;
   };
 }
 
 export type PulumiPluginContext<
   TResolvedConfig extends
     PulumiPluginResolvedConfig = PulumiPluginResolvedConfig
-> = PluginContext<TResolvedConfig> & {
-  pulumi: Stack;
-};
+> = PluginContext<TResolvedConfig>;

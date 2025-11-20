@@ -121,6 +121,7 @@
     "@stryke/path": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/helpers": "catalog:",
+    "@stryke/types": "catalog:",
     "@stryke/string-format": "catalog:",
     "@pulumi/pulumi": "catalog:",
     "defu": "catalog:",

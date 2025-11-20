@@ -782,7 +782,12 @@ export class PowerlinesContext<
             this.projectJson?.sourceRoot ||
             appendPath("src", cacheKey.projectRoot),
           output: {
-            outputPath: joinPaths("dist", cacheKey.projectRoot),
+            outputPath: cacheKey.projectRoot
+              ? joinPaths(
+                  this.workspaceConfig?.directories?.build || "dist",
+                  cacheKey.projectRoot
+                )
+              : this.workspaceConfig?.directories?.build || "dist",
             mode: "virtual" as OutputModeType,
             dts: joinPaths(
               cacheKey.projectRoot,

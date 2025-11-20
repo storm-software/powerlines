@@ -29,7 +29,14 @@ import {
   getWorkspaceName
 } from "powerlines/plugin-utils/context-helpers";
 import { Plugin } from "powerlines/types/plugin";
-import { PulumiPluginContext, PulumiPluginOptions } from "./types/plugin";
+import {
+  PulumiPluginContext,
+  PulumiPluginCreateStackInlineOptions,
+  PulumiPluginCreateStackLocalOptions,
+  PulumiPluginCreateStackOptions,
+  PulumiPluginExistingStackOptions,
+  PulumiPluginOptions
+} from "./types/plugin";
 
 export * from "./types";
 
@@ -52,40 +59,81 @@ export const plugin = <
       return {
         deploy: {
           pulumi: defu(options, {
-            workDir: joinPaths(this.artifactsPath, "infrastructure")
+            projectName: this.config.name,
+            workDir: joinPaths(this.artifactsPath, "infrastructure"),
+            settings: {}
           })
         }
       };
     },
     async configResolved() {
-      this.config.deploy.pulumi.stackName ??= fullyQualifiedStackName(
-        kebabCase(getOrganizationName(this) || "default"),
-        `${
-          getWorkspaceName(this) ? `${kebabCase(getWorkspaceName(this))}-` : ""
-        }${kebabCase(this.config.name)}`,
-        this.config.mode
-      );
-
-      this.pulumi = await LocalWorkspace.createOrSelectStack(
-        omit(this.config.deploy.pulumi, ["options"]),
-        this.config.deploy.pulumi.options
-      );
+      if (!(options as PulumiPluginExistingStackOptions).stack) {
+        (
+          this.config.deploy.pulumi as PulumiPluginCreateStackOptions
+        ).stackName ??= fullyQualifiedStackName(
+          kebabCase(getOrganizationName(this) || "default"),
+          `${
+            getWorkspaceName(this)
+              ? `${kebabCase(getWorkspaceName(this))}-`
+              : ""
+          }${kebabCase(this.config.name)}`,
+          this.config.mode
+        );
+      }
     },
     deploy: {
       order: "post",
       async handler() {
-        await this.pulumi.refresh({ onOutput: this.debug.bind(this) });
+        this.info(
+          `Deploying Pulumi stack: ${
+            (this.config.deploy.pulumi as PulumiPluginExistingStackOptions)
+              .stack?.name ||
+            (this.config.deploy.pulumi as PulumiPluginCreateStackOptions)
+              .stackName
+          }`
+        );
 
-        if (this.config.deploy.pulumi.destroy) {
-          await this.pulumi.destroy({ onOutput: this.debug.bind(this) });
+        if (
+          (!(options as PulumiPluginExistingStackOptions).stack &&
+            !(options as PulumiPluginCreateStackInlineOptions).program &&
+            !(options as PulumiPluginCreateStackInlineOptions).projectName) ||
+          !(options as PulumiPluginCreateStackLocalOptions).workDir
+        ) {
+          throw new Error(
+            `Pulumi plugin requires either an inline program or a working directory to be specified.`
+          );
         }
 
-        const result = await this.pulumi.up({
+        let stack = (options as PulumiPluginExistingStackOptions).stack;
+        stack ??= await LocalWorkspace.createOrSelectStack(
+          omit(this.config.deploy.pulumi as PulumiPluginCreateStackOptions, [
+            "options",
+            "settings"
+          ]) as Parameters<typeof LocalWorkspace.createOrSelectStack>[0]
+        );
+
+        if (
+          this.config.deploy.pulumi.settings &&
+          Object.keys(this.config.deploy.pulumi.settings).length > 0
+        ) {
+          await stack.workspace.saveStackSettings(
+            stack.name,
+            this.config.deploy.pulumi.settings
+          );
+        }
+
+        await stack.refresh({ onOutput: this.debug.bind(this) });
+
+        if (this.config.deploy.pulumi.destroy) {
+          await stack.destroy({ onOutput: this.debug.bind(this) });
+        }
+
+        const result = await stack.up({
           onOutput: this.debug.bind(this)
         });
 
         this.info(
-          `Successfully deployed ${this.config.deploy.pulumi.stackName} (v${result.summary.version}): ${result.summary.message}`
+          `Successfully deployed ${stack.name} (v${result.summary.version}): ${result.summary.message}`
         );
       }
     }

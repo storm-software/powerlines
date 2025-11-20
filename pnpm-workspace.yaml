@@ -66,22 +66,23 @@ catalog:
   '@rollup/plugin-replace': ^6.0.3
   '@rspack/core': ^1.6.4
   '@standard-schema/spec': ^1.0.0
-  '@storm-software/build-tools': ^0.158.42
-  '@storm-software/config': ^1.134.42
-  '@storm-software/config-tools': ^1.188.42
-  '@storm-software/cspell': ^0.45.42
-  '@storm-software/esbuild': ^0.53.42
-  '@storm-software/eslint': ^0.169.42
-  '@storm-software/git-tools': ^2.124.25
-  '@storm-software/linting-tools': ^1.132.42
-  '@storm-software/markdownlint': ^0.30.42
-  '@storm-software/prettier': ^0.57.42
-  '@storm-software/testing-tools': ^1.119.42
-  '@storm-software/tsconfig': ^0.47.42
-  '@storm-software/tsup': ^0.2.40
-  '@storm-software/unbuild': ^0.57.42
-  '@storm-software/untyped': ^0.24.23
-  '@storm-software/workspace-tools': ^1.293.12
+  '@storm-software/build-tools': ^0.158.45
+  '@storm-software/config': ^1.134.45
+  '@storm-software/config-tools': ^1.188.45
+  '@storm-software/cspell': ^0.45.45
+  '@storm-software/esbuild': ^0.53.45
+  '@storm-software/eslint': ^0.169.45
+  '@storm-software/git-tools': ^2.124.28
+  '@storm-software/linting-tools': ^1.132.45
+  '@storm-software/markdownlint': ^0.30.45
+  '@storm-software/pnpm-tools': ^0.6.45
+  '@storm-software/prettier': ^0.57.45
+  '@storm-software/testing-tools': ^1.119.45
+  '@storm-software/tsconfig': ^0.47.45
+  '@storm-software/tsup': ^0.2.43
+  '@storm-software/unbuild': ^0.57.45
+  '@storm-software/untyped': ^0.24.26
+  '@storm-software/workspace-tools': ^1.293.15
   '@stryke/capnp': ^0.12.21
   '@stryke/cli': ^0.12.7
   '@stryke/convert': ^0.6.2
@@ -196,6 +197,7 @@ minimumReleaseAgeExclude:
   - '@storm-software/*'
   - '@stryke/*'
   - '@powerlines/*'
+  - powerlines
 
 onlyBuiltDependencies:
   - '@biomejs/biome'
@@ -298,4 +300,11 @@ preferWorkspacePackages: true
 
 shamefullyHoist: true
 
+shellEmulator: true
+
+supportedArchitectures:
+  cpu: [current, wasm32]
+
 useNodeVersion: 24.11.1
+
+verifyDepsBeforeRun: install

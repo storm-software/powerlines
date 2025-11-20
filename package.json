@@ -24,7 +24,14 @@
   "license": "Apache-2.0",
   "private": true,
   "packageManager": "pnpm@10.22.0",
-  "engines": { "node": ">=22.21.1", "pnpm": ">=10.22.0" },
+  "engines": {
+    "runtime": {
+      "name": "node",
+      "version": "^24.11.0",
+      "onFail": "download"
+    },
+    "pnpm": ">=10.22.0"
+  },
   "keywords": [
     "storm-software",
     "storm",
@@ -70,6 +77,7 @@
     "@storm-software/cspell": "catalog:",
     "@storm-software/eslint": "catalog:",
     "@storm-software/git-tools": "catalog:",
+    "@storm-software/pnpm-tools": "catalog:",
     "@storm-software/linting-tools": "catalog:",
     "@storm-software/markdownlint": "catalog:",
     "@storm-software/prettier": "catalog:",
@@ -118,5 +126,8 @@
     ]
   },
   "prettier": "@storm-software/prettier/config.json",
-  "triggerEmptyDevReleaseByIncrementingThisNumber": 0
+  "triggerEmptyDevReleaseByIncrementingThisNumber": 0,
+  "dependencies": {
+    "node": "runtime:^24.11.1"
+  }
 }
