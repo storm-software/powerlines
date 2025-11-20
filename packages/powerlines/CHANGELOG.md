@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.23.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.5) (11/20/2025)
+
+### Bug Fixes
+
+- **powerlines:** Update `memfs` imports to use correct module path
+  ([4b0b487](https://github.com/storm-software/powerlines/commit/4b0b487))
+
 ## [0.23.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.4) (11/20/2025)
 
 ### Miscellaneous
