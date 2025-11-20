@@ -26,11 +26,10 @@
  */
 
 import { PowerlinesAPI } from "./api";
-import { plugins } from "./unplugin";
 
 export * from "../schemas/fs";
 export * from "./config";
 export * from "./types";
 
-export { plugins, PowerlinesAPI };
+export { PowerlinesAPI };
 export default PowerlinesAPI;

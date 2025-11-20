@@ -16,35 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-import astro from "./astro";
-import esbuild from "./esbuild";
-import next from "./next";
-import nuxt from "./nuxt";
-import rolldown from "./rolldown";
-import rollup from "./rollup";
-import rspack from "./rspack";
-import tsup from "./tsup";
-import unloader from "./unloader";
-import vite from "./vite";
-import webpack from "./webpack";
-
-export * from "./lib/unplugin/factory";
-
-/**
- * An object containing all Powerlines plugins for various build tools and frameworks.
- */
-export const plugins = {
-  astro,
-  esbuild,
-  next,
-  nuxt,
-  rolldown,
-  rollup,
-  rspack,
-  tsup,
-  unloader,
-  vite,
-  webpack
-} as const;
-
-export default plugins;
+export * from "./lib/unplugin";

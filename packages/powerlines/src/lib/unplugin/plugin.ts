@@ -24,11 +24,12 @@ import type {
   ExternalIdResult,
   TransformResult,
   UnpluginBuildContext,
-  UnpluginContext,
-  UnpluginFactory
+  UnpluginContext
 } from "unplugin";
+import { UnpluginBuildVariant } from "../../types/build";
 import { PluginContext } from "../../types/context";
 import { UNSAFE_PluginContext } from "../../types/internal";
+import { PowerlinesUnpluginFactory } from "../../types/unplugin";
 import { extendLog } from "../logger";
 import { getString } from "../utilities/source-file";
 import { combineContexts } from "./helpers";
@@ -56,7 +57,7 @@ export interface CreateUnpluginOptions {
 export function createUnplugin<TContext extends PluginContext = PluginContext>(
   context: TContext,
   options: CreateUnpluginOptions = {}
-): UnpluginFactory<object> {
+): PowerlinesUnpluginFactory<UnpluginBuildVariant> {
   const ctx = context as unknown as UNSAFE_PluginContext;
 
   return () => {
