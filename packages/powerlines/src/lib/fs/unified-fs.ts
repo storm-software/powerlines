@@ -18,8 +18,7 @@
 
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join";
-import { DirectoryJSON } from "memfs";
-import { Volume } from "memfs/lib/node/volume";
+import { DirectoryJSON, Volume } from "memfs";
 import _fs, { PathOrFileDescriptor } from "node:fs";
 import { IFS, Union } from "unionfs";
 import { FileSystem } from "../../../schemas/fs";
