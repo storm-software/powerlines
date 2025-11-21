@@ -181,11 +181,12 @@ export function createNxPlugin<
             );
 
             const userConfig = await loadUserConfigFile(
-              joinPaths(contextV2.workspaceRoot, projectRoot),
+              projectRoot,
+              contextV2.workspaceRoot,
               jiti,
               "build",
               "development",
-              joinPaths(contextV2.workspaceRoot, configFile),
+              configFile,
               framework
             );
 

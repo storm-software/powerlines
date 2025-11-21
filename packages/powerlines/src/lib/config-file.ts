@@ -18,6 +18,7 @@
 
 import { getWorkspaceConfig } from "@storm-software/config-tools/get-config";
 import { existsSync } from "@stryke/fs/exists";
+import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join-paths";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
@@ -67,6 +68,7 @@ export async function loadWorkspaceConfig(
  * Loads the user configuration file for the project.
  *
  * @param projectRoot - The root directory of the project.
+ * @param workspaceRoot - The root directory of the workspace.
  * @param jiti - An instance of Jiti to resolve modules from
  * @param command - The {@link PowerlinesCommand} string associated with the current running process
  * @param mode - The mode in which the project is running (default is "production").
@@ -76,6 +78,7 @@ export async function loadWorkspaceConfig(
  */
 export async function loadUserConfigFile(
   projectRoot: string,
+  workspaceRoot: string,
   jiti: Jiti,
   command?: PowerlinesCommand,
   mode?: string,
@@ -87,19 +90,61 @@ export async function loadUserConfigFile(
   const resolvedUserConfigFile =
     configFile && existsSync(configFile)
       ? configFile
-      : configFile && existsSync(joinPaths(projectRoot, configFile))
-        ? joinPaths(projectRoot, configFile)
-        : existsSync(joinPaths(projectRoot, `${framework}.config.ts`))
-          ? joinPaths(projectRoot, `${framework}.config.ts`)
-          : existsSync(joinPaths(projectRoot, `${framework}.config.js`))
-            ? joinPaths(projectRoot, `${framework}.config.js`)
-            : existsSync(joinPaths(projectRoot, `${framework}.config.mts`))
-              ? joinPaths(projectRoot, `${framework}.config.mts`)
-              : existsSync(joinPaths(projectRoot, `${framework}.config.mjs`))
-                ? joinPaths(projectRoot, `${framework}.config.mjs`)
+      : configFile &&
+          existsSync(
+            joinPaths(appendPath(projectRoot, workspaceRoot), configFile)
+          )
+        ? joinPaths(appendPath(projectRoot, workspaceRoot), configFile)
+        : existsSync(
+              joinPaths(
+                appendPath(projectRoot, workspaceRoot),
+                `${framework}.config.ts`
+              )
+            )
+          ? joinPaths(
+              appendPath(projectRoot, workspaceRoot),
+              `${framework}.config.ts`
+            )
+          : existsSync(
+                joinPaths(
+                  appendPath(projectRoot, workspaceRoot),
+                  `${framework}.config.js`
+                )
+              )
+            ? joinPaths(
+                appendPath(projectRoot, workspaceRoot),
+                `${framework}.config.js`
+              )
+            : existsSync(
+                  joinPaths(
+                    appendPath(projectRoot, workspaceRoot),
+                    `${framework}.config.mts`
+                  )
+                )
+              ? joinPaths(
+                  appendPath(projectRoot, workspaceRoot),
+                  `${framework}.config.mts`
+                )
+              : existsSync(
+                    joinPaths(
+                      appendPath(projectRoot, workspaceRoot),
+                      `${framework}.config.mjs`
+                    )
+                  )
+                ? joinPaths(
+                    appendPath(projectRoot, workspaceRoot),
+                    `${framework}.config.mjs`
+                  )
                 : undefined;
   if (resolvedUserConfigFile) {
-    const resolved = await jiti.import(jiti.esmResolve(resolvedUserConfigFile));
+    let resolvedPath!: string;
+    try {
+      resolvedPath = jiti.esmResolve(resolvedUserConfigFile);
+    } catch {
+      resolvedPath = resolvedUserConfigFile;
+    }
+
+    const resolved = await jiti.import(resolvedPath);
     if (resolved) {
       let config = {};
       if (isFunction(resolved)) {

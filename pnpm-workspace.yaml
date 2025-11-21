@@ -57,7 +57,7 @@ catalog:
   '@nx/workspace': ^22.1.0
   '@prisma/get-platform': ^6.19.0
   '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
-  '@pulumi/pulumi': ^3.207.0
+  '@pulumi/pulumi': ^3.208.0
   '@rollup/plugin-alias': ^6.0.0
   '@rollup/plugin-babel': ^6.1.0
   '@rollup/plugin-commonjs': ^28.0.9
@@ -178,7 +178,7 @@ catalog:
   unimport: ^5.5.0
   unionfs: ^4.6.0
   unplugin: ^2.3.10
-  unstorage: ^1.17.2
+  unstorage: ^1.17.3
   untyped: ^1.5.2
   verdaccio: 6.1.2
   vite: ^7.2.4
