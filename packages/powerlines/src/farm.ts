@@ -25,13 +25,15 @@ import { createUnpluginFactory } from "./lib/unplugin/factory";
  * @see https://farmjs.dev/plugins/writing-plugins
  *
  * @example
- * ```js
- * // farm.config.js
- * import powerlines from 'powerlines/farm'
+ * ```ts
+ * // farm.config.ts
+ * import powerlines from "powerlines/farm";
+ * import { defineConfig } from "@farmfe/core";
  *
- * export default {
- *  plugins: [powerlines({ ...options })],
- * }
+ * export default defineConfig({
+ *  plugins: [powerlines({ name: "example-app", ... })],
+ * });
+ *
  * ```
  */
 export const farm = createFarmPlugin(createUnpluginFactory("farm"));

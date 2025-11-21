@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { DeepPartial } from "@stryke/types/base";
-import { AnyUserConfig, UserConfig } from "./types/config";
+import { AnyUserConfig, DefineConfigInput, UserConfig } from "./types/config";
 
 /**
  * Type helper to make it easier to use powerlines.config.ts
@@ -26,7 +26,7 @@ import { AnyUserConfig, UserConfig } from "./types/config";
  * The function accepts a direct {@link UserConfig} object, or a function that returns it. The function receives a {@link ConfigEnv} object.
  */
 export function defineConfig(
-  config: DeepPartial<AnyUserConfig> & Record<string, any>
+  config: DeepPartial<AnyUserConfig> & DefineConfigInput
 ): UserConfig {
   return config as UserConfig;
 }

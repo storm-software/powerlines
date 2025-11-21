@@ -27,19 +27,25 @@ import PowerlinesWebpack from "./webpack";
  * @see https://nuxt.com/docs/guide/directory-structure/modules
  *
  * @example
- * ```js
- * // nuxt.config.js
- * import powerlines from 'powerlines/nuxt'
+ * ```ts
+ * // nuxt.config.ts
+ * import { defineNuxtConfig } from "@nuxt/kit";
  *
- * default export {
- *  plugins: [powerlines()],
- * }
+ * export default defineNuxtConfig({
+ *  modules: [
+ *    [
+ *      "powerlines/nuxt",
+ *      { name: "example-app", ... }
+ *    ],
+ *  ],
+ * });
+ *
  * ```
  */
 export const nuxt = defineNuxtModule({
   meta: {
     name: "powerlines",
-    configKey: "storm"
+    configKey: "powerlines"
   },
   defaults: {},
   setup(options, _nuxt) {

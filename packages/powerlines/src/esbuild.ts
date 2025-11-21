@@ -30,11 +30,12 @@ import { createUnpluginFactory } from "./lib/unplugin/factory";
  * @example
  * ```js
  * // esbuild.config.js
- * import powerlines from 'powerlines/esbuild'
+ * import powerlines from "powerlines/esbuild";
  *
  * default export {
- *  plugins: [powerlines()],
- * }
+ *  plugins: [powerlines({ name: "example-app", ... })],
+ * };
+ *
  * ```
  */
 export const esbuild = createEsbuildPlugin(

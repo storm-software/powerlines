@@ -27,12 +27,14 @@ import PowerlinesVite from "./vite";
  *
  * @example
  * ```js
- * // astro.config.js
- * import powerlines from 'powerlines/astro'
+ * // astro.config.mjs
+ * import { defineConfig } from "astro/config";
+ * import powerlines from "powerlines/astro";
  *
- * default export {
- *  plugins: [powerlines()],
- * }
+ * export default defineConfig({
+ *   integrations: [powerlines({ name: "example-app", ... })]
+ * });
+ *
  * ```
  */
 export const astro = (

@@ -639,3 +639,8 @@ export type UserConfigExport =
   | UserConfigFnObject
   | UserConfigFnPromise
   | UserConfigFn;
+
+/**
+ * An empty interface to allow augmentation of the defineConfig input type.
+ */
+export interface DefineConfigInput {}

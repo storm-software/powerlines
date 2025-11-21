@@ -27,10 +27,10 @@ import { createUnpluginFactory } from "./lib/unplugin/factory";
  * @example
  * ```js
  * // rspack.config.js
- * import powerlines from 'powerlines/rspack'
+ * import powerlines from "powerlines/rspack";
  *
  * default export {
- *  plugins: [powerlines()],
+ *  plugins: [powerlines({ name: "example-app", ... })],
  * }
  * ```
  */

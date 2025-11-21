@@ -28,7 +28,7 @@ import PowerlinesESBuild from "./esbuild";
  * @example
  * ```ts
  * // tsup.config.ts
- * import withPowerlines from "powerlines/tsup"
+ * import withPowerlines from "powerlines/tsup";
  *
  * export default withPowerlines({
  *  entry: ["src/index.ts"],
@@ -36,7 +36,8 @@ import PowerlinesESBuild from "./esbuild";
  *  dts: true,
  *  sourcemap: true,
  *  clean: true,
- * })
+ * });
+ *
  * ```
  *
  * @param options - The Tsup options to merge with the Powerlines configuration.
