@@ -36,14 +36,14 @@ export function cryptoModule(context: CryptoPluginContext) {
 ${getFileHeader(context)}
 
 import { xchacha20poly1305, chacha20poly1305 } from "@noble/ciphers/chacha.js";
-import { randomBytes, managedNonce } from "@noble/ciphers/utils.js";
+import { randomBytes, managedNonce, hexToBytes } from "@noble/ciphers/utils.js";
 import { scrypt } from "@noble/hashes/scrypt.js";
 import { blake3 } from "@noble/hashes/blake3.js";
 ${
   context.config.crypto.encryptionKey
     ? `
 const nonce = randomBytes(24);
-const chacha = xchacha20poly1305(new TextEncoder().encode("${
+const chacha = xchacha20poly1305(hexToBytes("${
         context.config.crypto.encryptionKey
       }"), nonce);
 
@@ -96,7 +96,7 @@ export function decrypt(encrypted: string): string {
 export function encryptWithPassword(password: string, plaintext: string): string {
   const key = scrypt(
     new TextEncoder().encode(password),
-    ${context.config.crypto.salt ? context.config.crypto.salt : "nonce"},
+    hexToBytes("${context.config.crypto.salt ? context.config.crypto.salt : "nonce"}"),
     1048576, // requires 1GB of RAM to calculate
     8,
     1,
@@ -122,7 +122,7 @@ export function encryptWithPassword(password: string, plaintext: string): string
 export function decryptWithPassword(password: string, encrypted: string): string {
   const key = scrypt(
     new TextEncoder().encode(password),
-    ${context.config.crypto.salt ? context.config.crypto.salt : "nonce"},
+    hexToBytes("${context.config.crypto.salt ? context.config.crypto.salt : "nonce"}"),
     1048576, // requires 1GB of RAM to calculate
     8,
     1,
@@ -149,8 +149,10 @@ export function decryptWithPassword(password: string, encrypted: string): string
 export function hash(data: string): string {
   return Buffer.from(
     blake3(new TextEncoder().encode(data), {
-      key: new TextEncoder().encode(${
-        context.config.crypto.salt ? context.config.crypto.salt : "powerlines"
+      key: ${
+        context.config.crypto.salt
+          ? `hexToBytes("${context.config.crypto.salt}")`
+          : 'new TextEncoder().encode("powerlines")'
       })
     })
   ).toString("hex");

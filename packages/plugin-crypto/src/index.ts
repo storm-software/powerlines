@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { randomBytes } from "@noble/ciphers/utils";
+import { bytesToHex, randomBytes } from "@noble/ciphers/utils.js";
 import env from "@powerlines/plugin-env";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { Plugin } from "powerlines/types/plugin";
@@ -54,7 +54,7 @@ export function plugin(
           `No salt provided to the Crypto plugin - a salt value will be generated automatically. Please note: It's highly recommended to provide a unique salt value via the \`salt\` plugin option or the \`SALT\` environment variable.`
         );
 
-        this.config.crypto.salt = randomBytes(12).toString("hex");
+        this.config.crypto.salt = bytesToHex(randomBytes(12));
       }
 
       this.config.crypto.encryptionKey ??= this.env.parsed.ENCRYPTION_KEY!;
@@ -64,7 +64,7 @@ export function plugin(
           `No encryption key provided to the Crypto plugin - a secure key will be generated automatically. Please note: it's highly recommended to provide a secure encryption key via the \`encryptionKey\` plugin option or the \`ENCRYPTION_KEY\` environment variable.`
         );
 
-        this.config.crypto.encryptionKey = randomBytes(32).toString("hex");
+        this.config.crypto.encryptionKey = bytesToHex(randomBytes(32));
       }
     },
     async prepare() {
