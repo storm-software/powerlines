@@ -2,6 +2,15 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.23.8](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.8) (11/20/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with missing context config changes
+  ([c1af33f](https://github.com/storm-software/powerlines/commit/c1af33f))
+- **powerlines:** Fixed configuration file resolution issues
+  ([246a997](https://github.com/storm-software/powerlines/commit/246a997))
+
 ## [0.23.7](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.7) (11/20/2025)
 
 ### Bug Fixes
