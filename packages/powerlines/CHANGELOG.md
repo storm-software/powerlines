@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.24.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.24.3) (11/21/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with module path normalizations
+  ([503e05a](https://github.com/storm-software/powerlines/commit/503e05a))
+
 ## [0.24.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.24.0) (11/21/2025)
 
 ### Features

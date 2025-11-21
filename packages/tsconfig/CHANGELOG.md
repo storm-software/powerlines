@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.2.2](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.2.2) (11/21/2025)
+
+### Miscellaneous
+
+- **tsconfig:** Update extends to use scoped npm paths
+  ([6dce0b8](https://github.com/storm-software/powerlines/commit/6dce0b8))
+
 ## [0.2.1](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.2.1) (11/21/2025)
 
 ### Features
