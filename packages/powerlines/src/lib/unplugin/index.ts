@@ -17,5 +17,5 @@
  ------------------------------------------------------------------- */
 
 export * from "./factory";
+export * from "./helpers";
 export * from "./plugin";
-export * from "./resolve-id";

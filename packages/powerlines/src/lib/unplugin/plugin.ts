@@ -33,7 +33,6 @@ import { PowerlinesUnpluginFactory } from "../../types/unplugin";
 import { extendLog } from "../logger";
 import { getString } from "../utilities/source-file";
 import { combineContexts } from "./helpers";
-import { handleResolveId } from "./resolve-id";
 
 export interface CreateUnpluginOptions {
   /**
@@ -56,7 +55,7 @@ export interface CreateUnpluginOptions {
  */
 export function createUnplugin<TContext extends PluginContext = PluginContext>(
   context: TContext,
-  options: CreateUnpluginOptions = {}
+  _options: CreateUnpluginOptions = {}
 ): PowerlinesUnpluginFactory<UnpluginBuildVariant> {
   const ctx = context as unknown as UNSAFE_PluginContext;
 
@@ -112,20 +111,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
             return result;
           }
 
-          result = await handleResolveId(
-            ctx,
-            {
-              id,
-              importer,
-              options: opts
-            },
-            {
-              skipResolve: options.skipResolve,
-              skipNodeModulesBundle: ctx.config.build.skipNodeModulesBundle,
-              external: ctx.config.build.external,
-              noExternal: ctx.config.build.noExternal
-            }
-          );
+          result = await ctx.resolveId(id, importer, opts);
           if (result) {
             return result;
           }
@@ -206,11 +192,9 @@ export * from "${isString(resolved) ? resolved : resolved.id}";
           return result;
         }
 
-        if (id) {
-          const resolvedPath = ctx.fs.resolve(id);
-          if (resolvedPath) {
-            return ctx.fs.readFile(resolvedPath);
-          }
+        result = await ctx.load(id);
+        if (result) {
+          return result;
         }
 
         return ctx.$$internal.callHook(

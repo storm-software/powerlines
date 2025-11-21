@@ -73,7 +73,7 @@ export function createImportTransformer(
 
         if (importPath) {
           const resolvedImportPath =
-            context.fs.resolve(importPath) || importPath;
+            context.fs.resolveSync(importPath) || importPath;
 
           // Only rewrite relative path
           if (resolvedImportPath !== importPath) {

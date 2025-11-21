@@ -21,6 +21,7 @@ import {
   FileSystemHost,
   InMemoryFileSystemHost,
   Project,
+  ProjectOptions,
   RuntimeDirEntry
 } from "ts-morph";
 import { Context } from "../../types/context";
@@ -43,7 +44,7 @@ class VirtualFileSystemHost
 
   public override readDirSync(dirPath: string): RuntimeDirEntry[] {
     return this.#fs.readdirSync(dirPath).reduce((ret, entry) => {
-      const fullPath = this.#fs.resolve(joinPaths(dirPath, entry));
+      const fullPath = this.#fs.resolveSync(joinPaths(dirPath, entry));
       if (fullPath) {
         ret.push({
           name: entry,
@@ -126,7 +127,7 @@ class VirtualFileSystemHost
   }
 
   public override realpathSync(path: string) {
-    return this.#fs.resolve(path) || path;
+    return this.#fs.resolveSync(path) || path;
   }
 
   public override getCurrentDirectory() {
@@ -147,14 +148,21 @@ class VirtualFileSystemHost
 /**
  * Create a ts-morph {@link Project} instance used for type reflection and module manipulation during processing
  *
+ * @param context - The Powerlines context
  * @returns A ts-morph {@link Project} instance
  */
-export function createProgram(context: Context): Project {
-  return new Project({
+export function createProgram(
+  context: Context,
+  override: Partial<ProjectOptions>
+): Project {
+  const project = new Project({
     compilerOptions: {
       ...context.tsconfig.options
     },
     tsConfigFilePath: context.tsconfig.tsconfigFilePath,
-    fileSystem: new VirtualFileSystemHost(context.fs)
+    fileSystem: new VirtualFileSystemHost(context.fs),
+    ...override
   });
+
+  return project;
 }

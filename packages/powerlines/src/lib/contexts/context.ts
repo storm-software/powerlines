@@ -39,14 +39,17 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
+import { match, tsconfigPathsToRegExp } from "bundle-require";
 import defu from "defu";
 import { Range } from "semver";
-import { UnpluginMessage } from "unplugin";
+import { Project } from "ts-morph";
+import { ExternalIdResult, UnpluginMessage } from "unplugin";
 import {
   createResolver,
   CreateResolverOptions
 } from "../../internal/helpers/resolver";
 import { checkDedupe, isPlugin } from "../../plugin-utils/helpers";
+import { replacePathTokens } from "../../plugin-utils/paths";
 import { API } from "../../types/api";
 import {
   InitialUserConfig,
@@ -60,11 +63,13 @@ import {
   Context,
   InitContextOptions,
   MetaInfo,
-  Resolver
+  Resolver,
+  TransformResult
 } from "../../types/context";
 import {
   OutputModeType,
   PowerlinesWriteFileOptions,
+  ResolveOptions,
   VirtualFile,
   VirtualFileSystemInterface
 } from "../../types/fs";
@@ -78,6 +83,7 @@ import { loadUserConfigFile, loadWorkspaceConfig } from "../config-file";
 import { getUniqueEntries, resolveEntriesSync } from "../entry";
 import { VirtualFileSystem } from "../fs/vfs";
 import { createLog, extendLog } from "../logger";
+import { createProgram } from "../typescript/ts-morph";
 import {
   CACHE_HASH_LENGTH,
   getPrefixedProjectRootHash,
@@ -129,6 +135,10 @@ export class PowerlinesContext<
   #fs!: VirtualFileSystemInterface;
 
   #tsconfig!: ParsedTypeScriptConfig;
+
+  #program!: Project;
+
+  #resolvePatterns: RegExp[] = [];
 
   #getConfigProps(config: Partial<TResolvedConfig["userConfig"]> = {}) {
     return {
@@ -241,7 +251,7 @@ export class PowerlinesContext<
    */
   public get tsconfig(): ParsedTypeScriptConfig {
     if (!this.#tsconfig) {
-      this.#tsconfig = {
+      this.tsconfig = {
         tsconfigFilePath: this.config.tsconfig
       } as ParsedTypeScriptConfig;
     }
@@ -254,6 +264,7 @@ export class PowerlinesContext<
    */
   public set tsconfig(value: ParsedTypeScriptConfig) {
     this.#tsconfig = value;
+    this.#resolvePatterns = tsconfigPathsToRegExp(value?.options?.paths ?? {});
   }
 
   /**
@@ -420,7 +431,118 @@ export class PowerlinesContext<
     return Object.values(this.fs.metadata)
       .filter(meta => meta && meta.type === "builtin")
       .map(meta => meta?.id)
-      .filter(Boolean) as string[];
+      .filter(Boolean);
+  }
+
+  /**
+   * The {@link Project} instance used for type reflection and module manipulation
+   *
+   * @see https://ts-morph.com/
+   *
+   * @remarks
+   * This instance is created lazily on first access.
+   */
+  public get program(): Project {
+    if (!this.#program) {
+      this.#program = createProgram(this, {
+        skipAddingFilesFromTsConfig: true
+      });
+    }
+
+    return this.#program;
+  }
+
+  /**
+   * A helper function to resolve modules in the Virtual File System
+   *
+   * @remarks
+   * This function can be used to resolve modules relative to the project root directory.
+   *
+   * @example
+   * ```ts
+   * const resolved = await context.resolve("some-module", "/path/to/importer");
+   * ```
+   *
+   * @param id - The module to resolve.
+   * @param importer - An optional path to the importer module.
+   * @param options - Additional resolution options.
+   * @returns A promise that resolves to the resolved module path.
+   */
+  public async resolveId(
+    id: string,
+    importer?: string,
+    options: ResolveOptions = {}
+  ): Promise<ExternalIdResult | undefined> {
+    if (this.fs.isVirtual(id)) {
+      const result = await this.fs.resolve(id, importer, options);
+      if (!result) {
+        return undefined;
+      }
+
+      return {
+        id: `\0${result}`,
+        external: this.config.projectType !== "application"
+      };
+    }
+
+    if (this.config.build.skipNodeModulesBundle) {
+      if (
+        match(id, this.#resolvePatterns) ||
+        match(id, this.config.build.noExternal)
+      ) {
+        return undefined;
+      }
+
+      if (match(id, this.config.build.external) || id.startsWith("node:")) {
+        return { id, external: true };
+      }
+
+      // Exclude any other import that looks like a Node module
+      if (!/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(id)) {
+        return {
+          id,
+          external: true
+        };
+      }
+    } else {
+      if (match(id, this.config.build.noExternal)) {
+        return undefined;
+      }
+
+      if (match(id, this.config.build.external) || id.startsWith("node:")) {
+        return { id, external: true };
+      }
+    }
+
+    return undefined;
+  }
+
+  /**
+   * A helper function to load modules from the Virtual File System
+   *
+   * @remarks
+   * This function can be used to load modules relative to the project root directory.
+   *
+   * @example
+   * ```ts
+   * const module = await context.load("some-module", "/path/to/importer");
+   * ```
+   *
+   * @param id - The module to load.
+   * @returns A promise that resolves to the loaded module.
+   */
+  public async load(id: string): Promise<TransformResult | undefined> {
+    const resolvedId = await this.fs.resolve(id);
+    if (!resolvedId) {
+      return undefined;
+    }
+
+    const code = await this.fs.readFile(resolvedId);
+    if (!code) {
+      return undefined;
+    }
+
+    return { code, map: null };
   }
 
   /**
@@ -921,6 +1043,31 @@ export class PowerlinesContext<
 
         return ret;
       }, [] as PluginConfig[]);
+
+    // Apply path token replacements
+
+    if (this.config.tsconfig) {
+      this.config.tsconfig = replacePathTokens(this, this.config.tsconfig);
+    }
+    if (this.config.output.dts) {
+      this.config.output.dts = replacePathTokens(this, this.config.output.dts);
+    }
+    if (this.config.build.polyfill) {
+      this.config.build.polyfill = this.config.build.polyfill.map(polyfill =>
+        replacePathTokens(this, polyfill)
+      );
+    }
+    if (this.config.output.assets) {
+      this.config.output.assets = this.config.output.assets.map(asset => ({
+        ...asset,
+        glob: replacePathTokens(this, asset.glob),
+        ignore: asset.ignore
+          ? asset.ignore.map(ignore => replacePathTokens(this, ignore))
+          : undefined,
+        input: replacePathTokens(this, asset.input),
+        output: replacePathTokens(this, asset.output)
+      }));
+    }
 
     this.#fs ??= await VirtualFileSystem.create(this);
   }

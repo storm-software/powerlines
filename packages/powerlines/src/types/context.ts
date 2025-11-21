@@ -25,8 +25,10 @@ import type MagicString from "magic-string";
 import type { SourceMap } from "magic-string";
 import type { DirectoryJSON } from "memfs";
 import { Range } from "semver";
+import { Project } from "ts-morph";
 import type { Unimport } from "unimport";
 import type {
+  ExternalIdResult,
   UnpluginBuildContext,
   UnpluginContext,
   UnpluginMessage
@@ -39,6 +41,7 @@ import type {
 } from "./config";
 import type {
   PowerlinesWriteFileOptions,
+  ResolveOptions,
   VirtualFile,
   VirtualFileMetadata,
   VirtualFileSystemInterface
@@ -315,6 +318,54 @@ export interface UnresolvedContext<
    * The builtin module id that exist in the Powerlines virtual file system
    */
   builtins: string[];
+
+  /**
+   * The {@link Project} instance used for type reflection and module manipulation
+   *
+   * @see https://ts-morph.com/
+   *
+   * @remarks
+   * This instance is created lazily on first access.
+   */
+  program: Project;
+
+  /**
+   * A helper function to resolve modules using the Jiti resolver
+   *
+   * @remarks
+   * This function can be used to resolve modules relative to the project root directory.
+   *
+   * @example
+   * ```ts
+   * const resolvedPath = await context.resolve("some-module", "/path/to/importer");
+   * ```
+   *
+   * @param id - The module to resolve.
+   * @param importer - An optional path to the importer module.
+   * @param options - Additional resolution options.
+   * @returns A promise that resolves to the resolved module path.
+   */
+  resolveId: (
+    id: string,
+    importer?: string,
+    options?: ResolveOptions
+  ) => Promise<ExternalIdResult | undefined>;
+
+  /**
+   * A helper function to load modules using the Jiti resolver
+   *
+   * @remarks
+   * This function can be used to load modules relative to the project root directory.
+   *
+   * @example
+   * ```ts
+   * const module = await context.load("some-module", "/path/to/importer");
+   * ```
+   *
+   * @param id - The module to load.
+   * @returns A promise that resolves to the loaded module.
+   */
+  load: (id: string) => Promise<TransformResult | undefined>;
 
   /**
    * The Powerlines builtin virtual files

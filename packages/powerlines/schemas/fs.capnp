@@ -34,43 +34,43 @@ struct FileMetadata {
     }
 }
 
-# Additional metadata associated with a file in the file system.
-struct ChunkData {
-    # The identifier for the file data.
-    id @0 :Text;
-    # An additional name for the file.
-    name @1 :Text;
-    # Files that are implicitly loaded after one of the specified files.
-    implicitlyLoadedAfterOneOf @2 :List(Text);
-    # The importer of the file.
-    importer @3 :Text;
-    # The signature preservation mode for the file.
-    preserveSignature @4 :PreserveSignatureType;
-}
+# # Additional metadata associated with a file in the file system.
+# struct ChunkData {
+#     # The identifier for the file data.
+#     id @0 :Text;
+#     # An additional name for the file.
+#     name @1 :Text;
+#     # Files that are implicitly loaded after one of the specified files.
+#     implicitlyLoadedAfterOneOf @2 :List(Text);
+#     # The importer of the file.
+#     importer @3 :Text;
+#     # The signature preservation mode for the file.
+#     preserveSignature @4 :PreserveSignatureType;
+# }
 
-# Additional metadata associated with a file in the file system.
-struct PrebuiltData {
-    # The identifier for the file data.
-    id @0 :Text;
-    # An additional name for the file.
-    name @1 :Text;
-    # The file exports.
-    exports @2 :List(Text);
-    # The source map for the file.
-    map @3 :Text;
-}
+# # Additional metadata associated with a file in the file system.
+# struct PrebuiltData {
+#     # The identifier for the file data.
+#     id @0 :Text;
+#     # An additional name for the file.
+#     name @1 :Text;
+#     # The file exports.
+#     exports @2 :List(Text);
+#     # The source map for the file.
+#     map @3 :Text;
+# }
 
-# Additional metadata associated with a file in the file system.
-struct AssetData {
-    # The identifier for the file data.
-    id @0 :Text;
-    # An additional name for the file.
-    name @1 :Text;
-    # Indicates whether the file needs a code reference.
-    needsCodeReference @2 :Bool;
-    # The original file name before any transformations.
-    originalFileName @3 :Text;
-}
+# # Additional metadata associated with a file in the file system.
+# struct AssetData {
+#     # The identifier for the file data.
+#     id @0 :Text;
+#     # An additional name for the file.
+#     name @1 :Text;
+#     # Indicates whether the file needs a code reference.
+#     needsCodeReference @2 :Bool;
+#     # The original file name before any transformations.
+#     originalFileName @3 :Text;
+# }
 
 # A mapping between a file path and its unique identifier.
 # Note: Multiple paths can map to the same identifier (e.g., symlinks).
@@ -94,7 +94,4 @@ struct FileSystem {
     ids @0 :List(FileId);
     files @1 :List(FileData);
     metadata @2 :List(FileMetadata);
-    assets @3 :List(AssetData);
-    chunks @4 :List(ChunkData);
-    prebuilt @5 :List(PrebuiltData);
 }

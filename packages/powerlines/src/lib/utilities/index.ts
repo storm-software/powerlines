@@ -21,7 +21,6 @@ export * from "./cache";
 export * from "./file-header";
 export * from "./meta";
 export * from "./resolve";
-export * from "./resolve-path";
 export * from "./source-file";
 export * from "./source-map";
 export * from "./worker";

@@ -113,184 +113,6 @@ export class FileMetadata extends $.Struct {
   public override toString(): string { return "FileMetadata_" + super.toString(); }
 }
 /**
-* The identifier for the file data.
-*
-*/
-export class ChunkData extends $.Struct {
-  public static override readonly _capnp = {
-    displayName: "ChunkData",
-    id: "84076f13b057f83a",
-    size: new $.ObjectSize(8, 4),
-  };
-  /**
-* An additional name for the file.
-*
-*/
-  get id(): string {
-    return $.utils.getText(0, this);
-  }
-  set id(value: string) {
-    $.utils.setText(0, value, this);
-  }
-  /**
-* Files that are implicitly loaded after one of the specified files.
-*
-*/
-  get name(): string {
-    return $.utils.getText(1, this);
-  }
-  set name(value: string) {
-    $.utils.setText(1, value, this);
-  }
-  _adoptImplicitlyLoadedAfterOneOf(value: $.Orphan<$.List<string>>): void {
-    $.utils.adopt(value, $.utils.getPointer(2, this));
-  }
-  _disownImplicitlyLoadedAfterOneOf(): $.Orphan<$.List<string>> {
-    return $.utils.disown(this.implicitlyLoadedAfterOneOf);
-  }
-  /**
-* The importer of the file.
-*
-*/
-  get implicitlyLoadedAfterOneOf(): $.List<string> {
-    return $.utils.getList(2, $.TextList, this);
-  }
-  _hasImplicitlyLoadedAfterOneOf(): boolean {
-    return !$.utils.isNull($.utils.getPointer(2, this));
-  }
-  _initImplicitlyLoadedAfterOneOf(length: number): $.List<string> {
-    return $.utils.initList(2, $.TextList, length, this);
-  }
-  set implicitlyLoadedAfterOneOf(value: $.List<string>) {
-    $.utils.copyFrom(value, $.utils.getPointer(2, this));
-  }
-  /**
-* The signature preservation mode for the file.
-*
-*/
-  get importer(): string {
-    return $.utils.getText(3, this);
-  }
-  set importer(value: string) {
-    $.utils.setText(3, value, this);
-  }
-  get preserveSignature(): PreserveSignatureType {
-    return $.utils.getUint16(0, this) as PreserveSignatureType;
-  }
-  set preserveSignature(value: PreserveSignatureType) {
-    $.utils.setUint16(0, value, this);
-  }
-  public override toString(): string { return "ChunkData_" + super.toString(); }
-}
-/**
-* The identifier for the file data.
-*
-*/
-export class PrebuiltData extends $.Struct {
-  public static override readonly _capnp = {
-    displayName: "PrebuiltData",
-    id: "c5b1a6ca696328ee",
-    size: new $.ObjectSize(0, 4),
-  };
-  /**
-* An additional name for the file.
-*
-*/
-  get id(): string {
-    return $.utils.getText(0, this);
-  }
-  set id(value: string) {
-    $.utils.setText(0, value, this);
-  }
-  /**
-* The file exports.
-*
-*/
-  get name(): string {
-    return $.utils.getText(1, this);
-  }
-  set name(value: string) {
-    $.utils.setText(1, value, this);
-  }
-  _adoptExports(value: $.Orphan<$.List<string>>): void {
-    $.utils.adopt(value, $.utils.getPointer(2, this));
-  }
-  _disownExports(): $.Orphan<$.List<string>> {
-    return $.utils.disown(this.exports);
-  }
-  /**
-* The source map for the file.
-*
-*/
-  get exports(): $.List<string> {
-    return $.utils.getList(2, $.TextList, this);
-  }
-  _hasExports(): boolean {
-    return !$.utils.isNull($.utils.getPointer(2, this));
-  }
-  _initExports(length: number): $.List<string> {
-    return $.utils.initList(2, $.TextList, length, this);
-  }
-  set exports(value: $.List<string>) {
-    $.utils.copyFrom(value, $.utils.getPointer(2, this));
-  }
-  get map(): string {
-    return $.utils.getText(3, this);
-  }
-  set map(value: string) {
-    $.utils.setText(3, value, this);
-  }
-  public override toString(): string { return "PrebuiltData_" + super.toString(); }
-}
-/**
-* The identifier for the file data.
-*
-*/
-export class AssetData extends $.Struct {
-  public static override readonly _capnp = {
-    displayName: "AssetData",
-    id: "da660c6c1fa4c830",
-    size: new $.ObjectSize(8, 3),
-  };
-  /**
-* An additional name for the file.
-*
-*/
-  get id(): string {
-    return $.utils.getText(0, this);
-  }
-  set id(value: string) {
-    $.utils.setText(0, value, this);
-  }
-  /**
-* Indicates whether the file needs a code reference.
-*
-*/
-  get name(): string {
-    return $.utils.getText(1, this);
-  }
-  set name(value: string) {
-    $.utils.setText(1, value, this);
-  }
-  /**
-* The original file name before any transformations.
-*
-*/
-  get needsCodeReference(): boolean {
-    return $.utils.getBit(0, this);
-  }
-  set needsCodeReference(value: boolean) {
-    $.utils.setBit(0, value, this);
-  }
-  get originalFileName(): string {
-    return $.utils.getText(2, this);
-  }
-  set originalFileName(value: string) {
-    $.utils.setText(2, value, this);
-  }
-  public override toString(): string { return "AssetData_" + super.toString(); }
-}
-/**
 * An identifier for the file.
 *
 */
@@ -350,14 +172,11 @@ export class FileSystem extends $.Struct {
   public static override readonly _capnp = {
     displayName: "FileSystem",
     id: "ae0c23d43e56abcf",
-    size: new $.ObjectSize(0, 6),
+    size: new $.ObjectSize(0, 3),
   };
   static _Ids: $.ListCtor<FileId>;
   static _Files: $.ListCtor<FileData>;
   static _Metadata: $.ListCtor<FileMetadata>;
-  static _Assets: $.ListCtor<AssetData>;
-  static _Chunks: $.ListCtor<ChunkData>;
-  static _Prebuilt: $.ListCtor<PrebuiltData>;
   _adoptIds(value: $.Orphan<$.List<FileId>>): void {
     $.utils.adopt(value, $.utils.getPointer(0, this));
   }
@@ -412,66 +231,9 @@ export class FileSystem extends $.Struct {
   set metadata(value: $.List<FileMetadata>) {
     $.utils.copyFrom(value, $.utils.getPointer(2, this));
   }
-  _adoptAssets(value: $.Orphan<$.List<AssetData>>): void {
-    $.utils.adopt(value, $.utils.getPointer(3, this));
-  }
-  _disownAssets(): $.Orphan<$.List<AssetData>> {
-    return $.utils.disown(this.assets);
-  }
-  get assets(): $.List<AssetData> {
-    return $.utils.getList(3, FileSystem._Assets, this);
-  }
-  _hasAssets(): boolean {
-    return !$.utils.isNull($.utils.getPointer(3, this));
-  }
-  _initAssets(length: number): $.List<AssetData> {
-    return $.utils.initList(3, FileSystem._Assets, length, this);
-  }
-  set assets(value: $.List<AssetData>) {
-    $.utils.copyFrom(value, $.utils.getPointer(3, this));
-  }
-  _adoptChunks(value: $.Orphan<$.List<ChunkData>>): void {
-    $.utils.adopt(value, $.utils.getPointer(4, this));
-  }
-  _disownChunks(): $.Orphan<$.List<ChunkData>> {
-    return $.utils.disown(this.chunks);
-  }
-  get chunks(): $.List<ChunkData> {
-    return $.utils.getList(4, FileSystem._Chunks, this);
-  }
-  _hasChunks(): boolean {
-    return !$.utils.isNull($.utils.getPointer(4, this));
-  }
-  _initChunks(length: number): $.List<ChunkData> {
-    return $.utils.initList(4, FileSystem._Chunks, length, this);
-  }
-  set chunks(value: $.List<ChunkData>) {
-    $.utils.copyFrom(value, $.utils.getPointer(4, this));
-  }
-  _adoptPrebuilt(value: $.Orphan<$.List<PrebuiltData>>): void {
-    $.utils.adopt(value, $.utils.getPointer(5, this));
-  }
-  _disownPrebuilt(): $.Orphan<$.List<PrebuiltData>> {
-    return $.utils.disown(this.prebuilt);
-  }
-  get prebuilt(): $.List<PrebuiltData> {
-    return $.utils.getList(5, FileSystem._Prebuilt, this);
-  }
-  _hasPrebuilt(): boolean {
-    return !$.utils.isNull($.utils.getPointer(5, this));
-  }
-  _initPrebuilt(length: number): $.List<PrebuiltData> {
-    return $.utils.initList(5, FileSystem._Prebuilt, length, this);
-  }
-  set prebuilt(value: $.List<PrebuiltData>) {
-    $.utils.copyFrom(value, $.utils.getPointer(5, this));
-  }
   public override toString(): string { return "FileSystem_" + super.toString(); }
 }
 FileMetadata._Properties = $.CompositeList(FileMetadata_KeyValuePair);
 FileSystem._Ids = $.CompositeList(FileId);
 FileSystem._Files = $.CompositeList(FileData);
 FileSystem._Metadata = $.CompositeList(FileMetadata);
-FileSystem._Assets = $.CompositeList(AssetData);
-FileSystem._Chunks = $.CompositeList(ChunkData);
-FileSystem._Prebuilt = $.CompositeList(PrebuiltData);

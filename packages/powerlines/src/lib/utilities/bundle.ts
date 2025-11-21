@@ -21,7 +21,6 @@ import { build, BuildOptions, OutputFile } from "esbuild";
 import { ESBuildResolvedBuildConfig } from "../../types/build";
 import { Context } from "../../types/context";
 import { extractESBuildConfig } from "../build/esbuild";
-import { resolvePath } from "./resolve-path";
 
 /**
  * Bundle a type definition to a module.
@@ -36,7 +35,7 @@ export async function bundle(
   file: string,
   overrides: Partial<ESBuildResolvedBuildConfig> = {}
 ): Promise<OutputFile> {
-  const path = await resolvePath(context, file);
+  const path = await context.fs.resolve(file);
   if (!path || !context.fs.existsSync(path)) {
     throw new Error(
       `Module not found: "${file}". Please check the path and try again.`

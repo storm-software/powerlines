@@ -96,7 +96,7 @@ export function createVirtualSystem(context: Context): System {
 
       return undefined;
     },
-    resolvePath: path => context.fs.resolve(path) || path,
+    resolvePath: path => context.fs.resolveSync(path) || path,
     newLine: "\n",
     useCaseSensitiveFileNames: true,
     write: () => {
@@ -127,7 +127,7 @@ export function createCompilerHost(
   return {
     ...host,
     require(baseDir: string, moduleName: string) {
-      const modulePath = context.fs.resolve(moduleName);
+      const modulePath = context.fs.resolveSync(moduleName);
       if (modulePath) {
         return {
           module: context.fs.readFileSync(modulePath),
@@ -151,11 +151,11 @@ export function createCompilerHost(
     },
     getCanonicalFileName(fileName: string): string {
       return (
-        context.fs.resolve(fileName) || host.getCanonicalFileName(fileName)
+        context.fs.resolveSync(fileName) || host.getCanonicalFileName(fileName)
       );
     },
     realpath(fileName: string) {
-      return context.fs.resolve(fileName) || host.realpath?.(fileName);
+      return context.fs.resolveSync(fileName) || host.realpath?.(fileName);
     },
     fileExists(fileName: string): boolean {
       if (context.fs.existsSync(fileName)) {
@@ -200,7 +200,7 @@ export function createCompilerHost(
       onError?: (message: string) => void,
       shouldCreateNewSourceFile?: boolean
     ): SourceFile | undefined {
-      const path = context.fs.resolve(fileName);
+      const path = context.fs.resolveSync(fileName);
       if (path) {
         try {
           return createSourceFile(

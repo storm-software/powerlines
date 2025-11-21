@@ -17,15 +17,9 @@
  ------------------------------------------------------------------- */
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import {
-  createCompilerHost,
-  createProgram,
-  flattenDiagnosticMessageText,
-  getLineAndCharacterOfPosition,
-  getPreEmitDiagnostics
-} from "typescript";
+
+import { flattenDiagnosticMessageText } from "typescript";
 import { Context } from "../../types/context";
-import { ParsedTypeScriptConfig } from "../../types/tsconfig";
 
 /**
  * Formats the generated TypeScript types source code.
@@ -48,83 +42,66 @@ export function formatTypes(code: string): string {
  * Emits TypeScript declaration types for the provided files using the given TypeScript configuration.
  *
  * @param context - The context containing options and environment paths.
- * @param tsconfig - The TypeScript configuration to use for the compilation.
  * @param files - The list of files to generate types for.
  * @returns A promise that resolves to the generated TypeScript declaration types.
  */
 export async function emitTypes<TContext extends Context>(
   context: TContext,
-  tsconfig: ParsedTypeScriptConfig,
   files: string[]
 ) {
-  context.log(LogLevelLabel.TRACE, "Creating the TypeScript compiler host");
-
-  const program = createProgram(
-    files,
-    tsconfig.options,
-    createCompilerHost(tsconfig.options)
-  );
-
-  // const transformer = createImportTransformer(context);
-
   context.log(
     LogLevelLabel.TRACE,
-    `Running the TypeScript compiler for ${context.builtins.length} built-in runtime files.`
+    `Running the TypeScript compiler for ${
+      files.length
+    } generated runtime files.`
   );
+
+  context.program.addSourceFilesAtPaths(files);
+  const result = context.program.emitToMemory({ emitOnlyDtsFiles: true });
 
   let builtinModules = "";
-  const emitResult = program.emit(
-    undefined,
-    (fileName, text, _, __, sourceFiles, _data) => {
-      const sourceFile = sourceFiles?.[0];
-      if (sourceFile?.fileName && !fileName.endsWith(".map")) {
-        if (
-          context.builtins.some(
-            file =>
-              file === sourceFile.fileName ||
-              (context.fs.metadata[file]?.id &&
-                context.fs.metadata[file]?.id === sourceFile.fileName)
-          )
-        ) {
-          builtinModules += `
-declare module "${context.fs.resolve(sourceFile.fileName)}" {
-    ${text
-      .trim()
-      .replace(/^\s*export\s*declare\s*/gm, "export ")
-      .replace(/^\s*declare\s*/gm, "")}
-}
-`;
-        }
+  for (const file of result.getFiles()) {
+    if (!file.filePath.endsWith(".map")) {
+      if (
+        context.builtins.some(
+          builtin =>
+            builtin === file.filePath ||
+            (context.fs.metadata[builtin]?.id &&
+              context.fs.metadata[builtin]?.id === file.filePath)
+        )
+      ) {
+        const module = await context.fs.resolve(file.filePath);
+
+        builtinModules += `
+  declare module "${module}" {
+      ${file.text
+        .trim()
+        .replace(/^\s*export\s*declare\s*/gm, "export ")
+        .replace(/^\s*declare\s*/gm, "")}
+  }
+  `;
       }
-    },
-    undefined,
-    true
-  );
+    }
+  }
 
-  const diagnostics = getPreEmitDiagnostics(program).concat(
-    emitResult.diagnostics
-  );
   const diagnosticMessages: string[] = [];
-
-  diagnostics.forEach(diagnostic => {
-    if (diagnostic.file) {
-      const { line, character } = getLineAndCharacterOfPosition(
-        diagnostic.file,
-        diagnostic.start!
-      );
-      const message = flattenDiagnosticMessageText(
-        diagnostic.messageText,
-        "\n"
-      );
+  result.getDiagnostics().forEach(diagnostic => {
+    if (diagnostic.getSourceFile()?.getBaseName()) {
       diagnosticMessages.push(
-        `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`
+        `${diagnostic.getSourceFile()?.getBaseName()} (${
+          (diagnostic.getLineNumber() ?? 0) + 1
+        }): ${flattenDiagnosticMessageText(
+          diagnostic.getMessageText().toString(),
+          "\n"
+        )}`
       );
     } else {
-      const message = flattenDiagnosticMessageText(
-        diagnostic.messageText,
-        "\n"
+      diagnosticMessages.push(
+        flattenDiagnosticMessageText(
+          diagnostic.getMessageText().toString(),
+          "\n"
+        )
       );
-      diagnosticMessages.push(message);
     }
   });
 

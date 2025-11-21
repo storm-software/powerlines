@@ -34,6 +34,7 @@ catalog:
   "@babel/traverse": ^7.28.5
   "@babel/types": ^7.28.5
   "@biomejs/biome": ^2.3.6
+  "@cacheable/memory": ^2.0.5
   "@content-collections/core": ^0.12.0
   "@deepkit/core": 1.0.5
   "@deepkit/type": 1.0.5
@@ -84,20 +85,20 @@ catalog:
   "@storm-software/unbuild": ^0.57.48
   "@storm-software/untyped": ^0.24.29
   "@storm-software/workspace-tools": ^1.293.18
-  "@stryke/capnp": ^0.12.21
-  "@stryke/cli": ^0.12.7
-  "@stryke/convert": ^0.6.2
-  "@stryke/env": ^0.20.14
-  "@stryke/fs": ^0.32.13
-  "@stryke/hash": ^0.12.3
-  "@stryke/helpers": ^0.9.4
-  "@stryke/http": ^0.11.3
-  "@stryke/json": ^0.9.5
-  "@stryke/path": ^0.19.2
-  "@stryke/string-format": ^0.12.2
-  "@stryke/type-checks": ^0.3.12
-  "@stryke/types": ^0.10.2
-  "@stryke/unique-id": ^0.3.8
+  "@stryke/capnp": ^0.12.24
+  "@stryke/cli": ^0.12.10
+  "@stryke/convert": ^0.6.5
+  "@stryke/env": ^0.20.17
+  "@stryke/fs": ^0.33.0
+  "@stryke/hash": ^0.12.6
+  "@stryke/helpers": ^0.9.7
+  "@stryke/http": ^0.11.6
+  "@stryke/json": ^0.9.8
+  "@stryke/path": ^0.20.0
+  "@stryke/string-format": ^0.12.5
+  "@stryke/type-checks": ^0.3.15
+  "@stryke/types": ^0.10.5
+  "@stryke/unique-id": ^0.3.11
   "@swc/core": ^1.15.3
   "@tamagui/static-worker": ^1.138.0
   "@tamagui/types": ^1.138.0
@@ -132,6 +133,7 @@ catalog:
   eslint: ^9.39.1
   eslint-flat-config-utils: ^2.1.4
   fp-ts: ^2.16.11
+  flat-cache: ^6.1.19
   github-slugger: ^2.0.0
   handlebars: ^4.7.8
   jest: ^30.2.0
@@ -148,7 +150,6 @@ catalog:
   magic-string: ^0.30.21
   markdown-toc: ^1.2.0
   memfs: ^4.51.0
-  mlly: ^1.8.0
   minimatch: ^10.1.1
   nanotar: ^0.2.0
   nx: ^22.1.0

@@ -18,7 +18,6 @@
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { getWorkspaceRoot } from "@stryke/fs/get-workspace-root";
-import { tsconfigPathsToRegExp } from "bundle-require";
 import type {
   TransformResult,
   UnpluginBuildContext,
@@ -35,7 +34,6 @@ import {
 } from "../../types/unplugin";
 import { createLog } from "../logger";
 import { getString } from "../utilities/source-file";
-import { handleResolveId } from "./resolve-id";
 
 /**
  * Creates a Powerlines unplugin factory that generates a plugin instance.
@@ -68,19 +66,12 @@ export function createUnpluginFactory<
       } as TContext["config"]["userConfig"];
 
       let api!: PowerlinesAPI<TContext["config"]>;
-      let resolvePatterns: RegExp[] = [];
 
       async function buildStart(this: UnpluginBuildContext): Promise<void> {
         log(LogLevelLabel.DEBUG, "Powerlines build plugin starting...");
 
         const workspaceRoot = getWorkspaceRoot(process.cwd());
         api = await PowerlinesAPI.from(workspaceRoot, userConfig);
-
-        if (api.context.config.build.skipNodeModulesBundle) {
-          resolvePatterns = tsconfigPathsToRegExp(
-            api.context.tsconfig.options.paths ?? []
-          );
-        }
 
         log(
           LogLevelLabel.DEBUG,
@@ -100,21 +91,7 @@ export function createUnpluginFactory<
           isEntry: boolean;
         } = { isEntry: false }
       ) {
-        return handleResolveId(
-          api.context,
-          {
-            id,
-            importer,
-            options
-          },
-          {
-            skipNodeModulesBundle:
-              api.context.config.build.skipNodeModulesBundle,
-            external: api.context.config.build.external,
-            noExternal: api.context.config.build.noExternal,
-            resolvePatterns
-          }
-        );
+        return api.context.resolveId(id, importer, options);
       }
 
       async function load(
@@ -123,19 +100,17 @@ export function createUnpluginFactory<
       ): Promise<TransformResult> {
         const environment = await api.context.getEnvironment();
 
-        if (id) {
-          const resolvedPath = environment.fs.resolve(id);
-          if (resolvedPath) {
-            return environment.fs.readFile(resolvedPath);
-          }
-        }
-
         let result = await api.callPreHook(environment, "load", id);
         if (result) {
           return result;
         }
 
         result = await api.callNormalHook(environment, "load", id);
+        if (result) {
+          return result;
+        }
+
+        result = await environment.load(id);
         if (result) {
           return result;
         }

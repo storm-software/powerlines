@@ -38,9 +38,7 @@ import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { MaybePromise } from "@stryke/types/base";
-import { TsConfigJson } from "@stryke/types/tsconfig";
 import chalk from "chalk";
-import defu from "defu";
 import Handlebars from "handlebars";
 import { moduleResolverBabelPlugin } from "./internal/babel/module-resolver-plugin";
 import { emitTypes, formatTypes } from "./internal/helpers/generate-types";
@@ -62,7 +60,6 @@ import {
   isPluginConfigObject,
   isPluginConfigTuple
 } from "./plugin-utils/helpers";
-import { replacePathTokens } from "./plugin-utils/paths";
 import { API } from "./types/api";
 import type {
   BuildInlineConfig,
@@ -83,7 +80,7 @@ import type {
   EnvironmentContext,
   PluginContext
 } from "./types/context";
-import { __VFS_PATCH__, __VFS_REVERT__ } from "./types/fs";
+import { __VFS_REVERT__ } from "./types/fs";
 import {
   HookKeys,
   InferHookParameters,
@@ -234,12 +231,6 @@ export class PowerlinesAPI<
 
       await this.callPostHook(context, "configResolved");
 
-      if (context.config.build.polyfill) {
-        context.config.build.polyfill = context.config.build.polyfill.map(
-          polyfill => replacePathTokens(context, polyfill)
-        );
-      }
-
       context.log(
         LogLevelLabel.TRACE,
         `Powerlines configuration has been resolved: \n\n${formatLogMessage(
@@ -247,7 +238,7 @@ export class PowerlinesAPI<
         )}`
       );
 
-      context.fs[__VFS_PATCH__]();
+      // context.fs[__VFS_PATCH__]();
 
       await writeMetaFile(context);
       context.persistedMeta = context.meta;
@@ -333,7 +324,7 @@ export class PowerlinesAPI<
 
             return ret;
           },
-          [joinPaths(typescriptPath, "lib", "lib.esnext.full.d.ts")]
+          [] // [joinPaths(typescriptPath, "lib", "lib.esnext.full.d.ts")]
         );
 
         context.log(
@@ -341,35 +332,7 @@ export class PowerlinesAPI<
           "Parsing TypeScript configuration for the Powerlines project."
         );
 
-        const resolvedTsconfig = getParsedTypeScriptConfig(
-          context.workspaceConfig.workspaceRoot,
-          context.config.projectRoot,
-          context.tsconfig.tsconfigFilePath,
-          defu(
-            {
-              compilerOptions: {
-                strict: false,
-                noEmit: false,
-                declaration: true,
-                declarationMap: false,
-                emitDeclarationOnly: true,
-                skipLibCheck: true
-              },
-              exclude: ["node_modules", "dist"],
-              include: files
-            },
-            context.config.tsconfigRaw ?? {}
-          ) as TsConfigJson
-        );
-        resolvedTsconfig.options.configFilePath = joinPaths(
-          context.workspaceConfig.workspaceRoot,
-          context.tsconfig.tsconfigFilePath
-        );
-        resolvedTsconfig.options.pathsBasePath =
-          context.workspaceConfig.workspaceRoot;
-        resolvedTsconfig.options.suppressOutputPathCheck = true;
-
-        let generatedTypes = await emitTypes(context, resolvedTsconfig, files);
+        let generatedTypes = await emitTypes(context, files);
 
         context.log(
           LogLevelLabel.TRACE,
@@ -466,19 +429,7 @@ ${formatTypes(generatedTypes)}
       await this.callPostHook(context, "prepare");
 
       await writeMetaFile(context);
-
-      // await compressDirectory(
-      //   joinPaths(context.options.projectRoot, context.artifactsDir),
-      //   {
-      //     destination: joinPaths(
-      //       context.envPaths.cache,
-      //       context.options.projectRoot,
-      //       `${context.meta.checksum}.tar.gz`
-      //     )
-      //   }
-      // );
-
-      context.fs[__VFS_REVERT__]();
+      // context.fs[__VFS_REVERT__]();
     });
 
     this.context.log(
@@ -659,19 +610,17 @@ ${formatTypes(generatedTypes)}
    * @returns A promise that resolves when the build command has completed
    */
   public async build(inlineConfig: BuildInlineConfig = { command: "build" }) {
-    // const persistedMeta = await getPersistedMeta(this.context);
-    // const checksum = await getChecksum(this.context.config.projectRoot);
+    this.context.log(LogLevelLabel.INFO, "📦  Building the Powerlines project");
 
-    // if (persistedMeta?.checksum !== checksum) {
+    // const checksum = await this.context.generateChecksum();
+    // if (checksum !== this.context.persistedMeta?.checksum) {
     //   this.context.log(
     //     LogLevelLabel.INFO,
     //     "The Powerlines project has been modified since the last time `prepare` was ran. Re-preparing the project."
     //   );
 
-    //   await this.generate(inlineConfig);
+    //   await this.prepare(inlineConfig);
     // }
-
-    this.context.log(LogLevelLabel.INFO, "📦  Building the Powerlines project");
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {

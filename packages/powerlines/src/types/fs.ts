@@ -16,12 +16,11 @@
 
  ------------------------------------------------------------------- */
 
+import type { ResolveOptions as BaseResolveOptions } from "@stryke/fs/resolve";
 import type {
   MakeDirectoryOptions as FsMakeDirectoryOptions,
   WriteFileOptions as FsWriteFileOptions,
   Mode,
-  PathLike,
-  PathOrFileDescriptor,
   RmDirOptions,
   RmOptions,
   Stats,
@@ -145,23 +144,31 @@ export type WriteFileOptions =
 
 export type WriteFileData = string | NodeJS.ArrayBufferView | VirtualFileData;
 
-export interface ResolvePathOptions extends ResolveFSOptions {
+export interface ResolveOptions extends BaseResolveOptions {
   /**
-   * Should the resolved path include the file extension?
-   *
-   * @defaultValue true
+   * If true, the module is being resolved as an entry point.
    */
-  withExtension?: boolean;
+  isEntry?: boolean;
 
   /**
-   * The paths to search for the file.
+   * If true, the resolver will skip using the cache when resolving modules.
    */
-  paths?: string[];
+  skipCache?: boolean;
 
   /**
-   * The type of the path to resolve.
+   * An array of external modules or patterns to exclude from resolution.
    */
-  pathType?: "file" | "directory";
+  external?: (string | RegExp)[];
+
+  /**
+   * An array of modules or patterns to include in the resolution, even if they are marked as external.
+   */
+  noExternal?: (string | RegExp)[];
+
+  /**
+   * An array of patterns to match when resolving modules.
+   */
+  skipNodeModulesBundle?: boolean;
 }
 
 export interface VirtualFileSystemInterface {
@@ -178,30 +185,45 @@ export interface VirtualFileSystemInterface {
   /**
    * The underlying file metadata.
    */
-  metadata: Record<string, VirtualFileMetadata | undefined>;
+  metadata: Readonly<Record<string, VirtualFileMetadata>>;
+
+  /**
+   * A map of file paths to their module ids.
+   */
+  ids: Readonly<Record<string, string>>;
 
   /**
    * A map of module ids to their file paths.
    */
-  ids: Record<string, string>;
+  paths: Readonly<Record<string, string>>;
 
   /**
    * Check if a path or id corresponds to a virtual file **(does not actually exists on disk)**.
    *
    * @param pathOrId - The path or id to check.
+   * @param importer - The importer path, if any.
    * @param options - Optional parameters for resolving the path.
    * @returns Whether the path or id corresponds to a virtual file **(does not actually exists on disk)**.
    */
-  isVirtual: (pathOrId: string, options?: ResolvePathOptions) => boolean;
+  isVirtual: (
+    pathOrId: string,
+    importer?: string,
+    options?: ResolveOptions
+  ) => boolean;
 
   /**
    * Check if a path or id corresponds to a file written to the file system **(actually exists on disk)**.
    *
    * @param pathOrId - The path or id to check.
+   * @param importer - The importer path, if any.
    * @param options - Optional parameters for resolving the path.
    * @returns Whether the path or id corresponds to a file written to the file system **(actually exists on disk)**.
    */
-  isPhysical: (pathOrId: string, options?: ResolvePathOptions) => boolean;
+  isPhysical: (
+    pathOrId: string,
+    importer?: string,
+    options?: ResolveOptions
+  ) => boolean;
 
   /**
    * Checks if a file exists in the virtual file system (VFS).
@@ -233,7 +255,7 @@ export interface VirtualFileSystemInterface {
    * @param pathOrId - The path or id of the file.
    * @returns The metadata of the file if it exists, otherwise undefined.
    */
-  getMetadata: (pathOrId: PathLike) => VirtualFileMetadata | undefined;
+  getMetadata: (pathOrId: string) => VirtualFileMetadata | undefined;
 
   /**
    * Gets the stats of a file in the virtual file system (VFS).
@@ -335,7 +357,7 @@ export interface VirtualFileSystemInterface {
    * @param path - The path to the file to remove.
    * @returns A promise that resolves when the file is removed.
    */
-  unlinkSync: (path: PathLike, options?: ResolveFSOptions) => void;
+  unlinkSync: (path: string, options?: ResolveFSOptions) => void;
 
   /**
    * Asynchronously removes a file or symbolic link in the virtual file system (VFS).
@@ -351,7 +373,7 @@ export interface VirtualFileSystemInterface {
    * @param path - The path to create the directory at.
    * @param options - Options for creating the directory.
    */
-  rmdirSync: (path: PathLike, options?: RmDirOptions & ResolveFSOptions) => any;
+  rmdirSync: (path: string, options?: RmDirOptions & ResolveFSOptions) => any;
 
   /**
    * Removes a directory in the virtual file system (VFS).
@@ -361,7 +383,7 @@ export interface VirtualFileSystemInterface {
    * @returns A promise that resolves to the path of the created directory, or undefined if the directory could not be created.
    */
   rmdir: (
-    path: PathLike,
+    path: string,
     options?: RmDirOptions & ResolveFSOptions
   ) => Promise<void>;
 
@@ -372,7 +394,7 @@ export interface VirtualFileSystemInterface {
    * @param options - Options for removing the file or directory.
    * @returns A promise that resolves when the file or directory is removed.
    */
-  rm: (path: PathLike, options?: RmOptions & ResolveFSOptions) => Promise<void>;
+  rm: (path: string, options?: RmOptions & ResolveFSOptions) => Promise<void>;
 
   /**
    * Synchronously removes a file or directory in the virtual file system (VFS).
@@ -380,7 +402,7 @@ export interface VirtualFileSystemInterface {
    * @param path - The path to the file or directory to remove.
    * @param options - Options for removing the file or directory.
    */
-  rmSync: (path: PathLike, options?: RmOptions & ResolveFSOptions) => void;
+  rmSync: (path: string, options?: RmOptions & ResolveFSOptions) => void;
 
   /**
    * Creates a directory in the virtual file system (VFS).
@@ -390,7 +412,7 @@ export interface VirtualFileSystemInterface {
    * @returns A promise that resolves to the path of the created directory, or undefined if the directory could not be created.
    */
   mkdirSync: (
-    path: PathLike,
+    path: string,
     options?: MakeDirectoryOptions
   ) => string | undefined;
 
@@ -402,7 +424,7 @@ export interface VirtualFileSystemInterface {
    * @returns A promise that resolves to the path of the created directory, or undefined if the directory could not be created.
    */
   mkdir: (
-    path: PathLike,
+    path: string,
     options?: MakeDirectoryOptions
   ) => Promise<string | undefined>;
 
@@ -430,7 +452,7 @@ export interface VirtualFileSystemInterface {
    * @returns A promise that resolves when the file is written.
    */
   writeFile: (
-    path: PathOrFileDescriptor,
+    path: string,
     data?: WriteFileData,
     options?: WriteFileOptions
   ) => Promise<void>;
@@ -443,7 +465,7 @@ export interface VirtualFileSystemInterface {
    * @param options - Optional parameters for writing the file.
    */
   writeFileSync: (
-    path: PathOrFileDescriptor,
+    path: string,
     data?: WriteFileData,
     options?: WriteFileOptions
   ) => void;
@@ -500,26 +522,53 @@ export interface VirtualFileSystemInterface {
    * Resolves a path or id to a file path in the virtual file system.
    *
    * @param pathOrId - The path or id of the file to resolve.
-   * @param options - Optional parameters for resolving the path.
-   * @returns The resolved path of the file if it exists, otherwise false.
-   */
-  resolve: (pathOrId: string, options?: ResolvePathOptions) => string | false;
-
-  /**
-   * Formats a path to match the virtual file system (VFS) structure.
-   *
-   * @param path - The path to format.
-   * @returns The formatted path.
-   */
-  formatPath: (path: string) => string;
-
-  /**
-   * Resolves a path or id to a file path in the virtual file system.
-   *
-   * @param pathOrId - The path or id of the file to resolve.
    * @returns The resolved path of the file if it exists, otherwise false.
    */
   realpathSync: (pathOrId: string) => string;
+
+  /**
+   * A helper function to resolve modules using the Jiti resolver
+   *
+   * @remarks
+   * This function can be used to resolve modules relative to the project root directory.
+   *
+   * @example
+   * ```ts
+   * const resolvedPath = await context.resolve("some-module", "/path/to/importer");
+   * ```
+   *
+   * @param id - The module to resolve.
+   * @param importer - An optional path to the importer module.
+   * @param options - Additional resolution options.
+   * @returns A promise that resolves to the resolved module path.
+   */
+  resolve: (
+    id: string,
+    importer?: string,
+    options?: ResolveOptions
+  ) => Promise<string | undefined>;
+
+  /**
+   * A synchronous helper function to resolve modules using the Jiti resolver
+   *
+   * @remarks
+   * This function can be used to resolve modules relative to the project root directory.
+   *
+   * @example
+   * ```ts
+   * const resolvedPath = context.resolveSync("some-module", "/path/to/importer");
+   * ```
+   *
+   * @param id - The module to resolve.
+   * @param importer - An optional path to the importer module.
+   * @param options - Additional resolution options.
+   * @returns The resolved module path.
+   */
+  resolveSync: (
+    id: string,
+    importer?: string,
+    options?: ResolveOptions
+  ) => string | undefined;
 
   /**
    * Disposes of the virtual file system (VFS), writes any virtual file changes to disk, and releases any associated resources.

@@ -18,6 +18,7 @@
 
 /* eslint-disable ts/no-unsafe-call */
 
+import { findFileDotExtensionSafe } from "@stryke/path/file-path-fns";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -44,9 +45,8 @@ export function isPowerlinesWriteFileOptions(
   return (
     !isBufferEncoding(options) &&
     isSetObject(options) &&
-    ("skipFormat" in options ||
-      ("mode" in options &&
-        (options.mode === "fs" || options.mode === "virtual")))
+    "mode" in options &&
+    (options.mode === "fs" || options.mode === "virtual")
   );
 }
 
@@ -55,7 +55,8 @@ export function isNodeWriteFileOptions(
 ): options is NodeWriteFileOptions {
   return (
     !isUndefined(options) &&
-    (isBufferEncoding(options) || !isPowerlinesWriteFileOptions(options))
+    isBufferEncoding(options) &&
+    !isPowerlinesWriteFileOptions(options)
   );
 }
 
@@ -280,4 +281,50 @@ export function patchFS(
     (originalFS as any).lstat = clonedFS.lstat;
     originalFS.promises.lstat = clonedFS.promises.lstat;
   };
+}
+
+/**
+ * Checks if a given file id is valid based on the specified prefix.
+ *
+ * @param id - The file ID to check.
+ * @param prefix - The prefix to use for built-in files. Default is "powerlines".
+ * @returns `true` if the file ID is valid, otherwise `false`.
+ */
+export function isValidId(id: string, prefix = "powerlines"): boolean {
+  return id.replace(/^\\0/, "").startsWith(`${prefix.replace(/:$/, "")}`);
+}
+
+/**
+ * Formats a file id by removing the file extension and prepending the runtime prefix.
+ *
+ * @param id - The file ID to format.
+ * @param prefix - The prefix to use for built-in files. Default is "powerlines".
+ * @returns The formatted file ID.
+ */
+export function normalizeId(id: string, prefix = "powerlines"): string {
+  return `${prefix.replace(/:$/, "")}:${toFilePath(id)
+    .replace(new RegExp(`^${prefix.replace(/:$/, "")}:`), "")
+    .replace(/^\\0/, "")
+    .replace(findFileDotExtensionSafe(toFilePath(id)), "")}`;
+}
+
+/**
+ * Normalizes a given path by resolving it against the project root, workspace root, and built-ins path.
+ *
+ * @param path - The path to normalize.
+ * @param builtinsPath - The path to built-in files.
+ * @param prefix - The prefix to use for built-in files. Default is "powerlines".
+ * @returns The normalized path.
+ */
+export function normalizePath(
+  path: string,
+  builtinsPath: string,
+  prefix = "powerlines"
+): string {
+  return isValidId(toFilePath(path), prefix)
+    ? normalizeId(toFilePath(path), prefix).replace(
+        new RegExp(`^${prefix.replace(/:$/, "")}:`),
+        builtinsPath
+      )
+    : toFilePath(path);
 }

@@ -91,7 +91,7 @@ export async function createVirtualProgram(
     ...ts.sys,
     realpath: (path: string) => {
       if (context.fs.existsSync(path)) {
-        return context.fs.resolve(path);
+        return context.fs.resolveSync(path);
       }
 
       return ts.sys.realpath?.(path) ?? path;
@@ -165,7 +165,7 @@ export async function createVirtualProgram(
     },
     resolvePath: (fileName: string): string => {
       if (context.fs.existsSync(fileName)) {
-        return context.fs.resolve(fileName) as string;
+        return context.fs.resolveSync(fileName) as string;
       }
 
       return ts.sys.resolvePath(fileName);
@@ -233,7 +233,7 @@ export function createVirtualCompilerHost(
         fileName: string,
         languageVersionOrOptions: ts.ScriptTarget | ts.CreateSourceFileOptions
       ) => {
-        const resolved = context.fs.resolve(fileName);
+        const resolved = context.fs.resolveSync(fileName);
         if (resolved && context.fs.existsSync(resolved)) {
           return context.fs.readFileSync(resolved);
         }

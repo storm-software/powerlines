@@ -258,6 +258,11 @@ export async function initializeTsconfig<
   context.tsconfig.tsconfigJson =
     await resolveTsconfigChanges<TResolvedConfig>(context);
 
+  context.log(
+    LogLevelLabel.TRACE,
+    "Writing updated TypeScript configuration (tsconfig.json) file to disk."
+  );
+
   await context.fs.writeFile(
     tsconfigFilePath,
     StormJSON.stringify(context.tsconfig.tsconfigJson),
