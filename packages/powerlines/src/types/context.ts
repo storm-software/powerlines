@@ -380,6 +380,13 @@ export interface UnresolvedContext<
    * @returns A logger function
    */
   extendLog: (name: string) => LogFn;
+
+  /**
+   * Generates a checksum representing the current context state
+   *
+   * @returns A promise that resolves to a string representing the checksum
+   */
+  generateChecksum: () => Promise<string>;
 }
 
 export type Context<TResolvedConfig extends ResolvedConfig = ResolvedConfig> =

@@ -23,6 +23,7 @@ import { existsSync } from "@stryke/fs/exists";
 import { relativeToWorkspaceRoot } from "@stryke/fs/get-workspace-root";
 import { readJsonFile } from "@stryke/fs/json";
 import { resolvePackage } from "@stryke/fs/resolve";
+import { hashDirectory } from "@stryke/hash/hash-files";
 import { murmurhash } from "@stryke/hash/murmurhash";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
@@ -76,7 +77,6 @@ import { VirtualFileSystem } from "../fs/vfs";
 import { createLog, extendLog } from "../logger";
 import {
   CACHE_HASH_LENGTH,
-  getChecksum,
   getPrefixedProjectRootHash,
   PROJECT_ROOT_HASH_LENGTH
 } from "../utilities/meta";
@@ -653,6 +653,20 @@ export class PowerlinesContext<
   protected logFn!: LogFn;
 
   /**
+   * Generates a checksum representing the current context state
+   *
+   * @param root - The root directory of the project to generate the checksum for
+   * @returns A promise that resolves to a string representing the checksum
+   */
+  async generateChecksum(root = this.config.projectRoot): Promise<string> {
+    this.#checksum = await hashDirectory(root, {
+      ignore: ["node_modules", ".git", ".nx", ".cache", ".storm", "tmp", "dist"]
+    });
+
+    return this.#checksum;
+  }
+
+  /**
    * Initialize the context with the provided configuration options
    *
    * @param config - The partial user configuration to use for initialization.
@@ -696,7 +710,7 @@ export class PowerlinesContext<
         this.packageJson = await readJsonFile<PackageJson>(packageJsonPath);
       }
 
-      this.#checksum = await getChecksum(cacheKey.projectRoot);
+      this.#checksum = await this.generateChecksum(cacheKey.projectRoot);
       this.resolver = createResolver({
         workspaceRoot: this.workspaceConfig.workspaceRoot,
         projectRoot: cacheKey.projectRoot,
@@ -707,6 +721,7 @@ export class PowerlinesContext<
 
       const userConfig = await loadUserConfigFile(
         cacheKey.projectRoot,
+        this.workspaceConfig.workspaceRoot,
         this.resolver,
         cacheKey.command as PowerlinesCommand | undefined,
         cacheKey.mode,

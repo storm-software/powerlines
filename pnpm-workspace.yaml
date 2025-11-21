@@ -97,7 +97,7 @@ catalog:
   '@stryke/type-checks': ^0.3.12
   '@stryke/types': ^0.10.2
   '@stryke/unique-id': ^0.3.8
-  '@swc/core': ^1.15.2
+  '@swc/core': ^1.15.3
   '@tamagui/static-worker': ^1.138.0
   '@tamagui/types': ^1.138.0
   '@taplo/cli': ^0.7.0
