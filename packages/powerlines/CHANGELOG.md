@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.23.9](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.9) (11/20/2025)
+
+### Miscellaneous
+
+- **powerlines:** Clean up `unplugin` entry point and config files
+  ([e216e62](https://github.com/storm-software/powerlines/commit/e216e62))
+
 ## [0.23.8](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.8) (11/20/2025)
 
 ### Bug Fixes

@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.0](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.0) (11/20/2025)
+
+### Bug Fixes
+
+- **plugin-crypto:** Resolve issue with incorrect import modules
+  ([e3d6643](https://github.com/storm-software/powerlines/commit/e3d6643))
+
+### Features
+
+- **plugin-crypto:** Automatically generate `encryptionKey` and `salt` if not
+  provided
+  ([da53cf5](https://github.com/storm-software/powerlines/commit/da53cf5))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.34**
+- Updated **plugin-env** to **v0.13.32**
+- Updated **powerlines** to **v0.23.9**
+- Updated **nx** to **v0.10.26**
+
 ## [0.9.34](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.9.34) (11/20/2025)
 
 ### Updated Dependencies

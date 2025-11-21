@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.26](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.26) (11/20/2025)
+
+### Bug Fixes
+
+- **nx:** Resolve issue with Nx plugin's `dependsOn` values
+  ([2b8ad3d](https://github.com/storm-software/powerlines/commit/2b8ad3d))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.23.9**
+
 ## [0.10.25](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.25) (11/20/2025)
 
 ### Bug Fixes
