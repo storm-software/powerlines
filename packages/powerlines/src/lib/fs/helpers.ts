@@ -18,7 +18,9 @@
 
 /* eslint-disable ts/no-unsafe-call */
 
+import { correctPath } from "@stryke/path/correct-path";
 import { findFileDotExtensionSafe } from "@stryke/path/file-path-fns";
+import { slash } from "@stryke/path/slash";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -64,17 +66,8 @@ export function isVirtualFileData(obj: WriteFileData): obj is VirtualFileData {
   return !!(isSetObject(obj) && "code" in obj && obj.code);
 }
 
-const FILE_PREFIX = "file://";
-
-export function toFilePath(pathOrUrl: PathOrFileDescriptor): string {
-  if (!pathOrUrl) {
-    throw new Error("No Path or URL provided to Virtual File System");
-  }
-  let result = pathOrUrl.toString();
-  if (result.startsWith(FILE_PREFIX)) {
-    result = result.slice(FILE_PREFIX.length);
-  }
-  return result;
+export function toFilePath(path: PathOrFileDescriptor): string {
+  return correctPath(slash(path?.toString() || ".").replace(/^file:\/\//, ""));
 }
 
 export const FS_METHODS = [

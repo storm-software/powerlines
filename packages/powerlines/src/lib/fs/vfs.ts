@@ -1234,6 +1234,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     importer?: string,
     options: ResolveOptions = {}
   ): Promise<string | undefined> {
+    // eslint-disable-next-line ts/no-unsafe-call
     let result = this.resolverCache.get<string | undefined>(
       this.#normalizeId(id)
     );
@@ -1250,15 +1251,15 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
       paths.push(this.#context.workspaceConfig.workspaceRoot);
       paths.push(
-        joinPaths(
-          this.#context.workspaceConfig.workspaceRoot,
-          this.#context.config.projectRoot
+        appendPath(
+          this.#context.config.projectRoot,
+          this.#context.workspaceConfig.workspaceRoot
         )
       );
       paths.push(
-        joinPaths(
-          this.#context.workspaceConfig.workspaceRoot,
-          this.#context.config.sourceRoot
+        appendPath(
+          this.#context.config.sourceRoot,
+          this.#context.workspaceConfig.workspaceRoot
         )
       );
       paths.push(
@@ -1297,6 +1298,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         this.#context.workspaceConfig.workspaceRoot
       );
 
+      // eslint-disable-next-line ts/no-unsafe-call
       this.resolverCache.set(this.#normalizeId(id), result);
     }
 
@@ -1324,6 +1326,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     importer?: string,
     options: ResolveOptions = {}
   ): string | undefined {
+    // eslint-disable-next-line ts/no-unsafe-call
     let result = this.resolverCache.get<string | undefined>(
       this.#normalizeId(id)
     );
@@ -1387,6 +1390,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         this.#context.workspaceConfig.workspaceRoot
       );
 
+      // eslint-disable-next-line ts/no-unsafe-call
       this.resolverCache.set(this.#normalizeId(id), result);
     }
 
@@ -1450,6 +1454,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         message.toArrayBuffer()
       );
 
+      // eslint-disable-next-line ts/no-unsafe-call
       this.#resolverCache.save(true);
 
       this.#log(LogLevelLabel.DEBUG, "Virtual file system disposed.");
