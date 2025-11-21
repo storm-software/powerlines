@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.4](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.4) (11/21/2025)
+
+### Miscellaneous
+
+- **plugin-crypto:** Improved logic to default `salt` option
+  ([c264adf](https://github.com/storm-software/powerlines/commit/c264adf))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.38**
+- Updated **plugin-env** to **v0.13.36**
+- Updated **powerlines** to **v0.24.2**
+- Updated **nx** to **v0.10.30**
+
 ## [0.10.3](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.3) (11/21/2025)
 
 ### Miscellaneous
