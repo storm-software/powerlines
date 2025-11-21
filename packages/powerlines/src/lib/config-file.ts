@@ -20,6 +20,7 @@ import { getWorkspaceConfig } from "@storm-software/config-tools/get-config";
 import { existsSync } from "@stryke/fs/exists";
 import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join-paths";
+import { replacePath } from "@stryke/path/replace";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { loadConfig as loadConfigC12 } from "c12";
@@ -81,77 +82,126 @@ export async function loadUserConfigFile(
   workspaceRoot: string,
   jiti: Jiti,
   command?: PowerlinesCommand,
-  mode?: string,
+  mode = "production",
   configFile?: string,
   framework = "powerlines"
 ): Promise<ParsedUserConfig> {
   let resolvedUserConfig: Partial<ParsedUserConfig> = {};
 
-  const resolvedUserConfigFile =
-    configFile && existsSync(configFile)
-      ? configFile
-      : configFile &&
-          existsSync(
-            joinPaths(appendPath(projectRoot, workspaceRoot), configFile)
+  let resolvedUserConfigFile: string | undefined;
+  if (configFile) {
+    resolvedUserConfigFile = existsSync(replacePath(configFile, projectRoot))
+      ? replacePath(configFile, projectRoot)
+      : existsSync(
+            joinPaths(
+              appendPath(projectRoot, workspaceRoot),
+              replacePath(configFile, projectRoot)
+            )
           )
-        ? joinPaths(appendPath(projectRoot, workspaceRoot), configFile)
+        ? joinPaths(
+            appendPath(projectRoot, workspaceRoot),
+            replacePath(configFile, projectRoot)
+          )
+        : existsSync(
+              joinPaths(appendPath(projectRoot, workspaceRoot), configFile)
+            )
+          ? joinPaths(appendPath(projectRoot, workspaceRoot), configFile)
+          : undefined;
+  }
+
+  if (!resolvedUserConfigFile) {
+    resolvedUserConfigFile = existsSync(
+      joinPaths(
+        appendPath(projectRoot, workspaceRoot),
+        `${framework}.${mode}.config.ts`
+      )
+    )
+      ? joinPaths(
+          appendPath(projectRoot, workspaceRoot),
+          `${framework}.${mode}.config.ts`
+        )
+      : existsSync(
+            joinPaths(
+              appendPath(projectRoot, workspaceRoot),
+              `${framework}.${mode}.config.js`
+            )
+          )
+        ? joinPaths(
+            appendPath(projectRoot, workspaceRoot),
+            `${framework}.${mode}.config.js`
+          )
         : existsSync(
               joinPaths(
                 appendPath(projectRoot, workspaceRoot),
-                `${framework}.config.ts`
+                `${framework}.${mode}.config.mts`
               )
             )
           ? joinPaths(
               appendPath(projectRoot, workspaceRoot),
-              `${framework}.config.ts`
+              `${framework}.${mode}.config.mts`
             )
           : existsSync(
                 joinPaths(
                   appendPath(projectRoot, workspaceRoot),
-                  `${framework}.config.js`
+                  `${framework}.${mode}.config.mjs`
                 )
               )
             ? joinPaths(
                 appendPath(projectRoot, workspaceRoot),
-                `${framework}.config.js`
+                `${framework}.${mode}.config.mjs`
               )
             : existsSync(
                   joinPaths(
                     appendPath(projectRoot, workspaceRoot),
-                    `${framework}.config.mts`
+                    `${framework}.config.ts`
                   )
                 )
               ? joinPaths(
                   appendPath(projectRoot, workspaceRoot),
-                  `${framework}.config.mts`
+                  `${framework}.config.ts`
                 )
               : existsSync(
                     joinPaths(
                       appendPath(projectRoot, workspaceRoot),
-                      `${framework}.config.mjs`
+                      `${framework}.config.js`
                     )
                   )
                 ? joinPaths(
                     appendPath(projectRoot, workspaceRoot),
-                    `${framework}.config.mjs`
+                    `${framework}.config.js`
                   )
-                : undefined;
-  if (resolvedUserConfigFile) {
-    let resolvedPath!: string;
-    try {
-      resolvedPath = jiti.esmResolve(resolvedUserConfigFile);
-    } catch {
-      resolvedPath = resolvedUserConfigFile;
-    }
+                : existsSync(
+                      joinPaths(
+                        appendPath(projectRoot, workspaceRoot),
+                        `${framework}.config.mts`
+                      )
+                    )
+                  ? joinPaths(
+                      appendPath(projectRoot, workspaceRoot),
+                      `${framework}.config.mts`
+                    )
+                  : existsSync(
+                        joinPaths(
+                          appendPath(projectRoot, workspaceRoot),
+                          `${framework}.config.mjs`
+                        )
+                      )
+                    ? joinPaths(
+                        appendPath(projectRoot, workspaceRoot),
+                        `${framework}.config.mjs`
+                      )
+                    : undefined;
+  }
 
-    const resolved = await jiti.import(resolvedPath);
+  if (resolvedUserConfigFile) {
+    const resolved = await jiti.import(jiti.esmResolve(resolvedUserConfigFile));
     if (resolved) {
       let config = {};
       if (isFunction(resolved)) {
         config = await Promise.resolve(
           resolved({
             command,
-            mode: mode || "production",
+            mode,
             isSsrBuild: false,
             isPreview: false
           })

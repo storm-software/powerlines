@@ -196,55 +196,55 @@ catalogs:
       specifier: ^1.0.0
       version: 1.0.0
     '@storm-software/build-tools':
-      specifier: ^0.158.47
+      specifier: ^0.158.48
       version: 0.158.48
     '@storm-software/config':
-      specifier: ^1.134.47
+      specifier: ^1.134.48
       version: 1.134.48
     '@storm-software/config-tools':
-      specifier: ^1.188.47
+      specifier: ^1.188.48
       version: 1.188.48
     '@storm-software/cspell':
-      specifier: ^0.45.47
+      specifier: ^0.45.48
       version: 0.45.48
     '@storm-software/esbuild':
-      specifier: ^0.53.47
+      specifier: ^0.53.48
       version: 0.53.48
     '@storm-software/eslint':
-      specifier: ^0.169.47
+      specifier: ^0.169.48
       version: 0.169.48
     '@storm-software/git-tools':
-      specifier: ^2.124.30
+      specifier: ^2.124.31
       version: 2.124.31
     '@storm-software/linting-tools':
-      specifier: ^1.132.47
+      specifier: ^1.132.48
       version: 1.132.48
     '@storm-software/markdownlint':
-      specifier: ^0.30.47
+      specifier: ^0.30.48
       version: 0.30.48
     '@storm-software/pnpm-tools':
-      specifier: ^0.6.47
+      specifier: ^0.6.48
       version: 0.6.48
     '@storm-software/prettier':
-      specifier: ^0.57.47
+      specifier: ^0.57.48
       version: 0.57.48
     '@storm-software/testing-tools':
-      specifier: ^1.119.47
+      specifier: ^1.119.48
       version: 1.119.48
     '@storm-software/tsconfig':
-      specifier: ^0.47.47
+      specifier: ^0.47.48
       version: 0.47.48
     '@storm-software/tsup':
-      specifier: ^0.2.45
+      specifier: ^0.2.46
       version: 0.2.46
     '@storm-software/unbuild':
-      specifier: ^0.57.47
+      specifier: ^0.57.48
       version: 0.57.48
     '@storm-software/untyped':
-      specifier: ^0.24.28
+      specifier: ^0.24.29
       version: 0.24.29
     '@storm-software/workspace-tools':
-      specifier: ^1.293.17
+      specifier: ^1.293.18
       version: 1.293.18
     '@stryke/capnp':
       specifier: ^0.12.21
@@ -441,6 +441,9 @@ catalogs:
     minimatch:
       specifier: ^10.1.1
       version: 10.1.1
+    mlly:
+      specifier: ^1.8.0
+      version: 1.8.0
     nx:
       specifier: ^22.1.0
       version: 22.1.0
@@ -2760,6 +2763,9 @@ importers:
       memfs:
         specifier: 'catalog:'
         version: 4.51.0
+      mlly:
+        specifier: 'catalog:'
+        version: 1.8.0
       next:
         specifier: ^15.5.4
         version: 15.5.6(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -5168,8 +5174,8 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
-  '@graphql-tools/graphql-file-loader@8.1.6':
-    resolution: {integrity: sha512-BwK9kUrRbv9w8WMFUedSkPogGdQivopRSRs1aqT9FUD1J3iVLltEHMUx9KTnpPHO7OcULSflMqQs5ZI/3cW+7Q==}
+  '@graphql-tools/graphql-file-loader@8.1.7':
+    resolution: {integrity: sha512-IE7tDdxVIt8OCPn3bdjz+NwQmUAZbLB33p6yNP26Az1RRBuxrfKb4vU+1yh9sF8lQUUyLC0+V/gz32xA3dsLWg==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
@@ -5180,8 +5186,8 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
-  '@graphql-tools/import@7.1.6':
-    resolution: {integrity: sha512-aROsZq/ApWiAWE9k/xfYiKFUQiw81958e3DvL+HqGtbFQq+F11hIi0PgwOEiEereJZHIuVYZmIfbdQd4gFq4+w==}
+  '@graphql-tools/import@7.1.7':
+    resolution: {integrity: sha512-AKhJrNugn2TlPylmQ4pqbs2w82j0Bwi54Tlpc0TQoO1F942kjxoXqNGpxgXbFgdk+1Ds1pHmpWzQgbmYwlnAgw==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
@@ -22240,7 +22246,7 @@ snapshots:
       '@graphql-tools/code-file-loader': 8.1.26(graphql@15.10.1)
       '@graphql-tools/git-loader': 8.0.30(graphql@15.10.1)
       '@graphql-tools/github-loader': 9.0.4(@types/node@24.10.1)(graphql@15.10.1)
-      '@graphql-tools/graphql-file-loader': 8.1.6(graphql@15.10.1)
+      '@graphql-tools/graphql-file-loader': 8.1.7(graphql@15.10.1)
       '@graphql-tools/json-file-loader': 8.0.24(graphql@15.10.1)
       '@graphql-tools/load': 8.1.6(graphql@15.10.1)
       '@graphql-tools/url-loader': 9.0.4(@types/node@24.10.1)(crossws@0.3.5)(graphql@15.10.1)
@@ -22594,9 +22600,9 @@ snapshots:
       - '@types/node'
       - supports-color
 
-  '@graphql-tools/graphql-file-loader@8.1.6(graphql@15.10.1)':
+  '@graphql-tools/graphql-file-loader@8.1.7(graphql@15.10.1)':
     dependencies:
-      '@graphql-tools/import': 7.1.6(graphql@15.10.1)
+      '@graphql-tools/import': 7.1.7(graphql@15.10.1)
       '@graphql-tools/utils': 10.10.3(graphql@15.10.1)
       globby: 11.1.0
       graphql: 15.10.1
@@ -22618,7 +22624,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@graphql-tools/import@7.1.6(graphql@15.10.1)':
+  '@graphql-tools/import@7.1.7(graphql@15.10.1)':
     dependencies:
       '@graphql-tools/utils': 10.10.3(graphql@15.10.1)
       '@theguild/federation-composition': 0.20.2(graphql@15.10.1)
@@ -29097,7 +29103,7 @@ snapshots:
       defu: 6.1.4
       dotenv: 16.6.1
       giget: 1.2.5
-      jiti: 2.6.1
+      jiti: 2.4.2
       mlly: 1.8.0
       ohash: 2.0.11
       pathe: 2.0.3
@@ -29114,7 +29120,7 @@ snapshots:
       defu: 6.1.4
       dotenv: 16.6.1
       giget: 1.2.5
-      jiti: 2.6.1
+      jiti: 2.4.2
       mlly: 1.8.0
       ohash: 2.0.11
       pathe: 2.0.3
@@ -32290,7 +32296,7 @@ snapshots:
 
   graphql-config@5.1.5(@types/node@24.10.1)(crossws@0.3.5)(graphql@15.10.1)(typescript@5.9.3):
     dependencies:
-      '@graphql-tools/graphql-file-loader': 8.1.6(graphql@15.10.1)
+      '@graphql-tools/graphql-file-loader': 8.1.7(graphql@15.10.1)
       '@graphql-tools/json-file-loader': 8.0.24(graphql@15.10.1)
       '@graphql-tools/load': 8.1.6(graphql@15.10.1)
       '@graphql-tools/merge': 9.1.5(graphql@15.10.1)
@@ -35138,7 +35144,7 @@ snapshots:
       micromark-factory-whitespace: 2.0.1
       micromark-util-character: 2.1.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
       parse-entities: 4.0.2
 
   micromark-extension-footnote@0.3.2:
@@ -35209,7 +35215,7 @@ snapshots:
       micromark-factory-space: 2.0.1
       micromark-util-character: 2.1.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
 
   micromark-extension-gfm-table@2.1.1:
     dependencies:
@@ -35269,7 +35275,7 @@ snapshots:
       micromark-factory-space: 2.0.1
       micromark-util-character: 2.1.1
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
 
   micromark-extension-mdx-expression@3.0.1:
     dependencies:
@@ -35451,7 +35457,7 @@ snapshots:
       debug: 4.4.3(supports-color@10.2.2)
       decode-named-character-reference: 1.2.0
       devlop: 1.1.0
-      micromark-core-commonmark: 2.0.3
+      micromark-core-commonmark: 2.0.2
       micromark-factory-space: 2.0.1
       micromark-util-character: 2.1.1
       micromark-util-chunked: 2.0.1
@@ -35463,7 +35469,7 @@ snapshots:
       micromark-util-sanitize-uri: 2.0.1
       micromark-util-subtokenize: 2.1.0
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
     transitivePeerDependencies:
       - supports-color
 

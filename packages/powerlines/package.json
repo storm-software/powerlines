@@ -632,6 +632,7 @@
     "jest-worker": "catalog:",
     "jiti": "catalog:",
     "magic-string": "catalog:",
+    "mlly": "catalog:",
     "prettier": "catalog:",
     "rollup-plugin-typescript2": "catalog:",
     "ts-morph": "catalog:",

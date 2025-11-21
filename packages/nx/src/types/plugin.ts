@@ -17,6 +17,16 @@
  ------------------------------------------------------------------- */
 
 export interface NxPluginOptions {
+  /**
+   * Enable debug logging for the plugin
+   *
+   * @defaultValue false
+   */
+  debug?: boolean;
+
+  /**
+   * Configuration options for the clean target added by the Nx plugin
+   */
   clean?:
     | false
     | {
@@ -68,6 +78,9 @@ export interface NxPluginOptions {
         executor?: string;
       };
 
+  /**
+   * Configuration options for the prepare target added by the Nx plugin
+   */
   prepare?:
     | false
     | {
@@ -119,6 +132,9 @@ export interface NxPluginOptions {
         executor?: string;
       };
 
+  /**
+   * Configuration options for the lint target added by the Nx plugin
+   */
   lint?:
     | false
     | {
@@ -170,6 +186,9 @@ export interface NxPluginOptions {
         executor?: string;
       };
 
+  /**
+   * Configuration options for the build target added by the Nx plugin
+   */
   build?:
     | false
     | {
@@ -221,6 +240,9 @@ export interface NxPluginOptions {
         executor?: string;
       };
 
+  /**
+   * Configuration options for the docs target added by the Nx plugin
+   */
   docs?:
     | false
     | {
@@ -272,6 +294,9 @@ export interface NxPluginOptions {
         executor?: string;
       };
 
+  /**
+   * Configuration options for the deploy target added by the Nx plugin
+   */
   deploy?:
     | false
     | {

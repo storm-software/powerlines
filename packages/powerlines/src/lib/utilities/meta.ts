@@ -21,7 +21,6 @@ import { existsSync } from "@stryke/fs/exists";
 import { readJsonFile } from "@stryke/fs/json";
 import { listFiles } from "@stryke/fs/list-files";
 import { removeFile } from "@stryke/fs/remove-file";
-import { hashDirectory } from "@stryke/hash/hash-files";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { hasFileExtension } from "@stryke/path/file-path-fns";
 import { joinPaths } from "@stryke/path/join-paths";
@@ -96,12 +95,6 @@ export async function discoverTemplates(
         return ret;
       }, [] as string[])
   );
-}
-
-export async function getChecksum(path: string): Promise<string> {
-  return hashDirectory(path, {
-    ignore: ["node_modules", ".git", ".nx", ".cache", ".storm", "tmp", "dist"]
-  });
 }
 
 /**

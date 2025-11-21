@@ -42,7 +42,10 @@ import { uuid } from "@stryke/unique-id/uuid";
 import defu from "defu";
 import { Range } from "semver";
 import { UnpluginMessage } from "unplugin";
-import { createResolver } from "../../internal/helpers/resolver";
+import {
+  createResolver,
+  CreateResolverOptions
+} from "../../internal/helpers/resolver";
 import { checkDedupe, isPlugin } from "../../plugin-utils/helpers";
 import { API } from "../../types/api";
 import {
@@ -716,6 +719,10 @@ export class PowerlinesContext<
         projectRoot: cacheKey.projectRoot,
         cacheDir: this.cachePath,
         mode: cacheKey.mode,
+        logLevel: (config.logLevel ||
+          this.config?.logLevel ||
+          this.workspaceConfig.logLevel ||
+          "info") as CreateResolverOptions["logLevel"],
         skipCache: cacheKey.skipCache
       });
 

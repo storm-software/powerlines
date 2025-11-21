@@ -139,6 +139,19 @@ export function createNxPlugin<
       }
 
       const nxJson = readNxJson(contextV2.workspaceRoot);
+      const resolver = createJiti(contextV2.workspaceRoot, {
+        debug: !!options?.debug,
+        interopDefault: true,
+        fsCache: joinPaths(
+          envPaths.cache,
+          "nx-plugin",
+          murmurhash(contextV2.workspaceRoot, {
+            maxLength: PROJECT_ROOT_HASH_LENGTH
+          }),
+          "jiti"
+        ),
+        moduleCache: true
+      });
 
       return createNodesFromFiles(
         async (configFile, _, context) => {
@@ -157,33 +170,18 @@ export function createNxPlugin<
 
             const root = getRoot(projectRoot, context);
 
-            const cacheDir = joinPaths(
-              envPaths.cache,
-              "nx-plugin",
-              murmurhash(contextV2.workspaceRoot, {
-                maxLength: PROJECT_ROOT_HASH_LENGTH
-              })
-            );
-
-            const jiti = createJiti(
-              joinPaths(contextV2.workspaceRoot, projectRoot),
-              {
-                interopDefault: true,
-                fsCache: joinPaths(cacheDir, "jiti"),
-                moduleCache: true
-              }
-            );
-
-            console.debug(
-              `[${name}] - ${new Date().toISOString()} - Loading ${
-                framework
-              } user configuration for project in root directory ${projectRoot}.`
-            );
+            if (options?.debug) {
+              console.debug(
+                `[${name}] - ${new Date().toISOString()} - Loading ${
+                  framework
+                } user configuration for project in root directory ${projectRoot}.`
+              );
+            }
 
             const userConfig = await loadUserConfigFile(
               projectRoot,
               contextV2.workspaceRoot,
-              jiti,
+              resolver,
               "build",
               "development",
               configFile,
@@ -219,9 +217,11 @@ export function createNxPlugin<
 
             const packageJson: PackageJson = JSON.parse(packageJsonContent);
             if (!userConfig.configFile && !packageJson?.storm) {
-              console.debug(
-                `[${name}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${framework} configuration found for project in root directory.`
-              );
+              if (options?.debug) {
+                console.debug(
+                  `[${name}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${framework} configuration found for project in root directory.`
+                );
+              }
 
               return {};
             }
@@ -252,9 +252,11 @@ export function createNxPlugin<
                 context.workspaceRoot
               );
 
-            console.debug(
-              `[${name}] - ${new Date().toISOString()} - Preparing Nx targets for project in root directory ${projectRoot}.`
-            );
+            if (options?.debug) {
+              console.debug(
+                `[${name}] - ${new Date().toISOString()} - Preparing Nx targets for project in root directory ${projectRoot}.`
+              );
+            }
 
             if (
               options?.clean !== false &&
@@ -531,9 +533,11 @@ export function createNxPlugin<
               }
             );
 
-            console.debug(
-              `[${name}] - ${new Date().toISOString()} - Completed preparing Nx configuration for project in root directory ${projectRoot}.`
-            );
+            if (options?.debug) {
+              console.debug(
+                `[${name}] - ${new Date().toISOString()} - Completed preparing Nx configuration for project in root directory ${projectRoot}.`
+              );
+            }
 
             return {
               projects: {

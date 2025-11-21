@@ -49,7 +49,7 @@ catalog:
   "@microsoft/api-extractor": ^7.55.0
   "@microsoft/tsdoc": ^0.15.1
   "@microsoft/tsdoc-config": ^0.17.1
-  "@noble/ciphers": "^2.0.1"
+  "@noble/ciphers": ^2.0.1
   "@nx/devkit": ^22.1.0
   "@nx/eslint-plugin": ^22.1.0
   "@nx/jest": ^22.1.0
@@ -67,23 +67,23 @@ catalog:
   "@rollup/plugin-replace": ^6.0.3
   "@rspack/core": ^1.6.4
   "@standard-schema/spec": ^1.0.0
-  "@storm-software/build-tools": ^0.158.47
-  "@storm-software/config": ^1.134.47
-  "@storm-software/config-tools": ^1.188.47
-  "@storm-software/cspell": ^0.45.47
-  "@storm-software/esbuild": ^0.53.47
-  "@storm-software/eslint": ^0.169.47
-  "@storm-software/git-tools": ^2.124.30
-  "@storm-software/linting-tools": ^1.132.47
-  "@storm-software/markdownlint": ^0.30.47
-  "@storm-software/pnpm-tools": ^0.6.47
-  "@storm-software/prettier": ^0.57.47
-  "@storm-software/testing-tools": ^1.119.47
-  "@storm-software/tsconfig": ^0.47.47
-  "@storm-software/tsup": ^0.2.45
-  "@storm-software/unbuild": ^0.57.47
-  "@storm-software/untyped": ^0.24.28
-  "@storm-software/workspace-tools": ^1.293.17
+  "@storm-software/build-tools": ^0.158.48
+  "@storm-software/config": ^1.134.48
+  "@storm-software/config-tools": ^1.188.48
+  "@storm-software/cspell": ^0.45.48
+  "@storm-software/esbuild": ^0.53.48
+  "@storm-software/eslint": ^0.169.48
+  "@storm-software/git-tools": ^2.124.31
+  "@storm-software/linting-tools": ^1.132.48
+  "@storm-software/markdownlint": ^0.30.48
+  "@storm-software/pnpm-tools": ^0.6.48
+  "@storm-software/prettier": ^0.57.48
+  "@storm-software/testing-tools": ^1.119.48
+  "@storm-software/tsconfig": ^0.47.48
+  "@storm-software/tsup": ^0.2.46
+  "@storm-software/unbuild": ^0.57.48
+  "@storm-software/untyped": ^0.24.29
+  "@storm-software/workspace-tools": ^1.293.18
   "@stryke/capnp": ^0.12.21
   "@stryke/cli": ^0.12.7
   "@stryke/convert": ^0.6.2
@@ -148,6 +148,7 @@ catalog:
   magic-string: ^0.30.21
   markdown-toc: ^1.2.0
   memfs: ^4.51.0
+  mlly: ^1.8.0
   minimatch: ^10.1.1
   nanotar: ^0.2.0
   nx: ^22.1.0

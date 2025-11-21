@@ -26,7 +26,7 @@ export type CreateResolverOptions = Omit<
   JitiOptions,
   "fsCache" | "moduleCache" | "interopDefault"
 > &
-  Pick<ResolvedConfig, "mode" | "skipCache"> & {
+  Pick<ResolvedConfig, "mode" | "logLevel" | "skipCache"> & {
     workspaceRoot: string;
     projectRoot: string;
     cacheDir: string;
@@ -40,6 +40,7 @@ export type CreateResolverOptions = Omit<
  */
 function resolveOptions(options: CreateResolverOptions): JitiOptions {
   return defu(options, {
+    debug: options.logLevel === "trace",
     interopDefault: true,
     fsCache:
       options.mode !== "development"
