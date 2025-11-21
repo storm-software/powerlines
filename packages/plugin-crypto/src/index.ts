@@ -19,6 +19,7 @@
 import { bytesToHex, randomBytes } from "@noble/ciphers/utils.js";
 import env from "@powerlines/plugin-env";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
+import defu from "defu";
 import { Plugin } from "powerlines/types/plugin";
 import { cryptoModule } from "./components/crypto";
 import { CryptoPluginContext, CryptoPluginOptions } from "./types/plugin";
@@ -37,10 +38,13 @@ export function plugin(
     dependsOn: [env(options.env)],
     config() {
       return {
-        crypto: {
-          salt: options.salt,
-          encryptionKey: options.encryptionKey
-        }
+        crypto: defu(options, {
+          salt: `${
+            this.config.name ||
+            this.workspaceConfig?.name ||
+            this.packageJson?.name
+          }-application`
+        })
       };
     },
     configResolved() {
