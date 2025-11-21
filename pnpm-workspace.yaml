@@ -47,7 +47,7 @@ catalog:
   '@jest/test-result': ^30.2.0
   '@jest/types': ^30.2.0
   '@ls-lint/ls-lint': ^2.3.1
-  '@microsoft/api-extractor': ^7.55.0
+  '@microsoft/api-extractor': ^7.55.1
   '@microsoft/tsdoc': ^0.15.1
   '@microsoft/tsdoc-config': ^0.17.1
   '@noble/ciphers': ^2.0.1
@@ -85,12 +85,12 @@ catalog:
   '@storm-software/unbuild': ^0.57.48
   '@storm-software/untyped': ^0.24.29
   '@storm-software/workspace-tools': ^1.293.18
-  '@stryke/capnp': ^0.12.24
-  '@stryke/cli': ^0.12.10
+  '@stryke/capnp': ^0.12.25
+  '@stryke/cli': ^0.12.11
   '@stryke/convert': ^0.6.5
-  '@stryke/env': ^0.20.17
-  '@stryke/fs': ^0.33.0
-  '@stryke/hash': ^0.12.6
+  '@stryke/env': ^0.20.18
+  '@stryke/fs': ^0.33.1
+  '@stryke/hash': ^0.12.7
   '@stryke/helpers': ^0.9.7
   '@stryke/http': ^0.11.6
   '@stryke/json': ^0.9.8
@@ -98,7 +98,7 @@ catalog:
   '@stryke/string-format': ^0.12.5
   '@stryke/type-checks': ^0.3.15
   '@stryke/types': ^0.10.5
-  '@stryke/unique-id': ^0.3.11
+  '@stryke/unique-id': ^0.3.12
   '@swc/core': ^1.15.3
   '@tamagui/static-worker': ^1.138.1
   '@tamagui/types': ^1.138.1
@@ -168,7 +168,7 @@ catalog:
   satori: ^0.18.3
   sherif: ^1.9.0
   style-dictionary: ^5.1.1
-  stylelint: ^16.25.0
+  stylelint: ^16.26.0
   ts-jest: 29.4.0
   ts-morph: ^27.0.2
   ts-node: ^10.9.2
