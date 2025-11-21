@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { randomBytes } from "@noble/ciphers/utils";
 import env from "@powerlines/plugin-env";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { Plugin } from "powerlines/types/plugin";
@@ -46,22 +47,24 @@ export function plugin(
       this.dependencies["@noble/ciphers"] = "^2.0.1";
       this.dependencies["@noble/hashes"] = "^2.0.1";
 
-      this.config.crypto.salt ??= this.env.parsed.SALT;
+      this.config.crypto.salt ??= this.env.parsed.SALT!;
       if (!this.config.crypto.salt) {
         this.log(
           LogLevelLabel.WARN,
-          `No salt provided for the Crypto plugin. ` +
-            `It's highly recommended to provide a unique salt via the plugin options or the SALT environment variable.`
+          `No salt provided to the Crypto plugin - a salt value will be generated automatically. Please note: It's highly recommended to provide a unique salt value via the \`salt\` plugin option or the \`SALT\` environment variable.`
         );
+
+        this.config.crypto.salt = randomBytes(12).toString("hex");
       }
 
-      this.config.crypto.encryptionKey ??= this.env.parsed.ENCRYPTION_KEY;
+      this.config.crypto.encryptionKey ??= this.env.parsed.ENCRYPTION_KEY!;
       if (!this.config.crypto.encryptionKey) {
         this.log(
           LogLevelLabel.WARN,
-          `No encryption key provided for the Crypto plugin. ` +
-            `It's highly recommended to provide a secure encryption key via the plugin options or the ENCRYPTION_KEY environment variable.`
+          `No encryption key provided to the Crypto plugin - a secure key will be generated automatically. Please note: it's highly recommended to provide a secure encryption key via the \`encryptionKey\` plugin option or the \`ENCRYPTION_KEY\` environment variable.`
         );
+
+        this.config.crypto.encryptionKey = randomBytes(32).toString("hex");
       }
     },
     async prepare() {

@@ -132,7 +132,8 @@
     "@storm-software/config-tools": "catalog:",
     "@stryke/path": "catalog:",
     "defu": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "workspace:*",
+    "@noble/ciphers": "catalog:"
   },
   "devDependencies": {
     "@powerlines/nx": "workspace:*",

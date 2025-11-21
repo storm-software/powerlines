@@ -57,7 +57,7 @@ export interface CryptoPluginResolvedConfig extends EnvPluginResolvedConfig {
   /**
    * Options for the Crypto plugin.
    */
-  crypto: Omit<CryptoPluginOptions, "env">;
+  crypto: Required<Omit<CryptoPluginOptions, "env">>;
 }
 
 export type CryptoPluginContext<
