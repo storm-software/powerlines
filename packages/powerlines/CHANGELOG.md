@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.23.10](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.10) (11/21/2025)
+
+### Bug Fixes
+
+- **powerlines:** Fix config file path resolution issue
+  ([c201914](https://github.com/storm-software/powerlines/commit/c201914))
+
 ## [0.23.9](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.9) (11/20/2025)
 
 ### Miscellaneous
