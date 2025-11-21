@@ -21,13 +21,15 @@ import { getObjectDiff } from "@donedeal0/superdiff";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { readJsonFile } from "@stryke/fs/json";
 import { isPackageExists } from "@stryke/fs/package-fns";
-import { loadTsConfig } from "@stryke/fs/tsconfig";
 import { StormJSON } from "@stryke/json/storm-json";
+import { appendPath } from "@stryke/path/append";
 import {
+  findFileExtension,
   findFileName,
   findFilePath,
   relativePath
 } from "@stryke/path/file-path-fns";
+import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join-paths";
 import { titleCase } from "@stryke/string-format/title-case";
 import { TsConfigJson } from "@stryke/types/tsconfig";
@@ -60,9 +62,6 @@ async function resolveTsconfigChanges<
   const tsconfigJson = await readJsonFile<TsConfigJson>(tsconfigFilePath);
   tsconfigJson.compilerOptions ??= {};
 
-  const extendedTsconfig = await loadTsConfig(tsconfigFilePath);
-  extendedTsconfig.compilerOptions ??= {};
-
   if (tsconfigJson.reflection !== true) {
     tsconfigJson.reflection = true;
   }
@@ -75,36 +74,47 @@ async function resolveTsconfigChanges<
     tsconfigJson.compilerOptions.emitDecoratorMetadata = true;
   }
 
-  if (context.config.output.dts) {
-    const dtsFilePath = context.config.output.dts
-      ? context.config.output.dts.startsWith(
+  if (context.config.output.dts !== false) {
+    context.config.output.dts = context.config.output.dts
+      ? isParentPath(
+          context.config.output.dts,
           context.workspaceConfig.workspaceRoot
         )
         ? context.config.output.dts
-        : joinPaths(
-            context.workspaceConfig.workspaceRoot,
-            context.config.output.dts
+        : appendPath(
+            context.config.output.dts,
+            context.workspaceConfig.workspaceRoot
           )
-      : joinPaths(
-          context.workspaceConfig.workspaceRoot,
+      : appendPath(
           context.config.projectRoot,
-          "storm.d.ts"
+          context.workspaceConfig.workspaceRoot
         );
+    if (
+      findFileExtension(context.config.output.dts) !== "d.ts" &&
+      findFileExtension(context.config.output.dts) !== "d.cts" &&
+      findFileExtension(context.config.output.dts) !== "d.mts"
+    ) {
+      context.config.output.dts = joinPaths(
+        context.config.output.dts,
+        "powerlines.d.ts"
+      );
+    }
+
     const dtsRelativePath = joinPaths(
       relativePath(
         joinPaths(
           context.workspaceConfig.workspaceRoot,
           context.config.projectRoot
         ),
-        findFilePath(dtsFilePath)
+        findFilePath(context.config.output.dts)
       ),
-      findFileName(dtsFilePath)
+      findFileName(context.config.output.dts)
     );
 
     if (
       !tsconfigJson.include?.some(filePattern =>
         isIncludeMatchFound(filePattern, [
-          dtsFilePath,
+          String(context.config.output.dts),
           dtsRelativePath,
           "storm.d.ts"
         ])
