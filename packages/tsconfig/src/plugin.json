@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@powerlines/tsconfig/base.json",
+  "extends": "./base.json",
   "display": "Powerlines - Plugin Configuration",
   "compilerOptions": {
     "incremental": true,

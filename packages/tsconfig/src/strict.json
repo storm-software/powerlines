@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@powerlines/tsconfig/recommended.json",
+  "extends": "./recommended.json",
   "display": "Powerlines - Strict Configuration",
   "compilerOptions": {
     "verbatimModuleSyntax": true,

@@ -44,6 +44,7 @@
     "./plugin.json": "./plugin.json",
     "./workspace.json": "./workspace.json",
     "./recommended.json": "./recommended.json",
+    "./deepkit.json": "./deepkit.json",
     "./strict.json": "./strict.json"
   },
   "files": [
@@ -51,6 +52,7 @@
     "./plugin.json",
     "./recommended.json",
     "./strict.json",
+    "./deepkit.json",
     "./workspace.json"
   ],
   "keywords": ["powerlines", "storm-software", "typescript", "tsconfig"],
