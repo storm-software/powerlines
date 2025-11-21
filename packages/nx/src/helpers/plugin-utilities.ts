@@ -311,8 +311,9 @@ export function createNxPlugin<
                   `@${framework}/nx:${options?.prepare?.targetName || "prepare"}`,
                 dependsOn: [
                   `^${options?.prepare?.targetName || "prepare"}`,
-                  "clean"
-                ],
+                  options?.clean !== false &&
+                    `${options?.clean?.targetName || "clean"}`
+                ].filter(Boolean) as string[],
                 defaultConfiguration:
                   options?.prepare?.defaultConfiguration || "production",
                 options: {
@@ -354,7 +355,7 @@ export function createNxPlugin<
                 dependsOn: [
                   `^${options?.build?.targetName || "build"}`,
                   options?.prepare !== false &&
-                    `^${options?.prepare?.targetName || "prepare"}`
+                    `${options?.prepare?.targetName || "prepare"}`
                 ].filter(Boolean) as string[],
                 defaultConfiguration:
                   options?.build?.defaultConfiguration || "production",
@@ -402,7 +403,7 @@ export function createNxPlugin<
                 dependsOn: [
                   `^${options?.lint?.targetName || "lint"}`,
                   options?.prepare !== false &&
-                    `^${options?.prepare?.targetName || "prepare"}`
+                    `${options?.prepare?.targetName || "prepare"}`
                 ].filter(Boolean) as string[],
                 defaultConfiguration:
                   options?.lint?.defaultConfiguration || "production",
@@ -448,7 +449,7 @@ export function createNxPlugin<
                 dependsOn: [
                   `^${options?.docs?.targetName || "docs"}`,
                   options?.build !== false &&
-                    `^${options?.build?.targetName || "build"}`
+                    `${options?.build?.targetName || "build"}`
                 ].filter(Boolean) as string[],
                 defaultConfiguration:
                   options?.docs?.defaultConfiguration || "production",
@@ -494,7 +495,7 @@ export function createNxPlugin<
                 dependsOn: [
                   `^${options?.deploy?.targetName || "deploy"}`,
                   options?.build !== false &&
-                    `^${options?.build?.targetName || "build"}`
+                    `${options?.build?.targetName || "build"}`
                 ].filter(Boolean) as string[],
                 defaultConfiguration:
                   options?.deploy?.defaultConfiguration || "production",
