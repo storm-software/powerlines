@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.24.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.24.4) (11/21/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue initializing tsconfig options
+  ([1a59471](https://github.com/storm-software/powerlines/commit/1a59471))
+
 ## [0.24.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.24.3) (11/21/2025)
 
 ### Bug Fixes
