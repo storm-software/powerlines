@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.24.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.24.0) (11/21/2025)
+
+### Features
+
+- **powerlines:** Major re-structuring of VFS and added `program` to context
+  ([0769e9d](https://github.com/storm-software/powerlines/commit/0769e9d))
+
 ## [0.23.10](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.23.10) (11/21/2025)
 
 ### Bug Fixes
