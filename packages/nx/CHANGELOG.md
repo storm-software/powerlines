@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.35](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.35) (11/21/2025)
+
+### Miscellaneous
+
+- **nx:** Remove `package.json` from the Nx plugin's input list
+  ([0900fb4](https://github.com/storm-software/powerlines/commit/0900fb4))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.24.7**
+
 ## [0.10.34](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.34) (11/21/2025)
 
 ### Miscellaneous

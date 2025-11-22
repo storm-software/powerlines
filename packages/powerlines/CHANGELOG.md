@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.24.7](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.24.7) (11/21/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue preventing VFS disposures and clean up DTS
+  generation
+  ([ed93dc9](https://github.com/storm-software/powerlines/commit/ed93dc9))
+
 ## [0.24.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.24.5) (11/21/2025)
 
 ### Bug Fixes
