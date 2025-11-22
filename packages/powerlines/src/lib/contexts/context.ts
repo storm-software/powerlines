@@ -414,7 +414,7 @@ export class PowerlinesContext<
       : joinPaths(
           this.workspaceConfig.workspaceRoot,
           this.config.projectRoot,
-          "storm.d.ts"
+          "powerlines.d.ts"
         );
   }
 
@@ -1055,14 +1055,17 @@ export class PowerlinesContext<
     if (this.config.tsconfig) {
       this.config.tsconfig = replacePathTokens(this, this.config.tsconfig);
     }
+
     if (this.config.output.dts) {
       this.config.output.dts = replacePathTokens(this, this.config.output.dts);
     }
+
     if (this.config.build.polyfill) {
       this.config.build.polyfill = this.config.build.polyfill.map(polyfill =>
         replacePathTokens(this, polyfill)
       );
     }
+
     if (this.config.output.assets) {
       this.config.output.assets = this.config.output.assets.map(asset => ({
         ...asset,

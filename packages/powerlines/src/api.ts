@@ -21,8 +21,6 @@ import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
 import { copyFiles } from "@stryke/fs/copy-file";
-import { existsSync } from "@stryke/fs/exists";
-import { createDirectory } from "@stryke/fs/helpers";
 import { install } from "@stryke/fs/install";
 import { listFiles } from "@stryke/fs/list-files";
 import { isPackageExists } from "@stryke/fs/package-fns";
@@ -80,7 +78,6 @@ import type {
   EnvironmentContext,
   PluginContext
 } from "./types/context";
-import { __VFS_REVERT__ } from "./types/fs";
 import {
   HookKeys,
   InferHookParameters,
@@ -238,17 +235,15 @@ export class PowerlinesAPI<
         )}`
       );
 
-      // context.fs[__VFS_PATCH__]();
-
       await writeMetaFile(context);
       context.persistedMeta = context.meta;
 
-      if (!existsSync(context.cachePath)) {
-        await createDirectory(context.cachePath);
+      if (!context.fs.existsSync(context.cachePath)) {
+        await context.fs.mkdir(context.cachePath, { mode: "fs" });
       }
 
-      if (!existsSync(context.dataPath)) {
-        await createDirectory(context.dataPath);
+      if (!context.fs.existsSync(context.dataPath)) {
+        await context.fs.mkdir(context.dataPath, { mode: "fs" });
       }
 
       await this.callPreHook(context, "prepare");
@@ -260,7 +255,9 @@ export class PowerlinesAPI<
           `Preparing the TypeScript definitions for the Powerlines project.`
         );
 
-        // await context.vfs.rm(context.runtimeDtsFilePath);
+        if (context.fs.existsSync(context.dtsPath)) {
+          await context.fs.unlink(context.dtsPath);
+        }
 
         context.log(
           LogLevelLabel.TRACE,
@@ -336,7 +333,7 @@ export class PowerlinesAPI<
 
         context.log(
           LogLevelLabel.TRACE,
-          `Generating TypeScript declaration file in ${context.config.output.dts}.`
+          `Generating TypeScript declaration file ${context.dtsPath}.`
         );
 
         const directives = [] as string[];
@@ -399,7 +396,7 @@ export class PowerlinesAPI<
         }
 
         await context.fs.writeFile(
-          context.config.output.dts,
+          context.dtsPath,
           `${
             directives
               ? `${directives.map(directive => `/// <reference types="${directive}" />`).join("\n")}
@@ -429,7 +426,6 @@ ${formatTypes(generatedTypes)}
       await this.callPostHook(context, "prepare");
 
       await writeMetaFile(context);
-      // context.fs[__VFS_REVERT__]();
     });
 
     this.context.log(
@@ -761,8 +757,6 @@ ${formatTypes(generatedTypes)}
 
     await this.#executeEnvironments(async context => {
       await this.callHook(context, "finalize");
-
-      context.fs[__VFS_REVERT__]();
       await context.fs.dispose();
     });
 

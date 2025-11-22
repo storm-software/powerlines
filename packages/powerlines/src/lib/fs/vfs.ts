@@ -1234,7 +1234,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     importer?: string,
     options: ResolveOptions = {}
   ): Promise<string | undefined> {
-    // eslint-disable-next-line ts/no-unsafe-call
     let result = this.resolverCache.get<string | undefined>(
       this.#normalizeId(id)
     );
@@ -1298,7 +1297,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         this.#context.workspaceConfig.workspaceRoot
       );
 
-      // eslint-disable-next-line ts/no-unsafe-call
       this.resolverCache.set(this.#normalizeId(id), result);
     }
 
@@ -1326,7 +1324,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     importer?: string,
     options: ResolveOptions = {}
   ): string | undefined {
-    // eslint-disable-next-line ts/no-unsafe-call
     let result = this.resolverCache.get<string | undefined>(
       this.#normalizeId(id)
     );
@@ -1390,7 +1387,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         this.#context.workspaceConfig.workspaceRoot
       );
 
-      // eslint-disable-next-line ts/no-unsafe-call
       this.resolverCache.set(this.#normalizeId(id), result);
     }
 
@@ -1410,51 +1406,55 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       const message = new capnp.Message();
       const fs = message.initRoot(FileSystem);
 
-      const virtualFS = this.#unifiedFS.toJSON();
-      const virtualFiles = Object.entries(virtualFS).filter(
-        ([_, code]) => code
+      const virtualFiles = Object.entries(this.#unifiedFS.toJSON()).filter(
+        ([, code]) => code
       );
 
       const files = fs._initFiles(virtualFiles.length);
-      virtualFiles.forEach(([path, code], index) => {
-        const fd = files.get(index);
-        fd.path = path;
-        fd.code = code || "";
-      });
+      virtualFiles
+        .filter(([, code]) => code)
+        .forEach(([path, code], index) => {
+          const fd = files.get(index);
+          fd.path = path;
+          fd.code = code || "";
+        });
 
       const ids = fs._initIds(Object.keys(this.ids).length);
-      Object.entries(this.ids).forEach(([id, path], index) => {
-        const fileId = ids.get(index);
-        fileId.id = id;
-        fileId.path = path;
-      });
+      Object.entries(this.ids)
+        .filter(([, path]) => path)
+        .forEach(([id, path], index) => {
+          const fileId = ids.get(index);
+          fileId.id = id;
+          fileId.path = path;
+        });
 
       const metadata = fs._initMetadata(Object.keys(this.metadata).length);
-      Object.entries(this.metadata).forEach(([id, value], index) => {
-        const fileMetadata = metadata.get(index);
-        fileMetadata.id = id;
-        fileMetadata.mode = value.mode;
-        fileMetadata.type = value.type;
-        fileMetadata.timestamp = value.timestamp ?? BigInt(Date.now());
+      Object.entries(this.metadata)
+        .filter(([, value]) => value)
+        .forEach(([id, value], index) => {
+          const fileMetadata = metadata.get(index);
+          fileMetadata.id = id;
+          fileMetadata.mode = value.mode;
+          fileMetadata.type = value.type;
+          fileMetadata.timestamp = value.timestamp ?? BigInt(Date.now());
 
-        if (value.properties) {
-          const props = fileMetadata._initProperties(
-            Object.keys(value.properties).length
-          );
-          Object.entries(value.properties).forEach(([key, val], propIndex) => {
-            const propData = props.get(propIndex);
-            propData.key = key;
-            propData.value = val;
-          });
-        }
-      });
+          if (value.properties) {
+            const props = fileMetadata._initProperties(
+              Object.keys(value.properties).length
+            );
+            Object.entries(value.properties).forEach(([key, val], index) => {
+              const prop = props.get(index);
+              prop.key = key;
+              prop.value = val;
+            });
+          }
+        });
 
       await writeFileBuffer(
         joinPaths(this.#context.dataPath, "fs.bin"),
         message.toArrayBuffer()
       );
 
-      // eslint-disable-next-line ts/no-unsafe-call
       this.#resolverCache.save(true);
 
       this.#log(LogLevelLabel.DEBUG, "Virtual file system disposed.");
