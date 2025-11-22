@@ -117,6 +117,7 @@
   "files": ["dist/**/*"],
   "keywords": ["deepkit", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
+    "@stryke/json": "catalog:",
     "@powerlines/deepkit": "workspace:*",
     "@powerlines/plugin-tsc": "workspace:*",
     "powerlines": "workspace:*",

@@ -21,7 +21,9 @@ import {
   createTransformer
 } from "@powerlines/deepkit/transformer";
 import tsc from "@powerlines/plugin-tsc";
+import { StormJSON } from "@stryke/json/storm-json";
 import { Plugin } from "powerlines/types/plugin";
+import { ReflectionLevel } from "powerlines/types/tsconfig";
 import {
   DeepkitPluginContext,
   DeepkitPluginOptions,
@@ -53,22 +55,40 @@ export const plugin = <
     },
     configResolved: {
       order: "post",
-      handler() {
+      async handler() {
+        const reflection =
+          this.config.transform.deepkit.reflection ||
+          this.tsconfig.tsconfigJson.compilerOptions?.reflection ||
+          this.tsconfig.tsconfigJson.reflection ||
+          "default";
+        const reflectionLevel =
+          this.config.transform.deepkit.reflectionLevel ||
+          this.tsconfig.tsconfigJson.compilerOptions?.reflectionLevel ||
+          this.tsconfig.tsconfigJson.reflectionLevel ||
+          "minimal";
+
+        if (
+          !this.tsconfig.tsconfigJson.reflection ||
+          !this.tsconfig.tsconfigJson.reflectionLevel
+        ) {
+          this.tsconfig.tsconfigJson.reflection ??= reflection;
+          this.tsconfig.tsconfigJson.reflectionLevel ??=
+            reflectionLevel as ReflectionLevel;
+
+          await this.fs.writeFile(
+            this.tsconfig.tsconfigFilePath,
+            StormJSON.stringify(this.tsconfig.tsconfigJson),
+            { mode: "fs" }
+          );
+        }
+
         this.config.transform.tsc ??=
           {} as TContext["config"]["transform"]["tsc"];
         this.config.transform.tsc.compilerOptions = {
           ...(this.config.transform.tsc.compilerOptions ?? {}),
           exclude: this.config.transform.deepkit.exclude ?? [],
-          reflection:
-            this.config.transform.deepkit.reflection ||
-            this.tsconfig.tsconfigJson.compilerOptions?.reflection ||
-            this.tsconfig.tsconfigJson.reflection ||
-            "default",
-          reflectionLevel:
-            this.config.transform.deepkit.reflectionLevel ||
-            this.tsconfig.tsconfigJson.compilerOptions?.reflectionLevel ||
-            this.tsconfig.tsconfigJson.reflectionLevel ||
-            "minimal"
+          reflection,
+          reflectionLevel
         };
 
         this.config.transform.tsc.transformers ??= {

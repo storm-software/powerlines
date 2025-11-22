@@ -51,12 +51,12 @@ catalog:
   '@microsoft/tsdoc': ^0.15.1
   '@microsoft/tsdoc-config': ^0.17.1
   '@noble/ciphers': ^2.0.1
-  '@nx/devkit': ^22.1.0
-  '@nx/eslint-plugin': ^22.1.0
-  '@nx/jest': ^22.1.0
-  '@nx/js': ^22.1.0
-  '@nx/plugin': ^22.1.0
-  '@nx/workspace': ^22.1.0
+  '@nx/devkit': ^22.1.1
+  '@nx/eslint-plugin': ^22.1.1
+  '@nx/jest': ^22.1.1
+  '@nx/js': ^22.1.1
+  '@nx/plugin': ^22.1.1
+  '@nx/workspace': ^22.1.1
   '@prisma/get-platform': ^6.19.0
   '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
   '@pulumi/pulumi': ^3.208.0
@@ -152,7 +152,7 @@ catalog:
   memfs: ^4.51.0
   minimatch: ^10.1.1
   nanotar: ^0.2.0
-  nx: ^22.1.0
+  nx: ^22.1.1
   openapi-typescript: ^7.10.1
   oxc-parser: ^0.95.0
   oxc-transform: ^0.95.0
