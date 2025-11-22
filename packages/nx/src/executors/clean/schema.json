@@ -17,8 +17,7 @@
       "type": "string",
       "format": "path",
       "description": "The path to the tsconfig file",
-      "id": "#tsconfig",
-      "default": "{projectRoot}/tsconfig.json"
+      "id": "#tsconfig"
     },
     "configFile": {
       "title": "Powerlines Configuration File",
@@ -71,7 +70,6 @@
   "type": "object",
   "default": {
     "outputPath": "dist/{projectRoot}",
-    "tsconfig": "{projectRoot}/tsconfig.json",
     "configFile": "{projectRoot}/powerlines.config.ts"
   }
 }

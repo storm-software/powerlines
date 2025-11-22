@@ -19,7 +19,6 @@ export interface PrepareExecutorSchema {
   * 
   * The path to the tsconfig file
   * 
-  * @default "{projectRoot}/tsconfig.json"
   * 
   * @format path
  */

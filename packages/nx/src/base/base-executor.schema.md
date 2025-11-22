@@ -16,7 +16,6 @@ The output path for the build
 
 ## `tsconfig`
 - **Type**: `string`
-- **Default**: `"{projectRoot}/tsconfig.json"`
 
 > TypeScript Configuration File
 

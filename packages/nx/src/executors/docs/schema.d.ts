@@ -19,7 +19,6 @@ export interface DocsExecutorSchema {
   * 
   * The path to the tsconfig file
   * 
-  * @default "{projectRoot}/tsconfig.json"
   * 
   * @format path
  */
