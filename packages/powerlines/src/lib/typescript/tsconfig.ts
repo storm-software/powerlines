@@ -38,28 +38,72 @@ import { ParsedTypeScriptConfig, TSConfig } from "../../types/tsconfig";
 export function getTsconfigFilePath(
   workspaceRoot: string,
   projectRoot: string,
-  tsconfig = "tsconfig.json"
+  tsconfig?: string
 ): string {
+  let tsconfigFilePath: string | undefined;
+  if (tsconfig) {
+    tsconfigFilePath = tryTsconfigFilePath(
+      workspaceRoot,
+      projectRoot,
+      tsconfig
+    );
+  } else {
+    tsconfigFilePath = tryTsconfigFilePath(
+      workspaceRoot,
+      projectRoot,
+      "tsconfig.app.json"
+    );
+    if (!tsconfigFilePath) {
+      tsconfigFilePath = tryTsconfigFilePath(
+        workspaceRoot,
+        projectRoot,
+        "tsconfig.lib.json"
+      );
+      if (!tsconfigFilePath) {
+        tsconfigFilePath = tryTsconfigFilePath(
+          workspaceRoot,
+          projectRoot,
+          "tsconfig.json"
+        );
+      }
+    }
+  }
+
+  if (!tsconfigFilePath) {
+    throw new Error(
+      `Cannot find the \`tsconfig.json\` configuration file for the project at ${
+        projectRoot
+      }.`
+    );
+  }
+
+  return tsconfigFilePath;
+}
+
+/**
+ * Get the path to the tsconfig.json file.
+ *
+ * @param workspaceRoot - The root directory of the workspace.
+ * @param projectRoot - The root directory of the project.
+ * @param tsconfig - The path to the tsconfig.json file.
+ * @returns The absolute path to the tsconfig.json file.
+ * @throws If the tsconfig.json file does not exist.
+ */
+export function tryTsconfigFilePath(
+  workspaceRoot: string,
+  projectRoot: string,
+  tsconfig: string
+): string | undefined {
   let tsconfigFilePath = tsconfig;
   if (!existsSync(tsconfigFilePath)) {
     tsconfigFilePath = appendPath(tsconfig, projectRoot);
     if (!existsSync(tsconfigFilePath)) {
-      tsconfigFilePath = appendPath(tsconfig, workspaceRoot);
+      tsconfigFilePath = appendPath(
+        tsconfig,
+        appendPath(projectRoot, workspaceRoot)
+      );
       if (!existsSync(tsconfigFilePath)) {
-        tsconfigFilePath = appendPath(
-          tsconfig,
-          joinPaths(workspaceRoot, projectRoot)
-        );
-        if (!existsSync(tsconfigFilePath)) {
-          throw new Error(
-            `Cannot find the \`tsconfig.json\` configuration file at ${
-              tsconfig
-            }, ${appendPath(tsconfig, projectRoot)}, ${appendPath(
-              tsconfig,
-              workspaceRoot
-            )}, or ${tsconfigFilePath}`
-          );
-        }
+        return undefined;
       }
     }
   }

@@ -59,20 +59,9 @@ async function resolveTsconfigChanges<
     context.config.projectRoot,
     context.config.tsconfig
   );
+
   const tsconfigJson = await readJsonFile<TsConfigJson>(tsconfigFilePath);
   tsconfigJson.compilerOptions ??= {};
-
-  if (tsconfigJson.reflection !== true) {
-    tsconfigJson.reflection = true;
-  }
-
-  if (tsconfig.options.experimentalDecorators !== true) {
-    tsconfigJson.compilerOptions.experimentalDecorators = true;
-  }
-
-  if (tsconfig.options.emitDecoratorMetadata !== true) {
-    tsconfigJson.compilerOptions.emitDecoratorMetadata = true;
-  }
 
   if (context.config.output.dts !== false) {
     context.config.output.dts = context.config.output.dts
@@ -168,64 +157,47 @@ async function resolveTsconfigChanges<
     tsconfigJson.compilerOptions.moduleDetection = "force";
   }
 
-  if (tsconfig.options.allowSyntheticDefaultImports !== true) {
-    tsconfigJson.compilerOptions.allowSyntheticDefaultImports = true;
-  }
+  // if (tsconfig.options.allowSyntheticDefaultImports !== true) {
+  //   tsconfigJson.compilerOptions.allowSyntheticDefaultImports = true;
+  // }
 
-  if (tsconfig.options.noImplicitOverride !== true) {
-    tsconfigJson.compilerOptions.noImplicitOverride = true;
-  }
+  // if (tsconfig.options.noImplicitOverride !== true) {
+  //   tsconfigJson.compilerOptions.noImplicitOverride = true;
+  // }
 
-  if (tsconfig.options.noUncheckedIndexedAccess !== true) {
-    tsconfigJson.compilerOptions.noUncheckedIndexedAccess = true;
-  }
+  // if (tsconfig.options.noUncheckedIndexedAccess !== true) {
+  //   tsconfigJson.compilerOptions.noUncheckedIndexedAccess = true;
+  // }
 
-  if (tsconfig.options.skipLibCheck !== true) {
-    tsconfigJson.compilerOptions.skipLibCheck = true;
-  }
+  // if (tsconfig.options.skipLibCheck !== true) {
+  //   tsconfigJson.compilerOptions.skipLibCheck = true;
+  // }
 
-  if (tsconfig.options.resolveJsonModule !== true) {
-    tsconfigJson.compilerOptions.resolveJsonModule = true;
+  // if (tsconfig.options.resolveJsonModule !== true) {
+  //   tsconfigJson.compilerOptions.resolveJsonModule = true;
+  // }
+
+  // if (tsconfig.options.verbatimModuleSyntax !== false) {
+  //   tsconfigJson.compilerOptions.verbatimModuleSyntax = false;
+  // }
+
+  // if (tsconfig.options.allowJs !== true) {
+  //   tsconfigJson.compilerOptions.allowJs = true;
+  // }
+
+  // if (tsconfig.options.declaration !== true) {
+  //   tsconfigJson.compilerOptions.declaration = true;
+  // }
+
+  if (tsconfig.options.esModuleInterop !== true) {
+    tsconfigJson.compilerOptions.esModuleInterop = true;
   }
 
   if (tsconfig.options.isolatedModules !== true) {
     tsconfigJson.compilerOptions.isolatedModules = true;
   }
 
-  if (tsconfig.options.verbatimModuleSyntax !== false) {
-    tsconfigJson.compilerOptions.verbatimModuleSyntax = false;
-  }
-
-  if (tsconfig.options.allowJs !== true) {
-    tsconfigJson.compilerOptions.allowJs = true;
-  }
-
-  if (tsconfig.options.esModuleInterop !== true) {
-    tsconfigJson.compilerOptions.esModuleInterop = true;
-  }
-
-  if (tsconfig.options.declaration !== true) {
-    tsconfigJson.compilerOptions.declaration = true;
-  }
-
-  // Client platform
-  if (context.environment.consumer === "client") {
-    if (tsconfig.options.jsx !== ts.JsxEmit.ReactJSX) {
-      tsconfigJson.compilerOptions.jsx = "react-jsx";
-    }
-
-    if (!tsconfig.options.lib?.some(lib => lib.toLowerCase() !== "dom")) {
-      tsconfigJson.compilerOptions.lib ??= [];
-      tsconfigJson.compilerOptions.lib.push("dom");
-    }
-
-    if (
-      !tsconfig.options.lib?.some(lib => lib.toLowerCase() !== "dom.iterable")
-    ) {
-      tsconfigJson.compilerOptions.lib ??= [];
-      tsconfigJson.compilerOptions.lib.push("dom.iterable");
-    }
-  } else if (context.config.build.platform === "node") {
+  if (context.config.build.platform === "node") {
     if (
       !tsconfig.options.types?.some(
         type =>

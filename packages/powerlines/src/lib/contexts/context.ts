@@ -84,6 +84,7 @@ import { getUniqueEntries, resolveEntriesSync } from "../entry";
 import { VirtualFileSystem } from "../fs/vfs";
 import { createLog, extendLog } from "../logger";
 import { createProgram } from "../typescript/ts-morph";
+import { getTsconfigFilePath } from "../typescript/tsconfig";
 import {
   CACHE_HASH_LENGTH,
   getPrefixedProjectRootHash,
@@ -868,6 +869,12 @@ export class PowerlinesContext<
       });
     }
 
+    this.config.tsconfig ??= getTsconfigFilePath(
+      this.workspaceConfig.workspaceRoot,
+      cacheKey.projectRoot,
+      config.tsconfig
+    );
+
     if (isSetObject(config)) {
       this.resolvedConfig = defu(
         {
@@ -889,7 +896,6 @@ export class PowerlinesContext<
           name: this.projectJson?.name || this.packageJson?.name,
           version: this.packageJson?.version,
           description: this.packageJson?.description,
-          tsconfig: appendPath("tsconfig.json", cacheKey.projectRoot),
           sourceRoot:
             this.projectJson?.sourceRoot ||
             appendPath("src", cacheKey.projectRoot),
