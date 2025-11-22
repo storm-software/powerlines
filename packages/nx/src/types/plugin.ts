@@ -18,7 +18,7 @@
 
 export interface NxPluginOptions {
   /**
-   * Enable debug logging for the plugin
+   * Enable resolver debug logging for the plugin
    *
    * @defaultValue false
    */

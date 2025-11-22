@@ -170,13 +170,11 @@ export function createNxPlugin<
 
             const root = getRoot(projectRoot, context);
 
-            if (options?.debug) {
-              console.debug(
-                `[${name}] - ${new Date().toISOString()} - Loading ${
-                  framework
-                } user configuration for project in root directory ${projectRoot}.`
-              );
-            }
+            console.debug(
+              `[${name}] - ${new Date().toISOString()} - Loading ${
+                framework
+              } user configuration for project in root directory ${projectRoot}.`
+            );
 
             const userConfig = await loadUserConfigFile(
               projectRoot,
@@ -217,11 +215,9 @@ export function createNxPlugin<
 
             const packageJson: PackageJson = JSON.parse(packageJsonContent);
             if (!userConfig.configFile && !packageJson?.storm) {
-              if (options?.debug) {
-                console.debug(
-                  `[${name}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${framework} configuration found for project in root directory.`
-                );
-              }
+              console.debug(
+                `[${name}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${framework} configuration found for project in root directory.`
+              );
 
               return {};
             }
@@ -246,11 +242,9 @@ export function createNxPlugin<
                 context.workspaceRoot
               );
 
-            if (options?.debug) {
-              console.debug(
-                `[${name}] - ${new Date().toISOString()} - Preparing Nx targets for project in root directory ${projectRoot}.`
-              );
-            }
+            console.debug(
+              `[${name}] - ${new Date().toISOString()} - Preparing Nx targets for project in root directory ${projectRoot}.`
+            );
 
             if (
               options?.clean !== false &&
@@ -266,7 +260,9 @@ export function createNxPlugin<
                 executor:
                   options?.clean?.executor ||
                   `@${framework}/nx:${options?.clean?.targetName || "clean"}`,
-                dependsOn: [`^${options?.clean?.targetName || "clean"}`],
+                dependsOn: options?.clean?.dependsOn ?? [
+                  `^${options?.clean?.targetName || "clean"}`
+                ],
                 defaultConfiguration:
                   options?.clean?.defaultConfiguration || "production",
                 options: {
@@ -305,11 +301,13 @@ export function createNxPlugin<
                 executor:
                   options?.prepare?.executor ||
                   `@${framework}/nx:${options?.prepare?.targetName || "prepare"}`,
-                dependsOn: [
-                  `^${options?.prepare?.targetName || "prepare"}`,
-                  options?.clean !== false &&
-                    `${options?.clean?.targetName || "clean"}`
-                ].filter(Boolean) as string[],
+                dependsOn:
+                  options?.prepare?.dependsOn ??
+                  ([
+                    `^${options?.prepare?.targetName || "prepare"}`,
+                    options?.clean !== false &&
+                      `${options?.clean?.targetName || "clean"}`
+                  ].filter(Boolean) as string[]),
                 defaultConfiguration:
                   options?.prepare?.defaultConfiguration || "production",
                 options: {
@@ -347,11 +345,13 @@ export function createNxPlugin<
                 executor:
                   options?.build?.executor ||
                   `@${framework}/nx:${options?.build?.targetName || "build"}`,
-                dependsOn: [
-                  `^${options?.build?.targetName || "build"}`,
-                  options?.prepare !== false &&
-                    `${options?.prepare?.targetName || "prepare"}`
-                ].filter(Boolean) as string[],
+                dependsOn:
+                  options?.build?.dependsOn ??
+                  ([
+                    `^${options?.build?.targetName || "build"}`,
+                    options?.prepare !== false &&
+                      `${options?.prepare?.targetName || "prepare"}`
+                  ].filter(Boolean) as string[]),
                 defaultConfiguration:
                   options?.build?.defaultConfiguration || "production",
                 options: {
@@ -394,11 +394,13 @@ export function createNxPlugin<
                 executor:
                   options?.lint?.executor ||
                   `@${framework}/nx:${options?.lint?.targetName || "lint"}`,
-                dependsOn: [
-                  `^${options?.lint?.targetName || "lint"}`,
-                  options?.prepare !== false &&
-                    `${options?.prepare?.targetName || "prepare"}`
-                ].filter(Boolean) as string[],
+                dependsOn:
+                  options?.lint?.dependsOn ??
+                  ([
+                    `^${options?.lint?.targetName || "lint"}`,
+                    options?.prepare !== false &&
+                      `${options?.prepare?.targetName || "prepare"}`
+                  ].filter(Boolean) as string[]),
                 defaultConfiguration:
                   options?.lint?.defaultConfiguration || "production",
                 options: {
@@ -439,11 +441,13 @@ export function createNxPlugin<
                 executor:
                   options?.docs?.executor ||
                   `@${framework}/nx:${options?.docs?.targetName || "docs"}`,
-                dependsOn: [
-                  `^${options?.docs?.targetName || "docs"}`,
-                  options?.build !== false &&
-                    `${options?.build?.targetName || "build"}`
-                ].filter(Boolean) as string[],
+                dependsOn:
+                  options?.docs?.dependsOn ??
+                  ([
+                    `^${options?.docs?.targetName || "docs"}`,
+                    options?.build !== false &&
+                      `${options?.build?.targetName || "build"}`
+                  ].filter(Boolean) as string[]),
                 defaultConfiguration:
                   options?.docs?.defaultConfiguration || "production",
                 options: {
@@ -484,11 +488,13 @@ export function createNxPlugin<
                 executor:
                   options?.deploy?.executor ||
                   `@${framework}/nx:${options?.deploy?.targetName || "deploy"}`,
-                dependsOn: [
-                  `^${options?.deploy?.targetName || "deploy"}`,
-                  options?.build !== false &&
-                    `${options?.build?.targetName || "build"}`
-                ].filter(Boolean) as string[],
+                dependsOn:
+                  options?.deploy?.dependsOn ??
+                  ([
+                    `^${options?.deploy?.targetName || "deploy"}`,
+                    options?.build !== false &&
+                      `${options?.build?.targetName || "build"}`
+                  ].filter(Boolean) as string[]),
                 defaultConfiguration:
                   options?.deploy?.defaultConfiguration || "production",
                 options: {
@@ -522,11 +528,9 @@ export function createNxPlugin<
               }
             );
 
-            if (options?.debug) {
-              console.debug(
-                `[${name}] - ${new Date().toISOString()} - Completed preparing Nx configuration for project in root directory ${projectRoot}.`
-              );
-            }
+            console.debug(
+              `[${name}] - ${new Date().toISOString()} - Completed preparing Nx configuration for project in root directory ${projectRoot}.`
+            );
 
             return {
               projects: {
