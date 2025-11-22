@@ -575,15 +575,6 @@ ${formatTypes(generatedTypes)}
   public async lint(
     inlineConfig: LintInlineConfig | BuildInlineConfig = { command: "lint" }
   ) {
-    // if (this.context.persistedMeta?.checksum !== this.context.meta.checksum) {
-    //   this.context.log(
-    //     LogLevelLabel.INFO,
-    //     "The Powerlines project has been modified since the last time `prepare` was ran. Re-preparing the project."
-    //   );
-
-    //   await this.generate(inlineConfig);
-    // }
-
     this.context.log(LogLevelLabel.INFO, "📋 Linting the Powerlines project");
 
     await this.prepare(inlineConfig);

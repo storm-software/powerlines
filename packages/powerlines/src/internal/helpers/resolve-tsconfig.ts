@@ -22,19 +22,16 @@ import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { readJsonFile } from "@stryke/fs/json";
 import { isPackageExists } from "@stryke/fs/package-fns";
 import { StormJSON } from "@stryke/json/storm-json";
-import { appendPath } from "@stryke/path/append";
 import {
   findFileExtension,
   findFileName,
   findFilePath,
   relativePath
 } from "@stryke/path/file-path-fns";
-import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join-paths";
 import { titleCase } from "@stryke/string-format/title-case";
 import { TsConfigJson } from "@stryke/types/tsconfig";
 import chalk from "chalk";
-import ts from "typescript";
 import {
   getParsedTypeScriptConfig,
   getTsconfigFilePath,
@@ -64,29 +61,12 @@ async function resolveTsconfigChanges<
   tsconfigJson.compilerOptions ??= {};
 
   if (context.config.output.dts !== false) {
-    context.config.output.dts = context.config.output.dts
-      ? isParentPath(
-          context.config.output.dts,
-          context.workspaceConfig.workspaceRoot
-        )
-        ? context.config.output.dts
-        : appendPath(
-            context.config.output.dts,
-            context.workspaceConfig.workspaceRoot
-          )
-      : appendPath(
-          context.config.projectRoot,
-          context.workspaceConfig.workspaceRoot
-        );
     if (
-      findFileExtension(context.config.output.dts) !== "d.ts" &&
-      findFileExtension(context.config.output.dts) !== "d.cts" &&
-      findFileExtension(context.config.output.dts) !== "d.mts"
+      findFileExtension(context.dtsPath) !== "d.ts" &&
+      findFileExtension(context.dtsPath) !== "d.cts" &&
+      findFileExtension(context.dtsPath) !== "d.mts"
     ) {
-      context.config.output.dts = joinPaths(
-        context.config.output.dts,
-        "powerlines.d.ts"
-      );
+      context.config.output.dts = joinPaths(context.dtsPath, "powerlines.d.ts");
     }
 
     const dtsRelativePath = joinPaths(
@@ -95,18 +75,14 @@ async function resolveTsconfigChanges<
           context.workspaceConfig.workspaceRoot,
           context.config.projectRoot
         ),
-        findFilePath(context.config.output.dts)
+        findFilePath(context.dtsPath)
       ),
-      findFileName(context.config.output.dts)
+      findFileName(context.dtsPath)
     );
 
     if (
       !tsconfigJson.include?.some(filePattern =>
-        isIncludeMatchFound(filePattern, [
-          String(context.config.output.dts),
-          dtsRelativePath,
-          "storm.d.ts"
-        ])
+        isIncludeMatchFound(filePattern, [context.dtsPath, dtsRelativePath])
       )
     ) {
       tsconfigJson.include ??= [];
@@ -132,30 +108,30 @@ async function resolveTsconfigChanges<
     tsconfigJson.compilerOptions.lib.push("esnext");
   }
 
-  if (tsconfig.options.module !== ts.ModuleKind.ESNext) {
-    tsconfigJson.compilerOptions.module = "ESNext";
-  }
+  // if (tsconfig.options.module !== ts.ModuleKind.ESNext) {
+  //   tsconfigJson.compilerOptions.module = "ESNext";
+  // }
 
-  if (
-    !tsconfig.options.target ||
-    ![
-      ts.ScriptTarget.ESNext,
-      ts.ScriptTarget.ES2024,
-      ts.ScriptTarget.ES2023,
-      ts.ScriptTarget.ES2022,
-      ts.ScriptTarget.ES2021
-    ].includes(tsconfig.options.target)
-  ) {
-    tsconfigJson.compilerOptions.target = "ESNext";
-  }
+  // if (
+  //   !tsconfig.options.target ||
+  //   ![
+  //     ts.ScriptTarget.ESNext,
+  //     ts.ScriptTarget.ES2024,
+  //     ts.ScriptTarget.ES2023,
+  //     ts.ScriptTarget.ES2022,
+  //     ts.ScriptTarget.ES2021
+  //   ].includes(tsconfig.options.target)
+  // ) {
+  //   tsconfigJson.compilerOptions.target = "ESNext";
+  // }
 
-  if (tsconfig.options.moduleResolution !== ts.ModuleResolutionKind.Bundler) {
-    tsconfigJson.compilerOptions.moduleResolution = "Bundler";
-  }
+  // if (tsconfig.options.moduleResolution !== ts.ModuleResolutionKind.Bundler) {
+  //   tsconfigJson.compilerOptions.moduleResolution = "Bundler";
+  // }
 
-  if (tsconfig.options.moduleDetection !== ts.ModuleDetectionKind.Force) {
-    tsconfigJson.compilerOptions.moduleDetection = "force";
-  }
+  // if (tsconfig.options.moduleDetection !== ts.ModuleDetectionKind.Force) {
+  //   tsconfigJson.compilerOptions.moduleDetection = "force";
+  // }
 
   // if (tsconfig.options.allowSyntheticDefaultImports !== true) {
   //   tsconfigJson.compilerOptions.allowSyntheticDefaultImports = true;
