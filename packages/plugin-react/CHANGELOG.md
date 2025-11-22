@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.33](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.33) (11/21/2025)
+
+### Miscellaneous
+
+- **plugin-react:** Additional fields added tsconfig defaulting
+  ([9de9d87](https://github.com/storm-software/powerlines/commit/9de9d87))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.41**
+- Updated **plugin-babel** to **v0.12.42**
+- Updated **plugin-env** to **v0.13.39**
+- Updated **powerlines** to **v0.24.5**
+- Updated **deepkit** to **v0.4.38**
+- Updated **alloy** to **v0.11.42**
+- Updated **nx** to **v0.10.33**
+
 ## [0.1.32](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.32) (11/21/2025)
 
 ### Updated Dependencies

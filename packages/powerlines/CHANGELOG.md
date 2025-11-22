@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.24.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.24.5) (11/21/2025)
+
+### Bug Fixes
+
+- **powerlines:** Update logic for defaulting tsconfig paths
+  ([e72a677](https://github.com/storm-software/powerlines/commit/e72a677))
+
 ## [0.24.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.24.4) (11/21/2025)
 
 ### Bug Fixes

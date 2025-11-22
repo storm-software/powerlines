@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.33](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.33) (11/21/2025)
+
+### Miscellaneous
+
+- **nx:** Remove logic to default tsconfig option from Nx plugin
+  ([0781f9a](https://github.com/storm-software/powerlines/commit/0781f9a))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.24.5**
+
 ## [0.10.32](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.32) (11/21/2025)
 
 ### Updated Dependencies

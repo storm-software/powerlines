@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.10.42](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.10.42) (11/21/2025)
+
+### Miscellaneous
+
+- **plugin-deepkit:** Ensure `reflection` is set in tsconfig file
+  ([e1a8194](https://github.com/storm-software/powerlines/commit/e1a8194))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.41**
+- Updated **plugin-tsc** to **v0.2.41**
+- Updated **powerlines** to **v0.24.5**
+- Updated **deepkit** to **v0.4.38**
+- Updated **nx** to **v0.10.33**
+
 ## [0.10.41](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.10.41) (11/21/2025)
 
 ### Updated Dependencies
