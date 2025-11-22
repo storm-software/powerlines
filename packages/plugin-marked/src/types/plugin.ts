@@ -16,29 +16,27 @@
 
  ------------------------------------------------------------------- */
 
-declare module "markdown-toc" {
-  interface Options {
-    slugify?: (str: string) => string;
-    maxdepth?: number;
-    first1?: boolean;
-    bullets?: string;
-    prefix?: string;
-    filter?: (str: string, level: number) => boolean;
-  }
+import { marked, MarkedExtension, MarkedOptions } from "marked";
+import { UserConfig } from "powerlines/types/config";
+import { PluginContext } from "powerlines/types/context";
+import { ResolvedConfig } from "powerlines/types/resolved";
 
-  interface Entry {
-    content: string;
-    slug: string;
-    lvl: number;
-    i: number;
-  }
+export type MarkedPluginOptions = MarkedOptions & MarkedExtension;
 
-  interface Result {
-    content: string;
-    tokens: Entry[];
-  }
+export type MarkedPluginUserConfig = UserConfig & {
+  marked?: MarkedPluginOptions;
+};
 
-  function toc(input: string, options?: Options): Result;
+export type MarkedPluginResolvedConfig = ResolvedConfig & {
+  marked: MarkedPluginOptions;
+};
 
-  export default toc;
-}
+export type MarkedPluginContext<
+  TResolvedConfig extends
+    MarkedPluginResolvedConfig = MarkedPluginResolvedConfig
+> = PluginContext<TResolvedConfig> & {
+  marked: {
+    parse: (src: string, override?: Partial<MarkedOptions>) => Promise<string>;
+    use: typeof marked.use;
+  };
+};

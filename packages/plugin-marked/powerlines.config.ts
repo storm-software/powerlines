@@ -16,29 +16,16 @@
 
  ------------------------------------------------------------------- */
 
-declare module "markdown-toc" {
-  interface Options {
-    slugify?: (str: string) => string;
-    maxdepth?: number;
-    first1?: boolean;
-    bullets?: string;
-    prefix?: string;
-    filter?: (str: string, level: number) => boolean;
-  }
+import plugin from "@powerlines/plugin-plugin";
+import { defineConfig } from "powerlines/config";
 
-  interface Entry {
-    content: string;
-    slug: string;
-    lvl: number;
-    i: number;
-  }
-
-  interface Result {
-    content: string;
-    tokens: Entry[];
-  }
-
-  function toc(input: string, options?: Options): Result;
-
-  export default toc;
-}
+export default defineConfig({
+  skipCache: true,
+  entry: ["src/index.ts", "src/types/*.ts"],
+  plugins: [
+    plugin({
+      alloy: false
+    })
+  ],
+  noExternal: ["marked"]
+});

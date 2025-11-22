@@ -46,6 +46,8 @@
       "@powerlines/plugin-id/*": ["packages/plugin-id/src/*"],
       "@powerlines/plugin-jest": ["packages/plugin-jest/src/index.ts"],
       "@powerlines/plugin-jest/*": ["packages/plugin-jest/src/*"],
+      "@powerlines/plugin-marked": ["packages/plugin-marked/src/index.ts"],
+      "@powerlines/plugin-marked/*": ["packages/plugin-marked/src/*"],
       "@powerlines/plugin-openapi": ["packages/plugin-openapi/src/index.ts"],
       "@powerlines/plugin-openapi/*": ["packages/plugin-openapi/src/*"],
       "@powerlines/plugin-oxc-transform": [

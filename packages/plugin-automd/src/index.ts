@@ -155,7 +155,7 @@ export const plugin = <
               contents: toc(ctx.block.md, {
                 ...opts,
                 maxdepth: opts.maxDepth,
-                firsth1: opts.firstH1
+                first1: opts.firstH1
               }).content
             };
           }
