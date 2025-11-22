@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.34](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.34) (11/21/2025)
+
+### Miscellaneous
+
+- **nx:** Added missing `untyped` generated schema files
+  ([b14b27c](https://github.com/storm-software/powerlines/commit/b14b27c))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.24.6**
+
 ## [0.10.33](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.33) (11/21/2025)
 
 ### Miscellaneous
