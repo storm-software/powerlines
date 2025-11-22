@@ -20,7 +20,6 @@
  * A list of Nx input strings that describe the Powerlines configuration file
  */
 export const CONFIG_INPUTS = [
-  "{projectRoot}/package.json",
   "{projectRoot}/{framework}.json",
   "{projectRoot}/{framework}.*.json",
   "{projectRoot}/{framework}.jsonc",
