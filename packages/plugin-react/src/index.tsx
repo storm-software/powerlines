@@ -138,12 +138,29 @@ export const plugin = createAlloyPlugin((options: ReactPluginOptions) => {
       this.tsconfig.tsconfigJson.compilerOptions.jsxImportSource =
         this.config.react.jsxImportSource;
 
-      if (
-        this.tsconfig.tsconfigJson.compilerOptions.jsxImportSource === "react"
-      ) {
+      if (this.tsconfig.options.jsxImportSource === "react") {
         this.tsconfig.tsconfigJson.compilerOptions.jsx ??= "react-jsx";
       } else {
         this.tsconfig.tsconfigJson.compilerOptions.jsx ??= "preserve";
+      }
+
+      // Client platform
+      if (this.environment.consumer === "client") {
+        if (
+          !this.tsconfig.options.lib?.some(lib => lib.toLowerCase() !== "dom")
+        ) {
+          this.tsconfig.tsconfigJson.compilerOptions.lib ??= [];
+          this.tsconfig.tsconfigJson.compilerOptions.lib.push("dom");
+        }
+
+        if (
+          !this.tsconfig.options.lib?.some(
+            lib => lib.toLowerCase() !== "dom.iterable"
+          )
+        ) {
+          this.tsconfig.tsconfigJson.compilerOptions.lib ??= [];
+          this.tsconfig.tsconfigJson.compilerOptions.lib.push("dom.iterable");
+        }
       }
 
       this.tsconfig.tsconfigJson.compilerOptions.lib = [];
