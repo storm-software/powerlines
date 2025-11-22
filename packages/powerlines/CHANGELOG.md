@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.24.9](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.24.9) (11/22/2025)
+
+### Miscellaneous
+
+- **powerlines:** Removed excess `tsconfig.json` updates from prepare task
+  ([95fcbc2](https://github.com/storm-software/powerlines/commit/95fcbc2))
+
 ## [0.24.7](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.24.7) (11/21/2025)
 
 ### Bug Fixes
