@@ -34,8 +34,7 @@ export default defineUntypedSchema({
       type: "string",
       format: "path",
       description: "The path to the tsconfig file"
-    },
-    $default: "{projectRoot}/tsconfig.json"
+    }
   },
   configFile: {
     $schema: {

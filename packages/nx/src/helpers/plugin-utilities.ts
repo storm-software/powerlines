@@ -238,12 +238,6 @@ export function createNxPlugin<
               return {};
             }
 
-            const tsconfig =
-              userConfig?.tsconfig ||
-              (existsSync(joinPaths(projectRoot, "tsconfig.json"))
-                ? joinPaths(projectRoot, "tsconfig.json")
-                : undefined);
-
             const targets: ProjectConfiguration["targets"] =
               readTargetsFromPackageJson(
                 packageJson as PackageJsonNx,
@@ -321,7 +315,6 @@ export function createNxPlugin<
                 options: {
                   entry: userConfig.entry || "{sourceRoot}/index.ts",
                   projectType: projectConfig.projectType || userConfig.type,
-                  tsconfig,
                   skipInstalls: userConfig.skipInstalls,
                   skipCache: userConfig.skipCache
                 },
@@ -366,7 +359,6 @@ export function createNxPlugin<
                   outputPath:
                     userConfig.output?.outputPath || "dist/{projectRoot}",
                   projectType: projectConfig.projectType || userConfig.type,
-                  tsconfig,
                   skipInstalls: userConfig.skipInstalls,
                   skipCache: userConfig.skipCache
                 },
@@ -412,7 +404,6 @@ export function createNxPlugin<
                 options: {
                   entry: userConfig.entry || "{sourceRoot}/index.ts",
                   projectType: projectConfig.projectType || userConfig.type,
-                  tsconfig,
                   skipInstalls: userConfig.skipInstalls,
                   skipCache: userConfig.skipCache
                 },
@@ -458,7 +449,6 @@ export function createNxPlugin<
                 options: {
                   entry: userConfig.entry || "{sourceRoot}/index.ts",
                   projectType: projectConfig.projectType || userConfig.type,
-                  tsconfig,
                   skipInstalls: userConfig.skipInstalls,
                   skipCache: userConfig.skipCache
                 },
@@ -504,7 +494,6 @@ export function createNxPlugin<
                 options: {
                   entry: userConfig.entry || "{sourceRoot}/index.ts",
                   projectType: projectConfig.projectType || userConfig.type,
-                  tsconfig,
                   skipInstalls: userConfig.skipInstalls,
                   skipCache: userConfig.skipCache
                 },
