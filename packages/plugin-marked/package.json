@@ -2,7 +2,7 @@
   "name": "@powerlines/plugin-marked",
   "version": "0.1.1",
   "type": "module",
-  "description": "A Powerlines plugin to maintain a project's markdown files using AutoMD generators.",
+  "description": "A Powerlines plugin to use the Marked markdown compiler to generate HTML.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
