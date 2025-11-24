@@ -869,7 +869,7 @@ export class PowerlinesContext<
       });
     }
 
-    this.config.tsconfig ??= getTsconfigFilePath(
+    config.tsconfig ??= getTsconfigFilePath(
       this.workspaceConfig.workspaceRoot,
       cacheKey.projectRoot,
       config.tsconfig

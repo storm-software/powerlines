@@ -12,8 +12,8 @@ catalog:
   '@alloy-js/markdown': ^0.20.0
   '@alloy-js/rollup-plugin': ^0.1.0
   '@alloy-js/typescript': ^0.20.0
-  '@asyncapi/generator': ^2.8.4
-  '@asyncapi/parser': ^3.4.0
+  '@asyncapi/generator': ^2.8.5
+  '@asyncapi/parser': ^3.4.1
   '@babel/core': ^7.28.5
   '@babel/generator': ^7.28.5
   '@babel/helper-module-imports': ^7.27.1
@@ -100,8 +100,8 @@ catalog:
   '@stryke/types': ^0.10.7
   '@stryke/unique-id': ^0.3.14
   '@swc/core': ^1.15.3
-  '@tamagui/static-worker': ^1.138.1
-  '@tamagui/types': ^1.138.1
+  '@tamagui/static-worker': ^1.138.2
+  '@tamagui/types': ^1.138.2
   '@taplo/cli': ^0.7.0
   '@types/babel__core': ^7.20.5
   '@types/babel__helper-module-imports': ^7.18.3
