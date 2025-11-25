@@ -23,7 +23,6 @@ import { readJsonFile } from "@stryke/fs/json";
 import { isPackageExists } from "@stryke/fs/package-fns";
 import { StormJSON } from "@stryke/json/storm-json";
 import {
-  findFileExtension,
   findFileName,
   findFilePath,
   relativePath
@@ -61,14 +60,6 @@ async function resolveTsconfigChanges<
   tsconfigJson.compilerOptions ??= {};
 
   if (context.config.output.dts !== false) {
-    if (
-      findFileExtension(context.dtsPath) !== "d.ts" &&
-      findFileExtension(context.dtsPath) !== "d.cts" &&
-      findFileExtension(context.dtsPath) !== "d.mts"
-    ) {
-      context.config.output.dts = joinPaths(context.dtsPath, "powerlines.d.ts");
-    }
-
     const dtsRelativePath = joinPaths(
       relativePath(
         joinPaths(
@@ -221,12 +212,10 @@ export async function initializeTsconfig<
     "Writing updated TypeScript configuration (tsconfig.json) file to disk."
   );
 
-  await context.fs.writeFile(
+  await writeFile(
+    context.log,
     tsconfigFilePath,
-    StormJSON.stringify(context.tsconfig.tsconfigJson),
-    {
-      mode: "fs"
-    }
+    StormJSON.stringify(context.tsconfig.tsconfigJson)
   );
 
   context.tsconfig = getParsedTypeScriptConfig(

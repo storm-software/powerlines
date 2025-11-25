@@ -2,6 +2,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug Alloy Build Script",
+      "type": "node",
+      "request": "launch",
+      "program": "/nix/store/yyb1rc83q0fw5h3i80ljwdwwakmdqdfp-pnpm-10.18.0/bin/pnpm",
+      "args": [
+        "nx",
+        "run",
+        "alloy:build:development",
+        "--outputStyle=dynamic-legacy"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
       "name": "Debug Env Plugin Build Script",
       "type": "node",
       "request": "launch",

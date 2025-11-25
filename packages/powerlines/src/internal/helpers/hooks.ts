@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                  ⚡ Storm Software - Powerlines
+                   ⚡ Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -22,7 +22,6 @@ import { isSet } from "@stryke/type-checks/is-set";
 import { ArrayValues } from "@stryke/types/array";
 import chalk from "chalk";
 import { defu } from "defu";
-import { ResolvedConfig } from "powerlines/types/resolved";
 import {
   EnvironmentContext,
   PluginContext,
@@ -33,6 +32,7 @@ import {
   InferHookParameters,
   InferHookReturnType
 } from "../../types/hooks";
+import { ResolvedConfig } from "../../types/resolved";
 
 export type CallHookOptions = SelectHooksOptions &
   (

@@ -151,8 +151,7 @@ ${ctx.config.build.polyfill.map(p => `import "${p}";`).join("\n")}
 
 export * from "${isString(resolved) ? resolved : resolved.id}";
 `,
-              entry.file,
-              { mode: "virtual" }
+              entry.file
             );
 
             return entry.file;

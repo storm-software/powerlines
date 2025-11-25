@@ -17,15 +17,14 @@
  ------------------------------------------------------------------- */
 
 import type { EnvPaths } from "@stryke/env/get-env-paths";
-import { NonUndefined } from "@stryke/types/base";
+import type { NonUndefined } from "@stryke/types/base";
 import type { PackageJson } from "@stryke/types/package-json";
-import { Worker as JestWorker } from "jest-worker";
+import type { Worker as JestWorker } from "jest-worker";
 import type { Jiti } from "jiti";
 import type MagicString from "magic-string";
 import type { SourceMap } from "magic-string";
-import type { DirectoryJSON } from "memfs";
-import { Range } from "semver";
-import { Project } from "ts-morph";
+import type { Range } from "semver";
+import type { Project } from "ts-morph";
 import type { Unimport } from "unimport";
 import type {
   ExternalIdResult,
@@ -40,10 +39,8 @@ import type {
   WorkspaceConfig
 } from "./config";
 import type {
-  PowerlinesWriteFileOptions,
   ResolveOptions,
   VirtualFile,
-  VirtualFileMetadata,
   VirtualFileSystemInterface
 } from "./fs";
 import type { HookKeys, Hooks, HooksList } from "./hooks";
@@ -378,27 +375,16 @@ export interface UnresolvedContext<
    * @param code - The source code of the builtin file
    * @param id - The unique identifier of the builtin file
    * @param path - An optional path to write the builtin file to
-   * @param options - Options for writing the file
    */
-  emitBuiltin: (
-    code: string,
-    id: string,
-    path?: string,
-    options?: PowerlinesWriteFileOptions
-  ) => Promise<void>;
+  emitBuiltin: (code: string, id: string, path?: string) => Promise<void>;
 
   /**
    * Resolves a entry virtual file and writes it to the VFS if it does not already exist
    *
    * @param code - The source code of the entry file
    * @param path - An optional path to write the entry file to
-   * @param options - Options for writing the file
    */
-  emitEntry: (
-    code: string,
-    path: string,
-    options?: PowerlinesWriteFileOptions
-  ) => Promise<void>;
+  emitEntry: (code: string, path: string) => Promise<void>;
 
   /**
    * A function to update the context fields using a new user configuration options
@@ -592,8 +578,3 @@ export interface PluginContext<
 export type BuildPluginContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > = PluginContext<TResolvedConfig> & Omit<UnpluginBuildContext, "parse">;
-
-export interface SerializedVirtualFileSystem {
-  virtualFiles: DirectoryJSON;
-  virtualFilesMeta: Record<string, Partial<VirtualFileMetadata>>;
-}

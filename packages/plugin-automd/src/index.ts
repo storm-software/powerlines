@@ -165,7 +165,7 @@ export const plugin = <
     async docs() {
       await Promise.all(
         toArray(this.config.automd.input).map(async input => {
-          const contents = await this.fs.readFile(input);
+          const contents = await this.fs.read(input);
           if (contents) {
             const result = await transform(contents, this.config.automd);
             if (result.hasIssues && this.config.automd.allowIssues === false) {
@@ -177,7 +177,7 @@ export const plugin = <
             }
 
             if (result.hasChanged) {
-              await this.fs.writeFile(
+              await this.fs.write(
                 appendPath(
                   this.config.automd.output
                     ? isDirectory(this.config.automd.output)
@@ -186,8 +186,7 @@ export const plugin = <
                     : input,
                   this.config.projectRoot
                 ),
-                result.contents,
-                { mode: "fs" }
+                result.contents
               );
             }
           }

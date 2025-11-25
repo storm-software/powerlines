@@ -53,7 +53,7 @@ import type {
   WebpackResolvedBuildConfig
 } from "./build";
 import type { PluginContext } from "./context";
-import type { OutputModeType } from "./fs";
+import { StoragePort, StoragePreset } from "./fs";
 import type { Plugin } from "./plugin";
 import type { TSConfig } from "./tsconfig";
 
@@ -149,14 +149,17 @@ export interface OutputConfig {
    *
    * @defaultValue "\{projectRoot\}/dist"
    */
-  distPath?: string;
+  buildPath?: string;
 
   /**
-   * The format of the output files
+   * The folder where the generated runtime artifacts will be located
    *
-   * @defaultValue "virtual"
+   * @remarks
+   * This folder will contain all runtime artifacts and builtins generated during the "prepare" phase.
+   *
+   * @defaultValue "\{projectRoot\}/.powerlines"
    */
-  mode?: OutputModeType;
+  artifactsPath?: string;
 
   /**
    * The path of the generated runtime declaration file relative to the workspace root.
@@ -176,16 +179,6 @@ export interface OutputConfig {
   builtinPrefix?: string;
 
   /**
-   * The folder where the generated runtime artifacts will be located
-   *
-   * @remarks
-   * This folder will contain all runtime artifacts and builtins generated during the "prepare" phase.
-   *
-   * @defaultValue "\{projectRoot\}/.powerlines"
-   */
-  artifactsFolder?: string;
-
-  /**
    * The module format of the output files
    *
    * @remarks
@@ -202,49 +195,23 @@ export interface OutputConfig {
    * The assets can be specified as a string (path to the asset) or as an object with a `glob` property (to match multiple files). The paths are relative to the project root directory.
    */
   assets?: Array<string | AssetGlob>;
+
+  /**
+   * A string preset or a custom {@link StoragePort} to provide fine-grained control over generated/output file storage.
+   *
+   * @remarks
+   * If a string preset is provided, it must be one of the following values:
+   * - `"virtual"`: Uses the local file system for storage.
+   * - `"fs"`: Uses an in-memory virtual file system for storage.
+   *
+   * If a custom {@link StoragePort} is provided, it will be used for all file storage operations during the build process.
+   *
+   * @defaultValue "virtual"
+   */
+  storage?: StoragePort | StoragePreset;
 }
 
 export interface BaseConfig {
-  /**
-   * The name of the project
-   */
-  name?: string;
-
-  /**
-   * The project display title
-   *
-   * @remarks
-   * This option is used in documentation generation and other places where a human-readable title is needed.
-   */
-  title?: string;
-
-  /**
-   * A description of the project
-   *
-   * @remarks
-   * If this option is not provided, the build process will try to use the \`description\` value from the `\package.json\` file.
-   */
-  description?: string;
-
-  /**
-   * The log level to use for the Powerlines processes.
-   *
-   * @defaultValue "info"
-   */
-  logLevel?: LogLevelLabel | null;
-
-  /**
-   * A custom logger function to use for logging messages
-   */
-  customLogger?: LogFn;
-
-  /**
-   * Explicitly set a mode to run in. This mode will be used at various points throughout the Powerlines processes, such as when compiling the source code.
-   *
-   * @defaultValue "production"
-   */
-  mode?: "development" | "test" | "production";
-
   /**
    * The entry point(s) for the application
    */
@@ -342,6 +309,46 @@ export interface EnvironmentConfig extends BaseConfig {
 
 export interface CommonUserConfig extends BaseConfig {
   /**
+   * The name of the project
+   */
+  name?: string;
+
+  /**
+   * The project display title
+   *
+   * @remarks
+   * This option is used in documentation generation and other places where a human-readable title is needed.
+   */
+  title?: string;
+
+  /**
+   * A description of the project
+   *
+   * @remarks
+   * If this option is not provided, the build process will try to use the \`description\` value from the `\package.json\` file.
+   */
+  description?: string;
+
+  /**
+   * The log level to use for the Powerlines processes.
+   *
+   * @defaultValue "info"
+   */
+  logLevel?: LogLevelLabel | null;
+
+  /**
+   * A custom logger function to use for logging messages
+   */
+  customLogger?: LogFn;
+
+  /**
+   * Explicitly set a mode to run in. This mode will be used at various points throughout the Powerlines processes, such as when compiling the source code.
+   *
+   * @defaultValue "production"
+   */
+  mode?: "development" | "test" | "production";
+
+  /**
    * The type of project being built
    *
    * @defaultValue "application"
@@ -399,7 +406,7 @@ export interface CommonUserConfig extends BaseConfig {
    * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
    *
    * @remarks
-   * If no values are provided for {@link OutputConfig.dts | output.dts}, {@link OutputConfig.builtinPrefix | output.builtinPrefix}, or {@link OutputConfig.artifactsFolder | output.artifactsFolder}, this value will be used as the default.
+   * If no values are provided for {@link OutputConfig.dts | output.dts}, {@link OutputConfig.builtinPrefix | output.builtinPrefix}, or {@link OutputConfig.artifactsPath | output.artifactsFolder}, this value will be used as the default.
    *
    * @defaultValue "powerlines"
    */

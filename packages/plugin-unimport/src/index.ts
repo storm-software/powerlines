@@ -89,10 +89,9 @@ export const plugin = <
         const content = StormJSON.stringify(items);
         if (content.trim() !== this.unimport.lastImportsDump?.trim()) {
           this.unimport.lastImportsDump = content;
-          await this.fs.writeFile(
+          await this.fs.write(
             joinPaths(this.dataPath, "imports-dump.json"),
-            content,
-            { mode: "fs" }
+            content
           );
         }
       }, 1000);

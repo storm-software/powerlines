@@ -123,10 +123,9 @@ ${schema}`;
   }
 
   public async write(): Promise<void> {
-    await this.#context.fs.writeFile(
+    await this.#context.fs.write(
       this.#context.config.prisma.schema,
-      this.build(),
-      { mode: "fs" }
+      this.build()
     );
   }
 }

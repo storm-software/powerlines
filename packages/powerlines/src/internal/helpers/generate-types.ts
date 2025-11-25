@@ -17,8 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-
 import { flattenDiagnosticMessageText } from "typescript";
+import { createProgram } from "../../lib/typescript/ts-morph";
 import { Context } from "../../types/context";
 
 /**
@@ -56,8 +56,12 @@ export async function emitTypes<TContext extends Context>(
     } generated runtime files.`
   );
 
-  context.program.addSourceFilesAtPaths(files);
-  const result = context.program.emitToMemory({ emitOnlyDtsFiles: true });
+  const program = createProgram(context, {
+    skipAddingFilesFromTsConfig: true
+  });
+
+  program.addSourceFilesAtPaths(files);
+  const result = program.emitToMemory({ emitOnlyDtsFiles: true });
 
   let builtinModules = "";
   for (const file of result.getFiles()) {

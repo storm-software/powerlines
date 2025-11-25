@@ -98,7 +98,7 @@ export const plugin = <
                 defu(mod.options ?? {}, this.config.satori.defaultOptions)
               );
               if (result) {
-                await this.fs.writeFile(
+                await this.fs.write(
                   this.config.satori.outputPath
                     ? joinPaths(
                         this.config.satori.outputPath,

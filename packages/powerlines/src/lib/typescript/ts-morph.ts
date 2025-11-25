@@ -16,8 +16,11 @@
 
  ------------------------------------------------------------------- */
 
+import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { joinPaths } from "@stryke/path/join";
+import defu from "defu";
 import {
+  CompilerOptions,
   FileSystemHost,
   InMemoryFileSystemHost,
   Project,
@@ -25,31 +28,31 @@ import {
   RuntimeDirEntry
 } from "ts-morph";
 import { Context } from "../../types/context";
-import { VirtualFileSystemInterface } from "../../types/fs";
 
-class VirtualFileSystemHost
+export class VirtualFileSystemHost
   extends InMemoryFileSystemHost
   implements FileSystemHost
 {
-  #fs: VirtualFileSystemInterface;
+  #context: Context;
 
-  public constructor(fs: VirtualFileSystemInterface) {
+  public constructor(context: Context) {
     super();
-    this.#fs = fs;
+
+    this.#context = context;
   }
 
   public override deleteSync(path: string) {
-    this.#fs.rmSync(path);
+    this.#context.fs.removeSync(path);
   }
 
   public override readDirSync(dirPath: string): RuntimeDirEntry[] {
-    return this.#fs.readdirSync(dirPath).reduce((ret, entry) => {
-      const fullPath = this.#fs.resolveSync(joinPaths(dirPath, entry));
+    return this.#context.fs.listSync(dirPath).reduce((ret, entry) => {
+      const fullPath = this.#context.fs.resolveSync(joinPaths(dirPath, entry));
       if (fullPath) {
         ret.push({
           name: entry,
-          isDirectory: this.#fs.isDirectory(fullPath),
-          isFile: this.#fs.isFile(fullPath),
+          isDirectory: this.#context.fs.existsSync(fullPath),
+          isFile: this.#context.fs.existsSync(fullPath),
           isSymlink: false
         });
       }
@@ -59,89 +62,89 @@ class VirtualFileSystemHost
   }
 
   public override async readFile(filePath: string) {
-    if (!this.#fs.existsSync(filePath)) {
+    if (!this.#context.fs.existsSync(filePath)) {
       throw new Error(
         `File not found: '${filePath}'. Please check the path and try again.`
       );
     }
 
-    return (await this.#fs.readFile(filePath))!;
+    return (await this.#context.fs.read(filePath))!;
   }
 
   public override readFileSync(filePath: string) {
-    if (!this.#fs.existsSync(filePath)) {
+    if (!this.#context.fs.existsSync(filePath)) {
       throw new Error(
         `File not found: '${filePath}'. Please check the path and try again.`
       );
     }
 
-    return this.#fs.readFileSync(filePath)!;
+    return this.#context.fs.readSync(filePath)!;
   }
 
   public override async writeFile(filePath: string, fileText: string) {
-    return this.#fs.writeFile(filePath, fileText);
+    return this.#context.fs.write(filePath, fileText);
   }
 
   public override writeFileSync(filePath: string, fileText: string) {
-    this.#fs.writeFileSync(filePath, fileText);
+    this.#context.fs.writeSync(filePath, fileText);
   }
 
-  public override async mkdir(dirPath: string) {
-    await this.#fs.mkdir(dirPath);
+  public override async mkdir(_dirPath: string) {
+    // await this.#context.fs.mkdir(dirPath);
   }
 
-  public override mkdirSync(dirPath: string) {
-    this.#fs.mkdirSync(dirPath);
+  public override mkdirSync(_dirPath: string) {
+    // this.#context.fs.mkdirSync(dirPath);
   }
 
   public override async move(srcPath: string, destPath: string) {
-    await this.#fs.move(srcPath, destPath);
+    await this.#context.fs.move(srcPath, destPath);
   }
 
   public override moveSync(srcPath: string, destPath: string) {
-    this.#fs.moveSync(srcPath, destPath);
+    this.#context.fs.moveSync(srcPath, destPath);
   }
 
   public override async copy(srcPath: string, destPath: string) {
-    await this.#fs.copy(srcPath, destPath);
+    await this.#context.fs.copy(srcPath, destPath);
   }
 
   public override copySync(srcPath: string, destPath: string) {
-    this.#fs.copySync(srcPath, destPath);
+    this.#context.fs.copySync(srcPath, destPath);
   }
 
   public override async fileExists(filePath: string) {
-    return this.#fs.isFile(filePath);
+    return this.#context.fs.exists(filePath);
   }
 
   public override fileExistsSync(filePath: string) {
-    return this.#fs.isFile(filePath);
+    return this.#context.fs.existsSync(filePath);
   }
 
   public override async directoryExists(dirPath: string) {
-    return this.#fs.isDirectory(dirPath);
+    return this.#context.fs.exists(dirPath);
   }
 
   public override directoryExistsSync(dirPath: string): boolean {
-    return this.#fs.isDirectory(dirPath);
+    return this.#context.fs.existsSync(dirPath);
   }
 
   public override realpathSync(path: string) {
-    return this.#fs.resolveSync(path) || path;
+    return this.#context.fs.resolveSync(path) || path;
   }
 
   public override getCurrentDirectory() {
-    return "/";
+    return this.#context.workspaceConfig.workspaceRoot;
   }
 
   public override async glob(
     patterns: ReadonlyArray<string>
   ): Promise<string[]> {
-    return this.#fs.glob(patterns as string[]);
+    return this.#context.fs.glob(patterns as string[]);
   }
 
   public override globSync(patterns: ReadonlyArray<string>): string[] {
-    return this.#fs.globSync(patterns as string[]);
+    return this.#context.fs.globSync(patterns as string[]);
   }
 }
 
@@ -155,14 +158,23 @@ export function createProgram(
   context: Context,
   override: Partial<ProjectOptions>
 ): Project {
-  const project = new Project({
-    compilerOptions: {
-      ...context.tsconfig.options
-    },
-    tsConfigFilePath: context.tsconfig.tsconfigFilePath,
-    fileSystem: new VirtualFileSystemHost(context.fs),
-    ...override
-  });
+  context.log(
+    LogLevelLabel.TRACE,
+    `Creating ts-morph Project instance with configuration from: ${
+      context.tsconfig.tsconfigFilePath
+    }.`
+  );
+
+  const project = new Project(
+    defu(override ?? {}, {
+      skipAddingFilesFromTsConfig: false,
+      tsConfigFilePath: context.tsconfig.tsconfigFilePath,
+      fileSystem: new VirtualFileSystemHost(context),
+      compilerOptions: defu(context.tsconfig.options ?? {}, {
+        lib: ["lib.esnext.full.d.ts"]
+      }) as CompilerOptions
+    })
+  );
 
   return project;
 }

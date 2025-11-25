@@ -16,67 +16,46 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
-import {
-  createVirtualProgram,
-  SourcesMap
-} from "powerlines/lib/typescript/program";
 import { Context } from "powerlines/types/context";
-import ts from "typescript";
+import { flattenDiagnosticMessageText } from "typescript";
 
 /**
  * Perform type checks on the provided sources using TypeScript's compiler API.
  *
  * @param context - The build context containing information about the current build.
- * @param sources - The source files to check.
  */
-export async function typeCheck(
-  context: Context,
-  sources?: SourcesMap
-): Promise<void> {
-  if (sources) {
-    await Promise.all(
-      sources
-        .entries()
-        .map(async ([path, content]) => context.fs.writeFile(path, content))
-    );
-  }
+export async function typeCheck(context: Context): Promise<void> {
+  const result = context.program.emitToMemory();
 
-  const program = await createVirtualProgram(
-    sources ? Array.from(sources.keys()) : [],
-    context,
-    {
-      noEmit: true,
-      lib: ["lib.esnext.d.ts"],
-      types: []
-    }
-  );
-
-  const emitResult = program.emit();
-
-  const allDiagnostics = ts
-    .getPreEmitDiagnostics(program)
-    .concat(emitResult.diagnostics);
-
-  allDiagnostics.forEach(diagnostic => {
-    if (diagnostic.file) {
-      const { line, character } = ts.getLineAndCharacterOfPosition(
-        diagnostic.file,
-        diagnostic.start!
-      );
-      const message = ts.flattenDiagnosticMessageText(
-        diagnostic.messageText,
-        "\n"
-      );
-      context.log(
-        LogLevelLabel.ERROR,
-        `${diagnostic.file.fileName}:${line + 1}:${character + 1} : ${message}`
+  const diagnosticMessages: string[] = [];
+  result.getDiagnostics().forEach(diagnostic => {
+    if (diagnostic.getSourceFile()?.getBaseName()) {
+      diagnosticMessages.push(
+        `${diagnostic.getSourceFile()?.getBaseName()} (${
+          (diagnostic.getLineNumber() ?? 0) + 1
+        }): ${flattenDiagnosticMessageText(
+          diagnostic.getMessageText().toString(),
+          "\n"
+        )}`
       );
     } else {
-      context.log(
-        LogLevelLabel.ERROR,
-        ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n")
+      diagnosticMessages.push(
+        flattenDiagnosticMessageText(
+          diagnostic.getMessageText().toString(),
+          "\n"
+        )
       );
     }
   });
+
+  const diagnosticMessage = diagnosticMessages.join("\n");
+  if (diagnosticMessage) {
+    throw new Error(
+      `TypeScript compilation failed: \n\n${
+        diagnosticMessage.length > 5000
+          ? `${diagnosticMessage.slice(0, 5000)}...`
+          : diagnosticMessage
+      }`
+    );
+  }
 }

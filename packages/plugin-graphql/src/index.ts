@@ -131,7 +131,7 @@ export const plugin = <
       } else {
         await Promise.all(
           result.map(async output =>
-            this.fs.writeFile(
+            this.fs.write(
               joinPaths(this.config.graphql.outputPath, output.filename),
               output.content
             )

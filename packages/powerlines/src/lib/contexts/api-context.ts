@@ -25,10 +25,17 @@ import {
   createDefaultEnvironment,
   createEnvironment
 } from "../../internal/helpers/environment";
-import { InitialUserConfig, LogFn, WorkspaceConfig } from "../../types/config";
+import {
+  InitialUserConfig,
+  InlineConfig,
+  LogFn,
+  UserConfig,
+  WorkspaceConfig
+} from "../../types/config";
 import {
   APIContext,
   EnvironmentContext,
+  InitContextOptions,
   PluginContext
 } from "../../types/context";
 import { Plugin } from "../../types/plugin";
@@ -161,6 +168,57 @@ export class PowerlinesAPIContext<
     return context;
   }
 
+  /**
+   * Update the context using a new user configuration options
+   *
+   * @param userConfig - The new user configuration options.
+   */
+  public override async withUserConfig(
+    userConfig: InitialUserConfig<TResolvedConfig["userConfig"]>,
+    options: InitContextOptions = {
+      isHighPriority: true
+    }
+  ) {
+    await super.withUserConfig(userConfig, options);
+
+    await Promise.all(
+      Object.keys(this.#environments).map(async name => {
+        await this.#environments[name]!.withUserConfig(
+          userConfig as UserConfig,
+          options
+        );
+      })
+    );
+  }
+
+  /**
+   * Update the context using a new inline configuration options
+   *
+   * @param inlineConfig - The new inline configuration options.
+   */
+  public override async withInlineConfig(
+    inlineConfig: TResolvedConfig["inlineConfig"],
+    options: InitContextOptions = {
+      isHighPriority: true
+    }
+  ) {
+    await super.withInlineConfig(inlineConfig, options);
+
+    await Promise.all(
+      Object.keys(this.#environments).map(async name => {
+        await this.#environments[name]!.withInlineConfig(
+          inlineConfig as InlineConfig,
+          options
+        );
+      })
+    );
+  }
+
+  /**
+   * Add a plugin to the API context and all environments
+   *
+   * @param plugin - The plugin to add.
+   */
   public async addPlugin(plugin: Plugin<PluginContext<TResolvedConfig>>) {
     this.plugins.push(plugin);
 
@@ -171,6 +229,12 @@ export class PowerlinesAPIContext<
     );
   }
 
+  /**
+   * Get an environment by name, or the default environment if no name is provided
+   *
+   * @param name - The name of the environment to retrieve.
+   * @returns The requested environment context.
+   */
   public async getEnvironment(name?: string) {
     let environment: EnvironmentContext<TResolvedConfig> | undefined;
     if (name) {

@@ -76,7 +76,7 @@ export const plugin = <
         if (isAsyncAPIDocument(this.config.asyncapi.schema)) {
           this.config.asyncapi.document = this.config.asyncapi.schema;
         } else if (existsSync(this.config.asyncapi.schema.toString())) {
-          const document = await this.fs.readFile(
+          const document = await this.fs.read(
             this.config.asyncapi.schema.toString()
           );
           if (!document) {

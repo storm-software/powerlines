@@ -254,7 +254,7 @@ export function extractRollupConfig(
         ? joinPaths(context.cachePath, "rollup")
         : false,
       output: {
-        dir: context.config.output.distPath
+        dir: context.config.output.buildPath
       },
       logLevel: context.config.logLevel
     },

@@ -25,8 +25,11 @@ import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join";
 import { defu } from "defu";
 import eslintBabelPlugin from "esbuild-plugin-babel";
-import { extractTsupConfig, resolveTsupEntry } from "powerlines/lib/build/tsup";
-import { Plugin } from "powerlines/types/plugin";
+import {
+  extractTsupConfig,
+  resolveTsupEntry
+} from "../../powerlines/src/lib/build/tsup";
+import { Plugin } from "../../powerlines/src/types/plugin";
 import { PluginPluginContext, PluginPluginOptions } from "./types/plugin";
 
 export * from "./types";
@@ -74,10 +77,9 @@ export const plugin = <
           this.tsconfig.tsconfigJson.compilerOptions!.jsx = "preserve";
         }
 
-        await this.fs.writeFile(
+        await this.fs.write(
           this.tsconfig.tsconfigFilePath,
-          StormJSON.stringify(this.tsconfig.tsconfigJson),
-          { mode: "fs" }
+          StormJSON.stringify(this.tsconfig.tsconfigJson)
         );
       }
     },

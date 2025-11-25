@@ -21,6 +21,7 @@ import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
 import { copyFiles } from "@stryke/fs/copy-file";
+import { createDirectory } from "@stryke/fs/helpers";
 import { install } from "@stryke/fs/install";
 import { listFiles } from "@stryke/fs/list-files";
 import { isPackageExists } from "@stryke/fs/package-fns";
@@ -239,11 +240,11 @@ export class PowerlinesAPI<
       context.persistedMeta = context.meta;
 
       if (!context.fs.existsSync(context.cachePath)) {
-        await context.fs.mkdir(context.cachePath, { mode: "fs" });
+        await createDirectory(context.cachePath);
       }
 
       if (!context.fs.existsSync(context.dataPath)) {
-        await context.fs.mkdir(context.dataPath, { mode: "fs" });
+        await createDirectory(context.dataPath);
       }
 
       await this.callPreHook(context, "prepare");
@@ -256,7 +257,7 @@ export class PowerlinesAPI<
         );
 
         if (context.fs.existsSync(context.dtsPath)) {
-          await context.fs.unlink(context.dtsPath);
+          await context.fs.remove(context.dtsPath);
         }
 
         context.log(
@@ -395,7 +396,7 @@ export class PowerlinesAPI<
           }
         }
 
-        await context.fs.writeFile(
+        await context.fs.write(
           context.dtsPath,
           `${
             directives
@@ -406,10 +407,7 @@ export class PowerlinesAPI<
           }${getFileHeader(context, { directive: null, prettierIgnore: false })}
 
 ${formatTypes(generatedTypes)}
-`,
-          {
-            mode: "fs"
-          }
+`
         );
       }
 
@@ -542,16 +540,16 @@ ${formatTypes(generatedTypes)}
         "Cleaning the project's dist and artifacts directories."
       );
 
-      await context.fs.rmdir(
+      await context.fs.remove(
         joinPaths(
           context.workspaceConfig.workspaceRoot,
-          context.config.output.distPath
+          context.config.output.buildPath
         )
       );
-      await context.fs.rmdir(
+      await context.fs.remove(
         joinPaths(
           context.workspaceConfig.workspaceRoot,
-          context.config.output.artifactsFolder
+          context.config.output.artifactsPath
         )
       );
 
@@ -614,9 +612,11 @@ ${formatTypes(generatedTypes)}
       await this.callPreHook(context, "build");
       await this.callNormalHook(context, "build");
 
-      if (context.config.output.distPath !== context.config.output.outputPath) {
+      if (
+        context.config.output.buildPath !== context.config.output.outputPath
+      ) {
         const sourcePath = appendPath(
-          context.config.output.distPath,
+          context.config.output.buildPath,
           context.workspaceConfig.workspaceRoot
         );
         const destinationPath = joinPaths(
@@ -631,7 +631,7 @@ ${formatTypes(generatedTypes)}
           context.log(
             LogLevelLabel.INFO,
             `Copying build output files from project's build directory (${
-              context.config.output.distPath
+              context.config.output.buildPath
             }) to the workspace's output directory (${context.config.output.outputPath}).`
           );
 

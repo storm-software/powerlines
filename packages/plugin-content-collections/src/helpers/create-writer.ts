@@ -71,7 +71,7 @@ export { ${configuration.collections
       await Promise.all(
         collections.map(async collection => {
           if (context.config.contentCollections.outputPath) {
-            return context.fs.writeFile(
+            return context.fs.write(
               joinPaths(
                 context.config.contentCollections.outputPath,
                 kebabCase(collection.name)

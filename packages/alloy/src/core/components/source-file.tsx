@@ -28,7 +28,7 @@ import {
 } from "@alloy-js/core";
 import { appendPath } from "@stryke/path/append";
 import defu from "defu";
-import { OutputModeType } from "powerlines/types/fs";
+import type { StoragePreset } from "powerlines/types/fs";
 import { ComponentProps } from "../../types/components";
 
 export type SourceFileProps = SourceFilePropsExternal &
@@ -38,7 +38,7 @@ export type SourceFileProps = SourceFilePropsExternal &
      *
      * @defaultValue false
      */
-    mode?: OutputModeType;
+    preset?: StoragePreset;
 
     /**
      * The metadata associated with the source file.
@@ -56,13 +56,13 @@ export type SourceFileProps = SourceFilePropsExternal &
  * @returns The rendered source file component.
  */
 export function SourceFile(props: SourceFileProps) {
-  const [{ children, meta, path, header, mode, filetype, reference }] =
+  const [{ children, meta, path, header, preset, filetype, reference }] =
     splitProps(props, [
       "children",
       "meta",
       "path",
       "header",
-      "mode",
+      "preset",
       "filetype",
       "reference"
     ]);
@@ -89,7 +89,7 @@ export function SourceFile(props: SourceFileProps) {
       sourceFile: context,
       printOptions,
       output: {
-        mode
+        preset
       }
     },
     meta ?? {}

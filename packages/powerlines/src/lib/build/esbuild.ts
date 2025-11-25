@@ -145,7 +145,7 @@ export function extractESBuildConfig(context: Context): BuildOptions {
   const inject =
     context.config.build.override.inject ?? context.config.build.inject;
   if (inject && Object.keys(inject).length > 0) {
-    context.fs.writeFileSync(
+    context.fs.writeSync(
       joinPaths(
         context.workspaceConfig.workspaceRoot,
         context.config.projectRoot,
@@ -259,7 +259,7 @@ export { ${key} };`;
       treeShaking:
         Boolean((context.config.build as TsupBuildConfig)?.treeshake) ||
         (context.config.build as ESBuildBuildConfig)?.treeShaking,
-      outdir: context.config.output.distPath,
+      outdir: context.config.output.buildPath,
       tsconfig: context.tsconfig.tsconfigFilePath,
       tsconfigRaw: context.tsconfig.tsconfigJson
     },

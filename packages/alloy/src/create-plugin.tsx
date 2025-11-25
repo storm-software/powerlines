@@ -168,7 +168,7 @@ async function writeTree<TContext extends PluginContext = PluginContext>(
             context.builtinsPath
           ),
           filetype: renderContext.meta.sourceFile.filetype,
-          mode: renderContext.meta.output?.mode,
+          preset: renderContext.meta.output?.mode,
           contents: await printTree(context, root, options)
         };
       } else if (
@@ -185,7 +185,7 @@ async function writeTree<TContext extends PluginContext = PluginContext>(
           typeDefinition: renderContext.meta.entry?.typeDefinition,
           path: renderContext.meta.sourceFile.path,
           filetype: renderContext.meta.sourceFile.filetype,
-          mode: renderContext.meta.output?.mode,
+          preset: renderContext.meta.output?.mode,
           contents: await printTree(context, root, options)
         };
       } else {
@@ -198,7 +198,7 @@ async function writeTree<TContext extends PluginContext = PluginContext>(
           kind: "file",
           path: renderContext.meta.sourceFile.path,
           filetype: renderContext.meta.sourceFile.filetype,
-          mode: renderContext.meta.output?.mode,
+          preset: renderContext.meta.output?.mode,
           contents: await printTree(context, root, options)
         };
       }
@@ -235,7 +235,7 @@ async function writeTree<TContext extends PluginContext = PluginContext>(
         kind: "file",
         path: renderContext.meta.copyFile.path,
         sourcePath: renderContext.meta.copyFile.sourcePath,
-        mode: renderContext.meta.output?.mode
+        preset: renderContext.meta.output?.preset
       });
     } else {
       await recurse(currentDirectory);
@@ -249,13 +249,9 @@ async function writeTree<TContext extends PluginContext = PluginContext>(
       if (sub.kind === "directory") {
         await writeOutput(context, sub);
       } else if (sub.kind === "builtin") {
-        await context.emitBuiltin(sub.contents, sub.id, sub.path, {
-          mode: sub.mode
-        });
+        await context.emitBuiltin(sub.contents, sub.id, sub.path);
       } else if (sub.kind === "entry") {
-        await context.emitEntry(sub.contents, sub.path, {
-          mode: sub.mode
-        });
+        await context.emitEntry(sub.contents, sub.path);
       } else if (sub.kind === "file") {
         if ("sourcePath" in sub && sub.sourcePath) {
           if (!context.fs.existsSync(sub.sourcePath)) {
@@ -264,20 +260,16 @@ async function writeTree<TContext extends PluginContext = PluginContext>(
             );
           }
 
-          const source = await context.fs.readFile(sub.sourcePath);
+          const source = await context.fs.read(sub.sourcePath);
           if (!isSetString(source)) {
             throw new Error(
               `Source file "${sub.sourcePath}" for copy operation is empty.`
             );
           }
 
-          await context.fs.writeFile(sub.path, source, {
-            mode: sub.mode
-          });
+          await context.fs.write(sub.path, source);
         } else if ("contents" in sub && isSetString(sub.contents)) {
-          await context.fs.writeFile(sub.path, sub.contents, {
-            mode: sub.mode
-          });
+          await context.fs.write(sub.path, sub.contents);
         } else {
           throw new Error(
             `Unexpected output extracted from the render tree: \n\n${JSON.stringify(sub, null, 2)}`

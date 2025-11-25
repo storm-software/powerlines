@@ -16,264 +16,48 @@
 
  ------------------------------------------------------------------- */
 
-/* eslint-disable ts/no-unsafe-call */
-
 import { correctPath } from "@stryke/path/correct-path";
 import { findFileDotExtensionSafe } from "@stryke/path/file-path-fns";
+import { isAbsolutePath } from "@stryke/path/is-type";
 import { slash } from "@stryke/path/slash";
-import { isFunction } from "@stryke/type-checks/is-function";
-import { isSetObject } from "@stryke/type-checks/is-set-object";
-import { isSetString } from "@stryke/type-checks/is-set-string";
-import { isUndefined } from "@stryke/type-checks/is-undefined";
-import fs, { PathOrFileDescriptor } from "node:fs";
-import {
-  NodeWriteFileOptions,
-  PowerlinesWriteFileOptions,
-  VirtualFileData,
-  VirtualFileSystemInterface,
-  WriteFileData,
-  WriteFileOptions
-} from "../../types/fs";
+import { isError } from "@stryke/type-checks/is-error";
+import { PathOrFileDescriptor } from "node:fs";
 
-export function isBufferEncoding(
-  options: WriteFileOptions
-): options is BufferEncoding | null {
-  return isSetString(options) || options === null;
+/**
+ * Checks if an error is a file system error.
+ *
+ * @param err - The error to check.
+ * @returns `true` if the error is a file system error, otherwise `false`.
+ */
+export function isFileError(err: any) {
+  return isError(err) && "code" in err && err.code;
 }
 
-export function isPowerlinesWriteFileOptions(
-  options: WriteFileOptions
-): options is PowerlinesWriteFileOptions {
+/**
+ * Ignores file not found errors.
+ *
+ * @param err - The error to check.
+ * @returns `null` if the error is a file not found error, otherwise returns the error.
+ */
+export function ignoreNotfound(err: any) {
   return (
-    !isBufferEncoding(options) &&
-    isSetObject(options) &&
-    "mode" in options &&
-    (options.mode === "fs" || options.mode === "virtual")
+    isFileError(err) &&
+    (err.code === "ENOENT" || err.code === "EISDIR" ? null : err)
   );
 }
 
-export function isNodeWriteFileOptions(
-  options: WriteFileOptions
-): options is NodeWriteFileOptions {
-  return (
-    !isUndefined(options) &&
-    isBufferEncoding(options) &&
-    !isPowerlinesWriteFileOptions(options)
-  );
-}
-
-export function isVirtualFileData(obj: WriteFileData): obj is VirtualFileData {
-  return !!(isSetObject(obj) && "code" in obj && obj.code);
+/**
+ * Ignores file exists errors.
+ *
+ * @param err - The error to check.
+ * @returns `null` if the error is a file exists error, otherwise returns the error.
+ */
+export function ignoreExists(err: any) {
+  return isFileError(err) && err.code === "EEXIST" ? null : err;
 }
 
 export function toFilePath(path: PathOrFileDescriptor): string {
   return correctPath(slash(path?.toString() || ".").replace(/^file:\/\//, ""));
-}
-
-export const FS_METHODS = [
-  "mkdir",
-  "mkdirSync",
-  "rmdir",
-  "rmdirSync",
-  "unlink",
-  "unlinkSync",
-  "existsSync",
-  "realpathSync",
-  "writeFileSync",
-  "readFileSync",
-  "readdirSync",
-  "createWriteStream",
-  "WriteStream",
-  "createReadStream",
-  "ReadStream"
-];
-
-export const FS_PROMISE_METHODS = [
-  "mkdir",
-  "rm",
-  "rmdir",
-  "unlink",
-  "writeFile",
-  "readFile",
-  "readdir",
-  "stat",
-  "lstat"
-];
-
-export function cloneFS(originalFS: typeof fs) {
-  const clonedFS: typeof fs = {
-    ...originalFS,
-    promises: {
-      ...(originalFS.promises ?? {})
-    }
-  };
-
-  for (const method of FS_METHODS) {
-    if ((originalFS as any)[method]) {
-      (clonedFS as any)[method] = (originalFS as any)[method];
-    }
-  }
-
-  originalFS.promises ??= {} as (typeof fs)["promises"];
-  for (const method of FS_PROMISE_METHODS) {
-    if ((originalFS.promises as any)[method]) {
-      clonedFS.promises ??= {} as (typeof fs)["promises"];
-      (clonedFS.promises as any)[method] = (originalFS.promises as any)[method];
-      (clonedFS as any)[method] = (originalFS.promises as any)[method];
-    }
-  }
-
-  for (const prop in clonedFS) {
-    if (isFunction((clonedFS as any)[prop])) {
-      (clonedFS as any)[prop] = (clonedFS as any)[prop].bind(originalFS);
-      if (isFunction((clonedFS.promises as any)[prop])) {
-        (clonedFS.promises as any)[prop] = (clonedFS.promises as any)[
-          prop
-        ].bind(originalFS);
-      }
-    }
-  }
-
-  for (const prop in clonedFS.promises) {
-    if (isFunction((clonedFS.promises as any)[prop])) {
-      (clonedFS.promises as any)[prop] = (clonedFS.promises as any)[prop].bind(
-        originalFS
-      );
-    }
-  }
-
-  return clonedFS;
-}
-
-/**
- * Patches the original file system module to use the virtual file system (VFS) methods.
- *
- * @param originalFS - The original file system module to patch.
- * @param vfs - The virtual file system interface to use for file operations.
- * @returns A function to restore the original file system methods.
- */
-export function patchFS(
-  originalFS: typeof fs,
-  vfs: VirtualFileSystemInterface
-): () => void {
-  const clonedFS = cloneFS(originalFS);
-
-  (originalFS as any).mkdirSync = (file: PathOrFileDescriptor, options?: any) =>
-    (vfs.mkdirSync as any)(toFilePath(file), options);
-  (originalFS as any).mkdir = (
-    file: PathOrFileDescriptor,
-    options?: any,
-    callback?: any
-  ) => (vfs.mkdir as any)(toFilePath(file), options, callback);
-  (originalFS.promises as any).mkdir = async (
-    file: PathOrFileDescriptor,
-    options?: any
-  ) => (vfs.mkdir as any)(toFilePath(file), options);
-
-  // originalFS.rmdirSync = vfs.rmdirSync.bind(vfs);
-  originalFS.unlinkSync = (file: PathOrFileDescriptor) =>
-    (vfs.unlinkSync as any)(toFilePath(file));
-  // originalFS.rmdir = vfs.rmdir.bind(vfs);
-  // originalFS.promises.rmdir = vfs.rmdir.bind(vfs);
-  // Wrap promise methods to accept PathLike and forward string to VFS implementation
-  originalFS.promises.rm = (async (file: PathOrFileDescriptor, options?: any) =>
-    vfs.rm(toFilePath(file), options)) as unknown as (
-    file: PathOrFileDescriptor,
-    options?: any
-  ) => Promise<void>;
-  originalFS.promises.unlink = (async (file: PathOrFileDescriptor) =>
-    vfs.unlink(toFilePath(file))) as unknown as (
-    file: PathOrFileDescriptor
-  ) => Promise<void>;
-
-  originalFS.existsSync = (file: PathOrFileDescriptor) =>
-    vfs.existsSync(toFilePath(file));
-  Object.defineProperty(originalFS, "realpathSync", {
-    value: (file: PathOrFileDescriptor, options?: fs.EncodingOption) =>
-      (vfs.realpathSync as any)(toFilePath(file), options)
-  });
-
-  originalFS.writeFileSync = (
-    file: PathOrFileDescriptor,
-    data: any,
-    options?: any
-  ) => (vfs.writeFileSync as any)(toFilePath(file), data, options);
-  originalFS.promises.writeFile = (async (
-    file: PathOrFileDescriptor,
-    data: any,
-    options?: any
-  ) =>
-    (vfs.writeFile as any)(
-      toFilePath(file as any),
-      data,
-      options
-    )) as unknown as typeof originalFS.promises.writeFile;
-  originalFS.readFileSync = (file: PathOrFileDescriptor, options?: any) =>
-    (vfs.readFileSync as any)(toFilePath(file), options);
-  originalFS.promises.readFile = ((file: PathOrFileDescriptor, options?: any) =>
-    (vfs.readFile as any)(
-      toFilePath(file),
-      options
-    )) as unknown as typeof originalFS.promises.readFile;
-
-  originalFS.readdirSync = (file: PathOrFileDescriptor, options?: any) =>
-    (vfs.readdirSync as any)(toFilePath(file), options);
-  originalFS.promises.readdir = (file: PathOrFileDescriptor, options?: any) =>
-    (vfs.readdir as any)(toFilePath(file), options);
-
-  Object.defineProperty(originalFS, "statSync", {
-    value: (file: PathOrFileDescriptor, options?: any) =>
-      (vfs.statSync as any)(toFilePath(file), options)
-  });
-  (originalFS as any).stat = (file: PathOrFileDescriptor, options?: any) =>
-    (vfs.statSync as any)(toFilePath(file), options);
-  originalFS.promises.stat = (file: PathOrFileDescriptor, options?: any) =>
-    (vfs.stat as any)(toFilePath(file), options);
-
-  Object.defineProperty(originalFS, "lstatSync", {
-    value: (file: PathOrFileDescriptor, options?: any) =>
-      (vfs.lstatSync as any)(toFilePath(file), options)
-  });
-  (originalFS as any).lstat = (file: PathOrFileDescriptor, options?: any) =>
-    (vfs.lstatSync as any)(toFilePath(file), options);
-  originalFS.promises.lstat = (file: PathOrFileDescriptor, options?: any) =>
-    (vfs.lstat as any)(toFilePath(file), options);
-
-  return () => {
-    originalFS.mkdirSync = clonedFS.mkdirSync;
-    originalFS.mkdir = clonedFS.mkdir;
-    originalFS.promises.mkdir = clonedFS.promises.mkdir;
-
-    // originalFS.rmdirSync = clonedFS.rmdirSync;
-    originalFS.unlinkSync = clonedFS.unlinkSync;
-    // originalFS.rmdir = clonedFS.rmdir;
-    // originalFS.promises.rmdir = clonedFS.promises.rmdir;
-    originalFS.promises.rm = clonedFS.promises.rm;
-    originalFS.promises.unlink = clonedFS.promises.unlink;
-
-    originalFS.existsSync = clonedFS.existsSync;
-    originalFS.realpathSync = clonedFS.realpathSync;
-
-    originalFS.writeFileSync = clonedFS.writeFileSync;
-    originalFS.promises.writeFile = clonedFS.promises.writeFile;
-    originalFS.readFileSync = clonedFS.readFileSync;
-    originalFS.promises.readFile = clonedFS.promises.readFile;
-
-    originalFS.readdirSync = clonedFS.readdirSync;
-    originalFS.promises.readdir = clonedFS.promises.readdir;
-
-    Object.defineProperty(originalFS, "statSync", {
-      value: clonedFS.statSync
-    });
-    (originalFS as any).stat = clonedFS.stat;
-    originalFS.promises.stat = clonedFS.promises.stat;
-
-    Object.defineProperty(originalFS, "lstatSync", {
-      value: clonedFS.lstatSync
-    });
-    (originalFS as any).lstat = clonedFS.lstat;
-    originalFS.promises.lstat = clonedFS.promises.lstat;
-  };
 }
 
 /**
@@ -314,10 +98,58 @@ export function normalizePath(
   builtinsPath: string,
   prefix = "powerlines"
 ): string {
-  return isValidId(toFilePath(path), prefix)
-    ? normalizeId(toFilePath(path), prefix).replace(
-        new RegExp(`^${prefix.replace(/:$/, "")}:`),
-        builtinsPath
-      )
-    : toFilePath(path);
+  return isAbsolutePath(path)
+    ? path
+    : isValidId(toFilePath(path), prefix)
+      ? normalizeId(toFilePath(path), prefix).replace(
+          new RegExp(`^${prefix.replace(/:$/, "")}:`),
+          builtinsPath
+        )
+      : toFilePath(path);
+}
+
+/**
+ * Normalizes a storage key by replacing all path separators with the specified separator.
+ *
+ * @param key - The storage key to normalize.
+ * @param sep - The separator to use for normalization. Default is ":".
+ * @returns The normalized storage key.
+ */
+export function normalizeKey(
+  key: string | undefined,
+  sep: ":" | "/" = ":"
+): string {
+  if (!key) {
+    return "";
+  }
+  return key.replace(/[:/\\]/g, sep).replace(/^[:/\\]|[:/\\]$/g, "");
+}
+
+/**
+ * Normalizes the base key for storage operations.
+ *
+ * @param base - The base key to normalize.
+ * @returns The normalized base key with a trailing colon if not empty.
+ */
+export function normalizeBaseKey(base?: string) {
+  base = normalizeKey(base);
+  return base ? `${base}:` : "";
+}
+
+/**
+ * Filters a storage key based on the specified base path.
+ *
+ * @param key - The storage key to filter.
+ * @param base - The base path to filter by.
+ * @returns `true` if the key matches the base path criteria, otherwise `false`.
+ */
+export function filterKeyByBase(
+  key: string,
+  base: string | undefined
+): boolean {
+  if (base) {
+    return key.startsWith(base) && key[key.length - 1] !== "$";
+  }
+
+  return key[key.length - 1] !== "$";
 }

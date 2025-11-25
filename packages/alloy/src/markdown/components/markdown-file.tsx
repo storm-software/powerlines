@@ -32,12 +32,15 @@ export type MarkdownFileProps = Omit<SourceFileProps, "filetype"> &
  * @returns The rendered source file component.
  */
 export function MarkdownFile(props: MarkdownFileProps) {
-  const [{ children, mode }, rest] = splitProps(props, ["children", "mode"]);
+  const [{ children, preset }, rest] = splitProps(props, [
+    "children",
+    "preset"
+  ]);
 
   const nodeContext = getContext()!;
   nodeContext.meta ??= {};
   nodeContext.meta.output = {
-    mode
+    preset
   };
 
   return (

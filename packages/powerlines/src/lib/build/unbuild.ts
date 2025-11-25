@@ -219,7 +219,7 @@ export function extractUnbuildConfig(
         : context.workspaceConfig.organization,
       sourceRoot: context.config.sourceRoot,
       projectRoot: context.config.projectRoot,
-      outputPath: context.config.output.distPath || "dist",
+      outputPath: context.config.output.buildPath || "dist",
       platform: context.config.build.platform,
       external: context.builtins.reduce((ret, id) => {
         if (!ret.includes(id)) {

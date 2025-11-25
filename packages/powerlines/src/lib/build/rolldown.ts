@@ -227,7 +227,7 @@ export function extractRolldownConfig(
         ? joinPaths(context.cachePath, "rolldown")
         : false,
       output: {
-        dir: context.config.output.distPath
+        dir: context.config.output.buildPath
       },
       logLevel: context.config.logLevel,
       onLog: context.log

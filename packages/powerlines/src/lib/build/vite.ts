@@ -87,7 +87,7 @@ export function extractViteConfig(context: Context): ViteResolvedBuildConfig {
         context.config.mode === "development" ? "development" : "production",
       cacheDir: joinPaths(context.cachePath, "vite"),
       build: {
-        outDir: context.config.output.distPath,
+        outDir: context.config.output.buildPath,
         tsconfig: context.tsconfig.tsconfigFilePath,
         tsconfigRaw: context.tsconfig.tsconfigJson
       },

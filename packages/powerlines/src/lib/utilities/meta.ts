@@ -138,11 +138,5 @@ export async function writeMetaFile(context: Context): Promise<void> {
     `Writing runtime metadata to ${metaFilePath}`
   );
 
-  await context.fs.writeFile(
-    metaFilePath,
-    JSON.stringify(context.meta, null, 2),
-    {
-      mode: "fs"
-    }
-  );
+  await context.fs.write(metaFilePath, JSON.stringify(context.meta, null, 2));
 }

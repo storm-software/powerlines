@@ -40,7 +40,6 @@ export type CreateResolverOptions = Omit<
  */
 function resolveOptions(options: CreateResolverOptions): JitiOptions {
   return defu(options, {
-    debug: options.logLevel === "trace",
     interopDefault: true,
     fsCache:
       options.mode !== "development"

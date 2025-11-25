@@ -19,7 +19,7 @@
 import type { Context } from "@alloy-js/core";
 import type { Children } from "@alloy-js/core/jsx-runtime";
 import type { SourceFileContext } from "@alloy-js/typescript";
-import type { OutputModeType } from "powerlines/types/fs";
+import { StoragePreset } from "powerlines/types/fs";
 import { ResolvedEntryTypeDefinition } from "powerlines/types/resolved";
 
 export interface CopyOutputFile {
@@ -33,7 +33,7 @@ export interface CopyOutputFile {
    * @remarks
    * If not specified, the output mode will be determined by the provided \`output.mode\` value.
    */
-  mode?: OutputModeType;
+  preset?: StoragePreset;
 }
 
 export interface WriteOutputFile {
@@ -48,7 +48,7 @@ export interface WriteOutputFile {
    * @remarks
    * If not specified, the output mode will be determined by the provided \`output.mode\` value.
    */
-  mode?: OutputModeType;
+  preset?: StoragePreset;
 }
 
 export type OutputFile =
@@ -75,7 +75,7 @@ export interface RenderBuiltinContext {
 }
 
 export interface RenderOutputContext {
-  mode?: OutputModeType;
+  mode?: StoragePreset;
 }
 
 export interface CopyFileOutputContext {

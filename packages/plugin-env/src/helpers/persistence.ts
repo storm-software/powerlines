@@ -27,12 +27,15 @@ import {
   resolveClassType
 } from "@powerlines/deepkit/vendor/type";
 import * as capnp from "@stryke/capnp";
-import { readFileBuffer } from "@stryke/fs/buffer";
+import {
+  readFileBuffer,
+  writeFileBuffer,
+  writeFileBufferSync
+} from "@stryke/fs/buffer";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { joinPaths } from "@stryke/path/join-paths";
 import { isEmptyObject } from "@stryke/type-checks/is-empty-object";
 import type { TypeDefinition } from "@stryke/types/configuration";
-import { Buffer } from "node:buffer";
 import { existsSync } from "node:fs";
 import { Context, UnresolvedContext } from "powerlines/types/context";
 import {
@@ -166,13 +169,9 @@ export async function writeEnvTypeReflection(
 
   convertToCapnp(serialized, root._initTypes(serialized.length));
 
-  await context.fs.writeFile(
+  await writeFileBuffer(
     getEnvTypeReflectionsPath(context, name),
-    Buffer.from(message.toArrayBuffer()),
-    {
-      encoding: "binary",
-      mode: "fs"
-    }
+    message.toArrayBuffer()
   );
 }
 
@@ -319,13 +318,9 @@ export async function writeEnvReflection(
 
   convertToCapnp(serialized, root._initTypes(serialized.length));
 
-  await context.fs.writeFile(
+  await writeFileBuffer(
     getEnvReflectionsPath(context, name),
-    Buffer.from(message.toArrayBuffer()),
-    {
-      encoding: "binary",
-      mode: "fs"
-    }
+    message.toArrayBuffer()
   );
 }
 
@@ -348,12 +343,8 @@ export function writeEnvReflectionSync(
 
   convertToCapnp(serialized, root._initTypes(serialized.length));
 
-  context.fs.writeFileSync(
+  writeFileBufferSync(
     getEnvReflectionsPath(context, name),
-    Buffer.from(message.toArrayBuffer()),
-    {
-      encoding: "binary",
-      mode: "fs"
-    }
+    message.toArrayBuffer()
   );
 }

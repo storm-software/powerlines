@@ -24,12 +24,16 @@ const config = defineTsupConfig([
     entry: ["src/*.ts", "src/types/*.ts"],
     outDir: "dist",
     clean: false,
+    sourcemap: true,
     skipNodeModulesBundle: true
+    // noExternal: ["ts-morph"]
   },
   {
     name: "core-lib",
     entry: [
       "src/lib/*.ts",
+      "src/lib/fs/*.ts",
+      "src/lib/fs/storage/*.ts",
       "src/lib/contexts/*.ts",
       "src/lib/build/*.ts",
       "src/lib/typescript/*.ts",

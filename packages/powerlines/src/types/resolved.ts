@@ -55,9 +55,9 @@ export type BabelResolvedConfig = Omit<BabelUserConfig, "plugins" | "presets"> &
 
 export type EnvironmentResolvedConfig = Omit<
   EnvironmentConfig,
-  "consumer" | "mode" | "ssr" | "preview"
+  "consumer" | "ssr" | "preview"
 > &
-  Required<Pick<EnvironmentConfig, "consumer" | "mode" | "ssr">> & {
+  Required<Pick<EnvironmentConfig, "consumer" | "ssr">> & {
     /**
      * The name of the environment
      */
@@ -72,10 +72,11 @@ export type EnvironmentResolvedConfig = Omit<
 export type ResolvedAssetGlob = AssetGlob & Required<Pick<AssetGlob, "input">>;
 
 export type OutputResolvedConfig = Required<
-  Omit<OutputConfig, "assets"> & {
+  Omit<OutputConfig, "assets" | "storage"> & {
     assets: ResolvedAssetGlob[];
   }
->;
+> &
+  Pick<OutputConfig, "storage">;
 
 /**
  * The resolved options for the Powerlines project configuration.

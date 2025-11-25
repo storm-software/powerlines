@@ -120,7 +120,7 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
       name: context.config.name,
       assets: context.config.output.assets as (string | AssetGlob)[],
       resolveExtensions: context.config.build.extensions,
-      outputPath: context.config.output.distPath,
+      outputPath: context.config.output.buildPath,
       projectRoot: context.config.projectRoot,
       tsconfig: context.tsconfig.tsconfigFilePath,
       tsconfigRaw: context.tsconfig.tsconfigJson,

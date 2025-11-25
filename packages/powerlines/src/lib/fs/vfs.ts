@@ -18,7 +18,6 @@
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import * as capnp from "@stryke/capnp";
-import { bufferToString } from "@stryke/convert/buffer-to-string";
 import { toArray } from "@stryke/convert/to-array";
 import {
   readFileBuffer,
@@ -31,48 +30,49 @@ import {
   resolve,
   resolveSync
 } from "@stryke/fs/resolve";
-import { omit } from "@stryke/helpers/omit";
 import { appendPath } from "@stryke/path/append";
 import { toAbsolutePath } from "@stryke/path/correct-path";
-import { findFilePath } from "@stryke/path/file-path-fns";
+import {
+  findFileName,
+  findFilePath,
+  hasFileExtension
+} from "@stryke/path/file-path-fns";
+import { isParentPath } from "@stryke/path/is-parent-path";
 import { isAbsolutePath } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join-paths";
+import { replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
-import { isBuffer } from "@stryke/type-checks/is-buffer";
-import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
-import { isSetString } from "@stryke/type-checks/is-set-string";
-import defu from "defu";
 import { create, FlatCache } from "flat-cache";
-import { Blob, Buffer } from "node:buffer";
-import fs, { ObjectEncodingOptions, Stats, StatSyncOptions } from "node:fs";
+import { Blob } from "node:buffer";
 import { format, resolveConfig } from "prettier";
-import { IFS } from "unionfs";
 import { FileSystem } from "../../../schemas/fs";
 import { LogFn } from "../../types/config";
 import { Context } from "../../types/context";
 import {
-  __VFS_PATCH__,
-  __VFS_REVERT__,
-  MakeDirectoryOptions,
-  ResolveFSOptions,
   ResolveOptions,
-  VirtualFileData,
+  StorageAdapter,
+  StoragePort,
+  StoragePreset,
   VirtualFileMetadata,
   VirtualFileSystemInterface,
-  WriteFileData,
-  WriteFileOptions
+  WriteOptions
 } from "../../types/fs";
 import { extendLog } from "../logger";
 import {
-  isPowerlinesWriteFileOptions,
-  isVirtualFileData,
+  filterKeyByBase,
   normalizeId,
-  normalizePath,
-  patchFS,
-  toFilePath
+  normalizeKey,
+  normalizePath
 } from "./helpers";
-import { UnifiedFS } from "./unified-fs";
+import { FileSystemStorageAdapter } from "./storage/file-system";
+import { VirtualStorageAdapter } from "./storage/virtual";
+
+interface StorageAdapterState {
+  adapter: StorageAdapter;
+  relativeKey: string;
+  base: string;
+}
 
 /**
  * Represents a virtual file system (VFS) that stores files and their associated metadata in virtual memory.
@@ -97,32 +97,22 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   #paths: Record<string, string>;
 
   /**
-   * A cache for module resolution results.
-   */
-  #resolverCache!: FlatCache;
-
-  /**
    * The unified volume that combines the virtual file system with the real file system.
    *
    * @remarks
    * This volume allows for seamless access to both virtual and real files.
    */
-  #unifiedFS: UnifiedFS;
+  #storage: StoragePort = { "": new FileSystemStorageAdapter() };
 
   /**
-   * Indicator specifying if the file system module is patched
+   * A cache for module resolution results.
    */
-  #isPatched = false;
+  #resolverCache!: FlatCache;
 
   /**
    * Indicator specifying if the virtual file system (VFS) is disposed
    */
   #isDisposed = false;
-
-  /**
-   * Function to revert require patch
-   */
-  #revert: (() => void) | undefined;
 
   /**
    * The context of the virtual file system.
@@ -133,20 +123,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * The file system's logging function.
    */
   #log: LogFn;
-
-  /**
-   * Checks if a path exists in the virtual file system (VFS).
-   *
-   * @param path - The path to check.
-   * @returns `true` if the path exists, otherwise `false`.
-   */
-  #existsSync(path: string): boolean {
-    return (
-      this.#unifiedFS.virtual.existsSync(this.#normalizePath(path)) ||
-      this.#unifiedFS.physical.existsSync(this.#normalizePath(path)) ||
-      this.#unifiedFS.resolveFS(path).existsSync(this.#normalizePath(path))
-    );
-  }
 
   /**
    * Normalizes a given module id by resolving it against the built-ins path.
@@ -192,6 +168,57 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   }
 
   /**
+   * Gets the storage adapter and relative key for a given key.
+   *
+   * @param key - The key to get the storage adapter for.
+   * @returns The storage adapter and relative key for the given key.
+   */
+  #getStorage(key: string): StorageAdapterState {
+    const path = this.resolveSync(this.#normalizePath(key)) || key;
+    for (const base of Object.keys(this.#storage)
+      .filter(Boolean)
+      .sort()
+      .reverse()) {
+      if (isParentPath(path, base)) {
+        return {
+          base,
+          relativeKey: replacePath(path, base),
+          adapter: this.#storage[base]!
+        };
+      }
+    }
+
+    return {
+      base: "",
+      relativeKey: path,
+      adapter: this.#storage[""]!
+    };
+  }
+
+  /**
+   * Gets all storage adapters that match a given base key.
+   *
+   * @param base - The base key to match storage adapters against.
+   * @param includeParent - Whether to include parent storage adapters.
+   * @returns An array of storage adapters that match the given base key.
+   */
+  #getStorages(base = "", includeParent = false) {
+    return Object.keys(this.#storage)
+      .sort()
+      .reverse()
+      .filter(
+        key =>
+          isParentPath(key, base) || (includeParent && isParentPath(base, key))
+      )
+      .map(key => ({
+        relativeBase:
+          base.length > key.length ? base.slice(key.length) : undefined,
+        base: key,
+        adapter: this.#storage[key]!
+      }));
+  }
+
+  /**
    * Creates a virtual file system (VFS) that is backed up to a Cap'n Proto message buffer.
    *
    * @param context - The context of the virtual file system, typically containing options and logging functions.
@@ -207,8 +234,17 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
 
       const message = new capnp.Message(buffer, false);
+      const fs = message.getRoot(FileSystem);
 
-      return new VirtualFileSystem(context, message.getRoot(FileSystem));
+      const result = new VirtualFileSystem(context, fs);
+
+      if (fs._hasStorage() && fs.storage.length > 0) {
+        await Promise.all(
+          fs.storage.values().map(async file => {
+            await result.write(file.path, file.code);
+          })
+        );
+      }
     }
 
     const message = new capnp.Message();
@@ -230,8 +266,15 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       const buffer = readFileBufferSync(joinPaths(context.dataPath, "fs.bin"));
 
       const message = new capnp.Message(buffer, false);
+      const fs = message.getRoot(FileSystem);
 
-      return new VirtualFileSystem(context, message.getRoot(FileSystem));
+      const result = new VirtualFileSystem(context, fs);
+
+      if (fs._hasStorage() && fs.storage.length > 0) {
+        fs.storage.values().map(file => {
+          result.writeSync(file.path, file.code);
+        });
+      }
     }
 
     const message = new capnp.Message();
@@ -272,6 +315,9 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     });
   }
 
+  /**
+   * Gets the resolver cache.
+   */
   protected get resolverCache(): FlatCache {
     if (!this.#resolverCache) {
       this.#resolverCache = create({
@@ -294,7 +340,29 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    */
   private constructor(context: Context, fs: FileSystem) {
     this.#context = context;
-    this.#unifiedFS = UnifiedFS.create(context, fs);
+
+    if (isSetObject(this.#context.config.output.storage)) {
+      this.#storage = {
+        ...this.#storage,
+        ...this.#context.config.output.storage
+      };
+    }
+
+    this.#storage.virtual ??= new VirtualStorageAdapter({
+      base: "/_virtual"
+    });
+
+    if (this.#context.config.output.storage !== StoragePreset.FS) {
+      this.#storage[this.#context.artifactsPath] ??= new VirtualStorageAdapter({
+        base: this.#context.artifactsPath
+      });
+      this.#storage[this.#context.builtinsPath] ??= new VirtualStorageAdapter({
+        base: this.#context.builtinsPath
+      });
+      this.#storage[this.#context.entryPath] ??= new VirtualStorageAdapter({
+        base: this.#context.entryPath
+      });
+    }
 
     this.#metadata = {} as Record<string, VirtualFileMetadata>;
     if (fs._hasMetadata()) {
@@ -303,7 +371,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           ret[metadata.id] = {
             id: metadata.id,
             type: metadata.type,
-            mode: metadata.mode,
             timestamp: metadata.timestamp || Date.now(),
             properties: metadata._hasProperties()
               ? metadata.properties.values().reduce(
@@ -347,293 +414,156 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   }
 
   /**
-   * Check if a path or id corresponds to a virtual file **(does not actually exists on disk)**.
+   * Asynchronously checks if a file exists in the virtual file system (VFS).
    *
-   * @param pathOrId - The path or id to check.
-   * @returns Whether the path or id corresponds to a virtual file **(does not actually exists on disk)**.
+   * @param path - The path to the file.
+   * @returns A promise that resolves to `true` if the file exists, otherwise `false`.
    */
-  public isVirtual(
-    pathOrId: string,
-    importer?: string,
-    options: ResolveOptions = {}
-  ): boolean {
-    if (!pathOrId) {
-      return false;
-    }
+  public async exists(path: string): Promise<boolean> {
+    const { relativeKey, adapter } = this.#getStorage(path);
 
-    const resolvedPath = this.resolveSync(pathOrId, importer, options);
-    if (!resolvedPath) {
-      return false;
-    }
-
-    return this.metadata[resolvedPath]?.mode === "virtual";
+    return adapter.exists(relativeKey);
   }
 
   /**
-   * Check if a path or id corresponds to a file written to the file system **(actually exists on disk)**.
+   * Synchronously checks if a file exists in the virtual file system (VFS).
    *
-   * @param pathOrId - The path or id to check.
-   * @returns Whether the path or id corresponds to a file written to the file system **(actually exists on disk)**.
+   * @param path - The path to the file.
+   * @returns `true` if the file exists, otherwise `false`.
    */
-  public isPhysical(
-    pathOrId: string,
-    importer?: string,
-    options: ResolveOptions = {}
-  ): boolean {
-    if (!pathOrId) {
+  public existsSync(path: string): boolean {
+    const { relativeKey, adapter } = this.#getStorage(path);
+
+    return adapter.existsSync(relativeKey);
+  }
+
+  /**
+   * Checks if a file is virtual in the virtual file system (VFS).
+   *
+   * @param path - The path to the file.
+   * @returns `true` if the file is virtual, otherwise `false`.
+   */
+  public isVirtual(path: string): boolean {
+    const resolved = this.resolveSync(path);
+    if (!resolved) {
       return false;
     }
 
-    const resolvedPath = this.resolveSync(pathOrId, importer, options);
-    if (!resolvedPath) {
-      return false;
-    }
-
-    return this.metadata[resolvedPath]?.mode === "fs";
+    return this.#getStorage(resolved)?.adapter?.name === "virtual";
   }
 
   /**
    * Lists files in a given path.
    *
    * @param path - The path to list files from.
-   * @param options - Options for listing files, such as encoding and recursion.
    * @returns An array of file names in the specified path.
    */
-  public readdirSync(
-    path: fs.PathLike,
-    options:
-      | {
-          encoding: BufferEncoding | null;
-          withFileTypes?: false | undefined;
-          recursive?: boolean | undefined;
+  public listSync(path?: string): string[] {
+    let maskedMounts: string[] = [];
+    const allKeys: string[] = [];
+
+    for (const storage of this.#getStorages(path, true)) {
+      for (const key of storage.adapter.listSync(storage.relativeBase)) {
+        if (
+          !maskedMounts.some(p =>
+            `${storage.base}${normalizeKey(key)}`.startsWith(p)
+          )
+        ) {
+          allKeys.push(`${storage.base}${normalizeKey(key)}`);
         }
-      | BufferEncoding = "utf8"
-  ): string[] {
-    return this.#unifiedFS
-      .resolveFS(path)
-      .readdirSync(toFilePath(path), options);
-  }
-
-  /**
-   * Removes a file in the virtual file system (VFS).
-   *
-   * @param path - The path to create the directory at.
-   */
-  public unlinkSync(path: string, options?: ResolveFSOptions) {
-    if (!this.isFile(this.#normalizePath(path))) {
-      return;
-    }
-
-    this.#log(
-      LogLevelLabel.TRACE,
-      `Synchronously removing file: ${this.#normalizePath(path)}`
-    );
-
-    this.#unifiedFS
-      .resolveFS(path, options)
-      .unlinkSync(this.#normalizePath(path));
-    if (
-      this.#ids[this.#normalizePath(path)] &&
-      this.#metadata[this.#ids[this.#normalizePath(path)]!]
-    ) {
-      delete this.#metadata[this.#ids[this.#normalizePath(path)]!];
-      delete this.#ids[this.#normalizePath(path)];
-      delete this.#paths[this.#normalizeId(path)];
-
-      this.#resolverCache.delete(this.#normalizePath(path));
-    }
-  }
-
-  /**
-   * Removes a file in the virtual file system (VFS).
-   *
-   * @param path - The path to create the directory at.
-   */
-  public async unlink(path: string, options?: ResolveFSOptions): Promise<void> {
-    if (!this.isFile(this.#normalizePath(path))) {
-      return;
-    }
-
-    this.#log(
-      LogLevelLabel.TRACE,
-      `Removing file: ${this.#normalizePath(path)}`
-    );
-    if (isFunction(this.#unifiedFS.resolveFS(path, options).promises.unlink)) {
-      await this.#unifiedFS
-        .resolveFS(path, options)
-        .promises.unlink(this.#normalizePath(path));
-      if (
-        this.#ids[this.#normalizePath(path)] &&
-        this.#metadata[this.#ids[this.#normalizePath(path)]!]
-      ) {
-        delete this.#metadata[this.#ids[this.#normalizePath(path)]!];
       }
-    } else {
-      this.unlinkSync(this.#normalizePath(path), options);
+
+      // When /mnt/foo is processed, any key in /mnt with /mnt/foo prefix should be masked
+      // Using filter to improve performance. /mnt mask already covers /mnt/foo
+      maskedMounts = [
+        storage.base,
+        ...maskedMounts.filter(p => !p.startsWith(storage.base))
+      ];
     }
+
+    return allKeys.filter(key => filterKeyByBase(key, path));
   }
 
   /**
-   * Removes a directory in the virtual file system (VFS).
+   * Lists files in a given path.
    *
-   * @param path - The path to create the directory at.
-   * @param options - Options for creating the directory.
+   * @param path - The path to list files from.
+   * @returns An array of file names in the specified path.
    */
-  public rmdirSync(
-    path: string,
-    options: fs.RmDirOptions & ResolveFSOptions = {}
-  ) {
-    if (!this.isDirectory(this.#normalizePath(path))) {
-      return;
+  public async list(path?: string): Promise<string[]> {
+    let maskedMounts: string[] = [];
+    const allKeys: string[] = [];
+
+    for (const storage of this.#getStorages(path, true)) {
+      for (const key of await storage.adapter.list(storage.relativeBase)) {
+        if (
+          !maskedMounts.some(p =>
+            `${storage.base}${normalizeKey(key)}`.startsWith(p)
+          )
+        ) {
+          allKeys.push(`${storage.base}${normalizeKey(key)}`);
+        }
+      }
+
+      // When /mnt/foo is processed, any key in /mnt with /mnt/foo prefix should be masked
+      // Using filter to improve performance. /mnt mask already covers /mnt/foo
+      maskedMounts = [
+        storage.base,
+        ...maskedMounts.filter(p => !p.startsWith(storage.base))
+      ];
     }
 
-    this.#log(
-      LogLevelLabel.TRACE,
-      `Synchronously removing directory: ${this.#normalizePath(path)}`
-    );
-
-    this.#unifiedFS.resolveFS(path, options).rmdirSync(
-      this.#normalizePath(path),
-      defu(options, {
-        recursive: true
-      })
-    );
+    return allKeys.filter(key => filterKeyByBase(key, path));
   }
 
   /**
-   * Removes a directory in the virtual file system (VFS).
+   * Removes a file in the virtual file system (VFS).
    *
    * @param path - The path to create the directory at.
-   * @param options - Options for creating the directory.
-   * @returns A promise that resolves to the path of the created directory, or undefined if the directory could not be created.
    */
-  public async rmdir(
-    path: string,
-    options: fs.RmDirOptions & ResolveFSOptions = {}
-  ): Promise<void> {
-    if (!this.isDirectory(this.#normalizePath(path))) {
-      return;
+  public async remove(path: string): Promise<void> {
+    const normalizedPath = this.#normalizePath(path);
+    this.#log(LogLevelLabel.TRACE, `Removing file: ${normalizedPath}`);
+
+    const { relativeKey, adapter } = this.#getStorage(normalizedPath);
+
+    if (hasFileExtension(normalizedPath)) {
+      await adapter.remove(relativeKey);
+    } else {
+      await adapter.clear(relativeKey);
     }
 
-    this.#log(
-      LogLevelLabel.TRACE,
-      `Removing directory: ${this.#normalizePath(path)}`
-    );
-
-    if (isFunction(this.#unifiedFS.resolveFS(path, options).promises.rm)) {
-      await this.#unifiedFS.resolveFS(path, options).promises.rm(
-        this.#normalizePath(path),
-        defu(options, {
-          force: true,
-          recursive: true
-        })
-      );
-    } else {
-      this.rmdirSync(
-        this.#normalizePath(path),
-        defu(options ?? {}, {
-          force: true,
-          recursive: true
-        })
-      );
+    const id = this.#ids[normalizedPath];
+    if (id && this.#metadata[id]) {
+      delete this.#metadata[id];
+      delete this.#ids[normalizedPath];
+      delete this.#paths[id];
     }
   }
 
   /**
    * Removes a file in the virtual file system (VFS).
    *
-   * @param path - The path to the file to remove.
-   * @param options - Options for removing the file.
-   * @returns A promise that resolves when the file is removed.
-   */
-  public async rm(
-    path: string,
-    options: fs.RmOptions & ResolveFSOptions = {}
-  ): Promise<void> {
-    this.#log(LogLevelLabel.TRACE, `Removing: ${this.#normalizePath(path)}`);
-
-    if (this.isDirectory(this.#normalizePath(path))) {
-      return this.rmdir(this.#normalizePath(path), options);
-    }
-
-    return this.unlink(this.#normalizePath(path), options);
-  }
-
-  /**
-   * Synchronously removes a file or directory in the virtual file system (VFS).
-   *
-   * @param path - The path to the file or directory to remove.
-   * @param options - Options for removing the file or directory.
-   */
-  public rmSync(path: string, options: fs.RmOptions & ResolveFSOptions = {}) {
-    this.#log(LogLevelLabel.TRACE, `Removing: ${this.#normalizePath(path)}`);
-
-    if (this.isDirectory(this.#normalizePath(path))) {
-      return this.rmdirSync(this.#normalizePath(path), options);
-    }
-
-    return this.unlinkSync(this.#normalizePath(path), options);
-  }
-
-  /**
-   * Creates a directory in the virtual file system (VFS).
-   *
    * @param path - The path to create the directory at.
-   * @param options - Options for creating the directory.
-   * @returns A promise that resolves to the path of the created directory, or undefined if the directory could not be created.
    */
-  public mkdirSync(
-    path: string,
-    options: MakeDirectoryOptions = {}
-  ): string | undefined {
-    return this.#unifiedFS
-      .resolveFS(this.#normalizePath(path), options)
-      .mkdirSync(
-        this.#normalizePath(path),
-        defu(omit(options, ["mode"]), {
-          recursive: true
-        })
-      );
-  }
+  public removeSync(path: string) {
+    const normalizedPath = this.#normalizePath(path);
+    this.#log(LogLevelLabel.TRACE, `Removing file: ${normalizedPath}`);
 
-  /**
-   * Creates a directory in the virtual file system (VFS).
-   *
-   * @param path - The path to create the directory at.
-   * @param options - Options for creating the directory.
-   * @returns A promise that resolves to the path of the created directory, or undefined if the directory could not be created.
-   */
-  public async mkdir(
-    path: string,
-    options: MakeDirectoryOptions = {}
-  ): Promise<string | undefined> {
-    let result: string | undefined;
-    if (
-      isFunction(
-        this.#unifiedFS.resolveFS(this.#normalizePath(path), options).promises
-          .mkdir
-      )
-    ) {
-      result = await this.#unifiedFS
-        .resolveFS(this.#normalizePath(path), options)
-        .promises.mkdir(
-          this.#normalizePath(path),
-          defu(omit(options, ["mode"]), {
-            recursive: true
-          })
-        );
+    const { relativeKey, adapter } = this.#getStorage(normalizedPath);
+
+    if (hasFileExtension(normalizedPath)) {
+      adapter.removeSync(relativeKey);
     } else {
-      result = this.#unifiedFS
-        .resolveFS(this.#normalizePath(path), options)
-        .mkdirSync(
-          this.#normalizePath(path),
-          defu(omit(options, ["mode"]), {
-            recursive: true
-          })
-        );
+      adapter.clearSync(relativeKey);
     }
 
-    return result;
+    const id = this.#ids[normalizedPath];
+    if (id && this.#metadata[id]) {
+      delete this.#metadata[id];
+      delete this.#ids[normalizedPath];
+      delete this.#paths[id];
+    }
   }
 
   /**
@@ -673,45 +603,22 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
               Math.max(0, absPattern.lastIndexOf("/", firstGlobIdx))
             );
 
-      const stack: string[] = [
-        baseDir && isAbsolutePath(baseDir)
-          ? baseDir
-          : this.#context.workspaceConfig.workspaceRoot
-      ];
-
-      while (stack.length) {
-        const dir = stack.pop()!;
-        let entries: string[] = [];
-
-        try {
-          entries = await this.readdir(dir);
-        } catch {
-          continue;
-        }
-
-        for (const entry of entries) {
-          const full = this.#normalizePath(joinPaths(dir, entry));
-          let stats: Stats | undefined;
-
-          try {
-            stats = this.#unifiedFS.lstatSync(full);
-          } catch {
-            stats = undefined;
-          }
-          if (!stats) continue;
-
-          if (stats.isDirectory()) {
-            stack.push(full);
-          } else if (stats.isFile()) {
-            if (this.#buildRegex(absPattern).test(full)) {
-              const resolved = this.resolveSync(full);
-              if (resolved && !results.includes(resolved)) {
-                results.push(resolved);
-              }
+      await Promise.all(
+        (
+          await this.list(
+            baseDir && isAbsolutePath(baseDir)
+              ? baseDir
+              : this.#context.workspaceConfig.workspaceRoot
+          )
+        ).map(async file => {
+          if (this.#buildRegex(absPattern).test(file)) {
+            const resolved = this.resolveSync(file);
+            if (resolved && !results.includes(resolved)) {
+              results.push(resolved);
             }
           }
-        }
-      }
+        })
+      );
     }
 
     return results;
@@ -754,42 +661,16 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
               Math.max(0, absPattern.lastIndexOf("/", firstGlobIdx))
             );
 
-      const stack: string[] = [
+      const files = this.listSync(
         baseDir && isAbsolutePath(baseDir)
           ? baseDir
           : this.#context.workspaceConfig.workspaceRoot
-      ];
-
-      while (stack.length) {
-        const dir = stack.pop()!;
-        let entries: string[] = [];
-
-        try {
-          entries = this.readdirSync(dir);
-        } catch {
-          continue;
-        }
-
-        for (const entry of entries) {
-          const full = this.#normalizePath(joinPaths(dir, entry));
-          let stats: Stats | undefined;
-
-          try {
-            stats = this.#unifiedFS.lstatSync(full);
-          } catch {
-            stats = undefined;
-          }
-          if (!stats) continue;
-
-          if (stats.isDirectory()) {
-            stack.push(full);
-          } else if (stats.isFile()) {
-            if (this.#buildRegex(absPattern).test(full)) {
-              const resolved = this.resolveSync(full);
-              if (resolved && !results.includes(resolved)) {
-                results.push(resolved);
-              }
-            }
+      );
+      for (const file of files) {
+        if (this.#buildRegex(absPattern).test(file)) {
+          const resolved = this.resolveSync(file);
+          if (resolved && !results.includes(resolved)) {
+            results.push(resolved);
           }
         }
       }
@@ -799,38 +680,37 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   }
 
   /**
-   * Moves a file from one path to another in the virtual file system (VFS).
-   *
-   * @param srcPath - The source path to move
-   * @param destPath - The destination path to move to
-   */
-  public async move(srcPath: string, destPath: string) {
-    const content = await this.readFile(srcPath);
-    await this.writeFile(destPath, content);
-    await this.rm(srcPath);
-  }
-
-  /**
-   * Synchronously moves a file from one path to another in the virtual file system (VFS).
-   *
-   * @param srcPath - The source path to move
-   * @param destPath - The destination path to move to
-   */
-  public moveSync(srcPath: string, destPath: string) {
-    const content = this.readFileSync(srcPath);
-    this.writeFileSync(destPath, content);
-    this.rmSync(srcPath);
-  }
-
-  /**
    * Copies a file from one path to another in the virtual file system (VFS).
    *
    * @param srcPath - The source path to copy
    * @param destPath - The destination path to copy to
    */
   public async copy(srcPath: string, destPath: string) {
-    const content = await this.readFile(srcPath);
-    await this.writeFile(destPath, content);
+    if (hasFileExtension(srcPath)) {
+      const content = await this.read(srcPath);
+      if (content !== undefined) {
+        await this.write(
+          hasFileExtension(destPath)
+            ? destPath
+            : joinPaths(destPath, findFileName(srcPath)),
+          content
+        );
+      }
+    } else {
+      await Promise.all(
+        (await this.list(srcPath)).map(async file => {
+          const relativePath = file.replace(this.#normalizePath(srcPath), "");
+          const destinationPath = this.#normalizePath(
+            appendPath(destPath, relativePath)
+          );
+
+          const content = await this.read(file);
+          if (content !== undefined) {
+            await this.write(destinationPath, content);
+          }
+        })
+      );
+    }
   }
 
   /**
@@ -840,92 +720,103 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @param destPath - The destination path to copy to
    */
   public copySync(srcPath: string, destPath: string) {
-    const content = this.readFileSync(srcPath);
-    this.writeFileSync(destPath, content);
+    if (hasFileExtension(srcPath)) {
+      const content = this.readSync(srcPath);
+      if (content !== undefined) {
+        this.writeSync(
+          hasFileExtension(destPath)
+            ? destPath
+            : joinPaths(destPath, findFileName(srcPath)),
+          content
+        );
+      }
+    } else {
+      this.listSync(srcPath).forEach(file => {
+        const relativePath = file.replace(this.#normalizePath(srcPath), "");
+        const destinationPath = this.#normalizePath(
+          appendPath(destPath, relativePath)
+        );
+
+        const content = this.readSync(file);
+        if (content !== undefined) {
+          this.writeSync(destinationPath, content);
+        }
+      });
+    }
   }
 
   /**
-   * Lists files in a given path.
+   * Moves a file (or files) from one path to another in the virtual file system (VFS).
    *
-   * @param pathOrId - The path to list files from.
-   * @param options - Options for listing files, such as encoding and recursion.
-   * @returns An array of file names in the specified path.
+   * @param srcPath - The source path to move
+   * @param destPath - The destination path to move to
    */
-  public async readdir(
-    pathOrId: string,
-    options:
-      | {
-          encoding: BufferEncoding | null;
-          withFileTypes?: false | undefined;
-          recursive?: boolean | undefined;
-        }
-      | BufferEncoding = "utf8"
-  ): Promise<string[]> {
-    return this.#unifiedFS
-      .resolveFS(pathOrId)
-      .promises.readdir(toFilePath(pathOrId), options);
+  public async move(srcPath: string, destPath: string) {
+    if (hasFileExtension(srcPath)) {
+      await this.copy(srcPath, destPath);
+      await this.remove(srcPath);
+    } else {
+      await Promise.all(
+        (await this.list(srcPath)).map(async file => {
+          await this.copy(file, destPath);
+          await this.remove(file);
+        })
+      );
+    }
+  }
+
+  /**
+   * Synchronously moves a file (or files) from one path to another in the virtual file system (VFS).
+   *
+   * @param srcPath - The source path to move
+   * @param destPath - The destination path to move to
+   */
+  public moveSync(srcPath: string, destPath: string) {
+    if (hasFileExtension(srcPath)) {
+      this.copySync(srcPath, destPath);
+      this.removeSync(srcPath);
+    } else {
+      this.listSync(srcPath).forEach(file => {
+        this.copySync(file, destPath);
+        this.removeSync(file);
+      });
+    }
   }
 
   /**
    * Asynchronously reads a file from the virtual file system (VFS).
    *
-   * @param pathOrId - The path or ID of the file to read.
+   * @param path - The path or ID of the file to read.
    * @returns A promise that resolves to the contents of the file as a string, or undefined if the file does not exist.
    */
-  public async readFile(
-    pathOrId: string,
-    options:
-      | (ObjectEncodingOptions & {
-          flag?: string | undefined;
-        })
-      | BufferEncoding = "utf8"
-  ): Promise<string | undefined> {
-    const filePath = await this.resolve(pathOrId);
-    if (filePath && this.isFile(filePath)) {
-      let result: string | Buffer;
-      if (isFunction(this.#unifiedFS.resolveFS(filePath).promises.readFile)) {
-        result = (
-          await this.#unifiedFS
-            .resolveFS(filePath)
-            .promises.readFile(filePath, options)
-        )?.toString("utf8");
-      } else {
-        result = this.#unifiedFS
-          .resolveFS(filePath)
-          .readFileSync(filePath, options);
-      }
-
-      return isBuffer(result) ? bufferToString(result) : result;
+  public async read(path: string): Promise<string | undefined> {
+    const filePath = await this.resolve(path);
+    if (!filePath) {
+      return undefined;
     }
 
-    return undefined;
+    const { relativeKey, adapter } = this.#getStorage(filePath);
+    this.#log(LogLevelLabel.TRACE, `Reading ${adapter.name} file: ${filePath}`);
+
+    return (await adapter.get(relativeKey)) ?? undefined;
   }
 
   /**
    * Synchronously reads a file from the virtual file system (VFS).
    *
-   * @param pathOrId - The path or ID of the file to read.
+   * @param path - The path or ID of the file to read.
    * @returns The contents of the file as a string, or undefined if the file does not exist.
    */
-  public readFileSync(
-    pathOrId: string,
-    options:
-      | (fs.ObjectEncodingOptions & {
-          flag?: string | undefined;
-        })
-      | BufferEncoding
-      | null = "utf8"
-  ): string | undefined {
-    const filePath = this.resolveSync(pathOrId);
-    if (filePath && this.isFile(filePath)) {
-      const result = this.#unifiedFS
-        .resolveFS(filePath)
-        .readFileSync(filePath, options);
-
-      return isBuffer(result) ? bufferToString(result) : result;
+  public readSync(path: string): string | undefined {
+    const filePath = this.resolveSync(path);
+    if (!filePath) {
+      return undefined;
     }
 
-    return undefined;
+    const { relativeKey, adapter } = this.#getStorage(filePath);
+    this.#log(LogLevelLabel.TRACE, `Reading ${adapter.name} file: ${filePath}`);
+
+    return adapter.getSync(relativeKey) ?? undefined;
   }
 
   /**
@@ -936,74 +827,44 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @param options - Optional parameters for writing the file.
    * @returns A promise that resolves when the file is written.
    */
-  public async writeFile(
+  public async write(
     path: string,
-    data: WriteFileData = "",
-    options: WriteFileOptions = "utf8"
+    data: string = "",
+    options: WriteOptions = {}
   ): Promise<void> {
-    if (!this.isDirectory(findFilePath(this.#normalizePath(path)))) {
-      await this.mkdir(
-        findFilePath(this.#normalizePath(path)),
-        isPowerlinesWriteFileOptions(options) ? options : undefined
-      );
-    }
-
-    const metadata = (isVirtualFileData(data) ? data : {}) as VirtualFileData;
-    metadata.id = this.#normalizeId(path);
-
-    let code = isVirtualFileData(data) ? metadata.code : data;
-    if (
-      (!isPowerlinesWriteFileOptions(options) || !options.skipFormat) &&
-      isSetString(code)
-    ) {
+    let code = data;
+    if (!options.skipFormat) {
       const resolvedConfig = await resolveConfig(this.#normalizePath(path));
       if (resolvedConfig) {
-        code = await format(code, {
+        code = await format(data, {
           absolutePath: this.#normalizePath(path),
           ...resolvedConfig
         });
       }
     }
 
-    const outputMode = this.#unifiedFS.resolveMode(
-      this.#normalizePath(path),
-      isPowerlinesWriteFileOptions(options) ? options : undefined
-    );
-
+    const { relativeKey, adapter } = this.#getStorage(path);
     this.#log(
       LogLevelLabel.TRACE,
-      `Writing ${this.#normalizePath(path)} file to the ${
-        outputMode === "fs" ? "" : "virtual "
-      }file system (size: ${prettyBytes(new Blob(toArray(code)).size)})`
+      `Writing ${this.#normalizePath(path)} to ${
+        adapter.name === "virtual"
+          ? "the virtual file system"
+          : adapter.name === "file-system"
+            ? "the local file system"
+            : adapter.name
+      } (size: ${prettyBytes(new Blob(toArray(code)).size)})`
     );
 
-    this.#metadata[metadata.id] = {
-      mode: outputMode,
+    const id = options?.meta?.id || this.#normalizeId(path);
+    this.#metadata[id] = {
       variant: "normal",
       timestamp: Date.now(),
-      ...metadata
+      ...(options.meta ?? {})
     } as VirtualFileMetadata;
-    this.#paths[metadata.id] = this.#normalizePath(path);
-    this.#ids[this.#normalizePath(path)] = metadata.id;
+    this.#paths[id] = this.#normalizePath(path);
+    this.#ids[this.#normalizePath(path)] = id;
 
-    const ifs: IFS = this.#unifiedFS.resolveFS(
-      this.#normalizePath(path),
-      isPowerlinesWriteFileOptions(options) ? options : undefined
-    );
-
-    if (isFunction(ifs.promises.writeFile)) {
-      return ifs.promises.writeFile(
-        this.#normalizePath(path),
-        code,
-        isSetObject(options) ? omit(options, ["mode"]) : "utf8"
-      );
-    }
-
-    return ifs.writeFileSync(
-      this.#normalizePath(path),
-      code,
-      isSetObject(options) ? omit(options, ["mode"]) : "utf8"
-    );
+    return adapter.set(relativeKey, code);
   }
 
   /**
@@ -1013,64 +874,33 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @param data - The contents of the file.
    * @param options - Optional parameters for writing the file.
    */
-  public writeFileSync(
+  public writeSync(
     path: string,
-    data: WriteFileData = "",
-    options: WriteFileOptions = "utf8"
+    data: string = "",
+    options: WriteOptions = {}
   ): void {
-    if (!this.isDirectory(findFilePath(this.#normalizePath(path)))) {
-      this.mkdirSync(
-        findFilePath(this.#normalizePath(path)),
-        isPowerlinesWriteFileOptions(options) ? options : undefined
-      );
-    }
-
-    const metadata = (isVirtualFileData(data) ? data : {}) as VirtualFileData;
-    metadata.id = this.#normalizeId(path);
-
-    const code = isVirtualFileData(data) ? metadata.code : data;
-    const outputMode = this.#unifiedFS.resolveMode(
-      this.#normalizePath(path),
-      isPowerlinesWriteFileOptions(options) ? options : undefined
-    );
-
+    const { relativeKey, adapter } = this.#getStorage(path);
     this.#log(
       LogLevelLabel.TRACE,
-      `Writing ${this.#normalizePath(path)} file to the ${
-        outputMode === "fs" ? "" : "virtual "
-      }file system (size: ${prettyBytes(new Blob(toArray(code)).size)})`
+      `Writing ${this.#normalizePath(path)} file to ${
+        adapter.name === "virtual"
+          ? "the virtual file system"
+          : adapter.name === "file-system"
+            ? "the local file system"
+            : adapter.name
+      } (size: ${prettyBytes(new Blob(toArray(data)).size)})`
     );
 
-    this.#metadata[metadata.id] = {
-      mode: outputMode,
+    const id = options?.meta?.id || this.#normalizeId(path);
+    this.#metadata[id] = {
       variant: "normal",
       timestamp: Date.now(),
-      ...metadata
+      ...(options.meta ?? {})
     } as VirtualFileMetadata;
-    this.#paths[metadata.id] = this.#normalizePath(path);
-    this.#ids[this.#normalizePath(path)] = metadata.id;
+    this.#paths[id] = this.#normalizePath(path);
+    this.#ids[this.#normalizePath(path)] = id;
 
-    const writeStream = this.#unifiedFS
-      .resolveFS(
-        this.#normalizePath(path),
-        isPowerlinesWriteFileOptions(options) ? options : undefined
-      )
-      .createWriteStream(this.#normalizePath(path));
-    try {
-      writeStream.write(code);
-    } finally {
-      writeStream.close();
-    }
-  }
-
-  /**
-   * Synchronously checks if a file exists in the virtual file system (VFS).
-   *
-   * @param pathOrId - The path or ID of the file to check.
-   * @returns `true` if the file exists, otherwise `false`.
-   */
-  public existsSync(pathOrId: string): boolean {
-    return !!this.resolveSync(pathOrId);
+    return adapter.setSync(relativeKey, data);
   }
 
   /**
@@ -1086,131 +916,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     return undefined;
-  }
-
-  /**
-   * Checks if a file exists in the virtual file system (VFS).
-   *
-   * @remarks
-   * This is a base method used by {@link existsSync} - it does not try to resolve the path prior to checking if it exists or not.
-   *
-   * @param pathOrId - The path of the file to check.
-   * @returns `true` if the file exists, otherwise `false`.
-   */
-  public isFile(pathOrId: string): boolean {
-    const resolved = this.resolveSync(pathOrId);
-
-    return !!(
-      resolved &&
-      ((this.#unifiedFS.virtual.existsSync(resolved) &&
-        this.#unifiedFS.virtual.lstatSync(resolved).isFile()) ||
-        (this.#unifiedFS.physical.existsSync(resolved) &&
-          this.#unifiedFS.physical.lstatSync(resolved).isFile()) ||
-        (this.#unifiedFS.resolveFS(resolved).existsSync(resolved) &&
-          this.#unifiedFS.resolveFS(resolved).lstatSync(resolved).isFile()))
-    );
-  }
-
-  /**
-   * Checks if a directory exists in the virtual file system (VFS).
-   *
-   * @param pathOrId - The path of the directory to check.
-   * @returns `true` if the directory exists, otherwise `false`.
-   */
-  public isDirectory(pathOrId: string): boolean {
-    const resolved = this.resolveSync(pathOrId);
-
-    return !!(
-      resolved &&
-      ((this.#unifiedFS.virtual.existsSync(resolved) &&
-        this.#unifiedFS.virtual.lstatSync(resolved).isDirectory()) ||
-        (this.#unifiedFS.physical.existsSync(resolved) &&
-          this.#unifiedFS.physical.lstatSync(resolved).isDirectory()) ||
-        (this.#unifiedFS.resolveFS(resolved).existsSync(resolved) &&
-          this.#unifiedFS
-            .resolveFS(resolved)
-            .lstatSync(resolved)
-            .isDirectory()))
-    );
-  }
-
-  /**
-   * Retrieves the status of a file in the virtual file system (VFS).
-   *
-   * @param pathOrId - The path or ID of the file to retrieve status for.
-   * @returns A promise that resolves to the file's status information, or false if the file does not exist.
-   */
-  public async stat(
-    pathOrId: string,
-    options?: fs.StatOptions & {
-      bigint?: false | undefined;
-    }
-  ): Promise<Stats> {
-    return this.#unifiedFS
-      .resolveFS(pathOrId)
-      .promises.stat((await this.resolve(pathOrId)) || pathOrId, options);
-  }
-
-  /**
-   * Synchronously retrieves the status of a file in the virtual file system (VFS).
-   *
-   * @param pathOrId - The path or ID of the file to retrieve status for.
-   * @returns The file's status information, or false if the file does not exist.
-   */
-  public statSync(pathOrId: string): Stats {
-    return this.#unifiedFS
-      .resolveFS(pathOrId)
-      .statSync(this.resolveSync(pathOrId) || pathOrId);
-  }
-
-  /**
-   * Retrieves the status of a symbolic link in the virtual file system (VFS).
-   *
-   * @param pathOrId - The path or ID of the symbolic link to retrieve status for.
-   * @returns A promise that resolves to the symbolic link's status information, or false if the link does not exist.
-   */
-  public async lstat(
-    pathOrId: string,
-    options?: fs.StatOptions & {
-      bigint?: false | undefined;
-    }
-  ): Promise<Stats> {
-    return this.#unifiedFS
-      .resolveFS(pathOrId)
-      .promises.lstat((await this.resolve(pathOrId)) || pathOrId, options);
-  }
-
-  /**
-   * Synchronously retrieves the status of a symbolic link in the virtual file system (VFS).
-   *
-   * @param pathOrId - The path or ID of the symbolic link to retrieve status for.
-   * @returns The symbolic link's status information, or false if the link does not exist.
-   */
-  public lstatSync(
-    pathOrId: string,
-    options?: StatSyncOptions & {
-      bigint?: false | undefined;
-      throwIfNoEntry: false;
-    }
-  ): Stats | undefined {
-    return this.#unifiedFS
-      .resolveFS(pathOrId)
-      .lstatSync(this.resolveSync(pathOrId) || pathOrId, options);
-  }
-
-  /**
-   * Resolves a path or ID to its real path in the virtual file system (VFS).
-   *
-   * @param pathOrId - The path or ID to resolve.
-   * @returns The resolved real path if it exists, otherwise undefined.
-   */
-  public realpathSync(pathOrId: string): string {
-    const filePath = this.resolveSync(pathOrId);
-    if (!filePath) {
-      throw new Error(`File not found: ${pathOrId}`);
-    }
-
-    return filePath;
   }
 
   /**
@@ -1234,11 +939,18 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     importer?: string,
     options: ResolveOptions = {}
   ): Promise<string | undefined> {
-    let result = this.resolverCache.get<string | undefined>(
-      this.#normalizeId(id)
-    );
-    if (result) {
-      return result;
+    if (isAbsolutePath(id)) {
+      return id;
+    }
+
+    let result!: string | undefined;
+    if (!this.#context.config.skipCache) {
+      result = this.resolverCache.get<string | undefined>(
+        this.#normalizeId(id)
+      );
+      if (result) {
+        return result;
+      }
     }
 
     result = this.paths[this.#normalizeId(id)];
@@ -1279,8 +991,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
 
       for (const combination of getResolutionCombinations(id, { paths })) {
-        if (this.#existsSync(combination)) {
+        const { relativeKey, adapter } = this.#getStorage(combination);
+        if (await adapter.exists(relativeKey)) {
           result = combination;
+          break;
         }
       }
 
@@ -1297,7 +1011,9 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         this.#context.workspaceConfig.workspaceRoot
       );
 
-      this.resolverCache.set(this.#normalizeId(id), result);
+      if (!this.#context.config.skipCache) {
+        this.resolverCache.set(this.#normalizeId(id), result);
+      }
     }
 
     return result;
@@ -1324,11 +1040,18 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     importer?: string,
     options: ResolveOptions = {}
   ): string | undefined {
-    let result = this.resolverCache.get<string | undefined>(
-      this.#normalizeId(id)
-    );
-    if (result) {
-      return result;
+    if (isAbsolutePath(id)) {
+      return id;
+    }
+
+    let result!: string | undefined;
+    if (!this.#context.config.skipCache) {
+      result = this.resolverCache.get<string | undefined>(
+        this.#normalizeId(id)
+      );
+      if (result) {
+        return result;
+      }
     }
 
     result = this.paths[this.#normalizeId(id)];
@@ -1340,26 +1063,26 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
       paths.push(this.#context.workspaceConfig.workspaceRoot);
       paths.push(
-        joinPaths(
-          this.#context.workspaceConfig.workspaceRoot,
-          this.#context.config.projectRoot
+        appendPath(
+          this.#context.config.projectRoot,
+          this.#context.workspaceConfig.workspaceRoot
         )
       );
       paths.push(
-        joinPaths(
-          this.#context.workspaceConfig.workspaceRoot,
-          this.#context.config.sourceRoot
+        appendPath(
+          this.#context.config.sourceRoot,
+          this.#context.workspaceConfig.workspaceRoot
         )
       );
       paths.push(
         ...(
-          Object.keys(this.#context.tsconfig?.options?.paths ?? {})
+          Object.keys(this.#context.tsconfig.options.paths ?? {})
             .filter(tsconfigPath =>
               id.startsWith(tsconfigPath.replace(/\*$/, ""))
             )
             .map(
               tsconfigPath =>
-                this.#context.tsconfig?.options?.paths?.[tsconfigPath]
+                this.#context.tsconfig.options.paths?.[tsconfigPath]
             )
             .flat()
             .filter(Boolean) as string[]
@@ -1369,8 +1092,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
 
       for (const combination of getResolutionCombinations(id, { paths })) {
-        if (this.#existsSync(combination)) {
+        const { relativeKey, adapter } = this.#getStorage(combination);
+        if (adapter.existsSync(relativeKey)) {
           result = combination;
+          break;
         }
       }
 
@@ -1387,7 +1112,9 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         this.#context.workspaceConfig.workspaceRoot
       );
 
-      this.resolverCache.set(this.#normalizeId(id), result);
+      if (!this.#context.config.skipCache) {
+        this.resolverCache.set(this.#normalizeId(id), result);
+      }
     }
 
     return result;
@@ -1401,23 +1128,23 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       this.#isDisposed = true;
 
       this.#log(LogLevelLabel.DEBUG, "Disposing virtual file system...");
-      await this.unlink(joinPaths(this.#context.dataPath, "fs.bin"));
+      await this.remove(joinPaths(this.#context.dataPath, "fs.bin"));
 
       const message = new capnp.Message();
       const fs = message.initRoot(FileSystem);
 
-      const virtualFiles = Object.entries(this.#unifiedFS.toJSON()).filter(
-        ([, code]) => code
-      );
+      const paths = await this.list();
 
-      const files = fs._initFiles(virtualFiles.length);
-      virtualFiles
-        .filter(([, code]) => code)
-        .forEach(([path, code], index) => {
-          const fd = files.get(index);
+      const storage = fs._initStorage(paths.length);
+      await Promise.all(
+        paths.map(async (path, index) => {
+          const code = await this.read(path);
+
+          const fd = storage.get(index);
           fd.path = path;
           fd.code = code || "";
-        });
+        })
+      );
 
       const ids = fs._initIds(Object.keys(this.ids).length);
       Object.entries(this.ids)
@@ -1434,7 +1161,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         .forEach(([id, value], index) => {
           const fileMetadata = metadata.get(index);
           fileMetadata.id = id;
-          fileMetadata.mode = value.mode;
           fileMetadata.type = value.type;
           fileMetadata.timestamp = value.timestamp ?? BigInt(Date.now());
 
@@ -1455,37 +1181,43 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         message.toArrayBuffer()
       );
 
-      this.#resolverCache.save(true);
-
-      this.#log(LogLevelLabel.DEBUG, "Virtual file system disposed.");
-    }
-  }
-
-  /**
-   * Initializes the virtual file system (VFS) by patching the file system module if necessary.
-   */
-  public [__VFS_PATCH__]() {
-    if (!this.#isPatched && this.#context.config.output.mode !== "fs") {
-      this.#revert = patchFS(fs, this);
-      this.#isPatched = true;
-    }
-  }
-
-  /**
-   * Reverts the file system module to its original state if it was previously patched.
-   */
-  public [__VFS_REVERT__]() {
-    if (this.#isPatched && this.#context.config.output.mode !== "fs") {
-      if (!this.#revert) {
-        throw new Error(
-          "Attempting to revert File System patch prior to calling `__init__` function"
-        );
+      if (!this.#context.config.skipCache) {
+        this.#resolverCache.save(true);
       }
 
-      this.#revert?.();
-      this.#isPatched = false;
+      await Promise.all(
+        this.#getStorages().map(async storage => storage.adapter.dispose())
+      );
+
+      this.#log(LogLevelLabel.TRACE, "Virtual file system has been disposed.");
     }
   }
+
+  // /**
+  //  * Initializes the virtual file system (VFS) by patching the file system module if necessary.
+  //  */
+  // public [__VFS_PATCH__]() {
+  //   if (!this.#isPatched && this.#context.config.output.mode !== "fs") {
+  //     this.#revert = patchFS(fs, this);
+  //     this.#isPatched = true;
+  //   }
+  // }
+
+  // /**
+  //  * Reverts the file system module to its original state if it was previously patched.
+  //  */
+  // public [__VFS_REVERT__]() {
+  //   if (this.#isPatched && this.#context.config.output.mode !== "fs") {
+  //     if (!this.#revert) {
+  //       throw new Error(
+  //         "Attempting to revert File System patch prior to calling `__init__` function"
+  //       );
+  //     }
+
+  //     this.#revert?.();
+  //     this.#isPatched = false;
+  //   }
+  // }
 
   async [Symbol.asyncDispose]() {
     return this.dispose();

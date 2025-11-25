@@ -107,7 +107,7 @@ export const plugin = <
       } else {
         await Promise.all(
           Object.entries(result.files).map(async ([filePath, content]) =>
-            this.fs.writeFile(
+            this.fs.write(
               joinPaths(this.config.capnp.outputPath, filePath),
               content
             )

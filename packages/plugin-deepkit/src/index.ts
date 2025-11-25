@@ -75,10 +75,9 @@ export const plugin = <
           this.tsconfig.tsconfigJson.reflectionLevel ??=
             reflectionLevel as ReflectionLevel;
 
-          await this.fs.writeFile(
+          await this.fs.write(
             this.tsconfig.tsconfigFilePath,
-            StormJSON.stringify(this.tsconfig.tsconfigJson),
-            { mode: "fs" }
+            StormJSON.stringify(this.tsconfig.tsconfigJson)
           );
         }
 

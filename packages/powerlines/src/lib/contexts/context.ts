@@ -67,11 +67,10 @@ import {
   TransformResult
 } from "../../types/context";
 import {
-  OutputModeType,
-  PowerlinesWriteFileOptions,
   ResolveOptions,
   VirtualFile,
-  VirtualFileSystemInterface
+  VirtualFileSystemInterface,
+  WriteOptions
 } from "../../types/fs";
 import { UNSAFE_ContextInternal } from "../../types/internal";
 import {
@@ -357,7 +356,7 @@ export class PowerlinesContext<
     return joinPaths(
       this.workspaceConfig.workspaceRoot,
       this.config.projectRoot,
-      this.config.output.artifactsFolder
+      this.config.output.artifactsPath
     );
   }
 
@@ -538,7 +537,7 @@ export class PowerlinesContext<
       return undefined;
     }
 
-    const code = await this.fs.readFile(resolvedId);
+    const code = await this.fs.read(resolvedId);
     if (!code) {
       return undefined;
     }
@@ -554,7 +553,7 @@ export class PowerlinesContext<
       Object.entries(this.fs.metadata)
         .filter(([, meta]) => meta && meta.type === "builtin")
         .map(async ([path, meta]) => {
-          const code = await this.fs.readFile(path);
+          const code = await this.fs.read(path);
 
           return { ...meta, path, code } as VirtualFile;
         })
@@ -571,12 +570,12 @@ export class PowerlinesContext<
   public async emitEntry(
     code: string,
     path: string,
-    options: PowerlinesWriteFileOptions = {}
+    options: WriteOptions = {}
   ): Promise<void> {
-    return this.fs.writeFile(
+    return this.fs.write(
       isAbsolute(path) ? path : appendPath(path, this.entryPath),
-      { code, type: "entry" },
-      defu(options, { mode: this.config.output.mode })
+      code,
+      defu(options, { type: "entry" })
     );
   }
 
@@ -592,16 +591,16 @@ export class PowerlinesContext<
     code: string,
     id: string,
     path?: string,
-    options: PowerlinesWriteFileOptions = {}
+    options: WriteOptions = {}
   ): Promise<void> {
-    return this.fs.writeFile(
+    return this.fs.write(
       path
         ? isAbsolute(path)
           ? path
           : joinPaths(this.builtinsPath, path)
         : appendPath(id, this.builtinsPath),
-      { id, code, type: "builtin" },
-      defu(options, { mode: this.config.output.mode })
+      code,
+      defu(options, { type: "builtin" })
     );
   }
 
@@ -899,23 +898,22 @@ export class PowerlinesContext<
           sourceRoot:
             this.projectJson?.sourceRoot ||
             appendPath("src", cacheKey.projectRoot),
-          output: {
+          output: defu(config.output ?? {}, {
             outputPath: cacheKey.projectRoot
               ? joinPaths(
                   this.workspaceConfig?.directories?.build || "dist",
                   cacheKey.projectRoot
                 )
               : this.workspaceConfig?.directories?.build || "dist",
-            mode: "virtual" as OutputModeType,
+            artifactsPath: joinPaths(
+              cacheKey.projectRoot,
+              `.${config.framework ?? "powerlines"}`
+            ),
             dts: joinPaths(
               cacheKey.projectRoot,
               `${config.framework ?? "powerlines"}.d.ts`
             ),
             builtinPrefix: config.framework ?? "powerlines",
-            artifactsFolder: joinPaths(
-              cacheKey.projectRoot,
-              `.${config.framework ?? "powerlines"}`
-            ),
             assets: [
               {
                 glob: "LICENSE"
@@ -929,7 +927,7 @@ export class PowerlinesContext<
                 glob: "package.json"
               }
             ]
-          }
+          })
         },
         options.isHighPriority ? {} : this.#getConfigProps(config),
         {
@@ -994,13 +992,13 @@ export class PowerlinesContext<
         "dist",
         this.config.projectRoot
       );
-      this.config.output.distPath ??= joinPaths(
+      this.config.output.buildPath ??= joinPaths(
         this.config.projectRoot,
         "dist"
       );
     } else {
       this.config.output.outputPath ??= "dist";
-      this.config.output.distPath ??= "dist";
+      this.config.output.buildPath ??= "dist";
     }
 
     this.config.output.assets = getUnique(

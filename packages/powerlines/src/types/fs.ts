@@ -17,15 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { ResolveOptions as BaseResolveOptions } from "@stryke/fs/resolve";
-import type {
-  MakeDirectoryOptions as FsMakeDirectoryOptions,
-  WriteFileOptions as FsWriteFileOptions,
-  Mode,
-  RmDirOptions,
-  RmOptions,
-  Stats,
-  StatSyncOptions
-} from "node:fs";
+import { MaybePromise } from "@stryke/types/base";
 
 export type VirtualFileExtension = "js" | "ts" | "jsx" | "tsx";
 
@@ -35,7 +27,122 @@ export const __VFS_PATCH__ = "__VFS_PATCH__";
 // eslint-disable-next-line ts/naming-convention
 export const __VFS_REVERT__ = "__VFS_REVERT__";
 
-export type OutputModeType = "fs" | "virtual";
+export enum StoragePreset {
+  VIRTUAL = "virtual",
+  FS = "fs"
+}
+
+/**
+ * Interface defining the methods and properties for a storage adapter.
+ */
+export interface StorageAdapter {
+  /**
+   * A name identifying the storage adapter type.
+   */
+  name: string;
+
+  /**
+   * Checks if a key exists in the storage.
+   *
+   * @param key - The key to check for existence.
+   * @returns A promise that resolves to `true` if the key exists, otherwise `false`.
+   */
+  exists: (key: string) => Promise<boolean>;
+
+  /**
+   * Synchronously checks if a key exists in the storage.
+   *
+   * @param key - The key to check for existence.
+   * @returns Returns `true` if the key exists, otherwise `false`.
+   */
+  existsSync: (key: string) => boolean;
+
+  /**
+   * Read a value associated with a key from the storage.
+   *
+   * @param key - The key to read the value for.
+   * @returns A promise that resolves to the value if found, otherwise `null`.
+   */
+  get: (key: string) => Promise<string | null>;
+
+  /**
+   * Synchronously reads the value associated with a key from the storage.
+   *
+   * @param key - The key to read the value for.
+   * @returns The value if found, otherwise `null`.
+   */
+  getSync: (key: string) => string | null;
+
+  /**
+   * Writes a value to the storage for the given key.
+   *
+   * @param key - The key to associate the value with.
+   * @param value - The value to store.
+   */
+  set: (key: string, value: string) => Promise<void>;
+
+  /**
+   * Synchronously writes a value to the storage for the given key.
+   *
+   * @param key - The key to associate the value with.
+   * @param value - The value to store.
+   */
+  setSync: (key: string, value: string) => void;
+
+  /**
+   * Removes a value from the storage.
+   *
+   * @param key - The key whose value should be removed.
+   */
+  remove: (key: string) => Promise<void>;
+
+  /**
+   * Synchronously removes a value from the storage.
+   *
+   * @param key - The key whose value should be removed.
+   */
+  removeSync: (key: string) => void;
+
+  /**
+   * Remove all entries from the storage that match the provided base path.
+   *
+   * @param base - The base path or prefix to clear entries from.
+   */
+  clear: (base?: string) => Promise<void>;
+
+  /**
+   * Synchronously remove all entries from the storage that match the provided base path.
+   *
+   * @param base - The base path or prefix to clear entries from.
+   */
+  clearSync: (base?: string) => void;
+
+  /**
+   * Lists all keys under the provided base path.
+   *
+   * @param base - The base path or prefix to list keys from.
+   * @returns A promise resolving to the list of keys.
+   */
+  list: (base?: string) => Promise<string[]>;
+
+  /**
+   * Synchronously lists all keys under the provided base path.
+   *
+   * @param base - The base path or prefix to list keys from.
+   * @returns The list of keys.
+   */
+  listSync: (base?: string) => string[];
+
+  /**
+   * Releases any resources held by the storage adapter.
+   */
+  dispose: () => MaybePromise<void>;
+}
+
+/**
+ * A mapping of file paths to storage adapter names and their corresponding {@link StorageAdapter} instances.
+ */
+export type StoragePort = Record<string, StorageAdapter>;
 
 export interface VirtualFileMetadata {
   /**
@@ -58,11 +165,6 @@ export interface VirtualFileMetadata {
    * - `normal`: Indicates that the file is a standard file without any special role.
    */
   type: string;
-
-  /**
-   * The output mode of the file.
-   */
-  mode: string;
 
   /**
    * Additional metadata associated with the file.
@@ -88,17 +190,9 @@ export interface VirtualFileData {
    * This string represents the purpose/function of the file in the virtual file system. A potential list of variants includes:
    * - `builtin`: Indicates that the file is a built-in module provided by the system.
    * - `entry`: Indicates that the file is an entry point for execution.
-   * - `chunk`: Indicates that the file is a code chunk, typically used in code-splitting scenarios.
-   * - `prebuilt-chunk`: Indicates that the file is a prebuilt code chunk.
-   * - `asset`: Indicates that the file is a static asset, such as an image or stylesheet.
    * - `normal`: Indicates that the file is a standard file without any special role.
    */
   type?: string;
-
-  /**
-   * The output mode of the file.
-   */
-  mode?: string;
 
   /**
    * Additional metadata associated with the file.
@@ -120,29 +214,21 @@ export interface VirtualFile
   timestamp: number;
 }
 
-export interface ResolveFSOptions {
-  mode?: OutputModeType;
-}
-
-export type MakeDirectoryOptions = (Mode | FsMakeDirectoryOptions) &
-  ResolveFSOptions;
-
-export interface PowerlinesWriteFileOptions extends ResolveFSOptions {
+export interface WriteOptions {
   /**
    * Should the file skip formatting before being written?
    *
    * @defaultValue false
    */
   skipFormat?: boolean;
+
+  /**
+   * Additional metadata for the file.
+   */
+  meta?: VirtualFileMetadata;
 }
 
-export type NodeWriteFileOptions = FsWriteFileOptions;
-
-export type WriteFileOptions =
-  | NodeWriteFileOptions
-  | PowerlinesWriteFileOptions;
-
-export type WriteFileData = string | NodeJS.ArrayBufferView | VirtualFileData;
+export type WriteData = string | NodeJS.ArrayBufferView | VirtualFileData;
 
 export interface ResolveOptions extends BaseResolveOptions {
   /**
@@ -173,16 +259,6 @@ export interface ResolveOptions extends BaseResolveOptions {
 
 export interface VirtualFileSystemInterface {
   /**
-   * Patches the File System to include the virtual file system (VFS) contents.
-   */
-  [__VFS_PATCH__]: () => void;
-
-  /**
-   * Reverts the virtual file system (VFS) to its previous state.
-   */
-  [__VFS_REVERT__]: () => void;
-
-  /**
    * The underlying file metadata.
    */
   metadata: Readonly<Record<string, VirtualFileMetadata>>;
@@ -198,158 +274,52 @@ export interface VirtualFileSystemInterface {
   paths: Readonly<Record<string, string>>;
 
   /**
-   * Check if a path or id corresponds to a virtual file **(does not actually exists on disk)**.
-   *
-   * @param pathOrId - The path or id to check.
-   * @param importer - The importer path, if any.
-   * @param options - Optional parameters for resolving the path.
-   * @returns Whether the path or id corresponds to a virtual file **(does not actually exists on disk)**.
-   */
-  isVirtual: (
-    pathOrId: string,
-    importer?: string,
-    options?: ResolveOptions
-  ) => boolean;
-
-  /**
-   * Check if a path or id corresponds to a file written to the file system **(actually exists on disk)**.
-   *
-   * @param pathOrId - The path or id to check.
-   * @param importer - The importer path, if any.
-   * @param options - Optional parameters for resolving the path.
-   * @returns Whether the path or id corresponds to a file written to the file system **(actually exists on disk)**.
-   */
-  isPhysical: (
-    pathOrId: string,
-    importer?: string,
-    options?: ResolveOptions
-  ) => boolean;
-
-  /**
    * Checks if a file exists in the virtual file system (VFS).
    *
-   * @param path - The path of the file to check.
+   * @param path - The path or id of the file.
    * @returns `true` if the file exists, otherwise `false`.
    */
-  isFile: (path: string) => boolean;
+  exists: (path: string) => Promise<boolean>;
 
   /**
-   * Checks if a directory exists in the virtual file system (VFS).
+   * Synchronously Checks if a file exists in the virtual file system (VFS).
    *
-   * @param path - The path of the directory to check.
-   * @returns `true` if the directory exists, otherwise `false`.
-   */
-  isDirectory: (path: string) => boolean;
-
-  /**
-   * Checks if a file exists in the virtual file system (VFS).
-   *
-   * @param pathOrId - The path or id of the file.
+   * @param path - The path or id of the file.
    * @returns `true` if the file exists, otherwise `false`.
    */
-  existsSync: (pathOrId: string) => boolean;
+  existsSync: (path: string) => boolean;
+
+  /**
+   * Checks if a file is virtual in the virtual file system (VFS).
+   *
+   * @param path - The path or id of the file.
+   * @returns `true` if the file is virtual, otherwise `false`.
+   */
+  isVirtual: (path: string) => boolean;
 
   /**
    * Gets the metadata of a file in the virtual file system (VFS).
    *
-   * @param pathOrId - The path or id of the file.
+   * @param path - The path or id of the file.
    * @returns The metadata of the file if it exists, otherwise undefined.
    */
-  getMetadata: (pathOrId: string) => VirtualFileMetadata | undefined;
-
-  /**
-   * Gets the stats of a file in the virtual file system (VFS).
-   *
-   * @param pathOrId - The path or id of the file.
-   * @param options - Optional parameters for getting the stats.
-   * @returns The stats of the file if it exists, otherwise undefined.
-   */
-  lstat: (
-    pathOrId: string,
-    options?: StatSyncOptions & {
-      bigint?: false | undefined;
-      throwIfNoEntry: false;
-    }
-  ) => Promise<Stats>;
-
-  /**
-   * Gets the stats of a file in the virtual file system (VFS).
-   *
-   * @param pathOrId - The path or id of the file.
-   * @param options - Optional parameters for getting the stats.
-   * @returns The stats of the file if it exists, otherwise undefined.
-   */
-  lstatSync: (
-    pathOrId: string,
-    options?: StatSyncOptions & {
-      bigint?: false | undefined;
-      throwIfNoEntry: false;
-    }
-  ) => Stats | undefined;
-
-  /**
-   * Gets the stats of a file in the virtual file system (VFS).
-   *
-   * @param pathOrId - The path or id of the file.
-   * @returns The stats of the file if it exists, otherwise false.
-   */
-  stat: (
-    pathOrId: string,
-    options?: StatSyncOptions & {
-      bigint?: false | undefined;
-      throwIfNoEntry: false;
-    }
-  ) => Promise<Stats>;
-
-  /**
-   * Gets the stats of a file in the virtual file system (VFS).
-   *
-   * @param pathOrId - The path or id of the file.
-   * @returns The stats of the file if it exists, otherwise false.
-   */
-  statSync: (
-    pathOrId: string,
-    options?: StatSyncOptions & {
-      bigint?: false | undefined;
-      throwIfNoEntry: false;
-    }
-  ) => Stats | undefined;
+  getMetadata: (path: string) => VirtualFileMetadata | undefined;
 
   /**
    * Lists files in a given path.
    *
    * @param path - The path to list files from.
-   * @param options - Options for listing files, such as encoding and recursion.
    * @returns An array of file names in the specified path.
    */
-  readdirSync: (
-    path: string,
-    options?:
-      | {
-          encoding: BufferEncoding | null;
-          withFileTypes?: false | undefined;
-          recursive?: boolean | undefined;
-        }
-      | BufferEncoding
-  ) => string[];
+  listSync: (path: string) => string[];
 
   /**
    * Lists files in a given path.
    *
    * @param path - The path to list files from.
-   * @param options - Options for listing files, such as encoding and recursion.
    * @returns An array of file names in the specified path.
    */
-  readdir: (
-    path: string,
-    options?:
-      | {
-          encoding: BufferEncoding | null;
-          withFileTypes?: false | undefined;
-          recursive?: boolean | undefined;
-        }
-      | BufferEncoding
-  ) => Promise<string[]>;
+  list: (path: string) => Promise<string[]>;
 
   /**
    * Removes a file or symbolic link in the virtual file system (VFS).
@@ -357,7 +327,7 @@ export interface VirtualFileSystemInterface {
    * @param path - The path to the file to remove.
    * @returns A promise that resolves when the file is removed.
    */
-  unlinkSync: (path: string, options?: ResolveFSOptions) => void;
+  removeSync: (path: string) => void;
 
   /**
    * Asynchronously removes a file or symbolic link in the virtual file system (VFS).
@@ -365,110 +335,41 @@ export interface VirtualFileSystemInterface {
    * @param path - The path to the file to remove.
    * @returns A promise that resolves when the file is removed.
    */
-  unlink: (path: string, options?: ResolveFSOptions) => Promise<void>;
-
-  /**
-   * Removes a directory in the virtual file system (VFS).
-   *
-   * @param path - The path to create the directory at.
-   * @param options - Options for creating the directory.
-   */
-  rmdirSync: (path: string, options?: RmDirOptions & ResolveFSOptions) => any;
-
-  /**
-   * Removes a directory in the virtual file system (VFS).
-   *
-   * @param path - The path to create the directory at.
-   * @param options - Options for creating the directory.
-   * @returns A promise that resolves to the path of the created directory, or undefined if the directory could not be created.
-   */
-  rmdir: (
-    path: string,
-    options?: RmDirOptions & ResolveFSOptions
-  ) => Promise<void>;
-
-  /**
-   * Removes a file or directory in the virtual file system (VFS).
-   *
-   * @param path - The path to the file or directory to remove.
-   * @param options - Options for removing the file or directory.
-   * @returns A promise that resolves when the file or directory is removed.
-   */
-  rm: (path: string, options?: RmOptions & ResolveFSOptions) => Promise<void>;
-
-  /**
-   * Synchronously removes a file or directory in the virtual file system (VFS).
-   *
-   * @param path - The path to the file or directory to remove.
-   * @param options - Options for removing the file or directory.
-   */
-  rmSync: (path: string, options?: RmOptions & ResolveFSOptions) => void;
-
-  /**
-   * Creates a directory in the virtual file system (VFS).
-   *
-   * @param path - The path to create the directory at.
-   * @param options - Options for creating the directory.
-   * @returns A promise that resolves to the path of the created directory, or undefined if the directory could not be created.
-   */
-  mkdirSync: (
-    path: string,
-    options?: MakeDirectoryOptions
-  ) => string | undefined;
-
-  /**
-   * Creates a directory in the virtual file system (VFS).
-   *
-   * @param path - The path to create the directory at.
-   * @param options - Options for creating the directory.
-   * @returns A promise that resolves to the path of the created directory, or undefined if the directory could not be created.
-   */
-  mkdir: (
-    path: string,
-    options?: MakeDirectoryOptions
-  ) => Promise<string | undefined>;
+  remove: (path: string) => Promise<void>;
 
   /**
    * Reads a file from the virtual file system (VFS).
    *
-   * @param pathOrId - The path or id of the file.
+   * @param path - The path or id of the file.
    * @returns The contents of the file if it exists, otherwise undefined.
    */
-  readFile: (pathOrId: string) => Promise<string | undefined>;
+  read: (path: string) => Promise<string | undefined>;
 
   /**
    * Reads a file from the virtual file system (VFS).
    *
-   * @param pathOrId - The path or id of the file.
+   * @param path - The path or id of the file.
    */
-  readFileSync: (pathOrId: string) => string | undefined;
+  readSync: (path: string) => string | undefined;
 
   /**
    * Writes a file to the virtual file system (VFS).
    *
    * @param path - The path to the file.
    * @param data - The contents of the file.
-   * @param options - Optional parameters for writing the file.
+   * @param options - Options for writing the file.
    * @returns A promise that resolves when the file is written.
    */
-  writeFile: (
-    path: string,
-    data?: WriteFileData,
-    options?: WriteFileOptions
-  ) => Promise<void>;
+  write: (path: string, data: string, options?: WriteOptions) => Promise<void>;
 
   /**
    * Writes a file to the virtual file system (VFS).
    *
    * @param path - The path to the file.
    * @param data - The contents of the file.
-   * @param options - Optional parameters for writing the file.
+   * @param options - Options for writing the file.
    */
-  writeFileSync: (
-    path: string,
-    data?: WriteFileData,
-    options?: WriteFileOptions
-  ) => void;
+  writeSync: (path: string, data: string, options?: WriteOptions) => void;
 
   /**
    * Moves a file from one path to another in the virtual file system (VFS).
@@ -517,14 +418,6 @@ export interface VirtualFileSystemInterface {
    * @returns An array of file paths matching the provided pattern(s)
    */
   globSync: (pattern: string | string[]) => string[];
-
-  /**
-   * Resolves a path or id to a file path in the virtual file system.
-   *
-   * @param pathOrId - The path or id of the file to resolve.
-   * @returns The resolved path of the file if it exists, otherwise false.
-   */
-  realpathSync: (pathOrId: string) => string;
 
   /**
    * A helper function to resolve modules using the Jiti resolver
