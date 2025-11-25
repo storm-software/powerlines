@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.39](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.39) (11/25/2025)
+
+### Miscellaneous
+
+- **powerlines:** Increase strictness on `dependsOn` and `dedupe` plugin
+  properties
+  ([3bb265e](https://github.com/storm-software/powerlines/commit/3bb265e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.47**
+- Updated **plugin-babel** to **v0.12.48**
+- Updated **plugin-env** to **v0.13.45**
+- Updated **powerlines** to **v0.25.1**
+- Updated **deepkit** to **v0.4.44**
+- Updated **alloy** to **v0.11.48**
+- Updated **nx** to **v0.10.39**
+
 ## [0.1.38](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.38) (11/25/2025)
 
 ### Features

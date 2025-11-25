@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.25.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.25.1) (11/25/2025)
+
+### Miscellaneous
+
+- **powerlines:** Increase strictness on `dependsOn` and `dedupe` plugin
+  properties
+  ([3bb265e](https://github.com/storm-software/powerlines/commit/3bb265e))
+
 ## [0.25.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.25.0) (11/25/2025)
 
 ### Bug Fixes
