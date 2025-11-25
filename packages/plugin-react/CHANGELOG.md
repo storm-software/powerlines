@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.38](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.38) (11/25/2025)
+
+### Features
+
+- **powerlines:** Added storage adapters for fine-grained over generated output
+  ([64abfc3](https://github.com/storm-software/powerlines/commit/64abfc3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.46**
+- Updated **plugin-babel** to **v0.12.47**
+- Updated **plugin-env** to **v0.13.44**
+- Updated **powerlines** to **v0.25.0**
+- Updated **deepkit** to **v0.4.43**
+- Updated **alloy** to **v0.11.47**
+- Updated **nx** to **v0.10.38**
+
 ## [0.1.37](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.37) (11/22/2025)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.11.46](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.46) (11/25/2025)
+
+### Features
+
+- **powerlines:** Added storage adapters for fine-grained over generated output
+  ([64abfc3](https://github.com/storm-software/powerlines/commit/64abfc3))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.25.0**
+- Updated **nx** to **v0.10.38**
+
 ## [0.11.45](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.45) (11/22/2025)
 
 ### Updated Dependencies

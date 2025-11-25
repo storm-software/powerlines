@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Capnp
 
+## [0.1.40](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.40) (11/25/2025)
+
+### Features
+
+- **powerlines:** Added storage adapters for fine-grained over generated output
+  ([64abfc3](https://github.com/storm-software/powerlines/commit/64abfc3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.46**
+- Updated **powerlines** to **v0.25.0**
+- Updated **nx** to **v0.10.38**
+
 ## [0.1.39](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.39) (11/22/2025)
 
 ### Updated Dependencies

@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.13.44](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.44) (11/25/2025)
+
+### Features
+
+- **powerlines:** Added storage adapters for fine-grained over generated output
+  ([64abfc3](https://github.com/storm-software/powerlines/commit/64abfc3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.46**
+- Updated **plugin-babel** to **v0.12.47**
+- Updated **powerlines** to **v0.25.0**
+- Updated **deepkit** to **v0.4.43**
+- Updated **alloy** to **v0.11.47**
+- Updated **nx** to **v0.10.38**
+
 ## [0.13.43](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.43) (11/22/2025)
 
 ### Updated Dependencies

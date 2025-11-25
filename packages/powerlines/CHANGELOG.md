@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.25.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.25.0) (11/25/2025)
+
+### Bug Fixes
+
+- **powerlines:** Ensure `tsconfig` path is properly set in config
+  ([b125c73](https://github.com/storm-software/powerlines/commit/b125c73))
+
+### Features
+
+- **powerlines:** Added storage adapters for fine-grained over generated output
+  ([64abfc3](https://github.com/storm-software/powerlines/commit/64abfc3))
+
 ## [0.24.9](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.24.9) (11/22/2025)
 
 ### Miscellaneous
