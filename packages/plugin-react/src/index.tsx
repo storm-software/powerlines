@@ -40,7 +40,7 @@ export * from "./types";
 /**
  * A package containing a Powerlines plugin for building a React application.
  */
-export const plugin = createAlloyPlugin((options: ReactPluginOptions) => {
+export const plugin = createAlloyPlugin((options: ReactPluginOptions = {}) => {
   return {
     name: "react",
     dependsOn: [babel(options.babel), env(options.env)],

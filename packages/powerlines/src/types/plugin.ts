@@ -376,7 +376,7 @@ export interface Plugin<
    * @param other - The other plugin to compare against.
    * @returns `true` if the two plugins are the same, `false` otherwise.
    */
-  dedupe?: false | ((other: Plugin<any>) => boolean);
+  dedupe?: false | ((other: Plugin<TContext>) => boolean);
 
   /**
    * A list of pre-requisite plugins that must be loaded before this plugin can be used.
@@ -391,7 +391,7 @@ export interface Plugin<
    */
   applyToEnvironment?: (
     environment: EnvironmentResolvedConfig
-  ) => MaybePromise<boolean | Plugin<any>>;
+  ) => MaybePromise<boolean | Plugin<TContext>>;
 }
 
 export const PLUGIN_NON_HOOK_FIELDS = [

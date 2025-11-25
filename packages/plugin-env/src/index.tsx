@@ -64,10 +64,10 @@ export * from "./types";
  * A Powerlines plugin to inject environment variables into the source code.
  */
 export const plugin = createAlloyPlugin<EnvPluginContext>(
-  (options: EnvPluginOptions) => {
+  (options: EnvPluginOptions = {}) => {
     return {
       name: "env",
-      dependsOn: [babel()],
+      dependsOn: [babel(options.babel)],
       async config() {
         this.log(
           LogLevelLabel.TRACE,

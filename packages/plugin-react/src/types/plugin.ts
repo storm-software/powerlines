@@ -94,6 +94,6 @@ export type ReactPluginResolvedConfig = EnvPluginResolvedConfig & {
   react: ReactPluginOptions;
 };
 
-export type ReactPluginContext<
+export interface ReactPluginContext<
   TResolvedConfig extends ReactPluginResolvedConfig = ReactPluginResolvedConfig
-> = EnvPluginContext<TResolvedConfig>;
+> extends EnvPluginContext<TResolvedConfig> {}
