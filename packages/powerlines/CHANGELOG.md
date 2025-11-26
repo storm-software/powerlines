@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.25.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.25.2) (11/26/2025)
+
+### Bug Fixes
+
+- **powerlines:** Remove invariants from `Plugin` type parameters
+  ([f72fb6a](https://github.com/storm-software/powerlines/commit/f72fb6a))
+
 ## [0.25.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.25.1) (11/25/2025)
 
 ### Miscellaneous
