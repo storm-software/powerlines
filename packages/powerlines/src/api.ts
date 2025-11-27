@@ -238,9 +238,6 @@ export class PowerlinesAPI<
         )}`
       );
 
-      await writeMetaFile(context);
-      context.persistedMeta = context.meta;
-
       if (!context.fs.existsSync(context.cachePath)) {
         await createDirectory(context.cachePath);
       }
@@ -444,6 +441,7 @@ ${formatTypes(generatedTypes)}
       });
 
       await writeMetaFile(context);
+      context.persistedMeta = context.meta;
     });
 
     this.context.log(
