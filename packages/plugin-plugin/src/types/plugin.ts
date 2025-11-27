@@ -16,14 +16,14 @@
 
  ------------------------------------------------------------------- */
 
-import { PrintTreeOptions } from "@alloy-js/core";
-import {
+import type { PrintTreeOptions } from "@alloy-js/core";
+import type {
   TsupBuildConfig,
   TsupResolvedBuildConfig
 } from "powerlines/types/build";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import type { UserConfig } from "powerlines/types/config";
+import type { PluginContext } from "powerlines/types/context";
+import type { ResolvedConfig } from "powerlines/types/resolved";
 
 export type PluginPluginAlloyOptions = Partial<PrintTreeOptions> & {
   /**
