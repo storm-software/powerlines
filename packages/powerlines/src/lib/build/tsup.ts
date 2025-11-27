@@ -146,7 +146,8 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
       verbose:
         context.config.logLevel === null ||
         context.config.logLevel === "trace" ||
-        context.config.mode === "development"
+        context.config.mode === "development",
+      workspaceConfig: context.workspaceConfig
     },
     DEFAULT_TSUP_CONFIG
   );
