@@ -123,7 +123,9 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
       outputPath: context.config.output.buildPath,
       projectRoot: context.config.projectRoot,
       tsconfig: context.tsconfig.tsconfigFilePath,
-      tsconfigRaw: context.tsconfig.tsconfigJson,
+      dts: {
+        compilerOptions: context.tsconfig.tsconfigJson.compilerOptions
+      },
       format: context.config.output.format,
       mode: context.config.mode,
       treeshake:
@@ -138,7 +140,6 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
       minify: context.config.mode !== "development",
       metafile: context.config.mode === "development",
       sourcemap: context.config.mode === "development",
-      dts: context.config.projectType !== "application",
       silent:
         context.config.logLevel === null ||
         context.config.mode === "production",
