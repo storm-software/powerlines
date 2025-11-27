@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.25.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.25.4) (11/27/2025)
+
+### Miscellaneous
+
+- **powerlines:** Remove unused `POWERLINES_LOCAL` environment variable
+  ([e6dae99](https://github.com/storm-software/powerlines/commit/e6dae99))
+
 ## [0.25.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.25.3) (11/26/2025)
 
 ### Bug Fixes

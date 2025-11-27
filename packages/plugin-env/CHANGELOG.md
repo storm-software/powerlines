@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.13.48](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.48) (11/27/2025)
+
+### Miscellaneous
+
+- **powerlines:** Remove unused `POWERLINES_LOCAL` environment variable
+  ([e6dae99](https://github.com/storm-software/powerlines/commit/e6dae99))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.50**
+- Updated **plugin-babel** to **v0.12.51**
+- Updated **powerlines** to **v0.25.4**
+- Updated **deepkit** to **v0.4.47**
+- Updated **alloy** to **v0.11.51**
+- Updated **nx** to **v0.10.42**
+
 ## [0.13.47](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.47) (11/26/2025)
 
 ### Updated Dependencies

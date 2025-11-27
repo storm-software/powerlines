@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.11.50](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.50) (11/27/2025)
+
+### Bug Fixes
+
+- **plugin-plugin:** Resolve issue with invalid import paths
+  ([cfb61c1](https://github.com/storm-software/powerlines/commit/cfb61c1))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.25.4**
+- Updated **nx** to **v0.10.42**
+
 ## [0.11.49](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.49) (11/26/2025)
 
 ### Updated Dependencies
