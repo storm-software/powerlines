@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Alloy
 
+## [0.11.50](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.50) (11/26/2025)
+
+### Bug Fixes
+
+- **powerlines:** Update typing to support type variance
+  ([8bfb28d](https://github.com/storm-software/powerlines/commit/8bfb28d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.49**
+- Updated **powerlines** to **v0.25.3**
+- Updated **deepkit** to **v0.4.46**
+- Updated **nx** to **v0.10.41**
+
 ## [0.11.49](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.49) (11/26/2025)
 
 ### Updated Dependencies

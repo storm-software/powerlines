@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.41](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.41) (11/26/2025)
+
+### Bug Fixes
+
+- **powerlines:** Update typing to support type variance
+  ([8bfb28d](https://github.com/storm-software/powerlines/commit/8bfb28d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.49**
+- Updated **plugin-babel** to **v0.12.50**
+- Updated **plugin-env** to **v0.13.47**
+- Updated **powerlines** to **v0.25.3**
+- Updated **deepkit** to **v0.4.46**
+- Updated **alloy** to **v0.11.50**
+- Updated **nx** to **v0.10.41**
+
 ## [0.1.40](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.40) (11/26/2025)
 
 ### Updated Dependencies

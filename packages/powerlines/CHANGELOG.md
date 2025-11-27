@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.25.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.25.3) (11/26/2025)
+
+### Bug Fixes
+
+- **powerlines:** Update typing to support type variance
+  ([8bfb28d](https://github.com/storm-software/powerlines/commit/8bfb28d))
+
 ## [0.25.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.25.2) (11/26/2025)
 
 ### Bug Fixes
