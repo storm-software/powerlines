@@ -79,11 +79,7 @@ import type {
   EnvironmentContext,
   PluginContext
 } from "./types/context";
-import {
-  HookKeys,
-  InferHookParameters,
-  InferHookReturnType
-} from "./types/hooks";
+import { HookKeys, InferHookParameters } from "./types/hooks";
 import { UNSAFE_APIContext } from "./types/internal";
 import type { Plugin } from "./types/plugin";
 import { EnvironmentResolvedConfig, ResolvedConfig } from "./types/resolved";
@@ -147,14 +143,11 @@ export class PowerlinesAPI<
       );
     }
 
-    const pluginConfig = await callHook<TResolvedConfig>(
-      await api.context.getEnvironment(),
-      "config",
-      {
-        sequential: true,
-        result: "merge"
-      }
-    );
+    const pluginConfig = await api.callHook("config", {
+      environment: await api.context.getEnvironment(),
+      sequential: true,
+      result: "merge"
+    });
     await api.context.withUserConfig(
       pluginConfig as TResolvedConfig["userConfig"],
       { isHighPriority: false }
@@ -198,11 +191,17 @@ export class PowerlinesAPI<
         `Initializing the processing options for the Powerlines project.`
       );
 
-      await this.callPreHook(context, "configResolved");
+      await this.callHook("configResolved", {
+        environment: context,
+        order: "pre"
+      });
 
       await initializeTsconfig<TResolvedConfig>(context);
 
-      await this.callNormalHook(context, "configResolved");
+      await this.callHook("configResolved", {
+        environment: context,
+        order: "normal"
+      });
 
       context.log(
         LogLevelLabel.DEBUG,
@@ -227,7 +226,10 @@ export class PowerlinesAPI<
       await resolveTsconfig<TResolvedConfig>(context);
       await installDependencies(context);
 
-      await this.callPostHook(context, "configResolved");
+      await this.callHook("configResolved", {
+        environment: context,
+        order: "post"
+      });
 
       context.log(
         LogLevelLabel.TRACE,
@@ -247,8 +249,14 @@ export class PowerlinesAPI<
         await createDirectory(context.dataPath);
       }
 
-      await this.callPreHook(context, "prepare");
-      await this.callNormalHook(context, "prepare");
+      await this.callHook("prepare", {
+        environment: context,
+        order: "pre"
+      });
+      await this.callHook("prepare", {
+        environment: context,
+        order: "normal"
+      });
 
       if (context.config.output.dts !== false) {
         context.log(
@@ -339,9 +347,12 @@ export class PowerlinesAPI<
 
         const directives = [] as string[];
 
-        let result = await this.callPreHook(
-          context,
+        let result = await this.callHook(
           "generateTypes",
+          {
+            environment: context,
+            order: "pre"
+          },
           generatedTypes
         );
         if (result) {
@@ -358,9 +369,12 @@ export class PowerlinesAPI<
           }
         }
 
-        result = await this.callNormalHook(
-          context,
+        result = await this.callHook(
           "generateTypes",
+          {
+            environment: context,
+            order: "normal"
+          },
           generatedTypes
         );
         if (result) {
@@ -377,9 +391,12 @@ export class PowerlinesAPI<
           }
         }
 
-        result = await this.callPostHook(
-          context,
+        result = await this.callHook(
           "generateTypes",
+          {
+            environment: context,
+            order: "post"
+          },
           generatedTypes
         );
         if (result) {
@@ -421,7 +438,10 @@ ${formatTypes(generatedTypes)}
         throw new Error("Failed to parse the TypeScript configuration file.");
       }
 
-      await this.callPostHook(context, "prepare");
+      await this.callHook("prepare", {
+        environment: context,
+        order: "post"
+      });
 
       await writeMetaFile(context);
     });
@@ -454,7 +474,10 @@ ${formatTypes(generatedTypes)}
         `Initializing the processing options for the Powerlines project.`
       );
 
-      await this.callPreHook(context, "new");
+      await this.callHook("new", {
+        environment: context,
+        order: "pre"
+      });
 
       const files = await listFiles(
         joinPaths(context.powerlinesPath, "files/common/**/*.hbs")
@@ -470,7 +493,10 @@ ${formatTypes(generatedTypes)}
         );
       }
 
-      await this.callNormalHook(context, "new");
+      await this.callHook("new", {
+        environment: context,
+        order: "normal"
+      });
 
       if (context.config.projectType === "application") {
         const files = await listFiles(
@@ -508,7 +534,10 @@ ${formatTypes(generatedTypes)}
         }
       }
 
-      await this.callPostHook(context, "new");
+      await this.callHook("new", {
+        environment: context,
+        order: "post"
+      });
     });
 
     this.context.log(LogLevelLabel.TRACE, "Powerlines - New command completed");
@@ -553,8 +582,9 @@ ${formatTypes(generatedTypes)}
         )
       );
 
-      await callHook<TResolvedConfig>(context, "clean", {
-        sequential: true
+      await this.callHook("clean", {
+        environment: context,
+        sequential: false
       });
     });
 
@@ -578,7 +608,10 @@ ${formatTypes(generatedTypes)}
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
       if (context.config.lint !== false) {
-        await this.callHook(context, "lint");
+        await this.callHook("lint", {
+          environment: context,
+          sequential: false
+        });
       }
     });
 
@@ -609,8 +642,14 @@ ${formatTypes(generatedTypes)}
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
-      await this.callPreHook(context, "build");
-      await this.callNormalHook(context, "build");
+      await this.callHook("build", {
+        environment: context,
+        order: "pre"
+      });
+      await this.callHook("build", {
+        environment: context,
+        order: "normal"
+      });
 
       if (
         context.config.output.buildPath !== context.config.output.outputPath
@@ -674,7 +713,10 @@ ${formatTypes(generatedTypes)}
         })
       );
 
-      await this.callPostHook(context, "build");
+      await this.callHook("build", {
+        environment: context,
+        order: "post"
+      });
     });
 
     this.context.log(LogLevelLabel.TRACE, "Powerlines build completed");
@@ -701,7 +743,9 @@ ${formatTypes(generatedTypes)}
 
       await this.prepare(inlineConfig);
       await this.#executeEnvironments(async context => {
-        await this.callHook(context, "docs");
+        await this.callHook("docs", {
+          environment: context
+        });
       });
     });
 
@@ -726,7 +770,7 @@ ${formatTypes(generatedTypes)}
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
-      await this.callHook(context, "deploy");
+      await this.callHook("deploy", { environment: context });
     });
 
     this.context.log(LogLevelLabel.TRACE, "Powerlines deploy completed");
@@ -747,7 +791,7 @@ ${formatTypes(generatedTypes)}
     );
 
     await this.#executeEnvironments(async context => {
-      await this.callHook(context, "finalize");
+      await this.callHook("finalize", { environment: context });
       await context.fs.dispose();
     });
 
@@ -758,139 +802,31 @@ ${formatTypes(generatedTypes)}
   }
 
   /**
-   * Calls a hook in parallel
+   * Invokes the configured plugin hooks
+   *
+   * @remarks
+   * By default, it will call the `"pre"`, `"normal"`, and `"post"` ordered hooks in sequence
    *
    * @param hook - The hook to call
-   * @param options - Options for calling the hook
-   * @param args - The arguments to pass to the hook
-   * @returns The result of the hook call
-   */
-  public async callHookParallel<
-    TKey extends HookKeys<PluginContext<TResolvedConfig>>
-  >(
-    hook: TKey,
-    options: Omit<CallHookOptions, "sequential"> & {
-      environment?: string | EnvironmentContext<TResolvedConfig>;
-    },
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ): Promise<InferHookReturnType<PluginContext<TResolvedConfig>, TKey>> {
-    return callHook<TResolvedConfig>(
-      isSetObject(options?.environment)
-        ? options.environment
-        : await this.#context.getEnvironment(options?.environment),
-      hook,
-      { ...options, sequential: false },
-      ...args
-    );
-  }
-
-  /**
-   * Calls a hook in sequence
-   *
-   * @param hook - The hook to call
-   * @param options - Options for calling the hook
-   * @param args - The arguments to pass to the hook
-   * @returns The result of the hook call
-   */
-  public async callHookSequential<
-    TKey extends HookKeys<PluginContext<TResolvedConfig>>
-  >(
-    hook: TKey,
-    options: Omit<CallHookOptions, "sequential"> & {
-      environment?: string | EnvironmentContext<TResolvedConfig>;
-    },
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ): Promise<InferHookReturnType<PluginContext<TResolvedConfig>, TKey>> {
-    return callHook<TResolvedConfig>(
-      isSetObject(options?.environment)
-        ? options.environment
-        : await this.#context.getEnvironment(options?.environment),
-      hook,
-      { ...options, sequential: true },
-      ...args
-    );
-  }
-
-  /**
-   * Calls the `"pre"` ordered hooks in sequence
-   *
-   * @param environment - The environment to use for the hook call
-   * @param hook - The hook to call
-   * @param args - The arguments to pass to the hook
-   * @returns The result of the hook call
-   */
-  public async callPreHook<
-    TKey extends HookKeys<PluginContext<TResolvedConfig>>
-  >(
-    environment: string | EnvironmentContext<TResolvedConfig>,
-    hook: TKey,
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) {
-    return this.callHookSequential(
-      hook,
-      { order: "pre", environment },
-      ...args
-    );
-  }
-
-  /**
-   * Calls the `"post"` ordered hooks in sequence
-   *
-   * @param environment - The environment to use for the hook call
-   * @param hook - The hook to call
-   * @param args - The arguments to pass to the hook
-   * @returns The result of the hook call
-   */
-  public async callPostHook<
-    TKey extends HookKeys<PluginContext<TResolvedConfig>>
-  >(
-    environment: string | EnvironmentContext<TResolvedConfig>,
-    hook: TKey,
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) {
-    return this.callHookSequential(
-      hook,
-      { order: "post", environment },
-      ...args
-    );
-  }
-
-  /**
-   * Calls a hook in sequence
-   *
-   * @param environment - The environment to use for the hook call
-   * @param hook - The hook to call
-   * @param args - The arguments to pass to the hook
-   * @returns The result of the hook call
-   */
-  public async callNormalHook<
-    TKey extends HookKeys<PluginContext<TResolvedConfig>>
-  >(
-    environment: string | EnvironmentContext<TResolvedConfig>,
-    hook: TKey,
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) {
-    return this.callHookSequential(
-      hook,
-      { order: "normal", environment },
-      ...args
-    );
-  }
-
-  /**
-   * Calls the `"pre"` and `"post"` ordered hooks, as well as the normal hooks in sequence
-   *
-   * @param environment - The environment to use for the hook call
-   * @param hook - The hook to call
+   * @param options - The options to provide to the hook
    * @param args - The arguments to pass to the hook
    * @returns The result of the hook call
    */
   public async callHook<TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
-    environment: string | EnvironmentContext<TResolvedConfig>,
     hook: TKey,
+    options: CallHookOptions & {
+      environment?: string | EnvironmentContext<TResolvedConfig>;
+    },
     ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
   ) {
-    return this.callHookSequential(hook, { environment }, ...args);
+    return callHook<TResolvedConfig, EnvironmentContext<TResolvedConfig>, TKey>(
+      isSetObject(options?.environment)
+        ? options.environment
+        : await this.#context.getEnvironment(options?.environment),
+      hook,
+      { sequential: true, ...options },
+      ...args
+    );
   }
 
   /**
@@ -932,7 +868,7 @@ ${formatTypes(generatedTypes)}
           async ([name, config]) => {
             const environment = await this.context.getEnvironmentSafe(name);
             if (!environment) {
-              const resolvedEnvironment = await this.callHookParallel(
+              const resolvedEnvironment = await this.callHook(
                 "configEnvironment",
                 {
                   environment: name

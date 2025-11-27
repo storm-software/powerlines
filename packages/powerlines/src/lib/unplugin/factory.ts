@@ -100,12 +100,20 @@ export function createUnpluginFactory<
       ): Promise<TransformResult> {
         const environment = await api.context.getEnvironment();
 
-        let result = await api.callPreHook(environment, "load", id);
+        let result = await api.callHook(
+          "load",
+          { environment, order: "pre" },
+          id
+        );
         if (result) {
           return result;
         }
 
-        result = await api.callNormalHook(environment, "load", id);
+        result = await api.callHook(
+          "load",
+          { environment, order: "normal" },
+          id
+        );
         if (result) {
           return result;
         }
@@ -115,55 +123,31 @@ export function createUnpluginFactory<
           return result;
         }
 
-        return api.callPostHook(environment, "load", id);
+        return api.callHook("load", { environment, order: "post" }, id);
       }
 
       async function transform(
         code: string,
         id: string
       ): Promise<TransformResult> {
-        const environment = await api.context.getEnvironment();
-
-        let transformed: TransformResult | string = code;
-
-        let result = await api.callPreHook(
-          environment,
+        return api.callHook(
           "transform",
-          getString(transformed),
+          {
+            environment: await api.context.getEnvironment(),
+            result: "merge",
+            asNextParam: previousResult => getString(previousResult)
+          },
+          getString(code),
           id
         );
-        if (result) {
-          transformed = result;
-        }
-
-        result = await api.callNormalHook(
-          environment,
-          "transform",
-          getString(transformed),
-          id
-        );
-        if (result) {
-          transformed = result;
-        }
-
-        result = await api.callPostHook(
-          environment,
-          "transform",
-          getString(transformed),
-          id
-        );
-        if (result) {
-          transformed = result;
-        }
-
-        return transformed;
       }
 
       async function writeBundle(): Promise<void> {
         log(LogLevelLabel.DEBUG, "Finalizing Powerlines project output...");
 
-        const environment = await api.context.getEnvironment();
-        await api.callHook(environment, "writeBundle");
+        await api.callHook("writeBundle", {
+          environment: await api.context.getEnvironment()
+        });
       }
 
       const result = {

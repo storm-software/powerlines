@@ -20,6 +20,7 @@ import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isSet } from "@stryke/type-checks/is-set";
 import { ArrayValues } from "@stryke/types/array";
+import { MaybePromise } from "@stryke/types/base";
 import chalk from "chalk";
 import { defu } from "defu";
 import {
@@ -36,26 +37,46 @@ import { ResolvedConfig } from "../../types/resolved";
 
 export type CallHookOptions = SelectHooksOptions &
   (
-    | {
+    | ({
         /**
          * Whether to call the hooks sequentially or in parallel.
          *
          * @defaultValue true
          */
         sequential?: true;
+      } & (
+        | {
+            /**
+             * How to handle multiple return values from hooks.
+             * - "merge": Merge all non-undefined return values (if they are objects).
+             * - "first": Return the first non-undefined value.
+             *
+             * @remarks
+             * Merging only works if the return values are objects.
+             *
+             * @defaultValue "merge"
+             */
+            result: "first";
+          }
+        | {
+            /**
+             * How to handle multiple return values from hooks.
+             * - "merge": Merge all non-undefined return values (if they are objects).
+             * - "first": Return the first non-undefined value.
+             *
+             * @remarks
+             * Merging only works if the return values are objects.
+             *
+             * @defaultValue "merge"
+             */
+            result?: "merge";
 
-        /**
-         * How to handle multiple return values from hooks.
-         * - "merge": Merge all non-undefined return values (if they are objects).
-         * - "first": Return the first non-undefined value.
-         *
-         * @remarks
-         * Merging only works if the return values are objects.
-         *
-         * @defaultValue "merge"
-         */
-        result?: "merge" | "first";
-      }
+            /**
+             * An indicator specifying if the results of the previous hook should be provided as the **first** parameter of the next hook function, or a function to process the result of the previous hook function and pass the returned value as the next hook's **first** parameter
+             */
+            asNextParam?: false | ((previousResult: any) => MaybePromise<any>);
+          }
+      ))
     | {
         /**
          * Whether to call the hooks sequentially or in parallel.
@@ -122,10 +143,28 @@ export async function callHook<
           );
         }
 
-        // eslint-disable-next-line ts/no-unsafe-call
-        results.push(await Promise.resolve(handler.apply(null, ...args)));
-        if (options?.result === "first" && isSet(results[results.length - 1])) {
-          break;
+        if (options?.result === "first" || options?.asNextParam === false) {
+          // eslint-disable-next-line ts/no-unsafe-call
+          results.push(await Promise.resolve(handler.apply(null, ...args)));
+          if (
+            options?.result === "first" &&
+            isSet(results[results.length - 1])
+          ) {
+            break;
+          }
+        } else {
+          const sequenceArgs = [...args];
+          if (results.length > 0 && sequenceArgs.length > 0) {
+            sequenceArgs[0] = isFunction(options.asNextParam)
+              ? await Promise.resolve(options.asNextParam(results[0]))
+              : results[0];
+          }
+
+          const result = await Promise.resolve(
+            // eslint-disable-next-line ts/no-unsafe-call
+            handler.apply(null, ...sequenceArgs)
+          );
+          results = [result];
         }
       }
     }

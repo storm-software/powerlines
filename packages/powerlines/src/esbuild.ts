@@ -61,7 +61,7 @@ export const esbuild = createEsbuildPlugin(
         setup: async (build: PluginBuild) => {
           const environment = await api.context.getEnvironment();
 
-          return api.callHook(environment, "esbuild:setup", build);
+          return api.callHook("esbuild:setup", { environment }, build);
         }
       }
     };

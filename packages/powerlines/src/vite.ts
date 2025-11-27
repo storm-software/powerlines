@@ -48,7 +48,7 @@ export const vite = createVitePlugin(
         async hotUpdate(options) {
           const environment = await api.context.getEnvironment();
 
-          return api.callHook(environment, "vite:hotUpdate", options);
+          return api.callHook("vite:hotUpdate", { environment }, options);
         },
         async config(config, env) {
           api.context.config.mode = isDevelopmentMode(env.mode)
@@ -58,7 +58,7 @@ export const vite = createVitePlugin(
               : "production";
 
           const environment = await api.context.getEnvironment();
-          const result = await api.callHook(environment, "config");
+          const result = await api.callHook("config", { environment });
 
           return defu(
             extractViteConfig(api.context),
@@ -69,19 +69,19 @@ export const vite = createVitePlugin(
         },
         async configResolved(_config) {
           const environment = await api.context.getEnvironment();
-          await api.callHook(environment, "configResolved");
+          await api.callHook("configResolved", { environment });
         },
         async configureServer(server) {
           const environment = await api.context.getEnvironment();
 
-          return api.callHook(environment, "vite:configureServer", server);
+          return api.callHook("vite:configureServer", { environment }, server);
         },
         async configurePreviewServer(server) {
           const environment = await api.context.getEnvironment();
 
           return api.callHook(
-            environment,
             "vite:configurePreviewServer",
+            { environment },
             server
           );
         },
@@ -89,8 +89,8 @@ export const vite = createVitePlugin(
           const environment = await api.context.getEnvironment();
 
           return api.callHook(
-            environment,
             "vite:transformIndexHtml",
+            { environment },
             html,
             ctx
           );
@@ -98,7 +98,7 @@ export const vite = createVitePlugin(
         async handleHotUpdate(ctx) {
           const environment = await api.context.getEnvironment();
 
-          return api.callHook(environment, "vite:handleHotUpdate", ctx);
+          return api.callHook("vite:handleHotUpdate", { environment }, ctx);
         }
       }
     };

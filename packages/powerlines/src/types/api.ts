@@ -130,90 +130,23 @@ export interface API<TResolvedConfig extends ResolvedConfig = ResolvedConfig> {
   finalize: () => Promise<void>;
 
   /**
-   * Calls a hook in parallel
+   * Invokes the configured plugin hooks
+   *
+   * @remarks
+   * By default, it will call the `"pre"`, `"normal"`, and `"post"` ordered hooks in sequence
    *
    * @param hook - The hook to call
-   * @param options - Options for calling the hook
-   * @param args - The arguments to pass to the hook
-   * @returns The result of the hook call
-   */
-  callHookParallel: <TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
-    hook: TKey,
-    options: Omit<CallHookOptions, "sequential"> & {
-      environment?: string | EnvironmentContext<TResolvedConfig>;
-    },
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) => Promise<InferHookReturnType<PluginContext<TResolvedConfig>, TKey>>;
-
-  /**
-   * Calls a hook in sequence
-   *
-   * @param hook - The hook to call
-   * @param options - Options for calling the hook
-   * @param args - The arguments to pass to the hook
-   * @returns The result of the hook call
-   */
-  callHookSequential: <TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
-    hook: TKey,
-    options: Omit<CallHookOptions, "sequential"> & {
-      environment?: string | EnvironmentContext<TResolvedConfig>;
-    },
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) => Promise<InferHookReturnType<PluginContext<TResolvedConfig>, TKey>>;
-
-  /**
-   * Calls the `"pre"` ordered hooks in sequence
-   *
-   * @param environment - The environment to use for the hook call
-   * @param hook - The hook to call
-   * @param args - The arguments to pass to the hook
-   * @returns The result of the hook call
-   */
-  callPreHook: <TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
-    environment: string | EnvironmentContext<TResolvedConfig>,
-    hook: TKey,
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) => Promise<InferHookReturnType<PluginContext<TResolvedConfig>, TKey>>;
-
-  /**
-   * Calls the `"post"` ordered hooks in sequence
-   *
-   * @param environment - The environment to use for the hook call
-   * @param hook - The hook to call
-   * @param args - The arguments to pass to the hook
-   * @returns The result of the hook call
-   */
-  callPostHook: <TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
-    environment: string | EnvironmentContext<TResolvedConfig>,
-    hook: TKey,
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) => Promise<InferHookReturnType<PluginContext<TResolvedConfig>, TKey>>;
-
-  /**
-   * Calls a hook in sequence
-   *
-   * @param environment - The environment to use for the hook call
-   * @param hook - The hook to call
-   * @param args - The arguments to pass to the hook
-   * @returns The result of the hook call
-   */
-  callNormalHook: <TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
-    environment: string | EnvironmentContext<TResolvedConfig>,
-    hook: TKey,
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) => Promise<InferHookReturnType<PluginContext<TResolvedConfig>, TKey>>;
-
-  /**
-   * Calls the `"pre"` and `"post"` ordered hooks, as well as the normal hooks in sequence
-   *
-   * @param environment - The environment to use for the hook call
-   * @param hook - The hook to call
+   * @param options - The options to provide to the hook
    * @param args - The arguments to pass to the hook
    * @returns The result of the hook call
    */
   callHook: <TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
-    environment: string | EnvironmentContext<TResolvedConfig>,
     hook: TKey,
+    options: CallHookOptions & {
+      environment?: string | EnvironmentContext<TResolvedConfig>;
+    },
     ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) => Promise<InferHookReturnType<PluginContext<TResolvedConfig>, TKey>>;
+  ) => Promise<
+    InferHookReturnType<PluginContext<TResolvedConfig>, TKey> | undefined
+  >;
 }
