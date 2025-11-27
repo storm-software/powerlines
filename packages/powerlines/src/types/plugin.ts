@@ -322,13 +322,6 @@ export type PluginHooks<TContext extends PluginContext = PluginContext> = {
     ) => MaybePromise<string | ExternalIdResult | null | undefined>,
     "id"
   >;
-
-  /**
-   * An API object that can be used for inter-plugin communication.
-   *
-   * @see https://rollupjs.org/plugin-development/#direct-plugin-communication
-   */
-  api?: Record<string, any>;
 };
 
 export type PluginBuildPlugins<TContext extends PluginContext = PluginContext> =
@@ -348,6 +341,13 @@ export interface Plugin<
    * The name of the plugin, for use in deduplication, error messages and logs.
    */
   name: string;
+
+  /**
+   * An API object that can be used for inter-plugin communication.
+   *
+   * @see https://rollupjs.org/plugin-development/#direct-plugin-communication
+   */
+  api?: Record<string, any>;
 
   /**
    * Enforce plugin invocation tier similar to webpack loaders. Hooks ordering is still subject to the `order` property in the hook object.
@@ -396,6 +396,7 @@ export interface Plugin<
 
 export const PLUGIN_NON_HOOK_FIELDS = [
   "name",
+  "api",
   "enforce",
   "dedupe",
   "dependsOn",
