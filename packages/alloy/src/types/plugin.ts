@@ -34,4 +34,4 @@ export type AlloyPluginBuilderResult<
 export type AlloyPluginBuilder<
   TContext extends PluginContext = PluginContext,
   TOptions = any
-> = (options: TOptions) => AlloyPluginBuilderResult<TContext>;
+> = <T extends TContext>(options: TOptions) => AlloyPluginBuilderResult<T>;

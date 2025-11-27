@@ -51,7 +51,9 @@ import { AlloyPluginBuilder, AlloyPluginOptions } from "./types/plugin";
 export function createAlloyPlugin<
   TContext extends PluginContext = PluginContext
 >(builder: AlloyPluginBuilder<TContext>) {
-  return (options: Parameters<typeof builder>[0] & AlloyPluginOptions) => {
+  return <T extends TContext>(
+    options: Parameters<typeof builder>[0] & AlloyPluginOptions
+  ) => {
     const result = builder(options);
 
     return {
@@ -88,7 +90,7 @@ export function createAlloyPlugin<
           await Promise.resolve(getHookHandler(result.prepare).call(this));
         }
       }
-    } as Plugin<TContext>;
+    } as Plugin<T>;
   };
 }
 

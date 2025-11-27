@@ -340,7 +340,8 @@ export type PluginBuildPlugins<TContext extends PluginContext = PluginContext> =
   };
 
 export interface Plugin<
-  TContext extends PluginContext<ResolvedConfig> = PluginContext<ResolvedConfig>
+  in out TContext extends
+    PluginContext<ResolvedConfig> = PluginContext<ResolvedConfig>
 > extends Partial<PluginHooks<TContext>>,
     PluginBuildPlugins<TContext> {
   /**
@@ -375,7 +376,7 @@ export interface Plugin<
    * @param other - The other plugin to compare against.
    * @returns `true` if the two plugins are the same, `false` otherwise.
    */
-  dedupe?: false | ((other: Plugin<TContext>) => boolean);
+  dedupe?: false | ((other: Plugin<any>) => boolean);
 
   /**
    * A list of pre-requisite plugins that must be loaded before this plugin can be used.
