@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.26.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.26.0) (11/27/2025)
+
+### Bug Fixes
+
+- **powerlines:** Added `api` to non-hook list of plugin fields
+  ([f549b68](https://github.com/storm-software/powerlines/commit/f549b68))
+
+### Features
+
+- **powerlines:** Added `asNextParam` option to allow sequentially invoke hooks
+  ([fbbb028](https://github.com/storm-software/powerlines/commit/fbbb028))
+
 ## [0.25.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.25.4) (11/27/2025)
 
 ### Miscellaneous
