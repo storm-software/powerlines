@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.26.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.26.1) (11/27/2025)
+
+### Miscellaneous
+
+- **powerlines:** Ensure `workspaceConfig` is always provided to `tsup` build
+  ([dce24e2](https://github.com/storm-software/powerlines/commit/dce24e2))
+- **powerlines:** Use custom compiler options for DTS build in `tsup` helper
+  ([f742d21](https://github.com/storm-software/powerlines/commit/f742d21))
+
+### Bug Fixes
+
+- **powerlines:** Remove duplicate calls to `writeMetaFile` function
+  ([a450883](https://github.com/storm-software/powerlines/commit/a450883))
+
 ## [0.26.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.26.0) (11/27/2025)
 
 ### Bug Fixes
