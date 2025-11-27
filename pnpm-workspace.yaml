@@ -34,7 +34,7 @@ catalog:
   '@babel/traverse': ^7.28.5
   '@babel/types': ^7.28.5
   '@biomejs/biome': ^2.3.7
-  '@cacheable/memory': ^2.0.5
+  '@cacheable/memory': ^2.0.6
   '@content-collections/core': ^0.12.0
   '@deepkit/core': 1.0.5
   '@deepkit/type': 1.0.5
@@ -59,7 +59,7 @@ catalog:
   '@nx/workspace': ^22.1.2
   '@prisma/get-platform': ^6.19.0
   '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
-  '@pulumi/pulumi': ^3.208.0
+  '@pulumi/pulumi': ^3.209.0
   '@rollup/plugin-alias': ^6.0.0
   '@rollup/plugin-babel': ^6.1.0
   '@rollup/plugin-commonjs': ^28.0.9
