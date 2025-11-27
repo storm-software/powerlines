@@ -48,7 +48,7 @@ export async function installPackage(
       cwd: context.config.projectRoot
     }))
   ) {
-    if (context.config.skipInstalls !== true && !process.env.POWERLINES_LOCAL) {
+    if (context.config.skipInstalls !== true) {
       context.log(
         LogLevelLabel.WARN,
         `The package "${packageName}" is not installed. It will be installed automatically.`

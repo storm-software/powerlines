@@ -65,8 +65,6 @@ export interface CreateEnvReflectionOptions {
 }
 
 export class BaseEnv implements EnvInterface {
-  POWERLINES_LOCAL: boolean = false;
-
   APP_NAME!: string;
 
   APP_VERSION!: string;
@@ -85,7 +83,7 @@ export class BaseEnv implements EnvInterface {
 
   PLATFORM: "node" | "browser" | "neutral" = "neutral";
 
-  MODE: "development" | "test" | "production" = "development";
+  MODE: "development" | "test" | "production" = "production";
 
   ENVIRONMENT!: string;
 

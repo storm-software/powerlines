@@ -78,8 +78,7 @@ export class Worker {
           ...farmOptions.forkOptions,
           env: {
             ...((farmOptions.forkOptions?.env ?? {}) as any),
-            ...process.env,
-            POWERLINES_LOCAL: process.env.POWERLINES_LOCAL || "0"
+            ...(process.env ?? {})
           }
         },
         maxRetries: 0

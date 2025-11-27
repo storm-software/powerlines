@@ -31,15 +31,6 @@ import { LogLevel } from "powerlines/types/context";
  */
 export interface EnvInterface {
   /**
-   * An indicator that specifies the application is running in the local development environment.
-   *
-   * @hidden
-   * @readonly
-   * @category node
-   */
-  readonly POWERLINES_LOCAL: boolean;
-
-  /**
    * The name of the application.
    *
    * @readonly
