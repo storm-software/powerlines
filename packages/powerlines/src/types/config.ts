@@ -618,19 +618,29 @@ export type ConfigEnv = Pick<
   "command" | "mode" | "environments" | "preview"
 >;
 
+type AnyBuildConfig = Partial<
+  | UserConfig
+  | WebpackUserConfig
+  | RspackUserConfig
+  | ViteUserConfig
+  | ESBuildUserConfig
+  | UnbuildUserConfig
+  | TsupUserConfig
+  | RolldownUserConfig
+  | RollupUserConfig
+  | FarmUserConfig
+>;
+
 export type AnyUserConfig = Record<string, any> &
-  (
-    | Partial<UserConfig>
-    | Partial<WebpackUserConfig>
-    | Partial<RspackUserConfig>
-    | Partial<ViteUserConfig>
-    | Partial<ESBuildUserConfig>
-    | Partial<UnbuildUserConfig>
-    | Partial<TsupUserConfig>
-    | Partial<RolldownUserConfig>
-    | Partial<RollupUserConfig>
-    | Partial<FarmUserConfig>
-  );
+  Partial<AnyBuildConfig> & {
+    output: Partial<AnyBuildConfig["output"]>;
+    lint: Partial<AnyBuildConfig["lint"]>;
+    transform: Partial<AnyBuildConfig["transform"]>;
+    build: Partial<AnyBuildConfig["build"]>;
+    test: Partial<AnyBuildConfig["test"]>;
+    docs: Partial<AnyBuildConfig["docs"]>;
+    deploy: Partial<AnyBuildConfig["deploy"]>;
+  };
 
 export type UserConfigFnObject = (env: ConfigEnv) => DeepPartial<UserConfig>;
 export type UserConfigFnPromise = (

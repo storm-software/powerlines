@@ -2,122 +2,121 @@ packages:
   - tools/*
   - packages/*
   - docs/*
-
 catalog:
-  '@alloy-js/babel-plugin': ^0.2.1
-  '@alloy-js/babel-plugin-jsx-dom-expressions': ^0.39.1
-  '@alloy-js/babel-preset': ^0.2.1
-  '@alloy-js/core': ^0.20.0
-  '@alloy-js/json': ^0.20.0
-  '@alloy-js/markdown': ^0.20.0
-  '@alloy-js/rollup-plugin': ^0.1.0
-  '@alloy-js/typescript': ^0.20.0
-  '@asyncapi/generator': ^2.8.4
-  '@asyncapi/parser': ^3.4.0
-  '@babel/core': ^7.28.5
-  '@babel/generator': ^7.28.5
-  '@babel/helper-module-imports': ^7.27.1
-  '@babel/helper-module-transforms': ^7.28.3
-  '@babel/helper-plugin-utils': ^7.27.1
-  '@babel/helper-simple-access': ^7.27.1
-  '@babel/parser': ^7.28.5
-  '@babel/plugin-proposal-decorators': ^7.28.0
-  '@babel/plugin-syntax-class-properties': ^7.12.13
-  '@babel/plugin-syntax-import-assertions': ^7.27.1
-  '@babel/plugin-syntax-jsx': ^7.27.1
-  '@babel/plugin-syntax-typescript': ^7.27.1
-  '@babel/plugin-transform-export-namespace-from': ^7.27.1
-  '@babel/plugin-transform-react-jsx': ^7.27.1
-  '@babel/plugin-transform-typescript': ^7.28.5
-  '@babel/preset-typescript': ^7.28.5
-  '@babel/template': ^7.27.2
-  '@babel/traverse': ^7.28.5
-  '@babel/types': ^7.28.5
-  '@biomejs/biome': ^2.3.7
-  '@cacheable/memory': ^2.0.6
-  '@content-collections/core': ^0.12.0
-  '@deepkit/core': 1.0.5
-  '@deepkit/type': 1.0.5
-  '@deepkit/type-compiler': 1.0.5
-  '@deepkit/type-spec': 1.0.1
-  '@donedeal0/superdiff': ^3.1.2
-  '@graphql-codegen/cli': ^6.1.0
-  '@graphql-codegen/plugin-helpers': ^6.1.0
-  '@jest/reporters': ^30.2.0
-  '@jest/test-result': ^30.2.0
-  '@jest/types': ^30.2.0
-  '@ls-lint/ls-lint': ^2.3.1
-  '@microsoft/api-extractor': ^7.55.1
-  '@microsoft/tsdoc': ^0.15.1
-  '@microsoft/tsdoc-config': ^0.17.1
-  '@noble/ciphers': ^2.0.1
-  '@nx/devkit': ^22.1.2
-  '@nx/eslint-plugin': ^22.1.2
-  '@nx/jest': ^22.1.2
-  '@nx/js': ^22.1.2
-  '@nx/plugin': ^22.1.2
-  '@nx/workspace': ^22.1.2
-  '@prisma/get-platform': ^6.19.0
-  '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
-  '@pulumi/pulumi': ^3.209.0
-  '@rollup/plugin-alias': ^6.0.0
-  '@rollup/plugin-babel': ^6.1.0
-  '@rollup/plugin-commonjs': ^28.0.9
-  '@rollup/plugin-inject': ^5.0.5
-  '@rollup/plugin-node-resolve': ^16.0.3
-  '@rollup/plugin-replace': ^6.0.3
-  '@rspack/core': ^1.6.5
-  '@standard-schema/spec': ^1.0.0
-  '@storm-software/build-tools': ^0.158.49
-  '@storm-software/config': ^1.134.49
-  '@storm-software/config-tools': ^1.188.49
-  '@storm-software/cspell': ^0.45.49
-  '@storm-software/esbuild': ^0.53.49
-  '@storm-software/eslint': ^0.169.49
-  '@storm-software/git-tools': ^2.124.32
-  '@storm-software/linting-tools': ^1.132.49
-  '@storm-software/markdownlint': ^0.30.49
-  '@storm-software/pnpm-tools': ^0.6.49
-  '@storm-software/prettier': ^0.57.49
-  '@storm-software/testing-tools': ^1.119.49
-  '@storm-software/tsconfig': ^0.47.49
-  '@storm-software/tsup': ^0.2.47
-  '@storm-software/unbuild': ^0.57.49
-  '@storm-software/untyped': ^0.24.30
-  '@storm-software/workspace-tools': ^1.293.19
-  '@stryke/capnp': ^0.12.28
-  '@stryke/cli': ^0.12.14
-  '@stryke/convert': ^0.6.8
-  '@stryke/env': ^0.20.21
-  '@stryke/fs': ^0.33.4
-  '@stryke/hash': ^0.12.10
-  '@stryke/helpers': ^0.9.10
-  '@stryke/http': ^0.11.9
-  '@stryke/json': ^0.9.11
-  '@stryke/path': ^0.21.2
-  '@stryke/string-format': ^0.12.8
-  '@stryke/type-checks': ^0.3.18
-  '@stryke/types': ^0.10.8
-  '@stryke/unique-id': ^0.3.15
-  '@swc/core': ^1.15.3
-  '@tamagui/static-worker': ^1.138.5
-  '@tamagui/types': ^1.138.5
-  '@taplo/cli': ^0.7.0
-  '@types/babel__core': ^7.20.5
-  '@types/babel__helper-module-imports': ^7.18.3
-  '@types/babel__helper-plugin-utils': ^7.10.3
-  '@types/babel__template': ^7.4.4
-  '@types/babel__traverse': ^7.28.0
-  '@types/diff-match-patch': ^1.0.36
-  '@types/jest': ^30.0.0
-  '@types/node': ^24.10.1
-  '@types/pluralize': ^0.0.33
-  '@types/react': ^19.2.7
-  '@types/react-dom': ^19.2.3
-  '@types/semver': ^7.7.1
-  '@typescript-eslint/utils': ^8.48.0
-  '@vitejs/plugin-react': ^5.1.1
-  '@vue/reactivity': ^3.5.25
+  "@alloy-js/babel-plugin": ^0.2.1
+  "@alloy-js/babel-plugin-jsx-dom-expressions": ^0.39.1
+  "@alloy-js/babel-preset": ^0.2.1
+  "@alloy-js/core": ^0.20.0
+  "@alloy-js/json": ^0.20.0
+  "@alloy-js/markdown": ^0.20.0
+  "@alloy-js/rollup-plugin": ^0.1.0
+  "@alloy-js/typescript": ^0.20.0
+  "@asyncapi/generator": ^2.8.4
+  "@asyncapi/parser": ^3.4.0
+  "@babel/core": ^7.28.5
+  "@babel/generator": ^7.28.5
+  "@babel/helper-module-imports": ^7.27.1
+  "@babel/helper-module-transforms": ^7.28.3
+  "@babel/helper-plugin-utils": ^7.27.1
+  "@babel/helper-simple-access": ^7.27.1
+  "@babel/parser": ^7.28.5
+  "@babel/plugin-proposal-decorators": ^7.28.0
+  "@babel/plugin-syntax-class-properties": ^7.12.13
+  "@babel/plugin-syntax-import-assertions": ^7.27.1
+  "@babel/plugin-syntax-jsx": ^7.27.1
+  "@babel/plugin-syntax-typescript": ^7.27.1
+  "@babel/plugin-transform-export-namespace-from": ^7.27.1
+  "@babel/plugin-transform-react-jsx": ^7.27.1
+  "@babel/plugin-transform-typescript": ^7.28.5
+  "@babel/preset-typescript": ^7.28.5
+  "@babel/template": ^7.27.2
+  "@babel/traverse": ^7.28.5
+  "@babel/types": ^7.28.5
+  "@biomejs/biome": ^2.3.8
+  "@cacheable/memory": ^2.0.6
+  "@content-collections/core": ^0.12.0
+  "@deepkit/core": 1.0.5
+  "@deepkit/type": 1.0.5
+  "@deepkit/type-compiler": 1.0.5
+  "@deepkit/type-spec": 1.0.1
+  "@donedeal0/superdiff": ^3.1.2
+  "@graphql-codegen/cli": ^6.1.0
+  "@graphql-codegen/plugin-helpers": ^6.1.0
+  "@jest/reporters": ^30.2.0
+  "@jest/test-result": ^30.2.0
+  "@jest/types": ^30.2.0
+  "@ls-lint/ls-lint": ^2.3.1
+  "@microsoft/api-extractor": ^7.55.1
+  "@microsoft/tsdoc": ^0.15.1
+  "@microsoft/tsdoc-config": ^0.17.1
+  "@noble/ciphers": ^2.0.1
+  "@nx/devkit": ^22.1.2
+  "@nx/eslint-plugin": ^22.1.2
+  "@nx/jest": ^22.1.2
+  "@nx/js": ^22.1.2
+  "@nx/plugin": ^22.1.2
+  "@nx/workspace": ^22.1.2
+  "@prisma/get-platform": ^6.19.0
+  "@prisma/prisma-schema-wasm": 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
+  "@pulumi/pulumi": ^3.209.0
+  "@rollup/plugin-alias": ^6.0.0
+  "@rollup/plugin-babel": ^6.1.0
+  "@rollup/plugin-commonjs": ^28.0.9
+  "@rollup/plugin-inject": ^5.0.5
+  "@rollup/plugin-node-resolve": ^16.0.3
+  "@rollup/plugin-replace": ^6.0.3
+  "@rspack/core": ^1.6.5
+  "@standard-schema/spec": ^1.0.0
+  "@storm-software/build-tools": ^0.158.50
+  "@storm-software/config": ^1.134.50
+  "@storm-software/config-tools": ^1.188.50
+  "@storm-software/cspell": ^0.45.50
+  "@storm-software/esbuild": ^0.53.50
+  "@storm-software/eslint": ^0.169.50
+  "@storm-software/git-tools": ^2.124.33
+  "@storm-software/linting-tools": ^1.132.50
+  "@storm-software/markdownlint": ^0.30.50
+  "@storm-software/pnpm-tools": ^0.6.50
+  "@storm-software/prettier": ^0.57.50
+  "@storm-software/testing-tools": ^1.119.50
+  "@storm-software/tsconfig": ^0.47.50
+  "@storm-software/tsup": ^0.2.48
+  "@storm-software/unbuild": ^0.57.50
+  "@storm-software/untyped": ^0.24.31
+  "@storm-software/workspace-tools": ^1.293.20
+  "@stryke/capnp": ^0.12.28
+  "@stryke/cli": ^0.12.14
+  "@stryke/convert": ^0.6.8
+  "@stryke/env": ^0.20.21
+  "@stryke/fs": ^0.33.4
+  "@stryke/hash": ^0.12.10
+  "@stryke/helpers": ^0.9.10
+  "@stryke/http": ^0.11.9
+  "@stryke/json": ^0.9.11
+  "@stryke/path": ^0.21.2
+  "@stryke/string-format": ^0.12.8
+  "@stryke/type-checks": ^0.3.18
+  "@stryke/types": ^0.10.8
+  "@stryke/unique-id": ^0.3.15
+  "@swc/core": ^1.15.3
+  "@tamagui/static-worker": ^1.138.5
+  "@tamagui/types": ^1.138.5
+  "@taplo/cli": ^0.7.0
+  "@types/babel__core": ^7.20.5
+  "@types/babel__helper-module-imports": ^7.18.3
+  "@types/babel__helper-plugin-utils": ^7.10.3
+  "@types/babel__template": ^7.4.4
+  "@types/babel__traverse": ^7.28.0
+  "@types/diff-match-patch": ^1.0.36
+  "@types/jest": ^30.0.0
+  "@types/node": ^24.10.1
+  "@types/pluralize": ^0.0.33
+  "@types/react": ^19.2.7
+  "@types/react-dom": ^19.2.3
+  "@types/semver": ^7.7.1
+  "@typescript-eslint/utils": ^8.48.0
+  "@vitejs/plugin-react": ^5.1.1
+  "@vue/reactivity": ^3.5.25
   automd: ^0.4.2
   babel-dead-code-elimination: ^1.0.10
   babel-plugin-parameter-decorator: ^1.0.16
@@ -159,7 +158,7 @@ catalog:
   oxlint: ^1.30.0
   oxlint-tsgolint: ^0.2.1
   pluralize: ^8.0.0
-  prettier: ^3.7.0
+  prettier: ^3.7.1
   rimraf: ^6.1.2
   rolldown: 1.0.0-beta.45
   rolldown-vite: ^7.2.8
@@ -185,29 +184,26 @@ catalog:
   vite: ^7.2.4
   webpack: ^5.103.0
   zx: ^8.8.5
-
 configDependencies:
   pnpm-plugin-storm-software: 0.1.4+sha512-Hegfb70ijqCc65CZwy8aLYhxrYQv3Wo+MZXqSfNAfcge7iSGYm2J3ydU5zkmf89JSvMOJy8J6lo/TMynBGvgtA==
-
 minimumReleaseAgeExclude:
-  - '@storm-software/*'
-  - '@stryke/*'
-  - '@powerlines/*'
+  - "@storm-software/*"
+  - "@stryke/*"
+  - "@powerlines/*"
   - powerlines
-  - '@earthquake/*'
+  - "@earthquake/*"
   - earthquake
-  - '@asyncapi/parser'
-  - '@asyncapi/generator'
-
+  - "@asyncapi/parser"
+  - "@asyncapi/generator"
 onlyBuiltDependencies:
-  - '@biomejs/biome'
-  - '@deepkit/type-compiler'
-  - '@hyperjump/json-pointer'
-  - '@hyperjump/json-schema'
-  - '@hyperjump/json-schema-core'
-  - '@hyperjump/pact'
-  - '@parcel/watcher'
-  - '@swc/core'
+  - "@biomejs/biome"
+  - "@deepkit/type-compiler"
+  - "@hyperjump/json-pointer"
+  - "@hyperjump/json-schema"
+  - "@hyperjump/json-schema-core"
+  - "@hyperjump/pact"
+  - "@parcel/watcher"
+  - "@swc/core"
   - bufferutil
   - core-js
   - esbuild
@@ -219,86 +215,81 @@ onlyBuiltDependencies:
   - unrs-resolver
   - utf-8-validate
   - workerd
-
 overrides:
-  '@powerlines/alloy': workspace:*
-  '@powerlines/deepkit': workspace:*
-  '@powerlines/nx': workspace:*
-  '@powerlines/plugin-asyncapi': workspace:*
-  '@powerlines/plugin-automd': workspace:*
-  '@powerlines/plugin-babel': workspace:*
-  '@powerlines/plugin-biome': workspace:*
-  '@powerlines/plugin-capnp': workspace:*
-  '@powerlines/plugin-content-collections': workspace:*
-  '@powerlines/plugin-crypto': workspace:*
-  '@powerlines/plugin-date': workspace:*
-  '@powerlines/plugin-deepkit': workspace:*
-  '@powerlines/plugin-env': workspace:*
-  '@powerlines/plugin-esbuild': workspace:*
-  '@powerlines/plugin-eslint': workspace:*
-  '@powerlines/plugin-graphql': workspace:*
-  '@powerlines/plugin-id': workspace:*
-  '@powerlines/plugin-jest': workspace:*
-  '@powerlines/plugin-marked': workspace:*
-  '@powerlines/plugin-openapi': workspace:*
-  '@powerlines/plugin-oxc-transform': workspace:*
-  '@powerlines/plugin-oxlint': workspace:*
-  '@powerlines/plugin-plugin': workspace:*
-  '@powerlines/plugin-prisma': workspace:*
-  '@powerlines/plugin-pulumi': workspace:*
-  '@powerlines/plugin-react': workspace:*
-  '@powerlines/plugin-rolldown': workspace:*
-  '@powerlines/plugin-rollup': workspace:*
-  '@powerlines/plugin-rspack': workspace:*
-  '@powerlines/plugin-satori': workspace:*
-  '@powerlines/plugin-style-dictionary': workspace:*
-  '@powerlines/plugin-stylelint': workspace:*
-  '@powerlines/plugin-swc': workspace:*
-  '@powerlines/plugin-tamagui': workspace:*
-  '@powerlines/plugin-tsc': workspace:*
-  '@powerlines/plugin-tsup': workspace:*
-  '@powerlines/plugin-typedoc': workspace:*
-  '@powerlines/plugin-unbuild': workspace:*
-  '@powerlines/plugin-unenv': workspace:*
-  '@powerlines/plugin-unimport': workspace:*
-  '@powerlines/plugin-untyped': workspace:*
-  '@powerlines/plugin-vite': workspace:*
-  '@powerlines/plugin-webpack': workspace:*
-  '@powerlines/tools-config': workspace:*
-  '@powerlines/tools-nx': workspace:*
-  '@powerlines/tools-readme-templates': workspace:*
-  '@powerlines/tools-scripts': workspace:*
-  '@powerlines/tsconfig': workspace:*
-  debug: '>=4.3.7'
-  follow-redirects: '>=1.15.9'
-  got: '>=14.4.2'
-  ip: '>=2.0.1'
-  loader-utils: '>=3.3.1'
+  "@powerlines/alloy": workspace:*
+  "@powerlines/deepkit": workspace:*
+  "@powerlines/nx": workspace:*
+  "@powerlines/plugin-asyncapi": workspace:*
+  "@powerlines/plugin-automd": workspace:*
+  "@powerlines/plugin-babel": workspace:*
+  "@powerlines/plugin-biome": workspace:*
+  "@powerlines/plugin-capnp": workspace:*
+  "@powerlines/plugin-content-collections": workspace:*
+  "@powerlines/plugin-crypto": workspace:*
+  "@powerlines/plugin-date": workspace:*
+  "@powerlines/plugin-deepkit": workspace:*
+  "@powerlines/plugin-env": workspace:*
+  "@powerlines/plugin-esbuild": workspace:*
+  "@powerlines/plugin-eslint": workspace:*
+  "@powerlines/plugin-graphql": workspace:*
+  "@powerlines/plugin-id": workspace:*
+  "@powerlines/plugin-jest": workspace:*
+  "@powerlines/plugin-marked": workspace:*
+  "@powerlines/plugin-openapi": workspace:*
+  "@powerlines/plugin-oxc-transform": workspace:*
+  "@powerlines/plugin-oxlint": workspace:*
+  "@powerlines/plugin-plugin": workspace:*
+  "@powerlines/plugin-prisma": workspace:*
+  "@powerlines/plugin-pulumi": workspace:*
+  "@powerlines/plugin-react": workspace:*
+  "@powerlines/plugin-rolldown": workspace:*
+  "@powerlines/plugin-rollup": workspace:*
+  "@powerlines/plugin-rspack": workspace:*
+  "@powerlines/plugin-satori": workspace:*
+  "@powerlines/plugin-style-dictionary": workspace:*
+  "@powerlines/plugin-stylelint": workspace:*
+  "@powerlines/plugin-swc": workspace:*
+  "@powerlines/plugin-tamagui": workspace:*
+  "@powerlines/plugin-tsc": workspace:*
+  "@powerlines/plugin-tsup": workspace:*
+  "@powerlines/plugin-typedoc": workspace:*
+  "@powerlines/plugin-unbuild": workspace:*
+  "@powerlines/plugin-unenv": workspace:*
+  "@powerlines/plugin-unimport": workspace:*
+  "@powerlines/plugin-untyped": workspace:*
+  "@powerlines/plugin-vite": workspace:*
+  "@powerlines/plugin-webpack": workspace:*
+  "@powerlines/tools-config": workspace:*
+  "@powerlines/tools-nx": workspace:*
+  "@powerlines/tools-readme-templates": workspace:*
+  "@powerlines/tools-scripts": workspace:*
+  "@powerlines/tsconfig": workspace:*
+  debug: ">=4.3.7"
+  follow-redirects: ">=1.15.9"
+  got: ">=14.4.2"
+  ip: ">=2.0.1"
+  loader-utils: ">=3.3.1"
   lru-cache: ^8.0.5
-  markdown-it: '>=14.1.0'
-  node-fetch: '>=3.3.2'
-  nth-check: '>=2.1.1'
-  parse-path: '>=7.0.0'
-  parse-url: '>=9.2.0'
-  postcss: '>=8.4.47'
+  markdown-it: ">=14.1.0"
+  node-fetch: ">=3.3.2"
+  nth-check: ">=2.1.1"
+  parse-path: ">=7.0.0"
+  parse-url: ">=9.2.0"
+  postcss: ">=8.4.47"
   powerlines: workspace:*
-  shell-quote: '>=1.8.1'
-  simple-git: '>=3.27.0'
-  zod: '>=4.0.1'
-
+  shell-quote: ">=1.8.1"
+  simple-git: ">=3.27.0"
+  zod: ">=4.0.1"
 patchedDependencies:
-  '@alloy-js/babel-plugin-jsx-dom-expressions': patches/@alloy-js__babel-plugin-jsx-dom-expressions.patch
-  '@alloy-js/core': patches/@alloy-js__core.patch
-  '@content-collections/core': patches/@content-collections__core.patch
-  '@deepkit/core': patches/@deepkit__core.patch
-  '@deepkit/type': patches/@deepkit__type.patch
-  '@deepkit/type-compiler': patches/@deepkit__type-compiler.patch
-  '@deepkit/type-spec': patches/@deepkit__type-spec.patch
+  "@alloy-js/babel-plugin-jsx-dom-expressions": patches/@alloy-js__babel-plugin-jsx-dom-expressions.patch
+  "@alloy-js/core": patches/@alloy-js__core.patch
+  "@content-collections/core": patches/@content-collections__core.patch
+  "@deepkit/core": patches/@deepkit__core.patch
+  "@deepkit/type": patches/@deepkit__type.patch
+  "@deepkit/type-compiler": patches/@deepkit__type-compiler.patch
+  "@deepkit/type-spec": patches/@deepkit__type-spec.patch
   automd: patches/automd.patch
   prisma-util: patches/prisma-util.patch
-
 shamefullyHoist: true
-
 trustPolicy: off
-
 useNodeVersion: 24.11.1

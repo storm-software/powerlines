@@ -20,6 +20,7 @@ import type {
   DevTool,
   Configuration as ExternalRspackOptions
 } from "@rspack/core";
+import { omit } from "@stryke/helpers/omit";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
 import { Context } from "../../types/context";
@@ -49,6 +50,9 @@ export function extractRspackConfig(context: Context): ExternalRspackOptions {
     },
     context.config.build.variant === "rspack"
       ? context.config.build.override
+      : {},
+    context.config.build.variant === "rspack"
+      ? omit(context.config.build, ["override", "variant"])
       : {},
     {
       external: context.config.build.external,
@@ -89,10 +93,7 @@ export function extractRspackConfig(context: Context): ExternalRspackOptions {
         context.workspaceConfig.workspaceRoot,
         context.config.projectRoot
       ),
-      noExternal: context.builtins
-    },
-    context.config.build.variant === "rspack" ? context.config.build : {},
-    {
+      noExternal: context.builtins,
       cache: context.config.mode === "development",
       devtool: (context.config.mode !== "development"
         ? false

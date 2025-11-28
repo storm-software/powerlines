@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { DeepPartial } from "@stryke/types/base";
 import { AnyUserConfig, DefineConfigInput, UserConfig } from "./types/config";
 
 /**
@@ -26,7 +25,7 @@ import { AnyUserConfig, DefineConfigInput, UserConfig } from "./types/config";
  * The function accepts a direct {@link UserConfig} object, or a function that returns it. The function receives a {@link ConfigEnv} object.
  */
 export function defineConfig(
-  config: DeepPartial<AnyUserConfig> & DefineConfigInput
+  config: AnyUserConfig & DefineConfigInput
 ): UserConfig {
   return config as UserConfig;
 }

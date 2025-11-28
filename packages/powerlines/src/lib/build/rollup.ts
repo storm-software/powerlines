@@ -25,6 +25,7 @@ import inject from "@rollup/plugin-inject";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import { toArray } from "@stryke/convert/to-array";
+import { omit } from "@stryke/helpers/omit";
 import { joinPaths } from "@stryke/path/join-paths";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isString } from "@stryke/type-checks/is-string";
@@ -249,36 +250,31 @@ export function extractRollupConfig(
     context.config.build.variant === "vite"
       ? (context.config.build.override as ViteBuildConfig).build?.rollupOptions
       : {},
-    {
-      cache: !context.config.skipCache
-        ? joinPaths(context.cachePath, "rollup")
-        : false,
-      output: {
-        dir: context.config.output.buildPath
-      },
-      logLevel: context.config.logLevel
-    },
-    context.config.build.variant === "rollup" ? context.config.build : {},
+    context.config.build.variant === "rollup"
+      ? omit(context.config.build, ["override", "variant"])
+      : {},
     context.config.build.variant === "vite"
       ? (context.config.build as ViteBuildConfig).build?.rollupOptions
       : {},
     {
-      output: {
-        sourcemap: context.config.mode === "development"
-      }
-    },
-    {
-      logLevel: "silent",
+      cache: !context.config.skipCache
+        ? joinPaths(context.cachePath, "rollup")
+        : false,
+      logLevel: context.config.logLevel,
       output: [
         {
+          dir: context.config.output.buildPath,
           format: "es",
           entryFileNames: "[name].js",
-          preserveModules: true
+          preserveModules: true,
+          sourcemap: context.config.mode === "development"
         },
         {
+          dir: context.config.output.buildPath,
           format: "cjs",
           entryFileNames: "[name].cjs",
-          preserveModules: true
+          preserveModules: true,
+          sourcemap: context.config.mode === "development"
         }
       ]
     }

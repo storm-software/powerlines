@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { omit } from "@stryke/helpers/omit";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
 import type { Configuration as ExternalWebpackOptions } from "webpack";
@@ -62,6 +63,9 @@ export function extractWebpackConfig(context: Context): ExternalWebpackOptions {
     context.config.build.variant === "webpack"
       ? context.config.build.override
       : {},
+    context.config.build.variant === "webpack"
+      ? omit(context.config.build, ["override", "variant"])
+      : {},
     {
       output: {
         path: joinPaths(
@@ -100,10 +104,7 @@ export function extractWebpackConfig(context: Context): ExternalWebpackOptions {
         context.workspaceConfig.workspaceRoot,
         context.config.projectRoot
       ),
-      noExternal: context.builtins
-    },
-    context.config.build.variant === "webpack" ? context.config.build : {},
-    {
+      noExternal: context.builtins,
       devtool: (context.config.mode !== "development"
         ? false
         : "source-map") as string | false,

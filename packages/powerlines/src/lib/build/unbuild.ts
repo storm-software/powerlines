@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { Loader, LoaderResult } from "@storm-software/unbuild/types";
+import { omit } from "@stryke/helpers/omit";
 import { joinPaths } from "@stryke/path/join-paths";
 import { isObject } from "@stryke/type-checks/is-object";
 import defu from "defu";
@@ -211,6 +212,9 @@ export function extractUnbuildConfig(
     context.config.build.variant === "unbuild"
       ? context.config.build.override
       : {},
+    context.config.build.variant === "unbuild"
+      ? omit(context.config.build, ["override", "variant"])
+      : {},
     {
       projectName: context.config.name,
       name: context.config.name,
@@ -228,17 +232,13 @@ export function extractUnbuildConfig(
 
         return ret;
       }, context.config.build.external ?? []) as string[],
-
       loaders: [unbuildLoader(context as UNSAFE_PluginContext)],
       jiti: {
         interopDefault: true,
         fsCache: joinPaths(context.envPaths.cache, "jiti"),
         moduleCache: true
       },
-      rollup: extractRollupConfig(context) as any
-    },
-    context.config.build.variant === "unbuild" ? context.config.build : {},
-    {
+      rollup: extractRollupConfig(context) as any,
       debug: context.config.mode === "development",
       minify: context.config.mode !== "development",
       sourcemap: context.config.mode === "development"

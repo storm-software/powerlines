@@ -18,6 +18,7 @@
 
 import { AssetGlob, Entry } from "@storm-software/build-tools/types";
 import { DEFAULT_BUILD_OPTIONS } from "@storm-software/tsup/constants";
+import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
 import {
   ESBuildBuildConfig,
@@ -116,6 +117,9 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
     context.config.build.variant === "tsup"
       ? context.config.build.override
       : {},
+    context.config.build.variant === "tsup"
+      ? omit(context.config.build, ["override", "variant"])
+      : {},
     {
       name: context.config.name,
       assets: context.config.output.assets as (string | AssetGlob)[],
@@ -133,10 +137,7 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
           ? (context.config.build as TsupBuildConfig)?.treeshake
           : context.config.build.variant === "tsup"
             ? (context.config.build as ESBuildBuildConfig)?.treeShaking
-            : undefined
-    },
-    context.config.build.variant === "tsup" ? context.config.build : {},
-    {
+            : undefined,
       minify: context.config.mode !== "development",
       metafile: context.config.mode === "development",
       sourcemap: context.config.mode === "development",
@@ -147,7 +148,7 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
         context.config.logLevel === null ||
         context.config.logLevel === "trace" ||
         context.config.mode === "development",
-      workspaceConfig: context.workspaceConfig
+      workspaceConfig: { workspaceRoot: context.workspaceConfig.workspaceRoot }
     },
     DEFAULT_TSUP_CONFIG
   );

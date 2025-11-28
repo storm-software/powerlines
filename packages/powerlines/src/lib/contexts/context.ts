@@ -968,6 +968,17 @@ export class PowerlinesContext<
 
     this.config.title ??= titleCase(this.config.name);
 
+    if (this.config.userConfig.build?.external) {
+      this.config.userConfig.build.external = getUnique(
+        this.config.userConfig.build.external
+      );
+    }
+    if (this.config.userConfig.build?.noExternal) {
+      this.config.userConfig.build.noExternal = getUnique(
+        this.config.userConfig.build.noExternal
+      );
+    }
+
     if (this.config.build.external) {
       this.config.build.external = getUnique(this.config.build.external);
     }

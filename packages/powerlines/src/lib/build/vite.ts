@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { omit } from "@stryke/helpers/omit";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
 import { ESBuildOptions } from "vite";
@@ -79,6 +80,9 @@ export function extractViteConfig(context: Context): ViteResolvedBuildConfig {
     context.config.build.variant === "vite"
       ? context.config.build.override
       : {},
+    context.config.build.variant === "vite"
+      ? omit(context.config.build, ["override", "variant"])
+      : {},
     {
       define: context.config.build.define,
       rootDir: context.config.sourceRoot,
@@ -87,6 +91,9 @@ export function extractViteConfig(context: Context): ViteResolvedBuildConfig {
         context.config.mode === "development" ? "development" : "production",
       cacheDir: joinPaths(context.cachePath, "vite"),
       build: {
+        minify: context.config.mode !== "development",
+        metafile: context.config.mode === "development",
+        sourcemap: context.config.mode === "development",
         outDir: context.config.output.buildPath,
         tsconfig: context.tsconfig.tsconfigFilePath,
         tsconfigRaw: context.tsconfig.tsconfigJson
@@ -94,14 +101,6 @@ export function extractViteConfig(context: Context): ViteResolvedBuildConfig {
       esbuild: extractESBuildConfig(context) as ESBuildOptions,
       logLevel: context.config.logLevel ?? undefined,
       envDir: context.config.projectRoot
-    },
-    context.config.build.variant === "vite" ? context.config.build : {},
-    {
-      build: {
-        minify: context.config.mode !== "development",
-        metafile: context.config.mode === "development",
-        sourcemap: context.config.mode === "development"
-      }
     },
     DEFAULT_VITE_CONFIG
   ) as ViteResolvedBuildConfig;

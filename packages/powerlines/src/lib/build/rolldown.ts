@@ -24,6 +24,7 @@ import inject from "@rollup/plugin-inject";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import { toArray } from "@stryke/convert/to-array";
+import { omit } from "@stryke/helpers/omit";
 import { joinPaths } from "@stryke/path/join-paths";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isString } from "@stryke/type-checks/is-string";
@@ -211,6 +212,13 @@ export function extractRolldownConfig(
       ? (context.config.build.override as ViteResolvedBuildConfig).build
           ?.rollupOptions
       : {},
+    context.config.build.variant === "rolldown" ||
+      context.config.build.variant === "rollup"
+      ? omit(context.config.build, ["override", "variant"])
+      : {},
+    context.config.build.variant === "vite"
+      ? (context.config.build as ViteResolvedBuildConfig).build
+      : {},
     {
       experimental: {
         viteMode: context.config.build.variant === "vite"
@@ -226,38 +234,24 @@ export function extractRolldownConfig(
       cache: !context.config.skipCache
         ? joinPaths(context.cachePath, "rolldown")
         : false,
-      output: {
-        dir: context.config.output.buildPath
-      },
       logLevel: context.config.logLevel,
-      onLog: context.log
-    },
-    context.config.build.variant === "rolldown" ||
-      context.config.build.variant === "rollup"
-      ? context.config.build
-      : {},
-    context.config.build.variant === "vite"
-      ? (context.config.build as ViteResolvedBuildConfig).build
-      : {},
-    {
-      output: {
-        sourcemap: context.config.mode === "development"
-      },
-      minify: context.config.mode === "production"
-    },
-    {
+      onLog: context.log,
       jsx: "automatic",
-      logLevel: "silent",
       keepNames: true,
       treeshake: true,
+      minify: context.config.mode === "production",
       output: [
         {
+          dir: context.config.output.buildPath,
           format: "es",
-          preserveModules: true
+          preserveModules: true,
+          sourcemap: context.config.mode === "development"
         },
         {
+          dir: context.config.output.buildPath,
           format: "cjs",
-          preserveModules: true
+          preserveModules: true,
+          sourcemap: context.config.mode === "development"
         }
       ]
     }

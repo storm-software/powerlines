@@ -242,6 +242,18 @@ export { ${key} };`;
           "extensions"
         ]) as BuildOptions)
       : {},
+    context.config.build.variant === "esbuild"
+      ? (omit(context.config.build, [
+          "alias",
+          "inject",
+          "external",
+          "noExternal",
+          "skipNodeModulesBundle",
+          "extensions",
+          "variant",
+          "override"
+        ]) as BuildOptions)
+      : {},
     {
       mainFields: context.config.build.mainFields,
       conditions: context.config.build.conditions,
@@ -261,19 +273,7 @@ export { ${key} };`;
         (context.config.build as ESBuildBuildConfig)?.treeShaking,
       outdir: context.config.output.buildPath,
       tsconfig: context.tsconfig.tsconfigFilePath,
-      tsconfigRaw: context.tsconfig.tsconfigJson
-    },
-    context.config.build.variant === "esbuild"
-      ? (omit(context.config.build, [
-          "alias",
-          "inject",
-          "external",
-          "noExternal",
-          "skipNodeModulesBundle",
-          "extensions"
-        ]) as BuildOptions)
-      : {},
-    {
+      tsconfigRaw: context.tsconfig.tsconfigJson,
       minify: context.config.mode !== "development",
       metafile: context.config.mode === "development",
       sourcemap: context.config.mode === "development"
