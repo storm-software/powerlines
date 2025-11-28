@@ -201,8 +201,7 @@ export interface VirtualFileData {
 }
 
 export interface VirtualFile
-  extends Required<VirtualFileData>,
-    VirtualFileMetadata {
+  extends Required<VirtualFileData>, VirtualFileMetadata {
   /**
    * An additional name for the file.
    */

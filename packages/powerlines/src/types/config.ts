@@ -633,13 +633,13 @@ type AnyBuildConfig = Partial<
 
 export type AnyUserConfig = Record<string, any> &
   Partial<AnyBuildConfig> & {
-    output: Partial<AnyBuildConfig["output"]>;
-    lint: Partial<AnyBuildConfig["lint"]>;
-    transform: Partial<AnyBuildConfig["transform"]>;
-    build: Partial<AnyBuildConfig["build"]>;
-    test: Partial<AnyBuildConfig["test"]>;
-    docs: Partial<AnyBuildConfig["docs"]>;
-    deploy: Partial<AnyBuildConfig["deploy"]>;
+    output?: Partial<AnyBuildConfig["output"]>;
+    lint?: Partial<AnyBuildConfig["lint"]>;
+    transform?: Partial<AnyBuildConfig["transform"]>;
+    build?: Partial<AnyBuildConfig["build"]>;
+    test?: Partial<AnyBuildConfig["test"]>;
+    docs?: Partial<AnyBuildConfig["docs"]>;
+    deploy?: Partial<AnyBuildConfig["deploy"]>;
   };
 
 export type UserConfigFnObject = (env: ConfigEnv) => DeepPartial<UserConfig>;

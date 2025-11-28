@@ -49,8 +49,8 @@ import { PowerlinesContext } from "./context";
 import { createPluginContext } from "./plugin-context";
 
 export class PowerlinesEnvironmentContext<
-    TResolvedConfig extends ResolvedConfig = ResolvedConfig
-  >
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+>
   extends PowerlinesContext<TResolvedConfig>
   implements EnvironmentContext<TResolvedConfig>
 {

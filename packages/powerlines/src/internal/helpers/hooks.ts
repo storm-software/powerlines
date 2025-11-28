@@ -96,8 +96,8 @@ export type CallHookOptions = SelectHooksOptions &
  */
 export async function callHook<
   TResolvedConfig extends ResolvedConfig,
-  TContext extends
-    EnvironmentContext<TResolvedConfig> = EnvironmentContext<TResolvedConfig>,
+  TContext extends EnvironmentContext<TResolvedConfig> =
+    EnvironmentContext<TResolvedConfig>,
   TKey extends HookKeys<ArrayValues<TContext["plugins"]>["context"]> = HookKeys<
     ArrayValues<TContext["plugins"]>["context"]
   >

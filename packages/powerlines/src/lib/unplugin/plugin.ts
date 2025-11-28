@@ -111,7 +111,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
             return result;
           }
 
-          result = await ctx.resolveId(id, importer, opts);
+          result = await ctx.resolve(id, importer, opts);
           if (result) {
             return result;
           }

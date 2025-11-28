@@ -93,8 +93,8 @@ import { EnvironmentResolvedConfig, ResolvedConfig } from "./types/resolved";
  * @public
  */
 export class PowerlinesAPI<
-    TResolvedConfig extends ResolvedConfig = ResolvedConfig
-  >
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+>
   implements API<TResolvedConfig>, AsyncDisposable
 {
   /**

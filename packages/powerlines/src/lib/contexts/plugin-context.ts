@@ -19,7 +19,7 @@
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isString } from "@stryke/type-checks/is-string";
 import { UnpluginMessage } from "unplugin";
-import { callHook, CallHookOptions } from "../../internal/helpers/hooks";
+import { CallHookOptions } from "../../internal/helpers/hooks";
 import { LogFn } from "../../types/config";
 import { EnvironmentContext, PluginContext } from "../../types/context";
 import {
@@ -62,13 +62,14 @@ export function createPluginContext<
   ): Promise<
     InferHookReturnType<PluginContext<TResolvedConfig>, TKey> | undefined
   > => {
-    return callHook<TResolvedConfig>(
-      environment,
+    return environment.$$internal.api.callHook(
       hook,
       {
         sequential: true,
-        ...options
-      },
+        result: "merge",
+        ...options,
+        environment
+      } as Parameters<typeof environment.$$internal.api.callHook>[1],
       ...args
     );
   };

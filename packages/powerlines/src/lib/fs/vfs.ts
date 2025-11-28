@@ -30,6 +30,7 @@ import {
   resolve,
   resolveSync
 } from "@stryke/fs/resolve";
+import { murmurhash } from "@stryke/hash/murmurhash";
 import { appendPath } from "@stryke/path/append";
 import { toAbsolutePath } from "@stryke/path/correct-path";
 import {
@@ -943,11 +944,15 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       return id;
     }
 
+    const resolverCacheKey = murmurhash({
+      id: this.#normalizeId(id),
+      importer,
+      options
+    });
+
     let result!: string | undefined;
     if (!this.#context.config.skipCache) {
-      result = this.resolverCache.get<string | undefined>(
-        this.#normalizeId(id)
-      );
+      result = this.resolverCache.get<string | undefined>(resolverCacheKey);
       if (result) {
         return result;
       }
@@ -999,7 +1004,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       }
 
       try {
-        result = await resolve(id, { paths });
+        result = await resolve(id, { ...options, paths });
       } catch {
         // Do nothing
       }
@@ -1012,7 +1017,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
 
       if (!this.#context.config.skipCache) {
-        this.resolverCache.set(this.#normalizeId(id), result);
+        this.resolverCache.set(resolverCacheKey, result);
       }
     }
 

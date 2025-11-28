@@ -240,8 +240,8 @@ export function isHookInternal(hook: HookKeys): hook is BaseHookKeys {
  */
 export function checkDedupe<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig,
-  TContext extends
-    PluginContext<TResolvedConfig> = PluginContext<TResolvedConfig>
+  TContext extends PluginContext<TResolvedConfig> =
+    PluginContext<TResolvedConfig>
 >(plugin: Plugin<TContext>, plugins: Plugin<TContext>[]) {
   return (
     plugin.dedupe === false ||

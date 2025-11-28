@@ -91,7 +91,7 @@ export function createUnpluginFactory<
           isEntry: boolean;
         } = { isEntry: false }
       ) {
-        return api.context.resolveId(id, importer, options);
+        return api.context.resolve(id, importer, options);
       }
 
       async function load(

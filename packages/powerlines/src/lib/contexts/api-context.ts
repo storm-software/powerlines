@@ -48,8 +48,8 @@ import { PowerlinesContext } from "./context";
 import { PowerlinesEnvironmentContext } from "./environment-context";
 
 export class PowerlinesAPIContext<
-    TResolvedConfig extends ResolvedConfig = ResolvedConfig
-  >
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+>
   extends PowerlinesContext<TResolvedConfig>
   implements APIContext<TResolvedConfig>
 {

@@ -111,8 +111,7 @@ const configCache = new WeakMap<ConfigCacheKey, ConfigCacheResult>();
 
 export class PowerlinesContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> implements Context<TResolvedConfig>
-{
+> implements Context<TResolvedConfig> {
   /**
    * Internal reference to the API instance
    *
@@ -468,13 +467,34 @@ export class PowerlinesContext<
    * @param options - Additional resolution options.
    * @returns A promise that resolves to the resolved module path.
    */
-  public async resolveId(
+  public async resolve(
     id: string,
     importer?: string,
     options: ResolveOptions = {}
   ): Promise<ExternalIdResult | undefined> {
-    if (this.fs.isVirtual(id)) {
-      const result = await this.fs.resolve(id, importer, options);
+    let moduleId = id;
+    if (this.config.build.alias) {
+      if (Array.isArray(this.config.build.alias)) {
+        const alias = this.config.build.alias.find(a =>
+          match(moduleId, [a.find])
+        );
+        if (alias) {
+          moduleId = alias.replacement;
+        }
+      } else if (
+        isSetObject(this.config.build.alias) &&
+        this.config.build.alias[id]
+      ) {
+        moduleId = this.config.build.alias[id];
+      }
+    }
+
+    if (this.fs.isVirtual(moduleId)) {
+      const result = await this.fs.resolve(moduleId, importer, {
+        conditions: this.config.build.conditions,
+        extensions: this.config.build.extensions,
+        ...options
+      });
       if (!result) {
         return undefined;
       }
@@ -487,30 +507,36 @@ export class PowerlinesContext<
 
     if (this.config.build.skipNodeModulesBundle) {
       if (
-        match(id, this.#resolvePatterns) ||
-        match(id, this.config.build.noExternal)
+        match(moduleId, this.#resolvePatterns) ||
+        match(moduleId, this.config.build.noExternal)
       ) {
         return undefined;
       }
 
-      if (match(id, this.config.build.external) || id.startsWith("node:")) {
-        return { id, external: true };
+      if (
+        match(moduleId, this.config.build.external) ||
+        moduleId.startsWith("node:")
+      ) {
+        return { id: moduleId, external: true };
       }
 
       // Exclude any other import that looks like a Node module
-      if (!/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(id)) {
+      if (!/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(moduleId)) {
         return {
-          id,
+          id: moduleId,
           external: true
         };
       }
     } else {
-      if (match(id, this.config.build.noExternal)) {
+      if (match(moduleId, this.config.build.noExternal)) {
         return undefined;
       }
 
-      if (match(id, this.config.build.external) || id.startsWith("node:")) {
-        return { id, external: true };
+      if (
+        match(moduleId, this.config.build.external) ||
+        moduleId.startsWith("node:")
+      ) {
+        return { id: moduleId, external: true };
       }
     }
 

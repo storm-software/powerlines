@@ -342,7 +342,7 @@ export interface UnresolvedContext<
    * @param options - Additional resolution options.
    * @returns A promise that resolves to the resolved module path.
    */
-  resolveId: (
+  resolve: (
     id: string,
     importer?: string,
     options?: ResolveOptions
@@ -559,8 +559,8 @@ export interface EnvironmentContext<
 
 export interface PluginContext<
   out TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> extends Context<TResolvedConfig>,
-    UnpluginContext {
+>
+  extends Context<TResolvedConfig>, UnpluginContext {
   /**
    * The environment specific resolved configuration
    */

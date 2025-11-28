@@ -210,8 +210,8 @@ export interface BasePluginHookFunctions<
 export type BuildPlugin<
   TContext extends PluginContext = PluginContext,
   TBuildVariant extends UnpluginBuildVariant = UnpluginBuildVariant,
-  TOptions extends
-    Required<UnpluginOptions>[TBuildVariant] = Required<UnpluginOptions>[TBuildVariant]
+  TOptions extends Required<UnpluginOptions>[TBuildVariant] =
+    Required<UnpluginOptions>[TBuildVariant]
 > = {
   [TKey in keyof TOptions]: TOptions[TKey] extends FunctionLike
     ? (
@@ -333,10 +333,10 @@ export type PluginBuildPlugins<TContext extends PluginContext = PluginContext> =
   };
 
 export interface Plugin<
-  in out TContext extends
-    PluginContext<ResolvedConfig> = PluginContext<ResolvedConfig>
-> extends Partial<PluginHooks<TContext>>,
-    PluginBuildPlugins<TContext> {
+  in out TContext extends PluginContext<ResolvedConfig> =
+    PluginContext<ResolvedConfig>
+>
+  extends Partial<PluginHooks<TContext>>, PluginBuildPlugins<TContext> {
   /**
    * The name of the plugin, for use in deduplication, error messages and logs.
    */
