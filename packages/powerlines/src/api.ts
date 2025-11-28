@@ -119,7 +119,11 @@ export class PowerlinesAPI<
   }
 
   /**
-   * Initialize the Powerlines API
+   * Initialize a Powerlines API instance
+   *
+   * @param workspaceRoot - The directory of the underlying workspace the Powerlines project exists in
+   * @param config - An object containing the configuration required to run Powerlines tasks.
+   * @returns A new instance of the Powerlines API
    */
   public static async from<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig

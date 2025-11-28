@@ -68,20 +68,6 @@
         "default": "./dist/index.js"
       }
     },
-    "./config": {
-      "import": {
-        "types": "./dist/config.d.ts",
-        "default": "./dist/config.js"
-      },
-      "require": {
-        "types": "./dist/config.d.cts",
-        "default": "./dist/config.cjs"
-      },
-      "default": {
-        "types": "./dist/config.d.ts",
-        "default": "./dist/config.js"
-      }
-    },
     "./types": {
       "import": {
         "types": "./dist/types/index.d.ts",
