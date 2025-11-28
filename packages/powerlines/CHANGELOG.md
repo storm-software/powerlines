@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.27.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.27.0) (11/28/2025)
+
+### Miscellaneous
+
+- **powerlines:** Consolidate `powerlines/config` exports to `powerlines` module
+  ([57312e4](https://github.com/storm-software/powerlines/commit/57312e4))
+
+### Features
+
+- **powerlines:** Updated `resolve` context method to correctly handle build
+  options
+  ([d25d570](https://github.com/storm-software/powerlines/commit/d25d570))
+
 ## [0.26.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.26.2) (11/28/2025)
 
 ### Bug Fixes

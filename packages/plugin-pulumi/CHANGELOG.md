@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.2.25](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.25) (11/28/2025)
+
+### Miscellaneous
+
+- **powerlines:** Consolidate `powerlines/config` exports to `powerlines` module
+  ([57312e4](https://github.com/storm-software/powerlines/commit/57312e4))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.54**
+- Updated **powerlines** to **v0.27.0**
+- Updated **nx** to **v0.10.46**
+
 ## [0.2.24](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.24) (11/28/2025)
 
 ### Updated Dependencies
