@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.26.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.26.2) (11/28/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue causing overridden build input
+  ([3423e19](https://github.com/storm-software/powerlines/commit/3423e19))
+
 ## [0.26.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.26.1) (11/27/2025)
 
 ### Miscellaneous
