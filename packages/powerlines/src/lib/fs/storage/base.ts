@@ -34,8 +34,7 @@ export interface StorageAdapterOptions {
  */
 export abstract class BaseStorageAdapter<
   TOptions extends StorageAdapterOptions = StorageAdapterOptions
-> implements StorageAdapter
-{
+> implements StorageAdapter {
   /**
    * Indicates whether the storage adapter has been disposed.
    */

@@ -69,7 +69,7 @@ export type CallHookOptions = SelectHooksOptions &
              *
              * @defaultValue "merge"
              */
-            result?: "merge";
+            result?: "merge" | "last";
 
             /**
              * An indicator specifying if the results of the previous hook should be provided as the **first** parameter of the next hook function, or a function to process the result of the previous hook function and pass the returned value as the next hook's **first** parameter
@@ -131,8 +131,8 @@ export async function callHook<
             );
           }
 
-          // eslint-disable-next-line ts/no-unsafe-call
-          return Promise.resolve(handler.apply(null, ...args));
+          // eslint-disable-next-line ts/no-unsafe-call, no-useless-call
+          return Promise.resolve(handler.apply(null, [...args]));
         })
       );
     } else {
@@ -144,8 +144,8 @@ export async function callHook<
         }
 
         if (options?.result === "first" || options?.asNextParam === false) {
-          // eslint-disable-next-line ts/no-unsafe-call
-          results.push(await Promise.resolve(handler.apply(null, ...args)));
+          // eslint-disable-next-line ts/no-unsafe-call, no-useless-call
+          results.push(await Promise.resolve(handler.apply(null, [...args])));
           if (
             options?.result === "first" &&
             isSet(results[results.length - 1])
@@ -161,10 +161,24 @@ export async function callHook<
           }
 
           const result = await Promise.resolve(
-            // eslint-disable-next-line ts/no-unsafe-call
-            handler.apply(null, ...sequenceArgs)
+            // eslint-disable-next-line ts/no-unsafe-call, no-useless-call
+            handler.apply(null, [...sequenceArgs])
           );
-          results = [result];
+          if (result) {
+            if (options?.result === "last") {
+              results = [result];
+            } else {
+              results = [
+                defu(
+                  result as Record<string, unknown>,
+                  results[0] ?? {}
+                ) as InferHookReturnType<
+                  PluginContext<TContext["config"]>,
+                  TKey
+                >
+              ];
+            }
+          }
         }
       }
     }

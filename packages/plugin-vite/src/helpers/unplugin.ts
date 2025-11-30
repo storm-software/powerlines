@@ -21,9 +21,5 @@ import { createVitePlugin as createViteUnplugin } from "unplugin";
 import { VitePluginContext } from "../types/plugin";
 
 export function createVitePlugin(context: VitePluginContext) {
-  return createViteUnplugin(
-    createUnplugin(context, {
-      skipResolve: true
-    })
-  )({});
+  return createViteUnplugin(createUnplugin(context))({});
 }

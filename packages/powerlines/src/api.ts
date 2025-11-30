@@ -32,6 +32,7 @@ import { replacePath } from "@stryke/path/replace";
 import { isError } from "@stryke/type-checks/is-error";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isNumber } from "@stryke/type-checks/is-number";
+import { isObject } from "@stryke/type-checks/is-object";
 import { isPromiseLike } from "@stryke/type-checks/is-promise";
 import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
@@ -44,14 +45,17 @@ import { emitTypes, formatTypes } from "./internal/helpers/generate-types";
 import { callHook, CallHookOptions } from "./internal/helpers/hooks";
 import { installDependencies } from "./internal/helpers/install-dependencies";
 import {
+  getTsconfigDtsPath,
   initializeTsconfig,
   resolveTsconfig
 } from "./internal/helpers/resolve-tsconfig";
 import { PowerlinesAPIContext } from "./lib/contexts/api-context";
-import { getParsedTypeScriptConfig } from "./lib/typescript/tsconfig";
+import {
+  getParsedTypeScriptConfig,
+  isIncludeMatchFound
+} from "./lib/typescript/tsconfig";
 import { getFileHeader } from "./lib/utilities/file-header";
 import { writeMetaFile } from "./lib/utilities/meta";
-import { writeFile } from "./lib/utilities/write-file";
 import {
   checkDedupe,
   isPlugin,
@@ -81,7 +85,7 @@ import type {
 } from "./types/context";
 import { HookKeys, InferHookParameters } from "./types/hooks";
 import { UNSAFE_APIContext } from "./types/internal";
-import type { Plugin } from "./types/plugin";
+import type { GenerateTypesResult, Plugin } from "./types/plugin";
 import { EnvironmentResolvedConfig, ResolvedConfig } from "./types/resolved";
 
 /**
@@ -347,12 +351,18 @@ export class PowerlinesAPI<
         );
 
         const directives = [] as string[];
+        const asNextParam = (
+          previousResult: string | GenerateTypesResult | null | undefined
+        ) => (isObject(previousResult) ? previousResult.code : previousResult);
 
         let result = await this.callHook(
           "generateTypes",
           {
             environment: context,
-            order: "pre"
+            sequential: true,
+            order: "pre",
+            result: "merge",
+            asNextParam
           },
           generatedTypes
         );
@@ -374,7 +384,10 @@ export class PowerlinesAPI<
           "generateTypes",
           {
             environment: context,
-            order: "normal"
+            sequential: true,
+            order: "normal",
+            result: "merge",
+            asNextParam
           },
           generatedTypes
         );
@@ -396,7 +409,10 @@ export class PowerlinesAPI<
           "generateTypes",
           {
             environment: context,
-            order: "post"
+            sequential: true,
+            order: "post",
+            result: "merge",
+            asNextParam
           },
           generatedTypes
         );
@@ -414,19 +430,44 @@ export class PowerlinesAPI<
           }
         }
 
-        await context.fs.write(
-          context.dtsPath,
-          `${
-            directives
-              ? `${directives.map(directive => `/// <reference types="${directive}" />`).join("\n")}
+        if (generatedTypes?.trim() || directives.length > 0) {
+          await context.fs.write(
+            context.dtsPath,
+            `${
+              directives
+                ? `${directives.map(directive => `/// <reference types="${directive}" />`).join("\n")}
 
 `
-              : ""
-          }${getFileHeader(context, { directive: null, prettierIgnore: false })}
+                : ""
+            }${getFileHeader(context, { directive: null, prettierIgnore: false })}
 
 ${formatTypes(generatedTypes)}
 `
-        );
+          );
+        } else {
+          const dtsRelativePath = getTsconfigDtsPath(context);
+          if (
+            context.tsconfig.tsconfigJson.include &&
+            isIncludeMatchFound(
+              dtsRelativePath,
+              context.tsconfig.tsconfigJson.include
+            )
+          ) {
+            const normalizedDtsRelativePath = dtsRelativePath.startsWith("./")
+              ? dtsRelativePath.slice(2)
+              : dtsRelativePath;
+            context.tsconfig.tsconfigJson.include =
+              context.tsconfig.tsconfigJson.include.filter(
+                includeValue =>
+                  includeValue?.toString() !== normalizedDtsRelativePath
+              );
+
+            await context.fs.write(
+              context.tsconfig.tsconfigFilePath,
+              JSON.stringify(context.tsconfig.tsconfigJson, null, 2)
+            );
+          }
+        }
       }
 
       // Re-resolve the tsconfig to ensure it is up to date
@@ -488,8 +529,7 @@ ${formatTypes(generatedTypes)}
         context.log(LogLevelLabel.TRACE, `Adding template file: ${file}`);
 
         const template = Handlebars.compile(file);
-        await writeFile(
-          context.log,
+        await context.fs.write(
           joinPaths(context.config.projectRoot, file.replace(".hbs", "")),
           template(context)
         );
@@ -511,8 +551,7 @@ ${formatTypes(generatedTypes)}
           );
 
           const template = Handlebars.compile(file);
-          await writeFile(
-            context.log,
+          await context.fs.write(
             joinPaths(context.config.projectRoot, file.replace(".hbs", "")),
             template(context)
           );
@@ -528,8 +567,7 @@ ${formatTypes(generatedTypes)}
           );
 
           const template = Handlebars.compile(file);
-          await writeFile(
-            context.log,
+          await context.fs.write(
             joinPaths(context.config.projectRoot, file.replace(".hbs", "")),
             template(context)
           );

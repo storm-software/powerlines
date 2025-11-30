@@ -128,6 +128,23 @@ export type BabelUserConfig = Parameters<typeof transformAsync>[1] & {
   presets?: BabelTransformPluginOptions[];
 };
 
+export interface DeployConfig {
+  /**
+   * The deployment variant being used by the Powerlines engine.
+   *
+   * @example
+   * ```ts
+   * export default defineConfig({
+   *  deploy: {
+   *    variant: "cloudflare"
+   *  }
+   * });
+   *
+   * ```
+   */
+  variant?: string;
+}
+
 export interface OutputConfig {
   /**
    * The path to output the final compiled files to
@@ -265,7 +282,7 @@ export interface BaseConfig {
    * @remarks
    * If set to `false`, the deployment will be disabled.
    */
-  deploy?: Record<string, any> | false;
+  deploy?: DeployConfig | false;
 
   /**
    * The path to the tsconfig file to be used by the compiler
@@ -413,11 +430,11 @@ export interface CommonUserConfig extends BaseConfig {
   framework?: string;
 }
 
-export type UserConfig<
+export interface UserConfig<
   TBuildConfig extends BuildConfig = BuildConfig,
   TBuildResolvedConfig extends BuildResolvedConfig = BuildResolvedConfig,
   TBuildVariant extends string = any
-> = Omit<CommonUserConfig, "build"> & {
+> extends Omit<CommonUserConfig, "build"> {
   /**
    * Configuration provided to build processes
    *
@@ -438,7 +455,7 @@ export type UserConfig<
      */
     override?: Partial<TBuildResolvedConfig>;
   };
-};
+}
 
 export type WebpackUserConfig = UserConfig<
   WebpackBuildConfig,
@@ -641,23 +658,3 @@ export type AnyUserConfig = Record<string, any> &
     docs?: Partial<AnyBuildConfig["docs"]>;
     deploy?: Partial<AnyBuildConfig["deploy"]>;
   };
-
-export type UserConfigFnObject = (env: ConfigEnv) => DeepPartial<UserConfig>;
-export type UserConfigFnPromise = (
-  env: ConfigEnv
-) => Promise<DeepPartial<UserConfig>>;
-export type UserConfigFn = (
-  env: ConfigEnv
-) => UserConfig | Promise<DeepPartial<UserConfig>>;
-
-export type UserConfigExport =
-  | DeepPartial<UserConfig>
-  | Promise<DeepPartial<UserConfig>>
-  | UserConfigFnObject
-  | UserConfigFnPromise
-  | UserConfigFn;
-
-/**
- * An empty interface to allow augmentation of the defineConfig input type.
- */
-export interface DefineConfigInput {}

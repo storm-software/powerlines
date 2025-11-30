@@ -36,9 +36,25 @@ import {
   getTsconfigFilePath,
   isIncludeMatchFound
 } from "../../lib/typescript/tsconfig";
-import { writeFile } from "../../lib/utilities/write-file";
 import type { EnvironmentContext } from "../../types/context";
 import { ResolvedConfig } from "../../types/resolved";
+
+export function getTsconfigDtsPath<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+>(context: EnvironmentContext<TResolvedConfig>): string {
+  const dtsRelativePath = joinPaths(
+    relativePath(
+      joinPaths(
+        context.workspaceConfig.workspaceRoot,
+        context.config.projectRoot
+      ),
+      findFilePath(context.dtsPath)
+    ),
+    findFileName(context.dtsPath)
+  );
+
+  return dtsRelativePath;
+}
 
 async function resolveTsconfigChanges<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
@@ -60,16 +76,7 @@ async function resolveTsconfigChanges<
   tsconfigJson.compilerOptions ??= {};
 
   if (context.config.output.dts !== false) {
-    const dtsRelativePath = joinPaths(
-      relativePath(
-        joinPaths(
-          context.workspaceConfig.workspaceRoot,
-          context.config.projectRoot
-        ),
-        findFilePath(context.dtsPath)
-      ),
-      findFileName(context.dtsPath)
-    );
+    const dtsRelativePath = getTsconfigDtsPath(context);
 
     if (
       !tsconfigJson.include?.some(filePattern =>
@@ -181,8 +188,8 @@ async function resolveTsconfigChanges<
 
 export async function initializeTsconfig<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig,
-  TContext extends
-    EnvironmentContext<TResolvedConfig> = EnvironmentContext<TResolvedConfig>
+  TContext extends EnvironmentContext<TResolvedConfig> =
+    EnvironmentContext<TResolvedConfig>
 >(context: TContext): Promise<void> {
   context.log(
     LogLevelLabel.TRACE,
@@ -212,8 +219,7 @@ export async function initializeTsconfig<
     "Writing updated TypeScript configuration (tsconfig.json) file to disk."
   );
 
-  await writeFile(
-    context.log,
+  await context.fs.write(
     tsconfigFilePath,
     StormJSON.stringify(context.tsconfig.tsconfigJson)
   );
@@ -229,8 +235,8 @@ export async function initializeTsconfig<
 
 export async function resolveTsconfig<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig,
-  TContext extends
-    EnvironmentContext<TResolvedConfig> = EnvironmentContext<TResolvedConfig>
+  TContext extends EnvironmentContext<TResolvedConfig> =
+    EnvironmentContext<TResolvedConfig>
 >(context: TContext): Promise<void> {
   const updateTsconfigJson = await readJsonFile<TsConfigJson>(
     context.tsconfig.tsconfigFilePath
@@ -319,8 +325,7 @@ export async function resolveTsconfig<
     );
   }
 
-  await writeFile(
-    context.log,
+  await context.fs.write(
     context.tsconfig.tsconfigFilePath,
     StormJSON.stringify(updateTsconfigJson)
   );
@@ -333,7 +338,4 @@ export async function resolveTsconfig<
   if (!context.tsconfig) {
     throw new Error("Failed to parse the TypeScript configuration file.");
   }
-
-  context.tsconfig.tsconfigJson.compilerOptions ??= {};
-  context.tsconfig.tsconfigJson.compilerOptions.strict = false;
 }

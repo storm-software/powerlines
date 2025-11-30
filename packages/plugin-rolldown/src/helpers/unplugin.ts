@@ -21,9 +21,5 @@ import { createEsbuildPlugin } from "unplugin";
 import { RolldownPluginContext } from "../types/plugin";
 
 export function createRolldownPlugin(context: RolldownPluginContext) {
-  return createEsbuildPlugin(
-    createUnplugin(context, {
-      skipResolve: true
-    })
-  )({});
+  return createEsbuildPlugin(createUnplugin(context))({});
 }

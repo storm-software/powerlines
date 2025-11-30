@@ -22,7 +22,6 @@ import { getParentPath } from "@stryke/fs/get-parent-path";
 import { isPackageExists } from "@stryke/fs/package-fns";
 import { readFile } from "@stryke/fs/read-file";
 import { parseVersion } from "@stryke/fs/semver-fns";
-import { writeFile } from "@stryke/fs/write-file";
 import { findFileName } from "@stryke/path/find";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { defu } from "defu";
@@ -260,7 +259,7 @@ export function plugin(
         .join("\n");
 
       if (this.config.lint.eslint.outputFile) {
-        await writeFile(this.config.lint.eslint.outputFile, output);
+        await this.fs.write(this.config.lint.eslint.outputFile, output);
       } else {
         this.log(LogLevelLabel.INFO, output);
       }

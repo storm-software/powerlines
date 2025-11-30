@@ -18,10 +18,8 @@
 
 import { Generator } from "@asyncapi/generator";
 import { isAsyncAPIDocument } from "@asyncapi/parser/esm/document";
-import { bufferToString } from "@stryke/convert/buffer-to-string";
 import { existsSync } from "@stryke/fs/exists";
 import { isPackageExists } from "@stryke/fs/package-fns";
-import { fetchRequest } from "@stryke/http/fetch";
 import { joinPaths } from "@stryke/path/join";
 import defu from "defu";
 import { replacePathTokens } from "powerlines/plugin-utils/paths";
@@ -87,7 +85,7 @@ export const plugin = <
 
           this.config.asyncapi.document = document;
         } else {
-          const document = await fetchRequest(
+          const document = await this.fetch(
             this.config.asyncapi.schema.toString()
           );
           if (!document) {
@@ -96,7 +94,7 @@ export const plugin = <
             );
           }
 
-          this.config.asyncapi.document = bufferToString(document);
+          this.config.asyncapi.document = await document.text();
         }
       }
 

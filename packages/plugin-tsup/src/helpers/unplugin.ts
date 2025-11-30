@@ -21,9 +21,5 @@ import { createEsbuildPlugin } from "unplugin";
 import { TsupPluginContext } from "../types/plugin";
 
 export function createTsupPlugin(context: TsupPluginContext) {
-  return createEsbuildPlugin(
-    createUnplugin(context, {
-      skipResolve: true
-    })
-  )({});
+  return createEsbuildPlugin(createUnplugin(context))({});
 }

@@ -26,6 +26,7 @@ import type {
   UnpluginBuildContext,
   UnpluginContext
 } from "unplugin";
+import { setParseImpl } from "unplugin";
 import { UnpluginBuildVariant } from "../../types/build";
 import { PluginContext } from "../../types/context";
 import { UNSAFE_PluginContext } from "../../types/internal";
@@ -34,30 +35,17 @@ import { extendLog } from "../logger";
 import { getString } from "../utilities/source-file";
 import { combineContexts } from "./helpers";
 
-export interface CreateUnpluginOptions {
-  /**
-   * If true, skips the plugin resolution step.
-   *
-   * @remarks
-   * This value should be set to `true` when using a build tool that handles `external` and `noExternal` options itself (for example `tsup`).
-   *
-   * @defaultValue false
-   */
-  skipResolve?: boolean;
-}
-
 /**
  * Creates a Powerlines unplugin instance.
  *
  * @param context - The plugin context.
- * @param options - Options for creating the unplugin.
  * @returns The unplugin instance.
  */
 export function createUnplugin<TContext extends PluginContext = PluginContext>(
-  context: TContext,
-  _options: CreateUnpluginOptions = {}
+  context: TContext
 ): PowerlinesUnpluginFactory<UnpluginBuildVariant> {
   const ctx = context as unknown as UNSAFE_PluginContext;
+  setParseImpl(ctx.parse);
 
   return () => {
     const log = extendLog(ctx.log, "unplugin");

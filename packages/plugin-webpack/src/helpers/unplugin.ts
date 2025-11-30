@@ -21,9 +21,5 @@ import { createWebpackPlugin as createWebpackUnplugin } from "unplugin";
 import { WebpackPluginContext } from "../types/plugin";
 
 export function createWebpackPlugin(context: WebpackPluginContext) {
-  return createWebpackUnplugin(
-    createUnplugin(context, {
-      skipResolve: true
-    })
-  )({});
+  return createWebpackUnplugin(createUnplugin(context))({});
 }

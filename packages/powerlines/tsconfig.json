@@ -3,7 +3,7 @@
   "compilerOptions": {
     "lib": ["ESNext"],
     "rootDir": "../..",
-    "types": ["node", "./types/babel-ambient.d.ts"],
+    "types": ["node", "undici-types", "./types/babel-ambient.d.ts"],
     "strict": true,
     "outDir": "../../dist/out-tsc"
   },

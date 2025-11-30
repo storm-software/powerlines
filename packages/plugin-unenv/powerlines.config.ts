@@ -24,7 +24,10 @@ export default defineConfig({
   entry: ["src/index.ts", "src/types/*.ts"],
   plugins: [
     plugin({
-      alloy: false
+      alloy: false,
+      types: {
+        userConfig: "UnenvPluginUserConfig"
+      }
     })
   ]
 });

@@ -22,7 +22,7 @@ import {
   Stack,
   StackSettings
 } from "@pulumi/pulumi/automation";
-import { UserConfig } from "powerlines/types/config";
+import { DeployConfig, UserConfig } from "powerlines/types/config";
 import { PluginContext } from "powerlines/types/context";
 import { ResolvedConfig } from "powerlines/types/resolved";
 
@@ -40,16 +40,14 @@ export interface PulumiPluginBaseOptions {
   settings?: StackSettings;
 }
 
-export interface PulumiPluginExistingStackOptions
-  extends PulumiPluginBaseOptions {
+export interface PulumiPluginExistingStackOptions extends PulumiPluginBaseOptions {
   /**
    * The Pulumi Stack instance to use for deployment operations.
    */
   stack?: Stack;
 }
 
-export interface PulumiPluginCreateStackOptions
-  extends PulumiPluginBaseOptions {
+export interface PulumiPluginCreateStackOptions extends PulumiPluginBaseOptions {
   /**
    * The associated stack name.
    */
@@ -68,8 +66,7 @@ export interface PulumiPluginExistingStackOptions {
   stack?: Stack;
 }
 
-export interface PulumiPluginCreateStackInlineOptions
-  extends PulumiPluginCreateStackOptions {
+export interface PulumiPluginCreateStackInlineOptions extends PulumiPluginCreateStackOptions {
   /**
    * The associated project name.
    */
@@ -81,8 +78,7 @@ export interface PulumiPluginCreateStackInlineOptions
   program?: PulumiFn;
 }
 
-export interface PulumiPluginCreateStackLocalOptions
-  extends PulumiPluginCreateStackOptions {
+export interface PulumiPluginCreateStackLocalOptions extends PulumiPluginCreateStackOptions {
   /**
    * The working directory of the program.
    *
@@ -114,19 +110,19 @@ export type PulumiPluginResolvedOptions =
         Pick<PulumiPluginCreateStackLocalOptions, "stackName" | "workDir">
       >);
 
+export interface PulumiPluginDeployConfig extends DeployConfig {
+  pulumi: PulumiPluginOptions;
+}
+
 export interface PulumiPluginUserConfig extends UserConfig {
-  deploy: {
-    pulumi: PulumiPluginOptions;
-  };
+  deploy: PulumiPluginDeployConfig;
 }
 
 export interface PulumiPluginResolvedConfig extends ResolvedConfig {
-  deploy: {
-    pulumi: PulumiPluginResolvedOptions;
-  };
+  deploy: PulumiPluginDeployConfig;
 }
 
 export type PulumiPluginContext<
-  TResolvedConfig extends
-    PulumiPluginResolvedConfig = PulumiPluginResolvedConfig
+  TResolvedConfig extends PulumiPluginResolvedConfig =
+    PulumiPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;

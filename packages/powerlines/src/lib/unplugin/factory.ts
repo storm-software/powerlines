@@ -23,6 +23,7 @@ import type {
   UnpluginBuildContext,
   UnpluginContext
 } from "unplugin";
+import { setParseImpl } from "unplugin";
 import { PowerlinesAPI } from "../../api";
 import { UnpluginBuildVariant } from "../../types/build";
 import { Context } from "../../types/context";
@@ -70,8 +71,11 @@ export function createUnpluginFactory<
       async function buildStart(this: UnpluginBuildContext): Promise<void> {
         log(LogLevelLabel.DEBUG, "Powerlines build plugin starting...");
 
-        const workspaceRoot = getWorkspaceRoot(process.cwd());
-        api = await PowerlinesAPI.from(workspaceRoot, userConfig);
+        api = await PowerlinesAPI.from(
+          getWorkspaceRoot(process.cwd()),
+          userConfig
+        );
+        setParseImpl(api.context.parse);
 
         log(
           LogLevelLabel.DEBUG,

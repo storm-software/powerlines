@@ -100,6 +100,7 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
   | "output"
   | "logLevel"
   | "framework"
+  | "sourceRoot"
 > &
   Required<
     Pick<
@@ -116,6 +117,7 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
       | "transform"
       | "deploy"
       | "framework"
+      | "sourceRoot"
     >
   > & {
     /**

@@ -21,9 +21,5 @@ import { createRspackPlugin as createRspackUnplugin } from "unplugin";
 import { RspackPluginContext } from "../types/plugin";
 
 export function createRspackPlugin(context: RspackPluginContext) {
-  return createRspackUnplugin(
-    createUnplugin(context, {
-      skipResolve: true
-    })
-  )({});
+  return createRspackUnplugin(createUnplugin(context))({});
 }

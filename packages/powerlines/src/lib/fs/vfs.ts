@@ -32,7 +32,6 @@ import {
 } from "@stryke/fs/resolve";
 import { murmurhash } from "@stryke/hash/murmurhash";
 import { appendPath } from "@stryke/path/append";
-import { toAbsolutePath } from "@stryke/path/correct-path";
 import {
   findFileName,
   findFilePath,
@@ -48,6 +47,7 @@ import { create, FlatCache } from "flat-cache";
 import { Blob } from "node:buffer";
 import { format, resolveConfig } from "prettier";
 import { FileSystem } from "../../../schemas/fs";
+import { replacePathTokens } from "../../plugin-utils/paths";
 import { LogFn } from "../../types/config";
 import { Context } from "../../types/context";
 import {
@@ -132,7 +132,12 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns The normalized module id.
    */
   #normalizeId(id: string): string {
-    return normalizeId(id, this.#context.config.output.builtinPrefix);
+    let normalized = id;
+    if (isParentPath(normalized, this.#context.builtinsPath)) {
+      normalized = replacePath(normalized, this.#context.builtinsPath);
+    }
+
+    return normalizeId(normalized, this.#context.config.output.builtinPrefix);
   }
 
   /**
@@ -143,7 +148,9 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    */
   #normalizePath(path: string): string {
     return normalizePath(
-      path,
+      path.includes("{") || path.includes("}")
+        ? replacePathTokens(this.#context, path)
+        : path,
       this.#context.builtinsPath,
       this.#context.config.output.builtinPrefix
     );
@@ -845,9 +852,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     const { relativeKey, adapter } = this.#getStorage(path);
+
     this.#log(
       LogLevelLabel.TRACE,
-      `Writing ${this.#normalizePath(path)} to ${
+      `Writing ${this.#normalizePath(relativeKey)} to ${
         adapter.name === "virtual"
           ? "the virtual file system"
           : adapter.name === "file-system"
@@ -856,14 +864,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       } (size: ${prettyBytes(new Blob(toArray(code)).size)})`
     );
 
-    const id = options?.meta?.id || this.#normalizeId(path);
+    const id = options?.meta?.id || this.#normalizeId(relativeKey);
     this.#metadata[id] = {
       variant: "normal",
       timestamp: Date.now(),
       ...(options.meta ?? {})
     } as VirtualFileMetadata;
-    this.#paths[id] = this.#normalizePath(path);
-    this.#ids[this.#normalizePath(path)] = id;
+    this.#paths[id] = this.#normalizePath(relativeKey);
+    this.#ids[this.#normalizePath(relativeKey)] = id;
 
     return adapter.set(relativeKey, code);
   }
@@ -881,9 +889,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     options: WriteOptions = {}
   ): void {
     const { relativeKey, adapter } = this.#getStorage(path);
+
     this.#log(
       LogLevelLabel.TRACE,
-      `Writing ${this.#normalizePath(path)} file to ${
+      `Writing ${this.#normalizePath(relativeKey)} file to ${
         adapter.name === "virtual"
           ? "the virtual file system"
           : adapter.name === "file-system"
@@ -892,14 +901,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       } (size: ${prettyBytes(new Blob(toArray(data)).size)})`
     );
 
-    const id = options?.meta?.id || this.#normalizeId(path);
+    const id = options?.meta?.id || this.#normalizeId(relativeKey);
     this.#metadata[id] = {
       variant: "normal",
       timestamp: Date.now(),
       ...(options.meta ?? {})
     } as VirtualFileMetadata;
-    this.#paths[id] = this.#normalizePath(path);
-    this.#ids[this.#normalizePath(path)] = id;
+    this.#paths[id] = this.#normalizePath(relativeKey);
+    this.#ids[this.#normalizePath(relativeKey)] = id;
 
     return adapter.setSync(relativeKey, data);
   }
@@ -940,12 +949,17 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     importer?: string,
     options: ResolveOptions = {}
   ): Promise<string | undefined> {
-    if (isAbsolutePath(id)) {
-      return id;
+    let path = id;
+    if (path.includes("{") || path.includes("}")) {
+      path = replacePathTokens(this.#context, path);
+    }
+
+    if (isAbsolutePath(path)) {
+      return path;
     }
 
     const resolverCacheKey = murmurhash({
-      id: this.#normalizeId(id),
+      path: this.#normalizeId(path),
       importer,
       options
     });
@@ -958,7 +972,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       }
     }
 
-    result = this.paths[this.#normalizeId(id)];
+    result = this.paths[this.#normalizeId(path)];
     if (!result) {
       const paths = options.paths ?? [];
       if (importer && !paths.includes(importer)) {
@@ -980,13 +994,13 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
       paths.push(
         ...(
-          Object.keys(this.#context.tsconfig.options.paths ?? {})
+          Object.keys(this.#context.tsconfig?.options?.paths ?? {})
             .filter(tsconfigPath =>
-              id.startsWith(tsconfigPath.replace(/\*$/, ""))
+              path.startsWith(tsconfigPath.replace(/\*$/, ""))
             )
             .map(
               tsconfigPath =>
-                this.#context.tsconfig.options.paths?.[tsconfigPath]
+                this.#context.tsconfig?.options?.paths?.[tsconfigPath]
             )
             .flat()
             .filter(Boolean) as string[]
@@ -995,7 +1009,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         )
       );
 
-      for (const combination of getResolutionCombinations(id, { paths })) {
+      for (const combination of getResolutionCombinations(path, { paths })) {
         const { relativeKey, adapter } = this.#getStorage(combination);
         if (await adapter.exists(relativeKey)) {
           result = combination;
@@ -1003,22 +1017,17 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         }
       }
 
-      try {
-        result = await resolve(id, { ...options, paths });
-      } catch {
-        // Do nothing
+      if (!result) {
+        try {
+          result = await resolve(path, { ...options, paths });
+        } catch {
+          // Do nothing
+        }
       }
     }
 
-    if (result) {
-      result = toAbsolutePath(
-        appendPath(result, this.#context.config.projectRoot),
-        this.#context.workspaceConfig.workspaceRoot
-      );
-
-      if (!this.#context.config.skipCache) {
-        this.resolverCache.set(resolverCacheKey, result);
-      }
+    if (result && !this.#context.config.skipCache) {
+      this.resolverCache.set(resolverCacheKey, result);
     }
 
     return result;
@@ -1045,21 +1054,26 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     importer?: string,
     options: ResolveOptions = {}
   ): string | undefined {
-    if (isAbsolutePath(id)) {
-      return id;
+    let path = id;
+    if (path.includes("{") || path.includes("}")) {
+      path = replacePathTokens(this.#context, path);
+    }
+
+    if (isAbsolutePath(path)) {
+      return path;
     }
 
     let result!: string | undefined;
     if (!this.#context.config.skipCache) {
       result = this.resolverCache.get<string | undefined>(
-        this.#normalizeId(id)
+        this.#normalizeId(path)
       );
       if (result) {
         return result;
       }
     }
 
-    result = this.paths[this.#normalizeId(id)];
+    result = this.paths[this.#normalizeId(path)];
     if (!result) {
       const paths = options.paths ?? [];
       if (importer && !paths.includes(importer)) {
@@ -1081,13 +1095,13 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
       paths.push(
         ...(
-          Object.keys(this.#context.tsconfig.options.paths ?? {})
+          Object.keys(this.#context.tsconfig?.options?.paths ?? {})
             .filter(tsconfigPath =>
-              id.startsWith(tsconfigPath.replace(/\*$/, ""))
+              path.startsWith(tsconfigPath.replace(/\*$/, ""))
             )
             .map(
               tsconfigPath =>
-                this.#context.tsconfig.options.paths?.[tsconfigPath]
+                this.#context.tsconfig?.options?.paths?.[tsconfigPath]
             )
             .flat()
             .filter(Boolean) as string[]
@@ -1096,7 +1110,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         )
       );
 
-      for (const combination of getResolutionCombinations(id, { paths })) {
+      for (const combination of getResolutionCombinations(path, { paths })) {
         const { relativeKey, adapter } = this.#getStorage(combination);
         if (adapter.existsSync(relativeKey)) {
           result = combination;
@@ -1104,22 +1118,17 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         }
       }
 
-      try {
-        result = resolveSync(id, { paths });
-      } catch {
-        // Do nothing
+      if (!result) {
+        try {
+          result = resolveSync(path, { ...options, paths });
+        } catch {
+          // Do nothing
+        }
       }
     }
 
-    if (result) {
-      result = toAbsolutePath(
-        appendPath(result, this.#context.config.projectRoot),
-        this.#context.workspaceConfig.workspaceRoot
-      );
-
-      if (!this.#context.config.skipCache) {
-        this.resolverCache.set(this.#normalizeId(id), result);
-      }
+    if (result && !this.#context.config.skipCache) {
+      this.resolverCache.set(this.#normalizeId(path), result);
     }
 
     return result;

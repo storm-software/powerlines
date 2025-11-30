@@ -27,6 +27,7 @@ import { hashDirectory } from "@stryke/hash/hash-files";
 import { murmurhash } from "@stryke/hash/murmurhash";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
+import { fetchRequest } from "@stryke/http/fetch";
 import { StormJSON } from "@stryke/json/storm-json";
 import { appendPath } from "@stryke/path/append";
 import { isAbsolute } from "@stryke/path/is-type";
@@ -41,8 +42,11 @@ import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
 import { match, tsconfigPathsToRegExp } from "bundle-require";
 import defu from "defu";
+import { create, FlatCache } from "flat-cache";
+import { parse, ParseResult } from "oxc-parser";
 import { Range } from "semver";
 import { Project } from "ts-morph";
+import { BodyInit, RequestInfo, Response } from "undici";
 import { ExternalIdResult, UnpluginMessage } from "unplugin";
 import {
   createResolver,
@@ -61,8 +65,10 @@ import {
 } from "../../types/config";
 import {
   Context,
+  FetchOptions,
   InitContextOptions,
   MetaInfo,
+  ParseOptions,
   Resolver,
   TransformResult
 } from "../../types/context";
@@ -137,7 +143,9 @@ export class PowerlinesContext<
 
   #program!: Project;
 
-  #resolvePatterns: RegExp[] = [];
+  #parserCache!: FlatCache;
+
+  #requestCache!: FlatCache;
 
   #getConfigProps(config: Partial<TResolvedConfig["userConfig"]> = {}) {
     return {
@@ -162,7 +170,8 @@ export class PowerlinesContext<
       lint: config.lint,
       transform: config.transform,
       build: config.build,
-      framework: config.framework
+      framework: config.framework,
+      ...config
     };
   }
 
@@ -228,6 +237,11 @@ export class PowerlinesContext<
   public resolver!: Resolver;
 
   /**
+   * The resolved configuration options
+   */
+  private resolvePatterns: RegExp[] = [];
+
+  /**
    * Internal context fields and methods
    *
    * @internal
@@ -263,7 +277,7 @@ export class PowerlinesContext<
    */
   public set tsconfig(value: ParsedTypeScriptConfig) {
     this.#tsconfig = value;
-    this.#resolvePatterns = tsconfigPathsToRegExp(value?.options?.paths ?? {});
+    this.resolvePatterns = tsconfigPathsToRegExp(value?.options?.paths ?? {});
   }
 
   /**
@@ -452,6 +466,142 @@ export class PowerlinesContext<
   }
 
   /**
+   * Gets the parser cache.
+   */
+  protected get parserCache(): FlatCache {
+    if (!this.#parserCache) {
+      this.#parserCache = create({
+        cacheId: "parser",
+        cacheDir: this.cachePath,
+        ttl: 2 * 60 * 60 * 1000,
+        lruSize: 5000,
+        persistInterval: 250
+      });
+    }
+
+    return this.#parserCache;
+  }
+
+  /**
+   * Gets the request cache.
+   */
+  protected get requestCache(): FlatCache {
+    if (!this.#requestCache) {
+      this.#requestCache = create({
+        cacheId: "http",
+        cacheDir: this.cachePath,
+        ttl: 5 * 60 * 1000,
+        lruSize: 5000,
+        persistInterval: 250
+      });
+    }
+
+    return this.#requestCache;
+  }
+
+  /**
+   * A function to perform HTTP fetch requests
+   *
+   * @remarks
+   * This function uses a caching layer to avoid duplicate requests during the Powerlines process.
+   *
+   * @example
+   * ```ts
+   * const response = await context.fetch("https://api.example.com/data");
+   * const data = await response.json();
+   * ```
+   *
+   * @see https://github.com/nodejs/undici
+   *
+   * @param input - The URL to fetch.
+   * @param options - The fetch request options.
+   * @returns A promise that resolves to a response returned by the fetch.
+   */
+  public async fetch(
+    input: RequestInfo,
+    options: FetchOptions = {}
+  ): Promise<Response> {
+    const cacheKey = murmurhash({
+      input: input.toString(),
+      options: JSON.stringify(options)
+    });
+
+    if (!this.config.skipCache && !options.skipCache) {
+      const cached = this.requestCache.get<{ body: BodyInit } & ResponseInit>(
+        cacheKey
+      );
+      if (cached) {
+        return new Response(cached.body, {
+          status: cached.status,
+          statusText: cached.statusText,
+          headers: cached.headers
+        });
+      }
+    }
+
+    const result = await fetchRequest(input, options);
+    if (!this.config.skipCache && !options.skipCache) {
+      try {
+        this.requestCache.set(cacheKey, {
+          body: await result.text(),
+          status: result.status,
+          statusText: result.statusText,
+          headers: Object.fromEntries(result.headers.entries())
+        });
+      } catch {
+        // Do nothing
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Parse code using [Oxc-Parser](https://github.com/oxc/oxc) into an (ESTree-compatible)[https://github.com/estree/estree] AST object.
+   *
+   * @remarks
+   * This function can be used to parse TypeScript code into an AST for further analysis or transformation.
+   *
+   * @example
+   * ```ts
+   * const ast = context.parse("const x: number = 42;");
+   * ```
+   *
+   * @see https://rollupjs.org/plugin-development/#this-parse
+   * @see https://github.com/oxc/oxc
+   *
+   * @param code - The source code to parse.
+   * @param options - The options to pass to the parser.
+   * @returns An (ESTree-compatible)[https://github.com/estree/estree] AST object.
+   */
+  public async parse(code: string, options: ParseOptions = {}) {
+    const cacheKey = murmurhash({
+      code,
+      options
+    });
+
+    let result!: ParseResult;
+    if (!this.config.skipCache) {
+      result = this.parserCache.get<ParseResult>(cacheKey);
+      if (result) {
+        return result;
+      }
+    }
+
+    result = await parse(`source.${options.lang || "ts"}`, code, {
+      ...options,
+      sourceType: "module",
+      showSemanticErrors: this.config.mode === "development"
+    });
+
+    if (!this.config.skipCache) {
+      this.parserCache.set(cacheKey, result);
+    }
+
+    return result;
+  }
+
+  /**
    * A helper function to resolve modules in the Virtual File System
    *
    * @remarks
@@ -507,7 +657,7 @@ export class PowerlinesContext<
 
     if (this.config.build.skipNodeModulesBundle) {
       if (
-        match(moduleId, this.#resolvePatterns) ||
+        match(moduleId, this.resolvePatterns) ||
         match(moduleId, this.config.build.noExternal)
       ) {
         return undefined;
@@ -780,6 +930,22 @@ export class PowerlinesContext<
   }
 
   /**
+   * Generates a checksum representing the current context state
+   *
+   * @param root - The root directory of the project to generate the checksum for
+   * @returns A promise that resolves to a string representing the checksum
+   */
+  public async generateChecksum(
+    root = this.config.projectRoot
+  ): Promise<string> {
+    this.#checksum = await hashDirectory(root, {
+      ignore: ["node_modules", ".git", ".nx", ".cache", ".storm", "tmp", "dist"]
+    });
+
+    return this.#checksum;
+  }
+
+  /**
    * Creates a new StormContext instance.
    *
    * @param workspaceConfig - The workspace configuration.
@@ -802,20 +968,6 @@ export class PowerlinesContext<
    * A logger function specific to this context
    */
   protected logFn!: LogFn;
-
-  /**
-   * Generates a checksum representing the current context state
-   *
-   * @param root - The root directory of the project to generate the checksum for
-   * @returns A promise that resolves to a string representing the checksum
-   */
-  async generateChecksum(root = this.config.projectRoot): Promise<string> {
-    this.#checksum = await hashDirectory(root, {
-      ignore: ["node_modules", ".git", ".nx", ".cache", ".storm", "tmp", "dist"]
-    });
-
-    return this.#checksum;
-  }
 
   /**
    * Initialize the context with the provided configuration options
@@ -980,7 +1132,7 @@ export class PowerlinesContext<
             override: {}
           }
         }
-      ) as TResolvedConfig;
+      ) as any;
     }
 
     this.config.entry = getUniqueEntries(this.config.entry);

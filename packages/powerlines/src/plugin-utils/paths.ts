@@ -28,6 +28,7 @@ import { UnresolvedContext } from "../types/context";
  * - `{workspaceRoot}` - The root directory of the workspace.
  * - `{root}` - The root directory of the project (same as `{projectRoot}`).
  * - `{projectRoot}` - The root directory of the project (same as `{root}`).
+ * - `{sourceRoot}` - The source root directory of the project (usually `./src`).
  * - `{powerlinesPath}` - The directory where Powerlines is installed.
  * - `{cachePath}` - The environment's directory for cached files.
  * - `{dataPath}` - The environment's directory for data files.
@@ -56,6 +57,7 @@ export function replacePathTokens(
     .replaceAll("{workspaceRoot}", context.workspaceConfig.workspaceRoot)
     .replaceAll("{root}", context.config.projectRoot)
     .replaceAll("{projectRoot}", context.config.projectRoot)
+    .replaceAll("{sourceRoot}", context.config.sourceRoot)
     .replaceAll("{powerlinesPath}", context.powerlinesPath)
     .replaceAll("{cachePath}", context.cachePath)
     .replaceAll("{dataPath}", context.dataPath)

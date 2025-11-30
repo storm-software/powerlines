@@ -18,7 +18,6 @@
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { getParentPath } from "@stryke/fs/get-parent-path";
-import { writeFile } from "@stryke/fs/write-file";
 import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join";
 import { defu } from "defu";
@@ -85,7 +84,7 @@ export function plugin(
       const result = await stylelint.lint(options);
 
       if (this.config.lint.stylelint.outputFile) {
-        await writeFile(
+        await this.fs.write(
           appendPath(
             this.config.lint.stylelint.outputFile,
             this.config.projectRoot

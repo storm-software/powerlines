@@ -21,9 +21,5 @@ import { createEsbuildPlugin } from "unplugin";
 import { ESBuildPluginContext } from "../types/plugin";
 
 export function createESBuildPlugin(context: ESBuildPluginContext) {
-  return createEsbuildPlugin(
-    createUnplugin(context, {
-      skipResolve: true
-    })
-  )({});
+  return createEsbuildPlugin(createUnplugin(context))({});
 }

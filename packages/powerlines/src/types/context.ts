@@ -17,14 +17,17 @@
  ------------------------------------------------------------------- */
 
 import type { EnvPaths } from "@stryke/env/get-env-paths";
+import { FetchRequestOptions } from "@stryke/http/fetch";
 import type { NonUndefined } from "@stryke/types/base";
 import type { PackageJson } from "@stryke/types/package-json";
 import type { Worker as JestWorker } from "jest-worker";
 import type { Jiti } from "jiti";
 import type MagicString from "magic-string";
 import type { SourceMap } from "magic-string";
+import type { ParseResult, ParserOptions } from "oxc-parser";
 import type { Range } from "semver";
 import type { Project } from "ts-morph";
+import type { RequestInfo, Response } from "undici";
 import type { Unimport } from "unimport";
 import type {
   ExternalIdResult,
@@ -158,6 +161,20 @@ export interface InitContextOptions {
   isHighPriority: boolean;
 }
 
+export interface FetchOptions extends FetchRequestOptions {
+  /**
+   * An indicator specifying that the request should bypass any caching
+   */
+  skipCache?: boolean;
+}
+
+export interface ParseOptions extends ParserOptions {
+  /**
+   * When true this allows return statements to be outside functions to e.g. support parsing CommonJS code.
+   */
+  allowReturnOutsideFunction?: boolean;
+}
+
 /**
  * The unresolved Powerlines context.
  *
@@ -178,6 +195,7 @@ export interface UnresolvedContext<
   config: Omit<TResolvedConfig["userConfig"], "build" | "output"> &
     Required<Pick<TResolvedConfig["userConfig"], "build" | "output">> & {
       projectRoot: NonUndefined<TResolvedConfig["userConfig"]["root"]>;
+      sourceRoot: NonUndefined<TResolvedConfig["userConfig"]["sourceRoot"]>;
       output: TResolvedConfig["output"];
     };
 
@@ -325,6 +343,46 @@ export interface UnresolvedContext<
    * This instance is created lazily on first access.
    */
   program: Project;
+
+  /**
+   * A function to perform HTTP fetch requests
+   *
+   * @remarks
+   * This function uses a caching layer to avoid duplicate requests during the Powerlines process.
+   *
+   * @example
+   * ```ts
+   * const response = await context.fetch("https://api.example.com/data");
+   * const data = await response.json();
+   * ```
+   *
+   * @see https://github.com/nodejs/undici
+   *
+   * @param input - The URL to fetch.
+   * @param options - The fetch request options.
+   * @returns A promise that resolves to a response returned by the fetch.
+   */
+  fetch: (input: RequestInfo, options?: FetchOptions) => Promise<Response>;
+
+  /**
+   * Parse code using [Oxc-Parser](https://github.com/oxc/oxc) into an (ESTree-compatible)[https://github.com/estree/estree] AST object.
+   *
+   * @remarks
+   * This function can be used to parse TypeScript code into an AST for further analysis or transformation.
+   *
+   * @example
+   * ```ts
+   * const ast = context.parse("const x: number = 42;");
+   * ```
+   *
+   * @see https://rollupjs.org/plugin-development/#this-parse
+   * @see https://github.com/oxc/oxc
+   *
+   * @param code - The source code to parse.
+   * @param options - The options to pass to the parser.
+   * @returns An (ESTree-compatible)[https://github.com/estree/estree] AST object.
+   */
+  parse: (code: string, options?: ParseOptions) => Promise<ParseResult>;
 
   /**
    * A helper function to resolve modules using the Jiti resolver
@@ -577,4 +635,4 @@ export interface PluginContext<
 
 export type BuildPluginContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> = PluginContext<TResolvedConfig> & Omit<UnpluginBuildContext, "parse">;
+> = UnpluginBuildContext & PluginContext<TResolvedConfig>;
