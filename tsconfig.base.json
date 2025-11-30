@@ -44,6 +44,8 @@
       "@powerlines/plugin-graphql/*": ["packages/plugin-graphql/src/*"],
       "@powerlines/plugin-id": ["packages/plugin-id/src/index.ts"],
       "@powerlines/plugin-id/*": ["packages/plugin-id/src/*"],
+      "@powerlines/plugin-hey-api": ["packages/plugin-hey-api/src/index.ts"],
+      "@powerlines/plugin-hey-api/*": ["packages/plugin-hey-api/src/*"],
       "@powerlines/plugin-jest": ["packages/plugin-jest/src/index.ts"],
       "@powerlines/plugin-jest/*": ["packages/plugin-jest/src/*"],
       "@powerlines/plugin-marked": ["packages/plugin-marked/src/index.ts"],
