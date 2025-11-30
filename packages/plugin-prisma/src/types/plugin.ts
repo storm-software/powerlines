@@ -19,8 +19,61 @@
 import { UserConfig } from "powerlines/types/config";
 import { PluginContext } from "powerlines/types/context";
 import { ResolvedConfig } from "powerlines/types/resolved";
+import { PrismaClient } from "../api/sdk.gen";
 import { PrismaSchemaCreator } from "../helpers/schema-creator";
 import { PrismaSchema } from "./prisma";
+
+export interface PrismaPostgresPrismaPluginOptions {
+  /**
+   * The Prisma project name
+   *
+   * @defaultValue "\{name\}"
+   */
+  projectId?: string;
+
+  /**
+   * The region to deploy the database to
+   *
+   * @defaultValue "us-east-1"
+   */
+  region?:
+    | "us-east-1"
+    | "us-east-2"
+    | "us-west-1"
+    | "us-west-2"
+    | "af-south-1"
+    | "ap-east-1"
+    | "ap-south-1"
+    | "ap-south-2"
+    | "ap-southeast-1"
+    | "ap-southeast-2"
+    | "ap-southeast-3"
+    | "ap-southeast-4"
+    | "ap-northeast-1"
+    | "ap-northeast-2"
+    | "ap-northeast-3"
+    | "ca-central-1"
+    | "ca-west-1"
+    | "eu-central-1"
+    | "eu-central-2"
+    | "eu-west-1"
+    | "eu-west-2"
+    | "eu-west-3"
+    | "eu-north-1"
+    | "eu-south-1"
+    | "eu-south-2"
+    | "il-central-1"
+    | "me-south-1"
+    | "me-central-1"
+    | "sa-east-1";
+
+  /**
+   * The database name
+   *
+   * @defaultValue "\{region\}.\{mode\}.\{name\}"
+   */
+  databaseName?: string;
+}
 
 export interface PrismaPluginOptions {
   /**
@@ -59,6 +112,16 @@ export interface PrismaPluginOptions {
    * The path to the Prisma binary
    */
   prismaPath?: string;
+
+  /**
+   * The service token to use for the Prisma API
+   */
+  serviceToken?: string;
+
+  /**
+   * Configuration parameters to manage a Prisma Postgres database
+   */
+  prismaPostgres?: PrismaPostgresPrismaPluginOptions | true;
 }
 
 export type PrismaPluginUserConfig = UserConfig & {
@@ -67,16 +130,24 @@ export type PrismaPluginUserConfig = UserConfig & {
 };
 
 export type PrismaPluginResolvedConfig = ResolvedConfig & {
-  prisma: Omit<PrismaPluginOptions, "schema" | "outputPath" | "configFile"> &
-    Required<Pick<PrismaPluginOptions, "schema" | "outputPath" | "configFile">>;
+  prisma: Omit<
+    PrismaPluginOptions,
+    "schema" | "outputPath" | "configFile" | "prismaPostgres"
+  > &
+    Required<
+      Pick<PrismaPluginOptions, "schema" | "outputPath" | "configFile">
+    > & {
+      prismaPostgres?: Required<PrismaPostgresPrismaPluginOptions>;
+    };
 };
 
 export type PrismaPluginContext<
-  TResolvedConfig extends
-    PrismaPluginResolvedConfig = PrismaPluginResolvedConfig
+  TResolvedConfig extends PrismaPluginResolvedConfig =
+    PrismaPluginResolvedConfig
 > = PluginContext<TResolvedConfig> & {
   prisma: {
     schema: PrismaSchema;
     builder: PrismaSchemaCreator;
+    api: PrismaClient;
   };
 };

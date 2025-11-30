@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import heyApi from "@powerlines/plugin-hey-api";
 import plugin from "@powerlines/plugin-plugin";
 import { defineConfig } from "powerlines";
 
@@ -24,10 +25,20 @@ export default defineConfig({
   entry: ["src/index.ts", "src/types/*.ts", "src/helpers/*.ts"],
   plugins: [
     plugin({
-      alloy: false
+      alloy: false,
+      types: {
+        userConfig: "PrismaPluginUserConfig"
+      }
+    }),
+    heyApi({
+      schema: "https://api.prisma.io/v1/doc",
+      output: {
+        path: "{sourceRoot}/api"
+      }
     })
   ],
   build: {
-    noExternal: ["prisma-util"]
+    noExternal: ["prisma-util"],
+    dts: false
   }
 });

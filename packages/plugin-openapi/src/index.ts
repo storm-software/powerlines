@@ -19,6 +19,7 @@
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
 import openapiTS, { astToString } from "openapi-typescript";
+import { replacePathTokens } from "powerlines/plugin-utils/paths";
 import { Plugin } from "powerlines/types/plugin";
 import {
   OpenAPIPluginContext,
@@ -53,9 +54,16 @@ export const plugin = <
             this.workspaceConfig.workspaceRoot,
             this.config.projectRoot
           ),
+          outputPath: joinPaths("{builtinPath}", "api"),
           silent: this.config.logLevel === null
         })
       } as Partial<OpenAPIPluginUserConfig>;
+    },
+    async configResolved() {
+      this.config.openapi.outputPath = replacePathTokens(
+        this,
+        this.config.openapi.outputPath
+      );
     },
     async prepare() {
       const ast = await openapiTS(

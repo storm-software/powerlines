@@ -126,6 +126,6 @@ export interface OxlintPluginResolvedConfig extends ResolvedConfig {
 }
 
 export type OxlintPluginContext<
-  TResolvedConfig extends
-    OxlintPluginResolvedConfig = OxlintPluginResolvedConfig
+  TResolvedConfig extends OxlintPluginResolvedConfig =
+    OxlintPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;

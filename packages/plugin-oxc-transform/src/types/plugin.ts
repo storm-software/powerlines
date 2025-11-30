@@ -36,6 +36,6 @@ export type OxcTransformPluginResolvedConfig = ResolvedConfig & {
 };
 
 export type OxcTransformPluginContext<
-  TResolvedConfig extends
-    OxcTransformPluginResolvedConfig = OxcTransformPluginResolvedConfig
+  TResolvedConfig extends OxcTransformPluginResolvedConfig =
+    OxcTransformPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;

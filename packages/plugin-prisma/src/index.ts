@@ -25,6 +25,11 @@ import defu from "defu";
 import { getConfigPath } from "powerlines/plugin-utils/get-config-path";
 import { replacePathTokens } from "powerlines/plugin-utils/paths";
 import { Plugin } from "powerlines/types/plugin";
+import { createClient } from "./api/client/client.gen";
+import type { ClientOptions } from "./api/client/types.gen";
+import { createConfig } from "./api/client/utils.gen";
+import { PrismaClient } from "./api/sdk.gen";
+import { CreateDatabaseData } from "./api/types.gen";
 import { getSchema } from "./helpers/get-schema";
 import { PrismaSchemaCreator } from "./helpers/schema-creator";
 import {
@@ -33,6 +38,9 @@ import {
   PrismaPluginUserConfig
 } from "./types/plugin";
 
+export * from "./api/client.gen";
+export * from "./api/sdk.gen";
+export * from "./api/types.gen";
 export * from "./types";
 
 /**
@@ -54,7 +62,13 @@ export const plugin = <
           schema: joinPaths(this.config.projectRoot, "prisma", "schema.prisma"),
           configFile:
             options.configFile || getConfigPath(this, "prisma.config"),
-          outputPath: joinPaths("{builtinPath}", "prisma")
+          outputPath: joinPaths("{builtinPath}", "prisma"),
+          prismaPostgres: options?.prismaPostgres
+            ? {
+                projectId: this.config.name,
+                region: "us-east-1"
+              }
+            : undefined
         })
       } as Partial<PrismaPluginUserConfig>;
     },
@@ -76,6 +90,52 @@ export const plugin = <
         this,
         this.config.prisma.schema
       );
+
+      if (this.config.prisma.prismaPostgres) {
+        let serviceToken = process.env.PRISMA_SERVICE_TOKEN;
+        if (!serviceToken) {
+          serviceToken = options.serviceToken;
+          if (serviceToken) {
+            this.warn(
+              "If possible, please use the `PRISMA_SERVICE_TOKEN` environment variable instead of using the `serviceToken` option directly. The `serviceToken` option will work; however, this is a less secure method of configuration."
+            );
+          } else {
+            throw new Error(
+              "Unable to determine the Prisma service token. Please set the `PRISMA_SERVICE_TOKEN` environment variable."
+            );
+          }
+        }
+
+        const client = createClient(
+          createConfig<ClientOptions>({
+            baseUrl: "https://api.prisma.io",
+            throwOnError: true,
+            headers: {
+              Authorization: `Bearer ${serviceToken}`,
+              "User-Agent": "powerlines/1.0"
+            }
+          })
+        );
+
+        this.prisma.api = new PrismaClient({
+          client
+        });
+
+        await this.prisma.api
+          .createDatabase({
+            path: {
+              projectId: this.config.prisma.prismaPostgres.projectId
+            },
+            body: {
+              isDefault: false,
+              name:
+                this.config.prisma.prismaPostgres.databaseName ||
+                `${this.config.prisma.prismaPostgres.region}.${this.config.mode}.${this.config.name}`,
+              region: this.config.prisma.prismaPostgres.region
+            } as CreateDatabaseData["body"]
+          })
+          .then(response => response.data.data);
+      }
 
       if (!this.config.prisma.outputPath) {
         throw new Error(

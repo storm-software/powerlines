@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { PrintTreeOptions } from "@alloy-js/core";
+import { TypeDefinitionParameter } from "@stryke/types/configuration";
 import type {
   TsupBuildConfig,
   TsupResolvedBuildConfig
@@ -41,6 +42,18 @@ export type PluginPluginAlloyOptions = Partial<PrintTreeOptions> & {
   generatesMarkdown?: boolean;
 };
 
+export interface PluginPluginTypesOptions {
+  /**
+   * The type definition for the plugin's options.
+   */
+  options?: TypeDefinitionParameter;
+
+  /**
+   * The type definition for the plugin's user config.
+   */
+  userConfig?: TypeDefinitionParameter;
+}
+
 export interface PluginPluginOptions {
   /**
    * The options applied to the [Alloy framework](https://alloy-framework.github.io/alloy/) for rendering templates.
@@ -51,6 +64,11 @@ export interface PluginPluginOptions {
    * @defaultValue false
    */
   alloy?: PluginPluginAlloyOptions | boolean;
+
+  /**
+   * The type definitions for the Plugin plugin.
+   */
+  types?: PluginPluginTypesOptions;
 }
 
 export type PluginPluginUserConfig = UserConfig<
@@ -58,15 +76,15 @@ export type PluginPluginUserConfig = UserConfig<
   TsupResolvedBuildConfig,
   "tsup"
 > & {
-  alloy?: false | Partial<PluginPluginAlloyOptions>;
+  plugin: PluginPluginOptions;
 };
 
 export type PluginPluginResolvedConfig =
   ResolvedConfig<PluginPluginUserConfig> & {
-    alloy: false | Required<PluginPluginAlloyOptions>;
+    plugin: PluginPluginOptions;
   };
 
 export type PluginPluginContext<
-  TResolvedConfig extends
-    PluginPluginResolvedConfig = PluginPluginResolvedConfig
+  TResolvedConfig extends PluginPluginResolvedConfig =
+    PluginPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;

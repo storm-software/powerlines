@@ -162,6 +162,7 @@
   "devDependencies": {
     "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
+    "@powerlines/plugin-hey-api": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

@@ -20,9 +20,13 @@ import alloyBabelPreset from "@alloy-js/babel-preset";
 import typescriptBabelPreset from "@babel/preset-typescript";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { build, resolveOptions } from "@storm-software/tsup";
+import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { StormJSON } from "@stryke/json/storm-json";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join";
+import { titleCase } from "@stryke/string-format/title-case";
+import { isString } from "@stryke/type-checks/is-string";
+import { TypeDefinition } from "@stryke/types/configuration";
 import { defu } from "defu";
 import eslintBabelPlugin from "esbuild-plugin-babel";
 import { extractTsupConfig, resolveTsupEntry } from "powerlines/lib/build/tsup";
@@ -51,7 +55,6 @@ export const plugin = <
         type: "library",
         entry: ["src/**/*.ts", "src/**/*.tsx"],
         output: {
-          dts: false,
           format: ["cjs", "esm"]
         },
         build: {
@@ -79,6 +82,49 @@ export const plugin = <
           StormJSON.stringify(this.tsconfig.tsconfigJson)
         );
       }
+    },
+    async generateTypes(code: string) {
+      if (!options.types?.userConfig) {
+        return;
+      }
+
+      let typeDef: TypeDefinition | undefined;
+      if (
+        isString(options.types.userConfig) &&
+        !options.types.userConfig.includes("#") &&
+        this.packageJson?.name
+      ) {
+        const pluginRoot = await this.resolve(this.packageJson.name);
+
+        if (
+          pluginRoot &&
+          this.packageJson?.name &&
+          !(await this.resolve(options.types.userConfig, pluginRoot.id))
+        ) {
+          typeDef = {
+            file: this.packageJson.name,
+            name: options.types.userConfig
+          };
+        }
+      }
+
+      if (!typeDef) {
+        typeDef = parseTypeDefinition(options.types.userConfig);
+
+        if (!typeDef) {
+          return;
+        }
+      }
+
+      return `${code}
+
+// Extend \`UserConfig\` with the ${titleCase(this.config.name)} plugin's type definition
+declare module "powerlines" {
+  export interface UserConfig extends import("${
+    typeDef.file
+  }").${typeDef.name || "default"}
+}
+`;
     },
     async build() {
       await build(

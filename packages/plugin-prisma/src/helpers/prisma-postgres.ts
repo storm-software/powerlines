@@ -16,8 +16,30 @@
 
  ------------------------------------------------------------------- */
 
-/// <reference path="./src/types/plugin.d.ts" />
+import { PrismaPluginContext } from "../types/plugin";
 
-declare module "powerlines" {
-  export interface BaseConfig extends PluginPluginUserConfig {}
+/**
+ * Find a Postgres database by name.
+ *
+ * @param context - The Prisma plugin context.
+ * @param name - The name of the database to find.
+ * @returns The database object if found, otherwise undefined.
+ */
+export async function findDatabaseByName(
+  context: PrismaPluginContext,
+  name: string
+) {
+  if (!context.config.prisma.prismaPostgres?.projectId) {
+    throw new Error(
+      `Prisma Postgres project ID is not configured. Please set "prisma.prismaPostgres.projectId" in your Powerlines configuration.`
+    );
+  }
+
+  const databases = await context.prisma.api.listDatabases({
+    path: {
+      projectId: context.config.prisma.prismaPostgres.projectId
+    }
+  });
+
+  return databases.data.data.find(db => db.name === name);
 }

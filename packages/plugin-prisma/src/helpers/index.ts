@@ -17,4 +17,5 @@
  ------------------------------------------------------------------- */
 
 export * from "./get-schema";
+export * from "./prisma-postgres";
 export * from "./schema-creator";

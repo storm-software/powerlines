@@ -18,7 +18,7 @@
 
 import { findFileExtension, findFileExtensionSafe } from "@stryke/path/find";
 import defu from "defu";
-import { transformAsync } from "oxc-transform";
+import { transform } from "oxc-transform";
 import { Plugin } from "powerlines/types/plugin";
 import {
   OxcTransformPluginContext,
@@ -55,7 +55,7 @@ export const plugin = <
       } as Partial<OxcTransformPluginUserConfig>;
     },
     async transform(code, id) {
-      const result = await transformAsync(id, code, {
+      const result = await transform(id, code, {
         lang: (["d.ts", "d.cts", "d.mts"].includes(findFileExtensionSafe(id))
           ? "dts"
           : findFileExtension(id)) as OxcTransformPluginOptions["lang"],
