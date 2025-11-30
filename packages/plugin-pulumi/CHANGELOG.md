@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.2.26](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.26) (11/30/2025)
+
+### Features
+
+- **powerlines:** Added `fetch` method to context and improved tsconfig file
+  resolver logic
+  ([ebb677e](https://github.com/storm-software/powerlines/commit/ebb677e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.55**
+- Updated **powerlines** to **v0.28.0**
+- Updated **nx** to **v0.10.47**
+
 ## [0.2.25](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.25) (11/28/2025)
 
 ### Miscellaneous

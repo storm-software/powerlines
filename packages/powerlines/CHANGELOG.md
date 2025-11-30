@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.28.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.28.0) (11/30/2025)
+
+### Features
+
+- **powerlines:** Added `fetch` method to context and improved tsconfig file
+  resolver logic
+  ([ebb677e](https://github.com/storm-software/powerlines/commit/ebb677e))
+
 ## [0.27.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.27.0) (11/28/2025)
 
 ### Miscellaneous

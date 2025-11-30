@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.56](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.56) (11/30/2025)
+
+### Features
+
+- **powerlines:** Added `fetch` method to context and improved tsconfig file
+  resolver logic
+  ([ebb677e](https://github.com/storm-software/powerlines/commit/ebb677e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.55**
+- Updated **powerlines** to **v0.28.0**
+- Updated **nx** to **v0.10.47**
+
 ## [0.13.55](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.55) (11/28/2025)
 
 ### Miscellaneous

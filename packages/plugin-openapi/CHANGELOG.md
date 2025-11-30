@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Openapi
 
+## [0.2.51](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.51) (11/30/2025)
+
+### Features
+
+- **plugin-prisma:** Added Prisma Postgres deploy implementation
+  ([c61b86c](https://github.com/storm-software/powerlines/commit/c61b86c))
+- **powerlines:** Added `fetch` method to context and improved tsconfig file
+  resolver logic
+  ([ebb677e](https://github.com/storm-software/powerlines/commit/ebb677e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.11.55**
+- Updated **powerlines** to **v0.28.0**
+- Updated **nx** to **v0.10.47**
+
 ## [0.2.50](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.50) (11/28/2025)
 
 ### Miscellaneous

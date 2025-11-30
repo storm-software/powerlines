@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.11.55](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.55) (11/30/2025)
+
+### Features
+
+- **plugin-prisma:** Added Prisma Postgres deploy implementation
+  ([c61b86c](https://github.com/storm-software/powerlines/commit/c61b86c))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.28.0**
+- Updated **nx** to **v0.10.47**
+
 ## [0.11.54](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.11.54) (11/28/2025)
 
 ### Updated Dependencies
