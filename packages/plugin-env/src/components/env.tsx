@@ -20,7 +20,6 @@ import {
   Children,
   code,
   computed,
-  createResource,
   For,
   Show,
   splitProps
@@ -64,8 +63,8 @@ import {
 import { titleCase } from "@stryke/string-format/title-case";
 import { isNull } from "@stryke/type-checks/is-null";
 import defu from "defu";
+import { createReflectionResource } from "../helpers/create-reflection-resource";
 import { loadEnvFromContext } from "../helpers/load";
-import { readEnvTypeReflection } from "../helpers/persistence";
 import { EnvPluginContext } from "../types/plugin";
 
 /**
@@ -278,61 +277,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
   const defaultValue = computed(
     () => context && loadEnvFromContext(context, process.env)
   );
-
-  const reflection = createResource(async () => {
-    if (!context) {
-      return new ReflectionClass({
-        kind: ReflectionKind.objectLiteral,
-        description: `The initial environment configuration state for the Powerlines project.`,
-        types: []
-      });
-    }
-
-    const result = await readEnvTypeReflection(context, "env");
-    result.getProperties().forEach(prop => {
-      const aliases = prop.getAlias();
-      aliases.filter(Boolean).forEach(alias => {
-        result.addProperty({
-          name: alias,
-          optional: prop.isOptional() ? true : undefined,
-          readonly: prop.isReadonly() ? true : undefined,
-          description: prop.getDescription(),
-          visibility: prop.getVisibility(),
-          type: prop.getType(),
-          default: prop.getDefaultValue(),
-          tags: {
-            hidden: prop.isHidden(),
-            ignore: prop.isIgnored(),
-            internal: prop.isInternal(),
-            alias: prop
-              .getAlias()
-              .filter(a => a !== alias)
-              .concat(prop.name),
-            title: prop.getTitle() || titleCase(prop.name),
-            readonly: prop.isReadonly(),
-            permission: prop.getPermission(),
-            domain: prop.getDomain()
-          }
-        });
-      });
-    });
-
-    result.getProperties().forEach(prop => {
-      prop.setDefaultValue(
-        (defaultValue.value as Record<string, any>)?.[prop.getNameAsString()] ??
-          prop
-            .getAlias()
-            .reduce(
-              (ret, alias) =>
-                ret ?? (defaultValue.value as Record<string, any>)?.[alias],
-              undefined
-            ) ??
-          prop.getDefaultValue()
-      );
-    });
-
-    return result;
-  });
+  const reflection = createReflectionResource(context);
 
   const envInstance = computed(() => {
     const result = new ReflectionClass(

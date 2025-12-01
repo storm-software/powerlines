@@ -189,6 +189,7 @@
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/typescript": "catalog:",
+    "@alloy-js/markdown": "catalog:",
     "@babel/core": "catalog:",
     "@babel/types": "catalog:",
     "@powerlines/alloy": "workspace:*",

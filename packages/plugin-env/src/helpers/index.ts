@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+export * from "./create-reflection-resource";
 export * from "./load";
 export * from "./persistence";
 export * from "./reflect";
