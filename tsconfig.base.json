@@ -92,6 +92,8 @@
       "@powerlines/plugin-tamagui/*": ["packages/plugin-tamagui/src/*"],
       "@powerlines/plugin-tsc": ["packages/plugin-tsc/src/index.ts"],
       "@powerlines/plugin-tsc/*": ["packages/plugin-tsc/src/*"],
+      "@powerlines/plugin-tsdown": ["packages/plugin-tsdown/src/index.ts"],
+      "@powerlines/plugin-tsdown/*": ["packages/plugin-tsdown/src/*"],
       "@powerlines/plugin-tsup": ["packages/plugin-tsup/src/index.ts"],
       "@powerlines/plugin-tsup/*": ["packages/plugin-tsup/src/*"],
       "@powerlines/plugin-typedoc": ["packages/plugin-typedoc/src/index.ts"],

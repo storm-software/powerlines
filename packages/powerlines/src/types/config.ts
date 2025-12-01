@@ -43,6 +43,8 @@ import type {
   RollupResolvedBuildConfig,
   RspackBuildConfig,
   RspackResolvedBuildConfig,
+  TsdownBuildConfig,
+  TsdownResolvedBuildConfig,
   TsupBuildConfig,
   TsupResolvedBuildConfig,
   UnbuildBuildConfig,
@@ -238,6 +240,14 @@ export interface BaseConfig {
    * Configuration for the output of the build process
    */
   output?: OutputConfig;
+
+  /**
+   * Configuration for cleaning the build artifacts
+   *
+   * @remarks
+   * If set to `false`, the cleaning process will be disabled.
+   */
+  clean?: Record<string, any> | false;
 
   /**
    * Configuration for linting the source code
@@ -505,6 +515,12 @@ export type TsupUserConfig = UserConfig<
   "tsup"
 >;
 
+export type TsdownUserConfig = UserConfig<
+  TsdownBuildConfig,
+  TsdownResolvedBuildConfig,
+  "tsdown"
+>;
+
 export type FarmUserConfig = UserConfig<
   FarmBuildConfig,
   FarmResolvedBuildConfig,
@@ -524,13 +540,15 @@ export type InferUserConfig<TBuildVariant extends BuildVariant | undefined> =
             ? UnbuildUserConfig
             : TBuildVariant extends "tsup"
               ? TsupUserConfig
-              : TBuildVariant extends "rolldown"
-                ? RolldownUserConfig
-                : TBuildVariant extends "rollup"
-                  ? RollupUserConfig
-                  : TBuildVariant extends "farm"
-                    ? FarmUserConfig
-                    : UserConfig;
+              : TBuildVariant extends "tsdown"
+                ? TsdownUserConfig
+                : TBuildVariant extends "rolldown"
+                  ? RolldownUserConfig
+                  : TBuildVariant extends "rollup"
+                    ? RollupUserConfig
+                    : TBuildVariant extends "farm"
+                      ? FarmUserConfig
+                      : UserConfig;
 
 export type InitialUserConfig<TUserConfig extends UserConfig = UserConfig> =
   Partial<TUserConfig> & { root: string };
@@ -643,6 +661,7 @@ type AnyBuildConfig = Partial<
   | ESBuildUserConfig
   | UnbuildUserConfig
   | TsupUserConfig
+  | TsdownUserConfig
   | RolldownUserConfig
   | RollupUserConfig
   | FarmUserConfig

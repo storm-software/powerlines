@@ -32,14 +32,10 @@ import {
   EnvironmentContext,
   EnvironmentContextPlugin,
   PluginContext,
-  SelectHooksOptions
+  SelectHooksOptions,
+  SelectHooksResult
 } from "../../types/context";
-import {
-  BaseHooksList,
-  HookKeys,
-  HooksList,
-  InferHookHandler
-} from "../../types/hooks";
+import { BaseHooksList, HookKeys, HooksList } from "../../types/hooks";
 import { Plugin, PLUGIN_NON_HOOK_FIELDS } from "../../types/plugin";
 import {
   EnvironmentResolvedConfig,
@@ -197,11 +193,8 @@ export class PowerlinesEnvironmentContext<
   public selectHooks<TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
     hook: TKey,
     options?: SelectHooksOptions
-  ): InferHookHandler<PluginContext<TResolvedConfig>, TKey>[] {
-    const handlers = [] as InferHookHandler<
-      PluginContext<TResolvedConfig>,
-      TKey
-    >[];
+  ): SelectHooksResult<TResolvedConfig, TKey>[] {
+    const result = [] as SelectHooksResult<TResolvedConfig, TKey>[];
 
     if (this.hooks[hook]) {
       if (!isHookExternal(hook)) {
@@ -210,73 +203,131 @@ export class PowerlinesEnvironmentContext<
         >;
         if (options?.order) {
           if (options?.order === "pre") {
-            handlers.push(
-              ...(hooks.preOrdered ?? []).map(
-                h =>
-                  h.handler as InferHookHandler<
-                    PluginContext<TResolvedConfig>,
-                    TKey
-                  >
-              )
+            result.push(
+              ...(hooks.preOrdered ?? []).map(h => {
+                const plugin = this.plugins.find(
+                  p => p.plugin.name === h.plugin.name
+                );
+                if (!plugin) {
+                  throw new Error(
+                    `Could not find plugin context for plugin "${
+                      h.plugin.name
+                    }".`
+                  );
+                }
+
+                return {
+                  handle: h.handler,
+                  context: plugin.context
+                };
+              })
             );
-            handlers.push(
-              ...(hooks.preEnforced ?? []).map(
-                h =>
-                  h.handler as InferHookHandler<
-                    PluginContext<TResolvedConfig>,
-                    TKey
-                  >
-              )
+            result.push(
+              ...(hooks.preEnforced ?? []).map(h => {
+                const plugin = this.plugins.find(
+                  p => p.plugin.name === h.plugin.name
+                );
+                if (!plugin) {
+                  throw new Error(
+                    `Could not find plugin context for plugin "${
+                      h.plugin.name
+                    }".`
+                  );
+                }
+
+                return {
+                  handle: h.handler,
+                  context: plugin.context
+                };
+              })
             );
           } else if (options?.order === "post") {
-            handlers.push(
-              ...(hooks.postOrdered ?? []).map(
-                h =>
-                  h.handler as InferHookHandler<
-                    PluginContext<TResolvedConfig>,
-                    TKey
-                  >
-              )
+            result.push(
+              ...(hooks.postOrdered ?? []).map(h => {
+                const plugin = this.plugins.find(
+                  p => p.plugin.name === h.plugin.name
+                );
+                if (!plugin) {
+                  throw new Error(
+                    `Could not find plugin context for plugin "${
+                      h.plugin.name
+                    }".`
+                  );
+                }
+
+                return {
+                  handle: h.handler,
+                  context: plugin.context
+                };
+              })
             );
-            handlers.push(
-              ...(hooks.postEnforced ?? []).map(
-                h =>
-                  h.handler as InferHookHandler<
-                    PluginContext<TResolvedConfig>,
-                    TKey
-                  >
-              )
+            result.push(
+              ...(hooks.postEnforced ?? []).map(h => {
+                const plugin = this.plugins.find(
+                  p => p.plugin.name === h.plugin.name
+                );
+                if (!plugin) {
+                  throw new Error(
+                    `Could not find plugin context for plugin "${
+                      h.plugin.name
+                    }".`
+                  );
+                }
+
+                return {
+                  handle: h.handler,
+                  context: plugin.context
+                };
+              })
             );
           } else {
-            handlers.push(
-              ...(hooks.normal ?? []).map(
-                h =>
-                  h.handler as InferHookHandler<
-                    PluginContext<TResolvedConfig>,
-                    TKey
-                  >
-              )
+            result.push(
+              ...(hooks.normal ?? []).map(h => {
+                const plugin = this.plugins.find(
+                  p => p.plugin.name === h.plugin.name
+                );
+                if (!plugin) {
+                  throw new Error(
+                    `Could not find plugin context for plugin "${
+                      h.plugin.name
+                    }".`
+                  );
+                }
+
+                return {
+                  handle: h.handler,
+                  context: plugin.context
+                };
+              })
             );
           }
         } else {
-          handlers.push(...this.selectHooks(hook, { order: "pre" }));
-          handlers.push(...this.selectHooks(hook, { order: "normal" }));
-          handlers.push(...this.selectHooks(hook, { order: "post" }));
+          result.push(...this.selectHooks(hook, { order: "pre" }));
+          result.push(...this.selectHooks(hook, { order: "normal" }));
+          result.push(...this.selectHooks(hook, { order: "post" }));
         }
       } else {
-        handlers.push(
-          ...this.hooks[hook].map(
-            h =>
-              h.handler as InferHookHandler<
-                PluginContext<TResolvedConfig>,
-                TKey
-              >
-          )
+        result.push(
+          ...this.hooks[hook].map(h => {
+            const plugin = this.plugins.find(
+              p => p.plugin.name === h.plugin.name
+            );
+            if (!plugin) {
+              throw new Error(
+                `Could not find plugin context for plugin "${h.plugin.name}".`
+              );
+            }
+
+            return {
+              handle: h.handler,
+              context: plugin.context
+            };
+          })
         );
       }
     }
 
-    return handlers;
+    return result;
   }
 
   protected constructor(

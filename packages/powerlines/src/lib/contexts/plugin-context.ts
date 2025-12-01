@@ -120,7 +120,6 @@ export function createPluginContext<
 
       return environment[prop as keyof EnvironmentContext<TResolvedConfig>];
     },
-
     set(_, prop, value) {
       if (
         [

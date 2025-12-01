@@ -18,11 +18,13 @@
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isFunction } from "@stryke/type-checks/is-function";
+import { isObject } from "@stryke/type-checks/is-object";
 import { isSet } from "@stryke/type-checks/is-set";
+import { isString } from "@stryke/type-checks/is-string";
 import { ArrayValues } from "@stryke/types/array";
 import { MaybePromise } from "@stryke/types/base";
 import chalk from "chalk";
-import { defu } from "defu";
+import { createDefu, defu } from "defu";
 import {
   EnvironmentContext,
   PluginContext,
@@ -85,6 +87,16 @@ export type CallHookOptions = SelectHooksOptions &
       }
   );
 
+const mergeResults = createDefu(<T>(obj: T, key: keyof T, value: any) => {
+  if (isString(obj[key]) && isString(value)) {
+    obj[key] = `${obj[key] || ""}\n${value || ""}`.trim() as T[keyof T];
+
+    return true;
+  }
+
+  return false;
+});
+
 /**
  * Calls a hook with the given context, options, and arguments.
  *
@@ -125,27 +137,33 @@ export async function callHook<
     if (options?.sequential === false) {
       results = await Promise.all(
         handlers.map(async handler => {
-          if (!isFunction(handler)) {
+          if (!isFunction(handler.handle)) {
             throw new Error(
               `Plugin hook handler for hook "${hook}" is not a function.`
             );
           }
 
-          // eslint-disable-next-line ts/no-unsafe-call, no-useless-call
-          return Promise.resolve(handler.apply(null, [...args]));
+          return Promise.resolve(
+            // eslint-disable-next-line ts/no-unsafe-call
+            handler.handle.apply(handler.context, [...args])
+          );
         })
       );
     } else {
       for (const handler of handlers) {
-        if (!isFunction(handler)) {
+        if (!isFunction(handler.handle)) {
           throw new Error(
             `Plugin hook handler for hook "${hook}" is not a function.`
           );
         }
 
         if (options?.result === "first" || options?.asNextParam === false) {
-          // eslint-disable-next-line ts/no-unsafe-call, no-useless-call
-          results.push(await Promise.resolve(handler.apply(null, [...args])));
+          results.push(
+            await Promise.resolve(
+              // eslint-disable-next-line ts/no-unsafe-call
+              handler.handle.apply(handler.context, [...args])
+            )
+          );
           if (
             options?.result === "first" &&
             isSet(results[results.length - 1])
@@ -161,18 +179,22 @@ export async function callHook<
           }
 
           const result = await Promise.resolve(
-            // eslint-disable-next-line ts/no-unsafe-call, no-useless-call
-            handler.apply(null, [...sequenceArgs])
+            // eslint-disable-next-line ts/no-unsafe-call
+            handler.handle.apply(handler.context, [...sequenceArgs])
           );
           if (result) {
             if (options?.result === "last") {
               results = [result];
-            } else {
+            } else if (isString(result)) {
               results = [
-                defu(
-                  result as Record<string, unknown>,
-                  results[0] ?? {}
-                ) as InferHookReturnType<
+                `${isString(results[0]) ? results[0] || "" : ""}\n${result || ""}`.trim() as InferHookReturnType<
+                  PluginContext<TContext["config"]>,
+                  TKey
+                >
+              ];
+            } else if (isObject(result)) {
+              results = [
+                mergeResults(result, results[0] ?? {}) as InferHookReturnType<
                   PluginContext<TContext["config"]>,
                   TKey
                 >

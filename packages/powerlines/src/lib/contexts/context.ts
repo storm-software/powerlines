@@ -46,7 +46,14 @@ import { create, FlatCache } from "flat-cache";
 import { parse, ParseResult } from "oxc-parser";
 import { Range } from "semver";
 import { Project } from "ts-morph";
-import { BodyInit, RequestInfo, Response } from "undici";
+import {
+  Agent,
+  BodyInit,
+  interceptors,
+  RequestInfo,
+  Response,
+  setGlobalDispatcher
+} from "undici";
 import { ExternalIdResult, UnpluginMessage } from "unplugin";
 import {
   createResolver,
@@ -54,7 +61,6 @@ import {
 } from "../../internal/helpers/resolver";
 import { checkDedupe, isPlugin } from "../../plugin-utils/helpers";
 import { replacePathTokens } from "../../plugin-utils/paths";
-import { API } from "../../types/api";
 import {
   InitialUserConfig,
   LogFn,
@@ -115,15 +121,31 @@ interface ConfigCacheResult {
 
 const configCache = new WeakMap<ConfigCacheKey, ConfigCacheResult>();
 
+const agent = new Agent({ keepAliveTimeout: 10000 });
+setGlobalDispatcher(
+  agent.compose(
+    interceptors.retry({
+      maxRetries: 3,
+      minTimeout: 1000,
+      maxTimeout: 10000,
+      timeoutFactor: 2,
+      retryAfter: true
+    })
+  )
+);
+
 export class PowerlinesContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > implements Context<TResolvedConfig> {
   /**
-   * Internal reference to the API instance
+   * Internal references storage
+   *
+   * @danger
+   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
    *
    * @internal
    */
-  #api!: API<TResolvedConfig>;
+  #internal = {} as UNSAFE_ContextInternal<TResolvedConfig>;
 
   #workspaceConfig: WorkspaceConfig;
 
@@ -244,12 +266,25 @@ export class PowerlinesContext<
   /**
    * Internal context fields and methods
    *
+   * @danger
+   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
+   *
    * @internal
    */
   public get $$internal(): UNSAFE_ContextInternal<TResolvedConfig> {
-    return {
-      api: this.#api
-    };
+    return this.#internal;
+  }
+
+  /**
+   * Internal context fields and methods
+   *
+   * @danger
+   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
+   *
+   * @internal
+   */
+  public set $$internal(value: UNSAFE_ContextInternal<TResolvedConfig>) {
+    this.#internal = value;
   }
 
   /**
@@ -539,7 +574,7 @@ export class PowerlinesContext<
       }
     }
 
-    const result = await fetchRequest(input, options);
+    const result = await fetchRequest(input, { timeout: 12_000, ...options });
     if (!this.config.skipCache && !options.skipCache) {
       try {
         this.requestCache.set(cacheKey, {

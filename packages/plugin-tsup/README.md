@@ -43,15 +43,15 @@ This package is part of the ⚡<b>Powerlines</b> monorepo. Powerlines packages i
 
 <!-- END header -->
 
-# Powerlines - Plugin Plugin
+# Powerlines - Tsup Plugin
 
-A package containing a Powerlines plugin to assist in developing other Powerlines plugins.
+A package containing a Powerlines plugin to assist in running Tsup builds on Powerlines projects.
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Powerlines - Plugin Plugin](#powerlines---plugin-plugin)
+- [Powerlines - Tsup Plugin](#powerlines---tsup-plugin)
   - [Table of Contents](#table-of-contents)
   - [Installing](#installing)
   - [Reduced Package Size](#reduced-package-size)
@@ -74,14 +74,14 @@ A package containing a Powerlines plugin to assist in developing other Powerline
 Using [pnpm](http://pnpm.io):
 
 ```bash
-pnpm add @powerlines/plugin-plugin
+pnpm add @powerlines/plugin-tsup
 ```
 
 <details>
   <summary>Using npm</summary>
 
 ```bash
-npm install @powerlines/plugin-plugin
+npm install @powerlines/plugin-tsup
 ```
 
 </details>
@@ -90,14 +90,14 @@ npm install @powerlines/plugin-plugin
   <summary>Using yarn</summary>
 
 ```bash
-yarn add @powerlines/plugin-plugin
+yarn add @powerlines/plugin-tsup
 ```
 
 </details>
 
 ## Reduced Package Size
 
-This project uses [tsup](https://tsup.egoist.dev/) to package the source code
+This project uses [tsup](https://github.com/rolldown/tsup) to package the source code
 due to its ability to remove unused code and ship smaller javascript files
 thanks to code splitting. This helps to greatly reduce the size of the package
 and to make it easier to use in other projects.
@@ -109,16 +109,16 @@ commands are available to assist in development.
 
 ### Building
 
-Run `nx build plugin-plugin` to build the library.
+Run `nx build plugin-tsup` to build the library.
 
 ### Running unit tests
 
-Run `nx test plugin-plugin` to execute the unit tests via
+Run `nx test plugin-tsup` to execute the unit tests via
 [Jest](https://jestjs.io).
 
 ### Linting
 
-Run `nx lint plugin-plugin` to run
+Run `nx lint plugin-tsup` to run
 [ESLint](https://eslint.org/) on the package.
 
 <!-- START footer -->

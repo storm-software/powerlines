@@ -34,7 +34,6 @@ export const DEFAULT_TSUP_CONFIG: Partial<TsupBuildConfig> = {
   platform: "neutral",
   target: "esnext",
   config: false,
-  clean: false,
   minify: true,
   sourcemap: false,
   cjsInterop: true,

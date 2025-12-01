@@ -20,6 +20,7 @@ export * from "./esbuild";
 export * from "./rolldown";
 export * from "./rollup";
 export * from "./rspack";
+export * from "./tsdown";
 export * from "./tsup";
 export * from "./unbuild";
 export * from "./vite";

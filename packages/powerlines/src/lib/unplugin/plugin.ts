@@ -206,7 +206,7 @@ export * from "${isString(resolved) ? resolved : resolved.id}";
           "transform"
         )) {
           const result: TransformResult | string | undefined =
-            await handler.apply(combineContexts(ctx, this), [
+            await handler.handle.apply(combineContexts(ctx, this), [
               getString(transformed),
               id
             ]);

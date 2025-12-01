@@ -31,6 +31,7 @@ import type {
   RolldownUserConfig,
   RollupUserConfig,
   RspackUserConfig,
+  TsdownUserConfig,
   TsupUserConfig,
   UnbuildUserConfig,
   UserConfig,
@@ -188,6 +189,8 @@ export type RolldownResolvedConfig = ResolvedConfig<RolldownUserConfig>;
 
 export type TsupResolvedConfig = ResolvedConfig<TsupUserConfig>;
 
+export type TsdownResolvedConfig = ResolvedConfig<TsdownUserConfig>;
+
 export type UnbuildResolvedConfig = ResolvedConfig<UnbuildUserConfig>;
 
 export type FarmResolvedConfig = ResolvedConfig<FarmUserConfig>;
@@ -208,10 +211,12 @@ export type InferResolvedConfig<
             ? UnbuildResolvedConfig
             : TBuildVariant extends "tsup"
               ? TsupResolvedConfig
-              : TBuildVariant extends "rolldown"
-                ? RolldownResolvedConfig
-                : TBuildVariant extends "rollup"
-                  ? RollupResolvedConfig
-                  : TBuildVariant extends "farm"
-                    ? FarmResolvedConfig
-                    : ResolvedConfig;
+              : TBuildVariant extends "tsdown"
+                ? TsdownResolvedConfig
+                : TBuildVariant extends "rolldown"
+                  ? RolldownResolvedConfig
+                  : TBuildVariant extends "rollup"
+                    ? RollupResolvedConfig
+                    : TBuildVariant extends "farm"
+                      ? FarmResolvedConfig
+                      : ResolvedConfig;

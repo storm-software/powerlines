@@ -38,6 +38,10 @@ import {
   InitContextOptions,
   PluginContext
 } from "../../types/context";
+import {
+  UNSAFE_ContextInternal,
+  UNSAFE_EnvironmentContext
+} from "../../types/internal";
 import { Plugin } from "../../types/plugin";
 import {
   EnvironmentResolvedConfig,
@@ -53,7 +57,8 @@ export class PowerlinesAPIContext<
   extends PowerlinesContext<TResolvedConfig>
   implements APIContext<TResolvedConfig>
 {
-  #environments: Record<string, EnvironmentContext<TResolvedConfig>> = {};
+  #environments: Record<string, UNSAFE_EnvironmentContext<TResolvedConfig>> =
+    {};
 
   #plugins: Plugin<PluginContext<TResolvedConfig>>[] = [];
 
@@ -86,11 +91,40 @@ export class PowerlinesAPIContext<
   }
 
   /**
+   * Internal context fields and methods
+   *
+   * @danger
+   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
+   *
+   * @internal
+   */
+  public override get $$internal(): UNSAFE_ContextInternal<TResolvedConfig> {
+    return super.$$internal;
+  }
+
+  /**
+   * Internal context fields and methods
+   *
+   * @danger
+   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
+   *
+   * @internal
+   */
+  public override set $$internal(
+    value: UNSAFE_ContextInternal<TResolvedConfig>
+  ) {
+    super.$$internal = value;
+    for (const environment of Object.values(this.environments)) {
+      environment.$$internal = super.$$internal;
+    }
+  }
+
+  /**
    * A record of all environments by name
    */
   public get environments(): Record<
     string,
-    EnvironmentContext<TResolvedConfig>
+    UNSAFE_EnvironmentContext<TResolvedConfig>
   > {
     return this.#environments;
   }
@@ -143,8 +177,8 @@ export class PowerlinesAPIContext<
    */
   public async in(
     environment: EnvironmentResolvedConfig
-  ): Promise<EnvironmentContext<TResolvedConfig>> {
-    let context: EnvironmentContext<TResolvedConfig>;
+  ): Promise<UNSAFE_EnvironmentContext<TResolvedConfig>> {
+    let context: UNSAFE_EnvironmentContext<TResolvedConfig>;
     if (this.environments[environment.name]) {
       context = this.environments[environment.name] as any;
     } else {

@@ -21,14 +21,12 @@ import type { Configuration as ExternalRspackOptions } from "@rspack/core";
 import type { BuildOptions as ExternalTsupOptions } from "@storm-software/tsup/types";
 import type { UnbuildOptions as ExternalUnbuildOptions } from "@storm-software/unbuild/types";
 import type { BuildOptions as ExternalESBuildOptions } from "esbuild";
-import type {
-  RolldownOptions as ExternalRolldownOptions,
-  RolldownOutput as ExternalRolldownOutputOptions
-} from "rolldown";
+import type { RolldownOptions as ExternalRolldownOptions } from "rolldown";
 import type {
   RollupOptions as ExternalRollupOptions,
   OutputOptions as ExternalRollupOutputOptions
 } from "rollup";
+import type { UserConfig as ExternalTsdownOptions } from "tsdown";
 import type { UserConfig as ExternalViteUserConfig } from "vite";
 import type { Configuration as ExternalWebpackOptions } from "webpack";
 
@@ -42,14 +40,16 @@ export type UnpluginBuildVariant =
   | "unloader"
   | "rolldown";
 
-export type BuildVariant = UnpluginBuildVariant | "tsup" | "unbuild";
+export type BuildVariant = UnpluginBuildVariant | "tsup" | "tsdown" | "unbuild";
 
 export type InferUnpluginVariant<TBuildVariant extends BuildVariant> =
   TBuildVariant extends "tsup"
     ? "esbuild"
-    : TBuildVariant extends "unbuild"
-      ? "rollup"
-      : TBuildVariant;
+    : TBuildVariant extends "tsdown"
+      ? "rolldown"
+      : TBuildVariant extends "unbuild"
+        ? "rollup"
+        : TBuildVariant;
 
 export interface BuildConfig {
   /**
@@ -271,16 +271,11 @@ export type RollupResolvedBuildConfig = ExternalRollupOptions &
   BuildResolvedConfig;
 
 // Rolldown
-export type RolldownBuildOutputConfig = Omit<
-  ExternalRolldownOutputOptions,
-  "dir" | "format"
->;
 export type RolldownBuildConfig = Omit<
   ExternalRolldownOptions,
   "input" | "external" | "tsconfig" | "logLevel" | "output"
-> & {
-  output: RolldownBuildOutputConfig | RolldownBuildOutputConfig[];
-} & BuildConfig;
+> &
+  BuildConfig;
 export type RolldownResolvedBuildConfig = ExternalRolldownOptions &
   BuildResolvedConfig;
 
@@ -297,6 +292,7 @@ export type TsupBuildConfig = Partial<
     | "format"
     | "platform"
     | "projectRoot"
+    | "clean"
     | "env"
     | "entry"
     | "entryPoints"
@@ -307,6 +303,32 @@ export type TsupBuildConfig = Partial<
 > &
   BuildConfig;
 export type TsupResolvedBuildConfig = ExternalTsupOptions & BuildResolvedConfig;
+
+// Tsdown
+export type TsdownBuildConfig = Partial<
+  Omit<
+    ExternalTsdownOptions,
+    | "name"
+    | "outDir"
+    | "clean"
+    | "cwd"
+    | "tsconfig"
+    | "publicDir"
+    | "copy"
+    | "alias"
+    | "format"
+    | "platform"
+    | "env"
+    | "define"
+    | "entry"
+    | "external"
+    | "noExternal"
+    | "skipNodeModulesBundle"
+  >
+> &
+  BuildConfig;
+export type TsdownResolvedBuildConfig = ExternalTsdownOptions &
+  BuildResolvedConfig;
 
 // Unbuild
 export type UnbuildBuildConfig = Partial<

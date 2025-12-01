@@ -13,7 +13,8 @@ out
 packages/deepkit/scripts/*.cjs
 # \!examples/**/.powerlines
 
-# build
+# build output
+.rolldown
 
 # dependencies
 node_modules

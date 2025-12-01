@@ -580,6 +580,14 @@ export interface EnvironmentContextPlugin<
   context: PluginContext<TResolvedConfig>;
 }
 
+export interface SelectHooksResult<
+  TResolvedConfig extends ResolvedConfig,
+  TKey extends HookKeys<PluginContext<TResolvedConfig>>
+> {
+  handle: Hooks[TKey];
+  context: PluginContext<TResolvedConfig>;
+}
+
 export interface EnvironmentContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > extends Context<TResolvedConfig> {
@@ -612,7 +620,7 @@ export interface EnvironmentContext<
   selectHooks: <TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
     hook: TKey,
     options?: SelectHooksOptions
-  ) => Hooks[TKey][];
+  ) => SelectHooksResult<TResolvedConfig, TKey>[];
 }
 
 export interface PluginContext<
