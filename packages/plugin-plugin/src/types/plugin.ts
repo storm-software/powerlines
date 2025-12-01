@@ -19,8 +19,8 @@
 import type { PrintTreeOptions } from "@alloy-js/core";
 import { TypeDefinitionParameter } from "@stryke/types/configuration";
 import type {
-  TsupBuildConfig,
-  TsupResolvedBuildConfig
+  TsdownBuildConfig,
+  TsdownResolvedBuildConfig
 } from "powerlines/types/build";
 import type { UserConfig } from "powerlines/types/config";
 import type { PluginContext } from "powerlines/types/context";
@@ -72,9 +72,9 @@ export interface PluginPluginOptions {
 }
 
 export type PluginPluginUserConfig = UserConfig<
-  TsupBuildConfig,
-  TsupResolvedBuildConfig,
-  "tsup"
+  TsdownBuildConfig,
+  TsdownResolvedBuildConfig,
+  "tsdown"
 > & {
   plugin: PluginPluginOptions;
 };

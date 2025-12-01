@@ -16,24 +16,28 @@
 
  ------------------------------------------------------------------- */
 
-import alloyBabelPreset from "@alloy-js/babel-preset";
-import typescriptBabelPreset from "@babel/preset-typescript";
+import alloyPlugin from "@alloy-js/rollup-plugin";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { build, resolveOptions } from "@storm-software/tsup";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { StormJSON } from "@stryke/json/storm-json";
-import { isParentPath } from "@stryke/path/is-parent-path";
-import { joinPaths } from "@stryke/path/join";
 import { titleCase } from "@stryke/string-format/title-case";
-import { isString } from "@stryke/type-checks/is-string";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { TypeDefinition } from "@stryke/types/configuration";
 import { defu } from "defu";
-import eslintBabelPlugin from "esbuild-plugin-babel";
-import { extractTsupConfig, resolveTsupEntry } from "powerlines/lib/build/tsup";
+import { extractTsdownConfig } from "powerlines/lib/build/tsdown";
+import { createUnplugin } from "powerlines/lib/unplugin";
 import { Plugin } from "powerlines/types/plugin";
+import { build } from "tsdown";
+import { createRolldownPlugin } from "unplugin";
 import { PluginPluginContext, PluginPluginOptions } from "./types/plugin";
 
 export * from "./types";
+
+function createPlugin<
+  TContext extends PluginPluginContext = PluginPluginContext
+>(context: TContext) {
+  return createRolldownPlugin(createUnplugin(context))({});
+}
 
 /**
  * A Powerlines plugin to assist in developing other Powerlines plugins.
@@ -58,9 +62,8 @@ export const plugin = <
           format: ["cjs", "esm"]
         },
         build: {
-          variant: "tsup",
+          variant: "tsdown",
           external: ["powerlines"],
-          bundle: false,
           skipNodeModulesBundle: true,
           platform: "node"
         }
@@ -90,7 +93,7 @@ export const plugin = <
 
       let typeDef: TypeDefinition | undefined;
       if (
-        isString(options.types.userConfig) &&
+        isSetString(options.types.userConfig) &&
         !options.types.userConfig.includes("#") &&
         this.packageJson?.name
       ) {
@@ -116,7 +119,7 @@ export const plugin = <
         }
       }
 
-      return `${code}
+      return `${code || ""}
 
 // Extend \`UserConfig\` with the ${titleCase(this.config.name)} plugin's type definition
 declare module "powerlines" {
@@ -124,50 +127,19 @@ declare module "powerlines" {
     typeDef.file
   }").${typeDef.name || "default"}
 }
-`;
+`.trim();
     },
     async build() {
       await build(
-        await resolveOptions(
-          defu(
-            {
-              config: false,
-              entry: Object.fromEntries(
-                Object.entries(resolveTsupEntry(this, this.entry)).map(
-                  ([key, value]) => [
-                    key,
-                    isParentPath(value, this.config.projectRoot)
-                      ? value
-                      : joinPaths(this.config.projectRoot, value)
-                  ]
-                )
-              )
-            },
-            extractTsupConfig(this),
-            {
-              esbuildPlugins: options.alloy
-                ? [
-                    eslintBabelPlugin({
-                      filter: /\.tsx$/,
-                      config: {
-                        presets: [
-                          [
-                            typescriptBabelPreset,
-                            {
-                              allExtensions: true,
-                              allowDeclareFields: true,
-                              isTSX: true
-                            }
-                          ],
-                          alloyBabelPreset
-                        ]
-                      },
-                      excludeNodeModules: true
-                    })
-                  ]
-                : []
-            }
-          )
+        defu(
+          {
+            config: false,
+            plugins: [
+              createPlugin<TContext>(this),
+              options.alloy && alloyPlugin()
+            ].filter(Boolean)
+          },
+          extractTsdownConfig(this)
         )
       );
     }
