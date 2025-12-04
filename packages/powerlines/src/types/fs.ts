@@ -18,6 +18,7 @@
 
 import type { ResolveOptions as BaseResolveOptions } from "@stryke/fs/resolve";
 import { MaybePromise } from "@stryke/types/base";
+import { AssetGlob } from "@stryke/types/file";
 
 export type VirtualFileExtension = "js" | "ts" | "jsx" | "tsx";
 
@@ -104,6 +105,20 @@ export interface StorageAdapter {
   removeSync: (key: string) => void;
 
   /**
+   * Creates a directory at the specified path.
+   *
+   * @param dirPath - The path of the directory to create.
+   */
+  mkdir: (dirPath: string) => Promise<void>;
+
+  /**
+   * Synchronously creates a directory at the specified path.
+   *
+   * @param dirPath - The path of the directory to create.
+   */
+  mkdirSync: (dirPath: string) => void;
+
+  /**
    * Remove all entries from the storage that match the provided base path.
    *
    * @param base - The base path or prefix to clear entries from.
@@ -132,6 +147,38 @@ export interface StorageAdapter {
    * @returns The list of keys.
    */
   listSync: (base?: string) => string[];
+
+  /**
+   * Checks if the given key is a directory.
+   *
+   * @param key - The key to check.
+   * @returns A promise that resolves to `true` if the key is a directory, otherwise `false`.
+   */
+  isDirectory: (key: string) => Promise<boolean>;
+
+  /**
+   * Synchronously checks if the given key is a directory.
+   *
+   * @param key - The key to check.
+   * @returns `true` if the key is a directory, otherwise `false`.
+   */
+  isDirectorySync: (key: string) => boolean;
+
+  /**
+   * Checks if the given key is a file.
+   *
+   * @param key - The key to check.
+   * @returns A promise that resolves to `true` if the key is a file, otherwise `false`.
+   */
+  isFile: (key: string) => Promise<boolean>;
+
+  /**
+   * Synchronously checks if the given key is a file.
+   *
+   * @param key - The key to check.
+   * @returns `true` if the key is a file, otherwise `false`.
+   */
+  isFileSync: (key: string) => boolean;
 
   /**
    * Releases any resources held by the storage adapter.
@@ -297,6 +344,38 @@ export interface VirtualFileSystemInterface {
   isVirtual: (path: string) => boolean;
 
   /**
+   * Checks if the given key is a directory.
+   *
+   * @param key - The key to check.
+   * @returns A promise that resolves to `true` if the key is a directory, otherwise `false`.
+   */
+  isDirectory: (key: string) => Promise<boolean>;
+
+  /**
+   * Synchronously checks if the given key is a directory.
+   *
+   * @param key - The key to check.
+   * @returns `true` if the key is a directory, otherwise `false`.
+   */
+  isDirectorySync: (key: string) => boolean;
+
+  /**
+   * Checks if the given key is a file.
+   *
+   * @param key - The key to check.
+   * @returns A promise that resolves to `true` if the key is a file, otherwise `false`.
+   */
+  isFile: (key: string) => Promise<boolean>;
+
+  /**
+   * Synchronously checks if the given key is a file.
+   *
+   * @param key - The key to check.
+   * @returns `true` if the key is a file, otherwise `false`.
+   */
+  isFileSync: (key: string) => boolean;
+
+  /**
    * Gets the metadata of a file in the virtual file system (VFS).
    *
    * @param path - The path or id of the file.
@@ -371,6 +450,20 @@ export interface VirtualFileSystemInterface {
   writeSync: (path: string, data: string, options?: WriteOptions) => void;
 
   /**
+   * Creates a directory at the specified path.
+   *
+   * @param dirPath - The path of the directory to create.
+   */
+  mkdir: (dirPath: string) => Promise<void>;
+
+  /**
+   * Synchronously creates a directory at the specified path.
+   *
+   * @param dirPath - The path of the directory to create.
+   */
+  mkdirSync: (dirPath: string) => void;
+
+  /**
    * Moves a file from one path to another in the virtual file system (VFS).
    *
    * @param srcPath - The source path to move
@@ -392,7 +485,10 @@ export interface VirtualFileSystemInterface {
    * @param srcPath - The source path to copy
    * @param destPath - The destination path to copy to
    */
-  copy: (srcPath: string, destPath: string) => Promise<void>;
+  copy: (
+    srcPath: string | URL | Omit<AssetGlob, "output">,
+    destPath: string | URL
+  ) => Promise<void>;
 
   /**
    * Synchronously copies a file from one path to another in the virtual file system (VFS).
@@ -400,7 +496,10 @@ export interface VirtualFileSystemInterface {
    * @param srcPath - The source path to copy
    * @param destPath - The destination path to copy to
    */
-  copySync: (srcPath: string, destPath: string) => void;
+  copySync: (
+    srcPath: string | URL | Omit<AssetGlob, "output">,
+    destPath: string | URL
+  ) => void;
 
   /**
    * Glob files in the virtual file system (VFS) based on the provided pattern(s).
@@ -408,7 +507,12 @@ export interface VirtualFileSystemInterface {
    * @param pattern - A pattern (or multiple patterns) to use to determine the file paths to return
    * @returns An array of file paths matching the provided pattern(s)
    */
-  glob: (pattern: string | string[]) => Promise<string[]>;
+  glob: (
+    patterns:
+      | string
+      | Omit<AssetGlob, "output">
+      | (string | Omit<AssetGlob, "output">)[]
+  ) => Promise<string[]>;
 
   /**
    * Synchronously glob files in the virtual file system (VFS) based on the provided pattern(s).
@@ -416,7 +520,12 @@ export interface VirtualFileSystemInterface {
    * @param pattern - A pattern (or multiple patterns) to use to determine the file paths to return
    * @returns An array of file paths matching the provided pattern(s)
    */
-  globSync: (pattern: string | string[]) => string[];
+  globSync: (
+    patterns:
+      | string
+      | Omit<AssetGlob, "output">
+      | (string | Omit<AssetGlob, "output">)[]
+  ) => string[];
 
   /**
    * A helper function to resolve modules using the Jiti resolver

@@ -31,6 +31,7 @@ import {
   resolveSync
 } from "@stryke/fs/resolve";
 import { murmurhash } from "@stryke/hash/murmurhash";
+import { getUnique } from "@stryke/helpers/get-unique";
 import { appendPath } from "@stryke/path/append";
 import {
   findFileName,
@@ -43,8 +44,12 @@ import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { isSetString } from "@stryke/type-checks/is-set-string";
+import { isString } from "@stryke/type-checks/is-string";
+import { AssetGlob } from "@stryke/types/file";
 import { create, FlatCache } from "flat-cache";
 import { Blob } from "node:buffer";
+import { fileURLToPath } from "node:url";
 import { format, resolveConfig } from "prettier";
 import { FileSystem } from "../../../schemas/fs";
 import { replacePathTokens } from "../../plugin-utils/paths";
@@ -60,12 +65,7 @@ import {
   WriteOptions
 } from "../../types/fs";
 import { extendLog } from "../logger";
-import {
-  filterKeyByBase,
-  normalizeId,
-  normalizeKey,
-  normalizePath
-} from "./helpers";
+import { normalizeGlobPatterns, normalizeId, normalizePath } from "./helpers";
 import { FileSystemStorageAdapter } from "./storage/file-system";
 import { VirtualStorageAdapter } from "./storage/virtual";
 
@@ -461,35 +461,93 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   }
 
   /**
+   * Checks if a path is a directory in the virtual file system (VFS).
+   *
+   * @param path - The path to check.
+   * @returns `true` if the path is a directory, otherwise `false`.
+   */
+  public isDirectorySync(path: string): boolean {
+    const resolved = this.resolveSync(path);
+    if (!resolved) {
+      return false;
+    }
+
+    return !!(
+      this.existsSync(resolved) &&
+      this.#getStorage(resolved)?.adapter?.isDirectorySync(resolved)
+    );
+  }
+
+  /**
+   * Checks if a path is a directory in the virtual file system (VFS).
+   *
+   * @param path - The path to check.
+   * @returns `true` if the path is a directory, otherwise `false`.
+   */
+  public async isDirectory(path: string): Promise<boolean> {
+    const resolved = await this.resolve(path);
+    if (!resolved) {
+      return false;
+    }
+
+    return !!(
+      (await this.exists(resolved)) &&
+      (await this.#getStorage(resolved)?.adapter?.isDirectory(resolved))
+    );
+  }
+
+  /**
+   * Checks if a path is a file in the virtual file system (VFS).
+   *
+   * @param path - The path to check.
+   * @returns `true` if the path is a file, otherwise `false`.
+   */
+  public isFileSync(path: string): boolean {
+    const resolved = this.resolveSync(path);
+    if (!resolved) {
+      return false;
+    }
+
+    return this.#getStorage(resolved)?.adapter?.isFileSync(resolved) ?? false;
+  }
+
+  /**
+   * Checks if a path is a file in the virtual file system (VFS).
+   *
+   * @param path - The path to check.
+   * @returns `true` if the path is a file, otherwise `false`.
+   */
+  public async isFile(path: string): Promise<boolean> {
+    const resolved = await this.resolve(path);
+    if (!resolved) {
+      return false;
+    }
+
+    return (
+      (await this.#getStorage(resolved)?.adapter?.isFile(resolved)) ?? false
+    );
+  }
+
+  /**
    * Lists files in a given path.
    *
    * @param path - The path to list files from.
    * @returns An array of file names in the specified path.
    */
   public listSync(path?: string): string[] {
-    let maskedMounts: string[] = [];
-    const allKeys: string[] = [];
-
-    for (const storage of this.#getStorages(path, true)) {
-      for (const key of storage.adapter.listSync(storage.relativeBase)) {
-        if (
-          !maskedMounts.some(p =>
-            `${storage.base}${normalizeKey(key)}`.startsWith(p)
+    return getUnique(
+      this.#getStorages(path, true)
+        .map(storage =>
+          storage.adapter.listSync(
+            storage.relativeBase
+              ? storage.base
+                ? appendPath(storage.relativeBase, storage.base)
+                : storage.relativeBase
+              : storage.base
           )
-        ) {
-          allKeys.push(`${storage.base}${normalizeKey(key)}`);
-        }
-      }
-
-      // When /mnt/foo is processed, any key in /mnt with /mnt/foo prefix should be masked
-      // Using filter to improve performance. /mnt mask already covers /mnt/foo
-      maskedMounts = [
-        storage.base,
-        ...maskedMounts.filter(p => !p.startsWith(storage.base))
-      ];
-    }
-
-    return allKeys.filter(key => filterKeyByBase(key, path));
+        )
+        .flat()
+    );
   }
 
   /**
@@ -499,29 +557,21 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns An array of file names in the specified path.
    */
   public async list(path?: string): Promise<string[]> {
-    let maskedMounts: string[] = [];
-    const allKeys: string[] = [];
-
-    for (const storage of this.#getStorages(path, true)) {
-      for (const key of await storage.adapter.list(storage.relativeBase)) {
-        if (
-          !maskedMounts.some(p =>
-            `${storage.base}${normalizeKey(key)}`.startsWith(p)
+    return getUnique(
+      (
+        await Promise.all(
+          this.#getStorages(path, true).map(async storage =>
+            storage.adapter.list(
+              storage.relativeBase
+                ? storage.base
+                  ? appendPath(storage.relativeBase, storage.base)
+                  : storage.relativeBase
+                : storage.base
+            )
           )
-        ) {
-          allKeys.push(`${storage.base}${normalizeKey(key)}`);
-        }
-      }
-
-      // When /mnt/foo is processed, any key in /mnt with /mnt/foo prefix should be masked
-      // Using filter to improve performance. /mnt mask already covers /mnt/foo
-      maskedMounts = [
-        storage.base,
-        ...maskedMounts.filter(p => !p.startsWith(storage.base))
-      ];
-    }
-
-    return allKeys.filter(key => filterKeyByBase(key, path));
+        )
+      ).flat()
+    );
   }
 
   /**
@@ -580,17 +630,31 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @param patterns - A pattern (or multiple patterns) to use to determine the file paths to return
    * @returns An array of file paths matching the provided pattern(s)
    */
-  public async glob(patterns: string | string[]): Promise<string[]> {
+  public async glob(
+    patterns:
+      | string
+      | Omit<AssetGlob, "output">
+      | (string | Omit<AssetGlob, "output">)[]
+  ): Promise<string[]> {
     const results: string[] = [];
-    for (const pattern of toArray(patterns)) {
+
+    for (const pattern of normalizeGlobPatterns(
+      this.#context.workspaceConfig.workspaceRoot,
+      patterns
+    )) {
       const normalized = this.#normalizePath(pattern);
 
       // No glob characters: treat as a single file path
       if (!/[*?[\]{}]/.test(normalized) && !normalized.includes("**")) {
-        const resolved = this.resolveSync(normalized);
-        if (resolved && !results.includes(resolved)) {
-          results.push(resolved);
+        if (this.isDirectorySync(normalized)) {
+          results.push(...(await this.list(normalized)));
+        } else {
+          const resolved = await this.resolve(normalized);
+          if (resolved && !results.includes(resolved)) {
+            results.push(resolved);
+          }
         }
+
         continue;
       }
 
@@ -638,17 +702,31 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @param patterns - A pattern (or multiple patterns) to use to determine the file paths to return
    * @returns An array of file paths matching the provided pattern(s)
    */
-  public globSync(patterns: string | string[]): string[] {
+  public globSync(
+    patterns:
+      | string
+      | Omit<AssetGlob, "output">
+      | (string | Omit<AssetGlob, "output">)[]
+  ): string[] {
     const results: string[] = [];
-    for (const pattern of toArray(patterns)) {
+
+    for (const pattern of normalizeGlobPatterns(
+      this.#context.workspaceConfig.workspaceRoot,
+      patterns
+    )) {
       const normalized = this.#normalizePath(pattern);
 
       // No glob characters: treat as a single file path
       if (!/[*?[\]{}]/.test(normalized) && !normalized.includes("**")) {
-        const resolved = this.resolveSync(normalized);
-        if (resolved && !results.includes(resolved)) {
-          results.push(resolved);
+        if (this.isDirectorySync(normalized)) {
+          results.push(...this.listSync(normalized));
+        } else {
+          const resolved = this.resolveSync(normalized);
+          if (resolved && !results.includes(resolved)) {
+            results.push(resolved);
+          }
         }
+
         continue;
       }
 
@@ -693,31 +771,50 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @param srcPath - The source path to copy
    * @param destPath - The destination path to copy to
    */
-  public async copy(srcPath: string, destPath: string) {
-    if (hasFileExtension(srcPath)) {
-      const content = await this.read(srcPath);
-      if (content !== undefined) {
-        await this.write(
-          hasFileExtension(destPath)
-            ? destPath
-            : joinPaths(destPath, findFileName(srcPath)),
-          content
-        );
-      }
-    } else {
-      await Promise.all(
-        (await this.list(srcPath)).map(async file => {
-          const relativePath = file.replace(this.#normalizePath(srcPath), "");
-          const destinationPath = this.#normalizePath(
-            appendPath(destPath, relativePath)
-          );
+  public async copy(
+    srcPath: string | URL | Omit<AssetGlob, "output">,
+    destPath: string | URL
+  ) {
+    const src = srcPath instanceof URL ? fileURLToPath(srcPath) : srcPath;
+    const dest = destPath instanceof URL ? fileURLToPath(destPath) : destPath;
 
-          const content = await this.read(file);
-          if (content !== undefined) {
-            await this.write(destinationPath, content);
-          }
+    if (
+      (!isSetString(src) && (!isSetObject(src) || !isSetString(src.input))) ||
+      !isSetString(dest)
+    ) {
+      return;
+    }
+
+    const sourceStr = isString(src)
+      ? src
+      : src.input
+        ? src.input
+        : this.#context.workspaceConfig.workspaceRoot;
+    const source = await this.resolve(sourceStr);
+    if (!source) {
+      return;
+    }
+
+    if (
+      this.isDirectorySync(source) ||
+      (isSetString(src) && src.includes("*")) ||
+      (isSetObject(src) && isSetString(src.glob))
+    ) {
+      await Promise.all(
+        (await this.glob(src)).map(async file => {
+          return this.copy(
+            file,
+            appendPath(replacePath(file, sourceStr), dest)
+          );
         })
       );
+    } else {
+      const content = await this.read(source);
+      if (content !== undefined) {
+        await this.write(this.#normalizePath(dest), content, {
+          skipFormat: true
+        });
+      }
     }
   }
 
@@ -727,29 +824,54 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @param srcPath - The source path to copy
    * @param destPath - The destination path to copy to
    */
-  public copySync(srcPath: string, destPath: string) {
-    if (hasFileExtension(srcPath)) {
-      const content = this.readSync(srcPath);
+  public copySync(
+    srcPath: string | URL | Omit<AssetGlob, "output">,
+    destPath: string | URL
+  ) {
+    const src = srcPath instanceof URL ? fileURLToPath(srcPath) : srcPath;
+    const dest = destPath instanceof URL ? fileURLToPath(destPath) : destPath;
+
+    if (
+      (!isSetString(src) && (!isSetObject(src) || !isSetString(src.input))) ||
+      !isSetString(dest)
+    ) {
+      return;
+    }
+
+    const sourceStr = isString(src)
+      ? src
+      : src.input
+        ? src.input
+        : this.#context.workspaceConfig.workspaceRoot;
+    const source = this.resolveSync(sourceStr);
+    if (!source) {
+      return;
+    }
+
+    if (
+      this.isDirectorySync(source) ||
+      (isSetString(src) && src.includes("*")) ||
+      (isSetObject(src) && isSetString(src.glob))
+    ) {
+      this.globSync(src).map(file => {
+        return this.copySync(
+          file,
+          appendPath(findFilePath(replacePath(file, sourceStr)), dest)
+        );
+      });
+    } else {
+      const content = this.readSync(source);
       if (content !== undefined) {
         this.writeSync(
-          hasFileExtension(destPath)
-            ? destPath
-            : joinPaths(destPath, findFileName(srcPath)),
-          content
+          this.#normalizePath(
+            hasFileExtension(dest)
+              ? dest
+              : appendPath(findFileName(source), dest)
+          ),
+          content,
+          { skipFormat: true }
         );
       }
-    } else {
-      this.listSync(srcPath).forEach(file => {
-        const relativePath = file.replace(this.#normalizePath(srcPath), "");
-        const destinationPath = this.#normalizePath(
-          appendPath(destPath, relativePath)
-        );
-
-        const content = this.readSync(file);
-        if (content !== undefined) {
-          this.writeSync(destinationPath, content);
-        }
-      });
     }
   }
 
@@ -911,6 +1033,24 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     this.#ids[this.#normalizePath(relativeKey)] = id;
 
     return adapter.setSync(relativeKey, data);
+  }
+
+  /**
+   * Synchronously creates a directory at the specified path.
+   *
+   * @param dirPath - The path of the directory to create.
+   */
+  public mkdirSync(dirPath: string) {
+    return this.#getStorage(dirPath)?.adapter?.mkdirSync(dirPath);
+  }
+
+  /**
+   * Creates a directory at the specified path.
+   *
+   * @param path - The path of the directory to create.
+   */
+  public async mkdir(path: string): Promise<void> {
+    return this.#getStorage(path)?.adapter?.mkdir(path);
   }
 
   /**

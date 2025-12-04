@@ -20,7 +20,12 @@
       "type": "node",
       "request": "launch",
       "program": "/nix/store/yyb1rc83q0fw5h3i80ljwdwwakmdqdfp-pnpm-10.18.0/bin/pnpm",
-      "args": ["nx", "run", "plugin-env:build:development"],
+      "args": [
+        "nx",
+        "run",
+        "plugin-crypto:build:development",
+        "--outputStyle=dynamic-legacy"
+      ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
     },

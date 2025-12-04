@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { joinPaths } from "@stryke/path/join";
 import defu from "defu";
 import {
   CompilerOptions,
@@ -46,13 +45,17 @@ export class VirtualFileSystemHost
   }
 
   public override readDirSync(dirPath: string): RuntimeDirEntry[] {
+    if (!this.#context.fs.isDirectorySync(dirPath)) {
+      return [];
+    }
+
     return this.#context.fs.listSync(dirPath).reduce((ret, entry) => {
-      const fullPath = this.#context.fs.resolveSync(joinPaths(dirPath, entry));
+      const fullPath = this.#context.fs.resolveSync(entry);
       if (fullPath) {
         ret.push({
           name: entry,
-          isDirectory: this.#context.fs.existsSync(fullPath),
-          isFile: this.#context.fs.existsSync(fullPath),
+          isDirectory: this.#context.fs.isDirectorySync(fullPath),
+          isFile: this.#context.fs.isFileSync(fullPath),
           isSymlink: false
         });
       }
@@ -62,20 +65,16 @@ export class VirtualFileSystemHost
   }
 
   public override async readFile(filePath: string) {
-    if (!this.#context.fs.existsSync(filePath)) {
-      throw new Error(
-        `File not found: '${filePath}'. Please check the path and try again.`
-      );
+    if (!this.#context.fs.isFileSync(filePath)) {
+      return "";
     }
 
     return (await this.#context.fs.read(filePath))!;
   }
 
   public override readFileSync(filePath: string) {
-    if (!this.#context.fs.existsSync(filePath)) {
-      throw new Error(
-        `File not found: '${filePath}'. Please check the path and try again.`
-      );
+    if (!this.#context.fs.isFileSync(filePath)) {
+      return "";
     }
 
     return this.#context.fs.readSync(filePath)!;
@@ -89,12 +88,12 @@ export class VirtualFileSystemHost
     this.#context.fs.writeSync(filePath, fileText);
   }
 
-  public override async mkdir(_dirPath: string) {
-    // await this.#context.fs.mkdir(dirPath);
+  public override async mkdir(dirPath: string) {
+    await this.#context.fs.mkdir(dirPath);
   }
 
-  public override mkdirSync(_dirPath: string) {
-    // this.#context.fs.mkdirSync(dirPath);
+  public override mkdirSync(dirPath: string) {
+    this.#context.fs.mkdirSync(dirPath);
   }
 
   public override async move(srcPath: string, destPath: string) {
@@ -114,19 +113,19 @@ export class VirtualFileSystemHost
   }
 
   public override async fileExists(filePath: string) {
-    return this.#context.fs.exists(filePath);
+    return this.#context.fs.isFile(filePath);
   }
 
   public override fileExistsSync(filePath: string) {
-    return this.#context.fs.existsSync(filePath);
+    return this.#context.fs.isFileSync(filePath);
   }
 
   public override async directoryExists(dirPath: string) {
-    return this.#context.fs.exists(dirPath);
+    return this.#context.fs.isDirectory(dirPath);
   }
 
   public override directoryExistsSync(dirPath: string): boolean {
-    return this.#context.fs.existsSync(dirPath);
+    return this.#context.fs.isDirectorySync(dirPath);
   }
 
   public override realpathSync(path: string) {

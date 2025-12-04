@@ -118,6 +118,22 @@ export abstract class BaseStorageAdapter<
   }
 
   /**
+   * Synchronously creates a directory at the specified path.
+   *
+   * @param _ - The path of the directory to create.
+   */
+  public mkdirSync(_: string) {}
+
+  /**
+   * Creates a directory at the specified path.
+   *
+   * @param dirPath - The path of the directory to create.
+   */
+  public async mkdir(dirPath: string): Promise<void> {
+    return Promise.resolve(this.mkdirSync(dirPath));
+  }
+
+  /**
    * Synchronously removes a key from the storage.
    *
    * @param key - The key to remove.
@@ -194,6 +210,46 @@ export abstract class BaseStorageAdapter<
    */
   public async list(base?: string): Promise<string[]> {
     return this.listSync(base);
+  }
+
+  /**
+   * Synchronously checks if the given key is a directory.
+   *
+   * @param _ - The key to check.
+   * @returns `true` if the key is a directory, otherwise `false`.
+   */
+  public isDirectorySync(_: string): boolean {
+    return false;
+  }
+
+  /**
+   * Checks if the given key is a directory.
+   *
+   * @param key - The key to check.
+   * @returns A promise that resolves to `true` if the key is a directory, otherwise `false`.
+   */
+  public async isDirectory(key: string) {
+    return Promise.resolve(this.isDirectorySync(key));
+  }
+
+  /**
+   * Synchronously checks if the given key is a file.
+   *
+   * @param key - The key to check.
+   * @returns `true` if the key is a file, otherwise `false`.
+   */
+  public isFileSync(key: string): boolean {
+    return this.existsSync(key) && !this.isDirectorySync(key);
+  }
+
+  /**
+   * Checks if the given key is a file.
+   *
+   * @param key - The key to check.
+   * @returns A promise that resolves to `true` if the key is a file, otherwise `false`.
+   */
+  public async isFile(key: string) {
+    return Promise.resolve(this.isFileSync(key));
   }
 
   /**

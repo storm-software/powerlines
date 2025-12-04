@@ -61,6 +61,6 @@ export interface CryptoPluginResolvedConfig extends EnvPluginResolvedConfig {
 }
 
 export type CryptoPluginContext<
-  TResolvedConfig extends
-    CryptoPluginResolvedConfig = CryptoPluginResolvedConfig
+  TResolvedConfig extends CryptoPluginResolvedConfig =
+    CryptoPluginResolvedConfig
 > = EnvPluginContext<TResolvedConfig>;

@@ -21,5 +21,6 @@
     "@storm-software/workspace-tools/plugins/typescript/untyped",
     "@storm-software/workspace-tools/plugins/typescript/tsup",
     "./dist/tools/nx/dist/index.js"
-  ]
+  ],
+  "parallel": 3
 }

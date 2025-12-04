@@ -574,21 +574,27 @@ export class PowerlinesContext<
       }
     }
 
-    const result = await fetchRequest(input, { timeout: 12_000, ...options });
+    const response = await fetchRequest(input, { timeout: 12_000, ...options });
+    const result = {
+      body: await response.text(),
+      status: response.status,
+      statusText: response.statusText,
+      headers: Object.fromEntries(response.headers.entries())
+    };
+
     if (!this.config.skipCache && !options.skipCache) {
       try {
-        this.requestCache.set(cacheKey, {
-          body: await result.text(),
-          status: result.status,
-          statusText: result.statusText,
-          headers: Object.fromEntries(result.headers.entries())
-        });
+        this.requestCache.set(cacheKey, result);
       } catch {
         // Do nothing
       }
     }
 
-    return result;
+    return new Response(result.body, {
+      status: result.status,
+      statusText: result.statusText,
+      headers: result.headers
+    });
   }
 
   /**

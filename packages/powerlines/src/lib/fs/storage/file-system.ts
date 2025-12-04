@@ -17,6 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { exists, existsSync } from "@stryke/fs/exists";
+import { createDirectory, createDirectorySync } from "@stryke/fs/helpers";
+import { isDirectory, isFile } from "@stryke/fs/is-file";
 import { listFiles, listFilesSync } from "@stryke/fs/list-files";
 import { readFile, readFileSync } from "@stryke/fs/read-file";
 import { writeFile, writeFileSync } from "@stryke/fs/write-file";
@@ -24,6 +26,9 @@ import { unlinkSync } from "node:fs";
 import { unlink } from "node:fs/promises";
 import { ignoreNotfound } from "../helpers";
 import { BaseStorageAdapter, StorageAdapterOptions } from "./base";
+
+export type SetSyncOptions = Parameters<typeof writeFileSync>[2];
+export type SetOptions = Parameters<typeof writeFile>[2];
 
 /**
  * File system storage adapter implementation.
@@ -134,6 +139,24 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
   }
 
   /**
+   * Synchronously creates a directory at the specified path.
+   *
+   * @param dirPath - The path of the directory to create.
+   */
+  public override mkdirSync(dirPath: string) {
+    createDirectorySync(this.resolve(dirPath));
+  }
+
+  /**
+   * Creates a directory at the specified path.
+   *
+   * @param dirPath - The path of the directory to create.
+   */
+  public override async mkdir(dirPath: string): Promise<void> {
+    await createDirectory(this.resolve(dirPath));
+  }
+
+  /**
    * Lists all keys under a given base path synchronously.
    *
    * @param base - The base path to list keys from.
@@ -161,5 +184,25 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
     })
       .catch(ignoreNotfound)
       .then(r => r || []);
+  }
+
+  /**
+   * Synchronously checks if the given key is a directory.
+   *
+   * @param key - The key to check.
+   * @returns `true` if the key is a directory, otherwise `false`.
+   */
+  public override isDirectorySync(key: string): boolean {
+    return isDirectory(this.resolve(key));
+  }
+
+  /**
+   * Synchronously checks if the given key is a file.
+   *
+   * @param key - The key to check.
+   * @returns `true` if the key is a file, otherwise `false`.
+   */
+  public override isFileSync(key: string): boolean {
+    return !isFile(this.resolve(key));
   }
 }

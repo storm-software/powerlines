@@ -18,6 +18,7 @@
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { execute, executePackage } from "@stryke/cli/execute";
+import { toArray } from "@stryke/convert/to-array";
 import { existsSync } from "@stryke/fs/exists";
 import { getParentPath } from "@stryke/fs/get-parent-path";
 import { isPackageListed } from "@stryke/fs/package-fns";
@@ -76,7 +77,9 @@ export function plugin(
         !args.includes("--ignore-pattern") &&
         this.config.lint.oxlint.ignorePatterns
       ) {
-        args.push(`--ignore-pattern=${this.config.lint.oxlint.ignorePatterns}`);
+        args.push(
+          `--ignore-pattern=${toArray(this.config.lint.oxlint.ignorePatterns).join(",")}`
+        );
       }
 
       this.config.lint.oxlint.deny.forEach(d => args.push("-D", d));

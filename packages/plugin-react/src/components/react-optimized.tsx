@@ -33,8 +33,10 @@ import {
 import defu from "defu";
 import { ReactPluginContext } from "../types/plugin";
 
-export interface ReactOptimizedBuiltinProps
-  extends Omit<BuiltinFileProps, "id"> {
+export interface ReactOptimizedBuiltinProps extends Omit<
+  BuiltinFileProps,
+  "id"
+> {
   override?: boolean;
 }
 

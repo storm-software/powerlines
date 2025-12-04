@@ -20,6 +20,7 @@ import { toArray } from "@stryke/convert/to-array";
 import { omit } from "@stryke/helpers/omit";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetString } from "@stryke/type-checks/is-set-string";
+import { ModuleFormat } from "rolldown";
 import type { UserConfig } from "tsdown/config";
 import { resolveFromTsdownFormat } from "./lib/build/tsdown";
 import PowerlinesRolldown from "./rolldown";
@@ -59,7 +60,9 @@ export function tsdown(options: UserConfig = {}): UserConfig {
         root: options.cwd,
         output: {
           outputPath: options.outDir,
-          format: resolveFromTsdownFormat(options.format),
+          format: resolveFromTsdownFormat(
+            options.format as ModuleFormat | ModuleFormat[]
+          ),
           assets: toArray(options.copy)
             .map(copy => {
               if (!copy) {

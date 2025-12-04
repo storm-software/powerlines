@@ -56,7 +56,7 @@ try {
   }
 
   proc =
-    $`pnpm nx run powerlines:build:${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+    $`pnpm nx run powerlines:build:${configuration} --outputStyle=dynamic-legacy --parallel=3`.timeout(
       `${3 * 60}s`
     );
   proc.stdout.on("data", data => {
@@ -70,7 +70,7 @@ try {
   }
 
   proc =
-    $`pnpm nx run nx:build:${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+    $`pnpm nx run nx:build:${configuration} --outputStyle=dynamic-legacy --parallel=3`.timeout(
       `${5 * 60}s`
     );
   proc.stdout.on("data", data => {
@@ -96,7 +96,7 @@ try {
 
   if (filter === "plugin" || filter === "cli" || filter === "all") {
     proc =
-      $`pnpm nx run-many --target=build --projects="plugin-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+      $`pnpm nx run-many --target=build --projects="plugin-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=3`.timeout(
         `${8 * 60}s`
       );
     proc.stdout.on("data", data => {
@@ -140,7 +140,7 @@ try {
         // }
 
         proc =
-          $`pnpm nx run-many --target=build --exclude="@powerlines/monorepo,examples-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+          $`pnpm nx run-many --target=build --exclude="@powerlines/monorepo,examples-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=3`.timeout(
             `${10 * 60}s`
           );
         proc.stdout.on("data", data => {

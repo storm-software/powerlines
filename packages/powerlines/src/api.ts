@@ -20,7 +20,6 @@ import { transformAsync } from "@babel/core";
 import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
-import { copyFiles } from "@stryke/fs/copy-file";
 import { createDirectory } from "@stryke/fs/helpers";
 import { install } from "@stryke/fs/install";
 import { listFiles } from "@stryke/fs/list-files";
@@ -714,7 +713,7 @@ ${formatTypes(generatedTypes)}
             }) to the workspace's output directory (${context.config.output.outputPath}).`
           );
 
-          await copyFiles({ input: sourcePath, glob: "**/*" }, destinationPath);
+          await context.fs.copy(sourcePath, destinationPath);
         }
       }
 
@@ -749,7 +748,7 @@ ${formatTypes(generatedTypes)}
             }`
           );
 
-          await copyFiles(asset, asset.output);
+          await context.fs.copy(asset, asset.output);
         })
       );
 

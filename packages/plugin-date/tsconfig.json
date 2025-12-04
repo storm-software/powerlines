@@ -2,7 +2,9 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "types": ["node"],
+    "jsxImportSource": "@alloy-js/core",
+    "lib": ["esnext", "DOM"],
+    "types": ["node", "@alloy-js/core/testing/matchers"],
     "strict": true,
     "outDir": "../../dist/out-tsc"
   },

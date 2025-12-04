@@ -16,11 +16,17 @@
 
  ------------------------------------------------------------------- */
 
+import { toArray } from "@stryke/convert/to-array";
+import { getUnique } from "@stryke/helpers/get-unique";
 import { correctPath } from "@stryke/path/correct-path";
 import { findFileDotExtensionSafe } from "@stryke/path/file-path-fns";
 import { isAbsolutePath } from "@stryke/path/is-type";
+import { joinPaths } from "@stryke/path/join";
 import { slash } from "@stryke/path/slash";
 import { isError } from "@stryke/type-checks/is-error";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { isSetString } from "@stryke/type-checks/is-set-string";
+import { AssetGlob } from "@stryke/types/file";
 import { PathOrFileDescriptor } from "node:fs";
 
 /**
@@ -152,4 +158,39 @@ export function filterKeyByBase(
   }
 
   return key[key.length - 1] !== "$";
+}
+
+/**
+ * Normalizes glob patterns by resolving them against the workspace root.
+ *
+ * @param workspaceRoot - The root directory of the workspace.
+ * @param patterns - The glob patterns to normalize.
+ * @returns An array of normalized glob patterns.
+ */
+export function normalizeGlobPatterns(
+  workspaceRoot: string,
+  patterns:
+    | string
+    | Omit<AssetGlob, "output">
+    | (string | Omit<AssetGlob, "output">)[]
+): string[] {
+  return getUnique(
+    toArray(patterns)
+      .map(pattern => {
+        if (
+          isSetObject(pattern) &&
+          (isSetString(pattern.input) || isSetString(pattern.glob))
+        ) {
+          return joinPaths(
+            pattern.input || workspaceRoot,
+            pattern.glob || "**/*"
+          );
+        } else if (!isSetString(pattern)) {
+          return undefined;
+        }
+
+        return pattern;
+      })
+      .filter(isSetString)
+  );
 }
