@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.57](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.57) (12/04/2025)
+
+### Bug Fixes
+
+- **plugin-date:** Remove dts build from configuration
+  ([361da3c](https://github.com/storm-software/powerlines/commit/361da3c))
+
+### Features
+
+- **plugin-plugin:** Update plugin packages to use `tsdown` builder
+  ([b992193](https://github.com/storm-software/powerlines/commit/b992193))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.0**
+- Updated **plugin-env** to **v0.13.54**
+- Updated **powerlines** to **v0.29.0**
+- Updated **nx** to **v0.10.48**
+
 ## [0.12.56](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.56) (11/30/2025)
 
 ### Updated Dependencies

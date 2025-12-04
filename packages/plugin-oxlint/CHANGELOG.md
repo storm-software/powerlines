@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Oxlint
 
+## [0.7.52](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.52) (12/04/2025)
+
+### Features
+
+- **plugin-plugin:** Update plugin packages to use `tsdown` builder
+  ([b992193](https://github.com/storm-software/powerlines/commit/b992193))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.0**
+- Updated **powerlines** to **v0.29.0**
+- Updated **nx** to **v0.10.48**
+
 ## [0.7.51](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.51) (11/30/2025)
 
 ### Features

@@ -2,6 +2,32 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.48](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.48) (12/04/2025)
+
+### Miscellaneous
+
+- **plugin-react:** Remove dts build from configuration
+  ([297d1b4](https://github.com/storm-software/powerlines/commit/297d1b4))
+- **plugin-react:** Cleaned up the tsconfig resolution logic
+  ([4c4c653](https://github.com/storm-software/powerlines/commit/4c4c653))
+- **plugin-react:** Clean up the plugin logic
+  ([a1a28df](https://github.com/storm-software/powerlines/commit/a1a28df))
+
+### Features
+
+- **plugin-plugin:** Update plugin packages to use `tsdown` builder
+  ([b992193](https://github.com/storm-software/powerlines/commit/b992193))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.0**
+- Updated **plugin-babel** to **v0.12.57**
+- Updated **plugin-env** to **v0.13.54**
+- Updated **powerlines** to **v0.29.0**
+- Updated **deepkit** to **v0.4.53**
+- Updated **alloy** to **v0.11.57**
+- Updated **nx** to **v0.10.48**
+
 ## [0.1.47](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.47) (11/30/2025)
 
 ### Updated Dependencies

@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.48](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.48) (12/04/2025)
+
+### Features
+
+- **plugin-plugin:** Update plugin packages to use `tsdown` builder
+  ([b992193](https://github.com/storm-software/powerlines/commit/b992193))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.0**
+- Updated **powerlines** to **v0.29.0**
+- Updated **nx** to **v0.10.48**
+
 ## [0.14.47](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.47) (11/30/2025)
 
 ### Features

@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Alloy
 
+## [0.11.57](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.57) (12/04/2025)
+
+### Features
+
+- **plugin-plugin:** Update plugin packages to use `tsdown` builder
+  ([b992193](https://github.com/storm-software/powerlines/commit/b992193))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.0**
+- Updated **powerlines** to **v0.29.0**
+- Updated **deepkit** to **v0.4.53**
+- Updated **nx** to **v0.10.48**
+
 ## [0.11.56](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.56) (11/30/2025)
 
 ### Updated Dependencies

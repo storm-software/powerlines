@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Capnp
 
+## [0.1.50](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.50) (12/04/2025)
+
+### Features
+
+- **plugin-plugin:** Update plugin packages to use `tsdown` builder
+  ([b992193](https://github.com/storm-software/powerlines/commit/b992193))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.0**
+- Updated **powerlines** to **v0.29.0**
+- Updated **nx** to **v0.10.48**
+
 ## [0.1.49](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.49) (11/30/2025)
 
 ### Features

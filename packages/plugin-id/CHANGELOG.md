@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.9.56](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.56) (12/04/2025)
+
+### Features
+
+- **plugin-plugin:** Update plugin packages to use `tsdown` builder
+  ([b992193](https://github.com/storm-software/powerlines/commit/b992193))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.0**
+- Updated **powerlines** to **v0.29.0**
+- Updated **nx** to **v0.10.48**
+
 ## [0.9.55](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.55) (11/30/2025)
 
 ### Updated Dependencies

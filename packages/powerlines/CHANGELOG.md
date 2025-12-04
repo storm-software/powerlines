@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.29.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.29.0) (12/04/2025)
+
+### Miscellaneous
+
+- **powerlines:** Ensure `tsdown` log messages are correctly formatted
+  ([28967bd](https://github.com/storm-software/powerlines/commit/28967bd))
+
+### Features
+
+- **plugin-plugin:** Update plugin packages to use `tsdown` builder
+  ([b992193](https://github.com/storm-software/powerlines/commit/b992193))
+- **powerlines:** Added support for `tsdown` plugin types
+  ([cbc2a16](https://github.com/storm-software/powerlines/commit/cbc2a16))
+
 ## [0.28.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.28.0) (11/30/2025)
 
 ### Features

@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.22](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.22) (12/04/2025)
+
+### Bug Fixes
+
+- **plugin-crypto:** Remove dts build from configuration
+  ([6c72955](https://github.com/storm-software/powerlines/commit/6c72955))
+
+### Features
+
+- **plugin-plugin:** Update plugin packages to use `tsdown` builder
+  ([b992193](https://github.com/storm-software/powerlines/commit/b992193))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.0**
+- Updated **plugin-env** to **v0.13.54**
+- Updated **powerlines** to **v0.29.0**
+- Updated **nx** to **v0.10.48**
+
 ## [0.10.21](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.21) (11/30/2025)
 
 ### Updated Dependencies
