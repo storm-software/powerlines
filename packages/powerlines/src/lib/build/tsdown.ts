@@ -179,19 +179,19 @@ export function extractTsdownConfig(
             ? "debug"
             : context.config.logLevel,
         info: (message: string) =>
-          formatMessage(context, message) &&
+          formatMessage(context, message).replace(/\s+/g, "").length > 5 &&
           context.info(formatMessage(context, message)),
         warn: (message: string) =>
-          formatMessage(context, message) &&
+          formatMessage(context, message).replace(/\s+/g, "").length > 5 &&
           context.warn(formatMessage(context, message)),
         warnOnce: (message: string) =>
-          formatMessage(context, message) &&
+          formatMessage(context, message).replace(/\s+/g, "").length > 5 &&
           context.warn(formatMessage(context, message)),
         error: (message: string) =>
-          formatMessage(context, message) &&
+          formatMessage(context, message).replace(/\s+/g, "").length > 5 &&
           context.error(formatMessage(context, message)),
         success: (message: string) =>
-          formatMessage(context, message) &&
+          formatMessage(context, message).replace(/\s+/g, "").length > 5 &&
           context.info(formatMessage(context, message))
       }
     } as TsdownResolvedBuildConfig,
