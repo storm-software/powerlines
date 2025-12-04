@@ -31,8 +31,8 @@ catalogs:
       specifier: ^0.20.0
       version: 0.20.0
     '@asyncapi/generator':
-      specifier: ^2.8.4
-      version: 2.8.4
+      specifier: ^2.11.0
+      version: 2.11.0
     '@asyncapi/parser':
       specifier: ^3.4.0
       version: 3.4.0
@@ -1007,7 +1007,7 @@ importers:
     dependencies:
       '@asyncapi/generator':
         specifier: 'catalog:'
-        version: 2.8.4(@swc/core@1.15.3(@swc/helpers@0.5.17))(@types/babel__core@7.20.5)(@types/node@24.10.1)
+        version: 2.11.0(@swc/core@1.15.3(@swc/helpers@0.5.17))(@types/babel__core@7.20.5)(@types/node@24.10.1)
       '@asyncapi/parser':
         specifier: 'catalog:'
         version: 3.4.0
@@ -3165,8 +3165,8 @@ packages:
   '@asyncapi/generator-react-sdk@1.1.3':
     resolution: {integrity: sha512-8pO8qVqNmASdcJK+uKXHgqE6BcmEQ+c7ypYf8pKNYaXr0FLFifaQGaTkUhG4fjnzNsUro6N+GywGYHRy1PpVng==}
 
-  '@asyncapi/generator@2.8.4':
-    resolution: {integrity: sha512-2YTs3VYL1vfqDqm5zZGqR3nOOA0XigjcM7eD1SjD9WUCk7sz9Cu/IKNbW/SELPgVgh6DqUy8qH7vJQMC9Qs1Sg==}
+  '@asyncapi/generator@2.11.0':
+    resolution: {integrity: sha512-JGaIld3hQgmANAZ+i3nQyNY48RkJ9xU/0m3jmss65kgg17GGWo9h+nWwrflneQfYlcRey4I9I4bl1oOQ0BIeAA==}
     engines: {node: '>=18.12.0', npm: '>=8.19.0'}
     hasBin: true
 
@@ -14716,8 +14716,8 @@ packages:
   jwa@1.4.2:
     resolution: {integrity: sha512-eeH5JO+21J78qMvTIDdBXidBd6nG2kZjg5Ohz/1fpa28Z4CcsWUzJ1ZZyFq/3z3N17aZy+ZuBoHljASbL1WfOw==}
 
-  jws@3.2.2:
-    resolution: {integrity: sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==}
+  jws@3.2.3:
+    resolution: {integrity: sha512-byiJ0FLRdLdSVSReO/U4E7RoEyOCKnEnEPMjq3HxWtvzLsV08/i5RQKsFVNkCldrCaPr2vDNAOMsfs8T/Hze7g==}
 
   katex@0.16.25:
     resolution: {integrity: sha512-woHRUZ/iF23GBP1dkDQMh1QBad9dmr8/PAwNA54VrSOVYgI12MAcE14TqnDdQOdzyEonGzMepYnqBMYdsoAr8Q==}
@@ -14731,8 +14731,8 @@ packages:
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
-  keyv@5.5.4:
-    resolution: {integrity: sha512-eohl3hKTiVyD1ilYdw9T0OiB4hnjef89e3dMYKz+mVKDzj+5IteTseASUsOB+EU9Tf6VNTCjDePcP6wkDGmLKQ==}
+  keyv@5.5.5:
+    resolution: {integrity: sha512-FA5LmZVF1VziNc0bIdCSA1IoSVnDCqE8HJIZZv2/W8YmoAM50+tnUgJR/gQZwEeIMleuIOnRnHA/UaZRNeV4iQ==}
 
   kind-of@3.2.2:
     resolution: {integrity: sha512-NOW9QQXMoZGg/oqnVNoNTTIFEIid1627WCffUBJEdMxYApq7mNE7CpzucIPc+ZQg25Phej7IJSmX3hO+oblOtQ==}
@@ -19494,8 +19494,8 @@ packages:
     resolution: {integrity: sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==}
     engines: {node: '>=4'}
 
-  update-browserslist-db@1.2.1:
-    resolution: {integrity: sha512-R9NcHbbZ45RoWfTdhn1J9SS7zxNvlddv4YRrHTUaFdtjbmfncfedB45EC9IaqJQ97iAR1GZgOfyRQO+ExIF6EQ==}
+  update-browserslist-db@1.2.2:
+    resolution: {integrity: sha512-E85pfNzMQ9jpKkA7+TJAi4TJN+tBCuWh5rUcS/sv6cFi+1q9LYDwDI5dpUL0u/73EElyQ8d3TEaeW4sPedBqYA==}
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
@@ -20055,8 +20055,8 @@ packages:
   yaml-ast-parser@0.0.43:
     resolution: {integrity: sha512-2PTINUwsRqSd+s8XxKaJWQlUuEMHJQyEuh2edBbW8KNJz0SJPwUSD2zRWqezFEdN7IzAgeuYHFUCF7o8zRdZ0A==}
 
-  yaml-eslint-parser@1.3.1:
-    resolution: {integrity: sha512-MdSgP9YA9QjtAO2+lt4O7V2bnH22LPnfeVLiQqjY3cOyn8dy/Ief8otjIe6SPPTK03nM7O3Yl0LTfWuF7l+9yw==}
+  yaml-eslint-parser@1.3.2:
+    resolution: {integrity: sha512-odxVsHAkZYYglR30aPYRY4nUGJnoJ2y1ww2HDvZALo0BDETv9kWbi16J52eHs+PWRNmF4ub6nZqfVOeesOvntg==}
     engines: {node: ^14.17.0 || >=16.0.0}
 
   yaml@1.10.2:
@@ -20389,7 +20389,7 @@ snapshots:
       - '@types/babel__core'
       - supports-color
 
-  '@asyncapi/generator@2.8.4(@swc/core@1.15.3(@swc/helpers@0.5.17))(@types/babel__core@7.20.5)(@types/node@24.10.1)':
+  '@asyncapi/generator@2.11.0(@swc/core@1.15.3(@swc/helpers@0.5.17))(@types/babel__core@7.20.5)(@types/node@24.10.1)':
     dependencies:
       '@asyncapi/generator-components': 1.0.0(@swc/core@1.15.3(@swc/helpers@0.5.17))(@types/babel__core@7.20.5)
       '@asyncapi/generator-helpers': 1.0.0
@@ -20407,7 +20407,7 @@ snapshots:
       fs.extra: 1.3.2
       global-dirs: 3.0.1
       jmespath: 0.15.0
-      js-yaml: 3.14.2
+      js-yaml: 4.1.1
       levenshtein-edit-distance: 2.0.5
       loglevel: 1.9.2
       minimatch: 3.1.2
@@ -22066,14 +22066,14 @@ snapshots:
   '@cacheable/memory@2.0.6':
     dependencies:
       '@cacheable/utils': 2.3.2
-      '@keyv/bigmap': 1.3.0(keyv@5.5.4)
+      '@keyv/bigmap': 1.3.0(keyv@5.5.5)
       hookified: 1.13.0
-      keyv: 5.5.4
+      keyv: 5.5.5
 
   '@cacheable/utils@2.3.2':
     dependencies:
       hashery: 1.3.0
-      keyv: 5.5.4
+      keyv: 5.5.5
 
   '@capsizecss/unpack@3.0.1':
     dependencies:
@@ -24558,11 +24558,11 @@ snapshots:
       '@jsonjoy.com/codegen': 1.0.0(tslib@2.8.1)
       tslib: 2.8.1
 
-  '@keyv/bigmap@1.3.0(keyv@5.5.4)':
+  '@keyv/bigmap@1.3.0(keyv@5.5.5)':
     dependencies:
       hashery: 1.3.0
       hookified: 1.13.0
-      keyv: 5.5.4
+      keyv: 5.5.5
 
   '@keyv/serialize@1.1.1': {}
 
@@ -27318,7 +27318,7 @@ snapshots:
       parse-gitignore: 2.0.0
       prettier-plugin-astro: 0.14.1
       toml-eslint-parser: 0.10.0
-      yaml-eslint-parser: 1.3.1
+      yaml-eslint-parser: 1.3.2
       zod: 4.1.13
     transitivePeerDependencies:
       - '@babel/traverse'
@@ -30984,7 +30984,7 @@ snapshots:
       caniuse-lite: 1.0.30001759
       electron-to-chromium: 1.5.264
       node-releases: 2.0.27
-      update-browserslist-db: 1.2.1(browserslist@4.28.1)
+      update-browserslist-db: 1.2.2(browserslist@4.28.1)
 
   bs-logger@0.2.6:
     dependencies:
@@ -31171,7 +31171,7 @@ snapshots:
       '@types/responselike': 1.0.3
       get-stream: 9.0.1
       http-cache-semantics: 4.2.0
-      keyv: 5.5.4
+      keyv: 5.5.5
       mimic-response: 4.0.0
       normalize-url: 8.1.0
       responselike: 4.0.2
@@ -31181,7 +31181,7 @@ snapshots:
       '@cacheable/memory': 2.0.6
       '@cacheable/utils': 2.3.2
       hookified: 1.13.0
-      keyv: 5.5.4
+      keyv: 5.5.5
       qified: 0.5.2
 
   call-bind-apply-helpers@1.0.2:
@@ -33108,7 +33108,7 @@ snapshots:
       pathe: 2.0.3
       pnpm-workspace-yaml: 0.3.0
       tinyglobby: 0.2.15
-      yaml-eslint-parser: 1.3.1
+      yaml-eslint-parser: 1.3.2
 
   eslint-plugin-prettier@5.5.4(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.39.1(@types/eslint@9.6.1)(jiti@2.6.1)))(eslint@9.39.1(@types/eslint@9.6.1)(jiti@2.6.1))(prettier@3.7.4):
     dependencies:
@@ -33367,7 +33367,7 @@ snapshots:
       eslint: 9.39.1(@types/eslint@9.6.1)(jiti@2.6.1)
       eslint-compat-utils: 0.6.5(@types/eslint@9.6.1)(eslint@9.39.1(@types/eslint@9.6.1)(jiti@2.6.1))
       natural-compare: 1.4.0
-      yaml-eslint-parser: 1.3.1
+      yaml-eslint-parser: 1.3.2
     transitivePeerDependencies:
       - supports-color
 
@@ -34352,7 +34352,7 @@ snapshots:
       decompress-response: 10.0.0
       form-data-encoder: 4.1.0
       http2-wrapper: 2.2.1
-      keyv: 5.5.4
+      keyv: 5.5.5
       lowercase-keys: 3.0.0
       p-cancelable: 4.0.1
       responselike: 4.0.2
@@ -36109,7 +36109,7 @@ snapshots:
 
   jsonwebtoken@9.0.2:
     dependencies:
-      jws: 3.2.2
+      jws: 3.2.3
       lodash.includes: 4.3.0
       lodash.isboolean: 3.0.3
       lodash.isinteger: 4.0.4
@@ -36196,7 +36196,7 @@ snapshots:
       ecdsa-sig-formatter: 1.0.11
       safe-buffer: 5.2.1
 
-  jws@3.2.2:
+  jws@3.2.3:
     dependencies:
       jwa: 1.4.2
       safe-buffer: 5.2.1
@@ -36213,7 +36213,7 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  keyv@5.5.4:
+  keyv@5.5.5:
     dependencies:
       '@keyv/serialize': 1.1.1
 
@@ -42590,7 +42590,7 @@ snapshots:
 
   upath@1.2.0: {}
 
-  update-browserslist-db@1.2.1(browserslist@4.28.1):
+  update-browserslist-db@1.2.2(browserslist@4.28.1):
     dependencies:
       browserslist: 4.28.1
       escalade: 3.2.0
@@ -43331,7 +43331,7 @@ snapshots:
 
   yaml-ast-parser@0.0.43: {}
 
-  yaml-eslint-parser@1.3.1:
+  yaml-eslint-parser@1.3.2:
     dependencies:
       '@types/eslint-visitor-keys': 3.3.2
       eslint-visitor-keys: 3.4.3

@@ -1,4 +1,4 @@
-<div align="center"><img src="https://public.storm-cdn.com/storm-banner.gif" width="100%" alt="Storm Software" /></div>
+<div align="center"><img src="https://public.storm-cdn.com/storm-software/logo-1920x1080-compressed.gif" width="100%" alt="Storm Software" /></div>
 
 <br />
 <div align="center">
@@ -12,14 +12,6 @@
 <br />
 
 Storm Software's **🔌 Powerlines** is a "framework framework" that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.
-
-<br />
-
-**Powerlines** is built using <a href="https://nx.dev/" target="_blank">Nx</a>, a
-set of extensible dev tools for monorepos, which helps you develop like Google,
-Facebook, and Microsoft. Building on top of Nx, the Open System provides a set
-of tools and patterns that help you scale your monorepo to many teams while
-keeping the codebase maintainable.
 
 <h3 align="center">💻 Visit <a href="https://stormsoftware.com" target="_blank">stormsoftware.com</a> to stay up to date with this developer</h3>
 <br />
@@ -59,7 +51,7 @@ keeping the codebase maintainable.
   - [Running End-to-End Tests](#running-end-to-end-tests)
   - [Understand your workspace](#understand-your-workspace)
 - [☁ Nx Cloud](#-nx-cloud)
-  - [Distributed Computation Caching & Distributed Task Execution](#distributed-computation-caching--distributed-task-execution)
+  - [Distributed Computation Caching \& Distributed Task Execution](#distributed-computation-caching--distributed-task-execution)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [Support](#support)
