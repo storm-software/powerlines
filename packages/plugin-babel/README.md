@@ -3,7 +3,7 @@
 <!-- markdownlint-disable -->
 
 
-<div align="center"><img src="https://public.storm-cdn.com/storm-banner.gif" width="100%" alt="Powerlines" /></div>
+<div align="center"><img src="https://public.storm-cdn.com/powerlines/banner-1280x640-optimized.gif" width="100%" alt="Powerlines" /></div>
 <br />
 
 <div align="center">
