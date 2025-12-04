@@ -135,6 +135,7 @@ export const plugin = createAlloyPlugin<ReactPluginContext>(
         }
 
         this.tsconfig.tsconfigJson.compilerOptions ??= {};
+        this.tsconfig.tsconfigJson.compilerOptions.lib ??= [];
         this.tsconfig.tsconfigJson.compilerOptions.module ??= "esnext";
         this.tsconfig.tsconfigJson.compilerOptions.jsxImportSource =
           this.config.react.jsxImportSource;
@@ -148,36 +149,19 @@ export const plugin = createAlloyPlugin<ReactPluginContext>(
         // Client platform
         if (this.environment.consumer === "client") {
           if (
-            !this.tsconfig.options.lib?.some(lib => lib.toLowerCase() !== "dom")
+            !isMatchFound("dom", this.tsconfig.tsconfigJson.compilerOptions.lib)
           ) {
-            this.tsconfig.tsconfigJson.compilerOptions.lib ??= [];
-            this.tsconfig.tsconfigJson.compilerOptions.lib.push("dom");
+            this.tsconfig.tsconfigJson.compilerOptions.lib.push("DOM");
           }
 
           if (
-            !this.tsconfig.options.lib?.some(
-              lib => lib.toLowerCase() !== "dom.iterable"
+            !isMatchFound(
+              "dom.iterable",
+              this.tsconfig.tsconfigJson.compilerOptions.lib
             )
           ) {
-            this.tsconfig.tsconfigJson.compilerOptions.lib ??= [];
-            this.tsconfig.tsconfigJson.compilerOptions.lib.push("dom.iterable");
+            this.tsconfig.tsconfigJson.compilerOptions.lib.push("DOM.Iterable");
           }
-        }
-
-        this.tsconfig.tsconfigJson.compilerOptions.lib = [];
-        if (
-          !isMatchFound("dom", this.tsconfig.tsconfigJson.compilerOptions.lib)
-        ) {
-          this.tsconfig.tsconfigJson.compilerOptions.lib.push("DOM");
-        }
-
-        if (
-          !isMatchFound(
-            "dom.iterable",
-            this.tsconfig.tsconfigJson.compilerOptions.lib
-          )
-        ) {
-          this.tsconfig.tsconfigJson.compilerOptions.lib.push("DOM.Iterable");
         }
 
         if (
