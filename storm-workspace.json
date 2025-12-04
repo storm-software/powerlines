@@ -5,6 +5,6 @@
   "namespace": "powerlines",
   "repository": "https://github.com/storm-software/powerlines",
   "packageManager": "pnpm",
-  "logLevel": "trace",
+  "logLevel": "info",
   "docs": "https://docs.stormsoftware.com/projects/powerlines"
 }
