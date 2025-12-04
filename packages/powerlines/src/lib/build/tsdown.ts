@@ -94,6 +94,9 @@ export function resolveFromTsdownFormat(
   });
 }
 
+const formatMessage = (context: Context, message: string) =>
+  message.replace(new RegExp(`\\[${context.config.name}\\]`, "g"), "").trim();
+
 /**
  * Resolves the options for [tsdown](https://github.com/rolldown/tsdown).
  *
@@ -176,35 +179,20 @@ export function extractTsdownConfig(
             ? "debug"
             : context.config.logLevel,
         info: (message: string) =>
-          context.info(
-            message
-              .replace(new RegExp(`\\[${context.config.name}\\]`, "g"), "")
-              .trim()
-          ),
+          formatMessage(context, message) &&
+          context.info(formatMessage(context, message)),
         warn: (message: string) =>
-          context.warn(
-            message
-              .replace(new RegExp(`\\[${context.config.name}\\]`, "g"), "")
-              .trim()
-          ),
+          formatMessage(context, message) &&
+          context.warn(formatMessage(context, message)),
         warnOnce: (message: string) =>
-          context.warn(
-            message
-              .replace(new RegExp(`\\[${context.config.name}\\]`, "g"), "")
-              .trim()
-          ),
+          formatMessage(context, message) &&
+          context.warn(formatMessage(context, message)),
         error: (message: string) =>
-          context.error(
-            message
-              .replace(new RegExp(`\\[${context.config.name}\\]`, "g"), "")
-              .trim()
-          ),
+          formatMessage(context, message) &&
+          context.error(formatMessage(context, message)),
         success: (message: string) =>
-          context.info(
-            message
-              .replace(new RegExp(`\\[${context.config.name}\\]`, "g"), "")
-              .trim()
-          )
+          formatMessage(context, message) &&
+          context.info(formatMessage(context, message))
       }
     } as TsdownResolvedBuildConfig,
     DEFAULT_TSDOWN_CONFIG
