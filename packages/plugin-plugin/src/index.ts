@@ -87,7 +87,7 @@ export const plugin = <
         );
       }
     },
-    async generateTypes(code: string) {
+    async types(code: string) {
       if (!options.types?.userConfig) {
         return;
       }

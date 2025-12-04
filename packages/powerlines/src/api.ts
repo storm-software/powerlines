@@ -84,7 +84,7 @@ import type {
 } from "./types/context";
 import { HookKeys, InferHookParameters } from "./types/hooks";
 import { UNSAFE_APIContext } from "./types/internal";
-import type { GenerateTypesResult, Plugin } from "./types/plugin";
+import type { Plugin, TypesResult } from "./types/plugin";
 import { EnvironmentResolvedConfig, ResolvedConfig } from "./types/resolved";
 
 /**
@@ -351,11 +351,11 @@ export class PowerlinesAPI<
 
         const directives = [] as string[];
         const asNextParam = (
-          previousResult: string | GenerateTypesResult | null | undefined
+          previousResult: string | TypesResult | null | undefined
         ) => (isObject(previousResult) ? previousResult.code : previousResult);
 
         let result = await this.callHook(
-          "generateTypes",
+          "types",
           {
             environment: context,
             sequential: true,
@@ -380,7 +380,7 @@ export class PowerlinesAPI<
         }
 
         result = await this.callHook(
-          "generateTypes",
+          "types",
           {
             environment: context,
             sequential: true,
@@ -405,7 +405,7 @@ export class PowerlinesAPI<
         }
 
         result = await this.callHook(
-          "generateTypes",
+          "types",
           {
             environment: context,
             sequential: true,
