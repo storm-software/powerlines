@@ -25,5 +25,8 @@ export default defineConfig({
     plugin({
       alloy: true
     })
-  ]
+  ],
+  build: {
+    dts: false
+  }
 });
