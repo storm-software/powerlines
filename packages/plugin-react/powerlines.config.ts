@@ -30,6 +30,6 @@ export default defineConfig({
     })
   ],
   build: {
-    dts: false
+    dts: true
   }
 });
