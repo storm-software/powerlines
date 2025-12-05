@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.30.6](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.6) (12/05/2025)
+
+### Miscellaneous
+
+- **powerlines:** Update `applyToEnvironment` to allow returning `PluginConfig`
+  ([eae79d5a](https://github.com/storm-software/powerlines/commit/eae79d5a))
+
 ## [0.30.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.3) (12/05/2025)
 
 ### Miscellaneous
