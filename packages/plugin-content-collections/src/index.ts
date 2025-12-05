@@ -46,8 +46,8 @@ export * from "./types";
  * @returns A Powerlines plugin instance.
  */
 export const plugin = <
-  TContext extends
-    ContentCollectionsPluginContext = ContentCollectionsPluginContext
+  TContext extends ContentCollectionsPluginContext =
+    ContentCollectionsPluginContext
 >(
   options: ContentCollectionsPluginOptions
 ): Plugin<TContext> => {
