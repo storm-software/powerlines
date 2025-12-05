@@ -63,6 +63,6 @@ export interface SatoriPluginResolvedConfig extends ResolvedConfig {
 }
 
 export type SatoriPluginContext<
-  TResolvedConfig extends
-    SatoriPluginResolvedConfig = SatoriPluginResolvedConfig
+  TResolvedConfig extends SatoriPluginResolvedConfig =
+    SatoriPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;
