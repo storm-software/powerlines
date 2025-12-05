@@ -16,20 +16,20 @@ catalogs:
       specifier: ^0.2.1
       version: 0.2.1
     '@alloy-js/core':
-      specifier: ^0.20.0
-      version: 0.20.0
+      specifier: ^0.21.0
+      version: 0.21.0
     '@alloy-js/json':
-      specifier: ^0.20.0
-      version: 0.20.0
+      specifier: ^0.21.0
+      version: 0.21.0
     '@alloy-js/markdown':
-      specifier: ^0.20.0
-      version: 0.20.0
+      specifier: ^0.21.0
+      version: 0.21.0
     '@alloy-js/rollup-plugin':
       specifier: ^0.1.0
       version: 0.1.0
     '@alloy-js/typescript':
-      specifier: ^0.20.0
-      version: 0.20.0
+      specifier: ^0.21.0
+      version: 0.21.0
     '@asyncapi/generator':
       specifier: ^2.11.0
       version: 2.11.0
@@ -792,16 +792,16 @@ importers:
         version: 0.39.1(patch_hash=9483f1638c083f01e7203a1c861e090677dd40e8444433c29453a5788e25a709)(@babel/core@7.28.5)
       '@alloy-js/core':
         specifier: 'catalog:'
-        version: 0.20.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)
+        version: 0.21.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)
       '@alloy-js/json':
         specifier: 'catalog:'
-        version: 0.20.0
+        version: 0.21.0
       '@alloy-js/markdown':
         specifier: 'catalog:'
-        version: 0.20.0
+        version: 0.21.0
       '@alloy-js/typescript':
         specifier: 'catalog:'
-        version: 0.20.0
+        version: 0.21.0
       '@babel/plugin-syntax-jsx':
         specifier: 'catalog:'
         version: 7.27.1(@babel/core@7.28.5)
@@ -1347,13 +1347,13 @@ importers:
     dependencies:
       '@alloy-js/core':
         specifier: 'catalog:'
-        version: 0.20.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)
+        version: 0.21.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)
       '@alloy-js/markdown':
         specifier: 'catalog:'
-        version: 0.20.0
+        version: 0.21.0
       '@alloy-js/typescript':
         specifier: 'catalog:'
-        version: 0.20.0
+        version: 0.21.0
       '@babel/core':
         specifier: 'catalog:'
         version: 7.28.5
@@ -1809,19 +1809,19 @@ importers:
     dependencies:
       '@alloy-js/core':
         specifier: 'catalog:'
-        version: 0.20.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)
+        version: 0.21.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)
       '@alloy-js/json':
         specifier: 'catalog:'
-        version: 0.20.0
+        version: 0.21.0
       '@alloy-js/markdown':
         specifier: 'catalog:'
-        version: 0.20.0
+        version: 0.21.0
       '@alloy-js/rollup-plugin':
         specifier: 'catalog:'
         version: 0.1.0(@babel/core@7.28.5)(@types/babel__core@7.20.5)(rollup@4.53.3)
       '@alloy-js/typescript':
         specifier: 'catalog:'
-        version: 0.20.0
+        version: 0.21.0
       '@stryke/convert':
         specifier: 'catalog:'
         version: 0.6.13
@@ -3102,21 +3102,21 @@ packages:
   '@alloy-js/babel-preset@0.2.1':
     resolution: {integrity: sha512-vz9kvQwx5qBzHIw4ryqUaQqpgNOMBmkdDcV3e2zZfMq8Pp16ePFtvviHh6RwyLcvXQQClex3ZZy8ON9TifMnxw==}
 
-  '@alloy-js/core@0.20.0':
-    resolution: {integrity: sha512-ylPf+ayI9MsqUPrNVzND3Oh9rVrfOOcMkyVwtXXaxaobWPkcRq2I4rX09FkG0i/9DoaLE6ZCvUfdgJsM29MYBA==}
+  '@alloy-js/core@0.21.0':
+    resolution: {integrity: sha512-eIBllm+Lgk/AcV6QdipZAVlYPIp6RHmgz046GXBQeXZnTZXmPHURVFI18/FVuaK7K+uUt0eriPXIYXs4/Ja5rQ==}
 
-  '@alloy-js/json@0.20.0':
-    resolution: {integrity: sha512-cj7t/buV+IdcxV1WqXQ9oyIBm/Xp1ln08fsMxBpC8ZsG8+mijHo2GCZdH0sblNbvriS7yG+71SjqDgnXdMsR5g==}
+  '@alloy-js/json@0.21.0':
+    resolution: {integrity: sha512-cOQbqoB2hIEOEB4w0v/qoq6tywpfU0DAMOY6nvAslCsDuTRxS8nM9E3rr0apvyht4STLz15fT9TE90UOEGtIZg==}
 
-  '@alloy-js/markdown@0.20.0':
-    resolution: {integrity: sha512-c1Q4dzUvWC4Bdoi6dRT9yAYVoCiqz3ZMClV8CHzEsgZYjjdS0S2ZWWmgxzS87rSDHSjmQIXJ4BcUZfKyfnMrFA==}
+  '@alloy-js/markdown@0.21.0':
+    resolution: {integrity: sha512-Er2aqWdolajWUrHxeqZoiK/Grdet2zaEr8ZtIbvv/M0sMz975p0ltijZNF3OnMde0wFlk1Jg14hkiitI9wFVgQ==}
 
   '@alloy-js/rollup-plugin@0.1.0':
     resolution: {integrity: sha512-MXR8mBdSh/pxMP8kIXAcMYKsm5yOWZ+igxcaRX1vBXFiHU4eK7gE/5q6Fk8Vdydh+MItWtgekwIhUWvcszdNFQ==}
     engines: {node: '>=18.0.0'}
 
-  '@alloy-js/typescript@0.20.0':
-    resolution: {integrity: sha512-F1y5QjneE8GVxIq6oYsebu+Fccrn72qFHelNX5GSLfs4Ps2fxpk2+70rsGznZyHe9LIt70StaAciTjH6cxH4bQ==}
+  '@alloy-js/typescript@0.21.0':
+    resolution: {integrity: sha512-SsxdYkXhrP8jjO2gENav9bHPHaonNrreW469RaOot3cRqhsHPA1RmBrzNPJov37YknzTg4Wlk0JsEFT4Qibgfg==}
 
   '@angular-devkit/architect@0.1900.6':
     resolution: {integrity: sha512-w11bAXQnNWBawTJfQPjvaTRrzrqsOUm9tK9WNvaia/xjiRFpmO0CfmKtn3axNSEJM8jb/czaNQrgTwG+TGc/8g==}
@@ -9941,8 +9941,8 @@ packages:
     resolution: {integrity: sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==}
     engines: {node: ^4.5.0 || >= 5.9}
 
-  baseline-browser-mapping@2.9.2:
-    resolution: {integrity: sha512-PxSsosKQjI38iXkmb3d0Y32efqyA0uW4s41u4IVBsLlWLhCiYNpH/AfNOVWRqCQBlD8TFJTz6OUWNd4DFJCnmw==}
+  baseline-browser-mapping@2.9.3:
+    resolution: {integrity: sha512-8QdH6czo+G7uBsNo0GiUfouPN1lRzKdJTGnKXwe12gkFbnnOUaUKGN55dMkfy+mnxmvjwl9zcI4VncczcVXDhA==}
     hasBin: true
 
   batch@0.6.1:
@@ -16576,8 +16576,8 @@ packages:
   pure-rand@7.0.1:
     resolution: {integrity: sha512-oTUZM/NAZS8p7ANR3SHh30kXB+zK2r2BPcEn/awJIbOvq82WoMN4p62AWWp3Hhw50G0xMsw1mhIBLqHw64EcNQ==}
 
-  qified@0.5.2:
-    resolution: {integrity: sha512-7gJ6mxcQb9vUBOtbKm5mDevbe2uRcOEVp1g4gb/Q+oLntB3HY8eBhOYRxFI2mlDFlY1e4DOSCptzxarXRvzxCA==}
+  qified@0.5.3:
+    resolution: {integrity: sha512-kXuQdQTB6oN3KhI6V4acnBSZx8D2I4xzZvn9+wFLLFCoBNQY/sFnCW6c43OL7pOQ2HvGV4lnWIXNmgfp7cTWhQ==}
     engines: {node: '>=20'}
 
   qs@6.13.0:
@@ -18011,8 +18011,8 @@ packages:
     resolution: {integrity: sha512-flFL3m4wuixmf6IfhFJd1YPiLiMuxEc8uHRM1buzIeZPm22Au2pDqBJQgdo7n1WfPU1ONFGv7YDwpFBmHGF6lg==}
     engines: {node: '>=12'}
 
-  terser-webpack-plugin@5.3.14:
-    resolution: {integrity: sha512-vkZjpUjb6OMS7dhV+tILUW6BhpDR7P2L/aQSAv+Uwk+m8KATX9EccViHTJR2qDtACKPIYndLGCyl3FMo+r2LMw==}
+  terser-webpack-plugin@5.3.15:
+    resolution: {integrity: sha512-PGkOdpRFK+rb1TzVz+msVhw4YMRT9txLF4kRqvJhGhCM324xuR3REBSHALN+l+sAhKUmz0aotnjp5D+P83mLhQ==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
       '@swc/core': '*'
@@ -19465,7 +19465,7 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@alloy-js/core@0.20.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)':
+  '@alloy-js/core@0.21.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)':
     dependencies:
       '@vue/reactivity': 3.5.25
       cli-table3: 0.6.5
@@ -19473,14 +19473,14 @@ snapshots:
       picocolors: 1.1.1
       prettier: 3.7.4
 
-  '@alloy-js/json@0.20.0':
+  '@alloy-js/json@0.21.0':
     dependencies:
-      '@alloy-js/core': 0.20.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)
+      '@alloy-js/core': 0.21.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)
       pathe: 2.0.3
 
-  '@alloy-js/markdown@0.20.0':
+  '@alloy-js/markdown@0.21.0':
     dependencies:
-      '@alloy-js/core': 0.20.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)
+      '@alloy-js/core': 0.21.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)
       yaml: 2.8.2
 
   '@alloy-js/rollup-plugin@0.1.0(@babel/core@7.28.5)(@types/babel__core@7.20.5)(rollup@4.53.3)':
@@ -19494,9 +19494,9 @@ snapshots:
       - rollup
       - supports-color
 
-  '@alloy-js/typescript@0.20.0':
+  '@alloy-js/typescript@0.21.0':
     dependencies:
-      '@alloy-js/core': 0.20.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)
+      '@alloy-js/core': 0.21.0(patch_hash=10c2cdc3a05c6bb5f08bb685375b2b36b0967e02f605a284a5e30ab7810418d8)
       change-case: 5.4.4
       pathe: 2.0.3
 
@@ -29003,7 +29003,7 @@ snapshots:
 
   base64id@2.0.0: {}
 
-  baseline-browser-mapping@2.9.2: {}
+  baseline-browser-mapping@2.9.3: {}
 
   batch@0.6.1: {}
 
@@ -29198,7 +29198,7 @@ snapshots:
 
   browserslist@4.28.1:
     dependencies:
-      baseline-browser-mapping: 2.9.2
+      baseline-browser-mapping: 2.9.3
       caniuse-lite: 1.0.30001759
       electron-to-chromium: 1.5.266
       node-releases: 2.0.27
@@ -29275,7 +29275,7 @@ snapshots:
       defu: 6.1.4
       dotenv: 16.6.1
       giget: 1.2.5
-      jiti: 2.6.1
+      jiti: 2.4.2
       mlly: 1.8.0
       ohash: 2.0.11
       pathe: 2.0.3
@@ -29292,7 +29292,7 @@ snapshots:
       defu: 6.1.4
       dotenv: 16.6.1
       giget: 1.2.5
-      jiti: 2.6.1
+      jiti: 2.4.2
       mlly: 1.8.0
       ohash: 2.0.11
       pathe: 2.0.3
@@ -29399,7 +29399,7 @@ snapshots:
       '@cacheable/utils': 2.3.2
       hookified: 1.13.0
       keyv: 5.5.5
-      qified: 0.5.2
+      qified: 0.5.3
 
   call-bind-apply-helpers@1.0.2:
     dependencies:
@@ -37657,7 +37657,7 @@ snapshots:
 
   pure-rand@7.0.1: {}
 
-  qified@0.5.2:
+  qified@0.5.3:
     dependencies:
       hookified: 1.13.0
 
@@ -39517,7 +39517,7 @@ snapshots:
       ansi-escapes: 5.0.0
       supports-hyperlinks: 2.3.0
 
-  terser-webpack-plugin@5.3.14(@swc/core@1.15.3(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack@5.103.0(@swc/core@1.15.3(@swc/helpers@0.5.17))(esbuild@0.25.12)):
+  terser-webpack-plugin@5.3.15(@swc/core@1.15.3(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack@5.103.0(@swc/core@1.15.3(@swc/helpers@0.5.17))(esbuild@0.25.12)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
@@ -39529,7 +39529,7 @@ snapshots:
       '@swc/core': 1.15.3(@swc/helpers@0.5.17)
       esbuild: 0.25.12
 
-  terser-webpack-plugin@5.3.14(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack@5.103.0(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12)):
+  terser-webpack-plugin@5.3.15(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack@5.103.0(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
@@ -39542,7 +39542,7 @@ snapshots:
       esbuild: 0.25.12
     optional: true
 
-  terser-webpack-plugin@5.3.14(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack@5.103.0):
+  terser-webpack-plugin@5.3.15(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack@5.103.0):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
@@ -40463,7 +40463,7 @@ snapshots:
     dependencies:
       citty: 0.1.6
       defu: 6.1.4
-      jiti: 2.6.1
+      jiti: 2.4.2
       knitwork: 1.3.0
       scule: 1.3.0
 
@@ -40935,7 +40935,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.0
-      terser-webpack-plugin: 5.3.14(@swc/core@1.15.3(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack@5.103.0(@swc/core@1.15.3(@swc/helpers@0.5.17))(esbuild@0.25.12))
+      terser-webpack-plugin: 5.3.15(@swc/core@1.15.3(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack@5.103.0(@swc/core@1.15.3(@swc/helpers@0.5.17))(esbuild@0.25.12))
       watchpack: 2.4.4
       webpack-sources: 3.3.3
     transitivePeerDependencies:
@@ -40967,7 +40967,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.0
-      terser-webpack-plugin: 5.3.14(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack@5.103.0(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12))
+      terser-webpack-plugin: 5.3.15(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack@5.103.0(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12))
       watchpack: 2.4.4
       webpack-sources: 3.3.3
     transitivePeerDependencies:
@@ -41000,7 +41000,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.0
-      terser-webpack-plugin: 5.3.14(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack@5.103.0)
+      terser-webpack-plugin: 5.3.15(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack@5.103.0)
       watchpack: 2.4.4
       webpack-sources: 3.3.3
     optionalDependencies:

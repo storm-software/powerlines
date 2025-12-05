@@ -7,11 +7,11 @@ catalog:
   "@alloy-js/babel-plugin": ^0.2.1
   "@alloy-js/babel-plugin-jsx-dom-expressions": ^0.39.1
   "@alloy-js/babel-preset": ^0.2.1
-  "@alloy-js/core": ^0.20.0
-  "@alloy-js/json": ^0.20.0
-  "@alloy-js/markdown": ^0.20.0
+  "@alloy-js/core": ^0.21.0
+  "@alloy-js/json": ^0.21.0
+  "@alloy-js/markdown": ^0.21.0
   "@alloy-js/rollup-plugin": ^0.1.0
-  "@alloy-js/typescript": ^0.20.0
+  "@alloy-js/typescript": ^0.21.0
   "@asyncapi/generator": ^2.11.0
   "@asyncapi/parser": ^3.4.0
   "@babel/core": ^7.28.5
@@ -169,9 +169,9 @@ catalog:
   satori: ^0.18.3
   sharp: ^0.34.5
   sherif: ^1.9.0
-  svgo: ^4.0.0
   style-dictionary: ^5.1.1
   stylelint: ^16.26.1
+  svgo: ^4.0.0
   ts-jest: 29.4.0
   ts-morph: ^27.0.2
   ts-node: ^10.9.2
@@ -243,6 +243,7 @@ overrides:
   "@powerlines/plugin-graphql": workspace:*
   "@powerlines/plugin-hey-api": workspace:*
   "@powerlines/plugin-id": workspace:*
+  "@powerlines/plugin-image-compression": workspace:*
   "@powerlines/plugin-jest": workspace:*
   "@powerlines/plugin-marked": workspace:*
   "@powerlines/plugin-openapi": workspace:*
@@ -256,7 +257,6 @@ overrides:
   "@powerlines/plugin-rollup": workspace:*
   "@powerlines/plugin-rspack": workspace:*
   "@powerlines/plugin-satori": workspace:*
-  "@powerlines/plugin-image-compression": workspace:*
   "@powerlines/plugin-style-dictionary": workspace:*
   "@powerlines/plugin-stylelint": workspace:*
   "@powerlines/plugin-swc": workspace:*
