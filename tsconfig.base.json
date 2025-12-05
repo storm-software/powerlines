@@ -76,6 +76,8 @@
       "@powerlines/plugin-rspack/*": ["packages/plugin-rspack/src/*"],
       "@powerlines/plugin-satori": ["packages/plugin-satori/src/index.ts"],
       "@powerlines/plugin-satori/*": ["packages/plugin-satori/src/*"],
+      "@powerlines/plugin-sharp": ["packages/plugin-sharp/src/index.ts"],
+      "@powerlines/plugin-sharp/*": ["packages/plugin-sharp/src/*"],
       "@powerlines/plugin-style-dictionary": [
         "packages/plugin-style-dictionary/src/index.ts"
       ],

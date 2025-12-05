@@ -5,6 +5,12 @@
   "namespace": "powerlines",
   "repository": "https://github.com/storm-software/powerlines",
   "packageManager": "pnpm",
-  "logLevel": "info",
-  "docs": "https://docs.stormsoftware.com/projects/powerlines"
+  "logLevel": "trace",
+  "docs": "https://docs.stormsoftware.com/projects/powerlines",
+  "release": {
+    "banner": {
+      "url": "https://public.storm-cdn.com/powerlines/banner-1280x320-dark-optimized.gif",
+      "alt": "Powerlines' logo banner"
+    }
+  }
 }
