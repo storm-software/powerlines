@@ -1,6 +1,6 @@
 ![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark-optimized.gif)
 
-# Changelog for Powerlines - Plugin Sharp
+# Changelog for Powerlines - Plugin Image Compression
 
 ## [0.1.1](https://github.com/storm-software/powerlines/releases/tag/plugin-sharp%400.1.1) (12/05/2025)
 

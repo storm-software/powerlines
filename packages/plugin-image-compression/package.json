@@ -1,12 +1,12 @@
 {
-  "name": "@powerlines/plugin-sharp",
+  "name": "@powerlines/plugin-image-compression",
   "version": "0.1.1",
   "type": "module",
-  "description": "A Powerlines plugin to use Sharp to optimize images used by the project.",
+  "description": "A Powerlines plugin to optimize images used by the project.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-sharp"
+    "directory": "packages/plugin-image-compression"
   },
   "homepage": "https://stormsoftware.com",
   "bugs": {
@@ -115,14 +115,22 @@
   },
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": ["sharp", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "sharp",
+    "svgo",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@stryke/path": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/convert": "catalog:",
+    "chalk": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
     "sharp": "catalog:",
+    "svgo": "catalog:",
     "powerlines": "workspace:*"
   },
   "devDependencies": {

@@ -26,7 +26,7 @@ export default defineConfig({
     plugin({
       alloy: false,
       types: {
-        userConfig: "SharpPluginUserConfig"
+        userConfig: "ImageCompressionPluginUserConfig"
       }
     })
   ]

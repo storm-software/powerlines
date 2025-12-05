@@ -27,34 +27,31 @@ import {
   JpegOptions,
   JxlOptions,
   PngOptions,
-  Sharp,
   TiffOptions,
   WebpOptions
 } from "sharp";
+import { Config as SvgOptions } from "svgo";
 
-export interface SharpPluginOptions {
+export interface ImageCompressionPluginOptions {
   /**
    * A path or glob pattern (or an array of paths and glob patterns) to image files to optimize during Powerlines processing.
    *
-   * @defaultValue "\{projectRoot\}/**\/*.\{jpg,jpeg,png,webp,avif,heif,gif,tiff,jp2,jxl\}"
+   * @defaultValue "\{projectRoot\}/**\/*.\{svg,jpg,jpeg,png,webp,avif,heif,gif,tiff,jp2,jxl\}"
    */
-  path?: string | string[];
+  filter?: string | string[];
 
   /**
-   * The path for the Sharp optimized image files
+   * The output directory for the optimized images.
    *
    * @remarks
-   * By default, it will generate the output files alongside each image file.
+   * By default, it will generate the output files alongside each input image file.
    */
   outputPath?: string;
 
   /**
-   * A function to perform additional processing on the Sharp instance before saving the output image.
-   *
-   * @param sharp - The Sharp instance for the current image.
-   * @returns A promise that resolves when processing is complete.
+   * These SVGO options used for SVG optimization
    */
-  hook?: (sharp: Sharp) => Promise<any>;
+  svg?: SvgOptions;
 
   /**
    * These JPEG options used for output image
@@ -102,14 +99,15 @@ export interface SharpPluginOptions {
   tiff?: TiffOptions;
 }
 
-export interface SharpPluginUserConfig extends UserConfig {
-  sharp?: SharpPluginOptions;
+export interface ImageCompressionPluginUserConfig extends UserConfig {
+  imageCompression?: ImageCompressionPluginOptions;
 }
 
-export interface SharpPluginResolvedConfig extends ResolvedConfig {
-  sharp: Omit<
-    SharpPluginOptions,
-    | "path"
+export interface ImageCompressionPluginResolvedConfig extends ResolvedConfig {
+  imageCompression: Omit<
+    ImageCompressionPluginOptions,
+    | "filter"
+    | "svg"
     | "jpeg"
     | "png"
     | "webp"
@@ -122,8 +120,9 @@ export interface SharpPluginResolvedConfig extends ResolvedConfig {
   > &
     Required<
       Pick<
-        SharpPluginOptions,
-        | "path"
+        ImageCompressionPluginOptions,
+        | "filter"
+        | "svg"
         | "jpeg"
         | "png"
         | "webp"
@@ -137,6 +136,7 @@ export interface SharpPluginResolvedConfig extends ResolvedConfig {
     >;
 }
 
-export type SharpPluginContext<
-  TResolvedConfig extends SharpPluginResolvedConfig = SharpPluginResolvedConfig
+export type ImageCompressionPluginContext<
+  TResolvedConfig extends ImageCompressionPluginResolvedConfig =
+    ImageCompressionPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;

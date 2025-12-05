@@ -49,7 +49,7 @@ This package is part of the 🔌 <b>Powerlines</b> monorepo. Powerlines packages
 
 <!-- END header -->
 
-# Powerlines - Sharp Plugin
+# Powerlines - Image Compression Plugin
 
 A Powerlines plugin to use [Sharp](https://sharp.pixelplumbing.com) to optimize images used by the project.
 
@@ -57,7 +57,7 @@ A Powerlines plugin to use [Sharp](https://sharp.pixelplumbing.com) to optimize 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Powerlines - Sharp Plugin](#powerlines---sharp-plugin)
+- [Powerlines - Image Compression Plugin](#powerlines---image-compression-plugin)
   - [Table of Contents](#table-of-contents)
   - [Installing](#installing)
   - [Reduced Package Size](#reduced-package-size)
@@ -80,14 +80,14 @@ A Powerlines plugin to use [Sharp](https://sharp.pixelplumbing.com) to optimize 
 Using [pnpm](http://pnpm.io):
 
 ```bash
-pnpm add @powerlines/plugin-sharp
+pnpm add @powerlines/plugin-image-compression
 ```
 
 <details>
   <summary>Using npm</summary>
 
 ```bash
-npm install @powerlines/plugin-sharp
+npm install @powerlines/plugin-image-compression
 ```
 
 </details>
@@ -96,7 +96,7 @@ npm install @powerlines/plugin-sharp
   <summary>Using yarn</summary>
 
 ```bash
-yarn add @powerlines/plugin-sharp
+yarn add @powerlines/plugin-image-compression
 ```
 
 </details>
@@ -115,16 +115,16 @@ commands are available to assist in development.
 
 ### Building
 
-Run `nx build plugin-sharp` to build the library.
+Run `nx build plugin-image-compression` to build the library.
 
 ### Running unit tests
 
-Run `nx test plugin-sharp` to execute the unit tests via
+Run `nx test plugin-image-compression` to execute the unit tests via
 [Jest](https://jestjs.io).
 
 ### Linting
 
-Run `nx lint plugin-sharp` to run
+Run `nx lint plugin-image-compression` to run
 [ESLint](https://eslint.org/) on the package.
 
 <!-- START footer -->
