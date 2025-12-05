@@ -38,7 +38,10 @@ export const DEFAULT_TSDOWN_CONFIG: Partial<TsdownResolvedBuildConfig> = {
   minify: true,
   sourcemap: false,
   cjsDefault: true,
-  dts: true,
+  dts: {
+    parallel: true,
+    newContext: true
+  },
   shims: true,
   silent: true,
   treeshake: true,
@@ -154,7 +157,9 @@ export function extractTsdownConfig(
         context.tsconfig.tsconfigFilePath,
         context.workspaceConfig.workspaceRoot
       ),
-      format: context.config.output.format,
+      format: toArray(context.config.output.format)
+        .map(format => (format === "esm" ? "es" : format))
+        .filter(Boolean) as TsdownFormat[],
       mode: context.config.mode,
       treeshake:
         context.config.build.variant === "tsdown"

@@ -28,8 +28,5 @@ export default defineConfig({
         generatesMarkdown: true
       }
     })
-  ],
-  build: {
-    dts: true
-  }
+  ]
 });
