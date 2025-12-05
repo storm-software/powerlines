@@ -1,3 +1,16 @@
+![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark-optimized.gif)
+
+# Changelog for Powerlines - Plugin Date
+
+## [0.12.59](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.59) (12/05/2025)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.2**
+- Updated **plugin-env** to **v0.13.56**
+- Updated **powerlines** to **v0.30.1**
+- Updated **nx** to **v0.10.50**
+
 ![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
 
 # Changelog for Powerlines - Plugin Date

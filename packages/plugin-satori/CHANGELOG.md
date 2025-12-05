@@ -1,3 +1,20 @@
+![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark-optimized.gif)
+
+# Changelog for Powerlines - Plugin Satori
+
+## [0.1.49](https://github.com/storm-software/powerlines/releases/tag/plugin-satori%400.1.49) (12/05/2025)
+
+### Miscellaneous
+
+- **plugin-satori:** Reformatted the plugin types file
+  ([99293e69](https://github.com/storm-software/powerlines/commit/99293e69))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.2**
+- Updated **powerlines** to **v0.30.1**
+- Updated **nx** to **v0.10.50**
+
 ![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
 
 # Changelog for Powerlines - Plugin Satori

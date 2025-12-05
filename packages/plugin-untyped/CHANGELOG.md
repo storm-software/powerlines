@@ -1,3 +1,20 @@
+![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark-optimized.gif)
+
+# Changelog for Powerlines - Plugin Untyped
+
+## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.0) (12/05/2025)
+
+### Features
+
+- **plugin-untyped:** Added support for path tokens in `schema` option
+  ([42488a69](https://github.com/storm-software/powerlines/commit/42488a69))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.2**
+- Updated **powerlines** to **v0.30.1**
+- Updated **nx** to **v0.10.50**
+
 ![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
 
 # Changelog for Powerlines - Plugin Untyped

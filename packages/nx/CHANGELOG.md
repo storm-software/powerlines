@@ -1,3 +1,13 @@
+![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark-optimized.gif)
+
+# Changelog for Powerlines - Nx
+
+## [0.10.50](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.50) (12/05/2025)
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.30.1**
+
 ![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
 
 # Changelog for Powerlines - Nx
