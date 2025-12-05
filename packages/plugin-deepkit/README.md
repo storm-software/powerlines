@@ -22,7 +22,7 @@
 </div>
 
 <br />
-This package is part of the ⚡<b>Powerlines</b> monorepo. Powerlines packages include CLI utility applications, tools, and various libraries used to create modern, scalable web applications.
+This package is part of the 🔌 <b>Powerlines</b> monorepo. Powerlines packages include CLI utility applications, tools, and various libraries used to create modern, scalable web applications.
 <br />
 
 <h3 align="center">💻 Visit <a href="https://stormsoftware.com" target="_blank">stormsoftware.com</a> to stay up to date with this developer</h3><br />
