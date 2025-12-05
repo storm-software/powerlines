@@ -19,7 +19,7 @@
 import { toArray } from "@stryke/convert/to-array";
 import { listFiles } from "@stryke/fs/list-files";
 import { findFileExtensionSafe } from "@stryke/path/find";
-import { replacePathTokens } from "packages/powerlines/dist/plugin-utils/paths";
+import { replacePathTokens } from "powerlines/plugin-utils/paths";
 import type { Plugin } from "powerlines/types/plugin";
 import { SharpPluginContext, SharpPluginOptions } from "./types/plugin";
 

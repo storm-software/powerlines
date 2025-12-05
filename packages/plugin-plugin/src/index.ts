@@ -64,8 +64,6 @@ export const plugin = <
         },
         build: {
           variant: "tsdown",
-          unbundle: false,
-          external: ["powerlines"],
           skipNodeModulesBundle: true,
           platform: "node"
         }

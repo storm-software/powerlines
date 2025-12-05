@@ -153,6 +153,17 @@ export function extractTsdownConfig(
         context.config.projectRoot,
         context.workspaceConfig.workspaceRoot
       ),
+      dts: {
+        cwd: appendPath(
+          context.config.projectRoot,
+          context.workspaceConfig.workspaceRoot
+        ),
+        tsconfig: appendPath(
+          context.tsconfig.tsconfigFilePath,
+          context.workspaceConfig.workspaceRoot
+        ),
+        emitDtsOnly: true
+      },
       outDir: replacePath(
         appendPath(
           context.config.output.buildPath,
