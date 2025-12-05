@@ -117,12 +117,7 @@
   "files": ["dist/**/*"],
   "keywords": ["untyped", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
-    "@stryke/path": "catalog:",
-    "@stryke/helpers": "catalog:",
-    "@stryke/fs": "catalog:",
-    "@stryke/json": "catalog:",
-    "@stryke/type-checks": "catalog:",
-    "@stryke/types": "catalog:",
+    "@stryke/convert": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
     "@storm-software/untyped": "catalog:",

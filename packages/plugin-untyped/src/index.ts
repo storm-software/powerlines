@@ -18,6 +18,8 @@
 
 import type { StormWorkspaceConfig } from "@storm-software/config/types";
 import { getGenerateAction } from "@storm-software/untyped/generate";
+import { toArray } from "@stryke/convert/to-array";
+import { replacePathTokens } from "packages/powerlines/dist/plugin-utils/paths";
 import type { Plugin } from "powerlines/types/plugin";
 import { UntypedPluginContext, UntypedPluginOptions } from "./types/plugin";
 
@@ -39,12 +41,22 @@ export const plugin = <
     config() {
       return {
         untyped: {
-          schema: "**/{untyped.ts,*.untyped.ts}",
+          schema: "{projectRoot}/**/{untyped.ts,*.untyped.ts}",
           ...options
         }
       };
     },
     async configResolved() {
+      if (!this.config.untyped.schema) {
+        throw new Error(
+          "Untyped plugin requires a schema path or glob pattern to be specified in the configuration."
+        );
+      }
+
+      this.config.untyped.schema = toArray(this.config.untyped.schema).map(
+        path => replacePathTokens(this, path)
+      );
+
       this.untyped ??= getGenerateAction(
         this.workspaceConfig as StormWorkspaceConfig
       );

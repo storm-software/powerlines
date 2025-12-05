@@ -25,7 +25,7 @@ export interface UntypedPluginOptions {
   /**
    * A path or glob pattern (or an array of paths and glob patterns) to schemas containing the Untyped type definitions used during generation.
    *
-   * @defaultValue "**\/\{untyped.ts,*.untyped.ts\}"
+   * @defaultValue "\{projectRoot\}/**\/\{untyped.ts,*.untyped.ts\}"
    */
   schema?: string | string[];
 
@@ -47,8 +47,8 @@ export interface UntypedPluginResolvedConfig extends ResolvedConfig {
 }
 
 export type UntypedPluginContext<
-  TResolvedConfig extends
-    UntypedPluginResolvedConfig = UntypedPluginResolvedConfig
+  TResolvedConfig extends UntypedPluginResolvedConfig =
+    UntypedPluginResolvedConfig
 > = PluginContext<TResolvedConfig> & {
   untyped: ReturnType<typeof getGenerateAction>;
 };
