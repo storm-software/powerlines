@@ -130,6 +130,7 @@
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
+    "@stryke/convert": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
     "powerlines": "workspace:*"

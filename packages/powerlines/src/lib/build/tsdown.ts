@@ -22,6 +22,7 @@ import { toArray } from "@stryke/convert/to-array";
 import { omit } from "@stryke/helpers/omit";
 import { appendPath } from "@stryke/path/append";
 import { replacePath } from "@stryke/path/replace";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import defu from "defu";
 import { Format as TsdownFormat } from "tsdown";
 import {
@@ -38,6 +39,7 @@ export const DEFAULT_TSDOWN_CONFIG: Partial<TsdownResolvedBuildConfig> = {
   minify: true,
   sourcemap: false,
   cjsDefault: true,
+  unbundle: true,
   dts: {
     parallel: true,
     newContext: true
@@ -66,7 +68,7 @@ export function resolveTsdownFormat(
         return "iife";
       case "esm":
       default:
-        return "esm";
+        return "es";
     }
   });
 }
@@ -97,8 +99,12 @@ export function resolveFromTsdownFormat(
   });
 }
 
-const formatMessage = (context: Context, message: string) =>
-  message.replace(new RegExp(`\\[${context.config.name}\\]`, "g"), "").trim();
+const formatMessage = (context: Context, ...msgs: any[]) =>
+  msgs
+    .filter(Boolean)
+    .join(" ")
+    .replace(new RegExp(`\\[${context.config.name}\\]`, "g"), "")
+    .trim();
 
 /**
  * Resolves the options for [tsdown](https://github.com/rolldown/tsdown).
@@ -111,13 +117,17 @@ export function extractTsdownConfig(
 ): TsdownResolvedBuildConfig {
   return defu(
     {
-      entry: toArray(context.config.entry)
-        .map(entry => {
-          const typeDef = parseTypeDefinition(entry);
+      entry:
+        isSetString(context.config.entry) ||
+        (Array.isArray(context.config.entry) && context.config.entry.length > 0)
+          ? (toArray(context.config.entry)
+              .map(entry => {
+                const typeDef = parseTypeDefinition(entry);
 
-          return typeDef?.file;
-        })
-        .filter(Boolean) as string[],
+                return typeDef?.file;
+              })
+              .filter(Boolean) as string[])
+          : ["src/**.ts", "src/**/*.tsx"],
       alias: context.builtins.reduce(
         (ret, id) => {
           const path = context.fs.ids[id];
@@ -157,9 +167,7 @@ export function extractTsdownConfig(
         context.tsconfig.tsconfigFilePath,
         context.workspaceConfig.workspaceRoot
       ),
-      format: toArray(context.config.output.format)
-        .map(format => (format === "esm" ? "es" : format))
-        .filter(Boolean) as TsdownFormat[],
+      format: resolveTsdownFormat(context.config.output.format).filter(Boolean),
       mode: context.config.mode,
       treeshake:
         context.config.build.variant === "tsdown"
@@ -183,21 +191,21 @@ export function extractTsdownConfig(
           context.config.logLevel === "trace"
             ? "debug"
             : context.config.logLevel,
-        info: (message: string) =>
-          formatMessage(context, message).replace(/\s+/g, "").length > 5 &&
-          context.info(formatMessage(context, message)),
-        warn: (message: string) =>
-          formatMessage(context, message).replace(/\s+/g, "").length > 5 &&
-          context.warn(formatMessage(context, message)),
-        warnOnce: (message: string) =>
-          formatMessage(context, message).replace(/\s+/g, "").length > 5 &&
-          context.warn(formatMessage(context, message)),
-        error: (message: string) =>
-          formatMessage(context, message).replace(/\s+/g, "").length > 5 &&
-          context.error(formatMessage(context, message)),
-        success: (message: string) =>
-          formatMessage(context, message).replace(/\s+/g, "").length > 5 &&
-          context.info(formatMessage(context, message))
+        info: (...msgs: any[]) =>
+          isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
+          context.info(formatMessage(context, ...msgs)),
+        warn: (...msgs: any[]) =>
+          isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
+          context.warn(formatMessage(context, ...msgs)),
+        warnOnce: (...msgs: any[]) =>
+          isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
+          context.warn(formatMessage(context, ...msgs)),
+        error: (...msgs: any[]) =>
+          isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
+          context.error(formatMessage(context, ...msgs)),
+        success: (...msgs: any[]) =>
+          isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
+          context.info(formatMessage(context, ...msgs))
       }
     } as TsdownResolvedBuildConfig,
     DEFAULT_TSDOWN_CONFIG

@@ -19,6 +19,7 @@
 import alloyPlugin from "@alloy-js/rollup-plugin";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
+import { toArray } from "@stryke/convert/to-array";
 import { StormJSON } from "@stryke/json/storm-json";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -57,7 +58,7 @@ export const plugin = <
 
       return {
         type: "library",
-        entry: ["src/**/*.ts", "src/**/*.tsx"],
+        entry: options.alloy ? ["src/index.tsx"] : ["src/index.ts"],
         output: {
           format: ["cjs", "esm"]
         },
@@ -88,36 +89,38 @@ export const plugin = <
       }
     },
     async types(code: string) {
-      if (!options.types?.userConfig) {
+      if (!options.types?.userConfig || !this.packageJson?.name) {
         return;
       }
 
       let typeDef: TypeDefinition | undefined;
       if (
         isSetString(options.types.userConfig) &&
-        !options.types.userConfig.includes("#") &&
-        this.packageJson?.name
+        !options.types.userConfig.includes("#")
       ) {
-        const pluginRoot = await this.resolve(this.packageJson.name);
-
-        if (
-          pluginRoot &&
-          this.packageJson?.name &&
-          !(await this.resolve(options.types.userConfig, pluginRoot.id))
-        ) {
-          typeDef = {
-            file: this.packageJson.name,
-            name: options.types.userConfig
-          };
-        }
-      }
-
-      if (!typeDef) {
+        typeDef = {
+          file: this.packageJson.name,
+          name: options.types.userConfig
+        };
+      } else {
         typeDef = parseTypeDefinition(options.types.userConfig);
-
         if (!typeDef) {
           return;
         }
+
+        if (!toArray(this.config.entry).includes(typeDef.file)) {
+          this.log(
+            LogLevelLabel.WARN,
+            `The specified user configuration file "${
+              typeDef.file
+            }" is not included in the build entry points.`
+          );
+        }
+
+        typeDef.file = `${this.packageJson.name}/${typeDef.file.replace(
+          /^\.\//,
+          ""
+        )}`;
       }
 
       return `${code || ""}
