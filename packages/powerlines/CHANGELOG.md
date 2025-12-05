@@ -1,3 +1,14 @@
+![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark-optimized.gif)
+
+# Changelog for Powerlines - Powerlines
+
+## [0.30.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.2) (12/05/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve options resolution issue in `tsdown` build
+  ([4d852baf](https://github.com/storm-software/powerlines/commit/4d852baf))
+
 ![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
 
 # Changelog for Powerlines - Powerlines

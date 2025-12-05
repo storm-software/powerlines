@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.51](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.51) (12/05/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve options resolution issue in `tsdown` build
+  ([4d852baf](https://github.com/storm-software/powerlines/commit/4d852baf))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.3**
+- Updated **plugin-babel** to **v0.12.60**
+- Updated **plugin-env** to **v0.13.57**
+- Updated **powerlines** to **v0.30.2**
+- Updated **deepkit** to **v0.4.56**
+- Updated **alloy** to **v0.11.60**
+- Updated **nx** to **v0.10.51**
+
 ## [0.1.50](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.50) (12/05/2025)
 
 ### Updated Dependencies

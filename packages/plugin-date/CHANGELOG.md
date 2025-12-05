@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.60](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.60) (12/05/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve options resolution issue in `tsdown` build
+  ([4d852baf](https://github.com/storm-software/powerlines/commit/4d852baf))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.3**
+- Updated **plugin-env** to **v0.13.57**
+- Updated **powerlines** to **v0.30.2**
+- Updated **nx** to **v0.10.51**
+
 ## [0.12.59](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.59) (12/05/2025)
 
 ### Updated Dependencies
