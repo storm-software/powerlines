@@ -69,23 +69,23 @@ catalog:
   "@rollup/plugin-replace": ^6.0.3
   "@rspack/core": ^1.6.6
   "@standard-schema/spec": ^1.0.0
-  "@storm-software/build-tools": ^0.158.50
-  "@storm-software/config": ^1.134.50
-  "@storm-software/config-tools": ^1.188.50
-  "@storm-software/cspell": ^0.45.50
-  "@storm-software/esbuild": ^0.53.50
-  "@storm-software/eslint": ^0.169.50
-  "@storm-software/git-tools": ^2.124.33
-  "@storm-software/linting-tools": ^1.132.50
-  "@storm-software/markdownlint": ^0.30.50
-  "@storm-software/pnpm-tools": ^0.6.50
-  "@storm-software/prettier": ^0.57.50
-  "@storm-software/testing-tools": ^1.119.50
-  "@storm-software/tsconfig": ^0.47.50
-  "@storm-software/tsup": ^0.2.48
-  "@storm-software/unbuild": ^0.57.50
-  "@storm-software/untyped": ^0.24.31
-  "@storm-software/workspace-tools": ^1.293.20
+  "@storm-software/build-tools": ^0.158.52
+  "@storm-software/config": ^1.134.52
+  "@storm-software/config-tools": ^1.188.52
+  "@storm-software/cspell": ^0.45.51
+  "@storm-software/esbuild": ^0.53.51
+  "@storm-software/eslint": ^0.169.51
+  "@storm-software/git-tools": ^2.124.34
+  "@storm-software/linting-tools": ^1.132.51
+  "@storm-software/markdownlint": ^0.30.51
+  "@storm-software/pnpm-tools": ^0.6.52
+  "@storm-software/prettier": ^0.57.51
+  "@storm-software/testing-tools": ^1.119.52
+  "@storm-software/tsconfig": ^0.47.51
+  "@storm-software/tsup": ^0.2.50
+  "@storm-software/unbuild": ^0.57.52
+  "@storm-software/untyped": ^0.24.32
+  "@storm-software/workspace-tools": ^1.293.21
   "@stryke/capnp": ^0.12.33
   "@stryke/cli": ^0.12.19
   "@stryke/convert": ^0.6.13
@@ -162,11 +162,12 @@ catalog:
   pluralize: ^8.0.0
   prettier: ^3.7.4
   rimraf: ^6.1.2
-  rolldown: ^1.0.0-beta.51
+  rolldown: 1.0.0-beta.53
   rolldown-vite: ^7.2.10
   rollup: ^4.53.3
   rollup-plugin-typescript2: ^0.36.0
   satori: ^0.18.3
+  sharp: ^0.34.5
   sherif: ^1.9.0
   style-dictionary: ^5.1.1
   stylelint: ^16.26.1
@@ -254,6 +255,7 @@ overrides:
   "@powerlines/plugin-rollup": workspace:*
   "@powerlines/plugin-rspack": workspace:*
   "@powerlines/plugin-satori": workspace:*
+  "@powerlines/plugin-sharp": workspace:*
   "@powerlines/plugin-style-dictionary": workspace:*
   "@powerlines/plugin-stylelint": workspace:*
   "@powerlines/plugin-swc": workspace:*
