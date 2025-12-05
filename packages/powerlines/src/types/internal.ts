@@ -20,6 +20,7 @@
 
 import { CallHookOptions } from "../internal/helpers/hooks";
 import { API } from "./api";
+import { PluginConfig } from "./config";
 import {
   APIContext,
   Context,
@@ -37,7 +38,23 @@ import { ResolvedConfig } from "./resolved";
 export interface UNSAFE_ContextInternal<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > {
+  /**
+   * The API instance for interacting with Powerlines
+   *
+   * @internal
+   */
   api: API<TResolvedConfig>;
+
+  /**
+   * Add a Powerlines plugin used in the build process
+   *
+   * @internal
+   *
+   * @param config - The import path of the plugin to add
+   */
+  addPlugin: (
+    config: PluginConfig<PluginContext<TResolvedConfig>>
+  ) => Promise<void>;
 }
 
 /**

@@ -391,7 +391,7 @@ export interface Plugin<
    */
   applyToEnvironment?: (
     environment: EnvironmentResolvedConfig
-  ) => MaybePromise<boolean | Plugin<TContext>>;
+  ) => MaybePromise<boolean | PluginConfig<any>>;
 }
 
 export const PLUGIN_NON_HOOK_FIELDS = [

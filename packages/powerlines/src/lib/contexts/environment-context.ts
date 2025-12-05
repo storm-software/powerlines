@@ -25,6 +25,7 @@ import {
   getHookHandler,
   isHookExternal,
   isPlugin,
+  isPluginConfig,
   isPluginHook
 } from "../../plugin-utils/helpers";
 import { WorkspaceConfig } from "../../types/config";
@@ -107,12 +108,17 @@ export class PowerlinesEnvironmentContext<
 
   public async addPlugin(plugin: Plugin<PluginContext<TResolvedConfig>>) {
     let resolvedPlugin = plugin;
-    if (plugin.applyToEnvironment) {
+    if (isFunction(plugin.applyToEnvironment)) {
       const result = await Promise.resolve(
         plugin.applyToEnvironment(this.environment)
       );
+
       if (!result || (isObject(result) && Object.keys(result).length === 0)) {
         return;
+      }
+
+      if (isPluginConfig(result)) {
+        return this.$$internal.addPlugin(result);
       }
 
       resolvedPlugin = isPlugin<TResolvedConfig>(result) ? result : plugin;
