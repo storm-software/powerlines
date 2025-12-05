@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Marked
 
+## [0.1.16](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.16) (12/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update the footer banner in `README.md` files
+  ([4770e816](https://github.com/storm-software/powerlines/commit/4770e816))
+- **monorepo:** Remove all the duplicate banners from `CHANGELOG.md` files
+  ([65df7ce4](https://github.com/storm-software/powerlines/commit/65df7ce4))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.4**
+- Updated **powerlines** to **v0.30.3**
+- Updated **nx** to **v0.10.52**
+
 ## [0.1.15](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.15) (12/05/2025)
 
 ### Updated Dependencies
@@ -17,7 +32,6 @@
 - Updated **plugin-plugin** to **v0.12.2**
 - Updated **powerlines** to **v0.30.1**
 - Updated **nx** to **v0.10.50**
-
 
 ## [0.1.13](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.13) (12/04/2025)
 
@@ -35,7 +49,6 @@
 - Updated **plugin-plugin** to **v0.12.1**
 - Updated **powerlines** to **v0.30.0**
 - Updated **nx** to **v0.10.49**
-
 
 ## [0.1.12](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.12) (12/04/2025)
 

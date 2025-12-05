@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.8.56](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.56) (12/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update the footer banner in `README.md` files
+  ([4770e816](https://github.com/storm-software/powerlines/commit/4770e816))
+- **monorepo:** Remove all the duplicate banners from `CHANGELOG.md` files
+  ([65df7ce4](https://github.com/storm-software/powerlines/commit/65df7ce4))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.4**
+- Updated **powerlines** to **v0.30.3**
+- Updated **nx** to **v0.10.52**
+
 ## [0.8.55](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.55) (12/05/2025)
 
 ### Updated Dependencies
@@ -34,7 +49,6 @@
 - Updated **plugin-plugin** to **v0.12.1**
 - Updated **powerlines** to **v0.30.0**
 - Updated **nx** to **v0.10.49**
-
 
 ## [0.8.52](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.52) (12/04/2025)
 

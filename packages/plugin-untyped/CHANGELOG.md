@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Untyped
 
+## [0.2.2](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.2) (12/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update the footer banner in `README.md` files
+  ([4770e816](https://github.com/storm-software/powerlines/commit/4770e816))
+- **monorepo:** Remove all the duplicate banners from `CHANGELOG.md` files
+  ([65df7ce4](https://github.com/storm-software/powerlines/commit/65df7ce4))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.4**
+- Updated **powerlines** to **v0.30.3**
+- Updated **nx** to **v0.10.52**
+
 ## [0.2.1](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.1) (12/05/2025)
 
 ### Updated Dependencies
@@ -23,7 +38,6 @@
 - Updated **powerlines** to **v0.30.1**
 - Updated **nx** to **v0.10.50**
 
-
 ## [0.1.49](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.1.49) (12/04/2025)
 
 ### Miscellaneous
@@ -40,7 +54,6 @@
 - Updated **plugin-plugin** to **v0.12.1**
 - Updated **powerlines** to **v0.30.0**
 - Updated **nx** to **v0.10.49**
-
 
 ## [0.1.48](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.1.48) (12/04/2025)
 

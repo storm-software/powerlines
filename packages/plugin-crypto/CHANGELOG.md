@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.26](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.26) (12/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update the footer banner in `README.md` files
+  ([4770e816](https://github.com/storm-software/powerlines/commit/4770e816))
+- **monorepo:** Remove all the duplicate banners from `CHANGELOG.md` files
+  ([65df7ce4](https://github.com/storm-software/powerlines/commit/65df7ce4))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.4**
+- Updated **plugin-env** to **v0.13.58**
+- Updated **powerlines** to **v0.30.3**
+- Updated **nx** to **v0.10.52**
+
 ## [0.10.25](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.25) (12/05/2025)
 
 ### Bug Fixes
@@ -25,7 +41,6 @@
 - Updated **powerlines** to **v0.30.1**
 - Updated **nx** to **v0.10.50**
 
-
 ## [0.10.23](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.23) (12/04/2025)
 
 ### Miscellaneous
@@ -43,7 +58,6 @@
 - Updated **plugin-env** to **v0.13.55**
 - Updated **powerlines** to **v0.30.0**
 - Updated **nx** to **v0.10.49**
-
 
 ## [0.10.22](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.22) (12/04/2025)
 

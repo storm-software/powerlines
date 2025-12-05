@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.13.58](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.58) (12/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update the footer banner in `README.md` files
+  ([4770e816](https://github.com/storm-software/powerlines/commit/4770e816))
+- **monorepo:** Remove all the duplicate banners from `CHANGELOG.md` files
+  ([65df7ce4](https://github.com/storm-software/powerlines/commit/65df7ce4))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.4**
+- Updated **plugin-babel** to **v0.12.61**
+- Updated **powerlines** to **v0.30.3**
+- Updated **deepkit** to **v0.4.57**
+- Updated **alloy** to **v0.11.61**
+- Updated **nx** to **v0.10.52**
+
 ## [0.13.57](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.57) (12/05/2025)
 
 ### Updated Dependencies
@@ -24,7 +42,6 @@
 - Updated **alloy** to **v0.11.59**
 - Updated **nx** to **v0.10.50**
 
-
 ## [0.13.55](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.55) (12/04/2025)
 
 ### Miscellaneous
@@ -44,7 +61,6 @@
 - Updated **deepkit** to **v0.4.54**
 - Updated **alloy** to **v0.11.58**
 - Updated **nx** to **v0.10.49**
-
 
 ## [0.13.54](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.54) (12/04/2025)
 

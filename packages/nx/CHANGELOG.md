@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.52](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.52) (12/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update the footer banner in `README.md` files
+  ([4770e816](https://github.com/storm-software/powerlines/commit/4770e816))
+- **monorepo:** Remove all the duplicate banners from `CHANGELOG.md` files
+  ([65df7ce4](https://github.com/storm-software/powerlines/commit/65df7ce4))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.30.3**
+
 ## [0.10.51](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.51) (12/05/2025)
 
 ### Updated Dependencies
@@ -13,7 +26,6 @@
 ### Updated Dependencies
 
 - Updated **powerlines** to **v0.30.1**
-
 
 ## [0.10.49](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.49) (12/04/2025)
 
@@ -29,7 +41,6 @@
 ### Updated Dependencies
 
 - Updated **powerlines** to **v0.30.0**
-
 
 ## [0.10.48](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.48) (12/04/2025)
 

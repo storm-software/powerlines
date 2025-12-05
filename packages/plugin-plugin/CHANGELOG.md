@@ -2,6 +2,27 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.4](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.4) (12/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update the footer banner in `README.md` files
+  ([4770e816](https://github.com/storm-software/powerlines/commit/4770e816))
+- **monorepo:** Remove all the duplicate banners from `CHANGELOG.md` files
+  ([65df7ce4](https://github.com/storm-software/powerlines/commit/65df7ce4))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with empty build output directory
+  ([f0fa5ca5](https://github.com/storm-software/powerlines/commit/f0fa5ca5))
+- **powerlines:** Resolve issue generating `.d.ts` files in `tsdown` build
+  ([29c1f9c7](https://github.com/storm-software/powerlines/commit/29c1f9c7))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.30.3**
+- Updated **nx** to **v0.10.52**
+
 ## [0.12.3](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.3) (12/05/2025)
 
 ### Bug Fixes
@@ -20,7 +41,6 @@
 
 - Updated **powerlines** to **v0.30.1**
 - Updated **nx** to **v0.10.50**
-
 
 ## [0.12.1](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.1) (12/04/2025)
 
@@ -42,7 +62,6 @@
 
 - Updated **powerlines** to **v0.30.0**
 - Updated **nx** to **v0.10.49**
-
 
 ## [0.12.0](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.0) (12/04/2025)
 

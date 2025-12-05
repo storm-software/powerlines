@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.60](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.60) (12/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update the footer banner in `README.md` files
+  ([4770e816](https://github.com/storm-software/powerlines/commit/4770e816))
+- **monorepo:** Remove all the duplicate banners from `CHANGELOG.md` files
+  ([65df7ce4](https://github.com/storm-software/powerlines/commit/65df7ce4))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.4**
+- Updated **powerlines** to **v0.30.3**
+- Updated **nx** to **v0.10.52**
+
 ## [0.2.59](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.59) (12/05/2025)
 
 ### Updated Dependencies
@@ -17,7 +32,6 @@
 - Updated **plugin-plugin** to **v0.12.2**
 - Updated **powerlines** to **v0.30.1**
 - Updated **nx** to **v0.10.50**
-
 
 ## [0.2.57](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.57) (12/04/2025)
 
@@ -35,7 +49,6 @@
 - Updated **plugin-plugin** to **v0.12.1**
 - Updated **powerlines** to **v0.30.0**
 - Updated **nx** to **v0.10.49**
-
 
 ## [0.2.56](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.56) (12/04/2025)
 

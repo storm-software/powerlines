@@ -1,5 +1,18 @@
 ![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark-optimized.gif)
 
+# Changelog for Powerlines - Tsconfig
+
+## [0.2.23](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.2.23) (12/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update the footer banner in `README.md` files
+  ([4770e816](https://github.com/storm-software/powerlines/commit/4770e816))
+- **monorepo:** Remove all the duplicate banners from `CHANGELOG.md` files
+  ([65df7ce4](https://github.com/storm-software/powerlines/commit/65df7ce4))
+
+![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark-optimized.gif)
+
 # Changelog for Powerlines - Plugin Tsconfig
 
 ## [0.2.20](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.2.20) (12/04/2025)

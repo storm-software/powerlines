@@ -2,14 +2,28 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.30.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.3) (12/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update the footer banner in `README.md` files
+  ([4770e816](https://github.com/storm-software/powerlines/commit/4770e816))
+- **monorepo:** Remove all the duplicate banners from `CHANGELOG.md` files
+  ([65df7ce4](https://github.com/storm-software/powerlines/commit/65df7ce4))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with empty build output directory
+  ([f0fa5ca5](https://github.com/storm-software/powerlines/commit/f0fa5ca5))
+- **powerlines:** Resolve issue generating `.d.ts` files in `tsdown` build
+  ([29c1f9c7](https://github.com/storm-software/powerlines/commit/29c1f9c7))
+
 ## [0.30.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.2) (12/05/2025)
 
 ### Bug Fixes
 
 - **powerlines:** Resolve options resolution issue in `tsdown` build
   ([4d852baf](https://github.com/storm-software/powerlines/commit/4d852baf))
-
-
 
 ## [0.30.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.0) (12/04/2025)
 
@@ -33,7 +47,6 @@
 
 - **powerlines:** Rename the `generateTypes` hook to `types`
   ([207c54b8](https://github.com/storm-software/powerlines/commit/207c54b8))
-
 
 ## [0.29.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.29.0) (12/04/2025)
 

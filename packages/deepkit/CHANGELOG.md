@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.4.57](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.57) (12/05/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update the footer banner in `README.md` files
+  ([4770e816](https://github.com/storm-software/powerlines/commit/4770e816))
+- **monorepo:** Remove all the duplicate banners from `CHANGELOG.md` files
+  ([65df7ce4](https://github.com/storm-software/powerlines/commit/65df7ce4))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.30.3**
+- Updated **nx** to **v0.10.52**
+
 ## [0.4.56](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.56) (12/05/2025)
 
 ### Updated Dependencies
@@ -15,7 +29,6 @@
 
 - Updated **powerlines** to **v0.30.1**
 - Updated **nx** to **v0.10.50**
-
 
 ## [0.4.54](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.54) (12/04/2025)
 
@@ -32,8 +45,6 @@
 
 - Updated **powerlines** to **v0.30.0**
 - Updated **nx** to **v0.10.49**
-
-
 
 ## [0.4.53](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.53) (12/04/2025)
 
