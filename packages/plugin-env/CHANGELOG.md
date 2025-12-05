@@ -24,9 +24,6 @@
 - Updated **alloy** to **v0.11.59**
 - Updated **nx** to **v0.10.50**
 
-![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
-
-# Changelog for Powerlines - Plugin Env
 
 ## [0.13.55](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.55) (12/04/2025)
 
@@ -48,9 +45,6 @@
 - Updated **alloy** to **v0.11.58**
 - Updated **nx** to **v0.10.49**
 
-![Storm Software's logo banner](https://public.storm-cdn.com/brand-banner.png)
-
-# Changelog for Powerlines - Plugin Env
 
 ## [0.13.54](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.54) (12/04/2025)
 

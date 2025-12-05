@@ -20,9 +20,6 @@
 - Updated **deepkit** to **v0.4.55**
 - Updated **nx** to **v0.10.50**
 
-![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
-
-# Changelog for Powerlines - Alloy
 
 ## [0.11.58](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.58) (12/04/2025)
 
@@ -42,9 +39,6 @@
 - Updated **deepkit** to **v0.4.54**
 - Updated **nx** to **v0.10.49**
 
-![Storm Software's logo banner](https://public.storm-cdn.com/brand-banner.png)
-
-# Changelog for Powerlines - Alloy
 
 ## [0.11.57](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.57) (12/04/2025)
 

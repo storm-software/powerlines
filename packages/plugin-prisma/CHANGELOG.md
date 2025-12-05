@@ -20,9 +20,6 @@
 - Updated **powerlines** to **v0.30.1**
 - Updated **nx** to **v0.10.50**
 
-![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
-
-# Changelog for Powerlines - Plugin Prisma
 
 ## [0.2.2](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.2) (12/04/2025)
 
@@ -42,9 +39,6 @@
 - Updated **powerlines** to **v0.30.0**
 - Updated **nx** to **v0.10.49**
 
-![Storm Software's logo banner](https://public.storm-cdn.com/brand-banner.png)
-
-# Changelog for Powerlines - Plugin Prisma
 
 ## [0.2.1](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.1) (12/04/2025)
 

@@ -18,9 +18,6 @@
 - Updated **powerlines** to **v0.30.1**
 - Updated **nx** to **v0.10.50**
 
-![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
-
-# Changelog for Powerlines - Plugin Rolldown
 
 ## [0.7.58](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.58) (12/04/2025)
 
@@ -39,9 +36,6 @@
 - Updated **powerlines** to **v0.30.0**
 - Updated **nx** to **v0.10.49**
 
-![Storm Software's logo banner](https://public.storm-cdn.com/brand-banner.png)
-
-# Changelog for Powerlines - Plugin Rolldown
 
 ## [0.7.57](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.57) (12/04/2025)
 

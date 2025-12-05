@@ -9,9 +9,7 @@
 - **powerlines:** Resolve options resolution issue in `tsdown` build
   ([4d852baf](https://github.com/storm-software/powerlines/commit/4d852baf))
 
-![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
 
-# Changelog for Powerlines - Powerlines
 
 ## [0.30.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.0) (12/04/2025)
 
@@ -36,9 +34,6 @@
 - **powerlines:** Rename the `generateTypes` hook to `types`
   ([207c54b8](https://github.com/storm-software/powerlines/commit/207c54b8))
 
-![Storm Software's logo banner](https://public.storm-cdn.com/brand-banner.png)
-
-# Changelog for Powerlines - Powerlines
 
 ## [0.29.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.29.0) (12/04/2025)
 

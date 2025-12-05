@@ -18,10 +18,6 @@
 - Updated **powerlines** to **v0.30.1**
 - Updated **nx** to **v0.10.50**
 
-![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
-
-# Changelog for Powerlines - Plugin Automd
-
 ## [0.1.49](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.49) (12/04/2025)
 
 ### Miscellaneous
@@ -39,9 +35,6 @@
 - Updated **powerlines** to **v0.30.0**
 - Updated **nx** to **v0.10.49**
 
-![Storm Software's logo banner](https://public.storm-cdn.com/brand-banner.png)
-
-# Changelog for Powerlines - Plugin Automd
 
 ## [0.1.48](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.48) (12/04/2025)
 

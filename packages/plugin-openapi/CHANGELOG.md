@@ -18,9 +18,6 @@
 - Updated **powerlines** to **v0.30.1**
 - Updated **nx** to **v0.10.50**
 
-![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
-
-# Changelog for Powerlines - Plugin Openapi
 
 ## [0.2.53](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.53) (12/04/2025)
 
@@ -39,9 +36,7 @@
 - Updated **powerlines** to **v0.30.0**
 - Updated **nx** to **v0.10.49**
 
-![Storm Software's logo banner](https://public.storm-cdn.com/brand-banner.png)
 
-# Changelog for Powerlines - Plugin Openapi
 
 ## [0.2.52](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.52) (12/04/2025)
 
