@@ -57,7 +57,7 @@ Storm Software's **🔌 Powerlines** is a "framework framework" that simplifies 
   - [Running End-to-End Tests](#running-end-to-end-tests)
   - [Understand your workspace](#understand-your-workspace)
 - [☁ Nx Cloud](#-nx-cloud)
-  - [Distributed Computation Caching & Distributed Task Execution](#distributed-computation-caching--distributed-task-execution)
+  - [Distributed Computation Caching \& Distributed Task Execution](#distributed-computation-caching--distributed-task-execution)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [Support](#support)
@@ -341,7 +341,11 @@ specification. Contributions of any kind welcome!
 <br />
 
 <div align="center">
-<img src="https://public.storm-cdn.com/brand-banner.png" width="100%" alt="Storm Software" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://public.storm-cdn.com/storm-software/banner-1280x320-dark-optimized.webp">
+  <source media="(prefers-color-scheme: light)" srcset="https://public.storm-cdn.com/storm-software/banner-1280x320-light-optimized.webp">
+<img src="https://public.storm-cdn.com/storm-software/banner-1280x320-dark-optimized.webp" width="100%" alt="Storm Software" />
+</picture>
 </div>
 <br />
 
