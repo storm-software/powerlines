@@ -1,3 +1,35 @@
+![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
+
+# Changelog for Powerlines - Plugin React
+
+## [0.1.49](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.49) (12/04/2025)
+
+### Miscellaneous
+
+- **monorepo:** Clean up `README.md` files
+  ([2f03731b](https://github.com/storm-software/powerlines/commit/2f03731b))
+- **monorepo:** Update README banners to include dark/light mode options
+  ([c22e58d7](https://github.com/storm-software/powerlines/commit/c22e58d7))
+- **plugin-react:** Enable dts build configuration
+  ([12c8bcc0](https://github.com/storm-software/powerlines/commit/12c8bcc0))
+- **monorepo:** Update banner in `README.md` files
+  ([27e212f5](https://github.com/storm-software/powerlines/commit/27e212f5))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `dts` options provided to `tsdown` build
+  ([4adf62be](https://github.com/storm-software/powerlines/commit/4adf62be))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.1**
+- Updated **plugin-babel** to **v0.12.58**
+- Updated **plugin-env** to **v0.13.55**
+- Updated **powerlines** to **v0.30.0**
+- Updated **deepkit** to **v0.4.54**
+- Updated **alloy** to **v0.11.58**
+- Updated **nx** to **v0.10.49**
+
 ![Storm Software's logo banner](https://public.storm-cdn.com/brand-banner.png)
 
 # Changelog for Powerlines - Plugin React

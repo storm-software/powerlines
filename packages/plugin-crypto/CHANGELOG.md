@@ -1,3 +1,25 @@
+![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
+
+# Changelog for Powerlines - Plugin Crypto
+
+## [0.10.23](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.23) (12/04/2025)
+
+### Miscellaneous
+
+- **monorepo:** Clean up `README.md` files
+  ([2f03731b](https://github.com/storm-software/powerlines/commit/2f03731b))
+- **monorepo:** Update README banners to include dark/light mode options
+  ([c22e58d7](https://github.com/storm-software/powerlines/commit/c22e58d7))
+- **monorepo:** Update banner in `README.md` files
+  ([27e212f5](https://github.com/storm-software/powerlines/commit/27e212f5))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.1**
+- Updated **plugin-env** to **v0.13.55**
+- Updated **powerlines** to **v0.30.0**
+- Updated **nx** to **v0.10.49**
+
 ![Storm Software's logo banner](https://public.storm-cdn.com/brand-banner.png)
 
 # Changelog for Powerlines - Plugin Crypto

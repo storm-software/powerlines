@@ -1,3 +1,30 @@
+![Storm Software's logo banner](https://public.storm-cdn.com/storm-software/banner-1280x320-optimized.gif)
+
+# Changelog for Powerlines - Powerlines
+
+## [0.30.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.0) (12/04/2025)
+
+### Miscellaneous
+
+- **monorepo:** Clean up `README.md` files
+  ([2f03731b](https://github.com/storm-software/powerlines/commit/2f03731b))
+- **monorepo:** Update README banners to include dark/light mode options
+  ([c22e58d7](https://github.com/storm-software/powerlines/commit/c22e58d7))
+- **monorepo:** Update banner in `README.md` files
+  ([27e212f5](https://github.com/storm-software/powerlines/commit/27e212f5))
+- **powerlines:** Ensure empty messages are not logged by `rolldown`
+  ([4b1bfaf9](https://github.com/storm-software/powerlines/commit/4b1bfaf9))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `dts` options provided to `tsdown` build
+  ([4adf62be](https://github.com/storm-software/powerlines/commit/4adf62be))
+
+### Features
+
+- **powerlines:** Rename the `generateTypes` hook to `types`
+  ([207c54b8](https://github.com/storm-software/powerlines/commit/207c54b8))
+
 ![Storm Software's logo banner](https://public.storm-cdn.com/brand-banner.png)
 
 # Changelog for Powerlines - Powerlines
