@@ -17,7 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { addVitePlugin, addWebpackPlugin, defineNuxtModule } from "@nuxt/kit";
-import "@nuxt/schema";
+import { name, version } from "../package.json";
+import { UserConfig } from "./types";
 import PowerlinesVite from "./vite";
 import PowerlinesWebpack from "./webpack";
 
@@ -42,13 +43,19 @@ import PowerlinesWebpack from "./webpack";
  *
  * ```
  */
-export const nuxt = defineNuxtModule({
+export const nuxt = defineNuxtModule<UserConfig>({
   meta: {
-    name: "powerlines",
-    configKey: "powerlines"
+    name,
+    version,
+    configKey: "powerlines",
+    compatibility: {
+      builder: {
+        vite: "^6.0.0"
+      }
+    }
   },
   defaults: {},
-  setup(options, _nuxt) {
+  setup(options) {
     addVitePlugin(() => PowerlinesVite(options));
     addWebpackPlugin(() => PowerlinesWebpack(options));
   }

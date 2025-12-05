@@ -56,7 +56,7 @@ try {
   }
 
   proc =
-    $`pnpm nx run powerlines:build:${configuration} --outputStyle=dynamic-legacy --parallel=3`.timeout(
+    $`pnpm nx run powerlines:build:${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
       `${3 * 60}s`
     );
   proc.stdout.on("data", data => {
@@ -70,7 +70,7 @@ try {
   }
 
   proc =
-    $`pnpm nx run nx:build:${configuration} --outputStyle=dynamic-legacy --parallel=3`.timeout(
+    $`pnpm nx run nx:build:${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
       `${5 * 60}s`
     );
   proc.stdout.on("data", data => {
@@ -95,21 +95,21 @@ try {
   }
 
   if (filter === "plugin" || filter === "cli" || filter === "all") {
-    proc =
-      $`pnpm nx run-many --target=build --projects="plugin-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=3`.timeout(
-        `${8 * 60}s`
-      );
-    proc.stdout.on("data", data => {
-      echo`${data}`;
-    });
-    result = await proc;
-    if (!result.ok) {
-      throw new Error(
-        `An error occurred while building the monorepo's plugins and presets in ${configuration} mode: \n\n${result.message}\n`
-      );
-    }
-
-    if (filter === "cli" || filter === "all") {
+    if (filter === "plugin") {
+      proc =
+        $`pnpm nx run-many --target=build --projects="plugin-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+          `${8 * 60}s`
+        );
+      proc.stdout.on("data", data => {
+        echo`${data}`;
+      });
+      result = await proc;
+      if (!result.ok) {
+        throw new Error(
+          `An error occurred while building the monorepo's plugins and presets in ${configuration} mode: \n\n${result.message}\n`
+        );
+      }
+    } else if (filter === "cli" || filter === "all") {
       //   proc =
       //     $`pnpm nx run cli:build:${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
       //       `${10 * 60}s`
@@ -140,7 +140,7 @@ try {
         // }
 
         proc =
-          $`pnpm nx run-many --target=build --exclude="@powerlines/monorepo,examples-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=3`.timeout(
+          $`pnpm nx run-many --target=build --exclude="@powerlines/monorepo,examples-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
             `${10 * 60}s`
           );
         proc.stdout.on("data", data => {

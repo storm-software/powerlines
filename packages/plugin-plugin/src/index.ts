@@ -64,8 +64,9 @@ export const plugin = <
         },
         build: {
           variant: "tsdown",
-          skipNodeModulesBundle: true,
-          platform: "node"
+          platform: "node",
+          unbundle: false,
+          skipNodeModulesBundle: true
         }
       };
     },

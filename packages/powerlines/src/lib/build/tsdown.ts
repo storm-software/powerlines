@@ -21,7 +21,6 @@ import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
 import { omit } from "@stryke/helpers/omit";
 import { appendPath } from "@stryke/path/append";
-import { replacePath } from "@stryke/path/replace";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import defu from "defu";
 import { Format as TsdownFormat } from "tsdown";
@@ -36,19 +35,12 @@ import { Context } from "../../types/context";
 export const DEFAULT_TSDOWN_CONFIG: Partial<TsdownResolvedBuildConfig> = {
   platform: "neutral",
   target: "esnext",
-  minify: true,
-  sourcemap: false,
   cjsDefault: true,
   unbundle: true,
-  dts: {
-    parallel: true,
-    newContext: true
-  },
   shims: true,
-  silent: true,
-  treeshake: true,
   fixedExtension: true,
-  nodeProtocol: false
+  nodeProtocol: true,
+  clean: false
 } as const;
 
 /**
@@ -68,7 +60,7 @@ export function resolveTsdownFormat(
         return "iife";
       case "esm":
       default:
-        return "es";
+        return "esm";
     }
   });
 }
@@ -154,6 +146,8 @@ export function extractTsdownConfig(
         context.workspaceConfig.workspaceRoot
       ),
       dts: {
+        parallel: true,
+        newContext: true,
         cwd: appendPath(
           context.config.projectRoot,
           context.workspaceConfig.workspaceRoot
@@ -162,17 +156,11 @@ export function extractTsdownConfig(
           context.tsconfig.tsconfigFilePath,
           context.workspaceConfig.workspaceRoot
         ),
-        emitDtsOnly: true
+        sourcemap: context.config.mode === "development"
       },
-      outDir: replacePath(
-        appendPath(
-          context.config.output.buildPath,
-          context.workspaceConfig.workspaceRoot
-        ),
-        appendPath(
-          context.config.projectRoot,
-          context.workspaceConfig.workspaceRoot
-        )
+      outDir: appendPath(
+        context.config.output.buildPath,
+        context.workspaceConfig.workspaceRoot
       ),
       tsconfig: appendPath(
         context.tsconfig.tsconfigFilePath,
@@ -188,7 +176,7 @@ export function extractTsdownConfig(
             : context.config.build.variant === "esbuild"
               ? (context.config.build as ESBuildBuildConfig)?.treeShaking
               : undefined,
-      minify: context.config.mode !== "development",
+      minify: context.config.mode === "production",
       metafile: context.config.mode === "development",
       sourcemap: context.config.mode === "development",
       debug: context.config.mode === "development",

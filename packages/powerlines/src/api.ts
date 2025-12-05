@@ -342,7 +342,7 @@ export class PowerlinesAPI<
           "Parsing TypeScript configuration for the Powerlines project."
         );
 
-        let generatedTypes = await emitTypes(context, files);
+        let types = await emitTypes(context, files);
 
         context.log(
           LogLevelLabel.TRACE,
@@ -363,11 +363,11 @@ export class PowerlinesAPI<
             result: "merge",
             asNextParam
           },
-          generatedTypes
+          types
         );
         if (result) {
           if (isSetObject(result)) {
-            generatedTypes = result.code;
+            types = result.code;
             if (
               Array.isArray(result.directives) &&
               result.directives.length > 0
@@ -375,7 +375,7 @@ export class PowerlinesAPI<
               directives.push(...result.directives);
             }
           } else if (isSetString(result)) {
-            generatedTypes = result;
+            types = result;
           }
         }
 
@@ -388,11 +388,11 @@ export class PowerlinesAPI<
             result: "merge",
             asNextParam
           },
-          generatedTypes
+          types
         );
         if (result) {
           if (isSetObject(result)) {
-            generatedTypes = result.code;
+            types = result.code;
             if (
               Array.isArray(result.directives) &&
               result.directives.length > 0
@@ -400,7 +400,7 @@ export class PowerlinesAPI<
               directives.push(...result.directives);
             }
           } else if (isSetString(result)) {
-            generatedTypes = result;
+            types = result;
           }
         }
 
@@ -413,11 +413,11 @@ export class PowerlinesAPI<
             result: "merge",
             asNextParam
           },
-          generatedTypes
+          types
         );
         if (result) {
           if (isSetObject(result)) {
-            generatedTypes = result.code;
+            types = result.code;
             if (
               Array.isArray(result.directives) &&
               result.directives.length > 0
@@ -425,11 +425,11 @@ export class PowerlinesAPI<
               directives.push(...result.directives);
             }
           } else if (isSetString(result)) {
-            generatedTypes = result;
+            types = result;
           }
         }
 
-        if (generatedTypes?.trim() || directives.length > 0) {
+        if (types?.trim() || directives.length > 0) {
           await context.fs.write(
             context.dtsPath,
             `${
@@ -440,7 +440,7 @@ export class PowerlinesAPI<
                 : ""
             }${getFileHeader(context, { directive: null, prettierIgnore: false })}
 
-${formatTypes(generatedTypes)}
+${formatTypes(types)}
 `
           );
         } else {
