@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.30.9](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.9) (12/06/2025)
+
+### Bug Fixes
+
+- **powerlines:** Update storage types to resolve type-check issue in bundled
+  code
+  ([3035a6d4](https://github.com/storm-software/powerlines/commit/3035a6d4))
+
 ## [0.30.8](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.8) (12/06/2025)
 
 ### Bug Fixes
