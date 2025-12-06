@@ -25,21 +25,10 @@
   "private": true,
   "packageManager": "pnpm@10.24.0",
   "engines": {
-    "runtime": {
-      "name": "node",
-      "version": "^24.11.1",
-      "onFail": "download"
-    },
+    "node": ">=24.11.1",
     "pnpm": ">=10.24.0"
   },
-  "keywords": [
-    "storm-software",
-    "storm",
-    "storm-ops",
-    "sullivanpj",
-    "typescript",
-    "monorepo"
-  ],
+  "keywords": ["storm-software", "storm", "storm-ops", "sullivanpj"],
   "scripts": {
     "adr": "pnpm log4brains adr new",
     "adr-preview": "pnpm log4brains preview",

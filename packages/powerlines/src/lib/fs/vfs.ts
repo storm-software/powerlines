@@ -59,7 +59,6 @@ import {
   ResolveOptions,
   StorageAdapter,
   StoragePort,
-  StoragePreset,
   VirtualFileMetadata,
   VirtualFileSystemInterface,
   WriteOptions
@@ -360,7 +359,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       base: "/_virtual"
     });
 
-    if (this.#context.config.output.storage !== StoragePreset.FS) {
+    if (this.#context.config.output.storage !== "fs") {
       this.#storage[this.#context.artifactsPath] ??= new VirtualStorageAdapter({
         base: this.#context.artifactsPath
       });

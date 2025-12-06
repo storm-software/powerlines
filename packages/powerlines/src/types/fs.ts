@@ -28,10 +28,7 @@ export const __VFS_PATCH__ = "__VFS_PATCH__";
 // eslint-disable-next-line ts/naming-convention
 export const __VFS_REVERT__ = "__VFS_REVERT__";
 
-export enum StoragePreset {
-  VIRTUAL = "virtual",
-  FS = "fs"
-}
+export type StoragePreset = "fs" | "virtual";
 
 /**
  * Interface defining the methods and properties for a storage adapter.
