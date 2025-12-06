@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.56](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.56) (12/06/2025)
+
+### Continuous Integration
+
+- **monorepo:** Update workflow actions to have consistent branch types
+  ([fe571840](https://github.com/storm-software/powerlines/commit/fe571840))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.30.7**
+
 ## [0.10.55](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.55) (12/05/2025)
 
 ### Updated Dependencies

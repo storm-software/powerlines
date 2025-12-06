@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-deepkit",
-  "version": "0.10.64",
+  "version": "0.10.65",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
