@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.30.8](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.8) (12/06/2025)
+
+### Bug Fixes
+
+- **powerlines:** Remove `MaybePromise` from `applyToEnvironment` to prevent
+  type error
+  ([ddc99a85](https://github.com/storm-software/powerlines/commit/ddc99a85))
+
 ## [0.30.6](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.6) (12/05/2025)
 
 ### Miscellaneous
