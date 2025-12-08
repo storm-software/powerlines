@@ -731,7 +731,7 @@
     "tsup": "catalog:",
     "tsdown": "catalog:",
     "typescript": "^5.9.3",
-    "undici-types": "^7.16.0"
+    "undici-types": "catalog:"
   },
   "publishConfig": {
     "access": "public"
