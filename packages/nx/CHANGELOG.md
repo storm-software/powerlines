@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.10.62](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.62) (12/08/2025)
+
+### Bug Fixes
+
+- **nx:** Resolve issue with missing assets in build output directory
+  ([9b6f8980](https://github.com/storm-software/powerlines/commit/9b6f8980))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.30.13**
+
 ## [0.10.61](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.61) (12/08/2025)
 
 ### Updated Dependencies
