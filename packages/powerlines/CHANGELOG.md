@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.30.10](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.10) (12/08/2025)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issues with `stryke` package dependencies
+  ([86e3e5f0](https://github.com/storm-software/powerlines/commit/86e3e5f0))
+
 ## [0.30.9](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.9) (12/06/2025)
 
 ### Bug Fixes

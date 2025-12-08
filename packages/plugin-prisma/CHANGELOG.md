@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.2.12](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.12) (12/08/2025)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issues with `stryke` package dependencies
+  ([86e3e5f0](https://github.com/storm-software/powerlines/commit/86e3e5f0))
+
+### Updated Dependencies
+
+- Updated **plugin-hey-api** to **v0.1.12**
+- Updated **plugin-plugin** to **v0.12.11**
+- Updated **powerlines** to **v0.30.10**
+- Updated **nx** to **v0.10.59**
+
 ## [0.2.11](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.11) (12/06/2025)
 
 ### Updated Dependencies

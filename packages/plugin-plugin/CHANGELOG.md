@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.11](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.11) (12/08/2025)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issues with `stryke` package dependencies
+  ([86e3e5f0](https://github.com/storm-software/powerlines/commit/86e3e5f0))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.30.10**
+- Updated **nx** to **v0.10.59**
+
 ## [0.12.10](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.10) (12/06/2025)
 
 ### Updated Dependencies

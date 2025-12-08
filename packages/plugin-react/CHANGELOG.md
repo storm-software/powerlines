@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.59](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.59) (12/08/2025)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issues with `stryke` package dependencies
+  ([86e3e5f0](https://github.com/storm-software/powerlines/commit/86e3e5f0))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.11**
+- Updated **plugin-babel** to **v0.12.68**
+- Updated **plugin-env** to **v0.13.65**
+- Updated **powerlines** to **v0.30.10**
+- Updated **deepkit** to **v0.4.64**
+- Updated **alloy** to **v0.11.68**
+- Updated **nx** to **v0.10.59**
+
 ## [0.1.58](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.58) (12/06/2025)
 
 ### Updated Dependencies
