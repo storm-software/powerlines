@@ -667,13 +667,12 @@ type AnyBuildConfig = Partial<
   | FarmUserConfig
 >;
 
-export type AnyUserConfig = Record<string, any> &
-  Partial<AnyBuildConfig> & {
-    output?: Partial<AnyBuildConfig["output"]>;
-    lint?: Partial<AnyBuildConfig["lint"]>;
-    transform?: Partial<AnyBuildConfig["transform"]>;
-    build?: Partial<AnyBuildConfig["build"]>;
-    test?: Partial<AnyBuildConfig["test"]>;
-    docs?: Partial<AnyBuildConfig["docs"]>;
-    deploy?: Partial<AnyBuildConfig["deploy"]>;
-  };
+export type AnyUserConfig = Partial<AnyBuildConfig> & {
+  output?: Partial<AnyBuildConfig["output"]>;
+  lint?: Partial<AnyBuildConfig["lint"]>;
+  transform?: Partial<AnyBuildConfig["transform"]>;
+  build?: Partial<AnyBuildConfig["build"]>;
+  test?: Partial<AnyBuildConfig["test"]>;
+  docs?: Partial<AnyBuildConfig["docs"]>;
+  deploy?: Partial<AnyBuildConfig["deploy"]>;
+} & Record<string, any>;
