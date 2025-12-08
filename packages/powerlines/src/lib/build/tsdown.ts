@@ -119,7 +119,7 @@ export function extractTsdownConfig(
                 return typeDef?.file;
               })
               .filter(Boolean) as string[])
-          : ["src/**.ts", "src/**/*.tsx"],
+          : ["src/**/*.ts", "src/**/*.tsx"],
       alias: context.builtins.reduce(
         (ret, id) => {
           const path = context.fs.ids[id];

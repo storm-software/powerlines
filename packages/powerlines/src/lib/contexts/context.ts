@@ -215,10 +215,12 @@ export class PowerlinesContext<
     );
     await context.withUserConfig(config);
 
-    context.powerlinesPath = await resolvePackage("powerlines");
-    if (!context.powerlinesPath) {
+    const powerlinesPath = await resolvePackage("powerlines");
+    if (!powerlinesPath) {
       throw new Error("Could not resolve `powerlines` package location.");
     }
+
+    context.powerlinesPath = powerlinesPath;
 
     return context;
   }

@@ -65,7 +65,10 @@ export const plugin = <
         build: {
           variant: "tsdown",
           platform: "node",
-          unbundle: false,
+          unbundle: true,
+          export: {
+            all: true
+          },
           skipNodeModulesBundle: true
         }
       };
