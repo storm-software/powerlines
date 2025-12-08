@@ -40,7 +40,8 @@
           "pnpm copyfiles --up=3 \"packages/nx/src/base/*.schema.json\" \"packages/nx/src/base/*.schema.d.ts\" dist/packages/nx/dist/src",
           "pnpm copyfiles --up=3 \"packages/nx/dist/**/*\" dist/packages/nx/dist",
           "pnpm copyfiles --up=4 \"packages/nx/src/**/*.md\" dist/packages/nx/docs/api"
-        ]
+        ],
+        "parallel": false
       }
     },
     "nx-release-publish": {
