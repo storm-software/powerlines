@@ -69,23 +69,23 @@ catalog:
   '@rollup/plugin-replace': ^6.0.3
   '@rspack/core': ^1.6.6
   '@standard-schema/spec': ^1.0.0
-  '@storm-software/build-tools': ^0.158.60
-  '@storm-software/config': ^1.134.60
-  '@storm-software/config-tools': ^1.188.60
+  '@storm-software/build-tools': ^0.158.61
+  '@storm-software/config': ^1.134.61
+  '@storm-software/config-tools': ^1.188.61
   '@storm-software/cspell': ^0.45.60
-  '@storm-software/esbuild': ^0.53.60
-  '@storm-software/eslint': ^0.169.61
-  '@storm-software/git-tools': ^2.124.43
-  '@storm-software/linting-tools': ^1.132.60
+  '@storm-software/esbuild': ^0.53.61
+  '@storm-software/eslint': ^0.169.62
+  '@storm-software/git-tools': ^2.124.44
+  '@storm-software/linting-tools': ^1.132.61
   '@storm-software/markdownlint': ^0.30.60
-  '@storm-software/pnpm-tools': ^0.6.60
+  '@storm-software/pnpm-tools': ^0.6.61
   '@storm-software/prettier': ^0.57.60
   '@storm-software/testing-tools': ^1.119.60
   '@storm-software/tsconfig': ^0.47.60
-  '@storm-software/tsup': ^0.2.58
-  '@storm-software/unbuild': ^0.57.60
-  '@storm-software/untyped': ^0.24.41
-  '@storm-software/workspace-tools': ^1.294.4
+  '@storm-software/tsup': ^0.2.59
+  '@storm-software/unbuild': ^0.57.61
+  '@storm-software/untyped': ^0.24.42
+  '@storm-software/workspace-tools': ^1.294.5
   '@stryke/capnp': ^0.12.45
   '@stryke/cli': ^0.12.30
   '@stryke/convert': ^0.6.24
@@ -117,7 +117,7 @@ catalog:
   '@types/react-dom': ^19.2.3
   '@types/semver': ^7.7.1
   '@typescript-eslint/utils': ^8.48.1
-  '@vitejs/plugin-react': ^5.1.1
+  '@vitejs/plugin-react': ^5.1.2
   '@vue/reactivity': ^3.5.25
   automd: ^0.4.2
   babel-dead-code-elimination: ^1.0.10
@@ -157,7 +157,7 @@ catalog:
   openapi-typescript: ^7.10.1
   oxc-parser: ^0.99.0
   oxc-transform: ^0.99.0
-  oxlint: ^1.31.0
+  oxlint: ^1.32.0
   oxlint-tsgolint: ^0.2.1
   pluralize: ^8.0.0
   prettier: ^3.7.4
