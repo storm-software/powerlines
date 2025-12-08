@@ -2,6 +2,15 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.30.12](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.12) (12/08/2025)
+
+### Miscellaneous
+
+- **monorepo:** Ensure workspace packages have latest dependencies
+  ([8af58621](https://github.com/storm-software/powerlines/commit/8af58621))
+- **powerlines:** Increase strictness of Plugin typings
+  ([21584b83](https://github.com/storm-software/powerlines/commit/21584b83))
+
 ## [0.30.10](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.10) (12/08/2025)
 
 ### Bug Fixes

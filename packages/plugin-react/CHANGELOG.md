@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.61](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.61) (12/08/2025)
+
+### Bug Fixes
+
+- **plugin-react:** Remove strict from `tsconfig.json`
+  ([bb530296](https://github.com/storm-software/powerlines/commit/bb530296))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.13**
+- Updated **plugin-babel** to **v0.12.70**
+- Updated **plugin-env** to **v0.13.67**
+- Updated **powerlines** to **v0.30.12**
+- Updated **deepkit** to **v0.4.66**
+- Updated **alloy** to **v0.11.70**
+- Updated **nx** to **v0.10.61**
+
 ## [0.1.60](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.60) (12/08/2025)
 
 ### Bug Fixes
