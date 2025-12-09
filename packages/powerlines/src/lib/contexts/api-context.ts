@@ -23,7 +23,8 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import chalk from "chalk";
 import {
   createDefaultEnvironment,
-  createEnvironment
+  createEnvironment,
+  GLOBAL_ENVIRONMENT
 } from "../../internal/helpers/environment";
 import {
   InitialUserConfig,
@@ -308,6 +309,12 @@ export class PowerlinesAPIContext<
     return environment;
   }
 
+  /**
+   * A safe version of `getEnvironment` that returns `undefined` if the environment is not found
+   *
+   * @param name - The name of the environment to retrieve.
+   * @returns The requested environment context or `undefined` if not found.
+   */
   public async getEnvironmentSafe(
     name?: string
   ): Promise<EnvironmentContext<TResolvedConfig> | undefined> {
@@ -316,5 +323,31 @@ export class PowerlinesAPIContext<
     } catch {
       return undefined;
     }
+  }
+
+  /**
+   * A function to merge all configured environments into a single context.
+   *
+   * @remarks
+   * If only one environment is configured, that environment will be returned directly.
+   *
+   * @returns A promise that resolves to a merged/global environment context.
+   */
+  public async toEnvironment(): Promise<EnvironmentContext<TResolvedConfig>> {
+    let environment: EnvironmentContext<TResolvedConfig>;
+    if (Object.keys(this.environments).length > 1) {
+      environment = await this.in(
+        createEnvironment(GLOBAL_ENVIRONMENT, this.config.userConfig)
+      );
+
+      this.log(
+        LogLevelLabel.DEBUG,
+        `Combined all ${Object.keys(this.environments).length} environments into a single global context.`
+      );
+    } else {
+      environment = await this.getEnvironment();
+    }
+
+    return environment;
   }
 }

@@ -27,7 +27,10 @@ import type {
   OutputOptions as ExternalRollupOutputOptions
 } from "rollup";
 import type { UserConfig as ExternalTsdownOptions } from "tsdown";
-import type { UserConfig as ExternalViteUserConfig } from "vite";
+import type {
+  DepOptimizationOptions,
+  UserConfig as ExternalViteUserConfig
+} from "vite";
 import type { Configuration as ExternalWebpackOptions } from "webpack";
 
 export type UnpluginBuildVariant =
@@ -192,6 +195,13 @@ export interface BuildConfig {
   skipNodeModulesBundle?: boolean;
 
   /**
+   * If true, `process.env` referenced in code will be preserved as-is and evaluated in runtime. Otherwise, it is statically replaced as an empty object.
+   *
+   * @defaultValue false
+   */
+  keepProcessEnv?: boolean;
+
+  /**
    * An optional set of override options to apply to the selected build variant.
    *
    * @remarks
@@ -234,7 +244,12 @@ export type ViteBuildConfig = Omit<
   | "environments"
   | "output"
 > &
-  BuildConfig;
+  BuildConfig & {
+    /**
+     * Optimize deps config
+     */
+    optimizeDeps?: Omit<DepOptimizationOptions, "extensions">;
+  };
 export type ViteResolvedBuildConfig = ExternalViteUserConfig &
   BuildResolvedConfig;
 

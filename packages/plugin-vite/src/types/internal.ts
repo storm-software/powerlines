@@ -16,14 +16,14 @@
 
  ------------------------------------------------------------------- */
 
-import { ViteBuildConfig } from "powerlines/types/build";
-import { PluginContext } from "powerlines/types/context";
-import { ViteResolvedConfig } from "powerlines/types/resolved";
+import { UNSAFE_PluginContext } from "powerlines/types/internal";
+import { VitePluginResolvedConfig } from "./plugin";
 
-export type VitePluginOptions = Partial<ViteBuildConfig>;
-
-export type VitePluginResolvedConfig = ViteResolvedConfig;
-
-export type VitePluginContext<
+/**
+ * Internal fields and methods for internal Vite plugin contexts
+ *
+ * @internal
+ */
+export type UNSAFE_VitePluginContext<
   TResolvedConfig extends VitePluginResolvedConfig = VitePluginResolvedConfig
-> = PluginContext<TResolvedConfig>;
+> = UNSAFE_PluginContext<TResolvedConfig>;

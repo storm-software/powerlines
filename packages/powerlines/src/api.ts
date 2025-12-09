@@ -680,83 +680,13 @@ ${formatTypes(types)}
     // }
 
     await this.prepare(inlineConfig);
-    await this.#executeEnvironments(async context => {
-      await this.callHook("build", {
-        environment: context,
-        order: "pre"
+    if (this.context.config.singleBuild) {
+      await this.#handleBuild(await this.#context.toEnvironment());
+    } else {
+      await this.#executeEnvironments(async context => {
+        await this.#handleBuild(context);
       });
-      await this.callHook("build", {
-        environment: context,
-        order: "normal"
-      });
-
-      if (
-        context.config.output.buildPath !== context.config.output.outputPath
-      ) {
-        const sourcePath = appendPath(
-          context.config.output.buildPath,
-          context.workspaceConfig.workspaceRoot
-        );
-        const destinationPath = joinPaths(
-          appendPath(
-            context.config.output.outputPath,
-            context.workspaceConfig.workspaceRoot
-          ),
-          "dist"
-        );
-
-        if (sourcePath !== destinationPath) {
-          context.log(
-            LogLevelLabel.INFO,
-            `Copying build output files from project's build directory (${
-              context.config.output.buildPath
-            }) to the workspace's output directory (${context.config.output.outputPath}).`
-          );
-
-          await context.fs.copy(sourcePath, destinationPath);
-        }
-      }
-
-      await Promise.all(
-        context.config.output.assets.map(async asset => {
-          context.log(
-            LogLevelLabel.DEBUG,
-            `Copying asset(s): ${chalk.redBright(
-              context.workspaceConfig.workspaceRoot === asset.input
-                ? asset.glob
-                : joinPaths(
-                    replacePath(
-                      asset.input,
-                      context.workspaceConfig.workspaceRoot
-                    ),
-                    asset.glob
-                  )
-            )} -> ${chalk.greenBright(
-              joinPaths(
-                replacePath(
-                  asset.output,
-                  context.workspaceConfig.workspaceRoot
-                ),
-                asset.glob
-              )
-            )} ${
-              Array.isArray(asset.ignore) && asset.ignore.length > 0
-                ? ` (ignoring: ${asset.ignore
-                    .map(i => chalk.yellowBright(i))
-                    .join(", ")})`
-                : ""
-            }`
-          );
-
-          await context.fs.copy(asset, asset.output);
-        })
-      );
-
-      await this.callHook("build", {
-        environment: context,
-        order: "post"
-      });
-    });
+    }
 
     this.context.log(LogLevelLabel.TRACE, "Powerlines build completed");
   }
@@ -876,6 +806,79 @@ ${formatTypes(types)}
    */
   public async [Symbol.asyncDispose]() {
     await this.finalize();
+  }
+
+  async #handleBuild(context: EnvironmentContext<TResolvedConfig>) {
+    await this.callHook("build", {
+      environment: context,
+      order: "pre"
+    });
+    await this.callHook("build", {
+      environment: context,
+      order: "normal"
+    });
+
+    if (context.config.output.buildPath !== context.config.output.outputPath) {
+      const sourcePath = appendPath(
+        context.config.output.buildPath,
+        context.workspaceConfig.workspaceRoot
+      );
+      const destinationPath = joinPaths(
+        appendPath(
+          context.config.output.outputPath,
+          context.workspaceConfig.workspaceRoot
+        ),
+        "dist"
+      );
+
+      if (sourcePath !== destinationPath) {
+        context.log(
+          LogLevelLabel.INFO,
+          `Copying build output files from project's build directory (${
+            context.config.output.buildPath
+          }) to the workspace's output directory (${context.config.output.outputPath}).`
+        );
+
+        await context.fs.copy(sourcePath, destinationPath);
+      }
+    }
+
+    await Promise.all(
+      context.config.output.assets.map(async asset => {
+        context.log(
+          LogLevelLabel.DEBUG,
+          `Copying asset(s): ${chalk.redBright(
+            context.workspaceConfig.workspaceRoot === asset.input
+              ? asset.glob
+              : joinPaths(
+                  replacePath(
+                    asset.input,
+                    context.workspaceConfig.workspaceRoot
+                  ),
+                  asset.glob
+                )
+          )} -> ${chalk.greenBright(
+            joinPaths(
+              replacePath(asset.output, context.workspaceConfig.workspaceRoot),
+              asset.glob
+            )
+          )} ${
+            Array.isArray(asset.ignore) && asset.ignore.length > 0
+              ? ` (ignoring: ${asset.ignore
+                  .map(i => chalk.yellowBright(i))
+                  .join(", ")})`
+              : ""
+          }`
+        );
+
+        await context.fs.copy(asset, asset.output);
+      })
+    );
+
+    await this.callHook("build", {
+      environment: context,
+      order: "post"
+    });
   }
 
   /**

@@ -69,6 +69,7 @@ export const vite = createVitePlugin(
         },
         async configResolved(_config) {
           const environment = await api.context.getEnvironment();
+
           await api.callHook("configResolved", { environment });
         },
         async configureServer(server) {

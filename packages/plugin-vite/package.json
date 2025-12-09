@@ -144,18 +144,6 @@
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
   "keywords": ["vite", "powerlines", "storm-software", "powerlines-plugin"],
-  "peerDependencies": {
-    "vite": "^7.1.0",
-    "rolldown-vite": "^7.1.0"
-  },
-  "peerDependenciesMeta": {
-    "vite": {
-      "optional": true
-    },
-    "rolldown-vite": {
-      "optional": true
-    }
-  },
   "dependencies": {
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
@@ -163,11 +151,11 @@
     "@stryke/types": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
+    "vite": "catalog:",
     "powerlines": "workspace:*"
   },
   "devDependencies": {
     "vite": "catalog:",
-    "rolldown-vite": "catalog:",
     "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"

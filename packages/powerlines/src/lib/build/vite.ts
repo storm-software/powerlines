@@ -78,12 +78,37 @@ export function extractViteConfig(context: Context): ViteResolvedBuildConfig {
       }
     },
     context.config.build.variant === "vite"
-      ? context.config.build.override
+      ? defu(
+          context.config.build.override ?? {},
+          {
+            optimizeDeps:
+              (context.config.build.override as ViteResolvedBuildConfig)
+                ?.optimizeDeps ?? {}
+          },
+          {
+            optimizeDeps: {
+              extensions: context.config.build.override?.extensions
+            }
+          }
+        )
       : {},
     context.config.build.variant === "vite"
-      ? omit(context.config.build, ["override", "variant"])
+      ? defu(
+          omit(context.config.build, ["override", "variant"]),
+          {
+            optimizeDeps:
+              (context.config.build as ViteResolvedBuildConfig)?.optimizeDeps ??
+              {}
+          },
+          {
+            optimizeDeps: {
+              extensions: context.config.build.extensions
+            }
+          }
+        )
       : {},
     {
+      keepProcessEnv: context.config.build.keepProcessEnv,
       define: context.config.build.define,
       rootDir: context.config.sourceRoot,
       platform: context.config.build.platform,

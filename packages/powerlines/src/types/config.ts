@@ -430,6 +430,19 @@ export interface CommonUserConfig extends BaseConfig {
   environments?: Record<string, EnvironmentConfig>;
 
   /**
+   * Should a single `build` process be ran for each environment?
+   *
+   * @remarks
+   * This option determines how environments are managed during the `build` process. The available options are:
+   *
+   * - `false`: A separate build is ran for each environment.
+   * - `true`: A single build is ran for all environments.
+   *
+   * @defaultValue false
+   */
+  singleBuild?: boolean;
+
+  /**
    * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
    *
    * @remarks

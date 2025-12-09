@@ -571,6 +571,13 @@ export interface APIContext<
   in: (
     environment: EnvironmentResolvedConfig
   ) => Promise<EnvironmentContext<TResolvedConfig>>;
+
+  /**
+   * A function to merge all configured environments into a single context
+   *
+   * @returns A promise that resolves to the merged environment context.
+   */
+  toEnvironment: () => Promise<EnvironmentContext<TResolvedConfig>>;
 }
 
 export interface EnvironmentContextPlugin<

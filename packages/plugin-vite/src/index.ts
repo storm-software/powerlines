@@ -17,8 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { isPackageExists } from "@stryke/fs/package-fns";
-import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
 import {
   DEFAULT_VITE_CONFIG,
@@ -26,8 +24,9 @@ import {
 } from "powerlines/lib/build/vite";
 import { ViteUserConfig } from "powerlines/types/config";
 import { Plugin } from "powerlines/types/plugin";
-import { InlineConfig } from "rolldown-vite";
+import { build, InlineConfig } from "vite";
 import { createVitePlugin } from "./helpers/unplugin";
+import { UNSAFE_VitePluginContext } from "./types/internal";
 import { VitePluginContext, VitePluginOptions } from "./types/plugin";
 
 export * from "./helpers";
@@ -55,16 +54,36 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
           ...DEFAULT_VITE_CONFIG,
           ...options,
           variant: "vite"
-        }
+        },
+        singleBuild: true
       } as Partial<ViteUserConfig>;
     },
     async build() {
       this.log(LogLevelLabel.TRACE, `Building the Powerlines plugin.`);
 
+      const environments = (this as unknown as UNSAFE_VitePluginContext)
+        ?.$$internal?.api?.context?.environments;
+      if (!environments || Object.keys(environments).length === 0) {
+        throw new Error(
+          `No environments found in the Powerlines context. At least one environment should have been generated - please report this issue to https://github.com/storm-software/powerlines/issues.`
+        );
+      }
+
+      this.log(
+        LogLevelLabel.TRACE,
+        `Running Vite for ${Object.keys(environments).length} environments.`
+      );
+
       const config = defu(
         {
           config: false,
-          entry: this.entry
+          entry: this.entry,
+          environments: Object.fromEntries(
+            Object.entries(environments).map(([name, env]) => [
+              name,
+              extractViteConfig(env)
+            ])
+          )
         },
         extractViteConfig(this),
         {
@@ -72,52 +91,7 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
         }
       );
 
-      let importPath = "vite";
-      if (
-        options.rolldown &&
-        isPackageExists("rolldown-vite", {
-          paths: [
-            joinPaths(
-              this.workspaceConfig.workspaceRoot,
-              this.config.projectRoot
-            ),
-            this.workspaceConfig.workspaceRoot
-          ]
-        })
-      ) {
-        importPath = "rolldown-vite";
-      }
-
-      if (
-        !isPackageExists(importPath, {
-          paths: [
-            joinPaths(
-              this.workspaceConfig.workspaceRoot,
-              this.config.projectRoot
-            ),
-            this.workspaceConfig.workspaceRoot
-          ]
-        })
-      ) {
-        throw new Error(
-          `Failed to find the "${importPath}" package required for the Powerlines "vite" plugin${
-            options.rolldown ? " with the `rolldown` option enabled" : ""
-          }. Please run "npm install ${importPath} -D" to install it.`
-        );
-      }
-
-      const vite = await this.resolver.import<{
-        build: (opts: InlineConfig) => Promise<void>;
-      }>(importPath);
-      if (!vite) {
-        throw new Error(
-          `Failed to load the "${importPath}" module - this package is required when using the Powerlines "vite" plugin${
-            options.rolldown ? " with the `rolldown` option enabled" : ""
-          }. Please ensure it is installed correctly.`
-        );
-      }
-
-      await vite.build(config as InlineConfig);
+      await build(config as InlineConfig);
     }
   };
 };
