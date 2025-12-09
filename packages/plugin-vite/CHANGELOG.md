@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.63](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.63) (12/08/2025)
+
+### Features
+
+- **powerlines:** Added support to specifying a single or multiple build
+  processes
+  ([4efcee45](https://github.com/storm-software/powerlines/commit/4efcee45))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.15**
+- Updated **powerlines** to **v0.31.0**
+- Updated **nx** to **v0.10.63**
+
 ## [0.14.62](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.62) (12/08/2025)
 
 ### Updated Dependencies

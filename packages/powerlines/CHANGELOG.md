@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.31.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.31.0) (12/08/2025)
+
+### Features
+
+- **powerlines:** Added support to specifying a single or multiple build
+  processes
+  ([4efcee45](https://github.com/storm-software/powerlines/commit/4efcee45))
+
 ## [0.30.12](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.30.12) (12/08/2025)
 
 ### Miscellaneous
