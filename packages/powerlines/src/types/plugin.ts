@@ -333,8 +333,7 @@ export type PluginBuildPlugins<TContext extends PluginContext = PluginContext> =
   };
 
 export interface Plugin<
-  in out TContext extends PluginContext<ResolvedConfig> =
-    PluginContext<ResolvedConfig>
+  TContext extends PluginContext<ResolvedConfig> = PluginContext<ResolvedConfig>
 >
   extends Partial<PluginHooks<TContext>>, PluginBuildPlugins<TContext> {
   /**
