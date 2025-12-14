@@ -547,8 +547,8 @@ catalogs:
       specifier: 6.1.2
       version: 6.1.2
     vite:
-      specifier: 8.0.0-beta.1
-      version: 8.0.0-beta.1
+      specifier: 8.0.0-beta.2
+      version: 8.0.0-beta.2
     webpack:
       specifier: ^5.103.0
       version: 5.103.0
@@ -1410,7 +1410,7 @@ importers:
         version: 5.9.3
       vite:
         specifier: 'catalog:'
-        version: 8.0.0-beta.1(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
+        version: 8.0.0-beta.2(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
 
   packages/plugin-esbuild:
     dependencies:
@@ -2003,7 +2003,7 @@ importers:
         version: 0.22.11
       '@vitejs/plugin-react':
         specifier: 'catalog:'
-        version: 5.1.2(vite@8.0.0-beta.1(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2))
+        version: 5.1.2(vite@8.0.0-beta.2(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2))
       babel-plugin-react-compiler:
         specifier: 'catalog:'
         version: 1.0.0
@@ -2323,7 +2323,7 @@ importers:
         version: 5.9.3
       vite:
         specifier: 'catalog:'
-        version: 8.0.0-beta.1(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
+        version: 8.0.0-beta.2(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
     devDependencies:
       '@powerlines/nx':
         specifier: workspace:*
@@ -2515,7 +2515,7 @@ importers:
         version: unenv-nightly@2.0.0-rc.24
       vite:
         specifier: 'catalog:'
-        version: 8.0.0-beta.1(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
+        version: 8.0.0-beta.2(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
     devDependencies:
       '@powerlines/nx':
         specifier: workspace:*
@@ -2626,7 +2626,7 @@ importers:
         version: link:../powerlines
       vite:
         specifier: 'catalog:'
-        version: 8.0.0-beta.1(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
+        version: 8.0.0-beta.2(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
     devDependencies:
       '@powerlines/nx':
         specifier: workspace:*
@@ -2928,7 +2928,7 @@ importers:
         version: 3.0.0-beta.3
       vite:
         specifier: 'catalog:'
-        version: 8.0.0-beta.1(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
+        version: 8.0.0-beta.2(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
       webpack:
         specifier: ^5.101.3
         version: 5.103.0(@swc/core@1.7.26(@swc/helpers@0.5.17))(esbuild@0.25.12)(webpack-cli@6.0.1)
@@ -6775,8 +6775,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@oxc-project/runtime@0.101.0':
-    resolution: {integrity: sha512-t3qpfVZIqSiLQ5Kqt/MC4Ge/WCOGrrcagAdzTcDaggupjiGxUx4nJF2v6wUCXWSzWHn5Ns7XLv13fCJEwCOERQ==}
+  '@oxc-project/runtime@0.102.0':
+    resolution: {integrity: sha512-vEDGxVIeeO+u5XCHD5+iSzWwC3DgRpEaf3lPZETC+6GnoRKHaxbxV6XqpbOhiY423RVkAbBEtfetfrjJjPWByA==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
   '@oxc-project/types@0.101.0':
@@ -19369,8 +19369,8 @@ packages:
       yaml:
         optional: true
 
-  vite@8.0.0-beta.1:
-    resolution: {integrity: sha512-wWdn95sweG8/AEklHTAwZ9rwxZn77jQ72Flj2004oWpFBao9sTRXAntWEKKyp1qZXXLxNFRhr5Mp5tQIeR0SXA==}
+  vite@8.0.0-beta.2:
+    resolution: {integrity: sha512-PIkpGhNy7r5r6Sepwo07BDWf8vr6O4CXVBm+vg7aIpswvL0VNGTjok1qiNRypcqT9dhFQJggtPoubZwXM7yeAQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -25463,7 +25463,7 @@ snapshots:
   '@oxc-parser/binding-win32-x64-msvc@0.99.0':
     optional: true
 
-  '@oxc-project/runtime@0.101.0': {}
+  '@oxc-project/runtime@0.102.0': {}
 
   '@oxc-project/types@0.101.0': {}
 
@@ -29071,7 +29071,7 @@ snapshots:
       minimatch: 7.4.6
       semver: 7.7.1
 
-  '@vitejs/plugin-react@5.1.2(vite@8.0.0-beta.1(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2))':
+  '@vitejs/plugin-react@5.1.2(vite@8.0.0-beta.2(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2))':
     dependencies:
       '@babel/core': 7.28.5
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.5)
@@ -29079,7 +29079,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.53
       '@types/babel__core': 7.20.5
       react-refresh: 0.18.0
-      vite: 8.0.0-beta.1(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
+      vite: 8.0.0-beta.2(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -36809,7 +36809,7 @@ snapshots:
   micromark-util-character@2.1.1:
     dependencies:
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-chunked@2.0.1:
     dependencies:
@@ -36824,7 +36824,7 @@ snapshots:
   micromark-util-combine-extensions@2.0.1:
     dependencies:
       micromark-util-chunked: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-decode-numeric-character-reference@2.0.2:
     dependencies:
@@ -41989,14 +41989,14 @@ snapshots:
     transitivePeerDependencies:
       - '@types/picomatch'
 
-  vite@8.0.0-beta.1(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2):
+  vite@8.0.0-beta.2(@types/node@24.10.4)(@types/picomatch@4.0.2)(esbuild@0.25.12)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2):
     dependencies:
-      '@oxc-project/runtime': 0.101.0
+      '@oxc-project/runtime': 0.102.0
       fdir: 6.5.0(@types/picomatch@4.0.2)(picomatch@4.0.3)
       lightningcss: 1.30.2
       picomatch: 4.0.3
       postcss: 8.5.6
-      rolldown: 1.0.0-beta.53
+      rolldown: 1.0.0-beta.54
       tinyglobby: 0.2.15
     optionalDependencies:
       '@types/node': 24.10.4
