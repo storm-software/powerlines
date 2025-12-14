@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.31.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.31.1) (12/13/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies
+  ([30f7ef3a](https://github.com/storm-software/powerlines/commit/30f7ef3a))
+
 ## [0.31.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.31.0) (12/08/2025)
 
 ### Features
