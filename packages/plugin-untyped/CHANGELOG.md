@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Untyped
 
+## [0.2.18](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.18) (12/14/2025)
+
+### Bug Fixes
+
+- **plugin-untyped:** Resolve issue with imports from `powerlines` package
+  ([ed3d2694](https://github.com/storm-software/powerlines/commit/ed3d2694))
+
 ## [0.2.17](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.17) (12/14/2025)
 
 ### Updated Dependencies
