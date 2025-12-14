@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.31.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.31.3) (12/14/2025)
+
+### Bug Fixes
+
+- **powerlines:** Update all `vite` versions to match
+  ([ee7201a0](https://github.com/storm-software/powerlines/commit/ee7201a0))
+
 ## [0.31.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.31.2) (12/14/2025)
 
 ### Bug Fixes
