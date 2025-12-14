@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.31.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.31.4) (12/14/2025)
+
+### Miscellaneous
+
+- **powerlines:** Revert changes to `dependsOn` types
+  ([597e6873](https://github.com/storm-software/powerlines/commit/597e6873))
+
 ## [0.31.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.31.3) (12/14/2025)
 
 ### Bug Fixes
