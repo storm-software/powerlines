@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.31.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.31.2) (12/14/2025)
+
+### Bug Fixes
+
+- **powerlines:** Update `dedupe` types to allow any context
+  ([451f36d6](https://github.com/storm-software/powerlines/commit/451f36d6))
+
 ## [0.31.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.31.1) (12/13/2025)
 
 ### Miscellaneous
