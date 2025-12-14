@@ -16,6 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+/* eslint-disable @nx/enforce-module-boundaries */
+
 import { getGenerateAction } from "@storm-software/untyped/generate";
 import { UserConfig } from "powerlines/types/config";
 import { PluginContext } from "powerlines/types/context";
@@ -46,9 +48,9 @@ export interface UntypedPluginResolvedConfig extends ResolvedConfig {
   untyped: UntypedPluginOptions;
 }
 
-export type UntypedPluginContext<
+export interface UntypedPluginContext<
   TResolvedConfig extends UntypedPluginResolvedConfig =
     UntypedPluginResolvedConfig
-> = PluginContext<TResolvedConfig> & {
+> extends PluginContext<TResolvedConfig> {
   untyped: ReturnType<typeof getGenerateAction>;
-};
+}
