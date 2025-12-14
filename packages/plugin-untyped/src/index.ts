@@ -16,10 +16,12 @@
 
  ------------------------------------------------------------------- */
 
+/* eslint-disable @nx/enforce-module-boundaries */
+
 import type { StormWorkspaceConfig } from "@storm-software/config/types";
 import { getGenerateAction } from "@storm-software/untyped/generate";
 import { toArray } from "@stryke/convert/to-array";
-import { replacePathTokens } from "packages/powerlines/dist/plugin-utils/paths";
+import { replacePathTokens } from "powerlines/plugin-utils/paths";
 import type { Plugin } from "powerlines/types/plugin";
 import { UntypedPluginContext, UntypedPluginOptions } from "./types/plugin";
 
