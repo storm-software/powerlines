@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Untyped
 
+## [0.2.19](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.19) (12/14/2025)
+
+### Bug Fixes
+
+- **plugin-untyped:** Updated context to be an interface
+  ([66e954d8](https://github.com/storm-software/powerlines/commit/66e954d8))
+
 ## [0.2.18](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.18) (12/14/2025)
 
 ### Bug Fixes
