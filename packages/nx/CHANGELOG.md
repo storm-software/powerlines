@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.0](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.0) (12/15/2025)
+
+### Features
+
+- **nx:** Added the `verbose` configuration option
+  ([2ff9f106](https://github.com/storm-software/powerlines/commit/2ff9f106))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.31.6**
+
 ## [0.10.68](https://github.com/storm-software/powerlines/releases/tag/nx%400.10.68) (12/14/2025)
 
 ### Updated Dependencies
