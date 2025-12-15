@@ -103,6 +103,16 @@ export interface CreateNxPluginOptions {
    * @defaultValue "powerlines"
    */
   framework?: string;
+
+  /**
+   * Whether to enable verbose logging for the Nx plugin.
+   *
+   * @remarks
+   * If enabled, the plugin will log more detailed information about its operations, which can be useful for debugging and troubleshooting.
+   *
+   * @defaultValue false
+   */
+  verbose?: boolean;
 }
 
 /**
@@ -122,9 +132,11 @@ export function createNxPlugin<
   const targetInputs = getNxTargetInputs(framework);
   const pluginInputs = getNxPluginInputs(framework);
 
-  console.debug(
-    `[${name}] - ${new Date().toISOString()} - Initializing the ${titleCase(framework)} Nx plugin for the following inputs: ${pluginInputs}`
-  );
+  if (opts?.verbose) {
+    console.debug(
+      `[${name}] - ${new Date().toISOString()} - Initializing the ${titleCase(framework)} Nx plugin for the following inputs: ${pluginInputs}`
+    );
+  }
 
   return [
     pluginInputs,
@@ -170,11 +182,13 @@ export function createNxPlugin<
 
             const root = getRoot(projectRoot, context);
 
-            console.debug(
-              `[${name}] - ${new Date().toISOString()} - Loading ${
-                framework
-              } user configuration for project in root directory ${projectRoot}.`
-            );
+            if (opts?.verbose) {
+              console.debug(
+                `[${name}] - ${new Date().toISOString()} - Loading ${
+                  framework
+                } user configuration for project in root directory ${projectRoot}.`
+              );
+            }
 
             const userConfig = await loadUserConfigFile(
               projectRoot,
@@ -191,12 +205,14 @@ export function createNxPlugin<
                 joinPaths(contextV2.workspaceRoot, projectRoot, "package.json")
               )
             ) {
-              console.warn(
-                `[${name}] - ${new Date().toISOString()} - Cannot find \`package.json\` file in the project's root directory (path: "${joinPaths(
-                  contextV2.workspaceRoot,
-                  projectRoot
-                )}"). Skipping project configuration.`
-              );
+              if (opts?.verbose) {
+                console.warn(
+                  `[${name}] - ${new Date().toISOString()} - Cannot find \`package.json\` file in the project's root directory (path: "${joinPaths(
+                    contextV2.workspaceRoot,
+                    projectRoot
+                  )}"). Skipping project configuration.`
+                );
+              }
 
               return {};
             }
@@ -206,18 +222,22 @@ export function createNxPlugin<
               "utf8"
             );
             if (!packageJsonContent) {
-              console.warn(
-                `[${name}] - ${new Date().toISOString()} - No package.json file found for project in root directory ${projectRoot}`
-              );
+              if (opts?.verbose) {
+                console.warn(
+                  `[${name}] - ${new Date().toISOString()} - No package.json file found for project in root directory ${projectRoot}`
+                );
+              }
 
               return {};
             }
 
             const packageJson: PackageJson = JSON.parse(packageJsonContent);
             if (!userConfig.configFile && !packageJson?.storm) {
-              console.debug(
-                `[${name}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${framework} configuration found for project in root directory.`
-              );
+              if (opts?.verbose) {
+                console.debug(
+                  `[${name}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${framework} configuration found for project in root directory.`
+                );
+              }
 
               return {};
             }
@@ -227,9 +247,11 @@ export function createNxPlugin<
               packageJson
             );
             if (!projectConfig) {
-              console.warn(
-                `[${name}] - ${new Date().toISOString()} - No project configuration found for project in root directory ${projectRoot}`
-              );
+              if (opts?.verbose) {
+                console.warn(
+                  `[${name}] - ${new Date().toISOString()} - No project configuration found for project in root directory ${projectRoot}`
+                );
+              }
 
               return {};
             }
@@ -242,9 +264,11 @@ export function createNxPlugin<
                 context.workspaceRoot
               );
 
-            console.debug(
-              `[${name}] - ${new Date().toISOString()} - Preparing Nx targets for project in root directory ${projectRoot}.`
-            );
+            if (opts?.verbose) {
+              console.debug(
+                `[${name}] - ${new Date().toISOString()} - Preparing Nx targets for project in root directory ${projectRoot}.`
+              );
+            }
 
             if (
               options?.clean !== false &&
@@ -304,7 +328,7 @@ export function createNxPlugin<
                 dependsOn:
                   options?.prepare?.dependsOn ??
                   ([
-                    `^${options?.prepare?.targetName || "prepare"}`,
+                    `^${options?.prepare?.targetName || "build"}`,
                     options?.clean !== false &&
                       `${options?.clean?.targetName || "clean"}`
                   ].filter(Boolean) as string[]),
@@ -528,9 +552,11 @@ export function createNxPlugin<
               }
             );
 
-            console.debug(
-              `[${name}] - ${new Date().toISOString()} - Completed preparing Nx configuration for project in root directory ${projectRoot}.`
-            );
+            if (opts?.verbose) {
+              console.debug(
+                `[${name}] - ${new Date().toISOString()} - Completed preparing Nx configuration for project in root directory ${projectRoot}.`
+              );
+            }
 
             return {
               projects: {

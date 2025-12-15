@@ -101,7 +101,7 @@ export interface NxPluginOptions {
         /**
          * An array specifying any other target identifiers the prepare target depends on
          *
-         * @defaultValue ["^prepare", "clean"]
+         * @defaultValue ["^build", "clean"]
          */
         dependsOn?: string[];
 
