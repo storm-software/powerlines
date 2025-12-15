@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.31.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.31.5) (12/14/2025)
+
+### Bug Fixes
+
+- **powerlines:** Improve `plugins` typings for `defineConfig` function
+  ([91c92581](https://github.com/storm-software/powerlines/commit/91c92581))
+
 ## [0.31.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.31.4) (12/14/2025)
 
 ### Miscellaneous

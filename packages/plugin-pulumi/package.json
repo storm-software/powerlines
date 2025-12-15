@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-pulumi",
-  "version": "0.2.46",
+  "version": "0.2.47",
   "type": "module",
   "description": "A Powerlines plugin to transform source code to be platform agnostic using pulumi.",
   "repository": {
