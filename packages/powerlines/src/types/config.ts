@@ -422,7 +422,7 @@ export interface CommonUserConfig extends BaseConfig {
   /**
    * A list of resolvable paths to plugins used during the build process
    */
-  plugins?: PluginConfig<PluginContext<any>>[];
+  plugins?: PluginConfig<any>[];
 
   /**
    * Environment-specific configurations
