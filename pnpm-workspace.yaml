@@ -85,7 +85,7 @@ catalog:
   '@storm-software/tsup': ^0.2.67
   '@storm-software/unbuild': ^0.57.69
   '@storm-software/untyped': ^0.24.50
-  '@storm-software/workspace-tools': ^1.294.14
+  '@storm-software/workspace-tools': ^1.294.15
   '@stryke/capnp': ^0.12.46
   '@stryke/cli': ^0.12.31
   '@stryke/convert': ^0.6.25
