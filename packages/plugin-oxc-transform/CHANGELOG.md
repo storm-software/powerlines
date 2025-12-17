@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Oxc Transform
 
+## [0.5.80](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.80) (12/17/2025)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.23**
+- Updated **powerlines** to **v0.32.1**
+- Updated **nx** to **v0.11.2**
+
 ## [0.5.79](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.79) (12/17/2025)
 
 ### Updated Dependencies
