@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { toArray } from "@stryke/convert/to-array";
 import { BuildVariant } from "../types/build";
 import { PluginFactory } from "../types/config";
 import { PluginContext } from "../types/context";
@@ -29,20 +30,37 @@ import { extend } from "./extend";
  * @param variant - The build variant to enforce.
  * @returns A new plugin or plugin factory that enforces the specified build variant.
  */
-export function enforceVariant<
+export function enforceBuild<
   TContext extends PluginContext = PluginContext,
   TBuildVariant extends BuildVariant = BuildVariant
->(plugin: Plugin<TContext> | PluginFactory<TContext>, variant: TBuildVariant) {
+>(
+  plugin: Plugin<TContext> | PluginFactory<TContext>,
+  variant: TBuildVariant | TBuildVariant[]
+) {
   return extend(plugin, {
-    config: {
-      build: {
-        variant
-      }
-    },
+    config: Array.isArray(variant)
+      ? undefined
+      : {
+          build: {
+            variant
+          }
+        },
     configResolved(this: TContext) {
-      if (this.config.build.variant !== variant) {
+      if (
+        !toArray<TBuildVariant>(variant).includes(this.config.build.variant)
+      ) {
         throw new Error(
-          `A plugin requires the build variant "${variant}", but received "${
+          `The plugin requires ${
+            Array.isArray(variant)
+              ? `the build variants ${variant
+                  .map(v => `"${v}"`)
+                  .slice(0, -1)
+                  .join(", ")}, or ${variant
+                  .map(v => `"${v}"`)
+                  .slice(-1)
+                  .join("")}`
+              : `the build variant "${variant}"`
+          }, but received "${
             this.config.build.variant
           }". Please ensure the \`build.variant\` is set correctly in your configuration.`
         );
