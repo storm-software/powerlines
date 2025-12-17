@@ -47,6 +47,6 @@ export type DeepkitPluginResolvedConfig =
   };
 
 export type DeepkitPluginContext<
-  TResolvedConfig extends
-    DeepkitPluginResolvedConfig = DeepkitPluginResolvedConfig
+  TResolvedConfig extends DeepkitPluginResolvedConfig =
+    DeepkitPluginResolvedConfig
 > = TypeScriptCompilerPluginContext<TResolvedConfig>;

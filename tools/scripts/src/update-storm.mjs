@@ -22,33 +22,21 @@ import { $, chalk, echo } from "zx";
 try {
   await echo`${chalk.whiteBright("🔄  Updating the workspace's Storm Software dependencies and re-linking workspace packages...")}`;
 
-  // 1) Update @storm-software/* packages to the latest version
-  await echo`${chalk.whiteBright("Checking for @storm-software/* updates...")}`;
-  let proc = $`pnpm exec storm-pnpm update @storm-software/ --install`.timeout(
-    `${8 * 60}s`
-  );
+  // 1) Update @storm-software/* and @stryke/* packages to the latest version
+  await echo`${chalk.whiteBright("Checking for @storm-software/* and @stryke/* updates...")}`;
+  let proc =
+    $`pnpm exec storm-pnpm update @storm-software/ @stryke/ --install`.timeout(
+      `${8 * 60}s`
+    );
   proc.stdout.on("data", data => echo`${data}`);
   let result = await proc;
   if (result.exitCode !== 0) {
     throw new Error(
-      `An error occurred while updating "@storm-software/*" packages:\n\n${result.message}\n`
+      `An error occurred while updating "@storm-software/*" and "@stryke/*" packages:\n\n${result.message}\n`
     );
   }
 
-  // 2) Update @stryke/* packages to the latest version
-  await echo`${chalk.whiteBright("Checking for stryke updates...")}`;
-  proc = $`pnpm exec storm-pnpm update @stryke/ --install`.timeout(
-    `${8 * 60}s`
-  );
-  proc.stdout.on("data", data => echo`${data}`);
-  result = await proc;
-  if (result.exitCode !== 0) {
-    throw new Error(
-      `An error occurred while updating stryke packages:\n\n${result.message}\n`
-    );
-  }
-
-  // 3) Ensure workspace:* links are up to date
+  // 2) Ensure workspace:* links are up to date
   proc = $`pnpm update --recursive --workspace`.timeout(`${8 * 60}s`);
   proc.stdout.on("data", data => echo`${data}`);
   result = await proc;

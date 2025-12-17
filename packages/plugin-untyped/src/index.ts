@@ -59,7 +59,7 @@ export const plugin = <
         path => replacePathTokens(this, path)
       );
 
-      this.untyped ??= getGenerateAction(
+      this.untyped = getGenerateAction(
         this.workspaceConfig as StormWorkspaceConfig
       );
     },
