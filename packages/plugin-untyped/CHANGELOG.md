@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Untyped
 
+## [0.2.22](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.22) (12/17/2025)
+
+### Miscellaneous
+
+- **monorepo:** Use latest `update-storm` script to handle internal package
+  changes
+  ([704b93c0](https://github.com/storm-software/powerlines/commit/704b93c0))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.22**
+- Updated **powerlines** to **v0.32.0**
+- Updated **nx** to **v0.11.1**
+
 ## [0.2.21](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.21) (12/15/2025)
 
 ### Updated Dependencies

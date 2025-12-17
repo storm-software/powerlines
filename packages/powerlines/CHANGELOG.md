@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.32.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.0) (12/17/2025)
+
+### Miscellaneous
+
+- **powerlines:** Update `enforceBuild` function to allow an array of variants
+  ([4ae6425e](https://github.com/storm-software/powerlines/commit/4ae6425e))
+
+### Features
+
+- **powerlines:** Added the `createPowerlines` helper function
+  ([c3c3e515](https://github.com/storm-software/powerlines/commit/c3c3e515))
+
 ## [0.31.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.31.5) (12/14/2025)
 
 ### Bug Fixes
