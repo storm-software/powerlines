@@ -25,6 +25,7 @@
  * @packageDocumentation
  */
 
+import { getWorkspaceRoot } from "@stryke/fs/get-workspace-root";
 import { PowerlinesAPI } from "./api";
 import { AnyUserConfig, UserConfig } from "./types/config";
 
@@ -39,6 +40,24 @@ export * from "./types";
  */
 export function defineConfig(config: AnyUserConfig): UserConfig {
   return config as UserConfig;
+}
+
+/**
+ * Creates a new {@link PowerlinesAPI} instance.
+ *
+ * @param options - The user configuration options.
+ * @returns A promise that resolves to a {@link PowerlinesAPI} instance.
+ */
+export async function createPowerlines(
+  options: Partial<UserConfig> = {}
+): Promise<PowerlinesAPI> {
+  options.root ??= process.cwd();
+  const workspaceRoot = getWorkspaceRoot(options.root);
+
+  return PowerlinesAPI.from(
+    workspaceRoot,
+    options as Parameters<typeof PowerlinesAPI.from>[1]
+  );
 }
 
 export { PowerlinesAPI };
