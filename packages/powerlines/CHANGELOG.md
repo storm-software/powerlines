@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.32.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.3) (12/18/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with incorrectly resolved assets output paths
+  ([5698b189](https://github.com/storm-software/powerlines/commit/5698b189))
+
 ## [0.32.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.2) (12/18/2025)
 
 ### Bug Fixes
