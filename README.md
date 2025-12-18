@@ -17,7 +17,7 @@
 </div>
 <br />
 
-Storm Software's **🔌 Powerlines** is a "framework framework" that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.
+**🔌 Powerlines** is a "framework framework" that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.
 
 <h3 align="center">💻 Visit <a href="https://stormsoftware.com" target="_blank">stormsoftware.com</a> to stay up to date with this developer</h3>
 <br />
@@ -41,10 +41,8 @@ Storm Software's **🔌 Powerlines** is a "framework framework" that simplifies 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Quick Features](#quick-features)
-  - [Visual Studio Code Extension](#visual-studio-code-extension)
-  - [Environment Configuration Help](#environment-configuration-help)
 - [Getting Started](#getting-started)
+  - [Environment Configuration Help](#environment-configuration-help)
   - [Build](#build)
   - [Development Server](#development-server)
 - [Environment Configuration Help](#environment-configuration-help-1)
@@ -68,22 +66,6 @@ Storm Software's **🔌 Powerlines** is a "framework framework" that simplifies 
 
 <br />
 
-# Quick Features
-
-This section contains a quick overview of the features and functionality of the repository.
-
-## Visual Studio Code Extension
-
-Acidic has it's own Visual Studio Code extension to support the language model
-in the IDE. The extension can be found in the
-[Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=storm-software.acidic).
-
-## Environment Configuration Help
-
-If you run into any issues while trying to run any of the above steps, please
-reach out to Patrick Sullivan. See the [Support](#support) section for more
-information.
-
 # Getting Started
 
 Once the code is pulled locally, open a command prompt and run `pnpm install` in
@@ -94,6 +76,12 @@ More information can be found in the
 
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
 <br />
+
+## Environment Configuration Help
+
+If you run into any issues while trying to run any of the above steps, please
+reach out to Patrick Sullivan. See the [Support](#support) section for more
+information.
 
 ## Build
 

@@ -69,40 +69,40 @@ catalog:
   '@rollup/plugin-replace': ^6.0.3
   '@rspack/core': ^1.6.8
   '@standard-schema/spec': ^1.1.0
-  '@storm-software/build-tools': ^0.158.71
-  '@storm-software/config': ^1.134.71
-  '@storm-software/config-tools': ^1.188.71
-  '@storm-software/cspell': ^0.45.70
-  '@storm-software/esbuild': ^0.53.71
-  '@storm-software/eslint': ^0.169.72
-  '@storm-software/git-tools': ^2.124.54
-  '@storm-software/linting-tools': ^1.132.71
-  '@storm-software/markdownlint': ^0.30.70
-  '@storm-software/pnpm-tools': ^0.6.73
-  '@storm-software/prettier': ^0.57.70
-  '@storm-software/testing-tools': ^1.119.70
-  '@storm-software/tsconfig': ^0.47.70
-  '@storm-software/tsup': ^0.2.69
-  '@storm-software/unbuild': ^0.57.71
-  '@storm-software/untyped': ^0.24.52
-  '@storm-software/workspace-tools': ^1.294.17
-  '@stryke/capnp': ^0.12.47
-  '@stryke/cli': ^0.12.32
-  '@stryke/convert': ^0.6.26
-  '@stryke/env': ^0.20.39
-  '@stryke/fs': ^0.33.22
-  '@stryke/hash': ^0.12.28
-  '@stryke/helpers': ^0.9.28
-  '@stryke/http': ^0.12.16
-  '@stryke/json': ^0.9.29
-  '@stryke/path': ^0.22.13
-  '@stryke/string-format': ^0.12.26
-  '@stryke/type-checks': ^0.5.11
-  '@stryke/types': ^0.10.25
-  '@stryke/unique-id': ^0.3.33
+  '@storm-software/build-tools': ^0.158.72
+  '@storm-software/config': ^1.134.72
+  '@storm-software/config-tools': ^1.188.72
+  '@storm-software/cspell': ^0.45.71
+  '@storm-software/esbuild': ^0.53.72
+  '@storm-software/eslint': ^0.169.73
+  '@storm-software/git-tools': ^2.124.55
+  '@storm-software/linting-tools': ^1.132.72
+  '@storm-software/markdownlint': ^0.30.71
+  '@storm-software/pnpm-tools': ^0.6.74
+  '@storm-software/prettier': ^0.57.71
+  '@storm-software/testing-tools': ^1.119.71
+  '@storm-software/tsconfig': ^0.47.71
+  '@storm-software/tsup': ^0.2.70
+  '@storm-software/unbuild': ^0.57.72
+  '@storm-software/untyped': ^0.24.53
+  '@storm-software/workspace-tools': ^1.294.18
+  '@stryke/capnp': ^0.12.49
+  '@stryke/cli': ^0.12.34
+  '@stryke/convert': ^0.6.28
+  '@stryke/env': ^0.20.41
+  '@stryke/fs': ^0.33.24
+  '@stryke/hash': ^0.12.30
+  '@stryke/helpers': ^0.9.30
+  '@stryke/http': ^0.12.18
+  '@stryke/json': ^0.9.31
+  '@stryke/path': ^0.23.1
+  '@stryke/string-format': ^0.12.28
+  '@stryke/type-checks': ^0.5.13
+  '@stryke/types': ^0.10.27
+  '@stryke/unique-id': ^0.3.35
   '@swc/core': ^1.15.7
-  '@tamagui/static-worker': ^1.141.4
-  '@tamagui/types': ^1.141.4
+  '@tamagui/static-worker': ^1.141.5
+  '@tamagui/types': ^1.141.5
   '@taplo/cli': ^0.7.0
   '@types/babel__core': ^7.20.5
   '@types/babel__helper-module-imports': ^7.18.3
