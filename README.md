@@ -1,8 +1,8 @@
 <div align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://public.storm-cdn.com/powerlines/banner-1280x640-dark-optimized.gif">
-  <source media="(prefers-color-scheme: light)" srcset="https://public.storm-cdn.com/powerlines/banner-1280x640-light-optimized.gif">
-<img src="https://public.storm-cdn.com/powerlines/banner-1280x640-dark-optimized.gif" width="100%" alt="Powerlines" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://public.storm-cdn.com/powerlines/banner-1280x640-dark.gif">
+  <source media="(prefers-color-scheme: light)" srcset="https://public.storm-cdn.com/powerlines/banner-1280x640-light.gif">
+<img src="https://public.storm-cdn.com/powerlines/banner-1280x640-dark.gif" width="100%" alt="Powerlines" />
 </picture>
 </div>
 <br />
@@ -57,7 +57,7 @@ Storm Software's **🔌 Powerlines** is a "framework framework" that simplifies 
   - [Running End-to-End Tests](#running-end-to-end-tests)
   - [Understand your workspace](#understand-your-workspace)
 - [☁ Nx Cloud](#-nx-cloud)
-  - [Distributed Computation Caching & Distributed Task Execution](#distributed-computation-caching--distributed-task-execution)
+  - [Distributed Computation Caching \& Distributed Task Execution](#distributed-computation-caching--distributed-task-execution)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [Support](#support)
@@ -342,9 +342,9 @@ specification. Contributions of any kind welcome!
 
 <div align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://public.storm-cdn.com/storm-software/banner-1280x320-dark-optimized.webp">
-  <source media="(prefers-color-scheme: light)" srcset="https://public.storm-cdn.com/storm-software/banner-1280x320-light-optimized.webp">
-<img src="https://public.storm-cdn.com/storm-software/banner-1280x320-dark-optimized.webp" width="100%" alt="Storm Software" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://public.storm-cdn.com/storm-software/banner-1280x320-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset="https://public.storm-cdn.com/storm-software/banner-1280x320-light.webp">
+<img src="https://public.storm-cdn.com/storm-software/banner-1280x320-dark.webp" width="100%" alt="Storm Software" />
 </picture>
 </div>
 <br />

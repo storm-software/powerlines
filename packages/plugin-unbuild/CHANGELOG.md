@@ -1,4 +1,4 @@
-![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark-optimized.gif)
+![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark.gif)
 
 # Changelog for Powerlines - Plugin Unbuild
 
