@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.32.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.2) (12/18/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with empty build directory
+  ([701b8730](https://github.com/storm-software/powerlines/commit/701b8730))
+
 ## [0.32.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.0) (12/17/2025)
 
 ### Miscellaneous
