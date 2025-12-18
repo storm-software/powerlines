@@ -1245,7 +1245,8 @@ export class PowerlinesContext<
             asset.input === "/" ||
             asset.input === "./"
               ? this.workspaceConfig.workspaceRoot
-              : isParentPath(asset.input, this.workspaceConfig.workspaceRoot)
+              : isParentPath(asset.input, this.workspaceConfig.workspaceRoot) ||
+                  asset.input === this.workspaceConfig.workspaceRoot
                 ? asset.input
                 : appendPath(asset.input, this.workspaceConfig.workspaceRoot),
           output:
