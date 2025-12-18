@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.32.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.5) (12/18/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with duplicating asset input paths
+  ([703dd8fa](https://github.com/storm-software/powerlines/commit/703dd8fa))
+
 ## [0.32.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.4) (12/18/2025)
 
 ### Bug Fixes
