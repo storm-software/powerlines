@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.7](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.7) (12/18/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update CDN URLs for banner assets
+  ([2782a1a3](https://github.com/storm-software/powerlines/commit/2782a1a3))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.32.6**
+
 ## [0.11.6](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.6) (12/18/2025)
 
 ### Bug Fixes

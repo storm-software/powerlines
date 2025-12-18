@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Alloy
 
+## [0.11.85](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.85) (12/18/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update CDN URLs for banner assets
+  ([2782a1a3](https://github.com/storm-software/powerlines/commit/2782a1a3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.28**
+- Updated **powerlines** to **v0.32.6**
+- Updated **deepkit** to **v0.4.81**
+- Updated **nx** to **v0.11.7**
+
 ## [0.11.84](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.84) (12/18/2025)
 
 ### Updated Dependencies

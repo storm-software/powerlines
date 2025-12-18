@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.32.6](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.6) (12/18/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update CDN URLs for banner assets
+  ([2782a1a3](https://github.com/storm-software/powerlines/commit/2782a1a3))
+
 ## [0.32.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.5) (12/18/2025)
 
 ### Bug Fixes

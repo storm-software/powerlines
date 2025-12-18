@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.2.29](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.29) (12/18/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update CDN URLs for banner assets
+  ([2782a1a3](https://github.com/storm-software/powerlines/commit/2782a1a3))
+
+### Updated Dependencies
+
+- Updated **plugin-hey-api** to **v0.1.29**
+- Updated **plugin-plugin** to **v0.12.28**
+- Updated **powerlines** to **v0.32.6**
+- Updated **nx** to **v0.11.7**
+
 ## [0.2.28](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.28) (12/18/2025)
 
 ### Updated Dependencies

@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Image Compression
 
+## [0.2.24](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.24) (12/18/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update CDN URLs for banner assets
+  ([2782a1a3](https://github.com/storm-software/powerlines/commit/2782a1a3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.28**
+- Updated **powerlines** to **v0.32.6**
+- Updated **nx** to **v0.11.7**
+
 ## [0.2.23](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.23) (12/18/2025)
 
 ### Updated Dependencies

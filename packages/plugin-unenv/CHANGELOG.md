@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Unenv
 
+## [0.1.65](https://github.com/storm-software/powerlines/releases/tag/plugin-unenv%400.1.65) (12/18/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update CDN URLs for banner assets
+  ([2782a1a3](https://github.com/storm-software/powerlines/commit/2782a1a3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.28**
+- Updated **powerlines** to **v0.32.6**
+- Updated **nx** to **v0.11.7**
+
 ## [0.1.64](https://github.com/storm-software/powerlines/releases/tag/plugin-unenv%400.1.64) (12/18/2025)
 
 ### Updated Dependencies

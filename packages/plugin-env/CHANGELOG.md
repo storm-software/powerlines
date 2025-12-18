@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.13.82](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.82) (12/18/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update CDN URLs for banner assets
+  ([2782a1a3](https://github.com/storm-software/powerlines/commit/2782a1a3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.28**
+- Updated **plugin-babel** to **v0.12.85**
+- Updated **powerlines** to **v0.32.6**
+- Updated **deepkit** to **v0.4.81**
+- Updated **alloy** to **v0.11.85**
+- Updated **nx** to **v0.11.7**
+
 ## [0.13.81](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.81) (12/18/2025)
 
 ### Updated Dependencies

@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.50](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.50) (12/18/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update CDN URLs for banner assets
+  ([2782a1a3](https://github.com/storm-software/powerlines/commit/2782a1a3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.28**
+- Updated **plugin-env** to **v0.13.82**
+- Updated **powerlines** to **v0.32.6**
+- Updated **nx** to **v0.11.7**
+
 ## [0.10.49](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.49) (12/18/2025)
 
 ### Updated Dependencies

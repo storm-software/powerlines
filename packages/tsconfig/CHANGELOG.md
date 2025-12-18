@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.2.44](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.2.44) (12/18/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update CDN URLs for banner assets
+  ([2782a1a3](https://github.com/storm-software/powerlines/commit/2782a1a3))
+
 ## [0.2.23](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.2.23) (12/05/2025)
 
 ### Miscellaneous

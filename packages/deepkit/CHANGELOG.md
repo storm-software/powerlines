@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.4.81](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.81) (12/18/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update CDN URLs for banner assets
+  ([2782a1a3](https://github.com/storm-software/powerlines/commit/2782a1a3))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.32.6**
+- Updated **nx** to **v0.11.7**
+
 ## [0.4.80](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.80) (12/18/2025)
 
 ### Updated Dependencies
