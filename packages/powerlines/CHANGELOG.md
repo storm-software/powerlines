@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.32.7](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.7) (12/18/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue assigning asset input paths
+  ([f6d30073](https://github.com/storm-software/powerlines/commit/f6d30073))
+
 ## [0.32.6](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.6) (12/18/2025)
 
 ### Miscellaneous
