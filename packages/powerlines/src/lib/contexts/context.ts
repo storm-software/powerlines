@@ -1249,7 +1249,16 @@ export class PowerlinesContext<
             isSetObject(asset) && asset.output
               ? joinPaths(
                   this.config.output.outputPath,
-                  replacePath(asset.output, this.config.output.outputPath)
+                  replacePath(
+                    replacePath(
+                      asset.output,
+                      replacePath(
+                        this.config.output.outputPath,
+                        this.workspaceConfig.workspaceRoot
+                      )
+                    ),
+                    this.config.output.outputPath
+                  )
                 )
               : this.config.output.outputPath,
             this.workspaceConfig.workspaceRoot
