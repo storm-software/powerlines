@@ -831,7 +831,7 @@ ${formatTypes(types)}
         "dist"
       );
 
-      if (sourcePath !== destinationPath) {
+      if (context.fs.existsSync(sourcePath) && sourcePath !== destinationPath) {
         context.log(
           LogLevelLabel.INFO,
           `Copying build output files from project's build directory (${
