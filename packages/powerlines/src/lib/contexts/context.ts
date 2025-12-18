@@ -30,6 +30,7 @@ import { omit } from "@stryke/helpers/omit";
 import { fetchRequest } from "@stryke/http/fetch";
 import { StormJSON } from "@stryke/json/storm-json";
 import { appendPath } from "@stryke/path/append";
+import { isParentPath } from "@stryke/path/is-parent-path";
 import { isAbsolute } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
@@ -1245,24 +1246,30 @@ export class PowerlinesContext<
             asset.input === "./"
               ? this.workspaceConfig.workspaceRoot
               : appendPath(asset.input, this.workspaceConfig.workspaceRoot),
-          output: appendPath(
+          output:
             isSetObject(asset) && asset.output
-              ? joinPaths(
-                  this.config.output.outputPath,
-                  replacePath(
-                    replacePath(
-                      asset.output,
+              ? isParentPath(asset.output, this.workspaceConfig.workspaceRoot)
+                ? asset.output
+                : appendPath(
+                    joinPaths(
+                      this.config.output.outputPath,
                       replacePath(
-                        this.config.output.outputPath,
-                        this.workspaceConfig.workspaceRoot
+                        replacePath(
+                          asset.output,
+                          replacePath(
+                            this.config.output.outputPath,
+                            this.workspaceConfig.workspaceRoot
+                          )
+                        ),
+                        this.config.output.outputPath
                       )
                     ),
-                    this.config.output.outputPath
+                    this.workspaceConfig.workspaceRoot
                   )
-                )
-              : this.config.output.outputPath,
-            this.workspaceConfig.workspaceRoot
-          ),
+              : appendPath(
+                  this.config.output.outputPath,
+                  this.workspaceConfig.workspaceRoot
+                ),
           ignore:
             isSetObject(asset) && asset.ignore
               ? toArray(asset.ignore)
