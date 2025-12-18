@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.32.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.4) (12/18/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with formatting asset output path multiple times
+  ([3617cfef](https://github.com/storm-software/powerlines/commit/3617cfef))
+
 ## [0.32.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.3) (12/18/2025)
 
 ### Bug Fixes
