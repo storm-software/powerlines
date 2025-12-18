@@ -52,15 +52,15 @@ catalog:
   '@microsoft/tsdoc': ^0.15.1
   '@microsoft/tsdoc-config': ^0.17.1
   '@noble/ciphers': ^2.1.1
-  '@nx/devkit': ^22.2.7
-  '@nx/eslint-plugin': ^22.2.7
-  '@nx/jest': ^22.2.7
-  '@nx/js': ^22.2.7
-  '@nx/plugin': ^22.2.7
-  '@nx/workspace': ^22.2.7
+  '@nx/devkit': ^22.3.1
+  '@nx/eslint-plugin': ^22.3.1
+  '@nx/jest': ^22.3.1
+  '@nx/js': ^22.3.1
+  '@nx/plugin': ^22.3.1
+  '@nx/workspace': ^22.3.1
   '@prisma/get-platform': ^6.19.1
   '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
-  '@pulumi/pulumi': ^3.212.0
+  '@pulumi/pulumi': ^3.213.0
   '@rollup/plugin-alias': ^6.0.0
   '@rollup/plugin-babel': ^6.1.0
   '@rollup/plugin-commonjs': ^28.0.9
@@ -100,7 +100,7 @@ catalog:
   '@stryke/type-checks': ^0.5.11
   '@stryke/types': ^0.10.25
   '@stryke/unique-id': ^0.3.33
-  '@swc/core': ^1.15.5
+  '@swc/core': ^1.15.7
   '@tamagui/static-worker': ^1.141.4
   '@tamagui/types': ^1.141.4
   '@taplo/cli': ^0.7.0
@@ -118,7 +118,7 @@ catalog:
   '@types/semver': ^7.7.1
   '@typescript-eslint/utils': ^8.50.0
   '@vitejs/plugin-react': ^5.1.2
-  '@vue/reactivity': ^3.5.25
+  '@vue/reactivity': ^3.5.26
   automd: ^0.4.2
   babel-dead-code-elimination: ^1.0.11
   babel-plugin-parameter-decorator: ^1.0.16
@@ -153,7 +153,7 @@ catalog:
   marked: ^17.0.1
   minimatch: ^10.1.1
   nanotar: ^0.2.0
-  nx: ^22.2.7
+  nx: ^22.3.1
   openapi-typescript: ^7.10.1
   oxc-parser: ^0.99.0
   oxc-transform: ^0.99.0
@@ -188,7 +188,7 @@ catalog:
   untyped: ^1.5.2
   verdaccio: 6.1.2
   vite: 8.0.0-beta.2
-  webpack: ^5.104.0
+  webpack: ^5.104.1
   zx: ^8.8.5
 
 configDependencies:
