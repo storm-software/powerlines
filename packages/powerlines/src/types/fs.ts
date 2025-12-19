@@ -268,7 +268,7 @@ export interface WriteOptions {
   /**
    * Additional metadata for the file.
    */
-  meta?: VirtualFileMetadata;
+  meta?: Partial<VirtualFileMetadata>;
 }
 
 export type WriteData = string | NodeJS.ArrayBufferView | VirtualFileData;

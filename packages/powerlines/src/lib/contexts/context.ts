@@ -39,6 +39,7 @@ import { isNull } from "@stryke/type-checks/is-null";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
+import { TypeDefinitionParameter } from "@stryke/types/configuration";
 import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
 import { match, tsconfigPathsToRegExp } from "bundle-require";
@@ -72,6 +73,7 @@ import {
 } from "../../types/config";
 import {
   Context,
+  EmitEntryOptions,
   FetchOptions,
   InitContextOptions,
   MetaInfo,
@@ -294,7 +296,21 @@ export class PowerlinesContext<
    * The resolved entry type definitions for the project
    */
   public get entry(): ResolvedEntryTypeDefinition[] {
-    return resolveEntriesSync(this, toArray(this.config.entry));
+    const entry = Object.entries(this.fs.metadata)
+      .filter(([, meta]) => meta && meta.type === "entry")
+      .map(([file, meta]) => {
+        return {
+          file,
+          name: meta?.properties?.name || "default"
+        };
+      }) as TypeDefinitionParameter[];
+
+    return resolveEntriesSync(
+      this,
+      entry.length === 0 && this.config.entry
+        ? toArray(this.config.entry)
+        : entry
+    );
   }
 
   /**
@@ -790,12 +806,14 @@ export class PowerlinesContext<
   public async emitEntry(
     code: string,
     path: string,
-    options: WriteOptions = {}
+    options: EmitEntryOptions = {}
   ): Promise<void> {
     return this.fs.write(
       isAbsolute(path) ? path : appendPath(path, this.entryPath),
       code,
-      defu(options, { type: "entry" })
+      defu(omit(options, ["name"]), {
+        meta: { type: "entry", properties: { name: options.name || "default" } }
+      })
     );
   }
 
@@ -820,7 +838,7 @@ export class PowerlinesContext<
           : joinPaths(this.builtinsPath, path)
         : appendPath(id, this.builtinsPath),
       code,
-      defu(options, { type: "builtin" })
+      defu(options, { meta: { type: "builtin" } })
     );
   }
 

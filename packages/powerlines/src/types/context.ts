@@ -19,6 +19,7 @@
 import type { EnvPaths } from "@stryke/env/get-env-paths";
 import { FetchRequestOptions } from "@stryke/http/fetch";
 import type { NonUndefined } from "@stryke/types/base";
+import { TypeDefinition } from "@stryke/types/configuration";
 import type { PackageJson } from "@stryke/types/package-json";
 import type { Worker as JestWorker } from "jest-worker";
 import type { Jiti } from "jiti";
@@ -44,7 +45,8 @@ import type {
 import type {
   ResolveOptions,
   VirtualFile,
-  VirtualFileSystemInterface
+  VirtualFileSystemInterface,
+  WriteOptions
 } from "./fs";
 import type { HookKeys, Hooks, HooksList } from "./hooks";
 import type { Plugin } from "./plugin";
@@ -173,6 +175,16 @@ export interface ParseOptions extends ParserOptions {
    * When true this allows return statements to be outside functions to e.g. support parsing CommonJS code.
    */
   allowReturnOutsideFunction?: boolean;
+}
+
+export interface EmitEntryOptions extends WriteOptions {
+  /**
+   * The export name of the type definition in the file being emitted
+   *
+   * @remarks
+   * If no value is provided, we will attempt to infer the type definition from the module's `default` export.
+   */
+  name?: TypeDefinition["name"];
 }
 
 /**
@@ -433,16 +445,27 @@ export interface UnresolvedContext<
    * @param code - The source code of the builtin file
    * @param id - The unique identifier of the builtin file
    * @param path - An optional path to write the builtin file to
+   * @param options - Additional options for writing the builtin file
    */
-  emitBuiltin: (code: string, id: string, path?: string) => Promise<void>;
+  emitBuiltin: (
+    code: string,
+    id: string,
+    path?: string,
+    options?: WriteOptions
+  ) => Promise<void>;
 
   /**
    * Resolves a entry virtual file and writes it to the VFS if it does not already exist
    *
    * @param code - The source code of the entry file
    * @param path - An optional path to write the entry file to
+   * @param options - Additional options for writing the entry file
    */
-  emitEntry: (code: string, path: string) => Promise<void>;
+  emitEntry: (
+    code: string,
+    path: string,
+    options?: EmitEntryOptions
+  ) => Promise<void>;
 
   /**
    * A function to update the context fields using a new user configuration options
