@@ -21,7 +21,7 @@ import defu from "defu";
 import { APIContext, Context } from "../../types/context";
 import { EnvironmentResolvedConfig } from "../../types/resolved";
 
-export const DEFAULT_ENVIRONMENT = "__DEFAULT__" as const;
+export const DEFAULT_ENVIRONMENT = "default" as const;
 export const GLOBAL_ENVIRONMENT = "__GLOBAL__" as const;
 
 export function createEnvironment<TContext extends Context = Context>(

@@ -25,7 +25,7 @@ import { readJsonFile } from "@stryke/fs/json";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { hashDirectory } from "@stryke/hash/hash-files";
 import { murmurhash } from "@stryke/hash/murmurhash";
-import { getUnique } from "@stryke/helpers/get-unique";
+import { getUnique, getUniqueBy } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
 import { fetchRequest } from "@stryke/http/fetch";
 import { StormJSON } from "@stryke/json/storm-json";
@@ -89,6 +89,7 @@ import {
 } from "../../types/fs";
 import { UNSAFE_ContextInternal } from "../../types/internal";
 import {
+  ResolvedAssetGlob,
   ResolvedConfig,
   ResolvedEntryTypeDefinition
 } from "../../types/resolved";
@@ -1252,7 +1253,7 @@ export class PowerlinesContext<
       this.config.output.buildPath ??= "dist";
     }
 
-    this.config.output.assets = getUnique(
+    this.config.output.assets = getUniqueBy(
       this.config.output.assets.map(asset => {
         return {
           glob: isSetObject(asset) ? asset.glob : asset,
@@ -1296,7 +1297,8 @@ export class PowerlinesContext<
               ? toArray(asset.ignore)
               : undefined
         };
-      })
+      }),
+      (a: ResolvedAssetGlob) => `${a.input}-${a.glob}-${a.output}`
     );
 
     this.config.plugins = (this.config.plugins ?? [])
