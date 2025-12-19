@@ -16,8 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-/* eslint-disable @nx/enforce-module-boundaries */
-
 import type { StormWorkspaceConfig } from "@storm-software/config/types";
 import { getGenerateAction } from "@storm-software/untyped/generate";
 import { toArray } from "@stryke/convert/to-array";

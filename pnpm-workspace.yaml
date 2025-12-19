@@ -69,37 +69,37 @@ catalog:
   '@rollup/plugin-replace': ^6.0.3
   '@rspack/core': ^1.6.8
   '@standard-schema/spec': ^1.1.0
-  '@storm-software/build-tools': ^0.158.72
-  '@storm-software/config': ^1.134.72
-  '@storm-software/config-tools': ^1.188.72
-  '@storm-software/cspell': ^0.45.71
-  '@storm-software/esbuild': ^0.53.72
-  '@storm-software/eslint': ^0.169.73
-  '@storm-software/git-tools': ^2.124.55
-  '@storm-software/linting-tools': ^1.132.72
-  '@storm-software/markdownlint': ^0.30.71
-  '@storm-software/pnpm-tools': ^0.6.74
-  '@storm-software/prettier': ^0.57.71
-  '@storm-software/testing-tools': ^1.119.71
-  '@storm-software/tsconfig': ^0.47.71
-  '@storm-software/tsup': ^0.2.70
-  '@storm-software/unbuild': ^0.57.72
-  '@storm-software/untyped': ^0.24.53
-  '@storm-software/workspace-tools': ^1.294.18
-  '@stryke/capnp': ^0.12.49
-  '@stryke/cli': ^0.12.34
+  '@storm-software/build-tools': ^0.158.73
+  '@storm-software/config': ^1.134.73
+  '@storm-software/config-tools': ^1.188.73
+  '@storm-software/cspell': ^0.45.72
+  '@storm-software/esbuild': ^0.53.73
+  '@storm-software/eslint': ^0.169.74
+  '@storm-software/git-tools': ^2.124.56
+  '@storm-software/linting-tools': ^1.132.73
+  '@storm-software/markdownlint': ^0.30.72
+  '@storm-software/pnpm-tools': ^0.6.75
+  '@storm-software/prettier': ^0.57.72
+  '@storm-software/testing-tools': ^1.119.72
+  '@storm-software/tsconfig': ^0.47.72
+  '@storm-software/tsup': ^0.2.71
+  '@storm-software/unbuild': ^0.57.73
+  '@storm-software/untyped': ^0.24.54
+  '@storm-software/workspace-tools': ^1.294.19
+  '@stryke/capnp': ^0.12.50
+  '@stryke/cli': ^0.12.35
   '@stryke/convert': ^0.6.28
-  '@stryke/env': ^0.20.41
-  '@stryke/fs': ^0.33.24
-  '@stryke/hash': ^0.12.30
+  '@stryke/env': ^0.20.42
+  '@stryke/fs': ^0.33.25
+  '@stryke/hash': ^0.12.31
   '@stryke/helpers': ^0.9.30
-  '@stryke/http': ^0.12.18
+  '@stryke/http': ^0.12.19
   '@stryke/json': ^0.9.31
-  '@stryke/path': ^0.23.1
+  '@stryke/path': ^0.23.2
   '@stryke/string-format': ^0.12.28
   '@stryke/type-checks': ^0.5.13
   '@stryke/types': ^0.10.27
-  '@stryke/unique-id': ^0.3.35
+  '@stryke/unique-id': ^0.3.36
   '@swc/core': ^1.15.7
   '@tamagui/static-worker': ^1.141.5
   '@tamagui/types': ^1.141.5
@@ -157,7 +157,7 @@ catalog:
   openapi-typescript: ^7.10.1
   oxc-parser: ^0.99.0
   oxc-transform: ^0.99.0
-  oxlint: ^1.33.0
+  oxlint: ^1.34.0
   oxlint-tsgolint: ^0.2.1
   pluralize: ^8.0.0
   prettier: ^3.7.4

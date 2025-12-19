@@ -84,7 +84,7 @@
     "jiti": "catalog:",
     "powerlines": "workspace:*",
     "ts-pattern": "catalog:",
-    "prisma-util": "^2.1.1",
+    "prisma-util": "catalog:",
     "@prisma/get-platform": "catalog:",
     "@prisma/prisma-schema-wasm": "catalog:",
     "fp-ts": "catalog:"
