@@ -174,31 +174,48 @@ export class PowerlinesContext<
   #requestCache!: FlatCache;
 
   #getConfigProps(config: Partial<TResolvedConfig["userConfig"]> = {}) {
-    return {
-      variant: config.build?.variant,
-      projectType: config.type,
-      projectRoot: config.root,
-      name: config.name,
-      title: config.title,
-      description: config.description,
-      sourceRoot: config.sourceRoot,
-      configFile: config.configFile,
-      customLogger: config.customLogger,
-      logLevel: config.logLevel,
-      tsconfig: config.tsconfig,
-      tsconfigRaw: config.tsconfigRaw,
-      skipCache: config.skipCache,
-      skipInstalls: config.skipInstalls,
-      entry: config.entry,
-      output: config.output,
-      plugins: config.plugins,
-      mode: config.mode,
-      lint: config.lint,
-      transform: config.transform,
-      build: config.build,
-      framework: config.framework,
-      ...config
-    };
+    return defu(
+      {
+        variant: config.build?.variant,
+        projectType: config.type,
+        projectRoot: config.root,
+        name: config.name,
+        title: config.title,
+        description: config.description,
+        sourceRoot: config.sourceRoot,
+        configFile: config.configFile,
+        customLogger: config.customLogger,
+        logLevel: config.logLevel,
+        tsconfig: config.tsconfig,
+        tsconfigRaw: config.tsconfigRaw,
+        skipCache: config.skipCache,
+        skipInstalls: config.skipInstalls,
+        entry: config.entry,
+        output: config.output,
+        plugins: config.plugins,
+        mode: config.mode,
+        lint: config.lint,
+        transform: config.transform,
+        build: config.build,
+        framework: config.framework,
+        ...config
+      },
+      {
+        output: config.framework
+          ? {
+              artifactsPath: joinPaths(
+                config.root ?? this.config.projectRoot,
+                `.${config.framework ?? "powerlines"}`
+              ),
+              dts: joinPaths(
+                config.root ?? this.config.projectRoot,
+                `${config.framework ?? "powerlines"}.d.ts`
+              ),
+              builtinPrefix: config.framework ?? "powerlines"
+            }
+          : {}
+      }
+    );
   }
 
   /**
