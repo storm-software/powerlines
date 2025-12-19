@@ -18,6 +18,8 @@
 
 import { AssetGlob, Entry } from "@storm-software/build-tools/types";
 import { DEFAULT_BUILD_OPTIONS } from "@storm-software/tsup/constants";
+import { toArray } from "@stryke/convert/to-array";
+import { getUnique } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
 import {
@@ -68,9 +70,9 @@ export function resolveTsupEntry(
  * @returns The resolved options.
  */
 export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
-  return defu(
+  const result = defu(
     {
-      esbuildOptions: (options, ctx) => {
+      esbuildOptions: ((options, ctx) => {
         if (context.config.build.variant === "tsup") {
           if (
             (
@@ -110,7 +112,7 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
           ),
           ...options.alias
         };
-      },
+      }) as TsupResolvedBuildConfig["esbuildOptions"],
       noExternal: context.builtins
     },
     context.config.build.variant === "tsup"
@@ -151,4 +153,7 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
     },
     DEFAULT_TSUP_CONFIG
   );
+
+  result.format = getUnique(toArray(result.format));
+  return result as TsupResolvedBuildConfig;
 }
