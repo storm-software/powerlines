@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.33.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.33.1) (12/19/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with duplicate `assets` property
+  ([8e7d41e5](https://github.com/storm-software/powerlines/commit/8e7d41e5))
+
 ## [0.33.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.33.0) (12/19/2025)
 
 ### Miscellaneous
