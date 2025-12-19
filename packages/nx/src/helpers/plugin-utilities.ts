@@ -335,7 +335,7 @@ export function createNxPlugin<
                 defaultConfiguration:
                   options?.prepare?.defaultConfiguration || "production",
                 options: {
-                  entry: userConfig.entry || "{sourceRoot}/index.ts",
+                  entry: userConfig.entry,
                   projectType: projectConfig.projectType || userConfig.type,
                   skipInstalls: userConfig.skipInstalls,
                   skipCache: userConfig.skipCache
@@ -379,7 +379,7 @@ export function createNxPlugin<
                 defaultConfiguration:
                   options?.build?.defaultConfiguration || "production",
                 options: {
-                  entry: userConfig.entry || "{sourceRoot}/index.ts",
+                  entry: userConfig.entry,
                   outputPath:
                     userConfig.output?.outputPath || "dist/{projectRoot}",
                   projectType: projectConfig.projectType || userConfig.type,
@@ -428,7 +428,7 @@ export function createNxPlugin<
                 defaultConfiguration:
                   options?.lint?.defaultConfiguration || "production",
                 options: {
-                  entry: userConfig.entry || "{sourceRoot}/index.ts",
+                  entry: userConfig.entry,
                   projectType: projectConfig.projectType || userConfig.type,
                   skipInstalls: userConfig.skipInstalls,
                   skipCache: userConfig.skipCache
@@ -475,7 +475,7 @@ export function createNxPlugin<
                 defaultConfiguration:
                   options?.docs?.defaultConfiguration || "production",
                 options: {
-                  entry: userConfig.entry || "{sourceRoot}/index.ts",
+                  entry: userConfig.entry,
                   projectType: projectConfig.projectType || userConfig.type,
                   skipInstalls: userConfig.skipInstalls,
                   skipCache: userConfig.skipCache
@@ -522,7 +522,7 @@ export function createNxPlugin<
                 defaultConfiguration:
                   options?.deploy?.defaultConfiguration || "production",
                 options: {
-                  entry: userConfig.entry || "{sourceRoot}/index.ts",
+                  entry: userConfig.entry,
                   projectType: projectConfig.projectType || userConfig.type,
                   skipInstalls: userConfig.skipInstalls,
                   skipCache: userConfig.skipCache
