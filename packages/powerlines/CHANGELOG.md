@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.33.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.33.0) (12/19/2025)
+
+### Miscellaneous
+
+- **powerlines:** Ensure duplicate format options aren't passed to tsup
+  ([956d827b](https://github.com/storm-software/powerlines/commit/956d827b))
+
+### Bug Fixes
+
+- **powerlines:** Prevent issue with defaulting `dts` when `experimentalDts` is
+  set ([e0feec2c](https://github.com/storm-software/powerlines/commit/e0feec2c))
+
+### Features
+
+- **powerlines:** Updated `entry` property to check virtual files
+  ([cc6997eb](https://github.com/storm-software/powerlines/commit/cc6997eb))
+
 ## [0.32.7](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.32.7) (12/18/2025)
 
 ### Bug Fixes
