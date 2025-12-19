@@ -128,9 +128,14 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
       outputPath: context.config.output.buildPath,
       projectRoot: context.config.projectRoot,
       tsconfig: context.tsconfig.tsconfigFilePath,
-      dts: {
-        compilerOptions: context.tsconfig.tsconfigJson.compilerOptions
-      },
+      dts:
+        context.config.build.variant !== "tsup" ||
+        (!(context.config.build as TsupBuildConfig)?.experimentalDts &&
+          !(context.config.build.override as TsupBuildConfig)?.experimentalDts)
+          ? {
+              compilerOptions: context.tsconfig.tsconfigJson.compilerOptions
+            }
+          : undefined,
       format: context.config.output.format,
       mode: context.config.mode,
       treeshake:
