@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.12](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.12) (12/19/2025)
+
+### Bug Fixes
+
+- **nx:** Resolve issue applying `entry` defaults incorrectly
+  ([d0c8bca2](https://github.com/storm-software/powerlines/commit/d0c8bca2))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.33.2**
+
 ## [0.11.11](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.11) (12/19/2025)
 
 ### Updated Dependencies
