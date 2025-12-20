@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.34.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.34.1) (12/20/2025)
+
+### Bug Fixes
+
+- **powerlines:** Allow empty arrays in `entry` property
+  ([5e0d27dd](https://github.com/storm-software/powerlines/commit/5e0d27dd))
+
 ## [0.34.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.34.0) (12/20/2025)
 
 ### Features
