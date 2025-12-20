@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.33.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.33.2) (12/19/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue applying `framework` to `output` properties
+  ([3e020cc1](https://github.com/storm-software/powerlines/commit/3e020cc1))
+
 ## [0.33.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.33.1) (12/19/2025)
 
 ### Bug Fixes
