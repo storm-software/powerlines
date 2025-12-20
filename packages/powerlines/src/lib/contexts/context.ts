@@ -317,9 +317,7 @@ export class PowerlinesContext<
   public get entry(): ResolvedEntryTypeDefinition[] {
     return resolveEntriesSync(
       this,
-      !this.#entry || this.#entry.length === 0
-        ? toArray(this.config.entry)
-        : this.#entry
+      !this.#entry ? toArray(this.config.entry) : this.#entry
     );
   }
 
