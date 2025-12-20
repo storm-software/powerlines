@@ -24,15 +24,8 @@
   "license": "Apache-2.0",
   "private": true,
   "packageManager": "pnpm@10.26.0",
-  "engines": {
-    "pnpm": ">=10.24.0"
-  },
-  "keywords": [
-    "storm-software",
-    "storm",
-    "storm-ops",
-    "sullivanpj"
-  ],
+  "engines": { "pnpm": ">=10.24.0" },
+  "keywords": ["storm-software", "storm", "storm-ops", "sullivanpj"],
   "scripts": {
     "adr": "pnpm log4brains adr new",
     "adr-preview": "pnpm log4brains preview",
@@ -99,10 +92,7 @@
     "verdaccio": "catalog:",
     "zx": "catalog:"
   },
-  "manypkg": {
-    "defaultBranch": "main",
-    "workspaceProtocol": "require"
-  },
+  "manypkg": { "defaultBranch": "main", "workspaceProtocol": "require" },
   "namespace": "@powerlines",
   "nx": {
     "includedScripts": [
