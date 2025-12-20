@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.34.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.34.0) (12/20/2025)
+
+### Features
+
+- **powerlines:** Added support for updating `entry` field on contexts
+  ([f5861678](https://github.com/storm-software/powerlines/commit/f5861678))
+
 ## [0.33.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.33.2) (12/19/2025)
 
 ### Bug Fixes
