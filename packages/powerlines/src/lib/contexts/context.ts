@@ -39,7 +39,6 @@ import { isNull } from "@stryke/type-checks/is-null";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
-import { TypeDefinitionParameter } from "@stryke/types/configuration";
 import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
 import { match, tsconfigPathsToRegExp } from "bundle-require";
@@ -162,6 +161,8 @@ export class PowerlinesContext<
   #timestamp: number = Date.now();
 
   #envPaths: EnvPaths;
+
+  #entry: ResolvedEntryTypeDefinition[] | null = null;
 
   #fs!: VirtualFileSystemInterface;
 
@@ -314,21 +315,16 @@ export class PowerlinesContext<
    * The resolved entry type definitions for the project
    */
   public get entry(): ResolvedEntryTypeDefinition[] {
-    const entry = Object.entries(this.fs.metadata)
-      .filter(([, meta]) => meta && meta.type === "entry")
-      .map(([file, meta]) => {
-        return {
-          file,
-          name: meta?.properties?.name || "default"
-        };
-      }) as TypeDefinitionParameter[];
-
     return resolveEntriesSync(
       this,
-      entry.length === 0 && this.config.entry
+      !this.#entry || this.#entry.length === 0
         ? toArray(this.config.entry)
-        : entry
+        : this.#entry
     );
+  }
+
+  public set entry(value: ResolvedEntryTypeDefinition[]) {
+    this.#entry = value;
   }
 
   /**
