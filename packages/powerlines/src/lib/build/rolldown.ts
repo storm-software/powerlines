@@ -51,7 +51,7 @@ export function extractRolldownConfig(
   return defu<RolldownResolvedBuildConfig, any>(
     {
       input: globSync(
-        toArray(context.config.entry).map(entry =>
+        toArray(context.entry).map(entry =>
           isString(entry) ? entry : entry.file
         )
       ).flat(),

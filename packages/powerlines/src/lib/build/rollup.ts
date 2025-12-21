@@ -91,7 +91,7 @@ export function extractRollupConfig(
   const result = defu(
     {
       input: globSync(
-        toArray(context.config.entry).map(entry =>
+        toArray(context.entry).map(entry =>
           isString(entry) ? entry : entry.file
         )
       ).flat(),

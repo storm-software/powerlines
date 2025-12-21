@@ -321,6 +321,9 @@ export class PowerlinesContext<
     );
   }
 
+  /**
+   * Sets the resolved entry type definitions for the project
+   */
   public set entry(value: ResolvedEntryTypeDefinition[]) {
     this.#entry = value;
   }

@@ -110,9 +110,9 @@ export function extractTsdownConfig(
   return defu(
     {
       entry:
-        isSetString(context.config.entry) ||
-        (Array.isArray(context.config.entry) && context.config.entry.length > 0)
-          ? (toArray(context.config.entry)
+        isSetString(context.entry) ||
+        (Array.isArray(context.entry) && context.entry.length > 0)
+          ? (toArray(context.entry)
               .map(entry => {
                 const typeDef = parseTypeDefinition(entry);
 
