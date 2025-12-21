@@ -17,10 +17,10 @@
  ------------------------------------------------------------------- */
 
 import type { Format } from "@storm-software/build-tools/types";
-import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
 import { omit } from "@stryke/helpers/omit";
 import { appendPath } from "@stryke/path/append";
+import { joinPaths } from "@stryke/path/join-paths";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import defu from "defu";
 import { Format as TsdownFormat } from "tsdown";
@@ -110,16 +110,25 @@ export function extractTsdownConfig(
   return defu(
     {
       entry:
-        isSetString(context.entry) ||
-        (Array.isArray(context.entry) && context.entry.length > 0)
-          ? (toArray(context.entry)
-              .map(entry => {
-                const typeDef = parseTypeDefinition(entry);
-
-                return typeDef?.file;
-              })
-              .filter(Boolean) as string[])
-          : ["src/**/*.ts", "src/**/*.tsx"],
+        context.entry.length > 0
+          ? context.entry.filter(Boolean).map(entry => {
+              return appendPath(
+                appendPath(entry.file, context.config.projectRoot),
+                context.workspaceConfig.workspaceRoot
+              );
+            })
+          : [
+              joinPaths(
+                context.workspaceConfig.workspaceRoot,
+                context.config.sourceRoot,
+                "**/*.ts"
+              ),
+              joinPaths(
+                context.workspaceConfig.workspaceRoot,
+                context.config.sourceRoot,
+                "**/*.tsx"
+              )
+            ],
       alias: context.builtins.reduce(
         (ret, id) => {
           const path = context.fs.ids[id];
