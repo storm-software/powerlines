@@ -95,7 +95,7 @@ catalog:
   '@stryke/helpers': ^0.9.31
   '@stryke/http': ^0.12.20
   '@stryke/json': ^0.9.32
-  '@stryke/path': ^0.23.2
+  '@stryke/path': ^0.24.0
   '@stryke/string-format': ^0.12.29
   '@stryke/type-checks': ^0.5.14
   '@stryke/types': ^0.10.28
