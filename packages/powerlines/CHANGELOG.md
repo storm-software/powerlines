@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.35.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.35.2) (12/22/2025)
+
+### Miscellaneous
+
+- **powerlines:** Update plugin log message formatting to handle `':'`
+  characters as a special case
+  ([96383362](https://github.com/storm-software/powerlines/commit/96383362))
+
 ## [0.35.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.35.1) (12/22/2025)
 
 ### Miscellaneous

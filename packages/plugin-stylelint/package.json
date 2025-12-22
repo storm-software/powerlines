@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-stylelint",
-  "version": "0.1.97",
+  "version": "0.1.98",
   "type": "module",
   "description": "A package containing a Powerlines plugin for running Stylelint on the codebase.",
   "repository": {
