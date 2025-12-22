@@ -51,7 +51,7 @@ export function createPluginContext<
     return isString(message) ? message : message.message;
   };
 
-  const log: LogFn = environment.extendLog(plugin.name);
+  const log: LogFn = environment.extendLog(plugin.name.replaceAll(":", " - "));
 
   const callHookFn = async <
     TKey extends HookKeys<PluginContext<TResolvedConfig>>
