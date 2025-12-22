@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.4.90](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.90) (12/21/2025)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue preventing `deepkit` source from being built
+  ([1d041314](https://github.com/storm-software/powerlines/commit/1d041314))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.34.3**
+- Updated **nx** to **v0.11.16**
+
 ## [0.4.89](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.89) (12/21/2025)
 
 ### Updated Dependencies
