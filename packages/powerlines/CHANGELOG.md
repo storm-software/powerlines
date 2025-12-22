@@ -2,6 +2,15 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.34.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.34.2) (12/21/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue applying entry points to builder
+  ([54189bd8](https://github.com/storm-software/powerlines/commit/54189bd8))
+- **powerlines:** Resolve issue with incorrect entry points applied during build
+  ([d853a52b](https://github.com/storm-software/powerlines/commit/d853a52b))
+
 ## [0.34.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.34.1) (12/20/2025)
 
 ### Bug Fixes
