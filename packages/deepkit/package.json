@@ -168,6 +168,7 @@
     "@deepkit/type-spec": "catalog:",
     "@powerlines/nx": "workspace:*",
     "@types/node": "catalog:",
+    "dts-bundle-generator": "catalog:",
     "tsup": "catalog:"
   },
   "publishConfig": {
