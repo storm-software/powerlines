@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.1](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.1) (12/22/2025)
+
+### Miscellaneous
+
+- **deepkit:** Added the `options` parameter to the `esbuildPlugin`
+  ([40f2e931](https://github.com/storm-software/powerlines/commit/40f2e931))
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue with build tasks order
+  ([4de0af3e](https://github.com/storm-software/powerlines/commit/4de0af3e))
+- **deepkit:** Resolve issues with entry paths and bundling in libs build
+  ([381ce8b1](https://github.com/storm-software/powerlines/commit/381ce8b1))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.34.7**
+- Updated **nx** to **v0.11.20**
+
 ## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.0) (12/22/2025)
 
 ### Miscellaneous
