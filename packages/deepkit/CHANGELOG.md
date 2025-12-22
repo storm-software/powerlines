@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.9](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.9) (12/22/2025)
+
+### Miscellaneous
+
+- **deepkit:** Added type parameter to `reflectType` to allow for better
+  `context` parameter typings
+  ([70c977a4](https://github.com/storm-software/powerlines/commit/70c977a4))
+
 ## [0.5.8](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.8) (12/22/2025)
 
 ### Updated Dependencies
