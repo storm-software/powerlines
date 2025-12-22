@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.35.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.35.1) (12/22/2025)
+
+### Miscellaneous
+
+- **powerlines:** Enhance `Plugin` initialization logic to support arrays of
+  plugins
+  ([66843365](https://github.com/storm-software/powerlines/commit/66843365))
+
 ## [0.35.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.35.0) (12/22/2025)
 
 ### Features
