@@ -19,7 +19,7 @@
 import { defineTsupConfig } from "@powerlines/tools-config/tsup.shared";
 
 const config = defineTsupConfig({
-  name: "core-schemas",
+  name: "deepkit-schemas",
   entry: ["schemas/reflection.ts"],
   outDir: "schemas",
   clean: false

@@ -30,6 +30,7 @@ const config = defineTsupConfig([
     platform: "neutral",
     target: "esnext",
     clean: false,
+    skipNodeModulesBundle: true,
     noExternal: ["@deepkit/core", "@deepkit/type", "@deepkit/type-spec"]
   },
   {
@@ -39,15 +40,22 @@ const config = defineTsupConfig([
     platform: "node",
     target: "esnext",
     clean: false,
-    noExternal: ["@deepkit/type-compiler"]
+    skipNodeModulesBundle: true,
+    noExternal: [
+      "@deepkit/core",
+      "@deepkit/type",
+      "@deepkit/type-spec",
+      "@deepkit/type-compiler"
+    ]
   },
   {
     name: "deepkit",
-    entry: ["src/**/*.ts"],
+    entry: ["src/*.ts"],
     outDir: "dist",
     platform: "node",
     target: "esnext",
     clean: false,
+    skipNodeModulesBundle: true,
     external: [
       "@powerlines/deepkit/vendor/type",
       "@powerlines/deepkit/vendor/type-compiler",
