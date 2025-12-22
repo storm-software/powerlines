@@ -124,6 +124,13 @@ interface ConfigCacheResult {
 
 const configCache = new WeakMap<ConfigCacheKey, ConfigCacheResult>();
 
+interface EnvPathCacheKey {
+  framework: string;
+  workspaceRoot: string;
+}
+
+const envPathCache = new WeakMap<EnvPathCacheKey, EnvPaths>();
+
 const agent = new Agent({ keepAliveTimeout: 10000 });
 setGlobalDispatcher(
   agent.compose(
@@ -159,8 +166,6 @@ export class PowerlinesContext<
   #releaseId: string = uuid();
 
   #timestamp: number = Date.now();
-
-  #envPaths: EnvPaths;
 
   #entry: ResolvedEntryTypeDefinition[] | null = null;
 
@@ -420,15 +425,32 @@ export class PowerlinesContext<
    * The environment paths for the project
    */
   public get envPaths(): EnvPaths {
-    if (!this.#envPaths) {
-      this.#envPaths = getEnvPaths({
-        orgId: "storm-software",
-        appId: "powerlines",
-        workspaceRoot: this.workspaceConfig.workspaceRoot
-      });
+    if (
+      envPathCache.has({
+        workspaceRoot: this.workspaceConfig.workspaceRoot,
+        framework: this.config?.framework || "powerlines"
+      })
+    ) {
+      return envPathCache.get({
+        workspaceRoot: this.workspaceConfig.workspaceRoot,
+        framework: this.config?.framework || "powerlines"
+      })!;
     }
 
-    return this.#envPaths;
+    const envPaths = getEnvPaths({
+      orgId: "storm-software",
+      appId: this.config?.framework || "powerlines",
+      workspaceRoot: this.workspaceConfig.workspaceRoot
+    });
+    envPathCache.set(
+      {
+        workspaceRoot: this.workspaceConfig.workspaceRoot,
+        framework: this.config?.framework || "powerlines"
+      },
+      envPaths
+    );
+
+    return envPaths;
   }
 
   /**
@@ -1049,11 +1071,21 @@ export class PowerlinesContext<
    */
   protected constructor(workspaceConfig: WorkspaceConfig) {
     this.#workspaceConfig = workspaceConfig;
-    this.#envPaths = getEnvPaths({
-      orgId: "storm-software",
-      appId: "powerlines",
-      workspaceRoot: workspaceConfig.workspaceRoot
-    });
+
+    envPathCache.set(
+      {
+        workspaceRoot: workspaceConfig.workspaceRoot,
+        framework: "powerlines"
+      },
+      getEnvPaths({
+        orgId:
+          (isSetObject(workspaceConfig.organization)
+            ? workspaceConfig.organization.name
+            : workspaceConfig.organization) || "storm-software",
+        appId: "powerlines",
+        workspaceRoot: workspaceConfig.workspaceRoot
+      })
+    );
   }
 
   /**
