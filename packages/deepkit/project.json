@@ -32,6 +32,7 @@
       "cache": false,
       "inputs": ["{projectRoot}/scripts/*.ts"],
       "outputs": ["{projectRoot}/scripts/*.cjs"],
+      "dependsOn": ["clean"],
       "executor": "nx:run-commands",
       "options": {
         "command": "tsup --config=tsup.scripts.ts",
@@ -42,6 +43,7 @@
       "cache": false,
       "inputs": ["typescript", "^production"],
       "outputs": ["{projectRoot}/dist"],
+      "dependsOn": ["clean"],
       "executor": "nx:run-commands",
       "options": {
         "command": "tsup --config=tsup.config.ts",

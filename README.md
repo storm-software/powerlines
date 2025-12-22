@@ -55,7 +55,6 @@
   - [Running End-to-End Tests](#running-end-to-end-tests)
   - [Understand your workspace](#understand-your-workspace)
 - [☁ Nx Cloud](#-nx-cloud)
-  - [Distributed Computation Caching \& Distributed Task Execution](#distributed-computation-caching--distributed-task-execution)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [Support](#support)
@@ -202,22 +201,6 @@ to share the computation cache across everyone in your team and CI.
 <div align="center">
 <img src="https://pub-4661138852db4e5da99a6660fbf9b633.r2.dev/Nx Cloud - Dashboard.png" width="100%" alt="Nx Cloud - Dashboard" />
 </div>
-
-<div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
-<br />
-
-## Distributed Computation Caching & Distributed Task Execution
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more
-rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx
-Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their
-preferred framework alongside Nx’s advanced code generation and project
-dependency graph, plus a unified experience for both frontend and backend
-developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
 
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
 <br />
