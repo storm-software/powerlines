@@ -33,8 +33,8 @@ import { esbuildPlugin } from "./esbuild-plugin";
  * @param overrides - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the compiled module.
  */
-export async function reflectType(
-  context: Context,
+export async function reflectType<TContext extends Context = Context>(
+  context: TContext,
   type: TypeDefinition,
   overrides: Partial<ESBuildResolvedBuildConfig> = {}
 ): Promise<Type> {
