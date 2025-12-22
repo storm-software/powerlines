@@ -97,7 +97,7 @@ jobs:
           storm-bot-github-token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
 
       - name: Run build script
-        run: build
+        run: pnpm build
         shell: bash
 
       - name: Perform CodeQL Analysis
