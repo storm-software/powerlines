@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { isString } from "@stryke/type-checks";
-import type { Plugin } from "esbuild";
+import type { OnLoadOptions, Plugin } from "esbuild";
 import { Context } from "powerlines/types/context";
 import { DiagnosticCategory } from "typescript";
 import { transpile } from "./transpile";
@@ -26,15 +26,20 @@ import { transpile } from "./transpile";
  * Esbuild plugin for Deepkit Type reflections.
  *
  * @param context - The Powerlines context.
+ * @param options - Optional esbuild onLoad options.
  * @returns An esbuild plugin instance.
  */
-export const esbuildPlugin = (context: Context): Plugin => {
+export const esbuildPlugin = (
+  context: Context,
+  options: Partial<OnLoadOptions> = {}
+): Plugin => {
   return {
     name: "powerlines:deepkit",
     setup(build) {
       build.onLoad(
         {
-          filter: /\.tsx?$/
+          filter: /\.(m|c)?tsx?$/,
+          ...options
         },
         async args => {
           const contents = await context.fs.read(args.path);
@@ -58,7 +63,7 @@ export const esbuildPlugin = (context: Context): Plugin => {
                 d => d.category === DiagnosticCategory.Error
               )
             ) {
-              const errorMessage = `Deepkit Type reflection transpilation errors in file: ${
+              const errorMessage = `Deepkit Type reflection transpilation errors: ${
                 args.path
               } \n ${result.diagnostics
                 .filter(d => d.category === DiagnosticCategory.Error)
@@ -80,7 +85,7 @@ export const esbuildPlugin = (context: Context): Plugin => {
               )
             ) {
               context.warn(
-                `Deepkit Type reflection transpilation warnings in file: ${
+                `Deepkit Type reflection transpilation warnings: ${
                   args.path
                 } \n ${result.diagnostics
                   .filter(d => d.category === DiagnosticCategory.Warning)
@@ -96,7 +101,7 @@ export const esbuildPlugin = (context: Context): Plugin => {
               );
             } else {
               context.debug(
-                `Deepkit Type reflection transpilation info in file: ${
+                `Deepkit Type reflection transpilation diagnostics: ${
                   args.path
                 } \n ${result.diagnostics
                   .map(
