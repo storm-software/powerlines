@@ -48,7 +48,7 @@ function getCode(deepkitDistPath: string, varName: string, id: string): string {
     var typeTransformer;
 
     try {
-      typeTransformer = require("@powerlines/plugin-deepkit/vendor/type-compiler");
+      typeTransformer = require("@powerlines/deepkit/vendor/type-compiler");
     } catch (error) {
       typeTransformer = require(${JSON.stringify(deepkitDistPath)});
     }

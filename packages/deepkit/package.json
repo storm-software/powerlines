@@ -39,7 +39,8 @@
   "license": "Apache-2.0",
   "private": false,
   "bin": {
-    "deepkit-install": "bin/deepkit-install.cjs"
+    "deepkit-install": "bin/deepkit-install.cjs",
+    "postinstall": "bin/deepkit-install.cjs"
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
