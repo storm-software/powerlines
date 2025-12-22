@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.5](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.5) (12/22/2025)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue with missing `type-compiler` directory in build
+  output
+  ([500f8a6a](https://github.com/storm-software/powerlines/commit/500f8a6a))
+
 ## [0.5.4](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.4) (12/22/2025)
 
 ### Miscellaneous
