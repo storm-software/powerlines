@@ -53,12 +53,7 @@
       "inputs": ["{projectRoot}/dist"],
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "type-check",
-        "build-base",
-        "build-scripts",
-        "build-schemas"
-      ],
+      "dependsOn": ["build-base", "build-scripts", "build-schemas"],
       "options": {
         "commands": [
           "pnpm copyfiles LICENSE dist/packages/deepkit",

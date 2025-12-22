@@ -29,7 +29,6 @@ const config = defineTsupConfig([
     outDir: "dist/vendor",
     platform: "neutral",
     target: "esnext",
-    sourcemap: true,
     clean: false,
     noExternal: ["@deepkit/core", "@deepkit/type", "@deepkit/type-spec"]
   },
@@ -40,8 +39,21 @@ const config = defineTsupConfig([
     platform: "node",
     target: "esnext",
     clean: false,
-    sourcemap: true,
     noExternal: ["@deepkit/type-compiler"]
+  },
+  {
+    name: "deepkit",
+    entry: ["src/**/*.ts"],
+    outDir: "dist",
+    platform: "node",
+    target: "esnext",
+    clean: false,
+    external: [
+      "@powerlines/deepkit/vendor/type",
+      "@powerlines/deepkit/vendor/type-compiler",
+      "@powerlines/deepkit/vendor/type-spec",
+      "@powerlines/deepkit/vendor/core"
+    ]
   }
 ]);
 
