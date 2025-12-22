@@ -273,7 +273,6 @@ export { ${key} };`;
         (context.config.build as ESBuildBuildConfig)?.treeShaking,
       outdir: context.config.output.buildPath,
       tsconfig: context.tsconfig.tsconfigFilePath,
-      tsconfigRaw: context.tsconfig.tsconfigJson,
       minify: context.config.mode !== "development",
       metafile: context.config.mode === "development",
       sourcemap: context.config.mode === "development"
