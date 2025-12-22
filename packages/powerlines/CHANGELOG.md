@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.36.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.0) (12/22/2025)
+
+### Features
+
+- **powerlines:** Added support for changing env paths via `framework` option
+  ([0ffd26c8](https://github.com/storm-software/powerlines/commit/0ffd26c8))
+
 ## [0.35.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.35.2) (12/22/2025)
 
 ### Miscellaneous
