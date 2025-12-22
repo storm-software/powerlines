@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.3](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.3) (12/22/2025)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue with missing deepkit bundle in build output
+  ([209afc8c](https://github.com/storm-software/powerlines/commit/209afc8c))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.34.9**
+- Updated **nx** to **v0.11.22**
+
 ## [0.5.2](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.2) (12/22/2025)
 
 ### Bug Fixes
