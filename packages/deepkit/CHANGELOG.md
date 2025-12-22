@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.4](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.4) (12/22/2025)
+
+### Miscellaneous
+
+- **deepkit:** Remove `skipNodeModulesBundle` from library build options
+  ([f27ea101](https://github.com/storm-software/powerlines/commit/f27ea101))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.35.0**
+- Updated **nx** to **v0.11.23**
+
 ## [0.5.3](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.3) (12/22/2025)
 
 ### Bug Fixes

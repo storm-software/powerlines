@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.35.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.35.0) (12/22/2025)
+
+### Features
+
+- **powerlines:** Added support for persisting emited entry files and to set
+  context on `emitEntry` call
+  ([6f6d4305](https://github.com/storm-software/powerlines/commit/6f6d4305))
+
 ## [0.34.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.34.5) (12/22/2025)
 
 ### Bug Fixes
