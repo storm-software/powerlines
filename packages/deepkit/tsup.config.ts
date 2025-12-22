@@ -60,6 +60,12 @@ const config = defineTsupConfig([
       "@powerlines/deepkit/vendor/type-compiler",
       "@powerlines/deepkit/vendor/type-spec",
       "@powerlines/deepkit/vendor/core"
+    ],
+    noExternal: [
+      "@deepkit/core",
+      "@deepkit/type",
+      "@deepkit/type-spec",
+      "@deepkit/type-compiler"
     ]
   }
 ]);
