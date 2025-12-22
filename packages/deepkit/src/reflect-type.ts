@@ -19,9 +19,11 @@
 import type { Type } from "@powerlines/deepkit/vendor/type";
 import { reflect } from "@powerlines/deepkit/vendor/type";
 import type { TypeDefinition } from "@stryke/types/configuration";
+import defu from "defu";
 import { resolve } from "powerlines/lib/utilities/resolve";
 import { ESBuildResolvedBuildConfig } from "powerlines/types/build";
 import type { Context } from "powerlines/types/context";
+import { esbuildPlugin } from "./esbuild-plugin";
 
 /**
  * Compiles a type definition to a module.
@@ -34,7 +36,15 @@ import type { Context } from "powerlines/types/context";
 export async function reflectType(
   context: Context,
   type: TypeDefinition,
-  overrides?: Partial<ESBuildResolvedBuildConfig>
+  overrides: Partial<ESBuildResolvedBuildConfig> = {}
 ): Promise<Type> {
-  return reflect(await resolve(context, type, overrides));
+  return reflect(
+    await resolve(
+      context,
+      type,
+      defu(overrides, {
+        plugins: [esbuildPlugin(context)]
+      })
+    )
+  );
 }

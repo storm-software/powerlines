@@ -39,8 +39,7 @@
   "license": "Apache-2.0",
   "private": false,
   "bin": {
-    "deepkit-install": "bin/deepkit-install.cjs",
-    "postinstall": "bin/deepkit-install.cjs"
+    "deepkit-install": "bin/deepkit-install.cjs"
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -170,7 +169,8 @@
     "@powerlines/nx": "workspace:*",
     "@types/node": "catalog:",
     "dts-bundle-generator": "catalog:",
-    "tsup": "catalog:"
+    "tsup": "catalog:",
+    "esbuild": "catalog:"
   },
   "publishConfig": {
     "access": "public"
