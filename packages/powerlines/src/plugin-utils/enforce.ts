@@ -17,8 +17,9 @@
  ------------------------------------------------------------------- */
 
 import { toArray } from "@stryke/convert/to-array";
+import { isFunction } from "@stryke/type-checks/is-function";
 import { BuildVariant } from "../types/build";
-import { PluginFactory } from "../types/config";
+import { PartialPlugin, PluginFactory } from "../types/config";
 import { PluginContext } from "../types/context";
 import { Plugin } from "../types/plugin";
 import { extend } from "./extend";
@@ -34,21 +35,31 @@ export function enforceBuild<
   TContext extends PluginContext = PluginContext,
   TBuildVariant extends BuildVariant = BuildVariant
 >(
-  plugin: Plugin<TContext> | PluginFactory<TContext>,
+  plugin: Plugin<TContext> | Plugin<TContext>[],
+  variant: TBuildVariant | TBuildVariant[]
+): Promise<Plugin<TContext>[]>;
+export function enforceBuild<
+  TContext extends PluginContext = PluginContext,
+  TBuildVariant extends BuildVariant = BuildVariant
+>(
+  plugin: PluginFactory<TContext>,
+  variant: TBuildVariant | TBuildVariant[]
+): Promise<PluginFactory<TContext>>;
+export async function enforceBuild<
+  TContext extends PluginContext = PluginContext,
+  TBuildVariant extends BuildVariant = BuildVariant
+>(
+  plugin: Plugin<TContext> | Plugin<TContext>[] | PluginFactory<TContext>,
   variant: TBuildVariant | TBuildVariant[]
 ) {
-  return extend(plugin, {
-    config: Array.isArray(variant)
-      ? undefined
-      : {
-          build: {
-            variant
-          }
-        },
+  const extension = {
     configResolved(this: TContext) {
-      if (
-        !toArray<TBuildVariant>(variant).includes(this.config.build.variant)
-      ) {
+      const allowedVariants = toArray<TBuildVariant>(variant);
+      const currentVariant = this.config?.build?.variant as
+        | TBuildVariant
+        | undefined;
+
+      if (!currentVariant || !allowedVariants.includes(currentVariant)) {
         throw new Error(
           `The plugin requires ${
             Array.isArray(variant)
@@ -61,10 +72,18 @@ export function enforceBuild<
                   .join("")}`
               : `the build variant "${variant}"`
           }, but received "${
-            this.config.build.variant
+            currentVariant ?? "undefined"
           }". Please ensure the \`build.variant\` is set correctly in your configuration.`
         );
       }
     }
-  });
+  } as PartialPlugin<TContext>;
+
+  // The `extend` function has different overloads for plugin factories vs concrete
+  // plugins - narrow here so TypeScript can select the correct overload.
+  if (isFunction(plugin)) {
+    return extend(plugin, extension);
+  }
+
+  return extend(plugin, () => extension)({});
 }

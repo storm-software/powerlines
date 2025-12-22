@@ -70,7 +70,7 @@ export type WorkspaceConfig = Partial<StormWorkspaceConfig> &
 export type PluginFactory<
   in out TContext extends PluginContext = PluginContext,
   TOptions = any
-> = (options: TOptions) => MaybePromise<Plugin<TContext>>;
+> = (options: TOptions) => MaybePromise<Plugin<TContext> | Plugin<TContext>[]>;
 
 /**
  * A configuration tuple for a Powerlines plugin.
@@ -103,7 +103,8 @@ export type PluginConfig<TContext extends PluginContext = PluginContext> =
   | string
   | PluginFactory<TContext, void>
   | Plugin<TContext>
-  | Promise<Plugin<TContext>>
+  | Plugin<TContext>[]
+  | Promise<Plugin<TContext> | Plugin<TContext>[]>
   | PluginConfigTuple<TContext>
   | PluginConfigObject<TContext>;
 
@@ -114,7 +115,9 @@ export type PartialPlugin<
 export type PartialPluginFactory<
   in out TContext extends PluginContext = PluginContext,
   TOptions = any
-> = (options: TOptions) => MaybePromise<PartialPlugin<TContext>>;
+> = (
+  options: TOptions
+) => MaybePromise<PartialPlugin<TContext> | PartialPlugin<TContext>[]>;
 
 export type ProjectType = "application" | "library";
 

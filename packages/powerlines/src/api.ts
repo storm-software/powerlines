@@ -955,25 +955,27 @@ ${formatTypes(types)}
    */
   async #addPlugin(config: PluginConfig<PluginContext<TResolvedConfig>>) {
     if (config) {
-      const plugin = await this.#initPlugin(config);
-      if (!plugin) {
+      const result = await this.#initPlugin(config);
+      if (!result) {
         return;
       }
 
-      if (plugin.dependsOn) {
-        for (const required of plugin.dependsOn) {
-          await this.#addPlugin(required);
+      for (const plugin of result) {
+        if (plugin.dependsOn) {
+          for (const required of plugin.dependsOn) {
+            await this.#addPlugin(required);
+          }
         }
+
+        this.context.log(
+          LogLevelLabel.DEBUG,
+          `Successfully initialized the ${chalk.bold.cyanBright(
+            plugin.name
+          )} plugin`
+        );
+
+        await this.context.addPlugin(plugin);
       }
-
-      this.context.log(
-        LogLevelLabel.DEBUG,
-        `Successfully initialized the ${chalk.bold.cyanBright(
-          plugin.name
-        )} plugin`
-      );
-
-      await this.context.addPlugin(plugin);
     }
   }
 
@@ -986,7 +988,7 @@ ${formatTypes(types)}
    */
   async #initPlugin(
     config: PluginConfig<PluginContext<TResolvedConfig>>
-  ): Promise<Plugin<PluginContext<TResolvedConfig>> | null> {
+  ): Promise<Plugin<PluginContext<TResolvedConfig>>[] | null> {
     let awaited = config;
     if (isPromiseLike(config)) {
       awaited = await Promise.resolve(config);
@@ -998,17 +1000,19 @@ ${formatTypes(types)}
       );
     }
 
-    let plugin!: Plugin<PluginContext<TResolvedConfig>>;
-    if (isPlugin<TResolvedConfig>(awaited)) {
-      plugin = awaited;
+    let result!: Plugin<PluginContext<TResolvedConfig>>[];
+    if (Array.isArray(awaited) && awaited.every(isPlugin<TResolvedConfig>)) {
+      result = awaited;
+    } else if (isPlugin<TResolvedConfig>(awaited)) {
+      result = [awaited];
     } else if (isFunction(awaited)) {
-      plugin = await Promise.resolve(awaited());
+      result = toArray(await Promise.resolve(awaited()));
     } else if (isSetString(awaited)) {
       const resolved = await this.#resolvePlugin(awaited);
       if (isFunction(resolved)) {
-        plugin = await Promise.resolve(resolved());
+        result = toArray(await Promise.resolve(resolved()));
       } else {
-        plugin = resolved;
+        result = toArray(resolved);
       }
     } else if (isPluginConfigTuple(awaited) || isPluginConfigObject(awaited)) {
       let pluginConfig!:
@@ -1031,57 +1035,70 @@ ${formatTypes(types)}
       if (isSetString(pluginConfig)) {
         const resolved = await this.#resolvePlugin(pluginConfig);
         if (isFunction(resolved)) {
-          plugin = await Promise.resolve(
-            pluginOptions ? resolved(pluginOptions) : resolved()
+          result = toArray(
+            await Promise.resolve(
+              pluginOptions ? resolved(pluginOptions) : resolved()
+            )
           );
         } else {
-          plugin = resolved;
+          result = toArray(resolved);
         }
       } else if (isFunction(pluginConfig)) {
-        plugin = await Promise.resolve(pluginConfig(pluginOptions));
+        result = toArray(await Promise.resolve(pluginConfig(pluginOptions)));
+      } else if (
+        Array.isArray(pluginConfig) &&
+        pluginConfig.every(isPlugin<TResolvedConfig>)
+      ) {
+        result = pluginConfig;
       } else if (isPlugin(pluginConfig)) {
-        plugin = pluginConfig;
+        result = toArray(pluginConfig);
       }
     }
 
-    if (!plugin) {
+    if (!result) {
       throw new Error(
         `The plugin configuration ${JSON.stringify(awaited)} is invalid. This configuration must point to a valid Powerlines plugin module.`
       );
     }
 
-    if (!isPlugin(plugin)) {
+    if (result.length > 0 && !result.every(isPlugin<TResolvedConfig>)) {
       throw new Error(
-        `The plugin option ${JSON.stringify(plugin)} does not export a valid module. This configuration must point to a valid Powerlines plugin module.`
+        `The plugin option ${JSON.stringify(result)} does not export a valid module. This configuration must point to a valid Powerlines plugin module.`
       );
     }
 
-    if (checkDedupe<TResolvedConfig>(plugin, this.context.plugins)) {
+    for (const plugin of result) {
+      if (checkDedupe<TResolvedConfig>(plugin, this.context.plugins)) {
+        this.context.log(
+          LogLevelLabel.TRACE,
+          `Duplicate ${chalk.bold.cyanBright(
+            plugin.name
+          )} plugin dependency detected - Skipping initialization.`
+        );
+
+        return null;
+      }
+
       this.context.log(
         LogLevelLabel.TRACE,
-        `Duplicate ${chalk.bold.cyanBright(
-          plugin.name
-        )} plugin dependency detected - Skipping initialization.`
+        `Initializing the ${chalk.bold.cyanBright(plugin.name)} plugin...`
       );
-
-      return null;
     }
 
-    this.context.log(
-      LogLevelLabel.TRACE,
-      `Initializing the ${chalk.bold.cyanBright(plugin.name)} plugin...`
-    );
-
-    return plugin;
+    return result;
   }
 
   async #resolvePlugin<TOptions>(
     pluginPath: string
   ): Promise<
     | Plugin<PluginContext<TResolvedConfig>>
+    | Plugin<PluginContext<TResolvedConfig>>[]
     | ((
         options?: TOptions
-      ) => MaybePromise<Plugin<PluginContext<TResolvedConfig>>>)
+      ) => MaybePromise<
+        | Plugin<PluginContext<TResolvedConfig>>
+        | Plugin<PluginContext<TResolvedConfig>>[]
+      >)
   > {
     if (
       pluginPath.startsWith("@") &&

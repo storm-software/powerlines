@@ -124,6 +124,7 @@ export function isPluginConfig(value: unknown): value is PluginConfig {
     isSetString(value) ||
     isFunction(value) ||
     isPlugin(value) ||
+    (Array.isArray(value) && value.every(item => isPlugin(item))) ||
     isPluginConfigObject(value) ||
     isPluginConfigTuple(value)
   );
