@@ -823,11 +823,31 @@ export class PowerlinesContext<
     path: string,
     options: EmitEntryOptions = {}
   ): Promise<void> {
+    const entryPath = isAbsolute(path)
+      ? path
+      : appendPath(path, this.entryPath);
+
+    this.entry ??= [];
+    this.entry.push({
+      name: options.name,
+      file: entryPath,
+      input: options.input,
+      output: options.output
+    });
+
     return this.fs.write(
-      isAbsolute(path) ? path : appendPath(path, this.entryPath),
+      entryPath,
       code,
       defu(omit(options, ["name"]), {
-        meta: { type: "entry", properties: { name: options.name || "default" } }
+        meta: {
+          type: "entry",
+          properties: {
+            name: options.name,
+            output: options.output,
+            "input.file": options.input?.file,
+            "input.name": options.input?.name
+          }
+        }
       })
     );
   }

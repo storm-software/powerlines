@@ -213,7 +213,7 @@ export interface VirtualFileMetadata {
   /**
    * Additional metadata associated with the file.
    */
-  properties: Record<string, string>;
+  properties: Record<string, string | undefined>;
 }
 
 export interface VirtualFileData {
@@ -241,7 +241,7 @@ export interface VirtualFileData {
   /**
    * Additional metadata associated with the file.
    */
-  properties?: Record<string, string>;
+  properties?: Record<string, string | undefined>;
 }
 
 export interface VirtualFile

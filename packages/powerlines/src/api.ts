@@ -221,7 +221,7 @@ export class PowerlinesAPI<
             ? `: \n${context.entry
                 .map(
                   entry =>
-                    `- ${entry.input.file || entry.file}${
+                    `- ${entry.file}${
                       entry.output ? ` -> ${entry.output}` : ""
                     }`
                 )

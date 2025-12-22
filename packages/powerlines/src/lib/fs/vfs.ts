@@ -394,6 +394,25 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         },
         {} as Record<string, VirtualFileMetadata>
       );
+
+      if (context.config.skipCache !== true) {
+        Object.entries(this.#metadata)
+          .filter(([, value]) => value.type === "entry")
+          .forEach(([id, value]) => {
+            this.#context.entry ??= [];
+            this.#context.entry.push({
+              file: id,
+              name: value.properties.name,
+              output: value.properties.output,
+              input: value.properties["input.file"]
+                ? {
+                    file: value.properties["input.file"],
+                    name: value.properties["input.name"]
+                  }
+                : undefined
+            });
+          });
+      }
     }
 
     this.#ids = {} as Record<string, string>;
@@ -1321,11 +1340,13 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
             const props = fileMetadata._initProperties(
               Object.keys(value.properties).length
             );
-            Object.entries(value.properties).forEach(([key, val], index) => {
-              const prop = props.get(index);
-              prop.key = key;
-              prop.value = val;
-            });
+            Object.entries(value.properties)
+              .filter(([, val]) => isSetString(val))
+              .forEach(([key, val], index) => {
+                const prop = props.get(index);
+                prop.key = key;
+                prop.value = val!;
+              });
           }
         });
 

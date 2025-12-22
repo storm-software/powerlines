@@ -19,7 +19,6 @@
 import type { EnvPaths } from "@stryke/env/get-env-paths";
 import { FetchRequestOptions } from "@stryke/http/fetch";
 import type { NonUndefined } from "@stryke/types/base";
-import { TypeDefinition } from "@stryke/types/configuration";
 import type { PackageJson } from "@stryke/types/package-json";
 import type { Worker as JestWorker } from "jest-worker";
 import type { Jiti } from "jiti";
@@ -154,6 +153,9 @@ export interface SelectHooksOptions {
   order?: "pre" | "post" | "normal";
 }
 
+/**
+ * Options for initializing or updating the context with new configuration values
+ */
 export interface InitContextOptions {
   /**
    * If false, the plugin will be loaded after all other plugins.
@@ -163,6 +165,9 @@ export interface InitContextOptions {
   isHighPriority: boolean;
 }
 
+/**
+ * Options for fetch requests made via the context's {@link Context.fetch} method
+ */
 export interface FetchOptions extends FetchRequestOptions {
   /**
    * An indicator specifying that the request should bypass any caching
@@ -170,6 +175,9 @@ export interface FetchOptions extends FetchRequestOptions {
   skipCache?: boolean;
 }
 
+/**
+ * Options for parsing code using [Oxc-Parser](https://github.com/oxc/oxc)
+ */
 export interface ParseOptions extends ParserOptions {
   /**
    * When true this allows return statements to be outside functions to e.g. support parsing CommonJS code.
@@ -177,15 +185,11 @@ export interface ParseOptions extends ParserOptions {
   allowReturnOutsideFunction?: boolean;
 }
 
-export interface EmitEntryOptions extends WriteOptions {
-  /**
-   * The export name of the type definition in the file being emitted
-   *
-   * @remarks
-   * If no value is provided, we will attempt to infer the type definition from the module's `default` export.
-   */
-  name?: TypeDefinition["name"];
-}
+/**
+ * Options for emitting entry virtual files
+ */
+export type EmitEntryOptions = WriteOptions &
+  Omit<ResolvedEntryTypeDefinition, "file">;
 
 /**
  * The unresolved Powerlines context.
