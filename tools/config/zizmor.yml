@@ -11,7 +11,7 @@ rules:
       - zizmor.yml
       - sync-labels.yml
       - lock.yml
-      - gitguardian.yml
+      - git-guardian.yml
       - contributors.yml
       - codeql.yml
       - dependabot-approval.yml
@@ -21,4 +21,4 @@ rules:
       - zizmor.yml
       - sync-labels.yml
       - lock.yml
-      - gitguardian.yml
+      - git-guardian.yml
