@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.34.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.34.4) (12/22/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with invalid parameters to `esbuild` during
+  bundle
+  ([1aeb3a76](https://github.com/storm-software/powerlines/commit/1aeb3a76))
+
 ## [0.34.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.34.2) (12/21/2025)
 
 ### Bug Fixes
