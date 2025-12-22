@@ -54,7 +54,6 @@ const config = defineTsupConfig([
     platform: "node",
     target: "esnext",
     clean: false,
-    skipNodeModulesBundle: true,
     external: [
       "@powerlines/deepkit/vendor/type",
       "@powerlines/deepkit/vendor/type-compiler",
