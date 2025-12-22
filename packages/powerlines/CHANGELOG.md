@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.34.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.34.5) (12/22/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with providing `tsconfigRaw` to esbuild bundle
+  helper
+  ([2e600ad2](https://github.com/storm-software/powerlines/commit/2e600ad2))
+
 ## [0.34.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.34.4) (12/22/2025)
 
 ### Bug Fixes

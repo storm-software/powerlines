@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.4.92](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.92) (12/22/2025)
+
+### Bug Fixes
+
+- **deepkit:** Ensure vendor library declaration files are properly bundled
+  ([7c84b397](https://github.com/storm-software/powerlines/commit/7c84b397))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.34.5**
+- Updated **nx** to **v0.11.18**
+
 ## [0.4.91](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.91) (12/22/2025)
 
 ### Updated Dependencies
