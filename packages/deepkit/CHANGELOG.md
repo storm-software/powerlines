@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.0) (12/22/2025)
+
+### Miscellaneous
+
+- **deepkit:** Added `postinstall` script to package
+  ([00cc508c](https://github.com/storm-software/powerlines/commit/00cc508c))
+
+### Features
+
+- **deepkit:** Added `esbuild` plugin and updated `reflectType` helper to use it
+  ([0f8e2fc6](https://github.com/storm-software/powerlines/commit/0f8e2fc6))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.34.6**
+- Updated **nx** to **v0.11.19**
+
 ## [0.4.92](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.4.92) (12/22/2025)
 
 ### Bug Fixes
