@@ -44,7 +44,7 @@ export async function bundle(
 
   const result = await build({
     ...extractESBuildConfig(context),
-    entry: [path],
+    entryPoints: [path],
     write: false,
     sourcemap: false,
     splitting: false,
