@@ -2,6 +2,27 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.14.0](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.14.0) (12/23/2025)
+
+### Features
+
+- **plugin-env:** Added a custom `automd:env` generator for markdown
+  documentation
+  ([2784da84](https://github.com/storm-software/powerlines/commit/2784da84))
+- **plugin-env:** Add `automd` plugin to populate generated env docs in README
+  markdown
+  ([24a878f7](https://github.com/storm-software/powerlines/commit/24a878f7))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.98**
+- Updated **plugin-plugin** to **v0.12.50**
+- Updated **plugin-babel** to **v0.12.107**
+- Updated **powerlines** to **v0.36.3**
+- Updated **deepkit** to **v0.5.13**
+- Updated **alloy** to **v0.12.1**
+- Updated **nx** to **v0.11.29**
+
 ## [0.13.106](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.13.106) (12/23/2025)
 
 ### Updated Dependencies

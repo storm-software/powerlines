@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.101](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.101) (12/23/2025)
+
+### Miscellaneous
+
+- **plugin-react:** Ensure the return type is determined correctly
+  ([0e45b06a](https://github.com/storm-software/powerlines/commit/0e45b06a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.50**
+- Updated **plugin-babel** to **v0.12.107**
+- Updated **plugin-env** to **v0.14.0**
+- Updated **powerlines** to **v0.36.3**
+- Updated **deepkit** to **v0.5.13**
+- Updated **alloy** to **v0.12.1**
+- Updated **nx** to **v0.11.29**
+
 ## [0.1.100](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.100) (12/23/2025)
 
 ### Bug Fixes
