@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Alloy
 
+## [0.13.0](https://github.com/storm-software/powerlines/releases/tag/alloy%400.13.0) (12/23/2025)
+
+### Features
+
+- **alloy:** Added the `DynamicImportStatement` helper component
+  ([79acedad](https://github.com/storm-software/powerlines/commit/79acedad))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.51**
+- Updated **powerlines** to **v0.36.4**
+- Updated **deepkit** to **v0.5.14**
+- Updated **nx** to **v0.11.30**
+
 ## [0.12.1](https://github.com/storm-software/powerlines/releases/tag/alloy%400.12.1) (12/23/2025)
 
 ### Updated Dependencies
