@@ -94,6 +94,15 @@ export const plugin = <
       } as Partial<AutoMDPluginUserConfig>;
     },
     async configResolved() {
+      if (
+        this.config.framework &&
+        !toArray(this.config.automd.prefix).includes(this.config.framework)
+      ) {
+        this.config.automd.prefix = toArray(this.config.automd.prefix).concat(
+          this.config.framework
+        );
+      }
+
       if (this.config.automd.configFile) {
         const { config } = await loadConfigFile<Config>({
           cwd: this.config.automd.dir,

@@ -47,7 +47,7 @@ export type AutoMDPluginOptions = Omit<
    * @remarks
    * By default, AutoMD looks for generators with the "automd" prefix, so that any `<!-- automd:generator [...args] --> ... <!-- /automd -->` comments will be picked up. If you want to use different prefixes (for example, to avoid conflicts with other tools), you would provide a value like "myPrefix" and AutoMD would also look for `<!-- myPrefix:generator [...args] --> ... <!-- /myPrefix -->` comments.
    *
-   * @defaultValue ["automd", "powerlines"]
+   * @defaultValue ["automd", "powerlines", "\{framework\}"]
    */
   prefix?: string | string[];
 
@@ -71,6 +71,6 @@ export type AutoMDPluginResolvedConfig = ResolvedConfig & {
 };
 
 export type AutoMDPluginContext<
-  TResolvedConfig extends
-    AutoMDPluginResolvedConfig = AutoMDPluginResolvedConfig
+  TResolvedConfig extends AutoMDPluginResolvedConfig =
+    AutoMDPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;
