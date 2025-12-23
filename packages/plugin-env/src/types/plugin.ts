@@ -18,6 +18,7 @@
 
 import { Children } from "@alloy-js/core/jsx-runtime";
 import { Reflection } from "@powerlines/deepkit/types";
+import { AutoMDPluginOptions } from "@powerlines/plugin-automd/types/plugin";
 import {
   BabelPluginContext,
   BabelPluginOptions,
@@ -78,6 +79,14 @@ export type EnvPluginOptions = Omit<DotenvConfiguration, "types"> & {
    * This option allows you to customize the Babel transformation process used to inject environment variables into the source code. If not provided, the plugin will use default Babel settings.
    */
   babel?: BabelPluginOptions;
+
+  /**
+   * AutoMD configuration options to allow injecting environment variables documentation into a markdown file such as a README.md.
+   *
+   * @remarks
+   * The README.md file should contain the `<!-- automd:file src="docs/generated/env.md" --><!-- /automd -->` comment block where the documentation will be injected.
+   */
+  automd?: AutoMDPluginOptions;
 };
 
 export type EnvPluginUserConfig = BabelPluginUserConfig & {
