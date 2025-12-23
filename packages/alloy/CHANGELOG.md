@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Alloy
 
+## [0.13.3](https://github.com/storm-software/powerlines/releases/tag/alloy%400.13.3) (12/23/2025)
+
+### Miscellaneous
+
+- **alloy:** Ensure vendored `deepkit` code is marked external
+  ([7b41c672](https://github.com/storm-software/powerlines/commit/7b41c672))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.53**
+- Updated **powerlines** to **v0.36.6**
+- Updated **deepkit** to **v0.5.16**
+- Updated **nx** to **v0.11.32**
+
 ## [0.13.2](https://github.com/storm-software/powerlines/releases/tag/alloy%400.13.2) (12/23/2025)
 
 ### Bug Fixes
