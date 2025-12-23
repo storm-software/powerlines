@@ -67,7 +67,8 @@ export const plugin = <
     },
     async configResolved() {
       this.styleDictionary =
-        this.config.styleDictionary.instance ?? new StyleDictionary();
+        this.config.styleDictionary.instance ??
+        new StyleDictionary(this.config.styleDictionary);
 
       if (this.config.styleDictionary.customActions) {
         let builder!: CustomActionsBuilder;

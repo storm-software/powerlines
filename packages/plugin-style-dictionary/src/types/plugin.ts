@@ -142,8 +142,8 @@ export type StyleDictionaryPluginResolvedConfig = ResolvedConfig & {
 };
 
 export type StyleDictionaryPluginContext<
-  TResolvedConfig extends
-    StyleDictionaryPluginResolvedConfig = StyleDictionaryPluginResolvedConfig
+  TResolvedConfig extends StyleDictionaryPluginResolvedConfig =
+    StyleDictionaryPluginResolvedConfig
 > = PluginContext<TResolvedConfig> & {
   styleDictionary: StyleDictionary;
 };
