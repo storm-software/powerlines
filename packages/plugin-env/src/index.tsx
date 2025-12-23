@@ -44,6 +44,7 @@ import { Plugin } from "powerlines";
 import type { UserConfig as ViteUserConfig } from "vite";
 import { envBabelPlugin } from "./babel/plugin";
 import { EnvBuiltin } from "./components/env";
+import { env } from "./helpers/automd-generator";
 import { loadEnv } from "./helpers/load";
 import {
   getEnvDefaultTypeDefinition,
@@ -355,17 +356,11 @@ const innerPlugin = createAlloyPlugin<EnvPluginContext>(
             titleCase(this.config.framework) || "Powerlines"
           } -->
 
-# Environment variables configuration
-
 Below is a list of environment variables used by the [${
             this.packageJson.name
           }](https://www.npmjs.com/package/${
             this.packageJson.name
-          }) package. These values can be updated in the \`.env\` file in the root of the project.
-
-## Environment Configuration
-
-The below list of environment variables are used as configuration parameters to drive the processing of the application. The data contained in these variables are **not** considered sensitive or confidential. Any values provided in these variables will be available in plain text to the public.
+          }) package. These values can be updated in the \`.env\` file in the root of the project. The variables in the list below are used as configuration parameters to drive the processing of the application. The data contained in these variables are **not** considered sensitive or confidential. Any values provided in these variables will be available in plain text to the public.
 
 | Name | Description | Type | Default Value | Required |
 | ---- | ----------- | ---- | ------------- | :------: |
@@ -410,12 +405,24 @@ ${reflection
 /**
  * A Powerlines plugin to inject environment variables into the source code.
  */
-const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
+export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
   options: EnvPluginOptions = {}
 ) => {
   return [
     babel(options.babel),
     innerPlugin<TContext>(options),
+    {
+      name: "env:automd-generator",
+      config() {
+        return {
+          automd: defu(options.automd ?? {}, {
+            generators: {
+              "env": env(this)
+            }
+          })
+        };
+      }
+    },
     {
       name: "env:vite",
       vite: {

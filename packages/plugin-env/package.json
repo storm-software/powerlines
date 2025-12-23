@@ -187,6 +187,7 @@
   "files": ["dist/**/*"],
   "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
+    "automd": "catalog:",
     "@alloy-js/core": "catalog:",
     "@alloy-js/typescript": "catalog:",
     "@alloy-js/markdown": "catalog:",

@@ -84,7 +84,7 @@ export type EnvPluginOptions = Omit<DotenvConfiguration, "types"> & {
    * AutoMD configuration options to allow injecting environment variables documentation into a markdown file such as a README.md.
    *
    * @remarks
-   * The README.md file should contain the `<!-- automd:file src="docs/generated/env.md" --><!-- /automd -->` comment block where the documentation will be injected.
+   * The README.md file should contain the `<!-- automd:env --><!-- /automd -->` comment block where the documentation will be injected.
    */
   automd?: AutoMDPluginOptions;
 };
