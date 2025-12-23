@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.2.0) (12/23/2025)
+
+### Features
+
+- **plugin-style-dictionary:** Added clean hook logic to plugin
+  ([c7b9481b](https://github.com/storm-software/powerlines/commit/c7b9481b))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.52**
+- Updated **powerlines** to **v0.36.5**
+- Updated **nx** to **v0.11.31**
+
 ## [0.1.105](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.1.105) (12/23/2025)
 
 ### Updated Dependencies

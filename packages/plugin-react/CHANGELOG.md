@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.103](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.103) (12/23/2025)
+
+### Miscellaneous
+
+- **plugin-react:** Add DOM config to `lib` tsconfig option
+  ([f8b90a8d](https://github.com/storm-software/powerlines/commit/f8b90a8d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.52**
+- Updated **plugin-babel** to **v0.12.109**
+- Updated **plugin-env** to **v0.14.2**
+- Updated **powerlines** to **v0.36.5**
+- Updated **deepkit** to **v0.5.15**
+- Updated **alloy** to **v0.13.1**
+- Updated **nx** to **v0.11.31**
+
 ## [0.1.102](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.102) (12/23/2025)
 
 ### Updated Dependencies
