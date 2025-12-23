@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 export * from "./builtin-file";
+export * from "./dynamic-import-statement";
 export * from "./entry-file";
 export * from "./record-expression";
 export * from "./tsdoc";

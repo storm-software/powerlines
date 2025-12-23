@@ -28,8 +28,9 @@ import { replacePath } from "@stryke/path/replace";
 import type { PluginContext } from "powerlines/types/context";
 import { PowerlinesContext } from "../contexts/context";
 
-export interface OutputProps<TContext extends PluginContext = PluginContext>
-  extends OutputPropsExternal {
+export interface OutputProps<
+  TContext extends PluginContext = PluginContext
+> extends OutputPropsExternal {
   /**
    * The current Powerlines process context.
    */

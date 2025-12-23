@@ -375,6 +375,7 @@
     "@babel/plugin-syntax-jsx": "catalog:",
     "@babel/plugin-syntax-typescript": "catalog:",
     "@babel/plugin-transform-typescript": "catalog:",
+    "@powerlines/deepkit": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
