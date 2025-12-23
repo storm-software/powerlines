@@ -41,6 +41,7 @@ import {
 } from "@powerlines/deepkit/vendor/type";
 import { camelCase } from "@stryke/string-format/camel-case";
 import { pascalCase } from "@stryke/string-format/pascal-case";
+import { isString } from "@stryke/type-checks/is-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { ComputedRef } from "@vue/reactivity";
 import {
@@ -75,7 +76,10 @@ export function TypescriptObject<
   }
 
   const objectName = computed(() =>
-    camelCase(props.name || props.reflection!.value.getName())
+    camelCase(
+      (isString(props.name) ? props.name : props.name.toString()) ||
+        props.reflection!.value.getName()
+    )
   );
   const objectType = computed(
     () => props.type || pascalCase(props.reflection!.value.getName())
