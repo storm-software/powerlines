@@ -217,6 +217,11 @@ export const plugin = <
         );
       }
     },
+    async clean() {
+      await this.styleDictionary.cleanAllPlatforms({
+        cache: !this.config.skipCache
+      });
+    },
     async prepare() {
       await this.styleDictionary.buildAllPlatforms({
         cache: !this.config.skipCache
