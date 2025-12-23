@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.0) (12/23/2025)
+
+### Features
+
+- **plugin-style-dictionary:** Added `powerlines/file-header` component
+  ([52e1c69a](https://github.com/storm-software/powerlines/commit/52e1c69a))
+
 ## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.2.0) (12/23/2025)
 
 ### Features
