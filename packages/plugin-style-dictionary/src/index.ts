@@ -22,6 +22,7 @@ import defu from "defu";
 import { resolve } from "powerlines/lib/utilities/resolve";
 import { Plugin } from "powerlines/types/plugin";
 import StyleDictionary from "style-dictionary";
+import { fileHeader } from "./style-dictionary/file-header";
 import {
   CustomActionsBuilder,
   CustomFileHeadersBuilder,
@@ -61,7 +62,8 @@ export const plugin = <
                 : this.config.logLevel === null
                   ? "silent"
                   : undefined
-          }
+          },
+          fileHeader: "powerlines/file-header"
         })
       } as Partial<StyleDictionaryPluginUserConfig>;
     },
@@ -69,6 +71,8 @@ export const plugin = <
       this.styleDictionary =
         this.config.styleDictionary.instance ??
         new StyleDictionary(this.config.styleDictionary);
+
+      this.styleDictionary.registerFileHeader(fileHeader(this));
 
       if (this.config.styleDictionary.customActions) {
         let builder!: CustomActionsBuilder;
@@ -222,10 +226,13 @@ export const plugin = <
         cache: !this.config.skipCache
       });
     },
-    async prepare() {
-      await this.styleDictionary.buildAllPlatforms({
-        cache: !this.config.skipCache
-      });
+    prepare: {
+      order: "pre",
+      async handler() {
+        await this.styleDictionary.buildAllPlatforms({
+          cache: !this.config.skipCache
+        });
+      }
     }
   };
 };
