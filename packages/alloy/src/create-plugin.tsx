@@ -253,7 +253,7 @@ async function writeTree<TContext extends PluginContext = PluginContext>(
       } else if (sub.kind === "builtin") {
         await context.emitBuiltin(sub.contents, sub.id, sub.path);
       } else if (sub.kind === "entry") {
-        await context.emitEntry(sub.contents, sub.path);
+        await context.emitEntry(sub.contents, sub.path, sub.typeDefinition);
       } else if (sub.kind === "file") {
         if ("sourcePath" in sub && sub.sourcePath) {
           if (!context.fs.existsSync(sub.sourcePath)) {

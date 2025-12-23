@@ -29,6 +29,7 @@ import {
   stringifyType
 } from "@powerlines/deepkit/vendor/type";
 import { pascalCase } from "@stryke/string-format/pascal-case";
+import { isString } from "@stryke/type-checks/is-string";
 import {
   ReflectionClassContext,
   ReflectionPropertyContext
@@ -41,15 +42,14 @@ import {
 
 export interface TypeScriptInterfaceProps<
   T extends Record<string, any> = Record<string, any>
-> extends InterfaceDeclarationProps,
-    ComponentProps {
+>
+  extends InterfaceDeclarationProps, ComponentProps {
   reflection: ReflectionClass<T>;
   defaultValue?: Partial<T>;
 }
 
 export interface TypescriptInterfacePropertyProps
-  extends Omit<InterfaceMemberProps, "name">,
-    ComponentProps {
+  extends Omit<InterfaceMemberProps, "name">, ComponentProps {
   property: ReflectionProperty;
 }
 
@@ -65,7 +65,9 @@ export function TypeScriptInterface<
   ]);
 
   const interfaceName = computed(() =>
-    pascalCase(name || reflection.getName())
+    pascalCase(
+      (isString(name) ? name : name.toString()) || reflection.getName()
+    )
   );
 
   const properties = reflection
