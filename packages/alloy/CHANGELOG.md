@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Alloy
 
+## [0.12.0](https://github.com/storm-software/powerlines/releases/tag/alloy%400.12.0) (12/23/2025)
+
+### Bug Fixes
+
+- **alloy:** Resolve typing issue with `compute` function
+  ([4ba4e589](https://github.com/storm-software/powerlines/commit/4ba4e589))
+
+### Features
+
+- **alloy:** Added the `hashbang` property to header components and populate
+  entry meta on emit
+  ([3d2e3e83](https://github.com/storm-software/powerlines/commit/3d2e3e83))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.49**
+- Updated **powerlines** to **v0.36.2**
+- Updated **deepkit** to **v0.5.12**
+- Updated **nx** to **v0.11.28**
+
 ## [0.11.108](https://github.com/storm-software/powerlines/releases/tag/alloy%400.11.108) (12/23/2025)
 
 ### Updated Dependencies

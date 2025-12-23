@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.1.103](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.1.103) (12/23/2025)
+
+### Miscellaneous
+
+- **plugin-style-dictionary:** Ensure config is applied to `StyleDictionary`
+  contructor
+  ([1a1d31de](https://github.com/storm-software/powerlines/commit/1a1d31de))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.49**
+- Updated **powerlines** to **v0.36.2**
+- Updated **nx** to **v0.11.28**
+
 ## [0.1.102](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.1.102) (12/23/2025)
 
 ### Updated Dependencies
