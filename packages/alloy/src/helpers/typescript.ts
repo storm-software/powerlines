@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { stringifyValue } from "@powerlines/deepkit/utilities";
-import { ReflectionClass } from "@powerlines/deepkit/vendor/type";
+import type { ReflectionClass } from "@powerlines/deepkit/vendor/type";
 import { camelCase } from "@stryke/string-format/camel-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isUndefined } from "@stryke/type-checks/is-undefined";

@@ -35,7 +35,7 @@ import {
   VarDeclarationProps
 } from "@alloy-js/typescript";
 import { stringifyDefaultValue } from "@powerlines/deepkit/utilities";
-import {
+import type {
   ReflectionClass,
   ReflectionProperty
 } from "@powerlines/deepkit/vendor/type";

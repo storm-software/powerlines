@@ -18,7 +18,7 @@
 
 import type { ComponentContext } from "@alloy-js/core";
 import { createContext, createNamedContext, useContext } from "@alloy-js/core";
-import {
+import type {
   ReflectionClass,
   ReflectionMethod,
   ReflectionParameter,
