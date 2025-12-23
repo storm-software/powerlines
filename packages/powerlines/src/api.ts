@@ -1000,19 +1000,19 @@ ${formatTypes(types)}
       );
     }
 
-    let result!: Plugin<PluginContext<TResolvedConfig>>[];
+    let plugins!: Plugin<PluginContext<TResolvedConfig>>[];
     if (Array.isArray(awaited) && awaited.every(isPlugin<TResolvedConfig>)) {
-      result = awaited;
+      plugins = awaited;
     } else if (isPlugin<TResolvedConfig>(awaited)) {
-      result = [awaited];
+      plugins = [awaited];
     } else if (isFunction(awaited)) {
-      result = toArray(await Promise.resolve(awaited()));
+      plugins = toArray(await Promise.resolve(awaited()));
     } else if (isSetString(awaited)) {
       const resolved = await this.#resolvePlugin(awaited);
       if (isFunction(resolved)) {
-        result = toArray(await Promise.resolve(resolved()));
+        plugins = toArray(await Promise.resolve(resolved()));
       } else {
-        result = toArray(resolved);
+        plugins = toArray(resolved);
       }
     } else if (isPluginConfigTuple(awaited) || isPluginConfigObject(awaited)) {
       let pluginConfig!:
@@ -1035,39 +1035,40 @@ ${formatTypes(types)}
       if (isSetString(pluginConfig)) {
         const resolved = await this.#resolvePlugin(pluginConfig);
         if (isFunction(resolved)) {
-          result = toArray(
+          plugins = toArray(
             await Promise.resolve(
               pluginOptions ? resolved(pluginOptions) : resolved()
             )
           );
         } else {
-          result = toArray(resolved);
+          plugins = toArray(resolved);
         }
       } else if (isFunction(pluginConfig)) {
-        result = toArray(await Promise.resolve(pluginConfig(pluginOptions)));
+        plugins = toArray(await Promise.resolve(pluginConfig(pluginOptions)));
       } else if (
         Array.isArray(pluginConfig) &&
         pluginConfig.every(isPlugin<TResolvedConfig>)
       ) {
-        result = pluginConfig;
+        plugins = pluginConfig;
       } else if (isPlugin(pluginConfig)) {
-        result = toArray(pluginConfig);
+        plugins = toArray(pluginConfig);
       }
     }
 
-    if (!result) {
+    if (!plugins) {
       throw new Error(
         `The plugin configuration ${JSON.stringify(awaited)} is invalid. This configuration must point to a valid Powerlines plugin module.`
       );
     }
 
-    if (result.length > 0 && !result.every(isPlugin<TResolvedConfig>)) {
+    if (plugins.length > 0 && !plugins.every(isPlugin<TResolvedConfig>)) {
       throw new Error(
-        `The plugin option ${JSON.stringify(result)} does not export a valid module. This configuration must point to a valid Powerlines plugin module.`
+        `The plugin option ${JSON.stringify(plugins)} does not export a valid module. This configuration must point to a valid Powerlines plugin module.`
       );
     }
 
-    for (const plugin of result) {
+    const result = [] as Plugin<PluginContext<TResolvedConfig>>[];
+    for (const plugin of plugins) {
       if (checkDedupe<TResolvedConfig>(plugin, this.context.plugins)) {
         this.context.log(
           LogLevelLabel.TRACE,
@@ -1075,14 +1076,14 @@ ${formatTypes(types)}
             plugin.name
           )} plugin dependency detected - Skipping initialization.`
         );
+      } else {
+        result.push(plugin);
 
-        return null;
+        this.context.log(
+          LogLevelLabel.TRACE,
+          `Initializing the ${chalk.bold.cyanBright(plugin.name)} plugin...`
+        );
       }
-
-      this.context.log(
-        LogLevelLabel.TRACE,
-        `Initializing the ${chalk.bold.cyanBright(plugin.name)} plugin...`
-      );
     }
 
     return result;
