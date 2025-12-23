@@ -41,7 +41,9 @@ export * from "./types";
  * A package containing a Powerlines plugin for building a React application.
  */
 export const plugin = createAlloyPlugin<ReactPluginContext>(
-  <T extends ReactPluginContext>(options: ReactPluginOptions = {}) => {
+  <TContext extends ReactPluginContext = ReactPluginContext>(
+    options: ReactPluginOptions = {}
+  ) => {
     return {
       name: "react",
       dependsOn: [babel(options.babel), env(options.env)],
@@ -230,7 +232,7 @@ export const plugin = createAlloyPlugin<ReactPluginContext>(
           />
         );
       }
-    } as AlloyPluginBuilderResult<T>;
+    } as AlloyPluginBuilderResult<TContext>;
   }
 );
 
