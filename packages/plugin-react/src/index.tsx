@@ -118,11 +118,11 @@ export const plugin = createAlloyPlugin<ReactPluginContext>(
         );
       },
       configResolved() {
-        this.dependencies.react = "^19.2.0";
-        this.dependencies["react-dom"] = "^19.2.0";
+        this.dependencies.react = "^19.2.3";
+        this.dependencies["react-dom"] = "^19.2.3";
 
-        this.devDependencies["@types/react"] = "^19.2.2";
-        this.devDependencies["@types/react-dom"] = "^19.2.2";
+        this.devDependencies["@types/react"] = "^19.2.3";
+        this.devDependencies["@types/react-dom"] = "^19.2.3";
 
         if (this.config.react.compiler !== false) {
           this.config.transform.babel ??= {} as BabelResolvedConfig;

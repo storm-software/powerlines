@@ -29,5 +29,8 @@ export default defineConfig({
         generatesMarkdown: true
       }
     })
-  ]
+  ],
+  build: {
+    external: ["react", "react-dom"]
+  }
 });
