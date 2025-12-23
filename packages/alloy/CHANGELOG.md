@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Alloy
 
+## [0.13.2](https://github.com/storm-software/powerlines/releases/tag/alloy%400.13.2) (12/23/2025)
+
+### Bug Fixes
+
+- **alloy:** Ensure `deepkit` project is not bundled in output
+  ([1a18a30b](https://github.com/storm-software/powerlines/commit/1a18a30b))
+
 ## [0.13.1](https://github.com/storm-software/powerlines/releases/tag/alloy%400.13.1) (12/23/2025)
 
 ### Updated Dependencies
