@@ -31,6 +31,7 @@ export default defineConfig({
     })
   ],
   build: {
-    noExternal: ["@vue/reactivity"]
+    noExternal: ["@vue/reactivity"],
+    external: ["@powerlines/deepkit"]
   }
 });
