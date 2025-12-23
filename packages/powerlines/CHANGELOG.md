@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.36.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.1) (12/23/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue deduplicating multiple plugins at once
+  ([bdc5e7ca](https://github.com/storm-software/powerlines/commit/bdc5e7ca))
+
 ## [0.36.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.0) (12/22/2025)
 
 ### Features
