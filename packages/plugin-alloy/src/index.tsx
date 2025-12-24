@@ -64,7 +64,7 @@ export const plugin = <
         async handler() {
           this.render = async (children: Children) => {
             const tree = renderTree(
-              <Output<TContext>
+              <Output
                 context={this}
                 basePath={this.workspaceConfig.workspaceRoot}>
                 {children}
