@@ -16,26 +16,23 @@
 
  ------------------------------------------------------------------- */
 
-import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines";
+import { Children } from "@alloy-js/core/jsx-runtime";
+import type { PluginPluginAlloyOptions } from "@powerlines/plugin-plugin/types/plugin";
+import { UserConfig } from "powerlines/types/config";
+import { PluginContext } from "powerlines/types/context";
+import { ResolvedConfig } from "powerlines/types/resolved";
 
-export default defineConfig({
-  skipCache: true,
-  entry: ["src/**/*.ts", "src/**/*.tsx"],
-  plugins: [
-    plugin({
-      alloy: {
-        generatesJson: true,
-        generatesMarkdown: true
-      }
-    })
-  ],
-  build: {
-    noExternal: ["@vue/reactivity"],
-    external: [
-      "@powerlines/deepkit/vendor/type",
-      "@powerlines/deepkit/vendor/core",
-      "@powerlines/deepkit/vendor/type-spec"
-    ]
-  }
-});
+export type AlloyPluginOptions = PluginPluginAlloyOptions;
+
+export type AlloyPluginUserConfig = UserConfig;
+
+export type AlloyPluginResolvedConfig = ResolvedConfig;
+
+export type AlloyPluginContext<
+  TResolvedConfig extends AlloyPluginResolvedConfig = AlloyPluginResolvedConfig
+> = PluginContext<TResolvedConfig> & {
+  render: <TContext extends AlloyPluginContext>(
+    this: TContext,
+    children: Children
+  ) => Promise<void>;
+};

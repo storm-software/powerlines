@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import alloy from "@powerlines/plugin-alloy";
 import plugin from "@powerlines/plugin-plugin";
 import { defineConfig } from "powerlines";
 
@@ -23,11 +24,10 @@ export default defineConfig({
   skipCache: true,
   entry: ["src/**/*.ts", "src/**/*.tsx"],
   plugins: [
-    plugin({
-      alloy: {
-        generatesJson: true,
-        generatesMarkdown: true
-      }
+    plugin(),
+    alloy({
+      generatesJson: true,
+      generatesMarkdown: true
     })
   ]
 });

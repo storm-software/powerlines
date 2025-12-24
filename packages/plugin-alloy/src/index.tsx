@@ -17,82 +17,94 @@
  ------------------------------------------------------------------- */
 
 import {
+  Children,
   flushJobsAsync,
   getContextForRenderNode,
   isPrintHook,
   RenderedTextTree,
   renderTree
 } from "@alloy-js/core";
+import alloyPlugin from "@alloy-js/rollup-plugin";
 import { PluginPluginAlloyOptions } from "@powerlines/plugin-plugin/types/plugin";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
+import { StormJSON } from "@stryke/json/storm-json";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { replacePath } from "@stryke/path/replace";
 import { isSetString } from "@stryke/type-checks/is-set-string";
-import {
-  getHookHandler,
-  isPluginHook,
-  isPluginHookFunction,
-  isPluginHookObject
-} from "powerlines/plugin-utils/helpers";
 import { PluginContext } from "powerlines/types/context";
 import { Plugin } from "powerlines/types/plugin";
 import { Doc } from "prettier";
 import { printer } from "prettier/doc.js";
 import { Output } from "./core/components/output";
 import { OutputDirectory, OutputFile } from "./types/components";
-import { AlloyPluginBuilder, AlloyPluginOptions } from "./types/plugin";
+import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
+
+export * from "./core";
+export * from "./helpers";
+export * from "./markdown";
+export * from "./types";
+export * from "./typescript";
 
 /**
- * Creates an Alloy plugin using a plugin builder function.
+ * Alloy-js plugin for Powerlines.
  *
- * @param builder - The Alloy plugin builder function.
- * @returns An object representing the Alloy plugin.
+ * @param options - The Alloy-js plugin user configuration options.
+ * @returns A Powerlines plugin that integrates Alloy-js transformations.
  */
-export function createAlloyPlugin<
-  TContext extends PluginContext = PluginContext
->(builder: AlloyPluginBuilder<TContext>) {
-  return <T extends TContext>(
-    options: Parameters<typeof builder>[0] & AlloyPluginOptions
-  ) => {
-    const result = builder(options);
+export const plugin = <
+  TContext extends AlloyPluginContext = AlloyPluginContext
+>(
+  options: AlloyPluginOptions = {}
+): Plugin<TContext>[] => {
+  return [
+    {
+      name: "alloy:init",
+      configResolved: {
+        order: "pre",
+        async handler() {
+          this.render = async (children: Children) => {
+            const tree = renderTree(
+              <Output<TContext>
+                context={this}
+                basePath={this.workspaceConfig.workspaceRoot}>
+                {children}
+              </Output>
+            );
 
-    return {
-      ...result,
-      async prepare() {
-        if (
-          isPluginHook(result.prepare) &&
-          result.enforce !== "post" &&
-          (isPluginHookFunction(result.prepare) ||
-            (isPluginHookObject(result.prepare) &&
-              result.prepare.order !== "post"))
-        ) {
-          await Promise.resolve(getHookHandler(result.prepare).call(this));
-        }
-
-        if (isPluginHook(result.render)) {
-          const tree = renderTree(
-            <Output<TContext>
-              context={this}
-              basePath={this.workspaceConfig.workspaceRoot}>
-              {result.render.call(this)}
-            </Output>
-          );
-
-          await writeTree(this, tree, options?.alloy);
-        }
-
-        if (
-          isPluginHook(result.prepare) &&
-          (result.enforce === "post" ||
-            (isPluginHookObject(result.prepare) &&
-              result.prepare.order === "post"))
-        ) {
-          await Promise.resolve(getHookHandler(result.prepare).call(this));
+            await writeTree(this, tree, options);
+          };
         }
       }
-    } as Plugin<T>;
-  };
-}
+    },
+    {
+      name: "alloy:config",
+      config() {
+        return {
+          build: {
+            inputOptions: {
+              transform: {
+                jsx: "react"
+              }
+            },
+            plugins: [alloyPlugin()]
+          }
+        };
+      },
+      async configResolved() {
+        if (this.tsconfig.tsconfigJson.compilerOptions!.jsx !== "preserve") {
+          this.tsconfig.tsconfigJson.compilerOptions!.jsx = "preserve";
+        }
+
+        await this.fs.write(
+          this.tsconfig.tsconfigFilePath,
+          StormJSON.stringify(this.tsconfig.tsconfigJson)
+        );
+      }
+    }
+  ];
+};
+
+export default plugin;
 
 /**
  * Writes the rendered output files to the virtual file system.

@@ -961,12 +961,6 @@ ${formatTypes(types)}
       }
 
       for (const plugin of result) {
-        if (plugin.dependsOn) {
-          for (const required of plugin.dependsOn) {
-            await this.#addPlugin(required);
-          }
-        }
-
         this.context.log(
           LogLevelLabel.DEBUG,
           `Successfully initialized the ${chalk.bold.cyanBright(

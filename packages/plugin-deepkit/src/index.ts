@@ -42,68 +42,70 @@ export const plugin = <
   TContext extends DeepkitPluginContext = DeepkitPluginContext
 >(
   options: DeepkitPluginOptions = {}
-): Plugin<TContext> => {
-  return {
-    name: "deepkit",
-    dependsOn: [tsc(options)],
-    config() {
-      return {
-        transform: {
-          deepkit: options ?? {}
-        }
-      } as Partial<DeepkitPluginUserConfig>;
-    },
-    configResolved: {
-      order: "post",
-      async handler() {
-        const reflection =
-          this.config.transform.deepkit.reflection ||
-          this.tsconfig.tsconfigJson.compilerOptions?.reflection ||
-          this.tsconfig.tsconfigJson.reflection ||
-          "default";
-        const reflectionLevel =
-          this.config.transform.deepkit.reflectionLevel ||
-          this.tsconfig.tsconfigJson.compilerOptions?.reflectionLevel ||
-          this.tsconfig.tsconfigJson.reflectionLevel ||
-          "minimal";
+): Plugin<TContext>[] => {
+  return [
+    tsc(options),
+    {
+      name: "deepkit",
+      config() {
+        return {
+          transform: {
+            deepkit: options ?? {}
+          }
+        } as Partial<DeepkitPluginUserConfig>;
+      },
+      configResolved: {
+        order: "post",
+        async handler() {
+          const reflection =
+            this.config.transform.deepkit.reflection ||
+            this.tsconfig.tsconfigJson.compilerOptions?.reflection ||
+            this.tsconfig.tsconfigJson.reflection ||
+            "default";
+          const reflectionLevel =
+            this.config.transform.deepkit.reflectionLevel ||
+            this.tsconfig.tsconfigJson.compilerOptions?.reflectionLevel ||
+            this.tsconfig.tsconfigJson.reflectionLevel ||
+            "minimal";
 
-        if (
-          !this.tsconfig.tsconfigJson.reflection ||
-          !this.tsconfig.tsconfigJson.reflectionLevel
-        ) {
-          this.tsconfig.tsconfigJson.reflection ??= reflection;
-          this.tsconfig.tsconfigJson.reflectionLevel ??=
-            reflectionLevel as ReflectionLevel;
+          if (
+            !this.tsconfig.tsconfigJson.reflection ||
+            !this.tsconfig.tsconfigJson.reflectionLevel
+          ) {
+            this.tsconfig.tsconfigJson.reflection ??= reflection;
+            this.tsconfig.tsconfigJson.reflectionLevel ??=
+              reflectionLevel as ReflectionLevel;
 
-          await this.fs.write(
-            this.tsconfig.tsconfigFilePath,
-            StormJSON.stringify(this.tsconfig.tsconfigJson)
+            await this.fs.write(
+              this.tsconfig.tsconfigFilePath,
+              StormJSON.stringify(this.tsconfig.tsconfigJson)
+            );
+          }
+
+          this.config.transform.tsc ??=
+            {} as TContext["config"]["transform"]["tsc"];
+          this.config.transform.tsc.compilerOptions = {
+            ...(this.config.transform.tsc.compilerOptions ?? {}),
+            exclude: this.config.transform.deepkit.exclude ?? [],
+            reflection,
+            reflectionLevel
+          };
+
+          this.config.transform.tsc.transformers ??= {
+            before: [],
+            after: []
+          };
+
+          this.config.transform.tsc.transformers.before!.push(
+            createTransformer(this, this.config.transform.deepkit)
+          );
+          this.config.transform.tsc.transformers.after!.push(
+            createDeclarationTransformer(this, this.config.transform.deepkit)
           );
         }
-
-        this.config.transform.tsc ??=
-          {} as TContext["config"]["transform"]["tsc"];
-        this.config.transform.tsc.compilerOptions = {
-          ...(this.config.transform.tsc.compilerOptions ?? {}),
-          exclude: this.config.transform.deepkit.exclude ?? [],
-          reflection,
-          reflectionLevel
-        };
-
-        this.config.transform.tsc.transformers ??= {
-          before: [],
-          after: []
-        };
-
-        this.config.transform.tsc.transformers.before!.push(
-          createTransformer(this, this.config.transform.deepkit)
-        );
-        this.config.transform.tsc.transformers.after!.push(
-          createDeclarationTransformer(this, this.config.transform.deepkit)
-        );
       }
     }
-  } as Plugin<TContext>;
+  ] as Plugin<TContext>[];
 };
 
 export default plugin;

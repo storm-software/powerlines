@@ -49,7 +49,7 @@ This package is part of the 🔌 <b>Powerlines</b> monorepo. Powerlines packages
 
 <!-- END header -->
 
-# Powerlines - Alloy Framework
+# Powerlines - Alloy Framework Plugin
 
 A package containing various Alloy framework components and helper utilities.
 
@@ -57,7 +57,7 @@ A package containing various Alloy framework components and helper utilities.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Powerlines - Alloy Framework](#powerlines---alloy-framework)
+- [Powerlines - Alloy Framework Plugin](#powerlines---alloy-framework-plugin)
   - [Table of Contents](#table-of-contents)
   - [Installing](#installing)
   - [Reduced Package Size](#reduced-package-size)
@@ -80,14 +80,14 @@ A package containing various Alloy framework components and helper utilities.
 Using [pnpm](http://pnpm.io):
 
 ```bash
-pnpm add @powerlines/alloy
+pnpm add @powerlines/plugin-alloy
 ```
 
 <details>
   <summary>Using npm</summary>
 
 ```bash
-npm install @powerlines/alloy
+npm install @powerlines/plugin-alloy
 ```
 
 </details>
@@ -96,7 +96,7 @@ npm install @powerlines/alloy
   <summary>Using yarn</summary>
 
 ```bash
-yarn add @powerlines/alloy
+yarn add @powerlines/plugin-alloy
 ```
 
 </details>
@@ -115,16 +115,16 @@ commands are available to assist in development.
 
 ### Building
 
-Run `nx build alloy` to build the library.
+Run `nx build plugin-alloy` to build the library.
 
 ### Running unit tests
 
-Run `nx test alloy` to execute the unit tests via
+Run `nx test plugin-alloy` to execute the unit tests via
 [Jest](https://jestjs.io).
 
 ### Linting
 
-Run `nx lint alloy` to run
+Run `nx lint plugin-alloy` to run
 [ESLint](https://eslint.org/) on the package.
 
 <!-- START footer -->

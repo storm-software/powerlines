@@ -16,11 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import alloyPlugin from "@alloy-js/rollup-plugin";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
-import { StormJSON } from "@stryke/json/storm-json";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { TypeDefinition } from "@stryke/types/configuration";
@@ -58,7 +56,7 @@ export const plugin = <
 
       return {
         type: "library",
-        entry: options.alloy ? ["src/index.tsx"] : ["src/index.ts"],
+        entry: ["src/index.ts"],
         output: {
           format: ["cjs", "esm"]
         },
@@ -72,23 +70,6 @@ export const plugin = <
           skipNodeModulesBundle: true
         }
       };
-    },
-    async configResolved() {
-      this.log(
-        LogLevelLabel.TRACE,
-        "The Powerlines plugin has resolved the final configuration."
-      );
-
-      if (options.alloy) {
-        if (this.tsconfig.tsconfigJson.compilerOptions!.jsx !== "preserve") {
-          this.tsconfig.tsconfigJson.compilerOptions!.jsx = "preserve";
-        }
-
-        await this.fs.write(
-          this.tsconfig.tsconfigFilePath,
-          StormJSON.stringify(this.tsconfig.tsconfigJson)
-        );
-      }
     },
     async types(code: string) {
       if (!options.types?.userConfig || !this.packageJson?.name) {
@@ -140,10 +121,7 @@ declare module "powerlines" {
         defu(
           {
             config: false,
-            plugins: [
-              createPlugin<TContext>(this),
-              options.alloy && alloyPlugin()
-            ].filter(Boolean)
+            plugins: [createPlugin<TContext>(this)]
           },
           extractTsdownConfig(this)
         )

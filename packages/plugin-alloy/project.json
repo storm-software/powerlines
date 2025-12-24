@@ -1,8 +1,8 @@
 {
-  "name": "alloy",
+  "name": "plugin-alloy",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "packages/alloy/src",
+  "sourceRoot": "packages/plugin-alloy/src",
   "targets": {
     "clean": {
       "executor": "@powerlines/nx:clean"

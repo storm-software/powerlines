@@ -57,10 +57,6 @@ export function isPlugin<
         isFunction(value.applyToEnvironment))) &&
     (isUndefined((value as Plugin<PluginContext<TResolvedConfig>>).dedupe) ||
       ("dedupe" in value && isFunction(value.dedupe))) &&
-    (isUndefined((value as Plugin<PluginContext<TResolvedConfig>>).dependsOn) ||
-      ("dependsOn" in value &&
-        Array.isArray(value.dependsOn) &&
-        value.dependsOn.every(isPluginConfig))) &&
     SUPPORTED_COMMANDS.every(
       command =>
         isUndefined(

@@ -16,22 +16,32 @@
 
  ------------------------------------------------------------------- */
 
-import { Children } from "@alloy-js/core/jsx-runtime";
-import type { PluginPluginAlloyOptions } from "@powerlines/plugin-plugin/types/plugin";
-import { PluginContext } from "powerlines/types/context";
-import type { Plugin } from "powerlines/types/plugin";
+import alloyPlugin from "@alloy-js/rollup-plugin";
+import plugin from "@powerlines/plugin-plugin";
+import babelPlugin from "@rollup/plugin-babel";
+import { defineConfig } from "powerlines";
 
-export interface AlloyPluginOptions {
-  alloy?: PluginPluginAlloyOptions;
-}
-
-export type AlloyPluginBuilderResult<
-  TContext extends PluginContext = PluginContext
-> = Plugin<TContext> & {
-  render: (this: TContext) => Children;
-};
-
-export type AlloyPluginBuilder<
-  TContext extends PluginContext = PluginContext,
-  TOptions = any
-> = <T extends TContext>(options: TOptions) => AlloyPluginBuilderResult<T>;
+export default defineConfig({
+  skipCache: true,
+  entry: ["src/index.tsx"],
+  plugins: [plugin()],
+  build: {
+    noExternal: ["@vue/reactivity"],
+    external: [
+      "@powerlines/deepkit/vendor/type",
+      "@powerlines/deepkit/vendor/core",
+      "@powerlines/deepkit/vendor/type-spec"
+    ],
+    plugins: [
+      babelPlugin({
+        babelHelpers: "bundled",
+        parserOpts: {
+          sourceType: "module",
+          plugins: ["jsx", "typescript"]
+        },
+        extensions: [".js", ".jsx", ".ts", ".tsx"]
+      }),
+      alloyPlugin()
+    ]
+  }
+});

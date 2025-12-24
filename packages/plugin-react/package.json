@@ -149,7 +149,7 @@
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
-    "@powerlines/alloy": "workspace:*",
+    "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",

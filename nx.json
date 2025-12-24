@@ -25,15 +25,13 @@
       "options": {
         "projectLinks": "alias"
       }
-    }
-    ,
+    },
     {
       "plugin": "@storm-software/workspace-tools/plugins/typescript/tsdown",
       "options": {
         "projectLinks": "alias"
       }
-    }
-    ,
+    },
     "./dist/tools/nx/dist/index.js"
   ]
 }

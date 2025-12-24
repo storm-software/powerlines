@@ -193,7 +193,7 @@
     "@alloy-js/markdown": "catalog:",
     "@babel/core": "catalog:",
     "@babel/types": "catalog:",
-    "@powerlines/alloy": "workspace:*",
+    "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-automd": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",

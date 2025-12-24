@@ -83,7 +83,7 @@ export interface BasePluginHookFunctions<
    * @remarks
    * Modify config before it's resolved. The hook can either mutate {@link Context.config} on the passed-in context directly, or return a partial config object that will be deeply merged into existing config.
    *
-   * @warning User plugins are resolved before running this hook so injecting other plugins inside the config hook will have no effect. If you want to add plugins, consider doing so in the {@link Plugin.dependsOn} property instead.
+   * @warning User plugins are resolved before running this hook so injecting other plugins inside the config hook will have no effect.
    *
    * @see https://vitejs.dev/guide/api-plugin#config
    *
@@ -375,12 +375,12 @@ export interface Plugin<
    * @param other - The other plugin to compare against.
    * @returns `true` if the two plugins are the same, `false` otherwise.
    */
-  dedupe?: false | ((other: Plugin<TContext>) => boolean);
+  dedupe?: false | ((other: Plugin<any>) => boolean);
 
   /**
    * A list of pre-requisite plugins that must be loaded before this plugin can be used.
    */
-  dependsOn?: PluginConfig<TContext>[];
+  // dependsOn?: PluginConfig<TContext>[];
 
   /**
    * Define environments where this plugin should be active. By default, the plugin is active in all environments.
@@ -398,7 +398,6 @@ export const PLUGIN_NON_HOOK_FIELDS = [
   "api",
   "enforce",
   "dedupe",
-  "dependsOn",
   "applyToEnvironment"
 ] as const;
 

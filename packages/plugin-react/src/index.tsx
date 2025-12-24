@@ -16,8 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { createAlloyPlugin } from "@powerlines/alloy/create-plugin";
-import type { AlloyPluginBuilderResult } from "@powerlines/alloy/types/plugin";
 import {
   ReflectionKind,
   ReflectionVisibility
@@ -30,6 +28,7 @@ import type { LoggerEvent } from "babel-plugin-react-compiler";
 import defu from "defu";
 import { isMatchFound } from "powerlines/lib/typescript/tsconfig";
 import type { ViteResolvedBuildConfig } from "powerlines/types/build";
+import { Plugin } from "powerlines/types/plugin";
 import type { BabelResolvedConfig } from "powerlines/types/resolved";
 import { ReactOptimizedBuiltin } from "./components/react-optimized";
 import type { ReactPluginContext, ReactPluginOptions } from "./types/plugin";
@@ -40,13 +39,16 @@ export * from "./types";
 /**
  * A package containing a Powerlines plugin for building a React application.
  */
-export const plugin = createAlloyPlugin<ReactPluginContext>(
-  <TContext extends ReactPluginContext = ReactPluginContext>(
-    options: ReactPluginOptions = {}
-  ) => {
-    return {
+export const plugin = <
+  TContext extends ReactPluginContext = ReactPluginContext
+>(
+  options: ReactPluginOptions = {}
+) => {
+  return [
+    babel(options.babel),
+    env(options.env),
+    {
       name: "react",
-      dependsOn: [babel(options.babel), env(options.env)],
       config() {
         return defu(
           {
@@ -225,15 +227,15 @@ export const plugin = createAlloyPlugin<ReactPluginContext>(
           });
         }
       },
-      render() {
-        return (
+      async prepare() {
+        return this.render(
           <ReactOptimizedBuiltin
             override={this.config.react.compiler === false ? false : undefined}
           />
         );
       }
-    } as AlloyPluginBuilderResult<TContext>;
-  }
-);
+    }
+  ] as Plugin<TContext>[];
+};
 
 export default plugin;

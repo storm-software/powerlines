@@ -56,16 +56,6 @@ export interface PluginPluginTypesOptions {
 
 export interface PluginPluginOptions {
   /**
-   * The options applied to the [Alloy framework](https://alloy-framework.github.io/alloy/) for rendering templates.
-   *
-   * @remarks
-   * If set to `false`, the Alloy processing step will be skipped. If set to `true`, the Alloy processing step will be enabled with its default settings.
-   *
-   * @defaultValue false
-   */
-  alloy?: PluginPluginAlloyOptions | boolean;
-
-  /**
    * The type definitions for the Plugin plugin.
    */
   types?: PluginPluginTypesOptions;

@@ -16,8 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { createAlloyPlugin } from "@powerlines/alloy/create-plugin";
-import { AlloyPluginBuilderResult } from "@powerlines/alloy/types/plugin";
 import {
   ReflectionClass,
   ReflectionKind,
@@ -65,11 +63,15 @@ export * from "./components";
 export * from "./helpers";
 export * from "./types";
 
-const innerPlugin = createAlloyPlugin<EnvPluginContext>(
-  <TContext extends EnvPluginContext = EnvPluginContext>(
-    options: EnvPluginOptions = {}
-  ) => {
-    return {
+/**
+ * A Powerlines plugin to inject environment variables into the source code.
+ */
+export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
+  options: EnvPluginOptions = {}
+) => {
+  return [
+    babel(options.babel),
+    {
       name: "env",
       async config() {
         this.log(
@@ -317,13 +319,15 @@ const innerPlugin = createAlloyPlugin<EnvPluginContext>(
           }
         }
       },
-      render() {
+      async prepare() {
         this.log(
           LogLevelLabel.TRACE,
           `Preparing the Environment runtime artifacts for the Powerlines project.`
         );
 
-        return <EnvBuiltin defaultConfig={this.config.env.defaultConfig} />;
+        return this.render(
+          <EnvBuiltin defaultConfig={this.config.env.defaultConfig} />
+        );
       },
       async docs() {
         this.log(
@@ -398,19 +402,7 @@ ${reflection
 
         await writeEnvReflection(this, this.env.used.env, "env");
       }
-    } as AlloyPluginBuilderResult<TContext>;
-  }
-);
-
-/**
- * A Powerlines plugin to inject environment variables into the source code.
- */
-export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
-  options: EnvPluginOptions = {}
-) => {
-  return [
-    babel(options.babel),
-    innerPlugin<TContext>(options),
+    },
     {
       name: "env:automd-generator",
       config() {

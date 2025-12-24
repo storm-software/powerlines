@@ -18,6 +18,7 @@
 
 import { Children } from "@alloy-js/core/jsx-runtime";
 import { Reflection } from "@powerlines/deepkit/types";
+import { AlloyPluginContext } from "@powerlines/plugin-alloy/types";
 import { AutoMDPluginOptions } from "@powerlines/plugin-automd/types/plugin";
 import {
   BabelPluginContext,
@@ -132,7 +133,10 @@ export type EnvPluginResolvedConfig = BabelPluginResolvedConfig & {
 
 export interface EnvPluginContext<
   TResolvedConfig extends EnvPluginResolvedConfig = EnvPluginResolvedConfig
-> extends BabelPluginContext<TResolvedConfig> {
+>
+  extends
+    BabelPluginContext<TResolvedConfig>,
+    AlloyPluginContext<TResolvedConfig> {
   env: {
     /**
      * The type definitions reflection for the env variables and secrets
