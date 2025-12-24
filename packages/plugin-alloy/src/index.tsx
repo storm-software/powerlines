@@ -27,6 +27,7 @@ import {
 import alloyPlugin from "@alloy-js/rollup-plugin";
 import { PluginPluginAlloyOptions } from "@powerlines/plugin-plugin/types/plugin";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
+import { StormJSON } from "@stryke/json/storm-json";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { replacePath } from "@stryke/path/replace";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -88,17 +89,17 @@ export const plugin = <
             plugins: [alloyPlugin()]
           }
         };
-      }
-      // async configResolved() {
-      //   if (this.tsconfig.tsconfigJson.compilerOptions!.jsx !== "preserve") {
-      //     this.tsconfig.tsconfigJson.compilerOptions!.jsx = "preserve";
-      //   }
+      },
+      async configResolved() {
+        if (this.tsconfig.tsconfigJson.compilerOptions!.jsx !== "react-jsx") {
+          this.tsconfig.tsconfigJson.compilerOptions!.jsx = "react-jsx";
+        }
 
-      //   await this.fs.write(
-      //     this.tsconfig.tsconfigFilePath,
-      //     StormJSON.stringify(this.tsconfig.tsconfigJson)
-      //   );
-      // }
+        await this.fs.write(
+          this.tsconfig.tsconfigFilePath,
+          StormJSON.stringify(this.tsconfig.tsconfigJson)
+        );
+      }
     }
   ];
 };
