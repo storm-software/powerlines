@@ -25,6 +25,7 @@ const config = defineTsupConfig([
     outDir: "dist",
     clean: false,
     sourcemap: true,
+    minify: false,
     skipNodeModulesBundle: true
     // noExternal: ["ts-morph"]
   },
@@ -43,6 +44,7 @@ const config = defineTsupConfig([
     outDir: "dist/lib",
     clean: false,
     sourcemap: true,
+    minify: false,
     skipNodeModulesBundle: true
   },
   {
@@ -51,6 +53,7 @@ const config = defineTsupConfig([
     outDir: "dist/plugin-utils",
     clean: false,
     sourcemap: true,
+    minify: false,
     skipNodeModulesBundle: true
   }
 ]);
