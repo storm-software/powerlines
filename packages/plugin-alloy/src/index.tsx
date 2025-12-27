@@ -91,8 +91,8 @@ export const plugin = <
         };
       },
       async configResolved() {
-        if (this.tsconfig.tsconfigJson.compilerOptions!.jsx !== "react-jsx") {
-          this.tsconfig.tsconfigJson.compilerOptions!.jsx = "react-jsx";
+        if (this.tsconfig.tsconfigJson.compilerOptions!.jsx !== "preserve") {
+          this.tsconfig.tsconfigJson.compilerOptions!.jsx = "preserve";
         }
 
         await this.fs.write(
