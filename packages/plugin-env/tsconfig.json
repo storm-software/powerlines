@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "jsxImportSource": "@alloy-js/core",
     "lib": ["esnext", "DOM"],
     "types": ["node", "@alloy-js/core/testing/matchers"],
