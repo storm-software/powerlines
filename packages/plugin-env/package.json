@@ -210,6 +210,8 @@
   "devDependencies": {
     "@alloy-js/babel-preset": "catalog:",
     "@babel/preset-typescript": "catalog:",
+    "@powerlines/plugin-alloy": "workspace:*",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@powerlines/nx": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "^5.9.3",

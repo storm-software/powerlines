@@ -22,12 +22,20 @@ import { defineConfig } from "powerlines";
 
 export default defineConfig({
   skipCache: true,
-  entry: ["src/**/*.ts", "src/**/*.tsx"],
+  entry: [
+    "src/index.tsx",
+    "src/types/*.ts",
+    "src/components/*.ts",
+    "src/components/*.tsx"
+  ],
   plugins: [
-    plugin(),
     alloy({
       generatesJson: true,
       generatesMarkdown: true
-    })
-  ]
+    }),
+    plugin()
+  ],
+  build: {
+    unbundle: false
+  }
 });
