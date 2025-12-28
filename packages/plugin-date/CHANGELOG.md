@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.118](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.118) (12/28/2025)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with built jsx components
+  ([1d35f1d7](https://github.com/storm-software/powerlines/commit/1d35f1d7))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.57**
+- Updated **plugin-env** to **v0.14.8**
+- Updated **powerlines** to **v0.36.10**
+- Updated **nx** to **v0.11.36**
+
 ## [0.12.117](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.117) (12/28/2025)
 
 ### Updated Dependencies

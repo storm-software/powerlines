@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.83](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.83) (12/28/2025)
+
+### Miscellaneous
+
+- **plugin-crypto:** Removed unused `tsconfig.json` options
+  ([613ce25b](https://github.com/storm-software/powerlines/commit/613ce25b))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.57**
+- Updated **plugin-env** to **v0.14.8**
+- Updated **powerlines** to **v0.36.10**
+- Updated **nx** to **v0.11.36**
+
 ## [0.10.82](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.82) (12/28/2025)
 
 ### Updated Dependencies
