@@ -101,8 +101,8 @@ catalog:
   '@stryke/types': ^0.10.28
   '@stryke/unique-id': ^0.3.37
   '@swc/core': ^1.15.7
-  '@tamagui/static-worker': ^1.141.5
-  '@tamagui/types': ^1.141.5
+  '@tamagui/static-worker': ^1.142.0
+  '@tamagui/types': ^1.142.0
   '@taplo/cli': ^0.7.0
   '@types/babel__core': ^7.20.5
   '@types/babel__helper-module-imports': ^7.18.3

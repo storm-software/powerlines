@@ -9,7 +9,7 @@
       "inputs": ["{projectRoot}/schemas/*.capnp"],
       "outputs": ["{projectRoot}/schemas/*.ts"],
       "executor": "nx:run-commands",
-      "dependsOn": ["clean", "^build"],
+      "dependsOn": ["^build"],
       "options": {
         "commands": [
           "pnpm exec storm-capnpc --project-root packages/deepkit --schema ./{projectRoot}/schemas"
@@ -32,7 +32,6 @@
       "cache": false,
       "inputs": ["{projectRoot}/scripts/*.ts"],
       "outputs": ["{projectRoot}/scripts/*.cjs"],
-      "dependsOn": ["clean"],
       "executor": "nx:run-commands",
       "options": {
         "command": "tsup --config=tsup.scripts.ts",
@@ -43,7 +42,6 @@
       "cache": false,
       "inputs": ["typescript", "^production"],
       "outputs": ["{projectRoot}/dist"],
-      "dependsOn": ["clean"],
       "executor": "nx:run-commands",
       "options": {
         "command": "tsup --config=tsup.config.ts",
