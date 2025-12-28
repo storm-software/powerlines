@@ -1,10 +1,8 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "@alloy-js/core",
-    "lib": ["esnext", "DOM"],
-    "types": ["node", "@alloy-js/core/testing/matchers"],
+    "lib": ["esnext"],
+    "types": ["node"],
     "strict": true,
     "outDir": "../../dist/out-tsc"
   },
