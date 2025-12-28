@@ -79,7 +79,8 @@ export const plugin = <
               "@alloy-js/core",
               "@alloy-js/typescript",
               "@alloy-js/json",
-              "@alloy-js/markdown"
+              "@alloy-js/markdown",
+              "@powerlines/plugin-alloy"
             ]
           }
         };
@@ -110,7 +111,7 @@ export const plugin = <
           );
         }
 
-        this.devDependencies["@alloy-js/core"] = "^0.22.0";
+        // this.devDependencies["@alloy-js/core"] = "^0.22.0";
 
         if (this.config.alloy?.typescript !== false) {
           this.devDependencies["@alloy-js/typescript"] = "^0.22.0";
