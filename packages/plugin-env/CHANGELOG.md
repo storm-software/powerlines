@@ -2,6 +2,28 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.14.9](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.14.9) (12/28/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies
+  ([0ad0c55a](https://github.com/storm-software/powerlines/commit/0ad0c55a))
+
+### Bug Fixes
+
+- **plugin-env:** Resolve typescript typing issues
+  ([042b2ee2](https://github.com/storm-software/powerlines/commit/042b2ee2))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.106**
+- Updated **plugin-plugin** to **v0.12.58**
+- Updated **plugin-alloy** to **v0.15.3**
+- Updated **plugin-babel** to **v0.12.115**
+- Updated **powerlines** to **v0.36.11**
+- Updated **deepkit** to **v0.5.21**
+- Updated **nx** to **v0.11.37**
+
 ## [0.14.8](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.14.8) (12/28/2025)
 
 ### Bug Fixes

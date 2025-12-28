@@ -2,6 +2,28 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.110](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.110) (12/28/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies
+  ([0ad0c55a](https://github.com/storm-software/powerlines/commit/0ad0c55a))
+
+### Bug Fixes
+
+- **plugin-env:** Resolve typescript typing issues
+  ([042b2ee2](https://github.com/storm-software/powerlines/commit/042b2ee2))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.58**
+- Updated **plugin-alloy** to **v0.15.3**
+- Updated **plugin-babel** to **v0.12.115**
+- Updated **plugin-env** to **v0.14.9**
+- Updated **powerlines** to **v0.36.11**
+- Updated **deepkit** to **v0.5.21**
+- Updated **nx** to **v0.11.37**
+
 ## [0.1.109](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.109) (12/28/2025)
 
 ### Bug Fixes
