@@ -42,6 +42,8 @@
       "@powerlines/plugin-eslint/*": ["packages/plugin-eslint/src/*"],
       "@powerlines/plugin-graphql": ["packages/plugin-graphql/src/index.ts"],
       "@powerlines/plugin-graphql/*": ["packages/plugin-graphql/src/*"],
+      "@powerlines/plugin-i18next": ["packages/plugin-i18next/src/index.ts"],
+      "@powerlines/plugin-i18next/*": ["packages/plugin-i18next/src/*"],
       "@powerlines/plugin-id": ["packages/plugin-id/src/index.ts"],
       "@powerlines/plugin-id/*": ["packages/plugin-id/src/*"],
       "@powerlines/plugin-hey-api": ["packages/plugin-hey-api/src/index.ts"],
