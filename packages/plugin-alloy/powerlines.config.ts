@@ -25,10 +25,9 @@ export default defineConfig({
   entry: ["src/**/*.ts", "src/**/*.tsx"],
   plugins: [plugin()],
   build: {
-    noExternal: ["@vue/reactivity"],
+    noExternal: ["@vue/reactivity", "@alloy-js/core"],
     external: [
       "@alloy-js/rollup-plugin",
-      "@alloy-js/core",
       "@alloy-js/typescript",
       "@alloy-js/json",
       "@alloy-js/markdown",
