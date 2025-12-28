@@ -20,6 +20,7 @@ import { getLogFn, getLogLevel } from "@storm-software/config-tools/logger";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { getColor } from "@storm-software/config-tools/utilities/colors";
 import { noop } from "@stryke/helpers/noop";
+import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import chalk from "chalk";
 import type { LogFn, WorkspaceConfig } from "../types";
@@ -62,9 +63,7 @@ export const createLog = (
       `${chalk.bold.hex(
         getColor("brand", options as Parameters<typeof getColor>[1])
       )(
-        `powerlines${name ? `:${name}` : ""}${
-          options.name ? ` ${chalk.gray("> ")}${options.name}` : ""
-        } ${chalk.gray("> ")}`
+        `${name ? kebabCase(name) : ""}${options.name ? `${name ? chalk.gray(" > ") : ""}${kebabCase(options.name)}` : ""}${chalk.gray(" > ")}`
       )}${args.join(" ")} `.trim()
     );
 };
@@ -78,6 +77,7 @@ const BADGE_COLORS = [
   "#A855F7",
   "#469592",
   "#288EDF",
+  "#D8B4FE",
   "#10B981",
   "#EF4444",
   "#F0EC56",
@@ -89,7 +89,8 @@ const BADGE_COLORS = [
   "#0EA5E9",
   "#D946EF",
   "#FACC15",
-  "#34D399"
+  "#34D399",
+  "#8B5CF6"
 ] as const;
 
 export const extendLog = (logFn: LogFn, name: string): LogFn => {

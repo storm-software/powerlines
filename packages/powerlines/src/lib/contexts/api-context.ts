@@ -134,7 +134,7 @@ export class PowerlinesAPIContext<
 
   public override get log(): LogFn {
     if (!this.#log) {
-      this.#log = this.createLog("engine");
+      this.#log = this.createLog();
     }
 
     return this.#log;
