@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Jest
 
+## [0.1.109](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.109) (12/27/2025)
+
+### Features
+
+- **plugin-alloy:** Moved `alloy` code into separate plugin to simplify the
+  design
+  ([9fe9c440](https://github.com/storm-software/powerlines/commit/9fe9c440))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.54**
+- Updated **powerlines** to **v0.36.7**
+- Updated **nx** to **v0.11.33**
+
 ## [0.1.108](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.108) (12/23/2025)
 
 ### Updated Dependencies

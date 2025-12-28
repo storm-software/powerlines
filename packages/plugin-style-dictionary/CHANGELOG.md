@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.2](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.2) (12/27/2025)
+
+### Features
+
+- **plugin-alloy:** Moved `alloy` code into separate plugin to simplify the
+  design
+  ([9fe9c440](https://github.com/storm-software/powerlines/commit/9fe9c440))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.54**
+- Updated **powerlines** to **v0.36.7**
+- Updated **nx** to **v0.11.33**
+
 ## [0.3.1](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.1) (12/23/2025)
 
 ### Updated Dependencies

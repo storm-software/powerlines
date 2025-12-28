@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.10.114](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.10.114) (12/27/2025)
+
+### Features
+
+- **plugin-alloy:** Moved `alloy` code into separate plugin to simplify the
+  design
+  ([9fe9c440](https://github.com/storm-software/powerlines/commit/9fe9c440))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.54**
+- Updated **plugin-tsc** to **v0.2.110**
+- Updated **powerlines** to **v0.36.7**
+- Updated **deepkit** to **v0.5.17**
+- Updated **nx** to **v0.11.33**
+
 ## [0.10.113](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.10.113) (12/23/2025)
 
 ### Updated Dependencies

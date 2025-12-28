@@ -2,6 +2,36 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.106](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.106) (12/27/2025)
+
+### Miscellaneous
+
+- **plugin-react:** Update `jsx` option to `preserve`
+  ([4e3b8c39](https://github.com/storm-software/powerlines/commit/4e3b8c39))
+
+### Bug Fixes
+
+- **plugin-react:** Resolve `alloy-js` rendering during plugin build
+  ([476b0df0](https://github.com/storm-software/powerlines/commit/476b0df0))
+- **plugin-react:** Resolve issue with invalid `jsx` configuration
+  ([d88797f3](https://github.com/storm-software/powerlines/commit/d88797f3))
+
+### Features
+
+- **plugin-alloy:** Moved `alloy` code into separate plugin to simplify the
+  design
+  ([9fe9c440](https://github.com/storm-software/powerlines/commit/9fe9c440))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.54**
+- Updated **plugin-alloy** to **v0.14.0**
+- Updated **plugin-babel** to **v0.12.111**
+- Updated **plugin-env** to **v0.14.5**
+- Updated **powerlines** to **v0.36.7**
+- Updated **deepkit** to **v0.5.17**
+- Updated **nx** to **v0.11.33**
+
 ## [0.1.105](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.105) (12/23/2025)
 
 ### Updated Dependencies

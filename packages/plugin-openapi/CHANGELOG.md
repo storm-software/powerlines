@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Openapi
 
+## [0.2.106](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.106) (12/27/2025)
+
+### Features
+
+- **plugin-alloy:** Moved `alloy` code into separate plugin to simplify the
+  design
+  ([9fe9c440](https://github.com/storm-software/powerlines/commit/9fe9c440))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.54**
+- Updated **powerlines** to **v0.36.7**
+- Updated **nx** to **v0.11.33**
+
 ## [0.2.105](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.105) (12/23/2025)
 
 ### Updated Dependencies

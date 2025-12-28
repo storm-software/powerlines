@@ -1,5 +1,44 @@
 ![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark.gif)
 
+# Changelog for Powerlines - Plugin Alloy
+
+## [0.14.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.14.0) (12/27/2025)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update compiler options to include `react-jsx` for `jsx`
+  ([454da159](https://github.com/storm-software/powerlines/commit/454da159))
+- **plugin-alloy:** Update tsconfig `jsx` to `react-jsx` during configResolved
+  step
+  ([66416a02](https://github.com/storm-software/powerlines/commit/66416a02))
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue building plugins that use `alloy-js` rendering
+  ([eafdb96c](https://github.com/storm-software/powerlines/commit/eafdb96c))
+- **plugin-alloy:** Update `jsx` option to `preserve`
+  ([d7a4815e](https://github.com/storm-software/powerlines/commit/d7a4815e))
+- **plugin-alloy:** Resolve parsing issue with JSX syntax
+  ([6bc9964e](https://github.com/storm-software/powerlines/commit/6bc9964e))
+- **plugin-alloy:** Resolve issue with invalid `jsx` tsconfig file
+  ([9d5a4e47](https://github.com/storm-software/powerlines/commit/9d5a4e47))
+
+### Features
+
+- **plugin-alloy:** Moved `alloy` code into separate plugin to simplify the
+  design
+  ([9fe9c440](https://github.com/storm-software/powerlines/commit/9fe9c440))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.54**
+- Updated **plugin-babel** to **v0.12.111**
+- Updated **powerlines** to **v0.36.7**
+- Updated **deepkit** to **v0.5.17**
+- Updated **nx** to **v0.11.33**
+
+![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark.gif)
+
 # Changelog for Powerlines - Alloy
 
 ## [0.13.3](https://github.com/storm-software/powerlines/releases/tag/alloy%400.13.3) (12/23/2025)

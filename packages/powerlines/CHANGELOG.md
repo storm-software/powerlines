@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.36.7](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.7) (12/27/2025)
+
+### Miscellaneous
+
+- **powerlines:** Reformat Babel plugins and clean up `README.md` markdown
+  ([bb349909](https://github.com/storm-software/powerlines/commit/bb349909))
+- **powerlines:** Remove minify from config
+  ([7f73a8ac](https://github.com/storm-software/powerlines/commit/7f73a8ac))
+
+### Features
+
+- **plugin-alloy:** Moved `alloy` code into separate plugin to simplify the
+  design
+  ([9fe9c440](https://github.com/storm-software/powerlines/commit/9fe9c440))
+
 ## [0.36.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.1) (12/23/2025)
 
 ### Bug Fixes

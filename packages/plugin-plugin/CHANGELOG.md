@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.54](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.54) (12/27/2025)
+
+### Miscellaneous
+
+- **plugin-plugin:** Added logic to set the `entry` configuration if not
+  populated by user
+  ([a8d01c6f](https://github.com/storm-software/powerlines/commit/a8d01c6f))
+
+### Features
+
+- **plugin-alloy:** Moved `alloy` code into separate plugin to simplify the
+  design
+  ([9fe9c440](https://github.com/storm-software/powerlines/commit/9fe9c440))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.36.7**
+- Updated **nx** to **v0.11.33**
+
 ## [0.12.53](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.53) (12/23/2025)
 
 ### Updated Dependencies

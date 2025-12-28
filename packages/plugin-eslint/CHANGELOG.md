@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.8.106](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.106) (12/27/2025)
+
+### Features
+
+- **plugin-alloy:** Moved `alloy` code into separate plugin to simplify the
+  design
+  ([9fe9c440](https://github.com/storm-software/powerlines/commit/9fe9c440))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.54**
+- Updated **powerlines** to **v0.36.7**
+- Updated **nx** to **v0.11.33**
+
 ## [0.8.105](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.105) (12/23/2025)
 
 ### Updated Dependencies

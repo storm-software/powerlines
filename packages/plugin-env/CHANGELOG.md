@@ -2,6 +2,36 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.14.5](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.14.5) (12/27/2025)
+
+### Miscellaneous
+
+- **plugin-env:** Update `jsx` option to `preserve`
+  ([c134c41e](https://github.com/storm-software/powerlines/commit/c134c41e))
+- **plugin-env:** Update compiler options to include `react-jsx` for `jsx`
+  ([3e83e6d1](https://github.com/storm-software/powerlines/commit/3e83e6d1))
+
+### Bug Fixes
+
+- **plugin-env:** Resolve `alloy-js` rendering during plugin build
+  ([cf1b8317](https://github.com/storm-software/powerlines/commit/cf1b8317))
+
+### Features
+
+- **plugin-alloy:** Moved `alloy` code into separate plugin to simplify the
+  design
+  ([9fe9c440](https://github.com/storm-software/powerlines/commit/9fe9c440))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.102**
+- Updated **plugin-plugin** to **v0.12.54**
+- Updated **plugin-alloy** to **v0.14.0**
+- Updated **plugin-babel** to **v0.12.111**
+- Updated **powerlines** to **v0.36.7**
+- Updated **deepkit** to **v0.5.17**
+- Updated **nx** to **v0.11.33**
+
 ## [0.14.4](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.14.4) (12/23/2025)
 
 ### Updated Dependencies

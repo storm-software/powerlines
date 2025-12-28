@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.111](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.111) (12/27/2025)
+
+### Features
+
+- **plugin-alloy:** Moved `alloy` code into separate plugin to simplify the
+  design
+  ([9fe9c440](https://github.com/storm-software/powerlines/commit/9fe9c440))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.54**
+- Updated **powerlines** to **v0.36.7**
+- Updated **nx** to **v0.11.33**
+
 ## [0.12.110](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.110) (12/23/2025)
 
 ### Updated Dependencies
