@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.36.8](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.8) (12/28/2025)
+
+### Miscellaneous
+
+- **powerlines:** Clean up console log message format
+  ([715f2645](https://github.com/storm-software/powerlines/commit/715f2645))
+- **powerlines:** Improve type-checks in plugin helper utilities
+  ([d7483731](https://github.com/storm-software/powerlines/commit/d7483731))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with applying a nested array of plugin
+  configurations
+  ([d6047a25](https://github.com/storm-software/powerlines/commit/d6047a25))
+
 ## [0.36.7](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.7) (12/27/2025)
 
 ### Miscellaneous

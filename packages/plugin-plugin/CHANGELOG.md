@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.55](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.55) (12/28/2025)
+
+### Miscellaneous
+
+- **plugin-plugin:** Remove unused `alloy-js` configuration types
+  ([cfc4c201](https://github.com/storm-software/powerlines/commit/cfc4c201))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.36.8**
+- Updated **nx** to **v0.11.34**
+
 ## [0.12.54](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.54) (12/27/2025)
 
 ### Miscellaneous

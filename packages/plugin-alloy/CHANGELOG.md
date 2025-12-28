@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.15.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.15.0) (12/28/2025)
+
+### Features
+
+- **plugin-alloy:** Added logic to properly configure `tsconfig.json` and to
+  install dependencies
+  ([70041bc6](https://github.com/storm-software/powerlines/commit/70041bc6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.55**
+- Updated **plugin-babel** to **v0.12.112**
+- Updated **powerlines** to **v0.36.8**
+- Updated **deepkit** to **v0.5.18**
+- Updated **nx** to **v0.11.34**
+
 ## [0.14.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.14.0) (12/27/2025)
 
 ### Miscellaneous
