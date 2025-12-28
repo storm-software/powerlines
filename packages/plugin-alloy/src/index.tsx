@@ -16,6 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+import alloyPlugin from "@alloy-js/babel-plugin";
+import jsxDomExpressionsPlugin from "@alloy-js/babel-plugin-jsx-dom-expressions";
 import {
   Children,
   flushJobsAsync,
@@ -24,7 +26,8 @@ import {
   RenderedTextTree,
   renderTree
 } from "@alloy-js/core";
-import alloyPlugin from "@alloy-js/rollup-plugin";
+import transformTypescriptPlugin from "@babel/plugin-transform-typescript";
+import babel from "@powerlines/plugin-babel";
 import { PluginPluginAlloyOptions } from "@powerlines/plugin-plugin/types/plugin";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { StormJSON } from "@stryke/json/storm-json";
@@ -55,8 +58,35 @@ export const plugin = <
   TContext extends AlloyPluginContext = AlloyPluginContext
 >(
   options: AlloyPluginOptions = {}
-): Plugin<TContext>[] => {
+) => {
   return [
+    babel({
+      plugins: [
+        [
+          alloyPlugin,
+          {
+            alloyModuleName: "@alloy-js/core"
+          }
+        ],
+        [
+          jsxDomExpressionsPlugin,
+          {
+            alloyModuleName: "@alloy-js/core",
+            moduleName: "@alloy-js/core/jsx-runtime",
+            generate: "universal",
+            wrapConditionals: true,
+            preserveWhitespace: true
+          }
+        ],
+        [
+          transformTypescriptPlugin,
+          {
+            allowDeclareFields: true,
+            isTSX: true
+          }
+        ]
+      ]
+    }),
     {
       name: "alloy:init",
       configResolved: {
@@ -64,7 +94,7 @@ export const plugin = <
         async handler() {
           this.render = async (children: Children) => {
             const tree = renderTree(
-              <Output
+              <Output<TContext>
                 context={this}
                 basePath={this.workspaceConfig.workspaceRoot}>
                 {children}
@@ -83,16 +113,15 @@ export const plugin = <
           build: {
             inputOptions: {
               transform: {
-                jsx: "react"
+                jsx: "react-jsx"
               }
-            },
-            plugins: [alloyPlugin()]
+            }
           }
         };
       },
       async configResolved() {
-        if (this.tsconfig.tsconfigJson.compilerOptions!.jsx !== "preserve") {
-          this.tsconfig.tsconfigJson.compilerOptions!.jsx = "preserve";
+        if (this.tsconfig.tsconfigJson.compilerOptions!.jsx !== "react-jsx") {
+          this.tsconfig.tsconfigJson.compilerOptions!.jsx = "react-jsx";
         }
 
         await this.fs.write(
@@ -101,7 +130,7 @@ export const plugin = <
         );
       }
     }
-  ];
+  ] as Plugin<TContext>[];
 };
 
 export default plugin;

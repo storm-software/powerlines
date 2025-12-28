@@ -10,7 +10,7 @@
       "@powerlines/deepkit/*": ["packages/deepkit/src/*"],
       "@powerlines/nx": ["packages/nx/index.ts"],
       "@powerlines/nx/*": ["packages/nx/src/*"],
-      "@powerlines/plugin-alloy": ["packages/plugin-alloy/src/index.ts"],
+      "@powerlines/plugin-alloy": ["packages/plugin-alloy/src/index.tsx"],
       "@powerlines/plugin-alloy/*": ["packages/plugin-alloy/src/*"],
       "@powerlines/plugin-asyncapi": ["packages/plugin-asyncapi/src/index.ts"],
       "@powerlines/plugin-asyncapi/*": ["packages/plugin-asyncapi/src/*"],

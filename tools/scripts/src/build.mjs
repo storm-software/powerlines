@@ -95,10 +95,24 @@ try {
   }
 
   if (filter === "plugin" || filter === "cli" || filter === "all") {
+    proc =
+      $`pnpm nx run-many --target=build --projects="plugin-plugin,plugin-alloy" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+        `${8 * 60}s`
+      );
+    proc.stdout.on("data", data => {
+      echo`${data}`;
+    });
+    result = await proc;
+    if (!result.ok) {
+      throw new Error(
+        `An error occurred while building the plugin and alloy plugins in ${configuration} mode: \n\n${result.message}\n`
+      );
+    }
+
     if (filter === "plugin") {
       proc =
         $`pnpm nx run-many --target=build --projects="plugin-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
-          `${8 * 60}s`
+          `${15 * 60}s`
         );
       proc.stdout.on("data", data => {
         echo`${data}`;

@@ -38,6 +38,9 @@
   },
   "license": "Apache-2.0",
   "private": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "typings": "./dist/index.d.mts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -378,6 +381,7 @@
     "@babel/plugin-transform-typescript": "catalog:",
     "@powerlines/deepkit": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
+    "@powerlines/plugin-babel": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",
