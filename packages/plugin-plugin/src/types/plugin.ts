@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import type { PrintTreeOptions } from "@alloy-js/core";
 import { TypeDefinitionParameter } from "@stryke/types/configuration";
 import type {
   TsdownBuildConfig,
@@ -25,22 +24,6 @@ import type {
 import type { UserConfig } from "powerlines/types/config";
 import type { PluginContext } from "powerlines/types/context";
 import type { ResolvedConfig } from "powerlines/types/resolved";
-
-export type PluginPluginAlloyOptions = Partial<PrintTreeOptions> & {
-  /**
-   * If true, the Alloy framework is used to generate JSON output files.
-   *
-   * @defaultValue false
-   */
-  generatesJson?: boolean;
-
-  /**
-   * If true, the Alloy framework is used to generate Markdown output files.
-   *
-   * @defaultValue false
-   */
-  generatesMarkdown?: boolean;
-};
 
 export interface PluginPluginTypesOptions {
   /**
