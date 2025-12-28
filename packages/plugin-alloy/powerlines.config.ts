@@ -29,7 +29,12 @@ export default defineConfig({
     external: [
       "@powerlines/deepkit/vendor/type",
       "@powerlines/deepkit/vendor/core",
-      "@powerlines/deepkit/vendor/type-spec"
+      "@powerlines/deepkit/vendor/type-spec",
+      "@alloy-js/rollup-plugin",
+      "@alloy-js/core",
+      "@alloy-js/typescript",
+      "@alloy-js/json",
+      "@alloy-js/markdown"
     ],
     inputOptions: {
       transform: {

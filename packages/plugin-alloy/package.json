@@ -370,18 +370,12 @@
   "keywords": ["alloy-js", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@alloy-js/rollup-plugin": "catalog:",
-    "@alloy-js/babel-plugin": "catalog:",
-    "@alloy-js/babel-plugin-jsx-dom-expressions": "catalog:",
     "@alloy-js/core": "catalog:",
     "@alloy-js/json": "catalog:",
     "@alloy-js/markdown": "catalog:",
     "@alloy-js/typescript": "catalog:",
-    "@babel/plugin-syntax-jsx": "catalog:",
-    "@babel/plugin-syntax-typescript": "catalog:",
-    "@babel/plugin-transform-typescript": "catalog:",
     "@powerlines/deepkit": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
-    "@powerlines/plugin-babel": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",
@@ -393,18 +387,16 @@
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "@stryke/unique-id": "catalog:",
-    "@vue/reactivity": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
     "powerlines": "workspace:*",
     "prettier": "catalog:"
   },
   "devDependencies": {
-    "@babel/core": "catalog:",
     "@powerlines/nx": "workspace:*",
     "@storm-software/tsup": "catalog:",
-    "@rollup/plugin-babel": "catalog:",
-    "@types/node": "catalog:"
+    "@types/node": "catalog:",
+    "@vue/reactivity": "catalog:"
   },
   "publishConfig": {
     "access": "public"
