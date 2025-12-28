@@ -17,7 +17,7 @@
 </div>
 <br />
 
-**🔌 Powerlines** is a "framework framework" that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.
+**🔌 Powerlines** is a "framework framework" that simplifies modern development tool usage, generates virtual (or actual) code modules, and improves DX across the board.
 
 <h3 align="center">💻 Visit <a href="https://stormsoftware.com" target="_blank">stormsoftware.com</a> to stay up to date with this developer</h3>
 <br />

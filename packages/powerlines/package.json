@@ -644,7 +644,6 @@
   "dependencies": {
     "@alloy-js/babel-plugin": "catalog:",
     "@alloy-js/babel-plugin-jsx-dom-expressions": "catalog:",
-    "@alloy-js/babel-preset": "catalog:",
     "@babel/core": "catalog:",
     "@babel/generator": "catalog:",
     "@babel/helper-module-imports": "catalog:",
