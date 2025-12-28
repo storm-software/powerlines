@@ -36,6 +36,7 @@ import { isPromiseLike } from "@stryke/type-checks/is-promise";
 import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
+import { isString } from "@stryke/type-checks/is-string";
 import { MaybePromise } from "@stryke/types/base";
 import chalk from "chalk";
 import Handlebars from "handlebars";
@@ -57,6 +58,7 @@ import { getFileHeader } from "./lib/utilities/file-header";
 import { writeMetaFile } from "./lib/utilities/meta";
 import {
   checkDedupe,
+  findInvalidPluginConfig,
   isPlugin,
   isPluginConfig,
   isPluginConfigObject,
@@ -985,28 +987,58 @@ ${formatTypes(types)}
   ): Promise<Plugin<PluginContext<TResolvedConfig>>[] | null> {
     let awaited = config;
     if (isPromiseLike(config)) {
-      awaited = await Promise.resolve(config);
+      awaited = (await Promise.resolve(config as Promise<any>)) as PluginConfig<
+        PluginContext<TResolvedConfig>
+      >;
     }
 
     if (!isPluginConfig(awaited)) {
+      const invalid = findInvalidPluginConfig(awaited);
+
       throw new Error(
-        `Invalid plugin specified in the configuration - ${JSON.stringify(awaited)}. Please ensure the value is a plugin name, an object with the \`plugin\` and \`props\` properties, or an instance of \`Plugin\`.`
+        `Invalid ${
+          invalid && invalid.length > 1 ? "plugins" : "plugin"
+        } specified in the configuration - ${
+          invalid && invalid.length > 0
+            ? JSON.stringify(awaited)
+            : invalid?.join("\n\n")
+        } \n\nPlease ensure the value is one of the following: \n - an instance of \`Plugin\` \n - a plugin name \n - an object with the \`plugin\` and \`options\` properties \n - a tuple array with the plugin and options \n - a factory function that returns a plugin or array of plugins \n - an array of plugins or plugin configurations`
       );
     }
 
     let plugins!: Plugin<PluginContext<TResolvedConfig>>[];
-    if (Array.isArray(awaited) && awaited.every(isPlugin<TResolvedConfig>)) {
-      plugins = awaited;
-    } else if (isPlugin<TResolvedConfig>(awaited)) {
+    if (isPlugin<PluginContext<TResolvedConfig>>(awaited)) {
       plugins = [awaited];
     } else if (isFunction(awaited)) {
       plugins = toArray(await Promise.resolve(awaited()));
-    } else if (isSetString(awaited)) {
+    } else if (isString(awaited)) {
       const resolved = await this.#resolvePlugin(awaited);
       if (isFunction(resolved)) {
         plugins = toArray(await Promise.resolve(resolved()));
       } else {
         plugins = toArray(resolved);
+      }
+    } else if (
+      Array.isArray(awaited) &&
+      (awaited as PluginContext<TResolvedConfig>[]).every(
+        isPlugin<PluginContext<TResolvedConfig>>
+      )
+    ) {
+      plugins = awaited;
+    } else if (
+      Array.isArray(awaited) &&
+      (awaited as PluginConfig<PluginContext<TResolvedConfig>>[]).every(
+        isPluginConfig<PluginContext<TResolvedConfig>>
+      )
+    ) {
+      plugins = [];
+      for (const pluginConfig of awaited as PluginConfig<
+        PluginContext<TResolvedConfig>
+      >[]) {
+        const initialized = await this.#initPlugin(pluginConfig);
+        if (initialized) {
+          plugins.push(...initialized);
+        }
       }
     } else if (isPluginConfigTuple(awaited) || isPluginConfigObject(awaited)) {
       let pluginConfig!:
@@ -1041,7 +1073,7 @@ ${formatTypes(types)}
         plugins = toArray(await Promise.resolve(pluginConfig(pluginOptions)));
       } else if (
         Array.isArray(pluginConfig) &&
-        pluginConfig.every(isPlugin<TResolvedConfig>)
+        pluginConfig.every(isPlugin<PluginContext<TResolvedConfig>>)
       ) {
         plugins = pluginConfig;
       } else if (isPlugin(pluginConfig)) {
@@ -1055,7 +1087,10 @@ ${formatTypes(types)}
       );
     }
 
-    if (plugins.length > 0 && !plugins.every(isPlugin<TResolvedConfig>)) {
+    if (
+      plugins.length > 0 &&
+      !plugins.every(isPlugin<PluginContext<TResolvedConfig>>)
+    ) {
       throw new Error(
         `The plugin option ${JSON.stringify(plugins)} does not export a valid module. This configuration must point to a valid Powerlines plugin module.`
       );

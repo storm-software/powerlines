@@ -44,24 +44,20 @@ import { ResolvedConfig } from "../types/resolved";
  * @returns True if the object is a {@link Plugin}, false otherwise
  */
 export function isPlugin<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig
->(value: unknown): value is Plugin<PluginContext<TResolvedConfig>> {
+  TContext extends PluginContext = PluginContext<ResolvedConfig>
+>(value: unknown): value is Plugin<TContext> {
   return (
     isSetObject(value) &&
     "name" in value &&
     isSetString(value.name) &&
-    (isUndefined(
-      (value as Plugin<PluginContext<TResolvedConfig>>).applyToEnvironment
-    ) ||
+    (isUndefined((value as Plugin<TContext>).applyToEnvironment) ||
       ("applyToEnvironment" in value &&
         isFunction(value.applyToEnvironment))) &&
-    (isUndefined((value as Plugin<PluginContext<TResolvedConfig>>).dedupe) ||
+    (isUndefined((value as Plugin<TContext>).dedupe) ||
       ("dedupe" in value && isFunction(value.dedupe))) &&
     SUPPORTED_COMMANDS.every(
       command =>
-        isUndefined(
-          (value as Plugin<PluginContext<TResolvedConfig>>)[command]
-        ) ||
+        isUndefined((value as Plugin<TContext>)[command]) ||
         (command in value &&
           (isFunction((value as Record<string, any>)[command]) ||
             (isSetObject((value as Record<string, any>)[command]) &&
@@ -115,14 +111,16 @@ export function isPluginConfigTuple(
  * @param value - The object to check
  * @returns True if the object is a {@link PluginConfig}, false otherwise
  */
-export function isPluginConfig(value: unknown): value is PluginConfig {
+export function isPluginConfig<
+  TContext extends PluginContext = PluginContext<ResolvedConfig>
+>(value: unknown): value is PluginConfig<TContext> {
   return (
     isSetString(value) ||
     isFunction(value) ||
-    isPlugin(value) ||
-    (Array.isArray(value) && value.every(item => isPlugin(item))) ||
+    isPlugin<TContext>(value) ||
     isPluginConfigObject(value) ||
-    isPluginConfigTuple(value)
+    isPluginConfigTuple(value) ||
+    (Array.isArray(value) && value.every(item => isPluginConfig(item)))
   );
 }
 
@@ -283,4 +281,32 @@ export function addPluginHook<TContext extends PluginContext = PluginContext>(
           }
     );
   }
+}
+
+/**
+ * Check the provided {@link PluginConfig}, and return a stringified version of the invalid configuration. If an array is provided, check each item in the array.
+ *
+ * @param config - The plugin configuration to check
+ * @returns Null if the configuration is valid, otherwise an array of stringified invalid configurations
+ */
+export function findInvalidPluginConfig<
+  TContext extends PluginContext = PluginContext<ResolvedConfig>
+>(config: PluginConfig<TContext>): string[] | null {
+  if (isPluginConfig<TContext>(config)) {
+    return null;
+  }
+
+  if (Array.isArray(config as PluginConfig<TContext>[])) {
+    const invalidItems: string[] = [];
+    (config as PluginConfig<TContext>[]).forEach(item => {
+      const invalid = findInvalidPluginConfig<TContext>(item);
+      if (invalid) {
+        invalidItems.push(...invalid.map(i => JSON.stringify(i, null, 2)));
+      }
+    });
+
+    return invalidItems.length > 0 ? invalidItems : null;
+  }
+
+  return [JSON.stringify(config, null, 2)];
 }

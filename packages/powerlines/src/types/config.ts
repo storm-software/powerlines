@@ -103,10 +103,10 @@ export type PluginConfig<TContext extends PluginContext = PluginContext> =
   | string
   | PluginFactory<TContext, void>
   | Plugin<TContext>
-  | Plugin<TContext>[]
-  | Promise<Plugin<TContext> | Plugin<TContext>[]>
   | PluginConfigTuple<TContext>
-  | PluginConfigObject<TContext>;
+  | PluginConfigObject<TContext>
+  | Promise<PluginConfig<TContext>>
+  | PluginConfig<TContext>[];
 
 export type PartialPlugin<
   in out TContext extends PluginContext = PluginContext
