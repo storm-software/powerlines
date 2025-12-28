@@ -43,6 +43,17 @@ export type UnpluginBuildVariant =
   | "unloader"
   | "rolldown";
 
+export const UNPLUGIN_BUILD_VARIANTS: UnpluginBuildVariant[] = [
+  "rollup",
+  "webpack",
+  "rspack",
+  "vite",
+  "esbuild",
+  "farm",
+  "unloader",
+  "rolldown"
+];
+
 export type BuildVariant = UnpluginBuildVariant | "tsup" | "tsdown" | "unbuild";
 
 export type InferUnpluginVariant<TBuildVariant extends BuildVariant> =

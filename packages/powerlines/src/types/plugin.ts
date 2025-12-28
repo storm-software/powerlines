@@ -25,7 +25,9 @@ import type {
   UnpluginOptions
 } from "unplugin";
 import type { UnpluginBuildVariant } from "./build";
+import { UNPLUGIN_BUILD_VARIANTS } from "./build";
 import type { CommandType } from "./commands";
+import { SUPPORTED_COMMANDS } from "./commands";
 import type { EnvironmentConfig, PluginConfig } from "./config";
 import type {
   BuildPluginContext,
@@ -404,3 +406,26 @@ export const PLUGIN_NON_HOOK_FIELDS = [
 export type PluginNonHookFields =
   | ArrayValues<typeof PLUGIN_NON_HOOK_FIELDS>
   | UnpluginBuildVariant;
+
+export const KNOWN_HOOKS = [
+  ...SUPPORTED_COMMANDS,
+  "config",
+  "configEnvironment",
+  "configResolved",
+  "buildStart",
+  "buildEnd",
+  "transform",
+  "load",
+  "resolveId",
+  "writeBundle"
+] as const;
+
+export type KnownHooks = ArrayValues<typeof KNOWN_HOOKS>;
+
+export const KNOWN_PLUGIN_FIELDS = [
+  ...PLUGIN_NON_HOOK_FIELDS,
+  ...KNOWN_HOOKS,
+  ...UNPLUGIN_BUILD_VARIANTS
+] as const;
+
+export type KnownPluginFields = ArrayValues<typeof KNOWN_PLUGIN_FIELDS>;

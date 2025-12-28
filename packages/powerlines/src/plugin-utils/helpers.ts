@@ -21,7 +21,7 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { AnyFunction } from "@stryke/types/base";
-import { SUPPORTED_COMMANDS } from "../types/commands";
+import { UNPLUGIN_BUILD_VARIANTS } from "../types/build";
 import {
   PluginConfig,
   PluginConfigObject,
@@ -34,7 +34,12 @@ import {
   ExternalHookKeys,
   HookKeys
 } from "../types/hooks";
-import { Plugin, PluginHook, PluginHookObject } from "../types/plugin";
+import {
+  KNOWN_HOOKS,
+  Plugin,
+  PluginHook,
+  PluginHookObject
+} from "../types/plugin";
 import { ResolvedConfig } from "../types/resolved";
 
 /**
@@ -50,19 +55,25 @@ export function isPlugin<
     isSetObject(value) &&
     "name" in value &&
     isSetString(value.name) &&
+    (isUndefined((value as Plugin<TContext>).api) ||
+      ("api" in value && isSetObject(value.api))) &&
     (isUndefined((value as Plugin<TContext>).applyToEnvironment) ||
       ("applyToEnvironment" in value &&
         isFunction(value.applyToEnvironment))) &&
     (isUndefined((value as Plugin<TContext>).dedupe) ||
       ("dedupe" in value && isFunction(value.dedupe))) &&
-    SUPPORTED_COMMANDS.every(
-      command =>
-        isUndefined((value as Plugin<TContext>)[command]) ||
-        (command in value &&
-          (isFunction((value as Record<string, any>)[command]) ||
-            (isSetObject((value as Record<string, any>)[command]) &&
-              "handler" in (value as Record<string, any>)[command] &&
-              isFunction((value as Record<string, any>)[command].handler))))
+    KNOWN_HOOKS.every(
+      hook =>
+        isUndefined((value as Plugin<TContext>)[hook]) ||
+        (hook in value &&
+          (isPluginHookFunction((value as Plugin<TContext>)[hook]) ||
+            (hook === "config" &&
+              isSetObject((value as Plugin<TContext>)[hook]))))
+    ) &&
+    UNPLUGIN_BUILD_VARIANTS.every(
+      variant =>
+        isUndefined((value as Plugin<TContext>)[variant]) ||
+        (variant in value && isSetObject((value as Plugin<TContext>)[variant]))
     )
   );
 }
@@ -130,11 +141,10 @@ export function isPluginConfig<
  * @param value - The value to check
  * @returns True if the value is a {@link PluginHook} function, false otherwise
  */
-export function isPluginHookFunction(value: unknown): value is AnyFunction {
-  return (
-    isFunction(value) ||
-    (isSetObject(value) && "handler" in value && isFunction(value.handler))
-  );
+export function isPluginHookObject(
+  value: unknown
+): value is PluginHookObject<AnyFunction> {
+  return isSetObject(value) && "handler" in value && isFunction(value.handler);
 }
 
 /**
@@ -143,10 +153,8 @@ export function isPluginHookFunction(value: unknown): value is AnyFunction {
  * @param value - The value to check
  * @returns True if the value is a {@link PluginHook} function, false otherwise
  */
-export function isPluginHookObject(
-  value: unknown
-): value is PluginHookObject<AnyFunction> {
-  return isSetObject(value) && "handler" in value && isFunction(value.handler);
+export function isPluginHookFunction(value: unknown): value is AnyFunction {
+  return isFunction(value) || isPluginHookObject(value);
 }
 
 /**
