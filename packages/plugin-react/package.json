@@ -143,6 +143,10 @@
     }
   },
   "dependencies": {
+    "@alloy-js/core": "catalog:",
+    "@alloy-js/json": "catalog:",
+    "@alloy-js/markdown": "catalog:",
+    "@alloy-js/typescript": "catalog:",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
@@ -157,8 +161,6 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@alloy-js/core": "catalog:",
-    "@alloy-js/typescript": "catalog:",
     "@babel/core": "catalog:",
     "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-alloy": "workspace:*",

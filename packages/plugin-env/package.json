@@ -187,10 +187,10 @@
   "files": ["dist/**/*"],
   "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
-    "automd": "catalog:",
     "@alloy-js/core": "catalog:",
-    "@alloy-js/typescript": "catalog:",
     "@alloy-js/markdown": "catalog:",
+    "@alloy-js/typescript": "catalog:",
+    "@alloy-js/json": "catalog:",
     "@babel/core": "catalog:",
     "@babel/types": "catalog:",
     "@powerlines/deepkit": "workspace:*",
@@ -206,14 +206,15 @@
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
+    "automd": "catalog:",
     "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@alloy-js/babel-preset": "catalog:",
     "@babel/preset-typescript": "catalog:",
+    "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
-    "@powerlines/nx": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "^5.9.3",
     "vite": "catalog:"
