@@ -28,7 +28,6 @@ import {
 } from "@alloy-js/core";
 import transformTypescriptPlugin from "@babel/plugin-transform-typescript";
 import babel from "@powerlines/plugin-babel";
-import { PluginPluginAlloyOptions } from "@powerlines/plugin-plugin/types/plugin";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { StormJSON } from "@stryke/json/storm-json";
 import { isParentPath } from "@stryke/path/is-parent-path";
@@ -88,7 +87,65 @@ export const plugin = <
       ]
     }),
     {
-      name: "alloy:init",
+      name: "alloy:config",
+      config() {
+        return {
+          alloy: {
+            typescript: true,
+            ...options
+          },
+          build: {
+            inputOptions: {
+              transform: {
+                jsx: "react-jsx"
+              }
+            }
+          }
+        };
+      },
+      async configResolved() {
+        if (
+          this.tsconfig.tsconfigJson.compilerOptions?.jsx !== "react-jsx" ||
+          this.tsconfig.tsconfigJson.compilerOptions?.jsxImportSource !==
+            "@alloy-js/core"
+        ) {
+          this.tsconfig.tsconfigJson.compilerOptions ??= {};
+
+          if (this.tsconfig.tsconfigJson.compilerOptions.jsx !== "react-jsx") {
+            this.tsconfig.tsconfigJson.compilerOptions.jsx = "react-jsx";
+          }
+
+          if (
+            this.tsconfig.tsconfigJson.compilerOptions.jsxImportSource !==
+            "@alloy-js/core"
+          ) {
+            this.tsconfig.tsconfigJson.compilerOptions.jsxImportSource =
+              "@alloy-js/core";
+          }
+
+          await this.fs.write(
+            this.tsconfig.tsconfigFilePath,
+            StormJSON.stringify(this.tsconfig.tsconfigJson)
+          );
+        }
+
+        this.devDependencies["@alloy-js/core"] = "^0.21.0";
+
+        if (this.config.alloy?.typescript !== false) {
+          this.devDependencies["@alloy-js/typescript"] = "^0.21.0";
+        }
+
+        if (this.config.alloy?.json === true) {
+          this.devDependencies["@alloy-js/json"] = "^0.21.0";
+        }
+
+        if (this.config.alloy?.markdown === true) {
+          this.devDependencies["@alloy-js/markdown"] = "^0.21.0";
+        }
+      }
+    },
+    {
+      name: "alloy:update-context",
       configResolved: {
         order: "pre",
         async handler() {
@@ -101,33 +158,9 @@ export const plugin = <
               </Output>
             );
 
-            await writeTree(this, tree, options);
+            await writeTree(this, tree, this.config.alloy);
           };
         }
-      }
-    },
-    {
-      name: "alloy:config",
-      config() {
-        return {
-          build: {
-            inputOptions: {
-              transform: {
-                jsx: "react-jsx"
-              }
-            }
-          }
-        };
-      },
-      async configResolved() {
-        if (this.tsconfig.tsconfigJson.compilerOptions!.jsx !== "react-jsx") {
-          this.tsconfig.tsconfigJson.compilerOptions!.jsx = "react-jsx";
-        }
-
-        await this.fs.write(
-          this.tsconfig.tsconfigFilePath,
-          StormJSON.stringify(this.tsconfig.tsconfigJson)
-        );
       }
     }
   ] as Plugin<TContext>[];
@@ -144,7 +177,7 @@ export default plugin;
 async function writeTree<TContext extends PluginContext = PluginContext>(
   context: TContext,
   tree: RenderedTextTree,
-  options: PluginPluginAlloyOptions = {}
+  options: AlloyPluginOptions = {}
 ) {
   await flushJobsAsync();
 
@@ -328,7 +361,7 @@ async function writeTree<TContext extends PluginContext = PluginContext>(
 async function printTree<TContext extends PluginContext = PluginContext>(
   context: TContext,
   tree: RenderedTextTree,
-  options: PluginPluginAlloyOptions = {}
+  options: AlloyPluginOptions = {}
 ) {
   options.printWidth ??= 160;
   options.tabWidth ??= 2;

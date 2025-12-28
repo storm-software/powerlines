@@ -16,17 +16,42 @@
 
  ------------------------------------------------------------------- */
 
+import type { PrintTreeOptions } from "@alloy-js/core";
 import { Children } from "@alloy-js/core/jsx-runtime";
-import type { PluginPluginAlloyOptions } from "@powerlines/plugin-plugin/types/plugin";
 import { UserConfig } from "powerlines/types/config";
 import { PluginContext } from "powerlines/types/context";
 import { ResolvedConfig } from "powerlines/types/resolved";
 
-export type AlloyPluginOptions = PluginPluginAlloyOptions;
+export type AlloyPluginOptions = Partial<PrintTreeOptions> & {
+  /**
+   * If true, the Alloy framework is used to generate Typescript output files.
+   *
+   * @defaultValue true
+   */
+  typescript?: boolean;
 
-export type AlloyPluginUserConfig = UserConfig;
+  /**
+   * If true, the Alloy framework is used to generate JSON output files.
+   *
+   * @defaultValue false
+   */
+  json?: boolean;
 
-export type AlloyPluginResolvedConfig = ResolvedConfig;
+  /**
+   * If true, the Alloy framework is used to generate Markdown output files.
+   *
+   * @defaultValue false
+   */
+  markdown?: boolean;
+};
+
+export type AlloyPluginUserConfig = UserConfig & {
+  alloy?: AlloyPluginOptions;
+};
+
+export type AlloyPluginResolvedConfig = ResolvedConfig & {
+  alloy: AlloyPluginOptions;
+};
 
 export type AlloyPluginContext<
   TResolvedConfig extends AlloyPluginResolvedConfig = AlloyPluginResolvedConfig
