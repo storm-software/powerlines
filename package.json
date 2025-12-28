@@ -2,7 +2,7 @@
   "name": "@powerlines/monorepo",
   "version": "0.0.1",
   "type": "module",
-  "description": "🔌 The \"any framework\" framework that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
+  "description": "🔌 The \"framework framework\" that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git"
