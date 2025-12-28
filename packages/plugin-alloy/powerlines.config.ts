@@ -16,46 +16,14 @@
 
  ------------------------------------------------------------------- */
 
-import alloyPlugin from "@alloy-js/babel-plugin";
-import jsxDomExpressionsPlugin from "@alloy-js/babel-plugin-jsx-dom-expressions";
-import transformTypescriptPlugin from "@babel/plugin-transform-typescript";
-import babel from "@powerlines/plugin-babel";
+import alloy from "@alloy-js/rollup-plugin";
 import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines";
+import { defineConfig } from "../powerlines/src/index";
 
 export default defineConfig({
   skipCache: true,
   entry: ["src/**/*.ts", "src/**/*.tsx"],
-  plugins: [
-    babel({
-      plugins: [
-        [
-          alloyPlugin,
-          {
-            alloyModuleName: "@alloy-js/core"
-          }
-        ],
-        [
-          jsxDomExpressionsPlugin,
-          {
-            alloyModuleName: "@alloy-js/core",
-            moduleName: "@alloy-js/core/jsx-runtime",
-            generate: "universal",
-            wrapConditionals: true,
-            preserveWhitespace: true
-          }
-        ],
-        [
-          transformTypescriptPlugin,
-          {
-            allowDeclareFields: true,
-            isTSX: true
-          }
-        ]
-      ]
-    }),
-    plugin()
-  ],
+  plugins: [plugin()],
   build: {
     noExternal: ["@vue/reactivity"],
     external: [
@@ -65,9 +33,14 @@ export default defineConfig({
     ],
     inputOptions: {
       transform: {
-        jsx: "react-jsx"
+        jsx: {
+          runtime: "classic",
+          pragma: "Alloy.createElement",
+          importSource: "@alloy-js/core"
+        }
       }
     },
+    plugins: [alloy()],
     unbundle: false,
     minify: false
   }

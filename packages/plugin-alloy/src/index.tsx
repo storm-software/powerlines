@@ -16,8 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import alloyPlugin from "@alloy-js/babel-plugin";
-import jsxDomExpressionsPlugin from "@alloy-js/babel-plugin-jsx-dom-expressions";
 import {
   Children,
   flushJobsAsync,
@@ -26,17 +24,16 @@ import {
   RenderedTextTree,
   renderTree
 } from "@alloy-js/core";
-import transformTypescriptPlugin from "@babel/plugin-transform-typescript";
-import babel from "@powerlines/plugin-babel";
+import alloy from "@alloy-js/rollup-plugin";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { StormJSON } from "@stryke/json/storm-json";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { replacePath } from "@stryke/path/replace";
 import { isSetString } from "@stryke/type-checks/is-set-string";
-import { PluginContext } from "powerlines/types/context";
-import { Plugin } from "powerlines/types/plugin";
 import { Doc } from "prettier";
 import { printer } from "prettier/doc.js";
+import { PluginContext } from "../../powerlines/src/types/context";
+import { Plugin } from "../../powerlines/src/types/plugin";
 import { Output } from "./core/components/output";
 import { OutputDirectory, OutputFile } from "./types/components";
 import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
@@ -59,33 +56,6 @@ export const plugin = <
   options: AlloyPluginOptions = {}
 ) => {
   return [
-    babel({
-      plugins: [
-        [
-          alloyPlugin,
-          {
-            alloyModuleName: "@alloy-js/core"
-          }
-        ],
-        [
-          jsxDomExpressionsPlugin,
-          {
-            alloyModuleName: "@alloy-js/core",
-            moduleName: "@alloy-js/core/jsx-runtime",
-            generate: "universal",
-            wrapConditionals: true,
-            preserveWhitespace: true
-          }
-        ],
-        [
-          transformTypescriptPlugin,
-          {
-            allowDeclareFields: true,
-            isTSX: true
-          }
-        ]
-      ]
-    }),
     {
       name: "alloy:config",
       config() {
@@ -97,22 +67,27 @@ export const plugin = <
           build: {
             inputOptions: {
               transform: {
-                jsx: "react-jsx"
+                jsx: {
+                  runtime: "classic",
+                  pragma: "Alloy.createElement",
+                  importSource: "@alloy-js/core"
+                }
               }
-            }
+            },
+            plugins: [alloy()]
           }
         };
       },
       async configResolved() {
         if (
-          this.tsconfig.tsconfigJson.compilerOptions?.jsx !== "react-jsx" ||
+          this.tsconfig.tsconfigJson.compilerOptions?.jsx !== "preserve" ||
           this.tsconfig.tsconfigJson.compilerOptions?.jsxImportSource !==
             "@alloy-js/core"
         ) {
           this.tsconfig.tsconfigJson.compilerOptions ??= {};
 
-          if (this.tsconfig.tsconfigJson.compilerOptions.jsx !== "react-jsx") {
-            this.tsconfig.tsconfigJson.compilerOptions.jsx = "react-jsx";
+          if (this.tsconfig.tsconfigJson.compilerOptions.jsx !== "preserve") {
+            this.tsconfig.tsconfigJson.compilerOptions.jsx = "preserve";
           }
 
           if (
@@ -129,18 +104,18 @@ export const plugin = <
           );
         }
 
-        this.devDependencies["@alloy-js/core"] = "^0.21.0";
+        this.devDependencies["@alloy-js/core"] = "^0.22.0";
 
         if (this.config.alloy?.typescript !== false) {
-          this.devDependencies["@alloy-js/typescript"] = "^0.21.0";
+          this.devDependencies["@alloy-js/typescript"] = "^0.22.0";
         }
 
         if (this.config.alloy?.json === true) {
-          this.devDependencies["@alloy-js/json"] = "^0.21.0";
+          this.devDependencies["@alloy-js/json"] = "^0.22.0";
         }
 
         if (this.config.alloy?.markdown === true) {
-          this.devDependencies["@alloy-js/markdown"] = "^0.21.0";
+          this.devDependencies["@alloy-js/markdown"] = "^0.22.0";
         }
       }
     },

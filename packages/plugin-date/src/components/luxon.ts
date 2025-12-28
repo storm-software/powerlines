@@ -16,6 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+/* eslint-disable @nx/enforce-module-boundaries */
+
 import { getFileHeader } from "powerlines/lib/utilities/file-header";
 import { DatePluginContext } from "../types/plugin";
 
@@ -74,7 +76,11 @@ export const formats: DateFormats = {
   year: "yyyy",
 };
 
-export let locale = $storm.env.DEFAULT_LOCALE;
+export let locale = "${
+    context.env.parsed.DEFAULT_LOCALE || context.workspaceConfig.locale
+      ? `${context.env.parsed.DEFAULT_LOCALE || context.workspaceConfig.locale}`
+      : "en-US"
+  }";
 
 export const type = "luxon";
 

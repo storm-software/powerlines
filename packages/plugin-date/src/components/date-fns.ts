@@ -16,6 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+/* eslint-disable @nx/enforce-module-boundaries */
+
 import { getFileHeader } from "powerlines/lib/utilities/file-header";
 import { DatePluginContext } from "../types/plugin";
 
