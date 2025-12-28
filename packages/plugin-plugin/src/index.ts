@@ -19,6 +19,7 @@
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
+import { joinPaths } from "@stryke/path/join";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { TypeDefinition } from "@stryke/types/configuration";
@@ -56,20 +57,34 @@ export const plugin = <
 
       return {
         type: "library",
-        entry: ["src/index.ts"],
         output: {
           format: ["cjs", "esm"]
         },
         build: {
           variant: "tsdown",
           platform: "node",
+          nodeProtocol: true,
           unbundle: true,
           export: {
             all: true
           },
+          external: ["powerlines", "@powerlines/plugin-plugin"],
           skipNodeModulesBundle: true
         }
       };
+    },
+    async configResolved() {
+      if (
+        !this.config.entry ||
+        (Array.isArray(this.config.entry) && this.config.entry.length === 0)
+      ) {
+        let entry = "src/index.tsx";
+        if (!this.fs.existsSync(joinPaths(this.config.projectRoot, entry))) {
+          entry = "src/index.ts";
+        }
+
+        this.config.entry = entry;
+      }
     },
     async types(code: string) {
       if (!options.types?.userConfig || !this.packageJson?.name) {
