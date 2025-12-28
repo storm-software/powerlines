@@ -30,8 +30,8 @@ export default defineConfig({
   ],
   plugins: [
     alloy({
-      generatesJson: true,
-      generatesMarkdown: true
+      json: true,
+      markdown: true
     }),
     plugin()
   ],

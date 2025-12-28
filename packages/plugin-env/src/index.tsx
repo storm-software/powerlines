@@ -21,6 +21,7 @@ import {
   ReflectionKind,
   stringifyType
 } from "@powerlines/deepkit/vendor/type";
+import alloy from "@powerlines/plugin-alloy";
 import automd from "@powerlines/plugin-automd";
 import babel from "@powerlines/plugin-babel";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
@@ -70,6 +71,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
   options: EnvPluginOptions = {}
 ) => {
   return [
+    alloy(options.alloy),
     babel(options.babel),
     {
       name: "env",

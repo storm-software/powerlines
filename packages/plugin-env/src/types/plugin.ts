@@ -18,7 +18,12 @@
 
 import { Children } from "@alloy-js/core/jsx-runtime";
 import { Reflection } from "@powerlines/deepkit/types";
-import { AlloyPluginContext } from "@powerlines/plugin-alloy/types";
+import {
+  AlloyPluginContext,
+  AlloyPluginOptions,
+  AlloyPluginResolvedConfig,
+  AlloyPluginUserConfig
+} from "@powerlines/plugin-alloy/types";
 import { AutoMDPluginOptions } from "@powerlines/plugin-automd/types/plugin";
 import {
   BabelPluginContext,
@@ -88,48 +93,58 @@ export type EnvPluginOptions = Omit<DotenvConfiguration, "types"> & {
    * The README.md file should contain the `<!-- automd:env --><!-- /automd -->` comment block where the documentation will be injected.
    */
   automd?: AutoMDPluginOptions;
+
+  /**
+   * Alloy configuration options to use when injecting environment variables into the source code.
+   *
+   * @remarks
+   * This option allows you to customize the Alloy transformation process used to inject environment variables into the source code. If not provided, the plugin will use default Alloy settings.
+   */
+  alloy?: AlloyPluginOptions;
 };
 
-export type EnvPluginUserConfig = BabelPluginUserConfig & {
-  env: EnvPluginOptions;
-};
+export type EnvPluginUserConfig = BabelPluginUserConfig &
+  AlloyPluginUserConfig & {
+    env: EnvPluginOptions;
+  };
 
-export type EnvPluginResolvedConfig = BabelPluginResolvedConfig & {
-  env: Required<Pick<DotenvConfiguration, "additionalFiles">> &
-    Required<Pick<EnvPluginOptions, "defaultConfig">> & {
-      /**
-       * The type definition for the expected env variable parameters
-       *
-       * @remarks
-       * This value is parsed from the {@link EnvPluginOptions.types} option.
-       */
-      types: TypeDefinition;
+export type EnvPluginResolvedConfig = BabelPluginResolvedConfig &
+  AlloyPluginResolvedConfig & {
+    env: Required<Pick<DotenvConfiguration, "additionalFiles">> &
+      Required<Pick<EnvPluginOptions, "defaultConfig">> & {
+        /**
+         * The type definition for the expected env variable parameters
+         *
+         * @remarks
+         * This value is parsed from the {@link EnvPluginOptions.types} option.
+         */
+        types: TypeDefinition;
 
-      /**
-       * The type definition for the expected env secret parameters
-       *
-       * @remarks
-       * This value is parsed from the {@link EnvPluginOptions.secrets} option.
-       */
-      secrets: TypeDefinition;
+        /**
+         * The type definition for the expected env secret parameters
+         *
+         * @remarks
+         * This value is parsed from the {@link EnvPluginOptions.secrets} option.
+         */
+        secrets: TypeDefinition;
 
-      /**
-       * Should the plugin inject the env variables in the source code with their values?
-       *
-       * @remarks
-       * This value is the result of reflecting the {@link EnvPluginOptions.inject} option.
-       */
-      inject: EnvPluginOptions["inject"];
+        /**
+         * Should the plugin inject the env variables in the source code with their values?
+         *
+         * @remarks
+         * This value is the result of reflecting the {@link EnvPluginOptions.inject} option.
+         */
+        inject: EnvPluginOptions["inject"];
 
-      /**
-       * The prefix used for environment variables
-       *
-       * @remarks
-       * This value is used to filter environment variables that are loaded from the .env file and the process environment.
-       */
-      prefix: string[];
-    };
-};
+        /**
+         * The prefix used for environment variables
+         *
+         * @remarks
+         * This value is used to filter environment variables that are loaded from the .env file and the process environment.
+         */
+        prefix: string[];
+      };
+  };
 
 export interface EnvPluginContext<
   TResolvedConfig extends EnvPluginResolvedConfig = EnvPluginResolvedConfig
