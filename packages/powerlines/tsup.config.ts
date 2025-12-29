@@ -27,7 +27,6 @@ const config = defineTsupConfig([
     sourcemap: true,
     minify: false,
     skipNodeModulesBundle: true
-    // noExternal: ["ts-morph"]
   },
   {
     name: "core-lib",

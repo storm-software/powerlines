@@ -696,6 +696,7 @@
     "bundle-require": "catalog:",
     "c12": "catalog:",
     "chalk": "catalog:",
+    "compatx": "catalog:",
     "defu": "catalog:",
     "diff-match-patch": "catalog:",
     "esbuild": "catalog:",
@@ -727,8 +728,8 @@
     "@types/semver": "catalog:",
     "eslint": "catalog:",
     "minimatch": "catalog:",
-    "tsup": "catalog:",
     "tsdown": "catalog:",
+    "tsup": "catalog:",
     "typescript": "^5.9.3",
     "undici-types": "catalog:"
   },

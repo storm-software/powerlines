@@ -187,6 +187,7 @@ export class PowerlinesContext<
         projectRoot: config.root,
         name: config.name,
         title: config.title,
+        compatibilityDate: config.compatibilityDate,
         description: config.description,
         sourceRoot: config.sourceRoot,
         configFile: config.configFile,

@@ -24,6 +24,7 @@ import type { DeepPartial, MaybePromise } from "@stryke/types/base";
 import type { TypeDefinitionParameter } from "@stryke/types/configuration";
 import type { AssetGlob } from "@stryke/types/file";
 import type { ConfigLayer, ResolvedConfig as ParsedConfig } from "c12";
+import { DateString } from "compatx";
 import type {
   ResolvedConfig as ExternalViteResolvedConfig,
   PreviewOptions
@@ -358,6 +359,18 @@ export interface CommonUserConfig extends BaseConfig {
    * If this option is not provided, the build process will try to use the \`description\` value from the `\package.json\` file.
    */
   description?: string;
+
+  /**
+   * The date to use for compatibility checks
+   *
+   * @remarks
+   * This date can be used by plugins and build processes to determine compatibility with certain features or APIs. It is recommended to set this date to the date when the project was last known to be compatible with the desired features or APIs.
+   *
+   * @see https://developers.cloudflare.com/pages/platform/compatibility-dates/
+   * @see https://docs.netlify.com/configure-builds/get-started/#set-a-compatibility-date
+   * @see https://github.com/unjs/compatx
+   */
+  compatibilityDate?: DateString;
 
   /**
    * The log level to use for the Powerlines processes.
