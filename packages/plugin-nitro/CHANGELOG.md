@@ -1,0 +1,16 @@
+![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark.gif)
+
+# Changelog for Powerlines - Plugin Nitro
+
+## [0.1.0](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.0) (12/29/2025)
+
+### Features
+
+- **plugin-nitro:** Initial check-in of the `nitro` plugin
+  ([727d5ef3](https://github.com/storm-software/powerlines/commit/727d5ef3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.60**
+- Updated **powerlines** to **v0.36.13**
+- Updated **nx** to **v0.11.39**

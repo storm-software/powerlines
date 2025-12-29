@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.36.13](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.13) (12/29/2025)
+
+### Miscellaneous
+
+- **powerlines:** Added `compatibilityDate` configuration option
+  ([0f45dda1](https://github.com/storm-software/powerlines/commit/0f45dda1))
+
 ## [0.36.8](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.8) (12/28/2025)
 
 ### Miscellaneous

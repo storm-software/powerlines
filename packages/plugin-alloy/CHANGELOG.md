@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.15.5](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.15.5) (12/29/2025)
+
+### Miscellaneous
+
+- **plugin-alloy:** Clean up caching in `project.json` file
+  ([6992943a](https://github.com/storm-software/powerlines/commit/6992943a))
+
+### Bug Fixes
+
+- **plugin-alloy:** Ensure `alloy-js` is correctly bundled in `vendor` export
+  ([1c92bf7a](https://github.com/storm-software/powerlines/commit/1c92bf7a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.60**
+- Updated **powerlines** to **v0.36.13**
+- Updated **deepkit** to **v0.5.23**
+
 ## [0.15.4](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.15.4) (12/28/2025)
 
 ### Miscellaneous
