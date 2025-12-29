@@ -16,7 +16,9 @@
 
  ------------------------------------------------------------------- */
 
+import { createDevServer } from "nitro/builder";
 import { Nitro, NitroConfig } from "nitro/types";
+import { NitroPluginConfig, ServiceConfig } from "nitro/vite";
 import { UserConfig } from "powerlines/types/config";
 import { PluginContext } from "powerlines/types/context";
 import { ResolvedConfig } from "powerlines/types/resolved";
@@ -45,8 +47,18 @@ export interface NitroPluginResolvedConfig extends ResolvedConfig {
   nitro: NitroConfig;
 }
 
+export interface NitroContext {
+  nitro?: Nitro;
+  pluginConfig: NitroPluginConfig;
+  dev?: ReturnType<typeof createDevServer>;
+  services: Record<string, ServiceConfig>;
+  isRolldown?: boolean;
+  isInitialized?: boolean;
+  publicDistDir?: string;
+}
+
 export type NitroPluginContext<
   TResolvedConfig extends NitroPluginResolvedConfig = NitroPluginResolvedConfig
 > = PluginContext<TResolvedConfig> & {
-  nitro: Nitro;
+  nitro: NitroContext;
 };

@@ -51,7 +51,7 @@ This package is part of the 🔌 <b>Powerlines</b> monorepo. Powerlines packages
 
 # Powerlines - Nitro Plugin
 
-A package containing a Powerlines plugin that integrates Biome into the Powerlines linting process, allowing for automatic linting of TypeScript source code.
+A package containing a Powerlines plugin that integrates with Nitro.
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->

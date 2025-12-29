@@ -23,6 +23,7 @@ import { NitroConfig } from "nitro/types";
 import { getConfigPath } from "powerlines/plugin-utils/get-config-path";
 import { Plugin } from "powerlines/types/plugin";
 import {
+  NitroContext,
   NitroPluginContext,
   NitroPluginOptions,
   NitroPluginUserConfig
@@ -98,7 +99,8 @@ export const plugin = <
       configResolved: {
         order: "post",
         async handler() {
-          this.nitro = await createNitro(this.config.nitro);
+          this.nitro ??= {} as NitroContext;
+          this.nitro.nitro = await createNitro(this.config.nitro);
         }
       }
     }
