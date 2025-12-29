@@ -32,9 +32,6 @@
       }
     },
     "build-base": {
-      "cache": true,
-      "inputs": ["typescript", "^production"],
-      "outputs": ["{projectRoot}/dist"],
       "executor": "nx:run-commands",
       "options": {
         "command": "tsup --config=tsup.config.ts",
@@ -42,9 +39,6 @@
       }
     },
     "build": {
-      "cache": true,
-      "inputs": ["typescript", "^production"],
-      "outputs": ["{options.outputPath}"],
       "executor": "@powerlines/nx:build",
       "dependsOn": ["prepare", "build-base"],
       "options": {
