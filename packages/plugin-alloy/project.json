@@ -31,12 +31,22 @@
         }
       }
     },
+    "build-base": {
+      "cache": true,
+      "inputs": ["typescript", "^production"],
+      "outputs": ["{projectRoot}/dist"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsup --config=tsup.config.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
     "build": {
       "cache": true,
       "inputs": ["typescript", "^production"],
       "outputs": ["{options.outputPath}"],
       "executor": "@powerlines/nx:build",
-      "dependsOn": ["prepare"],
+      "dependsOn": ["prepare", "build-base"],
       "options": {
         "outputPath": "dist/{projectRoot}"
       },

@@ -71,6 +71,20 @@
         "default": "./dist/index.mjs"
       }
     },
+    "./vendor": {
+      "import": {
+        "types": "./dist/vendor.d.ts",
+        "default": "./dist/vendor.js"
+      },
+      "require": {
+        "types": "./dist/vendor.d.cts",
+        "default": "./dist/vendor.cjs"
+      },
+      "default": {
+        "types": "./dist/vendor.d.ts",
+        "default": "./dist/vendor.js"
+      }
+    },
     "./create-plugin": {
       "import": {
         "types": "./dist/create-plugin.d.mts",
@@ -370,9 +384,9 @@
   "keywords": ["alloy-js", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@alloy-js/core": "catalog:",
-    "@alloy-js/rollup-plugin": "catalog:",
     "@alloy-js/json": "catalog:",
     "@alloy-js/markdown": "catalog:",
+    "@alloy-js/rollup-plugin": "catalog:",
     "@alloy-js/typescript": "catalog:",
     "@powerlines/deepkit": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
@@ -393,8 +407,10 @@
     "prettier": "catalog:"
   },
   "devDependencies": {
+    "@alloy-js/core": "catalog:",
     "@types/node": "catalog:",
-    "@vue/reactivity": "catalog:"
+    "@vue/reactivity": "catalog:",
+    "@vue/shared": "catalog:"
   },
   "publishConfig": {
     "access": "public"

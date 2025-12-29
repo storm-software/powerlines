@@ -3,9 +3,8 @@
   "compilerOptions": {
     "jsx": "preserve",
     "jsxImportSource": "@alloy-js/core",
-    "lib": ["esnext", "DOM"],
-    "types": ["node", "@alloy-js/core/testing/matchers"],
-    "strict": true,
+    "lib": ["esnext"],
+    "types": ["node"],
     "outDir": "../../dist/out-tsc"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "powerlines.config.ts"],

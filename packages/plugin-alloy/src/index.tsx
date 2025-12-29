@@ -74,7 +74,11 @@ export const plugin = <
                 }
               }
             },
-            plugins: [alloy()]
+            plugins: [alloy()],
+            alias: {
+              "@alloy-js/core": "@powerlines/plugin-alloy/vendor"
+            },
+            external: ["@alloy-js/core", "@vue/reactivity", "@vue/shared"]
           }
         };
       },

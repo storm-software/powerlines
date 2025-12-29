@@ -16,31 +16,17 @@
 
  ------------------------------------------------------------------- */
 
-import alloy from "@alloy-js/rollup-plugin";
-import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines";
+import { defineTsupConfig } from "@powerlines/tools-config/tsup.shared";
 
-export default defineConfig({
-  skipCache: true,
-  entry: [
-    "src/index.tsx",
-    "src/{core,helpers,markdown,typescript,types}/**/*.ts",
-    "src/{core,helpers,markdown,typescript,types}/**/*.tsx"
-  ],
-  plugins: [plugin()],
-  build: {
-    inputOptions: {
-      transform: {
-        jsx: {
-          runtime: "classic",
-          pragma: "Alloy.createElement",
-          importSource: "@alloy-js/core"
-        }
-      }
-    },
-    plugins: [alloy()],
-    unbundle: true,
-    minify: false,
-    skipNodeModulesBundle: true
+const config = defineTsupConfig([
+  {
+    name: "vendor",
+    entry: ["src/vendor.ts"],
+    outDir: "dist",
+    clean: false,
+    skipNodeModulesBundle: false,
+    noExternal: ["@alloy-js/core", "@vue/reactivity", "@vue/shared"]
   }
-});
+]);
+
+export default config;

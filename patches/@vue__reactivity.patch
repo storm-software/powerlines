@@ -1,0 +1,43 @@
+diff --git a/dist/reactivity.cjs.js b/dist/reactivity.cjs.js
+index 39c07e23900295902d536b51b344c3a987ab350f..1a2b4b3f03f1e6aea9ad85999939f1526cacffd3 100644
+--- a/dist/reactivity.cjs.js
++++ b/dist/reactivity.cjs.js
+@@ -642,13 +642,13 @@ function addSub(link) {
+ }
+ const targetMap = /* @__PURE__ */ new WeakMap();
+ const ITERATE_KEY = /* @__PURE__ */ Symbol(
+-  "Object iterate" 
++  "Object iterate"
+ );
+ const MAP_KEY_ITERATE_KEY = /* @__PURE__ */ Symbol(
+-  "Map keys iterate" 
++  "Map keys iterate"
+ );
+ const ARRAY_ITERATE_KEY = /* @__PURE__ */ Symbol(
+-  "Array iterate" 
++  "Array iterate"
+ );
+ function track(target, type, key) {
+   if (shouldTrack && activeSub) {
+@@ -950,7 +950,7 @@ function noTracking(self, method, args = []) {
+ 
+ const isNonTrackableKeys = /* @__PURE__ */ shared.makeMap(`__proto__,__v_isRef,__isVue`);
+ const builtInSymbols = new Set(
+-  /* @__PURE__ */ Object.getOwnPropertyNames(Symbol).filter((key) => key !== "arguments" && key !== "caller").map((key) => Symbol[key]).filter(shared.isSymbol)
++  /* @__PURE__ */ Object.getOwnPropertyNames(Symbol)?.filter((key) => key !== "arguments" && key !== "caller")?.map((key) => Symbol[key])?.filter((key) => shared.isSymbol ? shared.isSymbol(key) : typeof key === "symbol") ?? []
+ );
+ function hasOwnProperty(key) {
+   if (!shared.isSymbol(key)) key = String(key);
+diff --git a/dist/reactivity.cjs.prod.js b/dist/reactivity.cjs.prod.js
+index 3f11e0dbb67f39c29a31969ade2592c9a9da0239..f53cb9e2c45b3f32654b274562459d1b2ed29da1 100644
+--- a/dist/reactivity.cjs.prod.js
++++ b/dist/reactivity.cjs.prod.js
+@@ -888,7 +888,7 @@ function noTracking(self, method, args = []) {
+ 
+ const isNonTrackableKeys = /* @__PURE__ */ shared.makeMap(`__proto__,__v_isRef,__isVue`);
+ const builtInSymbols = new Set(
+-  /* @__PURE__ */ Object.getOwnPropertyNames(Symbol).filter((key) => key !== "arguments" && key !== "caller").map((key) => Symbol[key]).filter(shared.isSymbol)
++  /* @__PURE__ */ Object.getOwnPropertyNames(Symbol)?.filter((key) => key !== "arguments" && key !== "caller")?.map((key) => Symbol[key])?.filter((key) => shared.isSymbol ? shared.isSymbol(key) : typeof key === "symbol") ?? []
+ );
+ function hasOwnProperty(key) {
+   if (!shared.isSymbol(key)) key = String(key);
