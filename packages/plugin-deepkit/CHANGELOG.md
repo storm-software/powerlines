@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.10.121](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.10.121) (12/29/2025)
+
+### Miscellaneous
+
+- **plugin-deepkit:** Added `alias` defaulting to plugin
+  ([6a5c7642](https://github.com/storm-software/powerlines/commit/6a5c7642))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.61**
+- Updated **plugin-tsc** to **v0.2.117**
+- Updated **powerlines** to **v0.36.14**
+- Updated **deepkit** to **v0.5.24**
+- Updated **nx** to **v0.11.40**
+
 ## [0.10.120](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.10.120) (12/29/2025)
 
 ### Updated Dependencies

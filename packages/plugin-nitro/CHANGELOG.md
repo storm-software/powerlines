@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Nitro
 
+## [0.1.1](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.1) (12/29/2025)
+
+### Miscellaneous
+
+- **plugin-nitro:** Extended the `nitro` context type definition
+  ([380ea979](https://github.com/storm-software/powerlines/commit/380ea979))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.61**
+- Updated **powerlines** to **v0.36.14**
+- Updated **nx** to **v0.11.40**
+
 ## [0.1.0](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.0) (12/29/2025)
 
 ### Features
