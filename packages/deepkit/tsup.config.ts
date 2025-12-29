@@ -54,10 +54,10 @@ const config = defineTsupConfig([
     target: "esnext",
     clean: false,
     external: [
+      "@powerlines/deepkit/vendor/core",
       "@powerlines/deepkit/vendor/type",
       "@powerlines/deepkit/vendor/type-compiler",
-      "@powerlines/deepkit/vendor/type-spec",
-      "@powerlines/deepkit/vendor/core"
+      "@powerlines/deepkit/vendor/type-spec"
     ],
     noExternal: [
       "@deepkit/core",
