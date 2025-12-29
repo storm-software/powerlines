@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "../powerlines/src/index";
+import { defineConfig } from "powerlines";
 
 export default defineConfig({
   skipCache: true,

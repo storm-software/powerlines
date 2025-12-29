@@ -369,8 +369,8 @@
   "files": ["dist/**/*"],
   "keywords": ["alloy-js", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
-    "@alloy-js/rollup-plugin": "catalog:",
     "@alloy-js/core": "catalog:",
+    "@alloy-js/rollup-plugin": "catalog:",
     "@alloy-js/json": "catalog:",
     "@alloy-js/markdown": "catalog:",
     "@alloy-js/typescript": "catalog:",
@@ -393,8 +393,6 @@
     "prettier": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
-    "@storm-software/tsup": "catalog:",
     "@types/node": "catalog:",
     "@vue/reactivity": "catalog:"
   },

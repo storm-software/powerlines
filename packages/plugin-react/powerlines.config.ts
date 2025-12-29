@@ -36,7 +36,6 @@ export default defineConfig({
     plugin()
   ],
   build: {
-    external: ["react", "react-dom"],
-    unbundle: false
+    external: ["react", "react-dom"]
   }
 });

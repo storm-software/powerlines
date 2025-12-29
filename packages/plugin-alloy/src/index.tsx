@@ -30,10 +30,10 @@ import { StormJSON } from "@stryke/json/storm-json";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { replacePath } from "@stryke/path/replace";
 import { isSetString } from "@stryke/type-checks/is-set-string";
+import { PluginContext } from "powerlines/types/context";
+import { Plugin } from "powerlines/types/plugin";
 import { Doc } from "prettier";
 import { printer } from "prettier/doc.js";
-import { PluginContext } from "../../powerlines/src/types/context";
-import { Plugin } from "../../powerlines/src/types/plugin";
 import { Output } from "./core/components/output";
 import { OutputDirectory, OutputFile } from "./types/components";
 import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
@@ -74,14 +74,7 @@ export const plugin = <
                 }
               }
             },
-            plugins: [alloy()],
-            external: [
-              "@alloy-js/core",
-              "@alloy-js/typescript",
-              "@alloy-js/json",
-              "@alloy-js/markdown",
-              "@powerlines/plugin-alloy"
-            ]
+            plugins: [alloy()]
           }
         };
       },
@@ -111,18 +104,18 @@ export const plugin = <
           );
         }
 
-        // this.devDependencies["@alloy-js/core"] = "^0.22.0";
+        this.dependencies["@alloy-js/core"] = "^0.22.0";
 
         if (this.config.alloy?.typescript !== false) {
-          this.devDependencies["@alloy-js/typescript"] = "^0.22.0";
+          this.dependencies["@alloy-js/typescript"] = "^0.22.0";
         }
 
         if (this.config.alloy?.json === true) {
-          this.devDependencies["@alloy-js/json"] = "^0.22.0";
+          this.dependencies["@alloy-js/json"] = "^0.22.0";
         }
 
         if (this.config.alloy?.markdown === true) {
-          this.devDependencies["@alloy-js/markdown"] = "^0.22.0";
+          this.dependencies["@alloy-js/markdown"] = "^0.22.0";
         }
       }
     },

@@ -18,23 +18,13 @@
 
 import alloy from "@alloy-js/rollup-plugin";
 import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "../powerlines/src/index";
+import { defineConfig } from "powerlines";
 
 export default defineConfig({
   skipCache: true,
   entry: ["src/**/*.ts", "src/**/*.tsx"],
   plugins: [plugin()],
   build: {
-    noExternal: ["@vue/reactivity", "@alloy-js/core"],
-    external: [
-      "@alloy-js/rollup-plugin",
-      "@alloy-js/typescript",
-      "@alloy-js/json",
-      "@alloy-js/markdown",
-      "@powerlines/deepkit/vendor/type",
-      "@powerlines/deepkit/vendor/core",
-      "@powerlines/deepkit/vendor/type-spec"
-    ],
     inputOptions: {
       transform: {
         jsx: {
@@ -45,7 +35,8 @@ export default defineConfig({
       }
     },
     plugins: [alloy()],
-    unbundle: false,
-    minify: false
+    unbundle: true,
+    minify: false,
+    skipNodeModulesBundle: false
   }
 });

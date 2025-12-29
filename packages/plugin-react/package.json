@@ -162,9 +162,6 @@
   },
   "devDependencies": {
     "@babel/core": "catalog:",
-    "@powerlines/nx": "workspace:*",
-    "@powerlines/plugin-alloy": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

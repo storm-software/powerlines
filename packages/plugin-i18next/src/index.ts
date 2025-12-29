@@ -26,7 +26,7 @@ import { isString } from "@stryke/type-checks/is-string";
 import defu from "defu";
 import { I18nextToolkitConfig, runExtractor } from "i18next-cli";
 import { mergeResourcesAsInterface } from "i18next-resources-for-ts";
-import { Plugin } from "../../powerlines/src/types/plugin";
+import { Plugin } from "powerlines/types/plugin";
 import { getOutputPath } from "./helpers/config-utils";
 import { Resource, ResourceContent } from "./types/i18n";
 import {
