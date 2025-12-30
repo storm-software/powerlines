@@ -582,7 +582,7 @@ export class PowerlinesContext<
       this.#requestCache = create({
         cacheId: "http",
         cacheDir: this.cachePath,
-        ttl: 5 * 60 * 1000,
+        ttl: 6 * 60 * 60 * 1000,
         lruSize: 5000,
         persistInterval: 250
       });

@@ -25,7 +25,6 @@ export default defineConfig({
   entry: ["src/**/*.ts"],
   plugins: [
     plugin({
-      alloy: false,
       types: {
         userConfig: "PrismaPluginUserConfig"
       }
