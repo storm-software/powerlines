@@ -34,7 +34,7 @@
 <!-- prettier-ignore-end -->
 
 <div align="center">
-<b>Be sure to ⭐ this repository on GitHub so you can keep up to date on any daily progress!</b>
+<a href="https://github.com/storm-software/powerlines" target="_blank"><b>Be sure to ⭐ this repository on GitHub so you can keep up to date with it's progress!</b></a>
 </div>
 
 <!-- START doctoc -->
