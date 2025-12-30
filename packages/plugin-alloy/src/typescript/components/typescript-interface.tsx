@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { computed, For, splitProps } from "@alloy-js/core";
 import {
   InterfaceDeclaration,
   InterfaceDeclarationProps,
@@ -34,7 +35,6 @@ import {
   ReflectionPropertyContext
 } from "../../core/contexts/reflection";
 import { ComponentProps } from "../../types/components";
-import { computed, For, splitProps } from "@powerlines/plugin-alloy/vendor";
 import {
   TSDocReflectionClass,
   TSDocReflectionProperty

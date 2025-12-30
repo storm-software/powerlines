@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+import { code } from "@alloy-js/core";
 import { VarDeclaration, VarDeclarationProps } from "@alloy-js/typescript";
-import { code } from "@powerlines/plugin-alloy/vendor";
 
 export interface DynamicImportStatementProps extends Omit<
   VarDeclarationProps,

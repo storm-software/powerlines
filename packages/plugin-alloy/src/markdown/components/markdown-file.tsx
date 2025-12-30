@@ -16,13 +16,13 @@
 
  ------------------------------------------------------------------- */
 
+import { code, Show, splitProps } from "@alloy-js/core";
 import { Link } from "@alloy-js/markdown";
 import { titleCase } from "@stryke/string-format/title-case";
 import { SingleLineComment } from "../../core/components/single-line-comment";
 import { SourceFile, SourceFileProps } from "../../core/components/source-file";
 import { usePowerlines } from "../../core/contexts/context";
 import { ComponentProps, SourceFileHeaderProps } from "../../types/components";
-import { code, getContext, Show, splitProps } from "@powerlines/plugin-alloy/vendor";
 
 export type MarkdownFileProps = Omit<SourceFileProps, "filetype"> &
   ComponentProps;
@@ -34,23 +34,18 @@ export type MarkdownFileProps = Omit<SourceFileProps, "filetype"> &
  * @returns The rendered source file component.
  */
 export function MarkdownFile(props: MarkdownFileProps) {
-  const [{ children, preset }, rest] = splitProps(props, [
+  const [{ children, storage }, rest] = splitProps(props, [
     "children",
-    "preset"
+    "storage"
   ]);
-
-  const nodeContext = getContext()!;
-  nodeContext.meta ??= {};
-  nodeContext.meta.output = {
-    preset
-  };
 
   return (
     <SourceFile
       header={<MarkdownFileHeader />}
       {...rest}
       filetype="md"
-      reference={Link}>
+      reference={Link}
+      storage={storage}>
       <Show when={Boolean(children)}>{children}</Show>
     </SourceFile>
   );

@@ -31,16 +31,9 @@
         }
       }
     },
-    "build-base": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "tsup --config=tsup.config.ts",
-        "cwd": "{projectRoot}"
-      }
-    },
     "build": {
       "executor": "@powerlines/nx:build",
-      "dependsOn": ["prepare", "build-base"],
+      "dependsOn": ["prepare"],
       "options": {
         "outputPath": "dist/{projectRoot}"
       },

@@ -16,25 +16,54 @@
 
  ------------------------------------------------------------------- */
 
-import type { ComponentContext, Ref } from "@powerlines/plugin-alloy/vendor";
-import {
-  createNamedContext,
-  useContext
-} from "@powerlines/plugin-alloy/vendor";
+import type { ComponentContext, Ref } from "@alloy-js/core";
+import { createNamedContext, useContext } from "@alloy-js/core";
 import type { PluginContext } from "powerlines/types/context";
+import { StoragePreset } from "powerlines/types/fs";
+
+export interface MetaItem {
+  /**
+   * The kind of metadata item.
+   */
+  kind?: "builtin" | "entry" | string;
+
+  /**
+   * Whether to skip formatting for this output.
+   */
+  skipFormat?: boolean;
+
+  /**
+   * The storage preset or adapter name for the output files.
+   *
+   * @remarks
+   * If not specified, the output mode will be determined by the provided `output.mode` value.
+   */
+  storage?: StoragePreset | string;
+
+  [key: string]: any;
+}
 
 export interface PowerlinesContextInterface<
-  TContext extends PluginContext = PluginContext
+  TContext extends PluginContext = PluginContext,
+  TMeta extends Record<string, MetaItem> = Record<string, MetaItem>
 > {
+  /**
+   * The current Powerlines context.
+   */
   ref: Ref<TContext>;
+
+  /**
+   * The current render metadata.
+   */
+  meta: Ref<TMeta>;
 }
 
 /**
  * The Powerlines context used in template rendering.
  */
 export const PowerlinesContext: ComponentContext<
-  PowerlinesContextInterface<any>
-> = createNamedContext<PowerlinesContextInterface<any>>("powerlines");
+  PowerlinesContextInterface<any, any>
+> = createNamedContext<PowerlinesContextInterface<any, any>>("powerlines");
 
 /**
  * Hook to access the Powerlines Context.
@@ -42,9 +71,12 @@ export const PowerlinesContext: ComponentContext<
  * @returns The Context.
  */
 export function usePowerlinesContext<
-  TContext extends PluginContext = PluginContext
->(): PowerlinesContextInterface<TContext> | undefined {
-  return useContext<PowerlinesContextInterface<TContext>>(PowerlinesContext);
+  TContext extends PluginContext = PluginContext,
+  TMeta extends Record<string, MetaItem> = Record<string, MetaItem>
+>(): PowerlinesContextInterface<TContext, TMeta> | undefined {
+  return useContext<PowerlinesContextInterface<TContext, TMeta>>(
+    PowerlinesContext
+  );
 }
 
 /**
@@ -76,4 +108,35 @@ export function usePowerlines<
   }
 
   return powerlines;
+}
+
+/**
+ * Hook to safely access the render context's metadata.
+ *
+ * @returns The Powerlines context or undefined if not set.
+ */
+export function useMetaSafe<
+  TMeta extends Record<string, MetaItem> = Record<string, MetaItem>
+>(): TMeta | undefined {
+  const powerlines = usePowerlinesContext<PluginContext, TMeta>();
+
+  return powerlines?.meta?.value;
+}
+
+/**
+ * Hook to access the render context's metadata.
+ *
+ * @returns The Powerlines context.
+ */
+export function useMeta<
+  TMeta extends Record<string, MetaItem> = Record<string, MetaItem>
+>(): TMeta {
+  const meta = useMetaSafe<TMeta>();
+  if (!meta) {
+    throw new Error(
+      "Powerlines metadata is not available in the rendering context. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."
+    );
+  }
+
+  return meta;
 }

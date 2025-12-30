@@ -16,10 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { appendPath } from "@stryke/path/append";
-import defu from "defu";
-import type { StoragePreset } from "powerlines/types/fs";
-import { ComponentProps } from "../../types/components";
 import {
   getContext,
   Show,
@@ -29,16 +25,22 @@ import {
   splitProps,
   useContext,
   useFormatOptions
-} from "@powerlines/plugin-alloy/vendor";
+} from "@alloy-js/core";
+import { appendPath } from "@stryke/path/append";
+import defu from "defu";
+import type { StoragePreset } from "powerlines/types/fs";
+import { ComponentProps } from "../../types/components";
+import { useMeta } from "../contexts";
 
 export type SourceFileProps = SourceFilePropsExternal &
   ComponentProps & {
     /**
-     * If true, indicates that the file is virtual and should not be written to disk.
+     * The storage preset for the output files.
      *
-     * @defaultValue false
+     * @remarks
+     * If not specified, the output mode will be determined by the provided `output.mode` value.
      */
-    preset?: StoragePreset;
+    storage?: StoragePreset;
 
     /**
      * The metadata associated with the source file.
@@ -56,25 +58,26 @@ export type SourceFileProps = SourceFilePropsExternal &
  * @returns The rendered source file component.
  */
 export function SourceFile(props: SourceFileProps) {
-  const [{ children, meta, path, header, preset, filetype, reference }] =
+  const [{ children, meta, path, header, storage, filetype, reference }] =
     splitProps(props, [
       "children",
       "meta",
       "path",
       "header",
-      "preset",
+      "storage",
       "filetype",
       "reference"
     ]);
 
+  const metadata = useMeta();
   const parentDirectory = useContext(SourceDirectoryContext)!;
 
-  const context: SourceFileContext = {
+  const sourceFile: SourceFileContext = {
     path: appendPath(path, parentDirectory.path),
     filetype,
     reference
   };
-  parentDirectory?.addContent(context);
+  parentDirectory?.addContent(sourceFile);
 
   const printOptions = useFormatOptions({
     printWidth: props.printWidth,
@@ -86,17 +89,19 @@ export function SourceFile(props: SourceFileProps) {
   const nodeContext = getContext()!;
   nodeContext.meta = defu(
     {
-      sourceFile: context,
-      printOptions,
-      output: {
-        preset
-      }
+      sourceFile,
+      printOptions
     },
     meta ?? {}
   );
 
+  metadata[sourceFile.path] = {
+    storage,
+    ...(meta ?? {})
+  };
+
   return (
-    <SourceFileContext.Provider value={context}>
+    <SourceFileContext.Provider value={sourceFile}>
       <Show when={header !== undefined}>
         {header}
         <hbr />

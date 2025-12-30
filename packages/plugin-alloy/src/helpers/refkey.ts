@@ -16,10 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  Refkey,
-  refkey as refkeyExternal
-} from "@powerlines/plugin-alloy/vendor";
+import { Refkey, refkey as refkeyExternal } from "@alloy-js/core";
 
 /**
  * Create a refkey for the provided arguments. Passing no arguments returns a fresh refkey that is guaranteed to be unique. Otherwise, the arguments passed will be used to create a refkey for those values. Providing the same arguments will always return the same refkey.

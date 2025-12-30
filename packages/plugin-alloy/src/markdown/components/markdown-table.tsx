@@ -16,10 +16,10 @@
 
  ------------------------------------------------------------------- */
 
+import { code, computed, Prose, Show, splitProps } from "@alloy-js/core";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { ComponentProps } from "../../types/components";
-import { code, computed, Prose, Show, splitProps } from "@powerlines/plugin-alloy/vendor";
 import {
   MarkdownTableColumnContextInterface,
   MarkdownTableContext,

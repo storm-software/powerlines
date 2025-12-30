@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { splitProps } from "@powerlines/plugin-alloy/vendor";
+import { splitProps } from "@alloy-js/core";
 import type { TSDocModuleProps } from "./tsdoc";
 import { TSDocModule } from "./tsdoc";
 import {
@@ -70,9 +70,8 @@ export function BuiltinFile(props: BuiltinFileProps) {
         </TypescriptFileHeader>
       }
       meta={{
-        builtin: {
-          id
-        }
+        kind: "builtin",
+        id
       }}
       {...rest}
       path={`${id}${tsx ? ".tsx" : ".ts"}`}>

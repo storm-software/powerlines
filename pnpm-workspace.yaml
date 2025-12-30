@@ -306,7 +306,6 @@ overrides:
 
 patchedDependencies:
   '@alloy-js/babel-plugin-jsx-dom-expressions': patches/@alloy-js__babel-plugin-jsx-dom-expressions.patch
-  '@alloy-js/core': patches/@alloy-js__core.patch
   '@content-collections/core': patches/@content-collections__core.patch
   '@deepkit/core': patches/@deepkit__core.patch
   '@deepkit/type': patches/@deepkit__type.patch

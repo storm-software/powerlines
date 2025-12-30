@@ -16,6 +16,14 @@
 
  ------------------------------------------------------------------- */
 
+import {
+  childrenArray,
+  code,
+  computed,
+  List,
+  Show,
+  splitProps
+} from "@alloy-js/core";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
@@ -25,14 +33,6 @@ import {
   useReflectionMethod,
   useReflectionProperty
 } from "../../core/contexts/reflection";
-import {
-  childrenArray,
-  code,
-  computed,
-  List,
-  Show,
-  splitProps
-} from "@powerlines/plugin-alloy/vendor";
 import { TSDoc, TSDocAttributesTags, TSDocProps } from "./tsdoc";
 
 /**

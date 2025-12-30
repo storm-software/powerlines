@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Children, code } from "@powerlines/plugin-alloy/vendor";
+import { Children, code } from "@alloy-js/core";
 
 export interface RecordExpressionProps {
   elementType: Children;

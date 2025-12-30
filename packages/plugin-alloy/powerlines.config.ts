@@ -34,12 +34,12 @@ export default defineConfig({
         jsx: {
           runtime: "classic",
           pragma: "Alloy.createElement",
-          importSource: "@powerlines/plugin-alloy/vendor"
+          importSource: "@alloy-js/core"
         }
       }
     },
     plugins: [alloy()],
-    unbundle: false,
+    unbundle: true,
     minify: false,
     skipNodeModulesBundle: true,
     alias: {
@@ -52,10 +52,6 @@ export default defineConfig({
       "@deepkit/type-compiler/config":
         "@powerlines/deepkit/vendor/type-compiler/config"
     },
-    external: [
-      "@powerlines/deepkit",
-      "@powerlines/plugin-alloy/vendor",
-      "@powerlines/plugin-alloy/vendor/jsx-runtime"
-    ]
+    external: ["@powerlines/deepkit"]
   }
 });
