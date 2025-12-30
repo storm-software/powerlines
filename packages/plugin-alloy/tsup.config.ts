@@ -16,17 +16,17 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  Refkey,
-  refkey as refkeyExternal
-} from "@powerlines/plugin-alloy/vendor";
+import { defineTsupConfig } from "@powerlines/tools-config/tsup.shared";
 
-/**
- * Create a refkey for the provided arguments. Passing no arguments returns a fresh refkey that is guaranteed to be unique. Otherwise, the arguments passed will be used to create a refkey for those values. Providing the same arguments will always return the same refkey.
- *
- * @remarks
- * Values are compared using the SameValueZero algorithm, which considers objects the same if they are reference identical, and primitives the same if they are the same value, with the exception of `NaN`, which is always considered equal to other `NaN` values, and `-0`, which is considered identical to `+0`
- */
-export function refkey(...args: unknown[]): Refkey {
-  return refkeyExternal("powerlines", ...args);
-}
+const config = defineTsupConfig([
+  {
+    name: "vendor",
+    entry: ["src/vendor.ts"],
+    outDir: "dist",
+    clean: false,
+    skipNodeModulesBundle: false,
+    noExternal: ["@alloy-js/core", "@vue/reactivity", "@vue/shared"]
+  }
+]);
+
+export default config;

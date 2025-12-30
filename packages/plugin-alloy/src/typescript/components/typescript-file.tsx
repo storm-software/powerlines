@@ -16,16 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import type { Children } from "@alloy-js/core";
-import {
-  code,
-  Scope,
-  Show,
-  SourceDirectoryContext,
-  splitProps,
-  useContext,
-  useScope
-} from "@alloy-js/core";
 import {
   getSourceDirectoryData,
   ImportStatements,
@@ -47,6 +37,16 @@ import {
   TypescriptFileImportItem,
   TypescriptFileImports
 } from "../../types/components";
+import type { Children } from "@powerlines/plugin-alloy/vendor";
+import {
+  code,
+  Scope,
+  Show,
+  SourceDirectoryContext,
+  splitProps,
+  useContext,
+  useScope
+} from "@powerlines/plugin-alloy/vendor";
 
 export type TypescriptFileProps = Omit<SourceFileProps, "filetype"> &
   ComponentProps & {

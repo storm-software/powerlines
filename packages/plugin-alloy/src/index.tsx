@@ -16,14 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  Children,
-  flushJobsAsync,
-  getContextForRenderNode,
-  isPrintHook,
-  RenderedTextTree,
-  renderTree
-} from "@alloy-js/core";
 import alloy from "@alloy-js/rollup-plugin";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { StormJSON } from "@stryke/json/storm-json";
@@ -37,8 +29,14 @@ import { printer } from "prettier/doc.js";
 import { Output } from "./core/components/output";
 import { OutputDirectory, OutputFile } from "./types/components";
 import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
-
-export * from "@alloy-js/core";
+import {
+  Children,
+  flushJobsAsync,
+  getContextForRenderNode,
+  isPrintHook,
+  RenderedTextTree,
+  renderTree
+} from "./vendor";
 
 /**
  * Alloy-js plugin for Powerlines.
@@ -117,7 +115,7 @@ export const plugin = <
       resolveId(id) {
         if (id === "@alloy-js/core") {
           return {
-            id: "@powerlines/plugin-alloy",
+            id: "@powerlines/plugin-alloy/vendor",
             external: true
           };
         }

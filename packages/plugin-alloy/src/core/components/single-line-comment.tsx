@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { Prose } from "@alloy-js/core";
 import { ComponentProps } from "../../types/components";
+import { Prose } from "@powerlines/plugin-alloy/vendor";
 
 export type SingleLineCommentVariant =
   | "double-slash"

@@ -16,13 +16,13 @@
 
  ------------------------------------------------------------------- */
 
-import { SymbolCreator } from "@alloy-js/core";
 import {
   createPackage,
   CreatePackageProps,
   PackageDescriptor,
   PackageRefkeys
 } from "@alloy-js/typescript";
+import { SymbolCreator } from "@powerlines/plugin-alloy/vendor";
 
 export type CreateBuiltinOptions<T extends PackageDescriptor> = Omit<
   CreatePackageProps<T>,

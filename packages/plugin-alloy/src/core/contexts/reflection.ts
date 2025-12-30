@@ -16,14 +16,18 @@
 
  ------------------------------------------------------------------- */
 
-import type { ComponentContext } from "@alloy-js/core";
-import { createContext, createNamedContext, useContext } from "@alloy-js/core";
 import type {
   ReflectionClass,
   ReflectionMethod,
   ReflectionParameter,
   ReflectionProperty
 } from "@powerlines/deepkit/vendor/type";
+import type { ComponentContext } from "@powerlines/plugin-alloy/vendor";
+import {
+  createContext,
+  createNamedContext,
+  useContext
+} from "@powerlines/plugin-alloy/vendor";
 import { ReflectionOverrideInterface } from "../../types/components";
 
 export interface ReflectionClassContextInterface<

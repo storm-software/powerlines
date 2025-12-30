@@ -17,15 +17,6 @@
  ------------------------------------------------------------------- */
 
 import {
-  computed,
-  Declaration as CoreDeclaration,
-  createSymbolSlot,
-  For,
-  Name,
-  Show,
-  splitProps
-} from "@alloy-js/core";
-import {
   createValueSymbol,
   ObjectExpression,
   ObjectProperty,
@@ -49,6 +40,15 @@ import {
   ReflectionPropertyContext
 } from "../../core/contexts/reflection";
 import { ComponentProps } from "../../types/components";
+import {
+  computed,
+  Declaration as CoreDeclaration,
+  createSymbolSlot,
+  For,
+  Name,
+  Show,
+  splitProps
+} from "@powerlines/plugin-alloy/vendor";
 import {
   TSDocReflectionClass,
   TSDocReflectionProperty

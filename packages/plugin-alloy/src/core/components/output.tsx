@@ -16,16 +16,16 @@
 
  ------------------------------------------------------------------- */
 
-import type { OutputProps as OutputPropsExternal } from "@alloy-js/core";
+import { replacePath } from "@stryke/path/replace";
+import type { PluginContext } from "powerlines/types/context";
+import type { OutputProps as OutputPropsExternal } from "@powerlines/plugin-alloy/vendor";
 import {
   computed,
   Output as OutputExternal,
   ref,
   Show,
   splitProps
-} from "@alloy-js/core";
-import { replacePath } from "@stryke/path/replace";
-import type { PluginContext } from "powerlines/types/context";
+} from "@powerlines/plugin-alloy/vendor";
 import { PowerlinesContext } from "../contexts/context";
 
 export interface OutputProps<

@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import type { ComponentContext, Ref } from "@alloy-js/core";
-import { createContext, useContext } from "@alloy-js/core";
+import type { ComponentContext, Ref } from "@powerlines/plugin-alloy/vendor";
+import { createContext, useContext } from "@powerlines/plugin-alloy/vendor";
 import type { PluginContext } from "powerlines/types/context";
 
 export interface PowerlinesContextInterface<

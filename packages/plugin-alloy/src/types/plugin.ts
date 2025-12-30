@@ -16,8 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-import type { PrintTreeOptions } from "@alloy-js/core";
-import { Children } from "@alloy-js/core/jsx-runtime";
+import type {
+  Children,
+  PrintTreeOptions
+} from "@powerlines/plugin-alloy/vendor";
 import { UserConfig } from "powerlines/types/config";
 import { PluginContext } from "powerlines/types/context";
 import { ResolvedConfig } from "powerlines/types/resolved";

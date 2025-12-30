@@ -16,9 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import type { Context } from "@alloy-js/core";
-import type { Children } from "@alloy-js/core/jsx-runtime";
 import type { SourceFileContext } from "@alloy-js/typescript";
+import type { Children, Context } from "@powerlines/plugin-alloy/vendor";
 import { StoragePreset } from "powerlines/types/fs";
 import { ResolvedEntryTypeDefinition } from "powerlines/types/resolved";
 

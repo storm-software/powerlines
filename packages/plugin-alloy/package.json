@@ -71,6 +71,20 @@
         "default": "./dist/index.mjs"
       }
     },
+    "./vendor": {
+      "import": {
+        "types": "./dist/vendor.d.ts",
+        "default": "./dist/vendor.js"
+      },
+      "require": {
+        "types": "./dist/vendor.d.cts",
+        "default": "./dist/vendor.cjs"
+      },
+      "default": {
+        "types": "./dist/vendor.d.ts",
+        "default": "./dist/vendor.js"
+      }
+    },
     "./types": {
       "import": {
         "types": "./dist/types/index.d.mts",
@@ -372,14 +386,14 @@
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "@stryke/unique-id": "catalog:",
-    "@vue/reactivity": "catalog:",
-    "@vue/shared": "catalog:",
     "defu": "catalog:",
     "powerlines": "workspace:*",
     "prettier": "catalog:"
   },
   "devDependencies": {
     "@alloy-js/core": "catalog:",
+    "@vue/reactivity": "catalog:",
+    "@vue/shared": "catalog:",
     "@types/node": "catalog:"
   },
   "publishConfig": {

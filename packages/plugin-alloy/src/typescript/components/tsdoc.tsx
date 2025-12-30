@@ -16,6 +16,12 @@
 
  ------------------------------------------------------------------- */
 
+import { JSDocExampleProps, ParameterDescriptor } from "@alloy-js/typescript";
+import { stringifyDefaultValue } from "@powerlines/deepkit/utilities";
+import { isSetString } from "@stryke/type-checks/is-set-string";
+import { isUndefined } from "@stryke/type-checks/is-undefined";
+import { usePowerlines } from "../../core/contexts/context";
+import { ComponentProps } from "../../types/components";
 import {
   Children,
   childrenArray,
@@ -24,13 +30,7 @@ import {
   Prose,
   Show,
   splitProps
-} from "@alloy-js/core";
-import { JSDocExampleProps, ParameterDescriptor } from "@alloy-js/typescript";
-import { stringifyDefaultValue } from "@powerlines/deepkit/utilities";
-import { isSetString } from "@stryke/type-checks/is-set-string";
-import { isUndefined } from "@stryke/type-checks/is-undefined";
-import { usePowerlines } from "../../core/contexts/context";
-import { ComponentProps } from "../../types/components";
+} from "@powerlines/plugin-alloy/vendor";
 
 export interface TSDocProps extends ComponentProps {
   heading?: Children;

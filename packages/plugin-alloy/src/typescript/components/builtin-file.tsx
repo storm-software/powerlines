@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { splitProps } from "@alloy-js/core";
+import { splitProps } from "@powerlines/plugin-alloy/vendor";
 import type { TSDocModuleProps } from "./tsdoc";
 import { TSDocModule } from "./tsdoc";
 import {

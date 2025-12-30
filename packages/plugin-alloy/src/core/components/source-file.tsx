@@ -16,6 +16,10 @@
 
  ------------------------------------------------------------------- */
 
+import { appendPath } from "@stryke/path/append";
+import defu from "defu";
+import type { StoragePreset } from "powerlines/types/fs";
+import { ComponentProps } from "../../types/components";
 import {
   getContext,
   Show,
@@ -25,11 +29,7 @@ import {
   splitProps,
   useContext,
   useFormatOptions
-} from "@alloy-js/core";
-import { appendPath } from "@stryke/path/append";
-import defu from "defu";
-import type { StoragePreset } from "powerlines/types/fs";
-import { ComponentProps } from "../../types/components";
+} from "@powerlines/plugin-alloy/vendor";
 
 export type SourceFileProps = SourceFilePropsExternal &
   ComponentProps & {

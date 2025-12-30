@@ -16,8 +16,12 @@
 
  ------------------------------------------------------------------- */
 
-import type { ComponentContext } from "@alloy-js/core";
-import { createContext, createNamedContext, useContext } from "@alloy-js/core";
+import type { ComponentContext } from "@powerlines/plugin-alloy/vendor";
+import {
+  createContext,
+  createNamedContext,
+  useContext
+} from "@powerlines/plugin-alloy/vendor";
 
 export interface MarkdownTableColumnContextInterface<
   T extends Record<string, any> = Record<string, any>

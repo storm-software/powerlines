@@ -16,11 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import { computed, splitProps } from "@alloy-js/core";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
 import { ResolvedEntryTypeDefinition } from "powerlines/types/resolved";
 import { usePowerlines } from "../../core/contexts/context";
+import { computed, splitProps } from "@powerlines/plugin-alloy/vendor";
 import { TypescriptFile, TypescriptFileProps } from "./typescript-file";
 
 export type EntryFileProps = TypescriptFileProps & {

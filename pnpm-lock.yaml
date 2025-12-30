@@ -172,8 +172,8 @@ catalogs:
       specifier: 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
       version: 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
     '@pulumi/pulumi':
-      specifier: ^3.213.0
-      version: 3.213.0
+      specifier: ^3.214.0
+      version: 3.214.0
     '@rollup/plugin-alias':
       specifier: ^6.0.0
       version: 6.0.0
@@ -1000,12 +1000,6 @@ importers:
       '@stryke/unique-id':
         specifier: 'catalog:'
         version: 0.3.37
-      '@vue/reactivity':
-        specifier: 'catalog:'
-        version: 3.5.26(patch_hash=b558fd5721b498a1643ff66b851bf88071ea0d72d441826a728d27a8ec89acfb)
-      '@vue/shared':
-        specifier: 'catalog:'
-        version: 3.5.26
       defu:
         specifier: 'catalog:'
         version: 6.1.4
@@ -1022,6 +1016,12 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.10.4
+      '@vue/reactivity':
+        specifier: 'catalog:'
+        version: 3.5.26(patch_hash=b558fd5721b498a1643ff66b851bf88071ea0d72d441826a728d27a8ec89acfb)
+      '@vue/shared':
+        specifier: 'catalog:'
+        version: 3.5.26
 
   packages/plugin-asyncapi:
     dependencies:
@@ -2009,7 +2009,7 @@ importers:
     dependencies:
       '@pulumi/pulumi':
         specifier: 'catalog:'
-        version: 3.213.0(ts-node@10.9.2(@swc/core@1.15.7(@swc/helpers@0.5.18))(@types/node@24.10.4)(typescript@5.9.3))(typescript@5.9.3)
+        version: 3.214.0(ts-node@10.9.2(@swc/core@1.15.7(@swc/helpers@0.5.18))(@types/node@24.10.4)(typescript@5.9.3))(typescript@5.9.3)
       '@stryke/fs':
         specifier: 'catalog:'
         version: 0.33.26(magicast@0.3.5)(nx@22.3.3(@swc-node/register@1.10.10(@swc/core@1.15.7(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.7(@swc/helpers@0.5.18)))
@@ -7574,8 +7574,8 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@pulumi/pulumi@3.213.0':
-    resolution: {integrity: sha512-qTAOJXQYjMse2oAwht4iuYA4TiSgUgDfGmlySf2xa4n34+eF1/ytCbF3UJdfOx9+yDD5mYBAi37t0OY/VyVzyQ==}
+  '@pulumi/pulumi@3.214.0':
+    resolution: {integrity: sha512-5QJnpv8O8dgryzSV6XoWHCYnxADs8EMllwJoRF4AV/TS0YJdaantNSdz+8yie7YdkePfKLfPULoM2BdYllk6Fw==}
     engines: {node: '>=20'}
     peerDependencies:
       ts-node: '>= 7.0.1 < 12'
@@ -26053,7 +26053,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@pulumi/pulumi@3.213.0(ts-node@10.9.2(@swc/core@1.15.7(@swc/helpers@0.5.18))(@types/node@24.10.4)(typescript@5.9.3))(typescript@5.9.3)':
+  '@pulumi/pulumi@3.214.0(ts-node@10.9.2(@swc/core@1.15.7(@swc/helpers@0.5.18))(@types/node@24.10.4)(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
       '@grpc/grpc-js': 1.14.3
       '@logdna/tail-file': 2.2.0
@@ -36539,7 +36539,7 @@ snapshots:
   micromark-util-character@2.1.1:
     dependencies:
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-chunked@2.0.1:
     dependencies:
@@ -36554,7 +36554,7 @@ snapshots:
   micromark-util-combine-extensions@2.0.1:
     dependencies:
       micromark-util-chunked: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-decode-numeric-character-reference@2.0.2:
     dependencies:

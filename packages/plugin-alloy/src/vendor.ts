@@ -16,14 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-import { Children, code } from "@powerlines/plugin-alloy/vendor";
-
-export interface RecordExpressionProps {
-  elementType: Children;
-}
-
-export function RecordExpression({ elementType }: RecordExpressionProps) {
-  return code`
-  Record<string, ${elementType}>
-  `;
-}
+export * from "@alloy-js/core";

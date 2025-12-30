@@ -39,9 +39,9 @@ export default defineConfig({
       }
     },
     plugins: [alloy()],
-    unbundle: false,
+    unbundle: true,
     minify: false,
-    skipNodeModulesBundle: false,
+    skipNodeModulesBundle: true,
     alias: {
       "@deepkit/core": "@powerlines/deepkit/vendor/core",
       "@deepkit/type": "@powerlines/deepkit/vendor/type",
@@ -52,7 +52,6 @@ export default defineConfig({
       "@deepkit/type-compiler/config":
         "@powerlines/deepkit/vendor/type-compiler/config"
     },
-    external: ["@powerlines/deepkit"],
-    noExternal: ["@alloy-js/core"]
+    external: ["@powerlines/deepkit", "@powerlines/plugin-alloy/vendor"]
   }
 });
