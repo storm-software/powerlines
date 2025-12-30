@@ -26,6 +26,7 @@ import { PluginContext } from "powerlines/types/context";
 import { Plugin } from "powerlines/types/plugin";
 import { Doc } from "prettier";
 import { printer } from "prettier/doc.js";
+import { viteAliasPlugin } from "rolldown/experimental";
 import { Output } from "./core/components/output";
 import { OutputDirectory, OutputFile } from "./types/components";
 import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
@@ -68,7 +69,21 @@ export const plugin = <
                 }
               }
             },
-            plugins: [alloy()],
+            plugins: [
+              alloy(),
+              viteAliasPlugin({
+                entries: [
+                  {
+                    find: "@alloy-js/core",
+                    replacement: "@powerlines/plugin-alloy/vendor"
+                  },
+                  {
+                    find: "@alloy-js/core/jsx-runtime",
+                    replacement: "@powerlines/plugin-alloy/vendor/jsx-runtime"
+                  }
+                ]
+              })
+            ],
             alias: {
               "@alloy-js/core": "@powerlines/plugin-alloy/vendor",
               "@alloy-js/core/jsx-runtime":
