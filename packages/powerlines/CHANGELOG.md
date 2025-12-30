@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.36.21](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.21) (12/30/2025)
+
+### Miscellaneous
+
+- **powerlines:** Added the `resolveAlias` function to the context's virtual
+  file system
+  ([e6b43891](https://github.com/storm-software/powerlines/commit/e6b43891))
+
 ## [0.36.20](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.20) (12/30/2025)
 
 ### Miscellaneous
