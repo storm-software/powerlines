@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.16.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.16.0) (12/30/2025)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with `vendor` module output directory
+  ([c940d635](https://github.com/storm-software/powerlines/commit/c940d635))
+
+### Features
+
+- **plugin-alloy:** Added the `usePowerlinesSafe` hook
+  ([c365a2d7](https://github.com/storm-software/powerlines/commit/c365a2d7))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.66**
+- Updated **powerlines** to **v0.36.19**
+- Updated **deepkit** to **v0.5.29**
+
 ## [0.15.10](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.15.10) (12/30/2025)
 
 ### Miscellaneous
