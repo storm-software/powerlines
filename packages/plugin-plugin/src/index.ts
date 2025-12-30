@@ -65,10 +65,10 @@ export const plugin = <
           platform: "node",
           nodeProtocol: true,
           unbundle: true,
+          minify: false,
           export: {
             all: true
           },
-          external: ["powerlines", "@powerlines/plugin-plugin"],
           skipNodeModulesBundle: true
         }
       };
