@@ -64,7 +64,7 @@ export const plugin = <
                 jsx: {
                   runtime: "classic",
                   pragma: "Alloy.createElement",
-                  importSource: "@alloy-js/core"
+                  importSource: "@powerlines/plugin-alloy/vendor"
                 }
               }
             },
@@ -76,7 +76,7 @@ export const plugin = <
         if (
           this.tsconfig.tsconfigJson.compilerOptions?.jsx !== "preserve" ||
           this.tsconfig.tsconfigJson.compilerOptions?.jsxImportSource !==
-            "@alloy-js/core"
+            "@powerlines/plugin-alloy/vendor"
         ) {
           this.tsconfig.tsconfigJson.compilerOptions ??= {};
 
@@ -86,10 +86,10 @@ export const plugin = <
 
           if (
             this.tsconfig.tsconfigJson.compilerOptions.jsxImportSource !==
-            "@alloy-js/core"
+            "@powerlines/plugin-alloy/vendor"
           ) {
             this.tsconfig.tsconfigJson.compilerOptions.jsxImportSource =
-              "@alloy-js/core";
+              "@powerlines/plugin-alloy/vendor";
           }
 
           await this.fs.write(
@@ -97,8 +97,6 @@ export const plugin = <
             StormJSON.stringify(this.tsconfig.tsconfigJson)
           );
         }
-
-        this.dependencies["@alloy-js/core"] = "^0.22.0";
 
         if (this.config.alloy?.typescript !== false) {
           this.dependencies["@alloy-js/typescript"] = "^0.22.0";
@@ -116,6 +114,12 @@ export const plugin = <
         if (id === "@alloy-js/core") {
           return {
             id: "@powerlines/plugin-alloy/vendor",
+            external: true
+          };
+        }
+        if (id === "@alloy-js/core/jsx-runtime") {
+          return {
+            id: "@powerlines/plugin-alloy/vendor/jsx-runtime",
             external: true
           };
         }

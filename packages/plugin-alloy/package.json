@@ -73,16 +73,30 @@
     },
     "./vendor": {
       "import": {
-        "types": "./dist/vendor.d.ts",
-        "default": "./dist/vendor.js"
+        "types": "./dist/vendor/index.d.ts",
+        "default": "./dist/vendor/index.js"
       },
       "require": {
-        "types": "./dist/vendor.d.cts",
-        "default": "./dist/vendor.cjs"
+        "types": "./dist/vendor/index.d.cts",
+        "default": "./dist/vendor/index.cjs"
       },
       "default": {
-        "types": "./dist/vendor.d.ts",
-        "default": "./dist/vendor.js"
+        "types": "./dist/vendor/index.d.ts",
+        "default": "./dist/vendor/index.js"
+      }
+    },
+    "./vendor/jsx-runtime": {
+      "import": {
+        "types": "./dist/vendor/jsx-runtime.d.ts",
+        "default": "./dist/vendor/jsx-runtime.js"
+      },
+      "require": {
+        "types": "./dist/vendor/jsx-runtime.d.cts",
+        "default": "./dist/vendor/jsx-runtime.cjs"
+      },
+      "default": {
+        "types": "./dist/vendor/jsx-runtime.d.ts",
+        "default": "./dist/vendor/jsx-runtime.js"
       }
     },
     "./types": {

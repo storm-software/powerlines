@@ -34,7 +34,7 @@ export default defineConfig({
         jsx: {
           runtime: "classic",
           pragma: "Alloy.createElement",
-          importSource: "@alloy-js/core"
+          importSource: "@powerlines/plugin-alloy/vendor"
         }
       }
     },

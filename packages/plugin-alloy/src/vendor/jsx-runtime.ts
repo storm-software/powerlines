@@ -16,17 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-import { defineTsupConfig } from "@powerlines/tools-config/tsup.shared";
-
-const config = defineTsupConfig([
-  {
-    name: "vendor",
-    entry: ["src/vendor/index.ts", "src/vendor/jsx-runtime.ts"],
-    outDir: "dist",
-    clean: false,
-    skipNodeModulesBundle: false,
-    noExternal: ["@alloy-js/core", "@vue/reactivity", "@vue/shared"]
-  }
-]);
-
-export default config;
+export * from "@alloy-js/core/jsx-runtime";
