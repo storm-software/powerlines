@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.70](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.70) (12/30/2025)
+
+### Miscellaneous
+
+- **plugin-plugin:** No longer minify plugin build output
+  ([4e7d0add](https://github.com/storm-software/powerlines/commit/4e7d0add))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.36.23**
+- Updated **nx** to **v0.11.49**
+
 ## [0.12.69](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.69) (12/30/2025)
 
 ### Updated Dependencies

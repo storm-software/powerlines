@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.17.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.17.1) (12/30/2025)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update rendered file visitor to use `emitSync` function
+  ([8ec48b99](https://github.com/storm-software/powerlines/commit/8ec48b99))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.70**
+- Updated **powerlines** to **v0.36.23**
+- Updated **deepkit** to **v0.5.33**
+
 ## [0.17.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.17.0) (12/30/2025)
 
 ### Miscellaneous
