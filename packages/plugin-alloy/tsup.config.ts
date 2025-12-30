@@ -22,7 +22,7 @@ const config = defineTsupConfig([
   {
     name: "vendor",
     entry: ["src/vendor/index.ts", "src/vendor/jsx-runtime.ts"],
-    outDir: "dist",
+    outDir: "dist/vendor",
     clean: false,
     skipNodeModulesBundle: false,
     noExternal: ["@alloy-js/core", "@vue/reactivity", "@vue/shared"]
