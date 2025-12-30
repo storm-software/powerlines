@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.36.17](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.17) (12/30/2025)
+
+### Miscellaneous
+
+- **powerlines:** Increase the `ttl` on fetch request caching
+  ([06073d91](https://github.com/storm-software/powerlines/commit/06073d91))
+
 ## [0.36.13](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.13) (12/29/2025)
 
 ### Miscellaneous

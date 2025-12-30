@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.15.9](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.15.9) (12/30/2025)
+
+### Miscellaneous
+
+- **plugin-alloy:** Added `jsx-runtime` to vendored code
+  ([913de6d9](https://github.com/storm-software/powerlines/commit/913de6d9))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.64**
+- Updated **powerlines** to **v0.36.17**
+- Updated **deepkit** to **v0.5.27**
+
 ## [0.15.8](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.15.8) (12/30/2025)
 
 ### Bug Fixes

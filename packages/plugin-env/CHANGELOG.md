@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.14.15](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.14.15) (12/30/2025)
+
+### Miscellaneous
+
+- **monorepo:** Update `tsconfig.json` files with new `jsxImportSource` value
+  ([71f6fdd9](https://github.com/storm-software/powerlines/commit/71f6fdd9))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.112**
+- Updated **plugin-plugin** to **v0.12.64**
+- Updated **plugin-alloy** to **v0.15.9**
+- Updated **plugin-babel** to **v0.12.121**
+- Updated **powerlines** to **v0.36.17**
+- Updated **deepkit** to **v0.5.27**
+
 ## [0.14.14](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.14.14) (12/30/2025)
 
 ### Updated Dependencies
