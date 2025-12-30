@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.62](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.62) (12/29/2025)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with resolving references to `@alloy-js/core`
+  packages
+  ([8fe04905](https://github.com/storm-software/powerlines/commit/8fe04905))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.36.15**
+- Updated **nx** to **v0.11.41**
+
 ## [0.12.61](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.61) (12/29/2025)
 
 ### Updated Dependencies
