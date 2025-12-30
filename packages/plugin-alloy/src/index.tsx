@@ -68,7 +68,12 @@ export const plugin = <
                 }
               }
             },
-            plugins: [alloy()]
+            plugins: [alloy()],
+            alias: {
+              "@alloy-js/core": "@powerlines/plugin-alloy/vendor",
+              "@alloy-js/core/jsx-runtime":
+                "@powerlines/plugin-alloy/vendor/jsx-runtime"
+            }
           }
         };
       },

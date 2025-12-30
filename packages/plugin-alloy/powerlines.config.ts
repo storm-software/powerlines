@@ -52,6 +52,10 @@ export default defineConfig({
       "@deepkit/type-compiler/config":
         "@powerlines/deepkit/vendor/type-compiler/config"
     },
-    external: ["@powerlines/deepkit", "@powerlines/plugin-alloy/vendor"]
+    external: [
+      "@powerlines/deepkit",
+      "@powerlines/plugin-alloy/vendor",
+      "@powerlines/plugin-alloy/vendor/jsx-runtime"
+    ]
   }
 });
