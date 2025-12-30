@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.15.7](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.15.7) (12/29/2025)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with resolving references to `@alloy-js/core`
+  packages
+  ([8fe04905](https://github.com/storm-software/powerlines/commit/8fe04905))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.62**
+- Updated **powerlines** to **v0.36.15**
+- Updated **deepkit** to **v0.5.25**
+
 ## [0.15.6](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.15.6) (12/29/2025)
 
 ### Bug Fixes
