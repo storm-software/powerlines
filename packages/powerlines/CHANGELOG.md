@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.36.20](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.20) (12/30/2025)
+
+### Miscellaneous
+
+- **powerlines:** Pass `resolve.alias` to `tsdown` builder function
+  ([7d74795a](https://github.com/storm-software/powerlines/commit/7d74795a))
+
 ## [0.36.18](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.18) (12/30/2025)
 
 ### Documentation
