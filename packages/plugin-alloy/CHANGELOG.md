@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.15.10](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.15.10) (12/30/2025)
+
+### Miscellaneous
+
+- **plugin-alloy:** Added `jsx-runtime` to externals and `alias` to plugin build
+  config
+  ([eca1c002](https://github.com/storm-software/powerlines/commit/eca1c002))
+
+### Documentation
+
+- **monorepo:** Update `README.md` files' badges and repository link
+  ([4dff299a](https://github.com/storm-software/powerlines/commit/4dff299a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.65**
+- Updated **powerlines** to **v0.36.18**
+- Updated **deepkit** to **v0.5.28**
+
 ## [0.15.9](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.15.9) (12/30/2025)
 
 ### Miscellaneous

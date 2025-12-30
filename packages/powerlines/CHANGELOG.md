@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.36.18](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.18) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update `README.md` files' badges and repository link
+  ([4dff299a](https://github.com/storm-software/powerlines/commit/4dff299a))
+
 ## [0.36.17](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.17) (12/30/2025)
 
 ### Miscellaneous

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.44](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.44) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update `README.md` files' badges and repository link
+  ([4dff299a](https://github.com/storm-software/powerlines/commit/4dff299a))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.36.18**
+
 ## [0.11.43](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.43) (12/30/2025)
 
 ### Updated Dependencies

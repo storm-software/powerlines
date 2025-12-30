@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.28](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.28) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update `README.md` files' badges and repository link
+  ([4dff299a](https://github.com/storm-software/powerlines/commit/4dff299a))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.36.18**
+- Updated **nx** to **v0.11.44**
+
 ## [0.5.27](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.27) (12/30/2025)
 
 ### Updated Dependencies

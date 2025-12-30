@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.14.16](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.14.16) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update `README.md` files' badges and repository link
+  ([4dff299a](https://github.com/storm-software/powerlines/commit/4dff299a))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.113**
+- Updated **plugin-plugin** to **v0.12.65**
+- Updated **plugin-alloy** to **v0.15.10**
+- Updated **plugin-babel** to **v0.12.122**
+- Updated **powerlines** to **v0.36.18**
+- Updated **deepkit** to **v0.5.28**
+
 ## [0.14.15](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.14.15) (12/30/2025)
 
 ### Miscellaneous

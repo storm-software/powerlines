@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Rollup
 
+## [0.7.122](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.122) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update `README.md` files' badges and repository link
+  ([4dff299a](https://github.com/storm-software/powerlines/commit/4dff299a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.65**
+- Updated **powerlines** to **v0.36.18**
+- Updated **nx** to **v0.11.44**
+
 ## [0.7.121](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.121) (12/30/2025)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.65](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.65) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update `README.md` files' badges and repository link
+  ([4dff299a](https://github.com/storm-software/powerlines/commit/4dff299a))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.36.18**
+- Updated **nx** to **v0.11.44**
+
 ## [0.12.64](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.64) (12/30/2025)
 
 ### Updated Dependencies
