@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Jest
 
+## [0.1.122](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.122) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.1.121](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.121) (12/30/2025)
 
 ### Updated Dependencies

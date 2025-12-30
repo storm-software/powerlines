@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Image Compression
 
+## [0.2.63](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.63) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.2.62](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.62) (12/30/2025)
 
 ### Updated Dependencies

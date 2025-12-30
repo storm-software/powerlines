@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.115](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.115) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.14.114](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.114) (12/30/2025)
 
 ### Updated Dependencies

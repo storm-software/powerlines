@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Unbuild
 
+## [0.5.124](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.124) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.5.123](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.123) (12/30/2025)
 
 ### Updated Dependencies

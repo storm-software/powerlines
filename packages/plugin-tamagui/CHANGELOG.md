@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Tamagui
 
+## [0.1.104](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.104) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.1.103](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.103) (12/30/2025)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.119](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.119) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.16.1**
+- Updated **plugin-env** to **v0.14.18**
+
 ## [0.1.118](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.118) (12/30/2025)
 
 ### Updated Dependencies

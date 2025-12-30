@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin I18next
 
+## [0.1.11](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.11) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.1.10](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.10) (12/30/2025)
 
 ### Updated Dependencies

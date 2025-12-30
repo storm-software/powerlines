@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Untyped
 
+## [0.2.67](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.67) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.2.66](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.66) (12/30/2025)
 
 ### Updated Dependencies

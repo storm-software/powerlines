@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.16.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.16.1) (12/30/2025)
+
+### Miscellaneous
+
+- **plugin-alloy:** Disable `unbundle` mode in build configuration
+  ([4e8d3120](https://github.com/storm-software/powerlines/commit/4e8d3120))
+
 ## [0.16.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.16.0) (12/30/2025)
 
 ### Bug Fixes

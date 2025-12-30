@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.124](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.124) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.7.123](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.123) (12/30/2025)
 
 ### Updated Dependencies

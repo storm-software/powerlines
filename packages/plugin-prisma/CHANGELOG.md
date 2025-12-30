@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.2.68](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.68) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
+### Updated Dependencies
+
+- Updated **plugin-hey-api** to **v0.1.68**
+
 ## [0.2.67](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.67) (12/30/2025)
 
 ### Updated Dependencies

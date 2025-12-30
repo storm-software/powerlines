@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Hey API
 
+## [0.1.68](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.68) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.1.67](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.67) (12/30/2025)
 
 ### Updated Dependencies

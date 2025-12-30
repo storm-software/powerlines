@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.2.72](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.2.72) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.2.70](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.2.70) (12/30/2025)
 
 ### Documentation

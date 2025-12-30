@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Biome
 
+## [0.2.120](https://github.com/storm-software/powerlines/releases/tag/plugin-biome%400.2.120) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.2.119](https://github.com/storm-software/powerlines/releases/tag/plugin-biome%400.2.119) (12/30/2025)
 
 ### Updated Dependencies

@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.124](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.124) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.12.123](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.123) (12/30/2025)
 
 ### Updated Dependencies

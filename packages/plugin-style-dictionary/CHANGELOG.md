@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.15](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.15) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.3.14](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.14) (12/30/2025)
 
 ### Updated Dependencies

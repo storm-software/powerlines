@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.9.123](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.123) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.9.122](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.122) (12/30/2025)
 
 ### Updated Dependencies

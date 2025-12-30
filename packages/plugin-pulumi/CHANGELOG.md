@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.2.94](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.94) (12/30/2025)
+
+### Documentation
+
+- **monorepo:** Update remaining `README.md` file with old badges list
+  ([44ed545f](https://github.com/storm-software/powerlines/commit/44ed545f))
+
 ## [0.2.93](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.93) (12/30/2025)
 
 ### Updated Dependencies
