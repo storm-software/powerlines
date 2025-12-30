@@ -35,10 +35,7 @@ function resolveModulePath(
     return;
   }
 
-  const sourcePath = nodePath.node.value;
-  // const currentFile = state.file.opts.filename;
-
-  const resolvedPath = state.context?.fs.resolveSync(sourcePath);
+  const resolvedPath = state.context?.fs.resolveSync(nodePath.node.value);
   if (resolvedPath) {
     nodePath.replaceWith(
       t.stringLiteral(

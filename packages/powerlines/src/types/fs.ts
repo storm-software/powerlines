@@ -280,6 +280,11 @@ export interface ResolveOptions extends BaseResolveOptions {
   isEntry?: boolean;
 
   /**
+   * If true, the resolver will skip alias resolution when resolving modules.
+   */
+  skipAlias?: boolean;
+
+  /**
    * If true, the resolver will skip using the cache when resolving modules.
    */
   skipCache?: boolean;
@@ -567,6 +572,17 @@ export interface VirtualFileSystemInterface {
     importer?: string,
     options?: ResolveOptions
   ) => string | undefined;
+
+  /**
+   * Resolves a given module ID using the configured aliases.
+   *
+   * @remarks
+   * This function can be used to map module IDs to different paths based on the alias configuration.
+   *
+   * @param id - The module ID to resolve.
+   * @returns The resolved module ID - after applying any configured aliases (this will be the same as the input ID if no aliases match).
+   */
+  resolveAlias: (id: string) => string;
 
   /**
    * Disposes of the virtual file system (VFS), writes any virtual file changes to disk, and releases any associated resources.

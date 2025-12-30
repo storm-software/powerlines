@@ -29,7 +29,7 @@ import { BabelTransformPluginOptions } from "../../types/babel";
  */
 const buildHelper = template(`
     function HELPER(cls){
-        function ExtendableBuiltin(){
+        function ExtendableBuiltin() {
             // Not passing "newTarget" because core-js would fall back to non-exotic
             // object creation.
             var instance = Reflect.construct(cls, Array.from(arguments));

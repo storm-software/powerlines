@@ -43,6 +43,7 @@ import { isAbsolutePath } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
+import { isRegExp } from "@stryke/type-checks/is-regexp";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
@@ -1087,6 +1088,74 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   }
 
   /**
+   * Resolves a given module ID using the configured aliases.
+   *
+   * @remarks
+   * This function can be used to map module IDs to different paths based on the alias configuration.
+   *
+   * @param id - The module ID to resolve.
+   * @returns The resolved module ID - after applying any configured aliases (this will be the same as the input ID if no aliases match).
+   */
+  public resolveAlias(id: string): string {
+    let path = id;
+
+    if (this.#context.config.build.alias) {
+      if (
+        Array.isArray(this.#context.config.build.alias) &&
+        this.#context.config.build.alias.length > 0
+      ) {
+        const found = this.#context.config.build.alias.filter(
+          alias =>
+            (isSetString(alias.find) &&
+              (alias.find === path || path.startsWith(`${alias.find}/`))) ||
+            (isRegExp(alias.find) && alias.find.test(path))
+        );
+        if (found.length > 0) {
+          const alias = found.reduce((ret, current) => {
+            const retLength = isSetString(ret.find)
+              ? ret.find.length
+              : isRegExp(ret.find)
+                ? ret.find.source.length
+                : 0;
+            const currentLength = isSetString(current.find)
+              ? current.find.length
+              : isRegExp(current.find)
+                ? current.find.source.length
+                : 0;
+
+            return retLength > currentLength ? ret : current;
+          });
+
+          if (isSetString(alias.find)) {
+            path = path.replace(
+              new RegExp(`^${alias.find}`),
+              alias.replacement
+            );
+          } else if (isRegExp(alias.find)) {
+            path = path.replace(alias.find, alias.replacement);
+          }
+        }
+      } else if (isSetObject(this.#context.config.build.alias)) {
+        const found = Object.keys(
+          this.#context.config.build.alias as Record<string, string>
+        ).filter(key => key === path || path.startsWith(`${key}/`));
+        if (found.length > 0) {
+          const alias = found.reduce((ret, current) => {
+            return ret.length > current.length ? ret : current;
+          });
+
+          path = path.replace(
+            new RegExp(`^${alias}`),
+            (this.#context.config.build.alias as Record<string, string>)[alias]!
+          );
+        }
+      }
+    }
+
+    return path;
+  }
+
+  /**
    * A helper function to resolve modules in the virtual file system (VFS).
    *
    * @remarks
@@ -1110,6 +1179,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     let path = id;
     if (path.includes("{") || path.includes("}")) {
       path = replacePathTokens(this.#context, path);
+    }
+
+    if (options.skipAlias !== true) {
+      path = this.resolveAlias(path);
     }
 
     if (isAbsolutePath(path)) {
@@ -1215,6 +1288,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     let path = id;
     if (path.includes("{") || path.includes("}")) {
       path = replacePathTokens(this.#context, path);
+    }
+
+    if (options.skipAlias !== true) {
+      path = this.resolveAlias(path);
     }
 
     if (isAbsolutePath(path)) {

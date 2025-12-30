@@ -13862,8 +13862,8 @@ packages:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
     engines: {node: '>= 0.4'}
 
-  got@14.6.5:
-    resolution: {integrity: sha512-Su87c0NNeg97de1sO02gy9I8EmE7DCJ1gzcFLcgGpYeq2PnLg4xz73MWrp6HjqbSsjb6Glf4UBDW6JNyZA6uSg==}
+  got@14.6.6:
+    resolution: {integrity: sha512-QLV1qeYSo5l13mQzWgP/y0LbMr5Plr5fJilgAIwgnwseproEbtNym8xpLsDzeZ6MWXgNE6kdWGBjdh3zT/Qerg==}
     engines: {node: '>=20'}
 
   graceful-fs@4.2.11:
@@ -26787,7 +26787,7 @@ snapshots:
       execa: 5.1.1
       fdir: 6.5.0(@types/picomatch@2.3.4)(picomatch@3.0.1)
       google-protobuf: 3.21.4
-      got: 14.6.5
+      got: 14.6.6
       ini: 2.0.0
       js-yaml: 3.14.2
       minimist: 1.2.8
@@ -34794,7 +34794,7 @@ snapshots:
 
   gopd@1.2.0: {}
 
-  got@14.6.5:
+  got@14.6.6:
     dependencies:
       '@sindresorhus/is': 7.2.0
       byte-counter: 0.1.0
