@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "jsxImportSource": "@alloy-js/core",
+    "jsxImportSource": "@powerlines/plugin-alloy/vendor",
     "lib": ["esnext"],
     "types": ["node"],
     "outDir": "../../dist/out-tsc"
