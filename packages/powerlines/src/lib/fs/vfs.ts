@@ -178,10 +178,26 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   /**
    * Gets the storage adapter and relative key for a given key.
    *
+   * @remarks
+   * The `key` can be either a path or a storage adapter name.
+   *
    * @param key - The key to get the storage adapter for.
    * @returns The storage adapter and relative key for the given key.
    */
   #getStorage(key: string): StorageAdapterState {
+    const found = Object.entries(this.#storage).find(
+      ([, adapter]) =>
+        adapter.name === key ||
+        (adapter.preset && adapter.preset.toLowerCase() === key?.toLowerCase())
+    );
+    if (found) {
+      return {
+        base: found[0],
+        relativeKey: "",
+        adapter: found[1]
+      };
+    }
+
     const path = this.resolveSync(this.#normalizePath(key)) || key;
     for (const base of Object.keys(this.#storage)
       .filter(Boolean)
@@ -992,7 +1008,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       }
     }
 
-    const { relativeKey, adapter } = this.#getStorage(path);
+    const { relativeKey, adapter } = this.#getStorage(options.storage || path);
 
     this.#log(
       LogLevelLabel.TRACE,
@@ -1029,7 +1045,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     data: string = "",
     options: WriteOptions = {}
   ): void {
-    const { relativeKey, adapter } = this.#getStorage(path);
+    const { relativeKey, adapter } = this.#getStorage(options.storage || path);
 
     this.#log(
       LogLevelLabel.TRACE,

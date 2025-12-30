@@ -876,6 +876,47 @@ export class PowerlinesContext<
   }
 
   /**
+   * Synchronously resolves a entry virtual file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the entry file
+   * @param path - A path to write the entry file to
+   * @param options - Optional write file options
+   */
+  public emitEntrySync(
+    code: string,
+    path: string,
+    options: EmitEntryOptions = {}
+  ): void {
+    const entryPath = isAbsolute(path)
+      ? path
+      : appendPath(path, this.entryPath);
+
+    this.entry ??= [];
+    this.entry.push({
+      name: options?.name,
+      file: entryPath,
+      input: options?.input,
+      output: options?.output
+    });
+
+    return this.fs.writeSync(
+      entryPath,
+      code,
+      defu(omit(options, ["name"]), {
+        meta: {
+          type: "entry",
+          properties: {
+            name: options?.name,
+            output: options?.output,
+            "input.file": options?.input?.file,
+            "input.name": options?.input?.name
+          }
+        }
+      })
+    );
+  }
+
+  /**
    * Resolves a builtin virtual file and writes it to the VFS if it does not already exist
    *
    * @param code - The source code of the builtin file
@@ -890,6 +931,31 @@ export class PowerlinesContext<
     options: WriteOptions = {}
   ): Promise<void> {
     return this.fs.write(
+      path
+        ? isAbsolute(path)
+          ? path
+          : joinPaths(this.builtinsPath, path)
+        : appendPath(id, this.builtinsPath),
+      code,
+      defu(options, { meta: { type: "builtin" } })
+    );
+  }
+
+  /**
+   * Synchronously resolves a builtin virtual file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the builtin file
+   * @param id - The unique identifier of the builtin file
+   * @param path - An optional path to write the builtin file to
+   * @param options - Optional write file options
+   */
+  public emitBuiltinSync(
+    code: string,
+    id: string,
+    path?: string,
+    options?: WriteOptions
+  ) {
+    return this.fs.writeSync(
       path
         ? isAbsolute(path)
           ? path

@@ -30,6 +30,8 @@ export const __VFS_REVERT__ = "__VFS_REVERT__";
 
 export type StoragePreset = "fs" | "virtual";
 
+export const STORAGE_PRESETS: StoragePreset[] = ["fs", "virtual"];
+
 /**
  * Interface defining the methods and properties for a storage adapter.
  */
@@ -38,6 +40,14 @@ export interface StorageAdapter {
    * A name identifying the storage adapter type.
    */
   name: string;
+
+  /**
+   * The storage preset for the adapter.
+   *
+   * @remarks
+   * This can be used as an alternate way to identify the type of storage being used.
+   */
+  preset?: StoragePreset | null;
 
   /**
    * Checks if a key exists in the storage.
@@ -264,6 +274,14 @@ export interface WriteOptions {
    * @defaultValue false
    */
   skipFormat?: boolean;
+
+  /**
+   * The storage preset or adapter name for the output file.
+   *
+   * @remarks
+   * If not specified, the output mode will be determined by the provided `output.mode` value.
+   */
+  storage?: StoragePreset | string;
 
   /**
    * Additional metadata for the file.

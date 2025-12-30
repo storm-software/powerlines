@@ -29,6 +29,14 @@ export class VirtualStorageAdapter extends BaseStorageAdapter {
   public name = "virtual";
 
   /**
+   * The storage preset for the adapter.
+   *
+   * @remarks
+   * This can be used as an alternate way to identify the type of storage being used.
+   */
+  public override readonly preset = "virtual";
+
+  /**
    * In-memory data storage.
    */
   protected data = new Map<string, any>();

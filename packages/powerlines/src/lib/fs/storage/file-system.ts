@@ -40,6 +40,14 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
   public name = "file-system";
 
   /**
+   * The storage preset for the adapter.
+   *
+   * @remarks
+   * This can be used as an alternate way to identify the type of storage being used.
+   */
+  public override readonly preset = "fs";
+
+  /**
    * Constructor for the FileSystemStorageAdapter.
    *
    * @param options - Configuration options for the storage adapter.

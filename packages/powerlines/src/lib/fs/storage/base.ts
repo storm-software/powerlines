@@ -21,7 +21,7 @@ import { correctPath } from "@stryke/path/correct-path";
 import { joinPaths } from "@stryke/path/join";
 import { MaybePromise } from "@stryke/types/base";
 import { resolve } from "node:path";
-import { StorageAdapter } from "../../../types/fs";
+import { StorageAdapter, StoragePreset } from "../../../types/fs";
 
 export interface StorageAdapterOptions {
   base: string;
@@ -49,6 +49,14 @@ export abstract class BaseStorageAdapter<
    * Configuration options for the storage adapter.
    */
   public options: TOptions;
+
+  /**
+   * The storage preset for the adapter.
+   *
+   * @remarks
+   * This can be used as an alternate way to identify the type of storage being used.
+   */
+  public readonly preset?: StoragePreset | null = null;
 
   /**
    * Constructor for the BaseStorageAdapter.

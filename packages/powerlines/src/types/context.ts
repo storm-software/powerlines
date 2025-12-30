@@ -459,6 +459,21 @@ export interface UnresolvedContext<
   ) => Promise<void>;
 
   /**
+   * Synchronously resolves a builtin virtual file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the builtin file
+   * @param id - The unique identifier of the builtin file
+   * @param path - An optional path to write the builtin file to
+   * @param options - Additional options for writing the builtin file
+   */
+  emitBuiltinSync: (
+    code: string,
+    id: string,
+    path?: string,
+    options?: WriteOptions
+  ) => void;
+
+  /**
    * Resolves a entry virtual file and writes it to the VFS if it does not already exist
    *
    * @param code - The source code of the entry file
@@ -471,6 +486,18 @@ export interface UnresolvedContext<
     options?: EmitEntryOptions
   ) => Promise<void>;
 
+  /**
+   * Synchronously resolves a entry virtual file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the entry file
+   * @param path - An optional path to write the entry file to
+   * @param options - Additional options for writing the entry file
+   */
+  emitEntrySync: (
+    code: string,
+    path: string,
+    options?: EmitEntryOptions
+  ) => void;
   /**
    * A function to update the context fields using a new user configuration options
    */
