@@ -117,11 +117,6 @@
   "files": ["dist/**/*"],
   "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
-    "@alloy-js/rollup-plugin": "catalog:",
-    "@alloy-js/core": "catalog:",
-    "@alloy-js/json": "catalog:",
-    "@alloy-js/markdown": "catalog:",
-    "@alloy-js/typescript": "catalog:",
     "tsdown": "catalog:",
     "unplugin": "catalog:",
     "@stryke/fs": "catalog:",

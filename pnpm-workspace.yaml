@@ -116,7 +116,7 @@ catalog:
   '@types/react': ^19.2.7
   '@types/react-dom': ^19.2.3
   '@types/semver': ^7.7.1
-  '@typescript-eslint/utils': ^8.50.1
+  '@typescript-eslint/utils': ^8.51.0
   '@vitejs/plugin-react': ^5.1.2
   '@vue/reactivity': 3.5.26
   '@vue/shared': 3.5.26
@@ -163,7 +163,7 @@ catalog:
   openapi-typescript: ^7.10.1
   oxc-parser: ^0.99.0
   oxc-transform: ^0.99.0
-  oxlint: ^1.35.0
+  oxlint: ^1.36.0
   oxlint-tsgolint: ^0.2.1
   pluralize: ^8.0.0
   prettier: ^3.7.4

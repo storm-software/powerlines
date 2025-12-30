@@ -28,7 +28,6 @@ const externals = [
   "powerlines",
   "@storm-software/",
   "@stryke/",
-  "@alloy-js/",
   "@babel/",
   "tsdown",
   "ansis",

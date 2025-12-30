@@ -38,11 +38,7 @@ import { Output } from "./core/components/output";
 import { OutputDirectory, OutputFile } from "./types/components";
 import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
-export * from "./core";
-export * from "./helpers";
-export * from "./markdown";
-export * from "./types";
-export * from "./typescript";
+export * from "@alloy-js/core";
 
 /**
  * Alloy-js plugin for Powerlines.
@@ -74,11 +70,7 @@ export const plugin = <
                 }
               }
             },
-            plugins: [alloy()],
-            alias: {
-              "@alloy-js/core": "@powerlines/plugin-alloy/vendor"
-            },
-            external: ["@alloy-js/core", "@vue/reactivity", "@vue/shared"]
+            plugins: [alloy()]
           }
         };
       },
@@ -121,6 +113,16 @@ export const plugin = <
         if (this.config.alloy?.markdown === true) {
           this.dependencies["@alloy-js/markdown"] = "^0.22.0";
         }
+      },
+      resolveId(id) {
+        if (id === "@alloy-js/core") {
+          return {
+            id: "@powerlines/plugin-alloy",
+            external: true
+          };
+        }
+
+        return null;
       }
     },
     {

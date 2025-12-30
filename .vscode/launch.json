@@ -5,26 +5,28 @@
       "name": "Debug Alloy Build Script",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/yyb1rc83q0fw5h3i80ljwdwwakmdqdfp-pnpm-10.18.0/bin/pnpm",
+      "program": "/nix/store/kyfc6ga8ckzc0irgy69jc5slfgz1w3gk-pnpm-10.25.0/bin/pnpm",
       "args": [
         "nx",
         "run",
-        "alloy:build:development",
-        "--outputStyle=dynamic-legacy"
+        "plugin-alloy:build:development",
+        "--outputStyle=dynamic-legacy",
+        "--skipNxCache"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
     },
     {
-      "name": "Debug Env Plugin Build Script",
+      "name": "Debug Env Build Script",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/yyb1rc83q0fw5h3i80ljwdwwakmdqdfp-pnpm-10.18.0/bin/pnpm",
+      "program": "/nix/store/kyfc6ga8ckzc0irgy69jc5slfgz1w3gk-pnpm-10.25.0/bin/pnpm",
       "args": [
         "nx",
         "run",
-        "plugin-crypto:build:development",
-        "--outputStyle=dynamic-legacy"
+        "plugin-env:clean:development",
+        "--outputStyle=dynamic-legacy",
+        "--skipNxCache"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
