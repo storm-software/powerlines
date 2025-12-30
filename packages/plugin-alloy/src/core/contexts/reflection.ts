@@ -58,7 +58,7 @@ export function useReflectionClass<
 
   if (!context) {
     throw new Error(
-      "Powerlines - ReflectionClass Context is not set. Make sure this component is wrapped in a `Output` component or being rendered by the `RenderPlugin` from `@powerlines/devkit`."
+      "Powerlines - ReflectionClass Context is not set. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."
     );
   }
 
@@ -81,7 +81,7 @@ export function useReflectionProperty() {
 
   if (!context) {
     throw new Error(
-      "Powerlines - Reflection Property Context is not set. Make sure this component is wrapped in a `Output` component or being rendered by the `RenderPlugin` from `@powerlines/devkit`."
+      "Powerlines - Reflection Property Context is not set. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."
     );
   }
 
@@ -104,7 +104,7 @@ export function useReflectionMethod() {
 
   if (!context) {
     throw new Error(
-      "Powerlines - Reflection Method Context is not set. Make sure this component is wrapped in a `Output` component or being rendered by the `RenderPlugin` from `@powerlines/devkit`."
+      "Powerlines - Reflection Method Context is not set. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."
     );
   }
 
