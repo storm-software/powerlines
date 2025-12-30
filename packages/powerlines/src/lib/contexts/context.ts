@@ -35,6 +35,7 @@ import { isAbsolute } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
 import { titleCase } from "@stryke/string-format/title-case";
+import { isFunction } from "@stryke/type-checks/is-function";
 import { isNull } from "@stryke/type-checks/is-null";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -55,7 +56,11 @@ import {
   Response,
   setGlobalDispatcher
 } from "undici";
-import { ExternalIdResult, UnpluginMessage } from "unplugin";
+import {
+  ExternalIdResult,
+  UnpluginBuildContext,
+  UnpluginMessage
+} from "unplugin";
 import {
   createResolver,
   CreateResolverOptions
@@ -73,6 +78,7 @@ import {
 import {
   Context,
   EmitEntryOptions,
+  EmitOptions,
   FetchOptions,
   InitContextOptions,
   MetaInfo,
@@ -83,8 +89,7 @@ import {
 import {
   ResolveOptions,
   VirtualFile,
-  VirtualFileSystemInterface,
-  WriteOptions
+  VirtualFileSystemInterface
 } from "../../types/fs";
 import { UNSAFE_ContextInternal } from "../../types/internal";
 import {
@@ -835,6 +840,58 @@ export class PowerlinesContext<
   }
 
   /**
+   * Resolves a file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the file
+   * @param path - The path to write the file to
+   * @param options - Additional options for writing the file
+   */
+  public async emit(
+    code: string,
+    path: string,
+    options: EmitOptions = {}
+  ): Promise<void> {
+    if (
+      isFunction((this as unknown as UnpluginBuildContext).emitFile) &&
+      options.emitWithBundler
+    ) {
+      return (this as unknown as UnpluginBuildContext).emitFile({
+        needsCodeReference: options.needsCodeReference,
+        originalFileName: options.originalFileName,
+        fileName: path,
+        source: code,
+        type: "asset"
+      });
+    }
+
+    return this.fs.write(path, code, options);
+  }
+
+  /**
+   * Synchronously resolves a file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the file
+   * @param path - The path to write the file to
+   * @param options - Additional options for writing the file
+   */
+  public emitSync(code: string, path: string, options: EmitOptions = {}) {
+    if (
+      isFunction((this as unknown as UnpluginBuildContext).emitFile) &&
+      options.emitWithBundler
+    ) {
+      return (this as unknown as UnpluginBuildContext).emitFile({
+        needsCodeReference: options.needsCodeReference,
+        originalFileName: options.originalFileName,
+        fileName: path,
+        source: code,
+        type: "asset"
+      });
+    }
+
+    return this.fs.writeSync(path, code, options);
+  }
+
+  /**
    * Resolves a entry virtual file and writes it to the VFS if it does not already exist
    *
    * @param code - The source code of the entry file
@@ -858,7 +915,7 @@ export class PowerlinesContext<
       output: options.output
     });
 
-    return this.fs.write(
+    return this.emit(
       entryPath,
       code,
       defu(omit(options, ["name"]), {
@@ -899,7 +956,7 @@ export class PowerlinesContext<
       output: options?.output
     });
 
-    return this.fs.writeSync(
+    return this.emitSync(
       entryPath,
       code,
       defu(omit(options, ["name"]), {
@@ -928,9 +985,9 @@ export class PowerlinesContext<
     code: string,
     id: string,
     path?: string,
-    options: WriteOptions = {}
+    options: EmitOptions = {}
   ): Promise<void> {
-    return this.fs.write(
+    return this.emit(
       path
         ? isAbsolute(path)
           ? path
@@ -953,9 +1010,9 @@ export class PowerlinesContext<
     code: string,
     id: string,
     path?: string,
-    options?: WriteOptions
+    options: EmitOptions = {}
   ) {
-    return this.fs.writeSync(
+    return this.emitSync(
       path
         ? isAbsolute(path)
           ? path

@@ -185,10 +185,25 @@ export interface ParseOptions extends ParserOptions {
   allowReturnOutsideFunction?: boolean;
 }
 
+export interface EmitOptions extends WriteOptions {
+  /**
+   * If true, will emit the file using {@link UnpluginBuildContext.emitFile | the bundler's emit function}.
+   */
+  emitWithBundler?: boolean;
+
+  needsCodeReference?: Parameters<
+    UnpluginBuildContext["emitFile"]
+  >[0]["needsCodeReference"];
+
+  originalFileName?: Parameters<
+    UnpluginBuildContext["emitFile"]
+  >[0]["originalFileName"];
+}
+
 /**
  * Options for emitting entry virtual files
  */
-export type EmitEntryOptions = WriteOptions &
+export type EmitEntryOptions = EmitOptions &
   Omit<ResolvedEntryTypeDefinition, "file">;
 
 /**
@@ -444,6 +459,24 @@ export interface UnresolvedContext<
   getBuiltins: () => Promise<VirtualFile[]>;
 
   /**
+   * Resolves a file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the file
+   * @param path - The path to write the file to
+   * @param options - Additional options for writing the file
+   */
+  emit: (code: string, path: string, options?: EmitOptions) => Promise<void>;
+
+  /**
+   * Synchronously resolves a file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the file
+   * @param path - The path to write the file to
+   * @param options - Additional options for writing the file
+   */
+  emitSync: (code: string, path: string, options?: EmitOptions) => void;
+
+  /**
    * Resolves a builtin virtual file and writes it to the VFS if it does not already exist
    *
    * @param code - The source code of the builtin file
@@ -455,7 +488,7 @@ export interface UnresolvedContext<
     code: string,
     id: string,
     path?: string,
-    options?: WriteOptions
+    options?: EmitOptions
   ) => Promise<void>;
 
   /**
@@ -470,7 +503,7 @@ export interface UnresolvedContext<
     code: string,
     id: string,
     path?: string,
-    options?: WriteOptions
+    options?: EmitOptions
   ) => void;
 
   /**
