@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.16.2](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.16.2) (12/30/2025)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update build plugin to use `viteAliasPlugin` for import
+  aliases
+  ([dea6f325](https://github.com/storm-software/powerlines/commit/dea6f325))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.67**
+- Updated **powerlines** to **v0.36.20**
+- Updated **deepkit** to **v0.5.30**
+
 ## [0.16.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.16.1) (12/30/2025)
 
 ### Miscellaneous
