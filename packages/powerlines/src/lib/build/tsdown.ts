@@ -138,7 +138,7 @@ export function extractTsdownConfig(
 
           return ret;
         },
-        {} as Record<string, string>
+        (context.config.build.alias ?? {}) as Record<string, string>
       ),
       noExternal: context.builtins
     },
@@ -166,6 +166,19 @@ export function extractTsdownConfig(
           context.workspaceConfig.workspaceRoot
         ),
         sourcemap: context.config.mode === "development"
+      },
+      resolve: {
+        alias: context.builtins.reduce(
+          (ret, id) => {
+            const path = context.fs.ids[id];
+            if (path) {
+              ret[id] = path;
+            }
+
+            return ret;
+          },
+          (context.config.build.alias ?? {}) as Record<string, string>
+        )
       },
       outDir: appendPath(
         context.config.output.buildPath,
