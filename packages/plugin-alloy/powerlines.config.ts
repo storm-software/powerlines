@@ -39,7 +39,7 @@ export default defineConfig({
       }
     },
     plugins: [alloy()],
-    unbundle: true,
+    unbundle: false,
     minify: false,
     skipNodeModulesBundle: true,
     alias: {
