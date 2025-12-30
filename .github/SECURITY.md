@@ -6,6 +6,6 @@ encourage you to let us know right away.
 We will investigate all legitimate reports and do our best to quickly fix the
 problem.
 
-Email `admin@stormsoftware.com` to disclose any security vulnerabilities.
+Email `security@stormsoftware.com` to disclose any security vulnerabilities.
 
 <https://stormsoftware.com/security>
