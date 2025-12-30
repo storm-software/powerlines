@@ -143,7 +143,7 @@ export const plugin = <
                 },
                 visitFile: file => {
                   if ("contents" in file) {
-                    const metadata = (meta[file.path] ?? {}) as MetaItem;
+                    const metadata = meta[file.path] ?? {};
                     if (metadata.kind === "builtin") {
                       if (!metadata.id) {
                         throw new Error(
