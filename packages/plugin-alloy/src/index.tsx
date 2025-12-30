@@ -99,22 +99,6 @@ export const plugin = <
           this.dependencies["@alloy-js/markdown"] = "^0.22.0";
         }
       }
-      // resolveId(id) {
-      //   if (id === "@alloy-js/core") {
-      //     return {
-      //       id: "@powerlines/plugin-alloy/vendor",
-      //       external: true
-      //     };
-      //   }
-      //   if (id === "@alloy-js/core/jsx-runtime") {
-      //     return {
-      //       id: "@powerlines/plugin-alloy/vendor/jsx-runtime",
-      //       external: true
-      //     };
-      //   }
-
-      //   return null;
-      // }
     },
     {
       name: "alloy:update-context",
@@ -167,7 +151,7 @@ export const plugin = <
                         ...(metadata.typeDefinition ?? {})
                       });
                     } else {
-                      this.fs.writeSync(file.path, file.contents);
+                      this.emitSync(file.path, file.contents, metadata);
                     }
                   } else {
                     this.fs.copySync(file.sourcePath, file.path);
