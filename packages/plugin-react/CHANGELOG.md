@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.122](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.122) (12/30/2025)
+
+### Features
+
+- **plugin-alloy:** No longer bundle `@alloy-js/core` - simplify user experience
+  ([6ca858c9](https://github.com/storm-software/powerlines/commit/6ca858c9))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.69**
+- Updated **plugin-alloy** to **v0.17.0**
+- Updated **plugin-babel** to **v0.12.126**
+- Updated **plugin-env** to **v0.14.21**
+- Updated **powerlines** to **v0.36.22**
+- Updated **deepkit** to **v0.5.32**
+
 ## [0.1.121](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.121) (12/30/2025)
 
 ### Updated Dependencies

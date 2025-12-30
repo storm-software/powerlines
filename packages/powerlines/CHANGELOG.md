@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.36.22](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.22) (12/30/2025)
+
+### Miscellaneous
+
+- **powerlines:** Added synchronous emit functions and storage adapter lookup by
+  preset or name
+  ([922e55f5](https://github.com/storm-software/powerlines/commit/922e55f5))
+
 ## [0.36.21](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.21) (12/30/2025)
 
 ### Miscellaneous

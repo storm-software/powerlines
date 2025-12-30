@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.17.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.17.0) (12/30/2025)
+
+### Miscellaneous
+
+- **plugin-alloy:** Resolve linting issues
+  ([df5d009e](https://github.com/storm-software/powerlines/commit/df5d009e))
+
+### Features
+
+- **plugin-alloy:** No longer bundle `@alloy-js/core` - simplify user experience
+  ([6ca858c9](https://github.com/storm-software/powerlines/commit/6ca858c9))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.69**
+- Updated **powerlines** to **v0.36.22**
+- Updated **deepkit** to **v0.5.32**
+
 ## [0.16.3](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.16.3) (12/30/2025)
 
 ### Updated Dependencies
