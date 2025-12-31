@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.36.25](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.25) (12/31/2025)
+
+### Bug Fixes
+
+- **powerlines:** Resolve parameter order issue in `emitEntry` function
+  ([7ff7b5cc](https://github.com/storm-software/powerlines/commit/7ff7b5cc))
+
 ## [0.36.23](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.23) (12/30/2025)
 
 ### Miscellaneous

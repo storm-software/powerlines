@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.21](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.21) (12/31/2025)
+
+### Miscellaneous
+
+- **plugin-style-dictionary:** Added the `skipBuild` configuration option
+  ([307df20d](https://github.com/storm-software/powerlines/commit/307df20d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.72**
+- Updated **powerlines** to **v0.36.25**
+- Updated **nx** to **v0.11.51**
+
 ## [0.3.20](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.20) (12/31/2025)
 
 ### Updated Dependencies
