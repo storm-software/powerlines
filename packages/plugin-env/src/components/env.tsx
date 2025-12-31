@@ -533,6 +533,128 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           <>{code`createEnv(${defaultConfig || "{}"} as Partial<Env>);`}</>
         }
       />
+      <hbr />
+      <hbr />
+
+      <VarDeclaration
+        export
+        const
+        name="isCI"
+        doc="Detect if the application is running in a CI environment."
+        initializer={code`Boolean(
+          env.CI ||
+          env.RUN_ID ||
+          env.AGOLA_GIT_REF ||
+          env.AC_APPCIRCLE ||
+          env.APPVEYOR ||
+          env.CODEBUILD ||
+          env.TF_BUILD ||
+          env.bamboo_planKey ||
+          env.BITBUCKET_COMMIT ||
+          env.BITRISE_IO ||
+          env.BUDDY_WORKSPACE_ID ||
+          env.BUILDKITE ||
+          env.CIRCLECI ||
+          env.CIRRUS_CI ||
+          env.CF_BUILD_ID ||
+          env.CM_BUILD_ID ||
+          env.CI_NAME ||
+          env.DRONE ||
+          env.DSARI ||
+          env.EARTHLY_CI ||
+          env.EAS_BUILD ||
+          env.GERRIT_PROJECT ||
+          env.GITEA_ACTIONS ||
+          env.GITHUB_ACTIONS ||
+          env.GITLAB_CI ||
+          env.GOCD ||
+          env.BUILDER_OUTPUT ||
+          env.HARNESS_BUILD_ID ||
+          env.JENKINS_URL ||
+          env.LAYERCI ||
+          env.MAGNUM ||
+          env.NETLIFY ||
+          env.NEVERCODE ||
+          env.PROW_JOB_ID ||
+          env.RELEASE_BUILD_ID ||
+          env.RENDER ||
+          env.SAILCI ||
+          env.HUDSON ||
+          env.SCREWDRIVER ||
+          env.SEMAPHORE ||
+          env.SOURCEHUT ||
+          env.STRIDER ||
+          env.TASK_ID ||
+          env.RUN_ID ||
+          env.TEAMCITY_VERSION ||
+          env.TRAVIS ||
+          env.VELA ||
+          env.NOW_BUILDER ||
+          env.APPCENTER_BUILD_ID ||
+          env.CI_XCODE_PROJECT ||
+          env.XCS || false
+        );
+        `}
+      />
+      <hbr />
+      <hbr />
+
+      <TSDoc heading="Detect the \`mode\` of the current runtime environment.">
+        <TSDocRemarks>
+          {code`The \`mode\` is determined by the \`MODE\` environment variable, or falls back to the \`NEXT_PUBLIC_VERCEL_ENV\`, \`NODE_ENV\`, or defaults to \`production\`. While the value can potentially be any string, Storm Software generally only allows a value in the following list:
+- \`production\`
+- \`test\`
+- \`development\``}
+        </TSDocRemarks>
+      </TSDoc>
+      <VarDeclaration
+        export
+        const
+        name="mode"
+        initializer={code`String(env.MODE) || "production"; `}
+      />
+      <hbr />
+      <hbr />
+
+      <VarDeclaration
+        export
+        const
+        name="isProduction"
+        doc='Detect if the application is running in \"production\\" mode'
+        initializer={code`["prd", "prod", "production"].includes(mode.toLowerCase()); `}
+      />
+      <hbr />
+      <hbr />
+
+      <VarDeclaration
+        export
+        const
+        name="isTest"
+        doc='Detect if the application is running in "test" mode'
+        initializer={code`["tst", "test", "testing", "stg", "stage", "staging"].includes(mode.toLowerCase()) || env.TEST; `}
+      />
+      <hbr />
+      <hbr />
+
+      <VarDeclaration
+        export
+        const
+        name="isDevelopment"
+        doc='Detect if the application is running in "development" mode'
+        initializer={code`["dev", "development"].includes(mode.toLowerCase()); `}
+      />
+      <hbr />
+      <hbr />
+
+      <VarDeclaration
+        export
+        const
+        name="isDebug"
+        doc='Detect if the application is running in "debug" mode'
+        initializer={code`Boolean(isDevelopment && env.DEBUG); `}
+      />
+      <hbr />
+      <hbr />
     </BuiltinFile>
   );
 }
