@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.17.2](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.17.2) (12/31/2025)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with invalid parameters provided to `emitSync`
+  function
+  ([5d33c7e6](https://github.com/storm-software/powerlines/commit/5d33c7e6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.71**
+- Updated **powerlines** to **v0.36.24**
+- Updated **deepkit** to **v0.5.34**
+
 ## [0.17.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.17.1) (12/30/2025)
 
 ### Miscellaneous
