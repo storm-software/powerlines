@@ -19,9 +19,8 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 
 import { computed, splitProps } from "@alloy-js/core";
-import { appendPath } from "@stryke/path/append";
 import { hasFileExtension } from "@stryke/path/file-path-fns";
-import { replaceExtension } from "@stryke/path/replace";
+import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { isSet } from "@stryke/type-checks/is-set";
 import defu from "defu";
 import { ResolvedEntryTypeDefinition } from "powerlines/types/resolved";
@@ -56,11 +55,11 @@ export function EntryFile(props: EntryFileProps) {
 
   const context = usePowerlines();
   const fullPath = computed(() =>
-    appendPath(
+    replacePath(
       `${
         !isSet(tsx) ? path : replaceExtension(path)
       }${hasFileExtension(path) && !isSet(tsx) ? "" : tsx ? ".tsx" : ".ts"}`,
-      context.entryPath || "./"
+      context.entryPath
     )
   );
 
