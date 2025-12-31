@@ -18,7 +18,6 @@
 
 import { code, Show, splitProps } from "@alloy-js/core";
 import { FunctionDeclaration } from "@alloy-js/typescript";
-import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
 import { refkey } from "@powerlines/plugin-alloy/helpers/refkey";
 import {
   BuiltinFile,
@@ -30,7 +29,6 @@ import {
   TSDocReturns
 } from "@powerlines/plugin-alloy/typescript/components/tsdoc";
 import defu from "defu";
-import { ReactPluginContext } from "../types/plugin";
 
 export interface ReactOptimizedBuiltinProps extends Omit<
   BuiltinFileProps,
@@ -47,8 +45,6 @@ const isOptimizationEnabledRefkey = refkey("isOptimizationEnabled");
 export function ReactOptimizedBuiltin(props: ReactOptimizedBuiltinProps) {
   const [{ override }, rest] = splitProps(props, ["override"]);
 
-  const context = usePowerlines<ReactPluginContext>();
-
   return (
     <BuiltinFile
       {...rest}
@@ -56,10 +52,7 @@ export function ReactOptimizedBuiltin(props: ReactOptimizedBuiltinProps) {
       description="A built-in module to provide access to environment configuration to determine React optimizations."
       imports={defu(
         {
-          [`${context?.config.output.builtinPrefix}:env`]: [
-            "env",
-            "isDevelopment"
-          ]
+          $builtins: { env: ["env", "isDevelopment"] }
         },
         rest.imports ?? {}
       )}>

@@ -137,10 +137,14 @@ export interface TypescriptFileImportItem {
   type?: boolean;
 }
 
-export type TypescriptFileImports = Record<
+export type TypescriptFileImportList = Record<
   string,
   null | Array<TypescriptFileImportItem | string>
 >;
+
+export type TypescriptFileImports = TypescriptFileImportList & {
+  $builtins?: TypescriptFileImportList;
+};
 
 export interface SourceFileHeaderProps extends ComponentProps {
   /**

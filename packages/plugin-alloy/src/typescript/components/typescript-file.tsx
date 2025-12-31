@@ -45,6 +45,7 @@ import {
   ComponentProps,
   SourceFileHeaderProps,
   TypescriptFileImportItem,
+  TypescriptFileImportList,
   TypescriptFileImports
 } from "../../types/components";
 
@@ -213,7 +214,9 @@ export function TypescriptFileHeaderImports(
 ) {
   const { imports } = props;
 
+  const context = usePowerlines();
   const sourceFile = useSourceFile();
+
   const scope = props.scope ?? sourceFile.scope;
 
   return (
@@ -223,34 +226,46 @@ export function TypescriptFileHeaderImports(
         (!!imports && Object.keys(imports).length > 0)
       }>
       <Show when={!!imports && Object.keys(imports).length > 0}>
-        {Object.entries(imports ?? {}).map(([module, imported]) => {
-          return code`import ${
-            imported === null
-              ? ""
-              : (
-                  imported.filter(
-                    i => !isString(i) && i.default
-                  ) as TypescriptFileImportItem[]
-                )
-                  .map(i => (i.alias ? i.alias : i.name))
-                  .join(", ") +
-                (imported.filter(i => !isString(i) && i.default).length > 0 &&
-                imported.filter(i => isString(i) || !i.default).length > 0
-                  ? ", "
-                  : "") +
-                (imported.filter(i => isString(i) || !i.default).length > 0
-                  ? `{ ${imported
-                      .map(i =>
-                        isString(i)
-                          ? i
-                          : i.alias
-                            ? `${i.name} as ${i.alias}`
-                            : i.name
-                      )
-                      .join(", ")} }`
-                  : "")
-          } from "${module}";`;
-        })}
+        {Object.entries((imports ?? {}) as TypescriptFileImportList)
+          .filter(([key]) => key !== "$builtins")
+          .concat(
+            imports && imports.$builtins
+              ? Object.entries(imports.$builtins).map(([key, entry]) => [
+                  key.includes(":")
+                    ? key
+                    : `${context.config.output.builtinPrefix}:${key}`,
+                  entry
+                ])
+              : []
+          )
+          .map(([module, imported]) => {
+            return code`import ${
+              imported === null
+                ? ""
+                : (
+                    imported.filter(
+                      i => !isString(i) && i.default
+                    ) as TypescriptFileImportItem[]
+                  )
+                    .map(i => (i.alias ? i.alias : i.name))
+                    .join(", ") +
+                  (imported.filter(i => !isString(i) && i.default).length > 0 &&
+                  imported.filter(i => isString(i) || !i.default).length > 0
+                    ? ", "
+                    : "") +
+                  (imported.filter(i => isString(i) || !i.default).length > 0
+                    ? `{ ${imported
+                        .map(i =>
+                          isString(i)
+                            ? i
+                            : i.alias
+                              ? `${i.name} as ${i.alias}`
+                              : i.name
+                        )
+                        .join(", ")} }`
+                    : "")
+            } from "${module}";`;
+          })}
       </Show>
       <Show when={scope.importedModules.size > 0}>
         <ImportStatements records={scope.importedModules} />
