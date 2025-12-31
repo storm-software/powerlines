@@ -16,8 +16,11 @@
 
  ------------------------------------------------------------------- */
 
+/* eslint-disable @nx/enforce-module-boundaries */
+
 import { computed, splitProps } from "@alloy-js/core";
-import { joinPaths } from "@stryke/path/join-paths";
+import { appendPath } from "@stryke/path/append";
+import { hasFileExtension } from "@stryke/path/file-path-fns";
 import defu from "defu";
 import { ResolvedEntryTypeDefinition } from "powerlines/types/resolved";
 import { usePowerlines } from "../../core/contexts/context";
@@ -51,7 +54,10 @@ export function EntryFile(props: EntryFileProps) {
 
   const context = usePowerlines();
   const fullPath = computed(() =>
-    joinPaths(context?.entryPath || "./", `${path}${tsx ? ".tsx" : ".ts"}`)
+    appendPath(
+      `${path}${hasFileExtension(path) && !tsx ? "" : tsx ? ".tsx" : ".ts"}`,
+      context?.entryPath || "./"
+    )
   );
 
   return (

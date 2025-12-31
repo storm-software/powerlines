@@ -16,7 +16,12 @@
 
  ------------------------------------------------------------------- */
 
-import { splitProps } from "@alloy-js/core";
+import { computed, splitProps } from "@alloy-js/core";
+import { appendPath } from "@stryke/path/append";
+import { hasFileExtension } from "@stryke/path/file-path-fns";
+import { replaceExtension } from "@stryke/path/replace";
+import { isSet } from "@stryke/type-checks/is-set";
+import { usePowerlines } from "../../core/contexts/context";
 import type { TSDocModuleProps } from "./tsdoc";
 import { TSDocModule } from "./tsdoc";
 import {
@@ -61,6 +66,16 @@ export function BuiltinFile(props: BuiltinFileProps) {
     ["children", "imports", "id", "description", "tsx"]
   );
 
+  const context = usePowerlines();
+  const path = computed(() =>
+    appendPath(
+      `${!isSet(tsx) ? id : replaceExtension(id)}${
+        hasFileExtension(id) && !isSet(tsx) ? "" : tsx ? ".tsx" : ".ts"
+      }`,
+      context?.builtinsPath || "./"
+    )
+  );
+
   return (
     <TypescriptFile
       header={
@@ -71,10 +86,10 @@ export function BuiltinFile(props: BuiltinFileProps) {
       }
       meta={{
         kind: "builtin",
-        id
+        id: replaceExtension(id)
       }}
       {...rest}
-      path={`${id}${tsx ? ".tsx" : ".ts"}`}>
+      path={path.value}>
       {children}
     </TypescriptFile>
   );
