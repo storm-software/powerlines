@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.37](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.37) (12/31/2025)
+
+### Bug Fixes
+
+- **plugin-deepkit:** Resolve invalid bundling of `@powerlines/deepkit/vendor`
+  source code
+  ([f844be6b](https://github.com/storm-software/powerlines/commit/f844be6b))
+
 ## [0.5.36](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.36) (12/31/2025)
 
 ### Updated Dependencies
