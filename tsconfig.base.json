@@ -52,6 +52,8 @@
       "@powerlines/plugin-jest/*": ["packages/plugin-jest/src/*"],
       "@powerlines/plugin-marked": ["packages/plugin-marked/src/index.ts"],
       "@powerlines/plugin-marked/*": ["packages/plugin-marked/src/*"],
+      "@powerlines/plugin-nodejs": ["packages/plugin-nodejs/src/index.ts"],
+      "@powerlines/plugin-nodejs/*": ["packages/plugin-nodejs/src/*"],
       "@powerlines/plugin-nitro": ["packages/plugin-nitro/src/index.ts"],
       "@powerlines/plugin-nitro/*": ["packages/plugin-nitro/src/*"],
       "@powerlines/plugin-openapi": ["packages/plugin-openapi/src/index.ts"],
