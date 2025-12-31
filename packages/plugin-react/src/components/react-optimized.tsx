@@ -16,20 +16,19 @@
 
  ------------------------------------------------------------------- */
 
-import { code, splitProps } from "@alloy-js/core";
+import { code, Show, splitProps } from "@alloy-js/core";
 import { FunctionDeclaration } from "@alloy-js/typescript";
-import { usePowerlines } from "@powerlines/alloy/core/contexts/context";
-import { refkey } from "@powerlines/alloy/helpers/refkey";
+import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
+import { refkey } from "@powerlines/plugin-alloy/helpers/refkey";
 import {
   BuiltinFile,
   BuiltinFileProps
-} from "@powerlines/alloy/typescript/components/builtin-file";
-
+} from "@powerlines/plugin-alloy/typescript/components/builtin-file";
 import {
   TSDoc,
   TSDocLink,
   TSDocReturns
-} from "@powerlines/alloy/typescript/components/tsdoc";
+} from "@powerlines/plugin-alloy/typescript/components/tsdoc";
 import defu from "defu";
 import { ReactPluginContext } from "../types/plugin";
 
@@ -78,9 +77,10 @@ export function ReactOptimizedBuiltin(props: ReactOptimizedBuiltinProps) {
         export={true}
         name="isOptimizationEnabled"
         returnType="boolean">
-        {override !== undefined
-          ? code`return ${override};`
-          : code`return !env.DISABLE_REACT_COMPILER && !isDevelopment; `}
+        <Show
+          when={override !== undefined}
+          fallback={code`return !env.DISABLE_REACT_COMPILER && !isDevelopment; `}>{code`return ${override};`}</Show>
+        <hbr />
       </FunctionDeclaration>
     </BuiltinFile>
   );
