@@ -21,6 +21,8 @@
 import { computed, splitProps } from "@alloy-js/core";
 import { appendPath } from "@stryke/path/append";
 import { hasFileExtension } from "@stryke/path/file-path-fns";
+import { replaceExtension } from "@stryke/path/replace";
+import { isSet } from "@stryke/type-checks/is-set";
 import defu from "defu";
 import { ResolvedEntryTypeDefinition } from "powerlines/types/resolved";
 import { usePowerlines } from "../../core/contexts/context";
@@ -55,8 +57,10 @@ export function EntryFile(props: EntryFileProps) {
   const context = usePowerlines();
   const fullPath = computed(() =>
     appendPath(
-      `${path}${hasFileExtension(path) && !tsx ? "" : tsx ? ".tsx" : ".ts"}`,
-      context?.entryPath || "./"
+      `${
+        !isSet(tsx) ? path : replaceExtension(path)
+      }${hasFileExtension(path) && !isSet(tsx) ? "" : tsx ? ".tsx" : ".ts"}`,
+      context.entryPath || "./"
     )
   );
 

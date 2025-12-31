@@ -72,7 +72,7 @@ export function BuiltinFile(props: BuiltinFileProps) {
       `${!isSet(tsx) ? id : replaceExtension(id)}${
         hasFileExtension(id) && !isSet(tsx) ? "" : tsx ? ".tsx" : ".ts"
       }`,
-      context?.builtinsPath || "./"
+      context.builtinsPath || "./"
     )
   );
 
