@@ -192,6 +192,7 @@ export class PowerlinesContext<
         projectRoot: config.root,
         name: config.name,
         title: config.title,
+        organization: config.organization,
         compatibilityDate: config.compatibilityDate,
         description: config.description,
         sourceRoot: config.sourceRoot,
@@ -1399,6 +1400,15 @@ export class PowerlinesContext<
     }
 
     this.config.title ??= titleCase(this.config.name);
+
+    this.config.organization ??=
+      (isSetObject(this.workspaceConfig.organization)
+        ? this.workspaceConfig.organization.name
+        : this.workspaceConfig.organization) ||
+      (isSetObject(this.packageJson?.author)
+        ? this.packageJson?.author?.name
+        : this.packageJson?.author) ||
+      this.config.name;
 
     if (this.config.userConfig.build?.external) {
       this.config.userConfig.build.external = getUnique(

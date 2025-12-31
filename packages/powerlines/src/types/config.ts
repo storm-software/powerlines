@@ -361,6 +361,14 @@ export interface CommonUserConfig extends BaseConfig {
   description?: string;
 
   /**
+   * The organization or author of the project
+   *
+   * @remarks
+   * If this option is not provided, the build process will try to use the \`author\` value from the \`package.json\` file. If the \`author\` value cannot be determined, the {@link name | name configuration} will be used.
+   */
+  organization?: string;
+
+  /**
    * The date to use for compatibility checks
    *
    * @remarks

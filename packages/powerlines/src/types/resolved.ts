@@ -86,6 +86,7 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
   TUserConfig,
   | "name"
   | "title"
+  | "organization"
   | "compatibilityDate"
   | "plugins"
   | "mode"
@@ -109,6 +110,7 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
       TUserConfig,
       | "name"
       | "title"
+      | "organization"
       | "compatibilityDate"
       | "plugins"
       | "mode"
