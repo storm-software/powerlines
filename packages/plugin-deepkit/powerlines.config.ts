@@ -27,6 +27,7 @@ export default defineConfig({
     unbundle: false,
     skipNodeModulesBundle: false,
     external: [
+      "@powerlines/deepkit",
       "@powerlines/deepkit/vendor/type-compiler",
       "@powerlines/deepkit/vendor/type-spec",
       "@powerlines/deepkit/vendor/type",

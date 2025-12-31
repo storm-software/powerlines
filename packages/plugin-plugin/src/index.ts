@@ -64,12 +64,19 @@ export const plugin = <
           variant: "tsdown",
           platform: "node",
           nodeProtocol: true,
-          unbundle: true,
+          unbundle: false,
           minify: false,
           export: {
             all: true
           },
-          skipNodeModulesBundle: true
+          skipNodeModulesBundle: true,
+          external: [
+            "@powerlines/deepkit",
+            "@powerlines/deepkit/vendor/type-compiler",
+            "@powerlines/deepkit/vendor/type-spec",
+            "@powerlines/deepkit/vendor/type",
+            "@powerlines/deepkit/vendor/core"
+          ]
         }
       };
     },
