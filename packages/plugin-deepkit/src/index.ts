@@ -49,17 +49,17 @@ export const plugin = <
             deepkit: options ?? {}
           },
           build: {
-            alias: {
-              "@deepkit/core": "@powerlines/deepkit/vendor/core",
-              "@deepkit/type": "@powerlines/deepkit/vendor/type",
-              "@deepkit/type-spec": "@powerlines/deepkit/vendor/type-spec",
-              "@deepkit/type-compiler":
-                "@powerlines/deepkit/vendor/type-compiler",
-              "@deepkit/type-compiler/compiler":
-                "@powerlines/deepkit/vendor/type-compiler/compiler",
-              "@deepkit/type-compiler/config":
-                "@powerlines/deepkit/vendor/type-compiler/config"
-            },
+            // alias: {
+            //   "@deepkit/core": "@powerlines/deepkit/vendor/core",
+            //   "@deepkit/type": "@powerlines/deepkit/vendor/type",
+            //   "@deepkit/type-spec": "@powerlines/deepkit/vendor/type-spec",
+            //   "@deepkit/type-compiler":
+            //     "@powerlines/deepkit/vendor/type-compiler",
+            //   "@deepkit/type-compiler/compiler":
+            //     "@powerlines/deepkit/vendor/type-compiler/compiler",
+            //   "@deepkit/type-compiler/config":
+            //     "@powerlines/deepkit/vendor/type-compiler/config"
+            // },
             external: ["@powerlines/deepkit"]
           }
         };
