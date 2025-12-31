@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.2](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.2) (12/31/2025)
+
+### Miscellaneous
+
+- **plugin-env:** Added support for the `children` property in `env` builtin
+  ([d6315ddd](https://github.com/storm-software/powerlines/commit/d6315ddd))
+
 ## [0.15.1](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.1) (12/31/2025)
 
 ### Updated Dependencies
