@@ -270,7 +270,10 @@ const envSerializerRefkey = refkey("EnvSerializer");
  * Generates the environment configuration module for the Powerlines project.
  */
 export function EnvBuiltin(props: EnvBuiltinProps) {
-  const [{ defaultConfig }, rest] = splitProps(props, ["defaultConfig"]);
+  const [{ defaultConfig, children }, rest] = splitProps(props, [
+    "defaultConfig",
+    "children"
+  ]);
 
   const context = usePowerlines<EnvPluginContext>();
 
@@ -316,9 +319,9 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
 
   return (
     <BuiltinFile
-      {...rest}
       id="env"
       description="The Powerlines environment configuration module provides an interface to define environment configuration parameters."
+      {...rest}
       imports={defu(
         {
           "@powerlines/deepkit/vendor/type": [
@@ -655,6 +658,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       />
       <hbr />
       <hbr />
+      <Show when={Boolean(children)}>{children}</Show>
     </BuiltinFile>
   );
 }
