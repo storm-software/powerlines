@@ -47,21 +47,17 @@ export const plugin = <
         return {
           transform: {
             deepkit: options ?? {}
+          },
+          build: {
+            unbundle: false,
+            skipNodeModulesBundle: false,
+            external: [
+              "@powerlines/deepkit/vendor/type-compiler",
+              "@powerlines/deepkit/vendor/type-spec",
+              "@powerlines/deepkit/vendor/type",
+              "@powerlines/deepkit/vendor/core"
+            ]
           }
-          // build: {
-          //   alias: {
-          //     "@deepkit/core": "@powerlines/deepkit/vendor/core",
-          //     "@deepkit/type": "@powerlines/deepkit/vendor/type",
-          //     "@deepkit/type-spec": "@powerlines/deepkit/vendor/type-spec",
-          //     "@deepkit/type-compiler":
-          //       "@powerlines/deepkit/vendor/type-compiler",
-          //     "@deepkit/type-compiler/compiler":
-          //       "@powerlines/deepkit/vendor/type-compiler/compiler",
-          //     "@deepkit/type-compiler/config":
-          //       "@powerlines/deepkit/vendor/type-compiler/config"
-          //   },
-          //   external: ["@powerlines/deepkit"]
-          // }
         };
       },
       configResolved: {

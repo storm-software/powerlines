@@ -22,5 +22,15 @@ import { defineConfig } from "powerlines";
 export default defineConfig({
   skipCache: true,
   entry: ["src/index.ts", "src/types/*.ts"],
-  plugins: [plugin()]
+  plugins: [plugin()],
+  build: {
+    unbundle: false,
+    skipNodeModulesBundle: false,
+    external: [
+      "@powerlines/deepkit/vendor/type-compiler",
+      "@powerlines/deepkit/vendor/type-spec",
+      "@powerlines/deepkit/vendor/type",
+      "@powerlines/deepkit/vendor/core"
+    ]
+  }
 });
