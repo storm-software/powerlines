@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.0](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.0) (12/31/2025)
+
+### Features
+
+- **plugin-env:** Added environment export constants to the builtin module
+  ([7a538a41](https://github.com/storm-software/powerlines/commit/7a538a41))
+
 ## [0.14.27](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.14.27) (12/31/2025)
 
 ### Bug Fixes
