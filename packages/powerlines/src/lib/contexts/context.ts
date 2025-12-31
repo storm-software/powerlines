@@ -916,8 +916,8 @@ export class PowerlinesContext<
     });
 
     return this.emit(
-      entryPath,
       code,
+      entryPath,
       defu(omit(options, ["name"]), {
         meta: {
           type: "entry",
@@ -957,8 +957,8 @@ export class PowerlinesContext<
     });
 
     return this.emitSync(
-      entryPath,
       code,
+      entryPath,
       defu(omit(options, ["name"]), {
         meta: {
           type: "entry",
@@ -988,12 +988,13 @@ export class PowerlinesContext<
     options: EmitOptions = {}
   ): Promise<void> {
     return this.emit(
+      code,
       path
         ? isAbsolute(path)
           ? path
           : joinPaths(this.builtinsPath, path)
         : appendPath(id, this.builtinsPath),
-      code,
+
       defu(options, { meta: { type: "builtin" } })
     );
   }
@@ -1013,12 +1014,12 @@ export class PowerlinesContext<
     options: EmitOptions = {}
   ) {
     return this.emitSync(
+      code,
       path
         ? isAbsolute(path)
           ? path
           : joinPaths(this.builtinsPath, path)
         : appendPath(id, this.builtinsPath),
-      code,
       defu(options, { meta: { type: "builtin" } })
     );
   }
