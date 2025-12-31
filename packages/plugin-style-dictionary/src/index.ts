@@ -16,6 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+/* eslint-disable @nx/enforce-module-boundaries */
+
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isFunction } from "@stryke/type-checks/is-function";
 import defu from "defu";
@@ -229,9 +231,11 @@ export const plugin = <
     prepare: {
       order: "pre",
       async handler() {
-        await this.styleDictionary.buildAllPlatforms({
-          cache: !this.config.skipCache
-        });
+        if (!this.config.styleDictionary.skipBuild) {
+          await this.styleDictionary.buildAllPlatforms({
+            cache: !this.config.skipCache
+          });
+        }
       }
     }
   };

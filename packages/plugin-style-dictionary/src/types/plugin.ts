@@ -16,6 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+/* eslint-disable @nx/enforce-module-boundaries */
+
 import { TypeDefinitionParameter } from "@stryke/types/configuration";
 import { EnvironmentConfig, UserConfig } from "powerlines/types/config";
 import { PluginContext } from "powerlines/types/context";
@@ -53,6 +55,16 @@ export type CustomPreprocessorsBuilder =
   StyleDictionaryExtensionBuilder<Preprocessor>;
 
 export type StyleDictionaryPluginOptions = Omit<Config, "platforms"> & {
+  /**
+   * Whether to skip the Style Dictionary build process.
+   *
+   * @remarks
+   * If set to `true`, the Style Dictionary build step will be skipped (ran during the "prepare" command), allowing for manual control over when the build occurs.
+   *
+   * @defaultValue false
+   */
+  skipBuild?: boolean;
+
   /**
    * Custom Style Dictionary actions to register.
    *
