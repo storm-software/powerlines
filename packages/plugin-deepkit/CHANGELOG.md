@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.10.136](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.10.136) (12/31/2025)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve isssue with incorrect `@deepkit/type` module
+  bundling
+  ([3959e3f7](https://github.com/storm-software/powerlines/commit/3959e3f7))
+
 ## [0.10.135](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.10.135) (12/31/2025)
 
 ### Bug Fixes

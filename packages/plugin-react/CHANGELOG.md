@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.130](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.130) (12/31/2025)
+
+### Features
+
+- **plugin-alloy:** Added the `$builtins` field to `imports` property
+  ([65dada6d](https://github.com/storm-software/powerlines/commit/65dada6d))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.18.0**
+- Updated **plugin-env** to **v0.15.1**
+
 ## [0.1.129](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.129) (12/31/2025)
 
 ### Updated Dependencies
