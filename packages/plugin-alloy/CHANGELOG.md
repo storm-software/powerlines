@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.17.3](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.17.3) (12/31/2025)
+
+### Miscellaneous
+
+- **plugin-alloy:** Ensure extension is not applied twice in `EntryFile`
+  component
+  ([bcc9c8fd](https://github.com/storm-software/powerlines/commit/bcc9c8fd))
+- **plugin-alloy:** Ensure `EntryFile` and `BuiltinFile` components handle paths
+  correctly
+  ([900f7ee2](https://github.com/storm-software/powerlines/commit/900f7ee2))
+
 ## [0.17.2](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.17.2) (12/31/2025)
 
 ### Bug Fixes
