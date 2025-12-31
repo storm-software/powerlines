@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.10.135](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.10.135) (12/31/2025)
+
+### Bug Fixes
+
+- **plugin-deepkit:** Resolve issue with invalid module ids in resolutions
+  ([4b36d06b](https://github.com/storm-software/powerlines/commit/4b36d06b))
+
 ## [0.10.134](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.10.134) (12/31/2025)
 
 ### Updated Dependencies
