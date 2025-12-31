@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.14.27](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.14.27) (12/31/2025)
+
+### Bug Fixes
+
+- **plugin-env:** Resolve issue with deprecated `alloy` package paths
+  ([865eb497](https://github.com/storm-software/powerlines/commit/865eb497))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.121**
+- Updated **plugin-plugin** to **v0.12.73**
+- Updated **plugin-alloy** to **v0.17.6**
+- Updated **plugin-babel** to **v0.12.130**
+- Updated **powerlines** to **v0.36.26**
+- Updated **deepkit** to **v0.5.36**
+
 ## [0.14.26](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.14.26) (12/31/2025)
 
 ### Updated Dependencies
