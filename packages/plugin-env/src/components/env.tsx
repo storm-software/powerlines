@@ -34,13 +34,18 @@ import {
   TypeDeclaration,
   VarDeclaration
 } from "@alloy-js/typescript";
-import { usePowerlines } from "@powerlines/alloy/core/contexts/context";
-import { refkey } from "@powerlines/alloy/helpers/refkey";
-import { ComponentProps } from "@powerlines/alloy/types/components";
+import {
+  ReflectionClass,
+  ReflectionKind,
+  ReflectionProperty
+} from "@powerlines/deepkit/vendor/type";
+import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
+import { refkey } from "@powerlines/plugin-alloy/helpers/refkey";
+import { ComponentProps } from "@powerlines/plugin-alloy/types/components";
 import {
   BuiltinFile,
   BuiltinFileProps
-} from "@powerlines/alloy/typescript/components/builtin-file";
+} from "@powerlines/plugin-alloy/typescript/components/builtin-file";
 import {
   TSDoc,
   TSDocExample,
@@ -49,17 +54,12 @@ import {
   TSDocRemarks,
   TSDocReturns,
   TSDocThrows
-} from "@powerlines/alloy/typescript/components/tsdoc";
+} from "@powerlines/plugin-alloy/typescript/components/tsdoc";
 import {
   TypeScriptInterface,
   TypeScriptInterfaceProps
-} from "@powerlines/alloy/typescript/components/typescript-interface";
-import { TypescriptObject } from "@powerlines/alloy/typescript/components/typescript-object";
-import {
-  ReflectionClass,
-  ReflectionKind,
-  ReflectionProperty
-} from "@powerlines/deepkit/vendor/type";
+} from "@powerlines/plugin-alloy/typescript/components/typescript-interface";
+import { TypescriptObject } from "@powerlines/plugin-alloy/typescript/components/typescript-object";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isNull } from "@stryke/type-checks/is-null";
 import defu from "defu";
@@ -530,11 +530,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         export={true}
         const={true}
         initializer={
-          <>
-            {code`createEnv(`}
-            {defaultConfig || "{}"}
-            {code` as Partial<Env>)`}
-          </>
+          <>{code`createEnv(${defaultConfig || "{}"} as Partial<Env>);`}</>
         }
       />
     </BuiltinFile>

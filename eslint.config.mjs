@@ -25,5 +25,8 @@ export default defineConfig({
   name: "powerlines",
   typescript: {
     typeImports: "off"
+  },
+  nx: {
+    moduleBoundaries: false
   }
 });

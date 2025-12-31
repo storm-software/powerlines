@@ -18,10 +18,10 @@
 
 import { code, Show } from "@alloy-js/core";
 import { Heading, Link } from "@alloy-js/markdown";
-import { usePowerlines } from "@powerlines/alloy/core/contexts/context";
-import { MarkdownFile } from "@powerlines/alloy/markdown/components/markdown-file";
-import { MarkdownTable } from "@powerlines/alloy/markdown/components/markdown-table";
 import { stringifyType } from "@powerlines/deepkit/vendor/type";
+import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
+import { MarkdownFile } from "@powerlines/plugin-alloy/markdown/components/markdown-file";
+import { MarkdownTable } from "@powerlines/plugin-alloy/markdown/components/markdown-table";
 import { joinPaths } from "@stryke/path/join";
 import { createReflectionResource } from "../helpers/create-reflection-resource";
 import { EnvPluginContext } from "../types/plugin";
