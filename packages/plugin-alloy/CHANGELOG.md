@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.0) (12/31/2025)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve isssue with incorrect `@deepkit/type` module
+  bundling
+  ([3959e3f7](https://github.com/storm-software/powerlines/commit/3959e3f7))
+
+### Features
+
+- **plugin-alloy:** Added the `$builtins` field to `imports` property
+  ([65dada6d](https://github.com/storm-software/powerlines/commit/65dada6d))
+
 ## [0.17.6](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.17.6) (12/31/2025)
 
 ### Updated Dependencies
