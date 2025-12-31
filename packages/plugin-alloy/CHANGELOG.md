@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.17.5](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.17.5) (12/31/2025)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with duplicated file paths in generated files
+  ([f9101f09](https://github.com/storm-software/powerlines/commit/f9101f09))
+
 ## [0.17.4](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.17.4) (12/31/2025)
 
 ### Updated Dependencies
