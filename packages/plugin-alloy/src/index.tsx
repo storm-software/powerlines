@@ -151,7 +151,7 @@ export const plugin = <
                         ...(metadata.typeDefinition ?? {})
                       });
                     } else {
-                      this.emitSync(file.path, file.contents, metadata);
+                      this.emitSync(file.contents, file.path, metadata);
                     }
                   } else {
                     this.fs.copySync(file.sourcePath, file.path);
