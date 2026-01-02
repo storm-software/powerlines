@@ -24,7 +24,9 @@
   "license": "Apache-2.0",
   "private": true,
   "packageManager": "pnpm@10.26.0",
-  "engines": { "pnpm": ">=10.24.0" },
+  "engines": {
+    "pnpm": ">=10.24.0"
+  },
   "keywords": ["storm-software", "storm", "storm-ops", "sullivanpj"],
   "scripts": {
     "adr": "pnpm log4brains adr new",
@@ -71,6 +73,9 @@
     "@storm-software/tsconfig": "catalog:",
     "@storm-software/untyped": "catalog:",
     "@storm-software/workspace-tools": "catalog:",
+    "@swc-node/register": "catalog:",
+    "@swc/core": "catalog:",
+    "@swc/helpers": "catalog:",
     "@taplo/cli": "catalog:",
     "@types/jest": "catalog:",
     "@types/node": "catalog:",
@@ -86,13 +91,15 @@
     "rimraf": "catalog:",
     "sherif": "catalog:",
     "ts-jest": "catalog:",
-    "ts-node": "catalog:",
     "tslib": "catalog:",
     "typescript": "^5.9.3",
     "verdaccio": "catalog:",
     "zx": "catalog:"
   },
-  "manypkg": { "defaultBranch": "main", "workspaceProtocol": "require" },
+  "manypkg": {
+    "defaultBranch": "main",
+    "workspaceProtocol": "require"
+  },
   "namespace": "@powerlines",
   "nx": {
     "includedScripts": [

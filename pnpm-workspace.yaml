@@ -100,7 +100,9 @@ catalog:
   "@stryke/type-checks": ^0.5.15
   "@stryke/types": ^0.10.29
   "@stryke/unique-id": ^0.3.38
+  "@swc-node/register": ^1.11.1
   "@swc/core": ^1.15.8
+  "@swc/helpers": ^0.5.18
   "@tamagui/static-worker": ^1.142.0
   "@tamagui/types": ^1.142.0
   "@taplo/cli": ^0.7.0
@@ -182,7 +184,7 @@ catalog:
   svgo: ^4.0.0
   ts-jest: 29.4.0
   ts-morph: ^27.0.2
-  ts-node: ^10.9.2
+  ts-node: ^0.0.0
   ts-pattern: ^5.9.0
   tsdown: 0.17.0-beta.5
   tslib: ^2.8.1
