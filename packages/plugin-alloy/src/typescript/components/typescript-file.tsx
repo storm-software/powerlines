@@ -19,6 +19,7 @@
 import type { Children } from "@alloy-js/core";
 import {
   code,
+  For,
   Scope,
   Show,
   SourceDirectoryContext,
@@ -45,7 +46,6 @@ import {
   ComponentProps,
   SourceFileHeaderProps,
   TypescriptFileImportItem,
-  TypescriptFileImportList,
   TypescriptFileImports
 } from "../../types/components";
 
@@ -226,46 +226,98 @@ export function TypescriptFileHeaderImports(
         (!!imports && Object.keys(imports).length > 0)
       }>
       <Show when={!!imports && Object.keys(imports).length > 0}>
-        {Object.entries((imports ?? {}) as TypescriptFileImportList)
-          .filter(([key]) => key !== "$builtins")
-          .concat(
-            imports && imports.$builtins
-              ? Object.entries(imports.$builtins).map(([key, entry]) => [
-                  key.includes(":")
-                    ? key
-                    : `${context.config.output.builtinPrefix}:${key}`,
-                  entry
-                ])
-              : []
-          )
-          .map(([module, imported]) => {
+        <For each={Object.entries(imports ?? {})}>
+          {([module, imported]) => {
+            if (module === "$builtins") {
+              return (
+                <For
+                  each={Object.entries(
+                    (imported ?? {}) as Record<
+                      string,
+                      null | Array<TypescriptFileImportItem | string>
+                    >
+                  )}>
+                  {([builtinModule, builtinImports]) =>
+                    code`import ${
+                      builtinImports === null
+                        ? ""
+                        : ` from ${
+                            (
+                              builtinImports.filter(
+                                i => !isString(i) && i.default
+                              ) as TypescriptFileImportItem[]
+                            )
+                              .map(i => (i.alias ? i.alias : i.name))
+                              .join(", ") +
+                            (builtinImports.filter(
+                              i => !isString(i) && i.default
+                            ).length > 0 &&
+                            builtinImports.filter(
+                              i => isString(i) || !i.default
+                            ).length > 0
+                              ? ", "
+                              : "") +
+                            (builtinImports.filter(
+                              i => isString(i) || !i.default
+                            ).length > 0
+                              ? `{ ${builtinImports
+                                  .map(i =>
+                                    isString(i)
+                                      ? i
+                                      : i.alias
+                                        ? `${i.name} as ${i.alias}`
+                                        : i.name
+                                  )
+                                  .join(", ")} }`
+                              : "")
+                          } `
+                    } "${
+                      builtinModule.includes(":")
+                        ? builtinModule
+                        : `${context.config.output.builtinPrefix}:${builtinModule}`
+                    }";`
+                  }
+                </For>
+              );
+            }
+
+            const normalImports = imported as Array<
+              TypescriptFileImportItem | string
+            > | null;
+
             return code`import ${
-              imported === null
+              normalImports === null
                 ? ""
-                : (
-                    imported.filter(
-                      i => !isString(i) && i.default
-                    ) as TypescriptFileImportItem[]
-                  )
-                    .map(i => (i.alias ? i.alias : i.name))
-                    .join(", ") +
-                  (imported.filter(i => !isString(i) && i.default).length > 0 &&
-                  imported.filter(i => isString(i) || !i.default).length > 0
-                    ? ", "
-                    : "") +
-                  (imported.filter(i => isString(i) || !i.default).length > 0
-                    ? `{ ${imported
-                        .map(i =>
-                          isString(i)
-                            ? i
-                            : i.alias
-                              ? `${i.name} as ${i.alias}`
-                              : i.name
-                        )
-                        .join(", ")} }`
-                    : "")
-            } from "${module}";`;
-          })}
+                : ` from ${
+                    (
+                      normalImports.filter(
+                        i => !isString(i) && i.default
+                      ) as TypescriptFileImportItem[]
+                    )
+                      .map(i => (i.alias ? i.alias : i.name))
+                      .join(", ") +
+                    (normalImports.filter(i => !isString(i) && i.default)
+                      .length > 0 &&
+                    normalImports.filter(i => isString(i) || !i.default)
+                      .length > 0
+                      ? ", "
+                      : "") +
+                    (normalImports.filter(i => isString(i) || !i.default)
+                      .length > 0
+                      ? `{ ${normalImports
+                          .map(i =>
+                            isString(i)
+                              ? i
+                              : i.alias
+                                ? `${i.name} as ${i.alias}`
+                                : i.name
+                          )
+                          .join(", ")} }`
+                      : "")
+                  } `
+            } "${module}";`;
+          }}
+        </For>
       </Show>
       <Show when={scope.importedModules.size > 0}>
         <ImportStatements records={scope.importedModules} />
