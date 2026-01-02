@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.5](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.5) (01/01/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with incorrectly bundled `alloy-js` packages
+  ([2370dc06](https://github.com/storm-software/powerlines/commit/2370dc06))
+
 ## [0.18.4](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.4) (01/01/2026)
 
 ### Features

@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.7](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.7) (01/01/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Ensure `alloy-js` packages are marked as external
+  ([fbb5f144](https://github.com/storm-software/powerlines/commit/fbb5f144))
+
+### Bug Fixes
+
+- **plugin-env:** Resolve typescript build issues
+  ([c5ac15d6](https://github.com/storm-software/powerlines/commit/c5ac15d6))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.18.5**
+
 ## [0.15.6](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.6) (01/01/2026)
 
 ### Features
