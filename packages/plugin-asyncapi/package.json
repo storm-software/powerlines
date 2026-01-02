@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-asyncapi",
-  "version": "0.1.128",
+  "version": "0.1.129",
   "type": "module",
   "description": "A Powerlines plugin to generate project code from AsyncAPI specifications.",
   "repository": {

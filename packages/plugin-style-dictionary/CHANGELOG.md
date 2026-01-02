@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.26](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.26) (01/02/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.77**
+- Updated **powerlines** to **v0.36.29**
+- Updated **nx** to **v0.11.55**
+
 ## [0.3.25](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.25) (01/01/2026)
 
 ### Updated Dependencies
