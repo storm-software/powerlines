@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.36.27](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.27) (12/31/2025)
+
+### Miscellaneous
+
+- **powerlines:** Added the `organization` configuration property
+  ([5c653598](https://github.com/storm-software/powerlines/commit/5c653598))
+
 ## [0.36.25](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.25) (12/31/2025)
 
 ### Bug Fixes
