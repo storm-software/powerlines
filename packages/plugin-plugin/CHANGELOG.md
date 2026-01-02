@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.76](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.76) (01/01/2026)
+
+### Features
+
+- **plugin-deepkit:** Resolve issues preventing build completions
+  ([b29311ff](https://github.com/storm-software/powerlines/commit/b29311ff))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.36.28**
+- Updated **nx** to **v0.11.54**
+
 ## [0.12.75](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.75) (12/31/2025)
 
 ### Updated Dependencies
