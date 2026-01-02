@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { findFileExtensionSafe } from "@stryke/path/find";
 import defu from "defu";
 import { ConfigResult, Plugin } from "powerlines/types/plugin";
 import ts from "typescript";
@@ -35,8 +36,8 @@ export * from "./types";
  * @returns A Powerlines plugin that integrates TypeScript Compiler transformations.
  */
 export const plugin = <
-  TContext extends
-    TypeScriptCompilerPluginContext = TypeScriptCompilerPluginContext
+  TContext extends TypeScriptCompilerPluginContext =
+    TypeScriptCompilerPluginContext
 >(
   options: TypeScriptCompilerPluginOptions = {}
 ): Plugin<TContext> => {
@@ -57,6 +58,13 @@ export const plugin = <
       }
     },
     async transform(code: string, id: string) {
+      if (
+        findFileExtensionSafe(id).toLowerCase() !== "ts" ||
+        id.endsWith(".d.ts")
+      ) {
+        return { code, id };
+      }
+
       const result = ts.transpileModule(code, {
         ...this.config.transform.tsc,
         compilerOptions: {

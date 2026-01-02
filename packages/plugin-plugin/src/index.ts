@@ -64,7 +64,7 @@ export const plugin = <
           variant: "tsdown",
           platform: "node",
           nodeProtocol: true,
-          unbundle: false,
+          unbundle: true,
           minify: false,
           export: {
             all: true

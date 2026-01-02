@@ -24,7 +24,7 @@
       "args": [
         "nx",
         "run",
-        "plugin-env:clean:development",
+        "plugin-env:build:development",
         "--outputStyle=dynamic-legacy",
         "--skipNxCache"
       ],

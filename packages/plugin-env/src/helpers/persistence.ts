@@ -32,7 +32,6 @@ import {
   writeFileBuffer,
   writeFileBufferSync
 } from "@stryke/fs/buffer";
-import { resolvePackage } from "@stryke/fs/resolve";
 import { joinPaths } from "@stryke/path/join-paths";
 import { isEmptyObject } from "@stryke/type-checks/is-empty-object";
 import type { TypeDefinition } from "@stryke/types/configuration";
@@ -54,15 +53,7 @@ import { createEnvReflection } from "./reflect";
 export async function resolveRuntimeTypeFile(
   context: UnresolvedContext<EnvPluginResolvedConfig>
 ): Promise<string> {
-  return resolvePackage("@powerlines/plugin-env/types/runtime", {
-    paths: [
-      context.workspaceConfig.workspaceRoot,
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.projectRoot
-      )
-    ]
-  });
+  return context.resolver.esmResolve("@powerlines/plugin-env/types/runtime");
 }
 
 /**

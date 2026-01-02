@@ -18,7 +18,6 @@
 
 import babel from "@powerlines/plugin-babel";
 import env from "@powerlines/plugin-env";
-import defu from "defu";
 import { isMatchFound } from "powerlines/lib/typescript/tsconfig";
 import { Plugin } from "powerlines/types/plugin";
 import { NodeJsEnvBuiltin } from "./components/env";
@@ -37,22 +36,9 @@ export const plugin = <
 ) => {
   return [
     babel(options.babel),
-    env(options.env),
+    ...env<TContext>(options.env),
     {
       name: "nodejs",
-      config() {
-        return defu(
-          {
-            nodejs: options
-          },
-          {
-            nodejs: {
-              jsxImportSource: this.tsconfig.tsconfigJson.compilerOptions
-                ?.jsxImportSource as string
-            }
-          }
-        );
-      },
       configResolved() {
         this.devDependencies["@types/node"] = "^22.14.6";
 
@@ -68,7 +54,9 @@ export const plugin = <
         }
       },
       async prepare() {
-        return this.render(<NodeJsEnvBuiltin />);
+        return this.render(
+          <NodeJsEnvBuiltin defaultConfig={this.config.env.defaultConfig} />
+        );
       }
     }
   ] as Plugin<TContext>[];

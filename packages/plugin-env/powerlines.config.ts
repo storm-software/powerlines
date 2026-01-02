@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import alloy from "@powerlines/plugin-alloy";
+import deepkit from "@powerlines/plugin-deepkit";
 import plugin from "@powerlines/plugin-plugin";
 import { defineConfig } from "powerlines";
 
@@ -30,9 +31,21 @@ export default defineConfig({
   ],
   plugins: [
     plugin(),
+    deepkit({
+      reflectionLevel: "verbose"
+    }),
     alloy({
       json: true,
       markdown: true
     })
   ]
+  // build: {
+  //   inputOptions: {
+  //     transform: {
+  //       typescript: {
+  //         onlyRemoveTypeImports: true
+  //       }
+  //     }
+  //   }
+  // }
 });

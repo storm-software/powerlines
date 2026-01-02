@@ -49,10 +49,7 @@ export const plugin = <
             deepkit: options ?? {}
           },
           build: {
-            unbundle: false,
-            skipNodeModulesBundle: false,
             external: [
-              "@powerlines/deepkit",
               "@powerlines/deepkit/vendor/type-compiler",
               "@powerlines/deepkit/vendor/type-spec",
               "@powerlines/deepkit/vendor/type",
@@ -95,7 +92,8 @@ export const plugin = <
             ...(this.config.transform.tsc.compilerOptions ?? {}),
             exclude: this.config.transform.deepkit.exclude ?? [],
             reflection,
-            reflectionLevel
+            reflectionLevel,
+            configFilePath: this.tsconfig.tsconfigFilePath
           };
 
           this.config.transform.tsc.transformers ??= {

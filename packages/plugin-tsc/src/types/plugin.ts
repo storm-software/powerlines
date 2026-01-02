@@ -53,6 +53,6 @@ export interface TypeScriptCompilerPluginResolvedConfig extends ResolvedConfig {
 }
 
 export type TypeScriptCompilerPluginContext<
-  TResolvedConfig extends
-    TypeScriptCompilerPluginResolvedConfig = TypeScriptCompilerPluginResolvedConfig
+  TResolvedConfig extends TypeScriptCompilerPluginResolvedConfig =
+    TypeScriptCompilerPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;

@@ -36,21 +36,11 @@ export interface NodeJsPluginOptions {
   env?: Partial<Omit<EnvPluginOptions, "babel">>;
 }
 
-export type NodeJsPluginUserConfig = EnvPluginUserConfig & {
-  /**
-   * Options for the NodeJs plugin.
-   */
-  nodejs?: NodeJsPluginOptions;
-};
+export type NodeJsPluginUserConfig = EnvPluginUserConfig;
 
-export type NodeJsPluginResolvedConfig = EnvPluginResolvedConfig & {
-  /**
-   * Options for the Node.js plugin.
-   */
-  nodejs: NodeJsPluginOptions;
-};
+export type NodeJsPluginResolvedConfig = EnvPluginResolvedConfig;
 
-export interface NodeJsPluginContext<
+export type NodeJsPluginContext<
   TResolvedConfig extends NodeJsPluginResolvedConfig =
     NodeJsPluginResolvedConfig
-> extends EnvPluginContext<TResolvedConfig> {}
+> = EnvPluginContext<TResolvedConfig>;
