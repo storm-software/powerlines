@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.7](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.7) (01/02/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issues with typescript types
+  ([8c34323c](https://github.com/storm-software/powerlines/commit/8c34323c))
+
 ## [0.18.6](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.6) (01/02/2026)
 
 ### Updated Dependencies
