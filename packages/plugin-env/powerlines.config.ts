@@ -38,14 +38,13 @@ export default defineConfig({
       json: true,
       markdown: true
     })
-  ]
-  // build: {
-  //   inputOptions: {
-  //     transform: {
-  //       typescript: {
-  //         onlyRemoveTypeImports: true
-  //       }
-  //     }
-  //   }
-  // }
+  ],
+  build: {
+    external: [
+      "@alloy-js/core",
+      "@alloy-js/typescript",
+      "@alloy-js/json",
+      "@alloy-js/markdown"
+    ]
+  }
 });
