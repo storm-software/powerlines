@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.132](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.132) (01/01/2026)
+
+### Features
+
+- **plugin-deepkit:** Resolve issues preventing build completions
+  ([b29311ff](https://github.com/storm-software/powerlines/commit/b29311ff))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.76**
+- Updated **powerlines** to **v0.36.28**
+- Updated **nx** to **v0.11.54**
+
 ## [0.2.131](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.131) (12/31/2025)
 
 ### Updated Dependencies
