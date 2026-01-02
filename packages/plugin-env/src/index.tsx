@@ -138,7 +138,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           [...ENV_PREFIXES, "POWERLINES_"] as string[]
         );
 
-        config.env.prefix = config.env.prefix.reduce((ret, prefix) => {
+        config.env.prefix = toArray(config.env.prefix).reduce((ret, prefix) => {
           if (!ret.includes(prefix.replace(/_$/g, ""))) {
             ret.push(prefix.replace(/_$/g, ""));
           }
