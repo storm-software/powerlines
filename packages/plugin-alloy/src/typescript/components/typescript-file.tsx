@@ -54,6 +54,7 @@ export type TypescriptFileProps = Omit<SourceFileProps, "filetype"> &
     hashbang?: Children | true;
     header?: Children;
     imports?: TypescriptFileImports;
+    builtinImports?: TypescriptFileImports;
     export?: boolean | string;
     tsx?: boolean;
   };
@@ -200,6 +201,7 @@ export function TypescriptFileHeader(props: TypescriptFileHeaderProps) {
 
 export interface TypescriptFileHeaderImportsProps extends SourceFileHeaderProps {
   imports?: TypescriptFileImports;
+  builtinImports?: TypescriptFileImports;
   scope?: TSModuleScope;
 }
 
@@ -212,7 +214,7 @@ export interface TypescriptFileHeaderImportsProps extends SourceFileHeaderProps 
 export function TypescriptFileHeaderImports(
   props: TypescriptFileHeaderImportsProps
 ) {
-  const { imports } = props;
+  const { imports, builtinImports } = props;
 
   const context = usePowerlines();
   const sourceFile = useSourceFile();
@@ -223,68 +225,12 @@ export function TypescriptFileHeaderImports(
     <Show
       when={
         scope.importedModules.size > 0 ||
+        (!!builtinImports && Object.keys(builtinImports).length > 0) ||
         (!!imports && Object.keys(imports).length > 0)
       }>
       <Show when={!!imports && Object.keys(imports).length > 0}>
         <For each={Object.entries(imports ?? {})}>
-          {([module, imported]) => {
-            if (module === "$builtins") {
-              return (
-                <For
-                  each={Object.entries(
-                    (imported ?? {}) as Record<
-                      string,
-                      null | Array<TypescriptFileImportItem | string>
-                    >
-                  )}>
-                  {([builtinModule, builtinImports]) =>
-                    code`import ${
-                      builtinImports === null
-                        ? ""
-                        : ` from ${
-                            (
-                              builtinImports.filter(
-                                i => !isString(i) && i.default
-                              ) as TypescriptFileImportItem[]
-                            )
-                              .map(i => (i.alias ? i.alias : i.name))
-                              .join(", ") +
-                            (builtinImports.filter(
-                              i => !isString(i) && i.default
-                            ).length > 0 &&
-                            builtinImports.filter(
-                              i => isString(i) || !i.default
-                            ).length > 0
-                              ? ", "
-                              : "") +
-                            (builtinImports.filter(
-                              i => isString(i) || !i.default
-                            ).length > 0
-                              ? `{ ${builtinImports
-                                  .map(i =>
-                                    isString(i)
-                                      ? i
-                                      : i.alias
-                                        ? `${i.name} as ${i.alias}`
-                                        : i.name
-                                  )
-                                  .join(", ")} }`
-                              : "")
-                          } `
-                    } "${
-                      builtinModule.includes(":")
-                        ? builtinModule
-                        : `${context.config.output.builtinPrefix}:${builtinModule}`
-                    }";`
-                  }
-                </For>
-              );
-            }
-
-            const normalImports = imported as Array<
-              TypescriptFileImportItem | string
-            > | null;
-
+          {([module, normalImports]) => {
             return code`import ${
               normalImports === null
                 ? ""
@@ -317,6 +263,53 @@ export function TypescriptFileHeaderImports(
                   } `
             } "${module}";`;
           }}
+        </For>
+      </Show>
+      <Show when={builtinImports && Object.keys(builtinImports).length > 0}>
+        <For
+          each={Object.entries(
+            (builtinImports ?? {}) as Record<
+              string,
+              null | Array<TypescriptFileImportItem | string>
+            >
+          )}>
+          {([builtinModule, builtinImports]) =>
+            code`import ${
+              builtinImports === null
+                ? ""
+                : ` from ${
+                    (
+                      builtinImports.filter(
+                        i => !isString(i) && i.default
+                      ) as TypescriptFileImportItem[]
+                    )
+                      .map(i => (i.alias ? i.alias : i.name))
+                      .join(", ") +
+                    (builtinImports.filter(i => !isString(i) && i.default)
+                      .length > 0 &&
+                    builtinImports.filter(i => isString(i) || !i.default)
+                      .length > 0
+                      ? ", "
+                      : "") +
+                    (builtinImports.filter(i => isString(i) || !i.default)
+                      .length > 0
+                      ? `{ ${builtinImports
+                          .map(i =>
+                            isString(i)
+                              ? i
+                              : i.alias
+                                ? `${i.name} as ${i.alias}`
+                                : i.name
+                          )
+                          .join(", ")} }`
+                      : "")
+                  } `
+            } "${
+              builtinModule.includes(":")
+                ? builtinModule
+                : `${context.config.output.builtinPrefix}:${builtinModule}`
+            }";`
+          }
         </For>
       </Show>
       <Show when={scope.importedModules.size > 0}>

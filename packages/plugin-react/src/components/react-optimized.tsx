@@ -50,11 +50,9 @@ export function ReactOptimizedBuiltin(props: ReactOptimizedBuiltinProps) {
       {...rest}
       id="react/optimized"
       description="A built-in module to provide access to environment configuration to determine React optimizations."
-      imports={defu(
-        {
-          $builtins: { env: ["env", "isDevelopment"] }
-        },
-        rest.imports ?? {}
+      builtinImports={defu(
+        { env: ["env", "isDevelopment"] },
+        rest.builtinImports ?? {}
       )}>
       <TSDoc heading="A gating function to determine if the optimized [React compiler](https://react.dev/reference/react-compiler) source code should be used.">
         <TSDocLink>
