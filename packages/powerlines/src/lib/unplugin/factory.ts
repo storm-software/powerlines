@@ -18,21 +18,19 @@
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { getWorkspaceRoot } from "@stryke/fs/get-workspace-root";
+import { API } from "powerlines/types/api";
+import { LoadResult } from "rolldown";
 import type {
+  UnpluginOptions as BaseUnpluginOptions,
   TransformResult,
   UnpluginBuildContext,
   UnpluginContext
 } from "unplugin";
 import { setParseImpl } from "unplugin";
 import { PowerlinesAPI } from "../../api";
-import { UnpluginBuildVariant } from "../../types/build";
+import { UnpluginBuilderVariant } from "../../types/build";
 import { Context } from "../../types/context";
-import { InferResolvedConfig } from "../../types/resolved";
-import {
-  InferUnpluginOptions,
-  PowerlinesUnpluginFactory,
-  PowerlinesUnpluginOptions
-} from "../../types/unplugin";
+import { UnpluginFactory, UnpluginOptions } from "../../types/unplugin";
 import { createLog } from "../logger";
 import { getString } from "../utilities/source-file";
 
@@ -44,18 +42,16 @@ import { getString } from "../utilities/source-file";
  * @returns The unplugin factory that generates a plugin instance.
  */
 export function createUnpluginFactory<
-  TBuildVariant extends UnpluginBuildVariant,
-  TContext extends Context<InferResolvedConfig<TBuildVariant>> = Context<
-    InferResolvedConfig<TBuildVariant>
-  >
+  TContext extends Context,
+  TUnpluginBuilderVariant extends UnpluginBuilderVariant
 >(
-  variant: TBuildVariant,
+  variant: TUnpluginBuilderVariant,
   decorate?: (
-    api: PowerlinesAPI<TContext["config"]>,
-    plugin: Omit<PowerlinesUnpluginOptions<TBuildVariant>, UnpluginBuildVariant>
-  ) => InferUnpluginOptions<TBuildVariant>
-): PowerlinesUnpluginFactory<TBuildVariant> {
-  return (config, meta) => {
+    api: API<TContext["config"]>,
+    plugin: UnpluginOptions
+  ) => BaseUnpluginOptions
+): UnpluginFactory<TUnpluginBuilderVariant> {
+  return (config, meta): UnpluginOptions => {
     const log = createLog("unplugin", config);
     log(LogLevelLabel.DEBUG, "Initializing Unplugin");
 
@@ -66,7 +62,7 @@ export function createUnpluginFactory<
         unplugin: meta
       } as TContext["config"]["userConfig"];
 
-      let api!: PowerlinesAPI<TContext["config"]>;
+      let api!: API<TContext["config"]>;
 
       async function buildStart(this: UnpluginBuildContext): Promise<void> {
         log(LogLevelLabel.DEBUG, "Powerlines build plugin starting...");
@@ -101,7 +97,7 @@ export function createUnpluginFactory<
       async function load(
         this: UnpluginBuildContext & UnpluginContext,
         id: string
-      ): Promise<TransformResult> {
+      ): Promise<LoadResult> {
         const environment = await api.context.getEnvironment();
 
         let result = await api.callHook(
@@ -154,7 +150,7 @@ export function createUnpluginFactory<
         });
       }
 
-      const result = {
+      const options = {
         name: "powerlines",
         api,
         resolveId: {
@@ -176,9 +172,13 @@ export function createUnpluginFactory<
         transform,
         buildStart,
         writeBundle
-      } satisfies PowerlinesUnpluginOptions<TBuildVariant>;
+      } as UnpluginOptions;
 
-      return decorate ? decorate(api, result) : result;
+      const result = decorate ? decorate(api, options) : options;
+
+      log(LogLevelLabel.DEBUG, "Unplugin initialized successfully.");
+
+      return { api, ...result };
     } catch (error) {
       log(LogLevelLabel.FATAL, (error as Error)?.message);
 

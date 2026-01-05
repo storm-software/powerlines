@@ -84,7 +84,7 @@ import type {
   EnvironmentContext,
   PluginContext
 } from "./types/context";
-import { HookKeys, InferHookParameters } from "./types/hooks";
+import { InferHookParameters } from "./types/hooks";
 import { UNSAFE_APIContext } from "./types/internal";
 import type { Plugin, TypesResult } from "./types/plugin";
 import { EnvironmentResolvedConfig, ResolvedConfig } from "./types/resolved";
@@ -783,14 +783,14 @@ ${formatTypes(types)}
    * @param args - The arguments to pass to the hook
    * @returns The result of the hook call
    */
-  public async callHook<TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
+  public async callHook<TKey extends string>(
     hook: TKey,
     options: CallHookOptions & {
       environment?: string | EnvironmentContext<TResolvedConfig>;
     },
     ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
   ) {
-    return callHook<TResolvedConfig, EnvironmentContext<TResolvedConfig>, TKey>(
+    return callHook<TResolvedConfig, TKey>(
       isSetObject(options?.environment)
         ? options.environment
         : await this.#context.getEnvironment(options?.environment),
@@ -992,7 +992,7 @@ ${formatTypes(types)}
       >;
     }
 
-    if (!isPluginConfig(awaited)) {
+    if (!isPluginConfig<PluginContext<TResolvedConfig>>(awaited)) {
       const invalid = findInvalidPluginConfig(awaited);
 
       throw new Error(
@@ -1024,7 +1024,7 @@ ${formatTypes(types)}
         isPlugin<PluginContext<TResolvedConfig>>
       )
     ) {
-      plugins = awaited;
+      plugins = awaited as Plugin<PluginContext<TResolvedConfig>>[];
     } else if (
       Array.isArray(awaited) &&
       (awaited as PluginConfig<PluginContext<TResolvedConfig>>[]).every(
@@ -1040,14 +1040,17 @@ ${formatTypes(types)}
           plugins.push(...initialized);
         }
       }
-    } else if (isPluginConfigTuple(awaited) || isPluginConfigObject(awaited)) {
+    } else if (
+      isPluginConfigTuple<PluginContext<TResolvedConfig>>(awaited) ||
+      isPluginConfigObject<PluginContext<TResolvedConfig>>(awaited)
+    ) {
       let pluginConfig!:
         | string
         | PluginFactory<PluginContext<TResolvedConfig>>
         | Plugin<PluginContext<TResolvedConfig>>;
       let pluginOptions: any;
 
-      if (isPluginConfigTuple(awaited)) {
+      if (isPluginConfigTuple<PluginContext<TResolvedConfig>>(awaited)) {
         pluginConfig = awaited[0] as Plugin<PluginContext<TResolvedConfig>>;
         pluginOptions =
           (awaited as PluginConfigTuple)?.length === 2 ? awaited[1] : undefined;
@@ -1076,7 +1079,7 @@ ${formatTypes(types)}
         pluginConfig.every(isPlugin<PluginContext<TResolvedConfig>>)
       ) {
         plugins = pluginConfig;
-      } else if (isPlugin(pluginConfig)) {
+      } else if (isPlugin<PluginContext<TResolvedConfig>>(pluginConfig)) {
         plugins = toArray(pluginConfig);
       }
     }

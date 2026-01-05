@@ -40,8 +40,10 @@ const mergePlugin = createDefu((obj, key, value) => {
       ...value,
       handler: async (...params: any[]) => {
         const [resultA, resultB] = await Promise.all([
-          getHookHandler(obj[key])(...params),
-          getHookHandler(value)(...params)
+          // eslint-disable-next-line ts/no-unsafe-call
+          (getHookHandler(obj[key]) as any)(...params),
+          // eslint-disable-next-line ts/no-unsafe-call
+          (getHookHandler(value) as any)(...params)
         ]);
 
         return resultB && resultA ? defu(resultA, resultB) : resultA || resultB;

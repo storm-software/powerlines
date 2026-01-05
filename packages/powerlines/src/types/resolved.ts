@@ -20,7 +20,7 @@ import type { NonUndefined } from "@stryke/types/base";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import type { AssetGlob } from "@stryke/types/file";
 import type { ResolvedPreviewOptions } from "vite";
-import type { BuildVariant } from "./build";
+import type { BuilderVariant } from "./build";
 import type {
   BabelUserConfig,
   EnvironmentConfig,
@@ -166,7 +166,7 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
      * Configuration provided to build processes
      *
      * @remarks
-     * This configuration can be used by plugins during the `build` command. It will generally contain options specific to the selected {@link BuildVariant | build variant}.
+     * This configuration can be used by plugins during the `build` command. It will generally contain options specific to the selected {@link BuilderVariant | build variant}.
      */
     build: Omit<TUserConfig["build"], "override"> &
       Required<Pick<Required<TUserConfig["build"]>, "override">>;
@@ -200,7 +200,7 @@ export type UnbuildResolvedConfig = ResolvedConfig<UnbuildUserConfig>;
 export type FarmResolvedConfig = ResolvedConfig<FarmUserConfig>;
 
 export type InferResolvedConfig<
-  TBuildVariant extends BuildVariant | undefined
+  TBuildVariant extends BuilderVariant | undefined
 > = TBuildVariant extends undefined
   ? ResolvedConfig
   : TBuildVariant extends "webpack"

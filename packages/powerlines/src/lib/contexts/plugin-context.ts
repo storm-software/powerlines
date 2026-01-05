@@ -22,11 +22,7 @@ import { UnpluginMessage } from "unplugin";
 import { CallHookOptions } from "../../internal/helpers/hooks";
 import { LogFn } from "../../types/config";
 import { EnvironmentContext, PluginContext } from "../../types/context";
-import {
-  HookKeys,
-  InferHookParameters,
-  InferHookReturnType
-} from "../../types/hooks";
+import { InferHookParameters, InferHookReturnType } from "../../types/hooks";
 import {
   UNSAFE_EnvironmentContext,
   UNSAFE_PluginContext
@@ -53,9 +49,7 @@ export function createPluginContext<
 
   const log: LogFn = environment.extendLog(plugin.name.replaceAll(":", " - "));
 
-  const callHookFn = async <
-    TKey extends HookKeys<PluginContext<TResolvedConfig>>
-  >(
+  const callHookFn = async <TKey extends string>(
     hook: TKey,
     options: CallHookOptions,
     ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>

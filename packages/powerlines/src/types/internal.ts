@@ -27,7 +27,7 @@ import {
   EnvironmentContext,
   PluginContext
 } from "./context";
-import { HookKeys, InferHookParameters, InferHookReturnType } from "./hooks";
+import { InferHookParameters, InferHookReturnType } from "./hooks";
 import { ResolvedConfig } from "./resolved";
 
 /**
@@ -100,9 +100,11 @@ export interface UNSAFE_PluginContextInternal<
 > extends UNSAFE_ContextInternal<TResolvedConfig> {
   api: API<TResolvedConfig>;
   environment: UNSAFE_EnvironmentContext<TResolvedConfig>;
-  callHook: <TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
+  callHook: <TKey extends string>(
     hook: TKey,
-    options: CallHookOptions,
+    options: CallHookOptions & {
+      environment?: string | EnvironmentContext<TResolvedConfig>;
+    },
     ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
   ) => Promise<
     InferHookReturnType<PluginContext<TResolvedConfig>, TKey> | undefined

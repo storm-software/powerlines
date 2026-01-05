@@ -17,15 +17,11 @@
  ------------------------------------------------------------------- */
 
 import type { ArrayValues } from "@stryke/types/array";
-import type { FunctionLike, MaybePromise } from "@stryke/types/base";
-import type {
-  ExternalIdResult,
-  HookFilter,
-  TransformResult,
-  UnpluginOptions
-} from "unplugin";
-import type { UnpluginBuildVariant } from "./build";
-import { UNPLUGIN_BUILD_VARIANTS } from "./build";
+import type { AnyFunction, MaybePromise } from "@stryke/types/base";
+import { LoadResult } from "rollup";
+import type { ExternalIdResult, HookFilter, TransformResult } from "unplugin";
+import type { BuilderVariant, UnpluginBuilderVariant } from "./build";
+import { BUILDER_VARIANTS } from "./build";
 import type { CommandType } from "./commands";
 import { SUPPORTED_COMMANDS } from "./commands";
 import type { EnvironmentConfig, PluginConfig } from "./config";
@@ -35,9 +31,10 @@ import type {
   UnresolvedContext
 } from "./context";
 import type { EnvironmentResolvedConfig, ResolvedConfig } from "./resolved";
+import { InferUnpluginOptions } from "./unplugin";
 
 export interface PluginHookObject<
-  THookFunction extends FunctionLike,
+  THookFunction extends AnyFunction,
   TFilter extends keyof HookFilter = never
 > {
   /**
@@ -57,7 +54,7 @@ export interface PluginHookObject<
 }
 
 export type PluginHook<
-  THookFunction extends FunctionLike,
+  THookFunction extends AnyFunction,
   TFilter extends keyof HookFilter = never
 > = THookFunction | PluginHookObject<THookFunction, TFilter>;
 
@@ -69,16 +66,9 @@ export interface TypesResult {
   code: string;
 }
 
-type DeepPartial<T> = {
-  [K in keyof T]?: DeepPartial<T[K]>;
-};
-
-export type ConfigResult<TContext extends PluginContext = PluginContext> =
-  DeepPartial<TContext["config"]> & Record<string, any>;
-
-export interface BasePluginHookFunctions<
-  TContext extends PluginContext = PluginContext
-> extends Record<CommandType, (this: TContext) => MaybePromise<void>> {
+export type PluginHookFunctions<TContext extends PluginContext> = {
+  [TCommandType in CommandType]: (this: TContext) => MaybePromise<void>;
+} & {
   /**
    * A function that returns configuration options to be merged with the build context's options.
    *
@@ -95,7 +85,7 @@ export interface BasePluginHookFunctions<
    */
   config: (
     this: UnresolvedContext<TContext["config"]>
-  ) => MaybePromise<ConfigResult<TContext>>;
+  ) => MaybePromise<DeepPartial<TContext["config"]> & Record<string, any>>;
 
   /**
    * Modify environment configs before it's resolved. The hook can either mutate the passed-in environment config directly, or return a partial config object that will be deeply merged into existing config.
@@ -182,7 +172,7 @@ export interface BasePluginHookFunctions<
   load: (
     this: BuildPluginContext<TContext["config"]> & TContext,
     id: string
-  ) => MaybePromise<TransformResult>;
+  ) => MaybePromise<LoadResult>;
 
   /**
    * A hook that is called to resolve the identifier of the source code.
@@ -207,137 +197,28 @@ export interface BasePluginHookFunctions<
    * @returns A promise that resolves when the hook is complete.
    */
   writeBundle: (this: TContext) => MaybePromise<void>;
-}
-
-export type BuildPlugin<
-  TContext extends PluginContext = PluginContext,
-  TBuildVariant extends UnpluginBuildVariant = UnpluginBuildVariant,
-  TOptions extends Required<UnpluginOptions>[TBuildVariant] =
-    Required<UnpluginOptions>[TBuildVariant]
-> = {
-  [TKey in keyof TOptions]: TOptions[TKey] extends FunctionLike
-    ? (
-        this: ThisParameterType<TOptions[TKey]> & TContext,
-        ...args: Parameters<TOptions[TKey]>
-      ) => ReturnType<TOptions[TKey]> | MaybePromise<ReturnType<TOptions[TKey]>>
-    : TOptions[TKey];
 };
 
-export type ExternalPluginHookFunctionsVariant<
-  TContext extends PluginContext = PluginContext,
-  TBuildVariant extends UnpluginBuildVariant = UnpluginBuildVariant
-> = {
-  [TKey in keyof BuildPlugin<TContext, TBuildVariant> &
-    string as `${TBuildVariant}:${TKey}`]: BuildPlugin<
-    TContext,
-    TBuildVariant
-  >[TKey];
-};
-
-export type ExternalPluginHookFunctions<TContext extends PluginContext> =
-  ExternalPluginHookFunctionsVariant<TContext, "vite"> &
-    ExternalPluginHookFunctionsVariant<TContext, "esbuild"> &
-    ExternalPluginHookFunctionsVariant<TContext, "rolldown"> &
-    ExternalPluginHookFunctionsVariant<TContext, "rollup"> &
-    ExternalPluginHookFunctionsVariant<TContext, "webpack"> &
-    ExternalPluginHookFunctionsVariant<TContext, "rspack"> &
-    ExternalPluginHookFunctionsVariant<TContext, "farm">;
-
-export type PluginHookFunctions<
-  TContext extends PluginContext = PluginContext
-> = BasePluginHookFunctions<TContext> & ExternalPluginHookFunctions<TContext>;
-
-export type PluginHooks<TContext extends PluginContext = PluginContext> = {
-  [TKey in keyof BasePluginHookFunctions<TContext>]: PluginHook<
-    BasePluginHookFunctions<TContext>[TKey]
+export type PluginHooks<TContext extends PluginContext> = {
+  [TPluginHook in keyof PluginHookFunctions<TContext>]?: PluginHook<
+    PluginHookFunctions<TContext>[TPluginHook]
   >;
 } & {
-  /**
-   * A function that returns configuration options to be merged with the build context's options.
-   *
-   * @remarks
-   * Modify config before it's resolved. The hook can either mutate {@link Context.config} on the passed-in context directly, or return a partial config object that will be deeply merged into existing config.
-   *
-   * @warning User plugins are resolved before running this hook so injecting other plugins inside the config hook will have no effect. If you want to add plugins, consider doing so in the {@link Plugin.dependsOn} property instead.
-   *
-   * @see https://vitejs.dev/guide/api-plugin#config
-   *
-   * @param this - The build context.
-   * @param config - The partial configuration object to be modified.
-   * @returns A promise that resolves to a partial configuration object.
-   */
-  config:
-    | PluginHook<
-        (
-          this: UnresolvedContext<TContext["config"]>
-        ) => MaybePromise<ConfigResult<TContext>>
-      >
-    | ConfigResult<TContext>;
-
-  /**
-   * A hook that is called to transform the source code.
-   *
-   * @param this - The build context, unplugin build context, and unplugin context.
-   * @param code - The source code to transform.
-   * @param id - The identifier of the source code.
-   * @returns A promise that resolves when the hook is complete.
-   */
   transform: PluginHook<
-    (
-      this: BuildPluginContext<TContext["config"]> & TContext,
-      code: string,
-      id: string
-    ) => MaybePromise<TransformResult>,
+    PluginHookFunctions<TContext>["transform"],
     "code" | "id"
   >;
-
-  /**
-   * A hook that is called to load the source code.
-   *
-   * @param this - The build context, unplugin build context, and unplugin context.
-   * @param id - The identifier of the source code.
-   * @returns A promise that resolves when the hook is complete.
-   */
-  load: PluginHook<
-    (
-      this: BuildPluginContext<TContext["config"]> & TContext,
-      id: string
-    ) => MaybePromise<TransformResult>,
-    "id"
-  >;
-
-  /**
-   * A hook that is called to resolve the identifier of the source code.
-   *
-   * @param this - The build context, unplugin build context, and unplugin context.
-   * @param id - The identifier of the source code.
-   * @param importer - The importer of the source code.
-   * @param options - The options for resolving the identifier.
-   * @returns A promise that resolves when the hook is complete.
-   */
-  resolveId: PluginHook<
-    (
-      this: BuildPluginContext<TContext["config"]> & TContext,
-      id: string,
-      importer: string | undefined,
-      options: { isEntry: boolean }
-    ) => MaybePromise<string | ExternalIdResult | null | undefined>,
-    "id"
-  >;
+  load: PluginHook<PluginHookFunctions<TContext>["load"], "id">;
+  resolveId: PluginHook<PluginHookFunctions<TContext>["resolveId"], "id">;
 };
 
-export type PluginBuildPlugins<TContext extends PluginContext = PluginContext> =
-  {
-    [TBuildVariant in UnpluginBuildVariant]?: BuildPlugin<
-      TContext,
-      TBuildVariant
-    >;
-  };
+type DeepPartial<T> = {
+  [K in keyof T]?: DeepPartial<T[K]>;
+};
 
-export interface Plugin<
+export type Plugin<
   TContext extends PluginContext<ResolvedConfig> = PluginContext<ResolvedConfig>
->
-  extends Partial<PluginHooks<TContext>>, PluginBuildPlugins<TContext> {
+> = Partial<PluginHooks<TContext>> & {
   /**
    * The name of the plugin, for use in deduplication, error messages and logs.
    */
@@ -393,7 +274,34 @@ export interface Plugin<
   applyToEnvironment?: (
     environment: EnvironmentResolvedConfig
   ) => boolean | PluginConfig<TContext>;
-}
+
+  /**
+   * A function that returns configuration options to be merged with the build context's options.
+   *
+   * @remarks
+   * Modify config before it's resolved. The hook can either mutate {@link Context.config} on the passed-in context directly, or return a partial config object that will be deeply merged into existing config.
+   *
+   * @warning User plugins are resolved before running this hook so injecting other plugins inside the config hook will have no effect. If you want to add plugins, consider doing so in the {@link Plugin.dependsOn} property instead.
+   *
+   * @see https://vitejs.dev/guide/api-plugin#config
+   *
+   * @param this - The build context.
+   * @param config - The partial configuration object to be modified.
+   * @returns A promise that resolves to a partial configuration object.
+   */
+  config?:
+    | PluginHook<
+        (
+          this: UnresolvedContext<TContext["config"]>
+        ) => MaybePromise<DeepPartial<TContext["config"]> & Record<string, any>>
+      >
+    | (DeepPartial<TContext["config"]> & Record<string, any>);
+} & {
+  [TBuilderVariant in BuilderVariant]?: InferUnpluginOptions<
+    TContext,
+    TBuilderVariant
+  >;
+};
 
 export const PLUGIN_NON_HOOK_FIELDS = [
   "name",
@@ -405,13 +313,14 @@ export const PLUGIN_NON_HOOK_FIELDS = [
 
 export type PluginNonHookFields =
   | ArrayValues<typeof PLUGIN_NON_HOOK_FIELDS>
-  | UnpluginBuildVariant;
+  | UnpluginBuilderVariant;
 
-export const KNOWN_HOOKS = [
+export const PLUGIN_HOOKS_FIELDS = [
   ...SUPPORTED_COMMANDS,
   "config",
   "configEnvironment",
   "configResolved",
+  "types",
   "buildStart",
   "buildEnd",
   "transform",
@@ -420,12 +329,13 @@ export const KNOWN_HOOKS = [
   "writeBundle"
 ] as const;
 
-export type KnownHooks = ArrayValues<typeof KNOWN_HOOKS>;
+export type PluginHookFields<TContext extends PluginContext = PluginContext> =
+  keyof PluginHookFunctions<TContext>;
 
 export const KNOWN_PLUGIN_FIELDS = [
   ...PLUGIN_NON_HOOK_FIELDS,
-  ...KNOWN_HOOKS,
-  ...UNPLUGIN_BUILD_VARIANTS
+  ...PLUGIN_HOOKS_FIELDS,
+  ...BUILDER_VARIANTS
 ] as const;
 
-export type KnownPluginFields = ArrayValues<typeof KNOWN_PLUGIN_FIELDS>;
+export type PluginFields = ArrayValues<typeof KNOWN_PLUGIN_FIELDS>;

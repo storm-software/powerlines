@@ -16,7 +16,12 @@
 
  ------------------------------------------------------------------- */
 
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { defu } from "defu";
+import {
+  UNPLUGIN_BUILDER_VARIANTS,
+  UnpluginBuilderVariant
+} from "powerlines/types";
 import { UnpluginBuildContext, UnpluginContext } from "unplugin";
 import { PluginContext } from "../../types/context";
 
@@ -32,4 +37,19 @@ export function combineContexts<TContext extends PluginContext = PluginContext>(
   unplugin: UnpluginBuildContext & UnpluginContext
 ) {
   return defu(context, unplugin);
+}
+
+/**
+ * Checks if a value is a valid UnpluginBuilderVariant.
+ *
+ * @param str - The value to check.
+ * @returns True if the value is a UnpluginBuilderVariant, false otherwise.
+ */
+export function isUnpluginBuilderVariant(
+  str: unknown
+): str is UnpluginBuilderVariant {
+  return (
+    isSetString(str) &&
+    UNPLUGIN_BUILDER_VARIANTS.includes(str as UnpluginBuilderVariant)
+  );
 }

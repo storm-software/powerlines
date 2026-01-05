@@ -22,26 +22,40 @@ import { isObject } from "@stryke/type-checks/is-object";
 import { ArrayValues } from "@stryke/types/array";
 import {
   addPluginHook,
-  getHookHandler,
-  isHookExternal,
   isPlugin,
   isPluginConfig,
-  isPluginHook
+  isPluginHook,
+  isPluginHookField,
+  isUnpluginHookField,
+  isUnpluginHookKey
 } from "../../plugin-utils/helpers";
 import { PluginConfig, WorkspaceConfig } from "../../types/config";
 import {
   EnvironmentContext,
   EnvironmentContextPlugin,
   PluginContext,
-  SelectHooksOptions,
-  SelectHooksResult
+  SelectHookResult,
+  SelectHookResultItem,
+  SelectHooksOptions
 } from "../../types/context";
-import { BaseHooksList, HookKeys, HooksList } from "../../types/hooks";
-import { Plugin, PLUGIN_NON_HOOK_FIELDS } from "../../types/plugin";
+import {
+  HookFields,
+  HookListOrders,
+  HooksList,
+  InferHooksListItem,
+  PluginHooksList,
+  UnpluginHooksListItem
+} from "../../types/hooks";
+import {
+  Plugin,
+  PLUGIN_NON_HOOK_FIELDS,
+  PluginHookFields
+} from "../../types/plugin";
 import {
   EnvironmentResolvedConfig,
   ResolvedConfig
 } from "../../types/resolved";
+import { isUnpluginBuilderVariant } from "../unplugin/helpers";
 import { PowerlinesContext } from "./context";
 import { createPluginContext } from "./plugin-context";
 
@@ -119,7 +133,7 @@ export class PowerlinesEnvironmentContext<
         return;
       }
 
-      if (isPluginConfig(result)) {
+      if (isPluginConfig<PluginContext<TResolvedConfig>>(result)) {
         return this.$$internal.addPlugin(result);
       }
 
@@ -143,54 +157,94 @@ export class PowerlinesEnvironmentContext<
           )
       )
       .reduce((ret, key) => {
-        const hook = key as keyof HooksList<PluginContext<TResolvedConfig>>;
-        const pluginHook = resolvedPlugin[hook as keyof typeof resolvedPlugin];
+        const hook = key as HookFields<PluginContext<TResolvedConfig>>;
+        const pluginHook = resolvedPlugin[hook];
         if (!isPluginHook(pluginHook)) {
           return ret;
         }
 
-        if (!isHookExternal(hook)) {
-          ret[hook] ??= {};
-          if (resolvedPlugin.enforce) {
-            ret[hook][`${resolvedPlugin.enforce}Enforced`] ??= [];
+        if (isPluginHookField<PluginContext<TResolvedConfig>>(hook)) {
+          const hookBuckets = {
+            preEnforced: [],
+            preOrdered: [],
+            normal: [],
+            postEnforced: [],
+            postOrdered: []
+          } as PluginHooksList<
+            PluginContext<TResolvedConfig>,
+            PluginHookFields
+          >;
 
-            addPluginHook(
-              context,
-              resolvedPlugin,
-              pluginHook,
-              ret[hook][`${resolvedPlugin.enforce}Enforced`]!
-            );
+          if (resolvedPlugin.enforce) {
+            const hookListOrder =
+              `${resolvedPlugin.enforce}Enforced` as HookListOrders;
+            hookBuckets[hookListOrder] ??= [];
+
+            const bucket = hookBuckets[hookListOrder];
+            addPluginHook<
+              PluginContext<TResolvedConfig>,
+              PluginHookFields<PluginContext<TResolvedConfig>>
+            >(context, resolvedPlugin, pluginHook, bucket);
 
             return ret;
           }
 
           if (isFunction(pluginHook) || !pluginHook.order) {
-            ret[hook].normal ??= [];
+            hookBuckets.normal ??= [];
 
-            addPluginHook(
-              context,
-              resolvedPlugin,
-              pluginHook,
-              ret[hook].normal
-            );
+            const bucket = hookBuckets.normal;
+            addPluginHook<
+              PluginContext<TResolvedConfig>,
+              PluginHookFields<PluginContext<TResolvedConfig>>
+            >(context, resolvedPlugin, pluginHook, bucket);
 
             return ret;
           }
 
-          ret[hook][`${pluginHook.order}Ordered`] ??= [];
+          const hookListOrder = `${pluginHook.order}Ordered` as HookListOrders;
+          hookBuckets[hookListOrder] ??= [];
 
-          addPluginHook(
-            context,
-            resolvedPlugin,
-            pluginHook,
-            ret[hook][`${pluginHook.order}Ordered`]!
-          );
+          const bucket = hookBuckets[hookListOrder];
+          addPluginHook(context, resolvedPlugin, pluginHook, bucket);
+        } else if (isUnpluginHookField(hook)) {
+          const hookBuckets = ((ret as any)[hook] ??= {
+            preEnforced: [],
+            preOrdered: [],
+            normal: [],
+            postEnforced: [],
+            postOrdered: []
+          }) as Record<
+            string,
+            UnpluginHooksListItem<PluginContext<TResolvedConfig>, typeof hook>[]
+          >;
+
+          if (resolvedPlugin.enforce) {
+            const hookListOrder =
+              `${resolvedPlugin.enforce}Enforced` as HookListOrders;
+            hookBuckets[hookListOrder] ??= [];
+
+            const bucket = hookBuckets[hookListOrder];
+            addPluginHook(context, resolvedPlugin, pluginHook, bucket);
+
+            return ret;
+          }
+
+          if (isFunction(pluginHook) || !pluginHook.order) {
+            hookBuckets.normal ??= [];
+
+            const bucket = hookBuckets.normal;
+            addPluginHook(context, resolvedPlugin, pluginHook, bucket);
+
+            return ret;
+          }
+
+          const hookListOrder = `${pluginHook.order}Ordered` as HookListOrders;
+          hookBuckets[hookListOrder] ??= [];
+
+          const bucket = hookBuckets[hookListOrder];
+          addPluginHook(context, resolvedPlugin, pluginHook, bucket);
         } else {
-          ret[hook] ??= [];
-          ret[hook].push({
-            plugin: resolvedPlugin,
-            hook: getHookHandler(pluginHook).bind(context)
-          } as any);
+          throw new Error(`Unknown plugin hook field: ${String(hook)}`);
         }
 
         return ret;
@@ -200,142 +254,250 @@ export class PowerlinesEnvironmentContext<
   /**
    * Retrieves the hook handlers for a specific hook name
    */
-  public selectHooks<TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
-    hook: TKey,
+  public selectHooks<TKey extends string>(
+    key: TKey,
     options?: SelectHooksOptions
-  ): SelectHooksResult<TResolvedConfig, TKey>[] {
-    const result = [] as SelectHooksResult<TResolvedConfig, TKey>[];
+  ): SelectHookResult<PluginContext<TResolvedConfig>, TKey> {
+    const result = [] as SelectHookResult<PluginContext<TResolvedConfig>, TKey>;
 
-    if (this.hooks[hook]) {
-      if (!isHookExternal(hook)) {
-        const hooks = this.hooks[hook] as BaseHooksList<
-          PluginContext<TResolvedConfig>
+    if (isUnpluginHookKey(key)) {
+      const variant = String(key).split(":")[0];
+      if (isUnpluginBuilderVariant(variant)) {
+        const hooks = this.hooks[variant];
+        if (hooks) {
+          const field = String(key).split(":")[1] as keyof typeof hooks;
+          if (field && hooks[field]) {
+            const fieldHooks = hooks[field] as Record<
+              HookListOrders,
+              InferHooksListItem<PluginContext<TResolvedConfig>, TKey>[]
+            >;
+
+            if (options?.order) {
+              const mapHooksToResult = (
+                hooksList: InferHooksListItem<
+                  PluginContext<TResolvedConfig>,
+                  TKey
+                >[]
+              ): SelectHookResult<PluginContext<TResolvedConfig>, TKey> =>
+                hooksList.map(hook => {
+                  const plugin = this.plugins.find(
+                    p => p.plugin.name === hook.plugin.name
+                  );
+                  if (!plugin) {
+                    throw new Error(
+                      `Could not find plugin context for plugin "${
+                        hook.plugin.name
+                      }".`
+                    );
+                  }
+
+                  return {
+                    handler: hook.handler,
+                    plugin: hook.plugin,
+                    context: plugin.context
+                  } as SelectHookResultItem<
+                    PluginContext<TResolvedConfig>,
+                    TKey
+                  >;
+                });
+
+              if (options?.order === "pre") {
+                result.concat(mapHooksToResult(fieldHooks.preOrdered ?? []));
+                result.concat(mapHooksToResult(fieldHooks.preEnforced ?? []));
+              } else if (options?.order === "post") {
+                result.concat(mapHooksToResult(fieldHooks.postOrdered ?? []));
+                result.concat(mapHooksToResult(fieldHooks.postEnforced ?? []));
+              } else {
+                result.concat(mapHooksToResult(fieldHooks.normal ?? []));
+              }
+            } else {
+              result.concat(this.selectHooks(key, { order: "pre" }));
+              result.concat(this.selectHooks(key, { order: "normal" }));
+              result.concat(this.selectHooks(key, { order: "post" }));
+            }
+          }
+        }
+      }
+    } else if (isPluginHookField<PluginContext<TResolvedConfig>>(key)) {
+      if (this.hooks[key]) {
+        const fieldHooks = this.hooks[key] as Record<
+          HookListOrders,
+          InferHooksListItem<PluginContext<TResolvedConfig>, TKey>[]
         >;
+
         if (options?.order) {
+          const mapHooksToResult = (
+            hooksList: InferHooksListItem<
+              PluginContext<TResolvedConfig>,
+              TKey
+            >[]
+          ): SelectHookResult<PluginContext<TResolvedConfig>, TKey> =>
+            hooksList.map(hook => {
+              const plugin = this.plugins.find(
+                p => p.plugin.name === hook.plugin.name
+              );
+              if (!plugin) {
+                throw new Error(
+                  `Could not find plugin context for plugin "${
+                    hook.plugin.name
+                  }".`
+                );
+              }
+
+              return {
+                handler: hook.handler,
+                plugin: hook.plugin,
+                context: plugin.context
+              } as SelectHookResultItem<PluginContext<TResolvedConfig>, TKey>;
+            });
+
           if (options?.order === "pre") {
-            result.push(
-              ...(hooks.preOrdered ?? []).map(h => {
-                const plugin = this.plugins.find(
-                  p => p.plugin.name === h.plugin.name
-                );
-                if (!plugin) {
-                  throw new Error(
-                    `Could not find plugin context for plugin "${
-                      h.plugin.name
-                    }".`
-                  );
-                }
-
-                return {
-                  handle: h.handler,
-                  context: plugin.context
-                };
-              })
-            );
-            result.push(
-              ...(hooks.preEnforced ?? []).map(h => {
-                const plugin = this.plugins.find(
-                  p => p.plugin.name === h.plugin.name
-                );
-                if (!plugin) {
-                  throw new Error(
-                    `Could not find plugin context for plugin "${
-                      h.plugin.name
-                    }".`
-                  );
-                }
-
-                return {
-                  handle: h.handler,
-                  context: plugin.context
-                };
-              })
-            );
+            result.concat(mapHooksToResult(fieldHooks.preOrdered ?? []));
+            result.concat(mapHooksToResult(fieldHooks.preEnforced ?? []));
           } else if (options?.order === "post") {
-            result.push(
-              ...(hooks.postOrdered ?? []).map(h => {
-                const plugin = this.plugins.find(
-                  p => p.plugin.name === h.plugin.name
-                );
-                if (!plugin) {
-                  throw new Error(
-                    `Could not find plugin context for plugin "${
-                      h.plugin.name
-                    }".`
-                  );
-                }
-
-                return {
-                  handle: h.handler,
-                  context: plugin.context
-                };
-              })
-            );
-            result.push(
-              ...(hooks.postEnforced ?? []).map(h => {
-                const plugin = this.plugins.find(
-                  p => p.plugin.name === h.plugin.name
-                );
-                if (!plugin) {
-                  throw new Error(
-                    `Could not find plugin context for plugin "${
-                      h.plugin.name
-                    }".`
-                  );
-                }
-
-                return {
-                  handle: h.handler,
-                  context: plugin.context
-                };
-              })
-            );
+            result.concat(mapHooksToResult(fieldHooks.postOrdered ?? []));
+            result.concat(mapHooksToResult(fieldHooks.postEnforced ?? []));
           } else {
-            result.push(
-              ...(hooks.normal ?? []).map(h => {
-                const plugin = this.plugins.find(
-                  p => p.plugin.name === h.plugin.name
-                );
-                if (!plugin) {
-                  throw new Error(
-                    `Could not find plugin context for plugin "${
-                      h.plugin.name
-                    }".`
-                  );
-                }
-
-                return {
-                  handle: h.handler,
-                  context: plugin.context
-                };
-              })
-            );
+            result.concat(mapHooksToResult(fieldHooks.normal ?? []));
           }
         } else {
-          result.push(...this.selectHooks(hook, { order: "pre" }));
-          result.push(...this.selectHooks(hook, { order: "normal" }));
-          result.push(...this.selectHooks(hook, { order: "post" }));
+          result.concat(this.selectHooks(key, { order: "pre" }));
+          result.concat(this.selectHooks(key, { order: "normal" }));
+          result.concat(this.selectHooks(key, { order: "post" }));
         }
-      } else {
-        result.push(
-          ...this.hooks[hook].map(h => {
-            const plugin = this.plugins.find(
-              p => p.plugin.name === h.plugin.name
-            );
-            if (!plugin) {
-              throw new Error(
-                `Could not find plugin context for plugin "${h.plugin.name}".`
-              );
-            }
-
-            return {
-              handle: h.handler,
-              context: plugin.context
-            };
-          })
-        );
       }
+    } else {
+      throw new Error(`Unknown plugin hook key: ${String(key)}`);
     }
+
+    // if (this.hooks[key]) {
+    //   if (!isPluginHookField(key)) {
+    //     const hooks = this.hooks[key];
+    //     if (options?.order) {
+    //       if (options?.order === "pre") {
+    //         // result.push(
+    //         //   ...(hooks.preOrdered ?? []).map(hook => {
+    //         //     const plugin = this.plugins.find(
+    //         //       p => p.plugin.name === hook.plugin.name
+    //         //     );
+    //         //     if (!plugin) {
+    //         //       throw new Error(
+    //         //         `Could not find plugin context for plugin "${
+    //         //           hook.plugin.name
+    //         //         }".`
+    //         //       );
+    //         //     }
+
+    //         //     return {
+    //         //       handler: hook.handler,
+    //         //       context: plugin.context
+    //         //     };
+    //         //   })
+    //         // );
+    //         // result.push(
+    //         //   ...(hooks.preEnforced ?? []).map(h => {
+    //         //     const plugin = this.plugins.find(
+    //         //       p => p.plugin.name === h.plugin.name
+    //         //     );
+    //         //     if (!plugin) {
+    //         //       throw new Error(
+    //         //         `Could not find plugin context for plugin "${
+    //         //           h.plugin.name
+    //         //         }".`
+    //         //       );
+    //         //     }
+
+    //         //     return {
+    //         //       handler: h.handler,
+    //         //       context: plugin.context
+    //         //     };
+    //         //   })
+    //         // );
+    //       } else if (options?.order === "post") {
+    //         result.push(
+    //           ...(hooks.postOrdered ?? []).map(h => {
+    //             const plugin = this.plugins.find(
+    //               p => p.plugin.name === h.plugin.name
+    //             );
+    //             if (!plugin) {
+    //               throw new Error(
+    //                 `Could not find plugin context for plugin "${
+    //                   h.plugin.name
+    //                 }".`
+    //               );
+    //             }
+
+    //             return {
+    //               handler: h.handler,
+    //               context: plugin.context
+    //             };
+    //           })
+    //         );
+    //         result.push(
+    //           ...(hooks.postEnforced ?? []).map(h => {
+    //             const plugin = this.plugins.find(
+    //               p => p.plugin.name === h.plugin.name
+    //             );
+    //             if (!plugin) {
+    //               throw new Error(
+    //                 `Could not find plugin context for plugin "${
+    //                   h.plugin.name
+    //                 }".`
+    //               );
+    //             }
+
+    //             return {
+    //               handler: h.handler,
+    //               context: plugin.context
+    //             };
+    //           })
+    //         );
+    //       } else {
+    //         result.push(
+    //           ...(hooks.normal ?? []).map(h => {
+    //             const plugin = this.plugins.find(
+    //               p => p.plugin.name === h.plugin.name
+    //             );
+    //             if (!plugin) {
+    //               throw new Error(
+    //                 `Could not find plugin context for plugin "${
+    //                   h.plugin.name
+    //                 }".`
+    //               );
+    //             }
+
+    //             return {
+    //               handler: h.handler,
+    //               context: plugin.context
+    //             };
+    //           })
+    //         );
+    //       }
+    //     } else {
+    //       result.push(...this.selectHooks(key, { order: "pre" }));
+    //       result.push(...this.selectHooks(key, { order: "normal" }));
+    //       result.push(...this.selectHooks(key, { order: "post" }));
+    //     }
+    //   } else {
+    //     result.push(
+    //       ...this.hooks[key].map(h => {
+    //         const plugin = this.plugins.find(
+    //           p => p.plugin.name === h.plugin.name
+    //         );
+    //         if (!plugin) {
+    //           throw new Error(
+    //             `Could not find plugin context for plugin "${h.plugin.name}".`
+    //           );
+    //         }
+
+    //         return {
+    //           handler: h.handler,
+    //           context: plugin.context
+    //         };
+    //       })
+    //     );
+    //   }
+    // }
 
     return result;
   }

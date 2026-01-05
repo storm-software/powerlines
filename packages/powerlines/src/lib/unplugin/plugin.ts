@@ -27,10 +27,10 @@ import type {
   UnpluginContext
 } from "unplugin";
 import { setParseImpl } from "unplugin";
-import { UnpluginBuildVariant } from "../../types/build";
+import { UnpluginBuilderVariant } from "../../types/build";
 import { PluginContext } from "../../types/context";
 import { UNSAFE_PluginContext } from "../../types/internal";
-import { PowerlinesUnpluginFactory } from "../../types/unplugin";
+import { UnpluginFactory } from "../../types/unplugin";
 import { extendLog } from "../logger";
 import { getString } from "../utilities/source-file";
 import { combineContexts } from "./helpers";
@@ -41,9 +41,10 @@ import { combineContexts } from "./helpers";
  * @param context - The plugin context.
  * @returns The unplugin instance.
  */
-export function createUnplugin<TContext extends PluginContext = PluginContext>(
-  context: TContext
-): PowerlinesUnpluginFactory<UnpluginBuildVariant> {
+export function createUnplugin<
+  TContext extends PluginContext = PluginContext,
+  TBuildVariant extends UnpluginBuilderVariant = UnpluginBuilderVariant
+>(context: TContext): UnpluginFactory<TBuildVariant> {
   const ctx = context as unknown as UNSAFE_PluginContext;
   setParseImpl(ctx.parse);
 
@@ -202,11 +203,11 @@ export * from "${isString(resolved) ? resolved : resolved.id}";
       ): Promise<TransformResult | null | undefined> {
         let transformed: TransformResult | string = code;
 
-        for (const handler of ctx.$$internal.environment.selectHooks(
+        for (const hook of ctx.$$internal.environment.selectHooks(
           "transform"
         )) {
           const result: TransformResult | string | undefined =
-            await handler.handle.apply(combineContexts(ctx, this), [
+            await hook.handler.apply(combineContexts(ctx, this), [
               getString(transformed),
               id
             ]);

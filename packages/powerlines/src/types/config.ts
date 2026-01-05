@@ -32,8 +32,8 @@ import type {
 import type { BabelTransformPluginOptions } from "./babel";
 import type {
   BuildConfig,
+  BuilderVariant,
   BuildResolvedConfig,
-  BuildVariant,
   ESBuildBuildConfig,
   ESBuildResolvedBuildConfig,
   FarmBuildConfig,
@@ -109,9 +109,8 @@ export type PluginConfig<TContext extends PluginContext = PluginContext> =
   | Promise<PluginConfig<TContext>>
   | PluginConfig<TContext>[];
 
-export type PartialPlugin<
-  in out TContext extends PluginContext = PluginContext
-> = DeepPartial<Plugin<TContext>>;
+export type PartialPlugin<TContext extends PluginContext = PluginContext> =
+  DeepPartial<Plugin<TContext>>;
 
 export type PartialPluginFactory<
   in out TContext extends PluginContext = PluginContext,
@@ -564,28 +563,29 @@ export type FarmUserConfig = UserConfig<
   "farm"
 >;
 
-export type InferUserConfig<TBuildVariant extends BuildVariant | undefined> =
-  TBuildVariant extends "webpack"
-    ? WebpackUserConfig
-    : TBuildVariant extends "rspack"
-      ? RspackUserConfig
-      : TBuildVariant extends "vite"
-        ? ViteUserConfig
-        : TBuildVariant extends "esbuild"
-          ? ESBuildUserConfig
-          : TBuildVariant extends "unbuild"
-            ? UnbuildUserConfig
-            : TBuildVariant extends "tsup"
-              ? TsupUserConfig
-              : TBuildVariant extends "tsdown"
-                ? TsdownUserConfig
-                : TBuildVariant extends "rolldown"
-                  ? RolldownUserConfig
-                  : TBuildVariant extends "rollup"
-                    ? RollupUserConfig
-                    : TBuildVariant extends "farm"
-                      ? FarmUserConfig
-                      : UserConfig;
+export type InferUserConfig<
+  TBuilderVariant extends BuilderVariant | undefined
+> = TBuilderVariant extends "webpack"
+  ? WebpackUserConfig
+  : TBuilderVariant extends "rspack"
+    ? RspackUserConfig
+    : TBuilderVariant extends "vite"
+      ? ViteUserConfig
+      : TBuilderVariant extends "esbuild"
+        ? ESBuildUserConfig
+        : TBuilderVariant extends "unbuild"
+          ? UnbuildUserConfig
+          : TBuilderVariant extends "tsup"
+            ? TsupUserConfig
+            : TBuilderVariant extends "tsdown"
+              ? TsdownUserConfig
+              : TBuilderVariant extends "rolldown"
+                ? RolldownUserConfig
+                : TBuilderVariant extends "rollup"
+                  ? RollupUserConfig
+                  : TBuilderVariant extends "farm"
+                    ? FarmUserConfig
+                    : UserConfig;
 
 export type InitialUserConfig<TUserConfig extends UserConfig = UserConfig> =
   Partial<TUserConfig> & { root: string };

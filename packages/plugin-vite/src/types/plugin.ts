@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { ViteBuildConfig } from "powerlines/types/build";
+import { ConfigEnv } from "powerlines/types/config";
 import { PluginContext } from "powerlines/types/context";
 import { ViteResolvedConfig } from "powerlines/types/resolved";
 
@@ -26,4 +27,7 @@ export type VitePluginResolvedConfig = ViteResolvedConfig;
 
 export type VitePluginContext<
   TResolvedConfig extends VitePluginResolvedConfig = VitePluginResolvedConfig
-> = PluginContext<TResolvedConfig>;
+> = PluginContext<TResolvedConfig> & {
+  dev: boolean;
+  configEnv: ConfigEnv;
+};

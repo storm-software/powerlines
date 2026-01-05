@@ -27,7 +27,7 @@ import {
   PrepareInlineConfig
 } from "./config";
 import type { APIContext, EnvironmentContext, PluginContext } from "./context";
-import { HookKeys, InferHookParameters, InferHookReturnType } from "./hooks";
+import { InferHookParameters, InferHookReturnType } from "./hooks";
 import { ResolvedConfig } from "./resolved";
 
 /**
@@ -140,7 +140,7 @@ export interface API<TResolvedConfig extends ResolvedConfig = ResolvedConfig> {
    * @param args - The arguments to pass to the hook
    * @returns The result of the hook call
    */
-  callHook: <TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
+  callHook: <TKey extends string>(
     hook: TKey,
     options: CallHookOptions & {
       environment?: string | EnvironmentContext<TResolvedConfig>;

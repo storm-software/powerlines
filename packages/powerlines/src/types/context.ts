@@ -47,7 +47,7 @@ import type {
   VirtualFileSystemInterface,
   WriteOptions
 } from "./fs";
-import type { HookKeys, Hooks, HooksList } from "./hooks";
+import type { HooksList, InferHooksListItem } from "./hooks";
 import type { Plugin } from "./plugin";
 import type {
   EnvironmentResolvedConfig,
@@ -674,13 +674,17 @@ export interface EnvironmentContextPlugin<
   context: PluginContext<TResolvedConfig>;
 }
 
-export interface SelectHooksResult<
-  TResolvedConfig extends ResolvedConfig,
-  TKey extends HookKeys<PluginContext<TResolvedConfig>>
-> {
-  handle: Hooks[TKey];
-  context: PluginContext<TResolvedConfig>;
-}
+export type SelectHookResultItem<
+  TContext extends PluginContext,
+  TKey extends string
+> = InferHooksListItem<TContext, TKey> & {
+  context: TContext;
+};
+
+export type SelectHookResult<
+  TContext extends PluginContext,
+  TKey extends string
+> = SelectHookResultItem<TContext, TKey>[];
 
 export interface EnvironmentContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
@@ -711,10 +715,10 @@ export interface EnvironmentContext<
   /**
    * Retrieves the hook handlers for a specific hook name
    */
-  selectHooks: <TKey extends HookKeys<PluginContext<TResolvedConfig>>>(
-    hook: TKey,
+  selectHooks: <TKey extends string>(
+    key: TKey,
     options?: SelectHooksOptions
-  ) => SelectHooksResult<TResolvedConfig, TKey>[];
+  ) => SelectHookResult<PluginContext<TResolvedConfig>, TKey>;
 }
 
 export interface PluginContext<
@@ -738,3 +742,6 @@ export interface PluginContext<
 export type BuildPluginContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > = UnpluginBuildContext & PluginContext<TResolvedConfig>;
+
+export type WithUnpluginBuildContext<TContext extends PluginContext> =
+  UnpluginBuildContext & TContext;

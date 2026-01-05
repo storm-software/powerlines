@@ -21,6 +21,7 @@ import defu from "defu";
 import { createVitePlugin } from "unplugin";
 import { extractViteConfig } from "./lib/build/vite";
 import { createUnpluginFactory } from "./lib/unplugin/factory";
+import { ViteResolvedBuildConfig } from "./types";
 
 /**
  * A Vite plugin that will invoke the Powerlines API hooks during the build process.
@@ -58,14 +59,19 @@ export const vite = createVitePlugin(
               : "production";
 
           const environment = await api.context.getEnvironment();
-          const result = await api.callHook("config", { environment });
+          const result = await api.callHook(
+            "vite:config",
+            { environment },
+            config,
+            env
+          );
 
           return defu(
             extractViteConfig(api.context),
             // Need to use `any` here to avoid excessive type complexity
-            (result?.build as any) ?? {},
+            result?.build ?? {},
             config
-          );
+          ) as Omit<ViteResolvedBuildConfig, "plugins">;
         },
         async configResolved(_config) {
           const environment = await api.context.getEnvironment();

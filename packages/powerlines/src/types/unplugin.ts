@@ -16,45 +16,98 @@
 
  ------------------------------------------------------------------- */
 
-import type { UnpluginContextMeta, UnpluginOptions } from "unplugin";
+import { MaybePromise } from "@stryke/types/base";
+import type {
+  UnpluginOptions as BaseUnpluginOptions,
+  HookFilter,
+  UnpluginContextMeta
+} from "unplugin";
 import { API } from "./api";
-import type { InferUnpluginVariant, UnpluginBuildVariant } from "./build";
+import type {
+  BuilderVariant,
+  InferUnpluginVariant,
+  UnpluginBuilderVariant
+} from "./build";
 import type { InferUserConfig } from "./config";
-import type { PluginContext } from "./context";
-import type { BuildPlugin } from "./plugin";
+import type { Context } from "./context";
+import { PluginHook } from "./plugin";
 import type { InferResolvedConfig } from "./resolved";
 
-export type PowerlinesUnpluginOptions<
-  TBuildVariant extends UnpluginBuildVariant
-> = UnpluginOptions & {
+// export type UnpluginPluginHookFunctions<
+//   TContext extends PluginContext,
+//   TUnpluginBuilderVariant extends UnpluginBuilderVariant
+// > = {
+//   [TKey in keyof Required<BaseUnpluginOptions>[TUnpluginBuilderVariant]]: Required<BaseUnpluginOptions>[TUnpluginBuilderVariant][TKey] extends
+//     | infer THandler
+//     | {
+//         handler: infer THandler;
+//       }
+//     ? THandler extends (
+//         this: infer TOriginalContext,
+//         ...args: infer TArgs
+//       ) => infer TReturn
+//       ? (
+//           this: TOriginalContext & TContext,
+//           ...args: TArgs
+//         ) => MaybePromise<TReturn>
+//       : never
+//     : never;
+// };
+
+export interface UnpluginOptions<
+  TUnpluginBuilderVariant extends UnpluginBuilderVariant =
+    UnpluginBuilderVariant
+> extends BaseUnpluginOptions {
   /**
    * An API object that can be used for inter-plugin communication.
    *
    * @see https://rollupjs.org/plugin-development/#direct-plugin-communication
    */
-  api: API<InferResolvedConfig<TBuildVariant>>;
+  api: API<InferResolvedConfig<TUnpluginBuilderVariant>>;
+}
+
+export type InferUnpluginOptions<
+  TContext extends Context = Context,
+  TBuilderVariant extends BuilderVariant = BuilderVariant,
+  TUnpluginVariant extends InferUnpluginVariant<TBuilderVariant> =
+    InferUnpluginVariant<TBuilderVariant>
+> = {
+  [TKey in keyof Required<
+    UnpluginOptions<TUnpluginVariant>
+  >[TUnpluginVariant]]?: Required<
+    UnpluginOptions<TUnpluginVariant>
+  >[TUnpluginVariant][TKey] extends
+    | infer THandler
+    | {
+        handler: infer THandler;
+      }
+    ? THandler extends (
+        this: infer TOriginalContext,
+        ...args: infer TArgs
+      ) => infer TReturn
+      ? PluginHook<
+          (
+            this: TOriginalContext & TContext,
+            ...args: TArgs
+          ) => MaybePromise<TReturn>,
+          keyof HookFilter
+        >
+      : Required<UnpluginOptions<TUnpluginVariant>>[TUnpluginVariant][TKey]
+    : Required<UnpluginOptions<TUnpluginVariant>>[TUnpluginVariant][TKey];
 };
 
-export type InferUnpluginOptions<TBuildVariant extends UnpluginBuildVariant> =
-  PowerlinesUnpluginOptions<TBuildVariant> & {
-    [TKey in InferUnpluginVariant<TBuildVariant>]: BuildPlugin<
-      PluginContext<InferResolvedConfig<TBuildVariant>>,
-      TKey
-    >;
-  };
-
 export type UnpluginUserConfig<
-  TBuildVariant extends UnpluginBuildVariant | undefined
-> = InferUserConfig<TBuildVariant> & {
+  TBuilderVariant extends BuilderVariant | undefined
+> = InferUserConfig<TBuilderVariant> & {
   /**
    * The meta information for the unplugin context
    */
   unplugin: UnpluginContextMeta;
 };
 
-export type PowerlinesUnpluginFactory<
-  TBuildVariant extends UnpluginBuildVariant
+export type UnpluginFactory<
+  TUnpluginBuilderVariant extends UnpluginBuilderVariant
 > = (
-  options: Partial<InferUserConfig<TBuildVariant>>,
+  options: Partial<InferUserConfig<TUnpluginBuilderVariant>>,
   meta: UnpluginContextMeta
-) => PowerlinesUnpluginOptions<TBuildVariant>;
+) => UnpluginOptions;

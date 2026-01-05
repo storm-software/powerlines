@@ -18,7 +18,7 @@
 
 import { toArray } from "@stryke/convert/to-array";
 import { isFunction } from "@stryke/type-checks/is-function";
-import { BuildVariant } from "../types/build";
+import { BuilderVariant } from "../types/build";
 import { PartialPlugin, PluginFactory } from "../types/config";
 import { PluginContext } from "../types/context";
 import { Plugin } from "../types/plugin";
@@ -33,21 +33,21 @@ import { extend } from "./extend";
  */
 export function enforceBuild<
   TContext extends PluginContext = PluginContext,
-  TBuildVariant extends BuildVariant = BuildVariant
+  TBuildVariant extends BuilderVariant = BuilderVariant
 >(
   plugin: Plugin<TContext> | Plugin<TContext>[],
   variant: TBuildVariant | TBuildVariant[]
 ): Promise<Plugin<TContext>[]>;
 export function enforceBuild<
   TContext extends PluginContext = PluginContext,
-  TBuildVariant extends BuildVariant = BuildVariant
+  TBuildVariant extends BuilderVariant = BuilderVariant
 >(
   plugin: PluginFactory<TContext>,
   variant: TBuildVariant | TBuildVariant[]
 ): Promise<PluginFactory<TContext>>;
 export async function enforceBuild<
   TContext extends PluginContext = PluginContext,
-  TBuildVariant extends BuildVariant = BuildVariant
+  TBuildVariant extends BuilderVariant = BuilderVariant
 >(
   plugin: Plugin<TContext> | Plugin<TContext>[] | PluginFactory<TContext>,
   variant: TBuildVariant | TBuildVariant[]

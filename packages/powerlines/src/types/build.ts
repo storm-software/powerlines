@@ -20,6 +20,7 @@ import type { UserConfig as ExternalFarmOptions } from "@farmfe/core";
 import type { Configuration as ExternalRspackOptions } from "@rspack/core";
 import type { BuildOptions as ExternalTsupOptions } from "@storm-software/tsup/types";
 import type { UnbuildOptions as ExternalUnbuildOptions } from "@storm-software/unbuild/types";
+import type { BuildConfig as ExternalBunOptions } from "bun";
 import type { BuildOptions as ExternalESBuildOptions } from "esbuild";
 import type { RolldownOptions as ExternalRolldownOptions } from "rolldown";
 import type {
@@ -33,7 +34,7 @@ import type {
 } from "vite";
 import type { Configuration as ExternalWebpackOptions } from "webpack";
 
-export type UnpluginBuildVariant =
+export type UnpluginBuilderVariant =
   | "rollup"
   | "webpack"
   | "rspack"
@@ -41,9 +42,10 @@ export type UnpluginBuildVariant =
   | "esbuild"
   | "farm"
   | "unloader"
-  | "rolldown";
+  | "rolldown"
+  | "bun";
 
-export const UNPLUGIN_BUILD_VARIANTS: UnpluginBuildVariant[] = [
+export const UNPLUGIN_BUILDER_VARIANTS: UnpluginBuilderVariant[] = [
   "rollup",
   "webpack",
   "rspack",
@@ -51,12 +53,24 @@ export const UNPLUGIN_BUILD_VARIANTS: UnpluginBuildVariant[] = [
   "esbuild",
   "farm",
   "unloader",
-  "rolldown"
-];
+  "rolldown",
+  "bun"
+] as const;
 
-export type BuildVariant = UnpluginBuildVariant | "tsup" | "tsdown" | "unbuild";
+export type BuilderVariant =
+  | UnpluginBuilderVariant
+  | "tsup"
+  | "tsdown"
+  | "unbuild";
 
-export type InferUnpluginVariant<TBuildVariant extends BuildVariant> =
+export const BUILDER_VARIANTS: BuilderVariant[] = [
+  ...UNPLUGIN_BUILDER_VARIANTS,
+  "tsup",
+  "tsdown",
+  "unbuild"
+] as const;
+
+export type InferUnpluginVariant<TBuildVariant extends BuilderVariant> =
   TBuildVariant extends "tsup"
     ? "esbuild"
     : TBuildVariant extends "tsdown"
@@ -396,3 +410,13 @@ export type FarmBuildConfig = Partial<
 > &
   BuildConfig;
 export type FarmResolvedBuildConfig = ExternalFarmOptions & BuildResolvedConfig;
+
+// Bun
+export type BunBuildConfig = Partial<
+  Omit<
+    ExternalBunOptions,
+    "assets" | "platform" | "root" | "env" | "entryPoints"
+  >
+> &
+  BuildConfig;
+export type BunResolvedBuildConfig = ExternalBunOptions & BuildResolvedConfig;
