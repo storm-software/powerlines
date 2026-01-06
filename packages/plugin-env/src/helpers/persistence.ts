@@ -53,7 +53,16 @@ import { createEnvReflection } from "./reflect";
 export async function resolveRuntimeTypeFile(
   context: UnresolvedContext<EnvPluginResolvedConfig>
 ): Promise<string> {
-  return context.resolver.esmResolve("@powerlines/plugin-env/types/runtime");
+  const resolved = await context.fs.resolve(
+    "@powerlines/plugin-env/types/runtime"
+  );
+  if (!resolved) {
+    throw new Error(
+      `Failed to resolve the runtime type definition file for the environment variables. Please ensure that the "@powerlines/plugin-env" package is installed.`
+    );
+  }
+
+  return resolved;
 }
 
 /**

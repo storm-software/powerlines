@@ -39,7 +39,7 @@ import {
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
 import defu from "defu";
-import { Plugin } from "powerlines";
+import { Plugin } from "powerlines/types/plugin";
 import type { UserConfig as ViteUserConfig } from "vite";
 import { envBabelPlugin } from "./babel/plugin";
 import { EnvBuiltin } from "./components/env";
