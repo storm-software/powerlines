@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.13](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.13) (01/06/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `bundle` esbuild parameters
+  ([04e2b511](https://github.com/storm-software/powerlines/commit/04e2b511))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.4**
+- Updated **plugin-automd** to **v0.1.128**
+- Updated **plugin-plugin** to **v0.12.80**
+- Updated **plugin-alloy** to **v0.18.10**
+- Updated **plugin-babel** to **v0.12.137**
+- Updated **powerlines** to **v0.37.2**
+- Updated **deepkit** to **v0.5.43**
+
 ## [0.15.12](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.12) (01/06/2026)
 
 ### Bug Fixes
