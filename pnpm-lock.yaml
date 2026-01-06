@@ -556,11 +556,11 @@ catalogs:
       specifier: 4.0.0-next.20
       version: 4.0.0-next.20
     undici:
-      specifier: ^7.18.1
-      version: 7.18.1
+      specifier: ^7.18.2
+      version: 7.18.2
     undici-types:
-      specifier: ^7.18.1
-      version: 7.18.1
+      specifier: ^7.18.2
+      version: 7.18.2
     unenv:
       specifier: npm:unenv-nightly@2.0.0-rc.24
       version: 2.0.0-rc.24
@@ -3060,7 +3060,7 @@ importers:
         version: 3.6.1(@types/picomatch@4.0.2)(typescript@5.9.3)
       undici:
         specifier: 'catalog:'
-        version: 7.18.1
+        version: 7.18.2
       unimport:
         specifier: 'catalog:'
         version: 5.6.0
@@ -3133,7 +3133,7 @@ importers:
         version: 5.9.3
       undici-types:
         specifier: 'catalog:'
-        version: 7.18.1
+        version: 7.18.2
 
   packages/tsconfig:
     devDependencies:
@@ -4129,8 +4129,8 @@ packages:
   '@bundled-es-modules/deepmerge@4.3.1':
     resolution: {integrity: sha512-Rk453EklPUPC3NRWc3VUNI/SSUjdBaFoaQvFRmNBNtMHVtOFD5AntiWg5kEE1hqcPqedYFDzxE3ZcMYPcA195w==}
 
-  '@bundled-es-modules/glob@11.0.3':
-    resolution: {integrity: sha512-rt+1650YhlwRkkj67YMZQj5LXWZiavpHQg8K6jDcZBPbrBIooHbKOQvvxKJsKM80H1oHengEbIymfw3mn4FkUw==}
+  '@bundled-es-modules/glob@11.1.0':
+    resolution: {integrity: sha512-aD2nUfnJMa4hzRXhCRXKtIeOiCyGzJwJ/3mfHQeFxPANzpmQZRzv8lgWabYt1VtXkI6mvBPA+x8K5gB/lzPhIQ==}
 
   '@bundled-es-modules/memfs@4.17.0':
     resolution: {integrity: sha512-ykdrkEmQr9BV804yd37ikXfNnvxrwYfY9Z2/EtMHFEFadEjsQXJ1zL9bVZrKNLDtm91UdUOEHso6Aweg93K6xQ==}
@@ -19730,11 +19730,11 @@ packages:
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
-  undici-types@7.18.1:
-    resolution: {integrity: sha512-DjWG0xEjLMDnfcoZzX9A1d1IgDkH+aFh2UQmjKAo44W5Mz+HaUfNNpIqBL6CnXlYkoZvuPgoORE2H5TzSNJ8MA==}
+  undici-types@7.18.2:
+    resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
-  undici@7.18.1:
-    resolution: {integrity: sha512-0L1RtVqD2twa4hYKeNitqG8zvwe+4cT7L2FDP+64QC8mxjA4TlKjSqPLyOjaRdnUnWYQyxKyhDkqOHLKXw+lkA==}
+  undici@7.18.2:
+    resolution: {integrity: sha512-y+8YjDFzWdQlSE9N5nzKMT3g4a5UBX1HKowfdXh0uvAnTaqqwqB92Jt4UXBAeKekDs5IaDKyJFR4X1gYVCgXcw==}
     engines: {node: '>=20.18.1'}
 
   unenv-nightly@2.0.0-rc.24:
@@ -22587,7 +22587,7 @@ snapshots:
     dependencies:
       deepmerge: 4.3.1
 
-  '@bundled-es-modules/glob@11.0.3':
+  '@bundled-es-modules/glob@11.1.0':
     dependencies:
       buffer: 6.0.3
       events: 3.3.0
@@ -28491,7 +28491,7 @@ snapshots:
       '@stryke/type-checks': 0.5.15
       '@stryke/url': 0.3.22
       defu: 6.1.4
-      undici: 7.18.1
+      undici: 7.18.2
 
   '@stryke/json@0.9.33':
     dependencies:
@@ -38204,7 +38204,7 @@ snapshots:
   micromark-util-character@2.1.1:
     dependencies:
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-chunked@2.0.1:
     dependencies:
@@ -38219,7 +38219,7 @@ snapshots:
   micromark-util-combine-extensions@2.0.1:
     dependencies:
       micromark-util-chunked: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-decode-numeric-character-reference@2.0.2:
     dependencies:
@@ -38692,7 +38692,7 @@ snapshots:
       oxc-minify: 0.96.0
       oxc-transform: 0.96.0
       srvx: 0.9.8
-      undici: 7.18.1
+      undici: 7.18.2
       unenv: 2.0.0-rc.24
       unstorage: 2.0.0-alpha.4(chokidar@4.0.3)(db0@0.3.4(@types/better-sqlite3@7.6.13))(lru-cache@8.0.5)(ofetch@2.0.0-alpha.3)
     optionalDependencies:
@@ -42053,7 +42053,7 @@ snapshots:
   style-dictionary@5.1.1:
     dependencies:
       '@bundled-es-modules/deepmerge': 4.3.1
-      '@bundled-es-modules/glob': 11.0.3
+      '@bundled-es-modules/glob': 11.1.0
       '@bundled-es-modules/memfs': 4.17.0
       '@types/tinycolor2': 1.4.6
       '@zip.js/zip.js': 2.8.13
@@ -43026,9 +43026,9 @@ snapshots:
 
   undici-types@7.16.0: {}
 
-  undici-types@7.18.1: {}
+  undici-types@7.18.2: {}
 
-  undici@7.18.1: {}
+  undici@7.18.2: {}
 
   unenv-nightly@2.0.0-rc.24:
     dependencies:
