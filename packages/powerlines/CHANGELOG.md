@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.2) (01/06/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `bundle` esbuild parameters
+  ([04e2b511](https://github.com/storm-software/powerlines/commit/04e2b511))
+
 ## [0.37.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.0) (01/06/2026)
 
 ### Bug Fixes
