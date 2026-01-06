@@ -23,12 +23,7 @@ import { defineConfig } from "powerlines";
 
 export default defineConfig({
   skipCache: true,
-  entry: [
-    "src/index.tsx",
-    "src/types/*.ts",
-    "src/components/*.ts",
-    "src/components/*.tsx"
-  ],
+  entry: ["src/**/*.ts", "src/**/*.tsx"],
   plugins: [
     plugin(),
     deepkit({
