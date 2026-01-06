@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.127](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.127) (01/06/2026)
+
+### Features
+
+- **powerlines:** Major typing changes to support all types of `unplugin`
+  builder hooks
+  ([79f38aee](https://github.com/storm-software/powerlines/commit/79f38aee))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.78**
+- Updated **powerlines** to **v0.37.0**
+- Updated **nx** to **v0.11.56**
+
 ## [0.14.126](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.126) (01/02/2026)
 
 ### Updated Dependencies

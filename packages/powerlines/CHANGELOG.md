@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.0) (01/06/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issues with internal package import path
+  ([6b6c7d8f](https://github.com/storm-software/powerlines/commit/6b6c7d8f))
+- **powerlines:** Resolve issue adding nested plugins to context
+  ([0478f3ec](https://github.com/storm-software/powerlines/commit/0478f3ec))
+
+### Features
+
+- **powerlines:** Major typing changes to support all types of `unplugin`
+  builder hooks
+  ([79f38aee](https://github.com/storm-software/powerlines/commit/79f38aee))
+
 ## [0.36.27](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.36.27) (12/31/2025)
 
 ### Miscellaneous

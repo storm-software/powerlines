@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.135](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.135) (01/06/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue adding nested plugins to context
+  ([0478f3ec](https://github.com/storm-software/powerlines/commit/0478f3ec))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.78**
+- Updated **powerlines** to **v0.37.0**
+- Updated **nx** to **v0.11.56**
+
 ## [0.12.134](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.134) (01/02/2026)
 
 ### Updated Dependencies

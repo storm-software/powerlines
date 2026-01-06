@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.134](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.134) (01/06/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue adding nested plugins to context
+  ([0478f3ec](https://github.com/storm-software/powerlines/commit/0478f3ec))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.78**
+- Updated **powerlines** to **v0.37.0**
+- Updated **nx** to **v0.11.56**
+
 ## [0.2.133](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.133) (01/02/2026)
 
 ### Updated Dependencies
