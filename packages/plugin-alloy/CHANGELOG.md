@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.8](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.8) (01/06/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue adding nested plugins to context
+  ([0478f3ec](https://github.com/storm-software/powerlines/commit/0478f3ec))
+- **plugin-alloy:** Added new `builtinImports` property to resolve typing issues
+  ([88d2b404](https://github.com/storm-software/powerlines/commit/88d2b404))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.78**
+- Updated **powerlines** to **v0.37.0**
+- Updated **deepkit** to **v0.5.41**
+
 ## [0.18.7](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.7) (01/02/2026)
 
 ### Bug Fixes

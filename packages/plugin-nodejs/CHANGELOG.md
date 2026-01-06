@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.5](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.5) (01/06/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue adding nested plugins to context
+  ([0478f3ec](https://github.com/storm-software/powerlines/commit/0478f3ec))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.78**
+- Updated **plugin-alloy** to **v0.18.8**
+- Updated **plugin-babel** to **v0.12.135**
+- Updated **plugin-env** to **v0.15.10**
+- Updated **powerlines** to **v0.37.0**
+
 ## [0.1.4](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.4) (01/02/2026)
 
 ### Updated Dependencies
