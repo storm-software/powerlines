@@ -38,13 +38,5 @@ export default defineConfig({
       json: true,
       markdown: true
     })
-  ],
-  build: {
-    external: [
-      "@alloy-js/core",
-      "@alloy-js/typescript",
-      "@alloy-js/json",
-      "@alloy-js/markdown"
-    ]
-  }
+  ]
 });

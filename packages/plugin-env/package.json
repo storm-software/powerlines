@@ -193,8 +193,6 @@
     "@alloy-js/json": "catalog:",
     "@babel/core": "catalog:",
     "@babel/types": "catalog:",
-    "@powerlines/deepkit": "workspace:*",
-    "@powerlines/plugin-deepkit": "workspace:*",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-automd": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
@@ -211,6 +209,8 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
+    "@powerlines/deepkit": "workspace:*",
+    "@powerlines/plugin-deepkit": "workspace:*",
     "@types/node": "catalog:",
     "vite": "catalog:"
   },

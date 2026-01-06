@@ -22,7 +22,6 @@ import { isObject } from "@stryke/type-checks/is-object";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { ArrayValues } from "@stryke/types/array";
 import { AnyFunction } from "@stryke/types/base";
-import { UnpluginOptions } from "powerlines/types/unplugin";
 import {
   addPluginHook,
   isPlugin,
@@ -60,6 +59,7 @@ import {
   EnvironmentResolvedConfig,
   ResolvedConfig
 } from "../../types/resolved";
+import { UnpluginOptions } from "../../types/unplugin";
 import { isUnpluginBuilderVariant } from "../unplugin/helpers";
 import { PowerlinesContext } from "./context";
 import { createPluginContext } from "./plugin-context";
