@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.12](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.12) (01/06/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Update the env runtime types resolver method
+  ([71e21c3d](https://github.com/storm-software/powerlines/commit/71e21c3d))
+
 ## [0.15.11](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.11) (01/06/2026)
 
 ### Miscellaneous
