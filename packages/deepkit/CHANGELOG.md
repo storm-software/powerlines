@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.42](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.42) (01/06/2026)
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.37.1**
+- Updated **nx** to **v0.11.57**
+
 ## [0.5.41](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.41) (01/06/2026)
 
 ### Updated Dependencies
