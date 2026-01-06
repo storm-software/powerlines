@@ -125,8 +125,8 @@ export function resolveESBuildEntry(
           context.config.sourceRoot || context.config.projectRoot
         );
       } else {
-        ret[entry.output || resolveEntryOutput(context, entry.input || entry)] =
-          resolveEntryInputFile(context, entry.input || entry);
+        ret[entry.output || resolveEntryOutput(context, entry.input ?? entry)] =
+          resolveEntryInputFile(context, entry.input ?? entry);
       }
 
       return ret;

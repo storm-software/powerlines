@@ -211,18 +211,12 @@ export async function reflectEnv(
 ) {
   let config: ReflectionClass<any> | undefined;
   if (file) {
-    const configType = await reflectType(
-      context,
-      {
-        file: !isParentPath(file, context.workspaceConfig.workspaceRoot)
-          ? joinPaths(context.workspaceConfig.workspaceRoot, file)
-          : file,
-        name
-      },
-      {
-        skipNodeModulesBundle: true
-      }
-    );
+    const configType = await reflectType(context, {
+      file: !isParentPath(file, context.workspaceConfig.workspaceRoot)
+        ? joinPaths(context.workspaceConfig.workspaceRoot, file)
+        : file,
+      name
+    });
 
     config = resolveClassType(configType);
   }
@@ -260,18 +254,12 @@ export async function reflectSecrets(
 ) {
   let config: ReflectionClass<any> | undefined;
   if (file) {
-    const configType = await reflectType(
-      context,
-      {
-        file: !isParentPath(file, context.workspaceConfig.workspaceRoot)
-          ? joinPaths(context.workspaceConfig.workspaceRoot, file)
-          : file,
-        name
-      },
-      {
-        skipNodeModulesBundle: true
-      }
-    );
+    const configType = await reflectType(context, {
+      file: !isParentPath(file, context.workspaceConfig.workspaceRoot)
+        ? joinPaths(context.workspaceConfig.workspaceRoot, file)
+        : file,
+      name
+    });
 
     config = resolveClassType(configType);
   }
