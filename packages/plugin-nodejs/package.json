@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-nodejs",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "type": "module",
   "description": "A package containing a Powerlines plugin for building a Node.js application.",
   "repository": {
@@ -128,15 +128,8 @@
       }
     }
   },
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "nodejs",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["nodejs", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/typescript": "catalog:",
