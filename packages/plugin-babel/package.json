@@ -142,8 +142,15 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["babel", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "babel",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "peerDependencies": {
     "@babel/plugin-syntax-typescript": "^7.27.1"
   },
@@ -157,6 +164,7 @@
     "@babel/generator": "catalog:",
     "@babel/helper-plugin-utils": "catalog:",
     "@babel/parser": "catalog:",
+    "@babel/plugin-syntax-typescript": "catalog:",
     "@babel/types": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@stryke/fs": "catalog:",
@@ -166,12 +174,9 @@
     "chalk": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*",
-    "unplugin": "catalog:"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@babel/plugin-syntax-typescript": "catalog:",
-    "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },

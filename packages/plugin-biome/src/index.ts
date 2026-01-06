@@ -23,7 +23,11 @@ import { isPackageListed } from "@stryke/fs/package-fns";
 import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
 import { Plugin } from "powerlines/types/plugin";
-import { BiomePluginContext, BiomePluginOptions } from "./types/plugin";
+import {
+  BiomePluginContext,
+  BiomePluginOptions,
+  BiomePluginUserConfig
+} from "./types/plugin";
 
 export * from "./types";
 
@@ -110,7 +114,7 @@ export function plugin(
             ...options
           }
         }
-      };
+      } as BiomePluginUserConfig;
     },
     async lint() {
       this.log(LogLevelLabel.TRACE, `Linting project files with Biome.`);

@@ -117,9 +117,7 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:",
-    "@powerlines/nx": "workspace:*",
-    "@storm-software/tsup": "catalog:",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

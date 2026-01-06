@@ -24,7 +24,6 @@ export default defineConfig({
   entry: ["src/index.ts", "src/types/*.ts"],
   plugins: [
     plugin({
-      alloy: false,
       types: {
         userConfig: "TamaguiPluginUserConfig"
       }

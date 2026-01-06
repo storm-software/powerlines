@@ -126,7 +126,6 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },

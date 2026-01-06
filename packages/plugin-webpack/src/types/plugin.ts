@@ -25,6 +25,6 @@ export type WebpackPluginOptions = Partial<WebpackBuildConfig>;
 export type WebpackPluginResolvedConfig = WebpackResolvedConfig;
 
 export type WebpackPluginContext<
-  TResolvedConfig extends
-    WebpackPluginResolvedConfig = WebpackPluginResolvedConfig
+  TResolvedConfig extends WebpackPluginResolvedConfig =
+    WebpackPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;

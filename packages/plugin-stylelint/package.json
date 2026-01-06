@@ -113,8 +113,7 @@
     "stylelint": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
-    "@storm-software/tsup": "catalog:",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

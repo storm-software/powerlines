@@ -114,24 +114,29 @@
     }
   },
   "typings": "dist/src/index.d.ts",
-  "files": ["dist/**/*"],
-  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
-    "tsdown": "catalog:",
-    "unplugin": "catalog:",
+    "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/json": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
-    "@stryke/convert": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "workspace:*",
+    "tsdown": "catalog:",
+    "unplugin": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
     "@rollup/plugin-commonjs": "catalog:",
     "@rollup/plugin-node-resolve": "catalog:",
     "@types/babel__helper-plugin-utils": "catalog:",

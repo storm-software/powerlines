@@ -114,7 +114,9 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "keywords": [
     "sharp",
     "svgo",
@@ -123,20 +125,19 @@
     "powerlines-plugin"
   ],
   "dependencies": {
-    "@stryke/path": "catalog:",
-    "@stryke/fs": "catalog:",
     "@stryke/convert": "catalog:",
+    "@stryke/fs": "catalog:",
+    "@stryke/path": "catalog:",
     "chalk": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
+    "powerlines": "workspace:*",
     "sharp": "catalog:",
-    "svgo": "catalog:",
-    "powerlines": "workspace:*"
+    "svgo": "catalog:"
   },
   "devDependencies": {
-    "@storm-software/config": "catalog:",
-    "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
+    "@storm-software/config": "catalog:",
     "@types/node": "catalog:"
   },
   "publishConfig": {

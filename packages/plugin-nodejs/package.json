@@ -128,12 +128,17 @@
       }
     }
   },
-  "files": ["dist/**/*"],
-  "keywords": ["nodejs", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "nodejs",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@alloy-js/core": "catalog:",
-    "@alloy-js/json": "catalog:",
-    "@alloy-js/markdown": "catalog:",
     "@alloy-js/typescript": "catalog:",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
@@ -145,6 +150,7 @@
   },
   "devDependencies": {
     "@babel/core": "catalog:",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

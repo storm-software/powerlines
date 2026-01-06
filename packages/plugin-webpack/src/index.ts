@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import defu from "defu";
 import { extractWebpackConfig } from "powerlines/lib/build/webpack";
 import { WebpackUserConfig } from "powerlines/types/config";
@@ -39,8 +38,7 @@ export const plugin = <
   return {
     name: "webpack",
     config() {
-      this.log(
-        LogLevelLabel.TRACE,
+      this.trace(
         "Providing default configuration for the Powerlines `webpack` build plugin."
       );
 

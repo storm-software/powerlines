@@ -27,8 +27,9 @@ export interface GenerateDocsOptions {
   project: ProjectReflection;
 }
 
-export interface TypeDocPluginOptions
-  extends Partial<Omit<TypeDocOptions, "out">> {
+export interface TypeDocPluginOptions extends Partial<
+  Omit<TypeDocOptions, "out">
+> {
   /**
    * The output path for the generated documentation.
    *
@@ -75,8 +76,8 @@ export interface TypeDocPluginResolvedConfig extends ResolvedConfig {
 }
 
 export type TypeDocPluginContext<
-  TResolvedConfig extends
-    TypeDocPluginResolvedConfig = TypeDocPluginResolvedConfig
+  TResolvedConfig extends TypeDocPluginResolvedConfig =
+    TypeDocPluginResolvedConfig
 > = PluginContext<TResolvedConfig> & {
   /**
    * The initialized TypeDoc application.

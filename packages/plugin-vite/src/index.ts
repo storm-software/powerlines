@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import defu from "defu";
 import {
   DEFAULT_VITE_CONFIG,
@@ -41,8 +40,7 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
   return {
     name: "vite",
     config() {
-      this.log(
-        LogLevelLabel.TRACE,
+      this.trace(
         "Providing default configuration for the Powerlines `vite` build plugin."
       );
 
@@ -59,7 +57,7 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
       } as Partial<ViteUserConfig>;
     },
     async build() {
-      this.log(LogLevelLabel.TRACE, `Building the Powerlines plugin.`);
+      this.trace(`Building the Powerlines plugin.`);
 
       const environments = (this as unknown as UNSAFE_VitePluginContext)
         ?.$$internal?.api?.context?.environments;
@@ -69,8 +67,7 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
         );
       }
 
-      this.log(
-        LogLevelLabel.TRACE,
+      this.trace(
         `Running Vite for ${Object.keys(environments).length} environments.`
       );
 

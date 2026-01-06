@@ -28,7 +28,11 @@ import {
   TSConfigReader,
   TypeDocReader
 } from "typedoc";
-import { TypeDocPluginContext, TypeDocPluginOptions } from "./types/plugin";
+import {
+  TypeDocPluginContext,
+  TypeDocPluginOptions,
+  TypeDocPluginUserConfig
+} from "./types/plugin";
 
 export * from "./types";
 
@@ -68,7 +72,7 @@ export function plugin(
             plugin: options.plugin ? [] : ["typedoc-plugin-markdown"]
           })
         }
-      };
+      } as Partial<TypeDocPluginUserConfig>;
     },
     async configResolved() {
       this.typedoc = await Application.bootstrapWithPlugins(

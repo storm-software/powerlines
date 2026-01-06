@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import defu from "defu";
 import { extractTsdownConfig } from "powerlines/lib/build/tsdown";
 import { Plugin } from "powerlines/types/plugin";
@@ -42,8 +41,7 @@ export const plugin = <
   return {
     name: "tsdown",
     config() {
-      this.log(
-        LogLevelLabel.TRACE,
+      this.trace(
         "Providing default configuration for the Powerlines `tsdown` build plugin."
       );
 

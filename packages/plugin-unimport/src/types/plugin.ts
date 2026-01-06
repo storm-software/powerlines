@@ -52,8 +52,8 @@ export type UnimportPluginResolvedConfig = ResolvedConfig & {
 };
 
 export type UnimportPluginContext<
-  TResolvedConfig extends
-    UnimportPluginResolvedConfig = UnimportPluginResolvedConfig
+  TResolvedConfig extends UnimportPluginResolvedConfig =
+    UnimportPluginResolvedConfig
 > = PluginContext<TResolvedConfig> & {
   unimport: UnimportContext;
 };

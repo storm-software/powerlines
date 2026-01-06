@@ -108,8 +108,6 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
-    "@storm-software/tsup": "catalog:",
     "@types/node": "catalog:"
   },
   "publishConfig": {

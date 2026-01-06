@@ -72,27 +72,33 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["prisma", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "prisma",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
-    "@stryke/path": "catalog:",
-    "@stryke/fs": "catalog:",
-    "@stryke/type-checks": "catalog:",
-    "@stryke/types": "catalog:",
-    "@stryke/cli": "catalog:",
-    "defu": "catalog:",
-    "jiti": "catalog:",
-    "powerlines": "workspace:*",
-    "ts-pattern": "catalog:",
-    "prisma-util": "catalog:",
     "@prisma/get-platform": "catalog:",
     "@prisma/prisma-schema-wasm": "catalog:",
-    "fp-ts": "catalog:"
+    "@stryke/cli": "catalog:",
+    "@stryke/fs": "catalog:",
+    "@stryke/path": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "@stryke/types": "catalog:",
+    "defu": "catalog:",
+    "fp-ts": "catalog:",
+    "jiti": "catalog:",
+    "powerlines": "workspace:*",
+    "prisma-util": "catalog:",
+    "ts-pattern": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
     "@powerlines/plugin-hey-api": "workspace:*",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

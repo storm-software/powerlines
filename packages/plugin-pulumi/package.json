@@ -114,22 +114,29 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["pulumi", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "pulumi",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
-    "@stryke/type-checks": "catalog:",
-    "@stryke/path": "catalog:",
+    "@pulumi/pulumi": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/helpers": "catalog:",
-    "@stryke/types": "catalog:",
+    "@stryke/path": "catalog:",
     "@stryke/string-format": "catalog:",
-    "@pulumi/pulumi": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "@stryke/types": "catalog:",
     "defu": "catalog:",
     "powerlines": "workspace:*",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

@@ -131,7 +131,7 @@
   },
   "devDependencies": {
     "@jest/types": "catalog:",
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/jest": "catalog:"
   },
   "publishConfig": {

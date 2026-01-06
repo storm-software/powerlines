@@ -127,7 +127,6 @@
   },
   "devDependencies": {
     "@graphql-codegen/plugin-helpers": "catalog:",
-    "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },

@@ -114,20 +114,22 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["unenv", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "unenv",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
-    "@stryke/path": "catalog:",
-    "@stryke/fs": "catalog:",
-    "@stryke/hash": "catalog:",
-    "unenv": "catalog:",
-    "defu": "catalog:",
     "powerlines": "workspace:*",
     "typescript": "^5.9.3",
-    "vite": "catalog:"
+    "unenv": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

@@ -114,19 +114,23 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["untyped", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "untyped",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
-    "@stryke/convert": "catalog:",
-    "defu": "catalog:",
-    "jiti": "catalog:",
     "@storm-software/untyped": "catalog:",
+    "@stryke/convert": "catalog:",
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@storm-software/config": "catalog:",
-    "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
+    "@storm-software/config": "catalog:",
     "@types/node": "catalog:"
   },
   "publishConfig": {

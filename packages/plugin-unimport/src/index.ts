@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { throttle } from "@stryke/helpers/throttle";
 import { StormJSON } from "@stryke/json/storm-json";
 import { joinPaths } from "@stryke/path/join";
@@ -77,12 +76,11 @@ export const plugin = <
       this.unimport = { ...rest } as UnimportContext;
 
       this.unimport.dumpImports = throttle(async () => {
-        this.log(LogLevelLabel.TRACE, "Dumping import file...");
+        this.trace("Dumping import file...");
 
         const items = await this.unimport.getImports();
 
-        this.log(
-          LogLevelLabel.TRACE,
+        this.trace(
           `Writing imports-dump JSON file: ${joinPaths(this.dataPath, "imports-dump.json")}`
         );
 

@@ -146,17 +146,9 @@
   "keywords": ["unbuild", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@storm-software/unbuild": "catalog:",
-    "@stryke/fs": "catalog:",
-    "@stryke/path": "catalog:",
-    "@stryke/type-checks": "catalog:",
-    "@stryke/types": "catalog:",
-    "defu": "catalog:",
-    "jiti": "catalog:",
-    "powerlines": "workspace:*",
-    "unplugin": "catalog:"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },

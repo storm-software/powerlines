@@ -114,7 +114,9 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "keywords": [
     "content-collections",
     "powerlines",
@@ -123,9 +125,10 @@
   ],
   "dependencies": {
     "@content-collections/core": "catalog:",
+    "@standard-schema/spec": "catalog:",
     "@stryke/fs": "catalog:",
-    "@stryke/string-format": "catalog:",
     "@stryke/path": "catalog:",
+    "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "defu": "catalog:",
@@ -133,9 +136,7 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
-    "@standard-schema/spec": "catalog:",
     "@types/node": "catalog:",
     "@types/pluralize": "catalog:"
   },

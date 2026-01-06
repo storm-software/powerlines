@@ -147,6 +147,7 @@
     "@alloy-js/json": "catalog:",
     "@alloy-js/markdown": "catalog:",
     "@alloy-js/typescript": "catalog:",
+    "@babel/core": "catalog:",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
@@ -161,12 +162,10 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@babel/core": "catalog:",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "@types/react-dom": "catalog:"
   },
   "publishConfig": {
     "access": "public"

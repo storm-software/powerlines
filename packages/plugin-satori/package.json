@@ -142,7 +142,6 @@
     "satori": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
     "@storm-software/config": "catalog:",
     "@types/node": "catalog:",

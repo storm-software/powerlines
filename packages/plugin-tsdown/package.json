@@ -142,18 +142,22 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["tsdown", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "tsdown",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
-    "tsdown": "catalog:",
-    "@stryke/path": "catalog:",
-    "@stryke/type-checks": "catalog:",
-    "@stryke/types": "catalog:",
     "defu": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "workspace:*",
+    "tsdown": "catalog:",
+    "unplugin": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/nx": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },

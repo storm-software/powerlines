@@ -28,11 +28,5 @@ export default defineConfig({
     "src/components/*.ts",
     "src/components/*.tsx"
   ],
-  plugins: [
-    alloy({
-      json: true,
-      markdown: true
-    }),
-    plugin()
-  ]
+  plugins: [alloy(), plugin()]
 });
