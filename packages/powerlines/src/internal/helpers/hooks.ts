@@ -26,14 +26,11 @@ import { MaybePromise } from "@stryke/types/base";
 import chalk from "chalk";
 import { createDefu, defu } from "defu";
 import {
-  InferHookParameters,
-  InferHookReturnType
-} from "powerlines/types/hooks";
-import {
   EnvironmentContext,
   PluginContext,
   SelectHooksOptions
 } from "../../types/context";
+import { InferHookParameters, InferHookReturnType } from "../../types/hooks";
 import { ResolvedConfig } from "../../types/resolved";
 
 export type CallHookOptions = SelectHooksOptions &

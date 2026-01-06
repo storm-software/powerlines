@@ -31,9 +31,14 @@ export default defineConfig({
   build: {
     inputOptions: {
       transform: {
+        typescript: {
+          jsxPragma: "Alloy.createElement",
+          jsxPragmaFrag: "Alloy.Fragment"
+        },
         jsx: {
           runtime: "classic",
           pragma: "Alloy.createElement",
+          pragmaFrag: "Alloy.Fragment",
           importSource: "@alloy-js/core"
         }
       }

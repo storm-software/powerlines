@@ -36,7 +36,7 @@ export const plugin = <
 ) => {
   return [
     babel(options.babel),
-    ...env<TContext>(options.env),
+    env(options.env),
     {
       name: "nodejs",
       configResolved() {

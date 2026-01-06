@@ -625,9 +625,11 @@ export class PowerlinesContext<
     });
 
     if (!this.config.skipCache && !options.skipCache) {
-      const cached = this.requestCache.get<{ body: BodyInit } & ResponseInit>(
-        cacheKey
-      );
+      const cached = this.requestCache.get<
+        {
+          body: BodyInit;
+        } & Pick<Response, "status" | "statusText" | "headers">
+      >(cacheKey);
       if (cached) {
         return new Response(cached.body, {
           status: cached.status,

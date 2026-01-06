@@ -21,8 +21,6 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { AnyFunction } from "@stryke/types/base";
-
-import { UnpluginOptions } from "powerlines/types/unplugin";
 import {
   BUILDER_VARIANTS,
   UNPLUGIN_BUILDER_VARIANTS,
@@ -48,6 +46,7 @@ import {
   PluginHooks
 } from "../types/plugin";
 import { ResolvedConfig } from "../types/resolved";
+import { UnpluginOptions } from "../types/unplugin";
 
 /**
  * Type guard to check if an object is a {@link Plugin}

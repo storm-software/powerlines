@@ -18,7 +18,7 @@
 
 import { findFileExtensionSafe } from "@stryke/path/find";
 import defu from "defu";
-import { ConfigResult, Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines/types/plugin";
 import ts from "typescript";
 import { typeCheck } from "./helpers/type-check";
 import {
@@ -44,13 +44,15 @@ export const plugin = <
   return {
     name: "tsc",
     config() {
+      this.trace("Merging TypeScript Compiler plugin configuration");
+
       return {
         transform: {
           tsc: defu(options ?? {}, {
             typeCheck: false
           })
         }
-      } as ConfigResult<TContext>;
+      };
     },
     async lint() {
       if (this.config.transform.tsc.typeCheck) {

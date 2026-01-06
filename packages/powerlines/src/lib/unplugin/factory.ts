@@ -18,7 +18,6 @@
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { getWorkspaceRoot } from "@stryke/fs/get-workspace-root";
-import { API } from "powerlines/types/api";
 import { LoadResult } from "rolldown";
 import type {
   UnpluginOptions as BaseUnpluginOptions,
@@ -28,6 +27,7 @@ import type {
 } from "unplugin";
 import { setParseImpl } from "unplugin";
 import { PowerlinesAPI } from "../../api";
+import { API } from "../../types/api";
 import { UnpluginBuilderVariant } from "../../types/build";
 import { Context } from "../../types/context";
 import { UnpluginFactory, UnpluginOptions } from "../../types/unplugin";

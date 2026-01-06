@@ -710,6 +710,7 @@
     "prettier": "catalog:",
     "rollup-plugin-typescript2": "catalog:",
     "ts-morph": "catalog:",
+    "undici": "catalog:",
     "unimport": "catalog:",
     "unplugin": "catalog:",
     "vite": "catalog:"

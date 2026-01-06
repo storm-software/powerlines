@@ -19,7 +19,10 @@
 import { resolvePackage } from "@stryke/fs/resolve";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isObject } from "@stryke/type-checks/is-object";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { ArrayValues } from "@stryke/types/array";
+import { AnyFunction } from "@stryke/types/base";
+import { UnpluginOptions } from "powerlines/types/unplugin";
 import {
   addPluginHook,
   isPlugin,
@@ -43,12 +46,14 @@ import {
   HookListOrders,
   HooksList,
   InferHooksListItem,
-  PluginHooksList,
+  PluginHooksListItem,
+  UnpluginHookList,
   UnpluginHooksListItem
 } from "../../types/hooks";
 import {
   Plugin,
   PLUGIN_NON_HOOK_FIELDS,
+  PluginHook,
   PluginHookFields
 } from "../../types/plugin";
 import {
@@ -158,29 +163,27 @@ export class PowerlinesEnvironmentContext<
       )
       .reduce((ret, key) => {
         const hook = key as HookFields<PluginContext<TResolvedConfig>>;
-        const pluginHook = resolvedPlugin[hook];
-        if (!isPluginHook(pluginHook)) {
-          return ret;
-        }
 
         if (isPluginHookField<PluginContext<TResolvedConfig>>(hook)) {
-          const hookBuckets = {
+          const pluginHook = resolvedPlugin[hook];
+          if (!isPluginHook(pluginHook)) {
+            return ret;
+          }
+
+          ret[hook] ??= {
             preEnforced: [],
             preOrdered: [],
             normal: [],
             postEnforced: [],
             postOrdered: []
-          } as PluginHooksList<
-            PluginContext<TResolvedConfig>,
-            PluginHookFields
-          >;
+          };
 
           if (resolvedPlugin.enforce) {
             const hookListOrder =
               `${resolvedPlugin.enforce}Enforced` as HookListOrders;
-            hookBuckets[hookListOrder] ??= [];
+            ret[hook][hookListOrder] ??= [];
 
-            const bucket = hookBuckets[hookListOrder];
+            const bucket = ret[hook][hookListOrder];
             addPluginHook<
               PluginContext<TResolvedConfig>,
               PluginHookFields<PluginContext<TResolvedConfig>>
@@ -190,9 +193,9 @@ export class PowerlinesEnvironmentContext<
           }
 
           if (isFunction(pluginHook) || !pluginHook.order) {
-            hookBuckets.normal ??= [];
+            ret[hook].normal ??= [];
 
-            const bucket = hookBuckets.normal;
+            const bucket = ret[hook].normal;
             addPluginHook<
               PluginContext<TResolvedConfig>,
               PluginHookFields<PluginContext<TResolvedConfig>>
@@ -202,49 +205,86 @@ export class PowerlinesEnvironmentContext<
           }
 
           const hookListOrder = `${pluginHook.order}Ordered` as HookListOrders;
-          hookBuckets[hookListOrder] ??= [];
+          ret[hook][hookListOrder] ??= [];
 
-          const bucket = hookBuckets[hookListOrder];
-          addPluginHook(context, resolvedPlugin, pluginHook, bucket);
+          addPluginHook(
+            context,
+            resolvedPlugin,
+            pluginHook,
+            ret[hook][hookListOrder] as PluginHooksListItem<
+              PluginContext<TResolvedConfig>
+            >[]
+          );
+
+          return ret;
         } else if (isUnpluginHookField(hook)) {
-          const hookBuckets = ((ret as any)[hook] ??= {
-            preEnforced: [],
-            preOrdered: [],
-            normal: [],
-            postEnforced: [],
-            postOrdered: []
-          }) as Record<
-            string,
-            UnpluginHooksListItem<PluginContext<TResolvedConfig>, typeof hook>[]
-          >;
-
-          if (resolvedPlugin.enforce) {
-            const hookListOrder =
-              `${resolvedPlugin.enforce}Enforced` as HookListOrders;
-            hookBuckets[hookListOrder] ??= [];
-
-            const bucket = hookBuckets[hookListOrder];
-            addPluginHook(context, resolvedPlugin, pluginHook, bucket);
-
+          const unpluginPlugin = resolvedPlugin[hook];
+          if (!isSetObject(unpluginPlugin)) {
             return ret;
           }
 
-          if (isFunction(pluginHook) || !pluginHook.order) {
-            hookBuckets.normal ??= [];
+          for (const field of Object.keys(unpluginPlugin)) {
+            const variantField = field as keyof UnpluginOptions[typeof hook];
 
-            const bucket = hookBuckets.normal;
-            addPluginHook(context, resolvedPlugin, pluginHook, bucket);
+            const pluginHook = unpluginPlugin[
+              variantField
+            ] as PluginHook<AnyFunction>;
+            if (!isPluginHook(pluginHook)) {
+              continue;
+            }
 
-            return ret;
+            ret[hook] ??= {};
+            (ret[hook][variantField] as UnpluginHookList<
+              PluginContext<TResolvedConfig>,
+              typeof variantField
+            >) ??= {
+              preEnforced: [],
+              preOrdered: [],
+              normal: [],
+              postEnforced: [],
+              postOrdered: []
+            };
+
+            if (resolvedPlugin.enforce) {
+              addPluginHook(
+                context,
+                resolvedPlugin,
+                pluginHook,
+                ret[hook][variantField][
+                  `${resolvedPlugin.enforce}Enforced`
+                ] as UnpluginHooksListItem<PluginContext<TResolvedConfig>>[]
+              );
+
+              return ret;
+            }
+
+            if (isFunction(pluginHook) || !pluginHook.order) {
+              addPluginHook(
+                context,
+                resolvedPlugin,
+                pluginHook,
+                (
+                  ret[hook][variantField] as UnpluginHookList<
+                    PluginContext<TResolvedConfig>,
+                    typeof variantField
+                  >
+                ).normal!
+              );
+
+              return ret;
+            }
+
+            addPluginHook(
+              context,
+              resolvedPlugin,
+              pluginHook,
+              ret[hook][variantField][
+                `${pluginHook.order}Ordered`
+              ] as UnpluginHooksListItem<PluginContext<TResolvedConfig>>[]
+            );
           }
-
-          const hookListOrder = `${pluginHook.order}Ordered` as HookListOrders;
-          hookBuckets[hookListOrder] ??= [];
-
-          const bucket = hookBuckets[hookListOrder];
-          addPluginHook(context, resolvedPlugin, pluginHook, bucket);
         } else {
-          throw new Error(`Unknown plugin hook field: ${String(hook)}`);
+          this.warn(`Unknown plugin hook field: ${String(hook)}`);
         }
 
         return ret;
@@ -302,18 +342,18 @@ export class PowerlinesEnvironmentContext<
                 });
 
               if (options?.order === "pre") {
-                result.concat(mapHooksToResult(fieldHooks.preOrdered ?? []));
-                result.concat(mapHooksToResult(fieldHooks.preEnforced ?? []));
+                result.push(...mapHooksToResult(fieldHooks.preOrdered ?? []));
+                result.push(...mapHooksToResult(fieldHooks.preEnforced ?? []));
               } else if (options?.order === "post") {
-                result.concat(mapHooksToResult(fieldHooks.postOrdered ?? []));
-                result.concat(mapHooksToResult(fieldHooks.postEnforced ?? []));
+                result.push(...mapHooksToResult(fieldHooks.postOrdered ?? []));
+                result.push(...mapHooksToResult(fieldHooks.postEnforced ?? []));
               } else {
-                result.concat(mapHooksToResult(fieldHooks.normal ?? []));
+                result.push(...mapHooksToResult(fieldHooks.normal ?? []));
               }
             } else {
-              result.concat(this.selectHooks(key, { order: "pre" }));
-              result.concat(this.selectHooks(key, { order: "normal" }));
-              result.concat(this.selectHooks(key, { order: "post" }));
+              result.push(...this.selectHooks(key, { order: "pre" }));
+              result.push(...this.selectHooks(key, { order: "normal" }));
+              result.push(...this.selectHooks(key, { order: "post" }));
             }
           }
         }
@@ -352,18 +392,18 @@ export class PowerlinesEnvironmentContext<
             });
 
           if (options?.order === "pre") {
-            result.concat(mapHooksToResult(fieldHooks.preOrdered ?? []));
-            result.concat(mapHooksToResult(fieldHooks.preEnforced ?? []));
+            result.push(...mapHooksToResult(fieldHooks.preOrdered ?? []));
+            result.push(...mapHooksToResult(fieldHooks.preEnforced ?? []));
           } else if (options?.order === "post") {
-            result.concat(mapHooksToResult(fieldHooks.postOrdered ?? []));
-            result.concat(mapHooksToResult(fieldHooks.postEnforced ?? []));
+            result.push(...mapHooksToResult(fieldHooks.postOrdered ?? []));
+            result.push(...mapHooksToResult(fieldHooks.postEnforced ?? []));
           } else {
-            result.concat(mapHooksToResult(fieldHooks.normal ?? []));
+            result.push(...mapHooksToResult(fieldHooks.normal ?? []));
           }
         } else {
-          result.concat(this.selectHooks(key, { order: "pre" }));
-          result.concat(this.selectHooks(key, { order: "normal" }));
-          result.concat(this.selectHooks(key, { order: "post" }));
+          result.push(...this.selectHooks(key, { order: "pre" }));
+          result.push(...this.selectHooks(key, { order: "normal" }));
+          result.push(...this.selectHooks(key, { order: "post" }));
         }
       }
     } else {

@@ -18,11 +18,11 @@
 
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { defu } from "defu";
+import { UnpluginBuildContext, UnpluginContext } from "unplugin";
 import {
   UNPLUGIN_BUILDER_VARIANTS,
   UnpluginBuilderVariant
-} from "powerlines/types";
-import { UnpluginBuildContext, UnpluginContext } from "unplugin";
+} from "../../types/build";
 import { PluginContext } from "../../types/context";
 
 /**

@@ -26,7 +26,6 @@ import { isParentPath } from "@stryke/path/is-parent-path";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import defu from "defu";
 import { ResolvedBabelTransformPluginOptions } from "powerlines/types/babel";
-import { UserConfig } from "powerlines/types/config";
 import { Plugin } from "powerlines/types/plugin";
 import { isDuplicatePlugin } from "./helpers/filters";
 import { resolveBabelPlugin } from "./helpers/options";
@@ -41,9 +40,9 @@ export * from "./types";
  * @param options - The Babel plugin user configuration options.
  * @returns A Powerlines plugin that integrates Babel transformations.
  */
-export const plugin = (
+export const plugin = <TContext extends BabelPluginContext>(
   options: BabelPluginOptions = {}
-): Plugin<BabelPluginContext> => {
+) => {
   return {
     name: "babel",
     config() {
@@ -53,7 +52,7 @@ export const plugin = (
 
       return {
         transform: { babel: options }
-      } as Partial<UserConfig>;
+      };
     },
     configResolved: {
       order: "pre",
@@ -159,7 +158,7 @@ export const plugin = (
 
       return { code: result.code, id };
     }
-  } as Plugin<BabelPluginContext>;
+  } as Plugin<TContext>;
 };
 
 export default plugin;
