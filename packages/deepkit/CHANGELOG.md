@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.54](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.54) (01/07/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Ensure the `TSDocDefaultValue` component uses the correct
+  display values
+  ([4be0e4c6](https://github.com/storm-software/powerlines/commit/4be0e4c6))
+
 ## [0.5.53](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.53) (01/07/2026)
 
 ### Updated Dependencies
