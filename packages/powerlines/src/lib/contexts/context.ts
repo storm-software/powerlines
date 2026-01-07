@@ -35,7 +35,6 @@ import {
   findFileExtensionSafe
 } from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
-import { isAbsolute } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
 import { titleCase } from "@stryke/string-format/title-case";
@@ -220,10 +219,7 @@ export class PowerlinesContext<
       {
         output: config.framework
           ? {
-              artifactsPath: joinPaths(
-                config.root ?? this.config.projectRoot,
-                `.${config.framework ?? "powerlines"}`
-              ),
+              artifactsPath: `.${config.framework ?? "powerlines"}`,
               dts: joinPaths(
                 config.root ?? this.config.projectRoot,
                 `${config.framework ?? "powerlines"}.d.ts`
@@ -934,9 +930,13 @@ export class PowerlinesContext<
     path: string,
     options: EmitEntryOptions = {}
   ): Promise<void> {
-    const entryPath = isAbsolute(path)
-      ? path
-      : appendPath(path, this.entryPath);
+    const entryPath = appendPath(
+      replacePath(
+        replacePath(replacePath(path, this.entryPath), this.config.projectRoot),
+        this.workspaceConfig.workspaceRoot
+      ),
+      this.entryPath
+    );
 
     this.entry ??= [];
     this.entry.push({
@@ -975,9 +975,13 @@ export class PowerlinesContext<
     path: string,
     options: EmitEntryOptions = {}
   ): void {
-    const entryPath = isAbsolute(path)
-      ? path
-      : appendPath(path, this.entryPath);
+    const entryPath = appendPath(
+      replacePath(
+        replacePath(replacePath(path, this.entryPath), this.config.projectRoot),
+        this.workspaceConfig.workspaceRoot
+      ),
+      this.entryPath
+    );
 
     this.entry ??= [];
     this.entry.push({
@@ -1030,7 +1034,7 @@ export class PowerlinesContext<
 
     return this.emit(
       code,
-      appendPath(id, replacePath(this.builtinsPath, this.config.projectRoot)),
+      appendPath(id, this.builtinsPath),
       defu(options, { meta: { type: "builtin", id } })
     );
   }
@@ -1057,7 +1061,7 @@ export class PowerlinesContext<
 
     return this.emitSync(
       code,
-      appendPath(id, replacePath(this.builtinsPath, this.config.projectRoot)),
+      appendPath(id, this.builtinsPath),
       defu(options, { meta: { type: "builtin", id } })
     );
   }
@@ -1375,10 +1379,7 @@ export class PowerlinesContext<
                   cacheKey.projectRoot
                 )
               : this.workspaceConfig?.directories?.build || "dist",
-            artifactsPath: joinPaths(
-              cacheKey.projectRoot,
-              `.${config.framework ?? "powerlines"}`
-            ),
+            artifactsPath: `.${config.framework ?? "powerlines"}`,
             dts: joinPaths(
               cacheKey.projectRoot,
               `${config.framework ?? "powerlines"}.d.ts`

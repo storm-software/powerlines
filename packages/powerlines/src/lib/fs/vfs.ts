@@ -997,7 +997,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     data: string = "",
     options: WriteOptions = {}
   ): Promise<void> {
-    const meta = options.meta || {};
+    const meta = options.meta ?? {};
     const { relativeKey, adapter } = this.#getStorage(options.storage || path);
 
     let code = data;
@@ -1048,7 +1048,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     data: string = "",
     options: WriteOptions = {}
   ): void {
-    const meta = options.meta || {};
+    const meta = options.meta ?? {};
     const { relativeKey, adapter } = this.#getStorage(options.storage || path);
 
     this.#log(

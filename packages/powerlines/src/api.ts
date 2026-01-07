@@ -631,6 +631,7 @@ ${formatTypes(types)}
       await context.fs.remove(
         joinPaths(
           context.workspaceConfig.workspaceRoot,
+          context.config.projectRoot,
           context.config.output.artifactsPath
         )
       );
