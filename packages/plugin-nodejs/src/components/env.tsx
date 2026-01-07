@@ -45,7 +45,7 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
       {...rest}
       imports={defu(
         {
-          "node:os": ["homedir", "tmpdir"],
+          "node:os": "os",
           "node:path": ["basename", "join"]
         },
         rest.imports ?? {}
@@ -77,10 +77,10 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
       />
       <hbr />
       <hbr />
-      <VarDeclaration const name="homedir" initializer={code`homedir(); `} />
+      <VarDeclaration const name="homedir" initializer={code`os.homedir(); `} />
       <hbr />
       <hbr />
-      <VarDeclaration const name="tmpdir" initializer={code`tmpdir(); `} />
+      <VarDeclaration const name="tmpdir" initializer={code`os.tmpdir(); `} />
       <hbr />
       <hbr />
       <TSDoc heading="The environment path types for storing things like data, config, logs, and cache in the current runtime environment.">
@@ -114,7 +114,6 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
         export
         const
         name="paths"
-        type="EnvPaths"
         initializer={code`isMacOS
             ? {
               data: String(env.DATA_DIR)
@@ -210,7 +209,7 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
                       context.config.name
                     )}")
                     : join(tmpdir, basename(homedir), "${kebabCase(context.config.organization)}", "${kebabCase(context.config.name)}"))
-          } as StormEnvPaths; `}
+          } as EnvPaths; `}
       />
       <hbr />
       <hbr />
