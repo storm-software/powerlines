@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.21](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.21) (01/07/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Ensure the `TSDocDefaultValue` component uses the correct
+  display values
+  ([4be0e4c6](https://github.com/storm-software/powerlines/commit/4be0e4c6))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.5.54**
+
 ## [0.18.20](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.20) (01/07/2026)
 
 ### Bug Fixes
