@@ -89,7 +89,10 @@ export function stringifyValue(type: Type, value: any): string {
                   : type.kind === ReflectionKind.property ||
                       type.kind === ReflectionKind.parameter
                     ? stringifyValue(type.type, value)
-                    : String(value);
+                    : String(value)?.includes('"') ||
+                        String(value)?.includes("'")
+                      ? stringifyStringValue(value)
+                      : String(value);
 }
 
 /**
