@@ -23,7 +23,7 @@ import { StormJSON } from "@stryke/json/storm-json";
 import { Plugin } from "powerlines/types/plugin";
 import { Output } from "./core/components/output";
 import { MetaItem } from "./core/contexts/context";
-import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
+import { AlloyPluginContext, AlloyPluginOptions, AlloyPluginResolvedConfig } from "./types/plugin";
 import { findFileExtension } from "@stryke/path/file-path-fns";
 
 /**
@@ -117,7 +117,7 @@ export const plugin = <
       configResolved: {
         order: "pre",
         async handler() {
-          this.render = async (children: Children) => {
+          async function render<TContext extends AlloyPluginContext<AlloyPluginResolvedConfig>>(this: TContext, children: Children) {
             const meta = {} as Record<string, MetaItem>;
 
             await traverseOutput(
@@ -172,6 +172,8 @@ export const plugin = <
               }
             );
           };
+
+          this.render = render.bind(this);
         }
       }
     }
