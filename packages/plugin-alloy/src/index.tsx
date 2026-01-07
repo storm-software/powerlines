@@ -149,7 +149,6 @@ export const plugin = <
                       this.emitBuiltinSync(
                         file.contents,
                         metadata.id,
-                        file.path,
                         {
                           skipFormat: metadata.skipFormat,
                           storage: metadata.storage

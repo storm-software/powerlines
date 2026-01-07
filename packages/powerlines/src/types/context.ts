@@ -61,15 +61,6 @@ import type { ParsedTypeScriptConfig } from "./tsconfig";
  */
 export type LogLevel = "debug" | "info" | "warning" | "error" | "fatal";
 
-// eslint-disable-next-line ts/no-redeclare
-export const LogLevel = {
-  DEBUG: "debug" as LogLevel,
-  INFO: "info" as LogLevel,
-  WARNING: "warning" as LogLevel,
-  ERROR: "error" as LogLevel,
-  FATAL: "fatal" as LogLevel
-};
-
 export type WorkerProcess<TExposedMethods extends ReadonlyArray<string>> = {
   [K in TExposedMethods[number]]: (data: any) => Promise<any>;
 } & {
@@ -481,13 +472,11 @@ export interface UnresolvedContext<
    *
    * @param code - The source code of the builtin file
    * @param id - The unique identifier of the builtin file
-   * @param path - An optional path to write the builtin file to
    * @param options - Additional options for writing the builtin file
    */
   emitBuiltin: (
     code: string,
     id: string,
-    path?: string,
     options?: EmitOptions
   ) => Promise<void>;
 
@@ -496,13 +485,11 @@ export interface UnresolvedContext<
    *
    * @param code - The source code of the builtin file
    * @param id - The unique identifier of the builtin file
-   * @param path - An optional path to write the builtin file to
    * @param options - Additional options for writing the builtin file
    */
   emitBuiltinSync: (
     code: string,
     id: string,
-    path?: string,
     options?: EmitOptions
   ) => void;
 

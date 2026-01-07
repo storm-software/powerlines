@@ -981,23 +981,16 @@ export class PowerlinesContext<
    *
    * @param code - The source code of the builtin file
    * @param id - The unique identifier of the builtin file
-   * @param path - An optional path to write the builtin file to
    * @param options - Optional write file options
    */
   public async emitBuiltin(
     code: string,
     id: string,
-    path?: string,
     options: EmitOptions = {}
   ): Promise<void> {
     return this.emit(
       code,
-      path
-        ? isAbsolute(path)
-          ? path
-          : joinPaths(this.builtinsPath, path)
-        : appendPath(id, this.builtinsPath),
-
+      appendPath(id, this.builtinsPath),
       defu(options, { meta: { type: "builtin" } })
     );
   }
@@ -1007,22 +1000,12 @@ export class PowerlinesContext<
    *
    * @param code - The source code of the builtin file
    * @param id - The unique identifier of the builtin file
-   * @param path - An optional path to write the builtin file to
    * @param options - Optional write file options
    */
-  public emitBuiltinSync(
-    code: string,
-    id: string,
-    path?: string,
-    options: EmitOptions = {}
-  ) {
+  public emitBuiltinSync(code: string, id: string, options: EmitOptions = {}) {
     return this.emitSync(
       code,
-      path
-        ? isAbsolute(path)
-          ? path
-          : joinPaths(this.builtinsPath, path)
-        : appendPath(id, this.builtinsPath),
+      appendPath(id, this.builtinsPath),
       defu(options, { meta: { type: "builtin" } })
     );
   }

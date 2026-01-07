@@ -312,7 +312,8 @@ export class PowerlinesAPI<
               `Writing transformed built-in runtime file ${file.id}.`
             );
 
-            await context.emitBuiltin(result.code, file.id, file.path);
+            await context.emitBuiltin(result.code, file.id);
+
             return file.path;
           })
         );
