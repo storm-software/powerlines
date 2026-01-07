@@ -16,8 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-/* eslint-disable @nx/enforce-module-boundaries */
-
 import {
   getContext,
   Show,
@@ -32,7 +30,7 @@ import { appendPath } from "@stryke/path/append";
 import defu from "defu";
 import type { StoragePreset } from "powerlines/types/fs";
 import { ComponentProps } from "../../types/components";
-import { useMeta } from "../contexts";
+import { useMetaSafe } from "../contexts";
 
 export type SourceFileProps = SourceFilePropsExternal &
   ComponentProps & {
@@ -71,7 +69,7 @@ export function SourceFile(props: SourceFileProps) {
       "reference"
     ]);
 
-  const metadata = useMeta();
+  const metadata = useMetaSafe();
   const parentDirectory = useContext(SourceDirectoryContext)!;
 
   const sourceFile: SourceFileContext = {
@@ -97,10 +95,12 @@ export function SourceFile(props: SourceFileProps) {
     meta ?? {}
   );
 
-  metadata[sourceFile.path] = {
-    storage,
-    ...(meta ?? {})
-  };
+  if (metadata) {
+    metadata[sourceFile.path] = {
+      storage,
+      ...(meta ?? {})
+    };
+  }
 
   return (
     <SourceFileContext.Provider value={sourceFile}>
