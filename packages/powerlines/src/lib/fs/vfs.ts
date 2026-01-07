@@ -997,9 +997,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     data: string = "",
     options: WriteOptions = {}
   ): Promise<void> {
+    const meta = options.meta || {};
+    const { relativeKey, adapter } = this.#getStorage(options.storage || path);
+
     let code = data;
     if (!options.skipFormat) {
-      const resolvedConfig = await resolveConfig(this.#normalizePath(path));
+      const resolvedConfig = await resolveConfig(
+        this.#normalizePath(relativeKey)
+      );
       if (resolvedConfig) {
         code = await format(data, {
           absolutePath: this.#normalizePath(path),
@@ -1007,8 +1012,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         });
       }
     }
-
-    const { relativeKey, adapter } = this.#getStorage(options.storage || path);
 
     this.#log(
       LogLevelLabel.TRACE,
@@ -1021,11 +1024,11 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       } (size: ${prettyBytes(new Blob(toArray(code)).size)})`
     );
 
-    const id = options?.meta?.id || this.#normalizeId(relativeKey);
+    const id = meta.id || this.#normalizeId(relativeKey);
     this.#metadata[id] = {
-      variant: "normal",
+      type: "normal",
       timestamp: Date.now(),
-      ...(options.meta ?? {})
+      ...meta
     } as VirtualFileMetadata;
     this.#paths[id] = this.#normalizePath(relativeKey);
     this.#ids[this.#normalizePath(relativeKey)] = id;
@@ -1045,6 +1048,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     data: string = "",
     options: WriteOptions = {}
   ): void {
+    const meta = options.meta || {};
     const { relativeKey, adapter } = this.#getStorage(options.storage || path);
 
     this.#log(
@@ -1058,11 +1062,11 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       } (size: ${prettyBytes(new Blob(toArray(data)).size)})`
     );
 
-    const id = options?.meta?.id || this.#normalizeId(relativeKey);
+    const id = meta.id || this.#normalizeId(relativeKey);
     this.#metadata[id] = {
-      variant: "normal",
+      type: "normal",
       timestamp: Date.now(),
-      ...(options.meta ?? {})
+      ...meta
     } as VirtualFileMetadata;
     this.#paths[id] = this.#normalizePath(relativeKey);
     this.#ids[this.#normalizePath(relativeKey)] = id;

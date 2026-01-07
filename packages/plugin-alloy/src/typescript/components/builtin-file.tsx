@@ -85,6 +85,7 @@ export function BuiltinFile(props: BuiltinFileProps) {
       }
       meta={{
         kind: "builtin",
+        extension: tsx ? "tsx" : "ts",
         id: replaceExtension(id)
       }}
       {...rest}
