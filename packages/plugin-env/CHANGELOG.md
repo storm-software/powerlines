@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.20](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.20) (01/07/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Added logic to add `framework` option to env prefixes
+  ([9b74e4e9](https://github.com/storm-software/powerlines/commit/9b74e4e9))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.11**
+- Updated **plugin-automd** to **v0.1.135**
+- Updated **plugin-plugin** to **v0.12.87**
+- Updated **plugin-alloy** to **v0.18.17**
+- Updated **plugin-babel** to **v0.12.144**
+- Updated **powerlines** to **v0.37.9**
+- Updated **deepkit** to **v0.5.50**
+
 ## [0.15.19](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.19) (01/07/2026)
 
 ### Miscellaneous

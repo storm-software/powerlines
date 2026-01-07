@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.9](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.9) (01/07/2026)
+
+### Bug Fixes
+
+- **powerlines:** Add support for `extension` option in `emit` functions
+  ([f40fb1f0](https://github.com/storm-software/powerlines/commit/f40fb1f0))
+
 ## [0.37.7](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.7) (01/07/2026)
 
 ### Miscellaneous

@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.17](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.17) (01/07/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with project build order
+  ([4301d6b3](https://github.com/storm-software/powerlines/commit/4301d6b3))
+- **plugin-alloy:** Ensure the current function context is binded to `render`
+  method
+  ([eab2c953](https://github.com/storm-software/powerlines/commit/eab2c953))
+- **powerlines:** Add support for `extension` option in `emit` functions
+  ([f40fb1f0](https://github.com/storm-software/powerlines/commit/f40fb1f0))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.87**
+- Updated **powerlines** to **v0.37.9**
+- Updated **deepkit** to **v0.5.50**
+
 ## [0.18.16](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.16) (01/07/2026)
 
 ### Updated Dependencies
