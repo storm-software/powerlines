@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.13](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.13) (01/06/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue applying imports to generated typescript files
+  ([96656c73](https://github.com/storm-software/powerlines/commit/96656c73))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.83**
+- Updated **powerlines** to **v0.37.5**
+- Updated **deepkit** to **v0.5.46**
+
 ## [0.18.12](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.12) (01/06/2026)
 
 ### Updated Dependencies

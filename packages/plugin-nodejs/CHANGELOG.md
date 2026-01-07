@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.11](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.11) (01/06/2026)
+
+### Bug Fixes
+
+- **plugin-nodejs:** Resolve issue with generated env file content
+  ([9348d0bd](https://github.com/storm-software/powerlines/commit/9348d0bd))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.83**
+- Updated **plugin-alloy** to **v0.18.13**
+- Updated **plugin-babel** to **v0.12.140**
+- Updated **plugin-env** to **v0.15.16**
+- Updated **powerlines** to **v0.37.5**
+
 ## [0.1.10](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.10) (01/06/2026)
 
 ### Updated Dependencies

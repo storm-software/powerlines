@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.46](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.46) (01/06/2026)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue applying default values to generated objects
+  ([0611e687](https://github.com/storm-software/powerlines/commit/0611e687))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.37.5**
+
 ## [0.5.45](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.45) (01/06/2026)
 
 ### Updated Dependencies
