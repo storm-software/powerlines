@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.23](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.23) (01/07/2026)
+
+### Bug Fixes
+
+- **powerlines:** Update artifacts paths to account for `projectRoot`
+  configuration
+  ([68eaeabc](https://github.com/storm-software/powerlines/commit/68eaeabc))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.92**
+- Updated **powerlines** to **v0.37.14**
+- Updated **deepkit** to **v0.5.56**
+
 ## [0.18.22](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.22) (01/07/2026)
 
 ### Miscellaneous
