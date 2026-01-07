@@ -307,6 +307,17 @@ export class PowerlinesAPI<
               );
             }
 
+            if (!file.id) {
+              context.warn(
+                `File ID is missing for a built-in runtime file at ${file.path}.`
+              );
+
+              file.id = replacePath(
+                replacePath(file.path, context.workspaceConfig.workspaceRoot),
+                context.builtinsPath
+              );
+            }
+
             context.log(
               LogLevelLabel.TRACE,
               `Writing transformed built-in runtime file ${file.id}.`
