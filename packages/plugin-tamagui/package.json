@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-tamagui",
-  "version": "0.1.125",
+  "version": "0.1.126",
   "type": "module",
   "description": "A package containing the Tamagui plugin for Powerlines.",
   "repository": {

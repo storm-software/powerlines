@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.10](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.10) (01/07/2026)
+
+### Miscellaneous
+
+- **powerlines:** Updates around specifying builtin module paths
+  ([a7288f8e](https://github.com/storm-software/powerlines/commit/a7288f8e))
+
 ## [0.37.9](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.9) (01/07/2026)
 
 ### Bug Fixes
