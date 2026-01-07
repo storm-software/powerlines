@@ -234,7 +234,9 @@ export function TypescriptFileHeaderImports(
             return code`import ${
               normalImports === null
                 ? ""
-                : ` from ${
+                : isString(normalImports)
+                ? normalImports
+                : ` ${
                     (
                       normalImports.filter(
                         i => !isString(i) && i.default
@@ -261,7 +263,7 @@ export function TypescriptFileHeaderImports(
                           .join(", ")} }`
                       : "")
                   } `
-            } "${module}";`;
+            } from "${module}";`;
           }}
         </For>
       </Show>
@@ -277,7 +279,9 @@ export function TypescriptFileHeaderImports(
             code`import ${
               builtinImports === null
                 ? ""
-                : ` from ${
+                : isString(builtinImports)
+                ? builtinImports
+                : ` ${
                     (
                       builtinImports.filter(
                         i => !isString(i) && i.default
@@ -304,7 +308,7 @@ export function TypescriptFileHeaderImports(
                           .join(", ")} }`
                       : "")
                   } `
-            } "${
+            } from "${
               builtinModule.includes(":")
                 ? builtinModule
                 : `${context.config.output.builtinPrefix}:${builtinModule}`

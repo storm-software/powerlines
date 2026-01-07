@@ -139,7 +139,7 @@ export interface TypescriptFileImportItem {
 
 export type TypescriptFileImports = Record<
   string,
-  null | Array<TypescriptFileImportItem | string>
+  null | string | Array<TypescriptFileImportItem | string>
 >;
 
 export interface SourceFileHeaderProps extends ComponentProps {
