@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.22](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.22) (01/07/2026)
+
+### Miscellaneous
+
+- **powerlines:** Added the `environments` constant module to exported libs
+  ([861217f8](https://github.com/storm-software/powerlines/commit/861217f8))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.13**
+- Updated **plugin-automd** to **v0.1.137**
+- Updated **plugin-plugin** to **v0.12.89**
+- Updated **plugin-alloy** to **v0.18.19**
+- Updated **plugin-babel** to **v0.12.146**
+- Updated **powerlines** to **v0.37.11**
+- Updated **deepkit** to **v0.5.52**
+
 ## [0.15.21](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.21) (01/07/2026)
 
 ### Miscellaneous

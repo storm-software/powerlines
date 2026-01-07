@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.11](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.11) (01/07/2026)
+
+### Miscellaneous
+
+- **powerlines:** Added the `environments` constant module to exported libs
+  ([861217f8](https://github.com/storm-software/powerlines/commit/861217f8))
+
 ## [0.37.10](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.10) (01/07/2026)
 
 ### Miscellaneous
