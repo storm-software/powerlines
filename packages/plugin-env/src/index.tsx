@@ -135,7 +135,13 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
 
             return ret;
           },
-          [...ENV_PREFIXES, "POWERLINES_"] as string[]
+          [
+            ...ENV_PREFIXES,
+            "POWERLINES_",
+            this.config.framework &&
+              this.config.framework !== "powerlines" &&
+              `${constantCase(this.config.framework)}_`
+          ].filter(Boolean) as string[]
         );
 
         config.env.prefix = toArray(config.env.prefix).reduce((ret, prefix) => {
