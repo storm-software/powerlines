@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.14](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.14) (01/07/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with emitting builtin modules
+  ([b2dd0b9d](https://github.com/storm-software/powerlines/commit/b2dd0b9d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.84**
+- Updated **powerlines** to **v0.37.6**
+- Updated **deepkit** to **v0.5.47**
+
 ## [0.18.13](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.13) (01/06/2026)
 
 ### Bug Fixes

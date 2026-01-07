@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.6](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.6) (01/07/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with emitting builtin modules
+  ([b2dd0b9d](https://github.com/storm-software/powerlines/commit/b2dd0b9d))
+
 ## [0.37.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.4) (01/06/2026)
 
 ### Bug Fixes
