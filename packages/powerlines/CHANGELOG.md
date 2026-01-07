@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.14](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.14) (01/07/2026)
+
+### Bug Fixes
+
+- **powerlines:** Update artifacts paths to account for `projectRoot`
+  configuration
+  ([68eaeabc](https://github.com/storm-software/powerlines/commit/68eaeabc))
+
 ## [0.37.12](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.12) (01/07/2026)
 
 ### Bug Fixes
