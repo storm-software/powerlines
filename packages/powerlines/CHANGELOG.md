@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.4) (01/06/2026)
+
+### Bug Fixes
+
+- **powerlines:** Ensure all dependencies are bundled in `bundle` function
+  ([9a846154](https://github.com/storm-software/powerlines/commit/9a846154))
+
 ## [0.37.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.2) (01/06/2026)
 
 ### Bug Fixes

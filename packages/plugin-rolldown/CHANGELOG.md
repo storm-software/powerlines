@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.140](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.140) (01/06/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.82**
+- Updated **powerlines** to **v0.37.4**
+
 ## [0.7.139](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.139) (01/06/2026)
 
 ### Miscellaneous
