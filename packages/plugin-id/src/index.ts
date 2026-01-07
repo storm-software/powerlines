@@ -80,11 +80,7 @@ export function plugin(options: IdPluginOptions = {}): Plugin<IdPluginContext> {
           break;
       }
 
-      await this.emitBuiltin(
-        await Promise.resolve(idModule(this)),
-        "id",
-        "id.ts"
-      );
+      await this.emitBuiltin(await Promise.resolve(idModule(this)), "id");
     }
   };
 }

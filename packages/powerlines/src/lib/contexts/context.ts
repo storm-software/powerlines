@@ -988,6 +988,18 @@ export class PowerlinesContext<
     id: string,
     options: EmitOptions = {}
   ): Promise<void> {
+    if (!this.builtinsPath) {
+      throw new Error(
+        `The builtins path is not set. Cannot emit builtin file with id "${id}".`
+      );
+    }
+
+    if (!isSetString(id)) {
+      throw new Error(
+        `The builtin id must be a non-empty string. Received: ${String(id)}`
+      );
+    }
+
     return this.emit(
       code,
       appendPath(id, this.builtinsPath),
@@ -1003,6 +1015,18 @@ export class PowerlinesContext<
    * @param options - Optional write file options
    */
   public emitBuiltinSync(code: string, id: string, options: EmitOptions = {}) {
+    if (!this.builtinsPath) {
+      throw new Error(
+        `The builtins path is not set. Cannot emit builtin file with id "${id}".`
+      );
+    }
+
+    if (!isSetString(id)) {
+      throw new Error(
+        `The builtin id must be a non-empty string. Received: ${String(id)}`
+      );
+    }
+
     return this.emitSync(
       code,
       appendPath(id, this.builtinsPath),

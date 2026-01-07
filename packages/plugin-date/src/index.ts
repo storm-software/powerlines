@@ -108,11 +108,7 @@ export function plugin<TContext extends DatePluginContext = DatePluginContext>(
             break;
         }
 
-        await this.emitBuiltin(
-          await Promise.resolve(dateModule(this)),
-          "date",
-          "date.ts"
-        );
+        await this.emitBuiltin(await Promise.resolve(dateModule(this)), "date");
       }
     }
   ] as Plugin<TContext>[];

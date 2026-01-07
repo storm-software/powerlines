@@ -123,8 +123,7 @@ export const plugin = <
                   output.filename
                 ),
                 { withExtension: false }
-              ),
-              joinPaths(this.config.graphql.outputPath, output.filename)
+              )
             )
           )
         );

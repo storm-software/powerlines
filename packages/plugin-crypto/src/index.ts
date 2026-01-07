@@ -79,8 +79,7 @@ export function plugin<
 
         await this.emitBuiltin(
           await Promise.resolve(cryptoModule(this)),
-          "crypto",
-          "crypto.ts"
+          "crypto"
         );
       }
     }

@@ -487,11 +487,7 @@ export interface UnresolvedContext<
    * @param id - The unique identifier of the builtin file
    * @param options - Additional options for writing the builtin file
    */
-  emitBuiltinSync: (
-    code: string,
-    id: string,
-    options?: EmitOptions
-  ) => void;
+  emitBuiltinSync: (code: string, id: string, options?: EmitOptions) => void;
 
   /**
    * Resolves a entry virtual file and writes it to the VFS if it does not already exist

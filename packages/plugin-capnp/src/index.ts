@@ -99,8 +99,7 @@ export const plugin = <
                   filePath
                 ),
                 { withExtension: false }
-              ),
-              joinPaths(this.config.capnp.outputPath, filePath)
+              )
             )
           )
         );
