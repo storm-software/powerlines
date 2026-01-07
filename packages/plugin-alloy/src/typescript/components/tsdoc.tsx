@@ -34,7 +34,7 @@ import {
 } from "@powerlines/deepkit/vendor/type";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
-import { usePowerlines } from "../../core/contexts/context";
+import { usePowerlinesSafe } from "../../core/contexts/context";
 import { ComponentProps } from "../../types/components";
 
 export interface TSDocProps extends ComponentProps {
@@ -486,7 +486,7 @@ export function TSDocModule(props: TSDocModuleProps) {
     "prefix"
   ]);
 
-  const context = usePowerlines();
+  const context = usePowerlinesSafe();
 
   return (
     <>
@@ -499,7 +499,8 @@ export function TSDocModule(props: TSDocModuleProps) {
           <hbr />
         </Show>
         {"@module "}
-        {prefix || context?.config.output.builtinPrefix}:{name}
+        {prefix || context?.config?.output?.builtinPrefix || "powerlines"}:
+        {name}
       </align>
       <hbr />
       {` */`}

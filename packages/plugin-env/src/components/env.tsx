@@ -39,7 +39,7 @@ import {
   ReflectionKind,
   ReflectionProperty
 } from "@powerlines/deepkit/vendor/type";
-import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
+import { usePowerlinesSafe } from "@powerlines/plugin-alloy/core/contexts/context";
 import { refkey } from "@powerlines/plugin-alloy/helpers/refkey";
 import { ComponentProps } from "@powerlines/plugin-alloy/types/components";
 import {
@@ -78,7 +78,10 @@ export function EnvTypeDefinition(
     "reflection"
   ]);
 
-  const context = usePowerlines<EnvPluginContext>();
+  const context = usePowerlinesSafe<EnvPluginContext>();
+  if (!context) {
+    return null;
+  }
 
   return (
     <>
@@ -94,7 +97,7 @@ export function EnvTypeDefinition(
 
       <TypeDeclaration name="Env" export={true}>
         {code` {
-    [Key in keyof EnvBase as Key ${context?.config.env.prefix
+    [Key in keyof EnvBase as Key ${context.config.env.prefix
       .map(prefix => `| \`${prefix.replace(/_$/g, "")}_\${Key}\``)
       .join(" ")}]: EnvBase[Key];
 }
@@ -275,7 +278,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
     "children"
   ]);
 
-  const context = usePowerlines<EnvPluginContext>();
+  const context = usePowerlinesSafe<EnvPluginContext>();
 
   const defaultValue = computed(
     () => context && loadEnvFromContext(context, process.env)

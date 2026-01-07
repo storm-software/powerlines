@@ -20,7 +20,7 @@ import { computed, splitProps } from "@alloy-js/core";
 import { hasFileExtension } from "@stryke/path/file-path-fns";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { isSet } from "@stryke/type-checks/is-set";
-import { usePowerlines } from "../../core/contexts/context";
+import { usePowerlinesSafe } from "../../core/contexts/context";
 import type { TSDocModuleProps } from "./tsdoc";
 import { TSDocModule } from "./tsdoc";
 import {
@@ -65,13 +65,13 @@ export function BuiltinFile(props: BuiltinFileProps) {
     ["children", "imports", "id", "description", "tsx"]
   );
 
-  const context = usePowerlines();
+  const context = usePowerlinesSafe();
   const path = computed(() =>
     replacePath(
       `${!isSet(tsx) ? id : replaceExtension(id)}${
         hasFileExtension(id) && !isSet(tsx) ? "" : tsx ? ".tsx" : ".ts"
       }`,
-      context.builtinsPath
+      context?.builtinsPath ?? "builtins"
     )
   );
 

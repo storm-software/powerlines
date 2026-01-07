@@ -19,7 +19,7 @@
 import { code, Show } from "@alloy-js/core";
 import { Heading, Link } from "@alloy-js/markdown";
 import { stringifyType } from "@powerlines/deepkit/vendor/type";
-import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
+import { usePowerlinesSafe } from "@powerlines/plugin-alloy/core/contexts/context";
 import { MarkdownFile } from "@powerlines/plugin-alloy/markdown/components/markdown-file";
 import { MarkdownTable } from "@powerlines/plugin-alloy/markdown/components/markdown-table";
 import { joinPaths } from "@stryke/path/join";
@@ -30,7 +30,7 @@ import { EnvPluginContext } from "../types/plugin";
  * Generates the environment configuration markdown documentation for the Powerlines project.
  */
 export function EnvDocs() {
-  const context = usePowerlines<EnvPluginContext>();
+  const context = usePowerlinesSafe<EnvPluginContext>();
   if (!context) {
     return null;
   }

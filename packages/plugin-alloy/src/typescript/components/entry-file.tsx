@@ -16,15 +16,13 @@
 
  ------------------------------------------------------------------- */
 
-/* eslint-disable @nx/enforce-module-boundaries */
-
 import { computed, splitProps } from "@alloy-js/core";
 import { hasFileExtension } from "@stryke/path/file-path-fns";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { isSet } from "@stryke/type-checks/is-set";
 import defu from "defu";
 import { ResolvedEntryTypeDefinition } from "powerlines/types/resolved";
-import { usePowerlines } from "../../core/contexts/context";
+import { usePowerlinesSafe } from "../../core/contexts/context";
 import { TypescriptFile, TypescriptFileProps } from "./typescript-file";
 
 export type EntryFileProps = TypescriptFileProps & {
@@ -53,13 +51,13 @@ export function EntryFile(props: EntryFileProps) {
     ["children", "meta", "tsx", "path", "typeDefinition"]
   );
 
-  const context = usePowerlines();
+  const context = usePowerlinesSafe();
   const fullPath = computed(() =>
     replacePath(
       `${
         !isSet(tsx) ? path : replaceExtension(path)
       }${hasFileExtension(path) && !isSet(tsx) ? "" : tsx ? ".tsx" : ".ts"}`,
-      context.entryPath
+      context?.entryPath || "entry"
     )
   );
 
