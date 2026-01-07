@@ -178,6 +178,11 @@ export interface ParseOptions extends ParserOptions {
 
 export interface EmitOptions extends WriteOptions {
   /**
+   * The file extension to use when emitting the file
+   */
+  extension?: string;
+
+  /**
    * If true, will emit the file using {@link UnpluginBuildContext.emitFile | the bundler's emit function}.
    */
   emitWithBundler?: boolean;

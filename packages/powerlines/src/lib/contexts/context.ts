@@ -30,6 +30,10 @@ import { omit } from "@stryke/helpers/omit";
 import { fetchRequest } from "@stryke/http/fetch";
 import { StormJSON } from "@stryke/json/storm-json";
 import { appendPath } from "@stryke/path/append";
+import {
+  findFileDotExtensionSafe,
+  findFileExtensionSafe
+} from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { isAbsolute } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join";
@@ -854,6 +858,18 @@ export class PowerlinesContext<
     path: string,
     options: EmitOptions = {}
   ): Promise<void> {
+    const filePath = options.extension
+      ? findFileExtensionSafe(path)
+        ? options.extension.startsWith(".")
+          ? path.replace(findFileDotExtensionSafe(path), options.extension)
+          : path.replace(findFileExtensionSafe(path), options.extension)
+        : options.extension.startsWith(".")
+          ? `${path}${options.extension}`
+          : `${path}.${options.extension}`
+      : findFileExtensionSafe(path)
+        ? path
+        : `${path}.ts`;
+
     if (
       isFunction((this as unknown as UnpluginBuildContext).emitFile) &&
       options.emitWithBundler
@@ -861,13 +877,13 @@ export class PowerlinesContext<
       return (this as unknown as UnpluginBuildContext).emitFile({
         needsCodeReference: options.needsCodeReference,
         originalFileName: options.originalFileName,
-        fileName: path,
+        fileName: filePath,
         source: code,
         type: "asset"
       });
     }
 
-    return this.fs.write(path, code, options);
+    return this.fs.write(filePath, code, options);
   }
 
   /**
@@ -878,6 +894,18 @@ export class PowerlinesContext<
    * @param options - Additional options for writing the file
    */
   public emitSync(code: string, path: string, options: EmitOptions = {}) {
+    const filePath = options.extension
+      ? findFileExtensionSafe(path)
+        ? options.extension.startsWith(".")
+          ? path.replace(findFileDotExtensionSafe(path), options.extension)
+          : path.replace(findFileExtensionSafe(path), options.extension)
+        : options.extension.startsWith(".")
+          ? `${path}${options.extension}`
+          : `${path}.${options.extension}`
+      : findFileExtensionSafe(path)
+        ? path
+        : `${path}.ts`;
+
     if (
       isFunction((this as unknown as UnpluginBuildContext).emitFile) &&
       options.emitWithBundler
@@ -885,13 +913,13 @@ export class PowerlinesContext<
       return (this as unknown as UnpluginBuildContext).emitFile({
         needsCodeReference: options.needsCodeReference,
         originalFileName: options.originalFileName,
-        fileName: path,
+        fileName: filePath,
         source: code,
         type: "asset"
       });
     }
 
-    return this.fs.writeSync(path, code, options);
+    return this.fs.writeSync(filePath, code, options);
   }
 
   /**
@@ -1002,7 +1030,7 @@ export class PowerlinesContext<
 
     return this.emit(
       code,
-      appendPath(id, this.builtinsPath),
+      id,
       defu(options, { meta: { type: "builtin", id } })
     );
   }
@@ -1029,7 +1057,7 @@ export class PowerlinesContext<
 
     return this.emitSync(
       code,
-      appendPath(id, this.builtinsPath),
+      id,
       defu(options, { meta: { type: "builtin", id } })
     );
   }

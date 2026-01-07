@@ -6,13 +6,7 @@
     "types": ["node"],
     "outDir": "../../dist/out-tsc"
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "types/*",
-    "powerlines.config.ts",
-    "tsup.config.ts"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "types/*", "powerlines.config.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "reflection": true,
   "reflectionLevel": "minimal"

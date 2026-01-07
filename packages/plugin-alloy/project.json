@@ -4,54 +4,6 @@
   "projectType": "library",
   "sourceRoot": "packages/plugin-alloy/src",
   "targets": {
-    "clean": {
-      "executor": "@powerlines/nx:clean"
-    },
-    "prepare": {
-      "cache": true,
-      "inputs": ["typescript", "^production"],
-      "outputs": ["{projectRoot}/.storm"],
-      "executor": "@powerlines/nx:prepare",
-      "dependsOn": ["^build"],
-      "options": {
-        "outputPath": "dist/{projectRoot}"
-      },
-      "defaultConfiguration": "production",
-      "configurations": {
-        "production": {
-          "mode": "production"
-        },
-        "test": {
-          "mode": "test"
-        },
-        "development": {
-          "mode": "development",
-          "skipCache": true,
-          "logLevel": "trace"
-        }
-      }
-    },
-    "build": {
-      "executor": "@powerlines/nx:build",
-      "dependsOn": ["prepare"],
-      "options": {
-        "outputPath": "dist/{projectRoot}"
-      },
-      "defaultConfiguration": "production",
-      "configurations": {
-        "production": {
-          "mode": "production"
-        },
-        "test": {
-          "mode": "test"
-        },
-        "development": {
-          "mode": "development",
-          "skipCache": true,
-          "logLevel": "trace"
-        }
-      }
-    },
     "nx-release-publish": {
       "executor": "@storm-software/workspace-tools:npm-publish"
     }

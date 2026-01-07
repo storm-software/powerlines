@@ -24,6 +24,7 @@ import { Plugin } from "powerlines/types/plugin";
 import { Output } from "./core/components/output";
 import { MetaItem } from "./core/contexts/context";
 import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
+import { findFileExtension } from "@stryke/path/file-path-fns";
 
 /**
  * Alloy-js plugin for Powerlines.
@@ -151,7 +152,8 @@ export const plugin = <
                         metadata.id,
                         {
                           skipFormat: metadata.skipFormat,
-                          storage: metadata.storage
+                          storage: metadata.storage,
+                          extension: findFileExtension(file.path)
                         }
                       );
                     } else if (metadata.kind === "entry") {
