@@ -16,8 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevel } from "powerlines/types/context";
-
 /**
  * The base environment configuration used by Powerlines applications
  *
@@ -115,6 +113,8 @@ export interface EnvInterface {
    * @defaultValue "production"
    *
    * @alias NODE_ENV
+   * @alias ENV
+   * @alias VERCEL_ENV
    *
    * @category neutral
    */
@@ -125,8 +125,6 @@ export interface EnvInterface {
    *
    * @defaultValue "production"
    *
-   * @alias ENV
-   * @alias VERCEL_ENV
    * @category neutral
    */
   ENVIRONMENT: string;
@@ -309,13 +307,13 @@ export interface EnvInterface {
   DEFAULT_LOCALE: string;
 
   /**
-   * The default lowest log level to accept. If `null`, the logger will reject all records. This value only applies if `lowestLogLevel` is not provided to the `logs` configuration.
+   * The default lowest log level to accept. If `null`, the logger will reject all records.
    *
    * @defaultValue "info"
    *
    * @category neutral
    */
-  LOG_LEVEL?: LogLevel | null;
+  LOG_LEVEL?: "error" | "warn" | "info" | "debug" | null;
 
   /**
    * An indicator that specifies the current runtime is a continuous integration environment.

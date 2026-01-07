@@ -24,10 +24,10 @@ import type { DotenvParseOutput } from "@stryke/env/types";
 import { joinPaths } from "@stryke/path/join-paths";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
-import { isSetString } from "@stryke/type-checks/is-set-string";
 import type { PackageJson } from "@stryke/types/package-json";
 import { loadConfig } from "c12";
 import defu from "defu";
+import { DEFAULT_ENVIRONMENT } from "powerlines/internal/helpers/environment";
 import { WorkspaceConfig } from "powerlines/types/config";
 import { EnvPluginContext, EnvPluginOptions } from "../types/plugin";
 import { removeEnvPrefix } from "./source-file-env";
@@ -115,16 +115,24 @@ export function loadEnvFromContext(
       RELEASE_TAG: `${kebabCase(context.config.name)}@${context.packageJson.version}`,
       DEFAULT_LOCALE: context.workspaceConfig.locale,
       DEFAULT_TIMEZONE: context.workspaceConfig.timezone,
-      LOG_LEVEL: context.config.logLevel,
+      LOG_LEVEL:
+        context.config.logLevel === "trace" ? "debug" : context.config.logLevel,
       ERROR_URL: context.workspaceConfig.error?.url,
-      ORGANIZATION: isSetString(context.workspaceConfig.organization)
-        ? context.workspaceConfig.organization
-        : context.workspaceConfig.organization?.name,
+      ORGANIZATION:
+        context.config.organization ||
+        (isSetObject(context.workspaceConfig.organization)
+          ? context.workspaceConfig.organization.name
+          : context.workspaceConfig.organization),
       PLATFORM: context.config.build.platform,
-      MODE: context.workspaceConfig.mode,
-      DEBUG: context.workspaceConfig.mode === "development",
-      STACKTRACE: context.workspaceConfig.mode === "development",
-      ENVIRONMENT: context.environment
+      MODE: context.config.mode,
+      TEST: context.config.mode === "test",
+      DEBUG: context.config.mode === "development",
+      STACKTRACE: context.config.mode !== "production",
+      ENVIRONMENT:
+        !context.environment.name ||
+        context.environment.name === DEFAULT_ENVIRONMENT
+          ? context.config.mode
+          : context.environment.name
     },
     isSetObject(context?.env?.types?.env)
       ? context.env.types.env?.getProperties().reduce(
