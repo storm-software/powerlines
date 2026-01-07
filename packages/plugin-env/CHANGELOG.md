@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.25](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.25) (01/07/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update components to handle initial null context
+  ([51a081bf](https://github.com/storm-software/powerlines/commit/51a081bf))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.16**
+- Updated **plugin-automd** to **v0.1.139**
+- Updated **plugin-plugin** to **v0.12.91**
+- Updated **plugin-alloy** to **v0.18.22**
+- Updated **plugin-babel** to **v0.12.148**
+- Updated **powerlines** to **v0.37.13**
+- Updated **deepkit** to **v0.5.55**
+
 ## [0.15.24](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.24) (01/07/2026)
 
 ### Updated Dependencies

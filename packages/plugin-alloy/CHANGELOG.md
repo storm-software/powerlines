@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.22](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.22) (01/07/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update components to handle initial null context
+  ([51a081bf](https://github.com/storm-software/powerlines/commit/51a081bf))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.91**
+- Updated **powerlines** to **v0.37.13**
+- Updated **deepkit** to **v0.5.55**
+
 ## [0.18.21](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.21) (01/07/2026)
 
 ### Bug Fixes
