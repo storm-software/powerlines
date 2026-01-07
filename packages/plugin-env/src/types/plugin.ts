@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Children } from "@alloy-js/core/jsx-runtime";
+import { Children } from "@alloy-js/core";
 import { Reflection } from "@powerlines/deepkit/types";
 import {
   AlloyPluginContext,
