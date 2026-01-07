@@ -31,10 +31,6 @@ export default defineConfig({
   build: {
     inputOptions: {
       transform: {
-        typescript: {
-          jsxPragma: "Alloy.createElement",
-          jsxPragmaFrag: "Alloy.Fragment"
-        },
         jsx: {
           runtime: "classic",
           pragma: "Alloy.createElement",
@@ -43,9 +39,6 @@ export default defineConfig({
         }
       }
     },
-    plugins: [alloy()],
-    unbundle: true,
-    minify: false,
-    skipNodeModulesBundle: true
+    plugins: [alloy()]
   }
 });

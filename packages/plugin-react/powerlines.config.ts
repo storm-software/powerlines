@@ -29,11 +29,11 @@ export default defineConfig({
     "src/components/*.tsx"
   ],
   plugins: [
+    plugin(),
     alloy({
       json: true,
       markdown: true
-    }),
-    plugin()
+    })
   ],
   build: {
     external: ["react", "react-dom"]

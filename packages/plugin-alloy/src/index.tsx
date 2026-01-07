@@ -49,10 +49,6 @@ export const plugin = <
           build: {
             inputOptions: {
               transform: {
-                typescript: {
-                  jsxPragma: "Alloy.createElement",
-                  jsxPragmaFrag: "Alloy.Fragment"
-                },
                 jsx: {
                   runtime: "classic",
                   pragma: "Alloy.createElement",
@@ -96,8 +92,6 @@ export const plugin = <
             StormJSON.stringify(this.tsconfig.tsconfigJson)
           );
         }
-
-        this.dependencies["@alloy-js/core"] = "^0.22.0";
 
         if (this.config.alloy?.typescript !== false) {
           this.dependencies["@alloy-js/typescript"] = "^0.22.0";

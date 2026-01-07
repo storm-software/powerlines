@@ -4,7 +4,7 @@
     "jsx": "preserve",
     "jsxImportSource": "@alloy-js/core",
     "lib": ["esnext"],
-    "types": ["node", "@alloy-js/core/testing/matchers"],
+    "types": ["node"],
     "strict": false,
     "outDir": "../../dist/out-tsc"
   },
