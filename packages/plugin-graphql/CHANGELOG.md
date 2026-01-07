@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Graphql
 
+## [0.1.134](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.134) (01/07/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update calls to `emitBuiltin` to align with new definition
+  ([e4c8668c](https://github.com/storm-software/powerlines/commit/e4c8668c))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.85**
+- Updated **powerlines** to **v0.37.7**
+
 ## [0.1.133](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.133) (01/07/2026)
 
 ### Updated Dependencies

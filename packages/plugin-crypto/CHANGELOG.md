@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.121](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.121) (01/07/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update calls to `emitBuiltin` to align with new definition
+  ([e4c8668c](https://github.com/storm-software/powerlines/commit/e4c8668c))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.85**
+- Updated **plugin-env** to **v0.15.18**
+- Updated **powerlines** to **v0.37.7**
+
 ## [0.10.120](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.120) (01/07/2026)
 
 ### Updated Dependencies

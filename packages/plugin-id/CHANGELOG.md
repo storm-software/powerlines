@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.9.142](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.142) (01/07/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update calls to `emitBuiltin` to align with new definition
+  ([e4c8668c](https://github.com/storm-software/powerlines/commit/e4c8668c))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.85**
+- Updated **powerlines** to **v0.37.7**
+
 ## [0.9.141](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.141) (01/07/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Capnp
 
+## [0.1.136](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.136) (01/07/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update calls to `emitBuiltin` to align with new definition
+  ([e4c8668c](https://github.com/storm-software/powerlines/commit/e4c8668c))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.85**
+- Updated **powerlines** to **v0.37.7**
+
 ## [0.1.135](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.135) (01/07/2026)
 
 ### Updated Dependencies

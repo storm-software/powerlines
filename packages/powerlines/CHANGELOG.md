@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.7](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.7) (01/07/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update calls to `emitBuiltin` to align with new definition
+  ([e4c8668c](https://github.com/storm-software/powerlines/commit/e4c8668c))
+
+### Bug Fixes
+
+- **powerlines:** Ensure `id` is added to meta for emitted builtin modules
+  ([f5b793d2](https://github.com/storm-software/powerlines/commit/f5b793d2))
+
 ## [0.37.6](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.6) (01/07/2026)
 
 ### Bug Fixes
