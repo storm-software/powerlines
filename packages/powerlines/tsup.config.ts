@@ -34,6 +34,7 @@ const config = defineTsupConfig([
       "src/lib/*.ts",
       "src/lib/fs/*.ts",
       "src/lib/fs/storage/*.ts",
+      "src/lib/constants/*.ts",
       "src/lib/contexts/*.ts",
       "src/lib/build/*.ts",
       "src/lib/typescript/*.ts",

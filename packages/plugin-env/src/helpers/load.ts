@@ -27,7 +27,7 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import type { PackageJson } from "@stryke/types/package-json";
 import { loadConfig } from "c12";
 import defu from "defu";
-import { DEFAULT_ENVIRONMENT } from "powerlines/internal/helpers/environment";
+import { DEFAULT_ENVIRONMENT } from "powerlines/lib/constants/environments";
 import { WorkspaceConfig } from "powerlines/types/config";
 import { EnvPluginContext, EnvPluginOptions } from "../types/plugin";
 import { removeEnvPrefix } from "./source-file-env";

@@ -23,8 +23,7 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import chalk from "chalk";
 import {
   createDefaultEnvironment,
-  createEnvironment,
-  GLOBAL_ENVIRONMENT
+  createEnvironment
 } from "../../internal/helpers/environment";
 import {
   InitialUserConfig,
@@ -49,6 +48,7 @@ import {
   ResolvedConfig
 } from "../../types/resolved";
 import { loadWorkspaceConfig } from "../config-file";
+import { GLOBAL_ENVIRONMENT } from "../constants/environments";
 import { PowerlinesContext } from "./context";
 import { PowerlinesEnvironmentContext } from "./environment-context";
 

@@ -16,12 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./config-file";
-export * from "./constants";
-export * from "./contexts";
-export * from "./entry";
-export * from "./fs";
-export * from "./logger";
-export * from "./typescript";
-export * from "./unplugin";
-export * from "./utilities";
+export const DEFAULT_ENVIRONMENT = "default" as const;
+export const GLOBAL_ENVIRONMENT = "__global__" as const;
+
+// General environment names that can be used in plugins and configurations
+export const CLIENT_ENVIRONMENT = "client" as const;
+export const SERVER_ENVIRONMENT = "server" as const;
+export const SSR_ENVIRONMENT = "ssr" as const;
+export const RSC_ENVIRONMENT = "rsc" as const;

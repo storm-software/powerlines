@@ -1716,7 +1716,7 @@ importers:
         version: 6.1.4
       nitro:
         specifier: 'catalog:'
-        version: 3.0.1-alpha.1(@types/better-sqlite3@7.6.13)(@types/xml2js@0.4.14)(chokidar@4.0.3)(lru-cache@8.0.5)(rollup@4.55.1)
+        version: 3.0.1-alpha.1(@types/better-sqlite3@7.6.13)(@types/xml2js@0.4.14)(chokidar@5.0.0)(lru-cache@8.0.5)(rollup@4.55.1)
       powerlines:
         specifier: workspace:*
         version: link:../powerlines
@@ -19845,32 +19845,32 @@ packages:
       uploadthing:
         optional: true
 
-  unstorage@2.0.0-alpha.4:
-    resolution: {integrity: sha512-ywXZMZRfrvmO1giJeMTCw6VUn0ALYxVl8pFqJPStiyQUvgJImejtAHrKvXPj4QGJAoS/iLGcVGF6ljN/lkh1bw==}
+  unstorage@2.0.0-alpha.5:
+    resolution: {integrity: sha512-Sj8btci21Twnd6M+N+MHhjg3fVn6lAPElPmvFTe0Y/wR0WImErUdA1PzlAaUavHylJ7uDiFwlZDQKm0elG4b7g==}
     peerDependencies:
-      '@azure/app-configuration': ^1.8.0
-      '@azure/cosmos': ^4.2.0
-      '@azure/data-tables': ^13.3.0
-      '@azure/identity': ^4.6.0
-      '@azure/keyvault-secrets': ^4.9.0
-      '@azure/storage-blob': ^12.26.0
+      '@azure/app-configuration': ^1.9.0
+      '@azure/cosmos': ^4.7.0
+      '@azure/data-tables': ^13.3.1
+      '@azure/identity': ^4.13.0
+      '@azure/keyvault-secrets': ^4.10.0
+      '@azure/storage-blob': ^12.29.1
       '@capacitor/preferences': ^6.0.3 || ^7.0.0
-      '@deno/kv': '>=0.9.0'
+      '@deno/kv': '>=0.12.0'
       '@netlify/blobs': ^6.5.0 || ^7.0.0 || ^8.1.0 || ^9.0.0 || ^10.0.0
       '@planetscale/database': ^1.19.0
-      '@upstash/redis': ^1.34.3
-      '@vercel/blob': '>=0.27.1'
+      '@upstash/redis': ^1.35.6
+      '@vercel/blob': '>=0.27.3'
       '@vercel/functions': ^2.2.12 || ^3.0.0
       '@vercel/kv': ^1.0.1
       aws4fetch: ^1.0.20
-      chokidar: ^4.0.3
-      db0: '>=0.2.1'
-      idb-keyval: ^6.2.1
-      ioredis: ^5.4.2
+      chokidar: ^4 || ^5
+      db0: '>=0.3.4'
+      idb-keyval: ^6.2.2
+      ioredis: ^5.8.2
       lru-cache: ^8.0.5
-      mongodb: ^6.20.0
+      mongodb: ^6 || ^7
       ofetch: '*'
-      uploadthing: ^7.4.4
+      uploadthing: ^7.7.4
     peerDependenciesMeta:
       '@azure/app-configuration':
         optional: true
@@ -38160,7 +38160,7 @@ snapshots:
   micromark-util-combine-extensions@2.0.1:
     dependencies:
       micromark-util-chunked: 2.0.1
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
 
   micromark-util-decode-numeric-character-reference@2.0.2:
     dependencies:
@@ -38619,7 +38619,7 @@ snapshots:
       jsonpath-plus: 10.3.0
       lodash.topath: 4.5.2
 
-  nitro@3.0.1-alpha.1(@types/better-sqlite3@7.6.13)(@types/xml2js@0.4.14)(chokidar@4.0.3)(lru-cache@8.0.5)(rollup@4.55.1):
+  nitro@3.0.1-alpha.1(@types/better-sqlite3@7.6.13)(@types/xml2js@0.4.14)(chokidar@5.0.0)(lru-cache@8.0.5)(rollup@4.55.1):
     dependencies:
       '@types/xml2js': 0.4.14
       consola: 3.4.2
@@ -38635,7 +38635,7 @@ snapshots:
       srvx: 0.9.8
       undici: 7.18.2
       unenv: 2.0.0-rc.24
-      unstorage: 2.0.0-alpha.4(chokidar@4.0.3)(db0@0.3.4(@types/better-sqlite3@7.6.13))(lru-cache@8.0.5)(ofetch@2.0.0-alpha.3)
+      unstorage: 2.0.0-alpha.5(chokidar@5.0.0)(db0@0.3.4(@types/better-sqlite3@7.6.13))(lru-cache@8.0.5)(ofetch@2.0.0-alpha.3)
     optionalDependencies:
       rollup: 4.55.1
     transitivePeerDependencies:
@@ -43268,9 +43268,9 @@ snapshots:
     optionalDependencies:
       db0: 0.3.4(@types/better-sqlite3@7.6.13)
 
-  unstorage@2.0.0-alpha.4(chokidar@4.0.3)(db0@0.3.4(@types/better-sqlite3@7.6.13))(lru-cache@8.0.5)(ofetch@2.0.0-alpha.3):
+  unstorage@2.0.0-alpha.5(chokidar@5.0.0)(db0@0.3.4(@types/better-sqlite3@7.6.13))(lru-cache@8.0.5)(ofetch@2.0.0-alpha.3):
     optionalDependencies:
-      chokidar: 4.0.3
+      chokidar: 5.0.0
       db0: 0.3.4(@types/better-sqlite3@7.6.13)
       lru-cache: 8.0.5
       ofetch: 2.0.0-alpha.3
