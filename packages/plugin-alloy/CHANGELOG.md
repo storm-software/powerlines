@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.24](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.24) (01/07/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with empty context during initialization
+  ([1a201354](https://github.com/storm-software/powerlines/commit/1a201354))
+
 ## [0.18.23](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.23) (01/07/2026)
 
 ### Bug Fixes
