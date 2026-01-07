@@ -1030,7 +1030,7 @@ export class PowerlinesContext<
 
     return this.emit(
       code,
-      appendPath(id, this.builtinsPath),
+      appendPath(id, replacePath(this.builtinsPath, this.config.projectRoot)),
       defu(options, { meta: { type: "builtin", id } })
     );
   }
@@ -1057,7 +1057,7 @@ export class PowerlinesContext<
 
     return this.emitSync(
       code,
-      appendPath(id, this.builtinsPath),
+      appendPath(id, replacePath(this.builtinsPath, this.config.projectRoot)),
       defu(options, { meta: { type: "builtin", id } })
     );
   }

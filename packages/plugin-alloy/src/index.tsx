@@ -20,11 +20,15 @@ import type { Children } from "@alloy-js/core";
 import { renderAsync, traverseOutput } from "@alloy-js/core";
 import alloy from "@alloy-js/rollup-plugin";
 import { StormJSON } from "@stryke/json/storm-json";
+import { findFileExtension } from "@stryke/path/file-path-fns";
 import { Plugin } from "powerlines/types/plugin";
 import { Output } from "./core/components/output";
 import { MetaItem } from "./core/contexts/context";
-import { AlloyPluginContext, AlloyPluginOptions, AlloyPluginResolvedConfig } from "./types/plugin";
-import { findFileExtension } from "@stryke/path/file-path-fns";
+import {
+  AlloyPluginContext,
+  AlloyPluginOptions,
+  AlloyPluginResolvedConfig
+} from "./types/plugin";
 
 /**
  * Alloy-js plugin for Powerlines.
@@ -111,7 +115,9 @@ export const plugin = <
       configResolved: {
         order: "pre",
         async handler() {
-          async function render<TContext extends AlloyPluginContext<AlloyPluginResolvedConfig>>(this: TContext, children: Children) {
+          async function render<
+            TContext extends AlloyPluginContext<AlloyPluginResolvedConfig>
+          >(this: TContext, children: Children) {
             const meta = {} as Record<string, MetaItem>;
 
             await traverseOutput(
@@ -141,15 +147,11 @@ export const plugin = <
                         );
                       }
 
-                      this.emitBuiltinSync(
-                        file.contents,
-                        metadata.id,
-                        {
-                          skipFormat: metadata.skipFormat,
-                          storage: metadata.storage,
-                          extension: findFileExtension(file.path)
-                        }
-                      );
+                      this.emitBuiltinSync(file.contents, metadata.id, {
+                        skipFormat: metadata.skipFormat,
+                        storage: metadata.storage,
+                        extension: findFileExtension(file.path)
+                      });
                     } else if (metadata.kind === "entry") {
                       this.emitEntrySync(file.contents, file.path, {
                         skipFormat: metadata.skipFormat,
@@ -165,7 +167,7 @@ export const plugin = <
                 }
               }
             );
-          };
+          }
 
           this.render = render.bind(this);
         }
