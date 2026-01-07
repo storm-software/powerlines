@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.20](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.20) (01/07/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve file path issue during builtin module rendering
+  ([805f4f0e](https://github.com/storm-software/powerlines/commit/805f4f0e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.90**
+- Updated **powerlines** to **v0.37.12**
+- Updated **deepkit** to **v0.5.53**
+
 ## [0.18.19](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.19) (01/07/2026)
 
 ### Updated Dependencies

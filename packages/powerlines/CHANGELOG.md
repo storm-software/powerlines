@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.12](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.12) (01/07/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve file path issue during builtin module rendering
+  ([805f4f0e](https://github.com/storm-software/powerlines/commit/805f4f0e))
+
 ## [0.37.11](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.11) (01/07/2026)
 
 ### Miscellaneous
