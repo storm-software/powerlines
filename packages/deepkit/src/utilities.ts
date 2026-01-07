@@ -26,22 +26,30 @@ import {
 } from "@powerlines/deepkit/vendor/type";
 import { getUniqueBy } from "@stryke/helpers/get-unique";
 import { StormJSON } from "@stryke/json/storm-json";
+import { isSetObject } from "@stryke/type-checks";
 import { isNull } from "@stryke/type-checks/is-null";
 import { isString } from "@stryke/type-checks/is-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 
 /**
- * Converts any {@link ReflectionProperty} or {@link ReflectionParameter}'s value to string representation.
+ * Converts any {@link ReflectionProperty}, {@link ReflectionParameter}, or {@link ReflectionKind}'s value to string representation.
  *
- * @param property - The {@link ReflectionProperty} or {@link ReflectionParameter} containing the value to stringify.
+ * @param property - The {@link ReflectionProperty}, {@link ReflectionParameter}, or {@link ReflectionKind} containing the value to stringify.
  * @param value - The value to stringify.
  * @returns A string representation of the value.
  */
 export function stringifyDefaultValue(
-  property: ReflectionProperty | ReflectionParameter,
+  property: ReflectionProperty | ReflectionParameter | ReflectionKind,
   value?: any
 ): string {
-  return stringifyValue(property.type, value ?? property.getDefaultValue());
+  return isSetObject(property)
+    ? stringifyValue(property.type, value ?? property.getDefaultValue())
+    : stringifyValue(
+        {
+          kind: property
+        } as Type,
+        value
+      );
 }
 
 /**

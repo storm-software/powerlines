@@ -105,6 +105,7 @@ export function TSDocReflectionProperty(props: TSDocProps) {
   return (
     <TSDoc heading={context.getDescription()} {...rest}>
       <TSDocAttributesTags
+        type={context}
         title={context.getTitle()}
         alias={context.getAlias()}
         domain={context.getDomain()}
@@ -113,6 +114,7 @@ export function TSDocReflectionProperty(props: TSDocProps) {
         internal={context.isInternal()}
         ignore={context.isIgnored()}
         hidden={context.isHidden()}
+        defaultValue={context.getDefaultValue()}
       />
       <Show
         when={Boolean(children) && childrenArray(() => children).length > 0}>

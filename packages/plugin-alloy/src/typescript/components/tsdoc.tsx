@@ -27,6 +27,11 @@ import {
 } from "@alloy-js/core";
 import { JSDocExampleProps, ParameterDescriptor } from "@alloy-js/typescript";
 import { stringifyDefaultValue } from "@powerlines/deepkit/utilities";
+import {
+  ReflectionKind,
+  ReflectionParameter,
+  ReflectionProperty
+} from "@powerlines/deepkit/vendor/type";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { usePowerlines } from "../../core/contexts/context";
@@ -178,19 +183,22 @@ export function TSDocPermission(props: ComponentProps) {
 }
 
 export interface TSDocDefaultValueProps extends ComponentProps {
-  value: any;
+  type: ReflectionKind | ReflectionProperty | ReflectionParameter;
+  defaultValue: any;
 }
 
 /**
  * Create a TSDoc `@defaultValue` tag.
  */
 export function TSDocDefaultValue(props: TSDocDefaultValueProps) {
+  const [{ type, defaultValue }] = splitProps(props, ["type", "defaultValue"]);
+
   return (
     <>
       {"@defaultValue "}
-      <Show when={!isUndefined(props.value)}>
+      <Show when={!isUndefined(defaultValue)}>
         <align width={2}>
-          <Prose>{stringifyDefaultValue(props.value)}</Prose>
+          <Prose>{stringifyDefaultValue(type, defaultValue)}</Prose>
         </align>
       </Show>
       <hbr />
@@ -284,6 +292,7 @@ export function TSDocHidden() {
 }
 
 export interface TSDocAttributesTagsProps {
+  type?: ReflectionKind | ReflectionProperty | ReflectionParameter;
   title?: string;
   alias?: string[];
   permission?: string[];
@@ -301,6 +310,7 @@ export interface TSDocAttributesTagsProps {
 export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
   const [
     {
+      type,
       title,
       alias,
       permission,
@@ -312,6 +322,7 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
       defaultValue
     }
   ] = splitProps(props, [
+    "type",
     "title",
     "alias",
     "permission",
@@ -353,8 +364,13 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
       <Show when={hidden === true}>
         <TSDocHidden />
       </Show>
-      <Show when={!isUndefined(defaultValue)}>
-        <TSDocDefaultValue value={defaultValue} />
+      <Show when={!isUndefined(type)}>
+        <TSDocDefaultValue
+          type={
+            type as ReflectionKind | ReflectionProperty | ReflectionParameter
+          }
+          defaultValue={defaultValue}
+        />
       </Show>
     </>
   );
@@ -432,9 +448,17 @@ export function TSDocThrows(props: ComponentProps) {
 
 export interface TSDocModuleProps extends ComponentProps {
   /**
-   * the prefix for the builtin module name
+   * The prefix for the builtin module name
    *
-   * @defaultValue "storm"
+   * @remarks
+   * This value is populated from the Powerlines configuration output builtin prefix by default.
+   *
+   * @example
+   * ```ts
+   * /**
+   *  @module powerlines:my-module
+   *  \/
+   * ```
    */
   prefix?: string;
 
@@ -446,7 +470,7 @@ export interface TSDocModuleProps extends ComponentProps {
    *
    * @example
    * ```ts
-   * import { MyModule } from "storm:my-module";
+   * import { MyModule } from "powerlines:my-module";
    * ```
    */
   name: Children;
