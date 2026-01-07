@@ -57,7 +57,7 @@ import type {
 import type { ParsedTypeScriptConfig } from "./tsconfig";
 
 /**
- * The severity level of a {@link LogRecord}.
+ * The severity level of a log message.
  */
 export type LogLevel = "debug" | "info" | "warning" | "error" | "fatal";
 

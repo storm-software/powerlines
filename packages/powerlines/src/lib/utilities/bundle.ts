@@ -50,6 +50,9 @@ export async function bundle(
     splitting: false,
     treeShaking: false,
     bundle: true,
+    packages: "external",
+    platform: "node",
+    logLevel: "silent",
     ...overrides
   } as BuildOptions);
   if (result.errors.length > 0) {
