@@ -56,8 +56,8 @@ try {
   }
 
   proc =
-    $`pnpm nx run powerlines:build:${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
-      `${3 * 60}s`
+    $`pnpm nx run-many --target=build --projects="powerlines,nx" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+      `${6 * 60}s`
     );
   proc.stdout.on("data", data => {
     echo`${data}`;
@@ -65,21 +65,7 @@ try {
   result = await proc;
   if (!result.ok) {
     throw new Error(
-      `An error occurred while building the core Powerlines package in ${configuration} mode: \n\n${result.message}\n`
-    );
-  }
-
-  proc =
-    $`pnpm nx run nx:build:${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
-      `${5 * 60}s`
-    );
-  proc.stdout.on("data", data => {
-    echo`${data}`;
-  });
-  result = await proc;
-  if (!result.ok) {
-    throw new Error(
-      `An error occurred while building the Nx plugin package in ${configuration} mode: \n\n${result.message}\n`
+      `An error occurred while building the core Powerlines and Nx packages in ${configuration} mode: \n\n${result.message}\n`
     );
   }
 
