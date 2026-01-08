@@ -243,43 +243,50 @@ export function TypescriptFileHeaderImports(
       <Show when={!!imports && Object.keys(imports).length > 0}>
         <For each={Object.entries(imports ?? {})}>
           {([module, normalImports]) => {
-            return code`import ${
-              normalImports === null
-                ? ""
-                : isString(normalImports)
-                  ? normalImports
-                  : ` ${
-                      (
-                        normalImports.filter(
-                          i => !isString(i) && i.default
-                        ) as TypescriptFileImportItem[]
-                      )
-                        .map(i => (i.alias ? i.alias : i.name))
-                        .join(", ") +
-                      (normalImports.filter(i => !isString(i) && i.default)
-                        .length > 0 &&
-                      normalImports.filter(i => isString(i) || !i.default)
-                        .length > 0
-                        ? ", "
-                        : "") +
-                      (normalImports.filter(i => isString(i) || !i.default)
-                        .length > 0
-                        ? `{ ${normalImports
-                            .map(i =>
-                              isString(i)
-                                ? i
-                                : i.alias
-                                  ? `${i.name} as ${i.alias}`
-                                  : i.name
-                            )
-                            .join(", ")} }`
-                        : "")
-                    } `
-            } from "${module}";`;
+            return (
+              <>
+                {code`import ${
+                  normalImports === null
+                    ? ""
+                    : isString(normalImports)
+                      ? normalImports
+                      : ` ${
+                          (
+                            normalImports.filter(
+                              i => !isString(i) && i.default
+                            ) as TypescriptFileImportItem[]
+                          )
+                            .map(i => (i.alias ? i.alias : i.name))
+                            .join(", ") +
+                          (normalImports.filter(i => !isString(i) && i.default)
+                            .length > 0 &&
+                          normalImports.filter(i => isString(i) || !i.default)
+                            .length > 0
+                            ? ", "
+                            : "") +
+                          (normalImports.filter(i => isString(i) || !i.default)
+                            .length > 0
+                            ? `{ ${normalImports
+                                .map(i =>
+                                  isString(i)
+                                    ? i
+                                    : i.alias
+                                      ? `${i.name} as ${i.alias}`
+                                      : i.name
+                                )
+                                .join(", ")} }`
+                            : "")
+                        } `
+                } from "${module}";`}
+                <br />
+              </>
+            );
           }}
         </For>
       </Show>
+
       <Show when={builtinImports && Object.keys(builtinImports).length > 0}>
+        <hbr />
         <For
           each={Object.entries(
             (builtinImports ?? {}) as Record<
@@ -331,6 +338,7 @@ export function TypescriptFileHeaderImports(
         </For>
       </Show>
       <Show when={scope.importedModules.size > 0}>
+        <hbr />
         <ImportStatements records={scope.importedModules} />
       </Show>
       <hbr />
