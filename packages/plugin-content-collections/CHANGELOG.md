@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Content Collections
 
+## [0.1.141](https://github.com/storm-software/powerlines/releases/tag/plugin-content-collections%400.1.141) (01/08/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.93**
+- Updated **powerlines** to **v0.37.15**
+
 ## [0.1.140](https://github.com/storm-software/powerlines/releases/tag/plugin-content-collections%400.1.140) (01/07/2026)
 
 ### Updated Dependencies
