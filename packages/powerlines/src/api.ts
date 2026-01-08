@@ -55,6 +55,7 @@ import {
   isIncludeMatchFound
 } from "./lib/typescript/tsconfig";
 import { getFileHeader } from "./lib/utilities/file-header";
+import { formatFolder } from "./lib/utilities/format";
 import { writeMetaFile } from "./lib/utilities/meta";
 import {
   checkDedupe,
@@ -492,6 +493,16 @@ ${formatTypes(types)}
       if (!context.tsconfig) {
         throw new Error("Failed to parse the TypeScript configuration file.");
       }
+
+      this.context.log(
+        LogLevelLabel.DEBUG,
+        "Formatting files generated during the prepare step."
+      );
+
+      await Promise.all([
+        formatFolder(context, context.builtinsPath),
+        formatFolder(context, context.entryPath)
+      ]);
 
       await this.callHook("prepare", {
         environment: context,

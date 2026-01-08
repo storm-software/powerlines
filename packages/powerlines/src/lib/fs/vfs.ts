@@ -51,7 +51,6 @@ import { AssetGlob } from "@stryke/types/file";
 import { create, FlatCache } from "flat-cache";
 import { Blob } from "node:buffer";
 import { fileURLToPath } from "node:url";
-import { format, resolveConfig } from "prettier";
 import { FileSystem } from "../../../schemas/fs";
 import { replacePathTokens } from "../../plugin-utils/paths";
 import { LogFn } from "../../types/config";
@@ -65,6 +64,7 @@ import {
   WriteOptions
 } from "../../types/fs";
 import { extendLog } from "../logger";
+import { format } from "../utilities/format";
 import { normalizeGlobPatterns, normalizeId, normalizePath } from "./helpers";
 import { FileSystemStorageAdapter } from "./storage/file-system";
 import { VirtualStorageAdapter } from "./storage/virtual";
@@ -1002,15 +1002,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
     let code = data;
     if (!options.skipFormat) {
-      const resolvedConfig = await resolveConfig(
-        this.#normalizePath(relativeKey)
-      );
-      if (resolvedConfig) {
-        code = await format(data, {
-          absolutePath: this.#normalizePath(path),
-          ...resolvedConfig
-        });
-      }
+      code = await format(this.#normalizePath(path), data);
     }
 
     this.#log(
