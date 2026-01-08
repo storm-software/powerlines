@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.16](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.16) (01/08/2026)
+
+### Miscellaneous
+
+- **powerlines:** Added logic to format generated source code
+  ([7cc91902](https://github.com/storm-software/powerlines/commit/7cc91902))
+
 ## [0.37.14](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.14) (01/07/2026)
 
 ### Bug Fixes

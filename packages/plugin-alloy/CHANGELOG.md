@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.27](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.27) (01/08/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Clean up spacing in typescript file header
+  ([c7281d72](https://github.com/storm-software/powerlines/commit/c7281d72))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.94**
+- Updated **powerlines** to **v0.37.16**
+- Updated **deepkit** to **v0.5.58**
+
 ## [0.18.26](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.26) (01/08/2026)
 
 ### Bug Fixes
