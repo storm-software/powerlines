@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.26](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.26) (01/08/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with providing `builtinImports` to
+  `BuiltinFile` components
+  ([3de42df0](https://github.com/storm-software/powerlines/commit/3de42df0))
+
 ## [0.18.25](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.25) (01/08/2026)
 
 ### Bug Fixes
