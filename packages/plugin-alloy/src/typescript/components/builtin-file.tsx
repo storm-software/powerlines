@@ -60,10 +60,15 @@ export type BuiltinFileProps = Omit<TypescriptFileProps, "path"> &
  * @returns The rendered source file component.
  */
 export function BuiltinFile(props: BuiltinFileProps) {
-  const [{ children, imports, id, description, tsx }, rest] = splitProps(
-    props,
-    ["children", "imports", "id", "description", "tsx"]
-  );
+  const [{ children, imports, builtinImports, id, description, tsx }, rest] =
+    splitProps(props, [
+      "children",
+      "imports",
+      "builtinImports",
+      "id",
+      "description",
+      "tsx"
+    ]);
 
   const context = usePowerlinesSafe();
   const path = computed(() =>
@@ -80,7 +85,10 @@ export function BuiltinFile(props: BuiltinFileProps) {
       header={
         <TypescriptFileHeader
           header={<TSDocModule name={id}>{description}</TSDocModule>}>
-          <TypescriptFileHeaderImports imports={imports} />
+          <TypescriptFileHeaderImports
+            imports={imports}
+            builtinImports={builtinImports}
+          />
         </TypescriptFileHeader>
       }
       meta={{
