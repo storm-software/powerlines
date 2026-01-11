@@ -237,36 +237,36 @@ export function TypescriptFileHeaderImports(
     <Show
       when={
         scope.importedModules.size > 0 ||
-        (!!builtinImports && Object.keys(builtinImports).length > 0) ||
-        (!!imports && Object.keys(imports).length > 0)
+        (!!imports && Object.keys(imports).length > 0) ||
+        (!!builtinImports && Object.keys(builtinImports).length > 0)
       }>
       <Show when={!!imports && Object.keys(imports).length > 0}>
-        <For each={Object.entries(imports ?? {})}>
-          {([module, normalImports]) => {
+        <For each={Object.entries(imports ?? {})} hardline>
+          {([module, importItem]) => {
             return (
               <>
                 {code`import ${
-                  normalImports === null
+                  importItem === null
                     ? ""
-                    : isString(normalImports)
-                      ? normalImports
+                    : isString(importItem)
+                      ? importItem
                       : ` ${
                           (
-                            normalImports.filter(
+                            importItem.filter(
                               i => !isString(i) && i.default
                             ) as TypescriptFileImportItem[]
                           )
                             .map(i => (i.alias ? i.alias : i.name))
                             .join(", ") +
-                          (normalImports.filter(i => !isString(i) && i.default)
+                          (importItem.filter(i => !isString(i) && i.default)
                             .length > 0 &&
-                          normalImports.filter(i => isString(i) || !i.default)
+                          importItem.filter(i => isString(i) || !i.default)
                             .length > 0
                             ? ", "
                             : "") +
-                          (normalImports.filter(i => isString(i) || !i.default)
+                          (importItem.filter(i => isString(i) || !i.default)
                             .length > 0
-                            ? `{ ${normalImports
+                            ? `{ ${importItem
                                 .map(i =>
                                   isString(i)
                                     ? i
@@ -278,45 +278,43 @@ export function TypescriptFileHeaderImports(
                             : "")
                         } `
                 } from "${module}";`}
-                <br />
               </>
             );
           }}
         </For>
       </Show>
-
       <Show when={builtinImports && Object.keys(builtinImports).length > 0}>
-        <hbr />
         <For
           each={Object.entries(
             (builtinImports ?? {}) as Record<
               string,
               null | Array<TypescriptFileImportItem | string>
             >
-          )}>
-          {([builtinModule, builtinImports]) =>
+          )}
+          hardline>
+          {([module, importItem]) =>
             code`import ${
-              builtinImports === null
+              importItem === null
                 ? ""
-                : isString(builtinImports)
-                  ? builtinImports
+                : isString(importItem)
+                  ? importItem
                   : ` ${
                       (
-                        builtinImports.filter(
+                        importItem.filter(
                           i => !isString(i) && i.default
                         ) as TypescriptFileImportItem[]
                       )
                         .map(i => (i.alias ? i.alias : i.name))
                         .join(", ") +
-                      (builtinImports.filter(i => !isString(i) && i.default)
+                      (importItem.filter(i => !isString(i) && i.default)
                         .length > 0 &&
-                      builtinImports.filter(i => isString(i) || !i.default)
-                        .length > 0
+                      importItem.filter(i => isString(i) || !i.default).length >
+                        0
                         ? ", "
                         : "") +
-                      (builtinImports.filter(i => isString(i) || !i.default)
+                      (importItem.filter(i => isString(i) || !i.default)
                         .length > 0
-                        ? `{ ${builtinImports
+                        ? `{ ${importItem
                             .map(i =>
                               isString(i)
                                 ? i
@@ -328,17 +326,16 @@ export function TypescriptFileHeaderImports(
                         : "")
                     } `
             } from "${
-              builtinModule.includes(":")
-                ? builtinModule
+              module.includes(":")
+                ? module
                 : `${
                     context?.config?.output?.builtinPrefix || "powerlines"
-                  }:${builtinModule}`
+                  }:${module}`
             }";`
           }
         </For>
       </Show>
       <Show when={scope.importedModules.size > 0}>
-        <hbr />
         <ImportStatements records={scope.importedModules} />
       </Show>
       <hbr />
