@@ -90,12 +90,12 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   #metadata: Record<string, VirtualFileMetadata>;
 
   /**
-   * A map of virtual file IDs to their underlying file paths.
+   * A map of underlying file paths to their virtual file IDs.
    */
   #ids: Record<string, string>;
 
   /**
-   * A map of underlying file paths to their virtual file IDs.
+   * A map of virtual file IDs to their underlying file paths.
    */
   #paths: Record<string, string>;
 
@@ -527,7 +527,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * A map of file paths to their module ids.
    */
   public get ids(): Readonly<Record<string, string>> {
-    return new Proxy(this.#paths, {
+    return new Proxy(this.#ids, {
       get: (target, prop: string) => {
         return target[this.#normalizePath(prop)];
       },
@@ -1275,7 +1275,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       } (size: ${prettyBytes(new Blob(toArray(code)).size)})`
     );
 
-    const id = meta.id || this.#normalizeId(relativeKey);
+    const id = this.#normalizeId(meta.id || relativeKey);
     this.#metadata[id] = {
       type: "normal",
       timestamp: Date.now(),
@@ -1314,7 +1314,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       } (size: ${prettyBytes(new Blob(toArray(data)).size)})`
     );
 
-    const id = meta.id || this.#normalizeId(relativeKey);
+    const id = this.#normalizeId(meta.id || relativeKey);
     this.#metadata[id] = {
       type: "normal",
       timestamp: Date.now(),
@@ -1668,8 +1668,8 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
       const ids = fs._initIds(Object.keys(this.#ids).length);
       Object.entries(this.#ids)
-        .filter(([, path]) => path)
-        .forEach(([id, path], index) => {
+        .filter(([, id]) => id)
+        .forEach(([path, id], index) => {
           const fileId = ids.get(index);
           fileId.id = id;
           fileId.path = path;
