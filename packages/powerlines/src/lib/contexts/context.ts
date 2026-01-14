@@ -329,7 +329,9 @@ export class PowerlinesContext<
   public get entry(): ResolvedEntryTypeDefinition[] {
     return resolveEntriesSync(
       this,
-      !this.#entry ? toArray(this.config.entry) : this.#entry
+      !this.#entry || this.#entry.length === 0
+        ? toArray(this.config.entry)
+        : this.#entry
     );
   }
 
@@ -939,7 +941,7 @@ export class PowerlinesContext<
     );
 
     this.#entry ??= [];
-    this.entry.push({
+    this.#entry.push({
       name: options.name,
       file: entryPath,
       input: options.input,
@@ -984,7 +986,7 @@ export class PowerlinesContext<
     );
 
     this.#entry ??= [];
-    this.entry.push({
+    this.#entry.push({
       name: options?.name,
       file: entryPath,
       input: options?.input,
