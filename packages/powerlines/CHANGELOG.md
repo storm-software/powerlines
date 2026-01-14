@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.22](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.22) (01/14/2026)
+
+### Miscellaneous
+
+- **powerlines:** Cleaned up logic around VFS initialization
+  ([d5143ec0](https://github.com/storm-software/powerlines/commit/d5143ec0))
+
 ## [0.37.21](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.21) (01/14/2026)
 
 ### Bug Fixes
