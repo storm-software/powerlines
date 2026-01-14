@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.20](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.20) (01/14/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue accessing internal entry objects
+  ([dcbeb22b](https://github.com/storm-software/powerlines/commit/dcbeb22b))
+
 ## [0.37.19](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.19) (01/14/2026)
 
 ### Bug Fixes
