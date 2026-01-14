@@ -159,7 +159,13 @@ export type ListDatabaseConnectionsData = {
         databaseId: string;
     };
     query?: {
+        /**
+         * Cursor for pagination
+         */
         cursor?: string | null;
+        /**
+         * Limit for pagination
+         */
         limit?: number;
     };
     url: '/v1/databases/{databaseId}/connections';
@@ -195,7 +201,13 @@ export type ListDatabaseConnectionsResponses = {
             };
         }>;
         pagination: {
+            /**
+             * Next cursor to continue pagination
+             */
             nextCursor: string | null;
+            /**
+             * Whether there are more items to paginate
+             */
             hasMore: boolean;
         };
     };
@@ -310,10 +322,25 @@ export type ListBackupsResponses = {
      */
     200: {
         data: Array<{
+            /**
+             * The unique identifier for this backup
+             */
             id: string;
+            /**
+             * Type of backup
+             */
             backupType: 'full' | 'incremental';
+            /**
+             * Timestamp when the backup was created
+             */
             createdAt: string;
+            /**
+             * Total file size (in bytes) of gzipped backup files
+             */
             size?: number;
+            /**
+             * Status of backup instance
+             */
             status: 'running' | 'completed' | 'failed' | 'unknown';
             type?: 'backup';
         }>;
@@ -417,7 +444,13 @@ export type ListProjectsData = {
     body?: never;
     path?: never;
     query?: {
+        /**
+         * Cursor for pagination
+         */
         cursor?: string | null;
+        /**
+         * Limit for pagination
+         */
         limit?: number;
     };
     url: '/v1/projects';
@@ -453,7 +486,13 @@ export type ListProjectsResponses = {
             };
         }>;
         pagination: {
+            /**
+             * Next cursor to continue pagination
+             */
             nextCursor: string | null;
+            /**
+             * Whether there are more items to paginate
+             */
             hasMore: boolean;
         };
     };
@@ -682,7 +721,13 @@ export type ListDatabasesData = {
         projectId: string;
     };
     query?: {
+        /**
+         * Cursor for pagination
+         */
         cursor?: string | null;
+        /**
+         * Limit for pagination
+         */
         limit?: number;
     };
     url: '/v1/projects/{projectId}/databases';
@@ -733,7 +778,13 @@ export type ListDatabasesResponses = {
             } | null;
         }>;
         pagination: {
+            /**
+             * Next cursor to continue pagination
+             */
             nextCursor: string | null;
+            /**
+             * Whether there are more items to paginate
+             */
             hasMore: boolean;
         };
     };
@@ -748,6 +799,9 @@ export type CreateDatabaseData = {
         isDefault?: boolean;
         fromDatabase?: {
             id: string;
+            /**
+             * The unique identifier for this backup
+             */
             backupId?: string;
         };
     };
@@ -835,7 +889,13 @@ export type ListIntegrationsData = {
         workspaceId: string;
     };
     query?: {
+        /**
+         * Cursor for pagination
+         */
         cursor?: string | null;
+        /**
+         * Limit for pagination
+         */
         limit?: number;
     };
     url: '/v1/workspaces/{workspaceId}/integrations';
@@ -885,7 +945,13 @@ export type ListIntegrationsResponses = {
             };
         }>;
         pagination: {
+            /**
+             * Next cursor to continue pagination
+             */
             nextCursor: string | null;
+            /**
+             * Whether there are more items to paginate
+             */
             hasMore: boolean;
         };
     };
@@ -1012,7 +1078,13 @@ export type ListWorkspacesData = {
     body?: never;
     path?: never;
     query?: {
+        /**
+         * Cursor for pagination
+         */
         cursor?: string | null;
+        /**
+         * Limit for pagination
+         */
         limit?: number;
     };
     url: '/v1/workspaces';
@@ -1044,7 +1116,13 @@ export type ListWorkspacesResponses = {
             createdAt: string;
         }>;
         pagination: {
+            /**
+             * Next cursor to continue pagination
+             */
             nextCursor: string | null;
+            /**
+             * Whether there are more items to paginate
+             */
             hasMore: boolean;
         };
     };
