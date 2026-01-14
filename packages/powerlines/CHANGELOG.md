@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.21](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.21) (01/14/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue preventing entrypoints from being loaded from
+  cache initialization
+  ([4748fbe3](https://github.com/storm-software/powerlines/commit/4748fbe3))
+
 ## [0.37.20](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.20) (01/14/2026)
 
 ### Bug Fixes
