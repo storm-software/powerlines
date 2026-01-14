@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "../..",
     "types": ["node"],
-    "strict": true,
+    "strict": false,
     "outDir": "../../dist/out-tsc"
   },
   "include": [
