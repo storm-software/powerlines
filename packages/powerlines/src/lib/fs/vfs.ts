@@ -47,6 +47,7 @@ import { isRegExp } from "@stryke/type-checks/is-regexp";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
+import { TypeDefinition } from "@stryke/types/configuration";
 import { AssetGlob } from "@stryke/types/file";
 import { create, FlatCache } from "flat-cache";
 import { Blob } from "node:buffer";
@@ -63,6 +64,7 @@ import {
   VirtualFileSystemInterface,
   WriteOptions
 } from "../../types/fs";
+import { ResolvedEntryTypeDefinition } from "../../types/resolved";
 import { extendLog } from "../logger";
 import { format } from "../utilities/format";
 import { normalizeGlobPatterns, normalizeId, normalizePath } from "./helpers";
@@ -272,8 +274,47 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     const message = new capnp.Message();
+    const result = new VirtualFileSystem(context, message.initRoot(FileSystem));
+    if (result.metadata) {
+      context.entry = Object.entries(result.metadata)
+        .filter(([, meta]) => meta && meta.type === "entry")
+        .map(([path, meta]) => {
+          if (meta.properties) {
+            const typeDefinition = {
+              file: path
+            } as ResolvedEntryTypeDefinition;
+            if (isSetString(meta.properties.name)) {
+              typeDefinition.name = meta.properties.name;
+            }
+            if (
+              isSetString(meta.properties["input.file"]) ||
+              isSetString(meta.properties["input.name"])
+            ) {
+              typeDefinition.input ??= {} as TypeDefinition;
+              if (isSetString(meta.properties["input.file"])) {
+                typeDefinition.input.file = meta.properties["input.file"];
+              }
+              if (isSetString(meta.properties["input.name"])) {
+                typeDefinition.input.name = meta.properties["input.name"];
+              }
+            }
+            if (isSetString(meta.properties.output)) {
+              typeDefinition.output = meta.properties.output;
+            }
 
-    return new VirtualFileSystem(context, message.initRoot(FileSystem));
+            return typeDefinition;
+          }
+
+          return null;
+        })
+        .filter(Boolean) as ResolvedEntryTypeDefinition[];
+
+      context.debug(
+        `Loaded ${context.entry.length} entry type definitions from VFS metadata.`
+      );
+    }
+
+    return result;
   }
 
   /**
