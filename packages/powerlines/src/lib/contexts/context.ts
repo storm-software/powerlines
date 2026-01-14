@@ -938,7 +938,7 @@ export class PowerlinesContext<
       this.entryPath
     );
 
-    this.entry ??= [];
+    this.#entry ??= [];
     this.entry.push({
       name: options.name,
       file: entryPath,
@@ -983,7 +983,7 @@ export class PowerlinesContext<
       this.entryPath
     );
 
-    this.entry ??= [];
+    this.#entry ??= [];
     this.entry.push({
       name: options?.name,
       file: entryPath,
