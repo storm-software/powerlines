@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.19](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.19) (01/14/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue populating internal entrypoint field
+  ([5b1490b0](https://github.com/storm-software/powerlines/commit/5b1490b0))
+
 ## [0.37.18](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.18) (01/14/2026)
 
 ### Bug Fixes
