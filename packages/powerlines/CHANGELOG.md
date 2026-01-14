@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.25](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.25) (01/14/2026)
+
+### Bug Fixes
+
+- **powerlines:** Update the VFS to handle metadata property listing correctly
+  ([75b7c1f2](https://github.com/storm-software/powerlines/commit/75b7c1f2))
+
 ## [0.37.24](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.24) (01/14/2026)
 
 ### Miscellaneous
