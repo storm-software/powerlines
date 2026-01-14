@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.28](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.28) (01/14/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue reading paths in `dispose` method
+  ([046bbde7](https://github.com/storm-software/powerlines/commit/046bbde7))
+
 ## [0.37.27](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.27) (01/14/2026)
 
 ### Bug Fixes
