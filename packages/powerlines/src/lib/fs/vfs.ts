@@ -374,6 +374,17 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     return new Proxy(this.#metadata, {
       get: (target, prop: string) => {
         return target[this.#normalizeId(prop)];
+      },
+      set: (target, prop: string, value) => {
+        target[this.#normalizeId(prop)] = value;
+        return true;
+      },
+      deleteProperty: (target, prop: string) => {
+        delete target[this.#normalizeId(prop)];
+        return true;
+      },
+      has: (target, prop: string) => {
+        return this.#normalizeId(prop) in target;
       }
     });
   }
@@ -385,6 +396,17 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     return new Proxy(this.#paths, {
       get: (target, prop: string) => {
         return target[this.#normalizePath(prop)];
+      },
+      set: (target, prop: string, value) => {
+        target[this.#normalizePath(prop)] = value;
+        return true;
+      },
+      deleteProperty: (target, prop: string) => {
+        delete target[this.#normalizePath(prop)];
+        return true;
+      },
+      has: (target, prop: string) => {
+        return this.#normalizePath(prop) in target;
       }
     });
   }
@@ -396,6 +418,17 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     return new Proxy(this.#paths, {
       get: (target, prop: string) => {
         return target[this.#normalizeId(prop)];
+      },
+      set: (target, prop: string, value) => {
+        target[this.#normalizeId(prop)] = value;
+        return true;
+      },
+      deleteProperty: (target, prop: string) => {
+        delete target[this.#normalizeId(prop)];
+        return true;
+      },
+      has: (target, prop: string) => {
+        return this.#normalizeId(prop) in target;
       }
     });
   }
@@ -1081,6 +1114,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     this.#metadata[id] = {
       type: "normal",
       timestamp: Date.now(),
+      ...(this.#metadata[id] ?? {}),
       ...meta
     } as VirtualFileMetadata;
     this.#paths[id] = this.#normalizePath(relativeKey);
@@ -1119,6 +1153,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     this.#metadata[id] = {
       type: "normal",
       timestamp: Date.now(),
+      ...(this.#metadata[id] ?? {}),
       ...meta
     } as VirtualFileMetadata;
     this.#paths[id] = this.#normalizePath(relativeKey);
@@ -1455,11 +1490,9 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       const message = new capnp.Message();
       const fs = message.initRoot(FileSystem);
 
-      const paths = await this.list();
-
-      const storage = fs._initStorage(paths.length);
+      const storage = fs._initStorage(Object.keys(this.#paths).length);
       await Promise.all(
-        paths.map(async (path, index) => {
+        Object.values(this.#paths).map(async (path, index) => {
           const code = await this.read(path);
 
           const fd = storage.get(index);
@@ -1468,8 +1501,8 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         })
       );
 
-      const ids = fs._initIds(Object.keys(this.ids).length);
-      Object.entries(this.ids)
+      const ids = fs._initIds(Object.keys(this.#ids).length);
+      Object.entries(this.#ids)
         .filter(([, path]) => path)
         .forEach(([id, path], index) => {
           const fileId = ids.get(index);
@@ -1477,8 +1510,8 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           fileId.path = path;
         });
 
-      const metadata = fs._initMetadata(Object.keys(this.metadata).length);
-      Object.entries(this.metadata)
+      const metadata = fs._initMetadata(Object.keys(this.#metadata).length);
+      Object.entries(this.#metadata)
         .filter(([, value]) => value)
         .forEach(([id, value], index) => {
           const fileMetadata = metadata.get(index);

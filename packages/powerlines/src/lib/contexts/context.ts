@@ -952,17 +952,21 @@ export class PowerlinesContext<
     return this.emit(
       code,
       entryPath,
-      defu(omit(options, ["name"]), {
-        meta: {
-          type: "entry",
-          properties: {
-            name: options.name,
-            output: options.output,
-            "input.file": options.input?.file,
-            "input.name": options.input?.name
+      defu(
+        {
+          meta: {
+            type: "entry",
+            properties: {
+              file: entryPath,
+              name: options?.name,
+              output: options?.output,
+              "input.file": options?.input?.file,
+              "input.name": options?.input?.name
+            }
           }
-        }
-      })
+        },
+        omit(options, ["name"])
+      )
     );
   }
 
@@ -998,17 +1002,21 @@ export class PowerlinesContext<
     return this.emitSync(
       code,
       entryPath,
-      defu(omit(options, ["name"]), {
-        meta: {
-          type: "entry",
-          properties: {
-            name: options?.name,
-            output: options?.output,
-            "input.file": options?.input?.file,
-            "input.name": options?.input?.name
+      defu(
+        {
+          meta: {
+            type: "entry",
+            properties: {
+              file: entryPath,
+              name: options?.name,
+              output: options?.output,
+              "input.file": options?.input?.file,
+              "input.name": options?.input?.name
+            }
           }
-        }
-      })
+        },
+        omit(options, ["name"])
+      )
     );
   }
 
