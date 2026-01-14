@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.23](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.23) (01/14/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue disposing VFS module
+  ([cbd6f11f](https://github.com/storm-software/powerlines/commit/cbd6f11f))
+
 ## [0.37.22](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.22) (01/14/2026)
 
 ### Miscellaneous
