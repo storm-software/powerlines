@@ -69,23 +69,23 @@ catalog:
   '@rollup/plugin-replace': ^6.0.3
   '@rspack/core': ^1.7.2
   '@standard-schema/spec': ^1.1.0
-  '@storm-software/build-tools': ^0.158.75
-  '@storm-software/config': ^1.134.75
-  '@storm-software/config-tools': ^1.188.75
+  '@storm-software/build-tools': ^0.158.76
+  '@storm-software/config': ^1.135.0
+  '@storm-software/config-tools': ^1.188.76
   '@storm-software/cspell': ^0.45.74
-  '@storm-software/esbuild': ^0.53.75
-  '@storm-software/eslint': ^0.169.76
-  '@storm-software/git-tools': ^2.124.58
-  '@storm-software/linting-tools': ^1.132.75
+  '@storm-software/esbuild': ^0.53.76
+  '@storm-software/eslint': ^0.169.77
+  '@storm-software/git-tools': ^2.124.59
+  '@storm-software/linting-tools': ^1.132.76
   '@storm-software/markdownlint': ^0.30.74
-  '@storm-software/pnpm-tools': ^0.6.77
+  '@storm-software/pnpm-tools': ^0.6.78
   '@storm-software/prettier': ^0.57.74
   '@storm-software/testing-tools': ^1.119.74
   '@storm-software/tsconfig': ^0.47.74
-  '@storm-software/tsup': ^0.2.73
-  '@storm-software/unbuild': ^0.57.75
-  '@storm-software/untyped': ^0.24.56
-  '@storm-software/workspace-tools': ^1.294.21
+  '@storm-software/tsup': ^0.2.74
+  '@storm-software/unbuild': ^0.57.76
+  '@storm-software/untyped': ^0.24.57
+  '@storm-software/workspace-tools': ^1.294.22
   '@stryke/capnp': ^0.12.54
   '@stryke/cli': ^0.12.37
   '@stryke/convert': ^0.6.31

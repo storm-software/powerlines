@@ -271,7 +271,9 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       if (fs._hasStorage() && fs.storage.length > 0) {
         await Promise.all(
           fs.storage.values().map(async file => {
-            await result.write(file.path, file.code);
+            if (file.path && file.code) {
+              await result.write(file.path, file.code);
+            }
           })
         );
       }
@@ -344,6 +346,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns A new virtual file system instance.
    */
   public static createSync(context: Context): VirtualFileSystem {
+    context.debug(
+      "Starting virtual file system (VFS) initialization processes..."
+    );
+
     if (
       !context.config.skipCache &&
       existsSync(joinPaths(context.dataPath, "fs.bin"))
@@ -363,8 +369,63 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     const message = new capnp.Message();
+    const result = new VirtualFileSystem(context, message.initRoot(FileSystem));
 
-    return new VirtualFileSystem(context, message.initRoot(FileSystem));
+    result.#log(
+      LogLevelLabel.DEBUG,
+      "Successfully completed virtual file system (VFS) initialization."
+    );
+
+    if (result.metadata) {
+      result.#log(
+        LogLevelLabel.DEBUG,
+        `Preparing to load ${
+          Object.keys(result.metadata).length
+        } previously stored metadata records...`
+      );
+
+      const entry = Object.entries(result.metadata)
+        .filter(([, meta]) => meta && meta.type === "entry")
+        .map(([path, meta]) => {
+          if (meta.properties) {
+            const typeDefinition = {
+              file: path
+            } as ResolvedEntryTypeDefinition;
+            if (isSetString(meta.properties.name)) {
+              typeDefinition.name = meta.properties.name;
+            }
+            if (
+              isSetString(meta.properties["input.file"]) ||
+              isSetString(meta.properties["input.name"])
+            ) {
+              typeDefinition.input ??= {} as TypeDefinition;
+              if (isSetString(meta.properties["input.file"])) {
+                typeDefinition.input.file = meta.properties["input.file"];
+              }
+              if (isSetString(meta.properties["input.name"])) {
+                typeDefinition.input.name = meta.properties["input.name"];
+              }
+            }
+            if (isSetString(meta.properties.output)) {
+              typeDefinition.output = meta.properties.output;
+            }
+
+            return typeDefinition;
+          }
+
+          return null;
+        })
+        .filter(Boolean) as ResolvedEntryTypeDefinition[];
+
+      result.#log(
+        LogLevelLabel.DEBUG,
+        `Loaded ${entry.length} entry type definitions from VFS metadata.`
+      );
+
+      context.entry = entry;
+    }
+
+    return result;
   }
 
   /**
@@ -1094,9 +1155,30 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     const meta = options.meta ?? {};
     const { relativeKey, adapter } = this.#getStorage(options.storage || path);
 
+    this.#log(
+      LogLevelLabel.TRACE,
+      `Writing ${this.#normalizePath(relativeKey)} to ${
+        adapter.name === "virtual"
+          ? "the virtual file system"
+          : adapter.name === "file-system"
+            ? "the local file system"
+            : adapter.name
+      } (size: ${prettyBytes(new Blob(toArray(data)).size)})`
+    );
+
     let code = data;
-    if (!options.skipFormat) {
-      code = await format(this.#normalizePath(path), data);
+    try {
+      if (!options.skipFormat) {
+        code = await format(this.#normalizePath(path), data);
+      }
+    } catch (err) {
+      this.#log(
+        LogLevelLabel.WARN,
+        `Failed to format file ${this.#normalizePath(
+          path
+        )} before writing: ${(err as Error).message}`
+      );
+      code = data;
     }
 
     this.#log(
