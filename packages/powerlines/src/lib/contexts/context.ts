@@ -175,8 +175,6 @@ export class PowerlinesContext<
 
   #timestamp: number = Date.now();
 
-  #entry: ResolvedEntryTypeDefinition[] | null = null;
-
   #fs!: VirtualFileSystemInterface;
 
   #tsconfig!: ParsedTypeScriptConfig;
@@ -295,6 +293,11 @@ export class PowerlinesContext<
   public resolver!: Resolver;
 
   /**
+   * An internal object containing the added resolved entry type definitions for the project.
+   */
+  protected _entry: ResolvedEntryTypeDefinition[] | null = null;
+
+  /**
    * The resolved configuration options
    */
   private resolvePatterns: RegExp[] = [];
@@ -329,9 +332,9 @@ export class PowerlinesContext<
   public get entry(): ResolvedEntryTypeDefinition[] {
     return resolveEntriesSync(
       this,
-      !this.#entry || this.#entry.length === 0
+      !this._entry || this._entry.length === 0
         ? toArray(this.config.entry)
-        : this.#entry
+        : this._entry
     );
   }
 
@@ -339,7 +342,7 @@ export class PowerlinesContext<
    * Sets the resolved entry type definitions for the project
    */
   public set entry(value: ResolvedEntryTypeDefinition[]) {
-    this.#entry = value;
+    this._entry = value;
   }
 
   /**
@@ -940,8 +943,8 @@ export class PowerlinesContext<
       this.entryPath
     );
 
-    this.#entry ??= [];
-    this.#entry.push({
+    this._entry ??= [];
+    this._entry.push({
       name: options.name,
       file: entryPath,
       input: options.input,
@@ -985,8 +988,8 @@ export class PowerlinesContext<
       this.entryPath
     );
 
-    this.#entry ??= [];
-    this.#entry.push({
+    this._entry ??= [];
+    this._entry.push({
       name: options?.name,
       file: entryPath,
       input: options?.input,
