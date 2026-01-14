@@ -52,7 +52,7 @@ import { AssetGlob } from "@stryke/types/file";
 import { create, FlatCache } from "flat-cache";
 import { Blob } from "node:buffer";
 import { fileURLToPath } from "node:url";
-import { FileSystem } from "../../../schemas/fs";
+import { FileId, FileMetadata, FileSystem } from "../../../schemas/fs";
 import { replacePathTokens } from "../../plugin-utils/paths";
 import { LogFn } from "../../types/config";
 import { Context } from "../../types/context";
@@ -255,6 +255,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       "Starting virtual file system (VFS) initialization processes..."
     );
 
+    let result!: VirtualFileSystem;
     if (
       !context.config.skipCache &&
       existsSync(joinPaths(context.dataPath, "fs.bin"))
@@ -272,74 +273,101 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         await Promise.all(
           fs.storage.values().map(async file => {
             if (file.path && file.code) {
-              await result.write(file.path, file.code);
+              let id: FileId | undefined;
+              if (fs._hasIds()) {
+                fs.ids.find((fileId: FileId) => fileId.path === file.path);
+              }
+
+              let metadata: FileMetadata | undefined;
+              if (fs._hasMetadata()) {
+                metadata = fs.metadata.find(
+                  (meta: FileMetadata) => meta.id === (id?.id ?? file.path)
+                );
+              }
+
+              await result.write(file.path, file.code, {
+                meta: {
+                  id: id?.id || metadata?.id,
+                  type: metadata?.type,
+                  properties: metadata?._hasProperties()
+                    ? metadata?.properties.values().reduce(
+                        (ret, kvp) => {
+                          ret[kvp.key] = kvp.value;
+                          return ret;
+                        },
+                        {} as Record<string, string>
+                      )
+                    : undefined,
+                  timestamp: metadata?.timestamp
+                }
+              });
             }
           })
         );
       }
-    }
 
-    const message = new capnp.Message();
-    const result = new VirtualFileSystem(context, message.initRoot(FileSystem));
+      if (result.#metadata && Object.keys(result.#metadata).length > 0) {
+        result.#log(
+          LogLevelLabel.DEBUG,
+          `Preparing to load ${
+            Object.keys(result.#metadata).length
+          } previously stored metadata records...`
+        );
+
+        const entry = Object.entries(result.#metadata)
+          .filter(([, meta]) => meta && meta.type === "entry")
+          .map(([path, meta]) => {
+            if (meta.properties) {
+              const typeDefinition = {
+                file: path
+              } as ResolvedEntryTypeDefinition;
+              if (isSetString(meta.properties.name)) {
+                typeDefinition.name = meta.properties.name;
+              }
+              if (
+                isSetString(meta.properties["input.file"]) ||
+                isSetString(meta.properties["input.name"])
+              ) {
+                typeDefinition.input ??= {} as TypeDefinition;
+                if (isSetString(meta.properties["input.file"])) {
+                  typeDefinition.input.file = meta.properties["input.file"];
+                }
+                if (isSetString(meta.properties["input.name"])) {
+                  typeDefinition.input.name = meta.properties["input.name"];
+                }
+              }
+              if (isSetString(meta.properties.output)) {
+                typeDefinition.output = meta.properties.output;
+              }
+
+              return typeDefinition;
+            }
+
+            return null;
+          })
+          .filter(Boolean) as ResolvedEntryTypeDefinition[];
+
+        result.#log(
+          LogLevelLabel.DEBUG,
+          `Loaded ${entry.length} entry type definitions from VFS metadata.`
+        );
+
+        context.entry = entry;
+      } else {
+        result.#log(
+          LogLevelLabel.DEBUG,
+          "No previously stored metadata records were found on the local system."
+        );
+      }
+    } else {
+      const message = new capnp.Message();
+      result = new VirtualFileSystem(context, message.initRoot(FileSystem));
+    }
 
     result.#log(
       LogLevelLabel.DEBUG,
       "Successfully completed virtual file system (VFS) initialization."
     );
-
-    if (result.#metadata && Object.keys(result.#metadata).length > 0) {
-      result.#log(
-        LogLevelLabel.DEBUG,
-        `Preparing to load ${
-          Object.keys(result.#metadata).length
-        } previously stored metadata records...`
-      );
-
-      const entry = Object.entries(result.#metadata)
-        .filter(([, meta]) => meta && meta.type === "entry")
-        .map(([path, meta]) => {
-          if (meta.properties) {
-            const typeDefinition = {
-              file: path
-            } as ResolvedEntryTypeDefinition;
-            if (isSetString(meta.properties.name)) {
-              typeDefinition.name = meta.properties.name;
-            }
-            if (
-              isSetString(meta.properties["input.file"]) ||
-              isSetString(meta.properties["input.name"])
-            ) {
-              typeDefinition.input ??= {} as TypeDefinition;
-              if (isSetString(meta.properties["input.file"])) {
-                typeDefinition.input.file = meta.properties["input.file"];
-              }
-              if (isSetString(meta.properties["input.name"])) {
-                typeDefinition.input.name = meta.properties["input.name"];
-              }
-            }
-            if (isSetString(meta.properties.output)) {
-              typeDefinition.output = meta.properties.output;
-            }
-
-            return typeDefinition;
-          }
-
-          return null;
-        })
-        .filter(Boolean) as ResolvedEntryTypeDefinition[];
-
-      result.#log(
-        LogLevelLabel.DEBUG,
-        `Loaded ${entry.length} entry type definitions from VFS metadata.`
-      );
-
-      context.entry = entry;
-    } else {
-      result.#log(
-        LogLevelLabel.DEBUG,
-        "No previously stored metadata records were found on the local system."
-      );
-    }
 
     return result;
   }
@@ -355,6 +383,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       "Starting virtual file system (VFS) initialization processes..."
     );
 
+    let result!: VirtualFileSystem;
     if (
       !context.config.skipCache &&
       existsSync(joinPaths(context.dataPath, "fs.bin"))
@@ -367,73 +396,102 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       const result = new VirtualFileSystem(context, fs);
 
       if (fs._hasStorage() && fs.storage.length > 0) {
-        fs.storage.values().map(file => {
-          result.writeSync(file.path, file.code);
+        fs.storage.values().forEach(file => {
+          if (file.path && file.code) {
+            let id: FileId | undefined;
+            if (fs._hasIds()) {
+              fs.ids.find((fileId: FileId) => fileId.path === file.path);
+            }
+
+            let metadata: FileMetadata | undefined;
+            if (fs._hasMetadata()) {
+              metadata = fs.metadata.find(
+                (meta: FileMetadata) => meta.id === (id?.id ?? file.path)
+              );
+            }
+
+            result.writeSync(file.path, file.code, {
+              meta: {
+                id: id?.id || metadata?.id,
+                type: metadata?.type,
+                properties: metadata?._hasProperties()
+                  ? metadata?.properties.values().reduce(
+                      (ret, kvp) => {
+                        ret[kvp.key] = kvp.value;
+                        return ret;
+                      },
+                      {} as Record<string, string>
+                    )
+                  : undefined,
+                timestamp: metadata?.timestamp
+              }
+            });
+          }
         });
       }
-    }
 
-    const message = new capnp.Message();
-    const result = new VirtualFileSystem(context, message.initRoot(FileSystem));
+      if (result.#metadata && Object.keys(result.#metadata).length > 0) {
+        result.#log(
+          LogLevelLabel.DEBUG,
+          `Preparing to load ${
+            Object.keys(result.#metadata).length
+          } previously stored metadata records...`
+        );
+
+        const entry = Object.entries(result.#metadata)
+          .filter(([, meta]) => meta && meta.type === "entry")
+          .map(([path, meta]) => {
+            if (meta.properties) {
+              const typeDefinition = {
+                file: path
+              } as ResolvedEntryTypeDefinition;
+              if (isSetString(meta.properties.name)) {
+                typeDefinition.name = meta.properties.name;
+              }
+              if (
+                isSetString(meta.properties["input.file"]) ||
+                isSetString(meta.properties["input.name"])
+              ) {
+                typeDefinition.input ??= {} as TypeDefinition;
+                if (isSetString(meta.properties["input.file"])) {
+                  typeDefinition.input.file = meta.properties["input.file"];
+                }
+                if (isSetString(meta.properties["input.name"])) {
+                  typeDefinition.input.name = meta.properties["input.name"];
+                }
+              }
+              if (isSetString(meta.properties.output)) {
+                typeDefinition.output = meta.properties.output;
+              }
+
+              return typeDefinition;
+            }
+
+            return null;
+          })
+          .filter(Boolean) as ResolvedEntryTypeDefinition[];
+
+        result.#log(
+          LogLevelLabel.DEBUG,
+          `Loaded ${entry.length} entry type definitions from VFS metadata.`
+        );
+
+        context.entry = entry;
+      } else {
+        result.#log(
+          LogLevelLabel.DEBUG,
+          "No previously stored metadata records were found on the local system."
+        );
+      }
+    } else {
+      const message = new capnp.Message();
+      result = new VirtualFileSystem(context, message.initRoot(FileSystem));
+    }
 
     result.#log(
       LogLevelLabel.DEBUG,
       "Successfully completed virtual file system (VFS) initialization."
     );
-
-    if (result.#metadata && Object.keys(result.#metadata).length > 0) {
-      result.#log(
-        LogLevelLabel.DEBUG,
-        `Preparing to load ${
-          Object.keys(result.#metadata).length
-        } previously stored metadata records...`
-      );
-
-      const entry = Object.entries(result.#metadata)
-        .filter(([, meta]) => meta && meta.type === "entry")
-        .map(([path, meta]) => {
-          if (meta.properties) {
-            const typeDefinition = {
-              file: path
-            } as ResolvedEntryTypeDefinition;
-            if (isSetString(meta.properties.name)) {
-              typeDefinition.name = meta.properties.name;
-            }
-            if (
-              isSetString(meta.properties["input.file"]) ||
-              isSetString(meta.properties["input.name"])
-            ) {
-              typeDefinition.input ??= {} as TypeDefinition;
-              if (isSetString(meta.properties["input.file"])) {
-                typeDefinition.input.file = meta.properties["input.file"];
-              }
-              if (isSetString(meta.properties["input.name"])) {
-                typeDefinition.input.name = meta.properties["input.name"];
-              }
-            }
-            if (isSetString(meta.properties.output)) {
-              typeDefinition.output = meta.properties.output;
-            }
-
-            return typeDefinition;
-          }
-
-          return null;
-        })
-        .filter(Boolean) as ResolvedEntryTypeDefinition[];
-
-      result.#log(
-        LogLevelLabel.DEBUG,
-        `Loaded ${entry.length} entry type definitions from VFS metadata.`
-      );
-
-      context.entry = entry;
-    } else {
-      result.#log(
-        LogLevelLabel.DEBUG,
-        "No previously stored metadata records were found on the local system."
-      );
-    }
 
     return result;
   }

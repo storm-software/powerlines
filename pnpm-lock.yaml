@@ -412,8 +412,8 @@ catalogs:
       specifier: ^4.7.8
       version: 4.7.8
     i18next-cli:
-      specifier: ^1.36.0
-      version: 1.36.0
+      specifier: ^1.36.1
+      version: 1.36.1
     i18next-resources-for-ts:
       specifier: ^2.0.0
       version: 2.0.0
@@ -1543,7 +1543,7 @@ importers:
         version: 6.1.4
       i18next-cli:
         specifier: 'catalog:'
-        version: 1.36.0(@swc/helpers@0.5.18)(@types/node@24.10.8)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3)
+        version: 1.36.1(@swc/helpers@0.5.18)(@types/node@24.10.8)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3)
       i18next-resources-for-ts:
         specifier: 'catalog:'
         version: 2.0.0(@swc/helpers@0.5.18)
@@ -14066,8 +14066,8 @@ packages:
   hyphenate-style-name@1.1.0:
     resolution: {integrity: sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==}
 
-  i18next-cli@1.36.0:
-    resolution: {integrity: sha512-0k/gUWf3J764Pqx5XJ2ShvsXeKB5vkFEuAGDquEz/8Sv3+wTekVz5vmKMSL0nOMvyU2aJ1hJB6nN57YXXjBMJg==}
+  i18next-cli@1.36.1:
+    resolution: {integrity: sha512-q4lRuqVPTNI6Ip5YFCRNNGiTh/s/5nfl18coOnjDu7Cb1BiJeRXShFGL5Tcka4ii0k5ndOMjxIAkoNN6EXCwyQ==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -19564,8 +19564,8 @@ packages:
   unified@9.2.2:
     resolution: {integrity: sha512-Sg7j110mtefBD+qunSLO1lqOEKdrwBFBrR6Qd8f4uwkhWNlbkaqwHse6e7QvD3AP/MNoJdEDLaf8OxYyoWgorQ==}
 
-  unifont@0.7.1:
-    resolution: {integrity: sha512-0lg9M1cMYvXof8//wZBq6EDEfbwv4++t7+dYpXeS2ypaLuZJmUFYEwTm412/1ED/Wfo/wyzSu6kNZEr9hgRNfg==}
+  unifont@0.7.3:
+    resolution: {integrity: sha512-b0GtQzKCyuSHGsfj5vyN8st7muZ6VCI4XD4vFlr7Uy1rlWVYxC3npnfk8MyreHxJYrz1ooLDqDzFe9XqQTlAhA==}
 
   unimport@5.6.0:
     resolution: {integrity: sha512-8rqAmtJV8o60x46kBAJKtHpJDJWkA2xcBqWKPI14MgUb05o1pnpnCnXSxedUXyeq7p8fR5g3pTo2BaswZ9lD9A==}
@@ -30771,7 +30771,7 @@ snapshots:
       tinyglobby: 0.2.15
       tsconfck: 3.1.6(typescript@5.9.3)
       ultrahtml: 1.6.0
-      unifont: 0.7.1
+      unifont: 0.7.3
       unist-util-visit: 5.0.0
       unstorage: 1.17.3(db0@0.3.4(@types/better-sqlite3@7.6.13))
       vfile: 6.0.3
@@ -35142,7 +35142,7 @@ snapshots:
 
   hyphenate-style-name@1.1.0: {}
 
-  i18next-cli@1.36.0(@swc/helpers@0.5.18)(@types/node@24.10.8)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3):
+  i18next-cli@1.36.1(@swc/helpers@0.5.18)(@types/node@24.10.8)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3):
     dependencies:
       '@croct/json5-parser': 0.2.2
       '@swc/core': 1.15.4(@swc/helpers@0.5.18)
@@ -42887,7 +42887,7 @@ snapshots:
       trough: 1.0.5
       vfile: 4.2.1
 
-  unifont@0.7.1:
+  unifont@0.7.3:
     dependencies:
       '@types/css-tree': 2.3.11
       css-tree: 3.1.0
