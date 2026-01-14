@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Unbuild
 
+## [0.5.160](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.160) (01/14/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.102**
+- Updated **powerlines** to **v0.37.24**
+
 ## [0.5.159](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.159) (01/14/2026)
 
 ### Updated Dependencies

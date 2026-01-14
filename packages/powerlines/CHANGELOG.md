@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.24](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.24) (01/14/2026)
+
+### Miscellaneous
+
+- **powerlines:** Ensure file details from storage are preserved during loading
+  ([91c74ff5](https://github.com/storm-software/powerlines/commit/91c74ff5))
+
 ## [0.37.23](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.23) (01/14/2026)
 
 ### Bug Fixes
