@@ -19,9 +19,9 @@
 import { toArray } from "@stryke/convert/to-array";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { correctPath } from "@stryke/path/correct-path";
-import { findFileDotExtensionSafe } from "@stryke/path/file-path-fns";
 import { isAbsolutePath } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join";
+import { replaceExtension } from "@stryke/path/replace";
 import { slash } from "@stryke/path/slash";
 import { isError } from "@stryke/type-checks/is-error";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
@@ -78,17 +78,22 @@ export function isValidId(id: string, prefix = "powerlines"): boolean {
 }
 
 /**
- * Formats a file id by removing the file extension and prepending the runtime prefix.
+ * Formats a file id by removing the file extension and prepended runtime prefix.
  *
  * @param id - The file ID to format.
  * @param prefix - The prefix to use for built-in files. Default is "powerlines".
  * @returns The formatted file ID.
  */
 export function normalizeId(id: string, prefix = "powerlines"): string {
-  return `${prefix.replace(/:$/, "")}:${toFilePath(id)
-    .replace(new RegExp(`^${prefix.replace(/:$/, "")}:`), "")
+  // return `${prefix.replace(/:$/, "")}:${toFilePath(id)
+  //   .replace(new RegExp(`^${prefix.replace(/:$/, "")}:`), "")
+  //   .replace(/^\\0/, "")
+  //   .replace(findFileDotExtensionSafe(toFilePath(id)), "")}`;
+
+  return replaceExtension(toFilePath(id))
     .replace(/^\\0/, "")
-    .replace(findFileDotExtensionSafe(toFilePath(id)), "")}`;
+    .replace(/^powerlines:/, "")
+    .replace(new RegExp(`^${prefix.replace(/:$/, "")}:`), "");
 }
 
 /**

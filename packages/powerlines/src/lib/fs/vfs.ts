@@ -287,15 +287,15 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       "Successfully completed virtual file system (VFS) initialization."
     );
 
-    if (result.metadata) {
+    if (result.#metadata && Object.keys(result.#metadata).length > 0) {
       result.#log(
         LogLevelLabel.DEBUG,
         `Preparing to load ${
-          Object.keys(result.metadata).length
+          Object.keys(result.#metadata).length
         } previously stored metadata records...`
       );
 
-      const entry = Object.entries(result.metadata)
+      const entry = Object.entries(result.#metadata)
         .filter(([, meta]) => meta && meta.type === "entry")
         .map(([path, meta]) => {
           if (meta.properties) {
@@ -334,6 +334,11 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
 
       context.entry = entry;
+    } else {
+      result.#log(
+        LogLevelLabel.DEBUG,
+        "No previously stored metadata records were found on the local system."
+      );
     }
 
     return result;
@@ -376,15 +381,15 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       "Successfully completed virtual file system (VFS) initialization."
     );
 
-    if (result.metadata) {
+    if (result.#metadata && Object.keys(result.#metadata).length > 0) {
       result.#log(
         LogLevelLabel.DEBUG,
         `Preparing to load ${
-          Object.keys(result.metadata).length
+          Object.keys(result.#metadata).length
         } previously stored metadata records...`
       );
 
-      const entry = Object.entries(result.metadata)
+      const entry = Object.entries(result.#metadata)
         .filter(([, meta]) => meta && meta.type === "entry")
         .map(([path, meta]) => {
           if (meta.properties) {
@@ -423,6 +428,11 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
 
       context.entry = entry;
+    } else {
+      result.#log(
+        LogLevelLabel.DEBUG,
+        "No previously stored metadata records were found on the local system."
+      );
     }
 
     return result;
@@ -446,6 +456,11 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       },
       has: (target, prop: string) => {
         return this.#normalizeId(prop) in target;
+      },
+      ownKeys: target => {
+        return Reflect.ownKeys(target).map(key =>
+          this.#normalizeId(key as string)
+        );
       }
     });
   }
@@ -468,6 +483,11 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       },
       has: (target, prop: string) => {
         return this.#normalizePath(prop) in target;
+      },
+      ownKeys: target => {
+        return Reflect.ownKeys(target).map(key =>
+          this.#normalizePath(key as string)
+        );
       }
     });
   }
@@ -490,6 +510,11 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       },
       has: (target, prop: string) => {
         return this.#normalizeId(prop) in target;
+      },
+      ownKeys: target => {
+        return Reflect.ownKeys(target).map(key =>
+          this.#normalizeId(key as string)
+        );
       }
     });
   }
