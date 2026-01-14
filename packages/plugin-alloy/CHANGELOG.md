@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.28](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.28) (01/11/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Clean up import statement generation
+  ([bb95b1eb](https://github.com/storm-software/powerlines/commit/bb95b1eb))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.95**
+- Updated **powerlines** to **v0.37.17**
+- Updated **deepkit** to **v0.5.59**
+
 ## [0.18.27](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.27) (01/08/2026)
 
 ### Miscellaneous
