@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.61](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.61) (01/14/2026)
+
+### Bug Fixes
+
+- **deepkit:** Resolve Typescript build issues
+  ([6ca246c6](https://github.com/storm-software/powerlines/commit/6ca246c6))
+
 ## [0.5.60](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.60) (01/14/2026)
 
 ### Updated Dependencies
