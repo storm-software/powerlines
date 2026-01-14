@@ -28,7 +28,7 @@ import {
   PluginContext
 } from "./context";
 import { InferHookParameters, InferHookReturnType } from "./hooks";
-import { ResolvedConfig } from "./resolved";
+import { ResolvedConfig, ResolvedEntryTypeDefinition } from "./resolved";
 
 /**
  * Internal fields and methods for internal contexts
@@ -38,6 +38,11 @@ import { ResolvedConfig } from "./resolved";
 export interface UNSAFE_ContextInternal<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > {
+  /**
+   * An internal object containing the added resolved entry type definitions for the project.
+   */
+  entry: ResolvedEntryTypeDefinition[] | null;
+
   /**
    * The API instance for interacting with Powerlines
    *

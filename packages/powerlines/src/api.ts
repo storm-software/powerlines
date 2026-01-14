@@ -140,7 +140,11 @@ export class PowerlinesAPI<
     const api = new PowerlinesAPI<TResolvedConfig>(
       await PowerlinesAPIContext.from(workspaceRoot, config)
     );
-    api.#context.$$internal = { api, addPlugin: api.#addPlugin.bind(api) };
+    api.#context.$$internal = {
+      api,
+      addPlugin: api.#addPlugin.bind(api),
+      entry: []
+    };
 
     for (const plugin of api.context.config.plugins ?? []) {
       await api.#addPlugin(plugin);

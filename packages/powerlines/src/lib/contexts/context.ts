@@ -163,7 +163,9 @@ export class PowerlinesContext<
    *
    * @internal
    */
-  #internal = {} as UNSAFE_ContextInternal<TResolvedConfig>;
+  #internal = {
+    entry: [] as ResolvedEntryTypeDefinition[]
+  } as UNSAFE_ContextInternal<TResolvedConfig>;
 
   #workspaceConfig: WorkspaceConfig;
 
@@ -293,11 +295,6 @@ export class PowerlinesContext<
   public resolver!: Resolver;
 
   /**
-   * An internal object containing the added resolved entry type definitions for the project.
-   */
-  protected _entry: ResolvedEntryTypeDefinition[] | null = null;
-
-  /**
    * The resolved configuration options
    */
   private resolvePatterns: RegExp[] = [];
@@ -332,9 +329,9 @@ export class PowerlinesContext<
   public get entry(): ResolvedEntryTypeDefinition[] {
     return resolveEntriesSync(
       this,
-      !this._entry || this._entry.length === 0
+      !this.$$internal.entry || this.$$internal.entry.length === 0
         ? toArray(this.config.entry)
-        : this._entry
+        : this.$$internal.entry
     );
   }
 
@@ -342,7 +339,7 @@ export class PowerlinesContext<
    * Sets the resolved entry type definitions for the project
    */
   public set entry(value: ResolvedEntryTypeDefinition[]) {
-    this._entry = value;
+    this.$$internal.entry = value;
   }
 
   /**
@@ -943,13 +940,14 @@ export class PowerlinesContext<
       this.entryPath
     );
 
-    this._entry ??= [];
-    this._entry.push({
-      name: options.name,
-      file: entryPath,
-      input: options.input,
-      output: options.output
-    });
+    if (this.$$internal.entry) {
+      this.$$internal.entry.push({
+        name: options.name,
+        file: entryPath,
+        input: options.input,
+        output: options.output
+      });
+    }
 
     return this.emit(
       code,
@@ -988,13 +986,14 @@ export class PowerlinesContext<
       this.entryPath
     );
 
-    this._entry ??= [];
-    this._entry.push({
-      name: options?.name,
-      file: entryPath,
-      input: options?.input,
-      output: options?.output
-    });
+    if (this.$$internal.entry) {
+      this.$$internal.entry.push({
+        name: options?.name,
+        file: entryPath,
+        input: options?.input,
+        output: options?.output
+      });
+    }
 
     return this.emitSync(
       code,

@@ -251,6 +251,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns A promise that resolves to a new virtual file system instance.
    */
   public static async create(context: Context): Promise<VirtualFileSystem> {
+    context.debug(
+      "Starting virtual file system (VFS) initialization processes..."
+    );
+
     if (
       !context.config.skipCache &&
       existsSync(joinPaths(context.dataPath, "fs.bin"))
@@ -275,8 +279,21 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
     const message = new capnp.Message();
     const result = new VirtualFileSystem(context, message.initRoot(FileSystem));
+
+    result.#log(
+      LogLevelLabel.DEBUG,
+      "Successfully completed virtual file system (VFS) initialization."
+    );
+
     if (result.metadata) {
-      context.entry = Object.entries(result.metadata)
+      result.#log(
+        LogLevelLabel.DEBUG,
+        `Preparing to load ${
+          Object.keys(result.metadata).length
+        } previously stored metadata records...`
+      );
+
+      const entry = Object.entries(result.metadata)
         .filter(([, meta]) => meta && meta.type === "entry")
         .map(([path, meta]) => {
           if (meta.properties) {
@@ -309,9 +326,12 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         })
         .filter(Boolean) as ResolvedEntryTypeDefinition[];
 
-      context.debug(
-        `Loaded ${context.entry.length} entry type definitions from VFS metadata.`
+      result.#log(
+        LogLevelLabel.DEBUG,
+        `Loaded ${entry.length} entry type definitions from VFS metadata.`
       );
+
+      context.entry = entry;
     }
 
     return result;
