@@ -56,6 +56,8 @@ export const plugin = <
       } as Partial<TsdownPluginResolvedConfig>;
     },
     async build() {
+      this.trace("Starting Tsdown build process...");
+
       await build(
         defu(
           {
