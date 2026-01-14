@@ -267,7 +267,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       const message = new capnp.Message(buffer, false);
       const fs = message.getRoot(FileSystem);
 
-      const result = new VirtualFileSystem(context, fs);
+      result = new VirtualFileSystem(context, fs);
 
       if (fs._hasStorage() && fs.storage.length > 0) {
         await Promise.all(
@@ -275,7 +275,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
             if (file.path && file.code) {
               let id: FileId | undefined;
               if (fs._hasIds()) {
-                fs.ids.find((fileId: FileId) => fileId.path === file.path);
+                id = fs.ids.find((fileId: FileId) => fileId.path === file.path);
               }
 
               let metadata: FileMetadata | undefined;
@@ -393,14 +393,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       const message = new capnp.Message(buffer, false);
       const fs = message.getRoot(FileSystem);
 
-      const result = new VirtualFileSystem(context, fs);
+      result = new VirtualFileSystem(context, fs);
 
       if (fs._hasStorage() && fs.storage.length > 0) {
         fs.storage.values().forEach(file => {
           if (file.path && file.code) {
             let id: FileId | undefined;
             if (fs._hasIds()) {
-              fs.ids.find((fileId: FileId) => fileId.path === file.path);
+              id = fs.ids.find((fileId: FileId) => fileId.path === file.path);
             }
 
             let metadata: FileMetadata | undefined;
