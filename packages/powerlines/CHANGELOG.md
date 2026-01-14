@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.27](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.27) (01/14/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with redeclared VFS instance in `create`
+  function
+  ([a4ea5b22](https://github.com/storm-software/powerlines/commit/a4ea5b22))
+
 ## [0.37.26](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.26) (01/14/2026)
 
 ### Bug Fixes
