@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
 import { joinPaths } from "@stryke/path/join";
@@ -50,15 +49,13 @@ export const plugin = <
   return {
     name: "plugin",
     config() {
-      this.log(
-        LogLevelLabel.TRACE,
-        "Providing default configuration for the Powerlines plugin."
-      );
+      this.debug("Providing default configuration for the Powerlines plugin.");
 
       return {
         type: "library",
         output: {
-          format: ["cjs", "esm"]
+          format: ["cjs", "esm"],
+          dts: false
         },
         build: {
           variant: "tsdown",
@@ -110,8 +107,7 @@ export const plugin = <
         }
 
         if (!toArray(this.config.entry).includes(typeDef.file)) {
-          this.log(
-            LogLevelLabel.WARN,
+          this.warn(
             `The specified user configuration file "${
               typeDef.file
             }" is not included in the build entry points.`

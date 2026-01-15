@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { toArray } from "@stryke/convert/to-array";
+import { isParentPath } from "@stryke/path/is-parent-path";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
 import { DiagnosticCategory } from "ts-morph";
@@ -47,14 +48,21 @@ export function formatTypes(code: string): string {
  * @param files - The list of files to generate types for.
  * @returns A promise that resolves to the generated TypeScript declaration types.
  */
-export async function emitTypes<TContext extends Context>(
+export async function emitBuiltinTypes<TContext extends Context>(
   context: TContext,
   files: string[]
 ) {
+  if (files.length === 0) {
+    context.debug(
+      "No files provided for TypeScript types generation. Typescript compilation for built-in modules will be skipped."
+    );
+    return "";
+  }
+
   context.debug(
     `Running the TypeScript compiler for ${
       files.length
-    } generated runtime files.`
+    } generated built-in module files.`
   );
 
   const program = createProgram(context, {
@@ -113,11 +121,14 @@ export async function emitTypes<TContext extends Context>(
 
   let builtinModules = "";
   for (const emittedFile of emittedFiles) {
-    if (!emittedFile.filePath.endsWith(".map")) {
-      context.trace(
-        `Processing emitted built-in types file: ${emittedFile.filePath}`
-      );
+    context.trace(
+      `Processing emitted type declaration file: ${emittedFile.filePath}`
+    );
 
+    if (
+      !emittedFile.filePath.endsWith(".map") &&
+      isParentPath(emittedFile.filePath, context.builtinsPath)
+    ) {
       builtinModules += `
 declare module "${replaceExtension(
         replacePath(emittedFile.filePath, context.builtinsPath)

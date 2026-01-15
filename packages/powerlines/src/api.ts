@@ -41,7 +41,10 @@ import chalk from "chalk";
 import Handlebars from "handlebars";
 import packageJson from "../package.json" assert { type: "json" };
 import { moduleResolverBabelPlugin } from "./internal/babel/module-resolver-plugin";
-import { emitTypes, formatTypes } from "./internal/helpers/generate-types";
+import {
+  emitBuiltinTypes,
+  formatTypes
+} from "./internal/helpers/generate-types";
 import { callHook, CallHookOptions } from "./internal/helpers/hooks";
 import { installDependencies } from "./internal/helpers/install-dependencies";
 import {
@@ -331,26 +334,27 @@ export class PowerlinesAPI<
           );
         }
 
-        const files = builtinFilePaths.reduce<string[]>(
-          (ret, fileName) => {
-            const formatted = replacePath(
-              fileName,
-              context.workspaceConfig.workspaceRoot
-            );
-            if (!ret.includes(formatted)) {
-              ret.push(formatted);
-            }
-
-            return ret;
-          },
-          [] // [joinPaths(typescriptPath, "lib", "lib.esnext.full.d.ts")]
-        );
-
         context.debug(
           "Parsing TypeScript configuration for the Powerlines project."
         );
 
-        let types = await emitTypes(context, files);
+        let types = await emitBuiltinTypes(
+          context,
+          builtinFilePaths.reduce<string[]>(
+            (ret, fileName) => {
+              const formatted = replacePath(
+                fileName,
+                context.workspaceConfig.workspaceRoot
+              );
+              if (!ret.includes(formatted)) {
+                ret.push(formatted);
+              }
+
+              return ret;
+            },
+            [] // [joinPaths(typescriptPath, "lib", "lib.esnext.full.d.ts")]
+          )
+        );
 
         context.debug(
           `Generating TypeScript declaration file ${context.dtsPath}.`
@@ -436,11 +440,11 @@ export class PowerlinesAPI<
           }
         }
 
-        if (types?.trim() || directives.length > 0) {
+        if (isSetString(types?.trim()) || directives.length > 0) {
           await context.fs.write(
             context.dtsPath,
             `${
-              directives
+              directives.length > 0
                 ? `${directives.map(directive => `/// <reference types="${directive}" />`).join("\n")}
 
 `
