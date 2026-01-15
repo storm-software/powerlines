@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.115](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.115) (01/15/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue causing failures while generating dts files
+  ([5fd0a3f0](https://github.com/storm-software/powerlines/commit/5fd0a3f0))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.37.37**
+
 ## [0.12.114](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.114) (01/15/2026)
 
 ### Updated Dependencies
