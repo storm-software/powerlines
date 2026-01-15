@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.176](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.176) (01/15/2026)
+
+### Miscellaneous
+
+- **plugin-babel:** Clean up the `entry` configuration option
+  ([1f2e29b3](https://github.com/storm-software/powerlines/commit/1f2e29b3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.119**
+- Updated **powerlines** to **v0.37.41**
+
 ## [0.12.175](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.175) (01/15/2026)
 
 ### Updated Dependencies
