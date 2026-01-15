@@ -18,7 +18,6 @@
 
 import { transformAsync } from "@babel/core";
 import { formatLogMessage } from "@storm-software/config-tools/logger/console";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
 import { createDirectory } from "@stryke/fs/helpers";
 import { install } from "@stryke/fs/install";
@@ -142,8 +141,7 @@ export class PowerlinesAPI<
     );
     api.#context.$$internal = {
       api,
-      addPlugin: api.#addPlugin.bind(api),
-      entry: []
+      addPlugin: api.#addPlugin.bind(api)
     };
 
     for (const plugin of api.context.config.plugins ?? []) {
@@ -151,8 +149,7 @@ export class PowerlinesAPI<
     }
 
     if (api.context.plugins.length === 0) {
-      api.context.log(
-        LogLevelLabel.WARN,
+      api.context.warn(
         "No Powerlines plugins were specified in the options. Please ensure this is correct, as it is generally not recommended."
       );
     }
@@ -188,20 +185,15 @@ export class PowerlinesAPI<
       | DocsInlineConfig
       | DeployInlineConfig = { command: "prepare" }
   ) {
-    this.context.log(
-      LogLevelLabel.TRACE,
-      " 🏗️  Preparing the Powerlines project"
-    );
+    this.context.info(" 🏗️  Preparing the Powerlines project");
 
-    this.context.log(
-      LogLevelLabel.TRACE,
+    this.context.debug(
       " ⚙️  Aggregating configuration options for the Powerlines project"
     );
 
     await this.context.withInlineConfig(inlineConfig);
     await this.#executeEnvironments(async context => {
-      context.log(
-        LogLevelLabel.TRACE,
+      context.debug(
         `Initializing the processing options for the Powerlines project.`
       );
 
@@ -217,8 +209,7 @@ export class PowerlinesAPI<
         order: "normal"
       });
 
-      context.log(
-        LogLevelLabel.DEBUG,
+      context.debug(
         `The configuration provided ${
           toArray(context.config.entry).length
         } entry point(s), Powerlines has found ${
@@ -245,8 +236,7 @@ export class PowerlinesAPI<
         order: "post"
       });
 
-      context.log(
-        LogLevelLabel.TRACE,
+      context.trace(
         `Powerlines configuration has been resolved: \n\n${formatLogMessage(
           context.config
         )}`
@@ -270,8 +260,7 @@ export class PowerlinesAPI<
       });
 
       if (context.config.output.dts !== false) {
-        context.log(
-          LogLevelLabel.TRACE,
+        context.debug(
           `Preparing the TypeScript definitions for the Powerlines project.`
         );
 
@@ -279,10 +268,7 @@ export class PowerlinesAPI<
           await context.fs.remove(context.dtsPath);
         }
 
-        context.log(
-          LogLevelLabel.TRACE,
-          "Transforming built-ins runtime modules files."
-        );
+        context.debug("Transforming built-ins runtime modules files.");
 
         const builtinFilePaths = await Promise.all(
           (await context.getBuiltins()).map(async file => {
@@ -323,8 +309,7 @@ export class PowerlinesAPI<
               );
             }
 
-            context.log(
-              LogLevelLabel.TRACE,
+            context.trace(
               `Writing transformed built-in runtime file ${file.id}.`
             );
 
@@ -356,15 +341,13 @@ export class PowerlinesAPI<
           [] // [joinPaths(typescriptPath, "lib", "lib.esnext.full.d.ts")]
         );
 
-        context.log(
-          LogLevelLabel.TRACE,
+        context.debug(
           "Parsing TypeScript configuration for the Powerlines project."
         );
 
         let types = await emitTypes(context, files);
 
-        context.log(
-          LogLevelLabel.TRACE,
+        context.debug(
           `Generating TypeScript declaration file ${context.dtsPath}.`
         );
 
@@ -498,10 +481,7 @@ ${formatTypes(types)}
         throw new Error("Failed to parse the TypeScript configuration file.");
       }
 
-      this.context.log(
-        LogLevelLabel.DEBUG,
-        "Formatting files generated during the prepare step."
-      );
+      this.context.debug("Formatting files generated during the prepare step.");
 
       await Promise.all([
         formatFolder(context, context.builtinsPath),
@@ -517,10 +497,7 @@ ${formatTypes(types)}
       context.persistedMeta = context.meta;
     });
 
-    this.context.log(
-      LogLevelLabel.INFO,
-      "Powerlines API has been prepared successfully"
-    );
+    this.context.info("✔ Powerlines preparation has completed successfully");
   }
 
   /**
@@ -533,16 +510,12 @@ ${formatTypes(types)}
    * @returns A promise that resolves when the project has been created
    */
   public async new(inlineConfig: NewInlineConfig) {
-    this.context.log(
-      LogLevelLabel.INFO,
-      "🆕 Creating a new Powerlines project"
-    );
+    this.context.info("🆕 Creating a new Powerlines project");
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
-      context.log(
-        LogLevelLabel.TRACE,
-        `Initializing the processing options for the Powerlines project.`
+      context.debug(
+        "Initializing the processing options for the Powerlines project."
       );
 
       await this.callHook("new", {
@@ -554,7 +527,7 @@ ${formatTypes(types)}
         joinPaths(context.powerlinesPath, "files/common/**/*.hbs")
       );
       for (const file of files) {
-        context.log(LogLevelLabel.TRACE, `Adding template file: ${file}`);
+        context.trace(`Adding template file to project: ${file}`);
 
         const template = Handlebars.compile(file);
         await context.fs.write(
@@ -573,10 +546,7 @@ ${formatTypes(types)}
           joinPaths(context.powerlinesPath, "files/application/**/*.hbs")
         );
         for (const file of files) {
-          context.log(
-            LogLevelLabel.TRACE,
-            `Adding application template file: ${file}`
-          );
+          context.trace(`Adding application template file: ${file}`);
 
           const template = Handlebars.compile(file);
           await context.fs.write(
@@ -589,10 +559,7 @@ ${formatTypes(types)}
           joinPaths(context.powerlinesPath, "files/library/**/*.hbs")
         );
         for (const file of files) {
-          context.log(
-            LogLevelLabel.TRACE,
-            `Adding library template file: ${file}`
-          );
+          context.trace(`Adding library template file: ${file}`);
 
           const template = Handlebars.compile(file);
           await context.fs.write(
@@ -608,7 +575,7 @@ ${formatTypes(types)}
       });
     });
 
-    this.context.log(LogLevelLabel.TRACE, "Powerlines - New command completed");
+    this.context.debug("✔ Powerlines new command completed successfully");
   }
 
   /**
@@ -625,17 +592,11 @@ ${formatTypes(types)}
       command: "clean"
     }
   ) {
-    this.context.log(
-      LogLevelLabel.INFO,
-      "🧹 Cleaning the previous Powerlines artifacts"
-    );
+    this.context.info("🧹 Cleaning the previous Powerlines artifacts");
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
-      this.context.log(
-        LogLevelLabel.TRACE,
-        "Cleaning the project's dist and artifacts directories."
-      );
+      context.debug("Cleaning the project's dist and artifacts directories.");
 
       await context.fs.remove(
         joinPaths(
@@ -657,10 +618,7 @@ ${formatTypes(types)}
       });
     });
 
-    this.context.log(
-      LogLevelLabel.TRACE,
-      "Powerlines - Clean command completed"
-    );
+    this.context.debug("✔ Powerlines cleaning completed successfully");
   }
 
   /**
@@ -672,7 +630,7 @@ ${formatTypes(types)}
   public async lint(
     inlineConfig: LintInlineConfig | BuildInlineConfig = { command: "lint" }
   ) {
-    this.context.log(LogLevelLabel.INFO, "📋 Linting the Powerlines project");
+    this.context.info("📋 Linting the Powerlines project");
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
@@ -684,7 +642,7 @@ ${formatTypes(types)}
       }
     });
 
-    this.context.log(LogLevelLabel.TRACE, "Powerlines linting completed");
+    this.context.debug("✔ Powerlines linting completed successfully");
   }
 
   /**
@@ -697,7 +655,7 @@ ${formatTypes(types)}
    * @returns A promise that resolves when the build command has completed
    */
   public async build(inlineConfig: BuildInlineConfig = { command: "build" }) {
-    this.context.log(LogLevelLabel.INFO, "📦  Building the Powerlines project");
+    this.context.info("📦  Building the Powerlines project");
 
     // const checksum = await this.context.generateChecksum();
     // if (checksum !== this.context.persistedMeta?.checksum) {
@@ -718,7 +676,7 @@ ${formatTypes(types)}
       });
     }
 
-    this.context.log(LogLevelLabel.TRACE, "Powerlines build completed");
+    this.context.debug("✔ Powerlines build completed successfully");
   }
 
   /**
@@ -728,15 +686,11 @@ ${formatTypes(types)}
    * @returns A promise that resolves when the documentation generation has completed
    */
   public async docs(inlineConfig: DocsInlineConfig = { command: "docs" }) {
-    this.context.log(
-      LogLevelLabel.INFO,
-      "📓 Generating documentation for the Powerlines project"
-    );
+    this.context.info("📓 Generating documentation for the Powerlines project");
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
-      context.log(
-        LogLevelLabel.TRACE,
+      context.debug(
         "Writing documentation for the Powerlines project artifacts."
       );
 
@@ -748,9 +702,8 @@ ${formatTypes(types)}
       });
     });
 
-    this.#context.log(
-      LogLevelLabel.TRACE,
-      "Powerlines documentation generation completed"
+    this.context.debug(
+      "✔ Powerlines documentation generation completed successfully"
     );
   }
 
@@ -765,14 +718,14 @@ ${formatTypes(types)}
   public async deploy(
     inlineConfig: DeployInlineConfig = { command: "deploy" }
   ) {
-    this.context.log(LogLevelLabel.INFO, "📦 Deploying the Powerlines project");
+    this.context.info("🚀 Deploying the Powerlines project");
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
       await this.callHook("deploy", { environment: context });
     });
 
-    this.context.log(LogLevelLabel.TRACE, "Powerlines deploy completed");
+    this.context.debug("✔ Powerlines deploy completed successfully");
   }
 
   /**
@@ -784,20 +737,14 @@ ${formatTypes(types)}
    * @returns A promise that resolves when the finalization process has completed
    */
   public async finalize() {
-    this.context.log(
-      LogLevelLabel.TRACE,
-      "Powerlines finalize execution started"
-    );
+    this.context.info("🏁 Powerlines finalization processes started");
 
     await this.#executeEnvironments(async context => {
       await this.callHook("finalize", { environment: context });
       await context.fs.dispose();
     });
 
-    this.context.log(
-      LogLevelLabel.TRACE,
-      "Powerlines finalize execution completed"
-    );
+    this.context.debug("✔ Powerlines finalization completed successfully");
   }
 
   /**
@@ -862,8 +809,7 @@ ${formatTypes(types)}
       );
 
       if (context.fs.existsSync(sourcePath) && sourcePath !== destinationPath) {
-        context.log(
-          LogLevelLabel.INFO,
+        context.debug(
           `Copying build output files from project's build directory (${
             context.config.output.buildPath
           }) to the workspace's output directory (${context.config.output.outputPath}).`
@@ -875,8 +821,7 @@ ${formatTypes(types)}
 
     await Promise.all(
       context.config.output.assets.map(async asset => {
-        context.log(
-          LogLevelLabel.DEBUG,
+        context.trace(
           `Copying asset(s): ${chalk.redBright(
             context.workspaceConfig.workspaceRoot === asset.input
               ? asset.glob
@@ -921,16 +866,14 @@ ${formatTypes(types)}
       !this.context.config.environments ||
       Object.keys(this.context.config.environments).length <= 1
     ) {
-      this.context.log(
-        LogLevelLabel.DEBUG,
+      this.context.debug(
         "No environments are configured for this Powerlines project. Using the default environment."
       );
 
       return [await this.context.getEnvironment()];
     }
 
-    this.context.log(
-      LogLevelLabel.DEBUG,
+    this.context.debug(
       `Found ${Object.keys(this.context.config.environments).length} configured environment(s) for this Powerlines project.`
     );
 
@@ -991,8 +934,7 @@ ${formatTypes(types)}
       }
 
       for (const plugin of result) {
-        this.context.log(
-          LogLevelLabel.DEBUG,
+        this.context.debug(
           `Successfully initialized the ${chalk.bold.cyanBright(
             plugin.name
           )} plugin`
@@ -1130,8 +1072,7 @@ ${formatTypes(types)}
     const result = [] as Plugin<PluginContext<TResolvedConfig>>[];
     for (const plugin of plugins) {
       if (checkDedupe<TResolvedConfig>(plugin, this.context.plugins)) {
-        this.context.log(
-          LogLevelLabel.TRACE,
+        this.context.trace(
           `Duplicate ${chalk.bold.cyanBright(
             plugin.name
           )} plugin dependency detected - Skipping initialization.`
@@ -1139,8 +1080,7 @@ ${formatTypes(types)}
       } else {
         result.push(plugin);
 
-        this.context.log(
-          LogLevelLabel.TRACE,
+        this.context.trace(
           `Initializing the ${chalk.bold.cyanBright(plugin.name)} plugin...`
         );
       }
@@ -1176,18 +1116,22 @@ ${formatTypes(types)}
       ]
     });
     if (!isInstalled && this.context.config.skipInstalls !== true) {
-      this.#context.log(
-        LogLevelLabel.WARN,
-        `The plugin package "${pluginPath}" is not installed. It will be installed automatically.`
+      this.#context.warn(
+        `The plugin package "${
+          pluginPath
+        }" is not installed. It will be installed automatically.`
       );
 
       const result = await install(pluginPath, {
         cwd: this.context.config.projectRoot
       });
       if (isNumber(result.exitCode) && result.exitCode > 0) {
-        this.#context.log(LogLevelLabel.ERROR, result.stderr);
+        this.#context.error(result.stderr);
+
         throw new Error(
-          `An error occurred while installing the build plugin package "${pluginPath}" `
+          `An error occurred while installing the build plugin package "${
+            pluginPath
+          }" `
         );
       }
     }
