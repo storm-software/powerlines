@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-unenv",
-  "version": "0.1.156",
+  "version": "0.1.157",
   "type": "module",
   "description": "A Powerlines plugin to transform source code to be platform agnostic using unenv.",
   "repository": {
