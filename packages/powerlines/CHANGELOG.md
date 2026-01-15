@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.32](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.32) (01/15/2026)
+
+### Miscellaneous
+
+- **powerlines:** Clean up logging in powerlines API module
+  ([99032363](https://github.com/storm-software/powerlines/commit/99032363))
+
+### Bug Fixes
+
+- **powerlines:** Resolve stale entrypoint usage issue
+  ([9019ea76](https://github.com/storm-software/powerlines/commit/9019ea76))
+
 ## [0.37.31](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.31) (01/14/2026)
 
 ### Miscellaneous
