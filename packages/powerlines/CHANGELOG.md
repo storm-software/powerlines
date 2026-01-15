@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.29](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.29) (01/14/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve error with duplicate metadata keys in VFS module
+  ([96e3c2f8](https://github.com/storm-software/powerlines/commit/96e3c2f8))
+
 ## [0.37.28](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.28) (01/14/2026)
 
 ### Bug Fixes
