@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.36](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.36) (01/15/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update `resolveEntries` function signature to be consistent
+  ([9bfbcb50](https://github.com/storm-software/powerlines/commit/9bfbcb50))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with invalid import module
+  ([ea09f50f](https://github.com/storm-software/powerlines/commit/ea09f50f))
+
 ## [0.37.35](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.35) (01/15/2026)
 
 ### Miscellaneous
