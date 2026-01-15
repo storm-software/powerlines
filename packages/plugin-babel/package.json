@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-babel",
-  "version": "0.12.172",
+  "version": "0.12.173",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {

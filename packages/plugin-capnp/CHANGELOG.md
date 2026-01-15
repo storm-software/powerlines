@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Capnp
 
+## [0.1.167](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.167) (01/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update generated workspace files
+  ([2dc423c3](https://github.com/storm-software/powerlines/commit/2dc423c3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.116**
+- Updated **powerlines** to **v0.37.38**
+
 ## [0.1.166](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.166) (01/15/2026)
 
 ### Updated Dependencies
