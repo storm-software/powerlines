@@ -16,8 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-/* eslint-disable @nx/enforce-module-boundaries */
-
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isFunction } from "@stryke/type-checks/is-function";
 import defu from "defu";
@@ -58,12 +56,11 @@ export const plugin = <
         styleDictionary: defu(options, {
           log: {
             verbosity:
-              this.config.logLevel === LogLevelLabel.DEBUG ||
               this.config.logLevel === LogLevelLabel.TRACE
                 ? "verbose"
-                : this.config.logLevel === null
-                  ? "silent"
-                  : undefined
+                : this.config.logLevel === LogLevelLabel.DEBUG
+                  ? "default"
+                  : "silent"
           },
           fileHeader: "powerlines/file-header"
         })
