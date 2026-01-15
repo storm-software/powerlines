@@ -96,9 +96,8 @@ jobs:
           gpg-passphrase: ${{ secrets.STORM_BOT_GPG_PASSPHRASE }}
           storm-bot-github-token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
 
-      - name: Run build script
-        run: pnpm build
-        shell: bash
+      - name: Run build process
+        run: devenv shell build
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
