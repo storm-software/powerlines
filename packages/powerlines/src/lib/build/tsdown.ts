@@ -112,13 +112,8 @@ export function extractTsdownConfig(
   return defu(
     {
       entry:
-        context.entry.length > 0
-          ? context.entry.filter(Boolean).map(entry => {
-              return appendPath(
-                appendPath(entry.file, context.config.projectRoot),
-                context.workspaceConfig.workspaceRoot
-              );
-            })
+        context.entry.map(entry => entry?.file).filter(Boolean).length > 0
+          ? context.entry.map(entry => entry?.file).filter(Boolean)
           : [
               joinPaths(
                 context.workspaceConfig.workspaceRoot,
