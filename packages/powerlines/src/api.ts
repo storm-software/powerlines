@@ -146,7 +146,7 @@ export class PowerlinesAPI<
     };
 
     api.context.info(
-      `🔌 The Powerlines v${packageJson.version} engine has started`
+      `🔌 The Powerlines Engine v${packageJson.version} has started`
     );
 
     for (const plugin of api.context.config.plugins ?? []) {
@@ -193,7 +193,7 @@ export class PowerlinesAPI<
     this.context.info(" 🏗️  Preparing the Powerlines project");
 
     this.context.debug(
-      " ⚙️  Aggregating configuration options for the Powerlines project"
+      " Aggregating configuration options for the Powerlines project"
     );
 
     await this.context.withInlineConfig(inlineConfig);
@@ -502,7 +502,7 @@ ${formatTypes(types)}
       context.persistedMeta = context.meta;
     });
 
-    this.context.info("✔ Powerlines preparation has completed successfully");
+    this.context.debug("✔ Powerlines preparation has completed successfully");
   }
 
   /**
