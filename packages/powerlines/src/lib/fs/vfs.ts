@@ -227,16 +227,19 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns An array of storage adapters that match the given base key.
    */
   #getStorages(base = "", includeParent = false) {
+    const baseKey = this.resolveSync(base) || base;
+
     return Object.keys(this.#storage)
       .sort()
       .reverse()
       .filter(
         key =>
-          isParentPath(key, base) || (includeParent && isParentPath(base, key))
+          isParentPath(key, baseKey) ||
+          (includeParent && isParentPath(baseKey, key))
       )
       .map(key => ({
         relativeBase:
-          base.length > key.length ? base.slice(key.length) : undefined,
+          baseKey.length > key.length ? baseKey.slice(key.length) : undefined,
         base: key,
         adapter: this.#storage[key]!
       }));
