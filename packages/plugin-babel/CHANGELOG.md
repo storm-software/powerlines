@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.168](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.168) (01/15/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with incorrect usage of VFS's `ids` property
+  ([c8094089](https://github.com/storm-software/powerlines/commit/c8094089))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.111**
+- Updated **powerlines** to **v0.37.33**
+
 ## [0.12.167](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.167) (01/15/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.33](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.33) (01/15/2026)
+
+### Miscellaneous
+
+- **powerlines:** Clean up `rolldown` and `tsdown` build logging
+  ([f46a9516](https://github.com/storm-software/powerlines/commit/f46a9516))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with incorrect usage of VFS's `ids` property
+  ([c8094089](https://github.com/storm-software/powerlines/commit/c8094089))
+
 ## [0.37.32](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.32) (01/15/2026)
 
 ### Miscellaneous
