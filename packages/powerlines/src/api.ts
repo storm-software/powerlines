@@ -39,6 +39,7 @@ import { isString } from "@stryke/type-checks/is-string";
 import { MaybePromise } from "@stryke/types/base";
 import chalk from "chalk";
 import Handlebars from "handlebars";
+import packageJson from "../package.json" assert { type: "json" };
 import { moduleResolverBabelPlugin } from "./internal/babel/module-resolver-plugin";
 import { emitTypes, formatTypes } from "./internal/helpers/generate-types";
 import { callHook, CallHookOptions } from "./internal/helpers/hooks";
@@ -143,6 +144,10 @@ export class PowerlinesAPI<
       api,
       addPlugin: api.#addPlugin.bind(api)
     };
+
+    api.context.info(
+      `🔌 The Powerlines v${packageJson.version} engine has started`
+    );
 
     for (const plugin of api.context.config.plugins ?? []) {
       await api.#addPlugin(plugin);

@@ -138,6 +138,34 @@ export async function resolveEntries(
 }
 
 /**
+ * Checks if the provided entry is a type definition.
+ *
+ * @param entry - The entry to check.
+ * @returns True if the entry is a type definition, false otherwise.
+ */
+export function isTypeDefinition(
+  entry: TypeDefinitionParameter
+): entry is TypeDefinition {
+  return !isString(entry) && entry.file !== undefined;
+}
+
+/**
+ * Checks if the provided entry is a resolved entry type definition.
+ *
+ * @param entry - The entry to check.
+ * @returns True if the entry is a resolved entry type definition, false otherwise.
+ */
+export function isResolvedEntryTypeDefinition(
+  entry: TypeDefinitionParameter | ResolvedEntryTypeDefinition
+): entry is ResolvedEntryTypeDefinition {
+  return (
+    isTypeDefinition(entry) &&
+    (entry as ResolvedEntryTypeDefinition).input !== undefined &&
+    (entry as ResolvedEntryTypeDefinition).output !== undefined
+  );
+}
+
+/**
  * Resolves multiple type definitions into their corresponding resolved entry type definitions.
  *
  * @param context - The current context
@@ -146,29 +174,39 @@ export async function resolveEntries(
  */
 export function resolveEntriesSync(
   context: Context,
-  typeDefinitions: TypeDefinitionParameter[]
+  typeDefinitions: Array<TypeDefinitionParameter | ResolvedEntryTypeDefinition>
 ): ResolvedEntryTypeDefinition[] {
   return typeDefinitions
-    .map(entry =>
-      isString(entry)
-        ? replacePathTokens(context, entry)
-        : replacePathTokens(context, entry.file)
-    )
-    .map(typeDefinition => {
-      const parsed = parseTypeDefinition(typeDefinition)!;
+    .map(entry => {
+      if (isResolvedEntryTypeDefinition(entry)) {
+        return { ...entry, file: replacePathTokens(context, entry.file) };
+      }
 
-      const filePath = appendPath(parsed.file, context.config.projectRoot);
+      let typeDefinition: TypeDefinition;
+      if (isString(entry)) {
+        typeDefinition = parseTypeDefinition(
+          replacePathTokens(context, entry)
+        )!;
+      } else {
+        typeDefinition = entry;
+        typeDefinition.file = replacePathTokens(context, typeDefinition.file);
+      }
+
+      const filePath = appendPath(
+        typeDefinition.file,
+        context.config.projectRoot
+      );
       if (isFile(filePath)) {
         return resolveEntry(context, {
           file: replacePath(filePath, context.config.projectRoot),
-          name: parsed.name
+          name: typeDefinition.name
         });
       }
 
       return listFilesSync(filePath).map(file =>
         resolveEntry(context, {
           file,
-          name: parsed.name
+          name: typeDefinition.name
         })
       );
     })

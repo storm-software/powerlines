@@ -47,7 +47,6 @@ import { isRegExp } from "@stryke/type-checks/is-regexp";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
-import { TypeDefinition } from "@stryke/types/configuration";
 import { AssetGlob } from "@stryke/types/file";
 import { create, FlatCache } from "flat-cache";
 import { Blob } from "node:buffer";
@@ -64,7 +63,6 @@ import {
   VirtualFileSystemInterface,
   WriteOptions
 } from "../../types/fs";
-import { ResolvedEntryTypeDefinition } from "../../types/resolved";
 import { extendLog } from "../logger";
 import { format } from "../utilities/format";
 import { normalizeGlobPatterns, normalizeId, normalizePath } from "./helpers";
@@ -281,14 +279,15 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
               let metadata: FileMetadata | undefined;
               if (fs._hasMetadata()) {
                 metadata = fs.metadata.find(
-                  (meta: FileMetadata) => meta.id === (id?.id ?? file.path)
+                  (meta: FileMetadata) =>
+                    meta.id === result.#normalizeId(id?.id ?? file.path)
                 );
               }
 
               await result.write(file.path, file.code, {
                 meta: {
-                  id: id?.id || metadata?.id,
-                  type: metadata?.type,
+                  id: result.#normalizeId(id?.id ?? metadata?.id ?? file.path),
+                  type: metadata?.type || "normal",
                   properties: metadata?._hasProperties()
                     ? metadata?.properties.values().reduce(
                         (ret, kvp) => {
@@ -303,60 +302,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
               });
             }
           })
-        );
-      }
-
-      if (result.#metadata && Object.keys(result.#metadata).length > 0) {
-        result.#log(
-          LogLevelLabel.DEBUG,
-          `Preparing to load ${
-            Object.keys(result.#metadata).length
-          } previously stored metadata records...`
-        );
-
-        const entry = Object.entries(result.#metadata)
-          .filter(([, meta]) => meta && meta.type === "entry")
-          .map(([path, meta]) => {
-            if (meta.properties) {
-              const typeDefinition = {
-                file: path
-              } as ResolvedEntryTypeDefinition;
-              if (isSetString(meta.properties.name)) {
-                typeDefinition.name = meta.properties.name;
-              }
-              if (
-                isSetString(meta.properties["input.file"]) ||
-                isSetString(meta.properties["input.name"])
-              ) {
-                typeDefinition.input ??= {} as TypeDefinition;
-                if (isSetString(meta.properties["input.file"])) {
-                  typeDefinition.input.file = meta.properties["input.file"];
-                }
-                if (isSetString(meta.properties["input.name"])) {
-                  typeDefinition.input.name = meta.properties["input.name"];
-                }
-              }
-              if (isSetString(meta.properties.output)) {
-                typeDefinition.output = meta.properties.output;
-              }
-
-              return typeDefinition;
-            }
-
-            return null;
-          })
-          .filter(Boolean) as ResolvedEntryTypeDefinition[];
-
-        result.#log(
-          LogLevelLabel.DEBUG,
-          `Loaded ${entry.length} entry type definitions from VFS metadata.`
-        );
-
-        context.entry = entry;
-      } else {
-        result.#log(
-          LogLevelLabel.DEBUG,
-          "No previously stored metadata records were found on the local system."
         );
       }
     } else {
@@ -406,13 +351,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
             let metadata: FileMetadata | undefined;
             if (fs._hasMetadata()) {
               metadata = fs.metadata.find(
-                (meta: FileMetadata) => meta.id === (id?.id ?? file.path)
+                (meta: FileMetadata) =>
+                  meta.id === result.#normalizeId(id?.id ?? file.path)
               );
             }
 
             result.writeSync(file.path, file.code, {
               meta: {
-                id: id?.id || metadata?.id,
+                id: result.#normalizeId(id?.id ?? metadata?.id ?? file.path),
                 type: metadata?.type,
                 properties: metadata?._hasProperties()
                   ? metadata?.properties.values().reduce(
@@ -428,60 +374,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
             });
           }
         });
-      }
-
-      if (result.#metadata && Object.keys(result.#metadata).length > 0) {
-        result.#log(
-          LogLevelLabel.DEBUG,
-          `Preparing to load ${
-            Object.keys(result.#metadata).length
-          } previously stored metadata records...`
-        );
-
-        const entry = Object.entries(result.#metadata)
-          .filter(([, meta]) => meta && meta.type === "entry")
-          .map(([path, meta]) => {
-            if (meta.properties) {
-              const typeDefinition = {
-                file: path
-              } as ResolvedEntryTypeDefinition;
-              if (isSetString(meta.properties.name)) {
-                typeDefinition.name = meta.properties.name;
-              }
-              if (
-                isSetString(meta.properties["input.file"]) ||
-                isSetString(meta.properties["input.name"])
-              ) {
-                typeDefinition.input ??= {} as TypeDefinition;
-                if (isSetString(meta.properties["input.file"])) {
-                  typeDefinition.input.file = meta.properties["input.file"];
-                }
-                if (isSetString(meta.properties["input.name"])) {
-                  typeDefinition.input.name = meta.properties["input.name"];
-                }
-              }
-              if (isSetString(meta.properties.output)) {
-                typeDefinition.output = meta.properties.output;
-              }
-
-              return typeDefinition;
-            }
-
-            return null;
-          })
-          .filter(Boolean) as ResolvedEntryTypeDefinition[];
-
-        result.#log(
-          LogLevelLabel.DEBUG,
-          `Loaded ${entry.length} entry type definitions from VFS metadata.`
-        );
-
-        context.entry = entry;
-      } else {
-        result.#log(
-          LogLevelLabel.DEBUG,
-          "No previously stored metadata records were found on the local system."
-        );
       }
     } else {
       const message = new capnp.Message();
@@ -649,25 +541,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         },
         {} as Record<string, VirtualFileMetadata>
       );
-
-      if (context.config.skipCache !== true) {
-        Object.entries(this.#metadata)
-          .filter(([, value]) => value.type === "entry")
-          .forEach(([id, value]) => {
-            this.#context.entry ??= [];
-            this.#context.entry.push({
-              file: id,
-              name: value.properties.name,
-              output: value.properties.output,
-              input: value.properties["input.file"]
-                ? {
-                    file: value.properties["input.file"],
-                    name: value.properties["input.name"]
-                  }
-                : undefined
-            });
-          });
-      }
     }
 
     this.#ids = {} as Record<string, string>;
@@ -682,6 +555,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         },
         {} as Record<string, string>
       );
+
       this.#paths = fs.ids.values().reduce(
         (ret, identifier) => {
           ret[identifier.id] ??= identifier.path;

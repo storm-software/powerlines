@@ -43,6 +43,7 @@ import { isNull } from "@stryke/type-checks/is-null";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
+import { TypeDefinition } from "@stryke/types/configuration";
 import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
 import { match, tsconfigPathsToRegExp } from "bundle-require";
@@ -163,9 +164,7 @@ export class PowerlinesContext<
    *
    * @internal
    */
-  #internal = {
-    entry: [] as ResolvedEntryTypeDefinition[]
-  } as UNSAFE_ContextInternal<TResolvedConfig>;
+  #internal = {} as UNSAFE_ContextInternal<TResolvedConfig>;
 
   #workspaceConfig: WorkspaceConfig;
 
@@ -327,19 +326,12 @@ export class PowerlinesContext<
    * The resolved entry type definitions for the project
    */
   public get entry(): ResolvedEntryTypeDefinition[] {
+    const entry = this._entry;
+
     return resolveEntriesSync(
       this,
-      !this.$$internal.entry || this.$$internal.entry.length === 0
-        ? toArray(this.config.entry)
-        : this.$$internal.entry
+      !entry || entry.length === 0 ? toArray(this.config.entry) : entry
     );
-  }
-
-  /**
-   * Sets the resolved entry type definitions for the project
-   */
-  public set entry(value: ResolvedEntryTypeDefinition[]) {
-    this.$$internal.entry = value;
   }
 
   /**
@@ -597,6 +589,44 @@ export class PowerlinesContext<
     }
 
     return this.#requestCache;
+  }
+
+  /**
+   * The entry points that exist in the Powerlines virtual file system
+   */
+  protected get _entry(): ResolvedEntryTypeDefinition[] {
+    return Object.entries(this.fs.metadata)
+      .filter(([, meta]) => meta && meta.type === "entry")
+      .map(([path, meta]) => {
+        if (meta.properties) {
+          const typeDefinition = {
+            file: path
+          } as ResolvedEntryTypeDefinition;
+          if (isSetString(meta.properties.name)) {
+            typeDefinition.name = meta.properties.name;
+          }
+          if (
+            isSetString(meta.properties["input.file"]) ||
+            isSetString(meta.properties["input.name"])
+          ) {
+            typeDefinition.input ??= {} as TypeDefinition;
+            if (isSetString(meta.properties["input.file"])) {
+              typeDefinition.input.file = meta.properties["input.file"];
+            }
+            if (isSetString(meta.properties["input.name"])) {
+              typeDefinition.input.name = meta.properties["input.name"];
+            }
+          }
+          if (isSetString(meta.properties.output)) {
+            typeDefinition.output = meta.properties.output;
+          }
+
+          return typeDefinition;
+        }
+
+        return undefined;
+      })
+      .filter(Boolean) as ResolvedEntryTypeDefinition[];
   }
 
   /**
@@ -940,15 +970,6 @@ export class PowerlinesContext<
       this.entryPath
     );
 
-    if (this.$$internal.entry) {
-      this.$$internal.entry.push({
-        name: options.name,
-        file: entryPath,
-        input: options.input,
-        output: options.output
-      });
-    }
-
     return this.emit(
       code,
       entryPath,
@@ -989,15 +1010,6 @@ export class PowerlinesContext<
       ),
       this.entryPath
     );
-
-    if (this.$$internal.entry) {
-      this.$$internal.entry.push({
-        name: options?.name,
-        file: entryPath,
-        input: options?.input,
-        output: options?.output
-      });
-    }
 
     return this.emitSync(
       code,
