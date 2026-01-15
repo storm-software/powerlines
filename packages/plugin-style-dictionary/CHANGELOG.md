@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.61](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.61) (01/15/2026)
+
+### Miscellaneous
+
+- **plugin-style-dictionary:** Clean up assigning of log verbosity configuration
+  ([dd946fa1](https://github.com/storm-software/powerlines/commit/dd946fa1))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.112**
+- Updated **powerlines** to **v0.37.34**
+
 ## [0.3.60](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.60) (01/15/2026)
 
 ### Updated Dependencies

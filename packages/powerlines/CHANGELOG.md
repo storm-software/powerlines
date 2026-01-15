@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.34](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.34) (01/15/2026)
+
+### Miscellaneous
+
+- **powerlines:** Clean up log level consistency in API module
+  ([1dab3b34](https://github.com/storm-software/powerlines/commit/1dab3b34))
+
+### Bug Fixes
+
+- **powerlines:** Ensure the `tsdown` builder uses correctly formatted entry
+  points
+  ([58cd01f4](https://github.com/storm-software/powerlines/commit/58cd01f4))
+
 ## [0.37.33](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.33) (01/15/2026)
 
 ### Miscellaneous
