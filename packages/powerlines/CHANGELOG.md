@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.43](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.43) (01/15/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with setting `dts` to boolean value
+  ([247d70f7](https://github.com/storm-software/powerlines/commit/247d70f7))
+
 ## [0.37.39](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.39) (01/15/2026)
 
 ### Bug Fixes
