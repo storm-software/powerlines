@@ -42,13 +42,13 @@ The path to the Powerlines configuration file
 The build mode
 
 
-## `skipInstalls`
+## `autoInstall`
 - **Type**: `boolean`
 
-> Skip Installs
+> Auto Install
 
 
-Skip installing dependencies before building
+Automatically install dependencies before building
 
 
 ## `skipCache`

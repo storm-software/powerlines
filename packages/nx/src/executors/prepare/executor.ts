@@ -36,7 +36,7 @@ export async function executorFn(
       {
         command: "prepare",
         skipCache: context.options.skipCache,
-        skipInstalls: context.options.skipInstalls
+        autoInstall: context.options.autoInstall
       },
       context.inlineConfig
     ) as PrepareInlineConfig

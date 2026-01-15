@@ -426,14 +426,14 @@ export interface CommonUserConfig extends BaseConfig {
   configFile?: string;
 
   /**
-   * Should the Powerlines CLI processes skip installing missing packages?
+   * Should the Powerlines processes automatically install missing package dependencies?
    *
    * @remarks
-   * This option is useful for CI/CD environments where the installation of packages is handled by a different process.
+   * When set to `true`, Powerlines will attempt to install any missing dependencies using the package manager detected in the project (e.g., npm, yarn, pnpm). This can be useful for ensuring that all required packages are available during the build and preparation phases.
    *
    * @defaultValue false
    */
-  skipInstalls?: boolean;
+  autoInstall?: boolean;
 
   /**
    * Should the compiler processes skip any improvements that make use of cache?

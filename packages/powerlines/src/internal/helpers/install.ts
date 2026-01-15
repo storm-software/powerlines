@@ -48,7 +48,7 @@ export async function installPackage(
       cwd: context.config.projectRoot
     }))
   ) {
-    if (context.config.skipInstalls !== true) {
+    if (context.config.autoInstall) {
       context.log(
         LogLevelLabel.WARN,
         `The package "${packageName}" is not installed. It will be installed automatically.`
@@ -67,7 +67,7 @@ export async function installPackage(
     } else {
       context.log(
         LogLevelLabel.WARN,
-        `The package "${packageName}" is not installed. Since the "skipInstalls" option is set to true, it will not be installed automatically.`
+        `The package "${packageName}" is not installed. Since the "autoInstall" option is set to false, it will not be installed automatically.`
       );
     }
   } else if (

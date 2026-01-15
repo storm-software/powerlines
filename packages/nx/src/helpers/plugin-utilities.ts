@@ -293,7 +293,7 @@ export function createNxPlugin<
                   outputPath:
                     userConfig.output?.outputPath || "dist/{projectRoot}",
                   projectType: projectConfig.projectType || userConfig.type,
-                  skipInstalls: userConfig.skipInstalls
+                  autoInstall: userConfig.autoInstall
                 },
                 configurations: {
                   production: {
@@ -337,7 +337,7 @@ export function createNxPlugin<
                 options: {
                   entry: userConfig.entry,
                   projectType: projectConfig.projectType || userConfig.type,
-                  skipInstalls: userConfig.skipInstalls,
+                  autoInstall: userConfig.autoInstall,
                   skipCache: userConfig.skipCache
                 },
                 configurations: {
@@ -383,7 +383,7 @@ export function createNxPlugin<
                   outputPath:
                     userConfig.output?.outputPath || "dist/{projectRoot}",
                   projectType: projectConfig.projectType || userConfig.type,
-                  skipInstalls: userConfig.skipInstalls,
+                  autoInstall: userConfig.autoInstall,
                   skipCache: userConfig.skipCache
                 },
                 configurations: {
@@ -430,7 +430,7 @@ export function createNxPlugin<
                 options: {
                   entry: userConfig.entry,
                   projectType: projectConfig.projectType || userConfig.type,
-                  skipInstalls: userConfig.skipInstalls,
+                  autoInstall: userConfig.autoInstall,
                   skipCache: userConfig.skipCache
                 },
                 configurations: {
@@ -477,7 +477,7 @@ export function createNxPlugin<
                 options: {
                   entry: userConfig.entry,
                   projectType: projectConfig.projectType || userConfig.type,
-                  skipInstalls: userConfig.skipInstalls,
+                  autoInstall: userConfig.autoInstall,
                   skipCache: userConfig.skipCache
                 },
                 configurations: {
@@ -524,7 +524,7 @@ export function createNxPlugin<
                 options: {
                   entry: userConfig.entry,
                   projectType: projectConfig.projectType || userConfig.type,
-                  skipInstalls: userConfig.skipInstalls,
+                  autoInstall: userConfig.autoInstall,
                   skipCache: userConfig.skipCache
                 },
                 configurations: {

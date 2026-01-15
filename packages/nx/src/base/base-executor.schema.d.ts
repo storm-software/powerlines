@@ -46,12 +46,12 @@ export interface BaseExecutorSchema {
  mode?: string,
 
  /**
-  * Skip Installs
+  * Auto Install
   * 
-  * Skip installing dependencies during prepare stage
+  * Automatically install dependencies during prepare stage
   * 
  */
- skipInstalls?: boolean,
+ autoInstall?: boolean,
 
  /**
   * Skip Cache

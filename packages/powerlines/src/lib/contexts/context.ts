@@ -204,7 +204,7 @@ export class PowerlinesContext<
         tsconfig: config.tsconfig,
         tsconfigRaw: config.tsconfigRaw,
         skipCache: config.skipCache,
-        skipInstalls: config.skipInstalls,
+        autoInstall: config.autoInstall,
         entry: config.entry,
         output: config.output,
         plugins: config.plugins,

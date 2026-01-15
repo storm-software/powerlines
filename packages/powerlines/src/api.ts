@@ -230,7 +230,7 @@ export class PowerlinesAPI<
                 )
                 .join(" \n")}`
             : ""
-        }.`
+        }`
       );
 
       await resolveTsconfig<TResolvedConfig>(context);
@@ -1120,7 +1120,7 @@ ${formatTypes(types)}
         this.context.config.projectRoot
       ]
     });
-    if (!isInstalled && this.context.config.skipInstalls !== true) {
+    if (!isInstalled && this.context.config.autoInstall) {
       this.#context.warn(
         `The plugin package "${
           pluginPath

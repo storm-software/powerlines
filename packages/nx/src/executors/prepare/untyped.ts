@@ -35,11 +35,11 @@ export default defineUntypedSchema({
       description: "Skip the cache when building"
     }
   },
-  skipInstalls: {
+  autoInstall: {
     $schema: {
-      title: "Skip Installs",
+      title: "Auto Install",
       type: "boolean",
-      description: "Skip installing dependencies before building"
+      description: "Automatically install dependencies before building"
     }
   }
 });

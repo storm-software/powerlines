@@ -38,11 +38,11 @@
       ],
       "id": "#mode"
     },
-    "skipInstalls": {
-      "title": "Skip Installs",
+    "autoInstall": {
+      "title": "Auto Install",
       "type": "boolean",
-      "description": "Skip installing dependencies during prepare stage",
-      "id": "#skipInstalls"
+      "description": "Automatically install dependencies during prepare stage",
+      "id": "#autoInstall"
     },
     "skipCache": {
       "title": "Skip Cache",

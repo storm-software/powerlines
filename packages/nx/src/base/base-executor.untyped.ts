@@ -53,11 +53,11 @@ export default defineUntypedSchema({
       enum: ["development", "test", "production"]
     }
   },
-  skipInstalls: {
+  autoInstall: {
     $schema: {
-      title: "Skip Installs",
+      title: "Auto Install",
       type: "boolean",
-      description: "Skip installing dependencies during prepare stage"
+      description: "Automatically install dependencies during prepare stage"
     }
   },
   skipCache: {

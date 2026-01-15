@@ -96,18 +96,6 @@ export const plugin = <
             StormJSON.stringify(this.tsconfig.tsconfigJson)
           );
         }
-
-        if (this.config.alloy?.typescript !== false) {
-          this.dependencies["@alloy-js/typescript"] = "^0.22.0";
-        }
-
-        if (this.config.alloy?.json === true) {
-          this.dependencies["@alloy-js/json"] = "^0.22.0";
-        }
-
-        if (this.config.alloy?.markdown === true) {
-          this.dependencies["@alloy-js/markdown"] = "^0.22.0";
-        }
       }
     },
     {

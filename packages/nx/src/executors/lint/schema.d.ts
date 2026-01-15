@@ -46,12 +46,12 @@ export interface LintExecutorSchema {
  mode?: string,
 
  /**
-  * Skip Installs
+  * Auto Install
   * 
-  * Skip installing dependencies before building
+  * Automatically install dependencies before building
   * 
  */
- skipInstalls?: boolean,
+ autoInstall?: boolean,
 
  /**
   * Skip Cache
