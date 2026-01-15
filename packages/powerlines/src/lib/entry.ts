@@ -19,7 +19,6 @@
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
 import { isFile } from "@stryke/fs/is-file";
-import { listFiles, listFilesSync } from "@stryke/fs/list-files";
 import { murmurhash } from "@stryke/hash/murmurhash";
 import { getUniqueBy } from "@stryke/helpers/get-unique";
 import { appendPath } from "@stryke/path/append";
@@ -111,23 +110,36 @@ export async function resolveEntries(
 ): Promise<ResolvedEntryTypeDefinition[]> {
   return (
     await Promise.all(
-      typeDefinitions.map(async typeDefinition => {
-        const parsed = parseTypeDefinition(typeDefinition)!;
+      typeDefinitions.map(async entry => {
+        if (isResolvedEntryTypeDefinition(entry)) {
+          return { ...entry, file: replacePathTokens(context, entry.file) };
+        }
 
-        const filePath = appendPath(parsed.file, context.config.projectRoot);
+        let typeDefinition: TypeDefinition;
+        if (isString(entry)) {
+          typeDefinition = parseTypeDefinition(
+            replacePathTokens(context, entry)
+          )!;
+        } else {
+          typeDefinition = entry;
+          typeDefinition.file = replacePathTokens(context, typeDefinition.file);
+        }
+
+        const filePath = appendPath(
+          typeDefinition.file,
+          context.config.projectRoot
+        );
         if (isFile(filePath)) {
           return resolveEntry(context, {
             file: replacePath(filePath, context.config.projectRoot),
-            name: parsed.name
+            name: typeDefinition.name
           });
         }
 
-        return (
-          await listFiles(appendPath(parsed.file, context.config.projectRoot))
-        ).map(file =>
+        return (await context.fs.list(filePath)).map(file =>
           resolveEntry(context, {
             file,
-            name: parsed.name
+            name: typeDefinition.name
           })
         );
       })
@@ -203,7 +215,7 @@ export function resolveEntriesSync(
         });
       }
 
-      return listFilesSync(filePath).map(file =>
+      return context.fs.listSync(filePath).map(file =>
         resolveEntry(context, {
           file,
           name: typeDefinition.name
@@ -214,38 +226,38 @@ export function resolveEntriesSync(
     .filter(Boolean);
 }
 
-/** Resolve a virtual entry point by generating a unique file path in the artifacts directory.
- *
- * @param context - The current context
- * @param typeDefinition - The type definition to resolve.
- * @returns The resolved entry type definition with a unique virtual file path.
- */
-export function resolveVirtualEntry(
-  context: Context,
-  typeDefinition: TypeDefinitionParameter
-): ResolvedEntryTypeDefinition {
-  const parsed = parseTypeDefinition(typeDefinition)!;
-  const resolved = resolveEntry(context, parsed);
-  const file = joinPaths(
-    context.artifactsPath,
-    `entry-${murmurhash(
-      { file: resolved.file, name: resolved.name },
-      { maxLength: 24 }
-    )
-      .replaceAll("-", "0")
-      .replaceAll("_", "1")}.ts`
-  );
+// /** Resolve a virtual entry point by generating a unique file path in the artifacts directory.
+//  *
+//  * @param context - The current context
+//  * @param typeDefinition - The type definition to resolve.
+//  * @returns The resolved entry type definition with a unique virtual file path.
+//  */
+// export function resolveVirtualEntry(
+//   context: Context,
+//   typeDefinition: TypeDefinitionParameter
+// ): ResolvedEntryTypeDefinition {
+//   const parsed = parseTypeDefinition(typeDefinition)!;
+//   const resolved = resolveEntry(context, parsed);
+//   const file = joinPaths(
+//     context.artifactsPath,
+//     `entry-${murmurhash(
+//       { file: resolved.file, name: resolved.name },
+//       { maxLength: 24 }
+//     )
+//       .replaceAll("-", "0")
+//       .replaceAll("_", "1")}.ts`
+//   );
 
-  return {
-    file,
-    name: resolved.name,
-    input: {
-      file,
-      name: resolved.name
-    },
-    output: file
-  };
-}
+//   return {
+//     file,
+//     name: resolved.name,
+//     input: {
+//       file,
+//       name: resolved.name
+//     },
+//     output: file
+//   };
+// }
 
 /**
  * Get unique entries from the provided list.
