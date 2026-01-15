@@ -499,7 +499,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   /**
    * A map of file ids to their metadata.
    */
-  public get metadata(): Readonly<Record<string, VirtualFileMetadata>> {
+  public get metadata(): Record<string, VirtualFileMetadata> {
     return new Proxy(this.#metadata, {
       get: (target, prop: string) => {
         return target[this.#normalizeId(prop)];
@@ -516,8 +516,8 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         return this.#normalizeId(prop) in target;
       },
       ownKeys: target => {
-        return Reflect.ownKeys(target).map(key =>
-          this.#normalizeId(key as string)
+        return getUnique(
+          Reflect.ownKeys(target).map(key => this.#normalizeId(key as string))
         );
       }
     });
@@ -526,7 +526,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   /**
    * A map of file paths to their module ids.
    */
-  public get ids(): Readonly<Record<string, string>> {
+  public get ids(): Record<string, string> {
     return new Proxy(this.#ids, {
       get: (target, prop: string) => {
         return target[this.#normalizePath(prop)];
@@ -543,8 +543,8 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         return this.#normalizePath(prop) in target;
       },
       ownKeys: target => {
-        return Reflect.ownKeys(target).map(key =>
-          this.#normalizePath(key as string)
+        return getUnique(
+          Reflect.ownKeys(target).map(key => this.#normalizePath(key as string))
         );
       }
     });
@@ -553,7 +553,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   /**
    * A map of module ids to their file paths.
    */
-  public get paths(): Readonly<Record<string, string>> {
+  public get paths(): Record<string, string> {
     return new Proxy(this.#paths, {
       get: (target, prop: string) => {
         return target[this.#normalizeId(prop)];
@@ -570,8 +570,8 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         return this.#normalizeId(prop) in target;
       },
       ownKeys: target => {
-        return Reflect.ownKeys(target).map(key =>
-          this.#normalizeId(key as string)
+        return getUnique(
+          Reflect.ownKeys(target).map(key => this.#normalizeId(key as string))
         );
       }
     });
@@ -1276,14 +1276,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     );
 
     const id = this.#normalizeId(meta.id || relativeKey);
-    this.#metadata[id] = {
+    this.metadata[id] = {
       type: "normal",
       timestamp: Date.now(),
-      ...(this.#metadata[id] ?? {}),
+      ...(this.metadata[id] ?? {}),
       ...meta
     } as VirtualFileMetadata;
-    this.#paths[id] = this.#normalizePath(relativeKey);
-    this.#ids[this.#normalizePath(relativeKey)] = id;
+    this.paths[id] = this.#normalizePath(relativeKey);
+    this.ids[relativeKey] = id;
 
     return adapter.set(relativeKey, code);
   }
@@ -1315,14 +1315,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     );
 
     const id = this.#normalizeId(meta.id || relativeKey);
-    this.#metadata[id] = {
+    this.metadata[id] = {
       type: "normal",
       timestamp: Date.now(),
-      ...(this.#metadata[id] ?? {}),
+      ...(this.metadata[id] ?? {}),
       ...meta
     } as VirtualFileMetadata;
-    this.#paths[id] = this.#normalizePath(relativeKey);
-    this.#ids[this.#normalizePath(relativeKey)] = id;
+    this.paths[id] = this.#normalizePath(relativeKey);
+    this.ids[relativeKey] = id;
 
     return adapter.setSync(relativeKey, data);
   }
