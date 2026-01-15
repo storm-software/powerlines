@@ -1589,7 +1589,17 @@ export class PowerlinesContext<
     }
 
     if (this.config.output.dts) {
-      this.config.output.dts = replacePathTokens(this, this.config.output.dts);
+      if (isSetString(this.config.output.dts)) {
+        this.config.output.dts = replacePathTokens(
+          this,
+          this.config.output.dts
+        );
+      } else {
+        this.config.output.dts = joinPaths(
+          this.config.projectRoot,
+          `${this.config.framework ?? "powerlines"}.d.ts`
+        );
+      }
     }
 
     if (this.config.build.polyfill) {
