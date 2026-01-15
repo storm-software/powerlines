@@ -19,6 +19,7 @@
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { existsSync } from "@stryke/fs/exists";
 import { createDirectory, removeDirectory } from "@stryke/fs/helpers";
+import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join";
 import defu from "defu";
 import { Plugin } from "powerlines/types/plugin";
@@ -84,7 +85,7 @@ export function plugin(
             [],
           out: this.config.output.outputPath,
           entryPoints: this.entry.map(entry =>
-            joinPaths(this.config.projectRoot, entry.file)
+            appendPath(entry.file, this.config.projectRoot)
           ),
           ...this.config.docs.typedoc.override
         },
