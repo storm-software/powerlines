@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.31](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.31) (01/14/2026)
+
+### Miscellaneous
+
+- **powerlines:** Improve logic in VFS `read` methods to handle missing files
+  ([e470d083](https://github.com/storm-software/powerlines/commit/e470d083))
+
 ## [0.37.30](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.30) (01/14/2026)
 
 ### Bug Fixes

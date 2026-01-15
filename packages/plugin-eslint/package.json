@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-eslint",
-  "version": "0.8.160",
+  "version": "0.8.161",
   "type": "module",
   "description": "A package containing a Powerlines plugin for running ESLint on the codebase.",
   "repository": {
