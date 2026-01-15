@@ -16,8 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { flattenDiagnosticMessageText } from "typescript";
+import { replaceExtension, replacePath } from "@stryke/path/replace";
+import { prettyBytes } from "@stryke/string-format/pretty-bytes";
+import { toArray } from "node_modules/@farmfe/core/dist/utils/share";
+import { DiagnosticCategory } from "ts-morph";
 import { createProgram } from "../../lib/typescript/ts-morph";
 import { Context } from "../../types/context";
 
@@ -49,8 +51,7 @@ export async function emitTypes<TContext extends Context>(
   context: TContext,
   files: string[]
 ) {
-  context.log(
-    LogLevelLabel.TRACE,
+  context.debug(
     `Running the TypeScript compiler for ${
       files.length
     } generated runtime files.`
@@ -63,62 +64,79 @@ export async function emitTypes<TContext extends Context>(
   program.addSourceFilesAtPaths(files);
   const result = program.emitToMemory({ emitOnlyDtsFiles: true });
 
-  let builtinModules = "";
-  for (const file of result.getFiles()) {
-    if (!file.filePath.endsWith(".map")) {
-      if (
-        context.builtins.some(
-          builtin =>
-            builtin === file.filePath ||
-            (context.fs.metadata[builtin]?.id &&
-              context.fs.metadata[builtin]?.id === file.filePath)
-        )
-      ) {
-        const module = await context.fs.resolve(file.filePath);
-
-        builtinModules += `
-  declare module "${module}" {
-      ${file.text
-        .trim()
-        .replace(/^\s*export\s*declare\s*/gm, "export ")
-        .replace(/^\s*declare\s*/gm, "")}
-  }
-  `;
-      }
-    }
-  }
-
-  const diagnosticMessages: string[] = [];
-  result.getDiagnostics().forEach(diagnostic => {
-    if (diagnostic.getSourceFile()?.getBaseName()) {
-      diagnosticMessages.push(
-        `${diagnostic.getSourceFile()?.getBaseName()} (${
-          (diagnostic.getLineNumber() ?? 0) + 1
-        }): ${flattenDiagnosticMessageText(
-          diagnostic.getMessageText().toString(),
-          "\n"
-        )}`
+  const diagnostics = result.getDiagnostics();
+  if (diagnostics && diagnostics.length > 0) {
+    if (diagnostics.some(d => d.getCategory() === DiagnosticCategory.Error)) {
+      throw new Error(
+        `The Typescript emit process failed while generating built-in types: \n ${diagnostics
+          .filter(d => d.getCategory() === DiagnosticCategory.Error)
+          .map(
+            d =>
+              `-${d.getSourceFile() ? `${d.getSourceFile()?.getFilePath()}:` : ""} ${String(
+                d.getMessageText()
+              )} (at ${d.getStart()}:${d.getLength()})`
+          )
+          .join("\n")}`
+      );
+    } else if (
+      diagnostics.some(d => d.getCategory() === DiagnosticCategory.Warning)
+    ) {
+      context.warn(
+        `The Typescript emit process completed with warnings while generating built-in types: \n ${diagnostics
+          .filter(d => d.getCategory() === DiagnosticCategory.Warning)
+          .map(
+            d =>
+              `-${d.getSourceFile() ? `${d.getSourceFile()?.getFilePath()}:` : ""} ${String(
+                d.getMessageText()
+              )} (at ${d.getStart()}:${d.getLength()})`
+          )
+          .join("\n")}`
       );
     } else {
-      diagnosticMessages.push(
-        flattenDiagnosticMessageText(
-          diagnostic.getMessageText().toString(),
-          "\n"
-        )
+      context.debug(
+        `The Typescript emit process completed with diagnostic messages while generating built-in types: \n ${diagnostics
+          .map(
+            d =>
+              `-${d.getSourceFile() ? `${d.getSourceFile()?.getFilePath()}:` : ""} ${String(
+                d.getMessageText()
+              )} (at ${d.getStart()}:${d.getLength()})`
+          )
+          .join("\n")}`
       );
     }
-  });
-
-  const diagnosticMessage = diagnosticMessages.join("\n");
-  if (diagnosticMessage) {
-    throw new Error(
-      `TypeScript compilation failed: \n\n${
-        diagnosticMessage.length > 5000
-          ? `${diagnosticMessage.slice(0, 5000)}...`
-          : diagnosticMessage
-      }`
-    );
   }
 
-  return formatTypes(builtinModules);
+  const emittedFiles = result.getFiles();
+  context.debug(
+    `The TypeScript compiler emitted ${emittedFiles.length} files for built-in types.`
+  );
+
+  let builtinModules = "";
+  for (const emittedFile of emittedFiles) {
+    if (!emittedFile.filePath.endsWith(".map")) {
+      context.trace(
+        `Processing emitted built-in types file: ${emittedFile.filePath}`
+      );
+
+      builtinModules += `
+declare module "${replaceExtension(
+        replacePath(emittedFile.filePath, context.builtinsPath)
+      )}" {
+    ${emittedFile.text
+      .trim()
+      .replace(/^\s*export\s*declare\s*/gm, "export ")
+      .replace(/^\s*declare\s*/gm, "")}
+}
+`;
+    }
+  }
+
+  builtinModules = formatTypes(builtinModules);
+  context.debug(
+    `A TypeScript declaration file (size: ${prettyBytes(
+      new Blob(toArray(builtinModules)).size
+    )}) emitted for the built-in modules types.`
+  );
+
+  return builtinModules;
 }
