@@ -633,7 +633,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           ret[metadata.id] = {
             id: metadata.id,
             type: metadata.type,
-            timestamp: metadata.timestamp || Date.now(),
+            timestamp: metadata.timestamp ?? Date.now(),
             properties: metadata._hasProperties()
               ? metadata.properties.values().reduce(
                   (ret, item) => {
@@ -1682,7 +1682,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           const fileMetadata = metadata.get(index);
           fileMetadata.id = id;
           fileMetadata.type = value.type;
-          fileMetadata.timestamp = value.timestamp ?? BigInt(Date.now());
+          fileMetadata.timestamp = value.timestamp ?? Date.now();
 
           if (value.properties) {
             const props = fileMetadata._initProperties(
