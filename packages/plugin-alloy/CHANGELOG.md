@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.47](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.47) (01/15/2026)
+
+### Miscellaneous
+
+- **powerlines:** Renamed `skipInstalls` configuration to `autoInstall`
+  ([c8e34b03](https://github.com/storm-software/powerlines/commit/c8e34b03))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.113**
+- Updated **powerlines** to **v0.37.35**
+- Updated **deepkit** to **v0.5.78**
+
 ## [0.18.46](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.46) (01/15/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.91](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.91) (01/15/2026)
+
+### Miscellaneous
+
+- **powerlines:** Renamed `skipInstalls` configuration to `autoInstall`
+  ([c8e34b03](https://github.com/storm-software/powerlines/commit/c8e34b03))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.37.35**
+
 ## [0.11.90](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.90) (01/15/2026)
 
 ### Updated Dependencies

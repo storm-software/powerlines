@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.35](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.35) (01/15/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update entry resolver logic to use VFS for listing files
+  ([a5956593](https://github.com/storm-software/powerlines/commit/a5956593))
+- **powerlines:** Renamed `skipInstalls` configuration to `autoInstall`
+  ([c8e34b03](https://github.com/storm-software/powerlines/commit/c8e34b03))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue emitting types for built-in modules
+  ([4f4fd571](https://github.com/storm-software/powerlines/commit/4f4fd571))
+
 ## [0.37.34](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.34) (01/15/2026)
 
 ### Miscellaneous
