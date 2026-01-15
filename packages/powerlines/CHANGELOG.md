@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.30](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.30) (01/14/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue converting `BitInt` to `number` in `dispose`
+  method
+  ([15a4132c](https://github.com/storm-software/powerlines/commit/15a4132c))
+
 ## [0.37.29](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.29) (01/14/2026)
 
 ### Bug Fixes
