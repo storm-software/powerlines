@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-oxc-transform",
-  "version": "0.5.173",
+  "version": "0.5.174",
   "type": "module",
   "description": "A Powerlines plugin to transform project code with Oxc Transformer.",
   "repository": {
