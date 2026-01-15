@@ -106,7 +106,7 @@ export function resolveEntry(
  */
 export async function resolveEntries(
   context: Context,
-  typeDefinitions: TypeDefinitionParameter[]
+  typeDefinitions: Array<TypeDefinitionParameter | ResolvedEntryTypeDefinition>
 ): Promise<ResolvedEntryTypeDefinition[]> {
   return (
     await Promise.all(
