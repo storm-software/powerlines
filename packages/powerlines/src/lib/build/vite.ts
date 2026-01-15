@@ -48,7 +48,7 @@ export function extractViteConfig(context: Context): ViteResolvedBuildConfig {
         alias: context.builtins.reduce(
           (ret, id) => {
             if (!ret.find(e => e.find === id)) {
-              const path = context.fs.ids[id];
+              const path = context.fs.paths[id];
               if (path) {
                 ret.push({ find: id, replacement: path });
               }

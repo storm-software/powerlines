@@ -77,7 +77,10 @@ export function filterPluginByFileId<TContext extends Context = Context>(
     fileId !== id &&
     context.fs.ids[fileId] !== id &&
     fileId !== context.fs.ids[id] &&
-    context.fs.ids[fileId] !== context.fs.ids[id];
+    context.fs.ids[fileId] !== context.fs.ids[id] &&
+    context.fs.paths[fileId] !== id &&
+    fileId !== context.fs.paths[id] &&
+    context.fs.paths[fileId] !== context.fs.paths[id];
 }
 
 /**

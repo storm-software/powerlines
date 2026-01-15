@@ -185,7 +185,7 @@ export function extractUnbuildConfig(
       alias: context.builtins.reduce(
         (ret, id) => {
           if (!ret[id]) {
-            const path = context.fs.ids[id];
+            const path = context.fs.paths[id];
             if (path) {
               ret[id] = path;
             }

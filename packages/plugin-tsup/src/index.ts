@@ -93,7 +93,7 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
                 options.alias = {
                   ...this.builtins.reduce(
                     (ret, id) => {
-                      const path = this.fs.ids[id];
+                      const path = this.fs.paths[id];
                       if (path) {
                         ret[id] = path;
                       }
