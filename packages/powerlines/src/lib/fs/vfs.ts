@@ -1194,14 +1194,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    */
   public async read(path: string): Promise<string | undefined> {
     const filePath = await this.resolve(path);
-    if (!filePath) {
+    if (!filePath || !this.existsSync(filePath)) {
       return undefined;
     }
 
-    const { relativeKey, adapter } = this.#getStorage(filePath);
+    const { adapter } = this.#getStorage(filePath);
     this.#log(LogLevelLabel.TRACE, `Reading ${adapter.name} file: ${filePath}`);
 
-    return (await adapter.get(relativeKey)) ?? undefined;
+    return (await adapter.get(filePath)) ?? undefined;
   }
 
   /**
@@ -1212,14 +1212,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    */
   public readSync(path: string): string | undefined {
     const filePath = this.resolveSync(path);
-    if (!filePath) {
+    if (!filePath || !this.existsSync(filePath)) {
       return undefined;
     }
 
-    const { relativeKey, adapter } = this.#getStorage(filePath);
+    const { adapter } = this.#getStorage(filePath);
     this.#log(LogLevelLabel.TRACE, `Reading ${adapter.name} file: ${filePath}`);
 
-    return adapter.getSync(relativeKey) ?? undefined;
+    return adapter.getSync(filePath) ?? undefined;
   }
 
   /**
