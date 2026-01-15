@@ -16,9 +16,9 @@
 
  ------------------------------------------------------------------- */
 
+import { toArray } from "@stryke/convert/to-array";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
-import { toArray } from "node_modules/@farmfe/core/dist/utils/share";
 import { DiagnosticCategory } from "ts-morph";
 import { createProgram } from "../../lib/typescript/ts-morph";
 import { Context } from "../../types/context";
