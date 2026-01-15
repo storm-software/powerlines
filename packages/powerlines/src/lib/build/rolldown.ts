@@ -30,6 +30,7 @@ import { isFunction } from "@stryke/type-checks/is-function";
 import { isString } from "@stryke/type-checks/is-string";
 import defu from "defu";
 import { globSync } from "node:fs";
+import { RollupLog } from "rolldown";
 import { viteAliasPlugin as alias } from "rolldown/experimental";
 import typescriptPlugin from "rollup-plugin-typescript2";
 import {
@@ -74,17 +75,17 @@ export function extractRolldownConfig(
                   ).includes(id)
             : context.config.build.variant === "vite" &&
                 (context.config.build.override as ViteResolvedBuildConfig)
-                  ?.build?.rollupOptions?.external
+                  ?.build?.rolldownOptions?.external
               ? isFunction(
                   (context.config.build.override as ViteResolvedBuildConfig)
-                    ?.build?.rollupOptions?.external
+                    ?.build?.rolldownOptions?.external
                 )
                 ? (context.config.build.override as ViteResolvedBuildConfig)
-                    ?.build?.rollupOptions?.external
+                    ?.build?.rolldownOptions?.external
                 : (id: string) =>
                     toArray(
                       (context.config.build as ViteResolvedBuildConfig)?.build
-                        ?.rollupOptions?.external
+                        ?.rolldownOptions?.external
                     ).includes(id)
               : context.config.build.variant === "rollup" &&
                   context.config.build.external
@@ -97,17 +98,17 @@ export function extractRolldownConfig(
                       ).includes(id)
                 : context.config.build.variant === "vite" &&
                     (context.config.build as ViteResolvedBuildConfig).build
-                      ?.rollupOptions?.external
+                      ?.rolldownOptions?.external
                   ? isFunction(
                       (context.config.build as ViteResolvedBuildConfig).build
-                        ?.rollupOptions?.external
+                        ?.rolldownOptions?.external
                     )
                     ? (context.config.build as ViteResolvedBuildConfig).build
-                        ?.rollupOptions?.external
+                        ?.rolldownOptions?.external
                     : (id: string) =>
                         toArray(
                           (context.config.build as ViteResolvedBuildConfig)
-                            ?.build?.rollupOptions?.external
+                            ?.build?.rolldownOptions?.external
                         ).includes(id)
                   : undefined;
         if (
@@ -159,7 +160,7 @@ export function extractRolldownConfig(
           entries: context.builtins.reduce(
             (ret, id) => {
               if (!ret.find(e => e.find === id)) {
-                const path = context.fs.ids[id];
+                const path = context.fs.paths[id];
                 if (path) {
                   ret.push({ find: id, replacement: path });
                 }
@@ -210,14 +211,14 @@ export function extractRolldownConfig(
       : {},
     context.config.build.variant === "vite"
       ? (context.config.build.override as ViteResolvedBuildConfig).build
-          ?.rollupOptions
+          ?.rolldownOptions
       : {},
     context.config.build.variant === "rolldown" ||
       context.config.build.variant === "rollup"
       ? omit(context.config.build, ["override", "variant"])
       : {},
     context.config.build.variant === "vite"
-      ? (context.config.build as ViteResolvedBuildConfig).build
+      ? (context.config.build as ViteResolvedBuildConfig).build?.rolldownOptions
       : {},
     {
       experimental: {
@@ -235,7 +236,14 @@ export function extractRolldownConfig(
         ? joinPaths(context.cachePath, "rolldown")
         : false,
       logLevel: context.config.logLevel,
-      onLog: context.log,
+      onLog(level: "info" | "debug" | "warn", log: RollupLog) {
+        if (log.message?.trim()) {
+          context.log(
+            level === "info" ? "debug" : level,
+            log.message?.trim() ?? ""
+          );
+        }
+      },
       jsx: "automatic",
       keepNames: true,
       treeshake: true,

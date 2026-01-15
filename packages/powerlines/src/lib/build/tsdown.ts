@@ -96,6 +96,8 @@ const formatMessage = (context: Context, ...msgs: any[]) =>
     .filter(Boolean)
     .join(" ")
     .replace(new RegExp(`\\[${context.config.name}\\]`, "g"), "")
+    .replaceAll(/^\s+/g, "")
+    .replaceAll(/\s+$/g, "")
     .trim();
 
 /**
@@ -131,7 +133,7 @@ export function extractTsdownConfig(
             ],
       alias: context.builtins.reduce(
         (ret, id) => {
-          const path = context.fs.ids[id];
+          const path = context.fs.paths[id];
           if (path) {
             ret[id] = path;
           }
@@ -170,7 +172,7 @@ export function extractTsdownConfig(
       resolve: {
         alias: context.builtins.reduce(
           (ret, id) => {
-            const path = context.fs.ids[id];
+            const path = context.fs.paths[id];
             if (path) {
               ret[id] = path;
             }
@@ -214,7 +216,7 @@ export function extractTsdownConfig(
             : context.config.logLevel,
         info: (...msgs: any[]) =>
           isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
-          context.info(formatMessage(context, ...msgs)),
+          context.debug(formatMessage(context, ...msgs)),
         warn: (...msgs: any[]) =>
           isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
           context.warn(formatMessage(context, ...msgs)),
@@ -226,7 +228,7 @@ export function extractTsdownConfig(
           context.error(formatMessage(context, ...msgs)),
         success: (...msgs: any[]) =>
           isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
-          context.info(formatMessage(context, ...msgs))
+          context.debug(formatMessage(context, ...msgs))
       }
     } as TsdownResolvedBuildConfig,
     DEFAULT_TSDOWN_CONFIG
