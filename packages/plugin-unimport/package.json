@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-unimport",
-  "version": "0.1.171",
+  "version": "0.1.172",
   "type": "module",
   "description": "A Powerlines plugin to add imports to source code automatically via unimport.",
   "repository": {

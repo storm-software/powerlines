@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.45](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.45) (01/16/2026)
+
+### Miscellaneous
+
+- **powerlines:** Removed duplicate items from configuration logging
+  ([b8c86063](https://github.com/storm-software/powerlines/commit/b8c86063))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue preventing selection of files directly in
+  `entry` directories
+  ([69a291d3](https://github.com/storm-software/powerlines/commit/69a291d3))
+- **powerlines:** Ensure undefined objects cannot cause issues when logging
+  config
+  ([9965295f](https://github.com/storm-software/powerlines/commit/9965295f))
+- **powerlines:** Resolve issue checking globbed pattern in VFS lists
+  ([bfafd76c](https://github.com/storm-software/powerlines/commit/bfafd76c))
+
 ## [0.37.44](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.44) (01/16/2026)
 
 ### Bug Fixes
