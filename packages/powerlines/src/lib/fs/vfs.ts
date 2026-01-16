@@ -39,6 +39,7 @@ import {
   findFilePath,
   hasFileExtension
 } from "@stryke/path/file-path-fns";
+import { globToRegex } from "@stryke/path/glob-to-regex";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { isAbsolutePath } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join-paths";
@@ -158,25 +159,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   }
 
   /**
-   * Builds a regular expression from a string pattern for path matching.
-   *
-   * @param path - The string pattern to convert.
-   * @returns A regular expression for matching paths.
-   */
-  #buildRegex(path: string): RegExp {
-    const token = "::GLOBSTAR::";
-
-    return new RegExp(
-      `^${this.#normalizePath(path)
-        .replace(/\*\*/g, token)
-        .replace(/[.+^${}()|[\]\\]/g, "\\$&")
-        .replace(/\*/g, "[^/]*")
-        .replace(/\?/g, "[^/]")
-        .replace(new RegExp(token, "g"), ".*")}$`
-    );
-  }
-
-  /**
    * Gets the storage adapter and relative key for a given key.
    *
    * @remarks
@@ -239,7 +221,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           (includeParent && isParentPath(baseKey, key)) ||
           (baseKey.includes("*") &&
             (isParentPath(stripStars(baseKey), key) ||
-              this.#buildRegex(replaceExtension(baseKey)).test(key)))
+              globToRegex(replaceExtension(baseKey)).test(key)))
       )
       .map(key => ({
         relativeBase:
@@ -812,15 +794,12 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       | (string | Omit<AssetGlob, "output">)[]
   ): Promise<string[]> {
     const results: string[] = [];
-
     for (const pattern of normalizeGlobPatterns(
       this.#context.workspaceConfig.workspaceRoot,
       patterns
     )) {
       const normalized = this.#normalizePath(pattern);
-
-      // No glob characters: treat as a single file path
-      if (!/[*?[\]{}]/.test(normalized) && !normalized.includes("**")) {
+      if (!/[*?[\]{}]/.test(normalized) && !normalized.includes("*")) {
         if (this.isDirectorySync(normalized)) {
           results.push(...(await this.list(normalized)));
         } else {
@@ -829,26 +808,27 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
             results.push(resolved);
           }
         }
+      } else {
+        const absPattern = isAbsolutePath(normalized)
+          ? normalized
+          : this.#normalizePath(
+              appendPath(
+                normalized,
+                this.#context.workspaceConfig.workspaceRoot
+              )
+            );
 
-        continue;
-      }
-
-      const absPattern = isAbsolutePath(normalized)
-        ? normalized
-        : this.#normalizePath(
-            appendPath(normalized, this.#context.workspaceConfig.workspaceRoot)
-          );
-
-      await Promise.all(
-        (await this.list(stripStars(absPattern))).map(async file => {
-          if (this.#buildRegex(absPattern).test(file)) {
-            const resolved = this.resolveSync(file);
-            if (resolved && !results.includes(resolved)) {
-              results.push(resolved);
+        await Promise.all(
+          (await this.list(stripStars(absPattern))).map(async file => {
+            if (globToRegex(absPattern).test(file)) {
+              const resolved = await this.resolve(file);
+              if (resolved && !results.includes(resolved)) {
+                results.push(resolved);
+              }
             }
-          }
-        })
-      );
+          })
+        );
+      }
     }
 
     return results;
@@ -867,15 +847,12 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       | (string | Omit<AssetGlob, "output">)[]
   ): string[] {
     const results: string[] = [];
-
     for (const pattern of normalizeGlobPatterns(
       this.#context.workspaceConfig.workspaceRoot,
       patterns
     )) {
       const normalized = this.#normalizePath(pattern);
-
-      // No glob characters: treat as a single file path
-      if (!/[*?[\]{}]/.test(normalized) && !normalized.includes("**")) {
+      if (!/[*?[\]{}]/.test(normalized) && !normalized.includes("*")) {
         if (this.isDirectorySync(normalized)) {
           results.push(...this.listSync(normalized));
         } else {
@@ -884,22 +861,24 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
             results.push(resolved);
           }
         }
+      } else {
+        const absPattern = isAbsolutePath(normalized)
+          ? normalized
+          : this.#normalizePath(
+              appendPath(
+                normalized,
+                this.#context.workspaceConfig.workspaceRoot
+              )
+            );
 
-        continue;
-      }
-
-      const absPattern = isAbsolutePath(normalized)
-        ? normalized
-        : this.#normalizePath(
-            appendPath(normalized, this.#context.workspaceConfig.workspaceRoot)
-          );
-
-      const files = this.listSync(stripStars(absPattern));
-      for (const file of files) {
-        if (this.#buildRegex(absPattern).test(file)) {
-          const resolved = this.resolveSync(file);
-          if (resolved && !results.includes(resolved)) {
-            results.push(resolved);
+        const files = this.listSync(stripStars(absPattern));
+        for (const file of files) {
+          const regex = globToRegex(absPattern);
+          if (regex.test(file)) {
+            const resolved = this.resolveSync(file);
+            if (resolved && !results.includes(resolved)) {
+              results.push(resolved);
+            }
           }
         }
       }
