@@ -689,8 +689,17 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns An array of file names in the specified path.
    */
   public listSync(path: string): string[] {
+    let resolvedPath = path;
+    if (resolvedPath.includes("*")) {
+      this.#log(
+        LogLevelLabel.WARN,
+        `Invoking "listSync" with a glob pattern is not supported. It is likely you meant to use "globSync". Path: ${path}`
+      );
+      resolvedPath = stripStars(resolvedPath);
+    }
+
     return getUnique(
-      this.#getStorages(path, true)
+      this.#getStorages(resolvedPath, true)
         .map(storage =>
           storage.adapter.listSync(
             storage.relativeBase
@@ -701,12 +710,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           )
         )
         .flat()
-        .map(file =>
-          path.includes("*") && !this.#buildRegex(path).test(file)
-            ? undefined
-            : file
-        )
-        .filter(Boolean) as string[]
+        .filter(Boolean)
     );
   }
 
@@ -717,10 +721,19 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns An array of file names in the specified path.
    */
   public async list(path: string): Promise<string[]> {
+    let resolvedPath = path;
+    if (resolvedPath.includes("*")) {
+      this.#log(
+        LogLevelLabel.WARN,
+        `Invoking "list" with a glob pattern is not supported. It is likely you meant to use "glob". Path: ${path}`
+      );
+      resolvedPath = stripStars(resolvedPath);
+    }
+
     return getUnique(
       (
         await Promise.all(
-          this.#getStorages(path, true).map(async storage =>
+          this.#getStorages(resolvedPath, true).map(async storage =>
             storage.adapter.list(
               storage.relativeBase
                 ? storage.base
@@ -732,12 +745,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         )
       )
         .flat()
-        .map(file =>
-          path.includes("*") && !this.#buildRegex(path).test(file)
-            ? undefined
-            : file
-        )
-        .filter(Boolean) as string[]
+        .filter(Boolean)
     );
   }
 
@@ -825,31 +833,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         continue;
       }
 
-      // Make absolute pattern for matching
       const absPattern = isAbsolutePath(normalized)
         ? normalized
         : this.#normalizePath(
-            joinPaths(this.#context.workspaceConfig.workspaceRoot, normalized)
+            appendPath(normalized, this.#context.workspaceConfig.workspaceRoot)
           );
 
-      // Determine the base directory to start walking from (up to the first glob segment)
-      const firstGlobIdx = absPattern.search(/[*?[\]{}]/);
-      const baseDir =
-        firstGlobIdx === -1
-          ? findFilePath(absPattern)
-          : absPattern.slice(
-              0,
-              Math.max(0, absPattern.lastIndexOf("/", firstGlobIdx))
-            );
-
       await Promise.all(
-        (
-          await this.list(
-            baseDir && isAbsolutePath(baseDir)
-              ? baseDir
-              : this.#context.workspaceConfig.workspaceRoot
-          )
-        ).map(async file => {
+        (await this.list(stripStars(absPattern))).map(async file => {
           if (this.#buildRegex(absPattern).test(file)) {
             const resolved = this.resolveSync(file);
             if (resolved && !results.includes(resolved)) {
@@ -897,28 +888,13 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         continue;
       }
 
-      // Make absolute pattern for matching
       const absPattern = isAbsolutePath(normalized)
         ? normalized
         : this.#normalizePath(
-            joinPaths(this.#context.workspaceConfig.workspaceRoot, normalized)
+            appendPath(normalized, this.#context.workspaceConfig.workspaceRoot)
           );
 
-      // Determine the base directory to start walking from (up to the first glob segment)
-      const firstGlobIdx = absPattern.search(/[*?[\]{}]/);
-      const baseDir =
-        firstGlobIdx === -1
-          ? findFilePath(absPattern)
-          : absPattern.slice(
-              0,
-              Math.max(0, absPattern.lastIndexOf("/", firstGlobIdx))
-            );
-
-      const files = this.listSync(
-        baseDir && isAbsolutePath(baseDir)
-          ? baseDir
-          : this.#context.workspaceConfig.workspaceRoot
-      );
+      const files = this.listSync(stripStars(absPattern));
       for (const file of files) {
         if (this.#buildRegex(absPattern).test(file)) {
           const resolved = this.resolveSync(file);
