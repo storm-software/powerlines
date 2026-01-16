@@ -103,8 +103,8 @@ catalog:
   '@swc-node/register': ^1.11.1
   '@swc/core': ^1.15.8
   '@swc/helpers': ^0.5.18
-  '@tamagui/static-worker': ^1.144.1
-  '@tamagui/types': ^1.144.1
+  '@tamagui/static-worker': ^1.144.2
+  '@tamagui/types': ^1.144.2
   '@taplo/cli': ^0.7.0
   '@types/babel__core': ^7.20.5
   '@types/babel__helper-module-imports': ^7.18.3

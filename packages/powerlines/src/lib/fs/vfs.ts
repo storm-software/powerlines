@@ -235,7 +235,9 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       .filter(
         key =>
           isParentPath(key, baseKey) ||
-          (includeParent && isParentPath(baseKey, key))
+          (includeParent && isParentPath(baseKey, key)) ||
+          (baseKey.includes("*") &&
+            isRegExp(this.#buildRegex(baseKey).exec(key)))
       )
       .map(key => ({
         relativeBase:

@@ -18,7 +18,6 @@
 
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
-import { isFile } from "@stryke/fs/is-file";
 import { murmurhash } from "@stryke/hash/murmurhash";
 import { getUniqueBy } from "@stryke/helpers/get-unique";
 import { appendPath } from "@stryke/path/append";
@@ -129,7 +128,7 @@ export async function resolveEntries(
           typeDefinition.file,
           context.config.projectRoot
         );
-        if (isFile(filePath)) {
+        if (context.fs.isFileSync(filePath)) {
           return resolveEntry(context, {
             file: replacePath(filePath, context.config.projectRoot),
             name: typeDefinition.name
@@ -138,7 +137,7 @@ export async function resolveEntries(
 
         return (await context.fs.list(filePath)).map(file =>
           resolveEntry(context, {
-            file,
+            file: replacePath(file, context.config.projectRoot),
             name: typeDefinition.name
           })
         );
@@ -208,7 +207,7 @@ export function resolveEntriesSync(
         typeDefinition.file,
         context.config.projectRoot
       );
-      if (isFile(filePath)) {
+      if (context.fs.isFileSync(filePath)) {
         return resolveEntry(context, {
           file: replacePath(filePath, context.config.projectRoot),
           name: typeDefinition.name
