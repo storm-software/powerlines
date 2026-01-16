@@ -128,14 +128,18 @@ export async function resolveEntries(
           typeDefinition.file,
           context.config.projectRoot
         );
-        if (context.fs.isFileSync(filePath)) {
+        if (await context.fs.isFile(filePath)) {
           return resolveEntry(context, {
             file: replacePath(filePath, context.config.projectRoot),
             name: typeDefinition.name
           });
         }
 
-        return (await context.fs.list(filePath)).map(file =>
+        return (
+          await context.fs.glob(
+            appendPath(filePath, context.workspaceConfig.workspaceRoot)
+          )
+        ).map(file =>
           resolveEntry(context, {
             file: replacePath(file, context.config.projectRoot),
             name: typeDefinition.name
@@ -214,12 +218,14 @@ export function resolveEntriesSync(
         });
       }
 
-      return context.fs.listSync(filePath).map(file =>
-        resolveEntry(context, {
-          file,
-          name: typeDefinition.name
-        })
-      );
+      return context.fs
+        .globSync(appendPath(filePath, context.workspaceConfig.workspaceRoot))
+        .map(file =>
+          resolveEntry(context, {
+            file: replacePath(file, context.config.projectRoot),
+            name: typeDefinition.name
+          })
+        );
     })
     .flat()
     .filter(Boolean);

@@ -33,6 +33,7 @@ import {
 import { murmurhash } from "@stryke/hash/murmurhash";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { appendPath } from "@stryke/path/append";
+import { stripStars } from "@stryke/path/correct-path";
 import {
   findFileName,
   findFilePath,
@@ -41,7 +42,7 @@ import {
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { isAbsolutePath } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join-paths";
-import { replacePath } from "@stryke/path/replace";
+import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
 import { isRegExp } from "@stryke/type-checks/is-regexp";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
@@ -237,7 +238,8 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           isParentPath(key, baseKey) ||
           (includeParent && isParentPath(baseKey, key)) ||
           (baseKey.includes("*") &&
-            isRegExp(this.#buildRegex(baseKey).exec(key)))
+            (isParentPath(stripStars(baseKey), key) ||
+              this.#buildRegex(replaceExtension(baseKey)).test(key)))
       )
       .map(key => ({
         relativeBase:
@@ -686,7 +688,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @param path - The path to list files from.
    * @returns An array of file names in the specified path.
    */
-  public listSync(path?: string): string[] {
+  public listSync(path: string): string[] {
     return getUnique(
       this.#getStorages(path, true)
         .map(storage =>
@@ -699,6 +701,12 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           )
         )
         .flat()
+        .map(file =>
+          path.includes("*") && !this.#buildRegex(path).test(file)
+            ? undefined
+            : file
+        )
+        .filter(Boolean) as string[]
     );
   }
 
@@ -708,7 +716,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @param path - The path to list files from.
    * @returns An array of file names in the specified path.
    */
-  public async list(path?: string): Promise<string[]> {
+  public async list(path: string): Promise<string[]> {
     return getUnique(
       (
         await Promise.all(
@@ -722,7 +730,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
             )
           )
         )
-      ).flat()
+      )
+        .flat()
+        .map(file =>
+          path.includes("*") && !this.#buildRegex(path).test(file)
+            ? undefined
+            : file
+        )
+        .filter(Boolean) as string[]
     );
   }
 
