@@ -24,6 +24,7 @@ import { install } from "@stryke/fs/install";
 import { listFiles } from "@stryke/fs/list-files";
 import { isPackageExists } from "@stryke/fs/package-fns";
 import { resolvePackage } from "@stryke/fs/resolve";
+import { omit } from "@stryke/helpers/omit";
 import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
@@ -217,24 +218,32 @@ export class PowerlinesAPI<
         order: "normal"
       });
 
-      context.debug(
-        `The configuration provided ${
-          toArray(context.config.entry).length
-        } entry point(s), Powerlines has found ${
-          context.entry.length
-        } entry files(s) for the ${context.config.title} project${
-          context.entry.length > 0 && context.entry.length < 10
-            ? `: \n${context.entry
-                .map(
-                  entry =>
-                    `- ${entry.file}${
-                      entry.output ? ` -> ${entry.output}` : ""
-                    }`
-                )
-                .join(" \n")}`
-            : ""
-        }`
-      );
+      if (context.entry.length > 0) {
+        context.debug(
+          `The configuration provided ${
+            toArray(context.config.entry).length
+          } entry point(s), Powerlines has found ${
+            context.entry.length
+          } entry files(s) for the ${context.config.title} project${
+            context.entry.length > 0 && context.entry.length < 10
+              ? `: \n${context.entry
+                  .map(
+                    entry =>
+                      `- ${entry.file}${
+                        entry.output ? ` -> ${entry.output}` : ""
+                      }`
+                  )
+                  .join(" \n")}`
+              : ""
+          }`
+        );
+      } else {
+        context.warn(
+          `No entry files were found for the ${
+            context.config.title
+          } project. Please ensure this is correct. Powerlines plugins generally require at least one entry point to function properly.`
+        );
+      }
 
       await resolveTsconfig<TResolvedConfig>(context);
       await installDependencies(context);
@@ -245,9 +254,17 @@ export class PowerlinesAPI<
       });
 
       context.trace(
-        `Powerlines configuration has been resolved: \n\n${formatLogMessage(
-          context.config
-        )}`
+        `Powerlines configuration has been resolved: \n\n${formatLogMessage({
+          ...omit(
+            {
+              ...context.config,
+              userConfig: omit(context.config.userConfig, ["plugins"]),
+              inlineConfig: omit(context.config.inlineConfig, ["plugins"])
+            },
+            ["plugins"]
+          ),
+          plugins: context.plugins.map(plugin => plugin.plugin.name)
+        })}`
       );
 
       if (!context.fs.existsSync(context.cachePath)) {
