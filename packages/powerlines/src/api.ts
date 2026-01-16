@@ -255,14 +255,13 @@ export class PowerlinesAPI<
 
       context.trace(
         `Powerlines configuration has been resolved: \n\n${formatLogMessage({
-          ...omit(
-            {
-              ...context.config,
-              userConfig: omit(context.config.userConfig, ["plugins"]),
-              inlineConfig: omit(context.config.inlineConfig, ["plugins"])
-            },
-            ["plugins"]
-          ),
+          ...context.config,
+          userConfig: isSetObject(context.config.userConfig)
+            ? omit(context.config.userConfig, ["plugins"])
+            : undefined,
+          inlineConfig: isSetObject(context.config.inlineConfig)
+            ? omit(context.config.inlineConfig, ["plugins"])
+            : undefined,
           plugins: context.plugins.map(plugin => plugin.plugin.name)
         })}`
       );
