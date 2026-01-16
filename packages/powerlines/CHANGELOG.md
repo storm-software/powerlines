@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.46](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.46) (01/16/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue converting glob patterns to regex in VFS
+  ([3044a3ef](https://github.com/storm-software/powerlines/commit/3044a3ef))
+
 ## [0.37.45](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.45) (01/16/2026)
 
 ### Miscellaneous
