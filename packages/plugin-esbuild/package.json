@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-esbuild",
-  "version": "0.13.178",
+  "version": "0.13.179",
   "type": "module",
   "description": "A package containing a Powerlines plugin to build projects using esbuild.",
   "repository": {

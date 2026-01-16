@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/nx",
-  "version": "0.11.99",
+  "version": "0.11.100",
   "description": "A Nx plugin to support Powerlines development in Nx monorepos.",
   "repository": {
     "type": "github",

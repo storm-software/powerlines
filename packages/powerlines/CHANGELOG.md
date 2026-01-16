@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.44](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.44) (01/16/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue finding glob entrypoint files
+  ([c8bb1091](https://github.com/storm-software/powerlines/commit/c8bb1091))
+
 ## [0.37.43](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.43) (01/15/2026)
 
 ### Bug Fixes
