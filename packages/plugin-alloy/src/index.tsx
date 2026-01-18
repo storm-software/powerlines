@@ -21,7 +21,6 @@ import { renderAsync, traverseOutput } from "@alloy-js/core";
 import alloy from "@alloy-js/rollup-plugin";
 import { StormJSON } from "@stryke/json/storm-json";
 import { findFileExtension } from "@stryke/path/file-path-fns";
-import { replacePath } from "@stryke/path/replace";
 import { Plugin } from "powerlines/types/plugin";
 import { Output } from "./core/components/output";
 import { MetaItem } from "./core/contexts/context";
@@ -142,18 +141,11 @@ export const plugin = <
                         extension: findFileExtension(file.path)
                       });
                     } else if (metadata.kind === "entry") {
-                      this.emitEntrySync(
-                        file.contents,
-                        replacePath(
-                          file.path,
-                          this.workspaceConfig.workspaceRoot
-                        ),
-                        {
-                          skipFormat: metadata.skipFormat,
-                          storage: metadata.storage,
-                          ...(metadata.typeDefinition ?? {})
-                        }
-                      );
+                      this.emitEntrySync(file.contents, file.path, {
+                        skipFormat: metadata.skipFormat,
+                        storage: metadata.storage,
+                        ...(metadata.typeDefinition ?? {})
+                      });
                     } else {
                       this.emitSync(file.contents, file.path, metadata);
                     }

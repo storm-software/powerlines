@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { computed, splitProps } from "@alloy-js/core";
+import { appendPath } from "@stryke/path/append";
 import { hasFileExtension } from "@stryke/path/file-path-fns";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { isSet } from "@stryke/type-checks/is-set";
@@ -53,12 +54,14 @@ export function EntryFile(props: EntryFileProps) {
 
   const context = usePowerlinesSafe();
   const fullPath = computed(() =>
-    replacePath(
-      `${
-        !isSet(tsx) ? path : replaceExtension(path)
-      }${tsx ? ".tsx" : hasFileExtension(path) ? "" : ".ts"}`,
-      context?.entryPath
-    )
+    context
+      ? appendPath(
+          `${
+            !isSet(tsx) ? path : replaceExtension(path)
+          }${tsx ? ".tsx" : hasFileExtension(path) ? "" : ".ts"}`,
+          replacePath(context.entryPath, context.workspaceConfig.workspaceRoot)
+        )
+      : path
   );
 
   return (
