@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.47](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.47) (01/18/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue setting entry point paths in `emitEntry`
+  functions
+  ([50638dd8](https://github.com/storm-software/powerlines/commit/50638dd8))
+
 ## [0.37.46](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.46) (01/16/2026)
 
 ### Bug Fixes
