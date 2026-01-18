@@ -962,23 +962,15 @@ export class PowerlinesContext<
     path: string,
     options: EmitEntryOptions = {}
   ): Promise<void> {
-    const entryPath = appendPath(
-      replacePath(
-        replacePath(replacePath(path, this.entryPath), this.config.projectRoot),
-        this.workspaceConfig.workspaceRoot
-      ),
-      this.entryPath
-    );
-
     return this.emit(
       code,
-      entryPath,
+      appendPath(path, this.entryPath),
       defu(
         {
           meta: {
             type: "entry",
             properties: {
-              file: entryPath,
+              file: appendPath(path, this.entryPath),
               name: options?.name,
               output: options?.output,
               "input.file": options?.input?.file,
@@ -1003,23 +995,15 @@ export class PowerlinesContext<
     path: string,
     options: EmitEntryOptions = {}
   ): void {
-    const entryPath = appendPath(
-      replacePath(
-        replacePath(replacePath(path, this.entryPath), this.config.projectRoot),
-        this.workspaceConfig.workspaceRoot
-      ),
-      this.entryPath
-    );
-
     return this.emitSync(
       code,
-      entryPath,
+      appendPath(path, this.entryPath),
       defu(
         {
           meta: {
             type: "entry",
             properties: {
-              file: entryPath,
+              file: appendPath(path, this.entryPath),
               name: options?.name,
               output: options?.output,
               "input.file": options?.input?.file,
