@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.63](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.63) (01/18/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with a single segment file paths
+  ([f71a669b](https://github.com/storm-software/powerlines/commit/f71a669b))
+
 ## [0.18.62](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.62) (01/18/2026)
 
 ### Updated Dependencies
