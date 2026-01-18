@@ -140,7 +140,7 @@ catalog:
   esbuild-plugin-babel: ^0.2.3
   eslint: ^9.39.2
   eslint-flat-config-utils: ^2.1.4
-  flat-cache: ^6.1.19
+  flat-cache: ^6.1.20
   fp-ts: ^2.16.11
   github-slugger: ^2.0.0
   handlebars: ^4.7.8
@@ -180,7 +180,7 @@ catalog:
   rollup-plugin-typescript2: ^0.36.0
   satori: ^0.18.4
   sharp: ^0.34.5
-  sherif: ^1.9.0
+  sherif: ^1.10.0
   style-dictionary: ^5.1.4
   stylelint: ^16.26.1
   svgo: ^4.0.0
