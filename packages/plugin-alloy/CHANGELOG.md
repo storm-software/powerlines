@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.61](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.61) (01/18/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with changes to path in `render` method
+  ([4c67beb2](https://github.com/storm-software/powerlines/commit/4c67beb2))
+
 ## [0.18.60](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.60) (01/18/2026)
 
 ### Bug Fixes
