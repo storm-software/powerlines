@@ -56,7 +56,7 @@ export function EntryFile(props: EntryFileProps) {
     replacePath(
       `${
         !isSet(tsx) ? path : replaceExtension(path)
-      }${hasFileExtension(path) && !isSet(tsx) ? "" : tsx ? ".tsx" : ".ts"}`,
+      }${tsx ? ".tsx" : hasFileExtension(path) ? "" : ".ts"}`,
       context?.entryPath
     )
   );
