@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.60](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.60) (01/18/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with invalid entry file paths provided to
+  `emitEntry` function
+  ([20250311](https://github.com/storm-software/powerlines/commit/20250311))
+
 ## [0.18.59](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.59) (01/18/2026)
 
 ### Updated Dependencies
