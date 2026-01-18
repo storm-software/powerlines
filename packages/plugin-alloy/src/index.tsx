@@ -142,20 +142,20 @@ export const plugin = <
                         extension: findFileExtension(file.path)
                       });
                     } else if (metadata.kind === "entry") {
-                      this.emitEntrySync(file.contents, file.path, {
-                        skipFormat: metadata.skipFormat,
-                        storage: metadata.storage,
-                        ...(metadata.typeDefinition ?? {})
-                      });
-                    } else {
-                      this.emitSync(
+                      this.emitEntrySync(
                         file.contents,
                         replacePath(
                           file.path,
                           this.workspaceConfig.workspaceRoot
                         ),
-                        metadata
+                        {
+                          skipFormat: metadata.skipFormat,
+                          storage: metadata.storage,
+                          ...(metadata.typeDefinition ?? {})
+                        }
                       );
+                    } else {
+                      this.emitSync(file.contents, file.path, metadata);
                     }
                   } else {
                     this.fs.copySync(file.sourcePath, file.path);
