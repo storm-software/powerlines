@@ -21,6 +21,7 @@ import { toArray } from "@stryke/convert/to-array";
 import { murmurhash } from "@stryke/hash/murmurhash";
 import { getUniqueBy } from "@stryke/helpers/get-unique";
 import { appendPath } from "@stryke/path/append";
+import { isAbsolutePath } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -124,10 +125,9 @@ export async function resolveEntries(
           typeDefinition.file = replacePathTokens(context, typeDefinition.file);
         }
 
-        const filePath = appendPath(
-          typeDefinition.file,
-          context.config.projectRoot
-        );
+        const filePath = isAbsolutePath(typeDefinition.file)
+          ? typeDefinition.file
+          : appendPath(typeDefinition.file, context.config.projectRoot);
         if (await context.fs.isFile(filePath)) {
           return resolveEntry(context, {
             file: replacePath(filePath, context.config.projectRoot),
@@ -207,10 +207,9 @@ export function resolveEntriesSync(
         typeDefinition.file = replacePathTokens(context, typeDefinition.file);
       }
 
-      const filePath = appendPath(
-        typeDefinition.file,
-        context.config.projectRoot
-      );
+      const filePath = isAbsolutePath(typeDefinition.file)
+        ? typeDefinition.file
+        : appendPath(typeDefinition.file, context.config.projectRoot);
       if (context.fs.isFileSync(filePath)) {
         return resolveEntry(context, {
           file: replacePath(filePath, context.config.projectRoot),

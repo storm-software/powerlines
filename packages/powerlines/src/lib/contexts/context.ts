@@ -598,10 +598,11 @@ export class PowerlinesContext<
     return Object.entries(this.fs.metadata)
       .filter(([, meta]) => meta && meta.type === "entry")
       .map(([path, meta]) => {
+        const typeDefinition = {
+          file: path
+        } as ResolvedEntryTypeDefinition;
+
         if (meta.properties) {
-          const typeDefinition = {
-            file: path
-          } as ResolvedEntryTypeDefinition;
           if (isSetString(meta.properties.name)) {
             typeDefinition.name = meta.properties.name;
           }
@@ -620,13 +621,11 @@ export class PowerlinesContext<
           if (isSetString(meta.properties.output)) {
             typeDefinition.output = meta.properties.output;
           }
-
-          return typeDefinition;
         }
 
-        return undefined;
+        return typeDefinition;
       })
-      .filter(Boolean) as ResolvedEntryTypeDefinition[];
+      .filter(Boolean);
   }
 
   /**
