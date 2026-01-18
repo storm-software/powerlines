@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.48](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.48) (01/18/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with entry path resolution code
+  ([439b75a3](https://github.com/storm-software/powerlines/commit/439b75a3))
+
 ## [0.37.47](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.47) (01/18/2026)
 
 ### Bug Fixes
