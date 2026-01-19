@@ -604,7 +604,7 @@ export class PowerlinesContext<
 
         if (meta.properties) {
           if (isSetString(meta.properties.file)) {
-            typeDefinition.name = meta.properties.file;
+            typeDefinition.file = meta.properties.file;
           }
           if (isSetString(meta.properties.name)) {
             typeDefinition.name = meta.properties.name;
