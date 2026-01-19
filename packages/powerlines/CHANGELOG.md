@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.49](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.49) (01/18/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with missing extensions on file paths
+  ([25107b42](https://github.com/storm-software/powerlines/commit/25107b42))
+
 ## [0.37.48](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.48) (01/18/2026)
 
 ### Bug Fixes

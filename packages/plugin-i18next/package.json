@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-i18next",
-  "version": "0.1.71",
+  "version": "0.1.72",
   "type": "module",
   "description": "A Powerlines plugin to use i18next for internationalization.",
   "repository": {
