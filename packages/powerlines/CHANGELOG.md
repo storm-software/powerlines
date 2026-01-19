@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.50](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.50) (01/19/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolved issue with invalid name in `file` property in
+  `_entry` property
+  ([96749d7c](https://github.com/storm-software/powerlines/commit/96749d7c))
+
 ## [0.37.49](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.49) (01/18/2026)
 
 ### Bug Fixes
