@@ -30,7 +30,7 @@ import {
 } from "../../types/build";
 import { Context } from "../../types/context";
 import type { ResolvedEntryTypeDefinition } from "../../types/resolved";
-import { resolveEntryInputFile, resolveEntryOutput } from "../entry";
+import { resolveEntryOutput } from "../entry";
 
 // const resolverPlugin = (
 //   context: Context,
@@ -125,8 +125,7 @@ export function resolveESBuildEntry(
           context.config.sourceRoot || context.config.projectRoot
         );
       } else {
-        ret[entry.output || resolveEntryOutput(context, entry.input ?? entry)] =
-          resolveEntryInputFile(context, entry.input ?? entry);
+        ret[entry.output || resolveEntryOutput(context, entry)] = entry.file;
       }
 
       return ret;
