@@ -339,7 +339,7 @@ export class PowerlinesAPI<
 
             await context.emitBuiltin(result.code, file.id);
 
-            return file.path;
+            return appendPath(file.path, context.builtinsPath);
           })
         );
 
