@@ -34,25 +34,25 @@ import { replacePathTokens } from "../plugin-utils/paths";
 import type { Context } from "../types/context";
 import { ResolvedEntryTypeDefinition } from "../types/resolved";
 
-export function resolveEntryInputFile(
-  context: Context,
-  typeDefinition: TypeDefinition
-): string {
-  return replacePath(
-    typeDefinition.file,
-    joinPaths(context.workspaceConfig.workspaceRoot, context.config.projectRoot)
-  );
-}
+// export function resolveEntryInputFile(
+//   context: Context,
+//   typeDefinition: TypeDefinition
+// ): string {
+//   return replacePath(
+//     typeDefinition.file,
+//     joinPaths(context.workspaceConfig.workspaceRoot, context.config.projectRoot)
+//   );
+// }
 
-export function resolveEntryInput(
-  context: Context,
-  typeDefinition: TypeDefinition
-): TypeDefinition {
-  return {
-    file: resolveEntryInputFile(context, typeDefinition),
-    name: typeDefinition.name
-  };
-}
+// export function resolveEntryInput(
+//   context: Context,
+//   typeDefinition: TypeDefinition
+// ): TypeDefinition {
+//   return {
+//     file: resolveEntryInputFile(context, typeDefinition),
+//     name: typeDefinition.name
+//   };
+// }
 
 export function resolveEntryOutput(
   context: Context,
@@ -88,11 +88,11 @@ export function resolveEntry(
   context: Context,
   typeDefinition: TypeDefinition
 ): ResolvedEntryTypeDefinition {
-  const input = resolveEntryInput(context, typeDefinition);
+  // const input = resolveEntryInput(context, typeDefinition);
 
   return {
-    ...input,
-    input,
+    ...typeDefinition,
+    input: typeDefinition,
     output: resolveEntryOutput(context, typeDefinition)
   };
 }
