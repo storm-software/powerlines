@@ -2,6 +2,15 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.51](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.51) (01/19/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve build issue with missing import type
+  ([5efb756a](https://github.com/storm-software/powerlines/commit/5efb756a))
+- **powerlines:** Resolve issue with invalid entry point path changes
+  ([22aaf246](https://github.com/storm-software/powerlines/commit/22aaf246))
+
 ## [0.37.50](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.50) (01/19/2026)
 
 ### Bug Fixes
