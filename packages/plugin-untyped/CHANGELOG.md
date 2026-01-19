@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Untyped
 
+## [0.2.131](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.131) (01/19/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.130**
+- Updated **powerlines** to **v0.37.52**
+
 ## [0.2.130](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.130) (01/19/2026)
 
 ### Updated Dependencies

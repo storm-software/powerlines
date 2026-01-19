@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.52](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.52) (01/19/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue providing builtin files' paths to type
+  declaration
+  ([8daf73cf](https://github.com/storm-software/powerlines/commit/8daf73cf))
+
 ## [0.37.51](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.51) (01/19/2026)
 
 ### Bug Fixes
