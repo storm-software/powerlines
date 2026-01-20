@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.62](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.62) (01/20/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with invalid `outDir` option provided to tsc
+  ([656ba886](https://github.com/storm-software/powerlines/commit/656ba886))
+
 ## [0.37.61](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.61) (01/20/2026)
 
 ### Bug Fixes
