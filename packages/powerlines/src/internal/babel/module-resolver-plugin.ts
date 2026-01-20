@@ -53,7 +53,7 @@ function resolveModulePath(
           : state.filename
       );
       if (currentFile && isAbsolutePath(currentFile)) {
-        resolvedPath = relativePath(findFilePath(currentFile), resolvedPath);
+        resolvedPath = `./${relativePath(findFilePath(currentFile), resolvedPath)}`;
       }
 
       nodePath.replaceWith(t.stringLiteral(replaceExtension(resolvedPath)));
