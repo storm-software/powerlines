@@ -22,9 +22,13 @@ import { findFileName } from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { DiagnosticCategory } from "ts-morph";
 import { createProgram } from "../../lib/typescript/ts-morph";
 import { Context } from "../../types/context";
+
+const getModuleCommentBlockRegex = (moduleId: string) =>
+  new RegExp(`^\\/\\*\\*(?s:.)*@module ${moduleId}(?s:.)*\\*\\/\\s*`);
 
 /**
  * Formats the generated TypeScript types source code.
@@ -150,13 +154,21 @@ export async function emitBuiltinTypes<TContext extends Context>(
       findFileName(filePath) !== "tsconfig.tsbuildinfo" &&
       isParentPath(filePath, context.builtinsPath)
     ) {
-      builtinModules += `
-declare module "${
+      const moduleId = `${
         context.config.output?.builtinPrefix ||
         context.config?.framework ||
         "powerlines"
-      }:${replaceExtension(replacePath(filePath, context.builtinsPath))}" {
+      }:${replaceExtension(replacePath(filePath, context.builtinsPath), "", {
+        fullExtension: true
+      })}`;
+      const moduleComment = emittedFile.text
+        .match(getModuleCommentBlockRegex(moduleId))
+        ?.find(comment => isSetString(comment?.trim()));
+
+      builtinModules += `${moduleComment ? `\n${moduleComment.trim()}` : ""}
+declare module "${moduleId}" {
     ${emittedFile.text
+      .replace(moduleComment ?? "", "")
       .trim()
       .replace(/^\s*export\s*declare\s*/gm, "export ")
       .replace(/^\s*declare\s*/gm, "")}

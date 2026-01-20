@@ -86,20 +86,20 @@ catalog:
   '@storm-software/unbuild': ^0.57.80
   '@storm-software/untyped': ^0.24.61
   '@storm-software/workspace-tools': ^1.294.26
-  '@stryke/capnp': ^0.12.60
-  '@stryke/cli': ^0.13.7
-  '@stryke/convert': ^0.6.34
-  '@stryke/env': ^0.20.52
-  '@stryke/fs': ^0.33.35
-  '@stryke/hash': ^0.12.41
-  '@stryke/helpers': ^0.9.36
-  '@stryke/http': ^0.12.28
-  '@stryke/json': ^0.9.37
-  '@stryke/path': ^0.25.3
-  '@stryke/string-format': ^0.13.3
-  '@stryke/type-checks': ^0.5.19
-  '@stryke/types': ^0.10.33
-  '@stryke/unique-id': ^0.3.46
+  '@stryke/capnp': ^0.12.61
+  '@stryke/cli': ^0.13.8
+  '@stryke/convert': ^0.6.35
+  '@stryke/env': ^0.20.53
+  '@stryke/fs': ^0.33.36
+  '@stryke/hash': ^0.12.42
+  '@stryke/helpers': ^0.9.37
+  '@stryke/http': ^0.12.29
+  '@stryke/json': ^0.9.38
+  '@stryke/path': ^0.26.0
+  '@stryke/string-format': ^0.13.4
+  '@stryke/type-checks': ^0.5.20
+  '@stryke/types': ^0.10.34
+  '@stryke/unique-id': ^0.3.47
   '@swc-node/register': ^1.11.1
   '@swc/core': ^1.15.10
   '@swc/helpers': ^0.5.18
@@ -116,7 +116,7 @@ catalog:
   '@types/jest': ^30.0.0
   '@types/node': ^24.10.9
   '@types/pluralize': ^0.0.33
-  '@types/react': ^19.2.8
+  '@types/react': ^19.2.9
   '@types/react-dom': ^19.2.3
   '@types/semver': ^7.7.1
   '@typescript-eslint/utils': ^8.53.1
