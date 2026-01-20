@@ -176,7 +176,7 @@ catalog:
   react-dom: ^19.2.3
   rimraf: ^6.1.2
   rolldown: 1.0.0-beta.53
-  rollup: ^4.55.1
+  rollup: ^4.55.2
   rollup-plugin-typescript2: ^0.36.0
   satori: ^0.18.4
   sharp: ^0.34.5

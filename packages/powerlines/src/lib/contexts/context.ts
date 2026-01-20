@@ -868,8 +868,9 @@ export class PowerlinesContext<
     return Promise.all(
       Object.entries(this.fs.metadata)
         .filter(([, meta]) => meta && meta.type === "builtin")
-        .map(async ([path, meta]) => {
-          const code = await this.fs.read(path);
+        .map(async ([id, meta]) => {
+          const code = await this.fs.read(id);
+          const path = this.fs.paths[id];
 
           return { ...meta, path, code } as VirtualFile;
         })
