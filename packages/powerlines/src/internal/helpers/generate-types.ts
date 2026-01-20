@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { toArray } from "@stryke/convert/to-array";
+import { findFileName } from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
@@ -66,7 +67,17 @@ export async function emitBuiltinTypes<TContext extends Context>(
   );
 
   const program = createProgram(context, {
-    skipAddingFilesFromTsConfig: true
+    skipAddingFilesFromTsConfig: true,
+    compilerOptions: {
+      declaration: true,
+      declarationMap: false,
+      emitDeclarationOnly: true,
+      sourceMap: false,
+      outDir: ".",
+      composite: false,
+      incremental: false,
+      tsBuildInfoFile: undefined
+    }
   });
 
   program.addSourceFilesAtPaths(files);
@@ -127,10 +138,15 @@ export async function emitBuiltinTypes<TContext extends Context>(
 
     if (
       !emittedFile.filePath.endsWith(".map") &&
+      findFileName(emittedFile.filePath) !== "tsconfig.tsbuildinfo" &&
       isParentPath(emittedFile.filePath, context.builtinsPath)
     ) {
       builtinModules += `
-declare module "${replaceExtension(
+declare module "${
+        context.config.output?.builtinPrefix ||
+        context.config?.framework ||
+        "powerlines"
+      }:${replaceExtension(
         replacePath(emittedFile.filePath, context.builtinsPath)
       )}" {
     ${emittedFile.text
