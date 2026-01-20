@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.54](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.54) (01/20/2026)
+
+### Miscellaneous
+
+- **powerlines:** Resolve issue with `isFile` result in `fs` VFS adapter
+  ([2da97461](https://github.com/storm-software/powerlines/commit/2da97461))
+
 ## [0.37.53](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.53) (01/19/2026)
 
 ### Bug Fixes
