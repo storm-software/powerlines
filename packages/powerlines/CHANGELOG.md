@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.56](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.56) (01/20/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with invalid built-in file transformations
+  ([c4a4fc39](https://github.com/storm-software/powerlines/commit/c4a4fc39))
+
 ## [0.37.55](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.55) (01/20/2026)
 
 ### Bug Fixes
