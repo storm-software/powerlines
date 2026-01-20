@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.53](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.53) (01/19/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with invalid paths provided in `getBuiltin`
+  functions
+  ([ded49672](https://github.com/storm-software/powerlines/commit/ded49672))
+
 ## [0.37.52](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.52) (01/19/2026)
 
 ### Bug Fixes
