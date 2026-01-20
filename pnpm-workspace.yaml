@@ -101,7 +101,7 @@ catalog:
   '@stryke/types': ^0.10.33
   '@stryke/unique-id': ^0.3.46
   '@swc-node/register': ^1.11.1
-  '@swc/core': ^1.15.8
+  '@swc/core': ^1.15.10
   '@swc/helpers': ^0.5.18
   '@tamagui/static-worker': ^1.144.2
   '@tamagui/types': ^1.144.2
@@ -119,7 +119,7 @@ catalog:
   '@types/react': ^19.2.8
   '@types/react-dom': ^19.2.3
   '@types/semver': ^7.7.1
-  '@typescript-eslint/utils': ^8.53.0
+  '@typescript-eslint/utils': ^8.53.1
   '@vitejs/plugin-react': ^5.1.2
   '@vue/reactivity': 3.5.26
   '@vue/shared': 3.5.26
@@ -167,7 +167,7 @@ catalog:
   openapi-typescript: ^7.10.1
   oxc-parser: ^0.99.0
   oxc-transform: ^0.99.0
-  oxlint: ^1.39.0
+  oxlint: ^1.41.0
   oxlint-tsgolint: ^0.2.1
   pluralize: ^8.0.0
   prettier: ^3.8.0

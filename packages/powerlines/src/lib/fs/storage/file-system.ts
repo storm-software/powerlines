@@ -211,6 +211,6 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
    * @returns `true` if the key is a file, otherwise `false`.
    */
   public override isFileSync(key: string): boolean {
-    return !isFile(this.resolve(key));
+    return isFile(this.resolve(key));
   }
 }
