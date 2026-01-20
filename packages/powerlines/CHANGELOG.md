@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.57](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.57) (01/20/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve built-in file import transformation logic's selection
+  issue
+  ([9c43c7e5](https://github.com/storm-software/powerlines/commit/9c43c7e5))
+
 ## [0.37.56](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.56) (01/20/2026)
 
 ### Bug Fixes
