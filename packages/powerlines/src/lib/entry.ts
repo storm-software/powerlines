@@ -212,7 +212,7 @@ export function resolveEntriesSync(
         : appendPath(typeDefinition.file, context.config.projectRoot);
       if (context.fs.isFileSync(filePath)) {
         return resolveEntry(context, {
-          file: replacePath(filePath, context.config.projectRoot),
+          file: appendPath(filePath, context.workspaceConfig.workspaceRoot),
           name: typeDefinition.name
         });
       }
@@ -221,7 +221,7 @@ export function resolveEntriesSync(
         .globSync(appendPath(filePath, context.workspaceConfig.workspaceRoot))
         .map(file =>
           resolveEntry(context, {
-            file: replacePath(file, context.config.projectRoot),
+            file,
             name: typeDefinition.name
           })
         );
