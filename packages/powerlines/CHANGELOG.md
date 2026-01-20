@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.65](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.65) (01/20/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue organizing multi-comment built-in files
+  ([6a11e822](https://github.com/storm-software/powerlines/commit/6a11e822))
+
 ## [0.37.64](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.64) (01/20/2026)
 
 ### Bug Fixes
