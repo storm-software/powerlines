@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { toArray } from "@stryke/convert/to-array";
+import { appendPath } from "@stryke/path/append";
 import { findFileName } from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
@@ -73,7 +74,10 @@ export async function emitBuiltinTypes<TContext extends Context>(
       declarationMap: false,
       emitDeclarationOnly: true,
       sourceMap: false,
-      outDir: ".",
+      outDir: replacePath(
+        context.builtinsPath,
+        context.workspaceConfig.workspaceRoot
+      ),
       composite: false,
       incremental: false,
       tsBuildInfoFile: undefined
@@ -136,19 +140,22 @@ export async function emitBuiltinTypes<TContext extends Context>(
       `Processing emitted type declaration file: ${emittedFile.filePath}`
     );
 
+    const filePath = appendPath(
+      emittedFile.filePath,
+      context.workspaceConfig.workspaceRoot
+    );
+
     if (
-      !emittedFile.filePath.endsWith(".map") &&
-      findFileName(emittedFile.filePath) !== "tsconfig.tsbuildinfo" &&
-      isParentPath(emittedFile.filePath, context.builtinsPath)
+      !filePath.endsWith(".map") &&
+      findFileName(filePath) !== "tsconfig.tsbuildinfo" &&
+      isParentPath(filePath, context.builtinsPath)
     ) {
       builtinModules += `
 declare module "${
         context.config.output?.builtinPrefix ||
         context.config?.framework ||
         "powerlines"
-      }:${replaceExtension(
-        replacePath(emittedFile.filePath, context.builtinsPath)
-      )}" {
+      }:${replaceExtension(replacePath(filePath, context.builtinsPath))}" {
     ${emittedFile.text
       .trim()
       .replace(/^\s*export\s*declare\s*/gm, "export ")
