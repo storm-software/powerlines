@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.58](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.58) (01/20/2026)
+
+### Miscellaneous
+
+- **powerlines:** Ensure the updated built-in module paths are relative
+  ([3e7cd297](https://github.com/storm-software/powerlines/commit/3e7cd297))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue applying built-in module aliases
+  ([cca3e91b](https://github.com/storm-software/powerlines/commit/cca3e91b))
+
 ## [0.37.57](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.57) (01/20/2026)
 
 ### Bug Fixes
