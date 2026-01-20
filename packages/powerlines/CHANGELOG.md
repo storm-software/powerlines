@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.61](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.61) (01/20/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with dts files output paths
+  ([07402431](https://github.com/storm-software/powerlines/commit/07402431))
+
 ## [0.37.60](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.60) (01/20/2026)
 
 ### Bug Fixes
