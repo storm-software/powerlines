@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.55](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.55) (01/20/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with single file entry points
+  ([bebf5a8b](https://github.com/storm-software/powerlines/commit/bebf5a8b))
+
 ## [0.37.54](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.54) (01/20/2026)
 
 ### Miscellaneous
