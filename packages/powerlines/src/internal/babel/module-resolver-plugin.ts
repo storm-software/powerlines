@@ -19,6 +19,10 @@
 import { NodePath, PluginPass, Visitor } from "@babel/core";
 import { BabelAPI, declare } from "@babel/helper-plugin-utils";
 import * as t from "@babel/types";
+import { appendPath } from "@stryke/path/append";
+import { relativePath } from "@stryke/path/file-path-fns";
+import { isAbsolutePath } from "@stryke/path/is-type";
+import { replaceExtension } from "@stryke/path/replace";
 import { isBuiltinModule } from "../../plugin-utils/modules";
 import { Context } from "../../types/context";
 
@@ -40,14 +44,20 @@ function resolveModulePath(
     return;
   }
 
-  const resolvedPath = state.context?.fs.resolveSync(nodePath.node.value);
+  let resolvedPath = state.context?.fs.resolveSync(nodePath.node.value);
   if (resolvedPath) {
-    nodePath.replaceWith(
-      t.stringLiteral(
-        // Remove the file extension if it exists
-        resolvedPath.replace(/\.(?:ts|mts|cts)x?$/, "")
-      )
-    );
+    if (state.filename) {
+      const currentFile = state.context?.fs.resolveSync(
+        !isAbsolutePath(state.filename) && state.cwd
+          ? appendPath(state.filename, state.cwd)
+          : state.filename
+      );
+      if (currentFile && isAbsolutePath(currentFile)) {
+        resolvedPath = relativePath(currentFile, resolvedPath);
+      }
+
+      nodePath.replaceWith(t.stringLiteral(replaceExtension(resolvedPath)));
+    }
   }
 }
 
@@ -161,9 +171,6 @@ export const moduleResolverBabelPlugin = (
 
     return {
       name: "powerlines:module-resolver",
-      manipulateOptions(opts) {
-        opts.filename ??= "unknown";
-      },
 
       pre() {
         // We need to keep track of all handled nodes so we do not try to transform them twice,
