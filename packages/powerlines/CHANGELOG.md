@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.63](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.63) (01/20/2026)
+
+### Miscellaneous
+
+- **powerlines:** Clean up module comments and extensions in dts file generation
+  ([d6b4cbf5](https://github.com/storm-software/powerlines/commit/d6b4cbf5))
+
 ## [0.37.62](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.62) (01/20/2026)
 
 ### Bug Fixes
