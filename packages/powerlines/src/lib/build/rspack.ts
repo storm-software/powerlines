@@ -37,9 +37,16 @@ export function extractRspackConfig(context: Context): ExternalRspackOptions {
       resolve: {
         alias: context.builtins.reduce(
           (ret, id) => {
-            const path = context.fs.paths[id];
-            if (path) {
-              ret[id] = path;
+            const moduleId = `${
+              context.config.output?.builtinPrefix ||
+              context.config?.framework ||
+              "powerlines"
+            }:${id.replace(/^.*?:/, "")}`;
+            if (!ret[moduleId]) {
+              const path = context.fs.paths[id];
+              if (path) {
+                ret[moduleId] = path;
+              }
             }
 
             return ret;

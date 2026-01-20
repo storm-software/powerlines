@@ -184,10 +184,15 @@ export function extractUnbuildConfig(
     {
       alias: context.builtins.reduce(
         (ret, id) => {
-          if (!ret[id]) {
+          const moduleId = `${
+            context.config.output?.builtinPrefix ||
+            context.config?.framework ||
+            "powerlines"
+          }:${id.replace(/^.*?:/, "")}`;
+          if (!ret[moduleId]) {
             const path = context.fs.paths[id];
             if (path) {
-              ret[id] = path;
+              ret[moduleId] = path;
             }
           }
 

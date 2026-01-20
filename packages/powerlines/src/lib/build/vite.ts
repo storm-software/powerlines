@@ -47,10 +47,18 @@ export function extractViteConfig(context: Context): ViteResolvedBuildConfig {
       resolve: {
         alias: context.builtins.reduce(
           (ret, id) => {
-            if (!ret.find(e => e.find === id)) {
+            const moduleId = `${
+              context.config.output?.builtinPrefix ||
+              context.config?.framework ||
+              "powerlines"
+            }:${id.replace(/^.*?:/, "")}`;
+            if (!ret.find(e => e.find === moduleId)) {
               const path = context.fs.paths[id];
               if (path) {
-                ret.push({ find: id, replacement: path });
+                ret.push({
+                  find: moduleId,
+                  replacement: path
+                });
               }
             }
 

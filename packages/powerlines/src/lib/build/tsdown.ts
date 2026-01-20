@@ -130,7 +130,13 @@ export function extractTsdownConfig(
         (ret, id) => {
           const path = context.fs.paths[id];
           if (path) {
-            ret[id] = path;
+            ret[
+              `${
+                context.config.output?.builtinPrefix ||
+                context.config?.framework ||
+                "powerlines"
+              }:${id.replace(/^.*?:/, "")}`
+            ] = path;
           }
 
           return ret;
@@ -167,9 +173,16 @@ export function extractTsdownConfig(
       resolve: {
         alias: context.builtins.reduce(
           (ret, id) => {
-            const path = context.fs.paths[id];
-            if (path) {
-              ret[id] = path;
+            const moduleId = `${
+              context.config.output?.builtinPrefix ||
+              context.config?.framework ||
+              "powerlines"
+            }:${id.replace(/^.*?:/, "")}`;
+            if (!ret[moduleId]) {
+              const path = context.fs.paths[id];
+              if (path) {
+                ret[moduleId] = path;
+              }
             }
 
             return ret;
