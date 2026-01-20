@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.120](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.120) (01/20/2026)
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.37.64**
+
 ## [0.11.119](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.119) (01/20/2026)
 
 ### Updated Dependencies

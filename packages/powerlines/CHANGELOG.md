@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.64](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.64) (01/20/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with invalid Regex for selecting module comments
+  ([22ba6126](https://github.com/storm-software/powerlines/commit/22ba6126))
+
 ## [0.37.63](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.63) (01/20/2026)
 
 ### Miscellaneous
