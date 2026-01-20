@@ -19,19 +19,24 @@
 import { NodePath, PluginPass, Visitor } from "@babel/core";
 import { BabelAPI, declare } from "@babel/helper-plugin-utils";
 import * as t from "@babel/types";
+import { isBuiltinModule } from "../../plugin-utils/modules";
 import { Context } from "../../types/context";
 
 type ModuleResolverPluginPass = PluginPass & {
   context: Context;
   moduleResolverVisited: Set<any>;
   api: BabelAPI;
+  resolveAll: boolean;
 };
 
 function resolveModulePath(
   nodePath: NodePath<t.StringLiteral | null | undefined>,
   state: ModuleResolverPluginPass
 ) {
-  if (!t.isStringLiteral(nodePath.node)) {
+  if (
+    !t.isStringLiteral(nodePath.node) ||
+    (!state.resolveAll && !isBuiltinModule(state.context, nodePath.node.value))
+  ) {
     return;
   }
 
@@ -131,7 +136,26 @@ const importVisitors = {
   }
 } as Visitor<ModuleResolverPluginPass>;
 
-export const moduleResolverBabelPlugin = (context: Context) => {
+export interface ModuleResolverBabelPluginOptions {
+  /**
+   * Whether to resolve all module paths, including non-builtin modules.
+   *
+   * @default false
+   */
+  resolveAll?: boolean;
+}
+
+/**
+ * Babel plugin to resolve module paths for built-in Powerlines modules.
+ *
+ * @param context - The Powerlines context.
+ * @param options - Configuration options for the plugin.
+ * @returns A Babel plugin object.
+ */
+export const moduleResolverBabelPlugin = (
+  context: Context,
+  options?: ModuleResolverBabelPluginOptions
+) => {
   return declare(function builder(api: BabelAPI) {
     let moduleResolverVisited = new Set();
 
@@ -154,7 +178,8 @@ export const moduleResolverBabelPlugin = (context: Context) => {
               ...state,
               context,
               moduleResolverVisited,
-              api
+              api,
+              resolveAll: options?.resolveAll ?? false
             } as ModuleResolverPluginPass);
           },
           exit(programPath, state) {
@@ -162,7 +187,8 @@ export const moduleResolverBabelPlugin = (context: Context) => {
               ...state,
               context,
               moduleResolverVisited,
-              api
+              api,
+              resolveAll: options?.resolveAll ?? false
             } as ModuleResolverPluginPass);
           }
         }

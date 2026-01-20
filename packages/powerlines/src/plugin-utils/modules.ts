@@ -16,11 +16,25 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./context-helpers";
-export * from "./enforce";
-export * from "./extend";
-export * from "./get-config-path";
-export * from "./helpers";
-export * from "./merge";
-export * from "./modules";
-export * from "./paths";
+import { Context } from "../types/context";
+
+/**
+ * Determine if a module ID is a built-in Powerlines module ID.
+ *
+ * @param context - The Powerlines context.
+ * @param moduleName - The name of the module to check.
+ * @returns `true` if the module is a built-in module, otherwise `false`.
+ */
+export function isBuiltinModule(context: Context, moduleName: string): boolean {
+  const prefix: string =
+    context.config.output?.builtinPrefix ||
+    context.config?.framework ||
+    "powerlines";
+
+  return (
+    moduleName.startsWith(`${prefix.replace(/:$/, "")}:`) ||
+    Object.keys(context.fs.metadata)
+      .filter(key => context.fs.metadata[key]?.type === "builtin")
+      .includes(moduleName)
+  );
+}
