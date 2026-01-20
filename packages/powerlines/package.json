@@ -1,6 +1,6 @@
 {
   "name": "powerlines",
-  "version": "0.37.59",
+  "version": "0.37.60",
   "type": "module",
   "description": "The \"any framework\" framework that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
   "repository": {

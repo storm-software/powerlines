@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.60](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.60) (01/20/2026)
+
+### Bug Fixes
+
+- **powerlines:** Ensure "./" prefix is applied to built-in import paths
+  ([68170ec9](https://github.com/storm-software/powerlines/commit/68170ec9))
+
 ## [0.37.59](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.59) (01/20/2026)
 
 ### Bug Fixes
