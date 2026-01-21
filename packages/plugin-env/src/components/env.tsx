@@ -619,10 +619,11 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
 
       <TSDoc heading="Detect the \`mode\` of the current runtime environment.">
         <TSDocRemarks>
-          {code`The \`mode\` is determined by the \`MODE\` environment variable, or falls back to the \`NEXT_PUBLIC_VERCEL_ENV\`, \`NODE_ENV\`, or defaults to \`production\`. While the value can potentially be any string, Storm Software generally only allows a value in the following list:
-- \`production\`
-- \`test\`
-- \`development\``}
+          {code`The \`mode\` is determined by the \`MODE\` environment variable, or falls back to the \`NEXT_PUBLIC_VERCEL_ENV\`, \`NODE_ENV\`, or defaults to \`production\`. While the value can potentially be any string, it is generally recommended to only allow a value in the following list:
+          - \`production\`
+          - \`test\`
+          - \`development\`
+          `}
         </TSDocRemarks>
       </TSDoc>
       <VarDeclaration

@@ -101,13 +101,11 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
       <hbr />
       <TSDoc heading="The resolved application directories based on the current operating system and environment variables.">
         <TSDocRemarks>
-          {`These paths are determined based on the conventions for each operating system, with overrides available through specific environment variables:
-            - On macOS, directories are generally created in \`~/Library/Application Support/<name>\`.
-            - On Windows, directories are generally created in \`%AppData%/<name>\`.
-            - On Linux, directories are generally created in \`~/.config/<name>\` - this is determined via the [XDG Base Directory spec](https://specifications.freedesktop.org/basedir-spec/latest/).
-
-            If the \`DATA_DIR\`, \`CONFIG_DIR\`, \`CACHE_DIR\`, \`LOG_DIR\`, or \`TEMP_DIR\` environment variables are set, they will be used instead of the default paths.
-            `}
+          {code`If the \`DATA_DIR\`, \`CONFIG_DIR\`, \`CACHE_DIR\`, \`LOG_DIR\`, or \`TEMP_DIR\` environment variables are set, they will be treated as overrides and used by default. If the environment variables are not set, the paths are determined based on the specific conventions for each operating system (with additional overrides available through operating system specific environment variables):
+          - **Linux**: directories are generally created in \`~/.config/<name>\` (this is determined via the [XDG Base Directory spec](https://specifications.freedesktop.org/basedir-spec/latest/))
+          - **Windows**: directories are generally created in \`%AppData%/<name>\`
+          - **MacOS**: directories are generally created in \`~/Library/Application Support/<name>\`
+          `}
         </TSDocRemarks>
       </TSDoc>
       <VarDeclaration
