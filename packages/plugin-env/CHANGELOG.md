@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.89](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.89) (01/21/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Update logic to disable `inject` plugin option by default
+  ([41578a59](https://github.com/storm-software/powerlines/commit/41578a59))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.74**
+- Updated **plugin-automd** to **v0.1.196**
+- Updated **plugin-plugin** to **v0.12.148**
+- Updated **plugin-alloy** to **v0.18.85**
+- Updated **plugin-babel** to **v0.12.205**
+- Updated **powerlines** to **v0.37.70**
+- Updated **deepkit** to **v0.5.113**
+
 ## [0.15.88](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.88) (01/21/2026)
 
 ### Updated Dependencies
