@@ -95,6 +95,11 @@ export function EnvTypeDefinition(
       <hbr />
       <hbr />
 
+      <TSDoc heading="The environment configuration object with prefixed keys.">
+        <TSDocRemarks>
+          {`The \`Env\` type extends the \`EnvBase\` interface by including additional keys that are prefixed according to the project's configuration. This allows for flexibility in accessing environment variables with different naming conventions.`}
+        </TSDocRemarks>
+      </TSDoc>
       <TypeDeclaration name="Env" export={true}>
         {code` {
     [Key in keyof EnvBase as Key ${context.config.env.prefix
@@ -103,6 +108,8 @@ export function EnvTypeDefinition(
 }
 `}
       </TypeDeclaration>
+      <hbr />
+      <hbr />
     </>
   );
 }
@@ -529,6 +536,11 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       <hbr />
       <hbr />
 
+      <TSDoc heading="The environment configuration object.">
+        <TSDocRemarks>
+          {`This object provides access to the environment configuration parameters in the application runtime.`}
+        </TSDocRemarks>
+      </TSDoc>
       <VarDeclaration
         refkey={envRefkey}
         name="env"

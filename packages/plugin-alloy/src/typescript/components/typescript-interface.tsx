@@ -59,9 +59,10 @@ export interface TypescriptInterfacePropertyProps
 export function TypeScriptInterface<
   T extends Record<string, any> = Record<string, any>
 >(props: TypeScriptInterfaceProps<T>) {
-  const [{ name, reflection }, rest] = splitProps(props, [
+  const [{ name, reflection, doc }, rest] = splitProps(props, [
     "name",
-    "reflection"
+    "reflection",
+    "doc"
   ]);
 
   const interfaceName = computed(() =>
@@ -86,7 +87,7 @@ export function TypeScriptInterface<
       value={{
         reflection
       }}>
-      <TSDocReflectionClass />
+      <TSDocReflectionClass heading={doc} />
       <InterfaceDeclaration export={true} name={interfaceName.value} {...rest}>
         <For each={properties} doubleHardline={true} semicolon={true}>
           {prop => <TypescriptInterfaceProperty property={prop} />}

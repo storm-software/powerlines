@@ -41,7 +41,10 @@ import { TSDoc, TSDocAttributesTags, TSDocProps } from "./tsdoc";
 export function TSDocReflectionClass<
   T extends Record<string, any> = Record<string, any>
 >(props: TSDocProps) {
-  const [{ children }, rest] = splitProps(props, ["children"]);
+  const [{ children, heading }, rest] = splitProps(props, [
+    "heading",
+    "children"
+  ]);
 
   const reflectionClass = useReflectionClass<T>();
 
@@ -50,6 +53,10 @@ export function TSDocReflectionClass<
       reflectionClass.reflection.getTitle() ||
       titleCase(reflectionClass.reflection.getName())
   );
+  const computedHeading = computed(
+    () => heading || reflectionClass.reflection.getDescription() || title.value
+  );
+
   const alias = computed(() => reflectionClass.reflection.getAlias());
   const domain = computed(() => reflectionClass.reflection.getDomain());
   const permission = computed(() => reflectionClass.reflection.getPermission());
@@ -58,12 +65,21 @@ export function TSDocReflectionClass<
   const ignore = computed(() => reflectionClass.reflection.isIgnored());
   const hidden = computed(() => reflectionClass.reflection.isHidden());
 
-  if (!reflectionClass.reflection.getName()) {
+  if (
+    !computedHeading.value ||
+    (isSetString(computedHeading.value) && computedHeading.value.trim() === "")
+  ) {
     return null;
   }
 
   return (
-    <TSDoc {...rest} heading={reflectionClass.reflection.getDescription()}>
+    <TSDoc
+      {...rest}
+      heading={
+        isSetString(computedHeading.value)
+          ? computedHeading.value.trim()
+          : computedHeading.value
+      }>
       <Show
         when={
           isSetString(title.value) ||

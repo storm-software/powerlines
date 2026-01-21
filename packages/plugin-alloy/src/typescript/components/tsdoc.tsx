@@ -336,19 +336,29 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
 
   return (
     <>
-      <Show when={isSetString(title)}>
+      <Show when={isSetString(title?.trim())}>
         <TSDocTitle>{title}</TSDocTitle>
       </Show>
-      <Show when={!isUndefined(alias) && alias.length > 0}>
-        <For each={alias ?? []}>
+      <Show
+        when={
+          !isUndefined(alias) &&
+          alias.length > 0 &&
+          alias.some(a => isSetString(a?.trim()))
+        }>
+        <For each={alias?.filter(a => isSetString(a?.trim())) ?? []}>
           {alias => <TSDocAlias>{alias}</TSDocAlias>}
         </For>
       </Show>
-      <Show when={isSetString(domain)}>
+      <Show when={isSetString(domain?.trim())}>
         <TSDocDomain>{domain}</TSDocDomain>
       </Show>
-      <Show when={!isUndefined(permission) && permission.length > 0}>
-        <For each={permission ?? []}>
+      <Show
+        when={
+          !isUndefined(permission) &&
+          permission.length > 0 &&
+          permission.some(p => isSetString(p?.trim()))
+        }>
+        <For each={permission?.filter(p => isSetString(p?.trim())) ?? []}>
           {permission => <TSDocPermission>{permission}</TSDocPermission>}
         </For>
       </Show>
@@ -364,7 +374,7 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
       <Show when={hidden === true}>
         <TSDocHidden />
       </Show>
-      <Show when={!isUndefined(type)}>
+      <Show when={!isUndefined(type) && !isUndefined(defaultValue)}>
         <TSDocDefaultValue
           type={
             type as ReflectionKind | ReflectionProperty | ReflectionParameter
