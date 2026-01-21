@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.86](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.86) (01/21/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Clean up module description comment
+  ([9a7e5b62](https://github.com/storm-software/powerlines/commit/9a7e5b62))
+
 ## [0.15.85](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.85) (01/21/2026)
 
 ### Updated Dependencies
