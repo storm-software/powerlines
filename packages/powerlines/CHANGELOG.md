@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.66](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.66) (01/21/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with generated module comment regex
+  ([b132c8d2](https://github.com/storm-software/powerlines/commit/b132c8d2))
+
 ## [0.37.65](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.65) (01/20/2026)
 
 ### Bug Fixes
