@@ -63,9 +63,6 @@ export type EnvPluginOptions = Omit<DotenvConfiguration, "types"> & {
   /**
    * Should the plugin inject the env variables in the source code with their values?
    *
-   * @remarks
-   * This option is set to `true` when building an application project.
-   *
    * @defaultValue false
    */
   inject?: boolean;

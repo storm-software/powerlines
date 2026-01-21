@@ -165,53 +165,54 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
           path: NodePath<t.MemberExpression>,
           pass: BabelPluginPass
         ) {
+          // if (
+          //   path
+          //     .get("object")
+          //     ?.get("property")
+          //     ?.isIdentifier({ name: "env" }) &&
+          //   path
+          //     .get("object")
+          //     ?.get("object")
+          //     ?.isIdentifier({ name: "$storm" }) &&
+          //   path.get("property")?.isIdentifier()
+          // ) {
+          //   // $storm.env.CONFIG_NAME
+
+          //   const identifier = path.get("property")?.node as t.Identifier;
+          //   extractEnv(identifier, pass, false);
+
+          //   path.replaceWithSourceString(`env.${identifier.name}`);
+          //   addImport(path, {
+          //     module: `${context.config.framework}:env`,
+          //     name: "env",
+          //     imported: "env"
+          //   });
+          // } else if (
+          //   path
+          //     .get("object")
+          //     ?.get("property")
+          //     ?.isIdentifier({ name: "env" }) &&
+          //   path
+          //     .get("object")
+          //     ?.get("object")
+          //     ?.isCallExpression({
+          //       callee: { name: "useStorm", type: "Identifier" }
+          //     }) &&
+          //   path.get("property")?.isIdentifier()
+          // ) {
+          //   // useStorm().env.CONFIG_NAME
+
+          //   const identifier = path.get("property")?.node as t.Identifier;
+          //   extractEnv(identifier, pass, false);
+
+          //   path.replaceWithSourceString(`env.${identifier.name}`);
+          //   addImport(path, {
+          //     module: `${context.config.framework}:env`,
+          //     name: "env",
+          //     imported: "env"
+          //   });
+
           if (
-            path
-              .get("object")
-              ?.get("property")
-              ?.isIdentifier({ name: "env" }) &&
-            path
-              .get("object")
-              ?.get("object")
-              ?.isIdentifier({ name: "$storm" }) &&
-            path.get("property")?.isIdentifier()
-          ) {
-            // $storm.env.CONFIG_NAME
-
-            const identifier = path.get("property")?.node as t.Identifier;
-            extractEnv(identifier, pass, false);
-
-            path.replaceWithSourceString(`env.${identifier.name}`);
-            addImport(path, {
-              module: "storm:env",
-              name: "env",
-              imported: "env"
-            });
-          } else if (
-            path
-              .get("object")
-              ?.get("property")
-              ?.isIdentifier({ name: "env" }) &&
-            path
-              .get("object")
-              ?.get("object")
-              ?.isCallExpression({
-                callee: { name: "useStorm", type: "Identifier" }
-              }) &&
-            path.get("property")?.isIdentifier()
-          ) {
-            // useStorm().env.CONFIG_NAME
-
-            const identifier = path.get("property")?.node as t.Identifier;
-            extractEnv(identifier, pass, false);
-
-            path.replaceWithSourceString(`env.${identifier.name}`);
-            addImport(path, {
-              module: "storm:env",
-              name: "env",
-              imported: "env"
-            });
-          } else if (
             path
               .get("object")
               ?.get("property")
@@ -233,7 +234,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
 
             path.replaceWithSourceString(`env.${identifier.name}`);
             addImport(path, {
-              module: "storm:env",
+              module: `${context.config.framework}:env`,
               name: "env",
               imported: "env"
             });
@@ -256,7 +257,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
 
             path.replaceWithSourceString(`env.${identifier.name}`);
             addImport(path, {
-              module: "storm:env",
+              module: `${context.config.framework}:env`,
               name: "env",
               imported: "env"
             });

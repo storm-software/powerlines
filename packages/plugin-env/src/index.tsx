@@ -159,7 +159,6 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           `Environment plugin configuration has been resolved for the Powerlines project.`
         );
 
-        this.config.env.inject ??= this.config.projectType === "application";
         this.env = defu(
           {
             parsed: await loadEnv(this, this.config.env)
