@@ -28,7 +28,7 @@ import { createProgram } from "../../lib/typescript/ts-morph";
 import { Context } from "../../types/context";
 
 const getModuleCommentBlockRegex = (moduleId: string) =>
-  new RegExp(`^\\/\\*\\*(?s:.)*@module ${moduleId}(?s:.)*\\*\\/\\s+`);
+  new RegExp(`\\/\\*\\*(?s:.)*?@module\\s+${moduleId}(?s:.)*?\\*\\/\\s+`);
 
 /**
  * Formats the generated TypeScript types source code.

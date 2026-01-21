@@ -2778,7 +2778,7 @@ importers:
         version: 8.53.1(@types/eslint@9.6.1)(eslint@9.39.2(@types/eslint@9.6.1)(jiti@2.6.1))(typescript@5.9.3)
       astro:
         specifier: ^5.13.5
-        version: 5.16.11(@types/node@24.10.9)(db0@0.3.4(@types/better-sqlite3@7.6.13))(jiti@2.6.1)(lightningcss@1.31.1)(rollup@4.55.3)(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2)
+        version: 5.16.12(@types/node@24.10.9)(db0@0.3.4(@types/better-sqlite3@7.6.13))(jiti@2.6.1)(lightningcss@1.31.1)(rollup@4.55.3)(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2)
       babel-dead-code-elimination:
         specifier: 'catalog:'
         version: 1.0.12
@@ -10783,8 +10783,8 @@ packages:
     resolution: {integrity: sha512-JepyLROIad6f44uyqMF6HKE2QbunNzp3mYKRcPoDGt0QkxXmH222FAFC64WTyQu2Kg8NNEXHTN/sWuUId9sSxw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  astro@5.16.11:
-    resolution: {integrity: sha512-Z7kvkTTT5n6Hn5lCm6T3WU6pkxx84Hn25dtQ6dR7ATrBGq9eVa8EuB/h1S8xvaoVyCMZnIESu99Z9RJfdLRLDA==}
+  astro@5.16.12:
+    resolution: {integrity: sha512-R2LH1GW4JexpSMWffbpzkeZDAwbdZwI5BclXEwi+vIUPxQI+7Y9ZogJ5u4ukdYFGrcrie/0z+Od4i3MlR0nELQ==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -30888,7 +30888,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  astro@5.16.11(@types/node@24.10.9)(db0@0.3.4(@types/better-sqlite3@7.6.13))(jiti@2.6.1)(lightningcss@1.31.1)(rollup@4.55.3)(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2):
+  astro@5.16.12(@types/node@24.10.9)(db0@0.3.4(@types/better-sqlite3@7.6.13))(jiti@2.6.1)(lightningcss@1.31.1)(rollup@4.55.3)(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2):
     dependencies:
       '@astrojs/compiler': 2.13.0
       '@astrojs/internal-helpers': 0.7.5
