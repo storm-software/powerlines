@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-rspack",
-  "version": "0.5.202",
+  "version": "0.5.203",
   "type": "module",
   "description": "A package containing a Powerlines plugin to build projects using Webpack.",
   "repository": {

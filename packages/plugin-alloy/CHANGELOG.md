@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.83](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.83) (01/21/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Clean up tsdoc commit tags
+  ([a290afec](https://github.com/storm-software/powerlines/commit/a290afec))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.146**
+- Updated **powerlines** to **v0.37.68**
+- Updated **deepkit** to **v0.5.111**
+
 ## [0.18.82](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.82) (01/21/2026)
 
 ### Updated Dependencies

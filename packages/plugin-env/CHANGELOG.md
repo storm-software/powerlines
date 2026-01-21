@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.87](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.87) (01/21/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Clean up tsdoc commit tags
+  ([a290afec](https://github.com/storm-software/powerlines/commit/a290afec))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.72**
+- Updated **plugin-automd** to **v0.1.194**
+- Updated **plugin-plugin** to **v0.12.146**
+- Updated **plugin-alloy** to **v0.18.83**
+- Updated **plugin-babel** to **v0.12.203**
+- Updated **powerlines** to **v0.37.68**
+- Updated **deepkit** to **v0.5.111**
+
 ## [0.15.86](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.86) (01/21/2026)
 
 ### Miscellaneous
