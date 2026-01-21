@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.191](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.191) (01/21/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.147**
+- Updated **plugin-env** to **v0.15.88**
+- Updated **powerlines** to **v0.37.69**
+
 ## [0.10.190](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.190) (01/21/2026)
 
 ### Updated Dependencies
