@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.67](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.67) (01/21/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with RegExp string generation logic
+  ([7bb94cfe](https://github.com/storm-software/powerlines/commit/7bb94cfe))
+
 ## [0.37.66](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.66) (01/21/2026)
 
 ### Bug Fixes
