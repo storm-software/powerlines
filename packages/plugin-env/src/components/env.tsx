@@ -323,7 +323,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
   return (
     <BuiltinFile
       id="env"
-      description="The Powerlines environment configuration module provides an interface to define environment configuration parameters."
+      description="The environment configuration module provides an interface to define environment configuration parameters."
       {...rest}
       imports={defu(
         {
