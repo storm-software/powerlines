@@ -155,7 +155,7 @@ export interface NxPluginOptions {
         /**
          * An array specifying any other target identifiers the lint target depends on
          *
-         * @defaultValue ["^lint", "prepare"]
+         * @defaultValue ["^lint"]
          */
         dependsOn?: string[];
 
@@ -209,7 +209,7 @@ export interface NxPluginOptions {
         /**
          * An array specifying any other target identifiers the build target depends on
          *
-         * @defaultValue ["^build", "prepare"]
+         * @defaultValue ["^build"]
          */
         dependsOn?: string[];
 

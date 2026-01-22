@@ -371,11 +371,7 @@ export function createNxPlugin<
                   `@${framework}/nx:${options?.build?.targetName || "build"}`,
                 dependsOn:
                   options?.build?.dependsOn ??
-                  ([
-                    `^${options?.build?.targetName || "build"}`,
-                    options?.prepare !== false &&
-                      `${options?.prepare?.targetName || "prepare"}`
-                  ].filter(Boolean) as string[]),
+                  [`^${options?.build?.targetName || "build"}`].filter(Boolean),
                 defaultConfiguration:
                   options?.build?.defaultConfiguration || "production",
                 options: {
@@ -420,11 +416,7 @@ export function createNxPlugin<
                   `@${framework}/nx:${options?.lint?.targetName || "lint"}`,
                 dependsOn:
                   options?.lint?.dependsOn ??
-                  ([
-                    `^${options?.lint?.targetName || "lint"}`,
-                    options?.prepare !== false &&
-                      `${options?.prepare?.targetName || "prepare"}`
-                  ].filter(Boolean) as string[]),
+                  [`^${options?.lint?.targetName || "lint"}`].filter(Boolean),
                 defaultConfiguration:
                   options?.lint?.defaultConfiguration || "production",
                 options: {
