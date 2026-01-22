@@ -65,8 +65,8 @@ export const plugin = <TContext extends BabelPluginContext>(
     async transform(code: string, id: string) {
       if (
         isParentPath(id, this.powerlinesPath) ||
-        code.includes("/* @storm-ignore */") ||
-        code.includes("/* @storm-disable */")
+        code.includes("/* @powerlines-ignore */") ||
+        code.includes("/* @powerlines-disable */")
       ) {
         this.trace(`Skipping Babel transformation for: ${id}`);
 
@@ -96,13 +96,17 @@ export const plugin = <TContext extends BabelPluginContext>(
       }
 
       if (
-        ["ts", "cts", "mts", "tsx"].includes(findFileExtensionSafe(id)) &&
+        ["ts", "cts", "mts", "tsx"].includes(
+          findFileExtensionSafe(id, {
+            fullExtension: true
+          })
+        ) &&
         !isDuplicatePlugin(plugins, "@babel/plugin-syntax-typescript") &&
         !isDuplicatePlugin(presets, "@babel/preset-typescript")
       ) {
         plugins.unshift([
           "@babel/plugin-syntax-typescript",
-          { isTSX: findFileExtension(id) === ".tsx" }
+          { isTSX: findFileExtension(id) === "tsx" }
         ]);
       }
 
