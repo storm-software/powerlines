@@ -121,6 +121,7 @@ export async function bundle(
         splitting: false,
         treeShaking: false,
         bundle: true,
+        packages: "bundle",
         platform: "node",
         logLevel: "silent",
         ...overrides
