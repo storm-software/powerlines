@@ -17,12 +17,79 @@
  ------------------------------------------------------------------- */
 
 import defu from "defu";
-import { build, BuildOptions, OutputFile } from "esbuild";
-import { createEsbuildPlugin } from "unplugin";
+import {
+  build,
+  BuildOptions,
+  OnLoadArgs,
+  OnResolveArgs,
+  OutputFile,
+  Plugin
+} from "esbuild";
 import { ESBuildResolvedBuildConfig } from "../../types/build";
-import { PluginContext } from "../../types/context";
+import { Context } from "../../types/context";
 import { extractESBuildConfig } from "../build/esbuild";
-import { createUnplugin } from "../unplugin/plugin";
+
+const externalBuiltinsPlugin = async (context: Context): Promise<Plugin> => {
+  const builtins = await context.getBuiltins();
+
+  return {
+    name: `powerlines:external-builtins`,
+    setup(build) {
+      build.onResolve(
+        {
+          filter: new RegExp(`^${context.config.framework || "powerlines"}:.*`)
+        },
+        async (args: OnResolveArgs) => {
+          const found = builtins.find(
+            builtin =>
+              builtin.id === args.path ||
+              builtin.id ===
+                args.path.replace(
+                  new RegExp(`^${context.config.framework || "powerlines"}:`),
+                  ""
+                ) ||
+              builtin.path === args.path
+          );
+          if (found) {
+            return {
+              path: found.id,
+              external: false,
+              namespace: "powerlines"
+            };
+          }
+
+          return { external: true };
+        }
+      );
+      build.onLoad(
+        {
+          filter: /.*/,
+          namespace: "powerlines"
+        },
+        async (args: OnLoadArgs) => {
+          const found = builtins.find(
+            builtin =>
+              builtin.id === args.path ||
+              builtin.id ===
+                args.path.replace(
+                  new RegExp(`^${context.config.framework || "powerlines"}:`),
+                  ""
+                ) ||
+              builtin.path === args.path
+          );
+          if (!found) {
+            context.warn(
+              `Failed to load builtin module: "${args.path}" during bundling - this should not happen since the \`onResolve\` hook is supposed handle missing built-in modules, so this is a bug.`
+            );
+            return { contents: "", loader: "ts" };
+          }
+
+          return { ...args, contents: found?.code || "", loader: "ts" };
+        }
+      );
+    }
+  };
+};
 
 /**
  * Bundle a type definition to a module.
@@ -33,7 +100,7 @@ import { createUnplugin } from "../unplugin/plugin";
  * @returns A promise that resolves to the bundled module.
  */
 export async function bundle(
-  context: PluginContext,
+  context: Context,
   file: string,
   overrides: Partial<ESBuildResolvedBuildConfig> = {}
 ): Promise<OutputFile> {
@@ -44,6 +111,7 @@ export async function bundle(
     );
   }
 
+  const plugin = await externalBuiltinsPlugin(context);
   const result = await build(
     defu(
       {
@@ -60,7 +128,7 @@ export async function bundle(
         ...overrides
       } as BuildOptions,
       {
-        plugins: [createEsbuildPlugin(createUnplugin(context))({})]
+        plugins: [plugin]
       }
     )
   );

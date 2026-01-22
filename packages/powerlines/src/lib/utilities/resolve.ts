@@ -23,7 +23,7 @@ import {
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
 import { ESBuildResolvedBuildConfig } from "../../types/build";
-import { PluginContext } from "../../types/context";
+import { Context } from "../../types/context";
 import { bundle } from "./bundle";
 
 /**
@@ -34,8 +34,8 @@ import { bundle } from "./bundle";
  * @param overrides - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the compiled module.
  */
-export async function resolve<TResult = any>(
-  context: PluginContext,
+export async function resolve<TResult>(
+  context: Context,
   type: TypeDefinitionParameter,
   overrides: Partial<ESBuildResolvedBuildConfig> = {}
 ): Promise<TResult> {
@@ -57,5 +57,31 @@ export async function resolve<TResult = any>(
     exportName = "default";
   }
 
-  return resolved[exportName] ?? resolved[`__Ω${exportName}`];
+  const resolvedExport = resolved[exportName] ?? resolved[`__Ω${exportName}`];
+  if (resolvedExport === undefined) {
+    throw new Error(
+      `The export "${exportName}" could not be resolved in the "${
+        typeDefinition.file
+      }" module. ${
+        Object.keys(resolved).length === 0
+          ? `After bundling, no exports were found in the module. Please ensure that the "${
+              typeDefinition.file
+            }" module has a "${exportName}" export with the desired value.`
+          : `After bundling, the available exports were: ${Object.keys(
+              resolved
+            ).join(
+              ", "
+            )}. Please ensure that the export exists and is correctly named.`
+      }${
+        context.config.logLevel === "debug"
+          ? `
+
+Bundle output for module:
+${result.text}`
+          : ""
+      }`
+    );
+  }
+
+  return resolvedExport;
 }
