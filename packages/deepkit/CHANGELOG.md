@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.117](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.117) (01/21/2026)
+
+### Bug Fixes
+
+- **deepkit:** Resolve missing `kind` error in `stringifyValue` helper function
+  ([cf9f0d71](https://github.com/storm-software/powerlines/commit/cf9f0d71))
+
 ## [0.5.116](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.116) (01/21/2026)
 
 ### Updated Dependencies
