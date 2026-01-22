@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.79](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.79) (01/22/2026)
+
+### Miscellaneous
+
+- **powerlines:** Added better `unplugin` logging and name specification
+  ([061b238a](https://github.com/storm-software/powerlines/commit/061b238a))
+
 ## [0.37.78](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.78) (01/22/2026)
 
 ### Bug Fixes
