@@ -234,7 +234,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
 
             path.replaceWithSourceString(`env.${identifier.name}`);
             addImport(path, {
-              module: `${context.config.framework}:env`,
+              module: `${context.config.framework || "powerlines"}:env`,
               name: "env",
               imported: "env"
             });
@@ -257,10 +257,22 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
 
             path.replaceWithSourceString(`env.${identifier.name}`);
             addImport(path, {
-              module: `${context.config.framework}:env`,
+              module: `${context.config.framework || "powerlines"}:env`,
               name: "env",
               imported: "env"
             });
+          } else if (
+            path.get("object")?.isIdentifier({ name: "env" }) &&
+            path.get("property")?.isIdentifier()
+          ) {
+            // env.CONFIG_NAME
+
+            const identifier = path.get("property")?.node as t.Identifier;
+            if (!identifier.name) {
+              return;
+            }
+
+            extractEnv(identifier, pass, false);
           }
         }
       },
