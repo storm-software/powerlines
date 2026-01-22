@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.99](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.99) (01/22/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Added proper logging to env reflection step
+  ([d87a09f2](https://github.com/storm-software/powerlines/commit/d87a09f2))
+
 ## [0.15.98](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.98) (01/22/2026)
 
 ### Miscellaneous
