@@ -22,7 +22,7 @@ import type { TypeDefinition } from "@stryke/types/configuration";
 import defu from "defu";
 import { resolve } from "powerlines/lib/utilities/resolve";
 import { ESBuildResolvedBuildConfig } from "powerlines/types/build";
-import type { Context } from "powerlines/types/context";
+import type { PluginContext } from "powerlines/types/context";
 import { esbuildPlugin } from "./esbuild-plugin";
 
 /**
@@ -33,7 +33,9 @@ import { esbuildPlugin } from "./esbuild-plugin";
  * @param overrides - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the compiled module.
  */
-export async function reflectType<TContext extends Context = Context>(
+export async function reflectType<
+  TContext extends PluginContext = PluginContext
+>(
   context: TContext,
   type: TypeDefinition,
   overrides: Partial<ESBuildResolvedBuildConfig> = {}

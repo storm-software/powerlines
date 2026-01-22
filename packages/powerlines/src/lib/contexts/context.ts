@@ -1337,7 +1337,7 @@ export class PowerlinesContext<
       configFile: config.configFile ?? this.config.configFile,
       framework: config.framework ?? this.config.framework ?? "powerlines",
       command: this.config.inlineConfig?.command,
-      alias: this.config.build.alias ?? config.build?.alias
+      alias: this.config.build?.alias ?? config.build?.alias
     };
 
     if (configCache.has(cacheKey)) {
@@ -1367,11 +1367,11 @@ export class PowerlinesContext<
         cacheDir: this.cachePath,
         mode: cacheKey.mode,
         logLevel: (config.logLevel ||
-          this.config?.logLevel ||
+          this.config.logLevel ||
           this.workspaceConfig.logLevel ||
           "info") as CreateResolverOptions["logLevel"],
         skipCache: cacheKey.skipCache,
-        alias: this.config.build.alias
+        alias: this.config.build?.alias
           ? Array.isArray(this.config.build.alias)
             ? this.config.build.alias.reduce(
                 (ret, alias) => {
