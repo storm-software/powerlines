@@ -68,7 +68,7 @@ export const plugin = <
                 target: "19",
                 compilationMode: "infer",
                 gating: {
-                  source: `${this.config.output.builtinPrefix}:react/optimized`,
+                  source: `${this.config.framework}:react/optimized`,
                   importSpecifierName: "isOptimizationEnabled"
                 },
                 enableReanimatedCheck: true,

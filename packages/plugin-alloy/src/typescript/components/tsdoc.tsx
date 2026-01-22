@@ -509,8 +509,7 @@ export function TSDocModule(props: TSDocModuleProps) {
           <hbr />
         </Show>
         {"@module "}
-        {prefix || context?.config?.output?.builtinPrefix || "powerlines"}:
-        {name}
+        {prefix || context?.config?.framework || "powerlines"}:{name}
       </align>
       <hbr />
       {` */`}

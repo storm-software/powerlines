@@ -191,16 +191,6 @@ export interface OutputConfig {
   dts?: string | false;
 
   /**
-   * A prefix to use for identifying builtin modules
-   *
-   * @remarks
-   * This prefix will be used to identify all builtin modules generated during the "prepare" phase. An example builtin ID for a module called `"utils"` would be `"{builtinPrefix}:utils"`.
-   *
-   * @defaultValue "powerlines"
-   */
-  builtinPrefix?: string;
-
-  /**
    * The module format of the output files
    *
    * @remarks
@@ -469,7 +459,7 @@ export interface CommonUserConfig extends BaseConfig {
    * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
    *
    * @remarks
-   * If no values are provided for {@link OutputConfig.dts | output.dts}, {@link OutputConfig.builtinPrefix | output.builtinPrefix}, or {@link OutputConfig.artifactsPath | output.artifactsFolder}, this value will be used as the default.
+   * If no values are provided for {@link OutputConfig.dts | output.dts} or {@link OutputConfig.artifactsPath | output.artifactsFolder}, this value will be used as the default.
    *
    * @defaultValue "powerlines"
    */

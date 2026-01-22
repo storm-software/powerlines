@@ -26,10 +26,7 @@ import { Context } from "../types/context";
  * @returns `true` if the module is a built-in module, otherwise `false`.
  */
 export function isBuiltinModule(context: Context, moduleName: string): boolean {
-  const prefix: string =
-    context.config.output?.builtinPrefix ||
-    context.config?.framework ||
-    "powerlines";
+  const prefix: string = context.config?.framework || "powerlines";
 
   return (
     moduleName.startsWith(`${prefix.replace(/:$/, "")}:`) ||

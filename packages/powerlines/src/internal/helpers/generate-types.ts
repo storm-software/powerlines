@@ -154,13 +154,13 @@ export async function emitBuiltinTypes<TContext extends Context>(
       findFileName(filePath) !== "tsconfig.tsbuildinfo" &&
       isParentPath(filePath, context.builtinsPath)
     ) {
-      const moduleId = `${
-        context.config.output?.builtinPrefix ||
-        context.config?.framework ||
-        "powerlines"
-      }:${replaceExtension(replacePath(filePath, context.builtinsPath), "", {
-        fullExtension: true
-      })}`;
+      const moduleId = `${context.config.framework}:${replaceExtension(
+        replacePath(filePath, context.builtinsPath),
+        "",
+        {
+          fullExtension: true
+        }
+      )}`;
       const moduleComment = emittedFile.text
         .match(getModuleCommentBlockRegex(moduleId))
         ?.find(comment => isSetString(comment?.trim()));

@@ -16,8 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-/* eslint-disable @nx/enforce-module-boundaries */
-
 import { getFileHeader } from "powerlines/lib/utilities/file-header";
 import { DatePluginContext } from "../types/plugin";
 
@@ -32,7 +30,7 @@ export function luxonModule(context: DatePluginContext) {
 /**
  * The Date module provides utility functions for date manipulation and formatting
  *
- * @module ${context.config.output.builtinPrefix}:date
+ * @module ${context.config.framework}:date
  */
 
 ${getFileHeader(context)}

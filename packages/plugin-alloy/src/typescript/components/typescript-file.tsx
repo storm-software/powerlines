@@ -328,9 +328,7 @@ export function TypescriptFileHeaderImports(
             } from "${
               module.includes(":")
                 ? module
-                : `${
-                    context?.config?.output?.builtinPrefix || "powerlines"
-                  }:${module}`
+                : `${context?.config?.framework || "powerlines"}:${module}`
             }";`
           }
         </For>

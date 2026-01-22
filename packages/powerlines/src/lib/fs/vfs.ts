@@ -139,7 +139,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       normalized = replacePath(normalized, this.#context.builtinsPath);
     }
 
-    return normalizeId(normalized, this.#context.config.output.builtinPrefix);
+    return normalizeId(normalized, this.#context.config.framework);
   }
 
   /**
@@ -154,7 +154,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         ? replacePathTokens(this.#context, path)
         : path,
       this.#context.builtinsPath,
-      this.#context.config.output.builtinPrefix
+      this.#context.config.framework
     );
   }
 
