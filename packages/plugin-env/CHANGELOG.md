@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.98](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.98) (01/22/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Ensure we extract `env.NAME` references in code
+  ([471c3765](https://github.com/storm-software/powerlines/commit/471c3765))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.83**
+- Updated **plugin-automd** to **v0.1.204**
+- Updated **plugin-plugin** to **v0.12.155**
+- Updated **plugin-alloy** to **v0.18.94**
+- Updated **plugin-babel** to **v0.12.213**
+- Updated **powerlines** to **v0.37.77**
+- Updated **deepkit** to **v0.5.121**
+
 ## [0.15.97](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.97) (01/22/2026)
 
 ### Updated Dependencies

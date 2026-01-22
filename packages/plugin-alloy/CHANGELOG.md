@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.94](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.94) (01/22/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Clean up the header message for generated typescript files
+  ([e0d266b6](https://github.com/storm-software/powerlines/commit/e0d266b6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.155**
+- Updated **powerlines** to **v0.37.77**
+- Updated **deepkit** to **v0.5.121**
+
 ## [0.18.93](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.93) (01/22/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.77](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.77) (01/22/2026)
+
+### Miscellaneous
+
+- **powerlines:** Include `bundle` as `packages` option in `bundle` helper
+  utility
+  ([8a7290b6](https://github.com/storm-software/powerlines/commit/8a7290b6))
+
 ## [0.37.76](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.76) (01/22/2026)
 
 ### Bug Fixes
