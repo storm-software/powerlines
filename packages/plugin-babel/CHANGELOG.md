@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.210](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.210) (01/22/2026)
+
+### Miscellaneous
+
+- **plugin-babel:** Remove un-needed `@babel/core` install dependency
+  ([629e6818](https://github.com/storm-software/powerlines/commit/629e6818))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.152**
+- Updated **powerlines** to **v0.37.74**
+
 ## [0.12.208](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.208) (01/21/2026)
 
 ### Miscellaneous

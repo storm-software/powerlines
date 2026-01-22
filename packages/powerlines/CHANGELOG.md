@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.74](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.74) (01/22/2026)
+
+### Miscellaneous
+
+- **powerlines:** Clean up error messages in `resolve` helper function
+  ([faf3fd2f](https://github.com/storm-software/powerlines/commit/faf3fd2f))
+
 ## [0.37.73](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.73) (01/21/2026)
 
 ### Miscellaneous
