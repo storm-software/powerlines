@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.230](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.230) (01/21/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update most `trace` logs to `debug` to consolidate messages
+  ([8fa1def7](https://github.com/storm-software/powerlines/commit/8fa1def7))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.151**
+- Updated **plugin-env** to **v0.15.92**
+- Updated **powerlines** to **v0.37.73**
+
 ## [0.12.229](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.229) (01/21/2026)
 
 ### Miscellaneous

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.73](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.73) (01/21/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update `bundle` function to use a custom plugin to resolve
+  built-ins
+  ([3787bbd0](https://github.com/storm-software/powerlines/commit/3787bbd0))
+- **powerlines:** Update most `trace` logs to `debug` to consolidate messages
+  ([8fa1def7](https://github.com/storm-software/powerlines/commit/8fa1def7))
+
 ## [0.37.72](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.72) (01/21/2026)
 
 ### Miscellaneous
