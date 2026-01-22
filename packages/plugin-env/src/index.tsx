@@ -175,6 +175,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
 
         if (
           this.config.command !== "prepare" &&
+          !this.config.skipCache &&
           this.persistedMeta?.checksum === this.meta.checksum &&
           existsSync(getEnvTypeReflectionsPath(this, "env"))
         ) {
@@ -199,6 +200,10 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             this.env.used.secrets = await readSecretsReflection(this);
           }
         } else {
+          this.debug(
+            `Starting environment configuration reflection initialization.`
+          );
+
           this.env.types.env = await reflectEnv(
             this,
             this.config.env.types?.file
