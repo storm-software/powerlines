@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.78](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.78) (01/22/2026)
+
+### Bug Fixes
+
+- **powerlines:** Ensure the `bundle` function only uses resolver plugin hooks
+  ([91bb662f](https://github.com/storm-software/powerlines/commit/91bb662f))
+
 ## [0.37.77](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.77) (01/22/2026)
 
 ### Miscellaneous
