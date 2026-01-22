@@ -17,10 +17,13 @@
  ------------------------------------------------------------------- */
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
+import defu from "defu";
 import { build, BuildOptions, OutputFile } from "esbuild";
+import { createEsbuildPlugin } from "unplugin";
 import { ESBuildResolvedBuildConfig } from "../../types/build";
-import { Context } from "../../types/context";
+import { PluginContext } from "../../types/context";
 import { extractESBuildConfig } from "../build/esbuild";
+import { createUnplugin } from "../unplugin/plugin";
 
 /**
  * Bundle a type definition to a module.
@@ -31,7 +34,7 @@ import { extractESBuildConfig } from "../build/esbuild";
  * @returns A promise that resolves to the bundled module.
  */
 export async function bundle(
-  context: Context,
+  context: PluginContext,
   file: string,
   overrides: Partial<ESBuildResolvedBuildConfig> = {}
 ): Promise<OutputFile> {
@@ -42,19 +45,26 @@ export async function bundle(
     );
   }
 
-  const result = await build({
-    ...extractESBuildConfig(context),
-    entryPoints: [path],
-    write: false,
-    sourcemap: false,
-    splitting: false,
-    treeShaking: false,
-    bundle: true,
-    packages: "external",
-    platform: "node",
-    logLevel: "silent",
-    ...overrides
-  } as BuildOptions);
+  const result = await build(
+    defu(
+      {
+        ...extractESBuildConfig(context),
+        entryPoints: [path],
+        write: false,
+        sourcemap: false,
+        splitting: false,
+        treeShaking: false,
+        bundle: true,
+        packages: "external",
+        platform: "node",
+        logLevel: "silent",
+        ...overrides
+      } as BuildOptions,
+      {
+        plugins: [createEsbuildPlugin(createUnplugin(context))({})]
+      }
+    )
+  );
   if (result.errors.length > 0) {
     throw new Error(
       `Failed to transpile ${file}: ${result.errors

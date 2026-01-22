@@ -126,23 +126,7 @@ export function extractTsdownConfig(
                 "**/*.tsx"
               )
             ],
-      alias: context.builtins.reduce(
-        (ret, id) => {
-          const path = context.fs.paths[id];
-          if (path) {
-            ret[
-              `${
-                context.config.output?.builtinPrefix ||
-                context.config?.framework ||
-                "powerlines"
-              }:${id.replace(/^.*?:/, "")}`
-            ] = path;
-          }
-
-          return ret;
-        },
-        (context.config.build.alias ?? {}) as Record<string, string>
-      ),
+      alias: context.alias,
       noExternal: context.builtins
     },
     context.config.build.variant === "tsdown"
@@ -171,24 +155,7 @@ export function extractTsdownConfig(
         sourcemap: context.config.mode === "development"
       },
       resolve: {
-        alias: context.builtins.reduce(
-          (ret, id) => {
-            const moduleId = `${
-              context.config.output?.builtinPrefix ||
-              context.config?.framework ||
-              "powerlines"
-            }:${id.replace(/^.*?:/, "")}`;
-            if (!ret[moduleId]) {
-              const path = context.fs.paths[id];
-              if (path) {
-                ret[moduleId] = path;
-              }
-            }
-
-            return ret;
-          },
-          (context.config.build.alias ?? {}) as Record<string, string>
-        )
+        alias: context.alias
       },
       outDir: appendPath(
         context.config.output.buildPath,

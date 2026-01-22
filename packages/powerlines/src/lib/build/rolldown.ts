@@ -157,39 +157,22 @@ export function extractRolldownConfig(
             ...context.config.build.inject
           }),
         alias({
-          entries: context.builtins.reduce(
-            (ret, id) => {
-              const moduleId = `${
-                context.config.output?.builtinPrefix ||
-                context.config?.framework ||
-                "powerlines"
-              }:${id.replace(/^.*?:/, "")}`;
-              if (!ret.find(e => e.find === moduleId)) {
-                const path = context.fs.paths[id];
-                if (path) {
-                  ret.push({
-                    find: moduleId,
-                    replacement: path
-                  });
-                }
+          entries: Object.entries(context.alias).reduce(
+            (ret, [id, path]) => {
+              if (!ret.find(e => e.find === id)) {
+                ret.push({
+                  find: id,
+                  replacement: path
+                });
+              } else {
+                context.warn(
+                  `Duplicate alias entry for '${id}' detected. The first entry will be used.`
+                );
               }
 
               return ret;
             },
-            (context.config.build.alias
-              ? Array.isArray(context.config.build.alias)
-                ? context.config.build.alias
-                : Object.entries(context.config.build.alias).reduce(
-                    (ret, [id, path]) => {
-                      if (!ret.find(e => e.find === id)) {
-                        ret.push({ find: id, replacement: path });
-                      }
-
-                      return ret;
-                    },
-                    [] as { find: string; replacement: string }[]
-                  )
-              : []) as { find: string; replacement: string }[]
+            [] as { find: string; replacement: string }[]
           )
         }),
         getBabelInputPlugin(

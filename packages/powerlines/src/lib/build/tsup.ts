@@ -99,24 +99,7 @@ export function extractTsupConfig(context: Context): TsupResolvedBuildConfig {
         }
 
         options.alias = {
-          ...context.builtins.reduce(
-            (ret, id) => {
-              const moduleId = `${
-                context.config.output?.builtinPrefix ||
-                context.config?.framework ||
-                "powerlines"
-              }:${id.replace(/^.*?:/, "")}`;
-              if (!ret[moduleId]) {
-                const path = context.fs.paths[id];
-                if (path) {
-                  ret[moduleId] = path;
-                }
-              }
-
-              return ret;
-            },
-            {} as Record<string, string>
-          ),
+          ...context.alias,
           ...options.alias
         };
       }) as TsupResolvedBuildConfig["esbuildOptions"],

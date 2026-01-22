@@ -71,6 +71,7 @@ import {
 } from "../../internal/helpers/resolver";
 import { checkDedupe, isPlugin } from "../../plugin-utils/helpers";
 import { replacePathTokens } from "../../plugin-utils/paths";
+import { BuildConfig } from "../../types/build";
 import {
   InitialUserConfig,
   LogFn,
@@ -121,6 +122,7 @@ interface ConfigCacheKey {
   configFile?: string;
   framework: string;
   command?: string;
+  alias?: BuildConfig["alias"];
 }
 
 interface ConfigCacheResult {
@@ -222,8 +224,7 @@ export class PowerlinesContext<
               dts: joinPaths(
                 config.root ?? this.config.projectRoot,
                 `${config.framework ?? "powerlines"}.d.ts`
-              ),
-              builtinPrefix: config.framework ?? "powerlines"
+              )
             }
           : {}
       }
@@ -537,6 +538,44 @@ export class PowerlinesContext<
       .filter(meta => meta && meta.type === "builtin")
       .map(meta => meta?.id)
       .filter(Boolean);
+  }
+
+  /**
+   * The alias mappings for the project used during module resolution
+   *
+   * @remarks
+   * This includes both the built-in module aliases as well as any custom aliases defined in the build configuration.
+   */
+  public get alias(): Record<string, string> {
+    return this.builtins.reduce(
+      (ret, id) => {
+        const moduleId = `${
+          this.config?.framework || "powerlines"
+        }:${id.replace(/^.*?:/, "")}`;
+        if (!ret[moduleId]) {
+          const path = this.fs.paths[id];
+          if (path) {
+            ret[moduleId] = path;
+          }
+        }
+
+        return ret;
+      },
+      this.config.build.alias
+        ? Array.isArray(this.config.build.alias)
+          ? this.config.build.alias.reduce(
+              (ret, alias) => {
+                if (!ret[alias.find.toString()]) {
+                  ret[alias.find.toString()] = alias.replacement;
+                }
+
+                return ret;
+              },
+              {} as Record<string, string>
+            )
+          : this.config.build.alias
+        : {}
+    );
   }
 
   /**
@@ -1297,7 +1336,8 @@ export class PowerlinesContext<
       skipCache: config.skipCache ?? this.config.skipCache ?? false,
       configFile: config.configFile ?? this.config.configFile,
       framework: config.framework ?? this.config.framework ?? "powerlines",
-      command: this.config.inlineConfig?.command
+      command: this.config.inlineConfig?.command,
+      alias: this.config.build.alias ?? config.build?.alias
     };
 
     if (configCache.has(cacheKey)) {
@@ -1330,7 +1370,18 @@ export class PowerlinesContext<
           this.config?.logLevel ||
           this.workspaceConfig.logLevel ||
           "info") as CreateResolverOptions["logLevel"],
-        skipCache: cacheKey.skipCache
+        skipCache: cacheKey.skipCache,
+        alias: this.config.build.alias
+          ? Array.isArray(this.config.build.alias)
+            ? this.config.build.alias.reduce(
+                (ret, alias) => {
+                  ret[alias.find.toString()] = alias.replacement;
+                  return ret;
+                },
+                {} as Record<string, string>
+              )
+            : this.config.build.alias
+          : {}
       });
 
       const userConfig = await loadUserConfigFile(
@@ -1395,7 +1446,6 @@ export class PowerlinesContext<
               cacheKey.projectRoot,
               `${config.framework ?? "powerlines"}.d.ts`
             ),
-            builtinPrefix: config.framework ?? "powerlines",
             assets: [
               {
                 glob: "LICENSE"

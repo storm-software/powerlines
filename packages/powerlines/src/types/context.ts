@@ -362,6 +362,14 @@ export interface UnresolvedContext<
   builtins: string[];
 
   /**
+   * The alias mappings for the project used during module resolution
+   *
+   * @remarks
+   * This includes both the built-in module aliases as well as any custom aliases defined in the build configuration.
+   */
+  alias: Record<string, string>;
+
+  /**
    * The {@link Project} instance used for type reflection and module manipulation
    *
    * @see https://ts-morph.com/

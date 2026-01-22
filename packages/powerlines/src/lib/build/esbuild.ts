@@ -193,37 +193,7 @@ export { ${key} };`;
 
   return defu(
     {
-      alias: context.builtins.reduce(
-        (ret, id) => {
-          const moduleId = `${
-            context.config.output?.builtinPrefix ||
-            context.config?.framework ||
-            "powerlines"
-          }:${id.replace(/^.*?:/, "")}`;
-          if (!ret[moduleId]) {
-            const path = context.fs.paths[id];
-            if (path) {
-              ret[moduleId] = path;
-            }
-          }
-
-          return ret;
-        },
-        context.config.build.alias
-          ? Array.isArray(context.config.build.alias)
-            ? context.config.build.alias.reduce(
-                (ret, alias) => {
-                  if (!ret[alias.find.toString()]) {
-                    ret[alias.find.toString()] = alias.replacement;
-                  }
-
-                  return ret;
-                },
-                {} as Record<string, string>
-              )
-            : context.config.build.alias
-          : {}
-      ),
+      alias: context.alias,
       inject:
         inject && Object.keys(inject).length > 0
           ? [
