@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { getPackageName } from "@stryke/string-format/package";
 import { Context } from "../../types/context";
 import { installPackage } from "./install";
@@ -29,10 +28,7 @@ import { installPackage } from "./install";
 export async function installDependencies<TContext extends Context = Context>(
   context: TContext
 ): Promise<void> {
-  context.log(
-    LogLevelLabel.TRACE,
-    `Checking and installing missing project dependencies.`
-  );
+  context.debug(`Checking and installing missing project dependencies.`);
 
   context.dependencies ??= {};
   context.devDependencies ??= {};
@@ -41,15 +37,13 @@ export async function installDependencies<TContext extends Context = Context>(
     Object.keys(context.dependencies).length === 0 &&
     Object.keys(context.devDependencies).length === 0
   ) {
-    context.log(
-      LogLevelLabel.TRACE,
+    context.debug(
       `No dependencies or devDependencies to install. Skipping installation step.`
     );
     return;
   }
 
-  context.log(
-    LogLevelLabel.DEBUG,
+  context.debug(
     `The following packages are required: \nDependencies: \n${Object.entries(
       context.dependencies
     )

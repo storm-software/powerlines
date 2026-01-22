@@ -18,7 +18,7 @@
 
 import type { transformAsync } from "@babel/core";
 import type { Format } from "@storm-software/build-tools/types";
-import type { LogLevelLabel } from "@storm-software/config-tools/types";
+import { LogLevelLabel } from "@storm-software/config-tools/types";
 import type { StormWorkspaceConfig } from "@storm-software/config/types";
 import type { DeepPartial, MaybePromise } from "@stryke/types/base";
 import type { TypeDefinitionParameter } from "@stryke/types/configuration";
@@ -59,6 +59,8 @@ import type { PluginContext } from "./context";
 import { StoragePort, StoragePreset } from "./fs";
 import type { Plugin } from "./plugin";
 import type { TSConfig } from "./tsconfig";
+
+export type LogLevel = "error" | "warn" | "info" | "debug" | "trace";
 
 export type LogFn = (type: LogLevelLabel, ...args: string[]) => void;
 
@@ -374,7 +376,7 @@ export interface CommonUserConfig extends BaseConfig {
    *
    * @defaultValue "info"
    */
-  logLevel?: LogLevelLabel | null;
+  logLevel?: LogLevel | null;
 
   /**
    * A custom logger function to use for logging messages

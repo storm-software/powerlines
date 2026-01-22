@@ -27,6 +27,7 @@ import type {
   ESBuildUserConfig,
   FarmUserConfig,
   InlineConfig,
+  LogLevel,
   OutputConfig,
   RolldownUserConfig,
   RollupUserConfig,
@@ -176,7 +177,7 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
      *
      * @defaultValue "info"
      */
-    logLevel: "error" | "warn" | "info" | "debug" | "trace" | null;
+    logLevel: LogLevel | null;
   };
 
 export type ViteResolvedConfig = ResolvedConfig<ViteUserConfig>;

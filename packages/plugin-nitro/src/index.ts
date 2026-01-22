@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { appendPath } from "@stryke/path/append";
 import defu from "defu";
 import { createNitro } from "nitro/builder";
@@ -50,8 +49,7 @@ export const plugin = <
     {
       name: "nitro:config",
       async config() {
-        this.log(
-          LogLevelLabel.TRACE,
+        this.debug(
           "Providing default configuration for the Powerlines `nitro` plugin."
         );
 

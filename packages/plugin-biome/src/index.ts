@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { execute, executePackage } from "@stryke/cli/execute";
 import { existsSync } from "@stryke/fs/exists";
 import { isPackageListed } from "@stryke/fs/package-fns";
@@ -40,8 +39,7 @@ export function plugin(
   return {
     name: "biome",
     async config() {
-      this.log(
-        LogLevelLabel.TRACE,
+      this.debug(
         "Providing default configuration for the Powerlines `biome` linting plugin."
       );
 
@@ -117,7 +115,7 @@ export function plugin(
       } as BiomePluginUserConfig;
     },
     async lint() {
-      this.log(LogLevelLabel.TRACE, `Linting project files with Biome.`);
+      this.debug(`Linting project files with Biome.`);
 
       const args: string[] = [];
 

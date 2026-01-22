@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { Config } from "@jest/types";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { joinPaths } from "@stryke/path/join";
 import chalk from "chalk";
 import { runCLI } from "jest";
@@ -213,8 +212,7 @@ export const plugin = <TContext extends JestPluginContext = JestPluginContext>(
             : "")
         }${snapshotsTotal} total`;
 
-        this.log(
-          LogLevelLabel.INFO,
+        this.info(
           `
 ${chalk.bold(`Test result summary:`)}
 ${suites}

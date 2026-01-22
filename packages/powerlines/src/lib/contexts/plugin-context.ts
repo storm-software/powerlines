@@ -82,6 +82,12 @@ export function createPluginContext<
         return log;
       }
 
+      if (prop === "fatal") {
+        return (message: string | UnpluginMessage) => {
+          log(LogLevelLabel.FATAL, normalizeMessage(message));
+        };
+      }
+
       if (prop === "error") {
         return (message: string | UnpluginMessage) => {
           log(LogLevelLabel.ERROR, normalizeMessage(message));

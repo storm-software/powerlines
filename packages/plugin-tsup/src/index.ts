@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { build, resolveOptions } from "@storm-software/tsup";
 import { appendPath } from "@stryke/path/append";
 import defu from "defu";
@@ -42,8 +41,7 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
   return {
     name: "tsup",
     config() {
-      this.log(
-        LogLevelLabel.TRACE,
+      this.debug(
         "Providing default configuration for the Powerlines `tsup` build plugin."
       );
 

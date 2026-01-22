@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import env from "@powerlines/plugin-env";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import defu from "defu";
 import { Plugin } from "powerlines/types/plugin";
 import { dateFnsModule } from "./components/date-fns";
@@ -44,8 +43,7 @@ export function plugin<TContext extends DatePluginContext = DatePluginContext>(
     {
       name: "date",
       async config() {
-        this.log(
-          LogLevelLabel.TRACE,
+        this.debug(
           "Providing default configuration for the Powerlines `date` build plugin."
         );
 
@@ -60,8 +58,7 @@ export function plugin<TContext extends DatePluginContext = DatePluginContext>(
           !["date-fns", "dayjs", "luxon", "moment"].includes(config.date!.type)
         ) {
           if (config.date!.type) {
-            this.log(
-              LogLevelLabel.WARN,
+            this.warn(
               `Invalid date library type "${config.date!.type}" specified. Defaulting to "date-fns".`
             );
           }
@@ -69,24 +66,19 @@ export function plugin<TContext extends DatePluginContext = DatePluginContext>(
           config.date!.type = "date-fns";
         }
 
-        this.log(
-          LogLevelLabel.DEBUG,
-          `Using date library: ${config.date!.type}`
-        );
+        this.debug(`Using date library: ${config.date!.type}`);
 
         return config;
       },
       async configResolved() {
-        this.log(
-          LogLevelLabel.TRACE,
+        this.debug(
           `Environment plugin configuration has been resolved for the Powerlines project.`
         );
 
         this.dependencies[this.config.date.type] = "latest";
       },
       async prepare() {
-        this.log(
-          LogLevelLabel.TRACE,
+        this.debug(
           `Preparing the Date runtime artifacts for the Powerlines project.`
         );
 

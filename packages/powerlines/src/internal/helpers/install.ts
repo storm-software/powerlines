@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { install } from "@stryke/fs/install";
 import {
   doesPackageMatch,
@@ -49,8 +48,7 @@ export async function installPackage(
     }))
   ) {
     if (context.config.autoInstall) {
-      context.log(
-        LogLevelLabel.WARN,
+      context.warn(
         `The package "${packageName}" is not installed. It will be installed automatically.`
       );
 
@@ -59,14 +57,13 @@ export async function installPackage(
         dev
       });
       if (isNumber(result.exitCode) && result.exitCode > 0) {
-        context.log(LogLevelLabel.ERROR, result.stderr);
+        context.error(result.stderr);
         throw new Error(
           `An error occurred while installing the package "${packageName}"`
         );
       }
     } else {
-      context.log(
-        LogLevelLabel.WARN,
+      context.warn(
         `The package "${packageName}" is not installed. Since the "autoInstall" option is set to false, it will not be installed automatically.`
       );
     }
@@ -90,8 +87,7 @@ export async function installPackage(
         !packageListing?.version.startsWith("catalog:") &&
         !packageListing?.version.startsWith("workspace:")
       ) {
-        context.log(
-          LogLevelLabel.WARN,
+        context.warn(
           `The package "${getPackageName(packageName)}" is installed but does not match the expected version ${getPackageVersion(
             packageName
           )} (installed version: ${packageListing?.version || "<Unknown>"}). Please ensure this is intentional before proceeding. Note: You can skip this validation with the "STORM_STACK_SKIP_VERSION_CHECK" environment variable.`

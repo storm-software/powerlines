@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { capnpc } from "@stryke/capnp/compile";
 import { resolveOptions } from "@stryke/capnp/helpers";
 import { findFileName } from "@stryke/path/file-path-fns";
@@ -78,10 +77,7 @@ export const plugin = <
         workspaceRoot: this.workspaceConfig.workspaceRoot
       });
       if (!resolvedOptions?.schemas?.length) {
-        this.log(
-          LogLevelLabel.WARN,
-          "No Cap'n Proto schemas found to compile."
-        );
+        this.warn("No Cap'n Proto schemas found to compile.");
 
         return;
       }

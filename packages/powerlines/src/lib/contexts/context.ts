@@ -1275,7 +1275,7 @@ export class PowerlinesContext<
     root = this.config.projectRoot
   ): Promise<string> {
     this.#checksum = await hashDirectory(root, {
-      ignore: ["node_modules", ".git", ".nx", ".cache", ".storm", "tmp", "dist"]
+      ignore: ["node_modules", ".git", ".nx", ".cache", "tmp", "dist"]
     });
 
     return this.#checksum;

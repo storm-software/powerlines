@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { transformAsync } from "@babel/core";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import {
   findFileExtension,
   findFileExtensionSafe
@@ -71,15 +70,12 @@ export const plugin = <TContext extends BabelPluginContext>(
         code.includes("/* @storm-ignore */") ||
         code.includes("/* @storm-disable */")
       ) {
-        this.log(
-          LogLevelLabel.TRACE,
-          `Skipping Babel transformation for: ${id}`
-        );
+        this.trace(`Skipping Babel transformation for: ${id}`);
 
         return { code, id };
       }
 
-      this.log(LogLevelLabel.TRACE, `Babel transforming file: ${id}`);
+      this.debug(`Babel transforming file: ${id}`);
 
       const plugins = this.config.transform.babel.plugins
         .map(plugin => resolveBabelPlugin(this, code, id, plugin))

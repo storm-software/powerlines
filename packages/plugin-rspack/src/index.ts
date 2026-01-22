@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { rspack as build } from "@rspack/core";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import defu from "defu";
 import { extractRspackConfig } from "powerlines/lib/build/rspack";
 import { RspackUserConfig } from "powerlines/types/config";
@@ -39,8 +38,7 @@ export const plugin = <
   return {
     name: "rspack",
     config() {
-      this.log(
-        LogLevelLabel.TRACE,
+      this.debug(
         "Providing default configuration for the Powerlines `rspack` build plugin."
       );
 

@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { PluginOptions, PluginTarget } from "@babel/core";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isFunction } from "@stryke/type-checks/is-function";
 import chalk from "chalk";
 import {
@@ -71,8 +70,7 @@ export function resolveBabelPlugin(
       isFunction(plugin[2]) &&
       !plugin[2](code, id)
     ) {
-      context.log(
-        LogLevelLabel.TRACE,
+      context.trace(
         `Skipping filtered Babel plugin ${chalk.bold.cyanBright(
           getPluginName(plugin) || "unnamed"
         )} for ${id}`

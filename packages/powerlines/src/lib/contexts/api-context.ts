@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
@@ -281,8 +280,7 @@ export class PowerlinesAPIContext<
     if (Object.keys(this.environments).length === 1) {
       environment = this.environments[Object.keys(this.environments)[0]!];
 
-      this.log(
-        LogLevelLabel.DEBUG,
+      this.debug(
         `Applying the only configured environment: ${chalk.bold.cyanBright(
           environment?.environment.name
         )}`
@@ -298,8 +296,7 @@ export class PowerlinesAPIContext<
         createDefaultEnvironment(this.config.userConfig)
       );
 
-      this.log(
-        LogLevelLabel.WARN,
+      this.warn(
         `No environment specified, and no default environment found. Using a temporary default environment: ${chalk.bold.cyanBright(
           environment?.environment.name
         )}`
@@ -340,8 +337,7 @@ export class PowerlinesAPIContext<
         createEnvironment(GLOBAL_ENVIRONMENT, this.config.userConfig)
       );
 
-      this.log(
-        LogLevelLabel.DEBUG,
+      this.debug(
         `Combined all ${Object.keys(this.environments).length} environments into a single global context.`
       );
     } else {

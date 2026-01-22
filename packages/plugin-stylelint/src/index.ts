@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { getParentPath } from "@stryke/fs/get-parent-path";
 import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join";
@@ -36,8 +35,7 @@ export function plugin(
   return {
     name: "stylelint",
     async config() {
-      this.log(
-        LogLevelLabel.TRACE,
+      this.debug(
         "Providing default configuration for the Powerlines `stylelint` build plugin."
       );
 
@@ -79,7 +77,7 @@ export function plugin(
       };
     },
     async lint() {
-      this.log(LogLevelLabel.TRACE, `Linting project files with Stylelint.`);
+      this.debug(`Linting project files with Stylelint.`);
 
       const result = await stylelint.lint(options);
 
@@ -94,23 +92,19 @@ export function plugin(
       }
 
       if (!this.config.lint.stylelint.silent) {
-        this.log(LogLevelLabel.INFO, result.report);
+        this.info(result.report);
 
         const totalWarnings = result.results
           .map(res => res.warnings.filter(warn => warn.severity === "warning"))
           .reduce((prev, res) => prev + res.length, 0);
         if (totalWarnings > 0) {
-          this.log(
-            LogLevelLabel.WARN,
+          this.warn(
             `${totalWarnings} Stylelint linting warnings found in the listed files.`
           );
         } else if (result.errored) {
-          this.log(
-            LogLevelLabel.ERROR,
-            "Stylelint linting errors found in the listed files."
-          );
+          this.error("Stylelint linting errors found in the listed files.");
         } else {
-          this.log(LogLevelLabel.INFO, "All files pass Stylelint linting.");
+          this.info("All files pass Stylelint linting.");
         }
       }
     }

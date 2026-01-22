@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
 import { existsSync } from "@stryke/fs/exists";
 import { listFiles } from "@stryke/fs/list-files";
@@ -116,8 +115,7 @@ export const plugin = <
               }
             }
           } catch (error) {
-            this.log(
-              LogLevelLabel.DEBUG,
+            this.debug(
               `Failed to load Satori schema from ${input}: ${(error as Error).message}`
             );
           }

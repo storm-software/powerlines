@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { existsSync } from "@stryke/fs/exists";
 import { getParentPath } from "@stryke/fs/get-parent-path";
 import { isPackageExists } from "@stryke/fs/package-fns";
@@ -43,8 +42,7 @@ export function plugin(
   return {
     name: "eslint",
     async config() {
-      this.log(
-        LogLevelLabel.TRACE,
+      this.debug(
         "Providing default configuration for the Powerlines `eslint` build plugin."
       );
 
@@ -210,7 +208,7 @@ export function plugin(
       this.eslint = new ESLint(options);
     },
     async lint() {
-      this.log(LogLevelLabel.TRACE, `Linting project files with ESLint.`);
+      this.debug("Linting project files with ESLint.");
 
       let results = await this.eslint.lintFiles(
         this.tsconfig.fileNames.filter(
@@ -261,7 +259,7 @@ export function plugin(
       if (this.config.lint.eslint.outputFile) {
         await this.fs.write(this.config.lint.eslint.outputFile, output);
       } else {
-        this.log(LogLevelLabel.INFO, output);
+        this.info(output);
       }
     }
   };

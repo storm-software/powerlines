@@ -56,11 +56,6 @@ import type {
 } from "./resolved";
 import type { ParsedTypeScriptConfig } from "./tsconfig";
 
-/**
- * The severity level of a log message.
- */
-export type LogLevel = "debug" | "info" | "warning" | "error" | "fatal";
-
 export type WorkerProcess<TExposedMethods extends ReadonlyArray<string>> = {
   [K in TExposedMethods[number]]: (data: any) => Promise<any>;
 } & {

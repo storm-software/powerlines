@@ -18,7 +18,6 @@
 
 import type { Diff, ObjectData } from "@donedeal0/superdiff";
 import { getObjectDiff } from "@donedeal0/superdiff";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { readJsonFile } from "@stryke/fs/json";
 import { isPackageExists } from "@stryke/fs/package-fns";
 import { StormJSON } from "@stryke/json/storm-json";
@@ -191,8 +190,7 @@ export async function initializeTsconfig<
   TContext extends EnvironmentContext<TResolvedConfig> =
     EnvironmentContext<TResolvedConfig>
 >(context: TContext): Promise<void> {
-  context.log(
-    LogLevelLabel.TRACE,
+  context.debug(
     "Initializing TypeScript configuration (tsconfig.json) for the Powerlines project."
   );
 
@@ -214,8 +212,7 @@ export async function initializeTsconfig<
   context.tsconfig.tsconfigJson =
     await resolveTsconfigChanges<TResolvedConfig>(context);
 
-  context.log(
-    LogLevelLabel.TRACE,
+  context.debug(
     "Writing updated TypeScript configuration (tsconfig.json) file to disk."
   );
 
@@ -307,8 +304,7 @@ export async function resolveTsconfig<
   }
 
   if (changes.length > 0) {
-    context.log(
-      LogLevelLabel.WARN,
+    context.warn(
       `Updating the following configuration values in "${context.tsconfig.tsconfigFilePath}" file:
 
     ${changes

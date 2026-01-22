@@ -24,7 +24,6 @@ import {
 import alloy from "@powerlines/plugin-alloy";
 import automd from "@powerlines/plugin-automd";
 import babel from "@powerlines/plugin-babel";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
 import { ENV_PREFIXES } from "@stryke/env/types";
@@ -76,8 +75,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
     {
       name: "env",
       async config() {
-        this.log(
-          LogLevelLabel.TRACE,
+        this.debug(
           "Providing default configuration for the Powerlines `env` build plugin."
         );
 
@@ -98,8 +96,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             config.env.types
           ) as TypeDefinition;
         } else {
-          this.log(
-            LogLevelLabel.WARN,
+          this.warn(
             "The `env.types` configuration parameter was not provided. Please ensure this is expected."
           );
 
@@ -154,8 +151,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         return config;
       },
       async configResolved() {
-        this.log(
-          LogLevelLabel.TRACE,
+        this.debug(
           `Environment plugin configuration has been resolved for the Powerlines project.`
         );
 
@@ -182,8 +178,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           this.persistedMeta?.checksum === this.meta.checksum &&
           existsSync(getEnvTypeReflectionsPath(this, "env"))
         ) {
-          this.log(
-            LogLevelLabel.TRACE,
+          this.debug(
             `Skipping reflection initialization as the meta checksum has not changed.`
           );
 
@@ -250,8 +245,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
 
           await writeEnvTypeReflection(this, this.env.types.secrets, "secrets");
 
-          this.log(
-            LogLevelLabel.TRACE,
+          this.debug(
             `Resolved ${
               this.env.types.env.getProperties().length ?? 0
             } environment configuration parameters and ${
@@ -327,8 +321,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         }
       },
       async prepare() {
-        this.log(
-          LogLevelLabel.TRACE,
+        this.debug(
           `Preparing the Environment runtime artifacts for the Powerlines project.`
         );
 
@@ -337,8 +330,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         );
       },
       async docs() {
-        this.log(
-          LogLevelLabel.TRACE,
+        this.debug(
           "Writing Environment documentation for the Powerlines project artifacts."
         );
 
@@ -356,8 +348,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         const reflection = await readEnvTypeReflection(this, "env");
         const envDocFile = joinPaths(outputPath, "env.md");
 
-        this.log(
-          LogLevelLabel.TRACE,
+        this.debug(
           `Documenting environment variables configuration in "${envDocFile}"`
         );
 
@@ -402,10 +393,7 @@ ${reflection
       async buildEnd() {
         const reflectionPath = getEnvReflectionsPath(this, "env");
 
-        this.log(
-          LogLevelLabel.TRACE,
-          `Writing env reflection types to ${reflectionPath}.`
-        );
+        this.debug(`Writing env reflection types to ${reflectionPath}.`);
 
         await writeEnvReflection(this, this.env.used.env, "env");
       }

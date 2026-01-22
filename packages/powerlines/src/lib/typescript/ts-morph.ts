@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import defu from "defu";
 import {
   CompilerOptions,
@@ -157,8 +156,7 @@ export function createProgram(
   context: Context,
   override: Partial<ProjectOptions>
 ): Project {
-  context.log(
-    LogLevelLabel.TRACE,
+  context.debug(
     `Creating ts-morph Project instance with configuration from: ${
       context.tsconfig.tsconfigFilePath
     }.`

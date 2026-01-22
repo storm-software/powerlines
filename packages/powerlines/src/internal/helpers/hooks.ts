@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isObject } from "@stryke/type-checks/is-object";
 import { isSet } from "@stryke/type-checks/is-set";
@@ -115,8 +114,7 @@ export async function callHook<
 > {
   const hooks = context.selectHooks(key, options);
   if (hooks.length > 0) {
-    context.log(
-      LogLevelLabel.DEBUG,
+    context.debug(
       ` 🧩  Calling plugin hook: ${chalk.bold.cyanBright(
         `${key}${options?.order ? ` (${options.order})` : ""}`
       )}`

@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import defu from "defu";
 import { Plugin } from "powerlines/types/plugin";
 import { nanoidModule } from "./components/nanoid";
@@ -36,8 +35,7 @@ export function plugin(options: IdPluginOptions = {}): Plugin<IdPluginContext> {
   return {
     name: "id",
     async config() {
-      this.log(
-        LogLevelLabel.TRACE,
+      this.debug(
         "Providing default configuration for the Powerlines `id` build plugin."
       );
 
@@ -49,8 +47,7 @@ export function plugin(options: IdPluginOptions = {}): Plugin<IdPluginContext> {
 
       if (!config.id!.type || !["nanoid"].includes(config.id!.type)) {
         if (config.id!.type) {
-          this.log(
-            LogLevelLabel.WARN,
+          this.warn(
             `Invalid ID generation type "${config.id!.type}" specified. Defaulting to "nanoid".`
           );
         }
@@ -58,17 +55,13 @@ export function plugin(options: IdPluginOptions = {}): Plugin<IdPluginContext> {
         config.id!.type = "nanoid";
       }
 
-      this.log(
-        LogLevelLabel.DEBUG,
-        `Using ID generation library: ${config.id!.type}`
-      );
+      this.debug(`Using ID generation library: ${config.id!.type}`);
 
       return config;
     },
     async prepare() {
-      this.log(
-        LogLevelLabel.TRACE,
-        `Preparing the ID runtime artifacts for the Powerlines project.`
+      this.debug(
+        "Preparing the ID runtime artifacts for the Powerlines project."
       );
 
       let idModule!: (context: IdPluginContext) => string;

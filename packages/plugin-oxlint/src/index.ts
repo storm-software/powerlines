@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { execute, executePackage } from "@stryke/cli/execute";
 import { toArray } from "@stryke/convert/to-array";
 import { existsSync } from "@stryke/fs/exists";
@@ -38,8 +37,7 @@ export function plugin(
   return {
     name: "oxlint",
     async config() {
-      this.log(
-        LogLevelLabel.TRACE,
+      this.debug(
         "Providing default configuration for the Powerlines `oxlint` linting plugin."
       );
 
@@ -65,7 +63,7 @@ export function plugin(
       }
     },
     async lint() {
-      this.log(LogLevelLabel.TRACE, `Linting project files with Oxlint.`);
+      this.debug("Linting project files with Oxlint.");
 
       const args: string[] = [];
 

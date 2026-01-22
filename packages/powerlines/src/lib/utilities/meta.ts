@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { existsSync } from "@stryke/fs/exists";
 import { readJsonFile } from "@stryke/fs/json";
 import { listFiles } from "@stryke/fs/list-files";
@@ -111,8 +110,7 @@ export async function getPersistedMeta(
     try {
       return await readJsonFile<MetaInfo>(metaFilePath);
     } catch {
-      context.log(
-        LogLevelLabel.WARN,
+      context.warn(
         `Failed to read meta file at ${metaFilePath}. It may be corrupted.`
       );
       await removeFile(metaFilePath);
@@ -133,10 +131,7 @@ export async function getPersistedMeta(
 export async function writeMetaFile(context: Context): Promise<void> {
   const metaFilePath = joinPaths(context.dataPath, "meta.json");
 
-  context.log(
-    LogLevelLabel.DEBUG,
-    `Writing runtime metadata to ${metaFilePath}`
-  );
+  context.debug(`Writing runtime metadata to ${metaFilePath}`);
 
   await context.fs.write(metaFilePath, JSON.stringify(context.meta, null, 2));
 }

@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { existsSync } from "@stryke/fs/exists";
 import { createDirectory, removeDirectory } from "@stryke/fs/helpers";
 import { appendPath } from "@stryke/path/append";
@@ -46,8 +45,7 @@ export function plugin(
   return {
     name: "typedoc",
     async config() {
-      this.log(
-        LogLevelLabel.TRACE,
+      this.debug(
         "Providing default configuration for the Powerlines `typedoc` build plugin."
       );
 
@@ -93,8 +91,7 @@ export function plugin(
       );
     },
     async docs() {
-      this.log(
-        LogLevelLabel.TRACE,
+      this.debug(
         `Generating documentation for the Powerlines application with TypeDoc.`
       );
 

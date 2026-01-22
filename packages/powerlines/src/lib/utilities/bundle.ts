@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import defu from "defu";
 import { build, BuildOptions, OutputFile } from "esbuild";
 import { createEsbuildPlugin } from "unplugin";
@@ -73,8 +72,7 @@ export async function bundle(
     );
   }
   if (result.warnings.length > 0) {
-    context.log(
-      LogLevelLabel.WARN,
+    context.warn(
       `Warnings while transpiling ${file}: ${result.warnings
         .map(warning => warning.text)
         .join(", ")}`

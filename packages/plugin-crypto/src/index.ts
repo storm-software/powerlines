@@ -18,7 +18,6 @@
 
 import { bytesToHex, randomBytes } from "@noble/ciphers/utils.js";
 import env from "@powerlines/plugin-env";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import defu from "defu";
 import { Plugin } from "powerlines/types/plugin";
 import { cryptoModule } from "./components/crypto";
@@ -53,8 +52,7 @@ export function plugin<
 
         this.config.crypto.salt ??= this.env.parsed.SALT!;
         if (!this.config.crypto.salt) {
-          this.log(
-            LogLevelLabel.WARN,
+          this.warn(
             `No salt provided to the Crypto plugin - a salt value will be generated automatically. Please note: It's highly recommended to provide a unique salt value via the \`salt\` plugin option or the \`SALT\` environment variable.`
           );
 
@@ -63,8 +61,7 @@ export function plugin<
 
         this.config.crypto.encryptionKey ??= this.env.parsed.ENCRYPTION_KEY!;
         if (!this.config.crypto.encryptionKey) {
-          this.log(
-            LogLevelLabel.WARN,
+          this.warn(
             `No encryption key provided to the Crypto plugin - a secure key will be generated automatically. Please note: it's highly recommended to provide a secure encryption key via the \`encryptionKey\` plugin option or the \`ENCRYPTION_KEY\` environment variable.`
           );
 
@@ -72,8 +69,7 @@ export function plugin<
         }
       },
       async prepare() {
-        this.log(
-          LogLevelLabel.TRACE,
+        this.debug(
           `Preparing the Crypto runtime artifacts for the Powerlines project.`
         );
 
