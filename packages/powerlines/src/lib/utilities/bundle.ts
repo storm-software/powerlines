@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { findFileName } from "@stryke/path/file-path-fns";
 import defu from "defu";
 import { build, BuildOptions, OutputFile } from "esbuild";
 import { createEsbuildPlugin } from "unplugin";
@@ -110,7 +111,6 @@ export async function bundle(
     );
   }
 
-  // const plugin = await externalBuiltinsPlugin(context);
   const result = await build(
     defu(
       {
@@ -127,7 +127,11 @@ export async function bundle(
         ...overrides
       } as BuildOptions,
       {
-        plugins: [createEsbuildPlugin(createUnpluginResolver(context))({})]
+        plugins: [
+          createEsbuildPlugin(
+            createUnpluginResolver(context, `${findFileName(file)} Bundler`)
+          )({})
+        ]
       }
     )
   );

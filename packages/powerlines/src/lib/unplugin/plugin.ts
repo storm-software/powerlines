@@ -17,6 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
+import { kebabCase } from "@stryke/string-format/kebab-case";
+import { titleCase } from "@stryke/string-format/title-case";
 import type {
   TransformResult,
   UnpluginBuildContext,
@@ -41,20 +43,30 @@ import { createUnpluginModuleResolutionFunctions } from "./module-resolution";
 export function createUnpluginResolver<
   TContext extends PluginContext = PluginContext,
   TBuildVariant extends UnpluginBuilderVariant = UnpluginBuilderVariant
->(context: TContext): UnpluginFactory<TBuildVariant> {
+>(context: TContext, name = "unplugin"): UnpluginFactory<TBuildVariant> {
   const ctx = context as unknown as UNSAFE_PluginContext;
   setParseImpl(ctx.parse);
 
   return () => {
-    const log = extendLog(ctx.log, "unplugin");
-    log(LogLevelLabel.DEBUG, "Initializing Unplugin");
+    const log = extendLog(ctx.log, name);
+    log(
+      LogLevelLabel.DEBUG,
+      `Initializing ${
+        name.toLowerCase() === "unplugin"
+          ? "Unplugin"
+          : `${titleCase(name)} - Unplugin`
+      } plugin`
+    );
 
     try {
       const { resolveId, load } =
         createUnpluginModuleResolutionFunctions<TContext>(context);
 
       return {
-        name: "powerlines",
+        name:
+          name.toLowerCase() === "unplugin"
+            ? "powerlines"
+            : `powerlines:${kebabCase(name)}`,
         api: ctx.$$internal.api,
         resolveId: {
           filter: {
@@ -90,13 +102,20 @@ export function createUnpluginResolver<
 export function createUnplugin<
   TContext extends PluginContext = PluginContext,
   TBuildVariant extends UnpluginBuilderVariant = UnpluginBuilderVariant
->(context: TContext): UnpluginFactory<TBuildVariant> {
+>(context: TContext, name = "unplugin"): UnpluginFactory<TBuildVariant> {
   const ctx = context as unknown as UNSAFE_PluginContext;
   setParseImpl(ctx.parse);
 
   return () => {
-    const log = extendLog(ctx.log, "unplugin");
-    log(LogLevelLabel.DEBUG, "Initializing Unplugin");
+    const log = extendLog(ctx.log, name);
+    log(
+      LogLevelLabel.DEBUG,
+      `Initializing ${
+        name.toLowerCase() === "unplugin"
+          ? "Unplugin"
+          : `${titleCase(name)} - Unplugin`
+      } plugin`
+    );
 
     try {
       const { resolveId, load } =
@@ -150,7 +169,10 @@ export function createUnplugin<
       }
 
       return {
-        name: "powerlines",
+        name:
+          name.toLowerCase() === "unplugin"
+            ? "powerlines"
+            : `powerlines:${kebabCase(name)}`,
         api: ctx.$$internal.api,
         resolveId: {
           filter: {
