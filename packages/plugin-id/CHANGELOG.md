@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.9.207](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.207) (01/21/2026)
+
+### Miscellaneous
+
+- **powerlines:** Removed `builtinPrefix` to simplify context usage
+  ([f49ee720](https://github.com/storm-software/powerlines/commit/f49ee720))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.150**
+- Updated **powerlines** to **v0.37.72**
+
 ## [0.9.206](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.206) (01/21/2026)
 
 ### Updated Dependencies

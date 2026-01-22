@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.72](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.72) (01/21/2026)
+
+### Miscellaneous
+
+- **powerlines:** Removed `builtinPrefix` to simplify context usage
+  ([f49ee720](https://github.com/storm-software/powerlines/commit/f49ee720))
+
+### Bug Fixes
+
+- **powerlines:** Resolve early access to `config.build` in `init` function
+  ([f6fb2e30](https://github.com/storm-software/powerlines/commit/f6fb2e30))
+- **powerlines:** Resolve issue using builtins inside code provided to `bundle`
+  function
+  ([5b57a3e6](https://github.com/storm-software/powerlines/commit/5b57a3e6))
+
 ## [0.37.67](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.67) (01/21/2026)
 
 ### Bug Fixes

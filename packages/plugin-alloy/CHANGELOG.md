@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.87](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.87) (01/21/2026)
+
+### Miscellaneous
+
+- **powerlines:** Removed `builtinPrefix` to simplify context usage
+  ([f49ee720](https://github.com/storm-software/powerlines/commit/f49ee720))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.150**
+- Updated **powerlines** to **v0.37.72**
+- Updated **deepkit** to **v0.5.115**
+
 ## [0.18.86](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.86) (01/21/2026)
 
 ### Updated Dependencies

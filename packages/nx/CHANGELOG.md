@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.128](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.128) (01/21/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue using builtins inside code provided to `bundle`
+  function
+  ([5b57a3e6](https://github.com/storm-software/powerlines/commit/5b57a3e6))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.37.72**
+
 ## [0.11.127](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.127) (01/21/2026)
 
 ### Updated Dependencies
