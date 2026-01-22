@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.130](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.130) (01/21/2026)
+
+### Miscellaneous
+
+- **nx:** Update `dependsOn` list to no longer require `prepare` prior to
+  `build`
+  ([5d05cb82](https://github.com/storm-software/powerlines/commit/5d05cb82))
+
 ## [0.11.129](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.129) (01/21/2026)
 
 ### Updated Dependencies
