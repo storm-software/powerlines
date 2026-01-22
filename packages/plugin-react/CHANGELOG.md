@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.220](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.220) (01/21/2026)
+
+### Miscellaneous
+
+- **powerlines:** Removed `builtinPrefix` to simplify context usage
+  ([f49ee720](https://github.com/storm-software/powerlines/commit/f49ee720))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.150**
+- Updated **plugin-alloy** to **v0.18.87**
+- Updated **plugin-babel** to **v0.12.207**
+- Updated **plugin-env** to **v0.15.91**
+- Updated **powerlines** to **v0.37.72**
+- Updated **deepkit** to **v0.5.115**
+
 ## [0.1.219](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.219) (01/21/2026)
 
 ### Updated Dependencies

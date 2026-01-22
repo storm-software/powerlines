@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.194](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.194) (01/21/2026)
+
+### Miscellaneous
+
+- **powerlines:** Removed `builtinPrefix` to simplify context usage
+  ([f49ee720](https://github.com/storm-software/powerlines/commit/f49ee720))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.150**
+- Updated **plugin-env** to **v0.15.91**
+- Updated **powerlines** to **v0.37.72**
+
 ## [0.10.193](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.193) (01/21/2026)
 
 ### Updated Dependencies

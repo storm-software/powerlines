@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.5.115](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.115) (01/21/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve early access to `config.build` in `init` function
+  ([f6fb2e30](https://github.com/storm-software/powerlines/commit/f6fb2e30))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.37.72**
+
 ## [0.5.114](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.114) (01/21/2026)
 
 ### Updated Dependencies
