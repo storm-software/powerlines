@@ -56,8 +56,6 @@ export const plugin = <TContext extends BabelPluginContext>(
     configResolved: {
       order: "pre",
       handler() {
-        this.devDependencies["@babel/core"] = "^7.28.4";
-
         this.config.transform.babel = defu(this.config.transform.babel ?? {}, {
           plugins: [],
           presets: []
