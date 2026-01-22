@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.75](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.75) (01/22/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with invalid options passed to `onLoad` result
+  ([4f795d19](https://github.com/storm-software/powerlines/commit/4f795d19))
+
 ## [0.37.74](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.74) (01/22/2026)
 
 ### Miscellaneous

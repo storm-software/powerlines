@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.132](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.132) (01/22/2026)
+
+### Miscellaneous
+
+- **nx:** Clean up `dependsOn` task property
+  ([3c9d78d8](https://github.com/storm-software/powerlines/commit/3c9d78d8))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.37.75**
+
 ## [0.11.131](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.131) (01/22/2026)
 
 ### Updated Dependencies
