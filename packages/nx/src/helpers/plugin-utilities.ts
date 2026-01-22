@@ -369,9 +369,9 @@ export function createNxPlugin<
                 executor:
                   options?.build?.executor ||
                   `@${framework}/nx:${options?.build?.targetName || "build"}`,
-                dependsOn:
-                  options?.build?.dependsOn ??
-                  [`^${options?.build?.targetName || "build"}`].filter(Boolean),
+                dependsOn: options?.build?.dependsOn ?? [
+                  `^${options?.build?.targetName || "build"}`
+                ],
                 defaultConfiguration:
                   options?.build?.defaultConfiguration || "production",
                 options: {
