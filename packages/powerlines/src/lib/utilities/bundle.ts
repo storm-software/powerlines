@@ -79,12 +79,16 @@ const externalBuiltinsPlugin = async (context: Context): Promise<Plugin> => {
           );
           if (!found) {
             context.warn(
-              `Failed to load builtin module: "${args.path}" during bundling - this should not happen since the \`onResolve\` hook is supposed handle missing built-in modules, so this is a bug.`
+              `Failed to load builtin module: "${
+                args.path
+              }" during bundling - this should not happen since the \`onResolve\` hook resolves all existing built-in modules. Please ensure the built-in module "${
+                args.path
+              }" was generated.`
             );
             return { contents: "", loader: "ts" };
           }
 
-          return { ...args, contents: found?.code || "", loader: "ts" };
+          return { contents: found?.code || "", loader: "ts" };
         }
       );
     }
@@ -122,7 +126,6 @@ export async function bundle(
         splitting: false,
         treeShaking: false,
         bundle: true,
-        packages: "external",
         platform: "node",
         logLevel: "silent",
         ...overrides
