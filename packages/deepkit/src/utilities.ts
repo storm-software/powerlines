@@ -94,8 +94,9 @@ export function stringifyValue(type: Type, value: any): string {
                 : type.kind === ReflectionKind.object ||
                     type.kind === ReflectionKind.objectLiteral
                   ? StormJSON.stringify(value)
-                  : type.kind === ReflectionKind.property ||
-                      type.kind === ReflectionKind.parameter
+                  : (type.kind === ReflectionKind.property ||
+                        type.kind === ReflectionKind.parameter) &&
+                      type.type?.kind
                     ? stringifyValue(type.type, value)
                     : String(value)?.includes('"') ||
                         String(value)?.includes("'")
