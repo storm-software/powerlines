@@ -22,7 +22,7 @@ import { createEsbuildPlugin } from "unplugin";
 import { ESBuildResolvedBuildConfig } from "../../types/build";
 import { PluginContext } from "../../types/context";
 import { extractESBuildConfig } from "../build/esbuild";
-import { createUnplugin } from "../unplugin/plugin";
+import { createUnpluginResolver } from "../unplugin/plugin";
 
 // const externalBuiltinsPlugin = async (context: Context): Promise<Plugin> => {
 //   const builtins = await context.getBuiltins();
@@ -127,7 +127,7 @@ export async function bundle(
         ...overrides
       } as BuildOptions,
       {
-        plugins: [createEsbuildPlugin(createUnplugin(context))({})]
+        plugins: [createEsbuildPlugin(createUnpluginResolver(context))({})]
       }
     )
   );

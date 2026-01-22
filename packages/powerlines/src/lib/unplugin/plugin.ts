@@ -18,7 +18,6 @@
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import type {
-  ExternalIdResult,
   TransformResult,
   UnpluginBuildContext,
   UnpluginContext
@@ -31,6 +30,56 @@ import { UnpluginFactory } from "../../types/unplugin";
 import { extendLog } from "../logger";
 import { getString } from "../utilities/source-file";
 import { combineContexts } from "./helpers";
+import { createUnpluginModuleResolutionFunctions } from "./module-resolution";
+
+/**
+ * Creates a Powerlines unplugin instance.
+ *
+ * @param context - The plugin context.
+ * @returns The unplugin instance.
+ */
+export function createUnpluginResolver<
+  TContext extends PluginContext = PluginContext,
+  TBuildVariant extends UnpluginBuilderVariant = UnpluginBuilderVariant
+>(context: TContext): UnpluginFactory<TBuildVariant> {
+  const ctx = context as unknown as UNSAFE_PluginContext;
+  setParseImpl(ctx.parse);
+
+  return () => {
+    const log = extendLog(ctx.log, "unplugin");
+    log(LogLevelLabel.DEBUG, "Initializing Unplugin");
+
+    try {
+      const { resolveId, load } =
+        createUnpluginModuleResolutionFunctions<TContext>(context);
+
+      return {
+        name: "powerlines",
+        api: ctx.$$internal.api,
+        resolveId: {
+          filter: {
+            id: {
+              include: [/.*/]
+            }
+          },
+          handler: resolveId
+        },
+        load: {
+          filter: {
+            id: {
+              include: [/.*/]
+            }
+          },
+          handler: load
+        }
+      };
+    } catch (error) {
+      log(LogLevelLabel.FATAL, (error as Error)?.message);
+
+      throw error;
+    }
+  };
+}
 
 /**
  * Creates a Powerlines unplugin instance.
@@ -50,114 +99,15 @@ export function createUnplugin<
     log(LogLevelLabel.DEBUG, "Initializing Unplugin");
 
     try {
+      const { resolveId, load } =
+        createUnpluginModuleResolutionFunctions<TContext>(context);
+
       async function buildStart(this: UnpluginBuildContext) {
         log(LogLevelLabel.DEBUG, "Powerlines build plugin starting...");
 
         await ctx.$$internal.callHook("buildStart", {
           sequential: true
         });
-      }
-
-      async function resolveId(
-        this: UnpluginBuildContext & UnpluginContext,
-        id: string,
-        importer?: string,
-        opts: {
-          isEntry: boolean;
-        } = { isEntry: false }
-      ): Promise<string | ExternalIdResult | null | undefined> {
-        let result = await ctx.$$internal.callHook(
-          "resolveId",
-          {
-            sequential: true,
-            result: "first",
-            order: "pre"
-          },
-          id,
-          importer,
-          opts
-        );
-        if (result) {
-          return result;
-        }
-
-        result = await ctx.$$internal.callHook(
-          "resolveId",
-          {
-            sequential: true,
-            result: "first",
-            order: "normal"
-          },
-          id,
-          importer,
-          opts
-        );
-        if (result) {
-          return result;
-        }
-
-        result = await ctx.resolve(id, importer, opts);
-        if (result) {
-          return result;
-        }
-
-        return ctx.$$internal.callHook(
-          "resolveId",
-          {
-            sequential: true,
-            result: "first",
-            order: "post"
-          },
-          id,
-          importer,
-          opts
-        );
-      }
-
-      async function load(
-        this: UnpluginBuildContext & UnpluginContext,
-        id: string
-      ): Promise<TransformResult | null | undefined> {
-        let result = await ctx.$$internal.callHook(
-          "load",
-          {
-            sequential: true,
-            result: "first",
-            order: "pre"
-          },
-          id
-        );
-        if (result) {
-          return result;
-        }
-
-        result = await ctx.$$internal.callHook(
-          "load",
-          {
-            sequential: true,
-            result: "first",
-            order: "normal"
-          },
-          id
-        );
-        if (result) {
-          return result;
-        }
-
-        result = await ctx.load(id);
-        if (result) {
-          return result;
-        }
-
-        return ctx.$$internal.callHook(
-          "load",
-          {
-            sequential: true,
-            result: "first",
-            order: "post"
-          },
-          id
-        );
       }
 
       async function transform(

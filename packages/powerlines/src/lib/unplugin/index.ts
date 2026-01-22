@@ -18,4 +18,5 @@
 
 export * from "./factory";
 export * from "./helpers";
+export * from "./module-resolution";
 export * from "./plugin";
