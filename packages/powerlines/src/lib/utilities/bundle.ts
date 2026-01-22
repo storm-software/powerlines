@@ -17,83 +17,78 @@
  ------------------------------------------------------------------- */
 
 import defu from "defu";
-import {
-  build,
-  BuildOptions,
-  OnLoadArgs,
-  OnResolveArgs,
-  OutputFile,
-  Plugin
-} from "esbuild";
+import { build, BuildOptions, OutputFile } from "esbuild";
+import { createEsbuildPlugin } from "unplugin";
 import { ESBuildResolvedBuildConfig } from "../../types/build";
-import { Context } from "../../types/context";
+import { PluginContext } from "../../types/context";
 import { extractESBuildConfig } from "../build/esbuild";
+import { createUnplugin } from "../unplugin/plugin";
 
-const externalBuiltinsPlugin = async (context: Context): Promise<Plugin> => {
-  const builtins = await context.getBuiltins();
+// const externalBuiltinsPlugin = async (context: Context): Promise<Plugin> => {
+//   const builtins = await context.getBuiltins();
 
-  return {
-    name: `powerlines:external-builtins`,
-    setup(build) {
-      build.onResolve(
-        {
-          filter: new RegExp(`^${context.config.framework || "powerlines"}:.*`)
-        },
-        async (args: OnResolveArgs) => {
-          const found = builtins.find(
-            builtin =>
-              builtin.id === args.path ||
-              builtin.id ===
-                args.path.replace(
-                  new RegExp(`^${context.config.framework || "powerlines"}:`),
-                  ""
-                ) ||
-              builtin.path === args.path
-          );
-          if (found) {
-            return {
-              path: found.id,
-              external: false,
-              namespace: "powerlines"
-            };
-          }
+//   return {
+//     name: `powerlines:external-builtins`,
+//     setup(build) {
+//       build.onResolve(
+//         {
+//           filter: new RegExp(`^${context.config.framework || "powerlines"}:.*`)
+//         },
+//         async (args: OnResolveArgs) => {
+//           const found = builtins.find(
+//             builtin =>
+//               builtin.id === args.path ||
+//               builtin.id ===
+//                 args.path.replace(
+//                   new RegExp(`^${context.config.framework || "powerlines"}:`),
+//                   ""
+//                 ) ||
+//               builtin.path === args.path
+//           );
+//           if (found) {
+//             return {
+//               path: found.id,
+//               external: false,
+//               namespace: "powerlines"
+//             };
+//           }
 
-          return { external: true };
-        }
-      );
-      build.onLoad(
-        {
-          filter: /.*/,
-          namespace: "powerlines"
-        },
-        async (args: OnLoadArgs) => {
-          const found = builtins.find(
-            builtin =>
-              builtin.id === args.path ||
-              builtin.id ===
-                args.path.replace(
-                  new RegExp(`^${context.config.framework || "powerlines"}:`),
-                  ""
-                ) ||
-              builtin.path === args.path
-          );
-          if (!found) {
-            context.warn(
-              `Failed to load builtin module: "${
-                args.path
-              }" during bundling - this should not happen since the \`onResolve\` hook resolves all existing built-in modules. Please ensure the built-in module "${
-                args.path
-              }" was generated.`
-            );
-            return { contents: "", loader: "ts" };
-          }
+//           return { external: true };
+//         }
+//       );
+//       build.onLoad(
+//         {
+//           filter: /.*/,
+//           namespace: "powerlines"
+//         },
+//         async (args: OnLoadArgs) => {
+//           const found = builtins.find(
+//             builtin =>
+//               builtin.id === args.path ||
+//               builtin.id ===
+//                 args.path.replace(
+//                   new RegExp(`^${context.config.framework || "powerlines"}:`),
+//                   ""
+//                 ) ||
+//               builtin.path === args.path
+//           );
+//           if (!found) {
+//             context.warn(
+//               `Failed to load builtin module: "${
+//                 args.path
+//               }" during bundling - this should not happen since the \`onResolve\` hook resolves all existing built-in modules. Please ensure the built-in module "${
+//                 args.path
+//               }" was generated.`
+//             );
+//             return { contents: "", loader: "ts" };
+//           }
 
-          return { contents: found?.code || "", loader: "ts" };
-        }
-      );
-    }
-  };
-};
+//           return { contents: found?.code || "", loader: "ts" };
+//         }
+//       );
+//     }
+//   };
+// };
 
 /**
  * Bundle a type definition to a module.
@@ -104,7 +99,7 @@ const externalBuiltinsPlugin = async (context: Context): Promise<Plugin> => {
  * @returns A promise that resolves to the bundled module.
  */
 export async function bundle(
-  context: Context,
+  context: PluginContext,
   file: string,
   overrides: Partial<ESBuildResolvedBuildConfig> = {}
 ): Promise<OutputFile> {
@@ -115,7 +110,7 @@ export async function bundle(
     );
   }
 
-  const plugin = await externalBuiltinsPlugin(context);
+  // const plugin = await externalBuiltinsPlugin(context);
   const result = await build(
     defu(
       {
@@ -131,7 +126,7 @@ export async function bundle(
         ...overrides
       } as BuildOptions,
       {
-        plugins: [plugin]
+        plugins: [createEsbuildPlugin(createUnplugin(context))({})]
       }
     )
   );

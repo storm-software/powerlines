@@ -17,9 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { findFileName } from "@stryke/path/file-path-fns";
-import { replaceExtension } from "@stryke/path/replace";
-import { isString } from "@stryke/type-checks/is-string";
 import type {
   ExternalIdResult,
   TransformResult,
@@ -69,85 +66,52 @@ export function createUnplugin<
           isEntry: boolean;
         } = { isEntry: false }
       ): Promise<string | ExternalIdResult | null | undefined> {
-        const resolved = await (async () => {
-          let result = await ctx.$$internal.callHook(
-            "resolveId",
-            {
-              sequential: true,
-              result: "first",
-              order: "pre"
-            },
-            id,
-            importer,
-            opts
-          );
-          if (result) {
-            return result;
-          }
-
-          result = await ctx.$$internal.callHook(
-            "resolveId",
-            {
-              sequential: true,
-              result: "first",
-              order: "normal"
-            },
-            id,
-            importer,
-            opts
-          );
-          if (result) {
-            return result;
-          }
-
-          result = await ctx.resolve(id, importer, opts);
-          if (result) {
-            return result;
-          }
-
-          return ctx.$$internal.callHook(
-            "resolveId",
-            {
-              sequential: true,
-              result: "first",
-              order: "post"
-            },
-            id,
-            importer,
-            opts
-          );
-        })();
-        if (
-          resolved &&
-          opts.isEntry &&
-          ctx.config.build.polyfill &&
-          ctx.config.build.polyfill.length > 0
-        ) {
-          const entry = ctx.entry.find(
-            entry =>
-              entry.file === (isString(resolved) ? resolved : resolved.id)
-          );
-          if (entry) {
-            entry.file = `${replaceExtension(isString(resolved) ? resolved : resolved.id)}-polyfill.ts`;
-            entry.output ||= entry.output?.replace(
-              findFileName(entry.output, { withExtension: true }),
-              entry.file
-            );
-
-            await ctx.emitEntry(
-              `
-${ctx.config.build.polyfill.map(p => `import "${p}";`).join("\n")}
-
-export * from "${isString(resolved) ? resolved : resolved.id}";
-`,
-              entry.file
-            );
-
-            return entry.file;
-          }
+        let result = await ctx.$$internal.callHook(
+          "resolveId",
+          {
+            sequential: true,
+            result: "first",
+            order: "pre"
+          },
+          id,
+          importer,
+          opts
+        );
+        if (result) {
+          return result;
         }
 
-        return resolved;
+        result = await ctx.$$internal.callHook(
+          "resolveId",
+          {
+            sequential: true,
+            result: "first",
+            order: "normal"
+          },
+          id,
+          importer,
+          opts
+        );
+        if (result) {
+          return result;
+        }
+
+        result = await ctx.resolve(id, importer, opts);
+        if (result) {
+          return result;
+        }
+
+        return ctx.$$internal.callHook(
+          "resolveId",
+          {
+            sequential: true,
+            result: "first",
+            order: "post"
+          },
+          id,
+          importer,
+          opts
+        );
       }
 
       async function load(

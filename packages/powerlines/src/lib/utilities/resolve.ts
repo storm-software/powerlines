@@ -23,7 +23,7 @@ import {
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
 import { ESBuildResolvedBuildConfig } from "../../types/build";
-import { Context } from "../../types/context";
+import { PluginContext } from "../../types/context";
 import { bundle } from "./bundle";
 
 /**
@@ -35,7 +35,7 @@ import { bundle } from "./bundle";
  * @returns A promise that resolves to the compiled module.
  */
 export async function resolve<TResult>(
-  context: Context,
+  context: PluginContext,
   type: TypeDefinitionParameter,
   overrides: Partial<ESBuildResolvedBuildConfig> = {}
 ): Promise<TResult> {
