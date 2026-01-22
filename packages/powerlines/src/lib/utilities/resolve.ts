@@ -47,10 +47,54 @@ export async function resolve<TResult>(
   }
 
   const result = await bundle(context, typeDefinition.file, overrides);
-  const resolved = (await context.resolver.evalModule(result.text, {
-    filename: result.path,
-    forceTranspile: true
-  })) as Record<string, any>;
+
+  let resolved: any;
+  try {
+    resolved = await context.resolver.evalModule(result.text, {
+      filename: result.path,
+      forceTranspile: true
+    });
+  } catch (error) {
+    if (
+      isSetString((error as Error).message) &&
+      new RegExp(
+        `Cannot find module '${context.config.framework || "powerlines"}:.*'`
+      ).test((error as Error).message)
+    ) {
+      const moduleName = (error as Error).message.match(
+        new RegExp(
+          `Cannot find module '(${context.config.framework || "powerlines"}:.*)'`
+        )
+      )?.[1];
+      throw new Error(
+        `The module "${moduleName}" could not be resolved while evaluating "${
+          typeDefinition.file
+        }". It is possible the required built-in modules have not yet been generated. Please check the order of your plugins. ${
+          context.config.logLevel === "debug" ||
+          context.config.logLevel === "trace"
+            ? `
+
+Bundle output for module:
+${result.text}`
+            : ""
+        }`
+      );
+    }
+
+    throw new Error(
+      `Failed to evaluate the bundled module for "${
+        typeDefinition.file
+      }". Error: ${(error as Error).message}${
+        context.config.logLevel === "debug" ||
+        context.config.logLevel === "trace"
+          ? `
+
+Bundle output for module:
+${result.text}`
+          : ""
+      }`
+    );
+  }
 
   let exportName = typeDefinition.name;
   if (!exportName) {

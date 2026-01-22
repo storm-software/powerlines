@@ -134,14 +134,14 @@ export async function bundle(
   );
   if (result.errors.length > 0) {
     throw new Error(
-      `Failed to transpile ${file}: ${result.errors
+      `Failed to bundle ${file}: ${result.errors
         .map(error => error.text)
         .join(", ")}`
     );
   }
   if (result.warnings.length > 0) {
     context.warn(
-      `Warnings while transpiling ${file}: ${result.warnings
+      `Warnings while bundling ${file}: ${result.warnings
         .map(warning => warning.text)
         .join(", ")}`
     );
