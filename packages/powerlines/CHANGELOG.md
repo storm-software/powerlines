@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.84](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.84) (01/23/2026)
+
+### Miscellaneous
+
+- **powerlines:** Improved VFS formatting logging
+  ([0423e247](https://github.com/storm-software/powerlines/commit/0423e247))
+
 ## [0.37.83](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.83) (01/23/2026)
 
 ### Miscellaneous
