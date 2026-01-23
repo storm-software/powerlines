@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.82](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.82) (01/23/2026)
+
+### Miscellaneous
+
+- **powerlines:** Convert import statements to directives in dts file
+  ([a2f7f7ba](https://github.com/storm-software/powerlines/commit/a2f7f7ba))
+
+### Bug Fixes
+
+- **powerlines:** Resolve typescript typing issues
+  ([43c10eb5](https://github.com/storm-software/powerlines/commit/43c10eb5))
+
 ## [0.37.81](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.81) (01/23/2026)
 
 ### Miscellaneous
