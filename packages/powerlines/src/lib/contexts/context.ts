@@ -51,7 +51,6 @@ import defu from "defu";
 import { create, FlatCache } from "flat-cache";
 import { parse, ParseResult } from "oxc-parser";
 import { Range } from "semver";
-import { Project } from "ts-morph";
 import {
   Agent,
   BodyInit,
@@ -107,7 +106,6 @@ import { loadUserConfigFile, loadWorkspaceConfig } from "../config-file";
 import { getUniqueEntries, resolveEntriesSync } from "../entry";
 import { VirtualFileSystem } from "../fs/vfs";
 import { createLog, extendLog } from "../logger";
-import { createProgram } from "../typescript/ts-morph";
 import { getTsconfigFilePath } from "../typescript/tsconfig";
 import {
   CACHE_HASH_LENGTH,
@@ -181,8 +179,6 @@ export class PowerlinesContext<
   #fs!: VirtualFileSystemInterface;
 
   #tsconfig!: ParsedTypeScriptConfig;
-
-  #program!: Project;
 
   #parserCache!: FlatCache;
 
@@ -576,24 +572,6 @@ export class PowerlinesContext<
           : this.config.build.alias
         : {}
     );
-  }
-
-  /**
-   * The {@link Project} instance used for type reflection and module manipulation
-   *
-   * @see https://ts-morph.com/
-   *
-   * @remarks
-   * This instance is created lazily on first access.
-   */
-  public get program(): Project {
-    if (!this.#program) {
-      this.#program = createProgram(this, {
-        skipAddingFilesFromTsConfig: true
-      });
-    }
-
-    return this.#program;
   }
 
   /**

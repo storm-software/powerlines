@@ -26,7 +26,6 @@ import type MagicString from "magic-string";
 import type { SourceMap } from "magic-string";
 import type { ParseResult, ParserOptions } from "oxc-parser";
 import type { Range } from "semver";
-import type { Project } from "ts-morph";
 import type { RequestInfo, Response } from "undici";
 import type { Unimport } from "unimport";
 import type {
@@ -363,16 +362,6 @@ export interface UnresolvedContext<
    * This includes both the built-in module aliases as well as any custom aliases defined in the build configuration.
    */
   alias: Record<string, string>;
-
-  /**
-   * The {@link Project} instance used for type reflection and module manipulation
-   *
-   * @see https://ts-morph.com/
-   *
-   * @remarks
-   * This instance is created lazily on first access.
-   */
-  program: Project;
 
   /**
    * A function to perform HTTP fetch requests

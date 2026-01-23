@@ -87,7 +87,6 @@ export function EnvTypeDefinition(
     <>
       <TypeScriptInterface
         name=" EnvBase"
-        extends={["EnvInterface"]}
         defaultValue={defaultValue}
         reflection={reflection}
         export={true}
@@ -345,8 +344,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
             "Serializer",
             "TypeProperty",
             "TypePropertySignature"
-          ],
-          "@powerlines/plugin-env/types/runtime": ["EnvInterface"]
+          ]
         },
         rest.imports ?? {}
       )}>
