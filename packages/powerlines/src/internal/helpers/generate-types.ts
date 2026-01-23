@@ -20,6 +20,7 @@ import { toArray } from "@stryke/convert/to-array";
 import { appendPath } from "@stryke/path/append";
 import { findFileName } from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
+import { isRelativePath } from "@stryke/path/is-type";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -37,14 +38,29 @@ const getModuleCommentBlockRegex = (moduleId: string) =>
  * @returns The formatted TypeScript code.
  */
 export function formatTypes(code: string): string {
-  return code
-    .replace(
+  const imports =
+    code.match(
       // eslint-disable-next-line regexp/no-super-linear-backtracking
-      /import\s*(?:type\s*)?\{?[\w,\s]*(?:\}\s*)?from\s*(?:'|")@?[a-zA-Z0-9-\\/.]*(?:'|");?/g,
-      ""
-    )
+      /import\s*(?:type\s*)?\{?[\w,\s]*(?:\}\s*)?from\s*(?:'|")@?[a-zA-Z0-9-\\/.]*(?:'|");?/g
+    ) ?? [];
+
+  return `${imports
+    .reduce((ret, importStatement) => {
+      const importModule = importStatement
+        .replace(/.*from\s*['"]/, "")
+        .replace(/['"];?$/, "");
+      if (!isRelativePath(importModule) && !ret.includes(importModule)) {
+        ret.push(importModule);
+      }
+
+      return ret;
+    }, [] as string[])
+    .map(directive => `/// <reference types="${directive}" />`)
+    .join("\n")}\n\n${imports
+    .reduce((ret, importStatement) => ret.replace(importStatement, ""), code)
     .replaceAll("#private;", "")
-    .replace(/__Ω/g, "");
+    .replace(/__Ω/g, "")
+    .trim()}`;
 }
 
 /**
