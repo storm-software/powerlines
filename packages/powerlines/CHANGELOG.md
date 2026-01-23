@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.81](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.81) (01/23/2026)
+
+### Miscellaneous
+
+- **powerlines:** Format generated entry files prior to running `build` step
+  ([8fa564fe](https://github.com/storm-software/powerlines/commit/8fa564fe))
+
 ## [0.37.79](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.79) (01/22/2026)
 
 ### Miscellaneous
