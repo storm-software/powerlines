@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-env",
-  "version": "0.15.109",
+  "version": "0.15.110",
   "type": "module",
   "description": "A package containing a Powerlines plugin for injecting static .env configuration values to the code so that they're accessible at runtime.",
   "repository": {
@@ -184,15 +184,8 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "dotenv",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["dotenv", "powerlines", "storm-software", "powerlines-plugin"],
   "peerDependencies": {
     "@alloy-js/core": ">=0.22.0",
     "@alloy-js/typescript": ">=0.22.0"

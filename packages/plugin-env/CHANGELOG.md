@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.110](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.110) (01/23/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Ensure `alloy-js` dependencies are installed as
+  `peerDependencies`
+  ([37181435](https://github.com/storm-software/powerlines/commit/37181435))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.92**
+- Updated **plugin-automd** to **v0.1.213**
+- Updated **plugin-plugin** to **v0.12.164**
+- Updated **plugin-alloy** to **v0.18.103**
+- Updated **plugin-babel** to **v0.12.222**
+- Updated **powerlines** to **v0.37.86**
+- Updated **deepkit** to **v0.5.130**
+
 ## [0.15.109](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.109) (01/23/2026)
 
 ### Updated Dependencies
