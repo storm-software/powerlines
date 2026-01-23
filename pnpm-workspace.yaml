@@ -60,7 +60,7 @@ catalog:
   '@nx/workspace': 22.4.0
   '@prisma/get-platform': ^6.19.2
   '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
-  '@pulumi/pulumi': ^3.216.0
+  '@pulumi/pulumi': ^3.217.0
   '@rollup/plugin-alias': ^6.0.0
   '@rollup/plugin-babel': ^6.1.0
   '@rollup/plugin-commonjs': ^28.0.9

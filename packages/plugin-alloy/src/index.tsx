@@ -53,12 +53,7 @@ export const plugin = <
           build: {
             inputOptions: {
               transform: {
-                jsx: {
-                  runtime: "classic",
-                  pragma: "Alloy.createElement",
-                  pragmaFrag: "Alloy.Fragment",
-                  importSource: "@alloy-js/core"
-                }
+                jsx: "preserve"
               }
             },
             plugins: [alloy()],
