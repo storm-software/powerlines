@@ -42,7 +42,7 @@ export function formatTypes(code: string): string {
     code.match(
       // eslint-disable-next-line regexp/no-super-linear-backtracking
       /import\s*(?:type\s*)?\{?[\w,\s]*(?:\}\s*)?from\s*(?:'|")@?[a-zA-Z0-9-\\/.]*(?:'|");?/g
-    ) ?? [];
+    ) ?? ([] as string[]);
 
   return `${imports
     .reduce((ret, importStatement) => {
