@@ -815,6 +815,12 @@ ${formatTypes(types)}
       environment: context,
       order: "pre"
     });
+
+    context.debug(
+      "Formatting the generated entry files before the build process starts."
+    );
+    await formatFolder(context, context.entryPath);
+
     await this.callHook("build", {
       environment: context,
       order: "normal"
