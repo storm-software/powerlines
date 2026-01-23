@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.103](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.103) (01/22/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Update import logic for `EnvInterface` type
+  ([1ae2c3db](https://github.com/storm-software/powerlines/commit/1ae2c3db))
+
 ## [0.15.102](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.102) (01/22/2026)
 
 ### Updated Dependencies
