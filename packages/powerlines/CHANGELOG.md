@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.85](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.85) (01/23/2026)
+
+### Miscellaneous
+
+- **powerlines:** Added `force` parameter to `format` utility
+  ([fc5bc135](https://github.com/storm-software/powerlines/commit/fc5bc135))
+- **powerlines:** Enhance formatting logic to ignore `outputPath` and
+  `buildPath`
+  ([b141ee6a](https://github.com/storm-software/powerlines/commit/b141ee6a))
+
 ## [0.37.84](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.84) (01/23/2026)
 
 ### Miscellaneous
