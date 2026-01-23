@@ -27,6 +27,7 @@ import { format as prettier, resolveConfig } from "prettier";
  * @param context - The Powerlines context.
  * @param path - The file path to use for resolving Prettier configuration.
  * @param data - The code string to format.
+ * @param force - Whether to force formatting even for output/build paths.
  * @returns A promise that resolves to the formatted code string.
  */
 export async function format(
