@@ -1102,7 +1102,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     let code = data;
     try {
       if (!options.skipFormat) {
-        code = await format(this.#normalizePath(path), data);
+        code = await format(this.#context, this.#normalizePath(path), data);
       }
     } catch (err) {
       // Only warn about formatting errors for certain file types

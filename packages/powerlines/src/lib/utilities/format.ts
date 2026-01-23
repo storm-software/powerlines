@@ -17,19 +17,33 @@
  ------------------------------------------------------------------- */
 
 import { listFiles } from "@stryke/fs/list-files";
+import { isParentPath } from "@stryke/path/is-parent-path";
 import { Context } from "powerlines";
 import { format as prettier, resolveConfig } from "prettier";
 
 /**
  * Formats code using Prettier based on the file path.
  *
+ * @param context - The Powerlines context.
  * @param path - The file path to use for resolving Prettier configuration.
  * @param data - The code string to format.
  * @returns A promise that resolves to the formatted code string.
  */
-export async function format(path: string, data: string): Promise<string> {
-  let code = data;
+export async function format(
+  context: Context,
+  path: string,
+  data: string,
+  force = false
+): Promise<string> {
+  if (
+    !force &&
+    (isParentPath(path, context.config.output.outputPath) ||
+      isParentPath(path, context.config.output.buildPath))
+  ) {
+    return data;
+  }
 
+  let code = data;
   const resolvedConfig = await resolveConfig(path);
   if (resolvedConfig) {
     code = await prettier(data, {
@@ -49,16 +63,24 @@ export async function format(path: string, data: string): Promise<string> {
  * @returns A promise that resolves when all files have been formatted.
  */
 export async function formatFolder(context: Context, path: string) {
-  const files = await listFiles(path);
+  if (
+    !isParentPath(path, context.config.output.outputPath) &&
+    !isParentPath(path, context.config.output.buildPath)
+  ) {
+    await Promise.allSettled(
+      (await listFiles(path)).map(async file => {
+        if (
+          !isParentPath(file, context.config.output.outputPath) &&
+          !isParentPath(file, context.config.output.buildPath)
+        ) {
+          const data = await context.fs.read(file);
+          if (data) {
+            const formatted = await format(context, file, data);
 
-  return Promise.allSettled(
-    files.map(async file => {
-      const data = await context.fs.read(file);
-      if (data) {
-        const formatted = await format(file, data);
-
-        return context.fs.write(file, formatted);
-      }
-    })
-  );
+            return context.fs.write(file, formatted);
+          }
+        }
+      })
+    );
+  }
 }
