@@ -334,6 +334,30 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           <EnvBuiltin defaultConfig={this.config.env.defaultConfig} />
         );
       },
+      transform: {
+        order: "post",
+        async handler() {
+          if (this.env.used.env.getProperties().length > 0) {
+            this.debug(
+              `Persisting used environment configuration reflections to ${getEnvReflectionsPath(
+                this,
+                "env"
+              )}.`
+            );
+            await writeEnvReflection(this, this.env.used.env, "env");
+          }
+
+          if (this.env.used.secrets.getProperties().length > 0) {
+            this.debug(
+              `Persisting used secret configuration reflections to ${getEnvReflectionsPath(
+                this,
+                "secrets"
+              )}.`
+            );
+            await writeEnvReflection(this, this.env.used.secrets, "secrets");
+          }
+        }
+      },
       async docs() {
         this.debug(
           "Writing Environment documentation for the Powerlines project artifacts."

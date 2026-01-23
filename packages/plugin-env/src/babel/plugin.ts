@@ -18,23 +18,12 @@
 
 import { NodePath } from "@babel/core";
 import * as t from "@babel/types";
-import { convertFromCapnp } from "@powerlines/deepkit/capnp";
-import { SerializedTypes as CapnpSerializedTypes } from "@powerlines/deepkit/schemas/reflection";
 import { stringifyDefaultValue } from "@powerlines/deepkit/utilities";
-import {
-  deserializeType,
-  ReflectionClass,
-  ReflectionKind,
-  resolveClassType
-} from "@powerlines/deepkit/vendor/type";
+
 import { createBabelPlugin } from "@powerlines/plugin-babel/helpers/create-plugin";
 import { addImport } from "@powerlines/plugin-babel/helpers/module-helpers";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import * as capnp from "@stryke/capnp";
-import { readFileBufferSync } from "@stryke/fs/buffer";
-import { existsSync } from "node:fs";
 import { BabelPluginPass } from "powerlines/types/babel";
-import { getEnvReflectionsPath } from "../helpers/persistence";
 import { EnvPluginContext } from "../types/plugin";
 
 /*
@@ -94,6 +83,13 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
           }
 
           if (!context.env.used.env.hasProperty(name)) {
+            log(
+              LogLevelLabel.DEBUG,
+              `Adding "${name}" environment variables found in "${
+                pass.filename || "unknown file"
+              }" to used environment configuration reflection object.`
+            );
+
             context.env.used.env.addProperty(envProperty.property);
           }
 
@@ -165,53 +161,6 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
           path: NodePath<t.MemberExpression>,
           pass: BabelPluginPass
         ) {
-          // if (
-          //   path
-          //     .get("object")
-          //     ?.get("property")
-          //     ?.isIdentifier({ name: "env" }) &&
-          //   path
-          //     .get("object")
-          //     ?.get("object")
-          //     ?.isIdentifier({ name: "$storm" }) &&
-          //   path.get("property")?.isIdentifier()
-          // ) {
-          //   // $storm.env.CONFIG_NAME
-
-          //   const identifier = path.get("property")?.node as t.Identifier;
-          //   extractEnv(identifier, pass, false);
-
-          //   path.replaceWithSourceString(`env.${identifier.name}`);
-          //   addImport(path, {
-          //     module: `${context.config.framework}:env`,
-          //     name: "env",
-          //     imported: "env"
-          //   });
-          // } else if (
-          //   path
-          //     .get("object")
-          //     ?.get("property")
-          //     ?.isIdentifier({ name: "env" }) &&
-          //   path
-          //     .get("object")
-          //     ?.get("object")
-          //     ?.isCallExpression({
-          //       callee: { name: "useStorm", type: "Identifier" }
-          //     }) &&
-          //   path.get("property")?.isIdentifier()
-          // ) {
-          //   // useStorm().env.CONFIG_NAME
-
-          //   const identifier = path.get("property")?.node as t.Identifier;
-          //   extractEnv(identifier, pass, false);
-
-          //   path.replaceWithSourceString(`env.${identifier.name}`);
-          //   addImport(path, {
-          //     module: `${context.config.framework}:env`,
-          //     name: "env",
-          //     imported: "env"
-          //   });
-
           if (
             path
               .get("object")
@@ -275,69 +224,6 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
             extractEnv(identifier, pass, false);
           }
         }
-      },
-      post(this: BabelPluginPass) {
-        log(
-          LogLevelLabel.TRACE,
-          `Adding environment variables from ${
-            this.filename || "unknown file"
-          } to env.json.`
-        );
-
-        let persistedEnv = ReflectionClass.from({
-          kind: ReflectionKind.objectLiteral,
-          description: `An object containing the environment variables used by the application.`,
-          types: []
-        });
-
-        const reflectionPath = getEnvReflectionsPath(context, "env");
-        if (reflectionPath && existsSync(reflectionPath)) {
-          log(
-            LogLevelLabel.TRACE,
-            `Environment reflection file found at ${
-              reflectionPath
-            }, reading existing reflection.`
-          );
-
-          persistedEnv = resolveClassType(
-            deserializeType(
-              convertFromCapnp(
-                new capnp.Message(
-                  readFileBufferSync(reflectionPath),
-                  false
-                ).getRoot(CapnpSerializedTypes).types
-              )
-            )
-          );
-        }
-
-        log(
-          LogLevelLabel.TRACE,
-          `Adding new variables to env reflection at ${reflectionPath}.`
-        );
-
-        persistedEnv
-          .getProperties()
-          .filter(
-            property =>
-              property.getNameAsString() &&
-              !context.env.used.env.hasProperty(property.getNameAsString())
-          )
-          .forEach(property => {
-            context.env.used.env.addProperty({
-              ...property,
-              name: property.getNameAsString(),
-              description:
-                property.getDescription() ??
-                `The ${property.getNameAsString()} variable.`,
-              default: property.getDefaultValue(),
-              optional: property.isOptional() ? true : undefined,
-              readonly: property.isReadonly() ? true : undefined,
-              visibility: property.getVisibility(),
-              type: property.getType(),
-              tags: property.getTags()
-            } as Parameters<typeof persistedEnv.addProperty>[0]);
-          });
       }
     };
   }
