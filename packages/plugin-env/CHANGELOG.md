@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.107](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.107) (01/23/2026)
+
+### Miscellaneous
+
+- **powerlines:** Remove unsued `program` from context
+  ([6a03bdfd](https://github.com/storm-software/powerlines/commit/6a03bdfd))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.89**
+- Updated **plugin-automd** to **v0.1.210**
+- Updated **plugin-plugin** to **v0.12.161**
+- Updated **plugin-alloy** to **v0.18.100**
+- Updated **plugin-babel** to **v0.12.219**
+- Updated **powerlines** to **v0.37.83**
+- Updated **deepkit** to **v0.5.127**
+
 ## [0.15.106](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.106) (01/23/2026)
 
 ### Updated Dependencies

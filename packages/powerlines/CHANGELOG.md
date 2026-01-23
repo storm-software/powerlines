@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.83](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.83) (01/23/2026)
+
+### Miscellaneous
+
+- **powerlines:** Remove unsued `program` from context
+  ([6a03bdfd](https://github.com/storm-software/powerlines/commit/6a03bdfd))
+
 ## [0.37.82](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.82) (01/23/2026)
 
 ### Miscellaneous
