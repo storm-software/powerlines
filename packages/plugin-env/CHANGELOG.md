@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.105](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.105) (01/23/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Remove `post` processing from `babel` plugin to prevent issues
+  ([1baecec0](https://github.com/storm-software/powerlines/commit/1baecec0))
+
 ## [0.15.104](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.104) (01/23/2026)
 
 ### Updated Dependencies
