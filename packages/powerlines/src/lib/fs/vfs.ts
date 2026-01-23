@@ -35,6 +35,7 @@ import { getUnique } from "@stryke/helpers/get-unique";
 import { appendPath } from "@stryke/path/append";
 import { stripStars } from "@stryke/path/correct-path";
 import {
+  findFileExtensionSafe,
   findFileName,
   findFilePath,
   hasFileExtension
@@ -1104,12 +1105,35 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         code = await format(this.#normalizePath(path), data);
       }
     } catch (err) {
-      this.#log(
-        LogLevelLabel.WARN,
-        `Failed to format file ${this.#normalizePath(
-          path
-        )} before writing: ${(err as Error).message}`
-      );
+      // Only warn about formatting errors for certain file types
+      if (
+        [
+          "js",
+          "ts",
+          "cjs",
+          "cts",
+          "mjs",
+          "mts",
+          "tsx",
+          "jsx",
+          "json",
+          "json5",
+          "jsonc",
+          "md",
+          "mdx"
+        ].includes(
+          findFileExtensionSafe(path, {
+            fullExtension: true
+          })
+        )
+      ) {
+        this.#log(
+          LogLevelLabel.WARN,
+          `Failed to format file ${this.#normalizePath(
+            path
+          )} before writing: ${(err as Error).message}`
+        );
+      }
       code = data;
     }
 
