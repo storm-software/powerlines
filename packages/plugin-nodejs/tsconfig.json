@@ -5,7 +5,6 @@
     "jsxImportSource": "@alloy-js/core",
     "lib": ["esnext"],
     "types": ["node"],
-    "strict": false,
     "outDir": "../../dist/out-tsc"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "powerlines.config.ts"],

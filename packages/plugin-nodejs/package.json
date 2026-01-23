@@ -38,7 +38,6 @@
   },
   "license": "Apache-2.0",
   "private": false,
-  "typings": "dist/index.d.mts",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "exports": {
@@ -128,22 +127,41 @@
       }
     }
   },
-  "files": ["dist/**/*"],
-  "keywords": ["nodejs", "powerlines", "storm-software", "powerlines-plugin"],
+  "typings": "dist/index.d.mts",
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "nodejs",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
+  "peerDependencies": {
+    "@alloy-js/core": ">=0.22.0",
+    "@alloy-js/typescript": ">=0.22.0"
+  },
+  "peerDependenciesMeta": {
+    "@alloy-js/core": {
+      "optional": false
+    },
+    "@alloy-js/typescript": {
+      "optional": false
+    }
+  },
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/typescript": "catalog:",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/string-format": "catalog:",
     "defu": "catalog:",
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@babel/core": "catalog:",
-    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {
