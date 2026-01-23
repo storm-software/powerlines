@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { listFiles } from "@stryke/fs/list-files";
+import { appendPath } from "@stryke/path/append";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { Context } from "powerlines";
 import { format as prettier, resolveConfig } from "prettier";
@@ -38,8 +39,20 @@ export async function format(
 ): Promise<string> {
   if (
     !force &&
-    (isParentPath(path, context.config.output.outputPath) ||
-      isParentPath(path, context.config.output.buildPath))
+    (isParentPath(
+      path,
+      appendPath(
+        context.config.output.outputPath,
+        context.workspaceConfig.workspaceRoot
+      )
+    ) ||
+      isParentPath(
+        path,
+        appendPath(
+          context.config.output.buildPath,
+          context.workspaceConfig.workspaceRoot
+        )
+      ))
   ) {
     return data;
   }
@@ -65,14 +78,38 @@ export async function format(
  */
 export async function formatFolder(context: Context, path: string) {
   if (
-    !isParentPath(path, context.config.output.outputPath) &&
-    !isParentPath(path, context.config.output.buildPath)
+    !isParentPath(
+      path,
+      appendPath(
+        context.config.output.outputPath,
+        context.workspaceConfig.workspaceRoot
+      )
+    ) &&
+    !isParentPath(
+      path,
+      appendPath(
+        context.config.output.buildPath,
+        context.workspaceConfig.workspaceRoot
+      )
+    )
   ) {
     await Promise.allSettled(
       (await listFiles(path)).map(async file => {
         if (
-          !isParentPath(file, context.config.output.outputPath) &&
-          !isParentPath(file, context.config.output.buildPath)
+          !isParentPath(
+            file,
+            appendPath(
+              context.config.output.outputPath,
+              context.workspaceConfig.workspaceRoot
+            )
+          ) &&
+          !isParentPath(
+            file,
+            appendPath(
+              context.config.output.buildPath,
+              context.workspaceConfig.workspaceRoot
+            )
+          )
         ) {
           const data = await context.fs.read(file);
           if (data) {
