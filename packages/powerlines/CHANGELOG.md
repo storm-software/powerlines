@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.87](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.87) (01/23/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with relative path comparisons in `format`
+  function
+  ([1e28545e](https://github.com/storm-software/powerlines/commit/1e28545e))
+
 ## [0.37.85](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.85) (01/23/2026)
 
 ### Miscellaneous
