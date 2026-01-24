@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.105](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.105) (01/23/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update `jsx` compiler option to `preserve`
+  ([3761d153](https://github.com/storm-software/powerlines/commit/3761d153))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.166**
+- Updated **powerlines** to **v0.37.88**
+- Updated **deepkit** to **v0.5.132**
+
 ## [0.18.104](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.104) (01/23/2026)
 
 ### Updated Dependencies
