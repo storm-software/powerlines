@@ -831,9 +831,6 @@ importers:
       defu:
         specifier: 'catalog:'
         version: 6.1.4
-      esbuild:
-        specifier: 'catalog:'
-        version: 0.25.12
       jiti:
         specifier: 'catalog:'
         version: 2.6.1
@@ -862,6 +859,12 @@ importers:
       dts-bundle-generator:
         specifier: 'catalog:'
         version: 9.5.1
+      esbuild:
+        specifier: 'catalog:'
+        version: 0.25.12
+      rolldown:
+        specifier: 'catalog:'
+        version: 1.0.0-beta.53
       tsup:
         specifier: 'catalog:'
         version: 8.4.0(@microsoft/api-extractor@7.55.2(@types/node@24.10.9))(@swc/core@1.15.10(@swc/helpers@0.5.18))(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.2)
@@ -14580,8 +14583,8 @@ packages:
   json-buffer@3.0.1:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
 
-  json-e@4.8.0:
-    resolution: {integrity: sha512-YOxEEr9dd9/y5PbXsKx/MCFyAR+UL5zbRBObbuHnjxvC3rY8EIfQMc64iULb97G4NcV5vadIzFdEHAYh0Cqljg==}
+  json-e@4.8.1:
+    resolution: {integrity: sha512-YNs17r8NtHwvRcjtYnregqoLphY2pB2jnLoKxtK+Vujj28ieVxnfPB3yp2nZPg3Umiea8SM9hRJDZSqPNwIA+g==}
     engines: {node: '>=12'}
 
   json-parse-even-better-errors@2.3.1:
@@ -30107,7 +30110,7 @@ snapshots:
   alterschema@1.1.3:
     dependencies:
       '@hyperjump/json-schema': 0.23.5
-      json-e: 4.8.0
+      json-e: 4.8.1
       lodash: 4.17.23
       object-hash: 3.0.0
 
@@ -35949,7 +35952,7 @@ snapshots:
 
   json-buffer@3.0.1: {}
 
-  json-e@4.8.0:
+  json-e@4.8.1:
     dependencies:
       json-stable-stringify-without-jsonify: 1.0.1
 

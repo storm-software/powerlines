@@ -145,8 +145,28 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*", "bin/*", "schemas/*"],
-  "keywords": ["deepkit", "powerlines", "storm-software"],
+  "files": [
+    "bin/*",
+    "dist/**/*",
+    "schemas/*"
+  ],
+  "keywords": [
+    "deepkit",
+    "powerlines",
+    "storm-software"
+  ],
+  "peerDependencies": {
+    "esbuild": "*",
+    "rolldown": "*"
+  },
+  "peerDependenciesMeta": {
+    "esbuild": {
+      "optional": true
+    },
+    "rolldown": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
@@ -155,7 +175,6 @@
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "defu": "catalog:",
-    "esbuild": "catalog:",
     "jiti": "catalog:",
     "powerlines": "workspace:*",
     "typescript": "^5.9.3"
@@ -167,6 +186,8 @@
     "@deepkit/type-spec": "catalog:",
     "@types/node": "catalog:",
     "dts-bundle-generator": "catalog:",
+    "esbuild": "catalog:",
+    "rolldown": "catalog:",
     "tsup": "catalog:"
   },
   "publishConfig": {
