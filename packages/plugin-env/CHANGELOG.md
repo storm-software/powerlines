@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.113](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.113) (01/23/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Update plugin to use `alloy-js` component for `docs` rendering
+  ([7778a172](https://github.com/storm-software/powerlines/commit/7778a172))
+
 ## [0.15.112](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.112) (01/23/2026)
 
 ### Updated Dependencies
