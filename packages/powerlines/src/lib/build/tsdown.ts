@@ -160,14 +160,7 @@ export function extractTsdownConfig(
       ),
       define: context.config.build.define,
       inputOptions: {
-        resolve: {
-          alias: context.alias,
-          mainFields: context.config.build.mainFields,
-          conditions: context.config.build.conditions,
-          extensions: context.config.build.extensions
-        },
         transform: {
-          target: "esnext",
           inject: context.config.build.inject
         }
       },
