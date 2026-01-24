@@ -28,11 +28,7 @@ import {
 import { Plugin } from "powerlines/types/plugin";
 import { Output } from "./core/components/output";
 import { MetaItem } from "./core/contexts/context";
-import {
-  AlloyPluginContext,
-  AlloyPluginOptions,
-  AlloyPluginResolvedConfig
-} from "./types/plugin";
+import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
 /**
  * Alloy-js plugin for Powerlines.
@@ -120,27 +116,26 @@ export const plugin = <
       configResolved: {
         order: "pre",
         async handler() {
-          async function render<
-            TContext extends AlloyPluginContext<AlloyPluginResolvedConfig>
-          >(this: TContext, children: Children) {
+          // eslint-disable-next-line ts/no-this-alias
+          const context = this;
+          const render = async (children: Children) => {
             const meta = {} as Record<string, MetaItem>;
-
             await traverseOutput(
               await renderAsync(
                 <Output<TContext>
-                  context={this}
+                  context={context}
                   meta={meta}
-                  basePath={this.workspaceConfig.workspaceRoot}>
+                  basePath={context.workspaceConfig.workspaceRoot}>
                   {children}
                 </Output>
               ),
               {
                 visitDirectory: directory => {
-                  if (this.fs.existsSync(directory.path)) {
+                  if (context.fs.existsSync(directory.path)) {
                     return;
                   }
 
-                  this.fs.mkdirSync(directory.path);
+                  context.fs.mkdirSync(directory.path);
                 },
                 visitFile: file => {
                   if ("contents" in file) {
@@ -152,27 +147,27 @@ export const plugin = <
                         );
                       }
 
-                      this.emitBuiltinSync(file.contents, metadata.id, {
+                      context.emitBuiltinSync(file.contents, metadata.id, {
                         skipFormat: metadata.skipFormat,
                         storage: metadata.storage,
                         extension: findFileExtension(file.path)
                       });
                     } else if (metadata.kind === "entry") {
-                      this.emitEntrySync(file.contents, file.path, {
+                      context.emitEntrySync(file.contents, file.path, {
                         skipFormat: metadata.skipFormat,
                         storage: metadata.storage,
                         ...(metadata.typeDefinition ?? {})
                       });
                     } else {
-                      this.emitSync(file.contents, file.path, metadata);
+                      context.emitSync(file.contents, file.path, metadata);
                     }
                   } else {
-                    this.fs.copySync(file.sourcePath, file.path);
+                    context.fs.copySync(file.sourcePath, file.path);
                   }
                 }
               }
             );
-          }
+          };
 
           this.render = render.bind(this);
         }
