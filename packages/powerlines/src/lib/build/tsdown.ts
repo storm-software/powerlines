@@ -26,6 +26,7 @@ import defu from "defu";
 import { Format as TsdownFormat } from "tsdown";
 import {
   ESBuildBuildConfig,
+  RolldownBuildConfig,
   TsdownBuildConfig,
   TsdownResolvedBuildConfig,
   TsupBuildConfig
@@ -126,14 +127,30 @@ export function extractTsdownConfig(
                 "**/*.tsx"
               )
             ],
+      noExternal: context.builtins,
       alias: context.alias,
-      noExternal: context.builtins
+      resolve: {
+        alias: context.alias
+      }
     },
     context.config.build.variant === "tsdown"
       ? context.config.build.override
       : {},
+    context.config.build.variant === "rolldown"
+      ? {
+          inputOptions: context.config.build.override
+        }
+      : {},
     context.config.build.variant === "tsdown"
       ? omit(context.config.build, ["override", "variant"])
+      : {},
+    context.config.build.variant === "rolldown"
+      ? {
+          inputOptions: omit(context.config.build, [
+            "override",
+            "variant"
+          ]) as RolldownBuildConfig
+        }
       : {},
     {
       name: context.config.name,
@@ -141,6 +158,20 @@ export function extractTsdownConfig(
         context.config.projectRoot,
         context.workspaceConfig.workspaceRoot
       ),
+      define: context.config.build.define,
+      inputOptions: {
+        resolve: {
+          alias: context.alias,
+          mainFields: context.config.build.mainFields,
+          conditions: context.config.build.conditions,
+          extensions: context.config.build.extensions
+        },
+        transform: {
+          target: "esnext",
+          inject: context.config.build.inject
+        }
+      },
+      platform: context.config.build.platform,
       dts: {
         parallel: true,
         newContext: true,
@@ -153,9 +184,6 @@ export function extractTsdownConfig(
           context.workspaceConfig.workspaceRoot
         ),
         sourcemap: context.config.mode === "development"
-      },
-      resolve: {
-        alias: context.alias
       },
       outDir: appendPath(
         context.config.output.buildPath,
@@ -170,11 +198,13 @@ export function extractTsdownConfig(
       treeshake:
         context.config.build.variant === "tsdown"
           ? (context.config.build as TsdownBuildConfig)?.treeshake
-          : context.config.build.variant === "tsup"
-            ? (context.config.build as TsupBuildConfig)?.treeshake
-            : context.config.build.variant === "esbuild"
-              ? (context.config.build as ESBuildBuildConfig)?.treeShaking
-              : undefined,
+          : context.config.build.variant === "rolldown"
+            ? (context.config.build as RolldownBuildConfig)?.treeshake
+            : context.config.build.variant === "tsup"
+              ? (context.config.build as TsupBuildConfig)?.treeshake
+              : context.config.build.variant === "esbuild"
+                ? (context.config.build as ESBuildBuildConfig)?.treeShaking
+                : undefined,
       minify: context.config.mode === "production",
       metafile: context.config.mode === "development",
       sourcemap: context.config.mode === "development",

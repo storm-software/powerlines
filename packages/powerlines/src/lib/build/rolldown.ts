@@ -25,6 +25,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import { toArray } from "@stryke/convert/to-array";
 import { omit } from "@stryke/helpers/omit";
+import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join-paths";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isString } from "@stryke/type-checks/is-string";
@@ -181,7 +182,10 @@ export function extractRolldownConfig(
               name: "powerlines",
               supportsStaticESM: true
             },
-            cwd: context.config.projectRoot,
+            cwd: appendPath(
+              context.config.projectRoot,
+              context.workspaceConfig.workspaceRoot
+            ),
             babelrc: false,
             extensions: [".js", ".jsx", ".ts", ".tsx"],
             babelHelpers: "bundled",
@@ -216,13 +220,21 @@ export function extractRolldownConfig(
         viteMode: context.config.build.variant === "vite"
       },
       resolve: {
+        alias: context.alias,
         mainFields: context.config.build.mainFields,
         conditions: context.config.build.conditions,
         define: context.config.build.define,
         extensions: context.config.build.extensions
       },
+      transform: {
+        define: context.config.build.define,
+        inject: context.config.build.inject
+      },
       platform: context.config.build.platform,
-      tsconfig: context.tsconfig.tsconfigFilePath,
+      tsconfig: appendPath(
+        context.tsconfig.tsconfigFilePath,
+        context.workspaceConfig.workspaceRoot
+      ),
       cache: !context.config.skipCache
         ? joinPaths(context.cachePath, "rolldown")
         : false,
@@ -235,9 +247,6 @@ export function extractRolldownConfig(
           );
         }
       },
-      jsx: "automatic",
-      keepNames: true,
-      treeshake: true,
       minify: context.config.mode === "production",
       output: [
         {
@@ -253,6 +262,14 @@ export function extractRolldownConfig(
           sourcemap: context.config.mode === "development"
         }
       ]
+    },
+    {
+      keepNames: true,
+      treeshake: true,
+      shimMissingExports: true,
+      transform: {
+        target: "esnext"
+      }
     }
   );
 }
