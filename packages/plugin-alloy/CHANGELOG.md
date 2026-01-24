@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.108](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.108) (01/24/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Ensure `alloy-js` babel transformations are ran for all
+  typescript files
+  ([5e2b3e99](https://github.com/storm-software/powerlines/commit/5e2b3e99))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.169**
+- Updated **plugin-babel** to **v0.12.227**
+- Updated **powerlines** to **v0.37.91**
+- Updated **deepkit** to **v0.6.1**
+
 ## [0.18.107](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.107) (01/24/2026)
 
 ### Bug Fixes

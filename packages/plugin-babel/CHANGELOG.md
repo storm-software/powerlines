@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.227](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.227) (01/24/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Ensure `alloy-js` babel transformations are ran for all
+  typescript files
+  ([5e2b3e99](https://github.com/storm-software/powerlines/commit/5e2b3e99))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.169**
+- Updated **powerlines** to **v0.37.91**
+
 ## [0.12.226](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.226) (01/24/2026)
 
 ### Updated Dependencies
