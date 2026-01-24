@@ -53,11 +53,11 @@ catalog:
   '@microsoft/tsdoc-config': ^0.17.1
   '@noble/ciphers': ^2.1.1
   '@nx/devkit': 22.3.3
-  '@nx/eslint-plugin': 22.4.0
-  '@nx/jest': 22.4.0
-  '@nx/js': 22.4.0
-  '@nx/plugin': 22.4.0
-  '@nx/workspace': 22.4.0
+  '@nx/eslint-plugin': 22.4.1
+  '@nx/jest': 22.4.1
+  '@nx/js': 22.4.1
+  '@nx/plugin': 22.4.1
+  '@nx/workspace': 22.4.1
   '@prisma/get-platform': ^6.19.2
   '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
   '@pulumi/pulumi': ^3.217.0
@@ -121,8 +121,6 @@ catalog:
   '@types/semver': ^7.7.1
   '@typescript-eslint/utils': ^8.53.1
   '@vitejs/plugin-react': ^5.1.2
-  '@vue/reactivity': 3.5.26
-  '@vue/shared': 3.5.26
   automd: ^0.4.2
   babel-dead-code-elimination: ^1.0.12
   babel-plugin-parameter-decorator: ^1.0.16
@@ -163,7 +161,7 @@ catalog:
   minimatch: ^10.1.1
   nanotar: ^0.2.0
   nitro: 3.0.1-alpha.1
-  nx: 22.4.0
+  nx: 22.4.1
   openapi-typescript: ^7.10.1
   oxc-parser: ^0.99.0
   oxc-transform: ^0.99.0
@@ -316,7 +314,6 @@ patchedDependencies:
   '@deepkit/type': patches/@deepkit__type.patch
   '@deepkit/type-compiler': patches/@deepkit__type-compiler.patch
   '@deepkit/type-spec': patches/@deepkit__type-spec.patch
-  '@vue/reactivity': patches/@vue__reactivity.patch
   automd: patches/automd.patch
   prisma-util: patches/prisma-util.patch
 

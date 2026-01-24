@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { transformAsync } from "@babel/core";
 import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { toArray } from "@stryke/convert/to-array";
 import { createDirectory } from "@stryke/fs/helpers";
@@ -41,7 +40,6 @@ import { MaybePromise } from "@stryke/types/base";
 import chalk from "chalk";
 import Handlebars from "handlebars";
 import packageJson from "../package.json" assert { type: "json" };
-import { moduleResolverBabelPlugin } from "./internal/babel/module-resolver-plugin";
 import {
   emitBuiltinTypes,
   formatTypes
@@ -292,57 +290,6 @@ export class PowerlinesAPI<
           await context.fs.remove(context.dtsPath);
         }
 
-        context.debug("Transforming built-ins runtime modules files.");
-
-        const builtinFilePaths = await Promise.all(
-          (await context.getBuiltins()).map(async file => {
-            const result = await transformAsync(file.code.toString(), {
-              highlightCode: true,
-              code: true,
-              ast: false,
-              cloneInputAst: false,
-              comments: true,
-              sourceType: "module",
-              configFile: false,
-              babelrc: false,
-              envName: context.config.mode,
-              caller: {
-                name: "powerlines"
-              },
-              ...context.config.transform.babel,
-              filename: file.path,
-              plugins: [
-                ["@babel/plugin-syntax-typescript"],
-                [moduleResolverBabelPlugin(context)]
-              ]
-            });
-            if (!result?.code) {
-              throw new Error(
-                `Powerlines - Generate Types failed to compile ${file.id}`
-              );
-            }
-
-            if (!file.id) {
-              context.warn(
-                `File ID is missing for a built-in runtime file at ${file.path}.`
-              );
-
-              file.id = replacePath(
-                replacePath(file.path, context.workspaceConfig.workspaceRoot),
-                context.builtinsPath
-              );
-            }
-
-            context.trace(
-              `Writing transformed built-in runtime file ${file.id}.`
-            );
-
-            await context.emitBuiltin(result.code, file.id);
-
-            return appendPath(file.path, context.builtinsPath);
-          })
-        );
-
         const typescriptPath = await resolvePackage("typescript");
         if (!typescriptPath) {
           throw new Error(
@@ -351,25 +298,22 @@ export class PowerlinesAPI<
         }
 
         context.debug(
-          "Parsing TypeScript configuration for the Powerlines project."
+          "Running TypeScript compiler for built-in runtime module files."
         );
 
         let types = await emitBuiltinTypes(
           context,
-          builtinFilePaths.reduce<string[]>(
-            (ret, fileName) => {
-              const formatted = replacePath(
-                fileName,
-                context.workspaceConfig.workspaceRoot
-              );
-              if (!ret.includes(formatted)) {
-                ret.push(formatted);
-              }
+          (await context.getBuiltins()).reduce<string[]>((ret, builtin) => {
+            const formatted = replacePath(
+              builtin.path,
+              context.workspaceConfig.workspaceRoot
+            );
+            if (!ret.includes(formatted)) {
+              ret.push(formatted);
+            }
 
-              return ret;
-            },
-            [] // [joinPaths(typescriptPath, "lib", "lib.esnext.full.d.ts")]
-          )
+            return ret;
+          }, [])
         );
 
         context.debug(

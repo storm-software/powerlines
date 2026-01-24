@@ -43,7 +43,6 @@ import { camelCase } from "@stryke/string-format/camel-case";
 import { pascalCase } from "@stryke/string-format/pascal-case";
 import { isString } from "@stryke/type-checks/is-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
-import { ComputedRef } from "@vue/reactivity";
 import {
   ReflectionClassContext,
   ReflectionPropertyContext
@@ -53,6 +52,10 @@ import {
   TSDocReflectionClass,
   TSDocReflectionProperty
 } from "./tsdoc-reflection";
+
+export interface ComputedRef<T = any> {
+  readonly value: T;
+}
 
 export interface TypescriptObjectProps<
   T extends Record<string, any> = Record<string, any>
