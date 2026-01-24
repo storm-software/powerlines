@@ -16,9 +16,10 @@
 
  ------------------------------------------------------------------- */
 
+import alloyPreset from "@alloy-js/babel-preset";
 import type { Children } from "@alloy-js/core";
 import { renderAsync, traverseOutput } from "@alloy-js/core";
-import alloy from "@alloy-js/rollup-plugin";
+import babel from "@powerlines/plugin-babel";
 import { StormJSON } from "@stryke/json/storm-json";
 import { findFileExtension } from "@stryke/path/file-path-fns";
 import { Plugin } from "powerlines/types/plugin";
@@ -42,6 +43,7 @@ export const plugin = <
   options: AlloyPluginOptions = {}
 ) => {
   return [
+    babel(),
     {
       name: "alloy:config",
       config() {
@@ -50,13 +52,21 @@ export const plugin = <
             typescript: true,
             ...options
           },
+          transform: {
+            babel: {
+              presets: [
+                alloyPreset({
+                  addSourceInfo: this.config.mode === "development"
+                })
+              ]
+            }
+          },
           build: {
             inputOptions: {
               transform: {
                 jsx: "preserve"
               }
             },
-            plugins: [alloy()],
             external: [
               "@alloy-js/core",
               "@alloy-js/typescript",

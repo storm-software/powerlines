@@ -40,7 +40,6 @@
   "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "typings": "./dist/index.d.mts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -352,15 +351,24 @@
       }
     }
   },
-  "files": ["dist/**/*"],
-  "keywords": ["alloy-js", "powerlines", "storm-software", "powerlines-plugin"],
+  "typings": "./dist/index.d.mts",
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "alloy-js",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
+    "@alloy-js/babel-preset": "catalog:",
     "@alloy-js/core": "catalog:",
     "@alloy-js/json": "catalog:",
     "@alloy-js/markdown": "catalog:",
-    "@alloy-js/rollup-plugin": "catalog:",
     "@alloy-js/typescript": "catalog:",
     "@powerlines/deepkit": "workspace:*",
+    "@powerlines/plugin-babel": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",

@@ -17,9 +17,11 @@
  ------------------------------------------------------------------- */
 
 import type { Children, PrintTreeOptions } from "@alloy-js/core";
-import { UserConfig } from "powerlines/types/config";
+import {
+  BabelPluginResolvedConfig,
+  BabelPluginUserConfig
+} from "@powerlines/plugin-babel/types/plugin";
 import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
 
 export type AlloyPluginOptions = Partial<PrintTreeOptions> & {
   /**
@@ -44,11 +46,11 @@ export type AlloyPluginOptions = Partial<PrintTreeOptions> & {
   markdown?: boolean;
 };
 
-export type AlloyPluginUserConfig = UserConfig & {
+export type AlloyPluginUserConfig = BabelPluginUserConfig & {
   alloy?: AlloyPluginOptions;
 };
 
-export type AlloyPluginResolvedConfig = ResolvedConfig & {
+export type AlloyPluginResolvedConfig = BabelPluginResolvedConfig & {
   alloy: AlloyPluginOptions;
 };
 
