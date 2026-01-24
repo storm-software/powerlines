@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.118](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.118) (01/24/2026)
+
+### Miscellaneous
+
+- **plugin-babel:** Reduce log noise from `transform` hook
+  ([83c7d51e](https://github.com/storm-software/powerlines/commit/83c7d51e))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.99**
+- Updated **plugin-automd** to **v0.1.220**
+- Updated **plugin-plugin** to **v0.12.171**
+- Updated **plugin-alloy** to **v0.18.110**
+- Updated **plugin-babel** to **v0.12.229**
+- Updated **powerlines** to **v0.37.93**
+- Updated **deepkit** to **v0.6.3**
+
 ## [0.15.117](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.117) (01/24/2026)
 
 ### Updated Dependencies
