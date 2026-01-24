@@ -73,8 +73,6 @@ export const plugin = <TContext extends BabelPluginContext>(
         return { code, id };
       }
 
-      this.debug(`Babel transforming file: ${id}`);
-
       const plugins = this.config.transform.babel.plugins
         .map(plugin => resolveBabelPlugin(this, code, id, plugin))
         .filter(
@@ -96,7 +94,7 @@ export const plugin = <TContext extends BabelPluginContext>(
       }
 
       if (
-        ["ts", "cts", "mts", "tsx"].includes(
+        /^(?:m|c)?tsx?$/.test(
           findFileExtensionSafe(id, {
             fullExtension: true
           })
@@ -109,6 +107,12 @@ export const plugin = <TContext extends BabelPluginContext>(
           { isTSX: findFileExtension(id) === "tsx" }
         ]);
       }
+
+      this.trace(
+        `Running babel transformations with ${plugins.length} plugins and ${
+          presets.length
+        } presets for file: ${id}`
+      );
 
       const result = await transformAsync(code, {
         highlightCode: true,
@@ -153,6 +157,8 @@ export const plugin = <TContext extends BabelPluginContext>(
       if (!result?.code) {
         throw new Error(`Powerlines - Babel plugin failed to compile ${id}`);
       }
+
+      this.trace(`Completed babel transformations for file: ${id}`);
 
       return { code: result.code, id };
     }

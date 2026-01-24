@@ -28,7 +28,11 @@ import {
 import { Plugin } from "powerlines/types/plugin";
 import { Output } from "./core/components/output";
 import { MetaItem } from "./core/contexts/context";
-import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
+import {
+  AlloyPluginContext,
+  AlloyPluginOptions,
+  AlloyPluginResolvedConfig
+} from "./types/plugin";
 
 /**
  * Alloy-js plugin for Powerlines.
@@ -46,6 +50,10 @@ export const plugin = <
     {
       name: "alloy:config",
       config() {
+        this.debug(
+          "Updating configuration options to support Alloy-js builds."
+        );
+
         return {
           alloy: {
             typescript: true,
@@ -60,7 +68,7 @@ export const plugin = <
                   }),
                   {},
                   (_: string, id: string) =>
-                    ["jsx", "tsx"].includes(
+                    /^(?:m|c)?tsx?$/.test(
                       findFileExtensionSafe(id, {
                         fullExtension: true
                       })
@@ -85,6 +93,7 @@ export const plugin = <
         };
       },
       async configResolved() {
+        this.debug("Ensuring TypeScript configuration is set up for Alloy-js.");
         if (
           this.tsconfig.tsconfigJson.compilerOptions?.jsx !== "preserve" ||
           this.tsconfig.tsconfigJson.compilerOptions?.jsxImportSource !==
@@ -112,30 +121,32 @@ export const plugin = <
       }
     },
     {
-      name: "alloy:update-context",
+      name: "alloy:create-render",
       configResolved: {
         order: "pre",
         async handler() {
-          // eslint-disable-next-line ts/no-this-alias
-          const context = this;
-          const render = async (children: Children) => {
+          this.debug("Attaching the `render` method to the context object.");
+
+          async function render<
+            TContext extends AlloyPluginContext<AlloyPluginResolvedConfig>
+          >(this: TContext, children: Children) {
             const meta = {} as Record<string, MetaItem>;
             await traverseOutput(
               await renderAsync(
                 <Output<TContext>
-                  context={context}
+                  context={this}
                   meta={meta}
-                  basePath={context.workspaceConfig.workspaceRoot}>
+                  basePath={this.workspaceConfig.workspaceRoot}>
                   {children}
                 </Output>
               ),
               {
                 visitDirectory: directory => {
-                  if (context.fs.existsSync(directory.path)) {
+                  if (this.fs.existsSync(directory.path)) {
                     return;
                   }
 
-                  context.fs.mkdirSync(directory.path);
+                  this.fs.mkdirSync(directory.path);
                 },
                 visitFile: file => {
                   if ("contents" in file) {
@@ -147,27 +158,27 @@ export const plugin = <
                         );
                       }
 
-                      context.emitBuiltinSync(file.contents, metadata.id, {
+                      this.emitBuiltinSync(file.contents, metadata.id, {
                         skipFormat: metadata.skipFormat,
                         storage: metadata.storage,
                         extension: findFileExtension(file.path)
                       });
                     } else if (metadata.kind === "entry") {
-                      context.emitEntrySync(file.contents, file.path, {
+                      this.emitEntrySync(file.contents, file.path, {
                         skipFormat: metadata.skipFormat,
                         storage: metadata.storage,
                         ...(metadata.typeDefinition ?? {})
                       });
                     } else {
-                      context.emitSync(file.contents, file.path, metadata);
+                      this.emitSync(file.contents, file.path, metadata);
                     }
                   } else {
-                    context.fs.copySync(file.sourcePath, file.path);
+                    this.fs.copySync(file.sourcePath, file.path);
                   }
                 }
               }
             );
-          };
+          }
 
           this.render = render.bind(this);
         }
