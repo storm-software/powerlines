@@ -20,16 +20,34 @@ import { code, Show } from "@alloy-js/core";
 import { Heading, Link } from "@alloy-js/markdown";
 import { stringifyType } from "@powerlines/deepkit/vendor/type";
 import { usePowerlinesSafe } from "@powerlines/plugin-alloy/core/contexts/context";
-import { MarkdownFile } from "@powerlines/plugin-alloy/markdown/components/markdown-file";
+import {
+  MarkdownFile,
+  MarkdownFileProps
+} from "@powerlines/plugin-alloy/markdown/components/markdown-file";
 import { MarkdownTable } from "@powerlines/plugin-alloy/markdown/components/markdown-table";
 import { joinPaths } from "@stryke/path/join";
 import { createReflectionResource } from "../helpers/create-reflection-resource";
+import { getDocsOutputPath } from "../helpers/docs-helper";
 import { EnvPluginContext } from "../types/plugin";
+
+export interface EnvDocsFileProps extends Partial<MarkdownFileProps> {
+  /**
+   * The heading level offset to apply to the generated documentation.
+   *
+   * @remarks
+   * This is useful when nesting the documentation within other markdown files.
+   *
+   * @defaultValue 0
+   */
+  levelOffset?: number;
+}
 
 /**
  * Generates the environment configuration markdown documentation for the Powerlines project.
  */
-export function EnvDocs() {
+export function EnvDocsFile(props: EnvDocsFileProps) {
+  const { levelOffset = 0, ...rest } = props;
+
   const context = usePowerlinesSafe<EnvPluginContext>();
   if (!context) {
     return null;
@@ -40,13 +58,9 @@ export function EnvDocs() {
 
   return (
     <MarkdownFile
-      path={joinPaths(
-        context.config.projectRoot,
-        "docs",
-        "generated",
-        "env.md"
-      )}>
-      <Heading level={1}>Environment Configuration</Heading>
+      path={joinPaths(getDocsOutputPath(context), "env.md")}
+      {...rest}>
+      <Heading level={1 + levelOffset}>Environment Configuration</Heading>
       {code`Below is a list of environment variables used by the`}
       <Show when={!!context?.packageJson.name}>
         <Link
@@ -56,7 +70,7 @@ export function EnvDocs() {
       </Show>
       {code`package. These values can be updated in the \`.env\` file in the root of the project.`}
       <hbr />
-      <Heading level={2}>Environment Variables</Heading>
+      <Heading level={2 + levelOffset}>Environment Variables</Heading>
       {code`The below list of environment variables are used as configuration parameters to drive the processing of the application. The data contained in these variables are **not** considered sensitive or confidential. Any values provided in these variables will be available in plain text to the public.`}
       <hbr />
       <MarkdownTable
