@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-alloy",
-  "version": "0.18.105",
+  "version": "0.18.106",
   "type": "module",
   "description": "A package containing various Alloy framework components and helper utilities.",
   "repository": {
@@ -352,15 +352,8 @@
     }
   },
   "typings": "./dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "alloy-js",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["alloy-js", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@alloy-js/babel-preset": "catalog:",
     "@alloy-js/core": "catalog:",

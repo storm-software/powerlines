@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.89](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.89) (01/23/2026)
+
+### Miscellaneous
+
+- **powerlines:** Improve the `rolldown` and `tsdown` build options extraction
+  logic
+  ([bd026643](https://github.com/storm-software/powerlines/commit/bd026643))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with invalid `tsdown` build options
+  ([d4b86951](https://github.com/storm-software/powerlines/commit/d4b86951))
+
 ## [0.37.87](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.87) (01/23/2026)
 
 ### Bug Fixes
