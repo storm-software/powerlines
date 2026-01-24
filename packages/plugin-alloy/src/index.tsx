@@ -21,7 +21,10 @@ import type { Children } from "@alloy-js/core";
 import { renderAsync, traverseOutput } from "@alloy-js/core";
 import babel from "@powerlines/plugin-babel";
 import { StormJSON } from "@stryke/json/storm-json";
-import { findFileExtension } from "@stryke/path/file-path-fns";
+import {
+  findFileExtension,
+  findFileExtensionSafe
+} from "@stryke/path/file-path-fns";
 import { Plugin } from "powerlines/types/plugin";
 import { Output } from "./core/components/output";
 import { MetaItem } from "./core/contexts/context";
@@ -55,9 +58,18 @@ export const plugin = <
           transform: {
             babel: {
               presets: [
-                alloyPreset({
-                  addSourceInfo: this.config.mode === "development"
-                })
+                [
+                  alloyPreset({
+                    addSourceInfo: this.config.mode === "development"
+                  }),
+                  {},
+                  (_: string, id: string) =>
+                    ["jsx", "tsx"].includes(
+                      findFileExtensionSafe(id, {
+                        fullExtension: true
+                      })
+                    )
+                ]
               ]
             }
           },
