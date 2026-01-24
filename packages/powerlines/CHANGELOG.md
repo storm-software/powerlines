@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.92](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.92) (01/24/2026)
+
+### Bug Fixes
+
+- **powerlines:** Remove unused `@vue/reactivity` patch and old built-in module
+  transformations
+  ([fce0b19a](https://github.com/storm-software/powerlines/commit/fce0b19a))
+
 ## [0.37.89](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.89) (01/23/2026)
 
 ### Miscellaneous

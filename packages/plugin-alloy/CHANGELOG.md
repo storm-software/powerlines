@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.109](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.109) (01/24/2026)
+
+### Bug Fixes
+
+- **powerlines:** Remove unused `@vue/reactivity` patch and old built-in module
+  transformations
+  ([fce0b19a](https://github.com/storm-software/powerlines/commit/fce0b19a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.170**
+- Updated **plugin-babel** to **v0.12.228**
+- Updated **powerlines** to **v0.37.92**
+- Updated **deepkit** to **v0.6.2**
+
 ## [0.18.108](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.108) (01/24/2026)
 
 ### Miscellaneous
