@@ -337,7 +337,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         order: "post",
         async handler() {
           if (this.env.used.env.getProperties().length > 0) {
-            this.debug(
+            this.trace(
               `Persisting used environment configuration reflections to ${getEnvReflectionsPath(
                 this,
                 "env"
@@ -347,7 +347,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           }
 
           if (this.env.used.secrets.getProperties().length > 0) {
-            this.debug(
+            this.trace(
               `Persisting used secret configuration reflections to ${getEnvReflectionsPath(
                 this,
                 "secrets"
