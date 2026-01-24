@@ -334,14 +334,14 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       imports={defu(
         {
           "@powerlines/deepkit/vendor/type": [
-            "Type",
             "stringify",
             "serializer",
             "serializeFunction",
             "deserializeFunction",
             "ReflectionKind",
-            "TemplateState",
             "Serializer",
+            "TemplateState",
+            "Type",
             "TypeProperty",
             "TypePropertySignature"
           ]
@@ -364,6 +364,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         reflection={envInstance}
         export={true}
         const={true}
+        doc="The initial environment configuration object values for the runtime."
       />
       <hbr />
       <hbr />
@@ -384,7 +385,10 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         name="EnvSerializer"
         extends="Serializer"
         export={true}>
-        <ClassMethod name="constructor" public={true}>
+        <ClassMethod
+          name="constructor"
+          public={true}
+          doc="Initializes a new instance of the `EnvSerializer` class.">
           {code`
     super("env");
 
@@ -417,14 +421,14 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         name="envSerializer"
         export={false}
         const={true}
-        initializer={<NewExpression args={[]} target={"EnvSerializer"} />}
+        initializer={<NewExpression args={[]} target="EnvSerializer" />}
       />
       <hbr />
       <hbr />
 
       <TSDoc heading="Serialize a environment configuration object to JSON data objects (not a JSON string).">
         <TSDocRemarks>
-          {`The resulting JSON object can be stringified using JSON.stringify().`}
+          {`The resulting JSON object can be stringified using \`JSON.stringify()\`.`}
         </TSDocRemarks>
         <TSDocExample>{`const json = serializeEnv(env);`}</TSDocExample>
         <TSDocThrows>
@@ -453,7 +457,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         name="deserializeEnv"
         export={true}
         const={true}
-        initializer={"deserializeFunction<EnvBase>(envSerializer)"}
+        initializer="deserializeFunction<EnvBase>(envSerializer)"
       />
       <hbr />
       <hbr />
@@ -556,7 +560,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         export
         const
         name="isCI"
-        doc="Detect if the application is running in a CI environment."
+        doc="Detect if the application is running in a continuous integration (CI) environment."
         initializer={code`Boolean(
           env.CI ||
           env.RUN_ID ||
@@ -637,7 +641,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         export
         const
         name="isProduction"
-        doc='Detect if the application is running in \"production\\" mode'
+        doc='Detect if the application is running in `"production"` mode'
         initializer={code`["prd", "prod", "production"].includes(mode.toLowerCase()); `}
       />
       <hbr />
@@ -647,7 +651,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         export
         const
         name="isTest"
-        doc='Detect if the application is running in "test" mode'
+        doc='Detect if the application is running in `"test"` mode'
         initializer={code`["tst", "test", "testing", "stg", "stage", "staging"].includes(mode.toLowerCase()) || env.TEST; `}
       />
       <hbr />
@@ -657,7 +661,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         export
         const
         name="isDevelopment"
-        doc='Detect if the application is running in "development" mode'
+        doc='Detect if the application is running in `"development"` mode'
         initializer={code`["dev", "development"].includes(mode.toLowerCase()); `}
       />
       <hbr />
@@ -667,7 +671,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         export
         const
         name="isDebug"
-        doc='Detect if the application is running in "debug" mode'
+        doc="Detect if the application is currently being debugged"
         initializer={code`Boolean(isDevelopment && env.DEBUG); `}
       />
       <hbr />
