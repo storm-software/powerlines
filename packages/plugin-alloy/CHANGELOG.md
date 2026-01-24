@@ -2,6 +2,29 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.106](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.106) (01/23/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update plugin to use `babel` directly instead of `rollup`
+  plugin
+  ([883f8b63](https://github.com/storm-software/powerlines/commit/883f8b63))
+
+### Bug Fixes
+
+- **plugin-alloy:** Ensure we only run `babel` transforms on `jsx` or `tsx`
+  files
+  ([cfee27df](https://github.com/storm-software/powerlines/commit/cfee27df))
+- **plugin-alloy:** Update project build to use `babel` plugin
+  ([0fb3197e](https://github.com/storm-software/powerlines/commit/0fb3197e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.167**
+- Updated **plugin-babel** to **v0.12.225**
+- Updated **powerlines** to **v0.37.89**
+- Updated **deepkit** to **v0.5.133**
+
 ## [0.18.105](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.105) (01/23/2026)
 
 ### Miscellaneous
