@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-hey-api",
-  "version": "0.1.170",
+  "version": "0.1.171",
   "type": "module",
   "description": "A Powerlines plugin to generate project code using Hey API.",
   "repository": {

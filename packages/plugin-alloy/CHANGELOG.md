@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.107](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.107) (01/24/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Declare separate `context` object to handle inital render
+  phase
+  ([1f289d2e](https://github.com/storm-software/powerlines/commit/1f289d2e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.168**
+- Updated **plugin-babel** to **v0.12.226**
+- Updated **powerlines** to **v0.37.90**
+- Updated **deepkit** to **v0.6.0**
+
 ## [0.18.106](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.106) (01/23/2026)
 
 ### Miscellaneous

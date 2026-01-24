@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.0) (01/24/2026)
+
+### Features
+
+- **deepkit:** Added the `rolldownPlugin` to transpile code during `rolldown`
+  builds
+  ([7e3e6984](https://github.com/storm-software/powerlines/commit/7e3e6984))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.37.90**
+
 ## [0.5.133](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.5.133) (01/23/2026)
 
 ### Updated Dependencies
