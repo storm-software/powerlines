@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-prisma",
-  "version": "0.2.175",
+  "version": "0.2.176",
   "type": "module",
   "description": "A Powerlines plugin to generate project code and a Prisma client from a Prisma schema (PSL).",
   "repository": {

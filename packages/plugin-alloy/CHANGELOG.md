@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.112](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.112) (01/24/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue reading context in `render` method
+  ([0cea2735](https://github.com/storm-software/powerlines/commit/0cea2735))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.173**
+- Updated **plugin-babel** to **v0.12.231**
+- Updated **powerlines** to **v0.37.95**
+- Updated **deepkit** to **v0.6.5**
+
 ## [0.18.111](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.111) (01/24/2026)
 
 ### Updated Dependencies
