@@ -25,7 +25,11 @@ export default defineConfig({
   skipCache: true,
   entry: [
     "src/index.tsx",
-    "src/{core,helpers,markdown,types,typescript}/**/*.{ts,tsx}"
+    "src/core/**/*",
+    "src/helpers/**/*",
+    "src/markdown/**/*",
+    "src/types/**/*",
+    "src/typescript/**/*"
   ],
   plugins: [
     plugin(),
