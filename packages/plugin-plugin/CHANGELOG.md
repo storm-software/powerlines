@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.174](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.174) (01/25/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Update plugins to exclude bundled node modules
+  ([d072b3ab](https://github.com/storm-software/powerlines/commit/d072b3ab))
+
+### Bug Fixes
+
+- **plugin-plugin:** Resolve typescript compiler error
+  ([52d94a0f](https://github.com/storm-software/powerlines/commit/52d94a0f))
+
 ## [0.12.173](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.173) (01/24/2026)
 
 ### Updated Dependencies
