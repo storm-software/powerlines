@@ -28,9 +28,7 @@ import { createUnplugin } from "powerlines/lib/unplugin";
 import { Plugin } from "powerlines/types/plugin";
 import { build } from "tsdown";
 import { createRolldownPlugin } from "unplugin";
-import { PluginPluginContext, PluginPluginOptions } from "./types/plugin";
-
-export * from "./types";
+import type { PluginPluginContext, PluginPluginOptions } from "./types/plugin";
 
 function createPlugin<
   TContext extends PluginPluginContext = PluginPluginContext
