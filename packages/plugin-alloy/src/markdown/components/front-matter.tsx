@@ -16,6 +16,27 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./front-matter";
-export * from "./markdown-file";
-export * from "./markdown-table";
+import { code, For } from "@alloy-js/core";
+
+export interface FrontMatterProps {
+  data: Record<string, any>;
+}
+
+/**
+ * Renders YAML front matter for a markdown file.
+ *
+ * @see https://jekyllrb.com/docs/front-matter/
+ */
+export function FrontMatter(props: FrontMatterProps) {
+  return (
+    <>
+      {"---"}
+      <hbr />
+      <For each={Object.entries(props.data)} hardline>
+        {([key, value]) => code`${key}: ${JSON.stringify(value)}`}
+      </For>
+      {"---"}
+      <hbr />
+    </>
+  );
+}
