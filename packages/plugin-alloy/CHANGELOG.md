@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.116](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.116) (01/25/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Update `render` method to create inner function to prevent
+  reuse issue
+  ([26593e1f](https://github.com/storm-software/powerlines/commit/26593e1f))
+
 ## [0.18.115](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.115) (01/25/2026)
 
 ### Bug Fixes
