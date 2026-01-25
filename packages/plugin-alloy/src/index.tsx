@@ -28,11 +28,7 @@ import {
 import { Plugin } from "powerlines/types/plugin";
 import { Output } from "./core/components/output";
 import { MetaItem } from "./core/contexts/context";
-import {
-  AlloyPluginContext,
-  AlloyPluginOptions,
-  AlloyPluginResolvedConfig
-} from "./types/plugin";
+import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
 /**
  * Alloy-js plugin for Powerlines.
@@ -127,9 +123,7 @@ export const plugin = <
         async handler() {
           this.debug("Attaching the `render` method to the context object.");
 
-          async function render<
-            TContext extends AlloyPluginContext<AlloyPluginResolvedConfig>
-          >(this: TContext, children: Children) {
+          this.render = async (children: Children) => {
             const meta = {} as Record<string, MetaItem>;
             await traverseOutput(
               await renderAsync(
@@ -178,9 +172,7 @@ export const plugin = <
                 }
               }
             );
-          }
-
-          this.render = render.bind(this);
+          };
         }
       }
     }
