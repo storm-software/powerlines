@@ -16,38 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import alloyPreset from "@alloy-js/babel-preset";
-import babel from "@powerlines/plugin-babel";
-import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines";
+import { AsyncLocalStorage } from "node:async_hooks";
+import { createContext } from "unctx";
+import { PowerlinesContextInterface } from "../core/contexts/context";
 
-export default defineConfig({
-  skipCache: true,
-  entry: [
-    "src/index.tsx",
-    "src/{core,helpers,markdown,types,typescript}/**/*.{ts,tsx}"
-  ],
-  plugins: [
-    plugin(),
-    babel({
-      presets: [
-        alloyPreset({
-          addSourceInfo: false
-        })
-      ]
-    })
-  ],
-  build: {
-    inputOptions: {
-      transform: {
-        jsx: "preserve"
-      }
-    },
-    external: [
-      "@alloy-js/core",
-      "@alloy-js/typescript",
-      "@alloy-js/json",
-      "@alloy-js/markdown"
-    ]
-  }
+export const unctx = createContext<PowerlinesContextInterface<any, any>>({
+  asyncContext: true,
+  AsyncLocalStorage
 });
