@@ -16,11 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { AsyncLocalStorage } from "node:async_hooks";
 import { createContext } from "unctx";
 import { PowerlinesContextInterface } from "../core/contexts/context";
 
-export const unctx = createContext<PowerlinesContextInterface<any, any>>({
-  asyncContext: true,
-  AsyncLocalStorage
-});
+export const unctx = createContext<PowerlinesContextInterface<any, any>>();

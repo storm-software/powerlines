@@ -65,21 +65,21 @@ export interface PowerlinesContextInterface<
 export function usePowerlinesContext<
   TContext extends PluginContext = PluginContext,
   TMeta extends Record<string, MetaItem> = Record<string, MetaItem>
->(): PowerlinesContextInterface<TContext, TMeta> | undefined {
-  return unctx.use();
+>(): PowerlinesContextInterface<TContext, TMeta> | null {
+  return unctx.tryUse();
 }
 
 /**
  * Hook to safely access the {@link PluginContext | Powerlines context}.
  *
- * @returns The Powerlines context or undefined if not set.
+ * @returns The Powerlines context or null if not set.
  */
 export function usePowerlinesSafe<
   TContext extends PluginContext = PluginContext
->(): TContext | undefined {
+>(): TContext | null {
   const powerlines = usePowerlinesContext<TContext>();
 
-  return powerlines?.value;
+  return powerlines?.value ?? null;
 }
 
 /**
@@ -103,14 +103,14 @@ export function usePowerlines<
 /**
  * Hook to safely access the render context's metadata.
  *
- * @returns The Powerlines context or undefined if not set.
+ * @returns The Powerlines context or null if not set.
  */
 export function useMetaSafe<
   TMeta extends Record<string, MetaItem> = Record<string, MetaItem>
->(): TMeta | undefined {
+>(): TMeta | null {
   const powerlines = usePowerlinesContext<PluginContext, TMeta>();
 
-  return powerlines?.meta;
+  return powerlines?.meta ?? null;
 }
 
 /**
