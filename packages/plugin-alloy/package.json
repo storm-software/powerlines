@@ -352,8 +352,15 @@
     }
   },
   "typings": "./dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["alloy-js", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "alloy-js",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@alloy-js/babel-preset": "catalog:",
     "@alloy-js/core": "catalog:",
@@ -375,7 +382,8 @@
     "@stryke/unique-id": "catalog:",
     "defu": "catalog:",
     "powerlines": "workspace:*",
-    "prettier": "catalog:"
+    "prettier": "catalog:",
+    "unctx": "catalog:"
   },
   "devDependencies": {
     "@powerlines/plugin-plugin": "workspace:*",

@@ -16,10 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import type { ComponentContext } from "@alloy-js/core";
-import { createNamedContext, useContext } from "@alloy-js/core";
+import { ComponentContext, useContext } from "@alloy-js/core";
+import { AsyncLocalStorage } from "node:async_hooks";
 import type { PluginContext } from "powerlines/types/context";
 import type { StoragePreset } from "powerlines/types/fs";
+import { createContext as createUnctxContext } from "unctx";
 
 export interface MetaItem {
   /**
@@ -58,12 +59,12 @@ export interface PowerlinesContextInterface<
   meta: TMeta;
 }
 
-/**
- * The Powerlines context used in template rendering.
- */
-export const PowerlinesContext: ComponentContext<
-  PowerlinesContextInterface<any, any>
-> = createNamedContext<PowerlinesContextInterface<any, any>>("powerlines");
+export const unctx = createUnctxContext<
+  ComponentContext<PowerlinesContextInterface<any, any>>
+>({
+  asyncContext: true,
+  AsyncLocalStorage
+});
 
 /**
  * Hook to access the Powerlines Context.
@@ -74,9 +75,7 @@ export function usePowerlinesContext<
   TContext extends PluginContext = PluginContext,
   TMeta extends Record<string, MetaItem> = Record<string, MetaItem>
 >(): PowerlinesContextInterface<TContext, TMeta> | undefined {
-  return useContext<PowerlinesContextInterface<TContext, TMeta>>(
-    PowerlinesContext
-  );
+  return useContext<PowerlinesContextInterface<TContext, TMeta>>(unctx.use());
 }
 
 /**

@@ -65,7 +65,7 @@ export function useReflectionClass<
  * The reflection property context used in template rendering.
  */
 export const ReflectionPropertyContext: ComponentContext<ReflectionProperty> =
-  createNamedContext<ReflectionProperty>("reflection-property");
+  createNamedContext<ReflectionProperty>("ReflectionProperty");
 
 /**
  * Hook to access the Reflection Property context.
@@ -88,7 +88,7 @@ export function useReflectionProperty() {
  * The reflection method context used in template rendering.
  */
 export const ReflectionMethodContext: ComponentContext<ReflectionMethod> =
-  createNamedContext<ReflectionMethod>("reflection-method");
+  createNamedContext<ReflectionMethod>("ReflectionMethod");
 
 /**
  * Hook to access the Reflection Method context.
@@ -111,7 +111,7 @@ export function useReflectionMethod() {
  * The reflection parameter context used in template rendering.
  */
 export const ReflectionParameterContext: ComponentContext<ReflectionParameter> =
-  createNamedContext<ReflectionParameter>("reflection-parameter");
+  createNamedContext<ReflectionParameter>("ReflectionParameter");
 
 /**
  * Hook to access the Reflection Parameter context.

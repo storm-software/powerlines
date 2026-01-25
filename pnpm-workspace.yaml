@@ -190,6 +190,7 @@ catalog:
   tsup: 8.4.0
   typedoc: 0.25.12
   typedoc-plugin-markdown: 4.0.0-next.20
+  unctx: ^2.5.0
   undici: ^7.19.1
   undici-types: ^7.19.1
   unenv: npm:unenv-nightly@2.0.0-rc.24

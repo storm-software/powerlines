@@ -25,7 +25,7 @@ import {
 } from "@alloy-js/core";
 import { replacePath } from "@stryke/path/replace";
 import type { PluginContext } from "powerlines/types/context";
-import { MetaItem, PowerlinesContext } from "../contexts/context";
+import { MetaItem, unctx } from "../contexts/context";
 
 export interface OutputProps<
   TContext extends PluginContext = PluginContext,
@@ -61,13 +61,13 @@ export function Output<
       ? replacePath(basePath, context.workspaceConfig.workspaceRoot)
       : context.workspaceConfig.workspaceRoot
   );
+  const Provider = unctx.use().Provider;
 
   return (
     <OutputExternal {...rest} basePath={basePathRef.value}>
-      <PowerlinesContext.Provider
-        value={{ value: context, meta: meta ?? ({} as TMeta) }}>
+      <Provider value={{ value: context, meta: meta ?? ({} as TMeta) }}>
         <Show when={Boolean(context)}>{children}</Show>
-      </PowerlinesContext.Provider>
+      </Provider>
     </OutputExternal>
   );
 }

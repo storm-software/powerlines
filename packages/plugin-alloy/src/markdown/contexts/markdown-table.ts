@@ -33,7 +33,7 @@ export interface MarkdownTableColumnContextInterface<
  */
 export const MarkdownTableColumnContext: ComponentContext<MarkdownTableColumnContextInterface> =
   createNamedContext<MarkdownTableColumnContextInterface>(
-    "markdown-table-column",
+    "MarkdownTableColumn",
     {} as MarkdownTableColumnContextInterface
   );
 
