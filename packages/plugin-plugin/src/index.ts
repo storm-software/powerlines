@@ -63,6 +63,7 @@ export const plugin = <
           nodeProtocol: true,
           minify: false,
           export: true,
+          skipNodeModulesBundle: true,
           external: [
             "@powerlines/deepkit",
             "@powerlines/deepkit/vendor/type-compiler",
