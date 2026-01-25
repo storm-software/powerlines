@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.118](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.118) (01/25/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with invalid context disposal
+  ([22d4f7de](https://github.com/storm-software/powerlines/commit/22d4f7de))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.177**
+- Updated **plugin-babel** to **v0.12.235**
+- Updated **powerlines** to **v0.37.97**
+- Updated **deepkit** to **v0.6.7**
+
 ## [0.18.117](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.117) (01/25/2026)
 
 ### Bug Fixes
