@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.128](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.128) (01/25/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.107**
+- Updated **plugin-automd** to **v0.1.228**
+- Updated **plugin-plugin** to **v0.12.179**
+- Updated **plugin-alloy** to **v0.19.0**
+- Updated **plugin-babel** to **v0.12.237**
+- Updated **powerlines** to **v0.37.99**
+- Updated **deepkit** to **v0.6.9**
+
 ## [0.15.127](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.127) (01/25/2026)
 
 ### Updated Dependencies

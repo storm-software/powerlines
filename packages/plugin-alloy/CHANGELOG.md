@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.0) (01/25/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update context to use `unctx` singleton
+  ([ae4115fd](https://github.com/storm-software/powerlines/commit/ae4115fd))
+
+### Features
+
+- **plugin-alloy:** Added the `FrontMatter` component
+  ([a260ad4d](https://github.com/storm-software/powerlines/commit/a260ad4d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.179**
+- Updated **plugin-babel** to **v0.12.237**
+- Updated **powerlines** to **v0.37.99**
+- Updated **deepkit** to **v0.6.9**
+
 ## [0.18.119](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.119) (01/25/2026)
 
 ### Miscellaneous
