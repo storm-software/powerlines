@@ -20,7 +20,6 @@ import type { OutputProps as OutputPropsExternal } from "@alloy-js/core";
 import {
   computed,
   Output as OutputExternal,
-  ref,
   Show,
   splitProps
 } from "@alloy-js/core";
@@ -57,18 +56,17 @@ export function Output<
     "basePath"
   ]);
 
-  const contextRef = ref(context);
-  const metaRef = ref(meta ?? ({} as TMeta));
   const basePathRef = computed(() =>
     basePath
-      ? replacePath(basePath, contextRef.value.workspaceConfig.workspaceRoot)
-      : contextRef.value.workspaceConfig.workspaceRoot
+      ? replacePath(basePath, context.workspaceConfig.workspaceRoot)
+      : context.workspaceConfig.workspaceRoot
   );
 
   return (
     <OutputExternal {...rest} basePath={basePathRef.value}>
-      <PowerlinesContext.Provider value={{ ref: contextRef, meta: metaRef }}>
-        <Show when={Boolean(contextRef.value)}>{children}</Show>
+      <PowerlinesContext.Provider
+        value={{ value: context, meta: meta ?? ({} as TMeta) }}>
+        <Show when={Boolean(context)}>{children}</Show>
       </PowerlinesContext.Provider>
     </OutputExternal>
   );

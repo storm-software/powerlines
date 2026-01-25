@@ -16,10 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-import type { ComponentContext, Ref } from "@alloy-js/core";
+import type { ComponentContext } from "@alloy-js/core";
 import { createNamedContext, useContext } from "@alloy-js/core";
 import type { PluginContext } from "powerlines/types/context";
-import { StoragePreset } from "powerlines/types/fs";
+import type { StoragePreset } from "powerlines/types/fs";
 
 export interface MetaItem {
   /**
@@ -50,12 +50,12 @@ export interface PowerlinesContextInterface<
   /**
    * The current Powerlines context.
    */
-  ref: Ref<TContext>;
+  value: TContext;
 
   /**
    * The current render metadata.
    */
-  meta: Ref<TMeta>;
+  meta: TMeta;
 }
 
 /**
@@ -89,7 +89,7 @@ export function usePowerlinesSafe<
 >(): TContext | undefined {
   const powerlines = usePowerlinesContext<TContext>();
 
-  return powerlines?.ref?.value;
+  return powerlines?.value;
 }
 
 /**
@@ -120,7 +120,7 @@ export function useMetaSafe<
 >(): TMeta | undefined {
   const powerlines = usePowerlinesContext<PluginContext, TMeta>();
 
-  return powerlines?.meta?.value;
+  return powerlines?.meta;
 }
 
 /**
