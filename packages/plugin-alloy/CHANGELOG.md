@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.113](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.113) (01/24/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update the `render` method to be an arrow function instead
+  of being invoked with a `bind`
+  ([b22df58a](https://github.com/storm-software/powerlines/commit/b22df58a))
+
 ## [0.18.112](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.112) (01/24/2026)
 
 ### Bug Fixes
