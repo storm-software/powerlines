@@ -79,12 +79,7 @@ export const plugin = <
                 jsx: "preserve"
               }
             },
-            external: [
-              "@alloy-js/core",
-              "@alloy-js/typescript",
-              "@alloy-js/json",
-              "@alloy-js/markdown"
-            ]
+            external: [/^@?powerlines\//, /^@alloy-js\//]
           }
         };
       },

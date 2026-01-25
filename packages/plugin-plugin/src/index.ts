@@ -62,13 +62,7 @@ export const plugin = <
           minify: false,
           export: true,
           skipNodeModulesBundle: true,
-          external: [
-            "@powerlines/deepkit",
-            "@powerlines/deepkit/vendor/type-compiler",
-            "@powerlines/deepkit/vendor/type-spec",
-            "@powerlines/deepkit/vendor/type",
-            "@powerlines/deepkit/vendor/core"
-          ]
+          external: [/^@?powerlines\//]
         }
       };
     },
