@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.18.117](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.117) (01/25/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Dynamically generate context with `unctx` to support
+  multiple processes
+  ([0d62a675](https://github.com/storm-software/powerlines/commit/0d62a675))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.176**
+- Updated **plugin-babel** to **v0.12.234**
+- Updated **powerlines** to **v0.37.96**
+- Updated **deepkit** to **v0.6.6**
+
 ## [0.18.116](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.18.116) (01/25/2026)
 
 ### Bug Fixes
