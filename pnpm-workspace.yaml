@@ -142,7 +142,7 @@ catalog:
   fp-ts: ^2.16.11
   github-slugger: ^2.0.0
   handlebars: ^4.7.8
-  i18next-cli: ^1.37.0
+  i18next-cli: ^1.37.1
   i18next-resources-for-ts: ^2.0.0
   jest: ^30.2.0
   jest-config: ^30.2.0
@@ -190,8 +190,8 @@ catalog:
   tsup: 8.4.0
   typedoc: 0.25.12
   typedoc-plugin-markdown: 4.0.0-next.20
-  undici: ^7.19.0
-  undici-types: ^7.19.0
+  undici: ^7.19.1
+  undici-types: ^7.19.1
   unenv: npm:unenv-nightly@2.0.0-rc.24
   unimport: ^5.6.0
   unplugin: 3.0.0-beta.3
