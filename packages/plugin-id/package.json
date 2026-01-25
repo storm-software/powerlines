@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-id",
-  "version": "0.9.232",
+  "version": "0.9.233",
   "type": "module",
   "description": "A Powerlines plugin that provides unique identifier generation capabilities at runtime by adding the `id` builtin module.",
   "repository": {

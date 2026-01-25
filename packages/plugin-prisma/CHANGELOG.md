@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.2.178](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.178) (01/25/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-hey-api** to **v0.1.178**
+- Updated **plugin-plugin** to **v0.12.175**
+
 ## [0.2.177](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.177) (01/25/2026)
 
 ### Updated Dependencies
