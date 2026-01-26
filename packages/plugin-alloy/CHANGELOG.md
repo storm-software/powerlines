@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.3](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.3) (01/26/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Revert back to using `ContextComponent` from `alloy-js`
+  packages
+  ([9931eb7f](https://github.com/storm-software/powerlines/commit/9931eb7f))
+
 ## [0.19.2](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.2) (01/26/2026)
 
 ### Miscellaneous
