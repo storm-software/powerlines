@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.1) (01/26/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Bundle `unctx` with package dist
+  ([1d2467c1](https://github.com/storm-software/powerlines/commit/1d2467c1))
+
 ## [0.19.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.0) (01/25/2026)
 
 ### Miscellaneous
