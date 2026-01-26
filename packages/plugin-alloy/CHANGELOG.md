@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.2](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.2) (01/26/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Bundle package with plugins
+  ([0d9dd1db](https://github.com/storm-software/powerlines/commit/0d9dd1db))
+
 ## [0.19.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.1) (01/26/2026)
 
 ### Miscellaneous
