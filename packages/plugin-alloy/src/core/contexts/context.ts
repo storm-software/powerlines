@@ -16,9 +16,10 @@
 
  ------------------------------------------------------------------- */
 
+import type { ComponentContext } from "@alloy-js/core";
+import { createNamedContext, useContext } from "@alloy-js/core";
 import type { PluginContext } from "powerlines/types/context";
 import type { StoragePreset } from "powerlines/types/fs";
-import { unctx } from "../../internal/unctx";
 
 export interface MetaItem {
   /**
@@ -58,6 +59,13 @@ export interface PowerlinesContextInterface<
 }
 
 /**
+ * The Powerlines context used in template rendering.
+ */
+export const PowerlinesContext: ComponentContext<
+  PowerlinesContextInterface<any, any>
+> = createNamedContext<PowerlinesContextInterface<any, any>>("Powerlines");
+
+/**
  * Hook to access the Powerlines Context.
  *
  * @returns The Context.
@@ -65,21 +73,23 @@ export interface PowerlinesContextInterface<
 export function usePowerlinesContext<
   TContext extends PluginContext = PluginContext,
   TMeta extends Record<string, MetaItem> = Record<string, MetaItem>
->(): PowerlinesContextInterface<TContext, TMeta> | null {
-  return unctx.tryUse();
+>(): PowerlinesContextInterface<TContext, TMeta> | undefined {
+  return useContext<PowerlinesContextInterface<TContext, TMeta>>(
+    PowerlinesContext
+  );
 }
 
 /**
  * Hook to safely access the {@link PluginContext | Powerlines context}.
  *
- * @returns The Powerlines context or null if not set.
+ * @returns The Powerlines context or undefined if not set.
  */
 export function usePowerlinesSafe<
   TContext extends PluginContext = PluginContext
->(): TContext | null {
+>(): TContext | undefined {
   const powerlines = usePowerlinesContext<TContext>();
 
-  return powerlines?.value ?? null;
+  return powerlines?.value;
 }
 
 /**
@@ -103,14 +113,14 @@ export function usePowerlines<
 /**
  * Hook to safely access the render context's metadata.
  *
- * @returns The Powerlines context or null if not set.
+ * @returns The Powerlines context or undefined if not set.
  */
 export function useMetaSafe<
   TMeta extends Record<string, MetaItem> = Record<string, MetaItem>
->(): TMeta | null {
+>(): TMeta | undefined {
   const powerlines = usePowerlinesContext<PluginContext, TMeta>();
 
-  return powerlines?.meta ?? null;
+  return powerlines?.meta;
 }
 
 /**
