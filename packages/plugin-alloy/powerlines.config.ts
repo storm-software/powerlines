@@ -52,6 +52,7 @@ export default defineConfig({
       "@alloy-js/typescript",
       "@alloy-js/json",
       "@alloy-js/markdown"
-    ]
+    ],
+    noExternal: ["unctx"]
   }
 });
