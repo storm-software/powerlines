@@ -101,53 +101,53 @@ export const plugin = <
             const meta = {} as Record<string, MetaItem>;
 
             await unctx.callAsync({ value: this, meta }, async () => {
-              await traverseOutput(
-                await renderAsync(
-                  <Output<TContext>
-                    context={this}
-                    meta={meta}
-                    basePath={this.workspaceConfig.workspaceRoot}>
-                    {children}
-                  </Output>
-                ),
-                {
-                  visitDirectory: directory => {
-                    if (this.fs.existsSync(directory.path)) {
-                      return;
-                    }
+              const output = await renderAsync(
+                <Output<TContext>
+                  context={this}
+                  meta={meta}
+                  basePath={this.workspaceConfig.workspaceRoot}>
+                  {children}
+                </Output>
+              );
+              this.debug("Processing rendered output from Alloy-js.");
 
-                    this.fs.mkdirSync(directory.path);
-                  },
-                  visitFile: file => {
-                    if ("contents" in file) {
-                      const metadata = meta[file.path] ?? {};
-                      if (metadata.kind === "builtin") {
-                        if (!metadata.id) {
-                          throw new Error(
-                            `Built-in file "${file.path}" is missing its ID in the render metadata.`
-                          );
-                        }
+              await traverseOutput(output, {
+                visitDirectory: directory => {
+                  if (this.fs.existsSync(directory.path)) {
+                    return;
+                  }
 
-                        this.emitBuiltinSync(file.contents, metadata.id, {
-                          skipFormat: metadata.skipFormat,
-                          storage: metadata.storage,
-                          extension: findFileExtension(file.path)
-                        });
-                      } else if (metadata.kind === "entry") {
-                        this.emitEntrySync(file.contents, file.path, {
-                          skipFormat: metadata.skipFormat,
-                          storage: metadata.storage,
-                          ...(metadata.typeDefinition ?? {})
-                        });
-                      } else {
-                        this.emitSync(file.contents, file.path, metadata);
+                  this.fs.mkdirSync(directory.path);
+                },
+                visitFile: file => {
+                  if ("contents" in file) {
+                    const metadata = meta[file.path] ?? {};
+                    if (metadata.kind === "builtin") {
+                      if (!metadata.id) {
+                        throw new Error(
+                          `Built-in file "${file.path}" is missing its ID in the render metadata.`
+                        );
                       }
+
+                      this.emitBuiltinSync(file.contents, metadata.id, {
+                        skipFormat: metadata.skipFormat,
+                        storage: metadata.storage,
+                        extension: findFileExtension(file.path)
+                      });
+                    } else if (metadata.kind === "entry") {
+                      this.emitEntrySync(file.contents, file.path, {
+                        skipFormat: metadata.skipFormat,
+                        storage: metadata.storage,
+                        ...(metadata.typeDefinition ?? {})
+                      });
                     } else {
-                      this.fs.copySync(file.sourcePath, file.path);
+                      this.emitSync(file.contents, file.path, metadata);
                     }
+                  } else {
+                    this.fs.copySync(file.sourcePath, file.path);
                   }
                 }
-              );
+              });
             });
           };
         }
