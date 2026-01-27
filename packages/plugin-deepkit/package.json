@@ -101,8 +101,15 @@
   },
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["deepkit", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "deepkit",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@powerlines/deepkit": "workspace:*",
     "@powerlines/plugin-tsc": "workspace:*",
