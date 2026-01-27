@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.190](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.190) (01/27/2026)
+
+### Miscellaneous
+
+- **powerlines:** Remove excessive `tsdown` default configuration values ([87e46ac6](https://github.com/storm-software/powerlines/commit/87e46ac6))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.38.6**
+
 ## [0.12.189](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.189) (01/27/2026)
 
 ### Updated Dependencies
