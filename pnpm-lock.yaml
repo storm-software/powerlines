@@ -415,8 +415,8 @@ catalogs:
       specifier: ^4.7.8
       version: 4.7.8
     i18next-cli:
-      specifier: ^1.38.1
-      version: 1.38.1
+      specifier: ^1.38.2
+      version: 1.38.2
     i18next-resources-for-ts:
       specifier: ^2.0.0
       version: 2.0.0
@@ -1558,7 +1558,7 @@ importers:
         version: 6.1.4
       i18next-cli:
         specifier: 'catalog:'
-        version: 1.38.1(@swc/helpers@0.5.18)(@types/node@24.10.9)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3)
+        version: 1.38.2(@swc/helpers@0.5.18)(@types/node@24.10.9)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3)
       i18next-resources-for-ts:
         specifier: 'catalog:'
         version: 2.0.0(@swc/helpers@0.5.18)
@@ -14201,8 +14201,8 @@ packages:
   hyphenate-style-name@1.1.0:
     resolution: {integrity: sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==}
 
-  i18next-cli@1.38.1:
-    resolution: {integrity: sha512-vgnCvEjCwM3FgINzEz08eKTlmf4rk8fVlR0zfwpwgV4RNzgxjkzlZuIsXhhRCBvnv1soOOuWmG/LylNNqkdNfw==}
+  i18next-cli@1.38.2:
+    resolution: {integrity: sha512-Utp5yK7XlKDUqKfGrMjVevaT5bvsOC/iD/3KrJSv4b/J31fuyrJu4ClASXpNw9WzOERLA/6J0/9OSVz9OSSCfg==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -35746,7 +35746,7 @@ snapshots:
 
   hyphenate-style-name@1.1.0: {}
 
-  i18next-cli@1.38.1(@swc/helpers@0.5.18)(@types/node@24.10.9)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3):
+  i18next-cli@1.38.2(@swc/helpers@0.5.18)(@types/node@24.10.9)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3):
     dependencies:
       '@croct/json5-parser': 0.2.2
       '@swc/core': 1.15.10(@swc/helpers@0.5.18)
