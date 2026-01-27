@@ -1444,7 +1444,6 @@ export class PowerlinesContext<
           inlineConfig: {},
           userConfig: {},
           framework: "powerlines",
-          platform: "neutral",
           mode: "production",
           projectType: "application",
           logLevel: "info",
@@ -1461,6 +1460,7 @@ export class PowerlinesContext<
           },
           build: {
             target: "esnext",
+            platform: "neutral",
             override: {}
           }
         }
