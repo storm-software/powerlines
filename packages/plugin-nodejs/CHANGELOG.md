@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.136](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.136) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove star exports from workspace `package.json` files ([195c92eb](https://github.com/storm-software/powerlines/commit/195c92eb))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.189**
+- Updated **plugin-alloy** to **v0.19.13**
+- Updated **plugin-babel** to **v0.12.247**
+- Updated **plugin-env** to **v0.15.141**
+- Updated **powerlines** to **v0.38.5**
+
 ## [0.1.135](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.135) (01/27/2026)
 
 ### Updated Dependencies

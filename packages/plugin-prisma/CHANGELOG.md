@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.2.192](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.192) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove star exports from workspace `package.json` files ([195c92eb](https://github.com/storm-software/powerlines/commit/195c92eb))
+
+### Updated Dependencies
+
+- Updated **plugin-hey-api** to **v0.1.192**
+- Updated **plugin-plugin** to **v0.12.189**
+- Updated **powerlines** to **v0.38.5**
+
 ## [0.2.191](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.191) (01/27/2026)
 
 ### Updated Dependencies

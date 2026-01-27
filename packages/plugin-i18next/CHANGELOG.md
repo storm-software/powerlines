@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin I18next
 
+## [0.1.135](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.135) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove star exports from workspace `package.json` files ([195c92eb](https://github.com/storm-software/powerlines/commit/195c92eb))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.189**
+- Updated **powerlines** to **v0.38.5**
+
 ## [0.1.134](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.134) (01/27/2026)
 
 ### Updated Dependencies

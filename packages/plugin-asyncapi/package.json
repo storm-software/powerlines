@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-asyncapi",
-  "version": "0.1.241",
+  "version": "0.1.242",
   "type": "module",
   "description": "A Powerlines plugin to generate project code from AsyncAPI specifications.",
   "repository": {
@@ -86,15 +86,8 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "asyncapi",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["asyncapi", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@asyncapi/generator": "catalog:",
     "@asyncapi/parser": "catalog:",

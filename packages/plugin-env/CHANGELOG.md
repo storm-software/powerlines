@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.141](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.141) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove star exports from workspace `package.json` files ([195c92eb](https://github.com/storm-software/powerlines/commit/195c92eb))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.117**
+- Updated **plugin-automd** to **v0.1.238**
+- Updated **plugin-plugin** to **v0.12.189**
+- Updated **plugin-alloy** to **v0.19.13**
+- Updated **plugin-babel** to **v0.12.247**
+- Updated **powerlines** to **v0.38.5**
+- Updated **deepkit** to **v0.6.18**
+
 ## [0.15.140](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.140) (01/27/2026)
 
 ### Updated Dependencies

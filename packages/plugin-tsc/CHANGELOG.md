@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.246](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.246) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove star exports from workspace `package.json` files ([195c92eb](https://github.com/storm-software/powerlines/commit/195c92eb))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.189**
+- Updated **powerlines** to **v0.38.5**
+
 ## [0.2.245](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.245) (01/27/2026)
 
 ### Updated Dependencies

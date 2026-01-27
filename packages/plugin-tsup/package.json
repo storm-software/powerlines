@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-tsup",
-  "version": "0.12.247",
+  "version": "0.12.248",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
@@ -114,15 +114,8 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "tsup",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["tsup", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@storm-software/tsup": "catalog:",
     "@stryke/path": "catalog:",

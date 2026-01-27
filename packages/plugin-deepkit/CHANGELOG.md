@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.117](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.117) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove star exports from workspace `package.json` files ([195c92eb](https://github.com/storm-software/powerlines/commit/195c92eb))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.189**
+- Updated **plugin-tsc** to **v0.2.246**
+- Updated **powerlines** to **v0.38.5**
+- Updated **deepkit** to **v0.6.18**
+
 ## [0.11.116](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.116) (01/27/2026)
 
 ### Updated Dependencies

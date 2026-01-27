@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.244](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.244) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove star exports from workspace `package.json` files ([195c92eb](https://github.com/storm-software/powerlines/commit/195c92eb))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.189**
+- Updated **plugin-env** to **v0.15.141**
+- Updated **powerlines** to **v0.38.5**
+
 ## [0.10.243](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.243) (01/27/2026)
 
 ### Updated Dependencies

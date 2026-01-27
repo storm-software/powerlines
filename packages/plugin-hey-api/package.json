@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-hey-api",
-  "version": "0.1.191",
+  "version": "0.1.192",
   "type": "module",
   "description": "A Powerlines plugin to generate project code using Hey API.",
   "repository": {
@@ -114,15 +114,8 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "hey-api",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["hey-api", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@hey-api/openapi-ts": "catalog:",
     "@stryke/path": "catalog:",

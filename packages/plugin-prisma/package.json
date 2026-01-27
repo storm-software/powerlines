@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-prisma",
-  "version": "0.2.191",
+  "version": "0.2.192",
   "type": "module",
   "description": "A Powerlines plugin to generate project code and a Prisma client from a Prisma schema (PSL).",
   "repository": {
@@ -366,15 +366,8 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "prisma",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["prisma", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@prisma/get-platform": "catalog:",
     "@prisma/prisma-schema-wasm": "catalog:",

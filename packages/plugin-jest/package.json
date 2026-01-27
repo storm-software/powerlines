@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-jest",
-  "version": "0.1.245",
+  "version": "0.1.246",
   "type": "module",
   "description": "A package containing the Jest testing plugin for Powerlines.",
   "repository": {
@@ -86,15 +86,8 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "jest",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["jest", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@jest/reporters": "catalog:",
     "@jest/test-result": "catalog:",

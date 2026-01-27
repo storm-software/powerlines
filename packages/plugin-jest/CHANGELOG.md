@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Jest
 
+## [0.1.246](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.246) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove star exports from workspace `package.json` files ([195c92eb](https://github.com/storm-software/powerlines/commit/195c92eb))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.189**
+- Updated **powerlines** to **v0.38.5**
+
 ## [0.1.245](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.245) (01/27/2026)
 
 ### Updated Dependencies

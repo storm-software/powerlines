@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.13](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.13) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove star exports from workspace `package.json` files ([195c92eb](https://github.com/storm-software/powerlines/commit/195c92eb))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.189**
+- Updated **plugin-babel** to **v0.12.247**
+- Updated **powerlines** to **v0.38.5**
+- Updated **deepkit** to **v0.6.18**
+
 ## [0.19.12](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.12) (01/27/2026)
 
 ### Updated Dependencies

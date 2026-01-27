@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tamagui
 
+## [0.1.228](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.228) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove star exports from workspace `package.json` files ([195c92eb](https://github.com/storm-software/powerlines/commit/195c92eb))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.189**
+- Updated **powerlines** to **v0.38.5**
+
 ## [0.1.227](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.227) (01/27/2026)
 
 ### Updated Dependencies

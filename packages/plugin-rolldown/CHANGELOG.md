@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.248](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.248) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove star exports from workspace `package.json` files ([195c92eb](https://github.com/storm-software/powerlines/commit/195c92eb))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.189**
+- Updated **powerlines** to **v0.38.5**
+
 ## [0.7.247](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.247) (01/27/2026)
 
 ### Updated Dependencies
