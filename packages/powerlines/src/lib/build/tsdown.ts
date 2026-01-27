@@ -39,9 +39,6 @@ import { getDependencyConfig } from "./helpers";
 export const DEFAULT_TSDOWN_CONFIG: Partial<TsdownResolvedBuildConfig> = {
   platform: "neutral",
   target: "esnext",
-  cjsDefault: true,
-  unbundle: true,
-  shims: true,
   fixedExtension: true,
   nodeProtocol: true,
   clean: false
@@ -242,19 +239,7 @@ export function extractTsdownConfig(
         }
       },
       platform: context.config.build.platform,
-      dts: {
-        parallel: true,
-        newContext: true,
-        cwd: appendPath(
-          context.config.projectRoot,
-          context.workspaceConfig.workspaceRoot
-        ),
-        tsconfig: appendPath(
-          context.tsconfig.tsconfigFilePath,
-          context.workspaceConfig.workspaceRoot
-        ),
-        sourcemap: context.config.mode === "development"
-      },
+      dts: true,
       outDir: appendPath(
         context.config.output.buildPath,
         context.workspaceConfig.workspaceRoot

@@ -61,7 +61,6 @@ export const plugin = <
           nodeProtocol: true,
           minify: false,
           exports: true,
-          skipNodeModulesBundle: true,
           external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\//]
         }
       };
