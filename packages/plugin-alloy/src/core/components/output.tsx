@@ -25,7 +25,7 @@ import {
 } from "@alloy-js/core";
 import { replacePath } from "@stryke/path/replace";
 import type { PluginContext } from "powerlines/types/context";
-import { MetaItem, PowerlinesContext } from "../contexts/context";
+import { MetaItem } from "../contexts/context";
 
 export interface OutputProps<
   TContext extends PluginContext = PluginContext,
@@ -49,10 +49,9 @@ export function Output<
   TContext extends PluginContext = PluginContext,
   TMeta extends Record<string, MetaItem> = Record<string, MetaItem>
 >(props: OutputProps<TContext, TMeta>) {
-  const [{ children, context, meta, basePath }, rest] = splitProps(props, [
+  const [{ children, context, basePath }, rest] = splitProps(props, [
     "children",
     "context",
-    "meta",
     "basePath"
   ]);
 
@@ -64,9 +63,7 @@ export function Output<
 
   return (
     <OutputExternal {...rest} basePath={basePathRef.value}>
-      <PowerlinesContext.Provider value={{ value: context, meta }}>
-        <Show when={Boolean(context)}>{children}</Show>
-      </PowerlinesContext.Provider>
+      <Show when={Boolean(context)}>{children}</Show>
     </OutputExternal>
   );
 }
