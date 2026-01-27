@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 export * from "./esbuild";
+export * from "./helpers";
 export * from "./rolldown";
 export * from "./rollup";
 export * from "./rspack";
