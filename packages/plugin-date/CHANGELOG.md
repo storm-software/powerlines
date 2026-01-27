@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.277](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.277) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository's json files ([4871b85a](https://github.com/storm-software/powerlines/commit/4871b85a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.187**
+- Updated **plugin-env** to **v0.15.139**
+- Updated **powerlines** to **v0.38.3**
+
 ## [0.12.276](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.276) (01/27/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.11](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.11) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository's json files ([4871b85a](https://github.com/storm-software/powerlines/commit/4871b85a))
+
+### Bug Fixes
+
+- **plugin-alloy:** Remove unneeded bundling logic ([925772fa](https://github.com/storm-software/powerlines/commit/925772fa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.187**
+- Updated **plugin-babel** to **v0.12.245**
+- Updated **powerlines** to **v0.38.3**
+- Updated **deepkit** to **v0.6.16**
+
 ## [0.19.10](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.10) (01/27/2026)
 
 ### Miscellaneous

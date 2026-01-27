@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.10.244](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.244) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository's json files ([4871b85a](https://github.com/storm-software/powerlines/commit/4871b85a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.187**
+- Updated **powerlines** to **v0.38.3**
+
 ## [0.10.243](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.243) (01/27/2026)
 
 ### Updated Dependencies

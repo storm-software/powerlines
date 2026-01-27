@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Marked
 
+## [0.1.201](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.201) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository's json files ([4871b85a](https://github.com/storm-software/powerlines/commit/4871b85a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.187**
+- Updated **powerlines** to **v0.38.3**
+
 ## [0.1.200](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.200) (01/27/2026)
 
 ### Updated Dependencies

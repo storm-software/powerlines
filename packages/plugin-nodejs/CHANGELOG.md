@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.134](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.134) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository's json files ([4871b85a](https://github.com/storm-software/powerlines/commit/4871b85a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.187**
+- Updated **plugin-alloy** to **v0.19.11**
+- Updated **plugin-babel** to **v0.12.245**
+- Updated **plugin-env** to **v0.15.139**
+- Updated **powerlines** to **v0.38.3**
+
 ## [0.1.133](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.133) (01/27/2026)
 
 ### Updated Dependencies

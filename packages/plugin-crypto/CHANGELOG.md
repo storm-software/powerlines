@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.242](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.242) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository's json files ([4871b85a](https://github.com/storm-software/powerlines/commit/4871b85a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.187**
+- Updated **plugin-env** to **v0.15.139**
+- Updated **powerlines** to **v0.38.3**
+
 ## [0.10.241](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.241) (01/27/2026)
 
 ### Updated Dependencies

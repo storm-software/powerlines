@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.2.190](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.190) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository's json files ([4871b85a](https://github.com/storm-software/powerlines/commit/4871b85a))
+
+### Updated Dependencies
+
+- Updated **plugin-hey-api** to **v0.1.190**
+- Updated **plugin-plugin** to **v0.12.187**
+- Updated **powerlines** to **v0.38.3**
+
 ## [0.2.189](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.189) (01/27/2026)
 
 ### Updated Dependencies

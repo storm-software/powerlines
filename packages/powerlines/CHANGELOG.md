@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.3) (01/27/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Remove unneeded bundling logic ([925772fa](https://github.com/storm-software/powerlines/commit/925772fa))
+
 ## [0.38.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.1) (01/27/2026)
 
 ### Bug Fixes

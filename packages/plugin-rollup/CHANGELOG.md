@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Rollup
 
+## [0.7.246](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.246) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository's json files ([4871b85a](https://github.com/storm-software/powerlines/commit/4871b85a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.187**
+- Updated **powerlines** to **v0.38.3**
+
 ## [0.7.245](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.245) (01/27/2026)
 
 ### Updated Dependencies

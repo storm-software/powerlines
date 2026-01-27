@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.139](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.139) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository's json files ([4871b85a](https://github.com/storm-software/powerlines/commit/4871b85a))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.115**
+- Updated **plugin-automd** to **v0.1.236**
+- Updated **plugin-plugin** to **v0.12.187**
+- Updated **plugin-alloy** to **v0.19.11**
+- Updated **plugin-babel** to **v0.12.245**
+- Updated **powerlines** to **v0.38.3**
+- Updated **deepkit** to **v0.6.16**
+
 ## [0.15.138](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.138) (01/27/2026)
 
 ### Updated Dependencies

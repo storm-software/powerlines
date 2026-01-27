@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-nitro",
-  "version": "0.1.127",
+  "version": "0.1.128",
   "type": "module",
   "description": "A package containing a Powerlines plugin for creating a server application that runs on Nitro.",
   "repository": {
@@ -97,15 +97,8 @@
       }
     }
   },
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "nitro",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["nitro", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
     "@stryke/cli": "catalog:",

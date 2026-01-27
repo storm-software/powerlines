@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.2.216](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.216) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository's json files ([4871b85a](https://github.com/storm-software/powerlines/commit/4871b85a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.187**
+- Updated **powerlines** to **v0.38.3**
+
 ## [0.2.215](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.215) (01/27/2026)
 
 ### Updated Dependencies

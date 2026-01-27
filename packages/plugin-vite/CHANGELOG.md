@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.237](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.237) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository's json files ([4871b85a](https://github.com/storm-software/powerlines/commit/4871b85a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.187**
+- Updated **powerlines** to **v0.38.3**
+
 ## [0.14.236](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.236) (01/27/2026)
 
 ### Updated Dependencies

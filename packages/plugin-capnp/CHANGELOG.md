@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Capnp
 
+## [0.1.239](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.239) (01/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat repository's json files ([4871b85a](https://github.com/storm-software/powerlines/commit/4871b85a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.187**
+- Updated **powerlines** to **v0.38.3**
+
 ## [0.1.238](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.238) (01/27/2026)
 
 ### Updated Dependencies
