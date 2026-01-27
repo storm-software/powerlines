@@ -54,7 +54,7 @@ export const plugin = <
         }
       },
       async prepare() {
-        return this.render(
+        await this.render(
           <NodeJsEnvBuiltin defaultConfig={this.config.env.defaultConfig} />
         );
       }

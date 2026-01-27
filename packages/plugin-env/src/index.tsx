@@ -329,7 +329,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           `Preparing the Environment runtime artifacts for the Powerlines project.`
         );
 
-        return this.render(
+        await this.render(
           <EnvBuiltin defaultConfig={this.config.env.defaultConfig} />
         );
       },
@@ -365,7 +365,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           )}"`
         );
 
-        return this.render(<EnvDocsFile levelOffset={0} />);
+        await this.render(<EnvDocsFile levelOffset={0} />);
       },
       async buildEnd() {
         const reflectionPath = getEnvReflectionsPath(this, "env");
@@ -381,7 +381,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         return {
           automd: defu(options.automd ?? {}, {
             generators: {
-              "env": env(this)
+              env: env(this)
             }
           })
         };
