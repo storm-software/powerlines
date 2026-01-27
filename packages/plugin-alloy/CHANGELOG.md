@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.6](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.6) (01/26/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update `@stryke/path` to resolve entry path globs/exports issue
+  ([d8d2887e](https://github.com/storm-software/powerlines/commit/d8d2887e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.182**
+- Updated **plugin-babel** to **v0.12.240**
+- Updated **powerlines** to **v0.37.102**
+- Updated **deepkit** to **v0.6.12**
+
 ## [0.19.5](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.5) (01/26/2026)
 
 ### Updated Dependencies

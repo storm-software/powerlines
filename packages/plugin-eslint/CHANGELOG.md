@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.8.235](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.235) (01/26/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update `@stryke/path` to resolve entry path globs/exports issue
+  ([d8d2887e](https://github.com/storm-software/powerlines/commit/d8d2887e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.182**
+- Updated **powerlines** to **v0.37.102**
+
 ## [0.8.234](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.234) (01/26/2026)
 
 ### Updated Dependencies

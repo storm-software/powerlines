@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-image-compression",
-  "version": "0.2.179",
+  "version": "0.2.180",
   "type": "module",
   "description": "A Powerlines plugin to optimize images used by the project.",
   "repository": {
@@ -56,9 +56,7 @@
     "./package.json": "./package.json"
   },
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
+  "files": ["dist/**/*"],
   "keywords": [
     "sharp",
     "svgo",

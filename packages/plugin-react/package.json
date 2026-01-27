@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-react",
-  "version": "0.1.262",
+  "version": "0.1.263",
   "type": "module",
   "description": "A package containing a Powerlines plugin for building a React application.",
   "repository": {
@@ -68,15 +68,8 @@
     },
     "./package.json": "./package.json"
   },
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "react",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["react", "powerlines", "storm-software", "powerlines-plugin"],
   "peerDependencies": {
     "react": ">=19.2.0",
     "react-dom": ">=19.2.0"

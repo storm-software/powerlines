@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-pulumi",
-  "version": "0.2.210",
+  "version": "0.2.211",
   "type": "module",
   "description": "A Powerlines plugin to transform source code to be platform agnostic using pulumi.",
   "repository": {
@@ -56,15 +56,8 @@
     "./package.json": "./package.json"
   },
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "pulumi",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["pulumi", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@pulumi/pulumi": "catalog:",
     "@stryke/fs": "catalog:",

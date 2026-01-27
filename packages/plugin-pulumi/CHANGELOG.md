@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.2.211](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.211) (01/26/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update `@stryke/path` to resolve entry path globs/exports issue
+  ([d8d2887e](https://github.com/storm-software/powerlines/commit/d8d2887e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.182**
+- Updated **powerlines** to **v0.37.102**
+
 ## [0.2.210](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.210) (01/26/2026)
 
 ### Updated Dependencies

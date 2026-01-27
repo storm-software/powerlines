@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.110](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.110) (01/26/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update `@stryke/path` to resolve entry path globs/exports issue
+  ([d8d2887e](https://github.com/storm-software/powerlines/commit/d8d2887e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.182**
+- Updated **plugin-tsc** to **v0.2.239**
+- Updated **powerlines** to **v0.37.102**
+- Updated **deepkit** to **v0.6.12**
+
 ## [0.11.109](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.109) (01/26/2026)
 
 ### Updated Dependencies

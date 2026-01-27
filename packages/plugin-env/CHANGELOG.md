@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.134](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.134) (01/26/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update `@stryke/path` to resolve entry path globs/exports issue
+  ([d8d2887e](https://github.com/storm-software/powerlines/commit/d8d2887e))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.110**
+- Updated **plugin-automd** to **v0.1.231**
+- Updated **plugin-plugin** to **v0.12.182**
+- Updated **plugin-alloy** to **v0.19.6**
+- Updated **plugin-babel** to **v0.12.240**
+- Updated **powerlines** to **v0.37.102**
+- Updated **deepkit** to **v0.6.12**
+
 ## [0.15.133](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.133) (01/26/2026)
 
 ### Updated Dependencies

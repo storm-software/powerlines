@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.237](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.237) (01/26/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update `@stryke/path` to resolve entry path globs/exports issue
+  ([d8d2887e](https://github.com/storm-software/powerlines/commit/d8d2887e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.182**
+- Updated **plugin-env** to **v0.15.134**
+- Updated **powerlines** to **v0.37.102**
+
 ## [0.10.236](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.236) (01/26/2026)
 
 ### Updated Dependencies

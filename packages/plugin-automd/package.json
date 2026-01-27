@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-automd",
-  "version": "0.1.230",
+  "version": "0.1.231",
   "type": "module",
   "description": "A Powerlines plugin to maintain a project's markdown files using AutoMD generators.",
   "repository": {
@@ -61,15 +61,8 @@
   },
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "automd",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["automd", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",

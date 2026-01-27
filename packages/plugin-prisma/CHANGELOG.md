@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.2.185](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.185) (01/26/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update `@stryke/path` to resolve entry path globs/exports issue
+  ([d8d2887e](https://github.com/storm-software/powerlines/commit/d8d2887e))
+
+### Updated Dependencies
+
+- Updated **plugin-hey-api** to **v0.1.185**
+- Updated **plugin-plugin** to **v0.12.182**
+- Updated **powerlines** to **v0.37.102**
+
 ## [0.2.184](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.184) (01/26/2026)
 
 ### Updated Dependencies

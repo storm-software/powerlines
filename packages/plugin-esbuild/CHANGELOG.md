@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.240](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.240) (01/26/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update `@stryke/path` to resolve entry path globs/exports issue
+  ([d8d2887e](https://github.com/storm-software/powerlines/commit/d8d2887e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.182**
+- Updated **powerlines** to **v0.37.102**
+
 ## [0.13.239](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.239) (01/26/2026)
 
 ### Updated Dependencies
