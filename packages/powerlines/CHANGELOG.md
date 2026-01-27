@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.4) (01/27/2026)
+
+### Miscellaneous
+
+- **powerlines:** Remove unneeded logic to add star exports ([5de17410](https://github.com/storm-software/powerlines/commit/5de17410))
+
 ## [0.38.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.3) (01/27/2026)
 
 ### Bug Fixes
