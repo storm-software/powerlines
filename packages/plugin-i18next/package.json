@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-i18next",
-  "version": "0.1.133",
+  "version": "0.1.134",
   "type": "module",
   "description": "A Powerlines plugin to use i18next for internationalization.",
   "repository": {
@@ -68,20 +68,6 @@
       "default": {
         "types": "./dist/types/index.d.mts",
         "default": "./dist/types/index.mjs"
-      }
-    },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
       }
     },
     "./types/i18n": {

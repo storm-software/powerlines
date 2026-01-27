@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-id",
-  "version": "0.9.245",
+  "version": "0.9.246",
   "type": "module",
   "description": "A Powerlines plugin that provides unique identifier generation capabilities at runtime by adding the `id` builtin module.",
   "repository": {
@@ -67,20 +67,6 @@
         "default": "./dist/components/index.mjs"
       }
     },
-    "./components/*": {
-      "require": {
-        "types": "./dist/components/*.d.cts",
-        "default": "./dist/components/*.cjs"
-      },
-      "import": {
-        "types": "./dist/components/*.d.mts",
-        "default": "./dist/components/*.mjs"
-      },
-      "default": {
-        "types": "./dist/components/*.d.mts",
-        "default": "./dist/components/*.mjs"
-      }
-    },
     "./components/nanoid": {
       "require": {
         "types": "./dist/components/nanoid.d.cts",
@@ -108,20 +94,6 @@
       "default": {
         "types": "./dist/types/index.d.mts",
         "default": "./dist/types/index.mjs"
-      }
-    },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
       }
     },
     "./types/plugin": {

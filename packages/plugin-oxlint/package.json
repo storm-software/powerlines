@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-oxlint",
-  "version": "0.7.240",
+  "version": "0.7.241",
   "type": "module",
   "description": "A package containing a Powerlines plugin for running Oxlint on the codebase.",
   "repository": {
@@ -67,20 +67,6 @@
         "default": "./dist/helpers/index.mjs"
       }
     },
-    "./helpers/*": {
-      "require": {
-        "types": "./dist/helpers/*.d.cts",
-        "default": "./dist/helpers/*.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
-      }
-    },
     "./helpers/generate-config": {
       "require": {
         "types": "./dist/helpers/generate-config.d.cts",
@@ -108,20 +94,6 @@
       "default": {
         "types": "./dist/types/index.d.mts",
         "default": "./dist/types/index.mjs"
-      }
-    },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
       }
     },
     "./types/plugin": {

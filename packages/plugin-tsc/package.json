@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-tsc",
-  "version": "0.2.244",
+  "version": "0.2.245",
   "type": "module",
   "description": "A package containing the TypeScript compiler plugin for Powerlines.",
   "repository": {
@@ -69,20 +69,6 @@
         "default": "./dist/helpers/index.mjs"
       }
     },
-    "./helpers/*": {
-      "require": {
-        "types": "./dist/helpers/*.d.cts",
-        "default": "./dist/helpers/*.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
-      }
-    },
     "./helpers/type-check": {
       "require": {
         "types": "./dist/helpers/type-check.d.cts",
@@ -110,20 +96,6 @@
       "default": {
         "types": "./dist/types/index.d.mts",
         "default": "./dist/types/index.mjs"
-      }
-    },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
       }
     },
     "./types/plugin": {

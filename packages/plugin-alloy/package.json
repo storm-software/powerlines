@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-alloy",
-  "version": "0.19.11",
+  "version": "0.19.12",
   "type": "module",
   "description": "A package containing various Alloy framework components and helper utilities.",
   "repository": {
@@ -69,20 +69,6 @@
         "default": "./dist/core/index.mjs"
       }
     },
-    "./core/*": {
-      "require": {
-        "types": "./dist/core/*.d.cts",
-        "default": "./dist/core/*.cjs"
-      },
-      "import": {
-        "types": "./dist/core/*.d.mts",
-        "default": "./dist/core/*.mjs"
-      },
-      "default": {
-        "types": "./dist/core/*.d.mts",
-        "default": "./dist/core/*.mjs"
-      }
-    },
     "./core/components": {
       "require": {
         "types": "./dist/core/components/index.d.cts",
@@ -95,20 +81,6 @@
       "default": {
         "types": "./dist/core/components/index.d.mts",
         "default": "./dist/core/components/index.mjs"
-      }
-    },
-    "./core/components/*": {
-      "require": {
-        "types": "./dist/core/components/*.d.cts",
-        "default": "./dist/core/components/*.cjs"
-      },
-      "import": {
-        "types": "./dist/core/components/*.d.mts",
-        "default": "./dist/core/components/*.mjs"
-      },
-      "default": {
-        "types": "./dist/core/components/*.d.mts",
-        "default": "./dist/core/components/*.mjs"
       }
     },
     "./core/components/output": {
@@ -167,20 +139,6 @@
         "default": "./dist/core/contexts/index.mjs"
       }
     },
-    "./core/contexts/*": {
-      "require": {
-        "types": "./dist/core/contexts/*.d.cts",
-        "default": "./dist/core/contexts/*.cjs"
-      },
-      "import": {
-        "types": "./dist/core/contexts/*.d.mts",
-        "default": "./dist/core/contexts/*.mjs"
-      },
-      "default": {
-        "types": "./dist/core/contexts/*.d.mts",
-        "default": "./dist/core/contexts/*.mjs"
-      }
-    },
     "./core/contexts/context": {
       "require": {
         "types": "./dist/core/contexts/context.d.cts",
@@ -221,20 +179,6 @@
       "default": {
         "types": "./dist/helpers/index.d.mts",
         "default": "./dist/helpers/index.mjs"
-      }
-    },
-    "./helpers/*": {
-      "require": {
-        "types": "./dist/helpers/*.d.cts",
-        "default": "./dist/helpers/*.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
       }
     },
     "./helpers/capnp": {
@@ -307,20 +251,6 @@
         "default": "./dist/markdown/index.mjs"
       }
     },
-    "./markdown/*": {
-      "require": {
-        "types": "./dist/markdown/*.d.cts",
-        "default": "./dist/markdown/*.cjs"
-      },
-      "import": {
-        "types": "./dist/markdown/*.d.mts",
-        "default": "./dist/markdown/*.mjs"
-      },
-      "default": {
-        "types": "./dist/markdown/*.d.mts",
-        "default": "./dist/markdown/*.mjs"
-      }
-    },
     "./markdown/components": {
       "require": {
         "types": "./dist/markdown/components/index.d.cts",
@@ -333,20 +263,6 @@
       "default": {
         "types": "./dist/markdown/components/index.d.mts",
         "default": "./dist/markdown/components/index.mjs"
-      }
-    },
-    "./markdown/components/*": {
-      "require": {
-        "types": "./dist/markdown/components/*.d.cts",
-        "default": "./dist/markdown/components/*.cjs"
-      },
-      "import": {
-        "types": "./dist/markdown/components/*.d.mts",
-        "default": "./dist/markdown/components/*.mjs"
-      },
-      "default": {
-        "types": "./dist/markdown/components/*.d.mts",
-        "default": "./dist/markdown/components/*.mjs"
       }
     },
     "./markdown/components/front-matter": {
@@ -405,20 +321,6 @@
         "default": "./dist/markdown/contexts/index.mjs"
       }
     },
-    "./markdown/contexts/*": {
-      "require": {
-        "types": "./dist/markdown/contexts/*.d.cts",
-        "default": "./dist/markdown/contexts/*.cjs"
-      },
-      "import": {
-        "types": "./dist/markdown/contexts/*.d.mts",
-        "default": "./dist/markdown/contexts/*.mjs"
-      },
-      "default": {
-        "types": "./dist/markdown/contexts/*.d.mts",
-        "default": "./dist/markdown/contexts/*.mjs"
-      }
-    },
     "./markdown/contexts/markdown-table": {
       "require": {
         "types": "./dist/markdown/contexts/markdown-table.d.cts",
@@ -446,20 +348,6 @@
       "default": {
         "types": "./dist/types/index.d.mts",
         "default": "./dist/types/index.mjs"
-      }
-    },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
       }
     },
     "./types/components": {
@@ -504,20 +392,6 @@
         "default": "./dist/typescript/index.mjs"
       }
     },
-    "./typescript/*": {
-      "require": {
-        "types": "./dist/typescript/*.d.cts",
-        "default": "./dist/typescript/*.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/*.d.mts",
-        "default": "./dist/typescript/*.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/*.d.mts",
-        "default": "./dist/typescript/*.mjs"
-      }
-    },
     "./typescript/components": {
       "require": {
         "types": "./dist/typescript/components/index.d.cts",
@@ -530,20 +404,6 @@
       "default": {
         "types": "./dist/typescript/components/index.d.mts",
         "default": "./dist/typescript/components/index.mjs"
-      }
-    },
-    "./typescript/components/*": {
-      "require": {
-        "types": "./dist/typescript/components/*.d.cts",
-        "default": "./dist/typescript/components/*.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/*.d.mts",
-        "default": "./dist/typescript/components/*.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/*.d.mts",
-        "default": "./dist/typescript/components/*.mjs"
       }
     },
     "./typescript/components/builtin-file": {

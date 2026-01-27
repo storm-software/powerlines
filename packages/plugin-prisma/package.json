@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-prisma",
-  "version": "0.2.190",
+  "version": "0.2.191",
   "type": "module",
   "description": "A Powerlines plugin to generate project code and a Prisma client from a Prisma schema (PSL).",
   "repository": {
@@ -83,34 +83,6 @@
         "default": "./dist/api/client.gen.mjs"
       }
     },
-    "./api/client.gen/*": {
-      "require": {
-        "types": "./dist/api/*.d.cts",
-        "default": "./dist/api/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/*.d.mts",
-        "default": "./dist/api/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/*.d.mts",
-        "default": "./dist/api/*.mjs"
-      }
-    },
-    "./api/client/*": {
-      "require": {
-        "types": "./dist/api/client/*.d.cts",
-        "default": "./dist/api/client/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/client/*.d.mts",
-        "default": "./dist/api/client/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/client/*.d.mts",
-        "default": "./dist/api/client/*.mjs"
-      }
-    },
     "./api/client/client.gen": {
       "require": {
         "types": "./dist/api/client/client.gen.d.cts",
@@ -123,20 +95,6 @@
       "default": {
         "types": "./dist/api/client/client.gen.d.mts",
         "default": "./dist/api/client/client.gen.mjs"
-      }
-    },
-    "./api/client/client.gen/*": {
-      "require": {
-        "types": "./dist/api/client/*.d.cts",
-        "default": "./dist/api/client/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/client/*.d.mts",
-        "default": "./dist/api/client/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/client/*.d.mts",
-        "default": "./dist/api/client/*.mjs"
       }
     },
     "./api/client/types.gen": {
@@ -153,20 +111,6 @@
         "default": "./dist/api/client/types.gen.mjs"
       }
     },
-    "./api/client/types.gen/*": {
-      "require": {
-        "types": "./dist/api/client/*.d.cts",
-        "default": "./dist/api/client/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/client/*.d.mts",
-        "default": "./dist/api/client/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/client/*.d.mts",
-        "default": "./dist/api/client/*.mjs"
-      }
-    },
     "./api/client/utils.gen": {
       "require": {
         "types": "./dist/api/client/utils.gen.d.cts",
@@ -179,20 +123,6 @@
       "default": {
         "types": "./dist/api/client/utils.gen.d.mts",
         "default": "./dist/api/client/utils.gen.mjs"
-      }
-    },
-    "./api/client/utils.gen/*": {
-      "require": {
-        "types": "./dist/api/client/*.d.cts",
-        "default": "./dist/api/client/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/client/*.d.mts",
-        "default": "./dist/api/client/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/client/*.d.mts",
-        "default": "./dist/api/client/*.mjs"
       }
     },
     "./api/core/auth.gen": {
@@ -209,20 +139,6 @@
         "default": "./dist/api/core/auth.gen.mjs"
       }
     },
-    "./api/core/auth.gen/*": {
-      "require": {
-        "types": "./dist/api/core/*.d.cts",
-        "default": "./dist/api/core/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
-      }
-    },
     "./api/core/bodySerializer.gen": {
       "require": {
         "types": "./dist/api/core/bodySerializer.gen.d.cts",
@@ -235,20 +151,6 @@
       "default": {
         "types": "./dist/api/core/bodySerializer.gen.d.mts",
         "default": "./dist/api/core/bodySerializer.gen.mjs"
-      }
-    },
-    "./api/core/bodySerializer.gen/*": {
-      "require": {
-        "types": "./dist/api/core/*.d.cts",
-        "default": "./dist/api/core/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
       }
     },
     "./api/core/params.gen": {
@@ -265,20 +167,6 @@
         "default": "./dist/api/core/params.gen.mjs"
       }
     },
-    "./api/core/params.gen/*": {
-      "require": {
-        "types": "./dist/api/core/*.d.cts",
-        "default": "./dist/api/core/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
-      }
-    },
     "./api/core/pathSerializer.gen": {
       "require": {
         "types": "./dist/api/core/pathSerializer.gen.d.cts",
@@ -291,20 +179,6 @@
       "default": {
         "types": "./dist/api/core/pathSerializer.gen.d.mts",
         "default": "./dist/api/core/pathSerializer.gen.mjs"
-      }
-    },
-    "./api/core/pathSerializer.gen/*": {
-      "require": {
-        "types": "./dist/api/core/*.d.cts",
-        "default": "./dist/api/core/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
       }
     },
     "./api/core/queryKeySerializer.gen": {
@@ -321,20 +195,6 @@
         "default": "./dist/api/core/queryKeySerializer.gen.mjs"
       }
     },
-    "./api/core/queryKeySerializer.gen/*": {
-      "require": {
-        "types": "./dist/api/core/*.d.cts",
-        "default": "./dist/api/core/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
-      }
-    },
     "./api/core/serverSentEvents.gen": {
       "require": {
         "types": "./dist/api/core/serverSentEvents.gen.d.cts",
@@ -347,20 +207,6 @@
       "default": {
         "types": "./dist/api/core/serverSentEvents.gen.d.mts",
         "default": "./dist/api/core/serverSentEvents.gen.mjs"
-      }
-    },
-    "./api/core/serverSentEvents.gen/*": {
-      "require": {
-        "types": "./dist/api/core/*.d.cts",
-        "default": "./dist/api/core/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
       }
     },
     "./api/core/types.gen": {
@@ -377,20 +223,6 @@
         "default": "./dist/api/core/types.gen.mjs"
       }
     },
-    "./api/core/types.gen/*": {
-      "require": {
-        "types": "./dist/api/core/*.d.cts",
-        "default": "./dist/api/core/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
-      }
-    },
     "./api/core/utils.gen": {
       "require": {
         "types": "./dist/api/core/utils.gen.d.cts",
@@ -403,20 +235,6 @@
       "default": {
         "types": "./dist/api/core/utils.gen.d.mts",
         "default": "./dist/api/core/utils.gen.mjs"
-      }
-    },
-    "./api/core/utils.gen/*": {
-      "require": {
-        "types": "./dist/api/core/*.d.cts",
-        "default": "./dist/api/core/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/*.d.mts",
-        "default": "./dist/api/core/*.mjs"
       }
     },
     "./api/sdk.gen": {
@@ -433,20 +251,6 @@
         "default": "./dist/api/sdk.gen.mjs"
       }
     },
-    "./api/sdk.gen/*": {
-      "require": {
-        "types": "./dist/api/*.d.cts",
-        "default": "./dist/api/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/*.d.mts",
-        "default": "./dist/api/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/*.d.mts",
-        "default": "./dist/api/*.mjs"
-      }
-    },
     "./api/types.gen": {
       "require": {
         "types": "./dist/api/types.gen.d.cts",
@@ -461,20 +265,6 @@
         "default": "./dist/api/types.gen.mjs"
       }
     },
-    "./api/types.gen/*": {
-      "require": {
-        "types": "./dist/api/*.d.cts",
-        "default": "./dist/api/*.cjs"
-      },
-      "import": {
-        "types": "./dist/api/*.d.mts",
-        "default": "./dist/api/*.mjs"
-      },
-      "default": {
-        "types": "./dist/api/*.d.mts",
-        "default": "./dist/api/*.mjs"
-      }
-    },
     "./helpers": {
       "require": {
         "types": "./dist/helpers/index.d.cts",
@@ -487,20 +277,6 @@
       "default": {
         "types": "./dist/helpers/index.d.mts",
         "default": "./dist/helpers/index.mjs"
-      }
-    },
-    "./helpers/*": {
-      "require": {
-        "types": "./dist/helpers/*.d.cts",
-        "default": "./dist/helpers/*.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
       }
     },
     "./helpers/get-schema": {
@@ -558,20 +334,6 @@
       "default": {
         "types": "./dist/types/index.d.mts",
         "default": "./dist/types/index.mjs"
-      }
-    },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
       }
     },
     "./types/plugin": {

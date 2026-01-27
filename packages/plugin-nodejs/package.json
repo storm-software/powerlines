@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-nodejs",
-  "version": "0.1.134",
+  "version": "0.1.135",
   "type": "module",
   "description": "A package containing a Powerlines plugin for building a Node.js application.",
   "repository": {
@@ -69,20 +69,6 @@
         "default": "./dist/components/index.mjs"
       }
     },
-    "./components/*": {
-      "require": {
-        "types": "./dist/components/*.d.cts",
-        "default": "./dist/components/*.cjs"
-      },
-      "import": {
-        "types": "./dist/components/*.d.mts",
-        "default": "./dist/components/*.mjs"
-      },
-      "default": {
-        "types": "./dist/components/*.d.mts",
-        "default": "./dist/components/*.mjs"
-      }
-    },
     "./components/env": {
       "require": {
         "types": "./dist/components/env.d.cts",
@@ -110,20 +96,6 @@
       "default": {
         "types": "./dist/types/index.d.mts",
         "default": "./dist/types/index.mjs"
-      }
-    },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
       }
     },
     "./types/plugin": {

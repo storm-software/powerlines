@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-nitro",
-  "version": "0.1.128",
+  "version": "0.1.129",
   "type": "module",
   "description": "A package containing a Powerlines plugin for creating a server application that runs on Nitro.",
   "repository": {
@@ -66,20 +66,6 @@
       "default": {
         "types": "./dist/types/index.d.mts",
         "default": "./dist/types/index.mjs"
-      }
-    },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
       }
     },
     "./types/plugin": {
