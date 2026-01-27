@@ -119,7 +119,7 @@ catalog:
   '@types/react': ^19.2.9
   '@types/react-dom': ^19.2.3
   '@types/semver': ^7.7.1
-  '@typescript-eslint/utils': ^8.53.1
+  '@typescript-eslint/utils': ^8.54.0
   '@vitejs/plugin-react': ^5.1.2
   automd: ^0.4.2
   babel-dead-code-elimination: ^1.0.12
@@ -165,7 +165,7 @@ catalog:
   openapi-typescript: ^7.10.1
   oxc-parser: ^0.99.0
   oxc-transform: ^0.99.0
-  oxlint: ^1.41.0
+  oxlint: ^1.42.0
   oxlint-tsgolint: ^0.2.1
   pluralize: ^8.0.0
   prettier: ^3.8.1
