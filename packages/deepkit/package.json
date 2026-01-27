@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/deepkit",
-  "version": "0.6.14",
+  "version": "0.6.15",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
@@ -145,16 +145,8 @@
     }
   },
   "typings": "dist/index.d.ts",
-  "files": [
-    "bin/*",
-    "dist/**/*",
-    "schemas/*"
-  ],
-  "keywords": [
-    "deepkit",
-    "powerlines",
-    "storm-software"
-  ],
+  "files": ["bin/*", "dist/**/*", "schemas/*"],
+  "keywords": ["deepkit", "powerlines", "storm-software"],
   "peerDependencies": {
     "esbuild": "*",
     "rolldown": "*"

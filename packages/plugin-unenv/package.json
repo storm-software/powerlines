@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-unenv",
-  "version": "0.1.223",
+  "version": "0.1.224",
   "type": "module",
   "description": "A Powerlines plugin to transform source code to be platform agnostic using unenv.",
   "repository": {
@@ -100,15 +100,8 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "unenv",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["unenv", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "powerlines": "workspace:*",
     "typescript": "^5.9.3",

@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/tsconfig",
-  "version": "0.2.160",
+  "version": "0.2.161",
   "type": "module",
   "description": "A package containing shared TypeScript configuration files (tsconfig.json) used in Powerlines projects.",
   "repository": {
@@ -55,12 +55,7 @@
     "./deepkit.json",
     "./workspace.json"
   ],
-  "keywords": [
-    "powerlines",
-    "storm-software",
-    "typescript",
-    "tsconfig"
-  ],
+  "keywords": ["powerlines", "storm-software", "typescript", "tsconfig"],
   "peerDependencies": {
     "@storm-software/tsconfig": "*"
   },
