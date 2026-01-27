@@ -63,6 +63,7 @@
     },
     "./package.json": "./package.json"
   },
+  "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
   "files": [
     "dist/**/*"
@@ -85,6 +86,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "types": "./dist/index.d.cts"
+  }
 }

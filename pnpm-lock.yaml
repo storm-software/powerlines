@@ -24,6 +24,9 @@ catalogs:
     '@alloy-js/markdown':
       specifier: ^0.22.0
       version: 0.22.0
+    '@alloy-js/rollup-plugin':
+      specifier: ^0.1.0
+      version: 0.1.0
     '@alloy-js/typescript':
       specifier: ^0.22.0
       version: 0.22.0
@@ -956,6 +959,9 @@ importers:
       '@alloy-js/markdown':
         specifier: 'catalog:'
         version: 0.22.0
+      '@alloy-js/rollup-plugin':
+        specifier: 'catalog:'
+        version: 0.1.0(@babel/core@7.28.6)(@types/babel__core@7.20.5)(rollup@4.56.0)
       '@alloy-js/typescript':
         specifier: 'catalog:'
         version: 0.22.0
@@ -3049,6 +3055,10 @@ packages:
 
   '@alloy-js/markdown@0.22.0':
     resolution: {integrity: sha512-VslLzyk9780MaEAKH/9LE7dPcxIxHEx/V3+MsoZ8nHK+rvpmnTblxFJpbkLvmhUf8Oq2hmgsvfv7jIauBGI0rQ==}
+
+  '@alloy-js/rollup-plugin@0.1.0':
+    resolution: {integrity: sha512-MXR8mBdSh/pxMP8kIXAcMYKsm5yOWZ+igxcaRX1vBXFiHU4eK7gE/5q6Fk8Vdydh+MItWtgekwIhUWvcszdNFQ==}
+    engines: {node: '>=18.0.0'}
 
   '@alloy-js/typescript@0.22.0':
     resolution: {integrity: sha512-jARBNxAA5aEhysleFFd7cGfjckkEXLCH9kDaJSH5xBOu4cU0v7q5TvAqgPlEIkhfOh2983XLX0nVtZu01p0UjQ==}
@@ -12497,8 +12507,8 @@ packages:
   ecdsa-sig-formatter@1.0.11:
     resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
 
-  eciesjs@0.4.16:
-    resolution: {integrity: sha512-dS5cbA9rA2VR4Ybuvhg6jvdmp46ubLn3E+px8cG/35aEDNclrqoCjg6mt0HYZ/M+OoESS3jSkCrqk1kWAEhWAw==}
+  eciesjs@0.4.17:
+    resolution: {integrity: sha512-TOOURki4G7sD1wDCjj7NfLaXZZ49dFOeEb5y39IXpb8p0hRzVvfvzZHOi5JcT+PpyAbi/Y+lxPb8eTag2WYH8w==}
     engines: {bun: '>=1', deno: '>=2', node: '>=16'}
 
   edit-json-file@1.8.1:
@@ -20746,6 +20756,17 @@ snapshots:
       '@alloy-js/core': 0.22.0
       yaml: 2.8.2
 
+  '@alloy-js/rollup-plugin@0.1.0(@babel/core@7.28.6)(@types/babel__core@7.20.5)(rollup@4.56.0)':
+    dependencies:
+      '@alloy-js/babel-preset': 0.2.1(@babel/core@7.28.6)
+      '@babel/preset-typescript': 7.28.5(@babel/core@7.28.6)
+      '@rollup/plugin-babel': 6.1.0(@babel/core@7.28.6)(@types/babel__core@7.20.5)(rollup@4.56.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@types/babel__core'
+      - rollup
+      - supports-color
+
   '@alloy-js/typescript@0.22.0':
     dependencies:
       '@alloy-js/core': 0.22.0
@@ -23152,7 +23173,7 @@ snapshots:
     dependencies:
       commander: 11.1.0
       dotenv: 16.6.1
-      eciesjs: 0.4.16
+      eciesjs: 0.4.17
       execa: 5.1.1
       fdir: 6.5.0(@types/picomatch@4.0.2)(picomatch@4.0.3)
       ignore: 5.3.2
@@ -33361,7 +33382,7 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  eciesjs@0.4.16:
+  eciesjs@0.4.17:
     dependencies:
       '@ecies/ciphers': 0.2.5(@noble/ciphers@1.3.0)
       '@noble/ciphers': 1.3.0

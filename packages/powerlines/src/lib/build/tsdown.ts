@@ -18,11 +18,9 @@
 
 import type { Format } from "@storm-software/build-tools/types";
 import { toArray } from "@stryke/convert/to-array";
-import { getUnique } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
 import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join-paths";
-import { isRegExp } from "@stryke/type-checks/is-regexp";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import defu from "defu";
@@ -35,6 +33,7 @@ import {
   TsupBuildConfig
 } from "../../types/build";
 import { Context } from "../../types/context";
+import { getDependencyConfig } from "./helpers";
 
 export const DEFAULT_TSDOWN_CONFIG: Partial<TsdownResolvedBuildConfig> = {
   platform: "neutral",
@@ -113,31 +112,7 @@ const formatMessage = (context: Context, ...msgs: any[]) =>
 export function extractTsdownConfig(
   context: Context
 ): TsdownResolvedBuildConfig {
-  const noExternal = getUnique(
-    toArray(context.config.build.noExternal)
-      .concat(toArray(context.config.build?.override?.noExternal))
-      .concat(context.builtins)
-  );
-
-  const external = getUnique(
-    toArray(context.config.build.external)
-      .concat(toArray(context.config.build?.override?.external))
-      .filter(
-        ext =>
-          (isSetString(ext) &&
-            !noExternal.some(
-              noExt =>
-                (isSetString(noExt) && noExt === ext) ||
-                (isRegExp(noExt) && noExt.test(ext))
-            )) ||
-          (isRegExp(ext) &&
-            !noExternal.some(
-              noExt =>
-                (isSetString(noExt) && ext.test(noExt)) ||
-                (isRegExp(noExt) && noExt.source === ext.source)
-            ))
-      )
-  );
+  const { external, noExternal } = getDependencyConfig(context);
 
   return defu(
     {
@@ -164,20 +139,15 @@ export function extractTsdownConfig(
       },
       exports:
         context.config.build.variant === "tsdown" &&
-        ((context.config.build as TsdownBuildConfig).exports ??
+        ((context.config.build as TsdownBuildConfig).exports ||
           (context.config.build as TsdownBuildConfig).override?.exports)
-          ? {
-              ...(isSetObject(
-                (context.config.build as TsdownBuildConfig).override?.exports
-              )
-                ? (context.config.build as TsdownBuildConfig).override?.exports
-                : isSetObject(
-                      (context.config.build as TsdownBuildConfig).exports
-                    )
-                  ? (context.config.build as TsdownBuildConfig).exports
-                  : {}),
-              devExports: context.config.mode === "development"
-            }
+          ? isSetObject(
+              (context.config.build as TsdownBuildConfig).override?.exports
+            )
+            ? (context.config.build as TsdownBuildConfig).override?.exports
+            : isSetObject((context.config.build as TsdownBuildConfig).exports)
+              ? (context.config.build as TsdownBuildConfig).exports
+              : true
           : undefined
     },
     context.config.build.variant === "tsdown"
