@@ -16,8 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import alloyPreset from "@alloy-js/babel-preset";
-import babel from "@powerlines/plugin-babel";
+import rollupPlugin from "@alloy-js/rollup-plugin";
 import plugin from "@powerlines/plugin-plugin";
 import { defineConfig } from "powerlines";
 
@@ -31,22 +30,14 @@ export default defineConfig({
     "src/types/**/*.{ts,tsx}",
     "src/typescript/**/*.{ts,tsx}"
   ],
-  plugins: [
-    plugin(),
-    babel({
-      presets: [
-        alloyPreset({
-          addSourceInfo: false
-        })
-      ]
-    })
-  ],
+  plugins: [plugin()],
   build: {
     inputOptions: {
       transform: {
         jsx: "preserve"
       }
     },
+    plugins: [rollupPlugin()],
     external: [
       "@alloy-js/core",
       "@alloy-js/typescript",

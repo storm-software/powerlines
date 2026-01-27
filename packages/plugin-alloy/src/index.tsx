@@ -16,15 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import alloyPreset from "@alloy-js/babel-preset";
 import type { Children } from "@alloy-js/core";
 import { renderAsync, traverseOutput } from "@alloy-js/core";
-import babel from "@powerlines/plugin-babel";
+import rollupPlugin from "@alloy-js/rollup-plugin";
 import { StormJSON } from "@stryke/json/storm-json";
-import {
-  findFileExtension,
-  findFileExtensionSafe
-} from "@stryke/path/file-path-fns";
+import { findFileExtension } from "@stryke/path/file-path-fns";
 import { Plugin } from "powerlines/types/plugin";
 import { Output } from "./core/components/output";
 import { MetaItem } from "./core/contexts/context";
@@ -43,7 +39,6 @@ export const plugin = <
   options: AlloyPluginOptions = {}
 ) => {
   return [
-    babel(),
     {
       name: "alloy:config",
       config() {
@@ -56,31 +51,15 @@ export const plugin = <
             typescript: true,
             ...options
           },
-          transform: {
-            babel: {
-              presets: [
-                [
-                  alloyPreset({
-                    addSourceInfo: this.config.mode === "development"
-                  }),
-                  {},
-                  (_: string, id: string) =>
-                    /^(?:m|c)?tsx?$/.test(
-                      findFileExtensionSafe(id, {
-                        fullExtension: true
-                      })
-                    )
-                ]
-              ]
-            }
-          },
           build: {
             inputOptions: {
               transform: {
                 jsx: "preserve"
               }
             },
-            external: [/^@?powerlines\//, /^@alloy-js\//]
+            plugins: [rollupPlugin()],
+            external: [/^@alloy-js\//],
+            noExternal: ["@powerlines/plugin-alloy"]
           }
         };
       },
