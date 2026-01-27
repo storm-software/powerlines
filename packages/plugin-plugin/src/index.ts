@@ -62,7 +62,7 @@ export const plugin = <
           minify: false,
           exports: true,
           skipNodeModulesBundle: true,
-          external: [/^@?powerlines\//]
+          external: ["powerlines", /^@powerlines\//]
         }
       };
     },
