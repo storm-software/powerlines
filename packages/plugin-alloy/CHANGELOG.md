@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.4](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.4) (01/26/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update plugin to use `unctx` package's `callAsync` wrapper
+  ([7af08e7e](https://github.com/storm-software/powerlines/commit/7af08e7e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.180**
+- Updated **plugin-babel** to **v0.12.238**
+- Updated **powerlines** to **v0.37.100**
+- Updated **deepkit** to **v0.6.10**
+
 ## [0.19.3](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.3) (01/26/2026)
 
 ### Miscellaneous
