@@ -70,20 +70,6 @@
         "default": "./dist/types/index.mjs"
       }
     },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      }
-    },
     "./types/i18n": {
       "require": {
         "types": "./dist/types/i18n.d.cts",
@@ -114,8 +100,15 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["i18next", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "i18next",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",

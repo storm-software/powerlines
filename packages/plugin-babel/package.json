@@ -69,20 +69,6 @@
         "default": "./dist/helpers/index.mjs"
       }
     },
-    "./helpers/*": {
-      "require": {
-        "types": "./dist/helpers/*.d.cts",
-        "default": "./dist/helpers/*.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
-      }
-    },
     "./helpers/ast-utils": {
       "require": {
         "types": "./dist/helpers/ast-utils.d.cts",
@@ -168,20 +154,6 @@
         "default": "./dist/types/index.mjs"
       }
     },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      }
-    },
     "./types/plugin": {
       "require": {
         "types": "./dist/types/plugin.d.cts",
@@ -199,8 +171,15 @@
   },
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["babel", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "babel",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "peerDependencies": {
     "@babel/plugin-syntax-typescript": "^7.27.1"
   },

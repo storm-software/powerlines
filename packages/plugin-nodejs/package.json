@@ -69,20 +69,6 @@
         "default": "./dist/components/index.mjs"
       }
     },
-    "./components/*": {
-      "require": {
-        "types": "./dist/components/*.d.cts",
-        "default": "./dist/components/*.cjs"
-      },
-      "import": {
-        "types": "./dist/components/*.d.mts",
-        "default": "./dist/components/*.mjs"
-      },
-      "default": {
-        "types": "./dist/components/*.d.mts",
-        "default": "./dist/components/*.mjs"
-      }
-    },
     "./components/env": {
       "require": {
         "types": "./dist/components/env.d.cts",
@@ -112,20 +98,6 @@
         "default": "./dist/types/index.mjs"
       }
     },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      }
-    },
     "./types/plugin": {
       "require": {
         "types": "./dist/types/plugin.d.cts",
@@ -142,8 +114,15 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["nodejs", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "nodejs",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "peerDependencies": {
     "@alloy-js/core": ">=0.22.0",
     "@alloy-js/typescript": ">=0.22.0"

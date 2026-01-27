@@ -68,20 +68,6 @@
         "default": "./dist/types/index.mjs"
       }
     },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      }
-    },
     "./types/plugin": {
       "require": {
         "types": "./dist/types/plugin.d.cts",
@@ -97,8 +83,14 @@
       }
     }
   },
-  "files": ["dist/**/*"],
-  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
     "@stryke/fs": "catalog:",

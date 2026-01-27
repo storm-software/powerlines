@@ -69,20 +69,6 @@
         "default": "./dist/helpers/index.mjs"
       }
     },
-    "./helpers/*": {
-      "require": {
-        "types": "./dist/helpers/*.d.cts",
-        "default": "./dist/helpers/*.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
-      }
-    },
     "./helpers/unplugin": {
       "require": {
         "types": "./dist/helpers/unplugin.d.cts",
@@ -112,20 +98,6 @@
         "default": "./dist/types/index.mjs"
       }
     },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      }
-    },
     "./types/plugin": {
       "require": {
         "types": "./dist/types/plugin.d.cts",
@@ -142,8 +114,15 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["esbuild", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "esbuild",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",

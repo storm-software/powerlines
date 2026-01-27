@@ -69,20 +69,6 @@
         "default": "./dist/helpers/index.mjs"
       }
     },
-    "./helpers/*": {
-      "require": {
-        "types": "./dist/helpers/*.d.cts",
-        "default": "./dist/helpers/*.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/*.d.mts",
-        "default": "./dist/helpers/*.mjs"
-      }
-    },
     "./helpers/unplugin": {
       "require": {
         "types": "./dist/helpers/unplugin.d.cts",
@@ -110,20 +96,6 @@
       "default": {
         "types": "./dist/types/index.d.mts",
         "default": "./dist/types/index.mjs"
-      }
-    },
-    "./types/*": {
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "import": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.mts",
-        "default": "./dist/types/*.mjs"
       }
     },
     "./types/internal": {
@@ -156,8 +128,15 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["vite", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "vite",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "defu": "catalog:",
     "powerlines": "workspace:*",
