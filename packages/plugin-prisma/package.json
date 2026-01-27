@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-prisma",
-  "version": "0.2.183",
+  "version": "0.2.184",
   "type": "module",
   "description": "A Powerlines plugin to generate project code and a Prisma client from a Prisma schema (PSL).",
   "repository": {
@@ -38,38 +38,102 @@
   },
   "license": "Apache-2.0",
   "private": false,
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "exports": {
-    "./package.json": "./package.json",
     ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "default": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      }
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     },
-    "./index": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "default": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      }
-    }
+    "./api/client": {
+      "require": "./dist/api/client/index.cjs",
+      "import": "./dist/api/client/index.mjs"
+    },
+    "./api/client.gen": {
+      "require": "./dist/api/client.gen.cjs",
+      "import": "./dist/api/client.gen.mjs"
+    },
+    "./api/client/client.gen": {
+      "require": "./dist/api/client/client.gen.cjs",
+      "import": "./dist/api/client/client.gen.mjs"
+    },
+    "./api/client/types.gen": {
+      "require": "./dist/api/client/types.gen.cjs",
+      "import": "./dist/api/client/types.gen.mjs"
+    },
+    "./api/client/utils.gen": {
+      "require": "./dist/api/client/utils.gen.cjs",
+      "import": "./dist/api/client/utils.gen.mjs"
+    },
+    "./api/core/auth.gen": {
+      "require": "./dist/api/core/auth.gen.cjs",
+      "import": "./dist/api/core/auth.gen.mjs"
+    },
+    "./api/core/bodySerializer.gen": {
+      "require": "./dist/api/core/bodySerializer.gen.cjs",
+      "import": "./dist/api/core/bodySerializer.gen.mjs"
+    },
+    "./api/core/params.gen": {
+      "require": "./dist/api/core/params.gen.cjs",
+      "import": "./dist/api/core/params.gen.mjs"
+    },
+    "./api/core/pathSerializer.gen": {
+      "require": "./dist/api/core/pathSerializer.gen.cjs",
+      "import": "./dist/api/core/pathSerializer.gen.mjs"
+    },
+    "./api/core/queryKeySerializer.gen": {
+      "require": "./dist/api/core/queryKeySerializer.gen.cjs",
+      "import": "./dist/api/core/queryKeySerializer.gen.mjs"
+    },
+    "./api/core/serverSentEvents.gen": {
+      "require": "./dist/api/core/serverSentEvents.gen.cjs",
+      "import": "./dist/api/core/serverSentEvents.gen.mjs"
+    },
+    "./api/core/types.gen": {
+      "require": "./dist/api/core/types.gen.cjs",
+      "import": "./dist/api/core/types.gen.mjs"
+    },
+    "./api/core/utils.gen": {
+      "require": "./dist/api/core/utils.gen.cjs",
+      "import": "./dist/api/core/utils.gen.mjs"
+    },
+    "./api/sdk.gen": {
+      "require": "./dist/api/sdk.gen.cjs",
+      "import": "./dist/api/sdk.gen.mjs"
+    },
+    "./api/types.gen": {
+      "require": "./dist/api/types.gen.cjs",
+      "import": "./dist/api/types.gen.mjs"
+    },
+    "./helpers": {
+      "require": "./dist/helpers/index.cjs",
+      "import": "./dist/helpers/index.mjs"
+    },
+    "./helpers/get-schema": {
+      "require": "./dist/helpers/get-schema.cjs",
+      "import": "./dist/helpers/get-schema.mjs"
+    },
+    "./helpers/prisma-postgres": {
+      "require": "./dist/helpers/prisma-postgres.cjs",
+      "import": "./dist/helpers/prisma-postgres.mjs"
+    },
+    "./helpers/schema-creator": {
+      "require": "./dist/helpers/schema-creator.cjs",
+      "import": "./dist/helpers/schema-creator.mjs"
+    },
+    "./types": {
+      "require": "./dist/types/index.cjs",
+      "import": "./dist/types/index.mjs"
+    },
+    "./types/plugin": {
+      "require": "./dist/types/plugin.cjs",
+      "import": "./dist/types/plugin.mjs"
+    },
+    "./types/prisma": {
+      "require": "./dist/types/prisma.cjs",
+      "import": "./dist/types/prisma.mjs"
+    },
+    "./package.json": "./package.json"
   },
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.181](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.181) (01/26/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue when items from `external` exists in
+  `noExternal` option
+  ([6e39973d](https://github.com/storm-software/powerlines/commit/6e39973d))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.37.101**
+
 ## [0.12.180](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.180) (01/26/2026)
 
 ### Updated Dependencies
