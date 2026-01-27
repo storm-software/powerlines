@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.266](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.266) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `exports` by adding `customExports`
+  function
+  ([b8025ec8](https://github.com/storm-software/powerlines/commit/b8025ec8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.185**
+- Updated **plugin-alloy** to **v0.19.9**
+- Updated **plugin-babel** to **v0.12.243**
+- Updated **plugin-env** to **v0.15.137**
+- Updated **powerlines** to **v0.38.1**
+- Updated **deepkit** to **v0.6.14**
+
 ## [0.1.265](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.265) (01/27/2026)
 
 ### Updated Dependencies

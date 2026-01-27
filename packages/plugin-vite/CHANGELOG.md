@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.235](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.235) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `exports` by adding `customExports`
+  function
+  ([b8025ec8](https://github.com/storm-software/powerlines/commit/b8025ec8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.185**
+- Updated **powerlines** to **v0.38.1**
+
 ## [0.14.234](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.234) (01/27/2026)
 
 ### Updated Dependencies

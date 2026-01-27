@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.8.238](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.238) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `exports` by adding `customExports`
+  function
+  ([b8025ec8](https://github.com/storm-software/powerlines/commit/b8025ec8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.185**
+- Updated **powerlines** to **v0.38.1**
+
 ## [0.8.237](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.237) (01/27/2026)
 
 ### Updated Dependencies

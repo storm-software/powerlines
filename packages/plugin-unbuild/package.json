@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-unbuild",
-  "version": "0.5.243",
+  "version": "0.5.244",
   "type": "module",
   "description": "A package containing a Powerlines plugin to build projects using Unbuild.",
   "repository": {

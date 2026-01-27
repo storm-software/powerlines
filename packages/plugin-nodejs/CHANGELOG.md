@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.132](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.132) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `exports` by adding `customExports`
+  function
+  ([b8025ec8](https://github.com/storm-software/powerlines/commit/b8025ec8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.185**
+- Updated **plugin-alloy** to **v0.19.9**
+- Updated **plugin-babel** to **v0.12.243**
+- Updated **plugin-env** to **v0.15.137**
+- Updated **powerlines** to **v0.38.1**
+
 ## [0.1.131](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.131) (01/27/2026)
 
 ### Updated Dependencies

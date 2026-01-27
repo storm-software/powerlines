@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.137](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.137) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `exports` by adding `customExports`
+  function
+  ([b8025ec8](https://github.com/storm-software/powerlines/commit/b8025ec8))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.113**
+- Updated **plugin-automd** to **v0.1.234**
+- Updated **plugin-plugin** to **v0.12.185**
+- Updated **plugin-alloy** to **v0.19.9**
+- Updated **plugin-babel** to **v0.12.243**
+- Updated **powerlines** to **v0.38.1**
+- Updated **deepkit** to **v0.6.14**
+
 ## [0.15.136](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.136) (01/27/2026)
 
 ### Updated Dependencies

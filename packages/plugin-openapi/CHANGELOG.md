@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Openapi
 
+## [0.2.239](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.239) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `exports` by adding `customExports`
+  function
+  ([b8025ec8](https://github.com/storm-software/powerlines/commit/b8025ec8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.185**
+- Updated **powerlines** to **v0.38.1**
+
 ## [0.2.238](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.238) (01/27/2026)
 
 ### Updated Dependencies

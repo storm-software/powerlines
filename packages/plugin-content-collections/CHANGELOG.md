@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Content Collections
 
+## [0.1.234](https://github.com/storm-software/powerlines/releases/tag/plugin-content-collections%400.1.234) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `exports` by adding `customExports`
+  function
+  ([b8025ec8](https://github.com/storm-software/powerlines/commit/b8025ec8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.185**
+- Updated **powerlines** to **v0.38.1**
+
 ## [0.1.233](https://github.com/storm-software/powerlines/releases/tag/plugin-content-collections%400.1.233) (01/27/2026)
 
 ### Updated Dependencies

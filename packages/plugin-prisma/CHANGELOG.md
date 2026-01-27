@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.2.188](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.188) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `exports` by adding `customExports`
+  function
+  ([b8025ec8](https://github.com/storm-software/powerlines/commit/b8025ec8))
+
+### Updated Dependencies
+
+- Updated **plugin-hey-api** to **v0.1.188**
+- Updated **plugin-plugin** to **v0.12.185**
+- Updated **powerlines** to **v0.38.1**
+
 ## [0.2.187](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.187) (01/27/2026)
 
 ### Updated Dependencies

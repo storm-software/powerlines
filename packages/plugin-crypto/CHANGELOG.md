@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.240](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.240) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `exports` by adding `customExports`
+  function
+  ([b8025ec8](https://github.com/storm-software/powerlines/commit/b8025ec8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.185**
+- Updated **plugin-env** to **v0.15.137**
+- Updated **powerlines** to **v0.38.1**
+
 ## [0.10.239](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.239) (01/27/2026)
 
 ### Updated Dependencies

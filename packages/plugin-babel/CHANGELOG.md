@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.243](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.243) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `exports` by adding `customExports`
+  function
+  ([b8025ec8](https://github.com/storm-software/powerlines/commit/b8025ec8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.185**
+- Updated **powerlines** to **v0.38.1**
+
 ## [0.12.242](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.242) (01/27/2026)
 
 ### Updated Dependencies

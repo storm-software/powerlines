@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.1) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `exports` by adding `customExports`
+  function
+  ([b8025ec8](https://github.com/storm-software/powerlines/commit/b8025ec8))
+
 ## [0.38.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.0) (01/27/2026)
 
 ### Bug Fixes

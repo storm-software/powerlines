@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.9.243](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.243) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `exports` by adding `customExports`
+  function
+  ([b8025ec8](https://github.com/storm-software/powerlines/commit/b8025ec8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.185**
+- Updated **powerlines** to **v0.38.1**
+
 ## [0.9.242](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.242) (01/27/2026)
 
 ### Updated Dependencies

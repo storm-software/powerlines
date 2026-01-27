@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.9](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.9) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `exports` by adding `customExports`
+  function
+  ([b8025ec8](https://github.com/storm-software/powerlines/commit/b8025ec8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.185**
+- Updated **plugin-babel** to **v0.12.243**
+- Updated **powerlines** to **v0.38.1**
+- Updated **deepkit** to **v0.6.14**
+
 ## [0.19.8](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.8) (01/27/2026)
 
 ### Updated Dependencies
