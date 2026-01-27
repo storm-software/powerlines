@@ -38,13 +38,11 @@ export default defineConfig({
       }
     },
     plugins: [rollupPlugin()],
-    unbundle: false,
     external: [
       "@alloy-js/core",
       "@alloy-js/typescript",
       "@alloy-js/json",
       "@alloy-js/markdown"
-    ],
-    noExternal: ["unctx"]
+    ]
   }
 });
