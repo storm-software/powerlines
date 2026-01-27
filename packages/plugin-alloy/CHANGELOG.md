@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.15](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.15) (01/27/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Ensure an async hook is used for context in `render` method ([24a1a9cf](https://github.com/storm-software/powerlines/commit/24a1a9cf))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.191**
+- Updated **plugin-babel** to **v0.12.249**
+- Updated **powerlines** to **v0.38.7**
+- Updated **deepkit** to **v0.6.20**
+
 ## [0.19.14](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.14) (01/27/2026)
 
 ### Updated Dependencies
