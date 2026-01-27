@@ -60,7 +60,7 @@ export const plugin = <
           platform: "node",
           nodeProtocol: true,
           minify: false,
-          export: true,
+          exports: true,
           skipNodeModulesBundle: true,
           external: [/^@?powerlines\//]
         }

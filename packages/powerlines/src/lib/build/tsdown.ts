@@ -18,9 +18,12 @@
 
 import type { Format } from "@storm-software/build-tools/types";
 import { toArray } from "@stryke/convert/to-array";
+import { getUnique } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
 import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join-paths";
+import { isRegExp } from "@stryke/type-checks/is-regexp";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import defu from "defu";
 import { Format as TsdownFormat } from "tsdown";
@@ -110,6 +113,32 @@ const formatMessage = (context: Context, ...msgs: any[]) =>
 export function extractTsdownConfig(
   context: Context
 ): TsdownResolvedBuildConfig {
+  const noExternal = getUnique(
+    toArray(context.config.build.noExternal)
+      .concat(toArray(context.config.build?.override?.noExternal))
+      .concat(context.builtins)
+  );
+
+  const external = getUnique(
+    toArray(context.config.build.external)
+      .concat(toArray(context.config.build?.override?.external))
+      .filter(
+        ext =>
+          (isSetString(ext) &&
+            !noExternal.some(
+              noExt =>
+                (isSetString(noExt) && noExt === ext) ||
+                (isRegExp(noExt) && noExt.test(ext))
+            )) ||
+          (isRegExp(ext) &&
+            !noExternal.some(
+              noExt =>
+                (isSetString(noExt) && ext.test(noExt)) ||
+                (isRegExp(noExt) && noExt.source === ext.source)
+            ))
+      )
+  );
+
   return defu(
     {
       entry:
@@ -127,11 +156,29 @@ export function extractTsdownConfig(
                 "**/*.tsx"
               )
             ],
-      noExternal: context.builtins,
+      external,
+      noExternal,
       alias: context.alias,
       resolve: {
         alias: context.alias
-      }
+      },
+      exports:
+        context.config.build.variant === "tsdown" &&
+        ((context.config.build as TsdownBuildConfig).exports ??
+          (context.config.build as TsdownBuildConfig).override?.exports)
+          ? {
+              ...(isSetObject(
+                (context.config.build as TsdownBuildConfig).override?.exports
+              )
+                ? (context.config.build as TsdownBuildConfig).override?.exports
+                : isSetObject(
+                      (context.config.build as TsdownBuildConfig).exports
+                    )
+                  ? (context.config.build as TsdownBuildConfig).exports
+                  : {}),
+              devExports: context.config.mode === "development"
+            }
+          : undefined
     },
     context.config.build.variant === "tsdown"
       ? context.config.build.override
@@ -142,13 +189,20 @@ export function extractTsdownConfig(
         }
       : {},
     context.config.build.variant === "tsdown"
-      ? omit(context.config.build, ["override", "variant"])
+      ? (omit(context.config.build, [
+          "override",
+          "variant",
+          "external",
+          "noExternal"
+        ]) as TsdownBuildConfig)
       : {},
     context.config.build.variant === "rolldown"
       ? {
           inputOptions: omit(context.config.build, [
             "override",
-            "variant"
+            "variant",
+            "external",
+            "noExternal"
           ]) as RolldownBuildConfig
         }
       : {},
