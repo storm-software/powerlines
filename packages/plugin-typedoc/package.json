@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-typedoc",
-  "version": "0.10.240",
+  "version": "0.10.241",
   "type": "module",
   "description": "A package containing a Powerlines plugin for running TypeDoc on the codebase.",
   "repository": {
@@ -54,7 +54,11 @@
     "./package.json": "./package.json"
   },
   "files": ["dist/**/*"],
-  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
     "@stryke/fs": "catalog:",

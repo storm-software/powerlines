@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-crypto",
-  "version": "0.10.238",
+  "version": "0.10.239",
   "type": "module",
   "description": "A Powerlines plugin that provides unique identifier generation capabilities at runtime by adding the `id` builtin module.",
   "repository": {
@@ -54,7 +54,11 @@
     "./package.json": "./package.json"
   },
   "files": ["dist/**/*"],
-  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@noble/ciphers": "catalog:",
     "@powerlines/plugin-env": "workspace:*",

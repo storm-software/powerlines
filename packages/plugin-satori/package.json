@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-satori",
-  "version": "0.1.231",
+  "version": "0.1.232",
   "type": "module",
   "description": "A Powerlines plugin to use Satori to generate SVG files from jsx/tsx components.",
   "repository": {
@@ -61,7 +61,12 @@
   },
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": ["satori", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "satori",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "peerDependencies": {
     "react": ">=19.0.0",
     "react-dom": ">=19.0.0"

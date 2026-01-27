@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-unimport",
-  "version": "0.1.233",
+  "version": "0.1.234",
   "type": "module",
   "description": "A Powerlines plugin to add imports to source code automatically via unimport.",
   "repository": {
@@ -57,7 +57,12 @@
   },
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": ["unimport", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "unimport",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@stryke/helpers": "catalog:",
     "@stryke/json": "catalog:",

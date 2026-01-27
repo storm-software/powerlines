@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-untyped",
-  "version": "0.2.185",
+  "version": "0.2.186",
   "type": "module",
   "description": "A Powerlines plugin to use Untyped for code generation based on user-defined schemas.",
   "repository": {
@@ -57,7 +57,12 @@
   },
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": ["untyped", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "untyped",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@storm-software/untyped": "catalog:",
     "@stryke/convert": "catalog:",

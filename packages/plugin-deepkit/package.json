@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-deepkit",
-  "version": "0.11.111",
+  "version": "0.11.112",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
@@ -58,7 +58,12 @@
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": ["deepkit", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "deepkit",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@powerlines/deepkit": "workspace:*",
     "@powerlines/plugin-tsc": "workspace:*",

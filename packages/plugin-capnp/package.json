@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-capnp",
-  "version": "0.1.235",
+  "version": "0.1.236",
   "type": "module",
   "description": "A Powerlines plugin to generate project code from Cap'n Proto schemas.",
   "repository": {
@@ -57,7 +57,12 @@
   },
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": ["capnp", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "capnp",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@stryke/capnp": "catalog:",
     "@stryke/path": "catalog:",

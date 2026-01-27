@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-biome",
-  "version": "0.2.238",
+  "version": "0.2.239",
   "type": "module",
   "description": "A package containing a Powerlines plugin for running Biome linting on the codebase.",
   "repository": {
@@ -54,7 +54,12 @@
     "./package.json": "./package.json"
   },
   "files": ["dist/**/*"],
-  "keywords": ["biome", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "biome",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "peerDependencies": {
     "@biomejs/biome": ">=2.0.0"
   },

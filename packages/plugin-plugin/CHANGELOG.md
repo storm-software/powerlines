@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.184](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.184) (01/27/2026)
+
+### Bug Fixes
+
+- **plugin-plugin:** Resolve issue excluding `powerlines` package from bundle
+  ([958a7c96](https://github.com/storm-software/powerlines/commit/958a7c96))
+
 ## [0.12.183](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.183) (01/27/2026)
 
 ### Bug Fixes
