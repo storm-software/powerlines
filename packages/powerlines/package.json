@@ -579,7 +579,11 @@
   },
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
-  "files": ["dist/**/*", "files/**/*", "schemas/**/*"],
+  "files": [
+    "dist/**/*",
+    "files/**/*",
+    "schemas/**/*"
+  ],
   "keywords": [
     "powerlines",
     "storm-software",

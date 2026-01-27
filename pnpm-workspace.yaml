@@ -67,7 +67,7 @@ catalog:
   '@rollup/plugin-inject': ^5.0.5
   '@rollup/plugin-node-resolve': ^16.0.3
   '@rollup/plugin-replace': ^6.0.3
-  '@rspack/core': ^1.7.3
+  '@rspack/core': ^1.7.4
   '@standard-schema/spec': ^1.1.0
   '@storm-software/build-tools': ^0.158.81
   '@storm-software/config': ^1.135.1
@@ -79,27 +79,27 @@ catalog:
   '@storm-software/linting-tools': ^1.132.81
   '@storm-software/markdownlint': ^0.30.75
   '@storm-software/pnpm-tools': ^0.6.83
-  '@storm-software/prettier': ^0.57.75
+  '@storm-software/prettier': ^0.57.77
   '@storm-software/testing-tools': ^1.119.75
   '@storm-software/tsconfig': ^0.47.75
   '@storm-software/tsup': ^0.2.79
   '@storm-software/unbuild': ^0.57.81
   '@storm-software/untyped': ^0.24.62
-  '@storm-software/workspace-tools': ^1.294.27
-  '@stryke/capnp': ^0.12.63
-  '@stryke/cli': ^0.13.10
+  '@storm-software/workspace-tools': ^1.294.29
+  '@stryke/capnp': ^0.12.64
+  '@stryke/cli': ^0.13.11
   '@stryke/convert': ^0.6.37
-  '@stryke/env': ^0.20.55
-  '@stryke/fs': ^0.33.38
-  '@stryke/hash': ^0.12.44
+  '@stryke/env': ^0.20.56
+  '@stryke/fs': ^0.33.39
+  '@stryke/hash': ^0.12.45
   '@stryke/helpers': ^0.9.39
-  '@stryke/http': ^0.12.31
+  '@stryke/http': ^0.12.32
   '@stryke/json': ^0.9.40
-  '@stryke/path': ^0.26.2
+  '@stryke/path': ^0.26.3
   '@stryke/string-format': ^0.13.6
   '@stryke/type-checks': ^0.5.22
   '@stryke/types': ^0.10.36
-  '@stryke/unique-id': ^0.3.49
+  '@stryke/unique-id': ^0.3.50
   '@swc-node/register': ^1.11.1
   '@swc/core': ^1.15.10
   '@swc/helpers': ^0.5.18
@@ -174,7 +174,7 @@ catalog:
   react-dom: ^19.2.3
   rimraf: ^6.1.2
   rolldown: 1.0.0-beta.53
-  rollup: ^4.56.0
+  rollup: ^4.57.0
   rollup-plugin-typescript2: ^0.36.0
   satori: ^0.18.4
   sharp: ^0.34.5

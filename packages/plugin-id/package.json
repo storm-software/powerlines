@@ -40,28 +40,108 @@
   "private": false,
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "default": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
     },
     "./components": {
-      "require": "./dist/components/index.cjs",
-      "import": "./dist/components/index.mjs"
+      "require": {
+        "types": "./dist/components/index.d.cts",
+        "default": "./dist/components/index.cjs"
+      },
+      "import": {
+        "types": "./dist/components/index.d.mts",
+        "default": "./dist/components/index.mjs"
+      },
+      "default": {
+        "types": "./dist/components/index.d.mts",
+        "default": "./dist/components/index.mjs"
+      }
+    },
+    "./components/*": {
+      "require": {
+        "types": "./dist/components/*.d.cts",
+        "default": "./dist/components/*.cjs"
+      },
+      "import": {
+        "types": "./dist/components/*.d.mts",
+        "default": "./dist/components/*.mjs"
+      },
+      "default": {
+        "types": "./dist/components/*.d.mts",
+        "default": "./dist/components/*.mjs"
+      }
     },
     "./components/nanoid": {
-      "require": "./dist/components/nanoid.cjs",
-      "import": "./dist/components/nanoid.mjs"
+      "require": {
+        "types": "./dist/components/nanoid.d.cts",
+        "default": "./dist/components/nanoid.cjs"
+      },
+      "import": {
+        "types": "./dist/components/nanoid.d.mts",
+        "default": "./dist/components/nanoid.mjs"
+      },
+      "default": {
+        "types": "./dist/components/nanoid.d.mts",
+        "default": "./dist/components/nanoid.mjs"
+      }
     },
+    "./package.json": "./package.json",
     "./types": {
-      "require": "./dist/types/index.cjs",
-      "import": "./dist/types/index.mjs"
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/types/index.cjs"
+      },
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      },
+      "default": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      }
+    },
+    "./types/*": {
+      "require": {
+        "types": "./dist/types/*.d.cts",
+        "default": "./dist/types/*.cjs"
+      },
+      "import": {
+        "types": "./dist/types/*.d.mts",
+        "default": "./dist/types/*.mjs"
+      },
+      "default": {
+        "types": "./dist/types/*.d.mts",
+        "default": "./dist/types/*.mjs"
+      }
     },
     "./types/plugin": {
-      "require": "./dist/types/plugin.cjs",
-      "import": "./dist/types/plugin.mjs"
-    },
-    "./package.json": "./package.json"
+      "require": {
+        "types": "./dist/types/plugin.d.cts",
+        "default": "./dist/types/plugin.cjs"
+      },
+      "import": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      },
+      "default": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      }
+    }
   },
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "keywords": [
     "powerlines",
     "storm-software",

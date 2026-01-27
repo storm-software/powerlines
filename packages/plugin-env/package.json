@@ -42,81 +42,319 @@
   "module": "./dist/index.mjs",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "default": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
     },
     "./babel": {
-      "require": "./dist/babel/index.cjs",
-      "import": "./dist/babel/index.mjs"
+      "require": {
+        "types": "./dist/babel/index.d.cts",
+        "default": "./dist/babel/index.cjs"
+      },
+      "import": {
+        "types": "./dist/babel/index.d.mts",
+        "default": "./dist/babel/index.mjs"
+      },
+      "default": {
+        "types": "./dist/babel/index.d.mts",
+        "default": "./dist/babel/index.mjs"
+      }
+    },
+    "./babel/*": {
+      "require": {
+        "types": "./dist/babel/*.d.cts",
+        "default": "./dist/babel/*.cjs"
+      },
+      "import": {
+        "types": "./dist/babel/*.d.mts",
+        "default": "./dist/babel/*.mjs"
+      },
+      "default": {
+        "types": "./dist/babel/*.d.mts",
+        "default": "./dist/babel/*.mjs"
+      }
     },
     "./babel/plugin": {
-      "require": "./dist/babel/plugin.cjs",
-      "import": "./dist/babel/plugin.mjs"
+      "require": {
+        "types": "./dist/babel/plugin.d.cts",
+        "default": "./dist/babel/plugin.cjs"
+      },
+      "import": {
+        "types": "./dist/babel/plugin.d.mts",
+        "default": "./dist/babel/plugin.mjs"
+      },
+      "default": {
+        "types": "./dist/babel/plugin.d.mts",
+        "default": "./dist/babel/plugin.mjs"
+      }
     },
     "./components": {
-      "require": "./dist/components/index.cjs",
-      "import": "./dist/components/index.mjs"
+      "require": {
+        "types": "./dist/components/index.d.cts",
+        "default": "./dist/components/index.cjs"
+      },
+      "import": {
+        "types": "./dist/components/index.d.mts",
+        "default": "./dist/components/index.mjs"
+      },
+      "default": {
+        "types": "./dist/components/index.d.mts",
+        "default": "./dist/components/index.mjs"
+      }
+    },
+    "./components/*": {
+      "require": {
+        "types": "./dist/components/*.d.cts",
+        "default": "./dist/components/*.cjs"
+      },
+      "import": {
+        "types": "./dist/components/*.d.mts",
+        "default": "./dist/components/*.mjs"
+      },
+      "default": {
+        "types": "./dist/components/*.d.mts",
+        "default": "./dist/components/*.mjs"
+      }
     },
     "./components/docs": {
-      "require": "./dist/components/docs.cjs",
-      "import": "./dist/components/docs.mjs"
+      "require": {
+        "types": "./dist/components/docs.d.cts",
+        "default": "./dist/components/docs.cjs"
+      },
+      "import": {
+        "types": "./dist/components/docs.d.mts",
+        "default": "./dist/components/docs.mjs"
+      },
+      "default": {
+        "types": "./dist/components/docs.d.mts",
+        "default": "./dist/components/docs.mjs"
+      }
     },
     "./components/env": {
-      "require": "./dist/components/env.cjs",
-      "import": "./dist/components/env.mjs"
+      "require": {
+        "types": "./dist/components/env.d.cts",
+        "default": "./dist/components/env.cjs"
+      },
+      "import": {
+        "types": "./dist/components/env.d.mts",
+        "default": "./dist/components/env.mjs"
+      },
+      "default": {
+        "types": "./dist/components/env.d.mts",
+        "default": "./dist/components/env.mjs"
+      }
     },
     "./helpers": {
-      "require": "./dist/helpers/index.cjs",
-      "import": "./dist/helpers/index.mjs"
+      "require": {
+        "types": "./dist/helpers/index.d.cts",
+        "default": "./dist/helpers/index.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/index.d.mts",
+        "default": "./dist/helpers/index.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/index.d.mts",
+        "default": "./dist/helpers/index.mjs"
+      }
+    },
+    "./helpers/*": {
+      "require": {
+        "types": "./dist/helpers/*.d.cts",
+        "default": "./dist/helpers/*.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/*.d.mts",
+        "default": "./dist/helpers/*.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/*.d.mts",
+        "default": "./dist/helpers/*.mjs"
+      }
     },
     "./helpers/automd-generator": {
-      "require": "./dist/helpers/automd-generator.cjs",
-      "import": "./dist/helpers/automd-generator.mjs"
+      "require": {
+        "types": "./dist/helpers/automd-generator.d.cts",
+        "default": "./dist/helpers/automd-generator.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/automd-generator.d.mts",
+        "default": "./dist/helpers/automd-generator.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/automd-generator.d.mts",
+        "default": "./dist/helpers/automd-generator.mjs"
+      }
     },
     "./helpers/create-reflection-resource": {
-      "require": "./dist/helpers/create-reflection-resource.cjs",
-      "import": "./dist/helpers/create-reflection-resource.mjs"
+      "require": {
+        "types": "./dist/helpers/create-reflection-resource.d.cts",
+        "default": "./dist/helpers/create-reflection-resource.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/create-reflection-resource.d.mts",
+        "default": "./dist/helpers/create-reflection-resource.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/create-reflection-resource.d.mts",
+        "default": "./dist/helpers/create-reflection-resource.mjs"
+      }
     },
     "./helpers/docs-helper": {
-      "require": "./dist/helpers/docs-helper.cjs",
-      "import": "./dist/helpers/docs-helper.mjs"
+      "require": {
+        "types": "./dist/helpers/docs-helper.d.cts",
+        "default": "./dist/helpers/docs-helper.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/docs-helper.d.mts",
+        "default": "./dist/helpers/docs-helper.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/docs-helper.d.mts",
+        "default": "./dist/helpers/docs-helper.mjs"
+      }
     },
     "./helpers/load": {
-      "require": "./dist/helpers/load.cjs",
-      "import": "./dist/helpers/load.mjs"
+      "require": {
+        "types": "./dist/helpers/load.d.cts",
+        "default": "./dist/helpers/load.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/load.d.mts",
+        "default": "./dist/helpers/load.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/load.d.mts",
+        "default": "./dist/helpers/load.mjs"
+      }
     },
     "./helpers/persistence": {
-      "require": "./dist/helpers/persistence.cjs",
-      "import": "./dist/helpers/persistence.mjs"
+      "require": {
+        "types": "./dist/helpers/persistence.d.cts",
+        "default": "./dist/helpers/persistence.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/persistence.d.mts",
+        "default": "./dist/helpers/persistence.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/persistence.d.mts",
+        "default": "./dist/helpers/persistence.mjs"
+      }
     },
     "./helpers/reflect": {
-      "require": "./dist/helpers/reflect.cjs",
-      "import": "./dist/helpers/reflect.mjs"
+      "require": {
+        "types": "./dist/helpers/reflect.d.cts",
+        "default": "./dist/helpers/reflect.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/reflect.d.mts",
+        "default": "./dist/helpers/reflect.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/reflect.d.mts",
+        "default": "./dist/helpers/reflect.mjs"
+      }
     },
     "./helpers/source-file-env": {
-      "require": "./dist/helpers/source-file-env.cjs",
-      "import": "./dist/helpers/source-file-env.mjs"
+      "require": {
+        "types": "./dist/helpers/source-file-env.d.cts",
+        "default": "./dist/helpers/source-file-env.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/source-file-env.d.mts",
+        "default": "./dist/helpers/source-file-env.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/source-file-env.d.mts",
+        "default": "./dist/helpers/source-file-env.mjs"
+      }
     },
     "./helpers/template-helpers": {
-      "require": "./dist/helpers/template-helpers.cjs",
-      "import": "./dist/helpers/template-helpers.mjs"
+      "require": {
+        "types": "./dist/helpers/template-helpers.d.cts",
+        "default": "./dist/helpers/template-helpers.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/template-helpers.d.mts",
+        "default": "./dist/helpers/template-helpers.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/template-helpers.d.mts",
+        "default": "./dist/helpers/template-helpers.mjs"
+      }
     },
+    "./package.json": "./package.json",
     "./types": {
-      "require": "./dist/types/index.cjs",
-      "import": "./dist/types/index.mjs"
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/types/index.cjs"
+      },
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      },
+      "default": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      }
+    },
+    "./types/*": {
+      "require": {
+        "types": "./dist/types/*.d.cts",
+        "default": "./dist/types/*.cjs"
+      },
+      "import": {
+        "types": "./dist/types/*.d.mts",
+        "default": "./dist/types/*.mjs"
+      },
+      "default": {
+        "types": "./dist/types/*.d.mts",
+        "default": "./dist/types/*.mjs"
+      }
     },
     "./types/plugin": {
-      "require": "./dist/types/plugin.cjs",
-      "import": "./dist/types/plugin.mjs"
+      "require": {
+        "types": "./dist/types/plugin.d.cts",
+        "default": "./dist/types/plugin.cjs"
+      },
+      "import": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      },
+      "default": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      }
     },
     "./types/runtime": {
-      "require": "./dist/types/runtime.cjs",
-      "import": "./dist/types/runtime.mjs"
-    },
-    "./package.json": "./package.json"
+      "require": {
+        "types": "./dist/types/runtime.d.cts",
+        "default": "./dist/types/runtime.cjs"
+      },
+      "import": {
+        "types": "./dist/types/runtime.d.mts",
+        "default": "./dist/types/runtime.mjs"
+      },
+      "default": {
+        "types": "./dist/types/runtime.d.mts",
+        "default": "./dist/types/runtime.mjs"
+      }
+    }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "keywords": [
     "dotenv",
     "powerlines",

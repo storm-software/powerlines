@@ -20,7 +20,9 @@ import type { Format } from "@storm-software/build-tools/types";
 import { toArray } from "@stryke/convert/to-array";
 import { omit } from "@stryke/helpers/omit";
 import { appendPath } from "@stryke/path/append";
+import { findFileName, findFilePath } from "@stryke/path/file-path-fns";
 import { joinPaths } from "@stryke/path/join-paths";
+import { replaceExtension } from "@stryke/path/replace";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import defu from "defu";
@@ -141,13 +143,152 @@ export function extractTsdownConfig(
         context.config.build.variant === "tsdown" &&
         ((context.config.build as TsdownBuildConfig).exports ||
           (context.config.build as TsdownBuildConfig).override?.exports)
-          ? isSetObject(
-              (context.config.build as TsdownBuildConfig).override?.exports
-            )
-            ? (context.config.build as TsdownBuildConfig).override?.exports
-            : isSetObject((context.config.build as TsdownBuildConfig).exports)
-              ? (context.config.build as TsdownBuildConfig).exports
-              : true
+          ? {
+              ...(isSetObject(
+                (context.config.build as TsdownBuildConfig).override?.exports
+              )
+                ? (context.config.build as TsdownBuildConfig).override?.exports
+                : isSetObject(
+                      (context.config.build as TsdownBuildConfig).exports
+                    )
+                  ? (context.config.build as TsdownBuildConfig).exports
+                  : {}),
+              customExports: (exports: Record<string, any>) => {
+                const result = Object.entries(
+                  Object.fromEntries(
+                    Object.entries(exports).map(([key, value]) => {
+                      if (isSetString(value)) {
+                        return [key, value];
+                      }
+
+                      const currentExport = {} as Record<string, any>;
+                      if (isSetString(value.require)) {
+                        currentExport.require = {
+                          types: replaceExtension(value.require, ".d.cts", {
+                            fullExtension: true
+                          }),
+                          default: value.require
+                        };
+                      }
+
+                      if (isSetString(value.import)) {
+                        currentExport.import = {
+                          types: replaceExtension(value.import, ".d.mts", {
+                            fullExtension: true
+                          }),
+                          default: value.import
+                        };
+                      }
+
+                      if (!isSetObject(value.default)) {
+                        if (isSetObject(currentExport.import)) {
+                          currentExport.default = currentExport.import;
+                        } else if (isSetObject(currentExport.require)) {
+                          currentExport.default = currentExport.require;
+                        }
+                      }
+
+                      return [key, currentExport];
+                    })
+                  )
+                ).reduce(
+                  (ret, [key, value]: [string, any]) => {
+                    ret[key] = value;
+                    if (
+                      key.includes("*") ||
+                      !isSetObject(value) ||
+                      !(value as Record<string, any>).import ||
+                      !(value as Record<string, any>).require ||
+                      !(value as Record<string, any>).default
+                    ) {
+                      return ret;
+                    }
+
+                    const folder = (
+                      findFileName(
+                        (value as Record<string, any>).import.default,
+                        {
+                          withExtension: false
+                        }
+                      ) === "index" ||
+                      findFileName(
+                        (value as Record<string, any>).require.default,
+                        {
+                          withExtension: false
+                        }
+                      ) === "index" ||
+                      findFileName(
+                        (value as Record<string, any>).default.default,
+                        {
+                          withExtension: false
+                        }
+                      ) === "index"
+                        ? key
+                        : findFilePath(key, {
+                            requireExtension: false,
+                            withExtension: false
+                          })
+                    )
+                      .replace(/\/index$/, "")
+                      .replace(/^\.?\/?/, "")
+                      .replace(/\/$/, "");
+                    if (folder && !ret[`./${folder}/*`]) {
+                      ret[`./${folder}/*`] = {
+                        require: {
+                          types: `./${findFilePath(
+                            (value as Record<string, any>).require.types
+                          )
+                            .replace(/^\.\//, "")
+                            .replace(/\/$/, "")}/*.d.cts`,
+                          default: `./${findFilePath(
+                            (value as Record<string, any>).require.default
+                          )
+                            .replace(/^\.\//, "")
+                            .replace(/\/$/, "")}/*.cjs`
+                        },
+                        import: {
+                          types: `./${findFilePath(
+                            (value as Record<string, any>).import.types
+                          )
+                            .replace(/^\.\//, "")
+                            .replace(/\/$/, "")}/*.d.mts`,
+                          default: `./${findFilePath(
+                            (value as Record<string, any>).import.default
+                          )
+                            .replace(/^\.\//, "")
+                            .replace(/\/$/, "")}/*.mjs`
+                        },
+                        default: {
+                          types: `./${findFilePath(
+                            (value as Record<string, any>).default.types
+                          )
+                            .replace(/^\.\//, "")
+                            .replace(/\/$/, "")}/*.d.mts`,
+                          default: `./${findFilePath(
+                            (value as Record<string, any>).default.default
+                          )
+                            .replace(/^\.\//, "")
+                            .replace(/\/$/, "")}/*.mjs`
+                        }
+                      };
+                    }
+
+                    return ret;
+                  },
+                  {} as Record<string, any>
+                );
+
+                return Object.keys(result)
+                  .sort()
+                  .reduce(
+                    (ret, key) => {
+                      ret[key] = result[key];
+                      return ret;
+                    },
+                    {} as Record<string, any>
+                  );
+              }
+            }
           : undefined
     },
     context.config.build.variant === "tsdown"

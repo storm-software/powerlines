@@ -58,8 +58,7 @@ export const plugin = <
               }
             },
             plugins: [rollupPlugin()],
-            external: [/^@alloy-js\//],
-            noExternal: ["@powerlines/plugin-alloy"]
+            external: [/^@alloy-js\//]
           }
         };
       },
