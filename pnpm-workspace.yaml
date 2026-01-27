@@ -86,20 +86,20 @@ catalog:
   '@storm-software/unbuild': ^0.57.81
   '@storm-software/untyped': ^0.24.62
   '@storm-software/workspace-tools': ^1.294.27
-  '@stryke/capnp': ^0.12.62
-  '@stryke/cli': ^0.13.9
-  '@stryke/convert': ^0.6.36
-  '@stryke/env': ^0.20.54
-  '@stryke/fs': ^0.33.37
-  '@stryke/hash': ^0.12.43
-  '@stryke/helpers': ^0.9.38
-  '@stryke/http': ^0.12.30
-  '@stryke/json': ^0.9.39
-  '@stryke/path': ^0.26.1
-  '@stryke/string-format': ^0.13.5
-  '@stryke/type-checks': ^0.5.21
-  '@stryke/types': ^0.10.35
-  '@stryke/unique-id': ^0.3.48
+  '@stryke/capnp': ^0.12.63
+  '@stryke/cli': ^0.13.10
+  '@stryke/convert': ^0.6.37
+  '@stryke/env': ^0.20.55
+  '@stryke/fs': ^0.33.38
+  '@stryke/hash': ^0.12.44
+  '@stryke/helpers': ^0.9.39
+  '@stryke/http': ^0.12.31
+  '@stryke/json': ^0.9.40
+  '@stryke/path': ^0.26.2
+  '@stryke/string-format': ^0.13.6
+  '@stryke/type-checks': ^0.5.22
+  '@stryke/types': ^0.10.36
+  '@stryke/unique-id': ^0.3.49
   '@swc-node/register': ^1.11.1
   '@swc/core': ^1.15.10
   '@swc/helpers': ^0.5.18
