@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.241](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.241) (01/26/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update `@stryke/path` to resolve entry path globs/exports issue
+  ([d8d2887e](https://github.com/storm-software/powerlines/commit/d8d2887e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.182**
+- Updated **powerlines** to **v0.37.102**
+
 ## [0.7.240](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.240) (01/26/2026)
 
 ### Updated Dependencies

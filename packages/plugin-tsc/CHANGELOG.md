@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.239](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.239) (01/26/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update `@stryke/path` to resolve entry path globs/exports issue
+  ([d8d2887e](https://github.com/storm-software/powerlines/commit/d8d2887e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.182**
+- Updated **powerlines** to **v0.37.102**
+
 ## [0.2.238](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.238) (01/26/2026)
 
 ### Updated Dependencies

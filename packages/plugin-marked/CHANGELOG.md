@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Marked
 
+## [0.1.196](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.196) (01/26/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update `@stryke/path` to resolve entry path globs/exports issue
+  ([d8d2887e](https://github.com/storm-software/powerlines/commit/d8d2887e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.182**
+- Updated **powerlines** to **v0.37.102**
+
 ## [0.1.195](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.195) (01/26/2026)
 
 ### Updated Dependencies

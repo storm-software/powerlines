@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.184](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.184) (01/26/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update `@stryke/path` to resolve entry path globs/exports issue
+  ([d8d2887e](https://github.com/storm-software/powerlines/commit/d8d2887e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.182**
+- Updated **powerlines** to **v0.37.102**
+
 ## [0.1.183](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.183) (01/26/2026)
 
 ### Updated Dependencies
