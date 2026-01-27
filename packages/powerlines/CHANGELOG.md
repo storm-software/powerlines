@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.0) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with invalid `exports` build configuration
+  ([b3e77d11](https://github.com/storm-software/powerlines/commit/b3e77d11))
+- **powerlines:** Resolve issue with invalid `platform` configuration defaulting
+  ([35157af4](https://github.com/storm-software/powerlines/commit/35157af4))
+
+### Features
+
+- **powerlines:** Added the `getDependencyConfig` build config helper utility
+  ([44105eef](https://github.com/storm-software/powerlines/commit/44105eef))
+
 ## [0.37.101](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.101) (01/26/2026)
 
 ### Bug Fixes

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.183](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.183) (01/27/2026)
+
+### Bug Fixes
+
+- **plugin-plugin:** Resolve issue marking `powerlines` as external dependency
+  ([db67f758](https://github.com/storm-software/powerlines/commit/db67f758))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.38.0**
+
 ## [0.12.182](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.182) (01/26/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.111](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.111) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with invalid `exports` build configuration
+  ([b3e77d11](https://github.com/storm-software/powerlines/commit/b3e77d11))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.183**
+- Updated **plugin-tsc** to **v0.2.240**
+- Updated **powerlines** to **v0.38.0**
+- Updated **deepkit** to **v0.6.13**
+
 ## [0.11.110](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.110) (01/26/2026)
 
 ### Bug Fixes

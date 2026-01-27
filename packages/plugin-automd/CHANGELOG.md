@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Automd
 
+## [0.1.232](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.232) (01/27/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with invalid `exports` build configuration
+  ([b3e77d11](https://github.com/storm-software/powerlines/commit/b3e77d11))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.183**
+- Updated **powerlines** to **v0.38.0**
+
 ## [0.1.231](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.231) (01/26/2026)
 
 ### Bug Fixes

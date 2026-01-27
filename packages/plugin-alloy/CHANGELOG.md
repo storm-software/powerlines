@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.7](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.7) (01/27/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update config to use `alloy-js` rollup plugin instead of
+  babel preset
+  ([6fd154ba](https://github.com/storm-software/powerlines/commit/6fd154ba))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.183**
+- Updated **plugin-babel** to **v0.12.241**
+- Updated **powerlines** to **v0.38.0**
+- Updated **deepkit** to **v0.6.13**
+
 ## [0.19.6](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.6) (01/26/2026)
 
 ### Bug Fixes
