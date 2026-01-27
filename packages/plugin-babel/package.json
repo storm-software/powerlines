@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-babel",
-  "version": "0.12.238",
+  "version": "0.12.239",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
@@ -79,6 +79,7 @@
     },
     "./package.json": "./package.json"
   },
+  "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
   "files": [
     "dist/**/*"
@@ -159,6 +160,5 @@
       },
       "./package.json": "./package.json"
     }
-  },
-  "types": "./dist/index.d.cts"
+  }
 }

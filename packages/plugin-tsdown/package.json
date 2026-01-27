@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-tsdown",
-  "version": "0.1.182",
+  "version": "0.1.183",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {

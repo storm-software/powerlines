@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-vite",
-  "version": "0.14.230",
+  "version": "0.14.231",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {

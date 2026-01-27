@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-alloy",
-  "version": "0.19.4",
+  "version": "0.19.5",
   "type": "module",
   "description": "A package containing various Alloy framework components and helper utilities.",
   "repository": {
@@ -183,6 +183,7 @@
     },
     "./package.json": "./package.json"
   },
+  "types": "./dist/index.d.cts",
   "typings": "./dist/index.d.mts",
   "files": [
     "dist/**/*"
@@ -223,6 +224,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "types": "./dist/index.d.cts"
+  }
 }

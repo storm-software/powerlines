@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.37.101](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.101) (01/26/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue when items from `external` exists in
+  `noExternal` option
+  ([6e39973d](https://github.com/storm-software/powerlines/commit/6e39973d))
+
 ## [0.37.92](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.37.92) (01/24/2026)
 
 ### Bug Fixes
