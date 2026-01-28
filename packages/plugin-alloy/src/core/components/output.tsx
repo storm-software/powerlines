@@ -17,12 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { OutputProps as OutputPropsExternal } from "@alloy-js/core";
-import {
-  computed,
-  Output as OutputExternal,
-  Show,
-  splitProps
-} from "@alloy-js/core";
+import { computed, Output as OutputExternal, splitProps } from "@alloy-js/core";
 import { replacePath } from "@stryke/path/replace";
 import type { PluginContext } from "powerlines/types/context";
 import { MetaItem, PowerlinesContext } from "../contexts/context";
@@ -61,12 +56,13 @@ export function Output<
       ? replacePath(basePath, context.workspaceConfig.workspaceRoot)
       : context.workspaceConfig.workspaceRoot
   );
+  const contextRef = computed(() => context);
 
   return (
-    <OutputExternal {...rest} basePath={basePathRef.value}>
-      <PowerlinesContext.Provider value={{ value: context, meta }}>
-        <Show when={Boolean(context)}>{children}</Show>
-      </PowerlinesContext.Provider>
-    </OutputExternal>
+    <PowerlinesContext.Provider value={{ value: contextRef.value, meta }}>
+      <OutputExternal {...rest} basePath={basePathRef.value}>
+        {children}
+      </OutputExternal>
+    </PowerlinesContext.Provider>
   );
 }
