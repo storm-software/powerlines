@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-image-compression",
-  "version": "0.2.193",
+  "version": "0.2.194",
   "type": "module",
   "description": "A Powerlines plugin to optimize images used by the project.",
   "repository": {
@@ -87,7 +87,13 @@
   },
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": ["sharp", "svgo", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "sharp",
+    "svgo",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",

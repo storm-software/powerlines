@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.20](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.20) (01/28/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Move Powerlines context outside `Output` children ([cf2790db](https://github.com/storm-software/powerlines/commit/cf2790db))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.196**
+- Updated **plugin-babel** to **v0.12.254**
+- Updated **powerlines** to **v0.38.12**
+- Updated **deepkit** to **v0.6.25**
+
 ## [0.19.19](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.19) (01/28/2026)
 
 ### Miscellaneous
