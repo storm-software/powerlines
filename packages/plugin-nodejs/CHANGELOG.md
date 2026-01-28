@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.144](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.144) (01/28/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Update parameter to `render` to be a callback to prevent reactivity issue ([f4891e67](https://github.com/storm-software/powerlines/commit/f4891e67))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.19.21**
+- Updated **plugin-env** to **v0.15.149**
+
 ## [0.1.143](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.143) (01/28/2026)
 
 ### Updated Dependencies
