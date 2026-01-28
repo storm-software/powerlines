@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-alloy",
-  "version": "0.19.18",
+  "version": "0.19.19",
   "type": "module",
   "description": "A package containing various Alloy framework components and helper utilities.",
   "repository": {

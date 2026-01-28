@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.19](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.19) (01/28/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update `Output` component to use `alloy-js` contexts ([4699fda1](https://github.com/storm-software/powerlines/commit/4699fda1))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.195**
+- Updated **plugin-babel** to **v0.12.253**
+- Updated **powerlines** to **v0.38.11**
+- Updated **deepkit** to **v0.6.24**
+
 ## [0.19.18](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.18) (01/28/2026)
 
 ### Updated Dependencies
