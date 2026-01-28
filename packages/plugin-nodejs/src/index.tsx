@@ -55,12 +55,12 @@ export const plugin = <
       },
       async prepare() {
         const result = await readEnvTypeReflection(this, "env");
-        await this.render(() => (
+        await this.render(
           <NodeJsEnvBuiltin
             defaultConfig={this.config.env.defaultConfig}
             reflection={result}
           />
-        ));
+        );
       }
     }
   ] as Plugin<TContext>[];

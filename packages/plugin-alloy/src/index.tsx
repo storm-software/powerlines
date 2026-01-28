@@ -96,7 +96,7 @@ export const plugin = <
         async handler() {
           this.debug("Attaching the `render` method to the context object.");
 
-          this.render = async (renderCallback: () => Children) => {
+          this.render = async (child: Children) => {
             const meta = {} as Record<string, MetaItem>;
 
             const output = await renderAsync(
@@ -104,7 +104,7 @@ export const plugin = <
                 <Output<TContext>
                   context={this}
                   basePath={this.workspaceConfig.workspaceRoot}>
-                  {renderCallback()}
+                  {child}
                 </Output>
               </MetaContext.Provider>
             );

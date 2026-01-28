@@ -331,12 +331,12 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
 
         const result = await readEnvTypeReflection(this, "env");
 
-        return this.render(() => (
+        return this.render(
           <EnvBuiltin
             defaultConfig={this.config.env.defaultConfig}
             reflection={result}
           />
-        ));
+        );
       },
       transform: {
         order: "post",
@@ -371,9 +371,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         );
 
         const result = await readEnvTypeReflection(this, "env");
-        await this.render(() => (
-          <EnvDocsFile levelOffset={0} reflection={result} />
-        ));
+        await this.render(<EnvDocsFile levelOffset={0} reflection={result} />);
       },
       async buildEnd() {
         const reflectionPath = getEnvReflectionsPath(this, "env");

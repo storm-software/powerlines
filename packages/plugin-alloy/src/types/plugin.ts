@@ -57,5 +57,5 @@ export type AlloyPluginResolvedConfig = BabelPluginResolvedConfig & {
 export type AlloyPluginContext<
   TResolvedConfig extends AlloyPluginResolvedConfig = AlloyPluginResolvedConfig
 > = PluginContext<TResolvedConfig> & {
-  render: (renderCallback: () => Children) => Promise<void>;
+  render: (child: Children) => Promise<void>;
 };
