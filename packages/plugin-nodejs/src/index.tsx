@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import babel from "@powerlines/plugin-babel";
-import env from "@powerlines/plugin-env";
+import env, { readEnvTypeReflection } from "@powerlines/plugin-env";
 import { isMatchFound } from "powerlines/lib/typescript/tsconfig";
 import { Plugin } from "powerlines/types/plugin";
 import { NodeJsEnvBuiltin } from "./components/env";
@@ -54,8 +54,12 @@ export const plugin = <
         }
       },
       async prepare() {
+        const result = await readEnvTypeReflection(this, "env");
         await this.render(
-          <NodeJsEnvBuiltin defaultConfig={this.config.env.defaultConfig} />
+          <NodeJsEnvBuiltin
+            defaultConfig={this.config.env.defaultConfig}
+            reflection={result}
+          />
         );
       }
     }

@@ -61,7 +61,6 @@ import {
 } from "@powerlines/plugin-alloy/typescript/components/typescript-interface";
 import { TypescriptObject } from "@powerlines/plugin-alloy/typescript/components/typescript-object";
 import { titleCase } from "@stryke/string-format/title-case";
-import { isNull } from "@stryke/type-checks/is-null";
 import defu from "defu";
 import { loadEnvFromContext } from "../helpers/load";
 import { EnvPluginContext } from "../types/plugin";
@@ -271,7 +270,6 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
   ]);
 
   const context = usePowerlines<EnvPluginContext>();
-
   const defaultValue = computed(
     () => context && loadEnvFromContext(context, process.env)
   );
@@ -300,7 +298,6 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           a.getNameAsString().localeCompare(b.getNameAsString())
         ) ?? []
   );
-
   const reflectionSetProperties = computed(
     () =>
       reflection
@@ -333,7 +330,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         },
         rest.imports ?? {}
       )}>
-      <Show when={!isNull(reflection)}>
+      <Show when={Boolean(reflection)}>
         <EnvTypeDefinition
           defaultValue={defaultValue.value}
           reflection={reflection}
