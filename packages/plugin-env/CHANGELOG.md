@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.149](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.149) (01/28/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Update parameter to `render` to be a callback to prevent reactivity issue ([f4891e67](https://github.com/storm-software/powerlines/commit/f4891e67))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.19.21**
+
 ## [0.15.148](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.148) (01/28/2026)
 
 ### Updated Dependencies

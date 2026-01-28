@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.21](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.21) (01/28/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Update parameter to `render` to be a callback to prevent reactivity issue ([f4891e67](https://github.com/storm-software/powerlines/commit/f4891e67))
+
 ## [0.19.20](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.20) (01/28/2026)
 
 ### Miscellaneous

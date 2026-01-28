@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-alloy",
-  "version": "0.19.20",
+  "version": "0.19.21",
   "type": "module",
   "description": "A package containing various Alloy framework components and helper utilities.",
   "repository": {
@@ -151,6 +151,20 @@
       "default": {
         "types": "./dist/core/contexts/context.d.mts",
         "default": "./dist/core/contexts/context.mjs"
+      }
+    },
+    "./core/contexts/meta": {
+      "require": {
+        "types": "./dist/core/contexts/meta.d.cts",
+        "default": "./dist/core/contexts/meta.cjs"
+      },
+      "import": {
+        "types": "./dist/core/contexts/meta.d.mts",
+        "default": "./dist/core/contexts/meta.mjs"
+      },
+      "default": {
+        "types": "./dist/core/contexts/meta.d.mts",
+        "default": "./dist/core/contexts/meta.mjs"
       }
     },
     "./core/contexts/reflection": {
