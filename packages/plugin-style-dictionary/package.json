@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-style-dictionary",
-  "version": "0.3.143",
+  "version": "0.3.144",
   "type": "module",
   "description": "A Powerlines plugin to generate project code with Style Dictionary.",
   "repository": {
@@ -87,12 +87,7 @@
   },
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": [
-    "style-dictionary",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "keywords": ["style-dictionary", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",

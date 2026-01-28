@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-content-collections",
-  "version": "0.1.242",
+  "version": "0.1.243",
   "type": "module",
   "description": "A Powerlines plugin to generate project code using Content Collections.",
   "repository": {
@@ -129,12 +129,7 @@
   },
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": [
-    "content-collections",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "keywords": ["content-collections", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@content-collections/core": "catalog:",
     "@standard-schema/spec": "catalog:",

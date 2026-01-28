@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-openapi",
-  "version": "0.2.247",
+  "version": "0.2.248",
   "type": "module",
   "description": "A Powerlines plugin to generate project code from OpenAPI specifications.",
   "repository": {
@@ -87,13 +87,7 @@
   },
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": [
-    "openapi",
-    "openapi-typescript",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "keywords": ["openapi", "openapi-typescript", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
