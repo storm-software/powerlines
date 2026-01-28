@@ -23,7 +23,7 @@ import { StormJSON } from "@stryke/json/storm-json";
 import { findFileExtension } from "@stryke/path/file-path-fns";
 import { Plugin } from "powerlines/types/plugin";
 import { Output } from "./core/components/output";
-import { MetaItem } from "./core/contexts/context";
+import { MetaContext, MetaItem } from "./core/contexts/meta";
 import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
 /**
@@ -96,16 +96,17 @@ export const plugin = <
         async handler() {
           this.debug("Attaching the `render` method to the context object.");
 
-          this.render = async (children: Children) => {
+          this.render = async (renderCallback: () => Children) => {
             const meta = {} as Record<string, MetaItem>;
 
             const output = await renderAsync(
-              <Output<TContext>
-                context={this}
-                meta={meta}
-                basePath={this.workspaceConfig.workspaceRoot}>
-                {children}
-              </Output>
+              <MetaContext.Provider value={meta}>
+                <Output<TContext>
+                  context={this}
+                  basePath={this.workspaceConfig.workspaceRoot}>
+                  {renderCallback()}
+                </Output>
+              </MetaContext.Provider>
             );
 
             this.debug("Processing rendered output from Alloy-js.");

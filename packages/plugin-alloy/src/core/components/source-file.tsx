@@ -30,7 +30,7 @@ import { appendPath } from "@stryke/path/append";
 import defu from "defu";
 import type { StoragePreset } from "powerlines/types/fs";
 import { ComponentProps } from "../../types/components";
-import { useMetaSafe } from "../contexts";
+import { useMetaSafe } from "../contexts/meta";
 
 export type SourceFileProps = SourceFilePropsExternal &
   ComponentProps & {

@@ -17,4 +17,5 @@
  ------------------------------------------------------------------- */
 
 export * from "./context";
+export * from "./meta";
 export * from "./reflection";

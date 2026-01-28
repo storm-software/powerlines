@@ -228,11 +228,11 @@ export const plugin = <
         }
       },
       async prepare() {
-        return this.render(
+        return this.render(() => (
           <ReactOptimizedBuiltin
             override={this.config.react.compiler === false ? false : undefined}
           />
-        );
+        ));
       }
     }
   ] as Plugin<TContext>[];
