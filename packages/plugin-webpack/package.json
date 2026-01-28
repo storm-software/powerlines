@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-webpack",
-  "version": "0.5.248",
+  "version": "0.5.249",
   "type": "module",
   "description": "A package containing a Powerlines plugin to build projects using Webpack.",
   "repository": {
