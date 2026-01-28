@@ -116,10 +116,17 @@
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
   "keywords": ["nodejs", "powerlines", "storm-software", "powerlines-plugin"],
+  "peerDependencies": {
+    "@powerlines/plugin-alloy": "*"
+  },
+  "peerDependenciesMeta": {
+    "@powerlines/plugin-alloy": {
+      "optional": false
+    }
+  },
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/typescript": "catalog:",
-    "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",

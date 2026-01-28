@@ -217,8 +217,8 @@ catalogs:
       specifier: ^0.169.83
       version: 0.169.83
     '@storm-software/git-tools':
-      specifier: ^2.124.65
-      version: 2.124.65
+      specifier: ^2.124.66
+      version: 2.124.66
     '@storm-software/linting-tools':
       specifier: ^1.132.81
       version: 1.132.81
@@ -415,8 +415,8 @@ catalogs:
       specifier: ^4.7.8
       version: 4.7.8
     i18next-cli:
-      specifier: ^1.39.12
-      version: 1.39.12
+      specifier: ^1.40.0
+      version: 1.40.0
     i18next-resources-for-ts:
       specifier: ^2.0.0
       version: 2.0.0
@@ -719,7 +719,7 @@ importers:
         version: 0.169.83(a454ed49e24c4a47ae0df30b6ec00d3f)
       '@storm-software/git-tools':
         specifier: 'catalog:'
-        version: 2.124.65(@babel/traverse@7.28.6)(@swc-node/register@1.11.1(@swc/core@1.15.11(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.11(@swc/helpers@0.5.18))(@types/node@24.10.9)(verdaccio@6.1.2(typanion@3.14.0))(zod@4.3.6)
+        version: 2.124.66(@babel/traverse@7.28.6)(@swc-node/register@1.11.1(@swc/core@1.15.11(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.11(@swc/helpers@0.5.18))(@types/node@24.10.9)(verdaccio@6.1.2(typanion@3.14.0))(zod@4.3.6)
       '@storm-software/linting-tools':
         specifier: 'catalog:'
         version: 1.132.81(chokidar@4.0.3)
@@ -1558,7 +1558,7 @@ importers:
         version: 6.1.4
       i18next-cli:
         specifier: 'catalog:'
-        version: 1.39.12(@swc/helpers@0.5.18)(@types/node@24.10.9)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3)
+        version: 1.40.0(@swc/helpers@0.5.18)(@types/node@24.10.9)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3)
       i18next-resources-for-ts:
         specifier: 'catalog:'
         version: 2.0.0(@swc/helpers@0.5.18)
@@ -8750,8 +8750,8 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
       prettier-plugin-astro: ^0.14.0
 
-  '@storm-software/git-tools@2.124.65':
-    resolution: {integrity: sha512-52iv+JQWtaxeN+Xk6gfow6TEO7y6osqvcKCnc0xp/Q3N+W8CN/F1yYiUWUUr7ki5QgWAu/43/6I4QvfzYb3vgw==}
+  '@storm-software/git-tools@2.124.66':
+    resolution: {integrity: sha512-fa/M/Oj+JBY4RGP+4PWNF+YlBYU6ES+3Mxof2PQ8PIy3Gbgv/XRG8hkbc/4DjCpKyH5/oIRsOreeZ0GL81g+7w==}
     engines: {node: '>=22.4.0', pnpm: '>=10.3.0'}
     hasBin: true
     peerDependencies:
@@ -14356,8 +14356,8 @@ packages:
   hyphenate-style-name@1.1.0:
     resolution: {integrity: sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==}
 
-  i18next-cli@1.39.12:
-    resolution: {integrity: sha512-9k8AqKXNeAf4E5Ribktec5M3TegcvrOSacsJIKs6I1sUqJtNTuViprp0rrIR6TxvPV6Grwbn0QYqwzl3YZPAng==}
+  i18next-cli@1.40.0:
+    resolution: {integrity: sha512-Bzz1irQFlIF8TX/GMmYQyRho4aGdONijxUoaq4NeAz3wkjrwI93O0L5NOAZ5NUYdHkHM0WCxv+JgEIgeR3/eXA==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -28515,7 +28515,7 @@ snapshots:
       - verdaccio
       - vitest
 
-  '@storm-software/git-tools@2.124.65(@babel/traverse@7.28.6)(@swc-node/register@1.11.1(@swc/core@1.15.11(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.11(@swc/helpers@0.5.18))(@types/node@24.10.9)(verdaccio@6.1.2(typanion@3.14.0))(zod@4.3.6)':
+  '@storm-software/git-tools@2.124.66(@babel/traverse@7.28.6)(@swc-node/register@1.11.1(@swc/core@1.15.11(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.11(@swc/helpers@0.5.18))(@types/node@24.10.9)(verdaccio@6.1.2(typanion@3.14.0))(zod@4.3.6)':
     dependencies:
       '@commitlint/ensure': 19.8.1
       '@commitlint/rules': 19.8.1
@@ -36002,7 +36002,7 @@ snapshots:
 
   hyphenate-style-name@1.1.0: {}
 
-  i18next-cli@1.39.12(@swc/helpers@0.5.18)(@types/node@24.10.9)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3):
+  i18next-cli@1.40.0(@swc/helpers@0.5.18)(@types/node@24.10.9)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3):
     dependencies:
       '@croct/json5-parser': 0.2.2
       '@swc/core': 1.15.10(@swc/helpers@0.5.18)
@@ -38852,7 +38852,7 @@ snapshots:
   micromark-util-character@2.1.1:
     dependencies:
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
 
   micromark-util-chunked@2.0.1:
     dependencies:
@@ -38867,7 +38867,7 @@ snapshots:
   micromark-util-combine-extensions@2.0.1:
     dependencies:
       micromark-util-chunked: 2.0.1
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
 
   micromark-util-decode-numeric-character-reference@2.0.2:
     dependencies:
