@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.22](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.22) (01/28/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve peer dependency issue preventing symbol resolution in `render` method ([b0498b0a](https://github.com/storm-software/powerlines/commit/b0498b0a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.197**
+- Updated **plugin-babel** to **v0.12.255**
+- Updated **powerlines** to **v0.38.13**
+- Updated **deepkit** to **v0.6.26**
+
 ## [0.19.21](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.21) (01/28/2026)
 
 ### Bug Fixes

@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.145](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.145) (01/28/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve peer dependency issue preventing symbol resolution in `render` method ([b0498b0a](https://github.com/storm-software/powerlines/commit/b0498b0a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.197**
+- Updated **plugin-alloy** to **v0.19.22**
+- Updated **plugin-babel** to **v0.12.255**
+- Updated **plugin-env** to **v0.15.150**
+- Updated **powerlines** to **v0.38.13**
+
 ## [0.1.144](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.144) (01/28/2026)
 
 ### Bug Fixes

@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.279](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.279) (01/28/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve peer dependency issue preventing symbol resolution in `render` method ([b0498b0a](https://github.com/storm-software/powerlines/commit/b0498b0a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.197**
+- Updated **plugin-alloy** to **v0.19.22**
+- Updated **plugin-babel** to **v0.12.255**
+- Updated **plugin-env** to **v0.15.150**
+- Updated **powerlines** to **v0.38.13**
+- Updated **deepkit** to **v0.6.26**
+
 ## [0.1.278](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.278) (01/28/2026)
 
 ### Bug Fixes
