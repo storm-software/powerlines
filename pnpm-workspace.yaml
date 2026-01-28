@@ -79,13 +79,13 @@ catalog:
   '@storm-software/linting-tools': ^1.132.81
   '@storm-software/markdownlint': ^0.30.75
   '@storm-software/pnpm-tools': ^0.6.83
-  '@storm-software/prettier': ^0.57.78
+  '@storm-software/prettier': ^0.57.79
   '@storm-software/testing-tools': ^1.119.75
   '@storm-software/tsconfig': ^0.47.75
   '@storm-software/tsup': ^0.2.79
   '@storm-software/unbuild': ^0.57.81
   '@storm-software/untyped': ^0.24.62
-  '@storm-software/workspace-tools': ^1.294.30
+  '@storm-software/workspace-tools': ^1.294.31
   '@stryke/capnp': ^0.12.64
   '@stryke/cli': ^0.13.11
   '@stryke/convert': ^0.6.37
@@ -142,7 +142,7 @@ catalog:
   fp-ts: ^2.16.11
   github-slugger: ^2.0.0
   handlebars: ^4.7.8
-  i18next-cli: ^1.39.9
+  i18next-cli: ^1.39.12
   i18next-resources-for-ts: ^2.0.0
   jest: ^30.2.0
   jest-config: ^30.2.0
