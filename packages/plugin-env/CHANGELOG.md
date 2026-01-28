@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.145](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.145) (01/28/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Remove resource usage and provide reflection as a prop ([44bd5963](https://github.com/storm-software/powerlines/commit/44bd5963))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.121**
+- Updated **plugin-automd** to **v0.1.242**
+- Updated **plugin-plugin** to **v0.12.193**
+- Updated **plugin-alloy** to **v0.19.17**
+- Updated **plugin-babel** to **v0.12.251**
+- Updated **powerlines** to **v0.38.9**
+- Updated **deepkit** to **v0.6.22**
+
 ## [0.15.144](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.144) (01/28/2026)
 
 ### Bug Fixes
