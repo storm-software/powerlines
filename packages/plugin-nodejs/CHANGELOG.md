@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.139](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.139) (01/28/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Update `render` calls to await result ([dbe014dc](https://github.com/storm-software/powerlines/commit/dbe014dc))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.192**
+- Updated **plugin-alloy** to **v0.19.16**
+- Updated **plugin-babel** to **v0.12.250**
+- Updated **plugin-env** to **v0.15.144**
+- Updated **powerlines** to **v0.38.8**
+
 ## [0.1.138](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.138) (01/27/2026)
 
 ### Updated Dependencies
