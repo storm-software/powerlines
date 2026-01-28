@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-stylelint",
-  "version": "0.1.246",
+  "version": "0.1.247",
   "type": "module",
   "description": "A package containing a Powerlines plugin for running Stylelint on the codebase.",
   "repository": {
@@ -84,12 +84,7 @@
     }
   },
   "files": ["dist/**/*"],
-  "keywords": [
-    "stylelint",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "keywords": ["stylelint", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
     "@stryke/fs": "catalog:",

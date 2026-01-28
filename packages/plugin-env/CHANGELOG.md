@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.146](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.146) (01/28/2026)
+
+### Bug Fixes
+
+- **plugin-nodejs:** Resolve issue with missing `reflection` prop ([232564e4](https://github.com/storm-software/powerlines/commit/232564e4))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.122**
+- Updated **plugin-automd** to **v0.1.243**
+- Updated **plugin-plugin** to **v0.12.194**
+- Updated **plugin-alloy** to **v0.19.18**
+- Updated **plugin-babel** to **v0.12.252**
+- Updated **powerlines** to **v0.38.10**
+- Updated **deepkit** to **v0.6.23**
+
 ## [0.15.145](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.145) (01/28/2026)
 
 ### Bug Fixes

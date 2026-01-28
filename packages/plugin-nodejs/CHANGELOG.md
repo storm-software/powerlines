@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.141](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.141) (01/28/2026)
+
+### Bug Fixes
+
+- **plugin-nodejs:** Resolve issue with missing `reflection` prop ([232564e4](https://github.com/storm-software/powerlines/commit/232564e4))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.194**
+- Updated **plugin-alloy** to **v0.19.18**
+- Updated **plugin-babel** to **v0.12.252**
+- Updated **plugin-env** to **v0.15.146**
+- Updated **powerlines** to **v0.38.10**
+
 ## [0.1.140](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.140) (01/28/2026)
 
 ### Updated Dependencies
