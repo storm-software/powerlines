@@ -16,15 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { computed, createResource } from "@alloy-js/core";
-import {
-  ReflectionClass,
-  ReflectionKind
-} from "@powerlines/deepkit/vendor/type";
-import { titleCase } from "@stryke/string-format/title-case";
 import { EnvPluginContext } from "../types/plugin";
-import { loadEnvFromContext } from "./load";
-import { readEnvTypeReflection } from "./persistence";
 
 /**
  * Creates a reflection resource for the environment configuration.
@@ -32,63 +24,54 @@ import { readEnvTypeReflection } from "./persistence";
  * @param context - The environment plugin context.
  * @returns A resource that provides the reflection of the environment configuration.
  */
-export function createReflectionResource(context?: EnvPluginContext) {
-  const defaultValue = computed(
-    () => context && loadEnvFromContext(context, process.env)
-  );
+export function createReflection(_context: EnvPluginContext) {
+  // const defaultValue = computed(
+  //   () => context && loadEnvFromContext(context, process.env)
+  // );
 
-  return createResource<ReflectionClass<Record<string, any>>>(async () => {
-    if (!context) {
-      return new ReflectionClass({
-        kind: ReflectionKind.objectLiteral,
-        description: `The initial environment configuration state for the Powerlines project.`,
-        types: []
-      });
-    }
+  return {};
 
-    const result = await readEnvTypeReflection(context, "env");
-    result.getProperties().forEach(prop => {
-      const aliases = prop.getAlias();
-      aliases.filter(Boolean).forEach(alias => {
-        result.addProperty({
-          name: alias,
-          optional: prop.isOptional() ? true : undefined,
-          readonly: prop.isReadonly() ? true : undefined,
-          description: prop.getDescription(),
-          visibility: prop.getVisibility(),
-          type: prop.getType(),
-          default: prop.getDefaultValue(),
-          tags: {
-            hidden: prop.isHidden(),
-            ignore: prop.isIgnored(),
-            internal: prop.isInternal(),
-            alias: prop
-              .getAlias()
-              .filter(a => a !== alias)
-              .concat(prop.name),
-            title: prop.getTitle() || titleCase(prop.name),
-            readonly: prop.isReadonly(),
-            permission: prop.getPermission(),
-            domain: prop.getDomain()
-          }
-        });
-      });
-    });
+  // return computed(() => {
+  //   result.getProperties().forEach(prop => {
+  //     const aliases = prop.getAlias();
+  //     aliases.filter(Boolean).forEach(alias => {
+  //       result.addProperty({
+  //         name: alias,
+  //         optional: prop.isOptional() ? true : undefined,
+  //         readonly: prop.isReadonly() ? true : undefined,
+  //         description: prop.getDescription(),
+  //         visibility: prop.getVisibility(),
+  //         type: prop.getType(),
+  //         default: prop.getDefaultValue(),
+  //         tags: {
+  //           hidden: prop.isHidden(),
+  //           ignore: prop.isIgnored(),
+  //           internal: prop.isInternal(),
+  //           alias: prop
+  //             .getAlias()
+  //             .filter(a => a !== alias)
+  //             .concat(prop.name),
+  //           title: prop.getTitle() || titleCase(prop.name),
+  //           readonly: prop.isReadonly(),
+  //           permission: prop.getPermission(),
+  //           domain: prop.getDomain()
+  //         }
+  //       });
+  //     });
+  //   });
 
-    result.getProperties().forEach(prop => {
-      prop.setDefaultValue(
-        (defaultValue.value as Record<string, any>)?.[prop.getNameAsString()] ??
-          prop
-            .getAlias()
-            .reduce(
-              (ret, alias) =>
-                ret ?? (defaultValue.value as Record<string, any>)?.[alias],
-              undefined
-            ) ??
-          prop.getDefaultValue()
-      );
-    });
-
-    return result;
-  });
+  //   result.getProperties().forEach(prop => {
+  //     prop.setDefaultValue(
+  //       (defaultValue.value as Record<string, any>)?.[prop.getNameAsString()] ??
+  //         prop
+  //           .getAlias()
+  //           .reduce(
+  //             (ret, alias) =>
+  //               ret ?? (defaultValue.value as Record<string, any>)?.[alias],
+  //             undefined
+  //           ) ??
+  //         prop.getDefaultValue()
+  //     );
+  //   });
+  // });
 }

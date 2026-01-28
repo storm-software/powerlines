@@ -39,7 +39,7 @@ import {
   ReflectionKind,
   ReflectionProperty
 } from "@powerlines/deepkit/vendor/type";
-import { usePowerlinesSafe } from "@powerlines/plugin-alloy/core/contexts/context";
+import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
 import { refkey } from "@powerlines/plugin-alloy/helpers/refkey";
 import { ComponentProps } from "@powerlines/plugin-alloy/types/components";
 import {
@@ -63,7 +63,6 @@ import { TypescriptObject } from "@powerlines/plugin-alloy/typescript/components
 import { titleCase } from "@stryke/string-format/title-case";
 import { isNull } from "@stryke/type-checks/is-null";
 import defu from "defu";
-import { createReflectionResource } from "../helpers/create-reflection-resource";
 import { loadEnvFromContext } from "../helpers/load";
 import { EnvPluginContext } from "../types/plugin";
 
@@ -78,10 +77,7 @@ export function EnvTypeDefinition(
     "reflection"
   ]);
 
-  const context = usePowerlinesSafe<EnvPluginContext>();
-  if (!context) {
-    return null;
-  }
+  const context = usePowerlines<EnvPluginContext>();
 
   return (
     <>
@@ -114,16 +110,12 @@ export function EnvTypeDefinition(
 }
 
 interface ConfigPropertyConditionalProps extends ComponentProps {
-  context: EnvPluginContext | undefined;
+  context: EnvPluginContext;
   name: string;
 }
 
 function ConfigPropertyConditional(props: ConfigPropertyConditionalProps) {
   const [{ context, name }] = splitProps(props, ["context", "name"]);
-
-  if (!context) {
-    return null;
-  }
 
   return code`propertyName === "${name}" || propertyName.replace(/^(${context.config.env.prefix
     .sort((a, b) =>
@@ -137,7 +129,7 @@ function ConfigPropertyConditional(props: ConfigPropertyConditionalProps) {
 
 interface ConfigPropertyProps extends ComponentProps {
   index: number;
-  context: EnvPluginContext | undefined;
+  context: EnvPluginContext;
   property: ReflectionProperty;
 }
 
@@ -147,10 +139,6 @@ function ConfigPropertyGet(props: ConfigPropertyProps) {
     "property",
     "index"
   ]);
-
-  if (!context) {
-    return null;
-  }
 
   return (
     <>
@@ -207,10 +195,6 @@ function ConfigPropertySet(props: ConfigPropertyProps) {
     "property",
     "index"
   ]);
-
-  if (!context) {
-    return null;
-  }
 
   return (
     <>
@@ -269,6 +253,7 @@ function ConfigPropertySet(props: ConfigPropertyProps) {
 
 export interface EnvBuiltinProps extends Omit<BuiltinFileProps, "id"> {
   defaultConfig?: Children;
+  reflection: ReflectionClass<any>;
 }
 
 const createEnvRefkey = refkey("createEnv");
@@ -279,17 +264,17 @@ const envSerializerRefkey = refkey("EnvSerializer");
  * Generates the environment configuration module for the Powerlines project.
  */
 export function EnvBuiltin(props: EnvBuiltinProps) {
-  const [{ defaultConfig, children }, rest] = splitProps(props, [
+  const [{ defaultConfig, reflection, children }, rest] = splitProps(props, [
     "defaultConfig",
+    "reflection",
     "children"
   ]);
 
-  const context = usePowerlinesSafe<EnvPluginContext>();
+  const context = usePowerlines<EnvPluginContext>();
 
   const defaultValue = computed(
     () => context && loadEnvFromContext(context, process.env)
   );
-  const reflection = createReflectionResource(context);
 
   const envInstance = computed(() => {
     const result = new ReflectionClass(
@@ -300,7 +285,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         )} project.`,
         types: []
       },
-      reflection.data ?? undefined
+      reflection
     );
 
     return result;
@@ -308,7 +293,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
 
   const reflectionGetProperties = computed(
     () =>
-      reflection.data
+      reflection
         ?.getProperties()
         .filter(property => !property.isIgnored())
         .sort((a, b) =>
@@ -318,7 +303,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
 
   const reflectionSetProperties = computed(
     () =>
-      reflection.data
+      reflection
         ?.getProperties()
         .filter(property => !property.isIgnored() && !property.isReadonly())
         .sort((a, b) =>
@@ -348,10 +333,10 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         },
         rest.imports ?? {}
       )}>
-      <Show when={!isNull(reflection.data)}>
+      <Show when={!isNull(reflection)}>
         <EnvTypeDefinition
           defaultValue={defaultValue.value}
-          reflection={reflection.data!}
+          reflection={reflection}
         />
         <hbr />
         <hbr />
