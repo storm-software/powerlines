@@ -69,6 +69,20 @@
         "default": "./dist/helpers/index.mjs"
       }
     },
+    "./helpers/format-package-json": {
+      "require": {
+        "types": "./dist/helpers/format-package-json.d.cts",
+        "default": "./dist/helpers/format-package-json.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/format-package-json.d.mts",
+        "default": "./dist/helpers/format-package-json.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/format-package-json.d.mts",
+        "default": "./dist/helpers/format-package-json.mjs"
+      }
+    },
     "./helpers/unplugin": {
       "require": {
         "types": "./dist/helpers/unplugin.d.cts",

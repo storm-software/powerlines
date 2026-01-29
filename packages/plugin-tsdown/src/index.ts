@@ -20,6 +20,7 @@ import defu from "defu";
 import { extractTsdownConfig } from "powerlines/lib/build/tsdown";
 import { Plugin } from "powerlines/types/plugin";
 import { build } from "tsdown";
+import { formatPackageJson } from "./helpers/format-package-json";
 import { createTsdownPlugin } from "./helpers/unplugin";
 import {
   TsdownPluginContext,
@@ -67,6 +68,8 @@ export const plugin = <
           extractTsdownConfig(this)
         )
       );
+
+      await formatPackageJson(this);
     }
   };
 };

@@ -25,6 +25,7 @@ import { TypeDefinition } from "@stryke/types/configuration";
 import { defu } from "defu";
 import { extractTsdownConfig } from "powerlines/lib/build/tsdown";
 import { createUnplugin } from "powerlines/lib/unplugin";
+import { format } from "powerlines/lib/utilities/format";
 import { Plugin } from "powerlines/types/plugin";
 import { build } from "tsdown";
 import { createRolldownPlugin } from "unplugin";
@@ -132,6 +133,19 @@ declare module "powerlines" {
           extractTsdownConfig(this)
         )
       );
+
+      const packageJsonPath = joinPaths(
+        this.workspaceConfig.workspaceRoot,
+        this.config.projectRoot,
+        "package.json"
+      );
+      const packageJsonFile = await this.fs.read(packageJsonPath);
+      if (isSetString(packageJsonFile)) {
+        await this.fs.write(
+          packageJsonPath,
+          await format(this, packageJsonPath, packageJsonFile)
+        );
+      }
     }
   };
 };

@@ -364,6 +364,20 @@
         "default": "./dist/types/index.mjs"
       }
     },
+    "./types/_internal": {
+      "require": {
+        "types": "./dist/types/_internal.d.cts",
+        "default": "./dist/types/_internal.cjs"
+      },
+      "import": {
+        "types": "./dist/types/_internal.d.mts",
+        "default": "./dist/types/_internal.mjs"
+      },
+      "default": {
+        "types": "./dist/types/_internal.d.mts",
+        "default": "./dist/types/_internal.mjs"
+      }
+    },
     "./types/components": {
       "require": {
         "types": "./dist/types/components.d.cts",
@@ -376,20 +390,6 @@
       "default": {
         "types": "./dist/types/components.d.mts",
         "default": "./dist/types/components.mjs"
-      }
-    },
-    "./types/internal": {
-      "require": {
-        "types": "./dist/types/internal.d.cts",
-        "default": "./dist/types/internal.cjs"
-      },
-      "import": {
-        "types": "./dist/types/internal.d.mts",
-        "default": "./dist/types/internal.mjs"
-      },
-      "default": {
-        "types": "./dist/types/internal.d.mts",
-        "default": "./dist/types/internal.mjs"
       }
     },
     "./types/plugin": {
