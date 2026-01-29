@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.27](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.27) (01/29/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update `package.json` file exports ([741e0619](https://github.com/storm-software/powerlines/commit/741e0619))
+
+### Bug Fixes
+
+- **plugin-alloy:** Add internal `meta` field to context ([9e0580c6](https://github.com/storm-software/powerlines/commit/9e0580c6))
+
 ## [0.19.26](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.26) (01/29/2026)
 
 ### Updated Dependencies
