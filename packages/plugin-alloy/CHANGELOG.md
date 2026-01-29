@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.25](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.25) (01/29/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update the `render` method to exclude `Output` component ([01e2a154](https://github.com/storm-software/powerlines/commit/01e2a154))
+
 ## [0.19.24](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.24) (01/28/2026)
 
 ### Updated Dependencies
