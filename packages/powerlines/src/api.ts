@@ -67,6 +67,7 @@ import {
   isPluginConfigObject,
   isPluginConfigTuple
 } from "./plugin-utils/helpers";
+import { UNSAFE_APIContext } from "./types/_internal";
 import { API } from "./types/api";
 import type {
   BuildInlineConfig,
@@ -88,7 +89,6 @@ import type {
   PluginContext
 } from "./types/context";
 import { InferHookParameters } from "./types/hooks";
-import { UNSAFE_APIContext } from "./types/internal";
 import type { Plugin, TypesResult } from "./types/plugin";
 import { EnvironmentResolvedConfig, ResolvedConfig } from "./types/resolved";
 

@@ -26,7 +26,7 @@ import { MetaContext } from "./core/contexts/meta";
 import {
   UNSAFE_AlloyPluginContext,
   UNSAFE_AlloyPluginContextInternal
-} from "./types/internal";
+} from "./types/_internal";
 import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
 /**
@@ -99,13 +99,13 @@ export const plugin = <
         async handler() {
           this.debug("Attaching the `render` method to the context object.");
 
-          const _context = this as unknown as UNSAFE_AlloyPluginContext;
-          _context.$$internal ??= {} as UNSAFE_AlloyPluginContextInternal;
-          _context.$$internal.alloy ??= { meta: {} };
+          const context = this as unknown as UNSAFE_AlloyPluginContext;
+          context.$$internal ??= {} as UNSAFE_AlloyPluginContextInternal;
+          context.$$internal.alloy ??= { meta: {} };
 
           this.render = async (child: Children) => {
             const output = await renderAsync(
-              <MetaContext.Provider value={_context.$$internal.alloy.meta}>
+              <MetaContext.Provider value={context.$$internal.alloy.meta}>
                 {child}
               </MetaContext.Provider>
             );
@@ -132,7 +132,7 @@ export const plugin = <
                 visitFile: file => {
                   if ("contents" in file) {
                     const metadata =
-                      _context.$$internal.alloy.meta[file.path] ?? {};
+                      context.$$internal.alloy.meta[file.path] ?? {};
                     if (metadata.kind === "builtin") {
                       if (!metadata.id) {
                         throw new Error(

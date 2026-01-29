@@ -25,9 +25,9 @@ import type {
   UnpluginContext
 } from "unplugin";
 import { setParseImpl } from "unplugin";
+import { UNSAFE_PluginContext } from "../../types/_internal";
 import { UnpluginBuilderVariant } from "../../types/build";
 import { PluginContext } from "../../types/context";
-import { UNSAFE_PluginContext } from "../../types/internal";
 import { UnpluginFactory } from "../../types/unplugin";
 import { extendLog } from "../logger";
 import { getString } from "../utilities/source-file";

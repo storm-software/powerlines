@@ -20,13 +20,13 @@ import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isString } from "@stryke/type-checks/is-string";
 import { UnpluginMessage } from "unplugin";
 import { CallHookOptions } from "../../internal/helpers/hooks";
-import { LogFn } from "../../types/config";
-import { EnvironmentContext, PluginContext } from "../../types/context";
-import { InferHookParameters, InferHookReturnType } from "../../types/hooks";
 import {
   UNSAFE_EnvironmentContext,
   UNSAFE_PluginContext
-} from "../../types/internal";
+} from "../../types/_internal";
+import { LogFn } from "../../types/config";
+import { EnvironmentContext, PluginContext } from "../../types/context";
+import { InferHookParameters, InferHookReturnType } from "../../types/hooks";
 import { Plugin } from "../../types/plugin";
 import { ResolvedConfig } from "../../types/resolved";
 

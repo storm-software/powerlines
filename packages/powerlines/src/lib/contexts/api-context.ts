@@ -25,6 +25,10 @@ import {
   createEnvironment
 } from "../../internal/helpers/environment";
 import {
+  UNSAFE_ContextInternal,
+  UNSAFE_EnvironmentContext
+} from "../../types/_internal";
+import {
   InitialUserConfig,
   InlineConfig,
   LogFn,
@@ -37,10 +41,6 @@ import {
   InitContextOptions,
   PluginContext
 } from "../../types/context";
-import {
-  UNSAFE_ContextInternal,
-  UNSAFE_EnvironmentContext
-} from "../../types/internal";
 import { Plugin } from "../../types/plugin";
 import {
   EnvironmentResolvedConfig,

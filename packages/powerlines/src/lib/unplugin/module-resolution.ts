@@ -23,8 +23,8 @@ import type {
   UnpluginBuildContext,
   UnpluginContext
 } from "unplugin";
+import { UNSAFE_PluginContext } from "../../types/_internal";
 import { PluginContext } from "../../types/context";
-import { UNSAFE_PluginContext } from "../../types/internal";
 
 /**
  * Creates the module resolution hook functions for a Powerlines unplugin plugin instance.

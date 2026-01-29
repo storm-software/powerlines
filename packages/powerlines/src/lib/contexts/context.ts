@@ -70,6 +70,7 @@ import {
 } from "../../internal/helpers/resolver";
 import { checkDedupe, isPlugin } from "../../plugin-utils/helpers";
 import { replacePathTokens } from "../../plugin-utils/paths";
+import { UNSAFE_ContextInternal } from "../../types/_internal";
 import { BuildConfig } from "../../types/build";
 import {
   InitialUserConfig,
@@ -95,7 +96,6 @@ import {
   VirtualFile,
   VirtualFileSystemInterface
 } from "../../types/fs";
-import { UNSAFE_ContextInternal } from "../../types/internal";
 import {
   ResolvedAssetGlob,
   ResolvedConfig,
