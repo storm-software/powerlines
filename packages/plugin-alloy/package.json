@@ -378,6 +378,20 @@
         "default": "./dist/types/components.mjs"
       }
     },
+    "./types/internal": {
+      "require": {
+        "types": "./dist/types/internal.d.cts",
+        "default": "./dist/types/internal.cjs"
+      },
+      "import": {
+        "types": "./dist/types/internal.d.mts",
+        "default": "./dist/types/internal.mjs"
+      },
+      "default": {
+        "types": "./dist/types/internal.d.mts",
+        "default": "./dist/types/internal.mjs"
+      }
+    },
     "./types/plugin": {
       "require": {
         "types": "./dist/types/plugin.d.cts",
