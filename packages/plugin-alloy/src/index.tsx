@@ -22,7 +22,6 @@ import rollupPlugin from "@alloy-js/rollup-plugin";
 import { StormJSON } from "@stryke/json/storm-json";
 import { findFileExtension } from "@stryke/path/file-path-fns";
 import { Plugin } from "powerlines/types/plugin";
-import { Output } from "./core/components/output";
 import { MetaContext, MetaItem } from "./core/contexts/meta";
 import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
@@ -100,13 +99,7 @@ export const plugin = <
             const meta = {} as Record<string, MetaItem>;
 
             const output = await renderAsync(
-              <MetaContext.Provider value={meta}>
-                <Output<TContext>
-                  context={this}
-                  basePath={this.workspaceConfig.workspaceRoot}>
-                  {child}
-                </Output>
-              </MetaContext.Provider>
+              <MetaContext.Provider value={meta}>{child}</MetaContext.Provider>
             );
 
             this.debug("Processing rendered output from Alloy-js.");
