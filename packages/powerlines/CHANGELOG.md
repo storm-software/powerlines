@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.17](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.17) (01/29/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update internal module to have an underscore prefix ([70625d5a](https://github.com/storm-software/powerlines/commit/70625d5a))
+
 ## [0.38.6](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.6) (01/27/2026)
 
 ### Miscellaneous

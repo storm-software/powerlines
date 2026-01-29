@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.28](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.28) (01/29/2026)
+
+### Miscellaneous
+
+- **plugin-tsdown:** Format `package.json` file after build to prevent `exports` issues ([2cd30ead](https://github.com/storm-software/powerlines/commit/2cd30ead))
+- **powerlines:** Update internal module to have an underscore prefix ([70625d5a](https://github.com/storm-software/powerlines/commit/70625d5a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.201**
+- Updated **plugin-babel** to **v0.12.259**
+- Updated **powerlines** to **v0.38.17**
+- Updated **deepkit** to **v0.6.30**
+
 ## [0.19.27](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.27) (01/29/2026)
 
 ### Miscellaneous
