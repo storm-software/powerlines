@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.30](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.30) (01/29/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Ensure `meta` is only cleared out if previously populated ([8387af02](https://github.com/storm-software/powerlines/commit/8387af02))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.203**
+- Updated **plugin-babel** to **v0.12.261**
+- Updated **powerlines** to **v0.38.19**
+- Updated **deepkit** to **v0.6.32**
+
 ## [0.19.29](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.29) (01/29/2026)
 
 ### Miscellaneous
