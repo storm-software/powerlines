@@ -22,7 +22,11 @@ import rollupPlugin from "@alloy-js/rollup-plugin";
 import { StormJSON } from "@stryke/json/storm-json";
 import { findFileExtension } from "@stryke/path/file-path-fns";
 import { Plugin } from "powerlines/types/plugin";
-import { MetaContext, MetaItem } from "./core/contexts/meta";
+import { MetaContext } from "./core/contexts/meta";
+import {
+  UNSAFE_AlloyPluginContext,
+  UNSAFE_AlloyPluginContextInternal
+} from "./types/internal";
 import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
 /**
@@ -95,52 +99,69 @@ export const plugin = <
         async handler() {
           this.debug("Attaching the `render` method to the context object.");
 
-          this.render = async (child: Children) => {
-            const meta = {} as Record<string, MetaItem>;
+          const _context = this as unknown as UNSAFE_AlloyPluginContext;
+          _context.$$internal ??= {} as UNSAFE_AlloyPluginContextInternal;
+          _context.$$internal.alloy ??= { meta: {} };
 
+          this.render = async (child: Children) => {
             const output = await renderAsync(
-              <MetaContext.Provider value={meta}>{child}</MetaContext.Provider>
+              <MetaContext.Provider value={_context.$$internal.alloy.meta}>
+                {child}
+              </MetaContext.Provider>
             );
 
-            this.debug("Processing rendered output from Alloy-js.");
+            if (!Object.keys(output).length) {
+              this.debug(
+                "No output files were rendered by Alloy-js templates."
+              );
+            } else {
+              this.debug(
+                `Processing ${
+                  Object.keys(output).length
+                } rendered output files from Alloy-js templates.`
+              );
 
-            await traverseOutput(output, {
-              visitDirectory: directory => {
-                if (this.fs.existsSync(directory.path)) {
-                  return;
-                }
-
-                this.fs.mkdirSync(directory.path);
-              },
-              visitFile: file => {
-                if ("contents" in file) {
-                  const metadata = meta[file.path] ?? {};
-                  if (metadata.kind === "builtin") {
-                    if (!metadata.id) {
-                      throw new Error(
-                        `Built-in file "${file.path}" is missing its ID in the render metadata.`
-                      );
-                    }
-
-                    this.emitBuiltinSync(file.contents, metadata.id, {
-                      skipFormat: metadata.skipFormat,
-                      storage: metadata.storage,
-                      extension: findFileExtension(file.path)
-                    });
-                  } else if (metadata.kind === "entry") {
-                    this.emitEntrySync(file.contents, file.path, {
-                      skipFormat: metadata.skipFormat,
-                      storage: metadata.storage,
-                      ...(metadata.typeDefinition ?? {})
-                    });
-                  } else {
-                    this.emitSync(file.contents, file.path, metadata);
+              await traverseOutput(output, {
+                visitDirectory: directory => {
+                  if (this.fs.existsSync(directory.path)) {
+                    return;
                   }
-                } else {
-                  this.fs.copySync(file.sourcePath, file.path);
+
+                  this.fs.mkdirSync(directory.path);
+                },
+                visitFile: file => {
+                  if ("contents" in file) {
+                    const metadata =
+                      _context.$$internal.alloy.meta[file.path] ?? {};
+                    if (metadata.kind === "builtin") {
+                      if (!metadata.id) {
+                        throw new Error(
+                          `Built-in file "${
+                            file.path
+                          }" is missing its ID in the render metadata.`
+                        );
+                      }
+
+                      this.emitBuiltinSync(file.contents, metadata.id, {
+                        skipFormat: metadata.skipFormat,
+                        storage: metadata.storage,
+                        extension: findFileExtension(file.path)
+                      });
+                    } else if (metadata.kind === "entry") {
+                      this.emitEntrySync(file.contents, file.path, {
+                        skipFormat: metadata.skipFormat,
+                        storage: metadata.storage,
+                        ...(metadata.typeDefinition ?? {})
+                      });
+                    } else {
+                      this.emitSync(file.contents, file.path, metadata);
+                    }
+                  } else {
+                    this.fs.copySync(file.sourcePath, file.path);
+                  }
                 }
-              }
-            });
+              });
+            }
           };
         }
       }
