@@ -298,14 +298,6 @@
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
   "keywords": ["dotenv", "powerlines", "storm-software", "powerlines-plugin"],
-  "peerDependencies": {
-    "@powerlines/plugin-alloy": "*"
-  },
-  "peerDependenciesMeta": {
-    "@powerlines/plugin-alloy": {
-      "optional": false
-    }
-  },
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/json": "catalog:",
@@ -313,6 +305,7 @@
     "@alloy-js/typescript": "catalog:",
     "@babel/core": "catalog:",
     "@babel/types": "catalog:",
+    "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-automd": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",

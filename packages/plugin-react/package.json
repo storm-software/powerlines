@@ -131,14 +131,10 @@
   "files": ["dist/**/*"],
   "keywords": ["react", "powerlines", "storm-software", "powerlines-plugin"],
   "peerDependencies": {
-    "@powerlines/plugin-alloy": "*",
     "react": ">=19.2.0",
     "react-dom": ">=19.2.0"
   },
   "peerDependenciesMeta": {
-    "@powerlines/plugin-alloy": {
-      "optional": false
-    },
     "react": {
       "optional": false
     },
@@ -152,6 +148,7 @@
     "@alloy-js/markdown": "catalog:",
     "@alloy-js/typescript": "catalog:",
     "@babel/core": "catalog:",
+    "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
     "@storm-software/config-tools": "catalog:",
