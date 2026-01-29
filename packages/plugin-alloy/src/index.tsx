@@ -97,7 +97,7 @@ export const plugin = <
           this.debug("Attaching the `render` method to the context object.");
 
           const context = this as unknown as UNSAFE_AlloyPluginContext;
-          context.$$internal.meta.alloy = {};
+          context.$$internal.meta.alloy ??= {};
 
           this.render = async (child: Children) => {
             const output = await renderAsync(
