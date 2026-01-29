@@ -134,7 +134,7 @@ catalog:
   defu: ^6.1.4
   diff-match-patch: ^1.0.5
   dts-bundle-generator: ^9.5.1
-  esbuild: ^0.25.12
+  esbuild: ^0.25.0
   esbuild-plugin-babel: ^0.2.3
   eslint: ^9.39.2
   eslint-flat-config-utils: ^2.1.4
