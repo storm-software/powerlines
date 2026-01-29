@@ -98,8 +98,30 @@ export interface UNSAFE_EnvironmentContext<
 export interface UNSAFE_PluginContextInternal<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > extends UNSAFE_ContextInternal<TResolvedConfig> {
+  /**
+   * The API instance for interacting with Powerlines
+   *
+   * @internal
+   */
   api: API<TResolvedConfig>;
+
+  /**
+   * The environment context associated with this plugin context
+   *
+   * @internal
+   */
   environment: UNSAFE_EnvironmentContext<TResolvedConfig>;
+
+  /**
+   * Call a hook within the Powerlines system
+   *
+   * @internal
+   *
+   * @param hook - The name of the hook to call
+   * @param options - Options for calling the hook
+   * @param args - Arguments to pass to the hook
+   * @returns The result of the hook call
+   */
   callHook: <TKey extends string>(
     hook: TKey,
     options: CallHookOptions & {
@@ -109,6 +131,13 @@ export interface UNSAFE_PluginContextInternal<
   ) => Promise<
     InferHookReturnType<PluginContext<TResolvedConfig>, TKey> | undefined
   >;
+
+  /**
+   * A place to store internal data for the plugin context
+   *
+   * @internal
+   */
+  meta: Record<string, any>;
 }
 
 /**

@@ -18,7 +18,7 @@
 
 /* eslint-disable ts/naming-convention */
 
-import { UNSAFE_PluginContextInternal } from "powerlines/types/internal";
+import { UNSAFE_PluginContextInternal } from "powerlines/types/_internal";
 import { MetaItem } from "../core";
 import { AlloyPluginResolvedConfig } from "./plugin";
 
@@ -30,18 +30,13 @@ import { AlloyPluginResolvedConfig } from "./plugin";
 export interface UNSAFE_AlloyPluginContextInternal<
   TResolvedConfig extends AlloyPluginResolvedConfig = AlloyPluginResolvedConfig
 > extends UNSAFE_PluginContextInternal<TResolvedConfig> {
-  /**
-   * The collected meta information during the Powerlines process
-   *
-   * @internal
-   */
-  alloy: {
+  meta: {
     /**
      * The meta information collected during the Powerlines process
      *
      * @internal
      */
-    meta: Record<string, MetaItem>;
+    alloy: Record<string, MetaItem>;
   };
 }
 

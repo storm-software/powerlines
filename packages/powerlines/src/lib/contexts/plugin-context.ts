@@ -68,13 +68,16 @@ export function createPluginContext<
     );
   };
 
+  const meta = {} as Record<string, any>;
+
   return new Proxy({} as UNSAFE_PluginContext<TResolvedConfig>, {
     get(_, prop) {
       if (prop === "$$internal") {
         return {
           ...environment.$$internal,
           environment,
-          callHook: callHookFn
+          callHook: callHookFn,
+          meta
         };
       }
 

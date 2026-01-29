@@ -23,10 +23,7 @@ import { StormJSON } from "@stryke/json/storm-json";
 import { findFileExtension } from "@stryke/path/file-path-fns";
 import { Plugin } from "powerlines/types/plugin";
 import { MetaContext } from "./core/contexts/meta";
-import {
-  UNSAFE_AlloyPluginContext,
-  UNSAFE_AlloyPluginContextInternal
-} from "./types/_internal";
+import { UNSAFE_AlloyPluginContext } from "./types/_internal";
 import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
 /**
@@ -100,12 +97,11 @@ export const plugin = <
           this.debug("Attaching the `render` method to the context object.");
 
           const context = this as unknown as UNSAFE_AlloyPluginContext;
-          context.$$internal ??= {} as UNSAFE_AlloyPluginContextInternal;
-          context.$$internal.alloy ??= { meta: {} };
+          context.$$internal.meta.alloy = {};
 
           this.render = async (child: Children) => {
             const output = await renderAsync(
-              <MetaContext.Provider value={context.$$internal.alloy.meta}>
+              <MetaContext.Provider value={context.$$internal.meta.alloy}>
                 {child}
               </MetaContext.Provider>
             );
@@ -132,7 +128,7 @@ export const plugin = <
                 visitFile: file => {
                   if ("contents" in file) {
                     const metadata =
-                      context.$$internal.alloy.meta[file.path] ?? {};
+                      context.$$internal.meta.alloy[file.path] ?? {};
                     if (metadata.kind === "builtin") {
                       if (!metadata.id) {
                         throw new Error(
