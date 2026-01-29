@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.154](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.154) (01/29/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Update packages to use `Output` component in render calls ([0273408a](https://github.com/storm-software/powerlines/commit/0273408a))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.128**
+- Updated **plugin-automd** to **v0.1.249**
+- Updated **plugin-plugin** to **v0.12.200**
+- Updated **plugin-alloy** to **v0.19.26**
+- Updated **plugin-babel** to **v0.12.258**
+- Updated **powerlines** to **v0.38.16**
+- Updated **deepkit** to **v0.6.29**
+
 ## [0.15.153](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.153) (01/29/2026)
 
 ### Updated Dependencies

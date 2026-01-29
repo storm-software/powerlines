@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.283](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.283) (01/29/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Update packages to use `Output` component in render calls ([0273408a](https://github.com/storm-software/powerlines/commit/0273408a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.200**
+- Updated **plugin-alloy** to **v0.19.26**
+- Updated **plugin-babel** to **v0.12.258**
+- Updated **plugin-env** to **v0.15.154**
+- Updated **powerlines** to **v0.38.16**
+- Updated **deepkit** to **v0.6.29**
+
 ## [0.1.282](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.282) (01/29/2026)
 
 ### Updated Dependencies

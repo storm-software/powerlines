@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.149](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.149) (01/29/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Update packages to use `Output` component in render calls ([0273408a](https://github.com/storm-software/powerlines/commit/0273408a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.200**
+- Updated **plugin-alloy** to **v0.19.26**
+- Updated **plugin-babel** to **v0.12.258**
+- Updated **plugin-env** to **v0.15.154**
+- Updated **powerlines** to **v0.38.16**
+
 ## [0.1.148](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.148) (01/29/2026)
 
 ### Updated Dependencies
