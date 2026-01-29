@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.29](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.29) (01/29/2026)
+
+### Miscellaneous
+
+- **powerlines:** Add `meta` property to internal context node ([fd47eb38](https://github.com/storm-software/powerlines/commit/fd47eb38))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.202**
+- Updated **plugin-babel** to **v0.12.260**
+- Updated **powerlines** to **v0.38.18**
+- Updated **deepkit** to **v0.6.31**
+
 ## [0.19.28](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.28) (01/29/2026)
 
 ### Miscellaneous

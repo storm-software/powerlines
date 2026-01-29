@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.18](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.18) (01/29/2026)
+
+### Miscellaneous
+
+- **powerlines:** Add `meta` property to internal context node ([fd47eb38](https://github.com/storm-software/powerlines/commit/fd47eb38))
+
 ## [0.38.17](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.17) (01/29/2026)
 
 ### Miscellaneous
