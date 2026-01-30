@@ -21,7 +21,7 @@ import { toArray } from "@stryke/convert/to-array";
 import { omit } from "@stryke/helpers/omit";
 import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join-paths";
-import { replaceExtension } from "@stryke/path/replace";
+import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import defu from "defu";
@@ -116,7 +116,17 @@ export function extractTsdownConfig(
     {
       entry:
         context.entry.map(entry => entry?.file).filter(Boolean).length > 0
-          ? context.entry.map(entry => entry?.file).filter(Boolean)
+          ? Object.fromEntries(
+              context.entry
+                .filter(entry => entry?.file)
+                .map(entry => [
+                  entry.output ||
+                    replaceExtension(
+                      replacePath(entry.file, context.config.sourceRoot)
+                    ),
+                  entry.file
+                ])
+            )
           : [
               joinPaths(
                 context.workspaceConfig.workspaceRoot,
