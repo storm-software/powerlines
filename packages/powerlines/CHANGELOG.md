@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.24](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.24) (01/30/2026)
+
+### Miscellaneous
+
+- **powerlines:** Simplify VFS storage adapter retrieval logic ([2bbfc50b](https://github.com/storm-software/powerlines/commit/2bbfc50b))
+
 ## [0.38.23](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.23) (01/30/2026)
 
 ### Miscellaneous
