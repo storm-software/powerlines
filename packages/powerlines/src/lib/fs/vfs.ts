@@ -496,6 +496,29 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       base: "/_virtual"
     });
 
+    this.#storage[
+      appendPath(
+        this.#context.config.output.buildPath,
+        this.#context.workspaceConfig.workspaceRoot
+      )
+    ] ??= new FileSystemStorageAdapter({
+      base: appendPath(
+        this.#context.config.output.buildPath,
+        this.#context.workspaceConfig.workspaceRoot
+      )
+    });
+    this.#storage[
+      appendPath(
+        this.#context.config.output.outputPath,
+        this.#context.workspaceConfig.workspaceRoot
+      )
+    ] ??= new FileSystemStorageAdapter({
+      base: appendPath(
+        this.#context.config.output.outputPath,
+        this.#context.workspaceConfig.workspaceRoot
+      )
+    });
+
     if (this.#context.config.output.storage !== "fs") {
       this.#storage[this.#context.artifactsPath] ??= new VirtualStorageAdapter({
         base: this.#context.artifactsPath
