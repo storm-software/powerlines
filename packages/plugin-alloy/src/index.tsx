@@ -22,7 +22,6 @@ import rollupPlugin from "@alloy-js/rollup-plugin";
 import { StormJSON } from "@stryke/json/storm-json";
 import { findFileExtension } from "@stryke/path/file-path-fns";
 import { Plugin } from "powerlines/types/plugin";
-import { MetaContext } from "./core/contexts/meta";
 import { UNSAFE_AlloyPluginContext } from "./types/_internal";
 import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
@@ -99,22 +98,18 @@ export const plugin = <
           const context = this as unknown as UNSAFE_AlloyPluginContext;
           context.$$internal.meta.alloy ??= {};
 
-          this.render = async (child: Children) => {
-            const output = await renderAsync(
-              <MetaContext.Provider value={context.$$internal.meta.alloy}>
-                {child}
-              </MetaContext.Provider>
-            );
+          this.render = async (children: Children) => {
+            const output = await renderAsync(children);
 
             if (!Object.keys(output).length) {
               this.debug(
-                "No output files were rendered by Alloy-js templates."
+                "No output files were rendered by Alloy-js component templates."
               );
             } else {
               this.debug(
                 `Processing ${
                   Object.keys(output).length
-                } rendered output files from Alloy-js templates.`
+                } rendered output files from Alloy-js component templates.`
               );
 
               await traverseOutput(output, {
@@ -128,7 +123,8 @@ export const plugin = <
                 visitFile: file => {
                   if ("contents" in file) {
                     const metadata =
-                      context.$$internal.meta.alloy[file.path] ?? {};
+                      (this as unknown as UNSAFE_AlloyPluginContext).$$internal
+                        .meta.alloy[file.path] ?? {};
                     if (metadata.kind === "builtin") {
                       if (!metadata.id) {
                         throw new Error(
