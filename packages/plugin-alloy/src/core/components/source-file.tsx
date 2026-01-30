@@ -30,7 +30,7 @@ import { appendPath } from "@stryke/path/append";
 import defu from "defu";
 import type { StoragePreset } from "powerlines/types/fs";
 import { ComponentProps } from "../../types/components";
-import { useMetaSafe } from "../contexts/meta";
+import { useMeta } from "../contexts/meta";
 
 export type SourceFileProps = SourceFilePropsExternal &
   ComponentProps & {
@@ -69,7 +69,7 @@ export function SourceFile(props: SourceFileProps) {
       "reference"
     ]);
 
-  const metadata = useMetaSafe();
+  const metadata = useMeta();
   const parentDirectory = useContext(SourceDirectoryContext)!;
 
   const sourceFile: SourceFileContext = {

@@ -34,26 +34,6 @@ import { replacePathTokens } from "../plugin-utils/paths";
 import type { Context } from "../types/context";
 import { ResolvedEntryTypeDefinition } from "../types/resolved";
 
-// export function resolveEntryInputFile(
-//   context: Context,
-//   typeDefinition: TypeDefinition
-// ): string {
-//   return replacePath(
-//     typeDefinition.file,
-//     joinPaths(context.workspaceConfig.workspaceRoot, context.config.projectRoot)
-//   );
-// }
-
-// export function resolveEntryInput(
-//   context: Context,
-//   typeDefinition: TypeDefinition
-// ): TypeDefinition {
-//   return {
-//     file: resolveEntryInputFile(context, typeDefinition),
-//     name: typeDefinition.name
-//   };
-// }
-
 export function resolveEntryOutput(
   context: Context,
   typeDefinition: TypeDefinition
@@ -86,14 +66,14 @@ export function resolveEntryOutput(
 
 export function resolveEntry(
   context: Context,
-  typeDefinition: TypeDefinition
+  typeDefinition: TypeDefinition,
+  input?: TypeDefinition,
+  output?: string
 ): ResolvedEntryTypeDefinition {
-  // const input = resolveEntryInput(context, typeDefinition);
-
   return {
     ...typeDefinition,
-    input: typeDefinition,
-    output: resolveEntryOutput(context, typeDefinition)
+    input: input ?? typeDefinition,
+    output: output || resolveEntryOutput(context, typeDefinition)
   };
 }
 
@@ -129,10 +109,15 @@ export async function resolveEntries(
           ? typeDefinition.file
           : appendPath(typeDefinition.file, context.config.projectRoot);
         if (await context.fs.isFile(filePath)) {
-          return resolveEntry(context, {
-            file: replacePath(filePath, context.config.projectRoot),
-            name: typeDefinition.name
-          });
+          return resolveEntry(
+            context,
+            {
+              file: replacePath(filePath, context.config.projectRoot),
+              name: typeDefinition.name
+            },
+            (entry as ResolvedEntryTypeDefinition).input,
+            (entry as ResolvedEntryTypeDefinition).output
+          );
         }
 
         return (
@@ -140,10 +125,15 @@ export async function resolveEntries(
             appendPath(filePath, context.workspaceConfig.workspaceRoot)
           )
         ).map(file =>
-          resolveEntry(context, {
-            file: replacePath(file, context.config.projectRoot),
-            name: typeDefinition.name
-          })
+          resolveEntry(
+            context,
+            {
+              file: replacePath(file, context.config.projectRoot),
+              name: typeDefinition.name
+            },
+            (entry as ResolvedEntryTypeDefinition).input,
+            (entry as ResolvedEntryTypeDefinition).output
+          )
         );
       })
     )
@@ -175,7 +165,6 @@ export function isResolvedEntryTypeDefinition(
 ): entry is ResolvedEntryTypeDefinition {
   return (
     isTypeDefinition(entry) &&
-    (entry as ResolvedEntryTypeDefinition).input !== undefined &&
     (entry as ResolvedEntryTypeDefinition).output !== undefined
   );
 }
@@ -194,7 +183,13 @@ export function resolveEntriesSync(
   return typeDefinitions
     .map(entry => {
       if (isResolvedEntryTypeDefinition(entry)) {
-        return { ...entry, file: replacePathTokens(context, entry.file) };
+        return {
+          ...entry,
+          output: entry.output
+            ? replacePathTokens(context, entry.output)
+            : undefined,
+          file: replacePathTokens(context, entry.file)
+        };
       }
 
       let typeDefinition: TypeDefinition;

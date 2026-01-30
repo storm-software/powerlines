@@ -115,14 +115,17 @@ export function extractTsdownConfig(
   return defu(
     {
       entry:
-        context.entry.map(entry => entry?.file).filter(Boolean).length > 0
+        context.entry.filter(entry => entry?.file).length > 0
           ? Object.fromEntries(
               context.entry
                 .filter(entry => entry?.file)
                 .map(entry => [
                   entry.output ||
                     replaceExtension(
-                      replacePath(entry.file, context.config.sourceRoot)
+                      replacePath(
+                        replacePath(entry.file, context.config.sourceRoot),
+                        context.entryPath
+                      )
                     ),
                   entry.file
                 ])
