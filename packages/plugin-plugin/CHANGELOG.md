@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.205](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.205) (01/30/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Update default build config to set `unbundle` to true ([98fe0209](https://github.com/storm-software/powerlines/commit/98fe0209))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.38.21**
+
 ## [0.12.204](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.204) (01/29/2026)
 
 ### Updated Dependencies

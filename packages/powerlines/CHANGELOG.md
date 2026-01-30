@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.21](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.21) (01/30/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update `entry` config for `tsdown` build to specify output aliases ([1e00f204](https://github.com/storm-software/powerlines/commit/1e00f204))
+
 ## [0.38.18](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.18) (01/29/2026)
 
 ### Miscellaneous
