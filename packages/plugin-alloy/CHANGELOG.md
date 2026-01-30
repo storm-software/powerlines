@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.32](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.32) (01/29/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Added separate `render` method to invoke in plugins ([94ffe864](https://github.com/storm-software/powerlines/commit/94ffe864))
+
 ## [0.19.31](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.31) (01/29/2026)
 
 ### Bug Fixes
