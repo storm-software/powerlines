@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import type { Children, PrintTreeOptions } from "@alloy-js/core";
+import type { PrintTreeOptions } from "@alloy-js/core";
 import {
   BabelPluginResolvedConfig,
   BabelPluginUserConfig
@@ -56,37 +56,4 @@ export type AlloyPluginResolvedConfig = BabelPluginResolvedConfig & {
 
 export type AlloyPluginContext<
   TResolvedConfig extends AlloyPluginResolvedConfig = AlloyPluginResolvedConfig
-> = PluginContext<TResolvedConfig> & {
-  /**
-   * A function to render children components within the [Alloy](https://alloy-framework.github.io) context, and write any saved content to the file system.
-   *
-   * @remarks
-   * If the {@link children} provided to this function use the {@link PowerlinesContext} (accessible using the {@link usePowerlines} hook), it is very important that they are wrapped by the {@link Output} component. This ensures that the Powerlines context is properly provided to all child components during rendering. Since [\@alloy-js/core](https://alloy-framework.github.io) uses symbols to resolve context identifiers, failing to use the {@link Output} component will likely lead to unexpected behavior or errors during the rendering process.
-   *
-   * @example
-   * ```tsx
-   * import alloy from "@powerlines/plugin-alloy";
-   * import { Output } from "@powerlines/plugin-alloy/core/components/output";
-   *
-   * export const plugin = () => {
-   *   return [
-   *      alloy(),
-   *      {
-   *        name: "my-plugin",
-   *        async prepare() {
-   *          await this.render(
-   *            <Output context={this}>
-   *              ...
-   *            </Output>
-   *          );
-   *        }
-   *      }
-   *   ];
-   * };
-   * ```
-   *
-   * @param children - The children components to render.
-   * @returns A promise that resolves when rendering is complete.
-   */
-  render: (children: Children) => Promise<void>;
-};
+> = PluginContext<TResolvedConfig>;

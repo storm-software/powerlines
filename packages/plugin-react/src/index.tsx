@@ -20,7 +20,7 @@ import {
   ReflectionKind,
   ReflectionVisibility
 } from "@powerlines/deepkit/vendor/type";
-import { Output } from "@powerlines/plugin-alloy/core/components/output";
+import { render } from "@powerlines/plugin-alloy/render";
 import babel from "@powerlines/plugin-babel";
 import env from "@powerlines/plugin-env";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
@@ -229,14 +229,11 @@ export const plugin = <
         }
       },
       async prepare() {
-        return this.render(
-          <Output context={this}>
-            <ReactOptimizedBuiltin
-              override={
-                this.config.react.compiler === false ? false : undefined
-              }
-            />
-          </Output>
+        return render(
+          this,
+          <ReactOptimizedBuiltin
+            override={this.config.react.compiler === false ? false : undefined}
+          />
         );
       }
     }

@@ -16,13 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import type { Children } from "@alloy-js/core";
-import { renderAsync, traverseOutput } from "@alloy-js/core";
 import rollupPlugin from "@alloy-js/rollup-plugin";
 import { StormJSON } from "@stryke/json/storm-json";
-import { findFileExtension } from "@stryke/path/file-path-fns";
 import { Plugin } from "powerlines/types/plugin";
-import { UNSAFE_AlloyPluginContext } from "./types/_internal";
 import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
 /**
@@ -38,7 +34,7 @@ export const plugin = <
 ) => {
   return [
     {
-      name: "alloy:config",
+      name: "alloy",
       config() {
         this.debug(
           "Updating configuration options to support Alloy-js builds."
@@ -85,76 +81,6 @@ export const plugin = <
             this.tsconfig.tsconfigFilePath,
             StormJSON.stringify(this.tsconfig.tsconfigJson)
           );
-        }
-      }
-    },
-    {
-      name: "alloy:attach-render",
-      configResolved: {
-        order: "pre",
-        async handler() {
-          this.debug("Attaching the `render` method to the context object.");
-
-          const context = this as unknown as UNSAFE_AlloyPluginContext;
-          context.$$internal.meta.alloy ??= {};
-
-          this.render = async (children: Children) => {
-            const output = await renderAsync(children);
-
-            if (!Object.keys(output).length) {
-              this.debug(
-                "No output files were rendered by Alloy-js component templates."
-              );
-            } else {
-              this.debug(
-                `Processing ${
-                  Object.keys(output).length
-                } rendered output files from Alloy-js component templates.`
-              );
-
-              await traverseOutput(output, {
-                visitDirectory: directory => {
-                  if (this.fs.existsSync(directory.path)) {
-                    return;
-                  }
-
-                  this.fs.mkdirSync(directory.path);
-                },
-                visitFile: file => {
-                  if ("contents" in file) {
-                    const metadata =
-                      (this as unknown as UNSAFE_AlloyPluginContext).$$internal
-                        .meta.alloy[file.path] ?? {};
-                    if (metadata.kind === "builtin") {
-                      if (!metadata.id) {
-                        throw new Error(
-                          `Built-in file "${
-                            file.path
-                          }" is missing its ID in the render metadata.`
-                        );
-                      }
-
-                      this.emitBuiltinSync(file.contents, metadata.id, {
-                        skipFormat: metadata.skipFormat,
-                        storage: metadata.storage,
-                        extension: findFileExtension(file.path)
-                      });
-                    } else if (metadata.kind === "entry") {
-                      this.emitEntrySync(file.contents, file.path, {
-                        skipFormat: metadata.skipFormat,
-                        storage: metadata.storage,
-                        ...(metadata.typeDefinition ?? {})
-                      });
-                    } else {
-                      this.emitSync(file.contents, file.path, metadata);
-                    }
-                  } else {
-                    this.fs.copySync(file.sourcePath, file.path);
-                  }
-                }
-              });
-            }
-          };
         }
       }
     }

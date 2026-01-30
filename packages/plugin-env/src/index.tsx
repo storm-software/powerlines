@@ -21,7 +21,7 @@ import {
   ReflectionKind
 } from "@powerlines/deepkit/vendor/type";
 import alloy from "@powerlines/plugin-alloy";
-import { Output } from "@powerlines/plugin-alloy/core/components/output";
+import { render } from "@powerlines/plugin-alloy/render";
 import automd from "@powerlines/plugin-automd";
 import babel from "@powerlines/plugin-babel";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
@@ -332,13 +332,12 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
 
         const result = await readEnvTypeReflection(this, "env");
 
-        return this.render(
-          <Output context={this}>
-            <EnvBuiltin
-              defaultConfig={this.config.env.defaultConfig}
-              reflection={result}
-            />
-          </Output>
+        return render(
+          this,
+          <EnvBuiltin
+            defaultConfig={this.config.env.defaultConfig}
+            reflection={result}
+          />
         );
       },
       transform: {
@@ -374,10 +373,10 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         );
 
         const result = await readEnvTypeReflection(this, "env");
-        await this.render(
-          <Output context={this}>
-            <EnvDocsFile levelOffset={0} reflection={result} />
-          </Output>
+
+        return render(
+          this,
+          <EnvDocsFile levelOffset={0} reflection={result} />
         );
       },
       async buildEnd() {

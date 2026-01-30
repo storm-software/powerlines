@@ -18,17 +18,22 @@
 
 import type { OutputProps as OutputPropsExternal } from "@alloy-js/core";
 import { computed, Output as OutputExternal, splitProps } from "@alloy-js/core";
-import { replacePath } from "@stryke/path/replace";
 import type { PluginContext } from "powerlines/types/context";
+import { MetaContext, MetaItem } from "../contexts";
 import { PowerlinesContext } from "../contexts/context";
 
 export interface OutputProps<
   TContext extends PluginContext = PluginContext
-> extends OutputPropsExternal {
+> extends Omit<OutputPropsExternal, "basePath"> {
   /**
    * The current Powerlines process context.
    */
   context: TContext;
+
+  /**
+   * The file metadata collected during rendering.
+   */
+  meta: Record<string, MetaItem>;
 }
 
 /**
@@ -37,24 +42,23 @@ export interface OutputProps<
 export function Output<TContext extends PluginContext = PluginContext>(
   props: OutputProps<TContext>
 ) {
-  const [{ children, context, basePath }, rest] = splitProps(props, [
+  const [{ children, context, meta }, rest] = splitProps(props, [
     "children",
     "context",
-    "basePath"
+    "meta"
   ]);
 
-  const basePathRef = computed(() =>
-    basePath
-      ? replacePath(basePath, context.workspaceConfig.workspaceRoot)
-      : context.workspaceConfig.workspaceRoot
-  );
   const contextRef = computed(() => context);
 
   return (
-    <PowerlinesContext.Provider value={contextRef.value}>
-      <OutputExternal {...rest} basePath={basePathRef.value}>
-        {children}
-      </OutputExternal>
-    </PowerlinesContext.Provider>
+    <MetaContext.Provider value={meta}>
+      <PowerlinesContext.Provider value={contextRef.value}>
+        <OutputExternal
+          {...rest}
+          basePath={contextRef.value.workspaceConfig.workspaceRoot}>
+          {children}
+        </OutputExternal>
+      </PowerlinesContext.Provider>
+    </MetaContext.Provider>
   );
 }

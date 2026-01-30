@@ -16,9 +16,12 @@
 
  ------------------------------------------------------------------- */
 
-import { UNSAFE_AlloyPluginContext } from "@powerlines/plugin-alloy/types/_internal";
+import {
+  ComponentContext,
+  createNamedContext,
+  useContext
+} from "@alloy-js/core";
 import type { StoragePreset } from "powerlines/types/fs";
-import { usePowerlines } from "./context";
 
 export interface MetaItem {
   /**
@@ -43,17 +46,29 @@ export interface MetaItem {
 }
 
 /**
+ * The Powerlines meta context used to determine metadata of files generated during rendering.
+ */
+export const MetaContext: ComponentContext<Record<string, MetaItem>> =
+  createNamedContext<Record<string, MetaItem>>("Meta");
+
+/**
+ * Hook to access the Powerlines Context.
+ *
+ * @returns The Context.
+ */
+export function useMetaContext(): Record<string, MetaItem> | undefined {
+  return useContext(MetaContext);
+}
+
+/**
  * Hook to safely access the render context's metadata.
  *
  * @returns The Powerlines context or undefined if not set.
  */
 export function useMetaSafe(): Record<string, MetaItem> | undefined {
-  const context = usePowerlines();
+  const meta = useMetaContext();
 
-  return (
-    (context as unknown as UNSAFE_AlloyPluginContext).$$internal.meta.alloy ??
-    undefined
-  );
+  return meta ?? undefined;
 }
 
 /**
