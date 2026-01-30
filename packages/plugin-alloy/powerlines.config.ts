@@ -24,6 +24,7 @@ export default defineConfig({
   skipCache: true,
   entry: [
     "src/index.tsx",
+    "src/render.tsx",
     "src/core/**/*.{ts,tsx}",
     "src/helpers/**/*.{ts,tsx}",
     "src/markdown/**/*.{ts,tsx}",

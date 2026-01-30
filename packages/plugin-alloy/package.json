@@ -350,6 +350,20 @@
       }
     },
     "./package.json": "./package.json",
+    "./render": {
+      "require": {
+        "types": "./dist/render.d.cts",
+        "default": "./dist/render.cjs"
+      },
+      "import": {
+        "types": "./dist/render.d.mts",
+        "default": "./dist/render.mjs"
+      },
+      "default": {
+        "types": "./dist/render.d.mts",
+        "default": "./dist/render.mjs"
+      }
+    },
     "./types": {
       "require": {
         "types": "./dist/types/index.d.cts",
@@ -362,20 +376,6 @@
       "default": {
         "types": "./dist/types/index.d.mts",
         "default": "./dist/types/index.mjs"
-      }
-    },
-    "./types/_internal": {
-      "require": {
-        "types": "./dist/types/_internal.d.cts",
-        "default": "./dist/types/_internal.cjs"
-      },
-      "import": {
-        "types": "./dist/types/_internal.d.mts",
-        "default": "./dist/types/_internal.mjs"
-      },
-      "default": {
-        "types": "./dist/types/_internal.d.mts",
-        "default": "./dist/types/_internal.mjs"
       }
     },
     "./types/components": {
