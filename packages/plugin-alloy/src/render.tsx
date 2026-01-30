@@ -16,7 +16,14 @@
 
  ------------------------------------------------------------------- */
 
-import { Children, renderAsync, traverseOutput } from "@alloy-js/core";
+import {
+  Children,
+  printTree,
+  PrintTreeOptions,
+  renderAsync,
+  renderTree,
+  traverseOutput
+} from "@alloy-js/core";
 import { Output } from "@powerlines/plugin-alloy/core/components/output";
 import { findFileExtension } from "@stryke/path/file-path-fns";
 import { PluginContext } from "powerlines/types/context";
@@ -98,4 +105,31 @@ export async function render<TContext extends PluginContext>(
       }
     });
   }
+}
+
+/**
+ * A function to render children components within the [Alloy](https://alloy-framework.github.io) context and return the rendered output as a string.
+ *
+ * @example
+ * ```tsx
+ * import { renderString } from "@powerlines/plugin-alloy/render";
+ *
+ * const output = await renderString(context, <> ... </>);
+ * ```
+ *
+ * @param context - The Powerlines plugin context.
+ * @param children - The children components to render.
+ * @param options - Optional print tree options.
+ * @returns The rendered output as a string.
+ */
+export function renderString<TContext extends PluginContext>(
+  context: TContext,
+  children: Children,
+  options?: PrintTreeOptions
+) {
+  const tree = renderTree(
+    <Output<TContext> context={context}>{children}</Output>
+  );
+
+  return printTree(tree, options);
 }

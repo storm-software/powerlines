@@ -33,7 +33,7 @@ export interface OutputProps<
   /**
    * The file metadata collected during rendering.
    */
-  meta: Record<string, MetaItem>;
+  meta?: Record<string, MetaItem>;
 }
 
 /**
@@ -42,7 +42,7 @@ export interface OutputProps<
 export function Output<TContext extends PluginContext = PluginContext>(
   props: OutputProps<TContext>
 ) {
-  const [{ children, context, meta }, rest] = splitProps(props, [
+  const [{ children, context, meta = {} }, rest] = splitProps(props, [
     "children",
     "context",
     "meta"
