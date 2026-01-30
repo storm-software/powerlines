@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.23](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.23) (01/30/2026)
+
+### Miscellaneous
+
+- **powerlines:** Ensure `FileSystemStorageAdapter` is used for `buildPath` and `outputPath` ([5592e184](https://github.com/storm-software/powerlines/commit/5592e184))
+
 ## [0.38.22](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.22) (01/30/2026)
 
 ### Bug Fixes
