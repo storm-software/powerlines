@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.33](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.33) (01/29/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Added missing `render` export ([b19b0b64](https://github.com/storm-software/powerlines/commit/b19b0b64))
+
 ## [0.19.32](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.32) (01/29/2026)
 
 ### Miscellaneous
