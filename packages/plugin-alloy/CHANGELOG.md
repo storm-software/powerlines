@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.31](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.31) (01/29/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Update `meta` hooks to use context field ([e866a422](https://github.com/storm-software/powerlines/commit/e866a422))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.204**
+- Updated **plugin-babel** to **v0.12.262**
+- Updated **powerlines** to **v0.38.20**
+- Updated **deepkit** to **v0.6.33**
+
 ## [0.19.30](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.30) (01/29/2026)
 
 ### Bug Fixes
