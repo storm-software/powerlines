@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.155](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.155) (01/29/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Added separate `render` method to invoke in plugins ([94ffe864](https://github.com/storm-software/powerlines/commit/94ffe864))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.19.32**
+- Updated **plugin-env** to **v0.15.160**
+
 ## [0.1.154](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.154) (01/29/2026)
 
 ### Updated Dependencies

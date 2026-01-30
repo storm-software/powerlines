@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.160](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.160) (01/29/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Added separate `render` method to invoke in plugins ([94ffe864](https://github.com/storm-software/powerlines/commit/94ffe864))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.19.32**
+
 ## [0.15.159](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.159) (01/29/2026)
 
 ### Updated Dependencies
