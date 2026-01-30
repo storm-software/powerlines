@@ -284,7 +284,11 @@ export abstract class BaseStorageAdapter<
    * @param key - The key to resolve.
    * @returns The resolved full path for the key.
    */
-  protected resolve(key: string = this.options.base) {
+  protected resolve(key?: string) {
+    if (!key) {
+      return this.options.base;
+    }
+
     if (/\.\.:|\.\.$/.test(key)) {
       throw new Error(
         `[${this.name}]: Invalid key: ${JSON.stringify(key)} provided to storage adapter.`

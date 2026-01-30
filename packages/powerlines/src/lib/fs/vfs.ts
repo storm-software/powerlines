@@ -62,6 +62,7 @@ import {
   ResolveOptions,
   StorageAdapter,
   StoragePort,
+  StoragePreset,
   VirtualFileMetadata,
   VirtualFileSystemInterface,
   WriteOptions
@@ -168,26 +169,17 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @param key - The key to get the storage adapter for.
    * @returns The storage adapter and relative key for the given key.
    */
-  #getStorage(key: string): StorageAdapterState {
-    const found = Object.entries(this.#storage).find(
-      ([, adapter]) =>
-        adapter.name === key ||
-        (adapter.preset && adapter.preset.toLowerCase() === key?.toLowerCase())
-    );
-    if (found) {
-      return {
-        base: found[0],
-        relativeKey: "",
-        adapter: found[1]
-      };
-    }
-
+  #getStorage(key: string, preset?: StoragePreset): StorageAdapterState {
     const path = this.resolveSync(this.#normalizePath(key)) || key;
     for (const base of Object.keys(this.#storage)
       .filter(Boolean)
       .sort()
       .reverse()) {
-      if (isParentPath(path, base)) {
+      if (
+        (path === base || isParentPath(path, base)) &&
+        (!preset ||
+          this.#storage[base]?.preset?.toLowerCase() === preset.toLowerCase())
+      ) {
         return {
           base,
           relativeKey: replacePath(path, base),
@@ -196,10 +188,30 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       }
     }
 
+    if (
+      !preset ||
+      this.#storage[""]?.preset?.toLowerCase() === preset.toLowerCase()
+    ) {
+      return {
+        base: "",
+        relativeKey: path,
+        adapter: this.#storage[""]!
+      };
+    }
+
+    this.#storage[path] =
+      preset === "virtual"
+        ? new VirtualStorageAdapter({
+            base: path
+          })
+        : new FileSystemStorageAdapter({
+            base: path
+          });
+
     return {
-      base: "",
-      relativeKey: path,
-      adapter: this.#storage[""]!
+      base: path,
+      relativeKey: "",
+      adapter: this.#storage[path]
     };
   }
 
@@ -496,29 +508,6 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       base: "/_virtual"
     });
 
-    this.#storage[
-      appendPath(
-        this.#context.config.output.buildPath,
-        this.#context.workspaceConfig.workspaceRoot
-      )
-    ] ??= new FileSystemStorageAdapter({
-      base: appendPath(
-        this.#context.config.output.buildPath,
-        this.#context.workspaceConfig.workspaceRoot
-      )
-    });
-    this.#storage[
-      appendPath(
-        this.#context.config.output.outputPath,
-        this.#context.workspaceConfig.workspaceRoot
-      )
-    ] ??= new FileSystemStorageAdapter({
-      base: appendPath(
-        this.#context.config.output.outputPath,
-        this.#context.workspaceConfig.workspaceRoot
-      )
-    });
-
     if (this.#context.config.output.storage !== "fs") {
       this.#storage[this.#context.artifactsPath] ??= new VirtualStorageAdapter({
         base: this.#context.artifactsPath
@@ -617,7 +606,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       return false;
     }
 
-    return this.#getStorage(resolved)?.adapter?.name === "virtual";
+    return this.#getStorage(resolved)?.adapter?.preset === "virtual";
   }
 
   /**
@@ -1109,11 +1098,17 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     options: WriteOptions = {}
   ): Promise<void> {
     const meta = options.meta ?? {};
-    const { relativeKey, adapter } = this.#getStorage(options.storage || path);
+    const resolvedPath =
+      (await this.resolve(this.#normalizePath(path))) || path;
+
+    const { relativeKey, adapter } = this.#getStorage(
+      resolvedPath,
+      options.storage as StoragePreset
+    );
 
     this.#log(
       LogLevelLabel.TRACE,
-      `Writing ${this.#normalizePath(relativeKey)} to ${
+      `Writing ${resolvedPath} to ${
         adapter.name === "virtual"
           ? "the virtual file system"
           : adapter.name === "file-system"
@@ -1125,7 +1120,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     let code = data;
     try {
       if (!options.skipFormat) {
-        code = await format(this.#context, this.#normalizePath(path), data);
+        code = await format(this.#context, resolvedPath, data);
       }
     } catch (err) {
       // Only warn about formatting errors for certain file types
@@ -1145,16 +1140,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           "md",
           "mdx"
         ].includes(
-          findFileExtensionSafe(path, {
+          findFileExtensionSafe(resolvedPath, {
             fullExtension: true
           })
         )
       ) {
         this.#log(
           LogLevelLabel.WARN,
-          `Failed to format file ${this.#normalizePath(
-            path
-          )} before writing: ${(err as Error).message}`
+          `Failed to format file ${resolvedPath} before writing: ${(err as Error).message}`
         );
       }
       code = data;
@@ -1162,7 +1155,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
     this.#log(
       LogLevelLabel.TRACE,
-      `Writing ${this.#normalizePath(relativeKey)} to ${
+      `Writing ${resolvedPath} to ${
         adapter.name === "virtual"
           ? "the virtual file system"
           : adapter.name === "file-system"
@@ -1171,15 +1164,15 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       } (size: ${prettyBytes(new Blob(toArray(code)).size)})`
     );
 
-    const id = this.#normalizeId(meta.id || relativeKey);
+    const id = this.#normalizeId(meta.id || resolvedPath);
     this.metadata[id] = {
       type: "normal",
       timestamp: Date.now(),
       ...(this.metadata[id] ?? {}),
       ...meta
     } as VirtualFileMetadata;
-    this.paths[id] = this.#normalizePath(relativeKey);
-    this.ids[relativeKey] = id;
+    this.paths[id] = resolvedPath;
+    this.ids[resolvedPath] = id;
 
     return adapter.set(relativeKey, code);
   }
@@ -1197,11 +1190,16 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     options: WriteOptions = {}
   ): void {
     const meta = options.meta ?? {};
-    const { relativeKey, adapter } = this.#getStorage(options.storage || path);
+    const resolvedPath = this.resolveSync(this.#normalizePath(path)) || path;
+
+    const { relativeKey, adapter } = this.#getStorage(
+      resolvedPath,
+      options.storage as StoragePreset
+    );
 
     this.#log(
       LogLevelLabel.TRACE,
-      `Writing ${this.#normalizePath(relativeKey)} file to ${
+      `Writing ${resolvedPath} file to ${
         adapter.name === "virtual"
           ? "the virtual file system"
           : adapter.name === "file-system"
@@ -1210,15 +1208,15 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       } (size: ${prettyBytes(new Blob(toArray(data)).size)})`
     );
 
-    const id = this.#normalizeId(meta.id || relativeKey);
+    const id = this.#normalizeId(meta.id || resolvedPath);
     this.metadata[id] = {
       type: "normal",
       timestamp: Date.now(),
       ...(this.metadata[id] ?? {}),
       ...meta
     } as VirtualFileMetadata;
-    this.paths[id] = this.#normalizePath(relativeKey);
-    this.ids[relativeKey] = id;
+    this.paths[id] = resolvedPath;
+    this.ids[resolvedPath] = id;
 
     return adapter.setSync(relativeKey, data);
   }

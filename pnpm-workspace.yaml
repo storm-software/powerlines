@@ -13,7 +13,7 @@ catalog:
   '@alloy-js/rollup-plugin': ^0.1.0
   '@alloy-js/typescript': ^0.22.0
   '@asyncapi/generator': ^2.11.0
-  '@asyncapi/parser': ^3.4.0
+  '@asyncapi/parser': ^3.5.0
   '@babel/core': ^7.28.6
   '@babel/generator': ^7.28.6
   '@babel/helper-module-imports': ^7.28.6
