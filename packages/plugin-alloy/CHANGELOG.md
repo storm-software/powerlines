@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.19.35](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.35) (01/30/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue applying `output` to entry modules ([6e454c6f](https://github.com/storm-software/powerlines/commit/6e454c6f))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.206**
+- Updated **plugin-babel** to **v0.12.264**
+- Updated **powerlines** to **v0.38.22**
+- Updated **deepkit** to **v0.6.35**
+
 ## [0.19.34](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.34) (01/30/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.22](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.22) (01/30/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue applying `output` to entry modules ([6e454c6f](https://github.com/storm-software/powerlines/commit/6e454c6f))
+
 ## [0.38.21](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.21) (01/30/2026)
 
 ### Miscellaneous
