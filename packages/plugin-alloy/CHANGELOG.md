@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.20.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.20.0) (01/30/2026)
+
+### Features
+
+- **plugin-alloy:** Added the `renderString` helper function ([9cc6c1f6e](https://github.com/storm-software/powerlines/commit/9cc6c1f6e))
+
 ## [0.19.37](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.19.37) (01/30/2026)
 
 ### Updated Dependencies
