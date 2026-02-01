@@ -677,7 +677,7 @@ patchedDependencies:
     hash: f3c3a4fd486751022d78f17d39a5a79f493bca20b185964ca1aba41fbfc93244
     path: patches/@deepkit__type-spec.patch
   automd:
-    hash: 4c26cc4acf0cfcdc14fda864b1fd796bd61bde019d5f919cea203535e2e9634a
+    hash: eda0f5e1a231f7e59da63ccf6f48997906058c497d5c8d863b831644dfa7c5b7
     path: patches/automd.patch
   prisma-util:
     hash: 77a117e1158535be2b836f6528c8e0f1008590efa2b71805d4726f1928ad7db7
@@ -1096,7 +1096,7 @@ importers:
         version: 24.10.9
       automd:
         specifier: 'catalog:'
-        version: 0.4.3(patch_hash=4c26cc4acf0cfcdc14fda864b1fd796bd61bde019d5f919cea203535e2e9634a)(magicast@0.5.1)
+        version: 0.4.3(patch_hash=eda0f5e1a231f7e59da63ccf6f48997906058c497d5c8d863b831644dfa7c5b7)(magicast@0.5.1)
 
   packages/plugin-babel:
     dependencies:
@@ -1394,7 +1394,7 @@ importers:
         version: 0.10.37
       automd:
         specifier: 'catalog:'
-        version: 0.4.3(patch_hash=4c26cc4acf0cfcdc14fda864b1fd796bd61bde019d5f919cea203535e2e9634a)(magicast@0.5.1)
+        version: 0.4.3(patch_hash=eda0f5e1a231f7e59da63ccf6f48997906058c497d5c8d863b831644dfa7c5b7)(magicast@0.5.1)
       powerlines:
         specifier: workspace:*
         version: link:../powerlines
@@ -30605,7 +30605,7 @@ snapshots:
     dependencies:
       gulp-header: 1.8.12
 
-  automd@0.4.3(patch_hash=4c26cc4acf0cfcdc14fda864b1fd796bd61bde019d5f919cea203535e2e9634a)(magicast@0.5.1):
+  automd@0.4.3(patch_hash=eda0f5e1a231f7e59da63ccf6f48997906058c497d5c8d863b831644dfa7c5b7)(magicast@0.5.1):
     dependencies:
       '@parcel/watcher': 2.5.6
       c12: 3.3.3(magicast@0.5.1)

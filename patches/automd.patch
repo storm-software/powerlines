@@ -1,3 +1,20 @@
+diff --git a/dist/index.d.mts b/dist/index.d.mts
+index c727c2c391ce42ed4958ade5a2617ff650f11d23..f3b5473331885d891e98b53c246e1cb37819f0a3 100644
+--- a/dist/index.d.mts
++++ b/dist/index.d.mts
+@@ -143,6 +143,12 @@ interface Config {
+   }) => void;
+   /** Custom generators */
+   generators?: Record<string, Generator>;
++  /**
++   * Prefixes to identify automd blocks in markdown files.
++   *
++   * @default `["automd", "powerlines"]`
++   */
++  prefix?: string | string[];
+ }
+ declare const RESOLVED_CONFIG_SYMBOL: unique symbol;
+ type ResolvedConfig = { [P in keyof Config]-?: Config[P] } & {
 diff --git a/dist/index.mjs b/dist/index.mjs
 index 62e86e4c1448e1fc390c22d1b7845d6f9d42bffc..8de13df8d3e34f9fab160241772de3d16254111a 100644
 --- a/dist/index.mjs
