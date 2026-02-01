@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Marked
 
+## [0.1.223](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.223) (02/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `noExternal` build options ([bcd9025e9](https://github.com/storm-software/powerlines/commit/bcd9025e9))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.209**
+- Updated **powerlines** to **v0.38.25**
+
 ## [0.1.222](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.222) (01/30/2026)
 
 ### Updated Dependencies

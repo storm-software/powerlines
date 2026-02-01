@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin I18next
 
+## [0.1.155](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.155) (02/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `noExternal` build options ([bcd9025e9](https://github.com/storm-software/powerlines/commit/bcd9025e9))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.209**
+- Updated **powerlines** to **v0.38.25**
+
 ## [0.1.154](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.154) (01/30/2026)
 
 ### Updated Dependencies
