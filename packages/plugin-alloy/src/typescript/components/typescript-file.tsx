@@ -282,6 +282,7 @@ export function TypescriptFileHeaderImports(
             );
           }}
         </For>
+        <hbr />
       </Show>
       <Show when={builtinImports && Object.keys(builtinImports).length > 0}>
         <For
@@ -332,6 +333,7 @@ export function TypescriptFileHeaderImports(
             }";`
           }
         </For>
+        <hbr />
       </Show>
       <Show when={scope.importedModules.size > 0}>
         <ImportStatements records={scope.importedModules} />
