@@ -22,6 +22,5 @@ import { defineConfig } from "powerlines";
 export default defineConfig({
   skipCache: true,
   entry: ["src/index.ts", "src/types/*.ts"],
-  plugins: [plugin()],
-  noExternal: ["i18next-cli", "i18next-resources-for-ts"]
+  plugins: [plugin()]
 });

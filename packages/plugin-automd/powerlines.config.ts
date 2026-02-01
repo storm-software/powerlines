@@ -23,5 +23,7 @@ export default defineConfig({
   skipCache: true,
   entry: ["src/**/*.ts"],
   plugins: [plugin()],
-  noExternal: ["automd"]
+  build: {
+    noExternal: ["automd"]
+  }
 });

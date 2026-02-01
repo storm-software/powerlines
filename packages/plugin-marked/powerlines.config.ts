@@ -23,5 +23,7 @@ export default defineConfig({
   skipCache: true,
   entry: ["src/index.ts", "src/types/*.ts"],
   plugins: [plugin()],
-  noExternal: ["marked"]
+  build: {
+    noExternal: ["marked"]
+  }
 });
