@@ -16,7 +16,7 @@ index c727c2c391ce42ed4958ade5a2617ff650f11d23..f3b5473331885d891e98b53c246e1cb3
  declare const RESOLVED_CONFIG_SYMBOL: unique symbol;
  type ResolvedConfig = { [P in keyof Config]-?: Config[P] } & {
 diff --git a/dist/index.mjs b/dist/index.mjs
-index 62e86e4c1448e1fc390c22d1b7845d6f9d42bffc..8de13df8d3e34f9fab160241772de3d16254111a 100644
+index 62e86e4c1448e1fc390c22d1b7845d6f9d42bffc..38599b933e32e7bd6ba75e1109c0c80cde56b5d1 100644
 --- a/dist/index.mjs
 +++ b/dist/index.mjs
 @@ -508,9 +508,13 @@ var generators_default = {
@@ -27,11 +27,11 @@ index 62e86e4c1448e1fc390c22d1b7845d6f9d42bffc..8de13df8d3e34f9fab160241772de3d1
 +function findBlocks(md, config) {
  	const blocks = [];
 -	for (const match of md.matchAll(/^(?<open><!--\s*automd:(?<generator>.+?)\s+(?<args>.*?)\s*-->)(?<contents>.+?)(?<close>^<!--\s*\/automd\s*-->)/gimsu)) {
-+	for (const match of md.matchAll(new RegExp(`^(?<open><!--\s*(${
++	for (const match of md.matchAll(new RegExp(`^(?<open><!--\\s*(${
 +            config.prefix.join("|")
-+        }):(?<generator>.+?)\s+(?<args>.*?)\s*-->)(?<contents>.+?)(?<close>^<!--\s*\/(${
++        }):(?<generator>.+?)\\s+(?<args>.*?)\\s*-->)(?<contents>.+?)(?<close>^<!--\\s*\\/(${
 +            config.prefix.join("|")
-+        })\s*-->)`, "gimsu"))) {
++        })\\s*-->)`, "gimsu"))) {
  		if (match.index === void 0 || !match.groups) continue;
  		const start = match.index + match.groups.open.length || 0;
  		const end = start + match.groups.contents.length;
