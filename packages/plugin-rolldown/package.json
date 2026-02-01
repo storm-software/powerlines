@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-rolldown",
-  "version": "0.7.272",
+  "version": "0.7.273",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
