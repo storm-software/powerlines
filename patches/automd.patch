@@ -16,7 +16,7 @@ index c727c2c391ce42ed4958ade5a2617ff650f11d23..f3b5473331885d891e98b53c246e1cb3
  declare const RESOLVED_CONFIG_SYMBOL: unique symbol;
  type ResolvedConfig = { [P in keyof Config]-?: Config[P] } & {
 diff --git a/dist/index.mjs b/dist/index.mjs
-index 62e86e4c1448e1fc390c22d1b7845d6f9d42bffc..38599b933e32e7bd6ba75e1109c0c80cde56b5d1 100644
+index 62e86e4c1448e1fc390c22d1b7845d6f9d42bffc..eba9c5ada44a004a55957286c1692979f5ba88c3 100644
 --- a/dist/index.mjs
 +++ b/dist/index.mjs
 @@ -508,9 +508,13 @@ var generators_default = {
@@ -24,7 +24,7 @@ index 62e86e4c1448e1fc390c22d1b7845d6f9d42bffc..38599b933e32e7bd6ba75e1109c0c80c
  	"dir-tree": dirTree
  };
 -function findBlocks(md) {
-+function findBlocks(md, config) {
++function findBlocks(md, config = {}) {
  	const blocks = [];
 -	for (const match of md.matchAll(/^(?<open><!--\s*automd:(?<generator>.+?)\s+(?<args>.*?)\s*-->)(?<contents>.+?)(?<close>^<!--\s*\/automd\s*-->)/gimsu)) {
 +	for (const match of md.matchAll(new RegExp(`^(?<open><!--\\s*(${
@@ -41,23 +41,36 @@ index 62e86e4c1448e1fc390c22d1b7845d6f9d42bffc..38599b933e32e7bd6ba75e1109c0c80c
  }
 -function containsAutomd(md) {
 -	return /^<!--\s*automd:/gimsu.test(md);
-+function containsAutomd(md, config) {
++function containsAutomd(md, config = {}) {
 +	return new RegExp(`^<!--\\s*(${config.prefix.join("|")}):`, "gimsu").test(md);
  }
  function parseRawArgs(rawArgs) {
  	const args = Object.create(null);
-@@ -554,6 +558,10 @@ function resolveConfig(config) {
+@@ -547,6 +551,7 @@ function parseRawArgs(rawArgs) {
+ const RESOLVED_CONFIG_SYMBOL = Symbol("automdConfig");
+ function resolveConfig(config) {
+ 	if (config && RESOLVED_CONFIG_SYMBOL in config) return config;
++
+ 	const _config = {
+ 		dir: ".",
+ 		input: "README.md",
+@@ -554,8 +559,15 @@ function resolveConfig(config) {
  		[RESOLVED_CONFIG_SYMBOL]: true,
  		...config
  	};
++
 +    _config.prefix = _config.prefix || [];
 +    if (typeof _config.prefix === "string") _config.prefix = [_config.prefix];
 +    if (!_config.prefix.includes("automd")) _config.prefix.push("automd");
 +    if (!_config.prefix.includes("powerlines")) _config.prefix.push("powerlines");
++
  	_config.dir = resolve(_config.dir);
  	_config.input = (Array.isArray(_config.input) ? _config.input : [_config.input]).filter(Boolean);
++
  	return _config;
-@@ -586,7 +594,7 @@ async function transform(contents, _config, url) {
+ }
+ async function loadConfig(dir = ".", overrides) {
+@@ -586,7 +598,7 @@ async function transform(contents, _config, url) {
  		...generators_default,
  		...config.generators
  	};
@@ -66,7 +79,16 @@ index 62e86e4c1448e1fc390c22d1b7845d6f9d42bffc..38599b933e32e7bd6ba75e1109c0c80c
  	for (const block of blocks) {
  		const result = await _transformBlock(block, config, generators, url);
  		if (result.unwrap) editor.overwrite(block._loc.start, block._loc.end, `${result.contents.trim()}`);
-@@ -642,6 +650,11 @@ async function _transformBlock(block, config, generators, url) {
+@@ -627,7 +639,7 @@ async function _transformBlock(block, config, generators, url) {
+ 	};
+ 	try {
+ 		const result = await generator.generate(context);
+-		if (!result.unwrap && containsAutomd(result.contents)) result.unwrap = true;
++		if (!result.unwrap && containsAutomd(result.contents, config)) result.unwrap = true;
+ 		if (result.unwrap) {
+ 			const nestedRes = await context.transform(result.contents);
+ 			result.contents = nestedRes.contents;
+@@ -642,6 +654,11 @@ async function _transformBlock(block, config, generators, url) {
  	}
  }
  async function automd(_config = {}) {
