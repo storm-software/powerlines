@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.2.218](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.218) (02/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update the fill icon used in `README.md` files ([e4b41a0df](https://github.com/storm-software/powerlines/commit/e4b41a0df))
+
+### Updated Dependencies
+
+- Updated **plugin-hey-api** to **v0.1.218**
+- Updated **plugin-plugin** to **v0.12.215**
+- Updated **powerlines** to **v0.38.31**
+
 ## [0.2.217](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.217) (02/01/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Oxc Transform
 
+## [0.5.273](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.273) (02/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update the fill icon used in `README.md` files ([e4b41a0df](https://github.com/storm-software/powerlines/commit/e4b41a0df))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.215**
+- Updated **powerlines** to **v0.38.31**
+
 ## [0.5.272](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.272) (02/01/2026)
 
 ### Updated Dependencies

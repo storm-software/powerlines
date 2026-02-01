@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.302](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.302) (02/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update the fill icon used in `README.md` files ([e4b41a0df](https://github.com/storm-software/powerlines/commit/e4b41a0df))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.215**
+- Updated **plugin-alloy** to **v0.20.7**
+- Updated **plugin-babel** to **v0.12.273**
+- Updated **plugin-env** to **v0.15.173**
+- Updated **powerlines** to **v0.38.31**
+- Updated **deepkit** to **v0.6.44**
+
 ## [0.1.301](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.301) (02/01/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.20.7](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.20.7) (02/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update the fill icon used in `README.md` files ([e4b41a0df](https://github.com/storm-software/powerlines/commit/e4b41a0df))
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with missing line break after import statements ([f893484cf](https://github.com/storm-software/powerlines/commit/f893484cf))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.215**
+- Updated **plugin-babel** to **v0.12.273**
+- Updated **powerlines** to **v0.38.31**
+- Updated **deepkit** to **v0.6.44**
+
 ## [0.20.6](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.20.6) (02/01/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Nitro
 
+## [0.1.156](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.156) (02/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update the fill icon used in `README.md` files ([e4b41a0df](https://github.com/storm-software/powerlines/commit/e4b41a0df))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.215**
+- Updated **powerlines** to **v0.38.31**
+
 ## [0.1.155](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.155) (02/01/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.6.44](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.44) (02/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update the fill icon used in `README.md` files ([e4b41a0df](https://github.com/storm-software/powerlines/commit/e4b41a0df))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.38.31**
+
 ## [0.6.43](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.43) (02/01/2026)
 
 ### Updated Dependencies

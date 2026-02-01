@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Graphql
 
+## [0.1.265](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.265) (02/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update the fill icon used in `README.md` files ([e4b41a0df](https://github.com/storm-software/powerlines/commit/e4b41a0df))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.215**
+- Updated **powerlines** to **v0.38.31**
+
 ## [0.1.264](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.264) (02/01/2026)
 
 ### Updated Dependencies

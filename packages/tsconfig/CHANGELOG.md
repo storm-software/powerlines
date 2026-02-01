@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.2.186](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.2.186) (02/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update the fill icon used in `README.md` files ([e4b41a0df](https://github.com/storm-software/powerlines/commit/e4b41a0df))
+
 ## [0.2.72](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.2.72) (12/30/2025)
 
 ### Documentation

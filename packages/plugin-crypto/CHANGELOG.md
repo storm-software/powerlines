@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.276](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.276) (02/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update the fill icon used in `README.md` files ([e4b41a0df](https://github.com/storm-software/powerlines/commit/e4b41a0df))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.215**
+- Updated **plugin-env** to **v0.15.173**
+- Updated **powerlines** to **v0.38.31**
+
 ## [0.10.275](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.275) (02/01/2026)
 
 ### Updated Dependencies

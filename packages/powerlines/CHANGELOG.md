@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.31](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.31) (02/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update the fill icon used in `README.md` files ([e4b41a0df](https://github.com/storm-software/powerlines/commit/e4b41a0df))
+
 ## [0.38.24](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.24) (01/30/2026)
 
 ### Miscellaneous
