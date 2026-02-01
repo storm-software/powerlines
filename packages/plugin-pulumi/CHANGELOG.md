@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.2.240](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.240) (02/01/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.211**
+- Updated **powerlines** to **v0.38.27**
+
 ## [0.2.239](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.239) (02/01/2026)
 
 ### Updated Dependencies
