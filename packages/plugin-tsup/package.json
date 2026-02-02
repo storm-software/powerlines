@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-tsup",
-  "version": "0.12.274",
+  "version": "0.12.275",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {
