@@ -42,6 +42,7 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
 
   return (
     <EnvBuiltin
+      defaultConfig={code`process.env`}
       {...rest}
       imports={defu(
         {
