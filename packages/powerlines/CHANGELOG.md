@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.34](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.34) (02/03/2026)
+
+### Miscellaneous
+
+- **powerlines:** Added `mergeConfig` helper function ([b6da88359](https://github.com/storm-software/powerlines/commit/b6da88359))
+
 ## [0.38.33](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.33) (02/03/2026)
 
 ### Miscellaneous
