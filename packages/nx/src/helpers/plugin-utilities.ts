@@ -38,12 +38,16 @@ import { joinPaths } from "@stryke/path/join-paths";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isError } from "@stryke/type-checks/is-error";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
 import type { PackageJson } from "@stryke/types/package-json";
 import defu from "defu";
 import { createJiti } from "jiti";
 import { readFile } from "node:fs/promises";
 import { readNxJson } from "nx/src/config/nx-json.js";
-import type { ProjectConfiguration } from "nx/src/config/workspace-json-project-json.js";
+import type {
+  ProjectConfiguration,
+  TargetConfiguration
+} from "nx/src/config/workspace-json-project-json.js";
 import type { PackageJson as PackageJsonNx } from "nx/src/utils/package-json.js";
 import { readTargetsFromPackageJson } from "nx/src/utils/package-json.js";
 import { loadUserConfigFile } from "powerlines/lib/config-file";
@@ -174,7 +178,13 @@ export function createNxPlugin<
             );
             if (!projectRoot) {
               console.error(
-                `[${name}] - ${new Date().toISOString()} - package.json and ${framework} configuration files (i.e. ${framework}.config.ts) must be located in the project root directory: ${configFile}`
+                `[${name}] - ${new Date().toISOString()} - package.json and ${
+                  framework
+                } configuration files (i.e. ${
+                  framework
+                }.config.ts) must be located in the project root directory: ${
+                  configFile
+                }`
               );
 
               return {};
@@ -186,7 +196,9 @@ export function createNxPlugin<
               console.debug(
                 `[${name}] - ${new Date().toISOString()} - Loading ${
                   framework
-                } user configuration for project in root directory ${projectRoot}.`
+                } user configuration for project in root directory ${
+                  projectRoot
+                }.`
               );
             }
 
@@ -207,7 +219,9 @@ export function createNxPlugin<
             ) {
               if (opts?.verbose) {
                 console.warn(
-                  `[${name}] - ${new Date().toISOString()} - Cannot find \`package.json\` file in the project's root directory (path: "${joinPaths(
+                  `[${
+                    name
+                  }] - ${new Date().toISOString()} - Cannot find \`package.json\` file in the project's root directory (path: "${joinPaths(
                     contextV2.workspaceRoot,
                     projectRoot
                   )}"). Skipping project configuration.`
@@ -235,7 +249,9 @@ export function createNxPlugin<
             if (!userConfig.configFile && !packageJson?.storm) {
               if (opts?.verbose) {
                 console.debug(
-                  `[${name}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${framework} configuration found for project in root directory.`
+                  `[${name}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${
+                    framework
+                  } configuration found for project in root directory.`
                 );
               }
 
@@ -249,7 +265,9 @@ export function createNxPlugin<
             if (!projectConfig) {
               if (opts?.verbose) {
                 console.warn(
-                  `[${name}] - ${new Date().toISOString()} - No project configuration found for project in root directory ${projectRoot}`
+                  `[${name}] - ${new Date().toISOString()} - No project configuration found for project in root directory ${
+                    projectRoot
+                  }`
                 );
               }
 
@@ -266,7 +284,9 @@ export function createNxPlugin<
 
             if (opts?.verbose) {
               console.debug(
-                `[${name}] - ${new Date().toISOString()} - Preparing Nx targets for project in root directory ${projectRoot}.`
+                `[${name}] - ${new Date().toISOString()} - Preparing Nx targets for project in root directory ${
+                  projectRoot
+                }.`
               );
             }
 
@@ -275,6 +295,7 @@ export function createNxPlugin<
               !targets[options?.clean?.targetName || "clean"]
             ) {
               targets[options?.clean?.targetName || "clean"] = {
+                cache: true,
                 inputs: Array.isArray(options?.clean?.inputs)
                   ? options.clean.inputs
                   : withNamedInputs(targetInputs, [
@@ -360,6 +381,7 @@ export function createNxPlugin<
               !targets[options?.build?.targetName || "build"]
             ) {
               targets[options?.build?.targetName || "build"] = {
+                cache: true,
                 inputs: Array.isArray(options?.build?.inputs)
                   ? options.build.inputs
                   : withNamedInputs(targetInputs, [
@@ -369,9 +391,17 @@ export function createNxPlugin<
                 executor:
                   options?.build?.executor ||
                   `@${framework}/nx:${options?.build?.targetName || "build"}`,
-                dependsOn: options?.build?.dependsOn ?? [
-                  `^${options?.build?.targetName || "build"}`
-                ],
+                dependsOn:
+                  options?.build?.dependsOn ??
+                  ([
+                    `^${options?.build?.targetName || "build"}`,
+                    userConfig.skipCache
+                      ? undefined
+                      : isSetObject(options?.prepare) &&
+                          options?.prepare?.targetName
+                        ? options?.prepare?.targetName
+                        : "prepare"
+                  ].filter(Boolean) as TargetConfiguration["dependsOn"]),
                 defaultConfiguration:
                   options?.build?.defaultConfiguration || "production",
                 options: {
@@ -402,6 +432,7 @@ export function createNxPlugin<
               !targets[options?.lint?.targetName || "lint"]
             ) {
               targets[options?.lint?.targetName || "lint"] = {
+                cache: true,
                 inputs: Array.isArray(options?.lint?.inputs)
                   ? options.lint.inputs
                   : withNamedInputs(
@@ -416,7 +447,15 @@ export function createNxPlugin<
                   `@${framework}/nx:${options?.lint?.targetName || "lint"}`,
                 dependsOn:
                   options?.lint?.dependsOn ??
-                  [`^${options?.lint?.targetName || "lint"}`].filter(Boolean),
+                  ([
+                    `^${options?.lint?.targetName || "lint"}`,
+                    userConfig.skipCache
+                      ? undefined
+                      : isSetObject(options?.prepare) &&
+                          options?.prepare?.targetName
+                        ? options?.prepare?.targetName
+                        : "prepare"
+                  ].filter(Boolean) as TargetConfiguration["dependsOn"]),
                 defaultConfiguration:
                   options?.lint?.defaultConfiguration || "production",
                 options: {
@@ -445,6 +484,7 @@ export function createNxPlugin<
               !targets[options?.docs?.targetName || "docs"]
             ) {
               targets[options?.docs?.targetName || "docs"] = {
+                cache: true,
                 inputs: Array.isArray(options?.docs?.inputs)
                   ? options.docs.inputs
                   : withNamedInputs(
@@ -462,8 +502,14 @@ export function createNxPlugin<
                   ([
                     `^${options?.docs?.targetName || "docs"}`,
                     options?.build !== false &&
-                      `${options?.build?.targetName || "build"}`
-                  ].filter(Boolean) as string[]),
+                      `${options?.build?.targetName || "build"}`,
+                    userConfig.skipCache
+                      ? undefined
+                      : isSetObject(options?.prepare) &&
+                          options?.prepare?.targetName
+                        ? options?.prepare?.targetName
+                        : "prepare"
+                  ].filter(Boolean) as TargetConfiguration["dependsOn"]),
                 defaultConfiguration:
                   options?.docs?.defaultConfiguration || "production",
                 options: {
@@ -509,8 +555,14 @@ export function createNxPlugin<
                   ([
                     `^${options?.deploy?.targetName || "deploy"}`,
                     options?.build !== false &&
-                      `${options?.build?.targetName || "build"}`
-                  ].filter(Boolean) as string[]),
+                      `${options?.build?.targetName || "build"}`,
+                    userConfig.skipCache
+                      ? undefined
+                      : isSetObject(options?.prepare) &&
+                          options?.prepare?.targetName
+                        ? options?.prepare?.targetName
+                        : "prepare"
+                  ].filter(Boolean) as TargetConfiguration["dependsOn"]),
                 defaultConfiguration:
                   options?.deploy?.defaultConfiguration || "production",
                 options: {
