@@ -626,17 +626,18 @@ ${formatTypes(types)}
   public async build(inlineConfig: BuildInlineConfig = { command: "build" }) {
     this.context.info("📦  Building the Powerlines project");
 
-    // const checksum = await this.context.generateChecksum();
-    // if (checksum !== this.context.persistedMeta?.checksum) {
-    //   this.context.log(
-    //     LogLevelLabel.INFO,
-    //     "The Powerlines project has been modified since the last time `prepare` was ran. Re-preparing the project."
-    //   );
+    await this.context.generateChecksum();
+    if (
+      this.context.meta.checksum !== this.context.persistedMeta?.checksum ||
+      this.context.config.skipCache
+    ) {
+      this.context.info(
+        "The project has been modified since the last time `prepare` was ran. Re-preparing the project."
+      );
 
-    //   await this.prepare(inlineConfig);
-    // }
+      await this.prepare(inlineConfig);
+    }
 
-    await this.prepare(inlineConfig);
     if (this.context.config.singleBuild) {
       await this.#handleBuild(await this.#context.toEnvironment());
     } else {
