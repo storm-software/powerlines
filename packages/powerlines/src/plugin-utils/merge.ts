@@ -16,6 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+import { isSetString } from "@stryke/type-checks/is-set-string";
+import { isString } from "@stryke/type-checks/is-string";
 import defu, { createDefu } from "defu";
 import { PartialPlugin } from "../types/config";
 import { PluginContext } from "../types/context";
@@ -72,3 +74,31 @@ export function merge<TContext extends PluginContext = PluginContext>(
     typeof pluginB
   >;
 }
+
+/**
+ * Merges two configuration objects together, with special handling for string values.
+ * If the value from the second object is a non-empty string, it will overwrite the value from the first object.
+ *
+ * @example
+ * ```ts
+ * const configA = { name: "Default", version: "1.0.0" };
+ * const configB = { name: "Custom", description: "A custom config" };
+ * const mergedConfig = mergeConfig(configA, configB);
+ * // Result: { name: "Custom", version: "1.0.0", description: "A custom config" }
+ * ```
+ *
+ * @param objA - The first configuration object.
+ * @param objB - The second configuration object.
+ * @returns The merged configuration object.
+ */
+export const mergeConfig = createDefu((obj, key, value) => {
+  if (isString(obj[key]) && isString(value)) {
+    if (isSetString(value)) {
+      obj[key] = value;
+    }
+
+    return true;
+  }
+
+  return false;
+});

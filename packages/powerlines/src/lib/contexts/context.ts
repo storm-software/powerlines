@@ -69,6 +69,7 @@ import {
   CreateResolverOptions
 } from "../../internal/helpers/resolver";
 import { checkDedupe, isPlugin } from "../../plugin-utils/helpers";
+import { mergeConfig } from "../../plugin-utils/merge";
 import { replacePathTokens } from "../../plugin-utils/paths";
 import { UNSAFE_ContextInternal } from "../../types/_internal";
 import { BuildConfig } from "../../types/build";
@@ -185,7 +186,7 @@ export class PowerlinesContext<
   #requestCache!: FlatCache;
 
   #getConfigProps(config: Partial<TResolvedConfig["userConfig"]> = {}) {
-    return defu(
+    return mergeConfig(
       {
         variant: config.build?.variant,
         projectType: config.type,
@@ -1389,7 +1390,7 @@ export class PowerlinesContext<
     );
 
     if (isSetObject(config)) {
-      this.resolvedConfig = defu(
+      this.resolvedConfig = mergeConfig(
         {
           inlineConfig: this.config.inlineConfig,
           userConfig: this.config.userConfig
@@ -1412,7 +1413,7 @@ export class PowerlinesContext<
           sourceRoot:
             this.projectJson?.sourceRoot ||
             appendPath("src", cacheKey.projectRoot),
-          output: defu(config.output ?? {}, {
+          output: mergeConfig(config.output ?? {}, {
             outputPath: cacheKey.projectRoot
               ? joinPaths(
                   this.workspaceConfig?.directories?.build || "dist",
@@ -1642,7 +1643,7 @@ export class PowerlinesContext<
     from: Partial<TResolvedConfig["userConfig"]> = {},
     into: Partial<TResolvedConfig["userConfig"]> = this.config.userConfig ?? {}
   ) {
-    this.config.userConfig = defu(
+    this.config.userConfig = mergeConfig(
       {
         entry:
           Array.isArray(from.entry) && from.entry.length > 0
