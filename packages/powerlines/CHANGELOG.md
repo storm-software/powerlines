@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.33](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.33) (02/03/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update `build` command to cache `prepare` execution ([549ec0007](https://github.com/storm-software/powerlines/commit/549ec0007))
+
 ## [0.38.31](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.31) (02/01/2026)
 
 ### Miscellaneous
