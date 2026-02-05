@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.277](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.277) (02/05/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.219**
+- Updated **powerlines** to **v0.38.35**
+
 ## [0.12.276](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.276) (02/03/2026)
 
 ### Updated Dependencies
