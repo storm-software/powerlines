@@ -19,6 +19,7 @@
 import type { NonUndefined } from "@stryke/types/base";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import type { AssetGlob } from "@stryke/types/file";
+import { CompatibilityDates } from "compatx";
 import type { ResolvedPreviewOptions } from "vite";
 import type { BuilderVariant } from "./build";
 import type {
@@ -126,6 +127,18 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
       | "sourceRoot"
     >
   > & {
+    /**
+     * The date to use for compatibility checks
+     *
+     * @remarks
+     * This date can be used by plugins and build processes to determine compatibility with certain features or APIs. It is recommended to set this date to the date when the project was last known to be compatible with the desired features or APIs.
+     *
+     * @see https://developers.cloudflare.com/pages/platform/compatibility-dates/
+     * @see https://docs.netlify.com/configure-builds/get-started/#set-a-compatibility-date
+     * @see https://github.com/unjs/compatx
+     */
+    compatibilityDate: CompatibilityDates;
+
     /**
      * The configuration options that were provided inline to the Powerlines CLI.
      */

@@ -47,6 +47,7 @@ import { TypeDefinition } from "@stryke/types/configuration";
 import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
 import { match, tsconfigPathsToRegExp } from "bundle-require";
+import { resolveCompatibilityDates } from "compatx";
 import defu from "defu";
 import { create, FlatCache } from "flat-cache";
 import { parse, ParseResult } from "oxc-parser";
@@ -194,7 +195,10 @@ export class PowerlinesContext<
         name: config.name,
         title: config.title,
         organization: config.organization,
-        compatibilityDate: config.compatibilityDate,
+        compatibilityDate: resolveCompatibilityDates(
+          config.compatibilityDate,
+          "latest"
+        ),
         description: config.description,
         sourceRoot: config.sourceRoot,
         configFile: config.configFile,
