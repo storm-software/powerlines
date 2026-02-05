@@ -16,22 +16,28 @@
 
  ------------------------------------------------------------------- */
 
+import { ReflectionConfig } from "@deepkit/type-compiler/config";
+import { omit } from "@stryke/helpers/omit";
 import { isString } from "@stryke/type-checks";
 import type { OnLoadOptions, Plugin } from "esbuild";
 import { Context } from "powerlines/types/context";
 import { DiagnosticCategory } from "typescript";
 import { transpile } from "./transpile";
 
+export interface ESBuildPluginOptions extends Partial<ReflectionConfig> {
+  onLoad?: Partial<OnLoadOptions>;
+}
+
 /**
  * Esbuild plugin for Deepkit Type reflections.
  *
  * @param context - The Powerlines context.
- * @param options - Optional esbuild onLoad options.
+ * @param options - Optional esbuild onLoad options and reflection configuration.
  * @returns An esbuild plugin instance.
  */
 export const esbuildPlugin = (
   context: Context,
-  options: Partial<OnLoadOptions> = {}
+  options: ESBuildPluginOptions = {}
 ): Plugin => {
   return {
     name: "powerlines:deepkit",
@@ -39,7 +45,7 @@ export const esbuildPlugin = (
       build.onLoad(
         {
           filter: /\.(m|c)?tsx?$/,
-          ...options
+          ...(options.onLoad ?? {})
         },
         async args => {
           const contents = await context.fs.read(args.path);
@@ -56,7 +62,12 @@ export const esbuildPlugin = (
             };
           }
 
-          const result = transpile(context, contents, args.path);
+          const result = transpile(
+            context,
+            contents,
+            args.path,
+            omit(options, ["onLoad"])
+          );
           if (result.diagnostics && result.diagnostics.length > 0) {
             if (
               result.diagnostics.some(

@@ -45,7 +45,12 @@ export async function reflectType<
       context,
       type,
       defu(overrides, {
-        plugins: [esbuildPlugin(context)]
+        plugins: [
+          esbuildPlugin(context, {
+            reflection: "default",
+            reflectionLevel: "verbose"
+          })
+        ]
       })
     )
   );

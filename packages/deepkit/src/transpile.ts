@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { ReflectionConfig } from "@powerlines/deepkit/vendor/type-compiler";
 import { Context } from "powerlines/types/context";
 import ts from "typescript";
 import { createDeclarationTransformer, createTransformer } from "./transformer";
@@ -26,15 +27,17 @@ import { createDeclarationTransformer, createTransformer } from "./transformer";
  * @param context - The base context containing TypeScript configuration and options.
  * @param code - The TypeScript code to be transpiled.
  * @param id - The identifier for the TypeScript file being transpiled.
+ * @param options - Optional configuration for the reflection process.
  * @returns The transpiled output.
  */
 export function transpile(
   context: Context,
   code: string,
-  id: string
+  id: string,
+  options: Partial<ReflectionConfig> = {}
 ): ts.TranspileOutput {
-  const transformer = createTransformer(context);
-  const declarationTransformer = createDeclarationTransformer(context);
+  const transformer = createTransformer(context, options);
+  const declarationTransformer = createDeclarationTransformer(context, options);
 
   return ts.transpileModule(code, {
     compilerOptions: {
