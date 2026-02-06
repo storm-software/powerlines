@@ -27,14 +27,14 @@ import { PluginContext } from "../../types/context";
 import { bundle } from "./bundle";
 
 /**
- * Compiles a type definition to a module.
+ * Compiles a type definition to a module and returns the module.
  *
  * @param context - The context object containing the environment paths.
  * @param type - The type definition to compile. This can be either a string or a {@link TypeDefinition} object.
  * @param overrides - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the compiled module.
  */
-export async function resolve<TResult>(
+export async function resolveModule<TResult>(
   context: PluginContext,
   type: TypeDefinitionParameter,
   overrides: Partial<ESBuildResolvedBuildConfig> = {}
@@ -96,6 +96,35 @@ ${result.text}`
     );
   }
 
+  return resolved;
+}
+
+/**
+ * Compiles a type definition to a module and returns the specified export from the module.
+ *
+ * @param context - The context object containing the environment paths.
+ * @param type - The type definition to compile. This can be either a string or a {@link TypeDefinition} object.
+ * @param overrides - Optional overrides for the ESBuild configuration.
+ * @returns A promise that resolves to the compiled module.
+ */
+export async function resolve<TResult>(
+  context: PluginContext,
+  type: TypeDefinitionParameter,
+  overrides: Partial<ESBuildResolvedBuildConfig> = {}
+): Promise<TResult> {
+  let typeDefinition!: TypeDefinition;
+  if (isSetString(type)) {
+    typeDefinition = parseTypeDefinition(type) as TypeDefinition;
+  } else {
+    typeDefinition = type;
+  }
+
+  const resolved = await resolveModule<Record<string, any>>(
+    context,
+    typeDefinition,
+    overrides
+  );
+
   let exportName = typeDefinition.name;
   if (!exportName) {
     exportName = "default";
@@ -116,13 +145,6 @@ ${result.text}`
             ).join(
               ", "
             )}. Please ensure that the export exists and is correctly named.`
-      }${
-        context.config.logLevel === "debug"
-          ? `
-
-Bundle output for module:
-${result.text}`
-          : ""
       }`
     );
   }
