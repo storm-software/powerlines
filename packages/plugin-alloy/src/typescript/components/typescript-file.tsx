@@ -19,6 +19,7 @@
 import type { Children } from "@alloy-js/core";
 import {
   code,
+  computed,
   For,
   Scope,
   Show,
@@ -35,6 +36,7 @@ import {
   TSModuleScope,
   useSourceFile
 } from "@alloy-js/typescript";
+import { getUniqueBy } from "@stryke/helpers/get-unique";
 import { appendPath } from "@stryke/path/append";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isBoolean } from "@stryke/type-checks/is-boolean";
@@ -226,22 +228,43 @@ export interface TypescriptFileHeaderImportsProps extends SourceFileHeaderProps 
 export function TypescriptFileHeaderImports(
   props: TypescriptFileHeaderImportsProps
 ) {
-  const { imports, builtinImports } = props;
+  const { imports: importProps, builtinImports: builtinImportsProps } = props;
 
   const context = usePowerlinesSafe();
   const sourceFile = useSourceFile();
 
   const scope = props.scope ?? sourceFile.scope;
 
+  const imports = computed(() => {
+    return Object.fromEntries(
+      Object.entries(importProps ?? {}).map(([module, importItem]) => [
+        module,
+        Array.isArray(importItem)
+          ? getUniqueBy(importItem, i => (isString(i) ? i : i.alias || i.name))
+          : importItem
+      ])
+    );
+  });
+  const builtinImports = computed(() => {
+    return Object.fromEntries(
+      Object.entries(builtinImportsProps ?? {}).map(([module, importItem]) => [
+        module,
+        Array.isArray(importItem)
+          ? getUniqueBy(importItem, i => (isString(i) ? i : i.alias || i.name))
+          : importItem
+      ])
+    );
+  });
+
   return (
     <Show
       when={
         scope.importedModules.size > 0 ||
-        (!!imports && Object.keys(imports).length > 0) ||
-        (!!builtinImports && Object.keys(builtinImports).length > 0)
+        (!!imports.value && Object.keys(imports.value).length > 0) ||
+        (!!builtinImports.value && Object.keys(builtinImports.value).length > 0)
       }>
-      <Show when={!!imports && Object.keys(imports).length > 0}>
-        <For each={Object.entries(imports ?? {})} hardline>
+      <Show when={!!imports.value && Object.keys(imports.value).length > 0}>
+        <For each={Object.entries(imports.value ?? {})} hardline>
           {([module, importItem]) => {
             return (
               <>
@@ -284,10 +307,13 @@ export function TypescriptFileHeaderImports(
         </For>
         <hbr />
       </Show>
-      <Show when={builtinImports && Object.keys(builtinImports).length > 0}>
+      <Show
+        when={
+          builtinImports.value && Object.keys(builtinImports.value).length > 0
+        }>
         <For
           each={Object.entries(
-            (builtinImports ?? {}) as Record<
+            (builtinImports.value ?? {}) as Record<
               string,
               null | Array<TypescriptFileImportItem | string>
             >
