@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.37](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.37) (02/05/2026)
+
+### Miscellaneous
+
+- **powerlines:** Added the `resolveModule` utility function ([03996cf5e](https://github.com/storm-software/powerlines/commit/03996cf5e))
+
 ## [0.38.36](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.36) (02/05/2026)
 
 ### Miscellaneous
