@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.36](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.36) (02/05/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update resolved `compatibilityDate` to use `compatx` object ([76ee2137b](https://github.com/storm-software/powerlines/commit/76ee2137b))
+
 ## [0.38.34](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.34) (02/03/2026)
 
 ### Miscellaneous
