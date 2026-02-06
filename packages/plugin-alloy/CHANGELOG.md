@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.20.14](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.20.14) (02/05/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Ensure only unique imports are applied to typescript files ([40567f9fb](https://github.com/storm-software/powerlines/commit/40567f9fb))
+
 ## [0.20.13](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.20.13) (02/05/2026)
 
 ### Updated Dependencies
