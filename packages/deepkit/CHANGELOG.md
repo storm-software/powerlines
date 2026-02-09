@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.6.51](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.51) (02/09/2026)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue with incorrect import path ([9e01b7aa7](https://github.com/storm-software/powerlines/commit/9e01b7aa7))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.38.38**
+
 ## [0.6.50](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.50) (02/05/2026)
 
 ### Updated Dependencies
