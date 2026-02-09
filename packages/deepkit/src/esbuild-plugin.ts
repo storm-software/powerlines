@@ -16,13 +16,13 @@
 
  ------------------------------------------------------------------- */
 
-import { ReflectionConfig } from "@deepkit/type-compiler/config";
 import { omit } from "@stryke/helpers/omit";
 import { isString } from "@stryke/type-checks";
 import type { OnLoadOptions, Plugin } from "esbuild";
 import { Context } from "powerlines/types/context";
 import { DiagnosticCategory } from "typescript";
 import { transpile } from "./transpile";
+import { ReflectionConfig } from "./vendor/type-compiler/config";
 
 export interface ESBuildPluginOptions extends Partial<ReflectionConfig> {
   onLoad?: Partial<OnLoadOptions>;
