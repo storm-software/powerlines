@@ -16,15 +16,12 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./builtin-file";
-export * from "./class-declaration";
-export * from "./dynamic-import-statement";
-export * from "./entry-file";
-export * from "./record-expression";
-export * from "./tsdoc";
-export * from "./tsdoc-reflection";
-export * from "./type-parameters";
-export * from "./typescript-file";
-export * from "./typescript-interface";
-export * from "./typescript-object";
-export * from "./typescript-property-name";
+/**
+ * Check if a string is a valid JavaScript identifier.
+ *
+ * @param identifier - The string to check.
+ * @returns `true` if the string is a valid JavaScript identifier, `false` otherwise.
+ */
+export function isValidJSIdentifier(identifier: string) {
+  return /^[\p{ID_Start}$_][\p{ID_Continue}$\u200C\u200D]*$/u.test(identifier);
+}

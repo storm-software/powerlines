@@ -60,14 +60,14 @@ catalog:
   '@nx/workspace': 22.4.1
   '@prisma/get-platform': ^6.19.2
   '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
-  '@pulumi/pulumi': ^3.219.0
+  '@pulumi/pulumi': ^3.220.0
   '@rollup/plugin-alias': ^6.0.0
   '@rollup/plugin-babel': ^6.1.0
   '@rollup/plugin-commonjs': ^28.0.9
   '@rollup/plugin-inject': ^5.0.5
   '@rollup/plugin-node-resolve': ^16.0.3
   '@rollup/plugin-replace': ^6.0.3
-  '@rspack/core': ^1.7.5
+  '@rspack/core': ^1.7.6
   '@standard-schema/spec': ^1.1.0
   '@storm-software/build-tools': ^0.158.81
   '@storm-software/config': ^1.135.1
@@ -86,20 +86,20 @@ catalog:
   '@storm-software/unbuild': ^0.57.81
   '@storm-software/untyped': ^0.24.62
   '@storm-software/workspace-tools': ^1.294.32
-  '@stryke/capnp': ^0.12.65
-  '@stryke/cli': ^0.13.12
-  '@stryke/convert': ^0.6.38
-  '@stryke/env': ^0.20.57
-  '@stryke/fs': ^0.33.40
-  '@stryke/hash': ^0.12.46
-  '@stryke/helpers': ^0.9.40
-  '@stryke/http': ^0.12.33
-  '@stryke/json': ^0.9.41
-  '@stryke/path': ^0.26.4
+  '@stryke/capnp': ^0.12.68
+  '@stryke/cli': ^0.13.15
+  '@stryke/convert': ^0.6.40
+  '@stryke/env': ^0.20.60
+  '@stryke/fs': ^0.33.43
+  '@stryke/hash': ^0.12.49
+  '@stryke/helpers': ^0.9.42
+  '@stryke/http': ^0.12.35
+  '@stryke/json': ^0.9.43
+  '@stryke/path': ^0.26.6
   '@stryke/string-format': ^0.13.7
-  '@stryke/type-checks': ^0.5.23
-  '@stryke/types': ^0.10.37
-  '@stryke/unique-id': ^0.3.51
+  '@stryke/type-checks': ^0.5.25
+  '@stryke/types': ^0.10.39
+  '@stryke/unique-id': ^0.3.54
   '@swc-node/register': ^1.11.1
   '@swc/core': ^1.15.11
   '@swc/helpers': ^0.5.18
@@ -111,16 +111,16 @@ catalog:
   '@types/babel__helper-plugin-utils': ^7.10.3
   '@types/babel__template': ^7.4.4
   '@types/babel__traverse': ^7.28.0
-  '@types/bun': ^1.3.8
+  '@types/bun': ^1.3.9
   '@types/diff-match-patch': ^1.0.36
   '@types/jest': ^30.0.0
-  '@types/node': ^24.10.12
+  '@types/node': ^24.10.13
   '@types/pluralize': ^0.0.33
-  '@types/react': ^19.2.13
+  '@types/react': ^19.2.14
   '@types/react-dom': ^19.2.3
   '@types/semver': ^7.7.1
-  '@typescript-eslint/utils': ^8.54.0
-  '@vitejs/plugin-react': ^5.1.3
+  '@typescript-eslint/utils': ^8.55.0
+  '@vitejs/plugin-react': ^5.1.4
   automd: ^0.4.3
   babel-dead-code-elimination: ^1.0.12
   babel-plugin-parameter-decorator: ^1.0.16
@@ -142,7 +142,7 @@ catalog:
   fp-ts: ^2.16.11
   github-slugger: ^2.0.0
   handlebars: ^4.7.8
-  i18next-cli: ^1.42.3
+  i18next-cli: ^1.42.8
   i18next-resources-for-ts: ^2.0.0
   jest: ^30.2.0
   jest-config: ^30.2.0
@@ -157,15 +157,15 @@ catalog:
   log4brains: ^1.1.0
   magic-string: ^0.30.21
   markdown-toc: ^1.2.0
-  marked: ^17.0.1
+  marked: ^17.0.2
   minimatch: ^10.1.2
   nanotar: ^0.2.0
   nitro: 3.0.1-alpha.1
   nx: 22.4.1
-  openapi-typescript: ^7.12.0
+  openapi-typescript: ^7.13.0
   oxc-parser: ^0.99.0
   oxc-transform: ^0.99.0
-  oxlint: ^1.43.0
+  oxlint: ^1.47.0
   oxlint-tsgolint: ^0.2.1
   pluralize: ^8.0.0
   prettier: ^3.8.1
@@ -179,7 +179,7 @@ catalog:
   satori: ^0.18.4
   sharp: ^0.34.5
   sherif: ^1.10.0
-  style-dictionary: ^5.2.0
+  style-dictionary: ^5.3.0
   stylelint: ^16.26.1
   svgo: ^4.0.0
   ts-jest: 29.4.0
@@ -199,7 +199,7 @@ catalog:
   untyped: ^1.5.2
   verdaccio: 6.1.2
   vite: 8.0.0-beta.2
-  webpack: ^5.105.0
+  webpack: ^5.105.2
   zx: ^8.8.5
 
 configDependencies:

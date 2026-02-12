@@ -273,7 +273,7 @@ export function TypescriptFileHeaderImports(
                     ? ""
                     : isString(importItem)
                       ? importItem
-                      : ` ${
+                      : `${
                           (
                             importItem.filter(
                               i => !isString(i) && i.default
@@ -299,7 +299,7 @@ export function TypescriptFileHeaderImports(
                                 )
                                 .join(", ")} }`
                             : "")
-                        } `
+                        }`
                 } from "${module}";`}
               </>
             );
@@ -325,7 +325,7 @@ export function TypescriptFileHeaderImports(
                 ? ""
                 : isString(importItem)
                   ? importItem
-                  : ` ${
+                  : `${
                       (
                         importItem.filter(
                           i => !isString(i) && i.default
@@ -351,7 +351,7 @@ export function TypescriptFileHeaderImports(
                             )
                             .join(", ")} }`
                         : "")
-                    } `
+                    }`
             } from "${
               module.includes(":")
                 ? module

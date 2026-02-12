@@ -16,15 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./builtin-file";
-export * from "./class-declaration";
-export * from "./dynamic-import-statement";
-export * from "./entry-file";
-export * from "./record-expression";
-export * from "./tsdoc";
-export * from "./tsdoc-reflection";
-export * from "./type-parameters";
-export * from "./typescript-file";
-export * from "./typescript-interface";
-export * from "./typescript-object";
-export * from "./typescript-property-name";
+export * from "./lexical-scope";
