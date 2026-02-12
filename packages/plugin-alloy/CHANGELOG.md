@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.21.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.21.0) (02/12/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Add recent file additions to `exports` in package.json ([fca394cc1](https://github.com/storm-software/powerlines/commit/fca394cc1))
+
+### Features
+
+- **plugin-alloy:** Added `ClassDeclaration` component to expand on original implementation ([e5bb931f9](https://github.com/storm-software/powerlines/commit/e5bb931f9))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.223**
+- Updated **plugin-babel** to **v0.12.281**
+- Updated **powerlines** to **v0.38.39**
+- Updated **deepkit** to **v0.6.52**
+
 ## [0.20.15](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.20.15) (02/09/2026)
 
 ### Updated Dependencies
