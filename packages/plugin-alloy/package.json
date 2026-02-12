@@ -448,6 +448,20 @@
         "default": "./dist/typescript/components/builtin-file.mjs"
       }
     },
+    "./typescript/components/class-declaration": {
+      "require": {
+        "types": "./dist/typescript/components/class-declaration.d.cts",
+        "default": "./dist/typescript/components/class-declaration.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/class-declaration.d.mts",
+        "default": "./dist/typescript/components/class-declaration.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/class-declaration.d.mts",
+        "default": "./dist/typescript/components/class-declaration.mjs"
+      }
+    },
     "./typescript/components/dynamic-import-statement": {
       "require": {
         "types": "./dist/typescript/components/dynamic-import-statement.d.cts",
@@ -518,6 +532,20 @@
         "default": "./dist/typescript/components/tsdoc-reflection.mjs"
       }
     },
+    "./typescript/components/type-parameters": {
+      "require": {
+        "types": "./dist/typescript/components/type-parameters.d.cts",
+        "default": "./dist/typescript/components/type-parameters.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/type-parameters.d.mts",
+        "default": "./dist/typescript/components/type-parameters.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/type-parameters.d.mts",
+        "default": "./dist/typescript/components/type-parameters.mjs"
+      }
+    },
     "./typescript/components/typescript-file": {
       "require": {
         "types": "./dist/typescript/components/typescript-file.d.cts",
@@ -558,6 +586,90 @@
       "default": {
         "types": "./dist/typescript/components/typescript-object.d.mts",
         "default": "./dist/typescript/components/typescript-object.mjs"
+      }
+    },
+    "./typescript/components/typescript-property-name": {
+      "require": {
+        "types": "./dist/typescript/components/typescript-property-name.d.cts",
+        "default": "./dist/typescript/components/typescript-property-name.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/typescript-property-name.d.mts",
+        "default": "./dist/typescript/components/typescript-property-name.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/typescript-property-name.d.mts",
+        "default": "./dist/typescript/components/typescript-property-name.mjs"
+      }
+    },
+    "./typescript/contexts": {
+      "require": {
+        "types": "./dist/typescript/contexts/index.d.cts",
+        "default": "./dist/typescript/contexts/index.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/contexts/index.d.mts",
+        "default": "./dist/typescript/contexts/index.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/contexts/index.d.mts",
+        "default": "./dist/typescript/contexts/index.mjs"
+      }
+    },
+    "./typescript/contexts/lexical-scope": {
+      "require": {
+        "types": "./dist/typescript/contexts/lexical-scope.d.cts",
+        "default": "./dist/typescript/contexts/lexical-scope.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/contexts/lexical-scope.d.mts",
+        "default": "./dist/typescript/contexts/lexical-scope.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/contexts/lexical-scope.d.mts",
+        "default": "./dist/typescript/contexts/lexical-scope.mjs"
+      }
+    },
+    "./typescript/helpers": {
+      "require": {
+        "types": "./dist/typescript/helpers/index.d.cts",
+        "default": "./dist/typescript/helpers/index.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/helpers/index.d.mts",
+        "default": "./dist/typescript/helpers/index.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/helpers/index.d.mts",
+        "default": "./dist/typescript/helpers/index.mjs"
+      }
+    },
+    "./typescript/helpers/get-call-signature-props": {
+      "require": {
+        "types": "./dist/typescript/helpers/get-call-signature-props.d.cts",
+        "default": "./dist/typescript/helpers/get-call-signature-props.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/helpers/get-call-signature-props.d.mts",
+        "default": "./dist/typescript/helpers/get-call-signature-props.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/helpers/get-call-signature-props.d.mts",
+        "default": "./dist/typescript/helpers/get-call-signature-props.mjs"
+      }
+    },
+    "./typescript/helpers/utilities": {
+      "require": {
+        "types": "./dist/typescript/helpers/utilities.d.cts",
+        "default": "./dist/typescript/helpers/utilities.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/helpers/utilities.d.mts",
+        "default": "./dist/typescript/helpers/utilities.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/helpers/utilities.d.mts",
+        "default": "./dist/typescript/helpers/utilities.mjs"
       }
     }
   },
