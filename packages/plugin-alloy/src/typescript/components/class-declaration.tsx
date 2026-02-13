@@ -44,7 +44,6 @@ import {
   useTSNamePolicy
 } from "@alloy-js/typescript";
 import { toArray } from "@stryke/convert/to-array";
-import { LexicalScope } from "../contexts/lexical-scope";
 import { getCallSignatureProps } from "../helpers/get-call-signature-props";
 import { TSDoc, TSDocParams } from "./tsdoc";
 import { TypeParameters } from "./type-parameters";
@@ -243,9 +242,7 @@ export function ClassMethod(props: ClassMethodProps) {
       <ClassMember {...rest}>
         {props.async && "async "}
         <TypescriptPropertyName />
-        <LexicalScope>
-          <CallSignature {...callProps} /> <Block>{props.children}</Block>
-        </LexicalScope>
+        <CallSignature {...callProps} /> <Block>{props.children}</Block>
       </ClassMember>
     </>
   );

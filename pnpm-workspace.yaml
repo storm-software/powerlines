@@ -158,7 +158,7 @@ catalog:
   magic-string: ^0.30.21
   markdown-toc: ^1.2.0
   marked: ^17.0.2
-  minimatch: ^10.1.2
+  minimatch: ^10.2.0
   nanotar: ^0.2.0
   nitro: 3.0.1-alpha.1
   nx: 22.4.1
