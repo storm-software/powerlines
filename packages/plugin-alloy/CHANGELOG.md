@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.2](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.2) (02/13/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Added `code` wrapper function to handle errors better ([9d203caab](https://github.com/storm-software/powerlines/commit/9d203caab))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.228**
+- Updated **plugin-babel** to **v0.12.286**
+- Updated **powerlines** to **v0.38.44**
+- Updated **deepkit** to **v0.6.57**
+
 ## [0.23.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.1) (02/13/2026)
 
 ### Bug Fixes
