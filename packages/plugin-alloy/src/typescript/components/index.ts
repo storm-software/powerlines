@@ -26,5 +26,6 @@ export * from "./property-name";
 export * from "./record-expression";
 export * from "./tsdoc";
 export * from "./tsdoc-reflection";
+export * from "./type-declaration";
 export * from "./type-parameters";
 export * from "./typescript-file";

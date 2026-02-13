@@ -125,6 +125,20 @@
         "default": "./dist/core/components/source-file.mjs"
       }
     },
+    "./core/components/spacing": {
+      "require": {
+        "types": "./dist/core/components/spacing.d.cts",
+        "default": "./dist/core/components/spacing.cjs"
+      },
+      "import": {
+        "types": "./dist/core/components/spacing.d.mts",
+        "default": "./dist/core/components/spacing.mjs"
+      },
+      "default": {
+        "types": "./dist/core/components/spacing.d.mts",
+        "default": "./dist/core/components/spacing.mjs"
+      }
+    },
     "./core/contexts": {
       "require": {
         "types": "./dist/core/contexts/index.d.cts",
@@ -572,6 +586,20 @@
       "default": {
         "types": "./dist/typescript/components/tsdoc-reflection.d.mts",
         "default": "./dist/typescript/components/tsdoc-reflection.mjs"
+      }
+    },
+    "./typescript/components/type-declaration": {
+      "require": {
+        "types": "./dist/typescript/components/type-declaration.d.cts",
+        "default": "./dist/typescript/components/type-declaration.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/type-declaration.d.mts",
+        "default": "./dist/typescript/components/type-declaration.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/type-declaration.d.mts",
+        "default": "./dist/typescript/components/type-declaration.mjs"
       }
     },
     "./typescript/components/type-parameters": {
