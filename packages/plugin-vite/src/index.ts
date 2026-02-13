@@ -22,6 +22,7 @@ import {
   extractViteConfig
 } from "powerlines/lib/build/vite";
 import { ViteUserConfig } from "powerlines/types/config";
+import { Context } from "powerlines/types/context";
 import { Plugin } from "powerlines/types/plugin";
 import { build, InlineConfig } from "vite";
 import { createVitePlugin } from "./helpers/unplugin";
@@ -78,7 +79,7 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
           environments: Object.fromEntries(
             Object.entries(environments).map(([name, env]) => [
               name,
-              extractViteConfig(env)
+              extractViteConfig(env as Context)
             ])
           )
         },
