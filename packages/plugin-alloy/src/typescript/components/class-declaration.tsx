@@ -199,6 +199,7 @@ export function ClassMember(props: ClassMemberProps) {
  * Props for a class field, which is a specific type of class member that represents a property of the class.
  */
 export interface ClassFieldProps extends ClassMemberProps {
+  name: string;
   type?: Children;
   optional?: boolean;
   children?: Children;
@@ -223,7 +224,10 @@ export function ClassField(props: ClassFieldProps) {
 
   return (
     <ClassMember {...props} nullish={nullish}>
-      <PropertyName private={props.isPrivateMember} />
+      <PropertyName
+        private={props.isPrivateMember}
+        name={props.isPrivateMember ? props.name : undefined}
+      />
       {typeSection}
       {initializerSection}
     </ClassMember>
