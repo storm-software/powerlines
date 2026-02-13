@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.21.3](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.21.3) (02/12/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Remove symbols from `TypeParameter` component logic ([0bbec2401](https://github.com/storm-software/powerlines/commit/0bbec2401))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.226**
+- Updated **plugin-babel** to **v0.12.284**
+- Updated **powerlines** to **v0.38.42**
+- Updated **deepkit** to **v0.6.55**
+
 ## [0.21.2](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.21.2) (02/12/2026)
 
 ### Bug Fixes
