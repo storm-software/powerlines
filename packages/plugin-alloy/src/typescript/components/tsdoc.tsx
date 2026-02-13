@@ -54,7 +54,6 @@ export function TSDoc(props: TSDocProps) {
         <hbr />
         <Show when={!isUndefined(heading)}>
           {heading}
-          <sbr />
           <Show
             when={
               !isUndefined(children) && childrenArray(() => children).length > 0
