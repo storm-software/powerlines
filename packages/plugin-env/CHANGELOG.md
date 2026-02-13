@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.192](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.192) (02/13/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Update components to use `Spacing` instead of multiple hardlines ([07bbeb434](https://github.com/storm-software/powerlines/commit/07bbeb434))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.23.3**
+
 ## [0.15.191](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.191) (02/13/2026)
 
 ### Updated Dependencies

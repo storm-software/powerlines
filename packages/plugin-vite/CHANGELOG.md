@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.279](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.279) (02/13/2026)
+
+### Miscellaneous
+
+- **plugin-vite:** Resolve typing issue in plugin file ([3824e0d63](https://github.com/storm-software/powerlines/commit/3824e0d63))
+
 ## [0.14.278](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.278) (02/13/2026)
 
 ### Updated Dependencies

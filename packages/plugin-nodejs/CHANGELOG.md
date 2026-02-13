@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.187](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.187) (02/13/2026)
+
+### Miscellaneous
+
+- **plugin-nodejs:** Update components to use `Spacing` instead of multiple hardlines ([6ab1bc6a7](https://github.com/storm-software/powerlines/commit/6ab1bc6a7))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.23.3**
+- Updated **plugin-env** to **v0.15.192**
+
 ## [0.1.186](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.186) (02/13/2026)
 
 ### Updated Dependencies
