@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.4](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.4) (02/13/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Updated hardlines to softline in `TSDoc` component ([66fb774ad](https://github.com/storm-software/powerlines/commit/66fb774ad))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.229**
+- Updated **plugin-babel** to **v0.12.287**
+- Updated **powerlines** to **v0.38.45**
+- Updated **deepkit** to **v0.6.58**
+
 ## [0.23.3](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.3) (02/13/2026)
 
 ### Bug Fixes
