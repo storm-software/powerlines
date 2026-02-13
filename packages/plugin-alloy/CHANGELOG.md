@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.1) (02/13/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Remove extra space from class properties ([753714031](https://github.com/storm-software/powerlines/commit/753714031))
+- **plugin-alloy:** Resolve issue rendering private class fields ([136452e5b](https://github.com/storm-software/powerlines/commit/136452e5b))
+
 ## [0.23.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.0) (02/13/2026)
 
 ### Features
