@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.5](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.5) (02/13/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Formatting updates around whitespace in `TSDoc` output ([20d8500ed](https://github.com/storm-software/powerlines/commit/20d8500ed))
+
 ## [0.23.4](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.4) (02/13/2026)
 
 ### Miscellaneous
