@@ -53,23 +53,19 @@ export function TSDoc(props: TSDocProps) {
       /**
       <align string=" * ">
         <hbr />
-        <Show when={!isUndefined(heading)}>
-          {heading}
-          <Show
-            when={
-              !isUndefined(children) && childrenArray(() => children).length > 0
-            }>
-            <hbr />
-          </Show>
-        </Show>
+        <Show when={!isUndefined(heading)}>{heading}</Show>
         <Show
           when={
-            !isUndefined(children) && childrenArray(() => children).length > 0
+            !isUndefined(children) &&
+            childrenArray(() => children).filter(Boolean).length > 0
           }>
+          <Show when={!isUndefined(heading)}>
+            <Spacing />
+          </Show>
           <List>{childrenArray(() => children)}</List>
         </Show>
+        <sbr />
       </align>
-      <hbr />
       {` */`}
       <hbr />
     </>
@@ -94,7 +90,7 @@ export function TSDocTag(props: TSDocTagProps) {
           <Prose>{children}</Prose>
         </align>
       </Show>
-      <sbr />
+      <hbr />
     </>
   );
 }
@@ -201,7 +197,6 @@ export function TSDocDefaultValue(props: TSDocDefaultValueProps) {
           <Prose>{stringifyDefaultValue(type, defaultValue)}</Prose>
         </align>
       </Show>
-      <sbr />
     </>
   );
 }
@@ -256,7 +251,7 @@ export function TSDocExample(props: TSDocExampleProps) {
       </Show>
       {children}
       <Show when={fenced}>
-        <sbr />
+        <hbr />
         ```
       </Show>
     </>
