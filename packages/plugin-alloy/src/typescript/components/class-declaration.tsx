@@ -234,6 +234,7 @@ export function ClassField(props: ClassFieldProps) {
  * Props for a class field, which is a specific type of class member that represents a property of the class.
  */
 export interface ClassPropertyProps extends ClassMemberProps {
+  name: string;
   type?: Children;
   children?: Children;
 }
@@ -249,7 +250,7 @@ export function ClassPropertySet(props: ClassPropertyProps) {
     <>
       <ClassMember {...props}>
         {" set "}
-        <PropertyName />
+        <PropertyName name={props.name} />
         <LexicalScope>
           <CallSignature
             parameters={[
@@ -276,7 +277,7 @@ export function ClassPropertyGet(props: ClassPropertyProps) {
   return (
     <ClassMember {...props}>
       {" get "}
-      <PropertyName />
+      <PropertyName name={props.name} />
       <LexicalScope>
         <CallSignature
           returnType={<TypeRefContext>{props.type}</TypeRefContext>}
