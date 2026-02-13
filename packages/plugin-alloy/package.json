@@ -195,6 +195,34 @@
         "default": "./dist/core/contexts/reflection.mjs"
       }
     },
+    "./core/helpers": {
+      "require": {
+        "types": "./dist/core/helpers/index.d.cts",
+        "default": "./dist/core/helpers/index.cjs"
+      },
+      "import": {
+        "types": "./dist/core/helpers/index.d.mts",
+        "default": "./dist/core/helpers/index.mjs"
+      },
+      "default": {
+        "types": "./dist/core/helpers/index.d.mts",
+        "default": "./dist/core/helpers/index.mjs"
+      }
+    },
+    "./core/helpers/code": {
+      "require": {
+        "types": "./dist/core/helpers/code.d.cts",
+        "default": "./dist/core/helpers/code.cjs"
+      },
+      "import": {
+        "types": "./dist/core/helpers/code.d.mts",
+        "default": "./dist/core/helpers/code.mjs"
+      },
+      "default": {
+        "types": "./dist/core/helpers/code.d.mts",
+        "default": "./dist/core/helpers/code.mjs"
+      }
+    },
     "./helpers": {
       "require": {
         "types": "./dist/helpers/index.d.cts",
