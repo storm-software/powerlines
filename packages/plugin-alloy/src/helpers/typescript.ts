@@ -22,7 +22,7 @@ import { camelCase } from "@stryke/string-format/camel-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 
-export interface GenerateTypeScriptInterfaceOptions<T> {
+export interface GenerateInterfaceDeclarationOptions<T> {
   overrideName?: string;
   overrideExtends?: string | false;
   defaultValues?: Partial<T>;
@@ -34,9 +34,9 @@ export interface GenerateTypeScriptInterfaceOptions<T> {
 //  * @param reflection - The reflection class to generate the interface for.
 //  * @returns A string containing the TypeScript interface definition.
 //  */
-// export function TypeScriptInterface<T>(
+// export function InterfaceDeclaration<T>(
 //   reflection: ReflectionClass<T>,
-//   options: GenerateTypeScriptInterfaceOptions<T> = {}
+//   options: GenerateInterfaceDeclarationOptions<T> = {}
 // ): string {
 //   if (!reflection) {
 //     return "";
@@ -174,7 +174,7 @@ export interface GenerateTypeScriptInterfaceOptions<T> {
 // `;
 // }
 
-export interface GenerateTypeScriptObjectOptions<T> {
+export interface GenerateObjectDeclarationOptions<T> {
   overrideName?: string;
   overrideExtends?: string | false;
   defaultValues?: Partial<T>;
@@ -187,9 +187,9 @@ export interface GenerateTypeScriptObjectOptions<T> {
  * @param options - Options for generating the object.
  * @returns A string containing the TypeScript object definition.
  */
-export function generateTypeScriptObject<T extends Record<string, any>>(
+export function generateObjectDeclaration<T extends Record<string, any>>(
   reflection: ReflectionClass<T>,
-  options: GenerateTypeScriptObjectOptions<T> = {}
+  options: GenerateObjectDeclarationOptions<T> = {}
 ) {
   if (!reflection) {
     return "";

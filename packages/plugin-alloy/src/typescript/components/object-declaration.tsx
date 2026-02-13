@@ -57,23 +57,23 @@ export interface ComputedRef<T = any> {
   readonly value: T;
 }
 
-export interface TypescriptObjectProps<
+export interface ObjectDeclarationProps<
   T extends Record<string, any> = Record<string, any>
 > extends VarDeclarationProps {
   reflection?: ComputedRef<ReflectionClass<T>>;
   defaultValue?: ComputedRef<Partial<T> | undefined>;
 }
 
-export interface TypescriptObjectPropertyProps extends ComponentProps {
+export interface ObjectDeclarationPropertyProps extends ComponentProps {
   property: ReflectionProperty;
 }
 
 /**
  * Generates a TypeScript object for the given reflection class.
  */
-export function TypescriptObject<
+export function ObjectDeclaration<
   T extends Record<string, any> = Record<string, any>
->(props: TypescriptObjectProps<T>) {
+>(props: ObjectDeclarationProps<T>) {
   if (!props.reflection?.value) {
     return null;
   }
@@ -170,7 +170,7 @@ export function TypescriptObject<
                     each={properties.value ?? []}
                     comma={true}
                     doubleHardline={true}>
-                    {prop => <TypescriptObjectProperty property={prop} />}
+                    {prop => <ObjectDeclarationProperty property={prop} />}
                   </For>
                 </ObjectExpression>
               )}
@@ -186,7 +186,9 @@ export function TypescriptObject<
 /**
  * Generates a TypeScript object property for the given reflection class.
  */
-export function TypescriptObjectProperty(props: TypescriptObjectPropertyProps) {
+export function ObjectDeclarationProperty(
+  props: ObjectDeclarationPropertyProps
+) {
   const [{ property }] = splitProps(props, ["property"]);
 
   return (

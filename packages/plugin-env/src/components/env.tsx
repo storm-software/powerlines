@@ -46,6 +46,9 @@ import {
   BuiltinFile,
   BuiltinFileProps
 } from "@powerlines/plugin-alloy/typescript/components/builtin-file";
+import type { InterfaceDeclarationProps } from "@powerlines/plugin-alloy/typescript/components/interface-declaration";
+import { InterfaceDeclaration } from "@powerlines/plugin-alloy/typescript/components/interface-declaration";
+import { ObjectDeclaration } from "@powerlines/plugin-alloy/typescript/components/object-declaration";
 import {
   TSDoc,
   TSDocExample,
@@ -55,11 +58,6 @@ import {
   TSDocReturns,
   TSDocThrows
 } from "@powerlines/plugin-alloy/typescript/components/tsdoc";
-import {
-  TypeScriptInterface,
-  TypeScriptInterfaceProps
-} from "@powerlines/plugin-alloy/typescript/components/typescript-interface";
-import { TypescriptObject } from "@powerlines/plugin-alloy/typescript/components/typescript-object";
 import { titleCase } from "@stryke/string-format/title-case";
 import defu from "defu";
 import { loadEnvFromContext } from "../helpers/load";
@@ -69,7 +67,7 @@ import { EnvPluginContext } from "../types/plugin";
  * Generates the environment configuration typescript definition for the Powerlines project.
  */
 export function EnvTypeDefinition(
-  props: Omit<TypeScriptInterfaceProps, "name">
+  props: Omit<InterfaceDeclarationProps, "name">
 ) {
   const [{ defaultValue, reflection }] = splitProps(props, [
     "defaultValue",
@@ -80,7 +78,7 @@ export function EnvTypeDefinition(
 
   return (
     <>
-      <TypeScriptInterface
+      <InterfaceDeclaration
         name=" EnvBase"
         defaultValue={defaultValue}
         reflection={reflection}
@@ -339,7 +337,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         <hbr />
       </Show>
 
-      <TypescriptObject
+      <ObjectDeclaration
         name="initialEnv"
         type="Partial<EnvBase>"
         defaultValue={defaultValue}

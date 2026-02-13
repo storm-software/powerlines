@@ -44,23 +44,29 @@ import {
 import { LexicalScope } from "../contexts";
 import { MemberScope } from "../contexts/member-scope";
 import { getCallSignatureProps } from "../helpers";
+import { PropertyName } from "./property-name";
 import { TSDoc, TSDocParams } from "./tsdoc";
 import { TypeParameters } from "./type-parameters";
-import { TypescriptPropertyName } from "./typescript-property-name";
 
+/**
+ * Props for the ClassDeclaration component, which represents a TypeScript class declaration
+ */
 export interface ClassDeclarationProps extends CommonDeclarationProps {
   /**
    * An indication of whether this class is abstract
    */
   abstract?: boolean;
+
   /**
    * An optional class that this class extends. This will be rendered as an `extends` clause in the class declaration
    */
   extends?: Children;
+
   /**
    * Optional interfaces that this class implements. This will be rendered as an `implements` clause in the class declaration
    */
   implements?: Children[];
+
   /**
    * The generic type parameters of the class.
    */
@@ -121,7 +127,6 @@ export function ClassDeclaration(props: ClassDeclarationProps) {
     <>
       <Show when={Boolean(props.doc)}>
         <TSDoc heading={props.doc} />
-        <hbr />
       </Show>
       <Declaration symbol={sym} export={props.export} default={props.default}>
         <MemberScope ownerSymbol={sym}>
@@ -139,6 +144,9 @@ export function ClassDeclaration(props: ClassDeclarationProps) {
 
 ClassDeclaration.TypeParameters = TypeParameters;
 
+/**
+ * Generates a TypeScript class member declaration for the given reflection class.
+ */
 export interface ClassMemberProps {
   name: string | Namekey;
   refkey?: Refkey;
@@ -147,11 +155,18 @@ export interface ClassMemberProps {
   protected?: boolean;
   jsPrivate?: boolean;
   static?: boolean;
+  abstract?: boolean;
   children?: Children;
   doc?: Children;
   nullish?: boolean;
 }
 
+/**
+ * Generates a TypeScript class member declaration for the given reflection class.
+ *
+ * @param props - The properties of the class member, including its name, visibility, and other modifiers.
+ * @returns A JSX element representing the class member declaration, which can be used within a ClassDeclaration component.
+ */
 export function ClassMember(props: ClassMemberProps) {
   let tsFlags = TSSymbolFlags.None;
   if (props.nullish) {
@@ -168,12 +183,12 @@ export function ClassMember(props: ClassMemberProps) {
     <>
       <Show when={Boolean(props.doc)}>
         <TSDoc heading={props.doc} />
-        <hbr />
       </Show>
       <MemberDeclaration symbol={sym}>
         {props.public && "public "}
         {props.private && "private "}
         {props.protected && "protected "}
+        {props.abstract && "abstract "}
         {props.static && "static "}
         {props.children}
       </MemberDeclaration>
@@ -181,12 +196,21 @@ export function ClassMember(props: ClassMemberProps) {
   );
 }
 
+/**
+ * Props for a class field, which is a specific type of class member that represents a property of the class.
+ */
 export interface ClassFieldProps extends ClassMemberProps {
   type?: Children;
   optional?: boolean;
   children?: Children;
 }
 
+/**
+ * Generates a TypeScript class field declaration for the given reflection class.
+ *
+ * @param props - The properties of the class field, including its name, type, optionality, and other modifiers.
+ * @returns A JSX element representing the class field declaration, which can be used within a ClassDeclaration component.
+ */
 export function ClassField(props: ClassFieldProps) {
   const optionality = props.optional ? "?" : "";
   const typeSection = props.type && (
@@ -199,18 +223,27 @@ export function ClassField(props: ClassFieldProps) {
 
   return (
     <ClassMember {...props} nullish={nullish}>
-      <TypescriptPropertyName />
+      <PropertyName />
       {typeSection}
       {initializerSection}
     </ClassMember>
   );
 }
 
+/**
+ * Props for a class method, which is a specific type of class member that represents a function defined within the class.
+ */
 export interface ClassMethodProps extends ClassMemberProps, CallSignatureProps {
   async?: boolean;
   children?: Children;
 }
 
+/**
+ * Generates a TypeScript class method declaration for the given reflection class.
+ *
+ * @param props - The properties of the class method, including its name, visibility, and other modifiers.
+ * @returns A JSX element representing the class method declaration, which can be used within a ClassDeclaration component.
+ */
 export function ClassMethod(props: ClassMethodProps) {
   const callProps = getCallSignatureProps(props);
   const [_, rest] = splitProps(props, ["doc"]);
@@ -224,11 +257,10 @@ export function ClassMethod(props: ClassMethodProps) {
             <TSDocParams parameters={rest.parameters} />
           )}
         </TSDoc>
-        <hbr />
       </Show>
       <ClassMember {...rest}>
         {props.async && "async "}
-        <TypescriptPropertyName />
+        <PropertyName />
         <LexicalScope>
           <CallSignature {...callProps} /> <Block>{props.children}</Block>
         </LexicalScope>

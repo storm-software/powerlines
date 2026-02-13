@@ -21,7 +21,7 @@ import { memo } from "@alloy-js/core/jsx-runtime";
 import { TSOutputSymbol } from "@alloy-js/typescript";
 import { isValidJSIdentifier } from "../helpers/utilities";
 
-export interface TypescriptPropertyNameProps {
+export interface PropertyNameProps {
   /**
    * The name of the property.
    */
@@ -39,7 +39,7 @@ export interface TypescriptPropertyNameProps {
  * @remarks
  * If the name is not a valid JavaScript identifier, it will be quoted. If a `name` prop is provided, it will be used as the property name. Otherwise, the name will be taken from the {@link (MemberDeclarationContext:variable)}.
  */
-export function TypescriptPropertyName(props: TypescriptPropertyNameProps) {
+export function PropertyName(props: PropertyNameProps) {
   if (props.name) {
     return memo(() => {
       if (props.private) {

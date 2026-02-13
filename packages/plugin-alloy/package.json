@@ -490,6 +490,48 @@
         "default": "./dist/typescript/components/entry-file.mjs"
       }
     },
+    "./typescript/components/interface-declaration": {
+      "require": {
+        "types": "./dist/typescript/components/interface-declaration.d.cts",
+        "default": "./dist/typescript/components/interface-declaration.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/interface-declaration.d.mts",
+        "default": "./dist/typescript/components/interface-declaration.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/interface-declaration.d.mts",
+        "default": "./dist/typescript/components/interface-declaration.mjs"
+      }
+    },
+    "./typescript/components/object-declaration": {
+      "require": {
+        "types": "./dist/typescript/components/object-declaration.d.cts",
+        "default": "./dist/typescript/components/object-declaration.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/object-declaration.d.mts",
+        "default": "./dist/typescript/components/object-declaration.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/object-declaration.d.mts",
+        "default": "./dist/typescript/components/object-declaration.mjs"
+      }
+    },
+    "./typescript/components/property-name": {
+      "require": {
+        "types": "./dist/typescript/components/property-name.d.cts",
+        "default": "./dist/typescript/components/property-name.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/property-name.d.mts",
+        "default": "./dist/typescript/components/property-name.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/property-name.d.mts",
+        "default": "./dist/typescript/components/property-name.mjs"
+      }
+    },
     "./typescript/components/record-expression": {
       "require": {
         "types": "./dist/typescript/components/record-expression.d.cts",
@@ -558,48 +600,6 @@
       "default": {
         "types": "./dist/typescript/components/typescript-file.d.mts",
         "default": "./dist/typescript/components/typescript-file.mjs"
-      }
-    },
-    "./typescript/components/typescript-interface": {
-      "require": {
-        "types": "./dist/typescript/components/typescript-interface.d.cts",
-        "default": "./dist/typescript/components/typescript-interface.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/typescript-interface.d.mts",
-        "default": "./dist/typescript/components/typescript-interface.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/typescript-interface.d.mts",
-        "default": "./dist/typescript/components/typescript-interface.mjs"
-      }
-    },
-    "./typescript/components/typescript-object": {
-      "require": {
-        "types": "./dist/typescript/components/typescript-object.d.cts",
-        "default": "./dist/typescript/components/typescript-object.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/typescript-object.d.mts",
-        "default": "./dist/typescript/components/typescript-object.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/typescript-object.d.mts",
-        "default": "./dist/typescript/components/typescript-object.mjs"
-      }
-    },
-    "./typescript/components/typescript-property-name": {
-      "require": {
-        "types": "./dist/typescript/components/typescript-property-name.d.cts",
-        "default": "./dist/typescript/components/typescript-property-name.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/typescript-property-name.d.mts",
-        "default": "./dist/typescript/components/typescript-property-name.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/typescript-property-name.d.mts",
-        "default": "./dist/typescript/components/typescript-property-name.mjs"
       }
     },
     "./typescript/contexts": {
