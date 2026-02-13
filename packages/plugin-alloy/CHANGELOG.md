@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.0) (02/13/2026)
+
+### Features
+
+- **plugin-alloy:** Added the `TypeDeclaration` and `Spacing` components ([ac79b6516](https://github.com/storm-software/powerlines/commit/ac79b6516))
+
 ## [0.22.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.22.1) (02/13/2026)
 
 ### Bug Fixes
