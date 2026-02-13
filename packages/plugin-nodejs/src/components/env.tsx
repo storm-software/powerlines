@@ -18,6 +18,7 @@
 
 import { code, Show, splitProps } from "@alloy-js/core";
 import { TypeDeclaration, VarDeclaration } from "@alloy-js/typescript";
+import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
 import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
 import {
   TSDoc,
@@ -58,8 +59,7 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
         doc="An indicator specifying whether the current operating system is MacOS (darwin kernel)."
         initializer={code`/^win/i.test(process.platform); `}
       />
-      <hbr />
-      <hbr />
+      <Spacing />
       <VarDeclaration
         export
         const
@@ -67,8 +67,7 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
         doc="An indicator specifying whether the current operating system is Linux."
         initializer={code`/^linux/i.test(process.platform); `}
       />
-      <hbr />
-      <hbr />
+      <Spacing />
       <VarDeclaration
         export
         const
@@ -76,14 +75,11 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
         doc="An indicator specifying whether the current operating system is MacOS (darwin kernel)."
         initializer={code`/^darwin/i.test(process.platform); `}
       />
-      <hbr />
-      <hbr />
+      <Spacing />
       <VarDeclaration const name="homedir" initializer={code`os.homedir(); `} />
-      <hbr />
-      <hbr />
+      <Spacing />
       <VarDeclaration const name="tmpdir" initializer={code`os.tmpdir(); `} />
-      <hbr />
-      <hbr />
+      <Spacing />
       <TSDoc heading="The environment path types for storing things like data, config, logs, and cache in the current runtime environment.">
         <TSDocRemarks>
           {`These environment path types are accessed in the {@link EnvPaths} type. `}
@@ -92,14 +88,12 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
       <TypeDeclaration export name="EnvPathType">
         {code`"data" | "config" | "cache" | "log" | "temp"; `}
       </TypeDeclaration>
-      <hbr />
-      <hbr />
+      <Spacing />
       <TSDoc heading="The environment paths for storing things like data, config, logs, and cache in the current runtime environment." />
       <TypeDeclaration export name="EnvPaths">
         {code`Record<EnvPathType, string>; `}
       </TypeDeclaration>
-      <hbr />
-      <hbr />
+      <Spacing />
       <TSDoc heading="The resolved application directories based on the current operating system and environment variables.">
         <TSDocRemarks>
           {code`If the \`DATA_DIR\`, \`CONFIG_DIR\`, \`CACHE_DIR\`, \`LOG_DIR\`, or \`TEMP_DIR\` environment variables are set, they will be treated as overrides and used by default. If the environment variables are not set, the paths are determined based on the specific conventions for each operating system (with additional overrides available through operating system specific environment variables):
@@ -210,8 +204,7 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
                     : join(tmpdir, basename(homedir), "${kebabCase(context.config.organization)}", "${kebabCase(context.config.name)}"))
           } as EnvPaths; `}
       />
-      <hbr />
-      <hbr />
+      <Spacing />
       <Show when={Boolean(children)}>{children}</Show>
     </EnvBuiltin>
   );
