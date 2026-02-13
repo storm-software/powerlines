@@ -23,7 +23,6 @@ import {
   findKeyedChild,
   For,
   MemberDeclaration,
-  MemberScope,
   Name,
   Namekey,
   Prose,
@@ -43,8 +42,9 @@ import {
   TypeRefContext,
   useTSNamePolicy
 } from "@alloy-js/typescript";
-import { toArray } from "@stryke/convert/to-array";
-import { getCallSignatureProps } from "../helpers/get-call-signature-props";
+import { LexicalScope } from "../contexts";
+import { MemberScope } from "../contexts/member-scope";
+import { getCallSignatureProps } from "../helpers";
 import { TSDoc, TSDocParams } from "./tsdoc";
 import { TypeParameters } from "./type-parameters";
 import { TypescriptPropertyName } from "./typescript-property-name";
@@ -119,7 +119,7 @@ export function ClassDeclaration(props: ClassDeclarationProps) {
   });
 
   const typeParametersChildren = props.children
-    ? findKeyedChild(toArray(props.children), TypeParameters.tag)
+    ? findKeyedChild(props.children, TypeParameters.tag)
     : undefined;
 
   const sTypeParameters = typeParametersChildren ? (
@@ -242,7 +242,9 @@ export function ClassMethod(props: ClassMethodProps) {
       <ClassMember {...rest}>
         {props.async && "async "}
         <TypescriptPropertyName />
-        <CallSignature {...callProps} /> <Block>{props.children}</Block>
+        <LexicalScope>
+          <CallSignature {...callProps} /> <Block>{props.children}</Block>
+        </LexicalScope>
       </ClassMember>
     </>
   );

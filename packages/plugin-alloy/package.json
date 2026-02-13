@@ -630,6 +630,20 @@
         "default": "./dist/typescript/contexts/lexical-scope.mjs"
       }
     },
+    "./typescript/contexts/member-scope": {
+      "require": {
+        "types": "./dist/typescript/contexts/member-scope.d.cts",
+        "default": "./dist/typescript/contexts/member-scope.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/contexts/member-scope.d.mts",
+        "default": "./dist/typescript/contexts/member-scope.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/contexts/member-scope.d.mts",
+        "default": "./dist/typescript/contexts/member-scope.mjs"
+      }
+    },
     "./typescript/helpers": {
       "require": {
         "types": "./dist/typescript/helpers/index.d.cts",
