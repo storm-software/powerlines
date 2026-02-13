@@ -16,26 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  Children,
-  createSymbolSlot,
-  For,
-  Indent,
-  onCleanup,
-  Show,
-  SymbolSlot,
-  taggedComponent
-} from "@alloy-js/core";
-import {
-  createValueSymbol,
-  FunctionTypeParameterDescriptor,
-  ParameterDescriptor,
-  TSOutputSymbol,
-  TSSymbolFlags,
-  TypeParameterDescriptor,
-  TypeRefContext,
-  useTSNamePolicy
-} from "@alloy-js/typescript";
+import { Children, For, Indent, Show } from "@alloy-js/core";
+import { TypeParameterDescriptor, TypeRefContext } from "@alloy-js/typescript";
 
 /** Props for type parameters */
 export interface TypeParametersProps {
@@ -45,48 +27,29 @@ export interface TypeParametersProps {
   children?: Children;
 }
 
-interface DeclaredTypeParameterDescriptor extends Omit<
-  TypeParameterDescriptor,
-  "name"
-> {
-  symbol: TSOutputSymbol;
-}
-
-interface DeclaredParameterDescriptor extends Omit<
-  ParameterDescriptor,
-  "name"
-> {
-  symbol: TSOutputSymbol;
-  TypeSlot: SymbolSlot;
-}
-
-interface DeclaredFunctionTypeParameterDescriptor extends Omit<
-  FunctionTypeParameterDescriptor,
-  "name"
-> {
-  symbol: TSOutputSymbol;
-  TypeSlot: SymbolSlot;
-}
-
-const typeParametersTag = Symbol("type-parameters");
-
-function typeParameter(param: DeclaredTypeParameterDescriptor) {
+function typeParameter(param: TypeParameterDescriptor | string) {
   return (
-    <group>
-      {param.symbol.name}
-      <Show when={!!param.extends}>
-        {" "}
-        extends
-        <indent>
+    <Show when={typeof param === "object"} fallback={<>{param}</>}>
+      <group>
+        {(param as TypeParameterDescriptor).name}
+        <Show when={!!(param as TypeParameterDescriptor).extends}>
           {" "}
-          <TypeRefContext>{param.extends}</TypeRefContext>
-        </indent>
-      </Show>
-      <Show when={!!param.default}>
-        {" = "}
-        <TypeRefContext>{param.default}</TypeRefContext>
-      </Show>
-    </group>
+          extends
+          <indent>
+            {" "}
+            <TypeRefContext>
+              {(param as TypeParameterDescriptor).extends}
+            </TypeRefContext>
+          </indent>
+        </Show>
+        <Show when={!!(param as TypeParameterDescriptor).default}>
+          {" = "}
+          <TypeRefContext>
+            {(param as TypeParameterDescriptor).default}
+          </TypeRefContext>
+        </Show>
+      </group>{" "}
+    </Show>
   );
 }
 
@@ -98,98 +61,27 @@ function typeParameter(param: DeclaredTypeParameterDescriptor) {
  * <A, B extends string>
  * ```
  */
-export const TypeParameters = taggedComponent(
-  typeParametersTag,
-  function TypeParameters(props: TypeParametersProps) {
-    if (props.children) {
-      return props.children;
-    }
-
-    if (!props.parameters) {
-      return undefined;
-    }
-
-    const typeParameters = normalizeAndDeclareParameters(props.parameters);
-
-    onCleanup(() => {
-      for (const param of typeParameters) {
-        param.symbol.delete();
-      }
-    });
-
-    return (
-      <>
-        {"<"}
-        <group>
-          <Indent softline>
-            <For each={typeParameters} comma line>
-              {param => typeParameter(param as DeclaredTypeParameterDescriptor)}
-            </For>
-            <ifBreak>,</ifBreak>
-          </Indent>
-        </group>
-        {">"}
-      </>
-    );
+export function TypeParameters(props: TypeParametersProps) {
+  if (props.children) {
+    return props.children;
   }
-);
 
-function normalizeAndDeclareParameters(
-  parameters: FunctionTypeParameterDescriptor[] | string[],
-  flags?: TSSymbolFlags
-): DeclaredTypeParameterDescriptor[];
-function normalizeAndDeclareParameters(
-  parameters: TypeParameterDescriptor[] | string[],
-  flags?: TSSymbolFlags
-): DeclaredFunctionTypeParameterDescriptor[];
-function normalizeAndDeclareParameters(
-  parameters: ParameterDescriptor[] | string[],
-  flags?: TSSymbolFlags
-): DeclaredParameterDescriptor[];
-function normalizeAndDeclareParameters(
-  parameters: string[],
-  flags?: TSSymbolFlags
-): DeclaredParameterDescriptor[] | DeclaredTypeParameterDescriptor[];
-function normalizeAndDeclareParameters(
-  parameters:
-    | ParameterDescriptor[]
-    | FunctionTypeParameterDescriptor[]
-    | TypeParameterDescriptor[]
-    | string[],
-  flags: TSSymbolFlags = TSSymbolFlags.ParameterSymbol
-): DeclaredParameterDescriptor[] | DeclaredTypeParameterDescriptor[] {
-  const namePolicy = useTSNamePolicy();
-  if (parameters.length === 0) {
-    return [];
+  if (!props.parameters) {
+    return undefined;
   }
-  if (typeof parameters[0] === "string") {
-    return (parameters as string[]).map(paramName => {
-      const name = namePolicy.getName(paramName, "parameter");
-      const TypeSlot = createSymbolSlot();
-      const symbol = createValueSymbol(name, { type: TypeSlot.firstSymbol });
 
-      return { refkeys: symbol.refkeys, symbol, TypeSlot };
-    });
-  } else {
-    return (parameters as ParameterDescriptor[]).map(param => {
-      const nullishFlag =
-        (param.nullish ?? param.optional)
-          ? TSSymbolFlags.Nullish
-          : TSSymbolFlags.None;
-      const TypeSlot = createSymbolSlot();
-      const symbol = createValueSymbol(param.name, {
-        refkeys: param.refkey,
-        tsFlags: flags | nullishFlag,
-        metadata: param.metadata,
-        type: TypeSlot.firstSymbol,
-        namePolicy: namePolicy.for("parameter")
-      });
-
-      return {
-        ...param,
-        symbol,
-        TypeSlot
-      };
-    });
-  }
+  return (
+    <>
+      {"<"}
+      <group>
+        <Indent softline>
+          <For each={props.parameters} comma line>
+            {param => typeParameter(param)}
+          </For>
+          <ifBreak>,</ifBreak>
+        </Indent>
+      </group>
+      {">"}
+    </>
+  );
 }

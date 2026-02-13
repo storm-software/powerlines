@@ -20,7 +20,6 @@ import {
   Block,
   Children,
   code,
-  findKeyedChild,
   For,
   MemberDeclaration,
   Name,
@@ -118,20 +117,6 @@ export function ClassDeclaration(props: ClassDeclarationProps) {
     namePolicy: useTSNamePolicy().for("class")
   });
 
-  const typeParametersChildren = props.children
-    ? findKeyedChild(props.children, TypeParameters.tag)
-    : undefined;
-
-  const sTypeParameters = typeParametersChildren ? (
-    <>
-      {"<"}
-      {typeParametersChildren}
-      {">"}
-    </>
-  ) : (
-    <TypeParameters parameters={props.typeParameters} />
-  );
-
   return (
     <>
       <Show when={Boolean(props.doc)}>
@@ -141,7 +126,9 @@ export function ClassDeclaration(props: ClassDeclarationProps) {
       <Declaration symbol={sym} export={props.export} default={props.default}>
         <MemberScope ownerSymbol={sym}>
           {props.abstract && code`abstract `} class <Name />
-          {sTypeParameters}
+          {props.typeParameters && (
+            <TypeParameters parameters={props.typeParameters} />
+          )}
           {extendsPart}
           {implementsPart} <Block>{props.children}</Block>
         </MemberScope>
