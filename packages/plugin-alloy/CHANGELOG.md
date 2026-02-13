@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.22.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.22.1) (02/13/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Ensure property name is not deduplicated ([77485a735](https://github.com/storm-software/powerlines/commit/77485a735))
+
 ## [0.22.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.22.0) (02/13/2026)
 
 ### Bug Fixes
