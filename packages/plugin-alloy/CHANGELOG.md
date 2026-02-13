@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.22.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.22.0) (02/13/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Remove extra space from `TSDoc` output ([376fa1c7c](https://github.com/storm-software/powerlines/commit/376fa1c7c))
+
+### Features
+
+- **plugin-alloy:** Added the `ClassPropertySet` and `ClassPropertyGet` components ([9e503c70f](https://github.com/storm-software/powerlines/commit/9e503c70f))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.227**
+- Updated **plugin-babel** to **v0.12.285**
+- Updated **powerlines** to **v0.38.43**
+- Updated **deepkit** to **v0.6.56**
+
 ## [0.21.4](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.21.4) (02/13/2026)
 
 ### Bug Fixes
