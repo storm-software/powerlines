@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.21.4](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.21.4) (02/13/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Added custom implementation and renamed interface and class declaration ([e01a9d72c](https://github.com/storm-software/powerlines/commit/e01a9d72c))
+
 ## [0.21.3](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.21.3) (02/12/2026)
 
 ### Bug Fixes

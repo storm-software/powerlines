@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.15.186](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.186) (02/13/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Added custom implementation and renamed interface and class declaration ([e01a9d72c](https://github.com/storm-software/powerlines/commit/e01a9d72c))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.21.4**
+
 ## [0.15.185](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.185) (02/12/2026)
 
 ### Updated Dependencies
