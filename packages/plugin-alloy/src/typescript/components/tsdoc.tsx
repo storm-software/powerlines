@@ -34,6 +34,7 @@ import {
 } from "@powerlines/deepkit/vendor/type";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
+import { Spacing } from "../../core/components/spacing";
 import { usePowerlinesSafe } from "../../core/contexts/context";
 import { ComponentProps } from "../../types/components";
 
@@ -68,7 +69,7 @@ export function TSDoc(props: TSDocProps) {
           <List>{childrenArray(() => children)}</List>
         </Show>
       </align>
-      <sbr />
+      <hbr />
       {` */`}
       <hbr />
     </>
@@ -93,7 +94,7 @@ export function TSDocTag(props: TSDocTagProps) {
           <Prose>{children}</Prose>
         </align>
       </Show>
-      <hbr />
+      <sbr />
     </>
   );
 }
@@ -200,7 +201,7 @@ export function TSDocDefaultValue(props: TSDocDefaultValueProps) {
           <Prose>{stringifyDefaultValue(type, defaultValue)}</Prose>
         </align>
       </Show>
-      <hbr />
+      <sbr />
     </>
   );
 }
@@ -255,7 +256,7 @@ export function TSDocExample(props: TSDocExampleProps) {
       </Show>
       {children}
       <Show when={fenced}>
-        <hbr />
+        <sbr />
         ```
       </Show>
     </>
@@ -504,8 +505,7 @@ export function TSDocModule(props: TSDocModuleProps) {
         <hbr />
         <Show when={Boolean(children)}>
           <List hardline={true}>{childrenArray(() => children)}</List>
-          <hbr />
-          <hbr />
+          <Spacing />
         </Show>
         {"@module "}
         {prefix || context?.config?.framework || "powerlines"}:{name}

@@ -484,8 +484,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
             return undefined;
           }, `}
 
-          <hbr />
-          <hbr />
+          <Spacing />
           {code` set: (target: EnvBase, propertyName: string, newValue: any) => { `}
           <hbr />
 

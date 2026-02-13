@@ -33,20 +33,24 @@ export interface TypeDeclarationProps extends CommonDeclarationProps {
   typeParameters?: TypeParameterDescriptor[] | string[];
 }
 
+/**
+ * Renders a TypeScript type declaration, including its name, optional TSDoc comment, and generic type parameters.
+ */
 export const TypeDeclaration = ensureTypeRefContext(function TypeDeclaration(
   props: TypeDeclarationProps
 ) {
+  const { children, doc, typeParameters, ...rest } = props;
+
   return (
     <>
-      <Show when={Boolean(props.doc)}>
-        <TSDoc heading={props.doc} />
+      <Show when={Boolean(doc)}>
+        <TSDoc heading={doc} />
       </Show>
-      <Declaration {...props} kind="type" nameKind="type">
+      <Declaration {...rest} kind="type" nameKind="type">
         type <Name />
-        {props.typeParameters && (
-          <TypeParameters parameters={props.typeParameters} />
-        )}{" "}
-        = {props.children};
+        {typeParameters && (
+          <TypeParameters parameters={typeParameters} />
+        )} = {children};
       </Declaration>
     </>
   );
