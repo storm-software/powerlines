@@ -39,6 +39,7 @@ import {
   ReflectionKind,
   ReflectionProperty
 } from "@powerlines/deepkit/vendor/type";
+import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
 import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
 import { refkey } from "@powerlines/plugin-alloy/helpers/refkey";
 import { ComponentProps } from "@powerlines/plugin-alloy/types/components";
@@ -84,9 +85,7 @@ export function EnvTypeDefinition(
         reflection={reflection}
         export={true}
       />
-      <hbr />
-      <hbr />
-
+      <Spacing />
       <TSDoc heading="The environment configuration object with prefixed keys.">
         <TSDocRemarks>
           {`The \`Env\` type extends the \`EnvBase\` interface by including additional keys that are prefixed according to the project's configuration. This allows for flexibility in accessing environment variables with different naming conventions.`}
@@ -100,8 +99,7 @@ export function EnvTypeDefinition(
 }
 `}
       </TypeDeclaration>
-      <hbr />
-      <hbr />
+      <Spacing />
     </>
   );
 }
@@ -346,8 +344,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         const={true}
         doc="The initial environment configuration object values for the runtime."
       />
-      <hbr />
-      <hbr />
+      <Spacing />
 
       <TSDoc heading="The environment configuration serializer for the Powerlines application.">
         <TSDocLink>
@@ -383,8 +380,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
 `}
         </ClassMethod>
       </ClassDeclaration>
-      <hbr />
-      <hbr />
+      <Spacing />
 
       <TSDoc heading="A {@link EnvSerializer | environment configuration serializer} instance for the Powerlines application.">
         <TSDocLink>
@@ -403,8 +399,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         const={true}
         initializer={<NewExpression args={[]} target="EnvSerializer" />}
       />
-      <hbr />
-      <hbr />
+      <Spacing />
 
       <TSDoc heading="Serialize a environment configuration object to JSON data objects (not a JSON string).">
         <TSDocRemarks>
@@ -421,8 +416,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         const={true}
         initializer={"serializeFunction<EnvBase>(envSerializer)"}
       />
-      <hbr />
-      <hbr />
+      <Spacing />
 
       <TSDoc heading="Deserialize a environment configuration object from JSON data objects to JavaScript objects, without running any validators.">
         <TSDocRemarks>
@@ -439,8 +433,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         const={true}
         initializer="deserializeFunction<EnvBase>(envSerializer)"
       />
-      <hbr />
-      <hbr />
+      <Spacing />
 
       <TSDoc heading="Initializes the Powerlines environment configuration module.">
         <TSDocRemarks>
@@ -514,8 +507,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
 `}
         </FunctionDeclaration>
       </Show>
-      <hbr />
-      <hbr />
+      <Spacing />
       <hbr />
 
       <TSDoc heading="The environment configuration object.">
@@ -533,8 +525,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           <>{code`createEnv(${defaultConfig || "{}"} as Partial<Env>);`}</>
         }
       />
-      <hbr />
-      <hbr />
+      <Spacing />
 
       <VarDeclaration
         export
@@ -596,8 +587,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         );
         `}
       />
-      <hbr />
-      <hbr />
+      <Spacing />
 
       <TSDoc heading="Detect the \`mode\` of the current runtime environment.">
         <TSDocRemarks>
@@ -614,8 +604,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         name="mode"
         initializer={code`String(env.MODE) || "production"; `}
       />
-      <hbr />
-      <hbr />
+      <Spacing />
 
       <VarDeclaration
         export
@@ -624,8 +613,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         doc='Detect if the application is running in `"production"` mode'
         initializer={code`["prd", "prod", "production"].includes(mode.toLowerCase()); `}
       />
-      <hbr />
-      <hbr />
+      <Spacing />
 
       <VarDeclaration
         export
@@ -634,8 +622,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         doc='Detect if the application is running in `"test"` mode'
         initializer={code`["tst", "test", "testing", "stg", "stage", "staging"].includes(mode.toLowerCase()) || env.TEST; `}
       />
-      <hbr />
-      <hbr />
+      <Spacing />
 
       <VarDeclaration
         export
@@ -644,8 +631,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         doc='Detect if the application is running in `"development"` mode'
         initializer={code`["dev", "development"].includes(mode.toLowerCase()); `}
       />
-      <hbr />
-      <hbr />
+      <Spacing />
 
       <VarDeclaration
         export
@@ -654,8 +640,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         doc="Detect if the application is currently being debugged"
         initializer={code`Boolean(isDevelopment && env.DEBUG); `}
       />
-      <hbr />
-      <hbr />
+      <Spacing />
       <Show when={Boolean(children)}>{children}</Show>
     </BuiltinFile>
   );
