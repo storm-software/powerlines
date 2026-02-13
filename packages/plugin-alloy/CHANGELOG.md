@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.21.2](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.21.2) (02/12/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Added missing scopes to `ClassDeclaration` component ([b1969fa57](https://github.com/storm-software/powerlines/commit/b1969fa57))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.225**
+- Updated **plugin-babel** to **v0.12.283**
+- Updated **powerlines** to **v0.38.41**
+- Updated **deepkit** to **v0.6.54**
+
 ## [0.21.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.21.1) (02/12/2026)
 
 ### Bug Fixes
