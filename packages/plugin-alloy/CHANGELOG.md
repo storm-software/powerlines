@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.21.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.21.1) (02/12/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with missing `Scope` inheritance ([1c33cb0fd](https://github.com/storm-software/powerlines/commit/1c33cb0fd))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.224**
+- Updated **plugin-babel** to **v0.12.282**
+- Updated **powerlines** to **v0.38.40**
+- Updated **deepkit** to **v0.6.53**
+
 ## [0.21.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.21.0) (02/12/2026)
 
 ### Miscellaneous

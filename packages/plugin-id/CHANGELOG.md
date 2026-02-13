@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.9.282](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.282) (02/12/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.224**
+- Updated **powerlines** to **v0.38.40**
+
 ## [0.9.281](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.281) (02/12/2026)
 
 ### Updated Dependencies
