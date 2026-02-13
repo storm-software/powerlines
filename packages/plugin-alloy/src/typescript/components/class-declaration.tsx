@@ -24,7 +24,6 @@ import {
   MemberDeclaration,
   Name,
   Namekey,
-  Prose,
   Refkey,
   Show,
   splitProps
@@ -203,6 +202,7 @@ export interface ClassFieldProps extends ClassMemberProps {
   type?: Children;
   optional?: boolean;
   children?: Children;
+  isPrivateMember?: boolean;
 }
 
 /**
@@ -223,9 +223,66 @@ export function ClassField(props: ClassFieldProps) {
 
   return (
     <ClassMember {...props} nullish={nullish}>
-      <PropertyName />
+      <PropertyName private={props.isPrivateMember} />
       {typeSection}
       {initializerSection}
+    </ClassMember>
+  );
+}
+
+/**
+ * Props for a class field, which is a specific type of class member that represents a property of the class.
+ */
+export interface ClassPropertyProps extends ClassMemberProps {
+  type?: Children;
+  children?: Children;
+}
+
+/**
+ * Generates a TypeScript class property setter declaration for the given reflection class.
+ *
+ * @param props - The properties of the class property, including its name, type, and other modifiers.
+ * @returns A JSX element representing the class property setter declaration, which can be used within a ClassDeclaration component.
+ */
+export function ClassPropertySet(props: ClassPropertyProps) {
+  return (
+    <>
+      <ClassMember {...props}>
+        {" set "}
+        <PropertyName />
+        <LexicalScope>
+          <CallSignature
+            parameters={[
+              {
+                name: "value",
+                type: <TypeRefContext>{props.type}</TypeRefContext>
+              }
+            ]}
+          />{" "}
+          <Block>{props.children}</Block>
+        </LexicalScope>
+      </ClassMember>
+    </>
+  );
+}
+
+/**
+ * Generates a TypeScript class property getter declaration for the given reflection class.
+ *
+ * @param props - The properties of the class property, including its name, type, and other modifiers.
+ * @returns A JSX element representing the class property getter declaration, which can be used within a ClassDeclaration component.
+ */
+export function ClassPropertyGet(props: ClassPropertyProps) {
+  return (
+    <ClassMember {...props}>
+      {" get "}
+      <PropertyName />
+      <LexicalScope>
+        <CallSignature
+          returnType={<TypeRefContext>{props.type}</TypeRefContext>}
+        />{" "}
+        <Block>{props.children}</Block>
+      </LexicalScope>
     </ClassMember>
   );
 }
@@ -251,8 +308,7 @@ export function ClassMethod(props: ClassMethodProps) {
   return (
     <>
       <Show when={Boolean(props.doc)}>
-        <TSDoc>
-          {props.doc && <Prose children={props.doc} />}
+        <TSDoc heading={props.doc}>
           {Array.isArray(rest.parameters) && (
             <TSDocParams parameters={rest.parameters} />
           )}
