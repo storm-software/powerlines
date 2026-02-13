@@ -253,7 +253,7 @@ export function ClassPropertySet(props: ClassPropertyProps) {
   return (
     <>
       <ClassMember {...props}>
-        {" set "}
+        {"set "}
         <PropertyName name={props.name} />
         <LexicalScope>
           <CallSignature
@@ -280,7 +280,7 @@ export function ClassPropertySet(props: ClassPropertyProps) {
 export function ClassPropertyGet(props: ClassPropertyProps) {
   return (
     <ClassMember {...props}>
-      {" get "}
+      {"get "}
       <PropertyName name={props.name} />
       <LexicalScope>
         <CallSignature
