@@ -68,7 +68,7 @@ export function TSDoc(props: TSDocProps) {
           <List>{childrenArray(() => children)}</List>
         </Show>
       </align>
-      <hbr />
+      <sbr />
       {` */`}
       <hbr />
     </>
