@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.7](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.7) (02/14/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with missing "\*" character in `TSDoc` comments ([7dcfcfc39](https://github.com/storm-software/powerlines/commit/7dcfcfc39))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.230**
+- Updated **plugin-babel** to **v0.12.288**
+- Updated **powerlines** to **v0.38.46**
+- Updated **deepkit** to **v0.6.59**
+
 ## [0.23.6](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.6) (02/13/2026)
 
 ### Bug Fixes
