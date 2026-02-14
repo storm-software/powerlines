@@ -66,7 +66,7 @@ export function TSDoc(props: TSDocProps) {
         </Show>
         <sbr />
       </align>
-      {` */`}
+      {`/`}
       <hbr />
     </>
   );
