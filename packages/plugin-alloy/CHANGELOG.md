@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.6](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.6) (02/13/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with invalid output in `TSDoc` component ([9033ed9c8](https://github.com/storm-software/powerlines/commit/9033ed9c8))
+
 ## [0.23.5](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.5) (02/13/2026)
 
 ### Miscellaneous
