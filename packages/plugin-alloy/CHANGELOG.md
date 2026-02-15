@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.8](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.8) (02/14/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with placement of final star in comments ([a1e1d2486](https://github.com/storm-software/powerlines/commit/a1e1d2486))
+
 ## [0.23.7](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.7) (02/14/2026)
 
 ### Bug Fixes
