@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.11](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.11) (02/16/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Clean up spacing issues with `TSDoc` component ([27927e9f0](https://github.com/storm-software/powerlines/commit/27927e9f0))
+
 ## [0.23.10](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.10) (02/16/2026)
 
 ### Miscellaneous
