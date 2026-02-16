@@ -158,6 +158,7 @@ export interface ClassMemberProps {
   children?: Children;
   doc?: Children;
   nullish?: boolean;
+  override?: boolean;
 }
 
 /**
@@ -188,6 +189,7 @@ export function ClassMember(props: ClassMemberProps) {
         {props.private && "private "}
         {props.protected && "protected "}
         {props.abstract && "abstract "}
+        {props.override && "override "}
         {props.static && "static "}
         {props.children}
       </MemberDeclaration>
