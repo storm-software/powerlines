@@ -67,6 +67,7 @@ export function TSDoc(props: TSDocProps) {
         <hbr />
       </align>
       {`*/`}
+      <hbr />
     </>
   );
 }
@@ -89,7 +90,7 @@ export function TSDocTag(props: TSDocTagProps) {
           <Prose>{children}</Prose>
         </align>
       </Show>
-      <hbr />
+      <sbr />
     </>
   );
 }
