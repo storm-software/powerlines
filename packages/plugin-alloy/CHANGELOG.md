@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.10](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.10) (02/16/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Added the `override` property to class memeber components ([ea930df4c](https://github.com/storm-software/powerlines/commit/ea930df4c))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.232**
+- Updated **plugin-babel** to **v0.12.290**
+- Updated **powerlines** to **v0.38.48**
+- Updated **deepkit** to **v0.6.61**
+
 ## [0.23.9](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.9) (02/14/2026)
 
 ### Updated Dependencies
