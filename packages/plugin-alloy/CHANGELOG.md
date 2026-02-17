@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.12](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.12) (02/16/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Added missing newline to `TSDoc` component ([78caa335d](https://github.com/storm-software/powerlines/commit/78caa335d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.233**
+- Updated **plugin-babel** to **v0.12.291**
+- Updated **powerlines** to **v0.38.49**
+- Updated **deepkit** to **v0.6.62**
+
 ## [0.23.11](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.11) (02/16/2026)
 
 ### Miscellaneous
