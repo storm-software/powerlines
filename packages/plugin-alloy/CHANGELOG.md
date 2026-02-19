@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.15](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.15) (02/19/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Clean up extra `sbr` in `TSDoc` component ([00746cd34](https://github.com/storm-software/powerlines/commit/00746cd34))
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with extra spacing at the end of `TSDoc` component output ([c7e43231c](https://github.com/storm-software/powerlines/commit/c7e43231c))
+- **plugin-alloy:** Resolve issue with importing multiple defaults in `TypescriptImports` component ([561ec353d](https://github.com/storm-software/powerlines/commit/561ec353d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.236**
+- Updated **plugin-babel** to **v0.12.294**
+- Updated **powerlines** to **v0.38.52**
+- Updated **deepkit** to **v0.6.65**
+
 ## [0.23.14](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.14) (02/19/2026)
 
 ### Updated Dependencies
