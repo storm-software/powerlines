@@ -48,7 +48,7 @@ catalog:
   '@jest/test-result': ^30.2.0
   '@jest/types': ^30.2.0
   '@ls-lint/ls-lint': ^2.3.1
-  '@microsoft/api-extractor': ^7.56.3
+  '@microsoft/api-extractor': ^7.57.0
   '@microsoft/tsdoc': ^0.15.1
   '@microsoft/tsdoc-config': ^0.17.1
   '@noble/ciphers': ^2.1.1
@@ -60,7 +60,7 @@ catalog:
   '@nx/workspace': 22.5.0
   '@prisma/get-platform': ^6.19.2
   '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
-  '@pulumi/pulumi': ^3.220.0
+  '@pulumi/pulumi': ^3.222.0
   '@rollup/plugin-alias': ^6.0.0
   '@rollup/plugin-babel': ^6.1.0
   '@rollup/plugin-commonjs': ^28.0.9
@@ -69,23 +69,23 @@ catalog:
   '@rollup/plugin-replace': ^6.0.3
   '@rspack/core': ^1.7.6
   '@standard-schema/spec': ^1.1.0
-  '@storm-software/build-tools': ^0.158.81
-  '@storm-software/config': ^1.135.1
-  '@storm-software/config-tools': ^1.189.0
-  '@storm-software/cspell': ^0.45.75
-  '@storm-software/esbuild': ^0.53.81
-  '@storm-software/eslint': ^0.169.83
-  '@storm-software/git-tools': ^2.124.66
-  '@storm-software/linting-tools': ^1.132.81
-  '@storm-software/markdownlint': ^0.30.75
-  '@storm-software/pnpm-tools': ^0.6.83
+  '@storm-software/build-tools': ^0.158.86
+  '@storm-software/config': ^1.135.6
+  '@storm-software/config-tools': ^1.189.5
+  '@storm-software/cspell': ^0.45.80
+  '@storm-software/esbuild': ^0.53.86
+  '@storm-software/eslint': ^0.169.89
+  '@storm-software/git-tools': ^2.124.71
+  '@storm-software/linting-tools': ^1.132.86
+  '@storm-software/markdownlint': ^0.30.80
+  '@storm-software/pnpm-tools': ^0.6.88
   '@storm-software/prettier': ^0.57.80
-  '@storm-software/testing-tools': ^1.119.75
-  '@storm-software/tsconfig': ^0.47.75
-  '@storm-software/tsup': ^0.2.79
-  '@storm-software/unbuild': ^0.57.81
-  '@storm-software/untyped': ^0.24.62
-  '@storm-software/workspace-tools': ^1.294.32
+  '@storm-software/testing-tools': ^1.119.80
+  '@storm-software/tsconfig': ^0.47.80
+  '@storm-software/tsup': ^0.2.84
+  '@storm-software/unbuild': ^0.57.86
+  '@storm-software/untyped': ^0.24.67
+  '@storm-software/workspace-tools': ^1.294.37
   '@stryke/capnp': ^0.12.68
   '@stryke/cli': ^0.13.15
   '@stryke/convert': ^0.6.40
@@ -119,7 +119,7 @@ catalog:
   '@types/react': ^19.2.14
   '@types/react-dom': ^19.2.3
   '@types/semver': ^7.7.1
-  '@typescript-eslint/utils': ^8.55.0
+  '@typescript-eslint/utils': ^8.56.0
   '@vitejs/plugin-react': ^5.1.4
   automd: ^0.4.3
   babel-dead-code-elimination: ^1.0.12
@@ -142,7 +142,7 @@ catalog:
   fp-ts: ^2.16.11
   github-slugger: ^2.0.0
   handlebars: ^4.7.8
-  i18next-cli: ^1.42.8
+  i18next-cli: ^1.42.9
   i18next-resources-for-ts: ^2.0.0
   jest: ^30.2.0
   jest-config: ^30.2.0
@@ -157,15 +157,15 @@ catalog:
   log4brains: ^1.1.0
   magic-string: ^0.30.21
   markdown-toc: ^1.2.0
-  marked: ^17.0.2
-  minimatch: ^10.2.0
+  marked: ^17.0.3
+  minimatch: ^10.2.1
   nanotar: ^0.2.0
   nitro: 3.0.1-alpha.1
   nx: 22.5.0
   openapi-typescript: ^7.13.0
   oxc-parser: ^0.99.0
   oxc-transform: ^0.99.0
-  oxlint: ^1.47.0
+  oxlint: ^1.48.0
   oxlint-tsgolint: ^0.2.1
   pluralize: ^8.0.0
   prettier: ^3.8.1
