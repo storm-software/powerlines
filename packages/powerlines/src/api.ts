@@ -44,7 +44,11 @@ import {
   emitBuiltinTypes,
   formatTypes
 } from "./internal/helpers/generate-types";
-import { callHook, CallHookOptions } from "./internal/helpers/hooks";
+import {
+  callHook,
+  CallHookOptions,
+  mergeConfigs
+} from "./internal/helpers/hooks";
 import { installDependencies } from "./internal/helpers/install-dependencies";
 import {
   getTsconfigDtsPath,
@@ -164,7 +168,8 @@ export class PowerlinesAPI<
     const pluginConfig = await api.callHook("config", {
       environment: await api.context.getEnvironment(),
       sequential: true,
-      result: "merge"
+      result: "merge",
+      merge: mergeConfigs
     });
     await api.context.withUserConfig(
       pluginConfig as TResolvedConfig["userConfig"],

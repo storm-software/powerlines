@@ -24,6 +24,7 @@ import { ArrayValues } from "@stryke/types/array";
 import { MaybePromise } from "@stryke/types/base";
 import chalk from "chalk";
 import { createDefu, defu } from "defu";
+import { mergeConfig } from "../../plugin-utils/merge";
 import {
   EnvironmentContext,
   PluginContext,
@@ -55,24 +56,51 @@ export type CallHookOptions = SelectHooksOptions &
              */
             result: "first";
           }
-        | {
-            /**
-             * How to handle multiple return values from hooks.
-             * - "merge": Merge all non-undefined return values (if they are objects).
-             * - "first": Return the first non-undefined value.
-             *
-             * @remarks
-             * Merging only works if the return values are objects.
-             *
-             * @defaultValue "merge"
-             */
-            result?: "merge" | "last";
-
+        | ({
             /**
              * An indicator specifying if the results of the previous hook should be provided as the **first** parameter of the next hook function, or a function to process the result of the previous hook function and pass the returned value as the next hook's **first** parameter
              */
             asNextParam?: false | ((previousResult: any) => MaybePromise<any>);
-          }
+          } & (
+            | {
+                /**
+                 * How to handle multiple return values from hooks.
+                 * - "merge": Merge all non-undefined return values (if they are objects).
+                 * - "first": Return the first non-undefined value.
+                 *
+                 * @remarks
+                 * Merging only works if the return values are objects.
+                 *
+                 * @defaultValue "merge"
+                 */
+                result?: "merge";
+
+                /**
+                 * A custom function to merge multiple return values from hooks.
+                 *
+                 * @remarks
+                 * If not provided, the {@link mergeResults} function will be used by default, which merges string results by concatenation and object results by deep merging.
+                 *
+                 * @param currentResult - The current hook result to merge with the previous results.
+                 * @param previousResults - The previous hook results to merge with the current result.
+                 * @returns The merged result.
+                 */
+                merge?: <T>(currentResult: T, previousResults: T[]) => T[];
+              }
+            | {
+                /**
+                 * How to handle multiple return values from hooks.
+                 * - "merge": Merge all non-undefined return values (if they are objects).
+                 * - "first": Return the first non-undefined value.
+                 *
+                 * @remarks
+                 * Merging only works if the return values are objects.
+                 *
+                 * @defaultValue "merge"
+                 */
+                result?: "last";
+              }
+          ))
       ))
     | {
         /**
@@ -82,7 +110,7 @@ export type CallHookOptions = SelectHooksOptions &
       }
   );
 
-const mergeResults = createDefu(<T>(obj: T, key: keyof T, value: any) => {
+const mergeResultObjects = createDefu(<T>(obj: T, key: keyof T, value: any) => {
   if (isString(obj[key]) && isString(value)) {
     obj[key] = `${obj[key] || ""}\n${value || ""}`.trim() as T[keyof T];
 
@@ -91,6 +119,46 @@ const mergeResults = createDefu(<T>(obj: T, key: keyof T, value: any) => {
 
   return false;
 });
+
+/**
+ * Merges the current hook result with the previous results based on their types.
+ *
+ * @param currentResult - The current hook result to merge with the previous results.
+ * @param previousResults - The previous hook results to merge with the current result.
+ * @returns The merged result.
+ */
+export function mergeResults<T>(currentResult: T, previousResults: T[]): T[] {
+  if (isString(currentResult)) {
+    previousResults = [
+      `${isString(previousResults[0]) ? previousResults[0] || "" : ""}\n${currentResult || ""}`.trim() as T
+    ];
+  } else if (isObject(currentResult)) {
+    previousResults = [
+      mergeResultObjects(currentResult, previousResults[0] ?? {})
+    ];
+  }
+
+  return previousResults;
+}
+
+/**
+ * Merges multiple hook results together, with special handling for string values and object values.
+ *
+ * @param currentResult - The current hook result to merge with the previous results.
+ * @param previousResults - The previous hook results to merge with the current result.
+ * @returns The merged result.
+ */
+export function mergeConfigs<T>(currentResult: T, previousResults: T[]): T[] {
+  if (isString(currentResult)) {
+    previousResults = [
+      `${isString(previousResults[0]) ? previousResults[0] || "" : ""}\n${currentResult || ""}`.trim() as T
+    ];
+  } else if (isObject(currentResult)) {
+    previousResults = [mergeConfig(currentResult, previousResults[0] ?? {})];
+  }
+
+  return previousResults;
+}
 
 /**
  * Calls a hook with the given context, options, and arguments.
@@ -178,27 +246,12 @@ export async function callHook<
             >)
           );
           if (result) {
-            if (options?.result === "last") {
-              results = [
-                result as InferHookReturnType<
-                  PluginContext<TResolvedConfig>,
-                  TKey
-                >
-              ];
-            } else if (isString(result)) {
-              results = [
-                `${isString(results[0]) ? results[0] || "" : ""}\n${result || ""}`.trim() as InferHookReturnType<
-                  PluginContext<TResolvedConfig>,
-                  TKey
-                >
-              ];
-            } else if (isObject(result)) {
-              results = [
-                mergeResults(result, results[0] ?? {}) as InferHookReturnType<
-                  PluginContext<TResolvedConfig>,
-                  TKey
-                >
-              ];
+            if (options.result === "last") {
+              results = [result];
+            } else if (options.result === "merge" && options.merge) {
+              results = options.merge(result, results);
+            } else {
+              results = mergeResults(result, results);
             }
           }
         }
