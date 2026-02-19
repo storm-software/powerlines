@@ -22,7 +22,24 @@ import type { OnLoadOptions, Plugin } from "esbuild";
 import { Context } from "powerlines/types/context";
 import { DiagnosticCategory } from "typescript";
 import { transpile } from "./transpile";
-import { ReflectionConfig } from "./vendor/type-compiler/config";
+import { Level, Mode } from "./vendor/type-compiler/config";
+
+export interface ReflectionConfig {
+  /**
+   * Allows to exclude type definitions/TS files from being included in the type compilation step. When a global .d.ts is matched, their types won't be embedded (useful to exclude DOM for example)
+   */
+  exclude?: string[];
+
+  /**
+   * Either a boolean indication general reflection mode, or a list of globs to match against.
+   */
+  reflection?: string[] | Mode;
+
+  /**
+   * Defines the level of reflection to be used during the transpilation process.
+   */
+  reflectionLevel?: Level;
+}
 
 export interface ESBuildPluginOptions extends Partial<ReflectionConfig> {
   onLoad?: Partial<OnLoadOptions>;
