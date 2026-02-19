@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.293](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.293) (02/19/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.235**
+- Updated **powerlines** to **v0.38.51**
+
 ## [0.5.292](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.292) (02/19/2026)
 
 ### Updated Dependencies
