@@ -195,6 +195,11 @@ export type ListDatabaseConnectionsResponses = {
             type: 'connection';
             name: string;
             createdAt: string;
+            directConnection?: {
+                host: string;
+                pass: string;
+                user: string;
+            } | null;
             database: {
                 id: string;
                 name: string;
@@ -260,6 +265,11 @@ export type CreateDatabaseConnectionStringResponses = {
             name: string;
             createdAt: string;
             connectionString: string;
+            directConnection?: {
+                host: string;
+                pass: string;
+                user: string;
+            } | null;
             database: {
                 id: string;
                 name: string;
@@ -556,6 +566,11 @@ export type CreateProjectWithPostgresDatabaseResponses = {
                     name: string;
                     createdAt: string;
                     connectionString: string;
+                    directConnection?: {
+                        host: string;
+                        pass: string;
+                        user: string;
+                    } | null;
                 }>;
                 connectionString: string | null;
                 directConnection: {
@@ -870,6 +885,11 @@ export type CreateDatabaseResponses = {
                 name: string;
                 createdAt: string;
                 connectionString: string;
+                directConnection?: {
+                    host: string;
+                    pass: string;
+                    user: string;
+                } | null;
             }>;
             connectionString: string | null;
             directConnection: {
