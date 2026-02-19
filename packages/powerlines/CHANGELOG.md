@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.53](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.53) (02/19/2026)
+
+### Bug Fixes
+
+- **powerlines:** Added `merge` option to hooks to resolve config merging issue ([c357f3010](https://github.com/storm-software/powerlines/commit/c357f3010))
+
 ## [0.38.37](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.37) (02/05/2026)
 
 ### Miscellaneous
