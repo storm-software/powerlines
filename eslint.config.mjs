@@ -28,5 +28,6 @@ export default defineConfig({
   },
   nx: {
     moduleBoundaries: false
-  }
+  },
+  ignores: ["packages/plugin-prisma/src/api"]
 });
