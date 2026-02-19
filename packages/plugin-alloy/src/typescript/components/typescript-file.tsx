@@ -264,61 +264,10 @@ export function TypescriptFileHeaderImports(
         (!!builtinImports.value && Object.keys(builtinImports.value).length > 0)
       }>
       <Show when={!!imports.value && Object.keys(imports.value).length > 0}>
-        <For each={Object.entries(imports.value ?? {})} hardline>
-          {([module, importItem]) => {
-            return (
-              <>
-                {code`import ${
-                  importItem === null
-                    ? ""
-                    : isString(importItem)
-                      ? importItem
-                      : `${
-                          (
-                            importItem.filter(
-                              i => !isString(i) && i.default
-                            ) as TypescriptFileImportItem[]
-                          )
-                            .map(i => (i.alias ? i.alias : i.name))
-                            .join(", ") +
-                          (importItem.filter(i => !isString(i) && i.default)
-                            .length > 0 &&
-                          importItem.filter(i => isString(i) || !i.default)
-                            .length > 0
-                            ? ", "
-                            : "") +
-                          (importItem.filter(i => isString(i) || !i.default)
-                            .length > 0
-                            ? `{ ${importItem
-                                .map(i =>
-                                  isString(i)
-                                    ? i
-                                    : i.alias
-                                      ? `${i.name} as ${i.alias}`
-                                      : i.name
-                                )
-                                .join(", ")} }`
-                            : "")
-                        }`
-                } from "${module}";`}
-              </>
-            );
-          }}
-        </For>
-        <hbr />
-      </Show>
-      <Show
-        when={
-          builtinImports.value && Object.keys(builtinImports.value).length > 0
-        }>
         <For
-          each={Object.entries(
-            (builtinImports.value ?? {}) as Record<
-              string,
-              null | Array<TypescriptFileImportItem | string>
-            >
-          )}
-          hardline>
+          each={Object.entries(imports.value ?? {})}
+          hardline
+          ender={<hbr />}>
           {([module, importItem]) =>
             code`import ${
               importItem === null
@@ -342,6 +291,58 @@ export function TypescriptFileHeaderImports(
                       (importItem.filter(i => isString(i) || !i.default)
                         .length > 0
                         ? `{ ${importItem
+                            .filter(i => isString(i) || !i.default)
+                            .map(i =>
+                              isString(i)
+                                ? i
+                                : i.alias
+                                  ? `${i.name} as ${i.alias}`
+                                  : i.name
+                            )
+                            .join(", ")} }`
+                        : "")
+                    }`
+            } from "${module}";`
+          }
+        </For>
+      </Show>
+      <Show
+        when={
+          builtinImports.value && Object.keys(builtinImports.value).length > 0
+        }>
+        <For
+          each={Object.entries(
+            (builtinImports.value ?? {}) as Record<
+              string,
+              null | Array<TypescriptFileImportItem | string>
+            >
+          )}
+          hardline
+          ender={<hbr />}>
+          {([module, importItem]) =>
+            code`import ${
+              importItem === null
+                ? ""
+                : isString(importItem)
+                  ? importItem
+                  : `${
+                      (
+                        importItem.filter(
+                          i => !isString(i) && i.default
+                        ) as TypescriptFileImportItem[]
+                      )
+                        .map(i => (i.alias ? i.alias : i.name))
+                        .join(", ") +
+                      (importItem.filter(i => !isString(i) && i.default)
+                        .length > 0 &&
+                      importItem.filter(i => isString(i) || !i.default).length >
+                        0
+                        ? ", "
+                        : "") +
+                      (importItem.filter(i => isString(i) || !i.default)
+                        .length > 0
+                        ? `{ ${importItem
+                            .filter(i => isString(i) || !i.default)
                             .map(i =>
                               isString(i)
                                 ? i
@@ -359,7 +360,6 @@ export function TypescriptFileHeaderImports(
             }";`
           }
         </For>
-        <hbr />
       </Show>
       <Show when={scope.importedModules.size > 0}>
         <ImportStatements records={scope.importedModules} />
