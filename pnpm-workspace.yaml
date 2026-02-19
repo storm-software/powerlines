@@ -74,12 +74,12 @@ catalog:
   '@storm-software/config-tools': ^1.189.5
   '@storm-software/cspell': ^0.45.80
   '@storm-software/esbuild': ^0.53.86
-  '@storm-software/eslint': ^0.169.89
+  '@storm-software/eslint': ^0.169.90
   '@storm-software/git-tools': ^2.124.71
   '@storm-software/linting-tools': ^1.132.86
   '@storm-software/markdownlint': ^0.30.80
   '@storm-software/pnpm-tools': ^0.6.88
-  '@storm-software/prettier': ^0.57.80
+  '@storm-software/prettier': ^0.58.4
   '@storm-software/testing-tools': ^1.119.80
   '@storm-software/tsconfig': ^0.47.80
   '@storm-software/tsup': ^0.2.84
@@ -96,7 +96,7 @@ catalog:
   '@stryke/http': ^0.12.35
   '@stryke/json': ^0.9.43
   '@stryke/path': ^0.26.6
-  '@stryke/string-format': ^0.13.7
+  '@stryke/string-format': ^0.14.2
   '@stryke/type-checks': ^0.5.25
   '@stryke/types': ^0.10.39
   '@stryke/unique-id': ^0.3.54

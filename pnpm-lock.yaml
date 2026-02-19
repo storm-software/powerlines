@@ -214,8 +214,8 @@ catalogs:
       specifier: ^0.53.86
       version: 0.53.86
     '@storm-software/eslint':
-      specifier: ^0.169.89
-      version: 0.169.89
+      specifier: ^0.169.90
+      version: 0.169.90
     '@storm-software/git-tools':
       specifier: ^2.124.71
       version: 2.124.71
@@ -229,8 +229,8 @@ catalogs:
       specifier: ^0.6.88
       version: 0.6.88
     '@storm-software/prettier':
-      specifier: ^0.57.80
-      version: 0.57.80
+      specifier: ^0.58.4
+      version: 0.58.4
     '@storm-software/testing-tools':
       specifier: ^1.119.80
       version: 1.119.80
@@ -280,8 +280,8 @@ catalogs:
       specifier: ^0.26.6
       version: 0.26.6
     '@stryke/string-format':
-      specifier: ^0.13.7
-      version: 0.13.7
+      specifier: ^0.14.2
+      version: 0.14.2
     '@stryke/type-checks':
       specifier: ^0.5.25
       version: 0.5.25
@@ -716,7 +716,7 @@ importers:
         version: 0.45.80(cspell@8.19.4)
       '@storm-software/eslint':
         specifier: 'catalog:'
-        version: 0.169.89(f8e2e475e641582287f43fb1bfb847fa)
+        version: 0.169.90(f8e2e475e641582287f43fb1bfb847fa)
       '@storm-software/git-tools':
         specifier: 'catalog:'
         version: 2.124.71(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.8(@swc/helpers@0.5.18))(@types/node@24.10.13)(verdaccio@6.1.2(typanion@3.14.0))(zod@4.3.6)
@@ -731,7 +731,7 @@ importers:
         version: 0.6.88
       '@storm-software/prettier':
         specifier: 'catalog:'
-        version: 0.57.80(prettier-plugin-astro@0.14.1)(prettier-plugin-organize-imports@4.3.0(prettier@3.8.1)(typescript@5.9.3))(prettier-plugin-pkg@0.18.1(prettier@3.8.1))(prettier-plugin-prisma@5.0.0(prettier@3.8.1))(prettier-plugin-sh@0.15.0(prettier@3.8.1))(prettier-plugin-toml@2.0.6(prettier@3.8.1))(prettier@3.8.1)
+        version: 0.58.4(prettier-plugin-astro@0.14.1)(prettier-plugin-organize-imports@4.3.0(prettier@3.8.1)(typescript@5.9.3))(prettier-plugin-pkg@0.18.1(prettier@3.8.1))(prettier-plugin-prisma@5.0.0(prettier@3.8.1))(prettier-plugin-sh@0.15.0(prettier@3.8.1))(prettier-plugin-toml@2.0.6(prettier@3.8.1))(prettier@3.8.1)
       '@storm-software/testing-tools':
         specifier: 'catalog:'
         version: 1.119.80(@nx/jest@22.5.0(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.8(@swc/helpers@0.5.18))(@types/node-notifier@8.0.5)(@types/node@24.10.13)(esbuild-register@3.6.0(esbuild@0.27.3))(nx@22.5.0(@swc-node/register@1.11.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.8(@swc/helpers@0.5.18)))(ts-node@10.9.2(@swc/core@1.15.8(@swc/helpers@0.5.18))(@types/node@24.10.13)(typescript@5.9.3))(typescript@5.9.3)(verdaccio@6.1.2(typanion@3.14.0)))(jest@30.2.0(@types/node-notifier@8.0.5)(@types/node@24.10.13)(esbuild-register@3.6.0(esbuild@0.27.3))(ts-node@10.9.2(@swc/core@1.15.8(@swc/helpers@0.5.18))(@types/node@24.10.13)(typescript@5.9.3)))
@@ -906,7 +906,7 @@ importers:
         version: 0.26.6
       '@stryke/string-format':
         specifier: 'catalog:'
-        version: 0.13.7
+        version: 0.14.2
       '@stryke/type-checks':
         specifier: 'catalog:'
         version: 0.5.25
@@ -994,7 +994,7 @@ importers:
         version: 0.26.6
       '@stryke/string-format':
         specifier: 'catalog:'
-        version: 0.13.7
+        version: 0.14.2
       '@stryke/type-checks':
         specifier: 'catalog:'
         version: 0.5.25
@@ -1234,7 +1234,7 @@ importers:
         version: 0.26.6
       '@stryke/string-format':
         specifier: 'catalog:'
-        version: 0.13.7
+        version: 0.14.2
       '@stryke/type-checks':
         specifier: 'catalog:'
         version: 0.5.25
@@ -1385,7 +1385,7 @@ importers:
         version: 0.9.43
       '@stryke/string-format':
         specifier: 'catalog:'
-        version: 0.13.7
+        version: 0.14.2
       '@stryke/type-checks':
         specifier: 'catalog:'
         version: 0.5.25
@@ -1518,7 +1518,7 @@ importers:
         version: 0.26.6
       '@stryke/string-format':
         specifier: 'catalog:'
-        version: 0.13.7
+        version: 0.14.2
       '@stryke/type-checks':
         specifier: 'catalog:'
         version: 0.5.25
@@ -1768,7 +1768,7 @@ importers:
         version: 1.189.5(magicast@0.5.2)
       '@stryke/string-format':
         specifier: 'catalog:'
-        version: 0.13.7
+        version: 0.14.2
       defu:
         specifier: 'catalog:'
         version: 6.1.4
@@ -1886,7 +1886,7 @@ importers:
         version: 0.26.6
       '@stryke/string-format':
         specifier: 'catalog:'
-        version: 0.13.7
+        version: 0.14.2
       '@stryke/type-checks':
         specifier: 'catalog:'
         version: 0.5.25
@@ -1996,7 +1996,7 @@ importers:
         version: 0.26.6
       '@stryke/string-format':
         specifier: 'catalog:'
-        version: 0.13.7
+        version: 0.14.2
       '@stryke/type-checks':
         specifier: 'catalog:'
         version: 0.5.25
@@ -2775,7 +2775,7 @@ importers:
         version: 0.26.6
       '@stryke/string-format':
         specifier: 'catalog:'
-        version: 0.13.7
+        version: 0.14.2
       '@stryke/type-checks':
         specifier: 'catalog:'
         version: 0.5.25
@@ -2981,7 +2981,7 @@ importers:
         version: 0.26.6
       '@stryke/string-format':
         specifier: 'catalog:'
-        version: 0.13.7
+        version: 0.14.2
       '@stryke/type-checks':
         specifier: 'catalog:'
         version: 0.5.25
@@ -8967,8 +8967,8 @@ packages:
     engines: {node: '>=22.4.0', pnpm: '>=10.3.0'}
     hasBin: true
 
-  '@storm-software/eslint@0.169.89':
-    resolution: {integrity: sha512-3urYkgS8NxGNxM6vmkz9W4l1mwta8Ad7xa4BY81hWzFvTFG4L9GMBKq+tS0GoWIoQkxNb1arTe4VB+tuZnEd3g==}
+  '@storm-software/eslint@0.169.90':
+    resolution: {integrity: sha512-nRCI+Jr6CEus3dziAbzVy3U2xdo0n/2izoRPvphRaL7Rba53cQp1CQ9+e6OmscXsdsB27cc+tax3XfeCiMmf3g==}
     engines: {node: '>=22.4.0', pnpm: '>=10.3.0'}
     peerDependencies:
       '@eslint-react/eslint-plugin': ^1.19.0
@@ -9015,26 +9015,6 @@ packages:
   '@storm-software/pnpm-tools@0.6.88':
     resolution: {integrity: sha512-nEYboVFUg945uFqiPo+dgkJreO0TH9hpTZsz4VhQnq73pBWNs6GOz8XEgRFvS1xndsNqMmKP0NfPnHSI9sWijA==}
     hasBin: true
-
-  '@storm-software/prettier@0.57.80':
-    resolution: {integrity: sha512-2/LTUkeT9OfPuJYkTs55QO1IcnppZqLR4tI5TVI9f5MNcb0+8yLoViM5HWoubsF1p2xt8lABR5ktJYy1S/jKOQ==}
-    peerDependencies:
-      prettier: ^3.7.4
-      prettier-plugin-astro: ^0.14.1
-      prettier-plugin-organize-imports: ^4.0.0
-      prettier-plugin-pkg: ^0.18.1
-      prettier-plugin-prisma: ^5.0.0
-      prettier-plugin-sh: ^0.15.0
-      prettier-plugin-solidity: 1.3.1
-      prettier-plugin-tailwindcss: 0.6.5
-      prettier-plugin-toml: ^2.0.4
-    peerDependenciesMeta:
-      prettier-plugin-astro:
-        optional: true
-      prettier-plugin-solidity:
-        optional: true
-      prettier-plugin-tailwindcss:
-        optional: true
 
   '@storm-software/prettier@0.58.4':
     resolution: {integrity: sha512-Bx8MxdF9DLmz30kktyFm7XXprxTQJNUUYuhjWIWrjvUAiZZcZzHb7iHCN4OTHsMyb71tpGbuESuPJT4GdDPOVQ==}
@@ -9170,9 +9150,6 @@ packages:
 
   '@stryke/path@0.26.6':
     resolution: {integrity: sha512-E8FCqIDQmOEfm/npu0CzjHQD8pgKvSthQ+K62L3hWB7JSLDUx7xbqp8/yhSZVGcoWcTm36hZBO6/p56xUdQygg==}
-
-  '@stryke/string-format@0.13.7':
-    resolution: {integrity: sha512-MFWWn8+6Wv1IcvUcxheIG+Go2vhzopexbfCWH4uWjRASB4iuRtml6XhgTBal32knwcDaqkmc9EtuCdSbJ+wPRg==}
 
   '@stryke/string-format@0.14.2':
     resolution: {integrity: sha512-PhP05GVNJ8ujwvPJf/RZS+kdbcjBgYNJ7I/Dlqr+EzSkovEg4A2wixsAQJ7fsJj2irBj1MMpUZvHkwo/BEft1g==}
@@ -28761,7 +28738,7 @@ snapshots:
       - typescript
       - verdaccio
 
-  '@storm-software/eslint@0.169.89(f8e2e475e641582287f43fb1bfb847fa)':
+  '@storm-software/eslint@0.169.90(f8e2e475e641582287f43fb1bfb847fa)':
     dependencies:
       '@antfu/install-pkg': 1.1.0
       '@clack/prompts': 0.10.1
@@ -28920,20 +28897,6 @@ snapshots:
       yaml: 2.8.2
     transitivePeerDependencies:
       - magicast
-
-  '@storm-software/prettier@0.57.80(prettier-plugin-astro@0.14.1)(prettier-plugin-organize-imports@4.3.0(prettier@3.8.1)(typescript@5.9.3))(prettier-plugin-pkg@0.18.1(prettier@3.8.1))(prettier-plugin-prisma@5.0.0(prettier@3.8.1))(prettier-plugin-sh@0.15.0(prettier@3.8.1))(prettier-plugin-toml@2.0.6(prettier@3.8.1))(prettier@3.8.1)':
-    dependencies:
-      prettier: 3.8.1
-      prettier-plugin-jsdoc: 1.8.0(prettier@3.8.1)
-      prettier-plugin-organize-imports: 4.3.0(prettier@3.8.1)(typescript@5.9.3)
-      prettier-plugin-pkg: 0.18.1(prettier@3.8.1)
-      prettier-plugin-prisma: 5.0.0(prettier@3.8.1)
-      prettier-plugin-sh: 0.15.0(prettier@3.8.1)
-      prettier-plugin-toml: 2.0.6(prettier@3.8.1)
-    optionalDependencies:
-      prettier-plugin-astro: 0.14.1
-    transitivePeerDependencies:
-      - supports-color
 
   '@storm-software/prettier@0.58.4(prettier-plugin-astro@0.14.1)(prettier-plugin-organize-imports@4.3.0(prettier@3.8.1)(typescript@5.9.3))(prettier-plugin-pkg@0.18.1(prettier@3.8.1))(prettier-plugin-prisma@5.0.0(prettier@3.8.1))(prettier-plugin-sh@0.15.0(prettier@3.8.1))(prettier-plugin-toml@2.0.6(prettier@3.8.1))(prettier@3.8.1)':
     dependencies:
@@ -29383,8 +29346,6 @@ snapshots:
       superjson: 2.2.2
 
   '@stryke/path@0.26.6': {}
-
-  '@stryke/string-format@0.13.7': {}
 
   '@stryke/string-format@0.14.2': {}
 
