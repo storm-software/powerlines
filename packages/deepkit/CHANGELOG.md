@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.6.63](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.63) (02/19/2026)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue with vendor package typing issues ([b5e464e1d](https://github.com/storm-software/powerlines/commit/b5e464e1d))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.38.50**
+
 ## [0.6.62](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.62) (02/16/2026)
 
 ### Updated Dependencies
