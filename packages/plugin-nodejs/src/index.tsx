@@ -34,7 +34,7 @@ export const plugin = <
   TContext extends NodeJsPluginContext = NodeJsPluginContext
 >(
   options: NodeJsPluginOptions = {}
-) => {
+): Plugin<TContext>[] => {
   return [
     babel(options.babel),
     env(options.env),

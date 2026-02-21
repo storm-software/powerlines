@@ -138,7 +138,7 @@ export type EnvPluginResolvedConfig = BabelPluginResolvedConfig &
          * @remarks
          * This value is the result of reflecting the {@link EnvPluginOptions.inject} option.
          */
-        inject: EnvPluginOptions["inject"];
+        inject: boolean;
 
         /**
          * Should the plugin validate the loaded environment variables against the provided type definitions?
@@ -146,7 +146,7 @@ export type EnvPluginResolvedConfig = BabelPluginResolvedConfig &
          * @remarks
          * This value is the result of reflecting the {@link EnvPluginOptions.validate} option.
          */
-        validate: EnvPluginOptions["validate"];
+        validate: boolean;
 
         /**
          * The prefix used for environment variables

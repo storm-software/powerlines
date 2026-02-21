@@ -164,9 +164,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
 
         this.env = defu(
           {
-            parsed: await loadEnv(this, this.config.env),
-            validate: !!this.config.env.validate,
-            inject: !!this.config.env.inject
+            parsed: await loadEnv(this, this.config.env)
           },
           this.env ?? {},
           {

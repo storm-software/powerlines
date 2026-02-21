@@ -38,7 +38,8 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
     function extractEnv(
       node: t.Identifier,
       pass: BabelPluginPass,
-      isInjectable = false
+      isInjectable = false,
+      isUsingBuiltin = false
     ) {
       const envTypesAliasProperties = context.env.types.env
         ?.getProperties()
@@ -149,6 +150,14 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
               "\n"
             )} \n\nPlease check your \`env\` configuration option. If you are using a custom dotenv type definition, please make sure that the configuration names match the ones in the code. \n\n`
           );
+        } else if (pass.filename && isUsingBuiltin) {
+          context.warn(
+            `The "${
+              name
+            }" environment variable is used in the source code file ${
+              pass.filename
+            }, but is not defined in the \`env\` type definition. If this is intentional, you can ignore this warning. Otherwise, please check your \`env\` configuration option. If you are using a custom dotenv type definition, please make sure that the configuration names match the ones in the code.`
+          );
         }
       }
 
@@ -179,7 +188,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
               return;
             }
 
-            extractEnv(identifier, pass, false);
+            extractEnv(identifier, pass, false, false);
 
             path.replaceWithSourceString(`env.${identifier.name}`);
             addImport(path, {
@@ -202,7 +211,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
               return;
             }
 
-            extractEnv(identifier, pass, false);
+            extractEnv(identifier, pass, false, false);
 
             path.replaceWithSourceString(`env.${identifier.name}`);
             addImport(path, {
@@ -221,7 +230,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
               return;
             }
 
-            extractEnv(identifier, pass, false);
+            extractEnv(identifier, pass, false, true);
           }
         }
       }
