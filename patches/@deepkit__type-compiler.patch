@@ -5550,7 +5550,7 @@ index 4bdf427c767f2b89fc30bfea8a1ebb97ea9d2fc7..4c993d6cf7db1b6d4633028a8a5560d0
 +  console.log("Deepkit Type: Injected TypeScript transformer at", file);
  }
 diff --git a/package.json b/package.json
-index ada14263460c814d2ee7a056d5b6974607aec13a..4cec39560655c127a284e0390bab88dcd1e34012 100644
+index ada14263460c814d2ee7a056d5b6974607aec13a..aae19cb3fbf5c6caab96e0aec815579299544e07 100644
 --- a/package.json
 +++ b/package.json
 @@ -2,7 +2,6 @@
@@ -5587,7 +5587,7 @@ index ada14263460c814d2ee7a056d5b6974607aec13a..4cec39560655c127a284e0390bab88dc
      "install": "rm -rf node_modules/typescript && node ./deepkit-type-install.js || exit 0"
    },
    "repository": "https://github.com/deepkit/deepkit-framework",
-@@ -41,7 +50,7 @@
+@@ -41,10 +50,10 @@
      "@types/micromatch": "^4.0.2"
    },
    "dependencies": {
@@ -5595,7 +5595,11 @@ index ada14263460c814d2ee7a056d5b6974607aec13a..4cec39560655c127a284e0390bab88dc
 +    "@deepkit/type-spec": "1.0.1",
      "@marcj/ts-clone-node": "^2.0.0",
      "@rollup/pluginutils": "^5.1.0",
-     "@typescript/vfs": "1.5.0",
+-    "@typescript/vfs": "1.5.0",
++    "@typescript/vfs": "^1.6.4",
+     "get-tsconfig": "^4.5.0",
+     "lz-string": "^1.4.4",
+     "micromatch": "^4.0.5",
 @@ -60,9 +69,7 @@
          }
        ]

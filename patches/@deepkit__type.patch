@@ -15869,7 +15869,7 @@ index 1cb00a99841a110d0ad8114707d87fc5d2fef3fb..745e31726f20e5c2ff99722c1ea37072
 -export { TypeNumberBrand } from '@deepkit/type-spec';
 +export { TypeNumberBrand } from "@deepkit/type-spec";
 diff --git a/package.json b/package.json
-index 503db044471d44c4f5195d7e45af07d0273959bd..e2e55d35e280d4f44fe8f56e299494462e25b10a 100644
+index 503db044471d44c4f5195d7e45af07d0273959bd..2df04327efc261ea0fc1b3e267083898bda7afe9 100644
 --- a/package.json
 +++ b/package.json
 @@ -2,7 +2,6 @@
@@ -15880,7 +15880,7 @@ index 503db044471d44c4f5195d7e45af07d0273959bd..e2e55d35e280d4f44fe8f56e29949446
    "main": "./dist/cjs/index.js",
    "module": "./dist/esm/index.js",
    "types": "./dist/cjs/index.d.ts",
-@@ -18,23 +17,20 @@
+@@ -18,26 +17,23 @@
      "access": "public"
    },
    "scripts": {
@@ -15907,7 +15907,11 @@ index 503db044471d44c4f5195d7e45af07d0273959bd..e2e55d35e280d4f44fe8f56e29949446
 +    "@deepkit/type-compiler": "1.0.5",
      "@types/lz-string": "^1.3.34",
      "@types/node": "^22.13.1",
-     "@typescript/vfs": "^1.5.0",
+-    "@typescript/vfs": "^1.5.0",
++    "@typescript/vfs": "^1.6.4",
+     "lz-string": "^1.4.4"
+   },
+   "jest": {
 diff --git a/src/core.ts b/src/core.ts
 index 710b1732866e8f827f4ecb6cf02b9dec54500342..128233d40341be6a44e422a31854a930fe39621d 100644
 --- a/src/core.ts

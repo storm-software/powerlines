@@ -1,18 +1,24 @@
 {
   "name": "@powerlines/deepkit",
   "version": "0.6.66",
-  "type": "module",
+  "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/deepkit"
-  },
+  "keywords": ["deepkit", "powerlines", "storm-software"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
     "email": "support@stormsoftware.com"
   },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/deepkit"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
   "author": {
     "name": "Storm Software",
     "email": "contact@stormsoftware.com",
@@ -32,17 +38,7 @@
       "url": "https://stormsoftware.com"
     }
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/storm-software"
-  },
-  "license": "Apache-2.0",
-  "private": false,
-  "bin": {
-    "deepkit-install": "bin/deepkit-install.cjs"
-  },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
+  "type": "module",
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -144,21 +140,13 @@
       }
     }
   },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "bin": {
+    "deepkit-install": "bin/deepkit-install.cjs"
+  },
   "files": ["bin/*", "dist/**/*", "schemas/*"],
-  "keywords": ["deepkit", "powerlines", "storm-software"],
-  "peerDependencies": {
-    "esbuild": "*",
-    "rolldown": "*"
-  },
-  "peerDependenciesMeta": {
-    "esbuild": {
-      "optional": true
-    },
-    "rolldown": {
-      "optional": true
-    }
-  },
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
@@ -181,6 +169,18 @@
     "esbuild": "catalog:",
     "rolldown": "catalog:",
     "tsup": "catalog:"
+  },
+  "peerDependencies": {
+    "esbuild": "*",
+    "rolldown": "*"
+  },
+  "peerDependenciesMeta": {
+    "esbuild": {
+      "optional": true
+    },
+    "rolldown": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "access": "public"

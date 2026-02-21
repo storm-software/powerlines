@@ -65,7 +65,7 @@ export default [
       format: "es",
       preserveModules: true,
       entryFileNames: "[name].js",
-      sourceMap: true
+      sourcemap: true
     },
     plugins: [
       typescriptPlugin({
@@ -94,7 +94,7 @@ export default [
       format: "cjs",
       preserveModules: true,
       entryFileNames: "[name].cjs",
-      sourceMap: true
+      sourcemap: true
     },
     plugins: [
       typescriptPlugin({

@@ -23,7 +23,6 @@ const config = defineTsupConfig([
     name: "deepkit-scripts",
     entry: ["scripts/deepkit-install.ts"],
     outDir: "scripts",
-    target: "node20",
     format: ["cjs"],
     dts: false,
     clean: false,
