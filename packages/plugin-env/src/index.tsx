@@ -30,6 +30,7 @@ import { ENV_PREFIXES } from "@stryke/env/types";
 import { existsSync } from "@stryke/fs/exists";
 import { joinPaths } from "@stryke/path/join";
 import { constantCase } from "@stryke/string-format/constant-case";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import {
   TypeDefinition,
   TypeDefinitionParameter
@@ -92,10 +93,22 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           }
         };
 
-        if (config.env.types) {
+        if (
+          isSetString(config.env.types) ||
+          (config.env.types && isSetString(config.env.types.file))
+        ) {
           config.env.types = parseTypeDefinition(
             config.env.types
           ) as TypeDefinition;
+
+          const file = await this.fs.resolve(
+            isSetString(config.env.types)
+              ? config.env.types
+              : config.env.types.file
+          );
+          if (file) {
+            config.env.types.file = file;
+          }
         } else {
           this.warn(
             "The `env.types` configuration parameter was not provided. Please ensure this is expected."
@@ -112,10 +125,22 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           }
         }
 
-        if (config.env.secrets) {
+        if (
+          isSetString(config.env.secrets) ||
+          (config.env.secrets && isSetString(config.env.secrets.file))
+        ) {
           config.env.secrets = parseTypeDefinition(
             config.env.secrets
           ) as TypeDefinition;
+
+          const file = await this.fs.resolve(
+            isSetString(config.env.secrets)
+              ? config.env.secrets
+              : config.env.secrets.file
+          );
+          if (file) {
+            config.env.secrets.file = file;
+          }
         } else {
           const secretsDefaultTypeDefinition =
             await getSecretsDefaultTypeDefinition(this);
