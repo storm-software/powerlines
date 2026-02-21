@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.203](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.203) (02/21/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Show warning when accessing `env` with missing property ([ca590da9f](https://github.com/storm-software/powerlines/commit/ca590da9f))
+
+### Updated Dependencies
+
+- Updated **plugin-env** to **v0.16.2**
+
 ## [0.1.202](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.202) (02/21/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.2](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.2) (02/21/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Show warning when accessing `env` with missing property ([ca590da9f](https://github.com/storm-software/powerlines/commit/ca590da9f))
+
 ## [0.16.1](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.1) (02/21/2026)
 
 ### Bug Fixes
