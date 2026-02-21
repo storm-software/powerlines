@@ -115,7 +115,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
 
             return stringifyDefaultValue(envProperty, value);
           }
-        } else {
+        } else if (context.config.env.validate) {
           throw new Error(
             `The "${name}" environment variable is not defined in the \`env\` type definition, but is used in the source code file ${
               pass.filename ? pass.filename : "unknown"

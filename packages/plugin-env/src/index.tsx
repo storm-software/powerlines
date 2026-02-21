@@ -82,6 +82,8 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         const config = {
           env: defu(options, {
             types: {} as TypeDefinitionParameter,
+            validate: false,
+            inject: false,
             prefix: []
           }),
           transform: {
@@ -157,7 +159,9 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
 
         this.env = defu(
           {
-            parsed: await loadEnv(this, this.config.env)
+            parsed: await loadEnv(this, this.config.env),
+            validate: !!this.config.env.validate,
+            inject: !!this.config.env.inject
           },
           this.env ?? {},
           {

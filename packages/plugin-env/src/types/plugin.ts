@@ -68,6 +68,13 @@ export type EnvPluginOptions = Omit<DotenvConfiguration, "types"> & {
   inject?: boolean;
 
   /**
+   * Should the plugin validate the loaded environment variables against the provided type definitions?
+   *
+   * @defaultValue false
+   */
+  validate?: boolean;
+
+  /**
    * The default configuration to use when loading environment variables.
    *
    * @remarks
@@ -132,6 +139,14 @@ export type EnvPluginResolvedConfig = BabelPluginResolvedConfig &
          * This value is the result of reflecting the {@link EnvPluginOptions.inject} option.
          */
         inject: EnvPluginOptions["inject"];
+
+        /**
+         * Should the plugin validate the loaded environment variables against the provided type definitions?
+         *
+         * @remarks
+         * This value is the result of reflecting the {@link EnvPluginOptions.validate} option.
+         */
+        validate: EnvPluginOptions["validate"];
 
         /**
          * The prefix used for environment variables
