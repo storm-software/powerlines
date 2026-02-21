@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.4](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.4) (02/21/2026)
+
+### Miscellaneous
+
+- **monorepo:** Upgrade NodeJs to v25.5.0 ([84e1b9f48](https://github.com/storm-software/powerlines/commit/84e1b9f48))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.166**
+- Updated **plugin-automd** to **v0.1.287**
+- Updated **plugin-plugin** to **v0.12.238**
+- Updated **plugin-alloy** to **v0.23.17**
+- Updated **plugin-babel** to **v0.12.296**
+- Updated **powerlines** to **v0.38.54**
+- Updated **deepkit** to **v0.6.67**
+
 ## [0.16.3](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.3) (02/21/2026)
 
 ### Bug Fixes

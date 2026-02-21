@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-automd",
-  "version": "0.1.286",
+  "version": "0.1.287",
   "type": "module",
   "description": "A Powerlines plugin to maintain a project's markdown files using AutoMD generators.",
   "repository": {

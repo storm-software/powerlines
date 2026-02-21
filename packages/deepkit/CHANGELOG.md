@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.6.67](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.67) (02/21/2026)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue with `@typescript/vfs` dependency in NodeJs v25 ([3a3e74c27](https://github.com/storm-software/powerlines/commit/3a3e74c27))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.38.54**
+
 ## [0.6.66](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.66) (02/19/2026)
 
 ### Updated Dependencies
