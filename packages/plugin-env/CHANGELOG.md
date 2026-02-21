@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.1](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.1) (02/21/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Ensure type definition file paths are resolved correctly ([4177f6288](https://github.com/storm-software/powerlines/commit/4177f6288))
+
 ## [0.16.0](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.0) (02/21/2026)
 
 ### Features
