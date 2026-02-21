@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.0](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.0) (02/21/2026)
+
+### Features
+
+- **plugin-env:** Added the `validate` option to enable validations on type definitions ([e48d5cb52](https://github.com/storm-software/powerlines/commit/e48d5cb52))
+
 ## [0.15.205](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.15.205) (02/19/2026)
 
 ### Updated Dependencies
