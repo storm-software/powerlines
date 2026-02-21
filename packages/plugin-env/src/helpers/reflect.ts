@@ -204,6 +204,17 @@ export function createSecretsReflection(
   return result;
 }
 
+/**
+ * Reflects the environment configuration type definition from the provided file and name, and merges it with the default environment configuration reflection and the currently used environment configuration reflection.
+ *
+ * @remarks
+ * The resulting reflection will contain the structure of the expected environment variables as defined by the type definitions provided in the plugin configuration, as well as any additional properties that are currently used in the source code and defined in the default environment configuration reflection.
+ *
+ * @param context - The plugin context
+ * @param file - The file path to reflect the environment configuration type definition from
+ * @param name - The name of the type definition to reflect the environment configuration from, if the file contains multiple type definitions. If not provided, the first type definition found in the file will be used.
+ * @returns A reflection of the environment configuration type definition, merged with the default environment configuration reflection and the currently used environment configuration reflection. The resulting reflection will contain the structure of the expected environment variables as defined by the type definitions provided in the plugin configuration, as well as any additional properties that are currently used in the source code and defined in the default environment configuration reflection.
+ */
 export async function reflectEnv(
   context: EnvPluginContext,
   file?: string,
@@ -221,32 +232,29 @@ export async function reflectEnv(
     config = resolveClassType(configType);
   }
 
-  const defaultConfigType = await reflectType(
-    context,
-    await getEnvDefaultTypeDefinition(context)
-  );
-
-  const reflection = await readEnvTypeReflection(context, "env");
-
-  // const defaultConfig = resolveClassType(defaultConfigType);
-  // if (config) {
-  //   defaultConfig.getProperties().forEach(prop => {
-  //     if (!config!.hasProperty(prop.getName())) {
-  //       config!.addProperty(prop.property);
-  //     }
-  //   });
-  // } else {
-  //   config = defaultConfig;
-  // }
-
   return mergeEnvReflections(
     context,
-    [reflection, config, resolveClassType(defaultConfigType)].filter(
-      Boolean
-    ) as ReflectionClass<any>[]
+    [
+      await readEnvTypeReflection(context, "env"),
+      config,
+      resolveClassType(
+        await reflectType(context, await getEnvDefaultTypeDefinition(context))
+      )
+    ].filter(Boolean) as ReflectionClass<any>[]
   );
 }
 
+/**
+ * Reflects the secrets configuration type definition from the provided file and name, and merges it with the default secrets configuration reflection and the currently used secrets configuration reflection.
+ *
+ * @remarks
+ * The resulting reflection will contain the structure of the expected environment secrets as defined by the type definitions provided in the plugin configuration, as well as any additional properties that are currently used in the source code and defined in the default secrets configuration reflection.
+ *
+ * @param context - The plugin context
+ * @param file - The file path to reflect the secrets configuration type definition from
+ * @param name - The name of the type definition to reflect the secrets configuration from, if the file contains multiple type definitions. If not provided, the first type definition found in the file will be used.
+ * @returns A reflection of the secrets configuration type definition, merged with the default secrets configuration reflection and the currently used secrets configuration reflection. The resulting reflection will contain the structure of the expected environment secrets as defined by the type definitions provided in the plugin configuration, as well as any additional properties that are currently used in the source code and defined in the default secrets configuration reflection.
+ */
 export async function reflectSecrets(
   context: EnvPluginContext,
   file?: string,
@@ -264,28 +272,17 @@ export async function reflectSecrets(
     config = resolveClassType(configType);
   }
 
-  const defaultSecretsType = await reflectType(
-    context,
-    await getSecretsDefaultTypeDefinition(context)
-  );
-
-  const reflection = await readSecretsReflection(context);
-
-  // const defaultConfig = resolveClassType(defaultConfigType);
-  // if (config) {
-  //   defaultConfig.getProperties().forEach(prop => {
-  //     if (!config!.hasProperty(prop.getName())) {
-  //       config!.addProperty(prop.property);
-  //     }
-  //   });
-  // } else {
-  //   config = defaultConfig;
-  // }
-
   return mergeSecretsReflections(
     context,
-    [reflection, config, resolveClassType(defaultSecretsType)].filter(
-      Boolean
-    ) as ReflectionClass<any>[]
+    [
+      await readSecretsReflection(context),
+      config,
+      resolveClassType(
+        await reflectType(
+          context,
+          await getSecretsDefaultTypeDefinition(context)
+        )
+      )
+    ].filter(Boolean) as ReflectionClass<any>[]
   );
 }

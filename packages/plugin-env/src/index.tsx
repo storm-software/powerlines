@@ -28,7 +28,6 @@ import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
 import { ENV_PREFIXES } from "@stryke/env/types";
 import { existsSync } from "@stryke/fs/exists";
-import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join";
 import { constantCase } from "@stryke/string-format/constant-case";
 import {
@@ -104,9 +103,13 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
 
           const envDefaultTypeDefinition =
             await getEnvDefaultTypeDefinition(this);
-          config.env.types = parseTypeDefinition(
-            `${envDefaultTypeDefinition.file}#${envDefaultTypeDefinition.name}`
-          ) as TypeDefinition;
+
+          const file = await this.fs.resolve(envDefaultTypeDefinition.file);
+          if (file) {
+            config.env.types = parseTypeDefinition(
+              `${file}#${envDefaultTypeDefinition.name}`
+            ) as TypeDefinition;
+          }
         }
 
         if (config.env.secrets) {
@@ -116,11 +119,13 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         } else {
           const secretsDefaultTypeDefinition =
             await getSecretsDefaultTypeDefinition(this);
-          config.env.secrets = parseTypeDefinition(
-            `${secretsDefaultTypeDefinition.file}#${
-              secretsDefaultTypeDefinition.name
-            }`
-          ) as TypeDefinition;
+
+          const file = await this.fs.resolve(secretsDefaultTypeDefinition.file);
+          if (file) {
+            config.env.secrets = parseTypeDefinition(
+              `${file}#${secretsDefaultTypeDefinition.name}`
+            ) as TypeDefinition;
+          }
         }
 
         config.env.prefix = toArray(
@@ -210,17 +215,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
 
           this.env.types.env = await reflectEnv(
             this,
-            this.config.env.types?.file
-              ? isParentPath(
-                  this.config.env.types?.file,
-                  this.workspaceConfig.workspaceRoot
-                )
-                ? this.config.env.types?.file
-                : joinPaths(
-                    this.config.projectRoot,
-                    this.config.env.types?.file
-                  )
-              : undefined,
+            this.config.env.types?.file,
             this.config.env.types?.name
           );
           if (!this.env.types.env) {
@@ -233,17 +228,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
 
           this.env.types.secrets = await reflectSecrets(
             this,
-            this.config.env.secrets?.file
-              ? isParentPath(
-                  this.config.env.secrets?.file,
-                  this.workspaceConfig.workspaceRoot
-                )
-                ? this.config.env.secrets?.file
-                : joinPaths(
-                    this.config.projectRoot,
-                    this.config.env.secrets?.file
-                  )
-              : undefined,
+            this.config.env.secrets?.file,
             this.config.env.secrets?.name
           );
           if (!this.env.types.secrets) {
