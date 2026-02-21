@@ -101,11 +101,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             config.env.types
           ) as TypeDefinition;
 
-          const file = await this.fs.resolve(
-            isSetString(config.env.types)
-              ? config.env.types
-              : config.env.types.file
-          );
+          const file = await this.fs.resolve(config.env.types.file);
           if (file) {
             config.env.types.file = file;
           }
@@ -133,11 +129,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             config.env.secrets
           ) as TypeDefinition;
 
-          const file = await this.fs.resolve(
-            isSetString(config.env.secrets)
-              ? config.env.secrets
-              : config.env.secrets.file
-          );
+          const file = await this.fs.resolve(config.env.secrets.file);
           if (file) {
             config.env.secrets.file = file;
           }
