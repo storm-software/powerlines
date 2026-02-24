@@ -109,33 +109,33 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
         name="paths"
         initializer={code`isMacOS
             ? {
-              data: String(env.DATA_DIR)
+              data: env.DATA_DIR
                 ? join(String(env.DATA_DIR), "${titleCase(
                   context.config.name
                 )}")
                 : join(homedir, "Library", "Application Support", "${titleCase(
                   context.config.organization
                 )}", "${titleCase(context.config.name)}"),
-              config: String(env.CONFIG_DIR)
+              config: env.CONFIG_DIR
                 ? join(String(env.CONFIG_DIR), "${titleCase(
                   context.config.name
                 )}")
                 : join(homedir, "Library", "Preferences", "${titleCase(
                   context.config.organization
                 )}", "${titleCase(context.config.name)}"),
-              cache: String(env.CACHE_DIR)
+              cache: env.CACHE_DIR
                 ? join(String(env.CACHE_DIR), "${titleCase(
                   context.config.name
                 )}")
                 : join(homedir, "Library", "Caches", "${titleCase(
                   context.config.organization
                 )}", "${titleCase(context.config.name)}"),
-              log: String(env.LOG_DIR)
+              log: env.LOG_DIR
                 ? join(String(env.LOG_DIR), "${titleCase(context.config.name)}")
                 : join(homedir, "Library", "Logs", "${titleCase(
                   context.config.organization
                 )}", "${titleCase(context.config.name)}"),
-              temp: String(env.TEMP_DIR)
+              temp: env.TEMP_DIR
                 ? join(String(env.TEMP_DIR), "${titleCase(
                   context.config.name
                 )}")
@@ -145,57 +145,57 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
             }
               : isWindows
             ? {
-              data: String(env.DATA_DIR)
+              data: env.DATA_DIR
                 ? join(String(env.DATA_DIR), "${titleCase(context.config.name)}")
                 : join(env.LOCALAPPDATA || join(homedir, "AppData", "Local"), "${titleCase(context.config.organization)}", "${titleCase(
                   context.config.name
                 )}", "Data"),
-              config: String(env.CONFIG_DIR)
+              config: env.CONFIG_DIR
                 ? join(env.CONFIG_DIR!, "${titleCase(context.config.name)}")
                 : join(env.APPDATA || join(homedir, "AppData", "Roaming"), "${titleCase(context.config.organization)}", "${titleCase(
                   context.config.name
                 )}", "Config"),
-              cache: String(env.CACHE_DIR)
+              cache: env.CACHE_DIR
                 ? join(String(env.CACHE_DIR), "${titleCase(context.config.name)}")
                 : join(env.LOCALAPPDATA || join(homedir, "AppData", "Local"), "Cache", "${titleCase(context.config.organization)}", "${titleCase(
                   context.config.name
                 )}"),
-              log: String(env.LOG_DIR)
+              log: env.LOG_DIR
                 ? join(String(env.LOG_DIR), "${titleCase(context.config.name)}")
                 : join(env.LOCALAPPDATA || join(homedir, "AppData", "Local"), "${titleCase(context.config.organization)}", "${titleCase(
                   context.config.name
                 )}", "Log"),
-              temp: String(env.TEMP_DIR)
+              temp: env.TEMP_DIR
                 ? join(String(env.TEMP_DIR), "${titleCase(context.config.name)}")
                 : join(tmpdir, "${titleCase(context.config.organization)}", "${titleCase(context.config.name)}")
             }
               :
             {
-              data: String(env.DATA_DIR)
+              data: env.DATA_DIR
                 ? join(String(env.DATA_DIR), "${kebabCase(context.config.name)}")
                 : join(
                     env.XDG_DATA_HOME || join(homedir, ".local", "share"),
                     "${kebabCase(context.config.organization)}",
                     "${kebabCase(context.config.name)}"
                   ),
-              config: String(env.CONFIG_DIR)
+              config: env.CONFIG_DIR
                 ? join(String(env.CONFIG_DIR), "${kebabCase(context.config.name)}")
                 : join(
                     env.XDG_CONFIG_HOME || join(homedir, ".config"),
                     "${kebabCase(context.config.organization)}",
                     "${kebabCase(context.config.name)}"
                   ),
-              cache: String(env.CACHE_DIR)
+              cache: env.CACHE_DIR
                 ? join(String(env.CACHE_DIR), "${kebabCase(context.config.name)}")
                 : join(env.XDG_CACHE_HOME || join(homedir, ".cache"), "${kebabCase(context.config.organization)}", "${kebabCase(
                   context.config.name
                 )}"),
-              log: String(env.LOG_DIR)
+              log: env.LOG_DIR
                 ? join(String(env.LOG_DIR), "${kebabCase(context.config.name)}")
                 : join(env.XDG_STATE_HOME || join(homedir, ".local", "state"), "${kebabCase(context.config.organization)}", "${kebabCase(
                   context.config.name
                 )}"),
-              temp: String(env.TEMP_DIR)
+              temp: env.TEMP_DIR
                 ? join(String(env.TEMP_DIR), "${kebabCase(context.config.name)}")
                 : (env.DEVENV_RUNTIME || env.XDG_RUNTIME_DIR
                     ? join((env.DEVENV_RUNTIME || env.XDG_RUNTIME_DIR)!, "${kebabCase(context.config.organization)}", "${kebabCase(
