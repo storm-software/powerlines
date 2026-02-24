@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.207](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.207) (02/24/2026)
+
+### Bug Fixes
+
+- **plugin-nodejs:** Resolve issue with `paths` object in `env` built-in module ([7ae7ee7d7](https://github.com/storm-software/powerlines/commit/7ae7ee7d7))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.240**
+- Updated **plugin-alloy** to **v0.23.19**
+- Updated **plugin-babel** to **v0.12.298**
+- Updated **plugin-env** to **v0.16.6**
+- Updated **powerlines** to **v0.38.56**
+
 ## [0.1.206](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.206) (02/23/2026)
 
 ### Updated Dependencies
