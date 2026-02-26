@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-swc",
-  "version": "0.5.297",
+  "version": "0.5.298",
   "type": "module",
   "description": "A Powerlines plugin to transform project code with SWC.",
   "repository": {
