@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@storm-software/tsconfig/recommended.json",
+  "display": "Powerlines - Monorepo Configuration",
+  "compilerOptions": {
+    "target": "esnext",
+    "declaration": true,
+    "declarationMap": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "moduleDetection": "force",
+    "verbatimModuleSyntax": true,
+    "strict": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "types": ["node"],
+    "resolveJsonModule": true
+  }
+}
