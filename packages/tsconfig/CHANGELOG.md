@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.3.0) (02/26/2026)
+
+### Features
+
+- **tsconfig:** Added the `monorepo` tsconfig json ([753c9d930](https://github.com/storm-software/powerlines/commit/753c9d930))
+
 ## [0.2.186](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.2.186) (02/01/2026)
 
 ### Miscellaneous

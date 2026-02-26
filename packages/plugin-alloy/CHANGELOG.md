@@ -2,6 +2,15 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.20](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.20) (02/26/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.241**
+- Updated **plugin-babel** to **v0.12.299**
+- Updated **powerlines** to **v0.38.57**
+- Updated **deepkit** to **v0.6.70**
+
 ## [0.23.19](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.19) (02/24/2026)
 
 ### Updated Dependencies

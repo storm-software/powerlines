@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.38.57](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.57) (02/26/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve typescript typing issues with return type ([ebf825130](https://github.com/storm-software/powerlines/commit/ebf825130))
+
 ## [0.38.53](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.38.53) (02/19/2026)
 
 ### Bug Fixes
