@@ -305,5 +305,5 @@ export function extractTsdownConfig(
       }
     } as TsdownResolvedBuildConfig,
     DEFAULT_TSDOWN_CONFIG
-  );
+  ) as TsdownResolvedBuildConfig;
 }
