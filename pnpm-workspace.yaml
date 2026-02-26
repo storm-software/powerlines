@@ -48,7 +48,7 @@ catalog:
   '@jest/test-result': ^30.2.0
   '@jest/types': ^30.2.0
   '@ls-lint/ls-lint': ^2.3.1
-  '@microsoft/api-extractor': ^7.57.4
+  '@microsoft/api-extractor': ^7.57.6
   '@microsoft/tsdoc': ^0.15.1
   '@microsoft/tsdoc-config': ^0.17.1
   '@noble/ciphers': ^2.1.1
@@ -72,11 +72,11 @@ catalog:
   '@storm-software/build-tools': ^0.158.90
   '@storm-software/config': ^1.135.10
   '@storm-software/config-tools': ^1.189.9
-  '@storm-software/cspell': ^0.45.86
+  '@storm-software/cspell': ^0.45.87
   '@storm-software/esbuild': ^0.53.91
   '@storm-software/eslint': ^0.169.95
   '@storm-software/git-tools': ^2.124.76
-  '@storm-software/linting-tools': ^1.132.93
+  '@storm-software/linting-tools': ^1.132.94
   '@storm-software/markdownlint': ^0.30.84
   '@storm-software/pnpm-tools': ^0.6.93
   '@storm-software/prettier': ^0.58.8
@@ -114,7 +114,7 @@ catalog:
   '@types/bun': ^1.3.9
   '@types/diff-match-patch': ^1.0.36
   '@types/jest': ^30.0.0
-  '@types/node': ^25.3.0
+  '@types/node': ^25.3.1
   '@types/pluralize': ^0.0.33
   '@types/react': ^19.2.14
   '@types/react-dom': ^19.2.3
@@ -142,7 +142,7 @@ catalog:
   fp-ts: ^2.16.11
   github-slugger: ^2.0.0
   handlebars: ^4.7.8
-  i18next-cli: ^1.43.0
+  i18next-cli: ^1.46.0
   i18next-resources-for-ts: ^2.0.0
   jest: ^30.2.0
   jest-config: ^30.2.0
@@ -158,7 +158,7 @@ catalog:
   magic-string: ^0.30.21
   markdown-toc: ^1.2.0
   marked: ^17.0.3
-  minimatch: ^10.2.2
+  minimatch: ^10.2.4
   nanotar: ^0.2.0
   nitro: 3.0.1-alpha.1
   nx: 22.5.2
@@ -199,7 +199,7 @@ catalog:
   untyped: ^1.5.2
   verdaccio: 6.1.2
   vite: 8.0.0-beta.2
-  webpack: ^5.105.2
+  webpack: ^5.105.3
   zx: ^8.8.5
 
 configDependencies:
