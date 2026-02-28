@@ -84,7 +84,7 @@ export interface CreateNxPluginOptions {
    * @remarks
    * This will be used in logging and project tagging.
    *
-   * @defaultValue "powerlines/plugin/nx"
+   * @defaultValue "\{framework\}/plugin/nx"
    */
   name?: string;
 
