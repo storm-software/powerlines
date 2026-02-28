@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.218](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.218) (02/27/2026)
+
+### Features
+
+- **powerlines:** Update package structure for better single responsibility ([6c69d6846](https://github.com/storm-software/powerlines/commit/6c69d6846))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.39.0**
+
 ## [0.11.217](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.217) (02/26/2026)
 
 ### Updated Dependencies

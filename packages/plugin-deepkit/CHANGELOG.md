@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.170](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.170) (02/27/2026)
+
+### Features
+
+- **powerlines:** Update package structure for better single responsibility ([6c69d6846](https://github.com/storm-software/powerlines/commit/6c69d6846))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.242**
+- Updated **plugin-tsc** to **v0.2.299**
+- Updated **powerlines** to **v0.39.0**
+- Updated **deepkit** to **v0.6.71**
+
 ## [0.11.169](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.169) (02/26/2026)
 
 ### Updated Dependencies

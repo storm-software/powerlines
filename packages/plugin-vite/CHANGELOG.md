@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.293](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.293) (02/27/2026)
+
+### Features
+
+- **powerlines:** Update package structure for better single responsibility ([6c69d6846](https://github.com/storm-software/powerlines/commit/6c69d6846))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.301**
+- Updated **plugin-esbuild** to **v0.13.300**
+- Updated **plugin-rollup** to **v0.7.301**
+- Updated **core** to **v0.0.2**
+
 ## [0.14.292](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.292) (02/26/2026)
 
 ### Updated Dependencies

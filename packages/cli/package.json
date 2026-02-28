@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/cli",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "description": "The \"framework framework\" that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
   "repository": {
@@ -40,15 +40,8 @@
   "private": true,
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "files": [
-    "dist/**/*"
-  ],
-  "keywords": [
-    "cli",
-    "powerlines",
-    "storm-software",
-    "shell-shock"
-  ],
+  "files": ["dist/**/*"],
+  "keywords": ["cli", "powerlines", "storm-software", "shell-shock"],
   "dependencies": {
     "@shell-shock/core": "catalog:",
     "@shell-shock/preset-cli": "catalog:"

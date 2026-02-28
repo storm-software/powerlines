@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.352](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.352) (02/27/2026)
+
+### Features
+
+- **powerlines:** Update package structure for better single responsibility ([6c69d6846](https://github.com/storm-software/powerlines/commit/6c69d6846))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.242**
+- Updated **plugin-env** to **v0.16.8**
+- Updated **powerlines** to **v0.39.0**
+
 ## [0.12.351](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.351) (02/26/2026)
 
 ### Updated Dependencies
