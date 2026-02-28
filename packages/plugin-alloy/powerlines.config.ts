@@ -18,11 +18,11 @@
 
 import rollupPlugin from "@alloy-js/rollup-plugin";
 import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines";
+import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
   skipCache: true,
-  entry: [
+  input: [
     "src/index.tsx",
     "src/render.tsx",
     "src/core/**/*.{ts,tsx}",
@@ -32,18 +32,20 @@ export default defineConfig({
     "src/typescript/**/*.{ts,tsx}"
   ],
   plugins: [plugin()],
-  build: {
-    inputOptions: {
-      transform: {
-        jsx: "preserve"
-      }
-    },
-    plugins: [rollupPlugin()],
+  resolve: {
     external: [
       "@alloy-js/core",
       "@alloy-js/typescript",
       "@alloy-js/json",
       "@alloy-js/markdown"
     ]
+  },
+  tsdown: {
+    inputOptions: {
+      transform: {
+        jsx: "preserve"
+      }
+    },
+    plugins: [rollupPlugin()]
   }
 });

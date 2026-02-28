@@ -20,8 +20,7 @@ import { execute, executePackage } from "@stryke/cli/execute";
 import { existsSync } from "@stryke/fs/exists";
 import { isPackageListed } from "@stryke/fs/package-fns";
 import { joinPaths } from "@stryke/path/join";
-import { replacePath } from "@stryke/path/replace";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import {
   BiomePluginContext,
   BiomePluginOptions,
@@ -29,6 +28,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    biome?: BiomePluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to assist in linting a project with Biome.
@@ -49,28 +54,28 @@ export function plugin(
           existsSync(
             joinPaths(
               this.workspaceConfig.workspaceRoot,
-              this.config.projectRoot,
+              this.config.root,
               "biome.json"
             )
           )
         ) {
           configFile = joinPaths(
             this.workspaceConfig.workspaceRoot,
-            this.config.projectRoot,
+            this.config.root,
             "biome.json"
           );
         } else if (
           existsSync(
             joinPaths(
               this.workspaceConfig.workspaceRoot,
-              this.config.projectRoot,
+              this.config.root,
               "biome.jsonc"
             )
           )
         ) {
           configFile = joinPaths(
             this.workspaceConfig.workspaceRoot,
-            this.config.projectRoot,
+            this.config.root,
             "biome.jsonc"
           );
         } else if (
@@ -99,18 +104,16 @@ export function plugin(
       }
 
       return {
-        lint: {
-          biome: {
-            configFile,
-            maxDiagnostics: 20,
-            diagnosticLevel: "info",
-            fix: true,
-            logKind: "pretty",
-            format: "stylish",
-            vcsEnabled: true,
-            vcsDefaultBranch: this.workspaceConfig.branch || "main",
-            ...options
-          }
+        biome: {
+          configFile,
+          maxDiagnostics: 20,
+          diagnosticLevel: "info",
+          fix: true,
+          logKind: "pretty",
+          format: "stylish",
+          vcsEnabled: true,
+          vcsDefaultBranch: this.workspaceConfig.branch || "main",
+          ...options
         }
       } as BiomePluginUserConfig;
     },
@@ -119,8 +122,8 @@ export function plugin(
 
       const args: string[] = [];
 
-      if (this.config.lint.biome.params) {
-        args.push(...this.config.lint.biome.params.split(" ").filter(Boolean));
+      if (this.config.biome.params) {
+        args.push(...this.config.biome.params.split(" ").filter(Boolean));
       }
 
       if (!args.includes("--log-level")) {
@@ -143,136 +146,127 @@ export function plugin(
         args.push("--verbose");
       }
 
-      if (this.config.lint.biome.fix !== false && !args.includes("--fix")) {
+      if (this.config.biome.fix !== false && !args.includes("--fix")) {
         args.push("--fix");
-        if (
-          this.config.lint.biome.fix === "unsafe" &&
-          !args.includes("--unsafe")
-        ) {
+        if (this.config.biome.fix === "unsafe" && !args.includes("--unsafe")) {
           args.push("--unsafe");
         }
       }
 
-      if (
-        this.config.lint.biome.configFile &&
-        !args.includes("--config-path")
-      ) {
-        args.push("--config-path", this.config.lint.biome.configFile);
+      if (this.config.biome.configFile && !args.includes("--config-path")) {
+        args.push("--config-path", this.config.biome.configFile);
       }
 
-      if (this.config.lint.biome.changed && !args.includes("--changed")) {
+      if (this.config.biome.changed && !args.includes("--changed")) {
         args.push("--changed");
       }
 
-      if (this.config.lint.biome.staged && !args.includes("--staged")) {
+      if (this.config.biome.staged && !args.includes("--staged")) {
         args.push("--staged");
       }
 
-      if (this.config.lint.biome.ignorePatterns && !args.includes("--ignore")) {
+      if (this.config.biome.ignorePatterns && !args.includes("--ignore")) {
         args.push(
           "--ignore",
-          Array.isArray(this.config.lint.biome.ignorePatterns)
-            ? this.config.lint.biome.ignorePatterns.join(",")
-            : this.config.lint.biome.ignorePatterns
+          Array.isArray(this.config.biome.ignorePatterns)
+            ? this.config.biome.ignorePatterns.join(",")
+            : this.config.biome.ignorePatterns
         );
       }
 
-      if (this.config.lint.biome.suppress && !args.includes("--suppress")) {
+      if (this.config.biome.suppress && !args.includes("--suppress")) {
         args.push("--suppress");
       }
 
-      if (this.config.lint.biome.only && !args.includes("--only")) {
+      if (this.config.biome.only && !args.includes("--only")) {
         args.push(
           "--only",
-          Array.isArray(this.config.lint.biome.only)
-            ? this.config.lint.biome.only.join(",")
-            : this.config.lint.biome.only
+          Array.isArray(this.config.biome.only)
+            ? this.config.biome.only.join(",")
+            : this.config.biome.only
         );
       }
 
-      if (this.config.lint.biome.skip && !args.includes("--skip")) {
+      if (this.config.biome.skip && !args.includes("--skip")) {
         args.push(
           "--skip",
-          Array.isArray(this.config.lint.biome.skip)
-            ? this.config.lint.biome.skip.join(",")
-            : this.config.lint.biome.skip
+          Array.isArray(this.config.biome.skip)
+            ? this.config.biome.skip.join(",")
+            : this.config.biome.skip
         );
       }
 
       if (
-        this.config.lint.biome.stdinFilePath &&
+        this.config.biome.stdinFilePath &&
         !args.includes("--stdin-file-path")
       ) {
-        args.push("--stdin-file-path", this.config.lint.biome.stdinFilePath);
+        args.push("--stdin-file-path", this.config.biome.stdinFilePath);
       }
 
       if (
-        this.config.lint.biome.maxDiagnostics !== undefined &&
+        this.config.biome.maxDiagnostics !== undefined &&
         !args.includes("--max-diagnostics")
       ) {
         args.push(
           "--max-diagnostics",
-          this.config.lint.biome.maxDiagnostics.toString()
+          this.config.biome.maxDiagnostics.toString()
         );
       }
 
       if (
-        this.config.lint.biome.diagnosticLevel &&
+        this.config.biome.diagnosticLevel &&
         !args.includes("--diagnostic-level")
       ) {
-        args.push("--diagnostic-level", this.config.lint.biome.diagnosticLevel);
+        args.push("--diagnostic-level", this.config.biome.diagnosticLevel);
       }
 
       if (
-        this.config.lint.biome.errorOnWarnings &&
+        this.config.biome.errorOnWarnings &&
         !args.includes("--error-on-warnings")
       ) {
         args.push("--error-on-warnings");
       }
 
       if (
-        this.config.lint.biome.jsonParseAllowComments &&
+        this.config.biome.jsonParseAllowComments &&
         !args.includes("--json-parse-allow-comments")
       ) {
         args.push("--json-parse-allow-comments");
       }
 
       if (
-        this.config.lint.biome.jsonParseAllowTrailingCommas &&
+        this.config.biome.jsonParseAllowTrailingCommas &&
         !args.includes("--json-parse-allow-trailing-commas")
       ) {
         args.push("--json-parse-allow-trailing-commas");
       }
 
-      if (this.config.lint.biome.reporter && !args.includes("--reporter")) {
-        args.push("--reporter", this.config.lint.biome.reporter);
+      if (this.config.biome.reporter && !args.includes("--reporter")) {
+        args.push("--reporter", this.config.biome.reporter);
       }
 
-      if (this.config.lint.biome.logKind && !args.includes("--log-kind")) {
-        args.push("--log-kind", this.config.lint.biome.logKind);
+      if (this.config.biome.logKind && !args.includes("--log-kind")) {
+        args.push("--log-kind", this.config.biome.logKind);
       }
 
       if (
-        this.config.lint.biome.filesMaxSize &&
+        this.config.biome.filesMaxSize &&
         !args.includes("--files-max-size")
       ) {
         args.push(
           "--files-max-size",
-          this.config.lint.biome.filesMaxSize.toString()
+          this.config.biome.filesMaxSize.toString()
         );
       }
 
       if (
-        this.config.lint.biome.filesIgnoreUnknown &&
+        this.config.biome.filesIgnoreUnknown &&
         !args.includes("--files-ignore-unknown")
       ) {
         args.push("--files-ignore-unknown");
       }
 
-      if (
-        this.config.lint.biome.vcsEnabled &&
-        !args.includes("--vcs-enabled")
-      ) {
+      if (this.config.biome.vcsEnabled && !args.includes("--vcs-enabled")) {
         args.push("--vcs-enabled");
 
         if (!args.includes("--vcs-root")) {
@@ -280,57 +274,50 @@ export function plugin(
         }
 
         if (
-          this.config.lint.biome.vcsClientKind &&
+          this.config.biome.vcsClientKind &&
           !args.includes("--vcs-client-kind")
         ) {
-          args.push("--vcs-client-kind", this.config.lint.biome.vcsClientKind);
+          args.push("--vcs-client-kind", this.config.biome.vcsClientKind);
         }
 
         if (
-          this.config.lint.biome.vcsUseIgnoreFile &&
+          this.config.biome.vcsUseIgnoreFile &&
           !args.includes("--vcs-use-ignore-file")
         ) {
           args.push("--vcs-use-ignore-file");
         }
 
         if (
-          this.config.lint.biome.vcsDefaultBranch &&
+          this.config.biome.vcsDefaultBranch &&
           !args.includes("--vcs-default-branch")
         ) {
-          args.push(
-            "--vcs-default-branch",
-            this.config.lint.biome.vcsDefaultBranch
-          );
+          args.push("--vcs-default-branch", this.config.biome.vcsDefaultBranch);
         }
       }
 
-      if (!this.config.lint.biome.biomePath) {
+      if (!this.config.biome.biomePath) {
         const isBiomeListed = await isPackageListed(
           "@biomejs/biome",
-          this.config.projectRoot
+          this.config.root
         );
 
-        args.unshift(
-          isBiomeListed
-            ? replacePath(this.config.sourceRoot, this.config.projectRoot)
-            : this.config.sourceRoot
-        );
+        args.unshift(isBiomeListed ? "./" : joinPaths(this.config.root, "src"));
 
         const result = await executePackage(
           "biome",
           args,
           isBiomeListed
-            ? joinPaths(
-                this.workspaceConfig.workspaceRoot,
-                this.config.projectRoot
-              )
-            : this.config.projectRoot
+            ? joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
+            : this.config.root
         );
         if (result.failed) {
           throw new Error(`Biome process exited with code ${result.exitCode}.`);
         }
       } else {
-        args.unshift(this.config.lint.biome.biomePath, this.config.sourceRoot);
+        args.unshift(
+          this.config.biome.biomePath,
+          joinPaths(this.config.root, "src")
+        );
 
         const result = await execute(
           args.join(" "),

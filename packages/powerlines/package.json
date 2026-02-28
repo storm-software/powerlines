@@ -1,18 +1,39 @@
 {
   "name": "powerlines",
   "version": "0.38.57",
-  "type": "module",
+  "private": false,
   "description": "The \"any framework\" framework that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/powerlines"
-  },
+  "keywords": [
+    "powerlines",
+    "storm-software",
+    "unplugin",
+    "typescript",
+    "dotenv",
+    "babel",
+    "esbuild",
+    "unbuild",
+    "nuxt",
+    "vite",
+    "rollup",
+    "rspack",
+    "webpack",
+    "astro"
+  ],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
     "email": "support@stormsoftware.com"
   },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/powerlines"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
   "author": {
     "name": "Storm Software",
     "email": "contact@stormsoftware.com",
@@ -32,589 +53,168 @@
       "url": "https://stormsoftware.com"
     }
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/storm-software"
-  },
-  "license": "Apache-2.0",
-  "private": false,
+  "type": "module",
   "exports": {
-    "./package.json": "./package.json",
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "default": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
-    },
-    "./index": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "default": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
-    },
-    "./types": {
-      "import": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/types/index.js"
-      },
-      "require": {
-        "types": "./dist/types/index.d.cts",
-        "default": "./dist/types/index.cjs"
-      },
-      "default": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/types/index.js"
-      }
-    },
-    "./types/*": {
-      "import": {
-        "types": "./dist/types/*.d.ts",
-        "default": "./dist/types/*.js"
-      },
-      "require": {
-        "types": "./dist/types/*.d.cts",
-        "default": "./dist/types/*.cjs"
-      },
-      "default": {
-        "types": "./dist/types/*.d.ts",
-        "default": "./dist/types/*.js"
-      }
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     },
     "./astro": {
-      "import": {
-        "types": "./dist/astro.d.ts",
-        "default": "./dist/astro.js"
-      },
-      "require": {
-        "types": "./dist/astro.d.cts",
-        "default": "./dist/astro.cjs"
-      },
-      "default": {
-        "types": "./dist/astro.d.ts",
-        "default": "./dist/astro.js"
-      }
+      "require": "./dist/astro.cjs",
+      "import": "./dist/astro.mjs"
+    },
+    "./config": {
+      "require": "./dist/config.cjs",
+      "import": "./dist/config.mjs"
+    },
+    "./context": {
+      "require": "./dist/context/index.cjs",
+      "import": "./dist/context/index.mjs"
     },
     "./esbuild": {
-      "import": {
-        "types": "./dist/esbuild.d.ts",
-        "default": "./dist/esbuild.js"
-      },
-      "require": {
-        "types": "./dist/esbuild.d.cts",
-        "default": "./dist/esbuild.cjs"
-      },
-      "default": {
-        "types": "./dist/esbuild.d.ts",
-        "default": "./dist/esbuild.js"
-      }
+      "require": "./dist/esbuild.cjs",
+      "import": "./dist/esbuild.mjs"
     },
-    "./nuxt": {
-      "import": {
-        "types": "./dist/nuxt.d.ts",
-        "default": "./dist/nuxt.js"
-      },
-      "require": {
-        "types": "./dist/nuxt.d.cts",
-        "default": "./dist/nuxt.cjs"
-      },
-      "default": {
-        "types": "./dist/nuxt.d.ts",
-        "default": "./dist/nuxt.js"
-      }
+    "./farm": {
+      "require": "./dist/farm.cjs",
+      "import": "./dist/farm.mjs"
     },
     "./next": {
-      "import": {
-        "types": "./dist/next.d.ts",
-        "default": "./dist/next.js"
-      },
-      "require": {
-        "types": "./dist/next.d.cts",
-        "default": "./dist/next.cjs"
-      },
-      "default": {
-        "types": "./dist/next.d.ts",
-        "default": "./dist/next.js"
-      }
+      "require": "./dist/next.cjs",
+      "import": "./dist/next.mjs"
     },
-    "./rollup": {
-      "import": {
-        "types": "./dist/rollup.d.ts",
-        "default": "./dist/rollup.js"
-      },
-      "require": {
-        "types": "./dist/rollup.d.cts",
-        "default": "./dist/rollup.cjs"
-      },
-      "default": {
-        "types": "./dist/rollup.d.ts",
-        "default": "./dist/rollup.js"
-      }
-    },
-    "./rolldown": {
-      "import": {
-        "types": "./dist/rolldown.d.ts",
-        "default": "./dist/rolldown.js"
-      },
-      "require": {
-        "types": "./dist/rolldown.d.cts",
-        "default": "./dist/rolldown.cjs"
-      },
-      "default": {
-        "types": "./dist/rolldown.d.ts",
-        "default": "./dist/rolldown.js"
-      }
-    },
-    "./rspack": {
-      "import": {
-        "types": "./dist/rspack.d.ts",
-        "default": "./dist/rspack.js"
-      },
-      "require": {
-        "types": "./dist/rspack.d.cts",
-        "default": "./dist/rspack.cjs"
-      },
-      "default": {
-        "types": "./dist/rspack.d.ts",
-        "default": "./dist/rspack.js"
-      }
-    },
-    "./tsdown": {
-      "import": {
-        "types": "./dist/tsdown.d.ts",
-        "default": "./dist/tsdown.js"
-      },
-      "require": {
-        "types": "./dist/tsdown.d.cts",
-        "default": "./dist/tsdown.cjs"
-      },
-      "default": {
-        "types": "./dist/tsdown.d.ts",
-        "default": "./dist/tsdown.js"
-      }
-    },
-    "./tsup": {
-      "import": {
-        "types": "./dist/tsup.d.ts",
-        "default": "./dist/tsup.js"
-      },
-      "require": {
-        "types": "./dist/tsup.d.cts",
-        "default": "./dist/tsup.cjs"
-      },
-      "default": {
-        "types": "./dist/tsup.d.ts",
-        "default": "./dist/tsup.js"
-      }
-    },
-    "./unloader": {
-      "import": {
-        "types": "./dist/unloader.d.ts",
-        "default": "./dist/unloader.js"
-      },
-      "require": {
-        "types": "./dist/unloader.d.cts",
-        "default": "./dist/unloader.cjs"
-      },
-      "default": {
-        "types": "./dist/unloader.d.ts",
-        "default": "./dist/unloader.js"
-      }
-    },
-    "./unplugin": {
-      "import": {
-        "types": "./dist/unplugin.d.ts",
-        "default": "./dist/unplugin.js"
-      },
-      "require": {
-        "types": "./dist/unplugin.d.cts",
-        "default": "./dist/unplugin.cjs"
-      },
-      "default": {
-        "types": "./dist/unplugin.d.ts",
-        "default": "./dist/unplugin.js"
-      }
-    },
-    "./vite": {
-      "import": {
-        "types": "./dist/vite.d.ts",
-        "default": "./dist/vite.js"
-      },
-      "require": {
-        "types": "./dist/vite.d.cts",
-        "default": "./dist/vite.cjs"
-      },
-      "default": {
-        "types": "./dist/vite.d.ts",
-        "default": "./dist/vite.js"
-      }
-    },
-    "./webpack": {
-      "import": {
-        "types": "./dist/webpack.d.ts",
-        "default": "./dist/webpack.js"
-      },
-      "require": {
-        "types": "./dist/webpack.d.cts",
-        "default": "./dist/webpack.cjs"
-      },
-      "default": {
-        "types": "./dist/webpack.d.ts",
-        "default": "./dist/webpack.js"
-      }
-    },
-    "./api": {
-      "import": {
-        "types": "./dist/api.d.ts",
-        "default": "./dist/api.js"
-      },
-      "require": {
-        "types": "./dist/api.d.cts",
-        "default": "./dist/api.cjs"
-      },
-      "default": {
-        "types": "./dist/api.d.ts",
-        "default": "./dist/api.js"
-      }
-    },
-    "./lib": {
-      "import": {
-        "types": "./dist/lib/index.d.ts",
-        "default": "./dist/lib/index.js"
-      },
-      "require": {
-        "types": "./dist/lib/index.d.cts",
-        "default": "./dist/lib/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/index.d.ts",
-        "default": "./dist/lib/index.js"
-      }
-    },
-    "./lib/*": {
-      "import": {
-        "types": "./dist/lib/*.d.ts",
-        "default": "./dist/lib/*.js"
-      },
-      "require": {
-        "types": "./dist/lib/*.d.cts",
-        "default": "./dist/lib/*.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/*.d.ts",
-        "default": "./dist/lib/*.js"
-      }
-    },
-    "./lib/constants": {
-      "import": {
-        "types": "./dist/lib/constants/index.d.ts",
-        "default": "./dist/lib/constants/index.js"
-      },
-      "require": {
-        "types": "./dist/lib/constants/index.d.cts",
-        "default": "./dist/lib/constants/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/constants/index.d.ts",
-        "default": "./dist/lib/constants/index.js"
-      }
-    },
-    "./lib/constants/*": {
-      "import": {
-        "types": "./dist/lib/constants/*.d.ts",
-        "default": "./dist/lib/constants/*.js"
-      },
-      "require": {
-        "types": "./dist/lib/constants/*.d.cts",
-        "default": "./dist/lib/constants/*.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/constants/*.d.ts",
-        "default": "./dist/lib/constants/*.js"
-      }
-    },
-    "./lib/contexts": {
-      "import": {
-        "types": "./dist/lib/contexts/index.d.ts",
-        "default": "./dist/lib/contexts/index.js"
-      },
-      "require": {
-        "types": "./dist/lib/contexts/index.d.cts",
-        "default": "./dist/lib/contexts/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/contexts/index.d.ts",
-        "default": "./dist/lib/contexts/index.js"
-      }
-    },
-    "./lib/contexts/*": {
-      "import": {
-        "types": "./dist/lib/contexts/*.d.ts",
-        "default": "./dist/lib/contexts/*.js"
-      },
-      "require": {
-        "types": "./dist/lib/contexts/*.d.cts",
-        "default": "./dist/lib/contexts/*.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/contexts/*.d.ts",
-        "default": "./dist/lib/contexts/*.js"
-      }
-    },
-    "./lib/build": {
-      "import": {
-        "types": "./dist/lib/build/index.d.ts",
-        "default": "./dist/lib/build/index.js"
-      },
-      "require": {
-        "types": "./dist/lib/build/index.d.cts",
-        "default": "./dist/lib/build/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/build/index.d.ts",
-        "default": "./dist/lib/build/index.js"
-      }
-    },
-    "./lib/build/*": {
-      "import": {
-        "types": "./dist/lib/build/*.d.ts",
-        "default": "./dist/lib/build/*.js"
-      },
-      "require": {
-        "types": "./dist/lib/build/*.d.cts",
-        "default": "./dist/lib/build/*.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/build/*.d.ts",
-        "default": "./dist/lib/build/*.js"
-      }
-    },
-    "./lib/fs": {
-      "import": {
-        "types": "./dist/lib/fs/index.d.ts",
-        "default": "./dist/lib/fs/index.js"
-      },
-      "require": {
-        "types": "./dist/lib/fs/index.d.cts",
-        "default": "./dist/lib/fs/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/fs/index.d.ts",
-        "default": "./dist/lib/fs/index.js"
-      }
-    },
-    "./lib/fs/*": {
-      "import": {
-        "types": "./dist/lib/fs/*.d.ts",
-        "default": "./dist/lib/fs/*.js"
-      },
-      "require": {
-        "types": "./dist/lib/fs/*.d.cts",
-        "default": "./dist/lib/fs/*.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/fs/*.d.ts",
-        "default": "./dist/lib/fs/*.js"
-      }
-    },
-    "./lib/fs/storage": {
-      "import": {
-        "types": "./dist/lib/fs/storage/index.d.ts",
-        "default": "./dist/lib/fs/storage/index.js"
-      },
-      "require": {
-        "types": "./dist/lib/fs/storage/index.d.cts",
-        "default": "./dist/lib/fs/storage/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/fs/storage/index.d.ts",
-        "default": "./dist/lib/fs/storage/index.js"
-      }
-    },
-    "./lib/fs/storage/*": {
-      "import": {
-        "types": "./dist/lib/fs/storage/*.d.ts",
-        "default": "./dist/lib/fs/storage/*.js"
-      },
-      "require": {
-        "types": "./dist/lib/fs/storage/*.d.cts",
-        "default": "./dist/lib/fs/storage/*.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/fs/storage/*.d.ts",
-        "default": "./dist/lib/fs/storage/*.js"
-      }
-    },
-    "./lib/typescript": {
-      "import": {
-        "types": "./dist/lib/typescript/index.d.ts",
-        "default": "./dist/lib/typescript/index.js"
-      },
-      "require": {
-        "types": "./dist/lib/typescript/index.d.cts",
-        "default": "./dist/lib/typescript/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/typescript/index.d.ts",
-        "default": "./dist/lib/typescript/index.js"
-      }
-    },
-    "./lib/typescript/*": {
-      "import": {
-        "types": "./dist/lib/typescript/*.d.ts",
-        "default": "./dist/lib/typescript/*.js"
-      },
-      "require": {
-        "types": "./dist/lib/typescript/*.d.cts",
-        "default": "./dist/lib/typescript/*.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/typescript/*.d.ts",
-        "default": "./dist/lib/typescript/*.js"
-      }
-    },
-    "./lib/unplugin": {
-      "import": {
-        "types": "./dist/lib/unplugin/index.d.ts",
-        "default": "./dist/lib/unplugin/index.js"
-      },
-      "require": {
-        "types": "./dist/lib/unplugin/index.d.cts",
-        "default": "./dist/lib/unplugin/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/unplugin/index.d.ts",
-        "default": "./dist/lib/unplugin/index.js"
-      }
-    },
-    "./lib/unplugin/*": {
-      "import": {
-        "types": "./dist/lib/unplugin/*.d.ts",
-        "default": "./dist/lib/unplugin/*.js"
-      },
-      "require": {
-        "types": "./dist/lib/unplugin/*.d.cts",
-        "default": "./dist/lib/unplugin/*.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/unplugin/*.d.ts",
-        "default": "./dist/lib/unplugin/*.js"
-      }
-    },
-    "./lib/utilities": {
-      "import": {
-        "types": "./dist/lib/utilities/index.d.ts",
-        "default": "./dist/lib/utilities/index.js"
-      },
-      "require": {
-        "types": "./dist/lib/utilities/index.d.cts",
-        "default": "./dist/lib/utilities/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/utilities/index.d.ts",
-        "default": "./dist/lib/utilities/index.js"
-      }
-    },
-    "./lib/utilities/*": {
-      "import": {
-        "types": "./dist/lib/utilities/*.d.ts",
-        "default": "./dist/lib/utilities/*.js"
-      },
-      "require": {
-        "types": "./dist/lib/utilities/*.d.cts",
-        "default": "./dist/lib/utilities/*.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/utilities/*.d.ts",
-        "default": "./dist/lib/utilities/*.js"
-      }
+    "./nuxt": {
+      "require": "./dist/nuxt.cjs",
+      "import": "./dist/nuxt.mjs"
     },
     "./plugin-utils": {
-      "import": {
-        "types": "./dist/plugin-utils/index.d.ts",
-        "default": "./dist/plugin-utils/index.js"
-      },
-      "require": {
-        "types": "./dist/plugin-utils/index.d.cts",
-        "default": "./dist/plugin-utils/index.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-utils/index.d.ts",
-        "default": "./dist/plugin-utils/index.js"
-      }
+      "require": "./dist/plugin-utils.cjs",
+      "import": "./dist/plugin-utils.mjs"
     },
-    "./plugin-utils/*": {
-      "import": {
-        "types": "./dist/plugin-utils/*.d.ts",
-        "default": "./dist/plugin-utils/*.js"
-      },
-      "require": {
-        "types": "./dist/plugin-utils/*.d.cts",
-        "default": "./dist/plugin-utils/*.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-utils/*.d.ts",
-        "default": "./dist/plugin-utils/*.js"
-      }
+    "./rolldown": {
+      "require": "./dist/rolldown.cjs",
+      "import": "./dist/rolldown.mjs"
     },
-    "./files/common/*": "./dist/files/common/*",
-    "./files/library/*": "./dist/files/library/*",
-    "./files/application/*": "./dist/files/application/*",
-    "./schemas/*": "./dist/schemas/*"
+    "./rollup": {
+      "require": "./dist/rollup.cjs",
+      "import": "./dist/rollup.mjs"
+    },
+    "./rspack": {
+      "require": "./dist/rspack.cjs",
+      "import": "./dist/rspack.mjs"
+    },
+    "./storage": {
+      "require": "./dist/storage/index.cjs",
+      "import": "./dist/storage/index.mjs"
+    },
+    "./tsdown": {
+      "require": "./dist/tsdown.cjs",
+      "import": "./dist/tsdown.mjs"
+    },
+    "./tsup": {
+      "require": "./dist/tsup.cjs",
+      "import": "./dist/tsup.mjs"
+    },
+    "./typescript": {
+      "require": "./dist/typescript/index.cjs",
+      "import": "./dist/typescript/index.mjs"
+    },
+    "./unloader": {
+      "require": "./dist/unloader.cjs",
+      "import": "./dist/unloader.mjs"
+    },
+    "./unplugin": {
+      "require": "./dist/unplugin.cjs",
+      "import": "./dist/unplugin.mjs"
+    },
+    "./utils": {
+      "require": "./dist/utils.cjs",
+      "import": "./dist/utils.mjs"
+    },
+    "./vite": {
+      "require": "./dist/vite.cjs",
+      "import": "./dist/vite.mjs"
+    },
+    "./webpack": {
+      "require": "./dist/webpack.cjs",
+      "import": "./dist/webpack.mjs"
+    },
+    "./*": "./*"
   },
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "typings": "dist/index.d.ts",
   "files": ["dist/**/*", "files/**/*", "schemas/**/*"],
-  "keywords": [
-    "powerlines",
-    "storm-software",
-    "unplugin",
-    "typescript",
-    "dotenv",
-    "babel",
-    "esbuild",
-    "unbuild",
-    "nuxt",
-    "vite",
-    "rollup",
-    "rspack",
-    "webpack",
-    "astro"
-  ],
+  "dependencies": {
+    "@cacheable/memory": "catalog:",
+    "@donedeal0/superdiff": "catalog:",
+    "@powerlines/plugin-esbuild": "workspace:*",
+    "@powerlines/plugin-rolldown": "workspace:*",
+    "@powerlines/plugin-rollup": "workspace:*",
+    "@powerlines/plugin-rspack": "workspace:*",
+    "@powerlines/plugin-tsdown": "workspace:*",
+    "@powerlines/plugin-tsup": "workspace:*",
+    "@powerlines/plugin-unbuild": "workspace:*",
+    "@powerlines/plugin-vite": "workspace:*",
+    "@powerlines/plugin-webpack": "workspace:*",
+    "@storm-software/config": "catalog:",
+    "@storm-software/config-tools": "catalog:",
+    "@stryke/capnp": "catalog:",
+    "@stryke/convert": "catalog:",
+    "@stryke/env": "catalog:",
+    "@stryke/fs": "catalog:",
+    "@stryke/hash": "catalog:",
+    "@stryke/helpers": "catalog:",
+    "@stryke/http": "catalog:",
+    "@stryke/json": "catalog:",
+    "@stryke/path": "catalog:",
+    "@stryke/string-format": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "@stryke/unique-id": "catalog:",
+    "bundle-require": "catalog:",
+    "compatx": "catalog:",
+    "defu": "catalog:",
+    "flat-cache": "catalog:",
+    "handlebars": "catalog:",
+    "jiti": "catalog:",
+    "oxc-parser": "catalog:",
+    "ts-morph": "catalog:",
+    "undici": "catalog:",
+    "unimport": "catalog:",
+    "unplugin": "catalog:"
+  },
+  "devDependencies": {
+    "@storm-software/testing-tools": "catalog:",
+    "@stryke/types": "catalog:",
+    "@types/bun": "catalog:",
+    "@types/node": "catalog:",
+    "@types/semver": "catalog:",
+    "bun-types-no-globals": "catalog:",
+    "rolldown": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "^5.9.3",
+    "undici-types": "catalog:"
+  },
   "peerDependencies": {
-    "@farmfe/cli": "^1.0.5",
-    "@farmfe/core": "^1.7.11",
-    "@nuxt/kit": "^4.1.1",
-    "@nuxt/schema": "^4.1.1",
-    "@rspack/cli": "^1.5.0",
-    "@rspack/core": "^1.5.0",
-    "astro": "^5.13.5",
-    "esbuild": "^0.27.0",
-    "next": "^15.5.4",
-    "rolldown": "^1.0.0-beta.51",
-    "rollup": "^4.46.4",
-    "tsdown": "^0.17.0-beta.4",
-    "tsup": "8.4.0",
-    "unbuild": "^3.5.0",
-    "unloader": "^0.5.0",
-    "vite": "^8.0.0-beta.2",
-    "webpack": "^5.101.3",
-    "webpack-cli": "^6.0.1"
+    "@farmfe/cli": ">=1.0.5",
+    "@farmfe/core": ">=1.7.11",
+    "@nuxt/kit": ">=4.1.1",
+    "@nuxt/schema": ">=4.1.1",
+    "@rspack/cli": ">=1.5.0",
+    "@rspack/core": ">=1.5.0",
+    "astro": ">=5.13.5",
+    "esbuild": ">=0.27.0",
+    "next": ">=15.5.4",
+    "rolldown": ">=1.0.0-beta.53",
+    "rollup": ">=4.46.4",
+    "tsdown": ">=0.17.0-beta.4",
+    "tsup": ">=8.4.0",
+    "unbuild": ">=3.5.0",
+    "unloader": ">=0.5.0",
+    "vite": ">=8.0.0-beta.2",
+    "webpack": ">=5.101.3",
+    "webpack-cli": ">=6.0.1"
   },
   "peerDependenciesMeta": {
     "@farmfe/cli": {
@@ -668,101 +268,6 @@
     "webpack-cli": {
       "optional": true
     }
-  },
-  "dependencies": {
-    "@alloy-js/babel-plugin": "catalog:",
-    "@alloy-js/babel-plugin-jsx-dom-expressions": "catalog:",
-    "@babel/core": "catalog:",
-    "@babel/generator": "catalog:",
-    "@babel/helper-module-imports": "catalog:",
-    "@babel/helper-module-transforms": "catalog:",
-    "@babel/helper-plugin-utils": "catalog:",
-    "@babel/helper-simple-access": "catalog:",
-    "@babel/parser": "catalog:",
-    "@babel/plugin-proposal-decorators": "catalog:",
-    "@babel/plugin-syntax-class-properties": "catalog:",
-    "@babel/plugin-syntax-import-assertions": "catalog:",
-    "@babel/plugin-syntax-jsx": "catalog:",
-    "@babel/plugin-syntax-typescript": "catalog:",
-    "@babel/plugin-transform-export-namespace-from": "catalog:",
-    "@babel/plugin-transform-react-jsx": "catalog:",
-    "@babel/plugin-transform-typescript": "catalog:",
-    "@babel/preset-typescript": "catalog:",
-    "@babel/template": "catalog:",
-    "@babel/traverse": "catalog:",
-    "@babel/types": "catalog:",
-    "@cacheable/memory": "catalog:",
-    "@donedeal0/superdiff": "catalog:",
-    "@microsoft/api-extractor": "catalog:",
-    "@microsoft/tsdoc-config": "catalog:",
-    "@rollup/plugin-alias": "catalog:",
-    "@rollup/plugin-babel": "catalog:",
-    "@rollup/plugin-inject": "catalog:",
-    "@rollup/plugin-node-resolve": "catalog:",
-    "@rollup/plugin-replace": "catalog:",
-    "@storm-software/build-tools": "catalog:",
-    "@storm-software/config": "catalog:",
-    "@storm-software/config-tools": "catalog:",
-    "@storm-software/esbuild": "catalog:",
-    "@storm-software/tsup": "catalog:",
-    "@storm-software/unbuild": "catalog:",
-    "@stryke/capnp": "catalog:",
-    "@stryke/convert": "catalog:",
-    "@stryke/env": "catalog:",
-    "@stryke/fs": "catalog:",
-    "@stryke/hash": "catalog:",
-    "@stryke/helpers": "catalog:",
-    "@stryke/http": "catalog:",
-    "@stryke/json": "catalog:",
-    "@stryke/path": "catalog:",
-    "@stryke/string-format": "catalog:",
-    "@stryke/type-checks": "catalog:",
-    "@stryke/unique-id": "catalog:",
-    "@typescript-eslint/utils": "catalog:",
-    "babel-dead-code-elimination": "catalog:",
-    "babel-plugin-parameter-decorator": "catalog:",
-    "bundle-require": "catalog:",
-    "c12": "catalog:",
-    "chalk": "catalog:",
-    "compatx": "catalog:",
-    "defu": "catalog:",
-    "diff-match-patch": "catalog:",
-    "esbuild": "catalog:",
-    "flat-cache": "catalog:",
-    "github-slugger": "catalog:",
-    "handlebars": "catalog:",
-    "jest-worker": "catalog:",
-    "jiti": "catalog:",
-    "magic-string": "catalog:",
-    "oxc-parser": "catalog:",
-    "prettier": "catalog:",
-    "rollup-plugin-typescript2": "catalog:",
-    "ts-morph": "catalog:",
-    "undici": "catalog:",
-    "unimport": "catalog:",
-    "unplugin": "catalog:",
-    "vite": "catalog:"
-  },
-  "devDependencies": {
-    "@microsoft/tsdoc": "catalog:",
-    "@storm-software/testing-tools": "catalog:",
-    "@stryke/types": "catalog:",
-    "@types/babel__core": "catalog:",
-    "@types/babel__helper-module-imports": "catalog:",
-    "@types/babel__helper-plugin-utils": "catalog:",
-    "@types/babel__template": "catalog:",
-    "@types/babel__traverse": "catalog:",
-    "@types/bun": "catalog:",
-    "@types/diff-match-patch": "catalog:",
-    "@types/node": "catalog:",
-    "@types/semver": "catalog:",
-    "bun-types-no-globals": "catalog:",
-    "eslint": "catalog:",
-    "minimatch": "catalog:",
-    "tsdown": "catalog:",
-    "tsup": "catalog:",
-    "typescript": "^5.9.3",
-    "undici-types": "catalog:"
   },
   "publishConfig": {
     "access": "public"

@@ -36,7 +36,7 @@ import { joinPaths } from "@stryke/path/join-paths";
 import { isEmptyObject } from "@stryke/type-checks/is-empty-object";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import { existsSync } from "node:fs";
-import { Context, UnresolvedContext } from "powerlines/types/context";
+import { Context, UnresolvedContext } from "powerlines";
 import {
   EnvPluginContext,
   EnvPluginResolvedConfig,

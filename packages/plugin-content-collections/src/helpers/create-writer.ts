@@ -26,7 +26,7 @@ import {
 import { joinPaths } from "@stryke/path/join-paths";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import pluralize from "pluralize";
-import { getBaseFileHeader } from "powerlines/lib/utilities/file-header";
+import { getBaseFileHeader } from "powerlines/utils";
 import { ContentCollectionsPluginContext } from "../types/plugin";
 
 const createConstName = (name: string) => {
@@ -38,9 +38,10 @@ const createArrayConstName = (name: string) => {
 };
 
 /**
+ * Creates a Writer instance for emitting files related to content collections.
  *
  * @param context - The Powerlines build plugin
- * @returns
+ * @returns A Writer instance for emitting files related to content collections
  */
 export const createWriter = (
   context: ContentCollectionsPluginContext

@@ -18,7 +18,7 @@
 
 import { findFileExtensionSafe } from "@stryke/path/find";
 import defu from "defu";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import ts from "typescript";
 import { typeCheck } from "./helpers/type-check";
 import {
@@ -28,6 +28,12 @@ import {
 
 export * from "./helpers";
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    tsc?: TypeScriptCompilerPluginOptions;
+  }
+}
 
 /**
  * TypeScript Compiler plugin for Powerlines.
@@ -47,15 +53,13 @@ export const plugin = <
       this.trace("Merging TypeScript Compiler plugin configuration");
 
       return {
-        transform: {
-          tsc: defu(options ?? {}, {
-            typeCheck: false
-          })
-        }
+        tsc: defu(options ?? {}, {
+          typeCheck: false
+        })
       };
     },
     async lint() {
-      if (this.config.transform.tsc.typeCheck) {
+      if (this.config.tsc.typeCheck) {
         await typeCheck(this);
       }
     },
@@ -68,10 +72,10 @@ export const plugin = <
       }
 
       const result = ts.transpileModule(code, {
-        ...this.config.transform.tsc,
+        ...this.config.tsc,
         compilerOptions: {
           ...this.tsconfig.options,
-          ...this.config.transform.tsc.compilerOptions
+          ...this.config.tsc.compilerOptions
         },
         fileName: id
       });

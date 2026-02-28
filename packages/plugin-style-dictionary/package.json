@@ -1,18 +1,29 @@
 {
   "name": "@powerlines/plugin-style-dictionary",
   "version": "0.3.191",
-  "type": "module",
+  "private": false,
   "description": "A Powerlines plugin to generate project code with Style Dictionary.",
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-style-dictionary"
-  },
+  "keywords": [
+    "style-dictionary",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
     "email": "support@stormsoftware.com"
   },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/plugin-style-dictionary"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
   "author": {
     "name": "Storm Software",
     "email": "contact@stormsoftware.com",
@@ -32,14 +43,7 @@
       "url": "https://stormsoftware.com"
     }
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/storm-software"
-  },
-  "license": "Apache-2.0",
-  "private": false,
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "type": "module",
   "exports": {
     ".": {
       "require": {
@@ -55,7 +59,7 @@
         "default": "./dist/index.mjs"
       }
     },
-    "./package.json": "./package.json",
+    "./*": "./*",
     "./types": {
       "require": {
         "types": "./dist/types/index.d.cts",
@@ -85,15 +89,13 @@
       }
     }
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": [
-    "style-dictionary",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
   "dependencies": {
+    "@powerlines/plugin-esbuild": "workspace:*",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
@@ -108,6 +110,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "types": "./dist/index.d.cts"
+  }
 }

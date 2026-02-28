@@ -19,8 +19,8 @@
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
 import openapiTS, { astToString } from "openapi-typescript";
-import { replacePathTokens } from "powerlines/plugin-utils/paths";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
+import { replacePathTokens } from "powerlines/plugin-utils";
 import {
   OpenAPIPluginContext,
   OpenAPIPluginOptions,
@@ -28,6 +28,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    openapi?: OpenAPIPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to integrate OpenAPI for code generation.
@@ -47,13 +53,10 @@ export const plugin = <
         openapi: defu(options, {
           schema: joinPaths(
             this.workspaceConfig.workspaceRoot,
-            this.config.projectRoot,
+            this.config.root,
             "schema.yaml"
           ),
-          cwd: joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            this.config.projectRoot
-          ),
+          cwd: joinPaths(this.workspaceConfig.workspaceRoot, this.config.root),
           outputPath: joinPaths("{builtinPath}", "api"),
           silent: this.config.logLevel === null
         })

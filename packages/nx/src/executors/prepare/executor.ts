@@ -20,7 +20,7 @@ import { PromiseExecutor } from "@nx/devkit";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
 import defu from "defu";
 import PowerlinesAPI from "powerlines";
-import { PrepareInlineConfig } from "powerlines/types/config";
+import { PrepareInlineConfig } from "powerlines/types";
 import {
   PowerlinesExecutorContext,
   withExecutor

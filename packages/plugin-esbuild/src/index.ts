@@ -16,17 +16,20 @@
 
  ------------------------------------------------------------------- */
 
+import { Plugin } from "@powerlines/core/types";
 import defu from "defu";
 import { build } from "esbuild";
 import {
   DEFAULT_ESBUILD_CONFIG,
-  extractESBuildConfig,
-  resolveESBuildEntry
-} from "powerlines/lib/build/esbuild";
-import { ESBuildUserConfig } from "powerlines/types/config";
-import { Plugin } from "powerlines/types/plugin";
-import { createESBuildPlugin } from "./helpers/unplugin";
-import { ESBuildPluginContext, ESBuildPluginOptions } from "./types/plugin";
+  resolveEntry,
+  resolveOptions
+} from "./helpers/resolve-options";
+import { createEsbuildPlugin } from "./helpers/unplugin";
+import {
+  EsbuildPluginContext,
+  EsbuildPluginOptions,
+  EsbuildPluginUserConfig
+} from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -35,9 +38,9 @@ export * from "./types";
  * A Powerlines plugin to assist in developing other Powerlines plugins.
  */
 export const plugin = <
-  TContext extends ESBuildPluginContext = ESBuildPluginContext
+  TContext extends EsbuildPluginContext = EsbuildPluginContext
 >(
-  options: ESBuildPluginOptions = {}
+  options: EsbuildPluginOptions = {}
 ): Plugin<TContext> => {
   return {
     name: "esbuild",
@@ -51,16 +54,16 @@ export const plugin = <
           ...options,
           variant: "esbuild"
         }
-      } as Partial<ESBuildUserConfig>;
+      } as Partial<EsbuildPluginUserConfig>;
     },
     async build() {
       await build(
         defu(
           {
-            entryPoints: resolveESBuildEntry(this, this.entry),
-            plugins: [createESBuildPlugin(this)]
+            entryPoints: resolveEntry(this, this.entry),
+            plugins: [createEsbuildPlugin(this)]
           },
-          extractESBuildConfig(this)
+          resolveOptions(this)
         )
       );
     }

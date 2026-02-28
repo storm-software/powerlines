@@ -27,24 +27,19 @@ import {
 export type DeepkitPluginOptions = Partial<ReflectionConfig> &
   TypeScriptCompilerPluginOptions;
 
-export type DeepkitPluginUserConfig = TypeScriptCompilerPluginUserConfig & {
-  transform: {
-    /**
-     * Deepkit transformation options
-     */
-    deepkit: DeepkitPluginOptions;
-  };
-};
+export interface DeepkitPluginUserConfig extends TypeScriptCompilerPluginUserConfig {
+  /**
+   * Deepkit transformation options
+   */
+  deepkit: DeepkitPluginOptions;
+}
 
-export type DeepkitPluginResolvedConfig =
-  TypeScriptCompilerPluginResolvedConfig & {
-    transform: {
-      /**
-       * Resolved deepkit transformation options
-       */
-      deepkit: Required<DeepkitPluginOptions>;
-    };
-  };
+export interface DeepkitPluginResolvedConfig extends TypeScriptCompilerPluginResolvedConfig {
+  /**
+   * Resolved deepkit transformation options
+   */
+  deepkit: Required<DeepkitPluginOptions>;
+}
 
 export type DeepkitPluginContext<
   TResolvedConfig extends DeepkitPluginResolvedConfig =

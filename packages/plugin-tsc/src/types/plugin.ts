@@ -16,9 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 import ts from "typescript";
 
 export type TypeScriptCompilerPluginOptions = Partial<
@@ -33,23 +31,16 @@ export type TypeScriptCompilerPluginOptions = Partial<
 };
 
 export interface TypeScriptCompilerPluginUserConfig extends UserConfig {
-  transform: {
-    /**
-     * TypeScript Compiler transformation options
-     */
-    tsc: Partial<Omit<TypeScriptCompilerPluginOptions, "typeCheck">> &
-      Required<Pick<TypeScriptCompilerPluginOptions, "typeCheck">>;
-  };
+  tsc: Partial<Omit<TypeScriptCompilerPluginOptions, "typeCheck">> &
+    Required<Pick<TypeScriptCompilerPluginOptions, "typeCheck">>;
 }
 
 export interface TypeScriptCompilerPluginResolvedConfig extends ResolvedConfig {
-  transform: {
-    /**
-     * Resolved TypeScript Compiler transformation options
-     */
-    tsc: Partial<Omit<TypeScriptCompilerPluginOptions, "typeCheck">> &
-      Required<Pick<TypeScriptCompilerPluginOptions, "typeCheck">>;
-  };
+  /**
+   * Resolved TypeScript Compiler transformation options
+   */
+  tsc: Partial<Omit<TypeScriptCompilerPluginOptions, "typeCheck">> &
+    Required<Pick<TypeScriptCompilerPluginOptions, "typeCheck">>;
 }
 
 export type TypeScriptCompilerPluginContext<

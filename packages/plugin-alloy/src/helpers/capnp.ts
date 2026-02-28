@@ -50,8 +50,8 @@ import defu from "defu";
 import { Buffer } from "node:buffer";
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
-import { getBaseFileHeader } from "powerlines/lib/utilities/file-header";
-import { Context, PluginContext } from "powerlines/types/context";
+import { Context, PluginContext } from "powerlines";
+import { getBaseFileHeader } from "powerlines/utils";
 
 /**
  * Compiles a Cap'n Proto schema into TypeScript definitions.
@@ -70,7 +70,7 @@ export async function compile(
     dts: false,
     schemas: joinPaths(context.artifactsPath, "schemas"),
     tsconfig: context.tsconfig,
-    projectRoot: context.config.projectRoot,
+    projectRoot: context.config.root,
     workspaceRoot: context.workspaceConfig.workspaceRoot,
     tty: true
   }) as Parameters<typeof resolveOptions>[0];

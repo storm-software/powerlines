@@ -16,14 +16,13 @@
 
  ------------------------------------------------------------------- */
 
-import { TypeDefinitionParameter } from "@stryke/types/configuration";
 import type {
-  TsdownBuildConfig,
-  TsdownResolvedBuildConfig
-} from "powerlines/types/build";
-import type { UserConfig } from "powerlines/types/config";
-import type { PluginContext } from "powerlines/types/context";
-import type { ResolvedConfig } from "powerlines/types/resolved";
+  TsdownPluginContext,
+  TsdownPluginOptions,
+  TsdownPluginResolvedConfig,
+  TsdownPluginUserConfig
+} from "@powerlines/plugin-tsdown/types/plugin";
+import { TypeDefinitionParameter } from "@stryke/types/configuration";
 
 export interface PluginPluginTypesOptions {
   /**
@@ -37,27 +36,22 @@ export interface PluginPluginTypesOptions {
   userConfig?: TypeDefinitionParameter;
 }
 
-export interface PluginPluginOptions {
+export interface PluginPluginOptions extends TsdownPluginOptions {
   /**
    * The type definitions for the Plugin plugin.
    */
   types?: PluginPluginTypesOptions;
 }
 
-export type PluginPluginUserConfig = UserConfig<
-  TsdownBuildConfig,
-  TsdownResolvedBuildConfig,
-  "tsdown"
-> & {
-  plugin: PluginPluginOptions;
-};
+export interface PluginPluginUserConfig extends TsdownPluginUserConfig {
+  plugin?: PluginPluginOptions;
+}
 
-export type PluginPluginResolvedConfig =
-  ResolvedConfig<PluginPluginUserConfig> & {
-    plugin: PluginPluginOptions;
-  };
+export interface PluginPluginResolvedConfig extends TsdownPluginResolvedConfig {
+  plugin: PluginPluginOptions;
+}
 
 export type PluginPluginContext<
   TResolvedConfig extends PluginPluginResolvedConfig =
     PluginPluginResolvedConfig
-> = PluginContext<TResolvedConfig>;
+> = TsdownPluginContext<TResolvedConfig>;

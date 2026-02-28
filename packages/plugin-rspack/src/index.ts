@@ -16,13 +16,16 @@
 
  ------------------------------------------------------------------- */
 
+import { Plugin } from "@powerlines/core/types";
 import { rspack as build } from "@rspack/core";
 import defu from "defu";
-import { extractRspackConfig } from "powerlines/lib/build/rspack";
-import { RspackUserConfig } from "powerlines/types/config";
-import { Plugin } from "powerlines/types/plugin";
+import { resolveOptions } from "./helpers";
 import { createRspackPlugin } from "./helpers/unplugin";
-import { RspackPluginContext, RspackPluginOptions } from "./types/plugin";
+import {
+  RspackPluginContext,
+  RspackPluginOptions,
+  RspackPluginResolvedConfig
+} from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -47,7 +50,7 @@ export const plugin = <
           ...options,
           variant: "rspack"
         }
-      } as Partial<RspackUserConfig>;
+      } as Partial<RspackPluginResolvedConfig>;
     },
     async build() {
       build(
@@ -62,7 +65,7 @@ export const plugin = <
               {} as Record<string, string>
             )
           },
-          extractRspackConfig(this),
+          resolveOptions(this),
           {
             plugins: [createRspackPlugin(this)]
           }

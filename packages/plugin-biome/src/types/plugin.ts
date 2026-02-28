@@ -16,9 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export interface BiomePluginOptions {
   /**
@@ -205,18 +203,14 @@ export interface BiomePluginUserConfig extends UserConfig {
   /**
    * Options for the Biome plugin.
    */
-  lint?: {
-    biome?: BiomePluginOptions;
-  };
+  biome?: BiomePluginOptions;
 }
 
 export interface BiomePluginResolvedConfig extends ResolvedConfig {
   /**
    * Options for the Biome plugin.
    */
-  lint: {
-    biome: BiomePluginOptions;
-  };
+  biome: BiomePluginOptions;
 }
 
 export type BiomePluginContext<

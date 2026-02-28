@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { createUnplugin } from "powerlines/lib/unplugin";
+import { createUnplugin } from "@powerlines/core/lib/unplugin";
 import { createWebpackPlugin as createWebpackUnplugin } from "unplugin";
 import { WebpackPluginContext } from "../types/plugin";
 

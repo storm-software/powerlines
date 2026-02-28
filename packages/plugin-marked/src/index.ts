@@ -18,7 +18,7 @@
 
 import defu from "defu";
 import { marked, MarkedExtension, MarkedOptions } from "marked";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import {
   MarkedPluginContext,
   MarkedPluginOptions,
@@ -26,6 +26,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    marked?: MarkedPluginOptions;
+  }
+}
 
 /**
  * Marked Plugin

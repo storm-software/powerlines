@@ -26,8 +26,8 @@ import { existsSync } from "@stryke/fs/exists";
 import { joinPaths } from "@stryke/path/join";
 import defu from "defu";
 import { createHash } from "node:crypto";
-import { replacePathTokens } from "powerlines/plugin-utils/paths";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
+import { replacePathTokens } from "powerlines/plugin-utils";
 import { createEmitter } from "./helpers/create-emitter";
 import { createWriter } from "./helpers/create-writer";
 import {
@@ -38,6 +38,12 @@ import {
 
 export * from "./helpers";
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    contentCollections?: ContentCollectionsPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to integrate Content Collections for code generation.
@@ -56,7 +62,7 @@ export const plugin = <
     config() {
       return {
         contentCollections: defu(options, {
-          configFile: "{projectRoot}/content-collections.ts",
+          configFile: "{root}/content-collections.ts",
           collections: []
         })
       } as Partial<ContentCollectionsPluginUserConfig>;
@@ -99,7 +105,7 @@ export const plugin = <
         emitter,
         baseDirectory: joinPaths(
           this.workspaceConfig.workspaceRoot,
-          this.config.projectRoot
+          this.config.root
         ),
         outputDirectory:
           this.config.contentCollections.outputPath ||

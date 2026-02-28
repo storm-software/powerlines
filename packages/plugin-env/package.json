@@ -55,6 +55,7 @@
         "default": "./dist/index.mjs"
       }
     },
+    "./*": "./*",
     "./babel": {
       "require": {
         "types": "./dist/babel/index.d.cts",
@@ -251,7 +252,6 @@
         "default": "./dist/helpers/template-helpers.mjs"
       }
     },
-    "./package.json": "./package.json",
     "./types": {
       "require": {
         "types": "./dist/types/index.d.cts",

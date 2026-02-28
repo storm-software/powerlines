@@ -27,8 +27,8 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import type { PackageJson } from "@stryke/types/package-json";
 import { loadConfig } from "c12";
 import defu from "defu";
-import { DEFAULT_ENVIRONMENT } from "powerlines/lib/constants/environments";
-import { WorkspaceConfig } from "powerlines/types/config";
+import { WorkspaceConfig } from "powerlines";
+import { DEFAULT_ENVIRONMENT } from "powerlines/utils";
 import { EnvPluginContext, EnvPluginOptions } from "../types/plugin";
 import { removeEnvPrefix } from "./source-file-env";
 
@@ -123,7 +123,7 @@ export function loadEnvFromContext(
         (isSetObject(context.workspaceConfig.organization)
           ? context.workspaceConfig.organization.name
           : context.workspaceConfig.organization),
-      PLATFORM: context.config.build.platform,
+      PLATFORM: context.config.platform,
       MODE: context.config.mode,
       TEST: context.config.mode === "test",
       DEBUG: context.config.mode === "development",
@@ -152,7 +152,7 @@ export async function loadEnv<
   const [project, workspace, config] = await Promise.all([
     loadEnvDirectory<TEnv>(
       options,
-      context.config.projectRoot,
+      context.config.root,
       context.config.mode,
       context.cachePath,
       context.packageJson,

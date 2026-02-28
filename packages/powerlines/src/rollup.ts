@@ -16,8 +16,11 @@
 
  ------------------------------------------------------------------- */
 
+import { RollupPluginUserConfig } from "@powerlines/plugin-rollup/types/plugin";
 import { createRollupPlugin } from "unplugin";
-import { createUnpluginFactory } from "./lib/unplugin/factory";
+import { createUnpluginFactory } from "./unplugin";
+
+export { default as plugin } from "@powerlines/plugin-rollup";
 
 /**
  * A Rollup plugin that will invoke the Powerlines API hooks during the build process.
@@ -27,6 +30,7 @@ import { createUnpluginFactory } from "./lib/unplugin/factory";
  * @example
  * ```ts
  * // rollup.config.ts
+ *
  * import powerlines from "powerlines/rollup";
  *
  * export default defineConfig({
@@ -34,7 +38,10 @@ import { createUnpluginFactory } from "./lib/unplugin/factory";
  * })
  * ```
  */
-export const rollup = createRollupPlugin(createUnpluginFactory("rollup"));
+export const rollup = createRollupPlugin<Partial<RollupPluginUserConfig>>(
+  createUnpluginFactory("rollup")
+);
 
 export default rollup;
+
 export { rollup as "module.exports" };

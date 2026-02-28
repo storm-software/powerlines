@@ -21,7 +21,7 @@ import {
   createNamedContext,
   useContext
 } from "@alloy-js/core";
-import type { PluginContext } from "powerlines/types/context";
+import type { PluginContext } from "powerlines";
 
 /**
  * The Powerlines context used in template rendering.

@@ -16,16 +16,22 @@
 
  ------------------------------------------------------------------- */
 
-import { TsupBuildConfig } from "powerlines/types/build";
-import { TsupUserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { TsupResolvedConfig } from "powerlines/types/resolved";
+import {
+  PluginContext,
+  ResolvedConfig,
+  UserConfig
+} from "@powerlines/core/types";
+import { TsupOptions } from "./build";
 
-export type TsupPluginOptions = Partial<TsupBuildConfig>;
+export type TsupPluginOptions = Partial<TsupOptions>;
 
-export type TsupPluginUserConfig = TsupUserConfig;
+export interface TsupPluginUserConfig extends UserConfig {
+  tsup?: TsupPluginOptions;
+}
 
-export type TsupPluginResolvedConfig = TsupResolvedConfig;
+export interface TsupPluginResolvedConfig extends ResolvedConfig {
+  tsup: TsupOptions;
+}
 
 export type TsupPluginContext<
   TResolvedConfig extends TsupPluginResolvedConfig = TsupPluginResolvedConfig

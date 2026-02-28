@@ -19,11 +19,10 @@
 import { NodePath } from "@babel/core";
 import * as t from "@babel/types";
 import { stringifyDefaultValue } from "@powerlines/deepkit/utilities";
-
 import { createBabelPlugin } from "@powerlines/plugin-babel/helpers/create-plugin";
 import { addImport } from "@powerlines/plugin-babel/helpers/module-helpers";
+import { BabelPluginPass } from "@powerlines/plugin-babel/types/config";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { BabelPluginPass } from "powerlines/types/babel";
 import { EnvPluginContext } from "../types/plugin";
 
 /*

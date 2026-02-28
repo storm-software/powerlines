@@ -16,14 +16,17 @@
 
  ------------------------------------------------------------------- */
 
-import { build, UnbuildOptions } from "@storm-software/unbuild";
+import { Plugin } from "@powerlines/core/types";
+import { build } from "@storm-software/unbuild";
 import {
   DEFAULT_UNBUILD_CONFIG,
-  extractUnbuildConfig
-} from "powerlines/lib/build/unbuild";
-import { UnbuildUserConfig } from "powerlines/types/config";
-import { Plugin } from "powerlines/types/plugin";
-import { UnbuildPluginContext, UnbuildPluginOptions } from "./types/plugin";
+  resolveOptions
+} from "./helpers/resolve-options";
+import {
+  UnbuildPluginContext,
+  UnbuildPluginOptions,
+  UnbuildPluginResolvedConfig
+} from "./types/plugin";
 
 export * from "./types";
 
@@ -42,15 +45,14 @@ export const plugin = <
         output: {
           format: ["esm"]
         },
-        build: {
+        unbuild: {
           ...DEFAULT_UNBUILD_CONFIG,
-          ...options,
-          variant: "unbuild"
+          ...options
         }
-      } as Partial<UnbuildUserConfig>;
+      } as Partial<UnbuildPluginResolvedConfig>;
     },
     async build() {
-      await build(extractUnbuildConfig(this) as UnbuildOptions);
+      await build(resolveOptions(this));
     }
   };
 };

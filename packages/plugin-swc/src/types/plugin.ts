@@ -17,23 +17,17 @@
  ------------------------------------------------------------------- */
 
 import { Options } from "@swc/core";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export type SwcPluginOptions = Partial<Omit<Options, "filename">>;
 
-export type SwcPluginUserConfig = UserConfig & {
-  transform?: {
-    swc?: SwcPluginOptions;
-  };
-};
+export interface SwcPluginUserConfig extends UserConfig {
+  swc?: SwcPluginOptions;
+}
 
-export type SwcPluginResolvedConfig = ResolvedConfig & {
-  transform?: {
-    swc?: SwcPluginOptions;
-  };
-};
+export interface SwcPluginResolvedConfig extends ResolvedConfig {
+  swc?: SwcPluginOptions;
+}
 
 export type SwcPluginContext<
   TResolvedConfig extends SwcPluginResolvedConfig = SwcPluginResolvedConfig

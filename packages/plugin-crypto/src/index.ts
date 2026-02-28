@@ -19,12 +19,18 @@
 import { bytesToHex, randomBytes } from "@noble/ciphers/utils.js";
 import env from "@powerlines/plugin-env";
 import defu from "defu";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import { cryptoModule } from "./components/crypto";
 import { CryptoPluginContext, CryptoPluginOptions } from "./types/plugin";
 
 export * from "./components";
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    crypto?: CryptoPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to assist in developing other Powerlines plugins.

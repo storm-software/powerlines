@@ -24,7 +24,10 @@
   "license": "Apache-2.0",
   "private": true,
   "packageManager": "pnpm@10.30.0",
-  "engines": { "pnpm": ">=10.30.0", "node": ">=25.5.0" },
+  "engines": {
+    "pnpm": ">=10.30.0",
+    "node": ">=25.5.0"
+  },
   "keywords": ["storm-software", "storm", "storm-ops", "sullivanpj"],
   "scripts": {
     "adr": "pnpm log4brains adr new",
@@ -58,6 +61,7 @@
     "@nx/js": "catalog:",
     "@nx/plugin": "catalog:",
     "@nx/workspace": "catalog:",
+    "@shell-shock/nx": "catalog:",
     "@storm-software/config": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@storm-software/cspell": "catalog:",
@@ -94,7 +98,10 @@
     "verdaccio": "catalog:",
     "zx": "catalog:"
   },
-  "manypkg": { "defaultBranch": "main", "workspaceProtocol": "require" },
+  "manypkg": {
+    "defaultBranch": "main",
+    "workspaceProtocol": "require"
+  },
   "namespace": "@powerlines",
   "nx": {
     "includedScripts": [

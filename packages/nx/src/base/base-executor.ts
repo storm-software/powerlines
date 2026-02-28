@@ -23,12 +23,12 @@ import { withRunExecutor } from "@storm-software/workspace-tools/base/base-execu
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
 import { isError } from "@stryke/type-checks/is-error";
 import defu from "defu";
-import PowerlinesAPI from "powerlines";
-import {
+import type {
   InitialUserConfig,
   InlineConfig,
   PowerlinesCommand
-} from "powerlines/types/config";
+} from "powerlines";
+import PowerlinesAPI from "powerlines";
 import { BaseExecutorSchema } from "./base-executor.schema";
 
 export type PowerlinesExecutorContext<
@@ -97,18 +97,27 @@ export function withExecutor<
         workspaceConfig.workspaceRoot,
         defu(
           {
-            root: projectConfig.root,
-            type: projectConfig.projectType,
-            sourceRoot: projectConfig.sourceRoot,
-            tsconfig: options.tsconfig,
-            logLevel: options.logLevel,
-            mode: options.mode,
-            skipCache: options.skipCache,
+            input: options.input,
             output: {
               outputPath:
                 options.outputPath ??
-                projectConfig.targets?.build?.options?.outputPath
-            }
+                projectConfig.targets?.build?.options?.outputPath,
+              format: options.format,
+              sourceMap: options.sourceMap
+            },
+            resolve: {
+              external: options.external,
+              noExternal: options.noExternal,
+              skipNodeModulesBundle: options.skipNodeModulesBundle
+            },
+            root: projectConfig.root,
+            projectType: projectConfig.projectType,
+            sourceRoot: projectConfig.sourceRoot,
+            tsconfig: options.tsconfig,
+            platform: options.platform,
+            define: options.define,
+            logLevel: options.logLevel,
+            mode: options.mode
           },
           options
         ) as InitialUserConfig

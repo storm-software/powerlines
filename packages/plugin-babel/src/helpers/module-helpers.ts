@@ -20,7 +20,7 @@ import { NodePath } from "@babel/core";
 import { ParseResult } from "@babel/parser";
 import * as t from "@babel/types";
 import { isString } from "@stryke/type-checks/is-string";
-import { ImportSpecifier } from "powerlines/types/babel";
+import { ImportSpecifier } from "../types/config";
 import { parseAst } from "./ast-utils";
 
 /**

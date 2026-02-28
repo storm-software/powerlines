@@ -19,9 +19,7 @@
 import { Buffer } from "node:buffer";
 import { Stream } from "node:stream";
 import { OpenAPI3, OpenAPITSOptions } from "openapi-typescript";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export type OpenAPIPluginOptions = Omit<OpenAPITSOptions, "cwd"> & {
   /**
@@ -30,7 +28,7 @@ export type OpenAPIPluginOptions = Omit<OpenAPITSOptions, "cwd"> & {
    * @remarks
    * This can be a string path, URL, OpenAPI3 object, Buffer, or Readable stream.
    *
-   * @defaultValue "\{projectRoot\}/schema.yaml"
+   * @defaultValue "\{root\}/schema.yaml"
    */
   schema?: string | URL | OpenAPI3 | Buffer | Stream.Readable;
 

@@ -16,16 +16,17 @@
 
  ------------------------------------------------------------------- */
 
+import { RolldownOptions } from "@powerlines/plugin-rolldown/types/build";
+import { resolveFromFormat } from "@powerlines/plugin-tsdown/helpers/resolve-options";
 import { toArray } from "@stryke/convert/to-array";
-import { omit } from "@stryke/helpers/omit";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { ModuleFormat } from "rolldown";
 import type { UserConfig } from "tsdown/config";
-import { resolveFromTsdownFormat } from "./lib/build/tsdown";
-import PowerlinesRolldown from "./rolldown";
-import { BuildConfig } from "./types/build";
-import { OutputConfig } from "./types/config";
+import rolldown from "./rolldown";
+import { OutputConfig, ResolveConfig } from "./types";
+
+export { default as plugin } from "@powerlines/plugin-tsdown";
 
 /**
  * A Tsdown configuration function that integrates Powerlines into the build process.
@@ -55,12 +56,12 @@ export function tsdown(options: UserConfig = {}): UserConfig {
     ...options,
     entry: options.entry,
     plugins: [
-      PowerlinesRolldown({
+      rolldown({
         name: options.name,
-        root: options.cwd,
+        root: options.cwd ?? process.cwd(),
         output: {
           outputPath: options.outDir,
-          format: resolveFromTsdownFormat(
+          format: resolveFromFormat(
             options.format as ModuleFormat | ModuleFormat[]
           ),
           assets: toArray(options.copy)
@@ -89,24 +90,7 @@ export function tsdown(options: UserConfig = {}): UserConfig {
             })
             .filter(Boolean) as OutputConfig["assets"]
         },
-        clean: options.clean === false ? false : undefined,
-        build: {
-          ...omit(options, [
-            "name",
-            "entry",
-            "outDir",
-            "format",
-            "minify",
-            "clean",
-            "cwd",
-            "tsconfig",
-            "publicDir",
-            "copy",
-            "debug",
-            "watch",
-            "external",
-            "noExternal"
-          ]),
+        resolve: {
           external: options.external
             ? (toArray(options.external)
                 .map(external => {
@@ -121,7 +105,7 @@ export function tsdown(options: UserConfig = {}): UserConfig {
 
                   return external;
                 })
-                .filter(Boolean) as BuildConfig["external"])
+                .filter(Boolean) as ResolveConfig["external"])
             : undefined,
           noExternal: options.noExternal
             ? (toArray(options.noExternal)
@@ -137,9 +121,10 @@ export function tsdown(options: UserConfig = {}): UserConfig {
 
                   return noExternal;
                 })
-                .filter(Boolean) as BuildConfig["noExternal"])
+                .filter(Boolean) as ResolveConfig["noExternal"])
             : undefined
         },
+        rolldown: options.inputOptions as RolldownOptions,
         tsconfig: isSetString(options.tsconfig) ? options.tsconfig : undefined
       })
     ]
@@ -147,4 +132,5 @@ export function tsdown(options: UserConfig = {}): UserConfig {
 }
 
 export default tsdown;
+
 export { tsdown as "module.exports" };

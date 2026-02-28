@@ -19,7 +19,7 @@
 import { PromiseExecutor } from "@nx/devkit";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
 import PowerlinesAPI from "powerlines";
-import { CleanInlineConfig } from "powerlines/types/config";
+import { CleanInlineConfig } from "powerlines/types";
 import {
   PowerlinesExecutorContext,
   withExecutor

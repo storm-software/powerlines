@@ -28,18 +28,19 @@ export default defineUntypedSchema({
       "A type definition for the Powerlines - Prepare executor schema",
     required: []
   },
-  skipCache: {
-    $schema: {
-      title: "Skip Cache",
-      type: "boolean",
-      description: "Skip the cache when building"
-    }
-  },
   autoInstall: {
     $schema: {
       title: "Auto Install",
       type: "boolean",
-      description: "Automatically install dependencies before building"
+      description: "Automatically install dependencies during prepare stage"
+    }
+  },
+  skipCache: {
+    $schema: {
+      title: "Skip Cache",
+      type: "boolean",
+      description:
+        "Skip the caching mechanism during the build process (if required)"
     }
   }
 });

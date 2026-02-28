@@ -16,11 +16,14 @@
 
  ------------------------------------------------------------------- */
 
+import { resolveOptions } from "@powerlines/plugin-esbuild/helpers/resolve-options";
+import { EsbuildPluginUserConfig } from "@powerlines/plugin-esbuild/types/plugin";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import type { BuildOptions, PluginBuild } from "esbuild";
 import { createEsbuildPlugin } from "unplugin";
-import { extractESBuildConfig } from "./lib/build/esbuild";
-import { createUnpluginFactory } from "./lib/unplugin/factory";
+import { createUnpluginFactory } from "./unplugin";
+
+export { default as plugin } from "@powerlines/plugin-esbuild";
 
 /**
  * An ESBuild plugin that will invoke the Powerlines API hooks during the build process.
@@ -32,13 +35,13 @@ import { createUnpluginFactory } from "./lib/unplugin/factory";
  * // esbuild.config.js
  * import powerlines from "powerlines/esbuild";
  *
- * default export {
+ * export default {
  *  plugins: [powerlines({ name: "example-app", ... })],
  * };
  *
  * ```
  */
-export const esbuild = createEsbuildPlugin(
+export const esbuild = createEsbuildPlugin<Partial<EsbuildPluginUserConfig>>(
   createUnpluginFactory("esbuild", (api, plugin) => {
     return {
       ...plugin,
@@ -46,7 +49,7 @@ export const esbuild = createEsbuildPlugin(
         config: options => {
           options ??= {} as BuildOptions;
 
-          const result = extractESBuildConfig(api.context);
+          const result = resolveOptions(api.context);
           for (const key in result) {
             if (
               isUndefined(options[key as keyof BuildOptions]) &&
@@ -69,4 +72,5 @@ export const esbuild = createEsbuildPlugin(
 );
 
 export default esbuild;
+
 export { esbuild as "module.exports" };

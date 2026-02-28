@@ -12,7 +12,7 @@
       "dependsOn": ["clean", "^build"],
       "options": {
         "commands": [
-          "pnpm exec storm-capnpc --project-root packages/powerlines --schema ./{projectRoot}/schemas"
+          "pnpm exec storm-capnpc --project-root packages/powerlines --schema packages/powerlines/schemas"
         ],
         "parallel": false
       }
@@ -24,17 +24,8 @@
       "executor": "nx:run-commands",
       "dependsOn": ["generate-schemas", "clean", "^build"],
       "options": {
-        "command": "tsup --config=tsup.config.ts",
+        "command": "tsdown --config=tsdown.config.ts",
         "cwd": "{projectRoot}"
-      }
-    },
-    "build-babel-types": {
-      "cache": true,
-      "inputs": ["{projectRoot}/types/babel-types.d.ts"],
-      "outputs": ["{projectRoot}/dist/babel-types.d.ts"],
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "pnpm copyfiles --up=3 ./packages/powerlines/types/babel-types.d.ts packages/powerlines/dist"
       }
     },
     "build": {
@@ -42,7 +33,7 @@
       "inputs": ["{projectRoot}/dist"],
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "executor": "nx:run-commands",
-      "dependsOn": ["typecheck", "build-base", "build-babel-types"],
+      "dependsOn": ["typecheck", "build-base"],
       "options": {
         "commands": [
           "pnpm copyfiles LICENSE dist/packages/powerlines",

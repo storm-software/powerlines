@@ -17,22 +17,16 @@
  ------------------------------------------------------------------- */
 
 import { TransformOptions } from "oxc-transform";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export type OxcTransformPluginOptions = Partial<TransformOptions>;
 
 export type OxcTransformPluginUserConfig = UserConfig & {
-  transform?: {
-    oxc?: OxcTransformPluginOptions;
-  };
+  oxcTransform?: OxcTransformPluginOptions;
 };
 
 export type OxcTransformPluginResolvedConfig = ResolvedConfig & {
-  transform?: {
-    oxc?: OxcTransformPluginOptions;
-  };
+  oxcTransform?: OxcTransformPluginOptions;
 };
 
 export type OxcTransformPluginContext<

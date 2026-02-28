@@ -16,12 +16,13 @@
 
  ------------------------------------------------------------------- */
 
-import { build, resolveOptions } from "@storm-software/tsup";
-import { appendPath } from "@stryke/path/append";
+import { Plugin } from "@powerlines/core/types";
+import {
+  build,
+  resolveOptions as resolveOptionsBase
+} from "@storm-software/tsup";
 import defu from "defu";
-import { extractTsupConfig, resolveTsupEntry } from "powerlines/lib/build/tsup";
-import { TsupResolvedBuildConfig } from "powerlines/types/build";
-import { Plugin } from "powerlines/types/plugin";
+import { resolveOptions } from "./helpers/resolve-options";
 import { createTsupPlugin } from "./helpers/unplugin";
 import {
   TsupPluginContext,
@@ -49,68 +50,17 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
         output: {
           format: ["cjs", "esm"]
         },
-        build: {
-          ...options,
-          variant: "tsup"
+        tsup: {
+          ...options
         }
       } as Partial<TsupPluginResolvedConfig>;
     },
     async build() {
       return build(
-        await resolveOptions(
-          defu(
-            {
-              config: false,
-              entry: Object.fromEntries(
-                Object.entries(resolveTsupEntry(this, this.entry)).map(
-                  ([key, value]) => [
-                    key,
-                    appendPath(value, this.config.projectRoot)
-                  ]
-                )
-              ),
-              esbuildOptions: (options, ctx) => {
-                if (this.config.build.variant === "tsup") {
-                  if (
-                    (
-                      this.config.build as Omit<
-                        TsupResolvedBuildConfig,
-                        "projectRoot"
-                      >
-                    ).esbuildOptions
-                  ) {
-                    (
-                      this.config.build as Omit<
-                        TsupResolvedBuildConfig,
-                        "projectRoot"
-                      >
-                    ).esbuildOptions?.(options, ctx);
-                  }
-                }
-
-                options.alias = {
-                  ...this.builtins.reduce(
-                    (ret, id) => {
-                      const path = this.fs.paths[id];
-                      if (path) {
-                        ret[id] = path;
-                      }
-
-                      return ret;
-                    },
-                    {} as Record<string, string>
-                  ),
-                  ...options.alias
-                };
-              },
-              silent: false,
-              verbose: true
-            },
-            extractTsupConfig(this),
-            {
-              esbuildPlugins: [createTsupPlugin(this)]
-            }
-          )
+        await resolveOptionsBase(
+          defu(resolveOptions(this), {
+            esbuildPlugins: [createTsupPlugin(this)]
+          })
         )
       );
     }

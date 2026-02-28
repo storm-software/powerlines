@@ -18,7 +18,7 @@
 
 import type { OutputProps as OutputPropsExternal } from "@alloy-js/core";
 import { computed, Output as OutputExternal, splitProps } from "@alloy-js/core";
-import type { PluginContext } from "powerlines/types/context";
+import type { PluginContext } from "@powerlines/core/types";
 import { MetaContext, MetaItem } from "../contexts";
 import { PowerlinesContext } from "../contexts/context";
 

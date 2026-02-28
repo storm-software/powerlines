@@ -56,6 +56,7 @@
         "default": "./dist/index.mjs"
       }
     },
+    "./*": "./*",
     "./components": {
       "require": {
         "types": "./dist/components/index.d.cts",
@@ -84,7 +85,6 @@
         "default": "./dist/components/react-optimized.mjs"
       }
     },
-    "./package.json": "./package.json",
     "./types": {
       "require": {
         "types": "./dist/types/index.d.cts",
@@ -148,6 +148,7 @@
     "@alloy-js/markdown": "catalog:",
     "@alloy-js/typescript": "catalog:",
     "@babel/core": "catalog:",
+    "@powerlines/plugin-vite": "workspace:*",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",

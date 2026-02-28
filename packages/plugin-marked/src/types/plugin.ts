@@ -17,9 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { marked, MarkedExtension, MarkedOptions } from "marked";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export type MarkedPluginOptions = MarkedOptions & MarkedExtension;
 
@@ -32,8 +30,8 @@ export type MarkedPluginResolvedConfig = ResolvedConfig & {
 };
 
 export type MarkedPluginContext<
-  TResolvedConfig extends
-    MarkedPluginResolvedConfig = MarkedPluginResolvedConfig
+  TResolvedConfig extends MarkedPluginResolvedConfig =
+    MarkedPluginResolvedConfig
 > = PluginContext<TResolvedConfig> & {
   marked: {
     parse: (src: string, override?: Partial<MarkedOptions>) => Promise<string>;

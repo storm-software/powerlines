@@ -16,13 +16,16 @@
 
  ------------------------------------------------------------------- */
 
+import { Plugin } from "@powerlines/core/types";
 import defu from "defu";
-import { extractWebpackConfig } from "powerlines/lib/build/webpack";
-import { WebpackUserConfig } from "powerlines/types/config";
-import { Plugin } from "powerlines/types/plugin";
 import build from "webpack";
+import { resolveOptions } from "./helpers/resolve-options";
 import { createWebpackPlugin } from "./helpers/unplugin";
-import { WebpackPluginContext, WebpackPluginOptions } from "./types/plugin";
+import {
+  WebpackPluginContext,
+  WebpackPluginOptions,
+  WebpackPluginResolvedConfig
+} from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -43,11 +46,10 @@ export const plugin = <
       );
 
       return {
-        build: {
-          ...options,
-          variant: "webpack"
+        webpack: {
+          ...options
         }
-      } as Partial<WebpackUserConfig>;
+      } as Partial<WebpackPluginResolvedConfig>;
     },
     async build() {
       build(
@@ -62,7 +64,7 @@ export const plugin = <
               {} as Record<string, string>
             )
           },
-          extractWebpackConfig(this),
+          resolveOptions(this),
           {
             plugins: [createWebpackPlugin(this)]
           }

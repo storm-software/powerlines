@@ -25,8 +25,8 @@ import { prettyBytes } from "@stryke/string-format/pretty-bytes";
 import chalk from "chalk";
 import { Buffer } from "node:buffer";
 import { stat } from "node:fs/promises";
-import { replacePathTokens } from "powerlines/plugin-utils/paths";
-import type { Plugin } from "powerlines/types/plugin";
+import type { Plugin } from "powerlines";
+import { replacePathTokens } from "powerlines/plugin-utils";
 import { optimize } from "svgo";
 import {
   ImageCompressionPluginContext,
@@ -34,6 +34,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    imageCompression?: ImageCompressionPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to optimize image assets used by the project.
@@ -54,7 +60,7 @@ export const plugin = <
       return {
         imageCompression: {
           filter:
-            "{projectRoot}/**/*.{svg,jpg,jpeg,png,webp,avif,heif,gif,tiff,jp2,jxl}",
+            "{root}/**/*.{svg,jpg,jpeg,png,webp,avif,heif,gif,tiff,jp2,jxl}",
           svg: {},
           jpeg: {},
           png: {},

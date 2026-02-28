@@ -23,8 +23,8 @@ import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import defu from "defu";
-import { replacePathTokens } from "powerlines/plugin-utils/paths";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
+import { replacePathTokens } from "powerlines/plugin-utils";
 import {
   CapnpPluginContext,
   CapnpPluginOptions,
@@ -32,6 +32,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    capnp?: CapnpPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to integrate Cap'n Proto for code generation.
@@ -56,7 +62,7 @@ export const plugin = <
           tsconfig: this.tsconfig,
           schema: joinPaths(
             this.workspaceConfig.workspaceRoot,
-            this.config.projectRoot,
+            this.config.root,
             "*.capnp"
           ),
           outputPath: joinPaths("{builtinPath}", "capnp")
@@ -73,7 +79,7 @@ export const plugin = <
       const resolvedOptions = await resolveOptions({
         ...this.config.capnp,
         schemas: this.config.capnp.schema.toString(),
-        projectRoot: this.config.projectRoot,
+        projectRoot: this.config.root,
         workspaceRoot: this.workspaceConfig.workspaceRoot
       });
       if (!resolvedOptions?.schemas?.length) {

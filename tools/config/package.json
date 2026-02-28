@@ -1,5 +1,11 @@
 {
   "name": "@powerlines/tools-config",
   "version": "0.0.1",
-  "private": true
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./package.json": "./package.json",
+    "./tsdown.config": "./tsdown.config.ts",
+    "./tsup.shared": "./tsup.shared.ts"
+  }
 }

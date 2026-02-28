@@ -21,7 +21,7 @@ import { joinPaths } from "@stryke/path/join";
 import chalk from "chalk";
 import { runCLI } from "jest";
 import { formatTime, pluralize } from "jest-util";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import {
   JestPluginContext,
   JestPluginOptions,
@@ -29,6 +29,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    jest?: JestPluginOptions;
+  }
+}
 
 /**
  * Jest plugin for Powerlines.
@@ -121,7 +127,7 @@ export const plugin = <TContext extends JestPluginContext = JestPluginContext>(
     async test() {
       if (this.config.test.jest) {
         const { results } = await runCLI(this.config.test.jest, [
-          joinPaths(this.workspaceConfig.workspaceRoot, this.config.projectRoot)
+          joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
         ]);
 
         const snapshotResults = results.snapshot;

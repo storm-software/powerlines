@@ -18,11 +18,11 @@
 
 import alloy from "@powerlines/plugin-alloy";
 import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines";
+import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
   skipCache: true,
-  entry: [
+  input: [
     "src/index.tsx",
     "src/types/*.ts",
     "src/components/*.ts",
@@ -35,7 +35,7 @@ export default defineConfig({
       markdown: true
     })
   ],
-  build: {
+  resolve: {
     external: ["react", "react-dom"]
   }
 });

@@ -16,11 +16,17 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import { defineEnv } from "unenv";
 import { UnenvPluginContext, UnenvPluginOptions } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    unenv?: UnenvPluginOptions;
+  }
+}
 
 /**
  * The unenv plugin for Powerlines.
@@ -45,9 +51,9 @@ export const plugin = <
     configResolved() {
       this.unenv = defineEnv(this.config.unenv || {});
 
-      this.config.build.alias ??= {};
-      if (Array.isArray(this.config.build.alias)) {
-        this.config.build.alias = Object.entries(this.unenv.env.alias).reduce(
+      this.config.resolve.alias ??= {};
+      if (Array.isArray(this.config.resolve.alias)) {
+        this.config.resolve.alias = Object.entries(this.unenv.env.alias).reduce(
           (aliases, [key, value]) => {
             if (!aliases.find(alias => alias.find === key)) {
               aliases.push({ find: key, replacement: value });
@@ -55,26 +61,26 @@ export const plugin = <
 
             return aliases;
           },
-          this.config.build.alias
+          this.config.resolve.alias
         );
       } else {
-        this.config.build.alias = {
+        this.config.resolve.alias = {
           ...this.unenv.env.alias,
-          ...this.config.build.alias
+          ...this.config.resolve.alias
         };
       }
 
-      this.config.build.external ??= [];
-      this.config.build.external.push(...this.unenv.env.external);
+      this.config.resolve.external ??= [];
+      this.config.resolve.external.push(...this.unenv.env.external);
 
-      this.config.build.inject ??= {};
-      this.config.build.inject = {
+      this.config.inject ??= {};
+      this.config.inject = {
         ...(this.unenv.env.inject as Record<string, string | string[]>),
-        ...this.config.build.inject
+        ...this.config.inject
       };
 
-      this.config.build.polyfill ??= [];
-      this.config.build.polyfill.push(...this.unenv.env.polyfill);
+      // this.config.build.polyfill ??= [];
+      // this.config.build.polyfill.push(...this.unenv.env.polyfill);
     }
   } as Plugin<TContext>;
 };

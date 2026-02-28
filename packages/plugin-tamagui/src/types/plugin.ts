@@ -17,9 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { TamaguiOptions } from "@tamagui/types";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export type TamaguiPluginOptions = Partial<TamaguiOptions> & {
   /**
@@ -35,7 +33,7 @@ export type TamaguiPluginOptions = Partial<TamaguiOptions> & {
    * @remarks
    * These paths can include glob patterns to match multiple files or directories and placeholder tokens (the `replacePathTokens` function will be applied to allow for dynamic path resolution).
    *
-   * @defaultValue ["\{sourceRoot\}/components"]
+   * @defaultValue ["\{root\}/src/components"]
    */
   components?: string[];
 };
@@ -49,6 +47,6 @@ export interface TamaguiPluginResolvedConfig extends ResolvedConfig {
 }
 
 export type TamaguiPluginContext<
-  TResolvedConfig extends
-    TamaguiPluginResolvedConfig = TamaguiPluginResolvedConfig
+  TResolvedConfig extends TamaguiPluginResolvedConfig =
+    TamaguiPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;

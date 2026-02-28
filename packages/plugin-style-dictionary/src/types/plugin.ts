@@ -16,12 +16,13 @@
 
  ------------------------------------------------------------------- */
 
-/* eslint-disable @nx/enforce-module-boundaries */
-
 import { TypeDefinitionParameter } from "@stryke/types/configuration";
-import { EnvironmentConfig, UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import {
+  EnvironmentConfig,
+  PluginContext,
+  ResolvedConfig,
+  UserConfig
+} from "powerlines";
 import StyleDictionary, { Config } from "style-dictionary";
 import {
   Action,

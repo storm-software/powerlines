@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { ReflectionConfig } from "@powerlines/deepkit/vendor/type-compiler";
-import { Context } from "powerlines/types/context";
+import { Context } from "powerlines";
 import ts from "typescript";
 import { createDeclarationTransformer, createTransformer } from "./transformer";
 

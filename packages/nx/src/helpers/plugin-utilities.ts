@@ -50,8 +50,8 @@ import type {
 } from "nx/src/config/workspace-json-project-json.js";
 import type { PackageJson as PackageJsonNx } from "nx/src/utils/package-json.js";
 import { readTargetsFromPackageJson } from "nx/src/utils/package-json.js";
-import { loadUserConfigFile } from "powerlines/lib/config-file";
-import { PROJECT_ROOT_HASH_LENGTH } from "powerlines/lib/utilities/meta";
+import { loadUserConfigFile } from "powerlines/config";
+import { ROOT_HASH_LENGTH } from "powerlines/utils";
 import { NxPluginOptions } from "../types/plugin";
 import { CONFIG_INPUTS } from "./constants";
 
@@ -162,7 +162,7 @@ export function createNxPlugin<
           envPaths.cache,
           "nx-plugin",
           murmurhash(contextV2.workspaceRoot, {
-            maxLength: PROJECT_ROOT_HASH_LENGTH
+            maxLength: ROOT_HASH_LENGTH
           }),
           "jiti"
         ),
@@ -313,7 +313,8 @@ export function createNxPlugin<
                 options: {
                   outputPath:
                     userConfig.output?.outputPath || "dist/{projectRoot}",
-                  projectType: projectConfig.projectType || userConfig.type,
+                  projectType:
+                    projectConfig.projectType || userConfig.projectType,
                   autoInstall: userConfig.autoInstall
                 },
                 configurations: {
@@ -356,8 +357,9 @@ export function createNxPlugin<
                 defaultConfiguration:
                   options?.prepare?.defaultConfiguration || "production",
                 options: {
-                  entry: userConfig.entry,
-                  projectType: projectConfig.projectType || userConfig.type,
+                  input: userConfig.input,
+                  projectType:
+                    projectConfig.projectType || userConfig.projectType,
                   autoInstall: userConfig.autoInstall,
                   skipCache: userConfig.skipCache
                 },
@@ -405,10 +407,11 @@ export function createNxPlugin<
                 defaultConfiguration:
                   options?.build?.defaultConfiguration || "production",
                 options: {
-                  entry: userConfig.entry,
+                  input: userConfig.input,
                   outputPath:
                     userConfig.output?.outputPath || "dist/{projectRoot}",
-                  projectType: projectConfig.projectType || userConfig.type,
+                  projectType:
+                    projectConfig.projectType || userConfig.projectType,
                   autoInstall: userConfig.autoInstall,
                   skipCache: userConfig.skipCache
                 },
@@ -459,8 +462,9 @@ export function createNxPlugin<
                 defaultConfiguration:
                   options?.lint?.defaultConfiguration || "production",
                 options: {
-                  entry: userConfig.entry,
-                  projectType: projectConfig.projectType || userConfig.type,
+                  input: userConfig.input,
+                  projectType:
+                    projectConfig.projectType || userConfig.projectType,
                   autoInstall: userConfig.autoInstall,
                   skipCache: userConfig.skipCache
                 },
@@ -513,8 +517,9 @@ export function createNxPlugin<
                 defaultConfiguration:
                   options?.docs?.defaultConfiguration || "production",
                 options: {
-                  entry: userConfig.entry,
-                  projectType: projectConfig.projectType || userConfig.type,
+                  input: userConfig.input,
+                  projectType:
+                    projectConfig.projectType || userConfig.projectType,
                   autoInstall: userConfig.autoInstall,
                   skipCache: userConfig.skipCache
                 },
@@ -566,8 +571,9 @@ export function createNxPlugin<
                 defaultConfiguration:
                   options?.deploy?.defaultConfiguration || "production",
                 options: {
-                  entry: userConfig.entry,
-                  projectType: projectConfig.projectType || userConfig.type,
+                  input: userConfig.input,
+                  projectType:
+                    projectConfig.projectType || userConfig.projectType,
                   autoInstall: userConfig.autoInstall,
                   skipCache: userConfig.skipCache
                 },
@@ -590,7 +596,7 @@ export function createNxPlugin<
             addProjectTag(
               projectConfig,
               framework as ProjectTagVariant,
-              projectConfig.projectType || userConfig.type || "library",
+              projectConfig.projectType || userConfig.projectType || "library",
               {
                 overwrite: true
               }
@@ -606,7 +612,7 @@ export function createNxPlugin<
               projects: {
                 [root]: defu(projectConfig, {
                   name: kebabCase(userConfig.name)!,
-                  projectType: userConfig.type || "library",
+                  projectType: userConfig.projectType || "library",
                   root,
                   sourceRoot: joinPaths(root, "src"),
                   targets

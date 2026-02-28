@@ -117,26 +117,13 @@
   "files": ["dist/**/*"],
   "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
-    "@stryke/convert": "catalog:",
-    "@stryke/fs": "catalog:",
-    "@stryke/json": "catalog:",
     "@stryke/path": "catalog:",
-    "@stryke/string-format": "catalog:",
-    "@stryke/type-checks": "catalog:",
-    "@stryke/types": "catalog:",
-    "defu": "catalog:",
-    "jiti": "catalog:",
     "powerlines": "workspace:*",
-    "tsdown": "catalog:",
-    "unplugin": "catalog:"
+    "@powerlines/plugin-tsdown": "workspace:*"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "catalog:",
-    "@rollup/plugin-node-resolve": "catalog:",
-    "@types/babel__helper-plugin-utils": "catalog:",
-    "@types/node": "catalog:",
-    "rollup": "catalog:",
-    "rollup-plugin-typescript2": "catalog:"
+    "@stryke/types": "catalog:",
+    "@types/node": "catalog:"
   },
   "publishConfig": {
     "access": "public"

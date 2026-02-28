@@ -18,7 +18,7 @@
 
 import env from "@powerlines/plugin-env";
 import defu from "defu";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import { dateFnsModule } from "./components/date-fns";
 import { dayjsModule } from "./components/dayjs";
 import { luxonModule } from "./components/luxon";
@@ -31,6 +31,12 @@ import {
 
 export * from "./components";
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    date?: DatePluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to assist in developing other Powerlines plugins.

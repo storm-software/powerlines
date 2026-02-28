@@ -18,8 +18,14 @@
 
 import rollupPlugin from "@alloy-js/rollup-plugin";
 import { StormJSON } from "@stryke/json/storm-json";
-import { Plugin } from "powerlines/types/plugin";
-import { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
+import type { Plugin } from "powerlines";
+import type { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    alloy?: AlloyPluginOptions;
+  }
+}
 
 /**
  * Alloy-js plugin for Powerlines.
@@ -45,14 +51,16 @@ export const plugin = <
             typescript: true,
             ...options
           },
-          build: {
+          resolve: {
+            external: [/^@alloy-js\//]
+          },
+          tsdown: {
             inputOptions: {
               transform: {
                 jsx: "preserve"
               }
             },
-            plugins: [rollupPlugin()],
-            external: [/^@alloy-js\//]
+            plugins: [rollupPlugin()]
           }
         };
       },

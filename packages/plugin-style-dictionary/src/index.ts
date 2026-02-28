@@ -16,11 +16,11 @@
 
  ------------------------------------------------------------------- */
 
+import { resolve } from "@powerlines/plugin-esbuild/helpers/resolve";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isFunction } from "@stryke/type-checks/is-function";
 import defu from "defu";
-import { resolve } from "powerlines/lib/utilities/resolve";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import StyleDictionary from "style-dictionary";
 import { fileHeader } from "./style-dictionary/file-header";
 import {
@@ -37,6 +37,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    styleDictionary?: StyleDictionaryPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to integrate style-dictionary for code generation.

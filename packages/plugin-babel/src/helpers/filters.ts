@@ -16,19 +16,25 @@
 
  ------------------------------------------------------------------- */
 
+import { Context } from "@powerlines/core/types";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isObject } from "@stryke/type-checks/is-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
-import { Context } from "powerlines/types";
 import {
   BabelTransformPlugin,
   BabelTransformPluginFilter,
   BabelTransformPluginOptions,
   ResolvedBabelTransformPluginOptions
-} from "powerlines/types/babel";
+} from "../types/config";
 
 export function getPluginName(
-  plugin: BabelTransformPluginOptions
+  plugin?:
+    | BabelTransformPluginOptions
+    | string
+    | false
+    | object
+    | ((...args: any[]) => any)
+    | undefined
 ): string | undefined {
   return isSetString(plugin)
     ? plugin

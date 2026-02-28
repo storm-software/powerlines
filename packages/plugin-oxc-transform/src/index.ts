@@ -19,7 +19,7 @@
 import { findFileExtension, findFileExtensionSafe } from "@stryke/path/find";
 import defu from "defu";
 import { transform } from "oxc-transform";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import {
   OxcTransformPluginContext,
   OxcTransformPluginOptions,
@@ -27,6 +27,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    oxcTransform?: OxcTransformPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to integrate oxc-transform for code transformation.
@@ -43,15 +49,13 @@ export const plugin = <
     name: "oxc-transform",
     config() {
       return {
-        transform: {
-          oxc: defu(options, {
-            sourceType: "module",
-            cwd: this.config.projectRoot,
-            envName: this.config.mode,
-            outputPath: this.config.output.buildPath,
-            sourcemap: this.config.mode === "development"
-          })
-        }
+        oxcTransform: defu(options, {
+          sourceType: "module",
+          cwd: this.config.root,
+          envName: this.config.mode,
+          outputPath: this.config.output.buildPath,
+          sourcemap: this.config.mode === "development"
+        })
       } as Partial<OxcTransformPluginUserConfig>;
     },
     async transform(code, id) {
@@ -59,7 +63,7 @@ export const plugin = <
         lang: (["d.ts", "d.cts", "d.mts"].includes(findFileExtensionSafe(id))
           ? "dts"
           : findFileExtension(id)) as OxcTransformPluginOptions["lang"],
-        ...this.config.transform.oxc
+        ...this.config.oxcTransform
       });
 
       return { id, code: result.code, map: result.map };

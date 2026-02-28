@@ -16,8 +16,17 @@
 
  ------------------------------------------------------------------- */
 
+import { resolveOptions } from "@powerlines/plugin-rolldown/helpers/resolve-options";
+import {
+  RolldownPluginContext,
+  RolldownPluginUserConfig
+} from "@powerlines/plugin-rolldown/types/plugin";
+import { defu } from "defu";
+import type { InputOptions } from "rolldown";
 import { createRolldownPlugin } from "unplugin";
-import { createUnpluginFactory } from "./lib/unplugin/factory";
+import { createUnpluginFactory } from "./unplugin";
+
+export { default as plugin } from "@powerlines/plugin-rolldown";
 
 /**
  * A Rolldown plugin that will invoke the Powerlines API hooks during the build process.
@@ -34,7 +43,29 @@ import { createUnpluginFactory } from "./lib/unplugin/factory";
  * })
  * ```
  */
-export const rolldown = createRolldownPlugin(createUnpluginFactory("rolldown"));
+export const rolldown = createRolldownPlugin<Partial<RolldownPluginUserConfig>>(
+  createUnpluginFactory<RolldownPluginContext>("rolldown", (api, plugin) => {
+    return {
+      ...plugin,
+      rolldown: {
+        async options(options: InputOptions) {
+          const merged = defu(await api.context.getEnvironment(), this);
+
+          return defu(
+            resolveOptions(merged),
+            options,
+            api.callHook(
+              "rolldown:options",
+              { environment: merged },
+              options
+            ) ?? {}
+          );
+        }
+      }
+    };
+  })
+);
+
+export { rolldown as "module.exports" };
 
 export default rolldown;
-export { rolldown as "module.exports" };

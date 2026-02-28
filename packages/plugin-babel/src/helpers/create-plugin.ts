@@ -17,14 +17,14 @@
  ------------------------------------------------------------------- */
 
 import { declare } from "@babel/helper-plugin-utils";
+import { extendLog } from "@powerlines/core/lib/logger";
+import { Context } from "@powerlines/core/types";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import chalk from "chalk";
-import { extendLog } from "powerlines/lib/logger";
 import {
   BabelTransformPluginBuilder,
   DeclareBabelTransformPluginReturn
-} from "powerlines/types/babel";
-import { Context } from "powerlines/types/context";
+} from "../types/config";
 
 /**
  * Create a Babel plugin using the provided builder function.

@@ -22,14 +22,23 @@ import { existsSync } from "@stryke/fs/exists";
 import { getParentPath } from "@stryke/fs/get-parent-path";
 import { isPackageListed } from "@stryke/fs/package-fns";
 import { joinPaths } from "@stryke/path/join";
-import { replacePath } from "@stryke/path/replace";
-import { Plugin } from "powerlines/types/plugin";
-import { OxlintPluginContext, OxlintPluginOptions } from "./types/plugin";
+import { Plugin } from "powerlines";
+import {
+  OxlintPluginContext,
+  OxlintPluginOptions,
+  OxlintPluginResolvedConfig
+} from "./types/plugin";
 
 export * from "./types";
 
+declare module "powerlines" {
+  export interface UserConfig {
+    oxlint?: OxlintPluginOptions;
+  }
+}
+
 /**
- * A Powerlines plugin to assist in linting a project with Biome.
+ * A Powerlines plugin to assist in linting a project with Oxlint.
  */
 export function plugin(
   options: OxlintPluginOptions = {}
@@ -42,23 +51,21 @@ export function plugin(
       );
 
       return {
-        lint: {
-          oxlint: {
-            configFile: ".oxlintrc.json",
-            deny: [],
-            allow: [],
-            warn: [],
-            typeAware: true,
-            fix: true,
-            format: "stylish",
-            ...options
-          }
+        oxlint: {
+          configFile: ".oxlintrc.json",
+          deny: [],
+          allow: [],
+          warn: [],
+          typeAware: true,
+          fix: true,
+          format: "stylish",
+          ...options
         }
-      };
+      } as Partial<OxlintPluginResolvedConfig>;
     },
     configResolved() {
       this.devDependencies.oxlint = "^1.24.0";
-      if (this.config.lint.oxlint.typeAware) {
+      if (this.config.oxlint.typeAware) {
         this.devDependencies["oxlint-tsgolint"] = "^0.2.1";
       }
     },
@@ -67,27 +74,27 @@ export function plugin(
 
       const args: string[] = [];
 
-      if (this.config.lint.oxlint.params) {
-        args.push(...this.config.lint.oxlint.params.split(" ").filter(Boolean));
+      if (this.config.oxlint.params) {
+        args.push(...this.config.oxlint.params.split(" ").filter(Boolean));
       }
 
       if (
         !args.includes("--ignore-pattern") &&
-        this.config.lint.oxlint.ignorePatterns
+        this.config.oxlint.ignorePatterns
       ) {
         args.push(
-          `--ignore-pattern=${toArray(this.config.lint.oxlint.ignorePatterns).join(",")}`
+          `--ignore-pattern=${toArray(this.config.oxlint.ignorePatterns).join(",")}`
         );
       }
 
-      this.config.lint.oxlint.deny.forEach(d => args.push("-D", d));
-      this.config.lint.oxlint.allow.forEach(a => args.push("-A", a));
-      this.config.lint.oxlint.warn.forEach(w => args.push("-W", w));
+      this.config.oxlint.deny.forEach(d => args.push("-D", d));
+      this.config.oxlint.allow.forEach(a => args.push("-A", a));
+      this.config.oxlint.warn.forEach(w => args.push("-W", w));
 
       if (!args.includes("-c") && !args.includes("--config")) {
         let configFile = getParentPath(
-          this.config.lint.oxlint.configFile,
-          this.config.projectRoot,
+          this.config.oxlint.configFile,
+          this.config.root,
           {
             ignoreCase: true,
             skipCwd: false,
@@ -97,17 +104,13 @@ export function plugin(
         if (
           configFile &&
           !existsSync(configFile) &&
-          this.config.lint.oxlint.configFile !== ".oxlintrc.json"
+          this.config.oxlint.configFile !== ".oxlintrc.json"
         ) {
-          configFile = getParentPath(
-            ".oxlintrc.json",
-            this.config.projectRoot,
-            {
-              ignoreCase: true,
-              skipCwd: false,
-              includeNameInResults: true
-            }
-          );
+          configFile = getParentPath(".oxlintrc.json", this.config.root, {
+            ignoreCase: true,
+            skipCwd: false,
+            includeNameInResults: true
+          });
         }
 
         if (configFile && existsSync(configFile)) {
@@ -115,7 +118,7 @@ export function plugin(
         }
       }
 
-      if (!args.includes("--type-aware") && this.config.lint.oxlint.typeAware) {
+      if (!args.includes("--type-aware") && this.config.oxlint.typeAware) {
         args.push("--type-aware");
       }
 
@@ -124,44 +127,37 @@ export function plugin(
       }
 
       if (!args.includes("-f") && !args.includes("--format")) {
-        args.push("-f", this.config.lint.oxlint.format || "stylish");
+        args.push("-f", this.config.oxlint.format || "stylish");
       }
 
       if (
-        this.config.lint.oxlint.fix !== false &&
+        this.config.oxlint.fix !== false &&
         !args.includes("--fix") &&
         !args.includes("--fix-suggestions") &&
         !args.includes("--fix-dangerously")
       ) {
-        if (this.config.lint.oxlint.fix === true) {
+        if (this.config.oxlint.fix === true) {
           args.push("--fix");
-        } else if (this.config.lint.oxlint.fix === "suggestions") {
+        } else if (this.config.oxlint.fix === "suggestions") {
           args.push("--fix-suggestions");
-        } else if (this.config.lint.oxlint.fix === "dangerously") {
+        } else if (this.config.oxlint.fix === "dangerously") {
           args.push("--fix-dangerously");
         }
       }
 
-      if (!this.config.lint.oxlint.oxlintPath) {
+      if (!this.config.oxlint.oxlintPath) {
         const isOxlintListed = await isPackageListed(
           "oxlint",
-          this.config.projectRoot
+          this.config.root
         );
 
-        args.unshift(
-          isOxlintListed
-            ? replacePath(this.config.sourceRoot, this.config.projectRoot)
-            : this.config.sourceRoot
-        );
+        args.unshift(isOxlintListed ? "./" : this.config.root);
 
         const result = await executePackage(
           "oxlint",
           args,
           isOxlintListed
-            ? joinPaths(
-                this.workspaceConfig.workspaceRoot,
-                this.config.projectRoot
-              )
+            ? joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
             : this.workspaceConfig.workspaceRoot
         );
         if (result.failed) {
@@ -170,10 +166,7 @@ export function plugin(
           );
         }
       } else {
-        args.unshift(
-          this.config.lint.oxlint.oxlintPath,
-          this.config.sourceRoot
-        );
+        args.unshift(this.config.oxlint.oxlintPath, this.config.root);
 
         const result = await execute(
           args.join(" "),

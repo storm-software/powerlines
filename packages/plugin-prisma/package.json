@@ -55,6 +55,7 @@
         "default": "./dist/index.mjs"
       }
     },
+    "./*": "./*",
     "./api/client": {
       "require": {
         "types": "./dist/api/client/index.d.cts",
@@ -321,7 +322,6 @@
         "default": "./dist/helpers/schema-creator.mjs"
       }
     },
-    "./package.json": "./package.json",
     "./types": {
       "require": {
         "types": "./dist/types/index.d.cts",
@@ -390,5 +390,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "types": "./dist/index.d.cts"
 }

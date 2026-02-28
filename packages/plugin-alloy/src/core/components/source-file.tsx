@@ -28,7 +28,7 @@ import {
 } from "@alloy-js/core";
 import { appendPath } from "@stryke/path/append";
 import defu from "defu";
-import type { StoragePreset } from "powerlines/types/fs";
+import type { StoragePreset } from "powerlines";
 import { ComponentProps } from "../../types/components";
 import { useMeta } from "../contexts/meta";
 

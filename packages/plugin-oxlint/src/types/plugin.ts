@@ -16,9 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export interface OxlintPluginOptions {
   /**
@@ -96,33 +94,29 @@ export interface OxlintPluginUserConfig extends UserConfig {
   /**
    * Options for the Oxlint plugin.
    */
-  lint?: {
-    oxlint?: OxlintPluginOptions;
-  };
+  oxlint?: OxlintPluginOptions;
 }
 
 export interface OxlintPluginResolvedConfig extends ResolvedConfig {
   /**
    * Options for the Oxlint plugin.
    */
-  lint: {
-    oxlint: Omit<
-      OxlintPluginOptions,
-      "configFile" | "deny" | "allow" | "warn" | "typeAware" | "fix" | "format"
-    > &
-      Required<
-        Pick<
-          OxlintPluginOptions,
-          | "configFile"
-          | "deny"
-          | "allow"
-          | "warn"
-          | "typeAware"
-          | "fix"
-          | "format"
-        >
-      >;
-  };
+  oxlint: Omit<
+    OxlintPluginOptions,
+    "configFile" | "deny" | "allow" | "warn" | "typeAware" | "fix" | "format"
+  > &
+    Required<
+      Pick<
+        OxlintPluginOptions,
+        | "configFile"
+        | "deny"
+        | "allow"
+        | "warn"
+        | "typeAware"
+        | "fix"
+        | "format"
+      >
+    >;
 }
 
 export type OxlintPluginContext<

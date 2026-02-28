@@ -16,10 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-import { createUnplugin } from "powerlines/lib/unplugin";
-import { createEsbuildPlugin } from "unplugin";
-import { ESBuildPluginContext } from "../types/plugin";
+import { createUnplugin } from "@powerlines/core/lib/unplugin";
+import { createEsbuildPlugin as createEsbuildUnplugin } from "unplugin";
+import { EsbuildPluginContext } from "../types/plugin";
 
-export function createESBuildPlugin(context: ESBuildPluginContext) {
-  return createEsbuildPlugin(createUnplugin(context))({});
+export function createEsbuildPlugin(context: EsbuildPluginContext) {
+  return createEsbuildUnplugin(createUnplugin(context))({});
 }

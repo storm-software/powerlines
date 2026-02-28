@@ -26,5 +26,5 @@ import { EnvPluginContext } from "../types/plugin";
  * @returns The output path for the generated environment documentation.
  */
 export function getDocsOutputPath(context: EnvPluginContext): string {
-  return joinPaths(context.config.projectRoot, "docs", "generated");
+  return joinPaths(context.config.root, "docs", "generated");
 }

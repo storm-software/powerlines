@@ -1,18 +1,29 @@
 {
   "name": "@powerlines/plugin-rolldown",
   "version": "0.7.300",
-  "type": "module",
+  "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-rolldown"
-  },
+  "keywords": [
+    "rolldown",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
     "email": "support@stormsoftware.com"
   },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/plugin-rolldown"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
   "author": {
     "name": "Storm Software",
     "email": "contact@stormsoftware.com",
@@ -32,91 +43,27 @@
       "url": "https://stormsoftware.com"
     }
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/storm-software"
-  },
-  "license": "Apache-2.0",
-  "private": false,
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "type": "module",
   "exports": {
-    ".": {
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "default": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      }
-    },
-    "./helpers": {
-      "require": {
-        "types": "./dist/helpers/index.d.cts",
-        "default": "./dist/helpers/index.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/index.d.mts",
-        "default": "./dist/helpers/index.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/index.d.mts",
-        "default": "./dist/helpers/index.mjs"
-      }
-    },
-    "./helpers/unplugin": {
-      "require": {
-        "types": "./dist/helpers/unplugin.d.cts",
-        "default": "./dist/helpers/unplugin.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/unplugin.d.mts",
-        "default": "./dist/helpers/unplugin.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/unplugin.d.mts",
-        "default": "./dist/helpers/unplugin.mjs"
-      }
-    },
-    "./package.json": "./package.json",
-    "./types": {
-      "require": {
-        "types": "./dist/types/index.d.cts",
-        "default": "./dist/types/index.cjs"
-      },
-      "import": {
-        "types": "./dist/types/index.d.mts",
-        "default": "./dist/types/index.mjs"
-      },
-      "default": {
-        "types": "./dist/types/index.d.mts",
-        "default": "./dist/types/index.mjs"
-      }
-    },
-    "./types/plugin": {
-      "require": {
-        "types": "./dist/types/plugin.d.cts",
-        "default": "./dist/types/plugin.cjs"
-      },
-      "import": {
-        "types": "./dist/types/plugin.d.mts",
-        "default": "./dist/types/plugin.mjs"
-      },
-      "default": {
-        "types": "./dist/types/plugin.d.mts",
-        "default": "./dist/types/plugin.mjs"
-      }
-    }
+    ".": "./dist/index.mjs",
+    "./helpers": "./dist/helpers/index.mjs",
+    "./helpers/resolve-options": "./dist/helpers/resolve-options.mjs",
+    "./helpers/unplugin": "./dist/helpers/unplugin.mjs",
+    "./types": "./dist/types/index.mjs",
+    "./types/build": "./dist/types/build.mjs",
+    "./types/plugin": "./dist/types/plugin.mjs",
+    "./*": "./*"
   },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["rolldown", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
   "dependencies": {
+    "@powerlines/plugin-babel": "workspace:*",
+    "@powerlines/plugin-rollup": "workspace:*",
     "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
@@ -124,16 +71,13 @@
     "@stryke/types": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "powerlines": "workspace:*",
     "rolldown": "catalog:",
     "unplugin": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "types": "./dist/index.d.cts"
+  }
 }

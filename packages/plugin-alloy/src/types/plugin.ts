@@ -21,7 +21,7 @@ import {
   BabelPluginResolvedConfig,
   BabelPluginUserConfig
 } from "@powerlines/plugin-babel/types/plugin";
-import { PluginContext } from "powerlines/types/context";
+import { PluginContext } from "powerlines";
 
 export type AlloyPluginOptions = Partial<PrintTreeOptions> & {
   /**

@@ -21,9 +21,7 @@ import {
   createInternalBuilder,
   BuildContext as ExternalContentCollectionsContext
 } from "@content-collections/core";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export type ContentCollectionsContext = Pick<
   Awaited<ReturnType<typeof createInternalBuilder>>,
@@ -35,9 +33,9 @@ export interface ContentCollectionsPluginOptions {
    * The path to a custom Prisma configuration file.
    *
    * @remarks
-   * This field allows the use of the "\{projectRoot\}" token to refer to the project's root directory - the value will be replaced with the correct file path by the plugin.
+   * This field allows the use of the "\{root\}" token to refer to the project's root directory - the value will be replaced with the correct file path by the plugin.
    *
-   * @defaultValue "\{projectRoot\}/content-collections.ts"
+   * @defaultValue "\{root\}/content-collections.ts"
    */
   configFile?: string;
 
@@ -69,8 +67,8 @@ export type ContentCollectionsPluginResolvedConfig = ResolvedConfig & {
 };
 
 export type ContentCollectionsPluginContext<
-  TResolvedConfig extends
-    ContentCollectionsPluginResolvedConfig = ContentCollectionsPluginResolvedConfig
+  TResolvedConfig extends ContentCollectionsPluginResolvedConfig =
+    ContentCollectionsPluginResolvedConfig
 > = PluginContext<TResolvedConfig> & {
   contentCollections: ContentCollectionsContext;
 };

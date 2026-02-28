@@ -16,8 +16,11 @@
 
  ------------------------------------------------------------------- */
 
+import { WebpackPluginUserConfig } from "@powerlines/plugin-webpack/types/plugin";
 import { createWebpackPlugin } from "unplugin";
-import { createUnpluginFactory } from "./lib/unplugin/factory";
+import { createUnpluginFactory } from "./unplugin";
+
+export { default as plugin } from "@powerlines/plugin-webpack";
 
 /**
  * An Webpack plugin that will invoke the Powerlines API hooks during the build process.
@@ -34,7 +37,10 @@ import { createUnpluginFactory } from "./lib/unplugin/factory";
  * }
  * ```
  */
-export const webpack = createWebpackPlugin(createUnpluginFactory("webpack"));
+export const webpack = createWebpackPlugin<Partial<WebpackPluginUserConfig>>(
+  createUnpluginFactory("webpack")
+);
 
 export default webpack;
+
 export { webpack as "module.exports" };

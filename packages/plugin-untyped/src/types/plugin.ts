@@ -16,18 +16,14 @@
 
  ------------------------------------------------------------------- */
 
-/* eslint-disable @nx/enforce-module-boundaries */
-
 import { getGenerateAction } from "@storm-software/untyped/generate";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export interface UntypedPluginOptions {
   /**
    * A path or glob pattern (or an array of paths and glob patterns) to schemas containing the Untyped type definitions used during generation.
    *
-   * @defaultValue "\{projectRoot\}/**\/\{untyped.ts,*.untyped.ts\}"
+   * @defaultValue "\{root\}/**\/\{untyped.ts,*.untyped.ts\}"
    */
   schema?: string | string[];
 

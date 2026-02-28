@@ -16,18 +16,17 @@
 
  ------------------------------------------------------------------- */
 
+import { Context, Plugin } from "@powerlines/core/types";
 import defu from "defu";
-import {
-  DEFAULT_VITE_CONFIG,
-  extractViteConfig
-} from "powerlines/lib/build/vite";
-import { ViteUserConfig } from "powerlines/types/config";
-import { Context } from "powerlines/types/context";
-import { Plugin } from "powerlines/types/plugin";
 import { build, InlineConfig } from "vite";
+import { DEFAULT_VITE_CONFIG, resolveOptions } from "./helpers/resolve-options";
 import { createVitePlugin } from "./helpers/unplugin";
-import { UNSAFE_VitePluginContext } from "./types/internal";
-import { VitePluginContext, VitePluginOptions } from "./types/plugin";
+import { UNSAFE_VitePluginContext } from "./types/_internal";
+import {
+  VitePluginContext,
+  VitePluginOptions,
+  VitePluginResolvedConfig
+} from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -49,13 +48,12 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
         output: {
           format: ["cjs", "esm"]
         },
-        build: {
+        vite: {
           ...DEFAULT_VITE_CONFIG,
-          ...options,
-          variant: "vite"
+          ...options
         },
         singleBuild: true
-      } as Partial<ViteUserConfig>;
+      } as Partial<VitePluginResolvedConfig>;
     },
     async build() {
       this.trace(`Building the Powerlines plugin.`);
@@ -79,11 +77,11 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
           environments: Object.fromEntries(
             Object.entries(environments).map(([name, env]) => [
               name,
-              extractViteConfig(env as Context)
+              resolveOptions(env as Context)
             ])
           )
         },
-        extractViteConfig(this),
+        resolveOptions(this),
         {
           plugins: [createVitePlugin(this)]
         }

@@ -26,7 +26,7 @@ import { isString } from "@stryke/type-checks/is-string";
 import defu from "defu";
 import { I18nextToolkitConfig, runExtractor } from "i18next-cli";
 import { mergeResourcesAsInterface } from "i18next-resources-for-ts";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import { getOutputPath } from "./helpers/config-utils";
 import { Resource, ResourceContent } from "./types/i18n";
 import {
@@ -36,6 +36,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    i18next?: I18NextPluginOptions;
+  }
+}
 
 /**
  * i18next Plugin
@@ -65,7 +71,7 @@ export const plugin = <
           extract: {
             output: (language: string, namespace = "translation") =>
               joinPaths(
-                this.config.projectRoot,
+                this.config.root,
                 `locales/${language}/${namespace}.json`
               ),
             primaryLanguage: this.workspaceConfig.locale
@@ -110,15 +116,12 @@ export const plugin = <
     },
     async configResolved() {},
     async prepare() {
-      await runExtractor(
-        this.config.i18next as I18nextToolkitConfig,
-        {
-          isWatchMode: false,
-          isDryRun: false,
-          syncAll: true,
-          syncPrimaryWithDefaults: true
-        },
-        {
+      await runExtractor(this.config.i18next as I18nextToolkitConfig, {
+        isWatchMode: false,
+        isDryRun: false,
+        syncAll: true,
+        syncPrimaryWithDefaults: true,
+        logger: {
           info: (message: string) => {
             this.info(message);
           },
@@ -129,7 +132,7 @@ export const plugin = <
             this.error(message);
           }
         }
-      );
+      });
     },
     async types(code: string) {
       const resources: Resource[] = [];
@@ -194,7 +197,7 @@ export const plugin = <
         await this.fs.write(
           appendPath(
             this.config.i18next.types.resourcesFile,
-            this.config.i18next.types.output || this.config.projectRoot
+            this.config.i18next.types.output || this.config.root
           ),
           mergeResourcesAsInterface(resources, {
             optimize: !!this.config.i18next.types.enableSelector,

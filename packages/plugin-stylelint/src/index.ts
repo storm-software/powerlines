@@ -20,11 +20,21 @@ import { getParentPath } from "@stryke/fs/get-parent-path";
 import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join";
 import { defu } from "defu";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import stylelint from "stylelint";
-import { StylelintPluginContext, StylelintPluginOptions } from "./types/plugin";
+import {
+  StylelintPluginContext,
+  StylelintPluginOptions,
+  StylelintPluginResolvedConfig
+} from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    stylelint?: StylelintPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to assist in linting stylesheets with Stylelint.
@@ -54,7 +64,7 @@ export function plugin(
           ".stylelintrc.json",
           ".stylelintrc"
         ],
-        this.config.projectRoot,
+        this.config.root,
         {
           ignoreCase: true,
           skipCwd: false,
@@ -63,35 +73,27 @@ export function plugin(
       );
 
       return {
-        lint: {
-          stylelint: defu(options, {
-            configFile,
-            cwd: joinPaths(
-              this.workspaceConfig.workspaceRoot,
-              this.config.projectRoot
-            ),
-            silent: this.config.logLevel !== null,
-            fix: true
-          })
-        }
-      };
+        stylelint: defu(options, {
+          configFile,
+          cwd: joinPaths(this.workspaceConfig.workspaceRoot, this.config.root),
+          silent: this.config.logLevel !== null,
+          fix: true
+        })
+      } as Partial<StylelintPluginResolvedConfig>;
     },
     async lint() {
       this.debug(`Linting project files with Stylelint.`);
 
       const result = await stylelint.lint(options);
 
-      if (this.config.lint.stylelint.outputFile) {
+      if (this.config.stylelint.outputFile) {
         await this.fs.write(
-          appendPath(
-            this.config.lint.stylelint.outputFile,
-            this.config.projectRoot
-          ),
+          appendPath(this.config.stylelint.outputFile, this.config.root),
           result.report
         );
       }
 
-      if (!this.config.lint.stylelint.silent) {
+      if (!this.config.stylelint.silent) {
         this.info(result.report);
 
         const totalWarnings = result.results

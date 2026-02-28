@@ -16,15 +16,24 @@
 
  ------------------------------------------------------------------- */
 
-import { UnbuildBuildConfig } from "powerlines/types/build";
-import { PluginContext } from "powerlines/types/context";
-import { UnbuildResolvedConfig } from "powerlines/types/resolved";
+import {
+  PluginContext,
+  ResolvedConfig,
+  UserConfig
+} from "@powerlines/core/types";
+import { UnbuildOptions } from "./build";
 
-export type UnbuildPluginOptions = Partial<UnbuildBuildConfig>;
+export type UnbuildPluginOptions = Partial<UnbuildOptions>;
 
-export type UnbuildPluginResolvedConfig = UnbuildResolvedConfig;
+export interface UnbuildPluginUserConfig extends UserConfig {
+  unbuild?: UnbuildPluginOptions;
+}
+
+export interface UnbuildPluginResolvedConfig extends ResolvedConfig {
+  unbuild: UnbuildOptions;
+}
 
 export type UnbuildPluginContext<
-  TResolvedConfig extends
-    UnbuildPluginResolvedConfig = UnbuildPluginResolvedConfig
+  TResolvedConfig extends UnbuildPluginResolvedConfig =
+    UnbuildPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;

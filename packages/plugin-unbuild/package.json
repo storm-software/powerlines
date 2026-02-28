@@ -38,66 +38,41 @@
   },
   "license": "Apache-2.0",
   "private": false,
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "exports": {
-    ".": {
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "default": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      }
-    },
-    "./package.json": "./package.json",
-    "./types": {
-      "require": {
-        "types": "./dist/types/index.d.cts",
-        "default": "./dist/types/index.cjs"
-      },
-      "import": {
-        "types": "./dist/types/index.d.mts",
-        "default": "./dist/types/index.mjs"
-      },
-      "default": {
-        "types": "./dist/types/index.d.mts",
-        "default": "./dist/types/index.mjs"
-      }
-    },
-    "./types/plugin": {
-      "require": {
-        "types": "./dist/types/plugin.d.cts",
-        "default": "./dist/types/plugin.cjs"
-      },
-      "import": {
-        "types": "./dist/types/plugin.d.mts",
-        "default": "./dist/types/plugin.mjs"
-      },
-      "default": {
-        "types": "./dist/types/plugin.d.mts",
-        "default": "./dist/types/plugin.mjs"
-      }
-    }
+    ".": "./dist/index.mjs",
+    "./helpers": "./dist/helpers/index.mjs",
+    "./helpers/resolve-options": "./dist/helpers/resolve-options.mjs",
+    "./types": "./dist/types/index.mjs",
+    "./types/build": "./dist/types/build.mjs",
+    "./types/plugin": "./dist/types/plugin.mjs",
+    "./*": "./*"
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["unbuild", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "unbuild",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@storm-software/unbuild": "catalog:",
-    "powerlines": "workspace:*"
+    "@stryke/path": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "defu": "catalog:",
+    "@powerlines/plugin-rollup": "workspace:*",
+    "esbuild": "catalog:",
+    "unplugin": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {
     "access": "public"
   },
-  "types": "./dist/index.d.cts"
+  "types": "./dist/index.d.mts"
 }

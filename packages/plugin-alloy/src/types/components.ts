@@ -18,8 +18,7 @@
 
 import type { Children, Context } from "@alloy-js/core";
 import type { SourceFileContext } from "@alloy-js/typescript";
-import { StoragePreset } from "powerlines/types/fs";
-import { ResolvedEntryTypeDefinition } from "powerlines/types/resolved";
+import { ResolvedEntryTypeDefinition, StoragePreset } from "powerlines";
 
 export interface CopyOutputFile {
   kind: "file";

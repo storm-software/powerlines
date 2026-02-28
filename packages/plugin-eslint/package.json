@@ -53,6 +53,7 @@
         "default": "./dist/index.mjs"
       }
     },
+    "./*": "./*",
     "./helpers": {
       "require": {
         "types": "./dist/helpers/index.d.cts",
@@ -81,7 +82,6 @@
         "default": "./dist/helpers/format-message.mjs"
       }
     },
-    "./package.json": "./package.json",
     "./types": {
       "require": {
         "types": "./dist/types/index.d.cts",

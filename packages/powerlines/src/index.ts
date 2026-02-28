@@ -27,20 +27,10 @@
 
 import { getWorkspaceRoot } from "@stryke/fs/get-workspace-root";
 import { PowerlinesAPI } from "./api";
-import { AnyUserConfig, UserConfig } from "./types/config";
+import { UserConfig } from "./types";
 
 export * from "../schemas/fs";
 export * from "./types";
-
-/**
- * A type helper to make it easier to use `powerlines.config.ts` files.
- *
- * @remarks
- * The function accepts a direct {@link AnyUserConfig} object and returns it typed as a {@link UserConfig} object.
- */
-export function defineConfig(config: AnyUserConfig): UserConfig {
-  return config as UserConfig;
-}
 
 /**
  * Creates a new {@link PowerlinesAPI} instance.

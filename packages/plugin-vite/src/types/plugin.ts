@@ -16,14 +16,23 @@
 
  ------------------------------------------------------------------- */
 
-import { ViteBuildConfig } from "powerlines/types/build";
-import { ConfigEnv } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ViteResolvedConfig } from "powerlines/types/resolved";
+import {
+  ConfigEnv,
+  PluginContext,
+  ResolvedConfig,
+  UserConfig
+} from "@powerlines/core/types";
+import { ViteOptions } from "./build";
 
-export type VitePluginOptions = Partial<ViteBuildConfig>;
+export type VitePluginOptions = Partial<ViteOptions>;
 
-export type VitePluginResolvedConfig = ViteResolvedConfig;
+export interface VitePluginUserConfig extends UserConfig {
+  vite?: VitePluginOptions;
+}
+
+export interface VitePluginResolvedConfig extends ResolvedConfig {
+  vite: ViteOptions;
+}
 
 export type VitePluginContext<
   TResolvedConfig extends VitePluginResolvedConfig = VitePluginResolvedConfig

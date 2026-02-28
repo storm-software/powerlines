@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { getFileHeader } from "powerlines/lib/utilities/file-header";
+import { getFileHeader } from "powerlines/utils";
 import { CryptoPluginContext } from "../types/plugin";
 
 /**

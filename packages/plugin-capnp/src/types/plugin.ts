@@ -17,9 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { CapnpcOptions } from "@stryke/capnp/types";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export type CapnpPluginOptions = Partial<
   Omit<CapnpcOptions, "workspaceRoot" | "projectRoot" | "schemas">
@@ -27,7 +25,7 @@ export type CapnpPluginOptions = Partial<
   /**
    * The path to the Cap'n Proto schema file(s).
    *
-   * @defaultValue "\{projectRoot\}/schemas/*.capnp"
+   * @defaultValue "\{root\}/schemas/*.capnp"
    */
   schema?: string | URL;
 

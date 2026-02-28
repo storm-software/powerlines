@@ -16,14 +16,17 @@
 
  ------------------------------------------------------------------- */
 
+import { Plugin } from "@powerlines/core/types";
 import { toArray } from "@stryke/convert/to-array";
 import defu from "defu";
-import { extractRollupConfig } from "powerlines/lib/build/rollup";
-import { RollupUserConfig } from "powerlines/types/config";
-import { Plugin } from "powerlines/types/plugin";
 import { rollup as build } from "rollup";
+import { resolveOptions } from "./helpers";
 import { createRollupPlugin } from "./helpers/unplugin";
-import { RollupPluginContext, RollupPluginOptions } from "./types/plugin";
+import {
+  RollupPluginContext,
+  RollupPluginOptions,
+  RollupPluginUserConfig
+} from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -43,11 +46,10 @@ export const plugin = <
         output: {
           format: ["cjs", "esm"]
         },
-        build: {
-          ...options,
-          variant: "rollup"
+        rollup: {
+          ...options
         }
-      } as Partial<RollupUserConfig>;
+      } as Partial<RollupPluginUserConfig>;
     },
     async build() {
       const result = await build(
@@ -55,7 +57,7 @@ export const plugin = <
           {
             plugins: [createRollupPlugin(this)]
           },
-          extractRollupConfig(this)
+          resolveOptions(this)
         )
       );
 

@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { transformAsync } from "@babel/core";
+import type { Plugin } from "@powerlines/core/types";
 import {
   findFileExtension,
   findFileExtensionSafe
@@ -24,10 +25,9 @@ import {
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import defu from "defu";
-import { ResolvedBabelTransformPluginOptions } from "powerlines/types/babel";
-import { Plugin } from "powerlines/types/plugin";
 import { isDuplicatePlugin } from "./helpers/filters";
 import { resolveBabelPlugin } from "./helpers/options";
+import { ResolvedBabelTransformPluginOptions } from "./types/config";
 import { BabelPluginContext, BabelPluginOptions } from "./types/plugin";
 
 export * from "./helpers";
@@ -39,9 +39,11 @@ export * from "./types";
  * @param options - The Babel plugin user configuration options.
  * @returns A Powerlines plugin that integrates Babel transformations.
  */
-export const plugin = <TContext extends BabelPluginContext>(
+export const plugin = <
+  TContext extends BabelPluginContext = BabelPluginContext
+>(
   options: BabelPluginOptions = {}
-) => {
+): Plugin<TContext> => {
   return {
     name: "babel",
     config() {
@@ -50,13 +52,13 @@ export const plugin = <TContext extends BabelPluginContext>(
       }
 
       return {
-        transform: { babel: options }
+        babel: options
       };
     },
     configResolved: {
       order: "pre",
       handler() {
-        this.config.transform.babel = defu(this.config.transform.babel ?? {}, {
+        this.config.babel = defu(this.config.babel ?? {}, {
           plugins: [],
           presets: []
         });
@@ -73,12 +75,12 @@ export const plugin = <TContext extends BabelPluginContext>(
         return { code, id };
       }
 
-      const plugins = this.config.transform.babel.plugins
+      const plugins = this.config.babel.plugins
         .map(plugin => resolveBabelPlugin(this, code, id, plugin))
         .filter(
           (plugin, _, arr) => plugin && !isDuplicatePlugin(arr, plugin)
         ) as ResolvedBabelTransformPluginOptions[];
-      const presets = this.config.transform.babel.presets
+      const presets = this.config.babel.presets
         .map(preset => resolveBabelPlugin(this, code, id, preset))
         .filter(
           (preset, _, arr) => preset && !isDuplicatePlugin(arr, preset)
@@ -127,7 +129,7 @@ export const plugin = <TContext extends BabelPluginContext>(
         caller: {
           name: this.config.framework
         },
-        ...(this.config.transform.babel ?? {}),
+        ...(this.config.babel ?? {}),
         filename: id,
         plugins: plugins
           .map(plugin => {

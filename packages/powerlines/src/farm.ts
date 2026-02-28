@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { createFarmPlugin } from "unplugin";
-import { createUnpluginFactory } from "./lib/unplugin/factory";
+import { createUnpluginFactory } from "./unplugin";
 
 /**
  * A Farm plugin that will invoke the Powerlines API hooks during the build process.

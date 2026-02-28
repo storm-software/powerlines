@@ -16,9 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 import { Application, ProjectReflection, TypeDocOptions } from "typedoc";
 
 export interface GenerateDocsOptions {
@@ -57,21 +55,17 @@ export interface TypeDocPluginUserConfig extends UserConfig {
   /**
    * Options for the TypeDoc plugin.
    */
-  docs?: {
-    typedoc: TypeDocPluginOptions;
-  };
+  typedoc: TypeDocPluginOptions;
 }
 
 export interface TypeDocPluginResolvedConfig extends ResolvedConfig {
   /**
    * Options for the TypeDoc plugin.
    */
-  docs: {
-    typedoc: TypeDocOptions & {
-      outputPath: string;
-      baseUrl: string;
-      override?: Partial<TypeDocOptions>;
-    };
+  typedoc: TypeDocOptions & {
+    outputPath: string;
+    baseUrl: string;
+    override?: Partial<TypeDocOptions>;
   };
 }
 

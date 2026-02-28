@@ -55,6 +55,7 @@
         "default": "./dist/index.mjs"
       }
     },
+    "./*": "./*",
     "./core": {
       "require": {
         "types": "./dist/core/index.d.cts",
@@ -391,7 +392,6 @@
         "default": "./dist/markdown/contexts/markdown-table.mjs"
       }
     },
-    "./package.json": "./package.json",
     "./render": {
       "require": {
         "types": "./dist/render.d.cts",

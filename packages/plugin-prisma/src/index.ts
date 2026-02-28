@@ -18,17 +18,14 @@
 
 import { execute, executePackage } from "@stryke/cli/execute";
 import { existsSync } from "@stryke/fs/exists";
-import { isPackageListed } from "@stryke/fs/package-fns";
 import { joinPaths } from "@stryke/path/join-paths";
-import { replacePath } from "@stryke/path/replace";
 import defu from "defu";
-import { getConfigPath } from "powerlines/plugin-utils/get-config-path";
-import { replacePathTokens } from "powerlines/plugin-utils/paths";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
+import { getConfigPath, replacePathTokens } from "powerlines/plugin-utils";
 import { createClient } from "./api/client/client.gen";
 import type { ClientOptions } from "./api/client/types.gen";
 import { createConfig } from "./api/client/utils.gen";
-import { PrismaClient } from "./api/sdk.gen";
+import { Options, PrismaClient } from "./api/sdk.gen";
 import { CreateDatabaseData } from "./api/types.gen";
 import { getSchema } from "./helpers/get-schema";
 import { PrismaSchemaCreator } from "./helpers/schema-creator";
@@ -42,6 +39,12 @@ export * from "./api/client.gen";
 export * from "./api/sdk.gen";
 export * from "./api/types.gen";
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    prisma?: PrismaPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to integrate Prisma for code generation.
@@ -59,7 +62,7 @@ export const plugin = <
     config() {
       return {
         prisma: defu(options, {
-          schema: joinPaths(this.config.projectRoot, "prisma", "schema.prisma"),
+          schema: joinPaths(this.config.root, "prisma", "schema.prisma"),
           configFile:
             options.configFile || getConfigPath(this, "prisma.config"),
           outputPath: joinPaths("{builtinPath}", "prisma"),
@@ -123,18 +126,16 @@ export const plugin = <
 
         await this.prisma.api
           .createDatabase({
-            path: {
-              projectId: this.config.prisma.prismaPostgres.projectId
-            },
             body: {
               isDefault: false,
               name:
                 this.config.prisma.prismaPostgres.databaseName ||
                 `${this.config.prisma.prismaPostgres.region}.${this.config.mode}.${this.config.name}`,
+              projectId: this.config.prisma.prismaPostgres.projectId,
               region: this.config.prisma.prismaPostgres.region
-            } as CreateDatabaseData["body"]
-          })
-          .then(response => response.data.data);
+            }
+          } as Options<CreateDatabaseData>)
+          .then(response => response.data?.data);
       }
 
       if (!this.config.prisma.outputPath) {
@@ -162,13 +163,13 @@ export const plugin = <
       }
 
       const generator = this.prisma.schema.generators.find(
-        gen => gen.provider.value === "prisma-client-js"
+        gen => gen.provider.value === "prisma-client"
       );
       if (!generator) {
         this.prisma.schema.generators.push({
-          name: "prisma-client-js",
+          name: "prisma-client",
           provider: {
-            value: "prisma-client-js",
+            value: "prisma-client",
             fromEnvVar: null
           },
           output: {
@@ -195,21 +196,12 @@ export const plugin = <
 
       const args = ["generate", "--schema", this.config.prisma.schema];
       if (!this.config.prisma.prismaPath) {
-        const isPrismaListed = await isPackageListed(
-          "prisma",
-          this.config.projectRoot
-        );
-
-        args.unshift(
-          isPrismaListed
-            ? replacePath(this.config.sourceRoot, this.config.projectRoot)
-            : this.config.sourceRoot
-        );
+        args.unshift(this.config.root);
 
         const result = await executePackage(
           "prisma",
           args,
-          joinPaths(this.workspaceConfig.workspaceRoot, this.config.projectRoot)
+          joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
         );
         if (result.failed) {
           throw new Error(
@@ -219,7 +211,7 @@ export const plugin = <
       } else {
         args.unshift(this.config.prisma.prismaPath);
 
-        const result = await execute(args.join(" "), this.config.projectRoot);
+        const result = await execute(args.join(" "), this.config.root);
         if (result.failed) {
           throw new Error(
             `Prisma process exited with code ${result.exitCode}.`

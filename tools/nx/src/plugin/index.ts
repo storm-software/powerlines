@@ -165,8 +165,7 @@ export const createNodesV2: CreateNodesV2 = [
               [root]: defu(
                 {
                   root,
-                  targets,
-                  implicitDependencies: ["nx"]
+                  targets
                 },
                 projectConfig,
                 {

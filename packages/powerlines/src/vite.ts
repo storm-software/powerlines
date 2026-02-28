@@ -16,12 +16,17 @@
 
  ------------------------------------------------------------------- */
 
+import { resolveOptions } from "@powerlines/plugin-vite/helpers/resolve-options";
+import {
+  ViteOptions,
+  VitePluginUserConfig
+} from "@powerlines/plugin-vite/types";
 import { isDevelopmentMode, isTestMode } from "@stryke/env/environment-checks";
 import defu from "defu";
 import { createVitePlugin } from "unplugin";
-import { extractViteConfig } from "./lib/build/vite";
-import { createUnpluginFactory } from "./lib/unplugin/factory";
-import { ViteResolvedBuildConfig } from "./types";
+import { createUnpluginFactory } from "./unplugin";
+
+export { default as plugin } from "@powerlines/plugin-vite";
 
 /**
  * A Vite plugin that will invoke the Powerlines API hooks during the build process.
@@ -39,7 +44,7 @@ import { ViteResolvedBuildConfig } from "./types";
  *
  * ```
  */
-export const vite = createVitePlugin(
+export const vite = createVitePlugin<Partial<VitePluginUserConfig>>(
   createUnpluginFactory("vite", (api, plugin) => {
     return {
       ...plugin,
@@ -67,11 +72,11 @@ export const vite = createVitePlugin(
           );
 
           return defu(
-            extractViteConfig(api.context),
+            resolveOptions(api.context),
             // Need to use `any` here to avoid excessive type complexity
             result?.build ?? {},
             config
-          ) as Omit<ViteResolvedBuildConfig, "plugins">;
+          ) as Omit<ViteOptions, "plugins">;
         },
         async configResolved(_config) {
           const environment = await api.context.getEnvironment();
@@ -113,4 +118,5 @@ export const vite = createVitePlugin(
 );
 
 export default vite;
+
 export { vite as "module.exports" };

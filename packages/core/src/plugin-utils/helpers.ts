@@ -1,0 +1,379 @@
+/* -------------------------------------------------------------------
+
+                   ⚡ Storm Software - Powerlines
+
+ This code was released as part of the Powerlines project. Powerlines
+ is maintained by Storm Software under the Apache-2.0 license, and is
+ free for commercial and private use. For more information, please visit
+ our licensing page at https://stormsoftware.com/licenses/projects/powerlines.
+
+ Website:                  https://stormsoftware.com
+ Repository:               https://github.com/storm-software/powerlines
+ Documentation:            https://docs.stormsoftware.com/projects/powerlines
+ Contact:                  https://stormsoftware.com/contact
+
+ SPDX-License-Identifier:  Apache-2.0
+
+ ------------------------------------------------------------------- */
+
+import { isFunction } from "@stryke/type-checks/is-function";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { isSetString } from "@stryke/type-checks/is-set-string";
+import { isUndefined } from "@stryke/type-checks/is-undefined";
+import { AnyFunction } from "@stryke/types/base";
+import {
+  PluginConfig,
+  PluginConfigObject,
+  PluginConfigTuple,
+  ResolvedConfig
+} from "../types/config";
+import { PluginContext, WithUnpluginBuildContext } from "../types/context";
+import {
+  HookFields,
+  PluginHooksListItem,
+  UnpluginHooksListItem
+} from "../types/hooks";
+import {
+  PLUGIN_HOOKS_FIELDS,
+  Plugin,
+  PluginHook,
+  PluginHookFields,
+  PluginHookObject,
+  PluginHooks
+} from "../types/plugin";
+import {
+  BUILDER_VARIANTS,
+  UNPLUGIN_BUILDER_VARIANTS,
+  UnpluginBuilderVariant,
+  UnpluginOptions
+} from "../types/unplugin";
+
+/**
+ * Type guard to check if an object is a {@link Plugin}
+ *
+ * @param value - The object to check
+ * @returns True if the object is a {@link Plugin}, false otherwise
+ */
+export function isPlugin<
+  TContext extends PluginContext = PluginContext<ResolvedConfig>
+>(value: unknown): value is Plugin<TContext> {
+  return (
+    isSetObject(value) &&
+    "name" in value &&
+    isSetString(value.name) &&
+    (isUndefined((value as Plugin<TContext>).api) ||
+      ("api" in value && isSetObject(value.api))) &&
+    (isUndefined((value as Plugin<TContext>).applyToEnvironment) ||
+      ("applyToEnvironment" in value &&
+        isFunction(value.applyToEnvironment))) &&
+    (isUndefined((value as Plugin<TContext>).dedupe) ||
+      ("dedupe" in value && isFunction(value.dedupe))) &&
+    PLUGIN_HOOKS_FIELDS.every(
+      hook =>
+        isUndefined((value as Plugin<TContext>)[hook]) ||
+        (hook in value &&
+          (isPluginHookFunction((value as Plugin<TContext>)[hook]) ||
+            (hook === "config" &&
+              isSetObject((value as Plugin<TContext>)[hook]))))
+    ) &&
+    BUILDER_VARIANTS.every(
+      variant =>
+        isUndefined((value as Plugin<TContext>)[variant]) ||
+        (variant in value && isSetObject((value as Plugin<TContext>)[variant]))
+    )
+  );
+}
+
+/**
+ * Type guard to check if an object is a {@link PluginConfigObject}
+ *
+ * @param value - The object to check
+ * @returns True if the object is a {@link PluginConfigObject}, false otherwise
+ */
+export function isPluginConfigObject<
+  TContext extends PluginContext = PluginContext<ResolvedConfig>
+>(value: unknown): value is PluginConfigObject<TContext> {
+  return (
+    isSetObject(value) &&
+    "plugin" in value &&
+    (((isSetString(value.plugin) || isFunction(value.plugin)) &&
+      "options" in value &&
+      isSetObject(value.options)) ||
+      isPlugin(value.plugin))
+  );
+}
+
+/**
+ * Type guard to check if an object is a {@link PluginConfigTuple}
+ *
+ * @param value - The object to check
+ * @returns True if the object is a {@link PluginConfigTuple}, false otherwise
+ */
+export function isPluginConfigTuple<
+  TContext extends PluginContext = PluginContext<ResolvedConfig>
+>(value: unknown): value is PluginConfigTuple<TContext> {
+  return (
+    Array.isArray(value) &&
+    (value.length === 1 || value.length === 2) &&
+    (((isSetString(value[0]) || isFunction(value[0])) &&
+      value.length > 1 &&
+      isSetObject(value[1])) ||
+      isPlugin(value[0]))
+  );
+}
+
+/**
+ * Type guard to check if an object is a {@link PluginConfig}
+ *
+ * @param value - The object to check
+ * @returns True if the object is a {@link PluginConfig}, false otherwise
+ */
+export function isPluginConfig<
+  TContext extends PluginContext = PluginContext<ResolvedConfig>
+>(value: unknown): value is PluginConfig<TContext> {
+  return (
+    isSetString(value) ||
+    isFunction(value) ||
+    isPlugin<TContext>(value) ||
+    isPluginConfigObject(value) ||
+    isPluginConfigTuple(value) ||
+    (Array.isArray(value) && value.every(item => isPluginConfig(item)))
+  );
+}
+
+/**
+ * Type guard to check if an value is a {@link PluginHook} function
+ *
+ * @param value - The value to check
+ * @returns True if the value is a {@link PluginHook} function, false otherwise
+ */
+export function isPluginHookObject(
+  value: unknown
+): value is PluginHookObject<AnyFunction> {
+  return isSetObject(value) && "handler" in value && isFunction(value.handler);
+}
+
+/**
+ * Type guard to check if an value is a {@link PluginHook} function
+ *
+ * @param value - The value to check
+ * @returns True if the value is a {@link PluginHook} function, false otherwise
+ */
+export function isPluginHookFunction(value: unknown): value is AnyFunction {
+  return isFunction(value) || isPluginHookObject(value);
+}
+
+/**
+ * Type guard to check if an object is a {@link PluginHook}
+ *
+ * @param value - The object to check
+ * @returns True if the object is a {@link PluginHook}, false otherwise
+ */
+export function isPluginHook(value: unknown): value is PluginHook<AnyFunction> {
+  return isPluginHookFunction(value) || isPluginHookObject(value);
+}
+
+export type GetHookHandlerReturnType<
+  TContext extends PluginContext = PluginContext,
+  TField extends HookFields<TContext> = HookFields<TContext>
+> = TField extends PluginHookFields
+  ? PluginHooksListItem<TContext, TField>["handler"]
+  : TField extends UnpluginBuilderVariant
+    ? UnpluginHooksListItem<TContext, TField>["handler"]
+    : never;
+
+type HooksListItemForField<
+  TContext extends PluginContext = PluginContext,
+  TField extends HookFields<TContext> = HookFields<TContext>
+> =
+  TField extends PluginHookFields<TContext>
+    ? PluginHooksListItem<TContext, Extract<TField, PluginHookFields<TContext>>>
+    : TField extends UnpluginBuilderVariant
+      ? UnpluginHooksListItem<TContext, Extract<TField, UnpluginBuilderVariant>>
+      : never;
+
+/**
+ * Extract the hook handler function from a plugin hook
+ *
+ * @param pluginHook - The plugin hook to extract the handler function from
+ * @returns The hook handler function
+ */
+export function getHookHandler<
+  TContext extends PluginContext = PluginContext,
+  TField extends HookFields<TContext> = HookFields<TContext>
+>(
+  pluginHook: PluginHook<AnyFunction>
+): GetHookHandlerReturnType<TContext, TField> {
+  return (
+    isFunction(pluginHook) ? pluginHook : pluginHook.handler
+  ) as GetHookHandlerReturnType<TContext, TField>;
+}
+
+/**
+ * Extract a plugin hook from a plugin
+ *
+ * @param context - The build context
+ * @param plugin - The plugin to extract the hook from
+ * @param hook - The name of the hook to extract
+ * @returns The extracted hook, or undefined if the hook does not exist
+ */
+export function extractPluginHook<
+  TContext extends PluginContext = PluginContext,
+  TPlugin extends Plugin<TContext> = Plugin<TContext>
+>(context: TContext, plugin: TPlugin, hook: keyof PluginHooks<TContext>) {
+  const pluginHook = plugin[hook];
+  if (!isPluginHook(pluginHook)) {
+    return undefined;
+  }
+
+  return isFunction(pluginHook)
+    ? {
+        normal: pluginHook.bind(context)
+      }
+    : {
+        [pluginHook.order ? pluginHook.order : "normal"]:
+          pluginHook.handler.bind(context)
+      };
+}
+
+/**
+ * Check if a hook is external.
+ *
+ * @param keys - The name of the hook to check.
+ * @returns True if the hook is external, false otherwise.
+ */
+export function isUnpluginHookKey<
+  TUnpluginBuilderVariant extends UnpluginBuilderVariant =
+    UnpluginBuilderVariant
+>(
+  keys: string
+): keys is `${TUnpluginBuilderVariant}:${keyof UnpluginOptions[TUnpluginBuilderVariant] & string}` {
+  return UNPLUGIN_BUILDER_VARIANTS.some(variant =>
+    keys.startsWith(`${variant}:`)
+  );
+}
+
+/**
+ * Check if a hook is internal.
+ *
+ * @param keys - The name of the hook to check.
+ * @returns True if the hook is external, false otherwise.
+ */
+export function isPluginHookField<TContext extends PluginContext>(
+  keys: string
+): keys is PluginHookFields<TContext> {
+  return (
+    !isUnpluginHookKey(keys) &&
+    PLUGIN_HOOKS_FIELDS.includes(keys as PluginHookFields<TContext>)
+  );
+}
+
+/**
+ * Check if a hook is external.
+ *
+ * @param field - The name of the hook to check.
+ * @returns True if the hook is external, false otherwise.
+ */
+export function isUnpluginHookField<
+  TUnpluginBuilderVariant extends UnpluginBuilderVariant =
+    UnpluginBuilderVariant
+>(field: string): field is TUnpluginBuilderVariant {
+  return (
+    !isPluginHookField(field) &&
+    UNPLUGIN_BUILDER_VARIANTS.includes(field as UnpluginBuilderVariant)
+  );
+}
+
+/**
+ * Check if a plugin should be deduplicated.
+ *
+ * @param plugin - The plugin to check
+ * @param plugins - The list of plugins to check against
+ * @returns True if the plugin should be deduplicated, false otherwise
+ */
+export function checkDedupe<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig,
+  TContext extends PluginContext<TResolvedConfig> =
+    PluginContext<TResolvedConfig>
+>(plugin: Plugin<TContext>, plugins: Plugin<TContext>[]) {
+  return (
+    plugin.dedupe === false ||
+    plugins.some(
+      p =>
+        p.dedupe !== false &&
+        ((isFunction(p.dedupe) && p.dedupe(plugin)) || p.name === plugin.name)
+    )
+  );
+}
+
+/**
+ * Add a plugin hook to the hooks list.
+ *
+ * @param context - The plugin context
+ * @param plugin - The plugin to add the hook from
+ * @param pluginHook - The plugin hook to add
+ * @param hooksList - The list of hooks to add to
+ */
+export function addPluginHook<
+  TContext extends PluginContext = PluginContext,
+  TField extends PluginHookFields<TContext> = PluginHookFields<TContext>,
+  TList extends PluginHooksListItem<TContext, TField> = PluginHooksListItem<
+    TContext,
+    TField
+  >
+>(
+  context: TContext,
+  plugin: Plugin<TContext>,
+  pluginHook: PluginHook<AnyFunction>,
+  hooksList: TList[]
+) {
+  if (
+    !checkDedupe(plugin, hooksList.map(hook => hook.plugin).filter(Boolean))
+  ) {
+    const handler = ((...args: unknown[]) =>
+      (
+        getHookHandler<WithUnpluginBuildContext<TContext>, TField>(
+          pluginHook
+        ) as unknown as (...args: unknown[]) => unknown
+      ).apply(context, args)) as HooksListItemForField<
+      TContext,
+      TField
+    >["handler"];
+    if (!handler) {
+      return;
+    }
+
+    hooksList.push({
+      plugin,
+      handler
+    } as any);
+  }
+}
+
+/**
+ * Check the provided {@link PluginConfig}, and return a stringified version of the invalid configuration. If an array is provided, check each item in the array.
+ *
+ * @param config - The plugin configuration to check
+ * @returns Null if the configuration is valid, otherwise an array of stringified invalid configurations
+ */
+export function findInvalidPluginConfig<
+  TContext extends PluginContext = PluginContext<ResolvedConfig>
+>(config: PluginConfig<TContext>): string[] | null {
+  if (isPluginConfig<TContext>(config)) {
+    return null;
+  }
+
+  if (Array.isArray(config as PluginConfig<TContext>[])) {
+    const invalidItems: string[] = [];
+    (config as PluginConfig<TContext>[]).forEach(item => {
+      const invalid = findInvalidPluginConfig<TContext>(item);
+      if (invalid) {
+        invalidItems.push(...invalid.map(i => JSON.stringify(i, null, 2)));
+      }
+    });
+
+    return invalidItems.length > 0 ? invalidItems : null;
+  }
+
+  return [JSON.stringify(config, null, 2)];
+}

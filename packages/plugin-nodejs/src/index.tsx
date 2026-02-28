@@ -18,14 +18,18 @@
 
 import { render } from "@powerlines/plugin-alloy/render";
 import babel from "@powerlines/plugin-babel";
-import env, { readEnvTypeReflection } from "@powerlines/plugin-env";
-import { isMatchFound } from "powerlines/lib/typescript/tsconfig";
-import { Plugin } from "powerlines/types/plugin";
+import env from "@powerlines/plugin-env";
+import { readEnvTypeReflection } from "@powerlines/plugin-env/helpers/persistence";
+import { Plugin } from "powerlines";
+import { isMatchFound } from "powerlines/typescript";
 import { NodeJsEnvBuiltin } from "./components/env";
 import { NodeJsPluginContext, NodeJsPluginOptions } from "./types/plugin";
 
-export * from "./components";
-export * from "./types";
+declare module "powerlines" {
+  export interface UserConfig {
+    nodejs?: NodeJsPluginOptions;
+  }
+}
 
 /**
  * A package containing a Powerlines plugin for building a NodeJs application.

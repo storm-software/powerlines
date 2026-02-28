@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import defu from "defu";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import { nanoidModule } from "./components/nanoid";
 import {
   IdPluginContext,
@@ -27,6 +27,12 @@ import {
 
 export * from "./components";
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    id?: IdPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to assist in developing other Powerlines plugins.

@@ -26,12 +26,22 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { defu } from "defu";
 import type { ESLint as FlatESLint } from "eslint";
 import type { LegacyESLint } from "eslint/use-at-your-own-risk";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import { formatMessage } from "./helpers/format-message";
-import { ESLintPluginContext, ESLintPluginOptions } from "./types/plugin";
+import {
+  ESLintPluginContext,
+  ESLintPluginOptions,
+  ESLintPluginResolvedConfig
+} from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    eslint?: ESLintPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to lint a project's source code with ESLint.
@@ -61,7 +71,7 @@ export function plugin(
           ".eslintrc.json",
           ".eslintrc"
         ],
-        this.config.projectRoot,
+        this.config.root,
         {
           ignoreCase: true,
           skipCwd: false,
@@ -70,17 +80,15 @@ export function plugin(
       );
 
       return {
-        lint: {
-          eslint: defu(options, {
-            configFile,
-            reportErrorsOnly: false,
-            maxWarnings: 5,
-            fix: true,
-            outputFile: null,
-            type: "recommended"
-          })
-        }
-      };
+        eslint: defu(options, {
+          configFile,
+          reportErrorsOnly: false,
+          maxWarnings: 5,
+          fix: true,
+          outputFile: null,
+          type: "recommended"
+        })
+      } as Partial<ESLintPluginResolvedConfig>;
     },
     async configResolved() {
       if (
@@ -107,7 +115,7 @@ export function plugin(
       }
 
       const isInstalled = isPackageExists("eslint", {
-        paths: [this.workspaceConfig.workspaceRoot, this.config.projectRoot]
+        paths: [this.workspaceConfig.workspaceRoot, this.config.root]
       });
       if (!isInstalled) {
         throw new Error(
@@ -252,7 +260,7 @@ export function plugin(
 
       const output = resultsWithMessages
         .map(({ messages, filePath }) =>
-          formatMessage(this.config.projectRoot, messages, filePath)
+          formatMessage(this.config.root, messages, filePath)
         )
         .join("\n");
 

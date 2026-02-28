@@ -19,11 +19,11 @@
 import alloy from "@powerlines/plugin-alloy";
 import deepkit from "@powerlines/plugin-deepkit";
 import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines";
+import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
   skipCache: true,
-  entry: ["src/**/*.ts", "src/**/*.tsx"],
+  input: ["src/**/*.ts", "src/**/*.tsx"],
   plugins: [
     plugin(),
     deepkit({

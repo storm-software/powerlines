@@ -16,9 +16,9 @@
 
  ------------------------------------------------------------------- */
 
+import { format } from "@powerlines/core/lib/utilities/format";
 import { joinPaths } from "@stryke/path/join";
 import { isSetString } from "@stryke/type-checks/is-set-string";
-import { format } from "powerlines/lib/utilities/format";
 import { TsdownPluginContext } from "../types/plugin";
 
 /**
@@ -29,7 +29,7 @@ import { TsdownPluginContext } from "../types/plugin";
 export async function formatPackageJson(context: TsdownPluginContext) {
   const packageJsonPath = joinPaths(
     context.workspaceConfig.workspaceRoot,
-    context.config.projectRoot,
+    context.config.root,
     "package.json"
   );
   const packageJsonFile = await context.fs.read(packageJsonPath);

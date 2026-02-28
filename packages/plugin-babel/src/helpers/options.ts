@@ -17,13 +17,13 @@
  ------------------------------------------------------------------- */
 
 import { PluginOptions, PluginTarget } from "@babel/core";
+import { Context } from "@powerlines/core/types";
 import { isFunction } from "@stryke/type-checks/is-function";
 import chalk from "chalk";
 import {
   BabelTransformPluginOptions,
   ResolvedBabelTransformPluginOptions
-} from "powerlines/types/babel";
-import { Context } from "powerlines/types/context";
+} from "../types/config";
 import { getPluginName } from "./filters";
 
 export function resolvePluginFunction(

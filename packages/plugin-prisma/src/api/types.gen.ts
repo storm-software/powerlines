@@ -4,16 +4,24 @@ export type ClientOptions = {
     baseUrl: `${string}://${string}` | (string & {});
 };
 
-export type DeleteDatabaseConnectionStringData = {
+export type ListConnectionsData = {
     body?: never;
-    path: {
-        id: string;
+    path?: never;
+    query?: {
+        /**
+         * Cursor for pagination
+         */
+        cursor?: string | null;
+        /**
+         * Limit for pagination
+         */
+        limit?: number;
+        databaseId?: string;
     };
-    query?: never;
-    url: '/v1/connections/{id}';
+    url: '/v1/connections';
 };
 
-export type DeleteDatabaseConnectionStringErrors = {
+export type ListConnectionsErrors = {
     /**
      * Missing or invalid authorization token.
      */
@@ -21,6 +29,84 @@ export type DeleteDatabaseConnectionStringErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
+        };
+    };
+};
+
+export type ListConnectionsError = ListConnectionsErrors[keyof ListConnectionsErrors];
+
+export type ListConnectionsResponses = {
+    /**
+     * Returned list of connections.
+     */
+    200: {
+        data: Array<{
+            id: string;
+            type: 'connection';
+            url: string;
+            name: string;
+            createdAt: string;
+            kind: 'postgres' | 'accelerate';
+            endpoints: {
+                direct?: {
+                    host: string;
+                    port: number;
+                };
+                pooled?: {
+                    host: string;
+                    port: number;
+                };
+                accelerate?: {
+                    host: string;
+                    port: number;
+                };
+            };
+            directConnection?: {
+                host: string;
+                pass: string;
+                user: string;
+            } | null;
+            database: {
+                id: string;
+                url: string;
+                name: string;
+            };
+        }>;
+        pagination: {
+            /**
+             * Next cursor to continue pagination
+             */
+            nextCursor: string | null;
+            /**
+             * Whether there are more items to paginate
+             */
+            hasMore: boolean;
+        };
+    };
+};
+
+export type ListConnectionsResponse = ListConnectionsResponses[keyof ListConnectionsResponses];
+
+export type CreateConnectionData = {
+    body?: {
+        databaseId: string;
+        name: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/v1/connections';
+};
+
+export type CreateConnectionErrors = {
+    /**
+     * Missing or invalid authorization token.
+     */
+    401: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
         };
     };
     /**
@@ -30,20 +116,423 @@ export type DeleteDatabaseConnectionStringErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
 
-export type DeleteDatabaseConnectionStringError = DeleteDatabaseConnectionStringErrors[keyof DeleteDatabaseConnectionStringErrors];
+export type CreateConnectionError = CreateConnectionErrors[keyof CreateConnectionErrors];
 
-export type DeleteDatabaseConnectionStringResponses = {
+export type CreateConnectionResponses = {
     /**
-     * Deleted the database connection string.
+     * Created a new connection.
+     */
+    201: {
+        data: {
+            id: string;
+            type: 'connection';
+            url: string;
+            name: string;
+            createdAt: string;
+            kind: 'postgres' | 'accelerate';
+            endpoints: {
+                direct?: {
+                    host: string;
+                    port: number;
+                };
+                pooled?: {
+                    host: string;
+                    port: number;
+                };
+                accelerate?: {
+                    host: string;
+                    port: number;
+                };
+            };
+            connectionString: string;
+            directConnection?: {
+                host: string;
+                pass: string;
+                user: string;
+            } | null;
+            database: {
+                id: string;
+                url: string;
+                name: string;
+            };
+            host: string | null;
+            pass: string | null;
+            user: string | null;
+        };
+    };
+};
+
+export type CreateConnectionResponse = CreateConnectionResponses[keyof CreateConnectionResponses];
+
+export type DeleteConnectionData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/v1/connections/{id}';
+};
+
+export type DeleteConnectionErrors = {
+    /**
+     * Missing or invalid authorization token.
+     */
+    401: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Connection with the given ID was not found.
+     */
+    404: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+};
+
+export type DeleteConnectionError = DeleteConnectionErrors[keyof DeleteConnectionErrors];
+
+export type DeleteConnectionResponses = {
+    /**
+     * Deleted the connection.
      */
     204: void;
 };
 
-export type DeleteDatabaseConnectionStringResponse = DeleteDatabaseConnectionStringResponses[keyof DeleteDatabaseConnectionStringResponses];
+export type DeleteConnectionResponse = DeleteConnectionResponses[keyof DeleteConnectionResponses];
+
+export type GetConnectionData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/v1/connections/{id}';
+};
+
+export type GetConnectionErrors = {
+    /**
+     * Missing or invalid authorization token.
+     */
+    401: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Connection with the given ID was not found.
+     */
+    404: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+};
+
+export type GetConnectionError = GetConnectionErrors[keyof GetConnectionErrors];
+
+export type GetConnectionResponses = {
+    /**
+     * Returned the connection.
+     */
+    200: {
+        data: {
+            id: string;
+            type: 'connection';
+            url: string;
+            name: string;
+            createdAt: string;
+            kind: 'postgres' | 'accelerate';
+            endpoints: {
+                direct?: {
+                    host: string;
+                    port: number;
+                };
+                pooled?: {
+                    host: string;
+                    port: number;
+                };
+                accelerate?: {
+                    host: string;
+                    port: number;
+                };
+            };
+            directConnection?: {
+                host: string;
+                pass: string;
+                user: string;
+            } | null;
+            database: {
+                id: string;
+                url: string;
+                name: string;
+            };
+        };
+    };
+};
+
+export type GetConnectionResponse = GetConnectionResponses[keyof GetConnectionResponses];
+
+export type ListDatabasesData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Cursor for pagination
+         */
+        cursor?: string | null;
+        /**
+         * Limit for pagination
+         */
+        limit?: number;
+        /**
+         * Filter databases by project ID
+         */
+        projectId?: string;
+    };
+    url: '/v1/databases';
+};
+
+export type ListDatabasesErrors = {
+    /**
+     * Missing or invalid authorization token.
+     */
+    401: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Actor does not have access to the requested databases.
+     */
+    403: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+};
+
+export type ListDatabasesError = ListDatabasesErrors[keyof ListDatabasesErrors];
+
+export type ListDatabasesResponses = {
+    /**
+     * Returns the list of databases.
+     */
+    200: {
+        data: Array<{
+            id: string;
+            type: 'database';
+            url: string;
+            name: string;
+            status: 'failure' | 'provisioning' | 'ready' | 'recovering';
+            createdAt: string;
+            isDefault: boolean;
+            defaultConnectionId: string | null;
+            connections: Array<{
+                id: string;
+                type: 'connection';
+                url: string;
+                name: string;
+                createdAt: string;
+                kind: 'postgres' | 'accelerate';
+                endpoints: {
+                    direct?: {
+                        host: string;
+                        port: number;
+                    };
+                    pooled?: {
+                        host: string;
+                        port: number;
+                    };
+                    accelerate?: {
+                        host: string;
+                        port: number;
+                    };
+                };
+                directConnection?: {
+                    host: string;
+                    pass: string;
+                    user: string;
+                } | null;
+                database: {
+                    id: string;
+                    url: string;
+                    name: string;
+                };
+            }>;
+            project: {
+                id: string;
+                url: string;
+                name: string;
+            };
+            region: {
+                id: string;
+                name: string;
+            } | null;
+        }>;
+        pagination: {
+            /**
+             * Next cursor to continue pagination
+             */
+            nextCursor: string | null;
+            /**
+             * Whether there are more items to paginate
+             */
+            hasMore: boolean;
+        };
+    };
+};
+
+export type ListDatabasesResponse = ListDatabasesResponses[keyof ListDatabasesResponses];
+
+export type CreateDatabaseData = {
+    body?: {
+        /**
+         * ID of the project to create the database in
+         */
+        projectId: string;
+        /**
+         * Region for the database
+         */
+        region?: string;
+        /**
+         * Display name for the database
+         */
+        name?: string;
+        /**
+         * Whether this is the default database
+         */
+        isDefault?: boolean;
+    };
+    path?: never;
+    query?: never;
+    url: '/v1/databases';
+};
+
+export type CreateDatabaseErrors = {
+    /**
+     * Invalid request parameters.
+     */
+    400: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Missing or invalid authorization token.
+     */
+    401: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Actor does not have access to the specified project.
+     */
+    403: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Project not found.
+     */
+    404: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+};
+
+export type CreateDatabaseError = CreateDatabaseErrors[keyof CreateDatabaseErrors];
+
+export type CreateDatabaseResponses = {
+    /**
+     * Created a new database.
+     */
+    201: {
+        data: {
+            id: string;
+            type: 'database';
+            url: string;
+            name: string;
+            status: 'failure' | 'provisioning' | 'ready' | 'recovering';
+            createdAt: string;
+            isDefault: boolean;
+            defaultConnectionId: string | null;
+            connections: Array<{
+                id: string;
+                type: 'connection';
+                url: string;
+                name: string;
+                createdAt: string;
+                kind: 'postgres' | 'accelerate';
+                endpoints: {
+                    direct?: {
+                        host: string;
+                        port: number;
+                    };
+                    pooled?: {
+                        host: string;
+                        port: number;
+                    };
+                    accelerate?: {
+                        host: string;
+                        port: number;
+                    };
+                };
+                directConnection?: {
+                    host: string;
+                    pass: string;
+                    user: string;
+                } | null;
+                database: {
+                    id: string;
+                    url: string;
+                    name: string;
+                };
+            }>;
+            project: {
+                id: string;
+                url: string;
+                name: string;
+            };
+            region: {
+                id: string;
+                name: string;
+            } | null;
+        };
+    };
+};
+
+export type CreateDatabaseResponse = CreateDatabaseResponses[keyof CreateDatabaseResponses];
 
 export type DeleteDatabaseData = {
     body?: never;
@@ -62,6 +551,7 @@ export type DeleteDatabaseErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -71,6 +561,7 @@ export type DeleteDatabaseErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -80,6 +571,7 @@ export type DeleteDatabaseErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -112,6 +604,17 @@ export type GetDatabaseErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Actor does not have access to the database.
+     */
+    403: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
         };
     };
     /**
@@ -121,6 +624,7 @@ export type GetDatabaseErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -135,12 +639,47 @@ export type GetDatabaseResponses = {
         data: {
             id: string;
             type: 'database';
+            url: string;
             name: string;
             status: 'failure' | 'provisioning' | 'ready' | 'recovering';
             createdAt: string;
             isDefault: boolean;
+            defaultConnectionId: string | null;
+            connections: Array<{
+                id: string;
+                type: 'connection';
+                url: string;
+                name: string;
+                createdAt: string;
+                kind: 'postgres' | 'accelerate';
+                endpoints: {
+                    direct?: {
+                        host: string;
+                        port: number;
+                    };
+                    pooled?: {
+                        host: string;
+                        port: number;
+                    };
+                    accelerate?: {
+                        host: string;
+                        port: number;
+                    };
+                };
+                directConnection?: {
+                    host: string;
+                    pass: string;
+                    user: string;
+                } | null;
+                database: {
+                    id: string;
+                    url: string;
+                    name: string;
+                };
+            }>;
             project: {
                 id: string;
+                url: string;
                 name: string;
             };
             region: {
@@ -152,6 +691,116 @@ export type GetDatabaseResponses = {
 };
 
 export type GetDatabaseResponse = GetDatabaseResponses[keyof GetDatabaseResponses];
+
+export type UpdateDatabaseData = {
+    body?: {
+        /**
+         * New display name for the database
+         */
+        name?: string;
+    };
+    path: {
+        databaseId: string;
+    };
+    query?: never;
+    url: '/v1/databases/{databaseId}';
+};
+
+export type UpdateDatabaseErrors = {
+    /**
+     * Missing or invalid authorization token.
+     */
+    401: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Actor does not have access to the database.
+     */
+    403: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Database with the given ID was not found.
+     */
+    404: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+};
+
+export type UpdateDatabaseError = UpdateDatabaseErrors[keyof UpdateDatabaseErrors];
+
+export type UpdateDatabaseResponses = {
+    /**
+     * Updated the database.
+     */
+    200: {
+        data: {
+            id: string;
+            type: 'database';
+            url: string;
+            name: string;
+            status: 'failure' | 'provisioning' | 'ready' | 'recovering';
+            createdAt: string;
+            isDefault: boolean;
+            defaultConnectionId: string | null;
+            connections: Array<{
+                id: string;
+                type: 'connection';
+                url: string;
+                name: string;
+                createdAt: string;
+                kind: 'postgres' | 'accelerate';
+                endpoints: {
+                    direct?: {
+                        host: string;
+                        port: number;
+                    };
+                    pooled?: {
+                        host: string;
+                        port: number;
+                    };
+                    accelerate?: {
+                        host: string;
+                        port: number;
+                    };
+                };
+                directConnection?: {
+                    host: string;
+                    pass: string;
+                    user: string;
+                } | null;
+                database: {
+                    id: string;
+                    url: string;
+                    name: string;
+                };
+            }>;
+            project: {
+                id: string;
+                url: string;
+                name: string;
+            };
+            region: {
+                id: string;
+                name: string;
+            } | null;
+        };
+    };
+};
+
+export type UpdateDatabaseResponse = UpdateDatabaseResponses[keyof UpdateDatabaseResponses];
 
 export type ListDatabaseConnectionsData = {
     body?: never;
@@ -179,6 +828,7 @@ export type ListDatabaseConnectionsErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -193,8 +843,24 @@ export type ListDatabaseConnectionsResponses = {
         data: Array<{
             id: string;
             type: 'connection';
+            url: string;
             name: string;
             createdAt: string;
+            kind: 'postgres' | 'accelerate';
+            endpoints: {
+                direct?: {
+                    host: string;
+                    port: number;
+                };
+                pooled?: {
+                    host: string;
+                    port: number;
+                };
+                accelerate?: {
+                    host: string;
+                    port: number;
+                };
+            };
             directConnection?: {
                 host: string;
                 pass: string;
@@ -202,6 +868,7 @@ export type ListDatabaseConnectionsResponses = {
             } | null;
             database: {
                 id: string;
+                url: string;
                 name: string;
             };
         }>;
@@ -239,6 +906,7 @@ export type CreateDatabaseConnectionStringErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -248,6 +916,7 @@ export type CreateDatabaseConnectionStringErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -262,8 +931,27 @@ export type CreateDatabaseConnectionStringResponses = {
         data: {
             id: string;
             type: 'connection';
+            url: string;
             name: string;
             createdAt: string;
+            kind: 'postgres' | 'accelerate';
+            endpoints: {
+                direct?: {
+                    host: string;
+                    port: number;
+                    connectionString: string;
+                };
+                pooled?: {
+                    host: string;
+                    port: number;
+                    connectionString: string;
+                };
+                accelerate?: {
+                    host: string;
+                    port: number;
+                    connectionString: string;
+                };
+            };
             connectionString: string;
             directConnection?: {
                 host: string;
@@ -272,6 +960,7 @@ export type CreateDatabaseConnectionStringResponses = {
             } | null;
             database: {
                 id: string;
+                url: string;
                 name: string;
             };
             host: string | null;
@@ -302,6 +991,7 @@ export type ListBackupsErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -311,6 +1001,7 @@ export type ListBackupsErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -320,6 +1011,7 @@ export type ListBackupsErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -392,6 +1084,7 @@ export type GetDatabaseUsageMetricsErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -401,6 +1094,7 @@ export type GetDatabaseUsageMetricsErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -410,6 +1104,7 @@ export type GetDatabaseUsageMetricsErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -419,6 +1114,7 @@ export type GetDatabaseUsageMetricsErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -474,6 +1170,7 @@ export type ListProjectsErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -488,10 +1185,12 @@ export type ListProjectsResponses = {
         data: Array<{
             id: string;
             type: 'project';
+            url: string;
             name: string;
             createdAt: string;
             workspace: {
                 id: string;
+                url: string;
                 name: string;
             };
         }>;
@@ -529,6 +1228,7 @@ export type CreateProjectWithPostgresDatabaseErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -543,19 +1243,58 @@ export type CreateProjectWithPostgresDatabaseResponses = {
         data: {
             id: string;
             type: 'project';
+            url: string;
             name: string;
             createdAt: string;
             workspace: {
                 id: string;
+                url: string;
                 name: string;
             };
             database: {
                 id: string;
                 type: 'database';
+                url: string;
                 name: string;
                 status: 'provisioning' | 'ready';
                 createdAt: string;
                 isDefault: boolean;
+                defaultConnectionId: string | null;
+                connections: Array<{
+                    id: string;
+                    type: 'connection';
+                    url: string;
+                    name: string;
+                    createdAt: string;
+                    kind: 'postgres' | 'accelerate';
+                    endpoints: {
+                        direct?: {
+                            host: string;
+                            port: number;
+                            connectionString?: string;
+                        };
+                        pooled?: {
+                            host: string;
+                            port: number;
+                            connectionString?: string;
+                        };
+                        accelerate?: {
+                            host: string;
+                            port: number;
+                            connectionString?: string;
+                        };
+                    };
+                    directConnection?: {
+                        host: string;
+                        pass: string;
+                        user: string;
+                    } | null;
+                    database: {
+                        id: string;
+                        url: string;
+                        name: string;
+                    };
+                }>;
                 region: {
                     id: string;
                     name: string;
@@ -563,8 +1302,24 @@ export type CreateProjectWithPostgresDatabaseResponses = {
                 apiKeys: Array<{
                     id: string;
                     type: 'connection';
+                    url: string;
                     name: string;
                     createdAt: string;
+                    kind: 'postgres' | 'accelerate';
+                    endpoints: {
+                        direct?: {
+                            host: string;
+                            port: number;
+                        };
+                        pooled?: {
+                            host: string;
+                            port: number;
+                        };
+                        accelerate?: {
+                            host: string;
+                            port: number;
+                        };
+                    };
                     connectionString: string;
                     directConnection?: {
                         host: string;
@@ -602,6 +1357,7 @@ export type DeleteProjectErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -611,6 +1367,7 @@ export type DeleteProjectErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -620,6 +1377,7 @@ export type DeleteProjectErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -652,6 +1410,7 @@ export type GetProjectErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -661,6 +1420,7 @@ export type GetProjectErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -675,10 +1435,12 @@ export type GetProjectResponses = {
         data: {
             id: string;
             type: 'project';
+            url: string;
             name: string;
             createdAt: string;
             workspace: {
                 id: string;
+                url: string;
                 name: string;
             };
         };
@@ -686,6 +1448,87 @@ export type GetProjectResponses = {
 };
 
 export type GetProjectResponse = GetProjectResponses[keyof GetProjectResponses];
+
+export type UpdateProjectData = {
+    body?: {
+        name?: string;
+        settings?: {
+            [key: string]: unknown;
+        };
+    };
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/v1/projects/{id}';
+};
+
+export type UpdateProjectErrors = {
+    /**
+     * Missing or invalid authorization token.
+     */
+    401: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Actor does not have access to the project.
+     */
+    403: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Project with the specified ID was not found.
+     */
+    404: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Validation failed.
+     */
+    422: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+};
+
+export type UpdateProjectError = UpdateProjectErrors[keyof UpdateProjectErrors];
+
+export type UpdateProjectResponses = {
+    /**
+     * Project updated.
+     */
+    200: {
+        data: {
+            id: string;
+            type: 'project';
+            url: string;
+            name: string;
+            createdAt: string;
+            workspace: {
+                id: string;
+                url: string;
+                name: string;
+            };
+        };
+    };
+};
+
+export type UpdateProjectResponse = UpdateProjectResponses[keyof UpdateProjectResponses];
 
 export type TransferProjectData = {
     body?: {
@@ -706,6 +1549,7 @@ export type TransferProjectErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -715,6 +1559,7 @@ export type TransferProjectErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -730,7 +1575,7 @@ export type TransferProjectResponses = {
 
 export type TransferProjectResponse = TransferProjectResponses[keyof TransferProjectResponses];
 
-export type ListDatabasesData = {
+export type ListDatabases2Data = {
     body?: never;
     path: {
         projectId: string;
@@ -748,7 +1593,7 @@ export type ListDatabasesData = {
     url: '/v1/projects/{projectId}/databases';
 };
 
-export type ListDatabasesErrors = {
+export type ListDatabases2Errors = {
     /**
      * Missing or invalid authorization token.
      */
@@ -756,6 +1601,7 @@ export type ListDatabasesErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -765,13 +1611,14 @@ export type ListDatabasesErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
 
-export type ListDatabasesError = ListDatabasesErrors[keyof ListDatabasesErrors];
+export type ListDatabases2Error = ListDatabases2Errors[keyof ListDatabases2Errors];
 
-export type ListDatabasesResponses = {
+export type ListDatabases2Responses = {
     /**
      * Returned the databases for the given project ID.
      */
@@ -779,12 +1626,47 @@ export type ListDatabasesResponses = {
         data: Array<{
             id: string;
             type: 'database';
+            url: string;
             name: string;
             status: 'failure' | 'provisioning' | 'ready' | 'recovering';
             createdAt: string;
             isDefault: boolean;
+            defaultConnectionId: string | null;
+            connections: Array<{
+                id: string;
+                type: 'connection';
+                url: string;
+                name: string;
+                createdAt: string;
+                kind: 'postgres' | 'accelerate';
+                endpoints: {
+                    direct?: {
+                        host: string;
+                        port: number;
+                    };
+                    pooled?: {
+                        host: string;
+                        port: number;
+                    };
+                    accelerate?: {
+                        host: string;
+                        port: number;
+                    };
+                };
+                directConnection?: {
+                    host: string;
+                    pass: string;
+                    user: string;
+                } | null;
+                database: {
+                    id: string;
+                    url: string;
+                    name: string;
+                };
+            }>;
             project: {
                 id: string;
+                url: string;
                 name: string;
             };
             region: {
@@ -805,9 +1687,9 @@ export type ListDatabasesResponses = {
     };
 };
 
-export type ListDatabasesResponse = ListDatabasesResponses[keyof ListDatabasesResponses];
+export type ListDatabases2Response = ListDatabases2Responses[keyof ListDatabases2Responses];
 
-export type CreateDatabaseData = {
+export type CreateDatabase2Data = {
     body?: {
         region?: 'us-east-1' | 'us-west-1' | 'eu-west-3' | 'eu-central-1' | 'ap-northeast-1' | 'ap-southeast-1';
         name?: string;
@@ -827,7 +1709,7 @@ export type CreateDatabaseData = {
     url: '/v1/projects/{projectId}/databases';
 };
 
-export type CreateDatabaseErrors = {
+export type CreateDatabase2Errors = {
     /**
      * The request is invalid due to missing or invalid parameters.
      */
@@ -835,6 +1717,7 @@ export type CreateDatabaseErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -844,6 +1727,7 @@ export type CreateDatabaseErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -853,13 +1737,14 @@ export type CreateDatabaseErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
 
-export type CreateDatabaseError = CreateDatabaseErrors[keyof CreateDatabaseErrors];
+export type CreateDatabase2Error = CreateDatabase2Errors[keyof CreateDatabase2Errors];
 
-export type CreateDatabaseResponses = {
+export type CreateDatabase2Responses = {
     /**
      * Created a new database for the project.
      */
@@ -867,12 +1752,50 @@ export type CreateDatabaseResponses = {
         data: {
             id: string;
             type: 'database';
+            url: string;
             name: string;
             status: 'provisioning' | 'ready';
             createdAt: string;
             isDefault: boolean;
+            defaultConnectionId: string | null;
+            connections: Array<{
+                id: string;
+                type: 'connection';
+                url: string;
+                name: string;
+                createdAt: string;
+                kind: 'postgres' | 'accelerate';
+                endpoints: {
+                    direct?: {
+                        host: string;
+                        port: number;
+                        connectionString?: string;
+                    };
+                    pooled?: {
+                        host: string;
+                        port: number;
+                        connectionString?: string;
+                    };
+                    accelerate?: {
+                        host: string;
+                        port: number;
+                        connectionString?: string;
+                    };
+                };
+                directConnection?: {
+                    host: string;
+                    pass: string;
+                    user: string;
+                } | null;
+                database: {
+                    id: string;
+                    url: string;
+                    name: string;
+                };
+            }>;
             project: {
                 id: string;
+                url: string;
                 name: string;
             };
             region: {
@@ -882,8 +1805,24 @@ export type CreateDatabaseResponses = {
             apiKeys: Array<{
                 id: string;
                 type: 'connection';
+                url: string;
                 name: string;
                 createdAt: string;
+                kind: 'postgres' | 'accelerate';
+                endpoints: {
+                    direct?: {
+                        host: string;
+                        port: number;
+                    };
+                    pooled?: {
+                        host: string;
+                        port: number;
+                    };
+                    accelerate?: {
+                        host: string;
+                        port: number;
+                    };
+                };
                 connectionString: string;
                 directConnection?: {
                     host: string;
@@ -901,14 +1840,12 @@ export type CreateDatabaseResponses = {
     };
 };
 
-export type CreateDatabaseResponse = CreateDatabaseResponses[keyof CreateDatabaseResponses];
+export type CreateDatabase2Response = CreateDatabase2Responses[keyof CreateDatabase2Responses];
 
 export type ListIntegrationsData = {
     body?: never;
-    path: {
-        workspaceId: string;
-    };
-    query?: {
+    path?: never;
+    query: {
         /**
          * Cursor for pagination
          */
@@ -917,8 +1854,9 @@ export type ListIntegrationsData = {
          * Limit for pagination
          */
         limit?: number;
+        workspaceId: string;
     };
-    url: '/v1/workspaces/{workspaceId}/integrations';
+    url: '/v1/integrations';
 };
 
 export type ListIntegrationsErrors = {
@@ -929,15 +1867,7 @@ export type ListIntegrationsErrors = {
         error: {
             code: string;
             message: string;
-        };
-    };
-    /**
-     * Workspace with the given ID was not found.
-     */
-    404: {
-        error: {
-            code: string;
-            message: string;
+            hint?: string;
         };
     };
 };
@@ -946,11 +1876,12 @@ export type ListIntegrationsError = ListIntegrationsErrors[keyof ListIntegration
 
 export type ListIntegrationsResponses = {
     /**
-     * Returned the integrations for the given workspace ID.
+     * Returned the integrations for the given workspace.
      */
     200: {
         data: Array<{
             id: string;
+            url: string;
             createdAt: string;
             scopes: Array<string>;
             client: {
@@ -979,6 +1910,188 @@ export type ListIntegrationsResponses = {
 
 export type ListIntegrationsResponse = ListIntegrationsResponses[keyof ListIntegrationsResponses];
 
+export type DeleteIntegrationData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/v1/integrations/{id}';
+};
+
+export type DeleteIntegrationErrors = {
+    /**
+     * Missing or invalid authorization token.
+     */
+    401: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Integration with the given ID was not found.
+     */
+    404: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+};
+
+export type DeleteIntegrationError = DeleteIntegrationErrors[keyof DeleteIntegrationErrors];
+
+export type DeleteIntegrationResponses = {
+    /**
+     * Revoked the integration tokens.
+     */
+    204: void;
+};
+
+export type DeleteIntegrationResponse = DeleteIntegrationResponses[keyof DeleteIntegrationResponses];
+
+export type GetIntegrationByIdData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/v1/integrations/{id}';
+};
+
+export type GetIntegrationByIdErrors = {
+    /**
+     * Missing or invalid authorization token.
+     */
+    401: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Integration with the given ID was not found.
+     */
+    404: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+};
+
+export type GetIntegrationByIdError = GetIntegrationByIdErrors[keyof GetIntegrationByIdErrors];
+
+export type GetIntegrationByIdResponses = {
+    /**
+     * Returned the integration.
+     */
+    200: {
+        data: {
+            id: string;
+            url: string;
+            createdAt: string;
+            scopes: Array<string>;
+            client: {
+                id: string;
+                name: string;
+                createdAt: string;
+            };
+            createdByUser: {
+                id: string;
+                email: string;
+                displayName: string | null;
+            };
+        };
+    };
+};
+
+export type GetIntegrationByIdResponse = GetIntegrationByIdResponses[keyof GetIntegrationByIdResponses];
+
+export type ListIntegrations2Data = {
+    body?: never;
+    path: {
+        workspaceId: string;
+    };
+    query?: {
+        /**
+         * Cursor for pagination
+         */
+        cursor?: string | null;
+        /**
+         * Limit for pagination
+         */
+        limit?: number;
+    };
+    url: '/v1/workspaces/{workspaceId}/integrations';
+};
+
+export type ListIntegrations2Errors = {
+    /**
+     * Missing or invalid authorization token.
+     */
+    401: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Workspace with the given ID was not found.
+     */
+    404: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+};
+
+export type ListIntegrations2Error = ListIntegrations2Errors[keyof ListIntegrations2Errors];
+
+export type ListIntegrations2Responses = {
+    /**
+     * Returned the integrations for the given workspace ID.
+     */
+    200: {
+        data: Array<{
+            id: string;
+            url: string;
+            createdAt: string;
+            scopes: Array<string>;
+            client: {
+                id: string;
+                name: string;
+                createdAt: string;
+            };
+            createdByUser: {
+                id: string;
+                email: string;
+                displayName: string | null;
+            };
+        }>;
+        pagination: {
+            /**
+             * Next cursor to continue pagination
+             */
+            nextCursor: string | null;
+            /**
+             * Whether there are more items to paginate
+             */
+            hasMore: boolean;
+        };
+    };
+};
+
+export type ListIntegrations2Response = ListIntegrations2Responses[keyof ListIntegrations2Responses];
+
 export type RevokeIntegrationTokensData = {
     body?: never;
     path: {
@@ -997,6 +2110,7 @@ export type RevokeIntegrationTokensErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
     /**
@@ -1006,6 +2120,7 @@ export type RevokeIntegrationTokensErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -1020,6 +2135,47 @@ export type RevokeIntegrationTokensResponses = {
 };
 
 export type RevokeIntegrationTokensResponse = RevokeIntegrationTokensResponses[keyof RevokeIntegrationTokensResponses];
+
+export type GetAllRegionsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        product?: 'postgres' | 'accelerate';
+    };
+    url: '/v1/regions';
+};
+
+export type GetAllRegionsErrors = {
+    /**
+     * Missing or invalid authorization token.
+     */
+    401: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+};
+
+export type GetAllRegionsError = GetAllRegionsErrors[keyof GetAllRegionsErrors];
+
+export type GetAllRegionsResponses = {
+    /**
+     * Returns all available regions.
+     */
+    200: {
+        data: Array<{
+            id: string;
+            type: 'region';
+            name: string;
+            product: 'postgres' | 'accelerate';
+            status?: 'available' | 'unavailable';
+        }>;
+    };
+};
+
+export type GetAllRegionsResponse = GetAllRegionsResponses[keyof GetAllRegionsResponses];
 
 export type GetPrismaPostgresRegionsData = {
     body?: never;
@@ -1036,6 +2192,7 @@ export type GetPrismaPostgresRegionsErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -1073,6 +2230,7 @@ export type GetPrismaAccelerateRegionsErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -1118,6 +2276,7 @@ export type ListWorkspacesErrors = {
         error: {
             code: string;
             message: string;
+            hint?: string;
         };
     };
 };
@@ -1132,6 +2291,7 @@ export type ListWorkspacesResponses = {
         data: Array<{
             id: string;
             type: 'workspace';
+            url: string;
             name: string;
             createdAt: string;
         }>;
@@ -1149,3 +2309,54 @@ export type ListWorkspacesResponses = {
 };
 
 export type ListWorkspacesResponse = ListWorkspacesResponses[keyof ListWorkspacesResponses];
+
+export type GetWorkspaceData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/v1/workspaces/{id}';
+};
+
+export type GetWorkspaceErrors = {
+    /**
+     * Missing or invalid authorization token.
+     */
+    401: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+    /**
+     * Workspace with the specified ID was not found.
+     */
+    404: {
+        error: {
+            code: string;
+            message: string;
+            hint?: string;
+        };
+    };
+};
+
+export type GetWorkspaceError = GetWorkspaceErrors[keyof GetWorkspaceErrors];
+
+export type GetWorkspaceResponses = {
+    /**
+     * Workspace retrieved.
+     */
+    200: {
+        data: {
+            id: string;
+            type: 'workspace';
+            url: string;
+            name: string;
+            createdAt: string;
+        };
+    };
+};
+
+export type GetWorkspaceResponse = GetWorkspaceResponses[keyof GetWorkspaceResponses];

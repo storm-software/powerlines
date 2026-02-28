@@ -1,6 +1,8 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "@alloy-js/core",
     "lib": ["esnext"],
     "types": ["node"],
     "strict": true,

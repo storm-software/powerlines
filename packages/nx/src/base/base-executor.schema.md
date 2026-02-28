@@ -4,25 +4,6 @@
 
 # Base Executor
 
-## `outputPath`
-- **Type**: `string`
-- **Default**: `"dist/{projectRoot}"`
-
-> Output Path
-
-
-The output path for the build
-
-
-## `tsconfig`
-- **Type**: `string`
-
-> TypeScript Configuration File
-
-
-The path to the tsconfig file
-
-
 ## `configFile`
 - **Type**: `string`
 - **Default**: `"{projectRoot}/powerlines.config.ts"`
@@ -31,6 +12,93 @@ The path to the tsconfig file
 
 
 The path to the Powerlines configuration file
+
+
+## `input`
+- **Type**: `array`
+- **Default**: `["{sourceRoot}/index.ts"]`
+
+> Input Entry File(s)
+
+
+The entry file(s) that serve as the input for the project
+
+
+## `tsconfig`
+- **Type**: `string`
+- **Default**: `"{projectRoot}/tsconfig.json"`
+
+> TSConfig Path
+
+
+The path to the tsconfig file
+
+
+## `outputPath`
+- **Type**: `string`
+
+> Output Path
+
+
+The path to the output directory for the build artifacts
+
+
+## `sourceMap`
+- **Type**: `boolean`
+
+> Sourcemap
+
+
+Generate a sourcemap
+
+
+## `format`
+- **Type**: `array`
+- **Default**: `["cjs","esm"]`
+
+> Format
+
+
+The format to build
+
+
+## `platform`
+- **Type**: `string`
+- **Default**: `"neutral"`
+
+> Platform
+
+
+The platform to build
+
+
+## `external`
+- **Type**: `array`
+- **Default**: `[]`
+
+> External
+
+
+The external dependencies
+
+
+## `noExternal`
+- **Type**: `array`
+- **Default**: `[]`
+
+> No External
+
+
+The dependencies that should not be treated as external
+
+
+## `skipNodeModulesBundle`
+- **Type**: `boolean`
+
+> Skip Node Modules Bundle
+
+
+Skip bundling node_modules during the build process (if required)
 
 
 ## `mode`
@@ -42,24 +110,6 @@ The path to the Powerlines configuration file
 The build mode
 
 
-## `autoInstall`
-- **Type**: `boolean`
-
-> Auto Install
-
-
-Automatically install dependencies during prepare stage
-
-
-## `skipCache`
-- **Type**: `boolean`
-
-> Skip Cache
-
-
-Skip the caching mechanism during the build process (if required)
-
-
 ## `logLevel`
 - **Type**: `string`
 
@@ -68,4 +118,6 @@ Skip the caching mechanism during the build process (if required)
 
 The log level to use for the build process
 
+
+## `define`
 

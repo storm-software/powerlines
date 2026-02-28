@@ -20,8 +20,8 @@ import { appendPath } from "@stryke/path/append";
 import defu from "defu";
 import { createNitro } from "nitro/builder";
 import { NitroConfig } from "nitro/types";
-import { getConfigPath } from "powerlines/plugin-utils/get-config-path";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
+import { getConfigPath } from "powerlines/plugin-utils";
 import {
   NitroContext,
   NitroPluginContext,
@@ -30,6 +30,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    nitro?: NitroPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to integrate with Nitro.
@@ -71,7 +77,7 @@ export const plugin = <
         this.config.nitro.compatibilityDate = this.config.compatibilityDate;
         this.config.nitro.workspaceDir = this.workspaceConfig.workspaceRoot;
 
-        this.config.nitro.alias = this.config.build
+        this.config.nitro.alias = this.config.resolve
           .alias as NitroConfig["alias"];
 
         switch (this.config.logLevel) {
@@ -115,7 +121,7 @@ export const plugin = <
         config(_, configEnv) {
           this.config.nitro.dev = configEnv.command === "serve";
           this.config.nitro.builder = "vite";
-          this.config.nitro.rootDir = this.config.projectRoot;
+          this.config.nitro.rootDir = this.config.root;
           this.config.nitro = defu(
             this.config.nitro,
             this.config

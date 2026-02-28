@@ -18,10 +18,16 @@
 
 import { transform } from "@swc/core";
 import defu from "defu";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import { SwcPluginContext, SwcPluginOptions } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    swc?: SwcPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to integrate SWC for code transformation.
@@ -36,19 +42,17 @@ export const plugin = <TContext extends SwcPluginContext = SwcPluginContext>(
     name: "swc",
     config() {
       return {
-        transform: {
-          swc: defu(options, {
-            outputPath: this.config.output.buildPath,
-            cwd: this.config.projectRoot,
-            envName: this.config.mode,
-            configFile: false
-          })
-        }
+        swc: defu(options, {
+          outputPath: this.config.output.buildPath,
+          cwd: this.config.root,
+          envName: this.config.mode,
+          configFile: false
+        })
       };
     },
     async transform(code, id) {
       const result = await transform(code, {
-        ...this.config.transform.swc,
+        ...this.config.swc,
         filename: id
       });
 

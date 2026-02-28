@@ -4,27 +4,6 @@
 
 export interface BaseExecutorSchema {
  /**
-  * Output Path
-  * 
-  * The output path for the build
-  * 
-  * @default "dist/{projectRoot}"
-  * 
-  * @format path
- */
- outputPath?: string,
-
- /**
-  * TypeScript Configuration File
-  * 
-  * The path to the tsconfig file
-  * 
-  * 
-  * @format path
- */
- tsconfig?: string,
-
- /**
   * Powerlines Configuration File
   * 
   * The path to the Powerlines configuration file
@@ -34,6 +13,90 @@ export interface BaseExecutorSchema {
   * @format path
  */
  configFile?: string,
+
+ /**
+  * Input Entry File(s)
+  * 
+  * The entry file(s) that serve as the input for the project
+  * 
+  * @default ["{sourceRoot}/index.ts"]
+  * 
+  * @format path
+ */
+ input?: Array<string>,
+
+ /**
+  * TSConfig Path
+  * 
+  * The path to the tsconfig file
+  * 
+  * @default "{projectRoot}/tsconfig.json"
+  * 
+  * @format path
+ */
+ tsconfig?: string,
+
+ /**
+  * Output Path
+  * 
+  * The path to the output directory for the build artifacts
+  * 
+  * 
+  * @format path
+ */
+ outputPath?: string,
+
+ /**
+  * Sourcemap
+  * 
+  * Generate a sourcemap
+  * 
+ */
+ sourceMap?: boolean,
+
+ /**
+  * Format
+  * 
+  * The format to build
+  * 
+  * @default ["cjs","esm"]
+ */
+ format?: Array<string>,
+
+ /**
+  * Platform
+  * 
+  * The platform to build
+  * 
+  * @default "neutral"
+  * 
+  * @enum neutral,node,browser
+ */
+ platform?: string,
+
+ /**
+  * External
+  * 
+  * The external dependencies
+  * 
+ */
+ external?: Array<any>,
+
+ /**
+  * No External
+  * 
+  * The dependencies that should not be treated as external
+  * 
+ */
+ noExternal?: Array<any>,
+
+ /**
+  * Skip Node Modules Bundle
+  * 
+  * Skip bundling node_modules during the build process (if required)
+  * 
+ */
+ skipNodeModulesBundle?: boolean,
 
  /**
   * Mode
@@ -46,22 +109,6 @@ export interface BaseExecutorSchema {
  mode?: string,
 
  /**
-  * Auto Install
-  * 
-  * Automatically install dependencies during prepare stage
-  * 
- */
- autoInstall?: boolean,
-
- /**
-  * Skip Cache
-  * 
-  * Skip the caching mechanism during the build process (if required)
-  * 
- */
- skipCache?: boolean,
-
- /**
   * Log Level
   * 
   * The log level to use for the build process
@@ -70,5 +117,13 @@ export interface BaseExecutorSchema {
   * @enum fatal,error,warn,success,info,debug,trace,silent
  */
  logLevel?: string,
+
+ /**
+  * Define
+  * 
+  * The `define` values
+  * 
+ */
+ define?: Record<string, string>,
 }
 

@@ -19,7 +19,7 @@
 import { omit } from "@stryke/helpers/omit";
 import { isString } from "@stryke/type-checks";
 import type { OnLoadOptions, Plugin } from "esbuild";
-import { Context } from "powerlines/types/context";
+import { Context } from "powerlines";
 import { DiagnosticCategory } from "typescript";
 import { transpile } from "./transpile";
 import { Level, Mode } from "./vendor/type-compiler/config";

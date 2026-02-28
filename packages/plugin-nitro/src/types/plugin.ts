@@ -19,9 +19,7 @@
 import { createDevServer } from "nitro/builder";
 import { Nitro, NitroConfig } from "nitro/types";
 import { NitroPluginConfig, ServiceConfig } from "nitro/vite";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export interface NitroPluginOptions extends Omit<
   NitroConfig,

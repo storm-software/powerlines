@@ -16,4 +16,6 @@
 
  ------------------------------------------------------------------- */
 
+export * from "./format-package-json";
+export * from "./resolve-options";
 export * from "./unplugin";

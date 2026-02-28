@@ -24,10 +24,9 @@ import {
   renderTree,
   traverseOutput
 } from "@alloy-js/core";
-import { Output } from "@powerlines/plugin-alloy/core/components/output";
 import { findFileExtension } from "@stryke/path/file-path-fns";
-import { PluginContext } from "powerlines/types/context";
-import { MetaItem } from "./core";
+import { PluginContext } from "powerlines";
+import { MetaItem, Output } from "./core";
 
 /**
  * A function to render children components within the [Alloy](https://alloy-framework.github.io) context, and write any saved content to the file system.

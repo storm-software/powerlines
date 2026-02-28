@@ -6,6 +6,8 @@
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
+      "@powerlines/core": ["packages/core/index.ts"],
+      "@powerlines/core/*": ["packages/core/src/*"],
       "@powerlines/deepkit": ["packages/deepkit/src/index.ts"],
       "@powerlines/deepkit/*": ["packages/deepkit/src/*"],
       "@powerlines/nx": ["packages/nx/index.ts"],

@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { UNSAFE_APIContext } from "@powerlines/core/types/_internal";
 import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { toArray } from "@stryke/convert/to-array";
 import { createDirectory } from "@stryke/fs/helpers";
@@ -43,26 +44,16 @@ import packageJson from "../package.json" assert { type: "json" };
 import {
   emitBuiltinTypes,
   formatTypes
-} from "./internal/helpers/generate-types";
-import {
-  callHook,
-  CallHookOptions,
-  mergeConfigs
-} from "./internal/helpers/hooks";
-import { installDependencies } from "./internal/helpers/install-dependencies";
+} from "./_internal/helpers/generate-types";
+import { callHook, mergeConfigs } from "./_internal/helpers/hooks";
+import { installDependencies } from "./_internal/helpers/install-dependencies";
+import { writeMetaFile } from "./_internal/helpers/meta";
 import {
   getTsconfigDtsPath,
   initializeTsconfig,
   resolveTsconfig
-} from "./internal/helpers/resolve-tsconfig";
-import { PowerlinesAPIContext } from "./lib/contexts/api-context";
-import {
-  getParsedTypeScriptConfig,
-  isIncludeMatchFound
-} from "./lib/typescript/tsconfig";
-import { getFileHeader } from "./lib/utilities/file-header";
-import { formatFolder } from "./lib/utilities/format";
-import { writeMetaFile } from "./lib/utilities/meta";
+} from "./_internal/helpers/resolve-tsconfig";
+import { PowerlinesAPIContext } from "./context/api-context";
 import {
   checkDedupe,
   findInvalidPluginConfig,
@@ -70,31 +61,38 @@ import {
   isPluginConfig,
   isPluginConfigObject,
   isPluginConfigTuple
-} from "./plugin-utils/helpers";
-import { UNSAFE_APIContext } from "./types/_internal";
-import { API } from "./types/api";
+} from "./plugin-utils";
 import type {
+  APIContext,
   BuildInlineConfig,
   CleanInlineConfig,
   DeployInlineConfig,
   DocsInlineConfig,
+  EnvironmentContext,
   InitialUserConfig,
   LintInlineConfig,
   NewInlineConfig,
+  Plugin,
   PluginConfig,
   PluginConfigObject,
   PluginConfigTuple,
+  PluginContext,
   PluginFactory,
-  PrepareInlineConfig
-} from "./types/config";
-import type {
-  APIContext,
-  EnvironmentContext,
-  PluginContext
-} from "./types/context";
-import { InferHookParameters } from "./types/hooks";
-import type { Plugin, TypesResult } from "./types/plugin";
-import { EnvironmentResolvedConfig, ResolvedConfig } from "./types/resolved";
+  PrepareInlineConfig,
+  TypesResult
+} from "./types";
+import {
+  API,
+  CallHookOptions,
+  EnvironmentResolvedConfig,
+  InferHookParameters,
+  ResolvedConfig
+} from "./types";
+import {
+  getParsedTypeScriptConfig,
+  isIncludeMatchFound
+} from "./typescript/tsconfig";
+import { formatFolder, getFileHeader } from "./utils";
 
 /**
  * The Powerlines API class
@@ -224,7 +222,9 @@ export class PowerlinesAPI<
       if (context.entry.length > 0) {
         context.debug(
           `The configuration provided ${
-            toArray(context.config.entry).length
+            isObject(context.config.input)
+              ? Object.keys(context.config.input).length
+              : toArray(context.config.input).length
           } entry point(s), Powerlines has found ${
             context.entry.length
           } entry files(s) for the ${context.config.title} project${
@@ -448,7 +448,7 @@ ${formatTypes(types)}
       // Re-resolve the tsconfig to ensure it is up to date
       context.tsconfig = getParsedTypeScriptConfig(
         context.workspaceConfig.workspaceRoot,
-        context.config.projectRoot,
+        context.config.root,
         context.config.tsconfig
       );
       if (!context.tsconfig) {
@@ -505,7 +505,7 @@ ${formatTypes(types)}
 
         const template = Handlebars.compile(file);
         await context.fs.write(
-          joinPaths(context.config.projectRoot, file.replace(".hbs", "")),
+          joinPaths(context.config.root, file.replace(".hbs", "")),
           template(context)
         );
       }
@@ -524,7 +524,7 @@ ${formatTypes(types)}
 
           const template = Handlebars.compile(file);
           await context.fs.write(
-            joinPaths(context.config.projectRoot, file.replace(".hbs", "")),
+            joinPaths(context.config.root, file.replace(".hbs", "")),
             template(context)
           );
         }
@@ -537,7 +537,7 @@ ${formatTypes(types)}
 
           const template = Handlebars.compile(file);
           await context.fs.write(
-            joinPaths(context.config.projectRoot, file.replace(".hbs", "")),
+            joinPaths(context.config.root, file.replace(".hbs", "")),
             template(context)
           );
         }
@@ -581,7 +581,7 @@ ${formatTypes(types)}
       await context.fs.remove(
         joinPaths(
           context.workspaceConfig.workspaceRoot,
-          context.config.projectRoot,
+          context.config.root,
           context.config.output.artifactsPath
         )
       );
@@ -608,12 +608,10 @@ ${formatTypes(types)}
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
-      if (context.config.lint !== false) {
-        await this.callHook("lint", {
-          environment: context,
-          sequential: false
-        });
-      }
+      await this.callHook("lint", {
+        environment: context,
+        sequential: false
+      });
     });
 
     this.context.debug("✔ Powerlines linting completed successfully");
@@ -1093,7 +1091,7 @@ ${formatTypes(types)}
     const isInstalled = isPackageExists(pluginPath, {
       paths: [
         this.context.workspaceConfig.workspaceRoot,
-        this.context.config.projectRoot
+        this.context.config.root
       ]
     });
     if (!isInstalled && this.context.config.autoInstall) {
@@ -1104,7 +1102,7 @@ ${formatTypes(types)}
       );
 
       const result = await install(pluginPath, {
-        cwd: this.context.config.projectRoot
+        cwd: this.context.config.root
       });
       if (isNumber(result.exitCode) && result.exitCode > 0) {
         this.#context.error(result.stderr);

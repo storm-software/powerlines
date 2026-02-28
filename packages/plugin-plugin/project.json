@@ -4,33 +4,33 @@
   "projectType": "library",
   "sourceRoot": "packages/plugin-plugin/src",
   "targets": {
-    "build-base": {
-      "cache": true,
-      "inputs": ["typescript", "^production"],
-      "outputs": ["{projectRoot}/dist"],
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "rollup --config=rollup.config.js",
-        "cwd": "{projectRoot}"
-      }
-    },
-    "build": {
-      "cache": true,
-      "inputs": ["{projectRoot}/dist"],
-      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
-      "executor": "nx:run-commands",
-      "dependsOn": ["build-base"],
-      "options": {
-        "commands": [
-          "pnpm copyfiles LICENSE dist/packages/plugin-plugin",
-          "pnpm copyfiles --up=2 ./packages/plugin-plugin/*.md ./packages/plugin-plugin/package.json dist/packages/plugin-plugin",
-          "pnpm copyfiles --up=3 \"./packages/plugin-plugin/dist/src/**/*.js\" \"./packages/plugin-plugin/dist/src/**/*.cjs\" dist/packages/plugin-plugin/dist",
-          "pnpm copyfiles --up=2 ./packages/plugin-plugin/config.d.ts dist/packages/plugin-plugin/dist",
-          "pnpm copyfiles --up=5 \"./packages/plugin-plugin/dist/node_modules/.pnpm/**/*.js\" \"./packages/plugin-plugin/dist/node_modules/.pnpm/**/*.cjs\" dist/packages/plugin-plugin/dist/node_modules/.pnpm",
-          "pnpm copyfiles --up=5 \"./packages/plugin-plugin/dist/packages/plugin-plugin/**/*.d.ts\" dist/packages/plugin-plugin/dist"
-        ]
-      }
-    },
+    // "build-base": {
+    //   "cache": true,
+    //   "inputs": ["typescript", "^production"],
+    //   "outputs": ["{projectRoot}/dist"],
+    //   "executor": "nx:run-commands",
+    //   "options": {
+    //     "command": "rollup --config=rollup.config.js",
+    //     "cwd": "{projectRoot}"
+    //   }
+    // },
+    // "build": {
+    //   "cache": true,
+    //   "inputs": ["{projectRoot}/dist"],
+    //   "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+    //   "executor": "nx:run-commands",
+    //   "dependsOn": ["build-base"],
+    //   "options": {
+    //     "commands": [
+    //       "pnpm copyfiles LICENSE dist/packages/plugin-plugin",
+    //       "pnpm copyfiles --up=2 ./packages/plugin-plugin/*.md ./packages/plugin-plugin/package.json dist/packages/plugin-plugin",
+    //       "pnpm copyfiles --up=3 \"./packages/plugin-plugin/dist/src/**/*.js\" \"./packages/plugin-plugin/dist/src/**/*.cjs\" dist/packages/plugin-plugin/dist",
+    //       "pnpm copyfiles --up=2 ./packages/plugin-plugin/config.d.ts dist/packages/plugin-plugin/dist",
+    //       "pnpm copyfiles --up=5 \"./packages/plugin-plugin/dist/node_modules/.pnpm/**/*.js\" \"./packages/plugin-plugin/dist/node_modules/.pnpm/**/*.cjs\" dist/packages/plugin-plugin/dist/node_modules/.pnpm",
+    //       "pnpm copyfiles --up=5 \"./packages/plugin-plugin/dist/packages/plugin-plugin/**/*.d.ts\" dist/packages/plugin-plugin/dist"
+    //     ]
+    //   }
+    // },
     "nx-release-publish": {
       "executor": "@storm-software/workspace-tools:npm-publish"
     }

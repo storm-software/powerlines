@@ -21,7 +21,7 @@ import { createDirectory, removeDirectory } from "@stryke/fs/helpers";
 import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join";
 import defu from "defu";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import {
   Application,
   PackageJsonReader,
@@ -35,6 +35,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    typedoc?: TypeDocPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to assist in generating documentation with TypeDoc.
@@ -50,42 +56,40 @@ export function plugin(
       );
 
       return {
-        docs: {
-          typedoc: defu(options, {
-            outputPath: joinPaths(
-              this.config.projectRoot,
-              "docs",
-              "generated",
-              "api-reference"
-            ),
-            baseUrl: "/docs/",
-            excludeExternals: true,
-            excludeInternal: true,
-            excludePrivate: true,
-            excludeProtected: true,
-            hideGenerator: true,
-            githubPages: false,
-            readme: "none",
-            gitRevision: this.workspaceConfig.branch || "main",
-            tsconfig: this.tsconfig.tsconfigFilePath,
-            plugin: options.plugin ? [] : ["typedoc-plugin-markdown"]
-          })
-        }
+        typedoc: defu(options, {
+          outputPath: joinPaths(
+            this.config.root,
+            "docs",
+            "generated",
+            "api-reference"
+          ),
+          baseUrl: "/docs/",
+          excludeExternals: true,
+          excludeInternal: true,
+          excludePrivate: true,
+          excludeProtected: true,
+          hideGenerator: true,
+          githubPages: false,
+          readme: "none",
+          gitRevision: this.workspaceConfig.branch || "main",
+          tsconfig: this.tsconfig.tsconfigFilePath,
+          plugin: options.plugin ? [] : ["typedoc-plugin-markdown"]
+        })
       } as Partial<TypeDocPluginUserConfig>;
     },
     async configResolved() {
       this.typedoc = await Application.bootstrapWithPlugins(
         {
-          ...this.config.docs.typedoc,
+          ...this.config.typedoc,
           exclude:
-            this.config.docs.typedoc.exclude ??
+            this.config.typedoc.exclude ??
             this.tsconfig.tsconfigJson.exclude?.filter(Boolean) ??
             [],
-          out: this.config.output.outputPath,
+          out: this.config.typedoc.outputPath,
           entryPoints: this.entry.map(entry =>
-            appendPath(entry.file, this.config.projectRoot)
+            appendPath(entry.file, this.config.root)
           ),
-          ...this.config.docs.typedoc.override
+          ...this.config.typedoc.override
         },
         [new TypeDocReader(), new PackageJsonReader(), new TSConfigReader()]
       );
@@ -95,17 +99,17 @@ export function plugin(
         `Generating documentation for the Powerlines application with TypeDoc.`
       );
 
-      if (existsSync(this.config.docs.typedoc.outputPath)) {
-        await removeDirectory(this.config.docs.typedoc.outputPath);
+      if (existsSync(this.config.typedoc.outputPath)) {
+        await removeDirectory(this.config.typedoc.outputPath);
       }
 
-      await createDirectory(this.config.docs.typedoc.outputPath);
+      await createDirectory(this.config.typedoc.outputPath);
 
       const project = await this.typedoc.convert();
       if (project) {
         await this.typedoc.generateDocs(
           project,
-          this.config.docs.typedoc.outputPath
+          this.config.typedoc.outputPath
         );
       }
     }

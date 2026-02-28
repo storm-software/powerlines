@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { createUnplugin } from "powerlines/lib/unplugin";
+import { createUnplugin } from "@powerlines/core/lib/unplugin";
 import { createRspackPlugin as createRspackUnplugin } from "unplugin";
 import { RspackPluginContext } from "../types/plugin";
 

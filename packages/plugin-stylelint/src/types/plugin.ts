@@ -16,9 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 import { FixMode, LinterOptions } from "stylelint";
 
 export interface StylelintPluginOptions extends Partial<LinterOptions> {
@@ -51,21 +49,17 @@ export interface StylelintPluginUserConfig extends UserConfig {
   /**
    * Options for the Stylelint plugin.
    */
-  lint?: {
-    stylelint?: StylelintPluginOptions;
-  };
+  stylelint?: StylelintPluginOptions;
 }
 
 export interface StylelintPluginResolvedConfig extends ResolvedConfig {
   /**
    * Options for the Stylelint plugin.
    */
-  lint: {
-    stylelint: StylelintPluginOptions;
-  };
+  stylelint: StylelintPluginOptions;
 }
 
 export type StylelintPluginContext<
-  TResolvedConfig extends
-    StylelintPluginResolvedConfig = StylelintPluginResolvedConfig
+  TResolvedConfig extends StylelintPluginResolvedConfig =
+    StylelintPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;

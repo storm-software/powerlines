@@ -21,7 +21,7 @@ import {
   createNamedContext,
   useContext
 } from "@alloy-js/core";
-import type { StoragePreset } from "powerlines/types/fs";
+import type { StoragePreset } from "powerlines";
 
 export interface MetaItem {
   /**

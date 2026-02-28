@@ -16,9 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 import {
   AvifOptions,
   GifOptions,
@@ -36,7 +34,7 @@ export interface ImageCompressionPluginOptions {
   /**
    * A path or glob pattern (or an array of paths and glob patterns) to image files to optimize during Powerlines processing.
    *
-   * @defaultValue "\{projectRoot\}/**\/*.\{svg,jpg,jpeg,png,webp,avif,heif,gif,tiff,jp2,jxl\}"
+   * @defaultValue "\{root\}/**\/*.\{svg,jpg,jpeg,png,webp,avif,heif,gif,tiff,jp2,jxl\}"
    */
   filter?: string | string[];
 

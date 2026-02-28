@@ -17,14 +17,13 @@
  ------------------------------------------------------------------- */
 
 import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines";
+import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
   skipCache: true,
-  entry: ["src/index.ts", "src/types/*.ts"],
+  input: ["src/index.ts", "src/types/*.ts"],
   plugins: [plugin()],
-  build: {
-    unbundle: false,
+  resolve: {
     skipNodeModulesBundle: false,
     external: [
       "@powerlines/deepkit/vendor/type-compiler",
@@ -32,5 +31,8 @@ export default defineConfig({
       "@powerlines/deepkit/vendor/type",
       "@powerlines/deepkit/vendor/core"
     ]
+  },
+  tsdown: {
+    unbundle: false
   }
 });

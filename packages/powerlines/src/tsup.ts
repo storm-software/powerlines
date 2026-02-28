@@ -17,8 +17,11 @@
  ------------------------------------------------------------------- */
 
 import { omit } from "@stryke/helpers/omit";
+import { isString } from "@stryke/type-checks/is-string";
 import type { Options } from "tsup";
-import PowerlinesESBuild from "./esbuild";
+import esbuild from "./esbuild";
+
+export { default as plugin } from "@powerlines/plugin-tsup";
 
 /**
  * A Tsup configuration function that integrates Powerlines into the build process.
@@ -47,12 +50,12 @@ export function tsup(options: Options = {}): Options {
   return {
     ...options,
     esbuildPlugins: [
-      PowerlinesESBuild({
+      esbuild({
         output: {
           outputPath: options.outDir,
           format: options.format
         },
-        build: {
+        esbuild: {
           ...omit(options, [
             "plugins",
             "banner",
@@ -67,7 +70,7 @@ export function tsup(options: Options = {}): Options {
           minify: Boolean(options.minify),
           pure: Array.isArray(options.pure)
             ? options.pure
-            : typeof options.pure === "string"
+            : isString(options.pure)
               ? [options.pure]
               : []
         }
@@ -77,4 +80,5 @@ export function tsup(options: Options = {}): Options {
 }
 
 export default tsup;
+
 export { tsup as "module.exports" };

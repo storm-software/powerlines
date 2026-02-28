@@ -16,11 +16,11 @@
 
  ------------------------------------------------------------------- */
 
+import { Plugin } from "@powerlines/core/types";
 import defu from "defu";
-import { extractTsdownConfig } from "powerlines/lib/build/tsdown";
-import { Plugin } from "powerlines/types/plugin";
 import { build } from "tsdown";
 import { formatPackageJson } from "./helpers/format-package-json";
+import { resolveOptions } from "./helpers/resolve-options";
 import { createTsdownPlugin } from "./helpers/unplugin";
 import {
   TsdownPluginContext,
@@ -50,9 +50,8 @@ export const plugin = <
         output: {
           format: ["cjs", "esm"]
         },
-        build: {
-          ...options,
-          variant: "tsdown"
+        tsdown: {
+          ...options
         }
       } as Partial<TsdownPluginResolvedConfig>;
     },
@@ -65,7 +64,7 @@ export const plugin = <
             config: false,
             plugins: [createTsdownPlugin(this)]
           },
-          extractTsdownConfig(this)
+          resolveOptions(this)
         )
       );
 

@@ -4,21 +4,6 @@
   "description": "A shared/base schema type definition for Powerlines executors",
   "required": [],
   "properties": {
-    "outputPath": {
-      "title": "Output Path",
-      "type": "string",
-      "format": "path",
-      "description": "The output path for the build",
-      "id": "#outputPath",
-      "default": "dist/{projectRoot}"
-    },
-    "tsconfig": {
-      "title": "TypeScript Configuration File",
-      "type": "string",
-      "format": "path",
-      "description": "The path to the tsconfig file",
-      "id": "#tsconfig"
-    },
     "configFile": {
       "title": "Powerlines Configuration File",
       "type": "string",
@@ -26,6 +11,96 @@
       "description": "The path to the Powerlines configuration file",
       "id": "#configFile",
       "default": "{projectRoot}/powerlines.config.ts"
+    },
+    "input": {
+      "title": "Input Entry File(s)",
+      "format": "path",
+      "type": "array",
+      "description": "The entry file(s) that serve as the input for the project",
+      "items": {
+        "type": "string"
+      },
+      "id": "#input",
+      "default": [
+        "{sourceRoot}/index.ts"
+      ]
+    },
+    "tsconfig": {
+      "title": "TSConfig Path",
+      "type": "string",
+      "format": "path",
+      "description": "The path to the tsconfig file",
+      "id": "#tsconfig",
+      "default": "{projectRoot}/tsconfig.json"
+    },
+    "outputPath": {
+      "title": "Output Path",
+      "type": "string",
+      "format": "path",
+      "description": "The path to the output directory for the build artifacts",
+      "id": "#outputPath"
+    },
+    "sourceMap": {
+      "title": "Sourcemap",
+      "type": "boolean",
+      "description": "Generate a sourcemap",
+      "id": "#sourceMap"
+    },
+    "format": {
+      "title": "Format",
+      "type": "array",
+      "description": "The format to build",
+      "items": {
+        "type": "string",
+        "enum": [
+          "cjs",
+          "esm",
+          "iife"
+        ]
+      },
+      "id": "#format",
+      "default": [
+        "cjs",
+        "esm"
+      ]
+    },
+    "platform": {
+      "title": "Platform",
+      "type": "string",
+      "description": "The platform to build",
+      "enum": [
+        "neutral",
+        "node",
+        "browser"
+      ],
+      "id": "#platform",
+      "default": "neutral"
+    },
+    "external": {
+      "title": "External",
+      "type": "array",
+      "description": "The external dependencies",
+      "id": "#external",
+      "default": [],
+      "items": {
+        "type": "any"
+      }
+    },
+    "noExternal": {
+      "title": "No External",
+      "type": "array",
+      "description": "The dependencies that should not be treated as external",
+      "id": "#noExternal",
+      "default": [],
+      "items": {
+        "type": "any"
+      }
+    },
+    "skipNodeModulesBundle": {
+      "title": "Skip Node Modules Bundle",
+      "type": "boolean",
+      "description": "Skip bundling node_modules during the build process (if required)",
+      "id": "#skipNodeModulesBundle"
     },
     "mode": {
       "title": "Mode",
@@ -37,18 +112,6 @@
         "production"
       ],
       "id": "#mode"
-    },
-    "autoInstall": {
-      "title": "Auto Install",
-      "type": "boolean",
-      "description": "Automatically install dependencies during prepare stage",
-      "id": "#autoInstall"
-    },
-    "skipCache": {
-      "title": "Skip Cache",
-      "type": "boolean",
-      "description": "Skip the caching mechanism during the build process (if required)",
-      "id": "#skipCache"
     },
     "logLevel": {
       "title": "Log Level",
@@ -65,11 +128,30 @@
         "silent"
       ],
       "id": "#logLevel"
+    },
+    "define": {
+      "title": "Define",
+      "type": "object",
+      "tsType": "Record<string, string>",
+      "description": "The `define` values",
+      "id": "#define",
+      "default": {}
     }
   },
   "type": "object",
   "default": {
-    "outputPath": "dist/{projectRoot}",
-    "configFile": "{projectRoot}/powerlines.config.ts"
+    "configFile": "{projectRoot}/powerlines.config.ts",
+    "input": [
+      "{sourceRoot}/index.ts"
+    ],
+    "tsconfig": "{projectRoot}/tsconfig.json",
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "platform": "neutral",
+    "external": [],
+    "noExternal": [],
+    "define": {}
   }
 }

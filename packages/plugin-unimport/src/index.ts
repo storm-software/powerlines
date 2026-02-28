@@ -21,7 +21,7 @@ import { StormJSON } from "@stryke/json/storm-json";
 import { joinPaths } from "@stryke/path/join";
 import defu from "defu";
 import MagicString from "magic-string";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import {
   createUnimport,
   ImportInjectionResult,
@@ -35,6 +35,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    unimport?: UnimportPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to integrate Unimport for code generation.

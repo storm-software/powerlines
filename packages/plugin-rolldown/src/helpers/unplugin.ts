@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { createUnplugin } from "powerlines/lib/unplugin";
+import { createUnplugin } from "@powerlines/core/lib/unplugin";
 import { createEsbuildPlugin } from "unplugin";
 import { RolldownPluginContext } from "../types/plugin";
 

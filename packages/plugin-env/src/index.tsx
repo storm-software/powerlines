@@ -36,7 +36,7 @@ import {
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
 import defu from "defu";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
 import type { UserConfig as ViteUserConfig } from "vite";
 import { envBabelPlugin } from "./babel/plugin";
 import { EnvDocsFile } from "./components/docs";
@@ -58,10 +58,11 @@ import {
 import { reflectEnv, reflectSecrets } from "./helpers/reflect";
 import { EnvPluginContext, EnvPluginOptions } from "./types/plugin";
 
-export * from "./babel";
-export * from "./components";
-export * from "./helpers";
-export * from "./types";
+declare module "powerlines" {
+  export interface UserConfig {
+    env?: EnvPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to inject environment variables into the source code.

@@ -18,9 +18,7 @@
 
 import type { UserConfig as HeyAPIUserConfig } from "@hey-api/openapi-ts";
 import { OpenApi } from "@hey-api/openapi-ts";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export type HeyAPIPluginOutputOptions = HeyAPIUserConfig["output"] & {
   /**
@@ -34,14 +32,17 @@ export type HeyAPIPluginOutputOptions = HeyAPIUserConfig["output"] & {
   path?: string;
 };
 
-export type HeyAPIPluginOptions = Omit<HeyAPIUserConfig, "input" | "output"> & {
+export type HeyAPIPluginOptions = Omit<
+  HeyAPIUserConfig,
+  "input" | "output" | "schema"
+> & {
   /**
    * The path to the Hey API schema file.
    *
    * @remarks
    * This can be a string path, URL, HeyAPI3 object, Buffer, or Readable stream.
    *
-   * @defaultValue "\{projectRoot\}/schema.yaml"
+   * @defaultValue "\{root\}/schema.yaml"
    */
   schema?: HeyAPIUserConfig["input"];
 

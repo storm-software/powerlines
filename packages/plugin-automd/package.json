@@ -55,7 +55,7 @@
         "default": "./dist/index.mjs"
       }
     },
-    "./package.json": "./package.json",
+    "./*": "./*",
     "./types": {
       "require": {
         "types": "./dist/types/index.d.cts",
@@ -111,8 +111,7 @@
     "@stryke/types": "catalog:",
     "c12": "catalog:",
     "defu": "catalog:",
-    "markdown-toc": "catalog:",
-    "powerlines": "workspace:*"
+    "markdown-toc": "catalog:"
   },
   "devDependencies": {
     "@powerlines/plugin-plugin": "workspace:*",

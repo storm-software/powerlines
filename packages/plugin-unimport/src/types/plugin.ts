@@ -16,9 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 import { Unimport, UnimportOptions } from "unimport";
 
 export type UnimportContext = Unimport & {
@@ -31,14 +29,14 @@ export type UnimportPluginOptions = Partial<Omit<UnimportOptions, "presets">> &
     /**
      * Custom magic comments to be opt-out for auto import, per file/module
      *
-     * @defaultValue ["@unimport-disable", "@unimport-ignore", "@imports-disable", "@imports-ignore", "@powerlines-disable", "@powerlines-ignore"]
+     * @defaultValue ["\@unimport-disable", "\@unimport-ignore", "\@imports-disable", "\@imports-ignore", "\@powerlines-disable", "\@powerlines-ignore"]
      */
     commentsDisable?: string[];
 
     /**
      * Custom magic comments to debug auto import, printed to console
      *
-     * @defaultValue ["@unimport-debug", "@imports-debug", "@powerlines-debug"]
+     * @defaultValue ["\@unimport-debug", "\@imports-debug", "\@powerlines-debug"]
      */
     commentsDebug?: string[];
   };

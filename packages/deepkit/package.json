@@ -156,7 +156,9 @@
     "@stryke/types": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
+    "esbuild": "catalog:",
     "powerlines": "workspace:*",
+    "@powerlines/plugin-esbuild": "workspace:*",
     "typescript": "^5.9.3"
   },
   "devDependencies": {

@@ -22,11 +22,16 @@ import {
 } from "@powerlines/deepkit/transformer";
 import tsc from "@powerlines/plugin-tsc";
 import { StormJSON } from "@stryke/json/storm-json";
-import { Plugin } from "powerlines/types/plugin";
-import { ReflectionLevel } from "powerlines/types/tsconfig";
+import { Plugin, ReflectionLevel } from "powerlines";
 import { DeepkitPluginContext, DeepkitPluginOptions } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    deepkit?: DeepkitPluginOptions;
+  }
+}
 
 /**
  * Deepkit plugin for Powerlines.
@@ -45,10 +50,8 @@ export const plugin = <
       name: "deepkit",
       config() {
         return {
-          transform: {
-            deepkit: options ?? {}
-          },
-          build: {
+          deepkit: options ?? {},
+          resolve: {
             external: [
               "@powerlines/deepkit/vendor/type-compiler",
               "@powerlines/deepkit/vendor/type-spec",
@@ -62,12 +65,12 @@ export const plugin = <
         order: "post",
         async handler() {
           const reflection =
-            this.config.transform.deepkit.reflection ||
+            this.config.deepkit.reflection ||
             this.tsconfig.tsconfigJson.compilerOptions?.reflection ||
             this.tsconfig.tsconfigJson.reflection ||
             "default";
           const reflectionLevel =
-            this.config.transform.deepkit.reflectionLevel ||
+            this.config.deepkit.reflectionLevel ||
             this.tsconfig.tsconfigJson.compilerOptions?.reflectionLevel ||
             this.tsconfig.tsconfigJson.reflectionLevel ||
             "minimal";
@@ -86,26 +89,25 @@ export const plugin = <
             );
           }
 
-          this.config.transform.tsc ??=
-            {} as TContext["config"]["transform"]["tsc"];
-          this.config.transform.tsc.compilerOptions = {
-            ...(this.config.transform.tsc.compilerOptions ?? {}),
-            exclude: this.config.transform.deepkit.exclude ?? [],
+          this.config.tsc ??= {} as TContext["config"]["tsc"];
+          this.config.tsc.compilerOptions = {
+            ...(this.config.tsc.compilerOptions ?? {}),
+            exclude: this.config.deepkit.exclude ?? [],
             reflection,
             reflectionLevel,
             configFilePath: this.tsconfig.tsconfigFilePath
           };
 
-          this.config.transform.tsc.transformers ??= {
+          this.config.tsc.transformers ??= {
             before: [],
             after: []
           };
 
-          this.config.transform.tsc.transformers.before!.push(
-            createTransformer(this, this.config.transform.deepkit)
+          this.config.tsc.transformers.before!.push(
+            createTransformer(this, this.config.deepkit)
           );
-          this.config.transform.tsc.transformers.after!.push(
-            createDeclarationTransformer(this, this.config.transform.deepkit)
+          this.config.tsc.transformers.after!.push(
+            createDeclarationTransformer(this, this.config.deepkit)
           );
         }
       }

@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { VitePluginResolvedConfig } from "@powerlines/plugin-vite/types/plugin";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { murmurhash } from "@stryke/hash/neutral";
 import { joinPaths } from "@stryke/path/join";
@@ -26,18 +27,18 @@ import {
   loadTamaguiBuildConfig
 } from "@tamagui/static-worker";
 import defu from "defu";
-import { getConfigPath } from "powerlines/plugin-utils/get-config-path";
-import { replacePathTokens } from "powerlines/plugin-utils/paths";
-import {
-  BuildResolvedConfig,
-  ViteResolvedBuildConfig
-} from "powerlines/types/build";
-import { EnvironmentConfig } from "powerlines/types/config";
-import { Plugin } from "powerlines/types/plugin";
+import { EnvironmentConfig, Plugin, ResolveConfig } from "powerlines";
+import { getConfigPath, replacePathTokens } from "powerlines/plugin-utils";
 import { transformWithEsbuild, ViteDevServer } from "vite";
 import { TamaguiPluginContext, TamaguiPluginOptions } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    tamagui?: TamaguiPluginOptions;
+  }
+}
 
 /**
  * Tamagui plugin for Powerlines.
@@ -70,7 +71,7 @@ export const plugin = <
         defu(
           {
             ...options,
-            components: [joinPaths("{projectRoot}", "src/components")]
+            components: [joinPaths("{root}", "src/components")]
           },
           {
             config: configPath,
@@ -84,7 +85,7 @@ export const plugin = <
         )
       );
 
-      const alias: BuildResolvedConfig["alias"] = [];
+      const alias: ResolveConfig["alias"] = [];
       if (tamaguiOptions.platform !== "native") {
         alias.push({
           find: "react-native/Libraries/Renderer/shims/ReactFabric",
@@ -218,13 +219,13 @@ export const plugin = <
         .map(path => replacePathTokens(this, path))
         .filter(Boolean);
 
-      if (this.config.build.variant === "vite") {
-        (this.config.build as ViteResolvedBuildConfig).optimizeDeps ??= {};
-        (this.config.build as ViteResolvedBuildConfig).optimizeDeps!.include ??=
+      if ((this.config as VitePluginResolvedConfig).vite) {
+        (this.config as VitePluginResolvedConfig).vite.optimizeDeps ??= {};
+        (this.config as VitePluginResolvedConfig).vite.optimizeDeps!.include ??=
           [];
         (
-          this.config.build as ViteResolvedBuildConfig
-        ).optimizeDeps!.include!.push("@tamagui/core/inject-styles");
+          this.config as VitePluginResolvedConfig
+        ).vite.optimizeDeps!.include!.push("@tamagui/core/inject-styles");
       }
     },
     async resolveId(id: string) {
@@ -252,8 +253,8 @@ export const plugin = <
       // Absolute paths seem to occur often in monorepos, where files are
       // imported from outside the config root.
       let absoluteId = id;
-      if (!id.startsWith(this.config.projectRoot)) {
-        absoluteId = joinPaths(this.config.projectRoot, validId);
+      if (!id.startsWith(this.config.root)) {
+        absoluteId = joinPaths(this.config.root, validId);
       }
 
       // There should always be an entry in the `cssMap` here.
@@ -380,8 +381,8 @@ export const plugin = <
         const rootRelativeId = `${validId}.tamagui.css`;
 
         let absoluteId = rootRelativeId;
-        if (!absoluteId.startsWith(this.config.projectRoot)) {
-          absoluteId = joinPaths(this.config.projectRoot, rootRelativeId);
+        if (!absoluteId.startsWith(this.config.root)) {
+          absoluteId = joinPaths(this.config.root, rootRelativeId);
         }
 
         let source = extracted.js;

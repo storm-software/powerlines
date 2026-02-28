@@ -16,16 +16,22 @@
 
  ------------------------------------------------------------------- */
 
-import { TsdownBuildConfig } from "powerlines/types/build";
-import { TsdownUserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { TsdownResolvedConfig } from "powerlines/types/resolved";
+import {
+  PluginContext,
+  ResolvedConfig,
+  UserConfig
+} from "@powerlines/core/types";
+import { TsdownOptions } from "./build";
 
-export type TsdownPluginOptions = Partial<TsdownBuildConfig>;
+export type TsdownPluginOptions = Partial<TsdownOptions>;
 
-export type TsdownPluginUserConfig = TsdownUserConfig;
+export interface TsdownPluginUserConfig extends UserConfig {
+  tsdown?: TsdownPluginOptions;
+}
 
-export type TsdownPluginResolvedConfig = TsdownResolvedConfig;
+export interface TsdownPluginResolvedConfig extends ResolvedConfig {
+  tsdown: TsdownOptions;
+}
 
 export type TsdownPluginContext<
   TResolvedConfig extends TsdownPluginResolvedConfig =

@@ -20,15 +20,12 @@ import {
   fullyQualifiedStackName,
   LocalWorkspace
 } from "@pulumi/pulumi/automation";
-import { omit } from "@stryke/helpers/index";
+import { omit } from "@stryke/helpers";
 import { joinPaths } from "@stryke/path/join";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import defu from "defu";
-import {
-  getOrganizationName,
-  getWorkspaceName
-} from "powerlines/plugin-utils/context-helpers";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
+import { getOrganizationName, getWorkspaceName } from "powerlines/plugin-utils";
 import {
   PulumiPluginContext,
   PulumiPluginCreateStackInlineOptions,
@@ -39,6 +36,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    pulumi?: PulumiPluginOptions;
+  }
+}
 
 /**
  * A package containing a Powerlines plugin to configure infrastructure and deploy a project using Pulumi IaC.
@@ -68,17 +71,16 @@ export const plugin = <
     },
     async configResolved() {
       if (!(options as PulumiPluginExistingStackOptions).stack) {
-        (
-          this.config.deploy.pulumi as PulumiPluginCreateStackOptions
-        ).stackName ??= fullyQualifiedStackName(
-          kebabCase(getOrganizationName(this) || "default"),
-          `${
-            getWorkspaceName(this)
-              ? `${kebabCase(getWorkspaceName(this))}-`
-              : ""
-          }${kebabCase(this.config.name)}`,
-          this.config.mode
-        );
+        (this.config.pulumi as PulumiPluginCreateStackOptions).stackName ??=
+          fullyQualifiedStackName(
+            kebabCase(getOrganizationName(this) || "default"),
+            `${
+              getWorkspaceName(this)
+                ? `${kebabCase(getWorkspaceName(this))}-`
+                : ""
+            }${kebabCase(this.config.name)}`,
+            this.config.mode
+          );
       }
     },
     deploy: {
@@ -86,10 +88,9 @@ export const plugin = <
       async handler() {
         this.info(
           `Deploying Pulumi stack: ${
-            (this.config.deploy.pulumi as PulumiPluginExistingStackOptions)
-              .stack?.name ||
-            (this.config.deploy.pulumi as PulumiPluginCreateStackOptions)
-              .stackName
+            (this.config.pulumi as PulumiPluginExistingStackOptions).stack
+              ?.name ||
+            (this.config.pulumi as PulumiPluginCreateStackOptions).stackName
           }`
         );
 
@@ -106,25 +107,25 @@ export const plugin = <
 
         let stack = (options as PulumiPluginExistingStackOptions).stack;
         stack ??= await LocalWorkspace.createOrSelectStack(
-          omit(this.config.deploy.pulumi as PulumiPluginCreateStackOptions, [
+          omit(this.config.pulumi as PulumiPluginCreateStackOptions, [
             "options",
             "settings"
           ]) as Parameters<typeof LocalWorkspace.createOrSelectStack>[0]
         );
 
         if (
-          this.config.deploy.pulumi.settings &&
-          Object.keys(this.config.deploy.pulumi.settings).length > 0
+          this.config.pulumi.settings &&
+          Object.keys(this.config.pulumi.settings).length > 0
         ) {
           await stack.workspace.saveStackSettings(
             stack.name,
-            this.config.deploy.pulumi.settings
+            this.config.pulumi.settings
           );
         }
 
         await stack.refresh({ onOutput: this.debug.bind(this) });
 
-        if (this.config.deploy.pulumi.destroy) {
+        if (this.config.pulumi.destroy) {
           await stack.destroy({ onOutput: this.debug.bind(this) });
         }
 

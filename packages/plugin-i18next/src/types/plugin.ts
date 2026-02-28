@@ -16,13 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-/* eslint-disable @nx/enforce-module-boundaries */
-
 import { DeepPartial } from "@stryke/types/base";
 import { I18nextToolkitConfig } from "i18next-cli";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export type I18NextPluginOptions = DeepPartial<I18nextToolkitConfig>;
 

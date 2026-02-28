@@ -34,7 +34,7 @@ import {
 import { loadConfig as loadConfigFile } from "c12";
 import defu from "defu";
 import toc from "markdown-toc";
-import { Plugin } from "powerlines/types/plugin";
+import type { Plugin } from "powerlines";
 import {
   AutoMDPluginContext,
   AutoMDPluginOptions,
@@ -43,6 +43,12 @@ import {
 import { TOCOptions } from "./types/toc";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    automd?: AutoMDPluginOptions;
+  }
+}
 
 /**
  * AutoMD Plugin
@@ -64,7 +70,7 @@ export const plugin = <
     name: "automd",
     async config() {
       const config = await loadConfig(
-        joinPaths(this.workspaceConfig.workspaceRoot, this.config.projectRoot),
+        joinPaths(this.workspaceConfig.workspaceRoot, this.config.root),
         options
       );
 
@@ -83,7 +89,7 @@ export const plugin = <
         automd: defu(config ?? {}, {
           configFile: options.configFile,
           allowIssues: true,
-          dir: this.config.projectRoot,
+          dir: this.config.root,
           watch: false,
           input: "README.md",
           toc: {
@@ -128,7 +134,7 @@ export const plugin = <
               return listFiles(
                 isAbsolutePath(input)
                   ? input
-                  : appendPath(input, this.config.projectRoot),
+                  : appendPath(input, this.config.root),
                 {
                   ignore: this.config.automd.ignore
                 }
@@ -137,7 +143,7 @@ export const plugin = <
 
             return isAbsolutePath(input)
               ? input
-              : appendPath(input, this.config.projectRoot);
+              : appendPath(input, this.config.root);
           })
         )
       ).flat();
@@ -148,7 +154,7 @@ export const plugin = <
       ) {
         this.config.automd.output = appendPath(
           this.config.automd.output,
-          this.config.projectRoot
+          this.config.root
         );
       }
 
@@ -161,7 +167,7 @@ export const plugin = <
             const opts = (this.config.automd.toc ?? {}) as TOCOptions;
 
             return {
-              contents: toc(ctx.block.md, {
+              contents: toc(ctx.block.contents, {
                 ...opts,
                 maxdepth: opts.maxDepth,
                 first1: opts.firstH1
@@ -193,7 +199,7 @@ export const plugin = <
                       ? replacePath(input, this.config.automd.output)
                       : this.config.automd.output
                     : input,
-                  this.config.projectRoot
+                  this.config.root
                 ),
                 result.contents
               );

@@ -19,11 +19,17 @@
 import type { StormWorkspaceConfig } from "@storm-software/config/types";
 import { getGenerateAction } from "@storm-software/untyped/generate";
 import { toArray } from "@stryke/convert/to-array";
-import { replacePathTokens } from "powerlines/plugin-utils/paths";
-import type { Plugin } from "powerlines/types/plugin";
+import type { Plugin } from "powerlines";
+import { replacePathTokens } from "powerlines/plugin-utils";
 import { UntypedPluginContext, UntypedPluginOptions } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    untyped?: UntypedPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to use Untyped for code generation based on user-defined schemas.
@@ -41,7 +47,7 @@ export const plugin = <
     config() {
       return {
         untyped: {
-          schema: "{projectRoot}/**/{untyped.ts,*.untyped.ts}",
+          schema: "{root}/**/{untyped.ts,*.untyped.ts}",
           ...options
         }
       };

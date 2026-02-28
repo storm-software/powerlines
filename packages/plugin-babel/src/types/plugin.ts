@@ -16,18 +16,21 @@
 
  ------------------------------------------------------------------- */
 
-import { BabelUserConfig, UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { BabelResolvedConfig, ResolvedConfig } from "powerlines/types/resolved";
+import {
+  PluginContext,
+  ResolvedConfig,
+  UserConfig
+} from "@powerlines/core/types";
+import { BabelResolvedConfig, BabelUserConfig } from "./config";
 
 export type BabelPluginOptions = Partial<BabelUserConfig>;
 
-export type BabelPluginUserConfig = UserConfig;
+export type BabelPluginUserConfig = UserConfig & {
+  babel?: BabelPluginOptions;
+};
 
 export interface BabelPluginResolvedConfig extends ResolvedConfig {
-  transform: {
-    babel: BabelResolvedConfig;
-  };
+  babel: BabelResolvedConfig;
 }
 
 export type BabelPluginContext<

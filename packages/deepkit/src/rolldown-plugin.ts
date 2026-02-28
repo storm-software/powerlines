@@ -18,7 +18,7 @@
 
 import { findFileExtension } from "@stryke/path";
 import { isString } from "@stryke/type-checks";
-import { Context } from "powerlines/types/context";
+import { Context } from "powerlines";
 import { HookFilter, LoadResult, Plugin, PluginContext } from "rolldown";
 import { DiagnosticCategory } from "typescript";
 import { transpile } from "./transpile";

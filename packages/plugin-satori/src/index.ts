@@ -23,8 +23,8 @@ import { findFileExtensionSafe } from "@stryke/path/file-path-fns";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import defu from "defu";
-import { replacePathTokens } from "powerlines/plugin-utils/paths";
-import type { Plugin } from "powerlines/types/plugin";
+import type { Plugin } from "powerlines";
+import { replacePathTokens } from "powerlines/plugin-utils";
 import satori from "satori";
 import { SatoriComponentModule } from "./types/module";
 import {
@@ -34,6 +34,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    satori?: SatoriPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to use Untyped for code generation based on user-defined schemas.
@@ -105,7 +111,7 @@ export const plugin = <
                           input,
                           joinPaths(
                             this.workspaceConfig.workspaceRoot,
-                            this.config.projectRoot
+                            this.config.root
                           )
                         )
                       )

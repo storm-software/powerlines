@@ -17,13 +17,13 @@
  ------------------------------------------------------------------- */
 
 import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines";
+import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
   skipCache: true,
-  entry: ["src/**/*.ts"],
+  input: ["src/**/*.ts"],
   plugins: [plugin()],
-  build: {
+  resolve: {
     noExternal: ["automd"]
   }
 });

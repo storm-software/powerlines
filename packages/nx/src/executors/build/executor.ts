@@ -34,7 +34,7 @@ export async function executorFn(
   await api.build(
     defu(
       {
-        entry: context.options.entry,
+        input: context.options.input,
         skipCache: context.options.skipCache,
         mode: context.options.mode
       },

@@ -17,9 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { Config } from "automd";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 import { TOCOptions } from "./toc";
 
 export type AutoMDPluginOptions = Omit<

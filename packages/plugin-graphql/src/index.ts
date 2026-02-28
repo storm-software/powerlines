@@ -27,9 +27,8 @@ import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import defu from "defu";
-import { getConfigPath } from "powerlines/plugin-utils/get-config-path";
-import { replacePathTokens } from "powerlines/plugin-utils/paths";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
+import { getConfigPath, replacePathTokens } from "powerlines/plugin-utils";
 import {
   GraphQLPluginContext,
   GraphQLPluginOptions,
@@ -37,6 +36,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    graphql?: GraphQLPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to integrate GraphQL for code generation.
@@ -91,7 +96,7 @@ export const plugin = <
       updateContextWithCliFlags(this.graphql.codegen, {
         require: [],
         overwrite: true,
-        project: this.config.projectRoot,
+        project: this.config.root,
         ...this.config.graphql,
         config: this.config.graphql.configFile,
         watch: false
@@ -101,10 +106,7 @@ export const plugin = <
       const result = await generate(
         {
           ...this.graphql.codegen,
-          cwd: joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            this.config.projectRoot
-          )
+          cwd: joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
         } as Parameters<typeof generate>[0],
         false
       );

@@ -22,11 +22,20 @@ import { existsSync } from "@stryke/fs/exists";
 import { isPackageExists } from "@stryke/fs/package-fns";
 import { joinPaths } from "@stryke/path/join";
 import defu from "defu";
-import { replacePathTokens } from "powerlines/plugin-utils/paths";
-import { Plugin } from "powerlines/types/plugin";
-import { AsyncAPIPluginContext, AsyncAPIPluginOptions } from "./types/plugin";
+import type { Plugin } from "powerlines";
+import { replacePathTokens } from "powerlines/plugin-utils";
+import type {
+  AsyncAPIPluginContext,
+  AsyncAPIPluginOptions
+} from "./types/plugin";
 
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    asyncapi?: AsyncAPIPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to integrate AsyncAPI for code generation.
@@ -46,7 +55,7 @@ export const plugin = <
         asyncapi: defu(options, {
           schema: joinPaths(
             this.workspaceConfig.workspaceRoot,
-            this.config.projectRoot,
+            this.config.root,
             "schema.yaml"
           ),
           output: "string",

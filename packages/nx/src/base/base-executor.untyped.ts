@@ -16,25 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-import baseExecutorSchema from "@storm-software/workspace-tools/base/base-executor.untyped";
 import { defineUntypedSchema } from "untyped";
 
 export default defineUntypedSchema({
-  ...baseExecutorSchema,
   $schema: {
     id: "BaseExecutorSchema",
     title: "Base Executor",
     description:
       "A shared/base schema type definition for Powerlines executors",
     required: []
-  },
-  tsconfig: {
-    $schema: {
-      title: "TypeScript Configuration File",
-      type: "string",
-      format: "path",
-      description: "The path to the tsconfig file"
-    }
   },
   configFile: {
     $schema: {
@@ -45,27 +35,91 @@ export default defineUntypedSchema({
     },
     $default: "{projectRoot}/powerlines.config.ts"
   },
+  input: {
+    $schema: {
+      title: "Input Entry File(s)",
+      format: "path",
+      type: "array",
+      description: "The entry file(s) that serve as the input for the project",
+      items: { type: "string" }
+    },
+    $default: ["{sourceRoot}/index.ts"]
+  },
+  tsconfig: {
+    $schema: {
+      title: "TSConfig Path",
+      type: "string",
+      format: "path",
+      description: "The path to the tsconfig file"
+    },
+    $default: "{projectRoot}/tsconfig.json"
+  },
+  outputPath: {
+    $schema: {
+      title: "Output Path",
+      type: "string",
+      format: "path",
+      description: "The path to the output directory for the build artifacts"
+    }
+  },
+  sourceMap: {
+    $schema: {
+      title: "Sourcemap",
+      type: "boolean",
+      description: "Generate a sourcemap"
+    }
+  },
+  format: {
+    $schema: {
+      title: "Format",
+      type: "array",
+      description: "The format to build",
+      items: {
+        type: "string",
+        enum: ["cjs", "esm", "iife"]
+      }
+    },
+    $resolve: (val: string[] = ["cjs", "esm"]) => ([] as string[]).concat(val)
+  },
+  platform: {
+    $schema: {
+      title: "Platform",
+      type: "string",
+      description: "The platform to build",
+      enum: ["neutral", "node", "browser"]
+    },
+    $default: "neutral"
+  },
+  external: {
+    $schema: {
+      title: "External",
+      type: "array",
+      description: "The external dependencies"
+    },
+    $resolve: (val: string[] = []) => ([] as string[]).concat(val)
+  },
+  noExternal: {
+    $schema: {
+      title: "No External",
+      type: "array",
+      description: "The dependencies that should not be treated as external"
+    },
+    $resolve: (val: string[] = []) => ([] as string[]).concat(val)
+  },
+  skipNodeModulesBundle: {
+    $schema: {
+      title: "Skip Node Modules Bundle",
+      type: "boolean",
+      description:
+        "Skip bundling node_modules during the build process (if required)"
+    }
+  },
   mode: {
     $schema: {
       title: "Mode",
       type: "string",
       description: "The build mode",
       enum: ["development", "test", "production"]
-    }
-  },
-  autoInstall: {
-    $schema: {
-      title: "Auto Install",
-      type: "boolean",
-      description: "Automatically install dependencies during prepare stage"
-    }
-  },
-  skipCache: {
-    $schema: {
-      title: "Skip Cache",
-      type: "boolean",
-      description:
-        "Skip the caching mechanism during the build process (if required)"
     }
   },
   logLevel: {
@@ -84,5 +138,15 @@ export default defineUntypedSchema({
         "silent"
       ]
     }
+  },
+  define: {
+    $schema: {
+      title: "Define",
+      type: "object",
+      tsType: "Record<string, string>",
+      description: "The `define` values"
+    },
+    $resolve: (val: Record<string, string> = {}) => val,
+    $default: {}
   }
 });

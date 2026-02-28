@@ -16,4 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+export * from "./bundle";
+export * from "./resolve";
+export * from "./resolve-options";
 export * from "./unplugin";

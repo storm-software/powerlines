@@ -16,13 +16,22 @@
 
  ------------------------------------------------------------------- */
 
-import { WebpackBuildConfig } from "powerlines/types/build";
-import { PluginContext } from "powerlines/types/context";
-import { WebpackResolvedConfig } from "powerlines/types/resolved";
+import {
+  PluginContext,
+  ResolvedConfig,
+  UserConfig
+} from "@powerlines/core/types";
+import { WebpackOptions } from "./build";
 
-export type WebpackPluginOptions = Partial<WebpackBuildConfig>;
+export type WebpackPluginOptions = Partial<WebpackOptions>;
 
-export type WebpackPluginResolvedConfig = WebpackResolvedConfig;
+export interface WebpackPluginUserConfig extends UserConfig {
+  webpack?: WebpackPluginOptions;
+}
+
+export interface WebpackPluginResolvedConfig extends ResolvedConfig {
+  webpack: WebpackOptions;
+}
 
 export type WebpackPluginContext<
   TResolvedConfig extends WebpackPluginResolvedConfig =

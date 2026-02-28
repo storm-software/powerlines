@@ -18,9 +18,7 @@
 
 import { GeneratorOptions } from "@asyncapi/generator";
 import { AsyncAPIDocument } from "@asyncapi/parser/esm/models/v3/asyncapi";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export interface AsyncAPIPluginOptions {
   /**
@@ -126,6 +124,6 @@ export type AsyncAPIPluginResolvedConfig = ResolvedConfig & {
 };
 
 export type AsyncAPIPluginContext<
-  TResolvedConfig extends
-    AsyncAPIPluginResolvedConfig = AsyncAPIPluginResolvedConfig
+  TResolvedConfig extends AsyncAPIPluginResolvedConfig =
+    AsyncAPIPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;

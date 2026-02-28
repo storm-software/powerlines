@@ -16,15 +16,24 @@
 
  ------------------------------------------------------------------- */
 
-import { RollupBuildConfig } from "powerlines/types/build";
-import { PluginContext } from "powerlines/types/context";
-import { RollupResolvedConfig } from "powerlines/types/resolved";
+import {
+  PluginContext,
+  ResolvedConfig,
+  UserConfig
+} from "@powerlines/core/types";
+import { RollupOptions } from "./build";
 
-export type RollupPluginOptions = Partial<RollupBuildConfig>;
+export type RollupPluginOptions = Partial<RollupOptions>;
 
-export type RollupPluginResolvedConfig = RollupResolvedConfig;
+export interface RollupPluginUserConfig extends UserConfig {
+  rollup: RollupPluginOptions;
+}
+
+export interface RollupPluginResolvedConfig extends ResolvedConfig {
+  rollup: RollupOptions;
+}
 
 export type RollupPluginContext<
-  TResolvedConfig extends
-    RollupPluginResolvedConfig = RollupPluginResolvedConfig
+  TResolvedConfig extends RollupPluginResolvedConfig =
+    RollupPluginResolvedConfig
 > = PluginContext<TResolvedConfig>;

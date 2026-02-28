@@ -21,21 +21,26 @@ import {
   ReflectionVisibility
 } from "@powerlines/deepkit/vendor/type";
 import { render } from "@powerlines/plugin-alloy/render";
-import babel from "@powerlines/plugin-babel";
+import babel, { BabelPluginResolvedConfig } from "@powerlines/plugin-babel";
 import env from "@powerlines/plugin-env";
+import { VitePluginResolvedConfig } from "@powerlines/plugin-vite/types/plugin";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import viteReactPlugin from "@vitejs/plugin-react";
 import type { LoggerEvent } from "babel-plugin-react-compiler";
 import defu from "defu";
-import { isMatchFound } from "powerlines/lib/typescript/tsconfig";
-import type { ViteResolvedBuildConfig } from "powerlines/types/build";
-import { Plugin } from "powerlines/types/plugin";
-import type { BabelResolvedConfig } from "powerlines/types/resolved";
+import { Plugin } from "powerlines";
+import { isMatchFound } from "powerlines/typescript/tsconfig";
 import { ReactOptimizedBuiltin } from "./components/react-optimized";
 import type { ReactPluginContext, ReactPluginOptions } from "./types/plugin";
 
 export * from "./components";
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    react?: ReactPluginOptions;
+  }
+}
 
 /**
  * A package containing a Powerlines plugin for building a React application.
@@ -130,10 +135,11 @@ export const plugin = <
         this.devDependencies["@types/react-dom"] = "^19.2.3";
 
         if (this.config.react.compiler !== false) {
-          this.config.transform.babel ??= {} as BabelResolvedConfig;
+          (this.config as BabelPluginResolvedConfig).babel ??=
+            {} as BabelPluginResolvedConfig["babel"];
 
-          this.config.transform.babel.plugins ??= [];
-          this.config.transform.babel.plugins.push([
+          this.config.babel.plugins ??= [];
+          this.config.babel.plugins.push([
             "babel-plugin-react-compiler",
             this.config.react.compiler
           ]);
@@ -182,7 +188,7 @@ export const plugin = <
           this.tsconfig.tsconfigJson.compilerOptions.resolveJsonModule = true;
         }
 
-        if (this.config.build.variant === "vite") {
+        if ((this.config as VitePluginResolvedConfig).vite) {
           this.tsconfig.tsconfigJson.compilerOptions.types ??= [];
 
           if (
@@ -196,14 +202,15 @@ export const plugin = <
             );
           }
 
-          const viteBuildConfig = this.config.build as ViteResolvedBuildConfig;
+          const viteBuildConfig = (this.config as VitePluginResolvedConfig)
+            .vite;
           viteBuildConfig.build ??= {};
           viteBuildConfig.build.target = "chrome95";
 
           viteBuildConfig.plugins ??= [];
           viteBuildConfig.plugins.unshift(
             viteReactPlugin({
-              babel: this.config.transform.babel,
+              babel: (this.config as BabelPluginResolvedConfig).babel,
               jsxImportSource: this.config.react.jsxImportSource,
               jsxRuntime: this.config.react.jsxRuntime,
               reactRefreshHost: this.config.react.reactRefreshHost

@@ -22,8 +22,8 @@ import { joinPaths } from "@stryke/path/join-paths";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import defu from "defu";
-import { replacePathTokens } from "powerlines/plugin-utils/paths";
-import { Plugin } from "powerlines/types/plugin";
+import { Plugin } from "powerlines";
+import { replacePathTokens } from "powerlines/plugin-utils";
 import { createOperationId } from "./helpers/create-operation-id";
 import {
   HeyAPIPluginContext,
@@ -34,6 +34,12 @@ import {
 
 export * from "./helpers";
 export * from "./types";
+
+declare module "powerlines" {
+  export interface UserConfig {
+    heyApi?: HeyAPIPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to integrate Hey API for code generation.
@@ -72,7 +78,7 @@ export const plugin = <
           ...defu(options, {
             schema: joinPaths(
               this.workspaceConfig.workspaceRoot,
-              this.config.projectRoot,
+              this.config.root,
               "schema.yaml"
             ),
             output: {
@@ -98,7 +104,8 @@ export const plugin = <
 
       if (isSetString(this.config.heyApi.schema)) {
         const result = await this.fetch(this.config.heyApi.schema);
-        this.config.heyApi.schema = (await result.json()) as OpenApi.V3_0_X;
+        this.config.heyApi.schema =
+          (await result.json()) as HeyAPIPluginOptions["schema"];
       }
 
       if (

@@ -16,7 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import { Context } from "powerlines/types/context";
+import { replacePath } from "@stryke/path/replace";
+import { Context } from "powerlines";
+import { createProgram } from "powerlines/typescript";
 import { flattenDiagnosticMessageText } from "typescript";
 
 /**
@@ -25,7 +27,23 @@ import { flattenDiagnosticMessageText } from "typescript";
  * @param context - The build context containing information about the current build.
  */
 export async function typeCheck(context: Context): Promise<void> {
-  const result = context.program.emitToMemory();
+  const program = createProgram(context, {
+    skipAddingFilesFromTsConfig: true,
+    compilerOptions: {
+      declaration: true,
+      declarationMap: false,
+      emitDeclarationOnly: true,
+      sourceMap: false,
+      outDir: replacePath(
+        context.builtinsPath,
+        context.workspaceConfig.workspaceRoot
+      ),
+      composite: false,
+      incremental: false,
+      tsBuildInfoFile: undefined
+    }
+  });
+  const result = program.emitToMemory();
 
   const diagnosticMessages: string[] = [];
   result.getDiagnostics().forEach(diagnostic => {

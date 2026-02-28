@@ -19,8 +19,8 @@
 import { addVitePlugin, addWebpackPlugin, defineNuxtModule } from "@nuxt/kit";
 import { name, version } from "../package.json";
 import { UserConfig } from "./types";
-import PowerlinesVite from "./vite";
-import PowerlinesWebpack from "./webpack";
+import vite from "./vite";
+import webpack from "./webpack";
 
 /**
  * A Nuxt plugin that will invoke the Powerlines API hooks during the build process.
@@ -56,8 +56,8 @@ export const nuxt = defineNuxtModule<UserConfig>({
   },
   defaults: {},
   setup(options) {
-    addVitePlugin(() => PowerlinesVite(options));
-    addWebpackPlugin(() => PowerlinesWebpack(options));
+    addVitePlugin(() => vite(options));
+    addWebpackPlugin(() => webpack(options));
   }
 });
 

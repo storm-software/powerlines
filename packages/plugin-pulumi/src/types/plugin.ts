@@ -22,9 +22,7 @@ import {
   Stack,
   StackSettings
 } from "@pulumi/pulumi/automation";
-import { DeployConfig, UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export interface PulumiPluginBaseOptions {
   /**
@@ -110,16 +108,12 @@ export type PulumiPluginResolvedOptions =
         Pick<PulumiPluginCreateStackLocalOptions, "stackName" | "workDir">
       >);
 
-export interface PulumiPluginDeployConfig extends DeployConfig {
-  pulumi: PulumiPluginOptions;
-}
-
 export interface PulumiPluginUserConfig extends UserConfig {
-  deploy: PulumiPluginDeployConfig;
+  pulumi?: PulumiPluginOptions;
 }
 
 export interface PulumiPluginResolvedConfig extends ResolvedConfig {
-  deploy: PulumiPluginDeployConfig;
+  pulumi: PulumiPluginOptions;
 }
 
 export type PulumiPluginContext<

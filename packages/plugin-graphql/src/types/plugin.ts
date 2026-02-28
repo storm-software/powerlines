@@ -17,9 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { CodegenContext, YamlCliFlags } from "@graphql-codegen/cli";
-import { UserConfig } from "powerlines/types/config";
-import { PluginContext } from "powerlines/types/context";
-import { ResolvedConfig } from "powerlines/types/resolved";
+import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export type GraphQLPluginOptions = Partial<
   Omit<YamlCliFlags, "config" | "watch">
@@ -62,8 +60,8 @@ export type GraphQLPluginResolvedConfig = ResolvedConfig & {
 };
 
 export type GraphQLPluginContext<
-  TResolvedConfig extends
-    GraphQLPluginResolvedConfig = GraphQLPluginResolvedConfig
+  TResolvedConfig extends GraphQLPluginResolvedConfig =
+    GraphQLPluginResolvedConfig
 > = PluginContext<TResolvedConfig> & {
   graphql: {
     codegen: CodegenContext;

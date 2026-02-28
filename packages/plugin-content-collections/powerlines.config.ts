@@ -17,13 +17,13 @@
  ------------------------------------------------------------------- */
 
 import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines";
+import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
   skipCache: true,
-  entry: ["src/index.ts", "src/types/*.ts", "src/helpers/*.ts"],
+  input: ["src/index.ts", "src/types/*.ts", "src/helpers/*.ts"],
   plugins: [plugin()],
-  build: {
+  resolve: {
     noExternal: ["@content-collections/core"]
   }
 });
