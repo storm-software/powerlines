@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.3.3](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.3.3) (02/28/2026)
+
+### Bug Fixes
+
+- **tsconfig:** Resolve issue with missing tsconfig dependency ([11a995fe7](https://github.com/storm-software/powerlines/commit/11a995fe7))
+
 ## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.3.0) (02/26/2026)
 
 ### Features
