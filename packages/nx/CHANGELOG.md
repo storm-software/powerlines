@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.219](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.219) (02/28/2026)
+
+### Miscellaneous
+
+- **nx:** Update plugin to better handle error scenarios ([39007a382](https://github.com/storm-software/powerlines/commit/39007a382))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.39.1**
+
 ## [0.11.218](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.218) (02/27/2026)
 
 ### Features
