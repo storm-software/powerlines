@@ -1,0 +1,65 @@
+{
+  "name": "@powerlines/cli",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "The \"framework framework\" that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://stormsoftware.com",
+  "bugs": {
+    "url": "https://stormsoftware.com/support",
+    "email": "support@stormsoftware.com"
+  },
+  "author": {
+    "name": "Storm Software",
+    "email": "contact@stormsoftware.com",
+    "url": "https://stormsoftware.com"
+  },
+  "maintainers": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
+  "private": true,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "cli",
+    "powerlines",
+    "storm-software",
+    "shell-shock"
+  ],
+  "dependencies": {
+    "@shell-shock/core": "catalog:",
+    "@shell-shock/preset-cli": "catalog:"
+  },
+  "devDependencies": {
+    "@shell-shock/eslint-plugin": "catalog:",
+    "@storm-software/testing-tools": "catalog:",
+    "@types/node": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "./dist/index.d.cts"
+}
