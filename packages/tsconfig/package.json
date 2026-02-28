@@ -54,15 +54,7 @@
     "./monorepo.json"
   ],
   "keywords": ["powerlines", "storm-software", "typescript", "tsconfig"],
-  "peerDependencies": {
-    "@storm-software/tsconfig": "*"
-  },
-  "peerDependenciesMeta": {
-    "@storm-software/tsconfig": {
-      "optional": false
-    }
-  },
-  "devDependencies": {
+  "dependencies": {
     "@storm-software/tsconfig": "catalog:"
   },
   "publishConfig": {
