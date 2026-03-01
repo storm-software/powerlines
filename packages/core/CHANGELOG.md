@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.0.7](https://github.com/storm-software/powerlines/releases/tag/core%400.0.7) (03/01/2026)
+
+### Bug Fixes
+
+- **nx:** Additional updates to resolve plugin resolution issue ([4b69f83c1](https://github.com/storm-software/powerlines/commit/4b69f83c1))
+
 ## [0.0.6](https://github.com/storm-software/powerlines/releases/tag/core%400.0.6) (02/28/2026)
 
 ### Bug Fixes

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.248](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.248) (03/01/2026)
+
+### Bug Fixes
+
+- **nx:** Additional updates to resolve plugin resolution issue ([4b69f83c1](https://github.com/storm-software/powerlines/commit/4b69f83c1))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.249**
+- Updated **powerlines** to **v0.39.5**
+
 ## [0.12.247](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.247) (03/01/2026)
 
 ### Bug Fixes

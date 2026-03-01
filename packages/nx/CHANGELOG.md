@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.225](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.225) (03/01/2026)
+
+### Bug Fixes
+
+- **nx:** Additional updates to resolve plugin resolution issue ([4b69f83c1](https://github.com/storm-software/powerlines/commit/4b69f83c1))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.39.5**
+
 ## [0.11.224](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.224) (03/01/2026)
 
 ### Bug Fixes
