@@ -23,7 +23,7 @@ import {
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isString } from "@stryke/type-checks/is-string";
 import { UnpluginMessage } from "unplugin";
-import {
+import type {
   CallHookOptions,
   EnvironmentContext,
   InferHookParameters,

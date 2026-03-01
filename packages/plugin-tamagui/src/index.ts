@@ -34,8 +34,8 @@ import { TamaguiPluginContext, TamaguiPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
-declare module "powerlines" {
-  export interface UserConfig {
+declare module "@powerlines/core" {
+  interface BaseConfig {
     tamagui?: TamaguiPluginOptions;
   }
 }

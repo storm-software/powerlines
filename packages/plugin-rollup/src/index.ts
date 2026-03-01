@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "@powerlines/core/types";
+import { Plugin } from "@powerlines/core";
 import { toArray } from "@stryke/convert/to-array";
 import defu from "defu";
 import { rollup as build } from "rollup";
@@ -30,6 +30,12 @@ import {
 
 export * from "./helpers";
 export * from "./types";
+
+declare module "@powerlines/core" {
+  interface BaseConfig {
+    rollup?: RollupPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to assist in developing other Powerlines plugins.

@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { GLOBAL_ENVIRONMENT } from "@powerlines/core/lib/constants/environments";
 import {
   UNSAFE_ContextInternal,
   UNSAFE_EnvironmentContext
@@ -30,7 +29,8 @@ import {
   createEnvironment
 } from "../_internal/helpers/environment";
 import { loadWorkspaceConfig } from "../config";
-import {
+import { GLOBAL_ENVIRONMENT } from "../constants";
+import type {
   APIContext,
   EnvironmentContext,
   EnvironmentResolvedConfig,

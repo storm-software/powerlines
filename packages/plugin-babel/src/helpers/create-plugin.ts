@@ -17,8 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { declare } from "@babel/helper-plugin-utils";
+import { Context } from "@powerlines/core";
 import { extendLog } from "@powerlines/core/lib/logger";
-import { Context } from "@powerlines/core/types";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import chalk from "chalk";
 import {

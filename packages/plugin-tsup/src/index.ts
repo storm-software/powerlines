@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "@powerlines/core/types";
+import { Plugin } from "@powerlines/core";
 import {
   build,
   resolveOptions as resolveOptionsBase
@@ -32,6 +32,12 @@ import {
 
 export * from "./helpers";
 export * from "./types";
+
+declare module "@powerlines/core" {
+  interface BaseConfig {
+    tsup?: TsupPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to use Tsup to build the project.

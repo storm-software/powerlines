@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Context } from "@powerlines/core/types";
+import type { Context } from "@powerlines/core";
 import defu from "defu";
 import {
   CompilerOptions,

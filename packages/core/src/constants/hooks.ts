@@ -16,20 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
-
-const config = defineTSDownConfig([
-  {
-    name: "core",
-    entry: [
-      "src/*.ts",
-      "src/constants/index.ts",
-      "src/lib/**/*.ts",
-      "src/plugin-utils/*.ts",
-      "src/types/_internal.ts"
-    ],
-    exports: false
-  }
-]);
-
-export default config;
+export const HOOKS_LIST_ORDERS = [
+  "preOrdered",
+  "preEnforced",
+  "normal",
+  "postEnforced",
+  "postOrdered"
+] as const;

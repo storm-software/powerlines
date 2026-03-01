@@ -20,8 +20,11 @@ import type { ArrayValues } from "@stryke/types/array";
 import type { AnyFunction, MaybePromise } from "@stryke/types/base";
 import { LoadResult } from "rollup";
 import type { ExternalIdResult, HookFilter, TransformResult } from "unplugin";
+import {
+  KNOWN_PLUGIN_FIELDS,
+  PLUGIN_NON_HOOK_FIELDS
+} from "../constants/plugin";
 import type { CommandType } from "./commands";
-import { SUPPORTED_COMMANDS } from "./commands";
 import type {
   EnvironmentConfig,
   EnvironmentResolvedConfig,
@@ -34,7 +37,7 @@ import type {
   UnresolvedContext
 } from "./context";
 import type { BuilderVariant, UnpluginBuilderVariant } from "./unplugin";
-import { BUILDER_VARIANTS, InferUnpluginOptions } from "./unplugin";
+import { InferUnpluginOptions } from "./unplugin";
 
 export interface PluginHookObject<
   THookFunction extends AnyFunction,
@@ -306,39 +309,11 @@ export type Plugin<
   >;
 };
 
-export const PLUGIN_NON_HOOK_FIELDS = [
-  "name",
-  "api",
-  "enforce",
-  "dedupe",
-  "applyToEnvironment"
-] as const;
-
 export type PluginNonHookFields =
   | ArrayValues<typeof PLUGIN_NON_HOOK_FIELDS>
   | UnpluginBuilderVariant;
 
-export const PLUGIN_HOOKS_FIELDS = [
-  ...SUPPORTED_COMMANDS,
-  "config",
-  "configEnvironment",
-  "configResolved",
-  "types",
-  "buildStart",
-  "buildEnd",
-  "transform",
-  "load",
-  "resolveId",
-  "writeBundle"
-] as const;
-
 export type PluginHookFields<TContext extends PluginContext = PluginContext> =
   keyof PluginHookFunctions<TContext>;
-
-export const KNOWN_PLUGIN_FIELDS = [
-  ...PLUGIN_NON_HOOK_FIELDS,
-  ...PLUGIN_HOOKS_FIELDS,
-  ...BUILDER_VARIANTS
-] as const;
 
 export type PluginFields = ArrayValues<typeof KNOWN_PLUGIN_FIELDS>;

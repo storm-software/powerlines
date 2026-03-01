@@ -21,6 +21,12 @@ import { joinPaths } from "@stryke/path/join";
 import { Plugin } from "powerlines";
 import type { PluginPluginContext, PluginPluginOptions } from "./types/plugin";
 
+declare module "@powerlines/core" {
+  interface BaseConfig {
+    plugin?: PluginPluginOptions;
+  }
+}
+
 /**
  * A Powerlines plugin to assist in developing other Powerlines plugins.
  */

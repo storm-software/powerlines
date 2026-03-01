@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "@powerlines/core/types";
+import { Plugin } from "@powerlines/core";
 import { build } from "@storm-software/unbuild";
 import {
   DEFAULT_UNBUILD_CONFIG,
@@ -29,6 +29,12 @@ import {
 } from "./types/plugin";
 
 export * from "./types";
+
+declare module "@powerlines/core" {
+  interface BaseConfig {
+    unbuild?: UnbuildPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to build projects using Unbuild.

@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "@powerlines/core/types";
+import { Plugin } from "@powerlines/core";
 import defu from "defu";
 import build from "webpack";
 import { resolveOptions } from "./helpers/resolve-options";
@@ -29,6 +29,12 @@ import {
 
 export * from "./helpers";
 export * from "./types";
+
+declare module "@powerlines/core" {
+  interface BaseConfig {
+    webpack?: WebpackPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to assist in developing other Powerlines plugins.

@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Context } from "@powerlines/core/types";
+import { Context } from "@powerlines/core";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
 import type { Configuration as ExternalWebpackOptions } from "webpack";

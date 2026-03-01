@@ -25,8 +25,8 @@ import { isMatchFound } from "powerlines/typescript";
 import { NodeJsEnvBuiltin } from "./components/env";
 import { NodeJsPluginContext, NodeJsPluginOptions } from "./types/plugin";
 
-declare module "powerlines" {
-  export interface UserConfig {
+declare module "@powerlines/core" {
+  interface BaseConfig {
     nodejs?: NodeJsPluginOptions;
   }
 }

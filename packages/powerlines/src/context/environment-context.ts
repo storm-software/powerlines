@@ -22,6 +22,7 @@ import { isObject } from "@stryke/type-checks/is-object";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { ArrayValues } from "@stryke/types/array";
 import { AnyFunction } from "@stryke/types/base";
+import { PLUGIN_NON_HOOK_FIELDS } from "../constants";
 import {
   addPluginHook,
   isPlugin,
@@ -31,7 +32,7 @@ import {
   isUnpluginHookField,
   isUnpluginHookKey
 } from "../plugin-utils";
-import {
+import type {
   EnvironmentContext,
   EnvironmentContextPlugin,
   EnvironmentResolvedConfig,
@@ -40,7 +41,6 @@ import {
   HooksList,
   InferHooksListItem,
   Plugin,
-  PLUGIN_NON_HOOK_FIELDS,
   PluginConfig,
   PluginContext,
   PluginHook,
@@ -258,6 +258,7 @@ export class PowerlinesEnvironmentContext<
                 context,
                 resolvedPlugin,
                 pluginHook,
+
                 (
                   ret[hook][variantField] as UnpluginHookList<
                     PluginContext<TResolvedConfig>,

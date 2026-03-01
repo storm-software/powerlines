@@ -16,20 +16,14 @@
 
  ------------------------------------------------------------------- */
 
-import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
-
-const config = defineTSDownConfig([
-  {
-    name: "core",
-    entry: [
-      "src/*.ts",
-      "src/constants/index.ts",
-      "src/lib/**/*.ts",
-      "src/plugin-utils/*.ts",
-      "src/types/_internal.ts"
-    ],
-    exports: false
-  }
-]);
-
-export default config;
+export const SUPPORTED_COMMANDS = [
+  "new",
+  "clean",
+  "prepare",
+  "lint",
+  "test",
+  "build",
+  "docs",
+  "deploy",
+  "finalize"
+] as const;

@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+import { Context } from "@powerlines/core";
 import { getString } from "@powerlines/core/lib/utilities/source-file";
-import { Context } from "@powerlines/core/types";
 import { UNSAFE_PluginContext } from "@powerlines/core/types/_internal";
 import { resolveOptions as resolveRollupOptions } from "@powerlines/plugin-rollup/helpers/resolve-options";
 import type {

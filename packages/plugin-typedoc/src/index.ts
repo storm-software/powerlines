@@ -36,8 +36,8 @@ import {
 
 export * from "./types";
 
-declare module "powerlines" {
-  export interface UserConfig {
+declare module "@powerlines/core" {
+  interface BaseConfig {
     typedoc?: TypeDocPluginOptions;
   }
 }

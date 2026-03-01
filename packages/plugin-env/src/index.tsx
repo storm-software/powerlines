@@ -58,8 +58,8 @@ import {
 import { reflectEnv, reflectSecrets } from "./helpers/reflect";
 import { EnvPluginContext, EnvPluginOptions } from "./types/plugin";
 
-declare module "powerlines" {
-  export interface UserConfig {
+declare module "@powerlines/core" {
+  interface BaseConfig {
     env?: EnvPluginOptions;
   }
 }

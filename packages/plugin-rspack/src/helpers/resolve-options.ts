@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Context } from "@powerlines/core/types";
+import { Context } from "@powerlines/core";
 import type {
   DevTool,
   Configuration as ExternalRspackOptions

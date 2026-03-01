@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+import type { PluginContext } from "@powerlines/core";
 import { createUnpluginResolver } from "@powerlines/core/lib/unplugin";
-import { PluginContext } from "@powerlines/core/types/context";
 import { findFileName } from "@stryke/path/file-path-fns";
 import defu from "defu";
 import { build, BuildOptions, OutputFile } from "esbuild";

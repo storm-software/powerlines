@@ -16,11 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import {
+import type {
   PluginContext,
   ResolvedConfig,
   UserConfig
-} from "@powerlines/core/types";
+} from "@powerlines/core";
 import { BabelResolvedConfig, BabelUserConfig } from "./config";
 
 export type BabelPluginOptions = Partial<BabelUserConfig>;

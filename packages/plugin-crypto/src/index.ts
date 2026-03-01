@@ -26,8 +26,8 @@ import { CryptoPluginContext, CryptoPluginOptions } from "./types/plugin";
 export * from "./components";
 export * from "./types";
 
-declare module "powerlines" {
-  export interface UserConfig {
+declare module "@powerlines/core" {
+  interface BaseConfig {
     crypto?: CryptoPluginOptions;
   }
 }

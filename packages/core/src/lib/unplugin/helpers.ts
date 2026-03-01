@@ -18,12 +18,10 @@
 
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { defu } from "defu";
-import { UnpluginBuildContext } from "unplugin";
-import { UnresolvedContext } from "../../types/context";
-import {
-  UNPLUGIN_BUILDER_VARIANTS,
-  UnpluginBuilderVariant
-} from "../../types/unplugin";
+import type { UnpluginBuildContext } from "unplugin";
+import { UNPLUGIN_BUILDER_VARIANTS } from "../../constants/plugin";
+import type { UnresolvedContext } from "../../types/context";
+import type { UnpluginBuilderVariant } from "../../types/unplugin";
 
 /**
  * Merges a base plugin context with an unplugin context, combining their properties.

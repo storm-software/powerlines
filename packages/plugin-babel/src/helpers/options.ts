@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { PluginOptions, PluginTarget } from "@babel/core";
-import { Context } from "@powerlines/core/types";
+import { Context } from "@powerlines/core";
 import { isFunction } from "@stryke/type-checks/is-function";
 import chalk from "chalk";
 import {

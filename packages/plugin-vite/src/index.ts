@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Context, Plugin } from "@powerlines/core/types";
+import { Context, Plugin } from "@powerlines/core";
 import defu from "defu";
 import { build, InlineConfig } from "vite";
 import { DEFAULT_VITE_CONFIG, resolveOptions } from "./helpers/resolve-options";
@@ -30,6 +30,12 @@ import {
 
 export * from "./helpers";
 export * from "./types";
+
+declare module "@powerlines/core" {
+  interface BaseConfig {
+    vite?: VitePluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to assist in developing other Powerlines plugins.

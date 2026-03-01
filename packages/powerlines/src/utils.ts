@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-export * from "@powerlines/core/lib/constants";
 export * from "@powerlines/core/lib/entry";
 export * from "@powerlines/core/lib/logger";
 export * from "@powerlines/core/lib/utilities";

@@ -16,20 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
+// eslint-disable-next-line ts/naming-convention
+export const __VFS_PATCH__ = "__VFS_PATCH__";
 
-const config = defineTSDownConfig([
-  {
-    name: "core",
-    entry: [
-      "src/*.ts",
-      "src/constants/index.ts",
-      "src/lib/**/*.ts",
-      "src/plugin-utils/*.ts",
-      "src/types/_internal.ts"
-    ],
-    exports: false
-  }
-]);
+// eslint-disable-next-line ts/naming-convention
+export const __VFS_REVERT__ = "__VFS_REVERT__";
 
-export default config;
+export const STORAGE_PRESETS = ["fs", "virtual"];

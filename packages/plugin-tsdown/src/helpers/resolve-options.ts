@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+import { Context } from "@powerlines/core";
 import { getDependencyConfig } from "@powerlines/core/plugin-utils";
-import { Context } from "@powerlines/core/types";
 import { RolldownPluginResolvedConfig } from "@powerlines/plugin-rolldown/types/plugin";
 import type { Format } from "@storm-software/build-tools/types";
 import { toArray } from "@stryke/convert/to-array";

@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Context } from "@powerlines/core/types";
+import { Context } from "@powerlines/core";
 import { resolveOptions as resolveEsbuildOptions } from "@powerlines/plugin-esbuild/helpers/resolve-options";
 import { resolveOptions as resolveRolldownOptions } from "@powerlines/plugin-rolldown/helpers/resolve-options";
 import { resolveOptions as resolveRollupOptions } from "@powerlines/plugin-rollup/helpers/resolve-options";

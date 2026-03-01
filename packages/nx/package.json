@@ -184,13 +184,18 @@
         "default": "./dist/src/generators/*/generator.cjs"
       }
     },
-    "./generators/*/generator.js": "./dist/src/generators/*/generator.cjs",
-    "./executors/*/executor.js": "./dist/src/executors/*/executor.cjs",
     "./generators/*/generator.cjs": "./dist/src/generators/*/generator.cjs",
     "./executors/*/executor.cjs": "./dist/src/executors/*/executor.cjs",
     "./generators/*/generator.mjs": "./dist/src/generators/*/generator.mjs",
     "./executors/*/executor.mjs": "./dist/src/executors/*/executor.mjs"
   },
+  "files": [
+    "dist/**/*",
+    "package.json",
+    "executors.json",
+    "generators.json",
+    "migrations.json"
+  ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",

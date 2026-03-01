@@ -33,14 +33,6 @@ export type HookListOrders =
   | "postEnforced"
   | "postOrdered";
 
-export const HOOKS_LIST_ORDERS = [
-  "preOrdered",
-  "preEnforced",
-  "normal",
-  "postEnforced",
-  "postOrdered"
-] as const;
-
 export type UnpluginHookFunctions<
   TContext extends PluginContext = PluginContext,
   TUnpluginBuilderVariant extends UnpluginBuilderVariant =

@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { StorageAdapter, StoragePreset } from "@powerlines/core/types";
+import { StorageAdapter, StoragePreset } from "@powerlines/core";
 import { appendPath } from "@stryke/path/append";
 import { correctPath } from "@stryke/path/correct-path";
 import { joinPaths } from "@stryke/path/join";

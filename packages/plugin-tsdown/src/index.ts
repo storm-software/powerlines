@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+import { Plugin } from "@powerlines/core";
 import { formatPackageJson } from "@powerlines/core/plugin-utils/format-package-json";
-import { Plugin } from "@powerlines/core/types";
 import defu from "defu";
 import { build } from "tsdown";
 import { resolveOptions } from "./helpers/resolve-options";
@@ -30,6 +30,12 @@ import {
 
 export * from "./helpers";
 export * from "./types";
+
+declare module "@powerlines/core" {
+  interface BaseConfig {
+    tsdown?: TsdownPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to use Tsdown to build the project.

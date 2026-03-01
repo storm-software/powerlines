@@ -22,15 +22,7 @@ import { AssetGlob } from "@stryke/types/file";
 
 export type VirtualFileExtension = "js" | "ts" | "jsx" | "tsx";
 
-// eslint-disable-next-line ts/naming-convention
-export const __VFS_PATCH__ = "__VFS_PATCH__";
-
-// eslint-disable-next-line ts/naming-convention
-export const __VFS_REVERT__ = "__VFS_REVERT__";
-
 export type StoragePreset = "fs" | "virtual";
-
-export const STORAGE_PRESETS: StoragePreset[] = ["fs", "virtual"];
 
 /**
  * Interface defining the methods and properties for a storage adapter.

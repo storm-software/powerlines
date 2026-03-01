@@ -21,8 +21,8 @@ import { readJsonFile } from "@stryke/fs/json";
 import { removeFile } from "@stryke/fs/remove-file";
 import { joinPaths } from "@stryke/path/join-paths";
 import { kebabCase } from "@stryke/string-format/kebab-case";
-import { Context, MetaInfo } from "../../types";
-import { ROOT_HASH_LENGTH } from "../../utils";
+import { ROOT_HASH_LENGTH } from "../../constants";
+import type { Context, MetaInfo } from "../../types";
 
 export interface CreateContextOptions {
   name?: string;

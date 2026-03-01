@@ -16,5 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./environments";
-export * from "./meta";
+export * from "@powerlines/core/constants";

@@ -16,18 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  CACHE_HASH_LENGTH,
-  ROOT_HASH_LENGTH
-} from "@powerlines/core/lib/constants/meta";
-import { getUniqueInputs, isTypeDefinition } from "@powerlines/core/lib/entry";
-import { createLog, extendLog } from "@powerlines/core/lib/logger";
-import {
-  checkDedupe,
-  isPlugin,
-  mergeConfig,
-  replacePathTokens
-} from "@powerlines/core/plugin-utils";
 import { UNSAFE_ContextInternal } from "@powerlines/core/types/_internal";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
@@ -86,7 +74,14 @@ import {
 } from "../_internal/helpers/resolver";
 import { VirtualFileSystem } from "../_internal/vfs";
 import { loadUserConfigFile, loadWorkspaceConfig } from "../config";
+import { CACHE_HASH_LENGTH, ROOT_HASH_LENGTH } from "../constants";
 import {
+  checkDedupe,
+  isPlugin,
+  mergeConfig,
+  replacePathTokens
+} from "../plugin-utils";
+import type {
   Context,
   EmitEntryOptions,
   EmitOptions,
@@ -112,7 +107,13 @@ import {
   WorkspaceConfig
 } from "../types";
 import { getTsconfigFilePath } from "../typescript/tsconfig";
-import { resolveInputsSync } from "../utils";
+import {
+  createLog,
+  extendLog,
+  getUniqueInputs,
+  isTypeDefinition,
+  resolveInputsSync
+} from "../utils";
 
 interface ConfigCacheKey {
   root: string;

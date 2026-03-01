@@ -18,8 +18,8 @@
 
 import { titleCase } from "@stryke/string-format/title-case";
 import defu from "defu";
+import { DEFAULT_ENVIRONMENT } from "../../constants";
 import { APIContext, Context, EnvironmentResolvedConfig } from "../../types";
-import { DEFAULT_ENVIRONMENT } from "../../utils";
 
 export function createEnvironment<TContext extends Context = Context>(
   name: string,

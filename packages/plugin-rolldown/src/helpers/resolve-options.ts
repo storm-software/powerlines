@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Context } from "@powerlines/core/types";
+import { Context } from "@powerlines/core";
 import { BabelPluginResolvedConfig } from "@powerlines/plugin-babel/types/plugin";
 import { dtsBundlePlugin } from "@powerlines/plugin-rollup/helpers/resolve-options";
 import { RollupPluginResolvedConfig } from "@powerlines/plugin-rollup/types/plugin";

@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "@powerlines/core/types";
+import { Plugin } from "@powerlines/core";
 import { rspack as build } from "@rspack/core";
 import defu from "defu";
 import { resolveOptions } from "./helpers";

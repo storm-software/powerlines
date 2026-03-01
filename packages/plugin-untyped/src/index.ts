@@ -25,8 +25,8 @@ import { UntypedPluginContext, UntypedPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
-declare module "powerlines" {
-  export interface UserConfig {
+declare module "@powerlines/core" {
+  interface BaseConfig {
     untyped?: UntypedPluginOptions;
   }
 }

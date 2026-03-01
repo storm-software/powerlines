@@ -16,11 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+import type { Context, ResolvedEntryTypeDefinition } from "@powerlines/core";
 import { resolveEntryOutput } from "@powerlines/core/lib/entry";
-import type {
-  Context,
-  ResolvedEntryTypeDefinition
-} from "@powerlines/core/types";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { camelCase } from "@stryke/string-format/camel-case";

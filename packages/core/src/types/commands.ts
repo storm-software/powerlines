@@ -18,19 +18,8 @@
 
 import type { ArrayValues } from "@stryke/types/array";
 import type { MaybePromise } from "@stryke/types/base";
+import { SUPPORTED_COMMANDS } from "../constants/commands";
 import type { Context } from "./context";
-
-export const SUPPORTED_COMMANDS = [
-  "new",
-  "clean",
-  "prepare",
-  "lint",
-  "test",
-  "build",
-  "docs",
-  "deploy",
-  "finalize"
-] as const;
 
 export type CommandType = ArrayValues<typeof SUPPORTED_COMMANDS>;
 export type Commands<TContext extends Context = Context> = Record<

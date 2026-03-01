@@ -32,8 +32,8 @@ import {
 export * from "./components";
 export * from "./types";
 
-declare module "powerlines" {
-  export interface UserConfig {
+declare module "@powerlines/core" {
+  interface BaseConfig {
     date?: DatePluginOptions;
   }
 }

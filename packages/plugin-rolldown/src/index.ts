@@ -31,6 +31,12 @@ import {
 export * from "./helpers";
 export * from "./types";
 
+declare module "@powerlines/core" {
+  interface BaseConfig {
+    rolldown?: RolldownPluginOptions;
+  }
+}
+
 /**
  * A Powerlines plugin to assist in developing other Powerlines plugins.
  */

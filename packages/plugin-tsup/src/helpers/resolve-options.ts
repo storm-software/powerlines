@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Context, ResolvedEntryTypeDefinition } from "@powerlines/core/types";
+import { Context, ResolvedEntryTypeDefinition } from "@powerlines/core";
 import { resolveEntry as resolveEsbuildEntry } from "@powerlines/plugin-esbuild/helpers/resolve-options";
 import { AssetGlob, Entry } from "@storm-software/build-tools/types";
 import { resolveOptions as resolveOptionsBase } from "@storm-software/tsup";

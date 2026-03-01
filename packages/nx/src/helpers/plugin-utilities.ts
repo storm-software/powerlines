@@ -54,7 +54,7 @@ import type { PackageJson as PackageJsonNx } from "nx/src/utils/package-json.js"
 import { readTargetsFromPackageJson } from "nx/src/utils/package-json.js";
 import type { ParsedUserConfig } from "powerlines";
 import { loadUserConfigFile } from "powerlines/config";
-import { ROOT_HASH_LENGTH } from "powerlines/utils";
+import { ROOT_HASH_LENGTH } from "powerlines/constants";
 import { NxPluginOptions } from "../types/plugin";
 import { CONFIG_INPUTS } from "./constants";
 

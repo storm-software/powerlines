@@ -34,15 +34,15 @@
 
  ------------------------------------------------------------------- */
 
-import { createLog } from "@powerlines/core/lib/logger";
-import { getString } from "@powerlines/core/lib/utilities/source-file";
-import {
+import type {
   API,
   Context,
   UnpluginBuilderVariant,
   UnpluginFactory,
   UnpluginOptions
-} from "@powerlines/core/types";
+} from "@powerlines/core";
+import { createLog } from "@powerlines/core/lib/logger";
+import { getString } from "@powerlines/core/lib/utilities/source-file";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { getWorkspaceRoot } from "@stryke/fs/get-workspace-root";
 import { LoadResult } from "rolldown";

@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { PluginContext } from "@powerlines/core/types";
+import { PluginContext } from "@powerlines/core";
 import { bundle } from "@powerlines/plugin-esbuild/helpers/bundle";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { isSetString } from "@stryke/type-checks/is-set-string";

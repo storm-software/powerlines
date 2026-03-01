@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { ParsedTypeScriptConfig, TSConfig } from "@powerlines/core/types";
+import type { ParsedTypeScriptConfig, TSConfig } from "@powerlines/core";
 import { existsSync } from "@stryke/fs/exists";
 import { readJsonFileSync } from "@stryke/fs/json";
 import { appendPath } from "@stryke/path/append";

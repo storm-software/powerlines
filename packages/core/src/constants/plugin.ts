@@ -16,19 +16,51 @@
 
  ------------------------------------------------------------------- */
 
-import { PluginContext, ResolvedConfig, UserConfig } from "@powerlines/core";
-import { TsupOptions } from "./build";
+import { SUPPORTED_COMMANDS } from "./commands";
 
-export type TsupPluginOptions = Partial<TsupOptions>;
+export const UNPLUGIN_BUILDER_VARIANTS = [
+  "rollup",
+  "webpack",
+  "rspack",
+  "vite",
+  "esbuild",
+  "farm",
+  "unloader",
+  "rolldown",
+  "bun"
+] as const;
 
-export interface TsupPluginUserConfig extends UserConfig {
-  tsup?: TsupPluginOptions;
-}
+export const BUILDER_VARIANTS = [
+  ...UNPLUGIN_BUILDER_VARIANTS,
+  "tsup",
+  "tsdown",
+  "unbuild"
+] as const;
 
-export interface TsupPluginResolvedConfig extends ResolvedConfig {
-  tsup: TsupOptions;
-}
+export const PLUGIN_NON_HOOK_FIELDS = [
+  "name",
+  "api",
+  "enforce",
+  "dedupe",
+  "applyToEnvironment"
+] as const;
 
-export type TsupPluginContext<
-  TResolvedConfig extends TsupPluginResolvedConfig = TsupPluginResolvedConfig
-> = PluginContext<TResolvedConfig>;
+export const PLUGIN_HOOKS_FIELDS = [
+  ...SUPPORTED_COMMANDS,
+  "config",
+  "configEnvironment",
+  "configResolved",
+  "types",
+  "buildStart",
+  "buildEnd",
+  "transform",
+  "load",
+  "resolveId",
+  "writeBundle"
+] as const;
+
+export const KNOWN_PLUGIN_FIELDS = [
+  ...PLUGIN_NON_HOOK_FIELDS,
+  ...PLUGIN_HOOKS_FIELDS,
+  ...BUILDER_VARIANTS
+] as const;

@@ -22,28 +22,30 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { AnyFunction } from "@stryke/types/base";
 import {
+  BUILDER_VARIANTS,
+  PLUGIN_HOOKS_FIELDS,
+  UNPLUGIN_BUILDER_VARIANTS
+} from "../constants/plugin";
+import type {
   PluginConfig,
   PluginConfigObject,
   PluginConfigTuple,
   ResolvedConfig
 } from "../types/config";
-import { PluginContext, WithUnpluginBuildContext } from "../types/context";
-import {
+import type { PluginContext, WithUnpluginBuildContext } from "../types/context";
+import type {
   HookFields,
   PluginHooksListItem,
   UnpluginHooksListItem
 } from "../types/hooks";
-import {
-  PLUGIN_HOOKS_FIELDS,
+import type {
   Plugin,
   PluginHook,
   PluginHookFields,
   PluginHookObject,
   PluginHooks
 } from "../types/plugin";
-import {
-  BUILDER_VARIANTS,
-  UNPLUGIN_BUILDER_VARIANTS,
+import type {
   UnpluginBuilderVariant,
   UnpluginOptions
 } from "../types/unplugin";

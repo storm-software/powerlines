@@ -24,7 +24,7 @@ import type {
   TransformOptions
 } from "@babel/core";
 import type { BabelAPI } from "@babel/helper-plugin-utils";
-import type { Context, LogFn } from "@powerlines/core/types";
+import type { Context, LogFn } from "@powerlines/core";
 
 export interface NamedImportDefinition {
   name: string;
