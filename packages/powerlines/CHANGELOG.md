@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.39.10](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.39.10) (03/01/2026)
+
+### Bug Fixes
+
+- **core:** Simplify and resolve issues with `input` configuration's typing ([5a4db0afe](https://github.com/storm-software/powerlines/commit/5a4db0afe))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.311**
+- Updated **plugin-esbuild** to **v0.13.310**
+- Updated **plugin-unbuild** to **v0.5.311**
+- Updated **plugin-webpack** to **v0.5.310**
+- Updated **plugin-rollup** to **v0.7.311**
+- Updated **plugin-rspack** to **v0.5.310**
+- Updated **plugin-tsdown** to **v0.1.254**
+- Updated **plugin-tsup** to **v0.12.311**
+- Updated **plugin-vite** to **v0.14.303**
+- Updated **core** to **v0.0.12**
+
 ## [0.39.9](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.39.9) (03/01/2026)
 
 ### Updated Dependencies
