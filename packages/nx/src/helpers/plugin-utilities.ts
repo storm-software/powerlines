@@ -39,6 +39,7 @@ import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isError } from "@stryke/type-checks/is-error";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import type { PackageJson } from "@stryke/types/package-json";
 import defu from "defu";
 import { createJiti } from "jiti";
@@ -623,7 +624,11 @@ export function createNxPlugin<
             } catch (error) {
               console.error(
                 `[${title}] - ${new Date().toISOString()} - ${
-                  isError(error) ? error.message : "Unknown fatal error"
+                  isError(error)
+                    ? error.message
+                    : isSetString(error)
+                      ? error
+                      : "Unknown fatal error"
                 }`
               );
 
@@ -632,7 +637,13 @@ export function createNxPlugin<
                   title
                 } failed to process the project configuration for file ${
                   configFile
-                }. See previous logs for more details.`,
+                } - ${
+                  isError(error)
+                    ? error.message
+                    : isSetString(error)
+                      ? error
+                      : "See previous logs for more details"
+                }`,
                 {
                   cause: error instanceof Error ? error : undefined
                 }
@@ -650,12 +661,20 @@ export function createNxPlugin<
       `[${title}] - ${new Date().toISOString()} - ${
         isError(error)
           ? error.message
-          : "Unknown fatal error during plugin initialization"
+          : isSetString(error)
+            ? error
+            : "Unknown fatal error during plugin initialization"
       }`
     );
 
     throw new Error(
-      `Failed to initialize the ${title}. See previous logs for more details.`,
+      `Failed to initialize the ${title} - ${
+        isError(error)
+          ? error.message
+          : isSetString(error)
+            ? error
+            : "See previous logs for more details"
+      }`,
       {
         cause: error instanceof Error ? error : undefined
       }
