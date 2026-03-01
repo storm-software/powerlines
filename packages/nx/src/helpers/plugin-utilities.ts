@@ -128,8 +128,16 @@ export interface CreateNxPluginOptions {
 export function createNxPlugin<
   TOptions extends NxPluginOptions = NxPluginOptions
 >(opts?: CreateNxPluginOptions): CreateNodesV2<TOptions> {
+  const framework = opts?.framework || "powerlines";
+  const title = `${titleCase(framework)} Nx Plugin`;
+
+  if (opts?.verboseOutput) {
+    console.debug(
+      `[${title}] - ${new Date().toISOString()} - Initializing the ${title}`
+    );
+  }
+
   try {
-    const framework = opts?.framework || "powerlines";
     const name = opts?.name || `${framework}/nx/plugin`;
     const artifactsFolder =
       opts?.artifactsFolder || `{projectRoot}/.${framework}`;
@@ -139,7 +147,7 @@ export function createNxPlugin<
 
     if (opts?.verboseOutput) {
       console.debug(
-        `[${name}] - ${new Date().toISOString()} - Initializing the ${titleCase(framework)} Nx plugin for the following inputs: ${pluginInputs}`
+        `[${title}] - ${new Date().toISOString()} - Will process the following inputs: ${pluginInputs}`
       );
     }
 
@@ -179,7 +187,7 @@ export function createNxPlugin<
               );
               if (!projectRoot) {
                 console.error(
-                  `[${name}] - ${new Date().toISOString()} - package.json and ${
+                  `[${title}] - ${new Date().toISOString()} - package.json and ${
                     framework
                   } configuration files (i.e. ${
                     framework
@@ -195,7 +203,7 @@ export function createNxPlugin<
 
               if (opts?.verboseOutput) {
                 console.debug(
-                  `[${name}] - ${new Date().toISOString()} - Loading ${
+                  `[${title}] - ${new Date().toISOString()} - Loading ${
                     framework
                   } user configuration for project in root directory ${
                     projectRoot
@@ -225,7 +233,7 @@ export function createNxPlugin<
                 if (opts?.verboseOutput) {
                   console.warn(
                     `[${
-                      name
+                      title
                     }] - ${new Date().toISOString()} - Cannot find \`package.json\` file in the project's root directory (path: "${joinPaths(
                       contextV2.workspaceRoot,
                       projectRoot
@@ -243,7 +251,7 @@ export function createNxPlugin<
               if (!packageJsonContent) {
                 if (opts?.verboseOutput) {
                   console.warn(
-                    `[${name}] - ${new Date().toISOString()} - No package.json file found for project in root directory ${projectRoot}`
+                    `[${title}] - ${new Date().toISOString()} - No package.json file found for project in root directory ${projectRoot}`
                   );
                 }
 
@@ -254,7 +262,7 @@ export function createNxPlugin<
               if (!userConfig.configFile && !packageJson?.storm) {
                 if (opts?.verboseOutput) {
                   console.debug(
-                    `[${name}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${
+                    `[${title}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${
                       framework
                     } configuration found for project in root directory.`
                   );
@@ -270,7 +278,7 @@ export function createNxPlugin<
               if (!projectConfig) {
                 if (opts?.verboseOutput) {
                   console.warn(
-                    `[${name}] - ${new Date().toISOString()} - No project configuration found for project in root directory ${
+                    `[${title}] - ${new Date().toISOString()} - No project configuration found for project in root directory ${
                       projectRoot
                     }`
                   );
@@ -289,7 +297,7 @@ export function createNxPlugin<
 
               if (opts?.verboseOutput) {
                 console.debug(
-                  `[${name}] - ${new Date().toISOString()} - Preparing Nx targets for project in root directory ${
+                  `[${title}] - ${new Date().toISOString()} - Preparing Nx targets for project in root directory ${
                     projectRoot
                   }.`
                 );
@@ -611,7 +619,9 @@ export function createNxPlugin<
 
               if (opts?.verboseOutput) {
                 console.debug(
-                  `[${name}] - ${new Date().toISOString()} - Completed preparing Nx configuration for project in root directory ${projectRoot}.`
+                  `[${
+                    title
+                  }] - ${new Date().toISOString()} - Completed preparing Nx configuration for project in root directory ${projectRoot}.`
                 );
               }
 
@@ -628,7 +638,7 @@ export function createNxPlugin<
               };
             } catch (error) {
               console.error(
-                `[${name}] - ${new Date().toISOString()} - ${
+                `[${title}] - ${new Date().toISOString()} - ${
                   isError(error) ? error.message : "Unknown fatal error"
                 }`
               );
@@ -644,20 +654,18 @@ export function createNxPlugin<
     ];
   } catch (error) {
     console.error(
-      `[${opts?.name || "powerlines/plugin/nx"}] - ${new Date().toISOString()} - ${
+      `[${title}] - ${new Date().toISOString()} - ${
         isError(error)
           ? error.message
           : "Unknown fatal error during plugin initialization"
       }`
     );
 
-    return [
-      `**/{${getNxTargetInputs(opts?.framework || "powerlines")
-        .map(input => input.replace("{projectRoot}/", ""))
-        .join(",")}}`,
-      async (): Promise<CreateNodesResultV2> => {
-        return [];
+    throw new Error(
+      `Failed to initialize the ${title}. See previous logs for more details.`,
+      {
+        cause: error instanceof Error ? error : undefined
       }
-    ];
+    );
   }
 }
