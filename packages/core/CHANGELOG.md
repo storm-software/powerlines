@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.0.10](https://github.com/storm-software/powerlines/releases/tag/core%400.0.10) (03/01/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with excluding package from base plugin bundles ([93c5effa2](https://github.com/storm-software/powerlines/commit/93c5effa2))
+
 ## [0.0.8](https://github.com/storm-software/powerlines/releases/tag/core%400.0.8) (03/01/2026)
 
 ### Bug Fixes
