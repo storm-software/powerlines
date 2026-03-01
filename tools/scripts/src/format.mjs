@@ -20,7 +20,7 @@
 import { $, argv, chalk, echo } from "zx";
 
 try {
-  echo`${chalk.whiteBright("🎨  Formatting the monorepo...")}`;
+  echo`${chalk.whiteBright(" 🎨  Formatting the monorepo...")}`;
 
   let files = "";
   if (argv._ && argv._.length > 0) {

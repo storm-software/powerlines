@@ -20,7 +20,7 @@
 import { $, chalk, echo } from "zx";
 
 try {
-  echo`${chalk.whiteBright("💣  Nuking the monorepo...")}`;
+  echo`${chalk.whiteBright(" 💣  Nuking the monorepo...")}`;
 
   let proc = $`pnpm clean`.timeout(`${5 * 60}s`);
   proc.stdout.on("data", data => {

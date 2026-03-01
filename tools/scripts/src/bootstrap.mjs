@@ -21,7 +21,7 @@ import { build } from "esbuild";
 import { $, chalk, echo } from "zx";
 
 try {
-  echo`${chalk.whiteBright("⚙️  Bootstrapping the monorepo...")}`;
+  echo`${chalk.whiteBright(" ⚙️  Bootstrapping the monorepo...")}`;
 
   await build({
     entryPoints: ["tools/nx/src/plugin/index.ts"],

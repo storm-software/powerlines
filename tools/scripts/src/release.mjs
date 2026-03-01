@@ -34,7 +34,7 @@ try {
     );
   }
 
-  await echo`${chalk.whiteBright(`📦  Releasing workspace packages (Base tag: "${base}", Head tag: "${head}")`)}`;
+  await echo`${chalk.whiteBright(` 📦  Releasing workspace packages (Base tag: "${base}", Head tag: "${head}")`)}`;
 
   let proc = $`pnpm build`.timeout(`${30 * 60}s`);
   proc.stdout.on("data", data => {

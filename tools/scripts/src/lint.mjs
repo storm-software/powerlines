@@ -20,7 +20,7 @@
 import { $, chalk, echo } from "zx";
 
 try {
-  await echo`${chalk.whiteBright("📋  Linting the monorepo...")}`;
+  await echo`${chalk.whiteBright(" 📋  Linting the monorepo...")}`;
 
   let proc =
     $`pnpm nx run-many --target=lint --all --exclude="@powerlines/monorepo" --outputStyle=dynamic-legacy --parallel=5`.timeout(

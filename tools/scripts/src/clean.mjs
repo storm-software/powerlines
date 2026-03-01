@@ -20,7 +20,7 @@
 import { $, chalk, echo } from "zx";
 
 try {
-  echo`${chalk.whiteBright("🧹  Cleaning the monorepo...")}`;
+  echo`${chalk.whiteBright(" 🧹  Cleaning the monorepo...")}`;
 
   let proc = $`pnpm nx clear-cache`.timeout(`${5 * 60}s`);
   proc.stdout.on("data", data => {

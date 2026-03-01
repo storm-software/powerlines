@@ -20,7 +20,7 @@
 import { $, chalk, echo } from "zx";
 
 try {
-  await echo`${chalk.whiteBright("🔄  Updating the workspace's Storm Software dependencies and re-linking workspace packages...")}`;
+  await echo`${chalk.whiteBright(" 🔄 Updating the workspace's Storm Software dependencies and re-linking workspace packages...")}`;
 
   // 1) Update @storm-software/* and @stryke/* packages to the latest version
   await echo`${chalk.whiteBright("Checking for @storm-software/* and @stryke/* updates...")}`;
