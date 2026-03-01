@@ -19,9 +19,12 @@
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import defu, { createDefu } from "defu";
-import { PartialPlugin, ResolvedConfig } from "../types/config";
-import { PluginContext } from "../types/context";
-import { Plugin } from "../types/plugin";
+import type {
+  PartialPlugin,
+  Plugin,
+  PluginContext,
+  ResolvedConfig
+} from "../types";
 import { getHookHandler, isPluginHook } from "./helpers";
 
 export type MergeResult<

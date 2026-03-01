@@ -25,6 +25,7 @@ const config = defineTSDownConfig([
       "src/index.ts",
       "src/astro.ts",
       "src/config.ts",
+      "src/constants.ts",
       "src/esbuild.ts",
       "src/farm.ts",
       "src/next.ts",
@@ -45,19 +46,7 @@ const config = defineTSDownConfig([
       "src/typescript/index.ts"
     ],
     unbundle: false,
-    exports: false,
-    external: [
-      "@powerlines/core",
-      "@powerlines/plugin-unbuild",
-      "@powerlines/plugin-esbuild",
-      "@powerlines/plugin-rollup",
-      "@powerlines/plugin-rolldown",
-      "@powerlines/plugin-rspack",
-      "@powerlines/plugin-tsdown",
-      "@powerlines/plugin-tsup",
-      "@powerlines/plugin-vite",
-      "@powerlines/plugin-webpack"
-    ]
+    exports: false
   }
 ]);
 
