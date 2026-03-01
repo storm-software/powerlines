@@ -44,6 +44,7 @@ const config = defineTSDownConfig([
       "src/context/index.ts",
       "src/typescript/index.ts"
     ],
+    unbundle: false,
     external: [
       "@powerlines/plugin-unbuild",
       "@powerlines/plugin-esbuild",
@@ -55,7 +56,8 @@ const config = defineTSDownConfig([
       "@powerlines/plugin-vite",
       "@powerlines/plugin-webpack"
     ],
-    noExternal: ["@powerlines/core"]
+    noExternal: ["@powerlines/core"],
+    skipNodeModulesBundle: true
   }
 ]);
 

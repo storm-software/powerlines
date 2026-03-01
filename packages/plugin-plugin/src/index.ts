@@ -45,10 +45,10 @@ export const plugin = <
             dts: false
           },
           tsdown: {
-            variant: "tsdown",
             platform: "node",
             target: "node22",
             nodeProtocol: true,
+            fixedExtension: true,
             minify: false,
             exports: {
               all: true

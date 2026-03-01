@@ -40,20 +40,47 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./dist/index.mjs",
-    "./helpers": "./dist/helpers/index.mjs",
-    "./helpers/bundle": "./dist/helpers/bundle.mjs",
-    "./helpers/resolve": "./dist/helpers/resolve.mjs",
-    "./helpers/resolve-options": "./dist/helpers/resolve-options.mjs",
-    "./helpers/unplugin": "./dist/helpers/unplugin.mjs",
-    "./types": "./dist/types/index.mjs",
-    "./types/build": "./dist/types/build.mjs",
-    "./types/plugin": "./dist/types/plugin.mjs",
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    },
+    "./helpers": {
+      "require": "./dist/helpers/index.cjs",
+      "import": "./dist/helpers/index.mjs"
+    },
+    "./helpers/bundle": {
+      "require": "./dist/helpers/bundle.cjs",
+      "import": "./dist/helpers/bundle.mjs"
+    },
+    "./helpers/resolve": {
+      "require": "./dist/helpers/resolve.cjs",
+      "import": "./dist/helpers/resolve.mjs"
+    },
+    "./helpers/resolve-options": {
+      "require": "./dist/helpers/resolve-options.cjs",
+      "import": "./dist/helpers/resolve-options.mjs"
+    },
+    "./helpers/unplugin": {
+      "require": "./dist/helpers/unplugin.cjs",
+      "import": "./dist/helpers/unplugin.mjs"
+    },
+    "./types": {
+      "require": "./dist/types/index.cjs",
+      "import": "./dist/types/index.mjs"
+    },
+    "./types/build": {
+      "require": "./dist/types/build.cjs",
+      "import": "./dist/types/build.mjs"
+    },
+    "./types/plugin": {
+      "require": "./dist/types/plugin.cjs",
+      "import": "./dist/types/plugin.mjs"
+    },
     "./*": "./*"
   },
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
+  "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
   "peerDependencies": {

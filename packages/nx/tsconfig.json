@@ -9,6 +9,7 @@
     "moduleResolution": "Bundler",
     "types": ["node"],
     "strict": false,
+    "declaration": true,
     "outDir": "../../dist/out-tsc",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true
@@ -20,7 +21,7 @@
     "**/*.json",
     "src/**/*.ts",
     "src/**/*.d.ts",
-    "tsup.config.ts"
+    "tsdown.config.ts"
   ],
   "exclude": [
     "jest.config.ts",

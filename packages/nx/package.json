@@ -22,12 +22,12 @@
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       },
       "default": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     },
     "./index": {
@@ -36,68 +36,40 @@
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       },
       "default": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./base": {
+      "import": {
+        "types": "./dist/base/index.d.mts",
+        "default": "./dist/base/index.mjs"
+      },
+      "require": {
+        "types": "./dist/base/index.d.cts",
+        "default": "./dist/base/index.cjs"
+      },
+      "default": {
+        "types": "./dist/base/index.d.cts",
+        "default": "./dist/base/index.cjs"
       }
     },
     "./base/*": {
       "import": {
-        "types": "./dist/src/base/*.d.mts",
-        "default": "./dist/src/base/*.mjs"
+        "types": "./dist/base/*.d.mts",
+        "default": "./dist/base/*.mjs"
       },
       "require": {
-        "types": "./dist/src/base/*.d.ts",
-        "default": "./dist/src/base/*.js"
+        "types": "./dist/base/*.d.cts",
+        "default": "./dist/base/*.cjs"
       },
       "default": {
-        "types": "./dist/src/base/*.d.ts",
-        "default": "./dist/src/base/*.js"
-      }
-    },
-    "./types/*": {
-      "import": {
-        "types": "./dist/src/types/*.d.mts",
-        "default": "./dist/src/types/*.mjs"
-      },
-      "require": {
-        "types": "./dist/src/types/*.d.ts",
-        "default": "./dist/src/types/*.js"
-      },
-      "default": {
-        "types": "./dist/src/types/*.d.ts",
-        "default": "./dist/src/types/*.js"
-      }
-    },
-    "./helpers/*": {
-      "import": {
-        "types": "./dist/src/helpers/*.d.mts",
-        "default": "./dist/src/helpers/*.mjs"
-      },
-      "require": {
-        "types": "./dist/src/helpers/*.d.ts",
-        "default": "./dist/src/helpers/*.js"
-      },
-      "default": {
-        "types": "./dist/src/helpers/*.d.ts",
-        "default": "./dist/src/helpers/*.js"
-      }
-    },
-    "./plugin": {
-      "import": {
-        "types": "./dist/src/plugin/index.d.mts",
-        "default": "./dist/src/plugin/index.mjs"
-      },
-      "require": {
-        "types": "./dist/src/plugin/index.d.ts",
-        "default": "./dist/src/plugin/index.js"
-      },
-      "default": {
-        "types": "./dist/src/plugin/index.d.ts",
-        "default": "./dist/src/plugin/index.js"
+        "types": "./dist/base/*.d.cts",
+        "default": "./dist/base/*.cjs"
       }
     },
     "./executors": {
@@ -106,92 +78,134 @@
         "default": "./dist/executors.mjs"
       },
       "require": {
-        "types": "./dist/executors.d.ts",
-        "default": "./dist/executors.js"
+        "types": "./dist/executors.d.cts",
+        "default": "./dist/executors.cjs"
       },
       "default": {
-        "types": "./dist/executors.d.ts",
-        "default": "./dist/executors.js"
+        "types": "./dist/executors.d.cts",
+        "default": "./dist/executors.cjs"
       }
     },
+    "./executors/*": {
+      "import": {
+        "types": "./dist/src/executors/*/executor.d.mts",
+        "default": "./dist/src/executors/*/executor.mjs"
+      },
+      "require": {
+        "types": "./dist/src/executors/*/executor.d.cts",
+        "default": "./dist/src/executors/*/executor.cjs"
+      },
+      "default": {
+        "types": "./dist/src/executors/*/executor.d.cts",
+        "default": "./dist/src/executors/*/executor.cjs"
+      }
+    },
+    "./executors/*/executor.cjs": "./dist/src/executors/*/executor.cjs",
+    "./executors/*/executor.mjs": "./dist/src/executors/*/executor.mjs",
     "./generators": {
       "import": {
         "types": "./dist/generators.d.mts",
         "default": "./dist/generators.mjs"
       },
       "require": {
-        "types": "./dist/generators.d.ts",
-        "default": "./dist/generators.js"
+        "types": "./dist/generators.d.cts",
+        "default": "./dist/generators.cjs"
       },
       "default": {
-        "types": "./dist/generators.d.ts",
-        "default": "./dist/generators.js"
+        "types": "./dist/generators.d.cts",
+        "default": "./dist/generators.cjs"
       }
     },
-    "./executors/*/untyped": {
-      "import": {
-        "types": "./dist/src/executors/*/untyped.d.mts",
-        "default": "./dist/src/executors/*/untyped.mjs"
-      },
-      "require": {
-        "types": "./dist/src/executors/*/untyped.d.ts",
-        "default": "./dist/src/executors/*/untyped.js"
-      },
-      "default": {
-        "types": "./dist/src/executors/*/untyped.d.ts",
-        "default": "./dist/src/executors/*/untyped.js"
-      }
-    },
-    "./generators/*/untyped": {
-      "import": {
-        "types": "./dist/src/generators/*/untyped.d.mts",
-        "default": "./dist/src/generators/*/untyped.mjs"
-      },
-      "require": {
-        "types": "./dist/src/generators/*/untyped.d.ts",
-        "default": "./dist/src/generators/*/untyped.js"
-      },
-      "default": {
-        "types": "./dist/src/generators/*/untyped.d.ts",
-        "default": "./dist/src/generators/*/untyped.js"
-      }
-    },
-    "./executors/*/executor": {
-      "import": {
-        "types": "./dist/src/executors/*/executor.d.mts",
-        "default": "./dist/src/executors/*/executor.mjs"
-      },
-      "require": {
-        "types": "./dist/src/executors/*/executor.d.ts",
-        "default": "./dist/src/executors/*/executor.js"
-      },
-      "default": {
-        "types": "./dist/src/executors/*/executor.d.ts",
-        "default": "./dist/src/executors/*/executor.js"
-      }
-    },
-    "./generators/*/generator": {
+    "./generators/*": {
       "import": {
         "types": "./dist/src/generators/*/generator.d.mts",
         "default": "./dist/src/generators/*/generator.mjs"
       },
       "require": {
-        "types": "./dist/src/generators/*/generator.d.ts",
-        "default": "./dist/src/generators/*/generator.js"
+        "types": "./dist/src/generators/*/generator.d.cts",
+        "default": "./dist/src/generators/*/generator.cjs"
       },
       "default": {
-        "types": "./dist/src/generators/*/generator.d.ts",
-        "default": "./dist/src/generators/*/generator.js"
+        "types": "./dist/src/generators/*/generator.d.cts",
+        "default": "./dist/src/generators/*/generator.cjs"
       }
     },
-    "./generators/*/generator.js": "./dist/src/generators/*/generator.js",
-    "./executors/*/executor.js": "./dist/src/executors/*/executor.js",
+    "./generators/*/generator.cjs": "./dist/src/generators/*/generator.cjs",
     "./generators/*/generator.mjs": "./dist/src/generators/*/generator.mjs",
-    "./executors/*/executor.mjs": "./dist/src/executors/*/executor.mjs"
+    "./helpers/constants": {
+      "import": {
+        "types": "./dist/src/helpers/constants.d.mts",
+        "default": "./dist/src/helpers/constants.mjs"
+      },
+      "require": {
+        "types": "./dist/src/helpers/constants.d.cts",
+        "default": "./dist/src/helpers/constants.cjs"
+      },
+      "default": {
+        "types": "./dist/src/helpers/constants.d.cts",
+        "default": "./dist/src/helpers/constants.cjs"
+      }
+    },
+    "./helpers/plugin-utilities": {
+      "import": {
+        "types": "./dist/src/helpers/plugin-utilities.d.mts",
+        "default": "./dist/src/helpers/plugin-utilities.mjs"
+      },
+      "require": {
+        "types": "./dist/src/helpers/plugin-utilities.d.cts",
+        "default": "./dist/src/helpers/plugin-utilities.cjs"
+      },
+      "default": {
+        "types": "./dist/src/helpers/plugin-utilities.d.cts",
+        "default": "./dist/src/helpers/plugin-utilities.cjs"
+      }
+    },
+    "./plugin": {
+      "import": {
+        "types": "./dist/src/plugin/index.d.mts",
+        "default": "./dist/src/plugin/index.mjs"
+      },
+      "require": {
+        "types": "./dist/src/plugin/index.d.cts",
+        "default": "./dist/src/plugin/index.cjs"
+      },
+      "default": {
+        "types": "./dist/src/plugin/index.d.cts",
+        "default": "./dist/src/plugin/index.cjs"
+      }
+    },
+    "./types": {
+      "import": {
+        "types": "./dist/src/types/index.d.mts",
+        "default": "./dist/src/types/index.mjs"
+      },
+      "require": {
+        "types": "./dist/src/types/index.d.cts",
+        "default": "./dist/src/types/index.cjs"
+      },
+      "default": {
+        "types": "./dist/src/types/index.d.cts",
+        "default": "./dist/src/types/index.cjs"
+      }
+    },
+    "./types/plugin": {
+      "import": {
+        "types": "./dist/src/types/plugin.d.mts",
+        "default": "./dist/src/types/plugin.mjs"
+      },
+      "require": {
+        "types": "./dist/src/types/plugin.d.cts",
+        "default": "./dist/src/types/plugin.cjs"
+      },
+      "default": {
+        "types": "./dist/src/types/plugin.d.cts",
+        "default": "./dist/src/types/plugin.cjs"
+      }
+    }
   },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "typings": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "dependencies": {
     "@nx/devkit": "catalog:",
     "@storm-software/build-tools": "catalog:",
@@ -204,24 +218,28 @@
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "defu": "catalog:",
-    "jiti": "catalog:",
-    "powerlines": "workspace:*"
+    "jiti": "catalog:"
   },
   "devDependencies": {
     "@nx/workspace": "catalog:",
     "@storm-software/testing-tools": "catalog:",
     "@storm-software/tsup": "catalog:",
+    "@storm-software/untyped": "catalog:",
     "@types/node": "catalog:",
     "eslint-flat-config-utils": "catalog:",
     "jsonc-eslint-parser": "catalog:",
     "nx": "catalog:",
-    "untyped": "catalog:"
+    "powerlines": "workspace:*"
   },
   "peerDependencies": {
-    "nx": ">=22.5.0"
+    "nx": ">=22.5.0",
+    "powerlines": ">=0.39.2"
   },
   "peerDependenciesMeta": {
     "nx": {
+      "optional": false
+    },
+    "powerlines": {
       "optional": false
     }
   },

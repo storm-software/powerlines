@@ -16,25 +16,28 @@
 
  ------------------------------------------------------------------- */
 
-import { defineTsupConfig } from "@powerlines/tools-config/tsup.shared";
+import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
 
-const config = defineTsupConfig({
-  name: "nx",
-  entry: [
-    "./index.ts",
-    "./executors.ts",
-    "./generators.ts",
-    "./src/base/*.ts",
-    "./src/types/*.ts",
-    "./src/helpers/*.ts",
-    "./src/plugin/index.ts",
-    "./src/executors/*/executor.ts",
-    "./src/executors/*/untyped.ts",
-    "./src/generators/*/generator.ts",
-    "./src/generators/*/untyped.ts"
-  ],
-  clean: false,
-  skipNodeModulesBundle: true
-});
+const config = defineTSDownConfig([
+  {
+    name: "nx",
+    entry: [
+      "./index.ts",
+      "./executors.ts",
+      "./generators.ts",
+      "./src/base/*.ts",
+      "./src/types/*.ts",
+      "./src/helpers/*.ts",
+      "./src/plugin/index.ts",
+      "./src/executors/*/executor.ts",
+      "./src/executors/*/untyped.ts",
+      "./src/generators/*/generator.ts",
+      "./src/generators/*/untyped.ts"
+    ],
+    unbundle: false,
+    exports: false,
+    external: ["powerlines"]
+  }
+]);
 
 export default config;

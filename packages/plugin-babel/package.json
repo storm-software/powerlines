@@ -40,21 +40,51 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./dist/index.mjs",
-    "./helpers": "./dist/helpers/index.mjs",
-    "./helpers/ast-utils": "./dist/helpers/ast-utils.mjs",
-    "./helpers/create-plugin": "./dist/helpers/create-plugin.mjs",
-    "./helpers/filters": "./dist/helpers/filters.mjs",
-    "./helpers/module-helpers": "./dist/helpers/module-helpers.mjs",
-    "./helpers/options": "./dist/helpers/options.mjs",
-    "./types": "./dist/types/index.mjs",
-    "./types/config": "./dist/types/config.mjs",
-    "./types/plugin": "./dist/types/plugin.mjs",
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    },
+    "./helpers": {
+      "require": "./dist/helpers/index.cjs",
+      "import": "./dist/helpers/index.mjs"
+    },
+    "./helpers/ast-utils": {
+      "require": "./dist/helpers/ast-utils.cjs",
+      "import": "./dist/helpers/ast-utils.mjs"
+    },
+    "./helpers/create-plugin": {
+      "require": "./dist/helpers/create-plugin.cjs",
+      "import": "./dist/helpers/create-plugin.mjs"
+    },
+    "./helpers/filters": {
+      "require": "./dist/helpers/filters.cjs",
+      "import": "./dist/helpers/filters.mjs"
+    },
+    "./helpers/module-helpers": {
+      "require": "./dist/helpers/module-helpers.cjs",
+      "import": "./dist/helpers/module-helpers.mjs"
+    },
+    "./helpers/options": {
+      "require": "./dist/helpers/options.cjs",
+      "import": "./dist/helpers/options.mjs"
+    },
+    "./types": {
+      "require": "./dist/types/index.cjs",
+      "import": "./dist/types/index.mjs"
+    },
+    "./types/config": {
+      "require": "./dist/types/config.cjs",
+      "import": "./dist/types/config.mjs"
+    },
+    "./types/plugin": {
+      "require": "./dist/types/plugin.cjs",
+      "import": "./dist/types/plugin.mjs"
+    },
     "./*": "./*"
   },
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
+  "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
   "dependencies": {
