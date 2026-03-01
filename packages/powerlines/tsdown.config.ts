@@ -46,6 +46,7 @@ const config = defineTSDownConfig([
     ],
     unbundle: false,
     external: [
+      "@powerlines/core",
       "@powerlines/plugin-unbuild",
       "@powerlines/plugin-esbuild",
       "@powerlines/plugin-rollup",
@@ -55,9 +56,7 @@ const config = defineTSDownConfig([
       "@powerlines/plugin-tsup",
       "@powerlines/plugin-vite",
       "@powerlines/plugin-webpack"
-    ],
-    noExternal: ["@powerlines/core"],
-    skipNodeModulesBundle: true
+    ]
   }
 ]);
 
