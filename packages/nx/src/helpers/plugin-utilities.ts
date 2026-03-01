@@ -107,16 +107,6 @@ export interface CreateNxPluginOptions {
    * @defaultValue "powerlines"
    */
   framework?: string;
-
-  /**
-   * Whether to enable verbose logging for the Nx plugin.
-   *
-   * @remarks
-   * If enabled, the plugin will log more detailed information about its operations, which can be useful for debugging and troubleshooting.
-   *
-   * @defaultValue false
-   */
-  verboseOutput?: boolean;
 }
 
 /**
@@ -131,12 +121,6 @@ export function createNxPlugin<
   const framework = opts?.framework || "powerlines";
   const title = `${titleCase(framework)} Nx Plugin`;
 
-  if (opts?.verboseOutput) {
-    console.debug(
-      `[${title}] - ${new Date().toISOString()} - Initializing the ${title}`
-    );
-  }
-
   try {
     const name = opts?.name || `${framework}/nx/plugin`;
     const artifactsFolder =
@@ -145,15 +129,15 @@ export function createNxPlugin<
     const targetInputs = getNxTargetInputs(framework);
     const pluginInputs = getNxPluginInputs(framework);
 
-    if (opts?.verboseOutput) {
-      console.debug(
-        `[${title}] - ${new Date().toISOString()} - Will process the following inputs: ${pluginInputs}`
-      );
-    }
-
     return [
       pluginInputs,
       async (configFiles, options, contextV2): Promise<CreateNodesResultV2> => {
+        if (options?.verboseOutput) {
+          console.debug(
+            `[${title}] - ${new Date().toISOString()} - Initializing the ${title} for the following inputs: ${pluginInputs}`
+          );
+        }
+
         const envPaths = getEnvPaths({
           orgId: "storm-software",
           appId: framework,
@@ -201,7 +185,7 @@ export function createNxPlugin<
 
               const root = getRoot(projectRoot, context);
 
-              if (opts?.verboseOutput) {
+              if (options?.verboseOutput) {
                 console.debug(
                   `[${title}] - ${new Date().toISOString()} - Loading ${
                     framework
@@ -230,7 +214,7 @@ export function createNxPlugin<
                   )
                 )
               ) {
-                if (opts?.verboseOutput) {
+                if (options?.verboseOutput) {
                   console.warn(
                     `[${
                       title
@@ -249,7 +233,7 @@ export function createNxPlugin<
                 "utf8"
               );
               if (!packageJsonContent) {
-                if (opts?.verboseOutput) {
+                if (options?.verboseOutput) {
                   console.warn(
                     `[${title}] - ${new Date().toISOString()} - No package.json file found for project in root directory ${projectRoot}`
                   );
@@ -260,7 +244,7 @@ export function createNxPlugin<
 
               const packageJson: PackageJson = JSON.parse(packageJsonContent);
               if (!userConfig.configFile && !packageJson?.storm) {
-                if (opts?.verboseOutput) {
+                if (options?.verboseOutput) {
                   console.debug(
                     `[${title}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${
                       framework
@@ -276,7 +260,7 @@ export function createNxPlugin<
                 packageJson
               );
               if (!projectConfig) {
-                if (opts?.verboseOutput) {
+                if (options?.verboseOutput) {
                   console.warn(
                     `[${title}] - ${new Date().toISOString()} - No project configuration found for project in root directory ${
                       projectRoot
@@ -295,7 +279,7 @@ export function createNxPlugin<
                   context.workspaceRoot
                 );
 
-              if (opts?.verboseOutput) {
+              if (options?.verboseOutput) {
                 console.debug(
                   `[${title}] - ${new Date().toISOString()} - Preparing Nx targets for project in root directory ${
                     projectRoot
@@ -617,7 +601,7 @@ export function createNxPlugin<
                 }
               );
 
-              if (opts?.verboseOutput) {
+              if (options?.verboseOutput) {
                 console.debug(
                   `[${
                     title
@@ -643,7 +627,16 @@ export function createNxPlugin<
                 }`
               );
 
-              return {};
+              throw new Error(
+                `The ${
+                  title
+                } failed to process the project configuration for file ${
+                  configFile
+                }. See previous logs for more details.`,
+                {
+                  cause: error instanceof Error ? error : undefined
+                }
+              );
             }
           },
           configFiles,

@@ -18,13 +18,6 @@
 
 export interface NxPluginOptions {
   /**
-   * Enable resolver debug logging for the plugin
-   *
-   * @defaultValue false
-   */
-  debug?: boolean;
-
-  /**
    * Configuration options for the clean target added by the Nx plugin
    */
   clean?:
@@ -344,4 +337,21 @@ export interface NxPluginOptions {
          */
         executor?: string;
       };
+
+  /**
+   * Whether to enable verbose logging for the Nx plugin.
+   *
+   * @remarks
+   * If enabled, the plugin will log more detailed information about its operations, which can be useful for debugging and troubleshooting.
+   *
+   * @defaultValue false
+   */
+  verboseOutput?: boolean;
+
+  /**
+   * Enable resolver debug logging for the plugin
+   *
+   * @defaultValue false
+   */
+  debug?: boolean;
 }
