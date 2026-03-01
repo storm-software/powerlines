@@ -1,18 +1,24 @@
 {
   "name": "@powerlines/plugin-unbuild",
   "version": "0.5.302",
-  "type": "module",
+  "private": false,
   "description": "A package containing a Powerlines plugin to build projects using Unbuild.",
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-unbuild"
-  },
+  "keywords": ["unbuild", "powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
     "email": "support@stormsoftware.com"
   },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/plugin-unbuild"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
   "author": {
     "name": "Storm Software",
     "email": "contact@stormsoftware.com",
@@ -32,14 +38,7 @@
       "url": "https://stormsoftware.com"
     }
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/storm-software"
-  },
-  "license": "Apache-2.0",
-  "private": false,
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
+  "type": "module",
   "exports": {
     ".": "./dist/index.mjs",
     "./helpers": "./dist/helpers/index.mjs",
@@ -49,23 +48,32 @@
     "./types/plugin": "./dist/types/plugin.mjs",
     "./*": "./*"
   },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": ["unbuild", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
-    "@storm-software/unbuild": "catalog:",
+    "@powerlines/plugin-rollup": "workspace:*",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "defu": "catalog:",
-    "@powerlines/plugin-rollup": "workspace:*",
     "esbuild": "catalog:",
     "unplugin": "catalog:"
   },
   "devDependencies": {
+    "@storm-software/unbuild": "catalog:",
     "@types/node": "catalog:"
+  },
+  "peerDependencies": {
+    "@storm-software/unbuild": ">=0.57.0"
+  },
+  "peerDependenciesMeta": {
+    "@storm-software/unbuild": {
+      "optional": false
+    }
   },
   "publishConfig": {
     "access": "public"
-  },
-  "types": "./dist/index.d.mts"
+  }
 }

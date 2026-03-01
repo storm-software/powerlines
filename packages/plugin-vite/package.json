@@ -55,16 +55,24 @@
   "types": "./dist/index.d.mts",
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
+  "peerDependencies": {
+    "vite": ">=8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": false
+    }
+  },
   "dependencies": {
     "@powerlines/plugin-rolldown": "workspace:*",
     "@powerlines/plugin-rollup": "workspace:*",
     "@powerlines/plugin-esbuild": "workspace:*",
     "defu": "catalog:",
-    "unplugin": "catalog:",
-    "vite": "catalog:"
+    "unplugin": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "catalog:"
+    "@types/node": "catalog:",
+    "vite": "catalog:"
   },
   "publishConfig": {
     "access": "public"

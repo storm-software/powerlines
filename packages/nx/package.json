@@ -1,15 +1,13 @@
 {
   "name": "@powerlines/nx",
   "version": "0.11.219",
+  "private": false,
   "description": "A Nx plugin to support Powerlines development in Nx monorepos.",
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
     "directory": "packages/nx"
   },
-  "private": false,
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "exports": {
     "./package.json": "./package.json",
     "./docs/*": "./docs/*",
@@ -191,14 +189,14 @@
     "./generators/*/generator.mjs": "./dist/src/generators/*/generator.mjs",
     "./executors/*/executor.mjs": "./dist/src/executors/*/executor.mjs"
   },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
   "dependencies": {
     "@nx/devkit": "catalog:",
     "@storm-software/build-tools": "catalog:",
     "@storm-software/config": "catalog:",
     "@storm-software/config-tools": "catalog:",
-    "@storm-software/esbuild": "catalog:",
-    "@storm-software/unbuild": "catalog:",
     "@storm-software/workspace-tools": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/hash": "catalog:",
@@ -207,17 +205,25 @@
     "@stryke/type-checks": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "nx": "catalog:",
     "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@nx/workspace": "catalog:",
     "@storm-software/testing-tools": "catalog:",
+    "@storm-software/tsup": "catalog:",
     "@types/node": "catalog:",
     "eslint-flat-config-utils": "catalog:",
     "jsonc-eslint-parser": "catalog:",
-    "tsup": "catalog:",
+    "nx": "catalog:",
     "untyped": "catalog:"
+  },
+  "peerDependencies": {
+    "nx": ">=22.5.0"
+  },
+  "peerDependenciesMeta": {
+    "nx": {
+      "optional": false
+    }
   },
   "publishConfig": {
     "access": "public"

@@ -42,7 +42,6 @@
   "exports": {
     ".": "./dist/index.mjs",
     "./helpers": "./dist/helpers/index.mjs",
-    "./helpers/format-package-json": "./dist/helpers/format-package-json.mjs",
     "./helpers/resolve-options": "./dist/helpers/resolve-options.mjs",
     "./helpers/unplugin": "./dist/helpers/unplugin.mjs",
     "./types": "./dist/types/index.mjs",
@@ -55,13 +54,21 @@
   "types": "./dist/index.d.mts",
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
+  "peerDependencies": {
+    "tsdown": ">=0.16.0"
+  },
+  "peerDependenciesMeta": {
+    "tsdown": {
+      "optional": false
+    }
+  },
   "dependencies": {
     "@powerlines/plugin-rolldown": "workspace:*",
     "defu": "catalog:",
-    "tsdown": "catalog:",
     "unplugin": "catalog:"
   },
   "devDependencies": {
+    "tsdown": "catalog:",
     "@types/node": "catalog:"
   },
   "publishConfig": {

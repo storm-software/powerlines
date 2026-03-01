@@ -56,17 +56,25 @@
   "types": "./dist/index.d.mts",
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
+  "peerDependencies": {
+    "esbuild": ">=0.25.0"
+  },
+  "peerDependenciesMeta": {
+    "esbuild": {
+      "optional": false
+    }
+  },
   "dependencies": {
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "defu": "catalog:",
-    "esbuild": "catalog:",
     "jiti": "catalog:",
     "unplugin": "catalog:"
   },
   "devDependencies": {
+    "esbuild": "catalog:",
     "@types/node": "catalog:"
   },
   "publishConfig": {

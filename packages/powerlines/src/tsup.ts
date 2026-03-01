@@ -21,7 +21,7 @@ import { isString } from "@stryke/type-checks/is-string";
 import type { Options } from "tsup";
 import esbuild from "./esbuild";
 
-export { default as plugin } from "@powerlines/plugin-tsup";
+export { default as plugin, default as tsup } from "@powerlines/plugin-tsup";
 
 /**
  * A Tsup configuration function that integrates Powerlines into the build process.
@@ -46,7 +46,7 @@ export { default as plugin } from "@powerlines/plugin-tsup";
  * @param options - The Tsup options to merge with the Powerlines configuration.
  * @returns The merged Tsup configuration options.
  */
-export function tsup(options: Options = {}): Options {
+export function unplugin(options: Options = {}): Options {
   return {
     ...options,
     esbuildPlugins: [
@@ -79,6 +79,6 @@ export function tsup(options: Options = {}): Options {
   };
 }
 
-export default tsup;
+export default unplugin;
 
-export { tsup as "module.exports" };
+export { unplugin as "module.exports" };

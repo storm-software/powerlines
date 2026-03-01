@@ -1,18 +1,24 @@
 {
   "name": "@powerlines/plugin-tsup",
   "version": "0.12.302",
-  "type": "module",
+  "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-tsup"
-  },
+  "keywords": ["tsup", "powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
     "email": "support@stormsoftware.com"
   },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/plugin-tsup"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
   "author": {
     "name": "Storm Software",
     "email": "contact@stormsoftware.com",
@@ -32,14 +38,7 @@
       "url": "https://stormsoftware.com"
     }
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/storm-software"
-  },
-  "license": "Apache-2.0",
-  "private": false,
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
+  "type": "module",
   "exports": {
     ".": "./dist/index.mjs",
     "./helpers": "./dist/helpers/index.mjs",
@@ -50,27 +49,40 @@
     "./types/plugin": "./dist/types/plugin.mjs",
     "./*": "./*"
   },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": ["tsup", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
-    "@storm-software/tsup": "catalog:",
+    "@powerlines/plugin-esbuild": "workspace:*",
     "@storm-software/build-tools": "catalog:",
-    "tsup": "catalog:",
     "@stryke/convert": "catalog:",
+    "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
-    "@stryke/helpers": "catalog:",
     "defu": "catalog:",
-    "@powerlines/plugin-esbuild": "workspace:*",
     "unplugin": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "catalog:"
+    "@storm-software/tsup": "catalog:",
+    "@types/node": "catalog:",
+    "tsup": "catalog:"
+  },
+  "peerDependencies": {
+    "@storm-software/tsup": ">=0.57.0",
+    "tsup": ">=8.4.0"
+  },
+  "peerDependenciesMeta": {
+    "@storm-software/tsup": {
+      "optional": false
+    },
+    "tsup": {
+      "optional": false
+    }
   },
   "publishConfig": {
     "access": "public"
-  },
-  "types": "./dist/index.d.mts"
+  }
 }

@@ -26,7 +26,10 @@ import type { UserConfig } from "tsdown/config";
 import rolldown from "./rolldown";
 import { OutputConfig, ResolveConfig } from "./types";
 
-export { default as plugin } from "@powerlines/plugin-tsdown";
+export {
+  default as plugin,
+  default as tsdown
+} from "@powerlines/plugin-tsdown";
 
 /**
  * A Tsdown configuration function that integrates Powerlines into the build process.
@@ -51,7 +54,7 @@ export { default as plugin } from "@powerlines/plugin-tsdown";
  * @param options - The Tsdown options to merge with the Powerlines configuration.
  * @returns The merged Tsdown configuration options.
  */
-export function tsdown(options: UserConfig = {}): UserConfig {
+export function unplugin(options: UserConfig = {}): UserConfig {
   return {
     ...options,
     entry: options.entry,
@@ -131,6 +134,6 @@ export function tsdown(options: UserConfig = {}): UserConfig {
   };
 }
 
-export default tsdown;
+export default unplugin;
 
-export { tsdown as "module.exports" };
+export { unplugin as "module.exports" };

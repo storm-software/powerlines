@@ -54,6 +54,14 @@
   "types": "./dist/index.d.mts",
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
+  "peerDependencies": {
+    "rollup": ">=4.46.4"
+  },
+  "peerDependenciesMeta": {
+    "rollup": {
+      "optional": false
+    }
+  },
   "dependencies": {
     "@rollup/plugin-alias": "catalog:",
     "@rollup/plugin-babel": "catalog:",
@@ -69,10 +77,10 @@
     "@stryke/types": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
-    "rollup": "catalog:",
     "unplugin": "catalog:"
   },
   "devDependencies": {
+    "rollup": "catalog:",
     "@types/node": "catalog:"
   },
   "publishConfig": {

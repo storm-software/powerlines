@@ -26,7 +26,10 @@ import type { InputOptions } from "rolldown";
 import { createRolldownPlugin } from "unplugin";
 import { createUnpluginFactory } from "./unplugin";
 
-export { default as plugin } from "@powerlines/plugin-rolldown";
+export {
+  default as plugin,
+  default as rolldown
+} from "@powerlines/plugin-rolldown";
 
 /**
  * A Rolldown plugin that will invoke the Powerlines API hooks during the build process.
@@ -43,7 +46,7 @@ export { default as plugin } from "@powerlines/plugin-rolldown";
  * })
  * ```
  */
-export const rolldown = createRolldownPlugin<Partial<RolldownPluginUserConfig>>(
+export const unplugin = createRolldownPlugin<Partial<RolldownPluginUserConfig>>(
   createUnpluginFactory<RolldownPluginContext>("rolldown", (api, plugin) => {
     return {
       ...plugin,
@@ -66,6 +69,6 @@ export const rolldown = createRolldownPlugin<Partial<RolldownPluginUserConfig>>(
   })
 );
 
-export { rolldown as "module.exports" };
+export { unplugin as "module.exports" };
 
-export default rolldown;
+export default unplugin;

@@ -16,4 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-export { default as plugin } from "@powerlines/plugin-unbuild";
+export {
+  default as plugin,
+  default as unbuild
+} from "@powerlines/plugin-unbuild";

@@ -131,6 +131,10 @@
       "require": "./dist/plugin-utils/extend.cjs",
       "import": "./dist/plugin-utils/extend.mjs"
     },
+    "./plugin-utils/format-package-json": {
+      "require": "./dist/plugin-utils/format-package-json.cjs",
+      "import": "./dist/plugin-utils/format-package-json.mjs"
+    },
     "./plugin-utils/get-config-path": {
       "require": "./dist/plugin-utils/get-config-path.cjs",
       "import": "./dist/plugin-utils/get-config-path.mjs"

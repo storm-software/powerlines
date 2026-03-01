@@ -26,7 +26,7 @@ import defu from "defu";
 import { createVitePlugin } from "unplugin";
 import { createUnpluginFactory } from "./unplugin";
 
-export { default as plugin } from "@powerlines/plugin-vite";
+export { default as plugin, default as vite } from "@powerlines/plugin-vite";
 
 /**
  * A Vite plugin that will invoke the Powerlines API hooks during the build process.
@@ -44,7 +44,7 @@ export { default as plugin } from "@powerlines/plugin-vite";
  *
  * ```
  */
-export const vite = createVitePlugin<Partial<VitePluginUserConfig>>(
+export const unplugin = createVitePlugin<Partial<VitePluginUserConfig>>(
   createUnpluginFactory("vite", (api, plugin) => {
     return {
       ...plugin,
@@ -117,6 +117,6 @@ export const vite = createVitePlugin<Partial<VitePluginUserConfig>>(
   })
 );
 
-export default vite;
+export default unplugin;
 
-export { vite as "module.exports" };
+export { unplugin as "module.exports" };

@@ -23,7 +23,10 @@ import type { BuildOptions, PluginBuild } from "esbuild";
 import { createEsbuildPlugin } from "unplugin";
 import { createUnpluginFactory } from "./unplugin";
 
-export { default as plugin } from "@powerlines/plugin-esbuild";
+export {
+  default as esbuild,
+  default as plugin
+} from "@powerlines/plugin-esbuild";
 
 /**
  * An ESBuild plugin that will invoke the Powerlines API hooks during the build process.
@@ -41,7 +44,7 @@ export { default as plugin } from "@powerlines/plugin-esbuild";
  *
  * ```
  */
-export const esbuild = createEsbuildPlugin<Partial<EsbuildPluginUserConfig>>(
+export const unplugin = createEsbuildPlugin<Partial<EsbuildPluginUserConfig>>(
   createUnpluginFactory("esbuild", (api, plugin) => {
     return {
       ...plugin,
@@ -71,6 +74,6 @@ export const esbuild = createEsbuildPlugin<Partial<EsbuildPluginUserConfig>>(
   })
 );
 
-export default esbuild;
+export default unplugin;
 
-export { esbuild as "module.exports" };
+export { unplugin as "module.exports" };
