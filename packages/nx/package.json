@@ -9,13 +9,6 @@
     "directory": "packages/nx"
   },
   "exports": {
-    "./package.json": "./package.json",
-    "./docs/*": "./docs/*",
-    "./migrations.json": "./migrations.json",
-    "./executors.json": "./executors.json",
-    "./executors/*/schema.json": "./dist/src/executors/*/schema.json",
-    "./generators.json": "./generators.json",
-    "./generators/*/schema.json": "./dist/src/generators/*/schema.json",
     ".": {
       "import": {
         "types": "./dist/index.d.mts",
@@ -30,6 +23,15 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./package.json": "./package.json",
+    "./docs/*": "./docs/*",
+    "./migrations.json": "./migrations.json",
+    "./executors.json": "./executors.json",
+    "./generators.json": "./generators.json",
+    "./executors/*/schema.json": "./dist/src/executors/*/schema.json",
+    "./executors/*/schema.d.ts": "./dist/src/executors/*/schema.d.ts",
+    "./generators/*/schema.json": "./dist/src/generators/*/schema.json",
+    "./generators/*/schema.d.ts": "./dist/src/generators/*/schema.d.ts",
     "./index": {
       "import": {
         "types": "./dist/index.d.mts",
@@ -44,32 +46,18 @@
         "default": "./dist/index.cjs"
       }
     },
-    "./base": {
-      "import": {
-        "types": "./dist/base/index.d.mts",
-        "default": "./dist/base/index.mjs"
-      },
-      "require": {
-        "types": "./dist/base/index.d.cts",
-        "default": "./dist/base/index.cjs"
-      },
-      "default": {
-        "types": "./dist/base/index.d.cts",
-        "default": "./dist/base/index.cjs"
-      }
-    },
     "./base/*": {
       "import": {
-        "types": "./dist/base/*.d.mts",
-        "default": "./dist/base/*.mjs"
+        "types": "./dist/src/base/*.d.mts",
+        "default": "./dist/src/base/*.mjs"
       },
       "require": {
-        "types": "./dist/base/*.d.cts",
-        "default": "./dist/base/*.cjs"
+        "types": "./dist/src/base/*.d.cts",
+        "default": "./dist/src/base/*.cjs"
       },
       "default": {
-        "types": "./dist/base/*.d.cts",
-        "default": "./dist/base/*.cjs"
+        "types": "./dist/src/base/*.d.cts",
+        "default": "./dist/src/base/*.cjs"
       }
     },
     "./executors": {
