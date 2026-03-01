@@ -3,7 +3,12 @@
   "version": "0.7.305",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
-  "keywords": ["rollup", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "rollup",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -74,23 +79,17 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "peerDependencies": {
-    "rollup": ">=4.46.4"
-  },
-  "peerDependenciesMeta": {
-    "rollup": {
-      "optional": false
-    }
-  },
+  "files": [
+    "dist/**/*"
+  ],
   "dependencies": {
+    "@powerlines/core": "workspace:*",
+    "@powerlines/plugin-babel": "workspace:*",
     "@rollup/plugin-alias": "catalog:",
     "@rollup/plugin-babel": "catalog:",
     "@rollup/plugin-inject": "catalog:",
     "@rollup/plugin-node-resolve": "catalog:",
     "@rollup/plugin-replace": "catalog:",
-    "rollup-plugin-typescript2": "catalog:",
-    "@powerlines/plugin-babel": "workspace:*",
     "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
@@ -98,11 +97,20 @@
     "@stryke/types": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
+    "rollup-plugin-typescript2": "catalog:",
     "unplugin": "catalog:"
   },
   "devDependencies": {
-    "rollup": "catalog:",
-    "@types/node": "catalog:"
+    "@types/node": "catalog:",
+    "rollup": "catalog:"
+  },
+  "peerDependencies": {
+    "rollup": ">=4.46.4"
+  },
+  "peerDependenciesMeta": {
+    "rollup": {
+      "optional": false
+    }
   },
   "publishConfig": {
     "access": "public"

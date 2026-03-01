@@ -141,10 +141,18 @@
     },
     "./*": "./*"
   },
-  "files": ["dist/**/*", "files/**/*", "schemas/**/*"],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "files": [
+    "dist/**/*",
+    "files/**/*",
+    "schemas/**/*"
+  ],
   "dependencies": {
     "@cacheable/memory": "catalog:",
     "@donedeal0/superdiff": "catalog:",
+    "@powerlines/core": "workspace:*",
     "@storm-software/config": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
@@ -259,8 +267,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.cts"
+  }
 }

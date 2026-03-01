@@ -20,10 +20,7 @@ import {
   CACHE_HASH_LENGTH,
   ROOT_HASH_LENGTH
 } from "@powerlines/core/lib/constants/meta";
-import {
-  getUniqueInputs,
-  resolveEntriesSync
-} from "@powerlines/core/lib/entry";
+import { getUniqueInputs } from "@powerlines/core/lib/entry";
 import { createLog, extendLog } from "@powerlines/core/lib/logger";
 import {
   checkDedupe,
@@ -115,6 +112,7 @@ import {
   WorkspaceConfig
 } from "../types";
 import { getTsconfigFilePath } from "../typescript/tsconfig";
+import { resolveInputsSync } from "../utils";
 
 interface ConfigCacheKey {
   root: string;
@@ -327,7 +325,7 @@ export class PowerlinesContext<
   public get entry(): ResolvedEntryTypeDefinition[] {
     const entry = this.resolvedEntry;
 
-    return resolveEntriesSync(
+    return resolveInputsSync(
       this,
       entry && entry.length > 0
         ? entry

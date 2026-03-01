@@ -72,6 +72,7 @@
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
   "dependencies": {
+    "@powerlines/core": "workspace:*",
     "@powerlines/plugin-rollup": "workspace:*",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",

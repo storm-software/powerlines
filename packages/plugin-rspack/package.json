@@ -84,6 +84,7 @@
     }
   },
   "dependencies": {
+    "@powerlines/core": "workspace:*",
     "@stryke/path": "catalog:",
     "defu": "catalog:"
   },

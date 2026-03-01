@@ -1440,6 +1440,9 @@ importers:
 
   packages/plugin-esbuild:
     dependencies:
+      '@powerlines/core':
+        specifier: workspace:*
+        version: link:../core
       '@stryke/fs':
         specifier: 'catalog:'
         version: 0.33.43(magicast@0.5.2)(nx@22.5.3(@swc-node/register@1.11.1(@swc/core@1.15.17(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.17(@swc/helpers@0.5.19)))
@@ -2079,6 +2082,9 @@ importers:
 
   packages/plugin-rolldown:
     dependencies:
+      '@powerlines/core':
+        specifier: workspace:*
+        version: link:../core
       '@powerlines/plugin-babel':
         specifier: workspace:*
         version: link:../plugin-babel
@@ -2119,6 +2125,9 @@ importers:
 
   packages/plugin-rollup:
     dependencies:
+      '@powerlines/core':
+        specifier: workspace:*
+        version: link:../core
       '@powerlines/plugin-babel':
         specifier: workspace:*
         version: link:../plugin-babel
@@ -2174,6 +2183,9 @@ importers:
 
   packages/plugin-rspack:
     dependencies:
+      '@powerlines/core':
+        specifier: workspace:*
+        version: link:../core
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.26.6
@@ -2391,6 +2403,9 @@ importers:
 
   packages/plugin-tsdown:
     dependencies:
+      '@powerlines/core':
+        specifier: workspace:*
+        version: link:../core
       '@powerlines/plugin-rolldown':
         specifier: workspace:*
         version: link:../plugin-rolldown
@@ -2410,6 +2425,9 @@ importers:
 
   packages/plugin-tsup:
     dependencies:
+      '@powerlines/core':
+        specifier: workspace:*
+        version: link:../core
       '@powerlines/plugin-esbuild':
         specifier: workspace:*
         version: link:../plugin-esbuild
@@ -2481,6 +2499,9 @@ importers:
 
   packages/plugin-unbuild:
     dependencies:
+      '@powerlines/core':
+        specifier: workspace:*
+        version: link:../core
       '@powerlines/plugin-rollup':
         specifier: workspace:*
         version: link:../plugin-rollup
@@ -2581,6 +2602,9 @@ importers:
 
   packages/plugin-vite:
     dependencies:
+      '@powerlines/core':
+        specifier: workspace:*
+        version: link:../core
       '@powerlines/plugin-esbuild':
         specifier: workspace:*
         version: link:../plugin-esbuild
@@ -2606,6 +2630,9 @@ importers:
 
   packages/plugin-webpack:
     dependencies:
+      '@powerlines/core':
+        specifier: workspace:*
+        version: link:../core
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.26.6
@@ -2643,6 +2670,9 @@ importers:
       '@nuxt/schema':
         specifier: '>=4.1.1'
         version: 4.3.1
+      '@powerlines/core':
+        specifier: workspace:*
+        version: link:../core
       '@storm-software/config':
         specifier: 'catalog:'
         version: 1.135.11

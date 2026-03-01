@@ -58,8 +58,7 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
           dts: false
         },
         resolve: {
-          external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\//],
-          noExternal: ["@powerlines/core"]
+          external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\//]
         },
         platform: "node",
         tsdown: {

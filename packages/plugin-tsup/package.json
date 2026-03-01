@@ -76,6 +76,7 @@
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
   "dependencies": {
+    "@powerlines/core": "workspace:*",
     "@powerlines/plugin-esbuild": "workspace:*",
     "@storm-software/build-tools": "catalog:",
     "@stryke/convert": "catalog:",

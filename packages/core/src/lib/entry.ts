@@ -68,7 +68,7 @@ export function resolveEntryOutput(
   );
 }
 
-export function resolveEntry(
+export function resolveInput(
   context: Context,
   typeDefinition: TypeDefinition,
   input?: string | RegExp | TypeDefinition | undefined,
@@ -91,62 +91,86 @@ export function resolveEntry(
  * @param typeDefinitions - The type definitions to resolve.
  * @returns A promise that resolves to an array of resolved entry type definitions.
  */
-export async function resolveEntries(
+export async function resolveInputs(
   context: Context,
-  typeDefinitions: Array<TypeDefinitionParameter | ResolvedEntryTypeDefinition>
+  typeDefinitions:
+    | TypeDefinition
+    | ResolvedEntryTypeDefinition
+    | string
+    | RegExp
+    | (string | RegExp | TypeDefinition | ResolvedEntryTypeDefinition)[]
+    | Record<
+        string,
+        string | RegExp | TypeDefinition | (string | RegExp | TypeDefinition)[]
+      >
 ): Promise<ResolvedEntryTypeDefinition[]> {
   return (
     await Promise.all(
-      typeDefinitions.map(async entry => {
-        if (isResolvedEntryTypeDefinition(entry)) {
-          return { ...entry, file: replacePathTokens(context, entry.file) };
-        }
+      (isObject(typeDefinitions)
+        ? Object.values(typeDefinitions).flat()
+        : toArray(typeDefinitions)
+      )
+        .map(async entry => {
+          if (isResolvedEntryTypeDefinition(entry)) {
+            return {
+              ...entry,
+              output: entry.output
+                ? replacePathTokens(context, entry.output)
+                : undefined,
+              file: replacePathTokens(context, entry.file)
+            };
+          }
 
-        let typeDefinition: TypeDefinition;
-        if (isString(entry)) {
-          typeDefinition = parseTypeDefinition(
-            replacePathTokens(context, entry)
-          )!;
-        } else {
-          typeDefinition = entry;
-          typeDefinition.file = replacePathTokens(context, typeDefinition.file);
-        }
+          let typeDefinition: TypeDefinition;
+          if (isString(entry)) {
+            typeDefinition = parseTypeDefinition(
+              replacePathTokens(context, entry)
+            )!;
+          } else if (isRegExp(entry)) {
+            typeDefinition = { file: replacePathTokens(context, entry.source) };
+          } else {
+            typeDefinition = entry;
+            typeDefinition.file = replacePathTokens(
+              context,
+              typeDefinition.file
+            );
+          }
 
-        const filePath = isAbsolutePath(typeDefinition.file)
-          ? typeDefinition.file
-          : appendPath(typeDefinition.file, context.config.root);
-        if (await context.fs.isFile(filePath)) {
-          return resolveEntry(
-            context,
-            {
-              file: replacePath(filePath, context.config.root),
-              name: typeDefinition.name
-            },
-            (entry as ResolvedEntryTypeDefinition).input,
-            (entry as ResolvedEntryTypeDefinition).output
+          const filePath = isAbsolutePath(typeDefinition.file)
+            ? typeDefinition.file
+            : appendPath(typeDefinition.file, context.config.root);
+          if (await context.fs.isFile(filePath)) {
+            return resolveInput(
+              context,
+              {
+                file: replacePath(filePath, context.config.root),
+                name: typeDefinition.name
+              },
+              (entry as ResolvedEntryTypeDefinition).input,
+              (entry as ResolvedEntryTypeDefinition).output
+            );
+          }
+
+          return (
+            await context.fs.glob(
+              appendPath(filePath, context.workspaceConfig.workspaceRoot)
+            )
+          ).map(file =>
+            resolveInput(
+              context,
+              {
+                file: replacePath(file, context.config.root),
+                name: typeDefinition.name
+              },
+              (entry as ResolvedEntryTypeDefinition).input,
+              (entry as ResolvedEntryTypeDefinition).output
+            )
           );
-        }
-
-        return (
-          await context.fs.glob(
-            appendPath(filePath, context.workspaceConfig.workspaceRoot)
-          )
-        ).map(file =>
-          resolveEntry(
-            context,
-            {
-              file: replacePath(file, context.config.root),
-              name: typeDefinition.name
-            },
-            (entry as ResolvedEntryTypeDefinition).input,
-            (entry as ResolvedEntryTypeDefinition).output
-          )
-        );
-      })
+        })
+        .flat()
+        .filter(Boolean)
     )
-  )
-    .flat()
-    .filter(Boolean);
+  ).flat();
 }
 
 /**
@@ -184,7 +208,7 @@ export function isResolvedEntryTypeDefinition(
  * @param typeDefinitions - The type definitions to resolve.
  * @returns A promise that resolves to an array of resolved entry type definitions.
  */
-export function resolveEntriesSync(
+export function resolveInputsSync(
   context: Context,
   typeDefinitions:
     | TypeDefinition
@@ -229,7 +253,7 @@ export function resolveEntriesSync(
         ? typeDefinition.file
         : appendPath(typeDefinition.file, context.config.root);
       if (context.fs.isFileSync(filePath)) {
-        return resolveEntry(context, {
+        return resolveInput(context, {
           file: appendPath(filePath, context.workspaceConfig.workspaceRoot),
           name: typeDefinition.name
         });
@@ -238,7 +262,7 @@ export function resolveEntriesSync(
       return context.fs
         .globSync(appendPath(filePath, context.workspaceConfig.workspaceRoot))
         .map(file =>
-          resolveEntry(context, {
+          resolveInput(context, {
             file,
             name: typeDefinition.name
           })

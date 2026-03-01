@@ -92,6 +92,7 @@
     }
   },
   "dependencies": {
+    "@powerlines/core": "workspace:*",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",

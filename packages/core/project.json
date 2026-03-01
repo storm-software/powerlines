@@ -25,10 +25,12 @@
         "commands": [
           "pnpm copyfiles LICENSE dist/packages/core",
           "pnpm copyfiles --up=2 ./packages/core/*.md ./packages/core/package.json dist/packages/core",
-          "pnpm copyfiles --up=3 \"./packages/core/dist/*.js\" \"./packages/core/dist/*.d.ts\" \"./packages/core/dist/*.cjs\" \"./packages/core/dist/*.d.cts\" dist/packages/core/dist",
-          "pnpm copyfiles --up=3 \"./packages/core/dist/types/**/*\" \"./packages/core/dist/lib/**/*\" \"./packages/core/dist/plugin-utils/**/*\" dist/packages/core/dist"
+          "pnpm copyfiles --up=3 \"./packages/core/dist/**/*\" dist/packages/core/dist"
         ]
       }
+    },
+    "nx-release-publish": {
+      "executor": "@storm-software/workspace-tools:npm-publish"
     }
   },
   "tags": ["platform:node"]

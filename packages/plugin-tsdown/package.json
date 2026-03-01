@@ -75,6 +75,16 @@
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
+  "dependencies": {
+    "@powerlines/core": "workspace:*",
+    "@powerlines/plugin-rolldown": "workspace:*",
+    "defu": "catalog:",
+    "unplugin": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "tsdown": "catalog:"
+  },
   "peerDependencies": {
     "tsdown": ">=0.16.0"
   },
@@ -82,15 +92,6 @@
     "tsdown": {
       "optional": false
     }
-  },
-  "dependencies": {
-    "@powerlines/plugin-rolldown": "workspace:*",
-    "defu": "catalog:",
-    "unplugin": "catalog:"
-  },
-  "devDependencies": {
-    "tsdown": "catalog:",
-    "@types/node": "catalog:"
   },
   "publishConfig": {
     "access": "public"

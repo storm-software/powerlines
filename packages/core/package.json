@@ -1,8 +1,8 @@
 {
   "name": "@powerlines/core",
   "version": "0.0.6",
-  "private": true,
-  "description": "The \"any framework\" framework that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
+  "private": false,
+  "description": "An internal core package for Powerlines - please use the `powerlines` package for public usage.",
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",

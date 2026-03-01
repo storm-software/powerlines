@@ -49,6 +49,7 @@
     }
   },
   "dependencies": {
+    "@powerlines/core": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-rollup": "workspace:*",
     "@stryke/convert": "catalog:",
