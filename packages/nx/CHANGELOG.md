@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.224](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.224) (03/01/2026)
+
+### Bug Fixes
+
+- **nx:** Resolve issues with `exports` in package ([83bdf343a](https://github.com/storm-software/powerlines/commit/83bdf343a))
+
 ## [0.11.223](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.223) (02/28/2026)
 
 ### Bug Fixes
