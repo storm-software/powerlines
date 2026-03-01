@@ -25,7 +25,6 @@ import { isAbsolutePath } from "@stryke/path/is-type";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { isObject } from "@stryke/type-checks/is-object";
-import { isRegExp } from "@stryke/type-checks/is-regexp";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import type {
@@ -71,15 +70,12 @@ export function resolveEntryOutput(
 export function resolveInput(
   context: Context,
   typeDefinition: TypeDefinition,
-  input?: string | RegExp | TypeDefinition | undefined,
+  input?: TypeDefinitionParameter,
   output?: string
 ): ResolvedEntryTypeDefinition {
   return {
     ...typeDefinition,
-    input:
-      isSetString(input) || isRegExp(input)
-        ? { file: String(input) }
-        : typeDefinition,
+    input: isSetString(input) ? { file: String(input) } : typeDefinition,
     output: output || resolveEntryOutput(context, typeDefinition)
   };
 }
@@ -94,19 +90,13 @@ export function resolveInput(
 export async function resolveInputs(
   context: Context,
   typeDefinitions:
-    | TypeDefinition
-    | ResolvedEntryTypeDefinition
-    | string
-    | RegExp
-    | (string | RegExp | TypeDefinition | ResolvedEntryTypeDefinition)[]
-    | Record<
-        string,
-        string | RegExp | TypeDefinition | (string | RegExp | TypeDefinition)[]
-      >
+    | TypeDefinitionParameter
+    | TypeDefinitionParameter[]
+    | Record<string, TypeDefinitionParameter | TypeDefinitionParameter[]>
 ): Promise<ResolvedEntryTypeDefinition[]> {
   return (
     await Promise.all(
-      (isObject(typeDefinitions)
+      (isObject(typeDefinitions) && !isTypeDefinition(typeDefinitions)
         ? Object.values(typeDefinitions).flat()
         : toArray(typeDefinitions)
       )
@@ -126,8 +116,6 @@ export async function resolveInputs(
             typeDefinition = parseTypeDefinition(
               replacePathTokens(context, entry)
             )!;
-          } else if (isRegExp(entry)) {
-            typeDefinition = { file: replacePathTokens(context, entry.source) };
           } else {
             typeDefinition = entry;
             typeDefinition.file = replacePathTokens(
@@ -174,34 +162,6 @@ export async function resolveInputs(
 }
 
 /**
- * Checks if the provided entry is a type definition.
- *
- * @param entry - The entry to check.
- * @returns True if the entry is a type definition, false otherwise.
- */
-export function isTypeDefinition(
-  entry: TypeDefinitionParameter
-): entry is TypeDefinition {
-  return !isString(entry) && entry.file !== undefined;
-}
-
-/**
- * Checks if the provided entry is a resolved entry type definition.
- *
- * @param entry - The entry to check.
- * @returns True if the entry is a resolved entry type definition, false otherwise.
- */
-export function isResolvedEntryTypeDefinition(
-  entry: TypeDefinitionParameter | ResolvedEntryTypeDefinition | RegExp
-): entry is ResolvedEntryTypeDefinition {
-  return (
-    !isRegExp(entry) &&
-    isTypeDefinition(entry) &&
-    (entry as ResolvedEntryTypeDefinition).output !== undefined
-  );
-}
-
-/**
  * Resolves multiple type definitions into their corresponding resolved entry type definitions.
  *
  * @param context - The current context
@@ -211,18 +171,12 @@ export function isResolvedEntryTypeDefinition(
 export function resolveInputsSync(
   context: Context,
   typeDefinitions:
-    | TypeDefinition
-    | ResolvedEntryTypeDefinition
-    | string
-    | RegExp
-    | (string | RegExp | TypeDefinition | ResolvedEntryTypeDefinition)[]
-    | Record<
-        string,
-        string | RegExp | TypeDefinition | (string | RegExp | TypeDefinition)[]
-      >
+    | TypeDefinitionParameter
+    | TypeDefinitionParameter[]
+    | Record<string, TypeDefinitionParameter | TypeDefinitionParameter[]>
 ): ResolvedEntryTypeDefinition[] {
   return (
-    isObject(typeDefinitions)
+    isObject(typeDefinitions) && !isTypeDefinition(typeDefinitions)
       ? Object.values(typeDefinitions).flat()
       : toArray(typeDefinitions)
   )
@@ -242,8 +196,6 @@ export function resolveInputsSync(
         typeDefinition = parseTypeDefinition(
           replacePathTokens(context, entry)
         )!;
-      } else if (isRegExp(entry)) {
-        typeDefinition = { file: replacePathTokens(context, entry.source) };
       } else {
         typeDefinition = entry;
         typeDefinition.file = replacePathTokens(context, typeDefinition.file);
@@ -270,6 +222,31 @@ export function resolveInputsSync(
     })
     .flat()
     .filter(Boolean);
+}
+
+/**
+ * Checks if the provided entry is a type definition.
+ *
+ * @param entry - The entry to check.
+ * @returns True if the entry is a type definition, false otherwise.
+ */
+export function isTypeDefinition(entry: any): entry is TypeDefinition {
+  return !isString(entry) && entry.file !== undefined;
+}
+
+/**
+ * Checks if the provided entry is a resolved entry type definition.
+ *
+ * @param entry - The entry to check.
+ * @returns True if the entry is a resolved entry type definition, false otherwise.
+ */
+export function isResolvedEntryTypeDefinition(
+  entry: TypeDefinitionParameter | ResolvedEntryTypeDefinition
+): entry is ResolvedEntryTypeDefinition {
+  return (
+    isTypeDefinition(entry) &&
+    (entry as ResolvedEntryTypeDefinition).output !== undefined
+  );
 }
 
 /**

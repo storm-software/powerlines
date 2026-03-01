@@ -20,7 +20,7 @@ import {
   CACHE_HASH_LENGTH,
   ROOT_HASH_LENGTH
 } from "@powerlines/core/lib/constants/meta";
-import { getUniqueInputs } from "@powerlines/core/lib/entry";
+import { getUniqueInputs, isTypeDefinition } from "@powerlines/core/lib/entry";
 import { createLog, extendLog } from "@powerlines/core/lib/logger";
 import {
   checkDedupe,
@@ -330,9 +330,10 @@ export class PowerlinesContext<
       entry && entry.length > 0
         ? entry
         : Array.isArray(this.config.input) ||
-            (isSetObject(this.config.input) && !isRegExp(this.config.input))
+            (isSetObject(this.config.input) &&
+              !isTypeDefinition(this.config.input))
           ? this.config.input
-          : toArray(this.config.input)
+          : toArray(this.config.input).flat()
     );
   }
 
