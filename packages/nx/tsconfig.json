@@ -9,12 +9,11 @@
     "moduleResolution": "Bundler",
     "types": ["node"],
     "strict": false,
-    "declaration": true,
     "outDir": "../../dist/out-tsc",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true
   },
-  "include": ["**/*.json", "src/**/*.ts", "src/**/*.d.ts", "tsdown.config.ts"],
+  "include": ["**/*.json", "src/**/*.ts", "src/**/*.d.ts", "tsdown.config.mjs"],
   "exclude": [
     "jest.config.ts",
     "src/generators/**/files/**/*",

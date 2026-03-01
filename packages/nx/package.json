@@ -2,6 +2,7 @@
   "name": "@powerlines/nx",
   "version": "0.11.231",
   "private": false,
+  "type": "commonjs",
   "description": "A Nx plugin to support Powerlines development in Nx monorepos.",
   "repository": {
     "type": "github",
@@ -22,12 +23,12 @@
         "default": "./dist/src/index.mjs"
       },
       "require": {
-        "types": "./dist/src/index.d.cts",
-        "default": "./dist/src/index.cjs"
+        "types": "./dist/src/index.d.ts",
+        "default": "./dist/src/index.js"
       },
       "default": {
-        "types": "./dist/src/index.d.cts",
-        "default": "./dist/src/index.cjs"
+        "types": "./dist/src/index.d.ts",
+        "default": "./dist/src/index.js"
       }
     },
     "./index": {
@@ -36,12 +37,12 @@
         "default": "./dist/src/index.mjs"
       },
       "require": {
-        "types": "./dist/src/index.d.cts",
-        "default": "./dist/src/index.cjs"
+        "types": "./dist/src/index.d.ts",
+        "default": "./dist/src/index.js"
       },
       "default": {
-        "types": "./dist/src/index.d.cts",
-        "default": "./dist/src/index.cjs"
+        "types": "./dist/src/index.d.ts",
+        "default": "./dist/src/index.js"
       }
     },
     "./base/*": {
@@ -50,12 +51,12 @@
         "default": "./dist/src/base/*.mjs"
       },
       "require": {
-        "types": "./dist/src/base/*.d.cts",
-        "default": "./dist/src/base/*.cjs"
+        "types": "./dist/src/base/*.d.ts",
+        "default": "./dist/src/base/*.js"
       },
       "default": {
-        "types": "./dist/src/base/*.d.cts",
-        "default": "./dist/src/base/*.cjs"
+        "types": "./dist/src/base/*.d.ts",
+        "default": "./dist/src/base/*.js"
       }
     },
     "./types/*": {
@@ -64,12 +65,12 @@
         "default": "./dist/src/types/*.mjs"
       },
       "require": {
-        "types": "./dist/src/types/*.d.cts",
-        "default": "./dist/src/types/*.cjs"
+        "types": "./dist/src/types/*.d.ts",
+        "default": "./dist/src/types/*.js"
       },
       "default": {
-        "types": "./dist/src/types/*.d.cts",
-        "default": "./dist/src/types/*.cjs"
+        "types": "./dist/src/types/*.d.ts",
+        "default": "./dist/src/types/*.js"
       }
     },
     "./helpers/*": {
@@ -78,12 +79,12 @@
         "default": "./dist/src/helpers/*.mjs"
       },
       "require": {
-        "types": "./dist/src/helpers/*.d.cts",
-        "default": "./dist/src/helpers/*.cjs"
+        "types": "./dist/src/helpers/*.d.ts",
+        "default": "./dist/src/helpers/*.js"
       },
       "default": {
-        "types": "./dist/src/helpers/*.d.cts",
-        "default": "./dist/src/helpers/*.cjs"
+        "types": "./dist/src/helpers/*.d.ts",
+        "default": "./dist/src/helpers/*.js"
       }
     },
     "./plugin": {
@@ -92,12 +93,12 @@
         "default": "./dist/src/plugin/index.mjs"
       },
       "require": {
-        "types": "./dist/src/plugin/index.d.cts",
-        "default": "./dist/src/plugin/index.cjs"
+        "types": "./dist/src/plugin/index.d.ts",
+        "default": "./dist/src/plugin/index.js"
       },
       "default": {
-        "types": "./dist/src/plugin/index.d.cts",
-        "default": "./dist/src/plugin/index.cjs"
+        "types": "./dist/src/plugin/index.d.ts",
+        "default": "./dist/src/plugin/index.js"
       }
     },
     "./executors/*/untyped": {
@@ -106,12 +107,12 @@
         "default": "./dist/src/executors/*/untyped.mjs"
       },
       "require": {
-        "types": "./dist/src/executors/*/untyped.d.cts",
-        "default": "./dist/src/executors/*/untyped.cjs"
+        "types": "./dist/src/executors/*/untyped.d.ts",
+        "default": "./dist/src/executors/*/untyped.js"
       },
       "default": {
-        "types": "./dist/src/executors/*/untyped.d.cts",
-        "default": "./dist/src/executors/*/untyped.cjs"
+        "types": "./dist/src/executors/*/untyped.d.ts",
+        "default": "./dist/src/executors/*/untyped.js"
       }
     },
     "./generators/*/untyped": {
@@ -120,12 +121,12 @@
         "default": "./dist/src/generators/*/untyped.mjs"
       },
       "require": {
-        "types": "./dist/src/generators/*/untyped.d.cts",
-        "default": "./dist/src/generators/*/untyped.cjs"
+        "types": "./dist/src/generators/*/untyped.d.ts",
+        "default": "./dist/src/generators/*/untyped.js"
       },
       "default": {
-        "types": "./dist/src/generators/*/untyped.d.cts",
-        "default": "./dist/src/generators/*/untyped.cjs"
+        "types": "./dist/src/generators/*/untyped.d.ts",
+        "default": "./dist/src/generators/*/untyped.js"
       }
     },
     "./executors/*/executor": {
@@ -134,12 +135,12 @@
         "default": "./dist/src/executors/*/executor.mjs"
       },
       "require": {
-        "types": "./dist/src/executors/*/executor.d.cts",
-        "default": "./dist/src/executors/*/executor.cjs"
+        "types": "./dist/src/executors/*/executor.d.ts",
+        "default": "./dist/src/executors/*/executor.js"
       },
       "default": {
-        "types": "./dist/src/executors/*/executor.d.cts",
-        "default": "./dist/src/executors/*/executor.cjs"
+        "types": "./dist/src/executors/*/executor.d.ts",
+        "default": "./dist/src/executors/*/executor.js"
       }
     },
     "./generators/*/generator": {
@@ -148,16 +149,16 @@
         "default": "./dist/src/generators/*/generator.mjs"
       },
       "require": {
-        "types": "./dist/src/generators/*/generator.d.cts",
-        "default": "./dist/src/generators/*/generator.cjs"
+        "types": "./dist/src/generators/*/generator.d.ts",
+        "default": "./dist/src/generators/*/generator.js"
       },
       "default": {
-        "types": "./dist/src/generators/*/generator.d.cts",
-        "default": "./dist/src/generators/*/generator.cjs"
+        "types": "./dist/src/generators/*/generator.d.ts",
+        "default": "./dist/src/generators/*/generator.js"
       }
     },
-    "./generators/*/generator.cjs": "./dist/src/generators/*/generator.cjs",
-    "./executors/*/executor.cjs": "./dist/src/executors/*/executor.cjs",
+    "./generators/*/generator.js": "./dist/src/generators/*/generator.js",
+    "./executors/*/executor.js": "./dist/src/executors/*/executor.js",
     "./generators/*/generator.mjs": "./dist/src/generators/*/generator.mjs",
     "./executors/*/executor.mjs": "./dist/src/executors/*/executor.mjs"
   },
@@ -168,9 +169,9 @@
     "generators.json",
     "migrations.json"
   ],
-  "main": "./dist/src/index.cjs",
+  "main": "./dist/src/index.js",
   "module": "./dist/src/index.mjs",
-  "typings": "./dist/src/index.d.cts",
+  "typings": "./dist/src/index.d.ts",
   "dependencies": {
     "@nx/devkit": "catalog:",
     "@storm-software/build-tools": "catalog:",

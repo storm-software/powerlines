@@ -36,6 +36,7 @@ const config = defineTSDownConfig([
     clean: true,
     unbundle: false,
     exports: false,
+    fixedExtension: false,
     skipNodeModulesBundle: true
   }
 ]);
