@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.221](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.221) (02/28/2026)
+
+### Miscellaneous
+
+- **nx:** Added formatting to plugin verbose logging ([babaea49a](https://github.com/storm-software/powerlines/commit/babaea49a))
+- **powerlines:** Clean up build plugin peer dependency versions ([c9c7d0c1f](https://github.com/storm-software/powerlines/commit/c9c7d0c1f))
+
+### Bug Fixes
+
+- **nx:** Resolved issues with verbose Nx plugin options ([b91e1ad52](https://github.com/storm-software/powerlines/commit/b91e1ad52))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.39.2**
+
 ## [0.11.220](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.220) (02/28/2026)
 
 ### Miscellaneous

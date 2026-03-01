@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/core",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "description": "The \"any framework\" framework that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
   "homepage": "https://stormsoftware.com",

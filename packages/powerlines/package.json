@@ -1,6 +1,6 @@
 {
   "name": "powerlines",
-  "version": "0.39.1",
+  "version": "0.39.2",
   "private": false,
   "description": "The \"any framework\" framework that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
   "keywords": [
@@ -145,11 +145,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*",
-    "files/**/*",
-    "schemas/**/*"
-  ],
+  "files": ["dist/**/*", "files/**/*", "schemas/**/*"],
   "dependencies": {
     "@cacheable/memory": "catalog:",
     "@donedeal0/superdiff": "catalog:",
