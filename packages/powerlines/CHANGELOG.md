@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.39.14](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.39.14) (03/01/2026)
+
+### Bug Fixes
+
+- **powerlines:** Added missing `constants` exports ([2045b7d8f](https://github.com/storm-software/powerlines/commit/2045b7d8f))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.315**
+- Updated **plugin-esbuild** to **v0.13.314**
+- Updated **plugin-unbuild** to **v0.5.315**
+- Updated **plugin-webpack** to **v0.5.314**
+- Updated **plugin-rollup** to **v0.7.315**
+- Updated **plugin-rspack** to **v0.5.314**
+- Updated **plugin-tsdown** to **v0.1.258**
+- Updated **plugin-tsup** to **v0.12.315**
+- Updated **plugin-vite** to **v0.14.307**
+- Updated **core** to **v0.1.3**
+
 ## [0.39.13](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.39.13) (03/01/2026)
 
 ### Updated Dependencies
