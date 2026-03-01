@@ -16,10 +16,10 @@
 
  ------------------------------------------------------------------- */
 
+import { formatPackageJson } from "@powerlines/core/plugin-utils/format-package-json";
 import { Plugin } from "@powerlines/core/types";
 import defu from "defu";
 import { build } from "tsdown";
-import { formatPackageJson } from "./helpers/format-package-json";
 import { resolveOptions } from "./helpers/resolve-options";
 import { createTsdownPlugin } from "./helpers/unplugin";
 import {

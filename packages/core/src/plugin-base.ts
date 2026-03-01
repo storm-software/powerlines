@@ -20,6 +20,7 @@ import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { build, UserConfig as BuildOptions } from "tsdown";
+import { formatPackageJson } from "./plugin-utils/format-package-json";
 import { ResolvedConfig, UserConfig } from "./types/config";
 import { PluginContext } from "./types/context";
 import { Plugin } from "./types/plugin";
@@ -124,6 +125,8 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
         outDir: this.config.output.buildPath,
         ...this.config.tsdown
       });
+
+      await formatPackageJson(this);
     }
   };
 };

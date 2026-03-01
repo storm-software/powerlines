@@ -19,6 +19,7 @@
 export * from "./build-helpers";
 export * from "./context-helpers";
 export * from "./extend";
+export * from "./format-package-json";
 export * from "./get-config-path";
 export * from "./helpers";
 export * from "./merge";

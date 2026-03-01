@@ -16,22 +16,23 @@
 
  ------------------------------------------------------------------- */
 
-import { format } from "@powerlines/core/lib/utilities/format";
 import { joinPaths } from "@stryke/path/join";
 import { isSetString } from "@stryke/type-checks/is-set-string";
-import { TsdownPluginContext } from "../types/plugin";
+import { format } from "../lib/utilities/format";
+import { Context } from "../types/context";
 
 /**
  * Formats the `package.json` file in the project root.
  *
- * @param context - The Tsdown plugin context.
+ * @param context - The powerlines context.
  */
-export async function formatPackageJson(context: TsdownPluginContext) {
+export async function formatPackageJson(context: Context) {
   const packageJsonPath = joinPaths(
     context.workspaceConfig.workspaceRoot,
     context.config.root,
     "package.json"
   );
+
   const packageJsonFile = await context.fs.read(packageJsonPath);
   if (isSetString(packageJsonFile)) {
     await context.fs.write(
