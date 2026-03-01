@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.233](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.233) (03/01/2026)
+
+### Bug Fixes
+
+- **nx:** Resolve issue with invalid executor and generator file extensions ([10fcd5119](https://github.com/storm-software/powerlines/commit/10fcd5119))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.39.13**
+
 ## [0.11.232](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.232) (03/01/2026)
 
 ### Bug Fixes

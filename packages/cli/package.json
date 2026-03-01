@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/cli",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "type": "module",
   "description": "The \"framework framework\" that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
   "repository": {
