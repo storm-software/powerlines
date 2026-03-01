@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.0.6](https://github.com/storm-software/powerlines/releases/tag/core%400.0.6) (02/28/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `package.json` exports list ([db1258c87](https://github.com/storm-software/powerlines/commit/db1258c87))
+
 ## [0.0.4](https://github.com/storm-software/powerlines/releases/tag/core%400.0.4) (02/28/2026)
 
 ### Miscellaneous

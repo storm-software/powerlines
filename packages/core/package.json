@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/core",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "description": "The \"any framework\" framework that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
   "homepage": "https://stormsoftware.com",
@@ -204,11 +204,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": [
-    "dist/**/*",
-    "files/**/*",
-    "schemas/**/*"
-  ],
+  "files": ["dist/**/*", "files/**/*", "schemas/**/*"],
   "dependencies": {
     "@storm-software/config": "catalog:",
     "@storm-software/config-tools": "catalog:",

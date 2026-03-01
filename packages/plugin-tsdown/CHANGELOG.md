@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.248](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.248) (02/28/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `package.json` exports list ([db1258c87](https://github.com/storm-software/powerlines/commit/db1258c87))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.305**
+- Updated **core** to **v0.0.6**
+
 ## [0.1.247](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.247) (02/28/2026)
 
 ### Updated Dependencies

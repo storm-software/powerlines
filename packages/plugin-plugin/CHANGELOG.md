@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.246](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.246) (02/28/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `package.json` exports list ([db1258c87](https://github.com/storm-software/powerlines/commit/db1258c87))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.248**
+- Updated **powerlines** to **v0.39.4**
+
 ## [0.12.245](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.245) (02/28/2026)
 
 ### Updated Dependencies

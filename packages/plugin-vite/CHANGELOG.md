@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.297](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.297) (02/28/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `package.json` exports list ([db1258c87](https://github.com/storm-software/powerlines/commit/db1258c87))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.305**
+- Updated **plugin-esbuild** to **v0.13.304**
+- Updated **plugin-rollup** to **v0.7.305**
+- Updated **core** to **v0.0.6**
+
 ## [0.14.296](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.296) (02/28/2026)
 
 ### Updated Dependencies

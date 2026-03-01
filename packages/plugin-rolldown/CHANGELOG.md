@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.305](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.305) (02/28/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with `package.json` exports list ([db1258c87](https://github.com/storm-software/powerlines/commit/db1258c87))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.305**
+- Updated **plugin-babel** to **v0.12.304**
+- Updated **core** to **v0.0.6**
+
 ## [0.7.304](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.304) (02/28/2026)
 
 ### Updated Dependencies
