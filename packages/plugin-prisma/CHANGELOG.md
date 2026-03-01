@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.2.257](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.257) (03/01/2026)
+
+### Features
+
+- **core:** Ensure plugins augment core types and added `constants` export ([a0cd9f364](https://github.com/storm-software/powerlines/commit/a0cd9f364))
+
+### Updated Dependencies
+
+- Updated **plugin-hey-api** to **v0.1.257**
+- Updated **plugin-plugin** to **v0.12.254**
+- Updated **powerlines** to **v0.39.11**
+
 ## [0.2.256](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.2.256) (03/01/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.204](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.204) (03/01/2026)
+
+### Features
+
+- **core:** Ensure plugins augment core types and added `constants` export ([a0cd9f364](https://github.com/storm-software/powerlines/commit/a0cd9f364))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.311**
+- Updated **plugin-plugin** to **v0.12.254**
+- Updated **powerlines** to **v0.39.11**
+
 ## [0.3.203](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.203) (03/01/2026)
 
 ### Updated Dependencies

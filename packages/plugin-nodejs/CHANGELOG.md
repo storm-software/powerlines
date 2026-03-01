@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.222](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.222) (03/01/2026)
+
+### Features
+
+- **core:** Ensure plugins augment core types and added `constants` export ([a0cd9f364](https://github.com/storm-software/powerlines/commit/a0cd9f364))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.254**
+- Updated **plugin-alloy** to **v0.23.34**
+- Updated **plugin-babel** to **v0.12.311**
+- Updated **plugin-env** to **v0.16.21**
+- Updated **powerlines** to **v0.39.11**
+
 ## [0.1.221](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.221) (03/01/2026)
 
 ### Updated Dependencies

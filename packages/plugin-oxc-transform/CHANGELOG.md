@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Oxc Transform
 
+## [0.5.312](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.312) (03/01/2026)
+
+### Features
+
+- **core:** Ensure plugins augment core types and added `constants` export ([a0cd9f364](https://github.com/storm-software/powerlines/commit/a0cd9f364))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.254**
+- Updated **powerlines** to **v0.39.11**
+
 ## [0.5.311](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.311) (03/01/2026)
 
 ### Updated Dependencies

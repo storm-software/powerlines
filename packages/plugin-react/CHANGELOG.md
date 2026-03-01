@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.356](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.356) (03/01/2026)
+
+### Features
+
+- **core:** Ensure plugins augment core types and added `constants` export ([a0cd9f364](https://github.com/storm-software/powerlines/commit/a0cd9f364))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.254**
+- Updated **plugin-alloy** to **v0.23.34**
+- Updated **plugin-babel** to **v0.12.311**
+- Updated **plugin-vite** to **v0.14.304**
+- Updated **plugin-env** to **v0.16.21**
+- Updated **powerlines** to **v0.39.11**
+- Updated **deepkit** to **v0.6.82**
+
 ## [0.1.355](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.355) (03/01/2026)
 
 ### Updated Dependencies
