@@ -45,6 +45,7 @@ const config = defineTSDownConfig([
       "src/typescript/index.ts"
     ],
     unbundle: false,
+    exports: false,
     external: [
       "@powerlines/core",
       "@powerlines/plugin-unbuild",
