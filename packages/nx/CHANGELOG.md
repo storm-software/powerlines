@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.220](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.220) (02/28/2026)
+
+### Miscellaneous
+
+- **nx:** Small change to default value comment ([db243fb81](https://github.com/storm-software/powerlines/commit/db243fb81))
+
 ## [0.11.219](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.219) (02/28/2026)
 
 ### Miscellaneous
