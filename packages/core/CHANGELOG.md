@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.0.12](https://github.com/storm-software/powerlines/releases/tag/core%400.0.12) (03/01/2026)
+
+### Bug Fixes
+
+- **core:** Simplify and resolve issues with `input` configuration's typing ([5a4db0afe](https://github.com/storm-software/powerlines/commit/5a4db0afe))
+
 ## [0.0.11](https://github.com/storm-software/powerlines/releases/tag/core%400.0.11) (03/01/2026)
 
 ### Miscellaneous
