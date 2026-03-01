@@ -54,7 +54,8 @@ const config = defineTSDownConfig([
       "@powerlines/plugin-tsup",
       "@powerlines/plugin-vite",
       "@powerlines/plugin-webpack"
-    ]
+    ],
+    noExternal: ["@powerlines/core"]
   }
 ]);
 

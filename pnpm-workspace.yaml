@@ -2,7 +2,6 @@ packages:
   - tools/*
   - packages/*
   - docs/*
-
 catalog:
   "@alloy-js/babel-plugin": ^0.2.1
   "@alloy-js/babel-plugin-jsx-dom-expressions": ^0.39.1
@@ -205,12 +204,9 @@ catalog:
   vite: 8.0.0-beta.2
   webpack: ^5.105.3
   zx: ^8.8.5
-
 configDependencies:
   pnpm-plugin-storm-software: 0.1.4+sha512-Hegfb70ijqCc65CZwy8aLYhxrYQv3Wo+MZXqSfNAfcge7iSGYm2J3ydU5zkmf89JSvMOJy8J6lo/TMynBGvgtA==
-
 fetchTimeout: 240000
-
 minimumReleaseAgeExclude:
   - "@storm-software/*"
   - "@stryke/*"
@@ -218,7 +214,6 @@ minimumReleaseAgeExclude:
   - powerlines
   - "@earthquake/*"
   - earthquake
-
 onlyBuiltDependencies:
   - "@biomejs/biome"
   - "@deepkit/type-compiler"
@@ -239,7 +234,6 @@ onlyBuiltDependencies:
   - unrs-resolver
   - utf-8-validate
   - workerd
-
 overrides:
   "@powerlines/cli": workspace:*
   "@powerlines/core": workspace:*
@@ -314,7 +308,6 @@ overrides:
   shell-quote: ">=1.8.1"
   simple-git: ">=3.27.0"
   zod: ">=4.0.1"
-
 patchedDependencies:
   "@alloy-js/babel-plugin-jsx-dom-expressions": patches/@alloy-js__babel-plugin-jsx-dom-expressions.patch
   "@content-collections/core": patches/@content-collections__core.patch
@@ -324,9 +317,6 @@ patchedDependencies:
   "@deepkit/type-spec": patches/@deepkit__type-spec.patch
   automd: patches/automd.patch
   prisma-util: patches/prisma-util.patch
-
 shamefullyHoist: true
-
 trustPolicy: off
-
 useNodeVersion: 25.5.0
