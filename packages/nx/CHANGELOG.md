@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.229](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.229) (03/01/2026)
+
+### Miscellaneous
+
+- **nx:** Improve error logging in plugin helper ([6df9a34bf](https://github.com/storm-software/powerlines/commit/6df9a34bf))
+
+### Bug Fixes
+
+- **nx:** Resolve plugin initialization issue with local workspace dependencies ([2f515b2ce](https://github.com/storm-software/powerlines/commit/2f515b2ce))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.39.9**
+
 ## [0.11.228](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.228) (03/01/2026)
 
 ### Updated Dependencies
