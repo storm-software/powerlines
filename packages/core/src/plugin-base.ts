@@ -57,9 +57,6 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
           format: ["cjs", "esm"],
           dts: false
         },
-        resolve: {
-          external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\//]
-        },
         platform: "node",
         tsdown: {
           format: ["cjs", "esm"],
@@ -77,8 +74,9 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
           shims: true,
           outDir: "dist",
           clean: true,
+          external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\//],
           skipNodeModulesBundle: true,
-          unbundle: true,
+          unbundle: false,
           ...options.tsdown
         }
       };
