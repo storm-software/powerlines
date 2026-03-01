@@ -35,6 +35,7 @@ import { getEnvPaths } from "@stryke/env/get-env-paths";
 import { existsSync } from "@stryke/fs/exists";
 import { murmurhash } from "@stryke/hash/murmurhash";
 import { joinPaths } from "@stryke/path/join-paths";
+import { camelCase } from "@stryke/string-format/camel-case";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isError } from "@stryke/type-checks/is-error";
@@ -51,6 +52,7 @@ import type {
 } from "nx/src/config/workspace-json-project-json.js";
 import type { PackageJson as PackageJsonNx } from "nx/src/utils/package-json.js";
 import { readTargetsFromPackageJson } from "nx/src/utils/package-json.js";
+import type { ParsedUserConfig } from "powerlines";
 import { loadUserConfigFile } from "powerlines/config";
 import { ROOT_HASH_LENGTH } from "powerlines/utils";
 import { NxPluginOptions } from "../types/plugin";
@@ -196,15 +198,30 @@ export function createNxPlugin<
                 );
               }
 
-              const userConfig = await loadUserConfigFile(
-                projectRoot,
-                contextV2.workspaceRoot,
-                resolver,
-                "build",
-                "development",
-                configFile,
-                framework
-              );
+              let userConfig = {} as ParsedUserConfig;
+              try {
+                userConfig = await loadUserConfigFile(
+                  projectRoot,
+                  contextV2.workspaceRoot,
+                  resolver,
+                  "build",
+                  "development",
+                  configFile,
+                  framework
+                );
+              } catch (error) {
+                console.warn(
+                  `[${title}] - ${new Date().toISOString()} - Failed to load user configuration for project in ${
+                    projectRoot
+                  } - ${
+                    isError(error)
+                      ? error.message
+                      : isSetString(error)
+                        ? error
+                        : "Unknown error"
+                  } \n\nThis error can occur if the project depends on another package in the workspace and the dependent package has not been built yet. To resolve this issue, please ensure that all dependent packages have been built successfully.`
+                );
+              }
 
               if (
                 !existsSync(
@@ -244,7 +261,10 @@ export function createNxPlugin<
               }
 
               const packageJson: PackageJson = JSON.parse(packageJsonContent);
-              if (!userConfig.configFile && !packageJson?.storm) {
+              if (
+                !userConfig.configFile &&
+                !packageJson?.[camelCase(framework)]
+              ) {
                 if (options?.verboseOutput) {
                   console.debug(
                     `[${title}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${
@@ -309,10 +329,9 @@ export function createNxPlugin<
                   defaultConfiguration:
                     options?.clean?.defaultConfiguration || "production",
                   options: {
-                    outputPath:
-                      userConfig.output?.outputPath || "dist/{projectRoot}",
+                    outputPath: userConfig.output?.outputPath,
                     projectType:
-                      projectConfig.projectType || userConfig.projectType,
+                      userConfig.projectType || projectConfig.projectType,
                     autoInstall: userConfig.autoInstall
                   },
                   configurations: {
@@ -357,7 +376,7 @@ export function createNxPlugin<
                   options: {
                     input: userConfig.input,
                     projectType:
-                      projectConfig.projectType || userConfig.projectType,
+                      userConfig.projectType || projectConfig.projectType,
                     autoInstall: userConfig.autoInstall,
                     skipCache: userConfig.skipCache
                   },
@@ -406,10 +425,9 @@ export function createNxPlugin<
                     options?.build?.defaultConfiguration || "production",
                   options: {
                     input: userConfig.input,
-                    outputPath:
-                      userConfig.output?.outputPath || "dist/{projectRoot}",
+                    outputPath: userConfig.output?.outputPath,
                     projectType:
-                      projectConfig.projectType || userConfig.projectType,
+                      userConfig.projectType || projectConfig.projectType,
                     autoInstall: userConfig.autoInstall,
                     skipCache: userConfig.skipCache
                   },
@@ -462,7 +480,7 @@ export function createNxPlugin<
                   options: {
                     input: userConfig.input,
                     projectType:
-                      projectConfig.projectType || userConfig.projectType,
+                      userConfig.projectType || projectConfig.projectType,
                     autoInstall: userConfig.autoInstall,
                     skipCache: userConfig.skipCache
                   },
@@ -517,7 +535,7 @@ export function createNxPlugin<
                   options: {
                     input: userConfig.input,
                     projectType:
-                      projectConfig.projectType || userConfig.projectType,
+                      userConfig.projectType || projectConfig.projectType,
                     autoInstall: userConfig.autoInstall,
                     skipCache: userConfig.skipCache
                   },
@@ -571,7 +589,7 @@ export function createNxPlugin<
                   options: {
                     input: userConfig.input,
                     projectType:
-                      projectConfig.projectType || userConfig.projectType,
+                      userConfig.projectType || projectConfig.projectType,
                     autoInstall: userConfig.autoInstall,
                     skipCache: userConfig.skipCache
                   },
@@ -594,8 +612,8 @@ export function createNxPlugin<
               addProjectTag(
                 projectConfig,
                 framework as ProjectTagVariant,
-                projectConfig.projectType ||
-                  userConfig.projectType ||
+                userConfig.projectType ||
+                  projectConfig.projectType ||
                   "library",
                 {
                   overwrite: true
@@ -623,7 +641,9 @@ export function createNxPlugin<
               };
             } catch (error) {
               console.error(
-                `[${title}] - ${new Date().toISOString()} - ${
+                `[${title}] - ${new Date().toISOString()} - Failed to process the project configuration for file "${
+                  configFile
+                }" - ${
                   isError(error)
                     ? error.message
                     : isSetString(error)
@@ -632,22 +652,7 @@ export function createNxPlugin<
                 }`
               );
 
-              throw new Error(
-                `The ${
-                  title
-                } failed to process the project configuration for file ${
-                  configFile
-                } - ${
-                  isError(error)
-                    ? error.message
-                    : isSetString(error)
-                      ? error
-                      : "See previous logs for more details"
-                }`,
-                {
-                  cause: error instanceof Error ? error : undefined
-                }
-              );
+              return {};
             }
           },
           configFiles,
