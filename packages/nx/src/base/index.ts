@@ -16,28 +16,5 @@
 
  ------------------------------------------------------------------- */
 
-import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
-
-const config = defineTSDownConfig([
-  {
-    name: "nx",
-    entry: [
-      "./src/index.ts",
-      "./src/base/*.ts",
-      "./src/types/*.ts",
-      "./src/helpers/*.ts",
-      "./src/plugin/index.ts",
-      "./src/executors/*/executor.ts",
-      "./src/executors/*/untyped.ts",
-      "./src/generators/*/generator.ts",
-      "./src/generators/*/untyped.ts"
-    ],
-    outDir: "./dist/src",
-    clean: true,
-    unbundle: false,
-    exports: false,
-    skipNodeModulesBundle: true
-  }
-]);
-
-export default config;
+export * from "./base-executor";
+export * from "./base-executor.untyped";

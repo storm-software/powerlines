@@ -10,7 +10,7 @@
       "@powerlines/core/*": ["packages/core/src/*"],
       "@powerlines/deepkit": ["packages/deepkit/src/index.ts"],
       "@powerlines/deepkit/*": ["packages/deepkit/src/*"],
-      "@powerlines/nx": ["packages/nx/index.ts"],
+      "@powerlines/nx": ["packages/nx/src/index.ts"],
       "@powerlines/nx/*": ["packages/nx/src/*"],
       "@powerlines/plugin-alloy": ["packages/plugin-alloy/src/index.tsx"],
       "@powerlines/plugin-alloy/*": ["packages/plugin-alloy/src/*"],

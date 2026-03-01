@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./executors";
-export * from "./generators";
-
-export * from "./src/plugin";
+export * from "./base";
+export * from "./helpers";
+export * from "./types";

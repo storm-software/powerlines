@@ -14,15 +14,7 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": true
   },
-  "include": [
-    "executors.ts",
-    "generators.ts",
-    "index.ts",
-    "**/*.json",
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "tsdown.config.ts"
-  ],
+  "include": ["**/*.json", "src/**/*.ts", "src/**/*.d.ts", "tsdown.config.ts"],
   "exclude": [
     "jest.config.ts",
     "src/generators/**/files/**/*",

@@ -16,8 +16,5 @@
 
  ------------------------------------------------------------------- */
 
-export {
-  default as sync,
-  generatorFn as syncGenerator
-} from "./src/generators/sync/generator";
-export type { SyncGeneratorSchema } from "./src/generators/sync/schema";
+export * from "./constants";
+export * from "./plugin-utilities";
