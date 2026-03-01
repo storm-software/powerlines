@@ -22,17 +22,17 @@ import { $, chalk, echo } from "zx";
 try {
   await echo`${chalk.whiteBright(" 🔄 Updating the workspace's Storm Software dependencies and re-linking workspace packages...")}`;
 
-  // 1) Update @storm-software/* and @stryke/* packages to the latest version
-  await echo`${chalk.whiteBright("Checking for @storm-software/* and @stryke/* updates...")}`;
+  // 1) Update @storm-software/*, @stryke/*, and @shell-shock/* packages to the latest version
+  await echo`${chalk.whiteBright("Checking for storm-software, stryke, and shell-shock updates...")}`;
   let proc =
-    $`pnpm exec storm-pnpm update @storm-software/ @stryke/ --install`.timeout(
+    $`pnpm exec storm-pnpm update @storm-software/ @stryke/ @shell-shock/ shell-shock --install`.timeout(
       `${8 * 60}s`
     );
   proc.stdout.on("data", data => echo`${data}`);
   let result = await proc;
   if (result.exitCode !== 0) {
     throw new Error(
-      `An error occurred while updating "@storm-software/*" and "@stryke/*" packages:\n\n${result.message}\n`
+      `An error occurred while updating "storm-software", "stryke", and "shell-shock" packages:\n\n${result.message}\n`
     );
   }
 
@@ -50,7 +50,7 @@ try {
 } catch (error) {
   echo`${chalk.red(
     error?.message ??
-      "A failure occurred while updating Stryke/Storm dependency packages"
+      "A failure occurred while updating storm-software, stryke, and shell-shock dependency packages"
   )}`;
   process.exit(1);
 }
