@@ -44,6 +44,9 @@ export const plugin = <
             format: ["cjs", "esm"],
             dts: false
           },
+          resolve: {
+            external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\//]
+          },
           tsdown: {
             platform: "node",
             target: "node22",
@@ -53,8 +56,7 @@ export const plugin = <
             exports: {
               all: true
             },
-            unbundle: true,
-            external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\//]
+            unbundle: true
           }
         };
       },

@@ -51,7 +51,7 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
     name: "base",
     config() {
       return {
-        type: "library",
+        projectType: "library",
         input: ["src/index.ts", "src/types/*.ts", "src/helpers/*.ts"],
         output: {
           format: ["cjs", "esm"],
