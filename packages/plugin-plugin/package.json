@@ -38,82 +38,82 @@
   },
   "license": "Apache-2.0",
   "private": false,
-  "main": "dist/src/index.cjs",
-  "module": "dist/src/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./dist/src/index.d.mts",
-        "default": "./dist/src/index.mjs"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/src/index.d.mts",
-        "default": "./dist/src/index.cjs"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.cjs"
       },
       "default": {
-        "types": "./dist/src/index.d.mts",
-        "default": "./dist/src/index.mjs"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       }
     },
     "./index": {
       "import": {
-        "types": "./dist/src/index.d.mts",
-        "default": "./dist/src/index.mjs"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/src/index.d.mts",
-        "default": "./dist/src/index.cjs"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.cjs"
       },
       "default": {
-        "types": "./dist/src/index.d.mts",
-        "default": "./dist/src/index.mjs"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       }
     },
     "./plugin": {
       "import": {
-        "types": "./dist/src/plugin.d.mts",
-        "default": "./dist/src/plugin.mjs"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/src/plugin.d.mts",
-        "default": "./dist/src/plugin.cjs"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.cjs"
       },
       "default": {
-        "types": "./dist/src/plugin.d.mts",
-        "default": "./dist/src/plugin.mjs"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       }
     },
     "./types": {
       "import": {
-        "types": "./dist/src/types/index.d.mts",
-        "default": "./dist/src/types/index.mjs"
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
       },
       "require": {
-        "types": "./dist/src/types/index.d.mts",
-        "default": "./dist/src/types/index.cjs"
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.cjs"
       },
       "default": {
-        "types": "./dist/src/types/index.d.mts",
-        "default": "./dist/src/types/index.mjs"
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
       }
     },
     "./types/*": {
       "import": {
-        "types": "./dist/src/types/*.d.mts",
-        "default": "./dist/src/types/*.mjs"
+        "types": "./dist/types/*.d.mts",
+        "default": "./dist/types/*.mjs"
       },
       "require": {
-        "types": "./dist/src/types/*.d.mts",
-        "default": "./dist/src/types/*.cjs"
+        "types": "./dist/types/*.d.mts",
+        "default": "./dist/types/*.cjs"
       },
       "default": {
-        "types": "./dist/src/types/*.d.mts",
-        "default": "./dist/src/types/*.mjs"
+        "types": "./dist/types/*.d.mts",
+        "default": "./dist/types/*.mjs"
       }
     }
   },
-  "typings": "dist/src/index.d.mts",
+  "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
   "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
