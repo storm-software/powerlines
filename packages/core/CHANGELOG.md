@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.0.8](https://github.com/storm-software/powerlines/releases/tag/core%400.0.8) (03/01/2026)
+
+### Bug Fixes
+
+- **core:** Publish core package separately to deduplicate reused code ([08dda6fce](https://github.com/storm-software/powerlines/commit/08dda6fce))
+
 ## [0.0.7](https://github.com/storm-software/powerlines/releases/tag/core%400.0.7) (03/01/2026)
 
 ### Bug Fixes

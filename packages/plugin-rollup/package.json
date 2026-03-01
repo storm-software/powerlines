@@ -1,14 +1,9 @@
 {
   "name": "@powerlines/plugin-rollup",
-  "version": "0.7.306",
+  "version": "0.7.307",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
-  "keywords": [
-    "rollup",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "keywords": ["rollup", "powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -79,9 +74,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
+  "files": ["dist/**/*"],
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
