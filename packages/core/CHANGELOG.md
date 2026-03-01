@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.0.11](https://github.com/storm-software/powerlines/releases/tag/core%400.0.11) (03/01/2026)
+
+### Miscellaneous
+
+- **core:** Ensure `package.json` config parsing uses camel-case ([0e11307f2](https://github.com/storm-software/powerlines/commit/0e11307f2))
+
 ## [0.0.10](https://github.com/storm-software/powerlines/releases/tag/core%400.0.10) (03/01/2026)
 
 ### Bug Fixes
