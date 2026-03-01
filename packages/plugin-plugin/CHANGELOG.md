@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.247](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.247) (03/01/2026)
+
+### Bug Fixes
+
+- **plugin-plugin:** Resolve issue with invalid `package.json` exports list ([fce113751](https://github.com/storm-software/powerlines/commit/fce113751))
+
 ## [0.12.246](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.246) (02/28/2026)
 
 ### Bug Fixes
