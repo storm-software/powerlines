@@ -21,6 +21,7 @@ import { existsSync } from "@stryke/fs/exists";
 import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
+import { camelCase } from "@stryke/string-format/camel-case";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { loadConfig as loadConfigC12 } from "c12";
@@ -224,7 +225,7 @@ export async function loadUserConfigFile(
     name: framework,
     envName: mode,
     globalRc: true,
-    packageJson: true,
+    packageJson: camelCase(framework),
     dotenv: true,
     jiti
   });
