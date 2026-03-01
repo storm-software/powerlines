@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.1.0](https://github.com/storm-software/powerlines/releases/tag/core%400.1.0) (03/01/2026)
+
+### Features
+
+- **core:** Ensure plugins augment core types and added `constants` export ([a0cd9f364](https://github.com/storm-software/powerlines/commit/a0cd9f364))
+
 ## [0.0.12](https://github.com/storm-software/powerlines/releases/tag/core%400.0.12) (03/01/2026)
 
 ### Bug Fixes

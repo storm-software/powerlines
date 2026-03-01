@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.39.11](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.39.11) (03/01/2026)
+
+### Features
+
+- **core:** Ensure plugins augment core types and added `constants` export ([a0cd9f364](https://github.com/storm-software/powerlines/commit/a0cd9f364))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.312**
+- Updated **plugin-esbuild** to **v0.13.311**
+- Updated **plugin-unbuild** to **v0.5.312**
+- Updated **plugin-webpack** to **v0.5.311**
+- Updated **plugin-rollup** to **v0.7.312**
+- Updated **plugin-rspack** to **v0.5.311**
+- Updated **plugin-tsdown** to **v0.1.255**
+- Updated **plugin-tsup** to **v0.12.312**
+- Updated **plugin-vite** to **v0.14.304**
+- Updated **core** to **v0.1.0**
+
 ## [0.39.10](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.39.10) (03/01/2026)
 
 ### Bug Fixes

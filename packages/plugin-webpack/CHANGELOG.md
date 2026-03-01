@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Webpack
 
+## [0.5.311](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.311) (03/01/2026)
+
+### Features
+
+- **core:** Ensure plugins augment core types and added `constants` export ([a0cd9f364](https://github.com/storm-software/powerlines/commit/a0cd9f364))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.1.0**
+
 ## [0.5.310](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.310) (03/01/2026)
 
 ### Updated Dependencies

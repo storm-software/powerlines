@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.23.34](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.34) (03/01/2026)
+
+### Features
+
+- **core:** Ensure plugins augment core types and added `constants` export ([a0cd9f364](https://github.com/storm-software/powerlines/commit/a0cd9f364))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.254**
+- Updated **plugin-babel** to **v0.12.311**
+- Updated **powerlines** to **v0.39.11**
+- Updated **deepkit** to **v0.6.82**
+- Updated **core** to **v0.1.0**
+
 ## [0.23.33](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.33) (03/01/2026)
 
 ### Updated Dependencies

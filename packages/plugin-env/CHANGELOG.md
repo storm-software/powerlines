@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.21](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.21) (03/01/2026)
+
+### Features
+
+- **core:** Ensure plugins augment core types and added `constants` export ([a0cd9f364](https://github.com/storm-software/powerlines/commit/a0cd9f364))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.182**
+- Updated **plugin-automd** to **v0.1.303**
+- Updated **plugin-plugin** to **v0.12.254**
+- Updated **plugin-alloy** to **v0.23.34**
+- Updated **plugin-babel** to **v0.12.311**
+- Updated **powerlines** to **v0.39.11**
+- Updated **deepkit** to **v0.6.82**
+
 ## [0.16.20](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.20) (03/01/2026)
 
 ### Updated Dependencies

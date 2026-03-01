@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Rollup
 
+## [0.7.312](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.312) (03/01/2026)
+
+### Features
+
+- **core:** Ensure plugins augment core types and added `constants` export ([a0cd9f364](https://github.com/storm-software/powerlines/commit/a0cd9f364))
+
+### Updated Dependencies
+
+- Updated **plugin-babel** to **v0.12.311**
+- Updated **core** to **v0.1.0**
+
 ## [0.7.311](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.311) (03/01/2026)
 
 ### Updated Dependencies
