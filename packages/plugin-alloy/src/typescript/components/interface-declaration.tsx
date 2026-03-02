@@ -61,10 +61,7 @@ import { ComponentProps } from "../../types/components";
 import { MemberScope } from "../contexts/member-scope";
 import { PropertyName } from "./property-name";
 import { TSDoc } from "./tsdoc";
-import {
-  TSDocReflectionClass,
-  TSDocReflectionProperty
-} from "./tsdoc-reflection";
+import { TSDocContextProperty, TSDocReflectionClass } from "./tsdoc-reflection";
 import { TypeParameters } from "./type-parameters";
 
 export interface InterfaceDeclarationProps<
@@ -96,6 +93,11 @@ export interface InterfaceDeclarationProps<
    * This is used when the interface is used as a type for a variable declaration, to provide an initial value for the variable.
    */
   defaultValue?: Partial<T>;
+
+  /**
+   * Documentation for the interface. This can be a string or any Alloy component that renders documentation content (such as `TSDoc`).
+   */
+  doc?: Children;
 }
 
 export interface InterfaceDeclarationPropertyProps
@@ -301,7 +303,7 @@ export function InterfaceDeclaration<
 
   return (
     <Show
-      when={properties.value.length > 0}
+      when={reflection && properties.value.length > 0}
       fallback={
         <BaseInterfaceDeclaration {...props} name={interfaceName.value} />
       }>
@@ -309,7 +311,7 @@ export function InterfaceDeclaration<
         value={{
           reflection: reflection!
         }}>
-        <TSDocReflectionClass heading={doc} />
+        <TSDocReflectionClass<T> heading={doc} reflection={reflection!} />
         <BaseInterfaceDeclaration
           export={true}
           name={interfaceName.value}
@@ -333,7 +335,7 @@ export function InterfaceDeclarationProperty(
 
   return (
     <ReflectionPropertyContext.Provider value={property}>
-      <TSDocReflectionProperty />
+      <TSDocContextProperty />
       <InterfaceMember
         name={property.getNameAsString()}
         readonly={property.isReadonly()}

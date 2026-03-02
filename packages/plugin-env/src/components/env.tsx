@@ -366,18 +366,16 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           name="constructor"
           public={true}
           doc="Initializes a new instance of the `EnvSerializer` class.">
-          {code`
-    super("env");
+          {code`super("env");
 
-    this.deserializeRegistry.register(
-      ReflectionKind.boolean,
-      (type: Type, state: TemplateState) => {
-        state.addSetter(
-          \`typeof \${state.accessor.toString()} !== "boolean" ? \${state.accessor.toString()} === 1 || \${state.accessor.toString()} === "1" || \${state.accessor.toString()}.toLowerCase() === "t" || \${state.accessor.toString()}.toLowerCase() === "true" || \${state.accessor.toString()}.toLowerCase() === "y" || \${state.accessor.toString()}.toLowerCase() === "yes" : \${state.accessor.toString()}\`
-        );
-      }
-    );
-`}
+          this.deserializeRegistry.register(
+            ReflectionKind.boolean,
+            (type: Type, state: TemplateState) => {
+              state.addSetter(
+                \`typeof \${state.accessor.toString()} !== "boolean" ? \${state.accessor.toString()} === 1 || \${state.accessor.toString()} === "1" || \${state.accessor.toString()}.toLowerCase() === "t" || \${state.accessor.toString()}.toLowerCase() === "true" || \${state.accessor.toString()}.toLowerCase() === "y" || \${state.accessor.toString()}.toLowerCase() === "yes" : \${state.accessor.toString()}\`
+              );
+            }
+          ); `}
         </ClassMethod>
       </ClassDeclaration>
       <Spacing />

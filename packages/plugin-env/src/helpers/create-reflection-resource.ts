@@ -21,7 +21,7 @@ import { EnvPluginContext } from "../types/plugin";
 /**
  * Creates a reflection resource for the environment configuration.
  *
- * @param context - The environment plugin context.
+ * @param _context - The environment plugin context.
  * @returns A resource that provides the reflection of the environment configuration.
  */
 export function createReflection(_context: EnvPluginContext) {
