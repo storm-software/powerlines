@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.24.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.24.0) (03/02/2026)
+
+### Features
+
+- **plugin-alloy:** Added new reflection `TSDoc` class components ([89c6a04aa](https://github.com/storm-software/powerlines/commit/89c6a04aa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.261**
+- Updated **plugin-babel** to **v0.12.316**
+- Updated **powerlines** to **v0.39.18**
+- Updated **deepkit** to **v0.6.89**
+- Updated **core** to **v0.1.5**
+
 ## [0.23.40](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.23.40) (03/02/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.28](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.28) (03/02/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Clean up the markdown spacing in generated documentation ([e83cbbb34](https://github.com/storm-software/powerlines/commit/e83cbbb34))
+
+### Features
+
+- **plugin-alloy:** Added new reflection `TSDoc` class components ([89c6a04aa](https://github.com/storm-software/powerlines/commit/89c6a04aa))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.189**
+- Updated **plugin-automd** to **v0.1.310**
+- Updated **plugin-plugin** to **v0.12.261**
+- Updated **plugin-alloy** to **v0.24.0**
+- Updated **plugin-babel** to **v0.12.316**
+- Updated **powerlines** to **v0.39.18**
+- Updated **deepkit** to **v0.6.89**
+
 ## [0.16.27](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.27) (03/02/2026)
 
 ### Updated Dependencies
