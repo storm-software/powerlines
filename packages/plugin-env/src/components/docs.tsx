@@ -22,6 +22,7 @@ import {
   ReflectionClass,
   stringifyType
 } from "@powerlines/deepkit/vendor/type";
+import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
 import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
 import {
   MarkdownFile,
@@ -67,16 +68,18 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
         />
       </Show>
       {code`package. These values can be updated in the \`.env\` file in the root of the project.`}
-      <hbr />
+      <Spacing />
       <Heading level={2 + levelOffset}>Environment Variables</Heading>
+      <Spacing />
       {code`The below list of environment variables are used as configuration parameters to drive the processing of the application. The data contained in these variables are **not** considered sensitive or confidential. Any values provided in these variables will be available in plain text to the public.`}
-      <hbr />
+      <Spacing />
       <MarkdownTable
         data={
           reflection
             ?.getProperties()
             .filter(
-              property => property.getNameAsString() !== "__STORM_INJECTED__"
+              property =>
+                property.getNameAsString() !== "__POWERLINES_INJECTED__"
             )
             .sort((a, b) =>
               a.getNameAsString().localeCompare(b.getNameAsString())
