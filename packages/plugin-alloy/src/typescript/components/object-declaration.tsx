@@ -157,7 +157,7 @@ export function ObjectDeclaration<
           }
         }}>
         <Show when={!!objectName.value && !!objectType.value}>
-          <TSDocReflectionClass />
+          <TSDocReflectionClass reflection={props.reflection.value} />
           <CoreDeclaration symbol={sym}>
             {props.export ? "export " : ""}
             {props.default ? "default " : ""}
@@ -193,7 +193,7 @@ export function ObjectDeclarationProperty(
 
   return (
     <ReflectionPropertyContext.Provider value={property}>
-      <TSDocReflectionProperty />
+      <TSDocReflectionProperty reflection={property} />
       <ObjectProperty
         name={property.getNameAsString()}
         value={stringifyDefaultValue(property)}

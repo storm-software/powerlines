@@ -33,6 +33,7 @@ import {
   stringifyType
 } from "@powerlines/deepkit/vendor/type";
 import { titleCase } from "@stryke/string-format/title-case";
+import { isSetObject } from "@stryke/type-checks";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
@@ -67,6 +68,10 @@ export function TSDocReflectionClass<
     "children",
     "reflection"
   ]);
+
+  if (!isSetObject(reflection)) {
+    return null;
+  }
 
   const title = computed(
     () => reflection.getTitle() || titleCase(reflection.getName())
@@ -145,7 +150,12 @@ export function TSDocContextClass<
   const reflectionClass = useReflectionClass<T>();
 
   return (
-    <TSDocReflectionClass {...props} reflection={reflectionClass.reflection} />
+    <Show when={isSetObject(reflectionClass.reflection)}>
+      <TSDocReflectionClass
+        {...props}
+        reflection={reflectionClass.reflection}
+      />
+    </Show>
   );
 }
 
@@ -161,6 +171,10 @@ export function TSDocReflectionProperty(props: TSDocReflectionPropertyProps) {
     "children",
     "reflection"
   ]);
+
+  if (!isSetObject(reflection)) {
+    return null;
+  }
 
   const hasAttributes = computed(
     () =>
@@ -213,7 +227,11 @@ export function TSDocReflectionProperty(props: TSDocReflectionPropertyProps) {
 export function TSDocContextProperty(props: TSDocProps) {
   const reflection = useReflectionProperty();
 
-  return <TSDocReflectionProperty {...props} reflection={reflection} />;
+  return (
+    <Show when={isSetObject(reflection)}>
+      <TSDocReflectionProperty {...props} reflection={reflection} />
+    </Show>
+  );
 }
 
 export interface TSDocReflectionMethodProps extends TSDocProps {
@@ -229,15 +247,20 @@ export function TSDocReflectionMethod(props: TSDocReflectionMethodProps) {
     "reflection"
   ]);
 
+  if (!isSetObject(reflection)) {
+    return null;
+  }
+
+  const heading = computed(
+    () =>
+      reflection.getDescription() ||
+      (isString(reflection.getName())
+        ? code`${String(reflection.getName())} method definition`
+        : undefined)
+  );
+
   return (
-    <TSDoc
-      heading={
-        reflection.getDescription() ||
-        (isString(reflection.getName())
-          ? code`${String(reflection.getName())} method definition`
-          : undefined)
-      }
-      {...rest}>
+    <TSDoc heading={heading.value} {...rest}>
       <TSDocAttributesTags
         title={reflection.getTitle()}
         alias={reflection.getAlias()}
@@ -289,5 +312,9 @@ export function TSDocReflectionMethod(props: TSDocReflectionMethodProps) {
 export function TSDocContextMethod(props: TSDocProps) {
   const reflection = useReflectionMethod();
 
-  return <TSDocReflectionMethod {...props} reflection={reflection} />;
+  return (
+    <Show when={isSetObject(reflection)}>
+      <TSDocReflectionMethod {...props} reflection={reflection} />
+    </Show>
+  );
 }

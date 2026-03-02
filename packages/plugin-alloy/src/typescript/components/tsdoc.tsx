@@ -19,6 +19,7 @@
 import {
   Children,
   childrenArray,
+  computed,
   For,
   List,
   Prose,
@@ -306,10 +307,8 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
   const [
     {
       type,
-      title,
       alias,
       permission,
-      domain,
       readonly,
       internal,
       ignore,
@@ -318,10 +317,8 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
     }
   ] = splitProps(props, [
     "type",
-    "title",
     "alias",
     "permission",
-    "domain",
     "readonly",
     "internal",
     "ignore",
@@ -329,10 +326,13 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
     "defaultValue"
   ]);
 
+  const title = computed(() => props.title?.trim() || "");
+  const domain = computed(() => props.domain?.trim() || "");
+
   return (
     <>
-      <Show when={isSetString(title?.trim())}>
-        <TSDocTitle>{title}</TSDocTitle>
+      <Show when={isSetString(title.value)}>
+        <TSDocTitle>{title.value}</TSDocTitle>
       </Show>
       <Show
         when={
@@ -344,8 +344,8 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
           {alias => <TSDocAlias>{alias}</TSDocAlias>}
         </For>
       </Show>
-      <Show when={isSetString(domain?.trim())}>
-        <TSDocDomain>{domain}</TSDocDomain>
+      <Show when={isSetString(domain.value)}>
+        <TSDocDomain>{domain.value}</TSDocDomain>
       </Show>
       <Show
         when={
