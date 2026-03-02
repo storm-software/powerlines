@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.39.16](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.39.16) (03/01/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with prefix applied to `resolve` function output ([a32fab33f](https://github.com/storm-software/powerlines/commit/a32fab33f))
+
 ## [0.39.15](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.39.15) (03/01/2026)
 
 ### Updated Dependencies
