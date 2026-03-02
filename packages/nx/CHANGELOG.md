@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.235](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.235) (03/01/2026)
+
+### Miscellaneous
+
+- **nx:** Remove the `input` default value from the base schema ([1e2e739e9](https://github.com/storm-software/powerlines/commit/1e2e739e9))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.39.15**
+
 ## [0.11.234](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.234) (03/01/2026)
 
 ### Updated Dependencies
