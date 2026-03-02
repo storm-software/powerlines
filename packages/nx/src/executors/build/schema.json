@@ -20,10 +20,7 @@
       "items": {
         "type": "string"
       },
-      "id": "#input",
-      "default": [
-        "{sourceRoot}/index.ts"
-      ]
+      "id": "#input"
     },
     "tsconfig": {
       "title": "TSConfig Path",
@@ -171,9 +168,6 @@
   "type": "object",
   "default": {
     "configFile": "{projectRoot}/powerlines.config.ts",
-    "input": [
-      "{sourceRoot}/index.ts"
-    ],
     "tsconfig": "{projectRoot}/tsconfig.json",
     "format": [
       "cjs",

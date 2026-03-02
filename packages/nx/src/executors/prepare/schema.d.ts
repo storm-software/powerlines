@@ -19,7 +19,6 @@ export interface PrepareExecutorSchema {
   * 
   * The entry file(s) that serve as the input for the project
   * 
-  * @default ["{sourceRoot}/index.ts"]
   * 
   * @format path
  */

@@ -16,7 +16,6 @@ The path to the Powerlines configuration file
 
 ## `input`
 - **Type**: `array`
-- **Default**: `["{sourceRoot}/index.ts"]`
 
 > Input Entry File(s)
 

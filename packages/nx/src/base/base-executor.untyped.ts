@@ -42,8 +42,7 @@ export default defineUntypedSchema({
       type: "array",
       description: "The entry file(s) that serve as the input for the project",
       items: { type: "string" }
-    },
-    $default: ["{sourceRoot}/index.ts"]
+    }
   },
   tsconfig: {
     $schema: {
