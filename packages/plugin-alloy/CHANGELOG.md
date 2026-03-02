@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.24.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.24.1) (03/02/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with missing reflection props ([e30b0fda5](https://github.com/storm-software/powerlines/commit/e30b0fda5))
+
 ## [0.24.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.24.0) (03/02/2026)
 
 ### Features
