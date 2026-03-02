@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.315](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.315) (03/02/2026)
+
+### Bug Fixes
+
+- **plugin-esbuild:** Resolve issue with invalid function signature ([8ce87b9a3](https://github.com/storm-software/powerlines/commit/8ce87b9a3))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.1.4**
+
 ## [0.13.314](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.314) (03/01/2026)
 
 ### Updated Dependencies
