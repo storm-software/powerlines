@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.1.4](https://github.com/storm-software/powerlines/releases/tag/core%400.1.4) (03/02/2026)
+
+### Miscellaneous
+
+- **core:** Added logic/option to prefix resolved modules in unplugin ([3b63c27ce](https://github.com/storm-software/powerlines/commit/3b63c27ce))
+
 ## [0.1.3](https://github.com/storm-software/powerlines/releases/tag/core%400.1.3) (03/01/2026)
 
 ### Bug Fixes
