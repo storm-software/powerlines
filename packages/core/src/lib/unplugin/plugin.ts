@@ -31,7 +31,22 @@ import { UnpluginFactory } from "../../types/unplugin";
 import { extendLog } from "../logger";
 import { getString } from "../utilities/source-file";
 import { combineContexts } from "./helpers";
-import { createUnpluginModuleResolutionFunctions } from "./module-resolution";
+import {
+  createUnpluginModuleResolutionFunctions,
+  CreateUnpluginModuleResolutionFunctionsOptions
+} from "./module-resolution";
+
+export interface CreateUnpluginResolverOptions extends CreateUnpluginModuleResolutionFunctionsOptions {
+  /**
+   * A name to use for the unplugin instance. This is used for logging and to generate the plugin name. It does not affect the functionality of the plugin.
+   *
+   * @remarks
+   * If not provided, the plugin will be named "unplugin". If provided, the plugin will be named `${name} - Unplugin` (e.g., "MyPlugin - Unplugin").
+   *
+   * @defaultValue "unplugin"
+   */
+  name?: string;
+}
 
 /**
  * Creates a Powerlines unplugin instance.
@@ -41,9 +56,14 @@ import { createUnpluginModuleResolutionFunctions } from "./module-resolution";
  */
 export function createUnpluginResolver<
   TContext extends PluginContext = PluginContext
->(context: TContext, name = "unplugin"): UnpluginFactory<TContext> {
+>(
+  context: TContext,
+  options: CreateUnpluginResolverOptions = {}
+): UnpluginFactory<TContext> {
   const ctx = context as unknown as UNSAFE_PluginContext;
   setParseImpl(ctx.parse);
+
+  const name = options.name || "unplugin";
 
   return () => {
     const log = extendLog(ctx.log, name);
@@ -58,7 +78,7 @@ export function createUnpluginResolver<
 
     try {
       const { resolveId, load } =
-        createUnpluginModuleResolutionFunctions<TContext>(context);
+        createUnpluginModuleResolutionFunctions<TContext>(context, options);
 
       return {
         name:
@@ -91,6 +111,8 @@ export function createUnpluginResolver<
   };
 }
 
+export interface CreateUnpluginOptions extends CreateUnpluginResolverOptions {}
+
 /**
  * Creates a Powerlines unplugin instance.
  *
@@ -99,10 +121,12 @@ export function createUnpluginResolver<
  */
 export function createUnplugin<TContext extends PluginContext = PluginContext>(
   context: TContext,
-  name = "unplugin"
+  options: CreateUnpluginOptions = {}
 ): UnpluginFactory<TContext> {
   const ctx = context as unknown as UNSAFE_PluginContext;
   setParseImpl(ctx.parse);
+
+  const name = options.name || "unplugin";
 
   return () => {
     const log = extendLog(ctx.log, name);
@@ -117,7 +141,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
 
     try {
       const { resolveId, load } =
-        createUnpluginModuleResolutionFunctions<TContext>(context);
+        createUnpluginModuleResolutionFunctions<TContext>(context, options);
 
       async function buildStart(this: UnpluginBuildContext) {
         log(LogLevelLabel.DEBUG, "Powerlines build plugin starting...");

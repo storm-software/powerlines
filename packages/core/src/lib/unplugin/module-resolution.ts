@@ -16,6 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { LoadResult } from "rollup";
 import type {
   ExternalIdResult,
@@ -25,6 +27,18 @@ import type {
 } from "unplugin";
 import { UNSAFE_PluginContext } from "../../types/_internal";
 import { PluginContext } from "../../types/context";
+
+export interface CreateUnpluginModuleResolutionFunctionsOptions {
+  /**
+   * A prefix to apply to all resolved module IDs. This can be used to create virtual modules by prefixing them with a specific string (e.g., `\0`).
+   *
+   * @remarks
+   * If set to `false`, no prefix will be applied, and resolved module IDs will be returned as-is. By default, this is set to `\0`, which is a common convention for virtual modules in Rollup and Vite plugins.
+   *
+   * @defaultValue "\\0"
+   */
+  prefix?: string | false;
+}
 
 /**
  * Creates the module resolution hook functions for a Powerlines unplugin plugin instance.
@@ -40,8 +54,16 @@ import { PluginContext } from "../../types/context";
  */
 export function createUnpluginModuleResolutionFunctions<
   TContext extends PluginContext = PluginContext
->(context: TContext): Pick<HookFnMap, "resolveId" | "load"> {
+>(
+  context: TContext,
+  options: CreateUnpluginModuleResolutionFunctionsOptions = {}
+): Pick<HookFnMap, "resolveId" | "load"> {
   const ctx = context as unknown as UNSAFE_PluginContext;
+
+  let prefix = "";
+  if (options.prefix !== false) {
+    prefix = options.prefix ?? "\0";
+  }
 
   async function resolveId(
     this: UnpluginBuildContext & UnpluginContext,
@@ -86,7 +108,7 @@ export function createUnpluginModuleResolutionFunctions<
       return result;
     }
 
-    return ctx.$$internal.callHook(
+    result = await ctx.$$internal.callHook(
       "resolveId",
       {
         sequential: true,
@@ -97,6 +119,16 @@ export function createUnpluginModuleResolutionFunctions<
       importer,
       opts
     );
+    if (isSetString(result)) {
+      return `${prefix}${result}`;
+    } else if (isSetObject(result)) {
+      return {
+        ...result,
+        id: `${prefix}${result.id}`
+      };
+    }
+
+    return null;
   }
 
   async function load(
