@@ -814,7 +814,7 @@ export class PowerlinesContext<
       }
 
       return {
-        id: `\0${result}`,
+        id: result,
         external: this.config.projectType !== "application"
       };
     }
