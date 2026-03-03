@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.1.6](https://github.com/storm-software/powerlines/releases/tag/core%400.1.6) (03/03/2026)
+
+### Bug Fixes
+
+- **monorepo:** Upgrade `stryke` utilities and update package usage ([46624b666](https://github.com/storm-software/powerlines/commit/46624b666))
+
 ## [0.1.4](https://github.com/storm-software/powerlines/releases/tag/core%400.1.4) (03/02/2026)
 
 ### Miscellaneous

@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.39.19](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.39.19) (03/03/2026)
+
+### Bug Fixes
+
+- **monorepo:** Upgrade `stryke` utilities and update package usage ([46624b666](https://github.com/storm-software/powerlines/commit/46624b666))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.319**
+- Updated **plugin-esbuild** to **v0.13.317**
+- Updated **plugin-unbuild** to **v0.5.318**
+- Updated **plugin-webpack** to **v0.5.317**
+- Updated **plugin-rollup** to **v0.7.318**
+- Updated **plugin-rspack** to **v0.5.317**
+- Updated **plugin-tsdown** to **v0.1.262**
+- Updated **plugin-tsup** to **v0.12.318**
+- Updated **plugin-vite** to **v0.14.311**
+- Updated **core** to **v0.1.6**
+
 ## [0.39.18](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.39.18) (03/02/2026)
 
 ### Updated Dependencies

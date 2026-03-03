@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.239](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.239) (03/03/2026)
+
+### Bug Fixes
+
+- **monorepo:** Upgrade `stryke` utilities and update package usage ([46624b666](https://github.com/storm-software/powerlines/commit/46624b666))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.39.19**
+
 ## [0.11.238](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.238) (03/02/2026)
 
 ### Updated Dependencies
