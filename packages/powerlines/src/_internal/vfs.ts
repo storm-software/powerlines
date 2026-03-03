@@ -30,7 +30,7 @@ import {
   resolve,
   resolveSync
 } from "@stryke/fs/resolve";
-import { murmurhash } from "@stryke/hash/murmurhash";
+import { murmurhash } from "@stryke/hash";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { appendPath } from "@stryke/path/append";
 import { correctPath, stripStars } from "@stryke/path/correct-path";

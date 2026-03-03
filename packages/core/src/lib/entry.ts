@@ -18,7 +18,7 @@
 
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
-import { murmurhash } from "@stryke/hash/murmurhash";
+import { murmurhash } from "@stryke/hash";
 import { getUniqueBy } from "@stryke/helpers/get-unique";
 import { appendPath } from "@stryke/path/append";
 import { isAbsolutePath } from "@stryke/path/is-type";

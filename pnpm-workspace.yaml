@@ -67,10 +67,10 @@ catalog:
   '@rollup/plugin-inject': ^5.0.5
   '@rollup/plugin-node-resolve': ^16.0.3
   '@rollup/plugin-replace': ^6.0.3
-  '@rspack/core': ^1.7.6
-  '@shell-shock/core': ^0.9.7
-  '@shell-shock/eslint-plugin': ^0.0.33
-  '@shell-shock/nx': ^0.0.37
+  '@rspack/core': ^1.7.7
+  '@shell-shock/core': ^0.10.0
+  '@shell-shock/eslint-plugin': ^0.0.34
+  '@shell-shock/nx': ^0.0.39
   '@shell-shock/preset-cli': ^0.7.12
   '@standard-schema/spec': ^1.1.0
   '@storm-software/build-tools': ^0.158.92
@@ -90,20 +90,20 @@ catalog:
   '@storm-software/unbuild': ^0.57.93
   '@storm-software/untyped': ^0.24.74
   '@storm-software/workspace-tools': ^1.294.44
-  '@stryke/capnp': ^0.12.68
-  '@stryke/cli': ^0.13.15
-  '@stryke/convert': ^0.6.40
-  '@stryke/env': ^0.20.60
-  '@stryke/fs': ^0.33.43
-  '@stryke/hash': ^0.12.49
-  '@stryke/helpers': ^0.9.42
-  '@stryke/http': ^0.12.35
-  '@stryke/json': ^0.9.43
-  '@stryke/path': ^0.26.6
-  '@stryke/string-format': ^0.14.2
-  '@stryke/type-checks': ^0.5.25
-  '@stryke/types': ^0.10.39
-  '@stryke/unique-id': ^0.3.54
+  '@stryke/capnp': ^0.12.73
+  '@stryke/cli': ^0.13.20
+  '@stryke/convert': ^0.6.45
+  '@stryke/env': ^0.20.65
+  '@stryke/fs': ^0.33.48
+  '@stryke/hash': ^0.13.1
+  '@stryke/helpers': ^0.9.47
+  '@stryke/http': ^0.12.40
+  '@stryke/json': ^0.13.0
+  '@stryke/path': ^0.26.11
+  '@stryke/string-format': ^0.14.7
+  '@stryke/type-checks': ^0.5.30
+  '@stryke/types': ^0.10.44
+  '@stryke/unique-id': ^0.3.59
   '@swc-node/register': ^1.11.1
   '@swc/core': ^1.15.18
   '@swc/helpers': ^0.5.19
@@ -115,7 +115,7 @@ catalog:
   '@types/babel__helper-plugin-utils': ^7.10.3
   '@types/babel__template': ^7.4.4
   '@types/babel__traverse': ^7.28.0
-  '@types/bun': ^1.3.9
+  '@types/bun': ^1.3.10
   '@types/diff-match-patch': ^1.0.36
   '@types/jest': ^30.0.0
   '@types/node': ^25.3.3
@@ -146,7 +146,7 @@ catalog:
   fp-ts: ^2.16.11
   github-slugger: ^2.0.0
   handlebars: ^4.7.8
-  i18next-cli: ^1.47.5
+  i18next-cli: ^1.47.9
   i18next-resources-for-ts: ^2.0.0
   jest: ^30.2.0
   jest-config: ^30.2.0
@@ -183,7 +183,7 @@ catalog:
   satori: ^0.18.4
   sharp: ^0.34.5
   sherif: ^1.10.0
-  style-dictionary: ^5.3.2
+  style-dictionary: ^5.3.3
   stylelint: ^16.26.1
   svgo: ^4.0.0
   ts-jest: ^29.4.6

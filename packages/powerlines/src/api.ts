@@ -484,7 +484,7 @@ ${formatTypes(types)}
    * @returns A promise that resolves when the project has been created
    */
   public async new(inlineConfig: NewInlineConfig) {
-    this.context.info("🆕 Creating a new Powerlines project");
+    this.context.info(" 🆕 Creating a new Powerlines project");
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
@@ -566,7 +566,7 @@ ${formatTypes(types)}
       command: "clean"
     }
   ) {
-    this.context.info("🧹 Cleaning the previous Powerlines artifacts");
+    this.context.info(" 🧹 Cleaning the previous Powerlines artifacts");
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
@@ -604,7 +604,7 @@ ${formatTypes(types)}
   public async lint(
     inlineConfig: LintInlineConfig | BuildInlineConfig = { command: "lint" }
   ) {
-    this.context.info("📋 Linting the Powerlines project");
+    this.context.info(" 📝 Linting the Powerlines project");
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
@@ -627,7 +627,7 @@ ${formatTypes(types)}
    * @returns A promise that resolves when the build command has completed
    */
   public async build(inlineConfig: BuildInlineConfig = { command: "build" }) {
-    this.context.info("📦  Building the Powerlines project");
+    this.context.info(" 📦  Building the Powerlines project");
 
     await this.context.generateChecksum();
     if (
@@ -659,7 +659,9 @@ ${formatTypes(types)}
    * @returns A promise that resolves when the documentation generation has completed
    */
   public async docs(inlineConfig: DocsInlineConfig = { command: "docs" }) {
-    this.context.info("📓 Generating documentation for the Powerlines project");
+    this.context.info(
+      " 📓 Generating documentation for the Powerlines project"
+    );
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
@@ -691,7 +693,7 @@ ${formatTypes(types)}
   public async deploy(
     inlineConfig: DeployInlineConfig = { command: "deploy" }
   ) {
-    this.context.info("🚀 Deploying the Powerlines project");
+    this.context.info(" 🚀 Deploying the Powerlines project");
 
     await this.prepare(inlineConfig);
     await this.#executeEnvironments(async context => {
@@ -710,7 +712,7 @@ ${formatTypes(types)}
    * @returns A promise that resolves when the finalization process has completed
    */
   public async finalize() {
-    this.context.info("🏁 Powerlines finalization processes started");
+    this.context.info(" 🏁 Powerlines finalization processes started");
 
     await this.#executeEnvironments(async context => {
       await this.callHook("finalize", { environment: context });

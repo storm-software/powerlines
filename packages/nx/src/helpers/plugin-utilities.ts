@@ -33,7 +33,7 @@ import {
 } from "@storm-software/workspace-tools/utils/project-tags";
 import { getEnvPaths } from "@stryke/env/get-env-paths";
 import { existsSync } from "@stryke/fs/exists";
-import { murmurhash } from "@stryke/hash/murmurhash";
+import { murmurhash } from "@stryke/hash";
 import { joinPaths } from "@stryke/path/join-paths";
 import { camelCase } from "@stryke/string-format/camel-case";
 import { kebabCase } from "@stryke/string-format/kebab-case";

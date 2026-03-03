@@ -22,7 +22,7 @@ import { createDirectory } from "@stryke/fs/helpers";
 import { readFile } from "@stryke/fs/read-file";
 import { removeFile } from "@stryke/fs/remove-file";
 import { writeFile } from "@stryke/fs/write-file";
-import { murmurhash } from "@stryke/hash/murmurhash";
+import { murmurhash } from "@stryke/hash";
 import { findFileName } from "@stryke/path/file-path-fns";
 import { joinPaths } from "@stryke/path/join-paths";
 import type MagicString from "magic-string";
