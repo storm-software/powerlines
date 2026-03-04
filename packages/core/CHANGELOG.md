@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.1.8](https://github.com/storm-software/powerlines/releases/tag/core%400.1.8) (03/04/2026)
+
+### Features
+
+- **powerlines:** Added the `overwrite` option to disable updating previous artifacts ([54d89860f](https://github.com/storm-software/powerlines/commit/54d89860f))
+
 ## [0.1.6](https://github.com/storm-software/powerlines/releases/tag/core%400.1.6) (03/03/2026)
 
 ### Bug Fixes

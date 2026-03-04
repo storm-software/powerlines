@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.40.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.0) (03/04/2026)
+
+### Features
+
+- **powerlines:** Added the `overwrite` option to disable updating previous artifacts ([54d89860f](https://github.com/storm-software/powerlines/commit/54d89860f))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.321**
+- Updated **plugin-esbuild** to **v0.13.319**
+- Updated **plugin-unbuild** to **v0.5.320**
+- Updated **plugin-webpack** to **v0.5.319**
+- Updated **plugin-rollup** to **v0.7.320**
+- Updated **plugin-rspack** to **v0.5.319**
+- Updated **plugin-tsdown** to **v0.1.264**
+- Updated **plugin-tsup** to **v0.12.320**
+- Updated **plugin-vite** to **v0.14.313**
+- Updated **core** to **v0.1.8**
+
 ## [0.39.20](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.39.20) (03/04/2026)
 
 ### Updated Dependencies

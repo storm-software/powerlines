@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.1](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.1) (03/04/2026)
+
+### Bug Fixes
+
+- **tsconfig:** Upgrade `storm-ops` tsconfig package to resolve `include` issue ([748a71f0c](https://github.com/storm-software/powerlines/commit/748a71f0c))
+
 ## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.0) (03/04/2026)
 
 ### Features
