@@ -1615,6 +1615,17 @@ export class PowerlinesContext<
       }));
     }
 
+    if (
+      (isSetString(config.output?.storage) &&
+        config.output.storage === "virtual") ||
+      (isSetObject(config.output?.storage) &&
+        Object.values(config.output.storage).every(
+          adapter => adapter.preset === "virtual"
+        ))
+    ) {
+      this.config.output.overwrite = true;
+    }
+
     this.#fs ??= await VirtualFileSystem.create(this);
   }
 

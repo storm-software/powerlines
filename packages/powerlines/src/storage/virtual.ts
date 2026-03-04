@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { isParentPath } from "@stryke/path/is-parent-path";
+import type { Context } from "../types";
 import { BaseStorageAdapter, StorageAdapterOptions } from "./base";
 
 /**
@@ -44,10 +45,11 @@ export class VirtualStorageAdapter extends BaseStorageAdapter {
   /**
    * Constructor for the VirtualStorageAdapter.
    *
+   * @param context - The Powerlines context.
    * @param options - Configuration options for the storage adapter.
    */
-  public constructor(options?: StorageAdapterOptions) {
-    super(options);
+  public constructor(context: Context, options?: StorageAdapterOptions) {
+    super(context, options);
   }
 
   /**
@@ -77,7 +79,7 @@ export class VirtualStorageAdapter extends BaseStorageAdapter {
    * @param value - The value to set.
    */
   public setSync(key: string, value: string) {
-    if (!this.options.isReadOnly) {
+    if (!this.isReadOnly && (!this.existsSync(key) || this.overwrite)) {
       this.data.set(this.resolve(key), value);
     }
   }
@@ -88,7 +90,7 @@ export class VirtualStorageAdapter extends BaseStorageAdapter {
    * @param key - The key to remove.
    */
   public removeSync(key: string) {
-    if (!this.options.isReadOnly) {
+    if (!this.isReadOnly && this.overwrite) {
       this.data.delete(this.resolve(key));
     }
   }
@@ -114,5 +116,14 @@ export class VirtualStorageAdapter extends BaseStorageAdapter {
    */
   public override async dispose(): Promise<void> {
     return this.clear();
+  }
+
+  /**
+   * Determines if the storage adapter should overwrite existing keys based on the provided options and context configuration.
+   *
+   * @returns `true` if the storage adapter should overwrite existing keys, otherwise `false`.
+   */
+  protected override get overwrite() {
+    return !this.isReadOnly;
   }
 }

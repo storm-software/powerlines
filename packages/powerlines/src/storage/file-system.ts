@@ -24,6 +24,7 @@ import { readFile, readFileSync } from "@stryke/fs/read-file";
 import { writeFile, writeFileSync } from "@stryke/fs/write-file";
 import { unlinkSync } from "node:fs";
 import { unlink } from "node:fs/promises";
+import type { Context } from "../types";
 import { BaseStorageAdapter, StorageAdapterOptions } from "./base";
 import { ignoreNotfound } from "./helpers";
 
@@ -50,10 +51,11 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
   /**
    * Constructor for the FileSystemStorageAdapter.
    *
+   * @param context - The Powerlines context.
    * @param options - Configuration options for the storage adapter.
    */
-  public constructor(options?: StorageAdapterOptions) {
-    super(options);
+  public constructor(context: Context, options?: StorageAdapterOptions) {
+    super(context, options);
   }
 
   /**
@@ -103,7 +105,7 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
    * @param value - The value to set.
    */
   public setSync(key: string, value: string) {
-    if (!this.options.isReadOnly) {
+    if (!this.isReadOnly && (!this.existsSync(key) || this.overwrite)) {
       return writeFileSync(this.resolve(key), value);
     }
   }
@@ -115,7 +117,7 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
    * @param value - The value to set.
    */
   public override async set(key: string, value: string): Promise<void> {
-    if (!this.options.isReadOnly) {
+    if (!this.isReadOnly && this.overwrite) {
       return writeFile(this.resolve(key), value);
     }
   }
@@ -126,7 +128,7 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
    * @param key - The key to remove.
    */
   public removeSync(key: string) {
-    if (!this.options.isReadOnly) {
+    if (!this.isReadOnly && this.overwrite) {
       try {
         return unlinkSync(this.resolve(key));
       } catch (err) {
@@ -141,7 +143,7 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
    * @param key - The key to remove.
    */
   public override async remove(key: string): Promise<void> {
-    if (!this.options.isReadOnly) {
+    if (!this.isReadOnly && this.overwrite) {
       return unlink(this.resolve(key)).catch(ignoreNotfound);
     }
   }

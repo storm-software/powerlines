@@ -271,12 +271,22 @@ export interface OutputConfig {
   assets?: Array<string | AssetGlob>;
 
   /**
+   * Whether to overwrite previously generated files in the artifacts directory during the build process.
+   *
+   * @remarks
+   * When set to `true`, Powerlines will overwrite any existing files in the artifacts directory with the newly generated files during the build process. When set to `false`, Powerlines will skip generating files that already exist in the artifacts directory, which can help speed up the build process by avoiding unnecessary file writes. This option is only relevant when the {@link OutputConfig.storage | storage option} is configured to use an adapter that writes files to the local file system. If using a `virtual` storage adapter, this option has no effect.
+   *
+   * @defaultValue true
+   */
+  overwrite?: boolean;
+
+  /**
    * A string preset or a custom {@link StoragePort} to provide fine-grained control over generated/output file storage.
    *
    * @remarks
    * If a string preset is provided, it must be one of the following values:
-   * - `"virtual"`: Uses the local file system for storage.
-   * - `"fs"`: Uses an in-memory virtual file system for storage.
+   * - `"fs"`: Uses the local file system for storage.
+   * - `"virtual"`: Uses an in-memory virtual file system for storage.
    *
    * If a custom {@link StoragePort} is provided, it will be used for all file storage operations during the build process.
    *

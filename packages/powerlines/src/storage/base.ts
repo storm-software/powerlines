@@ -16,12 +16,12 @@
 
  ------------------------------------------------------------------- */
 
-import { StorageAdapter, StoragePreset } from "@powerlines/core";
 import { appendPath } from "@stryke/path/append";
 import { correctPath } from "@stryke/path/correct-path";
 import { joinPaths } from "@stryke/path/join";
 import { MaybePromise } from "@stryke/types/base";
 import { resolve } from "node:path";
+import type { Context, StorageAdapter, StoragePreset } from "../types";
 
 export interface StorageAdapterOptions {
   base: string;
@@ -61,9 +61,13 @@ export abstract class BaseStorageAdapter<
   /**
    * Constructor for the BaseStorageAdapter.
    *
+   * @param context - The Powerlines context.
    * @param options - Configuration options for the storage adapter.
    */
-  public constructor(options: TOptions = { base: "/" } as TOptions) {
+  public constructor(
+    protected context: Context,
+    options: TOptions = { base: "/" } as TOptions
+  ) {
     this.options = options;
     this.options.base = resolve(options.base);
     this.options.isReadOnly = !!options.isReadOnly;
@@ -120,7 +124,7 @@ export abstract class BaseStorageAdapter<
    * @param value - The value to set.
    */
   public async set(key: string, value: string): Promise<void> {
-    if (!this.options.isReadOnly) {
+    if (!this.isReadOnly && (!this.existsSync(key) || this.overwrite)) {
       this.setSync(key, value);
     }
   }
@@ -154,7 +158,7 @@ export abstract class BaseStorageAdapter<
    * @param key - The key to remove.
    */
   public async remove(key: string): Promise<void> {
-    if (!this.options.isReadOnly) {
+    if (!this.isReadOnly && this.overwrite) {
       this.removeSync(key);
     }
   }
@@ -165,7 +169,7 @@ export abstract class BaseStorageAdapter<
    * @param base - The base path to clear keys from.
    */
   public clearSync(base?: string) {
-    if (!this.options.isReadOnly) {
+    if (!this.isReadOnly && this.overwrite) {
       const keys = this.listSync(base || this.options.base);
       if (!keys.length) {
         return;
@@ -186,7 +190,7 @@ export abstract class BaseStorageAdapter<
    * @returns A promise that resolves when the operation is complete.
    */
   public async clear(base?: string): Promise<void> {
-    if (!this.options.isReadOnly) {
+    if (!this.isReadOnly && this.overwrite) {
       const keys = await this.list(base || this.options.base);
       if (!keys.length) {
         return;
@@ -276,6 +280,24 @@ export abstract class BaseStorageAdapter<
    */
   public async [Symbol.asyncDispose]() {
     return this._dispose();
+  }
+
+  /**
+   * Determines if the storage adapter is read-only based on the provided options.
+   *
+   * @returns `true` if the storage adapter is read-only, otherwise `false`.
+   */
+  protected get isReadOnly() {
+    return !!this.options.isReadOnly;
+  }
+
+  /**
+   * Determines if the storage adapter should overwrite existing keys based on the provided options and context configuration.
+   *
+   * @returns `true` if the storage adapter should overwrite existing keys, otherwise `false`.
+   */
+  protected get overwrite() {
+    return !this.isReadOnly && this.context.config.output.overwrite !== false;
   }
 
   /**

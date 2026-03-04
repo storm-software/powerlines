@@ -199,7 +199,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @remarks
    * This volume allows for seamless access to both virtual and real files.
    */
-  #storage: StoragePort = { "": new FileSystemStorageAdapter() };
+  #storage: StoragePort;
 
   /**
    * A cache for module resolution results.
@@ -293,10 +293,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
     this.#storage[path] =
       preset === "virtual"
-        ? new VirtualStorageAdapter({
+        ? new VirtualStorageAdapter(this.#context, {
             base: path
           })
-        : new FileSystemStorageAdapter({
+        : new FileSystemStorageAdapter(this.#context, {
             base: path
           });
 
@@ -588,6 +588,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    */
   private constructor(context: Context, fs: FileSystem) {
     this.#context = context;
+    this.#storage = { "": new FileSystemStorageAdapter(context) };
 
     if (isSetObject(this.#context.config.output.storage)) {
       this.#storage = {
@@ -596,20 +597,29 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       };
     }
 
-    this.#storage.virtual ??= new VirtualStorageAdapter({
+    this.#storage.virtual ??= new VirtualStorageAdapter(context, {
       base: "/_virtual"
     });
 
     if (this.#context.config.output.storage !== "fs") {
-      this.#storage[this.#context.artifactsPath] ??= new VirtualStorageAdapter({
-        base: this.#context.artifactsPath
-      });
-      this.#storage[this.#context.builtinsPath] ??= new VirtualStorageAdapter({
-        base: this.#context.builtinsPath
-      });
-      this.#storage[this.#context.entryPath] ??= new VirtualStorageAdapter({
-        base: this.#context.entryPath
-      });
+      this.#storage[this.#context.artifactsPath] ??= new VirtualStorageAdapter(
+        context,
+        {
+          base: this.#context.artifactsPath
+        }
+      );
+      this.#storage[this.#context.builtinsPath] ??= new VirtualStorageAdapter(
+        context,
+        {
+          base: this.#context.builtinsPath
+        }
+      );
+      this.#storage[this.#context.entryPath] ??= new VirtualStorageAdapter(
+        context,
+        {
+          base: this.#context.entryPath
+        }
+      );
     }
 
     this.#metadata = {} as Record<string, VirtualFileMetadata>;
