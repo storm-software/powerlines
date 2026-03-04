@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.0) (03/04/2026)
+
+### Features
+
+- **tsconfig:** Update `storm-ops` base tsconfig files to `recommended` ([5e484e070](https://github.com/storm-software/powerlines/commit/5e484e070))
+
 ## [0.3.3](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.3.3) (02/28/2026)
 
 ### Bug Fixes
