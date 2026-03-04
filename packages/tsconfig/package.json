@@ -59,7 +59,7 @@
     "@storm-software/tsconfig": "catalog:"
   },
   "peerDependencies": {
-    "@storm-software/tsconfig": ">=0.48.0"
+    "@storm-software/tsconfig": ">=0.48.2"
   },
   "peerDependenciesMeta": {
     "@storm-software/tsconfig": {
