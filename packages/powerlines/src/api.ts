@@ -286,6 +286,11 @@ export class PowerlinesAPI<
         order: "normal"
       });
 
+      await this.callHook("prepare", {
+        environment: context,
+        order: "post"
+      });
+
       if (context.config.output.dts !== false) {
         context.debug(
           `Preparing the TypeScript definitions for the Powerlines project.`
@@ -461,11 +466,6 @@ ${formatTypes(types)}
         formatFolder(context, context.builtinsPath),
         formatFolder(context, context.entryPath)
       ]);
-
-      await this.callHook("prepare", {
-        environment: context,
-        order: "post"
-      });
 
       await writeMetaFile(context);
       context.persistedMeta = context.meta;
