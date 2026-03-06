@@ -17,4 +17,5 @@
  ------------------------------------------------------------------- */
 
 export * from "./cloudflare-builtin";
+export * from "./env-builtin";
 export * from "./worker-entry";

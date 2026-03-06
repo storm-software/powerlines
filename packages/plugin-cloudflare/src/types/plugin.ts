@@ -17,19 +17,23 @@
  ------------------------------------------------------------------- */
 
 import type { ExportedHandler } from "@cloudflare/workers-types";
-import { ResolvedConfig, UserConfig } from "packages/powerlines/dist/index.mjs";
-import { PluginContext, ResolvedEntryTypeDefinition } from "powerlines";
+import type { EnvPluginContext } from "@powerlines/plugin-env/types";
+import {
+  EnvPluginResolvedConfig,
+  EnvPluginUserConfig
+} from "packages/plugin-env/dist/types/index.cjs";
+import type { PluginContext, ResolvedEntryTypeDefinition } from "powerlines";
 
 export interface CloudflarePluginOptions {}
 
-export interface CloudflarePluginUserConfig extends UserConfig {
+export interface CloudflarePluginUserConfig extends EnvPluginUserConfig {
   /**
    * Options for the Cloudflare plugin.
    */
   cloudflare?: CloudflarePluginOptions;
 }
 
-export interface CloudflarePluginResolvedConfig extends ResolvedConfig {
+export interface CloudflarePluginResolvedConfig extends EnvPluginResolvedConfig {
   /**
    * Options for the Cloudflare plugin.
    */
@@ -46,6 +50,7 @@ export type CloudflareWorkerEntryModule = Record<
 export type CloudflarePluginContext<
   TResolvedConfig extends CloudflarePluginResolvedConfig =
     CloudflarePluginResolvedConfig
-> = PluginContext<TResolvedConfig> & {
-  workers: CloudflareWorkerEntryModule[];
-};
+> = PluginContext<TResolvedConfig> &
+  EnvPluginContext<TResolvedConfig> & {
+    workers: CloudflareWorkerEntryModule[];
+  };

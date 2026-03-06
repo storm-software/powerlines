@@ -16,13 +16,15 @@
 
  ------------------------------------------------------------------- */
 
+import { For } from "@alloy-js/core";
 import { ExportedHandler } from "@cloudflare/workers-types";
 import { render } from "@powerlines/plugin-alloy/render";
+import { readEnvTypeReflection } from "@powerlines/plugin-env/helpers";
 import { resolveModule } from "@powerlines/plugin-esbuild/helpers/resolve";
 import { isFunction } from "@stryke/type-checks/is-function";
 import defu from "defu";
-import { For } from "node_modules/@alloy-js/core/dist/src/components/For";
 import { Plugin } from "powerlines";
+import { CloudflareEnvBuiltin } from "./components";
 import { CloudflareBuiltin } from "./components/cloudflare-builtin";
 import { WorkerEntry } from "./components/worker-entry";
 import {
@@ -57,7 +59,15 @@ export function plugin<
         this.devDependencies["@cloudflare/workers-types"] = "^4.20240616.0";
       },
       async prepare() {
-        return render(this, <CloudflareBuiltin />);
+        const result = await readEnvTypeReflection(this, "env");
+
+        return render(
+          this,
+          <>
+            <CloudflareBuiltin />
+            <CloudflareEnvBuiltin reflection={result} />
+          </>
+        );
       },
       build: {
         order: "pre",
