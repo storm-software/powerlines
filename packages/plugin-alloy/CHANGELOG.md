@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.24.5](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.24.5) (03/05/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update file header depending on `overwrite` configuration ([97ef2c682](https://github.com/storm-software/powerlines/commit/97ef2c682))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.265**
+- Updated **plugin-babel** to **v0.12.320**
+- Updated **powerlines** to **v0.40.1**
+- Updated **deepkit** to **v0.6.93**
+- Updated **core** to **v0.1.9**
+
 ## [0.24.4](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.24.4) (03/04/2026)
 
 ### Updated Dependencies

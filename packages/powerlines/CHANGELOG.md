@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.40.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.1) (03/05/2026)
+
+### Bug Fixes
+
+- **powerlines:** Update `prepare` command to call `post` prior to typegen ([3e3885f49](https://github.com/storm-software/powerlines/commit/3e3885f49))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.322**
+- Updated **plugin-esbuild** to **v0.13.320**
+- Updated **plugin-unbuild** to **v0.5.321**
+- Updated **plugin-webpack** to **v0.5.320**
+- Updated **plugin-rollup** to **v0.7.321**
+- Updated **plugin-rspack** to **v0.5.320**
+- Updated **plugin-tsdown** to **v0.1.265**
+- Updated **plugin-tsup** to **v0.12.321**
+- Updated **plugin-vite** to **v0.14.314**
+- Updated **core** to **v0.1.9**
+
 ## [0.40.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.0) (03/04/2026)
 
 ### Features
