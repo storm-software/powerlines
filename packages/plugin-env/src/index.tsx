@@ -40,7 +40,7 @@ import { Plugin } from "powerlines";
 import type { UserConfig as ViteUserConfig } from "vite";
 import { envBabelPlugin } from "./babel/plugin";
 import { EnvDocsFile } from "./components/docs";
-import { EnvBuiltin } from "./components/env";
+import { EnvBuiltin } from "./components/env-builtin";
 import { env } from "./helpers/automd-generator";
 import { getDocsOutputPath } from "./helpers/docs-helper";
 import { loadEnv } from "./helpers/load";

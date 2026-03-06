@@ -17,4 +17,4 @@
  ------------------------------------------------------------------- */
 
 export * from "./docs";
-export * from "./env";
+export * from "./env-builtin";

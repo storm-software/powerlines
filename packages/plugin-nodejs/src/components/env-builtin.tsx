@@ -27,7 +27,7 @@ import {
 import {
   EnvBuiltin,
   EnvBuiltinProps
-} from "@powerlines/plugin-env/components/env";
+} from "@powerlines/plugin-env/components/env-builtin";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import defu from "defu";

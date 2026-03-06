@@ -22,7 +22,7 @@ import env from "@powerlines/plugin-env";
 import { readEnvTypeReflection } from "@powerlines/plugin-env/helpers/persistence";
 import { Plugin } from "powerlines";
 import { isMatchFound } from "powerlines/typescript";
-import { NodeJsEnvBuiltin } from "./components/env";
+import { NodeJsEnvBuiltin } from "./components/env-builtin";
 import { NodeJsPluginContext, NodeJsPluginOptions } from "./types/plugin";
 
 declare module "@powerlines/core" {
