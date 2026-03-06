@@ -411,9 +411,9 @@ export type CreateDatabaseData = {
          */
         projectId: string;
         /**
-         * Region for the database
+         * Region for the database. Use "inherit" to use the project default database region.
          */
-        region?: string;
+        region?: 'us-east-1' | 'us-west-1' | 'eu-west-3' | 'eu-central-1' | 'ap-northeast-1' | 'ap-southeast-1' | 'inherit';
         /**
          * Display name for the database
          */
@@ -1188,6 +1188,7 @@ export type ListProjectsResponses = {
             url: string;
             name: string;
             createdAt: string;
+            defaultRegion: string | null;
             workspace: {
                 id: string;
                 url: string;
@@ -1246,6 +1247,7 @@ export type CreateProjectWithPostgresDatabaseResponses = {
             url: string;
             name: string;
             createdAt: string;
+            defaultRegion: string | null;
             workspace: {
                 id: string;
                 url: string;
@@ -1438,6 +1440,7 @@ export type GetProjectResponses = {
             url: string;
             name: string;
             createdAt: string;
+            defaultRegion: string | null;
             workspace: {
                 id: string;
                 url: string;
@@ -1519,6 +1522,7 @@ export type UpdateProjectResponses = {
             url: string;
             name: string;
             createdAt: string;
+            defaultRegion: string | null;
             workspace: {
                 id: string;
                 url: string;
@@ -1691,7 +1695,7 @@ export type ListDatabases2Response = ListDatabases2Responses[keyof ListDatabases
 
 export type CreateDatabase2Data = {
     body?: {
-        region?: 'us-east-1' | 'us-west-1' | 'eu-west-3' | 'eu-central-1' | 'ap-northeast-1' | 'ap-southeast-1';
+        region?: 'us-east-1' | 'us-west-1' | 'eu-west-3' | 'eu-central-1' | 'ap-northeast-1' | 'ap-southeast-1' | 'inherit';
         name?: string;
         isDefault?: boolean;
         fromDatabase?: {
