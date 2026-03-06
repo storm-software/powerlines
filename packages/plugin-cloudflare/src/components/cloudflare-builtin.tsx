@@ -58,7 +58,6 @@ export function CloudflareBuiltin(props: CloudflareBuiltinProps) {
             { name: "Request", type: true },
             { name: "Response", type: true },
             { name: "ExecutionContext", type: true },
-            { name: "CloudflareBindings", type: true },
             { name: "IncomingRequestCfProperties", type: true },
             { name: "ScheduledController", type: true },
             { name: "ForwardableEmailMessage", type: true },

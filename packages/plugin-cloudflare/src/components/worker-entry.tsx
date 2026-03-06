@@ -66,7 +66,6 @@ export function WorkerEntry(props: WorkerEntryProps) {
             { name: "Request", type: true },
             { name: "Response", type: true },
             { name: "ExecutionContext", type: true },
-            { name: "CloudflareBindings", type: true },
             { name: "IncomingRequestCfProperties", type: true },
             { name: "ScheduledController", type: true },
             { name: "ForwardableEmailMessage", type: true },
@@ -83,7 +82,16 @@ export function WorkerEntry(props: WorkerEntryProps) {
       )}
       builtinImports={defu(
         {
-          cloudflare: ["withCloudflareContext"]
+          cloudflare: [
+            "withFetchContext",
+            "withTailContext",
+            "withTraceContext",
+            "withTailStreamContext",
+            "withScheduledContext",
+            "withTestContext",
+            "withEmailContext",
+            "withQueueContext"
+          ]
         },
         builtinImports ?? {}
       )}>
@@ -91,7 +99,7 @@ export function WorkerEntry(props: WorkerEntryProps) {
       <hbr />
       <Show when={worker.fetch}>
         {code` async fetch(request: Request<CfHostMetadata, IncomingRequestCfProperties<CfHostMetadata>>, env: CloudflareBindings, ctx: ExecutionContext): Promise<Response> {
-        return await withCloudflareContext({ request, env, ctx }, async (context) => {
+        return await withFetchContext({ request, env, ctx }, async (context) => {
           return worker.fetch(context.request, context.env, context.ctx);
         });
       }, `}
@@ -99,7 +107,7 @@ export function WorkerEntry(props: WorkerEntryProps) {
       <hbr />
       <Show when={worker.tail}>
         {code` async tail(events: TraceItem[], env: CloudflareBindings, ctx: ExecutionContext): Promise<void> {
-        return withCloudflareContext({ events, env, ctx }, async (context) => {
+        return withTailContext({ events, env, ctx }, async (context) => {
           return worker.tail(context.events, context.env, context.ctx);
         });
       }, `}
@@ -107,7 +115,7 @@ export function WorkerEntry(props: WorkerEntryProps) {
       <hbr />
       <Show when={worker.trace}>
         {code` async trace(traces: TraceItem[], env: CloudflareBindings, ctx: ExecutionContext): Promise<void> {
-        return withCloudflareContext({ traces, env, ctx }, async (context) => {
+        return withTraceContext({ traces, env, ctx }, async (context) => {
           return worker.trace(context.traces, context.env, context.ctx);
         });
       }, `}
@@ -115,7 +123,7 @@ export function WorkerEntry(props: WorkerEntryProps) {
       <hbr />
       <Show when={worker.tailStream}>
         {code` async tailStream(event: TailStream.TailEvent<TailStream.Onset>, env: CloudflareBindings, ctx: ExecutionContext): Promise<ReadableStream> {
-        return await withCloudflareContext({ event, env, ctx }, async (context) => {
+        return await withTailStreamContext({ event, env, ctx }, async (context) => {
           return await worker.tailStream(context.event, context.env, context.ctx);
         });
       }, `}
@@ -123,7 +131,7 @@ export function WorkerEntry(props: WorkerEntryProps) {
       <hbr />
       <Show when={worker.scheduled}>
         {code` async scheduled(controller: ScheduledController, env: CloudflareBindings, ctx: ExecutionContext): Promise<void> {
-        return withCloudflareContext({ controller, env, ctx }, async (context) => {
+        return withScheduledContext({ controller, env, ctx }, async (context) => {
           return worker.scheduled(context.controller, context.env, context.ctx);
         });
       }, `}
@@ -131,7 +139,7 @@ export function WorkerEntry(props: WorkerEntryProps) {
       <hbr />
       <Show when={worker.test}>
         {code` async test(controller: TestController, env: CloudflareBindings, ctx: ExecutionContext): Promise<void> {
-        return withCloudflareContext({ controller, env, ctx }, async (context) => {
+        return withTestContext({ controller, env, ctx }, async (context) => {
           return worker.test(context.controller, context.env, context.ctx);
         });
       }, `}
@@ -139,7 +147,7 @@ export function WorkerEntry(props: WorkerEntryProps) {
       <hbr />
       <Show when={worker.email}>
         {code` async email(message: ForwardableEmailMessage, env: CloudflareBindings, ctx: ExecutionContext): Promise<void> {
-        return withCloudflareContext({ message, env, ctx }, async (context) => {
+        return withEmailContext({ message, env, ctx }, async (context) => {
           return worker.email(context.message, context.env, context.ctx);
         });
       }, `}
@@ -147,13 +155,13 @@ export function WorkerEntry(props: WorkerEntryProps) {
       <hbr />
       <Show when={worker.queue}>
         {code` async queue(batch: MessageBatch, env: CloudflareBindings, ctx: ExecutionContext): Promise<void> {
-        return withCloudflareContext({ batch, env, ctx }, async (context) => {
+        return withQueueContext({ batch, env, ctx }, async (context) => {
           return worker.queue(context.batch, context.env, context.ctx);
         });
       }, `}
       </Show>
       <hbr />
-      {code` } satisfies ExportedHandler; `}
+      {code` } satisfies ExportedHandler<CloudflareBindings>; `}
       <Spacing />
       <Show when={Boolean(children)}>{children}</Show>
     </EntryFile>
