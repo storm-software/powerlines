@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/core%400.2.0) (03/06/2026)
+
+### Miscellaneous
+
+- **powerlines:** Ensure frozen artifact files have the correct header message ([f0b140130](https://github.com/storm-software/powerlines/commit/f0b140130))
+
+### Features
+
+- **core:** Added `infrastructure` type for generated files ([1adbd7615](https://github.com/storm-software/powerlines/commit/1adbd7615))
+
 ## [0.1.10](https://github.com/storm-software/powerlines/releases/tag/core%400.1.10) (03/06/2026)
 
 ### Miscellaneous

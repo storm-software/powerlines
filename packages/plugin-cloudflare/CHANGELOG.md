@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.1.1](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.1.1) (03/06/2026)
+
+### Features
+
+- **core:** Added `infrastructure` type for generated files ([1adbd7615](https://github.com/storm-software/powerlines/commit/1adbd7615))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.322**
+- Updated **plugin-plugin** to **v0.12.267**
+- Updated **plugin-alloy** to **v0.25.0**
+- Updated **plugin-env** to **v0.16.35**
+- Updated **powerlines** to **v0.40.3**
+
 ## [0.1.0](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.1.0) (03/06/2026)
 
 ### Bug Fixes

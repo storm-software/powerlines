@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.25.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.0) (03/06/2026)
+
+### Miscellaneous
+
+- **powerlines:** Ensure frozen artifact files have the correct header message ([f0b140130](https://github.com/storm-software/powerlines/commit/f0b140130))
+
+### Features
+
+- **core:** Added `infrastructure` type for generated files ([1adbd7615](https://github.com/storm-software/powerlines/commit/1adbd7615))
+- **plugin-alloy:** Added `YamlFile` reusable component ([7751ee3cc](https://github.com/storm-software/powerlines/commit/7751ee3cc))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.267**
+- Updated **plugin-babel** to **v0.12.322**
+- Updated **powerlines** to **v0.40.3**
+- Updated **deepkit** to **v0.6.95**
+- Updated **core** to **v0.2.0**
+
 ## [0.24.6](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.24.6) (03/06/2026)
 
 ### Updated Dependencies
