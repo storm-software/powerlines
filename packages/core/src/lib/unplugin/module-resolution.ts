@@ -37,7 +37,7 @@ export interface CreateUnpluginModuleResolutionFunctionsOptions {
    *
    * @defaultValue "\\0"
    */
-  prefix?: string | false;
+  prefix?: string | boolean;
 }
 
 /**
@@ -61,124 +61,141 @@ export function createUnpluginModuleResolutionFunctions<
   const ctx = context as unknown as UNSAFE_PluginContext;
 
   let prefix = "";
-  if (options.prefix !== false) {
-    prefix = options.prefix ?? "\0";
-  }
-
-  async function resolveId(
-    this: UnpluginBuildContext & UnpluginContext,
-    id: string,
-    importer?: string,
-    opts: {
-      isEntry: boolean;
-    } = { isEntry: false }
-  ): Promise<string | ExternalIdResult | null | undefined> {
-    let result = await ctx.$$internal.callHook(
-      "resolveId",
-      {
-        sequential: true,
-        result: "first",
-        order: "pre"
-      },
-      id,
-      importer,
-      opts
-    );
-    if (result) {
-      return result;
-    }
-
-    result = await ctx.$$internal.callHook(
-      "resolveId",
-      {
-        sequential: true,
-        result: "first",
-        order: "normal"
-      },
-      id,
-      importer,
-      opts
-    );
-    if (result) {
-      return result;
-    }
-
-    result = await ctx.resolve(id, importer, opts);
-    if (result) {
-      return result;
-    }
-
-    result = await ctx.$$internal.callHook(
-      "resolveId",
-      {
-        sequential: true,
-        result: "first",
-        order: "post"
-      },
-      id,
-      importer,
-      opts
-    );
-    if (isSetString(result)) {
-      return `${prefix}${result}`;
-    } else if (isSetObject(result)) {
-      return {
-        ...result,
-        id: `${prefix}${result.id}`
-      };
-    }
-
-    return null;
-  }
-
-  async function load(
-    this: UnpluginBuildContext & UnpluginContext,
-    id: string
-  ): Promise<LoadResult | null | undefined> {
-    let result = await ctx.$$internal.callHook(
-      "load",
-      {
-        sequential: true,
-        result: "first",
-        order: "pre"
-      },
-      id
-    );
-    if (result) {
-      return result;
-    }
-
-    result = await ctx.$$internal.callHook(
-      "load",
-      {
-        sequential: true,
-        result: "first",
-        order: "normal"
-      },
-      id
-    );
-    if (result) {
-      return result;
-    }
-
-    result = await ctx.load(id);
-    if (result) {
-      return result;
-    }
-
-    return ctx.$$internal.callHook(
-      "load",
-      {
-        sequential: true,
-        result: "first",
-        order: "post"
-      },
-      id
-    );
+  if (options.prefix === true) {
+    prefix = "\0";
+  } else if (isSetString(options.prefix)) {
+    prefix = options.prefix;
   }
 
   return {
-    resolveId,
-    load
+    async resolveId(
+      this: UnpluginBuildContext & UnpluginContext,
+      id: string,
+      importer?: string,
+      opts: {
+        isEntry: boolean;
+      } = { isEntry: false }
+    ): Promise<string | ExternalIdResult | null | undefined> {
+      let result = await ctx.$$internal.callHook(
+        "resolveId",
+        {
+          sequential: true,
+          result: "first",
+          order: "pre"
+        },
+        id,
+        importer,
+        opts
+      );
+      if (isSetString(result)) {
+        return `${prefix}${result}`;
+      } else if (isSetObject(result)) {
+        return {
+          ...result,
+          id: `${prefix}${result.id}`
+        };
+      }
+
+      result = await ctx.$$internal.callHook(
+        "resolveId",
+        {
+          sequential: true,
+          result: "first",
+          order: "normal"
+        },
+        id,
+        importer,
+        opts
+      );
+      if (isSetString(result)) {
+        return `${prefix}${result}`;
+      } else if (isSetObject(result)) {
+        return {
+          ...result,
+          id: `${prefix}${result.id}`
+        };
+      }
+
+      result = await ctx.resolve(id, importer, opts);
+      if (isSetString(result)) {
+        return `${prefix}${result}`;
+      } else if (isSetObject(result)) {
+        return {
+          ...result,
+          id: `${prefix}${result.id}`
+        };
+      }
+
+      result = await ctx.$$internal.callHook(
+        "resolveId",
+        {
+          sequential: true,
+          result: "first",
+          order: "post"
+        },
+        id,
+        importer,
+        opts
+      );
+      if (isSetString(result)) {
+        return `${prefix}${result}`;
+      } else if (isSetObject(result)) {
+        return {
+          ...result,
+          id: `${prefix}${result.id}`
+        };
+      }
+
+      return null;
+    },
+    async load(
+      this: UnpluginBuildContext & UnpluginContext,
+      id: string
+    ): Promise<LoadResult | null | undefined> {
+      const moduleId = prefix
+        ? id.replace(new RegExp(`^${prefix}*`, "g"), "")
+        : id;
+
+      let result = await ctx.$$internal.callHook(
+        "load",
+        {
+          sequential: true,
+          result: "first",
+          order: "pre"
+        },
+        moduleId
+      );
+      if (result) {
+        return result;
+      }
+
+      result = await ctx.$$internal.callHook(
+        "load",
+        {
+          sequential: true,
+          result: "first",
+          order: "normal"
+        },
+        moduleId
+      );
+      if (result) {
+        return result;
+      }
+
+      result = await ctx.load(moduleId);
+      if (result) {
+        return result;
+      }
+
+      return ctx.$$internal.callHook(
+        "load",
+        {
+          sequential: true,
+          result: "first",
+          order: "post"
+        },
+        moduleId
+      );
+    }
   };
 }
