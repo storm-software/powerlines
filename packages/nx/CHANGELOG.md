@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.249](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.249) (03/07/2026)
+
+### Bug Fixes
+
+- **nx:** Added missing `untyped` dependency ([0495838a8](https://github.com/storm-software/powerlines/commit/0495838a8))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.40.8**
+
 ## [0.11.248](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.248) (03/07/2026)
 
 ### Updated Dependencies

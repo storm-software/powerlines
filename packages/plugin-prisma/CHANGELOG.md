@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.3](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.3) (03/07/2026)
+
+### Miscellaneous
+
+- **plugin-prisma:** Resolved linting issues with source code ([c6ec478a5](https://github.com/storm-software/powerlines/commit/c6ec478a5))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.272**
+- Updated **plugin-pulumi** to **v0.5.2**
+- Updated **powerlines** to **v0.40.8**
+
 ## [0.4.2](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.2) (03/07/2026)
 
 ### Updated Dependencies
