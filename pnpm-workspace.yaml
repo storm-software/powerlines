@@ -73,23 +73,23 @@ catalog:
   "@shell-shock/nx": ^0.0.42
   "@shell-shock/preset-cli": ^0.8.0
   "@standard-schema/spec": ^1.1.0
-  "@storm-software/build-tools": ^0.158.98
-  "@storm-software/config": ^1.135.18
-  "@storm-software/config-tools": ^1.189.17
-  "@storm-software/cspell": ^0.46.7
-  "@storm-software/esbuild": ^0.53.99
-  "@storm-software/eslint": ^0.169.105
-  "@storm-software/git-tools": ^2.124.84
-  "@storm-software/linting-tools": ^1.132.106
-  "@storm-software/markdownlint": ^0.30.92
-  "@storm-software/pnpm-tools": ^0.6.101
-  "@storm-software/prettier": ^0.58.16
-  "@storm-software/testing-tools": ^1.119.92
-  "@storm-software/tsconfig": ^0.48.6
-  "@storm-software/tsup": ^0.2.96
-  "@storm-software/unbuild": ^0.57.99
-  "@storm-software/untyped": ^0.24.80
-  "@storm-software/workspace-tools": ^1.294.50
+  "@storm-software/build-tools": ^0.158.100
+  "@storm-software/config": ^1.135.20
+  "@storm-software/config-tools": ^1.189.19
+  "@storm-software/cspell": ^0.46.9
+  "@storm-software/esbuild": ^0.53.101
+  "@storm-software/eslint": ^0.169.107
+  "@storm-software/git-tools": ^2.124.86
+  "@storm-software/linting-tools": ^1.132.108
+  "@storm-software/markdownlint": ^0.30.94
+  "@storm-software/pnpm-tools": ^0.6.103
+  "@storm-software/prettier": ^0.58.18
+  "@storm-software/testing-tools": ^1.119.94
+  "@storm-software/tsconfig": ^0.48.8
+  "@storm-software/tsup": ^0.2.98
+  "@storm-software/unbuild": ^0.57.101
+  "@storm-software/untyped": ^0.24.82
+  "@storm-software/workspace-tools": ^1.294.52
   "@stryke/capnp": ^0.12.75
   "@stryke/cli": ^0.13.25
   "@stryke/convert": ^0.6.49
