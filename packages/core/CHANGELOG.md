@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.3](https://github.com/storm-software/powerlines/releases/tag/core%400.2.3) (03/07/2026)
+
+### Features
+
+- **plugin-pulumi:** Added support for passing resource `Output` to next `deployPulumi` hook ([4f4870588](https://github.com/storm-software/powerlines/commit/4f4870588))
+
 ## [0.2.2](https://github.com/storm-software/powerlines/releases/tag/core%400.2.2) (03/07/2026)
 
 ### Bug Fixes
