@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.40.9](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.9) (03/07/2026)
+
+### Bug Fixes
+
+- **powerlines:** Ensure `outputPath` and `buildPath` are marked as file system storage ([e69919ca7](https://github.com/storm-software/powerlines/commit/e69919ca7))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.330**
+- Updated **plugin-esbuild** to **v0.13.328**
+- Updated **plugin-unbuild** to **v0.5.329**
+- Updated **plugin-webpack** to **v0.5.328**
+- Updated **plugin-rollup** to **v0.7.329**
+- Updated **plugin-rspack** to **v0.5.328**
+- Updated **plugin-tsdown** to **v0.1.273**
+- Updated **plugin-tsup** to **v0.12.329**
+- Updated **plugin-vite** to **v0.14.322**
+- Updated **core** to **v0.2.6**
+
 ## [0.40.8](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.8) (03/07/2026)
 
 ### Updated Dependencies
