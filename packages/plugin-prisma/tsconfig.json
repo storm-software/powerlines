@@ -1,7 +1,14 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": { "types": ["node"], "outDir": "../../dist/out-tsc" },
-  "include": ["src/**/*.ts", "powerlines.config.ts"],
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "@alloy-js/core",
+    "lib": ["esnext"],
+    "types": ["node"],
+    "strict": true,
+    "outDir": "../../dist/out-tsc"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "powerlines.config.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "reflection": true
 }

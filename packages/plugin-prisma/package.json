@@ -1,18 +1,24 @@
 {
   "name": "@powerlines/plugin-prisma",
   "version": "0.2.268",
-  "type": "module",
+  "private": false,
   "description": "A Powerlines plugin to generate project code and a Prisma client from a Prisma schema (PSL).",
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-prisma"
-  },
+  "keywords": ["prisma", "powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
     "email": "support@stormsoftware.com"
   },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/plugin-prisma"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
   "author": {
     "name": "Storm Software",
     "email": "contact@stormsoftware.com",
@@ -32,14 +38,7 @@
       "url": "https://stormsoftware.com"
     }
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/storm-software"
-  },
-  "license": "Apache-2.0",
-  "private": false,
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "type": "module",
   "exports": {
     ".": {
       "require": {
@@ -365,10 +364,15 @@
       }
     }
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": ["prisma", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
+    "@alloy-js/core": "catalog:",
+    "@alloy-js/typescript": "catalog:",
+    "@powerlines/plugin-pulumi": "workspace:*",
     "@prisma/get-platform": "catalog:",
     "@prisma/prisma-schema-wasm": "catalog:",
     "@stryke/cli": "catalog:",
@@ -384,12 +388,11 @@
     "ts-pattern": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/plugin-hey-api": "workspace:*",
+    "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "types": "./dist/index.d.cts"
+  }
 }
