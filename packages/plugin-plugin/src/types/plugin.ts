@@ -21,7 +21,7 @@ import type {
   TsdownPluginOptions,
   TsdownPluginResolvedConfig,
   TsdownPluginUserConfig
-} from "@powerlines/plugin-tsdown/types/plugin";
+} from "@powerlines/plugin-tsdown";
 import { TypeDefinitionParameter } from "@stryke/types/configuration";
 
 export interface PluginPluginTypesOptions {

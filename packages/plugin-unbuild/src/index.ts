@@ -31,7 +31,7 @@ import {
 export * from "./types";
 
 declare module "@powerlines/core" {
-  interface BaseConfig {
+  interface Config {
     unbuild?: UnbuildPluginOptions;
   }
 }

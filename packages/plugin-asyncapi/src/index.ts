@@ -31,8 +31,8 @@ import type {
 
 export * from "./types";
 
-declare module "@powerlines/core" {
-  interface BaseConfig {
+declare module "powerlines" {
+  interface Config {
     asyncapi?: AsyncAPIPluginOptions;
   }
 }

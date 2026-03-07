@@ -30,7 +30,7 @@ import { PowerlinesAPI } from "./api";
 import { UserConfig } from "./types";
 
 export * from "../schemas/fs";
-export * from "./types";
+export type * from "./types";
 
 /**
  * Creates a new {@link PowerlinesAPI} instance.

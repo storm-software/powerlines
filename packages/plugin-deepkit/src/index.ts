@@ -27,8 +27,8 @@ import { DeepkitPluginContext, DeepkitPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
-declare module "@powerlines/core" {
-  interface BaseConfig {
+declare module "powerlines" {
+  interface Config {
     deepkit?: DeepkitPluginOptions;
   }
 }

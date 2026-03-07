@@ -295,7 +295,7 @@ export interface OutputConfig {
   storage?: StoragePort | StoragePreset;
 }
 
-export interface BaseConfig {
+export interface Config {
   /**
    * Defines entries and location(s) of entry modules for the bundle. Relative paths are resolved based on the `root` option.
    */
@@ -384,7 +384,7 @@ export interface BaseConfig {
   tsconfigRaw?: TSConfig;
 }
 
-export interface EnvironmentConfig extends BaseConfig {
+export interface EnvironmentConfig extends Config {
   /**
    * Configuration options for the preview server
    */
@@ -403,7 +403,7 @@ export interface EnvironmentConfig extends BaseConfig {
   consumer?: "client" | "server";
 }
 
-export interface UserConfig extends BaseConfig {
+export interface UserConfig extends Config {
   /**
    * The root directory of the project
    */

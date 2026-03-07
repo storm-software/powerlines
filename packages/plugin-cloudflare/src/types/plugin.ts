@@ -17,11 +17,11 @@
  ------------------------------------------------------------------- */
 
 import type { ExportedHandler } from "@cloudflare/workers-types";
-import type { EnvPluginContext } from "@powerlines/plugin-env/types";
-import {
+import type {
+  EnvPluginContext,
   EnvPluginResolvedConfig,
   EnvPluginUserConfig
-} from "packages/plugin-env/dist/types/index.cjs";
+} from "@powerlines/plugin-env";
 import type { PluginContext, ResolvedEntryTypeDefinition } from "powerlines";
 
 export interface CloudflarePluginOptions {}

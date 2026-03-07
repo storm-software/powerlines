@@ -34,8 +34,8 @@ import { TamaguiPluginContext, TamaguiPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
-declare module "@powerlines/core" {
-  interface BaseConfig {
+declare module "powerlines" {
+  interface Config {
     tamagui?: TamaguiPluginOptions;
   }
 }
@@ -219,12 +219,15 @@ export const plugin = <
         .map(path => replacePathTokens(this, path))
         .filter(Boolean);
 
-      if ((this.config as VitePluginResolvedConfig).vite) {
-        (this.config as VitePluginResolvedConfig).vite.optimizeDeps ??= {};
-        (this.config as VitePluginResolvedConfig).vite.optimizeDeps!.include ??=
-          [];
+      if ((this.config as unknown as VitePluginResolvedConfig).vite) {
         (
-          this.config as VitePluginResolvedConfig
+          this.config as unknown as VitePluginResolvedConfig
+        ).vite.optimizeDeps ??= {};
+        (
+          this.config as unknown as VitePluginResolvedConfig
+        ).vite.optimizeDeps!.include ??= [];
+        (
+          this.config as unknown as VitePluginResolvedConfig
         ).vite.optimizeDeps!.include!.push("@tamagui/core/inject-styles");
       }
     },

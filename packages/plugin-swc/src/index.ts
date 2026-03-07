@@ -23,8 +23,8 @@ import { SwcPluginContext, SwcPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
-declare module "@powerlines/core" {
-  interface BaseConfig {
+declare module "powerlines" {
+  interface Config {
     swc?: SwcPluginOptions;
   }
 }

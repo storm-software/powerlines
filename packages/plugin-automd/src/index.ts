@@ -44,8 +44,8 @@ import { TOCOptions } from "./types/toc";
 
 export * from "./types";
 
-declare module "@powerlines/core" {
-  interface BaseConfig {
+declare module "powerlines" {
+  interface Config {
     automd?: AutoMDPluginOptions;
   }
 }

@@ -32,7 +32,7 @@ export * from "./helpers";
 export * from "./types";
 
 declare module "@powerlines/core" {
-  interface BaseConfig {
+  interface Config {
     rolldown?: RolldownPluginOptions;
   }
 }

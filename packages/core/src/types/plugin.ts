@@ -72,9 +72,7 @@ export interface TypesResult {
   code: string;
 }
 
-export type PluginHookFunctions<TContext extends PluginContext> = {
-  [TCommandType in CommandType]: (this: TContext) => MaybePromise<void>;
-} & {
+export interface Hooks<TContext extends PluginContext> {
   /**
    * A function that returns configuration options to be merged with the build context's options.
    *
@@ -203,7 +201,11 @@ export type PluginHookFunctions<TContext extends PluginContext> = {
    * @returns A promise that resolves when the hook is complete.
    */
   writeBundle: (this: TContext) => MaybePromise<void>;
-};
+}
+
+export type PluginHookFunctions<TContext extends PluginContext> = {
+  [TCommandType in CommandType]: (this: TContext) => MaybePromise<void>;
+} & Hooks<TContext>;
 
 export type PluginHooks<TContext extends PluginContext> = {
   [TPluginHook in keyof PluginHookFunctions<TContext>]?: PluginHook<

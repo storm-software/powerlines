@@ -30,8 +30,8 @@ import {
 
 export * from "./types";
 
-declare module "@powerlines/core" {
-  interface BaseConfig {
+declare module "powerlines" {
+  interface Config {
     jest?: JestPluginOptions;
   }
 }

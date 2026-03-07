@@ -21,8 +21,8 @@ import { StormJSON } from "@stryke/json/storm-json";
 import type { Plugin } from "powerlines";
 import type { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
-declare module "@powerlines/core" {
-  interface BaseConfig {
+declare module "powerlines" {
+  interface Config {
     alloy?: AlloyPluginOptions;
   }
 }

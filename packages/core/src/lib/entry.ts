@@ -32,7 +32,7 @@ import type {
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
 import { replacePathTokens } from "../plugin-utils/paths";
-import { BaseConfig } from "../types";
+import { Config } from "../types";
 import { ResolvedEntryTypeDefinition } from "../types/config";
 import type { Context } from "../types/context";
 
@@ -255,9 +255,7 @@ export function isResolvedEntryTypeDefinition(
  * @param inputs - The entry points to process.
  * @returns An array of unique inputs (by file path or content hash).
  */
-export function getUniqueInputs(
-  inputs: BaseConfig["input"] = []
-): BaseConfig["input"] {
+export function getUniqueInputs(inputs: Config["input"] = []): Config["input"] {
   return isObject(inputs)
     ? inputs
     : getUniqueBy(toArray(inputs), (item: TypeDefinitionParameter) =>

@@ -29,10 +29,10 @@ import {
 } from "./types/plugin";
 
 export * from "./helpers";
-export * from "./types";
+export type * from "./types";
 
 declare module "@powerlines/core" {
-  interface BaseConfig {
+  interface Config {
     tsdown?: TsdownPluginOptions;
   }
 }
