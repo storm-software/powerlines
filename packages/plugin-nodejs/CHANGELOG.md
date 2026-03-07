@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.235](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.235) (03/06/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Update component file to have `-builtin` postfix ([031d7f977](https://github.com/storm-software/powerlines/commit/031d7f977))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.266**
+- Updated **plugin-alloy** to **v0.24.6**
+- Updated **plugin-babel** to **v0.12.321**
+- Updated **plugin-env** to **v0.16.34**
+- Updated **powerlines** to **v0.40.2**
+
 ## [0.1.234](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.234) (03/05/2026)
 
 ### Updated Dependencies

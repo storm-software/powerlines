@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-cloudflare",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "description": "A Powerlines plugin that provides integration with Cloudflare services.",
   "repository": {
@@ -80,6 +80,20 @@
       "default": {
         "types": "./dist/components/cloudflare-builtin.d.mts",
         "default": "./dist/components/cloudflare-builtin.mjs"
+      }
+    },
+    "./components/env-builtin": {
+      "require": {
+        "types": "./dist/components/env-builtin.d.cts",
+        "default": "./dist/components/env-builtin.cjs"
+      },
+      "import": {
+        "types": "./dist/components/env-builtin.d.mts",
+        "default": "./dist/components/env-builtin.mjs"
+      },
+      "default": {
+        "types": "./dist/components/env-builtin.d.mts",
+        "default": "./dist/components/env-builtin.mjs"
       }
     },
     "./components/worker-entry": {

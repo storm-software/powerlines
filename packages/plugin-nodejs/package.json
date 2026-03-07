@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-nodejs",
-  "version": "0.1.234",
+  "version": "0.1.235",
   "type": "module",
   "description": "A package containing a Powerlines plugin for building a Node.js application.",
   "repository": {
@@ -70,18 +70,18 @@
         "default": "./dist/components/index.mjs"
       }
     },
-    "./components/env": {
+    "./components/env-builtin": {
       "require": {
-        "types": "./dist/components/env.d.cts",
-        "default": "./dist/components/env.cjs"
+        "types": "./dist/components/env-builtin.d.cts",
+        "default": "./dist/components/env-builtin.cjs"
       },
       "import": {
-        "types": "./dist/components/env.d.mts",
-        "default": "./dist/components/env.mjs"
+        "types": "./dist/components/env-builtin.d.mts",
+        "default": "./dist/components/env-builtin.mjs"
       },
       "default": {
-        "types": "./dist/components/env.d.mts",
-        "default": "./dist/components/env.mjs"
+        "types": "./dist/components/env-builtin.d.mts",
+        "default": "./dist/components/env-builtin.mjs"
       }
     },
     "./types": {
