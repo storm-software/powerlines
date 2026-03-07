@@ -20,6 +20,7 @@ export * from "./builtin-file";
 export * from "./class-declaration";
 export * from "./dynamic-import-statement";
 export * from "./entry-file";
+export * from "./infrastructure-file";
 export * from "./interface-declaration";
 export * from "./object-declaration";
 export * from "./property-name";

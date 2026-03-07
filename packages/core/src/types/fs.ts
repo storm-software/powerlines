@@ -208,6 +208,7 @@ export interface VirtualFileMetadata {
    * This string represents the purpose/function of the file in the virtual file system. A potential list of variants includes:
    * - `builtin`: Indicates that the file is a built-in module provided by the system.
    * - `entry`: Indicates that the file is an entry point for execution.
+   * - `infrastructure`: Indicates that the file is an infrastructure module used by the system during deployments.
    * - `normal`: Indicates that the file is a standard file without any special role.
    */
   type: string;
@@ -236,6 +237,7 @@ export interface VirtualFileData {
    * This string represents the purpose/function of the file in the virtual file system. A potential list of variants includes:
    * - `builtin`: Indicates that the file is a built-in module provided by the system.
    * - `entry`: Indicates that the file is an entry point for execution.
+   * - `infrastructure`: Indicates that the file is an infrastructure module used by the system during deployments.
    * - `normal`: Indicates that the file is a standard file without any special role.
    */
   type?: string;

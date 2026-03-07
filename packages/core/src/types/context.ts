@@ -276,6 +276,11 @@ export interface UnresolvedContext<
   entryPath: string;
 
   /**
+   * The path to the Powerlines infrastructure modules directory
+   */
+  infrastructurePath: string;
+
+  /**
    * The path to the Powerlines TypeScript declaration files directory
    */
   dtsPath: string;
@@ -506,6 +511,33 @@ export interface UnresolvedContext<
     path: string,
     options?: EmitEntryOptions
   ) => void;
+
+  /**
+   * Resolves a infrastructure virtual file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the infrastructure file
+   * @param id - The unique identifier of the infrastructure file
+   * @param options - Additional options for writing the infrastructure file
+   */
+  emitInfrastructure: (
+    code: string,
+    id: string,
+    options?: EmitOptions
+  ) => Promise<void>;
+
+  /**
+   * Synchronously resolves a infrastructure virtual file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the infrastructure file
+   * @param id - The unique identifier of the infrastructure file
+   * @param options - Additional options for writing the infrastructure file
+   */
+  emitInfrastructureSync: (
+    code: string,
+    id: string,
+    options?: EmitOptions
+  ) => void;
+
   /**
    * A function to update the context fields using a new user configuration options
    */

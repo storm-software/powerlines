@@ -95,6 +95,20 @@ export async function render<TContext extends PluginContext>(
               storage: metadata.storage,
               ...(metadata.typeDefinition ?? {})
             });
+          } else if (metadata.kind === "infrastructure") {
+            if (!metadata.id) {
+              throw new Error(
+                `Infrastructure file "${
+                  file.path
+                }" is missing its ID in the render metadata.`
+              );
+            }
+
+            context.emitInfrastructureSync(file.contents, metadata.id, {
+              skipFormat: metadata.skipFormat,
+              storage: metadata.storage,
+              extension: findFileExtension(file.path)
+            });
           } else {
             context.emitSync(file.contents, file.path, metadata);
           }
