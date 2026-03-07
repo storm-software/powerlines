@@ -196,7 +196,8 @@
     "eslint-flat-config-utils": "catalog:",
     "jsonc-eslint-parser": "catalog:",
     "nx": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "workspace:*",
+    "untyped": "catalog:"
   },
   "peerDependencies": {
     "nx": ">=22.5.0",
