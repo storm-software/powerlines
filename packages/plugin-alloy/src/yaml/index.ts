@@ -16,37 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-import rollupPlugin from "@alloy-js/rollup-plugin";
-import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines/config";
-
-export default defineConfig({
-  skipCache: true,
-  input: [
-    "src/index.tsx",
-    "src/render.tsx",
-    "src/core/**/*.{ts,tsx}",
-    "src/helpers/**/*.{ts,tsx}",
-    "src/markdown/**/*.{ts,tsx}",
-    "src/types/**/*.{ts,tsx}",
-    "src/typescript/**/*.{ts,tsx}",
-    "src/yaml/**/*.{ts,tsx}"
-  ],
-  plugins: [plugin()],
-  resolve: {
-    external: [
-      "@alloy-js/core",
-      "@alloy-js/typescript",
-      "@alloy-js/json",
-      "@alloy-js/markdown"
-    ]
-  },
-  tsdown: {
-    inputOptions: {
-      transform: {
-        jsx: "preserve"
-      }
-    },
-    plugins: [rollupPlugin()]
-  }
-});
+export * from "./components";

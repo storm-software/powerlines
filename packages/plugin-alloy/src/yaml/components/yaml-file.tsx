@@ -88,6 +88,9 @@ export type YamlFileProps = Omit<SourceFileProps, "filetype"> &
 /**
  * A base component representing a Powerlines generated YAML source file.
  *
+ * @remarks
+ * The file content can be provided either through the `data` prop, which accepts a nested object representing the YAML structure, or through the `children` prop, which allows for custom YAML content to be rendered. The `header` prop can be used to provide custom header content for the YAML file, which is rendered above the generated file header warning and generation comment.
+ *
  * @param props - The properties for the source file.
  * @returns The rendered source file component.
  */
