@@ -484,6 +484,13 @@ export class PowerlinesContext<
   }
 
   /**
+   * Get the path to the infrastructure modules used by the project
+   */
+  public get infrastructurePath(): string {
+    return joinPaths(this.artifactsPath, "infrastructure");
+  }
+
+  /**
    * Get the path to the data directory for the project
    */
   public get dataPath(): string {
@@ -803,7 +810,10 @@ export class PowerlinesContext<
       }
     }
 
-    if (this.fs.isVirtual(moduleId)) {
+    if (
+      this.fs.isVirtual(moduleId) ||
+      (importer && this.fs.isVirtual(importer))
+    ) {
       const result = await this.fs.resolve(moduleId, importer, {
         conditions: this.config.resolve.conditions,
         extensions: this.config.resolve.extensions,
@@ -1098,6 +1108,68 @@ export class PowerlinesContext<
       code,
       appendPath(id, this.builtinsPath),
       defu(options, { meta: { type: "builtin", id } })
+    );
+  }
+
+  /**
+   * Resolves a builtin virtual file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the builtin file
+   * @param id - The unique identifier of the builtin file
+   * @param options - Optional write file options
+   */
+  public async emitInfrastructure(
+    code: string,
+    id: string,
+    options: EmitOptions = {}
+  ): Promise<void> {
+    if (!this.infrastructurePath) {
+      throw new Error(
+        `The infrastructure path is not set. Cannot emit infrastructure file with id "${id}".`
+      );
+    }
+
+    if (!isSetString(id)) {
+      throw new Error(
+        `The infrastructure id must be a non-empty string. Received: ${String(id)}`
+      );
+    }
+
+    return this.emit(
+      code,
+      appendPath(id, this.infrastructurePath),
+      defu(options, { meta: { type: "infrastructure", id } })
+    );
+  }
+
+  /**
+   * Synchronously resolves an infrastructure virtual file and writes it to the VFS if it does not already exist
+   *
+   * @param code - The source code of the infrastructure file
+   * @param id - The unique identifier of the infrastructure file
+   * @param options - Optional write file options
+   */
+  public emitInfrastructureSync(
+    code: string,
+    id: string,
+    options: EmitOptions = {}
+  ) {
+    if (!this.infrastructurePath) {
+      throw new Error(
+        `The infrastructure path is not set. Cannot emit infrastructure file with id "${id}".`
+      );
+    }
+
+    if (!isSetString(id)) {
+      throw new Error(
+        `The infrastructure id must be a non-empty string. Received: ${String(id)}`
+      );
+    }
+
+    return this.emitSync(
+      code,
+      appendPath(id, this.infrastructurePath),
+      defu(options, { meta: { type: "infrastructure", id } })
     );
   }
 
