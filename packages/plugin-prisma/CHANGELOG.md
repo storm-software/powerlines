@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.3.1](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.3.1) (03/06/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update package.json `exports` for recently changed projects ([9b5eaa6fa](https://github.com/storm-software/powerlines/commit/9b5eaa6fa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.268**
+- Updated **plugin-pulumi** to **v0.3.1**
+- Updated **plugin-alloy** to **v0.25.1**
+- Updated **powerlines** to **v0.40.4**
+
 ## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.3.0) (03/06/2026)
 
 ### Features
