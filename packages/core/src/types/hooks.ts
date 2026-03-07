@@ -192,6 +192,7 @@ export type CallHookOptions = SelectHooksOptions &
              * How to handle multiple return values from hooks.
              * - "merge": Merge all non-undefined return values (if they are objects).
              * - "first": Return the first non-undefined value.
+             * - "last": Return the last non-undefined value.
              *
              * @remarks
              * Merging only works if the return values are objects.
@@ -211,6 +212,7 @@ export type CallHookOptions = SelectHooksOptions &
                  * How to handle multiple return values from hooks.
                  * - "merge": Merge all non-undefined return values (if they are objects).
                  * - "first": Return the first non-undefined value.
+                 * - "last": Return the last non-undefined value.
                  *
                  * @remarks
                  * Merging only works if the return values are objects.
@@ -236,6 +238,7 @@ export type CallHookOptions = SelectHooksOptions &
                  * How to handle multiple return values from hooks.
                  * - "merge": Merge all non-undefined return values (if they are objects).
                  * - "first": Return the first non-undefined value.
+                 * - "last": Return the last non-undefined value.
                  *
                  * @remarks
                  * Merging only works if the return values are objects.

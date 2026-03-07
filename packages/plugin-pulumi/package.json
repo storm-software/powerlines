@@ -97,6 +97,20 @@
         "types": "./dist/types/plugin.d.mts",
         "default": "./dist/types/plugin.mjs"
       }
+    },
+    "./types/pulumi": {
+      "require": {
+        "types": "./dist/types/pulumi.d.cts",
+        "default": "./dist/types/pulumi.cjs"
+      },
+      "import": {
+        "types": "./dist/types/pulumi.d.mts",
+        "default": "./dist/types/pulumi.mjs"
+      },
+      "default": {
+        "types": "./dist/types/pulumi.d.mts",
+        "default": "./dist/types/pulumi.mjs"
+      }
     }
   },
   "typings": "dist/index.d.mts",

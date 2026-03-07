@@ -16,5 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./plugin";
-export * from "./pulumi";
+import type { Output } from "@pulumi/pulumi";
+
+export interface PulumiOutputRecord<T = any> {
+  [key: string]: Output<T> | PulumiOutputRecord<T> | PulumiOutputRecord<T>[];
+}
+
+export type DeployPulumiResult = PulumiOutputRecord | undefined | null | void;

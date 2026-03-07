@@ -18,6 +18,7 @@
 
 import { MaybePromise } from "@stryke/types";
 import { PluginContext } from "powerlines";
+import { DeployPulumiResult, PulumiOutputRecord } from "./types";
 import { PulumiPluginOptions } from "./types/plugin";
 
 declare module "powerlines" {
@@ -26,7 +27,17 @@ declare module "powerlines" {
   }
 
   interface Hooks<TContext extends PluginContext> {
-    deployPulumi?: (this: TContext) => MaybePromise<void>;
+    /**
+     * A hook that can be implemented to deploy Pulumi resources after the main build process. This allows you to define and manage your infrastructure as code using Pulumi, directly from your Powerlines plugin.
+     *
+     * @param this - The plugin context.
+     * @param resources - An object containing the Pulumi resources' outputs that were added in earlier hook invocations.
+     * @returns Optionally, the resources' outputs that were added during the Pulumi deployment that will be passed to the next hook invocation.
+     */
+    deployPulumi?: (
+      this: TContext,
+      resources?: PulumiOutputRecord
+    ) => MaybePromise<DeployPulumiResult>;
   }
 }
 

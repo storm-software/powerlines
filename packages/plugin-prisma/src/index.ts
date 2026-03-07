@@ -20,6 +20,7 @@ import * as prismaPostgres from "@pulumi/prisma-postgres";
 import { execute, executePackage } from "@stryke/cli/execute";
 import { existsSync } from "@stryke/fs/exists";
 import { joinPaths } from "@stryke/path/join-paths";
+import { constantCase } from "@stryke/string-format/constant-case";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import defu from "defu";
 import { Plugin } from "powerlines";
@@ -205,11 +206,15 @@ export const plugin = <
           }`,
           region: `${this.config.prisma.prismaPostgres?.region}`
         });
-        // eslint-disable-next-line no-new
-        new prismaPostgres.Connection("connection", {
-          databaseId: database.id,
-          name: `${kebabCase(this.config.name)}-api-key`
-        });
+
+        return {
+          project,
+          database,
+          connection: new prismaPostgres.Connection("connection", {
+            databaseId: database.id,
+            name: `${constantCase(this.config.name)}_API_KEY`
+          })
+        };
       }
     }
   };

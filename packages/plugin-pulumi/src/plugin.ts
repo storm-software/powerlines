@@ -85,7 +85,8 @@ export const plugin = <
             );
 
             await this.$$internal.callHook("deployPulumi", {
-              sequential: true
+              sequential: true,
+              result: "merge"
             });
 
             this.debug(
