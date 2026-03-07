@@ -16,8 +16,12 @@
 
  ------------------------------------------------------------------- */
 
+import {
+  PulumiPluginContext,
+  PulumiPluginResolvedConfig,
+  PulumiPluginUserConfig
+} from "@powerlines/plugin-pulumi";
 import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
-import { PrismaClient } from "../api/sdk.gen";
 import { PrismaSchemaCreator } from "../helpers/schema-creator";
 import { PrismaSchema } from "./prisma";
 
@@ -107,7 +111,10 @@ export interface PrismaPluginOptions {
   params?: string;
 
   /**
-   * The path to the Prisma binary
+   * The path to the generated Prisma client. This is used by the plugin to import the client for type generation and other operations.
+   *
+   * @remarks
+   * If not specified, the plugin will attempt to resolve the Prisma client path based on the output path and the schema file name. This field allows you to explicitly specify the path to the generated Prisma client if it cannot be automatically resolved.
    */
   prismaPath?: string;
 
@@ -122,30 +129,34 @@ export interface PrismaPluginOptions {
   prismaPostgres?: PrismaPostgresPrismaPluginOptions | true;
 }
 
-export type PrismaPluginUserConfig = UserConfig & {
-  prisma?: Omit<PrismaPluginOptions, "schema" | "outputPath" | "configFile"> &
-    Required<Pick<PrismaPluginOptions, "schema" | "outputPath" | "configFile">>;
-};
+export type PrismaPluginUserConfig = UserConfig &
+  PulumiPluginUserConfig & {
+    prisma?: Omit<PrismaPluginOptions, "schema" | "outputPath" | "configFile"> &
+      Required<
+        Pick<PrismaPluginOptions, "schema" | "outputPath" | "configFile">
+      >;
+  };
 
-export type PrismaPluginResolvedConfig = ResolvedConfig & {
-  prisma: Omit<
-    PrismaPluginOptions,
-    "schema" | "outputPath" | "configFile" | "prismaPostgres"
-  > &
-    Required<
-      Pick<PrismaPluginOptions, "schema" | "outputPath" | "configFile">
-    > & {
-      prismaPostgres?: Required<PrismaPostgresPrismaPluginOptions>;
-    };
-};
+export type PrismaPluginResolvedConfig = ResolvedConfig &
+  PulumiPluginResolvedConfig & {
+    prisma: Omit<
+      PrismaPluginOptions,
+      "schema" | "outputPath" | "configFile" | "prismaPostgres"
+    > &
+      Required<
+        Pick<PrismaPluginOptions, "schema" | "outputPath" | "configFile">
+      > & {
+        prismaPostgres?: Required<PrismaPostgresPrismaPluginOptions>;
+      };
+  };
 
 export type PrismaPluginContext<
   TResolvedConfig extends PrismaPluginResolvedConfig =
     PrismaPluginResolvedConfig
-> = PluginContext<TResolvedConfig> & {
-  prisma: {
-    schema: PrismaSchema;
-    builder: PrismaSchemaCreator;
-    api: PrismaClient;
+> = PluginContext<TResolvedConfig> &
+  PulumiPluginContext & {
+    prisma: {
+      schema: PrismaSchema;
+      builder: PrismaSchemaCreator;
+    };
   };
-};

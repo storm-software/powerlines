@@ -16,14 +16,13 @@
 
  ------------------------------------------------------------------- */
 
-import alloy from "@powerlines/plugin-alloy";
 import plugin from "@powerlines/plugin-plugin";
 import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
   skipCache: true,
-  input: ["src/**/*.ts", "src/**/*.tsx"],
-  plugins: [plugin(), alloy()],
+  input: ["src/**/*.ts"],
+  plugins: [plugin()],
   output: {
     dts: false
   },

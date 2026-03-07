@@ -265,34 +265,6 @@
         "default": "./dist/api/types.gen.mjs"
       }
     },
-    "./components": {
-      "require": {
-        "types": "./dist/components/index.d.cts",
-        "default": "./dist/components/index.cjs"
-      },
-      "import": {
-        "types": "./dist/components/index.d.mts",
-        "default": "./dist/components/index.mjs"
-      },
-      "default": {
-        "types": "./dist/components/index.d.mts",
-        "default": "./dist/components/index.mjs"
-      }
-    },
-    "./components/infrastructure-file": {
-      "require": {
-        "types": "./dist/components/infrastructure-file.d.cts",
-        "default": "./dist/components/infrastructure-file.cjs"
-      },
-      "import": {
-        "types": "./dist/components/infrastructure-file.d.mts",
-        "default": "./dist/components/infrastructure-file.mjs"
-      },
-      "default": {
-        "types": "./dist/components/infrastructure-file.d.mts",
-        "default": "./dist/components/infrastructure-file.mjs"
-      }
-    },
     "./helpers": {
       "require": {
         "types": "./dist/helpers/index.d.cts",
@@ -398,8 +370,6 @@
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
   "dependencies": {
-    "@alloy-js/core": "catalog:",
-    "@alloy-js/typescript": "catalog:",
     "@powerlines/plugin-pulumi": "workspace:*",
     "@prisma/get-platform": "catalog:",
     "@prisma/prisma-schema-wasm": "catalog:",
@@ -416,7 +386,7 @@
     "ts-pattern": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/plugin-alloy": "workspace:*",
+    "@pulumi/pulumi": "catalog:",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },

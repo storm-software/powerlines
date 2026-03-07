@@ -16,14 +16,14 @@
 
  ------------------------------------------------------------------- */
 
-import { render } from "@powerlines/plugin-alloy/render";
+import * as prismaPostgres from "@pulumi/prisma-postgres";
 import { execute, executePackage } from "@stryke/cli/execute";
 import { existsSync } from "@stryke/fs/exists";
 import { joinPaths } from "@stryke/path/join-paths";
+import { kebabCase } from "@stryke/string-format/kebab-case";
 import defu from "defu";
 import { Plugin } from "powerlines";
 import { getConfigPath, replacePathTokens } from "powerlines/plugin-utils";
-import { PrismaPostgresInfrastructureFile } from "./components/infrastructure-file";
 import { getSchema } from "./helpers/get-schema";
 import { PrismaSchemaCreator } from "./helpers/schema-creator";
 import {
@@ -32,13 +32,10 @@ import {
   PrismaPluginUserConfig
 } from "./types/plugin";
 
-export * from "./api/client.gen";
-export * from "./api/sdk.gen";
-export * from "./api/types.gen";
-export * from "./types";
+export type * from "./types";
 
-declare module "@powerlines/core" {
-  interface BaseConfig {
+declare module "powerlines" {
+  interface Config {
     prisma?: PrismaPluginOptions;
   }
 }
@@ -171,12 +168,8 @@ export const plugin = <
           );
         }
       }
-
-      if (this.config.prisma.prismaPostgres) {
-        await render(this, <PrismaPostgresInfrastructureFile />);
-      }
     },
-    async deploy() {
+    async deployPulumi() {
       if (this.config.prisma.prismaPostgres) {
         let serviceToken = process.env.PRISMA_SERVICE_TOKEN;
         if (!serviceToken) {
@@ -192,33 +185,31 @@ export const plugin = <
           }
         }
 
-        // const client = createClient(
-        //   createConfig<ClientOptions>({
-        //     baseUrl: "https://api.prisma.io",
-        //     throwOnError: true,
-        //     headers: {
-        //       Authorization: `Bearer ${serviceToken}`,
-        //       "User-Agent": "powerlines/1.0"
-        //     }
-        //   })
-        // );
+        await this.pulumi.workspace.installPlugin(
+          "registry.terraform.io/prisma/prisma-postgres",
+          "v0.2.0"
+        );
 
-        // this.prisma.api = new PrismaClient({
-        //   client
-        // });
-
-        // await this.prisma.api
-        //   .createDatabase({
-        //     body: {
-        //       isDefault: false,
-        //       name:
-        //         this.config.prisma.prismaPostgres.databaseName ||
-        //         `${this.config.prisma.prismaPostgres.region}.${this.config.mode}.${this.config.name}`,
-        //       projectId: this.config.prisma.prismaPostgres.projectId,
-        //       region: this.config.prisma.prismaPostgres.region
-        //     }
-        //   } as Options<CreateDatabaseData>)
-        //   .then(response => response.data?.data);
+        const project = new prismaPostgres.Project("project", {
+          name: `${
+            this.config.prisma.prismaPostgres?.projectId || this.config.name
+          }`
+        });
+        const database = new prismaPostgres.Database("database", {
+          projectId: project.id,
+          name: `${
+            this.config.prisma.prismaPostgres?.databaseName ||
+            `${kebabCase(this.config.name)}.${
+              this.config.mode
+            }.${this.config.prisma.prismaPostgres?.region}`
+          }`,
+          region: `${this.config.prisma.prismaPostgres?.region}`
+        });
+        // eslint-disable-next-line no-new
+        new prismaPostgres.Connection("connection", {
+          databaseId: database.id,
+          name: `${kebabCase(this.config.name)}-api-key`
+        });
       }
     }
   };
