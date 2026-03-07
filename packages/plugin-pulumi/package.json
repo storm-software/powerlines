@@ -70,6 +70,20 @@
         "default": "./dist/types/index.mjs"
       }
     },
+    "./types/_internal": {
+      "require": {
+        "types": "./dist/types/_internal.d.cts",
+        "default": "./dist/types/_internal.cjs"
+      },
+      "import": {
+        "types": "./dist/types/_internal.d.mts",
+        "default": "./dist/types/_internal.mjs"
+      },
+      "default": {
+        "types": "./dist/types/_internal.d.mts",
+        "default": "./dist/types/_internal.mjs"
+      }
+    },
     "./types/plugin": {
       "require": {
         "types": "./dist/types/plugin.d.cts",
@@ -89,7 +103,6 @@
   "files": ["dist/**/*"],
   "keywords": ["pulumi", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
-    "@powerlines/plugin-alloy": "workspace:*",
     "@pulumi/pulumi": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/helpers": "catalog:",

@@ -16,11 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines/config";
+import { UNSAFE_PluginContext } from "@powerlines/core/types/_internal";
+import { PulumiPluginContext, PulumiPluginResolvedConfig } from "./plugin";
 
-export default defineConfig({
-  skipCache: true,
-  input: ["src/index.ts", "src/types/*.ts"],
-  plugins: [plugin()]
-});
+export type UNSAFE_PulumiPluginContext<
+  TResolvedConfig extends PulumiPluginResolvedConfig =
+    PulumiPluginResolvedConfig
+> = PulumiPluginContext<TResolvedConfig> &
+  UNSAFE_PluginContext<TResolvedConfig>;

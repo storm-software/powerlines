@@ -16,11 +16,19 @@
 
  ------------------------------------------------------------------- */
 
-import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines/config";
+import { MaybePromise } from "@stryke/types";
+import { PluginContext } from "powerlines";
+import { PulumiPluginOptions } from "./types/plugin";
 
-export default defineConfig({
-  skipCache: true,
-  input: ["src/index.ts", "src/types/*.ts"],
-  plugins: [plugin()]
-});
+declare module "powerlines" {
+  interface Config {
+    pulumi?: PulumiPluginOptions;
+  }
+
+  interface Hooks<TContext extends PluginContext> {
+    deployPulumi?: (this: TContext) => MaybePromise<void>;
+  }
+}
+
+export * from "./plugin";
+export type * from "./types";

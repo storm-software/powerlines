@@ -17,14 +17,19 @@
  ------------------------------------------------------------------- */
 
 import {
+  InlineProgramArgs,
   LocalWorkspaceOptions,
-  PulumiFn,
   Stack,
   StackSettings
 } from "@pulumi/pulumi/automation";
 import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
-export interface PulumiPluginBaseOptions {
+export interface PulumiPluginOptions extends Partial<InlineProgramArgs> {
+  /**
+   * Additional options for the Pulumi Workspace.
+   */
+  options?: LocalWorkspaceOptions;
+
   /**
    * Whether to destroy the stack during the `destroy` lifecycle phase.
    *
@@ -38,76 +43,6 @@ export interface PulumiPluginBaseOptions {
   settings?: StackSettings;
 }
 
-export interface PulumiPluginExistingStackOptions extends PulumiPluginBaseOptions {
-  /**
-   * The Pulumi Stack instance to use for deployment operations.
-   */
-  stack?: Stack;
-}
-
-export interface PulumiPluginCreateStackOptions extends PulumiPluginBaseOptions {
-  /**
-   * The associated stack name.
-   */
-  stackName?: string;
-
-  /**
-   * Additional options for the Pulumi Workspace.
-   */
-  options?: LocalWorkspaceOptions;
-}
-
-export interface PulumiPluginExistingStackOptions {
-  /**
-   * The Pulumi Stack instance to use for deployment operations.
-   */
-  stack?: Stack;
-}
-
-export interface PulumiPluginCreateStackInlineOptions extends PulumiPluginCreateStackOptions {
-  /**
-   * The associated project name.
-   */
-  projectName?: string;
-
-  /**
-   * The inline (in-process) Pulumi program to use with update and preview operations.
-   */
-  program?: PulumiFn;
-}
-
-export interface PulumiPluginCreateStackLocalOptions extends PulumiPluginCreateStackOptions {
-  /**
-   * The working directory of the program.
-   *
-   * @defaultValue "\{artifactsPath\}/infrastructure"
-   */
-  workDir?: string;
-}
-
-export type PulumiPluginOptions =
-  | PulumiPluginExistingStackOptions
-  | PulumiPluginCreateStackInlineOptions
-  | PulumiPluginCreateStackLocalOptions;
-
-export type PulumiPluginResolvedOptions =
-  | (Omit<PulumiPluginExistingStackOptions, "stack"> &
-      Required<Pick<PulumiPluginExistingStackOptions, "stack">>)
-  | (Omit<
-      PulumiPluginCreateStackInlineOptions,
-      "stackName" | "projectName" | "program"
-    > &
-      Required<
-        Pick<
-          PulumiPluginCreateStackInlineOptions,
-          "stackName" | "projectName" | "program"
-        >
-      >)
-  | (Omit<PulumiPluginCreateStackLocalOptions, "stackName" | "workDir"> &
-      Required<
-        Pick<PulumiPluginCreateStackLocalOptions, "stackName" | "workDir">
-      >);
-
 export interface PulumiPluginUserConfig extends UserConfig {
   pulumi?: PulumiPluginOptions;
 }
@@ -119,4 +54,6 @@ export interface PulumiPluginResolvedConfig extends ResolvedConfig {
 export type PulumiPluginContext<
   TResolvedConfig extends PulumiPluginResolvedConfig =
     PulumiPluginResolvedConfig
-> = PluginContext<TResolvedConfig>;
+> = PluginContext<TResolvedConfig> & {
+  pulumi: Stack;
+};
