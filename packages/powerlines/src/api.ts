@@ -92,7 +92,7 @@ import {
   getParsedTypeScriptConfig,
   isIncludeMatchFound
 } from "./typescript/tsconfig";
-import { formatFolder, getFileHeader } from "./utils";
+import { formatFolder, getTypescriptFileHeader } from "./utils";
 
 /**
  * The Powerlines API class
@@ -419,7 +419,7 @@ export class PowerlinesAPI<
 
 `
                 : ""
-            }${getFileHeader(context, { directive: null, prettierIgnore: false })}
+            }${getTypescriptFileHeader(context, { directive: null, prettierIgnore: false })}
 
 ${formatTypes(types)}
 `

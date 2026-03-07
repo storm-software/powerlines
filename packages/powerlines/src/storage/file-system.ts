@@ -22,9 +22,11 @@ import { isDirectory, isFile } from "@stryke/fs/is-file";
 import { listFiles, listFilesSync } from "@stryke/fs/list-files";
 import { readFile, readFileSync } from "@stryke/fs/read-file";
 import { writeFile, writeFileSync } from "@stryke/fs/write-file";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { unlinkSync } from "node:fs";
 import { unlink } from "node:fs/promises";
 import type { Context } from "../types";
+import { getFileHeaderWarningText } from "../utils";
 import { BaseStorageAdapter, StorageAdapterOptions } from "./base";
 import { ignoreNotfound } from "./helpers";
 
@@ -105,8 +107,26 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
    * @param value - The value to set.
    */
   public setSync(key: string, value: string) {
-    if (!this.isReadOnly && (!this.existsSync(key) || this.overwrite)) {
-      return writeFileSync(this.resolve(key), value);
+    if (!this.isReadOnly) {
+      if (this.existsSync(this.resolve(key)) && !this.overwrite) {
+        const existingValue = this.getSync(this.resolve(key));
+        if (
+          isSetString(existingValue) &&
+          existingValue.includes(
+            getFileHeaderWarningText(true, this.context.config.framework)
+          )
+        ) {
+          return writeFileSync(
+            this.resolve(key),
+            existingValue.replace(
+              getFileHeaderWarningText(true, this.context.config.framework),
+              getFileHeaderWarningText(false, this.context.config.framework)
+            )
+          );
+        }
+      } else {
+        return writeFileSync(this.resolve(key), value);
+      }
     }
   }
 
@@ -117,8 +137,26 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
    * @param value - The value to set.
    */
   public override async set(key: string, value: string): Promise<void> {
-    if (!this.isReadOnly && this.overwrite) {
-      return writeFile(this.resolve(key), value);
+    if (!this.isReadOnly) {
+      if (this.existsSync(this.resolve(key)) && !this.overwrite) {
+        const existingValue = await this.get(this.resolve(key));
+        if (
+          isSetString(existingValue) &&
+          existingValue.includes(
+            getFileHeaderWarningText(true, this.context.config.framework)
+          )
+        ) {
+          return writeFile(
+            this.resolve(key),
+            existingValue.replace(
+              getFileHeaderWarningText(true, this.context.config.framework),
+              getFileHeaderWarningText(false, this.context.config.framework)
+            )
+          );
+        }
+      } else {
+        return writeFile(this.resolve(key), value);
+      }
     }
   }
 

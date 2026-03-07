@@ -51,7 +51,7 @@ import { Buffer } from "node:buffer";
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
 import { Context, PluginContext } from "powerlines";
-import { getBaseFileHeader } from "powerlines/utils";
+import { getFileHeader } from "powerlines/utils";
 
 /**
  * Compiles a Cap'n Proto schema into TypeScript definitions.
@@ -215,7 +215,7 @@ export async function generateCapnp(
   const capnpId = await generateCapnpId();
 
   return `${capnpId.trim()};
-${getBaseFileHeader(context)
+${getFileHeader(context)
   .replace(/^\r*\n*/g, "")
   .replaceAll("//", "#")}
 ${
