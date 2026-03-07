@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-prisma",
-  "version": "0.2.269",
+  "version": "0.3.0",
   "private": false,
   "description": "A Powerlines plugin to generate project code and a Prisma client from a Prisma schema (PSL).",
   "keywords": ["prisma", "powerlines", "storm-software", "powerlines-plugin"],
@@ -263,6 +263,34 @@
       "default": {
         "types": "./dist/api/types.gen.d.mts",
         "default": "./dist/api/types.gen.mjs"
+      }
+    },
+    "./components": {
+      "require": {
+        "types": "./dist/components/index.d.cts",
+        "default": "./dist/components/index.cjs"
+      },
+      "import": {
+        "types": "./dist/components/index.d.mts",
+        "default": "./dist/components/index.mjs"
+      },
+      "default": {
+        "types": "./dist/components/index.d.mts",
+        "default": "./dist/components/index.mjs"
+      }
+    },
+    "./components/infrastructure-file": {
+      "require": {
+        "types": "./dist/components/infrastructure-file.d.cts",
+        "default": "./dist/components/infrastructure-file.cjs"
+      },
+      "import": {
+        "types": "./dist/components/infrastructure-file.d.mts",
+        "default": "./dist/components/infrastructure-file.mjs"
+      },
+      "default": {
+        "types": "./dist/components/infrastructure-file.d.mts",
+        "default": "./dist/components/infrastructure-file.mjs"
       }
     },
     "./helpers": {

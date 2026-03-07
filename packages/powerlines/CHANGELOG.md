@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.40.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.3) (03/06/2026)
+
+### Miscellaneous
+
+- **powerlines:** Ensure frozen artifact files have the correct header message ([f0b140130](https://github.com/storm-software/powerlines/commit/f0b140130))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.324**
+- Updated **plugin-esbuild** to **v0.13.322**
+- Updated **plugin-unbuild** to **v0.5.323**
+- Updated **plugin-webpack** to **v0.5.322**
+- Updated **plugin-rollup** to **v0.7.323**
+- Updated **plugin-rspack** to **v0.5.322**
+- Updated **plugin-tsdown** to **v0.1.267**
+- Updated **plugin-tsup** to **v0.12.323**
+- Updated **plugin-vite** to **v0.14.316**
+- Updated **core** to **v0.2.0**
+
 ## [0.40.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.2) (03/06/2026)
 
 ### Bug Fixes

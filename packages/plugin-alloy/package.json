@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-alloy",
-  "version": "0.24.6",
+  "version": "0.25.0",
   "type": "module",
   "description": "A package containing various Alloy framework components and helper utilities.",
   "repository": {
@@ -532,6 +532,20 @@
         "default": "./dist/typescript/components/entry-file.mjs"
       }
     },
+    "./typescript/components/infrastructure-file": {
+      "require": {
+        "types": "./dist/typescript/components/infrastructure-file.d.cts",
+        "default": "./dist/typescript/components/infrastructure-file.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/infrastructure-file.d.mts",
+        "default": "./dist/typescript/components/infrastructure-file.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/infrastructure-file.d.mts",
+        "default": "./dist/typescript/components/infrastructure-file.mjs"
+      }
+    },
     "./typescript/components/interface-declaration": {
       "require": {
         "types": "./dist/typescript/components/interface-declaration.d.cts",
@@ -740,6 +754,48 @@
       "default": {
         "types": "./dist/typescript/helpers/utilities.d.mts",
         "default": "./dist/typescript/helpers/utilities.mjs"
+      }
+    },
+    "./yaml": {
+      "require": {
+        "types": "./dist/yaml/index.d.cts",
+        "default": "./dist/yaml/index.cjs"
+      },
+      "import": {
+        "types": "./dist/yaml/index.d.mts",
+        "default": "./dist/yaml/index.mjs"
+      },
+      "default": {
+        "types": "./dist/yaml/index.d.mts",
+        "default": "./dist/yaml/index.mjs"
+      }
+    },
+    "./yaml/components": {
+      "require": {
+        "types": "./dist/yaml/components/index.d.cts",
+        "default": "./dist/yaml/components/index.cjs"
+      },
+      "import": {
+        "types": "./dist/yaml/components/index.d.mts",
+        "default": "./dist/yaml/components/index.mjs"
+      },
+      "default": {
+        "types": "./dist/yaml/components/index.d.mts",
+        "default": "./dist/yaml/components/index.mjs"
+      }
+    },
+    "./yaml/components/yaml-file": {
+      "require": {
+        "types": "./dist/yaml/components/yaml-file.d.cts",
+        "default": "./dist/yaml/components/yaml-file.cjs"
+      },
+      "import": {
+        "types": "./dist/yaml/components/yaml-file.d.mts",
+        "default": "./dist/yaml/components/yaml-file.mjs"
+      },
+      "default": {
+        "types": "./dist/yaml/components/yaml-file.d.mts",
+        "default": "./dist/yaml/components/yaml-file.mjs"
       }
     }
   },

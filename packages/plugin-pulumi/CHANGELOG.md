@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.3.0) (03/06/2026)
+
+### Features
+
+- **plugin-pulumi:** Update deploy to use `infrastructure` artifact output ([750384ab7](https://github.com/storm-software/powerlines/commit/750384ab7))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.267**
+- Updated **plugin-alloy** to **v0.25.0**
+- Updated **powerlines** to **v0.40.3**
+
 ## [0.2.295](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.2.295) (03/06/2026)
 
 ### Updated Dependencies
