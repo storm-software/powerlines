@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Oxc Transform
 
+## [0.5.327](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.327) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **powerlines** to **v0.40.5**
+
 ## [0.5.326](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.326) (03/06/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.1.3](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.1.3) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.324**
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **plugin-alloy** to **v0.25.2**
+- Updated **plugin-env** to **v0.16.37**
+- Updated **powerlines** to **v0.40.5**
+
 ## [0.1.2](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.1.2) (03/06/2026)
 
 ### Updated Dependencies

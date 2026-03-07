@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.37](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.37) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.197**
+- Updated **plugin-automd** to **v0.1.318**
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **plugin-alloy** to **v0.25.2**
+- Updated **plugin-babel** to **v0.12.324**
+- Updated **powerlines** to **v0.40.5**
+- Updated **deepkit** to **v0.6.97**
+
 ## [0.16.36](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.36) (03/06/2026)
 
 ### Updated Dependencies

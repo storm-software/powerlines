@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.326](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.326) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.325**
+- Updated **plugin-babel** to **v0.12.324**
+- Updated **core** to **v0.2.2**
+
 ## [0.7.325](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.325) (03/06/2026)
 
 ### Updated Dependencies

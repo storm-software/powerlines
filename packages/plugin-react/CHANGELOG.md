@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.372](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.372) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **plugin-alloy** to **v0.25.2**
+- Updated **plugin-babel** to **v0.12.324**
+- Updated **plugin-vite** to **v0.14.318**
+- Updated **plugin-env** to **v0.16.37**
+- Updated **powerlines** to **v0.40.5**
+- Updated **deepkit** to **v0.6.97**
+
 ## [0.1.371](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.371) (03/06/2026)
 
 ### Updated Dependencies

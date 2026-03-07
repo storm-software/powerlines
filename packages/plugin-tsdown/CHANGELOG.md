@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.269](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.269) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.326**
+- Updated **core** to **v0.2.2**
+
 ## [0.1.268](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.268) (03/06/2026)
 
 ### Updated Dependencies

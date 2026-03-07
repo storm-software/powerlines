@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.238](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.238) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **plugin-alloy** to **v0.25.2**
+- Updated **plugin-babel** to **v0.12.324**
+- Updated **plugin-env** to **v0.16.37**
+- Updated **powerlines** to **v0.40.5**
+
 ## [0.1.237](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.237) (03/06/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.326](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.326) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **powerlines** to **v0.40.5**
+
 ## [0.2.325](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.325) (03/06/2026)
 
 ### Updated Dependencies

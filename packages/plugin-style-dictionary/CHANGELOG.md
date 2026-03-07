@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.219](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.219) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.324**
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **powerlines** to **v0.40.5**
+
 ## [0.3.218](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.218) (03/06/2026)
 
 ### Updated Dependencies

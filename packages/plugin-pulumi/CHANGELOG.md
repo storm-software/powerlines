@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.4.0) (03/07/2026)
+
+### Features
+
+- **plugin-pulumi:** Implemented `deploy` sub-hook to generate `pulumi` resources ([2b6f87802](https://github.com/storm-software/powerlines/commit/2b6f87802))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **powerlines** to **v0.40.5**
+- Updated **core** to **v0.2.2**
+
 ## [0.3.1](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.3.1) (03/06/2026)
 
 ### Updated Dependencies

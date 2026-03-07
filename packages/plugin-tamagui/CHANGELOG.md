@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tamagui
 
+## [0.1.308](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.308) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **plugin-vite** to **v0.14.318**
+- Updated **powerlines** to **v0.40.5**
+
 ## [0.1.307](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.307) (03/06/2026)
 
 ### Updated Dependencies

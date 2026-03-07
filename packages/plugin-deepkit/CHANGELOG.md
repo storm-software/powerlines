@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.197](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.197) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **plugin-tsc** to **v0.2.326**
+- Updated **powerlines** to **v0.40.5**
+- Updated **deepkit** to **v0.6.97**
+
 ## [0.11.196](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.196) (03/06/2026)
 
 ### Updated Dependencies

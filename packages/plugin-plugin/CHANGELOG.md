@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.269](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.269) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.269**
+- Updated **powerlines** to **v0.40.5**
+
 ## [0.12.268](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.268) (03/06/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin I18next
 
+## [0.1.215](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.215) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **powerlines** to **v0.40.5**
+
 ## [0.1.214](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.214) (03/06/2026)
 
 ### Updated Dependencies

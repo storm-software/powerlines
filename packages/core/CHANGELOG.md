@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.2](https://github.com/storm-software/powerlines/releases/tag/core%400.2.2) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
 ## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/core%400.2.0) (03/06/2026)
 
 ### Miscellaneous

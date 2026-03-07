@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Asyncapi
 
+## [0.1.322](https://github.com/storm-software/powerlines/releases/tag/plugin-asyncapi%400.1.322) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **powerlines** to **v0.40.5**
+
 ## [0.1.321](https://github.com/storm-software/powerlines/releases/tag/plugin-asyncapi%400.1.321) (03/06/2026)
 
 ### Updated Dependencies

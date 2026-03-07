@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.0) (03/07/2026)
+
+### Features
+
+- **plugin-prisma:** Implemented `deployPulumi` hook handler logic ([a424adc83](https://github.com/storm-software/powerlines/commit/a424adc83))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **plugin-pulumi** to **v0.4.0**
+- Updated **powerlines** to **v0.40.5**
+
 ## [0.3.1](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.3.1) (03/06/2026)
 
 ### Miscellaneous

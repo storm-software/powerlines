@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.25.2](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.2) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.269**
+- Updated **plugin-babel** to **v0.12.324**
+- Updated **powerlines** to **v0.40.5**
+- Updated **deepkit** to **v0.6.97**
+- Updated **core** to **v0.2.2**
+
 ## [0.25.1](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.1) (03/06/2026)
 
 ### Miscellaneous

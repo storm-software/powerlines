@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unbuild
 
+## [0.5.325](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.325) (03/07/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with augmented module import for `Config` type ([a7bd02817](https://github.com/storm-software/powerlines/commit/a7bd02817))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.325**
+- Updated **core** to **v0.2.2**
+
 ## [0.5.324](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.324) (03/06/2026)
 
 ### Updated Dependencies
