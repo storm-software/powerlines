@@ -21,6 +21,9 @@ import { ExportedHandler } from "@cloudflare/workers-types";
 import { render } from "@powerlines/plugin-alloy/render";
 import { readEnvTypeReflection } from "@powerlines/plugin-env/helpers";
 import { resolveModule } from "@powerlines/plugin-esbuild/helpers/resolve";
+import * as pulumiCloudflare from "@pulumi/cloudflare";
+import { joinPaths } from "@stryke/path";
+import { kebabCase } from "@stryke/string-format/kebab-case";
 import { isFunction } from "@stryke/type-checks/is-function";
 import defu from "defu";
 import { Plugin } from "powerlines";
@@ -33,7 +36,7 @@ import {
 } from "./types/plugin";
 
 export * from "./components";
-export * from "./types";
+export type * from "./types";
 
 declare module "powerlines" {
   interface Config {
@@ -112,6 +115,39 @@ export function plugin<
             </For>
           );
         }
+      },
+      async deployPulumi() {
+        let apiToken = process.env.CLOUDFLARE_API_TOKEN;
+        if (!apiToken) {
+          apiToken = this.config.cloudflare.apiToken;
+          if (apiToken) {
+            this.warn(
+              "If possible, please use the `CLOUDFLARE_API_TOKEN` environment variable instead of using the `apiToken` option directly. The `apiToken` option will work; however, this is a less secure method of configuration."
+            );
+          } else {
+            throw new Error(
+              "Unable to determine the Cloudflare API token. Please set the `CLOUDFLARE_API_TOKEN` environment variable."
+            );
+          }
+        }
+
+        await this.pulumi.setConfig("cloudflare:apiToken", {
+          value: apiToken
+        });
+
+        const worker = new pulumiCloudflare.WorkersScript(
+          `${kebabCase(this.config.name)}-worker`,
+          {
+            accountId: this.config.cloudflare.accountId,
+            scriptName:
+              this.config.cloudflare.scriptName || kebabCase(this.config.name),
+            contentFile: joinPaths(this.config.output.outputPath, "index.js")
+          }
+        );
+
+        return {
+          worker
+        };
       }
     }
   ] as Plugin<TContext>[];

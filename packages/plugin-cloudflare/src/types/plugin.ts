@@ -22,23 +22,63 @@ import type {
   EnvPluginResolvedConfig,
   EnvPluginUserConfig
 } from "@powerlines/plugin-env";
+import type {
+  PulumiPluginContext,
+  PulumiPluginResolvedConfig,
+  PulumiPluginUserConfig
+} from "@powerlines/plugin-pulumi";
 import type { PluginContext, ResolvedEntryTypeDefinition } from "powerlines";
 
-export interface CloudflarePluginOptions {}
-
-export interface CloudflarePluginUserConfig extends EnvPluginUserConfig {
+export interface CloudflarePluginOptions {
   /**
-   * Options for the Cloudflare plugin.
+   * The Cloudflare account ID to use for the plugin.
+   *
+   * @remarks
+   * This is required for certain features of the plugin, such as deploying a Cloudflare Worker entry module. This option can also be set via the `CLOUDFLARE_ACCOUNT_ID` environment variable. If both are provided, the value from the plugin options will take precedence.
+   *
+   * @see https://developers.cloudflare.com/fundamentals/account/find-account-and-zone-ids/
    */
-  cloudflare?: CloudflarePluginOptions;
+  accountId?: string;
+
+  /**
+   * The Cloudflare API token to use for the plugin.
+   *
+   * @remarks
+   * This option can also be set via the `CLOUDFLARE_API_TOKEN` environment variable. If both are provided, the value from the plugin options will take precedence.
+   *
+   * @see https://developers.cloudflare.com/fundamentals/api/get-started/create-token/
+   */
+  apiToken?: string;
+
+  /**
+   * The domain to use for the Cloudflare deployed resources.
+   */
+  domain?: string;
+
+  /**
+   * The name of the Cloudflare Worker script to deploy - used in URLs and route configuration.
+   *
+   * @remarks
+   * If no value is provided, the {@link Config.name} configuration value will be used.
+   */
+  scriptName?: string;
 }
 
-export interface CloudflarePluginResolvedConfig extends EnvPluginResolvedConfig {
-  /**
-   * Options for the Cloudflare plugin.
-   */
-  cloudflare: Required<CloudflarePluginOptions>;
-}
+export type CloudflarePluginUserConfig = EnvPluginUserConfig &
+  PulumiPluginUserConfig & {
+    /**
+     * Options for the Cloudflare plugin.
+     */
+    cloudflare?: CloudflarePluginOptions;
+  };
+
+export type CloudflarePluginResolvedConfig = EnvPluginResolvedConfig &
+  PulumiPluginResolvedConfig & {
+    /**
+     * Options for the Cloudflare plugin.
+     */
+    cloudflare: Required<CloudflarePluginOptions>;
+  };
 
 export type CloudflareWorkerEntryModule = Record<
   keyof ExportedHandler,
@@ -51,6 +91,7 @@ export type CloudflarePluginContext<
   TResolvedConfig extends CloudflarePluginResolvedConfig =
     CloudflarePluginResolvedConfig
 > = PluginContext<TResolvedConfig> &
-  EnvPluginContext<TResolvedConfig> & {
+  EnvPluginContext<TResolvedConfig> &
+  PulumiPluginContext<TResolvedConfig> & {
     workers: CloudflareWorkerEntryModule[];
   };

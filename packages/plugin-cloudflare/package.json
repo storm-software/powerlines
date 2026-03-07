@@ -144,11 +144,13 @@
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/typescript": "catalog:",
-    "@noble/ciphers": "catalog:",
+    "@powerlines/plugin-pulumi": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
+    "@pulumi/cloudflare": "catalog:",
+    "@pulumi/pulumi": "catalog:",
     "@storm-software/config-tools": "catalog:",
-    "@stryke/path": "catalog:",
     "@stryke/hash": "catalog:",
+    "@stryke/path": "catalog:",
     "defu": "catalog:",
     "powerlines": "workspace:*"
   },
