@@ -216,6 +216,8 @@ export const plugin = <
           })
         };
       }
+
+      return null;
     }
   };
 };
