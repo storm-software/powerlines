@@ -103,7 +103,8 @@
   "prettier.enableDebugLogs": false,
   "prettier.enable": true,
   "markdownlint.configFile": "./node_modules/@storm-software/markdownlint/config/base.markdownlint-cli2.jsonc",
-  "eslint.debug": false,
+  "eslint.debug": true,
+  "eslint.useRealpaths": true,
   "eslint.codeAction.disableRuleComment": {
     "enable": true,
     "location": "separateLine"
