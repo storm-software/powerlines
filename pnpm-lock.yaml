@@ -1268,12 +1268,12 @@ importers:
       '@alloy-js/typescript':
         specifier: 'catalog:'
         version: 0.23.0-dev.4
-      '@noble/ciphers':
-        specifier: 'catalog:'
-        version: 2.1.1
       '@powerlines/plugin-env':
         specifier: workspace:*
         version: link:../plugin-env
+      '@powerlines/plugin-pulumi':
+        specifier: workspace:*
+        version: link:../plugin-pulumi
       '@pulumi/cloudflare':
         specifier: 'catalog:'
         version: 6.13.0(ts-node@10.9.2(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/node@25.3.5)(typescript@5.9.3))(typescript@5.9.3)
