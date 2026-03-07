@@ -35,7 +35,7 @@ catalog:
   '@babel/types': ^7.29.0
   '@biomejs/biome': ^2.3.11
   '@cacheable/memory': ^2.0.8
-  '@cloudflare/workers-types': ^4.20260305.1
+  '@cloudflare/workers-types': ^4.20260307.1
   '@content-collections/core': ^0.12.0
   '@deepkit/core': 1.0.5
   '@deepkit/type': 1.0.5
@@ -69,42 +69,42 @@ catalog:
   '@rollup/plugin-node-resolve': ^16.0.3
   '@rollup/plugin-replace': ^6.0.3
   '@rspack/core': ^1.7.7
-  '@shell-shock/core': ^0.12.1
+  '@shell-shock/core': ^0.12.2
   '@shell-shock/eslint-plugin': ^0.0.36
-  '@shell-shock/nx': ^0.0.41
+  '@shell-shock/nx': ^0.0.42
   '@shell-shock/preset-cli': ^0.8.0
   '@standard-schema/spec': ^1.1.0
-  '@storm-software/build-tools': ^0.158.97
-  '@storm-software/config': ^1.135.17
-  '@storm-software/config-tools': ^1.189.16
-  '@storm-software/cspell': ^0.46.6
-  '@storm-software/esbuild': ^0.53.98
-  '@storm-software/eslint': ^0.169.104
-  '@storm-software/git-tools': ^2.124.83
-  '@storm-software/linting-tools': ^1.132.105
-  '@storm-software/markdownlint': ^0.30.91
-  '@storm-software/pnpm-tools': ^0.6.100
-  '@storm-software/prettier': ^0.58.15
-  '@storm-software/testing-tools': ^1.119.91
-  '@storm-software/tsconfig': ^0.48.5
-  '@storm-software/tsup': ^0.2.95
-  '@storm-software/unbuild': ^0.57.98
-  '@storm-software/untyped': ^0.24.79
-  '@storm-software/workspace-tools': ^1.294.49
+  '@storm-software/build-tools': ^0.158.98
+  '@storm-software/config': ^1.135.18
+  '@storm-software/config-tools': ^1.189.17
+  '@storm-software/cspell': ^0.46.7
+  '@storm-software/esbuild': ^0.53.99
+  '@storm-software/eslint': ^0.169.105
+  '@storm-software/git-tools': ^2.124.84
+  '@storm-software/linting-tools': ^1.132.106
+  '@storm-software/markdownlint': ^0.30.92
+  '@storm-software/pnpm-tools': ^0.6.101
+  '@storm-software/prettier': ^0.58.16
+  '@storm-software/testing-tools': ^1.119.92
+  '@storm-software/tsconfig': ^0.48.6
+  '@storm-software/tsup': ^0.2.96
+  '@storm-software/unbuild': ^0.57.99
+  '@storm-software/untyped': ^0.24.80
+  '@storm-software/workspace-tools': ^1.294.50
   '@stryke/capnp': ^0.12.75
-  '@stryke/cli': ^0.13.22
-  '@stryke/convert': ^0.6.46
-  '@stryke/env': ^0.20.67
-  '@stryke/fs': ^0.33.50
-  '@stryke/hash': ^0.13.3
-  '@stryke/helpers': ^0.9.48
-  '@stryke/http': ^0.12.42
-  '@stryke/json': ^0.14.2
-  '@stryke/path': ^0.26.12
-  '@stryke/string-format': ^0.14.8
-  '@stryke/type-checks': ^0.5.33
-  '@stryke/types': ^0.10.47
-  '@stryke/unique-id': ^0.3.61
+  '@stryke/cli': ^0.13.25
+  '@stryke/convert': ^0.6.49
+  '@stryke/env': ^0.20.70
+  '@stryke/fs': ^0.33.53
+  '@stryke/hash': ^0.13.6
+  '@stryke/helpers': ^0.9.51
+  '@stryke/http': ^0.12.45
+  '@stryke/json': ^0.14.3
+  '@stryke/path': ^0.26.15
+  '@stryke/string-format': ^0.16.0
+  '@stryke/type-checks': ^0.5.34
+  '@stryke/types': ^0.10.48
+  '@stryke/unique-id': ^0.3.64
   '@swc-node/register': ^1.11.1
   '@swc/core': ^1.15.18
   '@swc/helpers': ^0.5.19
@@ -141,7 +141,7 @@ catalog:
   dts-bundle-generator: ^9.5.1
   esbuild: ^0.25.12
   esbuild-plugin-babel: ^0.2.3
-  eslint: ^9.39.3
+  eslint: ^9.39.4
   eslint-flat-config-utils: ^2.1.4
   flat-cache: ^6.1.20
   fp-ts: ^2.16.11
