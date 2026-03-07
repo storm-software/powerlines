@@ -1,17 +1,16 @@
+# yaml-language-server: $schema=https://devenv.sh/devenv.schema.json
 inputs:
-  git-hooks:
-    url: github:cachix/git-hooks.nix
-
+  storm-ops:
+    url: github:storm-software/storm-ops?ref=main
+    flake: false
   nixpkgs:
     url: github:cachix/devenv-nixpkgs/rolling
-
   nixpkgs-unstable:
     url: github:nixos/nixpkgs/nixpkgs-unstable
-
-  storm-ops:
-    url: github:storm-software/storm-ops
-    flake: false
-
+  git-hooks:
+    url: github:cachix/git-hooks.nix
 imports:
   - storm-ops/devenv-modules/base
   - storm-ops/devenv-modules/core
+
+profile: development
