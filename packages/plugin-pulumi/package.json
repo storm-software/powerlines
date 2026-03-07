@@ -89,6 +89,7 @@
   "files": ["dist/**/*"],
   "keywords": ["pulumi", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
+    "@powerlines/plugin-alloy": "workspace:*",
     "@pulumi/pulumi": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/helpers": "catalog:",

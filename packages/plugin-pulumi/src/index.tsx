@@ -16,10 +16,13 @@
 
  ------------------------------------------------------------------- */
 
+import { render } from "@powerlines/plugin-alloy/render";
+import { YamlFile } from "@powerlines/plugin-alloy/yaml/components/yaml-file";
 import {
   fullyQualifiedStackName,
   LocalWorkspace
 } from "@pulumi/pulumi/automation";
+import { getPackageManager } from "@stryke/fs/package-fns";
 import { omit } from "@stryke/helpers";
 import { joinPaths } from "@stryke/path/join";
 import { kebabCase } from "@stryke/string-format/kebab-case";
@@ -63,7 +66,6 @@ export const plugin = <
         deploy: {
           pulumi: defu(options, {
             projectName: this.config.name,
-            workDir: joinPaths(this.artifactsPath, "infrastructure"),
             settings: {}
           })
         }
@@ -82,6 +84,24 @@ export const plugin = <
             this.config.mode
           );
       }
+    },
+    async prepare() {
+      await render(
+        this,
+        <YamlFile
+          path={joinPaths(this.infrastructurePath, "Pulumi.yaml")}
+          data={{
+            runtime: {
+              name: "nodejs",
+              options: {
+                packagemanager: getPackageManager(
+                  this.workspaceConfig.workspaceRoot
+                )
+              }
+            }
+          }}
+        />
+      );
     },
     deploy: {
       order: "post",
@@ -106,12 +126,13 @@ export const plugin = <
         }
 
         let stack = (options as PulumiPluginExistingStackOptions).stack;
-        stack ??= await LocalWorkspace.createOrSelectStack(
-          omit(this.config.pulumi as PulumiPluginCreateStackOptions, [
+        stack ??= await LocalWorkspace.createOrSelectStack({
+          workDir: joinPaths(this.infrastructurePath),
+          ...(omit(this.config.pulumi as PulumiPluginCreateStackOptions, [
             "options",
             "settings"
-          ]) as Parameters<typeof LocalWorkspace.createOrSelectStack>[0]
-        );
+          ]) as Parameters<typeof LocalWorkspace.createOrSelectStack>[0])
+        });
 
         if (
           this.config.pulumi.settings &&
