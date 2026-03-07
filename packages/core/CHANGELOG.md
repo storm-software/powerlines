@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.1.10](https://github.com/storm-software/powerlines/releases/tag/core%400.1.10) (03/06/2026)
+
+### Miscellaneous
+
+- **core:** Handle prefix option in resolver better ([dfa38be38](https://github.com/storm-software/powerlines/commit/dfa38be38))
+
 ## [0.1.8](https://github.com/storm-software/powerlines/releases/tag/core%400.1.8) (03/04/2026)
 
 ### Features

@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-env",
-  "version": "0.16.33",
+  "version": "0.16.34",
   "type": "module",
   "description": "A package containing a Powerlines plugin for injecting static .env configuration values to the code so that they're accessible at runtime.",
   "repository": {
@@ -112,18 +112,18 @@
         "default": "./dist/components/docs.mjs"
       }
     },
-    "./components/env": {
+    "./components/env-builtin": {
       "require": {
-        "types": "./dist/components/env.d.cts",
-        "default": "./dist/components/env.cjs"
+        "types": "./dist/components/env-builtin.d.cts",
+        "default": "./dist/components/env-builtin.cjs"
       },
       "import": {
-        "types": "./dist/components/env.d.mts",
-        "default": "./dist/components/env.mjs"
+        "types": "./dist/components/env-builtin.d.mts",
+        "default": "./dist/components/env-builtin.mjs"
       },
       "default": {
-        "types": "./dist/components/env.d.mts",
-        "default": "./dist/components/env.mjs"
+        "types": "./dist/components/env-builtin.d.mts",
+        "default": "./dist/components/env-builtin.mjs"
       }
     },
     "./helpers": {

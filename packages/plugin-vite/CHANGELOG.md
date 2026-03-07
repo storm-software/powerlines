@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.315](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.315) (03/06/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([66f70f03b](https://github.com/storm-software/powerlines/commit/66f70f03b))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.323**
+- Updated **plugin-esbuild** to **v0.13.321**
+- Updated **plugin-rollup** to **v0.7.322**
+- Updated **core** to **v0.1.10**
+
 ## [0.14.314](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.314) (03/05/2026)
 
 ### Updated Dependencies

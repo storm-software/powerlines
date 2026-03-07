@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.34](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.34) (03/06/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Update component file to have `-builtin` postfix ([031d7f977](https://github.com/storm-software/powerlines/commit/031d7f977))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.194**
+- Updated **plugin-automd** to **v0.1.315**
+- Updated **plugin-plugin** to **v0.12.266**
+- Updated **plugin-alloy** to **v0.24.6**
+- Updated **plugin-babel** to **v0.12.321**
+- Updated **powerlines** to **v0.40.2**
+- Updated **deepkit** to **v0.6.94**
+
 ## [0.16.33](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.33) (03/05/2026)
 
 ### Updated Dependencies
