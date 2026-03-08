@@ -74,37 +74,37 @@ catalog:
   "@shell-shock/nx": ^0.0.42
   "@shell-shock/preset-cli": ^0.8.0
   "@standard-schema/spec": ^1.1.0
-  "@storm-software/build-tools": ^0.158.100
-  "@storm-software/config": ^1.135.20
-  "@storm-software/config-tools": ^1.189.19
-  "@storm-software/cspell": ^0.46.9
-  "@storm-software/esbuild": ^0.53.101
-  "@storm-software/eslint": ^0.169.107
-  "@storm-software/git-tools": ^2.124.86
-  "@storm-software/linting-tools": ^1.132.108
-  "@storm-software/markdownlint": ^0.30.94
-  "@storm-software/pnpm-tools": ^0.6.103
-  "@storm-software/prettier": ^0.58.18
-  "@storm-software/testing-tools": ^1.119.94
-  "@storm-software/tsconfig": ^0.48.8
-  "@storm-software/tsup": ^0.2.98
-  "@storm-software/unbuild": ^0.57.101
-  "@storm-software/untyped": ^0.24.82
-  "@storm-software/workspace-tools": ^1.294.52
-  "@stryke/capnp": ^0.12.75
-  "@stryke/cli": ^0.13.25
-  "@stryke/convert": ^0.6.49
-  "@stryke/env": ^0.20.70
-  "@stryke/fs": ^0.33.53
-  "@stryke/hash": ^0.13.6
-  "@stryke/helpers": ^0.9.51
-  "@stryke/http": ^0.12.45
-  "@stryke/json": ^0.14.3
-  "@stryke/path": ^0.26.15
-  "@stryke/string-format": ^0.16.0
-  "@stryke/type-checks": ^0.5.34
-  "@stryke/types": ^0.10.48
-  "@stryke/unique-id": ^0.3.64
+  "@storm-software/build-tools": ^0.158.102
+  "@storm-software/config": ^1.135.22
+  "@storm-software/config-tools": ^1.189.21
+  "@storm-software/cspell": ^0.46.11
+  "@storm-software/esbuild": ^0.53.103
+  "@storm-software/eslint": ^0.169.109
+  "@storm-software/git-tools": ^2.125.1
+  "@storm-software/linting-tools": ^1.132.110
+  "@storm-software/markdownlint": ^0.30.96
+  "@storm-software/pnpm-tools": ^0.6.105
+  "@storm-software/prettier": ^0.58.20
+  "@storm-software/testing-tools": ^1.119.96
+  "@storm-software/tsconfig": ^0.48.10
+  "@storm-software/tsup": ^0.2.100
+  "@storm-software/unbuild": ^0.57.103
+  "@storm-software/untyped": ^0.24.84
+  "@storm-software/workspace-tools": ^1.294.54
+  "@stryke/capnp": ^0.12.80
+  "@stryke/cli": ^0.13.27
+  "@stryke/convert": ^0.6.51
+  "@stryke/env": ^0.20.72
+  "@stryke/fs": ^0.33.55
+  "@stryke/hash": ^0.13.8
+  "@stryke/helpers": ^0.10.1
+  "@stryke/http": ^0.12.47
+  "@stryke/json": ^0.14.5
+  "@stryke/path": ^0.26.17
+  "@stryke/string-format": ^0.17.1
+  "@stryke/type-checks": ^0.5.36
+  "@stryke/types": ^0.10.50
+  "@stryke/unique-id": ^0.3.66
   "@swc-node/register": ^1.11.1
   "@swc/core": ^1.15.18
   "@swc/helpers": ^0.5.19
