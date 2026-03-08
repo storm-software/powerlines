@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.7](https://github.com/storm-software/powerlines/releases/tag/core%400.2.7) (03/08/2026)
+
+### Bug Fixes
+
+- **powerlines:** Fix resolution issue when folder and file have same name ([cb1ae9380](https://github.com/storm-software/powerlines/commit/cb1ae9380))
+
 ## [0.2.3](https://github.com/storm-software/powerlines/releases/tag/core%400.2.3) (03/07/2026)
 
 ### Features
