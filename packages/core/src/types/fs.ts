@@ -315,6 +315,11 @@ export interface ResolveOptions extends BaseResolveOptions {
    * An array of patterns to match when resolving modules.
    */
   skipNodeModulesBundle?: boolean;
+
+  /**
+   * If true, the resolver will treat the module as a file.
+   */
+  isFile?: boolean;
 }
 
 export interface VirtualFileSystemInterface {

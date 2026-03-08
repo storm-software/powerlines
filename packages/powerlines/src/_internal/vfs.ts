@@ -72,6 +72,7 @@ import {
   WriteOptions
 } from "../types";
 import { extendLog, format } from "../utils";
+import { DEFAULT_EXTENSIONS } from "./helpers/constants";
 
 interface StorageAdapterState {
   adapter: StorageAdapter;
@@ -335,6 +336,220 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         adapter: this.#storage[key]!
       }));
   }
+
+  /**
+   * A helper function to resolve modules in the virtual file system (VFS).
+   *
+   * @remarks
+   * This function can be used to resolve modules relative to the project root directory.
+   *
+   * @example
+   * ```ts
+   * const resolved = await context.resolvePath("some-module", "/path/to/importer");
+   * ```
+   *
+   * @param id - The module to resolve.
+   * @param importer - An optional path to the importer module.
+   * @param options - Additional resolution options.
+   * @returns A promise that resolves to the resolved module path.
+   */
+  #innerResolve = async (
+    id: string,
+    importer?: string,
+    options: ResolveOptions = {}
+  ): Promise<string | undefined> => {
+    let path = id;
+    if (path.includes("{") || path.includes("}")) {
+      path = replacePathTokens(this.#context, path);
+    }
+
+    if (options.skipAlias !== true) {
+      path = this.resolveAlias(path);
+    }
+
+    if (isAbsolutePath(path)) {
+      return path;
+    }
+
+    const resolverCacheKey = murmurhash({
+      path: this.#normalizeId(path),
+      importer,
+      options
+    });
+
+    let result!: string | undefined;
+    if (!this.#context.config.skipCache) {
+      result = this.resolverCache.get<string | undefined>(resolverCacheKey);
+      if (result) {
+        return result;
+      }
+    }
+
+    result = this.paths[this.#normalizeId(path)];
+    if (!result) {
+      const paths = options.paths ?? [];
+      if (importer && !paths.includes(importer)) {
+        paths.push(importer);
+      }
+
+      paths.push(this.#context.workspaceConfig.workspaceRoot);
+      paths.push(
+        appendPath(
+          this.#context.config.root,
+          this.#context.workspaceConfig.workspaceRoot
+        )
+      );
+      paths.push(
+        appendPath(
+          joinPaths(this.#context.config.root, "src"),
+          this.#context.workspaceConfig.workspaceRoot
+        )
+      );
+      paths.push(
+        ...(
+          Object.keys(this.#context.tsconfig?.options?.paths ?? {})
+            .filter(tsconfigPath =>
+              path.startsWith(tsconfigPath.replace(/\*$/, ""))
+            )
+            .map(
+              tsconfigPath =>
+                this.#context.tsconfig?.options?.paths?.[tsconfigPath]
+            )
+            .flat()
+            .filter(Boolean) as string[]
+        ).map(tsconfigPath =>
+          appendPath(tsconfigPath, this.#context.workspaceConfig.workspaceRoot)
+        )
+      );
+
+      for (const combination of getResolutionCombinations(path, { paths })) {
+        const { relativeKey, adapter } = this.#getStorage(combination);
+        if (await adapter.exists(relativeKey)) {
+          result = combination;
+          break;
+        }
+      }
+
+      if (!result) {
+        try {
+          result = await resolve(path, { ...options, paths });
+        } catch {
+          // Do nothing
+        }
+      }
+    }
+
+    if (result && !this.#context.config.skipCache) {
+      this.resolverCache.set(resolverCacheKey, result);
+    }
+
+    return result;
+  };
+
+  /**
+   * A synchronous helper function to resolve modules using the Jiti resolver
+   *
+   * @remarks
+   * This function can be used to resolve modules relative to the project root directory.
+   *
+   * @example
+   * ```ts
+   * const resolvedPath = context.resolveSync("some-module", "/path/to/importer");
+   * ```
+   *
+   * @param id - The module to resolve.
+   * @param importer - An optional path to the importer module.
+   * @param options - Additional resolution options.
+   * @returns The resolved module path.
+   */
+  #innerResolveSync = (
+    id: string,
+    importer?: string,
+    options: ResolveOptions = {}
+  ): string | undefined => {
+    let path = id;
+    if (path.includes("{") || path.includes("}")) {
+      path = replacePathTokens(this.#context, path);
+    }
+
+    if (options.skipAlias !== true) {
+      path = this.resolveAlias(path);
+    }
+
+    if (isAbsolutePath(path)) {
+      return path;
+    }
+
+    let result!: string | undefined;
+    if (!this.#context.config.skipCache) {
+      result = this.resolverCache.get<string | undefined>(
+        this.#normalizeId(path)
+      );
+      if (result) {
+        return result;
+      }
+    }
+
+    result = this.paths[this.#normalizeId(path)];
+    if (!result) {
+      const paths = options.paths ?? [];
+      if (importer && !paths.includes(importer)) {
+        paths.push(importer);
+      }
+
+      paths.push(this.#context.workspaceConfig.workspaceRoot);
+      paths.push(
+        appendPath(
+          this.#context.config.root,
+          this.#context.workspaceConfig.workspaceRoot
+        )
+      );
+      paths.push(
+        appendPath(
+          joinPaths(this.#context.config.root, "src"),
+          this.#context.workspaceConfig.workspaceRoot
+        )
+      );
+      paths.push(
+        ...(
+          Object.keys(this.#context.tsconfig?.options?.paths ?? {})
+            .filter(tsconfigPath =>
+              path.startsWith(tsconfigPath.replace(/\*$/, ""))
+            )
+            .map(
+              tsconfigPath =>
+                this.#context.tsconfig?.options?.paths?.[tsconfigPath]
+            )
+            .flat()
+            .filter(Boolean) as string[]
+        ).map(tsconfigPath =>
+          appendPath(tsconfigPath, this.#context.workspaceConfig.workspaceRoot)
+        )
+      );
+
+      for (const combination of getResolutionCombinations(path, { paths })) {
+        const { relativeKey, adapter } = this.#getStorage(combination);
+        if (adapter.existsSync(relativeKey)) {
+          result = combination;
+          break;
+        }
+      }
+
+      if (!result) {
+        try {
+          result = resolveSync(path, { ...options, paths });
+        } catch {
+          // Do nothing
+        }
+      }
+    }
+
+    if (result && !this.#context.config.skipCache) {
+      this.resolverCache.set(this.#normalizeId(path), result);
+    }
+
+    return result;
+  };
 
   /**
    * Creates a virtual file system (VFS) that is backed up to a Cap'n Proto message buffer.
@@ -1166,7 +1381,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns A promise that resolves to the contents of the file as a string, or undefined if the file does not exist.
    */
   public async read(path: string): Promise<string | undefined> {
-    const filePath = await this.resolve(path);
+    const filePath = await this.resolve(path, undefined, { isFile: true });
     if (!filePath || !this.existsSync(filePath)) {
       return undefined;
     }
@@ -1184,7 +1399,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns The contents of the file as a string, or undefined if the file does not exist.
    */
   public readSync(path: string): string | undefined {
-    const filePath = this.resolveSync(path);
+    const filePath = this.resolveSync(path, undefined, { isFile: true });
     if (!filePath || !this.existsSync(filePath)) {
       return undefined;
     }
@@ -1236,21 +1451,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     } catch (err) {
       // Only warn about formatting errors for certain file types
       if (
-        [
-          "js",
-          "ts",
-          "cjs",
-          "cts",
-          "mjs",
-          "mts",
-          "tsx",
-          "jsx",
-          "json",
-          "json5",
-          "jsonc",
-          "md",
-          "mdx"
-        ].includes(
+        DEFAULT_EXTENSIONS.includes(
           findFileExtensionSafe(resolvedPath, {
             fullExtension: true
           })
@@ -1456,89 +1657,21 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     importer?: string,
     options: ResolveOptions = {}
   ): Promise<string | undefined> {
-    let path = id;
-    if (path.includes("{") || path.includes("}")) {
-      path = replacePathTokens(this.#context, path);
-    }
-
-    if (options.skipAlias !== true) {
-      path = this.resolveAlias(path);
-    }
-
-    if (isAbsolutePath(path)) {
-      return path;
-    }
-
-    const resolverCacheKey = murmurhash({
-      path: this.#normalizeId(path),
-      importer,
-      options
-    });
-
-    let result!: string | undefined;
-    if (!this.#context.config.skipCache) {
-      result = this.resolverCache.get<string | undefined>(resolverCacheKey);
-      if (result) {
-        return result;
-      }
-    }
-
-    result = this.paths[this.#normalizeId(path)];
-    if (!result) {
-      const paths = options.paths ?? [];
-      if (importer && !paths.includes(importer)) {
-        paths.push(importer);
-      }
-
-      paths.push(this.#context.workspaceConfig.workspaceRoot);
-      paths.push(
-        appendPath(
-          this.#context.config.root,
-          this.#context.workspaceConfig.workspaceRoot
-        )
-      );
-      paths.push(
-        appendPath(
-          joinPaths(this.#context.config.root, "src"),
-          this.#context.workspaceConfig.workspaceRoot
-        )
-      );
-      paths.push(
-        ...(
-          Object.keys(this.#context.tsconfig?.options?.paths ?? {})
-            .filter(tsconfigPath =>
-              path.startsWith(tsconfigPath.replace(/\*$/, ""))
-            )
-            .map(
-              tsconfigPath =>
-                this.#context.tsconfig?.options?.paths?.[tsconfigPath]
-            )
-            .flat()
-            .filter(Boolean) as string[]
-        ).map(tsconfigPath =>
-          appendPath(tsconfigPath, this.#context.workspaceConfig.workspaceRoot)
-        )
-      );
-
-      for (const combination of getResolutionCombinations(path, { paths })) {
-        const { relativeKey, adapter } = this.#getStorage(combination);
-        if (await adapter.exists(relativeKey)) {
-          result = combination;
-          break;
+    let result = await this.#innerResolve(id, importer, options);
+    if (
+      result &&
+      options.isFile &&
+      (await this.isDirectory(result)) &&
+      !hasFileExtension(result)
+    ) {
+      for (const ext of DEFAULT_EXTENSIONS) {
+        result = await this.resolve(`${result}.${ext}`, importer, options);
+        if (result) {
+          return result;
         }
       }
 
-      if (!result) {
-        try {
-          result = await resolve(path, { ...options, paths });
-        } catch {
-          // Do nothing
-        }
-      }
-    }
-
-    if (result && !this.#context.config.skipCache) {
-      this.resolverCache.set(resolverCacheKey, result);
+      return undefined;
     }
 
     return result;
@@ -1565,85 +1698,21 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     importer?: string,
     options: ResolveOptions = {}
   ): string | undefined {
-    let path = id;
-    if (path.includes("{") || path.includes("}")) {
-      path = replacePathTokens(this.#context, path);
-    }
-
-    if (options.skipAlias !== true) {
-      path = this.resolveAlias(path);
-    }
-
-    if (isAbsolutePath(path)) {
-      return path;
-    }
-
-    let result!: string | undefined;
-    if (!this.#context.config.skipCache) {
-      result = this.resolverCache.get<string | undefined>(
-        this.#normalizeId(path)
-      );
-      if (result) {
-        return result;
-      }
-    }
-
-    result = this.paths[this.#normalizeId(path)];
-    if (!result) {
-      const paths = options.paths ?? [];
-      if (importer && !paths.includes(importer)) {
-        paths.push(importer);
-      }
-
-      paths.push(this.#context.workspaceConfig.workspaceRoot);
-      paths.push(
-        appendPath(
-          this.#context.config.root,
-          this.#context.workspaceConfig.workspaceRoot
-        )
-      );
-      paths.push(
-        appendPath(
-          joinPaths(this.#context.config.root, "src"),
-          this.#context.workspaceConfig.workspaceRoot
-        )
-      );
-      paths.push(
-        ...(
-          Object.keys(this.#context.tsconfig?.options?.paths ?? {})
-            .filter(tsconfigPath =>
-              path.startsWith(tsconfigPath.replace(/\*$/, ""))
-            )
-            .map(
-              tsconfigPath =>
-                this.#context.tsconfig?.options?.paths?.[tsconfigPath]
-            )
-            .flat()
-            .filter(Boolean) as string[]
-        ).map(tsconfigPath =>
-          appendPath(tsconfigPath, this.#context.workspaceConfig.workspaceRoot)
-        )
-      );
-
-      for (const combination of getResolutionCombinations(path, { paths })) {
-        const { relativeKey, adapter } = this.#getStorage(combination);
-        if (adapter.existsSync(relativeKey)) {
-          result = combination;
-          break;
+    let result = this.#innerResolveSync(id, importer, options);
+    if (
+      result &&
+      options.isFile &&
+      this.isDirectorySync(result) &&
+      !hasFileExtension(result)
+    ) {
+      for (const ext of DEFAULT_EXTENSIONS) {
+        result = this.resolveSync(`${result}.${ext}`, importer, options);
+        if (result) {
+          return result;
         }
       }
 
-      if (!result) {
-        try {
-          result = resolveSync(path, { ...options, paths });
-        } catch {
-          // Do nothing
-        }
-      }
-    }
-
-    if (result && !this.#context.config.skipCache) {
-      this.resolverCache.set(this.#normalizeId(path), result);
+      return undefined;
     }
 
     return result;
