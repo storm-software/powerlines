@@ -395,19 +395,22 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         paths.push(importer);
       }
 
-      paths.push(this.#context.workspaceConfig.workspaceRoot);
-      paths.push(
-        appendPath(
-          this.#context.config.root,
-          this.#context.workspaceConfig.workspaceRoot
-        )
-      );
-      paths.push(
-        appendPath(
-          joinPaths(this.#context.config.root, "src"),
-          this.#context.workspaceConfig.workspaceRoot
-        )
-      );
+      if (!importer) {
+        paths.push(this.#context.workspaceConfig.workspaceRoot);
+        paths.push(
+          appendPath(
+            this.#context.config.root,
+            this.#context.workspaceConfig.workspaceRoot
+          )
+        );
+        paths.push(
+          appendPath(
+            joinPaths(this.#context.config.root, "src"),
+            this.#context.workspaceConfig.workspaceRoot
+          )
+        );
+      }
+
       paths.push(
         ...(
           Object.keys(this.#context.tsconfig?.options?.paths ?? {})
@@ -503,19 +506,22 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         paths.push(importer);
       }
 
-      paths.push(this.#context.workspaceConfig.workspaceRoot);
-      paths.push(
-        appendPath(
-          this.#context.config.root,
-          this.#context.workspaceConfig.workspaceRoot
-        )
-      );
-      paths.push(
-        appendPath(
-          joinPaths(this.#context.config.root, "src"),
-          this.#context.workspaceConfig.workspaceRoot
-        )
-      );
+      if (!importer) {
+        paths.push(this.#context.workspaceConfig.workspaceRoot);
+        paths.push(
+          appendPath(
+            this.#context.config.root,
+            this.#context.workspaceConfig.workspaceRoot
+          )
+        );
+        paths.push(
+          appendPath(
+            joinPaths(this.#context.config.root, "src"),
+            this.#context.workspaceConfig.workspaceRoot
+          )
+        );
+      }
+
       paths.push(
         ...(
           Object.keys(this.#context.tsconfig?.options?.paths ?? {})
