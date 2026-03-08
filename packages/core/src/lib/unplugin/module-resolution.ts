@@ -116,7 +116,7 @@ export function createUnpluginModuleResolutionFunctions<
         };
       }
 
-      result = await ctx.resolve(id, importer, opts);
+      result = await ctx.resolve(id, importer, { isFile: true, ...opts });
       if (isSetString(result)) {
         return `${prefix}${result}`;
       } else if (isSetObject(result)) {

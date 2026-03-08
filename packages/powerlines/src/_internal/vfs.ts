@@ -1657,24 +1657,34 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     importer?: string,
     options: ResolveOptions = {}
   ): Promise<string | undefined> {
-    let result = await this.#innerResolve(id, importer, options);
-    if (
-      result &&
-      options.isFile &&
-      (await this.isDirectory(result)) &&
-      !hasFileExtension(result)
-    ) {
-      for (const ext of DEFAULT_EXTENSIONS) {
-        result = await this.resolve(`${result}.${ext}`, importer, options);
-        if (result) {
-          return result;
+    const origResult = await this.#innerResolve(id, importer, options);
+    if (origResult && options.isFile && (await this.isDirectory(origResult))) {
+      const indexResult = await this.resolve(
+        joinPaths(origResult, "index"),
+        importer,
+        options
+      );
+      if (indexResult) {
+        return indexResult;
+      }
+
+      if (!hasFileExtension(origResult)) {
+        for (const ext of DEFAULT_EXTENSIONS) {
+          const extResult = await this.resolve(
+            `${origResult}.${ext}`,
+            importer,
+            options
+          );
+          if (extResult) {
+            return extResult;
+          }
         }
       }
 
       return undefined;
     }
 
-    return result;
+    return origResult;
   }
 
   /**
@@ -1698,24 +1708,34 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     importer?: string,
     options: ResolveOptions = {}
   ): string | undefined {
-    let result = this.#innerResolveSync(id, importer, options);
-    if (
-      result &&
-      options.isFile &&
-      this.isDirectorySync(result) &&
-      !hasFileExtension(result)
-    ) {
-      for (const ext of DEFAULT_EXTENSIONS) {
-        result = this.resolveSync(`${result}.${ext}`, importer, options);
-        if (result) {
-          return result;
+    const origResult = this.#innerResolveSync(id, importer, options);
+    if (origResult && options.isFile && this.isDirectorySync(origResult)) {
+      const indexResult = this.resolveSync(
+        joinPaths(origResult, "index"),
+        importer,
+        options
+      );
+      if (indexResult) {
+        return indexResult;
+      }
+
+      if (!hasFileExtension(origResult)) {
+        for (const ext of DEFAULT_EXTENSIONS) {
+          const extResult = this.resolveSync(
+            `${origResult}.${ext}`,
+            importer,
+            options
+          );
+          if (extResult) {
+            return extResult;
+          }
         }
       }
 
       return undefined;
     }
 
-    return result;
+    return origResult;
   }
 
   /**
