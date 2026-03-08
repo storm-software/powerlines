@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.40.11](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.11) (03/08/2026)
+
+### Bug Fixes
+
+- **powerlines:** Added extra logic to handle scenarios with duplicate file/folder names ([2e942e5cd](https://github.com/storm-software/powerlines/commit/2e942e5cd))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.332**
+- Updated **plugin-esbuild** to **v0.13.330**
+- Updated **plugin-unbuild** to **v0.5.331**
+- Updated **plugin-webpack** to **v0.5.330**
+- Updated **plugin-rollup** to **v0.7.331**
+- Updated **plugin-rspack** to **v0.5.330**
+- Updated **plugin-tsdown** to **v0.1.275**
+- Updated **plugin-tsup** to **v0.12.331**
+- Updated **plugin-vite** to **v0.14.324**
+- Updated **core** to **v0.2.8**
+
 ## [0.40.10](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.10) (03/08/2026)
 
 ### Bug Fixes

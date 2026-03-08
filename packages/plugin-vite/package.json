@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-vite",
-  "version": "0.14.323",
+  "version": "0.14.324",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "keywords": ["vite", "powerlines", "storm-software", "powerlines-plugin"],

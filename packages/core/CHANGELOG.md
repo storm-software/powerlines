@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.8](https://github.com/storm-software/powerlines/releases/tag/core%400.2.8) (03/08/2026)
+
+### Bug Fixes
+
+- **powerlines:** Added extra logic to handle scenarios with duplicate file/folder names ([2e942e5cd](https://github.com/storm-software/powerlines/commit/2e942e5cd))
+
 ## [0.2.7](https://github.com/storm-software/powerlines/releases/tag/core%400.2.7) (03/08/2026)
 
 ### Bug Fixes

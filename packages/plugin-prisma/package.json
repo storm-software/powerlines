@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-prisma",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "private": false,
   "description": "A Powerlines plugin to generate project code and a Prisma client from a Prisma schema (PSL).",
   "keywords": ["prisma", "powerlines", "storm-software", "powerlines-plugin"],
