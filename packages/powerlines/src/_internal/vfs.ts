@@ -367,7 +367,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       path = this.resolveAlias(path);
     }
 
-    if (isAbsolutePath(path)) {
+    if (
+      isAbsolutePath(path) &&
+      (!options.isFile || !(await this.isDirectory(path)))
+    ) {
       return path;
     }
 
@@ -476,7 +479,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       path = this.resolveAlias(path);
     }
 
-    if (isAbsolutePath(path)) {
+    if (
+      isAbsolutePath(path) &&
+      (!options.isFile || !this.isDirectorySync(path))
+    ) {
       return path;
     }
 
