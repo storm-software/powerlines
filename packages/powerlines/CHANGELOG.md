@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.40.10](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.10) (03/08/2026)
+
+### Bug Fixes
+
+- **powerlines:** Fix resolution issue when folder and file have same name ([cb1ae9380](https://github.com/storm-software/powerlines/commit/cb1ae9380))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.331**
+- Updated **plugin-esbuild** to **v0.13.329**
+- Updated **plugin-unbuild** to **v0.5.330**
+- Updated **plugin-webpack** to **v0.5.329**
+- Updated **plugin-rollup** to **v0.7.330**
+- Updated **plugin-rspack** to **v0.5.329**
+- Updated **plugin-tsdown** to **v0.1.274**
+- Updated **plugin-tsup** to **v0.12.330**
+- Updated **plugin-vite** to **v0.14.323**
+- Updated **core** to **v0.2.7**
+
 ## [0.40.9](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.9) (03/07/2026)
 
 ### Bug Fixes
