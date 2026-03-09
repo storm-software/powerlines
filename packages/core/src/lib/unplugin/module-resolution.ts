@@ -21,9 +21,9 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { LoadResult } from "rollup";
 import type {
   ExternalIdResult,
-  HookFnMap,
   UnpluginBuildContext,
-  UnpluginContext
+  UnpluginContext,
+  UnpluginOptions
 } from "unplugin";
 import { UNSAFE_PluginContext } from "../../types/_internal";
 import { PluginContext } from "../../types/context";
@@ -33,9 +33,9 @@ export interface CreateUnpluginModuleResolutionFunctionsOptions {
    * A prefix to apply to all resolved module IDs. This can be used to create virtual modules by prefixing them with a specific string (e.g., `\0`).
    *
    * @remarks
-   * If set to `false`, no prefix will be applied, and resolved module IDs will be returned as-is. By default, this is set to `\0`, which is a common convention for virtual modules in Rollup and Vite plugins.
+   * If set to `false`, no prefix will be applied, and resolved module IDs will be returned as-is. By default, this is set to `\0powerlines:`, which is a common convention for virtual modules in Rollup and Vite plugins.
    *
-   * @defaultValue "\\0"
+   * @defaultValue "\\0powerlines:"
    */
   prefix?: string | boolean;
 }
@@ -57,14 +57,14 @@ export function createUnpluginModuleResolutionFunctions<
 >(
   context: TContext,
   options: CreateUnpluginModuleResolutionFunctionsOptions = {}
-): Pick<HookFnMap, "resolveId" | "load"> {
+): Pick<UnpluginOptions, "resolveId" | "load"> {
   const ctx = context as unknown as UNSAFE_PluginContext;
 
   let prefix = "";
-  if (options.prefix === true) {
-    prefix = "\0";
-  } else if (isSetString(options.prefix)) {
+  if (isSetString(options.prefix)) {
     prefix = options.prefix;
+  } else if (options.prefix !== false) {
+    prefix = "\0powerlines:";
   }
 
   return {
@@ -148,54 +148,71 @@ export function createUnpluginModuleResolutionFunctions<
 
       return null;
     },
-    async load(
-      this: UnpluginBuildContext & UnpluginContext,
-      id: string
-    ): Promise<LoadResult | null | undefined> {
-      const moduleId = prefix
-        ? id.replace(new RegExp(`^${prefix}*`, "g"), "")
-        : id;
+    load: {
+      filter: prefix
+        ? {
+            id: {
+              include: [
+                new RegExp(`^${prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`)
+              ]
+            }
+          }
+        : undefined,
+      async handler(
+        this: UnpluginBuildContext & UnpluginContext,
+        id: string
+      ): Promise<LoadResult | null | undefined> {
+        const moduleId = prefix
+          ? id.replace(
+              new RegExp(
+                `^${prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`,
+                "g"
+              ),
+              ""
+            )
+          : id;
 
-      let result = await ctx.$$internal.callHook(
-        "load",
-        {
-          sequential: true,
-          result: "first",
-          order: "pre"
-        },
-        moduleId
-      );
-      if (result) {
-        return result;
+        let result = await ctx.$$internal.callHook(
+          "load",
+          {
+            sequential: true,
+            result: "first",
+            order: "pre"
+          },
+          moduleId
+        );
+        if (result) {
+          return result;
+        }
+
+        result = await ctx.$$internal.callHook(
+          "load",
+          {
+            sequential: true,
+            result: "first",
+            order: "normal"
+          },
+          moduleId
+        );
+        if (result) {
+          return result;
+        }
+
+        result = await ctx.load(moduleId);
+        if (result) {
+          return result;
+        }
+
+        return ctx.$$internal.callHook(
+          "load",
+          {
+            sequential: true,
+            result: "first",
+            order: "post"
+          },
+          moduleId
+        );
       }
-
-      result = await ctx.$$internal.callHook(
-        "load",
-        {
-          sequential: true,
-          result: "first",
-          order: "normal"
-        },
-        moduleId
-      );
-      if (result) {
-        return result;
-      }
-
-      result = await ctx.load(moduleId);
-      if (result) {
-        return result;
-      }
-
-      return ctx.$$internal.callHook(
-        "load",
-        {
-          sequential: true,
-          result: "first",
-          order: "post"
-        },
-        moduleId
-      );
     }
   };
 }

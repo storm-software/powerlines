@@ -86,22 +86,8 @@ export function createUnpluginResolver<
             ? "powerlines"
             : `powerlines:${kebabCase(name)}`,
         api: ctx.$$internal.api,
-        resolveId: {
-          filter: {
-            id: {
-              include: [/.*/]
-            }
-          },
-          handler: resolveId
-        },
-        load: {
-          filter: {
-            id: {
-              include: [/.*/]
-            }
-          },
-          handler: load
-        }
+        resolveId,
+        load
       };
     } catch (error) {
       log(LogLevelLabel.FATAL, (error as Error)?.message);
@@ -196,22 +182,8 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
             ? "powerlines"
             : `powerlines:${kebabCase(name)}`,
         api: ctx.$$internal.api,
-        resolveId: {
-          filter: {
-            id: {
-              include: [/.*/]
-            }
-          },
-          handler: resolveId
-        },
-        load: {
-          filter: {
-            id: {
-              include: [/.*/]
-            }
-          },
-          handler: load
-        },
+        resolveId,
+        load,
         transform,
         buildStart,
         buildEnd,
