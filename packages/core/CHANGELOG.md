@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.10](https://github.com/storm-software/powerlines/releases/tag/core%400.2.10) (03/09/2026)
+
+### Miscellaneous
+
+- **core:** Added logic to ensure prefix is applied in virtual module resolution ([2027d006e](https://github.com/storm-software/powerlines/commit/2027d006e))
+
 ## [0.2.8](https://github.com/storm-software/powerlines/releases/tag/core%400.2.8) (03/08/2026)
 
 ### Bug Fixes

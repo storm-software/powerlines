@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-rspack",
-  "version": "0.5.331",
+  "version": "0.5.332",
   "private": false,
   "description": "A package containing a Powerlines plugin to build projects using Webpack.",
   "keywords": ["rspack", "powerlines", "storm-software", "powerlines-plugin"],
