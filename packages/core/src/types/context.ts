@@ -193,6 +193,13 @@ export interface EmitOptions extends WriteOptions {
 export type EmitEntryOptions = EmitOptions &
   Omit<ResolvedEntryTypeDefinition, "file">;
 
+export interface ResolveResult extends ExternalIdResult {
+  /**
+   * A flag indicating whether the resolved module is part of the generated runtime modules
+   */
+  virtual?: boolean;
+}
+
 /**
  * The unresolved Powerlines context.
  *
@@ -423,7 +430,7 @@ export interface UnresolvedContext<
     id: string,
     importer?: string,
     options?: ResolveOptions
-  ) => Promise<ExternalIdResult | undefined>;
+  ) => Promise<ResolveResult | undefined>;
 
   /**
    * A helper function to load modules using the Jiti resolver

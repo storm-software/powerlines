@@ -62,11 +62,7 @@ import {
   Response,
   setGlobalDispatcher
 } from "undici";
-import {
-  ExternalIdResult,
-  UnpluginBuildContext,
-  UnpluginMessage
-} from "unplugin";
+import { UnpluginBuildContext, UnpluginMessage } from "unplugin";
 import { getPrefixedRootHash } from "../_internal/helpers/meta";
 import {
   createResolver,
@@ -101,6 +97,7 @@ import type {
   ResolvedEntryTypeDefinition,
   ResolveOptions,
   Resolver,
+  ResolveResult,
   TransformResult,
   VirtualFile,
   VirtualFileSystemInterface,
@@ -792,7 +789,7 @@ export class PowerlinesContext<
     id: string,
     importer?: string,
     options: ResolveOptions = {}
-  ): Promise<ExternalIdResult | undefined> {
+  ): Promise<ResolveResult | undefined> {
     let moduleId = id;
     if (this.config.resolve.alias) {
       if (Array.isArray(this.config.resolve.alias)) {
@@ -841,7 +838,8 @@ export class PowerlinesContext<
             (this.fs.isVirtual(moduleId) &&
               this.config.projectType !== "application") ||
             (this.config.resolve.skipNodeModulesBundle &&
-              !/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(moduleId)))
+              !/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(moduleId))),
+        virtual: this.fs.isVirtual(moduleId)
       };
     }
 
@@ -857,14 +855,15 @@ export class PowerlinesContext<
         match(moduleId, this.config.resolve.external) ||
         moduleId.startsWith("node:")
       ) {
-        return { id: moduleId, external: true };
+        return { id: moduleId, external: true, virtual: false };
       }
 
       // Exclude any other import that looks like a Node module
       if (!/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(moduleId)) {
         return {
           id: moduleId,
-          external: true
+          external: true,
+          virtual: false
         };
       }
     } else {
@@ -876,7 +875,7 @@ export class PowerlinesContext<
         match(moduleId, this.config.resolve.external) ||
         moduleId.startsWith("node:")
       ) {
-        return { id: moduleId, external: true };
+        return { id: moduleId, external: true, virtual: false };
       }
     }
 

@@ -19,7 +19,7 @@
 import type { ArrayValues } from "@stryke/types/array";
 import type { AnyFunction, MaybePromise } from "@stryke/types/base";
 import { LoadResult } from "rollup";
-import type { ExternalIdResult, HookFilter, TransformResult } from "unplugin";
+import type { HookFilter, TransformResult } from "unplugin";
 import {
   KNOWN_PLUGIN_FIELDS,
   PLUGIN_NON_HOOK_FIELDS
@@ -34,6 +34,7 @@ import type {
 import type {
   BuildPluginContext,
   PluginContext,
+  ResolveResult,
   UnresolvedContext
 } from "./context";
 import type { BuilderVariant, UnpluginBuilderVariant } from "./unplugin";
@@ -192,7 +193,7 @@ export interface Hooks<TContext extends PluginContext> {
     id: string,
     importer: string | undefined,
     options: { isEntry: boolean }
-  ) => MaybePromise<string | ExternalIdResult | null | undefined>;
+  ) => MaybePromise<string | ResolveResult | null | undefined>;
 
   /**
    * A hook that is called to write the bundle to disk.

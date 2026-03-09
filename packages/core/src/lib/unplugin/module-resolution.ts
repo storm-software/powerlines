@@ -20,13 +20,12 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { LoadResult } from "rollup";
 import type {
-  ExternalIdResult,
   UnpluginBuildContext,
   UnpluginContext,
   UnpluginOptions
 } from "unplugin";
 import { UNSAFE_PluginContext } from "../../types/_internal";
-import { PluginContext } from "../../types/context";
+import { PluginContext, ResolveResult } from "../../types/context";
 
 export interface CreateUnpluginModuleResolutionFunctionsOptions {
   /**
@@ -75,7 +74,7 @@ export function createUnpluginModuleResolutionFunctions<
       opts: {
         isEntry: boolean;
       } = { isEntry: false }
-    ): Promise<string | ExternalIdResult | null | undefined> {
+    ): Promise<string | ResolveResult | null | undefined> {
       let result = await ctx.$$internal.callHook(
         "resolveId",
         {
@@ -88,11 +87,11 @@ export function createUnpluginModuleResolutionFunctions<
         opts
       );
       if (isSetString(result)) {
-        return `${prefix}${result}`;
+        return result;
       } else if (isSetObject(result)) {
         return {
           ...result,
-          id: `${prefix}${result.id}`
+          id: result.virtual ? `${prefix}${result.id}` : result.id
         };
       }
 
@@ -108,21 +107,19 @@ export function createUnpluginModuleResolutionFunctions<
         opts
       );
       if (isSetString(result)) {
-        return `${prefix}${result}`;
+        return result;
       } else if (isSetObject(result)) {
         return {
           ...result,
-          id: `${prefix}${result.id}`
+          id: result.virtual ? `${prefix}${result.id}` : result.id
         };
       }
 
       result = await ctx.resolve(id, importer, { isFile: true, ...opts });
-      if (isSetString(result)) {
-        return `${prefix}${result}`;
-      } else if (isSetObject(result)) {
+      if (isSetObject(result)) {
         return {
           ...result,
-          id: `${prefix}${result.id}`
+          id: result.virtual ? `${prefix}${result.id}` : result.id
         };
       }
 
@@ -138,11 +135,11 @@ export function createUnpluginModuleResolutionFunctions<
         opts
       );
       if (isSetString(result)) {
-        return `${prefix}${result}`;
+        return result;
       } else if (isSetObject(result)) {
         return {
           ...result,
-          id: `${prefix}${result.id}`
+          id: result.virtual ? `${prefix}${result.id}` : result.id
         };
       }
 
