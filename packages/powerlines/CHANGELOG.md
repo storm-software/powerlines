@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.40.13](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.13) (03/08/2026)
+
+### Bug Fixes
+
+- **powerlines:** Ensure `importer` has full resolver priority when provided ([4773944a8](https://github.com/storm-software/powerlines/commit/4773944a8))
+- **powerlines:** Fix issue where invalid module id is returned by resolve ([a51e483ce](https://github.com/storm-software/powerlines/commit/a51e483ce))
+
 ## [0.40.12](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.12) (03/08/2026)
 
 ### Updated Dependencies
