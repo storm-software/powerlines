@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.12](https://github.com/storm-software/powerlines/releases/tag/core%400.2.12) (03/09/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue prefixing resolved modules ([4cd8a42ee](https://github.com/storm-software/powerlines/commit/4cd8a42ee))
+
 ## [0.2.11](https://github.com/storm-software/powerlines/releases/tag/core%400.2.11) (03/09/2026)
 
 ### Bug Fixes
