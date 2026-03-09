@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.11](https://github.com/storm-software/powerlines/releases/tag/core%400.2.11) (03/09/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue wih invalid module prefix ([919a9ffdf](https://github.com/storm-software/powerlines/commit/919a9ffdf))
+
 ## [0.2.10](https://github.com/storm-software/powerlines/releases/tag/core%400.2.10) (03/09/2026)
 
 ### Miscellaneous
