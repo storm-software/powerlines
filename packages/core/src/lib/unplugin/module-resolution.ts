@@ -29,15 +29,19 @@ import { PluginContext, ResolveResult } from "../../types/context";
 
 export interface CreateUnpluginModuleResolutionFunctionsOptions {
   /**
-   * A prefix to apply to all resolved module IDs. This can be used to create virtual modules by prefixing them with a specific string (e.g., `\0`).
+   * An indicator of whether to prefix virtual module IDs with a specific string. This is useful for ensuring that virtual modules are only processed by the plugin and not by other plugins or the bundler itself.
    *
    * @remarks
-   * If set to `false`, no prefix will be applied, and resolved module IDs will be returned as-is. By default, this is set to `\0powerlines:`, which is a common convention for virtual modules in Rollup and Vite plugins.
+   * - If set to `true`, virtual module IDs will be prefixed with the string `\0powerlines:`.
+   * - If set to `false`, no prefix will be added to virtual module IDs.
    *
-   * @defaultValue "\\0powerlines:"
+   * @defaultValue true
    */
-  prefix?: string | boolean;
+  prefix?: boolean;
 }
+
+const VIRTUAL_MODULE_PREFIX = "\\0powerlines-virtual:";
+const VIRTUAL_MODULE_PREFIX_REGEX = /^\\0powerlines-virtual:/;
 
 /**
  * Creates the module resolution hook functions for a Powerlines unplugin plugin instance.
@@ -49,6 +53,7 @@ export interface CreateUnpluginModuleResolutionFunctionsOptions {
  * @see https://rollupjs.org/plugin-development/#load
  *
  * @param context - The plugin context.
+ * @param options - Options for creating the module resolution functions.
  * @returns The module resolution hooks (`resolveId` and `load`).
  */
 export function createUnpluginModuleResolutionFunctions<
@@ -58,13 +63,6 @@ export function createUnpluginModuleResolutionFunctions<
   options: CreateUnpluginModuleResolutionFunctionsOptions = {}
 ): Pick<UnpluginOptions, "resolveId" | "load"> {
   const ctx = context as unknown as UNSAFE_PluginContext;
-
-  let prefix = "";
-  if (isSetString(options.prefix)) {
-    prefix = options.prefix;
-  } else if (options.prefix !== false) {
-    prefix = "\0powerlines:";
-  }
 
   return {
     async resolveId(
@@ -91,7 +89,10 @@ export function createUnpluginModuleResolutionFunctions<
       } else if (isSetObject(result)) {
         return {
           ...result,
-          id: result.virtual ? `${prefix}${result.id}` : result.id
+          id:
+            result.virtual && options.prefix !== false
+              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
+              : result.id
         };
       }
 
@@ -111,7 +112,10 @@ export function createUnpluginModuleResolutionFunctions<
       } else if (isSetObject(result)) {
         return {
           ...result,
-          id: result.virtual ? `${prefix}${result.id}` : result.id
+          id:
+            result.virtual && options.prefix !== false
+              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
+              : result.id
         };
       }
 
@@ -119,7 +123,10 @@ export function createUnpluginModuleResolutionFunctions<
       if (isSetObject(result)) {
         return {
           ...result,
-          id: result.virtual ? `${prefix}${result.id}` : result.id
+          id:
+            result.virtual && options.prefix !== false
+              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
+              : result.id
         };
       }
 
@@ -139,35 +146,30 @@ export function createUnpluginModuleResolutionFunctions<
       } else if (isSetObject(result)) {
         return {
           ...result,
-          id: result.virtual ? `${prefix}${result.id}` : result.id
+          id:
+            result.virtual && options.prefix !== false
+              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
+              : result.id
         };
       }
 
       return null;
     },
     load: {
-      filter: prefix
-        ? {
-            id: {
-              include: [
-                new RegExp(`^${prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`)
-              ]
+      filter:
+        options.prefix !== false
+          ? {
+              id: {
+                include: [VIRTUAL_MODULE_PREFIX_REGEX]
+              }
             }
-          }
-        : undefined,
+          : undefined,
       async handler(
         this: UnpluginBuildContext & UnpluginContext,
         id: string
       ): Promise<LoadResult | null | undefined> {
-        const moduleId = prefix
-          ? id.replace(
-              new RegExp(
-                `^${prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`,
-                "g"
-              ),
-              ""
-            )
-          : id;
+        const moduleId =
+          options.prefix !== false ? id.replace(VIRTUAL_MODULE_PREFIX, "") : id;
 
         let result = await ctx.$$internal.callHook(
           "load",
