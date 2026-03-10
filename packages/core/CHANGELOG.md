@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.13](https://github.com/storm-software/powerlines/releases/tag/core%400.2.13) (03/09/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue replacing prefix in module resolution ([138e463be](https://github.com/storm-software/powerlines/commit/138e463be))
+
 ## [0.2.12](https://github.com/storm-software/powerlines/releases/tag/core%400.2.12) (03/09/2026)
 
 ### Bug Fixes
