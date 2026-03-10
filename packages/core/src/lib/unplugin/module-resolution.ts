@@ -156,20 +156,11 @@ export function createUnpluginModuleResolutionFunctions<
       return null;
     },
     load: {
-      filter:
-        options.prefix !== false
-          ? {
-              id: {
-                include: [VIRTUAL_MODULE_PREFIX_REGEX]
-              }
-            }
-          : undefined,
       async handler(
         this: UnpluginBuildContext & UnpluginContext,
         id: string
       ): Promise<LoadResult | null | undefined> {
-        const moduleId =
-          options.prefix !== false ? id.replace(VIRTUAL_MODULE_PREFIX, "") : id;
+        const moduleId = id.replace(VIRTUAL_MODULE_PREFIX_REGEX, "");
 
         let result = await ctx.$$internal.callHook(
           "load",
