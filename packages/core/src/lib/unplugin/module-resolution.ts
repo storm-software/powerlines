@@ -32,7 +32,7 @@ export interface CreateUnpluginModuleResolutionFunctionsOptions {
    * An indicator of whether to prefix virtual module IDs with a specific string. This is useful for ensuring that virtual modules are only processed by the plugin and not by other plugins or the bundler itself.
    *
    * @remarks
-   * - If set to `true`, virtual module IDs will be prefixed with the string `\0powerlines:`.
+   * - If set to `true`, virtual module IDs will be prefixed with the string `powerlines-virtual:`.
    * - If set to `false`, no prefix will be added to virtual module IDs.
    *
    * @defaultValue true
@@ -40,8 +40,8 @@ export interface CreateUnpluginModuleResolutionFunctionsOptions {
   prefix?: boolean;
 }
 
-const VIRTUAL_MODULE_PREFIX = "\\0powerlines-virtual:";
-const VIRTUAL_MODULE_PREFIX_REGEX = /^\\0powerlines-virtual:/;
+const VIRTUAL_MODULE_PREFIX = "powerlines-virtual:";
+const VIRTUAL_MODULE_PREFIX_REGEX = /^powerlines-virtual:/;
 
 /**
  * Creates the module resolution hook functions for a Powerlines unplugin plugin instance.
