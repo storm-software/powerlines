@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.41.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.3) (03/11/2026)
+
+### Bug Fixes
+
+- **powerlines:** Update context to exclude module id prefix from externals ([c7e52389a](https://github.com/storm-software/powerlines/commit/c7e52389a))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.345**
+- Updated **plugin-esbuild** to **v0.13.343**
+- Updated **plugin-unbuild** to **v0.5.344**
+- Updated **plugin-webpack** to **v0.5.343**
+- Updated **plugin-rollup** to **v0.7.344**
+- Updated **plugin-rspack** to **v0.5.343**
+- Updated **plugin-tsdown** to **v0.1.288**
+- Updated **plugin-tsup** to **v0.12.344**
+- Updated **plugin-vite** to **v0.14.337**
+- Updated **core** to **v0.2.21**
+
 ## [0.41.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.2) (03/11/2026)
 
 ### Miscellaneous
