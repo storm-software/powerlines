@@ -8,7 +8,7 @@ export class FileMetadata_KeyValuePair extends $.Struct {
   public static override readonly _capnp = {
     displayName: "KeyValuePair",
     id: "eabb26cf58b2a14c",
-    size: new $.ObjectSize(0, 2),
+    size: new $.ObjectSize(0, 2)
   };
   get key(): string {
     return $.utils.getText(0, this);
@@ -22,12 +22,14 @@ export class FileMetadata_KeyValuePair extends $.Struct {
   set value(value: string) {
     $.utils.setText(1, value, this);
   }
-  public override toString(): string { return "FileMetadata_KeyValuePair_" + super.toString(); }
+  public override toString(): string {
+    return "FileMetadata_KeyValuePair_" + super.toString();
+  }
 }
 /**
-* The identifier for the file data.
-*
-*/
+ * The identifier for the file data.
+ *
+ */
 export class FileMetadata extends $.Struct {
   static readonly KeyValuePair = FileMetadata_KeyValuePair;
   public static override readonly _capnp = {
@@ -38,9 +40,9 @@ export class FileMetadata extends $.Struct {
   };
   static _Properties: $.ListCtor<FileMetadata_KeyValuePair>;
   /**
-* The type of the file.
-*
-*/
+   * The type of the file.
+   *
+   */
   get id(): string {
     return $.utils.getText(0, this);
   }
@@ -48,9 +50,9 @@ export class FileMetadata extends $.Struct {
     $.utils.setText(0, value, this);
   }
   /**
-* The timestamp representing the file's creation date.
-*
-*/
+   * The timestamp representing the file's creation date.
+   *
+   */
   get type(): string {
     return $.utils.getText(1, this, FileMetadata._capnp.defaultType);
   }
@@ -58,9 +60,9 @@ export class FileMetadata extends $.Struct {
     $.utils.setText(1, value, this);
   }
   /**
-* Additional metadata associated with the file.
-*
-*/
+   * Additional metadata associated with the file.
+   *
+   */
   get timestamp(): number {
     return $.utils.getUint32(0, this);
   }
@@ -85,22 +87,24 @@ export class FileMetadata extends $.Struct {
   set properties(value: $.List<FileMetadata_KeyValuePair>) {
     $.utils.copyFrom(value, $.utils.getPointer(2, this));
   }
-  public override toString(): string { return "FileMetadata_" + super.toString(); }
+  public override toString(): string {
+    return "FileMetadata_" + super.toString();
+  }
 }
 /**
-* An identifier for the file.
-*
-*/
+ * An identifier for the file.
+ *
+ */
 export class FileId extends $.Struct {
   public static override readonly _capnp = {
     displayName: "FileId",
     id: "990d6a471072f997",
-    size: new $.ObjectSize(0, 2),
+    size: new $.ObjectSize(0, 2)
   };
   /**
-* A virtual (or actual) path to the file in the file system.
-*
-*/
+   * A virtual (or actual) path to the file in the file system.
+   *
+   */
   get id(): string {
     return $.utils.getText(0, this);
   }
@@ -113,22 +117,24 @@ export class FileId extends $.Struct {
   set path(value: string) {
     $.utils.setText(1, value, this);
   }
-  public override toString(): string { return "FileId_" + super.toString(); }
+  public override toString(): string {
+    return "FileId_" + super.toString();
+  }
 }
 /**
-* An identifier for the file.
-*
-*/
+ * An identifier for the file.
+ *
+ */
 export class FileStorage extends $.Struct {
   public static override readonly _capnp = {
     displayName: "FileStorage",
     id: "9dca66ac858c9ebe",
-    size: new $.ObjectSize(0, 2),
+    size: new $.ObjectSize(0, 2)
   };
   /**
-* A virtual (or actual) path to the file in the file system.
-*
-*/
+   * A virtual (or actual) path to the file in the file system.
+   *
+   */
   get path(): string {
     return $.utils.getText(0, this);
   }
@@ -141,13 +147,15 @@ export class FileStorage extends $.Struct {
   set code(value: string) {
     $.utils.setText(1, value, this);
   }
-  public override toString(): string { return "FileStorage_" + super.toString(); }
+  public override toString(): string {
+    return "FileStorage_" + super.toString();
+  }
 }
 export class FileSystem extends $.Struct {
   public static override readonly _capnp = {
     displayName: "FileSystem",
     id: "ae0c23d43e56abcf",
-    size: new $.ObjectSize(0, 3),
+    size: new $.ObjectSize(0, 3)
   };
   static _Ids: $.ListCtor<FileId>;
   static _Storage: $.ListCtor<FileStorage>;
@@ -206,7 +214,9 @@ export class FileSystem extends $.Struct {
   set metadata(value: $.List<FileMetadata>) {
     $.utils.copyFrom(value, $.utils.getPointer(2, this));
   }
-  public override toString(): string { return "FileSystem_" + super.toString(); }
+  public override toString(): string {
+    return "FileSystem_" + super.toString();
+  }
 }
 FileMetadata._Properties = $.CompositeList(FileMetadata_KeyValuePair);
 FileSystem._Ids = $.CompositeList(FileId);

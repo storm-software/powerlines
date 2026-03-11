@@ -48,20 +48,26 @@
       "@powerlines/plugin-eslint/*": ["packages/plugin-eslint/src/*"],
       "@powerlines/plugin-graphql": ["packages/plugin-graphql/src/index.ts"],
       "@powerlines/plugin-graphql/*": ["packages/plugin-graphql/src/*"],
+      "@powerlines/plugin-hey-api": ["packages/plugin-hey-api/src/index.ts"],
+      "@powerlines/plugin-hey-api/*": ["packages/plugin-hey-api/src/*"],
       "@powerlines/plugin-i18next": ["packages/plugin-i18next/src/index.ts"],
       "@powerlines/plugin-i18next/*": ["packages/plugin-i18next/src/*"],
       "@powerlines/plugin-id": ["packages/plugin-id/src/index.ts"],
       "@powerlines/plugin-id/*": ["packages/plugin-id/src/*"],
-      "@powerlines/plugin-hey-api": ["packages/plugin-hey-api/src/index.ts"],
-      "@powerlines/plugin-hey-api/*": ["packages/plugin-hey-api/src/*"],
+      "@powerlines/plugin-image-compression": [
+        "packages/plugin-image-compression/src/index.ts"
+      ],
+      "@powerlines/plugin-image-compression/*": [
+        "packages/plugin-image-compression/src/*"
+      ],
       "@powerlines/plugin-jest": ["packages/plugin-jest/src/index.ts"],
       "@powerlines/plugin-jest/*": ["packages/plugin-jest/src/*"],
       "@powerlines/plugin-marked": ["packages/plugin-marked/src/index.ts"],
       "@powerlines/plugin-marked/*": ["packages/plugin-marked/src/*"],
-      "@powerlines/plugin-nodejs": ["packages/plugin-nodejs/src/index.ts"],
-      "@powerlines/plugin-nodejs/*": ["packages/plugin-nodejs/src/*"],
       "@powerlines/plugin-nitro": ["packages/plugin-nitro/src/index.ts"],
       "@powerlines/plugin-nitro/*": ["packages/plugin-nitro/src/*"],
+      "@powerlines/plugin-nodejs": ["packages/plugin-nodejs/src/index.ts"],
+      "@powerlines/plugin-nodejs/*": ["packages/plugin-nodejs/src/*"],
       "@powerlines/plugin-openapi": ["packages/plugin-openapi/src/index.ts"],
       "@powerlines/plugin-openapi/*": ["packages/plugin-openapi/src/*"],
       "@powerlines/plugin-oxc-transform": [
@@ -88,12 +94,6 @@
       "@powerlines/plugin-rspack/*": ["packages/plugin-rspack/src/*"],
       "@powerlines/plugin-satori": ["packages/plugin-satori/src/index.ts"],
       "@powerlines/plugin-satori/*": ["packages/plugin-satori/src/*"],
-      "@powerlines/plugin-image-compression": [
-        "packages/plugin-image-compression/src/index.ts"
-      ],
-      "@powerlines/plugin-image-compression/*": [
-        "packages/plugin-image-compression/src/*"
-      ],
       "@powerlines/plugin-style-dictionary": [
         "packages/plugin-style-dictionary/src/index.ts"
       ],
@@ -129,10 +129,10 @@
       "@powerlines/plugin-webpack": ["packages/plugin-webpack/src/index.ts"],
       "@powerlines/plugin-webpack/*": ["packages/plugin-webpack/src/*"],
       "@powerlines/tools-config/*": ["tools/config/*"],
-      "@powerlines/tools-scripts": ["tools/scripts/src/index.ts"],
-      "@powerlines/tools-scripts/*": ["tools/scripts/src/*"],
       "@powerlines/tools-nx": ["tools/nx/src/index.ts"],
       "@powerlines/tools-nx/*": ["tools/nx/src/*"],
+      "@powerlines/tools-scripts": ["tools/scripts/src/index.ts"],
+      "@powerlines/tools-scripts/*": ["tools/scripts/src/*"],
       "@powerlines/tsconfig/*": ["packages/tsconfig/src/*"],
       "powerlines": ["packages/powerlines/src/index.ts"],
       "powerlines/*": ["packages/powerlines/src/*"]

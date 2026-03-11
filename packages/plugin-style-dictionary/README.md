@@ -22,12 +22,12 @@
 </div>
 
 <br />
-This package is part of the 🔌 <b>Powerlines</b> monorepo. Powerlines packages include CLI utility applications, tools, and various libraries used to create modern, scalable web applications.
+This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "any framework" framework that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.
 <br />
 
 <h3 align="center">💻 Visit <a href="https://stormsoftware.com" target="_blank">stormsoftware.com</a> to stay up to date with this developer</h3><br />
 
-[![Version](https://img.shields.io/badge/version-0.2.0-1fb2a6.svg?style=for-the-badge&color=1fb2a6)](https://prettier.io/)&nbsp;[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=for-the-badge&logo=commitlint&color=1fb2a6)](http://commitizen.github.io/cz-cli/)&nbsp;![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=for-the-badge&color=1fb2a6)&nbsp;![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/storm-software/powerlines/release.yml?style=for-the-badge&logo=github-actions&color=1fb2a6)
+[![Version](https://img.shields.io/badge/version-0.3.233-1fb2a6.svg?style=for-the-badge&color=1fb2a6)](https://stormsoftware.com/projects/powerlines)&nbsp;[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=for-the-badge&logo=commitlint&color=1fb2a6)](http://commitizen.github.io/cz-cli/)&nbsp;![Semantic-Release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=for-the-badge&color=1fb2a6)&nbsp;![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/storm-software/powerlines/release.yml?style=for-the-badge&logo=github-actions&color=1fb2a6)
 
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -55,6 +55,7 @@ A Powerlines plugin to generate project code with [Style Dictionary](https://amz
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of Contents
 
 - [Powerlines - Style Dictionary Plugin](#powerlines---style-dictionary-plugin)
@@ -189,14 +190,6 @@ file
 
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
 <br />
-
-## Acknowledgements
-
-Special thanks to the following open source projects for the inspiration and
-tools used in this project:
-
-- [Style Dictionary](https://amzn.github.io/style-dictionary/#/)
-- [Nx Style Dictionary Plugin](https://github.com/nxkit/nxkit/tree/main/packages/style-dictionary)
 
 ## Contributing
 

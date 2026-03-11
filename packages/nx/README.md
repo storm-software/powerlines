@@ -49,6 +49,7 @@ A package containing tools for managing a Storm workspace. It includes various
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of Contents
 
 - [Powerlines - Nx Plugin](#powerlines---nx-plugin)
@@ -125,7 +126,7 @@ the workspace's projects:
 <!-- markdownlint-disable -->
 
 
-## Powerlines Clean Executor
+## Clean Executor
 
 A type definition for the Powerlines - Clean executor schema
 
@@ -145,16 +146,24 @@ The following executor options are available:
 
 | Option    | Type   | Description   | Default   | 
 | --------- | ------ | ------------- | --------- | 
-| outputPath      | `string`    | The output path for the build     | "dist/{projectRoot}"     | 
+| configFile      | `string`    | The path to the Powerlines configuration file     | "{projectRoot}/powerlines.config.ts"     | 
+ | input      | `string[]`   | The entry file(s) that serve as the input for the project     |     | 
  | tsconfig      | `string`    | The path to the tsconfig file     | "{projectRoot}/tsconfig.json"     | 
+ | outputPath      | `string`    | The path to the output directory for the build artifacts     |     | 
+ | sourceMap      | `boolean`    | Generate a sourcemap     |     | 
+ | format      | `string[]`   | The format to build     | `[]`     | 
+ | platform      | "neutral" \| "node" \| "browser"     | The platform to build     | "neutral"     | 
+ | external      | `any[]`   | The external dependencies     | `[]`     | 
+ | noExternal      | `any[]`   | The dependencies that should not be treated as external     | `[]`     | 
+ | skipNodeModulesBundle      | `boolean`    | Skip bundling node_modules during the build process (if required)     |     | 
  | mode      | "development" \| "test" \| "production"     | The build mode     |     | 
- | skipInstalls      | `boolean`    | Skip installing dependencies during prepare stage     |     | 
- | logLevel      | "error" \| "success" \| "silent" \| "fatal" \| "warn" \| "info" \| "debug" \| "trace" \| "all"     | The log level to use for the build process     |     | 
+ | logLevel      | "fatal" \| "error" \| "warn" \| "success" \| "info" \| "debug" \| "trace" \| "silent"     | The log level to use for the build process     |     | 
+ | define      | `object`    | The \`define\` values     | `[object Object]`     | 
 
 
 
 
-## Powerlines Prepare Executor
+## Prepare Executor
 
 A type definition for the Powerlines - Prepare executor schema
 
@@ -174,18 +183,26 @@ The following executor options are available:
 
 | Option    | Type   | Description   | Default   | 
 | --------- | ------ | ------------- | --------- | 
-| outputPath      | `string`    | The output path for the build     | "dist/{projectRoot}"     | 
+| configFile      | `string`    | The path to the Powerlines configuration file     | "{projectRoot}/powerlines.config.ts"     | 
+ | input      | `string[]`   | The entry file(s) that serve as the input for the project     |     | 
  | tsconfig      | `string`    | The path to the tsconfig file     | "{projectRoot}/tsconfig.json"     | 
+ | outputPath      | `string`    | The path to the output directory for the build artifacts     |     | 
+ | sourceMap      | `boolean`    | Generate a sourcemap     |     | 
+ | format      | `string[]`   | The format to build     | `[]`     | 
+ | platform      | "neutral" \| "node" \| "browser"     | The platform to build     | "neutral"     | 
+ | external      | `any[]`   | The external dependencies     | `[]`     | 
+ | noExternal      | `any[]`   | The dependencies that should not be treated as external     | `[]`     | 
+ | skipNodeModulesBundle      | `boolean`    | Skip bundling node_modules during the build process (if required)     |     | 
  | mode      | "development" \| "test" \| "production"     | The build mode     |     | 
- | skipInstalls      | `boolean`    | Skip installing dependencies during prepare stage     |     | 
- | logLevel      | "error" \| "success" \| "silent" \| "fatal" \| "warn" \| "info" \| "debug" \| "trace" \| "all"     | The log level to use for the build process     |     | 
- | skipCache      | `boolean`    | Skip the cache when building     |     | 
- | clean      | `boolean`    | Automatically clean the project's output artifacts (if required)     |     | 
+ | logLevel      | "fatal" \| "error" \| "warn" \| "success" \| "info" \| "debug" \| "trace" \| "silent"     | The log level to use for the build process     |     | 
+ | define      | `object`    | The \`define\` values     | `[object Object]`     | 
+ | autoInstall      | `boolean`    | Automatically install dependencies during prepare stage     |     | 
+ | skipCache      | `boolean`    | Skip the caching mechanism during the build process (if required)     |     | 
 
 
 
 
-## Powerlines Lint Executor
+## Lint Executor
 
 A type definition for the Powerlines - Lint executor schema
 
@@ -205,18 +222,26 @@ The following executor options are available:
 
 | Option    | Type   | Description   | Default   | 
 | --------- | ------ | ------------- | --------- | 
-| outputPath      | `string`    | The output path for the build     | "dist/{projectRoot}"     | 
+| configFile      | `string`    | The path to the Powerlines configuration file     | "{projectRoot}/powerlines.config.ts"     | 
+ | input      | `string[]`   | The entry file(s) that serve as the input for the project     |     | 
  | tsconfig      | `string`    | The path to the tsconfig file     | "{projectRoot}/tsconfig.json"     | 
+ | outputPath      | `string`    | The path to the output directory for the build artifacts     |     | 
+ | sourceMap      | `boolean`    | Generate a sourcemap     |     | 
+ | format      | `string[]`   | The format to build     | `[]`     | 
+ | platform      | "neutral" \| "node" \| "browser"     | The platform to build     | "neutral"     | 
+ | external      | `any[]`   | The external dependencies     | `[]`     | 
+ | noExternal      | `any[]`   | The dependencies that should not be treated as external     | `[]`     | 
+ | skipNodeModulesBundle      | `boolean`    | Skip bundling node_modules during the build process (if required)     |     | 
  | mode      | "development" \| "test" \| "production"     | The build mode     |     | 
- | skipInstalls      | `boolean`    | Skip installing dependencies during prepare stage     |     | 
- | logLevel      | "error" \| "success" \| "silent" \| "fatal" \| "warn" \| "info" \| "debug" \| "trace" \| "all"     | The log level to use for the build process     |     | 
- | skipCache      | `boolean`    | Skip the cache when building     |     | 
- | clean      | `boolean`    | Automatically clean the project's output artifacts (if required)     |     | 
+ | logLevel      | "fatal" \| "error" \| "warn" \| "success" \| "info" \| "debug" \| "trace" \| "silent"     | The log level to use for the build process     |     | 
+ | define      | `object`    | The \`define\` values     | `[object Object]`     | 
+ | autoInstall      | `boolean`    | Automatically install dependencies during prepare stage     |     | 
+ | skipCache      | `boolean`    | Skip the caching mechanism during the build process (if required)     |     | 
 
 
 
 
-## Powerlines Build Executor
+## Build Executor
 
 A type definition for the Powerlines - Build executor schema
 
@@ -228,7 +253,7 @@ This executor can be used by executing the following in a command line utility:
 nx run my-project:build
 ```
 
-**Please note:** _The build executor should be included in the desired projects's `project.json` file.All required options must be included in the `options` property of the json._ 
+**Please note:** _The build executor should be included in the desired projects's `project.json` file._ 
 
 ### Options
 
@@ -236,22 +261,27 @@ The following executor options are available:
 
 | Option    | Type   | Description   | Default   | 
 | --------- | ------ | ------------- | --------- | 
-| outputPath      | `string`    | The output path for the build     | "dist/{projectRoot}"     | 
+| configFile      | `string`    | The path to the Powerlines configuration file     | "{projectRoot}/powerlines.config.ts"     | 
+ | input      | `string[]`   | The entry file(s) that serve as the input for the project     |     | 
  | tsconfig      | `string`    | The path to the tsconfig file     | "{projectRoot}/tsconfig.json"     | 
+ | outputPath      | `string`    | The path to the output directory for the build artifacts     |     | 
+ | sourceMap      | `boolean`    | Generate a sourcemap     |     | 
+ | format      | `string[]`   | The format to build     | `[]`     | 
+ | platform      | "neutral" \| "node" \| "browser"     | The platform to build     | "neutral"     | 
+ | external      | `any[]`   | The external dependencies     | `[]`     | 
+ | noExternal      | `any[]`   | The dependencies that should not be treated as external     | `[]`     | 
+ | skipNodeModulesBundle      | `boolean`    | Skip bundling node_modules during the build process (if required)     |     | 
  | mode      | "development" \| "test" \| "production"     | The build mode     |     | 
- | skipInstalls      | `boolean`    | Skip installing dependencies during prepare stage     |     | 
- | logLevel      | "error" \| "success" \| "silent" \| "fatal" \| "warn" \| "info" \| "debug" \| "trace" \| "all"     | The log level to use for the build process     |     | 
- | skipCache      | `boolean`    | Skip the cache when building     |     | 
- | clean      | `boolean`    | Automatically clean the project's output artifacts (if required)     |     | 
- | **entry \***    | `string`    | The entry file or files to build     | "{sourceRoot}/index.ts"     | 
- | skipLint      | `boolean`    | Skip the linting process ran prior to the build (if required)     |     | 
-
-
-**Please note:** _Option names followed by \* above are required, and must be provided to run the executor._ 
+ | logLevel      | "fatal" \| "error" \| "warn" \| "success" \| "info" \| "debug" \| "trace" \| "silent"     | The log level to use for the build process     |     | 
+ | define      | `object`    | The \`define\` values     | `[object Object]`     | 
+ | autoInstall      | `boolean`    | Automatically install dependencies during prepare stage     |     | 
+ | skipCache      | `boolean`    | Skip the caching mechanism during the build process (if required)     |     | 
+ | entry      | `any`    | The entry path(s) for the package     | `[object Object]`     | 
 
 
 
-## Powerlines Docs Executor
+
+## Docs Executor
 
 A type definition for the Powerlines - Docs executor schema
 
@@ -271,13 +301,21 @@ The following executor options are available:
 
 | Option    | Type   | Description   | Default   | 
 | --------- | ------ | ------------- | --------- | 
-| outputPath      | `string`    | The output path for the build     | "dist/{projectRoot}"     | 
+| configFile      | `string`    | The path to the Powerlines configuration file     | "{projectRoot}/powerlines.config.ts"     | 
+ | input      | `string[]`   | The entry file(s) that serve as the input for the project     |     | 
  | tsconfig      | `string`    | The path to the tsconfig file     | "{projectRoot}/tsconfig.json"     | 
+ | outputPath      | `string`    | The path to the output directory for the build artifacts     |     | 
+ | sourceMap      | `boolean`    | Generate a sourcemap     |     | 
+ | format      | `string[]`   | The format to build     | `[]`     | 
+ | platform      | "neutral" \| "node" \| "browser"     | The platform to build     | "neutral"     | 
+ | external      | `any[]`   | The external dependencies     | `[]`     | 
+ | noExternal      | `any[]`   | The dependencies that should not be treated as external     | `[]`     | 
+ | skipNodeModulesBundle      | `boolean`    | Skip bundling node_modules during the build process (if required)     |     | 
  | mode      | "development" \| "test" \| "production"     | The build mode     |     | 
- | skipInstalls      | `boolean`    | Skip installing dependencies during prepare stage     |     | 
- | logLevel      | "error" \| "success" \| "silent" \| "fatal" \| "warn" \| "info" \| "debug" \| "trace" \| "all"     | The log level to use for the build process     |     | 
- | skipCache      | `boolean`    | Skip the cache when building     |     | 
- | clean      | `boolean`    | Automatically clean the project's output artifacts (if required)     |     | 
+ | logLevel      | "fatal" \| "error" \| "warn" \| "success" \| "info" \| "debug" \| "trace" \| "silent"     | The log level to use for the build process     |     | 
+ | define      | `object`    | The \`define\` values     | `[object Object]`     | 
+ | autoInstall      | `boolean`    | Automatically install dependencies during prepare stage     |     | 
+ | skipCache      | `boolean`    | Skip the caching mechanism during the build process (if required)     |     | 
 
 
 
@@ -297,7 +335,7 @@ management:
 <!-- markdownlint-disable -->
 
 
-## Powerlines Sync Generator
+## Sync Generator
 
 A type definition for the Powerlines - Sync generator's options
 
