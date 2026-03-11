@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.254](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.254) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.285**
+- Updated **plugin-alloy** to **v0.25.18**
+- Updated **plugin-babel** to **v0.12.339**
+- Updated **plugin-env** to **v0.16.53**
+- Updated **powerlines** to **v0.40.21**
+
 ## [0.1.253](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.253) (03/11/2026)
 
 ### Updated Dependencies

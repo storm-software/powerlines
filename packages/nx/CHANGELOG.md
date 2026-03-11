@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.262](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.262) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.40.21**
+
 ## [0.11.261](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.261) (03/11/2026)
 
 ### Updated Dependencies

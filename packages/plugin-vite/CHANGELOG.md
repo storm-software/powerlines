@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.333](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.333) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.341**
+- Updated **plugin-esbuild** to **v0.13.339**
+- Updated **plugin-rollup** to **v0.7.340**
+- Updated **core** to **v0.2.17**
+
 ## [0.14.332](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.332) (03/11/2026)
 
 ### Updated Dependencies

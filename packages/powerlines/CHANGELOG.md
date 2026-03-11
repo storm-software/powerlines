@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.40.21](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.21) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.341**
+- Updated **plugin-esbuild** to **v0.13.339**
+- Updated **plugin-unbuild** to **v0.5.340**
+- Updated **plugin-webpack** to **v0.5.339**
+- Updated **plugin-rollup** to **v0.7.340**
+- Updated **plugin-rspack** to **v0.5.339**
+- Updated **plugin-tsdown** to **v0.1.284**
+- Updated **plugin-tsup** to **v0.12.340**
+- Updated **plugin-vite** to **v0.14.333**
+- Updated **core** to **v0.2.17**
+
 ## [0.40.20](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.20) (03/11/2026)
 
 ### Updated Dependencies

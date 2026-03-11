@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.285](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.285) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.284**
+- Updated **powerlines** to **v0.40.21**
+
 ## [0.12.284](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.284) (03/11/2026)
 
 ### Updated Dependencies

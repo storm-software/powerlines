@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Capnp
 
+## [0.1.337](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.337) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.285**
+- Updated **powerlines** to **v0.40.21**
+
 ## [0.1.336](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.336) (03/11/2026)
 
 ### Updated Dependencies

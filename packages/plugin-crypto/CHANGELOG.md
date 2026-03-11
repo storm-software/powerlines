@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.362](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.362) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.285**
+- Updated **plugin-env** to **v0.16.53**
+- Updated **powerlines** to **v0.40.21**
+
 ## [0.10.361](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.361) (03/11/2026)
 
 ### Updated Dependencies

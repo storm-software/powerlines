@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Nitro
 
+## [0.1.226](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.226) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.285**
+- Updated **powerlines** to **v0.40.21**
+
 ## [0.1.225](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.225) (03/11/2026)
 
 ### Updated Dependencies

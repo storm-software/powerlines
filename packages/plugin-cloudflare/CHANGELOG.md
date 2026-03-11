@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.2.13](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.2.13) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.339**
+- Updated **plugin-plugin** to **v0.12.285**
+- Updated **plugin-pulumi** to **v0.5.15**
+- Updated **plugin-alloy** to **v0.25.18**
+- Updated **plugin-env** to **v0.16.53**
+- Updated **powerlines** to **v0.40.21**
+
 ## [0.2.12](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.2.12) (03/11/2026)
 
 ### Updated Dependencies

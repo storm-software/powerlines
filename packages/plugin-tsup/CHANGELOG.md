@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.340](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.340) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.339**
+- Updated **core** to **v0.2.17**
+
 ## [0.12.339](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.339) (03/11/2026)
 
 ### Updated Dependencies
