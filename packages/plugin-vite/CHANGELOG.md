@@ -2,6 +2,15 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.336](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.336) (03/11/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.344**
+- Updated **plugin-esbuild** to **v0.13.342**
+- Updated **plugin-rollup** to **v0.7.343**
+- Updated **core** to **v0.2.20**
+
 ## [0.14.335](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.335) (03/11/2026)
 
 ### Miscellaneous

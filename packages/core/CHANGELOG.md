@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.20](https://github.com/storm-software/powerlines/releases/tag/core%400.2.20) (03/11/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue resolving prefixed virtual module ids ([bd5cf6fc5](https://github.com/storm-software/powerlines/commit/bd5cf6fc5))
+
 ## [0.2.17](https://github.com/storm-software/powerlines/releases/tag/core%400.2.17) (03/11/2026)
 
 ### Miscellaneous

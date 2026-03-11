@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-marked",
-  "version": "0.1.301",
+  "version": "0.1.302",
   "type": "module",
   "description": "A Powerlines plugin to use the Marked markdown compiler to generate HTML.",
   "repository": {
