@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.14](https://github.com/storm-software/powerlines/releases/tag/core%400.2.14) (03/10/2026)
+
+### Bug Fixes
+
+- **core:** Remove filter from `load` hook ([d02c2a541](https://github.com/storm-software/powerlines/commit/d02c2a541))
+
 ## [0.2.13](https://github.com/storm-software/powerlines/releases/tag/core%400.2.13) (03/09/2026)
 
 ### Bug Fixes
