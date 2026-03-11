@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.6.118](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.118) (03/11/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Enable `dts` for plugin package builds ([b464ada37](https://github.com/storm-software/powerlines/commit/b464ada37))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.41.4**
+
 ## [0.6.117](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.117) (03/11/2026)
 
 ### Updated Dependencies

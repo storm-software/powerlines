@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Marked
 
+## [0.1.304](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.304) (03/11/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Enable `dts` for plugin package builds ([b464ada37](https://github.com/storm-software/powerlines/commit/b464ada37))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.290**
+- Updated **powerlines** to **v0.41.4**
+
 ## [0.1.303](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.303) (03/11/2026)
 
 ### Updated Dependencies

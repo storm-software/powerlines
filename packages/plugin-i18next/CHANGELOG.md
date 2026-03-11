@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin I18next
 
+## [0.1.236](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.236) (03/11/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Enable `dts` for plugin package builds ([b464ada37](https://github.com/storm-software/powerlines/commit/b464ada37))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.290**
+- Updated **powerlines** to **v0.41.4**
+
 ## [0.1.235](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.235) (03/11/2026)
 
 ### Updated Dependencies
