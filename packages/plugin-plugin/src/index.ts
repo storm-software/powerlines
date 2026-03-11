@@ -48,7 +48,7 @@ export const plugin = <
           type: "library",
           output: {
             format: ["cjs", "esm"],
-            dts: false
+            dts: true
           },
           resolve: {
             external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\//]

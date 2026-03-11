@@ -1,26 +1,18 @@
-"use strict";
+'use strict';
 
-var $ = require("@stryke/capnp");
+var $ = require('@stryke/capnp');
 
 function _interopNamespace(e) {
   if (e && e.__esModule) return e;
   var n = Object.create(null);
   if (e) {
     Object.keys(e).forEach(function (k) {
-      if (k !== "default") {
+      if (k !== 'default') {
         var d = Object.getOwnPropertyDescriptor(e, k);
-        Object.defineProperty(
-          n,
-          k,
-          d.get
-            ? d
-            : {
-                enumerable: true,
-                get: function () {
-                  return e[k];
-                }
-              }
-        );
+        Object.defineProperty(n, k, d.get ? d : {
+          enumerable: true,
+          get: function () { return e[k]; }
+        });
       }
     });
   }
@@ -28,11 +20,10 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 
-var $__namespace = /*#__PURE__*/ _interopNamespace($);
+var $__namespace = /*#__PURE__*/_interopNamespace($);
 
 var __defProp = Object.defineProperty;
-var __name = (target, value) =>
-  __defProp(target, "name", { value, configurable: true });
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 var _capnpFileId = BigInt("0xae3c363dcecf2729");
 var ReflectionKind = {
   NEVER: 0,
@@ -190,12 +181,7 @@ var DefaultValueReflection_Value = class extends $__namespace.Struct {
     $__namespace.utils.setUint16(0, 0, this);
   }
   get boolean() {
-    $__namespace.utils.testWhich(
-      "boolean",
-      $__namespace.utils.getUint16(0, this),
-      1,
-      this
-    );
+    $__namespace.utils.testWhich("boolean", $__namespace.utils.getUint16(0, this), 1, this);
     return $__namespace.utils.getBit(16, this);
   }
   get _isBoolean() {
@@ -206,12 +192,7 @@ var DefaultValueReflection_Value = class extends $__namespace.Struct {
     $__namespace.utils.setBit(16, value, this);
   }
   get integer() {
-    $__namespace.utils.testWhich(
-      "integer",
-      $__namespace.utils.getUint16(0, this),
-      2,
-      this
-    );
+    $__namespace.utils.testWhich("integer", $__namespace.utils.getUint16(0, this), 2, this);
     return $__namespace.utils.getInt32(4, this);
   }
   get _isInteger() {
@@ -222,12 +203,7 @@ var DefaultValueReflection_Value = class extends $__namespace.Struct {
     $__namespace.utils.setInt32(4, value, this);
   }
   get float() {
-    $__namespace.utils.testWhich(
-      "float",
-      $__namespace.utils.getUint16(0, this),
-      3,
-      this
-    );
+    $__namespace.utils.testWhich("float", $__namespace.utils.getUint16(0, this), 3, this);
     return $__namespace.utils.getFloat64(8, this);
   }
   get _isFloat() {
@@ -238,12 +214,7 @@ var DefaultValueReflection_Value = class extends $__namespace.Struct {
     $__namespace.utils.setFloat64(8, value, this);
   }
   get string() {
-    $__namespace.utils.testWhich(
-      "string",
-      $__namespace.utils.getUint16(0, this),
-      4,
-      this
-    );
+    $__namespace.utils.testWhich("string", $__namespace.utils.getUint16(0, this), 4, this);
     return $__namespace.utils.getText(0, this);
   }
   get _isString() {
@@ -375,9 +346,9 @@ var EntityOptions_EntityIndexOptions = class extends $__namespace.Struct {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(0, this));
   }
   /**
-   * JSON stringified options
-   *
-   */
+  * JSON stringified options
+  *
+  */
   get options() {
     return $__namespace.utils.getText(1, this);
   }
@@ -442,12 +413,7 @@ var EntityOptions = class _EntityOptions extends $__namespace.Struct {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(4, this));
   }
   _initIndexes(length) {
-    return $__namespace.utils.initList(
-      4,
-      _EntityOptions._Indexes,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(4, _EntityOptions._Indexes, length, this);
   }
   set indexes(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(4, this));
@@ -456,9 +422,7 @@ var EntityOptions = class _EntityOptions extends $__namespace.Struct {
     return "EntityOptions_" + super.toString();
   }
 };
-var SerializedTypeObjectLiteral = class _SerializedTypeObjectLiteral
-  extends $__namespace.Struct
-{
+var SerializedTypeObjectLiteral = class _SerializedTypeObjectLiteral extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeObjectLiteral");
   }
@@ -483,22 +447,13 @@ var SerializedTypeObjectLiteral = class _SerializedTypeObjectLiteral
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeObjectLiteral._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeObjectLiteral._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeObjectLiteral._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeObjectLiteral._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -528,22 +483,13 @@ var SerializedTypeObjectLiteral = class _SerializedTypeObjectLiteral
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeObjectLiteral._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeObjectLiteral._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeObjectLiteral._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeObjectLiteral._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -561,22 +507,13 @@ var SerializedTypeObjectLiteral = class _SerializedTypeObjectLiteral
     return $__namespace.utils.disown(this.types);
   }
   get types() {
-    return $__namespace.utils.getList(
-      4,
-      _SerializedTypeObjectLiteral._Types,
-      this
-    );
+    return $__namespace.utils.getList(4, _SerializedTypeObjectLiteral._Types, this);
   }
   _hasTypes() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(4, this));
   }
   _initTypes(length) {
-    return $__namespace.utils.initList(
-      4,
-      _SerializedTypeObjectLiteral._Types,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(4, _SerializedTypeObjectLiteral._Types, length, this);
   }
   set types(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(4, this));
@@ -603,9 +540,7 @@ var SerializedTypeObjectLiteral = class _SerializedTypeObjectLiteral
     return "SerializedTypeObjectLiteral_" + super.toString();
   }
 };
-var SerializedTypeClassType = class _SerializedTypeClassType
-  extends $__namespace.Struct
-{
+var SerializedTypeClassType = class _SerializedTypeClassType extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeClassType");
   }
@@ -632,22 +567,13 @@ var SerializedTypeClassType = class _SerializedTypeClassType
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeClassType._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeClassType._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeClassType._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeClassType._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -677,22 +603,13 @@ var SerializedTypeClassType = class _SerializedTypeClassType
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeClassType._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeClassType._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeClassType._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeClassType._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -728,22 +645,13 @@ var SerializedTypeClassType = class _SerializedTypeClassType
     return $__namespace.utils.disown(this.extendsArguments);
   }
   get extendsArguments() {
-    return $__namespace.utils.getList(
-      6,
-      _SerializedTypeClassType._ExtendsArguments,
-      this
-    );
+    return $__namespace.utils.getList(6, _SerializedTypeClassType._ExtendsArguments, this);
   }
   _hasExtendsArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(6, this));
   }
   _initExtendsArguments(length) {
-    return $__namespace.utils.initList(
-      6,
-      _SerializedTypeClassType._ExtendsArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(6, _SerializedTypeClassType._ExtendsArguments, length, this);
   }
   set extendsArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(6, this));
@@ -755,22 +663,13 @@ var SerializedTypeClassType = class _SerializedTypeClassType
     return $__namespace.utils.disown(this.arguments);
   }
   get arguments() {
-    return $__namespace.utils.getList(
-      7,
-      _SerializedTypeClassType._Arguments,
-      this
-    );
+    return $__namespace.utils.getList(7, _SerializedTypeClassType._Arguments, this);
   }
   _hasArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(7, this));
   }
   _initArguments(length) {
-    return $__namespace.utils.initList(
-      7,
-      _SerializedTypeClassType._Arguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(7, _SerializedTypeClassType._Arguments, length, this);
   }
   set arguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(7, this));
@@ -806,12 +705,7 @@ var SerializedTypeClassType = class _SerializedTypeClassType
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(9, this));
   }
   _initTypes(length) {
-    return $__namespace.utils.initList(
-      9,
-      _SerializedTypeClassType._Types,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(9, _SerializedTypeClassType._Types, length, this);
   }
   set types(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(9, this));
@@ -838,9 +732,7 @@ var SerializedTypeClassType = class _SerializedTypeClassType
     return "SerializedTypeClassType_" + super.toString();
   }
 };
-var SerializedTypeParameter = class _SerializedTypeParameter
-  extends $__namespace.Struct
-{
+var SerializedTypeParameter = class _SerializedTypeParameter extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeParameter");
   }
@@ -864,22 +756,13 @@ var SerializedTypeParameter = class _SerializedTypeParameter
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeParameter._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeParameter._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeParameter._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeParameter._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -909,22 +792,13 @@ var SerializedTypeParameter = class _SerializedTypeParameter
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeParameter._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeParameter._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeParameter._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeParameter._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -1017,9 +891,7 @@ var SerializedTypeParameter = class _SerializedTypeParameter
     return "SerializedTypeParameter_" + super.toString();
   }
 };
-var SerializedTypeMethod = class _SerializedTypeMethod
-  extends $__namespace.Struct
-{
+var SerializedTypeMethod = class _SerializedTypeMethod extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeMethod");
   }
@@ -1044,22 +916,13 @@ var SerializedTypeMethod = class _SerializedTypeMethod
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeMethod._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeMethod._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeMethod._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeMethod._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -1089,22 +952,13 @@ var SerializedTypeMethod = class _SerializedTypeMethod
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeMethod._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeMethod._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeMethod._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeMethod._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -1170,22 +1024,13 @@ var SerializedTypeMethod = class _SerializedTypeMethod
     return $__namespace.utils.disown(this.parameters);
   }
   get parameters() {
-    return $__namespace.utils.getList(
-      6,
-      _SerializedTypeMethod._Parameters,
-      this
-    );
+    return $__namespace.utils.getList(6, _SerializedTypeMethod._Parameters, this);
   }
   _hasParameters() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(6, this));
   }
   _initParameters(length) {
-    return $__namespace.utils.initList(
-      6,
-      _SerializedTypeMethod._Parameters,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(6, _SerializedTypeMethod._Parameters, length, this);
   }
   set parameters(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(6, this));
@@ -1212,9 +1057,7 @@ var SerializedTypeMethod = class _SerializedTypeMethod
     return "SerializedTypeMethod_" + super.toString();
   }
 };
-var SerializedTypeProperty = class _SerializedTypeProperty
-  extends $__namespace.Struct
-{
+var SerializedTypeProperty = class _SerializedTypeProperty extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeProperty");
   }
@@ -1238,22 +1081,13 @@ var SerializedTypeProperty = class _SerializedTypeProperty
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeProperty._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeProperty._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeProperty._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeProperty._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -1283,22 +1117,13 @@ var SerializedTypeProperty = class _SerializedTypeProperty
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeProperty._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeProperty._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeProperty._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeProperty._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -1403,9 +1228,7 @@ var SerializedTypeProperty = class _SerializedTypeProperty
     return "SerializedTypeProperty_" + super.toString();
   }
 };
-var SerializedTypeFunction = class _SerializedTypeFunction
-  extends $__namespace.Struct
-{
+var SerializedTypeFunction = class _SerializedTypeFunction extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeFunction");
   }
@@ -1430,22 +1253,13 @@ var SerializedTypeFunction = class _SerializedTypeFunction
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeFunction._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeFunction._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeFunction._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeFunction._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -1475,22 +1289,13 @@ var SerializedTypeFunction = class _SerializedTypeFunction
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeFunction._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeFunction._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeFunction._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeFunction._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -1556,22 +1361,13 @@ var SerializedTypeFunction = class _SerializedTypeFunction
     return $__namespace.utils.disown(this.parameters);
   }
   get parameters() {
-    return $__namespace.utils.getList(
-      6,
-      _SerializedTypeFunction._Parameters,
-      this
-    );
+    return $__namespace.utils.getList(6, _SerializedTypeFunction._Parameters, this);
   }
   _hasParameters() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(6, this));
   }
   _initParameters(length) {
-    return $__namespace.utils.initList(
-      6,
-      _SerializedTypeFunction._Parameters,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(6, _SerializedTypeFunction._Parameters, length, this);
   }
   set parameters(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(6, this));
@@ -1598,9 +1394,7 @@ var SerializedTypeFunction = class _SerializedTypeFunction
     return "SerializedTypeFunction_" + super.toString();
   }
 };
-var SerializedTypePromise = class _SerializedTypePromise
-  extends $__namespace.Struct
-{
+var SerializedTypePromise = class _SerializedTypePromise extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypePromise");
   }
@@ -1624,22 +1418,13 @@ var SerializedTypePromise = class _SerializedTypePromise
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypePromise._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypePromise._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypePromise._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypePromise._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -1669,22 +1454,13 @@ var SerializedTypePromise = class _SerializedTypePromise
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypePromise._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypePromise._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypePromise._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypePromise._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -1755,22 +1531,13 @@ var SerializedTypeEnum = class _SerializedTypeEnum extends $__namespace.Struct {
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeEnum._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeEnum._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeEnum._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeEnum._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -1806,12 +1573,7 @@ var SerializedTypeEnum = class _SerializedTypeEnum extends $__namespace.Struct {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeEnum._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeEnum._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -1829,22 +1591,13 @@ var SerializedTypeEnum = class _SerializedTypeEnum extends $__namespace.Struct {
     return $__namespace.utils.disown(this.enumEntries);
   }
   get enumEntries() {
-    return $__namespace.utils.getList(
-      4,
-      _SerializedTypeEnum._EnumEntries,
-      this
-    );
+    return $__namespace.utils.getList(4, _SerializedTypeEnum._EnumEntries, this);
   }
   _hasEnumEntries() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(4, this));
   }
   _initEnumEntries(length) {
-    return $__namespace.utils.initList(
-      4,
-      _SerializedTypeEnum._EnumEntries,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(4, _SerializedTypeEnum._EnumEntries, length, this);
   }
   set enumEntries(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(4, this));
@@ -1907,9 +1660,7 @@ var SerializedTypeEnum = class _SerializedTypeEnum extends $__namespace.Struct {
     return "SerializedTypeEnum_" + super.toString();
   }
 };
-var SerializedTypeUnion = class _SerializedTypeUnion
-  extends $__namespace.Struct
-{
+var SerializedTypeUnion = class _SerializedTypeUnion extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeUnion");
   }
@@ -1934,22 +1685,13 @@ var SerializedTypeUnion = class _SerializedTypeUnion
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeUnion._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeUnion._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeUnion._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeUnion._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -1979,22 +1721,13 @@ var SerializedTypeUnion = class _SerializedTypeUnion
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeUnion._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeUnion._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeUnion._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeUnion._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -2018,12 +1751,7 @@ var SerializedTypeUnion = class _SerializedTypeUnion
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(4, this));
   }
   _initTypes(length) {
-    return $__namespace.utils.initList(
-      4,
-      _SerializedTypeUnion._Types,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(4, _SerializedTypeUnion._Types, length, this);
   }
   set types(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(4, this));
@@ -2032,9 +1760,7 @@ var SerializedTypeUnion = class _SerializedTypeUnion
     return "SerializedTypeUnion_" + super.toString();
   }
 };
-var SerializedTypeIntersection = class _SerializedTypeIntersection
-  extends $__namespace.Struct
-{
+var SerializedTypeIntersection = class _SerializedTypeIntersection extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeIntersection");
   }
@@ -2059,22 +1785,13 @@ var SerializedTypeIntersection = class _SerializedTypeIntersection
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeIntersection._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeIntersection._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeIntersection._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeIntersection._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -2104,22 +1821,13 @@ var SerializedTypeIntersection = class _SerializedTypeIntersection
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeIntersection._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeIntersection._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeIntersection._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeIntersection._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -2137,22 +1845,13 @@ var SerializedTypeIntersection = class _SerializedTypeIntersection
     return $__namespace.utils.disown(this.types);
   }
   get types() {
-    return $__namespace.utils.getList(
-      4,
-      _SerializedTypeIntersection._Types,
-      this
-    );
+    return $__namespace.utils.getList(4, _SerializedTypeIntersection._Types, this);
   }
   _hasTypes() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(4, this));
   }
   _initTypes(length) {
-    return $__namespace.utils.initList(
-      4,
-      _SerializedTypeIntersection._Types,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(4, _SerializedTypeIntersection._Types, length, this);
   }
   set types(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(4, this));
@@ -2161,9 +1860,7 @@ var SerializedTypeIntersection = class _SerializedTypeIntersection
     return "SerializedTypeIntersection_" + super.toString();
   }
 };
-var SerializedTypeArray = class _SerializedTypeArray
-  extends $__namespace.Struct
-{
+var SerializedTypeArray = class _SerializedTypeArray extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeArray");
   }
@@ -2187,22 +1884,13 @@ var SerializedTypeArray = class _SerializedTypeArray
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeArray._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeArray._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeArray._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeArray._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -2232,22 +1920,13 @@ var SerializedTypeArray = class _SerializedTypeArray
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeArray._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeArray._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeArray._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeArray._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -2298,9 +1977,7 @@ var SerializedTypeArray = class _SerializedTypeArray
     return "SerializedTypeArray_" + super.toString();
   }
 };
-var SerializedTypeIndexSignature = class _SerializedTypeIndexSignature
-  extends $__namespace.Struct
-{
+var SerializedTypeIndexSignature = class _SerializedTypeIndexSignature extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeIndexSignature");
   }
@@ -2324,22 +2001,13 @@ var SerializedTypeIndexSignature = class _SerializedTypeIndexSignature
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeIndexSignature._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeIndexSignature._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeIndexSignature._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeIndexSignature._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -2369,22 +2037,13 @@ var SerializedTypeIndexSignature = class _SerializedTypeIndexSignature
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeIndexSignature._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeIndexSignature._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeIndexSignature._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeIndexSignature._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -2435,9 +2094,7 @@ var SerializedTypeIndexSignature = class _SerializedTypeIndexSignature
     return "SerializedTypeIndexSignature_" + super.toString();
   }
 };
-var SerializedTypePropertySignature = class _SerializedTypePropertySignature
-  extends $__namespace.Struct
-{
+var SerializedTypePropertySignature = class _SerializedTypePropertySignature extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypePropertySignature");
   }
@@ -2461,22 +2118,13 @@ var SerializedTypePropertySignature = class _SerializedTypePropertySignature
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypePropertySignature._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypePropertySignature._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypePropertySignature._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypePropertySignature._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -2506,22 +2154,13 @@ var SerializedTypePropertySignature = class _SerializedTypePropertySignature
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypePropertySignature._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypePropertySignature._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypePropertySignature._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypePropertySignature._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -2614,9 +2253,7 @@ var SerializedTypePropertySignature = class _SerializedTypePropertySignature
     return "SerializedTypePropertySignature_" + super.toString();
   }
 };
-var SerializedTypeMethodSignature = class _SerializedTypeMethodSignature
-  extends $__namespace.Struct
-{
+var SerializedTypeMethodSignature = class _SerializedTypeMethodSignature extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeMethodSignature");
   }
@@ -2641,22 +2278,13 @@ var SerializedTypeMethodSignature = class _SerializedTypeMethodSignature
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeMethodSignature._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeMethodSignature._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeMethodSignature._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeMethodSignature._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -2686,22 +2314,13 @@ var SerializedTypeMethodSignature = class _SerializedTypeMethodSignature
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeMethodSignature._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeMethodSignature._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeMethodSignature._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeMethodSignature._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -2731,22 +2350,13 @@ var SerializedTypeMethodSignature = class _SerializedTypeMethodSignature
     return $__namespace.utils.disown(this.parameters);
   }
   get parameters() {
-    return $__namespace.utils.getList(
-      5,
-      _SerializedTypeMethodSignature._Parameters,
-      this
-    );
+    return $__namespace.utils.getList(5, _SerializedTypeMethodSignature._Parameters, this);
   }
   _hasParameters() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(5, this));
   }
   _initParameters(length) {
-    return $__namespace.utils.initList(
-      5,
-      _SerializedTypeMethodSignature._Parameters,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(5, _SerializedTypeMethodSignature._Parameters, length, this);
   }
   set parameters(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(5, this));
@@ -2791,9 +2401,7 @@ var SerializedTypeMethodSignature = class _SerializedTypeMethodSignature
     return "SerializedTypeMethodSignature_" + super.toString();
   }
 };
-var SerializedTypeTypeParameter = class _SerializedTypeTypeParameter
-  extends $__namespace.Struct
-{
+var SerializedTypeTypeParameter = class _SerializedTypeTypeParameter extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeTypeParameter");
   }
@@ -2817,22 +2425,13 @@ var SerializedTypeTypeParameter = class _SerializedTypeTypeParameter
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeTypeParameter._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeTypeParameter._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeTypeParameter._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeTypeParameter._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -2862,22 +2461,13 @@ var SerializedTypeTypeParameter = class _SerializedTypeTypeParameter
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeTypeParameter._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeTypeParameter._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeTypeParameter._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeTypeParameter._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -2898,9 +2488,7 @@ var SerializedTypeTypeParameter = class _SerializedTypeTypeParameter
     return "SerializedTypeTypeParameter_" + super.toString();
   }
 };
-var SerializedTypeInfer = class _SerializedTypeInfer
-  extends $__namespace.Struct
-{
+var SerializedTypeInfer = class _SerializedTypeInfer extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeInfer");
   }
@@ -2924,22 +2512,13 @@ var SerializedTypeInfer = class _SerializedTypeInfer
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeInfer._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeInfer._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeInfer._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeInfer._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -2969,22 +2548,13 @@ var SerializedTypeInfer = class _SerializedTypeInfer
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeInfer._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeInfer._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeInfer._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeInfer._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -2999,9 +2569,7 @@ var SerializedTypeInfer = class _SerializedTypeInfer
     return "SerializedTypeInfer_" + super.toString();
   }
 };
-var SerializedTypeTupleMember = class _SerializedTypeTupleMember
-  extends $__namespace.Struct
-{
+var SerializedTypeTupleMember = class _SerializedTypeTupleMember extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeTupleMember");
   }
@@ -3025,22 +2593,13 @@ var SerializedTypeTupleMember = class _SerializedTypeTupleMember
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeTupleMember._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeTupleMember._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeTupleMember._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeTupleMember._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -3070,22 +2629,13 @@ var SerializedTypeTupleMember = class _SerializedTypeTupleMember
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeTupleMember._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeTupleMember._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeTupleMember._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeTupleMember._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -3130,9 +2680,7 @@ var SerializedTypeTupleMember = class _SerializedTypeTupleMember
     return "SerializedTypeTupleMember_" + super.toString();
   }
 };
-var SerializedTypeTuple = class _SerializedTypeTuple
-  extends $__namespace.Struct
-{
+var SerializedTypeTuple = class _SerializedTypeTuple extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeTuple");
   }
@@ -3157,22 +2705,13 @@ var SerializedTypeTuple = class _SerializedTypeTuple
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeTuple._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeTuple._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeTuple._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeTuple._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -3202,22 +2741,13 @@ var SerializedTypeTuple = class _SerializedTypeTuple
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeTuple._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeTuple._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeTuple._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeTuple._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -3241,12 +2771,7 @@ var SerializedTypeTuple = class _SerializedTypeTuple
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(4, this));
   }
   _initTypes(length) {
-    return $__namespace.utils.initList(
-      4,
-      _SerializedTypeTuple._Types,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(4, _SerializedTypeTuple._Types, length, this);
   }
   set types(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(4, this));
@@ -3279,22 +2804,13 @@ var SerializedTypeRest = class _SerializedTypeRest extends $__namespace.Struct {
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeRest._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeRest._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeRest._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeRest._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -3330,12 +2846,7 @@ var SerializedTypeRest = class _SerializedTypeRest extends $__namespace.Struct {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeRest._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeRest._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -3368,9 +2879,7 @@ var SerializedTypeRest = class _SerializedTypeRest extends $__namespace.Struct {
     return "SerializedTypeRest_" + super.toString();
   }
 };
-var SimpleSerializedType = class _SimpleSerializedType
-  extends $__namespace.Struct
-{
+var SimpleSerializedType = class _SimpleSerializedType extends $__namespace.Struct {
   static {
     __name(this, "SimpleSerializedType");
   }
@@ -3394,22 +2903,13 @@ var SimpleSerializedType = class _SimpleSerializedType
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SimpleSerializedType._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SimpleSerializedType._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SimpleSerializedType._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SimpleSerializedType._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -3439,22 +2939,13 @@ var SimpleSerializedType = class _SimpleSerializedType
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SimpleSerializedType._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SimpleSerializedType._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SimpleSerializedType._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SimpleSerializedType._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -3497,9 +2988,9 @@ var SerializedTypeLiteralSymbol = class extends $__namespace.Struct {
     size: new $__namespace.ObjectSize(0, 2)
   };
   /**
-   * "symbol"
-   *
-   */
+  * "symbol"
+  *
+  */
   get type() {
     return $__namespace.utils.getText(0, this);
   }
@@ -3526,9 +3017,9 @@ var SerializedTypeLiteralBigInt = class extends $__namespace.Struct {
     size: new $__namespace.ObjectSize(0, 2)
   };
   /**
-   * "bigint"
-   *
-   */
+  * "bigint"
+  *
+  */
   get type() {
     return $__namespace.utils.getText(0, this);
   }
@@ -3555,9 +3046,9 @@ var SerializedTypeLiteralRegex = class extends $__namespace.Struct {
     size: new $__namespace.ObjectSize(0, 2)
   };
   /**
-   * "regex"
-   *
-   */
+  * "regex"
+  *
+  */
   get type() {
     return $__namespace.utils.getText(0, this);
   }
@@ -3605,12 +3096,7 @@ var SerializedTypeLiteral_Literal = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.symbol);
   }
   get symbol() {
-    $__namespace.utils.testWhich(
-      "symbol",
-      $__namespace.utils.getUint16(2, this),
-      0,
-      this
-    );
+    $__namespace.utils.testWhich("symbol", $__namespace.utils.getUint16(2, this), 0, this);
     return $__namespace.utils.getStruct(4, SerializedTypeLiteralSymbol, this);
   }
   _hasSymbol() {
@@ -3618,11 +3104,7 @@ var SerializedTypeLiteral_Literal = class extends $__namespace.Struct {
   }
   _initSymbol() {
     $__namespace.utils.setUint16(2, 0, this);
-    return $__namespace.utils.initStructAt(
-      4,
-      SerializedTypeLiteralSymbol,
-      this
-    );
+    return $__namespace.utils.initStructAt(4, SerializedTypeLiteralSymbol, this);
   }
   get _isSymbol() {
     return $__namespace.utils.getUint16(2, this) === 0;
@@ -3632,12 +3114,7 @@ var SerializedTypeLiteral_Literal = class extends $__namespace.Struct {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(4, this));
   }
   get string() {
-    $__namespace.utils.testWhich(
-      "string",
-      $__namespace.utils.getUint16(2, this),
-      1,
-      this
-    );
+    $__namespace.utils.testWhich("string", $__namespace.utils.getUint16(2, this), 1, this);
     return $__namespace.utils.getText(4, this);
   }
   get _isString() {
@@ -3648,12 +3125,7 @@ var SerializedTypeLiteral_Literal = class extends $__namespace.Struct {
     $__namespace.utils.setText(4, value, this);
   }
   get number() {
-    $__namespace.utils.testWhich(
-      "number",
-      $__namespace.utils.getUint16(2, this),
-      2,
-      this
-    );
+    $__namespace.utils.testWhich("number", $__namespace.utils.getUint16(2, this), 2, this);
     return $__namespace.utils.getFloat64(8, this);
   }
   get _isNumber() {
@@ -3664,12 +3136,7 @@ var SerializedTypeLiteral_Literal = class extends $__namespace.Struct {
     $__namespace.utils.setFloat64(8, value, this);
   }
   get boolean() {
-    $__namespace.utils.testWhich(
-      "boolean",
-      $__namespace.utils.getUint16(2, this),
-      3,
-      this
-    );
+    $__namespace.utils.testWhich("boolean", $__namespace.utils.getUint16(2, this), 3, this);
     return $__namespace.utils.getBit(64, this);
   }
   get _isBoolean() {
@@ -3687,12 +3154,7 @@ var SerializedTypeLiteral_Literal = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.bigint);
   }
   get bigint() {
-    $__namespace.utils.testWhich(
-      "bigint",
-      $__namespace.utils.getUint16(2, this),
-      4,
-      this
-    );
+    $__namespace.utils.testWhich("bigint", $__namespace.utils.getUint16(2, this), 4, this);
     return $__namespace.utils.getStruct(4, SerializedTypeLiteralBigInt, this);
   }
   _hasBigint() {
@@ -3700,11 +3162,7 @@ var SerializedTypeLiteral_Literal = class extends $__namespace.Struct {
   }
   _initBigint() {
     $__namespace.utils.setUint16(2, 4, this);
-    return $__namespace.utils.initStructAt(
-      4,
-      SerializedTypeLiteralBigInt,
-      this
-    );
+    return $__namespace.utils.initStructAt(4, SerializedTypeLiteralBigInt, this);
   }
   get _isBigint() {
     return $__namespace.utils.getUint16(2, this) === 4;
@@ -3721,12 +3179,7 @@ var SerializedTypeLiteral_Literal = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.regex);
   }
   get regex() {
-    $__namespace.utils.testWhich(
-      "regex",
-      $__namespace.utils.getUint16(2, this),
-      5,
-      this
-    );
+    $__namespace.utils.testWhich("regex", $__namespace.utils.getUint16(2, this), 5, this);
     return $__namespace.utils.getStruct(4, SerializedTypeLiteralRegex, this);
   }
   _hasRegex() {
@@ -3750,9 +3203,7 @@ var SerializedTypeLiteral_Literal = class extends $__namespace.Struct {
     return $__namespace.utils.getUint16(2, this);
   }
 };
-var SerializedTypeLiteral = class _SerializedTypeLiteral
-  extends $__namespace.Struct
-{
+var SerializedTypeLiteral = class _SerializedTypeLiteral extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeLiteral");
   }
@@ -3776,22 +3227,13 @@ var SerializedTypeLiteral = class _SerializedTypeLiteral
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeLiteral._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeLiteral._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeLiteral._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeLiteral._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -3821,22 +3263,13 @@ var SerializedTypeLiteral = class _SerializedTypeLiteral
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeLiteral._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeLiteral._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeLiteral._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeLiteral._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -3857,9 +3290,7 @@ var SerializedTypeLiteral = class _SerializedTypeLiteral
     return "SerializedTypeLiteral_" + super.toString();
   }
 };
-var SerializedTypeTemplateLiteral = class _SerializedTypeTemplateLiteral
-  extends $__namespace.Struct
-{
+var SerializedTypeTemplateLiteral = class _SerializedTypeTemplateLiteral extends $__namespace.Struct {
   static {
     __name(this, "SerializedTypeTemplateLiteral");
   }
@@ -3884,22 +3315,13 @@ var SerializedTypeTemplateLiteral = class _SerializedTypeTemplateLiteral
     return $__namespace.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $__namespace.utils.getList(
-      1,
-      _SerializedTypeTemplateLiteral._TypeArguments,
-      this
-    );
+    return $__namespace.utils.getList(1, _SerializedTypeTemplateLiteral._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $__namespace.utils.initList(
-      1,
-      _SerializedTypeTemplateLiteral._TypeArguments,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(1, _SerializedTypeTemplateLiteral._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(1, this));
@@ -3929,22 +3351,13 @@ var SerializedTypeTemplateLiteral = class _SerializedTypeTemplateLiteral
     return $__namespace.utils.disown(this.decorators);
   }
   get decorators() {
-    return $__namespace.utils.getList(
-      3,
-      _SerializedTypeTemplateLiteral._Decorators,
-      this
-    );
+    return $__namespace.utils.getList(3, _SerializedTypeTemplateLiteral._Decorators, this);
   }
   _hasDecorators() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $__namespace.utils.initList(
-      3,
-      _SerializedTypeTemplateLiteral._Decorators,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(3, _SerializedTypeTemplateLiteral._Decorators, length, this);
   }
   set decorators(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(3, this));
@@ -3962,22 +3375,13 @@ var SerializedTypeTemplateLiteral = class _SerializedTypeTemplateLiteral
     return $__namespace.utils.disown(this.types);
   }
   get types() {
-    return $__namespace.utils.getList(
-      4,
-      _SerializedTypeTemplateLiteral._Types,
-      this
-    );
+    return $__namespace.utils.getList(4, _SerializedTypeTemplateLiteral._Types, this);
   }
   _hasTypes() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(4, this));
   }
   _initTypes(length) {
-    return $__namespace.utils.initList(
-      4,
-      _SerializedTypeTemplateLiteral._Types,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(4, _SerializedTypeTemplateLiteral._Types, length, this);
   }
   set types(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(4, this));
@@ -4035,9 +3439,9 @@ var SerializedType_Type_Which = {
   TUPLE_MEMBER: 20,
   REST: 21,
   /**
-   * For any other type that is not explicitly defined
-   *
-   */
+  * For any other type that is not explicitly defined
+  *
+  */
   OTHER: 22
 };
 var SerializedType_Type = class extends $__namespace.Struct {
@@ -4080,12 +3484,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.simple);
   }
   get simple() {
-    $__namespace.utils.testWhich(
-      "simple",
-      $__namespace.utils.getUint16(0, this),
-      0,
-      this
-    );
+    $__namespace.utils.testWhich("simple", $__namespace.utils.getUint16(0, this), 0, this);
     return $__namespace.utils.getStruct(0, SimpleSerializedType, this);
   }
   _hasSimple() {
@@ -4110,12 +3509,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.literal);
   }
   get literal() {
-    $__namespace.utils.testWhich(
-      "literal",
-      $__namespace.utils.getUint16(0, this),
-      1,
-      this
-    );
+    $__namespace.utils.testWhich("literal", $__namespace.utils.getUint16(0, this), 1, this);
     return $__namespace.utils.getStruct(0, SerializedTypeLiteral, this);
   }
   _hasLiteral() {
@@ -4140,12 +3534,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.templateLiteral);
   }
   get templateLiteral() {
-    $__namespace.utils.testWhich(
-      "templateLiteral",
-      $__namespace.utils.getUint16(0, this),
-      2,
-      this
-    );
+    $__namespace.utils.testWhich("templateLiteral", $__namespace.utils.getUint16(0, this), 2, this);
     return $__namespace.utils.getStruct(0, SerializedTypeTemplateLiteral, this);
   }
   _hasTemplateLiteral() {
@@ -4153,11 +3542,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
   }
   _initTemplateLiteral() {
     $__namespace.utils.setUint16(0, 2, this);
-    return $__namespace.utils.initStructAt(
-      0,
-      SerializedTypeTemplateLiteral,
-      this
-    );
+    return $__namespace.utils.initStructAt(0, SerializedTypeTemplateLiteral, this);
   }
   get _isTemplateLiteral() {
     return $__namespace.utils.getUint16(0, this) === 2;
@@ -4174,12 +3559,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.parameter);
   }
   get parameter() {
-    $__namespace.utils.testWhich(
-      "parameter",
-      $__namespace.utils.getUint16(0, this),
-      3,
-      this
-    );
+    $__namespace.utils.testWhich("parameter", $__namespace.utils.getUint16(0, this), 3, this);
     return $__namespace.utils.getStruct(0, SerializedTypeParameter, this);
   }
   _hasParameter() {
@@ -4204,12 +3584,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.function);
   }
   get function() {
-    $__namespace.utils.testWhich(
-      "function",
-      $__namespace.utils.getUint16(0, this),
-      4,
-      this
-    );
+    $__namespace.utils.testWhich("function", $__namespace.utils.getUint16(0, this), 4, this);
     return $__namespace.utils.getStruct(0, SerializedTypeFunction, this);
   }
   _hasFunction() {
@@ -4234,12 +3609,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.method);
   }
   get method() {
-    $__namespace.utils.testWhich(
-      "method",
-      $__namespace.utils.getUint16(0, this),
-      5,
-      this
-    );
+    $__namespace.utils.testWhich("method", $__namespace.utils.getUint16(0, this), 5, this);
     return $__namespace.utils.getStruct(0, SerializedTypeMethod, this);
   }
   _hasMethod() {
@@ -4264,12 +3634,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.property);
   }
   get property() {
-    $__namespace.utils.testWhich(
-      "property",
-      $__namespace.utils.getUint16(0, this),
-      6,
-      this
-    );
+    $__namespace.utils.testWhich("property", $__namespace.utils.getUint16(0, this), 6, this);
     return $__namespace.utils.getStruct(0, SerializedTypeProperty, this);
   }
   _hasProperty() {
@@ -4294,12 +3659,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.promise);
   }
   get promise() {
-    $__namespace.utils.testWhich(
-      "promise",
-      $__namespace.utils.getUint16(0, this),
-      7,
-      this
-    );
+    $__namespace.utils.testWhich("promise", $__namespace.utils.getUint16(0, this), 7, this);
     return $__namespace.utils.getStruct(0, SerializedTypePromise, this);
   }
   _hasPromise() {
@@ -4324,12 +3684,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.classType);
   }
   get classType() {
-    $__namespace.utils.testWhich(
-      "classType",
-      $__namespace.utils.getUint16(0, this),
-      8,
-      this
-    );
+    $__namespace.utils.testWhich("classType", $__namespace.utils.getUint16(0, this), 8, this);
     return $__namespace.utils.getStruct(0, SerializedTypeClassType, this);
   }
   _hasClassType() {
@@ -4354,12 +3709,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.enum);
   }
   get enum() {
-    $__namespace.utils.testWhich(
-      "enum",
-      $__namespace.utils.getUint16(0, this),
-      9,
-      this
-    );
+    $__namespace.utils.testWhich("enum", $__namespace.utils.getUint16(0, this), 9, this);
     return $__namespace.utils.getStruct(0, SerializedTypeEnum, this);
   }
   _hasEnum() {
@@ -4384,12 +3734,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.union);
   }
   get union() {
-    $__namespace.utils.testWhich(
-      "union",
-      $__namespace.utils.getUint16(0, this),
-      10,
-      this
-    );
+    $__namespace.utils.testWhich("union", $__namespace.utils.getUint16(0, this), 10, this);
     return $__namespace.utils.getStruct(0, SerializedTypeUnion, this);
   }
   _hasUnion() {
@@ -4414,12 +3759,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.intersection);
   }
   get intersection() {
-    $__namespace.utils.testWhich(
-      "intersection",
-      $__namespace.utils.getUint16(0, this),
-      11,
-      this
-    );
+    $__namespace.utils.testWhich("intersection", $__namespace.utils.getUint16(0, this), 11, this);
     return $__namespace.utils.getStruct(0, SerializedTypeIntersection, this);
   }
   _hasIntersection() {
@@ -4444,12 +3784,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.array);
   }
   get array() {
-    $__namespace.utils.testWhich(
-      "array",
-      $__namespace.utils.getUint16(0, this),
-      12,
-      this
-    );
+    $__namespace.utils.testWhich("array", $__namespace.utils.getUint16(0, this), 12, this);
     return $__namespace.utils.getStruct(0, SerializedTypeArray, this);
   }
   _hasArray() {
@@ -4474,12 +3809,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.objectLiteral);
   }
   get objectLiteral() {
-    $__namespace.utils.testWhich(
-      "objectLiteral",
-      $__namespace.utils.getUint16(0, this),
-      13,
-      this
-    );
+    $__namespace.utils.testWhich("objectLiteral", $__namespace.utils.getUint16(0, this), 13, this);
     return $__namespace.utils.getStruct(0, SerializedTypeObjectLiteral, this);
   }
   _hasObjectLiteral() {
@@ -4487,11 +3817,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
   }
   _initObjectLiteral() {
     $__namespace.utils.setUint16(0, 13, this);
-    return $__namespace.utils.initStructAt(
-      0,
-      SerializedTypeObjectLiteral,
-      this
-    );
+    return $__namespace.utils.initStructAt(0, SerializedTypeObjectLiteral, this);
   }
   get _isObjectLiteral() {
     return $__namespace.utils.getUint16(0, this) === 13;
@@ -4508,12 +3834,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.indexSignature);
   }
   get indexSignature() {
-    $__namespace.utils.testWhich(
-      "indexSignature",
-      $__namespace.utils.getUint16(0, this),
-      14,
-      this
-    );
+    $__namespace.utils.testWhich("indexSignature", $__namespace.utils.getUint16(0, this), 14, this);
     return $__namespace.utils.getStruct(0, SerializedTypeIndexSignature, this);
   }
   _hasIndexSignature() {
@@ -4521,11 +3842,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
   }
   _initIndexSignature() {
     $__namespace.utils.setUint16(0, 14, this);
-    return $__namespace.utils.initStructAt(
-      0,
-      SerializedTypeIndexSignature,
-      this
-    );
+    return $__namespace.utils.initStructAt(0, SerializedTypeIndexSignature, this);
   }
   get _isIndexSignature() {
     return $__namespace.utils.getUint16(0, this) === 14;
@@ -4542,28 +3859,15 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.propertySignature);
   }
   get propertySignature() {
-    $__namespace.utils.testWhich(
-      "propertySignature",
-      $__namespace.utils.getUint16(0, this),
-      15,
-      this
-    );
-    return $__namespace.utils.getStruct(
-      0,
-      SerializedTypePropertySignature,
-      this
-    );
+    $__namespace.utils.testWhich("propertySignature", $__namespace.utils.getUint16(0, this), 15, this);
+    return $__namespace.utils.getStruct(0, SerializedTypePropertySignature, this);
   }
   _hasPropertySignature() {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(0, this));
   }
   _initPropertySignature() {
     $__namespace.utils.setUint16(0, 15, this);
-    return $__namespace.utils.initStructAt(
-      0,
-      SerializedTypePropertySignature,
-      this
-    );
+    return $__namespace.utils.initStructAt(0, SerializedTypePropertySignature, this);
   }
   get _isPropertySignature() {
     return $__namespace.utils.getUint16(0, this) === 15;
@@ -4580,12 +3884,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.methodSignature);
   }
   get methodSignature() {
-    $__namespace.utils.testWhich(
-      "methodSignature",
-      $__namespace.utils.getUint16(0, this),
-      16,
-      this
-    );
+    $__namespace.utils.testWhich("methodSignature", $__namespace.utils.getUint16(0, this), 16, this);
     return $__namespace.utils.getStruct(0, SerializedTypeMethodSignature, this);
   }
   _hasMethodSignature() {
@@ -4593,11 +3892,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
   }
   _initMethodSignature() {
     $__namespace.utils.setUint16(0, 16, this);
-    return $__namespace.utils.initStructAt(
-      0,
-      SerializedTypeMethodSignature,
-      this
-    );
+    return $__namespace.utils.initStructAt(0, SerializedTypeMethodSignature, this);
   }
   get _isMethodSignature() {
     return $__namespace.utils.getUint16(0, this) === 16;
@@ -4614,12 +3909,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.typeParameter);
   }
   get typeParameter() {
-    $__namespace.utils.testWhich(
-      "typeParameter",
-      $__namespace.utils.getUint16(0, this),
-      17,
-      this
-    );
+    $__namespace.utils.testWhich("typeParameter", $__namespace.utils.getUint16(0, this), 17, this);
     return $__namespace.utils.getStruct(0, SerializedTypeTypeParameter, this);
   }
   _hasTypeParameter() {
@@ -4627,11 +3917,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
   }
   _initTypeParameter() {
     $__namespace.utils.setUint16(0, 17, this);
-    return $__namespace.utils.initStructAt(
-      0,
-      SerializedTypeTypeParameter,
-      this
-    );
+    return $__namespace.utils.initStructAt(0, SerializedTypeTypeParameter, this);
   }
   get _isTypeParameter() {
     return $__namespace.utils.getUint16(0, this) === 17;
@@ -4648,12 +3934,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.infer);
   }
   get infer() {
-    $__namespace.utils.testWhich(
-      "infer",
-      $__namespace.utils.getUint16(0, this),
-      18,
-      this
-    );
+    $__namespace.utils.testWhich("infer", $__namespace.utils.getUint16(0, this), 18, this);
     return $__namespace.utils.getStruct(0, SerializedTypeInfer, this);
   }
   _hasInfer() {
@@ -4678,12 +3959,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.tuple);
   }
   get tuple() {
-    $__namespace.utils.testWhich(
-      "tuple",
-      $__namespace.utils.getUint16(0, this),
-      19,
-      this
-    );
+    $__namespace.utils.testWhich("tuple", $__namespace.utils.getUint16(0, this), 19, this);
     return $__namespace.utils.getStruct(0, SerializedTypeTuple, this);
   }
   _hasTuple() {
@@ -4708,12 +3984,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.tupleMember);
   }
   get tupleMember() {
-    $__namespace.utils.testWhich(
-      "tupleMember",
-      $__namespace.utils.getUint16(0, this),
-      20,
-      this
-    );
+    $__namespace.utils.testWhich("tupleMember", $__namespace.utils.getUint16(0, this), 20, this);
     return $__namespace.utils.getStruct(0, SerializedTypeTupleMember, this);
   }
   _hasTupleMember() {
@@ -4738,12 +4009,7 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.rest);
   }
   get rest() {
-    $__namespace.utils.testWhich(
-      "rest",
-      $__namespace.utils.getUint16(0, this),
-      21,
-      this
-    );
+    $__namespace.utils.testWhich("rest", $__namespace.utils.getUint16(0, this), 21, this);
     return $__namespace.utils.getStruct(0, SerializedTypeRest, this);
   }
   _hasRest() {
@@ -4768,16 +4034,11 @@ var SerializedType_Type = class extends $__namespace.Struct {
     return $__namespace.utils.disown(this.other);
   }
   /**
-   * For any other type that is not explicitly defined
-   *
-   */
+  * For any other type that is not explicitly defined
+  *
+  */
   get other() {
-    $__namespace.utils.testWhich(
-      "other",
-      $__namespace.utils.getUint16(0, this),
-      22,
-      this
-    );
+    $__namespace.utils.testWhich("other", $__namespace.utils.getUint16(0, this), 22, this);
     return $__namespace.utils.getStruct(0, SerializedTypeOther, this);
   }
   _hasOther() {
@@ -4843,12 +4104,7 @@ var SerializedTypes = class _SerializedTypes extends $__namespace.Struct {
     return !$__namespace.utils.isNull($__namespace.utils.getPointer(0, this));
   }
   _initTypes(length) {
-    return $__namespace.utils.initList(
-      0,
-      _SerializedTypes._Types,
-      length,
-      this
-    );
+    return $__namespace.utils.initList(0, _SerializedTypes._Types, length, this);
   }
   set types(value) {
     $__namespace.utils.copyFrom(value, $__namespace.utils.getPointer(0, this));
@@ -4857,177 +4113,63 @@ var SerializedTypes = class _SerializedTypes extends $__namespace.Struct {
     return "SerializedTypes_" + super.toString();
   }
 };
-EntityOptions._Indexes = $__namespace.CompositeList(
-  EntityOptions_EntityIndexOptions
-);
-SerializedTypeObjectLiteral._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeObjectLiteral._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeObjectLiteral._Types = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeClassType._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeClassType._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeClassType._ExtendsArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeClassType._Arguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeClassType._Types = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeParameter._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeParameter._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeMethod._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeMethod._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeMethod._Parameters = $__namespace.CompositeList(
-  SerializedTypeParameter
-);
-SerializedTypeProperty._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeProperty._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeFunction._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeFunction._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeFunction._Parameters = $__namespace.CompositeList(
-  SerializedTypeParameter
-);
-SerializedTypePromise._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypePromise._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeEnum._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeEnum._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeEnum._EnumEntries = $__namespace.CompositeList(
-  SerializedTypeEnumEntry
-);
-SerializedTypeUnion._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeUnion._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeUnion._Types = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeIntersection._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeIntersection._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeIntersection._Types = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeArray._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeArray._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeIndexSignature._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeIndexSignature._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypePropertySignature._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypePropertySignature._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeMethodSignature._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeMethodSignature._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeMethodSignature._Parameters = $__namespace.CompositeList(
-  SerializedTypeParameter
-);
-SerializedTypeTypeParameter._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeTypeParameter._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeInfer._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeInfer._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeTupleMember._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeTupleMember._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeTuple._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeTuple._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeTuple._Types = $__namespace.CompositeList(
-  SerializedTypeTupleMember
-);
-SerializedTypeRest._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeRest._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SimpleSerializedType._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SimpleSerializedType._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeLiteral._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeLiteral._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeTemplateLiteral._TypeArguments = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeTemplateLiteral._Decorators = $__namespace.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeTemplateLiteral._Types = $__namespace.CompositeList(
-  SerializedTypeReference
-);
+EntityOptions._Indexes = $__namespace.CompositeList(EntityOptions_EntityIndexOptions);
+SerializedTypeObjectLiteral._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeObjectLiteral._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeObjectLiteral._Types = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeClassType._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeClassType._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeClassType._ExtendsArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeClassType._Arguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeClassType._Types = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeParameter._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeParameter._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeMethod._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeMethod._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeMethod._Parameters = $__namespace.CompositeList(SerializedTypeParameter);
+SerializedTypeProperty._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeProperty._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeFunction._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeFunction._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeFunction._Parameters = $__namespace.CompositeList(SerializedTypeParameter);
+SerializedTypePromise._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypePromise._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeEnum._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeEnum._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeEnum._EnumEntries = $__namespace.CompositeList(SerializedTypeEnumEntry);
+SerializedTypeUnion._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeUnion._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeUnion._Types = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeIntersection._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeIntersection._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeIntersection._Types = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeArray._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeArray._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeIndexSignature._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeIndexSignature._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypePropertySignature._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypePropertySignature._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeMethodSignature._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeMethodSignature._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeMethodSignature._Parameters = $__namespace.CompositeList(SerializedTypeParameter);
+SerializedTypeTypeParameter._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeTypeParameter._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeInfer._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeInfer._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeTupleMember._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeTupleMember._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeTuple._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeTuple._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeTuple._Types = $__namespace.CompositeList(SerializedTypeTupleMember);
+SerializedTypeRest._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeRest._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SimpleSerializedType._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SimpleSerializedType._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeLiteral._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeLiteral._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeTemplateLiteral._TypeArguments = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeTemplateLiteral._Decorators = $__namespace.CompositeList(SerializedTypeReference);
+SerializedTypeTemplateLiteral._Types = $__namespace.CompositeList(SerializedTypeReference);
 SerializedTypes._Types = $__namespace.CompositeList(SerializedType);
 
 exports.DefaultValueReflection = DefaultValueReflection;
@@ -5052,8 +4194,7 @@ exports.SerializedTypeLiteralBigInt = SerializedTypeLiteralBigInt;
 exports.SerializedTypeLiteralRegex = SerializedTypeLiteralRegex;
 exports.SerializedTypeLiteralSymbol = SerializedTypeLiteralSymbol;
 exports.SerializedTypeLiteral_Literal = SerializedTypeLiteral_Literal;
-exports.SerializedTypeLiteral_Literal_Which =
-  SerializedTypeLiteral_Literal_Which;
+exports.SerializedTypeLiteral_Literal_Which = SerializedTypeLiteral_Literal_Which;
 exports.SerializedTypeMethod = SerializedTypeMethod;
 exports.SerializedTypeMethodSignature = SerializedTypeMethodSignature;
 exports.SerializedTypeObjectLiteral = SerializedTypeObjectLiteral;
