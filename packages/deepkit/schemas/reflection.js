@@ -1,8 +1,7 @@
-import * as $ from "@stryke/capnp";
+import * as $ from '@stryke/capnp';
 
 var __defProp = Object.defineProperty;
-var __name = (target, value) =>
-  __defProp(target, "name", { value, configurable: true });
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 var _capnpFileId = BigInt("0xae3c363dcecf2729");
 var ReflectionKind = {
   NEVER: 0,
@@ -325,9 +324,9 @@ var EntityOptions_EntityIndexOptions = class extends $.Struct {
     $.utils.copyFrom(value, $.utils.getPointer(0, this));
   }
   /**
-   * JSON stringified options
-   *
-   */
+  * JSON stringified options
+  *
+  */
   get options() {
     return $.utils.getText(1, this);
   }
@@ -401,9 +400,7 @@ var EntityOptions = class _EntityOptions extends $.Struct {
     return "EntityOptions_" + super.toString();
   }
 };
-var SerializedTypeObjectLiteral = class _SerializedTypeObjectLiteral
-  extends $.Struct
-{
+var SerializedTypeObjectLiteral = class _SerializedTypeObjectLiteral extends $.Struct {
   static {
     __name(this, "SerializedTypeObjectLiteral");
   }
@@ -428,22 +425,13 @@ var SerializedTypeObjectLiteral = class _SerializedTypeObjectLiteral
     return $.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $.utils.getList(
-      1,
-      _SerializedTypeObjectLiteral._TypeArguments,
-      this
-    );
+    return $.utils.getList(1, _SerializedTypeObjectLiteral._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeObjectLiteral._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeObjectLiteral._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -479,12 +467,7 @@ var SerializedTypeObjectLiteral = class _SerializedTypeObjectLiteral
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypeObjectLiteral._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypeObjectLiteral._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -508,12 +491,7 @@ var SerializedTypeObjectLiteral = class _SerializedTypeObjectLiteral
     return !$.utils.isNull($.utils.getPointer(4, this));
   }
   _initTypes(length) {
-    return $.utils.initList(
-      4,
-      _SerializedTypeObjectLiteral._Types,
-      length,
-      this
-    );
+    return $.utils.initList(4, _SerializedTypeObjectLiteral._Types, length, this);
   }
   set types(value) {
     $.utils.copyFrom(value, $.utils.getPointer(4, this));
@@ -573,12 +551,7 @@ var SerializedTypeClassType = class _SerializedTypeClassType extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeClassType._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeClassType._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -614,12 +587,7 @@ var SerializedTypeClassType = class _SerializedTypeClassType extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypeClassType._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypeClassType._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -661,12 +629,7 @@ var SerializedTypeClassType = class _SerializedTypeClassType extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(6, this));
   }
   _initExtendsArguments(length) {
-    return $.utils.initList(
-      6,
-      _SerializedTypeClassType._ExtendsArguments,
-      length,
-      this
-    );
+    return $.utils.initList(6, _SerializedTypeClassType._ExtendsArguments, length, this);
   }
   set extendsArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(6, this));
@@ -684,12 +647,7 @@ var SerializedTypeClassType = class _SerializedTypeClassType extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(7, this));
   }
   _initArguments(length) {
-    return $.utils.initList(
-      7,
-      _SerializedTypeClassType._Arguments,
-      length,
-      this
-    );
+    return $.utils.initList(7, _SerializedTypeClassType._Arguments, length, this);
   }
   set arguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(7, this));
@@ -782,12 +740,7 @@ var SerializedTypeParameter = class _SerializedTypeParameter extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeParameter._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeParameter._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -823,12 +776,7 @@ var SerializedTypeParameter = class _SerializedTypeParameter extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypeParameter._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypeParameter._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -952,12 +900,7 @@ var SerializedTypeMethod = class _SerializedTypeMethod extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeMethod._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeMethod._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -1122,12 +1065,7 @@ var SerializedTypeProperty = class _SerializedTypeProperty extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeProperty._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeProperty._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -1163,12 +1101,7 @@ var SerializedTypeProperty = class _SerializedTypeProperty extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypeProperty._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypeProperty._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -1304,12 +1237,7 @@ var SerializedTypeFunction = class _SerializedTypeFunction extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeFunction._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeFunction._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -1345,12 +1273,7 @@ var SerializedTypeFunction = class _SerializedTypeFunction extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypeFunction._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypeFunction._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -1422,12 +1345,7 @@ var SerializedTypeFunction = class _SerializedTypeFunction extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(6, this));
   }
   _initParameters(length) {
-    return $.utils.initList(
-      6,
-      _SerializedTypeFunction._Parameters,
-      length,
-      this
-    );
+    return $.utils.initList(6, _SerializedTypeFunction._Parameters, length, this);
   }
   set parameters(value) {
     $.utils.copyFrom(value, $.utils.getPointer(6, this));
@@ -1484,12 +1402,7 @@ var SerializedTypePromise = class _SerializedTypePromise extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypePromise._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypePromise._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -1525,12 +1438,7 @@ var SerializedTypePromise = class _SerializedTypePromise extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypePromise._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypePromise._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -1607,12 +1515,7 @@ var SerializedTypeEnum = class _SerializedTypeEnum extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeEnum._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeEnum._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -1766,12 +1669,7 @@ var SerializedTypeUnion = class _SerializedTypeUnion extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeUnion._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeUnion._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -1840,9 +1738,7 @@ var SerializedTypeUnion = class _SerializedTypeUnion extends $.Struct {
     return "SerializedTypeUnion_" + super.toString();
   }
 };
-var SerializedTypeIntersection = class _SerializedTypeIntersection
-  extends $.Struct
-{
+var SerializedTypeIntersection = class _SerializedTypeIntersection extends $.Struct {
   static {
     __name(this, "SerializedTypeIntersection");
   }
@@ -1873,12 +1769,7 @@ var SerializedTypeIntersection = class _SerializedTypeIntersection
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeIntersection._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeIntersection._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -1914,12 +1805,7 @@ var SerializedTypeIntersection = class _SerializedTypeIntersection
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypeIntersection._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypeIntersection._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -1943,12 +1829,7 @@ var SerializedTypeIntersection = class _SerializedTypeIntersection
     return !$.utils.isNull($.utils.getPointer(4, this));
   }
   _initTypes(length) {
-    return $.utils.initList(
-      4,
-      _SerializedTypeIntersection._Types,
-      length,
-      this
-    );
+    return $.utils.initList(4, _SerializedTypeIntersection._Types, length, this);
   }
   set types(value) {
     $.utils.copyFrom(value, $.utils.getPointer(4, this));
@@ -1987,12 +1868,7 @@ var SerializedTypeArray = class _SerializedTypeArray extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeArray._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeArray._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -2079,9 +1955,7 @@ var SerializedTypeArray = class _SerializedTypeArray extends $.Struct {
     return "SerializedTypeArray_" + super.toString();
   }
 };
-var SerializedTypeIndexSignature = class _SerializedTypeIndexSignature
-  extends $.Struct
-{
+var SerializedTypeIndexSignature = class _SerializedTypeIndexSignature extends $.Struct {
   static {
     __name(this, "SerializedTypeIndexSignature");
   }
@@ -2105,22 +1979,13 @@ var SerializedTypeIndexSignature = class _SerializedTypeIndexSignature
     return $.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $.utils.getList(
-      1,
-      _SerializedTypeIndexSignature._TypeArguments,
-      this
-    );
+    return $.utils.getList(1, _SerializedTypeIndexSignature._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeIndexSignature._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeIndexSignature._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -2156,12 +2021,7 @@ var SerializedTypeIndexSignature = class _SerializedTypeIndexSignature
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypeIndexSignature._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypeIndexSignature._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -2212,9 +2072,7 @@ var SerializedTypeIndexSignature = class _SerializedTypeIndexSignature
     return "SerializedTypeIndexSignature_" + super.toString();
   }
 };
-var SerializedTypePropertySignature = class _SerializedTypePropertySignature
-  extends $.Struct
-{
+var SerializedTypePropertySignature = class _SerializedTypePropertySignature extends $.Struct {
   static {
     __name(this, "SerializedTypePropertySignature");
   }
@@ -2238,22 +2096,13 @@ var SerializedTypePropertySignature = class _SerializedTypePropertySignature
     return $.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $.utils.getList(
-      1,
-      _SerializedTypePropertySignature._TypeArguments,
-      this
-    );
+    return $.utils.getList(1, _SerializedTypePropertySignature._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypePropertySignature._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypePropertySignature._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -2283,22 +2132,13 @@ var SerializedTypePropertySignature = class _SerializedTypePropertySignature
     return $.utils.disown(this.decorators);
   }
   get decorators() {
-    return $.utils.getList(
-      3,
-      _SerializedTypePropertySignature._Decorators,
-      this
-    );
+    return $.utils.getList(3, _SerializedTypePropertySignature._Decorators, this);
   }
   _hasDecorators() {
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypePropertySignature._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypePropertySignature._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -2391,9 +2231,7 @@ var SerializedTypePropertySignature = class _SerializedTypePropertySignature
     return "SerializedTypePropertySignature_" + super.toString();
   }
 };
-var SerializedTypeMethodSignature = class _SerializedTypeMethodSignature
-  extends $.Struct
-{
+var SerializedTypeMethodSignature = class _SerializedTypeMethodSignature extends $.Struct {
   static {
     __name(this, "SerializedTypeMethodSignature");
   }
@@ -2418,22 +2256,13 @@ var SerializedTypeMethodSignature = class _SerializedTypeMethodSignature
     return $.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $.utils.getList(
-      1,
-      _SerializedTypeMethodSignature._TypeArguments,
-      this
-    );
+    return $.utils.getList(1, _SerializedTypeMethodSignature._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeMethodSignature._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeMethodSignature._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -2469,12 +2298,7 @@ var SerializedTypeMethodSignature = class _SerializedTypeMethodSignature
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypeMethodSignature._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypeMethodSignature._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -2510,12 +2334,7 @@ var SerializedTypeMethodSignature = class _SerializedTypeMethodSignature
     return !$.utils.isNull($.utils.getPointer(5, this));
   }
   _initParameters(length) {
-    return $.utils.initList(
-      5,
-      _SerializedTypeMethodSignature._Parameters,
-      length,
-      this
-    );
+    return $.utils.initList(5, _SerializedTypeMethodSignature._Parameters, length, this);
   }
   set parameters(value) {
     $.utils.copyFrom(value, $.utils.getPointer(5, this));
@@ -2560,9 +2379,7 @@ var SerializedTypeMethodSignature = class _SerializedTypeMethodSignature
     return "SerializedTypeMethodSignature_" + super.toString();
   }
 };
-var SerializedTypeTypeParameter = class _SerializedTypeTypeParameter
-  extends $.Struct
-{
+var SerializedTypeTypeParameter = class _SerializedTypeTypeParameter extends $.Struct {
   static {
     __name(this, "SerializedTypeTypeParameter");
   }
@@ -2586,22 +2403,13 @@ var SerializedTypeTypeParameter = class _SerializedTypeTypeParameter
     return $.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $.utils.getList(
-      1,
-      _SerializedTypeTypeParameter._TypeArguments,
-      this
-    );
+    return $.utils.getList(1, _SerializedTypeTypeParameter._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeTypeParameter._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeTypeParameter._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -2637,12 +2445,7 @@ var SerializedTypeTypeParameter = class _SerializedTypeTypeParameter
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypeTypeParameter._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypeTypeParameter._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -2693,12 +2496,7 @@ var SerializedTypeInfer = class _SerializedTypeInfer extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeInfer._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeInfer._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -2749,9 +2547,7 @@ var SerializedTypeInfer = class _SerializedTypeInfer extends $.Struct {
     return "SerializedTypeInfer_" + super.toString();
   }
 };
-var SerializedTypeTupleMember = class _SerializedTypeTupleMember
-  extends $.Struct
-{
+var SerializedTypeTupleMember = class _SerializedTypeTupleMember extends $.Struct {
   static {
     __name(this, "SerializedTypeTupleMember");
   }
@@ -2781,12 +2577,7 @@ var SerializedTypeTupleMember = class _SerializedTypeTupleMember
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeTupleMember._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeTupleMember._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -2822,12 +2613,7 @@ var SerializedTypeTupleMember = class _SerializedTypeTupleMember
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypeTupleMember._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypeTupleMember._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -2903,12 +2689,7 @@ var SerializedTypeTuple = class _SerializedTypeTuple extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeTuple._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeTuple._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -3007,12 +2788,7 @@ var SerializedTypeRest = class _SerializedTypeRest extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeRest._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeRest._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -3111,12 +2887,7 @@ var SimpleSerializedType = class _SimpleSerializedType extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SimpleSerializedType._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SimpleSerializedType._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -3195,9 +2966,9 @@ var SerializedTypeLiteralSymbol = class extends $.Struct {
     size: new $.ObjectSize(0, 2)
   };
   /**
-   * "symbol"
-   *
-   */
+  * "symbol"
+  *
+  */
   get type() {
     return $.utils.getText(0, this);
   }
@@ -3224,9 +2995,9 @@ var SerializedTypeLiteralBigInt = class extends $.Struct {
     size: new $.ObjectSize(0, 2)
   };
   /**
-   * "bigint"
-   *
-   */
+  * "bigint"
+  *
+  */
   get type() {
     return $.utils.getText(0, this);
   }
@@ -3253,9 +3024,9 @@ var SerializedTypeLiteralRegex = class extends $.Struct {
     size: new $.ObjectSize(0, 2)
   };
   /**
-   * "regex"
-   *
-   */
+  * "regex"
+  *
+  */
   get type() {
     return $.utils.getText(0, this);
   }
@@ -3440,12 +3211,7 @@ var SerializedTypeLiteral = class _SerializedTypeLiteral extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeLiteral._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeLiteral._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -3481,12 +3247,7 @@ var SerializedTypeLiteral = class _SerializedTypeLiteral extends $.Struct {
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypeLiteral._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypeLiteral._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -3507,9 +3268,7 @@ var SerializedTypeLiteral = class _SerializedTypeLiteral extends $.Struct {
     return "SerializedTypeLiteral_" + super.toString();
   }
 };
-var SerializedTypeTemplateLiteral = class _SerializedTypeTemplateLiteral
-  extends $.Struct
-{
+var SerializedTypeTemplateLiteral = class _SerializedTypeTemplateLiteral extends $.Struct {
   static {
     __name(this, "SerializedTypeTemplateLiteral");
   }
@@ -3534,22 +3293,13 @@ var SerializedTypeTemplateLiteral = class _SerializedTypeTemplateLiteral
     return $.utils.disown(this.typeArguments);
   }
   get typeArguments() {
-    return $.utils.getList(
-      1,
-      _SerializedTypeTemplateLiteral._TypeArguments,
-      this
-    );
+    return $.utils.getList(1, _SerializedTypeTemplateLiteral._TypeArguments, this);
   }
   _hasTypeArguments() {
     return !$.utils.isNull($.utils.getPointer(1, this));
   }
   _initTypeArguments(length) {
-    return $.utils.initList(
-      1,
-      _SerializedTypeTemplateLiteral._TypeArguments,
-      length,
-      this
-    );
+    return $.utils.initList(1, _SerializedTypeTemplateLiteral._TypeArguments, length, this);
   }
   set typeArguments(value) {
     $.utils.copyFrom(value, $.utils.getPointer(1, this));
@@ -3585,12 +3335,7 @@ var SerializedTypeTemplateLiteral = class _SerializedTypeTemplateLiteral
     return !$.utils.isNull($.utils.getPointer(3, this));
   }
   _initDecorators(length) {
-    return $.utils.initList(
-      3,
-      _SerializedTypeTemplateLiteral._Decorators,
-      length,
-      this
-    );
+    return $.utils.initList(3, _SerializedTypeTemplateLiteral._Decorators, length, this);
   }
   set decorators(value) {
     $.utils.copyFrom(value, $.utils.getPointer(3, this));
@@ -3614,12 +3359,7 @@ var SerializedTypeTemplateLiteral = class _SerializedTypeTemplateLiteral
     return !$.utils.isNull($.utils.getPointer(4, this));
   }
   _initTypes(length) {
-    return $.utils.initList(
-      4,
-      _SerializedTypeTemplateLiteral._Types,
-      length,
-      this
-    );
+    return $.utils.initList(4, _SerializedTypeTemplateLiteral._Types, length, this);
   }
   set types(value) {
     $.utils.copyFrom(value, $.utils.getPointer(4, this));
@@ -3677,9 +3417,9 @@ var SerializedType_Type_Which = {
   TUPLE_MEMBER: 20,
   REST: 21,
   /**
-   * For any other type that is not explicitly defined
-   *
-   */
+  * For any other type that is not explicitly defined
+  *
+  */
   OTHER: 22
 };
 var SerializedType_Type = class extends $.Struct {
@@ -4097,12 +3837,7 @@ var SerializedType_Type = class extends $.Struct {
     return $.utils.disown(this.propertySignature);
   }
   get propertySignature() {
-    $.utils.testWhich(
-      "propertySignature",
-      $.utils.getUint16(0, this),
-      15,
-      this
-    );
+    $.utils.testWhich("propertySignature", $.utils.getUint16(0, this), 15, this);
     return $.utils.getStruct(0, SerializedTypePropertySignature, this);
   }
   _hasPropertySignature() {
@@ -4277,9 +4012,9 @@ var SerializedType_Type = class extends $.Struct {
     return $.utils.disown(this.other);
   }
   /**
-   * For any other type that is not explicitly defined
-   *
-   */
+  * For any other type that is not explicitly defined
+  *
+  */
   get other() {
     $.utils.testWhich("other", $.utils.getUint16(0, this), 22, this);
     return $.utils.getStruct(0, SerializedTypeOther, this);
@@ -4357,36 +4092,22 @@ var SerializedTypes = class _SerializedTypes extends $.Struct {
   }
 };
 EntityOptions._Indexes = $.CompositeList(EntityOptions_EntityIndexOptions);
-SerializedTypeObjectLiteral._TypeArguments = $.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeObjectLiteral._Decorators = $.CompositeList(
-  SerializedTypeReference
-);
+SerializedTypeObjectLiteral._TypeArguments = $.CompositeList(SerializedTypeReference);
+SerializedTypeObjectLiteral._Decorators = $.CompositeList(SerializedTypeReference);
 SerializedTypeObjectLiteral._Types = $.CompositeList(SerializedTypeReference);
-SerializedTypeClassType._TypeArguments = $.CompositeList(
-  SerializedTypeReference
-);
+SerializedTypeClassType._TypeArguments = $.CompositeList(SerializedTypeReference);
 SerializedTypeClassType._Decorators = $.CompositeList(SerializedTypeReference);
-SerializedTypeClassType._ExtendsArguments = $.CompositeList(
-  SerializedTypeReference
-);
+SerializedTypeClassType._ExtendsArguments = $.CompositeList(SerializedTypeReference);
 SerializedTypeClassType._Arguments = $.CompositeList(SerializedTypeReference);
 SerializedTypeClassType._Types = $.CompositeList(SerializedTypeReference);
-SerializedTypeParameter._TypeArguments = $.CompositeList(
-  SerializedTypeReference
-);
+SerializedTypeParameter._TypeArguments = $.CompositeList(SerializedTypeReference);
 SerializedTypeParameter._Decorators = $.CompositeList(SerializedTypeReference);
 SerializedTypeMethod._TypeArguments = $.CompositeList(SerializedTypeReference);
 SerializedTypeMethod._Decorators = $.CompositeList(SerializedTypeReference);
 SerializedTypeMethod._Parameters = $.CompositeList(SerializedTypeParameter);
-SerializedTypeProperty._TypeArguments = $.CompositeList(
-  SerializedTypeReference
-);
+SerializedTypeProperty._TypeArguments = $.CompositeList(SerializedTypeReference);
 SerializedTypeProperty._Decorators = $.CompositeList(SerializedTypeReference);
-SerializedTypeFunction._TypeArguments = $.CompositeList(
-  SerializedTypeReference
-);
+SerializedTypeFunction._TypeArguments = $.CompositeList(SerializedTypeReference);
 SerializedTypeFunction._Decorators = $.CompositeList(SerializedTypeReference);
 SerializedTypeFunction._Parameters = $.CompositeList(SerializedTypeParameter);
 SerializedTypePromise._TypeArguments = $.CompositeList(SerializedTypeReference);
@@ -4397,50 +4118,24 @@ SerializedTypeEnum._EnumEntries = $.CompositeList(SerializedTypeEnumEntry);
 SerializedTypeUnion._TypeArguments = $.CompositeList(SerializedTypeReference);
 SerializedTypeUnion._Decorators = $.CompositeList(SerializedTypeReference);
 SerializedTypeUnion._Types = $.CompositeList(SerializedTypeReference);
-SerializedTypeIntersection._TypeArguments = $.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeIntersection._Decorators = $.CompositeList(
-  SerializedTypeReference
-);
+SerializedTypeIntersection._TypeArguments = $.CompositeList(SerializedTypeReference);
+SerializedTypeIntersection._Decorators = $.CompositeList(SerializedTypeReference);
 SerializedTypeIntersection._Types = $.CompositeList(SerializedTypeReference);
 SerializedTypeArray._TypeArguments = $.CompositeList(SerializedTypeReference);
 SerializedTypeArray._Decorators = $.CompositeList(SerializedTypeReference);
-SerializedTypeIndexSignature._TypeArguments = $.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeIndexSignature._Decorators = $.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypePropertySignature._TypeArguments = $.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypePropertySignature._Decorators = $.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeMethodSignature._TypeArguments = $.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeMethodSignature._Decorators = $.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeMethodSignature._Parameters = $.CompositeList(
-  SerializedTypeParameter
-);
-SerializedTypeTypeParameter._TypeArguments = $.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeTypeParameter._Decorators = $.CompositeList(
-  SerializedTypeReference
-);
+SerializedTypeIndexSignature._TypeArguments = $.CompositeList(SerializedTypeReference);
+SerializedTypeIndexSignature._Decorators = $.CompositeList(SerializedTypeReference);
+SerializedTypePropertySignature._TypeArguments = $.CompositeList(SerializedTypeReference);
+SerializedTypePropertySignature._Decorators = $.CompositeList(SerializedTypeReference);
+SerializedTypeMethodSignature._TypeArguments = $.CompositeList(SerializedTypeReference);
+SerializedTypeMethodSignature._Decorators = $.CompositeList(SerializedTypeReference);
+SerializedTypeMethodSignature._Parameters = $.CompositeList(SerializedTypeParameter);
+SerializedTypeTypeParameter._TypeArguments = $.CompositeList(SerializedTypeReference);
+SerializedTypeTypeParameter._Decorators = $.CompositeList(SerializedTypeReference);
 SerializedTypeInfer._TypeArguments = $.CompositeList(SerializedTypeReference);
 SerializedTypeInfer._Decorators = $.CompositeList(SerializedTypeReference);
-SerializedTypeTupleMember._TypeArguments = $.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeTupleMember._Decorators = $.CompositeList(
-  SerializedTypeReference
-);
+SerializedTypeTupleMember._TypeArguments = $.CompositeList(SerializedTypeReference);
+SerializedTypeTupleMember._Decorators = $.CompositeList(SerializedTypeReference);
 SerializedTypeTuple._TypeArguments = $.CompositeList(SerializedTypeReference);
 SerializedTypeTuple._Decorators = $.CompositeList(SerializedTypeReference);
 SerializedTypeTuple._Types = $.CompositeList(SerializedTypeTupleMember);
@@ -4450,58 +4145,9 @@ SimpleSerializedType._TypeArguments = $.CompositeList(SerializedTypeReference);
 SimpleSerializedType._Decorators = $.CompositeList(SerializedTypeReference);
 SerializedTypeLiteral._TypeArguments = $.CompositeList(SerializedTypeReference);
 SerializedTypeLiteral._Decorators = $.CompositeList(SerializedTypeReference);
-SerializedTypeTemplateLiteral._TypeArguments = $.CompositeList(
-  SerializedTypeReference
-);
-SerializedTypeTemplateLiteral._Decorators = $.CompositeList(
-  SerializedTypeReference
-);
+SerializedTypeTemplateLiteral._TypeArguments = $.CompositeList(SerializedTypeReference);
+SerializedTypeTemplateLiteral._Decorators = $.CompositeList(SerializedTypeReference);
 SerializedTypeTemplateLiteral._Types = $.CompositeList(SerializedTypeReference);
 SerializedTypes._Types = $.CompositeList(SerializedType);
 
-export {
-  DefaultValueReflection,
-  DefaultValueReflection_Value,
-  DefaultValueReflection_Value_Which,
-  EntityOptions,
-  EntityOptions_EntityIndexOptions,
-  IndexAccessOrigin,
-  ReflectionKind,
-  ReflectionVisibility,
-  SerializedType,
-  SerializedTypeArray,
-  SerializedTypeClassType,
-  SerializedTypeEnum,
-  SerializedTypeEnumEntry,
-  SerializedTypeFunction,
-  SerializedTypeIndexSignature,
-  SerializedTypeInfer,
-  SerializedTypeIntersection,
-  SerializedTypeLiteral,
-  SerializedTypeLiteralBigInt,
-  SerializedTypeLiteralRegex,
-  SerializedTypeLiteralSymbol,
-  SerializedTypeLiteral_Literal,
-  SerializedTypeLiteral_Literal_Which,
-  SerializedTypeMethod,
-  SerializedTypeMethodSignature,
-  SerializedTypeObjectLiteral,
-  SerializedTypeOther,
-  SerializedTypeParameter,
-  SerializedTypePromise,
-  SerializedTypeProperty,
-  SerializedTypePropertySignature,
-  SerializedTypeReference,
-  SerializedTypeRest,
-  SerializedTypeTemplateLiteral,
-  SerializedTypeTuple,
-  SerializedTypeTupleMember,
-  SerializedTypeTypeParameter,
-  SerializedTypeUnion,
-  SerializedType_Type,
-  SerializedType_Type_Which,
-  SerializedTypes,
-  SimpleSerializedType,
-  TagsReflection,
-  _capnpFileId
-};
+export { DefaultValueReflection, DefaultValueReflection_Value, DefaultValueReflection_Value_Which, EntityOptions, EntityOptions_EntityIndexOptions, IndexAccessOrigin, ReflectionKind, ReflectionVisibility, SerializedType, SerializedTypeArray, SerializedTypeClassType, SerializedTypeEnum, SerializedTypeEnumEntry, SerializedTypeFunction, SerializedTypeIndexSignature, SerializedTypeInfer, SerializedTypeIntersection, SerializedTypeLiteral, SerializedTypeLiteralBigInt, SerializedTypeLiteralRegex, SerializedTypeLiteralSymbol, SerializedTypeLiteral_Literal, SerializedTypeLiteral_Literal_Which, SerializedTypeMethod, SerializedTypeMethodSignature, SerializedTypeObjectLiteral, SerializedTypeOther, SerializedTypeParameter, SerializedTypePromise, SerializedTypeProperty, SerializedTypePropertySignature, SerializedTypeReference, SerializedTypeRest, SerializedTypeTemplateLiteral, SerializedTypeTuple, SerializedTypeTupleMember, SerializedTypeTypeParameter, SerializedTypeUnion, SerializedType_Type, SerializedType_Type_Which, SerializedTypes, SimpleSerializedType, TagsReflection, _capnpFileId };

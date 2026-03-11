@@ -49,16 +49,27 @@
       "description": "The format to build",
       "items": {
         "type": "string",
-        "enum": ["cjs", "esm", "iife"]
+        "enum": [
+          "cjs",
+          "esm",
+          "iife"
+        ]
       },
       "id": "#format",
-      "default": ["cjs", "esm"]
+      "default": [
+        "cjs",
+        "esm"
+      ]
     },
     "platform": {
       "title": "Platform",
       "type": "string",
       "description": "The platform to build",
-      "enum": ["neutral", "node", "browser"],
+      "enum": [
+        "neutral",
+        "node",
+        "browser"
+      ],
       "id": "#platform",
       "default": "neutral"
     },
@@ -92,7 +103,11 @@
       "title": "Mode",
       "type": "string",
       "description": "The build mode",
-      "enum": ["development", "test", "production"],
+      "enum": [
+        "development",
+        "test",
+        "production"
+      ],
       "id": "#mode"
     },
     "logLevel": {
@@ -154,7 +169,10 @@
   "default": {
     "configFile": "{projectRoot}/powerlines.config.ts",
     "tsconfig": "{projectRoot}/tsconfig.json",
-    "format": ["cjs", "esm"],
+    "format": [
+      "cjs",
+      "esm"
+    ],
     "platform": "neutral",
     "external": [],
     "noExternal": [],
