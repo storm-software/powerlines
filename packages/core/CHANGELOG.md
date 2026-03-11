@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.15](https://github.com/storm-software/powerlines/releases/tag/core%400.2.15) (03/11/2026)
+
+### Miscellaneous
+
+- **core:** Added back logic to append prefix to resolved virtual module IDs ([1d29952e0](https://github.com/storm-software/powerlines/commit/1d29952e0))
+
+### Bug Fixes
+
+- **core:** Remove all prefix module resolution logic ([57f5efc46](https://github.com/storm-software/powerlines/commit/57f5efc46))
+
 ## [0.2.14](https://github.com/storm-software/powerlines/releases/tag/core%400.2.14) (03/10/2026)
 
 ### Bug Fixes
