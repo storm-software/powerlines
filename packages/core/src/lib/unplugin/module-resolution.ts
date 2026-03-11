@@ -16,6 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { LoadResult } from "rollup";
 import type {
   UnpluginBuildContext,
@@ -30,7 +32,7 @@ export interface CreateUnpluginModuleResolutionFunctionsOptions {
    * An indicator of whether to prefix virtual module IDs with a specific string. This is useful for ensuring that virtual modules are only processed by the plugin and not by other plugins or the bundler itself.
    *
    * @remarks
-   * - If set to `true`, virtual module IDs will be prefixed with the string `powerlines-virtual:`.
+   * - If set to `true`, virtual module IDs will be prefixed with the string `__powerlines-virtual:`.
    * - If set to `false`, no prefix will be added to virtual module IDs.
    *
    * @defaultValue true
@@ -38,8 +40,8 @@ export interface CreateUnpluginModuleResolutionFunctionsOptions {
   prefix?: boolean;
 }
 
-// const VIRTUAL_MODULE_PREFIX = "powerlines-virtual:";
-const VIRTUAL_MODULE_PREFIX_REGEX = /^powerlines-virtual:/;
+const VIRTUAL_MODULE_PREFIX = "__powerlines-virtual:";
+const VIRTUAL_MODULE_PREFIX_REGEX = /^__powerlines-virtual:/;
 
 /**
  * Creates the module resolution hook functions for a Powerlines unplugin plugin instance.
@@ -51,14 +53,14 @@ const VIRTUAL_MODULE_PREFIX_REGEX = /^powerlines-virtual:/;
  * @see https://rollupjs.org/plugin-development/#load
  *
  * @param context - The plugin context.
- * @param _options - Options for creating the module resolution functions.
+ * @param options - Options for creating the module resolution functions.
  * @returns The module resolution hooks (`resolveId` and `load`).
  */
 export function createUnpluginModuleResolutionFunctions<
   TContext extends PluginContext = PluginContext
 >(
   context: TContext,
-  _options: CreateUnpluginModuleResolutionFunctionsOptions = {}
+  options: CreateUnpluginModuleResolutionFunctionsOptions = {}
 ): Pick<UnpluginOptions, "resolveId" | "load"> {
   const ctx = context as unknown as UNSAFE_PluginContext;
 
@@ -82,8 +84,16 @@ export function createUnpluginModuleResolutionFunctions<
         importer,
         opts
       );
-      if (result) {
+      if (isSetString(result)) {
         return result;
+      } else if (isSetObject(result)) {
+        return {
+          ...result,
+          id:
+            result.virtual && options.prefix !== false
+              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
+              : result.id
+        };
       }
 
       result = await ctx.$$internal.callHook(
@@ -97,13 +107,27 @@ export function createUnpluginModuleResolutionFunctions<
         importer,
         opts
       );
-      if (result) {
+      if (isSetString(result)) {
         return result;
+      } else if (isSetObject(result)) {
+        return {
+          ...result,
+          id:
+            result.virtual && options.prefix !== false
+              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
+              : result.id
+        };
       }
 
       result = await ctx.resolve(id, importer, { isFile: true, ...opts });
-      if (result) {
-        return result;
+      if (isSetObject(result)) {
+        return {
+          ...result,
+          id:
+            result.virtual && options.prefix !== false
+              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
+              : result.id
+        };
       }
 
       result = await ctx.$$internal.callHook(
@@ -117,13 +141,28 @@ export function createUnpluginModuleResolutionFunctions<
         importer,
         opts
       );
-      if (result) {
+      if (isSetString(result)) {
         return result;
+      } else if (isSetObject(result)) {
+        return {
+          ...result,
+          id:
+            result.virtual && options.prefix !== false
+              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
+              : result.id
+        };
       }
 
       return null;
     },
     load: {
+      filter: options.prefix
+        ? {
+            id: {
+              include: VIRTUAL_MODULE_PREFIX_REGEX
+            }
+          }
+        : undefined,
       async handler(
         this: UnpluginBuildContext & UnpluginContext,
         id: string

@@ -839,7 +839,7 @@ export class PowerlinesContext<
               this.config.projectType !== "application") ||
             (this.config.resolve.skipNodeModulesBundle &&
               !/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(moduleId))),
-        virtual: this.fs.isVirtual(moduleId)
+        virtual: true
       };
     }
 
