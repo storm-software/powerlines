@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Biome
 
+## [0.2.340](https://github.com/storm-software/powerlines/releases/tag/plugin-biome%400.2.340) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.285**
+- Updated **powerlines** to **v0.40.21**
+
 ## [0.2.339](https://github.com/storm-software/powerlines/releases/tag/plugin-biome%400.2.339) (03/11/2026)
 
 ### Updated Dependencies

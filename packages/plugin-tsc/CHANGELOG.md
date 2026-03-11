@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.342](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.342) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.285**
+- Updated **powerlines** to **v0.40.21**
+
 ## [0.2.341](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.341) (03/11/2026)
 
 ### Updated Dependencies

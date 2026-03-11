@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.25.18](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.18) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.285**
+- Updated **plugin-babel** to **v0.12.339**
+- Updated **powerlines** to **v0.40.21**
+- Updated **deepkit** to **v0.6.113**
+- Updated **core** to **v0.2.17**
+
 ## [0.25.17](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.17) (03/11/2026)
 
 ### Updated Dependencies

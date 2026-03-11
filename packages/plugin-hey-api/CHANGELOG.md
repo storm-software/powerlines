@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Hey API
 
+## [0.1.288](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.288) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.285**
+- Updated **powerlines** to **v0.40.21**
+
 ## [0.1.287](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.287) (03/11/2026)
 
 ### Updated Dependencies

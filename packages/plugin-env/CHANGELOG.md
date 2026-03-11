@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.53](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.53) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.213**
+- Updated **plugin-automd** to **v0.1.334**
+- Updated **plugin-plugin** to **v0.12.285**
+- Updated **plugin-alloy** to **v0.25.18**
+- Updated **plugin-babel** to **v0.12.339**
+- Updated **powerlines** to **v0.40.21**
+- Updated **deepkit** to **v0.6.113**
+
 ## [0.16.52](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.52) (03/11/2026)
 
 ### Updated Dependencies

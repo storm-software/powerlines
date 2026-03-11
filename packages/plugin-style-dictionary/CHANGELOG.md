@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.235](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.235) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.339**
+- Updated **plugin-plugin** to **v0.12.285**
+- Updated **powerlines** to **v0.40.21**
+
 ## [0.3.234](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.234) (03/11/2026)
 
 ### Updated Dependencies

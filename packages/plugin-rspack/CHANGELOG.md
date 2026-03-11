@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.339](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.339) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.2.17**
+
 ## [0.5.338](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.338) (03/11/2026)
 
 ### Updated Dependencies

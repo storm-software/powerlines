@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.388](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.388) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.285**
+- Updated **plugin-alloy** to **v0.25.18**
+- Updated **plugin-babel** to **v0.12.339**
+- Updated **plugin-vite** to **v0.14.333**
+- Updated **plugin-env** to **v0.16.53**
+- Updated **powerlines** to **v0.40.21**
+- Updated **deepkit** to **v0.6.113**
+
 ## [0.1.387](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.387) (03/11/2026)
 
 ### Updated Dependencies

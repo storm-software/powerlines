@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - CLI
 
+## [0.1.27](https://github.com/storm-software/powerlines/releases/tag/cli%400.1.27) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
 ## [0.1.0](https://github.com/storm-software/powerlines/releases/tag/cli%400.1.0) (02/27/2026)
 
 ### Features

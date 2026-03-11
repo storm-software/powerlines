@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Oxlint
 
+## [0.7.338](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.338) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.285**
+- Updated **powerlines** to **v0.40.21**
+
 ## [0.7.337](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.337) (03/11/2026)
 
 ### Updated Dependencies

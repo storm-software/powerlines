@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.6.113](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.113) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.339**
+- Updated **powerlines** to **v0.40.21**
+
 ## [0.6.112](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.112) (03/11/2026)
 
 ### Updated Dependencies

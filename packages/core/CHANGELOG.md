@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.17](https://github.com/storm-software/powerlines/releases/tag/core%400.2.17) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reformat workspace packages' source code ([4e6846b40](https://github.com/storm-software/powerlines/commit/4e6846b40))
+
+### Bug Fixes
+
+- **core:** Resolve issue applying filter to `load` hook ([894af83e3](https://github.com/storm-software/powerlines/commit/894af83e3))
+
 ## [0.2.15](https://github.com/storm-software/powerlines/releases/tag/core%400.2.15) (03/11/2026)
 
 ### Miscellaneous
