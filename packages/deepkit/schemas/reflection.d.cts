@@ -1,4 +1,4 @@
-import * as $ from '@stryke/capnp';
+import * as $ from "@stryke/capnp";
 
 declare const _capnpFileId: bigint;
 declare const ReflectionKind: {
@@ -1618,4 +1618,54 @@ declare type __ΩDefaultValueReflection_Value_Which = any[];
 declare type __ΩSerializedTypeLiteral_Literal_Which = any[];
 declare type __ΩSerializedType_Type_Which = any[];
 
-export { DefaultValueReflection, DefaultValueReflection_Value, DefaultValueReflection_Value_Which, EntityOptions, EntityOptions_EntityIndexOptions, IndexAccessOrigin, ReflectionKind, ReflectionVisibility, SerializedType, SerializedTypeArray, SerializedTypeClassType, SerializedTypeEnum, SerializedTypeEnumEntry, SerializedTypeFunction, SerializedTypeIndexSignature, SerializedTypeInfer, SerializedTypeIntersection, SerializedTypeLiteral, SerializedTypeLiteralBigInt, SerializedTypeLiteralRegex, SerializedTypeLiteralSymbol, SerializedTypeLiteral_Literal, SerializedTypeLiteral_Literal_Which, SerializedTypeMethod, SerializedTypeMethodSignature, SerializedTypeObjectLiteral, SerializedTypeOther, SerializedTypeParameter, SerializedTypePromise, SerializedTypeProperty, SerializedTypePropertySignature, SerializedTypeReference, SerializedTypeRest, SerializedTypeTemplateLiteral, SerializedTypeTuple, SerializedTypeTupleMember, SerializedTypeTypeParameter, SerializedTypeUnion, SerializedType_Type, SerializedType_Type_Which, SerializedTypes, SimpleSerializedType, TagsReflection, type __ΩDefaultValueReflection_Value_Which, type __ΩReflectionKind, type __ΩReflectionVisibility, type __ΩSerializedTypeLiteral_Literal_Which, type __ΩSerializedType_Type_Which, _capnpFileId };
+export {
+  DefaultValueReflection,
+  DefaultValueReflection_Value,
+  DefaultValueReflection_Value_Which,
+  EntityOptions,
+  EntityOptions_EntityIndexOptions,
+  IndexAccessOrigin,
+  ReflectionKind,
+  ReflectionVisibility,
+  SerializedType,
+  SerializedTypeArray,
+  SerializedTypeClassType,
+  SerializedTypeEnum,
+  SerializedTypeEnumEntry,
+  SerializedTypeFunction,
+  SerializedTypeIndexSignature,
+  SerializedTypeInfer,
+  SerializedTypeIntersection,
+  SerializedTypeLiteral,
+  SerializedTypeLiteralBigInt,
+  SerializedTypeLiteralRegex,
+  SerializedTypeLiteralSymbol,
+  SerializedTypeLiteral_Literal,
+  SerializedTypeLiteral_Literal_Which,
+  SerializedTypeMethod,
+  SerializedTypeMethodSignature,
+  SerializedTypeObjectLiteral,
+  SerializedTypeOther,
+  SerializedTypeParameter,
+  SerializedTypePromise,
+  SerializedTypeProperty,
+  SerializedTypePropertySignature,
+  SerializedTypeReference,
+  SerializedTypeRest,
+  SerializedTypeTemplateLiteral,
+  SerializedTypeTuple,
+  SerializedTypeTupleMember,
+  SerializedTypeTypeParameter,
+  SerializedTypeUnion,
+  SerializedType_Type,
+  SerializedType_Type_Which,
+  SerializedTypes,
+  SimpleSerializedType,
+  TagsReflection,
+  _capnpFileId,
+  type __ΩDefaultValueReflection_Value_Which,
+  type __ΩReflectionKind,
+  type __ΩReflectionVisibility,
+  type __ΩSerializedTypeLiteral_Literal_Which,
+  type __ΩSerializedType_Type_Which
+};

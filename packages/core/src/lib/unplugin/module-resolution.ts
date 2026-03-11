@@ -73,6 +73,11 @@ export function createUnpluginModuleResolutionFunctions<
         isEntry: boolean;
       } = { isEntry: false }
     ): Promise<string | ResolveResult | null | undefined> {
+      const normalizedId = id.replace(VIRTUAL_MODULE_PREFIX_REGEX, "");
+      const normalizedImporter = importer
+        ? importer.replace(VIRTUAL_MODULE_PREFIX_REGEX, "")
+        : undefined;
+
       let result = await ctx.$$internal.callHook(
         "resolveId",
         {
@@ -80,8 +85,8 @@ export function createUnpluginModuleResolutionFunctions<
           result: "first",
           order: "pre"
         },
-        id,
-        importer,
+        normalizedId,
+        normalizedImporter,
         opts
       );
       if (isSetString(result)) {
@@ -103,8 +108,8 @@ export function createUnpluginModuleResolutionFunctions<
           result: "first",
           order: "normal"
         },
-        id,
-        importer,
+        normalizedId,
+        normalizedImporter,
         opts
       );
       if (isSetString(result)) {
@@ -119,7 +124,10 @@ export function createUnpluginModuleResolutionFunctions<
         };
       }
 
-      result = await ctx.resolve(id, importer, { isFile: true, ...opts });
+      result = await ctx.resolve(normalizedId, normalizedImporter, {
+        isFile: true,
+        ...opts
+      });
       if (isSetObject(result)) {
         return {
           ...result,
@@ -137,8 +145,8 @@ export function createUnpluginModuleResolutionFunctions<
           result: "first",
           order: "post"
         },
-        id,
-        importer,
+        normalizedId,
+        normalizedImporter,
         opts
       );
       if (isSetString(result)) {
@@ -168,7 +176,7 @@ export function createUnpluginModuleResolutionFunctions<
         this: UnpluginBuildContext & UnpluginContext,
         id: string
       ): Promise<LoadResult | null | undefined> {
-        const moduleId = id.replace(VIRTUAL_MODULE_PREFIX_REGEX, "");
+        const normalizedId = id.replace(VIRTUAL_MODULE_PREFIX_REGEX, "");
 
         let result = await ctx.$$internal.callHook(
           "load",
@@ -177,7 +185,7 @@ export function createUnpluginModuleResolutionFunctions<
             result: "first",
             order: "pre"
           },
-          moduleId
+          normalizedId
         );
         if (result) {
           return result;
@@ -190,13 +198,13 @@ export function createUnpluginModuleResolutionFunctions<
             result: "first",
             order: "normal"
           },
-          moduleId
+          normalizedId
         );
         if (result) {
           return result;
         }
 
-        result = await ctx.load(moduleId);
+        result = await ctx.load(normalizedId);
         if (result) {
           return result;
         }
@@ -208,7 +216,7 @@ export function createUnpluginModuleResolutionFunctions<
             result: "first",
             order: "post"
           },
-          moduleId
+          normalizedId
         );
       }
     }
