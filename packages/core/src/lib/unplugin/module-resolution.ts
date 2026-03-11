@@ -16,8 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { isSetObject } from "@stryke/type-checks/is-set-object";
-import { isSetString } from "@stryke/type-checks/is-set-string";
 import { LoadResult } from "rollup";
 import type {
   UnpluginBuildContext,
@@ -40,7 +38,7 @@ export interface CreateUnpluginModuleResolutionFunctionsOptions {
   prefix?: boolean;
 }
 
-const VIRTUAL_MODULE_PREFIX = "powerlines-virtual:";
+// const VIRTUAL_MODULE_PREFIX = "powerlines-virtual:";
 const VIRTUAL_MODULE_PREFIX_REGEX = /^powerlines-virtual:/;
 
 /**
@@ -53,14 +51,14 @@ const VIRTUAL_MODULE_PREFIX_REGEX = /^powerlines-virtual:/;
  * @see https://rollupjs.org/plugin-development/#load
  *
  * @param context - The plugin context.
- * @param options - Options for creating the module resolution functions.
+ * @param _options - Options for creating the module resolution functions.
  * @returns The module resolution hooks (`resolveId` and `load`).
  */
 export function createUnpluginModuleResolutionFunctions<
   TContext extends PluginContext = PluginContext
 >(
   context: TContext,
-  options: CreateUnpluginModuleResolutionFunctionsOptions = {}
+  _options: CreateUnpluginModuleResolutionFunctionsOptions = {}
 ): Pick<UnpluginOptions, "resolveId" | "load"> {
   const ctx = context as unknown as UNSAFE_PluginContext;
 
@@ -84,16 +82,8 @@ export function createUnpluginModuleResolutionFunctions<
         importer,
         opts
       );
-      if (isSetString(result)) {
+      if (result) {
         return result;
-      } else if (isSetObject(result)) {
-        return {
-          ...result,
-          id:
-            result.virtual && options.prefix !== false
-              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
-              : result.id
-        };
       }
 
       result = await ctx.$$internal.callHook(
@@ -107,27 +97,13 @@ export function createUnpluginModuleResolutionFunctions<
         importer,
         opts
       );
-      if (isSetString(result)) {
+      if (result) {
         return result;
-      } else if (isSetObject(result)) {
-        return {
-          ...result,
-          id:
-            result.virtual && options.prefix !== false
-              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
-              : result.id
-        };
       }
 
       result = await ctx.resolve(id, importer, { isFile: true, ...opts });
-      if (isSetObject(result)) {
-        return {
-          ...result,
-          id:
-            result.virtual && options.prefix !== false
-              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
-              : result.id
-        };
+      if (result) {
+        return result;
       }
 
       result = await ctx.$$internal.callHook(
@@ -141,16 +117,8 @@ export function createUnpluginModuleResolutionFunctions<
         importer,
         opts
       );
-      if (isSetString(result)) {
+      if (result) {
         return result;
-      } else if (isSetObject(result)) {
-        return {
-          ...result,
-          id:
-            result.virtual && options.prefix !== false
-              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
-              : result.id
-        };
       }
 
       return null;
