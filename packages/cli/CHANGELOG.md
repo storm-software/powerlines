@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - CLI
 
+## [0.1.29](https://github.com/storm-software/powerlines/releases/tag/cli%400.1.29) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files for workspace ([248c3f44e](https://github.com/storm-software/powerlines/commit/248c3f44e))
+
 ## [0.1.27](https://github.com/storm-software/powerlines/releases/tag/cli%400.1.27) (03/11/2026)
 
 ### Miscellaneous

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Jest
 
+## [0.1.344](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.344) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files for workspace ([248c3f44e](https://github.com/storm-software/powerlines/commit/248c3f44e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.287**
+- Updated **powerlines** to **v0.41.1**
+
 ## [0.1.343](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.343) (03/11/2026)
 
 ### Updated Dependencies

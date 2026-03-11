@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unimport
 
+## [0.1.337](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.337) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files for workspace ([248c3f44e](https://github.com/storm-software/powerlines/commit/248c3f44e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.287**
+- Updated **powerlines** to **v0.41.1**
+
 ## [0.1.336](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.336) (03/11/2026)
 
 ### Updated Dependencies

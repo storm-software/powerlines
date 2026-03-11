@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Stylelint
 
+## [0.1.340](https://github.com/storm-software/powerlines/releases/tag/plugin-stylelint%400.1.340) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files for workspace ([248c3f44e](https://github.com/storm-software/powerlines/commit/248c3f44e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.287**
+- Updated **powerlines** to **v0.41.1**
+
 ## [0.1.339](https://github.com/storm-software/powerlines/releases/tag/plugin-stylelint%400.1.339) (03/11/2026)
 
 ### Updated Dependencies

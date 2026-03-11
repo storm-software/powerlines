@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.287](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.287) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files for workspace ([248c3f44e](https://github.com/storm-software/powerlines/commit/248c3f44e))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.286**
+- Updated **powerlines** to **v0.41.1**
+
 ## [0.12.286](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.286) (03/11/2026)
 
 ### Updated Dependencies
