@@ -829,17 +829,19 @@ export class PowerlinesContext<
         return undefined;
       }
 
+      const external =
+        !match(moduleId, this.config.resolve.noExternal) &&
+        (match(moduleId, this.config.resolve.external) ||
+          moduleId.startsWith("node:") ||
+          (this.fs.isVirtual(moduleId) &&
+            this.config.projectType !== "application") ||
+          (this.config.resolve.skipNodeModulesBundle &&
+            !/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(moduleId)));
+
       return {
         id: result,
-        external:
-          !match(moduleId, this.config.resolve.noExternal) &&
-          (match(moduleId, this.config.resolve.external) ||
-            moduleId.startsWith("node:") ||
-            (this.fs.isVirtual(moduleId) &&
-              this.config.projectType !== "application") ||
-            (this.config.resolve.skipNodeModulesBundle &&
-              !/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(moduleId))),
-        virtual: true
+        external,
+        virtual: !external
       };
     }
 
