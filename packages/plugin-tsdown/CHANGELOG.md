@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.282](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.282) (03/11/2026)
+
+### Miscellaneous
+
+- **plugin-tsdown:** Use `dts` configuration to drive build options ([2f45e168b](https://github.com/storm-software/powerlines/commit/2f45e168b))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.339**
+- Updated **core** to **v0.2.15**
+
 ## [0.1.281](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.281) (03/10/2026)
 
 ### Updated Dependencies

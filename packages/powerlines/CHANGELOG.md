@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.40.19](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.19) (03/11/2026)
+
+### Miscellaneous
+
+- **core:** Added back logic to append prefix to resolved virtual module IDs ([1d29952e0](https://github.com/storm-software/powerlines/commit/1d29952e0))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.339**
+- Updated **plugin-esbuild** to **v0.13.337**
+- Updated **plugin-unbuild** to **v0.5.338**
+- Updated **plugin-webpack** to **v0.5.337**
+- Updated **plugin-rollup** to **v0.7.338**
+- Updated **plugin-rspack** to **v0.5.337**
+- Updated **plugin-tsdown** to **v0.1.282**
+- Updated **plugin-tsup** to **v0.12.338**
+- Updated **plugin-vite** to **v0.14.331**
+- Updated **core** to **v0.2.15**
+
 ## [0.40.18](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.18) (03/10/2026)
 
 ### Updated Dependencies
