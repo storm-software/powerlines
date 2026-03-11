@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-cloudflare",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "type": "module",
   "description": "A Powerlines plugin that provides integration with Cloudflare services.",
   "repository": {

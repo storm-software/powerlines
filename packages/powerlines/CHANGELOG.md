@@ -2,6 +2,29 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.41.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.0) (03/11/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolved max call stack issue in vfs constuctor ([70b9aabdd](https://github.com/storm-software/powerlines/commit/70b9aabdd))
+
+### Features
+
+- **powerlines:** Added `oxc-resolver` logic to vfs `resolve` implementation ([2954a3023](https://github.com/storm-software/powerlines/commit/2954a3023))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.342**
+- Updated **plugin-esbuild** to **v0.13.340**
+- Updated **plugin-unbuild** to **v0.5.341**
+- Updated **plugin-webpack** to **v0.5.340**
+- Updated **plugin-rollup** to **v0.7.341**
+- Updated **plugin-rspack** to **v0.5.340**
+- Updated **plugin-tsdown** to **v0.1.285**
+- Updated **plugin-tsup** to **v0.12.341**
+- Updated **plugin-vite** to **v0.14.334**
+- Updated **core** to **v0.2.18**
+
 ## [0.40.21](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.40.21) (03/11/2026)
 
 ### Miscellaneous
