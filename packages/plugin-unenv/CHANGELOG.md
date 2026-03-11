@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unenv
 
+## [0.1.325](https://github.com/storm-software/powerlines/releases/tag/plugin-unenv%400.1.325) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files for workspace ([248c3f44e](https://github.com/storm-software/powerlines/commit/248c3f44e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.287**
+- Updated **powerlines** to **v0.41.1**
+
 ## [0.1.324](https://github.com/storm-software/powerlines/releases/tag/plugin-unenv%400.1.324) (03/11/2026)
 
 ### Updated Dependencies

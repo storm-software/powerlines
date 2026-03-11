@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.2.15](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.2.15) (03/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files for workspace ([248c3f44e](https://github.com/storm-software/powerlines/commit/248c3f44e))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.341**
+- Updated **plugin-plugin** to **v0.12.287**
+- Updated **plugin-pulumi** to **v0.5.17**
+- Updated **plugin-alloy** to **v0.25.20**
+- Updated **plugin-env** to **v0.16.55**
+- Updated **powerlines** to **v0.41.1**
+
 ## [0.2.14](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.2.14) (03/11/2026)
 
 ### Updated Dependencies
