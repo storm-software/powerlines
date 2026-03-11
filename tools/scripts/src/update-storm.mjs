@@ -36,13 +36,33 @@ try {
     );
   }
 
-  // 2) Ensure workspace:* links are up to date
+  // 2) Dedupe all workspace dependencies
+  proc = $`pnpm dedupe`.timeout(`${30 * 60}s`);
+  proc.stdout.on("data", data => echo`${data}`);
+  result = await proc;
+  if (result.exitCode !== 0) {
+    throw new Error(
+      `An error occurred while deduplicating workspace dependencies:\n\n${result.message}\n`
+    );
+  }
+
+  // 3) Ensure workspace:* links are up to date
   proc = $`pnpm update --recursive --workspace`.timeout(`${8 * 60}s`);
   proc.stdout.on("data", data => echo`${data}`);
   result = await proc;
   if (result.exitCode !== 0) {
     throw new Error(
       `An error occurred while refreshing workspace links:\n\n${result.message}\n`
+    );
+  }
+
+  // 4) Install git hooks to ensure that the correct versions of the CLI and other tools are used when running git commands
+  proc = $`pnpm exec storm-git prepare`.timeout(`${8 * 60}s`);
+  proc.stdout.on("data", data => echo`${data}`);
+  result = await proc;
+  if (result.exitCode !== 0) {
+    throw new Error(
+      `An error occurred while installing git hooks:\n\n${result.message}\n`
     );
   }
 
