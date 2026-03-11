@@ -178,8 +178,8 @@ catalogs:
       specifier: ^0.169.117
       version: 0.169.117
     '@storm-software/git-tools':
-      specifier: ^2.127.2
-      version: 2.127.2
+      specifier: ^2.127.3
+      version: 2.127.3
     '@storm-software/linting-tools':
       specifier: ^1.132.117
       version: 1.132.117
@@ -660,7 +660,7 @@ importers:
         version: 0.169.117(3a0c1c3d28aaa135dfcd7044d2eb7eb8)
       '@storm-software/git-tools':
         specifier: 'catalog:'
-        version: 2.127.2(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/node@25.4.0)(verdaccio@6.1.2(typanion@3.14.0))(zod@4.3.6)
+        version: 2.127.3(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/node@25.4.0)(verdaccio@6.1.2(typanion@3.14.0))(zod@4.3.6)
       '@storm-software/linting-tools':
         specifier: 'catalog:'
         version: 1.132.117(chokidar@4.0.3)
@@ -2788,7 +2788,7 @@ importers:
         version: 0.3.68
       astro:
         specifier: '>=5.13.5'
-        version: 6.0.2(@types/node@25.4.0)(db0@0.3.4(@types/better-sqlite3@7.6.13))(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2)
+        version: 6.0.3(@types/node@25.4.0)(db0@0.3.4(@types/better-sqlite3@7.6.13))(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2)
       bundle-require:
         specifier: 'catalog:'
         version: 5.1.0(esbuild@0.27.3)
@@ -9456,8 +9456,8 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
       prettier-plugin-astro: ^0.14.0
 
-  '@storm-software/git-tools@2.127.2':
-    resolution: {integrity: sha512-IgbVp4o9bBhpBST0zOhDsMbKhvMM2JKB1NYGzA2yzLrezLd7fY+M2r3s9ehbStnhu/xOlRZ9nujEW+v/J7rotg==}
+  '@storm-software/git-tools@2.127.3':
+    resolution: {integrity: sha512-P+wddmeR3PT9Yyzio2kg8tppJMcsTyYRDHF3ZACyDHTlc6/0WfLZqkSgNW4omRGQjm699nLC88aeg25p+NtdcQ==}
     engines: {node: '>=22.4.0', pnpm: '>=10.3.0'}
     hasBin: true
     peerDependencies:
@@ -11541,8 +11541,8 @@ packages:
     resolution: {integrity: sha512-JepyLROIad6f44uyqMF6HKE2QbunNzp3mYKRcPoDGt0QkxXmH222FAFC64WTyQu2Kg8NNEXHTN/sWuUId9sSxw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  astro@6.0.2:
-    resolution: {integrity: sha512-aYCU9QcaV3QlOxO+JU2lR4xazVuPaH7oFhc990H/fhbWLMm1MWlRnjfnti1gYMm9N9l7gqPb3t7JsQBlUEQXIg==}
+  astro@6.0.3:
+    resolution: {integrity: sha512-M0s9KMmGeaLQPB0shVNqr3ZypEXBDFE/VsexBoA0nWVFwr84BnGxffXH8LG0KPxnVTRwpC3/zPjllVAlRLYJuw==}
     engines: {node: ^20.19.1 || >=22.12.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -29315,7 +29315,7 @@ snapshots:
       - verdaccio
       - vitest
 
-  '@storm-software/git-tools@2.127.2(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/node@25.4.0)(verdaccio@6.1.2(typanion@3.14.0))(zod@4.3.6)':
+  '@storm-software/git-tools@2.127.3(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/node@25.4.0)(verdaccio@6.1.2(typanion@3.14.0))(zod@4.3.6)':
     dependencies:
       '@commitlint/ensure': 19.8.1
       '@commitlint/rules': 19.8.1
@@ -31919,7 +31919,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  astro@6.0.2(@types/node@25.4.0)(db0@0.3.4(@types/better-sqlite3@7.6.13))(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2):
+  astro@6.0.3(@types/node@25.4.0)(db0@0.3.4(@types/better-sqlite3@7.6.13))(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2):
     dependencies:
       '@astrojs/compiler': 3.0.0
       '@astrojs/internal-helpers': 0.8.0
