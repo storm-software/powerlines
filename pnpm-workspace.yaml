@@ -169,6 +169,7 @@ catalog:
   nx: 22.5.2
   openapi-typescript: ^7.13.0
   oxc-parser: ^0.99.0
+  oxc-resolver: ^11.19.1
   oxc-transform: ^0.99.0
   oxlint: ^1.53.0
   oxlint-tsgolint: ^0.14.2

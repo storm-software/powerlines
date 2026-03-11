@@ -408,6 +408,7 @@
     "handlebars": "catalog:",
     "jiti": "catalog:",
     "oxc-parser": "catalog:",
+    "oxc-resolver": "catalog:",
     "ts-morph": "catalog:",
     "undici": "catalog:",
     "unimport": "catalog:",
