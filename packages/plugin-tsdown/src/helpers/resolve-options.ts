@@ -227,7 +227,7 @@ export function resolveOptions(context: Context): BuildOptions {
         }
       },
       platform: context.config.platform,
-      dts: true,
+      dts: context.config.output.dts,
       outDir: appendPath(
         context.config.output.buildPath,
         context.workspaceConfig.workspaceRoot
