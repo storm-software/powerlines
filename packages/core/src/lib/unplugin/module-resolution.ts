@@ -156,13 +156,14 @@ export function createUnpluginModuleResolutionFunctions<
       return null;
     },
     load: {
-      filter: options.prefix
-        ? {
-            id: {
-              include: VIRTUAL_MODULE_PREFIX_REGEX
+      filter:
+        options.prefix !== false
+          ? {
+              id: {
+                include: [VIRTUAL_MODULE_PREFIX_REGEX]
+              }
             }
-          }
-        : undefined,
+          : undefined,
       async handler(
         this: UnpluginBuildContext & UnpluginContext,
         id: string
