@@ -41,7 +41,7 @@
   "type": "module",
   "files": ["dist/**/*"],
   "peerDependencies": {
-    "rolldown": ">=1.0.0-rc.6 <2.0.0"
+    "rolldown": ">=1.0.0-rc.9 <2.0.0"
   },
   "peerDependenciesMeta": {
     "rolldown": {
