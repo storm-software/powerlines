@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.25.26](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.26) (03/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues after `tsdown` upgrade ([509fff49b](https://github.com/storm-software/powerlines/commit/509fff49b))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.293**
+- Updated **plugin-babel** to **v0.12.345**
+- Updated **powerlines** to **v0.41.7**
+- Updated **deepkit** to **v0.6.121**
+- Updated **core** to **v0.2.23**
+
 ## [0.25.25](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.25) (03/11/2026)
 
 ### Updated Dependencies

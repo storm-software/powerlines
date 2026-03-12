@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.2.23](https://github.com/storm-software/powerlines/releases/tag/core%400.2.23) (03/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues after `tsdown` upgrade ([509fff49b](https://github.com/storm-software/powerlines/commit/509fff49b))
+
 ## [0.2.20](https://github.com/storm-software/powerlines/releases/tag/core%400.2.20) (03/11/2026)
 
 ### Bug Fixes

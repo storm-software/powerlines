@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.405](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.405) (03/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues after `tsdown` upgrade ([509fff49b](https://github.com/storm-software/powerlines/commit/509fff49b))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.293**
+- Updated **plugin-env** to **v0.16.61**
+- Updated **powerlines** to **v0.41.7**
+
 ## [0.12.404](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.404) (03/11/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.10.350](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.350) (03/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues after `tsdown` upgrade ([509fff49b](https://github.com/storm-software/powerlines/commit/509fff49b))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.293**
+- Updated **powerlines** to **v0.41.7**
+
 ## [0.10.349](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.349) (03/11/2026)
 
 ### Updated Dependencies
