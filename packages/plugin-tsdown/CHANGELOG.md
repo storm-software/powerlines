@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.292](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.292) (03/12/2026)
+
+### Bug Fixes
+
+- **core:** Update `combinePlugins` helper to output a single plugin instance ([27fd1e750](https://github.com/storm-software/powerlines/commit/27fd1e750))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.349**
+- Updated **core** to **v0.3.1**
+
 ## [0.1.291](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.291) (03/12/2026)
 
 ### Bug Fixes

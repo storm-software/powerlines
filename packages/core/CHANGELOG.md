@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.3.1](https://github.com/storm-software/powerlines/releases/tag/core%400.3.1) (03/12/2026)
+
+### Bug Fixes
+
+- **core:** Update `combinePlugins` helper to output a single plugin instance ([27fd1e750](https://github.com/storm-software/powerlines/commit/27fd1e750))
+
 ## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/core%400.3.0) (03/12/2026)
 
 ### Features
