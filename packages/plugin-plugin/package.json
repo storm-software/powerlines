@@ -48,7 +48,7 @@
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.mts",
+        "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       },
       "default": {
@@ -62,7 +62,7 @@
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.mts",
+        "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       },
       "default": {
@@ -76,7 +76,7 @@
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.mts",
+        "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       },
       "default": {
@@ -90,7 +90,7 @@
         "default": "./dist/types/index.mjs"
       },
       "require": {
-        "types": "./dist/types/index.d.mts",
+        "types": "./dist/types/index.d.cts",
         "default": "./dist/types/index.cjs"
       },
       "default": {
@@ -104,7 +104,7 @@
         "default": "./dist/types/*.mjs"
       },
       "require": {
-        "types": "./dist/types/*.d.mts",
+        "types": "./dist/types/*.d.cts",
         "default": "./dist/types/*.cjs"
       },
       "default": {
