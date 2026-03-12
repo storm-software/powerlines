@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Nitro
 
+## [0.1.238](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.238) (03/12/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.297**
+- Updated **powerlines** to **v0.41.11**
+
 ## [0.1.237](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.237) (03/12/2026)
 
 ### Updated Dependencies

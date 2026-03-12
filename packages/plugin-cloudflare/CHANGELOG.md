@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.2.25](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.2.25) (03/12/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve build issue by using `react-jsx` for `jsx` transformation config ([0afbaf79e](https://github.com/storm-software/powerlines/commit/0afbaf79e))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.350**
+- Updated **plugin-plugin** to **v0.12.297**
+- Updated **plugin-pulumi** to **v0.5.27**
+- Updated **plugin-alloy** to **v0.25.30**
+- Updated **plugin-env** to **v0.16.65**
+- Updated **powerlines** to **v0.41.11**
+
 ## [0.2.24](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.2.24) (03/12/2026)
 
 ### Bug Fixes

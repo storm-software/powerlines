@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.25.30](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.30) (03/12/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Ensure `@babel/plugin-syntax-jsx` is used with plugin ([122202e5a](https://github.com/storm-software/powerlines/commit/122202e5a))
+- **plugin-alloy:** Resolve build issue by using `react-jsx` for `jsx` transformation config ([0afbaf79e](https://github.com/storm-software/powerlines/commit/0afbaf79e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.297**
+- Updated **plugin-babel** to **v0.12.349**
+- Updated **powerlines** to **v0.41.11**
+- Updated **deepkit** to **v0.6.125**
+- Updated **core** to **v0.3.3**
+
 ## [0.25.29](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.29) (03/12/2026)
 
 ### Bug Fixes
