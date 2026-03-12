@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.396](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.396) (03/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues after `tsdown` upgrade ([509fff49b](https://github.com/storm-software/powerlines/commit/509fff49b))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.293**
+- Updated **plugin-alloy** to **v0.25.26**
+- Updated **plugin-babel** to **v0.12.345**
+- Updated **plugin-vite** to **v0.14.340**
+- Updated **plugin-env** to **v0.16.61**
+- Updated **powerlines** to **v0.41.7**
+- Updated **deepkit** to **v0.6.121**
+
 ## [0.1.395](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.395) (03/11/2026)
 
 ### Updated Dependencies

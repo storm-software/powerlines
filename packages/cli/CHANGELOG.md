@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - CLI
 
+## [0.1.33](https://github.com/storm-software/powerlines/releases/tag/cli%400.1.33) (03/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues after `tsdown` upgrade ([509fff49b](https://github.com/storm-software/powerlines/commit/509fff49b))
+
 ## [0.1.29](https://github.com/storm-software/powerlines/releases/tag/cli%400.1.29) (03/11/2026)
 
 ### Miscellaneous

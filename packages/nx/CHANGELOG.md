@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.270](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.270) (03/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues after `tsdown` upgrade ([509fff49b](https://github.com/storm-software/powerlines/commit/509fff49b))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.41.7**
+
 ## [0.11.269](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.269) (03/11/2026)
 
 ### Updated Dependencies

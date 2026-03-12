@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.6.121](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.121) (03/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues after `tsdown` upgrade ([509fff49b](https://github.com/storm-software/powerlines/commit/509fff49b))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.346**
+- Updated **powerlines** to **v0.41.7**
+
 ## [0.6.120](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.120) (03/11/2026)
 
 ### Updated Dependencies
