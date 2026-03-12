@@ -59,9 +59,7 @@ export const plugin = <
             nodeProtocol: true,
             fixedExtension: true,
             minify: false,
-            exports: {
-              all: true
-            },
+            exports: true,
             unbundle: true
           }
         };

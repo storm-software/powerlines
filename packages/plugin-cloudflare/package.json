@@ -1,18 +1,24 @@
 {
   "name": "@powerlines/plugin-cloudflare",
   "version": "0.2.20",
-  "type": "module",
+  "private": false,
   "description": "A Powerlines plugin that provides integration with Cloudflare services.",
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-cloudflare"
-  },
+  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
     "email": "support@stormsoftware.com"
   },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/plugin-cloudflare"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
   "author": {
     "name": "Storm Software",
     "email": "contact@stormsoftware.com",
@@ -32,12 +38,7 @@
       "url": "https://stormsoftware.com"
     }
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/storm-software"
-  },
-  "license": "Apache-2.0",
-  "private": false,
+  "type": "module",
   "exports": {
     ".": {
       "require": {
@@ -53,7 +54,6 @@
         "default": "./dist/index.mjs"
       }
     },
-    "./*": "./*",
     "./components": {
       "require": {
         "types": "./dist/components/index.d.cts",
@@ -110,6 +110,7 @@
         "default": "./dist/components/worker-entry.mjs"
       }
     },
+    "./package.json": "./package.json",
     "./types": {
       "require": {
         "types": "./dist/types/index.d.cts",
@@ -139,18 +140,23 @@
       }
     }
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "files": ["dist/**/*"],
-  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/typescript": "catalog:",
-    "@powerlines/plugin-pulumi": "workspace:*",
+    "@cloudflare/workers-types": "catalog:",
     "@powerlines/plugin-env": "workspace:*",
+    "@powerlines/plugin-pulumi": "workspace:*",
     "@pulumi/cloudflare": "catalog:",
     "@pulumi/pulumi": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@stryke/hash": "catalog:",
     "@stryke/path": "catalog:",
+    "@stryke/string-format": "catalog:",
+    "@stryke/type-checks": "catalog:",
     "defu": "catalog:",
     "powerlines": "workspace:*"
   },
@@ -162,8 +168,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.cts"
+  }
 }

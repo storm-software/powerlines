@@ -41,44 +41,45 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
+    "./chunk-C0xms8kb": "./dist/chunk-C0xms8kb.cjs",
     "./helpers": {
-      "require": "./dist/helpers/index.cjs",
-      "import": "./dist/helpers/index.mjs"
+      "import": "./dist/helpers/index.mjs",
+      "require": "./dist/helpers/index.cjs"
     },
     "./helpers/ast-utils": {
-      "require": "./dist/helpers/ast-utils.cjs",
-      "import": "./dist/helpers/ast-utils.mjs"
+      "import": "./dist/helpers/ast-utils.mjs",
+      "require": "./dist/helpers/ast-utils.cjs"
     },
     "./helpers/create-plugin": {
-      "require": "./dist/helpers/create-plugin.cjs",
-      "import": "./dist/helpers/create-plugin.mjs"
+      "import": "./dist/helpers/create-plugin.mjs",
+      "require": "./dist/helpers/create-plugin.cjs"
     },
     "./helpers/filters": {
-      "require": "./dist/helpers/filters.cjs",
-      "import": "./dist/helpers/filters.mjs"
+      "import": "./dist/helpers/filters.mjs",
+      "require": "./dist/helpers/filters.cjs"
     },
     "./helpers/module-helpers": {
-      "require": "./dist/helpers/module-helpers.cjs",
-      "import": "./dist/helpers/module-helpers.mjs"
+      "import": "./dist/helpers/module-helpers.mjs",
+      "require": "./dist/helpers/module-helpers.cjs"
     },
     "./helpers/options": {
-      "require": "./dist/helpers/options.cjs",
-      "import": "./dist/helpers/options.mjs"
+      "import": "./dist/helpers/options.mjs",
+      "require": "./dist/helpers/options.cjs"
     },
     "./types": {
-      "require": "./dist/types/index.cjs",
-      "import": "./dist/types/index.mjs"
+      "import": "./dist/types/index.mjs",
+      "require": "./dist/types/index.cjs"
     },
     "./types/config": {
-      "require": "./dist/types/config.cjs",
-      "import": "./dist/types/config.mjs"
+      "import": "./dist/types/config.mjs",
+      "require": "./dist/types/config.cjs"
     },
     "./types/plugin": {
-      "require": "./dist/types/plugin.cjs",
-      "import": "./dist/types/plugin.mjs"
+      "import": "./dist/types/plugin.mjs",
+      "require": "./dist/types/plugin.cjs"
     },
     "./*": "./*"
   },

@@ -24,6 +24,6 @@ export default defineConfig({
   input: ["src/index.ts", "src/types/*.ts"],
   plugins: [plugin()],
   resolve: {
-    noExternal: ["marked"]
+    external: ["marked"]
   }
 });

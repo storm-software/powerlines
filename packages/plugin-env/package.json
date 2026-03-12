@@ -1,18 +1,24 @@
 {
   "name": "@powerlines/plugin-env",
   "version": "0.16.60",
-  "type": "module",
+  "private": false,
   "description": "A package containing a Powerlines plugin for injecting static .env configuration values to the code so that they're accessible at runtime.",
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-env"
-  },
+  "keywords": ["dotenv", "powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
     "email": "support@stormsoftware.com"
   },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/plugin-env"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
   "author": {
     "name": "Storm Software",
     "email": "contact@stormsoftware.com",
@@ -32,14 +38,7 @@
       "url": "https://stormsoftware.com"
     }
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/storm-software"
-  },
-  "license": "Apache-2.0",
-  "private": false,
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "type": "module",
   "exports": {
     ".": {
       "require": {
@@ -55,7 +54,6 @@
         "default": "./dist/index.mjs"
       }
     },
-    "./*": "./*",
     "./babel": {
       "require": {
         "types": "./dist/babel/index.d.cts",
@@ -252,6 +250,7 @@
         "default": "./dist/helpers/template-helpers.mjs"
       }
     },
+    "./package.json": "./package.json",
     "./types": {
       "require": {
         "types": "./dist/types/index.d.cts",
@@ -295,9 +294,11 @@
       }
     }
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
-  "keywords": ["dotenv", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/json": "catalog:",
@@ -311,13 +312,16 @@
     "@powerlines/plugin-plugin": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
+    "@stryke/convert": "catalog:",
     "@stryke/env": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/json": "catalog:",
+    "@stryke/path": "catalog:",
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "automd": "catalog:",
+    "defu": "catalog:",
     "powerlines": "workspace:*"
   },
   "devDependencies": {
@@ -329,5 +333,20 @@
   "publishConfig": {
     "access": "public"
   },
-  "types": "./dist/index.d.cts"
+  "inlinedDependencies": {
+    "c12": "3.3.3",
+    "confbox": "0.2.4",
+    "destr": "2.0.5",
+    "dotenv": "17.3.1",
+    "exsolve": "1.0.8",
+    "giget": "2.0.0",
+    "jiti": "2.6.1",
+    "node-fetch-native": "1.6.7",
+    "nypm": "0.6.5",
+    "ohash": "2.0.11",
+    "pathe": "2.0.3",
+    "pkg-types": "2.3.0",
+    "rc9": "2.1.2",
+    "tinyexec": "1.0.2"
+  }
 }

@@ -56,7 +56,6 @@
         "default": "./dist/index.mjs"
       }
     },
-    "./*": "./*",
     "./components": {
       "require": {
         "types": "./dist/components/index.d.cts",
@@ -85,6 +84,7 @@
         "default": "./dist/components/react-optimized.mjs"
       }
     },
+    "./package.json": "./package.json",
     "./types": {
       "require": {
         "types": "./dist/types/index.d.cts",

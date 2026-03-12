@@ -137,8 +137,16 @@ export function resolveOptions(context: Context): BuildOptions {
                 "**/*.tsx"
               )
             ],
-      external,
-      noExternal,
+      deps: {
+        neverBundle: external,
+        alwaysBundle: context.config.resolve.skipNodeModulesBundle
+          ? undefined
+          : noExternal,
+        onlyBundle: context.config.resolve.skipNodeModulesBundle
+          ? noExternal
+          : undefined,
+        skipNodeModulesBundle: context.config.resolve.skipNodeModulesBundle
+      },
       alias: context.alias,
       resolve: {
         alias: context.alias

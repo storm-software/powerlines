@@ -54,7 +54,6 @@
         "default": "./dist/index.mjs"
       }
     },
-    "./*": "./*",
     "./api/client": {
       "require": {
         "types": "./dist/api/client/index.d.cts",
@@ -321,6 +320,7 @@
         "default": "./dist/helpers/schema-creator.mjs"
       }
     },
+    "./package.json": "./package.json",
     "./types": {
       "require": {
         "types": "./dist/types/index.d.cts",
@@ -376,6 +376,7 @@
     "@stryke/cli": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
+    "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "defu": "catalog:",
@@ -386,8 +387,8 @@
     "ts-pattern": "catalog:"
   },
   "devDependencies": {
-    "@pulumi/pulumi": "catalog:",
     "@powerlines/plugin-plugin": "workspace:*",
+    "@pulumi/pulumi": "catalog:",
     "@types/node": "catalog:"
   },
   "publishConfig": {

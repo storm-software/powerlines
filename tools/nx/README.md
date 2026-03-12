@@ -60,18 +60,16 @@ An internal [Nx](https://nx.dev) plugin used by the Powerlines monorepo to manag
 
 ## Table of Contents
 
-- [Powerlines - Internal Nx Plugin](#powerlines---internal-nx-plugin)
-  - [Table of Contents](#table-of-contents)
-  - [Development setup](#development-setup)
-    - [Building](#building)
-    - [Running unit tests](#running-unit-tests)
-  - [Storm Workspaces](#storm-workspaces)
-  - [Roadmap](#roadmap)
-  - [Support](#support)
-  - [License](#license)
-  - [Changelog](#changelog)
-  - [Contributing](#contributing)
-  - [Contributors](#contributors)
+- [Development setup](#development-setup)
+  - [Building](#building)
+  - [Running unit tests](#running-unit-tests)
+- [Storm Workspaces](#storm-workspaces)
+- [Roadmap](#roadmap)
+- [Support](#support)
+- [License](#license)
+- [Changelog](#changelog)
+- [Contributing](#contributing)
+- [Contributors](#contributors)
 
 <!-- END doctoc -->
 

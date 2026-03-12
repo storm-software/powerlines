@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { TamaguiOptions } from "@tamagui/types";
-import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
+import type { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export type TamaguiPluginOptions = Partial<TamaguiOptions> & {
   /**

@@ -24,6 +24,6 @@ export default defineConfig({
   input: ["src/index.ts", "src/types/*.ts", "src/helpers/*.ts"],
   plugins: [plugin()],
   resolve: {
-    noExternal: ["@content-collections/core"]
+    external: ["@content-collections/core"]
   }
 });
