@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.345](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.345) (03/11/2026)
+
+### Bug Fixes
+
+- **plugin-esbuild:** Remove module Id prefixes from bundle ([c8186a360](https://github.com/storm-software/powerlines/commit/c8186a360))
+
 ## [0.13.344](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.344) (03/11/2026)
 
 ### Bug Fixes
