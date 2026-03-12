@@ -52,7 +52,7 @@ export async function bundle(
         write: false,
         sourcemap: false,
         splitting: false,
-        treeShaking: false,
+        treeShaking: true,
         bundle: true,
         packages: "bundle",
         platform: "node",
