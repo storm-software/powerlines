@@ -487,11 +487,11 @@ catalogs:
       specifier: ^2.5.0
       version: 2.5.0
     undici:
-      specifier: ^7.23.0
-      version: 7.23.0
+      specifier: ^7.24.0
+      version: 7.24.0
     undici-types:
-      specifier: ^7.23.0
-      version: 7.23.0
+      specifier: ^7.24.0
+      version: 7.24.0
     unenv:
       specifier: npm:unenv-nightly@2.0.0-rc.24
       version: 2.0.0-rc.24
@@ -2869,7 +2869,7 @@ importers:
         version: 27.0.2
       undici:
         specifier: 'catalog:'
-        version: 7.23.0
+        version: 7.24.0
       unimport:
         specifier: 'catalog:'
         version: 5.7.0
@@ -2936,7 +2936,7 @@ importers:
         version: 5.9.3
       undici-types:
         specifier: 'catalog:'
-        version: 7.23.0
+        version: 7.24.0
 
   packages/tsconfig:
     devDependencies:
@@ -20288,11 +20288,11 @@ packages:
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
-  undici-types@7.23.0:
-    resolution: {integrity: sha512-yR/tKkdJ6lT6e/k/SwzGDUFQE/2hZPBkWBiUtQb8zdQDSLcTKvhBqk3iP7WJKhBrhS8f0rMGjGBexCuNwdJqdg==}
+  undici-types@7.24.0:
+    resolution: {integrity: sha512-1beJCk3fcUtxAHf19TmrEd0yF3Co7El8fJvlSufm9EQNMKVR9H5XiamszDDt/FwinyUQPHpL2w8u9ZL8i8RtVg==}
 
-  undici@7.23.0:
-    resolution: {integrity: sha512-HVMxHKZKi+eL2mrUZDzDkKW3XvCjynhbtpSq20xQp4ePDFeSFuAfnvM0GIwZIv8fiKHjXFQ5WjxhCt15KRNj+g==}
+  undici@7.24.0:
+    resolution: {integrity: sha512-jxytwMHhsbdpBXxLAcuu0fzlQeXCNnWdDyRHpvWsUl8vd98UwYdl9YTyn8/HcpcJPC3pwUveefsa3zTxyD/ERg==}
     engines: {node: '>=20.18.1'}
 
   unenv-nightly@2.0.0-rc.24:
@@ -29546,7 +29546,7 @@ snapshots:
       '@stryke/type-checks': 0.5.38
       '@stryke/url': 0.4.10
       defu: 6.1.4
-      undici: 7.23.0
+      undici: 7.24.0
 
   '@stryke/json@0.14.7':
     dependencies:
@@ -39336,7 +39336,7 @@ snapshots:
       oxc-minify: 0.96.0
       oxc-transform: 0.96.0
       srvx: 0.9.8
-      undici: 7.23.0
+      undici: 7.24.0
       unenv: 2.0.0-rc.24
       unstorage: 2.0.0-alpha.6(chokidar@5.0.0)(db0@0.3.4(@types/better-sqlite3@7.6.13))(lru-cache@8.0.5)(ofetch@2.0.0-alpha.3)
     optionalDependencies:
@@ -43451,9 +43451,9 @@ snapshots:
 
   undici-types@7.18.2: {}
 
-  undici-types@7.23.0: {}
+  undici-types@7.24.0: {}
 
-  undici@7.23.0: {}
+  undici@7.24.0: {}
 
   unenv-nightly@2.0.0-rc.24:
     dependencies:

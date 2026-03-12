@@ -198,8 +198,8 @@ catalog:
   typedoc: 0.25.12
   typedoc-plugin-markdown: 4.0.0-next.20
   unctx: ^2.5.0
-  undici: ^7.23.0
-  undici-types: ^7.23.0
+  undici: ^7.24.0
+  undici-types: ^7.24.0
   unenv: npm:unenv-nightly@2.0.0-rc.24
   unimport: ^5.7.0
   unplugin: ^3.0.0
