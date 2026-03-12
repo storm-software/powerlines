@@ -56,7 +56,7 @@
       "import": "./dist/helpers/unplugin.mjs",
       "require": "./dist/helpers/unplugin.cjs"
     },
-    "./resolve-options-C-QiHQuJ": "./dist/resolve-options-C-QiHQuJ.cjs",
+    "./resolve-options-zRmpZ1kt": "./dist/resolve-options-zRmpZ1kt.cjs",
     "./types": {
       "import": "./dist/types/index.mjs",
       "require": "./dist/types/index.cjs"

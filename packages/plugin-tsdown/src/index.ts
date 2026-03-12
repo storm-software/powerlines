@@ -16,14 +16,14 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "@powerlines/core";
+import { createUnplugin, Plugin } from "@powerlines/core";
 import { combinePlugins } from "@powerlines/core/plugin-utils";
 import { formatPackageJson } from "@powerlines/core/plugin-utils/format-package-json";
 import { toArray } from "@stryke/convert/to-array";
 import defu from "defu";
 import { build } from "tsdown";
+import { createRolldownPlugin } from "unplugin";
 import { resolveOptions } from "./helpers/resolve-options";
-import { createTsdownPlugin } from "./helpers/unplugin";
 import {
   TsdownPluginContext,
   TsdownPluginOptions,
@@ -71,7 +71,8 @@ export const plugin = <
           {
             config: false,
             plugins: await combinePlugins({
-              plugins: toArray(createTsdownPlugin(this))
+              name: "powerlines-tsdown",
+              plugins: toArray(createRolldownPlugin(createUnplugin(this)))
             }).rolldown()
           },
           resolveOptions(this)
