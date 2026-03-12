@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.289](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.289) (03/11/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.346**
+- Updated **core** to **v0.2.22**
+
 ## [0.1.288](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.288) (03/11/2026)
 
 ### Updated Dependencies

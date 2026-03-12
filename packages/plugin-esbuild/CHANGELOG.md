@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.344](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.344) (03/11/2026)
+
+### Bug Fixes
+
+- **plugin-esbuild:** Ensure to treeShake bundled code ([7fddda903](https://github.com/storm-software/powerlines/commit/7fddda903))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.2.22**
+
 ## [0.13.343](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.343) (03/11/2026)
 
 ### Updated Dependencies
