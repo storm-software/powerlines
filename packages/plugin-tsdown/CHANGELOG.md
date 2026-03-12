@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.291](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.291) (03/12/2026)
+
+### Bug Fixes
+
+- **plugin-tsdown:** Resolved issue with multiple rolldown plugins provided to build ([baaa249d3](https://github.com/storm-software/powerlines/commit/baaa249d3))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.348**
+- Updated **core** to **v0.3.0**
+
 ## [0.1.290](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.290) (03/12/2026)
 
 ### Bug Fixes
