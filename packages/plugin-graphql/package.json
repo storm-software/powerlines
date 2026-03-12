@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-graphql",
-  "version": "0.1.343",
+  "version": "0.1.344",
   "private": false,
   "description": "A Powerlines plugin to generate project code from GraphQL schemas.",
   "keywords": ["graphql", "powerlines", "storm-software", "powerlines-plugin"],
