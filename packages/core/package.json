@@ -513,7 +513,8 @@
     "jiti": "catalog:",
     "magic-string": "catalog:",
     "prettier": "catalog:",
-    "unplugin": "catalog:"
+    "unplugin": "catalog:",
+    "unplugin-combine": "catalog:"
   },
   "devDependencies": {
     "@storm-software/testing-tools": "catalog:",

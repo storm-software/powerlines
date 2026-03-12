@@ -42,8 +42,8 @@ catalog:
   "@deepkit/type-compiler": 1.0.5
   "@deepkit/type-spec": 1.0.1
   "@donedeal0/superdiff": ^3.2.0
-  "@graphql-codegen/cli": ^6.1.3
-  "@graphql-codegen/plugin-helpers": ^6.1.1
+  "@graphql-codegen/cli": ^6.2.1
+  "@graphql-codegen/plugin-helpers": ^6.2.0
   "@hey-api/openapi-ts": ^0.88.2
   "@jest/reporters": ^30.3.0
   "@jest/test-result": ^30.3.0
@@ -172,7 +172,7 @@ catalog:
   oxc-parser: ^0.99.0
   oxc-resolver: ^11.19.1
   oxc-transform: ^0.99.0
-  oxlint: ^1.53.0
+  oxlint: ^1.54.0
   oxlint-tsgolint: ^0.14.2
   pluralize: ^8.0.0
   prettier: ^3.8.1
@@ -198,11 +198,12 @@ catalog:
   typedoc: 0.25.12
   typedoc-plugin-markdown: 4.0.0-next.20
   unctx: ^2.5.0
-  undici: ^7.22.0
-  undici-types: ^7.22.0
+  undici: ^7.23.0
+  undici-types: ^7.23.0
   unenv: npm:unenv-nightly@2.0.0-rc.24
   unimport: ^5.7.0
   unplugin: ^3.0.0
+  unplugin-combine: ^2.3.0
   untyped: ^1.5.2
   verdaccio: 6.1.2
   vite: 8.0.0-beta.16

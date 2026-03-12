@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 export * from "./build-helpers";
+export * from "./combine-plugins";
 export * from "./context-helpers";
 export * from "./extend";
 export * from "./format-package-json";
