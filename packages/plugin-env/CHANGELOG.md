@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.64](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.64) (03/12/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve build issue by using `react-jsx` for `jsx` transformation config ([0afbaf79e](https://github.com/storm-software/powerlines/commit/0afbaf79e))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.224**
+- Updated **plugin-automd** to **v0.1.345**
+- Updated **plugin-plugin** to **v0.12.296**
+- Updated **plugin-alloy** to **v0.25.29**
+- Updated **plugin-babel** to **v0.12.348**
+- Updated **powerlines** to **v0.41.10**
+- Updated **deepkit** to **v0.6.124**
+
 ## [0.16.63](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.63) (03/12/2026)
 
 ### Updated Dependencies

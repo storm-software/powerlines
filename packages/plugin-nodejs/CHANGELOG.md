@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.265](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.265) (03/12/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve build issue by using `react-jsx` for `jsx` transformation config ([0afbaf79e](https://github.com/storm-software/powerlines/commit/0afbaf79e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.296**
+- Updated **plugin-alloy** to **v0.25.29**
+- Updated **plugin-babel** to **v0.12.348**
+- Updated **plugin-env** to **v0.16.64**
+- Updated **powerlines** to **v0.41.10**
+
 ## [0.1.264](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.264) (03/12/2026)
 
 ### Updated Dependencies
