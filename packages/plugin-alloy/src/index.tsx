@@ -57,7 +57,10 @@ export const plugin = <
           tsdown: {
             inputOptions: {
               transform: {
-                jsx: "preserve"
+                jsx: {
+                  runtime: "automatic",
+                  importSource: "@alloy-js/core"
+                }
               }
             },
             plugins: [rollupPlugin()]
@@ -67,14 +70,14 @@ export const plugin = <
       async configResolved() {
         this.debug("Ensuring TypeScript configuration is set up for Alloy-js.");
         if (
-          this.tsconfig.tsconfigJson.compilerOptions?.jsx !== "preserve" ||
+          this.tsconfig.tsconfigJson.compilerOptions?.jsx !== "react-jsx" ||
           this.tsconfig.tsconfigJson.compilerOptions?.jsxImportSource !==
             "@alloy-js/core"
         ) {
           this.tsconfig.tsconfigJson.compilerOptions ??= {};
 
-          if (this.tsconfig.tsconfigJson.compilerOptions.jsx !== "preserve") {
-            this.tsconfig.tsconfigJson.compilerOptions.jsx = "preserve";
+          if (this.tsconfig.tsconfigJson.compilerOptions.jsx !== "react-jsx") {
+            this.tsconfig.tsconfigJson.compilerOptions.jsx = "react-jsx";
           }
 
           if (
