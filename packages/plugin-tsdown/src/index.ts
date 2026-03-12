@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { Plugin } from "@powerlines/core";
+import { combinePlugins } from "@powerlines/core/plugin-utils";
 import { formatPackageJson } from "@powerlines/core/plugin-utils/format-package-json";
 import { toArray } from "@stryke/convert/to-array";
 import defu from "defu";
@@ -69,7 +70,9 @@ export const plugin = <
         defu(
           {
             config: false,
-            plugins: toArray(createTsdownPlugin(this))
+            plugins: await combinePlugins({
+              plugins: toArray(createTsdownPlugin(this))
+            }).rolldown()
           },
           resolveOptions(this)
         )
