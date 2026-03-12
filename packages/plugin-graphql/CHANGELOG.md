@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Graphql
 
+## [0.1.342](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.342) (03/11/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.292**
+- Updated **powerlines** to **v0.41.6**
+
 ## [0.1.341](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.341) (03/11/2026)
 
 ### Updated Dependencies
