@@ -148,7 +148,7 @@ catalog:
   fp-ts: ^2.16.11
   github-slugger: ^2.0.0
   handlebars: ^4.7.8
-  i18next-cli: ^1.49.6
+  i18next-cli: ^1.49.7
   i18next-resources-for-ts: ^2.0.1
   jest: ^30.3.0
   jest-config: ^30.3.0
