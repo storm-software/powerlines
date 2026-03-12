@@ -63,7 +63,8 @@ export async function bundle(
         plugins: [
           createEsbuildPlugin(
             createUnpluginResolver(context, {
-              name: `${findFileName(file)} Bundler`
+              name: `${findFileName(file)} Bundler`,
+              prefix: false
             })
           )({})
         ]
