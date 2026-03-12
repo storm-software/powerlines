@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Capnp
 
+## [0.1.342](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.342) (03/11/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Enable `dts` for plugin package builds ([b464ada37](https://github.com/storm-software/powerlines/commit/b464ada37))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.290**
+- Updated **powerlines** to **v0.41.4**
+
 ## [0.1.341](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.341) (03/11/2026)
 
 ### Updated Dependencies

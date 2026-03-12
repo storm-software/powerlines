@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Oxc Transform
 
+## [0.5.348](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.348) (03/11/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Enable `dts` for plugin package builds ([b464ada37](https://github.com/storm-software/powerlines/commit/b464ada37))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.290**
+- Updated **powerlines** to **v0.41.4**
+
 ## [0.5.347](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.347) (03/11/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Untyped
 
+## [0.2.292](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.292) (03/11/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Enable `dts` for plugin package builds ([b464ada37](https://github.com/storm-software/powerlines/commit/b464ada37))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.290**
+- Updated **powerlines** to **v0.41.4**
+
 ## [0.2.291](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.291) (03/11/2026)
 
 ### Updated Dependencies
