@@ -44,7 +44,10 @@ export default defineConfig({
   tsdown: {
     inputOptions: {
       transform: {
-        jsx: "preserve"
+        jsx: {
+          runtime: "automatic",
+          importSource: "@alloy-js/core"
+        }
       }
     },
     plugins: [rollupPlugin()]

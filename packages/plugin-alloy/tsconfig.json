@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "jsxImportSource": "@alloy-js/core",
     "types": ["node"],
     "outDir": "../../dist/out-tsc"
