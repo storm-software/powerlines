@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import rollupPlugin from "@alloy-js/rollup-plugin";
+import { isDuplicatePlugin } from "@powerlines/plugin-babel/helpers";
 import { StormJSON } from "@stryke/json/storm-json";
 import type { Plugin } from "powerlines";
 import type { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
@@ -92,6 +93,18 @@ export const plugin = <
             this.tsconfig.tsconfigFilePath,
             StormJSON.stringify(this.tsconfig.tsconfigJson)
           );
+        }
+
+        if (
+          this.config.babel &&
+          (!this.config.babel.plugins ||
+            !isDuplicatePlugin(
+              this.config.babel.plugins,
+              "@babel/plugin-syntax-jsx"
+            ))
+        ) {
+          this.config.babel.plugins ??= [];
+          this.config.babel.plugins.push("@babel/plugin-syntax-jsx");
         }
       }
     }
