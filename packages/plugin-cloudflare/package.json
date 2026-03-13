@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-cloudflare",
-  "version": "0.2.26",
+  "version": "0.2.27",
   "private": false,
   "description": "A Powerlines plugin that provides integration with Cloudflare services.",
   "keywords": ["powerlines", "storm-software", "powerlines-plugin"],

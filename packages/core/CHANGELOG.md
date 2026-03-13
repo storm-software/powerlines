@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.3.4](https://github.com/storm-software/powerlines/releases/tag/core%400.3.4) (03/13/2026)
+
+### Bug Fixes
+
+- **core:** Update base plugin's tsdown build usage ([6c4660918](https://github.com/storm-software/powerlines/commit/6c4660918))
+
 ## [0.3.1](https://github.com/storm-software/powerlines/releases/tag/core%400.3.1) (03/12/2026)
 
 ### Bug Fixes
