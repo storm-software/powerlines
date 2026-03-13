@@ -54,230 +54,6 @@
         "default": "./dist/index.mjs"
       }
     },
-    "./api/client": {
-      "require": {
-        "types": "./dist/api/client/index.d.cts",
-        "default": "./dist/api/client/index.cjs"
-      },
-      "import": {
-        "types": "./dist/api/client/index.d.mts",
-        "default": "./dist/api/client/index.mjs"
-      },
-      "default": {
-        "types": "./dist/api/client/index.d.mts",
-        "default": "./dist/api/client/index.mjs"
-      }
-    },
-    "./api/client.gen": {
-      "require": {
-        "types": "./dist/api/client.gen.d.cts",
-        "default": "./dist/api/client.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/client.gen.d.mts",
-        "default": "./dist/api/client.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/client.gen.d.mts",
-        "default": "./dist/api/client.gen.mjs"
-      }
-    },
-    "./api/client/client.gen": {
-      "require": {
-        "types": "./dist/api/client/client.gen.d.cts",
-        "default": "./dist/api/client/client.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/client/client.gen.d.mts",
-        "default": "./dist/api/client/client.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/client/client.gen.d.mts",
-        "default": "./dist/api/client/client.gen.mjs"
-      }
-    },
-    "./api/client/types.gen": {
-      "require": {
-        "types": "./dist/api/client/types.gen.d.cts",
-        "default": "./dist/api/client/types.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/client/types.gen.d.mts",
-        "default": "./dist/api/client/types.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/client/types.gen.d.mts",
-        "default": "./dist/api/client/types.gen.mjs"
-      }
-    },
-    "./api/client/utils.gen": {
-      "require": {
-        "types": "./dist/api/client/utils.gen.d.cts",
-        "default": "./dist/api/client/utils.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/client/utils.gen.d.mts",
-        "default": "./dist/api/client/utils.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/client/utils.gen.d.mts",
-        "default": "./dist/api/client/utils.gen.mjs"
-      }
-    },
-    "./api/core/auth.gen": {
-      "require": {
-        "types": "./dist/api/core/auth.gen.d.cts",
-        "default": "./dist/api/core/auth.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/auth.gen.d.mts",
-        "default": "./dist/api/core/auth.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/auth.gen.d.mts",
-        "default": "./dist/api/core/auth.gen.mjs"
-      }
-    },
-    "./api/core/bodySerializer.gen": {
-      "require": {
-        "types": "./dist/api/core/bodySerializer.gen.d.cts",
-        "default": "./dist/api/core/bodySerializer.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/bodySerializer.gen.d.mts",
-        "default": "./dist/api/core/bodySerializer.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/bodySerializer.gen.d.mts",
-        "default": "./dist/api/core/bodySerializer.gen.mjs"
-      }
-    },
-    "./api/core/params.gen": {
-      "require": {
-        "types": "./dist/api/core/params.gen.d.cts",
-        "default": "./dist/api/core/params.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/params.gen.d.mts",
-        "default": "./dist/api/core/params.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/params.gen.d.mts",
-        "default": "./dist/api/core/params.gen.mjs"
-      }
-    },
-    "./api/core/pathSerializer.gen": {
-      "require": {
-        "types": "./dist/api/core/pathSerializer.gen.d.cts",
-        "default": "./dist/api/core/pathSerializer.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/pathSerializer.gen.d.mts",
-        "default": "./dist/api/core/pathSerializer.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/pathSerializer.gen.d.mts",
-        "default": "./dist/api/core/pathSerializer.gen.mjs"
-      }
-    },
-    "./api/core/queryKeySerializer.gen": {
-      "require": {
-        "types": "./dist/api/core/queryKeySerializer.gen.d.cts",
-        "default": "./dist/api/core/queryKeySerializer.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/queryKeySerializer.gen.d.mts",
-        "default": "./dist/api/core/queryKeySerializer.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/queryKeySerializer.gen.d.mts",
-        "default": "./dist/api/core/queryKeySerializer.gen.mjs"
-      }
-    },
-    "./api/core/serverSentEvents.gen": {
-      "require": {
-        "types": "./dist/api/core/serverSentEvents.gen.d.cts",
-        "default": "./dist/api/core/serverSentEvents.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/serverSentEvents.gen.d.mts",
-        "default": "./dist/api/core/serverSentEvents.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/serverSentEvents.gen.d.mts",
-        "default": "./dist/api/core/serverSentEvents.gen.mjs"
-      }
-    },
-    "./api/core/types.gen": {
-      "require": {
-        "types": "./dist/api/core/types.gen.d.cts",
-        "default": "./dist/api/core/types.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/types.gen.d.mts",
-        "default": "./dist/api/core/types.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/types.gen.d.mts",
-        "default": "./dist/api/core/types.gen.mjs"
-      }
-    },
-    "./api/core/utils.gen": {
-      "require": {
-        "types": "./dist/api/core/utils.gen.d.cts",
-        "default": "./dist/api/core/utils.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/core/utils.gen.d.mts",
-        "default": "./dist/api/core/utils.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/core/utils.gen.d.mts",
-        "default": "./dist/api/core/utils.gen.mjs"
-      }
-    },
-    "./api/sdk.gen": {
-      "require": {
-        "types": "./dist/api/sdk.gen.d.cts",
-        "default": "./dist/api/sdk.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/sdk.gen.d.mts",
-        "default": "./dist/api/sdk.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/sdk.gen.d.mts",
-        "default": "./dist/api/sdk.gen.mjs"
-      }
-    },
-    "./api/types.gen": {
-      "require": {
-        "types": "./dist/api/types.gen.d.cts",
-        "default": "./dist/api/types.gen.cjs"
-      },
-      "import": {
-        "types": "./dist/api/types.gen.d.mts",
-        "default": "./dist/api/types.gen.mjs"
-      },
-      "default": {
-        "types": "./dist/api/types.gen.d.mts",
-        "default": "./dist/api/types.gen.mjs"
-      }
-    },
-    "./generator": {
-      "require": {
-        "types": "./dist/generator.d.cts",
-        "default": "./dist/generator.cjs"
-      },
-      "import": {
-        "types": "./dist/generator.d.mts",
-        "default": "./dist/generator.mjs"
-      },
-      "default": {
-        "types": "./dist/generator.d.mts",
-        "default": "./dist/generator.mjs"
-      }
-    },
     "./helpers": {
       "require": {
         "types": "./dist/helpers/index.d.cts",
@@ -290,6 +66,20 @@
       "default": {
         "types": "./dist/helpers/index.d.mts",
         "default": "./dist/helpers/index.mjs"
+      }
+    },
+    "./helpers/client-generator": {
+      "require": {
+        "types": "./dist/helpers/client-generator.d.cts",
+        "default": "./dist/helpers/client-generator.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/client-generator.d.mts",
+        "default": "./dist/helpers/client-generator.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/client-generator.d.mts",
+        "default": "./dist/helpers/client-generator.mjs"
       }
     },
     "./helpers/get-schema": {
@@ -306,20 +96,6 @@
         "default": "./dist/helpers/get-schema.mjs"
       }
     },
-    "./helpers/prisma-postgres": {
-      "require": {
-        "types": "./dist/helpers/prisma-postgres.d.cts",
-        "default": "./dist/helpers/prisma-postgres.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/prisma-postgres.d.mts",
-        "default": "./dist/helpers/prisma-postgres.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/prisma-postgres.d.mts",
-        "default": "./dist/helpers/prisma-postgres.mjs"
-      }
-    },
     "./helpers/schema-creator": {
       "require": {
         "types": "./dist/helpers/schema-creator.d.cts",
@@ -332,6 +108,20 @@
       "default": {
         "types": "./dist/helpers/schema-creator.d.mts",
         "default": "./dist/helpers/schema-creator.mjs"
+      }
+    },
+    "./helpers/typed-sql": {
+      "require": {
+        "types": "./dist/helpers/typed-sql.d.cts",
+        "default": "./dist/helpers/typed-sql.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/typed-sql.d.mts",
+        "default": "./dist/helpers/typed-sql.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/typed-sql.d.mts",
+        "default": "./dist/helpers/typed-sql.mjs"
       }
     },
     "./package.json": "./package.json",
@@ -385,10 +175,15 @@
   "files": ["dist/**/*"],
   "dependencies": {
     "@powerlines/plugin-pulumi": "workspace:*",
+    "@prisma/client-generator-registry": "catalog:",
+    "@prisma/config": "catalog:",
+    "@prisma/dmmf": "catalog:",
     "@prisma/generator-helper": "catalog:",
     "@prisma/get-platform": "catalog:",
+    "@prisma/migrate": "catalog:",
     "@prisma/prisma-schema-wasm": "catalog:",
     "@stryke/cli": "catalog:",
+    "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/string-format": "catalog:",
@@ -403,6 +198,7 @@
   },
   "devDependencies": {
     "@powerlines/plugin-plugin": "workspace:*",
+    "@prisma/client-generator-ts": "catalog:",
     "@pulumi/pulumi": "catalog:",
     "@types/node": "catalog:"
   },

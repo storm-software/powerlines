@@ -16,21 +16,36 @@
 
  ------------------------------------------------------------------- */
 
+import { defaultRegistry } from "@prisma/client-generator-registry";
+import { enginesVersion } from "@prisma/engines";
+import type { Generator } from "@prisma/internals";
+import {
+  extractPreviewFeatures,
+  getDMMF,
+  getGenerators,
+  SchemaContext,
+  validatePrismaConfigWithDatasource
+} from "@prisma/internals";
 import * as prismaPostgres from "@pulumi/prisma-postgres";
-import { execute, executePackage } from "@stryke/cli/execute";
-import { existsSync } from "@stryke/fs/exists";
+import { toArray } from "@stryke/convert/to-array";
+import { appendPath } from "@stryke/path/append";
+import { findBasePath } from "@stryke/path/common";
+import { relativePath } from "@stryke/path/find";
 import { joinPaths } from "@stryke/path/join-paths";
 import { constantCase } from "@stryke/string-format/constant-case";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import defu from "defu";
 import { Plugin } from "powerlines";
 import { getConfigPath, replacePathTokens } from "powerlines/plugin-utils";
+import { PowerlinesClientGenerator } from "./helpers/client-generator";
 import { getSchema } from "./helpers/get-schema";
 import { PrismaSchemaCreator } from "./helpers/schema-creator";
+import { introspectSql } from "./helpers/typed-sql";
 import {
   PrismaPluginContext,
   PrismaPluginOptions,
-  PrismaPluginUserConfig
+  PrismaPluginUserConfig,
+  PrismaSchemaContext
 } from "./types/plugin";
 
 export type * from "./types";
@@ -57,11 +72,12 @@ export const plugin = <
     config() {
       return {
         prisma: defu(options, {
-          schema: joinPaths(this.config.root, "prisma", "schema.prisma"),
+          schema: joinPaths(this.config.root, "prisma", "*.prisma"),
           configFile:
             options.configFile || getConfigPath(this, "prisma.config"),
+          runtime: options.runtime || "nodejs",
           outputPath: joinPaths("{builtinPath}", "prisma"),
-          prismaPostgres: options?.prismaPostgres
+          prismaPostgres: options.prismaPostgres
             ? {
                 projectId: this.config.name,
                 region: "us-east-1"
@@ -84,9 +100,8 @@ export const plugin = <
         );
       }
 
-      this.config.prisma.schema = replacePathTokens(
-        this,
-        this.config.prisma.schema
+      this.config.prisma.schema = toArray(this.config.prisma.schema).map(
+        schemaPath => replacePathTokens(this, schemaPath)
       );
 
       if (!this.config.prisma.outputPath) {
@@ -101,43 +116,55 @@ export const plugin = <
       );
 
       this.prisma ??= {} as TContext["prisma"];
-      if (!existsSync(this.config.prisma.schema)) {
-        this.prisma.schema ??= {
-          generators: [],
-          datasources: [],
-          warnings: []
-        };
-      } else {
-        this.prisma.schema = await getSchema({
-          datamodel: this.config.prisma.schema
-        });
-      }
 
-      const generator = this.prisma.schema.generators.find(
-        gen => gen.provider.value === "prisma-client"
+      this.prisma.config = validatePrismaConfigWithDatasource({
+        config: this.config.prisma,
+        cmd: "generate --sql"
+      });
+
+      const schemaRootDir = appendPath(
+        appendPath(findBasePath(this.config.prisma.schema), this.config.root),
+        this.workspaceConfig.workspaceRoot
       );
-      if (!generator) {
-        this.prisma.schema.generators.push({
-          name: "prisma-client",
-          provider: {
-            value: "prisma-client",
-            fromEnvVar: null
-          },
-          output: {
-            value: this.config.prisma.outputPath,
-            fromEnvVar: null
-          },
-          config: {},
-          binaryTargets: [],
-          previewFeatures: [],
-          sourceFilePath: this.config.prisma.schema
-        });
-      } else {
-        generator.output ??= {
-          value: this.config.prisma.outputPath,
-          fromEnvVar: null
-        };
-      }
+      this.prisma.schema ??= {
+        schemaRootDir,
+        loadedFromPathForLogMessages: relativePath(
+          this.config.root,
+          schemaRootDir
+        ),
+        schemaPath: schemaRootDir,
+        schemas: [],
+        schemaFiles: [],
+        generators: [],
+        datasources: [],
+        warnings: [],
+        primaryDatasource: undefined
+      } as PrismaSchemaContext;
+
+      this.prisma.schema.schemas = await Promise.all(
+        (
+          await this.fs.glob(
+            this.config.prisma.schema.map(schema =>
+              schema.includes("*") || this.fs.isFileSync(schema)
+                ? schema
+                : joinPaths(schema, "**/*.prisma")
+            )
+          )
+        ).map(async schema => getSchema(schema))
+      );
+
+      this.prisma.schema = this.prisma.schema.schemas.reduce((ret, schema) => {
+        ret.datasources.push(...schema.datasources);
+        ret.generators.push(...schema.generators);
+        ret.warnings.push(...schema.warnings);
+        ret.schemaFiles.push([schema.path, schema.content]);
+
+        return ret;
+      }, this.prisma.schema);
+
+      this.prisma.schema.primaryDatasource =
+        this.prisma.schema.datasources.at(0);
+      this.prisma.schema.schemaPath = this.prisma.schema.schemas.at(0)!.path!;
 
       this.prisma.builder = new PrismaSchemaCreator(this);
     },
@@ -145,28 +172,85 @@ export const plugin = <
       // Write the schema file before invoking Prisma - Generate
       await this.prisma.builder.write();
 
-      if (this.config.prisma.prismaPath) {
-        const result = await execute(
-          `${this.config.prisma.prismaPath} generate --schema ${this.config.prisma.schema}`,
-          this.config.root
-        );
-        if (result.failed) {
-          throw new Error(
-            `Prisma process exited with code ${result.exitCode}.`
-          );
-        }
+      this.prisma.previewFeatures = extractPreviewFeatures(
+        this.prisma.schema.generators
+      );
+
+      this.prisma.dmmf = await getDMMF({
+        datamodel: this.prisma.schema.schemaFiles,
+        previewFeatures: this.prisma.previewFeatures
+      });
+
+      const typedSql = await introspectSql(this);
+
+      let generators = (await getGenerators({
+        schemaContext: this.prisma.schema as SchemaContext,
+        printDownloadProgress: true,
+        version: enginesVersion,
+        typedSql,
+        allowNoModels: true,
+        registry: defaultRegistry.toInternal()
+      })) as (Generator | PowerlinesClientGenerator)[];
+      if (
+        !generators ||
+        !generators.some(gen =>
+          ["prisma-client", "prisma-client-js", "prisma-client-ts"].includes(
+            (gen as PowerlinesClientGenerator).name ||
+              (gen as Generator).getProvider()
+          )
+        )
+      ) {
+        generators ??= [];
+        generators.push(new PowerlinesClientGenerator(this));
       } else {
-        const result = await executePackage(
-          "prisma",
-          ["generate", "--schema", this.config.prisma.schema],
-          joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
+        // Replace prisma-client generator with PowerlinesClientGenerator
+        generators = generators.map(generator =>
+          ["prisma-client", "prisma-client-js", "prisma-client-ts"].includes(
+            (generator as PowerlinesClientGenerator).name ||
+              (generator as Generator).getProvider()
+          )
+            ? new PowerlinesClientGenerator(this)
+            : generator
         );
-        if (result.failed) {
-          throw new Error(
-            `Prisma process exited with code ${result.exitCode}.`
+      }
+
+      for (const generator of generators) {
+        try {
+          await generator.generate();
+          generator.stop();
+        } catch (err) {
+          generator.stop();
+          this.error(
+            `Error while generating with ${
+              (generator as PowerlinesClientGenerator).name ||
+              (generator as Generator).getProvider()
+            }: ${err instanceof Error ? err.message : String(err)}`
           );
         }
       }
+
+      // if (this.config.prisma.prismaPath) {
+      //   const result = await execute(
+      //     `${this.config.prisma.prismaPath} generate --schema ${this.config.prisma.schema}`,
+      //     this.config.root
+      //   );
+      //   if (result.failed) {
+      //     throw new Error(
+      //       `Prisma process exited with code ${result.exitCode}.`
+      //     );
+      //   }
+      // } else {
+      //   const result = await executePackage(
+      //     "prisma",
+      //     ["generate", "--schema", this.config.prisma.schema],
+      //     joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
+      //   );
+      //   if (result.failed) {
+      //     throw new Error(
+      //       `Prisma process exited with code ${result.exitCode}.`
+      //     );
+      //   }
+      // }
     },
     async deployPulumi() {
       if (this.config.prisma.prismaPostgres) {

@@ -16,6 +16,11 @@
 
  ------------------------------------------------------------------- */
 
+import {
+  Datasource,
+  PrismaConfig as InternalPrismaConfig
+} from "@prisma/config";
+
 export type MultipleSchemas = Array<[filename: string, content: string]>;
 export type SchemaFileInput = string | [filename: string, content: string];
 
@@ -94,7 +99,11 @@ export interface GeneratorConfig {
   sourceFilePath: string;
 }
 
+export type LoadedFile = [path: string, content: string];
+
 export interface PrismaSchema {
+  path: string;
+  content: string;
   datasources: DataSource[];
   generators: GeneratorConfig[];
   warnings: string[];
@@ -109,3 +118,11 @@ export interface GetSchemaOptions {
   datamodel: SchemaFileInput;
   ignoreEnvVarErrors?: boolean;
 }
+
+/**
+ * A Prisma Config that has been validated w.r.t. the command that is being executed.
+ */
+export type PrismaConfig = Required<Pick<InternalPrismaConfig, "datasource">> &
+  Omit<InternalPrismaConfig, "datasource"> & {
+    datasource: Required<Pick<Datasource, "url">> & Omit<Datasource, "url">;
+  };

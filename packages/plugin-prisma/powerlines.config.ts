@@ -27,6 +27,10 @@ export default defineConfig({
     dts: false
   },
   resolve: {
-    noExternal: ["prisma-util"]
+    noExternal: ["prisma-util", "@prisma/client-generator-ts"],
+    skipNodeModulesBundle: true
+  },
+  tsdown: {
+    unbundle: false
   }
 });

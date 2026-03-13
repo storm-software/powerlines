@@ -1,0 +1,64 @@
+diff --git a/dist/index.d.mts b/dist/index.d.mts
+index e12baa6e2caedb481002cc5711bcbe6f0e6d8e87..d5a4942fb53f7c4e6ffc3e6b40d171f92d76cb81 100644
+--- a/dist/index.d.mts
++++ b/dist/index.d.mts
+@@ -69,4 +69,15 @@ declare type RuntimeTargetInternal = (typeof supportedInternalRuntimes)[number];
+ 
+ declare const supportedInternalRuntimes: readonly ["nodejs", "workerd", "vercel-edge", "deno"];
+ 
++declare interface FileMap {
++  [name: string]: string | Buffer | FileMap
++}
++
++declare interface BuildClientResult {
++  fileMap: FileMap
++  prismaClientDmmf: DMMF.Document
++}
++
++export declare function buildClient(options: GenerateClientOptions): BuildClientResult;
++
+ export { }
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index e12baa6e2caedb481002cc5711bcbe6f0e6d8e87..d5a4942fb53f7c4e6ffc3e6b40d171f92d76cb81 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -69,4 +69,15 @@ declare type RuntimeTargetInternal = (typeof supportedInternalRuntimes)[number];
+ 
+ declare const supportedInternalRuntimes: readonly ["nodejs", "workerd", "vercel-edge", "deno"];
+ 
++declare interface FileMap {
++  [name: string]: string | Buffer | FileMap
++}
++
++declare interface BuildClientResult {
++  fileMap: FileMap
++  prismaClientDmmf: DMMF.Document
++}
++
++export declare function buildClient(options: GenerateClientOptions): BuildClientResult;
++
+ export { }
+diff --git a/dist/index.js b/dist/index.js
+index 7bcb410958f6e0a970df6ed7af2550e227e8d5c3..a99b9a995a5e2e197cba78cc4fd2672041b80b44 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -6583,5 +6583,6 @@ function parseCompilerBuildFromUnknown(value, target) {
+   PrismaClientTsGenerator,
+   externalToInternalDmmf,
+   generateClient,
+-  getDMMF
++  getDMMF,
++  buildClient
+ });
+diff --git a/dist/index.mjs b/dist/index.mjs
+index f34c9c886d67a2d1feb2da90db89c15db3df7bf8..3d436ff565f79b7732654c866ed9cb1bfbfb84e4 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -6575,5 +6575,6 @@ export {
+   PrismaClientTsGenerator,
+   externalToInternalDmmf,
+   generateClient,
+-  getDMMF
++  getDMMF,
++  buildClient
+ };

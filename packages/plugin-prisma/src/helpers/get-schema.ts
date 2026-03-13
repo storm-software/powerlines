@@ -23,7 +23,6 @@ import { pipe } from "fp-ts/lib/function";
 import { match } from "ts-pattern";
 import {
   GeneratorConfig,
-  GetSchemaOptions,
   GetSchemaResponse,
   PrismaSchema
 } from "../types/prisma";
@@ -66,12 +65,10 @@ async function resolveBinaryTargets(generator: GeneratorConfig) {
 /**
  * Retrieves the Prisma schema using the provided options.
  *
- * @param options - The options to customize the schema retrieval.
+ * @param path - The path to the Prisma schema file.
  * @returns The Prisma schema.
  */
-export async function getSchema(
-  options: GetSchemaOptions
-): Promise<PrismaSchema> {
+async function resolveDataModel(schemaPath: string) {
   const configEither = pipe(
     E.tryCatch(
       () => {
@@ -80,9 +77,9 @@ export async function getSchema(
         }
 
         const params = JSON.stringify({
-          prismaSchema: options.datamodel,
+          prismaSchema: schemaPath,
           datasourceOverrides: {},
-          ignoreEnvVarErrors: options.ignoreEnvVarErrors ?? false,
+          ignoreEnvVarErrors: true,
           env: process.env
         });
 
@@ -148,4 +145,24 @@ export async function getSchema(
         `Prisma get-config unknown error: ${e.reason} - ${e.error.message}`
       );
     });
+}
+
+/**
+ * Retrieves the Prisma schema using the provided path.
+ *
+ * @param path - The path to the Prisma schema file.
+ * @returns The Prisma schema.
+ */
+export async function getSchema(path: string): Promise<PrismaSchema> {
+  const schema = {
+    path,
+    content: "",
+    generators: [],
+    datasources: [],
+    warnings: []
+  } as PrismaSchema;
+
+  const dataModel = await resolveDataModel(path);
+
+  return { ...schema, ...dataModel };
 }

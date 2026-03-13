@@ -21,6 +21,10 @@ import {
   PulumiPluginResolvedConfig,
   PulumiPluginUserConfig
 } from "@powerlines/plugin-pulumi";
+import { PrismaConfig } from "@prisma/config";
+import type * as DMMF from "@prisma/dmmf";
+import { SqlQueryOutput } from "@prisma/generator";
+import { SchemaContext } from "@prisma/internals";
 import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 import { PrismaSchemaCreator } from "../helpers/schema-creator";
 import { PrismaSchema } from "./prisma";
@@ -77,13 +81,13 @@ export interface PrismaPostgresPrismaPluginOptions {
   databaseName?: string;
 }
 
-export interface PrismaPluginOptions {
+export interface PrismaPluginOptions extends Omit<PrismaConfig, "schema"> {
   /**
-   * The path to the Prisma schema file (PSL).
+   * The path(s) to the Prisma schema file(s) (PSL), or path(s) to a folder that shall be recursively searched for *.prisma files.
    *
-   * @defaultValue "\{projectRoot\}/prisma/schema.prisma"
+   * @defaultValue "\{projectRoot\}/prisma/*.prisma"
    */
-  schema?: string;
+  schema?: string | string[];
 
   /**
    * The path to a custom Prisma configuration file.
@@ -106,17 +110,11 @@ export interface PrismaPluginOptions {
   outputPath?: string;
 
   /**
-   * Additional parameters to pass to the Prisma CLI
-   */
-  params?: string;
-
-  /**
-   * The path to the generated Prisma client. This is used by the plugin to import the client for type generation and other operations.
+   * The runtime environment to generate the Prisma Client for.
    *
-   * @remarks
-   * If not specified, the plugin will attempt to resolve the Prisma client path based on the output path and the schema file name. This field allows you to explicitly specify the path to the generated Prisma client if it cannot be automatically resolved.
+   * @defaultValue "nodejs"
    */
-  prismaPath?: string;
+  runtime?: "deno" | "nodejs" | "workerd" | "vercel-edge";
 
   /**
    * The service token to use for the Prisma API
@@ -141,13 +139,29 @@ export type PrismaPluginResolvedConfig = ResolvedConfig &
   PulumiPluginResolvedConfig & {
     prisma: Omit<
       PrismaPluginOptions,
-      "schema" | "outputPath" | "configFile" | "prismaPostgres"
+      "schema" | "outputPath" | "configFile" | "runtime" | "prismaPostgres"
     > &
       Required<
-        Pick<PrismaPluginOptions, "schema" | "outputPath" | "configFile">
+        Pick<PrismaPluginOptions, "outputPath" | "configFile" | "runtime">
       > & {
+        /**
+         * The path(s) to the Prisma schema file(s) (PSL), or path(s) to a folder that shall be recursively searched for *.prisma files.
+         */
+        schema: string[];
+
+        /**
+         * Configuration parameters to manage a Prisma Postgres database
+         */
         prismaPostgres?: Required<PrismaPostgresPrismaPluginOptions>;
       };
+  };
+
+export type PrismaSchemaContext = Omit<
+  SchemaContext,
+  "warnings" | "datasources" | "generators"
+> &
+  Omit<PrismaSchema, "path" | "content"> & {
+    schemas: PrismaSchema[];
   };
 
 export type PrismaPluginContext<
@@ -156,7 +170,11 @@ export type PrismaPluginContext<
 > = PluginContext<TResolvedConfig> &
   PulumiPluginContext & {
     prisma: {
-      schema: PrismaSchema;
+      config: PrismaConfig;
+      schema: PrismaSchemaContext;
+      previewFeatures: string[];
+      dmmf: DMMF.Document;
       builder: PrismaSchemaCreator;
+      typedSql: SqlQueryOutput[];
     };
   };

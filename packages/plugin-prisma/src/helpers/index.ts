@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+export * from "./client-generator";
 export * from "./get-schema";
-export * from "./prisma-postgres";
 export * from "./schema-creator";
+export * from "./typed-sql";

@@ -2,7 +2,6 @@ packages:
   - tools/*
   - packages/*
   - docs/*
-
 catalog:
   "@alloy-js/babel-plugin": ^0.2.1
   "@alloy-js/babel-plugin-jsx-dom-expressions": ^0.39.1
@@ -59,9 +58,13 @@ catalog:
   "@nx/js": 22.5.2
   "@nx/plugin": 22.5.2
   "@nx/workspace": 22.5.2
+  "@prisma/client-generator-registry": ^7.5.0
   "@prisma/client-generator-ts": ^7.5.0
+  "@prisma/config": ^7.5.0
+  "@prisma/dmmf": ^7.5.0
   "@prisma/generator-helper": ^7.5.0
   "@prisma/get-platform": ^6.19.2
+  "@prisma/migrate": ^7.5.0
   "@prisma/prisma-schema-wasm": 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
   "@pulumi/cloudflare": ^6.13.0
   "@pulumi/pulumi": ^3.225.1
@@ -94,20 +97,20 @@ catalog:
   "@storm-software/unbuild": ^0.57.110
   "@storm-software/untyped": ^0.24.91
   "@storm-software/workspace-tools": ^1.295.3
-  "@stryke/capnp": ^0.12.83
-  "@stryke/cli": ^0.13.29
-  "@stryke/convert": ^0.6.53
-  "@stryke/env": ^0.20.74
-  "@stryke/fs": ^0.33.57
-  "@stryke/hash": ^0.13.10
-  "@stryke/helpers": ^0.10.3
-  "@stryke/http": ^0.12.49
-  "@stryke/json": ^0.14.7
-  "@stryke/path": ^0.26.19
-  "@stryke/string-format": ^0.17.3
-  "@stryke/type-checks": ^0.5.38
-  "@stryke/types": ^0.10.52
-  "@stryke/unique-id": ^0.3.68
+  "@stryke/capnp": ^0.12.84
+  "@stryke/cli": ^0.13.30
+  "@stryke/convert": ^0.6.54
+  "@stryke/env": ^0.20.75
+  "@stryke/fs": ^0.33.58
+  "@stryke/hash": ^0.13.11
+  "@stryke/helpers": ^0.10.4
+  "@stryke/http": ^0.12.50
+  "@stryke/json": ^0.14.8
+  "@stryke/path": ^0.27.0
+  "@stryke/string-format": ^0.17.4
+  "@stryke/type-checks": ^0.5.39
+  "@stryke/types": ^0.10.53
+  "@stryke/unique-id": ^0.3.69
   "@swc-node/register": ^1.11.1
   "@swc/core": ^1.15.18
   "@swc/helpers": ^0.5.19
@@ -211,12 +214,9 @@ catalog:
   vite: ^8.0.0
   webpack: ^5.105.4
   zx: ^8.8.5
-
 configDependencies:
   pnpm-plugin-storm-software: 0.1.4+sha512-Hegfb70ijqCc65CZwy8aLYhxrYQv3Wo+MZXqSfNAfcge7iSGYm2J3ydU5zkmf89JSvMOJy8J6lo/TMynBGvgtA==
-
 fetchTimeout: 240000
-
 minimumReleaseAgeExclude:
   - "@storm-software/*"
   - "@stryke/*"
@@ -224,7 +224,6 @@ minimumReleaseAgeExclude:
   - powerlines
   - "@earthquake/*"
   - earthquake
-
 onlyBuiltDependencies:
   - "@biomejs/biome"
   - "@deepkit/type-compiler"
@@ -233,6 +232,7 @@ onlyBuiltDependencies:
   - "@hyperjump/json-schema-core"
   - "@hyperjump/pact"
   - "@parcel/watcher"
+  - "@prisma/engines"
   - "@swc/core"
   - bufferutil
   - core-js
@@ -245,7 +245,6 @@ onlyBuiltDependencies:
   - unrs-resolver
   - utf-8-validate
   - workerd
-
 overrides:
   "@powerlines/cli": workspace:*
   "@powerlines/core": workspace:*
@@ -321,7 +320,6 @@ overrides:
   shell-quote: ">=1.8.1"
   simple-git: ">=3.27.0"
   zod: ">=4.0.1"
-
 patchedDependencies:
   "@alloy-js/babel-plugin-jsx-dom-expressions": patches/@alloy-js__babel-plugin-jsx-dom-expressions.patch
   "@content-collections/core": patches/@content-collections__core.patch
@@ -329,11 +327,9 @@ patchedDependencies:
   "@deepkit/type": patches/@deepkit__type.patch
   "@deepkit/type-compiler": patches/@deepkit__type-compiler.patch
   "@deepkit/type-spec": patches/@deepkit__type-spec.patch
+  "@prisma/client-generator-ts": patches/@prisma__client-generator-ts.patch
   automd: patches/automd.patch
   prisma-util: patches/prisma-util.patch
-
 shamefullyHoist: true
-
 trustPolicy: off
-
 useNodeVersion: 25.5.0
