@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.299](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.299) (03/13/2026)
+
+### Bug Fixes
+
+- **core:** Resolve typing and jsx generation issues ([71864bce4](https://github.com/storm-software/powerlines/commit/71864bce4))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.296**
+- Updated **powerlines** to **v0.41.13**
+
 ## [0.12.298](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.298) (03/13/2026)
 
 ### Updated Dependencies

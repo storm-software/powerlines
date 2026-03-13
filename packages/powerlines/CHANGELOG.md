@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.41.13](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.13) (03/13/2026)
+
+### Bug Fixes
+
+- **core:** Resolve typing and jsx generation issues ([71864bce4](https://github.com/storm-software/powerlines/commit/71864bce4))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.353**
+- Updated **plugin-esbuild** to **v0.13.352**
+- Updated **plugin-unbuild** to **v0.5.352**
+- Updated **plugin-webpack** to **v0.5.351**
+- Updated **plugin-rollup** to **v0.7.352**
+- Updated **plugin-rspack** to **v0.5.351**
+- Updated **plugin-tsdown** to **v0.1.296**
+- Updated **plugin-tsup** to **v0.12.353**
+- Updated **plugin-vite** to **v0.14.346**
+- Updated **core** to **v0.3.5**
+
 ## [0.41.12](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.12) (03/13/2026)
 
 ### Updated Dependencies
