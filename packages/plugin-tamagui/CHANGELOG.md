@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Tamagui
 
+## [0.1.338](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.338) (03/13/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.299**
+- Updated **plugin-vite** to **v0.14.346**
+- Updated **powerlines** to **v0.41.13**
+
 ## [0.1.337](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.337) (03/13/2026)
 
 ### Updated Dependencies

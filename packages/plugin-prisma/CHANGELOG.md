@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.30](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.30) (03/13/2026)
+
+### Bug Fixes
+
+- **core:** Resolve typing and jsx generation issues ([71864bce4](https://github.com/storm-software/powerlines/commit/71864bce4))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.299**
+- Updated **plugin-pulumi** to **v0.5.29**
+- Updated **powerlines** to **v0.41.13**
+
 ## [0.4.29](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.29) (03/13/2026)
 
 ### Updated Dependencies

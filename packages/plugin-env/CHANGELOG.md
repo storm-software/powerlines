@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.68](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.68) (03/13/2026)
+
+### Bug Fixes
+
+- **core:** Resolve typing and jsx generation issues ([71864bce4](https://github.com/storm-software/powerlines/commit/71864bce4))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.227**
+- Updated **plugin-automd** to **v0.1.348**
+- Updated **plugin-plugin** to **v0.12.299**
+- Updated **plugin-alloy** to **v0.25.33**
+- Updated **plugin-babel** to **v0.12.351**
+- Updated **powerlines** to **v0.41.13**
+- Updated **deepkit** to **v0.6.127**
+
 ## [0.16.67](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.67) (03/13/2026)
 
 ### Updated Dependencies
