@@ -44,7 +44,6 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
-    "./chunk-C0xms8kb": "./dist/chunk-C0xms8kb.cjs",
     "./helpers": {
       "import": "./dist/helpers/index.mjs",
       "require": "./dist/helpers/index.cjs"
@@ -81,7 +80,7 @@
       "import": "./dist/types/plugin.mjs",
       "require": "./dist/types/plugin.cjs"
     },
-    "./*": "./*"
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

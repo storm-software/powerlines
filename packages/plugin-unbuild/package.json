@@ -52,7 +52,6 @@
       "import": "./dist/helpers/resolve-options.mjs",
       "require": "./dist/helpers/resolve-options.cjs"
     },
-    "./resolve-options-BCjPXFKK": "./dist/resolve-options-BCjPXFKK.cjs",
     "./types": {
       "import": "./dist/types/index.mjs",
       "require": "./dist/types/index.cjs"
@@ -65,7 +64,7 @@
       "import": "./dist/types/plugin.mjs",
       "require": "./dist/types/plugin.cjs"
     },
-    "./*": "./*"
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

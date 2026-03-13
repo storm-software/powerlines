@@ -137,20 +137,6 @@ export function resolveOptions(context: Context): BuildOptions {
                 "**/*.tsx"
               )
             ],
-      deps: {
-        neverBundle: external,
-        alwaysBundle: context.config.resolve.skipNodeModulesBundle
-          ? undefined
-          : noExternal,
-        onlyBundle: context.config.resolve.skipNodeModulesBundle
-          ? noExternal
-          : undefined,
-        skipNodeModulesBundle: context.config.resolve.skipNodeModulesBundle
-      },
-      alias: context.alias,
-      resolve: {
-        alias: context.alias
-      },
       exports:
         (context.config as TsdownPluginResolvedConfig)?.tsdown &&
         (context.config as TsdownPluginResolvedConfig).tsdown?.exports
@@ -233,6 +219,20 @@ export function resolveOptions(context: Context): BuildOptions {
         transform: {
           inject: context.config.inject
         }
+      },
+      deps: {
+        neverBundle: external,
+        alwaysBundle: context.config.resolve.skipNodeModulesBundle
+          ? undefined
+          : noExternal,
+        onlyBundle: context.config.resolve.skipNodeModulesBundle
+          ? noExternal
+          : undefined,
+        skipNodeModulesBundle: context.config.resolve.skipNodeModulesBundle
+      },
+      alias: context.alias,
+      resolve: {
+        alias: context.alias
       },
       platform: context.config.platform,
       dts: context.config.output.dts,

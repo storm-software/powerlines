@@ -56,7 +56,6 @@
       "import": "./dist/helpers/unplugin.mjs",
       "require": "./dist/helpers/unplugin.cjs"
     },
-    "./resolve-options-Di8petwJ": "./dist/resolve-options-Di8petwJ.cjs",
     "./types": {
       "import": "./dist/types/index.mjs",
       "require": "./dist/types/index.cjs"
@@ -69,7 +68,7 @@
       "import": "./dist/types/plugin.mjs",
       "require": "./dist/types/plugin.cjs"
     },
-    "./*": "./*"
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

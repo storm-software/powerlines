@@ -64,9 +64,7 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
           target: "node22",
           cjsDefault: true,
           treeshake: true,
-          exports: {
-            all: true
-          },
+          exports: true,
           fixedExtension: true,
           nodeProtocol: true,
           minify: false,
@@ -74,9 +72,11 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
           shims: true,
           outDir: "dist",
           clean: true,
-          external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\//],
-          skipNodeModulesBundle: true,
-          unbundle: false,
+          deps: {
+            neverBundle: ["powerlines", /^powerlines\/.*$/, /^@powerlines\//],
+            skipNodeModulesBundle: true
+          },
+          unbundle: true,
           ...options.tsdown
         }
       };
