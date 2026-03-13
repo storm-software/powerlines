@@ -19,6 +19,7 @@
 import alloyBabelPreset from "@alloy-js/babel-preset";
 import babel from "@powerlines/plugin-babel";
 import plugin from "@powerlines/plugin-plugin";
+import { findFileExtension } from "@stryke/path/file-path-fns";
 import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
@@ -42,14 +43,14 @@ export default defineConfig({
       "@alloy-js/markdown"
     ]
   },
-  tsdown: {
-    inputOptions: {
-      transform: {
-        jsx: "preserve"
-      }
-    }
-  },
   babel: {
-    presets: [alloyBabelPreset]
+    presets: [
+      [
+        alloyBabelPreset,
+        {},
+        (_: string, id: string) =>
+          findFileExtension(id) === "tsx" || findFileExtension(id) === "jsx"
+      ]
+    ]
   }
 });
