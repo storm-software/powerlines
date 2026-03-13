@@ -28,7 +28,7 @@ import type { PackageJson } from "@stryke/types/package-json";
 import { loadConfig } from "c12";
 import defu from "defu";
 import { WorkspaceConfig } from "powerlines";
-import { DEFAULT_ENVIRONMENT } from "powerlines/utils";
+import { DEFAULT_ENVIRONMENT } from "powerlines/constants";
 import { EnvPluginContext, EnvPluginOptions } from "../types/plugin";
 import { removeEnvPrefix } from "./source-file-env";
 

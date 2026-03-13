@@ -118,11 +118,11 @@
   "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@stryke/path": "catalog:",
+    "@stryke/types": "catalog:",
     "powerlines": "workspace:*",
     "@powerlines/plugin-tsdown": "workspace:*"
   },
   "devDependencies": {
-    "@stryke/types": "catalog:",
     "@types/node": "catalog:"
   },
   "publishConfig": {

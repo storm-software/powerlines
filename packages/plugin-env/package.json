@@ -322,7 +322,8 @@
     "@stryke/types": "catalog:",
     "automd": "catalog:",
     "defu": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "workspace:*",
+    "c12": "catalog:"
   },
   "devDependencies": {
     "@powerlines/deepkit": "workspace:*",
@@ -332,21 +333,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "inlinedDependencies": {
-    "c12": "3.3.3",
-    "confbox": "0.2.4",
-    "destr": "2.0.5",
-    "dotenv": "17.3.1",
-    "exsolve": "1.0.8",
-    "giget": "2.0.0",
-    "jiti": "2.6.1",
-    "node-fetch-native": "1.6.7",
-    "nypm": "0.6.5",
-    "ohash": "2.0.11",
-    "pathe": "2.0.3",
-    "pkg-types": "2.3.0",
-    "rc9": "2.1.2",
-    "tinyexec": "1.0.2"
   }
 }

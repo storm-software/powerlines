@@ -264,6 +264,20 @@
         "default": "./dist/api/types.gen.mjs"
       }
     },
+    "./generator": {
+      "require": {
+        "types": "./dist/generator.d.cts",
+        "default": "./dist/generator.cjs"
+      },
+      "import": {
+        "types": "./dist/generator.d.mts",
+        "default": "./dist/generator.mjs"
+      },
+      "default": {
+        "types": "./dist/generator.d.mts",
+        "default": "./dist/generator.mjs"
+      }
+    },
     "./helpers": {
       "require": {
         "types": "./dist/helpers/index.d.cts",
@@ -371,6 +385,7 @@
   "files": ["dist/**/*"],
   "dependencies": {
     "@powerlines/plugin-pulumi": "workspace:*",
+    "@prisma/generator-helper": "catalog:",
     "@prisma/get-platform": "catalog:",
     "@prisma/prisma-schema-wasm": "catalog:",
     "@stryke/cli": "catalog:",

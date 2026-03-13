@@ -18,7 +18,7 @@
 
 import tsdown from "@powerlines/plugin-tsdown";
 import { joinPaths } from "@stryke/path/join";
-import { Plugin } from "powerlines";
+import type { Plugin } from "powerlines";
 import type { PluginPluginContext, PluginPluginOptions } from "./types/plugin";
 
 declare module "powerlines" {

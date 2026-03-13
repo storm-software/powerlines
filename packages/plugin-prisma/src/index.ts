@@ -145,14 +145,10 @@ export const plugin = <
       // Write the schema file before invoking Prisma - Generate
       await this.prisma.builder.write();
 
-      const args = ["generate", "--schema", this.config.prisma.schema];
-      if (!this.config.prisma.prismaPath) {
-        args.unshift(this.config.root);
-
-        const result = await executePackage(
-          "prisma",
-          args,
-          joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
+      if (this.config.prisma.prismaPath) {
+        const result = await execute(
+          `${this.config.prisma.prismaPath} generate --schema ${this.config.prisma.schema}`,
+          this.config.root
         );
         if (result.failed) {
           throw new Error(
@@ -160,9 +156,11 @@ export const plugin = <
           );
         }
       } else {
-        args.unshift(this.config.prisma.prismaPath);
-
-        const result = await execute(args.join(" "), this.config.root);
+        const result = await executePackage(
+          "prisma",
+          ["generate", "--schema", this.config.prisma.schema],
+          joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
+        );
         if (result.failed) {
           throw new Error(
             `Prisma process exited with code ${result.exitCode}.`
