@@ -149,7 +149,6 @@ export function TypescriptFileHeader(props: TypescriptFileHeaderProps) {
     hashbang,
     disableEslint = true,
     disableBiome = true,
-    disablePrettier = false,
     children
   } = props;
 
@@ -178,22 +177,11 @@ export function TypescriptFileHeader(props: TypescriptFileHeaderProps) {
         </SingleLineComment>
         <hbr />
       </Show>
-      <Show when={Boolean(disablePrettier)}>
-        <SingleLineComment variant="slash-star">
-          {"prettier-ignore"}
-        </SingleLineComment>
-        <hbr />
-      </Show>
       <Show when={Boolean(disableBiome)}>
         <SingleLineComment>{"biome-ignore lint: disable"}</SingleLineComment>
         <hbr />
       </Show>
-      <Show
-        when={
-          Boolean(disableEslint) ||
-          Boolean(disablePrettier) ||
-          Boolean(disableBiome)
-        }>
+      <Show when={Boolean(disableEslint) || Boolean(disableBiome)}>
         <hbr />
       </Show>
       <Show when={Boolean(children)}>
