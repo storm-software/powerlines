@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.270](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.270) (03/14/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update version in `README.md` files ([2d27cc668](https://github.com/storm-software/powerlines/commit/2d27cc668))
+- **monorepo:** Regenerate `README.md` files ([fc00b8074](https://github.com/storm-software/powerlines/commit/fc00b8074))
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue compiling alloy component jsx ([b112fa3ef](https://github.com/storm-software/powerlines/commit/b112fa3ef))
+- **plugin-alloy:** Resolve issue where `alloy-js` jsx transformations are skipped ([c568ef842](https://github.com/storm-software/powerlines/commit/c568ef842))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.300**
+- Updated **plugin-alloy** to **v0.25.34**
+- Updated **plugin-babel** to **v0.12.352**
+- Updated **plugin-env** to **v0.16.69**
+- Updated **powerlines** to **v0.41.14**
+
 ## [0.1.269](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.269) (03/13/2026)
 
 ### Updated Dependencies

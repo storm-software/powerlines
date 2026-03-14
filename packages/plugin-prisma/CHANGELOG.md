@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.31](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.31) (03/14/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update version in `README.md` files ([2d27cc668](https://github.com/storm-software/powerlines/commit/2d27cc668))
+- **monorepo:** Regenerate `README.md` files ([fc00b8074](https://github.com/storm-software/powerlines/commit/fc00b8074))
+- **plugin-prisma:** Added `prisma generate` functionality to plugin ([172680eef](https://github.com/storm-software/powerlines/commit/172680eef))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.300**
+- Updated **plugin-pulumi** to **v0.5.30**
+- Updated **powerlines** to **v0.41.14**
+
 ## [0.4.30](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.30) (03/13/2026)
 
 ### Bug Fixes

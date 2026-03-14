@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - CLI
 
+## [0.1.40](https://github.com/storm-software/powerlines/releases/tag/cli%400.1.40) (03/14/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update version in `README.md` files ([2d27cc668](https://github.com/storm-software/powerlines/commit/2d27cc668))
+- **monorepo:** Regenerate `README.md` files ([fc00b8074](https://github.com/storm-software/powerlines/commit/fc00b8074))
+
 ## [0.1.33](https://github.com/storm-software/powerlines/releases/tag/cli%400.1.33) (03/12/2026)
 
 ### Bug Fixes

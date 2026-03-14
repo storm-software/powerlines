@@ -2,6 +2,27 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.25.34](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.34) (03/14/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update version in `README.md` files ([2d27cc668](https://github.com/storm-software/powerlines/commit/2d27cc668))
+- **monorepo:** Regenerate `README.md` files ([fc00b8074](https://github.com/storm-software/powerlines/commit/fc00b8074))
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue compiling alloy component jsx ([b112fa3ef](https://github.com/storm-software/powerlines/commit/b112fa3ef))
+- **plugin-alloy:** Ensure transformations are only performed once ([6ded0d237](https://github.com/storm-software/powerlines/commit/6ded0d237))
+- **plugin-alloy:** Resolve issue where `alloy-js` jsx transformations are skipped ([c568ef842](https://github.com/storm-software/powerlines/commit/c568ef842))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.300**
+- Updated **plugin-babel** to **v0.12.352**
+- Updated **powerlines** to **v0.41.14**
+- Updated **deepkit** to **v0.6.128**
+- Updated **core** to **v0.3.6**
+
 ## [0.25.33](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.33) (03/13/2026)
 
 ### Bug Fixes

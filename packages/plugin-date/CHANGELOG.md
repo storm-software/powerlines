@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.413](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.413) (03/14/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update version in `README.md` files ([2d27cc668](https://github.com/storm-software/powerlines/commit/2d27cc668))
+- **monorepo:** Regenerate `README.md` files ([fc00b8074](https://github.com/storm-software/powerlines/commit/fc00b8074))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.300**
+- Updated **plugin-env** to **v0.16.69**
+- Updated **powerlines** to **v0.41.14**
+
 ## [0.12.412](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.412) (03/13/2026)
 
 ### Updated Dependencies
