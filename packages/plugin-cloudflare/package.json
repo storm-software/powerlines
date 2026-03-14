@@ -138,6 +138,20 @@
         "types": "./dist/types/plugin.d.mts",
         "default": "./dist/types/plugin.mjs"
       }
+    },
+    "./types/worker-module": {
+      "require": {
+        "types": "./dist/types/worker-module.d.cts",
+        "default": "./dist/types/worker-module.cjs"
+      },
+      "import": {
+        "types": "./dist/types/worker-module.d.mts",
+        "default": "./dist/types/worker-module.mjs"
+      },
+      "default": {
+        "types": "./dist/types/worker-module.d.mts",
+        "default": "./dist/types/worker-module.mjs"
+      }
     }
   },
   "main": "./dist/index.cjs",

@@ -202,8 +202,8 @@ catalogs:
       specifier: ^0.30.103
       version: 0.30.103
     '@storm-software/pnpm-tools':
-      specifier: ^0.6.112
-      version: 0.6.112
+      specifier: ^0.6.113
+      version: 0.6.113
     '@storm-software/prettier':
       specifier: ^0.59.2
       version: 0.59.2
@@ -223,26 +223,26 @@ catalogs:
       specifier: ^0.24.91
       version: 0.24.91
     '@storm-software/workspace-tools':
-      specifier: ^1.295.3
-      version: 1.295.3
+      specifier: ^1.295.4
+      version: 1.295.4
     '@stryke/capnp':
-      specifier: ^0.12.84
-      version: 0.12.84
+      specifier: ^0.12.85
+      version: 0.12.85
     '@stryke/cli':
-      specifier: ^0.13.30
-      version: 0.13.30
+      specifier: ^0.13.31
+      version: 0.13.31
     '@stryke/convert':
       specifier: ^0.6.54
       version: 0.6.54
     '@stryke/env':
-      specifier: ^0.20.75
-      version: 0.20.75
+      specifier: ^0.20.76
+      version: 0.20.76
     '@stryke/fs':
-      specifier: ^0.33.58
-      version: 0.33.58
+      specifier: ^0.33.59
+      version: 0.33.59
     '@stryke/hash':
-      specifier: ^0.13.11
-      version: 0.13.11
+      specifier: ^0.13.12
+      version: 0.13.12
     '@stryke/helpers':
       specifier: ^0.10.4
       version: 0.10.4
@@ -265,8 +265,8 @@ catalogs:
       specifier: ^0.10.53
       version: 0.10.53
     '@stryke/unique-id':
-      specifier: ^0.3.69
-      version: 0.3.69
+      specifier: ^0.3.70
+      version: 0.3.70
     '@swc-node/register':
       specifier: ^1.11.1
       version: 1.11.1
@@ -690,7 +690,7 @@ importers:
         version: 0.30.103
       '@storm-software/pnpm-tools':
         specifier: 'catalog:'
-        version: 0.6.112
+        version: 0.6.113
       '@storm-software/prettier':
         specifier: 'catalog:'
         version: 0.59.2(prettier-plugin-astro@0.14.1)(prettier-plugin-organize-imports@4.3.0(prettier@3.8.1)(typescript@5.9.3))(prettier-plugin-packagejson@3.0.2(prettier@3.8.1))(prettier-plugin-prisma@5.0.0(prettier@3.8.1))(prettier-plugin-sh@0.15.0(prettier@3.8.1))(prettier-plugin-toml@2.0.6(prettier@3.8.1))(prettier@3.8.1)
@@ -705,7 +705,7 @@ importers:
         version: 0.24.91
       '@storm-software/workspace-tools':
         specifier: 'catalog:'
-        version: 1.295.3(cff8585a5056ccd2592a3de2e4e38c33)
+        version: 1.295.4(cff8585a5056ccd2592a3de2e4e38c33)
       '@swc-node/register':
         specifier: 'catalog:'
         version: 1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3)
@@ -805,13 +805,13 @@ importers:
         version: 0.6.54
       '@stryke/env':
         specifier: 'catalog:'
-        version: 0.20.75(@types/picomatch@4.0.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.20.76(@types/picomatch@4.0.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/hash':
         specifier: 'catalog:'
-        version: 0.13.11(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.13.12(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/helpers':
         specifier: 'catalog:'
         version: 0.10.4
@@ -829,7 +829,7 @@ importers:
         version: 0.5.39
       '@stryke/unique-id':
         specifier: 'catalog:'
-        version: 0.3.69
+        version: 0.3.70
       '@types/diff-match-patch':
         specifier: 'catalog:'
         version: 1.0.36
@@ -893,10 +893,10 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@stryke/capnp':
         specifier: 'catalog:'
-        version: 0.12.84(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(typescript@5.9.3)
+        version: 0.12.85(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(typescript@5.9.3)
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -963,16 +963,16 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@storm-software/workspace-tools':
         specifier: 'catalog:'
-        version: 1.295.3(cff8585a5056ccd2592a3de2e4e38c33)
+        version: 1.295.4(cff8585a5056ccd2592a3de2e4e38c33)
       '@stryke/env':
         specifier: 'catalog:'
-        version: 0.20.75(@types/picomatch@4.0.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.20.76(@types/picomatch@4.0.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/hash':
         specifier: 'catalog:'
-        version: 0.13.11(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.13.12(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1048,13 +1048,13 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@stryke/capnp':
         specifier: 'catalog:'
-        version: 0.12.84(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(typescript@5.9.3)
+        version: 0.12.85(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(typescript@5.9.3)
       '@stryke/convert':
         specifier: 'catalog:'
         version: 0.6.54
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/helpers':
         specifier: 'catalog:'
         version: 0.10.4
@@ -1075,7 +1075,7 @@ importers:
         version: 0.10.53
       '@stryke/unique-id':
         specifier: 'catalog:'
-        version: 0.3.69
+        version: 0.3.70
       defu:
         specifier: 'catalog:'
         version: 6.1.4
@@ -1109,7 +1109,7 @@ importers:
         version: 0.6.54
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/http':
         specifier: 'catalog:'
         version: 0.12.50
@@ -1137,7 +1137,7 @@ importers:
         version: 0.6.54
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1195,7 +1195,7 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1232,13 +1232,13 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@stryke/cli':
         specifier: 'catalog:'
-        version: 0.13.30
+        version: 0.13.31
       '@stryke/convert':
         specifier: 'catalog:'
         version: 0.6.54
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1260,7 +1260,7 @@ importers:
     dependencies:
       '@stryke/capnp':
         specifier: 'catalog:'
-        version: 0.12.84(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(typescript@5.9.3)
+        version: 0.12.85(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(typescript@5.9.3)
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1315,7 +1315,7 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@stryke/hash':
         specifier: 'catalog:'
-        version: 0.13.11(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.13.12(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1349,7 +1349,7 @@ importers:
         version: 1.1.0
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1500,16 +1500,16 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@stryke/capnp':
         specifier: 'catalog:'
-        version: 0.12.84(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(typescript@5.9.3)
+        version: 0.12.85(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(typescript@5.9.3)
       '@stryke/convert':
         specifier: 'catalog:'
         version: 0.6.54
       '@stryke/env':
         specifier: 'catalog:'
-        version: 0.20.75(@types/picomatch@4.0.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.20.76(@types/picomatch@4.0.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/json':
         specifier: 'catalog:'
         version: 0.14.8
@@ -1558,7 +1558,7 @@ importers:
         version: link:../core
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1592,7 +1592,7 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1688,7 +1688,7 @@ importers:
     dependencies:
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1747,7 +1747,7 @@ importers:
         version: 0.6.54
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1793,7 +1793,7 @@ importers:
         version: 30.3.0
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1833,7 +1833,7 @@ importers:
     dependencies:
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1864,13 +1864,13 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@stryke/cli':
         specifier: 'catalog:'
-        version: 0.13.30
+        version: 0.13.31
       '@stryke/convert':
         specifier: 'catalog:'
         version: 0.6.54
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -1988,13 +1988,13 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@stryke/cli':
         specifier: 'catalog:'
-        version: 0.13.30
+        version: 0.13.31
       '@stryke/convert':
         specifier: 'catalog:'
         version: 0.6.54
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -2065,13 +2065,13 @@ importers:
         version: 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
       '@stryke/cli':
         specifier: 'catalog:'
-        version: 0.13.30
+        version: 0.13.31
       '@stryke/convert':
         specifier: 'catalog:'
         version: 0.6.54
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -2123,7 +2123,7 @@ importers:
         version: 3.226.0(ts-node@10.9.2(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/node@25.5.0)(typescript@5.9.3))(typescript@5.9.3)
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/helpers':
         specifier: 'catalog:'
         version: 0.10.4
@@ -2190,13 +2190,13 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@stryke/cli':
         specifier: 'catalog:'
-        version: 0.13.30
+        version: 0.13.31
       '@stryke/convert':
         specifier: 'catalog:'
         version: 0.6.54
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -2248,7 +2248,7 @@ importers:
         version: 0.6.54
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -2303,7 +2303,7 @@ importers:
         version: 0.6.54
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -2359,7 +2359,7 @@ importers:
         version: 0.6.54
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/helpers':
         specifier: 'catalog:'
         version: 0.10.4
@@ -2454,7 +2454,7 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -2501,10 +2501,10 @@ importers:
         version: link:../plugin-vite
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/hash':
         specifier: 'catalog:'
-        version: 0.13.11(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.13.12(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -2631,7 +2631,7 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -2839,19 +2839,19 @@ importers:
         version: 1.189.28(magicast@0.5.2)
       '@stryke/capnp':
         specifier: 'catalog:'
-        version: 0.12.84(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(typescript@5.9.3)
+        version: 0.12.85(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(typescript@5.9.3)
       '@stryke/convert':
         specifier: 'catalog:'
         version: 0.6.54
       '@stryke/env':
         specifier: 'catalog:'
-        version: 0.20.75(@types/picomatch@4.0.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.20.76(@types/picomatch@4.0.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/hash':
         specifier: 'catalog:'
-        version: 0.13.11(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.13.12(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/helpers':
         specifier: 'catalog:'
         version: 0.10.4
@@ -2872,7 +2872,7 @@ importers:
         version: 0.5.39
       '@stryke/unique-id':
         specifier: 'catalog:'
-        version: 0.3.69
+        version: 0.3.70
       astro:
         specifier: '>=5.13.5'
         version: 6.0.4(@types/node@25.5.0)(db0@0.3.4(@types/better-sqlite3@7.6.13))(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2)
@@ -3009,13 +3009,13 @@ importers:
         version: 0.57.110(@nx/devkit@22.5.4(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))))(@nx/js@22.5.2(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(verdaccio@6.1.2(typanion@3.14.0)))(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/helpers@0.5.19)(@types/picomatch@4.0.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(rollup@4.59.0)(typescript@5.9.3)
       '@storm-software/workspace-tools':
         specifier: 'catalog:'
-        version: 1.295.3(cff8585a5056ccd2592a3de2e4e38c33)
+        version: 1.295.4(cff8585a5056ccd2592a3de2e4e38c33)
       '@stryke/fs':
         specifier: 'catalog:'
-        version: 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/hash':
         specifier: 'catalog:'
-        version: 0.13.11(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+        version: 0.13.12(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.0
@@ -4375,8 +4375,13 @@ packages:
     peerDependencies:
       '@csstools/css-tokenizer': ^3.0.4
 
-  '@csstools/css-syntax-patches-for-csstree@1.1.0':
-    resolution: {integrity: sha512-H4tuz2nhWgNKLt1inYpoVCfbJbMwX/lQKp3g69rrrIMIYlFD9+zTykOKhNR8uGrAmbS/kT9n6hTFkmDkxLgeTA==}
+  '@csstools/css-syntax-patches-for-csstree@1.1.1':
+    resolution: {integrity: sha512-BvqN0AMWNAnLk9G8jnUT77D+mUbY/H2b3uDTvg2isJkHaOufUE2R3AOwxWo7VBQKT1lOdwdvorddo2B/lk64+w==}
+    peerDependencies:
+      css-tree: ^3.2.1
+    peerDependenciesMeta:
+      css-tree:
+        optional: true
 
   '@csstools/css-tokenizer@3.0.4':
     resolution: {integrity: sha512-Vd/9EVDiu6PPJt9yAh6roZP6El1xHrdvIVGjyBsHR0RYwNHgL7FJPyIIW4fANJNG6FtyZfvlRPpFI4ZM/lubvw==}
@@ -9489,8 +9494,8 @@ packages:
   '@storm-software/npm-tools@0.6.66':
     resolution: {integrity: sha512-K/JqkK+KNIXzUlEPFCM/mQeJ96ImgKfrKcMj5ySxeBHSPt3WupYaFOLbxsUD3AGrT9g7je3wTtnXLvFnE9chPg==}
 
-  '@storm-software/pnpm-tools@0.6.112':
-    resolution: {integrity: sha512-4rs9yp+4yWWF022E5Rh5gjXRVqy4MExPOeKb1PHl0mkJEHunBNdNOZN9w2HNDh0YVR3eJD0/e/5oY1t/F4uyMg==}
+  '@storm-software/pnpm-tools@0.6.113':
+    resolution: {integrity: sha512-hvDvTFfhzgo3elC7PVfXdiyhhVQIbdJK8e9cLt7m9M7pnx6a7oedVyirupwu1coG9i8KHB35UTey9oU1utEIpA==}
     hasBin: true
 
   '@storm-software/prettier@0.59.2':
@@ -9576,8 +9581,8 @@ packages:
     engines: {node: '>=22.4.0', pnpm: '>=10.3.0'}
     hasBin: true
 
-  '@storm-software/workspace-tools@1.295.3':
-    resolution: {integrity: sha512-gey5t4lpbJrRtjAGusxmDk5tJtztGKFIcUWPY2VINt8RaDxX2VOHHlfILt+z7LQSgH5v+ZIslrIdFatnccBn5A==}
+  '@storm-software/workspace-tools@1.295.4':
+    resolution: {integrity: sha512-Y2S2HQGbWR6p7ZwmbnvqLAFxpkPIgpiMAPk727ea7/AHIc8knbXUsLdffueWvi3SV7r/Int3cC1CAvP8OO1NRg==}
     peerDependencies:
       '@napi-rs/cli': ^3.4.1
       markdownlint-cli2: ^0.17.2
@@ -9590,31 +9595,31 @@ packages:
   '@storybook/csf@0.1.13':
     resolution: {integrity: sha512-7xOOwCLGB3ebM87eemep89MYRFTko+D8qE7EdAAq74lgdqRR5cOUtYWJLjO2dLtP94nqoOdHJo6MdLLKzg412Q==}
 
-  '@stryke/capnp@0.12.84':
-    resolution: {integrity: sha512-unfSLyrdMBJ4mfKs5wlntVGY1Z5uRChxvpT2FiPT46SfluYkmtF7HBvXsPmv0pIC3097W9SIleimx83VvYHeUg==}
+  '@stryke/capnp@0.12.85':
+    resolution: {integrity: sha512-9060qcrY9owVonIw/YoULgjsO4z83518qHM05F6YcyOMSmtbRop6F0sRZHgrbpSE0ZRNXOvVl31xXcLwavPtjQ==}
     hasBin: true
     peerDependencies:
       typescript: '>=4.0.0'
 
-  '@stryke/cli@0.13.30':
-    resolution: {integrity: sha512-gyLuEDMgCMRC8zE0AOKzGx2eCX8I4tHVfq9rWDV/udJqEatlQIMIrjIDfkv3IW0B54foFh/M0uuSlCU/XBOJaQ==}
+  '@stryke/cli@0.13.31':
+    resolution: {integrity: sha512-kJPSHs1J9+Fikfpjgp5F1p1vXeKBUkzGvFBeof5Qck8257BGMUrW8mv6AIgw044KOfnDN1i9753HOY0Mth9+kg==}
 
   '@stryke/convert@0.6.54':
     resolution: {integrity: sha512-uxaVVPqhrnkG+cSPTBAi5X7aJIEQbDE2ygPqZtzoPMIS5wDhFBsFMESX6GJrnMxPTo7Iwi+Fa/vHAEKMQRZZ0A==}
 
-  '@stryke/env@0.20.75':
-    resolution: {integrity: sha512-qpB7+uoWkwg9dIMCIdY+n+0sTEyGreH3R1S11LL2m4SVuwASzLusDQxjDu7jEa/axOYqgo05fLzZU5Q/1hw+1A==}
+  '@stryke/env@0.20.76':
+    resolution: {integrity: sha512-ICRSesUC2b9rZ1mawWyih0s/xk0AtMGyNTExRpyEC8VMMQO7YwVo7HxO3/jCZczqKz4Bw5fQiDBxXA23BfrL6Q==}
 
-  '@stryke/fs@0.33.58':
-    resolution: {integrity: sha512-RH5AUBO+Ek4ETfLNOlNfeNOn74Ib+FpXRbFEeHfr8AiPHUnZ4d0yXRT/7FJb2qEmCVmCBesenOOukmlGaY1jqA==}
+  '@stryke/fs@0.33.59':
+    resolution: {integrity: sha512-A+zD0L6hg9Hn2TgkhUmBWbZfdIcQtdapSU3IovfUMKJ8/MPgXuvkEDaJ3smq1GQA8Kx1yujJZHj6z338Kwx10w==}
     peerDependencies:
       nx: ^22.5.4
     peerDependenciesMeta:
       nx:
         optional: true
 
-  '@stryke/hash@0.13.11':
-    resolution: {integrity: sha512-1/rLWRZwOWdtdTHyOMYq74NoQv+sLlzfkJIjS0uCLr8mT4KxlcucbYraNpAEiaUfNcFRP5920i/uNSSsWbVudw==}
+  '@stryke/hash@0.13.12':
+    resolution: {integrity: sha512-uEQHuwsXPh5sCsbuhuQzkiyiaJzoRQ0efRmcBn3ye0kOVhbEsZg4BFTqL/tI4GZ5CKuFT/S6RgFYKc9p5sXXtg==}
 
   '@stryke/helpers@0.10.4':
     resolution: {integrity: sha512-/p3RH40+cRiLDFoww7PHGn8/nAAAr3f7Wvppj14QBjEugxLVKmfhqEMkjR2AHSRcIpQMHttuGjEoUMU8fc/vSg==}
@@ -9649,8 +9654,8 @@ packages:
   '@stryke/types@0.10.53':
     resolution: {integrity: sha512-lXCOXScNY5Uy5GxMJ7u2YAZ511+YLtzqIuU6SDh+HaOO19Yh9lgS27u8ruJur30OUKt7EDB0pE52+6OerhBC0Q==}
 
-  '@stryke/unique-id@0.3.69':
-    resolution: {integrity: sha512-iZsd5TlAdEa5O3uPYMhR1/vlw2sYopTApNGHWHAbOVKNFUjqic+RaTDRWIhCibXu0PZsOS1DI62C0qYYJ3SC7w==}
+  '@stryke/unique-id@0.3.70':
+    resolution: {integrity: sha512-LQAHqph0Xx7fvWuz660+OFWwj+UEkHmssQjZvkwKK7G6HELx15dHXXdfOm/a/RtNb1AuIdeRdBZSgfqMNLM6TQ==}
 
   '@stryke/url@0.4.11':
     resolution: {integrity: sha512-xrdCtig0VBv/Ecx5N89I+uLZS7ErUCNuZF2/WdkFvTj8Gc+bpkpssNkuHstnX+o1dEBcevY1m6BmmcXOjvM8sw==}
@@ -23854,7 +23859,9 @@ snapshots:
     dependencies:
       '@csstools/css-tokenizer': 3.0.4
 
-  '@csstools/css-syntax-patches-for-csstree@1.1.0': {}
+  '@csstools/css-syntax-patches-for-csstree@1.1.1(css-tree@3.2.1)':
+    optionalDependencies:
+      css-tree: 3.2.1
 
   '@csstools/css-tokenizer@3.0.4': {}
 
@@ -28877,9 +28884,9 @@ snapshots:
       '@powerlines/plugin-tsdown': link:packages/plugin-tsdown
       '@standard-schema/spec': 1.1.0
       '@standard-schema/utils': 0.3.0
-      '@stryke/cli': 0.13.30
+      '@stryke/cli': 0.13.31
       '@stryke/convert': 0.6.54
-      '@stryke/fs': 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+      '@stryke/fs': 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/helpers': 0.9.51
       '@stryke/json': 0.14.8
       '@stryke/path': 0.26.19
@@ -28904,7 +28911,7 @@ snapshots:
   '@shell-shock/eslint-plugin@0.0.36(4d9b9fc3ce75dd2bbb8d2f71d1dceae2)':
     dependencies:
       '@storm-software/testing-tools': 1.119.103(@nx/jest@22.5.2(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/node-notifier@8.0.5)(@types/node@25.5.0)(esbuild-register@3.6.0(esbuild@0.27.4))(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(ts-node@10.9.2(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/node@25.5.0)(typescript@5.9.3))(typescript@5.9.3)(verdaccio@6.1.2(typanion@3.14.0)))(jest@30.3.0(@types/node-notifier@8.0.5)(@types/node@25.5.0)(esbuild-register@3.6.0(esbuild@0.27.4))(ts-node@10.9.2(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/node@25.5.0)(typescript@5.9.3)))
-      '@stryke/fs': 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+      '@stryke/fs': 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path': 0.26.19
       '@types/eslint': 9.6.1
       '@typescript-eslint/utils': 8.57.0(@types/eslint@9.6.1)(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.6.1))(typescript@5.9.3)
@@ -28926,7 +28933,7 @@ snapshots:
       '@shell-shock/core': 0.12.2(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(zod@4.3.6)
       '@storm-software/config': 1.135.29
       '@storm-software/config-tools': 1.189.28(magicast@0.5.2)
-      '@storm-software/workspace-tools': 1.295.3(cff8585a5056ccd2592a3de2e4e38c33)
+      '@storm-software/workspace-tools': 1.295.4(cff8585a5056ccd2592a3de2e4e38c33)
       '@stryke/type-checks': 0.5.39
       defu: 6.1.4
       jiti: 2.6.1
@@ -29606,7 +29613,7 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  '@storm-software/pnpm-tools@0.6.112':
+  '@storm-software/pnpm-tools@0.6.113':
     dependencies:
       '@storm-software/config': 1.135.29
       '@storm-software/config-tools': 1.189.28(magicast@0.5.2)
@@ -29779,7 +29786,7 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  '@storm-software/workspace-tools@1.295.3(cff8585a5056ccd2592a3de2e4e38c33)':
+  '@storm-software/workspace-tools@1.295.4(cff8585a5056ccd2592a3de2e4e38c33)':
     dependencies:
       '@ltd/j-toml': 1.38.0
       '@microsoft/api-extractor': 7.57.7(@types/node@25.5.0)
@@ -29792,7 +29799,7 @@ snapshots:
       '@storm-software/config-tools': 1.189.28(magicast@0.5.2)
       '@storm-software/esbuild': 0.53.110(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/helpers@0.5.19)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(typescript@5.9.3)(verdaccio@6.1.2(typanion@3.14.0))
       '@storm-software/npm-tools': 0.6.66
-      '@storm-software/pnpm-tools': 0.6.112
+      '@storm-software/pnpm-tools': 0.6.113
       '@storm-software/prettier': 0.59.2(prettier-plugin-astro@0.14.1)(prettier-plugin-organize-imports@4.3.0(prettier@3.8.1)(typescript@5.9.3))(prettier-plugin-packagejson@3.0.2(prettier@3.8.1))(prettier-plugin-prisma@5.0.0(prettier@3.8.1))(prettier-plugin-sh@0.15.0(prettier@3.8.1))(prettier-plugin-toml@2.0.6(prettier@3.8.1))(prettier@3.8.1)
       '@storm-software/tsdown': 0.45.110(@babel/runtime@7.28.6)(@microsoft/api-extractor@7.57.7(@types/node@25.5.0))(@nx/devkit@22.5.4(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))))(@nx/js@22.5.1(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(verdaccio@6.1.2(typanion@3.14.0)))(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/helpers@0.5.19)(jiti@2.4.2)(postcss@8.5.8)(spdx-exceptions@2.5.0)(spdx-license-ids@3.0.23)(tsdown@0.21.2(oxc-resolver@11.19.1)(synckit@0.11.12)(typescript@5.9.3))(typescript@5.9.3)(yaml@2.8.2)
       '@storm-software/unbuild': 0.57.110(@nx/devkit@22.5.4(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))))(@nx/js@22.5.1(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(verdaccio@6.1.2(typanion@3.14.0)))(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/helpers@0.5.19)(@types/picomatch@4.0.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(rollup@4.59.0)(typescript@5.9.3)
@@ -29849,9 +29856,9 @@ snapshots:
     dependencies:
       type-fest: 2.19.0
 
-  '@stryke/capnp@0.12.84(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(typescript@5.9.3)':
+  '@stryke/capnp@0.12.85(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(typescript@5.9.3)':
     dependencies:
-      '@stryke/fs': 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+      '@stryke/fs': 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path': 0.27.0
       defu: 6.1.4
       hex2dec: 1.1.2
@@ -29861,7 +29868,7 @@ snapshots:
       - magicast
       - nx
 
-  '@stryke/cli@0.13.30':
+  '@stryke/cli@0.13.31':
     dependencies:
       '@antfu/ni': 23.3.1
       '@types/figlet': 1.7.0
@@ -29874,11 +29881,11 @@ snapshots:
 
   '@stryke/convert@0.6.54': {}
 
-  '@stryke/env@0.20.75(@types/picomatch@4.0.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))':
+  '@stryke/env@0.20.76(@types/picomatch@4.0.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))':
     dependencies:
       '@dotenvx/dotenvx': 1.35.0(@types/picomatch@4.0.2)
       '@stryke/convert': 0.6.54
-      '@stryke/fs': 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+      '@stryke/fs': 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/path': 0.27.0
       '@stryke/string-format': 0.17.4
       defu: 6.1.4
@@ -29887,7 +29894,7 @@ snapshots:
       - magicast
       - nx
 
-  '@stryke/fs@0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))':
+  '@stryke/fs@0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))':
     dependencies:
       '@antfu/install-pkg': 1.1.0
       '@ltd/j-toml': 1.38.0
@@ -29909,9 +29916,9 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  '@stryke/hash@0.13.11(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))':
+  '@stryke/hash@0.13.12(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))':
     dependencies:
-      '@stryke/fs': 0.33.58(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+      '@stryke/fs': 0.33.59(magicast@0.5.2)(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
       '@stryke/json': 0.14.8
       '@stryke/type-checks': 0.5.39
       js-xxhash: 4.0.0
@@ -29956,7 +29963,7 @@ snapshots:
 
   '@stryke/types@0.10.53': {}
 
-  '@stryke/unique-id@0.3.69': {}
+  '@stryke/unique-id@0.3.70': {}
 
   '@stryke/url@0.4.11':
     dependencies:
@@ -39269,7 +39276,7 @@ snapshots:
   micromark-util-character@2.1.1:
     dependencies:
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-chunked@2.0.1:
     dependencies:
@@ -39284,7 +39291,7 @@ snapshots:
   micromark-util-combine-extensions@2.0.1:
     dependencies:
       micromark-util-chunked: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-decode-numeric-character-reference@2.0.2:
     dependencies:
@@ -43069,7 +43076,7 @@ snapshots:
   stylelint@16.26.1(typescript@5.9.3):
     dependencies:
       '@csstools/css-parser-algorithms': 3.0.5(@csstools/css-tokenizer@3.0.4)
-      '@csstools/css-syntax-patches-for-csstree': 1.1.0
+      '@csstools/css-syntax-patches-for-csstree': 1.1.1(css-tree@3.2.1)
       '@csstools/css-tokenizer': 3.0.4
       '@csstools/media-query-list-parser': 4.0.3(@csstools/css-parser-algorithms@3.0.5(@csstools/css-tokenizer@3.0.4))(@csstools/css-tokenizer@3.0.4)
       '@csstools/selector-specificity': 5.0.0(postcss-selector-parser@7.1.1)
