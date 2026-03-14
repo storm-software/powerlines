@@ -813,18 +813,30 @@ export class PowerlinesContext<
     ) {
       let resolvedImporter = importer;
       if (importer && this.fs.isVirtual(importer)) {
-        resolvedImporter = await this.fs.resolve(importer, undefined, {
-          conditions: this.config.resolve.conditions,
-          extensions: this.config.resolve.extensions,
-          ...options
-        });
+        resolvedImporter = await this.fs.resolve(
+          importer,
+          undefined,
+          defu(
+            {
+              conditions: this.config.resolve.conditions,
+              extensions: this.config.resolve.extensions
+            },
+            options
+          )
+        );
       }
 
-      const result = await this.fs.resolve(moduleId, resolvedImporter, {
-        conditions: this.config.resolve.conditions,
-        extensions: this.config.resolve.extensions,
-        ...options
-      });
+      const result = await this.fs.resolve(
+        moduleId,
+        resolvedImporter,
+        defu(
+          {
+            conditions: this.config.resolve.conditions,
+            extensions: this.config.resolve.extensions
+          },
+          options
+        )
+      );
       if (!result) {
         return undefined;
       }
