@@ -44,9 +44,9 @@ export function getTsconfigDtsPath<
   const dtsRelativePath = joinPaths(
     relativePath(
       joinPaths(context.workspaceConfig.workspaceRoot, context.config.root),
-      findFilePath(context.dtsPath)
+      findFilePath(context.typegenPath)
     ),
-    findFileName(context.dtsPath)
+    findFileName(context.typegenPath)
   );
 
   return dtsRelativePath;
@@ -76,7 +76,7 @@ async function resolveTsconfigChanges<
 
     if (
       !tsconfigJson.include?.some(filePattern =>
-        isIncludeMatchFound(filePattern, [context.dtsPath, dtsRelativePath])
+        isIncludeMatchFound(filePattern, [context.typegenPath, dtsRelativePath])
       )
     ) {
       tsconfigJson.include ??= [];

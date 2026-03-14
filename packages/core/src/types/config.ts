@@ -238,11 +238,19 @@ export interface OutputConfig {
   artifactsPath?: string;
 
   /**
+   * Should typescript declaration modules be generated during the build for the project?
+   */
+  dts?: boolean;
+
+  /**
    * The path of the generated runtime declaration file relative to the workspace root.
+   *
+   * @remarks
+   * This value will be set to true automatically when {@link OutputConfig.dts | dts} is set to true.
    *
    * @defaultValue "\{projectRoot\}/powerlines.d.ts"
    */
-  dts?: string | false;
+  typegen?: string | false;
 
   /**
    * The module format of the output files

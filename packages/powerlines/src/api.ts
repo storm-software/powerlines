@@ -291,13 +291,13 @@ export class PowerlinesAPI<
         order: "post"
       });
 
-      if (context.config.output.dts !== false) {
+      if (context.config.output.typegen !== false) {
         context.debug(
           `Preparing the TypeScript definitions for the Powerlines project.`
         );
 
-        if (context.fs.existsSync(context.dtsPath)) {
-          await context.fs.remove(context.dtsPath);
+        if (context.fs.existsSync(context.typegenPath)) {
+          await context.fs.remove(context.typegenPath);
         }
 
         const typescriptPath = await resolvePackage("typescript");
@@ -327,7 +327,7 @@ export class PowerlinesAPI<
         );
 
         context.debug(
-          `Generating TypeScript declaration file ${context.dtsPath}.`
+          `Generating TypeScript declaration file ${context.typegenPath}.`
         );
 
         const directives = [] as string[];
@@ -412,7 +412,7 @@ export class PowerlinesAPI<
 
         if (isSetString(types?.trim()) || directives.length > 0) {
           await context.fs.write(
-            context.dtsPath,
+            context.typegenPath,
             `${
               directives.length > 0
                 ? `${directives.map(directive => `/// <reference types="${directive}" />`).join("\n")}

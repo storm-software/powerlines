@@ -215,7 +215,8 @@ export class PowerlinesContext<
         output: config.framework
           ? {
               artifactsPath: `.${config.framework ?? "powerlines"}`,
-              dts: joinPaths(
+              dts: true,
+              typegen: joinPaths(
                 config.root ?? this.config.root,
                 `${config.framework ?? "powerlines"}.d.ts`
               )
@@ -520,9 +521,12 @@ export class PowerlinesContext<
   /**
    * Get the path to the generated declaration file for the project
    */
-  public get dtsPath(): string {
-    return this.config.output.dts
-      ? appendPath(this.config.output.dts, this.workspaceConfig.workspaceRoot)
+  public get typegenPath(): string {
+    return this.config.output.typegen
+      ? appendPath(
+          this.config.output.typegen,
+          this.workspaceConfig.workspaceRoot
+        )
       : joinPaths(
           this.workspaceConfig.workspaceRoot,
           this.config.root,
@@ -841,14 +845,15 @@ export class PowerlinesContext<
         return undefined;
       }
 
-      const external =
+      const external = Boolean(
         !match(moduleId, this.config.resolve.noExternal) &&
         (match(moduleId, this.config.resolve.external) ||
           moduleId.startsWith("node:") ||
           (this.fs.isVirtual(moduleId) &&
             this.config.projectType !== "application") ||
           (this.config.resolve.skipNodeModulesBundle &&
-            !/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(moduleId)));
+            !/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(moduleId)))
+      );
 
       return {
         id: result,
@@ -1523,7 +1528,8 @@ export class PowerlinesContext<
                 )
               : this.workspaceConfig?.directories?.build || "dist",
             artifactsPath: `.${config.framework ?? "powerlines"}`,
-            dts: joinPaths(
+            dts: true,
+            typegen: joinPaths(
               cacheKey.root,
               `${config.framework ?? "powerlines"}.d.ts`
             ),
@@ -1604,6 +1610,12 @@ export class PowerlinesContext<
           (this.config.projectType === "library" ? ["cjs", "esm"] : ["esm"])
       )
     );
+
+    if (this.config.output.dts !== false && !this.config.output.typegen) {
+      this.config.output.typegen = `${
+        this.config.root ? `${this.config.root}/` : ""
+      }${this.config.framework ?? "powerlines"}.d.ts`;
+    }
 
     if (
       this.config.root &&
@@ -1690,14 +1702,14 @@ export class PowerlinesContext<
       this.config.tsconfig = replacePathTokens(this, this.config.tsconfig);
     }
 
-    if (this.config.output.dts) {
-      if (isSetString(this.config.output.dts)) {
-        this.config.output.dts = replacePathTokens(
+    if (this.config.output.typegen) {
+      if (isSetString(this.config.output.typegen)) {
+        this.config.output.typegen = replacePathTokens(
           this,
-          this.config.output.dts
+          this.config.output.typegen
         );
       } else {
-        this.config.output.dts = joinPaths(
+        this.config.output.typegen = joinPaths(
           this.config.root,
           `${this.config.framework ?? "powerlines"}.d.ts`
         );

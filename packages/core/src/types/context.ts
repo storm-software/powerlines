@@ -290,7 +290,7 @@ export interface UnresolvedContext<
   /**
    * The path to the Powerlines TypeScript declaration files directory
    */
-  dtsPath: string;
+  typegenPath: string;
 
   /**
    * The path to a directory where the reflection data buffers (used by the build processes) are stored
