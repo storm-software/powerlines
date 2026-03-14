@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.41.17](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.17) (03/14/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.357**
+- Updated **plugin-esbuild** to **v0.13.355**
+- Updated **plugin-unbuild** to **v0.5.355**
+- Updated **plugin-webpack** to **v0.5.354**
+- Updated **plugin-rollup** to **v0.7.355**
+- Updated **plugin-rspack** to **v0.5.354**
+- Updated **plugin-tsdown** to **v0.1.300**
+- Updated **plugin-tsup** to **v0.12.356**
+- Updated **plugin-vite** to **v0.14.350**
+- Updated **core** to **v0.3.8**
+
 ## [0.41.16](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.16) (03/14/2026)
 
 ### Miscellaneous
