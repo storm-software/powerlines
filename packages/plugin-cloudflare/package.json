@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-cloudflare",
-  "version": "0.2.31",
+  "version": "0.3.0",
   "private": false,
   "description": "A Powerlines plugin that provides integration with Cloudflare services.",
   "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
@@ -137,6 +137,20 @@
       "default": {
         "types": "./dist/types/plugin.d.mts",
         "default": "./dist/types/plugin.mjs"
+      }
+    },
+    "./types/worker-module": {
+      "require": {
+        "types": "./dist/types/worker-module.d.cts",
+        "default": "./dist/types/worker-module.cjs"
+      },
+      "import": {
+        "types": "./dist/types/worker-module.d.mts",
+        "default": "./dist/types/worker-module.mjs"
+      },
+      "default": {
+        "types": "./dist/types/worker-module.d.mts",
+        "default": "./dist/types/worker-module.mjs"
       }
     }
   },

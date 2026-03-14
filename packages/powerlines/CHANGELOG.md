@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.41.16](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.16) (03/14/2026)
+
+### Miscellaneous
+
+- **powerlines:** Reduced resolver cache down to 2 minutes ([17d926c56](https://github.com/storm-software/powerlines/commit/17d926c56))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.356**
+- Updated **plugin-esbuild** to **v0.13.354**
+- Updated **plugin-unbuild** to **v0.5.354**
+- Updated **plugin-webpack** to **v0.5.353**
+- Updated **plugin-rollup** to **v0.7.354**
+- Updated **plugin-rspack** to **v0.5.353**
+- Updated **plugin-tsdown** to **v0.1.299**
+- Updated **plugin-tsup** to **v0.12.355**
+- Updated **plugin-vite** to **v0.14.349**
+- Updated **core** to **v0.3.7**
+
 ## [0.41.15](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.15) (03/14/2026)
 
 ### Updated Dependencies

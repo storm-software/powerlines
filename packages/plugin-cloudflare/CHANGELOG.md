@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.3.0) (03/14/2026)
+
+### Features
+
+- **plugin-cloudflare:** Added logic to deploy worker's routes ([2b772793e](https://github.com/storm-software/powerlines/commit/2b772793e))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.354**
+- Updated **plugin-plugin** to **v0.12.302**
+- Updated **plugin-pulumi** to **v0.5.32**
+- Updated **plugin-alloy** to **v0.25.37**
+- Updated **plugin-env** to **v0.16.72**
+- Updated **powerlines** to **v0.41.16**
+
 ## [0.2.31](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.2.31) (03/14/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.5.32](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.5.32) (03/14/2026)
+
+### Features
+
+- **plugin-cloudflare:** Added logic to deploy worker's routes ([2b772793e](https://github.com/storm-software/powerlines/commit/2b772793e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.302**
+- Updated **powerlines** to **v0.41.16**
+- Updated **core** to **v0.3.7**
+
 ## [0.5.31](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.5.31) (03/14/2026)
 
 ### Updated Dependencies

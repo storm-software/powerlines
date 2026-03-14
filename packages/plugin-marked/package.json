@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-marked",
-  "version": "0.1.315",
+  "version": "0.1.316",
   "private": false,
   "description": "A Powerlines plugin to use the Marked markdown compiler to generate HTML.",
   "keywords": ["marked", "powerlines", "storm-software", "powerlines-plugin"],
