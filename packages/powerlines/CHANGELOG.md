@@ -2,6 +2,29 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.41.18](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.18) (03/14/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue generating resolution path combinations ([eed0ed5a3](https://github.com/storm-software/powerlines/commit/eed0ed5a3))
+
+### Features
+
+- **core:** Added separate `typegen` configuration options ([1a8e296de](https://github.com/storm-software/powerlines/commit/1a8e296de))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.358**
+- Updated **plugin-esbuild** to **v0.13.356**
+- Updated **plugin-unbuild** to **v0.5.356**
+- Updated **plugin-webpack** to **v0.5.355**
+- Updated **plugin-rollup** to **v0.7.356**
+- Updated **plugin-rspack** to **v0.5.355**
+- Updated **plugin-tsdown** to **v0.1.301**
+- Updated **plugin-tsup** to **v0.12.357**
+- Updated **plugin-vite** to **v0.14.351**
+- Updated **core** to **v0.4.0**
+
 ## [0.41.17](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.17) (03/14/2026)
 
 ### Updated Dependencies

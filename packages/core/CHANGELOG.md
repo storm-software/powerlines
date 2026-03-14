@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/core%400.4.0) (03/14/2026)
+
+### Features
+
+- **core:** Added separate `typegen` configuration options ([1a8e296de](https://github.com/storm-software/powerlines/commit/1a8e296de))
+
 ## [0.3.4](https://github.com/storm-software/powerlines/releases/tag/core%400.3.4) (03/13/2026)
 
 ### Bug Fixes
