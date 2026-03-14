@@ -217,7 +217,13 @@ export function resolveOptions(context: Context): BuildOptions {
       define: context.config.define,
       inputOptions: {
         transform: {
-          inject: context.config.inject
+          define: context.config.define,
+          inject: context.config.inject,
+          typescript: {
+            onlyRemoveTypeImports:
+              context.tsconfig.options.verbatimModuleSyntax,
+            target: context.tsconfig.options.target
+          }
         }
       },
       deps: {

@@ -148,7 +148,11 @@ export function resolveOptions(context: Context): RolldownOptions {
       },
       transform: {
         define: context.config.define,
-        inject: context.config.inject
+        inject: context.config.inject,
+        typescript: {
+          onlyRemoveTypeImports: context.tsconfig.options.verbatimModuleSyntax,
+          target: context.tsconfig.options.target
+        }
       },
       platform: context.config.platform,
       tsconfig: appendPath(
