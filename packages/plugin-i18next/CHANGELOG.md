@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin I18next
 
+## [0.1.248](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.248) (03/14/2026)
+
+### Features
+
+- **plugin-cloudflare:** Added logic to deploy worker's routes ([2b772793e](https://github.com/storm-software/powerlines/commit/2b772793e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.302**
+- Updated **powerlines** to **v0.41.16**
+
 ## [0.1.247](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.247) (03/14/2026)
 
 ### Miscellaneous
