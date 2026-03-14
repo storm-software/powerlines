@@ -16,10 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import alloyBabelPreset from "@alloy-js/babel-preset";
 import babel from "@powerlines/plugin-babel";
 import { StormJSON } from "@stryke/json/storm-json";
-import { findFileExtension } from "@stryke/path/file-path-fns";
 import type { Plugin } from "powerlines";
 import type { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
@@ -55,15 +53,14 @@ export const plugin = <
             ...options
           },
           babel: {
-            presets: [
-              [
-                alloyBabelPreset,
-                {},
-                (_: string, id: string) =>
-                  findFileExtension(id) === "tsx" ||
-                  findFileExtension(id) === "jsx"
-              ]
-            ]
+            presets: ["@alloy-js/babel-preset"]
+          },
+          tsdown: {
+            inputOptions: {
+              transform: {
+                jsx: "preserve"
+              }
+            }
           },
           resolve: {
             external: [/^@alloy-js\//]
@@ -73,9 +70,24 @@ export const plugin = <
       async configResolved() {
         this.debug("Ensuring TypeScript configuration is set up for Alloy-js.");
 
-        if (this.tsconfig.tsconfigJson.compilerOptions?.jsx !== "preserve") {
+        if (
+          this.tsconfig.tsconfigJson.compilerOptions?.jsx !== "preserve" ||
+          this.tsconfig.tsconfigJson.compilerOptions?.jsxImportSource !==
+            "@alloy-js/core"
+        ) {
           this.tsconfig.tsconfigJson.compilerOptions ??= {};
-          this.tsconfig.tsconfigJson.compilerOptions.jsx = "preserve";
+
+          if (this.tsconfig.tsconfigJson.compilerOptions.jsx !== "preserve") {
+            this.tsconfig.tsconfigJson.compilerOptions.jsx = "preserve";
+          }
+
+          if (
+            this.tsconfig.tsconfigJson.compilerOptions.jsxImportSource !==
+            "@alloy-js/core"
+          ) {
+            this.tsconfig.tsconfigJson.compilerOptions.jsxImportSource =
+              "@alloy-js/core";
+          }
 
           await this.fs.write(
             this.tsconfig.tsconfigFilePath,

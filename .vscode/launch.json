@@ -10,8 +10,7 @@
         "nx",
         "run",
         "plugin-alloy:build:development",
-        "--outputStyle=dynamic-legacy",
-        "--skipNxCache"
+        "--outputStyle=dynamic-legacy"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"

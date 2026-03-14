@@ -83,13 +83,35 @@ export const plugin = <
 
       const plugins = this.config.babel.plugins
         .map(plugin => resolveBabelPlugin(this, code, id, plugin))
-        .filter(
-          (plugin, _, arr) => plugin && !isDuplicatePlugin(arr, plugin)
+        .filter(Boolean)
+        .reduce(
+          (
+            ret: ResolvedBabelTransformPluginOptions[],
+            plugin: ResolvedBabelTransformPluginOptions
+          ) => {
+            if (plugin && !isDuplicatePlugin(ret, plugin)) {
+              ret.push(plugin);
+            }
+
+            return ret;
+          },
+          [] as ResolvedBabelTransformPluginOptions[]
         ) as ResolvedBabelTransformPluginOptions[];
       const presets = this.config.babel.presets
         .map(preset => resolveBabelPlugin(this, code, id, preset))
-        .filter(
-          (preset, _, arr) => preset && !isDuplicatePlugin(arr, preset)
+        .filter(Boolean)
+        .reduce(
+          (
+            ret: ResolvedBabelTransformPluginOptions[],
+            preset: ResolvedBabelTransformPluginOptions
+          ) => {
+            if (preset && !isDuplicatePlugin(ret, preset)) {
+              ret.push(preset);
+            }
+
+            return ret;
+          },
+          [] as ResolvedBabelTransformPluginOptions[]
         ) as ResolvedBabelTransformPluginOptions[];
 
       if (
@@ -102,6 +124,7 @@ export const plugin = <
       }
 
       if (
+        !this.config.babel?.skipConfigResolution &&
         /^(?:m|c)?tsx?$/.test(
           findFileExtensionSafe(id, {
             fullExtension: true

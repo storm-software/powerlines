@@ -23,14 +23,18 @@ import type {
 } from "@powerlines/core";
 import { BabelResolvedConfig, BabelUserConfig } from "./config";
 
-export type BabelPluginOptions = Partial<BabelUserConfig>;
+export type BabelPluginOptions = Partial<BabelUserConfig> & {
+  skipConfigResolution?: boolean;
+};
 
 export type BabelPluginUserConfig = UserConfig & {
   babel?: BabelPluginOptions;
 };
 
 export interface BabelPluginResolvedConfig extends ResolvedConfig {
-  babel: BabelResolvedConfig;
+  babel: BabelResolvedConfig & {
+    skipConfigResolution?: boolean;
+  };
 }
 
 export type BabelPluginContext<
