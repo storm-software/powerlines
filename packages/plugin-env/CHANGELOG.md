@@ -2,6 +2,27 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.69](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.69) (03/14/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update version in `README.md` files ([2d27cc668](https://github.com/storm-software/powerlines/commit/2d27cc668))
+- **monorepo:** Regenerate `README.md` files ([fc00b8074](https://github.com/storm-software/powerlines/commit/fc00b8074))
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue where `alloy-js` jsx transformations are skipped ([c568ef842](https://github.com/storm-software/powerlines/commit/c568ef842))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.228**
+- Updated **plugin-automd** to **v0.1.349**
+- Updated **plugin-plugin** to **v0.12.300**
+- Updated **plugin-alloy** to **v0.25.34**
+- Updated **plugin-babel** to **v0.12.352**
+- Updated **powerlines** to **v0.41.14**
+- Updated **deepkit** to **v0.6.128**
+
 ## [0.16.68](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.68) (03/13/2026)
 
 ### Bug Fixes

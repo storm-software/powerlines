@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.250](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.250) (03/14/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update version in `README.md` files ([2d27cc668](https://github.com/storm-software/powerlines/commit/2d27cc668))
+- **monorepo:** Regenerate `README.md` files ([fc00b8074](https://github.com/storm-software/powerlines/commit/fc00b8074))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.353**
+- Updated **plugin-plugin** to **v0.12.300**
+- Updated **powerlines** to **v0.41.14**
+
 ## [0.3.249](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.249) (03/13/2026)
 
 ### Updated Dependencies

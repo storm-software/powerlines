@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Content Collections
 
+## [0.1.349](https://github.com/storm-software/powerlines/releases/tag/plugin-content-collections%400.1.349) (03/14/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update version in `README.md` files ([2d27cc668](https://github.com/storm-software/powerlines/commit/2d27cc668))
+- **plugin-prisma:** Added `prisma generate` functionality to plugin ([172680eef](https://github.com/storm-software/powerlines/commit/172680eef))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.300**
+- Updated **powerlines** to **v0.41.14**
+
 ## [0.1.348](https://github.com/storm-software/powerlines/releases/tag/plugin-content-collections%400.1.348) (03/13/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.352](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.352) (03/14/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update version in `README.md` files ([2d27cc668](https://github.com/storm-software/powerlines/commit/2d27cc668))
+- **monorepo:** Regenerate `README.md` files ([fc00b8074](https://github.com/storm-software/powerlines/commit/fc00b8074))
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue compiling alloy component jsx ([b112fa3ef](https://github.com/storm-software/powerlines/commit/b112fa3ef))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.3.6**
+
 ## [0.12.351](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.351) (03/13/2026)
 
 ### Updated Dependencies
