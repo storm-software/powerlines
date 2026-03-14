@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.25.35](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.35) (03/14/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue with Babel transformation filters ([c6ad930ca](https://github.com/storm-software/powerlines/commit/c6ad930ca))
+
 ## [0.25.34](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.34) (03/14/2026)
 
 ### Miscellaneous
