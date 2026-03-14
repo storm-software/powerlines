@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin I18next
 
+## [0.1.247](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.247) (03/14/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Remove unsued prettier header disable comment ([4e085fda9](https://github.com/storm-software/powerlines/commit/4e085fda9))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.301**
+- Updated **powerlines** to **v0.41.15**
+
 ## [0.1.246](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.246) (03/14/2026)
 
 ### Miscellaneous

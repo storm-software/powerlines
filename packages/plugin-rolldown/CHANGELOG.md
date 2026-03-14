@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.355](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.355) (03/14/2026)
+
+### Bug Fixes
+
+- **plugin-rolldown:** Ensure `onlyRemoveTypeImports` is set to `true` when `verbatimModuleSyntax` is enabled ([6425c6acc](https://github.com/storm-software/powerlines/commit/6425c6acc))
+
 ## [0.7.354](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.354) (03/14/2026)
 
 ### Miscellaneous

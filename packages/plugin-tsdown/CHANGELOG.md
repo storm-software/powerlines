@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.298](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.298) (03/14/2026)
+
+### Bug Fixes
+
+- **plugin-rolldown:** Ensure `onlyRemoveTypeImports` is set to `true` when `verbatimModuleSyntax` is enabled ([6425c6acc](https://github.com/storm-software/powerlines/commit/6425c6acc))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.355**
+
 ## [0.1.297](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.297) (03/14/2026)
 
 ### Miscellaneous

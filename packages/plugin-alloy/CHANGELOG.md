@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.25.36](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.36) (03/14/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Resolve issue applying type imports to typescript files ([3d157af9f](https://github.com/storm-software/powerlines/commit/3d157af9f))
+- **plugin-alloy:** Remove unsued prettier header disable comment ([4e085fda9](https://github.com/storm-software/powerlines/commit/4e085fda9))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.301**
+- Updated **powerlines** to **v0.41.15**
+- Updated **deepkit** to **v0.6.129**
+
 ## [0.25.35](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.35) (03/14/2026)
 
 ### Bug Fixes
