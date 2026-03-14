@@ -18,6 +18,7 @@
 
 import babel from "@powerlines/plugin-babel";
 import { StormJSON } from "@stryke/json/storm-json";
+import { findFileExtension } from "@stryke/path/file-path-fns";
 import type { Plugin } from "powerlines";
 import type { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
@@ -53,7 +54,15 @@ export const plugin = <
             ...options
           },
           babel: {
-            presets: ["@alloy-js/babel-preset"]
+            presets: [
+              [
+                "@alloy-js/babel-preset",
+                {},
+                (_: string, id: string) =>
+                  findFileExtension(id) === "tsx" ||
+                  findFileExtension(id) === "jsx"
+              ]
+            ]
           },
           tsdown: {
             inputOptions: {
