@@ -436,7 +436,9 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         )
       );
 
-      for (const combination of getResolutionCombinations(path, { paths })) {
+      for (const combination of getResolutionCombinations(path, {
+        paths: getUnique(paths)
+      })) {
         const { relativeKey, adapter } = this.#getStorage(combination);
         if (await adapter.exists(relativeKey)) {
           result = combination;
@@ -1895,7 +1897,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
 
       if (!this.#context.config.skipCache) {
-        this.#resolverCache.save(true);
+        this.resolverCache.save(true);
       }
 
       await Promise.all(
