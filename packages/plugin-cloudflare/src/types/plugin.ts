@@ -28,6 +28,7 @@ import type {
   PulumiPluginUserConfig
 } from "@powerlines/plugin-pulumi";
 import type { PluginContext, ResolvedEntryTypeDefinition } from "powerlines";
+import { WorkerModuleMetadata } from "./worker-module";
 
 export interface CloudflarePluginOptions {
   /**
@@ -54,14 +55,6 @@ export interface CloudflarePluginOptions {
    * The domain to use for the Cloudflare deployed resources.
    */
   domain?: string;
-
-  /**
-   * The name of the Cloudflare Worker script to deploy - used in URLs and route configuration.
-   *
-   * @remarks
-   * If no value is provided, the {@link Config.name} configuration value will be used.
-   */
-  scriptName?: string;
 }
 
 export type CloudflarePluginUserConfig = EnvPluginUserConfig &
@@ -80,11 +73,21 @@ export type CloudflarePluginResolvedConfig = EnvPluginResolvedConfig &
     cloudflare: Required<CloudflarePluginOptions>;
   };
 
+export interface CloudflareWorkerMetadata extends Required<WorkerModuleMetadata> {
+  /**
+   * The resolved entry definition for the Worker module, including the original entry definition and the resolved file path to the module.
+   */
+  entry: ResolvedEntryTypeDefinition;
+}
+
 export type CloudflareWorkerEntryModule = Record<
   keyof ExportedHandler,
   boolean
 > & {
-  entry: ResolvedEntryTypeDefinition;
+  /**
+   * The metadata for the Worker module, including the name of the Cloudflare Worker script to deploy. If no name is provided, the plugin will use the `name` configuration value from the plugin configuration as the default name for the Worker script.
+   */
+  metadata: CloudflareWorkerMetadata;
 };
 
 export type CloudflarePluginContext<

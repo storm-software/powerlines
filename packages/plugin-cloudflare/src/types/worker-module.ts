@@ -16,10 +16,19 @@
 
  ------------------------------------------------------------------- */
 
-import type { Output } from "@pulumi/pulumi";
+import { ExportedHandler } from "@cloudflare/workers-types";
 
-export interface PulumiOutputRecord<T = any> {
-  [key: string]: Output<T> | PulumiOutputRecord<T> | PulumiOutputRecord<T>[];
+export interface WorkerModuleMetadata {
+  /**
+   * The name of the Cloudflare Worker script to deploy - used in URLs and route configuration.
+   *
+   * @remarks
+   * If no value is provided, the {@link Config.name} configuration value will be used.
+   */
+  name?: string;
 }
 
-export type DeployPulumiResult = Record<string, any> | undefined | null | void;
+export interface WorkerModule {
+  metadata?: WorkerModuleMetadata;
+  default: ExportedHandler;
+}
