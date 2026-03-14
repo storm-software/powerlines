@@ -265,7 +265,12 @@ export function TypescriptFileHeaderImports(
                           i => !isString(i) && i.default
                         ) as TypescriptFileImportItem[]
                       )
-                        .map(i => (i.alias ? i.alias : i.name))
+                        .map(
+                          i =>
+                            `${i.type ? "type " : ""}${
+                              i.alias ? i.alias : i.name
+                            }`
+                        )
                         .join(", ") +
                       (importItem.filter(i => !isString(i) && i.default)
                         .length > 0 &&
@@ -280,9 +285,9 @@ export function TypescriptFileHeaderImports(
                             .map(i =>
                               isString(i)
                                 ? i
-                                : i.alias
-                                  ? `${i.name} as ${i.alias}`
-                                  : i.name
+                                : `${i.type ? "type " : ""}${
+                                    i.alias ? `${i.name} as ${i.alias}` : i.name
+                                  }`
                             )
                             .join(", ")} }`
                         : "")
@@ -316,7 +321,12 @@ export function TypescriptFileHeaderImports(
                           i => !isString(i) && i.default
                         ) as TypescriptFileImportItem[]
                       )
-                        .map(i => (i.alias ? i.alias : i.name))
+                        .map(
+                          i =>
+                            `${i.type ? "type " : ""}${
+                              i.alias ? i.alias : i.name
+                            }`
+                        )
                         .join(", ") +
                       (importItem.filter(i => !isString(i) && i.default)
                         .length > 0 &&
@@ -331,9 +341,9 @@ export function TypescriptFileHeaderImports(
                             .map(i =>
                               isString(i)
                                 ? i
-                                : i.alias
-                                  ? `${i.name} as ${i.alias}`
-                                  : i.name
+                                : `${i.type ? "type " : ""}${
+                                    i.alias ? `${i.name} as ${i.alias}` : i.name
+                                  }`
                             )
                             .join(", ")} }`
                         : "")
