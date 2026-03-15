@@ -81,29 +81,29 @@ catalog:
   '@shell-shock/nx': ^0.0.42
   '@shell-shock/preset-cli': ^0.8.0
   '@standard-schema/spec': ^1.1.0
-  '@storm-software/build-tools': ^0.158.109
-  '@storm-software/config': ^1.135.29
-  '@storm-software/config-tools': 1.189.28
-  '@storm-software/cspell': ^0.46.18
-  '@storm-software/esbuild': ^0.53.110
-  '@storm-software/eslint': ^0.169.117
-  '@storm-software/git-tools': ^2.127.4
-  '@storm-software/linting-tools': ^1.132.117
-  '@storm-software/markdownlint': ^0.30.103
-  '@storm-software/pnpm-tools': ^0.6.113
-  '@storm-software/prettier': ^0.59.2
-  '@storm-software/testing-tools': ^1.119.103
-  '@storm-software/tsconfig': ^0.48.17
-  '@storm-software/tsup': ^0.2.107
-  '@storm-software/unbuild': ^0.57.110
-  '@storm-software/untyped': ^0.24.91
-  '@storm-software/workspace-tools': ^1.295.4
-  '@stryke/capnp': ^0.12.86
-  '@stryke/cli': ^0.13.32
+  '@storm-software/build-tools': ^0.158.110
+  '@storm-software/config': ^1.135.30
+  '@storm-software/config-tools': ^1.189.29
+  '@storm-software/cspell': ^0.46.19
+  '@storm-software/esbuild': ^0.53.111
+  '@storm-software/eslint': ^0.169.118
+  '@storm-software/git-tools': ^2.127.5
+  '@storm-software/linting-tools': ^1.132.118
+  '@storm-software/markdownlint': ^0.30.104
+  '@storm-software/pnpm-tools': ^0.6.114
+  '@storm-software/prettier': ^0.59.3
+  '@storm-software/testing-tools': ^1.119.104
+  '@storm-software/tsconfig': ^0.48.18
+  '@storm-software/tsup': ^0.2.108
+  '@storm-software/unbuild': ^0.57.111
+  '@storm-software/untyped': ^0.24.92
+  '@storm-software/workspace-tools': ^1.295.5
+  '@stryke/capnp': ^0.12.87
+  '@stryke/cli': ^0.13.33
   '@stryke/convert': ^0.6.54
-  '@stryke/env': ^0.20.77
-  '@stryke/fs': ^0.33.60
-  '@stryke/hash': ^0.13.13
+  '@stryke/env': ^0.20.78
+  '@stryke/fs': ^0.33.61
+  '@stryke/hash': ^0.13.14
   '@stryke/helpers': ^0.10.4
   '@stryke/http': ^0.12.50
   '@stryke/json': ^0.14.8
@@ -111,7 +111,7 @@ catalog:
   '@stryke/string-format': ^0.17.4
   '@stryke/type-checks': ^0.5.39
   '@stryke/types': ^0.10.53
-  '@stryke/unique-id': ^0.3.71
+  '@stryke/unique-id': ^0.3.72
   '@swc-node/register': ^1.11.1
   '@swc/core': ^1.15.18
   '@swc/helpers': ^0.5.19
@@ -198,7 +198,7 @@ catalog:
   ts-jest: ^29.4.6
   ts-morph: ^27.0.2
   ts-pattern: ^5.9.0
-  tsdown: ^0.21.2
+  tsdown: ^0.21.3
   tslib: ^2.8.1
   tsup: 8.4.0
   typedoc: 0.25.12
