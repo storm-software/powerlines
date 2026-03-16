@@ -35,7 +35,7 @@ catalog:
   '@babel/types': ^7.29.0
   '@biomejs/biome': ^2.3.11
   '@cacheable/memory': ^2.0.8
-  '@cloudflare/workers-types': ^4.20260313.1
+  '@cloudflare/workers-types': ^4.20260316.1
   '@content-collections/core': ^0.12.0
   '@deepkit/core': 1.0.5
   '@deepkit/type': 1.0.5
@@ -81,23 +81,23 @@ catalog:
   '@shell-shock/nx': ^0.0.42
   '@shell-shock/preset-cli': ^0.8.0
   '@standard-schema/spec': ^1.1.0
-  '@storm-software/build-tools': ^0.158.110
-  '@storm-software/config': ^1.135.30
-  '@storm-software/config-tools': ^1.189.29
-  '@storm-software/cspell': ^0.46.19
-  '@storm-software/esbuild': ^0.53.111
-  '@storm-software/eslint': ^0.169.118
-  '@storm-software/git-tools': ^2.127.5
-  '@storm-software/linting-tools': ^1.132.118
-  '@storm-software/markdownlint': ^0.30.104
-  '@storm-software/pnpm-tools': ^0.6.114
-  '@storm-software/prettier': ^0.59.3
-  '@storm-software/testing-tools': ^1.119.104
-  '@storm-software/tsconfig': ^0.48.18
-  '@storm-software/tsup': ^0.2.108
-  '@storm-software/unbuild': ^0.57.111
-  '@storm-software/untyped': ^0.24.92
-  '@storm-software/workspace-tools': ^1.295.5
+  '@storm-software/build-tools': ^0.158.112
+  '@storm-software/config': ^1.135.32
+  '@storm-software/config-tools': ^1.189.31
+  '@storm-software/cspell': ^0.46.21
+  '@storm-software/esbuild': ^0.53.113
+  '@storm-software/eslint': ^0.169.120
+  '@storm-software/git-tools': ^2.127.7
+  '@storm-software/linting-tools': ^1.132.120
+  '@storm-software/markdownlint': ^0.30.106
+  '@storm-software/pnpm-tools': ^0.6.116
+  '@storm-software/prettier': ^0.59.5
+  '@storm-software/testing-tools': ^1.119.106
+  '@storm-software/tsconfig': ^0.48.20
+  '@storm-software/tsup': ^0.2.110
+  '@storm-software/unbuild': ^0.57.113
+  '@storm-software/untyped': ^0.24.94
+  '@storm-software/workspace-tools': ^1.295.7
   '@stryke/capnp': ^0.12.87
   '@stryke/cli': ^0.13.33
   '@stryke/convert': ^0.6.54
