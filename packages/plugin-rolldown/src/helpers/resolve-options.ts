@@ -174,13 +174,13 @@ export function resolveOptions(context: Context): RolldownOptions {
       minify: context.config.mode === "production",
       output: [
         {
-          dir: context.config.output.buildPath,
+          dir: context.config.output.path,
           format: "es",
           preserveModules: true,
           sourcemap: context.config.mode === "development"
         },
         {
-          dir: context.config.output.buildPath,
+          dir: context.config.output.path,
           format: "cjs",
           preserveModules: true,
           sourcemap: context.config.mode === "development"

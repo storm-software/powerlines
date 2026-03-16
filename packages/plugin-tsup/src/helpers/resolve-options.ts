@@ -125,7 +125,7 @@ export function resolveOptions(
       projectRoot: context.config.root,
       assets: context.config.output.assets as (string | AssetGlob)[],
       resolveExtensions: context.config.resolve.extensions,
-      outputPath: context.config.output.buildPath,
+      outputPath: context.config.output.path,
       tsconfig: context.tsconfig.tsconfigFilePath,
       dts:
         (context.config as TsupPluginResolvedConfig).tsup &&

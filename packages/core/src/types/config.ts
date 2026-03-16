@@ -206,26 +206,24 @@ export interface ResolveConfig {
 
 export interface OutputConfig {
   /**
-   * The path to output the final compiled files to
+   * The output directory path for the project build.
    *
    * @remarks
    * If a value is not provided, Powerlines will attempt to:
    * 1. Use the `outDir` value in the `tsconfig.json` file.
    * 2. Use the `dist` directory in the project root directory.
    *
-   * @defaultValue "dist/\{projectRoot\}"
+   * @defaultValue "\{root\}/dist"
    */
-  outputPath?: string;
+  path?: string;
 
   /**
-   * The output directory path for the project build.
+   * An optional path to a secondary/copied output directory for collecting distributable files prior to publishing/deployment.
    *
    * @remarks
-   * This path is used to determine where the built files will be placed after the build process completes. This will be used in scenarios where the monorepo uses TSConfig paths to link packages together.
-   *
-   * @defaultValue "\{projectRoot\}/dist"
+   * This option is useful when a separate directory is needed for collecting distributable files that are copied from the project, such as static assets or other non-code files. When using [Nx monorepo tools](https://nx.dev/), it is common for the {@link OutputConfig.path | project's output} to be copied to the `{workspaceRoot}/dist/{root}` directory, so that all of the monorepo's output is consolidated in a single location.
    */
-  buildPath?: string;
+  publishPath?: string;
 
   /**
    * The folder where the generated runtime artifacts will be located
@@ -233,7 +231,7 @@ export interface OutputConfig {
    * @remarks
    * This folder will contain all runtime artifacts and builtins generated during the "prepare" phase.
    *
-   * @defaultValue "\{projectRoot\}/.powerlines"
+   * @defaultValue "\{root\}/.powerlines"
    */
   artifactsPath?: string;
 
@@ -243,12 +241,12 @@ export interface OutputConfig {
   dts?: boolean;
 
   /**
-   * The path of the generated runtime declaration file relative to the workspace root.
+   * The path of the generated runtime types declaration file relative to the workspace root.
    *
    * @remarks
-   * This value will be set to true automatically when {@link OutputConfig.dts | dts} is set to true.
+   * This value will be set to `true` automatically when {@link OutputConfig.dts | dts} is set to `true`.
    *
-   * @defaultValue "\{projectRoot\}/powerlines.d.ts"
+   * @defaultValue "\{root\}/powerlines.d.ts"
    */
   typegen?: string | false;
 
@@ -485,7 +483,7 @@ export interface UserConfig extends Config {
   projectType?: ProjectType;
 
   /**
-   * A path to a custom configuration file to be used instead of the default `storm.json`, `powerlines.config.js`, or `powerlines.config.ts` files.
+   * A path to a custom configuration file to be used instead of the default `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` files.
    *
    * @remarks
    * This option is useful for running Powerlines commands with different configuration files, such as in CI/CD environments or when testing different configurations.
@@ -715,11 +713,11 @@ export type ResolveResolvedConfig = Required<
 export type ResolvedAssetGlob = AssetGlob & Required<Pick<AssetGlob, "input">>;
 
 export type OutputResolvedConfig = Required<
-  Omit<OutputConfig, "assets" | "storage"> & {
-    assets: ResolvedAssetGlob[];
-  }
+  Omit<OutputConfig, "assets" | "storage">
 > &
-  Pick<OutputConfig, "storage">;
+  Pick<OutputConfig, "storage"> & {
+    assets: ResolvedAssetGlob[];
+  };
 
 /**
  * The resolved options for the Powerlines project configuration.

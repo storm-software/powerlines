@@ -79,6 +79,7 @@
     "@swc/core": "catalog:",
     "@swc/helpers": "catalog:",
     "@taplo/cli": "catalog:",
+    "@types/babel-plugin-macros": "catalog:",
     "@types/jest": "catalog:",
     "@types/node": "catalog:",
     "copyfiles": "catalog:",

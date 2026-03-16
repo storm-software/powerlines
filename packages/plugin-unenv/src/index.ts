@@ -16,11 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "powerlines";
+import type { Plugin } from "powerlines";
 import { defineEnv } from "unenv";
-import { UnenvPluginContext, UnenvPluginOptions } from "./types/plugin";
+import type { UnenvPluginContext, UnenvPluginOptions } from "./types/plugin";
 
-export * from "./types";
+export type * from "./types";
 
 declare module "powerlines" {
   interface Config {

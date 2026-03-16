@@ -179,14 +179,14 @@ export function resolveOptions(context: Context): RollupOptions {
       logLevel: context.config.logLevel,
       output: [
         {
-          dir: context.config.output.buildPath,
+          dir: context.config.output.path,
           format: "es",
           entryFileNames: "[name].js",
           preserveModules: true,
           sourcemap: context.config.mode === "development"
         },
         {
-          dir: context.config.output.buildPath,
+          dir: context.config.output.path,
           format: "cjs",
           entryFileNames: "[name].cjs",
           preserveModules: true,

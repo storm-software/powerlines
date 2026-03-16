@@ -52,7 +52,7 @@ export function unplugin(options: Options = {}): Options {
     esbuildPlugins: [
       esbuild({
         output: {
-          outputPath: options.outDir,
+          path: options.outDir,
           format: options.format
         },
         esbuild: {

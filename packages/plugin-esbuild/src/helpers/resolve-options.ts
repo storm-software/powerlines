@@ -154,7 +154,7 @@ export { ${key} };`;
         ? context.config.output.format[0]
         : context.config.output.format) as Format,
       platform: context.config.platform,
-      outdir: context.config.output.buildPath,
+      outdir: context.config.output.path,
       tsconfig: context.tsconfig.tsconfigFilePath,
       minify: context.config.mode !== "development",
       metafile: context.config.mode === "development",

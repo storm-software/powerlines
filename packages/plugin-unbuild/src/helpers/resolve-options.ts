@@ -25,6 +25,7 @@ import type {
   Loader,
   LoaderResult
 } from "@storm-software/unbuild/types";
+import { relativePath } from "@stryke/path";
 import { joinPaths } from "@stryke/path/join-paths";
 import { isObject } from "@stryke/type-checks/is-object";
 import defu from "defu";
@@ -193,7 +194,8 @@ export function resolveOptions(context: Context): ExternalUnbuildOptions {
         : context.workspaceConfig.organization,
       sourceRoot: joinPaths(context.config.root, "src"),
       projectRoot: context.config.root,
-      outputPath: context.config.output.buildPath || "dist",
+      outputPath:
+        relativePath(context.config.root, context.config.output.path) || "dist",
       platform: context.config.platform,
       external: context.builtins.reduce((ret, id) => {
         if (!ret.includes(id)) {

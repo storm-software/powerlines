@@ -36,8 +36,10 @@ import { UnresolvedContext } from "../types/context";
  * - `{logPath}` - The environment's directory for log files.
  * - `{tempPath}` - The environment's directory for temporary files.
  * - `{configPath}` - The environment's directory for configuration files.
+ * - `{output}` - The configured output directory for the project.
  * - `{outputPath}` - The configured output directory for the project.
- * - `{buildPath}` - The configured distribution directory for the project.
+ * - `{publish}` - The configured final/copied distribution directory for the project.
+ * - `{publishPath}` - The configured final/copied distribution directory for the project.
  * - `{artifactsPath}` - The configured directory for build artifacts.
  * - `{builtinPath}` - The configured directory for generated built-in plugins.
  * - `{entryPath}` - The configured directory for generated entry files.
@@ -65,8 +67,10 @@ export function replacePathTokens(
     .replaceAll("{logPath}", context.envPaths.log)
     .replaceAll("{tempPath}", context.envPaths.temp)
     .replaceAll("{configPath}", context.envPaths.config)
-    .replaceAll("{outputPath}", context.config.output.outputPath)
-    .replaceAll("{buildPath}", context.config.output.buildPath)
+    .replaceAll("{outputPath}", context.config.output.path)
+    .replaceAll("{output}", context.config.output.path)
+    .replaceAll("{publishPath}", context.config.output.publishPath)
+    .replaceAll("{publish}", context.config.output.publishPath)
     .replaceAll(
       "{artifactsPath}",
       replacePath(context.artifactsPath, context.workspaceConfig.workspaceRoot)

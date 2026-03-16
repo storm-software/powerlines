@@ -56,7 +56,10 @@ export function plugin<
       name: "cloudflare",
       config() {
         return {
-          cloudflare: defu(options, {})
+          cloudflare: defu(options, {}),
+          resolve: {
+            skipNodeModulesBundle: false
+          }
         };
       },
       configResolved() {
@@ -96,14 +99,17 @@ export function plugin<
                 );
               }
 
+              const name =
+                workerModule.metadata?.name ||
+                replaceExtension(entry.input.file || entry.file) ||
+                arr.length > 1
+                  ? `${this.config.name}-${i}`
+                  : this.config.name;
+
               return {
                 metadata: {
-                  name:
-                    workerModule.metadata?.name ||
-                    replaceExtension(entry.input.file || entry.file) ||
-                    arr.length > 1
-                      ? `${this.config.name}-${i}`
-                      : this.config.name,
+                  name,
+                  pattern: `${name}.{domain}`,
                   entry
                 },
                 fetch: isFunction(workerModule.default.fetch),
@@ -162,12 +168,19 @@ export function plugin<
                 : `${kebabCase(this.config.name)}.${kebabCase(
                     worker.metadata.name
                   )}`
-            }.worker-script`,
-            {
-              accountId: this.config.cloudflare.accountId,
-              scriptName: worker.metadata.name,
-              contentFile: joinPaths(this.config.output.outputPath, "index.js")
-            }
+            }.${kebabCase(this.config.mode)}.worker-script`,
+            defu(
+              {
+                accountId: this.config.cloudflare.accountId,
+                scriptName: worker.metadata.name,
+                contentFile: joinPaths(
+                  this.config.output.publishPath,
+                  "index.js"
+                ),
+                compatibilityFlags: ["nodejs_als"]
+              },
+              worker.metadata
+            )
           );
           workerScripts.push(workerScript);
 
@@ -178,12 +191,18 @@ export function plugin<
                 : `${kebabCase(this.config.name)}-${kebabCase(
                     worker.metadata.name
                   )}`
-            }.worker-route`,
-            {
-              zoneId: zone.id,
-              pattern: `hello-world.${this.config.cloudflare.domain}`,
-              script: workerScript.scriptName
-            }
+            }.${kebabCase(this.config.mode)}.worker-route`,
+            defu(
+              {
+                zoneId: zone.id,
+                pattern: worker.metadata.pattern.replace(
+                  "{domain}",
+                  this.config.cloudflare.domain
+                ),
+                script: workerScript.scriptName
+              },
+              worker.metadata
+            )
           );
           workerRoutes.push(workerRoute);
         }

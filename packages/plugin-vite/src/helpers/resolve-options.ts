@@ -98,7 +98,7 @@ export function resolveOptions(context: Context): ViteOptions {
         minify: context.config.mode !== "development",
         metafile: context.config.mode === "development",
         sourcemap: context.config.mode === "development",
-        outDir: context.config.output.buildPath,
+        outDir: context.config.output.path,
         tsconfig: context.tsconfig.tsconfigFilePath,
         tsconfigRaw: context.tsconfig.tsconfigJson
       },

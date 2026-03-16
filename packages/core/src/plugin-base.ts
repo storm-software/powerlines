@@ -120,7 +120,7 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
               ],
         platform: this.config.platform,
         tsconfig: this.tsconfig.tsconfigFilePath,
-        outDir: this.config.output.buildPath,
+        outDir: this.config.output.path,
         ...this.config.tsdown
       });
 

@@ -63,7 +63,7 @@ export function unplugin(options: UserConfig = {}): UserConfig {
         name: options.name,
         root: options.cwd ?? process.cwd(),
         output: {
-          outputPath: options.outDir,
+          path: options.outDir,
           format: resolveFromFormat(
             options.format as ModuleFormat | ModuleFormat[]
           ),

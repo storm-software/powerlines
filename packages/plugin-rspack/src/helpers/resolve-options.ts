@@ -50,7 +50,7 @@ export function resolveOptions(context: Context): ExternalRspackOptions {
       output: {
         path: joinPaths(
           context.workspaceConfig.workspaceRoot,
-          context.config.output.buildPath
+          context.config.output.path
         )
       },
       name: context.config.name,

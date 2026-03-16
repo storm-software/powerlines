@@ -575,7 +575,7 @@ ${formatTypes(types)}
       await context.fs.remove(
         joinPaths(
           context.workspaceConfig.workspaceRoot,
-          context.config.output.buildPath
+          context.config.output.path
         )
       );
       await context.fs.remove(
@@ -776,14 +776,14 @@ ${formatTypes(types)}
       order: "normal"
     });
 
-    if (context.config.output.buildPath !== context.config.output.outputPath) {
+    if (context.config.output.path !== context.config.output.publishPath) {
       const sourcePath = appendPath(
-        context.config.output.buildPath,
+        context.config.output.path,
         context.workspaceConfig.workspaceRoot
       );
       const destinationPath = joinPaths(
         appendPath(
-          context.config.output.outputPath,
+          context.config.output.publishPath,
           context.workspaceConfig.workspaceRoot
         ),
         "dist"
@@ -791,9 +791,9 @@ ${formatTypes(types)}
 
       if (context.fs.existsSync(sourcePath) && sourcePath !== destinationPath) {
         context.debug(
-          `Copying build output files from project's build directory (${
-            context.config.output.buildPath
-          }) to the workspace's output directory (${context.config.output.outputPath}).`
+          `Copying output files from project's output directory (${
+            context.config.output.path
+          }) to the publish output directory (${context.config.output.publishPath}).`
         );
 
         await context.fs.copy(sourcePath, destinationPath);

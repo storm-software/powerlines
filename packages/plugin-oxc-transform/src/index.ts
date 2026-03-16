@@ -53,7 +53,7 @@ export const plugin = <
           sourceType: "module",
           cwd: this.config.root,
           envName: this.config.mode,
-          outputPath: this.config.output.buildPath,
+          outputPath: this.config.output.path,
           sourcemap: this.config.mode === "development"
         })
       } as Partial<OxcTransformPluginUserConfig>;

@@ -42,7 +42,7 @@ export function resolveOptions(context: Context): ExternalWebpackOptions {
       output: {
         path: joinPaths(
           context.workspaceConfig.workspaceRoot,
-          context.config.output.buildPath
+          context.config.output.path
         )
       },
       name: context.config.name,

@@ -27,6 +27,7 @@ import type {
   PulumiPluginResolvedConfig,
   PulumiPluginUserConfig
 } from "@powerlines/plugin-pulumi";
+import type { RequiredKeys } from "@stryke/types/base";
 import type { PluginContext, ResolvedEntryTypeDefinition } from "powerlines";
 import { WorkerModuleMetadata } from "./worker-module";
 
@@ -73,12 +74,15 @@ export type CloudflarePluginResolvedConfig = EnvPluginResolvedConfig &
     cloudflare: Required<CloudflarePluginOptions>;
   };
 
-export interface CloudflareWorkerMetadata extends Required<WorkerModuleMetadata> {
+export type CloudflareWorkerMetadata = RequiredKeys<
+  WorkerModuleMetadata,
+  "name" | "pattern"
+> & {
   /**
    * The resolved entry definition for the Worker module, including the original entry definition and the resolved file path to the module.
    */
   entry: ResolvedEntryTypeDefinition;
-}
+};
 
 export type CloudflareWorkerEntryModule = Record<
   keyof ExportedHandler,

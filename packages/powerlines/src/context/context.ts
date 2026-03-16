@@ -1623,11 +1623,11 @@ export class PowerlinesContext<
       this.config.root !== "./" &&
       this.config.root !== this.workspaceConfig.workspaceRoot
     ) {
-      this.config.output.outputPath ??= joinPaths("dist", this.config.root);
-      this.config.output.buildPath ??= joinPaths(this.config.root, "dist");
+      this.config.output.path ??= joinPaths(this.config.root, "dist");
+      this.config.output.publishPath ??= joinPaths("dist", this.config.root);
     } else {
-      this.config.output.outputPath ??= "dist";
-      this.config.output.buildPath ??= "dist";
+      this.config.output.path ??= "dist";
+      this.config.output.publishPath ??= this.config.output.path;
     }
 
     this.config.output.assets = getUniqueBy(
@@ -1651,22 +1651,22 @@ export class PowerlinesContext<
                 ? asset.output
                 : appendPath(
                     joinPaths(
-                      this.config.output.outputPath,
+                      this.config.output.path,
                       replacePath(
                         replacePath(
                           asset.output,
                           replacePath(
-                            this.config.output.outputPath,
+                            this.config.output.path,
                             this.workspaceConfig.workspaceRoot
                           )
                         ),
-                        this.config.output.outputPath
+                        this.config.output.path
                       )
                     ),
                     this.workspaceConfig.workspaceRoot
                   )
               : appendPath(
-                  this.config.output.outputPath,
+                  this.config.output.path,
                   this.workspaceConfig.workspaceRoot
                 ),
           ignore:

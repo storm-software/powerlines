@@ -42,14 +42,14 @@ export async function format(
     (isParentPath(
       path,
       appendPath(
-        context.config.output.outputPath,
+        context.config.output.publishPath,
         context.workspaceConfig.workspaceRoot
       )
     ) ||
       isParentPath(
         path,
         appendPath(
-          context.config.output.buildPath,
+          context.config.output.path,
           context.workspaceConfig.workspaceRoot
         )
       ))
@@ -81,14 +81,14 @@ export async function formatFolder(context: Context, path: string) {
     !isParentPath(
       path,
       appendPath(
-        context.config.output.outputPath,
+        context.config.output.publishPath,
         context.workspaceConfig.workspaceRoot
       )
     ) &&
     !isParentPath(
       path,
       appendPath(
-        context.config.output.buildPath,
+        context.config.output.path,
         context.workspaceConfig.workspaceRoot
       )
     )
@@ -99,14 +99,14 @@ export async function formatFolder(context: Context, path: string) {
           !isParentPath(
             file,
             appendPath(
-              context.config.output.outputPath,
+              context.config.output.publishPath,
               context.workspaceConfig.workspaceRoot
             )
           ) &&
           !isParentPath(
             file,
             appendPath(
-              context.config.output.buildPath,
+              context.config.output.path,
               context.workspaceConfig.workspaceRoot
             )
           )
