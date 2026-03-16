@@ -1521,7 +1521,7 @@ export class PowerlinesContext<
           version: this.packageJson?.version,
           description: this.packageJson?.description,
           output: mergeConfig(config.output ?? {}, {
-            outputPath: cacheKey.root
+            publishPath: cacheKey.root
               ? joinPaths(
                   this.workspaceConfig?.directories?.build || "dist",
                   cacheKey.root
