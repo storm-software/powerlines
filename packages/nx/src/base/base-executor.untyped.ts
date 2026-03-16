@@ -26,12 +26,23 @@ export default defineUntypedSchema({
       "A shared/base schema type definition for Powerlines executors",
     required: []
   },
+  config: {
+    $schema: {
+      title: "Powerlines Configuration File",
+      type: "string",
+      format: "path",
+      description:
+        "The path to the Powerlines configuration file. Alias for `configFile`."
+    },
+    $default: "{projectRoot}/powerlines.config.ts"
+  },
   configFile: {
     $schema: {
       title: "Powerlines Configuration File",
       type: "string",
       format: "path",
-      description: "The path to the Powerlines configuration file"
+      description:
+        "The path to the Powerlines configuration file. Alias for `config`."
     },
     $default: "{projectRoot}/powerlines.config.ts"
   },

@@ -6,7 +6,18 @@ export interface DocsExecutorSchema {
  /**
   * Powerlines Configuration File
   * 
-  * The path to the Powerlines configuration file
+  * The path to the Powerlines configuration file. Alias for `configFile`.
+  * 
+  * @default "{projectRoot}/powerlines.config.ts"
+  * 
+  * @format path
+ */
+ config?: string,
+
+ /**
+  * Powerlines Configuration File
+  * 
+  * The path to the Powerlines configuration file. Alias for `config`.
   * 
   * @default "{projectRoot}/powerlines.config.ts"
   * 

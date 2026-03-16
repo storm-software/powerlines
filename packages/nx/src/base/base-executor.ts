@@ -103,7 +103,8 @@ export function withExecutor<
                 options.outputPath ??
                 projectConfig.targets?.build?.options?.outputPath,
               format: options.format,
-              sourceMap: options.sourceMap
+              sourceMap: options.sourceMap,
+              configFile: options.configFile ?? options.config
             },
             resolve: {
               external: options.external,
@@ -133,7 +134,7 @@ export function withExecutor<
                 workspaceConfig,
                 inlineConfig: {
                   command,
-                  configFile: options.configFile
+                  configFile: options.configFile || options.config
                 },
                 command
               },
@@ -164,13 +165,6 @@ ${error.stack}`
       skipReadingConfig: false,
       hooks: {
         applyDefaultOptions: (options: Partial<TExecutorSchema>) => {
-          if (options.mode !== "development" && options.mode !== "test") {
-            options.mode = "production";
-          }
-
-          options.outputPath ??= "dist/{projectRoot}";
-          options.configFile ??= "{projectRoot}/powerlines.config.ts";
-
           return options as TExecutorSchema;
         }
       }

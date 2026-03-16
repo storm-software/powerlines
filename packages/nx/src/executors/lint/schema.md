@@ -4,6 +4,16 @@
 
 # Lint Executor
 
+## `config`
+- **Type**: `string`
+- **Default**: `"{projectRoot}/powerlines.config.ts"`
+
+> Powerlines Configuration File
+
+
+The path to the Powerlines configuration file. Alias for `configFile`.
+
+
 ## `configFile`
 - **Type**: `string`
 - **Default**: `"{projectRoot}/powerlines.config.ts"`
@@ -11,7 +21,7 @@
 > Powerlines Configuration File
 
 
-The path to the Powerlines configuration file
+The path to the Powerlines configuration file. Alias for `config`.
 
 
 ## `input`
