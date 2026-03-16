@@ -57,6 +57,16 @@ export interface DocsExecutorSchema {
  outputPath?: string,
 
  /**
+  * Publish Path
+  * 
+  * The path to the publish directory for the build artifacts
+  * 
+  * 
+  * @format path
+ */
+ publishPath?: string,
+
+ /**
   * Sourcemap
   * 
   * Generate a sourcemap

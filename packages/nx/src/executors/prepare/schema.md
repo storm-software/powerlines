@@ -52,6 +52,15 @@ The path to the tsconfig file
 The path to the output directory for the build artifacts
 
 
+## `publishPath`
+- **Type**: `string`
+
+> Publish Path
+
+
+The path to the publish directory for the build artifacts
+
+
 ## `sourceMap`
 - **Type**: `boolean`
 

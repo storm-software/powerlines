@@ -99,9 +99,8 @@ export function withExecutor<
           {
             input: options.input,
             output: {
-              outputPath:
-                options.outputPath ??
-                projectConfig.targets?.build?.options?.outputPath,
+              path: options.outputPath,
+              publishPath: options.publishPath,
               format: options.format,
               sourceMap: options.sourceMap,
               configFile: options.configFile ?? options.config

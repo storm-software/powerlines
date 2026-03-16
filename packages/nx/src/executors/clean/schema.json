@@ -45,6 +45,13 @@
       "description": "The path to the output directory for the build artifacts",
       "id": "#outputPath"
     },
+    "publishPath": {
+      "title": "Publish Path",
+      "type": "string",
+      "format": "path",
+      "description": "The path to the publish directory for the build artifacts",
+      "id": "#publishPath"
+    },
     "sourceMap": {
       "title": "Sourcemap",
       "type": "boolean",

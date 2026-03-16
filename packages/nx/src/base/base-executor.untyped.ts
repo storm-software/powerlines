@@ -72,6 +72,14 @@ export default defineUntypedSchema({
       description: "The path to the output directory for the build artifacts"
     }
   },
+  publishPath: {
+    $schema: {
+      title: "Publish Path",
+      type: "string",
+      format: "path",
+      description: "The path to the publish directory for the build artifacts"
+    }
+  },
   sourceMap: {
     $schema: {
       title: "Sourcemap",

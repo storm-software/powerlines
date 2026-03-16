@@ -329,7 +329,9 @@ export function createNxPlugin<
                   defaultConfiguration:
                     options?.clean?.defaultConfiguration || "production",
                   options: {
-                    projectType: projectConfig.projectType
+                    projectType: projectConfig.projectType,
+                    outputPath: `{workspaceRoot}/${projectRoot}/dist`,
+                    publishPath: `{workspaceRoot}/dist/${projectRoot}`
                   },
                   configurations: {
                     production: {
@@ -371,7 +373,9 @@ export function createNxPlugin<
                   defaultConfiguration:
                     options?.prepare?.defaultConfiguration || "production",
                   options: {
-                    projectType: projectConfig.projectType
+                    projectType: projectConfig.projectType,
+                    outputPath: `{workspaceRoot}/${projectRoot}/dist`,
+                    publishPath: `{workspaceRoot}/dist/${projectRoot}`
                   },
                   configurations: {
                     production: {
@@ -417,7 +421,9 @@ export function createNxPlugin<
                   defaultConfiguration:
                     options?.build?.defaultConfiguration || "production",
                   options: {
-                    projectType: projectConfig.projectType
+                    projectType: projectConfig.projectType,
+                    outputPath: `{workspaceRoot}/${projectRoot}/dist`,
+                    publishPath: `{workspaceRoot}/dist/${projectRoot}`
                   },
                   configurations: {
                     production: {
@@ -466,7 +472,9 @@ export function createNxPlugin<
                   defaultConfiguration:
                     options?.lint?.defaultConfiguration || "production",
                   options: {
-                    projectType: projectConfig.projectType
+                    projectType: projectConfig.projectType,
+                    outputPath: `{workspaceRoot}/${projectRoot}/dist`,
+                    publishPath: `{workspaceRoot}/dist/${projectRoot}`
                   },
                   configurations: {
                     production: {
@@ -517,7 +525,9 @@ export function createNxPlugin<
                   defaultConfiguration:
                     options?.docs?.defaultConfiguration || "production",
                   options: {
-                    projectType: projectConfig.projectType
+                    projectType: projectConfig.projectType,
+                    outputPath: `{workspaceRoot}/${projectRoot}/dist`,
+                    publishPath: `{workspaceRoot}/dist/${projectRoot}`
                   },
                   configurations: {
                     production: {
@@ -567,7 +577,9 @@ export function createNxPlugin<
                   defaultConfiguration:
                     options?.deploy?.defaultConfiguration || "production",
                   options: {
-                    projectType: projectConfig.projectType
+                    projectType: projectConfig.projectType,
+                    outputPath: `{workspaceRoot}/${projectRoot}/dist`,
+                    publishPath: `{workspaceRoot}/dist/${projectRoot}`
                   },
                   configurations: {
                     production: {
