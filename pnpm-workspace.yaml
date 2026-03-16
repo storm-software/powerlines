@@ -81,23 +81,23 @@ catalog:
   '@shell-shock/nx': ^0.0.43
   '@shell-shock/preset-cli': ^0.8.3
   '@standard-schema/spec': ^1.1.0
-  '@storm-software/build-tools': ^0.158.113
-  '@storm-software/config': ^1.135.33
-  '@storm-software/config-tools': ^1.189.32
-  '@storm-software/cspell': ^0.46.22
-  '@storm-software/esbuild': ^0.53.114
-  '@storm-software/eslint': ^0.169.121
-  '@storm-software/git-tools': ^2.127.8
-  '@storm-software/linting-tools': ^1.132.121
-  '@storm-software/markdownlint': ^0.30.107
-  '@storm-software/pnpm-tools': ^0.6.117
-  '@storm-software/prettier': ^0.59.6
-  '@storm-software/testing-tools': ^1.119.107
-  '@storm-software/tsconfig': ^0.48.21
-  '@storm-software/tsup': ^0.2.111
-  '@storm-software/unbuild': ^0.57.114
-  '@storm-software/untyped': ^0.24.95
-  '@storm-software/workspace-tools': ^1.295.8
+  '@storm-software/build-tools': ^0.158.114
+  '@storm-software/config': ^1.135.34
+  '@storm-software/config-tools': ^1.189.33
+  '@storm-software/cspell': ^0.46.23
+  '@storm-software/esbuild': ^0.53.115
+  '@storm-software/eslint': ^0.169.122
+  '@storm-software/git-tools': ^2.128.0
+  '@storm-software/linting-tools': ^1.132.122
+  '@storm-software/markdownlint': ^0.30.108
+  '@storm-software/pnpm-tools': ^0.6.118
+  '@storm-software/prettier': ^0.59.7
+  '@storm-software/testing-tools': ^1.119.108
+  '@storm-software/tsconfig': ^0.48.22
+  '@storm-software/tsup': ^0.2.112
+  '@storm-software/unbuild': ^0.57.115
+  '@storm-software/untyped': ^0.24.96
+  '@storm-software/workspace-tools': ^1.295.9
   '@stryke/capnp': ^0.12.89
   '@stryke/cli': ^0.13.35
   '@stryke/convert': ^0.6.56
@@ -118,12 +118,12 @@ catalog:
   '@tamagui/static-worker': ^1.144.4
   '@tamagui/types': ^1.144.4
   '@taplo/cli': ^0.7.0
+  '@types/babel-plugin-macros': ^3.1.3
   '@types/babel__core': ^7.20.5
   '@types/babel__helper-module-imports': ^7.18.3
   '@types/babel__helper-plugin-utils': ^7.10.3
   '@types/babel__template': ^7.4.4
   '@types/babel__traverse': ^7.28.0
-  '@types/babel-plugin-macros': ^3.1.3
   '@types/bun': ^1.3.10
   '@types/diff-match-patch': ^1.0.36
   '@types/jest': ^30.0.0
@@ -155,7 +155,7 @@ catalog:
   fp-ts: ^2.16.11
   github-slugger: ^2.0.0
   handlebars: ^4.7.8
-  i18next-cli: ^1.50.1
+  i18next-cli: ^1.50.2
   i18next-resources-for-ts: ^2.0.2
   jest: ^30.3.0
   jest-config: ^30.3.0
@@ -179,7 +179,7 @@ catalog:
   oxc-parser: ^0.99.0
   oxc-resolver: ^11.19.1
   oxc-transform: ^0.99.0
-  oxlint: ^1.55.0
+  oxlint: ^1.56.0
   oxlint-tsgolint: ^0.14.2
   pluralize: ^8.0.0
   prettier: ^3.8.1
