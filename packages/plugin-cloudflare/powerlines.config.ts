@@ -28,5 +28,8 @@ export default defineConfig({
     "src/components/*.ts",
     "src/components/*.tsx"
   ],
-  plugins: [plugin(), alloy()]
+  plugins: [plugin(), alloy()],
+  resolve: {
+    noExternal: ["@cloudflare/unenv-preset"]
+  }
 });

@@ -2,7 +2,6 @@ packages:
   - tools/*
   - packages/*
   - docs/*
-
 catalog:
   "@alloy-js/babel-plugin": ^0.2.1
   "@alloy-js/babel-plugin-jsx-dom-expressions": ^0.39.1
@@ -82,23 +81,23 @@ catalog:
   "@shell-shock/nx": ^0.0.43
   "@shell-shock/preset-cli": ^0.8.3
   "@standard-schema/spec": ^1.1.0
-  "@storm-software/build-tools": ^0.158.117
-  "@storm-software/config": ^1.135.37
-  "@storm-software/config-tools": ^1.189.36
-  "@storm-software/cspell": ^0.46.26
-  "@storm-software/esbuild": ^0.53.118
-  "@storm-software/eslint": ^0.169.125
-  "@storm-software/git-tools": ^2.129.0
-  "@storm-software/linting-tools": ^1.132.125
-  "@storm-software/markdownlint": ^0.30.111
-  "@storm-software/pnpm-tools": ^0.6.121
-  "@storm-software/prettier": ^0.59.10
-  "@storm-software/testing-tools": ^1.119.111
-  "@storm-software/tsconfig": ^0.48.25
-  "@storm-software/tsup": ^0.2.115
-  "@storm-software/unbuild": ^0.57.118
-  "@storm-software/untyped": ^0.24.99
-  "@storm-software/workspace-tools": ^1.295.12
+  "@storm-software/build-tools": ^0.158.120
+  "@storm-software/config": ^1.135.40
+  "@storm-software/config-tools": ^1.189.39
+  "@storm-software/cspell": ^0.46.29
+  "@storm-software/esbuild": ^0.53.121
+  "@storm-software/eslint": ^0.169.128
+  "@storm-software/git-tools": ^2.129.3
+  "@storm-software/linting-tools": ^1.132.128
+  "@storm-software/markdownlint": ^0.30.114
+  "@storm-software/pnpm-tools": ^0.6.124
+  "@storm-software/prettier": ^0.59.13
+  "@storm-software/testing-tools": ^1.119.114
+  "@storm-software/tsconfig": ^0.48.28
+  "@storm-software/tsup": ^0.2.118
+  "@storm-software/unbuild": ^0.57.121
+  "@storm-software/untyped": ^0.24.102
+  "@storm-software/workspace-tools": ^1.295.15
   "@stryke/capnp": ^0.12.89
   "@stryke/cli": ^0.13.35
   "@stryke/convert": ^0.6.56
@@ -217,12 +216,9 @@ catalog:
   vite: ^8.0.0
   webpack: ^5.105.4
   zx: ^8.8.5
-
 configDependencies:
   pnpm-plugin-storm-software: 0.1.4+sha512-Hegfb70ijqCc65CZwy8aLYhxrYQv3Wo+MZXqSfNAfcge7iSGYm2J3ydU5zkmf89JSvMOJy8J6lo/TMynBGvgtA==
-
 fetchTimeout: 240000
-
 minimumReleaseAgeExclude:
   - "@storm-software/*"
   - "@stryke/*"
@@ -230,7 +226,6 @@ minimumReleaseAgeExclude:
   - powerlines
   - "@earthquake/*"
   - earthquake
-
 onlyBuiltDependencies:
   - "@biomejs/biome"
   - "@deepkit/type-compiler"
@@ -252,7 +247,6 @@ onlyBuiltDependencies:
   - unrs-resolver
   - utf-8-validate
   - workerd
-
 overrides:
   "@powerlines/cli": workspace:*
   "@powerlines/core": workspace:*
@@ -328,7 +322,6 @@ overrides:
   shell-quote: ">=1.8.1"
   simple-git: ">=3.27.0"
   zod: ">=4.0.1"
-
 patchedDependencies:
   "@alloy-js/babel-plugin-jsx-dom-expressions": patches/@alloy-js__babel-plugin-jsx-dom-expressions.patch
   "@content-collections/core": patches/@content-collections__core.patch
@@ -339,9 +332,6 @@ patchedDependencies:
   "@prisma/client-generator-ts": patches/@prisma__client-generator-ts.patch
   automd: patches/automd.patch
   prisma-util: patches/prisma-util.patch
-
 shamefullyHoist: true
-
 trustPolicy: off
-
 useNodeVersion: 25.5.0
