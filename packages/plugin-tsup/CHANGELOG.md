@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.360](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.360) (03/16/2026)
+
+### Features
+
+- **core:** Rename options from `output.outputPath` to `output.path` ([6e3fec8a1](https://github.com/storm-software/powerlines/commit/6e3fec8a1))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.359**
+- Updated **core** to **v0.5.0**
+
 ## [0.12.359](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.359) (03/15/2026)
 
 ### Updated Dependencies

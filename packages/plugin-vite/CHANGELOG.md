@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.354](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.354) (03/16/2026)
+
+### Features
+
+- **core:** Rename options from `output.outputPath` to `output.path` ([6e3fec8a1](https://github.com/storm-software/powerlines/commit/6e3fec8a1))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.361**
+- Updated **plugin-esbuild** to **v0.13.359**
+- Updated **plugin-rollup** to **v0.7.359**
+- Updated **core** to **v0.5.0**
+
 ## [0.14.353](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.353) (03/15/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.4.0) (03/16/2026)
+
+### Features
+
+- **plugin-cloudflare:** Added support for `unenv` build enhancements ([fadd458c4](https://github.com/storm-software/powerlines/commit/fadd458c4))
+- **core:** Rename options from `output.outputPath` to `output.path` ([6e3fec8a1](https://github.com/storm-software/powerlines/commit/6e3fec8a1))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.359**
+- Updated **plugin-plugin** to **v0.12.307**
+- Updated **plugin-pulumi** to **v0.5.37**
+- Updated **plugin-alloy** to **v0.25.42**
+- Updated **plugin-unenv** to **v0.1.345**
+- Updated **plugin-env** to **v0.16.77**
+- Updated **powerlines** to **v0.41.21**
+
 ## [0.3.4](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.3.4) (03/15/2026)
 
 ### Updated Dependencies

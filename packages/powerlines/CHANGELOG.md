@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.41.21](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.21) (03/16/2026)
+
+### Features
+
+- **core:** Rename options from `output.outputPath` to `output.path` ([6e3fec8a1](https://github.com/storm-software/powerlines/commit/6e3fec8a1))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.361**
+- Updated **plugin-esbuild** to **v0.13.359**
+- Updated **plugin-unbuild** to **v0.5.359**
+- Updated **plugin-webpack** to **v0.5.358**
+- Updated **plugin-rollup** to **v0.7.359**
+- Updated **plugin-rspack** to **v0.5.358**
+- Updated **plugin-tsdown** to **v0.1.304**
+- Updated **plugin-tsup** to **v0.12.360**
+- Updated **plugin-vite** to **v0.14.354**
+- Updated **core** to **v0.5.0**
+
 ## [0.41.20](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.20) (03/15/2026)
 
 ### Updated Dependencies

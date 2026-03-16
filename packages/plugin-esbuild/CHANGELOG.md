@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.359](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.359) (03/16/2026)
+
+### Features
+
+- **core:** Rename options from `output.outputPath` to `output.path` ([6e3fec8a1](https://github.com/storm-software/powerlines/commit/6e3fec8a1))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.5.0**
+
 ## [0.13.358](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.358) (03/15/2026)
 
 ### Updated Dependencies
