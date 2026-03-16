@@ -17,10 +17,13 @@
  ------------------------------------------------------------------- */
 
 import { For } from "@alloy-js/core";
+import { getCloudflarePreset } from "@cloudflare/unenv-preset";
 import { render } from "@powerlines/plugin-alloy/render";
 import { readEnvTypeReflection } from "@powerlines/plugin-env/helpers";
 import { resolveModule } from "@powerlines/plugin-esbuild/helpers/resolve";
+import unenv from "@powerlines/plugin-unenv";
 import * as pulumiCloudflare from "@pulumi/cloudflare";
+import { omit } from "@stryke/helpers/omit";
 import { joinPaths, replaceExtension } from "@stryke/path";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { isFunction } from "@stryke/type-checks/is-function";
@@ -52,13 +55,23 @@ export function plugin<
   TContext extends CloudflarePluginContext = CloudflarePluginContext
 >(options: CloudflarePluginOptions = {}) {
   return [
+    unenv(options.unenv),
     {
       name: "cloudflare",
       config() {
         return {
-          cloudflare: defu(options, {}),
+          cloudflare: defu(omit(options, ["unenv"]), {}),
           resolve: {
             skipNodeModulesBundle: false
+          },
+          unenv: {
+            presets: [
+              // eslint-disable-next-line ts/no-unsafe-call
+              getCloudflarePreset({
+                compatibilityDate: this.config.compatibilityDate?.toString(),
+                compatibilityFlags: ["nodejs_als"]
+              })
+            ]
           }
         };
       },
@@ -177,10 +190,15 @@ export function plugin<
                   this.config.output.publishPath,
                   "index.js"
                 ),
-                compatibilityFlags: ["nodejs_als"]
+                module: true
               },
-              worker.metadata
-            )
+              worker.metadata,
+              {
+                compatibilityDate:
+                  this.config.compatibilityDate?.cloudflare?.toString() as string,
+                compatibilityFlags: ["nodejs_als"]
+              }
+            ) as pulumiCloudflare.WorkersScriptArgs
           );
           workerScripts.push(workerScript);
 

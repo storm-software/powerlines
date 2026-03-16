@@ -164,10 +164,12 @@
     "@cloudflare/workers-types": "catalog:",
     "@powerlines/plugin-env": "workspace:*",
     "@powerlines/plugin-pulumi": "workspace:*",
+    "@powerlines/plugin-unenv": "workspace:*",
     "@pulumi/cloudflare": "catalog:",
     "@pulumi/pulumi": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@stryke/hash": "catalog:",
+    "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
@@ -176,6 +178,7 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
+    "@cloudflare/unenv-preset": "catalog:",
     "@cloudflare/workers-types": "catalog:",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",

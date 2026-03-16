@@ -1328,6 +1328,9 @@ importers:
       '@stryke/hash':
         specifier: 'catalog:'
         version: 0.13.16(nx@22.5.2(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
+      '@stryke/helpers':
+        specifier: 'catalog:'
+        version: 0.10.6
       '@stryke/path':
         specifier: 'catalog:'
         version: 0.27.2

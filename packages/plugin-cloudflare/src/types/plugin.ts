@@ -27,6 +27,12 @@ import type {
   PulumiPluginResolvedConfig,
   PulumiPluginUserConfig
 } from "@powerlines/plugin-pulumi";
+import type {
+  UnenvPluginContext,
+  UnenvPluginOptions,
+  UnenvPluginResolvedConfig,
+  UnenvPluginUserConfig
+} from "@powerlines/plugin-unenv";
 import type { RequiredKeys } from "@stryke/types/base";
 import type { PluginContext, ResolvedEntryTypeDefinition } from "powerlines";
 import { WorkerModuleMetadata } from "./worker-module";
@@ -56,22 +62,32 @@ export interface CloudflarePluginOptions {
    * The domain to use for the Cloudflare deployed resources.
    */
   domain?: string;
+
+  /**
+   * The [unenv](https://unjs.dev/packages/unenv) plugin configuration options.
+   *
+   * @remarks
+   * The plugin will automatically include the Cloudflare preset for unenv, which provides compatibility with Cloudflare Workers runtimes. You can customize the unenv configuration by providing options here, but the Cloudflare preset will always be included.
+   */
+  unenv?: UnenvPluginOptions;
 }
 
 export type CloudflarePluginUserConfig = EnvPluginUserConfig &
-  PulumiPluginUserConfig & {
+  PulumiPluginUserConfig &
+  UnenvPluginUserConfig & {
     /**
      * Options for the Cloudflare plugin.
      */
-    cloudflare?: CloudflarePluginOptions;
+    cloudflare?: Omit<CloudflarePluginOptions, "unenv">;
   };
 
 export type CloudflarePluginResolvedConfig = EnvPluginResolvedConfig &
-  PulumiPluginResolvedConfig & {
+  PulumiPluginResolvedConfig &
+  UnenvPluginResolvedConfig & {
     /**
      * Options for the Cloudflare plugin.
      */
-    cloudflare: Required<CloudflarePluginOptions>;
+    cloudflare: Required<Omit<CloudflarePluginOptions, "unenv">>;
   };
 
 export type CloudflareWorkerMetadata = RequiredKeys<
@@ -99,6 +115,7 @@ export type CloudflarePluginContext<
     CloudflarePluginResolvedConfig
 > = PluginContext<TResolvedConfig> &
   EnvPluginContext<TResolvedConfig> &
-  PulumiPluginContext<TResolvedConfig> & {
+  PulumiPluginContext<TResolvedConfig> &
+  UnenvPluginContext<TResolvedConfig> & {
     workers: CloudflareWorkerEntryModule[];
   };
