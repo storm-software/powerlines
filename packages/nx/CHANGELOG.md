@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.285](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.285) (03/16/2026)
+
+### Bug Fixes
+
+- **nx:** Resolve issue applying output directories to Nx plugin ([6f5be1715](https://github.com/storm-software/powerlines/commit/6f5be1715))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.41.22**
+
 ## [0.11.284](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.284) (03/16/2026)
 
 ### Bug Fixes
