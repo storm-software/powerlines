@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/core%400.5.0) (03/16/2026)
+
+### Features
+
+- **core:** Rename options from `output.outputPath` to `output.path` ([6e3fec8a1](https://github.com/storm-software/powerlines/commit/6e3fec8a1))
+
 ## [0.4.0](https://github.com/storm-software/powerlines/releases/tag/core%400.4.0) (03/14/2026)
 
 ### Features

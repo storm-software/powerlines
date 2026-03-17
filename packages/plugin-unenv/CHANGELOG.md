@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unenv
 
+## [0.1.345](https://github.com/storm-software/powerlines/releases/tag/plugin-unenv%400.1.345) (03/16/2026)
+
+### Features
+
+- **core:** Rename options from `output.outputPath` to `output.path` ([6e3fec8a1](https://github.com/storm-software/powerlines/commit/6e3fec8a1))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.307**
+- Updated **powerlines** to **v0.41.21**
+
 ## [0.1.344](https://github.com/storm-software/powerlines/releases/tag/plugin-unenv%400.1.344) (03/15/2026)
 
 ### Updated Dependencies
