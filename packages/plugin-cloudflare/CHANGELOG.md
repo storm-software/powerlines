@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.5.4](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.5.4) (03/18/2026)
+
+### Features
+
+- **core:** Added `false` option to disable `publishPath` directory ([5b360830d](https://github.com/storm-software/powerlines/commit/5b360830d))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.366**
+- Updated **plugin-plugin** to **v0.12.314**
+- Updated **plugin-pulumi** to **v0.6.4**
+- Updated **plugin-alloy** to **v0.25.49**
+- Updated **plugin-unenv** to **v0.1.352**
+- Updated **plugin-env** to **v0.16.84**
+- Updated **powerlines** to **v0.42.4**
+
 ## [0.5.3](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.5.3) (03/18/2026)
 
 ### Updated Dependencies
