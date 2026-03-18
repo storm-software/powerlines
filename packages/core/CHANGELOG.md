@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.6.2](https://github.com/storm-software/powerlines/releases/tag/core%400.6.2) (03/18/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue resolving default export in config file ([009111638](https://github.com/storm-software/powerlines/commit/009111638))
+
 ## [0.6.1](https://github.com/storm-software/powerlines/releases/tag/core%400.6.1) (03/18/2026)
 
 ### Bug Fixes
