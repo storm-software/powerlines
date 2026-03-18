@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Core
 
+## [0.5.3](https://github.com/storm-software/powerlines/releases/tag/core%400.5.3) (03/18/2026)
+
+### Bug Fixes
+
+- **core:** Resolve typing issues with hook names ([9f6b662d1](https://github.com/storm-software/powerlines/commit/9f6b662d1))
+
+### Features
+
+- **plugin-cloudflare:** Add logic use the `pulumi` provider and generate DNS records ([9575007c0](https://github.com/storm-software/powerlines/commit/9575007c0))
+- **powerlines:** Rename `types` hook to `typegen` and add separate method in API ([636094b22](https://github.com/storm-software/powerlines/commit/636094b22))
+
 ## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/core%400.5.0) (03/16/2026)
 
 ### Features

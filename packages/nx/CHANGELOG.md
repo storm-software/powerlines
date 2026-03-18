@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.287](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.287) (03/18/2026)
+
+### Bug Fixes
+
+- **nx:** Resolve issue providing `configFile` option to API ([5e711fb1d](https://github.com/storm-software/powerlines/commit/5e711fb1d))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.42.0**
+
 ## [0.11.286](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.286) (03/17/2026)
 
 ### Updated Dependencies

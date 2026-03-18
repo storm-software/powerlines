@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.5.0](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.5.0) (03/18/2026)
+
+### Features
+
+- **plugin-cloudflare:** Add logic use the `pulumi` provider and generate DNS records ([9575007c0](https://github.com/storm-software/powerlines/commit/9575007c0))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.362**
+- Updated **plugin-plugin** to **v0.12.310**
+- Updated **plugin-pulumi** to **v0.6.0**
+- Updated **plugin-alloy** to **v0.25.45**
+- Updated **plugin-unenv** to **v0.1.348**
+- Updated **plugin-env** to **v0.16.80**
+- Updated **powerlines** to **v0.42.0**
+
 ## [0.4.2](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.4.2) (03/17/2026)
 
 ### Updated Dependencies

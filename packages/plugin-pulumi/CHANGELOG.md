@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.0) (03/18/2026)
+
+### Features
+
+- **plugin-pulumi:** Added the `projectSettings` and `stackSettings` plugin options ([bde52991f](https://github.com/storm-software/powerlines/commit/bde52991f))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.310**
+- Updated **powerlines** to **v0.42.0**
+- Updated **core** to **v0.5.3**
+
 ## [0.5.39](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.5.39) (03/17/2026)
 
 ### Updated Dependencies
