@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-unbuild",
-  "version": "0.5.361",
+  "version": "0.5.362",
   "private": false,
   "description": "A package containing a Powerlines plugin to build projects using Unbuild.",
   "keywords": ["unbuild", "powerlines", "storm-software", "powerlines-plugin"],

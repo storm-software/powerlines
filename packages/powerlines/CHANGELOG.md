@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.0) (03/18/2026)
+
+### Features
+
+- **powerlines:** Rename `types` hook to `typegen` and add separate method in API ([636094b22](https://github.com/storm-software/powerlines/commit/636094b22))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.364**
+- Updated **plugin-esbuild** to **v0.13.362**
+- Updated **plugin-unbuild** to **v0.5.362**
+- Updated **plugin-webpack** to **v0.5.361**
+- Updated **plugin-rollup** to **v0.7.362**
+- Updated **plugin-rspack** to **v0.5.361**
+- Updated **plugin-tsdown** to **v0.1.307**
+- Updated **plugin-tsup** to **v0.12.363**
+- Updated **plugin-vite** to **v0.14.357**
+- Updated **core** to **v0.5.3**
+
 ## [0.41.23](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.41.23) (03/17/2026)
 
 ### Bug Fixes
