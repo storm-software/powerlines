@@ -197,14 +197,14 @@ export async function loadUserConfigFile(
   }
 
   if (resolvedUserConfigFile) {
-    const resolved = await jiti.import<UserConfig | UserConfigFn>(
+    const resolved = await jiti.import<{ default: UserConfig | UserConfigFn }>(
       jiti.esmResolve(resolvedUserConfigFile)
     );
-    if (resolved) {
+    if (resolved?.default) {
       let config = {};
-      if (isFunction(resolved)) {
+      if (isFunction(resolved.default)) {
         config = await Promise.resolve(
-          resolved({
+          resolved.default({
             command,
             mode,
             framework,
@@ -212,8 +212,8 @@ export async function loadUserConfigFile(
             workspaceRoot
           })
         );
-      } else if (isSetObject(resolved)) {
-        config = resolved;
+      } else if (isSetObject(resolved.default)) {
+        config = resolved.default;
       }
 
       if (isSetObject(config)) {
