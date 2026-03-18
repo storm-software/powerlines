@@ -204,12 +204,17 @@ export class PowerlinesContext<
         skipCache: config.skipCache,
         autoInstall: config.autoInstall,
         input: config.input,
-        output: config.output,
         plugins: config.plugins,
         mode: config.mode,
         resolve: config.resolve,
         framework: config.framework,
-        ...config
+        ...config,
+        output: {
+          ...(config.output ?? {}),
+          path: config.output?.path
+            ? appendPath(config.output.path, config.root)
+            : undefined
+        }
       },
       {
         output: config.framework
@@ -1521,12 +1526,30 @@ export class PowerlinesContext<
           version: this.packageJson?.version,
           description: this.packageJson?.description,
           output: mergeConfig(config.output ?? {}, {
-            publishPath: cacheKey.root
-              ? joinPaths(
-                  this.workspaceConfig?.directories?.build || "dist",
-                  cacheKey.root
+            path: cacheKey.root
+              ? appendPath(
+                  joinPaths(cacheKey.root, "dist"),
+                  this.workspaceConfig?.workspaceRoot
                 )
-              : this.workspaceConfig?.directories?.build || "dist",
+              : undefined,
+            publishPath:
+              this.workspaceConfig?.directories?.build && cacheKey.root
+                ? appendPath(
+                    appendPath(
+                      cacheKey.root,
+                      this.workspaceConfig?.directories?.build || "dist"
+                    ),
+                    this.workspaceConfig?.workspaceRoot
+                  )
+                : cacheKey.root
+                  ? appendPath(
+                      appendPath(
+                        cacheKey.root,
+                        this.workspaceConfig?.directories?.build || "dist"
+                      ),
+                      this.workspaceConfig?.workspaceRoot
+                    )
+                  : undefined,
             artifactsPath: `.${config.framework ?? "powerlines"}`,
             dts: true,
             typegen: joinPaths(
