@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-tamagui",
-  "version": "0.1.349",
+  "version": "0.1.350",
   "private": false,
   "description": "A package containing the Tamagui plugin for Powerlines.",
   "keywords": ["tamagui", "powerlines", "storm-software", "powerlines-plugin"],

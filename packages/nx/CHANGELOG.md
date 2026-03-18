@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.288](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.288) (03/18/2026)
+
+### Features
+
+- **core:** Added support for resolver functions in configuration files ([b74d2025a](https://github.com/storm-software/powerlines/commit/b74d2025a))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.42.1**
+
 ## [0.11.287](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.287) (03/18/2026)
 
 ### Bug Fixes
