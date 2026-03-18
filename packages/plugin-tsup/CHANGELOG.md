@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.368](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.368) (03/18/2026)
+
+### Features
+
+- **core:** Renamed `output.publish` to `output.copy` in options ([79c471b31](https://github.com/storm-software/powerlines/commit/79c471b31))
+- **core:** Add `output.publish` config options ([5e932eb3b](https://github.com/storm-software/powerlines/commit/5e932eb3b))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.367**
+- Updated **core** to **v0.8.0**
+
 ## [0.12.367](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.367) (03/18/2026)
 
 ### Updated Dependencies

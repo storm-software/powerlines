@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.5) (03/18/2026)
+
+### Features
+
+- **core:** Renamed `output.publish` to `output.copy` in options ([79c471b31](https://github.com/storm-software/powerlines/commit/79c471b31))
+- **core:** Add `output.publish` config options ([5e932eb3b](https://github.com/storm-software/powerlines/commit/5e932eb3b))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.369**
+- Updated **plugin-esbuild** to **v0.13.367**
+- Updated **plugin-unbuild** to **v0.5.367**
+- Updated **plugin-webpack** to **v0.5.366**
+- Updated **plugin-rollup** to **v0.7.367**
+- Updated **plugin-rspack** to **v0.5.366**
+- Updated **plugin-tsdown** to **v0.1.312**
+- Updated **plugin-tsup** to **v0.12.368**
+- Updated **plugin-vite** to **v0.14.362**
+- Updated **core** to **v0.8.0**
+
 ## [0.42.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.4) (03/18/2026)
 
 ### Miscellaneous
