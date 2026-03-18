@@ -1647,59 +1647,72 @@ export class PowerlinesContext<
       this.config.root !== this.workspaceConfig.workspaceRoot
     ) {
       this.config.output.path ??= joinPaths(this.config.root, "dist");
-      this.config.output.publishPath ??= joinPaths("dist", this.config.root);
+      if (this.config.output.publishPath !== false) {
+        this.config.output.publishPath ??= joinPaths("dist", this.config.root);
+      }
     } else {
       this.config.output.path ??= "dist";
-      this.config.output.publishPath ??= this.config.output.path;
+      if (this.config.output.publishPath !== false) {
+        this.config.output.publishPath ??= this.config.output.path;
+      }
     }
 
-    this.config.output.assets = getUniqueBy(
-      this.config.output.assets.map(asset => {
-        return {
-          glob: isSetObject(asset) ? asset.glob : asset,
-          input:
-            isString(asset) ||
-            !asset.input ||
-            asset.input === "." ||
-            asset.input === "/" ||
-            asset.input === "./"
-              ? this.workspaceConfig.workspaceRoot
-              : isParentPath(asset.input, this.workspaceConfig.workspaceRoot) ||
-                  asset.input === this.workspaceConfig.workspaceRoot
-                ? asset.input
-                : appendPath(asset.input, this.workspaceConfig.workspaceRoot),
-          output:
-            isSetObject(asset) && asset.output
-              ? isParentPath(asset.output, this.workspaceConfig.workspaceRoot)
-                ? asset.output
-                : appendPath(
-                    joinPaths(
-                      this.config.output.publishPath,
-                      replacePath(
+    if (this.config.output.publishPath === false) {
+      this.config.output.assets = [];
+    } else {
+      this.config.output.assets = getUniqueBy(
+        this.config.output.assets.map(asset => {
+          return {
+            glob: isSetObject(asset) ? asset.glob : asset,
+            input:
+              isString(asset) ||
+              !asset.input ||
+              asset.input === "." ||
+              asset.input === "/" ||
+              asset.input === "./"
+                ? this.workspaceConfig.workspaceRoot
+                : isParentPath(
+                      asset.input,
+                      this.workspaceConfig.workspaceRoot
+                    ) || asset.input === this.workspaceConfig.workspaceRoot
+                  ? asset.input
+                  : appendPath(asset.input, this.workspaceConfig.workspaceRoot),
+            output:
+              isSetObject(asset) && asset.output
+                ? isParentPath(asset.output, this.workspaceConfig.workspaceRoot)
+                  ? asset.output
+                  : appendPath(
+                      joinPaths(
+                        this.config.output.publishPath ||
+                          this.config.output.path,
                         replacePath(
-                          asset.output,
                           replacePath(
-                            this.config.output.publishPath,
-                            this.workspaceConfig.workspaceRoot
-                          )
-                        ),
-                        this.config.output.publishPath
-                      )
-                    ),
+                            asset.output,
+                            replacePath(
+                              this.config.output.publishPath ||
+                                this.config.output.path,
+                              this.workspaceConfig.workspaceRoot
+                            )
+                          ),
+                          this.config.output.publishPath ||
+                            this.config.output.path
+                        )
+                      ),
+                      this.workspaceConfig.workspaceRoot
+                    )
+                : appendPath(
+                    this.config.output.publishPath || this.config.output.path,
                     this.workspaceConfig.workspaceRoot
-                  )
-              : appendPath(
-                  this.config.output.publishPath,
-                  this.workspaceConfig.workspaceRoot
-                ),
-          ignore:
-            isSetObject(asset) && asset.ignore
-              ? toArray(asset.ignore)
-              : undefined
-        };
-      }),
-      (a: ResolvedAssetGlob) => `${a.input}-${a.glob}-${a.output}`
-    );
+                  ),
+            ignore:
+              isSetObject(asset) && asset.ignore
+                ? toArray(asset.ignore)
+                : undefined
+          };
+        }),
+        (a: ResolvedAssetGlob) => `${a.input}-${a.glob}-${a.output}`
+      );
+    }
 
     this.config.plugins = (this.config.plugins ?? [])
       .filter(Boolean)

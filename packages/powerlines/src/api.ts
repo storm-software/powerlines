@@ -770,7 +770,10 @@ export class PowerlinesAPI<
       order: "normal"
     });
 
-    if (context.config.output.path !== context.config.output.publishPath) {
+    if (
+      context.config.output.publishPath &&
+      context.config.output.path !== context.config.output.publishPath
+    ) {
       const sourcePath = appendPath(
         context.config.output.path,
         context.workspaceConfig.workspaceRoot

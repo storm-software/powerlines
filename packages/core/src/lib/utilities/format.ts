@@ -39,13 +39,14 @@ export async function format(
 ): Promise<string> {
   if (
     !force &&
-    (isParentPath(
-      path,
-      appendPath(
-        context.config.output.publishPath,
-        context.workspaceConfig.workspaceRoot
-      )
-    ) ||
+    ((context.config.output.publishPath &&
+      isParentPath(
+        path,
+        appendPath(
+          context.config.output.publishPath,
+          context.workspaceConfig.workspaceRoot
+        )
+      )) ||
       isParentPath(
         path,
         appendPath(
@@ -78,31 +79,33 @@ export async function format(
  */
 export async function formatFolder(context: Context, path: string) {
   if (
-    !isParentPath(
+    !context.config.output.publishPath ||
+    (!isParentPath(
       path,
       appendPath(
         context.config.output.publishPath,
         context.workspaceConfig.workspaceRoot
       )
     ) &&
-    !isParentPath(
-      path,
-      appendPath(
-        context.config.output.path,
-        context.workspaceConfig.workspaceRoot
-      )
-    )
+      !isParentPath(
+        path,
+        appendPath(
+          context.config.output.path,
+          context.workspaceConfig.workspaceRoot
+        )
+      ))
   ) {
     await Promise.allSettled(
       (await listFiles(path)).map(async file => {
         if (
-          !isParentPath(
-            file,
-            appendPath(
-              context.config.output.publishPath,
-              context.workspaceConfig.workspaceRoot
-            )
-          ) &&
+          (!context.config.output.publishPath ||
+            !isParentPath(
+              file,
+              appendPath(
+                context.config.output.publishPath,
+                context.workspaceConfig.workspaceRoot
+              )
+            )) &&
           !isParentPath(
             file,
             appendPath(

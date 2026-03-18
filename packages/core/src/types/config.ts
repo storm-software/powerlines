@@ -223,7 +223,7 @@ export interface OutputConfig {
    * @remarks
    * This option is useful when a separate directory is needed for collecting distributable files that are copied from the project, such as static assets or other non-code files. When using [Nx monorepo tools](https://nx.dev/), it is common for the {@link OutputConfig.path | project's output} to be copied to the `{workspaceRoot}/dist/{root}` directory, so that all of the monorepo's output is consolidated in a single location.
    */
-  publishPath?: string;
+  publishPath?: string | false;
 
   /**
    * The folder where the generated runtime artifacts will be located

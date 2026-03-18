@@ -193,10 +193,7 @@ export function plugin<
               {
                 accountId: this.config.cloudflare.accountId,
                 scriptName: worker.metadata.name,
-                contentFile: joinPaths(
-                  this.config.output.publishPath,
-                  "index.js"
-                ),
+                contentFile: joinPaths(this.config.output.path, "index.js"),
                 module: true
               },
               worker.metadata,

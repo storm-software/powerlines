@@ -53,7 +53,8 @@ The path to the output directory for the build artifacts
 
 
 ## `publishPath`
-- **Type**: `string`
+- **Type**: `any`
+- **Default**: `{}`
 
 > Publish Path
 

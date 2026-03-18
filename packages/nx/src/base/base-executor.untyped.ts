@@ -75,9 +75,11 @@ export default defineUntypedSchema({
   publishPath: {
     $schema: {
       title: "Publish Path",
-      type: "string",
-      format: "path",
-      description: "The path to the publish directory for the build artifacts"
+      description: "The path to the publish directory for the build artifacts",
+      oneOf: [
+        { type: "string", format: "path" },
+        { type: "boolean", enum: [false] }
+      ]
     }
   },
   sourceMap: {

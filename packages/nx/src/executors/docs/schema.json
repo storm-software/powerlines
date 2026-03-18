@@ -47,10 +47,22 @@
     },
     "publishPath": {
       "title": "Publish Path",
-      "type": "string",
-      "format": "path",
       "description": "The path to the publish directory for the build artifacts",
-      "id": "#publishPath"
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "path"
+        },
+        {
+          "type": "boolean",
+          "enum": [
+            false
+          ]
+        }
+      ],
+      "id": "#publishPath",
+      "type": "any",
+      "default": {}
     },
     "sourceMap": {
       "title": "Sourcemap",
@@ -167,6 +179,7 @@
     "config": "{projectRoot}/powerlines.config.ts",
     "configFile": "{projectRoot}/powerlines.config.ts",
     "tsconfig": "{projectRoot}/tsconfig.json",
+    "publishPath": {},
     "format": [
       "cjs",
       "esm"

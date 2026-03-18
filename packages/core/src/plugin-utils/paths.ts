@@ -18,6 +18,7 @@
 
 import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { IsUndefined } from "@stryke/types/base";
 import { UnresolvedContext } from "../types/context";
 
@@ -56,7 +57,7 @@ export function replacePathTokens(
     return path as IsUndefined<typeof path> extends true ? undefined : string;
   }
 
-  return path
+  const result = path
     .replaceAll("{workspaceRoot}", context.workspaceConfig.workspaceRoot)
     .replaceAll("{root}", context.config.root)
     .replaceAll("{projectRoot}", context.config.root)
@@ -69,8 +70,7 @@ export function replacePathTokens(
     .replaceAll("{configPath}", context.envPaths.config)
     .replaceAll("{outputPath}", context.config.output.path)
     .replaceAll("{output}", context.config.output.path)
-    .replaceAll("{publishPath}", context.config.output.publishPath)
-    .replaceAll("{publish}", context.config.output.publishPath)
+
     .replaceAll(
       "{artifactsPath}",
       replacePath(context.artifactsPath, context.workspaceConfig.workspaceRoot)
@@ -83,4 +83,10 @@ export function replacePathTokens(
       "{entryPath}",
       replacePath(context.entryPath, context.workspaceConfig.workspaceRoot)
     );
+
+  return isSetString(context.config.output.publishPath)
+    ? result
+        .replaceAll("{publishPath}", context.config.output.publishPath)
+        .replaceAll("{publish}", context.config.output.publishPath)
+    : result;
 }
