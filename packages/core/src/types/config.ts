@@ -558,6 +558,7 @@ export type ParsedUserConfig<TUserConfig extends UserConfig = UserConfig> =
 
 export type PowerlinesCommand =
   | "new"
+  | "typegen"
   | "prepare"
   | "build"
   | "lint"
@@ -607,6 +608,14 @@ export type PrepareInlineConfig<TUserConfig extends UserConfig = UserConfig> =
     command: "prepare";
   };
 
+export type TypegenInlineConfig<TUserConfig extends UserConfig = UserConfig> =
+  InlineConfig<TUserConfig> & {
+    /**
+     * A string identifier for the Powerlines command being executed
+     */
+    command: "typegen";
+  };
+
 export type BuildInlineConfig<TUserConfig extends UserConfig = UserConfig> =
   InlineConfig<TUserConfig> & {
     /**
@@ -644,23 +653,34 @@ export type ConfigEnv = Pick<
   "command" | "mode" | "environments" | "preview"
 >;
 
+export type UserConfigFn<TUserConfig extends UserConfig = UserConfig> =
+  (params: {
+    projectRoot: string;
+    workspaceRoot: string;
+    mode: string;
+    framework: string;
+    command?: PowerlinesCommand;
+  }) => MaybePromise<TUserConfig>;
+
 /**
  * The configuration options for a Powerlines project, after being resolved and normalized by the configuration loading process.
  *
  * @remarks
  * This type represents the final shape of the configuration object that will be used throughout the Powerlines processes. It includes all default values, resolved paths, and normalized options. It is expected to be used in `powerlines.config.ts` files and by plugins and build processes to access the configuration options in a consistent format.
  */
-export type AnyUserConfig = Partial<Omit<UserConfig, "output" | "resolve">> & {
-  /**
-   * The output configuration options to use for the build process
-   */
-  output?: Partial<OutputConfig>;
+export type AnyUserConfig =
+  | (Partial<Omit<UserConfig, "output" | "resolve">> & {
+      /**
+       * The output configuration options to use for the build process
+       */
+      output?: Partial<OutputConfig>;
 
-  /**
-   * Configuration for module resolution during processing of the source code
-   */
-  resolve?: Partial<ResolveConfig>;
-} & Record<string, any>;
+      /**
+       * Configuration for module resolution during processing of the source code
+       */
+      resolve?: Partial<ResolveConfig>;
+    } & Record<string, any>)
+  | UserConfigFn;
 
 export interface ResolvedEntryTypeDefinition extends TypeDefinition {
   /**

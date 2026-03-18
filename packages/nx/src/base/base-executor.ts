@@ -98,7 +98,6 @@ export function withExecutor<
         defu(
           {
             configFile: options.configFile ?? options.config,
-            input: options.input,
             output: {
               path: options.outputPath,
               publishPath: options.publishPath,
@@ -112,14 +111,12 @@ export function withExecutor<
             },
             root: projectConfig.root,
             projectType: projectConfig.projectType,
-            sourceRoot: projectConfig.sourceRoot,
-            tsconfig: options.tsconfig,
-            platform: options.platform,
-            define: options.define,
-            logLevel: options.logLevel,
-            mode: options.mode
+            sourceRoot: projectConfig.sourceRoot
           },
-          options
+          options,
+          {
+            name: context.projectName
+          }
         ) as InitialUserConfig
       );
 

@@ -31,6 +31,7 @@ import type {
   ParsedUserConfig,
   PowerlinesCommand,
   UserConfig,
+  UserConfigFn,
   WorkspaceConfig
 } from "../types/config";
 import { AnyUserConfig } from "../types/config";
@@ -196,7 +197,9 @@ export async function loadUserConfigFile(
   }
 
   if (resolvedUserConfigFile) {
-    const resolved = await jiti.import(jiti.esmResolve(resolvedUserConfigFile));
+    const resolved = await jiti.import<UserConfig | UserConfigFn>(
+      jiti.esmResolve(resolvedUserConfigFile)
+    );
     if (resolved) {
       let config = {};
       if (isFunction(resolved)) {
@@ -204,10 +207,13 @@ export async function loadUserConfigFile(
           resolved({
             command,
             mode,
-            isSsrBuild: false,
-            isPreview: false
+            framework,
+            projectRoot,
+            workspaceRoot
           })
         );
+      } else if (isSetObject(config)) {
+        config = resolved;
       }
 
       if (isSetObject(config)) {
@@ -240,7 +246,7 @@ export async function loadUserConfigFile(
  * A type helper to make it easier to use `powerlines.config.ts` files.
  *
  * @remarks
- * The function accepts a direct {@link AnyUserConfig} object and returns it typed as a {@link UserConfig} object.
+ * The function accepts a direct {@link AnyUserConfig} object/function and returns it typed as a {@link UserConfig} object.
  */
 export function defineConfig(config: AnyUserConfig): UserConfig {
   return config as any;

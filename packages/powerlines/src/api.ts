@@ -37,7 +37,7 @@ import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
-import { MaybePromise } from "@stryke/types/base";
+import { MaybePromise, PartialKeys, RequiredKeys } from "@stryke/types/base";
 import chalk from "chalk";
 import Handlebars from "handlebars";
 import packageJson from "../package.json" assert { type: "json" };
@@ -79,6 +79,7 @@ import type {
   PluginContext,
   PluginFactory,
   PrepareInlineConfig,
+  TypegenInlineConfig,
   TypegenResult
 } from "./types";
 import {
@@ -186,14 +187,9 @@ export class PowerlinesAPI<
    * @param inlineConfig - The inline configuration for the typegen command
    */
   public async typegen(
-    inlineConfig:
-      | PrepareInlineConfig
-      | NewInlineConfig
-      | CleanInlineConfig
-      | BuildInlineConfig
-      | LintInlineConfig
-      | DocsInlineConfig
-      | DeployInlineConfig = { command: "prepare" }
+    inlineConfig: PartialKeys<TypegenInlineConfig, "command"> = {
+      command: "typegen"
+    }
   ) {
     this.context.info(
       " 🏗️  Generating typescript declarations for the Powerlines project"
@@ -203,7 +199,11 @@ export class PowerlinesAPI<
       " Aggregating configuration options for the Powerlines project"
     );
 
-    await this.context.withInlineConfig(inlineConfig);
+    inlineConfig.command ??= "typegen";
+
+    await this.context.withInlineConfig(
+      inlineConfig as RequiredKeys<TypegenInlineConfig, "command">
+    );
     await this.#executeEnvironments(async context => {
       context.debug(
         `Initializing the processing options for the Powerlines project.`
@@ -306,13 +306,13 @@ export class PowerlinesAPI<
    */
   public async prepare(
     inlineConfig:
-      | PrepareInlineConfig
-      | NewInlineConfig
-      | CleanInlineConfig
-      | BuildInlineConfig
-      | LintInlineConfig
-      | DocsInlineConfig
-      | DeployInlineConfig = { command: "prepare" }
+      | PartialKeys<PrepareInlineConfig, "command">
+      | PartialKeys<NewInlineConfig, "command">
+      | PartialKeys<CleanInlineConfig, "command">
+      | PartialKeys<BuildInlineConfig, "command">
+      | PartialKeys<LintInlineConfig, "command">
+      | PartialKeys<DocsInlineConfig, "command">
+      | PartialKeys<DeployInlineConfig, "command"> = { command: "prepare" }
   ) {
     this.context.info(" 🏗️  Preparing the Powerlines project");
 
@@ -320,7 +320,11 @@ export class PowerlinesAPI<
       " Aggregating configuration options for the Powerlines project"
     );
 
-    await this.context.withInlineConfig(inlineConfig);
+    inlineConfig.command ??= "prepare";
+
+    await this.context.withInlineConfig(
+      inlineConfig as RequiredKeys<PrepareInlineConfig, "command">
+    );
     await this.#executeEnvironments(async context => {
       context.debug(
         `Initializing the processing options for the Powerlines project.`
@@ -437,10 +441,14 @@ export class PowerlinesAPI<
    * @param inlineConfig - The inline configuration for the new command
    * @returns A promise that resolves when the project has been created
    */
-  public async new(inlineConfig: NewInlineConfig) {
+  public async new(inlineConfig: PartialKeys<NewInlineConfig, "command">) {
     this.context.info(" 🆕 Creating a new Powerlines project");
 
-    await this.prepare(inlineConfig);
+    inlineConfig.command ??= "new";
+
+    await this.prepare(
+      inlineConfig as RequiredKeys<NewInlineConfig, "command">
+    );
     await this.#executeEnvironments(async context => {
       context.debug(
         "Initializing the processing options for the Powerlines project."
@@ -516,13 +524,19 @@ export class PowerlinesAPI<
    * @returns A promise that resolves when the clean command has completed
    */
   public async clean(
-    inlineConfig: CleanInlineConfig | PrepareInlineConfig = {
+    inlineConfig:
+      | PartialKeys<CleanInlineConfig, "command">
+      | PartialKeys<PrepareInlineConfig, "command"> = {
       command: "clean"
     }
   ) {
     this.context.info(" 🧹 Cleaning the previous Powerlines artifacts");
 
-    await this.prepare(inlineConfig);
+    inlineConfig.command ??= "clean";
+
+    await this.prepare(
+      inlineConfig as RequiredKeys<CleanInlineConfig, "command">
+    );
     await this.#executeEnvironments(async context => {
       context.debug("Cleaning the project's dist and artifacts directories.");
 
@@ -556,11 +570,16 @@ export class PowerlinesAPI<
    * @returns A promise that resolves when the lint command has completed
    */
   public async lint(
-    inlineConfig: LintInlineConfig | BuildInlineConfig = { command: "lint" }
+    inlineConfig:
+      | PartialKeys<LintInlineConfig, "command">
+      | PartialKeys<BuildInlineConfig, "command"> = { command: "lint" }
   ) {
     this.context.info(" 📝 Linting the Powerlines project");
 
-    await this.prepare(inlineConfig);
+    inlineConfig.command ??= "lint";
+    await this.prepare(
+      inlineConfig as RequiredKeys<LintInlineConfig, "command">
+    );
     await this.#executeEnvironments(async context => {
       await this.callHook("lint", {
         environment: context,
@@ -580,7 +599,11 @@ export class PowerlinesAPI<
    * @param inlineConfig - The inline configuration for the build command
    * @returns A promise that resolves when the build command has completed
    */
-  public async build(inlineConfig: BuildInlineConfig = { command: "build" }) {
+  public async build(
+    inlineConfig: PartialKeys<BuildInlineConfig, "command"> = {
+      command: "build"
+    }
+  ) {
     this.context.info(" 📦  Building the Powerlines project");
 
     await this.context.generateChecksum();
@@ -592,7 +615,11 @@ export class PowerlinesAPI<
         "The project has been modified since the last time `prepare` was ran. Re-preparing the project."
       );
 
-      await this.prepare(inlineConfig);
+      inlineConfig.command ??= "build";
+
+      await this.prepare(
+        inlineConfig as RequiredKeys<BuildInlineConfig, "command">
+      );
     }
 
     if (this.context.config.singleBuild) {
@@ -617,13 +644,20 @@ export class PowerlinesAPI<
       " 📓 Generating documentation for the Powerlines project"
     );
 
-    await this.prepare(inlineConfig);
+    inlineConfig.command ??= "docs";
+    await this.prepare(
+      inlineConfig as RequiredKeys<DocsInlineConfig, "command">
+    );
     await this.#executeEnvironments(async context => {
       context.debug(
         "Writing documentation for the Powerlines project artifacts."
       );
 
-      await this.prepare(inlineConfig);
+      inlineConfig.command ??= "docs";
+
+      await this.prepare(
+        inlineConfig as RequiredKeys<DocsInlineConfig, "command">
+      );
       await this.#executeEnvironments(async context => {
         await this.callHook("docs", {
           environment: context
@@ -645,11 +679,17 @@ export class PowerlinesAPI<
    * @param inlineConfig - The inline configuration for the deploy command
    */
   public async deploy(
-    inlineConfig: DeployInlineConfig = { command: "deploy" }
+    inlineConfig: PartialKeys<DeployInlineConfig, "command"> = {
+      command: "deploy"
+    }
   ) {
     this.context.info(" 🚀 Deploying the Powerlines project");
 
-    await this.prepare(inlineConfig);
+    inlineConfig.command ??= "deploy";
+
+    await this.prepare(
+      inlineConfig as RequiredKeys<DeployInlineConfig, "command">
+    );
     await this.#executeEnvironments(async context => {
       await this.callHook("deploy", { environment: context });
     });
