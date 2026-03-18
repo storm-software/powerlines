@@ -18,7 +18,8 @@
 
 import {
   fullyQualifiedStackName,
-  LocalWorkspace
+  LocalWorkspace,
+  ProjectSettings
 } from "@pulumi/pulumi/automation";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import defu from "defu";
@@ -100,14 +101,23 @@ export const plugin = <
         );
 
         if (
-          this.config.pulumi.settings &&
-          Object.keys(this.config.pulumi.settings).length > 0
+          this.config.pulumi.stackSettings &&
+          Object.keys(this.config.pulumi.stackSettings).length > 0
         ) {
           await this.pulumi.workspace.saveStackSettings(
             this.pulumi.name,
-            this.config.pulumi.settings
+            this.config.pulumi.stackSettings
           );
         }
+
+        await this.pulumi.workspace.saveProjectSettings(
+          defu(this.config.pulumi.projectSettings ?? {}, {
+            name: this.config.name,
+            runtime: { name: "nodejs" },
+            description: this.config.description,
+            author: this.config.organization
+          }) as ProjectSettings
+        );
 
         this.info(`Deploying Pulumi stack: ${this.config.pulumi.stackName}`);
 

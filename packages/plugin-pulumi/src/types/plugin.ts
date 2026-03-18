@@ -19,6 +19,7 @@
 import {
   InlineProgramArgs,
   LocalWorkspaceOptions,
+  ProjectSettings,
   Stack,
   StackSettings
 } from "@pulumi/pulumi/automation";
@@ -40,7 +41,12 @@ export interface PulumiPluginOptions extends Partial<InlineProgramArgs> {
   /**
    * Additional stack settings.
    */
-  settings?: StackSettings;
+  stackSettings?: StackSettings;
+
+  /**
+   * Additional project settings.
+   */
+  projectSettings?: Partial<ProjectSettings>;
 }
 
 export interface PulumiPluginUserConfig extends UserConfig {

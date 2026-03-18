@@ -15,6 +15,7 @@
     "*.json": "jsonc"
   },
   "search.exclude": {
+    ".git/**": true,
     "**/bower_components": true,
     "**/*.code-search": true,
     "**/.tamagui": true,
@@ -98,11 +99,11 @@
   ],
   "prettier.requireConfig": true,
   "prettier.bracketSameLine": true,
-  "prettier.configPath": "./node_modules/@storm-software/prettier/config.json",
+  "prettier.configPath": "./node_modules/@storm-software/prettier/recommended.json",
   "prettier.ignorePath": "./node_modules/@storm-software/prettier/.prettierignore",
   "prettier.enableDebugLogs": false,
   "prettier.enable": true,
-  "markdownlint.configFile": "./node_modules/@storm-software/markdownlint/config/base.markdownlint-cli2.jsonc",
+  "markdownlint.configFile": "./node_modules/@storm-software/markdownlint/config/recommended.markdownlint-cli2.jsonc",
   "eslint.debug": true,
   "eslint.useRealpaths": true,
   "eslint.codeAction.disableRuleComment": {
