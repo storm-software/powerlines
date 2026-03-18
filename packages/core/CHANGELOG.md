@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/core%400.6.0) (03/18/2026)
+
+### Features
+
+- **core:** Added support for resolver functions in configuration files ([b74d2025a](https://github.com/storm-software/powerlines/commit/b74d2025a))
+
 ## [0.5.3](https://github.com/storm-software/powerlines/releases/tag/core%400.5.3) (03/18/2026)
 
 ### Bug Fixes

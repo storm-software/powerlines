@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.1) (03/18/2026)
+
+### Features
+
+- **core:** Added support for resolver functions in configuration files ([b74d2025a](https://github.com/storm-software/powerlines/commit/b74d2025a))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.365**
+- Updated **plugin-esbuild** to **v0.13.363**
+- Updated **plugin-unbuild** to **v0.5.363**
+- Updated **plugin-webpack** to **v0.5.362**
+- Updated **plugin-rollup** to **v0.7.363**
+- Updated **plugin-rspack** to **v0.5.362**
+- Updated **plugin-tsdown** to **v0.1.308**
+- Updated **plugin-tsup** to **v0.12.364**
+- Updated **plugin-vite** to **v0.14.358**
+- Updated **core** to **v0.6.0**
+
 ## [0.42.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.0) (03/18/2026)
 
 ### Features
