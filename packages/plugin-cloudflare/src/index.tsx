@@ -66,7 +66,6 @@ export function plugin<
           },
           unenv: {
             presets: [
-              // eslint-disable-next-line ts/no-unsafe-call
               getCloudflarePreset({
                 compatibilityDate: this.config.compatibilityDate?.toString(),
                 compatibilityFlags: ["nodejs_als"]
@@ -164,15 +163,23 @@ export function plugin<
           value: apiToken
         });
 
-        const zone = await pulumiCloudflare.getZone({
-          filter: {
-            account: { id: this.config.cloudflare.accountId },
-            name: this.config.cloudflare.domain
-          }
+        const provider = new pulumiCloudflare.Provider("cloudflare-provider", {
+          apiToken
         });
+
+        const zone = await pulumiCloudflare.getZone(
+          {
+            filter: {
+              account: { id: this.config.cloudflare.accountId },
+              name: this.config.cloudflare.domain
+            }
+          },
+          { provider }
+        );
 
         const workerScripts = [] as pulumiCloudflare.WorkersScript[];
         const workerRoutes = [] as pulumiCloudflare.WorkersRoute[];
+        const dnsRecords = [] as pulumiCloudflare.DnsRecord[];
         for (const worker of this.workers) {
           const workerScript = new pulumiCloudflare.WorkersScript(
             `${this.config.organization ? `${this.config.organization}.` : ""}${
@@ -198,7 +205,8 @@ export function plugin<
                   this.config.compatibilityDate?.cloudflare?.toString() as string,
                 compatibilityFlags: ["nodejs_als"]
               }
-            ) as pulumiCloudflare.WorkersScriptArgs
+            ) as pulumiCloudflare.WorkersScriptArgs,
+            { provider }
           );
           workerScripts.push(workerScript);
 
@@ -220,14 +228,36 @@ export function plugin<
                 script: workerScript.scriptName
               },
               worker.metadata
-            )
+            ),
+            { provider }
           );
           workerRoutes.push(workerRoute);
+
+          const dnsRecord = new pulumiCloudflare.DnsRecord(
+            `${this.config.organization ? `${this.config.organization}.` : ""}${
+              kebabCase(this.config.name) === kebabCase(worker.metadata.name)
+                ? kebabCase(this.config.name)
+                : `${kebabCase(this.config.name)}-${kebabCase(
+                    worker.metadata.name
+                  )}`
+            }.${kebabCase(this.config.mode)}.dns-record`,
+            {
+              name: workerRoute.pattern,
+              type: "A",
+              content: "192.0.2.1",
+              zoneId: zone.id,
+              proxied: true,
+              ttl: 1
+            },
+            { provider }
+          );
+          dnsRecords.push(dnsRecord);
         }
 
         return {
           workerScripts,
-          workerRoutes
+          workerRoutes,
+          dnsRecords
         };
       }
     }
