@@ -45,9 +45,9 @@
       "description": "The path to the output directory for the build artifacts",
       "id": "#outputPath"
     },
-    "publishPath": {
-      "title": "Publish Path",
-      "description": "The path to the publish directory for the build artifacts",
+    "copyPath": {
+      "title": "Copy Path",
+      "description": "A directory path to copy the build artifacts into",
       "oneOf": [
         {
           "type": "string",
@@ -60,7 +60,7 @@
           ]
         }
       ],
-      "id": "#publishPath",
+      "id": "#copyPath",
       "type": "any",
       "default": {}
     },
@@ -175,7 +175,7 @@
     "config": "{projectRoot}/powerlines.config.ts",
     "configFile": "{projectRoot}/powerlines.config.ts",
     "tsconfig": "{projectRoot}/tsconfig.json",
-    "publishPath": {},
+    "copyPath": {},
     "format": [
       "cjs",
       "esm"

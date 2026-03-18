@@ -771,8 +771,8 @@ export class PowerlinesAPI<
     });
 
     if (
-      context.config.output.publish &&
-      context.config.output.path !== context.config.output.publish.path
+      context.config.output.copy &&
+      context.config.output.path !== context.config.output.copy.path
     ) {
       const sourcePath = appendPath(
         context.config.output.path,
@@ -780,7 +780,7 @@ export class PowerlinesAPI<
       );
       const destinationPath = joinPaths(
         appendPath(
-          context.config.output.publish.path,
+          context.config.output.copy.path,
           context.workspaceConfig.workspaceRoot
         ),
         "dist"
@@ -790,7 +790,7 @@ export class PowerlinesAPI<
         context.debug(
           `Copying output files from project's output directory (${
             context.config.output.path
-          }) to the project's publish directory (${context.config.output.publish.path}).`
+          }) to the project's copy/publish directory (${context.config.output.copy.path}).`
         );
 
         await context.fs.copy(sourcePath, destinationPath);
@@ -798,12 +798,12 @@ export class PowerlinesAPI<
     }
 
     if (
-      context.config.output.publish &&
-      context.config.output.publish.assets &&
-      Array.isArray(context.config.output.publish.assets)
+      context.config.output.copy &&
+      context.config.output.copy.assets &&
+      Array.isArray(context.config.output.copy.assets)
     ) {
       await Promise.all(
-        context.config.output.publish.assets.map(async asset => {
+        context.config.output.copy.assets.map(async asset => {
           context.trace(
             `Copying asset(s): ${chalk.redBright(
               context.workspaceConfig.workspaceRoot === asset.input

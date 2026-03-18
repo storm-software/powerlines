@@ -39,8 +39,8 @@ import { UnresolvedContext } from "../types/context";
  * - `{configPath}` - The environment's directory for configuration files.
  * - `{output}` - The configured output directory for the project.
  * - `{outputPath}` - The configured output directory for the project.
- * - `{publish}` - The configured final/copied distribution directory for the project.
- * - `{publishPath}` - The configured final/copied distribution directory for the project.
+ * - `{copy}` - The configured final/copied distribution directory for the project.
+ * - `{copyPath}` - The configured final/copied distribution directory for the project.
  * - `{artifactsPath}` - The configured directory for build artifacts.
  * - `{builtinPath}` - The configured directory for generated built-in plugins.
  * - `{entryPath}` - The configured directory for generated entry files.
@@ -84,10 +84,10 @@ export function replacePathTokens(
       replacePath(context.entryPath, context.workspaceConfig.workspaceRoot)
     );
 
-  return context.config.output.publish &&
-    isSetString(context.config.output.publish.path)
+  return context.config.output.copy &&
+    isSetString(context.config.output.copy.path)
     ? result
-        .replaceAll("{publishPath}", context.config.output.publish.path)
-        .replaceAll("{publish}", context.config.output.publish.path)
+        .replaceAll("{copyPath}", context.config.output.copy.path)
+        .replaceAll("{copy}", context.config.output.copy.path)
     : result;
 }

@@ -72,10 +72,10 @@ export default defineUntypedSchema({
       description: "The path to the output directory for the build artifacts"
     }
   },
-  publishPath: {
+  copyPath: {
     $schema: {
-      title: "Publish Path",
-      description: "The path to the publish directory for the build artifacts",
+      title: "Copy Path",
+      description: "A directory path to copy the build artifacts into",
       oneOf: [
         { type: "string", format: "path" },
         { type: "boolean", enum: [false] }

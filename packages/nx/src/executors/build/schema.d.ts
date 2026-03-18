@@ -57,14 +57,14 @@ export interface BuildExecutorSchema {
  outputPath?: string,
 
  /**
-  * Publish Path
+  * Copy Path
   * 
-  * The path to the publish directory for the build artifacts
+  * A directory path to copy the build artifacts into
   * 
   * 
   * @oneOf [object Object],[object Object]
  */
- publishPath?: any,
+ copyPath?: any,
 
  /**
   * Sourcemap

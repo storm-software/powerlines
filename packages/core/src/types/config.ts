@@ -204,7 +204,7 @@ export interface ResolveConfig {
   skipNodeModulesBundle?: boolean;
 }
 
-export interface PublishConfig {
+export interface CopyConfig {
   /**
    * An optional path to a secondary/copied output directory for collecting distributable files prior to publishing/deployment.
    *
@@ -236,12 +236,12 @@ export interface OutputConfig {
   path?: string;
 
   /**
-   * Configuration that specifies a secondary/copied output directory for collecting distributable files prior to publishing/deployment.
+   * Configuration that specifies a secondary/copied output directory for potentially collecting distributable files prior to publishing/deployment.
    *
    * @remarks
    * These options are useful when a separate directory is needed for collecting distributable files that are copied from the project, such as static assets or other non-code files. When using [Nx monorepo tools](https://nx.dev/), it is common for the {@link OutputConfig.path | project's output} to be copied to the `{workspaceRoot}/dist/{root}` directory, so that all of the monorepo's output is consolidated in a single location.
    */
-  publish?: PublishConfig | false;
+  copy?: CopyConfig | false;
 
   /**
    * The folder where the generated runtime artifacts will be located
@@ -742,15 +742,15 @@ export type ResolveResolvedConfig = Required<
 
 export type ResolvedAssetGlob = AssetGlob & Required<Pick<AssetGlob, "input">>;
 
-export type PublishResolvedConfig = Required<Omit<PublishConfig, "assets">> & {
+export type CopyResolvedConfig = Required<Omit<CopyConfig, "assets">> & {
   assets: ResolvedAssetGlob[];
 };
 
 export type OutputResolvedConfig = Required<
-  Omit<OutputConfig, "publish" | "storage">
+  Omit<OutputConfig, "copy" | "storage">
 > &
   Pick<OutputConfig, "storage"> & {
-    publish: PublishResolvedConfig | false;
+    copy: CopyResolvedConfig | false;
   };
 
 /**

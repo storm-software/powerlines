@@ -100,7 +100,7 @@ export function withExecutor<
             configFile: options.configFile ?? options.config,
             output: {
               path: options.outputPath,
-              publish: { path: options.publishPath, assets: options.assets },
+              copy: { path: options.copyPath, assets: options.assets },
               format: options.format,
               sourceMap: options.sourceMap
             },

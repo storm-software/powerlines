@@ -52,14 +52,14 @@ The path to the tsconfig file
 The path to the output directory for the build artifacts
 
 
-## `publishPath`
+## `copyPath`
 - **Type**: `any`
 - **Default**: `{}`
 
-> Publish Path
+> Copy Path
 
 
-The path to the publish directory for the build artifacts
+A directory path to copy the build artifacts into
 
 
 ## `sourceMap`

@@ -919,12 +919,12 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       });
 
     if (
-      this.#context.config.output.publish &&
-      this.#context.config.output.publish.path
+      this.#context.config.output.copy &&
+      this.#context.config.output.copy.path
     ) {
-      this.#storage[this.#context.config.output.publish.path] ??=
+      this.#storage[this.#context.config.output.copy.path] ??=
         new FileSystemStorageAdapter(context, {
-          base: this.#context.config.output.publish.path
+          base: this.#context.config.output.copy.path
         });
     }
 

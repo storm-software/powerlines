@@ -24,7 +24,7 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { ModuleFormat } from "rolldown";
 import type { UserConfig } from "tsdown/config";
 import rolldown from "./rolldown";
-import { PublishConfig, ResolveConfig } from "./types";
+import { CopyConfig, ResolveConfig } from "./types";
 
 export {
   default as plugin,
@@ -67,7 +67,7 @@ export function unplugin(options: UserConfig = {}): UserConfig {
           format: resolveFromFormat(
             options.format as ModuleFormat | ModuleFormat[]
           ),
-          publish: {
+          copy: {
             path: options.outDir!,
             assets: toArray(options.copy)
               .map(copy => {
@@ -93,7 +93,7 @@ export function unplugin(options: UserConfig = {}): UserConfig {
                   output: copy.to
                 };
               })
-              .filter(Boolean) as PublishConfig["assets"]
+              .filter(Boolean) as CopyConfig["assets"]
           }
         },
         resolve: {

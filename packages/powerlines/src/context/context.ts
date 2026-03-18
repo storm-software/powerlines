@@ -79,6 +79,7 @@ import {
 } from "../plugin-utils";
 import type {
   Context,
+  CopyConfig,
   EmitEntryOptions,
   EmitOptions,
   FetchOptions,
@@ -91,7 +92,6 @@ import type {
   ParseOptions,
   PluginConfig,
   PowerlinesCommand,
-  PublishConfig,
   ResolveConfig,
   ResolvedAssetGlob,
   ResolvedConfig,
@@ -1535,7 +1535,7 @@ export class PowerlinesContext<
                     this.workspaceConfig?.workspaceRoot
                   )
                 : undefined,
-              publish:
+              copy:
                 this.workspaceConfig?.directories?.build && cacheKey.root
                   ? {
                       path: appendPath(
@@ -1566,7 +1566,7 @@ export class PowerlinesContext<
             },
             {
               output: {
-                publish: {
+                copy: {
                   assets: [
                     {
                       glob: "LICENSE"
@@ -1661,24 +1661,24 @@ export class PowerlinesContext<
       this.config.root !== this.workspaceConfig.workspaceRoot
     ) {
       this.config.output.path ??= joinPaths(this.config.root, "dist");
-      if (this.config.output.publish !== false) {
-        this.config.output.publish.path ??= joinPaths("dist", this.config.root);
+      if (this.config.output.copy !== false) {
+        this.config.output.copy.path ??= joinPaths("dist", this.config.root);
       }
     } else {
       this.config.output.path ??= "dist";
-      if (this.config.output.publish !== false) {
-        this.config.output.publish.path ??= this.config.output.path;
+      if (this.config.output.copy !== false) {
+        this.config.output.copy.path ??= this.config.output.path;
       }
     }
 
     if (
-      this.config.output.publish &&
-      this.config.output.publish.path &&
-      this.config.output.publish.assets &&
-      Array.isArray(this.config.output.publish.assets)
+      this.config.output.copy &&
+      this.config.output.copy.path &&
+      this.config.output.copy.assets &&
+      Array.isArray(this.config.output.copy.assets)
     ) {
-      this.config.output.publish.assets = getUniqueBy(
-        this.config.output.publish.assets.map(asset => {
+      this.config.output.copy.assets = getUniqueBy(
+        this.config.output.copy.assets.map(asset => {
           return {
             glob: isSetObject(asset) ? asset.glob : asset,
             input:
@@ -1700,23 +1700,22 @@ export class PowerlinesContext<
                   ? asset.output
                   : appendPath(
                       joinPaths(
-                        (this.config.output.publish as PublishConfig).path,
+                        (this.config.output.copy as CopyConfig).path,
                         replacePath(
                           replacePath(
                             asset.output,
                             replacePath(
-                              (this.config.output.publish as PublishConfig)
-                                .path,
+                              (this.config.output.copy as CopyConfig).path,
                               this.workspaceConfig.workspaceRoot
                             )
                           ),
-                          (this.config.output.publish as PublishConfig).path
+                          (this.config.output.copy as CopyConfig).path
                         )
                       ),
                       this.workspaceConfig.workspaceRoot
                     )
                 : appendPath(
-                    (this.config.output.publish as PublishConfig).path,
+                    (this.config.output.copy as CopyConfig).path,
                     this.workspaceConfig.workspaceRoot
                   ),
             ignore:
@@ -1767,8 +1766,8 @@ export class PowerlinesContext<
       }
     }
 
-    if (this.config.output.publish && this.config.output.publish.assets) {
-      this.config.output.publish.assets = this.config.output.publish.assets.map(
+    if (this.config.output.copy && this.config.output.copy.assets) {
+      this.config.output.copy.assets = this.config.output.copy.assets.map(
         asset => ({
           ...asset,
           glob: replacePathTokens(this, asset.glob),
