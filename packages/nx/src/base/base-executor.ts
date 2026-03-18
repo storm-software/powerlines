@@ -97,13 +97,13 @@ export function withExecutor<
         workspaceConfig.workspaceRoot,
         defu(
           {
+            configFile: options.configFile ?? options.config,
             input: options.input,
             output: {
               path: options.outputPath,
               publishPath: options.publishPath,
               format: options.format,
-              sourceMap: options.sourceMap,
-              configFile: options.configFile ?? options.config
+              sourceMap: options.sourceMap
             },
             resolve: {
               external: options.external,
