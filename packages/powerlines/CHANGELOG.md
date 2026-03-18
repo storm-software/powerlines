@@ -2,6 +2,29 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.4) (03/18/2026)
+
+### Miscellaneous
+
+- **powerlines:** Ensure the root path is appended to `output.path` if not provided ([35fcbb18f](https://github.com/storm-software/powerlines/commit/35fcbb18f))
+
+### Features
+
+- **core:** Added `false` option to disable `publishPath` directory ([5b360830d](https://github.com/storm-software/powerlines/commit/5b360830d))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.368**
+- Updated **plugin-esbuild** to **v0.13.366**
+- Updated **plugin-unbuild** to **v0.5.366**
+- Updated **plugin-webpack** to **v0.5.365**
+- Updated **plugin-rollup** to **v0.7.366**
+- Updated **plugin-rspack** to **v0.5.365**
+- Updated **plugin-tsdown** to **v0.1.311**
+- Updated **plugin-tsup** to **v0.12.367**
+- Updated **plugin-vite** to **v0.14.361**
+- Updated **core** to **v0.7.0**
+
 ## [0.42.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.3) (03/18/2026)
 
 ### Updated Dependencies

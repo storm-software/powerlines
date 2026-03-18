@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.7.0](https://github.com/storm-software/powerlines/releases/tag/core%400.7.0) (03/18/2026)
+
+### Features
+
+- **core:** Added `false` option to disable `publishPath` directory ([5b360830d](https://github.com/storm-software/powerlines/commit/5b360830d))
+
 ## [0.6.2](https://github.com/storm-software/powerlines/releases/tag/core%400.6.2) (03/18/2026)
 
 ### Bug Fixes

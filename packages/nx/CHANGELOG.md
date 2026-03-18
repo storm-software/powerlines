@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.291](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.291) (03/18/2026)
+
+### Features
+
+- **core:** Added `false` option to disable `publishPath` directory ([5b360830d](https://github.com/storm-software/powerlines/commit/5b360830d))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.42.4**
+
 ## [0.11.290](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.290) (03/18/2026)
 
 ### Updated Dependencies
