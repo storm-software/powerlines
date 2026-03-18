@@ -168,5 +168,14 @@ export default defineUntypedSchema({
     },
     $resolve: (val: Record<string, string> = {}) => val,
     $default: {}
+  },
+  assets: {
+    $schema: {
+      title: "Assets",
+      type: "any",
+      tsType:
+        "Array<{ input?: string; output?: string; glob: string; ignore?: string[]; dot?: boolean; }>",
+      description: "The `assets` values"
+    }
   }
 });

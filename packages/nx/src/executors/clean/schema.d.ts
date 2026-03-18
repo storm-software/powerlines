@@ -145,5 +145,13 @@ export interface CleanExecutorSchema {
   * 
  */
  define?: Record<string, string>,
+
+ /**
+  * Assets
+  * 
+  * The `assets` values
+  * 
+ */
+ assets?: Array<{ input?: string; output?: string; glob: string; ignore?: string[]; dot?: boolean; }>,
 }
 

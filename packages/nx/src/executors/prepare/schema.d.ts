@@ -147,6 +147,14 @@ export interface PrepareExecutorSchema {
  define?: Record<string, string>,
 
  /**
+  * Assets
+  * 
+  * The `assets` values
+  * 
+ */
+ assets?: Array<{ input?: string; output?: string; glob: string; ignore?: string[]; dot?: boolean; }>,
+
+ /**
   * Auto Install
   * 
   * Automatically install dependencies during prepare stage

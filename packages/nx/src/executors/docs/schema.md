@@ -140,6 +140,16 @@ The log level to use for the build process
 
 ## `define`
 
+## `assets`
+- **Type**: `Array<{ input?: string; output?: string; glob: string; ignore?: string[]; dot?: boolean; }>`
+- **Default**: `{}`
+
+> Assets
+
+
+The `assets` values
+
+
 ## `autoInstall`
 - **Type**: `boolean`
 

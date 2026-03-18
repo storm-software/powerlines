@@ -91,6 +91,7 @@ import type {
   ParseOptions,
   PluginConfig,
   PowerlinesCommand,
+  PublishConfig,
   ResolveConfig,
   ResolvedAssetGlob,
   ResolvedConfig,
@@ -1525,51 +1526,64 @@ export class PowerlinesContext<
           name: this.projectJson?.name || this.packageJson?.name,
           version: this.packageJson?.version,
           description: this.packageJson?.description,
-          output: mergeConfig(config.output ?? {}, {
-            path: cacheKey.root
-              ? appendPath(
-                  joinPaths(cacheKey.root, "dist"),
-                  this.workspaceConfig?.workspaceRoot
-                )
-              : undefined,
-            publishPath:
-              this.workspaceConfig?.directories?.build && cacheKey.root
+          output: mergeConfig(
+            config.output ?? {},
+            {
+              path: cacheKey.root
                 ? appendPath(
-                    appendPath(
-                      cacheKey.root,
-                      this.workspaceConfig?.directories?.build || "dist"
-                    ),
+                    joinPaths(cacheKey.root, "dist"),
                     this.workspaceConfig?.workspaceRoot
                   )
-                : cacheKey.root
-                  ? appendPath(
-                      appendPath(
-                        cacheKey.root,
-                        this.workspaceConfig?.directories?.build || "dist"
-                      ),
-                      this.workspaceConfig?.workspaceRoot
-                    )
-                  : undefined,
-            artifactsPath: `.${config.framework ?? "powerlines"}`,
-            dts: true,
-            typegen: joinPaths(
-              cacheKey.root,
-              `${config.framework ?? "powerlines"}.d.ts`
-            ),
-            assets: [
-              {
-                glob: "LICENSE"
-              },
-              {
-                input: cacheKey.root,
-                glob: "*.md"
-              },
-              {
-                input: cacheKey.root,
-                glob: "package.json"
+                : undefined,
+              publish:
+                this.workspaceConfig?.directories?.build && cacheKey.root
+                  ? {
+                      path: appendPath(
+                        appendPath(
+                          cacheKey.root,
+                          this.workspaceConfig?.directories?.build || "dist"
+                        ),
+                        this.workspaceConfig?.workspaceRoot
+                      )
+                    }
+                  : cacheKey.root
+                    ? {
+                        path: appendPath(
+                          appendPath(
+                            cacheKey.root,
+                            this.workspaceConfig?.directories?.build || "dist"
+                          ),
+                          this.workspaceConfig?.workspaceRoot
+                        )
+                      }
+                    : undefined,
+              artifactsPath: `.${config.framework ?? "powerlines"}`,
+              dts: true,
+              typegen: joinPaths(
+                cacheKey.root,
+                `${config.framework ?? "powerlines"}.d.ts`
+              )
+            },
+            {
+              output: {
+                publish: {
+                  assets: [
+                    {
+                      glob: "LICENSE"
+                    },
+                    {
+                      input: cacheKey.root,
+                      glob: "*.md"
+                    },
+                    {
+                      input: cacheKey.root,
+                      glob: "package.json"
+                    }
+                  ]
+                }
               }
-            ]
-          })
+            }
+          )
         },
         options.isHighPriority ? {} : this.#getConfigProps(config),
         {
@@ -1647,21 +1661,24 @@ export class PowerlinesContext<
       this.config.root !== this.workspaceConfig.workspaceRoot
     ) {
       this.config.output.path ??= joinPaths(this.config.root, "dist");
-      if (this.config.output.publishPath !== false) {
-        this.config.output.publishPath ??= joinPaths("dist", this.config.root);
+      if (this.config.output.publish !== false) {
+        this.config.output.publish.path ??= joinPaths("dist", this.config.root);
       }
     } else {
       this.config.output.path ??= "dist";
-      if (this.config.output.publishPath !== false) {
-        this.config.output.publishPath ??= this.config.output.path;
+      if (this.config.output.publish !== false) {
+        this.config.output.publish.path ??= this.config.output.path;
       }
     }
 
-    if (this.config.output.publishPath === false) {
-      this.config.output.assets = [];
-    } else {
-      this.config.output.assets = getUniqueBy(
-        this.config.output.assets.map(asset => {
+    if (
+      this.config.output.publish &&
+      this.config.output.publish.path &&
+      this.config.output.publish.assets &&
+      Array.isArray(this.config.output.publish.assets)
+    ) {
+      this.config.output.publish.assets = getUniqueBy(
+        this.config.output.publish.assets.map(asset => {
           return {
             glob: isSetObject(asset) ? asset.glob : asset,
             input:
@@ -1683,25 +1700,23 @@ export class PowerlinesContext<
                   ? asset.output
                   : appendPath(
                       joinPaths(
-                        this.config.output.publishPath ||
-                          this.config.output.path,
+                        (this.config.output.publish as PublishConfig).path,
                         replacePath(
                           replacePath(
                             asset.output,
                             replacePath(
-                              this.config.output.publishPath ||
-                                this.config.output.path,
+                              (this.config.output.publish as PublishConfig)
+                                .path,
                               this.workspaceConfig.workspaceRoot
                             )
                           ),
-                          this.config.output.publishPath ||
-                            this.config.output.path
+                          (this.config.output.publish as PublishConfig).path
                         )
                       ),
                       this.workspaceConfig.workspaceRoot
                     )
                 : appendPath(
-                    this.config.output.publishPath || this.config.output.path,
+                    (this.config.output.publish as PublishConfig).path,
                     this.workspaceConfig.workspaceRoot
                   ),
             ignore:
@@ -1752,16 +1767,18 @@ export class PowerlinesContext<
       }
     }
 
-    if (this.config.output.assets) {
-      this.config.output.assets = this.config.output.assets.map(asset => ({
-        ...asset,
-        glob: replacePathTokens(this, asset.glob),
-        ignore: asset.ignore
-          ? asset.ignore.map(ignore => replacePathTokens(this, ignore))
-          : undefined,
-        input: replacePathTokens(this, asset.input),
-        output: replacePathTokens(this, asset.output)
-      }));
+    if (this.config.output.publish && this.config.output.publish.assets) {
+      this.config.output.publish.assets = this.config.output.publish.assets.map(
+        asset => ({
+          ...asset,
+          glob: replacePathTokens(this, asset.glob),
+          ignore: asset.ignore
+            ? asset.ignore.map(ignore => replacePathTokens(this, ignore))
+            : undefined,
+          input: replacePathTokens(this, asset.input),
+          output: replacePathTokens(this, asset.output)
+        })
+      );
     }
 
     if (

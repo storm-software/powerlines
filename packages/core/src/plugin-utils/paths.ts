@@ -84,9 +84,10 @@ export function replacePathTokens(
       replacePath(context.entryPath, context.workspaceConfig.workspaceRoot)
     );
 
-  return isSetString(context.config.output.publishPath)
+  return context.config.output.publish &&
+    isSetString(context.config.output.publish.path)
     ? result
-        .replaceAll("{publishPath}", context.config.output.publishPath)
-        .replaceAll("{publish}", context.config.output.publishPath)
+        .replaceAll("{publishPath}", context.config.output.publish.path)
+        .replaceAll("{publish}", context.config.output.publish.path)
     : result;
 }

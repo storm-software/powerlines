@@ -39,11 +39,11 @@ export async function format(
 ): Promise<string> {
   if (
     !force &&
-    ((context.config.output.publishPath &&
+    ((context.config.output.publish &&
       isParentPath(
         path,
         appendPath(
-          context.config.output.publishPath,
+          context.config.output.publish.path,
           context.workspaceConfig.workspaceRoot
         )
       )) ||
@@ -79,11 +79,11 @@ export async function format(
  */
 export async function formatFolder(context: Context, path: string) {
   if (
-    !context.config.output.publishPath ||
+    !context.config.output.publish ||
     (!isParentPath(
       path,
       appendPath(
-        context.config.output.publishPath,
+        context.config.output.publish.path,
         context.workspaceConfig.workspaceRoot
       )
     ) &&
@@ -98,11 +98,11 @@ export async function formatFolder(context: Context, path: string) {
     await Promise.allSettled(
       (await listFiles(path)).map(async file => {
         if (
-          (!context.config.output.publishPath ||
+          (!context.config.output.publish ||
             !isParentPath(
               file,
               appendPath(
-                context.config.output.publishPath,
+                context.config.output.publish.path,
                 context.workspaceConfig.workspaceRoot
               )
             )) &&

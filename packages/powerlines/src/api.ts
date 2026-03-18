@@ -771,8 +771,8 @@ export class PowerlinesAPI<
     });
 
     if (
-      context.config.output.publishPath &&
-      context.config.output.path !== context.config.output.publishPath
+      context.config.output.publish &&
+      context.config.output.path !== context.config.output.publish.path
     ) {
       const sourcePath = appendPath(
         context.config.output.path,
@@ -780,7 +780,7 @@ export class PowerlinesAPI<
       );
       const destinationPath = joinPaths(
         appendPath(
-          context.config.output.publishPath,
+          context.config.output.publish.path,
           context.workspaceConfig.workspaceRoot
         ),
         "dist"
@@ -790,43 +790,49 @@ export class PowerlinesAPI<
         context.debug(
           `Copying output files from project's output directory (${
             context.config.output.path
-          }) to the publish output directory (${context.config.output.publishPath}).`
+          }) to the project's publish directory (${context.config.output.publish.path}).`
         );
 
         await context.fs.copy(sourcePath, destinationPath);
       }
     }
 
-    await Promise.all(
-      context.config.output.assets.map(async asset => {
-        context.trace(
-          `Copying asset(s): ${chalk.redBright(
-            context.workspaceConfig.workspaceRoot === asset.input
-              ? asset.glob
-              : appendPath(
-                  asset.glob,
-                  replacePath(
-                    asset.input,
-                    context.workspaceConfig.workspaceRoot
+    if (
+      context.config.output.publish &&
+      context.config.output.publish.assets &&
+      Array.isArray(context.config.output.publish.assets)
+    ) {
+      await Promise.all(
+        context.config.output.publish.assets.map(async asset => {
+          context.trace(
+            `Copying asset(s): ${chalk.redBright(
+              context.workspaceConfig.workspaceRoot === asset.input
+                ? asset.glob
+                : appendPath(
+                    asset.glob,
+                    replacePath(
+                      asset.input,
+                      context.workspaceConfig.workspaceRoot
+                    )
                   )
-                )
-          )} -> ${chalk.greenBright(
-            appendPath(
-              asset.glob,
-              replacePath(asset.output, context.workspaceConfig.workspaceRoot)
-            )
-          )} ${
-            Array.isArray(asset.ignore) && asset.ignore.length > 0
-              ? ` (ignoring: ${asset.ignore
-                  .map(i => chalk.yellowBright(i))
-                  .join(", ")})`
-              : ""
-          }`
-        );
+            )} -> ${chalk.greenBright(
+              appendPath(
+                asset.glob,
+                replacePath(asset.output, context.workspaceConfig.workspaceRoot)
+              )
+            )} ${
+              Array.isArray(asset.ignore) && asset.ignore.length > 0
+                ? ` (ignoring: ${asset.ignore
+                    .map(i => chalk.yellowBright(i))
+                    .join(", ")})`
+                : ""
+            }`
+          );
 
-        await context.fs.copy(asset, asset.output);
-      })
-    );
+          await context.fs.copy(asset, asset.output);
+        })
+      );
+    }
 
     await this.callHook("build", {
       environment: context,

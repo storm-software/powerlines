@@ -160,6 +160,14 @@
       "description": "The `define` values",
       "id": "#define",
       "default": {}
+    },
+    "assets": {
+      "title": "Assets",
+      "type": "any",
+      "tsType": "Array<{ input?: string; output?: string; glob: string; ignore?: string[]; dot?: boolean; }>",
+      "description": "The `assets` values",
+      "id": "#assets",
+      "default": {}
     }
   },
   "type": "object",
@@ -175,6 +183,7 @@
     "platform": "neutral",
     "external": [],
     "noExternal": [],
-    "define": {}
+    "define": {},
+    "assets": {}
   }
 }

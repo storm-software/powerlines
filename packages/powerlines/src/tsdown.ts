@@ -24,7 +24,7 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { ModuleFormat } from "rolldown";
 import type { UserConfig } from "tsdown/config";
 import rolldown from "./rolldown";
-import { OutputConfig, ResolveConfig } from "./types";
+import { PublishConfig, ResolveConfig } from "./types";
 
 export {
   default as plugin,
@@ -67,31 +67,34 @@ export function unplugin(options: UserConfig = {}): UserConfig {
           format: resolveFromFormat(
             options.format as ModuleFormat | ModuleFormat[]
           ),
-          assets: toArray(options.copy)
-            .map(copy => {
-              if (!copy) {
-                return undefined;
-              }
+          publish: {
+            path: options.outDir!,
+            assets: toArray(options.copy)
+              .map(copy => {
+                if (!copy) {
+                  return undefined;
+                }
 
-              if (isSetString(copy)) {
-                return copy;
-              }
+                if (isSetString(copy)) {
+                  return copy;
+                }
 
-              if (isFunction(copy)) {
-                // eslint-disable-next-line no-console
-                console.warn(
-                  "Function-based copy options are not supported in Powerlines."
-                );
+                if (isFunction(copy)) {
+                  // eslint-disable-next-line no-console
+                  console.warn(
+                    "Function-based copy options are not supported in Powerlines."
+                  );
 
-                return undefined;
-              }
+                  return undefined;
+                }
 
-              return {
-                input: copy.from,
-                output: copy.to
-              };
-            })
-            .filter(Boolean) as OutputConfig["assets"]
+                return {
+                  input: copy.from,
+                  output: copy.to
+                };
+              })
+              .filter(Boolean) as PublishConfig["assets"]
+          }
         },
         resolve: {
           external: options.external

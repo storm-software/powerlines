@@ -123,7 +123,9 @@ export function resolveOptions(
       name: context.config.name,
       root: context.config.root,
       projectRoot: context.config.root,
-      assets: context.config.output.assets as (string | AssetGlob)[],
+      assets: context.config.output.publish
+        ? (context.config.output.publish.assets as (string | AssetGlob)[])
+        : undefined,
       resolveExtensions: context.config.resolve.extensions,
       outputPath: context.config.output.path,
       tsconfig: context.tsconfig.tsconfigFilePath,
