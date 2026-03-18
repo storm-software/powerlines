@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.6.1](https://github.com/storm-software/powerlines/releases/tag/core%400.6.1) (03/18/2026)
+
+### Bug Fixes
+
+- **core:** Fix issue resolving user configuration file ([d72b2d79f](https://github.com/storm-software/powerlines/commit/d72b2d79f))
+
 ## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/core%400.6.0) (03/18/2026)
 
 ### Features
