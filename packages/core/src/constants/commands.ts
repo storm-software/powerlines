@@ -19,7 +19,6 @@
 export const SUPPORTED_COMMANDS = [
   "new",
   "clean",
-  "typegen",
   "prepare",
   "lint",
   "test",

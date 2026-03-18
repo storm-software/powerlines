@@ -212,7 +212,7 @@ export async function loadUserConfigFile(
             workspaceRoot
           })
         );
-      } else if (isSetObject(config)) {
+      } else if (isSetObject(resolved)) {
         config = resolved;
       }
 
