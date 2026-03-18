@@ -1651,22 +1651,22 @@ export class PowerlinesContext<
                 ? asset.output
                 : appendPath(
                     joinPaths(
-                      this.config.output.path,
+                      this.config.output.publishPath,
                       replacePath(
                         replacePath(
                           asset.output,
                           replacePath(
-                            this.config.output.path,
+                            this.config.output.publishPath,
                             this.workspaceConfig.workspaceRoot
                           )
                         ),
-                        this.config.output.path
+                        this.config.output.publishPath
                       )
                     ),
                     this.workspaceConfig.workspaceRoot
                   )
               : appendPath(
-                  this.config.output.path,
+                  this.config.output.publishPath,
                   this.workspaceConfig.workspaceRoot
                 ),
           ignore:

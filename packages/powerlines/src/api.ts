@@ -806,12 +806,12 @@ ${formatTypes(types)}
           `Copying asset(s): ${chalk.redBright(
             context.workspaceConfig.workspaceRoot === asset.input
               ? asset.glob
-              : joinPaths(
+              : appendPath(
+                  asset.glob,
                   replacePath(
                     asset.input,
                     context.workspaceConfig.workspaceRoot
-                  ),
-                  asset.glob
+                  )
                 )
           )} -> ${chalk.greenBright(
             joinPaths(
