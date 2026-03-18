@@ -79,7 +79,7 @@ import type {
   PluginContext,
   PluginFactory,
   PrepareInlineConfig,
-  TypesResult
+  TypegenResult
 } from "./types";
 import {
   API,
@@ -92,7 +92,7 @@ import {
   getParsedTypeScriptConfig,
   isIncludeMatchFound
 } from "./typescript/tsconfig";
-import { formatFolder, getTypescriptFileHeader } from "./utils";
+import { format, formatFolder, getTypescriptFileHeader } from "./utils";
 
 /**
  * The Powerlines API class
@@ -175,6 +175,125 @@ export class PowerlinesAPI<
     );
 
     return api;
+  }
+
+  /**
+   * Generate the Powerlines typescript declaration file
+   *
+   * @remarks
+   * This method will only generate the typescript declaration file for the Powerlines project. It is generally recommended to run the full `prepare` command, which will run this method as part of its process.
+   *
+   * @param inlineConfig - The inline configuration for the typegen command
+   */
+  public async typegen(
+    inlineConfig:
+      | PrepareInlineConfig
+      | NewInlineConfig
+      | CleanInlineConfig
+      | BuildInlineConfig
+      | LintInlineConfig
+      | DocsInlineConfig
+      | DeployInlineConfig = { command: "prepare" }
+  ) {
+    this.context.info(
+      " 🏗️  Generating typescript declarations for the Powerlines project"
+    );
+
+    this.context.debug(
+      " Aggregating configuration options for the Powerlines project"
+    );
+
+    await this.context.withInlineConfig(inlineConfig);
+    await this.#executeEnvironments(async context => {
+      context.debug(
+        `Initializing the processing options for the Powerlines project.`
+      );
+
+      await this.callHook("configResolved", {
+        environment: context,
+        order: "pre"
+      });
+
+      await initializeTsconfig<TResolvedConfig>(context);
+
+      await this.callHook("configResolved", {
+        environment: context,
+        order: "normal"
+      });
+
+      if (context.entry.length > 0) {
+        context.debug(
+          `The configuration provided ${
+            isObject(context.config.input)
+              ? Object.keys(context.config.input).length
+              : toArray(context.config.input).length
+          } entry point(s), Powerlines has found ${
+            context.entry.length
+          } entry files(s) for the ${context.config.title} project${
+            context.entry.length > 0 && context.entry.length < 10
+              ? `: \n${context.entry
+                  .map(
+                    entry =>
+                      `- ${entry.file}${
+                        entry.output ? ` -> ${entry.output}` : ""
+                      }`
+                  )
+                  .join(" \n")}`
+              : ""
+          }`
+        );
+      } else {
+        context.warn(
+          `No entry files were found for the ${
+            context.config.title
+          } project. Please ensure this is correct. Powerlines plugins generally require at least one entry point to function properly.`
+        );
+      }
+
+      await resolveTsconfig<TResolvedConfig>(context);
+      await installDependencies(context);
+
+      await this.callHook("configResolved", {
+        environment: context,
+        order: "post"
+      });
+
+      context.trace(
+        `Powerlines configuration has been resolved: \n\n${formatLogMessage({
+          ...context.config,
+          userConfig: isSetObject(context.config.userConfig)
+            ? omit(context.config.userConfig, ["plugins"])
+            : undefined,
+          inlineConfig: isSetObject(context.config.inlineConfig)
+            ? omit(context.config.inlineConfig, ["plugins"])
+            : undefined,
+          plugins: context.plugins.map(plugin => plugin.plugin.name)
+        })}`
+      );
+
+      if (!context.fs.existsSync(context.cachePath)) {
+        await createDirectory(context.cachePath);
+      }
+
+      if (!context.fs.existsSync(context.dataPath)) {
+        await createDirectory(context.dataPath);
+      }
+
+      await this.#typegen(context);
+
+      this.context.debug("Formatting files generated during the typegen step.");
+
+      await format(
+        context,
+        context.typegenPath,
+        (await context.fs.read(context.typegenPath)) ?? ""
+      );
+
+      await writeMetaFile(context);
+      context.persistedMeta = context.meta;
+    });
+
+    this.context.debug("✔ Powerlines typegen has completed successfully");
   }
 
   /**
@@ -292,172 +411,7 @@ export class PowerlinesAPI<
       });
 
       if (context.config.output.typegen !== false) {
-        context.debug(
-          `Preparing the TypeScript definitions for the Powerlines project.`
-        );
-
-        if (context.fs.existsSync(context.typegenPath)) {
-          await context.fs.remove(context.typegenPath);
-        }
-
-        const typescriptPath = await resolvePackage("typescript");
-        if (!typescriptPath) {
-          throw new Error(
-            "Could not resolve TypeScript package location. Please ensure TypeScript is installed."
-          );
-        }
-
-        context.debug(
-          "Running TypeScript compiler for built-in runtime module files."
-        );
-
-        let types = await emitBuiltinTypes(
-          context,
-          (await context.getBuiltins()).reduce<string[]>((ret, builtin) => {
-            const formatted = replacePath(
-              builtin.path,
-              context.workspaceConfig.workspaceRoot
-            );
-            if (!ret.includes(formatted)) {
-              ret.push(formatted);
-            }
-
-            return ret;
-          }, [])
-        );
-
-        context.debug(
-          `Generating TypeScript declaration file ${context.typegenPath}.`
-        );
-
-        const directives = [] as string[];
-        const asNextParam = (
-          previousResult: string | TypesResult | null | undefined
-        ) => (isObject(previousResult) ? previousResult.code : previousResult);
-
-        let result = await this.callHook(
-          "types",
-          {
-            environment: context,
-            sequential: true,
-            order: "pre",
-            result: "merge",
-            asNextParam
-          },
-          types
-        );
-        if (result) {
-          if (isSetObject(result)) {
-            types = result.code;
-            if (
-              Array.isArray(result.directives) &&
-              result.directives.length > 0
-            ) {
-              directives.push(...result.directives);
-            }
-          } else if (isSetString(result)) {
-            types = result;
-          }
-        }
-
-        result = await this.callHook(
-          "types",
-          {
-            environment: context,
-            sequential: true,
-            order: "normal",
-            result: "merge",
-            asNextParam
-          },
-          types
-        );
-        if (result) {
-          if (isSetObject(result)) {
-            types = result.code;
-            if (
-              Array.isArray(result.directives) &&
-              result.directives.length > 0
-            ) {
-              directives.push(...result.directives);
-            }
-          } else if (isSetString(result)) {
-            types = result;
-          }
-        }
-
-        result = await this.callHook(
-          "types",
-          {
-            environment: context,
-            sequential: true,
-            order: "post",
-            result: "merge",
-            asNextParam
-          },
-          types
-        );
-        if (result) {
-          if (isSetObject(result)) {
-            types = result.code;
-            if (
-              Array.isArray(result.directives) &&
-              result.directives.length > 0
-            ) {
-              directives.push(...result.directives);
-            }
-          } else if (isSetString(result)) {
-            types = result;
-          }
-        }
-
-        if (isSetString(types?.trim()) || directives.length > 0) {
-          await context.fs.write(
-            context.typegenPath,
-            `${
-              directives.length > 0
-                ? `${directives.map(directive => `/// <reference types="${directive}" />`).join("\n")}
-
-`
-                : ""
-            }${getTypescriptFileHeader(context, { directive: null, prettierIgnore: false })}
-
-${formatTypes(types)}
-`
-          );
-        } else {
-          const dtsRelativePath = getTsconfigDtsPath(context);
-          if (
-            context.tsconfig.tsconfigJson.include &&
-            isIncludeMatchFound(
-              dtsRelativePath,
-              context.tsconfig.tsconfigJson.include
-            )
-          ) {
-            const normalizedDtsRelativePath = dtsRelativePath.startsWith("./")
-              ? dtsRelativePath.slice(2)
-              : dtsRelativePath;
-            context.tsconfig.tsconfigJson.include =
-              context.tsconfig.tsconfigJson.include.filter(
-                includeValue =>
-                  includeValue?.toString() !== normalizedDtsRelativePath
-              );
-
-            await context.fs.write(
-              context.tsconfig.tsconfigFilePath,
-              JSON.stringify(context.tsconfig.tsconfigJson, null, 2)
-            );
-          }
-        }
-      }
-
-      // Re-resolve the tsconfig to ensure it is up to date
-      context.tsconfig = getParsedTypeScriptConfig(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        context.config.tsconfig
-      );
-      if (!context.tsconfig) {
-        throw new Error("Failed to parse the TypeScript configuration file.");
+        await this.#typegen(context);
       }
 
       this.context.debug("Formatting files generated during the prepare step.");
@@ -814,9 +768,9 @@ ${formatTypes(types)}
                   )
                 )
           )} -> ${chalk.greenBright(
-            joinPaths(
-              replacePath(asset.output, context.workspaceConfig.workspaceRoot),
-              asset.glob
+            appendPath(
+              asset.glob,
+              replacePath(asset.output, context.workspaceConfig.workspaceRoot)
             )
           )} ${
             Array.isArray(asset.ignore) && asset.ignore.length > 0
@@ -1185,6 +1139,175 @@ Note: Please ensure the plugin package's default export is a class that extends 
           );
         }
       }
+    }
+  }
+
+  /**
+   * Generate the Powerlines TypeScript declaration file
+   *
+   * @remarks
+   * This method will generate the TypeScript declaration file for the Powerlines project, including any types provided by plugins.
+   *
+   * @param context - The environment context to use for generating the TypeScript declaration file
+   * @returns A promise that resolves when the TypeScript declaration file has been generated
+   */
+  async #typegen(context: EnvironmentContext<TResolvedConfig>) {
+    context.debug(
+      `Preparing the TypeScript definitions for the Powerlines project.`
+    );
+
+    if (context.fs.existsSync(context.typegenPath)) {
+      await context.fs.remove(context.typegenPath);
+    }
+
+    const typescriptPath = await resolvePackage("typescript");
+    if (!typescriptPath) {
+      throw new Error(
+        "Could not resolve TypeScript package location. Please ensure TypeScript is installed."
+      );
+    }
+
+    context.debug(
+      "Running TypeScript compiler for built-in runtime module files."
+    );
+
+    let types = await emitBuiltinTypes(
+      context,
+      (await context.getBuiltins()).reduce<string[]>((ret, builtin) => {
+        const formatted = replacePath(
+          builtin.path,
+          context.workspaceConfig.workspaceRoot
+        );
+        if (!ret.includes(formatted)) {
+          ret.push(formatted);
+        }
+
+        return ret;
+      }, [])
+    );
+
+    context.debug(
+      `Generating TypeScript declaration file ${context.typegenPath}.`
+    );
+
+    const directives = [] as string[];
+    const asNextParam = (
+      previousResult: string | TypegenResult | null | undefined
+    ) => (isObject(previousResult) ? previousResult.code : previousResult);
+
+    let result = await this.callHook(
+      "typegen",
+      {
+        environment: context,
+        sequential: true,
+        order: "pre",
+        result: "merge",
+        asNextParam
+      },
+      types
+    );
+    if (result) {
+      if (isSetObject(result)) {
+        types = result.code;
+        if (Array.isArray(result.directives) && result.directives.length > 0) {
+          directives.push(...result.directives);
+        }
+      } else if (isSetString(result)) {
+        types = result;
+      }
+    }
+
+    result = await this.callHook(
+      "typegen",
+      {
+        environment: context,
+        sequential: true,
+        order: "normal",
+        result: "merge",
+        asNextParam
+      },
+      types
+    );
+    if (result) {
+      if (isSetObject(result)) {
+        types = result.code;
+        if (Array.isArray(result.directives) && result.directives.length > 0) {
+          directives.push(...result.directives);
+        }
+      } else if (isSetString(result)) {
+        types = result;
+      }
+    }
+
+    result = await this.callHook(
+      "typegen",
+      {
+        environment: context,
+        sequential: true,
+        order: "post",
+        result: "merge",
+        asNextParam
+      },
+      types
+    );
+    if (result) {
+      if (isSetObject(result)) {
+        types = result.code;
+        if (Array.isArray(result.directives) && result.directives.length > 0) {
+          directives.push(...result.directives);
+        }
+      } else if (isSetString(result)) {
+        types = result;
+      }
+    }
+
+    if (isSetString(types?.trim()) || directives.length > 0) {
+      await context.fs.write(
+        context.typegenPath,
+        `${
+          directives.length > 0
+            ? `${directives.map(directive => `/// <reference types="${directive}" />`).join("\n")}
+
+`
+            : ""
+        }${getTypescriptFileHeader(context, { directive: null, prettierIgnore: false })}
+
+${formatTypes(types)}
+`
+      );
+    } else {
+      const dtsRelativePath = getTsconfigDtsPath(context);
+      if (
+        context.tsconfig.tsconfigJson.include &&
+        isIncludeMatchFound(
+          dtsRelativePath,
+          context.tsconfig.tsconfigJson.include
+        )
+      ) {
+        const normalizedDtsRelativePath = dtsRelativePath.startsWith("./")
+          ? dtsRelativePath.slice(2)
+          : dtsRelativePath;
+        context.tsconfig.tsconfigJson.include =
+          context.tsconfig.tsconfigJson.include.filter(
+            includeValue =>
+              includeValue?.toString() !== normalizedDtsRelativePath
+          );
+
+        await context.fs.write(
+          context.tsconfig.tsconfigFilePath,
+          JSON.stringify(context.tsconfig.tsconfigJson, null, 2)
+        );
+      }
+    }
+
+    // Re-resolve the tsconfig to ensure it is up to date
+    context.tsconfig = getParsedTypeScriptConfig(
+      context.workspaceConfig.workspaceRoot,
+      context.config.root,
+      context.config.tsconfig
+    );
+    if (!context.tsconfig) {
+      throw new Error("Failed to parse the TypeScript configuration file.");
     }
   }
 }
