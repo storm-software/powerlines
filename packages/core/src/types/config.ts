@@ -677,6 +677,13 @@ export type UserConfigFn<TUserConfig extends UserConfig = UserConfig> =
     command?: PowerlinesCommand;
   }) => MaybePromise<TUserConfig>;
 
+export type AnyOutputUserConfig = Partial<Omit<OutputConfig, "copy">> & {
+  /**
+   * The output configuration options to use for the build process
+   */
+  copy?: Partial<OutputConfig>;
+};
+
 /**
  * The configuration options for a Powerlines project, after being resolved and normalized by the configuration loading process.
  *
@@ -688,7 +695,7 @@ export type AnyUserConfig =
       /**
        * The output configuration options to use for the build process
        */
-      output?: Partial<OutputConfig>;
+      output?: Partial<AnyOutputUserConfig>;
 
       /**
        * Configuration for module resolution during processing of the source code
