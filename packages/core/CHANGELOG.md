@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.8.1](https://github.com/storm-software/powerlines/releases/tag/core%400.8.1) (03/18/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue copying build output and assets to copy directory ([2da6241e3](https://github.com/storm-software/powerlines/commit/2da6241e3))
+
 ## [0.8.0](https://github.com/storm-software/powerlines/releases/tag/core%400.8.0) (03/18/2026)
 
 ### Features

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.370](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.370) (03/18/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue copying build output and assets to copy directory ([2da6241e3](https://github.com/storm-software/powerlines/commit/2da6241e3))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.368**
+- Updated **plugin-babel** to **v0.12.367**
+- Updated **core** to **v0.8.1**
+
 ## [0.7.369](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.369) (03/18/2026)
 
 ### Updated Dependencies

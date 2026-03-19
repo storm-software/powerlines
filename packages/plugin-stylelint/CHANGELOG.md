@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Stylelint
 
+## [0.1.369](https://github.com/storm-software/powerlines/releases/tag/plugin-stylelint%400.1.369) (03/18/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue copying build output and assets to copy directory ([2da6241e3](https://github.com/storm-software/powerlines/commit/2da6241e3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.316**
+- Updated **powerlines** to **v0.42.6**
+
 ## [0.1.368](https://github.com/storm-software/powerlines/releases/tag/plugin-stylelint%400.1.368) (03/18/2026)
 
 ### Updated Dependencies

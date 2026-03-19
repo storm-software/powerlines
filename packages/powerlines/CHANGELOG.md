@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.6](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.6) (03/18/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue copying build output and assets to copy directory ([2da6241e3](https://github.com/storm-software/powerlines/commit/2da6241e3))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.370**
+- Updated **plugin-esbuild** to **v0.13.368**
+- Updated **plugin-unbuild** to **v0.5.368**
+- Updated **plugin-webpack** to **v0.5.367**
+- Updated **plugin-rollup** to **v0.7.368**
+- Updated **plugin-rspack** to **v0.5.367**
+- Updated **plugin-tsdown** to **v0.1.313**
+- Updated **plugin-tsup** to **v0.12.369**
+- Updated **plugin-vite** to **v0.14.363**
+- Updated **core** to **v0.8.1**
+
 ## [0.42.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.5) (03/18/2026)
 
 ### Features
