@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Image Compression
 
+## [0.2.316](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.316) (03/19/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.318**
+- Updated **powerlines** to **v0.42.8**
+
 ## [0.2.315](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.315) (03/19/2026)
 
 ### Updated Dependencies
