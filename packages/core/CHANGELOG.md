@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Core
 
+## [0.8.0](https://github.com/storm-software/powerlines/releases/tag/core%400.8.0) (03/18/2026)
+
+### Features
+
+- **core:** Renamed `output.publish` to `output.copy` in options ([79c471b31](https://github.com/storm-software/powerlines/commit/79c471b31))
+- **core:** Add `output.publish` config options ([5e932eb3b](https://github.com/storm-software/powerlines/commit/5e932eb3b))
+
 ## [0.7.0](https://github.com/storm-software/powerlines/releases/tag/core%400.7.0) (03/18/2026)
 
 ### Features
