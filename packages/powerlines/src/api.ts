@@ -19,6 +19,8 @@
 import { UNSAFE_APIContext } from "@powerlines/core/types/_internal";
 import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { toArray } from "@stryke/convert/to-array";
+import { copyFiles } from "@stryke/fs/copy-file";
+import { existsSync } from "@stryke/fs/exists";
 import { createDirectory } from "@stryke/fs/helpers";
 import { install } from "@stryke/fs/install";
 import { listFiles } from "@stryke/fs/list-files";
@@ -26,6 +28,8 @@ import { isPackageExists } from "@stryke/fs/package-fns";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { omit } from "@stryke/helpers/omit";
 import { appendPath } from "@stryke/path/append";
+import { relativePath } from "@stryke/path/file-path-fns";
+import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import { isError } from "@stryke/type-checks/is-error";
@@ -612,7 +616,11 @@ export class PowerlinesAPI<
       this.context.config.skipCache
     ) {
       this.context.info(
-        "The project has been modified since the last time `prepare` was ran. Re-preparing the project."
+        !this.context.persistedMeta?.checksum
+          ? "No previous build cache found. Preparing the project for the initial build."
+          : this.context.meta.checksum !== this.context.persistedMeta.checksum
+            ? "The project has been modified since the last time `prepare` was ran. Re-preparing the project."
+            : "The project is configured to skip cache. Re-preparing the project."
       );
 
       inlineConfig.command ??= "build";
@@ -770,67 +778,96 @@ export class PowerlinesAPI<
       order: "normal"
     });
 
-    if (
-      context.config.output.copy &&
-      context.config.output.path !== context.config.output.copy.path
-    ) {
+    if (context.config.output.copy) {
+      context.debug("Copying project's files from build output directory.");
+
+      const destinationPath = isParentPath(
+        appendPath(
+          context.config.output.path,
+          context.workspaceConfig.workspaceRoot
+        ),
+        appendPath(context.config.root, context.workspaceConfig.workspaceRoot)
+      )
+        ? joinPaths(
+            context.config.output.copy.path,
+            relativePath(
+              appendPath(
+                context.config.root,
+                context.workspaceConfig.workspaceRoot
+              ),
+              appendPath(
+                context.config.output.path,
+                context.workspaceConfig.workspaceRoot
+              )
+            )
+          )
+        : joinPaths(context.config.output.copy.path, "dist");
       const sourcePath = appendPath(
         context.config.output.path,
         context.workspaceConfig.workspaceRoot
       );
-      const destinationPath = joinPaths(
-        appendPath(
-          context.config.output.copy.path,
-          context.workspaceConfig.workspaceRoot
-        ),
-        "dist"
-      );
 
-      if (context.fs.existsSync(sourcePath) && sourcePath !== destinationPath) {
+      if (existsSync(sourcePath) && sourcePath !== destinationPath) {
         context.debug(
-          `Copying output files from project's output directory (${
+          `Copying files from project's build output directory (${
             context.config.output.path
-          }) to the project's copy/publish directory (${context.config.output.copy.path}).`
+          }) to the project's copy/publish directory (${destinationPath}).`
         );
 
-        await context.fs.copy(sourcePath, destinationPath);
+        await copyFiles(sourcePath, destinationPath);
+      } else {
+        context.warn(
+          `The source path for the copy operation ${
+            !existsSync(sourcePath)
+              ? "does not exist"
+              : "is the same as the destination path"
+          }. Source: ${sourcePath}, Destination: ${
+            destinationPath
+          }. Skipping copying of build output files.`
+        );
       }
-    }
 
-    if (
-      context.config.output.copy &&
-      context.config.output.copy.assets &&
-      Array.isArray(context.config.output.copy.assets)
-    ) {
-      await Promise.all(
-        context.config.output.copy.assets.map(async asset => {
-          context.trace(
-            `Copying asset(s): ${chalk.redBright(
-              context.workspaceConfig.workspaceRoot === asset.input
-                ? asset.glob
-                : appendPath(
-                    asset.glob,
-                    replacePath(
-                      asset.input,
-                      context.workspaceConfig.workspaceRoot
+      if (
+        context.config.output.copy.assets &&
+        Array.isArray(context.config.output.copy.assets)
+      ) {
+        await Promise.all(
+          context.config.output.copy.assets.map(async asset => {
+            context.trace(
+              `Copying asset(s): ${chalk.redBright(
+                context.workspaceConfig.workspaceRoot === asset.input
+                  ? asset.glob
+                  : appendPath(
+                      asset.glob,
+                      replacePath(
+                        asset.input,
+                        context.workspaceConfig.workspaceRoot
+                      )
                     )
+              )} -> ${chalk.greenBright(
+                appendPath(
+                  asset.glob,
+                  replacePath(
+                    asset.output,
+                    context.workspaceConfig.workspaceRoot
                   )
-            )} -> ${chalk.greenBright(
-              appendPath(
-                asset.glob,
-                replacePath(asset.output, context.workspaceConfig.workspaceRoot)
-              )
-            )} ${
-              Array.isArray(asset.ignore) && asset.ignore.length > 0
-                ? ` (ignoring: ${asset.ignore
-                    .map(i => chalk.yellowBright(i))
-                    .join(", ")})`
-                : ""
-            }`
-          );
+                )
+              )} ${
+                Array.isArray(asset.ignore) && asset.ignore.length > 0
+                  ? ` (ignoring: ${asset.ignore
+                      .map(i => chalk.yellowBright(i))
+                      .join(", ")})`
+                  : ""
+              }`
+            );
 
-          await context.fs.copy(asset, asset.output);
-        })
+            await context.fs.copy(asset, asset.output);
+          })
+        );
+      }
+    } else {
+      context.debug(
+        "No copy configuration found for the project output. Skipping the copying of build output files."
       );
     }
 
@@ -838,6 +875,8 @@ export class PowerlinesAPI<
       environment: context,
       order: "post"
     });
+
+    
   }
 
   /**

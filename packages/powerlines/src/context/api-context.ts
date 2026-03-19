@@ -37,7 +37,6 @@ import type {
   InitContextOptions,
   InitialUserConfig,
   InlineConfig,
-  LogFn,
   Plugin,
   PluginContext,
   ResolvedConfig,
@@ -57,8 +56,6 @@ export class PowerlinesAPIContext<
     {};
 
   #plugins: Plugin<PluginContext<TResolvedConfig>>[] = [];
-
-  #log!: LogFn;
 
   /**
    * Create a new Storm context from the workspace root and user config.
@@ -125,14 +122,6 @@ export class PowerlinesAPIContext<
     UNSAFE_EnvironmentContext<TResolvedConfig>
   > {
     return this.#environments;
-  }
-
-  public override get log(): LogFn {
-    if (!this.#log) {
-      this.#log = this.createLog();
-    }
-
-    return this.#log;
   }
 
   public get plugins(): Array<Plugin<PluginContext<TResolvedConfig>>> {

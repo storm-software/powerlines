@@ -177,24 +177,60 @@ export function plugin<
           { provider }
         );
 
-        const workerScripts = [] as pulumiCloudflare.WorkersScript[];
-        const workerRoutes = [] as pulumiCloudflare.WorkersRoute[];
+        const workers = [] as pulumiCloudflare.Worker[];
+        const workerVersions = [] as pulumiCloudflare.WorkerVersion[];
+        const workersDeployments = [] as pulumiCloudflare.WorkersDeployment[];
+        const workersRoutes = [] as pulumiCloudflare.WorkersRoute[];
         const dnsRecords = [] as pulumiCloudflare.DnsRecord[];
         for (const worker of this.workers) {
-          const workerScript = new pulumiCloudflare.WorkersScript(
+          const resource = new pulumiCloudflare.Worker(
             `${this.config.organization ? `${this.config.organization}.` : ""}${
               kebabCase(this.config.name) === kebabCase(worker.metadata.name)
                 ? kebabCase(this.config.name)
                 : `${kebabCase(this.config.name)}.${kebabCase(
                     worker.metadata.name
                   )}`
-            }.${kebabCase(this.config.mode)}.worker-script`,
+            }.${kebabCase(this.config.mode)}.worker`,
             defu(
               {
                 accountId: this.config.cloudflare.accountId,
-                scriptName: worker.metadata.name,
-                contentFile: joinPaths(this.config.output.path, "index.js"),
-                module: true
+                name: worker.metadata.name,
+                tags: [
+                  `project:${kebabCase(this.config.name)}`,
+                  this.config.organization
+                    ? `organization:${kebabCase(this.config.organization)}`
+                    : undefined,
+                  this.config.mode
+                    ? `mode:${kebabCase(this.config.mode)}`
+                    : undefined
+                ].filter(Boolean) as string[]
+              },
+              worker.metadata
+            ) as pulumiCloudflare.WorkerArgs,
+            { provider }
+          );
+          workers.push(resource);
+
+          const workerVersion = new pulumiCloudflare.WorkerVersion(
+            `${this.config.organization ? `${this.config.organization}.` : ""}${
+              kebabCase(this.config.name) === kebabCase(worker.metadata.name)
+                ? kebabCase(this.config.name)
+                : `${kebabCase(this.config.name)}.${kebabCase(
+                    worker.metadata.name
+                  )}`
+            }.${kebabCase(this.config.mode)}.worker-version`,
+            defu(
+              {
+                accountId: this.config.cloudflare.accountId,
+                workerId: resource.id,
+                mainModule: joinPaths(this.config.output.path, "index.mjs"),
+                modules: [
+                  {
+                    name: joinPaths(this.config.output.path, "index.mjs"),
+                    contentType: "application/javascript+module",
+                    contentFile: joinPaths(this.config.output.path, "index.mjs")
+                  }
+                ]
               },
               worker.metadata,
               {
@@ -202,33 +238,55 @@ export function plugin<
                   this.config.compatibilityDate?.cloudflare?.toString() as string,
                 compatibilityFlags: ["nodejs_als"]
               }
-            ) as pulumiCloudflare.WorkersScriptArgs,
+            ) as pulumiCloudflare.WorkerVersionArgs,
             { provider }
           );
-          workerScripts.push(workerScript);
+          workerVersions.push(workerVersion);
 
-          const workerRoute = new pulumiCloudflare.WorkersRoute(
+          const workersDeployment = new pulumiCloudflare.WorkersDeployment(
             `${this.config.organization ? `${this.config.organization}.` : ""}${
               kebabCase(this.config.name) === kebabCase(worker.metadata.name)
                 ? kebabCase(this.config.name)
                 : `${kebabCase(this.config.name)}-${kebabCase(
                     worker.metadata.name
                   )}`
-            }.${kebabCase(this.config.mode)}.worker-route`,
-            defu(
-              {
-                zoneId: zone.id,
-                pattern: worker.metadata.pattern.replace(
-                  "{domain}",
-                  this.config.cloudflare.domain
-                ),
-                script: workerScript.scriptName
-              },
-              worker.metadata
-            ),
+            }.${kebabCase(this.config.mode)}.workers-deployment`,
+            defu({
+              accountId: this.config.cloudflare.accountId,
+              zoneId: zone.id,
+              strategy: "percentage",
+              scriptName: resource.name,
+              versions: [
+                {
+                  percentage: 100,
+                  versionId: workerVersion.id
+                }
+              ]
+            }),
             { provider }
           );
-          workerRoutes.push(workerRoute);
+          workersDeployments.push(workersDeployment);
+
+          const workersRoute = new pulumiCloudflare.WorkersRoute(
+            `${this.config.organization ? `${this.config.organization}.` : ""}${
+              kebabCase(this.config.name) === kebabCase(worker.metadata.name)
+                ? kebabCase(this.config.name)
+                : `${kebabCase(this.config.name)}-${kebabCase(
+                    worker.metadata.name
+                  )}`
+            }.${kebabCase(this.config.mode)}.workers-route`,
+            defu({
+              accountId: this.config.cloudflare.accountId,
+              zoneId: zone.id,
+              pattern: worker.metadata.pattern
+                .replace("{domain}", this.config.cloudflare.domain)
+                .replace("{scriptName}", worker.metadata.name)
+                .replace("{mode}", this.config.mode),
+              script: resource.name
+            }),
+            { provider }
+          );
+          workersRoutes.push(workersRoute);
 
           const dnsRecord = new pulumiCloudflare.DnsRecord(
             `${this.config.organization ? `${this.config.organization}.` : ""}${
@@ -239,7 +297,7 @@ export function plugin<
                   )}`
             }.${kebabCase(this.config.mode)}.dns-record`,
             {
-              name: workerRoute.pattern,
+              name: workersRoute.pattern,
               type: "A",
               content: "192.0.2.1",
               zoneId: zone.id,
@@ -252,8 +310,10 @@ export function plugin<
         }
 
         return {
-          workerScripts,
-          workerRoutes,
+          workers,
+          workerVersions,
+          workersDeployments,
+          workersRoutes,
           dnsRecords
         };
       }

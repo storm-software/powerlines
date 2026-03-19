@@ -46,6 +46,11 @@ export type LogLevel = "error" | "warn" | "info" | "debug" | "trace";
 
 export type LogFn = (type: LogLevelLabel, ...args: string[]) => void;
 
+export interface Logger {
+  log: LogFn;
+  level: LogLevelLabel;
+}
+
 /**
  * The {@link StormWorkspaceConfig | configuration} object for an entire Powerlines workspace
  */

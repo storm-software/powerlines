@@ -840,8 +840,8 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       this.#resolverCache = create({
         cacheId: "module-resolution",
         cacheDir: this.#context.cachePath,
-        ttl: 2 * 60 * 1000,
-        lruSize: 5000,
+        ttl: 2.5 * 60 * 1000,
+        lruSize: 8000,
         persistInterval: 100
       });
     }

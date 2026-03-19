@@ -220,8 +220,9 @@ export function resolveOptions(context: Context): BuildOptions {
           define: context.config.define,
           inject: context.config.inject,
           typescript: {
-            onlyRemoveTypeImports:
-              context.tsconfig.options.verbatimModuleSyntax,
+            onlyRemoveTypeImports: context.tsconfig.options.verbatimModuleSyntax
+              ? true
+              : undefined,
             target: context.tsconfig.options.target
           }
         }

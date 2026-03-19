@@ -80,12 +80,14 @@ import {
 import type {
   Context,
   CopyConfig,
+  CopyResolvedConfig,
   EmitEntryOptions,
   EmitOptions,
   FetchOptions,
   InitContextOptions,
   InitialUserConfig,
   LogFn,
+  Logger,
   MetaInfo,
   ParsedTypeScriptConfig,
   ParsedUserConfig,
@@ -416,11 +418,15 @@ export class PowerlinesContext<
    * The logger function
    */
   public get log(): LogFn {
-    if (!this.logFn) {
-      this.logFn = this.createLog();
+    const level = this.config.logLevel || "info";
+    if (!this.logger || this.logger.level !== level) {
+      this.logger = {
+        log: this.createLog(),
+        level
+      };
     }
 
-    return this.logFn;
+    return this.logger.log;
   }
 
   /**
@@ -1408,7 +1414,7 @@ export class PowerlinesContext<
   /**
    * A logger function specific to this context
    */
-  protected logFn!: LogFn;
+  protected logger!: Logger;
 
   /**
    * Initialize the context with the provided configuration options
@@ -1526,64 +1532,35 @@ export class PowerlinesContext<
           name: this.projectJson?.name || this.packageJson?.name,
           version: this.packageJson?.version,
           description: this.packageJson?.description,
-          output: mergeConfig(
-            config.output ?? {},
-            {
-              path: cacheKey.root
-                ? appendPath(
-                    joinPaths(cacheKey.root, "dist"),
-                    this.workspaceConfig?.workspaceRoot
-                  )
-                : undefined,
-              copy:
-                this.workspaceConfig?.directories?.build && cacheKey.root
-                  ? {
-                      path: appendPath(
-                        appendPath(
-                          cacheKey.root,
-                          this.workspaceConfig?.directories?.build || "dist"
-                        ),
-                        this.workspaceConfig?.workspaceRoot
-                      )
-                    }
-                  : cacheKey.root
-                    ? {
-                        path: appendPath(
-                          appendPath(
-                            cacheKey.root,
-                            this.workspaceConfig?.directories?.build || "dist"
-                          ),
-                          this.workspaceConfig?.workspaceRoot
-                        )
-                      }
-                    : undefined,
-              artifactsPath: `.${config.framework ?? "powerlines"}`,
-              dts: true,
-              typegen: joinPaths(
-                cacheKey.root,
-                `${config.framework ?? "powerlines"}.d.ts`
-              )
-            },
-            {
-              output: {
-                copy: {
-                  assets: [
-                    {
-                      glob: "LICENSE"
-                    },
-                    {
-                      input: cacheKey.root,
-                      glob: "*.md"
-                    },
-                    {
-                      input: cacheKey.root,
-                      glob: "package.json"
-                    }
-                  ]
+          output: mergeConfig(config.output ?? {}, {
+            path: cacheKey.root
+              ? appendPath(
+                  joinPaths(cacheKey.root, "dist"),
+                  this.workspaceConfig?.workspaceRoot
+                )
+              : undefined,
+            copy: {
+              assets: [
+                {
+                  glob: "LICENSE"
+                },
+                {
+                  input: cacheKey.root,
+                  glob: "*.md"
+                },
+                {
+                  input: cacheKey.root,
+                  glob: "package.json"
                 }
-              }
-            }
-          )
+              ]
+            },
+            artifactsPath: `.${config.framework ?? "powerlines"}`,
+            dts: true,
+            typegen: joinPaths(
+              cacheKey.root,
+              `${config.framework ?? "powerlines"}.d.ts`
+            )
+          })
         },
         options.isHighPriority ? {} : this.#getConfigProps(config),
         {
@@ -1661,14 +1638,19 @@ export class PowerlinesContext<
       this.config.root !== this.workspaceConfig.workspaceRoot
     ) {
       this.config.output.path ??= joinPaths(this.config.root, "dist");
-      if (this.config.output.copy !== false) {
-        this.config.output.copy.path ??= joinPaths("dist", this.config.root);
-      }
     } else {
       this.config.output.path ??= "dist";
-      if (this.config.output.copy !== false) {
-        this.config.output.copy.path ??= this.config.output.path;
-      }
+    }
+
+    if (this.config.root && this.config.output.copy !== false) {
+      this.config.output.copy = {
+        path: joinPaths(
+          this.workspaceConfig.workspaceRoot,
+          "dist",
+          replacePath(this.config.root, this.workspaceConfig.workspaceRoot)
+        ),
+        ...((this.config.output.copy as Partial<CopyResolvedConfig>) || {})
+      } as CopyResolvedConfig;
     }
 
     if (

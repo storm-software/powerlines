@@ -5,7 +5,7 @@
       "name": "Debug Alloy Build Script",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/kyfc6ga8ckzc0irgy69jc5slfgz1w3gk-pnpm-10.25.0/bin/pnpm",
+      "program": "/nix/store/wi8a8qhcyqh3inzkbkgn53f0xhx4zi6g-pnpm-10.30.3/bin/pnpm",
       "args": [
         "nx",
         "run",
@@ -19,13 +19,12 @@
       "name": "Debug Env Build Script",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/kyfc6ga8ckzc0irgy69jc5slfgz1w3gk-pnpm-10.25.0/bin/pnpm",
+      "program": "/nix/store/wi8a8qhcyqh3inzkbkgn53f0xhx4zi6g-pnpm-10.30.3/bin/pnpm",
       "args": [
         "nx",
         "run",
         "plugin-env:build:development",
-        "--outputStyle=dynamic-legacy",
-        "--skipNxCache"
+        "--outputStyle=dynamic-legacy"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
