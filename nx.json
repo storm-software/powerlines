@@ -1,5 +1,5 @@
 {
-  "extends": "@storm-software/workspace-tools/config/base.json",
+  "extends": "@storm-software/workspace-tools/config/recommended.json",
   "release": {
     "groups": {
       "packages": {
