@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.8.2](https://github.com/storm-software/powerlines/releases/tag/core%400.8.2) (03/19/2026)
+
+### Bug Fixes
+
+- **core:** Ensure `AnyUserConfig` output field is deeply partial ([b206710bc](https://github.com/storm-software/powerlines/commit/b206710bc))
+
 ## [0.8.1](https://github.com/storm-software/powerlines/releases/tag/core%400.8.1) (03/18/2026)
 
 ### Bug Fixes
