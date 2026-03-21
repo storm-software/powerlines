@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.316](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.316) (03/21/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update workspace dependencies and monorepo project name ([e4272372c](https://github.com/storm-software/powerlines/commit/e4272372c))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.373**
+- Updated **core** to **v0.8.4**
+
 ## [0.1.315](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.315) (03/19/2026)
 
 ### Updated Dependencies
