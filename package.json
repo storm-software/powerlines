@@ -43,7 +43,7 @@
     "graph": "nx graph",
     "help": "nx help",
     "lint": "pnpm exec zx tools/scripts/src/lint.mjs",
-    "local-registry": "nx local-registry @powerlines/monorepo",
+    "local-registry": "nx local-registry monorepo",
     "nuke": "pnpm exec zx tools/scripts/src/nuke.mjs",
     "nx": "nx",
     "postinstall": "pnpm bootstrap",
@@ -118,6 +118,6 @@
       "release"
     ]
   },
-  "prettier": "@storm-software/prettier/config.json",
+  "prettier": "@storm-software/prettier/recommended.json",
   "triggerEmptyDevReleaseByIncrementingThisNumber": 0
 }

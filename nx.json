@@ -33,5 +33,6 @@
       }
     },
     "./dist/tools/nx/dist/index.js"
-  ]
+  ],
+  "analytics": false
 }

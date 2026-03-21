@@ -28,7 +28,7 @@ try {
   }
 
   let proc =
-    $`pnpm exec storm-git readme --templates="tools/readme-templates" --project="@powerlines/monorepo"`.timeout(
+    $`pnpm exec storm-git readme --templates="tools/readme-templates" --project=monorepo`.timeout(
       `${30 * 60}s`
     );
   proc.stdout.on("data", data => {
@@ -42,7 +42,7 @@ try {
   }
 
   proc =
-    $`pnpm nx run-many --target=format --all --exclude="@powerlines/monorepo" --outputStyle=dynamic-legacy --parallel=5`.timeout(
+    $`pnpm nx run-many --target=format --all --exclude=monorepo --outputStyle=dynamic-legacy --parallel=5`.timeout(
       `${30 * 60}s`
     );
   proc.stdout.on("data", data => {

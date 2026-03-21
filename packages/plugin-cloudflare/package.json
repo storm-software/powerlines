@@ -188,6 +188,6 @@
     "access": "public"
   },
   "inlinedDependencies": {
-    "@cloudflare/unenv-preset": "2.15.0"
+    "@cloudflare/unenv-preset": "2.16.0"
   }
 }

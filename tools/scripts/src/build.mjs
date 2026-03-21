@@ -140,7 +140,7 @@ try {
         // }
 
         proc =
-          $`pnpm nx run-many --target=build --exclude="@powerlines/monorepo,examples-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+          $`pnpm nx run-many --target=build --exclude="monorepo,examples-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
             `${10 * 60}s`
           );
         proc.stdout.on("data", data => {

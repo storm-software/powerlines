@@ -56,7 +56,6 @@ import { create, FlatCache } from "flat-cache";
 import { Blob } from "node:buffer";
 import { PathOrFileDescriptor } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { ResolverFactory } from "oxc-resolver";
 import { FileId, FileMetadata, FileSystem } from "../../schemas/fs";
 import { replacePathTokens } from "../plugin-utils";
 import { FileSystemStorageAdapter } from "../storage/file-system";
@@ -203,12 +202,12 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    */
   #storage: StoragePort;
 
-  /**
-   * The resolver factory used during module resolution within the virtual file system.
-   *
-   * @see https://github.com/oxc-project/oxc-resolver
-   */
-  #resolver!: ResolverFactory;
+  // /**
+  //  * The resolver factory used during module resolution within the virtual file system.
+  //  *
+  //  * @see https://github.com/oxc-project/oxc-resolver
+  //  */
+  // #resolver!: ResolverFactory;
 
   /**
    * A cache for module resolution results.
@@ -453,21 +452,21 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           // Do nothing
         }
 
-        if (!result) {
-          let index = 0;
-          do {
-            const resolveResult = await this.resolver.async(
-              (paths.length > index ? paths[index] : undefined) ||
-                this.#context.config.root,
-              path
-            );
-            if (resolveResult.path) {
-              result = resolveResult.path;
-            }
+        // if (!result) {
+        //   let index = 0;
+        //   do {
+        //     const resolveResult = await this.resolver.async(
+        //       (paths.length > index ? paths[index] : undefined) ||
+        //         this.#context.config.root,
+        //       path
+        //     );
+        //     if (resolveResult.path) {
+        //       result = resolveResult.path;
+        //     }
 
-            index++;
-          } while (!result && index < paths.length);
-        }
+        //     index++;
+        //   } while (!result && index < paths.length);
+        // }
       }
     }
 
@@ -580,21 +579,21 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           // Do nothing
         }
 
-        if (!result) {
-          let index = 0;
-          do {
-            const resolveResult = this.resolver.sync(
-              (paths.length > index ? paths[index] : undefined) ||
-                this.#context.config.root,
-              path
-            );
-            if (resolveResult.path) {
-              result = resolveResult.path;
-            }
+        // if (!result) {
+        //   let index = 0;
+        //   do {
+        //     const resolveResult = this.resolver.sync(
+        //       (paths.length > index ? paths[index] : undefined) ||
+        //         this.#context.config.root,
+        //       path
+        //     );
+        //     if (resolveResult.path) {
+        //       result = resolveResult.path;
+        //     }
 
-            index++;
-          } while (!result && index < paths.length);
-        }
+        //     index++;
+        //   } while (!result && index < paths.length);
+        // }
       }
     }
 
@@ -849,48 +848,48 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     return this.#resolverCache;
   }
 
-  /**
-   * The resolver factory used during module resolution within the virtual file system.
-   *
-   * @remarks
-   * This resolver is configured with the workspace root, project root, TypeScript configuration, alias mappings, and other resolution options specified in the context. It is lazily initialized on first access to optimize performance.
-   *
-   * @see https://github.com/oxc-project/oxc-resolver
-   */
-  protected get resolver(): ResolverFactory {
-    if (!this.#resolver) {
-      this.#resolver = new ResolverFactory({
-        roots: [
-          this.#context.workspaceConfig.workspaceRoot,
-          appendPath(
-            this.#context.config.root,
-            this.#context.workspaceConfig.workspaceRoot
-          )
-        ],
-        tsconfig: {
-          configFile: this.#context.tsconfig.tsconfigFilePath,
-          references:
-            this.#context.tsconfig.projectReferences &&
-            this.#context.tsconfig.projectReferences.length > 0
-              ? "auto"
-              : undefined
-        },
-        alias: Object.fromEntries(
-          Object.entries(this.#context.alias).map(([key, value]) => [
-            key,
-            [value]
-          ])
-        ),
-        extensions: this.#context.config.resolve.extensions,
-        mainFields: this.#context.config.resolve.mainFields,
-        conditionNames: this.#context.config.resolve.conditions,
-        symlinks: this.#context.config.resolve.preserveSymlinks,
-        allowPackageExportsInDirectoryResolve: true
-      });
-    }
+  // /**
+  //  * The resolver factory used during module resolution within the virtual file system.
+  //  *
+  //  * @remarks
+  //  * This resolver is configured with the workspace root, project root, TypeScript configuration, alias mappings, and other resolution options specified in the context. It is lazily initialized on first access to optimize performance.
+  //  *
+  //  * @see https://github.com/oxc-project/oxc-resolver
+  //  */
+  // protected get resolver(): ResolverFactory {
+  //   if (!this.#resolver) {
+  //     this.#resolver = new ResolverFactory({
+  //       roots: [
+  //         this.#context.workspaceConfig.workspaceRoot,
+  //         appendPath(
+  //           this.#context.config.root,
+  //           this.#context.workspaceConfig.workspaceRoot
+  //         )
+  //       ],
+  //       tsconfig: {
+  //         configFile: this.#context.tsconfig.tsconfigFilePath,
+  //         references:
+  //           this.#context.tsconfig.projectReferences &&
+  //           this.#context.tsconfig.projectReferences.length > 0
+  //             ? "auto"
+  //             : undefined
+  //       },
+  //       alias: Object.fromEntries(
+  //         Object.entries(this.#context.alias).map(([key, value]) => [
+  //           key,
+  //           [value]
+  //         ])
+  //       ),
+  //       extensions: this.#context.config.resolve.extensions,
+  //       mainFields: this.#context.config.resolve.mainFields,
+  //       conditionNames: this.#context.config.resolve.conditions,
+  //       symlinks: this.#context.config.resolve.preserveSymlinks,
+  //       allowPackageExportsInDirectoryResolve: true
+  //     });
+  //   }
 
-    return this.#resolver;
-  }
+  //   return this.#resolver;
+  // }
 
   /**
    * Creates a new instance of the {@link VirtualFileSystem}.
