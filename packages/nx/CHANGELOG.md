@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.295](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.295) (03/19/2026)
+
+### Bug Fixes
+
+- **nx:** Ensure helper/library files are bundled properly ([85a49a5aa](https://github.com/storm-software/powerlines/commit/85a49a5aa))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.42.8**
+
 ## [0.11.294](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.294) (03/19/2026)
 
 ### Updated Dependencies
