@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-untyped",
-  "version": "0.2.321",
+  "version": "0.2.322",
   "type": "module",
   "description": "A Powerlines plugin to use Untyped for code generation based on user-defined schemas.",
   "repository": {

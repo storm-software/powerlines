@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.10](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.10) (03/22/2026)
+
+### Features
+
+- **core:** Rename `typegen` to `types` to align with other CLI tools ([ab1696e65](https://github.com/storm-software/powerlines/commit/ab1696e65))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.374**
+- Updated **plugin-esbuild** to **v0.13.372**
+- Updated **plugin-unbuild** to **v0.5.372**
+- Updated **plugin-webpack** to **v0.5.371**
+- Updated **plugin-rollup** to **v0.7.372**
+- Updated **plugin-rspack** to **v0.5.371**
+- Updated **plugin-tsdown** to **v0.1.317**
+- Updated **plugin-tsup** to **v0.12.373**
+- Updated **plugin-vite** to **v0.14.367**
+- Updated **core** to **v0.9.0**
+
 ## [0.42.9](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.9) (03/21/2026)
 
 ### Bug Fixes

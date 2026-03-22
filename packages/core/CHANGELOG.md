@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.9.0](https://github.com/storm-software/powerlines/releases/tag/core%400.9.0) (03/22/2026)
+
+### Features
+
+- **core:** Rename `typegen` to `types` to align with other CLI tools ([ab1696e65](https://github.com/storm-software/powerlines/commit/ab1696e65))
+
 ## [0.8.2](https://github.com/storm-software/powerlines/releases/tag/core%400.8.2) (03/19/2026)
 
 ### Bug Fixes
