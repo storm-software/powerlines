@@ -224,7 +224,7 @@ export class PowerlinesContext<
           ? {
               artifactsPath: `.${config.framework ?? "powerlines"}`,
               dts: true,
-              typegen: joinPaths(
+              types: joinPaths(
                 config.root ?? this.config.root,
                 `${config.framework ?? "powerlines"}.d.ts`
               )
@@ -533,10 +533,10 @@ export class PowerlinesContext<
   /**
    * Get the path to the generated declaration file for the project
    */
-  public get typegenPath(): string {
-    return this.config.output.typegen
+  public get typesPath(): string {
+    return this.config.output.types
       ? appendPath(
-          this.config.output.typegen,
+          this.config.output.types,
           this.workspaceConfig.workspaceRoot
         )
       : joinPaths(
@@ -1556,7 +1556,7 @@ export class PowerlinesContext<
             },
             artifactsPath: `.${config.framework ?? "powerlines"}`,
             dts: true,
-            typegen: joinPaths(
+            types: joinPaths(
               cacheKey.root,
               `${config.framework ?? "powerlines"}.d.ts`
             )
@@ -1625,8 +1625,8 @@ export class PowerlinesContext<
       )
     );
 
-    if (this.config.output.dts !== false && !this.config.output.typegen) {
-      this.config.output.typegen = `${
+    if (this.config.output.dts !== false && !this.config.output.types) {
+      this.config.output.types = `${
         this.config.root ? `${this.config.root}/` : ""
       }${this.config.framework ?? "powerlines"}.d.ts`;
     }
@@ -1734,14 +1734,14 @@ export class PowerlinesContext<
       this.config.tsconfig = replacePathTokens(this, this.config.tsconfig);
     }
 
-    if (this.config.output.typegen) {
-      if (isSetString(this.config.output.typegen)) {
-        this.config.output.typegen = replacePathTokens(
+    if (this.config.output.types) {
+      if (isSetString(this.config.output.types)) {
+        this.config.output.types = replacePathTokens(
           this,
-          this.config.output.typegen
+          this.config.output.types
         );
       } else {
-        this.config.output.typegen = joinPaths(
+        this.config.output.types = joinPaths(
           this.config.root,
           `${this.config.framework ?? "powerlines"}.d.ts`
         );

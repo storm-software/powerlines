@@ -50,7 +50,7 @@ export const PLUGIN_HOOKS_FIELDS = [
   "config",
   "configEnvironment",
   "configResolved",
-  "typegen",
+  "types",
   "buildStart",
   "buildEnd",
   "transform",

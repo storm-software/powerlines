@@ -271,7 +271,7 @@ export interface OutputConfig {
    *
    * @defaultValue "\{root\}/powerlines.d.ts"
    */
-  typegen?: string | false;
+  types?: string | false;
 
   /**
    * The module format of the output files
@@ -573,7 +573,7 @@ export type ParsedUserConfig<TUserConfig extends UserConfig = UserConfig> =
 
 export type PowerlinesCommand =
   | "new"
-  | "typegen"
+  | "types"
   | "prepare"
   | "build"
   | "lint"
@@ -623,12 +623,12 @@ export type PrepareInlineConfig<TUserConfig extends UserConfig = UserConfig> =
     command: "prepare";
   };
 
-export type TypegenInlineConfig<TUserConfig extends UserConfig = UserConfig> =
+export type TypesInlineConfig<TUserConfig extends UserConfig = UserConfig> =
   InlineConfig<TUserConfig> & {
     /**
      * A string identifier for the Powerlines command being executed
      */
-    command: "typegen";
+    command: "types";
   };
 
 export type BuildInlineConfig<TUserConfig extends UserConfig = UserConfig> =

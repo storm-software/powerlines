@@ -83,8 +83,8 @@ import type {
   PluginContext,
   PluginFactory,
   PrepareInlineConfig,
-  TypegenInlineConfig,
-  TypegenResult
+  TypesInlineConfig,
+  TypesResult
 } from "./types";
 import {
   API,
@@ -188,11 +188,11 @@ export class PowerlinesAPI<
    * @remarks
    * This method will only generate the typescript declaration file for the Powerlines project. It is generally recommended to run the full `prepare` command, which will run this method as part of its process.
    *
-   * @param inlineConfig - The inline configuration for the typegen command
+   * @param inlineConfig - The inline configuration for the types command
    */
-  public async typegen(
-    inlineConfig: PartialKeys<TypegenInlineConfig, "command"> = {
-      command: "typegen"
+  public async types(
+    inlineConfig: PartialKeys<TypesInlineConfig, "command"> = {
+      command: "types"
     }
   ) {
     this.context.info(
@@ -203,10 +203,10 @@ export class PowerlinesAPI<
       " Aggregating configuration options for the Powerlines project"
     );
 
-    inlineConfig.command ??= "typegen";
+    inlineConfig.command ??= "types";
 
     await this.context.withInlineConfig(
-      inlineConfig as RequiredKeys<TypegenInlineConfig, "command">
+      inlineConfig as RequiredKeys<TypesInlineConfig, "command">
     );
     await this.#executeEnvironments(async context => {
       context.debug(
@@ -283,21 +283,21 @@ export class PowerlinesAPI<
         await createDirectory(context.dataPath);
       }
 
-      await this.#typegen(context);
+      await this.#types(context);
 
-      this.context.debug("Formatting files generated during the typegen step.");
+      this.context.debug("Formatting files generated during the types step.");
 
       await format(
         context,
-        context.typegenPath,
-        (await context.fs.read(context.typegenPath)) ?? ""
+        context.typesPath,
+        (await context.fs.read(context.typesPath)) ?? ""
       );
 
       await writeMetaFile(context);
       context.persistedMeta = context.meta;
     });
 
-    this.context.debug("✔ Powerlines typegen has completed successfully");
+    this.context.debug("✔ Powerlines types generation has completed successfully");
   }
 
   /**
@@ -418,8 +418,8 @@ export class PowerlinesAPI<
         order: "post"
       });
 
-      if (context.config.output.typegen !== false) {
-        await this.#typegen(context);
+      if (context.config.output.types !== false) {
+        await this.#types(context);
       }
 
       this.context.debug("Formatting files generated during the prepare step.");
@@ -876,7 +876,7 @@ export class PowerlinesAPI<
       order: "post"
     });
 
-    
+
   }
 
   /**
@@ -1239,13 +1239,13 @@ Note: Please ensure the plugin package's default export is a class that extends 
    * @param context - The environment context to use for generating the TypeScript declaration file
    * @returns A promise that resolves when the TypeScript declaration file has been generated
    */
-  async #typegen(context: EnvironmentContext<TResolvedConfig>) {
+  async #types(context: EnvironmentContext<TResolvedConfig>) {
     context.debug(
       `Preparing the TypeScript definitions for the Powerlines project.`
     );
 
-    if (context.fs.existsSync(context.typegenPath)) {
-      await context.fs.remove(context.typegenPath);
+    if (context.fs.existsSync(context.typesPath)) {
+      await context.fs.remove(context.typesPath);
     }
 
     const typescriptPath = await resolvePackage("typescript");
@@ -1275,16 +1275,16 @@ Note: Please ensure the plugin package's default export is a class that extends 
     );
 
     context.debug(
-      `Generating TypeScript declaration file ${context.typegenPath}.`
+      `Generating TypeScript declaration file ${context.typesPath}.`
     );
 
     const directives = [] as string[];
     const asNextParam = (
-      previousResult: string | TypegenResult | null | undefined
+      previousResult: string | TypesResult | null | undefined
     ) => (isObject(previousResult) ? previousResult.code : previousResult);
 
     let result = await this.callHook(
-      "typegen",
+      "types",
       {
         environment: context,
         sequential: true,
@@ -1306,7 +1306,7 @@ Note: Please ensure the plugin package's default export is a class that extends 
     }
 
     result = await this.callHook(
-      "typegen",
+      "types",
       {
         environment: context,
         sequential: true,
@@ -1328,7 +1328,7 @@ Note: Please ensure the plugin package's default export is a class that extends 
     }
 
     result = await this.callHook(
-      "typegen",
+      "types",
       {
         environment: context,
         sequential: true,
@@ -1351,7 +1351,7 @@ Note: Please ensure the plugin package's default export is a class that extends 
 
     if (isSetString(types?.trim()) || directives.length > 0) {
       await context.fs.write(
-        context.typegenPath,
+        context.typesPath,
         `${
           directives.length > 0
             ? `${directives.map(directive => `/// <reference types="${directive}" />`).join("\n")}

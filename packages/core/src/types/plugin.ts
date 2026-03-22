@@ -66,9 +66,9 @@ export type PluginHook<
 > = THookFunction | PluginHookObject<THookFunction, TFilter>;
 
 /**
- * A result returned by the plugin from the `typegen` hook that describes the declaration types output file.
+ * A result returned by the plugin from the `types` hook that describes the declaration types output file.
  */
-export interface TypegenResult {
+export interface TypesResult {
   directives?: string[];
   code: string;
 }
@@ -128,10 +128,10 @@ export interface Hooks<TContext extends PluginContext> {
    * @param code - The source code to generate types for.
    * @returns A promise that resolves when the hook is complete.
    */
-  typegen: (
+  types: (
     this: TContext,
     code: string
-  ) => MaybePromise<TypegenResult | string | undefined | null>;
+  ) => MaybePromise<TypesResult | string | undefined | null>;
 
   /**
    * A hook that is called at the start of the build process.
