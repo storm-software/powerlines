@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-pulumi",
-  "version": "0.6.9",
+  "version": "0.6.10",
   "private": false,
   "description": "A Powerlines plugin to transform source code to be platform agnostic using pulumi.",
   "keywords": ["pulumi", "powerlines", "storm-software", "powerlines-plugin"],
