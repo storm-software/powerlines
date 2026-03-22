@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - CLI
 
+## [0.1.55](https://github.com/storm-software/powerlines/releases/tag/cli%400.1.55) (03/22/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update `pnpm-lock.yaml` file ([9c01ec1e8](https://github.com/storm-software/powerlines/commit/9c01ec1e8))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.42.11**
+
 ## [0.1.40](https://github.com/storm-software/powerlines/releases/tag/cli%400.1.40) (03/14/2026)
 
 ### Miscellaneous

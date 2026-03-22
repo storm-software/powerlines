@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.92](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.92) (03/22/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue merging configuration prior to resolving ([bc26a3658](https://github.com/storm-software/powerlines/commit/bc26a3658))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.249**
+- Updated **plugin-automd** to **v0.1.370**
+- Updated **plugin-plugin** to **v0.12.321**
+- Updated **plugin-alloy** to **v0.25.57**
+- Updated **plugin-babel** to **v0.12.372**
+- Updated **powerlines** to **v0.42.11**
+- Updated **deepkit** to **v0.6.149**
+
 ## [0.16.91](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.91) (03/22/2026)
 
 ### Updated Dependencies
