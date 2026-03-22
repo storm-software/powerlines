@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.14](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.14) (03/22/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue setting `meta` field on context ([0dc6d6d6a](https://github.com/storm-software/powerlines/commit/0dc6d6d6a))
+
 ## [0.42.13](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.13) (03/22/2026)
 
 ### Bug Fixes
