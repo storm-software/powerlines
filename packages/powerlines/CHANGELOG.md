@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.13](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.13) (03/22/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with stack overflow error in `copyTo` method ([280b5f3ff](https://github.com/storm-software/powerlines/commit/280b5f3ff))
+
 ## [0.42.12](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.12) (03/22/2026)
 
 ### Features
