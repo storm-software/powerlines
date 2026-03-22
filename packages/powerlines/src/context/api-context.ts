@@ -133,6 +133,24 @@ export class PowerlinesAPIContext<
   }
 
   /**
+   * Creates a clone of the current context with the same configuration and workspace settings. This can be useful for running multiple builds in parallel or for creating isolated contexts for different parts of the build process.
+   *
+   * @remarks
+   * The cloned context will have the same configuration and workspace settings as the original context, but will have a different build ID, release ID, and timestamp. The virtual file system and caches will also be separate between the original and cloned contexts.
+   *
+   * @returns A promise that resolves to the cloned context.
+   */
+  public override async clone(): Promise<APIContext<TResolvedConfig>> {
+    const clone = await PowerlinesAPIContext.from<TResolvedConfig>(
+      this.workspaceConfig.workspaceRoot,
+      this.config
+    );
+    await clone.withUserConfig(this.config);
+
+    return this.copyTo(clone) as APIContext<TResolvedConfig>;
+  }
+
+  /**
    * Initialize the context with the provided configuration options
    *
    * @param config - The partial user configuration to use for initialization.

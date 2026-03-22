@@ -26,6 +26,7 @@ import { readJsonFile } from "@stryke/fs/json";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { murmurhash } from "@stryke/hash";
 import { hashDirectory } from "@stryke/hash/node";
+import { deepClone } from "@stryke/helpers/deep-clone";
 import { getUnique, getUniqueBy } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
 import { fetchRequest } from "@stryke/http/fetch";
@@ -245,7 +246,7 @@ export class PowerlinesContext<
   >(
     workspaceRoot: string,
     config: InitialUserConfig<TResolvedConfig["userConfig"]>
-  ): Promise<Context> {
+  ): Promise<Context<TResolvedConfig>> {
     const context = new PowerlinesContext<TResolvedConfig>(
       await loadWorkspaceConfig(workspaceRoot, config.root)
     );
@@ -669,6 +670,24 @@ export class PowerlinesContext<
         return typeDefinition;
       })
       .filter(Boolean);
+  }
+
+  /**
+   * Creates a clone of the current context with the same configuration and workspace settings. This can be useful for running multiple builds in parallel or for creating isolated contexts for different parts of the build process.
+   *
+   * @remarks
+   * The cloned context will have the same configuration and workspace settings as the original context, but will have a different build ID, release ID, and timestamp. The virtual file system and caches will also be separate between the original and cloned contexts.
+   *
+   * @returns A promise that resolves to the cloned context.
+   */
+  public async clone(): Promise<Context<TResolvedConfig>> {
+    const clone = await PowerlinesContext.from<TResolvedConfig>(
+      this.workspaceConfig.workspaceRoot,
+      this.config
+    );
+    await clone.withUserConfig(this.config);
+
+    return this.copyTo(clone);
   }
 
   /**
@@ -1411,6 +1430,41 @@ export class PowerlinesContext<
    * A logger function specific to this context
    */
   protected logger!: Logger;
+
+  /**
+   * Creates a clone of the current context with the same configuration and workspace settings. This can be useful for running multiple builds in parallel or for creating isolated contexts for different parts of the build process.
+   *
+   * @remarks
+   * The cloned context will have the same configuration and workspace settings as the original context, but will have a different build ID, release ID, and timestamp. The virtual file system and caches will also be separate between the original and cloned contexts.
+   *
+   * @returns The cloned context.
+   */
+  protected copyTo(
+    context: Context<TResolvedConfig>
+  ): Context<TResolvedConfig> {
+    context.dependencies = deepClone<typeof this.dependencies>(
+      this.dependencies
+    );
+    context.devDependencies = deepClone<typeof this.devDependencies>(
+      this.devDependencies
+    );
+    context.meta = deepClone<typeof this.meta>(this.meta);
+    context.persistedMeta = this.persistedMeta
+      ? deepClone<typeof this.persistedMeta>(this.persistedMeta)
+      : undefined;
+    context.packageJson = deepClone<typeof this.packageJson>(this.packageJson);
+    context.projectJson = this.projectJson
+      ? deepClone<typeof this.projectJson>(this.projectJson)
+      : undefined;
+    context.tsconfig = deepClone<typeof this.tsconfig>(
+      this.tsconfig
+    ) as ParsedTypeScriptConfig;
+
+    (context as PowerlinesContext<TResolvedConfig>).$$internal =
+      this.$$internal;
+
+    return context;
+  }
 
   /**
    * Initialize the context with the provided configuration options

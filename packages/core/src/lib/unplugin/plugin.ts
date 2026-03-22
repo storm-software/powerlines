@@ -41,9 +41,9 @@ export interface CreateUnpluginResolverOptions extends CreateUnpluginModuleResol
    * A name to use for the unplugin instance. This is used for logging and to generate the plugin name. It does not affect the functionality of the plugin.
    *
    * @remarks
-   * If not provided, the plugin will be named "unplugin". If provided, the plugin will be named `${name} - Unplugin` (e.g., "MyPlugin - Unplugin").
+   * If not provided, the plugin will be named "powerlines". If provided, the plugin will be named `${name} - Powerlines` (e.g., "MyPlugin - Powerlines").
    *
-   * @defaultValue "unplugin"
+   * @defaultValue "powerlines"
    */
   name?: string;
 }
@@ -63,18 +63,11 @@ export function createUnpluginResolver<
   const ctx = context as unknown as UNSAFE_PluginContext;
   setParseImpl(ctx.parse);
 
-  const name = options.name || "unplugin";
+  const name = options.name || "powerlines";
 
   return () => {
     const log = extendLog(ctx.log, name);
-    log(
-      LogLevelLabel.DEBUG,
-      `Initializing ${
-        name.toLowerCase() === "unplugin"
-          ? "Unplugin"
-          : `${titleCase(name)} - Unplugin`
-      } plugin`
-    );
+    log(LogLevelLabel.DEBUG, `Initializing ${titleCase(name)} plugin`);
 
     try {
       const { resolveId, load } =
@@ -82,7 +75,7 @@ export function createUnpluginResolver<
 
       return {
         name:
-          name.toLowerCase() === "unplugin"
+          name.toLowerCase() === "powerlines"
             ? "powerlines"
             : `powerlines:${kebabCase(name)}`,
         api: ctx.$$internal.api,
@@ -112,18 +105,11 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
   const ctx = context as unknown as UNSAFE_PluginContext;
   setParseImpl(ctx.parse);
 
-  const name = options.name || "unplugin";
+  const name = options.name || "powerlines";
 
   return () => {
     const log = extendLog(ctx.log, name);
-    log(
-      LogLevelLabel.DEBUG,
-      `Initializing ${
-        name.toLowerCase() === "unplugin"
-          ? "Unplugin"
-          : `${titleCase(name)} - Unplugin`
-      } plugin`
-    );
+    log(LogLevelLabel.DEBUG, `Initializing ${titleCase(name)} plugin`);
 
     try {
       const { resolveId, load } =
@@ -178,7 +164,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
 
       return {
         name:
-          name.toLowerCase() === "unplugin"
+          name.toLowerCase() === "powerlines"
             ? "powerlines"
             : `powerlines:${kebabCase(name)}`,
         api: ctx.$$internal.api,

@@ -105,3 +105,8 @@ export type UnpluginFactory<TContext extends Context = Context> = (
   options: Partial<TContext["config"]["userConfig"]>,
   meta: UnpluginContextMeta
 ) => UnpluginOptions<TContext>;
+
+export type UnpluginAsyncFactory<TContext extends Context = Context> = (
+  options: Partial<TContext["config"]["userConfig"]>,
+  meta: UnpluginContextMeta
+) => Promise<UnpluginOptions<TContext>>;

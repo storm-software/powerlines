@@ -591,6 +591,14 @@ export type Context<TResolvedConfig extends ResolvedConfig = ResolvedConfig> =
      * The fully resolved Powerlines configuration
      */
     config: TResolvedConfig;
+
+    /**
+     * A function to create a deep clone of the context
+     *
+     * @remarks
+     * This function is used to create a copy of the context for a specific environment, allowing for environment-specific modifications without affecting the global context.
+     */
+    clone: () => Promise<Context<TResolvedConfig>>;
   };
 
 export interface APIContext<
@@ -679,6 +687,14 @@ export interface APIContext<
    * @returns A promise that resolves to the merged environment context.
    */
   toEnvironment: () => Promise<EnvironmentContext<TResolvedConfig>>;
+
+  /**
+   * A function to create a deep clone of the context
+   *
+   * @remarks
+   * This function is used to create a copy of the context for a specific environment, allowing for environment-specific modifications without affecting the global context.
+   */
+  clone: () => Promise<APIContext<TResolvedConfig>>;
 }
 
 export interface EnvironmentContextPlugin<
@@ -733,6 +749,14 @@ export interface EnvironmentContext<
     key: TKey,
     options?: SelectHooksOptions
   ) => SelectHookResult<PluginContext<TResolvedConfig>, TKey>;
+
+  /**
+   * A function to create a deep clone of the context
+   *
+   * @remarks
+   * This function is used to create a copy of the context for a specific environment, allowing for environment-specific modifications without affecting the global context.
+   */
+  clone: () => Promise<EnvironmentContext<TResolvedConfig>>;
 }
 
 export interface PluginContext<
@@ -751,6 +775,14 @@ export interface PluginContext<
    * This is provided for compatibility with other logging libraries that expect a `logger` property.
    */
   logger: LogFn;
+
+  /**
+   * A function to create a deep clone of the context
+   *
+   * @remarks
+   * This function is used to create a copy of the context for a specific environment, allowing for environment-specific modifications without affecting the global context.
+   */
+  clone: () => Promise<PluginContext<TResolvedConfig>>;
 }
 
 export type BuildPluginContext<

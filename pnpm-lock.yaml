@@ -163,17 +163,17 @@ catalogs:
       specifier: ^1.7.9
       version: 1.7.9
     '@shell-shock/core':
-      specifier: ^0.13.7
-      version: 0.13.7
+      specifier: ^0.13.8
+      version: 0.13.8
     '@shell-shock/eslint-plugin':
-      specifier: ^0.0.45
-      version: 0.0.45
+      specifier: ^0.0.46
+      version: 0.0.46
     '@shell-shock/nx':
-      specifier: ^0.0.51
-      version: 0.0.51
+      specifier: ^0.0.52
+      version: 0.0.52
     '@shell-shock/preset-cli':
-      specifier: ^0.8.10
-      version: 0.8.10
+      specifier: ^0.8.11
+      version: 0.8.11
     '@standard-schema/spec':
       specifier: ^1.1.0
       version: 1.1.0
@@ -672,7 +672,7 @@ importers:
         version: 22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))
       '@shell-shock/nx':
         specifier: 'catalog:'
-        version: 0.0.51(bdfadb96ed9f232d088934c8bf8cfed7)
+        version: 0.0.52(bdfadb96ed9f232d088934c8bf8cfed7)
       '@storm-software/config':
         specifier: 'catalog:'
         version: 1.137.0
@@ -786,17 +786,17 @@ importers:
     dependencies:
       '@shell-shock/core':
         specifier: 'catalog:'
-        version: 0.13.7(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
+        version: 0.13.8(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
       '@shell-shock/preset-cli':
         specifier: 'catalog:'
-        version: 0.8.10(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
+        version: 0.8.11(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
       powerlines:
         specifier: workspace:*
         version: link:../powerlines
     devDependencies:
       '@shell-shock/eslint-plugin':
         specifier: 'catalog:'
-        version: 0.0.45(4ded05cabc62d4522a1b5e77bb3c17c7)
+        version: 0.0.46(4ded05cabc62d4522a1b5e77bb3c17c7)
       '@storm-software/testing-tools':
         specifier: 'catalog:'
         version: 1.119.121(@nx/jest@22.6.0(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/babel-plugin-macros@3.1.3)(@types/node-notifier@8.0.5)(@types/node@25.5.0)(esbuild-register@3.6.0(esbuild@0.27.4))(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(ts-node@10.9.2(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/node@25.5.0)(typescript@5.9.3))(typescript@5.9.3)(verdaccio@6.1.2(typanion@3.14.0)))(jest@30.3.0(@types/babel-plugin-macros@3.1.3)(@types/node-notifier@8.0.5)(@types/node@25.5.0)(esbuild-register@3.6.0(esbuild@0.27.4))(ts-node@10.9.2(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/node@25.5.0)(typescript@5.9.3)))
@@ -9122,8 +9122,8 @@ packages:
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
 
-  '@shell-shock/core@0.13.7':
-    resolution: {integrity: sha512-kvcKlrqBPX9dJ0REnrIZ817qe0d6dMfMVrGaIdrWpuMYVk9iZfwZWQKWsXYtp5Bkaw0vpsqxr3jOE5ue1Qd2gw==}
+  '@shell-shock/core@0.13.8':
+    resolution: {integrity: sha512-yVLVn5qf8n/9DwbAyTfDLzIypbiBfwfj8gO1AitQHyiR0qKcb7K/e418igq5jl8Tzs5T9K5wbDErePLcYVcy0g==}
     peerDependencies:
       powerlines: workspace:*
       zod: '>=4.0.1'
@@ -9131,41 +9131,41 @@ packages:
       zod:
         optional: true
 
-  '@shell-shock/eslint-plugin@0.0.45':
-    resolution: {integrity: sha512-DTE/rLl+83Itm9UVKi/v8GMPVC1uoA7JVxVg9CfJdy14RJ9jHHvLJOc3MoyaxdUn6mRgTsdXgT98Fa/nR6SmKA==}
+  '@shell-shock/eslint-plugin@0.0.46':
+    resolution: {integrity: sha512-cwHdyeI4+t16jYqxx+30UkfLgkmrlh7EAvpDGSkBYC+EhHg5XLlJVTapVVR/gD40Ezuw3qDVH1SBR8nLYMHTRA==}
     peerDependencies:
       '@types/eslint': '*'
       eslint: '>=9.39.3'
 
-  '@shell-shock/nx@0.0.51':
-    resolution: {integrity: sha512-mcOU6Tw3eCisIkN0ha1EQ925UK/ETs48i4GtCXwTceoFDrql9kH0WNLxEL3kbCI7y9OgCg1oPIlO+lHtyH79OQ==}
+  '@shell-shock/nx@0.0.52':
+    resolution: {integrity: sha512-9hAN5vgSDNDSt2F+miHc3Ob5tWotp7ZC/r7ehyyFMHrjs/8Y/yoSQnV+GRKef5zHQlRGxV36E+AAzhHWhLMiug==}
     peerDependencies:
       nx: '>=22.5.0'
       powerlines: workspace:*
 
-  '@shell-shock/plugin-banner@0.1.5':
-    resolution: {integrity: sha512-LYAJosNCI56Kprq74cn1L53lFUGFsGgH9w0bELrcYgEatVNi4N6+tv+2CUsZ9hnlqmRn7pP3g/4L2gTZoVNADw==}
+  '@shell-shock/plugin-banner@0.1.6':
+    resolution: {integrity: sha512-2xl3cMbaF6w0ireiKjV/2ZcXxCwqlXTTJ3SEgMLmDs2x9zwbYdV57iqEzoENjAnZcXXEQMs+Y9w0Ee9QpGSoJQ==}
 
-  '@shell-shock/plugin-console@0.1.18':
-    resolution: {integrity: sha512-bCkA4odmsMqqwIqmBohrA66Wow8O3CeKJsS3fLlMn/R6K8qNbkNZXVYc+AZZQ+dg5SOmQI+jPceyi9r4QKKlOg==}
+  '@shell-shock/plugin-console@0.1.19':
+    resolution: {integrity: sha512-8fxbQPk3BW/fL32pdMw77LrQpNsfJ7Y49KPbkPMP4l1XnLoDmw6PHy3oQP7FOH0QzX4PWeOZXb3w/JXVc6TW3Q==}
 
-  '@shell-shock/plugin-help@0.1.9':
-    resolution: {integrity: sha512-I1gpjIum+hge1Q2ltIVtmbaWi+vnx6AcDylAe1eYXHezwQK1D+aKmdIpDHsZyyChcjkeZWoeD9iq51ZwyKwVYg==}
+  '@shell-shock/plugin-help@0.1.10':
+    resolution: {integrity: sha512-C2FN5bU2ehUyENauwtyo5RapOk/sR1fyeiiEkUcCKTR12PqvpPGFazJ5ZLWrp4yOydGHBHSiHeJ7RkdcxJYatw==}
 
-  '@shell-shock/plugin-prompts@0.3.19':
-    resolution: {integrity: sha512-3qnnvBaAvHGH+Dd7Tn9tbvJ1w9VSte1vw24tQ0EUQeGyg/Q1wnsKiYY6zLmP7XK1PtBP7Cqf4gP6jPPbuc87fg==}
+  '@shell-shock/plugin-prompts@0.3.20':
+    resolution: {integrity: sha512-L5aZ42s8HQFg+3jtnZT/TdlQB/MBFjIKElBoLiHaY5flYix6GlY+8/Npbhi6vtsaK2Xs2tmOnNVwYRkzgzwStg==}
 
-  '@shell-shock/plugin-theme@0.3.22':
-    resolution: {integrity: sha512-wEx8CwQsoti3qjF13N1dnboyBB5rT2Kq4OOxf1gX44456nZQH/be6wUF0YLXsCIxLVc0y5XRZHRGfWaRvfUs7A==}
+  '@shell-shock/plugin-theme@0.3.23':
+    resolution: {integrity: sha512-yBGzfr9m6BtH478OFOXsQE7QqYHAmz7KmF+Xb9P72apXSUUaTZTq5u8jAJ/jR5T8qVUhvgz88be++Syofp6lFw==}
 
-  '@shell-shock/plugin-upgrade@0.1.24':
-    resolution: {integrity: sha512-eyGtcVYrCHMNAMvg5BUGCLHbYj6H+QdjLnRxeF0M2r3OWHsimI5n2WVlK6mTxrYyUgTUcgKjNJKaHsSuBfWGfA==}
+  '@shell-shock/plugin-upgrade@0.1.25':
+    resolution: {integrity: sha512-T+G6fIgsjtUZloEKof2R2Qo136moHaOVfR5AXMu2NGDiX9ULnXX1RqM1MpK8qD+5RkC86QJQU9GzjBmunxh6zA==}
 
-  '@shell-shock/preset-cli@0.8.10':
-    resolution: {integrity: sha512-1KJci8jGkGbAZyJCTvFdDo7m+dE9Di+r5w3S9u0jP2qaIKrunlO3C4GBCNasF323EGX1xlkUngqbOd9ShR7A4g==}
+  '@shell-shock/preset-cli@0.8.11':
+    resolution: {integrity: sha512-E6twq8Vck4axce5BgJirwIiJ6CmUclEHDb8UNe2bb9RuFj+muAd9Wbr48sYLjzm69R0IJy5NtQQDf5Gj5AYBlg==}
 
-  '@shell-shock/preset-script@0.6.33':
-    resolution: {integrity: sha512-Zh9DM9c21vBJFdWwXU6rYOHPeTeo8rmKKXN1qKe0gat3aMWnm6NbVf3Umc07wjeNqOsRVk4kegv7uHggeG31HA==}
+  '@shell-shock/preset-script@0.6.34':
+    resolution: {integrity: sha512-VDYxG2GuHERGjWmjdD6U+ziae5U8kaQDcVafMcLlES3Fk+Vg/Ir5/aUkwLZKZi5gNMfv9R9FW+ff7kNa7ATisA==}
 
   '@shikijs/core@4.0.2':
     resolution: {integrity: sha512-hxT0YF4ExEqB8G/qFdtJvpmHXBYJ2lWW7qTHDarVkIudPFE6iCIrqdgWxGn5s+ppkGXI0aEGlibI0PAyzP3zlw==}
@@ -18567,8 +18567,8 @@ packages:
     peerDependencies:
       react: ^19.2.4
 
-  react-i18next@16.6.0:
-    resolution: {integrity: sha512-bxVftl2q/pfupKVmBH80ui1rHl3ia2sdcR0Yhn6cr0PyoHfO8JLZ19fccwOIH+0dMBCIkdO5gAmEQFCTAggeQg==}
+  react-i18next@16.6.1:
+    resolution: {integrity: sha512-izjXh+AkBLy3h3xe3sh6Gg1flhFHc3UyzsMftMKYJr2Z7WvAZQIdjjpHypctN41zFoeLdJUNGDgP1+Qich2fYg==}
     peerDependencies:
       '@types/react': '*'
       i18next: '>= 25.6.2'
@@ -28571,7 +28571,7 @@ snapshots:
 
   '@sec-ant/readable-stream@0.4.1': {}
 
-  '@shell-shock/core@0.13.7(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)':
+  '@shell-shock/core@0.13.8(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/markdown': 0.23.0-dev.1
@@ -28620,7 +28620,7 @@ snapshots:
       - utf-8-validate
       - vue-tsc
 
-  '@shell-shock/eslint-plugin@0.0.45(4ded05cabc62d4522a1b5e77bb3c17c7)':
+  '@shell-shock/eslint-plugin@0.0.46(4ded05cabc62d4522a1b5e77bb3c17c7)':
     dependencies:
       '@storm-software/testing-tools': 1.119.121(@nx/jest@22.6.0(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/babel-plugin-macros@3.1.3)(@types/node-notifier@8.0.5)(@types/node@25.5.0)(esbuild-register@3.6.0(esbuild@0.27.4))(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(ts-node@10.9.2(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/node@25.5.0)(typescript@5.9.3))(typescript@5.9.3)(verdaccio@6.1.2(typanion@3.14.0)))(jest@30.3.0(@types/babel-plugin-macros@3.1.3)(@types/node-notifier@8.0.5)(@types/node@25.5.0)(esbuild-register@3.6.0(esbuild@0.27.4))(ts-node@10.9.2(@swc/core@1.15.18(@swc/helpers@0.5.19))(@types/node@25.5.0)(typescript@5.9.3)))
       '@stryke/fs': 0.33.63(magicast@0.5.2)(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
@@ -28638,10 +28638,10 @@ snapshots:
       - supports-color
       - typescript
 
-  '@shell-shock/nx@0.0.51(bdfadb96ed9f232d088934c8bf8cfed7)':
+  '@shell-shock/nx@0.0.52(bdfadb96ed9f232d088934c8bf8cfed7)':
     dependencies:
       '@nx/devkit': 22.6.1(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))
-      '@shell-shock/core': 0.13.7(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/core': 0.13.8(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
       '@storm-software/config': 1.137.0
       '@storm-software/config-tools': 1.189.46(magicast@0.5.2)
       '@storm-software/workspace-tools': 1.295.22(cc123772a93837a1fc03b59947dabcb1)
@@ -28702,16 +28702,16 @@ snapshots:
       - yaml
       - zod
 
-  '@shell-shock/plugin-banner@0.1.5(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)':
+  '@shell-shock/plugin-banner@0.1.6(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.13.7(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/plugin-console': 0.1.18(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/plugin-theme': 0.3.22(tslib@2.8.1)
+      '@shell-shock/core': 0.13.8(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/plugin-console': 0.1.19(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/plugin-theme': 0.3.23(tslib@2.8.1)
       '@stryke/path': 0.27.2
       defu: 6.1.4
       powerlines: link:packages/powerlines
@@ -28735,15 +28735,15 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@shell-shock/plugin-console@0.1.18(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)':
+  '@shell-shock/plugin-console@0.1.19(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.13.7(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/plugin-theme': 0.3.22(tslib@2.8.1)
+      '@shell-shock/core': 0.13.8(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/plugin-theme': 0.3.23(tslib@2.8.1)
       '@stryke/string-format': 0.17.6
       defu: 6.1.4
       powerlines: link:packages/powerlines
@@ -28767,16 +28767,16 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@shell-shock/plugin-help@0.1.9(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)':
+  '@shell-shock/plugin-help@0.1.10(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.13.7(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/plugin-console': 0.1.18(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/plugin-theme': 0.3.22(tslib@2.8.1)
+      '@shell-shock/core': 0.13.8(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/plugin-console': 0.1.19(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/plugin-theme': 0.3.23(tslib@2.8.1)
       '@stryke/path': 0.27.2
       defu: 6.1.4
       powerlines: link:packages/powerlines
@@ -28800,15 +28800,15 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@shell-shock/plugin-prompts@0.3.19(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)':
+  '@shell-shock/plugin-prompts@0.3.20(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.13.7(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/plugin-theme': 0.3.22(tslib@2.8.1)
+      '@shell-shock/core': 0.13.8(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/plugin-theme': 0.3.23(tslib@2.8.1)
       defu: 6.1.4
       powerlines: link:packages/powerlines
     transitivePeerDependencies:
@@ -28831,7 +28831,7 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@shell-shock/plugin-theme@0.3.22(tslib@2.8.1)':
+  '@shell-shock/plugin-theme@0.3.23(tslib@2.8.1)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
@@ -28847,14 +28847,14 @@ snapshots:
       - tslib
       - utf-8-validate
 
-  '@shell-shock/plugin-upgrade@0.1.24(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)':
+  '@shell-shock/plugin-upgrade@0.1.25(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.13.7(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/core': 0.13.8(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
       '@stryke/path': 0.27.2
       defu: 6.1.4
       powerlines: link:packages/powerlines
@@ -28877,19 +28877,19 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@shell-shock/preset-cli@0.8.10(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)':
+  '@shell-shock/preset-cli@0.8.11(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.13.7(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/plugin-console': 0.1.18(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/plugin-prompts': 0.3.19(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/plugin-theme': 0.3.22(tslib@2.8.1)
-      '@shell-shock/plugin-upgrade': 0.1.24(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/preset-script': 0.6.33(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/core': 0.13.8(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/plugin-console': 0.1.19(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/plugin-prompts': 0.3.20(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/plugin-theme': 0.3.23(tslib@2.8.1)
+      '@shell-shock/plugin-upgrade': 0.1.25(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/preset-script': 0.6.34(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
       '@stryke/path': 0.27.2
       '@stryke/string-format': 0.17.6
       cfonts: 3.3.1
@@ -28915,18 +28915,18 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@shell-shock/preset-script@0.6.33(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)':
+  '@shell-shock/preset-script@0.6.34(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.13.7(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/plugin-banner': 0.1.5(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/plugin-console': 0.1.18(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/plugin-help': 0.1.9(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
-      '@shell-shock/plugin-theme': 0.3.22(tslib@2.8.1)
+      '@shell-shock/core': 0.13.8(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/plugin-banner': 0.1.6(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/plugin-console': 0.1.19(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/plugin-help': 0.1.10(nx@22.6.0(@swc-node/register@1.11.1(@swc/core@1.15.18(@swc/helpers@0.5.19))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.18(@swc/helpers@0.5.19)))(oxc-resolver@11.19.1)(synckit@0.11.12)(tslib@2.8.1)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/plugin-theme': 0.3.23(tslib@2.8.1)
       '@stryke/helpers': 0.10.6
       '@stryke/path': 0.27.2
       '@stryke/string-format': 0.17.6
@@ -36489,7 +36489,7 @@ snapshots:
       minimatch: 10.2.4
       ora: 9.3.0
       react: 19.2.4
-      react-i18next: 16.6.0(@types/react@19.2.14)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(react@19.2.4)(typescript@5.9.3)
+      react-i18next: 16.6.1(@types/react@19.2.14)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(react@19.2.4)(typescript@5.9.3)
       yaml: 2.8.3
     transitivePeerDependencies:
       - '@swc/helpers'
@@ -39146,7 +39146,7 @@ snapshots:
   micromark-util-character@2.1.1:
     dependencies:
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
 
   micromark-util-chunked@2.0.1:
     dependencies:
@@ -39161,7 +39161,7 @@ snapshots:
   micromark-util-combine-extensions@2.0.1:
     dependencies:
       micromark-util-chunked: 2.0.1
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
 
   micromark-util-decode-numeric-character-reference@2.0.2:
     dependencies:
@@ -41379,7 +41379,7 @@ snapshots:
       react: 19.2.4
       scheduler: 0.27.0
 
-  react-i18next@16.6.0(@types/react@19.2.14)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(react@19.2.4)(typescript@5.9.3):
+  react-i18next@16.6.1(@types/react@19.2.14)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(react@19.2.4)(typescript@5.9.3):
     dependencies:
       '@babel/runtime': 7.29.2
       '@types/react': 19.2.14

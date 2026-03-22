@@ -44,10 +44,13 @@ export async function bundle(
     );
   }
 
+  const ctx = await context.clone();
+  ctx.config.resolve.skipNodeModulesBundle = false;
+
   const result = await build(
     defu(
       {
-        ...resolveOptions(context),
+        ...resolveOptions(ctx),
         entryPoints: [path],
         write: false,
         sourcemap: false,
@@ -62,7 +65,7 @@ export async function bundle(
       {
         plugins: [
           createEsbuildPlugin(
-            createUnpluginResolver(context, {
+            createUnpluginResolver(ctx, {
               name: `${findFileName(file)} Bundler`,
               prefix: false
             })

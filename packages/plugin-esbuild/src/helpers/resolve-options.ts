@@ -149,7 +149,7 @@ export { ${key} };`;
         : (context as EsbuildPluginContext).config?.esbuild
           ? ((context as EsbuildPluginContext).config?.esbuild as BuildOptions)
               .packages
-          : undefined,
+          : "bundle",
       format: (Array.isArray(context.config.output.format)
         ? context.config.output.format[0]
         : context.config.output.format) as Format,

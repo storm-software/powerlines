@@ -122,6 +122,25 @@ export class PowerlinesEnvironmentContext<
     return this.#hooks;
   }
 
+  /**
+   * Creates a clone of the current context with the same configuration and workspace settings. This can be useful for running multiple builds in parallel or for creating isolated contexts for different parts of the build process.
+   *
+   * @remarks
+   * The cloned context will have the same configuration and workspace settings as the original context, but will have a different build ID, release ID, and timestamp. The virtual file system and caches will also be separate between the original and cloned contexts.
+   *
+   * @returns A promise that resolves to the cloned context.
+   */
+  public override async clone(): Promise<EnvironmentContext<TResolvedConfig>> {
+    const clone =
+      await PowerlinesEnvironmentContext.fromConfig<TResolvedConfig>(
+        this.workspaceConfig,
+        this.config
+      );
+    await clone.withUserConfig(this.config);
+
+    return this.copyTo(clone);
+  }
+
   public async addPlugin(plugin: Plugin<PluginContext<TResolvedConfig>>) {
     let resolvedPlugin = plugin;
     if (isFunction(plugin.applyToEnvironment)) {
@@ -416,5 +435,21 @@ export class PowerlinesEnvironmentContext<
     super(workspaceConfig);
 
     this.resolvedConfig = config;
+  }
+
+  /**
+   * Creates a clone of the current context with the same configuration and workspace settings. This can be useful for running multiple builds in parallel or for creating isolated contexts for different parts of the build process.
+   *
+   * @remarks
+   * The cloned context will have the same configuration and workspace settings as the original context, but will have a different build ID, release ID, and timestamp. The virtual file system and caches will also be separate between the original and cloned contexts.
+   *
+   * @returns The cloned context.
+   */
+  protected override copyTo(
+    context: EnvironmentContext<TResolvedConfig>
+  ): EnvironmentContext<TResolvedConfig> {
+    context.plugins = this.plugins;
+
+    return this.copyTo(context);
   }
 }
