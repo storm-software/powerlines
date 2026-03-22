@@ -43,7 +43,7 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import type { PackageJson } from "@stryke/types/package-json";
 import defu from "defu";
-import { createJiti } from "jiti";
+import { createJiti, Jiti } from "jiti";
 import { readFile } from "node:fs/promises";
 import { readNxJson } from "nx/src/config/nx-json.js";
 import type {
@@ -52,10 +52,8 @@ import type {
 } from "nx/src/config/workspace-json-project-json.js";
 import type { PackageJson as PackageJsonNx } from "nx/src/utils/package-json.js";
 import { readTargetsFromPackageJson } from "nx/src/utils/package-json.js";
-import type { ParsedUserConfig } from "powerlines";
-import { loadUserConfigFile } from "powerlines/config";
-import { ROOT_HASH_LENGTH } from "powerlines/constants";
-import { NxPluginOptions } from "../types/plugin";
+import type { ParsedUserConfig, PowerlinesCommand } from "powerlines";
+import type { NxPluginOptions } from "../types/plugin";
 import { CONFIG_INPUTS } from "./constants";
 
 /**
@@ -112,6 +110,16 @@ export interface CreateNxPluginOptions {
   framework?: string;
 }
 
+type LoadUserConfigFileFunction = (
+  projectRoot: string,
+  workspaceRoot: string,
+  jiti: Jiti,
+  command?: PowerlinesCommand,
+  mode?: string,
+  configFile?: string,
+  framework?: string
+) => Promise<ParsedUserConfig>;
+
 /**
  * Creates an Nx plugin that integrates Powerlines into the Nx build process.
  *
@@ -158,12 +166,27 @@ export function createNxPlugin<
             envPaths.cache,
             "nx-plugin",
             murmurhash(contextV2.workspaceRoot, {
-              maxLength: ROOT_HASH_LENGTH
+              maxLength: 45
             }),
             "jiti"
           ),
           moduleCache: true
         });
+
+        let loadUserConfigFile: LoadUserConfigFileFunction | undefined;
+        try {
+          loadUserConfigFile = await resolver
+            .import<{
+              loadUserConfigFile: LoadUserConfigFileFunction;
+            }>(resolver.esmResolve("powerlines/config"))
+            .then(mod => mod?.loadUserConfigFile);
+        } catch (error) {
+          console.warn(
+            `[${title}] - ${new Date().toISOString()} - Failed to load user configuration file function: ${
+              isError(error) ? error.message : "Unknown error"
+            }`
+          );
+        }
 
         return createNodesFromFiles(
           async (configFile, _, context) => {
@@ -200,15 +223,17 @@ export function createNxPlugin<
 
               let userConfig = {} as ParsedUserConfig;
               try {
-                userConfig = await loadUserConfigFile(
-                  projectRoot,
-                  contextV2.workspaceRoot,
-                  resolver,
-                  "build",
-                  "development",
-                  configFile,
-                  framework
-                );
+                if (loadUserConfigFile) {
+                  userConfig = await loadUserConfigFile(
+                    projectRoot,
+                    contextV2.workspaceRoot,
+                    resolver,
+                    "build",
+                    "development",
+                    configFile,
+                    framework
+                  );
+                }
               } catch (error) {
                 console.warn(
                   `[${title}] - ${new Date().toISOString()} - Failed to load user configuration for project in ${
