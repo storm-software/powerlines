@@ -55,10 +55,9 @@ export const plugin = <
         output: {
           format: ["esm"]
         },
-        build: {
+        esbuild: {
           ...DEFAULT_ESBUILD_CONFIG,
-          ...options,
-          variant: "esbuild"
+          ...options
         }
       } as Partial<EsbuildPluginUserConfig>;
     },

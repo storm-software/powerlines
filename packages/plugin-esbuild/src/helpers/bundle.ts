@@ -22,6 +22,7 @@ import { findFileName } from "@stryke/path/file-path-fns";
 import defu from "defu";
 import { build, BuildOptions, OutputFile } from "esbuild";
 import { createEsbuildPlugin } from "unplugin";
+import { EsbuildPluginContext } from "../types";
 import { resolveOptions } from "./resolve-options";
 
 /**
@@ -44,35 +45,33 @@ export async function bundle(
     );
   }
 
-  const ctx = await context.clone();
+  const ctx = (await context.clone()) as EsbuildPluginContext;
+
   ctx.config.resolve.skipNodeModulesBundle = false;
+  ctx.config.esbuild = {
+    entryPoints: [path],
+    write: false,
+    sourcemap: false,
+    splitting: false,
+    treeShaking: true,
+    bundle: true,
+    packages: "bundle",
+    platform: "node",
+    logLevel: "silent",
+    ...overrides
+  } as BuildOptions;
 
   const result = await build(
-    defu(
-      {
-        ...resolveOptions(ctx),
-        entryPoints: [path],
-        write: false,
-        sourcemap: false,
-        splitting: false,
-        treeShaking: true,
-        bundle: true,
-        packages: "bundle",
-        platform: "node",
-        logLevel: "silent",
-        ...overrides
-      } as BuildOptions,
-      {
-        plugins: [
-          createEsbuildPlugin(
-            createUnpluginResolver(ctx, {
-              name: `${findFileName(file)} Bundler`,
-              prefix: false
-            })
-          )({})
-        ]
-      }
-    )
+    defu(resolveOptions(ctx), {
+      plugins: [
+        createEsbuildPlugin(
+          createUnpluginResolver(ctx, {
+            name: `${findFileName(file)} Bundler`,
+            prefix: false
+          })
+        )({})
+      ]
+    })
   );
   if (result.errors.length > 0) {
     throw new Error(
