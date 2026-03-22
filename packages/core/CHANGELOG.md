@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.9.1](https://github.com/storm-software/powerlines/releases/tag/core%400.9.1) (03/22/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue merging configuration prior to resolving ([bc26a3658](https://github.com/storm-software/powerlines/commit/bc26a3658))
+
 ## [0.9.0](https://github.com/storm-software/powerlines/releases/tag/core%400.9.0) (03/22/2026)
 
 ### Features
