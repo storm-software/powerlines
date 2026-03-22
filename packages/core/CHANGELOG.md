@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.10.0](https://github.com/storm-software/powerlines/releases/tag/core%400.10.0) (03/22/2026)
+
+### Features
+
+- **core:** Added `clone` function to `Context` objects ([e5c62d8fd](https://github.com/storm-software/powerlines/commit/e5c62d8fd))
+
 ## [0.9.1](https://github.com/storm-software/powerlines/releases/tag/core%400.9.1) (03/22/2026)
 
 ### Bug Fixes

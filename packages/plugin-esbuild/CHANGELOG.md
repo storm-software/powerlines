@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.374](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.374) (03/22/2026)
+
+### Features
+
+- **core:** Added `clone` function to `Context` objects ([e5c62d8fd](https://github.com/storm-software/powerlines/commit/e5c62d8fd))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.10.0**
+
 ## [0.13.373](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.373) (03/22/2026)
 
 ### Updated Dependencies

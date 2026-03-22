@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.12](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.12) (03/22/2026)
+
+### Features
+
+- **core:** Added `clone` function to `Context` objects ([e5c62d8fd](https://github.com/storm-software/powerlines/commit/e5c62d8fd))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.376**
+- Updated **plugin-esbuild** to **v0.13.374**
+- Updated **plugin-unbuild** to **v0.5.374**
+- Updated **plugin-webpack** to **v0.5.373**
+- Updated **plugin-rollup** to **v0.7.374**
+- Updated **plugin-rspack** to **v0.5.373**
+- Updated **plugin-tsdown** to **v0.1.319**
+- Updated **plugin-tsup** to **v0.12.375**
+- Updated **plugin-vite** to **v0.14.369**
+- Updated **core** to **v0.10.0**
+
 ## [0.42.11](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.11) (03/22/2026)
 
 ### Bug Fixes
