@@ -41,7 +41,6 @@ import { replacePath } from "@stryke/path/replace";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isNull } from "@stryke/type-checks/is-null";
-import { isRegExp } from "@stryke/type-checks/is-regexp";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
@@ -206,7 +205,7 @@ export class PowerlinesContext<
         tsconfigRaw: config.tsconfigRaw,
         skipCache: config.skipCache,
         autoInstall: config.autoInstall,
-        input: config.input,
+        input: isSetString(config.input) ? [config.input] : config.input,
         plugins: config.plugins,
         mode: config.mode,
         resolve: config.resolve,
@@ -535,10 +534,7 @@ export class PowerlinesContext<
    */
   public get typesPath(): string {
     return this.config.output.types
-      ? appendPath(
-          this.config.output.types,
-          this.workspaceConfig.workspaceRoot
-        )
+      ? appendPath(this.config.output.types, this.workspaceConfig.workspaceRoot)
       : joinPaths(
           this.workspaceConfig.workspaceRoot,
           this.config.root,
@@ -1781,26 +1777,8 @@ export class PowerlinesContext<
     into: Partial<TResolvedConfig["userConfig"]> = this.config.userConfig ?? {}
   ) {
     this.config.userConfig = mergeConfig(
-      {
-        input:
-          isSetObject(from.input) &&
-          !isRegExp(from.input) &&
-          !Array.isArray(from.input) &&
-          from.input.file
-            ? from.input.file
-            : isSetObject(into?.input) &&
-                !isRegExp(into.input) &&
-                !Array.isArray(into.input) &&
-                into.input.file
-              ? into.input.file
-              : Array.isArray(from.input) && from.input.length > 0
-                ? from.input
-                : Array.isArray(into?.input) && into.input.length > 0
-                  ? into.input
-                  : []
-      },
-      omit(from ?? {}, ["input"]),
-      omit(into ?? {}, ["input"])
+      from,
+      into
     ) as TResolvedConfig["userConfig"];
 
     if (this.config.userConfig.output?.format) {

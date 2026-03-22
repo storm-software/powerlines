@@ -453,4 +453,4 @@ devenv.local.nix
 .pre-commit-config.yaml
 
 # Shell Shock
-.shell-shock/
+.shell-shock

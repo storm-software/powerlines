@@ -297,7 +297,9 @@ export class PowerlinesAPI<
       context.persistedMeta = context.meta;
     });
 
-    this.context.debug("✔ Powerlines types generation has completed successfully");
+    this.context.debug(
+      "✔ Powerlines types generation has completed successfully"
+    );
   }
 
   /**
@@ -875,8 +877,6 @@ export class PowerlinesAPI<
       environment: context,
       order: "post"
     });
-
-
   }
 
   /**

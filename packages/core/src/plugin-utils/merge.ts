@@ -16,6 +16,9 @@
 
  ------------------------------------------------------------------- */
 
+import { getUnique } from "@stryke/helpers/get-unique";
+import { isSet } from "@stryke/type-checks/is-set";
+import { isSetArray } from "@stryke/type-checks/is-set-array";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import defu, { createDefu } from "defu";
@@ -95,11 +98,42 @@ export function merge<TContext extends PluginContext = PluginContext>(
  * @returns The merged configuration object.
  */
 export const mergeConfig = createDefu((obj, key, value) => {
+  type TValue = (typeof obj)[typeof key];
+
+  if (key === "input" && isSet(value)) {
+    if (isString(obj[key]) && Array.isArray(value) && value.length === 0) {
+      return true;
+    }
+
+    obj[key] = value;
+    if (isSetArray(obj[key])) {
+      obj[key] = getUnique(obj[key]) as TValue;
+    }
+
+    return true;
+  }
+
+  if (key === "compatibilityDate" && isSetString(value)) {
+    obj[key] = value;
+    return true;
+  }
+
+  if (
+    (key === "format" || key === "output.format") &&
+    (isSetString(value) || isSetArray(value))
+  ) {
+    obj[key] = value;
+    if (isSetArray(obj[key])) {
+      obj[key] = getUnique(obj[key]) as TValue;
+    }
+
+    return true;
+  }
+
   if (isString(obj[key]) && isString(value)) {
     if (isSetString(value)) {
       obj[key] = value;
     }
-
     return true;
   }
 

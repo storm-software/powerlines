@@ -46,7 +46,7 @@ try {
     );
   }
 
-  proc = $`rm -rf ./packages/*/dist`.timeout(`${5 * 60}s`);
+  proc = $`rm -rf ./packages/*/dist ./packages/*/.powerlines ./packages/*/.shell-shock`.timeout(`${5 * 60}s`);
   proc.stdout.on("data", data => {
     echo`${data}`;
   });

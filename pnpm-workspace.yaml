@@ -76,10 +76,10 @@ catalog:
   "@rollup/plugin-node-resolve": ^16.0.3
   "@rollup/plugin-replace": ^6.0.3
   "@rspack/core": ^1.7.9
-  "@shell-shock/core": ^0.13.3
-  "@shell-shock/eslint-plugin": ^0.0.42
-  "@shell-shock/nx": ^0.0.47
-  "@shell-shock/preset-cli": ^0.8.6
+  "@shell-shock/core": ^0.13.7
+  "@shell-shock/eslint-plugin": ^0.0.45
+  "@shell-shock/nx": ^0.0.51
+  "@shell-shock/preset-cli": ^0.8.10
   "@standard-schema/spec": ^1.1.0
   "@storm-software/build-tools": ^0.158.127
   "@storm-software/config": ^1.137.0
@@ -188,7 +188,7 @@ catalog:
   react-dom: ^19.2.3
   rimraf: ^6.1.3
   rolldown: 1.0.0-rc.9
-  rollup: ^4.59.1
+  rollup: ^4.60.0
   rollup-plugin-typescript2: ^0.36.0
   satori: ^0.18.4
   sharp: ^0.34.5

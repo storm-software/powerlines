@@ -89,10 +89,8 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             inject: false,
             prefix: []
           }),
-          transform: {
-            babel: {
-              plugins: [envBabelPlugin]
-            }
+          babel: {
+            plugins: [envBabelPlugin]
           }
         };
 
