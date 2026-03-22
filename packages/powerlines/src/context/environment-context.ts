@@ -450,6 +450,6 @@ export class PowerlinesEnvironmentContext<
   ): EnvironmentContext<TResolvedConfig> {
     context.plugins = this.plugins;
 
-    return this.copyTo(context);
+    return super.copyTo(context) as EnvironmentContext<TResolvedConfig>;
   }
 }
