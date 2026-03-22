@@ -1448,7 +1448,6 @@ export class PowerlinesContext<
     context.devDependencies = deepClone<typeof this.devDependencies>(
       this.devDependencies
     );
-    context.meta = deepClone<typeof this.meta>(this.meta);
     context.persistedMeta = this.persistedMeta
       ? deepClone<typeof this.persistedMeta>(this.persistedMeta)
       : undefined;
