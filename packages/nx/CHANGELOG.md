@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.298](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.298) (03/22/2026)
+
+### Bug Fixes
+
+- **nx:** Use `jiti` to load `powerlines` helper in plugin ([dcfb1cebe](https://github.com/storm-software/powerlines/commit/dcfb1cebe))
+
 ## [0.11.297](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.297) (03/22/2026)
 
 ### Updated Dependencies
