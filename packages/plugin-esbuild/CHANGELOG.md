@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.378](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.378) (03/23/2026)
+
+### Miscellaneous
+
+- **plugin-esbuild:** Add reusable `BundleOptions` types to override `bundle` options ([ded2ef9f9](https://github.com/storm-software/powerlines/commit/ded2ef9f9))
+
 ## [0.13.377](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.377) (03/22/2026)
 
 ### Bug Fixes
