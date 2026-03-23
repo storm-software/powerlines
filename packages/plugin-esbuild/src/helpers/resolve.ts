@@ -23,7 +23,6 @@ import {
   TypeDefinition,
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
-import { BuildOptions } from "esbuild";
 import { bundle, BundleOptions } from "./bundle";
 
 /**
@@ -34,10 +33,13 @@ import { bundle, BundleOptions } from "./bundle";
  * @param overrides - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the compiled module.
  */
-export async function resolveModule<TResult>(
-  context: PluginContext,
+export async function resolveModule<
+  TResult,
+  TContext extends PluginContext = PluginContext
+>(
+  context: TContext,
   type: TypeDefinitionParameter,
-  overrides: BundleOptions = {}
+  overrides?: BundleOptions
 ): Promise<TResult> {
   let typeDefinition!: TypeDefinition;
   if (isSetString(type)) {
@@ -46,7 +48,11 @@ export async function resolveModule<TResult>(
     typeDefinition = type;
   }
 
-  const result = await bundle(context, typeDefinition.file, overrides);
+  const result = await bundle<TContext>(
+    context,
+    typeDefinition.file,
+    overrides
+  );
 
   let resolved: any;
   try {
@@ -107,10 +113,13 @@ ${result.text}`
  * @param overrides - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the compiled module.
  */
-export async function resolve<TResult>(
-  context: PluginContext,
+export async function resolve<
+  TResult,
+  TContext extends PluginContext = PluginContext
+>(
+  context: TContext,
   type: TypeDefinitionParameter,
-  overrides: Partial<BuildOptions> = {}
+  overrides?: BundleOptions
 ): Promise<TResult> {
   let typeDefinition!: TypeDefinition;
   if (isSetString(type)) {
@@ -119,7 +128,7 @@ export async function resolve<TResult>(
     typeDefinition = type;
   }
 
-  const resolved = await resolveModule<Record<string, any>>(
+  const resolved = await resolveModule<Record<string, any>, TContext>(
     context,
     typeDefinition,
     overrides

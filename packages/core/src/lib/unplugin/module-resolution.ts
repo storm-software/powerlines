@@ -18,6 +18,7 @@
 
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
+import defu from "defu";
 import { LoadResult } from "rollup";
 import type {
   UnpluginBuildContext,
@@ -26,6 +27,7 @@ import type {
 } from "unplugin";
 import { UNSAFE_PluginContext } from "../../types/_internal";
 import { PluginContext, ResolveResult } from "../../types/context";
+import { ResolveOptions } from "../../types/fs";
 
 export interface CreateUnpluginModuleResolutionFunctionsOptions {
   /**
@@ -38,6 +40,14 @@ export interface CreateUnpluginModuleResolutionFunctionsOptions {
    * @defaultValue true
    */
   prefix?: boolean;
+
+  /**
+   * Optional overrides for the module resolution configuration.
+   *
+   * @remarks
+   * This allows you to customize the behavior of the module resolution hooks by providing specific configuration options.
+   */
+  overrides?: Partial<ResolveOptions>;
 }
 
 const VIRTUAL_MODULE_PREFIX = "__powerlines-virtual:";
@@ -124,10 +134,14 @@ export function createUnpluginModuleResolutionFunctions<
         };
       }
 
-      result = await ctx.resolve(normalizedId, normalizedImporter, {
-        isFile: true,
-        ...opts
-      });
+      result = await ctx.resolve(
+        normalizedId,
+        normalizedImporter,
+        defu(options.overrides ?? {}, {
+          isFile: true,
+          ...opts
+        })
+      );
       if (isSetObject(result)) {
         return {
           ...result,

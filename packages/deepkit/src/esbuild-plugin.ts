@@ -19,7 +19,7 @@
 import { omit } from "@stryke/helpers/omit";
 import { isString } from "@stryke/type-checks";
 import type { OnLoadOptions, Plugin } from "esbuild";
-import { Context } from "powerlines";
+import { PluginContext } from "powerlines";
 import { DiagnosticCategory } from "typescript";
 import { transpile } from "./transpile";
 import { Level, Mode } from "./vendor/type-compiler/config";
@@ -52,8 +52,8 @@ export interface ESBuildPluginOptions extends Partial<ReflectionConfig> {
  * @param options - Optional esbuild onLoad options and reflection configuration.
  * @returns An esbuild plugin instance.
  */
-export const esbuildPlugin = (
-  context: Context,
+export const esbuildPlugin = <TContext extends PluginContext>(
+  context: TContext,
   options: ESBuildPluginOptions = {}
 ): Plugin => {
   return {

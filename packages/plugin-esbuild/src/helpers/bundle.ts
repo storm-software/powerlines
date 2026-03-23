@@ -16,18 +16,18 @@
 
  ------------------------------------------------------------------- */
 
-import type { PluginContext, ResolveResolvedConfig } from "@powerlines/core";
+import type { PluginContext, ResolveOptions } from "@powerlines/core";
 import { createUnpluginResolver } from "@powerlines/core/lib/unplugin";
 import { omit } from "@stryke/helpers/omit";
 import { findFileName } from "@stryke/path/file-path-fns";
 import defu from "defu";
-import { build, BuildOptions, OutputFile } from "esbuild";
+import { build, OutputFile } from "esbuild";
 import { createEsbuildPlugin } from "unplugin";
-import { EsbuildOptions, EsbuildPluginContext } from "../types";
+import { EsbuildOptions } from "../types";
 import { resolveOptions } from "./resolve-options";
 
 export type BundleOptions = Partial<EsbuildOptions> & {
-  resolve?: Partial<ResolveResolvedConfig>;
+  resolve?: Partial<ResolveOptions>;
 };
 
 /**
@@ -38,8 +38,8 @@ export type BundleOptions = Partial<EsbuildOptions> & {
  * @param overrides - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the bundled module.
  */
-export async function bundle(
-  context: PluginContext,
+export async function bundle<TContext extends PluginContext = PluginContext>(
+  context: TContext,
   file: string,
   overrides: BundleOptions = {}
 ): Promise<OutputFile> {
@@ -50,38 +50,37 @@ export async function bundle(
     );
   }
 
-  const ctx = (await context.clone()) as EsbuildPluginContext;
-
-  ctx.config.resolve = defu(
-    overrides.resolve ?? {},
-    { skipNodeModulesBundle: false },
-    ctx.config.resolve
-  ) as ResolveResolvedConfig;
-  ctx.config.esbuild = {
-    ...(ctx.config.esbuild ?? {}),
-    entryPoints: [path],
-    write: false,
-    sourcemap: false,
-    splitting: false,
-    treeShaking: true,
-    bundle: true,
-    packages: "bundle",
-    platform: "node",
-    logLevel: "silent",
-    ...omit(overrides, ["resolve"])
-  } as BuildOptions;
-
   const result = await build(
-    defu(resolveOptions(ctx), {
-      plugins: [
-        createEsbuildPlugin(
-          createUnpluginResolver(ctx, {
-            name: `${findFileName(file)} Bundler`,
-            prefix: false
-          })
-        )({})
-      ]
-    })
+    defu(
+      {
+        entryPoints: [path],
+        write: false,
+        sourcemap: false,
+        splitting: false,
+        treeShaking: true,
+        bundle: true,
+        packages: "bundle",
+        platform: "node",
+        logLevel: "silent",
+        ...omit(overrides, ["resolve"])
+      },
+      resolveOptions(context),
+      {
+        plugins: [
+          createEsbuildPlugin(
+            createUnpluginResolver(context, {
+              name: `${findFileName(file)} Bundler`,
+              prefix: false,
+              overrides: defu(
+                overrides.resolve ?? {},
+                { skipNodeModulesBundle: false },
+                context.config.resolve
+              ) as ResolveOptions
+            })
+          )({})
+        ]
+      }
+    )
   );
   if (result.errors.length > 0) {
     throw new Error(
