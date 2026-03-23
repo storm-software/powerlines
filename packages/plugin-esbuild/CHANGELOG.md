@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.377](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.377) (03/22/2026)
+
+### Bug Fixes
+
+- **plugin-esbuild:** Remove invalid `external` configuration option ([b832017ec](https://github.com/storm-software/powerlines/commit/b832017ec))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.10.1**
+
 ## [0.13.376](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.376) (03/22/2026)
 
 ### Miscellaneous
