@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-crypto",
-  "version": "0.10.405",
+  "version": "0.10.406",
   "type": "module",
   "description": "A Powerlines plugin that provides unique identifier generation capabilities at runtime by adding the `id` builtin module.",
   "repository": {
