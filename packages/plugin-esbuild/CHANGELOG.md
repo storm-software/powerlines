@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.376](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.376) (03/22/2026)
+
+### Miscellaneous
+
+- **plugin-esbuild:** Ensure resolve override options are correctly applied to `bundle` function ([b8d8492ce](https://github.com/storm-software/powerlines/commit/b8d8492ce))
+
 ## [0.13.375](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.375) (03/22/2026)
 
 ### Bug Fixes
