@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import type { PluginContext } from "@powerlines/core";
+import type { PluginContext, ResolveResolvedConfig } from "@powerlines/core";
 import { createUnpluginResolver } from "@powerlines/core/lib/unplugin";
 import { findFileName } from "@stryke/path/file-path-fns";
 import defu from "defu";
@@ -36,7 +36,9 @@ import { resolveOptions } from "./resolve-options";
 export async function bundle(
   context: PluginContext,
   file: string,
-  overrides: Partial<BuildOptions> = {}
+  overrides: Partial<BuildOptions> & {
+    resolve?: Partial<ResolveResolvedConfig>;
+  } = {}
 ): Promise<OutputFile> {
   const path = await context.fs.resolve(file);
   if (!path || !context.fs.existsSync(path)) {
@@ -47,8 +49,13 @@ export async function bundle(
 
   const ctx = (await context.clone()) as EsbuildPluginContext;
 
-  ctx.config.resolve.skipNodeModulesBundle = false;
+  ctx.config.resolve = defu(
+    overrides.resolve ?? {},
+    { skipNodeModulesBundle: false },
+    ctx.config.resolve
+  ) as ResolveResolvedConfig;
   ctx.config.esbuild = {
+    ...(ctx.config.esbuild ?? {}),
     entryPoints: [path],
     write: false,
     sourcemap: false,

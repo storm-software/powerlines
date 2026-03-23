@@ -150,6 +150,7 @@ export { ${key} };`;
           ? ((context as EsbuildPluginContext).config?.esbuild as BuildOptions)
               .packages
           : "bundle",
+      external: context.config.resolve?.external,
       format: (Array.isArray(context.config.output.format)
         ? context.config.output.format[0]
         : context.config.output.format) as Format,
