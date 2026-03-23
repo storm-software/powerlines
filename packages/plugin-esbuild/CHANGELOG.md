@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.379](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.379) (03/23/2026)
+
+### Features
+
+- **core:** Added resolve override options to apply to module resolver ([ec3bfca02](https://github.com/storm-software/powerlines/commit/ec3bfca02))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.11.0**
+
 ## [0.13.378](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.378) (03/23/2026)
 
 ### Miscellaneous

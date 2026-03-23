@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.6.157](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.157) (03/23/2026)
+
+### Features
+
+- **core:** Added resolve override options to apply to module resolver ([ec3bfca02](https://github.com/storm-software/powerlines/commit/ec3bfca02))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.379**
+- Updated **powerlines** to **v0.42.19**
+
 ## [0.6.156](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.156) (03/23/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.11.0](https://github.com/storm-software/powerlines/releases/tag/core%400.11.0) (03/23/2026)
+
+### Features
+
+- **core:** Added resolve override options to apply to module resolver ([ec3bfca02](https://github.com/storm-software/powerlines/commit/ec3bfca02))
+
 ## [0.10.0](https://github.com/storm-software/powerlines/releases/tag/core%400.10.0) (03/22/2026)
 
 ### Features
