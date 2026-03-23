@@ -18,6 +18,7 @@
 
 import type { PluginContext, ResolveResolvedConfig } from "@powerlines/core";
 import { createUnpluginResolver } from "@powerlines/core/lib/unplugin";
+import { omit } from "@stryke/helpers/omit";
 import { findFileName } from "@stryke/path/file-path-fns";
 import defu from "defu";
 import { build, BuildOptions, OutputFile } from "esbuild";
@@ -65,7 +66,7 @@ export async function bundle(
     packages: "bundle",
     platform: "node",
     logLevel: "silent",
-    ...overrides
+    ...omit(overrides, ["resolve"])
   } as BuildOptions;
 
   const result = await build(
