@@ -23,8 +23,12 @@ import { findFileName } from "@stryke/path/file-path-fns";
 import defu from "defu";
 import { build, BuildOptions, OutputFile } from "esbuild";
 import { createEsbuildPlugin } from "unplugin";
-import { EsbuildPluginContext } from "../types";
+import { EsbuildOptions, EsbuildPluginContext } from "../types";
 import { resolveOptions } from "./resolve-options";
+
+export type BundleOptions = Partial<EsbuildOptions> & {
+  resolve?: Partial<ResolveResolvedConfig>;
+};
 
 /**
  * Bundle a type definition to a module.
@@ -37,9 +41,7 @@ import { resolveOptions } from "./resolve-options";
 export async function bundle(
   context: PluginContext,
   file: string,
-  overrides: Partial<BuildOptions> & {
-    resolve?: Partial<ResolveResolvedConfig>;
-  } = {}
+  overrides: BundleOptions = {}
 ): Promise<OutputFile> {
   const path = await context.fs.resolve(file);
   if (!path || !context.fs.existsSync(path)) {

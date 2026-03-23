@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { PluginContext } from "@powerlines/core";
-import { bundle } from "@powerlines/plugin-esbuild/helpers/bundle";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import {
@@ -25,6 +24,7 @@ import {
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
 import { BuildOptions } from "esbuild";
+import { bundle, BundleOptions } from "./bundle";
 
 /**
  * Compiles a type definition to a module and returns the module.
@@ -37,7 +37,7 @@ import { BuildOptions } from "esbuild";
 export async function resolveModule<TResult>(
   context: PluginContext,
   type: TypeDefinitionParameter,
-  overrides: Partial<BuildOptions> = {}
+  overrides: BundleOptions = {}
 ): Promise<TResult> {
   let typeDefinition!: TypeDefinition;
   if (isSetString(type)) {
