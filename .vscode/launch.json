@@ -2,6 +2,34 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug CF Build Script",
+      "type": "node",
+      "request": "launch",
+      "program": "/nix/store/wi8a8qhcyqh3inzkbkgn53f0xhx4zi6g-pnpm-10.30.3/bin/pnpm",
+      "args": [
+        "nx",
+        "run",
+        "plugin-cloudflare:build:development",
+        "--outputStyle=dynamic-legacy"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug CLI Build Script",
+      "type": "node",
+      "request": "launch",
+      "program": "/nix/store/wi8a8qhcyqh3inzkbkgn53f0xhx4zi6g-pnpm-10.30.3/bin/pnpm",
+      "args": [
+        "nx",
+        "run",
+        "cli:build:development",
+        "--outputStyle=dynamic-legacy"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
       "name": "Debug Alloy Build Script",
       "type": "node",
       "request": "launch",

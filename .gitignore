@@ -454,3 +454,6 @@ devenv.local.nix
 
 # Shell Shock
 .shell-shock
+
+.claude/worktrees
+.claude/settings.local.json
