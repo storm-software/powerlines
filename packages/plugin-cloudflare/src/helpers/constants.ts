@@ -16,18 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-import alloy from "@powerlines/plugin-alloy";
-import plugin from "@powerlines/plugin-plugin";
-import { defineConfig } from "powerlines/config";
-
-export default defineConfig({
-  skipCache: true,
-  input: [
-    "src/index.tsx",
-    "src/types/*.ts",
-    "src/components/*.ts",
-    "src/components/*.tsx",
-    "src/helpers/*.ts"
-  ],
-  plugins: [plugin(), alloy()]
-});
+export const PATH_TO_DEPLOY_CONFIG = ".wrangler/deploy/config.json";

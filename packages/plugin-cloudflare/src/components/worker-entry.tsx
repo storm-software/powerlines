@@ -49,14 +49,14 @@ export function WorkerEntry(props: WorkerEntryProps) {
       `./${replaceExtension(
         relativePath(
           context.entryPath,
-          worker.entry.input?.file || worker.entry.file
+          worker.metadata.entry.input?.file || worker.metadata.entry.file
         )
       )}`
   );
 
   return (
     <EntryFile
-      path={`worker-${murmurhash(worker.entry, {
+      path={`worker-${murmurhash(worker.metadata.entry, {
         maxLength: 8
       })}-entry.ts`}
       {...rest}

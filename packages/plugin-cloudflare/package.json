@@ -110,6 +110,34 @@
         "default": "./dist/components/worker-entry.mjs"
       }
     },
+    "./helpers/constants": {
+      "require": {
+        "types": "./dist/helpers/constants.d.cts",
+        "default": "./dist/helpers/constants.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/constants.d.mts",
+        "default": "./dist/helpers/constants.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/constants.d.mts",
+        "default": "./dist/helpers/constants.mjs"
+      }
+    },
+    "./helpers/wrangler": {
+      "require": {
+        "types": "./dist/helpers/wrangler.d.cts",
+        "default": "./dist/helpers/wrangler.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/wrangler.d.mts",
+        "default": "./dist/helpers/wrangler.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/wrangler.d.mts",
+        "default": "./dist/helpers/wrangler.mjs"
+      }
+    },
     "./package.json": "./package.json",
     "./types": {
       "require": {
@@ -152,16 +180,35 @@
         "types": "./dist/types/worker-module.d.mts",
         "default": "./dist/types/worker-module.mjs"
       }
+    },
+    "./types/wrangler": {
+      "require": {
+        "types": "./dist/types/wrangler.d.cts",
+        "default": "./dist/types/wrangler.cjs"
+      },
+      "import": {
+        "types": "./dist/types/wrangler.d.mts",
+        "default": "./dist/types/wrangler.mjs"
+      },
+      "default": {
+        "types": "./dist/types/wrangler.d.mts",
+        "default": "./dist/types/wrangler.mjs"
+      }
     }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "files": ["dist/**/*"],
+  "peerDependencies": {
+    "@cloudflare/unenv-preset": ">=2.16.0",
+    "@cloudflare/workers-types": ">=4.20240909.0",
+    "wrangler": ">=4.77.0",
+    "zod": "^3.25.0 || ^4.0.0"
+  },
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/typescript": "catalog:",
-    "@cloudflare/workers-types": "catalog:",
     "@powerlines/plugin-env": "workspace:*",
     "@powerlines/plugin-pulumi": "workspace:*",
     "@powerlines/plugin-unenv": "workspace:*",
@@ -182,12 +229,11 @@
     "@cloudflare/workers-types": "catalog:",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
-    "@types/node": "catalog:"
+    "@types/node": "catalog:",
+    "wrangler": "catalog:",
+    "zod": "catalog:"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "inlinedDependencies": {
-    "@cloudflare/unenv-preset": "2.16.0"
   }
 }

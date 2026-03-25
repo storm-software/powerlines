@@ -36,6 +36,7 @@ import type {
 import type { RequiredKeys } from "@stryke/types/base";
 import type { PluginContext, ResolvedEntryTypeDefinition } from "powerlines";
 import { WorkerModuleMetadata } from "./worker-module";
+import { WranglerResolvedConfig } from "./wrangler";
 
 export interface CloudflarePluginOptions {
   /**
@@ -57,6 +58,14 @@ export interface CloudflarePluginOptions {
    * @see https://developers.cloudflare.com/fundamentals/api/get-started/create-token/
    */
   apiToken?: string;
+
+  /**
+   * A path to the Wrangler configuration file (either `.toml` or `.jsonc`) to use as the base configuration for the plugin.
+   *
+   * @remarks
+   * This is required for certain features of the plugin, such as deploying a Cloudflare Worker entry module. If not provided, the plugin will look for a Wrangler configuration file in the project root directory with the default name `wrangler.toml`. You can also specify a custom path to the Wrangler configuration file using this option.
+   */
+  configPath?: string;
 
   /**
    * The domain to use for the Cloudflare deployed resources.
@@ -117,5 +126,8 @@ export type CloudflarePluginContext<
   EnvPluginContext<TResolvedConfig> &
   PulumiPluginContext<TResolvedConfig> &
   UnenvPluginContext<TResolvedConfig> & {
-    workers: CloudflareWorkerEntryModule[];
+    cloudflare: {
+      wrangler?: WranglerResolvedConfig;
+      workers: CloudflareWorkerEntryModule[];
+    };
   };

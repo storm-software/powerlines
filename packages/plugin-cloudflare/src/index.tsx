@@ -27,17 +27,22 @@ import { omit } from "@stryke/helpers/omit";
 import { joinPaths, replaceExtension } from "@stryke/path";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { isFunction } from "@stryke/type-checks/is-function";
+import { PartialKeys } from "@stryke/types";
 import defu from "defu";
 import { Plugin } from "powerlines";
+// eslint-disable-next-line camelcase
+import { unstable_readConfig } from "wrangler";
 import { CloudflareEnvBuiltin } from "./components";
 import { CloudflareBuiltin } from "./components/cloudflare-builtin";
 import { WorkerEntry } from "./components/worker-entry";
+import { resolveWranglerConfigPath } from "./helpers/wrangler";
 import {
   CloudflarePluginContext,
   CloudflarePluginOptions,
   CloudflareWorkerEntryModule
 } from "./types/plugin";
 import { WorkerModule } from "./types/worker-module";
+import { WranglerResolvedConfig, WranglerUserConfig } from "./types/wrangler";
 
 export * from "./components";
 export type * from "./types";
@@ -60,7 +65,9 @@ export function plugin<
       name: "cloudflare",
       config() {
         return {
-          cloudflare: defu(omit(options, ["unenv"]), {}),
+          cloudflare: defu(omit(options, ["unenv"]), {
+            configPath: resolveWranglerConfigPath(this)
+          }),
           resolve: {
             skipNodeModulesBundle: false
           },
@@ -76,6 +83,15 @@ export function plugin<
       },
       configResolved() {
         this.devDependencies["@cloudflare/workers-types"] = "^4.20240616.0";
+
+        const config: PartialKeys<WranglerUserConfig, "build" | "define"> =
+          unstable_readConfig(
+            { config: this.config.cloudflare?.configPath },
+            { preserveOriginalMain: true, hideWarnings: true }
+          );
+        this.cloudflare.wrangler = structuredClone(
+          config
+        ) as WranglerResolvedConfig;
       },
       async prepare() {
         const result = await readEnvTypeReflection(this, "env");
@@ -91,7 +107,8 @@ export function plugin<
       build: {
         order: "pre",
         async handler() {
-          this.workers = await Promise.all(
+          this.cloudflare ??= { workers: [] };
+          this.cloudflare.workers = await Promise.all(
             this.entry.map(async (entry, i, arr) => {
               if (!entry.input) {
                 throw new Error(
@@ -138,11 +155,29 @@ export function plugin<
 
           return render(
             this,
-            <For each={this.workers}>
+            <For each={this.cloudflare.workers}>
               {worker => <WorkerEntry worker={worker} />}
             </For>
           );
         }
+      },
+      async deploy() {
+        let apiToken = process.env.CLOUDFLARE_API_TOKEN;
+        if (!apiToken) {
+          apiToken = this.config.cloudflare.apiToken;
+          if (apiToken) {
+            this.warn(
+              "If possible, please use the `CLOUDFLARE_API_TOKEN` environment variable instead of using the `apiToken` option directly. The `apiToken` option will work; however, this is a less secure method of configuration."
+            );
+          } else {
+            throw new Error(
+              "Unable to determine the Cloudflare API token. Please set the `CLOUDFLARE_API_TOKEN` environment variable."
+            );
+          }
+        }
+
+        // for (const worker of this.cloudflare.workers) {
+        // }
       },
       async deployPulumi() {
         let apiToken = process.env.CLOUDFLARE_API_TOKEN;
@@ -182,7 +217,7 @@ export function plugin<
         const workersDeployments = [] as pulumiCloudflare.WorkersDeployment[];
         const workersRoutes = [] as pulumiCloudflare.WorkersRoute[];
         const dnsRecords = [] as pulumiCloudflare.DnsRecord[];
-        for (const worker of this.workers) {
+        for (const worker of this.cloudflare.workers) {
           const resource = new pulumiCloudflare.Worker(
             `${this.config.organization ? `${this.config.organization}.` : ""}${
               kebabCase(this.config.name) === kebabCase(worker.metadata.name)

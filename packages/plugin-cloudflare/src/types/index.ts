@@ -18,3 +18,4 @@
 
 export * from "./plugin";
 export * from "./worker-module";
+export * from "./wrangler";
