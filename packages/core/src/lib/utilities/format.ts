@@ -18,8 +18,11 @@
 
 import { listFiles } from "@stryke/fs/list-files";
 import { appendPath } from "@stryke/path/append";
+import { findFileExtension } from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
+import { defu } from "defu";
 import { format as prettier, resolveConfig } from "prettier";
+import importsPlugin from "prettier-plugin-organize-imports";
 import { Context } from "../../types/context";
 
 /**
@@ -61,10 +64,18 @@ export async function format(
   let code = data;
   const resolvedConfig = await resolveConfig(path);
   if (resolvedConfig) {
-    code = await prettier(data, {
-      absolutePath: path,
-      ...resolvedConfig
-    });
+    code = await prettier(
+      data,
+      defu(
+        {
+          absolutePath: path,
+          ...resolvedConfig
+        },
+        findFileExtension(path) === "ts" || findFileExtension(path) === "tsx"
+          ? { plugins: [importsPlugin] }
+          : {}
+      )
+    );
   }
 
   return code;
