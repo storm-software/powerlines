@@ -46,7 +46,8 @@ const config = defineTSDownConfig([
       "src/typescript/index.ts"
     ],
     unbundle: false,
-    exports: false
+    exports: false,
+    sourcemap: true
   }
 ]);
 

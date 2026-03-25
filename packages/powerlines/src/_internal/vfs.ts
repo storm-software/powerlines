@@ -48,6 +48,7 @@ import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { slash } from "@stryke/path/slash";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
 import { isRegExp } from "@stryke/type-checks/is-regexp";
+import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
@@ -127,6 +128,13 @@ function normalizePath(
   builtinsPath: string,
   prefix = "powerlines"
 ): string {
+  if (!isSetString(path)) {
+    if (!isString(path)) {
+      throw new Error("Path type must be a string or a file descriptor");
+    }
+    throw new Error("Path cannot be empty");
+  }
+
   return isAbsolutePath(path)
     ? path
     : isValidId(toFilePath(path), prefix)
@@ -251,6 +259,13 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns The normalized path.
    */
   #normalizePath(path: string): string {
+    if (!isSetString(path)) {
+      if (!isString(path)) {
+        throw new Error("Path type must be a string or a file descriptor");
+      }
+      throw new Error("Path cannot be empty");
+    }
+
     return normalizePath(
       path.includes("{") || path.includes("}")
         ? replacePathTokens(this.#context, path)
@@ -396,7 +411,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     result = this.paths[this.#normalizeId(path)];
-    if (!result) {
+    if (!isSetString(result)) {
       const paths = options.paths ?? [];
       if (importer && !paths.includes(importer)) {
         paths.push(importer);
@@ -445,7 +460,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         }
       }
 
-      if (!result) {
+      if (!isSetString(result)) {
         try {
           result = await resolve(path, { ...options, paths });
         } catch {
@@ -470,11 +485,15 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       }
     }
 
-    if (result && !this.#context.config.skipCache) {
-      this.resolverCache.set(resolverCacheKey, result);
+    if (isSetString(result)) {
+      if (!this.#context.config.skipCache) {
+        this.resolverCache.set(this.#normalizeId(path), result);
+      }
+
+      return result;
     }
 
-    return result;
+    return undefined;
   };
 
   /**
@@ -519,13 +538,13 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       result = this.resolverCache.get<string | undefined>(
         this.#normalizeId(path)
       );
-      if (result) {
+      if (isSetString(result)) {
         return result;
       }
     }
 
     result = this.paths[this.#normalizeId(path)];
-    if (!result) {
+    if (!isSetString(result)) {
       const paths = options.paths ?? [];
       if (importer && !paths.includes(importer)) {
         paths.push(importer);
@@ -572,7 +591,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         }
       }
 
-      if (!result) {
+      if (!isSetString(result)) {
         try {
           result = resolveSync(path, { ...options, paths });
         } catch {
@@ -597,11 +616,15 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       }
     }
 
-    if (result && !this.#context.config.skipCache) {
-      this.resolverCache.set(this.#normalizeId(path), result);
+    if (isSetString(result)) {
+      if (!this.#context.config.skipCache) {
+        this.resolverCache.set(this.#normalizeId(path), result);
+      }
+
+      return result;
     }
 
-    return result;
+    return undefined;
   };
 
   /**
@@ -810,7 +833,9 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   public get paths(): Record<string, string> {
     return new Proxy(this.#paths, {
       get: (target, prop: string) => {
-        return target[this.#normalizeId(prop)];
+        return this.#normalizeId(prop) in target
+          ? target[this.#normalizeId(prop)]
+          : undefined;
       },
       set: (target, prop: string, value) => {
         target[this.#normalizeId(prop)] = value;
@@ -1026,11 +1051,20 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * Checks if a file is virtual in the virtual file system (VFS).
    *
    * @param path - The path to the file.
+   * @param importer - An optional path to the importer module.
+   * @param options - Additional resolution options.
    * @returns `true` if the file is virtual, otherwise `false`.
    */
-  public isVirtual(path: string): boolean {
-    const resolved = this.resolveSync(path);
-    if (!resolved) {
+  public isVirtual(
+    path: string,
+    importer?: string | undefined,
+    options?: ResolveOptions
+  ): boolean {
+    const resolved = this.resolveSync(path, importer, options);
+    if (!isSetString(resolved)) {
+      if (isSet(resolved)) {
+        throw new Error(`Resolved path is not a string: ${String(resolved)}`);
+      }
       return false;
     }
 
@@ -1041,11 +1075,20 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * Checks if a path is a directory in the virtual file system (VFS).
    *
    * @param path - The path to check.
+   * @param importer - An optional path to the importer module.
+   * @param options - Additional resolution options.
    * @returns `true` if the path is a directory, otherwise `false`.
    */
-  public isDirectorySync(path: string): boolean {
-    const resolved = this.resolveSync(path);
-    if (!resolved) {
+  public isDirectorySync(
+    path: string,
+    importer?: string | undefined,
+    options?: ResolveOptions
+  ): boolean {
+    const resolved = this.resolveSync(path, importer, options);
+    if (!isSetString(resolved)) {
+      if (isSet(resolved)) {
+        throw new Error(`Resolved path is not a string: ${String(resolved)}`);
+      }
       return false;
     }
 
@@ -1059,11 +1102,20 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * Checks if a path is a directory in the virtual file system (VFS).
    *
    * @param path - The path to check.
+   * @param importer - An optional path to the importer module.
+   * @param options - Additional resolution options.
    * @returns `true` if the path is a directory, otherwise `false`.
    */
-  public async isDirectory(path: string): Promise<boolean> {
-    const resolved = await this.resolve(path);
-    if (!resolved) {
+  public async isDirectory(
+    path: string,
+    importer?: string | undefined,
+    options?: ResolveOptions
+  ): Promise<boolean> {
+    const resolved = await this.resolve(path, importer, options);
+    if (!isSetString(resolved)) {
+      if (isSet(resolved)) {
+        throw new Error(`Resolved path is not a string: ${String(resolved)}`);
+      }
       return false;
     }
 
@@ -1077,11 +1129,20 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * Checks if a path is a file in the virtual file system (VFS).
    *
    * @param path - The path to check.
+   * @param importer - An optional path to the importer module.
+   * @param options - Additional resolution options.
    * @returns `true` if the path is a file, otherwise `false`.
    */
-  public isFileSync(path: string): boolean {
-    const resolved = this.resolveSync(path);
-    if (!resolved) {
+  public isFileSync(
+    path: string,
+    importer?: string | undefined,
+    options?: ResolveOptions
+  ): boolean {
+    const resolved = this.resolveSync(path, importer, options);
+    if (!isSetString(resolved)) {
+      if (isSet(resolved)) {
+        throw new Error(`Resolved path is not a string: ${String(resolved)}`);
+      }
       return false;
     }
 
@@ -1092,11 +1153,20 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * Checks if a path is a file in the virtual file system (VFS).
    *
    * @param path - The path to check.
+   * @param importer - An optional path to the importer module.
+   * @param options - Additional resolution options.
    * @returns `true` if the path is a file, otherwise `false`.
    */
-  public async isFile(path: string): Promise<boolean> {
-    const resolved = await this.resolve(path);
-    if (!resolved) {
+  public async isFile(
+    path: string,
+    importer?: string | undefined,
+    options?: ResolveOptions
+  ): Promise<boolean> {
+    const resolved = await this.resolve(path, importer, options);
+    if (!isSetString(resolved)) {
+      if (isSet(resolved)) {
+        throw new Error(`Resolved path is not a string: ${String(resolved)}`);
+      }
       return false;
     }
 

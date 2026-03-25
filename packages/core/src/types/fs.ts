@@ -358,41 +358,71 @@ export interface VirtualFileSystemInterface {
    * Checks if a file is virtual in the virtual file system (VFS).
    *
    * @param path - The path or id of the file.
+   * @param importer - An optional path to the importer module, used for resolving the file path.
+   * @param options - Additional options for resolving the file path.
    * @returns `true` if the file is virtual, otherwise `false`.
    */
-  isVirtual: (path: string) => boolean;
+  isVirtual: (
+    path: string,
+    importer?: string | undefined,
+    options?: ResolveOptions
+  ) => boolean;
 
   /**
    * Checks if the given key is a directory.
    *
    * @param key - The key to check.
+   * @param importer - An optional path to the importer module, used for resolving the file path.
+   * @param options - Additional options for resolving the file path.
    * @returns A promise that resolves to `true` if the key is a directory, otherwise `false`.
    */
-  isDirectory: (key: string) => Promise<boolean>;
+  isDirectory: (
+    key: string,
+    importer?: string | undefined,
+    options?: ResolveOptions
+  ) => Promise<boolean>;
 
   /**
    * Synchronously checks if the given key is a directory.
    *
    * @param key - The key to check.
+   * @param importer - An optional path to the importer module, used for resolving the file path.
+   * @param options - Additional options for resolving the file path.
    * @returns `true` if the key is a directory, otherwise `false`.
    */
-  isDirectorySync: (key: string) => boolean;
+  isDirectorySync: (
+    key: string,
+    importer?: string | undefined,
+    options?: ResolveOptions
+  ) => boolean;
 
   /**
    * Checks if the given key is a file.
    *
    * @param key - The key to check.
+   * @param importer - An optional path to the importer module, used for resolving the file path.
+   * @param options - Additional options for resolving the file path.
    * @returns A promise that resolves to `true` if the key is a file, otherwise `false`.
    */
-  isFile: (key: string) => Promise<boolean>;
+  isFile: (
+    key: string,
+    importer?: string | undefined,
+    options?: ResolveOptions
+  ) => Promise<boolean>;
 
   /**
    * Synchronously checks if the given key is a file.
    *
    * @param key - The key to check.
+   * @param importer - An optional path to the importer module, used for resolving the file path.
+   * @param options - Additional options for resolving the file path.
    * @returns `true` if the key is a file, otherwise `false`.
    */
-  isFileSync: (key: string) => boolean;
+  isFileSync: (
+    key: string,
+    importer?: string | undefined,
+    options?: ResolveOptions
+  ) => boolean;
 
   /**
    * Gets the metadata of a file in the virtual file system (VFS).
