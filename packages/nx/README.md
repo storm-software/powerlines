@@ -144,10 +144,12 @@ The following executor options are available:
 
 | Option    | Type   | Description   | Default   | 
 | --------- | ------ | ------------- | --------- | 
-| configFile      | `string`    | The path to the Powerlines configuration file     | "{projectRoot}/powerlines.config.ts"     | 
+| config      | `string`    | The path to the Powerlines configuration file. Alias for \`configFile\`.     | "{projectRoot}/powerlines.config.ts"     | 
+ | configFile      | `string`    | The path to the Powerlines configuration file. Alias for \`config\`.     | "{projectRoot}/powerlines.config.ts"     | 
  | input      | `string[]`   | The entry file(s) that serve as the input for the project     |     | 
  | tsconfig      | `string`    | The path to the tsconfig file     | "{projectRoot}/tsconfig.json"     | 
  | outputPath      | `string`    | The path to the output directory for the build artifacts     |     | 
+ | copyPath      | `any`    | A directory path to copy the build artifacts into     | `[object Object]`     | 
  | sourceMap      | `boolean`    | Generate a sourcemap     |     | 
  | format      | `string[]`   | The format to build     | `[]`     | 
  | platform      | "neutral" \| "node" \| "browser"     | The platform to build     | "neutral"     | 
@@ -157,6 +159,7 @@ The following executor options are available:
  | mode      | "development" \| "test" \| "production"     | The build mode     |     | 
  | logLevel      | "fatal" \| "error" \| "warn" \| "success" \| "info" \| "debug" \| "trace" \| "silent"     | The log level to use for the build process     |     | 
  | define      | `object`    | The \`define\` values     | `[object Object]`     | 
+ | assets      | `any`    | The \`assets\` values     | `[object Object]`     | 
 
 
 
@@ -181,10 +184,12 @@ The following executor options are available:
 
 | Option    | Type   | Description   | Default   | 
 | --------- | ------ | ------------- | --------- | 
-| configFile      | `string`    | The path to the Powerlines configuration file     | "{projectRoot}/powerlines.config.ts"     | 
+| config      | `string`    | The path to the Powerlines configuration file. Alias for \`configFile\`.     | "{projectRoot}/powerlines.config.ts"     | 
+ | configFile      | `string`    | The path to the Powerlines configuration file. Alias for \`config\`.     | "{projectRoot}/powerlines.config.ts"     | 
  | input      | `string[]`   | The entry file(s) that serve as the input for the project     |     | 
  | tsconfig      | `string`    | The path to the tsconfig file     | "{projectRoot}/tsconfig.json"     | 
  | outputPath      | `string`    | The path to the output directory for the build artifacts     |     | 
+ | copyPath      | `any`    | A directory path to copy the build artifacts into     | `[object Object]`     | 
  | sourceMap      | `boolean`    | Generate a sourcemap     |     | 
  | format      | `string[]`   | The format to build     | `[]`     | 
  | platform      | "neutral" \| "node" \| "browser"     | The platform to build     | "neutral"     | 
@@ -194,6 +199,7 @@ The following executor options are available:
  | mode      | "development" \| "test" \| "production"     | The build mode     |     | 
  | logLevel      | "fatal" \| "error" \| "warn" \| "success" \| "info" \| "debug" \| "trace" \| "silent"     | The log level to use for the build process     |     | 
  | define      | `object`    | The \`define\` values     | `[object Object]`     | 
+ | assets      | `any`    | The \`assets\` values     | `[object Object]`     | 
  | autoInstall      | `boolean`    | Automatically install dependencies during prepare stage     |     | 
  | skipCache      | `boolean`    | Skip the caching mechanism during the build process (if required)     |     | 
 
@@ -220,10 +226,12 @@ The following executor options are available:
 
 | Option    | Type   | Description   | Default   | 
 | --------- | ------ | ------------- | --------- | 
-| configFile      | `string`    | The path to the Powerlines configuration file     | "{projectRoot}/powerlines.config.ts"     | 
+| config      | `string`    | The path to the Powerlines configuration file. Alias for \`configFile\`.     | "{projectRoot}/powerlines.config.ts"     | 
+ | configFile      | `string`    | The path to the Powerlines configuration file. Alias for \`config\`.     | "{projectRoot}/powerlines.config.ts"     | 
  | input      | `string[]`   | The entry file(s) that serve as the input for the project     |     | 
  | tsconfig      | `string`    | The path to the tsconfig file     | "{projectRoot}/tsconfig.json"     | 
  | outputPath      | `string`    | The path to the output directory for the build artifacts     |     | 
+ | copyPath      | `any`    | A directory path to copy the build artifacts into     | `[object Object]`     | 
  | sourceMap      | `boolean`    | Generate a sourcemap     |     | 
  | format      | `string[]`   | The format to build     | `[]`     | 
  | platform      | "neutral" \| "node" \| "browser"     | The platform to build     | "neutral"     | 
@@ -233,6 +241,7 @@ The following executor options are available:
  | mode      | "development" \| "test" \| "production"     | The build mode     |     | 
  | logLevel      | "fatal" \| "error" \| "warn" \| "success" \| "info" \| "debug" \| "trace" \| "silent"     | The log level to use for the build process     |     | 
  | define      | `object`    | The \`define\` values     | `[object Object]`     | 
+ | assets      | `any`    | The \`assets\` values     | `[object Object]`     | 
  | autoInstall      | `boolean`    | Automatically install dependencies during prepare stage     |     | 
  | skipCache      | `boolean`    | Skip the caching mechanism during the build process (if required)     |     | 
 
@@ -259,10 +268,12 @@ The following executor options are available:
 
 | Option    | Type   | Description   | Default   | 
 | --------- | ------ | ------------- | --------- | 
-| configFile      | `string`    | The path to the Powerlines configuration file     | "{projectRoot}/powerlines.config.ts"     | 
+| config      | `string`    | The path to the Powerlines configuration file. Alias for \`configFile\`.     | "{projectRoot}/powerlines.config.ts"     | 
+ | configFile      | `string`    | The path to the Powerlines configuration file. Alias for \`config\`.     | "{projectRoot}/powerlines.config.ts"     | 
  | input      | `string[]`   | The entry file(s) that serve as the input for the project     |     | 
  | tsconfig      | `string`    | The path to the tsconfig file     | "{projectRoot}/tsconfig.json"     | 
  | outputPath      | `string`    | The path to the output directory for the build artifacts     |     | 
+ | copyPath      | `any`    | A directory path to copy the build artifacts into     | `[object Object]`     | 
  | sourceMap      | `boolean`    | Generate a sourcemap     |     | 
  | format      | `string[]`   | The format to build     | `[]`     | 
  | platform      | "neutral" \| "node" \| "browser"     | The platform to build     | "neutral"     | 
@@ -272,6 +283,7 @@ The following executor options are available:
  | mode      | "development" \| "test" \| "production"     | The build mode     |     | 
  | logLevel      | "fatal" \| "error" \| "warn" \| "success" \| "info" \| "debug" \| "trace" \| "silent"     | The log level to use for the build process     |     | 
  | define      | `object`    | The \`define\` values     | `[object Object]`     | 
+ | assets      | `any`    | The \`assets\` values     | `[object Object]`     | 
  | autoInstall      | `boolean`    | Automatically install dependencies during prepare stage     |     | 
  | skipCache      | `boolean`    | Skip the caching mechanism during the build process (if required)     |     | 
  | entry      | `any`    | The entry path(s) for the package     | `[object Object]`     | 
@@ -299,10 +311,12 @@ The following executor options are available:
 
 | Option    | Type   | Description   | Default   | 
 | --------- | ------ | ------------- | --------- | 
-| configFile      | `string`    | The path to the Powerlines configuration file     | "{projectRoot}/powerlines.config.ts"     | 
+| config      | `string`    | The path to the Powerlines configuration file. Alias for \`configFile\`.     | "{projectRoot}/powerlines.config.ts"     | 
+ | configFile      | `string`    | The path to the Powerlines configuration file. Alias for \`config\`.     | "{projectRoot}/powerlines.config.ts"     | 
  | input      | `string[]`   | The entry file(s) that serve as the input for the project     |     | 
  | tsconfig      | `string`    | The path to the tsconfig file     | "{projectRoot}/tsconfig.json"     | 
  | outputPath      | `string`    | The path to the output directory for the build artifacts     |     | 
+ | copyPath      | `any`    | A directory path to copy the build artifacts into     | `[object Object]`     | 
  | sourceMap      | `boolean`    | Generate a sourcemap     |     | 
  | format      | `string[]`   | The format to build     | `[]`     | 
  | platform      | "neutral" \| "node" \| "browser"     | The platform to build     | "neutral"     | 
@@ -312,6 +326,7 @@ The following executor options are available:
  | mode      | "development" \| "test" \| "production"     | The build mode     |     | 
  | logLevel      | "fatal" \| "error" \| "warn" \| "success" \| "info" \| "debug" \| "trace" \| "silent"     | The log level to use for the build process     |     | 
  | define      | `object`    | The \`define\` values     | `[object Object]`     | 
+ | assets      | `any`    | The \`assets\` values     | `[object Object]`     | 
  | autoInstall      | `boolean`    | Automatically install dependencies during prepare stage     |     | 
  | skipCache      | `boolean`    | Skip the caching mechanism during the build process (if required)     |     | 
 
