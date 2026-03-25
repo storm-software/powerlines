@@ -70,6 +70,12 @@
       "@powerlines/plugin-nodejs/*": ["packages/plugin-nodejs/src/*"],
       "@powerlines/plugin-openapi": ["packages/plugin-openapi/src/index.ts"],
       "@powerlines/plugin-openapi/*": ["packages/plugin-openapi/src/*"],
+      "@powerlines/plugin-open-feature": [
+        "packages/plugin-open-feature/src/index.ts"
+      ],
+      "@powerlines/plugin-open-feature/*": [
+        "packages/plugin-open-feature/src/*"
+      ],
       "@powerlines/plugin-oxc-transform": [
         "packages/plugin-oxc-transform/src/index.ts"
       ],
