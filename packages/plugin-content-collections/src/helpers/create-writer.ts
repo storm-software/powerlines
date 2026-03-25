@@ -26,7 +26,7 @@ import {
 import { joinPaths } from "@stryke/path/join-paths";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import pluralize from "pluralize";
-import { getBaseFileHeader } from "powerlines/utils";
+import { getFileHeader } from "powerlines/utils";
 import { ContentCollectionsPluginContext } from "../types/plugin";
 
 const createConstName = (name: string) => {
@@ -51,7 +51,7 @@ export const createWriter = (
       configuration: JavaScriptFileConfiguration
     ) => {
       return context.emitBuiltin(
-        `${getBaseFileHeader(context)}
+        `${getFileHeader(context)}
 ${configuration.collections
   .map(
     ({ name }) =>

@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { getFileHeader } from "powerlines/lib/utilities/file-header";
+import { getTypescriptFileHeader } from "powerlines/utils";
 import { IdPluginContext } from "../types/plugin";
 
 /**
@@ -33,7 +33,7 @@ export function nanoidModule(context: IdPluginContext) {
  * @module ${context.config.framework}:id
  */
 
-${getFileHeader(context)}
+${getTypescriptFileHeader(context)}
 
 /**
  * Generate a random string

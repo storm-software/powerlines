@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { getFileHeader } from "powerlines/lib/utilities/file-header";
+import { getTypescriptFileHeader } from "powerlines/utils";
 import { DatePluginContext } from "../types/plugin";
 
 /**
@@ -33,7 +33,7 @@ export function dateFnsModule(context: DatePluginContext) {
  * @module ${context.config.framework}:date
  */
 
-${getFileHeader(context)}
+${getTypescriptFileHeader(context)}
 
 import { DateFormats, TimeUnit } from "@powerlines/plugin-date/types/runtime";
 import { addDays as dateFnsAddDays } from "date-fns/addDays";

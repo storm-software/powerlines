@@ -19,6 +19,7 @@
 import {
   inferDirectoryConfig,
   isValidJsIdentifier,
+  PrismaConfigWithDatasource,
   SchemaContext
 } from "@prisma/internals";
 import {
@@ -59,7 +60,7 @@ async function readTypedSqlFiles(
 
     results.push({
       name: findFileName(fileName, { withExtension: false }),
-      source: await context.fs.read(joinPaths(typedSqlDirPath, fileName)),
+      source: (await context.fs.read(joinPaths(typedSqlDirPath, fileName)))!,
       fileName: joinPaths(typedSqlDirPath, fileName)
     });
   }
@@ -79,7 +80,7 @@ export async function introspectSql(context: PrismaPluginContext) {
 
   const introspectionResult = await migrateIntrospectSql(
     context.prisma.schema,
-    context.prisma.config,
+    context.prisma.config as PrismaConfigWithDatasource,
     context.config.root,
     sqlFiles
   );

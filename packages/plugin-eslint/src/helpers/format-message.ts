@@ -20,8 +20,8 @@ import { relative } from "@stryke/path/find";
 import { correctPath } from "@stryke/path/normalize";
 
 export enum MessageSeverity {
-  Warning = 1,
-  Error = 2
+  WARNING = 1,
+  ERROR = 2
 }
 
 export interface LintMessage {
@@ -53,7 +53,7 @@ export function formatMessage(
       output = `${output + line.toString()}:${column.toString()}  `;
     }
 
-    if (severity === MessageSeverity.Warning) {
+    if (severity === MessageSeverity.WARNING) {
       output += `Warning: `;
     } else {
       output += `Error: `;

@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { getFileHeader } from "powerlines/lib/utilities/file-header";
+import { getTypescriptFileHeader } from "powerlines/utils";
 import { DatePluginContext } from "../types/plugin";
 
 /**
@@ -33,7 +33,7 @@ export function dayjsModule(context: DatePluginContext) {
  * @module ${context.config.framework}:date
  */
 
-${getFileHeader(context)}
+${getTypescriptFileHeader(context)}
 
 import defaultDayjs, { QUnitType } from "dayjs";
 import customParseFormatPlugin from "dayjs/plugin/customParseFormat";

@@ -16,22 +16,35 @@
 
  ------------------------------------------------------------------- */
 
-import { defineConfig } from "@storm-software/eslint";
+declare module "@prisma/migrate" {
+  import { SqlQueryOutput } from "@prisma/generator";
+  import { PrismaConfigWithDatasource, SchemaContext } from "@prisma/internals";
 
-Error.stackTraceLimit = Number.POSITIVE_INFINITY;
+  export interface IntrospectSqlInput {
+    fileName: string;
+    name: string;
+    source: string;
+  }
 
-/** @type {import('eslint').Linter.Config[]} */
-export default defineConfig({
-  name: "powerlines",
-  typescript: {
-    typeImports: "off"
-  },
-  nx: {
-    moduleBoundaries: false
-  },
-  ignores: [
-    "packages/deepkit/schemas/**",
-    "packages/powerlines/schemas/**",
-    "**.spec.ts"
-  ]
-});
+  export interface IntrospectSqlError {
+    fileName: string;
+    message: string;
+  }
+
+  export type IntrospectSqlResult =
+    | {
+        ok: true;
+        queries: SqlQueryOutput[];
+      }
+    | {
+        ok: false;
+        errors: IntrospectSqlError[];
+      };
+
+  export function introspectSql(
+    schemaContext: SchemaContext,
+    config: PrismaConfigWithDatasource,
+    baseDir: string,
+    queries: IntrospectSqlInput[]
+  ): Promise<IntrospectSqlResult>;
+}

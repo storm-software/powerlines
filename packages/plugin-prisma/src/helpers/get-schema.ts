@@ -65,7 +65,7 @@ async function resolveBinaryTargets(generator: GeneratorConfig) {
 /**
  * Retrieves the Prisma schema using the provided options.
  *
- * @param path - The path to the Prisma schema file.
+ * @param schemaPath - The path to the Prisma schema file.
  * @returns The Prisma schema.
  */
 async function resolveDataModel(schemaPath: string) {
