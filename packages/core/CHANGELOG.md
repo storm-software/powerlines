@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.12.1](https://github.com/storm-software/powerlines/releases/tag/core%400.12.1) (03/26/2026)
+
+### Bug Fixes
+
+- **core:** Added `isResovableId` to properly handle module Ids ([fc937282f](https://github.com/storm-software/powerlines/commit/fc937282f))
+
 ## [0.12.0](https://github.com/storm-software/powerlines/releases/tag/core%400.12.0) (03/25/2026)
 
 ### Miscellaneous

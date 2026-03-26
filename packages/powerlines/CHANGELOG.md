@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.21](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.21) (03/26/2026)
+
+### Bug Fixes
+
+- **core:** Added `isResovableId` to properly handle module Ids ([fc937282f](https://github.com/storm-software/powerlines/commit/fc937282f))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.380**
+- Updated **plugin-esbuild** to **v0.13.381**
+- Updated **plugin-unbuild** to **v0.5.378**
+- Updated **plugin-webpack** to **v0.5.377**
+- Updated **plugin-rollup** to **v0.7.378**
+- Updated **plugin-rspack** to **v0.5.377**
+- Updated **plugin-tsdown** to **v0.1.323**
+- Updated **plugin-tsup** to **v0.12.382**
+- Updated **plugin-vite** to **v0.14.376**
+- Updated **core** to **v0.12.1**
+
 ## [0.42.20](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.20) (03/25/2026)
 
 ### Miscellaneous
