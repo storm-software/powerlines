@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.6.158](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.158) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update `pnpm-lock.yaml` file ([f40658e91](https://github.com/storm-software/powerlines/commit/f40658e91))
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+- **monorepo:** Resolve monorepo's linting failures ([257ee9b99](https://github.com/storm-software/powerlines/commit/257ee9b99))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.380**
+- Updated **powerlines** to **v0.42.20**
+
 ## [0.6.157](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.157) (03/23/2026)
 
 ### Features

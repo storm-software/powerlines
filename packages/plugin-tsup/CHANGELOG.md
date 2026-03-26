@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.381](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.381) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.380**
+- Updated **core** to **v0.12.0**
+
 ## [0.12.380](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.380) (03/23/2026)
 
 ### Updated Dependencies

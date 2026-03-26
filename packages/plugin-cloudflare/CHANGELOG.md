@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.0](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.0) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+
+### Features
+
+- **plugin-cloudflare:** Starting implementation of `wrangler` deployments ([ce6e369eb](https://github.com/storm-software/powerlines/commit/ce6e369eb))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.380**
+- Updated **plugin-plugin** to **v0.12.330**
+- Updated **plugin-pulumi** to **v0.6.20**
+- Updated **plugin-alloy** to **v0.25.66**
+- Updated **plugin-unenv** to **v0.1.368**
+- Updated **plugin-env** to **v0.16.101**
+- Updated **powerlines** to **v0.42.20**
+
 ## [0.5.20](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.5.20) (03/23/2026)
 
 ### Updated Dependencies

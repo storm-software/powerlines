@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Oxlint
 
+## [0.7.383](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.383) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.330**
+- Updated **powerlines** to **v0.42.20**
+
 ## [0.7.382](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.382) (03/23/2026)
 
 ### Updated Dependencies

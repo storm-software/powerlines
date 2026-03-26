@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Swc
 
+## [0.5.388](https://github.com/storm-software/powerlines/releases/tag/plugin-swc%400.5.388) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.330**
+- Updated **powerlines** to **v0.42.20**
+
 ## [0.5.387](https://github.com/storm-software/powerlines/releases/tag/plugin-swc%400.5.387) (03/23/2026)
 
 ### Updated Dependencies

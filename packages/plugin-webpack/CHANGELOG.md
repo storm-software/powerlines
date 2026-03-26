@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Webpack
 
+## [0.5.376](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.376) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+- **monorepo:** Resolve monorepo's linting failures ([257ee9b99](https://github.com/storm-software/powerlines/commit/257ee9b99))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.12.0**
+
 ## [0.5.375](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.375) (03/23/2026)
 
 ### Updated Dependencies

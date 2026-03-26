@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.61](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.61) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+- **monorepo:** Resolve monorepo's linting failures ([257ee9b99](https://github.com/storm-software/powerlines/commit/257ee9b99))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.330**
+- Updated **plugin-pulumi** to **v0.6.20**
+- Updated **powerlines** to **v0.42.20**
+
 ## [0.4.60](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.60) (03/23/2026)
 
 ### Updated Dependencies
