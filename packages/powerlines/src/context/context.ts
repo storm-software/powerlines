@@ -876,9 +876,10 @@ export class PowerlinesContext<
         !match(moduleId, this.config.resolve.noExternal) &&
         (match(moduleId, this.config.resolve.external) ||
           moduleId.startsWith("node:") ||
-          (this.fs.isResolvableId(moduleId) &&
-            this.config.projectType !== "application") ||
-          (this.config.resolve.skipNodeModulesBundle &&
+          ((!this.fs.isResolvableId(moduleId) ||
+            (this.fs.isResolvableId(moduleId) &&
+              this.config.projectType !== "application")) &&
+            this.config.resolve.skipNodeModulesBundle &&
             !/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(moduleId)))
       );
 
