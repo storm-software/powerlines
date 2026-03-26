@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.380](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.380) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.12.0**
+
 ## [0.13.379](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.379) (03/23/2026)
 
 ### Features

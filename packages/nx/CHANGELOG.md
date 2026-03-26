@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.308](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.308) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.42.20**
+
 ## [0.11.307](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.307) (03/23/2026)
 
 ### Updated Dependencies

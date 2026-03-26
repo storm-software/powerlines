@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Image Compression
 
+## [0.2.328](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.328) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.330**
+- Updated **powerlines** to **v0.42.20**
+
 ## [0.2.327](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.327) (03/23/2026)
 
 ### Updated Dependencies

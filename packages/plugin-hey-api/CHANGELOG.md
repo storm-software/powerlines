@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Hey API
 
+## [0.1.333](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.333) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+- **monorepo:** Resolve monorepo's linting failures ([257ee9b99](https://github.com/storm-software/powerlines/commit/257ee9b99))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.330**
+- Updated **powerlines** to **v0.42.20**
+
 ## [0.1.332](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.332) (03/23/2026)
 
 ### Updated Dependencies

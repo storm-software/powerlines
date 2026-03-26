@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.20](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.20) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+- **monorepo:** Update devenv config to use shared `ai` module ([c5e095dba](https://github.com/storm-software/powerlines/commit/c5e095dba))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.379**
+- Updated **plugin-esbuild** to **v0.13.380**
+- Updated **plugin-unbuild** to **v0.5.377**
+- Updated **plugin-webpack** to **v0.5.376**
+- Updated **plugin-rollup** to **v0.7.377**
+- Updated **plugin-rspack** to **v0.5.376**
+- Updated **plugin-tsdown** to **v0.1.322**
+- Updated **plugin-tsup** to **v0.12.381**
+- Updated **plugin-vite** to **v0.14.375**
+- Updated **core** to **v0.12.0**
+
 ## [0.42.19](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.19) (03/23/2026)
 
 ### Updated Dependencies

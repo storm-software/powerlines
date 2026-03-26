@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.10.387](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.387) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.330**
+- Updated **powerlines** to **v0.42.20**
+
 ## [0.10.386](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.386) (03/23/2026)
 
 ### Updated Dependencies

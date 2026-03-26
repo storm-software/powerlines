@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Content Collections
 
+## [0.1.379](https://github.com/storm-software/powerlines/releases/tag/plugin-content-collections%400.1.379) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+- **monorepo:** Resolve monorepo's linting failures ([257ee9b99](https://github.com/storm-software/powerlines/commit/257ee9b99))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.330**
+- Updated **powerlines** to **v0.42.20**
+
 ## [0.1.378](https://github.com/storm-software/powerlines/releases/tag/plugin-content-collections%400.1.378) (03/23/2026)
 
 ### Updated Dependencies

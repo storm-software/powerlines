@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.410](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.410) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.330**
+- Updated **plugin-env** to **v0.16.101**
+- Updated **powerlines** to **v0.42.20**
+
 ## [0.10.409](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.409) (03/23/2026)
 
 ### Updated Dependencies

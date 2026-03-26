@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.44](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.44) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+
 ## [0.4.26](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.26) (03/14/2026)
 
 ### Miscellaneous

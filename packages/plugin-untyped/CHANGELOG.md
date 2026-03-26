@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Untyped
 
+## [0.2.332](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.332) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.330**
+- Updated **powerlines** to **v0.42.20**
+
 ## [0.2.331](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.331) (03/23/2026)
 
 ### Updated Dependencies

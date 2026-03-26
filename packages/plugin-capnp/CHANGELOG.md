@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Capnp
 
+## [0.1.382](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.382) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([dea563a34](https://github.com/storm-software/powerlines/commit/dea563a34))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.330**
+- Updated **powerlines** to **v0.42.20**
+
 ## [0.1.381](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.381) (03/23/2026)
 
 ### Updated Dependencies

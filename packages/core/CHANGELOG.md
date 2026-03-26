@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Core
 
+## [0.12.0](https://github.com/storm-software/powerlines/releases/tag/core%400.12.0) (03/25/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update devenv config to use shared `ai` module ([c5e095dba](https://github.com/storm-software/powerlines/commit/c5e095dba))
+
+### Features
+
+- **core:** Run `organize-imports` prettier plugin on generated code ([5c04031a3](https://github.com/storm-software/powerlines/commit/5c04031a3))
+
 ## [0.11.0](https://github.com/storm-software/powerlines/releases/tag/core%400.11.0) (03/23/2026)
 
 ### Features
