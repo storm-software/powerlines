@@ -425,6 +425,25 @@ export interface VirtualFileSystemInterface {
   ) => boolean;
 
   /**
+   * Checks if a file Id must be resolved by the virtual file system (VFS).
+   *
+   * @remarks
+   * Examples of file Ids that would be considered virtual include:
+   * - Ids that start with the framework specific prefix (e.g. `powerlines:`)
+   * - Ids that match a configured alias for virtual modules (returned true from {@link VirtualFileSystemInterface.isVirtual})
+   *
+   * @param path - The path or id of the file.
+   * @param importer - An optional path to the importer module, used for resolving the file path.
+   * @param options - Additional options for resolving the file path.
+   * @returns `true` if the file is virtual, otherwise `false`.
+   */
+  isResolvableId: (
+    path: string,
+    importer?: string | undefined,
+    options?: ResolveOptions
+  ) => boolean;
+
+  /**
    * Gets the metadata of a file in the virtual file system (VFS).
    *
    * @param path - The path or id of the file.

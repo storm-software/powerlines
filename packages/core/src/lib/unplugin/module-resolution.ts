@@ -50,8 +50,8 @@ export interface CreateUnpluginModuleResolutionFunctionsOptions {
   overrides?: Partial<ResolveOptions>;
 }
 
-const VIRTUAL_MODULE_PREFIX = "__powerlines-virtual:";
-const VIRTUAL_MODULE_PREFIX_REGEX = /^__powerlines-virtual:/;
+const VIRTUAL_MODULE_PREFIX = "__powerlines-virtual__:";
+const VIRTUAL_MODULE_PREFIX_REGEX = /^__powerlines-virtual__:/;
 
 /**
  * Creates the module resolution hook functions for a Powerlines unplugin plugin instance.

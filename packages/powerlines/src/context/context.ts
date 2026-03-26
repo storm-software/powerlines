@@ -839,11 +839,11 @@ export class PowerlinesContext<
     }
 
     if (
-      this.fs.isVirtual(moduleId) ||
-      (importer && this.fs.isVirtual(importer))
+      this.fs.isResolvableId(moduleId) ||
+      (importer && this.fs.isResolvableId(importer))
     ) {
       let resolvedImporter = importer;
-      if (importer && this.fs.isVirtual(importer)) {
+      if (importer && this.fs.isResolvableId(importer)) {
         resolvedImporter = await this.fs.resolve(
           importer,
           undefined,
@@ -876,7 +876,7 @@ export class PowerlinesContext<
         !match(moduleId, this.config.resolve.noExternal) &&
         (match(moduleId, this.config.resolve.external) ||
           moduleId.startsWith("node:") ||
-          (this.fs.isVirtual(moduleId) &&
+          (this.fs.isResolvableId(moduleId) &&
             this.config.projectType !== "application") ||
           (this.config.resolve.skipNodeModulesBundle &&
             !/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(moduleId)))

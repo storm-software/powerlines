@@ -1176,6 +1176,30 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   }
 
   /**
+   * Checks if a file Id must be resolved by the virtual file system (VFS).
+   *
+   * @remarks
+   * Examples of file Ids that would be considered virtual include:
+   * - Ids that start with the framework specific prefix (e.g. `powerlines:`)
+   * - Ids that match a configured alias for virtual modules (returned true from {@link VirtualFileSystemInterface.isVirtual})
+   *
+   * @param path - The path or id of the file.
+   * @param importer - An optional path to the importer module, used for resolving the file path.
+   * @param options - Additional options for resolving the file path.
+   * @returns `true` if the file is virtual, otherwise `false`.
+   */
+  public isResolvableId(
+    path: string,
+    importer?: string | undefined,
+    options?: ResolveOptions
+  ): boolean {
+    return (
+      path.startsWith(`${this.#context.config.framework}:`) ||
+      this.isVirtual(path, importer, options)
+    );
+  }
+
+  /**
    * Lists files in a given path.
    *
    * @param path - The path to list files from.
