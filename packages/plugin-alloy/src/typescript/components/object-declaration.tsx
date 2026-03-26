@@ -66,6 +66,7 @@ export interface ObjectDeclarationProps<
 
 export interface ObjectDeclarationPropertyProps extends ComponentProps {
   property: ReflectionProperty;
+  defaultValue?: any;
 }
 
 /**
@@ -170,7 +171,14 @@ export function ObjectDeclaration<
                     each={properties.value ?? []}
                     comma={true}
                     doubleHardline={true}>
-                    {prop => <ObjectDeclarationProperty property={prop} />}
+                    {prop => (
+                      <ObjectDeclarationProperty
+                        property={prop}
+                        defaultValue={
+                          props.defaultValue?.value?.[prop.getNameAsString()]
+                        }
+                      />
+                    )}
                   </For>
                 </ObjectExpression>
               )}
@@ -189,14 +197,17 @@ export function ObjectDeclaration<
 export function ObjectDeclarationProperty(
   props: ObjectDeclarationPropertyProps
 ) {
-  const [{ property }] = splitProps(props, ["property"]);
+  const [{ property, defaultValue }] = splitProps(props, [
+    "property",
+    "defaultValue"
+  ]);
 
   return (
     <ReflectionPropertyContext.Provider value={property}>
       <TSDocReflectionProperty reflection={property} />
       <ObjectProperty
         name={property.getNameAsString()}
-        value={stringifyDefaultValue(property)}
+        value={stringifyDefaultValue(property, defaultValue)}
       />
       <hbr />
     </ReflectionPropertyContext.Provider>
