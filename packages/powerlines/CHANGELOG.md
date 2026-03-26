@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.22](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.22) (03/26/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue preventing virtual module bundling ([9d2a0f0cd](https://github.com/storm-software/powerlines/commit/9d2a0f0cd))
+
 ## [0.42.21](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.21) (03/26/2026)
 
 ### Bug Fixes
