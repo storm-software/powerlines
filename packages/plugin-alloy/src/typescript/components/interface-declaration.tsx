@@ -30,6 +30,7 @@ import {
   MemberDeclaration,
   Name,
   Namekey,
+  Ref,
   Refkey,
   Show,
   splitProps,
@@ -92,7 +93,7 @@ export interface InterfaceDeclarationProps<
    * @remarks
    * This is used when the interface is used as a type for a variable declaration, to provide an initial value for the variable.
    */
-  defaultValue?: Partial<T>;
+  defaultValue?: Ref<Partial<T>>;
 
   /**
    * Documentation for the interface. This can be a string or any Alloy component that renders documentation content (such as `TSDoc`).
@@ -103,6 +104,7 @@ export interface InterfaceDeclarationProps<
 export interface InterfaceDeclarationPropertyProps
   extends Omit<InterfaceMemberProps, "name">, ComponentProps {
   property: ReflectionProperty;
+  defaultValue?: any;
 }
 
 export interface InterfaceExpressionProps {
@@ -273,10 +275,11 @@ const BaseInterfaceDeclaration = ensureTypeRefContext(
 export function InterfaceDeclaration<
   T extends Record<string, any> = Record<string, any>
 >(props: InterfaceDeclarationProps<T>) {
-  const [{ name, reflection, doc }, rest] = splitProps(props, [
+  const [{ name, reflection, doc, defaultValue }, rest] = splitProps(props, [
     "name",
     "reflection",
-    "doc"
+    "doc",
+    "defaultValue"
   ]);
 
   const interfaceName = computed(() =>
@@ -315,9 +318,15 @@ export function InterfaceDeclaration<
         <BaseInterfaceDeclaration
           export={true}
           name={interfaceName.value}
+          defaultValue={defaultValue}
           {...rest}>
           <For each={properties} doubleHardline={true} semicolon={true}>
-            {prop => <InterfaceDeclarationProperty property={prop} />}
+            {prop => (
+              <InterfaceDeclarationProperty
+                property={prop}
+                defaultValue={defaultValue?.value?.[prop.getNameAsString()]}
+              />
+            )}
           </For>
         </BaseInterfaceDeclaration>
       </ReflectionClassContext.Provider>
@@ -331,10 +340,13 @@ export function InterfaceDeclaration<
 export function InterfaceDeclarationProperty(
   props: InterfaceDeclarationPropertyProps
 ) {
-  const [{ property }, rest] = splitProps(props, ["property"]);
+  const [{ property, defaultValue }, rest] = splitProps(props, [
+    "property",
+    "defaultValue"
+  ]);
 
   return (
-    <ReflectionPropertyContext.Provider value={property}>
+    <ReflectionPropertyContext.Provider value={{ property, defaultValue }}>
       <TSDocContextProperty />
       <InterfaceMember
         name={property.getNameAsString()}

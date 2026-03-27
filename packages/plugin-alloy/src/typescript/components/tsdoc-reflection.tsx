@@ -41,7 +41,7 @@ import { Spacing } from "../../core/components/spacing";
 import {
   useReflectionClass,
   useReflectionMethod,
-  useReflectionProperty
+  useReflectionPropertyContext
 } from "../../core/contexts/reflection";
 import {
   TSDoc,
@@ -161,15 +161,17 @@ export function TSDocContextClass<
 
 export interface TSDocReflectionPropertyProps extends TSDocProps {
   reflection: ReflectionProperty;
+  defaultValue?: any;
 }
 
 /**
  * Generates a TSDoc documentation block for the given reflection property. This component will render the description of the reflection as the main content of the documentation block, and will render any additional attributes (such as title, alias, domain, permission, etc.) as tags in the documentation block. If there are child elements provided, they will be rendered as a list below the main content of the documentation block. This is useful for rendering additional details about the reflection that may not be included in the description, such as information about parameters of a method or properties of a class.
  */
 export function TSDocReflectionProperty(props: TSDocReflectionPropertyProps) {
-  const [{ children, reflection }, rest] = splitProps(props, [
+  const [{ children, reflection, defaultValue }, rest] = splitProps(props, [
     "children",
-    "reflection"
+    "reflection",
+    "defaultValue"
   ]);
 
   if (!isSetObject(reflection)) {
@@ -204,7 +206,7 @@ export function TSDocReflectionProperty(props: TSDocReflectionPropertyProps) {
           internal={reflection.isInternal()}
           ignore={reflection.isIgnored()}
           hidden={reflection.isHidden()}
-          defaultValue={reflection.getDefaultValue()}
+          defaultValue={defaultValue ?? reflection.getDefaultValue()}
         />
       </Show>
       <Show
@@ -225,11 +227,15 @@ export function TSDocReflectionProperty(props: TSDocReflectionPropertyProps) {
  * Uses the `useReflectionProperty` hook to retrieve the reflection property from the context, and then renders a `TSDocReflectionProperty` component with the retrieved reflection property. This is a convenience component that allows you to easily render a TSDoc documentation block for the current reflection property without having to manually retrieve the reflection property from the context.
  */
 export function TSDocContextProperty(props: TSDocProps) {
-  const reflection = useReflectionProperty();
+  const reflection = useReflectionPropertyContext();
 
   return (
     <Show when={isSetObject(reflection)}>
-      <TSDocReflectionProperty {...props} reflection={reflection} />
+      <TSDocReflectionProperty
+        {...props}
+        reflection={reflection.property}
+        defaultValue={reflection.defaultValue}
+      />
     </Show>
   );
 }

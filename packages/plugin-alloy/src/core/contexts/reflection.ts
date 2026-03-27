@@ -61,11 +61,35 @@ export function useReflectionClass<
   return context;
 }
 
+export interface ReflectionPropertyContextInterface {
+  property: ReflectionProperty;
+  defaultValue?: any;
+}
+
 /**
  * The reflection property context used in template rendering.
  */
-export const ReflectionPropertyContext: ComponentContext<ReflectionProperty> =
-  createNamedContext<ReflectionProperty>("ReflectionProperty");
+export const ReflectionPropertyContext: ComponentContext<ReflectionPropertyContextInterface> =
+  createNamedContext<ReflectionPropertyContextInterface>("ReflectionProperty");
+
+/**
+ * Hook to access the Reflection Property context.
+ *
+ * @returns A reactive version of the current reflection.
+ */
+export function useReflectionPropertyContext() {
+  const context = useContext<ReflectionPropertyContextInterface>(
+    ReflectionPropertyContext
+  )!;
+
+  if (!context) {
+    throw new Error(
+      "Powerlines - Reflection Property Context is not set. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."
+    );
+  }
+
+  return context;
+}
 
 /**
  * Hook to access the Reflection Property context.
@@ -73,7 +97,7 @@ export const ReflectionPropertyContext: ComponentContext<ReflectionProperty> =
  * @returns A reactive version of the current reflection.
  */
 export function useReflectionProperty() {
-  const context = useContext<ReflectionProperty>(ReflectionPropertyContext)!;
+  const context = useReflectionPropertyContext();
 
   if (!context) {
     throw new Error(

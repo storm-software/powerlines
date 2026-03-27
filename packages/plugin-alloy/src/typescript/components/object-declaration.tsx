@@ -64,11 +64,6 @@ export interface ObjectDeclarationProps<
   defaultValue?: ComputedRef<Partial<T> | undefined>;
 }
 
-export interface ObjectDeclarationPropertyProps extends ComponentProps {
-  property: ReflectionProperty;
-  defaultValue?: any;
-}
-
 /**
  * Generates a TypeScript object for the given reflection class.
  */
@@ -191,6 +186,11 @@ export function ObjectDeclaration<
   );
 }
 
+export interface ObjectDeclarationPropertyProps extends ComponentProps {
+  property: ReflectionProperty;
+  defaultValue?: any;
+}
+
 /**
  * Generates a TypeScript object property for the given reflection class.
  */
@@ -203,8 +203,11 @@ export function ObjectDeclarationProperty(
   ]);
 
   return (
-    <ReflectionPropertyContext.Provider value={property}>
-      <TSDocReflectionProperty reflection={property} />
+    <ReflectionPropertyContext.Provider value={{ property, defaultValue }}>
+      <TSDocReflectionProperty
+        reflection={property}
+        defaultValue={defaultValue}
+      />
       <ObjectProperty
         name={property.getNameAsString()}
         value={stringifyDefaultValue(property, defaultValue)}
