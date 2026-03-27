@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.283](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.283) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.382**
+- Updated **plugin-plugin** to **v0.12.333**
+- Updated **powerlines** to **v0.42.23**
+
 ## [0.3.282](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.282) (03/26/2026)
 
 ### Updated Dependencies

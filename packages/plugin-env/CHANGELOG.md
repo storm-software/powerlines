@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.104](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.104) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.261**
+- Updated **plugin-automd** to **v0.1.382**
+- Updated **plugin-plugin** to **v0.12.333**
+- Updated **plugin-alloy** to **v0.25.69**
+- Updated **plugin-babel** to **v0.12.378**
+- Updated **powerlines** to **v0.42.23**
+- Updated **deepkit** to **v0.6.161**
+
 ## [0.16.103](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.103) (03/26/2026)
 
 ### Updated Dependencies

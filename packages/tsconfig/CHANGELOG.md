@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.45](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.45) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
 ## [0.4.44](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.44) (03/25/2026)
 
 ### Miscellaneous

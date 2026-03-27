@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.381](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.381) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.379**
+- Updated **plugin-babel** to **v0.12.378**
+- Updated **core** to **v0.12.2**
+
 ## [0.7.380](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.380) (03/26/2026)
 
 ### Updated Dependencies

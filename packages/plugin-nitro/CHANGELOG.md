@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Nitro
 
+## [0.1.274](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.274) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.333**
+- Updated **powerlines** to **v0.42.23**
+
 ## [0.1.273](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.273) (03/26/2026)
 
 ### Updated Dependencies

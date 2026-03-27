@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.6.161](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.161) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.382**
+- Updated **powerlines** to **v0.42.23**
+
 ## [0.6.160](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.160) (03/26/2026)
 
 ### Updated Dependencies

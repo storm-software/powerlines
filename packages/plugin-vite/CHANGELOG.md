@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.377](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.377) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.381**
+- Updated **plugin-esbuild** to **v0.13.382**
+- Updated **plugin-rollup** to **v0.7.379**
+- Updated **core** to **v0.12.2**
+
 ## [0.14.376](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.376) (03/26/2026)
 
 ### Updated Dependencies

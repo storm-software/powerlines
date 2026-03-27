@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unbuild
 
+## [0.5.379](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.379) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.379**
+- Updated **core** to **v0.12.2**
+
 ## [0.5.378](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.378) (03/26/2026)
 
 ### Updated Dependencies

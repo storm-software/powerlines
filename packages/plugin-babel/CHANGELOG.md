@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.378](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.378) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.12.2**
+
 ## [0.12.377](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.377) (03/26/2026)
 
 ### Updated Dependencies

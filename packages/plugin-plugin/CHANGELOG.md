@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.333](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.333) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.324**
+- Updated **powerlines** to **v0.42.23**
+
 ## [0.12.332](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.332) (03/26/2026)
 
 ### Updated Dependencies
