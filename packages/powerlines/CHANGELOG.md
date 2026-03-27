@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.23](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.23) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.381**
+- Updated **plugin-esbuild** to **v0.13.382**
+- Updated **plugin-unbuild** to **v0.5.379**
+- Updated **plugin-webpack** to **v0.5.378**
+- Updated **plugin-rollup** to **v0.7.379**
+- Updated **plugin-rspack** to **v0.5.378**
+- Updated **plugin-tsdown** to **v0.1.324**
+- Updated **plugin-tsup** to **v0.12.383**
+- Updated **plugin-vite** to **v0.14.377**
+- Updated **core** to **v0.12.2**
+
 ## [0.42.21](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.21) (03/26/2026)
 
 ### Bug Fixes

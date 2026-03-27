@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.12.2](https://github.com/storm-software/powerlines/releases/tag/core%400.12.2) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
 ## [0.12.1](https://github.com/storm-software/powerlines/releases/tag/core%400.12.1) (03/26/2026)
 
 ### Bug Fixes

@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.305](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.305) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.333**
+- Updated **plugin-alloy** to **v0.25.69**
+- Updated **plugin-babel** to **v0.12.378**
+- Updated **plugin-env** to **v0.16.104**
+- Updated **powerlines** to **v0.42.23**
+
 ## [0.1.304](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.304) (03/26/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.3](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.3) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.382**
+- Updated **plugin-plugin** to **v0.12.333**
+- Updated **plugin-pulumi** to **v0.6.23**
+- Updated **plugin-alloy** to **v0.25.69**
+- Updated **plugin-unenv** to **v0.1.371**
+- Updated **plugin-env** to **v0.16.104**
+- Updated **powerlines** to **v0.42.23**
+
 ## [0.6.2](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.2) (03/26/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.383](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.383) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.382**
+- Updated **core** to **v0.12.2**
+
 ## [0.12.382](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.382) (03/26/2026)
 
 ### Updated Dependencies

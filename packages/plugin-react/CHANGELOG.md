@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.439](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.439) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve monorepo linting issues ([865141588](https://github.com/storm-software/powerlines/commit/865141588))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.333**
+- Updated **plugin-alloy** to **v0.25.69**
+- Updated **plugin-babel** to **v0.12.378**
+- Updated **plugin-vite** to **v0.14.377**
+- Updated **plugin-env** to **v0.16.104**
+- Updated **powerlines** to **v0.42.23**
+- Updated **deepkit** to **v0.6.161**
+
 ## [0.1.438](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.438) (03/26/2026)
 
 ### Updated Dependencies
