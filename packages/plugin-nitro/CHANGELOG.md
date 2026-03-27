@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Nitro
 
+## [0.1.275](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.275) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([14724bcf2](https://github.com/storm-software/powerlines/commit/14724bcf2))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.334**
+- Updated **powerlines** to **v0.42.24**
+
 ## [0.1.274](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.274) (03/27/2026)
 
 ### Miscellaneous

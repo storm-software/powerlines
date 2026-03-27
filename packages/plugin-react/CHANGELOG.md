@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.440](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.440) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([14724bcf2](https://github.com/storm-software/powerlines/commit/14724bcf2))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.334**
+- Updated **plugin-alloy** to **v0.25.70**
+- Updated **plugin-babel** to **v0.12.379**
+- Updated **plugin-vite** to **v0.14.378**
+- Updated **plugin-env** to **v0.16.105**
+- Updated **powerlines** to **v0.42.24**
+- Updated **deepkit** to **v0.6.162**
+
 ## [0.1.439](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.439) (03/27/2026)
 
 ### Miscellaneous

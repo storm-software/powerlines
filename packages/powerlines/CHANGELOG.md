@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.24](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.24) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([14724bcf2](https://github.com/storm-software/powerlines/commit/14724bcf2))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.382**
+- Updated **plugin-esbuild** to **v0.13.383**
+- Updated **plugin-unbuild** to **v0.5.380**
+- Updated **plugin-webpack** to **v0.5.379**
+- Updated **plugin-rollup** to **v0.7.380**
+- Updated **plugin-rspack** to **v0.5.379**
+- Updated **plugin-tsdown** to **v0.1.325**
+- Updated **plugin-tsup** to **v0.12.384**
+- Updated **plugin-vite** to **v0.14.378**
+- Updated **core** to **v0.12.3**
+
 ## [0.42.23](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.23) (03/27/2026)
 
 ### Miscellaneous

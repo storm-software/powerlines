@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Marked
 
+## [0.1.348](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.348) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([14724bcf2](https://github.com/storm-software/powerlines/commit/14724bcf2))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.334**
+- Updated **powerlines** to **v0.42.24**
+
 ## [0.1.347](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.347) (03/27/2026)
 
 ### Miscellaneous
