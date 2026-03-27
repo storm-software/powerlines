@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { UNSAFE_ContextInternal } from "@powerlines/core/types/_internal";
+import { Unstable_ContextInternal } from "@powerlines/core/types/_internal";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
 import { EnvPaths, getEnvPaths } from "@stryke/env/get-env-paths";
@@ -166,7 +166,7 @@ export class PowerlinesContext<
    *
    * @internal
    */
-  #internal = {} as UNSAFE_ContextInternal<TResolvedConfig>;
+  #internal = {} as Unstable_ContextInternal<TResolvedConfig>;
 
   #workspaceConfig: WorkspaceConfig;
 
@@ -310,7 +310,7 @@ export class PowerlinesContext<
    *
    * @internal
    */
-  public get $$internal(): UNSAFE_ContextInternal<TResolvedConfig> {
+  public get $$internal(): Unstable_ContextInternal<TResolvedConfig> {
     return this.#internal;
   }
 
@@ -322,7 +322,7 @@ export class PowerlinesContext<
    *
    * @internal
    */
-  public set $$internal(value: UNSAFE_ContextInternal<TResolvedConfig>) {
+  public set $$internal(value: Unstable_ContextInternal<TResolvedConfig>) {
     this.#internal = value;
   }
 

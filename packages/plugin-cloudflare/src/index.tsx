@@ -30,7 +30,7 @@ import { isFunction } from "@stryke/type-checks/is-function";
 import { PartialKeys } from "@stryke/types";
 import defu from "defu";
 import { Plugin } from "powerlines";
-// eslint-disable-next-line camelcase
+
 import { unstable_readConfig } from "wrangler";
 import { CloudflareEnvBuiltin } from "./components";
 import { CloudflareBuiltin } from "./components/cloudflare-builtin";

@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { UNSAFE_APIContext } from "@powerlines/core/types/_internal";
+import { Unstable_APIContext } from "@powerlines/core/types/_internal";
 import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { toArray } from "@stryke/convert/to-array";
 import { copyFiles } from "@stryke/fs/copy-file";
@@ -115,7 +115,7 @@ export class PowerlinesAPI<
   /**
    * The Powerlines context
    */
-  #context: UNSAFE_APIContext<TResolvedConfig>;
+  #context: Unstable_APIContext<TResolvedConfig>;
 
   /**
    * The Powerlines context
@@ -130,7 +130,7 @@ export class PowerlinesAPI<
    * @param context - The Powerlines context
    */
   private constructor(context: APIContext<TResolvedConfig>) {
-    this.#context = context as UNSAFE_APIContext<TResolvedConfig>;
+    this.#context = context as Unstable_APIContext<TResolvedConfig>;
   }
 
   /**

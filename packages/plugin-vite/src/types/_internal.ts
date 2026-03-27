@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { UNSAFE_PluginContext } from "@powerlines/core/types/_internal";
+import { Unstable_PluginContext } from "@powerlines/core/types/_internal";
 import { VitePluginResolvedConfig } from "./plugin";
 
 /**
@@ -24,6 +24,6 @@ import { VitePluginResolvedConfig } from "./plugin";
  *
  * @internal
  */
-export type UNSAFE_VitePluginContext<
+export type Unstable_VitePluginContext<
   TResolvedConfig extends VitePluginResolvedConfig = VitePluginResolvedConfig
-> = UNSAFE_PluginContext<TResolvedConfig>;
+> = Unstable_PluginContext<TResolvedConfig>;

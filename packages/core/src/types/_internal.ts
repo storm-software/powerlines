@@ -37,7 +37,7 @@ import {
  *
  * @internal
  */
-export interface UNSAFE_ContextInternal<
+export interface Unstable_ContextInternal<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > {
   /**
@@ -64,10 +64,10 @@ export interface UNSAFE_ContextInternal<
  *
  * @internal
  */
-export interface UNSAFE_Context<
+export interface Unstable_Context<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > extends Context<TResolvedConfig> {
-  $$internal: UNSAFE_ContextInternal<TResolvedConfig>;
+  $$internal: Unstable_ContextInternal<TResolvedConfig>;
 }
 
 /**
@@ -75,10 +75,10 @@ export interface UNSAFE_Context<
  *
  * @internal
  */
-export interface UNSAFE_APIContext<
+export interface Unstable_APIContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > extends APIContext<TResolvedConfig> {
-  $$internal: UNSAFE_ContextInternal<TResolvedConfig>;
+  $$internal: Unstable_ContextInternal<TResolvedConfig>;
 }
 
 /**
@@ -86,10 +86,10 @@ export interface UNSAFE_APIContext<
  *
  * @internal
  */
-export interface UNSAFE_EnvironmentContext<
+export interface Unstable_EnvironmentContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > extends EnvironmentContext<TResolvedConfig> {
-  $$internal: UNSAFE_ContextInternal<TResolvedConfig>;
+  $$internal: Unstable_ContextInternal<TResolvedConfig>;
 }
 
 /**
@@ -97,9 +97,9 @@ export interface UNSAFE_EnvironmentContext<
  *
  * @internal
  */
-export interface UNSAFE_PluginContextInternal<
+export interface Unstable_PluginContextInternal<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> extends UNSAFE_ContextInternal<TResolvedConfig> {
+> extends Unstable_ContextInternal<TResolvedConfig> {
   /**
    * The API instance for interacting with Powerlines
    *
@@ -112,7 +112,7 @@ export interface UNSAFE_PluginContextInternal<
    *
    * @internal
    */
-  environment: UNSAFE_EnvironmentContext<TResolvedConfig>;
+  environment: Unstable_EnvironmentContext<TResolvedConfig>;
 
   /**
    * Call a hook within the Powerlines system
@@ -147,8 +147,8 @@ export interface UNSAFE_PluginContextInternal<
  *
  * @internal
  */
-export interface UNSAFE_PluginContext<
+export interface Unstable_PluginContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > extends PluginContext<TResolvedConfig> {
-  $$internal: UNSAFE_PluginContextInternal<TResolvedConfig>;
+  $$internal: Unstable_PluginContextInternal<TResolvedConfig>;
 }

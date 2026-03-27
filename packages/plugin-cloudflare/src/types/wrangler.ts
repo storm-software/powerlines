@@ -18,7 +18,7 @@
 
 import assert from "node:assert";
 import path from "node:path";
-// eslint-disable-next-line camelcase
+
 import type { Unstable_Config, Unstable_RawConfig } from "wrangler";
 import * as z from "zod";
 import * as z4 from "zod/v4/core";
@@ -76,7 +76,6 @@ export function isCyclic(value: unknown, seen = new Set<unknown>()) {
   return false;
 }
 
-// eslint-disable-next-line camelcase
 export type WranglerUserConfig = Unstable_RawConfig;
 
 /**
@@ -93,7 +92,7 @@ export type WranglerUserConfig = Unstable_RawConfig;
  * - Fields that are specified in `PagesConfigFields` are only relevant for Pages projects
  * - All top level fields in config and environments are optional in the Wrangler configuration file.
  */
-// eslint-disable-next-line camelcase
+
 export type WranglerResolvedConfig = Unstable_Config;
 
 export const defaultWranglerConfig: WranglerResolvedConfig = {
@@ -152,7 +151,7 @@ export const defaultWranglerConfig: WranglerResolvedConfig = {
   stream: undefined,
   media: undefined,
   version_metadata: undefined,
-  unsafe_hello_world: [],
+  unstable_hello_world: [],
   ratelimits: [],
   worker_loaders: [],
 

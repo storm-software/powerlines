@@ -25,7 +25,7 @@ import { kebabCase } from "@stryke/string-format/kebab-case";
 import defu from "defu";
 import { Plugin } from "powerlines";
 import { getOrganizationName, getWorkspaceName } from "powerlines/plugin-utils";
-import { UNSAFE_PulumiPluginContext } from "./types/_internal";
+import { Unstable_PulumiPluginContext } from "./types/_internal";
 import { PulumiPluginOptions } from "./types/plugin";
 
 /**
@@ -37,7 +37,7 @@ import { PulumiPluginOptions } from "./types/plugin";
  * @returns A Powerlines plugin to configure infrastructure and deploy a project using Pulumi.
  */
 export const plugin = <
-  TContext extends UNSAFE_PulumiPluginContext = UNSAFE_PulumiPluginContext
+  TContext extends Unstable_PulumiPluginContext = Unstable_PulumiPluginContext
 >(
   options: PulumiPluginOptions = {}
 ): Plugin<TContext>[] => {

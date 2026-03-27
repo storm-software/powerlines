@@ -17,8 +17,8 @@
  ------------------------------------------------------------------- */
 
 import {
-  UNSAFE_EnvironmentContext,
-  UNSAFE_PluginContext
+  Unstable_EnvironmentContext,
+  Unstable_PluginContext
 } from "@powerlines/core/types/_internal";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isString } from "@stryke/type-checks/is-string";
@@ -45,8 +45,8 @@ export function createPluginContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 >(
   plugin: Plugin<PluginContext<TResolvedConfig>>,
-  environment: UNSAFE_EnvironmentContext<TResolvedConfig>
-): UNSAFE_PluginContext<TResolvedConfig> {
+  environment: Unstable_EnvironmentContext<TResolvedConfig>
+): Unstable_PluginContext<TResolvedConfig> {
   const normalizeMessage = (message: string | UnpluginMessage): string => {
     return isString(message) ? message : message.message;
   };
@@ -74,7 +74,7 @@ export function createPluginContext<
 
   const meta = {} as Record<string, any>;
 
-  return new Proxy({} as UNSAFE_PluginContext<TResolvedConfig>, {
+  return new Proxy({} as Unstable_PluginContext<TResolvedConfig>, {
     get(_, prop) {
       if (prop === "$$internal") {
         return {

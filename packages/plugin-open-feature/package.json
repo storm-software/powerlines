@@ -169,6 +169,8 @@
     "@alloy-js/json": "catalog:",
     "@alloy-js/markdown": "catalog:",
     "@alloy-js/typescript": "catalog:",
+    "@openfeature/core": "catalog:",
+    "@openfeature/server-sdk": "catalog:",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-automd": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
@@ -194,9 +196,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "inlinedDependencies": {
-    "@openfeature/core": "1.9.2",
-    "@openfeature/server-sdk": "1.20.2"
   }
 }

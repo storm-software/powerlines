@@ -21,7 +21,7 @@ import defu from "defu";
 import { build, InlineConfig } from "vite";
 import { DEFAULT_VITE_CONFIG, resolveOptions } from "./helpers/resolve-options";
 import { createVitePlugin } from "./helpers/unplugin";
-import { UNSAFE_VitePluginContext } from "./types/_internal";
+import { Unstable_VitePluginContext } from "./types/_internal";
 import {
   VitePluginContext,
   VitePluginOptions,
@@ -64,7 +64,7 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
     async build() {
       this.trace(`Building the Powerlines plugin.`);
 
-      const environments = (this as unknown as UNSAFE_VitePluginContext)
+      const environments = (this as unknown as Unstable_VitePluginContext)
         ?.$$internal?.api?.context?.environments;
       if (!environments || Object.keys(environments).length === 0) {
         throw new Error(

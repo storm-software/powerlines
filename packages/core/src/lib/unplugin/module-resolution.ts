@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { Unstable_PluginContext } from "@powerlines/core/types/_internal";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import defu from "defu";
@@ -25,7 +26,6 @@ import type {
   UnpluginContext,
   UnpluginOptions
 } from "unplugin";
-import { UNSAFE_PluginContext } from "../../types/_internal";
 import { PluginContext, ResolveResult } from "../../types/context";
 import { ResolveOptions } from "../../types/fs";
 
@@ -72,7 +72,7 @@ export function createUnpluginModuleResolutionFunctions<
   context: TContext,
   options: CreateUnpluginModuleResolutionFunctionsOptions = {}
 ): Pick<UnpluginOptions, "resolveId" | "load"> {
-  const ctx = context as unknown as UNSAFE_PluginContext;
+  const ctx = context as unknown as Unstable_PluginContext;
 
   return {
     async resolveId(

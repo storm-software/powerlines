@@ -16,11 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import { UNSAFE_PluginContext } from "@powerlines/core/types/_internal";
+import { Unstable_PluginContext } from "@powerlines/core/types/_internal";
 import { PulumiPluginContext, PulumiPluginResolvedConfig } from "./plugin";
 
-export type UNSAFE_PulumiPluginContext<
+export type Unstable_PulumiPluginContext<
   TResolvedConfig extends PulumiPluginResolvedConfig =
     PulumiPluginResolvedConfig
 > = PulumiPluginContext<TResolvedConfig> &
-  UNSAFE_PluginContext<TResolvedConfig>;
+  Unstable_PluginContext<TResolvedConfig>;

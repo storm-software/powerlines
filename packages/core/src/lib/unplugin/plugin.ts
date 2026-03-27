@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { Unstable_PluginContext } from "@powerlines/core/types/_internal";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
@@ -25,7 +26,6 @@ import type {
   UnpluginContext
 } from "unplugin";
 import { setParseImpl } from "unplugin";
-import { UNSAFE_PluginContext } from "../../types/_internal";
 import { PluginContext } from "../../types/context";
 import { UnpluginFactory } from "../../types/unplugin";
 import { extendLog } from "../logger";
@@ -60,7 +60,7 @@ export function createUnpluginResolver<
   context: TContext,
   options: CreateUnpluginResolverOptions = {}
 ): UnpluginFactory<TContext> {
-  const ctx = context as unknown as UNSAFE_PluginContext;
+  const ctx = context as unknown as Unstable_PluginContext;
   setParseImpl(ctx.parse);
 
   const name = options.name || "powerlines";
@@ -102,7 +102,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
   context: TContext,
   options: CreateUnpluginOptions = {}
 ): UnpluginFactory<TContext> {
-  const ctx = context as unknown as UNSAFE_PluginContext;
+  const ctx = context as unknown as Unstable_PluginContext;
   setParseImpl(ctx.parse);
 
   const name = options.name || "powerlines";

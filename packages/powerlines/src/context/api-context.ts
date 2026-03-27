@@ -17,8 +17,8 @@
  ------------------------------------------------------------------- */
 
 import {
-  UNSAFE_ContextInternal,
-  UNSAFE_EnvironmentContext
+  Unstable_ContextInternal,
+  Unstable_EnvironmentContext
 } from "@powerlines/core/types/_internal";
 import { toArray } from "@stryke/convert/to-array";
 import { resolvePackage } from "@stryke/fs/resolve";
@@ -52,7 +52,7 @@ export class PowerlinesAPIContext<
   extends PowerlinesContext<TResolvedConfig>
   implements APIContext<TResolvedConfig>
 {
-  #environments: Record<string, UNSAFE_EnvironmentContext<TResolvedConfig>> =
+  #environments: Record<string, Unstable_EnvironmentContext<TResolvedConfig>> =
     {};
 
   #plugins: Plugin<PluginContext<TResolvedConfig>>[] = [];
@@ -93,7 +93,7 @@ export class PowerlinesAPIContext<
    *
    * @internal
    */
-  public override get $$internal(): UNSAFE_ContextInternal<TResolvedConfig> {
+  public override get $$internal(): Unstable_ContextInternal<TResolvedConfig> {
     return super.$$internal;
   }
 
@@ -106,7 +106,7 @@ export class PowerlinesAPIContext<
    * @internal
    */
   public override set $$internal(
-    value: UNSAFE_ContextInternal<TResolvedConfig>
+    value: Unstable_ContextInternal<TResolvedConfig>
   ) {
     super.$$internal = value;
     for (const environment of Object.values(this.environments)) {
@@ -119,7 +119,7 @@ export class PowerlinesAPIContext<
    */
   public get environments(): Record<
     string,
-    UNSAFE_EnvironmentContext<TResolvedConfig>
+    Unstable_EnvironmentContext<TResolvedConfig>
   > {
     return this.#environments;
   }
@@ -182,8 +182,8 @@ export class PowerlinesAPIContext<
    */
   public async in(
     environment: EnvironmentResolvedConfig
-  ): Promise<UNSAFE_EnvironmentContext<TResolvedConfig>> {
-    let context: UNSAFE_EnvironmentContext<TResolvedConfig>;
+  ): Promise<Unstable_EnvironmentContext<TResolvedConfig>> {
+    let context: Unstable_EnvironmentContext<TResolvedConfig>;
     if (this.environments[environment.name]) {
       context = this.environments[environment.name] as any;
     } else {
