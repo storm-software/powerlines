@@ -25,6 +25,6 @@ export default defineConfig({
   plugins: [plugin()],
   resolve: {
     noExternal: ["automd"],
-    skipNodeModulesBundle: false
+    skipNodeModulesBundle: true
   }
 });
