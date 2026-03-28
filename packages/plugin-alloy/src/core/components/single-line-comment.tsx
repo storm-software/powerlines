@@ -25,7 +25,8 @@ export type SingleLineCommentVariant =
   | "slash-star"
   | "slash-star-star"
   | "markdown"
-  | "yaml";
+  | "yaml"
+  | "hcl";
 
 export interface SingleLineCommentProps extends ComponentProps {
   /**
@@ -52,7 +53,7 @@ export function SingleLineComment(props: SingleLineCommentProps) {
           ? "/// "
           : variant === "markdown"
             ? "<!-- "
-            : variant === "yaml"
+            : variant === "yaml" || variant === "hcl"
               ? "# "
               : "// ";
 

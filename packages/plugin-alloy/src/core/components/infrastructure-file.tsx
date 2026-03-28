@@ -17,50 +17,67 @@
  ------------------------------------------------------------------- */
 
 import { computed, splitProps } from "@alloy-js/core";
-import { appendPath } from "@stryke/path/append";
-import { hasFileExtension } from "@stryke/path/file-path-fns";
-import { replacePath } from "@stryke/path/replace";
+import { appendExtension, appendPath } from "@stryke/path/append";
+import {
+  findFileExtensionSafe,
+  hasFileExtension
+} from "@stryke/path/file-path-fns";
+import { replaceExtension, replacePath } from "@stryke/path/replace";
 import defu from "defu";
 import { usePowerlinesSafe } from "../../core/contexts/context";
-import { TypescriptFile, TypescriptFileProps } from "./typescript-file";
+import { SourceFile, SourceFileProps } from "./source-file";
 
-export type InfrastructureFileProps = Omit<TypescriptFileProps, "path"> & {
+export type InfrastructureFileProps = Omit<SourceFileProps, "path"> & {
   /**
    * The infrastructure module identifier.
    */
   id: string;
+
+  /**
+   * The extension for the infrastructure file. This is used to determine the file extension if the `id` does not already include one.
+   *
+   * @remarks
+   * If none is provided, the file extension will be determined by the {@link SourceFileProps.filetype | filetype} property.
+   */
+  extension?: string;
 };
 
 /**
- * A base component representing a Powerlines generated Typescript infrastructure file.
+ * A base component representing a Powerlines generated infrastructure file.
  *
  * @param props - The properties for the infrastructure file.
  * @returns The rendered infrastructure file component.
  */
 export function InfrastructureFile(props: InfrastructureFileProps) {
-  const [{ children, meta, id }, rest] = splitProps(props, [
-    "children",
-    "meta",
-    "id"
-  ]);
+  const [{ children, meta, id, extension, filetype: _filetype }, rest] =
+    splitProps(props, ["children", "meta", "id", "extension", "filetype"]);
 
   const context = usePowerlinesSafe();
-  const fullPath = computed(() =>
-    context
+  const filetype = computed(
+    () =>
+      _filetype ||
+      extension?.replace(/^\.*/, "") ||
+      (hasFileExtension(id) ? findFileExtensionSafe(id) : "")
+  );
+  const path = computed(() => {
+    const value = context
       ? appendPath(
-          hasFileExtension(id) ? "" : ".ts",
+          id,
           replacePath(
             context.infrastructurePath,
             context.workspaceConfig.workspaceRoot
           )
         )
-      : id
-  );
+      : id;
+
+    return appendExtension(replaceExtension(value), filetype.value);
+  });
 
   return (
-    <TypescriptFile
+    <SourceFile
       {...rest}
-      path={fullPath.value}
+      filetype={filetype.value}
+      path={path.value}
       meta={defu(
         {
           kind: "infrastructure"
@@ -68,6 +85,6 @@ export function InfrastructureFile(props: InfrastructureFileProps) {
         meta ?? {}
       )}>
       {children}
-    </TypescriptFile>
+    </SourceFile>
   );
 }

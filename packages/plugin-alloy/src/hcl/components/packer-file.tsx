@@ -16,8 +16,26 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./infrastructure-file";
-export * from "./output";
-export * from "./single-line-comment";
-export * from "./source-file";
-export * from "./spacing";
+import { Show, splitProps } from "@alloy-js/core";
+import { PartialKeys } from "@stryke/types/base";
+import { HCLFile, HCLFileProps } from "./hcl-file";
+
+export type PackerFileProps = PartialKeys<HCLFileProps, "filetype">;
+
+/**
+ * A base component representing a Powerlines generated [Packer](https://developer.hashicorp.com/packer/docs/templates/hcl_templates) source file.
+ *
+ * @see https://developer.hashicorp.com/packer
+ *
+ * @param props - The properties for the source file.
+ * @returns The rendered source file component.
+ */
+export function PackerFile(props: PackerFileProps) {
+  const [{ children }, rest] = splitProps(props, ["children"]);
+
+  return (
+    <HCLFile filetype="pkr.hcl" {...rest}>
+      <Show when={Boolean(children)}>{children}</Show>
+    </HCLFile>
+  );
+}

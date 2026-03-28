@@ -16,8 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./infrastructure-file";
-export * from "./output";
-export * from "./single-line-comment";
-export * from "./source-file";
-export * from "./spacing";
+export * from "./components";

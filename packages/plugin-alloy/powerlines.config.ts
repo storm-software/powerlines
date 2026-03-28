@@ -27,6 +27,7 @@ export default defineConfig({
     "src/index.tsx",
     "src/render.tsx",
     "src/core/**/*.{ts,tsx}",
+    "src/hcl/**/*.{ts,tsx}",
     "src/helpers/**/*.{ts,tsx}",
     "src/markdown/**/*.{ts,tsx}",
     "src/types/**/*.{ts,tsx}",

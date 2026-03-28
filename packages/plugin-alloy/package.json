@@ -83,6 +83,20 @@
         "default": "./dist/core/components/index.mjs"
       }
     },
+    "./core/components/infrastructure-file": {
+      "require": {
+        "types": "./dist/core/components/infrastructure-file.d.cts",
+        "default": "./dist/core/components/infrastructure-file.cjs"
+      },
+      "import": {
+        "types": "./dist/core/components/infrastructure-file.d.mts",
+        "default": "./dist/core/components/infrastructure-file.mjs"
+      },
+      "default": {
+        "types": "./dist/core/components/infrastructure-file.d.mts",
+        "default": "./dist/core/components/infrastructure-file.mjs"
+      }
+    },
     "./core/components/output": {
       "require": {
         "types": "./dist/core/components/output.d.cts",
@@ -221,6 +235,90 @@
       "default": {
         "types": "./dist/core/helpers/code.d.mts",
         "default": "./dist/core/helpers/code.mjs"
+      }
+    },
+    "./hcl": {
+      "require": {
+        "types": "./dist/hcl/index.d.cts",
+        "default": "./dist/hcl/index.cjs"
+      },
+      "import": {
+        "types": "./dist/hcl/index.d.mts",
+        "default": "./dist/hcl/index.mjs"
+      },
+      "default": {
+        "types": "./dist/hcl/index.d.mts",
+        "default": "./dist/hcl/index.mjs"
+      }
+    },
+    "./hcl/components": {
+      "require": {
+        "types": "./dist/hcl/components/index.d.cts",
+        "default": "./dist/hcl/components/index.cjs"
+      },
+      "import": {
+        "types": "./dist/hcl/components/index.d.mts",
+        "default": "./dist/hcl/components/index.mjs"
+      },
+      "default": {
+        "types": "./dist/hcl/components/index.d.mts",
+        "default": "./dist/hcl/components/index.mjs"
+      }
+    },
+    "./hcl/components/block-declaration": {
+      "require": {
+        "types": "./dist/hcl/components/block-declaration.d.cts",
+        "default": "./dist/hcl/components/block-declaration.cjs"
+      },
+      "import": {
+        "types": "./dist/hcl/components/block-declaration.d.mts",
+        "default": "./dist/hcl/components/block-declaration.mjs"
+      },
+      "default": {
+        "types": "./dist/hcl/components/block-declaration.d.mts",
+        "default": "./dist/hcl/components/block-declaration.mjs"
+      }
+    },
+    "./hcl/components/hcl-file": {
+      "require": {
+        "types": "./dist/hcl/components/hcl-file.d.cts",
+        "default": "./dist/hcl/components/hcl-file.cjs"
+      },
+      "import": {
+        "types": "./dist/hcl/components/hcl-file.d.mts",
+        "default": "./dist/hcl/components/hcl-file.mjs"
+      },
+      "default": {
+        "types": "./dist/hcl/components/hcl-file.d.mts",
+        "default": "./dist/hcl/components/hcl-file.mjs"
+      }
+    },
+    "./hcl/components/packer-file": {
+      "require": {
+        "types": "./dist/hcl/components/packer-file.d.cts",
+        "default": "./dist/hcl/components/packer-file.cjs"
+      },
+      "import": {
+        "types": "./dist/hcl/components/packer-file.d.mts",
+        "default": "./dist/hcl/components/packer-file.mjs"
+      },
+      "default": {
+        "types": "./dist/hcl/components/packer-file.d.mts",
+        "default": "./dist/hcl/components/packer-file.mjs"
+      }
+    },
+    "./hcl/components/terraform-file": {
+      "require": {
+        "types": "./dist/hcl/components/terraform-file.d.cts",
+        "default": "./dist/hcl/components/terraform-file.cjs"
+      },
+      "import": {
+        "types": "./dist/hcl/components/terraform-file.d.mts",
+        "default": "./dist/hcl/components/terraform-file.mjs"
+      },
+      "default": {
+        "types": "./dist/hcl/components/terraform-file.d.mts",
+        "default": "./dist/hcl/components/terraform-file.mjs"
       }
     },
     "./helpers": {
@@ -530,20 +628,6 @@
       "default": {
         "types": "./dist/typescript/components/entry-file.d.mts",
         "default": "./dist/typescript/components/entry-file.mjs"
-      }
-    },
-    "./typescript/components/infrastructure-file": {
-      "require": {
-        "types": "./dist/typescript/components/infrastructure-file.d.cts",
-        "default": "./dist/typescript/components/infrastructure-file.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/infrastructure-file.d.mts",
-        "default": "./dist/typescript/components/infrastructure-file.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/infrastructure-file.d.mts",
-        "default": "./dist/typescript/components/infrastructure-file.mjs"
       }
     },
     "./typescript/components/interface-declaration": {
