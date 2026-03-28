@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.391](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.391) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([14724bcf2](https://github.com/storm-software/powerlines/commit/14724bcf2))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.334**
+- Updated **powerlines** to **v0.42.24**
+
 ## [0.2.390](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.390) (03/27/2026)
 
 ### Miscellaneous

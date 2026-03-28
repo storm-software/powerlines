@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Asyncapi
 
+## [0.1.387](https://github.com/storm-software/powerlines/releases/tag/plugin-asyncapi%400.1.387) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([14724bcf2](https://github.com/storm-software/powerlines/commit/14724bcf2))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.334**
+- Updated **powerlines** to **v0.42.24**
+
 ## [0.1.386](https://github.com/storm-software/powerlines/releases/tag/plugin-asyncapi%400.1.386) (03/27/2026)
 
 ### Miscellaneous

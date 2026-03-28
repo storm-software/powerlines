@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.306](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.306) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([14724bcf2](https://github.com/storm-software/powerlines/commit/14724bcf2))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.334**
+- Updated **plugin-alloy** to **v0.25.70**
+- Updated **plugin-babel** to **v0.12.379**
+- Updated **plugin-env** to **v0.16.105**
+- Updated **powerlines** to **v0.42.24**
+
 ## [0.1.305](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.305) (03/27/2026)
 
 ### Miscellaneous

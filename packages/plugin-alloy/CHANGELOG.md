@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.25.70](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.70) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([14724bcf2](https://github.com/storm-software/powerlines/commit/14724bcf2))
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue applying default values to interfaces and objects ([f7498ff4d](https://github.com/storm-software/powerlines/commit/f7498ff4d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.334**
+- Updated **plugin-babel** to **v0.12.379**
+- Updated **powerlines** to **v0.42.24**
+- Updated **deepkit** to **v0.6.162**
+- Updated **core** to **v0.12.3**
+
 ## [0.25.69](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.69) (03/27/2026)
 
 ### Miscellaneous

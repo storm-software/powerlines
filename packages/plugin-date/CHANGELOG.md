@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.449](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.449) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([14724bcf2](https://github.com/storm-software/powerlines/commit/14724bcf2))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.334**
+- Updated **plugin-env** to **v0.16.105**
+- Updated **powerlines** to **v0.42.24**
+
 ## [0.12.448](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.448) (03/27/2026)
 
 ### Miscellaneous

@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.262](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.262) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([14724bcf2](https://github.com/storm-software/powerlines/commit/14724bcf2))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.334**
+- Updated **plugin-tsc** to **v0.2.391**
+- Updated **powerlines** to **v0.42.24**
+- Updated **deepkit** to **v0.6.162**
+
 ## [0.11.261](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.261) (03/27/2026)
 
 ### Miscellaneous

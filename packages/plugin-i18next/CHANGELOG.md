@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin I18next
 
+## [0.1.280](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.280) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([14724bcf2](https://github.com/storm-software/powerlines/commit/14724bcf2))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.334**
+- Updated **powerlines** to **v0.42.24**
+
 ## [0.1.279](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.279) (03/27/2026)
 
 ### Miscellaneous

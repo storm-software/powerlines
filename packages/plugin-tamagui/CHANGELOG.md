@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tamagui
 
+## [0.1.373](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.373) (03/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([14724bcf2](https://github.com/storm-software/powerlines/commit/14724bcf2))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.334**
+- Updated **plugin-vite** to **v0.14.378**
+- Updated **powerlines** to **v0.42.24**
+
 ## [0.1.372](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.372) (03/27/2026)
 
 ### Miscellaneous
