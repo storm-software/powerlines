@@ -24,6 +24,7 @@ export default defineConfig({
   input: ["src/**/*.ts"],
   plugins: [plugin()],
   resolve: {
-    external: ["automd"]
+    noExternal: ["automd"],
+    skipNodeModulesBundle: false
   }
 });

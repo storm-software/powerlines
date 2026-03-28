@@ -19,6 +19,7 @@
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isObject } from "@stryke/type-checks/is-object";
 import { isSet } from "@stryke/type-checks/is-set";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { ArrayValues } from "@stryke/types/array";
 import chalk from "chalk";
@@ -33,15 +34,17 @@ import {
   ResolvedConfig
 } from "../../types";
 
-const mergeResultObjects = createDefu(<T>(obj: T, key: keyof T, value: any) => {
-  if (isString(obj[key]) && isString(value)) {
-    obj[key] = `${obj[key] || ""}\n${value || ""}`.trim() as T[keyof T];
+export const mergeResultObjects = createDefu(
+  <T>(obj: T, key: keyof T, value: any) => {
+    if (isString(obj[key]) && isString(value)) {
+      obj[key] = `${obj[key] || ""}\n${value || ""}`.trim() as T[keyof T];
 
-    return true;
+      return true;
+    }
+
+    return false;
   }
-
-  return false;
-});
+);
 
 /**
  * Merges the current hook result with the previous results based on their types.
@@ -51,9 +54,17 @@ const mergeResultObjects = createDefu(<T>(obj: T, key: keyof T, value: any) => {
  * @returns The merged result.
  */
 export function mergeResults<T>(currentResult: T, previousResults: T[]): T[] {
-  if (isString(currentResult)) {
+  if (!previousResults || previousResults.length === 0) {
+    return [currentResult];
+  }
+
+  if (isSetString(currentResult)) {
     previousResults = [
-      `${isString(previousResults[0]) ? previousResults[0] || "" : ""}\n${currentResult || ""}`.trim() as T
+      `${isSetString(previousResults[0]) ? previousResults[0] || "" : ""}\n${
+        isSetString(previousResults[0])
+          ? currentResult.replace(previousResults[0], "")
+          : currentResult
+      }`.trim() as T
     ];
   } else if (isObject(currentResult)) {
     previousResults = [
@@ -71,15 +82,14 @@ export function mergeResults<T>(currentResult: T, previousResults: T[]): T[] {
  * @param previousResults - The previous hook results to merge with the current result.
  * @returns The merged result.
  */
-export function mergeConfigs<T>(currentResult: T, previousResults: T[]): T[] {
+export function mergeConfigs<T>(currentResult: T, previousResults: T): T {
   if (isString(currentResult)) {
-    previousResults = [
-      `${isString(previousResults[0]) ? previousResults[0] || "" : ""}\n${currentResult || ""}`.trim() as T
-    ];
+    previousResults =
+      `${isString(previousResults) ? previousResults || "" : ""}\n${
+        currentResult || ""
+      }`.trim() as T;
   } else if (isObject(currentResult)) {
-    previousResults = [
-      mergeConfig(currentResult, previousResults[0] ?? {}) as T
-    ];
+    previousResults = mergeConfig(currentResult, previousResults ?? {}) as T;
   }
 
   return previousResults;
@@ -174,7 +184,11 @@ export async function callHook<
             if (options.result === "last") {
               results = [result];
             } else if (options.result === "merge" && options.merge) {
-              results = options.merge(result, results);
+              results = [
+                results.length > 0 && results[0]
+                  ? options.merge(result, results[0])
+                  : result
+              ];
             } else {
               results = mergeResults(result, results);
             }

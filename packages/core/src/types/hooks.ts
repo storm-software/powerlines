@@ -177,7 +177,7 @@ export type InferHookThisType<
   TKey extends string
 > = ThisParameterType<InferHookFunction<TContext, TKey>>;
 
-export type CallHookOptions = SelectHooksOptions &
+export type CallHookOptions<TResult = any> = SelectHooksOptions &
   (
     | ({
         /**
@@ -205,7 +205,9 @@ export type CallHookOptions = SelectHooksOptions &
             /**
              * An indicator specifying if the results of the previous hook should be provided as the **first** parameter of the next hook function, or a function to process the result of the previous hook function and pass the returned value as the next hook's **first** parameter
              */
-            asNextParam?: false | ((previousResult: any) => MaybePromise<any>);
+            asNextParam?:
+              | false
+              | ((previousResult: TResult) => MaybePromise<TResult>);
           } & (
             | {
                 /**
@@ -222,16 +224,19 @@ export type CallHookOptions = SelectHooksOptions &
                 result?: "merge";
 
                 /**
-                 * A custom function to merge multiple return values from hooks.
+                 * A custom function to merge two sets of return values from hooks.
                  *
                  * @remarks
                  * If not provided, the {@link mergeResults} function will be used by default, which merges string results by concatenation and object results by deep merging.
                  *
                  * @param currentResult - The current hook result to merge with the previous results.
-                 * @param previousResults - The previous hook results to merge with the current result.
+                 * @param previousResult - The previous hook result to merge with the current result.
                  * @returns The merged result.
                  */
-                merge?: <T>(currentResult: T, previousResults: T[]) => T[];
+                merge?: (
+                  currentResult: TResult,
+                  previousResult: TResult
+                ) => TResult;
               }
             | {
                 /**

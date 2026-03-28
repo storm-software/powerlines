@@ -118,14 +118,6 @@
     "@types/node": "catalog:",
     "automd": "catalog:"
   },
-  "peerDependencies": {
-    "automd": ">=0.4.3"
-  },
-  "peerDependenciesMeta": {
-    "automd": {
-      "optional": false
-    }
-  },
   "publishConfig": {
     "access": "public"
   }

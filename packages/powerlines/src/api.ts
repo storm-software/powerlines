@@ -21,11 +21,12 @@ import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { toArray } from "@stryke/convert/to-array";
 import { copyFiles } from "@stryke/fs/copy-file";
 import { existsSync } from "@stryke/fs/exists";
-import { createDirectory } from "@stryke/fs/helpers";
+import { createDirectory, removeDirectory } from "@stryke/fs/helpers";
 import { install } from "@stryke/fs/install";
 import { listFiles } from "@stryke/fs/list-files";
 import { isPackageExists } from "@stryke/fs/package-fns";
 import { resolvePackage } from "@stryke/fs/resolve";
+import { getUnique } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
 import { appendPath } from "@stryke/path/append";
 import { relativePath } from "@stryke/path/file-path-fns";
@@ -721,6 +722,13 @@ export class PowerlinesAPI<
     await this.#executeEnvironments(async context => {
       await this.callHook("finalize", { environment: context });
       await context.fs.dispose();
+
+      if (
+        existsSync(context.cachePath) &&
+        !(await listFiles(joinPaths(context.cachePath, "**/*")))?.length
+      ) {
+        await removeDirectory(context.cachePath);
+      }
     });
 
     this.context.debug("✔ Powerlines finalization completed successfully");
@@ -1259,26 +1267,74 @@ Note: Please ensure the plugin package's default export is a class that extends 
       "Running TypeScript compiler for built-in runtime module files."
     );
 
-    let types = await emitBuiltinTypes(
-      context,
-      (await context.getBuiltins()).reduce<string[]>((ret, builtin) => {
-        const formatted = replacePath(
-          builtin.path,
-          context.workspaceConfig.workspaceRoot
-        );
-        if (!ret.includes(formatted)) {
-          ret.push(formatted);
-        }
+    let types = (
+      await emitBuiltinTypes(
+        context,
+        (await context.getBuiltins()).reduce<string[]>((ret, builtin) => {
+          const formatted = replacePath(
+            builtin.path,
+            context.workspaceConfig.workspaceRoot
+          );
+          if (!ret.includes(formatted)) {
+            ret.push(formatted);
+          }
 
-        return ret;
-      }, [])
-    );
+          return ret;
+        }, [])
+      )
+    ).trim();
 
     context.debug(
       `Generating TypeScript declaration file ${context.typesPath}.`
     );
 
-    const directives = [] as string[];
+    let directives = [] as string[];
+    const merge = (
+      currentResult: string | TypesResult,
+      previousResult: string | TypesResult
+    ): string | TypesResult => {
+      if (
+        !isSetString(currentResult) &&
+        !isSetObject(currentResult) &&
+        !isSetString(previousResult) &&
+        !isSetObject(previousResult)
+      ) {
+        return types;
+      }
+
+      const previous = (
+        isSetString(previousResult)
+          ? previousResult
+          : isSetObject(previousResult)
+            ? previousResult.code
+            : ""
+      )
+        .trim()
+        .replace(types, "")
+        .trim();
+
+      return {
+        directives: [
+          ...(isSetObject(currentResult) && currentResult.directives
+            ? currentResult.directives
+            : []),
+          ...(isSetObject(previousResult) && previousResult.directives
+            ? previousResult.directives
+            : [])
+        ],
+        code: `${types}\n${previous}\n${(isSetString(currentResult)
+          ? currentResult
+          : isSetObject(currentResult)
+            ? currentResult.code
+            : ""
+        )
+          .trim()
+          .replace(previous, "")
+          .trim()
+          .replace(types, "")
+          .trim()}`
+      };
+    };
     const asNextParam = (
       previousResult: string | TypesResult | null | undefined
     ) => (isObject(previousResult) ? previousResult.code : previousResult);
@@ -1290,6 +1346,7 @@ Note: Please ensure the plugin package's default export is a class that extends 
         sequential: true,
         order: "pre",
         result: "merge",
+        merge,
         asNextParam
       },
       types
@@ -1298,7 +1355,9 @@ Note: Please ensure the plugin package's default export is a class that extends 
       if (isSetObject(result)) {
         types = result.code;
         if (Array.isArray(result.directives) && result.directives.length > 0) {
-          directives.push(...result.directives);
+          directives = getUnique([...directives, ...result.directives]).filter(
+            Boolean
+          );
         }
       } else if (isSetString(result)) {
         types = result;
@@ -1312,6 +1371,7 @@ Note: Please ensure the plugin package's default export is a class that extends 
         sequential: true,
         order: "normal",
         result: "merge",
+        merge,
         asNextParam
       },
       types
@@ -1320,7 +1380,9 @@ Note: Please ensure the plugin package's default export is a class that extends 
       if (isSetObject(result)) {
         types = result.code;
         if (Array.isArray(result.directives) && result.directives.length > 0) {
-          directives.push(...result.directives);
+          directives = getUnique([...directives, ...result.directives]).filter(
+            Boolean
+          );
         }
       } else if (isSetString(result)) {
         types = result;
@@ -1334,6 +1396,7 @@ Note: Please ensure the plugin package's default export is a class that extends 
         sequential: true,
         order: "post",
         result: "merge",
+        merge,
         asNextParam
       },
       types
@@ -1342,7 +1405,9 @@ Note: Please ensure the plugin package's default export is a class that extends 
       if (isSetObject(result)) {
         types = result.code;
         if (Array.isArray(result.directives) && result.directives.length > 0) {
-          directives.push(...result.directives);
+          directives = getUnique([...directives, ...result.directives]).filter(
+            Boolean
+          );
         }
       } else if (isSetString(result)) {
         types = result;

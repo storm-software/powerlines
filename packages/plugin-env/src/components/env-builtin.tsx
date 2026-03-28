@@ -328,7 +328,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       )}>
       <Show when={Boolean(reflection)}>
         <EnvTypeDefinition
-          defaultValue={defaultValue.value}
+          defaultValue={defaultValue}
           reflection={reflection}
         />
         <hbr />
