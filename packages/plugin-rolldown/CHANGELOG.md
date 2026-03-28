@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.383](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.383) (03/28/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([465e45d69](https://github.com/storm-software/powerlines/commit/465e45d69))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.381**
+- Updated **plugin-babel** to **v0.12.380**
+- Updated **core** to **v0.12.4**
+
 ## [0.7.382](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.382) (03/27/2026)
 
 ### Updated Dependencies

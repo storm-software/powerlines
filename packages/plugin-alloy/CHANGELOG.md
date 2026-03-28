@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.0](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.0) (03/28/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([465e45d69](https://github.com/storm-software/powerlines/commit/465e45d69))
+
+### Features
+
+- **plugin-alloy:** Added an initial set of `HCL` infrastructure components ([397ad7bb9](https://github.com/storm-software/powerlines/commit/397ad7bb9))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.335**
+- Updated **plugin-babel** to **v0.12.380**
+- Updated **powerlines** to **v0.42.25**
+- Updated **deepkit** to **v0.6.163**
+- Updated **core** to **v0.12.4**
+
 ## [0.25.70](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.25.70) (03/27/2026)
 
 ### Miscellaneous

@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.106](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.106) (03/28/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([465e45d69](https://github.com/storm-software/powerlines/commit/465e45d69))
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue merging `types` hook results ([77db5cecd](https://github.com/storm-software/powerlines/commit/77db5cecd))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.263**
+- Updated **plugin-automd** to **v0.1.384**
+- Updated **plugin-plugin** to **v0.12.335**
+- Updated **plugin-alloy** to **v0.26.0**
+- Updated **plugin-babel** to **v0.12.380**
+- Updated **powerlines** to **v0.42.25**
+- Updated **deepkit** to **v0.6.163**
+
 ## [0.16.105](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.105) (03/27/2026)
 
 ### Miscellaneous

@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Automd
 
+## [0.1.384](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.384) (03/28/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([465e45d69](https://github.com/storm-software/powerlines/commit/465e45d69))
+
+### Bug Fixes
+
+- **plugin-automd:** Resolve dependency bundling issue ([74051046b](https://github.com/storm-software/powerlines/commit/74051046b))
+- **powerlines:** Resolve issue merging `types` hook results ([77db5cecd](https://github.com/storm-software/powerlines/commit/77db5cecd))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.335**
+- Updated **powerlines** to **v0.42.25**
+
 ## [0.1.383](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.383) (03/27/2026)
 
 ### Miscellaneous

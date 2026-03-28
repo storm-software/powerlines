@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unbuild
 
+## [0.5.381](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.381) (03/28/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([465e45d69](https://github.com/storm-software/powerlines/commit/465e45d69))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.381**
+- Updated **core** to **v0.12.4**
+
 ## [0.5.380](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.380) (03/27/2026)
 
 ### Updated Dependencies

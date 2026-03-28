@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.380](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.380) (03/28/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([465e45d69](https://github.com/storm-software/powerlines/commit/465e45d69))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.12.4**
+
 ## [0.12.379](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.379) (03/27/2026)
 
 ### Updated Dependencies
