@@ -151,7 +151,7 @@ export const defaultWranglerConfig: WranglerResolvedConfig = {
   stream: undefined,
   media: undefined,
   version_metadata: undefined,
-  unstable_hello_world: [],
+  unsafe_hello_world: [],
   ratelimits: [],
   worker_loaders: [],
 
@@ -212,5 +212,6 @@ export const defaultWranglerConfig: WranglerResolvedConfig = {
   tail_consumers: undefined,
   streaming_tail_consumers: undefined,
   pipelines: [],
-  vpc_services: []
-};
+  vpc_services: [],
+  ai_search_namespaces: []
+} as unknown as WranglerResolvedConfig;
