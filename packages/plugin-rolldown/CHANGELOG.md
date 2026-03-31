@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.384](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.384) (03/31/2026)
+
+### Features
+
+- **plugin-unified:** Initial check-in of the `unified` plugin ([5bf078a30](https://github.com/storm-software/powerlines/commit/5bf078a30))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.382**
+- Updated **plugin-babel** to **v0.12.381**
+- Updated **core** to **v0.12.5**
+
 ## [0.7.383](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.383) (03/28/2026)
 
 ### Miscellaneous
