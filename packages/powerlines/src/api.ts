@@ -44,6 +44,7 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { MaybePromise, PartialKeys, RequiredKeys } from "@stryke/types/base";
 import chalk from "chalk";
+import defu from "defu";
 import Handlebars from "handlebars";
 import packageJson from "../package.json" assert { type: "json" };
 import {
@@ -284,6 +285,30 @@ export class PowerlinesAPI<
         await createDirectory(context.dataPath);
       }
 
+      if (
+        context.config.skipCache === true ||
+        context.persistedMeta?.checksum !== context.meta.checksum
+      ) {
+        context.debug(
+          `Using previously prepared files as the meta checksum has not changed.`
+        );
+      } else {
+        context.info(
+          `Running \`prepare\` command as the meta checksum has changed since the last run.`
+        );
+
+        await this.prepare(
+          defu(
+            {
+              output: {
+                types: false
+              }
+            },
+            inlineConfig
+          ) as PrepareInlineConfig<TResolvedConfig>
+        );
+      }
+
       await this.#types(context);
 
       this.context.debug("Formatting files generated during the types step.");
@@ -314,6 +339,7 @@ export class PowerlinesAPI<
   public async prepare(
     inlineConfig:
       | PartialKeys<PrepareInlineConfig, "command">
+      | PartialKeys<TypesInlineConfig, "command">
       | PartialKeys<NewInlineConfig, "command">
       | PartialKeys<CleanInlineConfig, "command">
       | PartialKeys<BuildInlineConfig, "command">

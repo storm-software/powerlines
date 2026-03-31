@@ -58,12 +58,13 @@
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "defu": "catalog:",
+    "glob": "catalog:",
     "jiti": "catalog:",
     "unplugin": "catalog:"
   },
   "devDependencies": {
-    "rolldown": "catalog:",
-    "@types/node": "catalog:"
+    "@types/node": "catalog:",
+    "rolldown": "catalog:"
   },
   "publishConfig": {
     "access": "public"

@@ -32,7 +32,7 @@ import { appendPath } from "@stryke/path/append";
 import { joinPaths } from "@stryke/path/join-paths";
 import { isString } from "@stryke/type-checks/is-string";
 import defu from "defu";
-import { globSync } from "node:fs";
+import { globSync } from "glob";
 import { RolldownOptions, RollupLog } from "rolldown";
 import { viteAliasPlugin as alias } from "rolldown/experimental";
 import typescriptPlugin from "rollup-plugin-typescript2";

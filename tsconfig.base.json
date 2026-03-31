@@ -128,6 +128,8 @@
       "@powerlines/plugin-unenv/*": ["packages/plugin-unenv/src/*"],
       "@powerlines/plugin-unimport": ["packages/plugin-unimport/src/index.ts"],
       "@powerlines/plugin-unimport/*": ["packages/plugin-unimport/src/*"],
+      "@powerlines/plugin-unified": ["packages/plugin-unified/src/index.ts"],
+      "@powerlines/plugin-unified/*": ["packages/plugin-unified/src/*"],
       "@powerlines/plugin-untyped": ["packages/plugin-untyped/src/index.ts"],
       "@powerlines/plugin-untyped/*": ["packages/plugin-untyped/src/*"],
       "@powerlines/plugin-vite": ["packages/plugin-vite/src/index.ts"],
