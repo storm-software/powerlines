@@ -43,9 +43,9 @@ export interface AsyncAPIPluginOptions {
    * The target directory where the generated files will be written.
    *
    * @remarks
-   * If using the default value, the files can be imported from "powerlines:asyncapi/fileName". This field allows the use of the "\{builtinPath\}" token to refer to the built-in Powerlines plugins directory - the value will be replaced with the correct file path by the plugin.
+   * If using the default value, the files can be imported from "powerlines:asyncapi/fileName". This field allows the use of the "\{builtinsPath\}" token to refer to the built-in Powerlines plugins directory - the value will be replaced with the correct file path by the plugin.
    *
-   * @defaultValue "\{builtinPath\}/asyncapi"
+   * @defaultValue "\{builtinsPath\}/asyncapi"
    */
   outputPath?: string;
 

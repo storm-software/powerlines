@@ -16,7 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import type { PluginContext, ResolveOptions } from "@powerlines/core";
+import type {
+  CreateUnpluginResolverOptions,
+  PluginContext,
+  ResolveOptions
+} from "@powerlines/core";
 import { createUnpluginResolver } from "@powerlines/core/lib/unplugin";
 import { omit } from "@stryke/helpers/omit";
 import { findFileName } from "@stryke/path/file-path-fns";
@@ -27,6 +31,7 @@ import { EsbuildOptions } from "../types";
 import { resolveOptions } from "./resolve-options";
 
 export type BundleOptions = Partial<EsbuildOptions> & {
+  name?: string;
   resolve?: Partial<ResolveOptions>;
 };
 
@@ -62,21 +67,21 @@ export async function bundle<TContext extends PluginContext = PluginContext>(
         packages: "bundle",
         platform: "node",
         logLevel: "silent",
-        ...omit(overrides, ["resolve"])
+        ...omit(overrides, ["name", "resolve"])
       },
       resolveOptions(context),
       {
         plugins: [
           createEsbuildPlugin(
             createUnpluginResolver(context, {
-              name: `${findFileName(file)} Bundler`,
+              name: overrides.name ?? `${findFileName(file)} Bundler`,
               prefix: false,
               overrides: defu(
                 overrides.resolve ?? {},
                 { skipNodeModulesBundle: false },
                 context.config.resolve
-              ) as ResolveOptions
-            })
+              )
+            } as CreateUnpluginResolverOptions)
           )({})
         ]
       }

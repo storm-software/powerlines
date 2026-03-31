@@ -312,7 +312,6 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       imports={defu(
         {
           "@powerlines/deepkit/vendor/type": [
-            "stringify",
             "serializer",
             "serializeFunction",
             "deserializeFunction",

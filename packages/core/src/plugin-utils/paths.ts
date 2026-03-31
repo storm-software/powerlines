@@ -80,6 +80,10 @@ export function replacePathTokens(
       replacePath(context.builtinsPath, context.workspaceConfig.workspaceRoot)
     )
     .replaceAll(
+      "{builtinsPath}",
+      replacePath(context.builtinsPath, context.workspaceConfig.workspaceRoot)
+    )
+    .replaceAll(
       "{entryPath}",
       replacePath(context.entryPath, context.workspaceConfig.workspaceRoot)
     );

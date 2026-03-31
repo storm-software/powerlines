@@ -62,19 +62,28 @@ export async function format(
   }
 
   let code = data;
-  const resolvedConfig = await resolveConfig(path);
-  if (resolvedConfig) {
-    code = await prettier(
-      data,
-      defu(
-        {
-          absolutePath: path,
-          ...resolvedConfig
-        },
-        findFileExtension(path) === "ts" || findFileExtension(path) === "tsx"
-          ? { plugins: [importsPlugin] }
-          : {}
-      )
+  try {
+    const resolvedConfig = await resolveConfig(path);
+    if (resolvedConfig) {
+      code = await prettier(
+        data,
+        defu(
+          {
+            absolutePath: path,
+            ...resolvedConfig
+          },
+          findFileExtension(path) === "ts" || findFileExtension(path) === "tsx"
+            ? { plugins: [importsPlugin] }
+            : {}
+        )
+      );
+    }
+  } catch (error) {
+    throw new Error(
+      `Failed to format file at ${path} with Prettier: ${
+        (error as Error).message
+      }`,
+      { cause: error }
     );
   }
 
