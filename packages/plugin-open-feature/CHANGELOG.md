@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.5](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.5) (03/28/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([465e45d69](https://github.com/storm-software/powerlines/commit/465e45d69))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.263**
+- Updated **plugin-automd** to **v0.1.384**
+- Updated **plugin-plugin** to **v0.12.335**
+- Updated **plugin-alloy** to **v0.26.0**
+- Updated **plugin-babel** to **v0.12.380**
+- Updated **powerlines** to **v0.42.25**
+
 ## [0.1.4](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.4) (03/27/2026)
 
 ### Miscellaneous

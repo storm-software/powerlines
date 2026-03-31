@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.12.4](https://github.com/storm-software/powerlines/releases/tag/core%400.12.4) (03/28/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue merging `types` hook results ([77db5cecd](https://github.com/storm-software/powerlines/commit/77db5cecd))
+
 ## [0.12.2](https://github.com/storm-software/powerlines/releases/tag/core%400.12.2) (03/27/2026)
 
 ### Miscellaneous

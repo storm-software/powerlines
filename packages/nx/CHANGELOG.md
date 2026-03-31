@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.11.313](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.313) (03/28/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue merging `types` hook results ([77db5cecd](https://github.com/storm-software/powerlines/commit/77db5cecd))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.42.25**
+
 ## [0.11.312](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.312) (03/27/2026)
 
 ### Updated Dependencies

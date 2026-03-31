@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.326](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.326) (03/28/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `README.md` files ([465e45d69](https://github.com/storm-software/powerlines/commit/465e45d69))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.383**
+- Updated **core** to **v0.12.4**
+
 ## [0.1.325](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.325) (03/27/2026)
 
 ### Updated Dependencies
