@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.12.5](https://github.com/storm-software/powerlines/releases/tag/core%400.12.5) (03/31/2026)
+
+### Bug Fixes
+
+- **core:** Resolved various issues with plugin utilities ([d15aecde3](https://github.com/storm-software/powerlines/commit/d15aecde3))
+
 ## [0.12.4](https://github.com/storm-software/powerlines/releases/tag/core%400.12.4) (03/28/2026)
 
 ### Bug Fixes

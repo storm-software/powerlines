@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.26](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.26) (03/31/2026)
+
+### Features
+
+- **plugin-unified:** Initial check-in of the `unified` plugin ([5bf078a30](https://github.com/storm-software/powerlines/commit/5bf078a30))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.384**
+- Updated **plugin-esbuild** to **v0.13.385**
+- Updated **plugin-unbuild** to **v0.5.382**
+- Updated **plugin-webpack** to **v0.5.381**
+- Updated **plugin-rollup** to **v0.7.382**
+- Updated **plugin-rspack** to **v0.5.381**
+- Updated **plugin-tsdown** to **v0.1.327**
+- Updated **plugin-tsup** to **v0.12.386**
+- Updated **plugin-vite** to **v0.14.380**
+- Updated **core** to **v0.12.5**
+
 ## [0.42.25](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.25) (03/28/2026)
 
 ### Miscellaneous
