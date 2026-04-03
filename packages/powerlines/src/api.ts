@@ -55,7 +55,6 @@ import { callHook, mergeConfigs } from "./_internal/helpers/hooks";
 import { installDependencies } from "./_internal/helpers/install-dependencies";
 import { writeMetaFile } from "./_internal/helpers/meta";
 import {
-  getTsconfigDtsPath,
   initializeTsconfig,
   resolveTsconfig
 } from "./_internal/helpers/resolve-tsconfig";
@@ -95,10 +94,6 @@ import {
   InferHookParameters,
   ResolvedConfig
 } from "./types";
-import {
-  getParsedTypeScriptConfig,
-  isIncludeMatchFound
-} from "./typescript/tsconfig";
 import { format, formatFolder, getTypescriptFileHeader } from "./utils";
 
 /**
@@ -1293,50 +1288,67 @@ Note: Please ensure the plugin package's default export is a class that extends 
       "Running TypeScript compiler for built-in runtime module files."
     );
 
-    let types = (
-      await emitBuiltinTypes(
-        context,
-        (await context.getBuiltins()).reduce<string[]>((ret, builtin) => {
-          const formatted = replacePath(
-            builtin.path,
-            context.workspaceConfig.workspaceRoot
-          );
-          if (!ret.includes(formatted)) {
-            ret.push(formatted);
-          }
+    let { code, directives } = await emitBuiltinTypes(
+      context,
+      (await context.getBuiltins()).reduce<string[]>((ret, builtin) => {
+        const formatted = replacePath(
+          builtin.path,
+          context.workspaceConfig.workspaceRoot
+        );
+        if (!ret.includes(formatted)) {
+          ret.push(formatted);
+        }
 
-          return ret;
-        }, [])
-      )
-    ).trim();
+        return ret;
+      }, [])
+    );
 
     context.debug(
       `Generating TypeScript declaration file ${context.typesPath}.`
     );
 
-    let directives = [] as string[];
-    const merge = (
+    const merge = async (
       currentResult: string | TypesResult,
       previousResult: string | TypesResult
-    ): string | TypesResult => {
+    ): Promise<string | TypesResult> => {
       if (
         !isSetString(currentResult) &&
         !isSetObject(currentResult) &&
         !isSetString(previousResult) &&
         !isSetObject(previousResult)
       ) {
-        return types;
+        return { code, directives };
       }
 
       const previous = (
-        isSetString(previousResult)
-          ? previousResult
-          : isSetObject(previousResult)
-            ? previousResult.code
-            : ""
+        await format(
+          context,
+          context.typesPath,
+          isSetString(previousResult)
+            ? previousResult
+            : isSetObject(previousResult)
+              ? previousResult.code
+              : ""
+        )
       )
         .trim()
-        .replace(types, "")
+        .replace(code, "")
+        .trim();
+      const current = (
+        await format(
+          context,
+          context.typesPath,
+          isSetString(currentResult)
+            ? currentResult
+            : isSetObject(currentResult)
+              ? currentResult.code
+              : ""
+        )
+      )
+        .trim()
+        .replace(previous, "")
+        .trim()
+        .replace(code, "")
         .trim();
 
       return {
@@ -1348,17 +1360,16 @@ Note: Please ensure the plugin package's default export is a class that extends 
             ? previousResult.directives
             : [])
         ],
-        code: `${types}\n${previous}\n${(isSetString(currentResult)
-          ? currentResult
-          : isSetObject(currentResult)
-            ? currentResult.code
-            : ""
+        code: await format(
+          context,
+          context.typesPath,
+          `${
+            !previous.includes(getTypescriptFileHeader(context)) &&
+            !current.includes(getTypescriptFileHeader(context))
+              ? `${code}\n`
+              : ""
+          }${previous}\n${current}`.trim()
         )
-          .trim()
-          .replace(previous, "")
-          .trim()
-          .replace(types, "")
-          .trim()}`
       };
     };
     const asNextParam = (
@@ -1375,18 +1386,18 @@ Note: Please ensure the plugin package's default export is a class that extends 
         merge,
         asNextParam
       },
-      types
+      code
     );
     if (result) {
       if (isSetObject(result)) {
-        types = result.code;
+        code = result.code;
         if (Array.isArray(result.directives) && result.directives.length > 0) {
           directives = getUnique([...directives, ...result.directives]).filter(
             Boolean
           );
         }
       } else if (isSetString(result)) {
-        types = result;
+        code = result;
       }
     }
 
@@ -1400,18 +1411,18 @@ Note: Please ensure the plugin package's default export is a class that extends 
         merge,
         asNextParam
       },
-      types
+      code
     );
     if (result) {
       if (isSetObject(result)) {
-        types = result.code;
+        code = result.code;
         if (Array.isArray(result.directives) && result.directives.length > 0) {
           directives = getUnique([...directives, ...result.directives]).filter(
             Boolean
           );
         }
       } else if (isSetString(result)) {
-        types = result;
+        code = result;
       }
     }
 
@@ -1425,22 +1436,22 @@ Note: Please ensure the plugin package's default export is a class that extends 
         merge,
         asNextParam
       },
-      types
+      code
     );
     if (result) {
       if (isSetObject(result)) {
-        types = result.code;
+        code = result.code;
         if (Array.isArray(result.directives) && result.directives.length > 0) {
           directives = getUnique([...directives, ...result.directives]).filter(
             Boolean
           );
         }
       } else if (isSetString(result)) {
-        types = result;
+        code = result;
       }
     }
 
-    if (isSetString(types?.trim()) || directives.length > 0) {
+    if (isSetString(code?.trim()) || directives.length > 0) {
       await context.fs.write(
         context.typesPath,
         `${
@@ -1451,42 +1462,44 @@ Note: Please ensure the plugin package's default export is a class that extends 
             : ""
         }${getTypescriptFileHeader(context, { directive: null, prettierIgnore: false })}
 
-${formatTypes(types)}
+${formatTypes(code)}
 `
       );
-    } else {
-      const dtsRelativePath = getTsconfigDtsPath(context);
-      if (
-        context.tsconfig.tsconfigJson.include &&
-        isIncludeMatchFound(
-          dtsRelativePath,
-          context.tsconfig.tsconfigJson.include
-        )
-      ) {
-        const normalizedDtsRelativePath = dtsRelativePath.startsWith("./")
-          ? dtsRelativePath.slice(2)
-          : dtsRelativePath;
-        context.tsconfig.tsconfigJson.include =
-          context.tsconfig.tsconfigJson.include.filter(
-            includeValue =>
-              includeValue?.toString() !== normalizedDtsRelativePath
-          );
-
-        await context.fs.write(
-          context.tsconfig.tsconfigFilePath,
-          JSON.stringify(context.tsconfig.tsconfigJson, null, 2)
-        );
-      }
     }
 
-    // Re-resolve the tsconfig to ensure it is up to date
-    context.tsconfig = getParsedTypeScriptConfig(
-      context.workspaceConfig.workspaceRoot,
-      context.config.root,
-      context.config.tsconfig
-    );
-    if (!context.tsconfig) {
-      throw new Error("Failed to parse the TypeScript configuration file.");
-    }
+    // else {
+    //   const dtsRelativePath = getTsconfigDtsPath(context);
+    //   if (
+    //     context.tsconfig.tsconfigJson.include &&
+    //     isIncludeMatchFound(
+    //       dtsRelativePath,
+    //       context.tsconfig.tsconfigJson.include
+    //     )
+    //   ) {
+    //     const normalizedDtsRelativePath = dtsRelativePath.startsWith("./")
+    //       ? dtsRelativePath.slice(2)
+    //       : dtsRelativePath;
+    //     context.tsconfig.tsconfigJson.include =
+    //       context.tsconfig.tsconfigJson.include.filter(
+    //         includeValue =>
+    //           includeValue?.toString() !== normalizedDtsRelativePath
+    //       );
+
+    //     await context.fs.write(
+    //       context.tsconfig.tsconfigFilePath,
+    //       JSON.stringify(context.tsconfig.tsconfigJson, null, 2)
+    //     );
+    //   }
+    // }
+
+    // // Re-resolve the tsconfig to ensure it is up to date
+    // context.tsconfig = getParsedTypeScriptConfig(
+    //   context.workspaceConfig.workspaceRoot,
+    //   context.config.root,
+    //   context.config.tsconfig
+    // );
+    // if (!context.tsconfig) {
+    //   throw new Error("Failed to parse the TypeScript configuration file.");
+    // }
   }
 }

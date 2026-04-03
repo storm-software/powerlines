@@ -310,6 +310,8 @@
     "@powerlines/plugin-automd": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
+    "@powerlines/deepkit": "workspace:*",
+    "@powerlines/plugin-deepkit": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",
@@ -326,8 +328,6 @@
     "c12": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/deepkit": "workspace:*",
-    "@powerlines/plugin-deepkit": "workspace:*",
     "@types/node": "catalog:",
     "vite": "catalog:"
   },

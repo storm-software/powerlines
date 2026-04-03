@@ -23,9 +23,11 @@ import { isParentPath } from "@stryke/path/is-parent-path";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
 import { isSetString } from "@stryke/type-checks/is-set-string";
+import { match } from "bundle-require";
 import { DiagnosticCategory } from "ts-morph";
 import { Context } from "../../types";
 import { createProgram } from "../../typescript/ts-morph";
+import { format } from "../../utils";
 
 const getModuleCommentBlockRegex = (moduleId: string) =>
   new RegExp(`\\/\\*\\*(?s:.)*?@module\\s+${moduleId}(?s:.)*?\\*\\/\\s+`);
@@ -36,15 +38,112 @@ const getModuleCommentBlockRegex = (moduleId: string) =>
  * @param code - The generated TypeScript code.
  * @returns The formatted TypeScript code.
  */
-export function formatTypes(code: string): string {
-  return code
-    .replace(
-      // eslint-disable-next-line regexp/no-super-linear-backtracking
-      /import\s*(?:type\s*)?\{?[\w,\s]*(?:\}\s*)?from\s*(?:'|")@?[a-zA-Z0-9-\\/.]*(?:'|");?/g,
-      ""
+export function formatTypes(code = ""): string {
+  return code.replaceAll("#private;", "").replace(/__Ω/g, "");
+}
+
+/**
+ * Formats a generated TypeScript module in the types source code.
+ *
+ * @param context - The Powerlines context.
+ * @param id - The module ID for the generated TypeScript module.
+ * @param code - The generated TypeScript module code.
+ * @returns The formatted TypeScript module code.
+ */
+export async function formatTypesModule(
+  context: Context,
+  id: string,
+  code: string
+): Promise<{ code: string; directives: string[] }> {
+  const moduleComment = code
+    .match(getModuleCommentBlockRegex(`${context.config.framework}:${id}`))
+    ?.find(comment => isSetString(comment?.trim()));
+
+  const ast = await context.parse(code, {
+    lang: "dts",
+    astType: "ts"
+  });
+
+  return {
+    code: `${
+      moduleComment
+        ? `
+${moduleComment.trim()}`
+        : ""
+    }
+declare module "${context.config.framework}:${id}" {
+  ${ast.module.staticImports
+    .filter(
+      staticImport =>
+        !match(
+          staticImport.moduleRequest.value,
+          context.config.resolve.external
+        ) && !staticImport.moduleRequest.value.startsWith("node:")
     )
-    .replaceAll("#private;", "")
-    .replace(/__Ω/g, "");
+    .map(staticImport => {
+      return `import type { ${staticImport.entries
+        .map(
+          entry =>
+            `${entry.importName.name}${entry.localName.value ? ` as ${entry.localName.value}` : ""}`
+        )
+        .join(", ")} } from "${staticImport.moduleRequest.value}"; `;
+    })
+    .join("\n")}
+
+  ${ast.module.staticImports
+    .filter(
+      staticImport =>
+        !match(
+          staticImport.moduleRequest.value,
+          context.config.resolve.external
+        ) && !staticImport.moduleRequest.value.startsWith("node:")
+    )
+    .reduce((ret, staticImport) => {
+      return `import type { ${staticImport.entries
+        .map(
+          entry =>
+            `${entry.importName.name}${entry.localName.value ? ` as ${entry.localName.value}` : ""}`
+        )
+        .join(
+          ", "
+        )} } from "${staticImport.moduleRequest.value}";${ret.replaceAll(
+        new RegExp(
+          `^import.*from\\s+['"]${staticImport.moduleRequest.value}['"]\\s*;?$`,
+          "gm"
+        ),
+        ""
+      )}`;
+    }, code)
+    .replace(moduleComment ?? "", "")
+    .replaceAll(/^\s*export\s*declare\s*/gm, "export ")
+    .replaceAll(/^\s*declare\s*/gm, "")
+    .replaceAll(/^\s*export\s*\{\s*\}/gm, "")
+    .replaceAll(/^\s*export\s*=\s*/gm, "export default ")
+    .replaceAll(/^\s*export\s*\{/gm, "export {")
+    .replaceAll(/^\s*export\s*default\s*\{/gm, "export default {")
+    .replaceAll(/^\s*export\s*function\s*/gm, "export function ")
+    .replaceAll(/^\s*export\s*class\s*/gm, "export class ")
+    .replaceAll(/^\s*export\s*interface\s*/gm, "export interface ")
+    .replaceAll(/^\s*export\s*type\s*/gm, "export type ")
+    .replaceAll(/^\s*export\s*enum\s*/gm, "export enum ")
+    .replaceAll(/^\s*export\s*namespace\s*/gm, "export namespace ")}${
+    ast.module.staticExports.length === 0
+      ? `
+  export {};`
+      : ""
+  }
+}
+`,
+    directives: ast.module.staticImports
+      .filter(
+        staticImport =>
+          match(
+            staticImport.moduleRequest.value,
+            context.config.resolve.external
+          ) || staticImport.moduleRequest.value.startsWith("node:")
+      )
+      .map(staticImport => staticImport.moduleRequest.value)
+  };
 }
 
 /**
@@ -57,12 +156,12 @@ export function formatTypes(code: string): string {
 export async function emitBuiltinTypes<TContext extends Context>(
   context: TContext,
   files: string[]
-) {
+): Promise<{ code: string; directives: string[] }> {
   if (files.length === 0) {
     context.debug(
       "No files provided for TypeScript types generation. Typescript compilation for built-in modules will be skipped."
     );
-    return "";
+    return { code: "", directives: [] };
   }
 
   context.debug(
@@ -89,9 +188,9 @@ export async function emitBuiltinTypes<TContext extends Context>(
   });
 
   program.addSourceFilesAtPaths(files);
-  const result = program.emitToMemory({ emitOnlyDtsFiles: true });
+  const emitResult = program.emitToMemory({ emitOnlyDtsFiles: true });
 
-  const diagnostics = result.getDiagnostics();
+  const diagnostics = emitResult.getDiagnostics();
   if (diagnostics && diagnostics.length > 0) {
     if (diagnostics.some(d => d.getCategory() === DiagnosticCategory.Error)) {
       throw new Error(
@@ -133,12 +232,20 @@ export async function emitBuiltinTypes<TContext extends Context>(
     }
   }
 
-  const emittedFiles = result.getFiles();
+  const emittedFiles = emitResult.getFiles();
   context.debug(
     `The TypeScript compiler emitted ${emittedFiles.length} files for built-in types.`
   );
 
-  let builtinModules = "";
+  if (emittedFiles.length === 0) {
+    context.warn(
+      "The TypeScript compiler did not emit any files for built-in types. This may indicate an issue with the TypeScript configuration or the provided files."
+    );
+    return { code: "", directives: [] };
+  }
+
+  let result = "";
+  const directives: string[] = [];
   for (const emittedFile of emittedFiles) {
     context.trace(
       `Processing emitted type declaration file: ${emittedFile.filePath}`
@@ -154,35 +261,38 @@ export async function emitBuiltinTypes<TContext extends Context>(
       findFileName(filePath) !== "tsconfig.tsbuildinfo" &&
       isParentPath(filePath, context.builtinsPath)
     ) {
-      const moduleId = `${context.config.framework}:${replaceExtension(
-        replacePath(filePath, context.builtinsPath),
+      const moduleId = replaceExtension(
+        replacePath(
+          replacePath(filePath, context.builtinsPath),
+          replacePath(
+            context.builtinsPath,
+            context.workspaceConfig.workspaceRoot
+          )
+        ),
         "",
         {
           fullExtension: true
         }
-      )}`;
-      const moduleComment = emittedFile.text
-        .match(getModuleCommentBlockRegex(moduleId))
-        ?.find(comment => isSetString(comment?.trim()));
-
-      builtinModules += `${moduleComment ? `\n${moduleComment.trim()}` : ""}
-declare module "${moduleId}" {
-    ${emittedFile.text
-      .replace(moduleComment ?? "", "")
-      .trim()
-      .replace(/^\s*export\s*declare\s*/gm, "export ")
-      .replace(/^\s*declare\s*/gm, "")}
-}
-`;
+      );
+      if (context.builtins.includes(moduleId)) {
+        const formatted = await formatTypesModule(
+          context,
+          moduleId,
+          emittedFile.text
+        );
+        result += formatted.code;
+        directives.push(...formatted.directives);
+      }
     }
   }
 
-  builtinModules = formatTypes(builtinModules);
+  result = await format(context, context.typesPath, formatTypes(result));
+
   context.debug(
     `A TypeScript declaration file (size: ${prettyBytes(
-      new Blob(toArray(builtinModules)).size
+      new Blob(toArray(result)).size
     )}) emitted for the built-in modules types.`
   );
 
-  return builtinModules;
+  return { code: result, directives };
 }

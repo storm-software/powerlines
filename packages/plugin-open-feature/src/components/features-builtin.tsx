@@ -84,12 +84,30 @@ export function FeaturesBuiltin(props: FeaturesBuiltinProps) {
       <Spacing />
       <VarDeclaration
         name="client"
-        export={true}
-        const={true}
+        export
+        const
         doc="The Open Feature runtime client to provide feature flag evaluations."
         type="ReturnType<typeof OpenFeature.getClient>">
         {code`OpenFeature.getClient(); `}
       </VarDeclaration>
+      <Spacing />
+      <FunctionDeclaration
+        name="feature"
+        export
+        async
+        parameters={[
+          {
+            name: "featureId",
+            type: "string"
+          }
+        ]}
+        returnType="Promise<boolean>">
+        {code`try {
+          return client.getBooleanValue(featureId);
+        } catch (error) {
+          console.error('Failed to initialize provider:', error);
+        } `}
+      </FunctionDeclaration>
       <Spacing />
       <Show when={Boolean(children)}>{children}</Show>
     </BuiltinFile>

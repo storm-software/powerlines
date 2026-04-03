@@ -53,6 +53,7 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { AssetGlob } from "@stryke/types/file";
+import { match } from "bundle-require";
 import { create, FlatCache } from "flat-cache";
 import { Blob } from "node:buffer";
 import { PathOrFileDescriptor } from "node:fs";
@@ -1068,7 +1069,11 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       return false;
     }
 
-    return this.#getStorage(resolved)?.adapter?.preset === "virtual";
+    return (
+      this.#getStorage(resolved)?.adapter?.preset === "virtual" ||
+      resolved.startsWith(`${this.#context.config.framework}:`) ||
+      path.startsWith(`${this.#context.config.framework}:`)
+    );
   }
 
   /**
@@ -1195,7 +1200,9 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   ): boolean {
     return (
       path.startsWith(`${this.#context.config.framework}:`) ||
-      this.isVirtual(path, importer, options)
+      this.isVirtual(path, importer, options) ||
+      this.isAlias(path) ||
+      this.isTsconfigPath(path)
     );
   }
 
@@ -1830,6 +1837,60 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     return path;
+  }
+
+  /**
+   * Checks if a given module ID is an alias.
+   *
+   * @remarks
+   * This function can be used to determine if a module ID matches any configured aliases.
+   *
+   * @param id - The module ID to check.
+   * @returns A boolean indicating whether the module ID is an alias.
+   */
+  public isAlias(id: string): boolean {
+    const path = id;
+
+    if (this.#context.config.resolve.alias) {
+      if (
+        Array.isArray(this.#context.config.resolve.alias) &&
+        this.#context.config.resolve.alias.length > 0
+      ) {
+        return (
+          this.#context.config.resolve.alias.filter(
+            alias =>
+              (isSetString(alias.find) &&
+                (alias.find === path || path.startsWith(`${alias.find}/`))) ||
+              (isRegExp(alias.find) && alias.find.test(path))
+          ).length > 0
+        );
+      } else if (isSetObject(this.#context.config.resolve.alias)) {
+        return (
+          Object.keys(
+            this.#context.config.resolve.alias as Record<string, string>
+          ).filter(key => key === path || path.startsWith(`${key}/`)).length > 0
+        );
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Checks if a given module ID is a tsconfig path.
+   *
+   * @remarks
+   * This function can be used to determine if a module ID matches any configured tsconfig paths.
+   *
+   * @param id - The module ID to check.
+   * @returns A boolean indicating whether the module ID is a tsconfig path.
+   */
+  public isTsconfigPath(id: string): boolean {
+    return !!(
+      this.#context.tsconfig.options.paths &&
+      Object.keys(this.#context.tsconfig.options.paths).length > 0 &&
+      match(id, this.#context.resolvePatterns)
+    );
   }
 
   /**
