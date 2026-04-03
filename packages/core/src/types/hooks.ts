@@ -16,15 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import { MaybePromise } from "@stryke/types/base";
+import { AnyFunction, MaybePromise } from "@stryke/types/base";
 import { UnpluginOptions } from "unplugin";
-import type {
-  PluginContext,
-  SelectHooksOptions,
-  WithUnpluginBuildContext
-} from "./context";
-import type { Plugin, PluginHookFields, PluginHookFunctions } from "./plugin";
-import { UnpluginBuilderVariant } from "./unplugin";
+import type { PluginContext, SelectHooksOptions } from "./context";
+import type { BasePlugin, Plugin, PluginHook, PluginHooks } from "./plugin";
+import { UnpluginBuilderVariant, UnpluginHookFunctions } from "./unplugin";
 
 export type HookListOrders =
   | "preOrdered"
@@ -33,134 +29,57 @@ export type HookListOrders =
   | "postEnforced"
   | "postOrdered";
 
-export type UnpluginHookFunctions<
+export interface HooksListItem<
   TContext extends PluginContext = PluginContext,
-  TUnpluginBuilderVariant extends UnpluginBuilderVariant =
-    UnpluginBuilderVariant,
-  TField extends keyof Required<UnpluginOptions>[TUnpluginBuilderVariant] =
-    keyof Required<UnpluginOptions>[TUnpluginBuilderVariant]
-> = Required<UnpluginOptions>[TUnpluginBuilderVariant][TField] extends
-  | infer THandler
-  | {
-      handler: infer THandler;
-    }
-  ? THandler extends (
-      this: infer THandlerOriginalContext,
-      ...args: infer THandlerArgs
-    ) => infer THandlerReturn
-    ? (
-        this: THandlerOriginalContext & WithUnpluginBuildContext<TContext>,
-        ...args: THandlerArgs
-      ) => THandlerReturn
-    : THandler extends { handler: infer THandlerFunction }
-      ? THandlerFunction extends (
-          this: infer THandlerFunctionOriginalContext,
-          ...args: infer THandlerFunctionArgs
-        ) => infer THandlerFunctionReturn
-        ? (
-            this: THandlerFunctionOriginalContext &
-              WithUnpluginBuildContext<TContext>,
-            ...args: THandlerFunctionArgs
-          ) => THandlerFunctionReturn
-        : never
-      : never
-  : never;
-
-export interface PluginHooksListItem<
-  TContext extends PluginContext = PluginContext,
-  TFields extends PluginHookFields<TContext> = PluginHookFields<TContext>
+  TFields extends string = string
 > {
   plugin: Plugin<TContext>;
-  handler: PluginHookFunctions<TContext>[TFields];
+  handler: InferHookFunction<TContext, TFields>;
 }
 
-export type PluginHooksList<
+export type HooksList<
   TContext extends PluginContext = PluginContext,
-  TFields extends PluginHookFields<TContext> = PluginHookFields<TContext>
+  TFields extends string = string
 > = {
-  [TKey in HookListOrders]?:
-    | PluginHooksListItem<TContext, TFields>[]
-    | undefined;
+  [TKey in HookListOrders]?: HooksListItem<TContext, TFields>[] | undefined;
 };
 
-export interface UnpluginHooksListItem<
-  TContext extends PluginContext = PluginContext,
-  TUnpluginBuilderVariant extends UnpluginBuilderVariant =
-    UnpluginBuilderVariant,
-  TField extends keyof Required<UnpluginOptions>[TUnpluginBuilderVariant] =
-    keyof Required<UnpluginOptions>[TUnpluginBuilderVariant]
-> {
-  plugin: Plugin<TContext>;
-  handler: UnpluginHookFunctions<TContext, TUnpluginBuilderVariant, TField>;
-}
+type InferPluginFunction<
+  TObject,
+  TKey extends keyof Required<TObject>
+> = InferPluginFunctionKey<Required<TObject>[TKey]>;
 
-export type UnpluginHookList<
-  TContext extends PluginContext = PluginContext,
-  TUnpluginBuilderVariant extends UnpluginBuilderVariant =
-    UnpluginBuilderVariant,
-  TField extends keyof UnpluginOptions[TUnpluginBuilderVariant] =
-    keyof UnpluginOptions[TUnpluginBuilderVariant]
-> = {
-  [TKey in HookListOrders]?:
-    | UnpluginHooksListItem<TContext, TUnpluginBuilderVariant, TField>[]
-    | undefined;
-};
-
-export type UnpluginHookVariantField<
-  TContext extends PluginContext = PluginContext,
-  TUnpluginBuilderVariant extends UnpluginBuilderVariant =
-    UnpluginBuilderVariant
-> = {
-  [TKey in keyof UnpluginOptions[TUnpluginBuilderVariant]]?: UnpluginHookList<
-    TContext,
-    TUnpluginBuilderVariant,
-    TKey
-  >;
-};
-
-export type UnpluginHookVariant<
-  TContext extends PluginContext = PluginContext
-> = {
-  [TKey in UnpluginBuilderVariant]?: UnpluginHookVariantField<TContext, TKey>;
-};
-
-export type HookFields<TContext extends PluginContext = PluginContext> =
-  | PluginHookFields<TContext>
-  | UnpluginBuilderVariant;
-
-export type HooksList<TContext extends PluginContext = PluginContext> = {
-  [TField in HookFields<TContext>]?: TField extends PluginHookFields<TContext>
-    ? PluginHooksList<TContext, TField>
-    : TField extends UnpluginBuilderVariant
-      ? UnpluginHookVariant<TContext>[TField]
-      : never;
-};
-
-export type InferHooksListItem<
-  TContext extends PluginContext,
-  TKey extends string
-> = TKey extends `${infer TUnpluginBuilderVariant}:${infer TUnpluginField}`
-  ? TUnpluginBuilderVariant extends UnpluginBuilderVariant
-    ? TUnpluginField extends keyof Required<UnpluginOptions>[TUnpluginBuilderVariant]
-      ? UnpluginHooksListItem<TContext, TUnpluginBuilderVariant, TUnpluginField>
-      : never
-    : never
-  : TKey extends keyof PluginHookFunctions<TContext>
-    ? PluginHooksListItem<TContext, TKey>
+type InferPluginFunctionKey<TValue> = TValue extends AnyFunction
+  ? TValue
+  : TValue extends PluginHook<infer THookFunction, any>
+    ? THookFunction
     : never;
 
 export type InferHookFunction<
   TContext extends PluginContext,
   TKey extends string
-> = TKey extends `${infer TUnpluginBuilderVariant}:${infer TUnpluginField}`
-  ? TUnpluginBuilderVariant extends UnpluginBuilderVariant
-    ? TUnpluginField extends keyof Required<UnpluginOptions>[TUnpluginBuilderVariant]
-      ? UnpluginHookFunctions<TContext, TUnpluginBuilderVariant, TUnpluginField>
+> = TKey extends `${infer TVariant}:${infer TField}`
+  ? TVariant extends keyof Required<BasePlugin<TContext>>
+    ? TField extends keyof Required<BasePlugin<TContext>>[TVariant]
+      ? InferPluginFunction<Required<BasePlugin<TContext>>[TVariant], TField>
+      : TVariant extends keyof Required<PluginHooks<TContext>>
+        ? TField extends keyof Required<PluginHooks<TContext>>[TVariant]
+          ? InferPluginFunction<
+              Required<PluginHooks<TContext>>[TVariant],
+              TField
+            >
+          : never
+        : never
+    : TVariant extends UnpluginBuilderVariant
+      ? TField extends keyof Required<UnpluginOptions>[TVariant]
+        ? UnpluginHookFunctions<TContext, TVariant, TField>
+        : never
       : never
-    : never
-  : TKey extends keyof PluginHookFunctions<TContext>
-    ? PluginHookFunctions<TContext>[TKey]
-    : never;
+  : TKey extends keyof Required<BasePlugin<TContext>>
+    ? InferPluginFunction<Required<BasePlugin<TContext>>, TKey>
+    : TKey extends keyof Required<PluginHooks<TContext>>
+      ? InferPluginFunction<Required<PluginHooks<TContext>>, TKey>
+      : never;
 
 export type InferHookReturnType<
   TContext extends PluginContext,
@@ -236,7 +155,7 @@ export type CallHookOptions<TResult = any> = SelectHooksOptions &
                 merge?: (
                   currentResult: TResult,
                   previousResult: TResult
-                ) => TResult;
+                ) => MaybePromise<TResult>;
               }
             | {
                 /**

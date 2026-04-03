@@ -298,9 +298,9 @@ export class PowerlinesContext<
   public resolver!: Resolver;
 
   /**
-   * The resolved configuration options
+   * The resolved tsconfig file paths for the project
    */
-  private resolvePatterns: RegExp[] = [];
+  public resolvePatterns: RegExp[] = [];
 
   /**
    * Internal context fields and methods
@@ -876,8 +876,8 @@ export class PowerlinesContext<
         !match(moduleId, this.config.resolve.noExternal) &&
         (match(moduleId, this.config.resolve.external) ||
           moduleId.startsWith("node:") ||
-          ((!this.fs.isResolvableId(moduleId) ||
-            (this.fs.isResolvableId(moduleId) &&
+          ((!this.fs.isVirtual(moduleId, importer, options) ||
+            (this.fs.isVirtual(moduleId, importer, options) &&
               this.config.projectType !== "application")) &&
             this.config.resolve.skipNodeModulesBundle &&
             !/^[A-Z]:[/\\]|^\.{0,2}\/|^\.{1,2}$/.test(moduleId)))

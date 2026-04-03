@@ -20,10 +20,7 @@ import type { ArrayValues } from "@stryke/types/array";
 import type { AnyFunction, MaybePromise } from "@stryke/types/base";
 import { LoadResult } from "rollup";
 import type { HookFilter, TransformResult } from "unplugin";
-import {
-  KNOWN_PLUGIN_FIELDS,
-  PLUGIN_NON_HOOK_FIELDS
-} from "../constants/plugin";
+import { PLUGIN_NON_HOOK_FIELDS } from "../constants/plugin";
 import type { CommandType } from "./commands";
 import type {
   EnvironmentConfig,
@@ -37,8 +34,6 @@ import type {
   ResolveResult,
   UnresolvedContext
 } from "./context";
-import type { BuilderVariant, UnpluginBuilderVariant } from "./unplugin";
-import { InferUnpluginOptions } from "./unplugin";
 
 export interface PluginHookObject<
   THookFunction extends AnyFunction,
@@ -204,30 +199,42 @@ export interface Hooks<TContext extends PluginContext> {
   writeBundle: (this: TContext) => MaybePromise<void>;
 }
 
-export type PluginHookFunctions<TContext extends PluginContext> = {
+export type HookFunctions<TContext extends PluginContext> = {
   [TCommandType in CommandType]: (this: TContext) => MaybePromise<void>;
 } & Hooks<TContext>;
-
-export type PluginHooks<TContext extends PluginContext> = {
-  [TPluginHook in keyof PluginHookFunctions<TContext>]?: PluginHook<
-    PluginHookFunctions<TContext>[TPluginHook]
-  >;
-} & {
-  transform: PluginHook<
-    PluginHookFunctions<TContext>["transform"],
-    "code" | "id"
-  >;
-  load: PluginHook<PluginHookFunctions<TContext>["load"], "id">;
-  resolveId: PluginHook<PluginHookFunctions<TContext>["resolveId"], "id">;
-};
 
 type DeepPartial<T> = {
   [K in keyof T]?: DeepPartial<T[K]>;
 };
 
-export type Plugin<
-  TContext extends PluginContext<ResolvedConfig> = PluginContext<ResolvedConfig>
-> = Partial<PluginHooks<TContext>> & {
+type InferPluginHookFunction<
+  TContext extends PluginContext,
+  TKey extends string
+> = TKey extends keyof HookFunctions<TContext>
+  ? HookFunctions<TContext>[TKey] extends AnyFunction
+    ? PluginHook<HookFunctions<TContext>[TKey], TKey & keyof HookFilter>
+    : HookFunctions<TContext>[TKey] extends object
+      ? {
+          [K in keyof HookFunctions<TContext>[TKey]]?: InferPluginHookFunction<
+            TContext,
+            `${TKey}:${K & string}`
+          >;
+        }
+      : never
+  : never;
+
+export type PluginHooks<TContext extends PluginContext> = {
+  [TKey in keyof HookFunctions<TContext>]?: InferPluginHookFunction<
+    TContext,
+    TKey
+  >;
+} & {
+  transform?: PluginHook<HookFunctions<TContext>["transform"], "code" | "id">;
+  load?: PluginHook<HookFunctions<TContext>["load"], "id">;
+  resolveId?: PluginHook<HookFunctions<TContext>["resolveId"], "id">;
+};
+
+export interface BasePlugin<TContext extends PluginContext> {
   /**
    * The name of the plugin, for use in deduplication, error messages and logs.
    */
@@ -305,18 +312,26 @@ export type Plugin<
         ) => MaybePromise<DeepPartial<TContext["config"]> & Record<string, any>>
       >
     | (DeepPartial<TContext["config"]> & Record<string, any>);
-} & {
-  [TBuilderVariant in BuilderVariant]?: InferUnpluginOptions<
-    TContext,
-    TBuilderVariant
-  >;
-};
+}
 
-export type PluginNonHookFields =
-  | ArrayValues<typeof PLUGIN_NON_HOOK_FIELDS>
-  | UnpluginBuilderVariant;
+export type Plugin<
+  TContext extends PluginContext<ResolvedConfig> = PluginContext<ResolvedConfig>
+> = Partial<PluginHooks<TContext>> & BasePlugin<TContext>;
 
-export type PluginHookFields<TContext extends PluginContext = PluginContext> =
-  keyof PluginHookFunctions<TContext>;
+export type PluginNonHookFields = ArrayValues<typeof PLUGIN_NON_HOOK_FIELDS>;
 
-export type PluginFields = ArrayValues<typeof KNOWN_PLUGIN_FIELDS>;
+export type PluginHookFields<
+  TContext extends PluginContext = PluginContext,
+  TKey extends string = string
+> =
+  TKey extends ArrayValues<typeof PLUGIN_NON_HOOK_FIELDS>
+    ? never
+    : TKey extends keyof HookFunctions<TContext>
+      ? HookFunctions<TContext>[TKey] extends AnyFunction
+        ? TKey
+        : HookFunctions<TContext>[TKey] extends object
+          ? {
+              [K in keyof HookFunctions<TContext>[TKey]]?: `${TKey}:${K & string}`;
+            }[keyof HookFunctions<TContext>[TKey]]
+          : never
+      : never;

@@ -24,6 +24,7 @@ import type {
 } from "@powerlines/plugin-env";
 import type {
   PulumiPluginContext,
+  PulumiPluginOptions,
   PulumiPluginResolvedConfig,
   PulumiPluginUserConfig
 } from "@powerlines/plugin-pulumi";
@@ -79,6 +80,11 @@ export interface CloudflarePluginOptions {
    * The plugin will automatically include the Cloudflare preset for unenv, which provides compatibility with Cloudflare Workers runtimes. You can customize the unenv configuration by providing options here, but the Cloudflare preset will always be included.
    */
   unenv?: UnenvPluginOptions;
+
+  /**
+   * The configuration options for Pulumi.
+   */
+  pulumi?: PulumiPluginOptions;
 }
 
 export type CloudflarePluginUserConfig = EnvPluginUserConfig &
@@ -87,7 +93,7 @@ export type CloudflarePluginUserConfig = EnvPluginUserConfig &
     /**
      * Options for the Cloudflare plugin.
      */
-    cloudflare?: Omit<CloudflarePluginOptions, "unenv">;
+    cloudflare?: Omit<CloudflarePluginOptions, "unenv" | "pulumi">;
   };
 
 export type CloudflarePluginResolvedConfig = EnvPluginResolvedConfig &
@@ -96,7 +102,7 @@ export type CloudflarePluginResolvedConfig = EnvPluginResolvedConfig &
     /**
      * Options for the Cloudflare plugin.
      */
-    cloudflare: Required<Omit<CloudflarePluginOptions, "unenv">>;
+    cloudflare: Required<Omit<CloudflarePluginOptions, "unenv" | "pulumi">>;
   };
 
 export type CloudflareWorkerMetadata = RequiredKeys<

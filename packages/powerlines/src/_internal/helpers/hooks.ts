@@ -16,21 +16,34 @@
 
  ------------------------------------------------------------------- */
 
+import { getField } from "@stryke/helpers/get-field";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isObject } from "@stryke/type-checks/is-object";
 import { isSet } from "@stryke/type-checks/is-set";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { ArrayValues } from "@stryke/types/array";
+import { AnyFunction } from "@stryke/types/base";
 import chalk from "chalk";
 import { createDefu, defu } from "defu";
-import { mergeConfig } from "../../plugin-utils";
+import {
+  addPluginHook,
+  isPluginHook,
+  isPluginHookField,
+  mergeConfig
+} from "../../plugin-utils";
 import {
   CallHookOptions,
   EnvironmentContext,
+  HookListOrders,
+  HooksList,
+  HooksListItem,
   InferHookParameters,
   InferHookReturnType,
+  Plugin,
   PluginContext,
+  PluginHookFields,
   ResolvedConfig
 } from "../../types";
 
@@ -127,7 +140,7 @@ export async function callHook<
       hook: ArrayValues<typeof hooks>,
       hookArgs: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
     ) => {
-      return Reflect.apply(hook.handler, hook.context, hookArgs);
+      return Reflect.apply(hook.handler as AnyFunction, hook.context, hookArgs);
     };
 
     let results = [] as InferHookReturnType<
@@ -186,7 +199,7 @@ export async function callHook<
             } else if (options.result === "merge" && options.merge) {
               results = [
                 results.length > 0 && results[0]
-                  ? options.merge(result, results[0])
+                  ? await Promise.resolve(options.merge(result, results[0]))
                   : result
               ];
             } else {
@@ -222,4 +235,81 @@ export async function callHook<
   }
 
   return undefined;
+}
+
+export function extractHooks<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+>(
+  context: PluginContext<TResolvedConfig>,
+  hooks: Record<string, HooksList<PluginContext<TResolvedConfig>>>,
+  plugin: Plugin<PluginContext<TResolvedConfig>>,
+  key: string,
+  parentKey?: string
+): Record<string, HooksList<PluginContext<TResolvedConfig>>> {
+  const combinedKey = parentKey ? `${parentKey}:${key}` : key;
+  const pluginField = getField(plugin, combinedKey.replace(/:/g, "."));
+  if (
+    isPluginHookField<PluginContext<TResolvedConfig>>(combinedKey) &&
+    isPluginHook(pluginField)
+  ) {
+    const pluginHook = pluginField;
+    if (!isPluginHook(pluginHook)) {
+      return hooks;
+    }
+
+    hooks[combinedKey] ??= {
+      preEnforced: [] as HooksListItem<PluginContext<TResolvedConfig>>[],
+      preOrdered: [] as HooksListItem<PluginContext<TResolvedConfig>>[],
+      normal: [] as HooksListItem<PluginContext<TResolvedConfig>>[],
+      postEnforced: [] as HooksListItem<PluginContext<TResolvedConfig>>[],
+      postOrdered: [] as HooksListItem<PluginContext<TResolvedConfig>>[]
+    };
+
+    if (plugin.enforce) {
+      const hookListOrder = `${plugin.enforce}Enforced` as HookListOrders;
+      hooks[combinedKey][hookListOrder] ??= [] as HooksListItem<
+        PluginContext<TResolvedConfig>
+      >[];
+
+      const bucket = hooks[combinedKey][hookListOrder];
+      addPluginHook<
+        PluginContext<TResolvedConfig>,
+        PluginHookFields<PluginContext<TResolvedConfig>>
+      >(context, plugin, pluginHook, bucket);
+
+      return hooks;
+    }
+
+    if (isFunction(pluginHook) || !pluginHook.order) {
+      hooks[combinedKey].normal ??= [];
+
+      const bucket = hooks[combinedKey].normal;
+      addPluginHook<
+        PluginContext<TResolvedConfig>,
+        PluginHookFields<PluginContext<TResolvedConfig>>
+      >(context, plugin, pluginHook, bucket);
+
+      return hooks;
+    }
+
+    const hookListOrder = `${pluginHook.order}Ordered` as HookListOrders;
+    hooks[combinedKey][hookListOrder] ??= [];
+
+    addPluginHook(
+      context,
+      plugin,
+      pluginHook,
+      hooks[combinedKey][hookListOrder]
+    );
+
+    return hooks;
+  } else if (isSetObject(pluginField)) {
+    return Object.keys(pluginField)
+      .map(pluginKey =>
+        extractHooks(context, hooks, plugin, pluginKey, combinedKey)
+      )
+      .reduce((ret, current) => defu(ret, current), hooks);
+  }
+
+  return hooks;
 }

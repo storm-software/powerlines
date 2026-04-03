@@ -21,6 +21,7 @@ import { getCloudflarePreset } from "@cloudflare/unenv-preset";
 import { render } from "@powerlines/plugin-alloy/render";
 import { readEnvTypeReflection } from "@powerlines/plugin-env/helpers";
 import { resolveModule } from "@powerlines/plugin-esbuild/helpers/resolve";
+import pulumi from "@powerlines/plugin-pulumi";
 import unenv from "@powerlines/plugin-unenv";
 import * as pulumiCloudflare from "@pulumi/cloudflare";
 import { omit } from "@stryke/helpers/omit";
@@ -58,14 +59,15 @@ declare module "powerlines" {
  */
 export function plugin<
   TContext extends CloudflarePluginContext = CloudflarePluginContext
->(options: CloudflarePluginOptions = {}) {
+>(options: CloudflarePluginOptions = {}): Plugin<TContext>[] {
   return [
-    unenv(options.unenv),
+    unenv<TContext>(options.unenv),
+    ...pulumi<TContext>(options.pulumi),
     {
       name: "cloudflare",
       config() {
         return {
-          cloudflare: defu(omit(options, ["unenv"]), {
+          cloudflare: defu(omit(options, ["unenv", "pulumi"]), {
             configPath: resolveWranglerConfigPath(this)
           }),
           resolve: {
@@ -108,7 +110,7 @@ export function plugin<
         order: "pre",
         async handler() {
           this.cloudflare ??= { workers: [] };
-          this.cloudflare.workers = await Promise.all(
+          this.cloudflare.workers = (await Promise.all(
             this.entry.map(async (entry, i, arr) => {
               if (!entry.input) {
                 throw new Error(
@@ -149,9 +151,9 @@ export function plugin<
                 test: isFunction(workerModule.default.test),
                 email: isFunction(workerModule.default.email),
                 queue: isFunction(workerModule.default.queue)
-              } satisfies CloudflareWorkerEntryModule;
+              };
             })
-          );
+          )) as CloudflareWorkerEntryModule[];
 
           return render(
             this,
@@ -179,178 +181,186 @@ export function plugin<
         // for (const worker of this.cloudflare.workers) {
         // }
       },
-      async deployPulumi() {
-        let apiToken = process.env.CLOUDFLARE_API_TOKEN;
-        if (!apiToken) {
-          apiToken = this.config.cloudflare.apiToken;
-          if (apiToken) {
-            this.warn(
-              "If possible, please use the `CLOUDFLARE_API_TOKEN` environment variable instead of using the `apiToken` option directly. The `apiToken` option will work; however, this is a less secure method of configuration."
-            );
-          } else {
-            throw new Error(
-              "Unable to determine the Cloudflare API token. Please set the `CLOUDFLARE_API_TOKEN` environment variable."
-            );
-          }
-        }
-
-        await this.pulumi.setConfig("cloudflare:apiToken", {
-          value: apiToken
-        });
-
-        const provider = new pulumiCloudflare.Provider("cloudflare-provider", {
-          apiToken
-        });
-
-        const zone = await pulumiCloudflare.getZone(
-          {
-            filter: {
-              account: { id: this.config.cloudflare.accountId },
-              name: this.config.cloudflare.domain
+      pulumi: {
+        async deploy() {
+          let apiToken = process.env.CLOUDFLARE_API_TOKEN;
+          if (!apiToken) {
+            apiToken = this.config.cloudflare.apiToken;
+            if (apiToken) {
+              this.warn(
+                "If possible, please use the `CLOUDFLARE_API_TOKEN` environment variable instead of using the `apiToken` option directly. The `apiToken` option will work; however, this is a less secure method of configuration."
+              );
+            } else {
+              throw new Error(
+                "Unable to determine the Cloudflare API token. Please set the `CLOUDFLARE_API_TOKEN` environment variable."
+              );
             }
-          },
-          { provider }
-        );
+          }
 
-        const workers = [] as pulumiCloudflare.Worker[];
-        const workerVersions = [] as pulumiCloudflare.WorkerVersion[];
-        const workersDeployments = [] as pulumiCloudflare.WorkersDeployment[];
-        const workersRoutes = [] as pulumiCloudflare.WorkersRoute[];
-        const dnsRecords = [] as pulumiCloudflare.DnsRecord[];
-        for (const worker of this.cloudflare.workers) {
-          const resource = new pulumiCloudflare.Worker(
-            `${this.config.organization ? `${this.config.organization}.` : ""}${
-              kebabCase(this.config.name) === kebabCase(worker.metadata.name)
-                ? kebabCase(this.config.name)
-                : `${kebabCase(this.config.name)}.${kebabCase(
-                    worker.metadata.name
-                  )}`
-            }.${kebabCase(this.config.mode)}.worker`,
-            defu(
-              {
-                accountId: this.config.cloudflare.accountId,
-                name: worker.metadata.name,
-                tags: [
-                  `project:${kebabCase(this.config.name)}`,
-                  this.config.organization
-                    ? `organization:${kebabCase(this.config.organization)}`
-                    : undefined,
-                  this.config.mode
-                    ? `mode:${kebabCase(this.config.mode)}`
-                    : undefined
-                ].filter(Boolean) as string[]
-              },
-              worker.metadata
-            ) as pulumiCloudflare.WorkerArgs,
-            { provider }
-          );
-          workers.push(resource);
+          await this.pulumi.setConfig("cloudflare:apiToken", {
+            value: apiToken
+          });
 
-          const workerVersion = new pulumiCloudflare.WorkerVersion(
-            `${this.config.organization ? `${this.config.organization}.` : ""}${
-              kebabCase(this.config.name) === kebabCase(worker.metadata.name)
-                ? kebabCase(this.config.name)
-                : `${kebabCase(this.config.name)}.${kebabCase(
-                    worker.metadata.name
-                  )}`
-            }.${kebabCase(this.config.mode)}.worker-version`,
-            defu(
-              {
-                accountId: this.config.cloudflare.accountId,
-                workerId: resource.id,
-                mainModule: joinPaths(this.config.output.path, "index.mjs"),
-                modules: [
-                  {
-                    name: joinPaths(this.config.output.path, "index.mjs"),
-                    contentType: "application/javascript+module",
-                    contentFile: joinPaths(this.config.output.path, "index.mjs")
-                  }
-                ]
-              },
-              worker.metadata,
-              {
-                compatibilityDate:
-                  this.config.compatibilityDate?.cloudflare?.toString() as string,
-                compatibilityFlags: ["nodejs_als"]
-              }
-            ) as pulumiCloudflare.WorkerVersionArgs,
-            { provider }
-          );
-          workerVersions.push(workerVersion);
-
-          const workersDeployment = new pulumiCloudflare.WorkersDeployment(
-            `${this.config.organization ? `${this.config.organization}.` : ""}${
-              kebabCase(this.config.name) === kebabCase(worker.metadata.name)
-                ? kebabCase(this.config.name)
-                : `${kebabCase(this.config.name)}-${kebabCase(
-                    worker.metadata.name
-                  )}`
-            }.${kebabCase(this.config.mode)}.workers-deployment`,
-            defu({
-              accountId: this.config.cloudflare.accountId,
-              zoneId: zone.id,
-              strategy: "percentage",
-              scriptName: resource.name,
-              versions: [
-                {
-                  percentage: 100,
-                  versionId: workerVersion.id
-                }
-              ]
-            }),
-            { provider }
-          );
-          workersDeployments.push(workersDeployment);
-
-          const workersRoute = new pulumiCloudflare.WorkersRoute(
-            `${this.config.organization ? `${this.config.organization}.` : ""}${
-              kebabCase(this.config.name) === kebabCase(worker.metadata.name)
-                ? kebabCase(this.config.name)
-                : `${kebabCase(this.config.name)}-${kebabCase(
-                    worker.metadata.name
-                  )}`
-            }.${kebabCase(this.config.mode)}.workers-route`,
-            defu({
-              accountId: this.config.cloudflare.accountId,
-              zoneId: zone.id,
-              pattern: worker.metadata.pattern
-                .replace("{domain}", this.config.cloudflare.domain)
-                .replace("{scriptName}", worker.metadata.name)
-                .replace("{mode}", this.config.mode),
-              script: resource.name
-            }),
-            { provider }
-          );
-          workersRoutes.push(workersRoute);
-
-          const dnsRecord = new pulumiCloudflare.DnsRecord(
-            `${this.config.organization ? `${this.config.organization}.` : ""}${
-              kebabCase(this.config.name) === kebabCase(worker.metadata.name)
-                ? kebabCase(this.config.name)
-                : `${kebabCase(this.config.name)}-${kebabCase(
-                    worker.metadata.name
-                  )}`
-            }.${kebabCase(this.config.mode)}.dns-record`,
+          const provider = new pulumiCloudflare.Provider(
+            "cloudflare-provider",
             {
-              name: workersRoute.pattern,
-              type: "A",
-              content: "192.0.2.1",
-              zoneId: zone.id,
-              proxied: true,
-              ttl: 1
+              apiToken
+            }
+          );
+
+          const zone = await pulumiCloudflare.getZone(
+            {
+              filter: {
+                account: { id: this.config.cloudflare.accountId },
+                name: this.config.cloudflare.domain
+              }
             },
             { provider }
           );
-          dnsRecords.push(dnsRecord);
-        }
 
-        return {
-          workers,
-          workerVersions,
-          workersDeployments,
-          workersRoutes,
-          dnsRecords
-        };
+          const workers = [] as pulumiCloudflare.Worker[];
+          const workerVersions = [] as pulumiCloudflare.WorkerVersion[];
+          const workersDeployments = [] as pulumiCloudflare.WorkersDeployment[];
+          const workersRoutes = [] as pulumiCloudflare.WorkersRoute[];
+          const dnsRecords = [] as pulumiCloudflare.DnsRecord[];
+          for (const worker of this.cloudflare.workers) {
+            const resource = new pulumiCloudflare.Worker(
+              `${this.config.organization ? `${this.config.organization}.` : ""}${
+                kebabCase(this.config.name) === kebabCase(worker.metadata.name)
+                  ? kebabCase(this.config.name)
+                  : `${kebabCase(this.config.name)}.${kebabCase(
+                      worker.metadata.name
+                    )}`
+              }.${kebabCase(this.config.mode)}.worker`,
+              defu(
+                {
+                  accountId: this.config.cloudflare.accountId,
+                  name: worker.metadata.name,
+                  tags: [
+                    `project:${kebabCase(this.config.name)}`,
+                    this.config.organization
+                      ? `organization:${kebabCase(this.config.organization)}`
+                      : undefined,
+                    this.config.mode
+                      ? `mode:${kebabCase(this.config.mode)}`
+                      : undefined
+                  ].filter(Boolean) as string[]
+                },
+                worker.metadata
+              ) as pulumiCloudflare.WorkerArgs,
+              { provider }
+            );
+            workers.push(resource);
+
+            const workerVersion = new pulumiCloudflare.WorkerVersion(
+              `${this.config.organization ? `${this.config.organization}.` : ""}${
+                kebabCase(this.config.name) === kebabCase(worker.metadata.name)
+                  ? kebabCase(this.config.name)
+                  : `${kebabCase(this.config.name)}.${kebabCase(
+                      worker.metadata.name
+                    )}`
+              }.${kebabCase(this.config.mode)}.worker-version`,
+              defu(
+                {
+                  accountId: this.config.cloudflare.accountId,
+                  workerId: resource.id,
+                  mainModule: joinPaths(this.config.output.path, "index.mjs"),
+                  modules: [
+                    {
+                      name: joinPaths(this.config.output.path, "index.mjs"),
+                      contentType: "application/javascript+module",
+                      contentFile: joinPaths(
+                        this.config.output.path,
+                        "index.mjs"
+                      )
+                    }
+                  ]
+                },
+                worker.metadata,
+                {
+                  compatibilityDate:
+                    this.config.compatibilityDate?.cloudflare?.toString() as string,
+                  compatibilityFlags: ["nodejs_als"]
+                }
+              ) as pulumiCloudflare.WorkerVersionArgs,
+              { provider }
+            );
+            workerVersions.push(workerVersion);
+
+            const workersDeployment = new pulumiCloudflare.WorkersDeployment(
+              `${this.config.organization ? `${this.config.organization}.` : ""}${
+                kebabCase(this.config.name) === kebabCase(worker.metadata.name)
+                  ? kebabCase(this.config.name)
+                  : `${kebabCase(this.config.name)}-${kebabCase(
+                      worker.metadata.name
+                    )}`
+              }.${kebabCase(this.config.mode)}.workers-deployment`,
+              defu({
+                accountId: this.config.cloudflare.accountId,
+                zoneId: zone.id,
+                strategy: "percentage",
+                scriptName: resource.name,
+                versions: [
+                  {
+                    percentage: 100,
+                    versionId: workerVersion.id
+                  }
+                ]
+              }),
+              { provider }
+            );
+            workersDeployments.push(workersDeployment);
+
+            const workersRoute = new pulumiCloudflare.WorkersRoute(
+              `${this.config.organization ? `${this.config.organization}.` : ""}${
+                kebabCase(this.config.name) === kebabCase(worker.metadata.name)
+                  ? kebabCase(this.config.name)
+                  : `${kebabCase(this.config.name)}-${kebabCase(
+                      worker.metadata.name
+                    )}`
+              }.${kebabCase(this.config.mode)}.workers-route`,
+              defu({
+                accountId: this.config.cloudflare.accountId,
+                zoneId: zone.id,
+                pattern: worker.metadata.pattern
+                  .replace("{domain}", this.config.cloudflare.domain)
+                  .replace("{scriptName}", worker.metadata.name)
+                  .replace("{mode}", this.config.mode),
+                script: resource.name
+              }),
+              { provider }
+            );
+            workersRoutes.push(workersRoute);
+
+            const dnsRecord = new pulumiCloudflare.DnsRecord(
+              `${this.config.organization ? `${this.config.organization}.` : ""}${
+                kebabCase(this.config.name) === kebabCase(worker.metadata.name)
+                  ? kebabCase(this.config.name)
+                  : `${kebabCase(this.config.name)}-${kebabCase(
+                      worker.metadata.name
+                    )}`
+              }.${kebabCase(this.config.mode)}.dns-record`,
+              {
+                name: workersRoute.pattern,
+                type: "A",
+                content: "192.0.2.1",
+                zoneId: zone.id,
+                proxied: true,
+                ttl: 1
+              },
+              { provider }
+            );
+            dnsRecords.push(dnsRecord);
+          }
+
+          return {
+            workers,
+            workerVersions,
+            workersDeployments,
+            workersRoutes,
+            dnsRecords
+          };
+        }
       }
     }
   ] as Plugin<TContext>[];

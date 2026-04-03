@@ -48,7 +48,7 @@ import type {
   VirtualFileSystemInterface,
   WriteOptions
 } from "./fs";
-import type { HooksList, InferHooksListItem } from "./hooks";
+import type { HooksList, HooksListItem } from "./hooks";
 import type { Plugin } from "./plugin";
 import type { ParsedTypeScriptConfig } from "./tsconfig";
 
@@ -369,6 +369,11 @@ export interface UnresolvedContext<
    * This includes both the built-in module aliases as well as any custom aliases defined in the build configuration.
    */
   alias: Record<string, string>;
+
+  /**
+   * The resolved tsconfig file paths for the project
+   */
+  resolvePatterns: RegExp[];
 
   /**
    * A function to perform HTTP fetch requests
@@ -707,7 +712,7 @@ export interface EnvironmentContextPlugin<
 export type SelectHookResultItem<
   TContext extends PluginContext,
   TKey extends string
-> = InferHooksListItem<TContext, TKey> & {
+> = HooksListItem<TContext, TKey> & {
   context: TContext;
 };
 

@@ -22,8 +22,8 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { AnyFunction } from "@stryke/types/base";
 import {
-  BUILDER_VARIANTS,
   PLUGIN_HOOKS_FIELDS,
+  PLUGIN_NON_HOOK_FIELDS,
   UNPLUGIN_BUILDER_VARIANTS
 } from "../constants/plugin";
 import type {
@@ -33,11 +33,7 @@ import type {
   ResolvedConfig
 } from "../types/config";
 import type { PluginContext, WithUnpluginBuildContext } from "../types/context";
-import type {
-  HookFields,
-  PluginHooksListItem,
-  UnpluginHooksListItem
-} from "../types/hooks";
+import type { HooksListItem } from "../types/hooks";
 import type {
   Plugin,
   PluginHook,
@@ -77,11 +73,6 @@ export function isPlugin<
           (isPluginHookFunction((value as Plugin<TContext>)[hook]) ||
             (hook === "config" &&
               isSetObject((value as Plugin<TContext>)[hook]))))
-    ) &&
-    BUILDER_VARIANTS.every(
-      variant =>
-        isUndefined((value as Plugin<TContext>)[variant]) ||
-        (variant in value && isSetObject((value as Plugin<TContext>)[variant]))
     )
   );
 }
@@ -177,22 +168,8 @@ export function isPluginHook(value: unknown): value is PluginHook<AnyFunction> {
 
 export type GetHookHandlerReturnType<
   TContext extends PluginContext = PluginContext,
-  TField extends HookFields<TContext> = HookFields<TContext>
-> = TField extends PluginHookFields
-  ? PluginHooksListItem<TContext, TField>["handler"]
-  : TField extends UnpluginBuilderVariant
-    ? UnpluginHooksListItem<TContext, TField>["handler"]
-    : never;
-
-type HooksListItemForField<
-  TContext extends PluginContext = PluginContext,
-  TField extends HookFields<TContext> = HookFields<TContext>
-> =
-  TField extends PluginHookFields<TContext>
-    ? PluginHooksListItem<TContext, Extract<TField, PluginHookFields<TContext>>>
-    : TField extends UnpluginBuilderVariant
-      ? UnpluginHooksListItem<TContext, Extract<TField, UnpluginBuilderVariant>>
-      : never;
+  TField extends string = string
+> = HooksListItem<TContext, TField>["handler"];
 
 /**
  * Extract the hook handler function from a plugin hook
@@ -202,13 +179,13 @@ type HooksListItemForField<
  */
 export function getHookHandler<
   TContext extends PluginContext = PluginContext,
-  TField extends HookFields<TContext> = HookFields<TContext>
+  TKey extends string = string
 >(
   pluginHook: PluginHook<AnyFunction>
-): GetHookHandlerReturnType<TContext, TField> {
+): GetHookHandlerReturnType<TContext, TKey> {
   return (
     isFunction(pluginHook) ? pluginHook : pluginHook.handler
-  ) as GetHookHandlerReturnType<TContext, TField>;
+  ) as GetHookHandlerReturnType<TContext, TKey>;
 }
 
 /**
@@ -263,11 +240,8 @@ export function isUnpluginHookKey<
  */
 export function isPluginHookField<TContext extends PluginContext>(
   keys: string
-): keys is PluginHookFields<TContext> {
-  return (
-    !isUnpluginHookKey(keys) &&
-    PLUGIN_HOOKS_FIELDS.includes(keys as PluginHookFields<TContext>)
-  );
+) {
+  return !PLUGIN_NON_HOOK_FIELDS.includes(keys as PluginHookFields<TContext>);
 }
 
 /**
@@ -319,7 +293,7 @@ export function checkDedupe<
 export function addPluginHook<
   TContext extends PluginContext = PluginContext,
   TField extends PluginHookFields<TContext> = PluginHookFields<TContext>,
-  TList extends PluginHooksListItem<TContext, TField> = PluginHooksListItem<
+  TList extends HooksListItem<TContext, TField> = HooksListItem<
     TContext,
     TField
   >
@@ -337,10 +311,7 @@ export function addPluginHook<
         getHookHandler<WithUnpluginBuildContext<TContext>, TField>(
           pluginHook
         ) as unknown as (...args: unknown[]) => unknown
-      ).apply(context, args)) as HooksListItemForField<
-      TContext,
-      TField
-    >["handler"];
+      ).apply(context, args)) as GetHookHandlerReturnType<TContext, TField>;
     if (!handler) {
       return;
     }

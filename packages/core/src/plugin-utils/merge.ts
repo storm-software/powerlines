@@ -130,10 +130,8 @@ export const mergeConfig = createDefu((obj, key, value) => {
     return true;
   }
 
-  if (isString(obj[key]) && isString(value)) {
-    if (isSetString(value)) {
-      obj[key] = value;
-    }
+  if (!isSet(obj[key]) && isString(value)) {
+    obj[key] = value;
     return true;
   }
 

@@ -24,7 +24,11 @@ import type {
 } from "unplugin";
 import type { API } from "./api";
 import type { UserConfig } from "./config";
-import type { Context } from "./context";
+import type {
+  Context,
+  PluginContext,
+  WithUnpluginBuildContext
+} from "./context";
 import type { PluginHook } from "./plugin";
 
 export type UnpluginBuilderVariant =
@@ -110,3 +114,36 @@ export type UnpluginAsyncFactory<TContext extends Context = Context> = (
   options: Partial<TContext["config"]["userConfig"]>,
   meta: UnpluginContextMeta
 ) => Promise<UnpluginOptions<TContext>>;
+
+export type UnpluginHookFunctions<
+  TContext extends PluginContext = PluginContext,
+  TUnpluginBuilderVariant extends UnpluginBuilderVariant =
+    UnpluginBuilderVariant,
+  TField extends keyof Required<UnpluginOptions>[TUnpluginBuilderVariant] =
+    keyof Required<UnpluginOptions>[TUnpluginBuilderVariant]
+> = Required<UnpluginOptions>[TUnpluginBuilderVariant][TField] extends
+  | infer THandler
+  | {
+      handler: infer THandler;
+    }
+  ? THandler extends (
+      this: infer THandlerOriginalContext,
+      ...args: infer THandlerArgs
+    ) => infer THandlerReturn
+    ? (
+        this: THandlerOriginalContext & WithUnpluginBuildContext<TContext>,
+        ...args: THandlerArgs
+      ) => THandlerReturn
+    : THandler extends { handler: infer THandlerFunction }
+      ? THandlerFunction extends (
+          this: infer THandlerFunctionOriginalContext,
+          ...args: infer THandlerFunctionArgs
+        ) => infer THandlerFunctionReturn
+        ? (
+            this: THandlerFunctionOriginalContext &
+              WithUnpluginBuildContext<TContext>,
+            ...args: THandlerFunctionArgs
+          ) => THandlerFunctionReturn
+        : never
+      : never
+  : never;

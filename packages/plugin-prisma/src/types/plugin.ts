@@ -18,6 +18,7 @@
 
 import {
   PulumiPluginContext,
+  PulumiPluginOptions,
   PulumiPluginResolvedConfig,
   PulumiPluginUserConfig
 } from "@powerlines/plugin-pulumi";
@@ -125,6 +126,11 @@ export interface PrismaPluginOptions extends Omit<PrismaConfig, "schema"> {
    * Configuration parameters to manage a Prisma Postgres database
    */
   prismaPostgres?: PrismaPostgresPrismaPluginOptions | true;
+
+  /**
+   * The configuration options for Pulumi.
+   */
+  pulumi?: PulumiPluginOptions;
 }
 
 export type PrismaPluginUserConfig = UserConfig &
