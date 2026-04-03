@@ -45,6 +45,7 @@
   "dependencies": {
     "@shell-shock/core": "catalog:",
     "@shell-shock/preset-cli": "catalog:",
+    "@powerlines/deepkit": "workspace:*",
     "powerlines": "workspace:*"
   },
   "devDependencies": {
@@ -52,11 +53,7 @@
     "@storm-software/testing-tools": "catalog:",
     "@types/node": "catalog:"
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "publishConfig": { "access": "public" },
   "types": "./dist/index.d.cts",
-  "bin": {
-    "cli": "./dist/bin.mjs"
-  }
+  "bin": { "cli": "./dist/bin.mjs" }
 }
