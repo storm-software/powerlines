@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.12.0](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.0) (04/03/2026)
+
+### Features
+
+- **nx:** Added `cache` option to plugin factory helper ([473bb46f8](https://github.com/storm-software/powerlines/commit/473bb46f8))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.42.28**
+
 ## [0.11.315](https://github.com/storm-software/powerlines/releases/tag/nx%400.11.315) (04/01/2026)
 
 ### Updated Dependencies

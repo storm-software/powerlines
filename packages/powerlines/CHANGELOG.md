@@ -2,6 +2,29 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.28](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.28) (04/03/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resovle issues with dts file generation ([eb6790787](https://github.com/storm-software/powerlines/commit/eb6790787))
+
+### Features
+
+- **core:** Significant improvements to plugin hook resolution and execution ([d945f4115](https://github.com/storm-software/powerlines/commit/d945f4115))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.386**
+- Updated **plugin-esbuild** to **v0.13.387**
+- Updated **plugin-unbuild** to **v0.5.384**
+- Updated **plugin-webpack** to **v0.5.383**
+- Updated **plugin-rollup** to **v0.7.384**
+- Updated **plugin-rspack** to **v0.5.383**
+- Updated **plugin-tsdown** to **v0.1.329**
+- Updated **plugin-tsup** to **v0.12.388**
+- Updated **plugin-vite** to **v0.14.382**
+- Updated **core** to **v0.13.0**
+
 ## [0.42.27](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.27) (04/01/2026)
 
 ### Updated Dependencies

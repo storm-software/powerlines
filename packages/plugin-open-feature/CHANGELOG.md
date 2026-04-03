@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.8](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.8) (04/03/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resovle issues with dts file generation ([eb6790787](https://github.com/storm-software/powerlines/commit/eb6790787))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.266**
+- Updated **plugin-automd** to **v0.1.387**
+- Updated **plugin-plugin** to **v0.12.338**
+- Updated **plugin-alloy** to **v0.26.3**
+- Updated **plugin-babel** to **v0.12.383**
+- Updated **powerlines** to **v0.42.28**
+
 ## [0.1.7](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.7) (04/01/2026)
 
 ### Updated Dependencies

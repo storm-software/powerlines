@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.69](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.69) (04/03/2026)
+
+### Features
+
+- **core:** Significant improvements to plugin hook resolution and execution ([d945f4115](https://github.com/storm-software/powerlines/commit/d945f4115))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.338**
+- Updated **plugin-pulumi** to **v0.6.28**
+- Updated **powerlines** to **v0.42.28**
+
 ## [0.4.68](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.68) (04/01/2026)
 
 ### Updated Dependencies

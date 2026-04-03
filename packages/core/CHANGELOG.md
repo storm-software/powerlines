@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Core
 
+## [0.13.0](https://github.com/storm-software/powerlines/releases/tag/core%400.13.0) (04/03/2026)
+
+### Features
+
+- **nx:** Added `cache` option to plugin factory helper ([473bb46f8](https://github.com/storm-software/powerlines/commit/473bb46f8))
+- **core:** Significant improvements to plugin hook resolution and execution ([d945f4115](https://github.com/storm-software/powerlines/commit/d945f4115))
+
 ## [0.12.5](https://github.com/storm-software/powerlines/releases/tag/core%400.12.5) (03/31/2026)
 
 ### Bug Fixes

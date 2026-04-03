@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - CLI
 
+## [0.1.72](https://github.com/storm-software/powerlines/releases/tag/cli%400.1.72) (04/03/2026)
+
+### Miscellaneous
+
+- **cli:** Include missing updates to `package.json` file ([aca938b12](https://github.com/storm-software/powerlines/commit/aca938b12))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.42.28**
+- Updated **deepkit** to **v0.6.166**
+
 ## [0.1.71](https://github.com/storm-software/powerlines/releases/tag/cli%400.1.71) (04/01/2026)
 
 ### Updated Dependencies
