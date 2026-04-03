@@ -400,8 +400,8 @@ catalogs:
       specifier: ^4.7.9
       version: 4.7.9
     i18next-cli:
-      specifier: ^1.51.5
-      version: 1.51.5
+      specifier: ^1.51.6
+      version: 1.51.6
     i18next-resources-for-ts:
       specifier: ^2.0.2
       version: 2.0.2
@@ -1779,7 +1779,7 @@ importers:
         version: 6.1.6
       i18next-cli:
         specifier: 'catalog:'
-        version: 1.51.5(@swc/helpers@0.5.21)(@types/node@25.5.2)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3)
+        version: 1.51.6(@swc/helpers@0.5.21)(@types/node@25.5.2)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3)
       i18next-resources-for-ts:
         specifier: 'catalog:'
         version: 2.0.2(@swc/helpers@0.5.21)
@@ -12303,8 +12303,8 @@ packages:
     resolution: {integrity: sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==}
     engines: {node: ^4.5.0 || >= 5.9}
 
-  baseline-browser-mapping@2.10.13:
-    resolution: {integrity: sha512-BL2sTuHOdy0YT1lYieUxTw/QMtPBC3pmlJC6xk8BBYVv6vcw3SGdKemQ+Xsx9ik2F/lYDO9tqsFQH1r9PFuHKw==}
+  baseline-browser-mapping@2.10.14:
+    resolution: {integrity: sha512-fOVLPAsFTsQfuCkvahZkzq6nf8KvGWanlYoTh0SVA0A/PIUxQGU2AOZAoD95n2gFLVDW/jP6sbGLny95nmEuHA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -15503,8 +15503,8 @@ packages:
   hyphenate-style-name@1.1.0:
     resolution: {integrity: sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==}
 
-  i18next-cli@1.51.5:
-    resolution: {integrity: sha512-WjNfP2D61NjxH9KNpsCq0dg6PRcSo4ZWxEx6MawiX/ZXIB8QeKVQEMFGe+5mP+1QN88Wz5Zgopjll1WXB4g/kg==}
+  i18next-cli@1.51.6:
+    resolution: {integrity: sha512-s1eBAvWiDqABtpG54balm5oyTtWaqmjfgMNJHX+7OdB9th9Nnn0DLQpkZr/j3bVuO8dumfGiAl/oCRYQd6aNoQ==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -33625,7 +33625,7 @@ snapshots:
 
   base64id@2.0.0: {}
 
-  baseline-browser-mapping@2.10.13: {}
+  baseline-browser-mapping@2.10.14: {}
 
   bcrypt-pbkdf@1.0.2:
     dependencies:
@@ -33792,7 +33792,7 @@ snapshots:
 
   browserslist@4.28.2:
     dependencies:
-      baseline-browser-mapping: 2.10.13
+      baseline-browser-mapping: 2.10.14
       caniuse-lite: 1.0.30001784
       electron-to-chromium: 1.5.331
       node-releases: 2.0.37
@@ -37694,7 +37694,7 @@ snapshots:
 
   hyphenate-style-name@1.1.0: {}
 
-  i18next-cli@1.51.5(@swc/helpers@0.5.21)(@types/node@25.5.2)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3):
+  i18next-cli@1.51.6(@swc/helpers@0.5.21)(@types/node@25.5.2)(i18next@25.7.3(typescript@5.9.3))(react-dom@17.0.2(react@17.0.2))(typescript@5.9.3):
     dependencies:
       '@croct/json5-parser': 0.2.2
       '@swc/core': 1.15.21(@swc/helpers@0.5.21)
@@ -40377,7 +40377,7 @@ snapshots:
   micromark-util-character@2.1.1:
     dependencies:
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
 
   micromark-util-chunked@2.0.1:
     dependencies:
@@ -40392,7 +40392,7 @@ snapshots:
   micromark-util-combine-extensions@2.0.1:
     dependencies:
       micromark-util-chunked: 2.0.1
-      micromark-util-types: 2.0.2
+      micromark-util-types: 2.0.1
 
   micromark-util-decode-numeric-character-reference@2.0.2:
     dependencies:
@@ -40848,7 +40848,7 @@ snapshots:
       '@swc/helpers': 0.5.15
       '@types/react': 19.2.14
       '@types/react-dom': 19.2.3(@types/react@19.2.14)
-      baseline-browser-mapping: 2.10.13
+      baseline-browser-mapping: 2.10.14
       caniuse-lite: 1.0.30001784
       postcss: 8.5.8
       react: 19.2.4
