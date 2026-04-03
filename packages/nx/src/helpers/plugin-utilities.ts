@@ -338,7 +338,7 @@ export function createNxPlugin<
                 !targets[options?.clean?.targetName || "clean"]
               ) {
                 targets[options?.clean?.targetName || "clean"] = {
-                  cache: true,
+                  cache: options?.clean?.cache ?? options?.cache ?? true,
                   inputs: Array.isArray(options?.clean?.inputs)
                     ? options.clean.inputs
                     : withNamedInputs(targetInputs, [
@@ -378,7 +378,7 @@ export function createNxPlugin<
                 !targets[options?.prepare?.targetName || "prepare"]
               ) {
                 targets[options?.prepare?.targetName || "prepare"] = {
-                  cache: true,
+                  cache: options?.prepare?.cache ?? options?.cache ?? true,
                   inputs: Array.isArray(options?.prepare?.inputs)
                     ? options.prepare.inputs
                     : withNamedInputs(targetInputs, [
@@ -422,7 +422,7 @@ export function createNxPlugin<
                 !targets[options?.build?.targetName || "build"]
               ) {
                 targets[options?.build?.targetName || "build"] = {
-                  cache: true,
+                  cache: options?.build?.cache ?? options?.cache ?? true,
                   inputs: Array.isArray(options?.build?.inputs)
                     ? options.build.inputs
                     : withNamedInputs(targetInputs, [
@@ -470,7 +470,7 @@ export function createNxPlugin<
                 !targets[options?.lint?.targetName || "lint"]
               ) {
                 targets[options?.lint?.targetName || "lint"] = {
-                  cache: true,
+                  cache: options?.lint?.cache ?? options?.cache ?? true,
                   inputs: Array.isArray(options?.lint?.inputs)
                     ? options.lint.inputs
                     : withNamedInputs(
@@ -521,7 +521,7 @@ export function createNxPlugin<
                 !targets[options?.docs?.targetName || "docs"]
               ) {
                 targets[options?.docs?.targetName || "docs"] = {
-                  cache: true,
+                  cache: options?.docs?.cache ?? options?.cache ?? true,
                   inputs: Array.isArray(options?.docs?.inputs)
                     ? options.docs.inputs
                     : withNamedInputs(
@@ -574,6 +574,7 @@ export function createNxPlugin<
                 !targets[options?.deploy?.targetName || "deploy"]
               ) {
                 targets[options?.deploy?.targetName || "deploy"] = {
+                  cache: options?.deploy?.cache ?? false,
                   inputs: Array.isArray(options?.deploy?.inputs)
                     ? options.deploy.inputs
                     : withNamedInputs(

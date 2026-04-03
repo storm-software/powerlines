@@ -444,6 +444,28 @@ export interface VirtualFileSystemInterface {
   ) => boolean;
 
   /**
+   * Checks if a given module ID is an alias.
+   *
+   * @remarks
+   * This function can be used to determine if a module ID matches any configured aliases.
+   *
+   * @param id - The module ID to check.
+   * @returns A boolean indicating whether the module ID is an alias.
+   */
+  isAlias: (id: string) => boolean;
+
+  /**
+   * Checks if a given module ID is a tsconfig path.
+   *
+   * @remarks
+   * This function can be used to determine if a module ID matches any configured tsconfig paths.
+   *
+   * @param id - The module ID to check.
+   * @returns A boolean indicating whether the module ID is a tsconfig path.
+   */
+  isTsconfigPath: (id: string) => boolean;
+
+  /**
    * Gets the metadata of a file in the virtual file system (VFS).
    *
    * @param path - The path or id of the file.

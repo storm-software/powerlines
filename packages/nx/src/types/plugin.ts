@@ -31,6 +31,13 @@ export interface NxPluginOptions {
         targetName?: string;
 
         /**
+         * An indicator to control the behavior of Nx caching for the target
+         *
+         * @defaultValue true
+         */
+        cache?: boolean;
+
+        /**
          * The name of the clean configuration to use when cleaning the project
          *
          * @defaultValue "production"
@@ -83,6 +90,13 @@ export interface NxPluginOptions {
          * @defaultValue "prepare"
          */
         targetName?: string;
+
+        /**
+         * An indicator to control the behavior of Nx caching for the target
+         *
+         * @defaultValue true
+         */
+        cache?: boolean;
 
         /**
          * The name of the prepare configuration to use when preparing the project
@@ -139,6 +153,13 @@ export interface NxPluginOptions {
         targetName?: string;
 
         /**
+         * An indicator to control the behavior of Nx caching for the target
+         *
+         * @defaultValue true
+         */
+        cache?: boolean;
+
+        /**
          * The name of the lint configuration to use when linting the project
          *
          * @defaultValue "production"
@@ -191,6 +212,13 @@ export interface NxPluginOptions {
          * @defaultValue "build"
          */
         targetName?: string;
+
+        /**
+         * An indicator to control the behavior of Nx caching for the target
+         *
+         * @defaultValue true
+         */
+        cache?: boolean;
 
         /**
          * The name of the build configuration to use when building the project
@@ -247,6 +275,13 @@ export interface NxPluginOptions {
         targetName?: string;
 
         /**
+         * An indicator to control the behavior of Nx caching for the target
+         *
+         * @defaultValue true
+         */
+        cache?: boolean;
+
+        /**
          * The name of the docs configuration to use when generating documentation for the project
          *
          * @defaultValue "production"
@@ -299,6 +334,13 @@ export interface NxPluginOptions {
          * @defaultValue "deploy"
          */
         targetName?: string;
+
+        /**
+         * An indicator to control the behavior of Nx caching for the target
+         *
+         * @defaultValue false
+         */
+        cache?: boolean;
 
         /**
          * The name of the deploy configuration to use when deploying the project
@@ -354,4 +396,14 @@ export interface NxPluginOptions {
    * @defaultValue false
    */
   debug?: boolean;
+
+  /**
+   * An indicator to control the behavior of Nx caching for all of the targets
+   *
+   * @remarks
+   * The `cache` value on the target specific options will override the value provided in this field.
+   *
+   * @defaultValue true
+   */
+  cache?: boolean;
 }
