@@ -415,15 +415,6 @@
     "unplugin": "catalog:"
   },
   "devDependencies": {
-    "@powerlines/plugin-esbuild": "workspace:*",
-    "@powerlines/plugin-rolldown": "workspace:*",
-    "@powerlines/plugin-rollup": "workspace:*",
-    "@powerlines/plugin-rspack": "workspace:*",
-    "@powerlines/plugin-tsdown": "workspace:*",
-    "@powerlines/plugin-tsup": "workspace:*",
-    "@powerlines/plugin-unbuild": "workspace:*",
-    "@powerlines/plugin-vite": "workspace:*",
-    "@powerlines/plugin-webpack": "workspace:*",
     "@storm-software/testing-tools": "catalog:",
     "@stryke/types": "catalog:",
     "@types/bun": "catalog:",
@@ -452,7 +443,12 @@
     "unloader": ">=0.5.0",
     "typescript": ">=5.9.0",
     "tsdown": ">=0.21.0",
-    "rolldown": ">=1.0.0-rc.13"
+    "rolldown": ">=1.0.0-rc.13",
+    "esbuild": ">=0.17.19",
+    "rollup": ">=3.20.0",
+    "rspack": ">=0.1.1",
+    "vite": ">=4.0.0",
+    "webpack": ">=5.105.4"
   },
   "peerDependenciesMeta": {
     "@farmfe/core": {
@@ -498,6 +494,18 @@
       "optional": true
     },
     "unloader": {
+      "optional": true
+    },
+    "rollup": {
+      "optional": true
+    },
+    "rspack": {
+      "optional": true
+    },
+    "vite": {
+      "optional": true
+    },
+    "webpack": {
       "optional": true
     }
   },

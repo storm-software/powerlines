@@ -18,7 +18,7 @@
 
 import type { VitePluginUserConfig } from "@powerlines/plugin-vite/types/plugin";
 import type { AstroUserConfig } from "astro";
-import vite from "./vite";
+import { vite } from "./vite";
 
 /**
  * An Astro plugin that will invoke the Powerlines API hooks during the build process.
@@ -37,7 +37,7 @@ import vite from "./vite";
  *
  * ```
  */
-export const astro = (
+export const unplugin = (
   config: Partial<VitePluginUserConfig> = {}
 ): AstroUserConfig => ({
   vite: {
@@ -45,5 +45,4 @@ export const astro = (
   }
 });
 
-export default astro;
-export { astro as "module.exports" };
+export { unplugin as astro };

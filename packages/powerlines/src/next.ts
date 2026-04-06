@@ -20,7 +20,7 @@ import { WebpackPluginUserConfig } from "@powerlines/plugin-webpack/types/plugin
 import type { NextConfig } from "next";
 import type { WebpackConfigContext } from "next/dist/server/config-shared";
 import type { Configuration } from "webpack";
-import webpack from "./webpack";
+import { webpack } from "./webpack";
 
 /**
  * A Next.js configuration function that integrates Powerlines into the build process.
@@ -40,7 +40,7 @@ import webpack from "./webpack";
  * @param config - The Next.js configuration to merge with the Powerlines configuration.
  * @returns The merged Next.js configuration.
  */
-export function next(config: NextConfig = {}): NextConfig {
+export function unplugin(config: NextConfig = {}): NextConfig {
   return {
     ...config,
     webpack(webpackConfig: Configuration, context: WebpackConfigContext) {
@@ -55,5 +55,4 @@ export function next(config: NextConfig = {}): NextConfig {
   };
 }
 
-export default next;
-export { next as "module.exports" };
+export { unplugin as next };

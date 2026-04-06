@@ -33,7 +33,6 @@ import { createUnpluginFactory } from "./unplugin";
  *
  * ```
  */
-export const unloader = createUnloaderPlugin(createUnpluginFactory("unloader"));
+export const unplugin = createUnloaderPlugin(createUnpluginFactory("unloader"));
 
-export default unloader;
-export { unloader as "module.exports" };
+export { unplugin as unloader };

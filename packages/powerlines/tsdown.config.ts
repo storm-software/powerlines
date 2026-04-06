@@ -49,15 +49,9 @@ const config = defineTSDownConfig([
     exports: false,
     sourcemap: false,
     deps: {
-      onlyBundle: [
-        "dts-buddy",
-        "@jridgewell/source-map",
-        "@jridgewell/sourcemap-codec",
-        "magic-string",
-        "locate-character",
-        "ts-api-utils"
-      ],
-      skipNodeModulesBundle: true
+      alwaysBundle: ["dts-buddy"],
+      neverBundle: ["typescript", "@powerlines/*"],
+      skipNodeModulesBundle: false
     }
   }
 ]);

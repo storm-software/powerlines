@@ -51,4 +51,3 @@ export async function createPowerlines(
 }
 
 export { PowerlinesAPI };
-export default PowerlinesAPI;

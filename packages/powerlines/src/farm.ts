@@ -36,7 +36,6 @@ import { createUnpluginFactory } from "./unplugin";
  *
  * ```
  */
-export const farm = createFarmPlugin(createUnpluginFactory("farm"));
+export const unplugin = createFarmPlugin(createUnpluginFactory("farm"));
 
-export default farm;
-export { farm as "module.exports" };
+export { unplugin as farm };
