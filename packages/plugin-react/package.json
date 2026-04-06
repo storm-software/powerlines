@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-react",
-  "version": "0.1.446",
+  "version": "0.1.447",
   "type": "module",
   "description": "A package containing a Powerlines plugin for building a React application.",
   "repository": {
