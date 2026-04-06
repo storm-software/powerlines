@@ -430,9 +430,7 @@
     "@types/node": "catalog:",
     "@types/semver": "catalog:",
     "bun-types-no-globals": "catalog:",
-    "rolldown": "catalog:",
-    "tsdown": "catalog:",
-    "typescript": "^5.9.3",
+    "dts-buddy": "catalog:",
     "undici-types": "catalog:"
   },
   "peerDependencies": {
@@ -440,18 +438,21 @@
     "@farmfe/core": ">=1.7.11",
     "@nuxt/kit": ">=4.1.1",
     "@nuxt/schema": ">=4.1.1",
-    "@powerlines/plugin-esbuild": ">=0.13.301",
-    "@powerlines/plugin-rolldown": ">=0.7.352",
-    "@powerlines/plugin-rollup": ">=0.7.302",
-    "@powerlines/plugin-rspack": ">=0.5.301",
-    "@powerlines/plugin-tsdown": ">=0.1.295",
-    "@powerlines/plugin-tsup": ">=0.12.302",
-    "@powerlines/plugin-unbuild": ">=0.5.302",
-    "@powerlines/plugin-vite": ">=0.14.345",
-    "@powerlines/plugin-webpack": ">=0.5.300",
+    "@powerlines/plugin-esbuild": ">=0.13.388",
+    "@powerlines/plugin-rolldown": ">=0.7.387",
+    "@powerlines/plugin-rollup": ">=0.7.385",
+    "@powerlines/plugin-rspack": ">=0.5.384",
+    "@powerlines/plugin-tsdown": ">=0.1.330",
+    "@powerlines/plugin-tsup": ">=0.12.389",
+    "@powerlines/plugin-unbuild": ">=0.5.385",
+    "@powerlines/plugin-vite": ">=0.14.383",
+    "@powerlines/plugin-webpack": ">=0.5.384",
     "astro": ">=5.13.5",
     "next": ">=15.5.4",
-    "unloader": ">=0.5.0"
+    "unloader": ">=0.5.0",
+    "typescript": ">=5.9.0",
+    "tsdown": ">=0.21.0",
+    "rolldown": ">=1.0.0-rc.13"
   },
   "peerDependenciesMeta": {
     "@farmfe/core": {

@@ -17,20 +17,15 @@
  ------------------------------------------------------------------- */
 
 import { toArray } from "@stryke/convert/to-array";
+import { isParentPath } from "@stryke/path";
 import { appendPath } from "@stryke/path/append";
-import { findFileName } from "@stryke/path/file-path-fns";
-import { isParentPath } from "@stryke/path/is-parent-path";
-import { replaceExtension, replacePath } from "@stryke/path/replace";
+import { replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { match } from "bundle-require";
-import { DiagnosticCategory } from "ts-morph";
+import { createBundle } from "dts-buddy";
 import { Context } from "../../types";
-import { createProgram } from "../../typescript/ts-morph";
 import { format } from "../../utils";
-
-const getModuleCommentBlockRegex = (moduleId: string) =>
-  new RegExp(`\\/\\*\\*(?s:.)*?@module\\s+${moduleId}(?s:.)*?\\*\\/\\s+`);
 
 /**
  * Formats the generated TypeScript types source code.
@@ -55,23 +50,13 @@ export async function formatTypesModule(
   id: string,
   code: string
 ): Promise<{ code: string; directives: string[] }> {
-  const moduleComment = code
-    .match(getModuleCommentBlockRegex(`${context.config.framework}:${id}`))
-    ?.find(comment => isSetString(comment?.trim()));
-
   const ast = await context.parse(code, {
     lang: "dts",
     astType: "ts"
   });
 
   return {
-    code: `${
-      moduleComment
-        ? `
-${moduleComment.trim()}`
-        : ""
-    }
-declare module "${context.config.framework}:${id}" {
+    code: `declare module "${context.config.framework}:${id}" {
   ${ast.module.staticImports
     .filter(
       staticImport =>
@@ -114,7 +99,6 @@ declare module "${context.config.framework}:${id}" {
         ""
       )}`;
     }, code)
-    .replace(moduleComment ?? "", "")
     .replaceAll(/^\s*export\s*declare\s*/gm, "export ")
     .replaceAll(/^\s*declare\s*/gm, "")
     .replaceAll(/^\s*export\s*\{\s*\}/gm, "")
@@ -170,8 +154,20 @@ export async function emitBuiltinTypes<TContext extends Context>(
     } generated built-in module files.`
   );
 
-  const program = createProgram(context, {
-    skipAddingFilesFromTsConfig: true,
+  let result = await createBundle({
+    context,
+    project: context.tsconfig.tsconfigFilePath,
+    output: context.typesPath,
+    include: files.map(file =>
+      appendPath(file, context.workspaceConfig.workspaceRoot)
+    ),
+    modules: (await context.getBuiltins()).reduce(
+      (ret, file) => {
+        ret[`${context.config.framework}:${file.id}`] = file.path;
+        return ret;
+      },
+      {} as Record<string, string>
+    ),
     compilerOptions: {
       declaration: true,
       declarationMap: false,
@@ -187,106 +183,40 @@ export async function emitBuiltinTypes<TContext extends Context>(
     }
   });
 
-  program.addSourceFilesAtPaths(files);
-  const emitResult = program.emitToMemory({ emitOnlyDtsFiles: true });
-
-  const diagnostics = emitResult.getDiagnostics();
-  if (diagnostics && diagnostics.length > 0) {
-    if (diagnostics.some(d => d.getCategory() === DiagnosticCategory.Error)) {
-      throw new Error(
-        `The Typescript emit process failed while generating built-in types: \n ${diagnostics
-          .filter(d => d.getCategory() === DiagnosticCategory.Error)
-          .map(
-            d =>
-              `-${d.getSourceFile() ? `${d.getSourceFile()?.getFilePath()}:` : ""} ${String(
-                d.getMessageText()
-              )} (at ${d.getStart()}:${d.getLength()})`
+  result = formatTypes(result);
+  for (const file of files
+    .map(file => appendPath(file, context.workspaceConfig.workspaceRoot))
+    .filter(file => isParentPath(file, context.builtinsPath))) {
+    const content = await context.fs.read(file);
+    if (isSetString(content)) {
+      const moduleComment = content
+        .match(
+          new RegExp(
+            `\\/\\*\\*(?s:.)*?@module\\s+${
+              context.config.framework
+            }:(?:${context.builtins.join("|")})(?s:.)*?\\*\\/\\s+`
           )
-          .join("\n")}`
-      );
-    } else if (
-      diagnostics.some(d => d.getCategory() === DiagnosticCategory.Warning)
-    ) {
-      context.warn(
-        `The Typescript emit process completed with warnings while generating built-in types: \n ${diagnostics
-          .filter(d => d.getCategory() === DiagnosticCategory.Warning)
-          .map(
-            d =>
-              `-${d.getSourceFile() ? `${d.getSourceFile()?.getFilePath()}:` : ""} ${String(
-                d.getMessageText()
-              )} (at ${d.getStart()}:${d.getLength()})`
-          )
-          .join("\n")}`
-      );
-    } else {
-      context.debug(
-        `The Typescript emit process completed with diagnostic messages while generating built-in types: \n ${diagnostics
-          .map(
-            d =>
-              `-${d.getSourceFile() ? `${d.getSourceFile()?.getFilePath()}:` : ""} ${String(
-                d.getMessageText()
-              )} (at ${d.getStart()}:${d.getLength()})`
-          )
-          .join("\n")}`
-      );
-    }
-  }
+        )
+        ?.find(comment => isSetString(comment?.trim()));
 
-  const emittedFiles = emitResult.getFiles();
-  context.debug(
-    `The TypeScript compiler emitted ${emittedFiles.length} files for built-in types.`
-  );
-
-  if (emittedFiles.length === 0) {
-    context.warn(
-      "The TypeScript compiler did not emit any files for built-in types. This may indicate an issue with the TypeScript configuration or the provided files."
-    );
-    return { code: "", directives: [] };
-  }
-
-  let result = "";
-  const directives: string[] = [];
-  for (const emittedFile of emittedFiles) {
-    context.trace(
-      `Processing emitted type declaration file: ${emittedFile.filePath}`
-    );
-
-    const filePath = appendPath(
-      emittedFile.filePath,
-      context.workspaceConfig.workspaceRoot
-    );
-
-    if (
-      !filePath.endsWith(".map") &&
-      findFileName(filePath) !== "tsconfig.tsbuildinfo" &&
-      isParentPath(filePath, context.builtinsPath)
-    ) {
-      const moduleId = replaceExtension(
-        replacePath(
-          replacePath(filePath, context.builtinsPath),
-          replacePath(
-            context.builtinsPath,
-            context.workspaceConfig.workspaceRoot
-          )
-        ),
-        "",
-        {
-          fullExtension: true
-        }
-      );
-      if (context.builtins.includes(moduleId)) {
-        const formatted = await formatTypesModule(
-          context,
-          moduleId,
-          emittedFile.text
+      if (moduleComment) {
+        context.debug(
+          `Adding module-level comment for the built-in module types declaration for file: ${file}`
         );
-        result += formatted.code;
-        directives.push(...formatted.directives);
+
+        const metadata = context.fs.getMetadata(file);
+        if (metadata?.id) {
+          result = result.replace(
+            `declare module "${context.config.framework}:${metadata.id}" {`,
+            `${moduleComment.trim()}
+declare module "${context.config.framework}:${metadata.id}" {`
+          );
+        }
       }
     }
   }
 
-  result = await format(context, context.typesPath, formatTypes(result));
+  result = await format(context, context.typesPath, result);
 
   context.debug(
     `A TypeScript declaration file (size: ${prettyBytes(
@@ -294,5 +224,5 @@ export async function emitBuiltinTypes<TContext extends Context>(
     )}) emitted for the built-in modules types.`
   );
 
-  return { code: result, directives };
+  return { code: result, directives: [] };
 }

@@ -93,17 +93,55 @@ const BADGE_COLORS = [
   "#8B5CF6"
 ] as const;
 
+/**
+ * Generate a consistent color based on the input text.
+ *
+ * @param text - The input text to generate the color from.
+ * @return A hexadecimal color string.
+ */
+export const getTextColor = (text: string): string => {
+  return (
+    BADGE_COLORS[
+      text
+        .split("")
+        .map(char => char.charCodeAt(0))
+        .reduce((ret, charCode) => ret + charCode, 0) % BADGE_COLORS.length
+    ] || BADGE_COLORS[0]
+  );
+};
+
+/**
+ * Generate a consistent color based on the input text.
+ *
+ * @param text - The input text to generate the color from.
+ * @return A hexadecimal color string.
+ */
+export const colorText = (text: string): string => {
+  const title = titleCase(text);
+
+  return chalk.hex(getTextColor(title))(title);
+};
+
+/**
+ * Generate a consistent color based on the input text.
+ *
+ * @param text - The input text to generate the color from.
+ * @return A hexadecimal color string.
+ */
+export const colorBackground = (text: string): string => {
+  const title = titleCase(text);
+
+  return chalk.inverse.hex(getTextColor(title))(` ${title} `);
+};
+
+/**
+ * Extend a logging function with a specific name, adding a colored badge to the log output.
+ *
+ * @param logFn - The original logging function to extend.
+ * @param name - The name to use for the badge in the log output.
+ * @returns A new logging function that includes the badge in its output.
+ */
 export const extendLog = (logFn: LogFn, name: string): LogFn => {
   return (type: LogLevelLabel, ...args: string[]) =>
-    logFn(
-      type,
-      ` ${chalk.inverse.hex(
-        BADGE_COLORS[
-          name
-            .split("")
-            .map(char => char.charCodeAt(0))
-            .reduce((ret, charCode) => ret + charCode, 0) % BADGE_COLORS.length
-        ] || BADGE_COLORS[0]
-      )(` ${titleCase(name)} `)}  ${args.join(" ")} `
-    );
+    logFn(type, ` ${colorBackground(name)}  ${args.join(" ")} `);
 };

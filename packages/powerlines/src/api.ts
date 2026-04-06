@@ -33,6 +33,7 @@ import { relativePath } from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
+import { titleCase } from "@stryke/string-format/title-case";
 import { isError } from "@stryke/type-checks/is-error";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isNumber } from "@stryke/type-checks/is-number";
@@ -68,12 +69,16 @@ import {
   isPluginConfigTuple
 } from "./plugin-utils";
 import type {
+  API,
   APIContext,
   BuildInlineConfig,
+  CallHookOptions,
   CleanInlineConfig,
   DeployInlineConfig,
   DocsInlineConfig,
   EnvironmentContext,
+  EnvironmentResolvedConfig,
+  InferHookParameters,
   InitialUserConfig,
   LintInlineConfig,
   NewInlineConfig,
@@ -84,17 +89,16 @@ import type {
   PluginContext,
   PluginFactory,
   PrepareInlineConfig,
+  ResolvedConfig,
   TypesInlineConfig,
   TypesResult
 } from "./types";
 import {
-  API,
-  CallHookOptions,
-  EnvironmentResolvedConfig,
-  InferHookParameters,
-  ResolvedConfig
-} from "./types";
-import { format, formatFolder, getTypescriptFileHeader } from "./utils";
+  colorText,
+  format,
+  formatFolder,
+  getTypescriptFileHeader
+} from "./utils";
 
 /**
  * The Powerlines API class
@@ -155,13 +159,21 @@ export class PowerlinesAPI<
       `🔌 The Powerlines Engine v${packageJson.version} has started`
     );
 
-    for (const plugin of api.context.config.plugins ?? []) {
+    for (const plugin of api.context.config.plugins.flat(10) ?? []) {
       await api.#addPlugin(plugin);
     }
 
     if (api.context.plugins.length === 0) {
       api.context.warn(
         "No Powerlines plugins were specified in the options. Please ensure this is correct, as it is generally not recommended."
+      );
+    } else {
+      api.context.info(
+        `🔌 Loaded ${api.context.plugins.length} ${titleCase(
+          api.context.config.framework
+        )} plugin${api.context.plugins.length > 1 ? "s" : ""}: \n\n${api.context.plugins
+          .map((plugin, index) => ` ${index + 1}. ${colorText(plugin.name)}`)
+          .join("\n")}`
       );
     }
 

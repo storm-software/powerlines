@@ -1,0 +1,272 @@
+diff --git a/src/create-module-declaration.js b/src/create-module-declaration.js
+index 8cbefe79df2d126866843d18f94397fb60d6b0c1..d0269ba1944f83fd967e90eef5b6cb90640b8877 100644
+--- a/src/create-module-declaration.js
++++ b/src/create-module-declaration.js
+@@ -19,13 +19,14 @@ import {
+  * @param {Record<string, string>} created
+  * @param {(file: string, specifier: string) => string | null} resolve
+  * @param {{ stripInternal?: boolean }} options
++ * @param {Record<string, string>} context
+  * @returns {{
+  *   content: string;
+  *   mappings: Map<string, Mapping>;
+  *   ambient: ModuleReference[];
+  * }}
+  */
+-export function create_module_declaration(id, entry, created, resolve, options) {
++export function create_module_declaration(id, entry, created, resolve, options, context) {
+ 	let content = '';
+ 
+ 	/** @type {Map<string, Mapping>} */
+@@ -66,7 +67,7 @@ export function create_module_declaration(id, entry, created, resolve, options)
+ 		const included = new Set([entry]);
+ 
+ 		for (const file of included) {
+-			const module = get_dts(file, created, resolve, options);
++			const module = get_dts(file, created, resolve, options, context);
+ 
+ 			for (const name of module.globals) {
+ 				reserved.add(name);
+@@ -391,7 +392,7 @@ export function create_module_declaration(id, entry, created, resolve, options)
+ 						node.argument.literal.text.startsWith('.')
+ 					) {
+ 						// follow import
+-						const resolved = resolve_dts(path.dirname(module.file), node.argument.literal.text);
++						const resolved = resolve_dts(path.dirname(module.file), node.argument.literal.text, context);
+ 
+ 						// included.add(resolved);
+ 						// remove the `import(...)`
+diff --git a/src/index.js b/src/index.js
+index 3697adc9d3d5a0d468b36acf322e4c5c8cfb5094..8816a50405568d05f2305457de20883ec010ac42 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -1,4 +1,3 @@
+-import fs from 'node:fs';
+ import path from 'node:path';
+ import ts from 'typescript';
+ import MagicString from 'magic-string';
+@@ -12,7 +11,6 @@ import {
+ 	parse_tsconfig,
+ 	resolve_dts,
+ 	walk,
+-	write
+ } from './utils.js';
+ import { create_module_declaration } from './create-module-declaration.js';
+ 
+@@ -25,27 +23,28 @@ import { create_module_declaration } from './create-module-declaration.js';
+  *   include?: string[];
+  *   exclude?: string[];
+  *   debug?: string;
+- * }} options
+- * @returns {Promise<void>}
++ *   context: Record<string, any>;
++ * }} config
++ * @returns {Promise<string>}
+  */
+-export async function createBundle(options) {
+-	const project = options.project ?? 'tsconfig.json';
+-	const output = path.resolve(options.output);
+-	const debug = options.debug && path.resolve(options.debug);
++export async function createBundle(config) {
++	const project = config.project ?? 'tsconfig.json';
++	const output = path.resolve(config.output);
++	const debug = config.debug && path.resolve(config.debug);
+ 
+ 	/** @type {Record<string, string>} */
+ 	const modules = {};
+-	for (const id in options.modules) {
+-		modules[id] = path.resolve(options.modules[id]).replace(/(\.d\.ts|\.js|\.ts)$/, '.d.ts');
++	for (const id in config.modules) {
++		modules[id] = path.resolve(config.modules[id]).replace(/(\.d\.ts|\.js|\.ts)$/, '.d.ts');
+ 	}
+ 
+-	const cwd = path.resolve(path.dirname(project));
++	const cwd = config.context?.workspaceConfig?.workspaceRoot ? path.resolve(config.context.workspaceConfig.workspaceRoot) : path.resolve(path.dirname(project));
+ 	const tsconfig = parse_tsconfig(project);
+ 
+ 	const input = get_input_files(
+ 		cwd,
+-		options.include ?? tsconfig.include ?? ['**'],
+-		options.exclude ?? tsconfig.exclude ?? []
++		config.include ?? tsconfig.include ?? ['**'],
++		config.exclude ?? tsconfig.exclude ?? []
+ 	);
+ 
+ 	const original_cwd = process.cwd();
+@@ -53,19 +52,19 @@ export async function createBundle(options) {
+ 
+ 	try {
+ 		const baseUrl =
+-			tsconfig.compilerOptions?.baseUrl ?? options.compilerOptions?.baseUrl
+-				? path.resolve(original_cwd, options.compilerOptions?.baseUrl ?? '.')
++			tsconfig.compilerOptions?.baseUrl ?? config.compilerOptions?.baseUrl
++				? path.resolve(original_cwd, config.compilerOptions?.baseUrl ?? '.')
+ 				: cwd;
+ 
+ 		const paths = {
+ 			...tsconfig.compilerOptions?.paths,
+-			...options.compilerOptions?.paths
++			...config.compilerOptions?.paths
+ 		};
+ 
+ 		/** @type {ts.CompilerOptions} */
+ 		const compilerOptions = {
+ 			...tsconfig.compilerOptions,
+-			...options.compilerOptions,
++			...config.compilerOptions,
+ 			baseUrl,
+ 			allowJs: true,
+ 			checkJs: true,
+@@ -100,8 +99,7 @@ export async function createBundle(options) {
+ 		host.writeFile = (file, contents) => (created[file.replace(/\//g, path.sep)] = contents);
+ 		host.readFile = (file) => {
+ 			file = file.replace(/\//g, path.sep);
+-
+-			const contents = fs.readFileSync(file, 'utf-8');
++			const contents = config.context.fs.readSync(file);
+ 
+ 			if (!input.includes(file)) return contents;
+ 			if (!paths_regex.test(contents)) return contents;
+@@ -179,14 +177,14 @@ export async function createBundle(options) {
+ 			for (const file in created) {
+ 				const relative = path.relative(cwd, file);
+ 				const dest = path.join(debug, relative);
+-				write(dest, created[file]);
++				config.context.fs.writeSync(dest, created[file]);
+ 			}
+ 
+ 			for (const file of input) {
+ 				if (!file.endsWith('.d.ts')) continue;
+ 				const relative = path.relative(cwd, file);
+ 				const dest = path.join(debug, relative);
+-				write(dest, fs.readFileSync(file, 'utf-8'));
++				config.context.fs.writeSync(dest, config.context.fs.readSync(file));
+ 			}
+ 		}
+ 
+@@ -216,8 +214,10 @@ export async function createBundle(options) {
+ 			}
+ 
+ 			// resolve relative imports and aliases (from tsconfig.paths)
+-			return specifier.startsWith('.')
+-				? resolve_dts(path.dirname(file), specifier)
++			return config.context.fs.isVirtual(specifier, file) 
++        ? config.context.fs.resolveSync(specifier, file)
++        : specifier.startsWith('.')
++				? resolve_dts(path.dirname(file), specifier, config.context)
+ 				: compilerOptions.paths?.[specifier]?.[0] ?? null;
+ 		}
+ 
+@@ -230,7 +230,8 @@ export async function createBundle(options) {
+ 				modules[id],
+ 				created,
+ 				resolve,
+-				compilerOptions
++				compilerOptions,
++        config.context
+ 			);
+ 
+ 			types += content;
+@@ -247,7 +248,7 @@ export async function createBundle(options) {
+ 		for (const file of ambient_modules) {
+ 			// clean up ambient module then inject wholesale
+ 			// TODO do we need sourcemaps here?
+-			const dts = created[file] ?? fs.readFileSync(file, 'utf8');
++			const dts = created[file] ?? config.context.fs.readSync(file);
+ 			const result = new MagicString(dts);
+ 
+ 			const index = dts.indexOf('//# sourceMappingURL=');
+@@ -339,16 +340,20 @@ export async function createBundle(options) {
+ 		// for (const source of sources) {
+ 		// 	smg.setSourceContent(
+ 		// 		path.relative(path.dirname(output), source),
+-		// 		fs.readFileSync(source, 'utf8')
++		// 		options.readSync(source)
+ 		// 	);
+ 		// }
+ 
+-		const comment = `//# sourceMappingURL=${path.basename(output)}.map`;
+-		magic_string.append(`\n\n${comment}`);
++    if (config.context.config?.output?.sourceMap) {
++      const comment = `//# sourceMappingURL=${path.basename(output)}.map`;
++		  magic_string.append(`\n\n${comment}`);
+ 
+-		write(output, magic_string.toString());
++		  config.context.fs.writeSync(`${output}.map`, JSON.stringify(smg.toJSON(), null, '\t'));
++    } else {
++      config.context.fs.removeSync(`${output}.map`);
++    }
+ 
+-		write(`${output}.map`, JSON.stringify(smg.toJSON(), null, '\t'));
++    return magic_string.toString();
+ 	} finally {
+ 		process.chdir(original_cwd);
+ 	}
+diff --git a/src/utils.js b/src/utils.js
+index 17f85e25780ae0dede2691f57da524664af48885..ca68001c082c0078edbcd8e417038e79e9e05e81 100644
+--- a/src/utils.js
++++ b/src/utils.js
+@@ -188,9 +188,10 @@ export function write(file, contents) {
+  * @param {Record<string, string>} created
+  * @param {(file: string, specifier: string) => string | null} resolve
+  * @param {{ stripInternal?: boolean }} options
++ * @param {Record<string, any>} context
+  */
+-export function get_dts(file, created, resolve, options) {
+-	const dts = created[file] ?? fs.readFileSync(file, 'utf8');
++export function get_dts(file, created, resolve, options, context) {
++	const dts = created[file] ?? context.fs.readSync(file);
+ 	const ast = ts.createSourceFile(file, dts, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+ 	const locator = getLocator(dts, { offsetLine: 1 });
+ 
+@@ -217,7 +218,7 @@ export function get_dts(file, created, resolve, options) {
+ 		const map = JSON.parse(created[file + '.map']);
+ 
+ 		const source_file = path.resolve(path.dirname(file), map.sources[0]);
+-		const code = fs.readFileSync(source_file, 'utf8');
++		const code = context.fs.readSync(source_file);
+ 
+ 		module.source = {
+ 			code,
+@@ -498,15 +499,16 @@ export function get_dts(file, created, resolve, options) {
+ /**
+  * @param {string} from
+  * @param {string} to
++ * @param {Record<string, any>} context
+  */
+-export function resolve_dts(from, to) {
++export function resolve_dts(from, to, context) {
+ 	const file = path.resolve(from, to);
+ 	if (file.endsWith('.d.ts')) return file;
+ 	if (file.endsWith('.ts')) return file.replace(/\.ts$/, '.d.ts');
+ 	if (file.endsWith('.js')) return file.replace(/\.js$/, '.d.ts');
+ 	if (file.endsWith('.jsx')) return file.replace(/\.jsx$/, '.d.ts');
+ 	if (file.endsWith('.tsx')) return file.replace(/\.tsx$/, '.d.ts');
+-	if (fs.existsSync(file) && fs.statSync(file).isDirectory()) return file + '/index.d.ts';
++	if (context.fs.existsSync(file) && context.fs.isDirectorySync(file)) return file + '/index.d.ts';
+ 	return file + '.d.ts';
+ }
+ 
+diff --git a/types/index.d.ts b/types/index.d.ts
+index 48ba0e7e1934f16d7a3a321b179b801ccb9f7ab7..8ab0bff54b243bb829c70700bb46984ed44c1413 100644
+--- a/types/index.d.ts
++++ b/types/index.d.ts
+@@ -1,6 +1,7 @@
+ declare module 'dts-buddy' {
+ 	import type { default as ts } from 'typescript';
+ 	export function createBundle(options: {
++    workspaceRoot?: string;
+ 		output: string;
+ 		modules: Record<string, string>;
+ 		project?: string;
+@@ -8,7 +9,9 @@ declare module 'dts-buddy' {
+ 		include?: string[];
+ 		exclude?: string[];
+ 		debug?: string;
+-	}): Promise<void>;
++    readSync: (path: string) => string | undefined;
++    writeSync: (path: string, contents: string) => void;
++	}): Promise<string>;
+ 
+ 	export {};
+ }

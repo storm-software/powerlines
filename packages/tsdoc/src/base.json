@@ -6,9 +6,9 @@
       "syntaxKind": "modifier"
     },
     {
-      "tagName": "@alias",
+      "tagName": "@domain",
       "syntaxKind": "block",
-      "allowMultiple": true
+      "allowMultiple": false
     }
   ]
 }
