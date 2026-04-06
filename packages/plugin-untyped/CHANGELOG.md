@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Untyped
 
+## [0.2.342](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.342) (04/06/2026)
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.340**
+- Updated **powerlines** to **v0.42.30**
+
 ## [0.2.341](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.341) (04/03/2026)
 
 ### Updated Dependencies

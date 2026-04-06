@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.290](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.290) (04/06/2026)
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.389**
+- Updated **plugin-plugin** to **v0.12.340**
+- Updated **powerlines** to **v0.42.30**
+
 ## [0.3.289](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.289) (04/03/2026)
 
 ### Updated Dependencies

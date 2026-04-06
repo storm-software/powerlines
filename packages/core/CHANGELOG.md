@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Core
 
+## [0.13.2](https://github.com/storm-software/powerlines/releases/tag/core%400.13.2) (04/06/2026)
+
+### Miscellaneous
+
+- **powerlines:** Use `dts-buddy` to generate types file ([0a660c36e](https://github.com/storm-software/powerlines/commit/0a660c36e))
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
 ## [0.13.0](https://github.com/storm-software/powerlines/releases/tag/core%400.13.0) (04/03/2026)
 
 ### Features

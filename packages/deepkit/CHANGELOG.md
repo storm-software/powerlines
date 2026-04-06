@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.7.0](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.0) (04/06/2026)
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
+### Features
+
+- **deepkit:** Update package bundling with `tsdown` builder ([1122eb144](https://github.com/storm-software/powerlines/commit/1122eb144))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.389**
+- Updated **core** to **v0.13.2**
+
 ## [0.6.167](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.6.167) (04/03/2026)
 
 ### Updated Dependencies

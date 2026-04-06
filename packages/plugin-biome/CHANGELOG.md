@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Biome
 
+## [0.2.395](https://github.com/storm-software/powerlines/releases/tag/plugin-biome%400.2.395) (04/06/2026)
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.340**
+- Updated **powerlines** to **v0.42.30**
+
 ## [0.2.394](https://github.com/storm-software/powerlines/releases/tag/plugin-biome%400.2.394) (04/03/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.12.2](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.2) (04/06/2026)
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.42.30**
+
 ## [0.12.1](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.1) (04/03/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin I18next
 
+## [0.1.286](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.286) (04/06/2026)
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.340**
+- Updated **powerlines** to **v0.42.30**
+
 ## [0.1.285](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.285) (04/03/2026)
 
 ### Updated Dependencies

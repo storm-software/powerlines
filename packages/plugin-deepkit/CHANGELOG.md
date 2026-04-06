@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.268](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.268) (04/06/2026)
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.340**
+- Updated **plugin-tsc** to **v0.2.397**
+- Updated **powerlines** to **v0.42.30**
+- Updated **deepkit** to **v0.7.0**
+
 ## [0.11.267](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.267) (04/03/2026)
 
 ### Updated Dependencies

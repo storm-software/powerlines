@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.5](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.5) (04/06/2026)
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.340**
+- Updated **plugin-babel** to **v0.12.385**
+- Updated **powerlines** to **v0.42.30**
+- Updated **deepkit** to **v0.7.0**
+- Updated **core** to **v0.13.2**
+
 ## [0.26.4](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.4) (04/03/2026)
 
 ### Updated Dependencies

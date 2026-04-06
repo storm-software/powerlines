@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unimport
 
+## [0.1.390](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.390) (04/06/2026)
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.340**
+- Updated **powerlines** to **v0.42.30**
+
 ## [0.1.389](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.389) (04/03/2026)
 
 ### Updated Dependencies

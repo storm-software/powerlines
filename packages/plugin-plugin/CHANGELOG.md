@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.340](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.340) (04/06/2026)
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.331**
+- Updated **powerlines** to **v0.42.30**
+
 ## [0.12.339](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.339) (04/03/2026)
 
 ### Updated Dependencies

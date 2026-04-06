@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.30](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.30) (04/06/2026)
+
+### Miscellaneous
+
+- **powerlines:** Use `dts-buddy` to generate types file ([0a660c36e](https://github.com/storm-software/powerlines/commit/0a660c36e))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.388**
+- Updated **plugin-esbuild** to **v0.13.389**
+- Updated **plugin-unbuild** to **v0.5.386**
+- Updated **plugin-webpack** to **v0.5.385**
+- Updated **plugin-rollup** to **v0.7.386**
+- Updated **plugin-rspack** to **v0.5.385**
+- Updated **plugin-tsdown** to **v0.1.331**
+- Updated **plugin-tsup** to **v0.12.390**
+- Updated **plugin-vite** to **v0.14.384**
+- Updated **core** to **v0.13.2**
+
 ## [0.42.29](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.29) (04/03/2026)
 
 ### Updated Dependencies

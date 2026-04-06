@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.6.30](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.30) (04/06/2026)
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.340**
+- Updated **powerlines** to **v0.42.30**
+- Updated **core** to **v0.13.2**
+
 ## [0.6.29](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.29) (04/03/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.10](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.10) (04/06/2026)
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.389**
+- Updated **plugin-plugin** to **v0.12.340**
+- Updated **plugin-alloy** to **v0.26.5**
+- Updated **plugin-babel** to **v0.12.385**
+- Updated **powerlines** to **v0.42.30**
+
 ## [0.1.9](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.9) (04/03/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.8.393](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.393) (04/06/2026)
+
+### Bug Fixes
+
+- **core:** Update plugin builds to use `esnext` targets ([f510c7400](https://github.com/storm-software/powerlines/commit/f510c7400))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.340**
+- Updated **powerlines** to **v0.42.30**
+
 ## [0.8.392](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.392) (04/03/2026)
 
 ### Updated Dependencies
