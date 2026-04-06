@@ -19,7 +19,7 @@ catalog:
   '@babel/types': ^7.29.0
   '@cacheable/memory': ^2.0.8
   '@cloudflare/unenv-preset': ^2.16.0
-  '@cloudflare/workers-types': ^4.20260403.1
+  '@cloudflare/workers-types': ^4.20260405.1
   '@content-collections/core': ^0.12.0
   '@deepkit/core': 1.0.5
   '@deepkit/type': 1.0.5
@@ -27,7 +27,7 @@ catalog:
   '@deepkit/type-spec': 1.0.1
   '@donedeal0/superdiff': ^3.2.0
   '@graphql-codegen/cli': ^6.2.1
-  '@graphql-codegen/plugin-helpers': ^6.2.0
+  '@graphql-codegen/plugin-helpers': ^6.2.1
   '@hey-api/openapi-ts': ^0.88.2
   '@jest/reporters': ^30.3.0
   '@jest/test-result': ^30.3.0
@@ -78,26 +78,27 @@ catalog:
   '@storm-software/prettier': ^0.59.46
   '@storm-software/testing-tools': ^1.119.147
   '@storm-software/tsconfig': ^0.48.61
+  '@storm-software/tsdoc': ^0.13.147
   '@storm-software/tsup': ^0.2.151
   '@storm-software/unbuild': ^0.57.154
   '@storm-software/untyped': ^0.24.135
   '@storm-software/workspace-tools': ^1.295.48
-  '@stryke/capnp': ^0.12.90
-  '@stryke/cli': ^0.13.36
-  '@stryke/convert': ^0.6.57
-  '@stryke/env': ^0.20.81
-  '@stryke/fs': ^0.33.64
-  '@stryke/hash': ^0.13.17
-  '@stryke/helpers': ^0.10.7
-  '@stryke/http': ^0.12.53
-  '@stryke/json': ^0.14.11
-  '@stryke/path': ^0.27.3
-  '@stryke/string-format': ^0.17.7
-  '@stryke/type-checks': ^0.6.0
-  '@stryke/types': ^0.11.2
-  '@stryke/unique-id': ^0.3.75
+  '@stryke/capnp': ^0.12.92
+  '@stryke/cli': ^0.13.38
+  '@stryke/convert': ^0.6.58
+  '@stryke/env': ^0.20.83
+  '@stryke/fs': ^0.33.66
+  '@stryke/hash': ^0.13.19
+  '@stryke/helpers': ^0.10.8
+  '@stryke/http': ^0.12.54
+  '@stryke/json': ^0.14.12
+  '@stryke/path': ^0.27.4
+  '@stryke/string-format': ^0.17.9
+  '@stryke/type-checks': ^0.6.1
+  '@stryke/types': ^0.11.3
+  '@stryke/unique-id': ^0.3.77
   '@swc-node/register': ^1.11.1
-  '@swc/core': ^1.15.21
+  '@swc/core': ^1.15.24
   '@swc/helpers': ^0.5.21
   '@tamagui/static-worker': ^1.144.4
   '@tamagui/types': ^1.144.4
@@ -127,6 +128,7 @@ catalog:
   copyfiles: ^2.4.1
   defu: ^6.1.6
   diff-match-patch: ^1.0.5
+  dts-buddy: 0.7.0
   dts-bundle-generator: ^9.5.1
   esbuild: ^0.27.7
   eslint: ^9.39.4
@@ -149,7 +151,7 @@ catalog:
   log4brains: ^1.1.0
   magic-string: ^0.30.21
   markdown-toc: ^1.2.0
-  marked: ^17.0.5
+  marked: ^17.0.6
   nitro: 3.0.1-alpha.1
   nx: 22.6.4
   openapi-typescript: ^7.13.0
@@ -190,7 +192,7 @@ catalog:
   unplugin-combine: ^2.3.0
   untyped: ^1.5.2
   verdaccio: 6.3.2
-  vite: ^8.0.3
+  vite: ^8.0.4
   webpack: ^5.105.4
   wrangler: ^4.80.0
   zod: ^4.3.6
@@ -289,6 +291,7 @@ overrides:
   '@powerlines/tools-readme-templates': workspace:*
   '@powerlines/tools-scripts': workspace:*
   '@powerlines/tsconfig': workspace:*
+  '@powerlines/tsdoc': workspace:*
   '@typescript/vfs': '>=1.6.4'
   debug: '>=4.3.7'
   follow-redirects: '>=1.15.9'
@@ -315,6 +318,7 @@ patchedDependencies:
   '@deepkit/type-spec': patches/@deepkit__type-spec.patch
   '@prisma/client-generator-ts': patches/@prisma__client-generator-ts.patch
   automd: patches/automd.patch
+  dts-buddy: patches/dts-buddy.patch
   prisma-util: patches/prisma-util.patch
 
 shamefullyHoist: true

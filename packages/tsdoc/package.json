@@ -1,0 +1,63 @@
+{
+  "name": "@powerlines/tsdoc",
+  "version": "0.0.1",
+  "private": false,
+  "description": "A package containing shared TSDoc configuration files (tsdoc.json) used in Powerlines projects.",
+  "keywords": ["powerlines", "storm-software", "tsdoc"],
+  "homepage": "https://stormsoftware.com",
+  "bugs": {
+    "url": "https://stormsoftware.com/support",
+    "email": "support@stormsoftware.com"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/tsdoc"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Storm Software",
+    "email": "contact@stormsoftware.com",
+    "url": "https://stormsoftware.com"
+  },
+  "maintainers": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./base.json": "./base.json",
+    "./recommended.json": "./recommended.json"
+  },
+  "files": ["./base.json", "./recommended.json"],
+  "devDependencies": {
+    "@storm-software/tsdoc": "catalog:"
+  },
+  "peerDependencies": {
+    "@storm-software/tsdoc": ">=0.13.146"
+  },
+  "peerDependenciesMeta": {
+    "@storm-software/tsdoc": {
+      "optional": false
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

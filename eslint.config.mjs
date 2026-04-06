@@ -33,5 +33,8 @@ export default defineConfig({
     "packages/deepkit/schemas/**",
     "packages/powerlines/schemas/**",
     "**.spec.ts"
-  ]
+  ],
+  tsdoc: {
+    configFile: "./packages/tsdoc/src/recommended.json"
+  }
 });
