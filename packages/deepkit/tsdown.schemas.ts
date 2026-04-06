@@ -16,17 +16,16 @@
 
  ------------------------------------------------------------------- */
 
-import { defineTsupConfig } from "@powerlines/tools-config/tsup.shared";
+import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
 
-const config = defineTsupConfig([
+const config = defineTSDownConfig([
   {
-    name: "deepkit-scripts",
-    entry: ["scripts/deepkit-install.ts"],
-    outDir: "scripts",
-    format: ["cjs"],
-    dts: false,
+    name: "deepkit-schemas",
+    entry: ["schemas/reflection.ts"],
+    outDir: "schemas",
     clean: false,
-    noExternal: ["@powerlines/deepkit/vendor/type-compiler"]
+    exports: false,
+    unbundle: false
   }
 ]);
 

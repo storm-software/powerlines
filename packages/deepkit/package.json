@@ -43,106 +43,106 @@
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       },
       "default": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       }
     },
     "./index": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       },
       "default": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       }
     },
     "./*": {
       "import": {
-        "types": "./dist/*.d.ts",
-        "default": "./dist/*.js"
+        "types": "./dist/*.d.mts",
+        "default": "./dist/*.mjs"
       },
       "require": {
         "types": "./dist/*.d.cts",
         "default": "./dist/*.cjs"
       },
       "default": {
-        "types": "./dist/*.d.ts",
-        "default": "./dist/*.js"
+        "types": "./dist/*.d.mts",
+        "default": "./dist/*.mjs"
       }
     },
     "./vendor/*": {
       "import": {
-        "types": "./dist/vendor/*.d.ts",
-        "default": "./dist/vendor/*.js"
+        "types": "./dist/vendor/*.d.mts",
+        "default": "./dist/vendor/*.mjs"
       },
       "require": {
         "types": "./dist/vendor/*.d.cts",
         "default": "./dist/vendor/*.cjs"
       },
       "default": {
-        "types": "./dist/vendor/*.d.ts",
-        "default": "./dist/vendor/*.js"
+        "types": "./dist/vendor/*.d.mts",
+        "default": "./dist/vendor/*.mjs"
       }
     },
     "./vendor/type-compiler": {
       "import": {
-        "types": "./dist/vendor/type-compiler/index.d.ts",
-        "default": "./dist/vendor/type-compiler/index.js"
+        "types": "./dist/vendor/type-compiler/index.d.mts",
+        "default": "./dist/vendor/type-compiler/index.mjs"
       },
       "require": {
         "types": "./dist/vendor/type-compiler/index.d.cts",
         "default": "./dist/vendor/type-compiler/index.cjs"
       },
       "default": {
-        "types": "./dist/vendor/type-compiler/index.d.ts",
-        "default": "./dist/vendor/type-compiler/index.js"
+        "types": "./dist/vendor/type-compiler/index.d.mts",
+        "default": "./dist/vendor/type-compiler/index.mjs"
       }
     },
     "./vendor/type-compiler/*": {
       "import": {
-        "types": "./dist/vendor/type-compiler/*.d.ts",
-        "default": "./dist/vendor/type-compiler/*.js"
+        "types": "./dist/vendor/type-compiler/*.d.mts",
+        "default": "./dist/vendor/type-compiler/*.mjs"
       },
       "require": {
         "types": "./dist/vendor/type-compiler/*.d.cts",
         "default": "./dist/vendor/type-compiler/*.cjs"
       },
       "default": {
-        "types": "./dist/vendor/type-compiler/*.d.ts",
-        "default": "./dist/vendor/type-compiler/*.js"
+        "types": "./dist/vendor/type-compiler/*.d.mts",
+        "default": "./dist/vendor/type-compiler/*.mjs"
       }
     },
     "./schemas/*": {
       "import": {
-        "types": "./schemas/*.d.ts",
-        "default": "./schemas/*.js"
+        "types": "./schemas/*.d.mts",
+        "default": "./schemas/*.mjs"
       },
       "require": {
         "types": "./schemas/*.d.cts",
         "default": "./schemas/*.cjs"
       },
       "default": {
-        "types": "./schemas/*.d.ts",
-        "default": "./schemas/*.js"
+        "types": "./schemas/*.d.mts",
+        "default": "./schemas/*.mjs"
       }
     }
   },
   "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "module": "dist/index.mjs",
+  "typings": "dist/index.d.mts",
   "bin": {
     "deepkit-install": "bin/deepkit-install.cjs"
   },

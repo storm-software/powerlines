@@ -24,7 +24,7 @@
       "executor": "nx:run-commands",
       "dependsOn": ["generate-schemas"],
       "options": {
-        "command": "tsup --config=tsup.schemas.ts",
+        "command": "tsdown --config=tsdown.schemas.ts",
         "cwd": "{projectRoot}"
       }
     },
@@ -34,7 +34,7 @@
       "outputs": ["{projectRoot}/scripts/*.cjs"],
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsup --config=tsup.scripts.ts",
+        "command": "tsdown --config=tsdown.scripts.ts",
         "cwd": "{projectRoot}"
       }
     },
@@ -44,7 +44,7 @@
       "outputs": ["{projectRoot}/dist"],
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsup --config=tsup.config.ts",
+        "command": "tsdown --config=tsdown.config.ts",
         "cwd": "{projectRoot}"
       }
     },
@@ -53,11 +53,11 @@
       "dependsOn": ["build-base"],
       "options": {
         "commands": [
-          "dts-bundle-generator --project ./tsconfig.esm.json --external-inlines @deepkit/core --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/core.d.ts src/vendor/core.ts",
+          "dts-bundle-generator --project ./tsconfig.esm.json --external-inlines @deepkit/core --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/core.d.mts src/vendor/core.ts",
           "dts-bundle-generator --project ./tsconfig.cjs.json --external-inlines @deepkit/core --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/core.d.cts src/vendor/core.ts",
-          "dts-bundle-generator --project ./tsconfig.esm.json --external-inlines @deepkit/type-spec --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/type-spec.d.ts src/vendor/type-spec.ts",
+          "dts-bundle-generator --project ./tsconfig.esm.json --external-inlines @deepkit/type-spec --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/type-spec.d.mts src/vendor/type-spec.ts",
           "dts-bundle-generator --project ./tsconfig.cjs.json --external-inlines @deepkit/type-spec --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/type-spec.d.cts src/vendor/type-spec.ts",
-          "dts-bundle-generator --project ./tsconfig.esm.json --external-inlines @deepkit/type @deepkit/type-spec @deepkit/core --export-referenced-types false --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/type.d.ts src/vendor/type.ts",
+          "dts-bundle-generator --project ./tsconfig.esm.json --external-inlines @deepkit/type @deepkit/type-spec @deepkit/core --export-referenced-types false --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/type.d.mts src/vendor/type.ts",
           "dts-bundle-generator --project ./tsconfig.cjs.json --external-inlines @deepkit/type @deepkit/type-spec @deepkit/core --export-referenced-types false --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/type.d.cts src/vendor/type.ts"
         ],
         "parallel": true,
@@ -79,9 +79,9 @@
         "commands": [
           "pnpm copyfiles LICENSE dist/packages/deepkit",
           "pnpm copyfiles --up=2 ./packages/deepkit/*.md ./packages/deepkit/package.json dist/packages/deepkit",
-          "pnpm copyfiles --up=3 \"./packages/deepkit/dist/**/*\" dist/packages/deepkit/dist",
+          "pnpm copyfiles --up=3 \"./packages/deepkit/dist/**/*.{cjs,mjs,cts,mts}\" dist/packages/deepkit/dist",
           "pnpm copyfiles --up=3 \"./packages/deepkit/scripts/*.cjs\" dist/packages/deepkit/bin",
-          "pnpm copyfiles --up=3 \"./packages/deepkit/schemas/*.js\" \"./packages/deepkit/schemas/*.d.ts\" \"./packages/deepkit/schemas/*.cjs\" \"./packages/deepkit/schemas/*.d.cts\" \"./packages/deepkit/schemas/*.capnp\" dist/packages/deepkit/schemas"
+          "pnpm copyfiles --up=3 \"./packages/deepkit/schemas/*.{cjs,mjs,cts,mts}\" \"./packages/deepkit/schemas/*.capnp\" dist/packages/deepkit/schemas"
         ]
       }
     },

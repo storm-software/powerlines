@@ -1670,4 +1670,4 @@ export {
   __ΩSerializedType_Type_Which,
   _capnpFileId
 };
-//# sourceMappingURL=reflection.d.cts.map
+//# sourceMappingURL=reflection.d.mts.map

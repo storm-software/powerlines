@@ -18,10 +18,10 @@
 
 import type { Context } from "@powerlines/core";
 import {
-  Cache,
   DeclarationTransformer,
   ReflectionTransformer
 } from "@powerlines/deepkit/vendor/type-compiler";
+import { Cache } from "@powerlines/deepkit/vendor/type-compiler/compiler";
 import type { ReflectionConfig } from "@powerlines/deepkit/vendor/type-compiler/config";
 import defu from "defu";
 import ts from "typescript";

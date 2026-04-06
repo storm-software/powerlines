@@ -16,9 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import { defineTsupConfig } from "@powerlines/tools-config/tsup.shared";
+import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
 
-const config = defineTsupConfig([
+const config = defineTSDownConfig([
   {
     name: "deepkit",
     entry: [
@@ -30,9 +30,13 @@ const config = defineTsupConfig([
     platform: "neutral",
     target: "esnext",
     clean: false,
-    bundle: true,
-    skipNodeModulesBundle: false,
-    noExternal: ["@deepkit/core", "@deepkit/type", "@deepkit/type-spec"]
+    exports: false,
+    unbundle: false,
+    dts: false,
+    deps: {
+      skipNodeModulesBundle: false,
+      alwaysBundle: ["@deepkit/core", "@deepkit/type", "@deepkit/type-spec"]
+    }
   },
   {
     name: "deepkit-compiler",
@@ -41,14 +45,13 @@ const config = defineTsupConfig([
     platform: "node",
     target: "esnext",
     clean: false,
-    bundle: true,
-    skipNodeModulesBundle: false,
-    noExternal: [
-      "@deepkit/core",
-      "@deepkit/type",
-      "@deepkit/type-spec",
-      "@deepkit/type-compiler"
-    ]
+    exports: false,
+    unbundle: false,
+    dts: true,
+    deps: {
+      skipNodeModulesBundle: false,
+      alwaysBundle: ["@deepkit/type-compiler"]
+    }
   },
   {
     name: "deepkit",
@@ -57,15 +60,20 @@ const config = defineTsupConfig([
     platform: "node",
     target: "esnext",
     clean: false,
-    bundle: true,
-    skipNodeModulesBundle: false,
-    external: ["@powerlines/deepkit/vendor"],
-    noExternal: [
-      "@deepkit/core",
-      "@deepkit/type",
-      "@deepkit/type-spec",
-      "@deepkit/type-compiler"
-    ]
+    exports: false,
+    unbundle: false,
+    dts: true,
+    deps: {
+      skipNodeModulesBundle: true,
+      neverBundle: [
+        "@powerlines/deepkit/vendor/core",
+        "@powerlines/deepkit/vendor/type",
+        "@powerlines/deepkit/vendor/type-spec",
+        "@powerlines/deepkit/vendor/type-compiler",
+        "@powerlines/deepkit/vendor/type-compiler/compiler",
+        "@powerlines/deepkit/vendor/type-compiler/config"
+      ]
+    }
   }
 ]);
 
