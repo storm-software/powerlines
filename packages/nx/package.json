@@ -201,7 +201,7 @@
   },
   "peerDependencies": {
     "nx": ">=22.5.0",
-    "powerlines": ">=0.39.2"
+    "powerlines": ">=0.42.31"
   },
   "peerDependenciesMeta": {
     "nx": {

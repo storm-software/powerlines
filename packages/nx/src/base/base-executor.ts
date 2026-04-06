@@ -97,7 +97,7 @@ export function withExecutor<
       const jiti = createJiti(context.root, { cache: false });
       const { PowerlinesAPI } = await jiti.import<{
         PowerlinesAPI: typeof import("powerlines").PowerlinesAPI;
-      }>("powerlines");
+      }>(jiti.esmResolve("powerlines"));
 
       const api = await PowerlinesAPI.from(
         workspaceConfig.workspaceRoot,
