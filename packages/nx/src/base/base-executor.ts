@@ -96,7 +96,7 @@ export function withExecutor<
 
       const jiti = createJiti(context.root, { cache: false });
       const { PowerlinesAPI } = await jiti.import<{
-        PowerlinesAPI: typeof import("powerlines").default;
+        PowerlinesAPI: typeof import("powerlines").PowerlinesAPI;
       }>("powerlines");
 
       const api = await PowerlinesAPI.from(
