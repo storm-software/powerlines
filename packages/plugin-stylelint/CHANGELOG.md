@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Stylelint
 
+## [0.1.392](https://github.com/storm-software/powerlines/releases/tag/plugin-stylelint%400.1.392) (04/03/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.339**
+- Updated **powerlines** to **v0.42.29**
+
 ## [0.1.391](https://github.com/storm-software/powerlines/releases/tag/plugin-stylelint%400.1.391) (04/03/2026)
 
 ### Updated Dependencies
