@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.12.4](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.4) (04/06/2026)
+
+### Bug Fixes
+
+- **nx:** Resolve issue with missing default export ([4b4e977ca](https://github.com/storm-software/powerlines/commit/4b4e977ca))
+
 ## [0.12.3](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.3) (04/06/2026)
 
 ### Updated Dependencies
