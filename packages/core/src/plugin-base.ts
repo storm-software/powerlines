@@ -61,7 +61,7 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
         tsdown: {
           format: ["cjs", "esm"],
           logLevel: "silent",
-          target: "node22",
+          target: "esnext",
           cjsDefault: true,
           treeshake: true,
           exports: true,

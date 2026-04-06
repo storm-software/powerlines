@@ -333,5 +333,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "inlinedDependencies": {
+    "@stryke/helpers": "0.10.8"
   }
 }

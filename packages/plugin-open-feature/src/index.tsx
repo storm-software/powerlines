@@ -23,7 +23,7 @@ import defu from "defu";
 import { Plugin } from "powerlines";
 import { FeaturesBuiltin } from "./components/features-builtin";
 import { features } from "./helpers/automd-generator";
-import {
+import type {
   OpenFeaturePluginContext,
   OpenFeaturePluginOptions
 } from "./types/plugin";

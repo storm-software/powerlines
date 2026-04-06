@@ -29,7 +29,7 @@ import {
 } from "@powerlines/plugin-alloy/typescript/components/tsdoc";
 import defu from "defu";
 
-export interface FeaturesBuiltinProps extends Omit<BuiltinFileProps, "id"> {}
+export type FeaturesBuiltinProps = Omit<BuiltinFileProps, "id">;
 
 /**
  * Generates the feature flags module for the Powerlines project.
@@ -58,9 +58,7 @@ export function FeaturesBuiltin(props: FeaturesBuiltinProps) {
         },
         imports ?? {}
       )}>
-      <TSDoc>
-        {code`A function to set the OpenFeature providers to be used in the application. This function should be called at the entry point of the application to ensure that the providers are registered before any feature flag evaluations occur.`}
-
+      <TSDoc heading="A function to set the OpenFeature providers to be used in the application. This function should be called at the entry point of the application to ensure that the providers are registered before any feature flag evaluations occur.">
         <TSDocParam name="provider">
           {`The provider wrapper containing the OpenFeature provider to set. The provider should be an instance of a class that implements the OpenFeature Provider interface, wrapped in a ProviderWrapper to include any necessary metadata about the provider's status.`}
         </TSDocParam>
@@ -78,7 +76,7 @@ export function FeaturesBuiltin(props: FeaturesBuiltinProps) {
         {code`try {
           await OpenFeature.setProviderAndWait(provider);
         } catch (error) {
-          console.error('Failed to initialize provider:', error);
+          console.error("Failed to initialize provider: ", error);
         } `}
       </FunctionDeclaration>
       <Spacing />
@@ -105,7 +103,7 @@ export function FeaturesBuiltin(props: FeaturesBuiltinProps) {
         {code`try {
           return client.getBooleanValue(featureId);
         } catch (error) {
-          console.error('Failed to initialize provider:', error);
+          console.error("Failed to evaluate feature flag: ", error);
         } `}
       </FunctionDeclaration>
       <Spacing />

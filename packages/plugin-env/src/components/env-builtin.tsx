@@ -83,7 +83,7 @@ export function EnvTypeDefinition(
         name=" EnvBase"
         defaultValue={defaultValue}
         reflection={reflection}
-        export={true}
+        export
       />
       <Spacing />
       <TSDoc heading="The environment configuration object with prefixed keys.">
@@ -91,7 +91,7 @@ export function EnvTypeDefinition(
           {`The \`Env\` type extends the \`EnvBase\` interface by including additional keys that are prefixed according to the project's configuration. This allows for flexibility in accessing environment variables with different naming conventions.`}
         </TSDocRemarks>
       </TSDoc>
-      <TypeDeclaration name="Env" export={true}>
+      <TypeDeclaration name="Env" export>
         {code` {
     [Key in keyof EnvBase as Key ${context.config.env.prefix
       .map(prefix => `| \`${prefix.replace(/_$/g, "")}_\${Key}\``)
@@ -282,6 +282,15 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       reflection
     );
 
+    result
+      .getProperties()
+      .filter(
+        property => property.isRuntime() || property.getTags().runtime === true
+      )
+      .forEach(property => {
+        result.removeProperty(property.getNameAsString());
+      });
+
     return result;
   });
 
@@ -312,7 +321,6 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       imports={defu(
         {
           "@powerlines/deepkit/vendor/type": [
-            "serializer",
             "serializeFunction",
             "deserializeFunction",
             "ReflectionKind",
@@ -339,8 +347,8 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         type="Partial<EnvBase>"
         defaultValue={defaultValue}
         reflection={envInstance}
-        export={true}
-        const={true}
+        export
+        const
         doc="The initial environment configuration object values for the runtime."
       />
       <Spacing />
@@ -360,10 +368,10 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         refkey={envSerializerRefkey}
         name="EnvSerializer"
         extends="Serializer"
-        export={true}>
+        export>
         <ClassMethod
           name="constructor"
-          public={true}
+          public
           doc="Initializes a new instance of the `EnvSerializer` class.">
           {code`super("env");
 
@@ -393,7 +401,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       <VarDeclaration
         name="envSerializer"
         export={false}
-        const={true}
+        const
         initializer={<NewExpression args={[]} target="EnvSerializer" />}
       />
       <Spacing />
@@ -409,8 +417,8 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       </TSDoc>
       <VarDeclaration
         name="serializeEnv"
-        export={true}
-        const={true}
+        export
+        const
         initializer={"serializeFunction<EnvBase>(envSerializer)"}
       />
       <Spacing />
@@ -426,8 +434,8 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       </TSDoc>
       <VarDeclaration
         name="deserializeEnv"
-        export={true}
-        const={true}
+        export
+        const
         initializer="deserializeFunction<EnvBase>(envSerializer)"
       />
       <Spacing />
@@ -447,7 +455,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         <FunctionDeclaration
           refkey={createEnvRefkey}
           async={false}
-          export={true}
+          export
           name="createEnv"
           parameters={[
             {
@@ -515,8 +523,8 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         refkey={envRefkey}
         name="env"
         type="Env"
-        export={true}
-        const={true}
+        export
+        const
         initializer={
           <>{code`createEnv(${defaultConfig || "{}"} as Partial<Env>);`}</>
         }

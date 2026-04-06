@@ -16,19 +16,19 @@
 
  ------------------------------------------------------------------- */
 
-import {
+import type {
   Provider,
   ProviderWrapper,
   ServerProviderStatus
 } from "@openfeature/server-sdk";
-import {
+import type {
   AlloyPluginContext,
   AlloyPluginOptions,
   AlloyPluginResolvedConfig,
   AlloyPluginUserConfig
 } from "@powerlines/plugin-alloy/types";
-import { AutoMDPluginOptions } from "@powerlines/plugin-automd/types/plugin";
-import {
+import type { AutoMDPluginOptions } from "@powerlines/plugin-automd/types/plugin";
+import type {
   BabelPluginContext,
   BabelPluginResolvedConfig,
   BabelPluginUserConfig

@@ -59,12 +59,7 @@ const config = defineTsupConfig([
     clean: false,
     bundle: true,
     skipNodeModulesBundle: false,
-    external: [
-      "@powerlines/deepkit/vendor/core",
-      "@powerlines/deepkit/vendor/type",
-      "@powerlines/deepkit/vendor/type-compiler",
-      "@powerlines/deepkit/vendor/type-spec"
-    ],
+    external: ["@powerlines/deepkit/vendor"],
     noExternal: [
       "@deepkit/core",
       "@deepkit/type",

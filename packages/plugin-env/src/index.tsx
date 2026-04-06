@@ -28,6 +28,7 @@ import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
 import { ENV_PREFIXES } from "@stryke/env/types";
 import { existsSync } from "@stryke/fs/exists";
+import { getUnique } from "@stryke/helpers/get-unique";
 import { joinPaths } from "@stryke/path/join";
 import { constantCase } from "@stryke/string-format/constant-case";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -166,12 +167,14 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           ].filter(Boolean) as string[]
         );
 
-        config.env.prefix = toArray(config.env.prefix).reduce((ret, prefix) => {
-          if (!ret.includes(prefix.replace(/_$/g, ""))) {
-            ret.push(prefix.replace(/_$/g, ""));
-          }
-          return ret;
-        }, [] as string[]);
+        config.env.prefix = getUnique(
+          toArray(config.env.prefix).reduce((ret, prefix) => {
+            if (!ret.includes(prefix.replace(/_$/g, ""))) {
+              ret.push(prefix.replace(/_$/g, ""));
+            }
+            return ret;
+          }, [] as string[])
+        );
 
         return config;
       },

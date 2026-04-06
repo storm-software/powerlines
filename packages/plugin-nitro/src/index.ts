@@ -118,14 +118,12 @@ export const plugin = <
     {
       name: "nitro:vite",
       vite: {
-        config(_, configEnv) {
-          this.config.nitro.dev = configEnv.command === "serve";
-          this.config.nitro.builder = "vite";
-          this.config.nitro.rootDir = this.config.root;
-          this.config.nitro = defu(
-            this.config.nitro,
-            this.config
-          ) as NitroConfig;
+        config(config: NitroPluginUserConfig, configEnv: { command: string }) {
+          config.nitro ??= {} as NitroConfig;
+          config.nitro.dev = configEnv.command === "serve";
+          config.nitro.builder = "vite";
+          config.nitro.rootDir = config.root;
+          config.nitro = defu(config.nitro, config) as NitroConfig;
         }
       }
     }

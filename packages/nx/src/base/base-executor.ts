@@ -23,12 +23,13 @@ import { withRunExecutor } from "@storm-software/workspace-tools/base/base-execu
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
 import { isError } from "@stryke/type-checks/is-error";
 import defu from "defu";
+import { createJiti } from "jiti";
 import type {
   InitialUserConfig,
   InlineConfig,
+  PowerlinesAPI,
   PowerlinesCommand
 } from "powerlines";
-import PowerlinesAPI from "powerlines";
 import { BaseExecutorSchema } from "./base-executor.schema";
 
 export type PowerlinesExecutorContext<
@@ -92,6 +93,11 @@ export function withExecutor<
 
       const projectConfig =
         context.projectsConfigurations.projects[context.projectName]!;
+
+      const jiti = createJiti(context.root, { cache: false });
+      const { PowerlinesAPI } = await jiti.import<{
+        PowerlinesAPI: typeof import("powerlines").default;
+      }>("powerlines");
 
       const api = await PowerlinesAPI.from(
         workspaceConfig.workspaceRoot,

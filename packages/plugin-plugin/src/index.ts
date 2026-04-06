@@ -55,7 +55,8 @@ export const plugin = <
           },
           tsdown: {
             platform: "node",
-            target: "node22",
+            target: "esnext",
+            cjsDefault: true,
             nodeProtocol: true,
             fixedExtension: true,
             minify: false,

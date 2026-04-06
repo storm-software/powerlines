@@ -22,7 +22,7 @@ import { defineConfig } from "tsdown";
 export type TSDownOptions = Partial<UserConfig> & Pick<UserConfig, "name">;
 
 export const DEFAULT_OPTIONS: Omit<Partial<UserConfig>, "name"> = {
-  target: "node22",
+  target: "esnext",
   logLevel: "warn",
   outDir: "dist",
   format: ["cjs", "esm"],

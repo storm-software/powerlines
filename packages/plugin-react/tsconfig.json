@@ -8,7 +8,12 @@
     "strict": false,
     "outDir": "../../dist/out-tsc"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "powerlines.config.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "powerlines.config.ts",
+    "powerlines.d.ts"
+  ],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "reflection": true
 }

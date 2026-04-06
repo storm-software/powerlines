@@ -21,6 +21,7 @@ import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
 const config = defineTSDownConfig([
   {
     name: "nx-base",
+    target: "node22",
     entry: [
       "./src/plugin/index.ts",
       "./src/executors/*/executor.ts",
@@ -39,6 +40,7 @@ const config = defineTSDownConfig([
   },
   {
     name: "nx-libs",
+    target: "node22",
     entry: [
       "./src/index.ts",
       "./src/base/*.ts",
@@ -49,7 +51,10 @@ const config = defineTSDownConfig([
     clean: false,
     unbundle: true,
     exports: false,
-    fixedExtension: false
+    fixedExtension: false,
+    deps: {
+      skipNodeModulesBundle: true
+    }
   }
 ]);
 

@@ -157,7 +157,7 @@
     "defu": "catalog:",
     "jiti": "catalog:",
     "esbuild": "catalog:",
-    "powerlines": "workspace:*",
+    "@powerlines/core": "workspace:*",
     "@powerlines/plugin-esbuild": "workspace:*",
     "typescript": "^5.9.3"
   },

@@ -18,9 +18,7 @@
 
 /* eslint-disable camelcase */
 
-import {
-  ReflectionKind,
-  ReflectionVisibility,
+import type {
   SerializedType,
   SerializedTypeArray,
   SerializedTypeClassType,
@@ -42,6 +40,10 @@ import {
   SerializedTypeUnion,
   SimpleSerializedType,
   TagsReflection
+} from "@powerlines/deepkit/vendor/type";
+import {
+  ReflectionKind,
+  ReflectionVisibility
 } from "@powerlines/deepkit/vendor/type";
 import { List } from "@stryke/capnp";
 import { isInteger, isSetObject, isUndefined } from "@stryke/type-checks";

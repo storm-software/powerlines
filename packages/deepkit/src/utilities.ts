@@ -16,14 +16,14 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  ReflectionKind,
+import type {
   ReflectionParameter,
   ReflectionProperty,
   Type,
   TypeNumber,
   TypeString
 } from "@powerlines/deepkit/vendor/type";
+import { ReflectionKind } from "@powerlines/deepkit/vendor/type";
 import { getUniqueBy } from "@stryke/helpers/get-unique";
 import { StormJSON } from "@stryke/json/storm-json";
 import { isSetObject } from "@stryke/type-checks";

@@ -34,6 +34,7 @@ import type {
   ResolveResult,
   UnresolvedContext
 } from "./context";
+import { UnpluginBuilderVariant, UnpluginOptions } from "./unplugin";
 
 export interface PluginHookObject<
   THookFunction extends AnyFunction,
@@ -316,7 +317,9 @@ export interface BasePlugin<TContext extends PluginContext> {
 
 export type Plugin<
   TContext extends PluginContext<ResolvedConfig> = PluginContext<ResolvedConfig>
-> = Partial<PluginHooks<TContext>> & BasePlugin<TContext>;
+> = Partial<PluginHooks<TContext>> &
+  BasePlugin<TContext> &
+  Pick<UnpluginOptions<TContext>, UnpluginBuilderVariant>;
 
 export type PluginNonHookFields = ArrayValues<typeof PLUGIN_NON_HOOK_FIELDS>;
 

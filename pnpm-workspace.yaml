@@ -192,7 +192,7 @@ catalog:
   unplugin-combine: ^2.3.0
   untyped: ^1.5.2
   verdaccio: 6.3.2
-  vite: ^8.0.4
+  vite: ^8.0.5
   webpack: ^5.105.4
   wrangler: ^4.80.0
   zod: ^4.3.6

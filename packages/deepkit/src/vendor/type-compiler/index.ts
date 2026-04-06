@@ -19,5 +19,3 @@
 // Re-exported Deepkit - Type Compiler module
 
 export * from "@deepkit/type-compiler";
-export * from "@deepkit/type-compiler/compiler";
-export * from "@deepkit/type-compiler/config";
