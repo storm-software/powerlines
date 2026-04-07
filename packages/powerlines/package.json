@@ -421,7 +421,6 @@
     "@types/node": "catalog:",
     "@types/semver": "catalog:",
     "bun-types-no-globals": "catalog:",
-    "dts-buddy": "catalog:",
     "undici-types": "catalog:"
   },
   "peerDependencies": {

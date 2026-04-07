@@ -128,7 +128,6 @@ catalog:
   copyfiles: ^2.4.1
   defu: ^6.1.6
   diff-match-patch: ^1.0.5
-  dts-buddy: 0.7.0
   dts-bundle-generator: ^9.5.1
   esbuild: ^0.27.7
   eslint: ^9.39.4
@@ -321,7 +320,6 @@ patchedDependencies:
   '@deepkit/type-spec': patches/@deepkit__type-spec.patch
   '@prisma/client-generator-ts': patches/@prisma__client-generator-ts.patch
   automd: patches/automd.patch
-  dts-buddy: patches/dts-buddy.patch
   prisma-util: patches/prisma-util.patch
 
 shamefullyHoist: true

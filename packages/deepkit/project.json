@@ -29,7 +29,7 @@
       }
     },
     "build-scripts": {
-      "cache": false,
+      "cache": true,
       "inputs": ["{projectRoot}/scripts/*.ts"],
       "outputs": ["{projectRoot}/scripts/*.cjs"],
       "executor": "nx:run-commands",
@@ -39,16 +39,18 @@
       }
     },
     "build-base": {
-      "cache": false,
+      "cache": true,
       "inputs": ["typescript", "^production"],
       "outputs": ["{projectRoot}/dist"],
       "executor": "nx:run-commands",
+      "dependsOn": ["generate-schemas"],
       "options": {
         "command": "tsdown --config=tsdown.config.ts",
         "cwd": "{projectRoot}"
       }
     },
     "build-dts": {
+      "cache": true,
       "executor": "nx:run-commands",
       "dependsOn": ["build-base"],
       "options": {

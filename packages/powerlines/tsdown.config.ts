@@ -49,9 +49,7 @@ const config = defineTSDownConfig([
     exports: false,
     sourcemap: false,
     deps: {
-      alwaysBundle: ["dts-buddy"],
-      neverBundle: ["typescript", "@powerlines/*"],
-      skipNodeModulesBundle: false
+      skipNodeModulesBundle: true
     }
   }
 ]);
