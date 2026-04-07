@@ -19,9 +19,9 @@
 import { omit } from "@stryke/helpers/omit";
 import { isString } from "@stryke/type-checks/is-string";
 import type { Options } from "tsup";
-import { esbuild } from "./esbuild";
+import { unplugin as esbuild } from "./esbuild";
 
-export { default as plugin } from "@powerlines/plugin-tsup";
+export { default as plugin, default as tsup } from "@powerlines/plugin-tsup";
 
 /**
  * A Tsup configuration function that integrates Powerlines into the build process.
@@ -78,5 +78,3 @@ export function unplugin(options: Options = {}): Options {
     ]
   };
 }
-
-export { unplugin as tsup };

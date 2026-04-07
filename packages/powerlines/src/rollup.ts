@@ -20,7 +20,10 @@ import { RollupPluginUserConfig } from "@powerlines/plugin-rollup/types/plugin";
 import { createRollupPlugin } from "unplugin";
 import { createUnpluginFactory } from "./unplugin";
 
-export { default as plugin } from "@powerlines/plugin-rollup";
+export {
+  default as plugin,
+  default as rollup
+} from "@powerlines/plugin-rollup";
 
 /**
  * A Rollup plugin that will invoke the Powerlines API hooks during the build process.
@@ -41,5 +44,3 @@ export { default as plugin } from "@powerlines/plugin-rollup";
 export const unplugin = createRollupPlugin<Partial<RollupPluginUserConfig>>(
   createUnpluginFactory("rollup")
 );
-
-export { unplugin as rollup };

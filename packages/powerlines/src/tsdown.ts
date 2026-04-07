@@ -23,10 +23,13 @@ import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { ModuleFormat } from "rolldown";
 import type { UserConfig } from "tsdown/config";
-import { rolldown } from "./rolldown";
+import { unplugin as rolldown } from "./rolldown";
 import { CopyConfig, ResolveConfig } from "./types";
 
-export { default as plugin } from "@powerlines/plugin-tsdown";
+export {
+  default as plugin,
+  default as tsdown
+} from "@powerlines/plugin-tsdown";
 
 /**
  * A Tsdown configuration function that integrates Powerlines into the build process.
@@ -133,5 +136,3 @@ export function unplugin(options: UserConfig = {}): UserConfig {
     ]
   };
 }
-
-export { unplugin as tsdown };

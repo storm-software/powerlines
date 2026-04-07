@@ -10,7 +10,12 @@ tmp
 out
 .nx
 **/.powerlines
+
 packages/deepkit/scripts/*.cjs
+
+packages/deepkit/schemas
+!packages/deepkit/schemas/*.capnp
+
 # \!examples/**/.powerlines
 
 # build output

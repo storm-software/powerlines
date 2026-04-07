@@ -18,7 +18,7 @@
 
 import type { VitePluginUserConfig } from "@powerlines/plugin-vite/types/plugin";
 import type { AstroUserConfig } from "astro";
-import { vite } from "./vite";
+import { unplugin as vite } from "./vite";
 
 /**
  * An Astro plugin that will invoke the Powerlines API hooks during the build process.

@@ -20,7 +20,10 @@ import { RspackPluginUserConfig } from "@powerlines/plugin-rspack/types/plugin";
 import { createRspackPlugin } from "unplugin";
 import { createUnpluginFactory } from "./unplugin";
 
-export { default as plugin } from "@powerlines/plugin-rspack";
+export {
+  default as plugin,
+  default as rspack
+} from "@powerlines/plugin-rspack";
 
 /**
  * An Rspack plugin that will invoke the Powerlines API hooks during the build process.
@@ -41,5 +44,3 @@ export { default as plugin } from "@powerlines/plugin-rspack";
 export const unplugin = createRspackPlugin<Partial<RspackPluginUserConfig>>(
   createUnpluginFactory("rspack")
 );
-
-export { unplugin as rspack };

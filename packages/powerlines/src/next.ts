@@ -20,7 +20,7 @@ import { WebpackPluginUserConfig } from "@powerlines/plugin-webpack/types/plugin
 import type { NextConfig } from "next";
 import type { WebpackConfigContext } from "next/dist/server/config-shared";
 import type { Configuration } from "webpack";
-import { webpack } from "./webpack";
+import { unplugin as webpack } from "./webpack";
 
 /**
  * A Next.js configuration function that integrates Powerlines into the build process.
