@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.8.396](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.396) (04/06/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.343**
+- Updated **powerlines** to **v0.42.33**
+
 ## [0.8.395](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.395) (04/06/2026)
 
 ### Updated Dependencies

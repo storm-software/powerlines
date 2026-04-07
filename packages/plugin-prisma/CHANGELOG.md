@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.74](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.74) (04/06/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.343**
+- Updated **plugin-pulumi** to **v0.6.33**
+- Updated **powerlines** to **v0.42.33**
+
 ## [0.4.73](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.73) (04/06/2026)
 
 ### Updated Dependencies
