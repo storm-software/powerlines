@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.389](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.389) (04/10/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with duplicate plugin hook executions ([0423c6345](https://github.com/storm-software/powerlines/commit/0423c6345))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.13.6**
+
 ## [0.5.388](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.388) (04/06/2026)
 
 ### Updated Dependencies

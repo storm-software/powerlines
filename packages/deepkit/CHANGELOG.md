@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.7.4](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.4) (04/10/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with duplicate plugin hook executions ([0423c6345](https://github.com/storm-software/powerlines/commit/0423c6345))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.393**
+- Updated **core** to **v0.13.6**
+
 ## [0.7.3](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.3) (04/06/2026)
 
 ### Bug Fixes

@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.388](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.388) (04/10/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with duplicate plugin hook executions ([0423c6345](https://github.com/storm-software/powerlines/commit/0423c6345))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.392**
+- Updated **plugin-esbuild** to **v0.13.393**
+- Updated **plugin-rollup** to **v0.7.390**
+- Updated **core** to **v0.13.6**
+
 ## [0.14.387](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.387) (04/06/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.34](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.34) (04/10/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with duplicate plugin hook executions ([0423c6345](https://github.com/storm-software/powerlines/commit/0423c6345))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.392**
+- Updated **plugin-esbuild** to **v0.13.393**
+- Updated **plugin-unbuild** to **v0.5.390**
+- Updated **plugin-webpack** to **v0.5.389**
+- Updated **plugin-rollup** to **v0.7.390**
+- Updated **plugin-rspack** to **v0.5.389**
+- Updated **plugin-tsdown** to **v0.1.335**
+- Updated **plugin-tsup** to **v0.12.394**
+- Updated **plugin-vite** to **v0.14.388**
+- Updated **core** to **v0.13.6**
+
 ## [0.42.33](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.33) (04/06/2026)
 
 ### Bug Fixes

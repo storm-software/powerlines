@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.116](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.116) (04/10/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with duplicate plugin hook executions ([0423c6345](https://github.com/storm-software/powerlines/commit/0423c6345))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.272**
+- Updated **plugin-automd** to **v0.1.393**
+- Updated **plugin-plugin** to **v0.12.344**
+- Updated **plugin-alloy** to **v0.26.10**
+- Updated **plugin-babel** to **v0.12.389**
+- Updated **powerlines** to **v0.42.34**
+- Updated **deepkit** to **v0.7.4**
+
 ## [0.16.115](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.115) (04/06/2026)
 
 ### Updated Dependencies

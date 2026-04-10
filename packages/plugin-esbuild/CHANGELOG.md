@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.393](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.393) (04/10/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with duplicate plugin hook executions ([0423c6345](https://github.com/storm-software/powerlines/commit/0423c6345))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.13.6**
+
 ## [0.13.392](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.392) (04/06/2026)
 
 ### Updated Dependencies

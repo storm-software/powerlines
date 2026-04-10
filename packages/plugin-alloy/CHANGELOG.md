@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.10](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.10) (04/10/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with duplicate plugin hook executions ([0423c6345](https://github.com/storm-software/powerlines/commit/0423c6345))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.344**
+- Updated **plugin-babel** to **v0.12.389**
+- Updated **powerlines** to **v0.42.34**
+- Updated **deepkit** to **v0.7.4**
+- Updated **core** to **v0.13.6**
+
 ## [0.26.9](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.9) (04/06/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.392](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.392) (04/10/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with duplicate plugin hook executions ([0423c6345](https://github.com/storm-software/powerlines/commit/0423c6345))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.390**
+- Updated **plugin-babel** to **v0.12.389**
+- Updated **core** to **v0.13.6**
+
 ## [0.7.391](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.391) (04/06/2026)
 
 ### Updated Dependencies

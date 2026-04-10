@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.335](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.335) (04/10/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with duplicate plugin hook executions ([0423c6345](https://github.com/storm-software/powerlines/commit/0423c6345))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.392**
+- Updated **core** to **v0.13.6**
+
 ## [0.1.334](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.334) (04/06/2026)
 
 ### Updated Dependencies

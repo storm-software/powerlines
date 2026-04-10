@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.13.6](https://github.com/storm-software/powerlines/releases/tag/core%400.13.6) (04/10/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue with duplicate plugin hook executions ([0423c6345](https://github.com/storm-software/powerlines/commit/0423c6345))
+
 ## [0.13.2](https://github.com/storm-software/powerlines/releases/tag/core%400.13.2) (04/06/2026)
 
 ### Miscellaneous
