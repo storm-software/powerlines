@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.336](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.336) (04/10/2026)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue with bundling of patched `deepkit` packages ([ab5fd52f2](https://github.com/storm-software/powerlines/commit/ab5fd52f2))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.393**
+- Updated **core** to **v0.13.7**
+
 ## [0.1.335](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.335) (04/10/2026)
 
 ### Bug Fixes

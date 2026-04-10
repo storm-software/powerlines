@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.13.7](https://github.com/storm-software/powerlines/releases/tag/core%400.13.7) (04/10/2026)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue with bundling of patched `deepkit` packages ([ab5fd52f2](https://github.com/storm-software/powerlines/commit/ab5fd52f2))
+
 ## [0.13.6](https://github.com/storm-software/powerlines/releases/tag/core%400.13.6) (04/10/2026)
 
 ### Bug Fixes

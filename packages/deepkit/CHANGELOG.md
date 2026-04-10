@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.7.5](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.5) (04/10/2026)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue with bundling of patched `deepkit` packages ([ab5fd52f2](https://github.com/storm-software/powerlines/commit/ab5fd52f2))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.394**
+- Updated **core** to **v0.13.7**
+
 ## [0.7.4](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.4) (04/10/2026)
 
 ### Bug Fixes

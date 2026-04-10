@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.35](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.35) (04/10/2026)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue with bundling of patched `deepkit` packages ([ab5fd52f2](https://github.com/storm-software/powerlines/commit/ab5fd52f2))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.393**
+- Updated **plugin-esbuild** to **v0.13.394**
+- Updated **plugin-unbuild** to **v0.5.391**
+- Updated **plugin-webpack** to **v0.5.390**
+- Updated **plugin-rollup** to **v0.7.391**
+- Updated **plugin-rspack** to **v0.5.390**
+- Updated **plugin-tsdown** to **v0.1.336**
+- Updated **plugin-tsup** to **v0.12.395**
+- Updated **plugin-vite** to **v0.14.389**
+- Updated **core** to **v0.13.7**
+
 ## [0.42.34](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.34) (04/10/2026)
 
 ### Bug Fixes
