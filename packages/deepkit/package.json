@@ -154,7 +154,10 @@
     "@deepkit/type": "catalog:",
     "@deepkit/type-compiler": "catalog:",
     "@deepkit/type-spec": "catalog:",
-    "@types/node": "catalog:"
+    "@types/node": "catalog:",
+    "rolldown": "catalog:",
+    "tsdown": "catalog:",
+    "esbuild": "catalog:"
   },
   "peerDependencies": {
     "esbuild": "*",
