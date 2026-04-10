@@ -77,7 +77,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
     alloy(options.alloy),
     babel(options.babel),
     {
-      name: "env",
+      name: "env:core",
       async config() {
         this.debug(
           "Providing default configuration for the Powerlines `env` build plugin."

@@ -38,7 +38,9 @@ export function getDependencyConfig(
   context: Context
 ): GetDependencyConfigResult {
   const noExternal = getUnique(
-    toArray(context.config.resolve.noExternal).concat(context.builtins)
+    toArray(context.config.resolve.noExternal).concat(
+      context.builtins.map(builtin => `${context.config.framework}:${builtin}`)
+    )
   );
 
   const external = getUnique(

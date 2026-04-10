@@ -23,10 +23,13 @@ import { noop } from "@stryke/helpers/noop";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import chalk from "chalk";
+import { DEFAULT_ENVIRONMENT } from "../constants/environments";
 import type { LogFn, WorkspaceConfig } from "../types";
 
 export interface CreateLogOptions {
   name?: string;
+  command?: string;
+  environment?: string;
   logLevel?: LogLevelLabel | null;
   customLogger?: LogFn;
   colors?: WorkspaceConfig["colors"];
@@ -63,7 +66,15 @@ export const createLog = (
       `${chalk.bold.hex(
         getColor("brand", options as Parameters<typeof getColor>[1])
       )(
-        `${name ? kebabCase(name) : ""}${options.name ? `${name ? chalk.gray(" > ") : ""}${kebabCase(options.name)}` : ""}${chalk.gray(" > ")}`
+        `${name ? kebabCase(name) : ""}${
+          options.command ? chalk.dim(` [${options.command}]`) : ""
+        }${name ? chalk.gray(" > ") : ""}${
+          options.name ? `${kebabCase(options.name)}${chalk.gray(" > ")}` : ""
+        }${
+          options.environment && options.environment !== DEFAULT_ENVIRONMENT
+            ? `${kebabCase(options.environment)}${chalk.gray(" > ")}`
+            : ""
+        }`
       )}${args.join(" ")} `.trim()
     );
 };
@@ -143,5 +154,11 @@ export const colorBackground = (text: string): string => {
  */
 export const extendLog = (logFn: LogFn, name: string): LogFn => {
   return (type: LogLevelLabel, ...args: string[]) =>
-    logFn(type, ` ${colorBackground(name)}  ${args.join(" ")} `);
+    logFn(
+      type,
+      `${colorBackground(name)} ${args
+        .filter(Boolean)
+        .map(arg => String(arg).trim())
+        .join(" ")} `
+    );
 };

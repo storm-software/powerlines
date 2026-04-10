@@ -63,7 +63,9 @@ export function TSDoc(props: TSDocProps) {
           <Show when={!isUndefined(heading)}>
             <Spacing />
           </Show>
-          <List>{childrenArray(() => children)}</List>
+          <List hardline={false} softline={true}>
+            {childrenArray(() => children)}
+          </List>
         </Show>
       </align>
       <hbr />
@@ -210,7 +212,9 @@ export function TSDocRemarks(props: ComponentProps) {
     <>
       {"@remarks "}
       <hbr />
-      <List hardline={true}>{childrenArray(() => props.children)}</List>
+      <List hardline={false} softline={true}>
+        {childrenArray(() => props.children)}
+      </List>
     </>
   );
 }
@@ -287,6 +291,13 @@ export function TSDocHidden() {
   return <TSDocTag tag="hidden" />;
 }
 
+/**
+ * Create a TSDoc `@runtime` tag.
+ */
+export function TSDocRuntime() {
+  return <TSDocTag tag="runtime" />;
+}
+
 export interface TSDocAttributesTagsProps {
   type?: ReflectionKind | ReflectionProperty | ReflectionParameter;
   title?: string;
@@ -297,6 +308,7 @@ export interface TSDocAttributesTagsProps {
   internal?: boolean;
   ignore?: boolean;
   hidden?: boolean;
+  runtime?: boolean;
   defaultValue?: any;
 }
 
@@ -313,6 +325,7 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
       internal,
       ignore,
       hidden,
+      runtime,
       defaultValue
     }
   ] = splitProps(props, [
@@ -323,6 +336,7 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
     "internal",
     "ignore",
     "hidden",
+    "runtime",
     "defaultValue"
   ]);
 
@@ -368,6 +382,9 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
       </Show>
       <Show when={hidden === true}>
         <TSDocHidden />
+      </Show>
+      <Show when={runtime === true}>
+        <TSDocRuntime />
       </Show>
       <Show when={!isUndefined(type) && !isUndefined(defaultValue)}>
         <TSDocDefaultValue
@@ -499,7 +516,9 @@ export function TSDocModule(props: TSDocModuleProps) {
       <align string=" * ">
         <hbr />
         <Show when={Boolean(children)}>
-          <List hardline={true}>{childrenArray(() => children)}</List>
+          <List hardline={false} softline={true}>
+            {childrenArray(() => children)}
+          </List>
           <Spacing />
         </Show>
         {"@module "}

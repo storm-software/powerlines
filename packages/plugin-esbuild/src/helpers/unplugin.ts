@@ -21,5 +21,7 @@ import { createEsbuildPlugin as createEsbuildUnplugin } from "unplugin";
 import { EsbuildPluginContext } from "../types/plugin";
 
 export function createEsbuildPlugin(context: EsbuildPluginContext) {
-  return createEsbuildUnplugin(createUnplugin(context))({});
+  return createEsbuildUnplugin(
+    createUnplugin(context, { silenceHookLogging: true })
+  )({});
 }

@@ -88,6 +88,7 @@ const formatMessage = (context: Context, ...msgs: any[]) =>
   msgs
     .filter(Boolean)
     .join(" ")
+    .trim()
     .replace(new RegExp(`\\[${context.config.name}\\]`, "g"), "")
     .replaceAll(/^\s+/g, "")
     .replaceAll(/\s+$/g, "")
@@ -261,12 +262,20 @@ export function resolveOptions(context: Context): BuildOptions {
         context.config.logLevel === null ||
         context.config.mode === "production",
       logLevel:
-        context.config.logLevel === "trace" ? "debug" : context.config.logLevel,
+        context.config.logLevel === "trace"
+          ? "debug"
+          : context.config.logLevel === "debug" ||
+              context.config.logLevel === "info"
+            ? "warn"
+            : context.config.logLevel,
       customLogger: {
         level:
           context.config.logLevel === "trace"
             ? "debug"
-            : context.config.logLevel,
+            : context.config.logLevel === "debug" ||
+                context.config.logLevel === "info"
+              ? "warn"
+              : context.config.logLevel,
         info: (...msgs: any[]) =>
           isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
           context.debug(formatMessage(context, ...msgs)),

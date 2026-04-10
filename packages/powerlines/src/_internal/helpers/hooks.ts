@@ -46,6 +46,7 @@ import {
   PluginHookFields,
   ResolvedConfig
 } from "../../types";
+import { colorText } from "../../utils";
 
 export const mergeResultObjects = createDefu(
   <T>(obj: T, key: keyof T, value: any) => {
@@ -131,9 +132,11 @@ export async function callHook<
   const hooks = context.selectHooks(key, options);
   if (hooks.length > 0) {
     context.debug(
-      ` 🧩  Calling plugin hook: ${chalk.bold.cyanBright(
+      ` 🧩 Calling ${hooks.length} ${chalk.bold.cyanBright(
         `${key}${options?.order ? ` (${options.order})` : ""}`
-      )}`
+      )} plugin hook${hooks.length > 1 ? "s" : ""}:\n${hooks
+        .map((hook, index) => ` ${index + 1}. ${colorText(hook.plugin.name)}`)
+        .join("\n")}`
     );
 
     const invokeHook = async (
@@ -271,11 +274,10 @@ export function extractHooks<
         PluginContext<TResolvedConfig>
       >[];
 
-      const bucket = hooks[combinedKey][hookListOrder];
-      addPluginHook<
+      hooks[combinedKey][hookListOrder] = addPluginHook<
         PluginContext<TResolvedConfig>,
         PluginHookFields<PluginContext<TResolvedConfig>>
-      >(context, plugin, pluginHook, bucket);
+      >(context, plugin, pluginHook, hooks[combinedKey][hookListOrder]);
 
       return hooks;
     }
@@ -283,11 +285,10 @@ export function extractHooks<
     if (isFunction(pluginHook) || !pluginHook.order) {
       hooks[combinedKey].normal ??= [];
 
-      const bucket = hooks[combinedKey].normal;
-      addPluginHook<
+      hooks[combinedKey].normal = addPluginHook<
         PluginContext<TResolvedConfig>,
         PluginHookFields<PluginContext<TResolvedConfig>>
-      >(context, plugin, pluginHook, bucket);
+      >(context, plugin, pluginHook, hooks[combinedKey].normal);
 
       return hooks;
     }
@@ -295,12 +296,10 @@ export function extractHooks<
     const hookListOrder = `${pluginHook.order}Ordered` as HookListOrders;
     hooks[combinedKey][hookListOrder] ??= [];
 
-    addPluginHook(
-      context,
-      plugin,
-      pluginHook,
-      hooks[combinedKey][hookListOrder]
-    );
+    hooks[combinedKey][hookListOrder] = addPluginHook<
+      PluginContext<TResolvedConfig>,
+      PluginHookFields<PluginContext<TResolvedConfig>>
+    >(context, plugin, pluginHook, hooks[combinedKey][hookListOrder]);
 
     return hooks;
   } else if (isSetObject(pluginField)) {
@@ -308,7 +307,46 @@ export function extractHooks<
       .map(pluginKey =>
         extractHooks(context, hooks, plugin, pluginKey, combinedKey)
       )
-      .reduce((ret, current) => defu(ret, current), hooks);
+      .reduce((ret, current) => {
+        Object.keys(current).forEach(key => {
+          ret[key] ??= {
+            preEnforced: [] as HooksListItem<PluginContext<TResolvedConfig>>[],
+            preOrdered: [] as HooksListItem<PluginContext<TResolvedConfig>>[],
+            normal: [] as HooksListItem<PluginContext<TResolvedConfig>>[],
+            postEnforced: [] as HooksListItem<PluginContext<TResolvedConfig>>[],
+            postOrdered: [] as HooksListItem<PluginContext<TResolvedConfig>>[]
+          };
+
+          [
+            "preEnforced",
+            "preOrdered",
+            "normal",
+            "postEnforced",
+            "postOrdered"
+          ].forEach(order => {
+            if (
+              current[key]?.[
+                order as keyof HooksList<PluginContext<TResolvedConfig>>
+              ]
+            ) {
+              ret[key]![
+                order as keyof HooksList<PluginContext<TResolvedConfig>>
+              ] ??= [];
+              ret[key]![
+                order as keyof HooksList<PluginContext<TResolvedConfig>>
+              ] = ret[key]![
+                order as keyof HooksList<PluginContext<TResolvedConfig>>
+              ]!.concat(
+                current[key][
+                  order as keyof HooksList<PluginContext<TResolvedConfig>>
+                ]!
+              );
+            }
+          });
+        });
+
+        return ret;
+      }, hooks);
   }
 
   return hooks;

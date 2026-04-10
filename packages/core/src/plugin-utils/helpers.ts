@@ -267,19 +267,47 @@ export function isUnpluginHookField<
  * @param plugins - The list of plugins to check against
  * @returns True if the plugin should be deduplicated, false otherwise
  */
-export function checkDedupe<
+export function isDuplicate<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig,
   TContext extends PluginContext<TResolvedConfig> =
     PluginContext<TResolvedConfig>
 >(plugin: Plugin<TContext>, plugins: Plugin<TContext>[]) {
   return (
-    plugin.dedupe === false ||
+    plugin.dedupe !== false &&
     plugins.some(
       p =>
         p.dedupe !== false &&
-        ((isFunction(p.dedupe) && p.dedupe(plugin)) || p.name === plugin.name)
+        ((isFunction(p.dedupe) && p.dedupe(plugin)) ||
+          p.name.toLowerCase() === plugin.name.toLowerCase())
     )
   );
+}
+
+/**
+ * Remove duplicate hooks from a list of hooks, keeping the first occurrence of each plugin.
+ *
+ * @param hooksList - The list of hooks to deduplicate.
+ * @returns A new list of hooks with duplicates removed.
+ */
+export function dedupeHooklist<
+  TContext extends PluginContext = PluginContext,
+  TField extends PluginHookFields<TContext> = PluginHookFields<TContext>,
+  TList extends HooksListItem<TContext, TField> = HooksListItem<
+    TContext,
+    TField
+  >
+>(hooksList: TList[]): TList[] {
+  return hooksList.reduce<TList[]>((ret, hook) => {
+    if (
+      !isDuplicate(
+        hook.plugin,
+        ret.map(h => h.plugin)
+      )
+    ) {
+      ret.push(hook);
+    }
+    return ret;
+  }, []);
 }
 
 /**
@@ -302,9 +330,9 @@ export function addPluginHook<
   plugin: Plugin<TContext>,
   pluginHook: PluginHook<AnyFunction>,
   hooksList: TList[]
-) {
+): TList[] {
   if (
-    !checkDedupe(plugin, hooksList.map(hook => hook.plugin).filter(Boolean))
+    !isDuplicate(plugin, hooksList.map(hook => hook.plugin).filter(Boolean))
   ) {
     const handler = ((...args: unknown[]) =>
       (
@@ -313,7 +341,7 @@ export function addPluginHook<
         ) as unknown as (...args: unknown[]) => unknown
       ).apply(context, args)) as GetHookHandlerReturnType<TContext, TField>;
     if (!handler) {
-      return;
+      return dedupeHooklist<TContext, TField, TList>(hooksList);
     }
 
     hooksList.push({
@@ -321,6 +349,8 @@ export function addPluginHook<
       handler
     } as any);
   }
+
+  return dedupeHooklist<TContext, TField, TList>(hooksList);
 }
 
 /**

@@ -72,7 +72,7 @@ import { VirtualFileSystem } from "../_internal/vfs";
 import { loadUserConfigFile, loadWorkspaceConfig } from "../config";
 import { CACHE_HASH_LENGTH, ROOT_HASH_LENGTH } from "../constants";
 import {
-  checkDedupe,
+  isDuplicate,
   isPlugin,
   mergeConfig,
   replacePathTokens
@@ -1370,7 +1370,8 @@ export class PowerlinesContext<
   public createLog(name: string | null = null): LogFn {
     return createLog(name, {
       ...this.config,
-      logLevel: isNull(this.config.logLevel) ? "silent" : this.config.logLevel
+      logLevel: isNull(this.config.logLevel) ? "silent" : this.config.logLevel,
+      command: this.config.command
     });
   }
 
@@ -1765,7 +1766,7 @@ export class PowerlinesContext<
       .reduce((ret, plugin) => {
         if (
           isPlugin(plugin) &&
-          checkDedupe(
+          isDuplicate(
             plugin,
             ret.filter(p => isPlugin(p))
           )
@@ -1846,7 +1847,7 @@ export class PowerlinesContext<
       .reduce((ret, plugin) => {
         if (
           isPlugin(plugin) &&
-          checkDedupe(
+          isDuplicate(
             plugin,
             ret.filter(p => isPlugin(p))
           )

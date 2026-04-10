@@ -316,6 +316,7 @@
     "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",
     "@stryke/env": "catalog:",
+    "@stryke/helpers": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/json": "catalog:",
     "@stryke/path": "catalog:",
@@ -333,8 +334,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "inlinedDependencies": {
-    "@stryke/helpers": "0.10.8"
   }
 }

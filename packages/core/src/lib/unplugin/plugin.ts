@@ -90,7 +90,14 @@ export function createUnpluginResolver<
   };
 }
 
-export interface CreateUnpluginOptions extends CreateUnpluginResolverOptions {}
+export interface CreateUnpluginOptions extends CreateUnpluginResolverOptions {
+  /**
+   * Whether to silence logging for the plugin hooks. This can be useful for plugins that run frequently or have hooks that are called often, to reduce noise in the logs. When set to `true`, the plugin will not log any messages for its hooks. When set to `false` (the default), the plugin will log messages for its hooks as normal.
+   *
+   * @defaultValue false
+   */
+  silenceHookLogging?: boolean;
+}
 
 /**
  * Creates a Powerlines unplugin instance.
@@ -116,7 +123,9 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
         createUnpluginModuleResolutionFunctions<TContext>(context, options);
 
       async function buildStart(this: UnpluginBuildContext) {
-        log(LogLevelLabel.DEBUG, "Powerlines build plugin starting...");
+        if (!options.silenceHookLogging) {
+          log(LogLevelLabel.DEBUG, "Powerlines build plugin starting...");
+        }
 
         await ctx.$$internal.callHook("buildStart", {
           sequential: true
@@ -147,7 +156,9 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
       }
 
       async function buildEnd(this: UnpluginBuildContext): Promise<void> {
-        log(LogLevelLabel.DEBUG, "Powerlines build plugin finishing...");
+        if (!options.silenceHookLogging) {
+          log(LogLevelLabel.DEBUG, "Powerlines build plugin finishing...");
+        }
 
         return ctx.$$internal.callHook("buildEnd", {
           sequential: true
@@ -155,7 +166,9 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
       }
 
       async function writeBundle(): Promise<void> {
-        log(LogLevelLabel.DEBUG, "Finalizing Powerlines project output...");
+        if (!options.silenceHookLogging) {
+          log(LogLevelLabel.DEBUG, "Finalizing Powerlines project output...");
+        }
 
         return ctx.$$internal.callHook("writeBundle", {
           sequential: true

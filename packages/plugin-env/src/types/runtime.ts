@@ -178,6 +178,8 @@ export interface EnvInterface {
    * The name of the agent running the application. This variable is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category neutral
    */
   readonly AGENT_NAME?: string;
@@ -186,6 +188,8 @@ export interface EnvInterface {
    * The color terminal type. This variable is set by certain terminal emulators.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly COLORTERM?: string;
@@ -197,6 +201,8 @@ export interface EnvInterface {
    * This variable is used to specify the terminal type that the application is running in. It can be used to determine how to format output for the terminal.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly TERM?: string;
@@ -205,6 +211,8 @@ export interface EnvInterface {
    * The terminal program name. This variable is set by certain terminal emulators.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly TERM_PROGRAM?: string;
@@ -213,6 +221,8 @@ export interface EnvInterface {
    * The terminal program version. This variable is set by certain terminal emulators.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly TERM_PROGRAM_VERSION?: string;
@@ -221,6 +231,8 @@ export interface EnvInterface {
    * The terminal emulator name. This variable is set by certain terminal emulators.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly TERMINAL_EMULATOR?: string;
@@ -229,6 +241,8 @@ export interface EnvInterface {
    * The terminal emulator session ID. This variable is set by certain terminal emulators.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly WT_SESSION?: string;
@@ -237,6 +251,8 @@ export interface EnvInterface {
    * An indicator that specifies the current terminal is running Terminus Sublime. This variable is set by certain terminal emulators.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly TERMINUS_SUBLIME?: boolean;
@@ -245,6 +261,8 @@ export interface EnvInterface {
    * The ConEmu task name. This variable is set by certain terminal emulators.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly ConEmuTask?: string;
@@ -253,6 +271,8 @@ export interface EnvInterface {
    * The cursor trace ID. This variable is set by certain terminal emulators.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly CURSOR_TRACE_ID?: string;
@@ -261,6 +281,8 @@ export interface EnvInterface {
    * The VTE version. This variable is set by certain terminal emulators.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly VTE_VERSION?: string;
@@ -328,6 +350,8 @@ export interface EnvInterface {
    * The unique identifier for the current run. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly RUN_ID?: string;
@@ -336,6 +360,8 @@ export interface EnvInterface {
    * The agola git reference. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly AGOLA_GIT_REF?: string;
@@ -344,6 +370,8 @@ export interface EnvInterface {
    * The appcircle build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly AC_APPCIRCLE?: string;
@@ -352,6 +380,8 @@ export interface EnvInterface {
    * The appveyor build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly APPVEYOR?: string;
@@ -360,6 +390,8 @@ export interface EnvInterface {
    * The codebuild build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly CODEBUILD?: string;
@@ -368,6 +400,8 @@ export interface EnvInterface {
    * The task force build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly TF_BUILD?: string;
@@ -376,6 +410,8 @@ export interface EnvInterface {
    * The bamboo plan key. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly bamboo_planKey?: string;
@@ -384,6 +420,8 @@ export interface EnvInterface {
    * The bitbucket commit. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly BITBUCKET_COMMIT?: string;
@@ -392,6 +430,8 @@ export interface EnvInterface {
    * The bitrise build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly BITRISE_IO?: string;
@@ -400,6 +440,8 @@ export interface EnvInterface {
    * The buddy workspace ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly BUDDY_WORKSPACE_ID?: string;
@@ -408,6 +450,8 @@ export interface EnvInterface {
    * The buildkite build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly BUILDKITE?: string;
@@ -416,6 +460,8 @@ export interface EnvInterface {
    * The circleci build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly CIRCLECI?: string;
@@ -424,6 +470,8 @@ export interface EnvInterface {
    * The cirrus-ci build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly CIRRUS_CI?: string;
@@ -432,6 +480,8 @@ export interface EnvInterface {
    * The cf build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly CF_BUILD_ID?: string;
@@ -440,6 +490,8 @@ export interface EnvInterface {
    * The cm build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly CM_BUILD_ID?: string;
@@ -448,6 +500,8 @@ export interface EnvInterface {
    * The ci name. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly CI_NAME?: string;
@@ -456,6 +510,8 @@ export interface EnvInterface {
    * The drone build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly DRONE?: string;
@@ -464,6 +520,8 @@ export interface EnvInterface {
    * The dsari build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly DSARI?: string;
@@ -472,6 +530,8 @@ export interface EnvInterface {
    * The earthly build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly EARTHLY_CI?: string;
@@ -480,6 +540,8 @@ export interface EnvInterface {
    * The eas build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly EAS_BUILD?: string;
@@ -488,6 +550,8 @@ export interface EnvInterface {
    * The gerrit project. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly GERRIT_PROJECT?: string;
@@ -496,6 +560,8 @@ export interface EnvInterface {
    * The gitea actions build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly GITEA_ACTIONS?: string;
@@ -504,6 +570,8 @@ export interface EnvInterface {
    * The github actions build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly GITHUB_ACTIONS?: string;
@@ -512,6 +580,8 @@ export interface EnvInterface {
    * The gitlab ci build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly GITLAB_CI?: string;
@@ -520,6 +590,8 @@ export interface EnvInterface {
    * The go cd build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly GOCD?: string;
@@ -528,6 +600,8 @@ export interface EnvInterface {
    * The builder output build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly BUILDER_OUTPUT?: string;
@@ -536,6 +610,8 @@ export interface EnvInterface {
    * The harness build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly HARNESS_BUILD_ID?: string;
@@ -544,6 +620,8 @@ export interface EnvInterface {
    * The jenkins url. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly JENKINS_URL?: string;
@@ -552,6 +630,8 @@ export interface EnvInterface {
    * The layerci build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly LAYERCI?: string;
@@ -560,6 +640,8 @@ export interface EnvInterface {
    * The magnum build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly MAGNUM?: string;
@@ -568,6 +650,8 @@ export interface EnvInterface {
    * The netlify build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly NETLIFY?: string;
@@ -576,6 +660,8 @@ export interface EnvInterface {
    * The nevercode build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly NEVERCODE?: string;
@@ -584,6 +670,8 @@ export interface EnvInterface {
    * The prow job ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly PROW_JOB_ID?: string;
@@ -592,6 +680,8 @@ export interface EnvInterface {
    * The release build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly RELEASE_BUILD_ID?: string;
@@ -600,6 +690,8 @@ export interface EnvInterface {
    * The render build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly RENDER?: string;
@@ -608,6 +700,8 @@ export interface EnvInterface {
    * The sailci build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly SAILCI?: string;
@@ -616,6 +710,8 @@ export interface EnvInterface {
    * The hudson build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly HUDSON?: string;
@@ -624,6 +720,8 @@ export interface EnvInterface {
    * The screwdriver build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly SCREWDRIVER?: string;
@@ -632,6 +730,8 @@ export interface EnvInterface {
    * The semaphore build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly SEMAPHORE?: string;
@@ -640,6 +740,8 @@ export interface EnvInterface {
    * The sourcehut build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly SOURCEHUT?: string;
@@ -647,6 +749,8 @@ export interface EnvInterface {
    * The spaceship build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly SPACESHIP_CI?: string;
@@ -655,6 +759,8 @@ export interface EnvInterface {
    * The strider build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly STRIDER?: string;
@@ -663,6 +769,8 @@ export interface EnvInterface {
    * The task ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly TASK_ID?: string;
@@ -671,6 +779,8 @@ export interface EnvInterface {
    * The teamcity version. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly TEAMCITY_VERSION?: string;
@@ -679,6 +789,8 @@ export interface EnvInterface {
    * The travis build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly TRAVIS?: string;
@@ -687,6 +799,8 @@ export interface EnvInterface {
    * The vela build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly VELA?: string;
@@ -695,6 +809,8 @@ export interface EnvInterface {
    * The now builder build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly NOW_BUILDER?: string;
@@ -703,6 +819,8 @@ export interface EnvInterface {
    * The appcenter build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly APPCENTER_BUILD_ID?: string;
@@ -711,6 +829,8 @@ export interface EnvInterface {
    * The xcode project build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly CI_XCODE_PROJECT?: string;
@@ -719,6 +839,8 @@ export interface EnvInterface {
    * The xcode server build ID. This value is set by certain CI/CD systems.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly XCS?: string;
@@ -730,6 +852,7 @@ export interface EnvInterface {
    * This variable is used to override the base path of the system's local application data directory. This variable is used to set the \`$storm.paths.data\` property.
    *
    * @title Data Directory
+   * @runtime
    * @category node
    */
   DATA_DIR?: string;
@@ -741,6 +864,7 @@ export interface EnvInterface {
    * This variable is used to override the base path of the system's local application configuration directory. This variable is used to set the \`$storm.paths.config\` property.
    *
    * @title Configuration Directory
+   * @runtime
    * @category node
    */
   CONFIG_DIR?: string;
@@ -752,6 +876,7 @@ export interface EnvInterface {
    * This variable is used to override the base path of the system's local cache data directory. This variable is used to set the \`$storm.paths.cache\` property.
    *
    * @title Cache Directory
+   * @runtime
    * @category node
    */
   CACHE_DIR?: string;
@@ -763,6 +888,7 @@ export interface EnvInterface {
    * This variable is used to override the base path of the system's local application log directory. This variable is used to set the \`$storm.paths.log\` property.
    *
    * @title Log Directory
+   * @runtime
    * @category node
    */
   LOG_DIR?: string;
@@ -774,6 +900,7 @@ export interface EnvInterface {
    * This variable is used to override the base path of the system's local temporary data directory. This variable is used to set the \`$storm.paths.temp\` property.
    *
    * @title Temporary Directory
+   * @runtime
    * @category node
    */
   TEMP_DIR?: string;
@@ -787,6 +914,8 @@ export interface EnvInterface {
    * This variable is used to specify a path to application data that is specific to the current user. This variable can be used to set the \`$storm.paths.data\`, \`$storm.paths.cache\`, and \`$storm.paths.log\` properties.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly LOCALAPPDATA?: string;
@@ -800,6 +929,8 @@ export interface EnvInterface {
    * This variable is used to specify a path to application data that is specific to the current user. This variable can be used to set the \`$storm.paths.config\` property.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly APPDATA?: string;
@@ -813,6 +944,8 @@ export interface EnvInterface {
    * This variable is used to specify a path to application data that is specific to the current user. This variable can be used to set the \`$storm.paths.data\` property.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly XDG_DATA_HOME?: string;
@@ -826,6 +959,8 @@ export interface EnvInterface {
    * This variable is used to specify a path to configuration data that is specific to the current user. This variable can be used to set the \`$storm.paths.config\` property.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly XDG_CONFIG_HOME?: string;
@@ -839,6 +974,8 @@ export interface EnvInterface {
    * This variable is used to specify a path to cache data that is specific to the current user. This variable can be used to set the \`$storm.paths.cache\` property.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly XDG_CACHE_HOME?: string;
@@ -852,6 +989,8 @@ export interface EnvInterface {
    * This variable is used to specify a path to application state data that is specific to the current user. This variable can be used to set the \`$storm.paths.state\` property.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly XDG_STATE_HOME?: string;
@@ -865,6 +1004,8 @@ export interface EnvInterface {
    * This variable is used to specify a path to runtime data that is specific to the current user. This variable can be used to set the \`$storm.paths.temp\` property.
    *
    * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   readonly XDG_RUNTIME_DIR?: string;

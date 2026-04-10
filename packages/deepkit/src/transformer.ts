@@ -60,7 +60,7 @@ export function createTransformer(
         {
           exclude: [],
           reflection: "default",
-          reflectionLevel: "minimal"
+          reflectionLevel: "normal"
         }
       ) as ReflectionConfig
     );

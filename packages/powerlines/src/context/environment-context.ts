@@ -16,8 +16,10 @@
 
  ------------------------------------------------------------------- */
 
+import { createLog } from "@powerlines/core/lib/logger";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { isFunction } from "@stryke/type-checks/is-function";
+import { isNull } from "@stryke/type-checks/is-null";
 import { isObject } from "@stryke/type-checks/is-object";
 import { ArrayValues } from "@stryke/types/array";
 import { extractHooks } from "powerlines/_internal/helpers/hooks";
@@ -29,6 +31,7 @@ import type {
   EnvironmentResolvedConfig,
   HooksList,
   HooksListItem,
+  LogFn,
   Plugin,
   PluginConfig,
   PluginContext,
@@ -99,6 +102,23 @@ export class PowerlinesEnvironmentContext<
     return super.config;
   }
 
+  /**
+   * Create a new logger instance
+   *
+   * @param name - The name to use for the logger instance
+   * @returns A logger function
+   */
+  public override createLog(name: string | null = null): LogFn {
+    return createLog(name, {
+      ...this.config,
+      logLevel: isNull(this.config.logLevel) ? "silent" : this.config.logLevel,
+      environment: this.environment?.name
+    });
+  }
+
+  /**
+   * The hooks registered by plugins in this environment
+   */
   public get hooks(): Record<
     string,
     HooksList<PluginContext<TResolvedConfig>>
@@ -179,8 +199,7 @@ export class PowerlinesEnvironmentContext<
       isPluginHookField<PluginContext<TResolvedConfig>>(key) &&
       this.hooks[key]
     ) {
-      const hooks = this.hooks[key];
-      if (hooks) {
+      if (this.hooks[key]) {
         if (options?.order) {
           const mapHooksToResult = (
             hooksList: HooksListItem<PluginContext<TResolvedConfig>, string>[]
@@ -205,13 +224,15 @@ export class PowerlinesEnvironmentContext<
             });
 
           if (options?.order === "pre") {
-            result.push(...mapHooksToResult(hooks.preOrdered ?? []));
-            result.push(...mapHooksToResult(hooks.preEnforced ?? []));
+            result.push(...mapHooksToResult(this.hooks[key].preOrdered ?? []));
+            result.push(...mapHooksToResult(this.hooks[key].preEnforced ?? []));
           } else if (options?.order === "post") {
-            result.push(...mapHooksToResult(hooks.postOrdered ?? []));
-            result.push(...mapHooksToResult(hooks.postEnforced ?? []));
+            result.push(...mapHooksToResult(this.hooks[key].postOrdered ?? []));
+            result.push(
+              ...mapHooksToResult(this.hooks[key].postEnforced ?? [])
+            );
           } else {
-            result.push(...mapHooksToResult(hooks.normal ?? []));
+            result.push(...mapHooksToResult(this.hooks[key].normal ?? []));
           }
         } else {
           result.push(...this.selectHooks(key, { order: "pre" }));

@@ -21,5 +21,7 @@ import { createEsbuildPlugin } from "unplugin";
 import { TsupPluginContext } from "../types/plugin";
 
 export function createTsupPlugin(context: TsupPluginContext) {
-  return createEsbuildPlugin(createUnplugin(context))({});
+  return createEsbuildPlugin(
+    createUnplugin(context, { silenceHookLogging: true })
+  )({});
 }

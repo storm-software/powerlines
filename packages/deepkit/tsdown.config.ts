@@ -32,7 +32,7 @@ const config = defineTSDownConfig([
     clean: false,
     exports: false,
     unbundle: false,
-    dts: false,
+    dts: true,
     deps: {
       skipNodeModulesBundle: false,
       alwaysBundle: ["@deepkit/core", "@deepkit/type", "@deepkit/type-spec"]

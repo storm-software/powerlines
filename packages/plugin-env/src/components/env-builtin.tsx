@@ -59,6 +59,7 @@ import {
   TSDocReturns,
   TSDocThrows
 } from "@powerlines/plugin-alloy/typescript/components/tsdoc";
+import { getUnique } from "@stryke/helpers/get-unique";
 import { titleCase } from "@stryke/string-format/title-case";
 import defu from "defu";
 import { loadEnvFromContext } from "../helpers/load";
@@ -93,9 +94,11 @@ export function EnvTypeDefinition(
       </TSDoc>
       <TypeDeclaration name="Env" export>
         {code` {
-    [Key in keyof EnvBase as Key ${context.config.env.prefix
-      .map(prefix => `| \`${prefix.replace(/_$/g, "")}_\${Key}\``)
-      .join(" ")}]: EnvBase[Key];
+    [Key in keyof EnvBase as Key ${getUnique(
+      context.config.env.prefix.map(
+        prefix => `| \`${prefix.replace(/_$/g, "")}_\${Key}\``
+      )
+    ).join(" ")}]: EnvBase[Key];
 }
 `}
       </TypeDeclaration>
@@ -112,12 +115,13 @@ interface ConfigPropertyConditionalProps extends ComponentProps {
 function ConfigPropertyConditional(props: ConfigPropertyConditionalProps) {
   const [{ context, name }] = splitProps(props, ["context", "name"]);
 
-  return code`propertyName === "${name}" || propertyName.replace(/^(${context.config.env.prefix
-    .sort((a, b) =>
-      a.startsWith(b) ? -1 : b.startsWith(a) ? 1 : a.localeCompare(b)
-    )
-    .map(prefix => `${prefix.replace(/_$/, "")}_`)
-    .join("|")})/g, "").toLowerCase().replace(/[\\s\\-_]+/g, "") === "${name
+  return code`propertyName === "${name}" || propertyName.replace(/^(${getUnique(
+    context.config.env.prefix
+      .sort((a, b) =>
+        a.startsWith(b) ? -1 : b.startsWith(a) ? 1 : a.localeCompare(b)
+      )
+      .map(prefix => `${prefix.replace(/_$/, "")}_`)
+  ).join("|")})/g, "").toLowerCase().replace(/[\\s\\-_]+/g, "") === "${name
     .toLowerCase()
     .replace(/[\s\-_]+/g, "")}"`;
 }

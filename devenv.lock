@@ -3,11 +3,11 @@
     "devenv": {
       "locked": {
         "dir": "src/modules",
-        "lastModified": 1775334024,
-        "narHash": "sha256-vg1CVojgtjLPZNFe7QVd/d97E12TLUgBQDlCqMqbEGU=",
+        "lastModified": 1775742783,
+        "narHash": "sha256-2u8i+4s9hx6KEptCtCN2vn2nrFBXPBlTcI4wfVfLAio=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "f30a244f8175ef14ed1a4e4dfc737d28ecc5d852",
+        "rev": "52fa484bd1a2ccba8c8025d41e41fdace52634e6",
         "type": "github"
       },
       "original": {
@@ -55,11 +55,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1775403759,
-        "narHash": "sha256-cGyKiTspHEUx3QwAnV3RfyT+VOXhHLs+NEr17HU34Wo=",
+        "lastModified": 1775701739,
+        "narHash": "sha256-2FWWY1rr/+pGUJK1npcVcsWNEblzmKs6VxD3VEvwJSs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5e11f7acce6c3469bef9df154d78534fa7ae8b6c",
+        "rev": "0f7663154ff2fec150f9dbf5f81ec2785dc1e0db",
         "type": "github"
       },
       "original": {
@@ -81,15 +81,16 @@
     "storm-ops": {
       "flake": false,
       "locked": {
-        "lastModified": 1775070986,
-        "narHash": "sha256-djzEz8LLkVVb/CqDIE88RAiQ+4YnVVfv4CAWB99PQIw=",
+        "lastModified": 1775662592,
+        "narHash": "sha256-oBqI42Odyq19KD3LD9OCTZFUqjXz2YHwWh51CFxHRuc=",
         "owner": "storm-software",
         "repo": "storm-ops",
-        "rev": "20de7accec65706d7c32884aa0316c975c5a2298",
+        "rev": "b4b9ad2b885e4f78729e962a1c79139bed0b6c3f",
         "type": "github"
       },
       "original": {
         "owner": "storm-software",
+        "ref": "main",
         "repo": "storm-ops",
         "type": "github"
       }
@@ -101,11 +102,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775125835,
-        "narHash": "sha256-2qYcPgzFhnQWchHo0SlqLHrXpux5i6ay6UHA+v2iH4U=",
+        "lastModified": 1775636079,
+        "narHash": "sha256-pc20NRoMdiar8oPQceQT47UUZMBTiMdUuWrYu2obUP0=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "75925962939880974e3ab417879daffcba36c4a3",
+        "rev": "790751ff7fd3801feeaf96d7dc416a8d581265ba",
         "type": "github"
       },
       "original": {

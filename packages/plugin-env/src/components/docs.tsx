@@ -79,7 +79,8 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
             ?.getProperties()
             .filter(
               property =>
-                property.getNameAsString() !== "__POWERLINES_INJECTED__"
+                property.getNameAsString() !== "__POWERLINES_INJECTED__" &&
+                !property.isHidden()
             )
             .sort((a, b) =>
               a.getNameAsString().localeCompare(b.getNameAsString())

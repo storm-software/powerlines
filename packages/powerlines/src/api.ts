@@ -61,8 +61,8 @@ import {
 } from "./_internal/helpers/resolve-tsconfig";
 import { PowerlinesAPIContext } from "./context/api-context";
 import {
-  checkDedupe,
   findInvalidPluginConfig,
+  isDuplicate,
   isPlugin,
   isPluginConfig,
   isPluginConfigObject,
@@ -169,9 +169,9 @@ export class PowerlinesAPI<
       );
     } else {
       api.context.info(
-        `🔌 Loaded ${api.context.plugins.length} ${titleCase(
+        `Loaded ${api.context.plugins.length} ${titleCase(
           api.context.config.framework
-        )} plugin${api.context.plugins.length > 1 ? "s" : ""}: \n\n${api.context.plugins
+        )} plugin${api.context.plugins.length > 1 ? "s" : ""}: \n${api.context.plugins
           .map((plugin, index) => ` ${index + 1}. ${colorText(plugin.name)}`)
           .join("\n")}`
       );
@@ -1135,7 +1135,7 @@ export class PowerlinesAPI<
 
     const result = [] as Plugin<PluginContext<TResolvedConfig>>[];
     for (const plugin of plugins) {
-      if (checkDedupe<TResolvedConfig>(plugin, this.context.plugins)) {
+      if (isDuplicate<TResolvedConfig>(plugin, this.context.plugins)) {
         this.context.trace(
           `Duplicate ${chalk.bold.cyanBright(
             plugin.name

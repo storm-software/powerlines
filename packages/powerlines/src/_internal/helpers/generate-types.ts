@@ -23,11 +23,27 @@ import { isParentPath } from "@stryke/path/is-parent-path";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
 import { isSetString } from "@stryke/type-checks/is-set-string";
-import { match } from "bundle-require";
-import { DiagnosticCategory } from "ts-morph";
+import { DiagnosticCategory, Node, Project } from "ts-morph";
 import { Context } from "../../types";
 import { createProgram } from "../../typescript/ts-morph";
 import { format } from "../../utils";
+
+interface ModuleReference {
+  id: string;
+  external: boolean;
+}
+
+interface Mapping {
+  source: string;
+  line: number;
+  column: number;
+}
+
+interface ModuleDeclaration {
+  content: string;
+  mappings: Map<string, Mapping>;
+  ambient: ModuleReference[];
+}
 
 /**
  * Formats the generated TypeScript types source code.
@@ -39,19 +55,157 @@ export function formatTypes(code = ""): string {
   return code.replaceAll("#private;", "").replace(/__Ω/g, "");
 }
 
-/**
- * Formats a generated TypeScript module in the types source code.
- *
- * @param context - The Powerlines context.
- * @param id - The module ID for the generated TypeScript module.
- * @param code - The generated TypeScript module code.
- * @returns The formatted TypeScript module code.
- */
-export async function formatTypesModule(
+async function extractModuleDeclarations(
   context: Context,
+  filePath: string,
   id: string,
-  code: string
-): Promise<{ code: string; directives: string[] }> {
+  code: string,
+  fileToModuleMap: Map<string, string>
+): Promise<ModuleDeclaration> {
+  const mappings = new Map<string, Mapping>();
+  const ambient: ModuleReference[] = [];
+
+  // Parse the emitted .d.ts content using an in-memory ts-morph project
+  const project = new Project({ useInMemoryFileSystem: true });
+  const sourceFile = project.createSourceFile("module.d.ts", code);
+
+  // Collect /// <reference types="..." /> directives as ambient dependencies
+  for (const ref of sourceFile.getTypeReferenceDirectives()) {
+    ambient.push({ id: ref.getFileName(), external: true });
+  }
+
+  const importLines: string[] = [];
+  const reExportLines: string[] = [];
+  const declarationLines: string[] = [];
+
+  for (const statement of sourceFile.getStatements()) {
+    // --- Import declarations ---
+    if (Node.isImportDeclaration(statement)) {
+      const moduleSpec = statement.getModuleSpecifierValue();
+      const defaultImport = statement.getDefaultImport();
+      const namedImports = statement.getNamedImports();
+      const namespaceImport = statement.getNamespaceImport();
+
+      // Side-effect import (no import clause) → ambient dependency
+      if (!defaultImport && namedImports.length === 0 && !namespaceImport) {
+        ambient.push({
+          id: moduleSpec,
+          external: !context.fs.isResolvableId(moduleSpec, filePath)
+        });
+        continue;
+      }
+
+      // Resolve the module specifier for the output
+      let resolvedSpec = moduleSpec;
+      if (context.fs.isResolvableId(moduleSpec, filePath)) {
+        const resolved = await context.resolve(moduleSpec, filePath);
+        if (resolved) {
+          const mapped = fileToModuleMap.get(resolved.id);
+          if (mapped) {
+            resolvedSpec = mapped;
+          } else {
+            context.trace(
+              `Could not resolve relative import '${moduleSpec}' from '${filePath}' to a builtin module. Keeping as-is.`
+            );
+          }
+        }
+      }
+
+      // Namespace import: import * as X from '...'
+      if (namespaceImport) {
+        importLines.push(
+          `\timport * as ${namespaceImport.getText()} from '${resolvedSpec}';`
+        );
+      } else {
+        const specifiers: string[] = [];
+
+        if (defaultImport) {
+          specifiers.push(`default as ${defaultImport.getText()}`);
+        }
+
+        for (const named of namedImports) {
+          const alias = named.getAliasNode()?.getText();
+          specifiers.push(
+            alias ? `${named.getName()} as ${alias}` : named.getName()
+          );
+        }
+
+        if (specifiers.length > 0) {
+          const typeOnly = statement.isTypeOnly() ? " type" : "";
+          importLines.push(
+            `\timport${typeOnly} { ${specifiers.join(", ")} } from '${resolvedSpec}';`
+          );
+        }
+      }
+
+      continue;
+    }
+
+    // --- Export declarations ---
+    if (Node.isExportDeclaration(statement)) {
+      const moduleSpec = statement.getModuleSpecifierValue();
+
+      if (moduleSpec) {
+        // Resolve the module specifier
+        let resolvedSpec = moduleSpec;
+        if (context.fs.isResolvableId(moduleSpec, filePath)) {
+          const resolved = await context.resolve(moduleSpec, filePath);
+          if (resolved) {
+            const mapped = fileToModuleMap.get(resolved.id);
+            if (mapped) {
+              resolvedSpec = mapped;
+            } else {
+              context.trace(
+                `Could not resolve relative import '${moduleSpec}' from '${filePath}' to a builtin module. Keeping as-is.`
+              );
+            }
+          }
+        }
+
+        // Re-export from another module
+        const namedExports = statement.getNamedExports();
+        if (namedExports.length > 0) {
+          const specifiers = namedExports.map(named => {
+            const alias = named.getAliasNode()?.getText();
+
+            return alias ? `${named.getName()} as ${alias}` : named.getName();
+          });
+          const typeOnly = statement.isTypeOnly() ? " type" : "";
+          reExportLines.push(
+            `\texport${typeOnly} { ${specifiers.join(", ")} } from '${resolvedSpec}';`
+          );
+        } else {
+          // export * from '...'
+          reExportLines.push(`\texport * from '${resolvedSpec}';`);
+        }
+      } else {
+        // Local export { foo, bar } — keep as-is
+        declarationLines.push(`\t${statement.getText()}`);
+      }
+
+      continue;
+    }
+
+    // --- Export assignments (export default ...) ---
+    if (Node.isExportAssignment(statement)) {
+      declarationLines.push(`\t${statement.getText()}`);
+      continue;
+    }
+
+    // --- All other statements (declarations) ---
+    const text = statement.getText();
+    if (text.includes("//# sourceMappingURL=")) {
+      continue;
+    }
+
+    declarationLines.push(
+      formatTypes(text.replace(/^(export\s+)?declare\s+/, "$1"))
+        .split("\n")
+        .map(line => `\t${line}`)
+        .join("\n")
+    );
+  }
+
   const moduleComment = code
     .match(
       new RegExp(
@@ -62,93 +216,21 @@ export async function formatTypesModule(
     )
     ?.find(comment => isSetString(comment?.trim()));
 
-  const ast = await context.parse(code, {
-    lang: "dts",
-    astType: "ts"
-  });
-
-  return {
-    code: `${
-      moduleComment
-        ? `
-${moduleComment.trim()}`
-        : ""
-    }
-declare module "${context.config.framework}:${id}" {
-  ${ast.module.staticImports
-    .filter(
-      staticImport =>
-        !match(
-          staticImport.moduleRequest.value,
-          context.config.resolve.external
-        ) && !staticImport.moduleRequest.value.startsWith("node:")
-    )
-    .reduce((ret, staticImport) => {
-      return ret.replaceAll(
-        new RegExp(
-          `^import.*from\\s+['"]${staticImport.moduleRequest.value}['"]\\s*;?$`,
-          "gm"
-        ),
-        ""
-      );
-    }, code)
-    .replace(moduleComment ?? "", "")
-    .replaceAll(/^\s*export\s*declare\s*/gm, "export ")
-    .replaceAll(/^\s*declare\s*/gm, "")
-    .replaceAll(/^\s*export\s*\{\s*\}/gm, "")
-    .replaceAll(/^\s*export\s*=\s*/gm, "export default ")
-    .replaceAll(/^\s*export\s*\{/gm, "export {")
-    .replaceAll(/^\s*export\s*default\s*\{/gm, "export default {")
-    .replaceAll(/^\s*export\s*function\s*/gm, "export function ")
-    .replaceAll(/^\s*export\s*class\s*/gm, "export class ")
-    .replaceAll(/^\s*export\s*interface\s*/gm, "export interface ")
-    .replaceAll(/^\s*export\s*type\s*/gm, "export type ")
-    .replaceAll(/^\s*export\s*enum\s*/gm, "export enum ")
-    .replaceAll(/^\s*export\s*namespace\s*/gm, "export namespace ")}${
-    ast.module.staticExports.length === 0
-      ? `
-  export {};`
-      : ""
+  let content = `${moduleComment ? `${moduleComment.trim()}\n` : ""}declare module "${context.config.framework}:${id}" {`;
+  for (const line of importLines) {
+    content += `\n${line}`;
   }
-}
-`,
-    directives: ast.module.staticImports
-      .filter(
-        staticImport =>
-          match(
-            staticImport.moduleRequest.value,
-            context.config.resolve.external
-          ) || staticImport.moduleRequest.value.startsWith("node:")
-      )
-      .map(staticImport =>
-        staticImport.moduleRequest.value.startsWith("node:")
-          ? "node"
-          : Object.keys(context.packageJson.dependencies ?? {}).find(
-              dependency =>
-                staticImport.moduleRequest.value.startsWith(dependency) ||
-                staticImport.moduleRequest.value.startsWith(
-                  dependency.replace(/^@types\//, "")
-                )
-            ) ||
-            Object.keys(context.packageJson.devDependencies ?? {}).find(
-              dependency =>
-                staticImport.moduleRequest.value.startsWith(dependency) ||
-                staticImport.moduleRequest.value.startsWith(
-                  dependency.replace(/^@types\//, "")
-                )
-            ) ||
-            Object.keys(context.packageJson.peerDependencies ?? {}).find(
-              dependency =>
-                staticImport.moduleRequest.value.startsWith(dependency) ||
-                staticImport.moduleRequest.value.startsWith(
-                  dependency.replace(/^@types\//, "")
-                )
-            ) ||
-            staticImport.moduleRequest.value
-      )
-      .filter(Boolean)
-      .map(dependency => dependency.replace(/^@types\//, ""))
-  };
+
+  for (const line of reExportLines) {
+    content += `\n${line}`;
+  }
+
+  for (const line of declarationLines) {
+    content += `\n${line}`;
+  }
+
+  content += "\n}";
+  return { content, mappings, ambient };
 }
 
 /**
@@ -249,13 +331,12 @@ export async function emitBuiltinTypes<TContext extends Context>(
     return { code: "", directives: [] };
   }
 
-  let result = "";
-  const directives: string[] = [];
-  for (const emittedFile of emittedFiles) {
-    context.trace(
-      `Processing emitted type declaration file: ${emittedFile.filePath}`
-    );
+  // First pass: build a mapping from emitted file paths to builtin module IDs
+  // so that relative imports between builtins can be resolved correctly
+  const fileToModuleMap = new Map<string, string>();
+  const emittedBuiltinFiles: { filePath: string; text: string }[] = [];
 
+  for (const emittedFile of emittedFiles) {
     const filePath = appendPath(
       emittedFile.filePath,
       context.workspaceConfig.workspaceRoot
@@ -280,24 +361,112 @@ export async function emitBuiltinTypes<TContext extends Context>(
         }
       );
       if (context.builtins.includes(moduleId)) {
-        const formatted = await formatTypesModule(
-          context,
-          moduleId,
-          emittedFile.text
-        );
-        result += formatted.code;
-        directives.push(...formatted.directives);
+        fileToModuleMap.set(filePath, moduleId);
+        emittedBuiltinFiles.push({ filePath, text: emittedFile.text });
       }
     }
   }
 
-  result = await format(context, context.typesPath, formatTypes(result));
+  const builtins = await context.getBuiltins();
+
+  // Build a content map of all emitted .d.ts files for ambient module resolution
+  const emittedContentMap = new Map<string, string>();
+  for (const emittedFile of emittedFiles) {
+    const filePath = appendPath(
+      emittedFile.filePath,
+      context.workspaceConfig.workspaceRoot
+    );
+    if (
+      !filePath.endsWith(".map") &&
+      findFileName(filePath) !== "tsconfig.tsbuildinfo"
+    ) {
+      emittedContentMap.set(filePath, emittedFile.text);
+    }
+  }
+
+  // Second pass: process each builtin module and generate declare module blocks
+  let code = "";
+  const directives: string[] = [];
+  const ambientModules = new Set<string>();
+  let isFirst = true;
+
+  for (const entry of emittedBuiltinFiles) {
+    context.trace(
+      `Processing emitted type declaration file: ${entry.filePath}`
+    );
+
+    const moduleId = fileToModuleMap.get(entry.filePath)!;
+    const moduleDecl = await extractModuleDeclarations(
+      context,
+      entry.filePath,
+      moduleId,
+      entry.text,
+      fileToModuleMap
+    );
+
+    if (!isFirst) {
+      code += "\n\n";
+    }
+    isFirst = false;
+    code += moduleDecl.content;
+
+    for (const dep of moduleDecl.ambient) {
+      if (dep.external) {
+        const directive = dep.id;
+        if (!directives.includes(directive)) {
+          directives.push(directive);
+        }
+      } else if (builtins.some(builtin => builtin.id === dep.id)) {
+        ambientModules.add(
+          builtins.find(builtin => builtin.id === dep.id)!.path
+        );
+      } else if (
+        builtins.some(
+          builtin => replaceExtension(builtin.path) === replaceExtension(dep.id)
+        )
+      ) {
+        ambientModules.add(dep.id);
+      } else {
+        const resolved = await context.resolve(dep.id, entry.filePath);
+        if (resolved) {
+          for (const name of [
+            resolved.id,
+            `${resolved.id}.d.ts`,
+            `${resolved.id}.d.mts`,
+            `${resolved.id}.d.cts`,
+            replaceExtension(resolved.id, ".d.ts"),
+            replaceExtension(resolved.id, ".d.mts"),
+            replaceExtension(resolved.id, ".d.cts"),
+            `${resolved.id}/index.d.ts`
+          ]) {
+            if (emittedContentMap.has(name)) {
+              ambientModules.add(name);
+              break;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Inject non-external ambient module declarations wholesale
+  for (const ambientFile of ambientModules) {
+    const dts = emittedContentMap.get(ambientFile);
+    if (dts) {
+      const cleaned = dts.replace(/\/\/# sourceMappingURL=.*$/m, "").trim();
+      if (cleaned) {
+        code += `\n\n${formatTypes(cleaned)}`;
+      }
+    }
+  }
+
+  code = await format(context, context.typesPath, code);
 
   context.debug(
     `A TypeScript declaration file (size: ${prettyBytes(
-      new Blob(toArray(result)).size
+      new Blob(toArray(code)).size
     )}) emitted for the built-in modules types.`
   );
 
-  return { code: result, directives };
+  return { code, directives };
 }
