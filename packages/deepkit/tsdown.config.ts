@@ -21,7 +21,7 @@ import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
 const config = defineTSDownConfig([
   {
     name: "deepkit",
-    entry: ["src/vendor/**/*.ts", "src/*.ts"],
+    entry: ["src/*.ts", "src/vendor/**/*.ts"],
     clean: false,
     unbundle: false,
     exports: false,
@@ -35,43 +35,6 @@ const config = defineTSDownConfig([
       ]
     }
   }
-  // {
-  //   name: "deepkit-compiler",
-  //   entry: ["src/vendor/type-compiler/**/*.ts"],
-  //   outDir: "dist/vendor/type-compiler",
-  //   platform: "node",
-  //   target: "esnext",
-  //   clean: false,
-  //   exports: false,
-  //   unbundle: false,
-  //   dts: true,
-  //   deps: {
-  //     skipNodeModulesBundle: false,
-  //     alwaysBundle: ["@deepkit/type-compiler"]
-  //   }
-  // },
-  // {
-  //   name: "deepkit",
-  //   entry: ["src/*.ts"],
-  //   outDir: "dist",
-  //   platform: "node",
-  //   target: "esnext",
-  //   clean: false,
-  //   exports: false,
-  //   unbundle: false,
-  //   dts: true,
-  //   deps: {
-  //     skipNodeModulesBundle: true,
-  //     neverBundle: [
-  //       "@powerlines/deepkit/vendor/core",
-  //       "@powerlines/deepkit/vendor/type",
-  //       "@powerlines/deepkit/vendor/type-spec",
-  //       "@powerlines/deepkit/vendor/type-compiler",
-  //       "@powerlines/deepkit/vendor/type-compiler/compiler",
-  //       "@powerlines/deepkit/vendor/type-compiler/config"
-  //     ]
-  //   }
-  // }
 ]);
 
 export default config;

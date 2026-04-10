@@ -39,33 +39,16 @@
       }
     },
     "build-base": {
-      "cache": true,
+      "cache": false,
       "inputs": ["typescript", "^production"],
       "outputs": ["{projectRoot}/dist"],
       "executor": "nx:run-commands",
-      "dependsOn": ["generate-schemas"],
+      "dependsOn": ["build-schemas"],
       "options": {
         "command": "tsdown --config=tsdown.config.ts",
         "cwd": "{projectRoot}"
       }
     },
-    // "build-dts": {
-    //   "cache": true,
-    //   "executor": "nx:run-commands",
-    //   "dependsOn": ["build-base"],
-    //   "options": {
-    //     "commands": [
-    //       "dts-bundle-generator --project ./tsconfig.esm.json --external-inlines @deepkit/core --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/core.d.mts src/vendor/core.ts",
-    //       "dts-bundle-generator --project ./tsconfig.cjs.json --external-inlines @deepkit/core --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/core.d.cts src/vendor/core.ts",
-    //       "dts-bundle-generator --project ./tsconfig.esm.json --external-inlines @deepkit/type-spec --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/type-spec.d.mts src/vendor/type-spec.ts",
-    //       "dts-bundle-generator --project ./tsconfig.cjs.json --external-inlines @deepkit/type-spec --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/type-spec.d.cts src/vendor/type-spec.ts",
-    //       "dts-bundle-generator --project ./tsconfig.esm.json --external-inlines @deepkit/type @deepkit/type-spec @deepkit/core --export-referenced-types false --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/type.d.mts src/vendor/type.ts",
-    //       "dts-bundle-generator --project ./tsconfig.cjs.json --external-inlines @deepkit/type @deepkit/type-spec @deepkit/core --export-referenced-types false --external-imports node:worker_threads typescript --inline-declare-global --no-banner -o dist/vendor/type.d.cts src/vendor/type.ts"
-    //     ],
-    //     "parallel": true,
-    //     "cwd": "{projectRoot}"
-    //   }
-    // },
     "build": {
       "cache": true,
       "inputs": ["{projectRoot}/dist"],
