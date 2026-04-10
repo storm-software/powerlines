@@ -1,4 +1,9 @@
-mcp_servers.nx-mcp.args    = ['nx', 'mcp', '--minimal']
+
+mcp_servers.nx-mcp.args = [
+  'nx',
+  'mcp',
+  '--minimal'
+]
 mcp_servers.nx-mcp.command = 'npx'
 
 [features]

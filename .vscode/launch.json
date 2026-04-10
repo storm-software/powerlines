@@ -5,13 +5,23 @@
       "name": "Debug CF Build Script",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/wi8a8qhcyqh3inzkbkgn53f0xhx4zi6g-pnpm-10.30.3/bin/pnpm",
+      "program": "/nix/store/q845mzglbbmqy7i5mlkhy4yvbw7l1j7g-pnpm-10.32.1/bin/pnpm",
       "args": [
         "nx",
         "run",
         "plugin-cloudflare:build:development",
-        "--outputStyle=dynamic-legacy"
+        "--tui=false",
+        "--skipNxCache"
       ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug CLI",
+      "type": "node",
+      "request": "launch",
+      "program": "/nix/store/q845mzglbbmqy7i5mlkhy4yvbw7l1j7g-pnpm-10.32.1/bin/pnpm",
+      "args": ["./packages/cli/dist/bin.mjs"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
     },
@@ -19,12 +29,13 @@
       "name": "Debug CLI Build Script",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/wi8a8qhcyqh3inzkbkgn53f0xhx4zi6g-pnpm-10.30.3/bin/pnpm",
+      "program": "/nix/store/q845mzglbbmqy7i5mlkhy4yvbw7l1j7g-pnpm-10.32.1/bin/pnpm",
       "args": [
         "nx",
         "run",
         "cli:build:development",
-        "--outputStyle=dynamic-legacy"
+        "--tui=false",
+        "--skipNxCache"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
@@ -33,12 +44,13 @@
       "name": "Debug Alloy Build Script",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/wi8a8qhcyqh3inzkbkgn53f0xhx4zi6g-pnpm-10.30.3/bin/pnpm",
+      "program": "/nix/store/q845mzglbbmqy7i5mlkhy4yvbw7l1j7g-pnpm-10.32.1/bin/pnpm",
       "args": [
         "nx",
         "run",
         "plugin-alloy:build:development",
-        "--outputStyle=dynamic-legacy"
+        "--tui=false",
+        "--skipNxCache"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
@@ -47,12 +59,13 @@
       "name": "Debug Env Build Script",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/wi8a8qhcyqh3inzkbkgn53f0xhx4zi6g-pnpm-10.30.3/bin/pnpm",
+      "program": "/nix/store/q845mzglbbmqy7i5mlkhy4yvbw7l1j7g-pnpm-10.32.1/bin/pnpm",
       "args": [
         "nx",
         "run",
         "plugin-env:build:development",
-        "--outputStyle=dynamic-legacy"
+        "--tui=false",
+        "--skipNxCache"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
