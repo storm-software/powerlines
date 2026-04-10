@@ -150,11 +150,13 @@ export class PowerlinesAPI<
     const api = new PowerlinesAPI<TResolvedConfig>(
       await PowerlinesAPIContext.from(workspaceRoot, config)
     );
+
     api.#context.$$internal = {
       api,
       addPlugin: api.#addPlugin.bind(api)
     };
 
+    const timer = api.context.timer("Initialization");
     api.context.info(
       `🔌 The Powerlines Engine v${packageJson.version} has started`
     );
@@ -188,6 +190,8 @@ export class PowerlinesAPI<
       { isHighPriority: false }
     );
 
+    timer();
+
     return api;
   }
 
@@ -204,6 +208,7 @@ export class PowerlinesAPI<
       command: "types"
     }
   ) {
+    const timer = this.context.timer("Types");
     this.context.info(
       " 🏗️  Generating typescript declarations for the Powerlines project"
     );
@@ -333,6 +338,7 @@ export class PowerlinesAPI<
     this.context.debug(
       "✔ Powerlines types generation has completed successfully"
     );
+    timer();
   }
 
   /**
@@ -354,6 +360,7 @@ export class PowerlinesAPI<
       | PartialKeys<DocsInlineConfig, "command">
       | PartialKeys<DeployInlineConfig, "command"> = { command: "prepare" }
   ) {
+    const timer = this.context.timer("Prepare");
     this.context.info(" 🏗️  Preparing the Powerlines project");
 
     this.context.debug(
@@ -470,6 +477,7 @@ export class PowerlinesAPI<
     });
 
     this.context.debug("✔ Powerlines preparation has completed successfully");
+    timer();
   }
 
   /**
@@ -482,6 +490,7 @@ export class PowerlinesAPI<
    * @returns A promise that resolves when the project has been created
    */
   public async new(inlineConfig: PartialKeys<NewInlineConfig, "command">) {
+    const timer = this.context.timer("New");
     this.context.info(" 🆕 Creating a new Powerlines project");
 
     inlineConfig.command ??= "new";
@@ -552,6 +561,7 @@ export class PowerlinesAPI<
     });
 
     this.context.debug("✔ Powerlines new command completed successfully");
+    timer();
   }
 
   /**
@@ -570,6 +580,7 @@ export class PowerlinesAPI<
       command: "clean"
     }
   ) {
+    const timer = this.context.timer("Clean");
     this.context.info(" 🧹 Cleaning the previous Powerlines artifacts");
 
     inlineConfig.command ??= "clean";
@@ -601,6 +612,7 @@ export class PowerlinesAPI<
     });
 
     this.context.debug("✔ Powerlines cleaning completed successfully");
+    timer();
   }
 
   /**
@@ -614,6 +626,7 @@ export class PowerlinesAPI<
       | PartialKeys<LintInlineConfig, "command">
       | PartialKeys<BuildInlineConfig, "command"> = { command: "lint" }
   ) {
+    const timer = this.context.timer("Lint");
     this.context.info(" 📝 Linting the Powerlines project");
 
     inlineConfig.command ??= "lint";
@@ -628,6 +641,7 @@ export class PowerlinesAPI<
     });
 
     this.context.debug("✔ Powerlines linting completed successfully");
+    timer();
   }
 
   /**
@@ -644,6 +658,7 @@ export class PowerlinesAPI<
       command: "build"
     }
   ) {
+    const timer = this.context.timer("Build");
     this.context.info(" 📦  Building the Powerlines project");
 
     await this.context.generateChecksum();
@@ -675,6 +690,7 @@ export class PowerlinesAPI<
     }
 
     this.context.debug("✔ Powerlines build completed successfully");
+    timer();
   }
 
   /**
@@ -684,6 +700,7 @@ export class PowerlinesAPI<
    * @returns A promise that resolves when the documentation generation has completed
    */
   public async docs(inlineConfig: DocsInlineConfig = { command: "docs" }) {
+    const timer = this.context.timer("Docs");
     this.context.info(
       " 📓 Generating documentation for the Powerlines project"
     );
@@ -712,6 +729,7 @@ export class PowerlinesAPI<
     this.context.debug(
       "✔ Powerlines documentation generation completed successfully"
     );
+    timer();
   }
 
   /**
@@ -727,6 +745,7 @@ export class PowerlinesAPI<
       command: "deploy"
     }
   ) {
+    const timer = this.context.timer("Deploy");
     this.context.info(" 🚀 Deploying the Powerlines project");
 
     inlineConfig.command ??= "deploy";
@@ -739,10 +758,11 @@ export class PowerlinesAPI<
     });
 
     this.context.debug("✔ Powerlines deploy completed successfully");
+    timer();
   }
 
   /**
-   * Finalization process
+   * Finalization/cleanup processing for the Powerlines API
    *
    * @remarks
    * This step includes any final processes or clean up required by Powerlines. It will be run after each Powerlines command.
@@ -750,6 +770,7 @@ export class PowerlinesAPI<
    * @returns A promise that resolves when the finalization process has completed
    */
   public async finalize() {
+    const timer = this.context.timer("Finalization");
     this.context.info(" 🏁 Powerlines finalization processes started");
 
     await this.#executeEnvironments(async context => {
@@ -765,6 +786,7 @@ export class PowerlinesAPI<
     });
 
     this.context.debug("✔ Powerlines finalization completed successfully");
+    timer();
   }
 
   /**

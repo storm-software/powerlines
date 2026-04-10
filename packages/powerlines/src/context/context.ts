@@ -49,7 +49,9 @@ import { TypeDefinition } from "@stryke/types/configuration";
 import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
 import { match, tsconfigPathsToRegExp } from "bundle-require";
+import chalk from "chalk";
 import { resolveCompatibilityDates } from "compatx";
+import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import defu from "defu";
 import { create, FlatCache } from "flat-cache";
 import { parse, ParseResult } from "oxc-parser";
@@ -1359,6 +1361,36 @@ export class PowerlinesContext<
       LogLevelLabel.TRACE,
       isString(message) ? message : StormJSON.stringify(message)
     );
+  }
+
+  /**
+   * A function to create a timer for measuring the duration of asynchronous operations
+   *
+   * @example
+   * ```ts
+   * const stopTimer = context.timer("Your Async Operation");
+   * await performAsyncOperation();
+   * stopTimer(); // "Your Async Operation completed in 123.45 milliseconds"
+   * ```
+   *
+   * @param name - The name of the timer.
+   * @returns A function that, when called, stops the timer and logs the duration.
+   */
+  public timer(name: string): () => void {
+    const startDate = Date.now();
+    const startDuration = performance.now();
+
+    return () => {
+      const duration = performance.now() - startDuration;
+      this.log(
+        LogLevelLabel.PERFORMANCE,
+        `${chalk.bold.cyanBright(name)} completed in ${chalk.bold.cyanBright(
+          duration < 1000
+            ? `${duration.toFixed(2)} milliseconds`
+            : formatDistanceToNowStrict(startDate)
+        )}`
+      );
+    };
   }
 
   /**

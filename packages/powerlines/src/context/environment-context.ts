@@ -21,10 +21,16 @@ import { resolvePackage } from "@stryke/fs/resolve";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isNull } from "@stryke/type-checks/is-null";
 import { isObject } from "@stryke/type-checks/is-object";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { ArrayValues } from "@stryke/types/array";
 import { extractHooks } from "powerlines/_internal/helpers/hooks";
 import { PLUGIN_NON_HOOK_FIELDS } from "../constants";
-import { isPlugin, isPluginConfig, isPluginHookField } from "../plugin-utils";
+import {
+  dedupeHooklist,
+  isPlugin,
+  isPluginConfig,
+  isPluginHookField
+} from "../plugin-utils";
 import type {
   EnvironmentContext,
   EnvironmentContextPlugin,
@@ -172,18 +178,33 @@ export class PowerlinesEnvironmentContext<
       context
     });
 
-    this.#hooks = Object.keys(resolvedPlugin)
-      .filter(
-        key =>
-          !PLUGIN_NON_HOOK_FIELDS.includes(
-            key as ArrayValues<typeof PLUGIN_NON_HOOK_FIELDS>
-          )
-      )
-      .reduce(
-        (ret, key) =>
-          extractHooks<TResolvedConfig>(context, ret, resolvedPlugin, key),
-        this.hooks
-      );
+    this.#hooks = Object.entries(
+      Object.keys(resolvedPlugin)
+        .filter(
+          key =>
+            !PLUGIN_NON_HOOK_FIELDS.includes(
+              key as ArrayValues<typeof PLUGIN_NON_HOOK_FIELDS>
+            )
+        )
+        .reduce(
+          (ret, key) =>
+            extractHooks<TResolvedConfig>(context, ret, resolvedPlugin, key),
+          this.hooks
+        )
+    ).reduce(
+      (ret, [key, value]) => {
+        if (isSetObject(value)) {
+          Object.entries(value).forEach(([type, list]) => {
+            ret[key] ??= {} as HooksList<PluginContext<TResolvedConfig>>;
+            ret[key][type as keyof (typeof ret)[typeof key]] =
+              dedupeHooklist<PluginContext<TResolvedConfig>>(list);
+          });
+        }
+
+        return ret;
+      },
+      {} as Record<string, HooksList<PluginContext<TResolvedConfig>>>
+    );
   }
 
   /**

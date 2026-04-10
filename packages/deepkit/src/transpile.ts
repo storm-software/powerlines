@@ -17,9 +17,9 @@
  ------------------------------------------------------------------- */
 
 import type { Context } from "@powerlines/core";
-import type { ReflectionConfig } from "@powerlines/deepkit/vendor/type-compiler/config";
 import ts from "typescript";
 import { createDeclarationTransformer, createTransformer } from "./transformer";
+import type { ReflectionConfig } from "./vendor/type-compiler/config";
 
 /**
  * Transpile TypeScript code using the provided context and options.
@@ -41,7 +41,15 @@ export function transpile(
 
   return ts.transpileModule(code, {
     compilerOptions: {
-      ...context.tsconfig.options
+      ...context.tsconfig.options,
+      reflection:
+        options.reflection ??
+        context.tsconfig.tsconfigJson.compilerOptions?.reflection ??
+        context.tsconfig.tsconfigJson.reflection,
+      reflectionLevel:
+        options.reflectionLevel ??
+        context.tsconfig.tsconfigJson.compilerOptions?.reflectionLevel ??
+        context.tsconfig.tsconfigJson.reflectionLevel
     },
     fileName: id,
     transformers: {

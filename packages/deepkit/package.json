@@ -40,7 +40,6 @@
   ],
   "type": "module",
   "exports": {
-    "./package.json": "./package.json",
     ".": {
       "import": {
         "types": "./dist/index.d.mts",
@@ -124,30 +123,19 @@
         "types": "./dist/vendor/type-compiler/*.d.mts",
         "default": "./dist/vendor/type-compiler/*.mjs"
       }
-    },
-    "./schemas/*": {
-      "import": {
-        "types": "./schemas/*.d.mts",
-        "default": "./schemas/*.mjs"
-      },
-      "require": {
-        "types": "./schemas/*.d.cts",
-        "default": "./schemas/*.cjs"
-      },
-      "default": {
-        "types": "./schemas/*.d.mts",
-        "default": "./schemas/*.mjs"
-      }
     }
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
   "bin": {
     "deepkit-install": "bin/deepkit-install.cjs"
   },
   "files": ["bin/*", "dist/**/*", "schemas/*"],
   "dependencies": {
+    "@powerlines/core": "workspace:*",
+    "@powerlines/plugin-esbuild": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/fs": "catalog:",
@@ -155,10 +143,8 @@
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "defu": "catalog:",
-    "jiti": "catalog:",
     "esbuild": "catalog:",
-    "@powerlines/core": "workspace:*",
-    "@powerlines/plugin-esbuild": "workspace:*",
+    "jiti": "catalog:",
     "typescript": "^5.9.3"
   },
   "devDependencies": {

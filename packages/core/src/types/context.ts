@@ -258,6 +258,21 @@ export interface UnresolvedContext<
   trace: (message: string | UnpluginMessage) => void;
 
   /**
+   * A function to create a timer for measuring the duration of asynchronous operations
+   *
+   * @example
+   * ```ts
+   * const stopTimer = context.timer("Your Async Operation");
+   * await performAsyncOperation();
+   * stopTimer(); // "Your Async Operation completed in 123.45 milliseconds"
+   * ```
+   *
+   * @param name - The name of the timer.
+   * @returns A function that, when called, stops the timer and logs the duration.
+   */
+  timer: (name: string) => () => void;
+
+  /**
    * The metadata information
    */
   meta: MetaInfo;

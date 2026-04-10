@@ -17,14 +17,14 @@
  ------------------------------------------------------------------- */
 
 import type { Context } from "@powerlines/core";
+import defu from "defu";
+import ts from "typescript";
 import {
   DeclarationTransformer,
   ReflectionTransformer
-} from "@powerlines/deepkit/vendor/type-compiler";
-import { Cache } from "@powerlines/deepkit/vendor/type-compiler/compiler";
-import type { ReflectionConfig } from "@powerlines/deepkit/vendor/type-compiler/config";
-import defu from "defu";
-import ts from "typescript";
+} from "./vendor/type-compiler";
+import { Cache } from "./vendor/type-compiler/compiler";
+import type { ReflectionConfig } from "./vendor/type-compiler/config";
 
 let loaded = false;
 const cache = new Cache();
@@ -93,7 +93,7 @@ export function createDeclarationTransformer(
         {
           exclude: [],
           reflection: "default",
-          reflectionLevel: "minimal"
+          reflectionLevel: "normal"
         }
       ) as ReflectionConfig
     );

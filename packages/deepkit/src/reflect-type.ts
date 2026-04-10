@@ -17,13 +17,13 @@
  ------------------------------------------------------------------- */
 
 import type { PluginContext } from "@powerlines/core";
-import type { Type } from "@powerlines/deepkit/vendor/type";
-import { reflect } from "@powerlines/deepkit/vendor/type";
 import { resolve } from "@powerlines/plugin-esbuild/helpers/resolve";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import defu from "defu";
 import type { BuildOptions } from "esbuild";
 import { esbuildPlugin } from "./esbuild-plugin";
+import type { Type } from "./vendor/type";
+import { reflect } from "./vendor/type";
 
 /**
  * Compiles a type definition to a module.

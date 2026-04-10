@@ -404,6 +404,7 @@
     "@stryke/unique-id": "catalog:",
     "bundle-require": "catalog:",
     "compatx": "catalog:",
+    "date-fns": "catalog:",
     "defu": "catalog:",
     "flat-cache": "catalog:",
     "handlebars": "catalog:",

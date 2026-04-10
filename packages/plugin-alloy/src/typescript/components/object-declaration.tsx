@@ -89,6 +89,7 @@ export function ObjectDeclaration<
       .filter(
         item =>
           !item.isIgnored() &&
+          !item.isRuntime() &&
           !isUndefined(
             props.defaultValue?.value?.[item.getNameAsString()] ??
               item.getAlias().reduce((ret, alias) => {

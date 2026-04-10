@@ -36,7 +36,6 @@ import type {
   PreviewOptions,
   ResolvedPreviewOptions
 } from "vite";
-
 import type { PluginContext } from "./context";
 import { StoragePort, StoragePreset } from "./fs";
 import type { Plugin } from "./plugin";
@@ -45,6 +44,8 @@ import type { TSConfig } from "./tsconfig";
 export type LogLevel = "error" | "warn" | "info" | "debug" | "trace";
 
 export type LogFn = (type: LogLevelLabel, ...args: string[]) => void;
+
+export type LogLevelConfig = Record<LogLevel, boolean>;
 
 export interface Logger {
   log: LogFn;

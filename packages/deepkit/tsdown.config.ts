@@ -21,60 +21,57 @@ import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
 const config = defineTSDownConfig([
   {
     name: "deepkit",
-    entry: [
-      "src/vendor/type.ts",
-      "src/vendor/type-spec.ts",
-      "src/vendor/core.ts"
-    ],
-    outDir: "dist/vendor",
-    platform: "neutral",
-    target: "esnext",
+    entry: ["src/vendor/**/*.ts", "src/*.ts"],
     clean: false,
-    exports: false,
     unbundle: false,
-    dts: true,
+    exports: false,
     deps: {
       skipNodeModulesBundle: false,
-      alwaysBundle: ["@deepkit/core", "@deepkit/type", "@deepkit/type-spec"]
-    }
-  },
-  {
-    name: "deepkit-compiler",
-    entry: ["src/vendor/type-compiler/**/*.ts"],
-    outDir: "dist/vendor/type-compiler",
-    platform: "node",
-    target: "esnext",
-    clean: false,
-    exports: false,
-    unbundle: false,
-    dts: true,
-    deps: {
-      skipNodeModulesBundle: false,
-      alwaysBundle: ["@deepkit/type-compiler"]
-    }
-  },
-  {
-    name: "deepkit",
-    entry: ["src/*.ts"],
-    outDir: "dist",
-    platform: "node",
-    target: "esnext",
-    clean: false,
-    exports: false,
-    unbundle: false,
-    dts: true,
-    deps: {
-      skipNodeModulesBundle: true,
-      neverBundle: [
-        "@powerlines/deepkit/vendor/core",
-        "@powerlines/deepkit/vendor/type",
-        "@powerlines/deepkit/vendor/type-spec",
-        "@powerlines/deepkit/vendor/type-compiler",
-        "@powerlines/deepkit/vendor/type-compiler/compiler",
-        "@powerlines/deepkit/vendor/type-compiler/config"
+      alwaysBundle: [
+        "@deepkit/core",
+        "@deepkit/type",
+        "@deepkit/type-spec",
+        "@deepkit/type-compiler"
       ]
     }
   }
+  // {
+  //   name: "deepkit-compiler",
+  //   entry: ["src/vendor/type-compiler/**/*.ts"],
+  //   outDir: "dist/vendor/type-compiler",
+  //   platform: "node",
+  //   target: "esnext",
+  //   clean: false,
+  //   exports: false,
+  //   unbundle: false,
+  //   dts: true,
+  //   deps: {
+  //     skipNodeModulesBundle: false,
+  //     alwaysBundle: ["@deepkit/type-compiler"]
+  //   }
+  // },
+  // {
+  //   name: "deepkit",
+  //   entry: ["src/*.ts"],
+  //   outDir: "dist",
+  //   platform: "node",
+  //   target: "esnext",
+  //   clean: false,
+  //   exports: false,
+  //   unbundle: false,
+  //   dts: true,
+  //   deps: {
+  //     skipNodeModulesBundle: true,
+  //     neverBundle: [
+  //       "@powerlines/deepkit/vendor/core",
+  //       "@powerlines/deepkit/vendor/type",
+  //       "@powerlines/deepkit/vendor/type-spec",
+  //       "@powerlines/deepkit/vendor/type-compiler",
+  //       "@powerlines/deepkit/vendor/type-compiler/compiler",
+  //       "@powerlines/deepkit/vendor/type-compiler/config"
+  //     ]
+  //   }
+  // }
 ]);
 
 export default config;

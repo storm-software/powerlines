@@ -261,24 +261,12 @@ export function resolveOptions(context: Context): BuildOptions {
       silent:
         context.config.logLevel === null ||
         context.config.mode === "production",
-      logLevel:
-        context.config.logLevel === "trace"
-          ? "debug"
-          : context.config.logLevel === "debug" ||
-              context.config.logLevel === "info"
-            ? "warn"
-            : context.config.logLevel,
+      logLevel: context.config.logLevel === "trace" ? "debug" : "error",
       customLogger: {
-        level:
-          context.config.logLevel === "trace"
-            ? "debug"
-            : context.config.logLevel === "debug" ||
-                context.config.logLevel === "info"
-              ? "warn"
-              : context.config.logLevel,
+        level: context.config.logLevel === "trace" ? "debug" : "error",
         info: (...msgs: any[]) =>
           isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
-          context.debug(formatMessage(context, ...msgs)),
+          context.trace(formatMessage(context, ...msgs)),
         warn: (...msgs: any[]) =>
           isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
           context.warn(formatMessage(context, ...msgs)),
@@ -290,7 +278,7 @@ export function resolveOptions(context: Context): BuildOptions {
           context.error(formatMessage(context, ...msgs)),
         success: (...msgs: any[]) =>
           isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
-          context.debug(formatMessage(context, ...msgs))
+          context.trace(formatMessage(context, ...msgs))
       }
     },
     DEFAULT_TSDOWN_CONFIG

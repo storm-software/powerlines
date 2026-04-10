@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { ReflectionClass } from "@powerlines/deepkit/vendor/type";
 import type { SerializedTypes as CapnpSerializedTypes } from "../schemas/reflection";
+import type { ReflectionClass } from "./vendor/type";
 
 export type Reflection<T extends Record<string, any> = Record<string, any>> =
   ReflectionClass<T> & {

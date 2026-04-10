@@ -61,29 +61,29 @@ catalog:
   '@rollup/plugin-replace': ^6.0.3
   '@rollup/pluginutils': ^4.2.1
   '@rspack/core': ^1.7.11
-  '@shell-shock/core': ^0.17.1
-  '@shell-shock/eslint-plugin': ^0.0.58
-  '@shell-shock/nx': ^0.0.73
-  '@shell-shock/preset-cli': ^0.9.13
+  '@shell-shock/core': ^0.17.2
+  '@shell-shock/eslint-plugin': ^0.0.67
+  '@shell-shock/nx': ^0.0.74
+  '@shell-shock/preset-cli': ^0.9.14
   '@standard-schema/spec': ^1.1.0
-  '@storm-software/build-tools': ^0.158.155
-  '@storm-software/config': ^1.137.28
-  '@storm-software/config-tools': ^1.189.74
-  '@storm-software/cspell': ^0.46.64
-  '@storm-software/esbuild': ^0.53.156
-  '@storm-software/eslint': ^0.170.16
-  '@storm-software/git-tools': ^2.130.32
-  '@storm-software/linting-tools': ^1.133.25
-  '@storm-software/markdownlint': ^0.30.152
-  '@storm-software/pnpm-tools': ^0.7.2
-  '@storm-software/prettier': ^0.59.48
-  '@storm-software/testing-tools': ^1.119.149
-  '@storm-software/tsconfig': ^0.48.63
-  '@storm-software/tsdoc': ^0.13.149
-  '@storm-software/tsup': ^0.2.153
-  '@storm-software/unbuild': ^0.57.156
-  '@storm-software/untyped': ^0.24.137
-  '@storm-software/workspace-tools': ^1.295.50
+  '@storm-software/build-tools': ^0.158.156
+  '@storm-software/config': ^1.137.29
+  '@storm-software/config-tools': ^1.189.75
+  '@storm-software/cspell': ^0.46.65
+  '@storm-software/esbuild': ^0.53.157
+  '@storm-software/eslint': ^0.170.17
+  '@storm-software/git-tools': ^2.130.33
+  '@storm-software/linting-tools': ^1.133.26
+  '@storm-software/markdownlint': ^0.30.153
+  '@storm-software/pnpm-tools': ^0.7.3
+  '@storm-software/prettier': ^0.59.49
+  '@storm-software/testing-tools': ^1.119.150
+  '@storm-software/tsconfig': ^0.48.64
+  '@storm-software/tsdoc': ^0.13.150
+  '@storm-software/tsup': ^0.2.154
+  '@storm-software/unbuild': ^0.57.157
+  '@storm-software/untyped': ^0.24.138
+  '@storm-software/workspace-tools': ^1.295.51
   '@stryke/capnp': ^0.12.92
   '@stryke/cli': ^0.13.38
   '@stryke/convert': ^0.6.58
@@ -127,6 +127,7 @@ catalog:
   chalk: 5.6.2
   compatx: ^0.2.0
   copyfiles: ^2.4.1
+  date-fns: ^4.1.0
   defu: ^6.1.7
   diff-match-patch: ^1.0.5
   dts-bundle-generator: ^9.5.1
@@ -192,9 +193,9 @@ catalog:
   unplugin: ^3.0.0
   unplugin-combine: ^2.3.0
   untyped: ^1.5.2
-  verdaccio: 6.3.2
+  verdaccio: 6.4.0
   vite: ^8.0.8
-  webpack: ^5.106.0
+  webpack: ^5.106.1
   wrangler: ^4.81.1
   zod: ^4.3.6
   zx: ^8.8.5

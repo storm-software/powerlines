@@ -21,8 +21,7 @@ import {
   createTransformer
 } from "@powerlines/deepkit/transformer";
 import tsc from "@powerlines/plugin-tsc";
-import { StormJSON } from "@stryke/json/storm-json";
-import { Plugin, ReflectionLevel } from "powerlines";
+import { Plugin } from "powerlines";
 import { DeepkitPluginContext, DeepkitPluginOptions } from "./types/plugin";
 
 export * from "./types";
@@ -54,6 +53,8 @@ export const plugin = <
           resolve: {
             external: [
               "@powerlines/deepkit/vendor/type-compiler",
+              "@powerlines/deepkit/vendor/type-compiler/compiler",
+              "@powerlines/deepkit/vendor/type-compiler/config",
               "@powerlines/deepkit/vendor/type-spec",
               "@powerlines/deepkit/vendor/type",
               "@powerlines/deepkit/vendor/core"
@@ -73,21 +74,7 @@ export const plugin = <
             this.config.deepkit.reflectionLevel ||
             this.tsconfig.tsconfigJson.compilerOptions?.reflectionLevel ||
             this.tsconfig.tsconfigJson.reflectionLevel ||
-            "minimal";
-
-          if (
-            !this.tsconfig.tsconfigJson.reflection ||
-            !this.tsconfig.tsconfigJson.reflectionLevel
-          ) {
-            this.tsconfig.tsconfigJson.reflection ??= reflection;
-            this.tsconfig.tsconfigJson.reflectionLevel ??=
-              reflectionLevel as ReflectionLevel;
-
-            await this.fs.write(
-              this.tsconfig.tsconfigFilePath,
-              StormJSON.stringify(this.tsconfig.tsconfigJson)
-            );
-          }
+            "normal";
 
           this.config.tsc ??= {} as TContext["config"]["tsc"];
           this.config.tsc.compilerOptions = {

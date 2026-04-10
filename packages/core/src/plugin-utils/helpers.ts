@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { kebabCase } from "@stryke/string-format/kebab-case";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -278,7 +279,7 @@ export function isDuplicate<
       p =>
         p.dedupe !== false &&
         ((isFunction(p.dedupe) && p.dedupe(plugin)) ||
-          p.name.toLowerCase() === plugin.name.toLowerCase())
+          kebabCase(p.name) === kebabCase(plugin.name))
     )
   );
 }
@@ -297,7 +298,7 @@ export function dedupeHooklist<
     TField
   >
 >(hooksList: TList[]): TList[] {
-  return hooksList.reduce<TList[]>((ret, hook) => {
+  return hooksList.reduce((ret, hook) => {
     if (
       !isDuplicate(
         hook.plugin,
@@ -307,7 +308,7 @@ export function dedupeHooklist<
       ret.push(hook);
     }
     return ret;
-  }, []);
+  }, [] as TList[]);
 }
 
 /**
@@ -341,7 +342,7 @@ export function addPluginHook<
         ) as unknown as (...args: unknown[]) => unknown
       ).apply(context, args)) as GetHookHandlerReturnType<TContext, TField>;
     if (!handler) {
-      return dedupeHooklist<TContext, TField, TList>(hooksList);
+      return hooksList;
     }
 
     hooksList.push({
@@ -350,7 +351,7 @@ export function addPluginHook<
     } as any);
   }
 
-  return dedupeHooklist<TContext, TField, TList>(hooksList);
+  return hooksList;
 }
 
 /**

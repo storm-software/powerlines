@@ -69,7 +69,9 @@ try {
     );
   }
 
-  proc = $`pnpm nx reset --onlyDaemon`.timeout(`${2 * 60}s`);
+  proc = $`pnpm nx reset --only-daemon --only-workspace-data`.timeout(
+    `${2 * 60}s`
+  );
   proc.stdout.on("data", data => {
     echo`${data}`;
   });
@@ -110,10 +112,9 @@ try {
         );
       }
     } else if (filter === "cli" || filter === "all") {
-      //   proc =
-      //     $`pnpm nx run cli:build:${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
-      //       `${10 * 60}s`
-      //     );
+      //   proc = $`pnpm nx run cli:build:${
+      //     configuration
+      //   } --outputStyle=dynamic-legacy --parallel=5`.timeout(`${15 * 60}s`);
       //   proc.stdout.on("data", data => {
       //     echo`${data}`;
       //   });
@@ -141,7 +142,7 @@ try {
 
         proc =
           $`pnpm nx run-many --target=build --exclude="monorepo,examples-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
-            `${10 * 60}s`
+            `${20 * 60}s`
           );
         proc.stdout.on("data", data => {
           echo`${data}`;

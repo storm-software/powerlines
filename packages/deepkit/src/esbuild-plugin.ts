@@ -17,15 +17,12 @@
  ------------------------------------------------------------------- */
 
 import type { PluginContext } from "@powerlines/core";
-import type {
-  Level,
-  Mode
-} from "@powerlines/deepkit/vendor/type-compiler/config";
 import { omit } from "@stryke/helpers/omit";
 import { isString } from "@stryke/type-checks";
 import type { OnLoadOptions, Plugin } from "esbuild";
 import { DiagnosticCategory } from "typescript";
 import { transpile } from "./transpile";
+import type { Level, Mode } from "./vendor/type-compiler/config";
 
 export interface ReflectionConfig {
   /**
@@ -35,11 +32,27 @@ export interface ReflectionConfig {
 
   /**
    * Either a boolean indication general reflection mode, or a list of globs to match against.
+   *
+   * @remarks
+   * - `default`: The default reflection mode, which includes a standard set of type information in the output.
+   * - `true`: An alias for "default", enabling the default reflection mode.
+   * - `false`: Disables reflection, resulting in no type information being included in the output.
+   * - `string[]`: A list of glob patterns to match against files for which reflection should be applied. Only files matching these patterns will have type information included in the output.
+   *
+   * @defaultValue "default"
    */
   reflection?: string[] | Mode;
 
   /**
    * Defines the level of reflection to be used during the transpilation process.
+   *
+   * @remarks
+   * - `minimal`: Only essential type information is included in the reflection output, resulting in a smaller output size but less detailed type metadata.
+   * - `normal`: A balanced level of type information is included, providing a good trade-off between output size and type metadata detail.
+   * - `extended`: More comprehensive type information is included, which may increase the output size but provides richer type metadata for advanced use cases.
+   * - `verbose`: Detailed type information is included, resulting in a larger output size but more comprehensive type metadata.
+   *
+   * @defaultValue "normal"
    */
   reflectionLevel?: Level;
 }

@@ -1019,6 +1019,9 @@ export interface EnvInterface {
    * @remarks
    * This variable is used to specify a path to application data that is specific to the current [Nix](https://nixos.org/) environment. This variable can be used to set the \`$storm.paths.temp\` property.
    *
+   * @readonly
+   * @runtime
+   * @hidden
    * @category node
    */
   DEVENV_RUNTIME?: string;
