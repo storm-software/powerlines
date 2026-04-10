@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.7.3](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.3) (04/06/2026)
+
+### Bug Fixes
+
+- **powerlines:** Update types file generation to use custom implementation ([6bc7fbc70](https://github.com/storm-software/powerlines/commit/6bc7fbc70))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.392**
+- Updated **core** to **v0.13.5**
+
 ## [0.7.2](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.2) (04/06/2026)
 
 ### Updated Dependencies
