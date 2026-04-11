@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.7.8](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.8) (04/10/2026)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue with missing patched dependencies ([4ba418749](https://github.com/storm-software/powerlines/commit/4ba418749))
+
 ## [0.7.7](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.7) (04/10/2026)
 
 ### Bug Fixes
