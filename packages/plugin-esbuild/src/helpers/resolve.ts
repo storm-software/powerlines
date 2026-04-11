@@ -18,6 +18,7 @@
 
 import { PluginContext } from "@powerlines/core";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
+import { findFileDotExtension } from "@stryke/path/find";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import {
   TypeDefinition,
@@ -58,7 +59,7 @@ export async function resolveModule<
   try {
     resolved = await context.resolver.evalModule(result.text, {
       filename: result.path,
-      forceTranspile: true
+      ext: findFileDotExtension(result.path)
     });
   } catch (error) {
     if (
