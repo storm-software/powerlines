@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.7.6](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.6) (04/10/2026)
+
+### Bug Fixes
+
+- **monorepo:** Added missing `pnpm-lock.yaml` file updates ([d75af5099](https://github.com/storm-software/powerlines/commit/d75af5099))
+- **deepkit:** Resolve issue bundling deepkit packages ([37182078c](https://github.com/storm-software/powerlines/commit/37182078c))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.395**
+- Updated **core** to **v0.13.8**
+
 ## [0.7.5](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.5) (04/10/2026)
 
 ### Bug Fixes
