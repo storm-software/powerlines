@@ -24,6 +24,7 @@ const config = defineTSDownConfig([
     entry: ["src/*.ts"],
     clean: false,
     exports: false,
+    unbundle: false,
     deps: {
       neverBundle: [
         "@powerlines/deepkit/vendor/core",
