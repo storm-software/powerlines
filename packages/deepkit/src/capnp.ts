@@ -152,6 +152,7 @@ export function convertToCapnpTagsReflection(
   result.hidden = serializedType?.hidden ?? false;
   result.ignore = serializedType?.ignore ?? false;
   result.internal = serializedType?.internal ?? false;
+  result.runtime = serializedType?.runtime ?? false;
   result.readonly = serializedType?.readonly ?? false;
 
   if (serializedType?.title) {
@@ -181,6 +182,7 @@ export interface WithTagsReflection {
     title: string;
     ignore: boolean;
     internal: boolean;
+    runtime: boolean;
     readonly: boolean;
     permission: string[];
   };
@@ -203,6 +205,7 @@ export function convertFromCapnpTagsReflection(
           : undefined,
         ignore: serializedType.tags?.ignore,
         internal: serializedType.tags?.internal,
+        runtime: serializedType.tags?.runtime,
         readonly: serializedType.tags?.readonly,
         permission: serializedType.tags?.permission?.length
           ? serializedType.tags?.permission?.map(value => value)

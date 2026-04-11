@@ -70,18 +70,18 @@ export const plugin = <
             this.tsconfig.tsconfigJson.compilerOptions?.reflection ||
             this.tsconfig.tsconfigJson.reflection ||
             "default";
-          const reflectionLevel =
-            this.config.deepkit.reflectionLevel ||
-            this.tsconfig.tsconfigJson.compilerOptions?.reflectionLevel ||
-            this.tsconfig.tsconfigJson.reflectionLevel ||
-            "normal";
+          const level =
+            this.config.deepkit.level ||
+            this.tsconfig.tsconfigJson.compilerOptions?.level ||
+            this.tsconfig.tsconfigJson.level ||
+            "default";
 
           this.config.tsc ??= {} as TContext["config"]["tsc"];
           this.config.tsc.compilerOptions = {
             ...(this.config.tsc.compilerOptions ?? {}),
             exclude: this.config.deepkit.exclude ?? [],
             reflection,
-            reflectionLevel,
+            level,
             configFilePath: this.tsconfig.tsconfigFilePath
           };
 

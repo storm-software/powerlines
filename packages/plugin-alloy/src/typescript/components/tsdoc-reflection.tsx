@@ -85,6 +85,7 @@ export function TSDocReflectionClass<
   const permission = computed(() => reflection.getPermission());
   const readonly = computed(() => reflection.isReadonly());
   const internal = computed(() => reflection.isInternal());
+  const runtime = computed(() => reflection.isRuntime());
   const ignore = computed(() => reflection.isIgnored());
   const hidden = computed(() => reflection.isHidden());
 
@@ -103,6 +104,7 @@ export function TSDocReflectionClass<
       isSetString(domain.value) ||
       !isUndefined(readonly.value) ||
       !isUndefined(internal.value) ||
+      !isUndefined(runtime.value) ||
       !isUndefined(ignore.value) ||
       !isUndefined(hidden.value)
   );
@@ -123,6 +125,7 @@ export function TSDocReflectionClass<
           permission={permission.value}
           readonly={readonly.value}
           internal={internal.value}
+          runtime={runtime.value}
           ignore={ignore.value}
           hidden={hidden.value}
         />
@@ -188,6 +191,7 @@ export function TSDocReflectionProperty(props: TSDocReflectionPropertyProps) {
       isSetString(reflection.getDomain()) ||
       !isUndefined(reflection.isReadonly()) ||
       !isUndefined(reflection.isInternal()) ||
+      !isUndefined(reflection.isRuntime()) ||
       !isUndefined(reflection.isIgnored()) ||
       !isUndefined(reflection.isHidden()) ||
       (reflection.hasDefault() && !isUndefined(reflection.getDefaultValue()))
@@ -204,6 +208,7 @@ export function TSDocReflectionProperty(props: TSDocReflectionPropertyProps) {
           permission={reflection.getPermission()}
           readonly={reflection.isReadonly()}
           internal={reflection.isInternal()}
+          runtime={reflection.isRuntime()}
           ignore={reflection.isIgnored()}
           hidden={reflection.isHidden()}
           defaultValue={defaultValue ?? reflection.getDefaultValue()}
@@ -274,6 +279,7 @@ export function TSDocReflectionMethod(props: TSDocReflectionMethodProps) {
         permission={reflection.getPermission()}
         readonly={reflection.isReadonly()}
         internal={reflection.isInternal()}
+        runtime={reflection.isRuntime()}
         ignore={reflection.isIgnored()}
         hidden={reflection.isHidden()}
       />

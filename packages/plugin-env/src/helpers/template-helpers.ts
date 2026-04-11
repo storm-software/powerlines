@@ -49,6 +49,7 @@ export async function createTemplateReflection(
           hidden: prop.isHidden(),
           ignore: prop.isIgnored(),
           internal: prop.isInternal(),
+          runtime: prop.isRuntime(),
           alias: prop
             .getAlias()
             .filter(a => a !== alias)

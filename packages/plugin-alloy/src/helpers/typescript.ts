@@ -273,6 +273,11 @@ export const ${camelCase(options.overrideName || reflection.getName())}${
   * @internal`
       : ""
   }${
+    item.isRuntime()
+      ? `
+  * @runtime`
+      : ""
+  }${
     item.isReadonly()
       ? `
   * @readonly`

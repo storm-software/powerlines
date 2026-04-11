@@ -34,10 +34,11 @@ export type RawReflectionMode =
  * @remarks
  * The level determines how much extra data is captured in the byte code for each type. This can be one of the following values:
  * - `minimal` - Only the essential type information is captured.
- * - `normal` - Additional type information is captured, including some contextual data.
- * - `verbose` - All available type information is captured, including detailed contextual data.
+ * - `default` - Additional type information is captured, including some contextual data.
+ * - `extended` - Even more detailed type information is captured, including extended contextual data.
+ * - `all` - All available type information is captured, including detailed contextual data.
  */
-export type ReflectionLevel = "minimal" | "normal" | "verbose";
+export type Level = "minimal" | "default" | "extended" | "all";
 
 export interface DeepkitOptions {
   /**
@@ -52,11 +53,12 @@ export interface DeepkitOptions {
    *
    * @remarks
    * The level determines how much extra data is captured in the byte code for each type. This can be one of the following values:
-   * - `minimal` - Only the essential type information is captured.
-   * - `normal` - Additional type information is captured, including some contextual data.
-   * - `verbose` - All available type information is captured, including detailed contextual data.
+   * - `minimal` - Only the essential type information is captured. (only "hidden", "ignore" and "internal", "readonly")
+   * - `default` - Additional type information is captured, including some contextual data. (adds "alias" and "runtime")
+   * - `extended` - Even more detailed type information is captured, including extended contextual data. (adds "permissions" and "domain")
+   * - `all` - All available type information is captured, including detailed contextual data. (adds "title" and "description")
    */
-  reflectionLevel?: ReflectionLevel;
+  level?: Level;
 }
 
 export type TSCompilerOptions = CompilerOptions & DeepkitOptions;
@@ -80,10 +82,11 @@ export interface TSConfig extends Omit<TsConfigJson, "reflection"> {
    * @remarks
    * The level determines how much extra data is captured in the byte code for each type. This can be one of the following values:
    * - `minimal` - Only the essential type information is captured.
-   * - `normal` - Additional type information is captured, including some contextual data.
-   * - `verbose` - All available type information is captured, including detailed contextual data.
+   * - `default` - Additional type information is captured, including some contextual data.
+   * - `extended` - Even more detailed type information is captured, including extended contextual data.
+   * - `all` - All available type information is captured, including detailed contextual data.
    */
-  reflectionLevel?: ReflectionLevel;
+  level?: Level;
 
   /**
    * Instructs the TypeScript compiler how to compile `.ts` files.

@@ -46,10 +46,10 @@ export function transpile(
         options.reflection ??
         context.tsconfig.tsconfigJson.compilerOptions?.reflection ??
         context.tsconfig.tsconfigJson.reflection,
-      reflectionLevel:
-        options.reflectionLevel ??
-        context.tsconfig.tsconfigJson.compilerOptions?.reflectionLevel ??
-        context.tsconfig.tsconfigJson.reflectionLevel
+      level:
+        options.level ??
+        context.tsconfig.tsconfigJson.compilerOptions?.level ??
+        context.tsconfig.tsconfigJson.level
     },
     fileName: id,
     transformers: {

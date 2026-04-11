@@ -54,8 +54,9 @@ struct TagsReflection {
   readonly @3 :Bool;
   ignore @4 :Bool;
   internal @5 :Bool;
-  permission @6 :List(Text);
-  domain @7 :Text;
+  runtime @6 :Bool;
+  permission @7 :List(Text);
+  domain @8 :Text;
 }
 
 struct DefaultValueReflection {

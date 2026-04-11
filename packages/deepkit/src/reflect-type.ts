@@ -47,7 +47,7 @@ export async function reflectType<
         plugins: [
           esbuildPlugin(context, {
             reflection: "default",
-            reflectionLevel: "verbose"
+            level: "all"
           })
         ]
       })

@@ -47,14 +47,13 @@ export interface ReflectionConfig {
    * Defines the level of reflection to be used during the transpilation process.
    *
    * @remarks
-   * - `minimal`: Only essential type information is included in the reflection output, resulting in a smaller output size but less detailed type metadata.
-   * - `normal`: A balanced level of type information is included, providing a good trade-off between output size and type metadata detail.
-   * - `extended`: More comprehensive type information is included, which may increase the output size but provides richer type metadata for advanced use cases.
-   * - `verbose`: Detailed type information is included, resulting in a larger output size but more comprehensive type metadata.
-   *
-   * @defaultValue "normal"
+   * The level determines how much extra data is captured in the byte code for each type. This can be one of the following values:
+   * - `minimal` - Only the essential type information is captured. (only "hidden", "ignore" and "internal", "readonly")
+   * - `default` - Additional type information is captured, including some contextual data. (adds "alias" and "runtime")
+   * - `extended` - Even more detailed type information is captured, including extended contextual data. (adds "permissions" and "domain")
+   * - `all` - All available type information is captured, including detailed contextual data. (adds "title" and "description")
    */
-  reflectionLevel?: Level;
+  level?: Level;
 }
 
 export interface ESBuildPluginOptions extends Partial<ReflectionConfig> {

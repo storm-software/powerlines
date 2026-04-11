@@ -53,14 +53,14 @@ export function createTransformer(
           reflection:
             context.tsconfig.tsconfigJson.compilerOptions?.reflection ||
             context.tsconfig.tsconfigJson.reflection,
-          reflectionLevel:
-            context.tsconfig.tsconfigJson.compilerOptions?.reflectionLevel ||
-            context.tsconfig.tsconfigJson.reflectionLevel
+          level:
+            context.tsconfig.tsconfigJson.compilerOptions?.level ||
+            context.tsconfig.tsconfigJson.level
         },
         {
           exclude: [],
           reflection: "default",
-          reflectionLevel: "normal"
+          level: "default"
         }
       ) as ReflectionConfig
     );
@@ -86,14 +86,14 @@ export function createDeclarationTransformer(
           reflection:
             context.tsconfig.tsconfigJson.compilerOptions?.reflection ||
             context.tsconfig.tsconfigJson.reflection,
-          reflectionLevel:
-            context.tsconfig.tsconfigJson.compilerOptions?.reflectionLevel ||
-            context.tsconfig.tsconfigJson.reflectionLevel
+          level:
+            context.tsconfig.tsconfigJson.compilerOptions?.level ||
+            context.tsconfig.tsconfigJson.level
         },
         {
           exclude: [],
           reflection: "default",
-          reflectionLevel: "normal"
+          level: "default"
         }
       ) as ReflectionConfig
     );
