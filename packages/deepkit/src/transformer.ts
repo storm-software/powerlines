@@ -17,14 +17,14 @@
  ------------------------------------------------------------------- */
 
 import type { Context } from "@powerlines/core";
-import defu from "defu";
-import ts from "typescript";
 import {
   DeclarationTransformer,
   ReflectionTransformer
-} from "./vendor/type-compiler";
-import { Cache } from "./vendor/type-compiler/compiler";
-import type { ReflectionConfig } from "./vendor/type-compiler/config";
+} from "@powerlines/deepkit/vendor/type-compiler";
+import { Cache } from "@powerlines/deepkit/vendor/type-compiler/compiler";
+import { ReflectionConfig } from "@powerlines/deepkit/vendor/type-compiler/config";
+import defu from "defu";
+import ts from "typescript";
 
 let loaded = false;
 const cache = new Cache();

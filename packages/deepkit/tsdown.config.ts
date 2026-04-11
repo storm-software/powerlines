@@ -20,8 +20,23 @@ import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
 
 const config = defineTSDownConfig([
   {
-    name: "deepkit",
-    entry: ["src/*.ts", "src/vendor/**/*.ts"],
+    name: "deepkit-lib",
+    entry: ["src/*.ts"],
+    clean: false,
+    exports: false,
+    deps: {
+      neverBundle: [
+        "@powerlines/deepkit/vendor/core",
+        "@powerlines/deepkit/vendor/type",
+        "@powerlines/deepkit/vendor/type-spec",
+        "@powerlines/deepkit/vendor/type-compiler"
+      ]
+    }
+  },
+  {
+    name: "deepkit-vendor",
+    entry: ["src/vendor/**/*.ts"],
+    outDir: "dist/vendor",
     clean: false,
     unbundle: false,
     exports: false,

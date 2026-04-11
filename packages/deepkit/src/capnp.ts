@@ -18,6 +18,31 @@
 
 /* eslint-disable camelcase */
 
+import {
+  ReflectionKind,
+  ReflectionVisibility,
+  SerializedType,
+  SerializedTypeArray,
+  SerializedTypeClassType,
+  SerializedTypeEnum,
+  SerializedTypeFunction,
+  SerializedTypeInfer,
+  SerializedTypeIntersection,
+  SerializedTypeLiteral,
+  SerializedTypeMethod,
+  SerializedTypeMethodSignature,
+  SerializedTypeObjectLiteral,
+  SerializedTypeParameter,
+  SerializedTypeProperty,
+  SerializedTypePropertySignature,
+  SerializedTypeReference,
+  SerializedTypes,
+  SerializedTypeTuple,
+  SerializedTypeTupleMember,
+  SerializedTypeUnion,
+  SimpleSerializedType,
+  TagsReflection
+} from "@powerlines/deepkit/vendor/type";
 import { List } from "@stryke/capnp";
 import { isInteger, isSetObject, isUndefined } from "@stryke/type-checks";
 import {
@@ -46,30 +71,6 @@ import {
   TagsReflection as CapnpTagsReflection,
   SerializedType_Type
 } from "../schemas/reflection";
-import type {
-  SerializedType,
-  SerializedTypeArray,
-  SerializedTypeClassType,
-  SerializedTypeEnum,
-  SerializedTypeFunction,
-  SerializedTypeInfer,
-  SerializedTypeIntersection,
-  SerializedTypeLiteral,
-  SerializedTypeMethod,
-  SerializedTypeMethodSignature,
-  SerializedTypeObjectLiteral,
-  SerializedTypeParameter,
-  SerializedTypeProperty,
-  SerializedTypePropertySignature,
-  SerializedTypeReference,
-  SerializedTypes,
-  SerializedTypeTuple,
-  SerializedTypeTupleMember,
-  SerializedTypeUnion,
-  SimpleSerializedType,
-  TagsReflection
-} from "./vendor/type";
-import { ReflectionKind, ReflectionVisibility } from "./vendor/type";
 
 /**
  * Converts a Deepkit serialized type to a Cap'n Proto serialized type.

@@ -16,20 +16,20 @@
 
  ------------------------------------------------------------------- */
 
+import {
+  ReflectionKind,
+  ReflectionParameter,
+  ReflectionProperty,
+  Type,
+  TypeNumber,
+  TypeString
+} from "@powerlines/deepkit/vendor/type";
 import { getUniqueBy } from "@stryke/helpers/get-unique";
 import { StormJSON } from "@stryke/json/storm-json";
 import { isSetObject } from "@stryke/type-checks";
 import { isNull } from "@stryke/type-checks/is-null";
 import { isString } from "@stryke/type-checks/is-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
-import type {
-  ReflectionParameter,
-  ReflectionProperty,
-  Type,
-  TypeNumber,
-  TypeString
-} from "./vendor/type";
-import { ReflectionKind } from "./vendor/type";
 
 /**
  * Converts any {@link ReflectionProperty}, {@link ReflectionParameter}, or {@link ReflectionKind}'s value to string representation.

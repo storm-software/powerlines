@@ -17,12 +17,12 @@
  ------------------------------------------------------------------- */
 
 import type { PluginContext } from "@powerlines/core";
+import { Level, Mode } from "@powerlines/deepkit/vendor/type-compiler/config";
 import { omit } from "@stryke/helpers/omit";
 import { isString } from "@stryke/type-checks";
 import type { OnLoadOptions, Plugin } from "esbuild";
 import { DiagnosticCategory } from "typescript";
 import { transpile } from "./transpile";
-import type { Level, Mode } from "./vendor/type-compiler/config";
 
 export interface ReflectionConfig {
   /**
