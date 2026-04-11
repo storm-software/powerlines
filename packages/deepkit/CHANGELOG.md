@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.7.7](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.7) (04/10/2026)
+
+### Bug Fixes
+
+- **deepkit:** Separate out vendor and library bundles ([ef29b54ed](https://github.com/storm-software/powerlines/commit/ef29b54ed))
+
 ## [0.7.6](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.6) (04/10/2026)
 
 ### Bug Fixes

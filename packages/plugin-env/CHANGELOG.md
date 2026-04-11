@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.119](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.119) (04/10/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Added `reflection` parameter to deepkit invocation ([5ef0f14a5](https://github.com/storm-software/powerlines/commit/5ef0f14a5))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.275**
+- Updated **plugin-alloy** to **v0.26.13**
+- Updated **deepkit** to **v0.7.7**
+
 ## [0.16.118](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.118) (04/10/2026)
 
 ### Updated Dependencies
