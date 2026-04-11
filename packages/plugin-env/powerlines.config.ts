@@ -27,6 +27,7 @@ export default defineConfig({
   plugins: [
     plugin(),
     deepkit({
+      reflection: "default",
       reflectionLevel: "verbose"
     }),
     alloy({
