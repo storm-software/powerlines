@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.13.9](https://github.com/storm-software/powerlines/releases/tag/core%400.13.9) (04/11/2026)
+
+### Features
+
+- **deepkit:** Rename `reflectionLevel` to `level` and simplify the options ([db9581681](https://github.com/storm-software/powerlines/commit/db9581681))
+
 ## [0.13.7](https://github.com/storm-software/powerlines/releases/tag/core%400.13.7) (04/10/2026)
 
 ### Bug Fixes

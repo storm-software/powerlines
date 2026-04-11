@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.8.0](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.8.0) (04/11/2026)
+
+### Features
+
+- **deepkit:** Rename `reflectionLevel` to `level` and simplify the options ([db9581681](https://github.com/storm-software/powerlines/commit/db9581681))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.396**
+- Updated **core** to **v0.13.9**
+
 ## [0.7.8](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.7.8) (04/10/2026)
 
 ### Bug Fixes

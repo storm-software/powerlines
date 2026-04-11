@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.277](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.277) (04/11/2026)
+
+### Features
+
+- **deepkit:** Rename `reflectionLevel` to `level` and simplify the options ([db9581681](https://github.com/storm-software/powerlines/commit/db9581681))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.347**
+- Updated **plugin-tsc** to **v0.2.404**
+- Updated **powerlines** to **v0.42.37**
+- Updated **deepkit** to **v0.8.0**
+
 ## [0.11.276](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.276) (04/10/2026)
 
 ### Updated Dependencies

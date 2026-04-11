@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.15](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.15) (04/11/2026)
+
+### Features
+
+- **deepkit:** Rename `reflectionLevel` to `level` and simplify the options ([db9581681](https://github.com/storm-software/powerlines/commit/db9581681))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.347**
+- Updated **plugin-babel** to **v0.12.392**
+- Updated **powerlines** to **v0.42.37**
+- Updated **deepkit** to **v0.8.0**
+- Updated **core** to **v0.13.9**
+
 ## [0.26.14](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.14) (04/10/2026)
 
 ### Updated Dependencies
