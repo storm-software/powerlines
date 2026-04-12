@@ -22,37 +22,52 @@ import { findFileName } from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
-import { DiagnosticCategory, Node, Project } from "ts-morph";
+import { isString } from "@stryke/type-checks/is-string";
+import { DiagnosticCategory, Node, Project, SourceFile } from "ts-morph";
 import { Context } from "../../types";
 import { createProgram } from "../../typescript/ts-morph";
 import { format } from "../../utils";
 
+interface ModuleExportSpecifier {
+  name: string;
+  alias?: string;
+  default?: boolean;
+  type?: boolean;
+}
+
 interface ModuleReference {
-  id: string;
-  external: boolean;
+  name?: string;
+  specifiers?: ModuleExportSpecifier[];
+  all?: boolean;
 }
 
-interface Mapping {
-  source: string;
-  line: number;
-  column: number;
+interface ImportModuleReference extends ModuleReference {
+  name: string;
+  ambient?: boolean;
 }
 
-interface BaseModuleDeclaration {
-  content: string;
-  mappings: Map<string, Mapping>;
-  ambient: ModuleReference[];
+interface ExportModuleReference extends ModuleReference {
+  text: string;
+  fullText: string;
+  comment?: string;
 }
 
-// interface ModuleDeclaration {
-//   sourceFile: SourceFile;
-//   content: string;
-//   mappings: Map<string, Mapping>;
-//   exports: string[];
-//   ambient: ModuleReference[];
-//   builtinImports: string[];
-// }
+interface ModuleDeclaration {
+  name: string;
+  text: string;
+  sourceFile: SourceFile;
+  comment?: string;
+  exports: (ExportModuleReference | string)[];
+  imports: ImportModuleReference[];
+}
+
+export interface TypegenContext {
+  context: Context;
+  emitted: Map<string, string>;
+  modules: ModuleDeclaration[];
+}
 
 /**
  * Formats the generated TypeScript types source code.
@@ -64,109 +79,105 @@ export function formatTypes(code = ""): string {
   return code.replaceAll("#private;", "").replace(/__Ω/g, "");
 }
 
-/* async function extractModuleDeclarations(
-  context: Context,
+async function extractModuleDeclarations(
+  ctx: TypegenContext,
   filePath: string,
-  id: string,
-  code: string,
-  fileToModuleMap: Map<string, string>
+  name: string,
+  text: string
 ): Promise<ModuleDeclaration> {
-  const mappings = new Map<string, Mapping>();
-  const ambient: ModuleReference[] = [];
+  const imports: ImportModuleReference[] = [];
+  const exports: (ExportModuleReference | string)[] = [];
+
+  const comment = text
+    .match(
+      new RegExp(
+        `\\/\\*\\*(?s:.)*?@module\\s+${
+          ctx.context.config.framework
+        }:${name}(?s:.)*?\\*\\/\\s+`
+      )
+    )
+    ?.find(comment => isSetString(comment?.trim()));
 
   // Parse the emitted .d.ts content using an in-memory ts-morph project
   const project = new Project({ useInMemoryFileSystem: true });
-  const sourceFile = project.createSourceFile("module.d.ts", code);
+  const sourceFile = project.createSourceFile("module.d.ts", text);
 
   // Collect /// <reference types="..." /> directives as ambient dependencies
   for (const ref of sourceFile.getTypeReferenceDirectives()) {
-    ambient.push({ id: ref.getFileName(), external: true });
+    if (
+      ref.getFileName() &&
+      !ctx.context.builtins.some(builtin => ref.getFileName().endsWith(builtin))
+    ) {
+      imports.push({
+        name: ref.getFileName(),
+        ambient: true
+      });
+    }
   }
-
-  const importLines: string[] = [];
-  const reExportLines: string[] = [];
-  const declarationLines: string[] = [];
 
   for (const statement of sourceFile.getStatements()) {
     // --- Import declarations ---
     if (Node.isImportDeclaration(statement)) {
       const moduleSpec = statement.getModuleSpecifierValue();
-      const defaultImport = statement.getDefaultImport();
-      const namedImports = statement.getNamedImports();
-      const namespaceImport = statement.getNamespaceImport();
-
-      // Side-effect import (no import clause) → ambient dependency
-      if (!defaultImport && namedImports.length === 0 && !namespaceImport) {
-        ambient.push({
-          id: moduleSpec,
-          external: !context.fs.isResolvableId(moduleSpec, filePath)
-        });
-        continue;
-      }
-
-      // Resolve the module specifier for the output
-      let resolvedSpec = moduleSpec;
-      if (context.fs.isResolvableId(moduleSpec, filePath)) {
-        const resolved = await context.resolve(moduleSpec, filePath);
-        if (resolved) {
-          const mapped = fileToModuleMap.get(resolved.id);
-          if (mapped) {
-            resolvedSpec = mapped;
-          } else {
-            context.trace(
-              `Could not resolve relative import '${moduleSpec}' from '${filePath}' to a builtin module. Keeping as-is.`
-            );
-          }
-        }
-      }
 
       // Namespace import: import * as X from '...'
-      if (namespaceImport) {
-        importLines.push(
-          `\timport * as ${namespaceImport.getText()} from '${resolvedSpec}';`
-        );
-      } else {
-        const specifiers: string[] = [];
-
-        if (defaultImport) {
-          specifiers.push(`default as ${defaultImport.getText()}`);
-        }
-
-        for (const named of namedImports) {
-          const alias = named.getAliasNode()?.getText();
-          specifiers.push(
-            alias ? `${named.getName()} as ${alias}` : named.getName()
-          );
-        }
-
-        if (specifiers.length > 0) {
-          const typeOnly = statement.isTypeOnly() ? " type" : "";
-          importLines.push(
-            `\timport${typeOnly} { ${specifiers.join(", ")} } from '${resolvedSpec}';`
-          );
-        }
+      if (statement.getNamespaceImport()) {
+        imports.push({
+          name: moduleSpec,
+          specifiers: [
+            {
+              name: statement.getNamespaceImport()!.getText()
+            }
+          ],
+          all: true
+        });
       }
 
-      continue;
+      // Named imports: import X from '...' or import { A, B as C } from '...'
+      else if (
+        statement.getNamedImports().length > 0 ||
+        statement.getDefaultImport()
+      ) {
+        const specifiers: ModuleExportSpecifier[] = [];
+        if (statement.getDefaultImport()) {
+          specifiers.push({
+            name: statement.getDefaultImport()!.getText(),
+            default: true,
+            type: statement.isTypeOnly()
+          });
+        }
+
+        statement.getNamedImports().forEach(named => {
+          specifiers.push({
+            name: named.getName(),
+            alias: named.getAliasNode()?.getText(),
+            type: statement.isTypeOnly()
+          });
+        });
+
+        imports.push({
+          name: moduleSpec,
+          specifiers
+        });
+      }
     }
 
     // --- Export declarations ---
-    if (Node.isExportDeclaration(statement)) {
+    else if (Node.isExportDeclaration(statement)) {
       const moduleSpec = statement.getModuleSpecifierValue();
-
       if (moduleSpec) {
         // Resolve the module specifier
         let resolvedSpec = moduleSpec;
-        if (context.fs.isResolvableId(moduleSpec, filePath)) {
-          const resolved = await context.resolve(moduleSpec, filePath);
-          if (resolved) {
-            const mapped = fileToModuleMap.get(resolved.id);
-            if (mapped) {
-              resolvedSpec = mapped;
-            } else {
-              context.trace(
-                `Could not resolve relative import '${moduleSpec}' from '${filePath}' to a builtin module. Keeping as-is.`
-              );
+        if (!ctx.context.builtins.includes(moduleSpec)) {
+          if (ctx.emitted.has(moduleSpec)) {
+            resolvedSpec = ctx.emitted.get(moduleSpec)!;
+          } else {
+            const resolvedModule = await ctx.context.resolve(
+              moduleSpec,
+              filePath
+            );
+            if (isSetString(resolvedModule?.id)) {
+              resolvedSpec = resolvedModule.id;
             }
           }
         }
@@ -174,252 +185,223 @@ export function formatTypes(code = ""): string {
         // Re-export from another module
         const namedExports = statement.getNamedExports();
         if (namedExports.length > 0) {
-          const specifiers = namedExports.map(named => {
-            const alias = named.getAliasNode()?.getText();
-
-            return alias ? `${named.getName()} as ${alias}` : named.getName();
+          exports.push({
+            name: resolvedSpec,
+            text: statement.getText(),
+            fullText: statement.getFullText(),
+            specifiers: namedExports.map(named => ({
+              name: named.getName(),
+              alias: named.getAliasNode()?.getText(),
+              type: statement.isTypeOnly()
+            })),
+            comment: statement
+              .getLeadingCommentRanges()
+              .filter(
+                c =>
+                  isSetString(c.getText().trim()) &&
+                  !c.getText().includes("@module")
+              )
+              .map(c => c.getText().trim())
+              .join("\n")
+              .trim()
           });
-          const typeOnly = statement.isTypeOnly() ? " type" : "";
-          reExportLines.push(
-            `\texport${typeOnly} { ${specifiers.join(", ")} } from '${resolvedSpec}';`
-          );
         } else {
           // export * from '...'
-          reExportLines.push(`\texport * from '${resolvedSpec}';`);
+          exports.push({
+            name: resolvedSpec,
+            text: statement.getText(),
+            fullText: statement.getFullText(),
+            all: true,
+            comment: statement
+              .getLeadingCommentRanges()
+              .filter(
+                c =>
+                  isSetString(c.getText().trim()) &&
+                  !c.getText().includes("@module")
+              )
+              .map(c => c.getText().trim())
+              .join("\n")
+              .trim()
+          });
         }
       } else {
-        // Local export { foo, bar } — keep as-is
-        declarationLines.push(`\t${statement.getText()}`);
-      }
-
-      continue;
-    }
-
-    // --- Export assignments (export default ...) ---
-    if (Node.isExportAssignment(statement)) {
-      declarationLines.push(`\t${statement.getText()}`);
-      continue;
-    }
-
-    // --- All other statements (declarations) ---
-    const text = statement.getText();
-    if (text.includes("//# sourceMappingURL=")) {
-      continue;
-    }
-
-    declarationLines.push(
-      formatTypes(text.replace(/^(export\s+)?declare\s+/, "$1"))
-        .split("\n")
-        .map(line => `\t${line}`)
-        .join("\n")
-    );
-  }
-
-  const moduleComment = code
-    .match(
-      new RegExp(
-        `\\/\\*\\*(?s:.)*?@module\\s+${
-          context.config.framework
-        }:${id}(?s:.)*?\\*\\/\\s+`
-      )
-    )
-    ?.find(comment => isSetString(comment?.trim()));
-
-  let content = `${
-    moduleComment ? `${moduleComment.trim()}\n` : ""
-  }declare module "${context.config.framework}:${id}" {`;
-  for (const line of importLines) {
-    content += `\n${line}`;
-  }
-
-  for (const line of reExportLines) {
-    content += `\n${line}`;
-  }
-
-  for (const line of declarationLines) {
-    content += `\n${line}`;
-  }
-
-  content += "\n}";
-  return { content, mappings, ambient };
-} */
-
-async function writeModuleDeclarations(
-  context: Context,
-  filePath: string,
-  id: string,
-  code: string,
-  fileToModuleMap: Map<string, string>
-): Promise<BaseModuleDeclaration> {
-  const mappings = new Map<string, Mapping>();
-  const ambient: ModuleReference[] = [];
-
-  // Parse the emitted .d.ts content using an in-memory ts-morph project
-  const project = new Project({ useInMemoryFileSystem: true });
-  const sourceFile = project.createSourceFile("module.d.ts", code);
-
-  // Collect /// <reference types="..." /> directives as ambient dependencies
-  for (const ref of sourceFile.getTypeReferenceDirectives()) {
-    ambient.push({ id: ref.getFileName(), external: true });
-  }
-
-  const importLines: string[] = [];
-  const reExportLines: string[] = [];
-  const declarationLines: string[] = [];
-
-  for (const statement of sourceFile.getStatements()) {
-    // --- Import declarations ---
-    if (Node.isImportDeclaration(statement)) {
-      const moduleSpec = statement.getModuleSpecifierValue();
-      const defaultImport = statement.getDefaultImport();
-      const namedImports = statement.getNamedImports();
-      const namespaceImport = statement.getNamespaceImport();
-
-      // Side-effect import (no import clause) → ambient dependency
-      if (!defaultImport && namedImports.length === 0 && !namespaceImport) {
-        ambient.push({
-          id: moduleSpec,
-          external: !context.fs.isResolvableId(moduleSpec, filePath)
-        });
-        continue;
-      }
-
-      // Resolve the module specifier for the output
-      let resolvedSpec = moduleSpec;
-      if (context.fs.isResolvableId(moduleSpec, filePath)) {
-        const resolved = await context.resolve(moduleSpec, filePath);
-        if (resolved) {
-          const mapped = fileToModuleMap.get(resolved.id);
-          if (mapped) {
-            resolvedSpec = mapped;
-          } else {
-            context.trace(
-              `Could not resolve relative import '${moduleSpec}' from '${filePath}' to a builtin module. Keeping as-is.`
-            );
-          }
-        }
-      }
-
-      // Namespace import: import * as X from '...'
-      if (namespaceImport) {
-        importLines.push(
-          `\timport * as ${namespaceImport.getText()} from '${resolvedSpec}';`
-        );
-      } else {
-        const specifiers: string[] = [];
-
-        if (defaultImport) {
-          specifiers.push(`default as ${defaultImport.getText()}`);
-        }
-
-        for (const named of namedImports) {
-          const alias = named.getAliasNode()?.getText();
-          specifiers.push(
-            alias ? `${named.getName()} as ${alias}` : named.getName()
-          );
-        }
-
+        const specifiers = statement.getNamedExports().map(named => ({
+          name: named.getName(),
+          alias: named.getAliasNode()?.getText(),
+          type: statement.isTypeOnly()
+        }));
         if (specifiers.length > 0) {
-          const typeOnly = statement.isTypeOnly() ? " type" : "";
-          importLines.push(
-            `\timport${typeOnly} { ${specifiers.join(", ")} } from '${resolvedSpec}';`
-          );
-        }
-      }
-
-      continue;
-    }
-
-    // --- Export declarations ---
-    if (Node.isExportDeclaration(statement)) {
-      const moduleSpec = statement.getModuleSpecifierValue();
-
-      if (moduleSpec) {
-        // Resolve the module specifier
-        let resolvedSpec = moduleSpec;
-        if (context.fs.isResolvableId(moduleSpec, filePath)) {
-          const resolved = await context.resolve(moduleSpec, filePath);
-          if (resolved) {
-            const mapped = fileToModuleMap.get(resolved.id);
-            if (mapped) {
-              resolvedSpec = mapped;
-            } else {
-              context.trace(
-                `Could not resolve relative import '${moduleSpec}' from '${filePath}' to a builtin module. Keeping as-is.`
-              );
-            }
-          }
-        }
-
-        // Re-export from another module
-        const namedExports = statement.getNamedExports();
-        if (namedExports.length > 0) {
-          const specifiers = namedExports.map(named => {
-            const alias = named.getAliasNode()?.getText();
-
-            return alias ? `${named.getName()} as ${alias}` : named.getName();
+          exports.push({
+            text: statement.getText(),
+            fullText: statement.getFullText(),
+            specifiers,
+            comment: statement
+              .getLeadingCommentRanges()
+              .filter(
+                c =>
+                  isSetString(c.getText().trim()) &&
+                  !c.getText().includes("@module")
+              )
+              .map(c => c.getText().trim())
+              .join("\n")
           });
-          const typeOnly = statement.isTypeOnly() ? " type" : "";
-          reExportLines.push(
-            `\texport${typeOnly} { ${specifiers.join(", ")} } from '${resolvedSpec}';`
-          );
-        } else {
-          // export * from '...'
-          reExportLines.push(`\texport * from '${resolvedSpec}';`);
         }
-      } else {
-        // Local export { foo, bar } — keep as-is
-        declarationLines.push(`\t${statement.getText()}`);
       }
-
-      continue;
     }
 
     // --- Export assignments (export default ...) ---
-    if (Node.isExportAssignment(statement)) {
-      declarationLines.push(`\t${statement.getText()}`);
-      continue;
+    else if (Node.isExportAssignment(statement)) {
+      exports.push({
+        text: statement.getText(),
+        fullText: statement.getFullText(),
+        comment: statement
+          .getLeadingCommentRanges()
+          .filter(
+            c =>
+              isSetString(c.getText().trim()) &&
+              !c.getText().includes("@module")
+          )
+          .map(c => c.getText().trim())
+          .join("\n")
+      });
+    }
+
+    // --- Function declarations (export declare function ...) ---
+    else if (
+      Node.isFunctionDeclaration(statement) &&
+      statement.isExported() &&
+      statement.getNameNode()
+    ) {
+      exports.push({
+        text: statement.getText(),
+        fullText: statement.getFullText(),
+        specifiers: [
+          {
+            name: statement.getNameNode()!.getText()
+          }
+        ],
+        comment: statement
+          .getLeadingCommentRanges()
+          .filter(
+            c =>
+              isSetString(c.getText().trim()) &&
+              !c.getText().includes("@module")
+          )
+          .map(c => c.getText().trim())
+          .join("\n")
+      });
+    }
+
+    // --- Variable statements (export declare const ...) ---
+    else if (Node.isVariableStatement(statement) && statement.isExported()) {
+      exports.push({
+        text: statement.getText(),
+        fullText: statement.getFullText(),
+        specifiers: statement
+          .getDeclarationList()
+          .getDeclarations()
+          .filter(
+            decl => decl.getNameNode() && Node.isIdentifier(decl.getNameNode())
+          )
+          .map(decl => ({ name: decl.getNameNode().getText() })),
+        comment: statement
+          .getLeadingCommentRanges()
+          .filter(
+            c =>
+              isSetString(c.getText().trim()) &&
+              !c.getText().includes("@module")
+          )
+          .map(c => c.getText().trim())
+          .join("\n")
+      });
+    }
+
+    // --- Class declarations (export declare class ...) ---
+    else if (Node.isClassDeclaration(statement) && statement.isExported()) {
+      const nameNode = statement.getNameNode();
+      exports.push({
+        text: statement.getText(),
+        fullText: statement.getFullText(),
+        specifiers: nameNode ? [{ name: nameNode.getText() }] : undefined,
+        comment: statement
+          .getLeadingCommentRanges()
+          .filter(
+            c =>
+              isSetString(c.getText().trim()) &&
+              !c.getText().includes("@module")
+          )
+          .map(c => c.getText().trim())
+          .join("\n")
+      });
+    }
+
+    // --- Interface declarations (export declare interface ...) ---
+    else if (Node.isInterfaceDeclaration(statement) && statement.isExported()) {
+      const nameNode = statement.getNameNode();
+      exports.push({
+        text: statement.getText(),
+        fullText: statement.getFullText(),
+        specifiers: nameNode ? [{ name: nameNode.getText() }] : undefined,
+        comment: statement
+          .getLeadingCommentRanges()
+          .filter(
+            c =>
+              isSetString(c.getText().trim()) &&
+              !c.getText().includes("@module")
+          )
+          .map(c => c.getText().trim())
+          .join("\n")
+      });
+    }
+
+    // --- Type alias declarations (export declare type ...) ---
+    else if (Node.isTypeAliasDeclaration(statement) && statement.isExported()) {
+      const nameNode = statement.getNameNode();
+      exports.push({
+        text: statement.getText(),
+        fullText: statement.getFullText(),
+        specifiers: nameNode ? [{ name: nameNode.getText() }] : undefined,
+        comment: statement
+          .getLeadingCommentRanges()
+          .filter(
+            c =>
+              isSetString(c.getText().trim()) &&
+              !c.getText().includes("@module")
+          )
+          .map(c => c.getText().trim())
+          .join("\n")
+      });
     }
 
     // --- All other statements (declarations) ---
-    const text = statement.getText();
-    if (text.includes("//# sourceMappingURL=")) {
-      continue;
+    else if (
+      ctx.context.config.output.sourceMap ||
+      !statement.getFullText().includes("//# sourceMappingURL=")
+    ) {
+      exports.push({
+        text: statement.getText(),
+        fullText: statement.getFullText(),
+        comment: statement
+          .getLeadingCommentRanges()
+          .filter(
+            c =>
+              isSetString(c.getText().trim()) &&
+              !c.getText().includes("@module")
+          )
+          .map(c => c.getText().trim())
+          .join("\n")
+      });
     }
-
-    declarationLines.push(
-      formatTypes(text.replace(/^(export\s+)?declare\s+/, "$1"))
-        .split("\n")
-        .map(line => `\t${line}`)
-        .join("\n")
-    );
   }
 
-  const moduleComment = code
-    .match(
-      new RegExp(
-        `\\/\\*\\*(?s:.)*?@module\\s+${
-          context.config.framework
-        }:${id}(?s:.)*?\\*\\/\\s+`
-      )
-    )
-    ?.find(comment => isSetString(comment?.trim()));
-
-  let content = `${moduleComment ? `${moduleComment.trim()}\n` : ""}declare module "${context.config.framework}:${id}" {`;
-  for (const line of importLines) {
-    content += `\n${line}`;
-  }
-
-  for (const line of reExportLines) {
-    content += `\n${line}`;
-  }
-
-  for (const line of declarationLines) {
-    content += `\n${line}`;
-  }
-
-  content += "\n}";
-  return { content, mappings, ambient };
+  return {
+    name,
+    text,
+    sourceFile,
+    comment,
+    imports,
+    exports
+  };
 }
 
 /**
@@ -510,7 +492,9 @@ export async function emitBuiltinTypes<TContext extends Context>(
 
   const emittedFiles = emitResult.getFiles();
   context.debug(
-    `The TypeScript compiler emitted ${emittedFiles.length} files for built-in types.`
+    `The TypeScript compiler emitted ${
+      emittedFiles.length
+    } files for built-in types.`
   );
 
   if (emittedFiles.length === 0) {
@@ -520,133 +504,264 @@ export async function emitBuiltinTypes<TContext extends Context>(
     return { code: "", directives: [] };
   }
 
-  // First pass: build a mapping from emitted file paths to builtin module IDs
-  // so that relative imports between builtins can be resolved correctly
-  const fileToModuleMap = new Map<string, string>();
-  const emittedBuiltinFiles: { filePath: string; text: string }[] = [];
+  const ctx = {
+    context,
+    modules: [] as ModuleDeclaration[],
+    emitted: new Map<string, string>()
+  };
 
-  for (const emittedFile of emittedFiles) {
-    const filePath = appendPath(
-      emittedFile.filePath,
-      context.workspaceConfig.workspaceRoot
-    );
-
-    if (
-      !filePath.endsWith(".map") &&
-      findFileName(filePath) !== "tsconfig.tsbuildinfo" &&
-      isParentPath(filePath, context.builtinsPath)
-    ) {
-      const moduleId = replaceExtension(
-        replacePath(
-          replacePath(filePath, context.builtinsPath),
-          replacePath(
-            context.builtinsPath,
-            context.workspaceConfig.workspaceRoot
-          )
-        ),
-        "",
-        {
-          fullExtension: true
-        }
+  await Promise.all(
+    emittedFiles.map(async emittedFile => {
+      const filePath = appendPath(
+        emittedFile.filePath,
+        context.workspaceConfig.workspaceRoot
       );
-      if (context.builtins.includes(moduleId)) {
-        fileToModuleMap.set(filePath, moduleId);
-        emittedBuiltinFiles.push({ filePath, text: emittedFile.text });
-      }
-    }
-  }
-
-  const builtins = await context.getBuiltins();
-
-  // Build a content map of all emitted .d.ts files for ambient module resolution
-  const emittedContentMap = new Map<string, string>();
-  for (const emittedFile of emittedFiles) {
-    const filePath = appendPath(
-      emittedFile.filePath,
-      context.workspaceConfig.workspaceRoot
-    );
-    if (
-      !filePath.endsWith(".map") &&
-      findFileName(filePath) !== "tsconfig.tsbuildinfo"
-    ) {
-      emittedContentMap.set(filePath, emittedFile.text);
-    }
-  }
-
-  // Second pass: process each builtin module and generate declare module blocks
-  let code = "";
-  const directives: string[] = [];
-  const ambientModules = new Set<string>();
-  let isFirst = true;
-
-  for (const entry of emittedBuiltinFiles) {
-    context.trace(
-      `Processing emitted type declaration file: ${entry.filePath}`
-    );
-
-    const moduleId = fileToModuleMap.get(entry.filePath)!;
-    const moduleDecl = await writeModuleDeclarations(
-      context,
-      entry.filePath,
-      moduleId,
-      entry.text,
-      fileToModuleMap
-    );
-
-    if (!isFirst) {
-      code += "\n\n";
-    }
-    isFirst = false;
-    code += moduleDecl.content;
-
-    for (const dep of moduleDecl.ambient) {
-      if (dep.external) {
-        const directive = dep.id;
-        if (!directives.includes(directive)) {
-          directives.push(directive);
-        }
-      } else if (builtins.some(builtin => builtin.id === dep.id)) {
-        ambientModules.add(
-          builtins.find(builtin => builtin.id === dep.id)!.path
-        );
-      } else if (
-        builtins.some(
-          builtin => replaceExtension(builtin.path) === replaceExtension(dep.id)
-        )
+      if (
+        !filePath.endsWith(".map") &&
+        findFileName(filePath) !== "tsconfig.tsbuildinfo" &&
+        isParentPath(filePath, context.builtinsPath)
       ) {
-        ambientModules.add(dep.id);
-      } else {
-        const resolved = await context.resolve(dep.id, entry.filePath);
-        if (resolved) {
-          for (const name of [
-            resolved.id,
-            `${resolved.id}.d.ts`,
-            `${resolved.id}.d.mts`,
-            `${resolved.id}.d.cts`,
-            replaceExtension(resolved.id, ".d.ts"),
-            replaceExtension(resolved.id, ".d.mts"),
-            replaceExtension(resolved.id, ".d.cts"),
-            `${resolved.id}/index.d.ts`
-          ]) {
-            if (emittedContentMap.has(name)) {
-              ambientModules.add(name);
-              break;
+        const moduleName = replaceExtension(
+          replacePath(
+            replacePath(filePath, context.builtinsPath),
+            replacePath(
+              context.builtinsPath,
+              context.workspaceConfig.workspaceRoot
+            )
+          ),
+          "",
+          {
+            fullExtension: true
+          }
+        );
+        if (context.builtins.includes(moduleName)) {
+          ctx.emitted.set(filePath, moduleName);
+          ctx.modules.push(
+            await extractModuleDeclarations(
+              ctx,
+              filePath,
+              moduleName,
+              emittedFile.text
+            )
+          );
+        }
+      }
+    })
+  );
+
+  const commonDeclarations = [] as ExportModuleReference[];
+  for (const mod of ctx.modules) {
+    for (const importRef of mod.imports.filter(importRef =>
+      context.builtins.some(builtin => importRef.name.endsWith(`:${builtin}`))
+    )) {
+      const moduleRef = ctx.modules.find(moduleRef =>
+        importRef.name.endsWith(`:${moduleRef.name}`)
+      );
+      if (moduleRef) {
+        let declaration: ExportModuleReference | undefined;
+        for (const decl of moduleRef.exports.filter(decl =>
+          isSetObject(decl)
+        )) {
+          const specifiers = decl.specifiers?.filter(specifier =>
+            importRef.specifiers?.some(
+              s =>
+                (specifier.alias ? specifier.alias : specifier.name) ===
+                (s.alias ? s.alias : s.name)
+            )
+          );
+          if (specifiers && specifiers.length > 0) {
+            importRef.specifiers = importRef.specifiers?.filter(
+              s =>
+                !specifiers.some(
+                  specifier =>
+                    (specifier.alias ? specifier.alias : specifier.name) ===
+                    (s.alias ? s.alias : s.name)
+                )
+            );
+            if (
+              importRef.specifiers &&
+              importRef.specifiers.length === 0 &&
+              !importRef.all &&
+              !importRef.ambient
+            ) {
+              mod.imports = mod.imports.filter(
+                imp => imp.name !== importRef.name
+              );
             }
+
+            declaration = decl;
+            break;
           }
         }
+
+        if (declaration) {
+          for (const decl of moduleRef.exports.filter(
+            decl =>
+              isSetObject(decl) &&
+              !decl.specifiers?.some(s =>
+                declaration?.specifiers?.some(
+                  specifier =>
+                    (specifier.alias ? specifier.alias : specifier.name) ===
+                    (s.alias ? s.alias : s.name)
+                )
+              )
+          )) {
+            const exportModuleRef = decl as ExportModuleReference;
+            if (
+              (exportModuleRef.specifiers?.some(s => s.alias || s.name) ||
+                exportModuleRef.name) &&
+              new RegExp(
+                `(^|\\s|\\n|\\r\\n|\\(|\\)|<|>|{|}|\\[|\\]|\\!|\\?|\\.|,|\\*|&|:)(${
+                  exportModuleRef.specifiers
+                    ?.map(s => `${s.alias ? `${s.alias}|` : ""}${s.name}`)
+                    .join("|") || exportModuleRef.name
+                })($|\\s|\\n|\\r\\n|\\(|\\)|<|>|{|}|\\[|\\]|\\!|\\?|\\.|,|\\*|&|:|;)`
+              ).test(declaration.text)
+            ) {
+              commonDeclarations.push(exportModuleRef);
+            }
+          }
+          commonDeclarations.push(declaration);
+        }
       }
     }
   }
 
-  // Inject non-external ambient module declarations wholesale
-  for (const ambientFile of ambientModules) {
-    const dts = emittedContentMap.get(ambientFile);
-    if (dts) {
-      const cleaned = dts.replace(/\/\/# sourceMappingURL=.*$/m, "").trim();
-      if (cleaned) {
-        code += `\n\n${formatTypes(cleaned)}`;
+  let code = "";
+  const directives: string[] = [];
+
+  for (const commonDeclaration of commonDeclarations) {
+    code += formatTypes(
+      `${
+        commonDeclaration.comment?.trim()
+          ? commonDeclaration.comment.trim()
+          : ""
+      }${commonDeclaration.comment?.trim() ? "\n" : ""}${formatTypes(
+        commonDeclaration.text
+          .replace(/\s*export\s*/, "")
+          .replace(/\s*declare\s*interface\s*/, "interface ")
+          .replace(/\s*declare\s*type\s*/, "type ")
+      )}`
+    );
+    code += "\n\n";
+  }
+
+  for (const mod of ctx.modules) {
+    code += mod.comment ? `${mod.comment.trim()}\n` : "";
+    code += `declare module "${context.config.framework}:${mod.name}" { \n`;
+    for (const importRef of mod.imports) {
+      if (importRef.ambient) {
+        code += directives.push(importRef.name);
+      } else if (importRef.all) {
+        code += `\timport * as ${findFileName(importRef.name)} from "${importRef.name}";\n`;
+      } else if (importRef.specifiers) {
+        const typeOnly = importRef.specifiers.every(s => s.type) ? " type" : "";
+        const specifiers = importRef.specifiers
+          .map(s => (s.alias ? `${s.name} as ${s.alias}` : s.name))
+          .join(", ");
+        code += `\timport${typeOnly} { ${specifiers} } from "${importRef.name}";\n`;
       }
     }
+
+    if (mod.imports.length > 0) {
+      code += "\n";
+    }
+
+    for (const exportRef of mod.exports.filter(
+      e =>
+        isString(e) ||
+        !e.specifiers ||
+        !commonDeclarations.some(
+          commonDecl =>
+            commonDecl.specifiers &&
+            commonDecl.specifiers.some(specifier =>
+              e.specifiers?.some(
+                s =>
+                  (s.alias ? s.alias : s.name) ===
+                  (specifier.alias ? specifier.alias : specifier.name)
+              )
+            )
+        )
+    )) {
+      if (isSetString(exportRef)) {
+        code += `${exportRef}\n`;
+      } else if (exportRef.name) {
+        if (exportRef.all) {
+          code += `${
+            exportRef.comment?.trim() ? exportRef.comment.trim() : ""
+          }${
+            exportRef.comment?.trim() ? "\n" : ""
+          }export * from "${exportRef.name}";\n`;
+        } else if (exportRef.specifiers) {
+          if (exportRef.comment?.trim()) {
+            code += `${exportRef.comment.trim()}\n`;
+          }
+
+          code += `\texport${
+            exportRef.specifiers.every(s => s.type) ? " type" : ""
+          } { ${exportRef.specifiers
+            .map(s => (s.alias ? `${s.name} as ${s.alias}` : s.name))
+            .join(", ")} } from "${exportRef.name}";\n`;
+        }
+      } else {
+        code += `${exportRef.comment?.trim() ? exportRef.comment.trim() : ""}${
+          exportRef.comment?.trim() ? "\n" : ""
+        }${formatTypes(
+          exportRef.text
+            .replace(/\s*export\s*declare\s*/, "export ")
+            .replace(/\s*declare\s*/, " ")
+        )}\n`;
+      }
+    }
+
+    mod.exports
+      .filter(
+        e =>
+          !isString(e) &&
+          e.specifiers &&
+          commonDeclarations.some(
+            commonDeclaration =>
+              commonDeclaration.specifiers &&
+              commonDeclaration.specifiers.some(specifier =>
+                e.specifiers?.some(
+                  s =>
+                    (s.alias ? s.alias : s.name) ===
+                    (specifier.alias ? specifier.alias : specifier.name)
+                )
+              )
+          )
+      )
+      .forEach((e, i, arr) => {
+        if (i === 0) {
+          code += "\nexport { ";
+        } else {
+          code += ", ";
+        }
+
+        code += `${
+          (e as ExportModuleReference)?.specifiers
+            ?.filter(s =>
+              commonDeclarations.some(
+                commonDeclaration =>
+                  commonDeclaration.specifiers &&
+                  commonDeclaration.specifiers.some(
+                    specifier =>
+                      (s.alias ? s.alias : s.name) ===
+                      (specifier.alias ? specifier.alias : specifier.name)
+                  )
+              )
+            )
+            .map(s => (s.alias ? `${s.name} as ${s.alias}` : s.name))
+            .join(", ") || ""
+        }`;
+
+        if (i === arr.length - 1) {
+          code += ` };\n`;
+        }
+      });
+
+    code += "}";
+    code += "\n\n";
   }
 
   code = await format(context, context.typesPath, code);

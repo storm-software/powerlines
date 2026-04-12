@@ -573,7 +573,7 @@ export class PowerlinesContext<
       (ret, id) => {
         const moduleId = `${
           this.config?.framework || "powerlines"
-        }:${id.replace(/^.*?:/, "")}`;
+        }:${id.replace(/^.*:/, "")}`;
         if (!ret[moduleId]) {
           const path = this.fs.paths[id];
           if (path) {
