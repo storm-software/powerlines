@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.20](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.20) (04/11/2026)
+
+### Features
+
+- **deepkit:** Rename `reflectionLevel` to `level` and simplify the options ([db9581681](https://github.com/storm-software/powerlines/commit/db9581681))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.396**
+- Updated **plugin-plugin** to **v0.12.347**
+- Updated **plugin-alloy** to **v0.26.15**
+- Updated **plugin-babel** to **v0.12.392**
+- Updated **powerlines** to **v0.42.37**
+
 ## [0.1.19](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.19) (04/10/2026)
 
 ### Updated Dependencies

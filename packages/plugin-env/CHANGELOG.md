@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.121](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.121) (04/11/2026)
+
+### Features
+
+- **deepkit:** Rename `reflectionLevel` to `level` and simplify the options ([db9581681](https://github.com/storm-software/powerlines/commit/db9581681))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.277**
+- Updated **plugin-automd** to **v0.1.396**
+- Updated **plugin-plugin** to **v0.12.347**
+- Updated **plugin-alloy** to **v0.26.15**
+- Updated **plugin-babel** to **v0.12.392**
+- Updated **powerlines** to **v0.42.37**
+- Updated **deepkit** to **v0.8.0**
+
 ## [0.16.120](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.120) (04/10/2026)
 
 ### Updated Dependencies
