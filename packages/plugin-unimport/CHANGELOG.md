@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unimport
 
+## [0.1.398](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.398) (04/12/2026)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue reflecting tsdoc tag values ([3a57d6a03](https://github.com/storm-software/powerlines/commit/3a57d6a03))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.348**
+- Updated **powerlines** to **v0.42.38**
+
 ## [0.1.397](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.397) (04/11/2026)
 
 ### Updated Dependencies

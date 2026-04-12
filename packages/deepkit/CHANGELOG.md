@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.8.1](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.8.1) (04/12/2026)
+
+### Bug Fixes
+
+- **deepkit:** Resolve issue reflecting tsdoc tag values ([3a57d6a03](https://github.com/storm-software/powerlines/commit/3a57d6a03))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.397**
+- Updated **core** to **v0.13.10**
+
 ## [0.8.0](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.8.0) (04/11/2026)
 
 ### Features

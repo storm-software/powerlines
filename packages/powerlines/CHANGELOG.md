@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.38](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.38) (04/12/2026)
+
+### Bug Fixes
+
+- **powerlines:** Resolve issue sharing type definitions in generated types ([517fb83bb](https://github.com/storm-software/powerlines/commit/517fb83bb))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.396**
+- Updated **plugin-esbuild** to **v0.13.397**
+- Updated **plugin-unbuild** to **v0.5.394**
+- Updated **plugin-webpack** to **v0.5.393**
+- Updated **plugin-rollup** to **v0.7.394**
+- Updated **plugin-rspack** to **v0.5.393**
+- Updated **plugin-tsdown** to **v0.1.339**
+- Updated **plugin-tsup** to **v0.12.398**
+- Updated **plugin-vite** to **v0.14.392**
+- Updated **core** to **v0.13.10**
+
 ## [0.42.37](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.37) (04/11/2026)
 
 ### Updated Dependencies
