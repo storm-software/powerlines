@@ -386,7 +386,10 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
       <Show when={runtime === true}>
         <TSDocRuntime />
       </Show>
-      <Show when={!isUndefined(type) && !isUndefined(defaultValue)}>
+      <Show
+        when={
+          runtime !== true && !isUndefined(type) && !isUndefined(defaultValue)
+        }>
         <TSDocDefaultValue
           type={
             type as ReflectionKind | ReflectionProperty | ReflectionParameter

@@ -178,17 +178,17 @@ catalogs:
       specifier: ^1.7.11
       version: 1.7.11
     '@shell-shock/core':
-      specifier: ^0.17.2
-      version: 0.17.2
+      specifier: ^0.17.3
+      version: 0.17.3
     '@shell-shock/eslint-plugin':
-      specifier: ^0.0.67
-      version: 0.0.67
+      specifier: ^0.0.68
+      version: 0.0.68
     '@shell-shock/nx':
-      specifier: ^0.0.74
-      version: 0.0.74
+      specifier: ^0.0.75
+      version: 0.0.75
     '@shell-shock/preset-cli':
-      specifier: ^0.9.14
-      version: 0.9.14
+      specifier: ^0.9.15
+      version: 0.9.15
     '@standard-schema/spec':
       specifier: ^1.1.0
       version: 1.1.0
@@ -680,10 +680,10 @@ patchedDependencies:
     hash: 8c3beca4372c6a8941162780ddd0f977ef3d461c2018f0809f86f416260ba440
     path: patches/@deepkit__core.patch
   '@deepkit/type':
-    hash: ec6f4572726c449adfbfa8f2142704577b11a6add01339e5e46bb3e054b60db6
+    hash: 17c60c07374c9da3514394a2d04fad4a83ac0ae8b88d5311f9e3af70821f0ba1
     path: patches/@deepkit__type.patch
   '@deepkit/type-compiler':
-    hash: dd6d56137776e5089b3a2f545719c7d42a3b04dedd75fadec8bc9194af1d8787
+    hash: 91a56c95b398f90e6f5e654820112642044b9b1e47990b76f47efa186d5b1128
     path: patches/@deepkit__type-compiler.patch
   '@deepkit/type-spec':
     hash: f3c3a4fd486751022d78f17d39a5a79f493bca20b185964ca1aba41fbfc93244
@@ -722,7 +722,7 @@ importers:
         version: 22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.9.3))(@swc/core@1.15.24(@swc/helpers@0.5.21))
       '@shell-shock/nx':
         specifier: 'catalog:'
-        version: 0.0.74(8c09bea93dfd98aaa6d0df474c842cd5)
+        version: 0.0.75(8c09bea93dfd98aaa6d0df474c842cd5)
       '@storm-software/config':
         specifier: 'catalog:'
         version: 1.137.29(zod@4.3.6)
@@ -839,17 +839,17 @@ importers:
         version: link:../deepkit
       '@shell-shock/core':
         specifier: 'catalog:'
-        version: 0.17.2(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
+        version: 0.17.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
       '@shell-shock/preset-cli':
         specifier: 'catalog:'
-        version: 0.9.14(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
+        version: 0.9.15(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
       powerlines:
         specifier: workspace:*
         version: link:../powerlines
     devDependencies:
       '@shell-shock/eslint-plugin':
         specifier: 'catalog:'
-        version: 0.0.67(589fb8389ade48d57bfa85b6f6b8b97a)
+        version: 0.0.68(589fb8389ade48d57bfa85b6f6b8b97a)
       '@storm-software/testing-tools':
         specifier: 'catalog:'
         version: 1.119.150(@nx/jest@22.6.4(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21))(@types/node@25.6.0)(esbuild-register@3.6.0(esbuild@0.28.0))(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(ts-node@10.9.2(@swc/core@1.15.24(@swc/helpers@0.5.21))(@types/node@25.6.0)(typescript@6.0.2))(typescript@6.0.2)(verdaccio@6.4.0(typanion@3.14.0)))(jest@30.3.0(@types/node@25.6.0)(esbuild-register@3.6.0(esbuild@0.28.0))(ts-node@10.9.2(@swc/core@1.15.24(@swc/helpers@0.5.21))(@types/node@25.6.0)(typescript@6.0.2)))
@@ -1001,10 +1001,10 @@ importers:
         version: 1.0.5(patch_hash=8c3beca4372c6a8941162780ddd0f977ef3d461c2018f0809f86f416260ba440)
       '@deepkit/type':
         specifier: 'catalog:'
-        version: 1.0.5(patch_hash=ec6f4572726c449adfbfa8f2142704577b11a6add01339e5e46bb3e054b60db6)(@deepkit/core@1.0.5(patch_hash=8c3beca4372c6a8941162780ddd0f977ef3d461c2018f0809f86f416260ba440))
+        version: 1.0.5(patch_hash=17c60c07374c9da3514394a2d04fad4a83ac0ae8b88d5311f9e3af70821f0ba1)(@deepkit/core@1.0.5(patch_hash=8c3beca4372c6a8941162780ddd0f977ef3d461c2018f0809f86f416260ba440))
       '@deepkit/type-compiler':
         specifier: 'catalog:'
-        version: 1.0.5(patch_hash=dd6d56137776e5089b3a2f545719c7d42a3b04dedd75fadec8bc9194af1d8787)(rollup@4.60.1)(typescript@5.9.3)
+        version: 1.0.5(patch_hash=91a56c95b398f90e6f5e654820112642044b9b1e47990b76f47efa186d5b1128)(rollup@4.60.1)(typescript@5.9.3)
       '@deepkit/type-spec':
         specifier: 'catalog:'
         version: 1.0.1(patch_hash=f3c3a4fd486751022d78f17d39a5a79f493bca20b185964ca1aba41fbfc93244)
@@ -9917,8 +9917,8 @@ packages:
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
 
-  '@shell-shock/core@0.17.2':
-    resolution: {integrity: sha512-Nt3QnWvvY964CFJg0rf5mnxOeeKkp7sNsSF+xwMwfSD09o1NcfBWbhrcFg/ftH9QXLdzq3bSGZRg8T9QdjK2nw==}
+  '@shell-shock/core@0.17.3':
+    resolution: {integrity: sha512-Nh2ICLuNMyf1Mmk3Jzb1CC5LcmZK/M2XNzPRlE4dLkiRCxhwvjKQn94xowCI950NkI6aaEREHzQXf1BL+u0YWw==}
     peerDependencies:
       powerlines: workspace:*
       zod: ^3.25.0 || ^4.0.0
@@ -9926,43 +9926,43 @@ packages:
       zod:
         optional: true
 
-  '@shell-shock/eslint-plugin@0.0.67':
-    resolution: {integrity: sha512-H1bvAKxLN+gilcMWQKFWiSqAhDg6x/gx/YiXNfR0tr1EAF2mas/dKsU0YttjwIhjdM87cPdf/repO1pg6H/nbA==}
+  '@shell-shock/eslint-plugin@0.0.68':
+    resolution: {integrity: sha512-VGFvgZe0UuKq77kRzbWs5QQVX/JAF+MEBqW5XgmK48Py+VfZAhOsZihh0i0QWWjc/Pz2pLjn9F8XXwCFgxwBOw==}
     peerDependencies:
       eslint: '>=9.39.3'
 
-  '@shell-shock/nx@0.0.74':
-    resolution: {integrity: sha512-dbCdCjAY1r6gzw2c9WmUpW91Cw6zlthix6nAQNtVN+dEoNdX5G1NYgdmsPI415x4u/HmO3ggILTUTuRydIgh8g==}
+  '@shell-shock/nx@0.0.75':
+    resolution: {integrity: sha512-UWUppJS+DKKJQ0FOAh7s3MwYChQVJNDw7HA3lKbF7ZCfyvcjwrO0L3zfzzI00+eHxeiyYx8zCCV2Sl1vkO9r4A==}
     peerDependencies:
       nx: '>=22.5.0'
       powerlines: workspace:*
 
-  '@shell-shock/plugin-banner@0.1.29':
-    resolution: {integrity: sha512-o8408A48QB9J/L+YpjHdNK8JbYYAsYy1Se2FXtzP6nuYFkspg1hAhDk4E40yrJrXH007iOVyA+X1KefbnpYLrw==}
+  '@shell-shock/plugin-banner@0.1.30':
+    resolution: {integrity: sha512-lQD9zO079+5a8drLi4iDDP0HMTY6UC21GzimhrR7Gfzz9T9Ozvc+nHWhlBGPCdMrfs/EufAHNBQirchpjJVW1A==}
 
-  '@shell-shock/plugin-completions@0.4.10':
-    resolution: {integrity: sha512-g8oMZD5CV5dQI6nI3SAJxNQp3/I/GrF5a7I8qcOvQEw6MUSegwpqh1e/1ixbJuVtg/3HJ+n3RWkdLpKH8rn6nw==}
+  '@shell-shock/plugin-completions@0.4.11':
+    resolution: {integrity: sha512-+QGzWmsyBNnxXsG9d0MPrT5vnSBC5G01re6OfipPFRJNKBH74iZ1FnOqEhj+aUg3YcV0PFgRKxMJ86vQRepJuw==}
 
-  '@shell-shock/plugin-console@0.2.6':
-    resolution: {integrity: sha512-nbbkws7Yx//0/F4R/04YJReAjYOfFZq9uDUC4SYnIAI1ck+yhV0XJeoJ4msgsETU4LyeBk1TXJ+qPK3duxs3xg==}
+  '@shell-shock/plugin-console@0.2.7':
+    resolution: {integrity: sha512-fjPne8zWFzOwAGxYTAyE086A1W/uq1TKC7wGSd6DN2fYHuF9QHmr20po7LUTHBGAnJwh1TjAJAwxmp5bO2FVIQ==}
 
-  '@shell-shock/plugin-help@0.2.20':
-    resolution: {integrity: sha512-T4+mjU7BuHPD9EmuVYV2kDGeAe+SFsaJo3wg58SjdWz2A9akzAD788VHrsYF5PcFnIyds3xNy4omNIiHgwbPsg==}
+  '@shell-shock/plugin-help@0.2.21':
+    resolution: {integrity: sha512-E9EQRF3B5yVie0AV2xD8HmeAvnyWcNQjYQIh4ZTbguw4Itz+Ci/7NiJstaRVqmnFYxVE9bLcqgbM/fGYHK4qLQ==}
 
-  '@shell-shock/plugin-prompts@0.3.43':
-    resolution: {integrity: sha512-oJBBvuCITIgqcF9J0AEPvw20Ekt7g3gPl/901LKmTl3kRWSFR6NdLJptB3csVjFHAut5W4o8wVx9XaTFI8By+g==}
+  '@shell-shock/plugin-prompts@0.3.44':
+    resolution: {integrity: sha512-AmTB5gTBgKvZJCVsm1/A3BBYnr5NebpBHvrddP6ILshm3QZo04GNzfz/oVTiddgFUwJL8EKLBnKaMQPpn722pg==}
 
-  '@shell-shock/plugin-theme@0.4.15':
-    resolution: {integrity: sha512-fh9mACafMk+2YGmBcxG2G1F9tZUwuNQ0nNEDBMtd0fhwhPCC68hgvS6uyxbZnS/9zRzTLKE4hfeGk/uzZsYGjw==}
+  '@shell-shock/plugin-theme@0.4.16':
+    resolution: {integrity: sha512-hPjzmmxjytueH0Z58gFedsLi32QrOc4cSLGmJAhqBGJc1Iwdyrmo2YPMI4oRMnPHPMy+l+04MgzVT/c3yKzRhw==}
 
-  '@shell-shock/plugin-upgrade@0.1.47':
-    resolution: {integrity: sha512-liGfeDBG/EpnMwLJb0mB5HNM8d0iAG9NO44f6r7pw8kjuMZynMY9N5QnB9l5hjwvU+ZDu0+FXaETFsd4R1A44A==}
+  '@shell-shock/plugin-upgrade@0.1.48':
+    resolution: {integrity: sha512-arOUnY94Db1t61AYY7SknyUQMDKar1r8jL3fZiMgfC+z5CvNWbmDNColOwOw5Tu4MeWkqwy+Hs89WvAecyhPnQ==}
 
-  '@shell-shock/preset-cli@0.9.14':
-    resolution: {integrity: sha512-cWryP0fUSHS+b5XYZx7qCx+Iqk4V6vR04IC7N9OaZgLZFZri8AZeyM5v/BImJ9QRt0CSNGZTDdt+ltrseturHQ==}
+  '@shell-shock/preset-cli@0.9.15':
+    resolution: {integrity: sha512-+fu1oEHIJhf8V/PEI7Z1Kj0SJpnUNcDPpbDzBFfmN9FfxIDzIzKa8xkGM0f1Gegqavzsf6IX3HN46YWyuwJHug==}
 
-  '@shell-shock/preset-script@0.6.57':
-    resolution: {integrity: sha512-BzEgTwcnaRZxpXlegSU/cFwsByqTsMyKRyPn3uQ7GQOreHPpKLVmbG7x4i1nLA2NOYGeoZvD4QTmTLGMasL+sg==}
+  '@shell-shock/preset-script@0.6.58':
+    resolution: {integrity: sha512-9oAVmHPzXLbek6ngKK9vPSpgAOUlk0XPbmI8aQbZrBm2AsZmy3RcAT9TdipT+8rkbW1EaAF9kHu9clW5eIUqLg==}
 
   '@shikijs/core@4.0.2':
     resolution: {integrity: sha512-hxT0YF4ExEqB8G/qFdtJvpmHXBYJ2lWW7qTHDarVkIudPFE6iCIrqdgWxGn5s+ppkGXI0aEGlibI0PAyzP3zlw==}
@@ -24199,7 +24199,7 @@ snapshots:
       dot-prop: 5.3.0
       to-fast-properties: 3.0.1
 
-  '@deepkit/type-compiler@1.0.5(patch_hash=dd6d56137776e5089b3a2f545719c7d42a3b04dedd75fadec8bc9194af1d8787)(rollup@4.60.1)(typescript@5.9.3)':
+  '@deepkit/type-compiler@1.0.5(patch_hash=91a56c95b398f90e6f5e654820112642044b9b1e47990b76f47efa186d5b1128)(rollup@4.60.1)(typescript@5.9.3)':
     dependencies:
       '@deepkit/type-spec': 1.0.1(patch_hash=f3c3a4fd486751022d78f17d39a5a79f493bca20b185964ca1aba41fbfc93244)
       '@marcj/ts-clone-node': 2.2.0(typescript@5.9.3)
@@ -24216,7 +24216,7 @@ snapshots:
 
   '@deepkit/type-spec@1.0.1(patch_hash=f3c3a4fd486751022d78f17d39a5a79f493bca20b185964ca1aba41fbfc93244)': {}
 
-  '@deepkit/type@1.0.5(patch_hash=ec6f4572726c449adfbfa8f2142704577b11a6add01339e5e46bb3e054b60db6)(@deepkit/core@1.0.5(patch_hash=8c3beca4372c6a8941162780ddd0f977ef3d461c2018f0809f86f416260ba440))':
+  '@deepkit/type@1.0.5(patch_hash=17c60c07374c9da3514394a2d04fad4a83ac0ae8b88d5311f9e3af70821f0ba1)(@deepkit/core@1.0.5(patch_hash=8c3beca4372c6a8941162780ddd0f977ef3d461c2018f0809f86f416260ba440))':
     dependencies:
       '@deepkit/core': 1.0.5(patch_hash=8c3beca4372c6a8941162780ddd0f977ef3d461c2018f0809f86f416260ba440)
       '@deepkit/type-spec': 1.0.1(patch_hash=f3c3a4fd486751022d78f17d39a5a79f493bca20b185964ca1aba41fbfc93244)
@@ -29594,7 +29594,7 @@ snapshots:
 
   '@sec-ant/readable-stream@0.4.1': {}
 
-  '@shell-shock/core@0.17.2(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.9.3))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)':
+  '@shell-shock/core@0.17.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.9.3))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/markdown': 0.23.0-dev.1
@@ -29643,7 +29643,7 @@ snapshots:
       - utf-8-validate
       - vue-tsc
 
-  '@shell-shock/core@0.17.2(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)':
+  '@shell-shock/core@0.17.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/markdown': 0.23.0-dev.1
@@ -29693,7 +29693,7 @@ snapshots:
       - utf-8-validate
       - vue-tsc
 
-  '@shell-shock/eslint-plugin@0.0.67(589fb8389ade48d57bfa85b6f6b8b97a)':
+  '@shell-shock/eslint-plugin@0.0.68(589fb8389ade48d57bfa85b6f6b8b97a)':
     dependencies:
       '@storm-software/testing-tools': 1.119.150(@nx/jest@22.6.4(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21))(@types/node@25.6.0)(esbuild-register@3.6.0(esbuild@0.28.0))(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(ts-node@10.9.2(@swc/core@1.15.24(@swc/helpers@0.5.21))(@types/node@25.6.0)(typescript@6.0.2))(typescript@6.0.2)(verdaccio@6.4.0(typanion@3.14.0)))(jest@30.3.0(@types/node@25.6.0)(esbuild-register@3.6.0(esbuild@0.28.0))(ts-node@10.9.2(@swc/core@1.15.24(@swc/helpers@0.5.21))(@types/node@25.6.0)(typescript@6.0.2)))
       '@stryke/fs': 0.33.66(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(zod@4.3.6)
@@ -29711,10 +29711,10 @@ snapshots:
       - typescript
       - zod
 
-  '@shell-shock/nx@0.0.74(8c09bea93dfd98aaa6d0df474c842cd5)':
+  '@shell-shock/nx@0.0.75(8c09bea93dfd98aaa6d0df474c842cd5)':
     dependencies:
       '@nx/devkit': 22.6.4(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.9.3))(@swc/core@1.15.24(@swc/helpers@0.5.21)))
-      '@shell-shock/core': 0.17.2(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.9.3))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
+      '@shell-shock/core': 0.17.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.9.3))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(typescript@5.9.3)(zod@4.3.6)
       '@storm-software/config': 1.137.29(zod@4.3.6)
       '@storm-software/config-tools': 1.189.75(magicast@0.5.2)(zod@4.3.6)
       '@storm-software/workspace-tools': 1.295.51(c3c204b5fa80f7a450b390af8b0c0031)
@@ -29776,16 +29776,16 @@ snapshots:
       - yaml
       - zod
 
-  '@shell-shock/plugin-banner@0.1.29(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)':
+  '@shell-shock/plugin-banner@0.1.30(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.17.2(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-console': 0.2.6(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-theme': 0.4.15(tslib@2.8.1)
+      '@shell-shock/core': 0.17.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-console': 0.2.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-theme': 0.4.16(tslib@2.8.1)
       '@stryke/path': 0.27.4
       '@stryke/type-checks': 0.6.1
       defu: 6.1.7
@@ -29812,14 +29812,14 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@shell-shock/plugin-completions@0.4.10(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)':
+  '@shell-shock/plugin-completions@0.4.11(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.17.2(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/core': 0.17.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
       '@stryke/path': 0.27.4
       '@stryke/string-format': 0.17.9
       powerlines: link:packages/powerlines
@@ -29844,15 +29844,15 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@shell-shock/plugin-console@0.2.6(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)':
+  '@shell-shock/plugin-console@0.2.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.17.2(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-theme': 0.4.15(tslib@2.8.1)
+      '@shell-shock/core': 0.17.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-theme': 0.4.16(tslib@2.8.1)
       '@stryke/string-format': 0.17.9
       '@stryke/type-checks': 0.6.1
       defu: 6.1.7
@@ -29879,16 +29879,16 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@shell-shock/plugin-help@0.2.20(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)':
+  '@shell-shock/plugin-help@0.2.21(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.17.2(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-console': 0.2.6(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-theme': 0.4.15(tslib@2.8.1)
+      '@shell-shock/core': 0.17.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-console': 0.2.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-theme': 0.4.16(tslib@2.8.1)
       '@stryke/path': 0.27.4
       '@stryke/string-format': 0.17.9
       '@stryke/type-checks': 0.6.1
@@ -29917,15 +29917,15 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@shell-shock/plugin-prompts@0.3.43(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)':
+  '@shell-shock/plugin-prompts@0.3.44(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.17.2(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-theme': 0.4.15(tslib@2.8.1)
+      '@shell-shock/core': 0.17.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-theme': 0.4.16(tslib@2.8.1)
       defu: 6.1.7
       powerlines: link:packages/powerlines
     transitivePeerDependencies:
@@ -29950,7 +29950,7 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@shell-shock/plugin-theme@0.4.15(tslib@2.8.1)':
+  '@shell-shock/plugin-theme@0.4.16(tslib@2.8.1)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
@@ -29967,14 +29967,14 @@ snapshots:
       - tslib
       - utf-8-validate
 
-  '@shell-shock/plugin-upgrade@0.1.47(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)':
+  '@shell-shock/plugin-upgrade@0.1.48(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.17.2(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/core': 0.17.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
       '@stryke/path': 0.27.4
       '@stryke/type-checks': 0.6.1
       '@stryke/types': 0.11.3
@@ -30001,22 +30001,22 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@shell-shock/preset-cli@0.9.14(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)':
+  '@shell-shock/preset-cli@0.9.15(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.17.2(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-banner': 0.1.29(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-completions': 0.4.10(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-console': 0.2.6(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-help': 0.2.20(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-prompts': 0.3.43(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-theme': 0.4.15(tslib@2.8.1)
-      '@shell-shock/plugin-upgrade': 0.1.47(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/preset-script': 0.6.57(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/core': 0.17.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-banner': 0.1.30(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-completions': 0.4.11(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-console': 0.2.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-help': 0.2.21(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-prompts': 0.3.44(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-theme': 0.4.16(tslib@2.8.1)
+      '@shell-shock/plugin-upgrade': 0.1.48(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/preset-script': 0.6.58(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
       '@stryke/path': 0.27.4
       '@stryke/string-format': 0.17.9
       '@stryke/type-checks': 0.6.1
@@ -30045,18 +30045,18 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@shell-shock/preset-script@0.6.57(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)':
+  '@shell-shock/preset-script@0.6.58(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)':
     dependencies:
       '@alloy-js/core': 0.23.0-dev.8
       '@alloy-js/typescript': 0.23.0-dev.4
       '@powerlines/deepkit': link:packages/deepkit
       '@powerlines/plugin-alloy': link:packages/plugin-alloy
       '@powerlines/plugin-plugin': link:packages/plugin-plugin
-      '@shell-shock/core': 0.17.2(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-banner': 0.1.29(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-console': 0.2.6(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-help': 0.2.20(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
-      '@shell-shock/plugin-theme': 0.4.15(tslib@2.8.1)
+      '@shell-shock/core': 0.17.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(powerlines@packages+powerlines)(synckit@0.11.12)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-banner': 0.1.30(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-console': 0.2.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-help': 0.2.21(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(nx@22.6.4(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.2))(@swc/core@1.15.24(@swc/helpers@0.5.21)))(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(synckit@0.11.12)(tslib@2.8.1)(typescript@6.0.2)(zod@4.3.6)
+      '@shell-shock/plugin-theme': 0.4.16(tslib@2.8.1)
       '@stryke/helpers': 0.10.8
       '@stryke/path': 0.27.4
       '@stryke/string-format': 0.17.9
@@ -30335,7 +30335,7 @@ snapshots:
       '@stoplight/path': 1.3.2
       '@stoplight/types': 13.20.0
       abort-controller: 3.0.0
-      lodash: 4.17.23
+      lodash: 4.18.1
       node-fetch: 3.3.2
       tslib: 2.8.1
 
