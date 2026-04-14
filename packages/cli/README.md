@@ -27,7 +27,7 @@ This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "
 
 <h3 align="center">💻 Visit <a href="https://stormsoftware.com" target="_blank">stormsoftware.com</a> to stay up to date with this developer</h3><br />
 
-[![Version](https://img.shields.io/badge/version-0.1.39-1fb2a6.svg?style=for-the-badge&color=1fb2a6)](https://stormsoftware.com/projects/powerlines)&nbsp;[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=for-the-badge&logo=commitlint&color=1fb2a6)](http://commitizen.github.io/cz-cli/)&nbsp;![Semantic-Release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=for-the-badge&color=1fb2a6)&nbsp;![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/storm-software/powerlines/release.yml?style=for-the-badge&logo=github-actions&color=1fb2a6)
+[![Version](https://img.shields.io/badge/version-0.1.67-1fb2a6.svg?style=for-the-badge&color=1fb2a6)](https://stormsoftware.com/projects/powerlines)&nbsp;[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=for-the-badge&logo=commitlint&color=1fb2a6)](http://commitizen.github.io/cz-cli/)&nbsp;![Semantic-Release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=for-the-badge&color=1fb2a6)&nbsp;![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/storm-software/powerlines/release.yml?style=for-the-badge&logo=github-actions&color=1fb2a6)
 
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -49,28 +49,31 @@ This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "
 
 <!-- END header -->
 
-# Powerlines - AsyncAPI Plugin
+# Powerlines - Command-Line Interface (CLI)
 
-A Powerlines plugin to generate project code with [AsyncAPI](https://www.asyncapi.com/).
+The Powerlines command-line interface application.
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 ## Table of Contents
 
-- [Installing](#installing)
-- [Reduced Package Size](#reduced-package-size)
-- [Development](#development)
-  - [Building](#building)
-  - [Running unit tests](#running-unit-tests)
-  - [Linting](#linting)
-- [Storm Workspaces](#storm-workspaces)
-- [Roadmap](#roadmap)
-- [Support](#support)
-- [License](#license)
-- [Changelog](#changelog)
-- [Contributing](#contributing)
-- [Contributors](#contributors)
+- [Powerlines - Command-Line Interface (CLI)](#powerlines---command-line-interface-cli)
+  - [Table of Contents](#table-of-contents)
+  - [Installing](#installing)
+  - [Commands](#commands)
+  - [Configuration](#configuration)
+  - [Development](#development)
+    - [Building](#building)
+    - [Running unit tests](#running-unit-tests)
+    - [Linting](#linting)
+  - [Storm Workspaces](#storm-workspaces)
+  - [Roadmap](#roadmap)
+  - [Support](#support)
+  - [License](#license)
+  - [Changelog](#changelog)
+  - [Contributing](#contributing)
+  - [Contributors](#contributors)
 
 <!-- END doctoc -->
 
@@ -79,14 +82,14 @@ A Powerlines plugin to generate project code with [AsyncAPI](https://www.asyncap
 Using [pnpm](http://pnpm.io):
 
 ```bash
-pnpm add @powerlines/plugin-asyncapi
+pnpm add @powerlines/cli
 ```
 
 <details>
   <summary>Using npm</summary>
 
 ```bash
-npm install @powerlines/plugin-asyncapi
+npm install @powerlines/cli
 ```
 
 </details>
@@ -95,17 +98,20 @@ npm install @powerlines/plugin-asyncapi
   <summary>Using yarn</summary>
 
 ```bash
-yarn add @powerlines/plugin-asyncapi
+yarn add @powerlines/cli
 ```
 
 </details>
 
-## Reduced Package Size
+## Commands
 
-This project uses [tsup](https://tsup.egoist.dev/) to package the source code
-due to its ability to remove unused code and ship smaller javascript files
-thanks to code splitting. This helps to greatly reduce the size of the package
-and to make it easier to use in other projects.
+<!-- shell-shock:commands -->
+<!-- /shell-shock -->
+
+## Configuration
+
+<!-- shell-shock:env -->
+<!-- /shell-shock -->
 
 ## Development
 
@@ -114,16 +120,16 @@ commands are available to assist in development.
 
 ### Building
 
-Run `nx build plugin-asyncapi` to build the library.
+Run `nx build cli` to build the library.
 
 ### Running unit tests
 
-Run `nx test plugin-asyncapi` to execute the unit tests via
+Run `nx test cli` to execute the unit tests via
 [Jest](https://jestjs.io).
 
 ### Linting
 
-Run `nx lint plugin-asyncapi` to run
+Run `nx lint cli` to run
 [ESLint](https://eslint.org/) on the package.
 
 <!-- START footer -->

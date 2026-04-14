@@ -17,21 +17,31 @@
  ------------------------------------------------------------------- */
 
 import type { UserConfig } from "@shell-shock/core";
-import { defineConfig } from "@shell-shock/core";
-import cli from "@shell-shock/preset-cli";
+import { defineConfig } from "@shell-shock/core/config";
+import preset from "@shell-shock/preset-cli";
 
 const config: UserConfig = defineConfig({
   skipCache: true,
-  title: "Powerlines",
+  name: "powerlines",
+  input: "src/commands",
+  output: {
+    storage: "fs"
+  },
+  reference:
+    "https://docs.stormsoftware.com/projects/powerlines/reference/{command}",
   plugins: [
-    cli({
+    preset({
       theme: {
+        icons: {
+          banner: "⬤"
+        },
         labels: {
           banner: {
             header: "Powerlines CLI",
             footer: "https://stormsoftware.com"
           }
-        }
+        },
+        spinner: "dotsCircle"
       }
     })
   ]
