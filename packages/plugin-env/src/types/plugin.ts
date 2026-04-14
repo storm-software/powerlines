@@ -18,12 +18,6 @@
 
 import { Children } from "@alloy-js/core";
 import { Reflection } from "@powerlines/deepkit/types";
-import {
-  AlloyPluginContext,
-  AlloyPluginOptions,
-  AlloyPluginResolvedConfig,
-  AlloyPluginUserConfig
-} from "@powerlines/plugin-alloy/types";
 import { AutoMDPluginOptions } from "@powerlines/plugin-automd/types/plugin";
 import {
   BabelPluginContext,
@@ -31,6 +25,12 @@ import {
   BabelPluginResolvedConfig,
   BabelPluginUserConfig
 } from "@powerlines/plugin-babel/types";
+import {
+  DeepkitPluginContext,
+  DeepkitPluginOptions,
+  DeepkitPluginResolvedConfig,
+  DeepkitPluginUserConfig
+} from "@powerlines/plugin-deepkit/types/plugin";
 import type { DotenvParseOutput } from "@stryke/env/types";
 import {
   DotenvConfiguration,
@@ -102,18 +102,18 @@ export type EnvPluginOptions = Omit<DotenvConfiguration, "types"> & {
    * Alloy configuration options to use when injecting environment variables into the source code.
    *
    * @remarks
-   * This option allows you to customize the Alloy transformation process used to inject environment variables into the source code. If not provided, the plugin will use default Alloy settings.
+   * This option allows you to customize the Deepkit transformation process used to inject environment variables into the source code. If not provided, the plugin will use default Deepkit settings.
    */
-  alloy?: AlloyPluginOptions;
+  deepkit?: DeepkitPluginOptions;
 };
 
 export type EnvPluginUserConfig = BabelPluginUserConfig &
-  AlloyPluginUserConfig & {
+  DeepkitPluginUserConfig & {
     env: EnvPluginOptions;
   };
 
 export type EnvPluginResolvedConfig = BabelPluginResolvedConfig &
-  AlloyPluginResolvedConfig & {
+  DeepkitPluginResolvedConfig & {
     env: Required<Pick<DotenvConfiguration, "additionalFiles">> &
       Required<Pick<EnvPluginOptions, "defaultConfig">> & {
         /**
@@ -163,7 +163,7 @@ export interface EnvPluginContext<
 >
   extends
     BabelPluginContext<TResolvedConfig>,
-    AlloyPluginContext<TResolvedConfig> {
+    DeepkitPluginContext<TResolvedConfig> {
   env: {
     /**
      * The type definitions reflection for the env variables and secrets

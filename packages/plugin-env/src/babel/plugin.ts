@@ -45,22 +45,10 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
         .filter(prop => prop.getAlias().length > 0);
 
       if (node.name) {
-        const prefix = context.config.env.prefix.find(
-          pre =>
-            node.name &&
-            node.name.startsWith(pre) &&
-            (context.env.types.env?.hasProperty(
-              node.name.replace(`${pre}_`, "")
-            ) ||
-              envTypesAliasProperties.some(prop =>
-                prop.getAlias().includes(node.name.replace(`${pre}_`, ""))
-              ))
+        const name = node.name.replace(
+          new RegExp(`^(${context.config.env.prefix.join("|")})_`),
+          ""
         );
-
-        let name = node.name;
-        if (prefix) {
-          name = node.name.replace(`${prefix}_`, "");
-        }
 
         log(
           LogLevelLabel.TRACE,

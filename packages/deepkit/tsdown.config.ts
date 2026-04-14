@@ -25,7 +25,6 @@ const config = defineTSDownConfig([
     clean: false,
     exports: false,
     unbundle: false,
-    sourcemap: true,
     deps: {
       neverBundle: [
         "@powerlines/deepkit/vendor/core",
@@ -42,7 +41,6 @@ const config = defineTSDownConfig([
     clean: false,
     unbundle: false,
     exports: false,
-    sourcemap: true,
     deps: {
       skipNodeModulesBundle: false,
       alwaysBundle: [

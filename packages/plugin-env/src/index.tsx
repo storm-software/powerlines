@@ -20,13 +20,13 @@ import {
   ReflectionClass,
   ReflectionKind
 } from "@powerlines/deepkit/vendor/type";
-import alloy from "@powerlines/plugin-alloy";
 import { render } from "@powerlines/plugin-alloy/render";
 import automd from "@powerlines/plugin-automd";
 import babel from "@powerlines/plugin-babel";
+import deepkit from "@powerlines/plugin-deepkit";
+import { TypeScriptCompilerPluginUserConfig } from "@powerlines/plugin-tsc";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
-import { ENV_PREFIXES } from "@stryke/env/types";
 import { existsSync } from "@stryke/fs/exists";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { joinPaths } from "@stryke/path/join";
@@ -38,6 +38,7 @@ import {
 } from "@stryke/types/configuration";
 import defu from "defu";
 import { Plugin } from "powerlines";
+import { VIRTUAL_MODULE_PREFIX } from "powerlines/constants";
 import type { UserConfig as ViteUserConfig } from "vite";
 import { envBabelPlugin } from "./babel/plugin";
 import { EnvDocsFile } from "./components/docs";
@@ -74,7 +75,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
   options: EnvPluginOptions = {}
 ) => {
   return [
-    alloy(options.alloy),
+    deepkit(options.deepkit),
     babel(options.babel),
     {
       name: "env:core",
@@ -92,7 +93,12 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           }),
           babel: {
             plugins: [envBabelPlugin]
-          }
+          },
+          deepkit: {
+            reflection: "default",
+            level: "all"
+          },
+          tsc: {} as TypeScriptCompilerPluginUserConfig["tsc"]
         };
 
         if (
@@ -147,6 +153,23 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           }
         }
 
+        if (config.env.types || config.env.secrets) {
+          config.tsc.filter = {
+            id: [
+              new RegExp(
+                `^(${VIRTUAL_MODULE_PREFIX})?${joinPaths(
+                  this.builtinsPath,
+                  "env.ts"
+                )
+                  .replace(/\\/g, "\\\\")
+                  .replace(/\//g, "\\/")
+                  .replace(/\./g, "\\.")
+                  .replace(/\$/g, "\\$")}$`
+              )
+            ]
+          };
+        }
+
         config.env.prefix = toArray(
           (config.env.prefix ?? []) as string[]
         ).reduce(
@@ -159,7 +182,6 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             return ret;
           },
           [
-            ...ENV_PREFIXES,
             "POWERLINES_",
             this.config.framework &&
               this.config.framework !== "powerlines" &&

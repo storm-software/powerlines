@@ -22,3 +22,4 @@ export * from "./fs";
 export * from "./hooks";
 export * from "./meta";
 export * from "./plugin";
+export * from "./virtual-modules";

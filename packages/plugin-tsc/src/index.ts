@@ -16,9 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import { findFileExtensionSafe } from "@stryke/path/find";
 import defu from "defu";
 import { Plugin } from "powerlines";
+import { createFilterForTransform } from "powerlines/plugin-utils";
 import ts from "typescript";
 import { typeCheck } from "./helpers/type-check";
 import {
@@ -54,7 +54,13 @@ export const plugin = <
 
       return {
         tsc: defu(options ?? {}, {
-          typeCheck: false
+          typeCheck: false,
+          filter: {
+            id: {
+              include: /\.(?:(?:[cm])?ts|tsx)(?=\s*$)/i,
+              exclude: /\.(?:d|spec|test)\.(?:(?:[cm])?ts|tsx)(?=\s*$)/i
+            }
+          }
         })
       };
     },
@@ -63,51 +69,58 @@ export const plugin = <
         await typeCheck(this);
       }
     },
-    async transform(code: string, id: string) {
-      if (
-        findFileExtensionSafe(id).toLowerCase() !== "ts" ||
-        id.endsWith(".d.ts")
-      ) {
-        return { code, id };
-      }
+    transform: {
+      filter: {
+        id: { exclude: /\.(?:(?:[cm])?js|jsx)(?=\s*$)/i }
+      },
+      async handler(code: string, id: string) {
+        if (
+          !createFilterForTransform(
+            this.config.tsc.filter?.id,
+            this.config.tsc.filter?.code
+          )?.(id, code)
+        ) {
+          return { code, id };
+        }
 
-      const result = ts.transpileModule(code, {
-        ...this.config.tsc,
-        compilerOptions: {
-          ...this.tsconfig.options,
-          ...this.config.tsc.compilerOptions
-        },
-        fileName: id
-      });
-      if (
-        result.diagnostics &&
-        result.diagnostics.length > 0 &&
-        result.diagnostics?.some(
-          diagnostic => diagnostic.category === ts.DiagnosticCategory.Error
-        )
-      ) {
-        throw new Error(
-          `TypeScript Compiler - TypeScript transpilation errors in file: ${id}\n${ts.formatDiagnostics(
-            result.diagnostics,
-            {
-              getCanonicalFileName: fileName =>
-                ts.sys.useCaseSensitiveFileNames
-                  ? fileName
-                  : fileName.toLowerCase(),
-              getCurrentDirectory: () => ts.sys.getCurrentDirectory(),
-              getNewLine: () => ts.sys.newLine
-            }
-          )}`
-        );
-      }
+        const result = ts.transpileModule(code, {
+          ...this.config.tsc,
+          compilerOptions: {
+            ...this.tsconfig.options,
+            ...this.config.tsc.compilerOptions
+          },
+          fileName: id
+        });
+        if (
+          result.diagnostics &&
+          result.diagnostics.length > 0 &&
+          result.diagnostics?.some(
+            diagnostic => diagnostic.category === ts.DiagnosticCategory.Error
+          )
+        ) {
+          throw new Error(
+            `TypeScript Compiler - TypeScript transpilation errors in file: ${id}\n${ts.formatDiagnostics(
+              result.diagnostics,
+              {
+                getCanonicalFileName: fileName =>
+                  ts.sys.useCaseSensitiveFileNames
+                    ? fileName
+                    : fileName.toLowerCase(),
+                getCurrentDirectory: () => ts.sys.getCurrentDirectory(),
+                getNewLine: () => ts.sys.newLine
+              }
+            )}`
+          );
+        }
 
-      if (!result.outputText) {
-        throw new Error(
-          `TypeScript Compiler - No output generated for file during TypeScript transpilation: ${id}`
-        );
-      }
+        if (!result.outputText) {
+          throw new Error(
+            `TypeScript Compiler - No output generated for file during TypeScript transpilation: ${id}`
+          );
+        }
 
-      return { code: result.outputText, id };
+        return { code: result.outputText, id };
+      }
     }
   } as Plugin<TContext>;
 };

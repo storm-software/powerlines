@@ -16,11 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import { AnyFunction, MaybePromise } from "@stryke/types/base";
-import { UnpluginOptions } from "unplugin";
+import type { AnyFunction, MaybePromise } from "@stryke/types/base";
+import type { StringOrRegExp, UnpluginOptions } from "unplugin";
 import type { PluginContext, SelectHooksOptions } from "./context";
 import type { BasePlugin, Plugin, PluginHook, PluginHooks } from "./plugin";
-import { UnpluginBuilderVariant, UnpluginHookFunctions } from "./unplugin";
+import type { UnpluginBuilderVariant, UnpluginHookFunctions } from "./unplugin";
 
 export type HookListOrders =
   | "preOrdered"
@@ -35,6 +35,14 @@ export interface HooksListItem<
 > {
   plugin: Plugin<TContext>;
   handler: InferHookFunction<TContext, TFields>;
+}
+
+export type PluginFilter = (input: string) => boolean;
+export type TransformHookFilter = (id: string, code: string) => boolean;
+
+export interface NormalizedStringFilter {
+  include?: StringOrRegExp[];
+  exclude?: StringOrRegExp[];
 }
 
 export type HooksList<

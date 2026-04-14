@@ -25,13 +25,14 @@ import {
   splitProps
 } from "@alloy-js/core";
 import {
+  InterfaceDeclaration as BaseInterfaceDeclaration,
   ClassDeclaration,
   ClassMethod,
   ElseIfClause,
   FunctionDeclaration,
   IfStatement,
+  InterfaceMember,
   NewExpression,
-  TypeDeclaration,
   VarDeclaration
 } from "@alloy-js/typescript";
 import {
@@ -59,6 +60,7 @@ import {
   TSDocReturns,
   TSDocThrows
 } from "@powerlines/plugin-alloy/typescript/components/tsdoc";
+import { TSDocReflectionProperty } from "@powerlines/plugin-alloy/typescript/components/tsdoc-reflection";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { titleCase } from "@stryke/string-format/title-case";
 import defu from "defu";
@@ -81,7 +83,7 @@ export function EnvTypeDefinition(
   return (
     <>
       <InterfaceDeclaration
-        name=" EnvBase"
+        name="UnprefixedEnv"
         defaultValue={defaultValue}
         reflection={reflection}
         export
@@ -89,19 +91,37 @@ export function EnvTypeDefinition(
       <Spacing />
       <TSDoc heading="The environment configuration object with prefixed keys.">
         <TSDocRemarks>
-          {`The \`Env\` type extends the \`EnvBase\` interface by including additional keys that are prefixed according to the project's configuration. This allows for flexibility in accessing environment variables with different naming conventions.`}
+          {`The \`Env\` type extends the \`UnprefixedEnv\` interface by including additional keys that are prefixed according to the project's configuration. This allows for flexibility in accessing environment variables with different naming conventions.`}
         </TSDocRemarks>
       </TSDoc>
-      <TypeDeclaration name="Env" export>
-        {code` {
-    [Key in keyof EnvBase as Key ${getUnique(
-      context.config.env.prefix.map(
-        prefix => `| \`${prefix.replace(/_$/g, "")}_\${Key}\``
-      )
-    ).join(" ")}]: EnvBase[Key];
-}
-`}
-      </TypeDeclaration>
+      <BaseInterfaceDeclaration name="Env" export extends="UnprefixedEnv">
+        <For
+          each={getUnique(context.config.env.prefix).map(prefix =>
+            prefix.replace(/_$/, "")
+          )}
+          doubleHardline>
+          {prefix => (
+            <For
+              each={
+                reflection
+                  ?.getProperties()
+                  .filter(property => !property.isIgnored()) ?? []
+              }
+              doubleHardline>
+              {property => (
+                <>
+                  <TSDocReflectionProperty reflection={property} />
+                  <InterfaceMember
+                    name={`${prefix}_${property.getNameAsString()}`}
+                    type={`UnprefixedEnv["${property.getNameAsString()}"]`}
+                    readonly={property.isReadonly()}
+                  />
+                </>
+              )}
+            </For>
+          )}
+        </For>
+      </BaseInterfaceDeclaration>
       <Spacing />
     </>
   );
@@ -329,6 +349,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
             "deserializeFunction",
             "ReflectionKind",
             "Serializer",
+            "NamingStrategy",
             "TemplateState",
             "Type",
             "TypeProperty",
@@ -348,7 +369,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
 
       <ObjectDeclaration
         name="initialEnv"
-        type="Partial<EnvBase>"
+        type="Partial<Env>"
         defaultValue={defaultValue}
         reflection={envInstance}
         export
@@ -391,6 +412,31 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       </ClassDeclaration>
       <Spacing />
 
+      <VarDeclaration
+        name="envNamingStrategy"
+        const
+        doc="The environment naming strategy for the runtime."
+        initializer={code`new class extends NamingStrategy {
+                    constructor() {
+                        super("env");
+                    }
+
+                    getPropertyName(type: TypeProperty | TypePropertySignature, forSerializer: string): string | undefined {
+                      const name = super.getPropertyName(type, forSerializer);
+                      if (!name) {
+                        return name;
+                      }
+
+                      return name.replace(/^(${getUnique(
+                        context.config.env.prefix
+                      )
+                        .map(prefix => prefix.replace(/_$/, ""))
+                        .join("|")})_/, "");
+                    }
+                  }; `}
+      />
+      <Spacing />
+
       <TSDoc heading="A {@link EnvSerializer | environment configuration serializer} instance for the Powerlines application.">
         <TSDocLink>
           {`https://deepkit.io/docs/serialization/serializers`}
@@ -404,29 +450,52 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       </TSDoc>
       <VarDeclaration
         name="envSerializer"
-        export={false}
         const
         initializer={<NewExpression args={[]} target="EnvSerializer" />}
       />
       <Spacing />
 
+      <VarDeclaration
+        name="_serializeEnv"
+        const
+        initializer={"serializeFunction<Env>(envSerializer, envNamingStrategy)"}
+      />
+      <Spacing />
       <TSDoc heading="Serialize a environment configuration object to JSON data objects (not a JSON string).">
         <TSDocRemarks>
           {`The resulting JSON object can be stringified using \`JSON.stringify()\`.`}
         </TSDocRemarks>
         <TSDocExample>{`const json = serializeEnv(env);`}</TSDocExample>
+        <Spacing />
+        <TSDocParam name="input">
+          {`The environment configuration object to serialize.`}
+        </TSDocParam>
+        <TSDocReturns>
+          {`The serialized environment configuration as JSON data objects.`}
+        </TSDocReturns>
         <TSDocThrows>
           {`ValidationError when serialization or validation fails.`}
         </TSDocThrows>
       </TSDoc>
-      <VarDeclaration
+      <FunctionDeclaration
         name="serializeEnv"
         export
-        const
-        initializer={"serializeFunction<EnvBase>(envSerializer)"}
-      />
+        parameters={[
+          {
+            name: "input",
+            type: "Env"
+          }
+        ]}>
+        {code` return _serializeEnv(input, { loosely: true }); `}
+      </FunctionDeclaration>
       <Spacing />
 
+      <VarDeclaration
+        name="_deserializeEnv"
+        const
+        initializer="deserializeFunction<Env>(envSerializer, envNamingStrategy)"
+      />
+      <Spacing />
       <TSDoc heading="Deserialize a environment configuration object from JSON data objects to JavaScript objects, without running any validators.">
         <TSDocRemarks>
           {`Types that are already correct will be used as-is.`}
@@ -436,12 +505,17 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           {`ValidationError when deserialization fails.`}
         </TSDocThrows>
       </TSDoc>
-      <VarDeclaration
+      <FunctionDeclaration
         name="deserializeEnv"
         export
-        const
-        initializer="deserializeFunction<EnvBase>(envSerializer)"
-      />
+        parameters={[
+          {
+            name: "input",
+            type: "Env"
+          }
+        ]}>
+        {code` return _deserializeEnv(input, { loosely: true }); `}
+      </FunctionDeclaration>
       <Spacing />
 
       <TSDoc heading="Initializes the Powerlines environment configuration module.">
@@ -475,9 +549,9 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
     deserializeEnv({
       ...initialEnv,
       ...environmentConfig
-    }) as Env,
+    } as Env),
     {
-      get: (target: EnvBase, propertyName: string) => { `}
+      get: (target: UnprefixedEnv, propertyName: string) => { `}
           <hbr />
 
           <For each={reflectionGetProperties}>
@@ -494,9 +568,8 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           }, `}
 
           <Spacing />
-          {code` set: (target: EnvBase, propertyName: string, newValue: any) => { `}
+          {code` set: (target: UnprefixedEnv, propertyName: string, newValue: any) => { `}
           <hbr />
-
           <For each={reflectionSetProperties} ender={code` else `}>
             {(property: ReflectionProperty, index: number) => (
               <ConfigPropertySet
@@ -592,8 +665,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           env.APPCENTER_BUILD_ID ||
           env.CI_XCODE_PROJECT ||
           env.XCS || false
-        );
-        `}
+        ); `}
       />
       <Spacing />
 

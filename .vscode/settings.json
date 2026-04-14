@@ -129,7 +129,6 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit",
-      "quickfix.biome": "explicit",
       "source.sortMembers": "explicit"
     }
   },
@@ -138,7 +137,6 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit",
-      "quickfix.biome": "explicit",
       "source.sortMembers": "explicit"
     }
   },
@@ -147,7 +145,6 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit",
-      "quickfix.biome": "explicit",
       "source.sortMembers": "explicit"
     }
   },
@@ -156,7 +153,6 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit",
-      "quickfix.biome": "explicit",
       "source.sortMembers": "explicit"
     }
   },

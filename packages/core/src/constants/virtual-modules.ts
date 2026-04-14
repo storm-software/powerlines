@@ -16,14 +16,5 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./build-helpers";
-export * from "./combine-plugins";
-export * from "./context-helpers";
-export * from "./extend";
-export * from "./filter";
-export * from "./format-package-json";
-export * from "./get-config-path";
-export * from "./helpers";
-export * from "./merge";
-export * from "./modules";
-export * from "./paths";
+export const VIRTUAL_MODULE_PREFIX = "__powerlines-virtual__:";
+export const VIRTUAL_MODULE_PREFIX_REGEX = /^__powerlines-virtual__:/;

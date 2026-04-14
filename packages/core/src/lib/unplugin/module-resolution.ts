@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { Unstable_PluginContext } from "@powerlines/core/types/_internal";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import defu from "defu";
@@ -26,6 +25,11 @@ import type {
   UnpluginContext,
   UnpluginOptions
 } from "unplugin";
+import {
+  VIRTUAL_MODULE_PREFIX,
+  VIRTUAL_MODULE_PREFIX_REGEX
+} from "../../constants/virtual-modules";
+import { Unstable_PluginContext } from "../../types/_internal";
 import { PluginContext, ResolveResult } from "../../types/context";
 import { ResolveOptions } from "../../types/fs";
 
@@ -49,9 +53,6 @@ export interface CreateUnpluginModuleResolutionFunctionsOptions {
    */
   overrides?: Partial<ResolveOptions>;
 }
-
-const VIRTUAL_MODULE_PREFIX = "__powerlines-virtual__:";
-const VIRTUAL_MODULE_PREFIX_REGEX = /^__powerlines-virtual__:/;
 
 /**
  * Creates the module resolution hook functions for a Powerlines unplugin plugin instance.

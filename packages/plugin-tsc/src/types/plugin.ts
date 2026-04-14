@@ -18,10 +18,18 @@
 
 import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 import ts from "typescript";
+import type { HookFilter } from "unplugin";
 
 export type TypeScriptCompilerPluginOptions = Partial<
   Omit<ts.TranspileOptions, "fileName">
 > & {
+  /**
+   * Filter configuration to determine which files should be processed by the plugin's transformation hook.
+   *
+   * @defaultValue \{ id: /\.(?:(?:(?<dts>d)\.)?(?<type>[cm])?ts|tsx)(?=\\s*$)/ \}
+   */
+  filter?: HookFilter;
+
   /**
    * Whether to perform type checking during the `lint` task.
    *

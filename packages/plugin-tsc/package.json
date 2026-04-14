@@ -121,6 +121,7 @@
     "@stryke/path": "catalog:",
     "defu": "catalog:",
     "powerlines": "workspace:*",
+    "unplugin": "catalog:",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
