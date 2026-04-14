@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.13.11](https://github.com/storm-software/powerlines/releases/tag/core%400.13.11) (04/14/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolved issue building the `env` built-in module with `deepkit` ([5f0445101](https://github.com/storm-software/powerlines/commit/5f0445101))
+
 ## [0.13.9](https://github.com/storm-software/powerlines/releases/tag/core%400.13.9) (04/11/2026)
 
 ### Features

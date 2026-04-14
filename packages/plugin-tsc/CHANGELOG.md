@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.406](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.406) (04/14/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolved issue building the `env` built-in module with `deepkit` ([5f0445101](https://github.com/storm-software/powerlines/commit/5f0445101))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.349**
+- Updated **powerlines** to **v0.42.39**
+
 ## [0.2.405](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.405) (04/12/2026)
 
 ### Updated Dependencies

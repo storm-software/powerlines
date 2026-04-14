@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.8.2](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.8.2) (04/14/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolved issue building the `env` built-in module with `deepkit` ([5f0445101](https://github.com/storm-software/powerlines/commit/5f0445101))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.398**
+- Updated **core** to **v0.13.11**
+
 ## [0.8.1](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.8.1) (04/12/2026)
 
 ### Bug Fixes
