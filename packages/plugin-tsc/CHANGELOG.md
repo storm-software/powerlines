@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.407](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.407) (04/14/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Update documented environment variables list to exclude unimportant values ([d28c815ef](https://github.com/storm-software/powerlines/commit/d28c815ef))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.350**
+- Updated **powerlines** to **v0.42.40**
+
 ## [0.2.406](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.406) (04/14/2026)
 
 ### Bug Fixes

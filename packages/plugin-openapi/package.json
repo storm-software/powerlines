@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-openapi",
-  "version": "0.2.403",
+  "version": "0.2.404",
   "type": "module",
   "description": "A Powerlines plugin to generate project code from OpenAPI specifications.",
   "repository": {

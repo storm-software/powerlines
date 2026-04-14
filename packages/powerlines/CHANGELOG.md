@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.42.40](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.40) (04/14/2026)
+
+### Miscellaneous
+
+- **powerlines:** Enable `sourceMap` by default when `mode` is `development` ([8507c290b](https://github.com/storm-software/powerlines/commit/8507c290b))
+
 ## [0.42.39](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.42.39) (04/14/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - CLI
 
+## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/cli%400.2.0) (04/14/2026)
+
+### Features
+
+- **cli:** Added Powerlines commands to CLI application code ([fd6a91228](https://github.com/storm-software/powerlines/commit/fd6a91228))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.42.40**
+
 ## [0.1.85](https://github.com/storm-software/powerlines/releases/tag/cli%400.1.85) (04/14/2026)
 
 ### Updated Dependencies

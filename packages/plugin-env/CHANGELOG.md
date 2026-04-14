@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.124](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.124) (04/14/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Update documented environment variables list to exclude unimportant values ([d28c815ef](https://github.com/storm-software/powerlines/commit/d28c815ef))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.280**
+- Updated **plugin-automd** to **v0.1.399**
+- Updated **plugin-plugin** to **v0.12.350**
+- Updated **plugin-alloy** to **v0.26.18**
+- Updated **plugin-tsc** to **v0.2.407**
+- Updated **powerlines** to **v0.42.40**
+
 ## [0.16.123](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.123) (04/14/2026)
 
 ### Bug Fixes
