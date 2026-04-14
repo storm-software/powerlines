@@ -1831,6 +1831,17 @@ export class PowerlinesContext<
       }
     }
 
+    if (
+      !this.config.userConfig?.output?.sourceMap &&
+      !this.config.inlineConfig?.output?.sourceMap
+    ) {
+      if (this.config.mode === "development") {
+        this.config.output.sourceMap = true;
+      } else {
+        this.config.output.sourceMap = false;
+      }
+    }
+
     if (this.config.output.copy && this.config.output.copy.assets) {
       this.config.output.copy.assets = this.config.output.copy.assets.map(
         asset => ({
