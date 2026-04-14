@@ -57,8 +57,8 @@ export const plugin = <
           typeCheck: false,
           filter: {
             id: {
-              include: /\.(?:(?:[cm])?ts|tsx)(?=\s*$)/i,
-              exclude: /\.(?:d|spec|test)\.(?:(?:[cm])?ts|tsx)(?=\s*$)/i
+              include: /\.(?:[cm]?ts|tsx)(?=\s*$)/i,
+              exclude: /\.(?:d|spec|test)\.(?:[cm]?ts|tsx)(?=\s*$)/i
             }
           }
         })
@@ -71,7 +71,7 @@ export const plugin = <
     },
     transform: {
       filter: {
-        id: { exclude: /\.(?:(?:[cm])?js|jsx)(?=\s*$)/i }
+        id: { exclude: /\.(?:[cm]?js|jsx)(?=\s*$)/i }
       },
       async handler(code: string, id: string) {
         if (

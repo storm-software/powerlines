@@ -71,7 +71,7 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
       <Spacing />
       <Heading level={2 + levelOffset}>Environment Variables</Heading>
       <Spacing />
-      {code`The below list of environment variables are used as configuration parameters to drive the processing of the application. The data contained in these variables are **not** considered sensitive or confidential. Any values provided in these variables will be available in plain text to the public.`}
+      {code`The below list of environment variables are used as configuration parameters to drive the processing of the application. The data contained in these variables are **not** considered sensitive or confidential. Any values provided in these variables will be available in plain text.`}
       <Spacing />
       <MarkdownTable
         data={
@@ -79,8 +79,10 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
             ?.getProperties()
             .filter(
               property =>
-                property.getNameAsString() !== "__POWERLINES_INJECTED__" &&
-                !property.isHidden()
+                !property.isHidden() &&
+                !property.isIgnored() &&
+                !property.isReadonly() &&
+                !property.isInternal()
             )
             .sort((a, b) =>
               a.getNameAsString().localeCompare(b.getNameAsString())
@@ -91,7 +93,7 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
                 description: (reflectionProperty.getDescription() ?? "").trim(),
                 type: stringifyType(reflectionProperty.getType())
                   .trim()
-                  .replaceAll(" | ", ", or "),
+                  .replaceAll(/\s*(?:\||&)\s*/g, ", or "),
                 defaultValue: reflectionProperty.hasDefault()
                   ? String(reflectionProperty.getDefaultValue())?.includes('"')
                     ? reflectionProperty.getDefaultValue()
