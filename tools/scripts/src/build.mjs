@@ -69,9 +69,7 @@ try {
     );
   }
 
-  proc = $`pnpm nx reset --only-daemon --only-workspace-data`.timeout(
-    `${2 * 60}s`
-  );
+  proc = $`pnpm nx reset --only-daemon`.timeout(`${2 * 60}s`);
   proc.stdout.on("data", data => {
     echo`${data}`;
   });
@@ -112,34 +110,42 @@ try {
         );
       }
     } else if (filter === "cli" || filter === "all") {
-      //   proc = $`pnpm nx run cli:build:${
-      //     configuration
-      //   } --outputStyle=dynamic-legacy --parallel=5`.timeout(`${15 * 60}s`);
-      //   proc.stdout.on("data", data => {
-      //     echo`${data}`;
-      //   });
-      //   result = await proc;
-      //   if (!result.ok) {
-      //     throw new Error(
-      //       `An error occurred while building the CLI application in ${configuration} mode: \n\n${result.message}\n`
-      //     );
-      //   }
+      proc = $`pnpm nx reset --only-daemon`.timeout(`${2 * 60}s`);
+      proc.stdout.on("data", data => {
+        echo`${data}`;
+      });
+      result = await proc;
+      if (!result.ok) {
+        throw new Error(
+          `An error occurred while resetting the Nx daemon process: \n\n${result.message}\n`
+        );
+      }
+
+      proc = $`pnpm bootstrap`.timeout(`${2 * 60}s`);
+      proc.stdout.on("data", data => {
+        echo`${data}`;
+      });
+      result = await proc;
+      if (!result.ok) {
+        throw new Error(
+          `An error occurred while bootstrapping the monorepo: \n\n${result.message}\n`
+        );
+      }
+
+      proc = $`pnpm nx run cli:build:${
+        configuration
+      } --outputStyle=dynamic-legacy --parallel=5`.timeout(`${15 * 60}s`);
+      proc.stdout.on("data", data => {
+        echo`${data}`;
+      });
+      result = await proc;
+      if (!result.ok) {
+        throw new Error(
+          `An error occurred while building the CLI application in ${configuration} mode: \n\n${result.message}\n`
+        );
+      }
 
       if (filter === "all") {
-        // proc =
-        //   $`pnpm nx run-many --target=build --projects="examples-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
-        //     `${8 * 60}s`
-        //   );
-        // proc.stdout.on("data", data => {
-        //   echo`${data}`;
-        // });
-        // result = await proc;
-        // if (!result.ok) {
-        //   throw new Error(
-        //     `An error occurred while building the monorepo's examples in ${configuration} mode: \n\n${result.message}\n`
-        //   );
-        // }
-
         proc =
           $`pnpm nx run-many --target=build --exclude="monorepo,examples-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
             `${20 * 60}s`

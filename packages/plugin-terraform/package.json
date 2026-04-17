@@ -101,6 +101,20 @@
         "types": "./dist/types/plugin.d.mts",
         "default": "./dist/types/plugin.mjs"
       }
+    },
+    "./types/terraform": {
+      "require": {
+        "types": "./dist/types/terraform.d.cts",
+        "default": "./dist/types/terraform.cjs"
+      },
+      "import": {
+        "types": "./dist/types/terraform.d.mts",
+        "default": "./dist/types/terraform.mjs"
+      },
+      "default": {
+        "types": "./dist/types/terraform.d.mts",
+        "default": "./dist/types/terraform.mjs"
+      }
     }
   },
   "main": "./dist/index.cjs",

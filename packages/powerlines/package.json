@@ -513,5 +513,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "bin": { "powerlines": "./bin/bin.mjs" }
 }
