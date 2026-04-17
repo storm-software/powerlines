@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.6.41](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.41) (04/17/2026)
+
+### Features
+
+- **plugin-terraform:** Added initial check-in of `terraform` package ([d6674a9fd](https://github.com/storm-software/powerlines/commit/d6674a9fd))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.351**
+- Updated **powerlines** to **v0.42.41**
+- Updated **core** to **v0.13.12**
+
 ## [0.6.40](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.40) (04/14/2026)
 
 ### Updated Dependencies

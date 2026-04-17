@@ -1,6 +1,6 @@
 {
   "name": "powerlines",
-  "version": "0.42.40",
+  "version": "0.42.41",
   "private": false,
   "description": "The \"framework framework\" that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
   "keywords": [
@@ -514,5 +514,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "bin": { "powerlines": "./bin/bin.mjs" }
+  "bin": {
+    "powerlines": "./bin/bin.mjs"
+  }
 }
