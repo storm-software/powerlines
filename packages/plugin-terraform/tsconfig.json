@@ -9,6 +9,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
+    "types/**/*.d.ts",
     "powerlines.config.ts",
     "powerlines.d.ts"
   ],

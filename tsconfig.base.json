@@ -117,6 +117,10 @@
       "@powerlines/plugin-swc/*": ["./packages/plugin-swc/src/*"],
       "@powerlines/plugin-tamagui": ["./packages/plugin-tamagui/src/index.ts"],
       "@powerlines/plugin-tamagui/*": ["./packages/plugin-tamagui/src/*"],
+      "@powerlines/plugin-terraform": [
+        "./packages/plugin-terraform/src/index.ts"
+      ],
+      "@powerlines/plugin-terraform/*": ["./packages/plugin-terraform/src/*"],
       "@powerlines/plugin-tsc": ["./packages/plugin-tsc/src/index.ts"],
       "@powerlines/plugin-tsc/*": ["./packages/plugin-tsc/src/*"],
       "@powerlines/plugin-tsdown": ["./packages/plugin-tsdown/src/index.ts"],

@@ -1,9 +1,14 @@
 {
-  "name": "@powerlines/plugin-pulumi",
-  "version": "0.6.40",
+  "name": "@powerlines/plugin-terraform",
+  "version": "0.0.1",
   "private": false,
-  "description": "A Powerlines plugin to deploy infrastructure using Pulumi.",
-  "keywords": ["pulumi", "powerlines", "storm-software", "powerlines-plugin"],
+  "description": "A Powerlines plugin to deploy infrastructure using Terraform.",
+  "keywords": [
+    "terraform",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -12,7 +17,7 @@
   "repository": {
     "type": "github",
     "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugin-pulumi"
+    "directory": "packages/plugin-terraform"
   },
   "funding": {
     "type": "github",
@@ -96,20 +101,6 @@
         "types": "./dist/types/plugin.d.mts",
         "default": "./dist/types/plugin.mjs"
       }
-    },
-    "./types/pulumi": {
-      "require": {
-        "types": "./dist/types/pulumi.d.cts",
-        "default": "./dist/types/pulumi.cjs"
-      },
-      "import": {
-        "types": "./dist/types/pulumi.d.mts",
-        "default": "./dist/types/pulumi.mjs"
-      },
-      "default": {
-        "types": "./dist/types/pulumi.d.mts",
-        "default": "./dist/types/pulumi.mjs"
-      }
     }
   },
   "main": "./dist/index.cjs",
@@ -118,7 +109,6 @@
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
   "dependencies": {
-    "@pulumi/pulumi": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
@@ -126,7 +116,9 @@
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "defu": "catalog:",
+    "execa": "catalog:",
     "powerlines": "workspace:*",
+    "shelljs": "catalog:",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
