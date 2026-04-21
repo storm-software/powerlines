@@ -160,7 +160,7 @@ export async function loadEnv<
     ),
     loadEnvDirectory<TEnv>(
       options,
-      context.workspaceConfig.workspaceRoot,
+      context.config.cwd,
       context.config.mode,
       context.cachePath,
       context.packageJson,

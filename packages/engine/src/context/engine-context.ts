@@ -1,0 +1,78 @@
+/* -------------------------------------------------------------------
+
+                   ⚡ Storm Software - Powerlines
+
+ This code was released as part of the Powerlines project. Powerlines
+ is maintained by Storm Software under the Apache-2.0 license, and is
+ free for commercial and private use. For more information, please visit
+ our licensing page at https://stormsoftware.com/licenses/projects/powerlines.
+
+ Website:                  https://stormsoftware.com
+ Repository:               https://github.com/storm-software/powerlines
+ Documentation:            https://docs.stormsoftware.com/projects/powerlines
+ Contact:                  https://stormsoftware.com/contact
+
+ SPDX-License-Identifier:  Apache-2.0
+
+ ------------------------------------------------------------------- */
+
+import type {
+  EngineContext,
+  EngineOptions,
+  ResolvedExecutionOptions
+} from "@powerlines/core";
+import { PowerlinesBaseContext } from "./base-context";
+
+export class PowerlinesEngineContext
+  extends PowerlinesBaseContext
+  implements EngineContext
+{
+  #executions: ResolvedExecutionOptions[] = [];
+
+  /**
+   * Creates a new instance of the PowerlinesEngineContext class.
+   *
+   * @param options - The options to initialize the context with.
+   * @returns A promise that resolves to an instance of the PowerlinesEngineContext class.
+   */
+  public static async fromOptions(
+    options: EngineOptions
+  ): Promise<PowerlinesEngineContext> {
+    const context = new PowerlinesEngineContext();
+    await context.init(options);
+
+    if (!context.configFile?.config) {
+      context.fatal(
+        "No configuration file found. Please ensure you have a valid configuration file in your project."
+      );
+      throw new Error("No configuration file found");
+    }
+
+    if (Array.isArray(context.configFile.config)) {
+      context.#executions = await Promise.all(
+        context.configFile.config.map(async (_, configIndex) => ({
+          ...context.options,
+          configIndex
+        }))
+      );
+    } else {
+      context.#executions = [
+        {
+          ...context.options,
+          configIndex: 0
+        }
+      ];
+    }
+
+    return context;
+  }
+
+  /**
+   * A list of all command executions that will be run during the lifecycle of the engine
+   *
+   * @returns An array of ResolvedExecutionOptions representing each execution context for the engine.
+   */
+  public get executions(): ResolvedExecutionOptions[] {
+    return this.#executions;
+  }
+}

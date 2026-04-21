@@ -54,12 +54,7 @@ export function generateFromAst(
   ast: t.Node,
   opts?: GenerateFromAstOptions
 ): GeneratorResult {
-  return generate(
-    ast,
-    opts
-      ? { importAttributesKeyword: "with", sourceMaps: true, ...opts }
-      : undefined
-  );
+  return generate(ast, opts ? { sourceMaps: true, ...opts } : undefined);
 }
 
 export type { GeneratorResult } from "@babel/generator";

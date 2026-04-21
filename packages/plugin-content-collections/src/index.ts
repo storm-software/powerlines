@@ -103,10 +103,7 @@ export const plugin = <
 
       const context = await createBuildContext({
         emitter,
-        baseDirectory: joinPaths(
-          this.workspaceConfig.workspaceRoot,
-          this.config.root
-        ),
+        baseDirectory: joinPaths(this.config.cwd, this.config.root),
         outputDirectory:
           this.config.contentCollections.outputPath ||
           joinPaths(this.builtinsPath, "content"),

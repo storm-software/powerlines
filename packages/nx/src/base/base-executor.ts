@@ -25,10 +25,9 @@ import { isError } from "@stryke/type-checks/is-error";
 import defu from "defu";
 import { createJiti } from "jiti";
 import type {
-  InitialUserConfig,
   InlineConfig,
-  PowerlinesAPI,
-  PowerlinesCommand
+  PowerlinesCommand,
+  PowerlinesEngine
 } from "powerlines";
 import { BaseExecutorSchema } from "./base-executor.schema";
 
@@ -60,7 +59,7 @@ export function withExecutor<
   command: TCommand,
   executorFn: (
     context: PowerlinesExecutorContext<TCommand, TExecutorSchema>,
-    api: PowerlinesAPI
+    api: PowerlinesEngine
   ) =>
     | Promise<BaseExecutorResult | null | undefined>
     | BaseExecutorResult
@@ -95,35 +94,22 @@ export function withExecutor<
         context.projectsConfigurations.projects[context.projectName]!;
 
       const jiti = createJiti(context.root, { cache: false });
-      const { PowerlinesAPI } = await jiti.import<{
-        PowerlinesAPI: typeof import("powerlines").PowerlinesAPI;
+      const { createEngine } = await jiti.import<{
+        createEngine: typeof import("powerlines").createEngine;
       }>(jiti.esmResolve("powerlines"));
 
-      const api = await PowerlinesAPI.from(
-        workspaceConfig.workspaceRoot,
+      const api = await createEngine(
         defu(
           {
-            configFile: options.configFile ?? options.config,
-            output: {
-              path: options.outputPath,
-              copy: { path: options.copyPath, assets: options.assets },
-              format: options.format,
-              sourceMap: options.sourceMap
-            },
-            resolve: {
-              external: options.external,
-              noExternal: options.noExternal,
-              skipNodeModulesBundle: options.skipNodeModulesBundle
-            },
+            cwd: workspaceConfig.workspaceRoot,
             root: projectConfig.root,
-            projectType: projectConfig.projectType,
-            sourceRoot: projectConfig.sourceRoot
+            configFile: options.configFile ?? options.config
           },
           options,
           {
             name: context.projectName
           }
-        ) as InitialUserConfig
+        )
       );
 
       try {
@@ -136,8 +122,19 @@ export function withExecutor<
                 workspaceConfig,
                 inlineConfig: {
                   command,
-                  configFile: options.configFile || options.config
-                },
+                  projectType: projectConfig.projectType,
+                  output: {
+                    path: options.outputPath,
+                    copy: { path: options.copyPath, assets: options.assets },
+                    format: options.format,
+                    sourceMap: options.sourceMap
+                  },
+                  resolve: {
+                    external: options.external,
+                    noExternal: options.noExternal,
+                    skipNodeModulesBundle: options.skipNodeModulesBundle
+                  }
+                } as InlineConfig,
                 command
               },
               context

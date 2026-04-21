@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+export * from "./api";
 export * from "./commands";
 export * from "./environments";
 export * from "./fs";

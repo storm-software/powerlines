@@ -22,7 +22,8 @@ import type { StormWorkspaceConfig } from "@storm-software/config/types";
 import type {
   DeepPartial,
   MaybePromise,
-  NonUndefined
+  NonUndefined,
+  PartialKeys
 } from "@stryke/types/base";
 import {
   TypeDefinition,
@@ -31,11 +32,7 @@ import {
 import type { AssetGlob } from "@stryke/types/file";
 import type { ConfigLayer, ResolvedConfig as ParsedConfig } from "c12";
 import { CompatibilityDates, CompatibilityDateSpec } from "compatx";
-import type {
-  ResolvedConfig as ExternalViteResolvedConfig,
-  PreviewOptions,
-  ResolvedPreviewOptions
-} from "vite";
+import type { PreviewOptions, ResolvedPreviewOptions } from "vite";
 import type { PluginContext } from "./context";
 import { StoragePort, StoragePreset } from "./fs";
 import type { Plugin } from "./plugin";
@@ -293,6 +290,16 @@ export interface OutputConfig {
   sourceMap?: boolean | "inline" | "hidden";
 
   /**
+   * Minify the output files
+   *
+   * @remarks
+   * This option can be a boolean or a string specifying the type of minification to apply. If set to `true`, the output files will be minified. If set to `"terser"`, the Terser minifier will be used. If set to `"esbuild"`, the esbuild minifier will be used.
+   *
+   * @defaultValue false
+   */
+  minify?: boolean;
+
+  /**
    * Whether to overwrite previously generated files in the artifacts directory during the build process.
    *
    * @remarks
@@ -316,6 +323,66 @@ export interface OutputConfig {
    */
   storage?: StoragePort | StoragePreset;
 }
+
+export interface EngineOptions {
+  /**
+   * The root directory of the project
+   */
+  root: string;
+
+  /**
+   * The current working directory the Powerlines processes should operate in
+   *
+   * @remarks
+   * If not provided, the {@link WorkspaceConfig.workspaceRoot | workspace root} will be used as the current working directory. If the workspace root cannot be determined, the process's current working directory will be used.
+   */
+  cwd?: string;
+
+  /**
+   * Explicitly set a mode to run in. This mode will be used at various points throughout the Powerlines processes, such as when compiling the source code.
+   *
+   * @defaultValue "production"
+   */
+  mode?: "development" | "test" | "production";
+
+  /**
+   * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
+   *
+   * @remarks
+   * If no values are provided for {@link OutputConfig.dts | output.dts} or {@link OutputConfig.artifactsPath | output.artifactsFolder}, this value will be used as the default.
+   *
+   * @defaultValue "powerlines"
+   */
+  framework?: string;
+
+  /**
+   * The organization or author of the project
+   */
+  organization?: string;
+
+  /**
+   * A path to a custom configuration file to be used instead of the default `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` files.
+   *
+   * @remarks
+   * This option is useful for running Powerlines commands with different configuration files, such as in CI/CD environments or when testing different configurations.
+   */
+  configFile?: string;
+}
+
+export type ResolvedEngineOptions = PartialKeys<
+  Required<EngineOptions>,
+  "organization" | "configFile"
+>;
+
+export interface ExecutionOptions extends EngineOptions {
+  /**
+   * The index of the current execution instance among all configured instances in the Powerlines process
+   */
+  configIndex: number;
+}
+
+export type ResolvedExecutionOptions = Pick<ExecutionOptions, "configIndex"> &
+  ResolvedEngineOptions;
 
 export interface Config {
   /**
@@ -425,12 +492,7 @@ export interface EnvironmentConfig extends Config {
   consumer?: "client" | "server";
 }
 
-export interface UserConfig extends Config {
-  /**
-   * The root directory of the project
-   */
-  root: string;
-
+export interface UserConfig extends Config, ExecutionOptions {
   /**
    * The name of the project
    */
@@ -485,26 +547,11 @@ export interface UserConfig extends Config {
   customLogger?: LogFn;
 
   /**
-   * Explicitly set a mode to run in. This mode will be used at various points throughout the Powerlines processes, such as when compiling the source code.
-   *
-   * @defaultValue "production"
-   */
-  mode?: "development" | "test" | "production";
-
-  /**
    * The type of project being built
    *
    * @defaultValue "application"
    */
   projectType?: ProjectType;
-
-  /**
-   * A path to a custom configuration file to be used instead of the default `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` files.
-   *
-   * @remarks
-   * This option is useful for running Powerlines commands with different configuration files, such as in CI/CD environments or when testing different configurations.
-   */
-  configFile?: string;
 
   /**
    * Should the Powerlines processes automatically install missing package dependencies?
@@ -545,32 +592,7 @@ export interface UserConfig extends Config {
    * @defaultValue false
    */
   singleBuild?: boolean;
-
-  /**
-   * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
-   *
-   * @remarks
-   * If no values are provided for {@link OutputConfig.dts | output.dts} or {@link OutputConfig.artifactsPath | output.artifactsFolder}, this value will be used as the default.
-   *
-   * @defaultValue "powerlines"
-   */
-  framework?: string;
 }
-
-export type InitialUserConfig<TUserConfig extends UserConfig = UserConfig> =
-  Partial<TUserConfig> & { root: string };
-
-export type ParsedUserConfig<TUserConfig extends UserConfig = UserConfig> =
-  TUserConfig &
-    ParsedConfig<TUserConfig> & {
-      /**
-       * The path to the user configuration file, if it exists.
-       *
-       * @remarks
-       * This is typically the `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` file in the project root.
-       */
-      configFile?: ConfigLayer<TUserConfig>["configFile"];
-    };
 
 export type PowerlinesCommand =
   | "new"
@@ -648,6 +670,14 @@ export type LintInlineConfig<TUserConfig extends UserConfig = UserConfig> =
     command: "lint";
   };
 
+export type TestInlineConfig<TUserConfig extends UserConfig = UserConfig> =
+  InlineConfig<TUserConfig> & {
+    /**
+     * A string identifier for the Powerlines command being executed
+     */
+    command: "test";
+  };
+
 export type DocsInlineConfig<TUserConfig extends UserConfig = UserConfig> =
   InlineConfig<TUserConfig> & {
     /**
@@ -664,19 +694,9 @@ export type DeployInlineConfig<TUserConfig extends UserConfig = UserConfig> =
     command: "deploy";
   };
 
-export type ConfigEnv = Pick<
-  ExternalViteResolvedConfig,
-  "command" | "mode" | "environments" | "preview"
->;
-
-export type UserConfigFn<TUserConfig extends UserConfig = UserConfig> =
-  (params: {
-    projectRoot: string;
-    workspaceRoot: string;
-    mode: string;
-    framework: string;
-    command?: PowerlinesCommand;
-  }) => MaybePromise<TUserConfig>;
+export type UserConfigFn<TUserConfig extends UserConfig = UserConfig> = (
+  params: ResolvedEngineOptions
+) => MaybePromise<TUserConfig>;
 
 export type AnyOutputUserConfig = Partial<Omit<OutputConfig, "copy">> & {
   /**
@@ -691,8 +711,8 @@ export type AnyOutputUserConfig = Partial<Omit<OutputConfig, "copy">> & {
  * @remarks
  * This type represents the final shape of the configuration object that will be used throughout the Powerlines processes. It includes all default values, resolved paths, and normalized options. It is expected to be used in `powerlines.config.ts` files and by plugins and build processes to access the configuration options in a consistent format.
  */
-export type AnyUserConfig =
-  | (Partial<Omit<UserConfig, "output" | "resolve">> & {
+export type AnyUserConfig<TUserConfig extends UserConfig = UserConfig> =
+  | (Partial<Omit<TUserConfig, "output" | "resolve">> & {
       /**
        * The output configuration options to use for the build process
        */
@@ -703,7 +723,19 @@ export type AnyUserConfig =
        */
       resolve?: Partial<ResolveConfig>;
     } & Record<string, any>)
-  | UserConfigFn;
+  | UserConfigFn<TUserConfig>
+  | AnyUserConfig<TUserConfig>[];
+
+export type ParsedUserConfig<TUserConfig extends UserConfig = UserConfig> =
+  ParsedConfig<AnyUserConfig<TUserConfig>> & {
+    /**
+     * The path to the user configuration file, if it exists.
+     *
+     * @remarks
+     * This is typically the `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` file in the project root.
+     */
+    configFile?: ConfigLayer<AnyUserConfig<TUserConfig>>["configFile"];
+  };
 
 export interface ResolvedEntryTypeDefinition extends TypeDefinition {
   /**
@@ -772,6 +804,7 @@ export type OutputResolvedConfig = Required<
 export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
   TUserConfig,
   | "root"
+  | "cwd"
   | "name"
   | "title"
   | "organization"
@@ -792,6 +825,7 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
     Pick<
       TUserConfig,
       | "root"
+      | "cwd"
       | "name"
       | "title"
       | "organization"
@@ -837,6 +871,11 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
      * The original configuration options that were provided by the user to the Powerlines process.
      */
     userConfig: TUserConfig;
+
+    /**
+     * The configuration options that were provided by Powerlines plugins, which may have been merged with the user configuration and modified by the configuration loading process.
+     */
+    pluginConfig: Partial<TUserConfig>;
 
     /**
      * A string identifier for the Powerlines command being executed.

@@ -16,32 +16,41 @@
 
  ------------------------------------------------------------------- */
 
+import { POWERLINES_API_FUNCTIONS } from "../constants/api";
 import {
   BuildInlineConfig,
   CleanInlineConfig,
   DeployInlineConfig,
   DocsInlineConfig,
+  InlineConfig,
   LintInlineConfig,
   NewInlineConfig,
   PrepareInlineConfig,
-  ResolvedConfig
+  ResolvedConfig,
+  ResolvedExecutionOptions,
+  TestInlineConfig,
+  TypesInlineConfig
 } from "./config";
-import type { APIContext, EnvironmentContext, PluginContext } from "./context";
+import type {
+  EnvironmentContext,
+  ExecutionContext,
+  PluginContext
+} from "./context";
+import { EngineContext } from "./context";
 import {
   CallHookOptions,
   InferHookParameters,
   InferHookReturnType
 } from "./hooks";
+import { WorkerProcess } from "./utils";
 
 /**
- * Powerlines API Interface
+ * The Powerlines Base API Interface
+ *
+ * @remarks
+ * This interface defines the base API for Powerlines, which includes the shared context and the core commands. It is extended by the ExecutionAPI and EngineAPI interfaces to provide additional functionality specific to their respective contexts.
  */
-export interface API<TResolvedConfig extends ResolvedConfig = ResolvedConfig> {
-  /**
-   * The Powerlines shared API context
-   */
-  context: APIContext<TResolvedConfig>;
-
+export interface Execution {
   /**
    * Prepare the Powerlines API
    *
@@ -60,6 +69,16 @@ export interface API<TResolvedConfig extends ResolvedConfig = ResolvedConfig> {
       | DocsInlineConfig
       | DeployInlineConfig
   ) => Promise<void>;
+
+  /**
+   * Generate the Powerlines typescript declaration file
+   *
+   * @remarks
+   * This method will only generate the typescript declaration file for the Powerlines project. It is generally recommended to run the full `prepare` command, which will run this method as part of its process.
+   *
+   * @param inlineConfig - The inline configuration for the types command
+   */
+  types: (inlineConfig: TypesInlineConfig) => Promise<void>;
 
   /**
    * Create a new Powerlines project
@@ -92,6 +111,14 @@ export interface API<TResolvedConfig extends ResolvedConfig = ResolvedConfig> {
    * @returns A promise that resolves when the lint command has completed
    */
   lint: (inlineConfig: LintInlineConfig) => Promise<void>;
+
+  /**
+   * Test the project source code
+   *
+   * @param inlineConfig - The inline configuration for the test command
+   * @returns A promise that resolves when the test command has completed
+   */
+  test: (inlineConfig: TestInlineConfig) => Promise<void>;
 
   /**
    * Build the project
@@ -131,6 +158,21 @@ export interface API<TResolvedConfig extends ResolvedConfig = ResolvedConfig> {
    * @returns A promise that resolves when the finalization process has completed
    */
   finalize: () => Promise<void>;
+}
+
+/**
+ * Powerlines API Interface
+ *
+ * @remarks
+ * The API interface represents the API available during a single execution of Powerlines. It provides access to the shared context and the ability to call plugin hooks. It extends the base API with additional functionality specific to command execution.
+ */
+export interface API<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+> extends Execution {
+  /**
+   * The Powerlines shared API context
+   */
+  context: ExecutionContext<TResolvedConfig>;
 
   /**
    * Invokes the configured plugin hooks
@@ -152,4 +194,31 @@ export interface API<TResolvedConfig extends ResolvedConfig = ResolvedConfig> {
   ) => Promise<
     InferHookReturnType<PluginContext<TResolvedConfig>, TKey> | undefined
   >;
+}
+
+export interface ExecutionWorkerParams {
+  /**
+   * The execution options for the current execution instance
+   */
+  options: ResolvedExecutionOptions;
+
+  /**
+   * The inline configuration for the current execution instance, which is the result of merging the user configuration with any configuration provided by plugins during the "config" hook.
+   */
+  config: InlineConfig;
+}
+
+export type ExecutionWorkerProcess = WorkerProcess<
+  ExecutionWorkerParams,
+  typeof POWERLINES_API_FUNCTIONS
+>;
+
+/**
+ * The Engine API interface represents the API available during the entire lifecycle of the Powerlines engine. It provides access to the shared context and the registered command executions. It extends the base API with additional functionality specific to the engine lifecycle.
+ */
+export interface Engine extends Execution {
+  /**
+   * The Powerlines shared context
+   */
+  context: EngineContext;
 }

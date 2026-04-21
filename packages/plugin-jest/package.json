@@ -99,6 +99,10 @@
     "jest-config": "catalog:",
     "jest-resolve": "catalog:",
     "jest-util": "catalog:",
+    "@jest/pattern": "catalog:",
+    "@jest/schemas": "catalog:",
+    "@jest/types": "catalog:",
+    "@sinclair/typebox": "catalog:",
     "powerlines": "workspace:*"
   },
   "devDependencies": {

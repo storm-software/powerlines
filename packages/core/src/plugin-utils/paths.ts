@@ -58,7 +58,8 @@ export function replacePathTokens(
   }
 
   const result = path
-    .replaceAll("{workspaceRoot}", context.workspaceConfig.workspaceRoot)
+    .replaceAll("{cwd}", context.config.cwd || process.cwd() || "./")
+    .replaceAll("{workspaceRoot}", context.config.cwd || process.cwd() || "./")
     .replaceAll("{root}", context.config.root)
     .replaceAll("{projectRoot}", context.config.root)
     .replaceAll("{sourceRoot}", joinPaths(context.config.root, "src"))
@@ -73,19 +74,19 @@ export function replacePathTokens(
 
     .replaceAll(
       "{artifactsPath}",
-      replacePath(context.artifactsPath, context.workspaceConfig.workspaceRoot)
+      replacePath(context.artifactsPath, context.config.cwd)
     )
     .replaceAll(
       "{builtinPath}",
-      replacePath(context.builtinsPath, context.workspaceConfig.workspaceRoot)
+      replacePath(context.builtinsPath, context.config.cwd)
     )
     .replaceAll(
       "{builtinsPath}",
-      replacePath(context.builtinsPath, context.workspaceConfig.workspaceRoot)
+      replacePath(context.builtinsPath, context.config.cwd)
     )
     .replaceAll(
       "{entryPath}",
-      replacePath(context.entryPath, context.workspaceConfig.workspaceRoot)
+      replacePath(context.entryPath, context.config.cwd)
     );
 
   return context.config.output.copy &&

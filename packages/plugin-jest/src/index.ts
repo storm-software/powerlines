@@ -98,7 +98,7 @@ export const plugin = <TContext extends JestPluginContext = JestPluginContext>(
 
       if (options.coverageDirectory) {
         config.coverageDirectory = joinPaths(
-          this.workspaceConfig.workspaceRoot,
+          this.config.cwd,
           options.coverageDirectory
         );
       }
@@ -127,7 +127,7 @@ export const plugin = <TContext extends JestPluginContext = JestPluginContext>(
     async test() {
       if (this.config.test.jest) {
         const { results } = await runCLI(this.config.test.jest, [
-          joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
+          joinPaths(this.config.cwd, this.config.root)
         ]);
 
         const snapshotResults = results.snapshot;

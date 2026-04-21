@@ -63,19 +63,31 @@ export const createLog = (
       ...options,
       logLevel
     })(
-      `${chalk.bold.hex(
-        getColor("brand", options as Parameters<typeof getColor>[1])
-      )(
-        `${name ? kebabCase(name) : ""}${
-          options.command ? chalk.dim(` [${options.command}]`) : ""
-        }${name ? chalk.gray(" > ") : ""}${
-          options.name ? `${kebabCase(options.name)}${chalk.gray(" > ")}` : ""
-        }${
-          options.environment && options.environment !== DEFAULT_ENVIRONMENT
-            ? `${kebabCase(options.environment)}${chalk.gray(" > ")}`
-            : ""
-        }`
-      )}${args.join(" ")} `.trim()
+      `${
+        name
+          ? chalk.bold.hex(
+              getColor("brand", options as Parameters<typeof getColor>[1])
+            )(kebabCase(name))
+          : ""
+      }${
+        options.command
+          ? chalk.hex(
+              getColor("brand", options as Parameters<typeof getColor>[1])
+            )(` (${options.command})`)
+          : ""
+      }${name ? chalk.grey(" > ") : ""}${
+        options.name && (!name || kebabCase(options.name) !== kebabCase(name))
+          ? `${chalk.bold.hex(
+              getColor("brand", options as Parameters<typeof getColor>[1])
+            )(kebabCase(options.name))}${chalk.grey(" > ")}`
+          : ""
+      }${
+        options.environment && options.environment !== DEFAULT_ENVIRONMENT
+          ? `${chalk.bold.hex(
+              getColor("brand", options as Parameters<typeof getColor>[1])
+            )(kebabCase(options.environment))}${chalk.grey(" > ")}`
+          : ""
+      }${args.join(" ")} `.trim()
     );
 };
 

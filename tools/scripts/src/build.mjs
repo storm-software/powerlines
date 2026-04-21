@@ -56,7 +56,7 @@ try {
   }
 
   proc =
-    $`pnpm nx run-many --target=build --projects="powerlines,nx" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+    $`pnpm nx run-many --target=build --projects="powerlines" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
       `${6 * 60}s`
     );
   proc.stdout.on("data", data => {
@@ -65,7 +65,21 @@ try {
   result = await proc;
   if (!result.ok) {
     throw new Error(
-      `An error occurred while building the core Powerlines and Nx packages in ${configuration} mode: \n\n${result.message}\n`
+      `An error occurred while building the core Powerlines packages in ${configuration} mode: \n\n${result.message}\n`
+    );
+  }
+
+  proc =
+    $`pnpm nx run-many --target=build --projects="nx" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+      `${6 * 60}s`
+    );
+  proc.stdout.on("data", data => {
+    echo`${data}`;
+  });
+  result = await proc;
+  if (!result.ok) {
+    throw new Error(
+      `An error occurred while building the Powerlines Nx package in ${configuration} mode: \n\n${result.message}\n`
     );
   }
 
@@ -110,40 +124,40 @@ try {
         );
       }
     } else if (filter === "cli" || filter === "all") {
-      proc = $`pnpm nx reset --only-daemon`.timeout(`${2 * 60}s`);
-      proc.stdout.on("data", data => {
-        echo`${data}`;
-      });
-      result = await proc;
-      if (!result.ok) {
-        throw new Error(
-          `An error occurred while resetting the Nx daemon process: \n\n${result.message}\n`
-        );
-      }
+      //   proc = $`pnpm nx reset --only-daemon`.timeout(`${2 * 60}s`);
+      //   proc.stdout.on("data", data => {
+      //     echo`${data}`;
+      //   });
+      //   result = await proc;
+      //   if (!result.ok) {
+      //     throw new Error(
+      //       `An error occurred while resetting the Nx daemon process: \n\n${result.message}\n`
+      //     );
+      //   }
 
-      proc = $`pnpm bootstrap`.timeout(`${2 * 60}s`);
-      proc.stdout.on("data", data => {
-        echo`${data}`;
-      });
-      result = await proc;
-      if (!result.ok) {
-        throw new Error(
-          `An error occurred while bootstrapping the monorepo: \n\n${result.message}\n`
-        );
-      }
+      //   proc = $`pnpm bootstrap`.timeout(`${2 * 60}s`);
+      //   proc.stdout.on("data", data => {
+      //     echo`${data}`;
+      //   });
+      //   result = await proc;
+      //   if (!result.ok) {
+      //     throw new Error(
+      //       `An error occurred while bootstrapping the monorepo: \n\n${result.message}\n`
+      //     );
+      //   }
 
-      proc = $`pnpm nx run cli:build:${
-        configuration
-      } --outputStyle=dynamic-legacy --parallel=5`.timeout(`${15 * 60}s`);
-      proc.stdout.on("data", data => {
-        echo`${data}`;
-      });
-      result = await proc;
-      if (!result.ok) {
-        throw new Error(
-          `An error occurred while building the CLI application in ${configuration} mode: \n\n${result.message}\n`
-        );
-      }
+      //   proc = $`pnpm nx run cli:build:${
+      //     configuration
+      //   } --outputStyle=dynamic-legacy --parallel=5`.timeout(`${15 * 60}s`);
+      //   proc.stdout.on("data", data => {
+      //     echo`${data}`;
+      //   });
+      //   result = await proc;
+      //   if (!result.ok) {
+      //     throw new Error(
+      //       `An error occurred while building the CLI application in ${configuration} mode: \n\n${result.message}\n`
+      //     );
+      //   }
 
       if (filter === "all") {
         proc =

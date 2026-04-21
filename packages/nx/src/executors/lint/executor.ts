@@ -18,7 +18,7 @@
 
 import { PromiseExecutor } from "@nx/devkit";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
-import type { LintInlineConfig, PowerlinesAPI } from "powerlines";
+import type { LintInlineConfig, PowerlinesEngine } from "powerlines";
 import {
   PowerlinesExecutorContext,
   withExecutor
@@ -27,7 +27,7 @@ import type { LintExecutorSchema } from "./schema";
 
 export async function executorFn(
   context: PowerlinesExecutorContext<"lint", LintExecutorSchema>,
-  api: PowerlinesAPI
+  api: PowerlinesEngine
 ): Promise<BaseExecutorResult> {
   await api.lint(context.inlineConfig as LintInlineConfig);
 

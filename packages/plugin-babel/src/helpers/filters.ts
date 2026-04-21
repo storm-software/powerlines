@@ -24,7 +24,9 @@ import {
   BabelTransformPlugin,
   BabelTransformPluginFilter,
   BabelTransformPluginOptions,
-  ResolvedBabelTransformPluginOptions
+  BabelTransformPresetOptions,
+  ResolvedBabelTransformPluginOptions,
+  ResolvedBabelTransformPresetOptions
 } from "../types/config";
 
 export function getPluginName(
@@ -54,16 +56,35 @@ export function getPluginName(
  * @param plugin - The Babel plugin to check for duplicates.
  * @returns True if the plugin is a duplicate, false otherwise.
  */
-export function isDuplicatePlugin(
-  plugins: (ResolvedBabelTransformPluginOptions | undefined)[],
-  plugin: BabelTransformPluginOptions
-): boolean {
+export function isDuplicatePlugin<
+  T extends BabelTransformPluginOptions | ResolvedBabelTransformPluginOptions
+>(plugins: T[], plugin: T): boolean {
   return !!(
     getPluginName(plugin) &&
     plugins.some(
       existing =>
         Array.isArray(existing) &&
         getPluginName(existing[0]) === getPluginName(plugin)
+    )
+  );
+}
+
+/**
+ * Check if a Babel preset is a duplicate of another preset in the list.
+ *
+ * @param presets - The list of existing Babel presets.
+ * @param preset - The Babel preset to check for duplicates.
+ * @returns True if the preset is a duplicate, false otherwise.
+ */
+export function isDuplicatePreset<
+  T extends BabelTransformPresetOptions | ResolvedBabelTransformPresetOptions
+>(presets: T[], preset: T): boolean {
+  return !!(
+    getPluginName(preset) &&
+    presets.some(
+      existing =>
+        Array.isArray(existing) &&
+        getPluginName(existing[0]) === getPluginName(preset)
     )
   );
 }
@@ -151,25 +172,26 @@ export function addPluginFilter<
         (pluginOrPlugins.length > 1 && isObject(pluginOrPlugins[1])) ||
         (pluginOrPlugins.length > 2 && isObject(pluginOrPlugins[2]))))
   ) {
-    return Array.isArray(pluginOrPlugins)
-      ? [
-          pluginOrPlugins[0],
-          pluginOrPlugins.length > 1 ? pluginOrPlugins[1] : {},
-          {
-            filter: (code, id) =>
-              filter(code, id) &&
-              (pluginOrPlugins.length < 2 ||
-                !isFunction(pluginOrPlugins[2]) ||
-                pluginOrPlugins[2]?.(code, id))
-          }
-        ]
-      : [
-          pluginOrPlugins,
-          {},
-          {
-            filter
-          }
-        ];
+    if (Array.isArray(pluginOrPlugins)) {
+      return [
+        pluginOrPlugins[0],
+        pluginOrPlugins.length > 1 ? pluginOrPlugins[1] : {},
+        {
+          filter: (code, id) =>
+            filter(code, id) &&
+            (pluginOrPlugins.length < 3 ||
+              !isFunction(pluginOrPlugins[2]) ||
+              (pluginOrPlugins[2] as BabelTransformPluginFilter)?.(code, id))
+        }
+      ] as any;
+    }
+    return [
+      pluginOrPlugins,
+      {},
+      {
+        filter
+      }
+    ] as any;
   }
 
   if (!name) {
@@ -184,11 +206,11 @@ export function addPluginFilter<
   if (foundIndex > -1) {
     pluginOrPlugins[foundIndex] = addPluginFilter(
       context,
-      pluginOrPlugins[foundIndex],
+      pluginOrPlugins[foundIndex] as BabelTransformPluginOptions[],
       filter,
       name
-    );
+    ) as any;
   }
 
-  return pluginOrPlugins;
+  return pluginOrPlugins as any;
 }

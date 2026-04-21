@@ -16,9 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import babel from "@powerlines/plugin-babel";
 import { StormJSON } from "@stryke/json/storm-json";
-import { findFileExtension } from "@stryke/path/file-path-fns";
 import type { Plugin } from "powerlines";
 import type { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
@@ -40,7 +38,6 @@ export const plugin = <
   options: AlloyPluginOptions = {}
 ) => {
   return [
-    babel(),
     {
       name: "alloy",
       config() {
@@ -53,21 +50,13 @@ export const plugin = <
             typescript: true,
             ...options
           },
-          babel: {
-            presets: [
-              [
-                "@alloy-js/babel-preset",
-                {},
-                (_: string, id: string) =>
-                  findFileExtension(id) === "tsx" ||
-                  findFileExtension(id) === "jsx"
-              ]
-            ]
-          },
           tsdown: {
             inputOptions: {
               transform: {
-                jsx: "preserve"
+                jsx: {
+                  runtime: "automatic",
+                  importSource: "@alloy-js/core"
+                }
               }
             }
           },
@@ -80,14 +69,14 @@ export const plugin = <
         this.debug("Ensuring TypeScript configuration is set up for Alloy-js.");
 
         if (
-          this.tsconfig.tsconfigJson.compilerOptions?.jsx !== "preserve" ||
+          this.tsconfig.tsconfigJson.compilerOptions?.jsx !== "react-jsx" ||
           this.tsconfig.tsconfigJson.compilerOptions?.jsxImportSource !==
             "@alloy-js/core"
         ) {
           this.tsconfig.tsconfigJson.compilerOptions ??= {};
 
-          if (this.tsconfig.tsconfigJson.compilerOptions.jsx !== "preserve") {
-            this.tsconfig.tsconfigJson.compilerOptions.jsx = "preserve";
+          if (this.tsconfig.tsconfigJson.compilerOptions.jsx !== "react-jsx") {
+            this.tsconfig.tsconfigJson.compilerOptions.jsx = "react-jsx";
           }
 
           if (

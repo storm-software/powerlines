@@ -29,9 +29,8 @@ import defu from "defu";
 import type { Jiti } from "jiti";
 import type {
   ParsedUserConfig,
-  PowerlinesCommand,
+  ResolvedEngineOptions,
   UserConfig,
-  UserConfigFn,
   WorkspaceConfig
 } from "../types/config";
 import { AnyUserConfig } from "../types/config";
@@ -48,21 +47,21 @@ export type PartiallyResolvedContext<TContext extends Context = Context> = Omit<
 /**
  * Loads the workspace configuration.
  *
- * @param workspaceRoot - The root directory of the workspace.
- * @param cwd - The current working directory to start searching from.
+ * @param cwd - The root directory of the workspace.
+ * @param root - The current working directory to start searching from.
  * @returns A promise that resolves to the loaded workspace configuration.
  */
 export async function loadWorkspaceConfig(
-  workspaceRoot: string,
-  cwd: string
+  cwd: string,
+  root: string
 ): Promise<WorkspaceConfig> {
   return defu(
     {
-      workspaceRoot
+      workspaceRoot: cwd
     },
     await getWorkspaceConfig(true, {
-      cwd,
-      workspaceRoot,
+      cwd: root,
+      workspaceRoot: cwd,
       useDefault: true
     })
   );
@@ -71,155 +70,145 @@ export async function loadWorkspaceConfig(
 /**
  * Loads the user configuration file for the project.
  *
- * @param projectRoot - The root directory of the project.
- * @param workspaceRoot - The root directory of the workspace.
+ * @param options - The engine options containing the root, cwd, mode, framework, and organization.
  * @param jiti - An instance of Jiti to resolve modules from
- * @param command - The {@link PowerlinesCommand} string associated with the current running process
- * @param mode - The mode in which the project is running (default is "production").
- * @param configFile - An optional path to a specific configuration file.
- * @param framework - The framework name to use for default configuration file names.
  * @returns A promise that resolves to the resolved user configuration.
  */
 export async function loadUserConfigFile(
-  projectRoot: string,
-  workspaceRoot: string,
-  jiti: Jiti,
-  command?: PowerlinesCommand,
-  mode = "production",
-  configFile?: string,
-  framework = "powerlines"
+  options: ResolvedEngineOptions,
+  jiti: Jiti
 ): Promise<ParsedUserConfig> {
   let resolvedUserConfig: Partial<ParsedUserConfig> = {};
 
   let resolvedUserConfigFile: string | undefined;
-  if (configFile) {
-    resolvedUserConfigFile = existsSync(replacePath(configFile, projectRoot))
-      ? replacePath(configFile, projectRoot)
+  if (options.configFile) {
+    resolvedUserConfigFile = existsSync(
+      replacePath(options.configFile, options.root)
+    )
+      ? replacePath(options.configFile, options.root)
       : existsSync(
             joinPaths(
-              appendPath(projectRoot, workspaceRoot),
-              replacePath(configFile, projectRoot)
+              appendPath(options.root, options.cwd),
+              replacePath(options.configFile, options.root)
             )
           )
         ? joinPaths(
-            appendPath(projectRoot, workspaceRoot),
-            replacePath(configFile, projectRoot)
+            appendPath(options.root, options.cwd),
+            replacePath(options.configFile, options.root)
           )
         : existsSync(
-              joinPaths(appendPath(projectRoot, workspaceRoot), configFile)
+              joinPaths(
+                appendPath(options.root, options.cwd),
+                options.configFile
+              )
             )
-          ? joinPaths(appendPath(projectRoot, workspaceRoot), configFile)
+          ? joinPaths(appendPath(options.root, options.cwd), options.configFile)
           : undefined;
   }
 
   if (!resolvedUserConfigFile) {
     resolvedUserConfigFile = existsSync(
       joinPaths(
-        appendPath(projectRoot, workspaceRoot),
-        `${framework}.${mode}.config.ts`
+        appendPath(options.root, options.cwd),
+        `${options.framework}.${options.mode}.config.ts`
       )
     )
       ? joinPaths(
-          appendPath(projectRoot, workspaceRoot),
-          `${framework}.${mode}.config.ts`
+          appendPath(options.root, options.cwd),
+          `${options.framework}.${options.mode}.config.ts`
         )
       : existsSync(
             joinPaths(
-              appendPath(projectRoot, workspaceRoot),
-              `${framework}.${mode}.config.js`
+              appendPath(options.root, options.cwd),
+              `${options.framework}.${options.mode}.config.js`
             )
           )
         ? joinPaths(
-            appendPath(projectRoot, workspaceRoot),
-            `${framework}.${mode}.config.js`
+            appendPath(options.root, options.cwd),
+            `${options.framework}.${options.mode}.config.js`
           )
         : existsSync(
               joinPaths(
-                appendPath(projectRoot, workspaceRoot),
-                `${framework}.${mode}.config.mts`
+                appendPath(options.root, options.cwd),
+                `${options.framework}.${options.mode}.config.mts`
               )
             )
           ? joinPaths(
-              appendPath(projectRoot, workspaceRoot),
-              `${framework}.${mode}.config.mts`
+              appendPath(options.root, options.cwd),
+              `${options.framework}.${options.mode}.config.mts`
             )
           : existsSync(
                 joinPaths(
-                  appendPath(projectRoot, workspaceRoot),
-                  `${framework}.${mode}.config.mjs`
+                  appendPath(options.root, options.cwd),
+                  `${options.framework}.${options.mode}.config.mjs`
                 )
               )
             ? joinPaths(
-                appendPath(projectRoot, workspaceRoot),
-                `${framework}.${mode}.config.mjs`
+                appendPath(options.root, options.cwd),
+                `${options.framework}.${options.mode}.config.mjs`
               )
             : existsSync(
                   joinPaths(
-                    appendPath(projectRoot, workspaceRoot),
-                    `${framework}.config.ts`
+                    appendPath(options.root, options.cwd),
+                    `${options.framework}.config.ts`
                   )
                 )
               ? joinPaths(
-                  appendPath(projectRoot, workspaceRoot),
-                  `${framework}.config.ts`
+                  appendPath(options.root, options.cwd),
+                  `${options.framework}.config.ts`
                 )
               : existsSync(
                     joinPaths(
-                      appendPath(projectRoot, workspaceRoot),
-                      `${framework}.config.js`
+                      appendPath(options.root, options.cwd),
+                      `${options.framework}.config.js`
                     )
                   )
                 ? joinPaths(
-                    appendPath(projectRoot, workspaceRoot),
-                    `${framework}.config.js`
+                    appendPath(options.root, options.cwd),
+                    `${options.framework}.config.js`
                   )
                 : existsSync(
                       joinPaths(
-                        appendPath(projectRoot, workspaceRoot),
-                        `${framework}.config.mts`
+                        appendPath(options.root, options.cwd),
+                        `${options.framework}.config.mts`
                       )
                     )
                   ? joinPaths(
-                      appendPath(projectRoot, workspaceRoot),
-                      `${framework}.config.mts`
+                      appendPath(options.root, options.cwd),
+                      `${options.framework}.config.mts`
                     )
                   : existsSync(
                         joinPaths(
-                          appendPath(projectRoot, workspaceRoot),
-                          `${framework}.config.mjs`
+                          appendPath(options.root, options.cwd),
+                          `${options.framework}.config.mjs`
                         )
                       )
                     ? joinPaths(
-                        appendPath(projectRoot, workspaceRoot),
-                        `${framework}.config.mjs`
+                        appendPath(options.root, options.cwd),
+                        `${options.framework}.config.mjs`
                       )
                     : undefined;
   }
 
   if (resolvedUserConfigFile) {
-    const resolved = await jiti.import<{ default: UserConfig | UserConfigFn }>(
+    const resolved = await jiti.import<{ default: AnyUserConfig }>(
       jiti.esmResolve(resolvedUserConfigFile)
     );
     if (resolved?.default) {
       let config = {};
       if (isFunction(resolved.default)) {
-        config = await Promise.resolve(
-          resolved.default({
-            command,
-            mode,
-            framework,
-            projectRoot,
-            workspaceRoot
-          })
-        );
-      } else if (isSetObject(resolved.default)) {
+        config = await Promise.resolve(resolved.default(options));
+      } else if (
+        isSetObject(resolved.default) ||
+        Array.isArray(resolved.default)
+      ) {
         config = resolved.default;
       }
 
-      if (isSetObject(config)) {
+      if (isSetObject(config) || Array.isArray(config)) {
         resolvedUserConfig = {
           ...config,
-          config: config as UserConfig,
+          config: config as AnyUserConfig,
           configFile: resolvedUserConfigFile
         };
       }
@@ -227,11 +216,11 @@ export async function loadUserConfigFile(
   }
 
   const result = await loadConfigC12({
-    cwd: projectRoot,
-    name: framework,
-    envName: mode,
+    cwd: options.root,
+    name: options.framework,
+    envName: options.mode,
     globalRc: true,
-    packageJson: camelCase(framework),
+    packageJson: camelCase(options.framework),
     dotenv: true,
     jiti
   });

@@ -18,40 +18,10 @@
 
 import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
 
-const config = defineTSDownConfig([
-  {
-    name: "powerlines",
-    entry: [
-      "src/index.ts",
-      "src/astro.ts",
-      "src/config.ts",
-      "src/constants.ts",
-      "src/esbuild.ts",
-      "src/farm.ts",
-      "src/next.ts",
-      "src/nuxt.ts",
-      "src/plugin-utils.ts",
-      "src/rolldown.ts",
-      "src/rollup.ts",
-      "src/rspack.ts",
-      "src/tsdown.ts",
-      "src/tsup.ts",
-      "src/unloader.ts",
-      "src/unplugin.ts",
-      "src/utils.ts",
-      "src/vite.ts",
-      "src/webpack.ts",
-      "src/storage/index.ts",
-      "src/context/index.ts",
-      "src/typescript/index.ts"
-    ],
-    unbundle: false,
-    exports: false,
-    sourcemap: false,
-    deps: {
-      skipNodeModulesBundle: true
-    }
-  }
-]);
+const config = defineTSDownConfig({
+  name: "powerlines",
+  entry: "src/*.ts",
+  exports: false
+});
 
 export default config;

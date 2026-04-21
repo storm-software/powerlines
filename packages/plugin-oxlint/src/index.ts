@@ -157,8 +157,8 @@ export function plugin(
           "oxlint",
           args,
           isOxlintListed
-            ? joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
-            : this.workspaceConfig.workspaceRoot
+            ? joinPaths(this.config.cwd, this.config.root)
+            : this.config.cwd
         );
         if (result.failed) {
           throw new Error(
@@ -168,10 +168,7 @@ export function plugin(
       } else {
         args.unshift(this.config.oxlint.oxlintPath, this.config.root);
 
-        const result = await execute(
-          args.join(" "),
-          this.workspaceConfig.workspaceRoot
-        );
+        const result = await execute(args.join(" "), this.config.cwd);
         if (result.failed) {
           throw new Error(
             `Oxlint process exited with code ${result.exitCode}.`

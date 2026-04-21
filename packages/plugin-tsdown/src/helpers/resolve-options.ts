@@ -126,13 +126,13 @@ export function resolveOptions(context: Context): BuildOptions {
             )
           : [
               joinPaths(
-                context.workspaceConfig.workspaceRoot,
+                context.config.cwd,
                 context.config.root,
                 "src",
                 "**/*.ts"
               ),
               joinPaths(
-                context.workspaceConfig.workspaceRoot,
+                context.config.cwd,
                 context.config.root,
                 "src",
                 "**/*.tsx"
@@ -211,10 +211,7 @@ export function resolveOptions(context: Context): BuildOptions {
       : {},
     {
       name: context.config.name,
-      cwd: appendPath(
-        context.config.root,
-        context.workspaceConfig.workspaceRoot
-      ),
+      cwd: appendPath(context.config.root, context.config.cwd),
       define: context.config.define,
       inputOptions: {
         transform: {
@@ -241,22 +238,22 @@ export function resolveOptions(context: Context): BuildOptions {
       },
       platform: context.config.platform,
       dts: context.config.output.dts,
-      outDir: appendPath(
-        context.config.output.path,
-        context.workspaceConfig.workspaceRoot
-      ),
+      outDir: appendPath(context.config.output.path, context.config.cwd),
       tsconfig: appendPath(
         context.tsconfig.tsconfigFilePath,
-        context.workspaceConfig.workspaceRoot
+        context.config.cwd
       ),
       format: resolveFormat(context.config.output.format).filter(Boolean),
       mode: context.config.mode,
       treeshake: (context.config as TsdownPluginResolvedConfig)?.tsdown
         ? (context.config as TsdownPluginResolvedConfig)?.tsdown?.treeshake
         : undefined,
-      minify: context.config.mode === "production",
+      minify:
+        context.config.output.minify ?? context.config.mode === "production",
       metafile: context.config.mode === "development",
-      sourcemap: context.config.mode === "development",
+      sourcemap:
+        context.config.output.sourceMap ??
+        context.config.mode === "development",
       debug: context.config.mode === "development",
       silent:
         context.config.logLevel === null ||

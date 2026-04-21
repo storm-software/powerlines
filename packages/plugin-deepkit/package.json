@@ -94,7 +94,7 @@
     "@powerlines/plugin-tsc": "workspace:*",
     "@stryke/json": "catalog:",
     "powerlines": "workspace:*",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
     "@powerlines/plugin-plugin": "workspace:*",

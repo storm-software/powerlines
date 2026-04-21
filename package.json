@@ -95,7 +95,7 @@
     "sherif": "catalog:",
     "ts-jest": "catalog:",
     "tslib": "catalog:",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.3",
     "verdaccio": "catalog:",
     "zx": "catalog:"
   },

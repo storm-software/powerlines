@@ -21,9 +21,9 @@
 import { API } from "./api";
 import { PluginConfig, ResolvedConfig } from "./config";
 import {
-  APIContext,
   Context,
   EnvironmentContext,
+  ExecutionContext,
   PluginContext
 } from "./context";
 import {
@@ -41,7 +41,7 @@ export interface Unstable_ContextInternal<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > {
   /**
-   * The API instance for interacting with Powerlines
+   * The {@link API | API instance} for interacting with Powerlines
    *
    * @internal
    */
@@ -75,9 +75,9 @@ export interface Unstable_Context<
  *
  * @internal
  */
-export interface Unstable_APIContext<
+export interface Unstable_ExecutionContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> extends APIContext<TResolvedConfig> {
+> extends ExecutionContext<TResolvedConfig> {
   $$internal: Unstable_ContextInternal<TResolvedConfig>;
 }
 
@@ -101,7 +101,7 @@ export interface Unstable_PluginContextInternal<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > extends Unstable_ContextInternal<TResolvedConfig> {
   /**
-   * The API instance for interacting with Powerlines
+   * The {@link API | API instance} for interacting with Powerlines
    *
    * @internal
    */

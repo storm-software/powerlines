@@ -76,7 +76,7 @@ export function resolveOptions(context: Context): BuildOptions {
   if (context.config.inject && Object.keys(context.config.inject).length > 0) {
     context.fs.writeSync(
       joinPaths(
-        context.workspaceConfig.workspaceRoot,
+        context.config.cwd,
         context.config.root,
         context.artifactsPath,
         "inject-shim.js"
@@ -128,7 +128,7 @@ export { ${key} };`;
         context.config.inject && Object.keys(context.config.inject).length > 0
           ? [
               joinPaths(
-                context.workspaceConfig.workspaceRoot,
+                context.config.cwd,
                 context.config.root,
                 context.artifactsPath,
                 "inject-shim.js"
@@ -156,9 +156,11 @@ export { ${key} };`;
       platform: context.config.platform,
       outdir: context.config.output.path,
       tsconfig: context.tsconfig.tsconfigFilePath,
-      minify: context.config.mode !== "development",
+      minify:
+        context.config.output.minify ?? context.config.mode !== "development",
       metafile: context.config.mode === "development",
-      sourcemap: context.config.mode === "development"
+      sourcemap:
+        context.config.output.sourceMap ?? context.config.mode === "development"
     },
     DEFAULT_ESBUILD_CONFIG
   ) as BuildOptions;

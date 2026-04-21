@@ -45,17 +45,11 @@ export async function format(
     ((context.config.output.copy &&
       isParentPath(
         path,
-        appendPath(
-          context.config.output.copy.path,
-          context.workspaceConfig.workspaceRoot
-        )
+        appendPath(context.config.output.copy.path, context.config.cwd)
       )) ||
       isParentPath(
         path,
-        appendPath(
-          context.config.output.path,
-          context.workspaceConfig.workspaceRoot
-        )
+        appendPath(context.config.output.path, context.config.cwd)
       ))
   ) {
     return data;
@@ -102,17 +96,11 @@ export async function formatFolder(context: Context, path: string) {
     !context.config.output.copy ||
     (!isParentPath(
       path,
-      appendPath(
-        context.config.output.copy.path,
-        context.workspaceConfig.workspaceRoot
-      )
+      appendPath(context.config.output.copy.path, context.config.cwd)
     ) &&
       !isParentPath(
         path,
-        appendPath(
-          context.config.output.path,
-          context.workspaceConfig.workspaceRoot
-        )
+        appendPath(context.config.output.path, context.config.cwd)
       ))
   ) {
     await Promise.allSettled(
@@ -121,17 +109,11 @@ export async function formatFolder(context: Context, path: string) {
           (!context.config.output.copy ||
             !isParentPath(
               file,
-              appendPath(
-                context.config.output.copy.path,
-                context.workspaceConfig.workspaceRoot
-              )
+              appendPath(context.config.output.copy.path, context.config.cwd)
             )) &&
           !isParentPath(
             file,
-            appendPath(
-              context.config.output.path,
-              context.workspaceConfig.workspaceRoot
-            )
+            appendPath(context.config.output.path, context.config.cwd)
           )
         ) {
           const data = await context.fs.read(file);

@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { CommandMetadata } from "@shell-shock/core";
-import { createPowerlines } from "powerlines";
+import { createEngine } from "powerlines";
 
 export const metadata = {
   title: "New Project",
@@ -32,14 +32,17 @@ export interface NewOptions {
    * @remarks
    * This option allows you to specify the base directory for the project initialization process, which can be useful if your project structure requires initializing the project from a different location than the default. If not provided, Powerlines will use the current working directory as the root for the project initialization process.
    */
-  root?: string;
+  root: string;
 }
 
 async function handler(options: NewOptions) {
-  const api = await createPowerlines();
+  const api = await createEngine({
+    cwd: process.cwd(),
+    root: options.root
+  });
   await api.new({
     ...options,
-    root: options.root || process.cwd(),
+    root: options.root,
     command: "new"
   });
 }

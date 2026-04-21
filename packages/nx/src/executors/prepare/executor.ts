@@ -19,7 +19,7 @@
 import { PromiseExecutor } from "@nx/devkit";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
 import defu from "defu";
-import type { PowerlinesAPI, PrepareInlineConfig } from "powerlines";
+import type { PowerlinesEngine, PrepareInlineConfig } from "powerlines";
 import {
   PowerlinesExecutorContext,
   withExecutor
@@ -28,7 +28,7 @@ import { PrepareExecutorSchema } from "./schema";
 
 export async function executorFn(
   context: PowerlinesExecutorContext<"prepare", PrepareExecutorSchema>,
-  api: PowerlinesAPI
+  api: PowerlinesEngine
 ): Promise<BaseExecutorResult> {
   await api.prepare(
     defu(

@@ -83,6 +83,34 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./api": {
+      "import": {
+        "types": "./dist/api.d.mts",
+        "default": "./dist/api.mjs"
+      },
+      "require": {
+        "types": "./dist/api.d.cts",
+        "default": "./dist/api.cjs"
+      },
+      "default": {
+        "types": "./dist/api.d.cts",
+        "default": "./dist/api.cjs"
+      }
+    },
+    "./engine": {
+      "import": {
+        "types": "./dist/engine.d.mts",
+        "default": "./dist/engine.mjs"
+      },
+      "require": {
+        "types": "./dist/engine.d.cts",
+        "default": "./dist/engine.cjs"
+      },
+      "default": {
+        "types": "./dist/engine.d.cts",
+        "default": "./dist/engine.cjs"
+      }
+    },
     "./astro": {
       "import": {
         "types": "./dist/astro.d.mts",
@@ -127,16 +155,16 @@
     },
     "./context": {
       "import": {
-        "types": "./dist/context/index.d.mts",
-        "default": "./dist/context/index.mjs"
+        "types": "./dist/context.d.mts",
+        "default": "./dist/context.mjs"
       },
       "require": {
-        "types": "./dist/context/index.d.cts",
-        "default": "./dist/context/index.cjs"
+        "types": "./dist/context.d.cts",
+        "default": "./dist/context.cjs"
       },
       "default": {
-        "types": "./dist/context/index.d.cts",
-        "default": "./dist/context/index.cjs"
+        "types": "./dist/context.d.cts",
+        "default": "./dist/context.cjs"
       }
     },
     "./esbuild": {
@@ -253,16 +281,30 @@
     },
     "./storage": {
       "import": {
-        "types": "./dist/storage/index.d.mts",
-        "default": "./dist/storage/index.mjs"
+        "types": "./dist/storage.d.mts",
+        "default": "./dist/storage.mjs"
       },
       "require": {
-        "types": "./dist/storage/index.d.cts",
-        "default": "./dist/storage/index.cjs"
+        "types": "./dist/storage.d.cts",
+        "default": "./dist/storage.cjs"
       },
       "default": {
-        "types": "./dist/storage/index.d.cts",
-        "default": "./dist/storage/index.cjs"
+        "types": "./dist/storage.d.cts",
+        "default": "./dist/storage.cjs"
+      }
+    },
+    "./schemas": {
+      "import": {
+        "types": "./dist/schemas.d.mts",
+        "default": "./dist/schemas.mjs"
+      },
+      "require": {
+        "types": "./dist/schemas.d.cts",
+        "default": "./dist/schemas.cjs"
+      },
+      "default": {
+        "types": "./dist/schemas.d.cts",
+        "default": "./dist/schemas.cjs"
       }
     },
     "./tsdown": {
@@ -295,16 +337,16 @@
     },
     "./typescript": {
       "import": {
-        "types": "./dist/typescript/index.d.mts",
-        "default": "./dist/typescript/index.mjs"
+        "types": "./dist/typescript.d.mts",
+        "default": "./dist/typescript.mjs"
       },
       "require": {
-        "types": "./dist/typescript/index.d.cts",
-        "default": "./dist/typescript/index.cjs"
+        "types": "./dist/typescript.d.cts",
+        "default": "./dist/typescript.cjs"
       },
       "default": {
-        "types": "./dist/typescript/index.d.cts",
-        "default": "./dist/typescript/index.cjs"
+        "types": "./dist/typescript.d.cts",
+        "default": "./dist/typescript.cjs"
       }
     },
     "./unloader": {
@@ -382,48 +424,28 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": ["dist/**/*", "files/**/*", "schemas/**/*"],
+  "files": [
+    "dist/**/*",
+    "files/**/*",
+    "schemas/**/*"
+  ],
   "dependencies": {
-    "@cacheable/memory": "catalog:",
-    "@donedeal0/superdiff": "catalog:",
-    "@jridgewell/sourcemap-codec": "catalog:",
+    "@babel/types": "catalog:",
     "@powerlines/core": "workspace:*",
+    "@powerlines/engine": "workspace:*",
     "@storm-software/config": "catalog:",
     "@storm-software/config-tools": "catalog:",
-    "@stryke/capnp": "catalog:",
+    "@stryke/fs": "catalog:",
     "@stryke/convert": "catalog:",
     "@stryke/env": "catalog:",
-    "@stryke/fs": "catalog:",
-    "@stryke/hash": "catalog:",
-    "@stryke/helpers": "catalog:",
-    "@stryke/http": "catalog:",
-    "@stryke/json": "catalog:",
-    "@stryke/path": "catalog:",
-    "@stryke/string-format": "catalog:",
-    "@stryke/type-checks": "catalog:",
-    "@stryke/unique-id": "catalog:",
-    "bundle-require": "catalog:",
-    "compatx": "catalog:",
-    "date-fns": "catalog:",
     "defu": "catalog:",
-    "flat-cache": "catalog:",
-    "handlebars": "catalog:",
-    "jiti": "catalog:",
-    "locate-character": "catalog:",
-    "oxc-parser": "catalog:",
-    "oxc-resolver": "catalog:",
-    "ts-morph": "catalog:",
-    "undici": "catalog:",
-    "unimport": "catalog:",
     "unplugin": "catalog:"
   },
   "devDependencies": {
     "@storm-software/testing-tools": "catalog:",
     "@stryke/types": "catalog:",
-    "@types/bun": "catalog:",
     "@types/node": "catalog:",
-    "@types/semver": "catalog:",
-    "bun-types-no-globals": "catalog:",
+    "typescript": "^6.0.3",
     "undici-types": "catalog:"
   },
   "peerDependencies": {
@@ -443,11 +465,12 @@
     "astro": ">=5.13.5",
     "esbuild": ">=0.17.19",
     "next": ">=15.5.4",
-    "rolldown": ">=1.0.0-rc.13",
+    "rolldown": ">=1.0.0-rc.16",
     "rollup": ">=3.20.0",
     "rspack": ">=0.1.1",
-    "tsdown": ">=0.21.0",
-    "typescript": ">=5.9.0",
+    "tsdown": ">=0.21.9",
+    "tsup": ">=6.0.0",
+    "typescript": "^6.0.3",
     "unloader": ">=0.5.0",
     "vite": ">=4.0.0",
     "webpack": ">=5.105.4"
@@ -508,6 +531,9 @@
       "optional": true
     },
     "webpack": {
+      "optional": true
+    },
+    "tsup": {
       "optional": true
     }
   },

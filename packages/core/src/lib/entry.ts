@@ -47,16 +47,9 @@ export function resolveEntryOutput(
           replacePath(
             replacePath(
               typeDefinition.file,
-              joinPaths(
-                context.workspaceConfig.workspaceRoot,
-                context.config.root,
-                "src"
-              )
+              joinPaths(context.config.cwd, context.config.root, "src")
             ),
-            joinPaths(
-              context.workspaceConfig.workspaceRoot,
-              context.config.root
-            )
+            joinPaths(context.config.cwd, context.config.root)
           ),
           joinPaths(context.config.root, "src")
         ),
@@ -140,9 +133,7 @@ export async function resolveInputs(
           }
 
           return (
-            await context.fs.glob(
-              appendPath(filePath, context.workspaceConfig.workspaceRoot)
-            )
+            await context.fs.glob(appendPath(filePath, context.config.cwd))
           ).map(file =>
             resolveInput(
               context,
@@ -206,13 +197,13 @@ export function resolveInputsSync(
         : appendPath(typeDefinition.file, context.config.root);
       if (context.fs.isFileSync(filePath)) {
         return resolveInput(context, {
-          file: appendPath(filePath, context.workspaceConfig.workspaceRoot),
+          file: appendPath(filePath, context.config.cwd),
           name: typeDefinition.name
         });
       }
 
       return context.fs
-        .globSync(appendPath(filePath, context.workspaceConfig.workspaceRoot))
+        .globSync(appendPath(filePath, context.config.cwd))
         .map(file =>
           resolveInput(context, {
             file,

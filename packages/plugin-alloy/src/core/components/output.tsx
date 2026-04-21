@@ -53,9 +53,7 @@ export function Output<TContext extends PluginContext = PluginContext>(
   return (
     <MetaContext.Provider value={meta}>
       <PowerlinesContext.Provider value={contextRef.value}>
-        <OutputExternal
-          {...rest}
-          basePath={contextRef.value.workspaceConfig.workspaceRoot}>
+        <OutputExternal {...rest} basePath={contextRef.value.config.cwd}>
           {children}
         </OutputExternal>
       </PowerlinesContext.Provider>

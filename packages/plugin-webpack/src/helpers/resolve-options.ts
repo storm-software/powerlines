@@ -40,10 +40,7 @@ export function resolveOptions(context: Context): ExternalWebpackOptions {
       : {},
     {
       output: {
-        path: joinPaths(
-          context.workspaceConfig.workspaceRoot,
-          context.config.output.path
-        )
+        path: joinPaths(context.config.cwd, context.config.output.path)
       },
       name: context.config.name,
       plugins:
@@ -74,16 +71,14 @@ export function resolveOptions(context: Context): ExternalWebpackOptions {
         "webpack",
         ".webpack-records.json"
       ),
-      context: joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root
-      ),
+      context: joinPaths(context.config.cwd, context.config.root),
       noExternal: context.builtins,
-      devtool: (context.config.mode !== "development"
-        ? false
-        : "source-map") as string | false,
+      devtool: (context.config.output.sourceMap
+        ? "source-map"
+        : false) as ExternalWebpackOptions["devtool"],
       optimization: {
-        minimize: context.config.mode !== "development"
+        minimize:
+          context.config.output.minify ?? context.config.mode !== "development"
       }
     }
   );

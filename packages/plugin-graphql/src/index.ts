@@ -106,7 +106,7 @@ export const plugin = <
       const result = await generate(
         {
           ...this.graphql.codegen,
-          cwd: joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
+          cwd: joinPaths(this.config.cwd, this.config.root)
         } as Parameters<typeof generate>[0],
         false
       );

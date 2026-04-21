@@ -84,7 +84,7 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
     async build() {
       await build({
         name: this.config.name,
-        cwd: appendPath(this.config.root, this.workspaceConfig.workspaceRoot),
+        cwd: appendPath(this.config.root, this.config.cwd),
         entry:
           this.entry.filter(entry => entry?.file).length > 0
             ? Object.fromEntries(
@@ -105,18 +105,8 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
                   ])
               )
             : [
-                joinPaths(
-                  this.workspaceConfig.workspaceRoot,
-                  this.config.root,
-                  "src",
-                  "**/*.ts"
-                ),
-                joinPaths(
-                  this.workspaceConfig.workspaceRoot,
-                  this.config.root,
-                  "src",
-                  "**/*.tsx"
-                )
+                joinPaths(this.config.cwd, this.config.root, "src", "**/*.ts"),
+                joinPaths(this.config.cwd, this.config.root, "src", "**/*.tsx")
               ],
         platform: this.config.platform,
         tsconfig: this.tsconfig.tsconfigFilePath,

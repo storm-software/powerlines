@@ -109,7 +109,7 @@
     "@types/node": "catalog:"
   },
   "peerDependencies": {
-    "@babel/plugin-syntax-typescript": "^7.27.1"
+    "@babel/plugin-syntax-typescript": ">=8.0.0-rc.3"
   },
   "peerDependenciesMeta": {
     "@babel/plugin-syntax-typescript": {

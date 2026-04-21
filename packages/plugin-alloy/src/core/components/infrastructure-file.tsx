@@ -63,10 +63,7 @@ export function InfrastructureFile(props: InfrastructureFileProps) {
     const value = context
       ? appendPath(
           id,
-          replacePath(
-            context.infrastructurePath,
-            context.workspaceConfig.workspaceRoot
-          )
+          replacePath(context.infrastructurePath, context.config.cwd)
         )
       : id;
 

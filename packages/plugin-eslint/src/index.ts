@@ -115,7 +115,7 @@ export function plugin(
       }
 
       const isInstalled = isPackageExists("eslint", {
-        paths: [this.workspaceConfig.workspaceRoot, this.config.root]
+        paths: [this.config.cwd, this.config.root]
       });
       if (!isInstalled) {
         throw new Error(

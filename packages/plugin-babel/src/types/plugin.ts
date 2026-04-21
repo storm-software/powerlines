@@ -21,7 +21,7 @@ import type {
   ResolvedConfig,
   UserConfig
 } from "@powerlines/core";
-import { BabelResolvedConfig, BabelUserConfig } from "./config";
+import type { BabelResolvedConfig, BabelUserConfig } from "./config";
 
 export type BabelPluginOptions = Partial<BabelUserConfig> & {
   skipConfigResolution?: boolean;

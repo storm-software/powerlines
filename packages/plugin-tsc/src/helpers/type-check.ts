@@ -34,10 +34,7 @@ export async function typeCheck(context: Context): Promise<void> {
       declarationMap: false,
       emitDeclarationOnly: true,
       sourceMap: false,
-      outDir: replacePath(
-        context.builtinsPath,
-        context.workspaceConfig.workspaceRoot
-      ),
+      outDir: replacePath(context.builtinsPath, context.config.cwd),
       composite: false,
       incremental: false,
       tsBuildInfoFile: undefined

@@ -25,12 +25,23 @@
  * @packageDocumentation
  */
 
-import { getWorkspaceRoot } from "@stryke/fs/get-workspace-root";
 import { PowerlinesAPI } from "./api";
-import { UserConfig } from "./types";
+import { PowerlinesEngine } from "./engine";
+import type { EngineOptions } from "./types";
 
-export * from "../schemas/fs";
 export type * from "./types";
+
+/**
+ * Creates a new {@link PowerlinesEngine} instance.
+ *
+ * @param options - The user configuration options.
+ * @returns A promise that resolves to a {@link PowerlinesEngine} instance.
+ */
+export async function createEngine(
+  options: EngineOptions
+): Promise<PowerlinesEngine> {
+  return PowerlinesEngine.fromOptions(options);
+}
 
 /**
  * Creates a new {@link PowerlinesAPI} instance.
@@ -38,16 +49,10 @@ export type * from "./types";
  * @param options - The user configuration options.
  * @returns A promise that resolves to a {@link PowerlinesAPI} instance.
  */
-export async function createPowerlines(
-  options: Partial<UserConfig> = {}
+export async function createAPI(
+  options: EngineOptions
 ): Promise<PowerlinesAPI> {
-  options.root ??= process.cwd();
-  const workspaceRoot = getWorkspaceRoot(options.root);
-
-  return PowerlinesAPI.from(
-    workspaceRoot,
-    options as Parameters<typeof PowerlinesAPI.from>[1]
-  );
+  return PowerlinesAPI.fromOptions(options);
 }
 
-export { PowerlinesAPI };
+export { PowerlinesAPI, PowerlinesEngine };

@@ -4,32 +4,19 @@
   "projectType": "library",
   "sourceRoot": "packages/powerlines/src",
   "targets": {
-    "generate-schemas": {
-      "cache": true,
-      "inputs": ["{projectRoot}/schemas/*.capnp"],
-      "outputs": ["{projectRoot}/schemas/*.ts"],
-      "executor": "nx:run-commands",
-      "dependsOn": ["clean", "^build"],
-      "options": {
-        "commands": [
-          "pnpm exec storm-capnpc --project-root packages/powerlines --schema packages/powerlines/schemas"
-        ],
-        "parallel": false
-      }
-    },
     "build-base": {
-      "cache": true,
+      "cache": false,
       "inputs": ["typescript", "^production"],
       "outputs": ["{projectRoot}/dist"],
       "executor": "nx:run-commands",
-      "dependsOn": ["generate-schemas", "clean", "^build"],
+      "dependsOn": ["^build"],
       "options": {
         "command": "tsdown --config=tsdown.config.ts",
         "cwd": "{projectRoot}"
       }
     },
     "build": {
-      "cache": true,
+      "cache": false,
       "inputs": ["{projectRoot}/dist"],
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "executor": "nx:run-commands",
@@ -38,7 +25,6 @@
         "commands": [
           "pnpm copyfiles LICENSE dist/packages/powerlines",
           "pnpm copyfiles --up=2 ./packages/powerlines/*.md ./packages/powerlines/package.json dist/packages/powerlines",
-          "pnpm copyfiles --up=3 \"./packages/powerlines/schemas/*.capnp\" ./dist/packages/powerlines/schemas",
           "pnpm copyfiles --up=3 \"./packages/powerlines/files/**/*\" ./dist/packages/powerlines/files",
           "pnpm copyfiles --up=3 \"./packages/powerlines/dist/**/*\" dist/packages/powerlines/dist"
         ]
@@ -48,5 +34,6 @@
       "executor": "@storm-software/workspace-tools:npm-publish"
     }
   },
-  "tags": ["platform:node"]
+  "tags": ["platform:node"],
+  "implicitDependencies": ["core", "engine"]
 }

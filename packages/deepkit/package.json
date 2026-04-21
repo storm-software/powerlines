@@ -147,7 +147,7 @@
     "defu": "catalog:",
     "esbuild": "catalog:",
     "jiti": "catalog:",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
     "@deepkit/core": "catalog:",

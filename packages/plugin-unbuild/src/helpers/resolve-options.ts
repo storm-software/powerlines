@@ -27,7 +27,7 @@ import type {
 } from "@storm-software/unbuild/types";
 import { relativePath } from "@stryke/path";
 import { joinPaths } from "@stryke/path/join-paths";
-import { isObject } from "@stryke/type-checks/is-object";
+import { isSet } from "@stryke/type-checks";
 import defu from "defu";
 import { transform } from "esbuild";
 import { TransformResult } from "unplugin";
@@ -189,9 +189,7 @@ export function resolveOptions(context: Context): ExternalUnbuildOptions {
     {
       projectName: context.config.name,
       name: context.config.name,
-      orgName: isObject(context.workspaceConfig.organization)
-        ? context.workspaceConfig.organization.name
-        : context.workspaceConfig.organization,
+      orgName: context.config.organization,
       sourceRoot: joinPaths(context.config.root, "src"),
       projectRoot: context.config.root,
       outputPath:
@@ -212,9 +210,12 @@ export function resolveOptions(context: Context): ExternalUnbuildOptions {
       },
       rollup: resolveRollupOptions(context) as any,
       debug: context.config.mode === "development",
-      minify: context.config.mode !== "development",
-      sourcemap: context.config.mode === "development"
+      minify:
+        context.config.output.minify ?? context.config.mode !== "development",
+      sourcemap: isSet(context.config.output.sourceMap)
+        ? context.config.output.sourceMap
+        : context.config.mode === "development"
     },
     DEFAULT_UNBUILD_CONFIG
-  );
+  ) as ExternalUnbuildOptions;
 }

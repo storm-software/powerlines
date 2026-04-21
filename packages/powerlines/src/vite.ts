@@ -73,7 +73,6 @@ export const unplugin = createVitePlugin<Partial<VitePluginUserConfig>>(
 
           return defu(
             resolveOptions(api.context),
-            // Need to use `any` here to avoid excessive type complexity
             result?.build ?? {},
             config
           ) as Omit<ViteOptions, "plugins">;

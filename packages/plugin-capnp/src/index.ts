@@ -61,7 +61,7 @@ export const plugin = <
           tty: true,
           tsconfig: this.tsconfig,
           schema: joinPaths(
-            this.workspaceConfig.workspaceRoot,
+            this.config.cwd ?? "./",
             this.config.root,
             "*.capnp"
           ),
@@ -80,7 +80,7 @@ export const plugin = <
         ...this.config.capnp,
         schemas: this.config.capnp.schema.toString(),
         projectRoot: this.config.root,
-        workspaceRoot: this.workspaceConfig.workspaceRoot
+        workspaceRoot: this.config.cwd
       });
       if (!resolvedOptions?.schemas?.length) {
         this.warn("No Cap'n Proto schemas found to compile.");

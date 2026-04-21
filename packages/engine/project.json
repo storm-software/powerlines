@@ -1,0 +1,51 @@
+{
+  "name": "engine",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/engine/src",
+  "targets": {
+    "generate-schemas": {
+      "cache": true,
+      "inputs": ["{projectRoot}/schemas/*.capnp"],
+      "outputs": ["{projectRoot}/schemas/*.ts"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["clean", "^build"],
+      "options": {
+        "commands": [
+          "pnpm exec storm-capnpc --project-root packages/engine --schema packages/engine/schemas"
+        ],
+        "parallel": false
+      }
+    },
+    "build-base": {
+      "cache": true,
+      "inputs": ["typescript", "^production"],
+      "outputs": ["{projectRoot}/dist"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["generate-schemas", "clean", "^build"],
+      "options": {
+        "command": "tsdown --config=tsdown.config.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "build": {
+      "cache": true,
+      "inputs": ["{projectRoot}/dist"],
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["typecheck", "build-base"],
+      "options": {
+        "commands": [
+          "pnpm copyfiles LICENSE dist/packages/engine",
+          "pnpm copyfiles --up=2 ./packages/engine/*.md ./packages/engine/package.json dist/packages/engine",
+          "pnpm copyfiles --up=3 \"./packages/engine/dist/**/*\" dist/packages/engine/dist",
+          "pnpm copyfiles --up=3 ./packages/engine/schemas/*.capnp dist/packages/powerlines/schemas"
+        ]
+      }
+    },
+    "nx-release-publish": {
+      "executor": "@storm-software/workspace-tools:npm-publish"
+    }
+  },
+  "tags": ["platform:node"]
+}

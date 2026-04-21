@@ -115,7 +115,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
   const name = options.name || "powerlines";
 
   return () => {
-    const log = extendLog(ctx.log, name);
+    const log = options.name ? extendLog(ctx.log, name) : ctx.log;
     log(LogLevelLabel.DEBUG, `Initializing ${titleCase(name)} plugin`);
 
     try {

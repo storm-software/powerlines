@@ -67,7 +67,7 @@ export const plugin = <
         return {
           nitro: {
             configFile: configFile
-              ? appendPath(configFile, this.workspaceConfig.workspaceRoot)
+              ? appendPath(configFile, this.config.cwd)
               : undefined,
             ...options
           }
@@ -75,7 +75,7 @@ export const plugin = <
       },
       configResolved() {
         this.config.nitro.compatibilityDate = this.config.compatibilityDate;
-        this.config.nitro.workspaceDir = this.workspaceConfig.workspaceRoot;
+        this.config.nitro.workspaceDir = this.config.cwd;
 
         this.config.nitro.alias = this.config.resolve
           .alias as NitroConfig["alias"];

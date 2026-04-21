@@ -16,27 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-/* -------------------------------------------------------------------
-
-                   ⚡ Storm Software - Powerlines
-
- This code was released as part of the Powerlines project. Powerlines
- is maintained by Storm Software under the Apache-2.0 license, and is
- free for commercial and private use. For more information, please visit
- our licensing page at https://stormsoftware.com/licenses/projects/powerlines.
-
- Website:                  https://stormsoftware.com
- Repository:               https://github.com/storm-software/powerlines
- Documentation:            https://docs.stormsoftware.com/projects/powerlines
- Contact:                  https://stormsoftware.com/contact
-
- SPDX-License-Identifier:  Apache-2.0
-
- ------------------------------------------------------------------- */
-
 import type {
-  API,
   Context,
+  InlineConfig,
+  ResolvedExecutionOptions,
   UnpluginBuilderVariant,
   UnpluginFactory,
   UnpluginOptions
@@ -71,7 +54,7 @@ export function createUnpluginFactory<
 >(
   variant: TUnpluginBuilderVariant,
   decorate?: (
-    api: API<TContext["config"]>,
+    api: PowerlinesAPI<TContext["config"]>,
     plugin: UnpluginOptions<TContext>
   ) => BaseUnpluginOptions
 ): UnpluginFactory<TContext> {
@@ -86,15 +69,17 @@ export function createUnpluginFactory<
         unplugin: meta
       } as TContext["config"]["userConfig"];
 
-      let api!: API<TContext["config"]>;
+      let api!: PowerlinesAPI<TContext["config"]>;
 
       async function buildStart(this: UnpluginBuildContext): Promise<void> {
         log(LogLevelLabel.DEBUG, "Powerlines build plugin starting...");
 
-        api = await PowerlinesAPI.from(
-          getWorkspaceRoot(process.cwd()),
-          userConfig
-        );
+        api = await PowerlinesAPI.fromOptions({
+          cwd: getWorkspaceRoot(process.cwd()),
+          ...userConfig
+        } as ResolvedExecutionOptions);
+        await api.context.setup(userConfig as InlineConfig);
+
         setParseImpl(api.context.parse);
 
         log(
@@ -177,22 +162,8 @@ export function createUnpluginFactory<
       const options = {
         name: "powerlines",
         api,
-        resolveId: {
-          filter: {
-            id: {
-              include: [/.*/]
-            }
-          },
-          handler: resolveId
-        },
-        load: {
-          filter: {
-            id: {
-              include: [/.*/, /^storm:/]
-            }
-          },
-          handler: load
-        },
+        resolveId,
+        load,
         transform,
         buildStart,
         writeBundle

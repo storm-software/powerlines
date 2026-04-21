@@ -95,9 +95,12 @@ export function resolveOptions(context: Context): ViteOptions {
         context.config.mode === "development" ? "development" : "production",
       cacheDir: joinPaths(context.cachePath, "vite"),
       build: {
-        minify: context.config.mode !== "development",
+        minify:
+          context.config.output.minify ?? context.config.mode !== "development",
         metafile: context.config.mode === "development",
-        sourcemap: context.config.mode === "development",
+        sourcemap:
+          context.config.output.sourceMap ??
+          context.config.mode === "development",
         outDir: context.config.output.path,
         tsconfig: context.tsconfig.tsconfigFilePath,
         tsconfigRaw: context.tsconfig.tsconfigJson

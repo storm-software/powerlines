@@ -127,7 +127,7 @@ export const plugin = <
 
         const schemaRootDir = appendPath(
           appendPath(findBasePath(this.config.prisma.schema), this.config.root),
-          this.workspaceConfig.workspaceRoot
+          this.config.cwd
         );
         this.prisma.schema ??= {
           schemaRootDir,
@@ -249,7 +249,7 @@ export const plugin = <
         //   const result = await executePackage(
         //     "prisma",
         //     ["generate", "--schema", this.config.prisma.schema],
-        //     joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
+        //     joinPaths(this.config.cwd, this.config.root)
         //   );
         //   if (result.failed) {
         //     throw new Error(

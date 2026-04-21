@@ -28,7 +28,7 @@ import { Context } from "../types/context";
  */
 export async function formatPackageJson(context: Context) {
   const packageJsonPath = joinPaths(
-    context.workspaceConfig.workspaceRoot,
+    context.config.cwd,
     context.config.root,
     "package.json"
   );

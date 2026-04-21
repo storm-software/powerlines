@@ -54,7 +54,7 @@ export const plugin = <
       return {
         asyncapi: defu(options, {
           schema: joinPaths(
-            this.workspaceConfig.workspaceRoot,
+            this.config.cwd ?? "./",
             this.config.root,
             "schema.yaml"
           ),

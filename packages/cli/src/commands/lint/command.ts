@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { CommandMetadata } from "@shell-shock/core";
-import { createPowerlines } from "powerlines";
+import { createEngine } from "powerlines";
 
 export const metadata = {
   title: "Lint Source Code",
@@ -36,7 +36,10 @@ export interface LintOptions {
 }
 
 async function handler(options: LintOptions) {
-  const api = await createPowerlines();
+  const api = await createEngine({
+    cwd: process.cwd(),
+    root: options.root || process.cwd()
+  });
   await api.lint({ ...options, command: "lint" });
 }
 

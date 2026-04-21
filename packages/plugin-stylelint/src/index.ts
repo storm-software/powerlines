@@ -75,7 +75,7 @@ export function plugin(
       return {
         stylelint: defu(options, {
           configFile,
-          cwd: joinPaths(this.workspaceConfig.workspaceRoot, this.config.root),
+          cwd: joinPaths(this.config.cwd, this.config.root),
           silent: this.config.logLevel !== null,
           fix: true
         })

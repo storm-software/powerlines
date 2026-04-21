@@ -3,12 +3,10 @@
   "compilerOptions": {
     "lib": ["ESNext"],
     "rootDir": "../..",
-    "types": ["node", "bun-types-no-globals"],
+    "types": ["node"],
     "strict": true,
-    "outDir": "../../dist/out-tsc",
-    "sourceMap": true
+    "outDir": "../../dist/out-tsc"
   },
-  "include": ["src/**/*.ts", "types/**/*.d.ts", "tsdown.config.ts"],
-  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "reflection": true
+  "include": ["src/**/*.ts", "tsdown.config.ts"],
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

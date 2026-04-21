@@ -18,7 +18,7 @@
 
 import type { CommandMetadata } from "@shell-shock/core";
 import { removeDirectory } from "@stryke/fs";
-import { createPowerlines } from "powerlines";
+import { createEngine } from "powerlines";
 
 export const metadata = {
   title: "Garbage Collection",
@@ -55,7 +55,10 @@ async function handler(
   _options: GarbageCollectionOptions = {},
   type: "data" | "cache" | "logs" | "temp" | "all" = "all"
 ) {
-  const api = await createPowerlines();
+  const api = await createEngine({
+    cwd: process.cwd(),
+    root: process.cwd()
+  });
 
   const envPaths = [] as string[];
   if (type === "all" || type === "data") {

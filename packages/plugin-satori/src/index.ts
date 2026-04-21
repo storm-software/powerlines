@@ -109,10 +109,7 @@ export const plugin = <
                         this.config.satori.outputPath,
                         replacePath(
                           input,
-                          joinPaths(
-                            this.workspaceConfig.workspaceRoot,
-                            this.config.root
-                          )
+                          joinPaths(this.config.cwd, this.config.root)
                         )
                       )
                     : input.replace(findFileExtensionSafe(input), "svg"),

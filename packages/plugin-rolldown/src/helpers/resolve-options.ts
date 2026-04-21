@@ -156,7 +156,7 @@ export function resolveOptions(context: Context): RolldownOptions {
       platform: context.config.platform,
       tsconfig: appendPath(
         context.tsconfig.tsconfigFilePath,
-        context.workspaceConfig.workspaceRoot
+        context.config.cwd
       ),
       cache: !context.config.skipCache
         ? joinPaths(context.cachePath, "rolldown")
@@ -170,19 +170,24 @@ export function resolveOptions(context: Context): RolldownOptions {
           );
         }
       },
-      minify: context.config.mode === "production",
+      minify:
+        context.config.output.minify ?? context.config.mode === "production",
       output: [
         {
           dir: context.config.output.path,
           format: "es",
           preserveModules: true,
-          sourcemap: context.config.mode === "development"
+          sourcemap:
+            context.config.output.sourceMap ??
+            context.config.mode === "development"
         },
         {
           dir: context.config.output.path,
           format: "cjs",
           preserveModules: true,
-          sourcemap: context.config.mode === "development"
+          sourcemap:
+            context.config.output.sourceMap ??
+            context.config.mode === "development"
         }
       ]
     },

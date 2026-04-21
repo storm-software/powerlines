@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { transformAsync } from "@babel/core";
+import { PluginItem, PresetItem, transformAsync } from "@babel/core";
 import type { Plugin } from "@powerlines/core";
 import {
   findFileExtension,
@@ -25,9 +25,17 @@ import {
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import defu from "defu";
-import { isDuplicatePlugin } from "./helpers/filters";
-import { resolveBabelPlugin } from "./helpers/options";
-import { ResolvedBabelTransformPluginOptions } from "./types/config";
+import { isDuplicatePlugin, isDuplicatePreset } from "./helpers/filters";
+import {
+  getUniquePlugins,
+  getUniquePresets,
+  resolveBabelPlugin,
+  resolveBabelPreset
+} from "./helpers/options";
+import {
+  ResolvedBabelTransformPluginOptions,
+  ResolvedBabelTransformPresetOptions
+} from "./types/config";
 import { BabelPluginContext, BabelPluginOptions } from "./types/plugin";
 
 export * from "./helpers";
@@ -68,6 +76,9 @@ export const plugin = <
           plugins: [],
           presets: []
         });
+
+        this.config.babel.plugins = getUniquePlugins(this.config.babel.plugins);
+        this.config.babel.presets = getUniquePresets(this.config.babel.presets);
       }
     },
     async transform(code: string, id: string) {
@@ -81,38 +92,16 @@ export const plugin = <
         return { code, id };
       }
 
-      const plugins = this.config.babel.plugins
-        .map(plugin => resolveBabelPlugin(this, code, id, plugin))
-        .filter(Boolean)
-        .reduce(
-          (
-            ret: ResolvedBabelTransformPluginOptions[],
-            plugin: ResolvedBabelTransformPluginOptions
-          ) => {
-            if (plugin && !isDuplicatePlugin(ret, plugin)) {
-              ret.push(plugin);
-            }
-
-            return ret;
-          },
-          [] as ResolvedBabelTransformPluginOptions[]
-        ) as ResolvedBabelTransformPluginOptions[];
-      const presets = this.config.babel.presets
-        .map(preset => resolveBabelPlugin(this, code, id, preset))
-        .filter(Boolean)
-        .reduce(
-          (
-            ret: ResolvedBabelTransformPluginOptions[],
-            preset: ResolvedBabelTransformPluginOptions
-          ) => {
-            if (preset && !isDuplicatePlugin(ret, preset)) {
-              ret.push(preset);
-            }
-
-            return ret;
-          },
-          [] as ResolvedBabelTransformPluginOptions[]
-        ) as ResolvedBabelTransformPluginOptions[];
+      const plugins = getUniquePlugins(
+        this.config.babel.plugins
+          .map(plugin => resolveBabelPlugin(this, code, id, plugin))
+          .filter(Boolean) as ResolvedBabelTransformPluginOptions[]
+      );
+      const presets = getUniquePresets(
+        this.config.babel.presets
+          .map(preset => resolveBabelPreset(this, code, id, preset))
+          .filter(Boolean) as ResolvedBabelTransformPresetOptions[]
+      );
 
       if (
         Array.isArray(plugins) &&
@@ -131,7 +120,7 @@ export const plugin = <
           })
         ) &&
         !isDuplicatePlugin(plugins, "@babel/plugin-syntax-typescript") &&
-        !isDuplicatePlugin(presets, "@babel/preset-typescript")
+        !isDuplicatePreset(presets, "@babel/preset-typescript")
       ) {
         plugins.unshift([
           "@babel/plugin-syntax-typescript",
@@ -146,6 +135,7 @@ export const plugin = <
       );
 
       const result = await transformAsync(code, {
+        cwd: this.config.cwd,
         highlightCode: true,
         code: true,
         ast: false,
@@ -171,7 +161,7 @@ export const plugin = <
                 ]
               : plugin;
           })
-          .filter(Boolean),
+          .filter(Boolean) as PluginItem<object>[],
         presets: presets
           .map(preset => {
             return Array.isArray(preset) && preset.length >= 2
@@ -183,7 +173,7 @@ export const plugin = <
                 ]
               : preset;
           })
-          .filter(Boolean)
+          .filter(Boolean) as PresetItem<object>[]
       });
       if (!result?.code) {
         throw new Error(`Powerlines - Babel plugin failed to compile ${id}`);

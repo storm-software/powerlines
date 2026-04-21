@@ -19,7 +19,6 @@
 import type { EnvPaths } from "@stryke/env/get-env-paths";
 import { FetchRequestOptions } from "@stryke/http/fetch";
 import type { PackageJson } from "@stryke/types/package-json";
-import type { Worker as JestWorker } from "jest-worker";
 import type { Jiti } from "jiti";
 import type MagicString from "magic-string";
 import type { SourceMap } from "magic-string";
@@ -37,10 +36,13 @@ import type {
   EnvironmentResolvedConfig,
   InlineConfig,
   LogFn,
+  LogLevel,
+  ParsedUserConfig,
   ResolvedConfig,
+  ResolvedEngineOptions,
   ResolvedEntryTypeDefinition,
-  UserConfig,
-  WorkspaceConfig
+  ResolvedExecutionOptions,
+  UserConfig
 } from "./config";
 import type {
   ResolveOptions,
@@ -51,13 +53,6 @@ import type {
 import type { HooksList, HooksListItem } from "./hooks";
 import type { Plugin } from "./plugin";
 import type { ParsedTypeScriptConfig } from "./tsconfig";
-
-export type WorkerProcess<TExposedMethods extends ReadonlyArray<string>> = {
-  [K in TExposedMethods[number]]: (data: any) => Promise<any>;
-} & {
-  close: () => void;
-  end: () => ReturnType<JestWorker["end"]>;
-};
 
 export interface MetaInfo {
   /**
@@ -201,26 +196,41 @@ export interface ResolveResult extends ExternalIdResult {
 }
 
 /**
- * The unresolved Powerlines context.
+ * The base Powerlines context.
  *
  * @remarks
- * This context is used before the user configuration has been fully resolved after the `config`.
+ * This context provides the foundational structure for interacting with the Powerlines engine.
  */
-export interface UnresolvedContext<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> {
+export interface BaseContext {
   /**
-   * The Storm workspace configuration
+   * The options provided to the Powerlines process
    */
-  workspaceConfig: WorkspaceConfig;
+  options: ResolvedEngineOptions;
 
   /**
-   * An object containing the options provided to Powerlines
+   * The timestamp when the context was initialized
    */
-  config: Omit<TResolvedConfig["userConfig"], "output"> &
-    Required<Pick<TResolvedConfig["userConfig"], "output">> & {
-      output: TResolvedConfig["output"];
-    };
+  timestamp: Date;
+
+  /**
+   * The Powerlines environment paths
+   */
+  envPaths: EnvPaths;
+
+  /**
+   * The file system path to the Powerlines package installation
+   */
+  powerlinesPath: string;
+
+  /**
+   * The parsed user configuration file provided to the Powerlines process before any resolution or merging
+   */
+  configFile: ParsedUserConfig;
+
+  /**
+   * The log level to use for the Powerlines processes.
+   */
+  logLevel: LogLevel | null;
 
   /**
    * A logging function for the Powerlines engine
@@ -273,6 +283,66 @@ export interface UnresolvedContext<
   timer: (name: string) => () => void;
 
   /**
+   * Create a new logger instance
+   *
+   * @param name - The name to use for the logger instance
+   * @returns A logger function
+   */
+  createLog: (name: string | null) => LogFn;
+
+  /**
+   * Extend the current logger instance with a new name
+   *
+   * @param name - The name to use for the extended logger instance
+   * @returns A logger function
+   */
+  extendLog: (name: string) => LogFn;
+
+  /**
+   * A function to create a deep clone of the context
+   *
+   * @remarks
+   * This function is used to create a copy of the context for a specific environment, allowing for environment-specific modifications without affecting the global context.
+   */
+  clone: () => Promise<BaseContext>;
+}
+
+/**
+ * The Powerlines engine context.
+ *
+ * @remarks
+ * This context is used during the execution of the Powerlines engine, providing access to the input user configurations.
+ */
+export interface EngineContext extends BaseContext {
+  /**
+   * A list of API contexts for each configured run instance
+   */
+  executions: ResolvedExecutionOptions[];
+}
+
+/**
+ * The unresolved Powerlines context.
+ *
+ * @remarks
+ * This context is used before the user configuration has been fully resolved after the `config`.
+ */
+export interface UnresolvedContext<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+> extends BaseContext {
+  /**
+   * The options provided to the Powerlines process
+   */
+  options: ResolvedExecutionOptions;
+
+  /**
+   * An object containing the options provided to Powerlines
+   */
+  config: Omit<TResolvedConfig["userConfig"], "output"> &
+    Required<Pick<TResolvedConfig["userConfig"], "output">> & {
+      output: TResolvedConfig["output"];
+    };
+
+  /**
    * The metadata information
    */
   meta: MetaInfo;
@@ -281,6 +351,16 @@ export interface UnresolvedContext<
    * The metadata information currently written to disk
    */
   persistedMeta?: MetaInfo;
+
+  /**
+   * The path to a directory where the reflection data buffers (used by the build processes) are stored
+   */
+  dataPath: string;
+
+  /**
+   * The path to a directory where the project cache (used by the build processes) is stored
+   */
+  cachePath: string;
 
   /**
    * The Powerlines artifacts directory
@@ -306,31 +386,6 @@ export interface UnresolvedContext<
    * The path to the Powerlines TypeScript declaration files directory
    */
   typesPath: string;
-
-  /**
-   * The path to a directory where the reflection data buffers (used by the build processes) are stored
-   */
-  dataPath: string;
-
-  /**
-   * The path to a directory where the project cache (used by the build processes) is stored
-   */
-  cachePath: string;
-
-  /**
-   * The Powerlines environment paths
-   */
-  envPaths: EnvPaths;
-
-  /**
-   * The file system path to the Powerlines package installation
-   */
-  powerlinesPath: string;
-
-  /**
-   * The relative path to the Powerlines workspace root directory
-   */
-  relativeToWorkspaceRoot: string;
 
   /**
    * The project's `package.json` file content
@@ -566,38 +621,6 @@ export interface UnresolvedContext<
   ) => void;
 
   /**
-   * A function to update the context fields using a new user configuration options
-   */
-  withUserConfig: (
-    userConfig: UserConfig,
-    options?: InitContextOptions
-  ) => Promise<void>;
-
-  /**
-   * A function to update the context fields using inline configuration options
-   */
-  withInlineConfig: (
-    inlineConfig: InlineConfig,
-    options?: InitContextOptions
-  ) => Promise<void>;
-
-  /**
-   * Create a new logger instance
-   *
-   * @param name - The name to use for the logger instance
-   * @returns A logger function
-   */
-  createLog: (name: string | null) => LogFn;
-
-  /**
-   * Extend the current logger instance with a new name
-   *
-   * @param name - The name to use for the extended logger instance
-   * @returns A logger function
-   */
-  extendLog: (name: string) => LogFn;
-
-  /**
    * Generates a checksum representing the current context state
    *
    * @returns A promise that resolves to a string representing the checksum
@@ -605,12 +628,25 @@ export interface UnresolvedContext<
   generateChecksum: () => Promise<string>;
 }
 
+/**
+ * The resolved Powerlines context.
+ *
+ * @remarks
+ * This context is used after the user configuration has been fully resolved and merged with default values, providing access to the final configuration options and utility functions for interacting with the Powerlines engine.
+ */
 export type Context<TResolvedConfig extends ResolvedConfig = ResolvedConfig> =
   Omit<UnresolvedContext<TResolvedConfig>, "config"> & {
     /**
      * The fully resolved Powerlines configuration
      */
     config: TResolvedConfig;
+
+    /**
+     * Initialize the context with the provided configuration options
+     *
+     * @param config - The partial configuration to use for initialization.
+     */
+    setup: (config: UserConfig | InlineConfig) => Promise<void>;
 
     /**
      * A function to create a deep clone of the context
@@ -621,7 +657,7 @@ export type Context<TResolvedConfig extends ResolvedConfig = ResolvedConfig> =
     clone: () => Promise<Context<TResolvedConfig>>;
   };
 
-export interface APIContext<
+export interface ExecutionContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > extends Context<TResolvedConfig> {
   /**
@@ -714,7 +750,7 @@ export interface APIContext<
    * @remarks
    * This function is used to create a copy of the context for a specific environment, allowing for environment-specific modifications without affecting the global context.
    */
-  clone: () => Promise<APIContext<TResolvedConfig>>;
+  clone: () => Promise<ExecutionContext<TResolvedConfig>>;
 }
 
 export interface EnvironmentContextPlugin<

@@ -33,324 +33,152 @@ export function getConfigPath(
 ): string | undefined {
   if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.yml`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.yml`)
     )
   ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      context.config.root,
-      `${name}.yml`
-    );
+    return joinPaths(context.config.cwd, context.config.root, `${name}.yml`);
   } else if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.yaml`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.yaml`)
     )
   ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      context.config.root,
-      `${name}.yaml`
-    );
+    return joinPaths(context.config.cwd, context.config.root, `${name}.yaml`);
   } else if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.json`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.json`)
     )
   ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      context.config.root,
-      `${name}.json`
-    );
+    return joinPaths(context.config.cwd, context.config.root, `${name}.json`);
   } else if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.jsonc`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.jsonc`)
     )
   ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      context.config.root,
-      `${name}.jsonc`
-    );
+    return joinPaths(context.config.cwd, context.config.root, `${name}.jsonc`);
+  } else if (
+    existsSync(joinPaths(context.config.cwd, context.config.root, `${name}.ts`))
+  ) {
+    return joinPaths(context.config.cwd, context.config.root, `${name}.ts`);
   } else if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.ts`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.cts`)
     )
   ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      context.config.root,
-      `${name}.ts`
-    );
+    return joinPaths(context.config.cwd, context.config.root, `${name}.cts`);
   } else if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.cts`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.mts`)
     )
   ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      context.config.root,
-      `${name}.cts`
-    );
+    return joinPaths(context.config.cwd, context.config.root, `${name}.mts`);
+  } else if (
+    existsSync(joinPaths(context.config.cwd, context.config.root, `${name}.js`))
+  ) {
+    return joinPaths(context.config.cwd, context.config.root, `${name}.js`);
   } else if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.mts`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.cjs`)
     )
   ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      context.config.root,
-      `${name}.mts`
-    );
+    return joinPaths(context.config.cwd, context.config.root, `${name}.cjs`);
   } else if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.js`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.mjs`)
     )
   ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      context.config.root,
-      `${name}.js`
-    );
+    return joinPaths(context.config.cwd, context.config.root, `${name}.mjs`);
   } else if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.cjs`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.config.ts`)
     )
   ) {
     return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      context.config.root,
-      `${name}.cjs`
-    );
-  } else if (
-    existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.mjs`
-      )
-    )
-  ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      context.config.root,
-      `${name}.mjs`
-    );
-  } else if (
-    existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.config.ts`
-      )
-    )
-  ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
+      context.config.cwd,
       context.config.root,
       `${name}.config.ts`
     );
   } else if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.config.cts`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.config.cts`)
     )
   ) {
     return joinPaths(
-      context.workspaceConfig.workspaceRoot,
+      context.config.cwd,
       context.config.root,
       `${name}.config.cts`
     );
   } else if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.config.mts`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.config.mts`)
     )
   ) {
     return joinPaths(
-      context.workspaceConfig.workspaceRoot,
+      context.config.cwd,
       context.config.root,
       `${name}.config.mts`
     );
   } else if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.config.js`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.config.js`)
     )
   ) {
     return joinPaths(
-      context.workspaceConfig.workspaceRoot,
+      context.config.cwd,
       context.config.root,
       `${name}.config.js`
     );
   } else if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.config.cjs`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.config.cjs`)
     )
   ) {
     return joinPaths(
-      context.workspaceConfig.workspaceRoot,
+      context.config.cwd,
       context.config.root,
       `${name}.config.cjs`
     );
   } else if (
     existsSync(
-      joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root,
-        `${name}.config.mjs`
-      )
+      joinPaths(context.config.cwd, context.config.root, `${name}.config.mjs`)
     )
   ) {
     return joinPaths(
-      context.workspaceConfig.workspaceRoot,
+      context.config.cwd,
       context.config.root,
       `${name}.config.mjs`
     );
-  } else if (
-    existsSync(joinPaths(context.workspaceConfig.workspaceRoot, `${name}.yml`))
-  ) {
-    return joinPaths(context.workspaceConfig.workspaceRoot, `${name}.yml`);
-  } else if (
-    existsSync(joinPaths(context.workspaceConfig.workspaceRoot, `${name}.yaml`))
-  ) {
-    return joinPaths(context.workspaceConfig.workspaceRoot, `${name}.yaml`);
-  } else if (
-    existsSync(joinPaths(context.workspaceConfig.workspaceRoot, `${name}.json`))
-  ) {
-    return joinPaths(context.workspaceConfig.workspaceRoot, `${name}.json`);
-  } else if (
-    existsSync(
-      joinPaths(context.workspaceConfig.workspaceRoot, `${name}.jsonc`)
-    )
-  ) {
-    return joinPaths(context.workspaceConfig.workspaceRoot, `${name}.jsonc`);
-  } else if (
-    existsSync(joinPaths(context.workspaceConfig.workspaceRoot, `${name}.ts`))
-  ) {
-    return joinPaths(context.workspaceConfig.workspaceRoot, `${name}.ts`);
-  } else if (
-    existsSync(joinPaths(context.workspaceConfig.workspaceRoot, `${name}.cts`))
-  ) {
-    return joinPaths(context.workspaceConfig.workspaceRoot, `${name}.cts`);
-  } else if (
-    existsSync(joinPaths(context.workspaceConfig.workspaceRoot, `${name}.mts`))
-  ) {
-    return joinPaths(context.workspaceConfig.workspaceRoot, `${name}.mts`);
-  } else if (
-    existsSync(joinPaths(context.workspaceConfig.workspaceRoot, `${name}.js`))
-  ) {
-    return joinPaths(context.workspaceConfig.workspaceRoot, `${name}.js`);
-  } else if (
-    existsSync(joinPaths(context.workspaceConfig.workspaceRoot, `${name}.cjs`))
-  ) {
-    return joinPaths(context.workspaceConfig.workspaceRoot, `${name}.cjs`);
-  } else if (
-    existsSync(joinPaths(context.workspaceConfig.workspaceRoot, `${name}.mjs`))
-  ) {
-    return joinPaths(context.workspaceConfig.workspaceRoot, `${name}.mjs`);
-  } else if (
-    existsSync(
-      joinPaths(context.workspaceConfig.workspaceRoot, `${name}.config.ts`)
-    )
-  ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      `${name}.config.ts`
-    );
-  } else if (
-    existsSync(
-      joinPaths(context.workspaceConfig.workspaceRoot, `${name}.config.cts`)
-    )
-  ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      `${name}.config.cts`
-    );
-  } else if (
-    existsSync(
-      joinPaths(context.workspaceConfig.workspaceRoot, `${name}.config.mts`)
-    )
-  ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      `${name}.config.mts`
-    );
-  } else if (
-    existsSync(
-      joinPaths(context.workspaceConfig.workspaceRoot, `${name}.config.js`)
-    )
-  ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      `${name}.config.js`
-    );
-  } else if (
-    existsSync(
-      joinPaths(context.workspaceConfig.workspaceRoot, `${name}.config.cjs`)
-    )
-  ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      `${name}.config.cjs`
-    );
-  } else if (
-    existsSync(
-      joinPaths(context.workspaceConfig.workspaceRoot, `${name}.config.mjs`)
-    )
-  ) {
-    return joinPaths(
-      context.workspaceConfig.workspaceRoot,
-      `${name}.config.mjs`
-    );
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.yml`))) {
+    return joinPaths(context.config.cwd, `${name}.yml`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.yaml`))) {
+    return joinPaths(context.config.cwd, `${name}.yaml`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.json`))) {
+    return joinPaths(context.config.cwd, `${name}.json`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.jsonc`))) {
+    return joinPaths(context.config.cwd, `${name}.jsonc`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.ts`))) {
+    return joinPaths(context.config.cwd, `${name}.ts`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.cts`))) {
+    return joinPaths(context.config.cwd, `${name}.cts`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.mts`))) {
+    return joinPaths(context.config.cwd, `${name}.mts`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.js`))) {
+    return joinPaths(context.config.cwd, `${name}.js`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.cjs`))) {
+    return joinPaths(context.config.cwd, `${name}.cjs`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.mjs`))) {
+    return joinPaths(context.config.cwd, `${name}.mjs`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.config.ts`))) {
+    return joinPaths(context.config.cwd, `${name}.config.ts`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.config.cts`))) {
+    return joinPaths(context.config.cwd, `${name}.config.cts`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.config.mts`))) {
+    return joinPaths(context.config.cwd, `${name}.config.mts`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.config.js`))) {
+    return joinPaths(context.config.cwd, `${name}.config.js`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.config.cjs`))) {
+    return joinPaths(context.config.cwd, `${name}.config.cjs`);
+  } else if (existsSync(joinPaths(context.config.cwd, `${name}.config.mjs`))) {
+    return joinPaths(context.config.cwd, `${name}.config.mjs`);
   }
 
   return undefined;

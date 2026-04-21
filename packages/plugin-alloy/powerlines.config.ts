@@ -16,13 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-import babel from "@powerlines/plugin-babel";
 import plugin from "@powerlines/plugin-plugin";
-import { findFileExtension } from "@stryke/path/file-path-fns";
 import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
-  skipCache: true,
   input: [
     "src/index.tsx",
     "src/render.tsx",
@@ -34,7 +31,7 @@ export default defineConfig({
     "src/typescript/**/*.{ts,tsx}",
     "src/yaml/**/*.{ts,tsx}"
   ],
-  plugins: [plugin(), babel()],
+  plugins: [plugin()],
   resolve: {
     external: [
       "@alloy-js/core",
@@ -43,20 +40,14 @@ export default defineConfig({
       "@alloy-js/markdown"
     ]
   },
-  babel: {
-    presets: [
-      [
-        "@alloy-js/babel-preset",
-        {},
-        (_: string, id: string) =>
-          findFileExtension(id) === "tsx" || findFileExtension(id) === "jsx"
-      ]
-    ]
-  },
+
   tsdown: {
     inputOptions: {
       transform: {
-        jsx: "preserve"
+        jsx: {
+          runtime: "automatic",
+          importSource: "@alloy-js/core"
+        }
       }
     }
   }

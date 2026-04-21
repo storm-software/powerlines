@@ -17,11 +17,11 @@
  ------------------------------------------------------------------- */
 
 import { declare } from "@babel/helper-plugin-utils";
-import { Context } from "@powerlines/core";
+import type { Context } from "@powerlines/core";
 import { extendLog } from "@powerlines/core/lib/logger";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import chalk from "chalk";
-import {
+import type {
   BabelTransformPluginBuilder,
   DeclareBabelTransformPluginReturn
 } from "../types/config";
@@ -35,7 +35,7 @@ import {
  */
 export function createBabelPlugin<
   TContext extends Context = Context,
-  TOptions extends Record<string, any> = Record<string, any>
+  TOptions extends object = object
 >(
   name: string,
   builder: BabelTransformPluginBuilder<TContext, TOptions>
@@ -43,7 +43,7 @@ export function createBabelPlugin<
   const plugin = (context: TContext) => {
     return declare<TOptions>((api, options, dirname) => {
       api.cache.using(() => context.meta.checksum);
-      api.assertVersion("^7.0.0-0");
+      api.assertVersion("^8.0.0-0");
 
       const log = extendLog(context.log, name);
       log(
@@ -55,7 +55,7 @@ export function createBabelPlugin<
         log,
         name,
         api,
-        options,
+        options: options as TOptions,
         context,
         dirname
       });

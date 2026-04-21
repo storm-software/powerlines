@@ -48,10 +48,7 @@ export function resolveOptions(context: Context): ExternalRspackOptions {
     },
     {
       output: {
-        path: joinPaths(
-          context.workspaceConfig.workspaceRoot,
-          context.config.output.path
-        )
+        path: joinPaths(context.config.cwd, context.config.output.path)
       },
       name: context.config.name,
       node:
@@ -76,17 +73,15 @@ export function resolveOptions(context: Context): ExternalRspackOptions {
         "rspack",
         ".rspack-records.json"
       ),
-      context: joinPaths(
-        context.workspaceConfig.workspaceRoot,
-        context.config.root
-      ),
+      context: joinPaths(context.config.cwd, context.config.root),
       noExternal: context.builtins,
       cache: context.config.mode === "development",
       devtool: (context.config.mode !== "development"
         ? false
         : "source-map") as DevTool | false,
       optimization: {
-        minimize: context.config.mode !== "development"
+        minimize:
+          context.config.output.minify ?? context.config.mode !== "development"
       }
     }
   );

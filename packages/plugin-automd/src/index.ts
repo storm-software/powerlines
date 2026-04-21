@@ -70,7 +70,7 @@ export const plugin = <
     name: "automd",
     async config() {
       const config = await loadConfig(
-        joinPaths(this.workspaceConfig.workspaceRoot, this.config.root),
+        joinPaths(this.config.cwd || process.cwd(), this.config.root),
         options
       );
 

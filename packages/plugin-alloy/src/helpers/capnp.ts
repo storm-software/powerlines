@@ -71,7 +71,7 @@ export async function compile(
     schemas: joinPaths(context.artifactsPath, "schemas"),
     tsconfig: context.tsconfig,
     projectRoot: context.config.root,
-    workspaceRoot: context.workspaceConfig.workspaceRoot,
+    workspaceRoot: context.config.cwd,
     tty: true
   }) as Parameters<typeof resolveOptions>[0];
 

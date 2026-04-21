@@ -18,7 +18,7 @@
 
 import { PromiseExecutor } from "@nx/devkit";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
-import type { DocsInlineConfig, PowerlinesAPI } from "powerlines";
+import type { DocsInlineConfig, PowerlinesEngine } from "powerlines";
 import {
   PowerlinesExecutorContext,
   withExecutor
@@ -27,7 +27,7 @@ import type { DocsExecutorSchema } from "./schema";
 
 export async function executorFn(
   context: PowerlinesExecutorContext<"docs", DocsExecutorSchema>,
-  api: PowerlinesAPI
+  api: PowerlinesEngine
 ): Promise<BaseExecutorResult> {
   await api.docs(context.inlineConfig as DocsInlineConfig);
 

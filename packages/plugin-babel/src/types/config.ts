@@ -17,13 +17,18 @@
  ------------------------------------------------------------------- */
 
 import type {
+  ConfigItem,
+  InputOptions,
+  PluginAPI,
   PluginItem,
-  PluginObj,
+  PluginObject,
   PluginPass,
-  transformAsync,
-  TransformOptions
+  PluginTarget,
+  PresetAPI,
+  PresetItem,
+  PresetObject,
+  PresetTarget
 } from "@babel/core";
-import type { BabelAPI } from "@babel/helper-plugin-utils";
 import type { Context, LogFn } from "@powerlines/core";
 
 export interface NamedImportDefinition {
@@ -45,59 +50,107 @@ export type BabelTransformPluginFilter = (code: string, id: string) => boolean;
 
 export type BabelTransformPlugin<
   TContext extends Context = Context,
-  TOptions extends Record<string, any> = Record<string, any>,
+  TOptions extends object = object,
   TState = unknown
 > = ((
   context: TContext
 ) => (options: {
   name: string;
   log: LogFn;
-  api: BabelAPI;
+  api: PluginAPI;
   options: TOptions;
   context: TContext;
   dirname: string;
-}) => PluginObj<TOptions & BabelPluginPass<TState>>) & {
+}) => PluginObject<TOptions & BabelPluginPass<TState>>) & {
+  $$name: string;
+};
+
+export type BabelTransformPreset<
+  TContext extends Context = Context,
+  TOptions extends object = object
+> = ((
+  context: TContext
+) => (options: {
+  name: string;
+  log: LogFn;
+  api: PresetAPI;
+  options: TOptions;
+  context: TContext;
+  dirname: string;
+}) => PresetObject) & {
   $$name: string;
 };
 
 export type BabelTransformPluginOptions<
   TContext extends Context = Context,
-  TOptions extends Record<string, any> = Record<string, any>,
+  TOptions extends object = object,
   TState = unknown
 > =
-  | PluginItem
+  | ConfigItem<PluginAPI>
+  | PluginTarget<TOptions>
   | BabelTransformPlugin<TContext, TOptions, TState>
-  | [BabelTransformPlugin<TContext, TOptions, TState>, TOptions]
+  | [
+      PluginTarget<TOptions> | BabelTransformPlugin<TContext, TOptions, TState>,
+      TOptions
+    ]
   | [
       BabelTransformPlugin<TContext, TOptions, TState>,
       TOptions,
       BabelTransformPluginFilter
     ];
 
+export type BabelTransformPresetOptions<
+  TContext extends Context = Context,
+  TOptions extends object = object
+> =
+  | ConfigItem<PresetAPI>
+  | PresetTarget<TOptions>
+  | BabelTransformPreset<TContext, TOptions>
+  | [
+      PresetTarget<TOptions> | BabelTransformPreset<TContext, TOptions>,
+      TOptions
+    ]
+  | [
+      BabelTransformPreset<TContext, TOptions>,
+      TOptions,
+      BabelTransformPluginFilter
+    ];
+
 export type ResolvedBabelTransformPluginOptions<
   TContext extends Context = Context,
-  TOptions extends Record<string, any> = Record<string, any>,
+  TOptions extends object = object,
   TState = unknown
 > =
-  | PluginItem
+  | PluginItem<TOptions>
   | [
       BabelTransformPlugin<TContext, TOptions, TState>,
       TOptions,
-      BabelTransformPluginFilter | null
+      BabelTransformPluginFilter | string | null
+    ];
+
+export type ResolvedBabelTransformPresetOptions<
+  TContext extends Context = Context,
+  TOptions extends object = object
+> =
+  | PresetItem<TOptions>
+  | [
+      BabelTransformPreset<TContext, TOptions>,
+      TOptions,
+      BabelTransformPluginFilter | string | null
     ];
 
 export type BabelTransformInput = Omit<
-  TransformOptions & Required<Pick<TransformOptions, "presets" | "plugins">>,
+  InputOptions & Required<Pick<InputOptions, "presets" | "plugins">>,
   "filename" | "root" | "sourceFileName" | "sourceMaps" | "inputSourceMap"
 >;
 
 export interface BabelTransformPluginBuilderParams<
   TContext extends Context = Context,
-  TOptions extends Record<string, any> = Record<string, any>
+  TOptions extends object = object
 > {
   name: string;
   log: LogFn;
-  api: BabelAPI;
+  api: PluginAPI;
   options: TOptions;
   context: TContext;
   dirname: string;
@@ -105,15 +158,15 @@ export interface BabelTransformPluginBuilderParams<
 
 export type BabelTransformPluginBuilder<
   TContext extends Context = Context,
-  TOptions extends Record<string, any> = Record<string, any>,
+  TOptions extends object = object,
   TState = any
 > = (
   params: BabelTransformPluginBuilderParams<TContext, TOptions>
-) => PluginObj<TState & BabelPluginPass<TOptions>>;
+) => PluginObject<TState & BabelPluginPass<TOptions>>;
 
 export type DeclareBabelTransformPluginReturn<
   TContext extends Context = Context,
-  TOptions extends Record<string, any> = Record<string, any>,
+  TOptions extends object = object,
   TState = any
 > = Omit<BabelTransformPlugin<TContext, TOptions, TState>, "$$name"> &
   Required<Pick<BabelTransformPlugin<TContext, TOptions, TState>, "$$name">>;
@@ -136,7 +189,7 @@ export interface ImportSpecifier {
   imported: string;
 }
 
-export type BabelUserConfig = Parameters<typeof transformAsync>[1] & {
+export type BabelUserConfig = Omit<InputOptions, "plugins" | "presets"> & {
   /**
    * The Babel plugins to be used during the build process
    */
@@ -145,7 +198,7 @@ export type BabelUserConfig = Parameters<typeof transformAsync>[1] & {
   /**
    * The Babel presets to be used during the build process
    */
-  presets?: BabelTransformPluginOptions[];
+  presets?: BabelTransformPresetOptions[];
 };
 
 export type BabelResolvedConfig = Omit<BabelUserConfig, "plugins" | "presets"> &

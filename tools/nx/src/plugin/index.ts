@@ -122,8 +122,7 @@ export const createNodesV2: CreateNodesV2 = [
               },
               development: {
                 mode: "development",
-                skipCache: true,
-                logLevel: "debug"
+                skipCache: true
               }
             }
           };
@@ -144,8 +143,7 @@ export const createNodesV2: CreateNodesV2 = [
               },
               development: {
                 mode: "development",
-                skipCache: true,
-                logLevel: "debug"
+                skipCache: true
               }
             }
           };
@@ -171,7 +169,8 @@ export const createNodesV2: CreateNodesV2 = [
                 {
                   name: String(packageJson.name).replace(/^@powerlines\//, ""),
                   projectType: "library" as ProjectType,
-                  sourceRoot: join(root, "src")
+                  sourceRoot: join(root, "src"),
+                  implicitDependencies: ["engine"]
                 }
               )
             }

@@ -52,50 +52,32 @@ export function plugin(
       if (!configFile) {
         if (
           existsSync(
-            joinPaths(
-              this.workspaceConfig.workspaceRoot,
-              this.config.root,
-              "biome.json"
-            )
+            joinPaths(this.config.cwd ?? "./", this.config.root, "biome.json")
           )
         ) {
           configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
+            this.config.cwd ?? "./",
             this.config.root,
             "biome.json"
           );
         } else if (
           existsSync(
-            joinPaths(
-              this.workspaceConfig.workspaceRoot,
-              this.config.root,
-              "biome.jsonc"
-            )
+            joinPaths(this.config.cwd ?? "./", this.config.root, "biome.jsonc")
           )
         ) {
           configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
+            this.config.cwd ?? "./",
             this.config.root,
             "biome.jsonc"
           );
         } else if (
-          existsSync(
-            joinPaths(this.workspaceConfig.workspaceRoot, "biome.json")
-          )
+          existsSync(joinPaths(this.config.cwd ?? "./", "biome.json"))
         ) {
-          configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            "biome.json"
-          );
+          configFile = joinPaths(this.config.cwd ?? "./", "biome.json");
         } else if (
-          existsSync(
-            joinPaths(this.workspaceConfig.workspaceRoot, "biome.jsonc")
-          )
+          existsSync(joinPaths(this.config.cwd ?? "./", "biome.jsonc"))
         ) {
-          configFile = joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            "biome.jsonc"
-          );
+          configFile = joinPaths(this.config.cwd ?? "./", "biome.jsonc");
         } else {
           throw new Error(
             `No Biome configuration file found. Please specify a valid config file path in the Biome plugin's \`configFile\` options.`
@@ -112,7 +94,7 @@ export function plugin(
           logKind: "pretty",
           format: "stylish",
           vcsEnabled: true,
-          vcsDefaultBranch: this.workspaceConfig.branch || "main",
+          vcsDefaultBranch: "main",
           ...options
         }
       } as BiomePluginUserConfig;
@@ -270,7 +252,7 @@ export function plugin(
         args.push("--vcs-enabled");
 
         if (!args.includes("--vcs-root")) {
-          args.push("--vcs-root", this.workspaceConfig.workspaceRoot);
+          args.push("--vcs-root", this.config.cwd);
         }
 
         if (
@@ -307,7 +289,7 @@ export function plugin(
           "biome",
           args,
           isBiomeListed
-            ? joinPaths(this.workspaceConfig.workspaceRoot, this.config.root)
+            ? joinPaths(this.config.cwd, this.config.root)
             : this.config.root
         );
         if (result.failed) {
@@ -319,10 +301,7 @@ export function plugin(
           joinPaths(this.config.root, "src")
         );
 
-        const result = await execute(
-          args.join(" "),
-          this.workspaceConfig.workspaceRoot
-        );
+        const result = await execute(args.join(" "), this.config.cwd);
         if (result.failed) {
           throw new Error(`Biome process exited with code ${result.exitCode}.`);
         }

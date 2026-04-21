@@ -77,7 +77,7 @@ export const plugin = <
           ],
           ...defu(options, {
             schema: joinPaths(
-              this.workspaceConfig.workspaceRoot,
+              this.config.cwd ?? "./",
               this.config.root,
               "schema.yaml"
             ),

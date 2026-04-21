@@ -141,9 +141,12 @@ export function resolveOptions(
       treeshake: (context.config as TsupPluginResolvedConfig).tsup
         ? (context.config as TsupPluginResolvedConfig).tsup?.treeshake
         : undefined,
-      minify: context.config.mode !== "development",
+      minify:
+        context.config.output.minify ?? context.config.mode !== "development",
       metafile: context.config.mode === "development",
-      sourcemap: context.config.mode === "development",
+      sourcemap:
+        context.config.output.sourceMap ??
+        context.config.mode === "development",
       silent:
         context.config.logLevel === null ||
         context.config.mode === "production",
@@ -151,11 +154,11 @@ export function resolveOptions(
         context.config.logLevel === null ||
         context.config.logLevel === "trace" ||
         context.config.mode === "development",
-      workspaceConfig: { workspaceRoot: context.workspaceConfig.workspaceRoot }
+      workspaceConfig: { workspaceRoot: context.config.cwd }
     },
     DEFAULT_TSUP_CONFIG
   );
 
   result.format = getUnique(toArray(result.format));
-  return result;
+  return result as Parameters<typeof resolveOptionsBase>[0];
 }

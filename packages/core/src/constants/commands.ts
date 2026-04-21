@@ -16,14 +16,9 @@
 
  ------------------------------------------------------------------- */
 
+import { POWERLINES_API_FUNCTIONS } from "./api";
+
 export const SUPPORTED_COMMANDS = [
-  "new",
-  "clean",
-  "prepare",
-  "lint",
-  "test",
-  "build",
-  "docs",
-  "deploy",
+  ...POWERLINES_API_FUNCTIONS,
   "finalize"
 ] as const;

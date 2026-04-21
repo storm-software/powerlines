@@ -51,12 +51,8 @@ export const plugin = <
     config() {
       return {
         openapi: defu(options, {
-          schema: joinPaths(
-            this.workspaceConfig.workspaceRoot,
-            this.config.root,
-            "schema.yaml"
-          ),
-          cwd: joinPaths(this.workspaceConfig.workspaceRoot, this.config.root),
+          schema: joinPaths(this.config.cwd, this.config.root, "schema.yaml"),
+          cwd: joinPaths(this.config.cwd, this.config.root),
           outputPath: joinPaths("{builtinPath}", "api"),
           silent: this.config.logLevel === null
         })

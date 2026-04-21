@@ -59,7 +59,7 @@ export function EntryFile(props: EntryFileProps) {
           `${
             !isSet(tsx) ? path : replaceExtension(path)
           }${tsx ? ".tsx" : hasFileExtension(path) ? "" : ".ts"}`,
-          replacePath(context.entryPath, context.workspaceConfig.workspaceRoot)
+          replacePath(context.entryPath, context.config.cwd)
         )
       : path
   );
