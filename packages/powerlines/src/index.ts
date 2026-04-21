@@ -27,7 +27,7 @@
 
 import { PowerlinesAPI } from "./api";
 import { PowerlinesEngine } from "./engine";
-import type { EngineOptions } from "./types";
+import type { EngineOptions, ResolvedConfig } from "./types";
 
 export type * from "./types";
 
@@ -49,10 +49,13 @@ export async function createEngine(
  * @param options - The user configuration options.
  * @returns A promise that resolves to a {@link PowerlinesAPI} instance.
  */
-export async function createAPI(
-  options: EngineOptions
-): Promise<PowerlinesAPI> {
-  return PowerlinesAPI.fromOptions(options);
+export async function createAPI<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+>(
+  options: EngineOptions,
+  override?: Partial<TResolvedConfig>
+): Promise<PowerlinesAPI<TResolvedConfig>> {
+  return PowerlinesAPI.fromOptions(options, override);
 }
 
 export { PowerlinesAPI, PowerlinesEngine };

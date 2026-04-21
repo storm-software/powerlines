@@ -959,7 +959,7 @@ ${formatTypes(code)}
               }
             },
             inlineConfig
-          )
+          ) as Parameters<typeof this.prepare>[0]
         );
       }
 
