@@ -290,7 +290,7 @@ export function createNxPlugin<
 
               const packageJson: PackageJson = JSON.parse(packageJsonContent);
               if (
-                !userConfig.configFile &&
+                !(userConfig && Object.keys(userConfig).length > 0) &&
                 !packageJson?.[camelCase(framework)]
               ) {
                 if (options?.verboseOutput) {

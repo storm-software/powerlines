@@ -226,9 +226,17 @@ export async function loadUserConfigFile(
   });
 
   return defu(
+    {
+      config: {
+        root: options.root,
+        cwd: options.cwd,
+        framework: options.framework,
+        organization: options.organization
+      }
+    },
     resolvedUserConfig,
     isSetObject(result?.config) ? { ...result.config, ...result } : {}
-  ) as ParsedUserConfig;
+  );
 }
 
 /**
