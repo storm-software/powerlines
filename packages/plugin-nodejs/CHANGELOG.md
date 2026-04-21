@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.327](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.327) (04/21/2026)
+
+### Features
+
+- **powerlines:** Added engine to support multi-process Powerlines runs ([75ea086a8](https://github.com/storm-software/powerlines/commit/75ea086a8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.352**
+- Updated **plugin-alloy** to **v0.26.20**
+- Updated **plugin-babel** to **v0.12.396**
+- Updated **plugin-env** to **v0.16.126**
+- Updated **powerlines** to **v0.43.0**
+
 ## [0.1.326](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.326) (04/17/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.395](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.395) (04/21/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([8216b7d88](https://github.com/storm-software/powerlines/commit/8216b7d88))
+
+### Features
+
+- **powerlines:** Added engine to support multi-process Powerlines runs ([75ea086a8](https://github.com/storm-software/powerlines/commit/75ea086a8))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.399**
+- Updated **plugin-esbuild** to **v0.13.400**
+- Updated **plugin-rollup** to **v0.7.397**
+- Updated **core** to **v0.13.13**
+
 ## [0.14.394](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.394) (04/17/2026)
 
 ### Updated Dependencies

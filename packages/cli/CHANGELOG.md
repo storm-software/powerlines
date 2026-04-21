@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - CLI
 
+## [0.2.2](https://github.com/storm-software/powerlines/releases/tag/cli%400.2.2) (04/21/2026)
+
+### Features
+
+- **powerlines:** Added engine to support multi-process Powerlines runs ([75ea086a8](https://github.com/storm-software/powerlines/commit/75ea086a8))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.43.0**
+- Updated **deepkit** to **v0.8.4**
+
 ## [0.2.1](https://github.com/storm-software/powerlines/releases/tag/cli%400.2.1) (04/17/2026)
 
 ### Bug Fixes

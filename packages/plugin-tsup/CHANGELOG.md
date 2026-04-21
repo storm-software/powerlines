@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.401](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.401) (04/21/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([8216b7d88](https://github.com/storm-software/powerlines/commit/8216b7d88))
+
+### Features
+
+- **powerlines:** Added engine to support multi-process Powerlines runs ([75ea086a8](https://github.com/storm-software/powerlines/commit/75ea086a8))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.400**
+- Updated **core** to **v0.13.13**
+
 ## [0.12.400](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.400) (04/17/2026)
 
 ### Updated Dependencies

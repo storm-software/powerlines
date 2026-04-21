@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.25](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.25) (04/21/2026)
+
+### Features
+
+- **powerlines:** Added engine to support multi-process Powerlines runs ([75ea086a8](https://github.com/storm-software/powerlines/commit/75ea086a8))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.401**
+- Updated **plugin-plugin** to **v0.12.352**
+- Updated **plugin-alloy** to **v0.26.20**
+- Updated **plugin-babel** to **v0.12.396**
+- Updated **powerlines** to **v0.43.0**
+
 ## [0.1.24](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.24) (04/17/2026)
 
 ### Updated Dependencies
