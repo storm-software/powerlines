@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Asyncapi
 
+## [0.1.405](https://github.com/storm-software/powerlines/releases/tag/plugin-asyncapi%400.1.405) (04/21/2026)
+
+### Features
+
+- **powerlines:** Added engine to support multi-process Powerlines runs ([75ea086a8](https://github.com/storm-software/powerlines/commit/75ea086a8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.352**
+- Updated **powerlines** to **v0.43.0**
+
 ## [0.1.404](https://github.com/storm-software/powerlines/releases/tag/plugin-asyncapi%400.1.404) (04/17/2026)
 
 ### Updated Dependencies

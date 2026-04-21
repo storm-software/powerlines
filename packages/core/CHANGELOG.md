@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Core
 
+## [0.13.13](https://github.com/storm-software/powerlines/releases/tag/core%400.13.13) (04/21/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([8216b7d88](https://github.com/storm-software/powerlines/commit/8216b7d88))
+
+### Features
+
+- **powerlines:** Added engine to support multi-process Powerlines runs ([75ea086a8](https://github.com/storm-software/powerlines/commit/75ea086a8))
+
 ## [0.13.11](https://github.com/storm-software/powerlines/releases/tag/core%400.13.11) (04/14/2026)
 
 ### Bug Fixes

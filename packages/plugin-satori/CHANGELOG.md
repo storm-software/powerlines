@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Satori
 
+## [0.1.400](https://github.com/storm-software/powerlines/releases/tag/plugin-satori%400.1.400) (04/21/2026)
+
+### Features
+
+- **powerlines:** Added engine to support multi-process Powerlines runs ([75ea086a8](https://github.com/storm-software/powerlines/commit/75ea086a8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.352**
+- Updated **powerlines** to **v0.43.0**
+
 ## [0.1.399](https://github.com/storm-software/powerlines/releases/tag/plugin-satori%400.1.399) (04/17/2026)
 
 ### Updated Dependencies

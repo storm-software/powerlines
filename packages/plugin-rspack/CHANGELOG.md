@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.396](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.396) (04/21/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([8216b7d88](https://github.com/storm-software/powerlines/commit/8216b7d88))
+
+### Features
+
+- **powerlines:** Added engine to support multi-process Powerlines runs ([75ea086a8](https://github.com/storm-software/powerlines/commit/75ea086a8))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.13.13**
+
 ## [0.5.395](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.395) (04/17/2026)
 
 ### Updated Dependencies

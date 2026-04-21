@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.8.4](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.8.4) (04/21/2026)
+
+### Features
+
+- **powerlines:** Added engine to support multi-process Powerlines runs ([75ea086a8](https://github.com/storm-software/powerlines/commit/75ea086a8))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.400**
+- Updated **core** to **v0.13.13**
+
 ## [0.8.3](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.8.3) (04/17/2026)
 
 ### Updated Dependencies

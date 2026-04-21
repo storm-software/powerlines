@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Tamagui
 
+## [0.1.391](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.391) (04/21/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([8216b7d88](https://github.com/storm-software/powerlines/commit/8216b7d88))
+
+### Features
+
+- **powerlines:** Added engine to support multi-process Powerlines runs ([75ea086a8](https://github.com/storm-software/powerlines/commit/75ea086a8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.352**
+- Updated **plugin-vite** to **v0.14.395**
+- Updated **powerlines** to **v0.43.0**
+
 ## [0.1.390](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.390) (04/17/2026)
 
 ### Updated Dependencies

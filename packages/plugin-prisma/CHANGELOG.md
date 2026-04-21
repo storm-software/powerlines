@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.83](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.83) (04/21/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([8216b7d88](https://github.com/storm-software/powerlines/commit/8216b7d88))
+
+### Features
+
+- **powerlines:** Added engine to support multi-process Powerlines runs ([75ea086a8](https://github.com/storm-software/powerlines/commit/75ea086a8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.352**
+- Updated **plugin-pulumi** to **v0.6.42**
+- Updated **powerlines** to **v0.43.0**
+
 ## [0.4.82](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.82) (04/17/2026)
 
 ### Updated Dependencies
