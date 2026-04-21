@@ -969,7 +969,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
     }
 
-    this.#metadata = {} as Record<string, VirtualFileMetadata>;
+    this.#metadata = {};
     if (fs._hasMetadata()) {
       this.#metadata = fs.metadata.values().reduce(
         (ret, metadata) => {
@@ -994,8 +994,8 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
     }
 
-    this.#ids = {} as Record<string, string>;
-    this.#paths = {} as Record<string, string>;
+    this.#ids = {};
+    this.#paths = {};
 
     if (fs._hasIds()) {
       this.#ids = fs.ids.values().reduce(

@@ -21,11 +21,7 @@ import defu from "defu";
 import openapiTS, { astToString } from "openapi-typescript";
 import { Plugin } from "powerlines";
 import { replacePathTokens } from "powerlines/plugin-utils";
-import {
-  OpenAPIPluginContext,
-  OpenAPIPluginOptions,
-  OpenAPIPluginUserConfig
-} from "./types/plugin";
+import { OpenAPIPluginContext, OpenAPIPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
@@ -56,7 +52,7 @@ export const plugin = <
           outputPath: joinPaths("{builtinPath}", "api"),
           silent: this.config.logLevel === null
         })
-      } as Partial<OpenAPIPluginUserConfig>;
+      };
     },
     async configResolved() {
       this.config.openapi.outputPath = replacePathTokens(

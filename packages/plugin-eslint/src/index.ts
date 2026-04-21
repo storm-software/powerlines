@@ -28,11 +28,7 @@ import type { ESLint as FlatESLint } from "eslint";
 import type { LegacyESLint } from "eslint/use-at-your-own-risk";
 import { Plugin } from "powerlines";
 import { formatMessage } from "./helpers/format-message";
-import {
-  ESLintPluginContext,
-  ESLintPluginOptions,
-  ESLintPluginResolvedConfig
-} from "./types/plugin";
+import { ESLintPluginContext, ESLintPluginOptions } from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -88,7 +84,7 @@ export function plugin(
           outputFile: null,
           type: "recommended"
         })
-      } as Partial<ESLintPluginResolvedConfig>;
+      };
     },
     async configResolved() {
       if (

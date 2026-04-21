@@ -3,12 +3,7 @@
   "version": "0.1.390",
   "private": false,
   "description": "A package containing the Tamagui plugin for Powerlines.",
-  "keywords": [
-    "tamagui",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "keywords": ["tamagui", "powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -93,9 +88,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
+  "files": ["dist/**/*"],
   "dependencies": {
     "@powerlines/plugin-vite": "workspace:*",
     "@stryke/fs": "catalog:",

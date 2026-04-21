@@ -50,7 +50,7 @@ export const unplugin = createEsbuildPlugin<Partial<EsbuildPluginUserConfig>>(
       ...plugin,
       esbuild: {
         config: options => {
-          options ??= {} as BuildOptions;
+          options ??= {};
 
           const result = resolveOptions(api.context);
           for (const key in result) {

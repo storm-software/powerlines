@@ -23,11 +23,7 @@ import { getParentPath } from "@stryke/fs/get-parent-path";
 import { isPackageListed } from "@stryke/fs/package-fns";
 import { joinPaths } from "@stryke/path/join";
 import { Plugin } from "powerlines";
-import {
-  OxlintPluginContext,
-  OxlintPluginOptions,
-  OxlintPluginResolvedConfig
-} from "./types/plugin";
+import { OxlintPluginContext, OxlintPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
@@ -61,7 +57,7 @@ export function plugin(
           format: "stylish",
           ...options
         }
-      } as Partial<OxlintPluginResolvedConfig>;
+      };
     },
     configResolved() {
       this.devDependencies.oxlint = "^1.24.0";

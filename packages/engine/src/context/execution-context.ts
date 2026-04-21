@@ -232,10 +232,10 @@ export class PowerlinesExecutionContext<
         environment.name
       ] as Unstable_EnvironmentContext<TResolvedConfig>;
     } else {
-      context = (await PowerlinesEnvironmentContext.fromConfig(
+      context = await PowerlinesEnvironmentContext.fromConfig(
         this.options,
         this.config
-      )) as Unstable_EnvironmentContext<TResolvedConfig>;
+      );
     }
 
     if (isSetObject(this.config.inlineConfig)) {

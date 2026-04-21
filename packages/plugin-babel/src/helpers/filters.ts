@@ -209,7 +209,7 @@ export function addPluginFilter<
       pluginOrPlugins[foundIndex] as BabelTransformPluginOptions[],
       filter,
       name
-    ) as any;
+    );
   }
 
   return pluginOrPlugins as any;

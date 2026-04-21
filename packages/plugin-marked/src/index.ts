@@ -19,11 +19,7 @@
 import defu from "defu";
 import { marked, MarkedExtension, MarkedOptions } from "marked";
 import { Plugin } from "powerlines";
-import {
-  MarkedPluginContext,
-  MarkedPluginOptions,
-  MarkedPluginUserConfig
-} from "./types/plugin";
+import { MarkedPluginContext, MarkedPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
@@ -59,7 +55,7 @@ export const plugin = <
           gfm: true,
           silent: !this.config.logLevel
         })
-      } as Partial<MarkedPluginUserConfig>;
+      };
     },
     async configResolved() {
       this.marked ??= {} as TContext["marked"];

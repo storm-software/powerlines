@@ -20,7 +20,7 @@ import { VitePluginResolvedConfig } from "@powerlines/plugin-vite/types/plugin";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { murmurhash } from "@stryke/hash/neutral";
 import { joinPaths } from "@stryke/path/join";
-import type { ExtractedResponse, TamaguiOptions } from "@tamagui/static-worker";
+import type { ExtractedResponse } from "@tamagui/static-worker";
 import * as Static from "@tamagui/static-worker";
 import {
   getPragmaOptions,
@@ -81,7 +81,7 @@ export const plugin = <
               this.config.logLevel === "debug" ||
               this.config.logLevel === "trace",
             prefixLogs: "Powerlines"
-          } as Partial<TamaguiOptions>
+          }
         )
       );
 

@@ -229,7 +229,7 @@ export async function callHook<
       for (const result of definedResults) {
         mergedResult = defu(
           result as Record<string, unknown>,
-          (mergedResult ?? {}) as Record<string, unknown>
+          mergedResult ?? {}
         ) as InferHookReturnType<PluginContext<TResolvedConfig>, TKey>;
       }
 

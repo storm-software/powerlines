@@ -32,8 +32,7 @@ import {
   CustomTransformGroupsBuilder,
   CustomTransformsBuilder,
   StyleDictionaryPluginContext,
-  StyleDictionaryPluginOptions,
-  StyleDictionaryPluginUserConfig
+  StyleDictionaryPluginOptions
 } from "./types/plugin";
 
 export * from "./types";
@@ -70,7 +69,7 @@ export const plugin = <
           },
           fileHeader: "powerlines/file-header"
         })
-      } as Partial<StyleDictionaryPluginUserConfig>;
+      };
     },
     async configResolved() {
       this.styleDictionary =

@@ -22,11 +22,7 @@ import defu from "defu";
 import { rolldown as build } from "rolldown";
 import { resolveOptions } from "./helpers/resolve-options";
 import { createRolldownPlugin } from "./helpers/unplugin";
-import {
-  RolldownPluginContext,
-  RolldownPluginOptions,
-  RolldownPluginResolvedConfig
-} from "./types/plugin";
+import { RolldownPluginContext, RolldownPluginOptions } from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -55,7 +51,7 @@ export const plugin = <
         rolldown: {
           ...options
         }
-      } as Partial<RolldownPluginResolvedConfig>;
+      };
     },
     async build() {
       const result = await build(

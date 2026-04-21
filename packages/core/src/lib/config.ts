@@ -208,7 +208,7 @@ export async function loadUserConfigFile(
       if (isSetObject(config) || Array.isArray(config)) {
         resolvedUserConfig = {
           ...config,
-          config: config as AnyUserConfig,
+          config,
           configFile: resolvedUserConfigFile
         };
       }

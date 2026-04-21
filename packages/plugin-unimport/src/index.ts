@@ -30,8 +30,7 @@ import {
 import {
   UnimportContext,
   UnimportPluginContext,
-  UnimportPluginOptions,
-  UnimportPluginUserConfig
+  UnimportPluginOptions
 } from "./types/plugin";
 
 export * from "./types";
@@ -73,7 +72,7 @@ export const plugin = <
           ],
           injectAtEnd: true
         })
-      } as Partial<UnimportPluginUserConfig>;
+      };
     },
     async configResolved() {
       const { injectImports, init, ...rest } = createUnimport(

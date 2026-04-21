@@ -25,11 +25,11 @@ import babel, { BabelPluginResolvedConfig } from "@powerlines/plugin-babel";
 import env from "@powerlines/plugin-env";
 import { VitePluginResolvedConfig } from "@powerlines/plugin-vite/types/plugin";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import viteReactPlugin from "@vitejs/plugin-react";
+import viteReactPlugin, { BabelOptions } from "@vitejs/plugin-react";
 import type { LoggerEvent } from "babel-plugin-react-compiler";
 import defu from "defu";
 import { Plugin } from "powerlines";
-import { isMatchFound } from "powerlines/typescript/tsconfig";
+import { isMatchFound } from "powerlines/typescript";
 import { ReactOptimizedBuiltin } from "./components/react-optimized";
 import type { ReactPluginContext, ReactPluginOptions } from "./types/plugin";
 
@@ -141,7 +141,7 @@ export const plugin = <
           this.config.babel.plugins ??= [];
           this.config.babel.plugins.push([
             "babel-plugin-react-compiler",
-            this.config.react.compiler
+            this.config.react.compiler ?? {}
           ]);
         }
 
@@ -210,7 +210,8 @@ export const plugin = <
           viteBuildConfig.plugins ??= [];
           viteBuildConfig.plugins.unshift(
             viteReactPlugin({
-              babel: (this.config as BabelPluginResolvedConfig).babel,
+              babel: (this.config as BabelPluginResolvedConfig)
+                .babel as BabelOptions,
               jsxImportSource: this.config.react.jsxImportSource,
               jsxRuntime: this.config.react.jsxRuntime,
               reactRefreshHost: this.config.react.reactRefreshHost

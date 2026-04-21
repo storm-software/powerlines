@@ -47,11 +47,11 @@ export function resolveOptions(context: Context): ExternalWebpackOptions {
         (context.config as WebpackPluginResolvedConfig).webpack?.plugins ?? [],
       node:
         context.config.platform === "node"
-          ? ({
+          ? {
               __dirname: true,
               __filename: true,
               global: true
-            } as ExternalWebpackOptions["node"])
+            }
           : false,
       mode:
         context.config.mode === "development"
@@ -73,9 +73,7 @@ export function resolveOptions(context: Context): ExternalWebpackOptions {
       ),
       context: joinPaths(context.config.cwd, context.config.root),
       noExternal: context.builtins,
-      devtool: (context.config.output.sourceMap
-        ? "source-map"
-        : false) as ExternalWebpackOptions["devtool"],
+      devtool: context.config.output.sourceMap ? "source-map" : false,
       optimization: {
         minimize:
           context.config.output.minify ?? context.config.mode !== "development"

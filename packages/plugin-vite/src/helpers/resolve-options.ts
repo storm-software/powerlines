@@ -115,5 +115,5 @@ export function resolveOptions(context: Context): ViteOptions {
       envDir: context.config.root
     } as ViteOptions,
     DEFAULT_VITE_CONFIG
-  ) as ViteOptions;
+  );
 }

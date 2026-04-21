@@ -19,7 +19,7 @@
 import { PromiseExecutor } from "@nx/devkit";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
 import defu from "defu";
-import type { PowerlinesEngine, PrepareInlineConfig } from "powerlines";
+import type { PowerlinesEngine } from "powerlines";
 import {
   PowerlinesExecutorContext,
   withExecutor
@@ -38,7 +38,7 @@ export async function executorFn(
         autoInstall: context.options.autoInstall
       },
       context.inlineConfig
-    ) as PrepareInlineConfig
+    )
   );
 
   return {

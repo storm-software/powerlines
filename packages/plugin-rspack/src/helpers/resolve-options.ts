@@ -17,10 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { Context } from "@powerlines/core";
-import type {
-  DevTool,
-  Configuration as ExternalRspackOptions
-} from "@rspack/core";
+import type { Configuration as ExternalRspackOptions } from "@rspack/core";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
 import { RspackPluginResolvedConfig } from "../types";
@@ -53,11 +50,11 @@ export function resolveOptions(context: Context): ExternalRspackOptions {
       name: context.config.name,
       node:
         context.config.platform === "node"
-          ? ({
+          ? {
               __dirname: true,
               __filename: true,
               global: true
-            } as ExternalRspackOptions["node"])
+            }
           : false,
       mode:
         context.config.mode === "development"
@@ -76,9 +73,7 @@ export function resolveOptions(context: Context): ExternalRspackOptions {
       context: joinPaths(context.config.cwd, context.config.root),
       noExternal: context.builtins,
       cache: context.config.mode === "development",
-      devtool: (context.config.mode !== "development"
-        ? false
-        : "source-map") as DevTool | false,
+      devtool: context.config.mode !== "development" ? false : "source-map",
       optimization: {
         minimize:
           context.config.output.minify ?? context.config.mode !== "development"

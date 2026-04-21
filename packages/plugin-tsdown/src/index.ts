@@ -22,11 +22,7 @@ import defu from "defu";
 import { build } from "tsdown";
 import { resolveOptions } from "./helpers/resolve-options";
 import { createTsdownPlugin } from "./helpers/unplugin";
-import {
-  TsdownPluginContext,
-  TsdownPluginOptions,
-  TsdownPluginResolvedConfig
-} from "./types/plugin";
+import { TsdownPluginContext, TsdownPluginOptions } from "./types/plugin";
 
 export * from "./helpers";
 export type * from "./types";
@@ -59,7 +55,7 @@ export const plugin = <
         tsdown: {
           ...options
         }
-      } as Partial<TsdownPluginResolvedConfig>;
+      };
     },
     async build() {
       this.trace("Starting Tsdown build process...");

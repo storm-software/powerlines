@@ -29,11 +29,7 @@ import { replacePath } from "@stryke/path/replace";
 import defu from "defu";
 import { Plugin } from "powerlines";
 import { getConfigPath, replacePathTokens } from "powerlines/plugin-utils";
-import {
-  GraphQLPluginContext,
-  GraphQLPluginOptions,
-  GraphQLPluginUserConfig
-} from "./types/plugin";
+import { GraphQLPluginContext, GraphQLPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
@@ -80,7 +76,7 @@ export const plugin = <
           debug: this.config.mode === "development",
           outputPath: joinPaths("{builtinPath}", "graphql")
         })
-      } as Partial<GraphQLPluginUserConfig>;
+      };
     },
     async configResolved() {
       this.dependencies.graphql = "latest";

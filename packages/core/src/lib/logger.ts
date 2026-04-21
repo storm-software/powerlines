@@ -64,28 +64,22 @@ export const createLog = (
       logLevel
     })(
       `${
-        name
-          ? chalk.bold.hex(
-              getColor("brand", options as Parameters<typeof getColor>[1])
-            )(kebabCase(name))
-          : ""
+        name ? chalk.bold.hex(getColor("brand", options))(kebabCase(name)) : ""
       }${
         options.command
-          ? chalk.hex(
-              getColor("brand", options as Parameters<typeof getColor>[1])
-            )(` (${options.command})`)
+          ? chalk.hex(getColor("brand", options))(` (${options.command})`)
           : ""
       }${name ? chalk.grey(" > ") : ""}${
         options.name && (!name || kebabCase(options.name) !== kebabCase(name))
-          ? `${chalk.bold.hex(
-              getColor("brand", options as Parameters<typeof getColor>[1])
-            )(kebabCase(options.name))}${chalk.grey(" > ")}`
+          ? `${chalk.bold.hex(getColor("brand", options))(
+              kebabCase(options.name)
+            )}${chalk.grey(" > ")}`
           : ""
       }${
         options.environment && options.environment !== DEFAULT_ENVIRONMENT
-          ? `${chalk.bold.hex(
-              getColor("brand", options as Parameters<typeof getColor>[1])
-            )(kebabCase(options.environment))}${chalk.grey(" > ")}`
+          ? `${chalk.bold.hex(getColor("brand", options))(
+              kebabCase(options.environment)
+            )}${chalk.grey(" > ")}`
           : ""
       }${args.join(" ")} `.trim()
     );

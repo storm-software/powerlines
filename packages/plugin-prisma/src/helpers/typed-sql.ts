@@ -19,8 +19,7 @@
 import {
   inferDirectoryConfig,
   isValidJsIdentifier,
-  PrismaConfigWithDatasource,
-  SchemaContext
+  PrismaConfigWithDatasource
 } from "@prisma/internals";
 import {
   IntrospectSqlInput,
@@ -70,7 +69,7 @@ async function readTypedSqlFiles(
 
 export async function introspectSql(context: PrismaPluginContext) {
   const directoryConfig = inferDirectoryConfig(
-    context.prisma.schema as SchemaContext,
+    context.prisma.schema,
     context.prisma.config
   );
   const sqlFiles = await readTypedSqlFiles(

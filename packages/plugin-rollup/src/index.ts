@@ -22,11 +22,7 @@ import defu from "defu";
 import { rollup as build } from "rollup";
 import { resolveOptions } from "./helpers";
 import { createRollupPlugin } from "./helpers/unplugin";
-import {
-  RollupPluginContext,
-  RollupPluginOptions,
-  RollupPluginUserConfig
-} from "./types/plugin";
+import { RollupPluginContext, RollupPluginOptions } from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -55,7 +51,7 @@ export const plugin = <
         rollup: {
           ...options
         }
-      } as Partial<RollupPluginUserConfig>;
+      };
     },
     async build() {
       const result = await build(

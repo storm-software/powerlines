@@ -23,13 +23,13 @@ import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { camelCase } from "@stryke/string-format/camel-case";
 import { isString } from "@stryke/type-checks/is-string";
 import defu from "defu";
-import { BuildOptions, Format, LogLevel, Platform } from "esbuild";
+import { BuildOptions, Format } from "esbuild";
 import { EsbuildPluginContext } from "../types/plugin";
 
 export const DEFAULT_ESBUILD_CONFIG: Partial<BuildOptions> = {
   target: "esnext",
-  platform: "neutral" as Platform,
-  format: "esm" as Format,
+  platform: "neutral",
+  format: "esm",
   write: true,
   minify: true,
   sourcemap: false,
@@ -37,7 +37,7 @@ export const DEFAULT_ESBUILD_CONFIG: Partial<BuildOptions> = {
   treeShaking: true,
   keepNames: true,
   splitting: true,
-  logLevel: "silent" as LogLevel
+  logLevel: "silent"
 };
 
 /**

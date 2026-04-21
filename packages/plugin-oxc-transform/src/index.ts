@@ -22,8 +22,7 @@ import { transform } from "oxc-transform";
 import { Plugin } from "powerlines";
 import {
   OxcTransformPluginContext,
-  OxcTransformPluginOptions,
-  OxcTransformPluginUserConfig
+  OxcTransformPluginOptions
 } from "./types/plugin";
 
 export * from "./types";
@@ -56,7 +55,7 @@ export const plugin = <
           outputPath: this.config.output.path,
           sourcemap: this.config.mode === "development"
         })
-      } as Partial<OxcTransformPluginUserConfig>;
+      };
     },
     async transform(code, id) {
       const result = await transform(id, code, {

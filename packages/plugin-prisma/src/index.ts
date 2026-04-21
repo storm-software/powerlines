@@ -24,7 +24,6 @@ import {
   extractPreviewFeatures,
   getDMMF,
   getGenerators,
-  SchemaContext,
   validatePrismaConfigWithDatasource
 } from "@prisma/internals";
 import * as prismaPostgres from "@pulumi/prisma-postgres";
@@ -42,12 +41,7 @@ import { PowerlinesClientGenerator } from "./helpers/client-generator";
 import { getSchema } from "./helpers/get-schema";
 import { PrismaSchemaCreator } from "./helpers/schema-creator";
 import { introspectSql } from "./helpers/typed-sql";
-import {
-  PrismaPluginContext,
-  PrismaPluginOptions,
-  PrismaPluginUserConfig,
-  PrismaSchemaContext
-} from "./types/plugin";
+import { PrismaPluginContext, PrismaPluginOptions } from "./types/plugin";
 
 export type * from "./types";
 
@@ -87,7 +81,7 @@ export const plugin = <
                 }
               : undefined
           })
-        } as Partial<PrismaPluginUserConfig>;
+        };
       },
       async configResolved() {
         this.dependencies["@prisma/ppg"] = "latest";
@@ -142,7 +136,7 @@ export const plugin = <
           datasources: [],
           warnings: [],
           primaryDatasource: undefined
-        } as PrismaSchemaContext;
+        };
 
         this.prisma.schema.schemas = await Promise.all(
           (
@@ -190,7 +184,7 @@ export const plugin = <
         const typedSql = await introspectSql(this);
 
         let generators = (await getGenerators({
-          schemaContext: this.prisma.schema as SchemaContext,
+          schemaContext: this.prisma.schema,
           printDownloadProgress: true,
           version: enginesVersion,
           typedSql,

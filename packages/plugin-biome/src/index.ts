@@ -21,11 +21,7 @@ import { existsSync } from "@stryke/fs/exists";
 import { isPackageListed } from "@stryke/fs/package-fns";
 import { joinPaths } from "@stryke/path/join";
 import { Plugin } from "powerlines";
-import {
-  BiomePluginContext,
-  BiomePluginOptions,
-  BiomePluginUserConfig
-} from "./types/plugin";
+import { BiomePluginContext, BiomePluginOptions } from "./types/plugin";
 
 export * from "./types";
 
@@ -97,7 +93,7 @@ export function plugin(
           vcsDefaultBranch: "main",
           ...options
         }
-      } as BiomePluginUserConfig;
+      };
     },
     async lint() {
       this.debug(`Linting project files with Biome.`);

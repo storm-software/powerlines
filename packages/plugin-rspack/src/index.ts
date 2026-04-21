@@ -21,11 +21,7 @@ import { rspack as build } from "@rspack/core";
 import defu from "defu";
 import { resolveOptions } from "./helpers";
 import { createRspackPlugin } from "./helpers/unplugin";
-import {
-  RspackPluginContext,
-  RspackPluginOptions,
-  RspackPluginResolvedConfig
-} from "./types/plugin";
+import { RspackPluginContext, RspackPluginOptions } from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -50,7 +46,7 @@ export const plugin = <
           ...options,
           variant: "rspack"
         }
-      } as Partial<RspackPluginResolvedConfig>;
+      };
     },
     async build() {
       build(

@@ -28,8 +28,7 @@ import { createOperationId } from "./helpers/create-operation-id";
 import {
   HeyAPIPluginContext,
   HeyAPIPluginOptions,
-  HeyAPIPluginOutputOptions,
-  HeyAPIPluginUserConfig
+  HeyAPIPluginOutputOptions
 } from "./types/plugin";
 
 export * from "./helpers";
@@ -87,7 +86,7 @@ export const plugin = <
             logs: this.envPaths.log
           })
         }
-      } as Partial<HeyAPIPluginUserConfig>;
+      };
     },
     async configResolved() {
       this.config.heyApi.output ??= {} as HeyAPIPluginOutputOptions;

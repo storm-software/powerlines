@@ -35,11 +35,7 @@ import { loadConfig as loadConfigFile } from "c12";
 import defu from "defu";
 import toc from "markdown-toc";
 import type { Plugin } from "powerlines";
-import {
-  AutoMDPluginContext,
-  AutoMDPluginOptions,
-  AutoMDPluginUserConfig
-} from "./types/plugin";
+import { AutoMDPluginContext, AutoMDPluginOptions } from "./types/plugin";
 import { TOCOptions } from "./types/toc";
 
 export * from "./types";
@@ -97,7 +93,7 @@ export const plugin = <
             bullets: "-"
           }
         })
-      } as Partial<AutoMDPluginUserConfig>;
+      };
     },
     async configResolved() {
       if (

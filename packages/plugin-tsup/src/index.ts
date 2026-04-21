@@ -24,11 +24,7 @@ import {
 import defu from "defu";
 import { resolveOptions } from "./helpers/resolve-options";
 import { createTsupPlugin } from "./helpers/unplugin";
-import {
-  TsupPluginContext,
-  TsupPluginOptions,
-  TsupPluginResolvedConfig
-} from "./types/plugin";
+import { TsupPluginContext, TsupPluginOptions } from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -59,7 +55,7 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
         tsup: {
           ...options
         }
-      } as Partial<TsupPluginResolvedConfig>;
+      };
     },
     async build() {
       return build(

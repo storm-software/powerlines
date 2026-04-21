@@ -71,7 +71,7 @@ export const plugin = <
               : undefined,
             ...options
           }
-        } as NitroPluginUserConfig;
+        };
       },
       configResolved() {
         this.config.nitro.compatibilityDate = this.config.compatibilityDate;
@@ -119,7 +119,7 @@ export const plugin = <
       name: "nitro:vite",
       vite: {
         config(config: NitroPluginUserConfig, configEnv: { command: string }) {
-          config.nitro ??= {} as NitroConfig;
+          config.nitro ??= {};
           config.nitro.dev = configEnv.command === "serve";
           config.nitro.builder = "vite";
           config.nitro.rootDir = config.root;

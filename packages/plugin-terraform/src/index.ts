@@ -101,7 +101,7 @@ export const plugin = <
         this.terraform.command = command;
 
         const organizationName = kebabCase(getOrganizationName(this));
-        const workspaceName = kebabCase(getWorkspaceName(this));
+        const workspaceName = kebabCase(await getWorkspaceName(this));
         const projectName = kebabCase(this.config.name);
 
         this.config.terraform.stackName ??= `${organizationName || workspaceName || projectName}-${

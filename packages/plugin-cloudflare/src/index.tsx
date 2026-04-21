@@ -247,7 +247,7 @@ export function plugin<
                   ].filter(Boolean) as string[]
                 },
                 worker.metadata
-              ) as pulumiCloudflare.WorkerArgs,
+              ),
               { provider }
             );
             workers.push(resource);

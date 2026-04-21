@@ -29,7 +29,6 @@ import type {
   ResolvedConfig,
   ResolvedExecutionOptions,
   SelectHookResult,
-  SelectHookResultItem,
   SelectHooksOptions
 } from "@powerlines/core";
 import { PLUGIN_NON_HOOK_FIELDS } from "@powerlines/core/constants";
@@ -59,8 +58,7 @@ export class PowerlinesEnvironmentContext<
   /**
    * The hooks registered by plugins in this environment
    */
-  #hooks: Record<string, HooksList<PluginContext<TResolvedConfig>>> =
-    {} as Record<string, HooksList<PluginContext<TResolvedConfig>>>;
+  #hooks: Record<string, HooksList<PluginContext<TResolvedConfig>>> = {};
 
   /**
    * Create a new context from the config.
@@ -188,7 +186,7 @@ export class PowerlinesEnvironmentContext<
       (ret, [key, value]) => {
         if (isSetObject(value)) {
           Object.entries(value).forEach(([type, list]) => {
-            ret[key] ??= {} as HooksList<PluginContext<TResolvedConfig>>;
+            ret[key] ??= {};
             ret[key][type as keyof (typeof ret)[typeof key]] =
               dedupeHooklist<PluginContext<TResolvedConfig>>(list);
           });
@@ -234,7 +232,7 @@ export class PowerlinesEnvironmentContext<
                 handler: hook.handler,
                 plugin: hook.plugin,
                 context: plugin.context
-              } as SelectHookResultItem<PluginContext<TResolvedConfig>, TKey>;
+              };
             });
 
           if (options?.order === "pre") {

@@ -133,9 +133,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           isSetString(config.env.secrets) ||
           (config.env.secrets && isSetString(config.env.secrets.file))
         ) {
-          config.env.secrets = parseTypeDefinition(
-            config.env.secrets
-          ) as TypeDefinition;
+          config.env.secrets = parseTypeDefinition(config.env.secrets);
 
           const file = await this.fs.resolve(config.env.secrets.file);
           if (file) {
@@ -149,7 +147,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           if (file) {
             config.env.secrets = parseTypeDefinition(
               `${file}#${secretsDefaultTypeDefinition.name}`
-            ) as TypeDefinition;
+            );
           }
         }
 
@@ -221,7 +219,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             parsed: {},
             injected: {}
           }
-        ) as EnvPluginContext["env"];
+        );
 
         if (
           this.config.command !== "prepare" &&

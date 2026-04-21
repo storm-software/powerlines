@@ -64,13 +64,6 @@ type TsupEsbuildOptionsArgs = Parameters<TsupEsbuildOptionsHandler>;
 type TsupEsbuildOptions = TsupEsbuildOptionsArgs[0];
 type TsupEsbuildContext = TsupEsbuildOptionsArgs[1];
 
-interface TsupResolvedBuildConfig extends Options {
-  esbuildOptions?: TsupEsbuildOptionsHandler;
-  workspaceConfig?: {
-    workspaceRoot: string;
-  };
-}
-
 /**
  * Resolves the options for [tsup](https://github.com/egoist/tsup).
  *
@@ -87,7 +80,7 @@ export function resolveOptions(
           ([key, value]) => [key, appendPath(value, context.config.root)]
         )
       ),
-      esbuildOptions: ((
+      esbuildOptions: (
         options: TsupEsbuildOptions,
         ctx: TsupEsbuildContext
       ) => {
@@ -113,7 +106,7 @@ export function resolveOptions(
           ),
           ...options.alias
         };
-      }) as TsupResolvedBuildConfig["esbuildOptions"],
+      },
       noExternal: context.builtins
     },
     (context.config as TsupPluginResolvedConfig).tsup

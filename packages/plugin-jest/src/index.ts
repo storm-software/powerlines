@@ -22,11 +22,7 @@ import chalk from "chalk";
 import { runCLI } from "jest";
 import { formatTime, pluralize } from "jest-util";
 import { Plugin } from "powerlines";
-import {
-  JestPluginContext,
-  JestPluginOptions,
-  JestPluginUserConfig
-} from "./types/plugin";
+import { JestPluginContext, JestPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
@@ -122,7 +118,7 @@ export const plugin = <TContext extends JestPluginContext = JestPluginContext>(
         test: {
           jest: config
         }
-      } as Partial<JestPluginUserConfig>;
+      };
     },
     async test() {
       if (this.config.test.jest) {
@@ -229,7 +225,7 @@ ${chalk.bold(`Time:`)}        ${formatTime((Date.now() - results.startTime) / 10
         );
       }
     }
-  } as Plugin<TContext>;
+  };
 };
 
 export default plugin;

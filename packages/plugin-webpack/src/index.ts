@@ -21,11 +21,7 @@ import defu from "defu";
 import build from "webpack";
 import { resolveOptions } from "./helpers/resolve-options";
 import { createWebpackPlugin } from "./helpers/unplugin";
-import {
-  WebpackPluginContext,
-  WebpackPluginOptions,
-  WebpackPluginResolvedConfig
-} from "./types/plugin";
+import { WebpackPluginContext, WebpackPluginOptions } from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -55,7 +51,7 @@ export const plugin = <
         webpack: {
           ...options
         }
-      } as Partial<WebpackPluginResolvedConfig>;
+      };
     },
     async build() {
       build(

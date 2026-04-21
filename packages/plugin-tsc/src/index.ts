@@ -122,7 +122,7 @@ export const plugin = <
         return { code: result.outputText, id };
       }
     }
-  } as Plugin<TContext>;
+  };
 };
 
 export default plugin;

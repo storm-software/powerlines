@@ -18,15 +18,11 @@
 
 import { Context, Plugin } from "@powerlines/core";
 import defu from "defu";
-import { build, InlineConfig } from "vite";
+import { build } from "vite";
 import { DEFAULT_VITE_CONFIG, resolveOptions } from "./helpers/resolve-options";
 import { createVitePlugin } from "./helpers/unplugin";
 import { Unstable_VitePluginContext } from "./types/_internal";
-import {
-  VitePluginContext,
-  VitePluginOptions,
-  VitePluginResolvedConfig
-} from "./types/plugin";
+import { VitePluginContext, VitePluginOptions } from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -59,7 +55,7 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
           ...options
         },
         singleBuild: true
-      } as Partial<VitePluginResolvedConfig>;
+      };
     },
     async build() {
       this.trace(`Building the Powerlines plugin.`);
@@ -93,7 +89,7 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
         }
       );
 
-      await build(config as InlineConfig);
+      await build(config);
     }
   };
 };

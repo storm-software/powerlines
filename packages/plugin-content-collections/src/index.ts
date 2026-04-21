@@ -32,8 +32,7 @@ import { createEmitter } from "./helpers/create-emitter";
 import { createWriter } from "./helpers/create-writer";
 import {
   ContentCollectionsPluginContext,
-  ContentCollectionsPluginOptions,
-  ContentCollectionsPluginUserConfig
+  ContentCollectionsPluginOptions
 } from "./types/plugin";
 
 export * from "./helpers";
@@ -65,7 +64,7 @@ export const plugin = <
           configFile: "{root}/content-collections.ts",
           collections: []
         })
-      } as Partial<ContentCollectionsPluginUserConfig>;
+      };
     },
     async configResolved() {
       this.config.contentCollections.configFile ||= replacePathTokens(

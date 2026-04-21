@@ -25,11 +25,7 @@ import {
   resolveOptions
 } from "./helpers/resolve-options";
 import { createEsbuildPlugin } from "./helpers/unplugin";
-import {
-  EsbuildPluginContext,
-  EsbuildPluginOptions,
-  EsbuildPluginUserConfig
-} from "./types/plugin";
+import { EsbuildPluginContext, EsbuildPluginOptions } from "./types/plugin";
 
 export * from "./helpers";
 export * from "./types";
@@ -59,7 +55,7 @@ export const plugin = <
           ...DEFAULT_ESBUILD_CONFIG,
           ...options
         }
-      } as Partial<EsbuildPluginUserConfig>;
+      };
     },
     async build() {
       await build(

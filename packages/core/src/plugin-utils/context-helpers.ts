@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { tryGetWorkspaceConfig } from "@storm-software/config-tools/get-config";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { UnresolvedContext } from "../types/context";
@@ -30,12 +31,8 @@ export function getOrganizationName(
   context: UnresolvedContext
 ): string | undefined {
   let result: string | undefined;
-  if (isSetObject(context.workspaceConfig.organization)) {
-    result = context.workspaceConfig.organization.name;
-  }
-
-  if (!result && isSetString(context.workspaceConfig.organization)) {
-    result = context.workspaceConfig.organization;
+  if (!result && isSetString(context.config.organization)) {
+    result = context.config.organization;
   }
 
   if (
@@ -97,16 +94,20 @@ export function getOrganizationName(
  * @param context - The Powerlines plugin context.
  * @returns The organization name or undefined if not found.
  */
-export function getWorkspaceName(
+export async function getWorkspaceName(
   context: UnresolvedContext
-): string | undefined {
+): Promise<string | undefined> {
   let result: string | undefined;
-  if (isSetString(context.workspaceConfig.name)) {
-    result = context.workspaceConfig.name;
-  }
 
-  if (!result && isSetString(context.workspaceConfig.namespace)) {
-    result = context.workspaceConfig.namespace.replace(/^@/, "");
+  const workspaceConfig = await tryGetWorkspaceConfig(true);
+  if (workspaceConfig) {
+    if (isSetString(workspaceConfig.name)) {
+      result = workspaceConfig.name;
+    }
+
+    if (!result && isSetString(workspaceConfig.namespace)) {
+      result = workspaceConfig.namespace.replace(/^@/, "");
+    }
   }
 
   if (!result && isSetString(context.packageJson.namespace)) {

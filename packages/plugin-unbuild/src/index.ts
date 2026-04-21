@@ -22,11 +22,7 @@ import {
   DEFAULT_UNBUILD_CONFIG,
   resolveOptions
 } from "./helpers/resolve-options";
-import {
-  UnbuildPluginContext,
-  UnbuildPluginOptions,
-  UnbuildPluginResolvedConfig
-} from "./types/plugin";
+import { UnbuildPluginContext, UnbuildPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
@@ -55,7 +51,7 @@ export const plugin = <
           ...DEFAULT_UNBUILD_CONFIG,
           ...options
         }
-      } as Partial<UnbuildPluginResolvedConfig>;
+      };
     },
     async build() {
       await build(resolveOptions(this));

@@ -959,7 +959,7 @@ ${formatTypes(code)}
               }
             },
             inlineConfig
-          ) as PrepareInlineConfig<TResolvedConfig>
+          )
         );
       }
 
@@ -1119,9 +1119,7 @@ ${formatTypes(code)}
    */
   public async new(inlineConfig: PartialKeys<NewInlineConfig, "command">) {
     inlineConfig.command ??= "new";
-    await this.prepare(
-      inlineConfig as RequiredKeys<NewInlineConfig, "command">
-    );
+    await this.prepare(inlineConfig);
 
     await this.#executeEnvironments(async context => {
       context.debug(
@@ -1203,9 +1201,7 @@ ${formatTypes(code)}
     }
   ) {
     inlineConfig.command ??= "clean";
-    await this.prepare(
-      inlineConfig as RequiredKeys<CleanInlineConfig, "command">
-    );
+    await this.prepare(inlineConfig);
 
     await this.#executeEnvironments(async context => {
       context.debug("Cleaning the project's dist and artifacts directories.");
@@ -1240,9 +1236,7 @@ ${formatTypes(code)}
       | PartialKeys<BuildInlineConfig, "command"> = { command: "lint" }
   ) {
     inlineConfig.command ??= "lint";
-    await this.prepare(
-      inlineConfig as RequiredKeys<LintInlineConfig, "command">
-    );
+    await this.prepare(inlineConfig);
 
     await this.#executeEnvironments(async context => {
       await this.callHook("lint", {
@@ -1264,9 +1258,7 @@ ${formatTypes(code)}
       | PartialKeys<BuildInlineConfig, "command"> = { command: "test" }
   ) {
     inlineConfig.command ??= "test";
-    await this.prepare(
-      inlineConfig as RequiredKeys<TestInlineConfig, "command">
-    );
+    await this.prepare(inlineConfig);
 
     await this.#executeEnvironments(async context => {
       await this.callHook("test", {
@@ -1304,9 +1296,7 @@ ${formatTypes(code)}
       );
 
       inlineConfig.command ??= "build";
-      await this.prepare(
-        inlineConfig as RequiredKeys<BuildInlineConfig, "command">
-      );
+      await this.prepare(inlineConfig);
     }
 
     if (this.context.config.singleBuild) {
@@ -1326,9 +1316,7 @@ ${formatTypes(code)}
    */
   public async docs(inlineConfig: DocsInlineConfig = { command: "docs" }) {
     inlineConfig.command ??= "docs";
-    await this.prepare(
-      inlineConfig as RequiredKeys<DocsInlineConfig, "command">
-    );
+    await this.prepare(inlineConfig);
 
     await this.#executeEnvironments(async context => {
       context.debug(
@@ -1355,9 +1343,7 @@ ${formatTypes(code)}
     }
   ) {
     inlineConfig.command ??= "deploy";
-    await this.prepare(
-      inlineConfig as RequiredKeys<DeployInlineConfig, "command">
-    );
+    await this.prepare(inlineConfig);
 
     await this.#executeEnvironments(async context => {
       await this.callHook("deploy", { environment: context });

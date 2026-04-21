@@ -62,7 +62,7 @@ export const MarkdownTableContext: ComponentContext<MarkdownTableContextInterfac
   createContext<MarkdownTableContextInterface>({
     columns: [],
     data: []
-  } as MarkdownTableContextInterface);
+  });
 
 /**
  * Hook to access the Powerlines Context.

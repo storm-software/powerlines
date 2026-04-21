@@ -82,7 +82,7 @@ export const plugin = <
       // this.config.build.polyfill ??= [];
       // this.config.build.polyfill.push(...this.unenv.env.polyfill);
     }
-  } as Plugin<TContext>;
+  };
 };
 
 export default plugin;

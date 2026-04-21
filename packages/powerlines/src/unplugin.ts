@@ -18,8 +18,6 @@
 
 import type {
   Context,
-  InlineConfig,
-  ResolvedExecutionOptions,
   UnpluginBuilderVariant,
   UnpluginFactory,
   UnpluginOptions
@@ -77,8 +75,8 @@ export function createUnpluginFactory<
         api = await PowerlinesAPI.fromOptions({
           cwd: getWorkspaceRoot(process.cwd()),
           ...userConfig
-        } as ResolvedExecutionOptions);
-        await api.context.setup(userConfig as InlineConfig);
+        });
+        await api.context.setup(userConfig);
 
         setParseImpl(api.context.parse);
 
