@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.43.3](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.43.3) (04/21/2026)
+
+### Miscellaneous
+
+- **engine:** Added support for the `override` parameter ([6a13207a9](https://github.com/storm-software/powerlines/commit/6a13207a9))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.402**
+- Updated **plugin-esbuild** to **v0.13.403**
+- Updated **plugin-unbuild** to **v0.5.400**
+- Updated **plugin-webpack** to **v0.5.399**
+- Updated **plugin-rollup** to **v0.7.400**
+- Updated **plugin-rspack** to **v0.5.399**
+- Updated **plugin-tsdown** to **v0.1.345**
+- Updated **plugin-tsup** to **v0.12.404**
+- Updated **plugin-vite** to **v0.14.398**
+- Updated **engine** to **v0.0.5**
+
 ## [0.43.2](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.43.2) (04/21/2026)
 
 ### Updated Dependencies
