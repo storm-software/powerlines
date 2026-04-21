@@ -52,7 +52,11 @@ import type {
 } from "nx/src/config/workspace-json-project-json.js";
 import type { PackageJson as PackageJsonNx } from "nx/src/utils/package-json.js";
 import { readTargetsFromPackageJson } from "nx/src/utils/package-json.js";
-import type { ParsedUserConfig, PowerlinesCommand } from "powerlines";
+import type {
+  ParsedUserConfig,
+  ResolvedEngineOptions,
+  UserConfig
+} from "powerlines";
 import type { NxPluginOptions } from "../types/plugin";
 import { CONFIG_INPUTS } from "./constants";
 
@@ -111,13 +115,8 @@ export interface CreateNxPluginOptions {
 }
 
 type LoadUserConfigFileFunction = (
-  projectRoot: string,
-  workspaceRoot: string,
-  jiti: Jiti,
-  command?: PowerlinesCommand,
-  mode?: string,
-  configFile?: string,
-  framework?: string
+  options: ResolvedEngineOptions,
+  jiti: Jiti
 ) => Promise<ParsedUserConfig>;
 
 /**
@@ -221,18 +220,22 @@ export function createNxPlugin<
                 );
               }
 
-              let userConfig = {} as ParsedUserConfig;
+              let userConfig = {} as UserConfig;
               try {
                 if (loadUserConfigFile) {
-                  userConfig = await loadUserConfigFile(
-                    projectRoot,
-                    contextV2.workspaceRoot,
-                    resolver,
-                    "build",
-                    "development",
-                    configFile,
-                    framework
+                  const parsedConfig = await loadUserConfigFile(
+                    {
+                      root: projectRoot,
+                      cwd: contextV2.workspaceRoot,
+                      mode: "development",
+                      configFile,
+                      framework
+                    },
+                    resolver
                   );
+                  if (isSetObject(parsedConfig)) {
+                    userConfig = parsedConfig.config as UserConfig;
+                  }
                 }
               } catch (error) {
                 console.warn(
