@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.0.5](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.5) (04/21/2026)
+
+### Miscellaneous
+
+- **engine:** Added support for the `override` parameter ([6a13207a9](https://github.com/storm-software/powerlines/commit/6a13207a9))
+
 ## [0.0.4](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.4) (04/21/2026)
 
 ### Updated Dependencies
