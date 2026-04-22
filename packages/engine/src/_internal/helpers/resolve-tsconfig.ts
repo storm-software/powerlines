@@ -42,7 +42,7 @@ export function getTsconfigDtsPath<
 >(context: EnvironmentContext<TResolvedConfig>): string {
   const dtsRelativePath = joinPaths(
     relativePath(
-      joinPaths(context.config.cwd, context.config.root),
+      joinPaths(context.options.cwd, context.options.root),
       findFilePath(context.typesPath)
     ),
     findFileName(context.typesPath)
@@ -55,15 +55,15 @@ async function resolveTsconfigChanges<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 >(context: EnvironmentContext<TResolvedConfig>): Promise<TsConfigJson> {
   const tsconfig = getParsedTypeScriptConfig(
-    context.config.cwd,
-    context.config.root,
+    context.options.cwd,
+    context.options.root,
     context.config.tsconfig,
     context.config.tsconfigRaw
   );
 
   const tsconfigFilePath = getTsconfigFilePath(
-    context.config.cwd,
-    context.config.root,
+    context.options.cwd,
+    context.options.root,
     context.config.tsconfig
   );
 
