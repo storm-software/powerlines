@@ -1175,9 +1175,9 @@ export class PowerlinesContext<
         userConfig: this.config.userConfig ?? {},
         pluginConfig: this.config.pluginConfig ?? {},
         tsconfig: getTsconfigFilePath(
-          this.config.cwd,
-          this.config.root,
-          config.tsconfig ?? this.config.tsconfig
+          this.options.cwd,
+          this.options.root,
+          config.tsconfig || this.config.tsconfig
         )
       },
       this.options,
