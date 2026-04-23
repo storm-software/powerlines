@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Untyped
 
+## [0.2.360](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.360) (04/23/2026)
+
+### Bug Fixes
+
+- **plugin-untyped:** Resolve issue with invalid `untyped` parameters ([d975c0246](https://github.com/storm-software/powerlines/commit/d975c0246))
+
 ## [0.2.359](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.359) (04/23/2026)
 
 ### Updated Dependencies
