@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.0.6](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.6) (04/22/2026)
+
+### Bug Fixes
+
+- **engine:** Ensure the tsconfig path is absolute ([939e18524](https://github.com/storm-software/powerlines/commit/939e18524))
+- **powerlines:** Resolve issue applying `tsconfig` option ([9b3995098](https://github.com/storm-software/powerlines/commit/9b3995098))
+
 ## [0.0.5](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.5) (04/21/2026)
 
 ### Miscellaneous
