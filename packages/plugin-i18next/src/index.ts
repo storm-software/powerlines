@@ -26,10 +26,10 @@ import { isString } from "@stryke/type-checks/is-string";
 import defu from "defu";
 import { I18nextToolkitConfig, runExtractor } from "i18next-cli";
 import { mergeResourcesAsInterface } from "i18next-resources-for-ts";
-import { Plugin } from "powerlines";
+import type { Plugin } from "powerlines";
 import { getOutputPath } from "./helpers/config-utils";
 import { Resource, ResourceContent } from "./types/i18n";
-import {
+import type {
   I18NextPluginContext,
   I18NextPluginOptions,
   I18NextPluginResolvedConfig
@@ -73,8 +73,7 @@ export const plugin = <
               joinPaths(
                 this.config.root,
                 `locales/${language}/${namespace}.json`
-              ),
-            primaryLanguage: this.workspaceConfig.locale
+              )
           }
         },
         {

@@ -37,10 +37,11 @@ ${getTypescriptFileHeader(context)}
 
 import { DateTime, Settings, Info } from "luxon";
 import {
-  StormDateInterface,
+  PowerlinesDateInterface,
   DateFormats,
   TimeUnit
 } from "@powerlines/plugin-date/types/runtime";
+import { env } from "${context.config.framework}:env";
 
 export const formats: DateFormats = {
   dayOfMonth: "d",
@@ -74,11 +75,7 @@ export const formats: DateFormats = {
   year: "yyyy",
 };
 
-export let locale = "${
-    context.env.parsed.DEFAULT_LOCALE || context.workspaceConfig.locale
-      ? `${context.env.parsed.DEFAULT_LOCALE || context.workspaceConfig.locale}`
-      : "en-US"
-  }";
+export let locale = env.LOCALE || "${context.config.date.defaultLocale}";
 
 export const type = "luxon";
 

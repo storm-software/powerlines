@@ -45,10 +45,7 @@ export function plugin<
       config() {
         return {
           crypto: defu(options, {
-            salt: `${
-              (this.config.name ?? this.workspaceConfig?.name) ||
-              this.packageJson?.name
-            }-application`
+            salt: `${(this.config.name ?? this.packageJson?.name) || "powerlines"}-application`
           })
         };
       },

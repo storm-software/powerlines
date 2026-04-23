@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { tryGetWorkspaceConfig } from "@storm-software/config-tools/get-config";
 import {
   loadEnv as loadEnvBase,
   loadEnvFile as loadEnvFileBase
@@ -56,12 +57,13 @@ async function loadEnvFiles<TEnv extends DotenvParseOutput = DotenvParseOutput>(
 async function loadEnvDirectory<
   TEnv extends DotenvParseOutput = DotenvParseOutput
 >(
+  context: EnvPluginContext,
   options: EnvPluginOptions,
   directory: string,
   mode: string,
   cacheDir: string,
   packageJson: PackageJson,
-  workspaceConfig: WorkspaceConfig
+  workspaceConfig?: WorkspaceConfig
 ): Promise<TEnv> {
   const [envResult, c12Result] = await Promise.all([
     loadEnvFiles<TEnv>(options, mode, directory),
@@ -70,9 +72,12 @@ async function loadEnvDirectory<
       name: "storm",
       envName: mode,
       defaults: {
-        NAME: packageJson.name?.replace(`@${workspaceConfig.namespace}/`, ""),
+        NAME:
+          workspaceConfig?.namespace && packageJson.name
+            ? packageJson.name?.replace(`@${workspaceConfig.namespace}/`, "")
+            : context.config.name,
         MODE: mode,
-        ORG: workspaceConfig.organization
+        ORG: context.config.organization || workspaceConfig?.organization
       },
       globalRc: true,
       packageJson: true,
@@ -96,33 +101,28 @@ async function loadEnvDirectory<
  */
 export function loadEnvFromContext(
   context: EnvPluginContext,
-  parsed: DotenvParseOutput
+  parsed: DotenvParseOutput,
+  workspaceConfig?: WorkspaceConfig
 ) {
   return defu(
     {
-      APP_NAME: kebabCase(
-        context.config.name ||
-          context.packageJson.name?.replace(
-            `/${context.workspaceConfig.namespace}`,
-            ""
-          )
-      ),
+      APP_NAME: kebabCase(context.config.name),
       APP_VERSION: context.packageJson.version,
       BUILD_ID: context.meta.buildId,
       BUILD_TIMESTAMP: new Date(context.meta.timestamp).toISOString(),
       BUILD_CHECKSUM: context.meta.checksum,
       RELEASE_ID: context.meta.releaseId,
       RELEASE_TAG: `${kebabCase(context.config.name)}@${context.packageJson.version}`,
-      DEFAULT_LOCALE: context.workspaceConfig.locale,
-      DEFAULT_TIMEZONE: context.workspaceConfig.timezone,
+      DEFAULT_LOCALE: workspaceConfig?.locale,
+      DEFAULT_TIMEZONE: workspaceConfig?.timezone,
       LOG_LEVEL:
         context.config.logLevel === "trace" ? "debug" : context.config.logLevel,
-      ERROR_URL: context.workspaceConfig.error?.url,
+      ERROR_URL: workspaceConfig?.error?.url,
       ORGANIZATION:
         context.config.organization ||
-        (isSetObject(context.workspaceConfig.organization)
-          ? context.workspaceConfig.organization.name
-          : context.workspaceConfig.organization),
+        (isSetObject(workspaceConfig?.organization)
+          ? workspaceConfig.organization.name
+          : workspaceConfig?.organization),
       PLATFORM: context.config.platform,
       MODE: context.config.mode,
       TEST: context.config.mode === "test",
@@ -149,35 +149,40 @@ export function loadEnvFromContext(
 export async function loadEnv<
   TEnv extends DotenvParseOutput = DotenvParseOutput
 >(context: EnvPluginContext, options: EnvPluginOptions): Promise<TEnv> {
+  const workspaceConfig = await tryGetWorkspaceConfig();
+
   const [project, workspace, config] = await Promise.all([
     loadEnvDirectory<TEnv>(
+      context,
       options,
       context.config.root,
       context.config.mode,
       context.cachePath,
       context.packageJson,
-      context.workspaceConfig
+      workspaceConfig
     ),
     loadEnvDirectory<TEnv>(
+      context,
       options,
       context.config.cwd,
       context.config.mode,
       context.cachePath,
       context.packageJson,
-      context.workspaceConfig
+      workspaceConfig
     ),
     loadEnvDirectory<TEnv>(
+      context,
       options,
       context.envPaths.config,
       context.config.mode,
       context.cachePath,
       context.packageJson,
-      context.workspaceConfig
+      workspaceConfig
     )
   ]);
 
   return defu(
-    loadEnvFromContext(context, process.env),
+    loadEnvFromContext(context, process.env, workspaceConfig),
     project,
     workspace,
     config

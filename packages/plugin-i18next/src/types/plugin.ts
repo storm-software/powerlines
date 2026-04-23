@@ -23,6 +23,12 @@ import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 export type I18NextPluginOptions = DeepPartial<I18nextToolkitConfig>;
 
 export type I18NextPluginUserConfig = UserConfig & {
+  /**
+   * Configuration options for the i18next plugin.
+   *
+   * @remarks
+   * This configuration is used to customize the behavior of the i18next plugin. It can include any of the options defined in the `I18nextToolkitConfig` interface, but all options are optional and will be merged with the plugin's default configuration.
+   */
   i18next?: I18NextPluginOptions;
 };
 

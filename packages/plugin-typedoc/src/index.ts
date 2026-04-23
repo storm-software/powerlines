@@ -71,7 +71,7 @@ export function plugin(
           hideGenerator: true,
           githubPages: false,
           readme: "none",
-          gitRevision: this.workspaceConfig.branch || "main",
+          gitRevision: "main",
           tsconfig: this.tsconfig.tsconfigFilePath,
           plugin: options.plugin ? [] : ["typedoc-plugin-markdown"]
         })

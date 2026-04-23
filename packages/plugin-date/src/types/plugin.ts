@@ -44,6 +44,16 @@ export interface DatePluginOptions {
    * Options for the Env plugin.
    */
   env?: EnvPluginOptions;
+
+  /**
+   * The default locale to use for date formatting and parsing.
+   *
+   * @remarks
+   * This value is used as the default locale for date formatting and parsing. It can be overridden by the `LOCALE` environment variable or the `DEFAULT_LOCALE` environment variable.
+   *
+   * @defaultValue "en-US"
+   */
+  defaultLocale?: string;
 }
 
 export interface DatePluginUserConfig extends EnvPluginUserConfig {

@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import env from "@powerlines/plugin-env";
-import defu from "defu";
 import { Plugin } from "powerlines";
 import { dateFnsModule } from "./components/date-fns";
 import { dayjsModule } from "./components/dayjs";
@@ -26,7 +25,7 @@ import { momentModule } from "./components/moment";
 import {
   DatePluginContext,
   DatePluginOptions,
-  DatePluginUserConfig
+  DatePluginResolvedConfig
 } from "./types/plugin";
 
 export * from "./components";
@@ -54,25 +53,27 @@ export function plugin<TContext extends DatePluginContext = DatePluginContext>(
         );
 
         const config = {
-          date: defu(options, {
-            type: "date-fns"
-          })
-        } as DatePluginUserConfig;
+          date: options
+        } as DatePluginResolvedConfig;
 
         if (
-          !config.date!.type ||
-          !["date-fns", "dayjs", "luxon", "moment"].includes(config.date!.type)
+          !options.type ||
+          !["date-fns", "dayjs", "luxon", "moment"].includes(options.type)
         ) {
-          if (config.date!.type) {
+          if (options.type) {
             this.warn(
-              `Invalid date library type "${config.date!.type}" specified. Defaulting to "date-fns".`
+              `Invalid date library type "${options.type}" specified. Defaulting to "date-fns".`
             );
           }
 
-          config.date!.type = "date-fns";
+          config.date.type = "date-fns";
         }
 
-        this.debug(`Using date library: ${config.date!.type}`);
+        if (!options.defaultLocale) {
+          config.date.defaultLocale = "en-US";
+        }
+
+        this.debug(`Using date library: ${config.date.type}`);
 
         return config;
       },
@@ -82,6 +83,10 @@ export function plugin<TContext extends DatePluginContext = DatePluginContext>(
         );
 
         this.dependencies[this.config.date.type] = "latest";
+
+        if (!options.defaultLocale && this.env.parsed.DEFAULT_LOCALE) {
+          this.config.date.defaultLocale = this.env.parsed.DEFAULT_LOCALE;
+        }
       },
       async prepare() {
         this.debug(

@@ -79,9 +79,9 @@ import { isValid as dateFnsIsValid } from "date-fns/isValid";
 import { isWithinInterval } from "date-fns/isWithinInterval";
 import { Locale } from "date-fns/locale";
 import { ${
-    context.env.parsed.DEFAULT_LOCALE?.replaceAll("-", "") || "enUS"
+    context.config.date.defaultLocale?.replaceAll("-", "") || "enUS"
   } as defaultLocale } from "date-fns/locale/${
-    context.env.parsed.DEFAULT_LOCALE || "en-US"
+    context.config.date.defaultLocale || "en-US"
   }";
 import { parse as dateFnsParse } from "date-fns/parse";
 import { parseISO as dateFnsParseISO } from "date-fns/parseISO";

@@ -230,6 +230,7 @@ export type PluginHooks<TContext extends PluginContext> = {
     TKey
   >;
 } & {
+  types?: PluginHook<HookFunctions<TContext>["types"], never>;
   transform?: PluginHook<HookFunctions<TContext>["transform"], "code" | "id">;
   load?: PluginHook<HookFunctions<TContext>["load"], "id">;
   resolveId?: PluginHook<HookFunctions<TContext>["resolveId"], "id">;

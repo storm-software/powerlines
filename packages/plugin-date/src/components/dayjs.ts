@@ -41,10 +41,11 @@ import localizedFormatPlugin from "dayjs/plugin/localizedFormat";
 import isBetweenPlugin from "dayjs/plugin/isBetween";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import {
-  StormDateInterface,
+  PowerlinesDateInterface,
   DateFormats,
   TimeUnit
 } from "@powerlines/plugin-date/types/runtime";
+import { env } from "${context.config.framework}:env";
 
 defaultDayjs.extend(customParseFormatPlugin);
 defaultDayjs.extend(localizedFormatPlugin);
@@ -99,11 +100,7 @@ export const formats: DateFormats = {
   filePathDateTime: "L_HH-mm-ss-SSS"
 };
 
-export let locale = "${
-    context.env.parsed.DEFAULT_LOCALE || context.workspaceConfig.locale
-      ? `${context.env.parsed.DEFAULT_LOCALE || context.workspaceConfig.locale}`
-      : "en-US"
-  }";
+export let locale = env.LOCALE || "${context.config.date.defaultLocale}";
 
 export const dayjs = withLocale(defaultDayjs, locale);
 
@@ -143,11 +140,11 @@ export function createDate<
 
 export function is12HourCycleInCurrentLocale() {
   /* istanbul ignore next */
-  return /A|a/.test(dayjs.Ls[dayjs.locale() || $storm.env.DEFAULT_LOCALE]?.formats?.LT ?? "");
+  return /A|a/.test(dayjs.Ls[dayjs.locale() || locale]?.formats?.LT ?? "");
 };
 
 export function getCurrentLocaleCode() {
-  return dayjs.locale() || $storm.env.DEFAULT_LOCALE;
+  return dayjs.locale() || locale;
 };
 
 export function getFormatHelperText(format: string) {
@@ -162,7 +159,7 @@ export function getFormatHelperText(format: string) {
         if (firstCharacter === "L") {
           /* istanbul ignore next */
           return (
-            dayjs.Ls[dayjs.locale() || $storm.env.DEFAULT_LOCALE]?.formats[
+            dayjs.Ls[dayjs.locale() || locale]?.formats[
               token as keyof ILocale["formats"]
             ] ?? token
           );

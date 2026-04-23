@@ -16,6 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+import { EnvInterface } from "@powerlines/plugin-env/types/runtime";
+
 /**
  * The various types of date formats used in Storm Stack applications.
  */
@@ -241,12 +243,6 @@ export type TimeUnit =
   | "seconds"
   | "milliseconds";
 
-// interface ConstructorOptions<TLocale> {
-//   formats?: Partial<DateFormats>;
-//   locale?: TLocale;
-//   instance?: any;
-// }
-
 /**
  * Interface for date utility functions used in the Storm Stack.
  *
@@ -256,7 +252,7 @@ export type TimeUnit =
  * @remarks
  * This interface defines a contract for date manipulation and formatting utilities, abstracting over different date libraries (such as [Moment.js](https://momentjs.com/), [Day.js](https://day.js.org/), etc.). It provides methods for creating, parsing, comparing, and formatting dates, as well as manipulating date components and handling localization.
  */
-export interface StormDateInterface<TDate, TLocale> {
+export interface PowerlinesDateInterface<TDate, TLocale> {
   /**
    * The set of date formats supported by the utility.
    */
@@ -843,4 +839,13 @@ export interface StormDateInterface<TDate, TLocale> {
    * @returns The localized meridiem string.
    */
   getMeridiemText: (meridiem: "am" | "pm") => string;
+}
+
+export interface DateEnvInterface extends EnvInterface {
+  /**
+   * The locale to use for date formatting and parsing. This can be set via the `LOCALE` environment variable or the `DEFAULT_LOCALE` environment variable, with `LOCALE` taking precedence if both are set. If neither is set, it will default to "en-US".
+   *
+   * @runtime
+   */
+  LOCALE?: string;
 }
