@@ -19,6 +19,7 @@
 import type {
   Context,
   CopyConfig,
+  CopyResolvedConfig,
   EmitEntryOptions,
   EmitOptions,
   ExecutionOptions,
@@ -1315,8 +1316,8 @@ export class PowerlinesContext<
           "dist",
           replacePath(this.config.root, this.options.cwd)
         ),
-        ...(this.config.output.copy || {})
-      };
+        ...((this.config.output.copy || {}) as Partial<CopyConfig>)
+      } as CopyResolvedConfig;
     }
 
     if (

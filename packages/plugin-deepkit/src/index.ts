@@ -21,6 +21,7 @@ import {
   createTransformer
 } from "@powerlines/deepkit/transformer";
 import tsc from "@powerlines/plugin-tsc";
+import { appendPath } from "@stryke/path/append";
 import { Plugin } from "powerlines";
 import { DeepkitPluginContext, DeepkitPluginOptions } from "./types/plugin";
 
@@ -82,7 +83,10 @@ export const plugin = <
             exclude: this.config.deepkit.exclude ?? [],
             reflection,
             level,
-            configFilePath: this.tsconfig.tsconfigFilePath
+            configFilePath: appendPath(
+              this.tsconfig.tsconfigFilePath,
+              this.options.cwd
+            )
           };
 
           this.config.tsc.transformers ??= {
