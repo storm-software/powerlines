@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.0.7](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.7) (04/23/2026)
+
+### Bug Fixes
+
+- **plugin-deepkit:** Resolve issue with relative configuration paths ([511083480](https://github.com/storm-software/powerlines/commit/511083480))
+
 ## [0.0.6](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.6) (04/22/2026)
 
 ### Bug Fixes

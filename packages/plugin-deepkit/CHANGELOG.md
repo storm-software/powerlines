@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.287](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.287) (04/23/2026)
+
+### Bug Fixes
+
+- **plugin-deepkit:** Resolve issue with relative configuration paths ([511083480](https://github.com/storm-software/powerlines/commit/511083480))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.357**
+- Updated **plugin-tsc** to **v0.2.414**
+- Updated **powerlines** to **v0.43.5**
+- Updated **deepkit** to **v0.8.9**
+
 ## [0.11.286](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.286) (04/22/2026)
 
 ### Updated Dependencies
