@@ -21,7 +21,7 @@ import type { AnyFunction, MaybePromise } from "@stryke/types/base";
 import { LoadResult } from "rollup";
 import type { HookFilter, TransformResult } from "unplugin";
 import { PLUGIN_NON_HOOK_FIELDS } from "../constants/plugin";
-import type { CommandType } from "./commands";
+import { BaseCommandType } from "./commands";
 import type {
   EnvironmentConfig,
   EnvironmentResolvedConfig,
@@ -201,7 +201,7 @@ export interface Hooks<TContext extends PluginContext> {
 }
 
 export type HookFunctions<TContext extends PluginContext> = {
-  [TCommandType in CommandType]: (this: TContext) => MaybePromise<void>;
+  [TCommandType in BaseCommandType]: (this: TContext) => MaybePromise<void>;
 } & Hooks<TContext>;
 
 type DeepPartial<T> = {

@@ -16,14 +16,18 @@
 
  ------------------------------------------------------------------- */
 
-export const POWERLINES_API_FUNCTIONS = [
+export const BASE_API_FUNCTIONS = [
   "new",
   "clean",
   "prepare",
-  "types",
   "lint",
   "test",
   "build",
   "docs",
   "deploy"
+] as const;
+
+export const POWERLINES_API_FUNCTIONS = [
+  "types",
+  ...BASE_API_FUNCTIONS
 ] as const;
