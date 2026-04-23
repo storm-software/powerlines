@@ -63,9 +63,14 @@ export const plugin = <
         path => replacePathTokens(this, path)
       );
 
-      this.untyped = getGenerateAction(
-        this.workspaceConfig as StormWorkspaceConfig
-      );
+      this.untyped = getGenerateAction({
+        workspaceRoot: this.config.cwd ?? process.cwd(),
+        skipCache: this.config.skipCache,
+        directories: {
+          cache: this.cachePath
+        },
+        logLevel: this.config.logLevel
+      } as StormWorkspaceConfig);
     },
     async prepare() {
       return this.untyped({
