@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.10.415](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.415) (04/23/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with deprecated workspace config fields ([d9e11b24a](https://github.com/storm-software/powerlines/commit/d9e11b24a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.358**
+- Updated **powerlines** to **v0.43.6**
+
 ## [0.10.414](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.414) (04/23/2026)
 
 ### Updated Dependencies

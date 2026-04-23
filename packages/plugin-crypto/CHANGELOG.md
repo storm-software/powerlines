@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.441](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.441) (04/23/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with deprecated workspace config fields ([d9e11b24a](https://github.com/storm-software/powerlines/commit/d9e11b24a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.358**
+- Updated **plugin-env** to **v0.16.132**
+- Updated **powerlines** to **v0.43.6**
+
 ## [0.10.440](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.440) (04/23/2026)
 
 ### Updated Dependencies

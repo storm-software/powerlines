@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Core
 
+## [0.13.16](https://github.com/storm-software/powerlines/releases/tag/core%400.13.16) (04/23/2026)
+
+### Bug Fixes
+
+- **core:** Resolve typing issues with `types` plugin hook ([33beb7bce](https://github.com/storm-software/powerlines/commit/33beb7bce))
+- **core:** Resolve issue with deprecated workspace config fields ([d9e11b24a](https://github.com/storm-software/powerlines/commit/d9e11b24a))
+
 ## [0.13.15](https://github.com/storm-software/powerlines/releases/tag/core%400.13.15) (04/21/2026)
 
 ### Bug Fixes

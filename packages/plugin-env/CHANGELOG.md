@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.132](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.132) (04/23/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with deprecated workspace config fields ([d9e11b24a](https://github.com/storm-software/powerlines/commit/d9e11b24a))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.288**
+- Updated **plugin-automd** to **v0.1.407**
+- Updated **plugin-plugin** to **v0.12.358**
+- Updated **plugin-alloy** to **v0.26.26**
+- Updated **plugin-babel** to **v0.12.402**
+- Updated **plugin-tsc** to **v0.2.415**
+- Updated **powerlines** to **v0.43.6**
+- Updated **deepkit** to **v0.8.10**
+
 ## [0.16.131](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.131) (04/23/2026)
 
 ### Updated Dependencies

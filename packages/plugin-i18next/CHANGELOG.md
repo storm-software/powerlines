@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin I18next
 
+## [0.1.304](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.304) (04/23/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with deprecated workspace config fields ([d9e11b24a](https://github.com/storm-software/powerlines/commit/d9e11b24a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.358**
+- Updated **powerlines** to **v0.43.6**
+
 ## [0.1.303](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.303) (04/23/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.476](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.476) (04/23/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with deprecated workspace config fields ([d9e11b24a](https://github.com/storm-software/powerlines/commit/d9e11b24a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.358**
+- Updated **plugin-env** to **v0.16.132**
+- Updated **powerlines** to **v0.43.6**
+
 ## [0.12.475](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.475) (04/23/2026)
 
 ### Updated Dependencies
