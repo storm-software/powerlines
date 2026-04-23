@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { Context } from "@powerlines/core";
-import { BabelPluginResolvedConfig } from "@powerlines/plugin-babel/types/plugin";
+import type { Context } from "@powerlines/core";
+import type { BabelPluginResolvedConfig } from "@powerlines/plugin-babel/types/plugin";
 import alias from "@rollup/plugin-alias";
 import {
   getBabelInputPlugin,
