@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.335](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.335) (04/24/2026)
+
+### Bug Fixes
+
+- **plugin-babel:** Resolve issue applying string presets ([18b0db222](https://github.com/storm-software/powerlines/commit/18b0db222))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.360**
+- Updated **plugin-alloy** to **v0.26.28**
+- Updated **plugin-babel** to **v0.12.403**
+- Updated **plugin-env** to **v0.16.134**
+- Updated **powerlines** to **v0.43.8**
+
 ## [0.1.334](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.334) (04/23/2026)
 
 ### Updated Dependencies

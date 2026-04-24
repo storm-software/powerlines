@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.134](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.134) (04/24/2026)
+
+### Bug Fixes
+
+- **plugin-babel:** Resolve issue applying string presets ([18b0db222](https://github.com/storm-software/powerlines/commit/18b0db222))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.290**
+- Updated **plugin-automd** to **v0.1.409**
+- Updated **plugin-plugin** to **v0.12.360**
+- Updated **plugin-alloy** to **v0.26.28**
+- Updated **plugin-babel** to **v0.12.403**
+- Updated **plugin-tsc** to **v0.2.417**
+- Updated **powerlines** to **v0.43.8**
+- Updated **deepkit** to **v0.8.11**
+
 ## [0.16.133](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.133) (04/23/2026)
 
 ### Updated Dependencies

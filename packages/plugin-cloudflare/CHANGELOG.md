@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.33](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.33) (04/24/2026)
+
+### Bug Fixes
+
+- **plugin-babel:** Resolve issue applying string presets ([18b0db222](https://github.com/storm-software/powerlines/commit/18b0db222))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.407**
+- Updated **plugin-plugin** to **v0.12.360**
+- Updated **plugin-pulumi** to **v0.6.50**
+- Updated **plugin-alloy** to **v0.26.28**
+- Updated **plugin-unenv** to **v0.1.398**
+- Updated **plugin-env** to **v0.16.134**
+- Updated **powerlines** to **v0.43.8**
+
 ## [0.6.32](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.32) (04/23/2026)
 
 ### Updated Dependencies

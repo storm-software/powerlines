@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.469](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.469) (04/24/2026)
+
+### Bug Fixes
+
+- **plugin-babel:** Resolve issue applying string presets ([18b0db222](https://github.com/storm-software/powerlines/commit/18b0db222))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.360**
+- Updated **plugin-alloy** to **v0.26.28**
+- Updated **plugin-babel** to **v0.12.403**
+- Updated **plugin-vite** to **v0.14.403**
+- Updated **plugin-env** to **v0.16.134**
+- Updated **powerlines** to **v0.43.8**
+- Updated **deepkit** to **v0.8.11**
+
 ## [0.1.468](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.468) (04/23/2026)
 
 ### Updated Dependencies

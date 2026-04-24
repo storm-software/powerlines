@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.33](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.33) (04/24/2026)
+
+### Bug Fixes
+
+- **plugin-babel:** Resolve issue applying string presets ([18b0db222](https://github.com/storm-software/powerlines/commit/18b0db222))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.409**
+- Updated **plugin-plugin** to **v0.12.360**
+- Updated **plugin-alloy** to **v0.26.28**
+- Updated **plugin-babel** to **v0.12.403**
+- Updated **powerlines** to **v0.43.8**
+
 ## [0.1.32](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.32) (04/23/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.403](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.403) (04/24/2026)
+
+### Bug Fixes
+
+- **plugin-babel:** Resolve issue applying string presets ([18b0db222](https://github.com/storm-software/powerlines/commit/18b0db222))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.13.17**
+
 ## [0.12.402](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.402) (04/23/2026)
 
 ### Updated Dependencies
