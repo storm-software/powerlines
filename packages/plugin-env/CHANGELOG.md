@@ -2,6 +2,27 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.135](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.135) (04/24/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Update docs folder from `generated` to `reference` ([22e02aa55](https://github.com/storm-software/powerlines/commit/22e02aa55))
+
+### Bug Fixes
+
+- **plugin-alloy:** Ensure version 8.0.0-rc3 of `@babel/preset-typescript` is used ([eff4f6272](https://github.com/storm-software/powerlines/commit/eff4f6272))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.291**
+- Updated **plugin-automd** to **v0.1.410**
+- Updated **plugin-plugin** to **v0.12.361**
+- Updated **plugin-alloy** to **v0.26.29**
+- Updated **plugin-babel** to **v0.12.404**
+- Updated **plugin-tsc** to **v0.2.418**
+- Updated **powerlines** to **v0.43.9**
+- Updated **deepkit** to **v0.8.12**
+
 ## [0.16.134](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.134) (04/24/2026)
 
 ### Bug Fixes

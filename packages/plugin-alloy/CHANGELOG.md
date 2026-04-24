@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.29](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.29) (04/24/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Update docs folder from `generated` to `reference` ([22e02aa55](https://github.com/storm-software/powerlines/commit/22e02aa55))
+
+### Bug Fixes
+
+- **plugin-alloy:** Ensure version 8.0.0-rc3 of `@babel/preset-typescript` is used ([eff4f6272](https://github.com/storm-software/powerlines/commit/eff4f6272))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.361**
+- Updated **plugin-babel** to **v0.12.404**
+- Updated **powerlines** to **v0.43.9**
+- Updated **deepkit** to **v0.8.12**
+- Updated **core** to **v0.13.18**
+
 ## [0.26.28](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.28) (04/24/2026)
 
 ### Bug Fixes
