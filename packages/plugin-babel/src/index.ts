@@ -18,13 +18,13 @@
 
 import { PluginItem, PresetItem, transformAsync } from "@babel/core";
 import type { Plugin } from "@powerlines/core";
-import {
-  findFileExtension,
-  findFileExtensionSafe
-} from "@stryke/path/file-path-fns";
+import { omit } from "@stryke/helpers/omit";
+import { findFileExtensionSafe } from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
+import { isEmptyObject } from "@stryke/type-checks/is-empty-object";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import defu from "defu";
+import { isSet } from "node:util/types";
 import { isDuplicatePlugin, isDuplicatePreset } from "./helpers/filters";
 import {
   getUniquePlugins,
@@ -112,20 +112,30 @@ export const plugin = <
         return { code, id };
       }
 
-      if (
-        !this.config.babel?.skipConfigResolution &&
-        /^(?:m|c)?tsx?$/.test(
-          findFileExtensionSafe(id, {
-            fullExtension: true
-          })
-        ) &&
-        !isDuplicatePlugin(plugins, "@babel/plugin-syntax-typescript") &&
-        !isDuplicatePreset(presets, "@babel/preset-typescript")
-      ) {
-        plugins.unshift([
-          "@babel/plugin-syntax-typescript",
-          { isTSX: findFileExtension(id) === "tsx" }
-        ]);
+      if (!this.config.babel?.skipConfigResolution) {
+        if (
+          /^(?:m|c)?tsx?$/.test(
+            findFileExtensionSafe(id, {
+              fullExtension: true
+            })
+          ) &&
+          !isDuplicatePlugin(plugins, "@babel/plugin-syntax-typescript") &&
+          !isDuplicatePreset(presets, "@babel/preset-typescript")
+        ) {
+          plugins.unshift("@babel/plugin-syntax-typescript");
+        }
+
+        if (
+          /^(?:t|j)sx$/.test(
+            findFileExtensionSafe(id, {
+              fullExtension: true
+            })
+          ) &&
+          !isDuplicatePlugin(plugins, "@babel/plugin-syntax-jsx") &&
+          !isDuplicatePreset(presets, "@babel/preset-react")
+        ) {
+          plugins.unshift("@babel/plugin-syntax-jsx");
+        }
       }
 
       this.trace(
@@ -148,30 +158,46 @@ export const plugin = <
         caller: {
           name: this.config.framework
         },
-        ...(this.config.babel ?? {}),
+        ...omit(this.config.babel ?? {}, ["skipConfigResolution"]),
         filename: id,
         plugins: plugins
           .map(plugin => {
-            return Array.isArray(plugin) && plugin.length >= 2
-              ? [
-                  plugin[0],
-                  defu(plugin.length > 1 && plugin[1] ? plugin[1] : {}, {
-                    options
-                  })
-                ]
-              : plugin;
+            if (Array.isArray(plugin) && plugin.length >= 2) {
+              if (
+                plugin
+                  .slice(1)
+                  .every(item => !isSet(item) || isEmptyObject(item))
+              ) {
+                return plugin[0];
+              }
+
+              return [
+                plugin[0],
+                plugin.length > 1 && plugin[1] ? plugin[1] : {}
+              ];
+            }
+
+            return plugin;
           })
           .filter(Boolean) as PluginItem<object>[],
         presets: presets
           .map(preset => {
-            return Array.isArray(preset) && preset.length >= 2
-              ? [
-                  preset[0],
-                  defu(preset.length > 1 && preset[1] ? preset[1] : {}, {
-                    options
-                  })
-                ]
-              : preset;
+            if (Array.isArray(preset) && preset.length >= 2) {
+              if (
+                preset
+                  .slice(1)
+                  .every(item => !isSet(item) || isEmptyObject(item))
+              ) {
+                return preset[0];
+              }
+
+              return [
+                preset[0],
+                preset.length > 1 && preset[1] ? preset[1] : {}
+              ];
+            }
+
+            return preset;
           })
           .filter(Boolean) as PresetItem<object>[]
       });

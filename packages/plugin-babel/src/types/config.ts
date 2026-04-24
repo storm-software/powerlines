@@ -111,7 +111,7 @@ export type BabelTransformPresetOptions<
       TOptions
     ]
   | [
-      BabelTransformPreset<TContext, TOptions>,
+      PresetTarget<TOptions> | BabelTransformPreset<TContext, TOptions>,
       TOptions,
       BabelTransformPluginFilter
     ];
