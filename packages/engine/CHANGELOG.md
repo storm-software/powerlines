@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.0.11](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.11) (04/24/2026)
+
+### Bug Fixes
+
+- **nx:** Resolve issue applying `outputPath` in executors ([143c1bb09](https://github.com/storm-software/powerlines/commit/143c1bb09))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.13.19**
+
 ## [0.0.10](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.10) (04/24/2026)
 
 ### Updated Dependencies

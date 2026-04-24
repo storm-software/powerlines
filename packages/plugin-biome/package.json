@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-biome",
-  "version": "0.2.416",
+  "version": "0.2.417",
   "type": "module",
   "description": "A package containing a Powerlines plugin for running Biome linting on the codebase.",
   "repository": {
