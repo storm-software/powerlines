@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.28](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.28) (04/24/2026)
+
+### Bug Fixes
+
+- **plugin-babel:** Resolve issue applying string presets ([18b0db222](https://github.com/storm-software/powerlines/commit/18b0db222))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.360**
+- Updated **plugin-babel** to **v0.12.403**
+- Updated **powerlines** to **v0.43.8**
+- Updated **deepkit** to **v0.8.11**
+- Updated **core** to **v0.13.17**
+
 ## [0.26.27](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.27) (04/23/2026)
 
 ### Updated Dependencies
