@@ -1298,23 +1298,16 @@ export class PowerlinesContext<
       }${this.config.framework ?? "powerlines"}.d.ts`;
     }
 
-    if (
-      this.config.root &&
-      this.config.root !== "." &&
-      this.config.root !== "./" &&
-      this.config.root !== this.options.cwd
-    ) {
+    if (!this.config.output.path) {
       this.config.output.path ??= joinPaths(this.config.root, "dist");
-    } else {
-      this.config.output.path ??= "dist";
     }
 
     if (this.config.root && this.config.output.copy !== false) {
       this.config.output.copy = {
         path: joinPaths(
-          this.options.cwd,
+          this.config.cwd,
           "dist",
-          replacePath(this.config.root, this.options.cwd)
+          replacePath(this.config.root, this.config.cwd)
         ),
         ...((this.config.output.copy || {}) as Partial<CopyConfig>)
       } as CopyResolvedConfig;

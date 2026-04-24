@@ -21,6 +21,7 @@ import { writeError } from "@storm-software/config-tools/logger";
 import { StormWorkspaceConfig } from "@storm-software/config/types";
 import { withRunExecutor } from "@storm-software/workspace-tools/base/base-executor";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
+import { replacePath } from "@stryke/path/replace";
 import { isError } from "@stryke/type-checks/is-error";
 import defu from "defu";
 import { createJiti } from "jiti";
@@ -124,8 +125,27 @@ export function withExecutor<
                   command,
                   projectType: projectConfig.projectType,
                   output: {
-                    path: options.outputPath,
-                    copy: { path: options.copyPath, assets: options.assets },
+                    path: options.outputPath
+                      ? replacePath(
+                          replacePath(
+                            options.outputPath,
+                            workspaceConfig.workspaceRoot
+                          ),
+                          projectConfig.root
+                        )
+                      : undefined,
+                    copy: {
+                      path: options.copyPath
+                        ? replacePath(
+                            replacePath(
+                              options.copyPath,
+                              workspaceConfig.workspaceRoot
+                            ),
+                            projectConfig.root
+                          )
+                        : undefined,
+                      assets: options.assets
+                    },
                     format: options.format,
                     sourceMap: options.sourceMap
                   },
