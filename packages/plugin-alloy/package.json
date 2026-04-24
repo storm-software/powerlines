@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-alloy",
-  "version": "0.26.27",
+  "version": "0.26.19",
   "type": "module",
   "description": "A package containing various Alloy framework components and helper utilities.",
   "repository": {
@@ -431,6 +431,20 @@
       "default": {
         "types": "./dist/markdown/components/front-matter.d.mts",
         "default": "./dist/markdown/components/front-matter.mjs"
+      }
+    },
+    "./markdown/components/heading": {
+      "require": {
+        "types": "./dist/markdown/components/heading.d.cts",
+        "default": "./dist/markdown/components/heading.cjs"
+      },
+      "import": {
+        "types": "./dist/markdown/components/heading.d.mts",
+        "default": "./dist/markdown/components/heading.mjs"
+      },
+      "default": {
+        "types": "./dist/markdown/components/heading.d.mts",
+        "default": "./dist/markdown/components/heading.mjs"
       }
     },
     "./markdown/components/markdown-file": {
@@ -888,6 +902,7 @@
   "files": ["dist/**/*"],
   "keywords": ["alloy-js", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
+    "@babel/preset-typescript": "catalog:",
     "@alloy-js/babel-preset": "catalog:",
     "@alloy-js/core": "catalog:",
     "@alloy-js/json": "catalog:",

@@ -81,20 +81,9 @@ export const plugin = <
       async configResolved() {
         this.debug("Ensuring TypeScript configuration is set up for Alloy-js.");
 
-        if (
-          this.tsconfig.tsconfigJson.compilerOptions?.jsx !== "preserve" ||
-          this.tsconfig.tsconfigJson.compilerOptions?.jsxImportSource
-        ) {
+        if (this.tsconfig.tsconfigJson.compilerOptions?.jsx !== "preserve") {
           this.tsconfig.tsconfigJson.compilerOptions ??= {};
-
-          if (this.tsconfig.tsconfigJson.compilerOptions.jsx !== "preserve") {
-            this.tsconfig.tsconfigJson.compilerOptions.jsx = "preserve";
-          }
-
-          if (this.tsconfig.tsconfigJson.compilerOptions.jsxImportSource) {
-            this.tsconfig.tsconfigJson.compilerOptions.jsxImportSource =
-              undefined;
-          }
+          this.tsconfig.tsconfigJson.compilerOptions.jsx = "preserve";
 
           await this.fs.write(
             this.tsconfig.tsconfigFilePath,

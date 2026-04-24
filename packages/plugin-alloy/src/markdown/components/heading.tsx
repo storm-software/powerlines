@@ -16,7 +16,31 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./front-matter";
-export * from "./heading";
-export * from "./markdown-file";
-export * from "./markdown-table";
+import type { HeadingProps as BaseHeadingProps } from "@alloy-js/markdown";
+import { Heading as BaseHeading } from "@alloy-js/markdown";
+import { Spacing } from "../../core/components/spacing";
+
+export interface HeadingProps extends BaseHeadingProps {}
+
+/**
+ * Renders a heading for a markdown file.
+ *
+ * @see https://www.markdownguide.org/basic-syntax/#headings
+ *
+ * @example
+ * ```tsx
+ * <Heading level={1}>This is a heading</Heading>
+ * ```
+ */
+export function Heading(props: HeadingProps) {
+  const { children, ...rest } = props;
+
+  return (
+    <>
+      <BaseHeading level={1} {...rest}>
+        {children}
+      </BaseHeading>
+      <Spacing />
+    </>
+  );
+}

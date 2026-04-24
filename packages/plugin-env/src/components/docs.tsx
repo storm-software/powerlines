@@ -17,13 +17,14 @@
  ------------------------------------------------------------------- */
 
 import { code, Show } from "@alloy-js/core";
-import { Heading, Link } from "@alloy-js/markdown";
+import { Link } from "@alloy-js/markdown";
 import {
   ReflectionClass,
   stringifyType
 } from "@powerlines/deepkit/vendor/type";
 import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
 import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
+import { Heading } from "@powerlines/plugin-alloy/markdown/components/heading";
 import {
   MarkdownFile,
   MarkdownFileProps
