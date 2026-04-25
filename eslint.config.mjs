@@ -31,7 +31,7 @@ export default defineConfig({
   },
   ignores: [
     "packages/deepkit/schemas/**",
-    "packages/powerlines/schemas/**",
+    "packages/engine/schemas/**",
     "**.spec.ts"
   ],
   tsdoc: {
