@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.13.22](https://github.com/storm-software/powerlines/releases/tag/core%400.13.22) (04/25/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with `constants` export path ([2edb9c5db](https://github.com/storm-software/powerlines/commit/2edb9c5db))
+
 ## [0.13.21](https://github.com/storm-software/powerlines/releases/tag/core%400.13.21) (04/24/2026)
 
 ### Bug Fixes

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.12.28](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.28) (04/25/2026)
+
+### Miscellaneous
+
+- **nx:** Improve plugin's executor efficiency in `development` mode ([7e215bfe9](https://github.com/storm-software/powerlines/commit/7e215bfe9))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.43.13**
+
 ## [0.12.27](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.27) (04/24/2026)
 
 ### Updated Dependencies
