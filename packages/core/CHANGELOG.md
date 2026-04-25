@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.13.23](https://github.com/storm-software/powerlines/releases/tag/core%400.13.23) (04/25/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Ensure version 8.0.0-rc3 of `@babel/preset-typescript` is used in plugin ([9bbf23ad6](https://github.com/storm-software/powerlines/commit/9bbf23ad6))
+
 ## [0.13.22](https://github.com/storm-software/powerlines/releases/tag/core%400.13.22) (04/25/2026)
 
 ### Bug Fixes

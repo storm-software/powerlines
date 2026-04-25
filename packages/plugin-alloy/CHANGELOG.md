@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.34](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.34) (04/25/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Ensure version 8.0.0-rc3 of `@babel/preset-typescript` is used in plugin ([9bbf23ad6](https://github.com/storm-software/powerlines/commit/9bbf23ad6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.366**
+- Updated **plugin-babel** to **v0.12.409**
+- Updated **powerlines** to **v0.43.14**
+- Updated **deepkit** to **v0.8.17**
+- Updated **core** to **v0.13.23**
+
 ## [0.26.33](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.33) (04/25/2026)
 
 ### Updated Dependencies
