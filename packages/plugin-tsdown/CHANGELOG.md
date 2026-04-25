@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.360](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.360) (04/25/2026)
+
+### Miscellaneous
+
+- **plugin-tsdown:** Convert glob `external` and `noExternal` values to RegExp ([e210cfd90](https://github.com/storm-software/powerlines/commit/e210cfd90))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.417**
+- Updated **core** to **v0.13.25**
+
 ## [0.1.359](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.359) (04/25/2026)
 
 ### Updated Dependencies
