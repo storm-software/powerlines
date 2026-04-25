@@ -46,15 +46,15 @@ export const plugin = <
 
         return {
           type: "library",
+          platform: "node",
           output: {
             format: ["cjs", "esm"],
             dts: true
           },
           resolve: {
-            external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\//]
+            external: ["powerlines", "@powerlines/*"]
           },
           tsdown: {
-            platform: "node",
             target: "esnext",
             cjsDefault: true,
             nodeProtocol: true,
