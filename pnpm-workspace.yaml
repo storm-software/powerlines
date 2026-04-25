@@ -15,6 +15,7 @@ catalog:
   "@babel/generator": 8.0.0-rc.3
   "@babel/helper-plugin-utils": 8.0.0-rc.3
   "@babel/parser": 8.0.0-rc.3
+  "@babel/preset-typescript": 8.0.0-rc.3
   "@babel/types": 8.0.0-rc.3
   "@cacheable/memory": ^2.0.8
   "@cloudflare/unenv-preset": ^2.16.1

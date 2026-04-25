@@ -902,6 +902,7 @@
   "files": ["dist/**/*"],
   "keywords": ["alloy-js", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
+    "@babel/preset-typescript": "catalog:",
     "@alloy-js/babel-preset": "catalog:",
     "@alloy-js/core": "catalog:",
     "@alloy-js/json": "catalog:",

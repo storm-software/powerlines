@@ -27,10 +27,11 @@ import { UnresolvedContext } from "../types/context";
  *
  * @remarks
  * The following tokens are supported:
- * - `{workspaceRoot}` - The root directory of the workspace.
+ * - `{cwd}` - The current working directory.
+ * - `{workspaceRoot}` - The current working directory (same as `{cwd}`).
  * - `{root}` - The root directory of the project (same as `{projectRoot}`).
  * - `{projectRoot}` - The root directory of the project (same as `{root}`).
- * - `{sourceRoot}` - The source root directory of the project (usually `./src`).
+ * - `{sourceRoot}` - The source root directory of the project (usually `{root}/src`).
  * - `{powerlinesPath}` - The directory where Powerlines is installed.
  * - `{cachePath}` - The environment's directory for cached files.
  * - `{dataPath}` - The environment's directory for data files.
@@ -44,6 +45,15 @@ import { UnresolvedContext } from "../types/context";
  * - `{artifactsPath}` - The configured directory for build artifacts.
  * - `{builtinPath}` - The configured directory for generated built-in plugins.
  * - `{entryPath}` - The configured directory for generated entry files.
+ *
+ * @example
+ * ```ts
+ * const path = replacePathTokens(context, "{root}/dist");
+ * // If context.config.root is "/home/user/project", this will return "/home/user/project/dist"
+ *
+ * const pathWithCopy = replacePathTokens(context, "{copy}");
+ * // If context.config.output.copy.path is "/home/user/project/dist-copy", this will return "/home/user/project/dist-copy"
+ * ```
  *
  * @param context - The context containing the values for the path tokens.
  * @param path - The path string with tokens to replace.
