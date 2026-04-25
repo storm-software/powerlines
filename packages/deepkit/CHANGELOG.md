@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.8.15](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.8.15) (04/24/2026)
+
+### Miscellaneous
+
+- **deepkit:** Update constants import to use `lib` export path ([90de8b605](https://github.com/storm-software/powerlines/commit/90de8b605))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.411**
+- Updated **core** to **v0.13.21**
+
 ## [0.8.14](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.8.14) (04/24/2026)
 
 ### Bug Fixes

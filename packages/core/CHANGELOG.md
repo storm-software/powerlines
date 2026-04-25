@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.13.21](https://github.com/storm-software/powerlines/releases/tag/core%400.13.21) (04/24/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with missing `export` path ([081577e2d](https://github.com/storm-software/powerlines/commit/081577e2d))
+
 ## [0.13.20](https://github.com/storm-software/powerlines/releases/tag/core%400.13.20) (04/24/2026)
 
 ### Bug Fixes
