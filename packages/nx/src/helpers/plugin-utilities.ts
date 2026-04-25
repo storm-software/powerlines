@@ -31,6 +31,7 @@ import {
   addProjectTag,
   setDefaultProjectTags
 } from "@storm-software/workspace-tools/utils/project-tags";
+import { isDevelopment, isTest } from "@stryke/env/environment-checks";
 import { getEnvPaths } from "@stryke/env/get-env-paths";
 import { existsSync } from "@stryke/fs/exists";
 import { murmurhash } from "@stryke/hash";
@@ -227,7 +228,11 @@ export function createNxPlugin<
                     {
                       root: projectRoot,
                       cwd: contextV2.workspaceRoot,
-                      mode: "development",
+                      mode: isDevelopment
+                        ? "development"
+                        : isTest
+                          ? "test"
+                          : "production",
                       configFile,
                       framework
                     },
@@ -439,7 +444,7 @@ export function createNxPlugin<
                     options?.build?.dependsOn ??
                     ([
                       `^${options?.build?.targetName || "build"}`,
-                      userConfig.skipCache
+                      userConfig.skipCache || isDevelopment
                         ? undefined
                         : isSetObject(options?.prepare) &&
                             options?.prepare?.targetName
@@ -490,7 +495,7 @@ export function createNxPlugin<
                     options?.lint?.dependsOn ??
                     ([
                       `^${options?.lint?.targetName || "lint"}`,
-                      userConfig.skipCache
+                      userConfig.skipCache || isDevelopment
                         ? undefined
                         : isSetObject(options?.prepare) &&
                             options?.prepare?.targetName
@@ -543,7 +548,7 @@ export function createNxPlugin<
                       `^${options?.docs?.targetName || "docs"}`,
                       options?.build !== false &&
                         `${options?.build?.targetName || "build"}`,
-                      userConfig.skipCache
+                      userConfig.skipCache || isDevelopment
                         ? undefined
                         : isSetObject(options?.prepare) &&
                             options?.prepare?.targetName
@@ -596,7 +601,7 @@ export function createNxPlugin<
                       `^${options?.deploy?.targetName || "deploy"}`,
                       options?.build !== false &&
                         `${options?.build?.targetName || "build"}`,
-                      userConfig.skipCache
+                      userConfig.skipCache || isDevelopment
                         ? undefined
                         : isSetObject(options?.prepare) &&
                             options?.prepare?.targetName
