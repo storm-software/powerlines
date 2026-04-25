@@ -109,102 +109,88 @@
         "default": "./dist/lib/config.mjs"
       }
     },
-    "./lib/constants": {
+    "./constants/environments": {
       "import": {
-        "types": "./dist/lib/constants/index.d.mts",
-        "default": "./dist/lib/constants/index.mjs"
+        "types": "./dist/constants/environments.d.mts",
+        "default": "./dist/constants/environments.mjs"
       },
       "require": {
-        "types": "./dist/lib/constants/index.d.cts",
-        "default": "./dist/lib/constants/index.cjs"
+        "types": "./dist/constants/environments.d.cts",
+        "default": "./dist/constants/environments.cjs"
       },
       "default": {
-        "types": "./dist/lib/constants/index.d.mts",
-        "default": "./dist/lib/constants/index.mjs"
+        "types": "./dist/constants/environments.d.mts",
+        "default": "./dist/constants/environments.mjs"
       }
     },
-    "./lib/constants/environments": {
+    "./constants/meta": {
       "import": {
-        "types": "./dist/lib/constants/environments.d.mts",
-        "default": "./dist/lib/constants/environments.mjs"
+        "types": "./dist/constants/meta.d.mts",
+        "default": "./dist/constants/meta.mjs"
       },
       "require": {
-        "types": "./dist/lib/constants/environments.d.cts",
-        "default": "./dist/lib/constants/environments.cjs"
+        "types": "./dist/constants/meta.d.cts",
+        "default": "./dist/constants/meta.cjs"
       },
       "default": {
-        "types": "./dist/lib/constants/environments.d.mts",
-        "default": "./dist/lib/constants/environments.mjs"
+        "types": "./dist/constants/meta.d.mts",
+        "default": "./dist/constants/meta.mjs"
       }
     },
-    "./lib/constants/meta": {
+    "./constants/hooks": {
       "import": {
-        "types": "./dist/lib/constants/meta.d.mts",
-        "default": "./dist/lib/constants/meta.mjs"
+        "types": "./dist/constants/hooks.d.mts",
+        "default": "./dist/constants/hooks.mjs"
       },
       "require": {
-        "types": "./dist/lib/constants/meta.d.cts",
-        "default": "./dist/lib/constants/meta.cjs"
+        "types": "./dist/constants/hooks.d.cts",
+        "default": "./dist/constants/hooks.cjs"
       },
       "default": {
-        "types": "./dist/lib/constants/meta.d.mts",
-        "default": "./dist/lib/constants/meta.mjs"
+        "types": "./dist/constants/hooks.d.mts",
+        "default": "./dist/constants/hooks.mjs"
       }
     },
-    "./lib/constants/hooks": {
+    "./constants/plugin": {
       "import": {
-        "types": "./dist/lib/constants/hooks.d.mts",
-        "default": "./dist/lib/constants/hooks.mjs"
+        "types": "./dist/constants/plugin.d.mts",
+        "default": "./dist/constants/plugin.mjs"
       },
       "require": {
-        "types": "./dist/lib/constants/hooks.d.cts",
-        "default": "./dist/lib/constants/hooks.cjs"
+        "types": "./dist/constants/plugin.d.cts",
+        "default": "./dist/constants/plugin.cjs"
       },
       "default": {
-        "types": "./dist/lib/constants/hooks.d.mts",
-        "default": "./dist/lib/constants/hooks.mjs"
+        "types": "./dist/constants/plugin.d.mts",
+        "default": "./dist/constants/plugin.mjs"
       }
     },
-    "./lib/constants/plugin": {
+    "./constants/api": {
       "import": {
-        "types": "./dist/lib/constants/plugin.d.mts",
-        "default": "./dist/lib/constants/plugin.mjs"
+        "types": "./dist/constants/api.d.mts",
+        "default": "./dist/constants/api.mjs"
       },
       "require": {
-        "types": "./dist/lib/constants/plugin.d.cts",
-        "default": "./dist/lib/constants/plugin.cjs"
+        "types": "./dist/constants/api.d.cts",
+        "default": "./dist/constants/api.cjs"
       },
       "default": {
-        "types": "./dist/lib/constants/plugin.d.mts",
-        "default": "./dist/lib/constants/plugin.mjs"
+        "types": "./dist/constants/api.d.mts",
+        "default": "./dist/constants/api.mjs"
       }
     },
-    "./lib/constants/api": {
+    "./constants/virtual-modules": {
       "import": {
-        "types": "./dist/lib/constants/api.d.mts",
-        "default": "./dist/lib/constants/api.mjs"
+        "types": "./dist/constants/virtual-modules.d.mts",
+        "default": "./dist/constants/virtual-modules.mjs"
       },
       "require": {
-        "types": "./dist/lib/constants/api.d.cts",
-        "default": "./dist/lib/constants/api.cjs"
+        "types": "./dist/constants/virtual-modules.d.cts",
+        "default": "./dist/constants/virtual-modules.cjs"
       },
       "default": {
-        "types": "./dist/lib/constants/api.d.mts",
-        "default": "./dist/lib/constants/api.mjs"
-      }
-    },
-    "./lib/constants/virtual-modules": {
-      "import": {
-        "types": "./dist/lib/constants/virtual-modules.d.mts",
-        "default": "./dist/lib/constants/virtual-modules.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/constants/virtual-modules.d.cts",
-        "default": "./dist/lib/constants/virtual-modules.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/constants/virtual-modules.d.mts",
-        "default": "./dist/lib/constants/virtual-modules.mjs"
+        "types": "./dist/constants/virtual-modules.d.mts",
+        "default": "./dist/constants/virtual-modules.mjs"
       }
     },
     "./lib/entry": {
