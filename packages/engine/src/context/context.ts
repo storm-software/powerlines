@@ -1195,9 +1195,12 @@ export class PowerlinesContext<
     context.projectJson = this.projectJson
       ? deepClone<typeof this.projectJson>(this.projectJson)
       : undefined;
-    context.tsconfig = deepClone<typeof this.tsconfig>(
+    context.tsconfig ??= deepClone<typeof this.tsconfig>(
       this.tsconfig
     ) as ParsedTypeScriptConfig;
+
+    context.resolver ??= this.resolver;
+    context.fs ??= this.#fs;
 
     (context as PowerlinesContext<TResolvedConfig>).$$internal =
       this.$$internal;
