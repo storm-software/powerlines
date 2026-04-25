@@ -71,6 +71,8 @@
       "@powerlines/plugin-nitro/*": ["./packages/plugin-nitro/src/*"],
       "@powerlines/plugin-nodejs": ["./packages/plugin-nodejs/src/index.ts"],
       "@powerlines/plugin-nodejs/*": ["./packages/plugin-nodejs/src/*"],
+      "@powerlines/plugin-napi-rs": ["./packages/plugin-napi-rs/src/index.ts"],
+      "@powerlines/plugin-napi-rs/*": ["./packages/plugin-napi-rs/src/*"],
       "@powerlines/plugin-openapi": ["./packages/plugin-openapi/src/index.ts"],
       "@powerlines/plugin-openapi/*": ["./packages/plugin-openapi/src/*"],
       "@powerlines/plugin-open-feature": [

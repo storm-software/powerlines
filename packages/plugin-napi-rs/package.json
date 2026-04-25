@@ -1,0 +1,152 @@
+{
+  "name": "@powerlines/plugin-napi-rs",
+  "version": "0.0.1",
+  "private": false,
+  "description": "A package containing a Powerlines plugin for integrating with N-API Rust modules.",
+  "keywords": ["napi-rs", "powerlines", "storm-software", "powerlines-plugin"],
+  "homepage": "https://stormsoftware.com",
+  "bugs": {
+    "url": "https://stormsoftware.com/support",
+    "email": "support@stormsoftware.com"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/plugin-napi-rs"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Storm Software",
+    "email": "contact@stormsoftware.com",
+    "url": "https://stormsoftware.com"
+  },
+  "maintainers": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "default": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
+    },
+    "./package.json": "./package.json",
+    "./types": {
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/types/index.cjs"
+      },
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      },
+      "default": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      }
+    },
+    "./types/plugin": {
+      "require": {
+        "types": "./dist/types/plugin.d.cts",
+        "default": "./dist/types/plugin.cjs"
+      },
+      "import": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      },
+      "default": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      }
+    },
+    "./types/targets": {
+      "require": {
+        "types": "./dist/types/targets.d.cts",
+        "default": "./dist/types/targets.cjs"
+      },
+      "import": {
+        "types": "./dist/types/targets.d.mts",
+        "default": "./dist/types/targets.mjs"
+      },
+      "default": {
+        "types": "./dist/types/targets.d.mts",
+        "default": "./dist/types/targets.mjs"
+      }
+    },
+    "./types/wasm": {
+      "require": {
+        "types": "./dist/types/wasm.d.cts",
+        "default": "./dist/types/wasm.cjs"
+      },
+      "import": {
+        "types": "./dist/types/wasm.d.mts",
+        "default": "./dist/types/wasm.mjs"
+      },
+      "default": {
+        "types": "./dist/types/wasm.d.mts",
+        "default": "./dist/types/wasm.mjs"
+      }
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "typings": "dist/index.d.mts",
+  "files": ["dist/**/*"],
+  "dependencies": {
+    "@alloy-js/core": "catalog:",
+    "@alloy-js/json": "catalog:",
+    "@alloy-js/markdown": "catalog:",
+    "@alloy-js/typescript": "catalog:",
+    "@napi-rs/cli": "catalog:",
+    "@powerlines/plugin-alloy": "workspace:*",
+    "@powerlines/plugin-automd": "workspace:*",
+    "@powerlines/plugin-plugin": "workspace:*",
+    "@stryke/fs": "catalog:",
+    "@stryke/path": "catalog:",
+    "@stryke/string-format": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "@stryke/types": "catalog:",
+    "automd": "catalog:",
+    "defu": "catalog:",
+    "powerlines": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:"
+  },
+  "peerDependencies": {
+    "@napi-rs/wasm-runtime": ">=1.1.4"
+  },
+  "peerDependenciesMeta": {
+    "@napi-rs/wasm-runtime": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
