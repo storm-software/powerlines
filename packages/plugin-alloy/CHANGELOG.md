@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.31](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.31) (04/24/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with virtual module prefix in TSC ([334ec8af2](https://github.com/storm-software/powerlines/commit/334ec8af2))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.363**
+- Updated **plugin-babel** to **v0.12.406**
+- Updated **powerlines** to **v0.43.11**
+- Updated **deepkit** to **v0.8.14**
+- Updated **core** to **v0.13.20**
+
 ## [0.26.30](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.30) (04/24/2026)
 
 ### Updated Dependencies

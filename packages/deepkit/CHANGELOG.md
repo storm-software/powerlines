@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.8.14](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.8.14) (04/24/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with virtual module prefix in TSC ([334ec8af2](https://github.com/storm-software/powerlines/commit/334ec8af2))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.410**
+- Updated **core** to **v0.13.20**
+
 ## [0.8.13](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.8.13) (04/24/2026)
 
 ### Updated Dependencies

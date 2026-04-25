@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.13.20](https://github.com/storm-software/powerlines/releases/tag/core%400.13.20) (04/24/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with virtual module prefix in TSC ([334ec8af2](https://github.com/storm-software/powerlines/commit/334ec8af2))
+
 ## [0.13.16](https://github.com/storm-software/powerlines/releases/tag/core%400.13.16) (04/23/2026)
 
 ### Bug Fixes

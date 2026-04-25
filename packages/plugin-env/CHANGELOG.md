@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.137](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.137) (04/24/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with virtual module prefix in TSC ([334ec8af2](https://github.com/storm-software/powerlines/commit/334ec8af2))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.293**
+- Updated **plugin-automd** to **v0.1.412**
+- Updated **plugin-plugin** to **v0.12.363**
+- Updated **plugin-alloy** to **v0.26.31**
+- Updated **plugin-babel** to **v0.12.406**
+- Updated **plugin-tsc** to **v0.2.420**
+- Updated **powerlines** to **v0.43.11**
+- Updated **deepkit** to **v0.8.14**
+
 ## [0.16.136](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.136) (04/24/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.36](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.36) (04/24/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with virtual module prefix in TSC ([334ec8af2](https://github.com/storm-software/powerlines/commit/334ec8af2))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.412**
+- Updated **plugin-plugin** to **v0.12.363**
+- Updated **plugin-alloy** to **v0.26.31**
+- Updated **plugin-babel** to **v0.12.406**
+- Updated **powerlines** to **v0.43.11**
+
 ## [0.1.35](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.35) (04/24/2026)
 
 ### Bug Fixes
