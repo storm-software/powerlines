@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.12.25](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.25) (04/24/2026)
+
+### Bug Fixes
+
+- **nx:** Resolve issue applying `outputPath` in executors ([143c1bb09](https://github.com/storm-software/powerlines/commit/143c1bb09))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.43.10**
+
 ## [0.12.24](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.24) (04/24/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.35](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.35) (04/24/2026)
+
+### Bug Fixes
+
+- **nx:** Resolve issue applying `outputPath` in executors ([143c1bb09](https://github.com/storm-software/powerlines/commit/143c1bb09))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.411**
+- Updated **plugin-plugin** to **v0.12.362**
+- Updated **plugin-alloy** to **v0.26.30**
+- Updated **plugin-babel** to **v0.12.405**
+- Updated **powerlines** to **v0.43.10**
+
 ## [0.1.34](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.34) (04/24/2026)
 
 ### Updated Dependencies
