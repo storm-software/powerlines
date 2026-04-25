@@ -33,8 +33,7 @@ export default defineUntypedSchema({
       format: "path",
       description:
         "The path to the Powerlines configuration file. Alias for `configFile`."
-    },
-    $default: "{projectRoot}/powerlines.config.ts"
+    }
   },
   configFile: {
     $schema: {
@@ -43,8 +42,7 @@ export default defineUntypedSchema({
       format: "path",
       description:
         "The path to the Powerlines configuration file. Alias for `config`."
-    },
-    $default: "{projectRoot}/powerlines.config.ts"
+    }
   },
   input: {
     $schema: {
@@ -61,8 +59,7 @@ export default defineUntypedSchema({
       type: "string",
       format: "path",
       description: "The path to the tsconfig file"
-    },
-    $default: "{projectRoot}/tsconfig.json"
+    }
   },
   outputPath: {
     $schema: {
@@ -107,8 +104,7 @@ export default defineUntypedSchema({
       type: "string",
       description: "The platform to build",
       enum: ["neutral", "node", "browser"]
-    },
-    $default: "neutral"
+    }
   },
   external: {
     $schema: {

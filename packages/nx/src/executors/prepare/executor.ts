@@ -38,7 +38,7 @@ export async function executorFn(
         autoInstall: context.options.autoInstall
       },
       context.inlineConfig
-    )
+    ) as Parameters<PowerlinesEngine["prepare"]>[0]
   );
 
   return {

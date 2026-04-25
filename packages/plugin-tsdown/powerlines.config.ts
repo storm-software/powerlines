@@ -20,6 +20,5 @@ import { defineConfig } from "@powerlines/core/lib/config";
 import plugin from "@powerlines/core/plugin-base";
 
 export default defineConfig({
-  skipCache: true,
   plugins: [plugin()]
 });

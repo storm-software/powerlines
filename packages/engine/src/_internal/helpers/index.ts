@@ -16,7 +16,13 @@
 
  ------------------------------------------------------------------- */
 
+export * from "./constants";
 export * from "./environment";
 export * from "./generate-types";
+export * from "./hooks";
 export * from "./install";
+export * from "./install-dependencies";
+export * from "./meta";
 export * from "./resolve-tsconfig";
+export * from "./resolver";
+export * from "./worker";

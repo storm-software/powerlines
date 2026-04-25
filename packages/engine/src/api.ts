@@ -30,12 +30,13 @@ import type {
   PrepareInlineConfig,
   ResolvedConfig,
   TestInlineConfig,
-  TypesInlineConfig,
-  UserConfig
+  TypesInlineConfig
 } from "@powerlines/core";
 import { colorText } from "@powerlines/core/lib/logger";
 import { Unstable_ExecutionContext } from "@powerlines/core/types/_internal";
+import { isDevelopment, isTest } from "@stryke/env/environment-checks";
 import { titleCase } from "@stryke/string-format/title-case";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { PartialKeys } from "@stryke/types/base";
 import { PowerlinesExecution } from "./_internal/execution";
 import { mergeConfigs } from "./_internal/helpers/hooks";
@@ -74,19 +75,20 @@ export class PowerlinesAPI<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
     options: EngineOptions,
-    override?: Partial<TResolvedConfig>
+    override?: InlineConfig
   ): Promise<PowerlinesAPI<TResolvedConfig>> {
     const api = new PowerlinesAPI<TResolvedConfig>(
       await PowerlinesExecutionContext.fromOptions<TResolvedConfig>({
         cwd: process.cwd(),
-        mode: "production",
+        mode: isDevelopment ? "development" : isTest ? "test" : "production",
         framework: "powerlines",
         ...options,
         configIndex: 0
       })
     );
     if (override) {
-      await api.context.setup(override as InlineConfig);
+      api.context.config.inlineConfig = override;
+      await api.context.setup();
     }
 
     (api.context as Unstable_ExecutionContext<TResolvedConfig>).$$internal = {
@@ -120,10 +122,10 @@ export class PowerlinesAPI<
       result: "merge",
       merge: mergeConfigs
     });
-    if (pluginConfig) {
+    if (isSetObject(pluginConfig)) {
       api.context.config.pluginConfig =
         pluginConfig as TResolvedConfig["pluginConfig"];
-      await api.context.setup(pluginConfig as UserConfig);
+      await api.context.setup();
     }
 
     timer();

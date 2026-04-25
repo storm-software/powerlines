@@ -30,14 +30,15 @@ import type {
 import { GLOBAL_ENVIRONMENT } from "@powerlines/core/constants";
 import type {
   Unstable_ContextInternal,
-  Unstable_EnvironmentContext
+  Unstable_EnvironmentContext,
+  Unstable_ExecutionContext
 } from "@powerlines/core/types/_internal";
 import { toArray } from "@stryke/convert/to-array";
 import { existsSync } from "@stryke/fs/exists";
 import { readJsonFile } from "@stryke/fs/json";
 import { resolvePackage } from "@stryke/fs/resolve";
+import { deepClone } from "@stryke/helpers/deep-clone";
 import { joinPaths } from "@stryke/path/join";
-import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { PackageJson } from "@stryke/types/package-json";
 import chalk from "chalk";
 import {
@@ -113,7 +114,7 @@ export class PowerlinesExecutionContext<
       );
     }
 
-    await context.setup(config);
+    await context.setup();
 
     const powerlinesPath = await resolvePackage("powerlines");
     if (!powerlinesPath) {
@@ -185,36 +186,23 @@ export class PowerlinesExecutionContext<
    * @returns A promise that resolves to the cloned context.
    */
   public override async clone(): Promise<ExecutionContext<TResolvedConfig>> {
-    const clone = await PowerlinesExecutionContext.fromOptions<TResolvedConfig>(
-      this.options
-    );
+    const clone =
+      (await PowerlinesExecutionContext.fromOptions<TResolvedConfig>(
+        this.options
+      )) as Unstable_ExecutionContext<TResolvedConfig>;
 
-    clone.config.userConfig = this.config.userConfig;
-    await clone.setup(this.config.inlineConfig);
+    clone.config.userConfig = deepClone(this.config.userConfig) as UserConfig;
+    clone.config.inlineConfig = deepClone(
+      this.config.inlineConfig
+    ) as InlineConfig;
+    clone.config.pluginConfig = deepClone(
+      this.config.pluginConfig
+    ) as Partial<UserConfig>;
+
+    await clone.setup();
+    clone.$$internal = this.$$internal;
 
     return this.copyTo(clone) as ExecutionContext<TResolvedConfig>;
-  }
-
-  /**
-   * Initialize the context with the provided configuration options
-   *
-   * @param options - The resolved execution options to use for initialization.
-   */
-  public override async init(options: ResolvedExecutionOptions) {
-    await super.init(options);
-
-    await Promise.all(
-      toArray(
-        this.config.environments &&
-          Object.keys(this.config.environments).length > 0
-          ? Object.keys(this.config.environments).map(name =>
-              createEnvironment(name, this.config)
-            )
-          : createDefaultEnvironment(this.config)
-      ).map(async env => {
-        this.#environments[env.name] = await this.in(env);
-      })
-    );
   }
 
   /**
@@ -226,23 +214,14 @@ export class PowerlinesExecutionContext<
   public async in(
     environment: EnvironmentResolvedConfig
   ): Promise<Unstable_EnvironmentContext<TResolvedConfig>> {
-    let context: Unstable_EnvironmentContext<TResolvedConfig>;
-    if (this.environments[environment.name]) {
-      context = this.environments[
-        environment.name
-      ] as Unstable_EnvironmentContext<TResolvedConfig>;
-    } else {
-      context = await PowerlinesEnvironmentContext.fromConfig(
-        this.options,
-        this.config
+    const context: Unstable_EnvironmentContext<TResolvedConfig> =
+      await PowerlinesEnvironmentContext.fromConfig(
+        deepClone(this.options),
+        deepClone(this.config) as TResolvedConfig,
+        deepClone(environment) as EnvironmentResolvedConfig
       );
-    }
 
-    if (isSetObject(this.config.inlineConfig)) {
-      await context.setup(this.config.inlineConfig);
-    }
-
-    context.environment = environment;
+    context.$$internal = this.$$internal;
     context.plugins = [];
 
     for (const plugin of this.plugins) {
@@ -254,11 +233,9 @@ export class PowerlinesExecutionContext<
 
   /**
    * Update the context using a new inline configuration options
-   *
-   * @param config - The new inline configuration options.
    */
-  public override async setup(config: UserConfig | InlineConfig) {
-    await super.setup(config);
+  public override async setup() {
+    await super.setup();
 
     await Promise.all(
       toArray(
@@ -269,10 +246,7 @@ export class PowerlinesExecutionContext<
             )
           : createDefaultEnvironment(this.config)
       ).map(async env => {
-        const context = await this.in(env);
-        await context.setup(config);
-
-        this.#environments[env.name] = context;
+        this.#environments[env.name] = await this.in(env);
       })
     );
   }
@@ -319,9 +293,7 @@ export class PowerlinesExecutionContext<
         throw new Error(`Environment "${name}" not found.`);
       }
 
-      environment = await this.in(
-        createDefaultEnvironment(this.config.userConfig)
-      );
+      environment = await this.in(createDefaultEnvironment(this.config));
 
       this.warn(
         `No environment specified, and no default environment found. Using a temporary default environment: ${chalk.bold.cyanBright(
@@ -361,7 +333,7 @@ export class PowerlinesExecutionContext<
     let environment: EnvironmentContext<TResolvedConfig>;
     if (Object.keys(this.environments).length > 1) {
       environment = await this.in(
-        createEnvironment(GLOBAL_ENVIRONMENT, this.config.userConfig)
+        createEnvironment(GLOBAL_ENVIRONMENT, this.config)
       );
 
       this.debug(

@@ -27,40 +27,37 @@ import defu from "defu";
 
 export function createEnvironment<TContext extends Context = Context>(
   name: string,
-  userConfig: TContext["config"]["userConfig"]
+  config: Partial<TContext["config"]> = {}
 ): EnvironmentResolvedConfig {
-  return defu(
-    userConfig.environments?.[name] ?? {},
-    {
-      name,
-      title: userConfig.title || titleCase(userConfig.name),
-      ssr: false,
+  return defu(config.environments?.[name] ?? {}, {
+    name,
+    title: config.title ?? titleCase(config.name),
+    ssr: false,
+    resolve: {
       mainFields:
-        userConfig?.platform === "browser"
+        config.platform === "browser"
           ? ["browser", "module", "jsnext:main", "jsnext"]
-          : ["module", "jsnext:main", "jsnext"],
-      extensions: [".mjs", ".js", ".mts", ".ts", ".jsx", ".tsx", ".json"],
-      consumer: userConfig?.platform === "browser" ? "client" : "server",
-      preview:
-        userConfig?.platform === "browser"
-          ? {
-              port: 5173,
-              open: true,
-              strictPort: false,
-              // https: false,
-              host: "localhost",
-              allowedHosts: ["."],
-              cors: true,
-              headers: {}
-            }
-          : undefined
+          : ["module", "jsnext:main", "jsnext"]
     },
-    userConfig
-  ) as EnvironmentResolvedConfig;
+    consumer: config.platform === "browser" ? "client" : "server",
+    preview:
+      config.platform === "browser"
+        ? {
+            port: 5173,
+            open: true,
+            strictPort: false,
+            // https: false,
+            host: "localhost",
+            allowedHosts: ["."],
+            cors: true,
+            headers: {}
+          }
+        : undefined
+  }) as EnvironmentResolvedConfig;
 }
 
 export function createDefaultEnvironment<
   TContext extends ExecutionContext = ExecutionContext
->(userConfig: TContext["config"]["userConfig"]): EnvironmentResolvedConfig {
-  return createEnvironment(DEFAULT_ENVIRONMENT, userConfig);
+>(config: Partial<TContext["config"]> = {}): EnvironmentResolvedConfig {
+  return createEnvironment(DEFAULT_ENVIRONMENT, config);
 }

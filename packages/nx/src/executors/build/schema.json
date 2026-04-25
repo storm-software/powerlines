@@ -9,16 +9,14 @@
       "type": "string",
       "format": "path",
       "description": "The path to the Powerlines configuration file. Alias for `configFile`.",
-      "id": "#config",
-      "default": "{projectRoot}/powerlines.config.ts"
+      "id": "#config"
     },
     "configFile": {
       "title": "Powerlines Configuration File",
       "type": "string",
       "format": "path",
       "description": "The path to the Powerlines configuration file. Alias for `config`.",
-      "id": "#configFile",
-      "default": "{projectRoot}/powerlines.config.ts"
+      "id": "#configFile"
     },
     "input": {
       "title": "Input Entry File(s)",
@@ -35,8 +33,7 @@
       "type": "string",
       "format": "path",
       "description": "The path to the tsconfig file",
-      "id": "#tsconfig",
-      "default": "{projectRoot}/tsconfig.json"
+      "id": "#tsconfig"
     },
     "outputPath": {
       "title": "Output Path",
@@ -97,8 +94,7 @@
         "node",
         "browser"
       ],
-      "id": "#platform",
-      "default": "neutral"
+      "id": "#platform"
     },
     "external": {
       "title": "External",
@@ -202,15 +198,11 @@
   },
   "type": "object",
   "default": {
-    "config": "{projectRoot}/powerlines.config.ts",
-    "configFile": "{projectRoot}/powerlines.config.ts",
-    "tsconfig": "{projectRoot}/tsconfig.json",
     "copyPath": {},
     "format": [
       "cjs",
       "esm"
     ],
-    "platform": "neutral",
     "external": [],
     "noExternal": [],
     "define": {},

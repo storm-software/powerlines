@@ -27,6 +27,7 @@ import defu from "defu";
 import { createJiti } from "jiti";
 import type {
   InlineConfig,
+  OutputConfig,
   PowerlinesCommand,
   PowerlinesEngine
 } from "powerlines";
@@ -104,7 +105,7 @@ export function withExecutor<
           {
             cwd: workspaceConfig.workspaceRoot,
             root: projectConfig.root,
-            configFile: options.configFile ?? options.config
+            configFile: options.configFile || options.config
           },
           options,
           {
@@ -121,41 +122,45 @@ export function withExecutor<
                 projectName: context.projectName,
                 options,
                 workspaceConfig,
-                inlineConfig: {
-                  command,
-                  projectType: projectConfig.projectType,
-                  output: {
-                    path: options.outputPath
-                      ? replacePath(
-                          replacePath(
-                            options.outputPath,
-                            workspaceConfig.workspaceRoot
-                          ),
-                          projectConfig.root
-                        )
-                      : undefined,
-                    copy: {
-                      path: options.copyPath
+                command,
+                inlineConfig: defu(
+                  {
+                    command,
+                    configFile: options.configFile,
+                    description: projectConfig.metadata?.description,
+                    projectType: projectConfig.projectType,
+                    output: {
+                      path: options.outputPath
                         ? replacePath(
                             replacePath(
-                              options.copyPath,
+                              options.outputPath,
                               workspaceConfig.workspaceRoot
                             ),
                             projectConfig.root
                           )
                         : undefined,
-                      assets: options.assets
-                    },
-                    format: options.format,
-                    sourceMap: options.sourceMap
+                      copy: {
+                        path: options.copyPath
+                          ? replacePath(
+                              replacePath(
+                                options.copyPath,
+                                workspaceConfig.workspaceRoot
+                              ),
+                              projectConfig.root
+                            )
+                          : undefined,
+                        assets: options.assets
+                      },
+                      sourceMap: options.sourceMap
+                    } as OutputConfig,
+                    resolve: {
+                      external: options.external,
+                      noExternal: options.noExternal,
+                      skipNodeModulesBundle: options.skipNodeModulesBundle
+                    }
                   },
-                  resolve: {
-                    external: options.external,
-                    noExternal: options.noExternal,
-                    skipNodeModulesBundle: options.skipNodeModulesBundle
-                  }
-                } as InlineConfig,
-                command
+                  options
+                )
               },
               context
             ),

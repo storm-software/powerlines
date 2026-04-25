@@ -8,7 +8,6 @@ export interface CleanExecutorSchema {
   * 
   * The path to the Powerlines configuration file. Alias for `configFile`.
   * 
-  * @default "{projectRoot}/powerlines.config.ts"
   * 
   * @format path
  */
@@ -19,7 +18,6 @@ export interface CleanExecutorSchema {
   * 
   * The path to the Powerlines configuration file. Alias for `config`.
   * 
-  * @default "{projectRoot}/powerlines.config.ts"
   * 
   * @format path
  */
@@ -40,7 +38,6 @@ export interface CleanExecutorSchema {
   * 
   * The path to the tsconfig file
   * 
-  * @default "{projectRoot}/tsconfig.json"
   * 
   * @format path
  */
@@ -88,7 +85,6 @@ export interface CleanExecutorSchema {
   * 
   * The platform to build
   * 
-  * @default "neutral"
   * 
   * @enum neutral,node,browser
  */

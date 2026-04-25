@@ -37,14 +37,17 @@ import {
   dedupeHooklist,
   isPlugin,
   isPluginConfig,
-  isPluginHookField
+  isPluginHookField,
+  mergeConfig
 } from "@powerlines/core/plugin-utils";
 import { resolvePackage } from "@stryke/fs/resolve";
+import { deepClone } from "@stryke/helpers/deep-clone";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isNull } from "@stryke/type-checks/is-null";
 import { isObject } from "@stryke/type-checks/is-object";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { ArrayValues } from "@stryke/types/array";
+import { getConfigProps } from "../_internal/helpers/context";
 import { extractHooks } from "../_internal/helpers/hooks";
 import { PowerlinesContext } from "./context";
 import { createPluginContext } from "./plugin-context";
@@ -71,14 +74,15 @@ export class PowerlinesEnvironmentContext<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
     options: ResolvedExecutionOptions,
-    config: TResolvedConfig
+    config: TResolvedConfig,
+    environment: EnvironmentResolvedConfig
   ): Promise<PowerlinesEnvironmentContext<TResolvedConfig>> {
     const context = new PowerlinesEnvironmentContext<TResolvedConfig>(
       options,
-      config
+      config,
+      environment
     );
-    await context.init(options);
-    await context.setup(config);
+    await context.setup();
 
     const powerlinesPath = await resolvePackage("powerlines");
     if (!powerlinesPath) {
@@ -93,7 +97,7 @@ export class PowerlinesEnvironmentContext<
   /**
    * The resolved environment configuration
    */
-  public environment!: EnvironmentResolvedConfig;
+  public environment: EnvironmentResolvedConfig;
 
   /**
    * The list of plugins applied to this environment
@@ -135,11 +139,28 @@ export class PowerlinesEnvironmentContext<
   public override async clone(): Promise<EnvironmentContext<TResolvedConfig>> {
     const context =
       (await PowerlinesEnvironmentContext.fromConfig<TResolvedConfig>(
-        this.options,
-        this.config
+        deepClone(this.options),
+        deepClone(this.config) as TResolvedConfig,
+        deepClone(this.environment) as EnvironmentResolvedConfig
       )) as any;
 
     return this.copyTo(context);
+  }
+
+  /**
+   * Initialize the context with the provided configuration options
+   */
+  public override async setup(): Promise<void> {
+    this.resolvedConfig = mergeConfig(
+      {
+        name: this.config.name,
+        title: this.config.title
+      },
+      getConfigProps(this.environment, this.options.root, this.options.cwd),
+      this.config
+    ) as TResolvedConfig;
+
+    await this.innerSetup();
   }
 
   public async addPlugin(plugin: Plugin<PluginContext<TResolvedConfig>>) {
@@ -259,11 +280,13 @@ export class PowerlinesEnvironmentContext<
 
   protected constructor(
     options: ResolvedExecutionOptions,
-    config: TResolvedConfig
+    config: TResolvedConfig,
+    environment: EnvironmentResolvedConfig
   ) {
     super(options);
 
     this.resolvedConfig = config;
+    this.environment = environment;
   }
 
   /**

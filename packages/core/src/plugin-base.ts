@@ -54,7 +54,6 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
         projectType: "library",
         input: ["src/index.ts", "src/types/*.ts", "src/helpers/*.ts"],
         output: {
-          format: ["cjs", "esm"],
           dts: false
         },
         platform: "node",
@@ -64,7 +63,6 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
           target: "esnext",
           cjsDefault: true,
           treeshake: true,
-          exports: true,
           fixedExtension: true,
           nodeProtocol: true,
           minify: false,

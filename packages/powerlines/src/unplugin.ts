@@ -72,11 +72,16 @@ export function createUnpluginFactory<
       async function buildStart(this: UnpluginBuildContext): Promise<void> {
         log(LogLevelLabel.DEBUG, "Powerlines build plugin starting...");
 
-        api = await PowerlinesAPI.fromOptions({
-          cwd: getWorkspaceRoot(process.cwd()),
-          ...userConfig
-        });
-        await api.context.setup(userConfig);
+        api = await PowerlinesAPI.fromOptions(
+          {
+            cwd: getWorkspaceRoot(process.cwd()),
+            root: userConfig.root,
+            mode: userConfig.mode
+          },
+          { command: "build", ...userConfig }
+        );
+
+        await api.context.setup();
 
         setParseImpl(api.context.parse);
 

@@ -24,9 +24,9 @@ import type {
   EmitOptions,
   ExecutionOptions,
   FetchOptions,
-  InlineConfig,
   LogFn,
   MetaInfo,
+  OutputResolvedConfig,
   ParsedTypeScriptConfig,
   ParseOptions,
   PluginConfig,
@@ -37,7 +37,6 @@ import type {
   ResolveOptions,
   ResolveResult,
   TransformResult,
-  UserConfig,
   VirtualFile,
   VirtualFileSystemInterface
 } from "@powerlines/core";
@@ -102,6 +101,7 @@ import {
   setGlobalDispatcher
 } from "undici";
 import { UnpluginBuildContext } from "unplugin";
+import { getConfigProps } from "../_internal/helpers/context";
 import { getPrefixedRootHash } from "../_internal/helpers/meta";
 import { VirtualFileSystem } from "../_internal/vfs";
 import { getTsconfigFilePath } from "../typescript/tsconfig";
@@ -149,54 +149,6 @@ export class PowerlinesContext<
   #parserCache!: FlatCache;
 
   #requestCache!: FlatCache;
-
-  #getConfigProps(config: Partial<TResolvedConfig["userConfig"]> = {}) {
-    return mergeConfig(
-      {
-        name: config.name,
-        title: config.title,
-        compatibilityDate: resolveCompatibilityDates(
-          config.compatibilityDate,
-          "latest"
-        ),
-        description: config.description,
-        projectType: config.projectType,
-        customLogger: config.customLogger,
-        logLevel: config.logLevel,
-        tsconfig: config.tsconfig,
-        tsconfigRaw: config.tsconfigRaw,
-        skipCache: config.skipCache,
-        autoInstall: config.autoInstall,
-        input: isSetString(config.input) ? [config.input] : config.input,
-        plugins: config.plugins,
-        mode: config.mode,
-        resolve: config.resolve,
-        framework: config.framework,
-        ...config,
-        output: {
-          ...(config.output ?? {}),
-          path: config.output?.path
-            ? appendPath(
-                config.output.path,
-                appendPath(this.config.root, this.config.cwd)
-              )
-            : undefined
-        }
-      },
-      {
-        output: config.framework
-          ? {
-              artifactsPath: `.${config.framework ?? "powerlines"}`,
-              dts: true,
-              types: joinPaths(
-                this.config.root,
-                `${config.framework ?? "powerlines"}.d.ts`
-              )
-            }
-          : {}
-      }
-    );
-  }
 
   /**
    * Create a new Storm context from the workspace root and user config.
@@ -1166,54 +1118,40 @@ export class PowerlinesContext<
 
   /**
    * Initialize the context with the provided configuration options
-   *
-   * @param config - The partial configuration options to initialize the context with
    */
-  public async setup(config: UserConfig | InlineConfig): Promise<void> {
+  public async setup(): Promise<void> {
     this.resolvedConfig = mergeConfig(
       {
         inlineConfig: this.config.inlineConfig ?? {},
         userConfig: this.config.userConfig ?? {},
-        pluginConfig: this.config.pluginConfig ?? {},
-        tsconfig: getTsconfigFilePath(
-          this.options.cwd,
-          this.options.root,
-          config.tsconfig || this.config.tsconfig
-        )
+        pluginConfig: this.config.pluginConfig ?? {}
       },
       this.options,
-      this.#getConfigProps(config),
-      this.#getConfigProps(this.config),
+      this.config.inlineConfig
+        ? getConfigProps(
+            this.config.inlineConfig,
+            this.options.root,
+            this.options.cwd
+          )
+        : {},
+      this.config.userConfig
+        ? getConfigProps(
+            this.config.userConfig,
+            this.options.root,
+            this.options.cwd
+          )
+        : {},
+      this.config.pluginConfig
+        ? getConfigProps(
+            this.config.pluginConfig,
+            this.options.root,
+            this.options.cwd
+          )
+        : {},
       {
         name: this.projectJson?.name || this.packageJson?.name,
         version: this.packageJson?.version,
-        description: this.packageJson?.description,
-        output: mergeConfig(this.config.output ?? {}, {
-          path: this.config.root
-            ? appendPath(joinPaths(this.config.root, "dist"), this.config.cwd)
-            : undefined,
-          copy: {
-            assets: [
-              {
-                glob: "LICENSE"
-              },
-              {
-                input: this.config.root,
-                glob: "*.md"
-              },
-              {
-                input: this.config.root,
-                glob: "package.json"
-              }
-            ]
-          },
-          artifactsPath: `.${this.config.framework ?? "powerlines"}`,
-          dts: true,
-          types: joinPaths(
-            this.config.root,
-            `${this.config.framework ?? "powerlines"}.d.ts`
-          )
-        })
+        description: this.packageJson?.description
       },
       {
         projectType: "application",
@@ -1224,6 +1162,129 @@ export class PowerlinesContext<
         resolve: {}
       }
     ) as TResolvedConfig;
+
+    await this.innerSetup();
+  }
+
+  /**
+   * The resolved configuration for this context
+   */
+  protected resolvedConfig: TResolvedConfig = {} as TResolvedConfig;
+
+  /**
+   * Creates a clone of the current context with the same configuration and workspace settings. This can be useful for running multiple builds in parallel or for creating isolated contexts for different parts of the build process.
+   *
+   * @remarks
+   * The cloned context will have the same configuration and workspace settings as the original context, but will have a different build ID, release ID, and timestamp. The virtual file system and caches will also be separate between the original and cloned contexts.
+   *
+   * @returns The cloned context.
+   */
+  protected copyTo(
+    context: Context<TResolvedConfig>
+  ): Context<TResolvedConfig> {
+    context.dependencies = deepClone<typeof this.dependencies>(
+      this.dependencies
+    );
+    context.devDependencies = deepClone<typeof this.devDependencies>(
+      this.devDependencies
+    );
+    context.persistedMeta = this.persistedMeta
+      ? deepClone<typeof this.persistedMeta>(this.persistedMeta)
+      : undefined;
+    context.packageJson = deepClone<typeof this.packageJson>(this.packageJson);
+    context.projectJson = this.projectJson
+      ? deepClone<typeof this.projectJson>(this.projectJson)
+      : undefined;
+    context.tsconfig = deepClone<typeof this.tsconfig>(
+      this.tsconfig
+    ) as ParsedTypeScriptConfig;
+
+    (context as PowerlinesContext<TResolvedConfig>).$$internal =
+      this.$$internal;
+
+    return context;
+  }
+
+  /**
+   * Initialize the context with the provided configuration options
+   *
+   *   @remarks
+   * This method will set up the resolver and load the user configuration file based on the provided options. It is called during the construction of the context and can also be called when cloning the context to ensure that the new context has the same configuration and resolver setup.
+   *
+   * @param options - The configuration options to initialize the context with
+   */
+  protected override async init(options: Partial<ExecutionOptions> = {}) {
+    await super.init(options);
+
+    this.options.configIndex =
+      options.configIndex ?? this.options.configIndex ?? 0;
+
+    const projectJsonPath = joinPaths(this.options.root, "project.json");
+    if (existsSync(projectJsonPath)) {
+      this.projectJson = await readJsonFile(projectJsonPath);
+    }
+
+    const packageJsonPath = joinPaths(this.options.root, "package.json");
+    if (existsSync(packageJsonPath)) {
+      this.packageJson = await readJsonFile<PackageJson>(packageJsonPath);
+      this.options.organization ??= isSetObject(this.packageJson?.author)
+        ? kebabCase(this.packageJson?.author?.name)
+        : kebabCase(this.packageJson?.author);
+    }
+
+    this.#checksum = await this.generateChecksum(this.options.root);
+
+    const userConfig = this.configFile.config
+      ? Array.isArray(this.configFile.config) &&
+        this.configFile.config.length > this.options.configIndex
+        ? this.configFile.config[this.options.configIndex]!
+        : this.configFile.config
+      : {};
+
+    this.resolvedConfig = {
+      ...this.options,
+      ...userConfig,
+      userConfig
+    } as TResolvedConfig;
+  }
+
+  /**
+   * Initialize the context with the provided configuration options
+   */
+  protected async innerSetup(): Promise<void> {
+    this.resolvedConfig.compatibilityDate = resolveCompatibilityDates(
+      this.config.inlineConfig.compatibilityDate ??
+        this.config.userConfig.compatibilityDate ??
+        this.config.pluginConfig.compatibilityDate,
+      "latest"
+    );
+
+    this.resolvedConfig.output = defu(this.resolvedConfig.output ?? {}, {
+      path: this.config.root
+        ? appendPath(joinPaths(this.config.root, "dist"), this.config.cwd)
+        : undefined,
+      copy: {
+        assets: [
+          {
+            glob: "LICENSE"
+          },
+          {
+            input: this.config.root,
+            glob: "*.md"
+          },
+          {
+            input: this.config.root,
+            glob: "package.json"
+          }
+        ]
+      },
+      artifactsPath: `.${this.config.framework ?? "powerlines"}`,
+      dts: true,
+      types: joinPaths(
+        this.config.root,
+        `${this.config.framework ?? "powerlines"}.d.ts`
+      )
+    }) as OutputResolvedConfig;
 
     this.logger = {
       log: this.createLog(this.config.name),
@@ -1388,10 +1449,6 @@ export class PowerlinesContext<
 
     // Apply path token replacements
 
-    if (this.config.tsconfig) {
-      this.config.tsconfig = replacePathTokens(this, this.config.tsconfig);
-    }
-
     if (this.config.output.types) {
       if (isSetString(this.config.output.types)) {
         this.config.output.types = replacePathTokens(
@@ -1439,6 +1496,21 @@ export class PowerlinesContext<
       }
     }
 
+    if (
+      !this.config.userConfig?.tsconfig &&
+      !this.config.inlineConfig?.tsconfig
+    ) {
+      this.config.tsconfig = getTsconfigFilePath(
+        this.options.cwd,
+        this.options.root
+      );
+    } else if (this.config.tsconfig) {
+      this.config.tsconfig = replacePath(
+        replacePathTokens(this, this.config.tsconfig),
+        this.config.cwd
+      );
+    }
+
     if (this.config.output.copy && this.config.output.copy.assets) {
       this.config.output.copy.assets = this.config.output.copy.assets.map(
         asset => ({
@@ -1465,87 +1537,5 @@ export class PowerlinesContext<
     }
 
     this.#fs ??= await VirtualFileSystem.create(this);
-  }
-
-  /**
-   * The resolved configuration for this context
-   */
-  protected resolvedConfig: TResolvedConfig = {} as TResolvedConfig;
-
-  /**
-   * Creates a clone of the current context with the same configuration and workspace settings. This can be useful for running multiple builds in parallel or for creating isolated contexts for different parts of the build process.
-   *
-   * @remarks
-   * The cloned context will have the same configuration and workspace settings as the original context, but will have a different build ID, release ID, and timestamp. The virtual file system and caches will also be separate between the original and cloned contexts.
-   *
-   * @returns The cloned context.
-   */
-  protected copyTo(
-    context: Context<TResolvedConfig>
-  ): Context<TResolvedConfig> {
-    context.dependencies = deepClone<typeof this.dependencies>(
-      this.dependencies
-    );
-    context.devDependencies = deepClone<typeof this.devDependencies>(
-      this.devDependencies
-    );
-    context.persistedMeta = this.persistedMeta
-      ? deepClone<typeof this.persistedMeta>(this.persistedMeta)
-      : undefined;
-    context.packageJson = deepClone<typeof this.packageJson>(this.packageJson);
-    context.projectJson = this.projectJson
-      ? deepClone<typeof this.projectJson>(this.projectJson)
-      : undefined;
-    context.tsconfig = deepClone<typeof this.tsconfig>(
-      this.tsconfig
-    ) as ParsedTypeScriptConfig;
-
-    (context as PowerlinesContext<TResolvedConfig>).$$internal =
-      this.$$internal;
-
-    return context;
-  }
-
-  /**
-   * Initialize the context with the provided configuration options
-   *
-   *   @remarks
-   * This method will set up the resolver and load the user configuration file based on the provided options. It is called during the construction of the context and can also be called when cloning the context to ensure that the new context has the same configuration and resolver setup.
-   *
-   * @param options - The configuration options to initialize the context with
-   */
-  protected override async init(options: Partial<ExecutionOptions> = {}) {
-    await super.init(options);
-
-    this.options.configIndex =
-      options.configIndex ?? this.options.configIndex ?? 0;
-
-    const projectJsonPath = joinPaths(this.options.root, "project.json");
-    if (existsSync(projectJsonPath)) {
-      this.projectJson = await readJsonFile(projectJsonPath);
-    }
-
-    const packageJsonPath = joinPaths(this.options.root, "package.json");
-    if (existsSync(packageJsonPath)) {
-      this.packageJson = await readJsonFile<PackageJson>(packageJsonPath);
-      this.options.organization ??= isSetObject(this.packageJson?.author)
-        ? kebabCase(this.packageJson?.author?.name)
-        : kebabCase(this.packageJson?.author);
-    }
-
-    this.#checksum = await this.generateChecksum(this.options.root);
-
-    const userConfig = this.configFile.config
-      ? Array.isArray(this.configFile.config) &&
-        this.configFile.config.length > this.options.configIndex
-        ? this.configFile.config[this.options.configIndex]!
-        : this.configFile.config
-      : {};
-
-    this.resolvedConfig = {
-      ...this.options,
-      ...userConfig,
-      userConfig
-    } as TResolvedConfig;
   }
 }

@@ -41,8 +41,7 @@ import type {
   ResolvedExecutionOptions,
   TestInlineConfig,
   TypesInlineConfig,
-  TypesResult,
-  UserConfig
+  TypesResult
 } from "@powerlines/core";
 import { colorText } from "@powerlines/core/lib/logger";
 import { getTypescriptFileHeader } from "@powerlines/core/lib/utilities/file-header";
@@ -82,7 +81,7 @@ import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
-import { MaybePromise, PartialKeys, RequiredKeys } from "@stryke/types/base";
+import { MaybePromise, PartialKeys } from "@stryke/types/base";
 import chalk from "chalk";
 import defu from "defu";
 import Handlebars from "handlebars";
@@ -798,7 +797,7 @@ ${formatTypes(code)}
     );
 
     api.#context.config.inlineConfig = config;
-    await api.#context.setup(config);
+    await api.#context.setup();
 
     api.#context.$$internal = {
       api,
@@ -834,7 +833,7 @@ ${formatTypes(code)}
     if (pluginConfig) {
       api.#context.config.pluginConfig =
         pluginConfig as TResolvedConfig["pluginConfig"];
-      await api.#context.setup(pluginConfig as UserConfig);
+      await api.#context.setup();
     }
 
     timer();
@@ -861,9 +860,9 @@ ${formatTypes(code)}
 
     inlineConfig.command ??= "types";
 
-    await this.context.setup(
-      inlineConfig as RequiredKeys<TypesInlineConfig, "command">
-    );
+    this.context.config.inlineConfig = inlineConfig as InlineConfig;
+    await this.context.setup();
+
     await this.#executeEnvironments(async context => {
       context.debug(
         `Initializing the processing options for the Powerlines project.`
@@ -999,9 +998,9 @@ ${formatTypes(code)}
       | PartialKeys<DeployInlineConfig, "command"> = { command: "prepare" }
   ) {
     inlineConfig.command ??= "prepare";
-    await this.context.setup(
-      inlineConfig as RequiredKeys<PrepareInlineConfig, "command">
-    );
+
+    this.context.config.inlineConfig = inlineConfig as InlineConfig;
+    await this.context.setup();
 
     await this.#executeEnvironments(async context => {
       context.debug(
@@ -1282,7 +1281,9 @@ ${formatTypes(code)}
       command: "build"
     }
   ) {
+    inlineConfig.command ??= "build";
     await this.context.generateChecksum();
+
     if (
       this.context.meta.checksum !== this.context.persistedMeta?.checksum ||
       this.context.config.skipCache
@@ -1295,8 +1296,10 @@ ${formatTypes(code)}
             : "The project is configured to skip cache. Re-preparing the project."
       );
 
-      inlineConfig.command ??= "build";
       await this.prepare(inlineConfig);
+    } else {
+      this.context.config.inlineConfig = inlineConfig as InlineConfig;
+      await this.context.setup();
     }
 
     if (this.context.config.singleBuild) {

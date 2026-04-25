@@ -34,15 +34,13 @@ import type {
 } from "unplugin";
 import type {
   EnvironmentResolvedConfig,
-  InlineConfig,
   LogFn,
   LogLevel,
   ParsedUserConfig,
   ResolvedConfig,
   ResolvedEngineOptions,
   ResolvedEntryTypeDefinition,
-  ResolvedExecutionOptions,
-  UserConfig
+  ResolvedExecutionOptions
 } from "./config";
 import type {
   ResolveOptions,
@@ -643,10 +641,8 @@ export type Context<TResolvedConfig extends ResolvedConfig = ResolvedConfig> =
 
     /**
      * Initialize the context with the provided configuration options
-     *
-     * @param config - The partial configuration to use for initialization.
      */
-    setup: (config: UserConfig | InlineConfig) => Promise<void>;
+    setup: () => Promise<void>;
 
     /**
      * A function to create a deep clone of the context
