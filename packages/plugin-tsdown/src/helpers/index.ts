@@ -16,5 +16,6 @@
 
  ------------------------------------------------------------------- */
 
+export * from "./build-helpers";
 export * from "./resolve-options";
 export * from "./unplugin";

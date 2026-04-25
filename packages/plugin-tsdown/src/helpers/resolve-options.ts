@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { Context } from "@powerlines/core";
-import { getDependencyConfig } from "@powerlines/core/plugin-utils";
 import { RolldownPluginResolvedConfig } from "@powerlines/plugin-rolldown/types/plugin";
 import type { Format } from "@storm-software/build-tools/types";
 import { toArray } from "@stryke/convert/to-array";
@@ -29,6 +28,7 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import defu from "defu";
 import { UserConfig as BuildOptions, Format as TsdownFormat } from "tsdown";
 import { TsdownPluginResolvedConfig } from "../types/plugin";
+import { getDependencyConfig } from "./build-helpers";
 
 export const DEFAULT_TSDOWN_CONFIG: Partial<BuildOptions> = {
   platform: "neutral",
