@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - CLI
 
+## [0.2.18](https://github.com/storm-software/powerlines/releases/tag/cli%400.2.18) (04/25/2026)
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.43.16**
+- Updated **deepkit** to **v0.8.19**
+
 ## [0.2.17](https://github.com/storm-software/powerlines/releases/tag/cli%400.2.17) (04/25/2026)
 
 ### Updated Dependencies

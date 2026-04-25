@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.0.17](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.17) (04/25/2026)
+
+### Bug Fixes
+
+- **engine:** Resolve issue cloning execution context fields ([1e67c4c56](https://github.com/storm-software/powerlines/commit/1e67c4c56))
+
 ## [0.0.16](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.16) (04/25/2026)
 
 ### Bug Fixes
