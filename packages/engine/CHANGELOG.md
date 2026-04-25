@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.0.18](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.18) (04/25/2026)
+
+### Bug Fixes
+
+- **engine:** Resolve issue with missing `resolver` clone ([31b04a33d](https://github.com/storm-software/powerlines/commit/31b04a33d))
+
 ## [0.0.17](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.17) (04/25/2026)
 
 ### Bug Fixes
