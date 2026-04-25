@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.427](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.427) (04/25/2026)
+
+### Bug Fixes
+
+- **plugin-tsc:** Ensure prefix is stripped from `id` prior to transpilation ([e6f780f1b](https://github.com/storm-software/powerlines/commit/e6f780f1b))
+
 ## [0.2.426](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.426) (04/25/2026)
 
 ### Updated Dependencies
