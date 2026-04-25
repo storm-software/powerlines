@@ -151,6 +151,62 @@
         "default": "./dist/lib/constants/meta.mjs"
       }
     },
+    "./lib/constants/hooks": {
+      "import": {
+        "types": "./dist/lib/constants/hooks.d.mts",
+        "default": "./dist/lib/constants/hooks.mjs"
+      },
+      "require": {
+        "types": "./dist/lib/constants/hooks.d.cts",
+        "default": "./dist/lib/constants/hooks.cjs"
+      },
+      "default": {
+        "types": "./dist/lib/constants/hooks.d.mts",
+        "default": "./dist/lib/constants/hooks.mjs"
+      }
+    },
+    "./lib/constants/plugin": {
+      "import": {
+        "types": "./dist/lib/constants/plugin.d.mts",
+        "default": "./dist/lib/constants/plugin.mjs"
+      },
+      "require": {
+        "types": "./dist/lib/constants/plugin.d.cts",
+        "default": "./dist/lib/constants/plugin.cjs"
+      },
+      "default": {
+        "types": "./dist/lib/constants/plugin.d.mts",
+        "default": "./dist/lib/constants/plugin.mjs"
+      }
+    },
+    "./lib/constants/api": {
+      "import": {
+        "types": "./dist/lib/constants/api.d.mts",
+        "default": "./dist/lib/constants/api.mjs"
+      },
+      "require": {
+        "types": "./dist/lib/constants/api.d.cts",
+        "default": "./dist/lib/constants/api.cjs"
+      },
+      "default": {
+        "types": "./dist/lib/constants/api.d.mts",
+        "default": "./dist/lib/constants/api.mjs"
+      }
+    },
+    "./lib/constants/virtual-modules": {
+      "import": {
+        "types": "./dist/lib/constants/virtual-modules.d.mts",
+        "default": "./dist/lib/constants/virtual-modules.mjs"
+      },
+      "require": {
+        "types": "./dist/lib/constants/virtual-modules.d.cts",
+        "default": "./dist/lib/constants/virtual-modules.cjs"
+      },
+      "default": {
+        "types": "./dist/lib/constants/virtual-modules.d.mts",
+        "default": "./dist/lib/constants/virtual-modules.mjs"
+      }
+    },
     "./lib/entry": {
       "import": {
         "types": "./dist/lib/entry.d.mts",
