@@ -214,16 +214,15 @@ export class PowerlinesExecutionContext<
   public async in(
     environment: EnvironmentResolvedConfig
   ): Promise<Unstable_EnvironmentContext<TResolvedConfig>> {
-    const context: Unstable_EnvironmentContext<TResolvedConfig> =
+    const context = this.copyTo(
       await PowerlinesEnvironmentContext.fromConfig(
         deepClone(this.options),
         deepClone(this.config) as TResolvedConfig,
         deepClone(environment) as EnvironmentResolvedConfig
-      );
+      )
+    ) as Unstable_EnvironmentContext<TResolvedConfig>;
 
-    context.$$internal = this.$$internal;
     context.plugins = [];
-
     for (const plugin of this.plugins) {
       await context.addPlugin(plugin);
     }
