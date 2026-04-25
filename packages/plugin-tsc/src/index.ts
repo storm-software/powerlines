@@ -18,16 +18,17 @@
 
 import defu from "defu";
 import { Plugin } from "powerlines";
+import { VIRTUAL_MODULE_PREFIX_REGEX } from "powerlines/constants";
 import { createFilterForTransform } from "powerlines/plugin-utils";
 import ts from "typescript";
 import { typeCheck } from "./helpers/type-check";
-import {
+import type {
   TypeScriptCompilerPluginContext,
   TypeScriptCompilerPluginOptions
 } from "./types/plugin";
 
 export * from "./helpers";
-export * from "./types";
+export type * from "./types";
 
 declare module "powerlines" {
   interface Config {
@@ -89,7 +90,7 @@ export const plugin = <
             ...this.tsconfig.options,
             ...this.config.tsc.compilerOptions
           },
-          fileName: id
+          fileName: id.replace(VIRTUAL_MODULE_PREFIX_REGEX, "")
         });
         if (
           result.diagnostics &&
