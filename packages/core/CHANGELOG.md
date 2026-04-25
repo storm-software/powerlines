@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.13.24](https://github.com/storm-software/powerlines/releases/tag/core%400.13.24) (04/25/2026)
+
+### Bug Fixes
+
+- **engine:** Resolve issue applying configurations across build environments ([7b5de872b](https://github.com/storm-software/powerlines/commit/7b5de872b))
+
 ## [0.13.23](https://github.com/storm-software/powerlines/releases/tag/core%400.13.23) (04/25/2026)
 
 ### Bug Fixes

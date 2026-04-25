@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.12.30](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.30) (04/25/2026)
+
+### Bug Fixes
+
+- **engine:** Resolve issue applying configurations across build environments ([7b5de872b](https://github.com/storm-software/powerlines/commit/7b5de872b))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.43.15**
+
 ## [0.12.29](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.29) (04/25/2026)
 
 ### Updated Dependencies
