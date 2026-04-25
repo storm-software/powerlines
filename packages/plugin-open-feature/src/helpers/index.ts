@@ -17,4 +17,3 @@
  ------------------------------------------------------------------- */
 
 export * from "./automd-generator";
-export * from "./docs-helper";

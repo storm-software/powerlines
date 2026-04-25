@@ -19,6 +19,7 @@
 import { joinPaths } from "@stryke/path/join-paths";
 import { defineGenerator } from "automd";
 import { UnresolvedContext } from "powerlines";
+import { getDocsOutputPath } from "powerlines/plugin-utils";
 
 /**
  * AutoMD generator to generate feature flags documentation
@@ -31,9 +32,7 @@ export const features = (context: UnresolvedContext) =>
     name: "features",
     async generate() {
       const featuresDocFile = joinPaths(
-        context.config.root,
-        "docs",
-        "generated",
+        getDocsOutputPath(context.config.root),
         "features.md"
       );
 

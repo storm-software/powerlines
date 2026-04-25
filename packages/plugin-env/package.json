@@ -166,20 +166,6 @@
         "default": "./dist/helpers/create-reflection-resource.mjs"
       }
     },
-    "./helpers/docs-helper": {
-      "require": {
-        "types": "./dist/helpers/docs-helper.d.cts",
-        "default": "./dist/helpers/docs-helper.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/docs-helper.d.mts",
-        "default": "./dist/helpers/docs-helper.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/docs-helper.d.mts",
-        "default": "./dist/helpers/docs-helper.mjs"
-      }
-    },
     "./helpers/load": {
       "require": {
         "types": "./dist/helpers/load.d.cts",

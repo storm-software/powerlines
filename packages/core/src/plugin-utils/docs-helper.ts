@@ -17,14 +17,13 @@
  ------------------------------------------------------------------- */
 
 import { joinPaths } from "@stryke/path/join";
-import { OpenFeaturePluginContext } from "../types/plugin";
 
 /**
  * Gets the output path for the generated environment documentation.
  *
- * @param context - The environment plugin context.
+ * @param root - The root directory of the project.
  * @returns The output path for the generated environment documentation.
  */
-export function getDocsOutputPath(context: OpenFeaturePluginContext): string {
-  return joinPaths(context.config.root, "docs", "generated");
+export function getDocsOutputPath(root: string): string {
+  return joinPaths(root, "docs", "reference");
 }

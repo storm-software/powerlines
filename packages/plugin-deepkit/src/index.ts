@@ -85,7 +85,7 @@ export const plugin = <
             level,
             configFilePath: appendPath(
               this.tsconfig.tsconfigFilePath,
-              this.options.cwd
+              this.config.cwd
             )
           };
 

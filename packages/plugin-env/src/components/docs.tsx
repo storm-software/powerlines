@@ -31,7 +31,7 @@ import {
 } from "@powerlines/plugin-alloy/markdown/components/markdown-file";
 import { MarkdownTable } from "@powerlines/plugin-alloy/markdown/components/markdown-table";
 import { joinPaths } from "@stryke/path/join";
-import { getDocsOutputPath } from "../helpers/docs-helper";
+import { getDocsOutputPath } from "powerlines/plugin-utils";
 import { EnvPluginContext } from "../types/plugin";
 
 export interface EnvDocsFileProps extends Partial<MarkdownFileProps> {
@@ -58,7 +58,7 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
 
   return (
     <MarkdownFile
-      path={joinPaths(getDocsOutputPath(context), "env.md")}
+      path={joinPaths(getDocsOutputPath(context.config.root), "env.md")}
       {...rest}>
       <Heading level={1 + levelOffset}>Environment Configuration</Heading>
       {code`Below is a list of environment variables used by the`}

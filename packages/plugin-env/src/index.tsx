@@ -39,12 +39,12 @@ import {
 import defu from "defu";
 import { Plugin } from "powerlines";
 import { VIRTUAL_MODULE_PREFIX } from "powerlines/constants";
+import { getDocsOutputPath } from "powerlines/plugin-utils";
 import type { UserConfig as ViteUserConfig } from "vite";
 import { envBabelPlugin } from "./babel/plugin";
 import { EnvDocsFile } from "./components/docs";
 import { EnvBuiltin } from "./components/env-builtin";
 import { env } from "./helpers/automd-generator";
-import { getDocsOutputPath } from "./helpers/docs-helper";
 import { loadEnv } from "./helpers/load";
 import {
   getEnvDefaultTypeDefinition,
@@ -135,9 +135,9 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         ) {
           config.env.secrets = parseTypeDefinition(config.env.secrets);
 
-          const file = await this.fs.resolve(config.env.secrets.file);
+          const file = await this.fs.resolve(config.env.secrets!.file);
           if (file) {
-            config.env.secrets.file = file;
+            config.env.secrets!.file = file;
           }
         } else {
           const secretsDefaultTypeDefinition =
@@ -395,7 +395,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
       async docs() {
         this.debug(
           `Documenting environment variables configuration values in "${joinPaths(
-            getDocsOutputPath(this),
+            getDocsOutputPath(this.config.root),
             "env.md"
           )}"`
         );

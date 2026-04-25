@@ -115,20 +115,6 @@
         "default": "./dist/helpers/automd-generator.mjs"
       }
     },
-    "./helpers/docs-helper": {
-      "require": {
-        "types": "./dist/helpers/docs-helper.d.cts",
-        "default": "./dist/helpers/docs-helper.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/docs-helper.d.mts",
-        "default": "./dist/helpers/docs-helper.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/docs-helper.d.mts",
-        "default": "./dist/helpers/docs-helper.mjs"
-      }
-    },
     "./package.json": "./package.json",
     "./types": {
       "require": {

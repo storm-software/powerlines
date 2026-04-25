@@ -19,6 +19,7 @@
 import { joinPaths } from "@stryke/path/join-paths";
 import { defineGenerator } from "automd";
 import { UnresolvedContext } from "powerlines";
+import { getDocsOutputPath } from "powerlines/plugin-utils";
 
 /**
  * AutoMD generator to generate environment variable documentation
@@ -31,9 +32,7 @@ export const env = (context: UnresolvedContext) =>
     name: "env",
     async generate() {
       const envDocFile = joinPaths(
-        context.config.root,
-        "docs",
-        "generated",
+        getDocsOutputPath(context.config.root),
         "env.md"
       );
 
