@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { throttle } from "@stryke/helpers/throttle";
+import { throttle } from "@stryke/async";
 import { StormJSON } from "@stryke/json/storm-json";
 import { joinPaths } from "@stryke/path/join";
 import defu from "defu";

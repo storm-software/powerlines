@@ -89,6 +89,7 @@
   "files": ["dist/**/*"],
   "keywords": ["unimport", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
+    "@stryke/async": "catalog:",
     "@stryke/helpers": "catalog:",
     "@stryke/json": "catalog:",
     "@stryke/path": "catalog:",

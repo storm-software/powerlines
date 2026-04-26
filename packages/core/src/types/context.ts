@@ -33,6 +33,7 @@ import type {
   UnpluginMessage
 } from "unplugin";
 import type {
+  EngineOptions,
   EnvironmentResolvedConfig,
   LogFn,
   LogLevel,
@@ -331,6 +332,11 @@ export interface UnresolvedContext<
    * The options provided to the Powerlines process
    */
   options: ResolvedExecutionOptions;
+
+  /**
+   * The input options used to initialize the context, which may be used when cloning the context to ensure the same configuration is applied to the new context
+   */
+  inputOptions: Partial<EngineOptions>;
 
   /**
    * An object containing the options provided to Powerlines

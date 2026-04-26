@@ -164,6 +164,6 @@
     "access": "public"
   },
   "inlinedDependencies": {
-    "@stryke/convert": "0.7.0"
+    "@stryke/convert": "0.7.2"
   }
 }

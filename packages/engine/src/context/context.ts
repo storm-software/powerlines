@@ -73,6 +73,7 @@ import {
   findFileDotExtensionSafe,
   findFileExtensionSafe
 } from "@stryke/path/file-path-fns";
+import { isEqual } from "@stryke/path/is-equal";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
@@ -1237,6 +1238,9 @@ export class PowerlinesContext<
       }
     }
 
+    context.inputOptions = deepClone<typeof this.inputOptions>(
+      this.inputOptions
+    );
     context.dependencies = deepClone<typeof this.dependencies>(
       this.dependencies
     );
@@ -1277,12 +1281,20 @@ export class PowerlinesContext<
     this.options.configIndex =
       options.configIndex ?? this.options.configIndex ?? 0;
 
-    const projectJsonPath = joinPaths(this.options.root, "project.json");
+    const projectJsonPath = joinPaths(
+      this.options.cwd,
+      this.options.root,
+      "project.json"
+    );
     if (existsSync(projectJsonPath)) {
       this.projectJson = await readJsonFile(projectJsonPath);
     }
 
-    const packageJsonPath = joinPaths(this.options.root, "package.json");
+    const packageJsonPath = joinPaths(
+      this.options.cwd,
+      this.options.root,
+      "package.json"
+    );
     if (existsSync(packageJsonPath)) {
       this.packageJson = await readJsonFile<PackageJson>(packageJsonPath);
       this.options.organization ??= isSetObject(this.packageJson?.author)
@@ -1290,7 +1302,9 @@ export class PowerlinesContext<
         : kebabCase(this.packageJson?.author);
     }
 
-    this.#checksum = await this.generateChecksum(this.options.root);
+    this.#checksum = await this.generateChecksum(
+      joinPaths(this.options.cwd, this.options.root)
+    );
 
     const userConfig = this.configFile.config
       ? Array.isArray(this.configFile.config) &&
@@ -1311,7 +1325,7 @@ export class PowerlinesContext<
    */
   protected async innerSetup(): Promise<void> {
     if (
-      !this.options.mode &&
+      !this.inputOptions.mode &&
       !this.config.userConfig?.mode &&
       !this.config.inlineConfig?.mode &&
       !this.config.pluginConfig?.mode
@@ -1321,7 +1335,7 @@ export class PowerlinesContext<
     }
 
     if (
-      !this.options.framework &&
+      !this.inputOptions.framework &&
       !this.config.userConfig?.framework &&
       !this.config.inlineConfig?.framework &&
       !this.config.pluginConfig?.framework
@@ -1509,7 +1523,7 @@ export class PowerlinesContext<
               asset.input === "./"
                 ? this.options.cwd
                 : isParentPath(asset.input, this.config.cwd) ||
-                    asset.input === this.config.cwd
+                    isEqual(asset.input, this.config.cwd)
                   ? asset.input
                   : appendPath(asset.input, this.config.cwd),
             output:

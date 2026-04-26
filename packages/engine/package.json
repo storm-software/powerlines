@@ -149,6 +149,7 @@
     "@powerlines/core": "workspace:*",
     "@storm-software/config": "catalog:",
     "@storm-software/config-tools": "catalog:",
+    "@stryke/async": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",
     "@stryke/env": "catalog:",

@@ -32,6 +32,7 @@ import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { EnvPaths, getEnvPaths } from "@stryke/env/get-env-paths";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { StormJSON } from "@stryke/json/storm-json";
+import { isEqual } from "@stryke/path/is-equal";
 import { isNull } from "@stryke/type-checks/is-null";
 import { isString } from "@stryke/type-checks/is-string";
 import chalk from "chalk";
@@ -59,6 +60,11 @@ export class PowerlinesBaseContext implements BaseContext {
    * The options provided to the Powerlines process
    */
   public options!: ResolvedEngineOptions;
+
+  /**
+   * The input options used to initialize the context, which may be used when cloning the context to ensure the same configuration is applied to the new context
+   */
+  public inputOptions: Partial<EngineOptions> = {};
 
   /**
    * The parsed configuration file for the project
@@ -260,6 +266,8 @@ export class PowerlinesBaseContext implements BaseContext {
    * @param options - The configuration options to initialize the context with
    */
   protected async init(options: Partial<EngineOptions> = {}) {
+    this.inputOptions = options;
+
     if (!this.powerlinesPath) {
       const powerlinesPath = await resolvePackage("powerlines");
       if (!powerlinesPath) {
@@ -272,9 +280,9 @@ export class PowerlinesBaseContext implements BaseContext {
     const root =
       (options.root || this.options?.root) &&
       (options.root || this.options.root).replace(/^\.\/?/, "") &&
-      (options.root || this.options.root) !== cwd
+      !isEqual(options.root || this.options.root, cwd)
         ? options.root || this.options.root
-        : "./";
+        : ".";
 
     this.options = defu(
       {
@@ -285,7 +293,11 @@ export class PowerlinesBaseContext implements BaseContext {
         organization: options.organization,
         configFile: options.configFile
       },
-      this.options ?? {}
+      this.options ?? {},
+      {
+        mode: "production",
+        framework: "powerlines"
+      }
     ) as ResolvedEngineOptions;
 
     this.resolver = createResolver({

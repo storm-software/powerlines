@@ -32,6 +32,7 @@ import type {
   TypesInlineConfig
 } from "@powerlines/core";
 import { POWERLINES_API_FUNCTIONS } from "@powerlines/core/constants";
+import { PQueue } from "@stryke/async/node";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { joinPaths } from "@stryke/path/join";
 import { PartialKeys } from "@stryke/types/base";
@@ -56,6 +57,11 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    * The worker pool for managing child threads
    */
   #worker!: ExecutionWorkerProcess;
+
+  /**
+   * The queue for managing concurrent execution of Powerlines commands, ensuring that commands are executed in a controlled manner to prevent resource exhaustion and ensure optimal performance.
+   */
+  #queue = new PQueue();
 
   /**
    * Create a new Powerlines Engine instance
@@ -173,10 +179,12 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     inlineConfig.command ??= "prepare";
     await Promise.all(
       this.#context.executions.map(async options =>
-        this.#worker.prepare({
-          options,
-          config: inlineConfig as PrepareInlineConfig
-        })
+        this.#queue.add(async () =>
+          this.#worker.prepare({
+            options,
+            config: inlineConfig as PrepareInlineConfig
+          })
+        )
       )
     );
 
@@ -200,10 +208,12 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     inlineConfig.command ??= "new";
     await Promise.all(
       this.#context.executions.map(async options =>
-        this.#worker.new({
-          options,
-          config: inlineConfig as NewInlineConfig
-        })
+        this.#queue.add(async () =>
+          this.#worker.new({
+            options,
+            config: inlineConfig as NewInlineConfig
+          })
+        )
       )
     );
 
@@ -233,10 +243,12 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     inlineConfig.command ??= "clean";
     await Promise.all(
       this.#context.executions.map(async options =>
-        this.#worker.clean({
-          options,
-          config: inlineConfig as CleanInlineConfig
-        })
+        this.#queue.add(async () =>
+          this.#worker.clean({
+            options,
+            config: inlineConfig as CleanInlineConfig
+          })
+        )
       )
     );
 
@@ -263,10 +275,12 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     inlineConfig.command ??= "lint";
     await Promise.all(
       this.#context.executions.map(async options =>
-        this.#worker.lint({
-          options,
-          config: inlineConfig as LintInlineConfig
-        })
+        this.#queue.add(async () =>
+          this.#worker.lint({
+            options,
+            config: inlineConfig as LintInlineConfig
+          })
+        )
       )
     );
 
@@ -296,10 +310,12 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     inlineConfig.command ??= "test";
     await Promise.all(
       this.#context.executions.map(async options =>
-        this.#worker.test({
-          options,
-          config: inlineConfig as TestInlineConfig
-        })
+        this.#queue.add(async () =>
+          this.#worker.test({
+            options,
+            config: inlineConfig as TestInlineConfig
+          })
+        )
       )
     );
 
@@ -329,10 +345,12 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
 
     await Promise.all(
       this.#context.executions.map(async options =>
-        this.#worker.build({
-          options,
-          config: inlineConfig as BuildInlineConfig
-        })
+        this.#queue.add(async () =>
+          this.#worker.build({
+            options,
+            config: inlineConfig as BuildInlineConfig
+          })
+        )
       )
     );
 
@@ -363,10 +381,12 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
 
     await Promise.all(
       this.#context.executions.map(async options =>
-        this.#worker.docs({
-          options,
-          config: inlineConfig as DocsInlineConfig
-        })
+        this.#queue.add(async () =>
+          this.#worker.docs({
+            options,
+            config: inlineConfig as DocsInlineConfig
+          })
+        )
       )
     );
 
@@ -399,10 +419,12 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
 
     await Promise.all(
       this.#context.executions.map(async options =>
-        this.#worker.deploy({
-          options,
-          config: inlineConfig as DeployInlineConfig
-        })
+        this.#queue.add(async () =>
+          this.#worker.deploy({
+            options,
+            config: inlineConfig as DeployInlineConfig
+          })
+        )
       )
     );
 
