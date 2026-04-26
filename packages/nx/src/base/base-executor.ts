@@ -21,7 +21,6 @@ import { writeError } from "@storm-software/config-tools/logger";
 import { StormWorkspaceConfig } from "@storm-software/config/types";
 import { withRunExecutor } from "@storm-software/workspace-tools/base/base-executor";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
-import { replacePath } from "@stryke/path/replace";
 import { isError } from "@stryke/type-checks/is-error";
 import defu from "defu";
 import { createJiti } from "jiti";
@@ -131,27 +130,15 @@ export function withExecutor<
                     projectType: projectConfig.projectType,
                     additionalArgs: options.additionalArgs,
                     output: {
-                      path: options.outputPath
-                        ? replacePath(
-                            replacePath(
-                              options.outputPath,
-                              workspaceConfig.workspaceRoot
-                            ),
-                            projectConfig.root
-                          )
-                        : undefined,
-                      copy: {
-                        path: options.copyPath
-                          ? replacePath(
-                              replacePath(
-                                options.copyPath,
-                                workspaceConfig.workspaceRoot
-                              ),
-                              projectConfig.root
-                            )
-                          : undefined,
-                        assets: options.assets
-                      },
+                      path: options.outputPath,
+                      copy:
+                        options.copyPath === false
+                          ? false
+                          : {
+                              path: options.copyPath,
+                              assets: options.assets
+                            },
+                      minify: options.minify,
                       sourceMap: options.sourceMap
                     } as OutputConfig,
                     resolve: {

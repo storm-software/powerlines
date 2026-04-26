@@ -68,6 +68,15 @@ A directory path to copy the build artifacts into
 Generate a sourcemap
 
 
+## `minify`
+- **Type**: `boolean`
+
+> Minify
+
+
+Minify the output
+
+
 ## `format`
 - **Type**: `array`
 - **Default**: `["cjs","esm"]`

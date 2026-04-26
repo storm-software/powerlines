@@ -72,6 +72,14 @@ export interface DocsExecutorSchema {
  sourceMap?: boolean,
 
  /**
+  * Minify
+  * 
+  * Minify the output
+  * 
+ */
+ minify?: boolean,
+
+ /**
   * Format
   * 
   * The format to build

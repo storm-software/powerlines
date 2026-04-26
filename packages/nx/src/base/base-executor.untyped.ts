@@ -86,6 +86,13 @@ export default defineUntypedSchema({
       description: "Generate a sourcemap"
     }
   },
+  minify: {
+    $schema: {
+      title: "Minify",
+      type: "boolean",
+      description: "Minify the output"
+    }
+  },
   format: {
     $schema: {
       title: "Format",

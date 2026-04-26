@@ -67,6 +67,12 @@
       "description": "Generate a sourcemap",
       "id": "#sourceMap"
     },
+    "minify": {
+      "title": "Minify",
+      "type": "boolean",
+      "description": "Minify the output",
+      "id": "#minify"
+    },
     "format": {
       "title": "Format",
       "type": "array",
