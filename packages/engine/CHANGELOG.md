@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.43.26](https://github.com/storm-software/powerlines/releases/tag/engine%400.43.26) (04/26/2026)
+
+### Miscellaneous
+
+- **engine:** Improve context configuration resolution logic ([13b3f1b06](https://github.com/storm-software/powerlines/commit/13b3f1b06))
+
 ## [0.43.25](https://github.com/storm-software/powerlines/releases/tag/engine%400.43.25) (04/26/2026)
 
 ### Miscellaneous

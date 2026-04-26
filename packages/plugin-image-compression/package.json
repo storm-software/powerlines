@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-image-compression",
-  "version": "0.2.378",
+  "version": "0.2.379",
   "private": false,
   "description": "A Powerlines plugin to optimize images used by the project.",
   "keywords": [
