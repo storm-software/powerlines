@@ -19,7 +19,7 @@ catalog:
   '@babel/types': 8.0.0-rc.3
   '@cacheable/memory': ^2.0.8
   '@cloudflare/unenv-preset': ^2.16.1
-  '@cloudflare/workers-types': ^4.20260424.1
+  '@cloudflare/workers-types': ^4.20260426.1
   '@content-collections/core': ^0.12.0
   '@deepkit/core': 1.0.5
   '@deepkit/type': 1.0.5
@@ -88,20 +88,20 @@ catalog:
   '@storm-software/unbuild': ^0.57.159
   '@storm-software/untyped': ^0.24.140
   '@storm-software/workspace-tools': ^1.295.55
-  '@stryke/capnp': ^0.12.92
-  '@stryke/cli': ^0.13.38
-  '@stryke/convert': ^0.6.58
-  '@stryke/env': ^0.20.83
-  '@stryke/fs': ^0.33.66
-  '@stryke/hash': ^0.13.19
-  '@stryke/helpers': ^0.10.8
-  '@stryke/http': ^0.12.54
-  '@stryke/json': ^0.14.12
-  '@stryke/path': ^0.27.4
-  '@stryke/string-format': ^0.17.9
-  '@stryke/type-checks': ^0.6.1
-  '@stryke/types': ^0.11.3
-  '@stryke/unique-id': ^0.3.77
+  '@stryke/capnp': ^0.12.93
+  '@stryke/cli': ^0.13.39
+  '@stryke/convert': ^0.7.0
+  '@stryke/env': ^0.20.84
+  '@stryke/fs': ^0.33.67
+  '@stryke/hash': ^0.13.20
+  '@stryke/helpers': ^0.10.9
+  '@stryke/http': ^0.12.55
+  '@stryke/json': ^0.14.13
+  '@stryke/path': ^0.27.5
+  '@stryke/string-format': ^0.17.10
+  '@stryke/type-checks': ^0.6.2
+  '@stryke/types': ^0.11.4
+  '@stryke/unique-id': ^0.3.78
   '@swc-node/register': ^1.11.1
   '@swc/core': ^1.15.30
   '@swc/helpers': ^0.5.21
