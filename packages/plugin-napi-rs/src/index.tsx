@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { NapiCli, parseTriple } from "@napi-rs/cli";
-import alloy from "@powerlines/plugin-alloy";
 import { toArray } from "@stryke/convert/to-array";
 import { appendPath } from "@stryke/path/append";
 import { isString } from "@stryke/type-checks/is-string";
@@ -25,7 +24,7 @@ import { defu } from "defu";
 import { Plugin } from "powerlines";
 import { isVerbose } from "powerlines/plugin-utils";
 import { formatPath } from "./helpers/format-path";
-import { DEFAULT_TARGETS, Target } from "./types";
+import { DEFAULT_TARGETS } from "./types";
 import type { NapiPluginContext, NapiPluginOptions } from "./types/plugin";
 
 export type * from "./types";
@@ -45,7 +44,6 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
   options: NapiPluginOptions = {}
 ) => {
   return [
-    alloy(),
     {
       name: "napi-rs",
       config() {
@@ -201,9 +199,7 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
         packageJson.napi = {
           binaryName: this.config.napi.binaryName,
           packageName: this.config.napi.packageName,
-          targets: (this.config.napi.targets as Target[])?.map(
-            target => target.triple
-          ),
+          targets: this.config.napi.targets?.map(target => target.triple),
           npmClient: this.config.napi.npmClient,
           constEnum: this.config.napi.constEnum,
           dtsHeader: this.config.napi.dtsHeader,

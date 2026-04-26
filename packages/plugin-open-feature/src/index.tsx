@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import alloy from "@powerlines/plugin-alloy";
 import { render } from "@powerlines/plugin-alloy/render";
 import automd from "@powerlines/plugin-automd";
 import defu from "defu";
@@ -45,7 +44,6 @@ export const plugin = <
   options: OpenFeaturePluginOptions = {}
 ) => {
   return [
-    alloy(options.alloy),
     {
       name: "open-feature",
       async prepare() {
