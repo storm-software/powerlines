@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.1.2](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.1.2) (04/26/2026)
+
+### Miscellaneous
+
+- **plugin-napi-rs:** Lookup target type via `platform` from triplet ([1b2bff5bf](https://github.com/storm-software/powerlines/commit/1b2bff5bf))
+
+### Bug Fixes
+
+- **plugin-plugin:** Resolved issue with `external` RegExp syntax ([365f32b0e](https://github.com/storm-software/powerlines/commit/365f32b0e))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.421**
+- Updated **plugin-plugin** to **v0.12.372**
+- Updated **plugin-alloy** to **v0.26.40**
+- Updated **plugin-babel** to **v0.12.415**
+- Updated **powerlines** to **v0.43.20**
+
 ## [0.1.1](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.1.1) (04/25/2026)
 
 ### Updated Dependencies

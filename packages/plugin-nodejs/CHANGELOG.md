@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.348](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.348) (04/26/2026)
+
+### Bug Fixes
+
+- **plugin-plugin:** Resolved issue with `external` RegExp syntax ([365f32b0e](https://github.com/storm-software/powerlines/commit/365f32b0e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.372**
+- Updated **plugin-alloy** to **v0.26.40**
+- Updated **plugin-babel** to **v0.12.415**
+- Updated **plugin-env** to **v0.16.147**
+- Updated **powerlines** to **v0.43.20**
+
 ## [0.1.347](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.347) (04/25/2026)
 
 ### Updated Dependencies
