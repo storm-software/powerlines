@@ -70,24 +70,24 @@ catalog:
   '@shell-shock/preset-cli': ^0.9.19
   '@sinclair/typebox': ^0.34.49
   '@standard-schema/spec': ^1.1.0
-  '@storm-software/build-tools': ^0.158.158
-  '@storm-software/config': ^1.137.31
-  '@storm-software/config-tools': ^1.189.77
-  '@storm-software/cspell': ^0.46.67
-  '@storm-software/esbuild': ^0.53.159
-  '@storm-software/eslint': ^0.170.19
-  '@storm-software/git-tools': ^2.130.35
-  '@storm-software/linting-tools': ^1.133.28
-  '@storm-software/markdownlint': ^0.30.155
-  '@storm-software/pnpm-tools': ^0.7.5
-  '@storm-software/prettier': ^0.59.51
-  '@storm-software/testing-tools': ^1.119.152
-  '@storm-software/tsconfig': ^0.48.66
-  '@storm-software/tsdoc': ^0.13.152
-  '@storm-software/tsup': ^0.2.156
-  '@storm-software/unbuild': ^0.57.159
-  '@storm-software/untyped': ^0.24.140
-  '@storm-software/workspace-tools': ^1.295.55
+  '@storm-software/build-tools': ^0.158.159
+  '@storm-software/config': ^1.137.32
+  '@storm-software/config-tools': ^1.189.78
+  '@storm-software/cspell': ^0.46.68
+  '@storm-software/esbuild': ^0.53.160
+  '@storm-software/eslint': ^0.170.20
+  '@storm-software/git-tools': ^2.130.36
+  '@storm-software/linting-tools': ^1.133.29
+  '@storm-software/markdownlint': ^0.30.156
+  '@storm-software/pnpm-tools': ^0.7.6
+  '@storm-software/prettier': ^0.59.52
+  '@storm-software/testing-tools': ^1.119.153
+  '@storm-software/tsconfig': ^0.48.67
+  '@storm-software/tsdoc': ^0.13.153
+  '@storm-software/tsup': ^0.2.157
+  '@storm-software/unbuild': ^0.57.160
+  '@storm-software/untyped': ^0.24.141
+  '@storm-software/workspace-tools': ^1.295.56
   '@stryke/capnp': ^0.12.93
   '@stryke/cli': ^0.13.39
   '@stryke/convert': ^0.7.0
@@ -207,7 +207,7 @@ catalog:
   zx: ^8.8.5
 
 configDependencies:
-  pnpm-plugin-storm-software: 0.1.110+sha512-r5u7IrfK3K07+6TmEf39s2i0XumxUMJlZAVgMC0+HsNobXB/ta5OKJBuTp20WcaDBczxNod8PANPJXfkC0W+rA==
+  pnpm-plugin-storm-software: 0.1.111+sha512-xnsTNOLyRZZ+wGhdusIHa+0uRUdR/8JQmtJ6xU+AkCAXmKq15IXbwiKvTWEznf+uQD57ewcZ11cCZcVBdDrlSw==
 
 fetchTimeout: 240000
 

@@ -2,11 +2,11 @@
   "extends": "@storm-software/workspace-tools/config/recommended.json",
   "release": {
     "groups": {
-      "core": {
+      "powerlines": {
         "projects": ["packages/core", "packages/engine", "packages/powerlines"],
         "projectsRelationship": "fixed",
         "releaseTag": {
-          "pattern": "{projectName}@{version}"
+          "pattern": "powerlines-v{version}"
         }
       },
       "packages": {
