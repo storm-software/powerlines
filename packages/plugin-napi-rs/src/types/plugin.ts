@@ -38,7 +38,7 @@ import { WasmOptions } from "./wasm";
  *
  * @see https://napi.rs/docs/cli/build#options
  */
-export interface NapiRsPluginOptions {
+export interface NapiPluginOptions {
   /**
    * Build only the specified binary
    */
@@ -175,13 +175,13 @@ export interface NapiRsPluginOptions {
   useNapiCross?: boolean;
 }
 
-export type NapiRsPluginUserConfig = BabelPluginUserConfig &
+export type NapiPluginUserConfig = BabelPluginUserConfig &
   AlloyPluginUserConfig & {
-    napi: NapiRsPluginOptions;
+    napi: NapiPluginOptions;
   };
 
-export type NapiRsResolvedPluginOptions = RequiredKeys<
-  Omit<NapiRsPluginOptions, "targets">,
+export type NapiResolvedPluginOptions = RequiredKeys<
+  Omit<NapiPluginOptions, "targets">,
   "dts" | "jsBinding" | "manifestPath" | "outputDir" | "platform"
 > & {
   /**
@@ -190,14 +190,13 @@ export type NapiRsResolvedPluginOptions = RequiredKeys<
   targets: Target[];
 };
 
-export type NapiRsPluginResolvedConfig = BabelPluginResolvedConfig &
+export type NapiPluginResolvedConfig = BabelPluginResolvedConfig &
   AlloyPluginResolvedConfig & {
-    napi: NapiRsResolvedPluginOptions;
+    napi: NapiResolvedPluginOptions;
   };
 
-export interface NapiRsPluginContext<
-  TResolvedConfig extends NapiRsPluginResolvedConfig =
-    NapiRsPluginResolvedConfig
+export interface NapiPluginContext<
+  TResolvedConfig extends NapiPluginResolvedConfig = NapiPluginResolvedConfig
 >
   extends
     BabelPluginContext<TResolvedConfig>,

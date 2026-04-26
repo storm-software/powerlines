@@ -21,14 +21,14 @@ import alloy from "@powerlines/plugin-alloy";
 import { appendPath } from "@stryke/path/append";
 import { relativePath } from "@stryke/path/file-path-fns";
 import { Plugin } from "powerlines";
-import type { NapiRsPluginContext, NapiRsPluginOptions } from "./types/plugin";
+import type { NapiPluginContext, NapiPluginOptions } from "./types/plugin";
 import { DEFAULT_TARGETS, Target } from "./types/targets";
 
 export type * from "./types";
 
 declare module "powerlines" {
   interface Config {
-    napi?: NapiRsPluginOptions;
+    napi?: NapiPluginOptions;
   }
 }
 
@@ -37,10 +37,8 @@ declare module "powerlines" {
  *
  * @see https://napi.rs/docs
  */
-export const plugin = <
-  TContext extends NapiRsPluginContext = NapiRsPluginContext
->(
-  options: NapiRsPluginOptions = {}
+export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
+  options: NapiPluginOptions = {}
 ) => {
   return [
     alloy(),
@@ -65,7 +63,7 @@ export const plugin = <
         );
         if (
           this.config.napi.targets.some(
-            (target: Target) => target.arch === "wasm32"
+            (target: Target) => target.platform === "wasm"
           )
         ) {
           this.dependencies["@napi-rs/wasm-runtime"] = "^1.1.4";
