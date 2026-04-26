@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.50](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.50) (04/26/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove unneeded `alloy` plugin references ([0eacb1c30](https://github.com/storm-software/powerlines/commit/0eacb1c30))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.426**
+- Updated **plugin-plugin** to **v0.12.377**
+- Updated **plugin-alloy** to **v0.26.45**
+- Updated **plugin-babel** to **v0.12.420**
+
 ## [0.1.49](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.49) (04/26/2026)
 
 ### Updated Dependencies

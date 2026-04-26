@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.2.2](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.2) (04/26/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove unneeded `alloy` plugin references ([0eacb1c30](https://github.com/storm-software/powerlines/commit/0eacb1c30))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.426**
+- Updated **plugin-plugin** to **v0.12.377**
+- Updated **plugin-alloy** to **v0.26.45**
+- Updated **plugin-babel** to **v0.12.420**
+
 ## [0.2.1](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.1) (04/26/2026)
 
 ### Bug Fixes

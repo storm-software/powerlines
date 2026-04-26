@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.0](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.0) (04/26/2026)
+
+### Bug Fixes
+
+- **monorepo:** Update workspace packges' inter-dependant versions ([1cc4fa62b](https://github.com/storm-software/powerlines/commit/1cc4fa62b))
+
+### Features
+
+- **nx:** Added the `minify` executor option ([fe9af41ad](https://github.com/storm-software/powerlines/commit/fe9af41ad))
+
 ## [0.12.39](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.39) (04/26/2026)
 
 ### Updated Dependencies
