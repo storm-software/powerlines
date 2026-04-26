@@ -1318,9 +1318,7 @@ export class PowerlinesContext<
     );
 
     this.resolvedConfig.output = defu(this.resolvedConfig.output ?? {}, {
-      path: this.config.root
-        ? appendPath(joinPaths(this.config.root, "dist"), this.config.cwd)
-        : undefined,
+      path: appendPath(joinPaths(this.config.root, "dist"), this.config.cwd),
       copy: {
         assets: [
           {
@@ -1415,10 +1413,6 @@ export class PowerlinesContext<
       this.config.output.types = `${
         this.config.root ? `${this.config.root}/` : ""
       }${this.config.framework ?? "powerlines"}.d.ts`;
-    }
-
-    if (!this.config.output.path) {
-      this.config.output.path ??= joinPaths(this.config.root, "dist");
     }
 
     if (this.config.root && this.config.output.copy !== false) {

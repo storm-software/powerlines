@@ -49,7 +49,7 @@ export const createNodesV2: CreateNodesV2 = [
     const nxJson = readNxJson(contextV2.workspaceRoot);
 
     return createNodesFromFiles(
-      async (configFile, options, context) => {
+      async (configFile, _, context) => {
         try {
           const projectRoot = getProjectRoot(
             configFile,
@@ -168,6 +168,7 @@ export const createNodesV2: CreateNodesV2 = [
                 projectConfig,
                 {
                   name: String(packageJson.name).replace(/^@powerlines\//, ""),
+                  // eslint-disable-next-line ts/no-unnecessary-type-assertion
                   projectType: "library" as ProjectType,
                   sourceRoot: join(root, "src"),
                   implicitDependencies: ["engine"]
