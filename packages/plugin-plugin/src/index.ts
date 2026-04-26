@@ -18,7 +18,6 @@
 
 import tsdown from "@powerlines/plugin-tsdown";
 import { appendPath } from "@stryke/path/append";
-import { isSet } from "@stryke/type-checks/is-set";
 import type { Plugin } from "powerlines";
 import type { PluginPluginContext, PluginPluginOptions } from "./types/plugin";
 
@@ -82,21 +81,21 @@ export const plugin = <
             this.config.input = input;
           }
 
-          if (
-            !isSet(this.config.tsdown?.attw) &&
-            this.config.mode === "development"
-          ) {
-            this.config.tsdown ??= {};
-            this.config.tsdown.attw = true;
-          }
+          // if (
+          //   !isSet(this.config.tsdown?.attw) &&
+          //   this.config.mode === "development"
+          // ) {
+          //   this.config.tsdown ??= {};
+          //   this.config.tsdown.attw = true;
+          // }
 
-          if (
-            !isSet(this.config.tsdown?.publint) &&
-            this.config.mode === "development"
-          ) {
-            this.config.tsdown ??= {};
-            this.config.tsdown.publint = true;
-          }
+          // if (
+          //   !isSet(this.config.tsdown?.publint) &&
+          //   this.config.mode === "development"
+          // ) {
+          //   this.config.tsdown ??= {};
+          //   this.config.tsdown.publint = true;
+          // }
         }
       }
     }

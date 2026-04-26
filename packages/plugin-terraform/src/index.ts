@@ -135,7 +135,7 @@ export const plugin = <
                 ? this.config.terraform.stackName
                 : undefined,
               "destroy",
-              this.config.terraform.autoApproval && "-auto-approve",
+              this.config.terraform.autoApproval && "--auto-approve",
               this.config.terraform.varFile &&
                 `--var ${this.config.terraform.varFile}`,
               isSetString(this.config.terraform.planFile) &&
@@ -166,7 +166,7 @@ export const plugin = <
               ? this.config.terraform.stackName
               : undefined,
             "apply",
-            this.config.terraform.autoApproval && "-auto-approve",
+            this.config.terraform.autoApproval && "--auto-approve",
             this.config.terraform.varFile &&
               `--var ${this.config.terraform.varFile}`,
             isSetString(this.config.terraform.planFile) &&

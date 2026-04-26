@@ -1,8 +1,4 @@
-{ pkgs
-, inputs
-, config
-, ...
-}:
+{ pkgs, ... }:
 {
   name = "storm-software/powerlines";
 
