@@ -80,6 +80,7 @@ import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isNull } from "@stryke/type-checks/is-null";
+import { isObject } from "@stryke/type-checks/is-object";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
@@ -119,6 +120,18 @@ setGlobalDispatcher(
     })
   )
 );
+
+const SKIP_CLONING_PROPS = [
+  "dependencies",
+  "devDependencies",
+  "persistedMeta",
+  "packageJson",
+  "projectJson",
+  "tsconfig",
+  "resolver",
+  "fs",
+  "$$internal"
+];
 
 export class PowerlinesContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
@@ -1182,6 +1195,16 @@ export class PowerlinesContext<
   protected copyTo(
     context: Context<TResolvedConfig>
   ): Context<TResolvedConfig> {
+    for (const [key, value] of Object.entries(this)) {
+      if (!SKIP_CLONING_PROPS.includes(key)) {
+        if (isObject(value) || Array.isArray(value)) {
+          (context as any)[key] = deepClone(value);
+        } else {
+          (context as any)[key] = value;
+        }
+      }
+    }
+
     context.dependencies = deepClone<typeof this.dependencies>(
       this.dependencies
     );
