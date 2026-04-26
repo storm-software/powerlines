@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-tsdown",
-  "version": "0.1.368",
+  "version": "0.1.369",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "keywords": ["tsdown", "powerlines", "storm-software", "powerlines-plugin"],
