@@ -6,7 +6,7 @@
         "projects": ["packages/core", "packages/engine", "packages/powerlines"],
         "projectsRelationship": "fixed",
         "releaseTag": {
-          "pattern": "powerlines-v{version}"
+          "pattern": "powerlines@{version}"
         }
       },
       "packages": {
