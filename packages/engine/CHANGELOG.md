@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.14.5](https://github.com/storm-software/powerlines/releases/tag/engine%400.14.5) (04/26/2026)
+
+### Miscellaneous
+
+- **core:** Align versions between core packages ([a3213637b](https://github.com/storm-software/powerlines/commit/a3213637b))
+
 ## [0.14.4](https://github.com/storm-software/powerlines/releases/tag/engine%400.14.4) (04/26/2026)
 
 ### Bug Fixes

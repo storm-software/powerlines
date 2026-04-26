@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.14.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.14.5) (04/26/2026)
+
+### Miscellaneous
+
+- **core:** Align versions between core packages ([a3213637b](https://github.com/storm-software/powerlines/commit/a3213637b))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.425**
+- Updated **plugin-esbuild** to **v0.13.425**
+- Updated **plugin-unbuild** to **v0.5.423**
+- Updated **plugin-webpack** to **v0.5.421**
+- Updated **plugin-rollup** to **v0.7.423**
+- Updated **plugin-rspack** to **v0.5.421**
+- Updated **plugin-tsdown** to **v0.1.368**
+- Updated **plugin-tsup** to **v0.12.426**
+- Updated **plugin-vite** to **v0.14.421**
+
 ## [0.14.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.14.4) (04/26/2026)
 
 ### Bug Fixes

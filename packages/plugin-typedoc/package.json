@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-typedoc",
-  "version": "0.10.434",
+  "version": "0.10.435",
   "type": "module",
   "description": "A package containing a Powerlines plugin for running TypeDoc on the codebase.",
   "repository": {
