@@ -18,6 +18,7 @@
 
 import { PluginItem, PresetItem, transformAsync } from "@babel/core";
 import type { Plugin } from "@powerlines/core";
+import { VIRTUAL_MODULE_PREFIX_REGEX } from "@powerlines/core/constants";
 import { omit } from "@stryke/helpers/omit";
 import { findFileExtensionSafe } from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
@@ -159,7 +160,7 @@ export const plugin = <
           name: this.config.framework
         },
         ...omit(this.config.babel ?? {}, ["skipConfigResolution"]),
-        filename: id,
+        filename: id.replace(VIRTUAL_MODULE_PREFIX_REGEX, ""),
         plugins: plugins
           .map(plugin => {
             if (Array.isArray(plugin) && plugin.length >= 2) {

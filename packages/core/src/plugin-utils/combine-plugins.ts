@@ -38,19 +38,19 @@ export function combinePluginOptions(
   return {
     async rollup() {
       return (await pluginOptions.rollup()).reduce(
-        (ret, plugin) => merge(ret, plugin) as Plugin<any>,
+        (ret, plugin) => merge(ret, plugin as Plugin<any>) as Plugin<any>,
         {} as Plugin<any>
       );
     },
     async rolldown() {
       return (await pluginOptions.rolldown()).reduce(
-        (ret, plugin) => merge(ret, plugin) as Plugin<any>,
+        (ret, plugin) => merge(ret, plugin as Plugin<any>) as Plugin<any>,
         {} as Plugin<any>
       );
     },
     async vite() {
       return (await pluginOptions.vite()).reduce(
-        (ret, plugin) => merge(ret, plugin) as Plugin<any>,
+        (ret, plugin) => merge(ret, plugin as Plugin<any>) as Plugin<any>,
         {} as Plugin<any>
       );
     },

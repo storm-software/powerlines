@@ -26,6 +26,7 @@ import type {
   UnpluginContext
 } from "unplugin";
 import { setParseImpl } from "unplugin";
+import { VIRTUAL_MODULE_PREFIX_REGEX } from "../../constants/virtual-modules";
 import { PluginContext } from "../../types/context";
 import { UnpluginFactory } from "../../types/unplugin";
 import { extendLog } from "../logger";
@@ -145,7 +146,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
           const result: TransformResult | string | undefined =
             await hook.handler.apply(combineContexts(ctx, this), [
               getString(transformed),
-              id
+              id.replace(VIRTUAL_MODULE_PREFIX_REGEX, "")
             ]);
           if (result) {
             transformed = result;

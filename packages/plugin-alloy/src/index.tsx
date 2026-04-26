@@ -74,7 +74,12 @@ export const plugin = <
             }
           },
           resolve: {
-            external: [/^@alloy-js\//]
+            external: [
+              "@alloy-js/core",
+              "@alloy-js/typescript",
+              "@alloy-js/json",
+              "@alloy-js/markdown"
+            ]
           }
         };
       },

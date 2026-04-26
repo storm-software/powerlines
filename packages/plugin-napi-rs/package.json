@@ -54,6 +54,20 @@
         "default": "./dist/index.mjs"
       }
     },
+    "./helpers/format-path": {
+      "require": {
+        "types": "./dist/helpers/format-path.d.cts",
+        "default": "./dist/helpers/format-path.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/format-path.d.mts",
+        "default": "./dist/helpers/format-path.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/format-path.d.mts",
+        "default": "./dist/helpers/format-path.mjs"
+      }
+    },
     "./package.json": "./package.json",
     "./types": {
       "require": {
@@ -148,5 +162,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "inlinedDependencies": {
+    "@stryke/convert": "0.7.0"
   }
 }
