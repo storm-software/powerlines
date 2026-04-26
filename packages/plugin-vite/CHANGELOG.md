@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.425](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.425) (04/26/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Update plugin build option's path resolution ([8c351ea32](https://github.com/storm-software/powerlines/commit/8c351ea32))
+
 ## [0.14.424](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.424) (04/26/2026)
 
 ### Updated Dependencies

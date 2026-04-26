@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Unbuild
 
+## [0.5.427](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.427) (04/26/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Update plugin build option's path resolution ([8c351ea32](https://github.com/storm-software/powerlines/commit/8c351ea32))
+
 ## [0.5.426](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.426) (04/26/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.382](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.382) (04/26/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Update plugin build option's path resolution ([8c351ea32](https://github.com/storm-software/powerlines/commit/8c351ea32))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.372**
+
 ## [0.12.381](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.381) (04/26/2026)
 
 ### Updated Dependencies

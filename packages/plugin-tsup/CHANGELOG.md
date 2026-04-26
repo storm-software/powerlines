@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.430](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.430) (04/26/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Update plugin build option's path resolution ([8c351ea32](https://github.com/storm-software/powerlines/commit/8c351ea32))
+
 ## [0.12.429](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.429) (04/26/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.372](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.372) (04/26/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Update plugin build option's path resolution ([8c351ea32](https://github.com/storm-software/powerlines/commit/8c351ea32))
+
 ## [0.1.371](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.371) (04/26/2026)
 
 ### Updated Dependencies
