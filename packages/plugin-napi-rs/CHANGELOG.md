@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.0) (04/26/2026)
+
+### Features
+
+- **plugin-napi-rs:** Added logic to invoke `create-npm-dirs` in the `prepare` command ([4ce76f161](https://github.com/storm-software/powerlines/commit/4ce76f161))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.424**
+- Updated **plugin-plugin** to **v0.12.375**
+- Updated **plugin-alloy** to **v0.26.43**
+- Updated **plugin-babel** to **v0.12.418**
+- Updated **powerlines** to **v0.43.23**
+
 ## [0.1.4](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.1.4) (04/26/2026)
 
 ### Updated Dependencies

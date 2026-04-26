@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-napi-rs",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "private": false,
   "description": "A package containing a Powerlines plugin for integrating with N-API Rust modules.",
   "keywords": ["napi-rs", "powerlines", "storm-software", "powerlines-plugin"],
@@ -52,6 +52,20 @@
       "default": {
         "types": "./dist/index.d.mts",
         "default": "./dist/index.mjs"
+      }
+    },
+    "./helpers/format-path": {
+      "require": {
+        "types": "./dist/helpers/format-path.d.cts",
+        "default": "./dist/helpers/format-path.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/format-path.d.mts",
+        "default": "./dist/helpers/format-path.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/format-path.d.mts",
+        "default": "./dist/helpers/format-path.mjs"
       }
     },
     "./package.json": "./package.json",
@@ -148,5 +162,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "inlinedDependencies": {
+    "@stryke/convert": "0.7.0"
   }
 }

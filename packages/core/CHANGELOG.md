@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.14.2](https://github.com/storm-software/powerlines/releases/tag/core%400.14.2) (04/26/2026)
+
+### Features
+
+- **plugin-napi-rs:** Added logic to invoke `create-npm-dirs` in the `prepare` command ([4ce76f161](https://github.com/storm-software/powerlines/commit/4ce76f161))
+
 ## [0.14.0](https://github.com/storm-software/powerlines/releases/tag/core%400.14.0) (04/26/2026)
 
 ### Miscellaneous
