@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.43.25](https://github.com/storm-software/powerlines/releases/tag/core%400.43.25) (04/26/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update `powerlines` release group's git tag ([8906e44d3](https://github.com/storm-software/powerlines/commit/8906e44d3))
+
 ## [0.14.5](https://github.com/storm-software/powerlines/releases/tag/core%400.14.5) (04/26/2026)
 
 ### Miscellaneous

@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/tsdoc",
-  "version": "0.2.23",
+  "version": "0.2.24",
   "private": false,
   "description": "A package containing shared TSDoc configuration files (tsdoc.json) used in Powerlines projects.",
   "keywords": ["powerlines", "storm-software", "tsdoc"],
