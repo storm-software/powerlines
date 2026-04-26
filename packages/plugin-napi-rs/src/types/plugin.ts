@@ -52,7 +52,7 @@ export interface NapiPluginOptions {
   /**
    * Build for the target triple, bypassed to `cargo build --target`
    */
-  targets?: (TargetTriple | Target)[];
+  target?: TargetTriple | Target;
 
   /**
    * Build artifacts with the specified Cargo profile
@@ -123,6 +123,11 @@ export interface NapiPluginOptions {
   targetDir?: string;
 
   /**
+   * Path to the package.json file to read the version and other metadata from, used for generating the JS binding file. If not specified, it will default to the package.json file in the project root.
+   */
+  packageJsonPath?: string;
+
+  /**
    * Add platform triple suffix to generated Node.js binding file, e.g. [name].linux-x64-gnu.node
    *
    * @defaultValue true
@@ -182,12 +187,17 @@ export type NapiPluginUserConfig = BabelPluginUserConfig &
 
 export type NapiResolvedPluginOptions = RequiredKeys<
   Omit<NapiPluginOptions, "targets">,
-  "dts" | "jsBinding" | "manifestPath" | "outputDir" | "platform"
+  | "dts"
+  | "jsBinding"
+  | "manifestPath"
+  | "outputDir"
+  | "platform"
+  | "packageJsonPath"
 > & {
   /**
-   * The resolved target triples to build for, with additional metadata such as platform, architecture, and ABI information. These are derived from the `targets` option, and are used internally by the plugin to determine how to build the N-API Rust module for each target.
+   * The resolved target triple to build for, with additional metadata such as platform, architecture, and ABI information. These are derived from the `target` option, and are used internally by the plugin to determine how to build the N-API Rust module for the target.
    */
-  targets: Target[];
+  target: Target;
 };
 
 export type NapiPluginResolvedConfig = BabelPluginResolvedConfig &

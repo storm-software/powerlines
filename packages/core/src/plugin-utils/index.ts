@@ -25,6 +25,7 @@ export * from "./filter";
 export * from "./format-package-json";
 export * from "./get-config-path";
 export * from "./helpers";
+export * from "./logging";
 export * from "./merge";
 export * from "./modules";
 export * from "./paths";
