@@ -420,6 +420,21 @@ export class PowerlinesContext<
   }
 
   /**
+   * Additional arguments provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed.
+   */
+  public get additionalArgs(): Record<string, string> {
+    return Object.entries(
+      this.config.inlineConfig?.additionalArgs ?? {}
+    ).reduce(
+      (ret, [key, value]) => {
+        ret[key.replace(/^--?/, "")] = value;
+        return ret;
+      },
+      {} as Record<string, string>
+    );
+  }
+
+  /**
    * The alias mappings for the project used during module resolution
    *
    * @remarks

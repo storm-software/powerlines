@@ -173,5 +173,16 @@ export default defineUntypedSchema({
         "Array<{ input?: string; output?: string; glob: string; ignore?: string[]; dot?: boolean; }>",
       description: "The `assets` values"
     }
+  },
+  additionalArgs: {
+    $schema: {
+      title: "Additional Arguments",
+      type: "object",
+      tsType: "Record<string, string>",
+      description:
+        "The additional arguments provided during execution of the command"
+    },
+    $resolve: (val: Record<string, string> = {}) => val,
+    $default: {}
   }
 });

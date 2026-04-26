@@ -444,6 +444,11 @@ export interface UnresolvedContext<
   resolvePatterns: RegExp[];
 
   /**
+   * Additional arguments provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed.
+   */
+  additionalArgs: Record<string, string>;
+
+  /**
    * A function to perform HTTP fetch requests
    *
    * @remarks

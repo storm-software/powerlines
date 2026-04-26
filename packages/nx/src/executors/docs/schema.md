@@ -146,6 +146,8 @@ The log level to use for the build process
 The `assets` values
 
 
+## `additionalArgs`
+
 ## `autoInstall`
 - **Type**: `boolean`
 

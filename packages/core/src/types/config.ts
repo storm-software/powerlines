@@ -614,6 +614,11 @@ export type InlineConfig<TUserConfig extends UserConfig = UserConfig> =
      * A string identifier for the Powerlines command being executed
      */
     command: PowerlinesCommand;
+
+    /**
+     * Additional arguments provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed.
+     */
+    additionalArgs?: Record<string, string>;
   };
 
 export type NewInlineConfig<TUserConfig extends UserConfig = UserConfig> =

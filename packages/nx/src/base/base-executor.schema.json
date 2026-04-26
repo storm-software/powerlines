@@ -164,6 +164,14 @@
       "description": "The `assets` values",
       "id": "#assets",
       "default": {}
+    },
+    "additionalArgs": {
+      "title": "Additional Arguments",
+      "type": "object",
+      "tsType": "Record<string, string>",
+      "description": "The additional arguments provided during execution of the command",
+      "id": "#additionalArgs",
+      "default": {}
     }
   },
   "type": "object",
@@ -176,6 +184,7 @@
     "external": [],
     "noExternal": [],
     "define": {},
-    "assets": {}
+    "assets": {},
+    "additionalArgs": {}
   }
 }

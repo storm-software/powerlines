@@ -129,6 +129,7 @@ export function withExecutor<
                     configFile: options.configFile,
                     description: projectConfig.metadata?.description,
                     projectType: projectConfig.projectType,
+                    additionalArgs: options.additionalArgs,
                     output: {
                       path: options.outputPath
                         ? replacePath(

@@ -151,6 +151,14 @@ export interface DocsExecutorSchema {
  assets?: Array<{ input?: string; output?: string; glob: string; ignore?: string[]; dot?: boolean; }>,
 
  /**
+  * Additional Arguments
+  * 
+  * The additional arguments provided during execution of the command
+  * 
+ */
+ additionalArgs?: Record<string, string>,
+
+ /**
   * Auto Install
   * 
   * Automatically install dependencies during prepare stage

@@ -165,6 +165,14 @@
       "id": "#assets",
       "default": {}
     },
+    "additionalArgs": {
+      "title": "Additional Arguments",
+      "type": "object",
+      "tsType": "Record<string, string>",
+      "description": "The additional arguments provided during execution of the command",
+      "id": "#additionalArgs",
+      "default": {}
+    },
     "autoInstall": {
       "title": "Auto Install",
       "type": "boolean",
@@ -188,6 +196,7 @@
     "external": [],
     "noExternal": [],
     "define": {},
-    "assets": {}
+    "assets": {},
+    "additionalArgs": {}
   }
 }
