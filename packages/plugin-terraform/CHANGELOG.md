@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Terraform
 
+## [0.1.24](https://github.com/storm-software/powerlines/releases/tag/plugin-terraform%400.1.24) (04/26/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.375**
+- Updated **powerlines** to **v0.43.23**
+- Updated **core** to **v0.14.2**
+
 ## [0.1.23](https://github.com/storm-software/powerlines/releases/tag/plugin-terraform%400.1.23) (04/26/2026)
 
 ### Updated Dependencies

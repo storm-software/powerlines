@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.48](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.48) (04/26/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.424**
+- Updated **plugin-plugin** to **v0.12.375**
+- Updated **plugin-alloy** to **v0.26.43**
+- Updated **plugin-babel** to **v0.12.418**
+- Updated **powerlines** to **v0.43.23**
+
 ## [0.1.47](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.47) (04/26/2026)
 
 ### Updated Dependencies

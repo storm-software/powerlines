@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.0.24](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.24) (04/26/2026)
+
+### Features
+
+- **plugin-napi-rs:** Added logic to invoke `create-npm-dirs` in the `prepare` command ([4ce76f161](https://github.com/storm-software/powerlines/commit/4ce76f161))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.14.2**
+
 ## [0.0.23](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.23) (04/26/2026)
 
 ### Updated Dependencies
