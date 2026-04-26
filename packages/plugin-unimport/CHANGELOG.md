@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Unimport
 
+## [0.1.434](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.434) (04/26/2026)
+
+### Miscellaneous
+
+- **engine:** Use a parallel queue to process engine executions ([2fa10b441](https://github.com/storm-software/powerlines/commit/2fa10b441))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.384**
+
 ## [0.1.433](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.433) (04/26/2026)
 
 ### Updated Dependencies

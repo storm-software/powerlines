@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.43.29](https://github.com/storm-software/powerlines/releases/tag/core%400.43.29) (04/26/2026)
+
+### Miscellaneous
+
+- **engine:** Use a parallel queue to process engine executions ([2fa10b441](https://github.com/storm-software/powerlines/commit/2fa10b441))
+
 ## [0.43.25](https://github.com/storm-software/powerlines/releases/tag/core%400.43.25) (04/26/2026)
 
 ### Miscellaneous
