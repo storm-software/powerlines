@@ -16,6 +16,9 @@ packages/deepkit/scripts/*.cjs
 packages/deepkit/schemas
 !packages/deepkit/schemas/*.capnp
 
+packages/engine/schemas
+!packages/engine/schemas/*.capnp
+
 # \!examples/**/.powerlines
 
 # build output
