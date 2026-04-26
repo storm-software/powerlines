@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Webpack
 
+## [0.5.425](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.425) (04/26/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Update plugin build option's path resolution ([8c351ea32](https://github.com/storm-software/powerlines/commit/8c351ea32))
+
 ## [0.5.419](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.419) (04/26/2026)
 
 ### Updated Dependencies
