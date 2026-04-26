@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.44](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.44) (04/26/2026)
+
+### Bug Fixes
+
+- **core:** Ensure virtual module prefix is not passed to hooks ([33ae07296](https://github.com/storm-software/powerlines/commit/33ae07296))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.376**
+- Updated **plugin-babel** to **v0.12.419**
+- Updated **powerlines** to **v0.43.24**
+- Updated **deepkit** to **v0.8.27**
+- Updated **core** to **v0.14.3**
+
 ## [0.26.43](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.43) (04/26/2026)
 
 ### Updated Dependencies

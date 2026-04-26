@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.419](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.419) (04/26/2026)
+
+### Bug Fixes
+
+- **core:** Ensure virtual module prefix is not passed to hooks ([33ae07296](https://github.com/storm-software/powerlines/commit/33ae07296))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.14.3**
+
 ## [0.12.418](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.418) (04/26/2026)
 
 ### Updated Dependencies

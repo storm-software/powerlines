@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.14.3](https://github.com/storm-software/powerlines/releases/tag/core%400.14.3) (04/26/2026)
+
+### Bug Fixes
+
+- **core:** Ensure virtual module prefix is not passed to hooks ([33ae07296](https://github.com/storm-software/powerlines/commit/33ae07296))
+
 ## [0.14.2](https://github.com/storm-software/powerlines/releases/tag/core%400.14.2) (04/26/2026)
 
 ### Features

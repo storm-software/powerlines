@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.2.1](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.1) (04/26/2026)
+
+### Bug Fixes
+
+- **core:** Ensure virtual module prefix is not passed to hooks ([33ae07296](https://github.com/storm-software/powerlines/commit/33ae07296))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.425**
+- Updated **plugin-plugin** to **v0.12.376**
+- Updated **plugin-alloy** to **v0.26.44**
+- Updated **plugin-babel** to **v0.12.419**
+- Updated **powerlines** to **v0.43.24**
+
 ## [0.2.0](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.0) (04/26/2026)
 
 ### Features
