@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.370](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.370) (04/25/2026)
+
+### Miscellaneous
+
+- **plugin-tsdown:** Convert glob `external` and `noExternal` values to RegExp ([e210cfd90](https://github.com/storm-software/powerlines/commit/e210cfd90))
+- **plugin-plugin:** Simplify the `external` wildcard option ([4b8151548](https://github.com/storm-software/powerlines/commit/4b8151548))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.360**
+- Updated **powerlines** to **v0.43.18**
+
 ## [0.12.369](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.369) (04/25/2026)
 
 ### Updated Dependencies
