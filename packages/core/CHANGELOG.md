@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Core
 
+## [0.14.0](https://github.com/storm-software/powerlines/releases/tag/core%400.14.0) (04/26/2026)
+
+### Miscellaneous
+
+- **plugin-napi-rs:** Added logic to parse inline additional args for NAPI-CLI ([59dcec4f1](https://github.com/storm-software/powerlines/commit/59dcec4f1))
+
+### Features
+
+- **core:** Added the `additionalArgs` option to allow passing dynamic inline configurations ([6d09802b1](https://github.com/storm-software/powerlines/commit/6d09802b1))
+
 ## [0.13.24](https://github.com/storm-software/powerlines/releases/tag/core%400.13.24) (04/25/2026)
 
 ### Bug Fixes

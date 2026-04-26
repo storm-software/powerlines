@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.0.22](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.22) (04/26/2026)
+
+### Features
+
+- **core:** Added the `additionalArgs` option to allow passing dynamic inline configurations ([6d09802b1](https://github.com/storm-software/powerlines/commit/6d09802b1))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.14.0**
+
 ## [0.0.21](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.21) (04/26/2026)
 
 ### Updated Dependencies
