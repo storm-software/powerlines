@@ -57,6 +57,19 @@ export const plugin = <
         }
       };
     },
+    configResolved() {
+      this.debug(
+        "Checking for Tsdown related dependencies required by the project."
+      );
+
+      if (this.config.tsdown?.attw) {
+        this.devDependencies["@arethetypeswrong/core"] = "^0.18.2";
+      }
+
+      if (this.config.tsdown?.publint) {
+        this.devDependencies.publint = "^0.3.18";
+      }
+    },
     async build() {
       this.trace("Starting Tsdown build process...");
 

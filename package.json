@@ -55,6 +55,7 @@
     "view-config": "pnpm exec storm-config"
   },
   "devDependencies": {
+    "@arethetypeswrong/core": "catalog:",
     "@ls-lint/ls-lint": "catalog:",
     "@nx/eslint-plugin": "catalog:",
     "@nx/jest": "catalog:",
@@ -91,6 +92,7 @@
     "log4brains": "catalog:",
     "nx": "catalog:",
     "prettier": "catalog:",
+    "publint": "catalog:",
     "rimraf": "catalog:",
     "sherif": "catalog:",
     "ts-jest": "catalog:",

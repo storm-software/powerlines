@@ -87,11 +87,19 @@
     "tsdown": "catalog:"
   },
   "peerDependencies": {
-    "tsdown": ">=0.21.2"
+    "tsdown": ">=0.21.2",
+    "@arethetypeswrong/core": ">=0.18.2",
+    "publint": ">=0.3.18"
   },
   "peerDependenciesMeta": {
     "tsdown": {
       "optional": false
+    },
+    "@arethetypeswrong/core": {
+      "optional": true
+    },
+    "publint": {
+      "optional": true
     }
   },
   "publishConfig": {
