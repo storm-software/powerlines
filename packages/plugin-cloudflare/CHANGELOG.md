@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.48](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.48) (04/26/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.421**
+- Updated **plugin-plugin** to **v0.12.374**
+- Updated **plugin-pulumi** to **v0.6.64**
+- Updated **plugin-alloy** to **v0.26.42**
+- Updated **plugin-unenv** to **v0.1.412**
+- Updated **plugin-env** to **v0.16.149**
+- Updated **powerlines** to **v0.43.22**
+
 ## [0.6.47](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.47) (04/26/2026)
 
 ### Updated Dependencies
