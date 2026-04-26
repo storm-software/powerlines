@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.0.20](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.20) (04/25/2026)
+
+### Bug Fixes
+
+- **engine:** Resolve issue cloning execution contexts to be environment specific ([6434404e8](https://github.com/storm-software/powerlines/commit/6434404e8))
+
 ## [0.0.19](https://github.com/storm-software/powerlines/releases/tag/engine%400.0.19) (04/25/2026)
 
 ### Updated Dependencies
