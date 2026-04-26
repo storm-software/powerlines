@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.315](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.315) (04/26/2026)
+
+### Miscellaneous
+
+- **engine:** Use a parallel queue to process engine executions ([2fa10b441](https://github.com/storm-software/powerlines/commit/2fa10b441))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.8.34**
+- Updated **plugin-plugin** to **v0.12.384**
+- Updated **plugin-tsc** to **v0.2.442**
+
 ## [0.11.314](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.314) (04/26/2026)
 
 ### Updated Dependencies
