@@ -121,7 +121,8 @@ export const plugin = <
                 : undefined,
               target: target.triple,
               profile: this.config.napi.profile,
-              release: this.config.napi.release,
+              release:
+                this.config.napi.release ?? this.config.mode === "production",
               features: this.config.napi.features,
               noDefaultFeatures: this.config.napi.noDefaultFeatures,
               strip: this.config.napi.strip,

@@ -52,7 +52,7 @@ export const plugin = <
             dts: true
           },
           resolve: {
-            external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\//]
+            external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\/.*$/]
           },
           tsdown: {
             target: "esnext",
