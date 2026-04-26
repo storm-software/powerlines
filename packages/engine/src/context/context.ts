@@ -1310,6 +1310,26 @@ export class PowerlinesContext<
    * Initialize the context with the provided configuration options
    */
   protected async innerSetup(): Promise<void> {
+    if (
+      !this.options.mode &&
+      !this.config.userConfig?.mode &&
+      !this.config.inlineConfig?.mode &&
+      !this.config.pluginConfig?.mode
+    ) {
+      this.options.mode = "production";
+      this.config.mode = "production";
+    }
+
+    if (
+      !this.options.framework &&
+      !this.config.userConfig?.framework &&
+      !this.config.inlineConfig?.framework &&
+      !this.config.pluginConfig?.framework
+    ) {
+      this.options.framework = "powerlines";
+      this.config.framework = "powerlines";
+    }
+
     this.resolvedConfig.compatibilityDate = resolveCompatibilityDates(
       this.config.inlineConfig.compatibilityDate ??
         this.config.userConfig.compatibilityDate ??
@@ -1436,13 +1456,22 @@ export class PowerlinesContext<
 
     if (this.config.output.copy !== false) {
       this.config.output.copy ??= {} as CopyResolvedConfig;
-      this.config.output.copy.path = appendPath(
-        replacePathTokens(
-          this,
-          this.config.output.copy.path || joinPaths("dist", this.config.root)
-        ),
-        this.config.cwd
-      );
+      if (!this.config.root.replace(/^\.\/?/, "")) {
+        this.config.output.copy.path = this.config.output.copy.path
+          ? appendPath(
+              replacePathTokens(this, this.config.output.copy.path),
+              this.config.cwd
+            )
+          : this.config.output.path;
+      } else {
+        this.config.output.copy.path = appendPath(
+          replacePathTokens(
+            this,
+            this.config.output.copy.path || joinPaths("dist", this.config.root)
+          ),
+          this.config.cwd
+        );
+      }
     }
 
     if (

@@ -177,6 +177,8 @@ ${error.stack}`
       skipReadingConfig: false,
       hooks: {
         applyDefaultOptions: (options: Partial<TExecutorSchema>) => {
+          options.copyPath ??= "dist/{projectRoot}";
+
           return options as TExecutorSchema;
         }
       }

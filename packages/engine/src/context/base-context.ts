@@ -102,7 +102,7 @@ export class PowerlinesBaseContext implements BaseContext {
     return getEnvPaths({
       orgId: this.options.organization,
       appId: this.options.framework || "powerlines",
-      workspaceRoot: this.options.cwd || process.cwd() || "."
+      workspaceRoot: this.options.cwd
     });
   }
 
@@ -268,26 +268,29 @@ export class PowerlinesBaseContext implements BaseContext {
       this.powerlinesPath = powerlinesPath;
     }
 
+    const cwd = options.cwd || this.options?.cwd || process.cwd();
+    const root =
+      (options.root || this.options?.root) &&
+      (options.root || this.options.root).replace(/^\.\/?/, "") &&
+      (options.root || this.options.root) !== cwd
+        ? options.root || this.options.root
+        : "./";
+
     this.options = defu(
       {
-        root: options.root,
-        cwd: options.cwd,
+        root,
+        cwd,
         mode: options.mode,
         framework: options.framework,
         organization: options.organization,
         configFile: options.configFile
       },
-      this.options ?? {},
-      {
-        cwd: process.cwd() || ".",
-        mode: "production",
-        framework: "powerlines"
-      }
+      this.options ?? {}
     ) as ResolvedEngineOptions;
 
     this.resolver = createResolver({
-      workspaceRoot: this.options.cwd,
-      root: this.options.root,
+      workspaceRoot: cwd,
+      root,
       cacheDir: this.envPaths.cache,
       mode: this.options.mode,
       logLevel: this.logLevel
