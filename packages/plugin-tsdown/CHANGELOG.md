@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.373](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.373) (04/26/2026)
+
+### Miscellaneous
+
+- **plugin-tsdown:** Added logic to support `attw` and `publint` options/dependencies ([905ca7a88](https://github.com/storm-software/powerlines/commit/905ca7a88))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.429**
+
 ## [0.1.372](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.372) (04/26/2026)
 
 ### Miscellaneous

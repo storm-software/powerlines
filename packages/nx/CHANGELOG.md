@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.6](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.6) (04/26/2026)
+
+### Miscellaneous
+
+- **engine:** Update logic to better handle path options' variants ([5761e6fa1](https://github.com/storm-software/powerlines/commit/5761e6fa1))
+
 ## [0.13.0](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.0) (04/26/2026)
 
 ### Bug Fixes

@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.43.28](https://github.com/storm-software/powerlines/releases/tag/engine%400.43.28) (04/26/2026)
+
+### Miscellaneous
+
+- **engine:** Update logic to better handle path options' variants ([5761e6fa1](https://github.com/storm-software/powerlines/commit/5761e6fa1))
+
 ## [0.43.26](https://github.com/storm-software/powerlines/releases/tag/engine%400.43.26) (04/26/2026)
 
 ### Miscellaneous
