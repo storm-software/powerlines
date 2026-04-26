@@ -20,6 +20,8 @@ import { Context } from "@powerlines/core";
 import { resolveOptions as resolveEsbuildOptions } from "@powerlines/plugin-esbuild/helpers/resolve-options";
 import { resolveOptions as resolveRolldownOptions } from "@powerlines/plugin-rolldown/helpers/resolve-options";
 import { resolveOptions as resolveRollupOptions } from "@powerlines/plugin-rollup/helpers/resolve-options";
+import { appendPath } from "@stryke/path/append";
+import { relativePath } from "@stryke/path/file-path-fns";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
 import { ESBuildOptions } from "vite";
@@ -87,9 +89,7 @@ export function resolveOptions(context: Context): ViteOptions {
       : {},
     {
       define: context.config.define,
-      rootDir: context.fs.existsSync(joinPaths(context.config.root, "src"))
-        ? joinPaths(context.config.root, "src")
-        : context.config.root,
+      root: appendPath(context.config.root, context.config.cwd),
       platform: context.config.platform,
       mode:
         context.config.mode === "development" ? "development" : "production",
@@ -101,8 +101,14 @@ export function resolveOptions(context: Context): ViteOptions {
         sourcemap:
           context.config.output.sourceMap ??
           context.config.mode === "development",
-        outDir: context.config.output.path,
-        tsconfig: context.tsconfig.tsconfigFilePath,
+        outDir: relativePath(
+          appendPath(context.config.root, context.config.cwd),
+          context.config.output.path
+        ),
+        tsconfig: appendPath(
+          context.tsconfig.tsconfigFilePath,
+          context.config.cwd
+        ),
         tsconfigRaw: context.tsconfig.tsconfigJson
       },
       esbuild: resolveEsbuildOptions(context) as ESBuildOptions,

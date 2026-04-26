@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import tsdown from "@powerlines/plugin-tsdown";
-import { joinPaths } from "@stryke/path/join";
+import { appendPath } from "@stryke/path/append";
 import type { Plugin } from "powerlines";
 import type { PluginPluginContext, PluginPluginOptions } from "./types/plugin";
 
@@ -49,7 +49,9 @@ export const plugin = <
           platform: "node",
           output: {
             format: ["cjs", "esm"],
-            dts: true
+            dts: true,
+            minify: false,
+            types: false
           },
           resolve: {
             external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\/.*$/]
@@ -59,7 +61,6 @@ export const plugin = <
             cjsDefault: true,
             nodeProtocol: true,
             fixedExtension: true,
-            minify: false,
             exports: true,
             unbundle: true
           }
@@ -71,7 +72,7 @@ export const plugin = <
           (Array.isArray(this.config.input) && this.config.input.length === 0)
         ) {
           let input = "src/index.tsx";
-          if (!this.fs.existsSync(joinPaths(this.config.root, input))) {
+          if (!this.fs.existsSync(appendPath(input, this.config.root))) {
             input = "src/index.ts";
           }
 

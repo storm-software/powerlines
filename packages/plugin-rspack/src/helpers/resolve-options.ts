@@ -45,7 +45,7 @@ export function resolveOptions(context: Context): ExternalRspackOptions {
     },
     {
       output: {
-        path: joinPaths(context.config.cwd, context.config.output.path)
+        path: context.config.output.path
       },
       name: context.config.name,
       node:
@@ -79,5 +79,5 @@ export function resolveOptions(context: Context): ExternalRspackOptions {
           context.config.output.minify ?? context.config.mode !== "development"
       }
     }
-  );
+  ) as ExternalRspackOptions;
 }

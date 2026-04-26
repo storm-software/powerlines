@@ -24,6 +24,7 @@ import { DEFAULT_BUILD_OPTIONS } from "@storm-software/tsup/constants";
 import { toArray } from "@stryke/convert/to-array";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { appendPath } from "@stryke/path/append";
+import { relativePath } from "@stryke/path/file-path-fns";
 import defu from "defu";
 import { Options } from "tsup";
 import { TsupOptions, TsupPluginResolvedConfig } from "../types";
@@ -120,7 +121,10 @@ export function resolveOptions(
         ? (context.config.output.copy.assets as (string | AssetGlob)[])
         : undefined,
       resolveExtensions: context.config.resolve.extensions,
-      outputPath: context.config.output.path,
+      outputPath: relativePath(
+        appendPath(context.config.root, context.config.cwd),
+        context.config.output.path
+      ),
       tsconfig: context.tsconfig.tsconfigFilePath,
       dts:
         (context.config as TsupPluginResolvedConfig).tsup &&

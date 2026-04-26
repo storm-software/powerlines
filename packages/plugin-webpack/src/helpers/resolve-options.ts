@@ -40,7 +40,7 @@ export function resolveOptions(context: Context): ExternalWebpackOptions {
       : {},
     {
       output: {
-        path: joinPaths(context.config.cwd, context.config.output.path)
+        path: context.config.output.path
       },
       name: context.config.name,
       plugins:
@@ -79,5 +79,5 @@ export function resolveOptions(context: Context): ExternalWebpackOptions {
           context.config.output.minify ?? context.config.mode !== "development"
       }
     }
-  );
+  ) as ExternalWebpackOptions;
 }

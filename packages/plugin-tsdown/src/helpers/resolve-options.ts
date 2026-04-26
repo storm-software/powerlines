@@ -21,6 +21,7 @@ import { RolldownPluginResolvedConfig } from "@powerlines/plugin-rolldown/types/
 import type { Format } from "@storm-software/build-tools/types";
 import { toArray } from "@stryke/convert/to-array";
 import { appendPath } from "@stryke/path/append";
+import { relativePath } from "@stryke/path/file-path-fns";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
@@ -238,7 +239,10 @@ export function resolveOptions(context: Context): BuildOptions {
       },
       platform: context.config.platform,
       dts: context.config.output.dts,
-      outDir: appendPath(context.config.output.path, context.config.cwd),
+      outDir: relativePath(
+        appendPath(context.config.root, context.config.cwd),
+        context.config.output.path
+      ),
       tsconfig: appendPath(
         context.tsconfig.tsconfigFilePath,
         context.config.cwd
