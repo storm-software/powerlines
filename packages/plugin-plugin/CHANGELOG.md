@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.372](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.372) (04/26/2026)
+
+### Bug Fixes
+
+- **plugin-plugin:** Resolved issue with `external` RegExp syntax ([365f32b0e](https://github.com/storm-software/powerlines/commit/365f32b0e))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.362**
+- Updated **powerlines** to **v0.43.20**
+
 ## [0.12.371](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.371) (04/25/2026)
 
 ### Updated Dependencies
