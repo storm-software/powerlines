@@ -1317,59 +1317,10 @@ export class PowerlinesContext<
       "latest"
     );
 
-    this.resolvedConfig.output = defu(this.resolvedConfig.output ?? {}, {
-      path: appendPath(joinPaths(this.config.root, "dist"), this.config.cwd),
-      copy: {
-        assets: [
-          {
-            glob: "LICENSE"
-          },
-          {
-            input: this.config.root,
-            glob: "*.md"
-          },
-          {
-            input: this.config.root,
-            glob: "package.json"
-          }
-        ]
-      },
-      artifactsPath: `.${this.config.framework ?? "powerlines"}`,
-      dts: true,
-      types: joinPaths(
-        this.config.root,
-        `${this.config.framework ?? "powerlines"}.d.ts`
-      )
-    }) as OutputResolvedConfig;
-
     this.logger = {
       log: this.createLog(this.config.name),
       level: isNull(this.logLevel) ? "silent" : this.logLevel
     };
-
-    if (this.config.output?.format) {
-      this.config.output.format = getUnique(
-        toArray(this.config.output?.format)
-      );
-    }
-
-    this.config.plugins = (this.config.plugins ?? [])
-      .filter(Boolean)
-      .reduce((ret, plugin) => {
-        if (
-          isPlugin(plugin) &&
-          isDuplicate(
-            plugin,
-            ret.filter(p => isPlugin(p))
-          )
-        ) {
-          return ret;
-        }
-
-        ret.push(plugin);
-
-        return ret;
-      }, [] as PluginConfig[]);
 
     this.config.input = getUniqueInputs(this.config.input);
 
@@ -1402,6 +1353,73 @@ export class PowerlinesContext<
       );
     }
 
+    this.config.plugins = (this.config.plugins ?? [])
+      .filter(Boolean)
+      .reduce((ret, plugin) => {
+        if (
+          isPlugin(plugin) &&
+          isDuplicate(
+            plugin,
+            ret.filter(p => isPlugin(p))
+          )
+        ) {
+          return ret;
+        }
+
+        ret.push(plugin);
+
+        return ret;
+      }, [] as PluginConfig[]);
+
+    if (
+      !this.config.userConfig?.logLevel &&
+      !this.config.inlineConfig?.logLevel
+    ) {
+      if (this.config.mode === "development") {
+        this.config.logLevel = "debug";
+      } else {
+        this.config.logLevel = "info";
+      }
+    }
+
+    if (
+      !this.config.userConfig?.tsconfig &&
+      !this.config.inlineConfig?.tsconfig
+    ) {
+      this.config.tsconfig = getTsconfigFilePath(
+        this.options.cwd,
+        this.options.root
+      );
+    } else if (this.config.tsconfig) {
+      this.config.tsconfig = replacePath(
+        replacePathTokens(this, this.config.tsconfig),
+        this.config.cwd
+      );
+    }
+
+    // #region Configure output
+
+    this.resolvedConfig.output = defu(this.resolvedConfig.output ?? {}, {
+      path: joinPaths(this.config.root, "dist"),
+      copy: {
+        assets: [
+          {
+            glob: "LICENSE"
+          },
+          {
+            input: this.config.root,
+            glob: "*.md"
+          },
+          {
+            input: this.config.root,
+            glob: "package.json"
+          }
+        ]
+      },
+      artifactsPath: `.${this.config.framework ?? "powerlines"}`,
+      dts: true
+    }) as OutputResolvedConfig;
+
     this.config.output.format = getUnique(
       toArray(
         this.config.output?.format ??
@@ -1409,21 +1427,39 @@ export class PowerlinesContext<
       )
     );
 
-    if (this.config.output.dts !== false && !this.config.output.types) {
-      this.config.output.types = `${
-        this.config.root ? `${this.config.root}/` : ""
-      }${this.config.framework ?? "powerlines"}.d.ts`;
+    if (this.config.output.path) {
+      this.config.output.path = appendPath(
+        replacePathTokens(this, this.config.output.path),
+        this.config.cwd
+      );
     }
 
-    if (this.config.root && this.config.output.copy !== false) {
-      this.config.output.copy = {
-        path: joinPaths(
-          this.config.cwd,
-          "dist",
-          replacePath(this.config.root, this.config.cwd)
+    if (this.config.output.copy !== false) {
+      this.config.output.copy ??= {} as CopyResolvedConfig;
+      this.config.output.copy.path = appendPath(
+        replacePathTokens(
+          this,
+          this.config.output.copy.path || joinPaths("dist", this.config.root)
         ),
-        ...((this.config.output.copy || {}) as Partial<CopyConfig>)
-      } as CopyResolvedConfig;
+        this.config.cwd
+      );
+    }
+
+    if (
+      this.config.output.dts !== false &&
+      this.config.output.types !== false
+    ) {
+      this.config.output.types = appendPath(
+        replacePathTokens(
+          this,
+          this.config.output.types ||
+            joinPaths(
+              this.config.root,
+              `${this.config.framework ?? "powerlines"}.d.ts`
+            )
+        ),
+        this.config.cwd
+      );
     }
 
     if (
@@ -1481,51 +1517,6 @@ export class PowerlinesContext<
       );
     }
 
-    this.config.plugins = (this.config.plugins ?? [])
-      .filter(Boolean)
-      .reduce((ret, plugin) => {
-        if (
-          isPlugin(plugin) &&
-          isDuplicate(
-            plugin,
-            ret.filter(p => isPlugin(p))
-          )
-        ) {
-          return ret;
-        }
-
-        ret.push(plugin);
-
-        return ret;
-      }, [] as PluginConfig[]);
-
-    // Apply path token replacements
-
-    if (this.config.output.types) {
-      if (isSetString(this.config.output.types)) {
-        this.config.output.types = replacePathTokens(
-          this,
-          this.config.output.types
-        );
-      } else {
-        this.config.output.types = joinPaths(
-          this.config.root,
-          `${this.config.framework ?? "powerlines"}.d.ts`
-        );
-      }
-    }
-
-    if (
-      !this.config.userConfig?.logLevel &&
-      !this.config.inlineConfig?.logLevel
-    ) {
-      if (this.config.mode === "development") {
-        this.config.logLevel = "debug";
-      } else {
-        this.config.logLevel = "info";
-      }
-    }
-
     if (
       !this.config.userConfig?.output?.sourceMap &&
       !this.config.inlineConfig?.output?.sourceMap
@@ -1546,21 +1537,6 @@ export class PowerlinesContext<
       } else {
         this.config.output.minify = false;
       }
-    }
-
-    if (
-      !this.config.userConfig?.tsconfig &&
-      !this.config.inlineConfig?.tsconfig
-    ) {
-      this.config.tsconfig = getTsconfigFilePath(
-        this.options.cwd,
-        this.options.root
-      );
-    } else if (this.config.tsconfig) {
-      this.config.tsconfig = replacePath(
-        replacePathTokens(this, this.config.tsconfig),
-        this.config.cwd
-      );
     }
 
     if (this.config.output.copy && this.config.output.copy.assets) {
@@ -1589,5 +1565,7 @@ export class PowerlinesContext<
     }
 
     this.#fs ??= await VirtualFileSystem.create(this);
+
+    // #endregion Configure output
   }
 }
