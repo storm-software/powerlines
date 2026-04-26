@@ -422,15 +422,32 @@ export class PowerlinesContext<
   /**
    * Additional arguments provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed.
    */
-  public get additionalArgs(): Record<string, string> {
+  public get additionalArgs(): Record<string, string | string[]> {
     return Object.entries(
       this.config.inlineConfig?.additionalArgs ?? {}
     ).reduce(
       (ret, [key, value]) => {
-        ret[key.replace(/^--?/, "")] = value;
+        const formattedKey = key.replace(/^--?/, "");
+
+        if (ret[formattedKey]) {
+          if (Array.isArray(ret[formattedKey])) {
+            if (Array.isArray(value)) {
+              ret[formattedKey] = [...toArray(ret[formattedKey]), ...value];
+            } else {
+              ret[formattedKey] = [...toArray(ret[formattedKey]), value];
+            }
+          } else {
+            ret[formattedKey] = [
+              ret[formattedKey],
+              ...(Array.isArray(value) ? value : [value])
+            ];
+          }
+        } else {
+          ret[formattedKey] = value;
+        }
         return ret;
       },
-      {} as Record<string, string>
+      {} as Record<string, string | string[]>
     );
   }
 

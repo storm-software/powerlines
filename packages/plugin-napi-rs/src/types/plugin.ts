@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { NapiCli } from "@napi-rs/cli";
 import type {
   AlloyPluginContext,
   AlloyPluginResolvedConfig,
@@ -50,9 +51,30 @@ export interface NapiPluginOptions {
   packageName?: string;
 
   /**
+   * Path to the build output dir, only needed when targets contains wasm32-wasi-*
+   *
+   * @remarks
+   * This is used by the [Artifacts command](https://napi.rs/docs/cli/artifacts). This is required because the plugin needs to copy the generated wasm file to the output dir, and the default output dir is the crate folder, which is not suitable for wasm files. Relative to the project root. If not specified, it will default to the crate folder. This is only used for wasm targets, and will be ignored for non-wasm targets.
+   */
+  buildOutputDir?: string;
+
+  /**
+   * Path to the folder where the npm packages are located.
+   *
+   * @remarks
+   * This is used by the [Artifacts command](https://napi.rs/docs/cli/artifacts)
+   */
+  npmDir?: string;
+
+  /**
    * Build for the target triple, bypassed to `cargo build --target`
    */
   target?: TargetTriple | Target;
+
+  /**
+   * Specify multiple targets to build for, bypassed to `cargo build --target` with cargo-multi-target. If specified, the plugin will build for all the specified targets and generate bindings for each target. The generated binding files will have the target triple as a suffix, e.g. [name].linux-x64-gnu.node and [name].wasm32-wasi.node.
+   */
+  targets?: (TargetTriple | Target)[];
 
   /**
    * Build artifacts with the specified Cargo profile
@@ -135,6 +157,11 @@ export interface NapiPluginOptions {
   platform?: boolean;
 
   /**
+   * Specify a different NPM client for usage when executing NPM actions such as publishing.
+   */
+  npmClient?: string;
+
+  /**
    * Whether to generate const enum for TypeScript bindings
    */
   constEnum?: boolean;
@@ -148,6 +175,11 @@ export interface NapiPluginOptions {
    * Custom file header for generated type def file (requires typedef feature)
    */
   dtsHeader?: string;
+
+  /**
+   * Path to the custom file header for generated type def file (requires typedef feature)
+   */
+  dtsHeaderFile?: string;
 
   /**
    * Disable default file header for generated type def file (requires typedef feature)
@@ -185,19 +217,27 @@ export type NapiPluginUserConfig = BabelPluginUserConfig &
     napi: NapiPluginOptions;
   };
 
-export type NapiResolvedPluginOptions = RequiredKeys<
-  Omit<NapiPluginOptions, "targets">,
-  | "dts"
-  | "jsBinding"
-  | "manifestPath"
-  | "outputDir"
-  | "platform"
-  | "packageJsonPath"
+export type NapiResolvedPluginOptions = Omit<
+  RequiredKeys<
+    NapiPluginOptions,
+    | "dts"
+    | "jsBinding"
+    | "manifestPath"
+    | "outputDir"
+    | "platform"
+    | "packageJsonPath"
+  >,
+  "target" | "targets"
 > & {
   /**
    * The resolved target triple to build for, with additional metadata such as platform, architecture, and ABI information. These are derived from the `target` option, and are used internally by the plugin to determine how to build the N-API Rust module for the target.
    */
   target: Target;
+
+  /**
+   * The resolved list of target triples to build for, with additional metadata such as platform, architecture, and ABI information. These are derived from the `targets` option, and are used internally by the plugin to determine how to build the N-API Rust module for each target.
+   */
+  targets: Target[];
 };
 
 export type NapiPluginResolvedConfig = BabelPluginResolvedConfig &
@@ -210,4 +250,6 @@ export interface NapiPluginContext<
 >
   extends
     BabelPluginContext<TResolvedConfig>,
-    AlloyPluginContext<TResolvedConfig> {}
+    AlloyPluginContext<TResolvedConfig> {
+  napi: NapiCli;
+}

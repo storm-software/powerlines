@@ -446,7 +446,7 @@ export interface UnresolvedContext<
   /**
    * Additional arguments provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed.
    */
-  additionalArgs: Record<string, string>;
+  additionalArgs: Record<string, string | string[]>;
 
   /**
    * A function to perform HTTP fetch requests

@@ -618,7 +618,7 @@ export type InlineConfig<TUserConfig extends UserConfig = UserConfig> =
     /**
      * Additional arguments provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed.
      */
-    additionalArgs?: Record<string, string>;
+    additionalArgs?: Record<string, string | string[]>;
   };
 
 export type NewInlineConfig<TUserConfig extends UserConfig = UserConfig> =
