@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.12.36](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.36) (04/26/2026)
+
+### Features
+
+- **core:** Added the `additionalArgs` option to allow passing dynamic inline configurations ([6d09802b1](https://github.com/storm-software/powerlines/commit/6d09802b1))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.43.21**
+
 ## [0.12.35](https://github.com/storm-software/powerlines/releases/tag/nx%400.12.35) (04/26/2026)
 
 ### Updated Dependencies

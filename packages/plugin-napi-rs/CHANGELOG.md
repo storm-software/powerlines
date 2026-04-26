@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.1.3](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.1.3) (04/26/2026)
+
+### Miscellaneous
+
+- **plugin-napi-rs:** Added logic to parse inline additional args for NAPI-CLI ([59dcec4f1](https://github.com/storm-software/powerlines/commit/59dcec4f1))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.422**
+- Updated **plugin-plugin** to **v0.12.373**
+- Updated **plugin-alloy** to **v0.26.41**
+- Updated **plugin-babel** to **v0.12.416**
+- Updated **powerlines** to **v0.43.21**
+
 ## [0.1.2](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.1.2) (04/26/2026)
 
 ### Miscellaneous
