@@ -38,6 +38,7 @@ import { isDevelopment, isTest } from "@stryke/env/environment-checks";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { PartialKeys } from "@stryke/types/base";
+import { uuid } from "@stryke/unique-id/uuid";
 import { PowerlinesExecution } from "./_internal/execution";
 import { mergeConfigs } from "./_internal/helpers/hooks";
 import { PowerlinesExecutionContext } from "./context/execution-context";
@@ -79,11 +80,12 @@ export class PowerlinesAPI<
   ): Promise<PowerlinesAPI<TResolvedConfig>> {
     const api = new PowerlinesAPI<TResolvedConfig>(
       await PowerlinesExecutionContext.fromOptions<TResolvedConfig>({
+        executionId: uuid(),
         cwd: process.cwd(),
         mode: isDevelopment ? "development" : isTest ? "test" : "production",
         framework: "powerlines",
         ...options,
-        configIndex: 0
+        executionIndex: 0
       })
     );
     if (override) {

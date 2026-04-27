@@ -33,6 +33,7 @@ import { EnvPaths, getEnvPaths } from "@stryke/env/get-env-paths";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { StormJSON } from "@stryke/json/storm-json";
 import { isEqual } from "@stryke/path/is-equal";
+import { replacePath } from "@stryke/path/replace";
 import { isNull } from "@stryke/type-checks/is-null";
 import { isString } from "@stryke/type-checks/is-string";
 import chalk from "chalk";
@@ -232,24 +233,24 @@ export class PowerlinesBaseContext implements BaseContext {
   /**
    * Create a new logger instance
    *
-   * @param name - The name to use for the logger instance
+   * @param source - The source name to use for the logger instance, which can be used to identify the origin of log messages in the logs for better traceability. This is typically the name of the plugin or module that is creating the logger instance.
    * @returns A logger function
    */
-  public createLog(name: string | null = null): LogFn {
-    return createLog(name, {
+  public createLog(source: string | null = null): LogFn {
+    return createLog(source, {
       ...this.options,
       logLevel: isNull(this.logLevel) ? "silent" : this.logLevel
     });
   }
 
   /**
-   * Extend the current logger instance with a new name
+   * Extend the current logger instance with a new source
    *
-   * @param name - The name to use for the extended logger instance
+   * @param source - The source name to use for the extended logger instance, which can be used to identify the origin of log messages in the logs for better traceability. This is typically the name of the plugin or module that is creating the logger instance.
    * @returns A logger function
    */
-  public extendLog(name: string): LogFn {
-    return extendLog(this.log, name);
+  public extendLog(source: string): LogFn {
+    return extendLog(this.log, source);
   }
 
   /**
@@ -277,12 +278,14 @@ export class PowerlinesBaseContext implements BaseContext {
     }
 
     const cwd = options.cwd || this.options?.cwd || process.cwd();
-    const root =
+    const root = replacePath(
       (options.root || this.options?.root) &&
-      (options.root || this.options.root).replace(/^\.\/?/, "") &&
-      !isEqual(options.root || this.options.root, cwd)
+        (options.root || this.options.root).replace(/^\.\/?/, "") &&
+        !isEqual(options.root || this.options.root, cwd)
         ? options.root || this.options.root
-        : ".";
+        : ".",
+      cwd
+    );
 
     this.options = defu(
       {

@@ -19,11 +19,30 @@
 import type { LogFn } from "@powerlines/core";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isSet } from "@stryke/type-checks/is-set";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isString } from "@stryke/type-checks/is-string";
+import { MaybePromise } from "@stryke/types/base";
+import { formatDuration } from "date-fns/formatDuration";
 import { Worker as JestWorker } from "jest-worker";
 import type { ChildProcess } from "node:child_process";
+import { cpus } from "node:os";
 import { Transform } from "node:stream";
 import { parseArgs } from "node:util";
+import {
+  parseIpcMessage,
+  parseUpdateCommandMessagePayload,
+  parseUpdateHookMessagePayload,
+  parseUpdatePluginMessagePayload,
+  parseWriteLogMessagePayload
+} from "../ipc/helpers";
+import {
+  IpcMessage,
+  IpcMessageType,
+  UpdateCommandIpcMessage,
+  UpdateHookIpcMessage,
+  UpdatePluginIpcMessage,
+  WriteLogIpcMessage
+} from "../ipc/messages";
 
 const RESTARTED = Symbol("powerlines-worker:restarted");
 
@@ -31,7 +50,7 @@ const RESTARTED = Symbol("powerlines-worker:restarted");
  * The debug address is in the form of `[host:]port`. The host is optional.
  */
 interface DebugAddress {
-  host: string | undefined;
+  host?: string;
   port: number;
 }
 
@@ -39,8 +58,7 @@ interface DebugAddress {
  * Formats the debug address into a string.
  */
 const formatDebugAddress = ({ host, port }: DebugAddress): string => {
-  if (host) return `${host}:${port}`;
-  return `${port}`;
+  return host ? `${host}:${port}` : `${port}`;
 };
 
 /**
@@ -336,6 +354,26 @@ export type WorkerOptions = ConstructorParameters<typeof JestWorker>[1] & {
    * A custom logger function that can be used to log messages from the worker. This can be useful for debugging and monitoring the worker's activity. The function should accept a string message as its argument.
    */
   logger: LogFn;
+
+  /**
+   * A callback function that is called when the worker sends a log message.
+   */
+  onWriteLog?: (payload: WriteLogIpcMessage) => MaybePromise<void>;
+
+  /**
+   * A callback function that is called when the worker sends an update command message.
+   */
+  onUpdateCommand?: (payload: UpdateCommandIpcMessage) => MaybePromise<void>;
+
+  /**
+   * A callback function that is called when the worker sends an update hook message.
+   */
+  onUpdateHook?: (payload: UpdateHookIpcMessage) => MaybePromise<void>;
+
+  /**
+   * A callback function that is called when the worker sends an update plugin message.
+   */
+  onUpdatePlugin?: (payload: UpdatePluginIpcMessage) => MaybePromise<void>;
 };
 
 export class Worker {
@@ -407,6 +445,41 @@ export class Worker {
     const { nodeOptions: formattedNodeOptions, execArgv } =
       formatNodeOptions(nodeOptions);
 
+    const onHanging = () => {
+      const worker = this.#worker;
+      if (!worker) {
+        return;
+      }
+
+      const resolve = resolveRestartPromise;
+      // eslint-disable-next-line ts/no-use-before-define
+      createWorker();
+
+      logger(
+        LogLevelLabel.WARN,
+        `Sending SIGTERM signal to static worker due to timeout${
+          timeout ? ` of ${formatDuration({ seconds: timeout / 1000 })}` : ""
+        }. Subsequent errors may be a result of the worker exiting.`
+      );
+
+      void worker.end().then(() => {
+        resolve(RESTARTED);
+      });
+    };
+
+    let hangingTimer: NodeJS.Timeout | false = false;
+
+    const onActivity = () => {
+      if (hangingTimer) {
+        clearTimeout(hangingTimer);
+      }
+      if (this.options.onActivity) {
+        this.options.onActivity();
+      }
+
+      hangingTimer = activeTasks > 0 && setTimeout(onHanging, timeout);
+    };
+
     const createWorker = () => {
       const workerEnv: NodeJS.ProcessEnv = {
         ...process.env,
@@ -433,13 +506,14 @@ export class Worker {
       }
 
       this.#worker = new JestWorker(workerPath, {
+        maxRetries: 0,
+        numWorkers: cpus().length ?? 3,
         ...rest,
         forkOptions: {
           ...rest.forkOptions,
           execArgv: [...execArgv, ...(rest.forkOptions?.execArgv ?? [])],
           env: workerEnv
-        },
-        maxRetries: 0
+        }
       });
       restartPromise = new Promise(resolve => {
         resolveRestartPromise = resolve;
@@ -473,15 +547,82 @@ export class Worker {
 
           // if a child process emits a particular message, we track that as activity
           // so the parent process can keep track of progress
-          worker._child?.on("message", ([, data]: [number, unknown]) => {
+          worker._child?.on("message", data => {
             if (
-              data &&
-              typeof data === "object" &&
-              "type" in data &&
-              data.type === "activity"
+              isSetObject(data) &&
+              (data as IpcMessage).type === IpcMessageType.ACTIVITY
             ) {
-              // eslint-disable-next-line ts/no-use-before-define
               onActivity();
+            } else {
+              const message = parseIpcMessage(data);
+              if (message) {
+                logger(
+                  LogLevelLabel.TRACE,
+                  `Received IPC message from worker: ${JSON.stringify(message)}`
+                );
+
+                switch (message.type) {
+                  case IpcMessageType.WRITE_LOG:
+                    if (options.onWriteLog) {
+                      void Promise.resolve(
+                        options.onWriteLog({
+                          ...message,
+                          type: IpcMessageType.WRITE_LOG,
+                          payload: parseWriteLogMessagePayload(message.payload)
+                        })
+                      );
+                    }
+                    break;
+
+                  case IpcMessageType.UPDATE_COMMAND:
+                    if (options.onUpdateCommand) {
+                      void Promise.resolve(
+                        options.onUpdateCommand({
+                          ...message,
+                          type: IpcMessageType.UPDATE_COMMAND,
+                          payload: parseUpdateCommandMessagePayload(
+                            message.payload
+                          )
+                        })
+                      );
+                    }
+                    break;
+
+                  case IpcMessageType.UPDATE_HOOK:
+                    if (options.onUpdateHook) {
+                      void Promise.resolve(
+                        options.onUpdateHook({
+                          ...message,
+                          type: IpcMessageType.UPDATE_HOOK,
+                          payload: parseUpdateHookMessagePayload(
+                            message.payload
+                          )
+                        })
+                      );
+                    }
+                    break;
+
+                  case IpcMessageType.UPDATE_PLUGIN:
+                    if (options.onUpdatePlugin) {
+                      void Promise.resolve(
+                        options.onUpdatePlugin({
+                          ...message,
+                          type: IpcMessageType.UPDATE_PLUGIN,
+                          payload: parseUpdatePluginMessagePayload(
+                            message.payload
+                          )
+                        })
+                      );
+                    }
+                    break;
+
+                  case IpcMessageType.ACTIVITY:
+                  case undefined:
+                  default: {
+                    break;
+                  }
+                }
+              }
             }
           });
         }
@@ -511,40 +652,6 @@ export class Worker {
       this.#worker.getStderr().pipe(process.stderr);
     };
     createWorker();
-
-    const onHanging = () => {
-      const worker = this.#worker;
-      if (!worker) {
-        return;
-      }
-
-      const resolve = resolveRestartPromise;
-      createWorker();
-
-      logger(
-        LogLevelLabel.WARN,
-        `Sending SIGTERM signal to static worker due to timeout${
-          timeout ? ` of ${timeout / 1000} seconds` : ""
-        }. Subsequent errors may be a result of the worker exiting.`
-      );
-
-      void worker.end().then(() => {
-        resolve(RESTARTED);
-      });
-    };
-
-    let hangingTimer: NodeJS.Timeout | false = false;
-
-    const onActivity = () => {
-      if (hangingTimer) {
-        clearTimeout(hangingTimer);
-      }
-      if (this.options.onActivity) {
-        this.options.onActivity();
-      }
-
-      hangingTimer = activeTasks > 0 && setTimeout(onHanging, timeout);
-    };
 
     for (const method of rest.exposedMethods) {
       if (method.startsWith("_")) {

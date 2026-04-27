@@ -37,6 +37,7 @@ import { UnpluginMessage } from "unplugin";
 /**
  * Create a Proxy-based PluginContext
  *
+ * @param pluginId - The unique identifier of the plugin
  * @param plugin - The plugin instance
  * @param environment - The environment context
  * @returns The proxied plugin context
@@ -44,6 +45,7 @@ import { UnpluginMessage } from "unplugin";
 export function createPluginContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 >(
+  pluginId: string,
   plugin: Plugin<PluginContext<TResolvedConfig>>,
   environment: Unstable_EnvironmentContext<TResolvedConfig>
 ): Unstable_PluginContext<TResolvedConfig> {
@@ -51,7 +53,10 @@ export function createPluginContext<
     return isString(message) ? message : message.message;
   };
 
-  const log: LogFn = environment.extendLog(plugin.name.replaceAll(":", " - "));
+  const log: LogFn = environment.extendLog(
+    pluginId,
+    plugin.name.replaceAll(":", " - ")
+  );
 
   const callHookFn = async <TKey extends string>(
     hook: TKey,
@@ -83,6 +88,10 @@ export function createPluginContext<
           callHook: callHookFn,
           meta
         };
+      }
+
+      if (prop === "id") {
+        return pluginId;
       }
 
       if (prop === "log" || prop === "logger") {
@@ -131,6 +140,7 @@ export function createPluginContext<
       if (
         [
           "$$internal",
+          "id",
           "environment",
           "config",
           "log",

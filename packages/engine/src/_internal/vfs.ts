@@ -27,7 +27,6 @@ import type {
   VirtualFileSystemInterface,
   WriteOptions
 } from "@powerlines/core";
-import { extendLog } from "@powerlines/core/lib/logger";
 import { format } from "@powerlines/core/lib/utilities/format";
 import { replacePathTokens } from "@powerlines/core/plugin-utils";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
@@ -1016,7 +1015,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
     }
 
-    this.#log = extendLog(this.#context.log, "file-system");
+    this.#log = context.extendLog("VFS");
   }
 
   /**

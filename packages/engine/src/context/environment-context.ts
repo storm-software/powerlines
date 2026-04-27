@@ -32,7 +32,6 @@ import type {
   SelectHooksOptions
 } from "@powerlines/core";
 import { PLUGIN_NON_HOOK_FIELDS } from "@powerlines/core/constants";
-import { createLog } from "@powerlines/core/lib/logger";
 import {
   dedupeHooklist,
   isPlugin,
@@ -40,15 +39,17 @@ import {
   isPluginHookField,
   mergeConfig
 } from "@powerlines/core/plugin-utils";
+import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { deepClone } from "@stryke/helpers/deep-clone";
 import { isFunction } from "@stryke/type-checks/is-function";
-import { isNull } from "@stryke/type-checks/is-null";
 import { isObject } from "@stryke/type-checks/is-object";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { ArrayValues } from "@stryke/types/array";
+import { uuid } from "@stryke/unique-id/uuid";
 import { getConfigProps } from "../_internal/helpers/context";
 import { extractHooks } from "../_internal/helpers/hooks";
+import { IpcMessageType } from "../_internal/ipc/messages";
 import { PowerlinesContext } from "./context";
 import { createPluginContext } from "./plugin-context";
 
@@ -105,17 +106,10 @@ export class PowerlinesEnvironmentContext<
   public plugins: EnvironmentContextPlugin<TResolvedConfig>[] = [];
 
   /**
-   * Create a new logger instance
-   *
-   * @param name - The name to use for the logger instance
-   * @returns A logger function
+   * The unique identifier of the environment associated with this context, which can be used for logging and other purposes to distinguish between different environments in the same process.
    */
-  public override createLog(name: string | null = null): LogFn {
-    return createLog(name, {
-      ...this.config,
-      logLevel: isNull(this.config.logLevel) ? "silent" : this.config.logLevel,
-      environment: this.environment?.name
-    });
+  public get id(): string {
+    return this.environment.environmentId;
   }
 
   /**
@@ -126,6 +120,56 @@ export class PowerlinesEnvironmentContext<
     HooksList<PluginContext<TResolvedConfig>>
   > {
     return this.#hooks;
+  }
+
+  /**
+   * Create a new logger instance
+   *
+   * @param source - The source name to use for the logger instance, which can be used to identify the origin of log messages in the logs for better traceability. This is typically the name of the plugin or module that is creating the logger instance.
+   * @returns A logger function
+   */
+  public override createLog(source: string | null = null): LogFn {
+    return (level: LogLevelLabel, ...args: string[]) => {
+      process.send?.({
+        id: uuid(),
+        type: IpcMessageType.WRITE_LOG,
+        executionId: this.options.executionId,
+        executionIndex: this.options.executionIndex,
+        timestamp: Date.now(),
+        payload: {
+          level,
+          source,
+          environment: this.environment?.name,
+          args
+        }
+      });
+    };
+  }
+
+  /**
+   * Extend the current logger instance with a new name
+   *
+   * @param source - The name of the source to use for the extended logger instance
+   * @param plugin - An optional plugin name to use for the extended logger instance, which can be used to identify the origin of log messages in the logs for better traceability. This is typically the name of the plugin or module that is creating the logger instance.
+   * @returns A logger function
+   */
+  public override extendLog(source: string, plugin?: string): LogFn {
+    return (level: LogLevelLabel, ...args: string[]) => {
+      process.send?.({
+        id: uuid(),
+        type: IpcMessageType.WRITE_LOG,
+        executionId: this.options.executionId,
+        executionIndex: this.options.executionIndex,
+        timestamp: Date.now(),
+        payload: {
+          level,
+          source,
+          plugin,
+          environment: this.environment?.name,
+          args
+        }
+      });
+    };
   }
 
   /**
@@ -183,9 +227,15 @@ export class PowerlinesEnvironmentContext<
         : plugin;
     }
 
-    const context = createPluginContext<TResolvedConfig>(resolvedPlugin, this);
+    const pluginId = uuid();
+    const context = createPluginContext<TResolvedConfig>(
+      pluginId,
+      resolvedPlugin,
+      this
+    );
 
     this.plugins.push({
+      pluginId,
       plugin: resolvedPlugin,
       context
     });

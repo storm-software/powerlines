@@ -21,30 +21,36 @@ import type {
   EnvironmentResolvedConfig,
   ExecutionContext,
   InlineConfig,
+  LogFn,
   Plugin,
   PluginContext,
   ResolvedConfig,
   ResolvedExecutionOptions,
   UserConfig
 } from "@powerlines/core";
+import { createLog } from "@powerlines/core";
 import { GLOBAL_ENVIRONMENT } from "@powerlines/core/constants";
 import type {
   Unstable_ContextInternal,
   Unstable_EnvironmentContext,
   Unstable_ExecutionContext
 } from "@powerlines/core/types/_internal";
+import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
 import { existsSync } from "@stryke/fs/exists";
 import { readJsonFile } from "@stryke/fs/json";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { deepClone } from "@stryke/helpers/deep-clone";
 import { joinPaths } from "@stryke/path/join";
+import { isNull } from "@stryke/type-checks/is-null";
 import { PackageJson } from "@stryke/types/package-json";
+import { uuid } from "@stryke/unique-id/uuid";
 import chalk from "chalk";
 import {
   createDefaultEnvironment,
   createEnvironment
 } from "../_internal/helpers/environment";
+import { IpcMessageType } from "../_internal/ipc/messages";
 import { PowerlinesContext } from "./context";
 import { PowerlinesEnvironmentContext } from "./environment-context";
 
@@ -155,6 +161,13 @@ export class PowerlinesExecutionContext<
   }
 
   /**
+   * The unique identifier of the execution context, which can be used for logging and other purposes to distinguish between different executions in the same process.
+   */
+  public get id(): string {
+    return this.options.executionId;
+  }
+
+  /**
    * A record of all environments by name
    */
   public get environments(): Record<
@@ -175,6 +188,36 @@ export class PowerlinesExecutionContext<
    */
   protected constructor(options: ResolvedExecutionOptions) {
     super(options);
+  }
+
+  /**
+   * Create a new logger instance
+   *
+   * @param source - The source name to use for the logger instance, which can be used to identify the origin of log messages in the logs for better traceability. This is typically the name of the plugin or module that is creating the logger instance.
+   * @returns A logger function
+   */
+  public override createLog(source: string | null = null): LogFn {
+    const logger = createLog(source, {
+      ...this.config,
+      logLevel: isNull(this.config.logLevel) ? "silent" : this.config.logLevel
+    });
+
+    return (level: LogLevelLabel, ...args: string[]) => {
+      logger(level, ...args);
+
+      process.send?.({
+        id: uuid(),
+        type: IpcMessageType.WRITE_LOG,
+        executionId: this.id,
+        executionIndex: this.options.executionIndex,
+        timestamp: Date.now(),
+        payload: {
+          source,
+          level,
+          args
+        }
+      });
+    };
   }
 
   /**

@@ -23,6 +23,7 @@ import type {
 } from "@powerlines/core";
 import { DEFAULT_ENVIRONMENT } from "@powerlines/core/constants";
 import { titleCase } from "@stryke/string-format/title-case";
+import { uuid } from "@stryke/unique-id/uuid";
 import defu from "defu";
 
 export function createEnvironment<TContext extends Context = Context>(
@@ -30,6 +31,7 @@ export function createEnvironment<TContext extends Context = Context>(
   config: Partial<TContext["config"]> = {}
 ): EnvironmentResolvedConfig {
   return defu(config.environments?.[name] ?? {}, {
+    environmentId: uuid(),
     name,
     title: config.title ?? titleCase(config.name),
     ssr: false,

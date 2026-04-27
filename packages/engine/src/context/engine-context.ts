@@ -19,15 +19,16 @@
 import type {
   EngineContext,
   EngineOptions,
-  ResolvedExecutionOptions
+  ExecutionState
 } from "@powerlines/core";
+import { uuid } from "@stryke/unique-id/uuid";
 import { PowerlinesBaseContext } from "./base-context";
 
 export class PowerlinesEngineContext
   extends PowerlinesBaseContext
   implements EngineContext
 {
-  #executions: ResolvedExecutionOptions[] = [];
+  #executions: ExecutionState[] = [];
 
   /**
    * Creates a new instance of the PowerlinesEngineContext class.
@@ -50,16 +51,31 @@ export class PowerlinesEngineContext
 
     if (Array.isArray(context.configFile.config)) {
       context.#executions = await Promise.all(
-        context.configFile.config.map(async (_, configIndex) => ({
-          ...context.options,
-          configIndex
-        }))
+        context.configFile.config.map(async (_, executionIndex) => {
+          const executionId = uuid();
+
+          return {
+            executionId,
+            options: { ...context.options, executionId, executionIndex },
+            active: {
+              command: null,
+              hook: null,
+              plugin: null
+            }
+          };
+        })
       );
     } else {
+      const executionId = uuid();
       context.#executions = [
         {
-          ...context.options,
-          configIndex: 0
+          executionId,
+          options: { ...context.options, executionId, executionIndex: 0 },
+          active: {
+            command: null,
+            hook: null,
+            plugin: null
+          }
         }
       ];
     }
@@ -70,9 +86,9 @@ export class PowerlinesEngineContext
   /**
    * A list of all command executions that will be run during the lifecycle of the engine
    *
-   * @returns An array of ResolvedExecutionOptions representing each execution context for the engine.
+   * @returns An array of {@link ExecutionState} representing each execution context for the engine.
    */
-  public get executions(): ResolvedExecutionOptions[] {
+  public get executions(): ExecutionState[] {
     return this.#executions;
   }
 }

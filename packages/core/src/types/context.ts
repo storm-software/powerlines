@@ -284,18 +284,18 @@ export interface BaseContext {
   /**
    * Create a new logger instance
    *
-   * @param name - The name to use for the logger instance
+   * @param source - The source name to use for the logger instance, which can be used to identify the origin of log messages in the logs for better traceability. This is typically the name of the plugin or module that is creating the logger instance.
    * @returns A logger function
    */
-  createLog: (name: string | null) => LogFn;
+  createLog: (source: string | null) => LogFn;
 
   /**
-   * Extend the current logger instance with a new name
+   * Extend the current logger instance with a new source
    *
-   * @param name - The name to use for the extended logger instance
+   * @param source - The source name to use for the extended logger instance, which can be used to identify the origin of log messages in the logs for better traceability. This is typically the name of the plugin or module that is creating the logger instance.
    * @returns A logger function
    */
-  extendLog: (name: string) => LogFn;
+  extendLog: (source: string) => LogFn;
 
   /**
    * A function to create a deep clone of the context
@@ -306,6 +306,57 @@ export interface BaseContext {
   clone: () => Promise<BaseContext>;
 }
 
+export interface ExecutionStateItem {
+  /**
+   * The timestamp when the command, hook, or plugin execution started
+   */
+  timestamp: number;
+
+  /**
+   * The name of the command, hook, or plugin being executed
+   */
+  name: string;
+}
+
+export interface HookExecutionStateItem extends ExecutionStateItem {
+  /**
+   * The order of the hook being executed, which can be "pre", "post", or "normal". This indicates whether the hook is being executed
+   */
+  order: "pre" | "post" | "normal";
+}
+
+export interface ExecutionState {
+  /**
+   * A unique identifier for the current execution instance, which can be used for logging and other purposes to distinguish between different executions in the same process.
+   */
+  executionId: string;
+
+  /**
+   * The options provided to the Powerlines process for this execution
+   */
+  options: ResolvedExecutionOptions;
+
+  /**
+   * An object representing the currently active command, hook, and plugin executions for this execution context
+   */
+  active: {
+    /**
+     * The currently active command execution for this execution context
+     */
+    command: ExecutionStateItem | null;
+
+    /**
+     * The currently active hook execution for this execution context, if any
+     */
+    hook: HookExecutionStateItem | null;
+
+    /**
+     * The currently active plugin execution for this execution context, if any
+     */
+    plugin: ExecutionStateItem | null;
+  };
+}
+
 /**
  * The Powerlines engine context.
  *
@@ -314,9 +365,9 @@ export interface BaseContext {
  */
 export interface EngineContext extends BaseContext {
   /**
-   * A list of API contexts for each configured run instance
+   * A list of all command executions that will be run during the lifecycle of the engine
    */
-  executions: ResolvedExecutionOptions[];
+  executions: ExecutionState[];
 }
 
 /**
@@ -668,6 +719,11 @@ export interface ExecutionContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > extends Context<TResolvedConfig> {
   /**
+   * The unique identifier of the execution context, which can be used for logging and other purposes to distinguish between different executions in the same process.
+   */
+  id: string;
+
+  /**
    * The expected plugins options for the Powerlines project.
    *
    * @remarks
@@ -763,7 +819,22 @@ export interface ExecutionContext<
 export interface EnvironmentContextPlugin<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > {
+  /**
+   * The unique identifier of the plugin, which can be used for logging and other purposes to distinguish between different plugins in the same process.
+   */
+  pluginId: string;
+
+  /**
+   * The plugin instance associated with this context, which can be used to access the plugin's options and other properties.
+   */
   plugin: Plugin<PluginContext<TResolvedConfig>>;
+
+  /**
+   * The context for the plugin, which provides access to the Powerlines engine and other utilities for interacting with the build process.
+   *
+   * @remarks
+   * This context is specific to the plugin and environment, allowing for environment-specific modifications without affecting the global context.
+   */
   context: PluginContext<TResolvedConfig>;
 }
 
@@ -782,6 +853,11 @@ export type SelectHookResult<
 export interface EnvironmentContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > extends Context<TResolvedConfig> {
+  /**
+   * The unique identifier of the environment associated with this context, which can be used for logging and other purposes to distinguish between different environments in the same process.
+   */
+  id: string;
+
   /**
    * The expected plugins options for the Powerlines project.
    *
@@ -814,6 +890,15 @@ export interface EnvironmentContext<
   ) => SelectHookResult<PluginContext<TResolvedConfig>, TKey>;
 
   /**
+   * Extend the current logger instance with a new name
+   *
+   * @param source - The name of the source to use for the extended logger instance
+   * @param plugin - An optional plugin name to use for the extended logger instance, which can be used to identify the origin of log messages in the logs for better traceability. This is typically the name of the plugin or module that is creating the logger instance.
+   * @returns A logger function
+   */
+  extendLog: (source: string, plugin?: string) => LogFn;
+
+  /**
    * A function to create a deep clone of the context
    *
    * @remarks
@@ -826,6 +911,11 @@ export interface PluginContext<
   out TResolvedConfig extends ResolvedConfig = ResolvedConfig
 >
   extends Context<TResolvedConfig>, UnpluginContext {
+  /**
+   * The unique identifier of the plugin associated with this context, which can be used for logging and other purposes to distinguish between different plugins in the same process.
+   */
+  id: string;
+
   /**
    * The environment specific resolved configuration
    */

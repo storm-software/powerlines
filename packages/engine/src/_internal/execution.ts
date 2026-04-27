@@ -806,7 +806,8 @@ ${formatTypes(code)}
 
     const timer = api.context.timer("Initialization");
 
-    for (const plugin of api.context.config.plugins.flat(10) ?? []) {
+    for (const plugin of api.context.config.plugins.flatMap(p => toArray(p)) ??
+      []) {
       await api.addPlugin(plugin);
     }
 

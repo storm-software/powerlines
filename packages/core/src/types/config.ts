@@ -378,11 +378,19 @@ export interface ExecutionOptions extends EngineOptions {
   /**
    * The index of the current execution instance among all configured instances in the Powerlines process
    */
-  configIndex: number;
+  executionIndex: number;
 }
 
-export type ResolvedExecutionOptions = Pick<ExecutionOptions, "configIndex"> &
-  ResolvedEngineOptions;
+export type ResolvedExecutionOptions = Pick<
+  ExecutionOptions,
+  "executionIndex"
+> &
+  ResolvedEngineOptions & {
+    /**
+     * A unique identifier for the current execution instance, which can be used for logging and other purposes to distinguish between different executions in the same process.
+     */
+    executionId: string;
+  };
 
 export interface Config {
   /**
@@ -759,6 +767,11 @@ export type EnvironmentResolvedConfig = Omit<
   "consumer" | "ssr" | "preview"
 > &
   Required<Pick<EnvironmentConfig, "consumer" | "ssr">> & {
+    /**
+     * A unique identifier for the environment, which can be used for logging and other purposes to distinguish between different environments in the same process.
+     */
+    environmentId: string;
+
     /**
      * The name of the environment
      */

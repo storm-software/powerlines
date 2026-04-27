@@ -24,7 +24,6 @@ import type {
   EmitOptions,
   ExecutionOptions,
   FetchOptions,
-  LogFn,
   MetaInfo,
   OutputResolvedConfig,
   ParsedTypeScriptConfig,
@@ -49,7 +48,6 @@ import {
   isTypeDefinition,
   resolveInputsSync
 } from "@powerlines/core/lib/entry";
-import { createLog } from "@powerlines/core/lib/logger";
 import {
   isDuplicate,
   isPlugin,
@@ -584,23 +582,10 @@ export class PowerlinesContext<
    */
   public override async clone(): Promise<Context<TResolvedConfig>> {
     const clone = await PowerlinesContext.fromOptions<TResolvedConfig>(
-      this.config
+      this.options
     );
 
     return this.copyTo(clone);
-  }
-
-  /**
-   * Create a new logger instance
-   *
-   * @param name - The name to use for the logger instance
-   * @returns A logger function
-   */
-  public override createLog(name: string | null = null): LogFn {
-    return createLog(name, {
-      ...this.config,
-      logLevel: isNull(this.logLevel) ? "silent" : this.logLevel
-    });
   }
 
   /**
@@ -1241,6 +1226,8 @@ export class PowerlinesContext<
     context.inputOptions = deepClone<typeof this.inputOptions>(
       this.inputOptions
     );
+    context.options = deepClone<typeof this.options>(this.options);
+
     context.dependencies = deepClone<typeof this.dependencies>(
       this.dependencies
     );
@@ -1278,8 +1265,8 @@ export class PowerlinesContext<
   protected override async init(options: Partial<ExecutionOptions> = {}) {
     await super.init(options);
 
-    this.options.configIndex =
-      options.configIndex ?? this.options.configIndex ?? 0;
+    this.options.executionIndex =
+      options.executionIndex ?? this.options.executionIndex ?? 0;
 
     const projectJsonPath = joinPaths(
       this.options.cwd,
@@ -1308,16 +1295,16 @@ export class PowerlinesContext<
 
     const userConfig = this.configFile.config
       ? Array.isArray(this.configFile.config) &&
-        this.configFile.config.length > this.options.configIndex
-        ? this.configFile.config[this.options.configIndex]!
+        this.configFile.config.length > this.options.executionIndex
+        ? this.configFile.config[this.options.executionIndex]!
         : this.configFile.config
       : {};
 
     this.resolvedConfig = {
       ...this.options,
-      ...userConfig,
+      ...(userConfig as TResolvedConfig),
       userConfig
-    } as TResolvedConfig;
+    };
   }
 
   /**
@@ -1388,6 +1375,7 @@ export class PowerlinesContext<
     }
 
     this.config.plugins = (this.config.plugins ?? [])
+      .flatMap(plugin => toArray(plugin))
       .filter(Boolean)
       .reduce((ret, plugin) => {
         if (
@@ -1495,7 +1483,9 @@ export class PowerlinesContext<
       this.config.output.types = appendPath(
         replacePathTokens(
           this,
-          this.config.output.types ||
+          this.config.userConfig?.output?.types ||
+            this.config.inlineConfig?.output?.types ||
+            this.config.pluginConfig?.output?.types ||
             joinPaths(
               this.config.root,
               `${this.config.framework ?? "powerlines"}.d.ts`

@@ -27,9 +27,10 @@ import { DEFAULT_ENVIRONMENT } from "../constants/environments";
 import type { LogFn, WorkspaceConfig } from "../types";
 
 export interface CreateLogOptions {
-  name?: string;
+  source?: string;
   command?: string;
   environment?: string;
+  plugin?: string;
   logLevel?: LogLevelLabel | null;
   customLogger?: LogFn;
   colors?: WorkspaceConfig["colors"];
@@ -58,6 +59,8 @@ export const createLog = (
     return options.customLogger;
   }
 
+  const source = options.plugin || options.source;
+
   return (type: LogLevelLabel, ...args: string[]) =>
     getLogFn(getLogLevel(type), {
       ...options,
@@ -70,9 +73,9 @@ export const createLog = (
           ? chalk.hex(getColor("brand", options))(` (${options.command})`)
           : ""
       }${name ? chalk.grey(" > ") : ""}${
-        options.name && (!name || kebabCase(options.name) !== kebabCase(name))
+        source && (!name || kebabCase(source) !== kebabCase(name))
           ? `${chalk.bold.hex(getColor("brand", options))(
-              kebabCase(options.name)
+              kebabCase(source)
             )}${chalk.grey(" > ")}`
           : ""
       }${
