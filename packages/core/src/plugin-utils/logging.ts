@@ -241,7 +241,7 @@ export const consoleLog = (meta: LogMeta, ...args: string[]) =>
         : ""
     }${
       meta.category && meta.category !== LogCategories.GENERAL
-        ? ` ${colorBackground(kebabCase(meta.category))} `
+        ? `${colorBackground(kebabCase(meta.category))} `
         : ""
     }${args.join(" ")} `.trim()
   );
@@ -405,7 +405,7 @@ const validateCustomLogger = (
 export const withLogger = (logger: Logger, secondaryLogger: Logger): Logger => {
   const options = { ...secondaryLogger.options, ...logger.options };
 
-  return {
+  const result = {
     options,
     error: validateLogger(
       "error",
@@ -452,7 +452,34 @@ export const withLogger = (logger: Logger, secondaryLogger: Logger): Logger => {
         secondaryLogger.trace?.(message);
       }
     )
+  } as Logger;
+
+  result.log = (type: LogLevel, message: string | LoggerMessage) => {
+    switch (type) {
+      case "error":
+        result.error(message);
+        break;
+      case "warn":
+        result.warn(message);
+        break;
+      case "info":
+        result.info(message);
+        break;
+      case "debug":
+        result.debug(message);
+        break;
+      case "trace":
+        result.trace(message);
+        break;
+      case "silent":
+        break;
+      default:
+        result.info(message);
+        break;
+    }
   };
+
+  return result;
 };
 
 /**
@@ -466,7 +493,7 @@ export const withCustomLogger = (
   logger: Logger,
   customLogger: CustomLogger
 ): Logger => {
-  return {
+  const result = {
     options: logger.options,
     error: validateCustomLogger(
       "error",
@@ -503,7 +530,34 @@ export const withCustomLogger = (
       logger.trace.bind(logger),
       customLogger.trace?.bind(customLogger)
     )
+  } as Logger;
+
+  result.log = (type: LogLevel, message: string | LoggerMessage) => {
+    switch (type) {
+      case "error":
+        result.error(message);
+        break;
+      case "warn":
+        result.warn(message);
+        break;
+      case "info":
+        result.info(message);
+        break;
+      case "debug":
+        result.debug(message);
+        break;
+      case "trace":
+        result.trace(message);
+        break;
+      case "silent":
+        break;
+      default:
+        result.info(message);
+        break;
+    }
   };
+
+  return result;
 };
 
 export const consoleLogger = (
@@ -523,7 +577,7 @@ export const consoleLogger = (
           category: LogCategories.GENERAL,
           logId: uuid(),
           timestamp: Date.now(),
-          ...message
+          ...message.meta
         },
     isSetString(message) ? message : message.message
   );
@@ -543,7 +597,7 @@ export const createLogger = (
     message: string | LoggerMessage
   ) => void = consoleLogger
 ): Logger => {
-  return {
+  const result = {
     options: { ...options, name },
     error: validateLogger("error", name, { ...options, name }, message =>
       callback("error", message)
@@ -560,7 +614,34 @@ export const createLogger = (
     trace: validateLogger("trace", name, { ...options, name }, message =>
       callback("trace", message)
     )
+  } as Logger;
+
+  result.log = (type: LogLevel, message: string | LoggerMessage) => {
+    switch (type) {
+      case "error":
+        result.error(message);
+        break;
+      case "warn":
+        result.warn(message);
+        break;
+      case "info":
+        result.info(message);
+        break;
+      case "debug":
+        result.debug(message);
+        break;
+      case "trace":
+        result.trace(message);
+        break;
+      case "silent":
+        break;
+      default:
+        result.info(message);
+        break;
+    }
   };
+
+  return result;
 };
 
 /**
@@ -601,12 +682,39 @@ export const extendLogger = (
     "name"
   >;
 
-  return {
+  const result = {
     options: opts,
     error: validateLogger("error", opts.name, opts, logger.error.bind(logger)),
     warn: validateLogger("warn", opts.name, opts, logger.warn.bind(logger)),
     info: validateLogger("info", opts.name, opts, logger.info.bind(logger)),
     debug: validateLogger("debug", opts.name, opts, logger.debug.bind(logger)),
     trace: validateLogger("trace", opts.name, opts, logger.trace.bind(logger))
+  } as Logger;
+
+  result.log = (type: LogLevel, message: string | LoggerMessage) => {
+    switch (type) {
+      case "error":
+        result.error(message);
+        break;
+      case "warn":
+        result.warn(message);
+        break;
+      case "info":
+        result.info(message);
+        break;
+      case "debug":
+        result.debug(message);
+        break;
+      case "trace":
+        result.trace(message);
+        break;
+      case "silent":
+        break;
+      default:
+        result.info(message);
+        break;
+    }
   };
+
+  return result;
 };

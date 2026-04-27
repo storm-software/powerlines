@@ -24,7 +24,6 @@ import { render } from "@powerlines/plugin-alloy/render";
 import babel, { BabelPluginResolvedConfig } from "@powerlines/plugin-babel";
 import env from "@powerlines/plugin-env";
 import { VitePluginResolvedConfig } from "@powerlines/plugin-vite/types/plugin";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import viteReactPlugin, { BabelOptions } from "@vitejs/plugin-react";
 import type { LoggerEvent } from "babel-plugin-react-compiler";
 import defu from "defu";
@@ -80,18 +79,17 @@ export const plugin = <
                 enableReanimatedCheck: true,
                 logger: {
                   logEvent: (filename: string | null, event: LoggerEvent) => {
-                    this.log(
-                      event.kind === "CompileSuccess"
-                        ? LogLevelLabel.SUCCESS
-                        : event.kind === "AutoDepsEligible" ||
-                            event.kind === "AutoDepsDecorations"
-                          ? LogLevelLabel.INFO
-                          : event.kind === "CompileSkip" ||
-                              event.kind === "CompileDiagnostic"
-                            ? LogLevelLabel.DEBUG
-                            : event.kind === "Timing"
-                              ? LogLevelLabel.TRACE
-                              : LogLevelLabel.ERROR,
+                    this.logger.log(
+                      event.kind === "CompileSuccess" ||
+                        event.kind === "AutoDepsEligible" ||
+                        event.kind === "AutoDepsDecorations"
+                        ? "info"
+                        : event.kind === "CompileSkip" ||
+                            event.kind === "CompileDiagnostic"
+                          ? "debug"
+                          : event.kind === "Timing"
+                            ? "trace"
+                            : "error",
                       `(${filename}) ${
                         event.kind === "CompileSuccess"
                           ? `React Compiler Success`
@@ -116,8 +114,15 @@ export const plugin = <
                                         : ""
                                     }`
                                   : event.kind === "Timing"
-                                    ? `React ${event.measurement.entryType} Timing (${event.measurement.name}) - ${event.measurement.duration}ms`
-                                    : `React Compiler Error - ${event.fnLoc?.identifierName || "unknown location"}`
+                                    ? `React ${
+                                        event.measurement.entryType
+                                      } Timing (${event.measurement.name}) - ${
+                                        event.measurement.duration
+                                      }ms`
+                                    : `React Compiler Error - ${
+                                        event.fnLoc?.identifierName ||
+                                        "unknown location"
+                                      }`
                       }`
                     );
                   }

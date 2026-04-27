@@ -164,10 +164,11 @@ export function resolveOptions(context: Context): RolldownOptions {
       logLevel: context.config.logLevel,
       onLog(level: "info" | "debug" | "warn", log: RollupLog) {
         if (log.message?.trim()) {
-          context.log(
-            level === "info" ? "debug" : level,
-            log.message?.trim() ?? ""
-          );
+          if (level === "info") {
+            context.logger.debug(log.message?.trim() ?? "");
+          } else {
+            context.logger.log(level, log.message?.trim() ?? "");
+          }
         }
       },
       minify:

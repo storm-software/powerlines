@@ -27,21 +27,8 @@ import type { ChildProcess } from "node:child_process";
 import { cpus } from "node:os";
 import { Transform } from "node:stream";
 import { parseArgs } from "node:util";
-import {
-  parseIpcMessage,
-  parseUpdateCommandMessagePayload,
-  parseUpdateHookMessagePayload,
-  parseUpdatePluginMessagePayload,
-  parseWriteLogMessagePayload
-} from "../ipc/helpers";
-import {
-  IpcMessage,
-  IpcMessageType,
-  UpdateCommandIpcMessage,
-  UpdateHookIpcMessage,
-  UpdatePluginIpcMessage,
-  WriteLogIpcMessage
-} from "../ipc/messages";
+import { IpcMessage, IpcMessageType } from "../ipc/messages";
+import { parseIpcMessage } from "../ipc/parse";
 
 const RESTARTED = Symbol("powerlines-worker:restarted");
 
@@ -355,24 +342,9 @@ export type WorkerOptions = ConstructorParameters<typeof JestWorker>[1] & {
   logger: Logger;
 
   /**
-   * A callback function that is called when the worker sends a log message.
+   * A callback function that is called when the worker sends a log message. This can be used to handle log messages from the worker and integrate them with the parent process's logging system. The function should accept a `WriteLogIpcMessage` object as its argument, which contains the log message and associated metadata.
    */
-  onWriteLog?: (payload: WriteLogIpcMessage) => MaybePromise<void>;
-
-  /**
-   * A callback function that is called when the worker sends an update command message.
-   */
-  onUpdateCommand?: (payload: UpdateCommandIpcMessage) => MaybePromise<void>;
-
-  /**
-   * A callback function that is called when the worker sends an update hook message.
-   */
-  onUpdateHook?: (payload: UpdateHookIpcMessage) => MaybePromise<void>;
-
-  /**
-   * A callback function that is called when the worker sends an update plugin message.
-   */
-  onUpdatePlugin?: (payload: UpdatePluginIpcMessage) => MaybePromise<void>;
+  onIpcMessage?: (message: IpcMessage) => MaybePromise<void>;
 };
 
 export class Worker {
@@ -557,67 +529,7 @@ export class Worker {
                   `Received IPC message from worker: ${JSON.stringify(message)}`
                 );
 
-                switch (message.type) {
-                  case IpcMessageType.WRITE_LOG:
-                    if (options.onWriteLog) {
-                      void Promise.resolve(
-                        options.onWriteLog({
-                          ...message,
-                          type: IpcMessageType.WRITE_LOG,
-                          payload: parseWriteLogMessagePayload(message.payload)
-                        })
-                      );
-                    }
-                    break;
-
-                  case IpcMessageType.UPDATE_COMMAND:
-                    if (options.onUpdateCommand) {
-                      void Promise.resolve(
-                        options.onUpdateCommand({
-                          ...message,
-                          type: IpcMessageType.UPDATE_COMMAND,
-                          payload: parseUpdateCommandMessagePayload(
-                            message.payload
-                          )
-                        })
-                      );
-                    }
-                    break;
-
-                  case IpcMessageType.UPDATE_HOOK:
-                    if (options.onUpdateHook) {
-                      void Promise.resolve(
-                        options.onUpdateHook({
-                          ...message,
-                          type: IpcMessageType.UPDATE_HOOK,
-                          payload: parseUpdateHookMessagePayload(
-                            message.payload
-                          )
-                        })
-                      );
-                    }
-                    break;
-
-                  case IpcMessageType.UPDATE_PLUGIN:
-                    if (options.onUpdatePlugin) {
-                      void Promise.resolve(
-                        options.onUpdatePlugin({
-                          ...message,
-                          type: IpcMessageType.UPDATE_PLUGIN,
-                          payload: parseUpdatePluginMessagePayload(
-                            message.payload
-                          )
-                        })
-                      );
-                    }
-                    break;
-
-                  case IpcMessageType.ACTIVITY:
-                  case undefined:
-                  default: {
-                    break;
-                  }
-                }
+                void Promise.resolve(this.options.onIpcMessage?.(message));
               }
             }
           });

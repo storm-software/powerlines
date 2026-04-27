@@ -3,3 +3,12 @@ inlines
 meridiems
 compatx
 logfwdr
+emnapi
+ohos
+armv
+gnueabihf
+musleabihf
+riscv
+loong
+xwin
+androideabi

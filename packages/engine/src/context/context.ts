@@ -1372,7 +1372,7 @@ export class PowerlinesContext<
   protected async innerSetup(): Promise<void> {
     const logger = this.extendLogger({ category: "config" });
 
-    logger.debug(
+    logger.trace(
       `Pre-setup Powerlines configuration object: \n${JSON.stringify(
         {
           ...omit(this.config, ["plugins"]),
@@ -1498,8 +1498,7 @@ export class PowerlinesContext<
 
     // #region Configure output
 
-    this.resolvedConfig.output = defu(this.config.output ?? {}, {
-      path: joinPaths(this.config.root, "dist"),
+    this.config.output = defu(this.config.output ?? {}, {
       copy: {
         assets: [
           {
@@ -1529,6 +1528,11 @@ export class PowerlinesContext<
     if (this.config.output.path) {
       this.config.output.path = appendPath(
         replacePathTokens(this, this.config.output.path),
+        this.config.cwd
+      );
+    } else {
+      this.config.output.path = appendPath(
+        joinPaths(this.config.root, "dist"),
         this.config.cwd
       );
     }
@@ -1678,23 +1682,29 @@ export class PowerlinesContext<
 
     // #endregion Configure output
 
-    logger.debug(
-      `Post-setup Powerlines configuration object: \n${JSON.stringify(
-        {
-          ...omit(this.config, ["plugins"]),
-          userConfig: this.config.userConfig
-            ? omit(this.config.userConfig, ["plugins"])
-            : {},
-          inlineConfig: this.config.inlineConfig
-            ? omit(this.config.inlineConfig, ["plugins"])
-            : {},
-          pluginConfig: this.config.pluginConfig
-            ? omit(this.config.pluginConfig, ["plugins"])
-            : {}
-        },
-        null,
-        2
-      )}`
-    );
+    if (
+      isSetObject(this.config.userConfig) &&
+      isSetObject(this.config.inlineConfig) &&
+      isSetObject(this.config.pluginConfig)
+    ) {
+      logger.debug(
+        `Resolved Powerlines configuration object: \n${JSON.stringify(
+          {
+            ...omit(this.config, ["plugins"]),
+            userConfig: this.config.userConfig
+              ? omit(this.config.userConfig, ["plugins"])
+              : {},
+            inlineConfig: this.config.inlineConfig
+              ? omit(this.config.inlineConfig, ["plugins"])
+              : {},
+            pluginConfig: this.config.pluginConfig
+              ? omit(this.config.pluginConfig, ["plugins"])
+              : {}
+          },
+          null,
+          2
+        )}`
+      );
+    }
   }
 }

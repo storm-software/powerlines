@@ -22,7 +22,6 @@ import { stringifyDefaultValue } from "@powerlines/deepkit/utilities";
 import { createBabelPlugin } from "@powerlines/plugin-babel/helpers/create-plugin";
 import { addImport } from "@powerlines/plugin-babel/helpers/module-helpers";
 import { BabelPluginPass } from "@powerlines/plugin-babel/types/config";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { EnvPluginContext } from "../types/plugin";
 
 /*
@@ -33,7 +32,7 @@ import { EnvPluginContext } from "../types/plugin";
  */
 export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
   "env",
-  ({ log, context }) => {
+  ({ logger, context }) => {
     function extractEnv(
       node: t.Identifier,
       pass: BabelPluginPass,
@@ -50,12 +49,14 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
           ""
         );
 
-        log(
-          LogLevelLabel.TRACE,
-          `Environment variable ${name} found in ${
+        logger.trace({
+          meta: {
+            category: "env"
+          },
+          message: `Environment variable ${name} found in ${
             pass.filename || "unknown file"
           }.`
-        );
+        });
 
         if (
           context.env.types.env?.hasProperty(name) ||
@@ -71,12 +72,14 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
           }
 
           if (!context.env.used.env.hasProperty(name)) {
-            log(
-              LogLevelLabel.DEBUG,
-              `Adding "${name}" environment variables found in "${
+            logger.debug({
+              meta: {
+                category: "env"
+              },
+              message: `Adding "${name}" environment variables found in "${
                 pass.filename || "unknown file"
               }" to used environment configuration reflection object.`
-            );
+            });
 
             context.env.used.env.addProperty(envProperty.property);
           }
@@ -138,13 +141,16 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
             )} \n\nPlease check your \`env\` configuration option. If you are using a custom dotenv type definition, please make sure that the configuration names match the ones in the code. \n\n`
           );
         } else if (pass.filename && isUsingBuiltin) {
-          context.warn(
-            `The "${
+          logger.warn({
+            meta: {
+              category: "env"
+            },
+            message: `The "${
               name
             }" environment variable is used in the source code file ${
               pass.filename
             }, but is not defined in the \`env\` type definition. If this is intentional, you can ignore this warning. Otherwise, please check your \`env\` configuration option. If you are using a custom dotenv type definition, please make sure that the configuration names match the ones in the code.`
-          );
+          });
         }
       }
 

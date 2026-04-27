@@ -164,6 +164,7 @@ export interface Logger {
   info: (message: string | LoggerMessage) => void;
   debug: (message: string | LoggerMessage) => void;
   trace: (message: string | LoggerMessage) => void;
+  log: (type: LogLevel, message: string | LoggerMessage) => void;
 }
 
 /**

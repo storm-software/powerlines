@@ -64,18 +64,23 @@ export function parseWriteLogMessagePayload(
 ): WriteLogMessagePayload {
   if (
     isSetObject(data) &&
-    isSetString(data.type) &&
-    isSetString(data.category) &&
-    isSetString(data.logId) &&
-    isSetString(data.message)
+    isSetObject(data.meta) &&
+    isSetString((data.meta as LogMeta).type) &&
+    (isSetString(data.message) || Array.isArray(data.message))
   ) {
     return {
-      ...(data as LogMeta),
+      ...data,
+      meta: data.meta as Omit<
+        LogMeta,
+        "executionId" | "executionIndex" | "environment" | "timestamp"
+      >,
       message: toArray(data.message).filter(Boolean)
     };
   }
 
-  throw new Error('Invalid "write-log" message payload.');
+  throw new Error(
+    `Invalid "write-log" message payload: ${JSON.stringify(data)}`
+  );
 }
 
 export function parseUpdateCommandMessagePayload(
@@ -87,7 +92,9 @@ export function parseUpdateCommandMessagePayload(
     };
   }
 
-  throw new Error('Invalid "update-command" message payload.');
+  throw new Error(
+    `Invalid "update-command" message payload: ${JSON.stringify(data)}`
+  );
 }
 
 export function parseUpdateHookMessagePayload(
@@ -103,7 +110,9 @@ export function parseUpdateHookMessagePayload(
     };
   }
 
-  throw new Error('Invalid "update-hook" message payload.');
+  throw new Error(
+    `Invalid "update-hook" message payload: ${JSON.stringify(data)}`
+  );
 }
 
 export function parseUpdatePluginMessagePayload(
@@ -115,5 +124,7 @@ export function parseUpdatePluginMessagePayload(
     };
   }
 
-  throw new Error('Invalid "update-plugin" message payload.');
+  throw new Error(
+    `Invalid "update-plugin" message payload: ${JSON.stringify(data)}`
+  );
 }

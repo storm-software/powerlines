@@ -35,18 +35,27 @@ import {
   extendLogger
 } from "@powerlines/core/plugin-utils/logging";
 import { EnvPaths, getEnvPaths } from "@stryke/env/get-env-paths";
+import { readJsonFile } from "@stryke/fs";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { StormJSON } from "@stryke/json/storm-json";
+import { joinPaths } from "@stryke/path";
+import { appendPath } from "@stryke/path/append";
 import { isEqual } from "@stryke/path/is-equal";
 import { replacePath } from "@stryke/path/replace";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import chalk from "chalk";
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import defu from "defu";
+import { existsSync } from "node:fs";
+import { UserConfig } from "tsdown/config";
 import { createResolver } from "../_internal/helpers/resolver";
 
 export class PowerlinesBaseContext implements BaseContext {
   #timestamp: number = Date.now();
+
+  #name: string = "powerlines";
 
   /**
    * The path to the Powerlines package
@@ -226,7 +235,7 @@ export class PowerlinesBaseContext implements BaseContext {
     callback?: (message: string | LoggerMessage) => void
   ): Logger {
     return createLogger(
-      this.options.name || this.options.framework || "powerlines",
+      this.options.name || this.options.root,
       options,
       callback
     );
@@ -273,6 +282,7 @@ export class PowerlinesBaseContext implements BaseContext {
 
     this.options = defu(
       {
+        name: options.name,
         root,
         cwd,
         mode: options.mode,
@@ -297,5 +307,47 @@ export class PowerlinesBaseContext implements BaseContext {
     });
 
     this.configFile = await loadUserConfigFile(this.options, this.resolver);
+    if (!this.options.name) {
+      if (this.configFile.config) {
+        if (
+          isSetObject(this.configFile.config) &&
+          isSetString((this.configFile.config as UserConfig).name)
+        ) {
+          this.options.name = (this.configFile.config as UserConfig).name;
+        } else if (Array.isArray(this.configFile.config)) {
+          for (const config of this.configFile.config) {
+            if (
+              isSetObject(config) &&
+              isSetString((config as UserConfig).name)
+            ) {
+              this.options.name = (config as UserConfig).name;
+              break;
+            }
+          }
+        }
+      }
+
+      if (!this.options.name) {
+        const packageJsonPath = joinPaths(
+          appendPath(this.options.root, this.options.cwd),
+          "package.json"
+        );
+        if (existsSync(packageJsonPath)) {
+          const packageJson = await readJsonFile(packageJsonPath);
+          this.options.name = packageJson.name;
+        }
+
+        if (!this.options.name) {
+          const projectJsonPath = joinPaths(
+            appendPath(this.options.root, this.options.cwd),
+            "project.json"
+          );
+          if (existsSync(projectJsonPath)) {
+            const projectJson = await readJsonFile(projectJsonPath);
+            this.options.name = projectJson.name;
+          }
+        }
+      }
+    }
   }
 }

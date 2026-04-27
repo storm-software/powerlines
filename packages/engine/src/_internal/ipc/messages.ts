@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { LogMeta } from "@powerlines/core";
+import { MaybePromise } from "@stryke/types/base";
 
 export enum IpcMessageType {
   ACTIVITY = "activity",
@@ -65,15 +66,20 @@ export interface IpcMessage<
 /**
  * Payload for write log IPC messages.
  */
-export type WriteLogMessagePayload = Omit<
-  LogMeta,
-  "executionId" | "executionIndex" | "environment" | "timestamp"
-> & {
+export interface WriteLogMessagePayload {
+  /**
+   * Metadata associated with the log message, excluding fields that are automatically added by the engine such as executionId, executionIndex, environment, and timestamp. This can include custom fields relevant to the log entry, such as category, logId, name, command, hook, plugin, and source.
+   */
+  meta: Omit<
+    LogMeta,
+    "executionId" | "executionIndex" | "environment" | "timestamp"
+  >;
+
   /**
    * The log message content, which can be a string or an array of strings representing the log entry. This field is required and should contain the actual message to be logged.
    */
   message: string | string[];
-};
+}
 
 /**
  * Payload for update command IPC messages.
@@ -155,3 +161,25 @@ export type WorkerIpcMessage =
   | UpdateCommandIpcMessage
   | UpdateHookIpcMessage
   | UpdatePluginIpcMessage;
+
+export interface IpcMessageHandler {
+  /**
+   * A callback function that is called when the worker sends a log message.
+   */
+  onWriteLog: (payload: WriteLogIpcMessage) => MaybePromise<void>;
+
+  /**
+   * A callback function that is called when the worker sends an update command message.
+   */
+  onUpdateCommand: (payload: UpdateCommandIpcMessage) => MaybePromise<void>;
+
+  /**
+   * A callback function that is called when the worker sends an update hook message.
+   */
+  onUpdateHook: (payload: UpdateHookIpcMessage) => MaybePromise<void>;
+
+  /**
+   * A callback function that is called when the worker sends an update plugin message.
+   */
+  onUpdatePlugin: (payload: UpdatePluginIpcMessage) => MaybePromise<void>;
+}

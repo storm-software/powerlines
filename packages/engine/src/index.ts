@@ -32,10 +32,25 @@ import type {
   TypesInlineConfig
 } from "@powerlines/core";
 import { POWERLINES_API_FUNCTIONS } from "@powerlines/core/constants";
+import { toArray } from "@stryke/convert/to-array";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { joinPaths } from "@stryke/path/join";
 import { PartialKeys } from "@stryke/types/base";
 import { Worker } from "./_internal/helpers/worker";
+import {
+  IpcMessage,
+  IpcMessageType,
+  UpdateCommandIpcMessage,
+  UpdateHookIpcMessage,
+  UpdatePluginIpcMessage,
+  WriteLogIpcMessage
+} from "./_internal/ipc/messages";
+import {
+  parseUpdateCommandMessagePayload,
+  parseUpdateHookMessagePayload,
+  parseUpdatePluginMessagePayload,
+  parseWriteLogMessagePayload
+} from "./_internal/ipc/parse";
 import { PowerlinesEngineContext } from "./context/engine-context";
 
 /**
@@ -78,6 +93,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     }
 
     api.#worker = new Worker(joinPaths(packagePath, "./_internal/worker.mjs"), {
+      onIpcMessage: api.handleIpcMessage.bind(api),
       enableSourceMaps: options.mode === "development",
       exposedMethods: POWERLINES_API_FUNCTIONS,
       logger: api.context.extendLogger({ category: "ipc" })
@@ -429,7 +445,123 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     timer();
   }
 
-  async [Symbol.asyncDispose]() {
+  /**
+   * Asynchronous disposal method for the Powerlines Engine, which will call the finalize method to perform any necessary cleanup when the engine is disposed of.
+   */
+  public async [Symbol.asyncDispose]() {
     return this.finalize();
   }
+
+  private async handleIpcMessage(message: IpcMessage) {
+    switch (message.type) {
+      case IpcMessageType.WRITE_LOG:
+        this.context.logger.debug({
+          meta: {
+            category: "ipc",
+            executionId: message.executionId,
+            executionIndex: message.executionIndex,
+            environment: message.environment
+          },
+          message: 'Received a "write-log" IPC message from worker'
+        });
+
+        await this.handleWriteLog({
+          ...message,
+          type: IpcMessageType.WRITE_LOG,
+          payload: parseWriteLogMessagePayload(message.payload)
+        });
+
+        break;
+
+      case IpcMessageType.UPDATE_COMMAND:
+        this.context.logger.debug({
+          meta: {
+            category: "ipc",
+            executionId: message.executionId,
+            executionIndex: message.executionIndex,
+            environment: message.environment
+          },
+          message: 'Received an "update-command" IPC message from worker'
+        });
+
+        await this.handleUpdateCommand({
+          ...message,
+          type: IpcMessageType.UPDATE_COMMAND,
+          payload: parseUpdateCommandMessagePayload(message.payload)
+        });
+
+        break;
+
+      case IpcMessageType.UPDATE_HOOK:
+        this.context.logger.debug({
+          meta: {
+            category: "ipc",
+            executionId: message.executionId,
+            executionIndex: message.executionIndex,
+            environment: message.environment
+          },
+          message: 'Received an "update-hook" IPC message from worker'
+        });
+
+        await this.handleUpdateHook({
+          ...message,
+          type: IpcMessageType.UPDATE_HOOK,
+          payload: parseUpdateHookMessagePayload(message.payload)
+        });
+
+        break;
+
+      case IpcMessageType.UPDATE_PLUGIN:
+        this.context.logger.debug({
+          meta: {
+            category: "ipc",
+            executionId: message.executionId,
+            executionIndex: message.executionIndex,
+            environment: message.environment
+          },
+          message: 'Received an "update-plugin" IPC message from worker'
+        });
+
+        await this.handleUpdatePlugin({
+          ...message,
+          type: IpcMessageType.UPDATE_PLUGIN,
+          payload: parseUpdatePluginMessagePayload(message.payload)
+        });
+
+        break;
+
+      case IpcMessageType.ACTIVITY:
+      case undefined:
+      default: {
+        break;
+      }
+    }
+  }
+
+  private async handleWriteLog(message: WriteLogIpcMessage) {
+    const { payload } = message;
+
+    this.context.logger.log(payload.meta.type, {
+      message: toArray(payload.message).filter(Boolean).join("\n"),
+      meta: {
+        category: payload.meta.category,
+        logId: payload.meta.logId,
+        name: payload.meta.name,
+        executionId: message.executionId,
+        executionIndex: message.executionIndex,
+        command: payload.meta.command,
+        hook: payload.meta.hook,
+        environment: message.environment,
+        plugin: payload.meta.plugin,
+        source: payload.meta.source,
+        timestamp: message.timestamp
+      }
+    });
+  }
+
+  private async handleUpdatePlugin(_: UpdatePluginIpcMessage) {}
+
+  private async handleUpdateHook(_: UpdateHookIpcMessage) {}
+
+  private async handleUpdateCommand(_: UpdateCommandIpcMessage) {}
 }

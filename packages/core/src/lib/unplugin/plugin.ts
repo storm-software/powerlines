@@ -145,7 +145,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
             await hook.handler.apply(combineContexts(ctx, this), [
               getString(transformed),
               id.replace(VIRTUAL_MODULE_PREFIX_REGEX, "")
-            ]);
+            ] as [code: string, id: string]);
           if (result) {
             transformed = result;
           }
