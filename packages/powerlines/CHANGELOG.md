@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.44.1](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.44.1) (04/27/2026)
+
+### Miscellaneous
+
+- **core:** Implemented log categories for each context and execution class ([e3ad4e735](https://github.com/storm-software/powerlines/commit/e3ad4e735))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.434**
+- Updated **plugin-esbuild** to **v0.13.434**
+- Updated **plugin-unbuild** to **v0.5.433**
+- Updated **plugin-webpack** to **v0.5.431**
+- Updated **plugin-rollup** to **v0.7.432**
+- Updated **plugin-rspack** to **v0.5.431**
+- Updated **plugin-tsdown** to **v0.1.378**
+- Updated **plugin-tsup** to **v0.12.436**
+- Updated **plugin-vite** to **v0.14.431**
+
 ## [0.44.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.44.0) (04/27/2026)
 
 ### Updated Dependencies

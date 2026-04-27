@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.44.1](https://github.com/storm-software/powerlines/releases/tag/engine%400.44.1) (04/27/2026)
+
+### Miscellaneous
+
+- **core:** Implemented log categories for each context and execution class ([e3ad4e735](https://github.com/storm-software/powerlines/commit/e3ad4e735))
+
 ## [0.44.0](https://github.com/storm-software/powerlines/releases/tag/engine%400.44.0) (04/27/2026)
 
 ### Features
