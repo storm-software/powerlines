@@ -28,7 +28,7 @@ import type {
 import {
   VIRTUAL_MODULE_PREFIX,
   VIRTUAL_MODULE_PREFIX_REGEX
-} from "../../constants/virtual-modules";
+} from "../../constants";
 import { Unstable_PluginContext } from "../../types/_internal";
 import { PluginContext, ResolveResult } from "../../types/context";
 import { ResolveOptions } from "../../types/fs";

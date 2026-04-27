@@ -47,6 +47,42 @@
       "import": "./dist/constants/index.mjs",
       "require": "./dist/constants/index.cjs"
     },
+    "./constants/api": {
+      "import": "./dist/constants/api.mjs",
+      "require": "./dist/constants/api.cjs"
+    },
+    "./constants/commands": {
+      "import": "./dist/constants/commands.mjs",
+      "require": "./dist/constants/commands.cjs"
+    },
+    "./constants/environments": {
+      "import": "./dist/constants/environments.mjs",
+      "require": "./dist/constants/environments.cjs"
+    },
+    "./constants/fs": {
+      "import": "./dist/constants/fs.mjs",
+      "require": "./dist/constants/fs.cjs"
+    },
+    "./constants/hooks": {
+      "import": "./dist/constants/hooks.mjs",
+      "require": "./dist/constants/hooks.cjs"
+    },
+    "./constants/log-level": {
+      "import": "./dist/constants/log-level.mjs",
+      "require": "./dist/constants/log-level.cjs"
+    },
+    "./constants/meta": {
+      "import": "./dist/constants/meta.mjs",
+      "require": "./dist/constants/meta.cjs"
+    },
+    "./constants/plugin": {
+      "import": "./dist/constants/plugin.mjs",
+      "require": "./dist/constants/plugin.cjs"
+    },
+    "./constants/virtual-modules": {
+      "import": "./dist/constants/virtual-modules.mjs",
+      "require": "./dist/constants/virtual-modules.cjs"
+    },
     "./lib": {
       "import": "./dist/lib/index.mjs",
       "require": "./dist/lib/index.cjs"

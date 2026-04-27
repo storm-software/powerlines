@@ -216,7 +216,7 @@ export interface CustomLogger {
 export type LogLevelUserConfig =
   | LogLevel
   | RequiredKeys<
-      Record<LogCategory, LogLevel | boolean | undefined>,
+      Partial<Record<LogCategory, LogLevel | boolean | undefined>>,
       "general"
     >;
 

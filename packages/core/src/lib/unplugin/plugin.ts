@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { Unstable_PluginContext } from "@powerlines/core/types/_internal";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import type {
@@ -25,7 +24,8 @@ import type {
   UnpluginContext
 } from "unplugin";
 import { setParseImpl } from "unplugin";
-import { VIRTUAL_MODULE_PREFIX_REGEX } from "../../constants/virtual-modules";
+import { VIRTUAL_MODULE_PREFIX_REGEX } from "../../constants";
+import { Unstable_PluginContext } from "../../types/_internal";
 import { PluginContext } from "../../types/context";
 import { UnpluginFactory } from "../../types/unplugin";
 import { getString } from "../utilities/source-file";
