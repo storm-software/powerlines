@@ -167,7 +167,7 @@ catalog:
   oxc-parser: ^0.99.0
   oxc-resolver: ^11.19.1
   oxc-transform: ^0.99.0
-  oxlint: ^1.61.0
+  oxlint: ^1.62.0
   oxlint-tsgolint: ^0.14.2
   pluralize: ^8.0.0
   prettier: ^3.8.3
@@ -200,7 +200,7 @@ catalog:
   unified: ^11.0.5
   unimport: ^5.7.0
   unplugin: ^3.0.0
-  unplugin-combine: ^2.3.0
+  unplugin-combine: ^2.4.0
   untyped: ^1.5.2
   verdaccio: 6.5.2
   vite: ^8.0.10
