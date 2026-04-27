@@ -18,7 +18,6 @@
 
 import { declare } from "@babel/helper-plugin-utils";
 import type { Context } from "@powerlines/core";
-import { extendLogFn } from "@powerlines/core/lib/logger";
 import chalk from "chalk";
 import type {
   BabelTransformPluginBuilder,
@@ -44,14 +43,13 @@ export function createBabelPlugin<
       api.cache.using(() => context.meta.checksum);
       api.assertVersion("^8.0.0-0");
 
-      const log = extendLogFn(context.log, { source: name, category: "babel" });
-      log(
-        "trace",
+      const logger = context.extendLogger({ source: name, category: "babel" });
+      logger.trace(
         `Initializing the ${chalk.bold.cyanBright(name)} Babel plugin`
       );
 
       const result = builder({
-        log,
+        logger,
         name,
         api,
         options: options as TOptions,
@@ -60,8 +58,7 @@ export function createBabelPlugin<
       });
       result.name = name;
 
-      log(
-        "trace",
+      logger.trace(
         `Completed initialization of the ${chalk.bold.cyanBright(name)} Babel plugin`
       );
 

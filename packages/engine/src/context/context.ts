@@ -24,6 +24,9 @@ import type {
   EmitOptions,
   ExecutionOptions,
   FetchOptions,
+  Logger,
+  LoggerMessage,
+  LogLevel,
   MetaInfo,
   OutputResolvedConfig,
   ParsedTypeScriptConfig,
@@ -39,7 +42,6 @@ import type {
   VirtualFile,
   VirtualFileSystemInterface
 } from "@powerlines/core";
-import { createLogFn, extendLogFn, LogFn, LogFnConfig } from "@powerlines/core";
 import {
   CACHE_HASH_LENGTH,
   DEFAULT_DEVELOPMENT_LOG_LEVEL,
@@ -53,10 +55,13 @@ import {
   resolveInputsSync
 } from "@powerlines/core/lib/entry";
 import {
+  createLogger,
   isDuplicate,
   isPlugin,
   mergeConfig,
-  replacePathTokens
+  replacePathTokens,
+  withCustomLogger,
+  withLogger
 } from "@powerlines/core/plugin-utils";
 import { Unstable_ContextInternal } from "@powerlines/core/types/_internal";
 import { toArray } from "@stryke/convert/to-array";
@@ -106,7 +111,7 @@ import {
 import { UnpluginBuildContext } from "unplugin";
 import { getConfigProps } from "../_internal/helpers/context";
 import { getPrefixedRootHash } from "../_internal/helpers/meta";
-import { IpcMessageType } from "../_internal/ipc/messages";
+import { sendWriteLogMessage } from "../_internal/ipc/send";
 import { VirtualFileSystem } from "../_internal/vfs";
 import { getTsconfigFilePath } from "../typescript/tsconfig";
 import { PowerlinesBaseContext } from "./base-context";
@@ -493,6 +498,28 @@ export class PowerlinesContext<
   }
 
   /**
+   * The logger instance for the context, which can be used to create log messages with consistent formatting and metadata. This logger is extended by plugin contexts to include additional metadata such as the plugin name and category, which can be used to filter and format log messages in a more granular way.
+   */
+  public override get logger(): Logger {
+    const options = { ...this.config, ...this.options };
+
+    const logger = withLogger(
+      createLogger(this.config.name, options),
+      createLogger(
+        this.config.name,
+        options,
+        (type: LogLevel, message: string | LoggerMessage) =>
+          sendWriteLogMessage(this, type, message)
+      )
+    );
+    if (this.config.customLogger) {
+      return withCustomLogger(logger, this.config.customLogger);
+    }
+
+    return logger;
+  }
+
+  /**
    * Gets the parser cache.
    */
   protected get parserCache(): FlatCache {
@@ -577,76 +604,6 @@ export class PowerlinesContext<
   }
 
   /**
-   * Create a new log function with the specified configuration, which can include properties such as log level, colors, and other metadata to be included with each log message. This allows you to customize the behavior and appearance of the logger instance according to your needs.
-   *
-   * @param config - Optional configuration for the log function instance, which can include properties such as log level, colors, and other metadata to be included with each log message. This allows you to customize the behavior and appearance of the logger instance according to your needs.
-   * @returns A log function that can be used to log messages with the specified configuration.
-   */
-  public override createLog(config?: LogFnConfig): LogFn {
-    const log = createLogFn({
-      ...config,
-      logLevel: this.logLevel
-    });
-
-    return (meta, ...args) => {
-      log(meta, ...args);
-
-      process.send?.({
-        id: uuid(),
-        type: IpcMessageType.WRITE_LOG,
-        executionId: config?.executionId ?? this.options.executionId,
-        executionIndex: config?.executionIndex ?? this.options.executionIndex,
-        timestamp: Date.now(),
-        payload: {
-          level:
-            meta && isSetObject(meta) && isSetString(meta.level)
-              ? meta.level
-              : isSetString(meta)
-                ? meta
-                : "info",
-          ...config,
-          args
-        }
-      });
-    };
-  }
-
-  /**
-   * Extend the current log function instance with a new name
-   *
-   * @param config - The configuration for the extended log function instance, which can include properties such as log level, colors, and other metadata to be included with each log message. This allows you to customize the behavior and appearance of the log function instance according to your needs.
-   * @returns A log function
-   */
-  public override extendLog(config: LogFnConfig): LogFn {
-    const log = extendLogFn(this.log, {
-      ...config,
-      logLevel: this.logLevel
-    });
-
-    return (meta, ...args) => {
-      log(meta, ...args);
-
-      process.send?.({
-        id: uuid(),
-        type: IpcMessageType.WRITE_LOG,
-        executionId: config.executionId ?? this.options.executionId,
-        executionIndex: config.executionIndex ?? this.options.executionIndex,
-        timestamp: Date.now(),
-        payload: {
-          level:
-            meta && isSetObject(meta) && isSetString(meta.level)
-              ? meta.level
-              : isSetString(meta)
-                ? meta
-                : "info",
-          ...config,
-          args
-        }
-      });
-    };
-  }
-
-  /**
    * Creates a clone of the current context with the same configuration and workspace settings. This can be useful for running multiple builds in parallel or for creating isolated contexts for different parts of the build process.
    *
    * @remarks
@@ -704,6 +661,15 @@ export class PowerlinesContext<
       }
     }
 
+    const logger = this.extendLogger({ category: "network" });
+    const startTime = Date.now();
+
+    logger.trace(
+      `Sending fetch request (${
+        options.method?.toUpperCase() || "GET"
+      }): ${input.toString()}`
+    );
+
     const response = await fetchRequest(input, { timeout: 12_000, ...options });
     const result = {
       body: await response.text(),
@@ -719,6 +685,24 @@ export class PowerlinesContext<
         // Do nothing
       }
     }
+
+    logger.trace(
+      `Fetch request (${
+        options.method?.toUpperCase() || "GET"
+      }) completed in ${Date.now() - startTime}ms: ${input.toString()} - ${
+        response.status
+      } / ${response.statusText} \n - Response Headers: ${JSON.stringify(
+        result.headers
+      )}\n - Response Body: ${
+        typeof result.body === "string"
+          ? result.body.length > 1000
+            ? `${result.body.slice(0, 1000)}... (truncated, total length: ${
+                result.body.length
+              })`
+            : result.body
+          : "[Non-string body]"
+      }`
+    );
 
     return new Response(result.body, {
       status: result.status,
@@ -1386,6 +1370,27 @@ export class PowerlinesContext<
    * Initialize the context with the provided configuration options
    */
   protected async innerSetup(): Promise<void> {
+    const logger = this.extendLogger({ category: "config" });
+
+    logger.debug(
+      `Pre-setup Powerlines configuration object: \n${JSON.stringify(
+        {
+          ...omit(this.config, ["plugins"]),
+          userConfig: this.config.userConfig
+            ? omit(this.config.userConfig, ["plugins"])
+            : {},
+          inlineConfig: this.config.inlineConfig
+            ? omit(this.config.inlineConfig, ["plugins"])
+            : {},
+          pluginConfig: this.config.pluginConfig
+            ? omit(this.config.pluginConfig, ["plugins"])
+            : {}
+        },
+        null,
+        2
+      )}`
+    );
+
     if (
       !this.inputOptions.mode &&
       !this.config.userConfig?.mode &&
@@ -1673,10 +1678,23 @@ export class PowerlinesContext<
 
     // #endregion Configure output
 
-    const log = this.extendLog({ category: "config" });
-    log(
-      "debug",
-      `Resolved Powerlines configuration object: \n${JSON.stringify(this.resolvedConfig, null, 2)}`
+    logger.debug(
+      `Post-setup Powerlines configuration object: \n${JSON.stringify(
+        {
+          ...omit(this.config, ["plugins"]),
+          userConfig: this.config.userConfig
+            ? omit(this.config.userConfig, ["plugins"])
+            : {},
+          inlineConfig: this.config.inlineConfig
+            ? omit(this.config.inlineConfig, ["plugins"])
+            : {},
+          pluginConfig: this.config.pluginConfig
+            ? omit(this.config.pluginConfig, ["plugins"])
+            : {}
+        },
+        null,
+        2
+      )}`
     );
   }
 }

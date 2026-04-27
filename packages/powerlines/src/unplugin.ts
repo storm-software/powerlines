@@ -22,9 +22,8 @@ import type {
   UnpluginFactory,
   UnpluginOptions
 } from "@powerlines/core";
-import { createLog } from "@powerlines/core/lib/logger";
 import { getString } from "@powerlines/core/lib/utilities/source-file";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
+import { createLogger } from "@powerlines/core/plugin-utils/logging";
 import { getWorkspaceRoot } from "@stryke/fs/get-workspace-root";
 import { LoadResult } from "rolldown";
 import type {
@@ -57,8 +56,10 @@ export function createUnpluginFactory<
   ) => BaseUnpluginOptions
 ): UnpluginFactory<TContext> {
   return (config, meta): UnpluginOptions<TContext> => {
-    const log = createLog("unplugin", config);
-    log(LogLevelLabel.DEBUG, "Initializing Unplugin");
+    let logger = createLogger(config.name || "powerlines", {
+      source: "unplugin"
+    });
+    logger.debug("Initializing Unplugin");
 
     try {
       const userConfig = {
@@ -70,8 +71,6 @@ export function createUnpluginFactory<
       let api!: PowerlinesAPI<TContext["config"]>;
 
       async function buildStart(this: UnpluginBuildContext): Promise<void> {
-        log(LogLevelLabel.DEBUG, "Powerlines build plugin starting...");
-
         api = await PowerlinesAPI.fromOptions(
           {
             cwd: getWorkspaceRoot(process.cwd()),
@@ -81,14 +80,14 @@ export function createUnpluginFactory<
           { command: "build", ...userConfig }
         );
 
+        logger = api.context.extendLogger({ source: "unplugin" });
+        logger.debug("Powerlines build plugin starting...");
+
         await api.context.setup();
 
         setParseImpl(api.context.parse);
 
-        log(
-          LogLevelLabel.DEBUG,
-          "Preparing build artifacts for the Powerlines project..."
-        );
+        logger.debug("Preparing build artifacts for the Powerlines project...");
 
         await api.prepare({
           command: "build"
@@ -155,7 +154,7 @@ export function createUnpluginFactory<
       }
 
       async function writeBundle(): Promise<void> {
-        log(LogLevelLabel.DEBUG, "Finalizing Powerlines project output...");
+        logger.debug("Finalizing Powerlines project output...");
 
         await api.callHook("writeBundle", {
           environment: await api.context.getEnvironment()
@@ -174,11 +173,11 @@ export function createUnpluginFactory<
 
       const result = decorate ? decorate(api, options) : options;
 
-      log(LogLevelLabel.DEBUG, "Unplugin initialized successfully.");
+      logger.debug("Unplugin initialized successfully.");
 
       return { api, ...result };
     } catch (error) {
-      log(LogLevelLabel.FATAL, (error as Error)?.message);
+      logger.error((error as Error)?.message);
 
       throw error;
     }

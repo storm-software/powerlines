@@ -29,13 +29,13 @@ import type {
   PluginHookFields,
   ResolvedConfig
 } from "@powerlines/core";
-import { colorText } from "@powerlines/core/lib/logger";
 import {
   addPluginHook,
   isPluginHook,
   isPluginHookField,
   mergeConfig
 } from "@powerlines/core/plugin-utils";
+import { colorText } from "@powerlines/core/plugin-utils/logging";
 import { getField } from "@stryke/helpers/get-field";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isObject } from "@stryke/type-checks/is-object";
@@ -131,7 +131,9 @@ export async function callHook<
 > {
   const hooks = context.selectHooks(key, options);
   if (hooks.length > 0) {
-    context.debug(
+    const logger = context.extendLogger({ category: "hooks" });
+
+    logger.debug(
       ` 🧩 Calling ${hooks.length} ${chalk.bold.cyanBright(
         `${key}${options?.order ? ` (${options.order})` : ""}`
       )} plugin hook${hooks.length > 1 ? "s" : ""}:\n${hooks

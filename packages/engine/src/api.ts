@@ -32,7 +32,7 @@ import type {
   TestInlineConfig,
   TypesInlineConfig
 } from "@powerlines/core";
-import { colorText } from "@powerlines/core/lib/logger";
+import { colorText } from "@powerlines/core/plugin-utils/logging";
 import { Unstable_ExecutionContext } from "@powerlines/core/types/_internal";
 import { isDevelopment, isTest } from "@stryke/env/environment-checks";
 import { titleCase } from "@stryke/string-format/title-case";

@@ -18,7 +18,7 @@
 
 import type {
   Context,
-  LogFn,
+  Logger,
   ResolveOptions,
   StorageAdapter,
   StoragePort,
@@ -233,9 +233,9 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   #context: Context;
 
   /**
-   * The file system's logging function.
+   * The file system's logger client utility.
    */
-  #log: LogFn;
+  #logger: Logger;
 
   /**
    * Normalizes a given module id by resolving it against the built-ins path.
@@ -688,8 +688,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       result = new VirtualFileSystem(context, message.initRoot(FileSystem));
     }
 
-    result.#log(
-      "debug",
+    result.#logger.debug(
       "Successfully completed virtual file system (VFS) initialization."
     );
 
@@ -759,8 +758,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       result = new VirtualFileSystem(context, message.initRoot(FileSystem));
     }
 
-    result.#log(
-      "debug",
+    result.#logger.debug(
       "Successfully completed virtual file system (VFS) initialization."
     );
 
@@ -1014,7 +1012,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
     }
 
-    this.#log = context.extendLog({ source: "VFS", category: "fs" });
+    this.#logger = context.extendLogger({ source: "VFS", category: "fs" });
   }
 
   /**
@@ -1208,8 +1206,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   public listSync(path: string): string[] {
     let resolvedPath = path;
     if (resolvedPath.includes("*")) {
-      this.#log(
-        "warn",
+      this.#logger.warn(
         `Invoking "listSync" with a glob pattern is not supported. It is likely you meant to use "globSync". Path: ${path}`
       );
       resolvedPath = stripStars(resolvedPath);
@@ -1240,8 +1237,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
   public async list(path: string): Promise<string[]> {
     let resolvedPath = path;
     if (resolvedPath.includes("*")) {
-      this.#log(
-        "warn",
+      this.#logger.warn(
         `Invoking "list" with a glob pattern is not supported. It is likely you meant to use "glob". Path: ${path}`
       );
       resolvedPath = stripStars(resolvedPath);
@@ -1273,7 +1269,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    */
   public async remove(path: string): Promise<void> {
     const normalizedPath = this.#normalizePath(path);
-    this.#log("trace", `Removing file: ${normalizedPath}`);
+    this.#logger.trace(`Removing file: ${normalizedPath}`);
 
     const { relativeKey, adapter } = this.#getStorage(normalizedPath);
 
@@ -1298,7 +1294,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    */
   public removeSync(path: string) {
     const normalizedPath = this.#normalizePath(path);
-    this.#log("trace", `Removing file: ${normalizedPath}`);
+    this.#logger.trace(`Removing file: ${normalizedPath}`);
 
     const { relativeKey, adapter } = this.#getStorage(normalizedPath);
 
@@ -1577,7 +1573,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     const { adapter } = this.#getStorage(filePath);
-    this.#log("trace", `Reading ${adapter.name} file: ${filePath}`);
+    this.#logger.trace(`Reading ${adapter.name} file: ${filePath}`);
 
     return (await adapter.get(filePath)) ?? undefined;
   }
@@ -1595,7 +1591,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     const { adapter } = this.#getStorage(filePath);
-    this.#log("trace", `Reading ${adapter.name} file: ${filePath}`);
+    this.#logger.trace(`Reading ${adapter.name} file: ${filePath}`);
 
     return adapter.getSync(filePath) ?? undefined;
   }
@@ -1622,8 +1618,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       options.storage as StoragePreset
     );
 
-    this.#log(
-      "trace",
+    this.#logger.trace(
       `Writing ${resolvedPath} to ${
         adapter.name === "virtual"
           ? "the virtual file system"
@@ -1647,16 +1642,14 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           })
         )
       ) {
-        this.#log(
-          "warn",
+        this.#logger.warn(
           `Failed to format file ${resolvedPath} before writing: ${(err as Error).message}`
         );
       }
       code = data;
     }
 
-    this.#log(
-      "trace",
+    this.#logger.trace(
       `Writing ${resolvedPath} to ${
         adapter.name === "virtual"
           ? "the virtual file system"
@@ -1699,8 +1692,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       options.storage as StoragePreset
     );
 
-    this.#log(
-      "trace",
+    this.#logger.trace(
       `Writing ${resolvedPath} file to ${
         adapter.name === "virtual"
           ? "the virtual file system"
@@ -1989,7 +1981,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     if (!this.#isDisposed) {
       this.#isDisposed = true;
 
-      this.#log("debug", "Disposing virtual file system...");
+      this.#logger.debug("Disposing virtual file system...");
       await this.remove(joinPaths(this.#context.dataPath, "fs.bin"));
 
       const message = new capnp.Message();
@@ -2051,7 +2043,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         this.#getStorages().map(async storage => storage.adapter.dispose())
       );
 
-      this.#log("trace", "Virtual file system has been disposed.");
+      this.#logger.trace("Virtual file system has been disposed.");
     }
   }
 

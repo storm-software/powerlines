@@ -37,7 +37,6 @@ export async function clean({
   const execution = await PowerlinesExecution.fromConfig(options, config);
 
   await execution.clean(config as CleanInlineConfig);
-  await execution.finalize();
 }
 
 export async function prepare({
@@ -47,7 +46,6 @@ export async function prepare({
   const execution = await PowerlinesExecution.fromConfig(options, config);
 
   await execution.prepare(config as PrepareInlineConfig);
-  await execution.finalize();
 }
 
 export async function types({
@@ -57,7 +55,6 @@ export async function types({
   const execution = await PowerlinesExecution.fromConfig(options, config);
 
   await execution.types(config as TypesInlineConfig);
-  await execution.finalize();
 }
 
 export async function lint({
@@ -67,7 +64,6 @@ export async function lint({
   const execution = await PowerlinesExecution.fromConfig(options, config);
 
   await execution.lint(config as LintInlineConfig);
-  await execution.finalize();
 }
 
 export async function test({
@@ -77,7 +73,6 @@ export async function test({
   const execution = await PowerlinesExecution.fromConfig(options, config);
 
   await execution.test(config as TestInlineConfig);
-  await execution.finalize();
 }
 
 export async function build({
@@ -87,7 +82,6 @@ export async function build({
   const execution = await PowerlinesExecution.fromConfig(options, config);
 
   await execution.build(config as BuildInlineConfig);
-  await execution.finalize();
 }
 
 export async function docs({
@@ -97,7 +91,6 @@ export async function docs({
   const execution = await PowerlinesExecution.fromConfig(options, config);
 
   await execution.docs(config as DocsInlineConfig);
-  await execution.finalize();
 }
 
 export async function deploy({
@@ -107,5 +100,4 @@ export async function deploy({
   const execution = await PowerlinesExecution.fromConfig(options, config);
 
   await execution.deploy(config as DeployInlineConfig);
-  await execution.finalize();
 }

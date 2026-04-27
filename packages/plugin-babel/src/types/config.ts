@@ -29,7 +29,7 @@ import type {
   PresetObject,
   PresetTarget
 } from "@babel/core";
-import type { Context, LogFn } from "@powerlines/core";
+import type { Context, LogFn, Logger } from "@powerlines/core";
 
 export interface NamedImportDefinition {
   name: string;
@@ -149,7 +149,7 @@ export interface BabelTransformPluginBuilderParams<
   TOptions extends object = object
 > {
   name: string;
-  log: LogFn;
+  logger: Logger;
   api: PluginAPI;
   options: TOptions;
   context: TContext;

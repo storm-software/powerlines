@@ -43,7 +43,6 @@ import type {
   TypesInlineConfig,
   TypesResult
 } from "@powerlines/core";
-import { colorText } from "@powerlines/core/lib/logger";
 import { getTypescriptFileHeader } from "@powerlines/core/lib/utilities/file-header";
 import { format, formatFolder } from "@powerlines/core/lib/utilities/format";
 import {
@@ -54,6 +53,7 @@ import {
   isPluginConfigObject,
   isPluginConfigTuple
 } from "@powerlines/core/plugin-utils";
+import { colorText } from "@powerlines/core/plugin-utils/logging";
 import { Unstable_ExecutionContext } from "@powerlines/core/types/_internal";
 import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { toArray } from "@stryke/convert/to-array";

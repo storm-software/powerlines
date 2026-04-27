@@ -16,9 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
+import { LogMeta } from "@powerlines/core";
 import { toArray } from "@stryke/convert/to-array";
-import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
@@ -63,15 +62,16 @@ export function parseIpcMessage(data: Serializable): IpcMessage | undefined {
 export function parseWriteLogMessagePayload(
   data?: Record<string, any>
 ): WriteLogMessagePayload {
-  if (isSetString(data?.level) && data?.args) {
+  if (
+    isSetObject(data) &&
+    isSetString(data.type) &&
+    isSetString(data.category) &&
+    isSetString(data.logId) &&
+    isSetString(data.message)
+  ) {
     return {
-      level: data.level as LogLevelLabel,
-      source: isSet(data.source) ? String(data.source) : undefined,
-      environment: isSet(data.environment)
-        ? String(data.environment)
-        : undefined,
-      plugin: isSet(data.plugin) ? String(data.plugin) : undefined,
-      args: toArray(data.args).filter(Boolean)
+      ...(data as LogMeta),
+      message: toArray(data.message).filter(Boolean)
     };
   }
 

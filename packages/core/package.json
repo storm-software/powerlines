@@ -40,495 +40,130 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "default": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      }
-    },
-    "./index": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "default": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      }
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./constants": {
-      "import": {
-        "types": "./dist/constants/index.d.mts",
-        "default": "./dist/constants/index.mjs"
-      },
-      "require": {
-        "types": "./dist/constants/index.d.cts",
-        "default": "./dist/constants/index.cjs"
-      },
-      "default": {
-        "types": "./dist/constants/index.d.mts",
-        "default": "./dist/constants/index.mjs"
-      }
+      "import": "./dist/constants/index.mjs",
+      "require": "./dist/constants/index.cjs"
     },
     "./lib": {
-      "import": {
-        "types": "./dist/lib/index.d.mts",
-        "default": "./dist/lib/index.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/index.d.cts",
-        "default": "./dist/lib/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/index.d.mts",
-        "default": "./dist/lib/index.mjs"
-      }
+      "import": "./dist/lib/index.mjs",
+      "require": "./dist/lib/index.cjs"
     },
     "./lib/config": {
-      "import": {
-        "types": "./dist/lib/config.d.mts",
-        "default": "./dist/lib/config.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/config.d.cts",
-        "default": "./dist/lib/config.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/config.d.mts",
-        "default": "./dist/lib/config.mjs"
-      }
-    },
-    "./constants/environments": {
-      "import": {
-        "types": "./dist/constants/environments.d.mts",
-        "default": "./dist/constants/environments.mjs"
-      },
-      "require": {
-        "types": "./dist/constants/environments.d.cts",
-        "default": "./dist/constants/environments.cjs"
-      },
-      "default": {
-        "types": "./dist/constants/environments.d.mts",
-        "default": "./dist/constants/environments.mjs"
-      }
-    },
-    "./constants/meta": {
-      "import": {
-        "types": "./dist/constants/meta.d.mts",
-        "default": "./dist/constants/meta.mjs"
-      },
-      "require": {
-        "types": "./dist/constants/meta.d.cts",
-        "default": "./dist/constants/meta.cjs"
-      },
-      "default": {
-        "types": "./dist/constants/meta.d.mts",
-        "default": "./dist/constants/meta.mjs"
-      }
-    },
-    "./constants/hooks": {
-      "import": {
-        "types": "./dist/constants/hooks.d.mts",
-        "default": "./dist/constants/hooks.mjs"
-      },
-      "require": {
-        "types": "./dist/constants/hooks.d.cts",
-        "default": "./dist/constants/hooks.cjs"
-      },
-      "default": {
-        "types": "./dist/constants/hooks.d.mts",
-        "default": "./dist/constants/hooks.mjs"
-      }
-    },
-    "./constants/plugin": {
-      "import": {
-        "types": "./dist/constants/plugin.d.mts",
-        "default": "./dist/constants/plugin.mjs"
-      },
-      "require": {
-        "types": "./dist/constants/plugin.d.cts",
-        "default": "./dist/constants/plugin.cjs"
-      },
-      "default": {
-        "types": "./dist/constants/plugin.d.mts",
-        "default": "./dist/constants/plugin.mjs"
-      }
-    },
-    "./constants/api": {
-      "import": {
-        "types": "./dist/constants/api.d.mts",
-        "default": "./dist/constants/api.mjs"
-      },
-      "require": {
-        "types": "./dist/constants/api.d.cts",
-        "default": "./dist/constants/api.cjs"
-      },
-      "default": {
-        "types": "./dist/constants/api.d.mts",
-        "default": "./dist/constants/api.mjs"
-      }
-    },
-    "./constants/virtual-modules": {
-      "import": {
-        "types": "./dist/constants/virtual-modules.d.mts",
-        "default": "./dist/constants/virtual-modules.mjs"
-      },
-      "require": {
-        "types": "./dist/constants/virtual-modules.d.cts",
-        "default": "./dist/constants/virtual-modules.cjs"
-      },
-      "default": {
-        "types": "./dist/constants/virtual-modules.d.mts",
-        "default": "./dist/constants/virtual-modules.mjs"
-      }
+      "import": "./dist/lib/config.mjs",
+      "require": "./dist/lib/config.cjs"
     },
     "./lib/entry": {
-      "import": {
-        "types": "./dist/lib/entry.d.mts",
-        "default": "./dist/lib/entry.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/entry.d.cts",
-        "default": "./dist/lib/entry.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/entry.d.mts",
-        "default": "./dist/lib/entry.mjs"
-      }
-    },
-    "./lib/logger": {
-      "import": {
-        "types": "./dist/lib/logger.d.mts",
-        "default": "./dist/lib/logger.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/logger.d.cts",
-        "default": "./dist/lib/logger.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/logger.d.mts",
-        "default": "./dist/lib/logger.mjs"
-      }
+      "import": "./dist/lib/entry.mjs",
+      "require": "./dist/lib/entry.cjs"
     },
     "./lib/unplugin": {
-      "import": {
-        "types": "./dist/lib/unplugin/index.d.mts",
-        "default": "./dist/lib/unplugin/index.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/unplugin/index.d.cts",
-        "default": "./dist/lib/unplugin/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/unplugin/index.d.mts",
-        "default": "./dist/lib/unplugin/index.mjs"
-      }
+      "import": "./dist/lib/unplugin/index.mjs",
+      "require": "./dist/lib/unplugin/index.cjs"
     },
     "./lib/unplugin/helpers": {
-      "import": {
-        "types": "./dist/lib/unplugin/helpers.d.mts",
-        "default": "./dist/lib/unplugin/helpers.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/unplugin/helpers.d.cts",
-        "default": "./dist/lib/unplugin/helpers.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/unplugin/helpers.d.mts",
-        "default": "./dist/lib/unplugin/helpers.mjs"
-      }
+      "import": "./dist/lib/unplugin/helpers.mjs",
+      "require": "./dist/lib/unplugin/helpers.cjs"
     },
     "./lib/unplugin/module-resolution": {
-      "import": {
-        "types": "./dist/lib/unplugin/module-resolution.d.mts",
-        "default": "./dist/lib/unplugin/module-resolution.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/unplugin/module-resolution.d.cts",
-        "default": "./dist/lib/unplugin/module-resolution.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/unplugin/module-resolution.d.mts",
-        "default": "./dist/lib/unplugin/module-resolution.mjs"
-      }
+      "import": "./dist/lib/unplugin/module-resolution.mjs",
+      "require": "./dist/lib/unplugin/module-resolution.cjs"
     },
     "./lib/unplugin/plugin": {
-      "import": {
-        "types": "./dist/lib/unplugin/plugin.d.mts",
-        "default": "./dist/lib/unplugin/plugin.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/unplugin/plugin.d.cts",
-        "default": "./dist/lib/unplugin/plugin.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/unplugin/plugin.d.mts",
-        "default": "./dist/lib/unplugin/plugin.mjs"
-      }
+      "import": "./dist/lib/unplugin/plugin.mjs",
+      "require": "./dist/lib/unplugin/plugin.cjs"
     },
     "./lib/utilities": {
-      "import": {
-        "types": "./dist/lib/utilities/index.d.mts",
-        "default": "./dist/lib/utilities/index.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/utilities/index.d.cts",
-        "default": "./dist/lib/utilities/index.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/utilities/index.d.mts",
-        "default": "./dist/lib/utilities/index.mjs"
-      }
+      "import": "./dist/lib/utilities/index.mjs",
+      "require": "./dist/lib/utilities/index.cjs"
     },
     "./lib/utilities/file-header": {
-      "import": {
-        "types": "./dist/lib/utilities/file-header.d.mts",
-        "default": "./dist/lib/utilities/file-header.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/utilities/file-header.d.cts",
-        "default": "./dist/lib/utilities/file-header.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/utilities/file-header.d.mts",
-        "default": "./dist/lib/utilities/file-header.mjs"
-      }
+      "import": "./dist/lib/utilities/file-header.mjs",
+      "require": "./dist/lib/utilities/file-header.cjs"
     },
     "./lib/utilities/format": {
-      "import": {
-        "types": "./dist/lib/utilities/format.d.mts",
-        "default": "./dist/lib/utilities/format.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/utilities/format.d.cts",
-        "default": "./dist/lib/utilities/format.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/utilities/format.d.mts",
-        "default": "./dist/lib/utilities/format.mjs"
-      }
+      "import": "./dist/lib/utilities/format.mjs",
+      "require": "./dist/lib/utilities/format.cjs"
     },
     "./lib/utilities/source-file": {
-      "import": {
-        "types": "./dist/lib/utilities/source-file.d.mts",
-        "default": "./dist/lib/utilities/source-file.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/utilities/source-file.d.cts",
-        "default": "./dist/lib/utilities/source-file.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/utilities/source-file.d.mts",
-        "default": "./dist/lib/utilities/source-file.mjs"
-      }
+      "import": "./dist/lib/utilities/source-file.mjs",
+      "require": "./dist/lib/utilities/source-file.cjs"
     },
     "./lib/utilities/source-map": {
-      "import": {
-        "types": "./dist/lib/utilities/source-map.d.mts",
-        "default": "./dist/lib/utilities/source-map.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/utilities/source-map.d.cts",
-        "default": "./dist/lib/utilities/source-map.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/utilities/source-map.d.mts",
-        "default": "./dist/lib/utilities/source-map.mjs"
-      }
+      "import": "./dist/lib/utilities/source-map.mjs",
+      "require": "./dist/lib/utilities/source-map.cjs"
     },
     "./lib/utilities/write-file": {
-      "import": {
-        "types": "./dist/lib/utilities/write-file.d.mts",
-        "default": "./dist/lib/utilities/write-file.mjs"
-      },
-      "require": {
-        "types": "./dist/lib/utilities/write-file.d.cts",
-        "default": "./dist/lib/utilities/write-file.cjs"
-      },
-      "default": {
-        "types": "./dist/lib/utilities/write-file.d.mts",
-        "default": "./dist/lib/utilities/write-file.mjs"
-      }
+      "import": "./dist/lib/utilities/write-file.mjs",
+      "require": "./dist/lib/utilities/write-file.cjs"
     },
     "./plugin-base": {
-      "import": {
-        "types": "./dist/plugin-base.d.mts",
-        "default": "./dist/plugin-base.mjs"
-      },
-      "require": {
-        "types": "./dist/plugin-base.d.cts",
-        "default": "./dist/plugin-base.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-base.d.mts",
-        "default": "./dist/plugin-base.mjs"
-      }
+      "import": "./dist/plugin-base.mjs",
+      "require": "./dist/plugin-base.cjs"
     },
     "./plugin-utils": {
-      "import": {
-        "types": "./dist/plugin-utils/index.d.mts",
-        "default": "./dist/plugin-utils/index.mjs"
-      },
-      "require": {
-        "types": "./dist/plugin-utils/index.d.cts",
-        "default": "./dist/plugin-utils/index.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-utils/index.d.mts",
-        "default": "./dist/plugin-utils/index.mjs"
-      }
+      "import": "./dist/plugin-utils/index.mjs",
+      "require": "./dist/plugin-utils/index.cjs"
     },
     "./plugin-utils/build-helpers": {
-      "import": {
-        "types": "./dist/plugin-utils/build-helpers.d.mts",
-        "default": "./dist/plugin-utils/build-helpers.mjs"
-      },
-      "require": {
-        "types": "./dist/plugin-utils/build-helpers.d.cts",
-        "default": "./dist/plugin-utils/build-helpers.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-utils/build-helpers.d.mts",
-        "default": "./dist/plugin-utils/build-helpers.mjs"
-      }
+      "import": "./dist/plugin-utils/build-helpers.mjs",
+      "require": "./dist/plugin-utils/build-helpers.cjs"
+    },
+    "./plugin-utils/combine-plugins": {
+      "import": "./dist/plugin-utils/combine-plugins.mjs",
+      "require": "./dist/plugin-utils/combine-plugins.cjs"
     },
     "./plugin-utils/context-helpers": {
-      "import": {
-        "types": "./dist/plugin-utils/context-helpers.d.mts",
-        "default": "./dist/plugin-utils/context-helpers.mjs"
-      },
-      "require": {
-        "types": "./dist/plugin-utils/context-helpers.d.cts",
-        "default": "./dist/plugin-utils/context-helpers.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-utils/context-helpers.d.mts",
-        "default": "./dist/plugin-utils/context-helpers.mjs"
-      }
+      "import": "./dist/plugin-utils/context-helpers.mjs",
+      "require": "./dist/plugin-utils/context-helpers.cjs"
+    },
+    "./plugin-utils/docs-helper": {
+      "import": "./dist/plugin-utils/docs-helper.mjs",
+      "require": "./dist/plugin-utils/docs-helper.cjs"
     },
     "./plugin-utils/extend": {
-      "import": {
-        "types": "./dist/plugin-utils/extend.d.mts",
-        "default": "./dist/plugin-utils/extend.mjs"
-      },
-      "require": {
-        "types": "./dist/plugin-utils/extend.d.cts",
-        "default": "./dist/plugin-utils/extend.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-utils/extend.d.mts",
-        "default": "./dist/plugin-utils/extend.mjs"
-      }
+      "import": "./dist/plugin-utils/extend.mjs",
+      "require": "./dist/plugin-utils/extend.cjs"
+    },
+    "./plugin-utils/filter": {
+      "import": "./dist/plugin-utils/filter.mjs",
+      "require": "./dist/plugin-utils/filter.cjs"
     },
     "./plugin-utils/format-package-json": {
-      "import": {
-        "types": "./dist/plugin-utils/format-package-json.d.mts",
-        "default": "./dist/plugin-utils/format-package-json.mjs"
-      },
-      "require": {
-        "types": "./dist/plugin-utils/format-package-json.d.cts",
-        "default": "./dist/plugin-utils/format-package-json.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-utils/format-package-json.d.mts",
-        "default": "./dist/plugin-utils/format-package-json.mjs"
-      }
+      "import": "./dist/plugin-utils/format-package-json.mjs",
+      "require": "./dist/plugin-utils/format-package-json.cjs"
     },
     "./plugin-utils/get-config-path": {
-      "import": {
-        "types": "./dist/plugin-utils/get-config-path.d.mts",
-        "default": "./dist/plugin-utils/get-config-path.mjs"
-      },
-      "require": {
-        "types": "./dist/plugin-utils/get-config-path.d.cts",
-        "default": "./dist/plugin-utils/get-config-path.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-utils/get-config-path.d.mts",
-        "default": "./dist/plugin-utils/get-config-path.mjs"
-      }
+      "import": "./dist/plugin-utils/get-config-path.mjs",
+      "require": "./dist/plugin-utils/get-config-path.cjs"
     },
     "./plugin-utils/helpers": {
-      "import": {
-        "types": "./dist/plugin-utils/helpers.d.mts",
-        "default": "./dist/plugin-utils/helpers.mjs"
-      },
-      "require": {
-        "types": "./dist/plugin-utils/helpers.d.cts",
-        "default": "./dist/plugin-utils/helpers.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-utils/helpers.d.mts",
-        "default": "./dist/plugin-utils/helpers.mjs"
-      }
+      "import": "./dist/plugin-utils/helpers.mjs",
+      "require": "./dist/plugin-utils/helpers.cjs"
+    },
+    "./plugin-utils/logging": {
+      "import": "./dist/plugin-utils/logging.mjs",
+      "require": "./dist/plugin-utils/logging.cjs"
     },
     "./plugin-utils/merge": {
-      "import": {
-        "types": "./dist/plugin-utils/merge.d.mts",
-        "default": "./dist/plugin-utils/merge.mjs"
-      },
-      "require": {
-        "types": "./dist/plugin-utils/merge.d.cts",
-        "default": "./dist/plugin-utils/merge.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-utils/merge.d.mts",
-        "default": "./dist/plugin-utils/merge.mjs"
-      }
+      "import": "./dist/plugin-utils/merge.mjs",
+      "require": "./dist/plugin-utils/merge.cjs"
     },
     "./plugin-utils/modules": {
-      "import": {
-        "types": "./dist/plugin-utils/modules.d.mts",
-        "default": "./dist/plugin-utils/modules.mjs"
-      },
-      "require": {
-        "types": "./dist/plugin-utils/modules.d.cts",
-        "default": "./dist/plugin-utils/modules.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-utils/modules.d.mts",
-        "default": "./dist/plugin-utils/modules.mjs"
-      }
+      "import": "./dist/plugin-utils/modules.mjs",
+      "require": "./dist/plugin-utils/modules.cjs"
     },
     "./plugin-utils/paths": {
-      "import": {
-        "types": "./dist/plugin-utils/paths.d.mts",
-        "default": "./dist/plugin-utils/paths.mjs"
-      },
-      "require": {
-        "types": "./dist/plugin-utils/paths.d.cts",
-        "default": "./dist/plugin-utils/paths.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-utils/paths.d.mts",
-        "default": "./dist/plugin-utils/paths.mjs"
-      }
+      "import": "./dist/plugin-utils/paths.mjs",
+      "require": "./dist/plugin-utils/paths.cjs"
     },
     "./types/_internal": {
-      "import": {
-        "types": "./dist/types/_internal.d.mts",
-        "default": "./dist/types/_internal.mjs"
-      },
-      "require": {
-        "types": "./dist/types/_internal.d.cts",
-        "default": "./dist/types/_internal.cjs"
-      },
-      "default": {
-        "types": "./dist/types/_internal.d.mts",
-        "default": "./dist/types/_internal.mjs"
-      }
-    }
+      "import": "./dist/types/_internal.mjs",
+      "require": "./dist/types/_internal.cjs"
+    },
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
+import { LogMeta } from "@powerlines/core";
 
 export enum IpcMessageType {
   ACTIVITY = "activity",
@@ -65,28 +65,15 @@ export interface IpcMessage<
 /**
  * Payload for write log IPC messages.
  */
-export interface WriteLogMessagePayload {
+export type WriteLogMessagePayload = Omit<
+  LogMeta,
+  "executionId" | "executionIndex" | "environment" | "timestamp"
+> & {
   /**
-   * The log level label indicating the severity of the log message.
+   * The log message content, which can be a string or an array of strings representing the log entry. This field is required and should contain the actual message to be logged.
    */
-  level: LogLevelLabel;
-  /**
-   * The name of the logger or source of the log message, which can be used to identify the origin of the log entry.
-   */
-  source?: string;
-  /**
-   * Optional environment name to specify the context or environment in which the log message is being generated.
-   */
-  environment?: string;
-  /**
-   * Optional plugin name to specify the source plugin of the log message.
-   */
-  plugin?: string;
-  /**
-   * Array of arguments to be logged as strings.
-   */
-  args: string[];
-}
+  message: string | string[];
+};
 
 /**
  * Payload for update command IPC messages.

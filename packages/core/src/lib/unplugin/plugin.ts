@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { Unstable_PluginContext } from "@powerlines/core/types/_internal";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import type {
@@ -29,7 +28,6 @@ import { setParseImpl } from "unplugin";
 import { VIRTUAL_MODULE_PREFIX_REGEX } from "../../constants/virtual-modules";
 import { PluginContext } from "../../types/context";
 import { UnpluginFactory } from "../../types/unplugin";
-import { extendLogFn } from "../logger";
 import { getString } from "../utilities/source-file";
 import { combineContexts } from "./helpers";
 import {
@@ -67,8 +65,8 @@ export function createUnpluginResolver<
   const name = options.name || "powerlines";
 
   return () => {
-    const log = extendLogFn(ctx.log, name);
-    log(LogLevelLabel.DEBUG, `Initializing ${titleCase(name)} plugin`);
+    const logger = ctx.extendLogger({ source: name });
+    logger.debug(`Initializing ${titleCase(name)} plugin`);
 
     try {
       const { resolveId, load } =
@@ -84,7 +82,7 @@ export function createUnpluginResolver<
         load
       };
     } catch (error) {
-      log(LogLevelLabel.FATAL, (error as Error)?.message);
+      logger.error(error instanceof Error ? error.message : String(error));
 
       throw error;
     }
@@ -116,8 +114,8 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
   const name = options.name || "powerlines";
 
   return () => {
-    const log = options.name ? extendLogFn(ctx.log, name) : ctx.log;
-    log(LogLevelLabel.DEBUG, `Initializing ${titleCase(name)} plugin`);
+    const logger = ctx.extendLogger({ source: name });
+    logger.debug(`Initializing ${titleCase(name)} plugin`);
 
     try {
       const { resolveId, load } =
@@ -125,7 +123,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
 
       async function buildStart(this: UnpluginBuildContext) {
         if (!options.silenceHookLogging) {
-          log(LogLevelLabel.DEBUG, "Powerlines build plugin starting...");
+          logger.debug("Powerlines build plugin starting...");
         }
 
         await ctx.$$internal.callHook("buildStart", {
@@ -158,7 +156,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
 
       async function buildEnd(this: UnpluginBuildContext): Promise<void> {
         if (!options.silenceHookLogging) {
-          log(LogLevelLabel.DEBUG, "Powerlines build plugin finishing...");
+          logger.debug("Powerlines build plugin finishing...");
         }
 
         return ctx.$$internal.callHook("buildEnd", {
@@ -168,7 +166,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
 
       async function writeBundle(): Promise<void> {
         if (!options.silenceHookLogging) {
-          log(LogLevelLabel.DEBUG, "Finalizing Powerlines project output...");
+          logger.debug("Finalizing Powerlines project output...");
         }
 
         return ctx.$$internal.callHook("writeBundle", {
@@ -193,7 +191,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
         }
       };
     } catch (error) {
-      log(LogLevelLabel.FATAL, (error as Error)?.message);
+      logger.error(error instanceof Error ? error.message : String(error));
 
       throw error;
     }

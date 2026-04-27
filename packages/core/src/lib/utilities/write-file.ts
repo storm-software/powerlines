@@ -18,7 +18,7 @@
 
 import { writeFile as writeFileBase } from "@stryke/fs/write-file";
 import { format, resolveConfig } from "prettier";
-import type { LogFn } from "../../types/log";
+import type { LogFn } from "../../types/logging";
 
 /**
  * Writes and formats a file to the file system

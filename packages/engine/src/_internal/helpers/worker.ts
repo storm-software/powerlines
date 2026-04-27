@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { extendLogFn, LogFn } from "@powerlines/core";
+import { Logger } from "@powerlines/core";
 import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isString } from "@stryke/type-checks/is-string";
@@ -352,7 +352,7 @@ export type WorkerOptions = ConstructorParameters<typeof JestWorker>[1] & {
   /**
    * A custom log function that can be used to log messages from the worker. This can be useful for debugging and monitoring the worker's activity. The function should accept a string message as its argument.
    */
-  log: LogFn;
+  logger: Logger;
 
   /**
    * A callback function that is called when the worker sends a log message.
@@ -394,11 +394,9 @@ export class Worker {
       debuggerPortOffset = -1,
       enableSourceMaps = false,
       isolatedMemory = false,
-      log: _log,
+      logger,
       ...rest
     } = this.options;
-
-    const log = extendLogFn(_log, { category: "ipc" });
 
     let restartPromise: Promise<typeof RESTARTED>;
     let resolveRestartPromise: (arg: typeof RESTARTED) => void;
@@ -456,8 +454,7 @@ export class Worker {
       // eslint-disable-next-line ts/no-use-before-define
       createWorker();
 
-      log(
-        "warn",
+      logger.warn(
         `Sending SIGTERM signal to static worker due to timeout${
           timeout ? ` of ${formatDuration({ seconds: timeout / 1000 })}` : ""
         }. Subsequent errors may be a result of the worker exiting.`
@@ -536,8 +533,7 @@ export class Worker {
         }[]) {
           worker._child?.on("exit", (code, signal) => {
             if ((code || (signal && signal !== "SIGINT")) && this.#worker) {
-              log(
-                "error",
+              logger.error(
                 `Worker exited with code: ${code} and signal: ${signal}`
               );
 
@@ -557,8 +553,7 @@ export class Worker {
             } else {
               const message = parseIpcMessage(data);
               if (message) {
-                log(
-                  "trace",
+                logger.trace(
                   `Received IPC message from worker: ${JSON.stringify(message)}`
                 );
 

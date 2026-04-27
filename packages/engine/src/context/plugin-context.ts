@@ -21,7 +21,6 @@ import type {
   EnvironmentContext,
   InferHookParameters,
   InferHookReturnType,
-  LogFn,
   Plugin,
   PluginContext,
   ResolvedConfig
@@ -52,7 +51,7 @@ export function createPluginContext<
     return isString(message) ? message : message.message;
   };
 
-  const log: LogFn = environment.extendLog({
+  const logger = environment.extendLogger({
     plugin: plugin.name.replaceAll(":", " - ")
   });
 
@@ -92,43 +91,43 @@ export function createPluginContext<
         return pluginId;
       }
 
-      if (prop === "log" || prop === "logger") {
-        return log;
+      if (prop === "logger") {
+        return logger;
       }
 
       if (prop === "fatal") {
         return (message: string | UnpluginMessage) => {
-          log("error", normalizeMessage(message));
+          logger.error(normalizeMessage(message));
         };
       }
 
       if (prop === "error") {
         return (message: string | UnpluginMessage) => {
-          log("error", normalizeMessage(message));
+          logger.error(normalizeMessage(message));
         };
       }
 
       if (prop === "warn") {
         return (message: string | UnpluginMessage) => {
-          log("warn", normalizeMessage(message));
+          logger.warn(normalizeMessage(message));
         };
       }
 
       if (prop === "info") {
         return (message: string | UnpluginMessage) => {
-          log("info", normalizeMessage(message));
+          logger.info(normalizeMessage(message));
         };
       }
 
       if (prop === "debug") {
         return (message: string | UnpluginMessage) => {
-          log("debug", normalizeMessage(message));
+          logger.debug(normalizeMessage(message));
         };
       }
 
       if (prop === "trace") {
         return (message: string | UnpluginMessage) => {
-          log("trace", normalizeMessage(message));
+          logger.trace(normalizeMessage(message));
         };
       }
 
@@ -151,7 +150,7 @@ export function createPluginContext<
           "selectHooks"
         ].includes(prop as string)
       ) {
-        log("warn", `Cannot set read-only property "${String(prop)}"`);
+        logger.warn(`Cannot set the read-only "${String(prop)}" property`);
 
         return false;
       }

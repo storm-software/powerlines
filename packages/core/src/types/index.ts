@@ -22,7 +22,7 @@ export * from "./config";
 export * from "./context";
 export * from "./fs";
 export * from "./hooks";
-export * from "./log";
+export * from "./logging";
 export * from "./plugin";
 export * from "./tsconfig";
 export * from "./unplugin";

@@ -35,10 +35,10 @@ import type { PreviewOptions, ResolvedPreviewOptions } from "vite";
 import type { PluginContext } from "./context";
 import { StoragePort, StoragePreset } from "./fs";
 import {
-  CreateLoggerFunction,
+  CustomLogger,
   LogLevelResolvedConfig,
   LogLevelUserConfig
-} from "./log";
+} from "./logging";
 import type { Plugin } from "./plugin";
 import type { TSConfig } from "./tsconfig";
 
@@ -321,6 +321,11 @@ export interface OutputConfig {
 
 export interface EngineOptions {
   /**
+   * The name of the project
+   */
+  name?: string;
+
+  /**
    * The root directory of the project
    */
   root: string;
@@ -371,7 +376,7 @@ export interface EngineOptions {
 
 export type ResolvedEngineOptions = PartialKeys<
   Required<EngineOptions>,
-  "organization" | "configFile"
+  "organization" | "configFile" | "name"
 >;
 
 export interface ExecutionOptions extends EngineOptions {
@@ -553,9 +558,12 @@ export interface UserConfig extends Config, ExecutionOptions {
   logLevel?: LogLevelUserConfig;
 
   /**
-   * A custom logger function that can be provided by the user to handle log messages in a specific way, such as sending them to an external logging service or formatting them differently. If a custom logger is provided, it will be used instead of the default logging mechanism.
+   * A custom logger instance that implements the {@link CustomLogger} interface, which can be used for logging messages during the build process instead of the default Powerlines logger.
+   *
+   * @remarks
+   * Providing a custom logger allows you to integrate Powerlines logging with your own logging system or to customize the logging behavior, such as formatting log messages differently or sending logs to an external service. If a custom logger is not provided, Powerlines will use its default logger implementation.
    */
-  customLogger?: CreateLoggerFunction;
+  customLogger?: CustomLogger;
 
   /**
    * The type of project being built

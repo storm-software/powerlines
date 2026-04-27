@@ -28,7 +28,7 @@ const config = defineTSDownConfig([
       "src/plugin-utils/*.ts",
       "src/types/_internal.ts"
     ],
-    exports: false
+    exports: true
   }
 ]);
 
