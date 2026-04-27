@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Terraform
 
+## [0.1.34](https://github.com/storm-software/powerlines/releases/tag/plugin-terraform%400.1.34) (04/26/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace's devenv modules ([919a125df](https://github.com/storm-software/powerlines/commit/919a125df))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.385**
+
 ## [0.1.33](https://github.com/storm-software/powerlines/releases/tag/plugin-terraform%400.1.33) (04/26/2026)
 
 ### Updated Dependencies
