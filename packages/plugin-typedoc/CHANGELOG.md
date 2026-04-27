@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.10.443](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.443) (04/27/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.386**
+
 ## [0.10.442](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.442) (04/26/2026)
 
 ### Updated Dependencies

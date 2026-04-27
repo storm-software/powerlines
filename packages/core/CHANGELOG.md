@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.43.31](https://github.com/storm-software/powerlines/releases/tag/core%400.43.31) (04/27/2026)
+
+### Miscellaneous
+
+- **engine:** Added inter-process messaging through engine worker ([57c07f800](https://github.com/storm-software/powerlines/commit/57c07f800))
+
 ## [0.43.29](https://github.com/storm-software/powerlines/releases/tag/core%400.43.29) (04/26/2026)
 
 ### Miscellaneous
