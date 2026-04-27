@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.44.2](https://github.com/storm-software/powerlines/releases/tag/core%400.44.2) (04/27/2026)
+
+### Miscellaneous
+
+- **engine:** Added IPC message handler logic ([c088485fa](https://github.com/storm-software/powerlines/commit/c088485fa))
+
 ## [0.44.1](https://github.com/storm-software/powerlines/releases/tag/core%400.44.1) (04/27/2026)
 
 ### Miscellaneous

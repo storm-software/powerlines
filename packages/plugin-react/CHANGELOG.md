@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.499](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.499) (04/27/2026)
+
+### Miscellaneous
+
+- **engine:** Added IPC message handler logic ([c088485fa](https://github.com/storm-software/powerlines/commit/c088485fa))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.8.39**
+- Updated **plugin-plugin** to **v0.12.389**
+- Updated **plugin-alloy** to **v0.26.57**
+- Updated **plugin-babel** to **v0.12.431**
+- Updated **plugin-vite** to **v0.14.432**
+- Updated **plugin-env** to **v0.16.164**
+
 ## [0.1.498](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.498) (04/27/2026)
 
 ### Updated Dependencies

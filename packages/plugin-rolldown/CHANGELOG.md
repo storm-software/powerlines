@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.435](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.435) (04/27/2026)
+
+### Miscellaneous
+
+- **engine:** Added IPC message handler logic ([c088485fa](https://github.com/storm-software/powerlines/commit/c088485fa))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.433**
+- Updated **plugin-babel** to **v0.12.431**
+
 ## [0.7.434](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.434) (04/27/2026)
 
 ### Updated Dependencies
