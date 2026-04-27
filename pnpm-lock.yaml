@@ -41443,7 +41443,7 @@ snapshots:
   micromark-util-character@2.1.1:
     dependencies:
       micromark-util-symbol: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-chunked@2.0.1:
     dependencies:
@@ -41458,7 +41458,7 @@ snapshots:
   micromark-util-combine-extensions@2.0.1:
     dependencies:
       micromark-util-chunked: 2.0.1
-      micromark-util-types: 2.0.1
+      micromark-util-types: 2.0.2
 
   micromark-util-decode-numeric-character-reference@2.0.2:
     dependencies:
@@ -44162,7 +44162,7 @@ snapshots:
 
   rc9@2.1.2:
     dependencies:
-      defu: 6.1.7
+      defu: 6.1.4
       destr: 2.0.5
 
   rc9@3.0.1:
