@@ -30,7 +30,6 @@ import {
   Unstable_EnvironmentContext,
   Unstable_PluginContext
 } from "@powerlines/core/types/_internal";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isString } from "@stryke/type-checks/is-string";
 import { UnpluginMessage } from "unplugin";
 
@@ -53,10 +52,9 @@ export function createPluginContext<
     return isString(message) ? message : message.message;
   };
 
-  const log: LogFn = environment.extendLog(
-    pluginId,
-    plugin.name.replaceAll(":", " - ")
-  );
+  const log: LogFn = environment.extendLog({
+    plugin: plugin.name.replaceAll(":", " - ")
+  });
 
   const callHookFn = async <TKey extends string>(
     hook: TKey,
@@ -100,37 +98,37 @@ export function createPluginContext<
 
       if (prop === "fatal") {
         return (message: string | UnpluginMessage) => {
-          log(LogLevelLabel.FATAL, normalizeMessage(message));
+          log("error", normalizeMessage(message));
         };
       }
 
       if (prop === "error") {
         return (message: string | UnpluginMessage) => {
-          log(LogLevelLabel.ERROR, normalizeMessage(message));
+          log("error", normalizeMessage(message));
         };
       }
 
       if (prop === "warn") {
         return (message: string | UnpluginMessage) => {
-          log(LogLevelLabel.WARN, normalizeMessage(message));
+          log("warn", normalizeMessage(message));
         };
       }
 
       if (prop === "info") {
         return (message: string | UnpluginMessage) => {
-          log(LogLevelLabel.INFO, normalizeMessage(message));
+          log("info", normalizeMessage(message));
         };
       }
 
       if (prop === "debug") {
         return (message: string | UnpluginMessage) => {
-          log(LogLevelLabel.DEBUG, normalizeMessage(message));
+          log("debug", normalizeMessage(message));
         };
       }
 
       if (prop === "trace") {
         return (message: string | UnpluginMessage) => {
-          log(LogLevelLabel.TRACE, normalizeMessage(message));
+          log("trace", normalizeMessage(message));
         };
       }
 
@@ -153,15 +151,12 @@ export function createPluginContext<
           "selectHooks"
         ].includes(prop as string)
       ) {
-        log(
-          LogLevelLabel.WARN,
-          `Cannot set read-only property "${String(prop)}"`
-        );
+        log("warn", `Cannot set read-only property "${String(prop)}"`);
 
         return false;
       }
 
-      environment[prop as keyof EnvironmentContext<TResolvedConfig>] = value;
+      (environment as Record<string, any>)[prop as string] = value;
       return true;
     }
   });

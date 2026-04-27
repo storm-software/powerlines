@@ -29,7 +29,6 @@ import type {
 } from "@powerlines/core";
 import { format } from "@powerlines/core/lib/utilities/format";
 import { replacePathTokens } from "@powerlines/core/plugin-utils";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import * as capnp from "@stryke/capnp";
 import { toArray } from "@stryke/convert/to-array";
 import {
@@ -690,7 +689,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     result.#log(
-      LogLevelLabel.DEBUG,
+      "debug",
       "Successfully completed virtual file system (VFS) initialization."
     );
 
@@ -761,7 +760,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     result.#log(
-      LogLevelLabel.DEBUG,
+      "debug",
       "Successfully completed virtual file system (VFS) initialization."
     );
 
@@ -1015,7 +1014,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
     }
 
-    this.#log = context.extendLog("VFS");
+    this.#log = context.extendLog({ source: "VFS", category: "fs" });
   }
 
   /**
@@ -1210,7 +1209,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     let resolvedPath = path;
     if (resolvedPath.includes("*")) {
       this.#log(
-        LogLevelLabel.WARN,
+        "warn",
         `Invoking "listSync" with a glob pattern is not supported. It is likely you meant to use "globSync". Path: ${path}`
       );
       resolvedPath = stripStars(resolvedPath);
@@ -1242,7 +1241,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     let resolvedPath = path;
     if (resolvedPath.includes("*")) {
       this.#log(
-        LogLevelLabel.WARN,
+        "warn",
         `Invoking "list" with a glob pattern is not supported. It is likely you meant to use "glob". Path: ${path}`
       );
       resolvedPath = stripStars(resolvedPath);
@@ -1274,7 +1273,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    */
   public async remove(path: string): Promise<void> {
     const normalizedPath = this.#normalizePath(path);
-    this.#log(LogLevelLabel.TRACE, `Removing file: ${normalizedPath}`);
+    this.#log("trace", `Removing file: ${normalizedPath}`);
 
     const { relativeKey, adapter } = this.#getStorage(normalizedPath);
 
@@ -1299,7 +1298,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    */
   public removeSync(path: string) {
     const normalizedPath = this.#normalizePath(path);
-    this.#log(LogLevelLabel.TRACE, `Removing file: ${normalizedPath}`);
+    this.#log("trace", `Removing file: ${normalizedPath}`);
 
     const { relativeKey, adapter } = this.#getStorage(normalizedPath);
 
@@ -1578,7 +1577,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     const { adapter } = this.#getStorage(filePath);
-    this.#log(LogLevelLabel.TRACE, `Reading ${adapter.name} file: ${filePath}`);
+    this.#log("trace", `Reading ${adapter.name} file: ${filePath}`);
 
     return (await adapter.get(filePath)) ?? undefined;
   }
@@ -1596,7 +1595,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     const { adapter } = this.#getStorage(filePath);
-    this.#log(LogLevelLabel.TRACE, `Reading ${adapter.name} file: ${filePath}`);
+    this.#log("trace", `Reading ${adapter.name} file: ${filePath}`);
 
     return adapter.getSync(filePath) ?? undefined;
   }
@@ -1624,7 +1623,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     );
 
     this.#log(
-      LogLevelLabel.TRACE,
+      "trace",
       `Writing ${resolvedPath} to ${
         adapter.name === "virtual"
           ? "the virtual file system"
@@ -1649,7 +1648,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         )
       ) {
         this.#log(
-          LogLevelLabel.WARN,
+          "warn",
           `Failed to format file ${resolvedPath} before writing: ${(err as Error).message}`
         );
       }
@@ -1657,7 +1656,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     }
 
     this.#log(
-      LogLevelLabel.TRACE,
+      "trace",
       `Writing ${resolvedPath} to ${
         adapter.name === "virtual"
           ? "the virtual file system"
@@ -1701,7 +1700,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     );
 
     this.#log(
-      LogLevelLabel.TRACE,
+      "trace",
       `Writing ${resolvedPath} file to ${
         adapter.name === "virtual"
           ? "the virtual file system"
@@ -1990,7 +1989,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     if (!this.#isDisposed) {
       this.#isDisposed = true;
 
-      this.#log(LogLevelLabel.DEBUG, "Disposing virtual file system...");
+      this.#log("debug", "Disposing virtual file system...");
       await this.remove(joinPaths(this.#context.dataPath, "fs.bin"));
 
       const message = new capnp.Message();
@@ -2052,37 +2051,17 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         this.#getStorages().map(async storage => storage.adapter.dispose())
       );
 
-      this.#log(LogLevelLabel.TRACE, "Virtual file system has been disposed.");
+      this.#log("trace", "Virtual file system has been disposed.");
     }
   }
 
-  // /**
-  //  * Initializes the virtual file system (VFS) by patching the file system module if necessary.
-  //  */
-  // public [__VFS_PATCH__]() {
-  //   if (!this.#isPatched && this.#context.config.output.mode !== "fs") {
-  //     this.#revert = patchFS(fs, this);
-  //     this.#isPatched = true;
-  //   }
-  // }
-
-  // /**
-  //  * Reverts the file system module to its original state if it was previously patched.
-  //  */
-  // public [__VFS_REVERT__]() {
-  //   if (this.#isPatched && this.#context.config.output.mode !== "fs") {
-  //     if (!this.#revert) {
-  //       throw new Error(
-  //         "Attempting to revert File System patch prior to calling `__init__` function"
-  //       );
-  //     }
-
-  //     this.#revert?.();
-  //     this.#isPatched = false;
-  //   }
-  // }
-
-  async [Symbol.asyncDispose]() {
+  /**
+   * Asynchronously disposes of the virtual file system (VFS) by saving its state to disk.
+   *
+   * @remarks
+   * This method is automatically called when the VFS instance is used within a `using` block, or can be manually invoked to ensure that the VFS state is saved and resources are cleaned up properly.
+   */
+  public async [Symbol.asyncDispose]() {
     return this.dispose();
   }
 }

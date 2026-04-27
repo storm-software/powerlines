@@ -29,7 +29,7 @@ import { setParseImpl } from "unplugin";
 import { VIRTUAL_MODULE_PREFIX_REGEX } from "../../constants/virtual-modules";
 import { PluginContext } from "../../types/context";
 import { UnpluginFactory } from "../../types/unplugin";
-import { extendLog } from "../logger";
+import { extendLogFn } from "../logger";
 import { getString } from "../utilities/source-file";
 import { combineContexts } from "./helpers";
 import {
@@ -67,7 +67,7 @@ export function createUnpluginResolver<
   const name = options.name || "powerlines";
 
   return () => {
-    const log = extendLog(ctx.log, name);
+    const log = extendLogFn(ctx.log, name);
     log(LogLevelLabel.DEBUG, `Initializing ${titleCase(name)} plugin`);
 
     try {
@@ -116,7 +116,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
   const name = options.name || "powerlines";
 
   return () => {
-    const log = options.name ? extendLog(ctx.log, name) : ctx.log;
+    const log = options.name ? extendLogFn(ctx.log, name) : ctx.log;
     log(LogLevelLabel.DEBUG, `Initializing ${titleCase(name)} plugin`);
 
     try {

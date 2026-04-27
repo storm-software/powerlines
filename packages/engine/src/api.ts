@@ -84,6 +84,7 @@ export class PowerlinesAPI<
         cwd: process.cwd(),
         mode: isDevelopment ? "development" : isTest ? "test" : "production",
         framework: "powerlines",
+        logLevel: "info",
         ...options,
         executionIndex: 0
       })

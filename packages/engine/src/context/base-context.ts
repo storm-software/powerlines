@@ -20,32 +20,29 @@ import type {
   BaseContext,
   EngineOptions,
   LogFn,
-  Logger,
-  LogLevel,
+  LogFnConfig,
+  LogLevelResolvedConfig,
   ParsedUserConfig,
+  PowerlinesMessage,
   ResolvedEngineOptions,
   Resolver
 } from "@powerlines/core";
 import { loadUserConfigFile } from "@powerlines/core/lib/config";
-import { createLog, extendLog } from "@powerlines/core/lib/logger";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
+import { createLogFn, extendLogFn } from "@powerlines/core/lib/logger";
+import { resolveLogLevel } from "@powerlines/core/plugin-utils";
 import { EnvPaths, getEnvPaths } from "@stryke/env/get-env-paths";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { StormJSON } from "@stryke/json/storm-json";
 import { isEqual } from "@stryke/path/is-equal";
 import { replacePath } from "@stryke/path/replace";
-import { isNull } from "@stryke/type-checks/is-null";
 import { isString } from "@stryke/type-checks/is-string";
 import chalk from "chalk";
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import defu from "defu";
-import { UnpluginMessage } from "unplugin";
 import { createResolver } from "../_internal/helpers/resolver";
 
 export class PowerlinesBaseContext implements BaseContext {
   #timestamp: number = Date.now();
-
-  #logLevel: LogLevel | null = "info";
 
   /**
    * The path to the Powerlines package
@@ -75,31 +72,19 @@ export class PowerlinesBaseContext implements BaseContext {
   /**
    * A timestamp representing when the context was initialized
    */
-  public get timestamp(): Date {
-    return new Date(this.#timestamp);
+  public get timestamp(): number {
+    return this.#timestamp;
   }
 
-  public get logLevel(): LogLevel | null {
-    return this.#logLevel || "info";
-  }
-
-  public set logLevel(level: LogLevel | null) {
-    this.#logLevel = level;
+  public get logLevel(): LogLevelResolvedConfig {
+    return resolveLogLevel(this.options.logLevel, this.options.mode);
   }
 
   /**
    * The logger function
    */
   public get log(): LogFn {
-    const level = this.logLevel || "info";
-    if (!this.logger || this.logger.level !== level) {
-      this.logger = {
-        log: this.createLog(),
-        level
-      };
-    }
-
-    return this.logger.log;
+    return this.createLog();
   }
 
   /**
@@ -133,9 +118,9 @@ export class PowerlinesBaseContext implements BaseContext {
    *
    * @param message - The message to log.
    */
-  public fatal(message: string | UnpluginMessage) {
+  public fatal(message: string | PowerlinesMessage) {
     this.log(
-      LogLevelLabel.FATAL,
+      "error",
       isString(message) ? message : StormJSON.stringify(message)
     );
   }
@@ -145,9 +130,9 @@ export class PowerlinesBaseContext implements BaseContext {
    *
    * @param message - The message to log.
    */
-  public error(message: string | UnpluginMessage) {
+  public error(message: string | PowerlinesMessage) {
     this.log(
-      LogLevelLabel.ERROR,
+      "error",
       isString(message) ? message : StormJSON.stringify(message)
     );
   }
@@ -157,9 +142,9 @@ export class PowerlinesBaseContext implements BaseContext {
    *
    * @param message - The message to log.
    */
-  public warn(message: string | UnpluginMessage) {
+  public warn(message: string | PowerlinesMessage) {
     this.log(
-      LogLevelLabel.WARN,
+      "warn",
       isString(message) ? message : StormJSON.stringify(message)
     );
   }
@@ -169,9 +154,9 @@ export class PowerlinesBaseContext implements BaseContext {
    *
    * @param message - The message to log.
    */
-  public info(message: string | UnpluginMessage) {
+  public info(message: string | PowerlinesMessage) {
     this.log(
-      LogLevelLabel.INFO,
+      "info",
       isString(message) ? message : StormJSON.stringify(message)
     );
   }
@@ -181,9 +166,9 @@ export class PowerlinesBaseContext implements BaseContext {
    *
    * @param message - The message to log.
    */
-  public debug(message: string | UnpluginMessage) {
+  public debug(message: string | PowerlinesMessage) {
     this.log(
-      LogLevelLabel.DEBUG,
+      "debug",
       isString(message) ? message : StormJSON.stringify(message)
     );
   }
@@ -193,9 +178,9 @@ export class PowerlinesBaseContext implements BaseContext {
    *
    * @param message - The message to log.
    */
-  public trace(message: string | UnpluginMessage) {
+  public trace(message: string | PowerlinesMessage) {
     this.log(
-      LogLevelLabel.TRACE,
+      "trace",
       isString(message) ? message : StormJSON.stringify(message)
     );
   }
@@ -220,7 +205,7 @@ export class PowerlinesBaseContext implements BaseContext {
     return () => {
       const duration = performance.now() - startDuration;
       this.log(
-        LogLevelLabel.PERFORMANCE,
+        { level: "info", category: "performance" },
         `${chalk.bold.cyanBright(name)} completed in ${chalk.bold.cyanBright(
           duration < 1000
             ? `${duration.toFixed(2)} milliseconds`
@@ -233,24 +218,21 @@ export class PowerlinesBaseContext implements BaseContext {
   /**
    * Create a new logger instance
    *
-   * @param source - The source name to use for the logger instance, which can be used to identify the origin of log messages in the logs for better traceability. This is typically the name of the plugin or module that is creating the logger instance.
+   * @param config - The configuration options to use for the logger instance, which can be used to customize the appearance and behavior of the log messages generated by the logger. This is typically the name of the plugin or module that is creating the logger instance.
    * @returns A logger function
    */
-  public createLog(source: string | null = null): LogFn {
-    return createLog(source, {
-      ...this.options,
-      logLevel: isNull(this.logLevel) ? "silent" : this.logLevel
-    });
+  public createLog(config?: LogFnConfig): LogFn {
+    return createLogFn({ ...this.options, ...config });
   }
 
   /**
    * Extend the current logger instance with a new source
    *
-   * @param source - The source name to use for the extended logger instance, which can be used to identify the origin of log messages in the logs for better traceability. This is typically the name of the plugin or module that is creating the logger instance.
-   * @returns A logger function
+   * @param config - The overlay metadata to use for the badge in the log output, which can be used to customize the appearance and behavior of the log messages generated by the extended logger. This typically includes the name of the plugin or module that is creating the logger instance, and can also include other metadata such as the command or environment.
+   * @returns A new logger function that includes the badge in its output.
    */
-  public extendLog(source: string): LogFn {
-    return extendLog(this.log, source);
+  public extendLog(config: LogFnConfig): LogFn {
+    return extendLogFn(this.log, config);
   }
 
   /**
@@ -267,7 +249,7 @@ export class PowerlinesBaseContext implements BaseContext {
    * @param options - The configuration options to initialize the context with
    */
   protected async init(options: Partial<EngineOptions> = {}) {
-    this.inputOptions = options;
+    this.inputOptions = { ...options };
 
     if (!this.powerlinesPath) {
       const powerlinesPath = await resolvePackage("powerlines");
@@ -292,6 +274,7 @@ export class PowerlinesBaseContext implements BaseContext {
         root,
         cwd,
         mode: options.mode,
+        logLevel: options.logLevel,
         framework: options.framework,
         organization: options.organization,
         configFile: options.configFile

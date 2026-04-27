@@ -80,7 +80,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     api.#worker = new Worker(joinPaths(packagePath, "./_internal/worker.mjs"), {
       enableSourceMaps: options.mode === "development",
       exposedMethods: POWERLINES_API_FUNCTIONS,
-      logger: api.context.createLog(null)
+      log: api.context.createLog()
     }) as unknown as ExecutionWorkerProcess;
 
     return api;

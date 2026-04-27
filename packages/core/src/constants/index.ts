@@ -21,6 +21,7 @@ export * from "./commands";
 export * from "./environments";
 export * from "./fs";
 export * from "./hooks";
+export * from "./log-level";
 export * from "./meta";
 export * from "./plugin";
 export * from "./virtual-modules";

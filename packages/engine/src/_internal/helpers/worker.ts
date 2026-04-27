@@ -16,8 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import type { LogFn } from "@powerlines/core";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
+import { extendLogFn, LogFn } from "@powerlines/core";
 import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isString } from "@stryke/type-checks/is-string";
@@ -351,9 +350,9 @@ export type WorkerOptions = ConstructorParameters<typeof JestWorker>[1] & {
   enableWorkerThreads?: boolean;
 
   /**
-   * A custom logger function that can be used to log messages from the worker. This can be useful for debugging and monitoring the worker's activity. The function should accept a string message as its argument.
+   * A custom log function that can be used to log messages from the worker. This can be useful for debugging and monitoring the worker's activity. The function should accept a string message as its argument.
    */
-  logger: LogFn;
+  log: LogFn;
 
   /**
    * A callback function that is called when the worker sends a log message.
@@ -395,9 +394,11 @@ export class Worker {
       debuggerPortOffset = -1,
       enableSourceMaps = false,
       isolatedMemory = false,
-      logger,
+      log: _log,
       ...rest
     } = this.options;
+
+    const log = extendLogFn(_log, { category: "ipc" });
 
     let restartPromise: Promise<typeof RESTARTED>;
     let resolveRestartPromise: (arg: typeof RESTARTED) => void;
@@ -455,8 +456,8 @@ export class Worker {
       // eslint-disable-next-line ts/no-use-before-define
       createWorker();
 
-      logger(
-        LogLevelLabel.WARN,
+      log(
+        "warn",
         `Sending SIGTERM signal to static worker due to timeout${
           timeout ? ` of ${formatDuration({ seconds: timeout / 1000 })}` : ""
         }. Subsequent errors may be a result of the worker exiting.`
@@ -535,8 +536,8 @@ export class Worker {
         }[]) {
           worker._child?.on("exit", (code, signal) => {
             if ((code || (signal && signal !== "SIGINT")) && this.#worker) {
-              logger(
-                LogLevelLabel.ERROR,
+              log(
+                "error",
                 `Worker exited with code: ${code} and signal: ${signal}`
               );
 
@@ -556,8 +557,8 @@ export class Worker {
             } else {
               const message = parseIpcMessage(data);
               if (message) {
-                logger(
-                  LogLevelLabel.TRACE,
+                log(
+                  "trace",
                   `Received IPC message from worker: ${JSON.stringify(message)}`
                 );
 

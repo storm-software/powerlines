@@ -16,8 +16,17 @@
 
  ------------------------------------------------------------------- */
 
+import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
-import { UnresolvedContext } from "../types";
+import { defu } from "defu";
+import {
+  DEFAULT_DEVELOPMENT_LOG_LEVEL,
+  DEFAULT_PRODUCTION_LOG_LEVEL,
+  DEFAULT_TEST_LOG_LEVEL
+} from "../constants/log-level";
+import { Mode, UnresolvedContext } from "../types";
+import { LogLevelResolvedConfig, LogLevelUserConfig } from "../types/log";
 
 /**
  * Determines if the provided log level is considered verbose (debug or trace).
@@ -49,4 +58,69 @@ export function isVerbose(
     : logLevelOrContext.config.logLevel;
 
   return level === "debug" || level === "trace";
+}
+
+/**
+ * Resolves the log level configuration based on the provided log level and mode, returning a complete LogLevelResolvedConfig object that specifies the log level for each log category.
+ *
+ * @param logLevel - The user-provided log level configuration, which can be a string or an object specifying log levels for each category.
+ * @param mode - The current mode of the application (e.g., "development", "test", "production"), which determines the default log levels.
+ * @returns A LogLevelResolvedConfig object specifying the log level for each log category.
+ */
+export function resolveLogLevel(
+  logLevel: LogLevelUserConfig,
+  mode?: Mode
+): LogLevelResolvedConfig {
+  if (logLevel === "trace") {
+    return {
+      general: "trace",
+      fs: "trace",
+      performance: "trace",
+      network: "trace",
+      plugins: "trace",
+      hooks: "trace",
+      env: "trace",
+      ipc: "trace",
+      config: "trace"
+    };
+  } else if (logLevel === "silent") {
+    return {
+      general: "silent",
+      fs: "silent",
+      performance: "silent",
+      network: "silent",
+      plugins: "silent",
+      hooks: "silent",
+      env: "silent",
+      ipc: "silent",
+      config: "silent"
+    };
+  }
+
+  let defaultLogLevel: LogLevelResolvedConfig;
+  if (mode === "development") {
+    defaultLogLevel = DEFAULT_DEVELOPMENT_LOG_LEVEL;
+  } else if (mode === "test") {
+    defaultLogLevel = DEFAULT_TEST_LOG_LEVEL;
+  } else {
+    defaultLogLevel = DEFAULT_PRODUCTION_LOG_LEVEL;
+  }
+
+  if (isSetString(logLevel)) {
+    return {
+      general: logLevel,
+      fs: defaultLogLevel.fs,
+      performance: logLevel,
+      network: defaultLogLevel.network,
+      plugins: logLevel,
+      hooks: logLevel,
+      env: defaultLogLevel.env,
+      ipc: defaultLogLevel.ipc,
+      config: defaultLogLevel.config
+    };
+  } else if (isSetObject(logLevel)) {
+    return defu(logLevel, defaultLogLevel) as LogLevelResolvedConfig;
+  }
+
+  return defaultLogLevel;
 }

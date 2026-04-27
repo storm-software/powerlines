@@ -18,8 +18,7 @@
 
 import { declare } from "@babel/helper-plugin-utils";
 import type { Context } from "@powerlines/core";
-import { extendLog } from "@powerlines/core/lib/logger";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
+import { extendLogFn } from "@powerlines/core/lib/logger";
 import chalk from "chalk";
 import type {
   BabelTransformPluginBuilder,
@@ -45,9 +44,9 @@ export function createBabelPlugin<
       api.cache.using(() => context.meta.checksum);
       api.assertVersion("^8.0.0-0");
 
-      const log = extendLog(context.log, name);
+      const log = extendLogFn(context.log, { source: name, category: "babel" });
       log(
-        LogLevelLabel.TRACE,
+        "trace",
         `Initializing the ${chalk.bold.cyanBright(name)} Babel plugin`
       );
 
@@ -62,7 +61,7 @@ export function createBabelPlugin<
       result.name = name;
 
       log(
-        LogLevelLabel.TRACE,
+        "trace",
         `Completed initialization of the ${chalk.bold.cyanBright(name)} Babel plugin`
       );
 

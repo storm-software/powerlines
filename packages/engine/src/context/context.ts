@@ -39,8 +39,12 @@ import type {
   VirtualFile,
   VirtualFileSystemInterface
 } from "@powerlines/core";
+import { createLogFn, extendLogFn, LogFn, LogFnConfig } from "@powerlines/core";
 import {
   CACHE_HASH_LENGTH,
+  DEFAULT_DEVELOPMENT_LOG_LEVEL,
+  DEFAULT_PRODUCTION_LOG_LEVEL,
+  DEFAULT_TEST_LOG_LEVEL,
   ROOT_HASH_LENGTH
 } from "@powerlines/core/constants";
 import {
@@ -78,7 +82,6 @@ import { replacePath } from "@stryke/path/replace";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isFunction } from "@stryke/type-checks/is-function";
-import { isNull } from "@stryke/type-checks/is-null";
 import { isObject } from "@stryke/type-checks/is-object";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -103,6 +106,7 @@ import {
 import { UnpluginBuildContext } from "unplugin";
 import { getConfigProps } from "../_internal/helpers/context";
 import { getPrefixedRootHash } from "../_internal/helpers/meta";
+import { IpcMessageType } from "../_internal/ipc/messages";
 import { VirtualFileSystem } from "../_internal/vfs";
 import { getTsconfigFilePath } from "../typescript/tsconfig";
 import { PowerlinesBaseContext } from "./base-context";
@@ -307,7 +311,7 @@ export class PowerlinesContext<
       buildId: this.#buildId,
       releaseId: this.#releaseId,
       checksum: this.#checksum,
-      timestamp: this.timestamp.getTime(),
+      timestamp: this.timestamp,
       rootHash: murmurhash(
         {
           workspaceRoot: this.options?.cwd,
@@ -570,6 +574,76 @@ export class PowerlinesContext<
   protected constructor(options: ResolvedExecutionOptions) {
     super();
     this.options = options;
+  }
+
+  /**
+   * Create a new log function with the specified configuration, which can include properties such as log level, colors, and other metadata to be included with each log message. This allows you to customize the behavior and appearance of the logger instance according to your needs.
+   *
+   * @param config - Optional configuration for the log function instance, which can include properties such as log level, colors, and other metadata to be included with each log message. This allows you to customize the behavior and appearance of the logger instance according to your needs.
+   * @returns A log function that can be used to log messages with the specified configuration.
+   */
+  public override createLog(config?: LogFnConfig): LogFn {
+    const log = createLogFn({
+      ...config,
+      logLevel: this.logLevel
+    });
+
+    return (meta, ...args) => {
+      log(meta, ...args);
+
+      process.send?.({
+        id: uuid(),
+        type: IpcMessageType.WRITE_LOG,
+        executionId: config?.executionId ?? this.options.executionId,
+        executionIndex: config?.executionIndex ?? this.options.executionIndex,
+        timestamp: Date.now(),
+        payload: {
+          level:
+            meta && isSetObject(meta) && isSetString(meta.level)
+              ? meta.level
+              : isSetString(meta)
+                ? meta
+                : "info",
+          ...config,
+          args
+        }
+      });
+    };
+  }
+
+  /**
+   * Extend the current log function instance with a new name
+   *
+   * @param config - The configuration for the extended log function instance, which can include properties such as log level, colors, and other metadata to be included with each log message. This allows you to customize the behavior and appearance of the log function instance according to your needs.
+   * @returns A log function
+   */
+  public override extendLog(config: LogFnConfig): LogFn {
+    const log = extendLogFn(this.log, {
+      ...config,
+      logLevel: this.logLevel
+    });
+
+    return (meta, ...args) => {
+      log(meta, ...args);
+
+      process.send?.({
+        id: uuid(),
+        type: IpcMessageType.WRITE_LOG,
+        executionId: config.executionId ?? this.options.executionId,
+        executionIndex: config.executionIndex ?? this.options.executionIndex,
+        timestamp: Date.now(),
+        payload: {
+          level:
+            meta && isSetObject(meta) && isSetString(meta.level)
+              ? meta.level
+              : isSetString(meta)
+                ? meta
+                : "info",
+          ...config,
+          args
+        }
+      });
+    };
   }
 
   /**
@@ -1265,6 +1339,7 @@ export class PowerlinesContext<
   protected override async init(options: Partial<ExecutionOptions> = {}) {
     await super.init(options);
 
+    this.options.executionId = options.executionId ?? this.options.executionId;
     this.options.executionIndex =
       options.executionIndex ?? this.options.executionIndex ?? 0;
 
@@ -1338,11 +1413,6 @@ export class PowerlinesContext<
       "latest"
     );
 
-    this.logger = {
-      log: this.createLog(this.config.name),
-      level: isNull(this.logLevel) ? "silent" : this.logLevel
-    };
-
     this.config.input = getUniqueInputs(this.config.input);
 
     if (
@@ -1398,9 +1468,11 @@ export class PowerlinesContext<
       !this.config.inlineConfig?.logLevel
     ) {
       if (this.config.mode === "development") {
-        this.config.logLevel = "debug";
+        this.config.logLevel = DEFAULT_DEVELOPMENT_LOG_LEVEL;
+      } else if (this.config.mode === "test") {
+        this.config.logLevel = DEFAULT_TEST_LOG_LEVEL;
       } else {
-        this.config.logLevel = "info";
+        this.config.logLevel = DEFAULT_PRODUCTION_LOG_LEVEL;
       }
     }
 
@@ -1409,8 +1481,8 @@ export class PowerlinesContext<
       !this.config.inlineConfig?.tsconfig
     ) {
       this.config.tsconfig = getTsconfigFilePath(
-        this.options.cwd,
-        this.options.root
+        this.config.cwd,
+        this.config.root
       );
     } else if (this.config.tsconfig) {
       this.config.tsconfig = replacePath(
@@ -1421,7 +1493,7 @@ export class PowerlinesContext<
 
     // #region Configure output
 
-    this.resolvedConfig.output = defu(this.resolvedConfig.output ?? {}, {
+    this.resolvedConfig.output = defu(this.config.output ?? {}, {
       path: joinPaths(this.config.root, "dist"),
       copy: {
         assets: [
@@ -1600,5 +1672,11 @@ export class PowerlinesContext<
     this.#fs ??= await VirtualFileSystem.create(this);
 
     // #endregion Configure output
+
+    const log = this.extendLog({ category: "config" });
+    log(
+      "debug",
+      `Resolved Powerlines configuration object: \n${JSON.stringify(this.resolvedConfig, null, 2)}`
+    );
   }
 }

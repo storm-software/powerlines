@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import type { Format } from "@storm-software/build-tools/types";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import type { StormWorkspaceConfig } from "@storm-software/config/types";
 import type {
   DeepPartial,
@@ -35,19 +34,13 @@ import { CompatibilityDates, CompatibilityDateSpec } from "compatx";
 import type { PreviewOptions, ResolvedPreviewOptions } from "vite";
 import type { PluginContext } from "./context";
 import { StoragePort, StoragePreset } from "./fs";
+import {
+  CreateLoggerFunction,
+  LogLevelResolvedConfig,
+  LogLevelUserConfig
+} from "./log";
 import type { Plugin } from "./plugin";
 import type { TSConfig } from "./tsconfig";
-
-export type LogLevel = "error" | "warn" | "info" | "debug" | "trace";
-
-export type LogFn = (type: LogLevelLabel, ...args: string[]) => void;
-
-export type LogLevelConfig = Record<LogLevel, boolean>;
-
-export interface Logger {
-  log: LogFn;
-  level: LogLevelLabel;
-}
 
 /**
  * The {@link StormWorkspaceConfig | configuration} object for an entire Powerlines workspace
@@ -107,6 +100,8 @@ export type PartialPluginFactory<
 ) => MaybePromise<PartialPlugin<TContext> | PartialPlugin<TContext>[]>;
 
 export type ProjectType = "application" | "library";
+
+export type Mode = "development" | "test" | "production";
 
 /**
  * The configuration options for resolving modules in a Powerlines project.
@@ -343,7 +338,12 @@ export interface EngineOptions {
    *
    * @defaultValue "production"
    */
-  mode?: "development" | "test" | "production";
+  mode?: Mode;
+
+  /**
+   * The log level to use for logging messages during the build process. This can be a string indicating the log level or a more detailed configuration object that allows for specifying different log levels for different categories of logs.
+   */
+  logLevel?: LogLevelUserConfig;
 
   /**
    * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
@@ -376,6 +376,11 @@ export type ResolvedEngineOptions = PartialKeys<
 
 export interface ExecutionOptions extends EngineOptions {
   /**
+   * A unique identifier for the current execution instance, which can be used for logging and other purposes to distinguish between different executions in the same process.
+   */
+  executionId: string;
+
+  /**
    * The index of the current execution instance among all configured instances in the Powerlines process
    */
   executionIndex: number;
@@ -383,14 +388,9 @@ export interface ExecutionOptions extends EngineOptions {
 
 export type ResolvedExecutionOptions = Pick<
   ExecutionOptions,
-  "executionIndex"
+  "executionIndex" | "executionId"
 > &
-  ResolvedEngineOptions & {
-    /**
-     * A unique identifier for the current execution instance, which can be used for logging and other purposes to distinguish between different executions in the same process.
-     */
-    executionId: string;
-  };
+  ResolvedEngineOptions;
 
 export interface Config {
   /**
@@ -543,16 +543,19 @@ export interface UserConfig extends Config, ExecutionOptions {
   compatibilityDate?: CompatibilityDateSpec;
 
   /**
-   * The log level to use for the Powerlines processes.
+   * The log level label indicating the severity of the log message, or a more detailed log level configuration object that allows for specifying different log levels for different categories of logs.
+   *
+   * @remarks
+   * The log level determines the minimum severity of messages that will be logged. For example, if the log level is set to `LogLevel.INFO`, then messages with a severity of `INFO`, `WARN`, and `ERROR` will be logged, while messages with a severity of `DEBUG` and `TRACE` will be ignored. Setting the log level to `LogLevel.SILENT` will disable all logging. Alternatively, you can provide a more detailed configuration object that allows you to specify different log levels for different categories of logs, providing granular control over the logging behavior for different aspects of the system.
    *
    * @defaultValue "info"
    */
-  logLevel?: LogLevel | null;
+  logLevel?: LogLevelUserConfig;
 
   /**
-   * A custom logger function to use for logging messages
+   * A custom logger function that can be provided by the user to handle log messages in a specific way, such as sending them to an external logging service or formatting them differently. If a custom logger is provided, it will be used instead of the default logging mechanism.
    */
-  customLogger?: LogFn;
+  customLogger?: CreateLoggerFunction;
 
   /**
    * The type of project being built
@@ -901,9 +904,10 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
     command: NonUndefined<InlineConfig<TUserConfig>["command"]>;
 
     /**
-     * The log level to use for the Powerlines processes.
+     * The log level label indicating the severity of the log message, or a more detailed log level configuration object that allows for specifying different log levels for different categories of logs.
      *
-     * @defaultValue "info"
+     * @remarks
+     * The log level determines the minimum severity of messages that will be logged. For example, if the log level is set to `LogLevel.INFO`, then messages with a severity of `INFO`, `WARN`, and `ERROR` will be logged, while messages with a severity of `DEBUG` and `TRACE` will be ignored. Setting the log level to `LogLevel.SILENT` will disable all logging. Alternatively, you can provide a more detailed configuration object that allows you to specify different log levels for different categories of logs, providing granular control over the logging behavior for different aspects of the system.
      */
-    logLevel: LogLevel | null;
+    logLevel: LogLevelResolvedConfig;
   };

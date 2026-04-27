@@ -16,10 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { writeFile as writeFileBase } from "@stryke/fs/write-file";
 import { format, resolveConfig } from "prettier";
-import type { LogFn } from "../../types/config";
+import type { LogFn } from "../../types/log";
 
 /**
  * Writes and formats a file to the file system
@@ -49,7 +48,7 @@ export async function writeFile(
     }
   } catch (error) {
     log(
-      LogLevelLabel.ERROR,
+      "error",
       `Failed to write file ${filepath} to disk \n${(error as Error)?.message ? (error as Error).message : ""}`
     );
   }

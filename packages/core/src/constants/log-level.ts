@@ -16,14 +16,41 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./api";
-export * from "./commands";
-export * from "./config";
-export * from "./context";
-export * from "./fs";
-export * from "./hooks";
-export * from "./log";
-export * from "./plugin";
-export * from "./tsconfig";
-export * from "./unplugin";
-export * from "./utils";
+export const DEFAULT_DEVELOPMENT_LOG_LEVEL = {
+  general: "debug",
+  fs: "info",
+  config: "debug",
+  plugins: "debug",
+  hooks: "debug",
+  performance: "debug",
+  env: "debug",
+  ipc: "info",
+  network: "debug",
+  babel: "debug"
+} as const;
+
+export const DEFAULT_TEST_LOG_LEVEL = {
+  general: "info",
+  fs: "warn",
+  config: "warn",
+  plugins: "warn",
+  hooks: "warn",
+  performance: "info",
+  env: "warn",
+  ipc: "warn",
+  network: "warn",
+  babel: "warn"
+} as const;
+
+export const DEFAULT_PRODUCTION_LOG_LEVEL = {
+  general: "info",
+  fs: "error",
+  config: "warn",
+  plugins: "warn",
+  hooks: "warn",
+  performance: "info",
+  env: "error",
+  ipc: "error",
+  network: "error",
+  babel: "warn"
+} as const;

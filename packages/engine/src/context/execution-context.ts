@@ -22,35 +22,31 @@ import type {
   ExecutionContext,
   InlineConfig,
   LogFn,
+  LogFnConfig,
   Plugin,
   PluginContext,
   ResolvedConfig,
   ResolvedExecutionOptions,
   UserConfig
 } from "@powerlines/core";
-import { createLog } from "@powerlines/core";
 import { GLOBAL_ENVIRONMENT } from "@powerlines/core/constants";
 import type {
   Unstable_ContextInternal,
   Unstable_EnvironmentContext,
   Unstable_ExecutionContext
 } from "@powerlines/core/types/_internal";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { toArray } from "@stryke/convert/to-array";
 import { existsSync } from "@stryke/fs/exists";
 import { readJsonFile } from "@stryke/fs/json";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { deepClone } from "@stryke/helpers/deep-clone";
 import { joinPaths } from "@stryke/path/join";
-import { isNull } from "@stryke/type-checks/is-null";
 import { PackageJson } from "@stryke/types/package-json";
-import { uuid } from "@stryke/unique-id/uuid";
 import chalk from "chalk";
 import {
   createDefaultEnvironment,
   createEnvironment
 } from "../_internal/helpers/environment";
-import { IpcMessageType } from "../_internal/ipc/messages";
 import { PowerlinesContext } from "./context";
 import { PowerlinesEnvironmentContext } from "./environment-context";
 
@@ -191,33 +187,31 @@ export class PowerlinesExecutionContext<
   }
 
   /**
-   * Create a new logger instance
+   * Create a new log function with the specified configuration, which can include properties such as log level, colors, and other metadata to be included with each log message. This allows you to customize the behavior and appearance of the logger instance according to your needs.
    *
-   * @param source - The source name to use for the logger instance, which can be used to identify the origin of log messages in the logs for better traceability. This is typically the name of the plugin or module that is creating the logger instance.
-   * @returns A logger function
+   * @param config - Optional configuration for the log function instance, which can include properties such as log level, colors, and other metadata to be included with each log message. This allows you to customize the behavior and appearance of the logger instance according to your needs.
+   * @returns A log function that can be used to log messages with the specified configuration.
    */
-  public override createLog(source: string | null = null): LogFn {
-    const logger = createLog(source, {
-      ...this.config,
-      logLevel: isNull(this.config.logLevel) ? "silent" : this.config.logLevel
+  public override createLog(config?: LogFnConfig): LogFn {
+    return super.createLog({
+      ...config,
+      executionId: this.id,
+      executionIndex: this.options.executionIndex
     });
+  }
 
-    return (level: LogLevelLabel, ...args: string[]) => {
-      logger(level, ...args);
-
-      process.send?.({
-        id: uuid(),
-        type: IpcMessageType.WRITE_LOG,
-        executionId: this.id,
-        executionIndex: this.options.executionIndex,
-        timestamp: Date.now(),
-        payload: {
-          source,
-          level,
-          args
-        }
-      });
-    };
+  /**
+   * Extend the current log function instance with a new name
+   *
+   * @param config - The configuration for the extended log function instance, which can include properties such as log level, colors, and other metadata to be included with each log message. This allows you to customize the behavior and appearance of the log function instance according to your needs.
+   * @returns A log function
+   */
+  public override extendLog(config: LogFnConfig): LogFn {
+    return super.extendLog({
+      ...config,
+      executionId: this.id,
+      executionIndex: this.options.executionIndex
+    });
   }
 
   /**

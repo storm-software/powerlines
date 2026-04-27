@@ -23,6 +23,7 @@ import type {
   HooksList,
   HooksListItem,
   LogFn,
+  LogFnConfig,
   Plugin,
   PluginConfig,
   PluginContext,
@@ -39,7 +40,6 @@ import {
   isPluginHookField,
   mergeConfig
 } from "@powerlines/core/plugin-utils";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { deepClone } from "@stryke/helpers/deep-clone";
 import { isFunction } from "@stryke/type-checks/is-function";
@@ -49,7 +49,6 @@ import { ArrayValues } from "@stryke/types/array";
 import { uuid } from "@stryke/unique-id/uuid";
 import { getConfigProps } from "../_internal/helpers/context";
 import { extractHooks } from "../_internal/helpers/hooks";
-import { IpcMessageType } from "../_internal/ipc/messages";
 import { PowerlinesContext } from "./context";
 import { createPluginContext } from "./plugin-context";
 
@@ -123,53 +122,23 @@ export class PowerlinesEnvironmentContext<
   }
 
   /**
-   * Create a new logger instance
+   * Create a new log function with the specified configuration, which can include properties such as log level, colors, and other metadata to be included with each log message. This allows you to customize the behavior and appearance of the logger instance according to your needs.
    *
-   * @param source - The source name to use for the logger instance, which can be used to identify the origin of log messages in the logs for better traceability. This is typically the name of the plugin or module that is creating the logger instance.
-   * @returns A logger function
+   * @param config - Optional configuration for the log function instance, which can include properties such as log level, colors, and other metadata to be included with each log message. This allows you to customize the behavior and appearance of the logger instance according to your needs.
+   * @returns A log function that can be used to log messages with the specified configuration.
    */
-  public override createLog(source: string | null = null): LogFn {
-    return (level: LogLevelLabel, ...args: string[]) => {
-      process.send?.({
-        id: uuid(),
-        type: IpcMessageType.WRITE_LOG,
-        executionId: this.options.executionId,
-        executionIndex: this.options.executionIndex,
-        timestamp: Date.now(),
-        payload: {
-          level,
-          source,
-          environment: this.environment?.name,
-          args
-        }
-      });
-    };
+  public override createLog(config?: LogFnConfig): LogFn {
+    return super.createLog({ ...config, environment: this.environment?.name });
   }
 
   /**
-   * Extend the current logger instance with a new name
+   * Extend the current log function instance with a new name
    *
-   * @param source - The name of the source to use for the extended logger instance
-   * @param plugin - An optional plugin name to use for the extended logger instance, which can be used to identify the origin of log messages in the logs for better traceability. This is typically the name of the plugin or module that is creating the logger instance.
-   * @returns A logger function
+   * @param config - The configuration for the extended log function instance, which can include properties such as log level, colors, and other metadata to be included with each log message. This allows you to customize the behavior and appearance of the log function instance according to your needs.
+   * @returns A log function
    */
-  public override extendLog(source: string, plugin?: string): LogFn {
-    return (level: LogLevelLabel, ...args: string[]) => {
-      process.send?.({
-        id: uuid(),
-        type: IpcMessageType.WRITE_LOG,
-        executionId: this.options.executionId,
-        executionIndex: this.options.executionIndex,
-        timestamp: Date.now(),
-        payload: {
-          level,
-          source,
-          plugin,
-          environment: this.environment?.name,
-          args
-        }
-      });
-    };
+  public override extendLog(config: LogFnConfig): LogFn {
+    return super.extendLog({ ...config, environment: this.environment?.name });
   }
 
   /**
