@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.429](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.429) (04/27/2026)
+
+### Features
+
+- **core:** Added logging categories to allow more specific log levels ([b70ebcab5](https://github.com/storm-software/powerlines/commit/b70ebcab5))
+
 ## [0.12.419](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.419) (04/26/2026)
 
 ### Bug Fixes

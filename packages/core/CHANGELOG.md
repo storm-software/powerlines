@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.44.0](https://github.com/storm-software/powerlines/releases/tag/core%400.44.0) (04/27/2026)
+
+### Features
+
+- **core:** Added logging categories to allow more specific log levels ([b70ebcab5](https://github.com/storm-software/powerlines/commit/b70ebcab5))
+
 ## [0.43.31](https://github.com/storm-software/powerlines/releases/tag/core%400.43.31) (04/27/2026)
 
 ### Miscellaneous

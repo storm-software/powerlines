@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-rolldown",
-  "version": "0.7.432",
+  "version": "0.7.433",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "keywords": ["rolldown", "powerlines", "storm-software", "powerlines-plugin"],
