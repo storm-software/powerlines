@@ -17,14 +17,9 @@
  ------------------------------------------------------------------- */
 
 import { UserConfig } from "@powerlines/core";
-import { appendPath } from "@stryke/path/append";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 
-export function getConfigProps(
-  config: Partial<UserConfig> = {},
-  root: string,
-  cwd: string
-) {
+export function getConfigProps(config: Partial<UserConfig> = {}) {
   return {
     name: config.name,
     title: config.title,
@@ -41,12 +36,6 @@ export function getConfigProps(
     mode: config.mode,
     resolve: config.resolve,
     framework: config.framework,
-    ...config,
-    output: {
-      ...(config.output ?? {}),
-      path: config.output?.path
-        ? appendPath(config.output.path, appendPath(root, cwd))
-        : undefined
-    }
+    ...config
   };
 }

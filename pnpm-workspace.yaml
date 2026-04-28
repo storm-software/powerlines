@@ -39,7 +39,7 @@ catalog:
   '@ls-lint/ls-lint': ^2.3.1
   '@napi-rs/cli': ^3.6.2
   '@noble/ciphers': ^2.2.0
-  '@nx/devkit': ^22.7.0
+  '@nx/devkit': ^22.7.1
   '@nx/eslint-plugin': 22.7.0
   '@nx/jest': 22.7.0
   '@nx/js': 22.7.0
@@ -205,7 +205,7 @@ catalog:
   verdaccio: 6.5.2
   vite: ^8.0.10
   webpack: ^5.106.2
-  wrangler: ^4.85.0
+  wrangler: ^4.86.0
   zod: ^4.3.6
   zx: ^8.8.5
 

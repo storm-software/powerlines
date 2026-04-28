@@ -220,9 +220,14 @@ export const colorBackground = (text: string): string => {
 };
 
 export const consoleLog = (meta: LogMeta, ...args: string[]) =>
-  getLogFn(getLogLevel(meta.type), {
-    logLevel: "trace"
-  })(
+  getLogFn(
+    getLogLevel(
+      meta.category === LogCategories.PERFORMANCE ? "performance" : meta.type
+    ),
+    {
+      logLevel: "trace"
+    }
+  )(
     `${meta.name ? chalk.bold.hex(BRAND_COLOR)(kebabCase(meta.name)) : ""}${
       meta.command ? chalk.hex(BRAND_COLOR)(` (${meta.command})`) : ""
     }${meta.name ? chalk.grey(" > ") : ""}${
@@ -240,7 +245,9 @@ export const consoleLog = (meta: LogMeta, ...args: string[]) =>
           )}${chalk.grey(" > ")}`
         : ""
     }${
-      meta.category && meta.category !== LogCategories.GENERAL
+      meta.category &&
+      meta.category !== LogCategories.GENERAL &&
+      meta.category !== LogCategories.PERFORMANCE
         ? `${colorBackground(kebabCase(meta.category))} `
         : ""
     }${args.join(" ")} `.trim()

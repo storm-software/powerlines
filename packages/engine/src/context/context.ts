@@ -1216,27 +1216,9 @@ export class PowerlinesContext<
         pluginConfig: this.config.pluginConfig ?? {}
       },
       this.options,
-      this.config.inlineConfig
-        ? getConfigProps(
-            this.config.inlineConfig,
-            this.options.root,
-            this.options.cwd
-          )
-        : {},
-      this.config.userConfig
-        ? getConfigProps(
-            this.config.userConfig,
-            this.options.root,
-            this.options.cwd
-          )
-        : {},
-      this.config.pluginConfig
-        ? getConfigProps(
-            this.config.pluginConfig,
-            this.options.root,
-            this.options.cwd
-          )
-        : {},
+      getConfigProps(this.config.inlineConfig),
+      getConfigProps(this.config.userConfig),
+      getConfigProps(this.config.pluginConfig),
       {
         name: this.projectJson?.name || this.packageJson?.name,
         version: this.packageJson?.version,
