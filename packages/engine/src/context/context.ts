@@ -1372,6 +1372,26 @@ export class PowerlinesContext<
   protected async innerSetup(): Promise<void> {
     const logger = this.extendLogger({ category: "config" });
 
+    this.config.output = defu(this.config.output ?? {}, {
+      copy: {
+        assets: [
+          {
+            glob: "LICENSE"
+          },
+          {
+            input: this.config.root,
+            glob: "*.md"
+          },
+          {
+            input: this.config.root,
+            glob: "package.json"
+          }
+        ]
+      },
+      artifactsPath: `.${this.config.framework ?? "powerlines"}`,
+      dts: true
+    }) as OutputResolvedConfig;
+
     logger.trace(
       `Pre-setup Powerlines configuration object: \n${JSON.stringify(
         {
@@ -1497,26 +1517,6 @@ export class PowerlinesContext<
     }
 
     // #region Configure output
-
-    this.config.output = defu(this.config.output ?? {}, {
-      copy: {
-        assets: [
-          {
-            glob: "LICENSE"
-          },
-          {
-            input: this.config.root,
-            glob: "*.md"
-          },
-          {
-            input: this.config.root,
-            glob: "package.json"
-          }
-        ]
-      },
-      artifactsPath: `.${this.config.framework ?? "powerlines"}`,
-      dts: true
-    }) as OutputResolvedConfig;
 
     this.config.output.format = getUnique(
       toArray(
