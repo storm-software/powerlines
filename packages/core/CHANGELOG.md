@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.44.3](https://github.com/storm-software/powerlines/releases/tag/core%400.44.3) (04/27/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with invalid import paths ([bf2b92ba4](https://github.com/storm-software/powerlines/commit/bf2b92ba4))
+
 ## [0.44.2](https://github.com/storm-software/powerlines/releases/tag/core%400.44.2) (04/27/2026)
 
 ### Miscellaneous
