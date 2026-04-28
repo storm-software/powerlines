@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.44.4](https://github.com/storm-software/powerlines/releases/tag/engine%400.44.4) (04/28/2026)
+
+### Miscellaneous
+
+- **engine:** Log configuration after merging default output values ([31031a648](https://github.com/storm-software/powerlines/commit/31031a648))
+
 ## [0.44.2](https://github.com/storm-software/powerlines/releases/tag/engine%400.44.2) (04/27/2026)
 
 ### Miscellaneous
