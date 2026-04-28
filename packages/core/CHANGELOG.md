@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.44.5](https://github.com/storm-software/powerlines/releases/tag/core%400.44.5) (04/28/2026)
+
+### Bug Fixes
+
+- **engine:** Resolve issue with merging output path config ([075a8807a](https://github.com/storm-software/powerlines/commit/075a8807a))
+
 ## [0.44.3](https://github.com/storm-software/powerlines/releases/tag/core%400.44.3) (04/27/2026)
 
 ### Bug Fixes
