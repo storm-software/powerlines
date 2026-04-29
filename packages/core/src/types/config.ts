@@ -376,7 +376,7 @@ export interface EngineOptions {
 
 export type ResolvedEngineOptions = PartialKeys<
   Required<EngineOptions>,
-  "organization" | "configFile" | "name"
+  "organization" | "configFile" | "name" | "logLevel"
 >;
 
 export interface ExecutionOptions extends EngineOptions {
