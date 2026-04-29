@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.443](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.443) (04/29/2026)
+
+### Bug Fixes
+
+- **core:** Resolved typing issues with unplugin factories ([1414cb2d0](https://github.com/storm-software/powerlines/commit/1414cb2d0))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.446**
+- Updated **plugin-esbuild** to **v0.13.446**
+- Updated **plugin-rollup** to **v0.7.444**
+
 ## [0.14.442](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.442) (04/29/2026)
 
 ### Miscellaneous

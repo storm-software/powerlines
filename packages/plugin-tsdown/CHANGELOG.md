@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.390](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.390) (04/29/2026)
+
+### Bug Fixes
+
+- **core:** Resolved typing issues with unplugin factories ([1414cb2d0](https://github.com/storm-software/powerlines/commit/1414cb2d0))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.446**
+
 ## [0.1.389](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.389) (04/29/2026)
 
 ### Miscellaneous

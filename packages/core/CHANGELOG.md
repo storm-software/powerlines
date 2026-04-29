@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Core
 
+## [0.45.0](https://github.com/storm-software/powerlines/releases/tag/core%400.45.0) (04/29/2026)
+
+### Bug Fixes
+
+- **core:** Resolved typing issues with unplugin factories ([1414cb2d0](https://github.com/storm-software/powerlines/commit/1414cb2d0))
+
+### Features
+
+- **core:** Added the `initialConfig` property to apply default config values ([6cfad44bf](https://github.com/storm-software/powerlines/commit/6cfad44bf))
+
 ## [0.44.11](https://github.com/storm-software/powerlines/releases/tag/core%400.44.11) (04/29/2026)
 
 ### Miscellaneous

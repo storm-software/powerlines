@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.446](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.446) (04/29/2026)
+
+### Bug Fixes
+
+- **core:** Resolved typing issues with unplugin factories ([1414cb2d0](https://github.com/storm-software/powerlines/commit/1414cb2d0))
+
+### Features
+
+- **core:** Added the `initialConfig` property to apply default config values ([6cfad44bf](https://github.com/storm-software/powerlines/commit/6cfad44bf))
+
 ## [0.13.445](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.445) (04/29/2026)
 
 ### Miscellaneous

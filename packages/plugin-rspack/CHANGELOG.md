@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.443](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.443) (04/29/2026)
+
+### Bug Fixes
+
+- **core:** Resolved typing issues with unplugin factories ([1414cb2d0](https://github.com/storm-software/powerlines/commit/1414cb2d0))
+
 ## [0.5.442](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.442) (04/29/2026)
 
 ### Miscellaneous

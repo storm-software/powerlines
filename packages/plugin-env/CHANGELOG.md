@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.175](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.175) (04/29/2026)
+
+### Features
+
+- **core:** Added the `initialConfig` property to apply default config values ([6cfad44bf](https://github.com/storm-software/powerlines/commit/6cfad44bf))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.8.50**
+- Updated **plugin-deepkit** to **v0.11.331**
+- Updated **plugin-automd** to **v0.1.449**
+- Updated **plugin-plugin** to **v0.12.400**
+- Updated **plugin-alloy** to **v0.26.68**
+- Updated **plugin-babel** to **v0.12.442**
+- Updated **plugin-tsc** to **v0.2.458**
+
 ## [0.16.174](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.174) (04/29/2026)
 
 ### Bug Fixes

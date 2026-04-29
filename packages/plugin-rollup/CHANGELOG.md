@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Rollup
 
+## [0.7.444](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.444) (04/29/2026)
+
+### Bug Fixes
+
+- **core:** Resolved typing issues with unplugin factories ([1414cb2d0](https://github.com/storm-software/powerlines/commit/1414cb2d0))
+
+### Updated Dependencies
+
+- Updated **plugin-babel** to **v0.12.442**
+
 ## [0.7.443](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.443) (04/29/2026)
 
 ### Miscellaneous

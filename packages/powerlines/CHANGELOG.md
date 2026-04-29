@@ -2,6 +2,28 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.45.0](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.45.0) (04/29/2026)
+
+### Bug Fixes
+
+- **core:** Resolved typing issues with unplugin factories ([1414cb2d0](https://github.com/storm-software/powerlines/commit/1414cb2d0))
+
+### Features
+
+- **core:** Added the `initialConfig` property to apply default config values ([6cfad44bf](https://github.com/storm-software/powerlines/commit/6cfad44bf))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.446**
+- Updated **plugin-esbuild** to **v0.13.446**
+- Updated **plugin-unbuild** to **v0.5.445**
+- Updated **plugin-webpack** to **v0.5.443**
+- Updated **plugin-rollup** to **v0.7.444**
+- Updated **plugin-rspack** to **v0.5.443**
+- Updated **plugin-tsdown** to **v0.1.390**
+- Updated **plugin-tsup** to **v0.12.448**
+- Updated **plugin-vite** to **v0.14.443**
+
 ## [0.44.12](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.44.12) (04/29/2026)
 
 ### Updated Dependencies
