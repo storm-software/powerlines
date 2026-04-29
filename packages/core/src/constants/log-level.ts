@@ -23,8 +23,8 @@ export const DEFAULT_DEVELOPMENT_LOG_LEVEL = {
   plugins: "debug",
   hooks: "debug",
   performance: "debug",
-  env: "debug",
-  ipc: "debug",
+  env: "info",
+  ipc: "info",
   network: "debug",
   babel: "debug"
 } as const;

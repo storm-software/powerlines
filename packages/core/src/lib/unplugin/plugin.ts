@@ -65,7 +65,9 @@ export function createUnpluginResolver<
   const name = options.name || "powerlines";
 
   return () => {
-    const logger = ctx.extendLogger({ source: name });
+    const logger = ctx.extendLogger(
+      name !== "powerlines" ? { source: name } : {}
+    );
     logger.debug(`Initializing ${titleCase(name)} plugin`);
 
     try {
@@ -114,7 +116,9 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
   const name = options.name || "powerlines";
 
   return () => {
-    const logger = ctx.extendLogger({ source: name });
+    const logger = ctx.extendLogger(
+      name !== "powerlines" ? { source: name } : {}
+    );
     logger.debug(`Initializing ${titleCase(name)} plugin`);
 
     try {

@@ -231,17 +231,21 @@ export const consoleLog = (meta: LogMeta, ...args: string[]) =>
     `${meta.name ? chalk.bold.hex(BRAND_COLOR)(kebabCase(meta.name)) : ""}${
       meta.command ? chalk.hex(BRAND_COLOR)(` (${meta.command})`) : ""
     }${meta.name ? chalk.grey(" > ") : ""}${
-      (meta.source || meta.plugin) &&
-      (!meta.name ||
-        kebabCase(meta.source || meta.plugin) !== kebabCase(meta.name))
+      meta.source
         ? `${chalk.bold.hex(BRAND_COLOR)(
-            kebabCase(meta.source || meta.plugin)
+            kebabCase(meta.source)
           )}${chalk.grey(" > ")}`
         : ""
     }${
       meta.environment && kebabCase(meta.environment) !== DEFAULT_ENVIRONMENT
         ? `${chalk.bold.hex(BRAND_COLOR)(
             kebabCase(meta.environment)
+          )}${chalk.grey(" > ")}`
+        : ""
+    }${
+      meta.plugin
+        ? `${chalk.bold.hex(BRAND_COLOR)(
+            kebabCase(meta.plugin)
           )}${chalk.grey(" > ")}`
         : ""
     }${

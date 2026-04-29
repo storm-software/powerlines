@@ -71,24 +71,24 @@ catalog:
   '@shell-shock/preset-cli': ^0.9.19
   '@sinclair/typebox': ^0.34.49
   '@standard-schema/spec': ^1.1.0
-  '@storm-software/build-tools': ^0.158.159
-  '@storm-software/config': ^1.137.32
-  '@storm-software/config-tools': ^1.189.78
-  '@storm-software/cspell': ^0.46.68
-  '@storm-software/esbuild': ^0.53.160
-  '@storm-software/eslint': ^0.170.20
-  '@storm-software/git-tools': ^2.130.36
-  '@storm-software/linting-tools': ^1.133.29
-  '@storm-software/markdownlint': ^0.30.156
-  '@storm-software/pnpm-tools': ^0.7.6
-  '@storm-software/prettier': ^0.59.52
-  '@storm-software/testing-tools': ^1.119.153
-  '@storm-software/tsconfig': ^0.48.67
-  '@storm-software/tsdoc': ^0.13.153
-  '@storm-software/tsup': ^0.2.157
-  '@storm-software/unbuild': ^0.57.160
-  '@storm-software/untyped': ^0.24.141
-  '@storm-software/workspace-tools': ^1.295.56
+  '@storm-software/build-tools': ^0.158.160
+  '@storm-software/config': ^1.137.33
+  '@storm-software/config-tools': ^1.190.0
+  '@storm-software/cspell': ^0.46.69
+  '@storm-software/esbuild': ^0.53.161
+  '@storm-software/eslint': ^0.170.21
+  '@storm-software/git-tools': ^2.130.37
+  '@storm-software/linting-tools': ^1.133.30
+  '@storm-software/markdownlint': ^0.30.157
+  '@storm-software/pnpm-tools': ^0.7.7
+  '@storm-software/prettier': ^0.59.53
+  '@storm-software/testing-tools': ^1.119.154
+  '@storm-software/tsconfig': ^0.48.68
+  '@storm-software/tsdoc': ^0.13.154
+  '@storm-software/tsup': ^0.2.158
+  '@storm-software/unbuild': ^0.57.161
+  '@storm-software/untyped': ^0.24.142
+  '@storm-software/workspace-tools': ^1.295.57
   '@stryke/async': ^0.1.0
   '@stryke/capnp': ^0.12.95
   '@stryke/cli': ^0.13.41
@@ -144,7 +144,7 @@ catalog:
   fp-ts: ^2.16.11
   glob: ^13.0.6
   handlebars: ^4.7.9
-  i18next-cli: ^1.56.7
+  i18next-cli: ^1.56.8
   i18next-resources-for-ts: ^2.1.0
   jest: ^30.3.0
   jest-config: ^30.3.0
@@ -210,7 +210,7 @@ catalog:
   zx: ^8.8.5
 
 configDependencies:
-  pnpm-plugin-storm-software: 0.1.111+sha512-xnsTNOLyRZZ+wGhdusIHa+0uRUdR/8JQmtJ6xU+AkCAXmKq15IXbwiKvTWEznf+uQD57ewcZ11cCZcVBdDrlSw==
+  pnpm-plugin-storm-software: 0.1.112+sha512-KeEZsiOXcmTDOGJBTJJYNOX8FJJbYOiObQbdT7ptIePjp4sWp7WW0Rd+ibW/96rxuomUDgfB9jG/l3Vw+d3dRA==
 
 fetchTimeout: 240000
 
