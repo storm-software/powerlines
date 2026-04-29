@@ -31,6 +31,7 @@ import type {
   EngineOptions,
   EnvironmentResolvedConfig,
   ExecutionOptions,
+  InitialConfig,
   ParsedUserConfig,
   ResolvedConfig,
   ResolvedEntryTypeDefinition
@@ -226,6 +227,11 @@ export interface BaseContext {
   configFile: ParsedUserConfig;
 
   /**
+   * The initial configuration provided when initializing the context, which may be used during the setup process to ensure that the configuration is properly merged and applied to the context. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
+   */
+  initialConfig: InitialConfig<any>;
+
+  /**
    * The log level to use for the Powerlines processes.
    */
   logLevel: LogLevelResolvedConfig;
@@ -386,7 +392,12 @@ export interface UnresolvedContext<
   /**
    * The input options used to initialize the context, which may be used when cloning the context to ensure the same configuration is applied to the new context
    */
-  inputOptions: Partial<EngineOptions>;
+  initialOptions: Partial<EngineOptions>;
+
+  /**
+   * The initial configuration provided when initializing the context, which may be used during the setup process to ensure that the configuration is properly merged and applied to the context. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
+   */
+  initialConfig: InitialConfig<TResolvedConfig["userConfig"]>;
 
   /**
    * An object containing the options provided to Powerlines

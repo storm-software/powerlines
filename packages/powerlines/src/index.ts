@@ -40,7 +40,7 @@ export type * from "./types";
 export async function createEngine(
   options: EngineOptions
 ): Promise<PowerlinesEngine> {
-  return PowerlinesEngine.fromOptions(options);
+  return PowerlinesEngine.init(options);
 }
 
 /**
@@ -51,11 +51,8 @@ export async function createEngine(
  */
 export async function createAPI<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
->(
-  options: EngineOptions,
-  override?: Partial<TResolvedConfig>
-): Promise<PowerlinesAPI<TResolvedConfig>> {
-  return PowerlinesAPI.fromOptions(options, override);
+>(options: EngineOptions): Promise<PowerlinesAPI<TResolvedConfig>> {
+  return PowerlinesAPI.init(options);
 }
 
 export { PowerlinesAPI, PowerlinesEngine };

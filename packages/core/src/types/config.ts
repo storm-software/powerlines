@@ -619,10 +619,19 @@ export type PowerlinesCommand =
   | "clean";
 
 /**
+ * The configuration provided when initializing the Powerlines API.
+ *
+ * @remarks
+ * This configuration is used during the initialization of the Powerlines API.
+ */
+export type InitialConfig<TUserConfig extends UserConfig = UserConfig> =
+  DeepPartial<TUserConfig>;
+
+/**
  * The configuration provided while executing Powerlines commands.
  */
 export type InlineConfig<TUserConfig extends UserConfig = UserConfig> =
-  Partial<TUserConfig> & {
+  DeepPartial<TUserConfig> & {
     /**
      * A string identifier for the Powerlines command being executed
      */
@@ -884,6 +893,14 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
      * @see https://github.com/unjs/compatx
      */
     compatibilityDate: CompatibilityDates;
+
+    /**
+     * The configuration provided when initializing the Powerlines API.
+     *
+     * @remarks
+     * This configuration is used during the initialization of the Powerlines API.
+     */
+    initialConfig: InitialConfig<TUserConfig>;
 
     /**
      * The configuration options that were provided inline to the Powerlines CLI.

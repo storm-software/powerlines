@@ -24,6 +24,7 @@ import type {
   EmitOptions,
   ExecutionOptions,
   FetchOptions,
+  InitialConfig,
   LogFn,
   LogFnMeta,
   Logger,
@@ -66,6 +67,7 @@ import {
   withLogFn
 } from "@powerlines/core/plugin-utils";
 import { Unstable_ContextInternal } from "@powerlines/core/types/_internal";
+import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { toArray } from "@stryke/convert/to-array";
 import { toBool } from "@stryke/convert/to-bool";
 import { EnvPaths, getEnvPaths } from "@stryke/env/get-env-paths";
@@ -181,11 +183,14 @@ export class PowerlinesContext<
    * @param options - The options for resolving the context.
    * @returns A promise that resolves to the new context.
    */
-  public static async fromOptions<
+  public static async init<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
-  >(options: ExecutionOptions): Promise<Context<TResolvedConfig>> {
+  >(
+    options: ExecutionOptions,
+    initialConfig: InitialConfig<any>
+  ): Promise<Context<TResolvedConfig>> {
     const context = new PowerlinesContext<TResolvedConfig>(options);
-    await context.init(options);
+    await context.init(options, initialConfig);
 
     const powerlinesPath = await resolvePackage("powerlines");
     if (!powerlinesPath) {
@@ -647,8 +652,9 @@ export class PowerlinesContext<
    * @returns A promise that resolves to the cloned context.
    */
   public override async clone(): Promise<Context<TResolvedConfig>> {
-    const clone = await PowerlinesContext.fromOptions<TResolvedConfig>(
-      this.options
+    const clone = await PowerlinesContext.init<TResolvedConfig>(
+      this.options,
+      this.initialConfig
     );
 
     return this.copyTo(clone);
@@ -1250,10 +1256,12 @@ export class PowerlinesContext<
         cwd: this.options.cwd,
         inlineConfig: this.config.inlineConfig ?? {},
         userConfig: this.config.userConfig ?? {},
+        initialConfig: this.config.initialConfig ?? {},
         pluginConfig: this.config.pluginConfig ?? {}
       },
       getConfigProps(this.config.inlineConfig),
       getConfigProps(this.config.userConfig),
+      getConfigProps(this.config.initialConfig),
       getConfigProps(this.config.pluginConfig),
       this.options,
       {
@@ -1296,8 +1304,11 @@ export class PowerlinesContext<
       }
     }
 
-    context.inputOptions = deepClone<typeof this.inputOptions>(
-      this.inputOptions
+    context.initialConfig = deepClone<typeof this.initialConfig>(
+      this.initialConfig
+    );
+    context.initialOptions = deepClone<typeof this.initialOptions>(
+      this.initialOptions
     );
     context.options = deepClone<typeof this.options>(this.options);
 
@@ -1335,8 +1346,11 @@ export class PowerlinesContext<
    *
    * @param options - The configuration options to initialize the context with
    */
-  protected override async init(options: ExecutionOptions) {
-    await super.init(options);
+  protected override async init(
+    options: ExecutionOptions,
+    initialConfig: InitialConfig<any>
+  ) {
+    await super.init(options, initialConfig);
 
     this.options.executionId = options.executionId ?? this.options.executionId;
     this.options.executionIndex =
@@ -1375,8 +1389,12 @@ export class PowerlinesContext<
       : {};
 
     this.resolvedConfig = {
-      ...this.options,
-      ...(userConfig as TResolvedConfig),
+      cwd: this.options.cwd,
+      root: this.options.root,
+      ...this.initialOptions,
+      ...initialConfig,
+      ...userConfig,
+      initialConfig,
       userConfig
     };
   }
@@ -1407,28 +1425,34 @@ export class PowerlinesContext<
     }) as OutputResolvedConfig;
 
     logger.trace(
-      `Pre-setup Powerlines configuration object: \n${JSON.stringify(
-        {
-          ...omit(this.config, ["plugins"]),
-          userConfig: this.config.userConfig
-            ? omit(this.config.userConfig, ["plugins"])
-            : {},
-          inlineConfig: this.config.inlineConfig
-            ? omit(this.config.inlineConfig, ["plugins"])
-            : {},
-          pluginConfig: this.config.pluginConfig
-            ? omit(this.config.pluginConfig, ["plugins"])
-            : {}
-        },
-        null,
-        2
-      )}`
+      `Pre-setup Powerlines configuration object: \n${formatLogMessage({
+        ...omit(this.config, [
+          "inlineConfig",
+          "userConfig",
+          "initialConfig",
+          "pluginConfig",
+          "plugins"
+        ]),
+        inlineConfig: isSetObject(this.config.inlineConfig)
+          ? omit(this.config.inlineConfig, ["plugins"])
+          : undefined,
+        userConfig: isSetObject(this.config.userConfig)
+          ? omit(this.config.userConfig, ["plugins"])
+          : undefined,
+        initialConfig: isSetObject(this.config.initialConfig)
+          ? omit(this.config.initialConfig, ["plugins"])
+          : undefined,
+        pluginConfig: isSetObject(this.config.pluginConfig)
+          ? omit(this.config.pluginConfig, ["plugins"])
+          : undefined
+      })}`
     );
 
     if (
-      !this.inputOptions.mode &&
+      !this.initialOptions.mode &&
       !this.config.userConfig?.mode &&
       !this.config.inlineConfig?.mode &&
+      !this.config.initialConfig?.mode &&
       !this.config.pluginConfig?.mode
     ) {
       this.options.mode = "production";
@@ -1436,9 +1460,10 @@ export class PowerlinesContext<
     }
 
     if (
-      !this.inputOptions.framework &&
+      !this.initialOptions.framework &&
       !this.config.userConfig?.framework &&
       !this.config.inlineConfig?.framework &&
+      !this.config.initialConfig?.framework &&
       !this.config.pluginConfig?.framework
     ) {
       this.options.framework = "powerlines";
@@ -1448,6 +1473,7 @@ export class PowerlinesContext<
     if (
       !this.config.userConfig?.projectType &&
       !this.config.inlineConfig?.projectType &&
+      !this.config.initialConfig?.projectType &&
       !this.config.pluginConfig?.projectType
     ) {
       this.config.projectType = "application";
@@ -1456,6 +1482,7 @@ export class PowerlinesContext<
     if (
       !this.config.userConfig?.platform &&
       !this.config.inlineConfig?.platform &&
+      !this.config.initialConfig?.platform &&
       !this.config.pluginConfig?.platform
     ) {
       this.config.platform = "neutral";
@@ -1464,6 +1491,7 @@ export class PowerlinesContext<
     this.resolvedConfig.compatibilityDate = resolveCompatibilityDates(
       this.config.inlineConfig.compatibilityDate ??
         this.config.userConfig.compatibilityDate ??
+        this.config.initialConfig.compatibilityDate ??
         this.config.pluginConfig.compatibilityDate,
       "latest"
     );
@@ -1478,17 +1506,6 @@ export class PowerlinesContext<
     }
 
     this.config.title ??= titleCase(this.config.name);
-
-    if (this.config.userConfig.resolve?.external) {
-      this.config.userConfig.resolve.external = getUnique(
-        this.config.userConfig.resolve.external
-      );
-    }
-    if (this.config.userConfig.resolve?.noExternal) {
-      this.config.userConfig.resolve.noExternal = getUnique(
-        this.config.userConfig.resolve.noExternal
-      );
-    }
 
     if (this.config.resolve.external) {
       this.config.resolve.external = getUnique(this.config.resolve.external);
@@ -1520,6 +1537,8 @@ export class PowerlinesContext<
 
     if (
       !this.config.userConfig?.logLevel &&
+      !this.config.initialConfig?.logLevel &&
+      !this.config.pluginConfig?.logLevel &&
       !this.config.inlineConfig?.logLevel
     ) {
       if (this.config.mode === "development") {
@@ -1533,6 +1552,8 @@ export class PowerlinesContext<
 
     if (
       !this.config.userConfig?.tsconfig &&
+      !this.config.initialConfig?.tsconfig &&
+      !this.config.pluginConfig?.tsconfig &&
       !this.config.inlineConfig?.tsconfig
     ) {
       this.config.tsconfig = getTsconfigFilePath(
@@ -1593,6 +1614,7 @@ export class PowerlinesContext<
           this,
           this.config.userConfig?.output?.types ||
             this.config.inlineConfig?.output?.types ||
+            this.config.initialConfig?.output?.types ||
             this.config.pluginConfig?.output?.types ||
             joinPaths(
               this.config.root,
@@ -1660,7 +1682,9 @@ export class PowerlinesContext<
 
     if (
       !this.config.userConfig?.output?.sourceMap &&
-      !this.config.inlineConfig?.output?.sourceMap
+      !this.config.initialConfig?.output?.sourceMap &&
+      !this.config.inlineConfig?.output?.sourceMap &&
+      !this.config.pluginConfig?.output?.sourceMap
     ) {
       if (this.config.mode === "development") {
         this.config.output.sourceMap = true;
@@ -1671,7 +1695,9 @@ export class PowerlinesContext<
 
     if (
       !this.config.userConfig?.output?.minify &&
-      !this.config.inlineConfig?.output?.minify
+      !this.config.initialConfig?.output?.minify &&
+      !this.config.inlineConfig?.output?.minify &&
+      !this.config.pluginConfig?.output?.minify
     ) {
       if (this.config.mode === "production") {
         this.config.output.minify = true;
@@ -1682,6 +1708,7 @@ export class PowerlinesContext<
 
     if (
       !this.config.userConfig?.output?.artifactsPath &&
+      !this.config.initialConfig?.output?.artifactsPath &&
       !this.config.inlineConfig?.output?.artifactsPath &&
       !this.config.pluginConfig?.output?.artifactsPath
     ) {
@@ -1720,27 +1747,33 @@ export class PowerlinesContext<
     // #endregion Configure output
 
     if (
-      isSetObject(this.config.userConfig) &&
       isSetObject(this.config.inlineConfig) &&
+      isSetObject(this.config.userConfig) &&
+      isSetObject(this.config.initialConfig) &&
       isSetObject(this.config.pluginConfig)
     ) {
       logger.debug(
-        `Resolved Powerlines configuration object: \n${JSON.stringify(
-          {
-            ...omit(this.config, ["plugins"]),
-            userConfig: this.config.userConfig
-              ? omit(this.config.userConfig, ["plugins"])
-              : {},
-            inlineConfig: this.config.inlineConfig
-              ? omit(this.config.inlineConfig, ["plugins"])
-              : {},
-            pluginConfig: this.config.pluginConfig
-              ? omit(this.config.pluginConfig, ["plugins"])
-              : {}
-          },
-          null,
-          2
-        )}`
+        `Resolved Powerlines configuration object: \n${formatLogMessage({
+          ...omit(this.config, [
+            "inlineConfig",
+            "userConfig",
+            "initialConfig",
+            "pluginConfig",
+            "plugins"
+          ]),
+          inlineConfig: isSetObject(this.config.inlineConfig)
+            ? omit(this.config.inlineConfig, ["plugins"])
+            : undefined,
+          userConfig: isSetObject(this.config.userConfig)
+            ? omit(this.config.userConfig, ["plugins"])
+            : undefined,
+          initialConfig: isSetObject(this.config.initialConfig)
+            ? omit(this.config.initialConfig, ["plugins"])
+            : undefined,
+          pluginConfig: isSetObject(this.config.pluginConfig)
+            ? omit(this.config.pluginConfig, ["plugins"])
+            : undefined
+        })}`
       );
     }
   }

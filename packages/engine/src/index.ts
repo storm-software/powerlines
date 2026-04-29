@@ -25,6 +25,7 @@ import type {
   EngineContext,
   EngineOptions,
   ExecutionWorkerProcess,
+  InitialConfig,
   LintInlineConfig,
   NewInlineConfig,
   PrepareInlineConfig,
@@ -76,13 +77,15 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    * Create a new Powerlines Engine instance
    *
    * @param options - The options to initialize the context with
+   * @param initialConfig - The initial configuration for the context, which can be used to provide additional context or override certain configuration values during initialization. This is particularly useful when initializing the context from a CLI command, where the CLI flags can be passed as part of the initial configuration to ensure they are properly merged with the configuration file and made available to plugins during their setup and execution.
    * @returns A new instance of the Powerlines Engine
    */
-  public static async fromOptions(
-    options: EngineOptions
+  public static async init(
+    options: EngineOptions,
+    initialConfig: InitialConfig<any> = {}
   ): Promise<PowerlinesEngine> {
     const api = new PowerlinesEngine(
-      await PowerlinesEngineContext.fromOptions(options)
+      await PowerlinesEngineContext.init(options, initialConfig)
     );
 
     const packagePath = await resolvePackage("@powerlines/engine");
@@ -107,15 +110,6 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    */
   public get context(): EngineContext {
     return this.#context;
-  }
-
-  /**
-   * Create a new Powerlines Engine instance
-   *
-   * @param context - The Powerlines context
-   */
-  protected constructor(context: EngineContext) {
-    this.#context = context;
   }
 
   /**
@@ -148,7 +142,8 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
       this.#context.executions.map(async execution =>
         this.#worker.types({
           options: execution.options,
-          config: inlineConfig as TypesInlineConfig
+          initialConfig: this.#context.initialConfig,
+          inlineConfig: inlineConfig as TypesInlineConfig
         })
       )
     );
@@ -192,7 +187,8 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
       this.#context.executions.map(async execution =>
         this.#worker.prepare({
           options: execution.options,
-          config: inlineConfig as PrepareInlineConfig
+          initialConfig: this.#context.initialConfig,
+          inlineConfig: inlineConfig as PrepareInlineConfig
         })
       )
     );
@@ -219,7 +215,8 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
       this.#context.executions.map(async execution =>
         this.#worker.new({
           options: execution.options,
-          config: inlineConfig as NewInlineConfig
+          initialConfig: this.#context.initialConfig,
+          inlineConfig: inlineConfig as NewInlineConfig
         })
       )
     );
@@ -252,7 +249,8 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
       this.#context.executions.map(async execution =>
         this.#worker.clean({
           options: execution.options,
-          config: inlineConfig as CleanInlineConfig
+          initialConfig: this.#context.initialConfig,
+          inlineConfig: inlineConfig as CleanInlineConfig
         })
       )
     );
@@ -282,7 +280,8 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
       this.#context.executions.map(async execution =>
         this.#worker.lint({
           options: execution.options,
-          config: inlineConfig as LintInlineConfig
+          initialConfig: this.#context.initialConfig,
+          inlineConfig: inlineConfig as LintInlineConfig
         })
       )
     );
@@ -315,7 +314,8 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
       this.#context.executions.map(async execution =>
         this.#worker.test({
           options: execution.options,
-          config: inlineConfig as TestInlineConfig
+          initialConfig: this.#context.initialConfig,
+          inlineConfig: inlineConfig as TestInlineConfig
         })
       )
     );
@@ -348,7 +348,8 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
       this.#context.executions.map(async execution =>
         this.#worker.build({
           options: execution.options,
-          config: inlineConfig as BuildInlineConfig
+          initialConfig: this.#context.initialConfig,
+          inlineConfig: inlineConfig as BuildInlineConfig
         })
       )
     );
@@ -380,7 +381,8 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
       this.#context.executions.map(async execution =>
         this.#worker.docs({
           options: execution.options,
-          config: inlineConfig as DocsInlineConfig
+          initialConfig: this.#context.initialConfig,
+          inlineConfig: inlineConfig as DocsInlineConfig
         })
       )
     );
@@ -416,7 +418,8 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
       this.#context.executions.map(async execution =>
         this.#worker.deploy({
           options: execution.options,
-          config: inlineConfig as DeployInlineConfig
+          initialConfig: this.#context.initialConfig,
+          inlineConfig: inlineConfig as DeployInlineConfig
         })
       )
     );
@@ -448,6 +451,15 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    */
   public async [Symbol.asyncDispose]() {
     return this.finalize();
+  }
+
+  /**
+   * Create a new Powerlines Engine instance
+   *
+   * @param context - The Powerlines context
+   */
+  protected constructor(context: EngineContext) {
+    this.#context = context;
   }
 
   /**

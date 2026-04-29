@@ -24,7 +24,7 @@ import type {
   DocsInlineConfig,
   ExecutionContext,
   ExecutionOptions,
-  InlineConfig,
+  InitialConfig,
   LintInlineConfig,
   NewInlineConfig,
   PrepareInlineConfig,
@@ -34,6 +34,7 @@ import type {
 } from "@powerlines/core";
 import { colorText } from "@powerlines/core/plugin-utils/logging";
 import { Unstable_ExecutionContext } from "@powerlines/core/types/_internal";
+import { toArray } from "@stryke/convert/to-array";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { PartialKeys } from "@stryke/types/base";
@@ -57,37 +58,28 @@ export class PowerlinesAPI<
   implements API<TResolvedConfig>, AsyncDisposable
 {
   /**
-   * Create a new Powerlines API instance
-   *
-   * @param context - The Powerlines context
-   */
-  protected constructor(context: ExecutionContext<TResolvedConfig>) {
-    super(context);
-  }
-
-  /**
    * Initialize a Powerlines API instance
    *
    * @param options - The options to initialize the API with
+   * @param initialConfig - The initial configuration for the API, which can be used to provide additional context or override certain configuration values during initialization. This is particularly useful when initializing the API from a CLI command, where the CLI flags can be passed as part of the initial configuration to ensure they are properly merged with the configuration file and made available to plugins during their setup and execution.
    * @returns A new instance of the Powerlines API
    */
-  public static async fromOptions<
+  public static override async init<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
     options: PartialKeys<ExecutionOptions, "executionId" | "executionIndex">,
-    override?: InlineConfig
+    initialConfig: InitialConfig<any> = {}
   ): Promise<PowerlinesAPI<TResolvedConfig>> {
     const api = new PowerlinesAPI<TResolvedConfig>(
-      await PowerlinesExecutionContext.fromOptions<TResolvedConfig>({
-        executionId: uuid(),
-        executionIndex: 0,
-        ...options
-      })
+      await PowerlinesExecutionContext.init<TResolvedConfig>(
+        {
+          executionId: uuid(),
+          executionIndex: 0,
+          ...options
+        },
+        initialConfig
+      )
     );
-    if (override) {
-      api.context.config.inlineConfig = override;
-      await api.context.setup();
-    }
 
     (api.context as Unstable_ExecutionContext<TResolvedConfig>).$$internal = {
       api,
@@ -96,7 +88,8 @@ export class PowerlinesAPI<
 
     const timer = api.context.timer("Initialization");
 
-    for (const plugin of api.context.config.plugins.flat(10) ?? []) {
+    for (const plugin of api.context.config.plugins.flatMap(p => toArray(p)) ??
+      []) {
       await api.addPlugin(plugin);
     }
 
@@ -377,5 +370,14 @@ export class PowerlinesAPI<
    */
   public async [Symbol.asyncDispose]() {
     await this.finalize();
+  }
+
+  /**
+   * Create a new Powerlines API instance
+   *
+   * @param context - The Powerlines context
+   */
+  protected constructor(context: ExecutionContext<TResolvedConfig>) {
+    super(context);
   }
 }

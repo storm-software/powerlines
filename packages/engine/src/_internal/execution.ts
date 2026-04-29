@@ -27,6 +27,7 @@ import type {
   Execution,
   ExecutionContext,
   InferHookParameters,
+  InitialConfig,
   InlineConfig,
   LintInlineConfig,
   NewInlineConfig,
@@ -774,6 +775,31 @@ ${formatTypes(code)}
   }
 
   /**
+   * Initialize a Powerlines API instance
+   *
+   * @param options - The options to initialize the API with
+   * @returns A new instance of the Powerlines API
+   */
+  public static async init<
+    TResolvedConfig extends ResolvedConfig = ResolvedConfig
+  >(
+    options: ExecutionOptions,
+    initialConfig?: InitialConfig<any>
+  ): Promise<PowerlinesExecution<TResolvedConfig>> {
+    const api = new PowerlinesExecution<TResolvedConfig>(
+      await PowerlinesExecutionContext.init<TResolvedConfig>(
+        options,
+        initialConfig ?? {}
+      )
+    );
+
+    api.#context.config.initialConfig = initialConfig ?? {};
+    await api.setup();
+
+    return api;
+  }
+
+  /**
    * The Powerlines context
    */
   public get context(): ExecutionContext<TResolvedConfig> {
@@ -781,38 +807,26 @@ ${formatTypes(code)}
   }
 
   /**
-   * Initialize a Powerlines API instance
-   *
-   * @param options - The options to initialize the API with
-   * @returns A new instance of the Powerlines API
+   * Initialize the execution API with the provided configuration options
    */
-  public static async fromConfig<
-    TResolvedConfig extends ResolvedConfig = ResolvedConfig
-  >(
-    options: ExecutionOptions,
-    config: InlineConfig
-  ): Promise<PowerlinesExecution<TResolvedConfig>> {
-    const api = new PowerlinesExecution<TResolvedConfig>(
-      await PowerlinesExecutionContext.fromOptions<TResolvedConfig>(options)
-    );
+  public async setup() {
+    await this.#context.setup();
 
-    api.#context.config.inlineConfig = config;
-    await api.#context.setup();
-
-    api.#context.$$internal = {
-      api,
-      addPlugin: api.addPlugin.bind(api)
+    this.#context.$$internal = {
+      api: this,
+      addPlugin: this.addPlugin.bind(this)
     };
 
-    const timer = api.context.timer("Initialization");
+    const timer = this.#context.timer("Initialization");
 
-    for (const plugin of api.context.config.plugins.flatMap(p => toArray(p)) ??
-      []) {
-      await api.addPlugin(plugin);
+    for (const plugin of this.#context.config.plugins.flatMap(p =>
+      toArray(p)
+    ) ?? []) {
+      await this.addPlugin(plugin);
     }
 
-    if (api.context.plugins.length === 0) {
-      api.context.warn({
+    if (this.#context.plugins.length === 0) {
+      this.#context.warn({
         meta: {
           category: "plugins"
         },
@@ -820,33 +834,31 @@ ${formatTypes(code)}
           "No Powerlines plugins were specified in the options. Please ensure this is correct, as it is generally not recommended."
       });
     } else {
-      api.context.info({
+      this.#context.info({
         meta: {
           category: "plugins"
         },
-        message: `Loaded ${api.context.plugins.length} ${titleCase(
-          api.context.config.framework
-        )} plugin${api.context.plugins.length > 1 ? "s" : ""}: \n${api.context.plugins
+        message: `Loaded ${this.#context.plugins.length} ${titleCase(
+          this.#context.config.framework
+        )} plugin${this.#context.plugins.length > 1 ? "s" : ""}: \n${this.#context.plugins
           .map((plugin, index) => ` ${index + 1}. ${colorText(plugin.name)}`)
           .join("\n")}`
       });
     }
 
-    const pluginConfig = await api.callHook("config", {
-      environment: await api.context.getEnvironment(),
+    const pluginConfig = await this.callHook("config", {
+      environment: await this.#context.getEnvironment(),
       sequential: true,
       result: "merge",
       merge: mergeConfigs
     });
     if (pluginConfig) {
-      api.#context.config.pluginConfig =
+      this.#context.config.pluginConfig =
         pluginConfig as TResolvedConfig["pluginConfig"];
-      await api.#context.setup();
+      await this.#context.setup();
     }
 
     timer();
-
-    return api;
   }
 
   /**
@@ -869,7 +881,7 @@ ${formatTypes(code)}
     inlineConfig.command ??= "types";
 
     this.context.config.inlineConfig = inlineConfig as InlineConfig;
-    await this.context.setup();
+    await this.setup();
 
     await this.#executeEnvironments(async context => {
       context.debug(
@@ -1008,7 +1020,7 @@ ${formatTypes(code)}
     inlineConfig.command ??= "prepare";
 
     this.context.config.inlineConfig = inlineConfig as InlineConfig;
-    await this.context.setup();
+    await this.setup();
 
     await this.#executeEnvironments(async context => {
       context.debug(
@@ -1064,18 +1076,36 @@ ${formatTypes(code)}
         order: "post"
       });
 
-      context.trace(
-        `Powerlines configuration has been resolved: \n\n${formatLogMessage({
-          ...context.config,
-          userConfig: isSetObject(context.config.userConfig)
-            ? omit(context.config.userConfig, ["plugins"])
-            : undefined,
-          inlineConfig: isSetObject(context.config.inlineConfig)
-            ? omit(context.config.inlineConfig, ["plugins"])
-            : undefined,
-          plugins: context.plugins.map(plugin => plugin.plugin.name)
-        })}`
-      );
+      context.trace({
+        meta: {
+          category: "config"
+        },
+        message: `Powerlines configuration after configResolved hook: \n${formatLogMessage(
+          {
+            ...omit(context.config, [
+              "inlineConfig",
+              "userConfig",
+              "initialConfig",
+              "pluginConfig",
+              "plugins"
+            ]),
+            plugins: context.plugins.map(plugin => plugin.plugin.name),
+
+            inlineConfig: isSetObject(context.config.inlineConfig)
+              ? omit(context.config.inlineConfig, ["plugins"])
+              : undefined,
+            userConfig: isSetObject(context.config.userConfig)
+              ? omit(context.config.userConfig, ["plugins"])
+              : undefined,
+            initialConfig: isSetObject(context.config.initialConfig)
+              ? omit(context.config.initialConfig, ["plugins"])
+              : undefined,
+            pluginConfig: isSetObject(context.config.pluginConfig)
+              ? omit(context.config.pluginConfig, ["plugins"])
+              : undefined
+          }
+        )}`
+      });
 
       if (!context.fs.existsSync(context.cachePath)) {
         await createDirectory(context.cachePath);

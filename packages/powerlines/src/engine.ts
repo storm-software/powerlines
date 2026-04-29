@@ -18,7 +18,7 @@
 
 import { PowerlinesEngine as InternalPowerlinesEngine } from "@powerlines/engine";
 import packageJson from "../package.json" with { type: "json" };
-import type { EngineOptions } from "./types";
+import type { EngineOptions, InitialConfig } from "./types";
 
 /**
  * The Powerlines Engine class
@@ -35,10 +35,11 @@ export class PowerlinesEngine extends InternalPowerlinesEngine {
    * @param options - The options to initialize the context with
    * @returns A new instance of the Powerlines Engine
    */
-  public static override async fromOptions(
-    options: EngineOptions
+  public static override async init(
+    options: EngineOptions,
+    initialConfig?: InitialConfig<any>
   ): Promise<PowerlinesEngine> {
-    const engine = await InternalPowerlinesEngine.fromOptions(options);
+    const engine = await InternalPowerlinesEngine.init(options, initialConfig);
 
     engine.context.info(
       `🔌 The Powerlines Engine v${packageJson.version} has started`

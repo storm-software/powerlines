@@ -200,15 +200,15 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           meta: {
             category: "env"
           },
-          message: `Environment variable config: ${
+          message: `Environment configuration definition file: ${
             config.env.types.file
           }${config.env.types.name ? `#${config.env.types.name}` : ""}${
             config.env.secrets
-              ? `\nSecrets config: ${config.env.secrets?.file}${
+              ? `\nSecrets configuration definition file: ${config.env.secrets?.file}${
                   config.env.secrets?.name ? `#${config.env.secrets?.name}` : ""
                 }`
               : ""
-          }Prefixes: ${config.env.prefix.join(", ")}\nShould inject values: ${
+          }\nEnvironment variable Prefixes: ${config.env.prefix.join(", ")}\nShould inject values: ${
             config.env.inject ? "Yes" : "No"
           }\nShould validate configuration: ${
             config.env.validate ? "Yes" : "No"
@@ -260,7 +260,11 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
               .getProperties()
               .map(
                 prop =>
-                  `- ${prop.getNameAsString()} (aliases: ${prop.getAlias().join(", ")})`
+                  `- ${prop.getNameAsString()}${
+                    prop.getAlias().length > 0
+                      ? ` (aliases: ${prop.getAlias().join(", ")})`
+                      : ""
+                  }`
               )
               .join("\n")}`
           });
@@ -276,7 +280,11 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
                 .getProperties()
                 .map(
                   prop =>
-                    `- ${prop.getNameAsString()} (aliases: ${prop.getAlias().join(", ")})`
+                    `- ${prop.getNameAsString()}${
+                      prop.getAlias().length > 0
+                        ? ` (aliases: ${prop.getAlias().join(", ")})`
+                        : ""
+                    }`
                 )
                 .join("\n")}`
             });

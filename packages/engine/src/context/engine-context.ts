@@ -19,7 +19,8 @@
 import type {
   EngineContext,
   EngineOptions,
-  ExecutionState
+  ExecutionState,
+  InitialConfig
 } from "@powerlines/core";
 import { uuid } from "@stryke/unique-id/uuid";
 import { PowerlinesBaseContext } from "./base-context";
@@ -36,11 +37,12 @@ export class PowerlinesEngineContext
    * @param options - The options to initialize the context with.
    * @returns A promise that resolves to an instance of the PowerlinesEngineContext class.
    */
-  public static async fromOptions(
-    options: EngineOptions
+  public static async init(
+    options: EngineOptions,
+    initialConfig: InitialConfig<any> = {}
   ): Promise<PowerlinesEngineContext> {
     const context = new PowerlinesEngineContext();
-    await context.init(options);
+    await context.init(options, initialConfig);
 
     if (!context.configFile?.config) {
       context.fatal(

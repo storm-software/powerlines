@@ -45,6 +45,13 @@ export interface CreateUnpluginResolverOptions extends CreateUnpluginModuleResol
    * @defaultValue "powerlines"
    */
   name?: string;
+
+  /**
+   * Whether to silence logging for the plugin hooks. This can be useful for plugins that run frequently or have hooks that are called often, to reduce noise in the logs. When set to `true`, the plugin will not log any messages for its hooks. When set to `false` (the default), the plugin will log messages for its hooks as normal.
+   *
+   * @defaultValue false
+   */
+  silenceHookLogging?: boolean;
 }
 
 /**
@@ -66,7 +73,9 @@ export function createUnpluginResolver<
 
   return () => {
     const logger = ctx.extendLogger(
-      name !== "powerlines" ? { source: name } : {}
+      !options.silenceHookLogging && name !== "powerlines"
+        ? { source: name }
+        : {}
     );
     logger.debug(`Initializing ${titleCase(name)} plugin`);
 
@@ -91,14 +100,7 @@ export function createUnpluginResolver<
   };
 }
 
-export interface CreateUnpluginOptions extends CreateUnpluginResolverOptions {
-  /**
-   * Whether to silence logging for the plugin hooks. This can be useful for plugins that run frequently or have hooks that are called often, to reduce noise in the logs. When set to `true`, the plugin will not log any messages for its hooks. When set to `false` (the default), the plugin will log messages for its hooks as normal.
-   *
-   * @defaultValue false
-   */
-  silenceHookLogging?: boolean;
-}
+export interface CreateUnpluginOptions extends CreateUnpluginResolverOptions {}
 
 /**
  * Creates a Powerlines unplugin instance.

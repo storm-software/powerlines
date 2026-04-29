@@ -80,7 +80,8 @@ export async function bundle<TContext extends PluginContext = PluginContext>(
                 overrides.resolve ?? {},
                 { skipNodeModulesBundle: false },
                 context.config.resolve
-              )
+              ),
+              silenceHookLogging: true
             } as CreateUnpluginResolverOptions)
           )({})
         ]

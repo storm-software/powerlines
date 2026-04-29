@@ -242,9 +242,7 @@ export const consoleLog = (meta: LogMeta, ...args: string[]) =>
         : ""
     }${
       meta.plugin
-        ? `${chalk.bold.hex(BRAND_COLOR)(
-            kebabCase(meta.plugin)
-          )}${chalk.grey(" > ")}`
+        ? `${chalk.bold.hex(BRAND_COLOR)(meta.plugin)}${chalk.grey(" > ")}`
         : ""
     }${
       meta.source

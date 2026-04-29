@@ -19,6 +19,7 @@
 import type {
   BaseContext,
   EngineOptions,
+  InitialConfig,
   LogFn,
   Logger,
   LoggerOptions,
@@ -78,7 +79,12 @@ export class PowerlinesBaseContext implements BaseContext {
   /**
    * The input options used to initialize the context, which may be used when cloning the context to ensure the same configuration is applied to the new context
    */
-  public inputOptions: Partial<EngineOptions> = {};
+  public initialOptions: Partial<EngineOptions> = {};
+
+  /**
+   * The initial configuration provided when initializing the context, which may be used during the setup process to ensure that the configuration is properly merged and applied to the context. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
+   */
+  public initialConfig: InitialConfig<any> = {};
 
   /**
    * The parsed configuration file for the project
@@ -124,7 +130,7 @@ export class PowerlinesBaseContext implements BaseContext {
    */
   public async clone(): Promise<BaseContext> {
     const clone = new PowerlinesBaseContext();
-    await clone.init(this.options);
+    await clone.init(this.options, this.initialConfig);
 
     return clone;
   }
@@ -248,16 +254,16 @@ export class PowerlinesBaseContext implements BaseContext {
   protected async getWorkspaceConfig(): Promise<WorkspaceConfig | undefined> {
     return tryGetWorkspaceConfig(
       false,
-      this.options || this.inputOptions
+      this.options || this.initialOptions
         ? {
             cwd:
-              this.options?.root || this.inputOptions?.root
+              this.options?.root || this.initialOptions?.root
                 ? appendPath(
-                    this.options?.root || this.inputOptions?.root || ".",
-                    this.options?.cwd || this.inputOptions?.cwd
+                    this.options?.root || this.initialOptions?.root || ".",
+                    this.options?.cwd || this.initialOptions?.cwd
                   )
                 : undefined,
-            workspaceRoot: this.options?.cwd || this.inputOptions?.cwd
+            workspaceRoot: this.options?.cwd || this.initialOptions?.cwd
           }
         : undefined
     );
@@ -300,7 +306,7 @@ export class PowerlinesBaseContext implements BaseContext {
               : workspaceConfig.logLevel
         : undefined,
       this.options?.mode ||
-        this.inputOptions?.mode ||
+        this.initialOptions?.mode ||
         workspaceConfig?.mode ||
         (await this.getDefaultMode())
     );
@@ -313,9 +319,11 @@ export class PowerlinesBaseContext implements BaseContext {
    * This method will set up the resolver and load the user configuration file based on the provided options. It is called during the construction of the context and can also be called when cloning the context to ensure that the new context has the same configuration and resolver setup.
    *
    * @param options - The configuration options to initialize the context with
+   * @param initialConfig - The initial configuration to initialize the context with
    */
-  protected async init(options: EngineOptions) {
-    this.inputOptions = { ...options };
+  protected async init(options: EngineOptions, initialConfig: InitialConfig) {
+    this.initialOptions = { ...options };
+    this.initialConfig = { ...initialConfig };
 
     if (!this.powerlinesPath) {
       const powerlinesPath = await resolvePackage("powerlines");
@@ -337,14 +345,14 @@ export class PowerlinesBaseContext implements BaseContext {
 
     this.options = defu(
       {
-        name: options.name,
+        name: options.name || this.initialConfig.name,
         root,
         cwd,
-        mode: options.mode,
-        logLevel: options.logLevel,
-        framework: options.framework,
-        organization: options.organization,
-        configFile: options.configFile
+        mode: options.mode || this.initialConfig.mode,
+        logLevel: options.logLevel || this.initialConfig.logLevel,
+        framework: options.framework || this.initialConfig.framework,
+        organization: options.organization || this.initialConfig.organization,
+        configFile: options.configFile || this.initialConfig.configFile
       },
       this.options ?? {},
       {

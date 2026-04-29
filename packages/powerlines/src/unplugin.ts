@@ -55,27 +55,28 @@ export function createUnpluginFactory<
     plugin: UnpluginOptions<TContext>
   ) => BaseUnpluginOptions
 ): UnpluginFactory<TContext> {
-  return (config, meta): UnpluginOptions<TContext> => {
-    let logger = createLogger(config.name || "powerlines", {});
+  return (options, meta): UnpluginOptions<TContext> => {
+    let logger = createLogger(options.name || "powerlines", {});
     logger.debug("Initializing Unplugin");
 
     try {
-      const userConfig = {
-        ...config,
+      const initialConfig = {
+        ...options,
         variant,
         unplugin: meta
-      } as TContext["config"]["userConfig"];
+      };
 
       let api!: PowerlinesAPI<TContext["config"]>;
 
       async function buildStart(this: UnpluginBuildContext): Promise<void> {
-        api = await PowerlinesAPI.fromOptions(
+        api = await PowerlinesAPI.init(
           {
+            ...options,
             cwd: getWorkspaceRoot(process.cwd()),
-            root: userConfig.root,
-            mode: userConfig.mode
+            root: initialConfig.root,
+            mode: initialConfig.mode
           },
-          { command: "build", ...userConfig }
+          initialConfig
         );
 
         logger = api.context.logger;
@@ -159,7 +160,7 @@ export function createUnpluginFactory<
         });
       }
 
-      const options = {
+      const unpluginOptions = {
         name: "powerlines",
         api,
         resolveId,
@@ -169,7 +170,9 @@ export function createUnpluginFactory<
         writeBundle
       } as UnpluginOptions<TContext>;
 
-      const result = decorate ? decorate(api, options) : options;
+      const result = decorate
+        ? decorate(api, unpluginOptions)
+        : unpluginOptions;
 
       logger.debug("Unplugin initialized successfully.");
 

@@ -24,6 +24,7 @@ import {
   DeployInlineConfig,
   DocsInlineConfig,
   ExecutionOptions,
+  InitialConfig,
   InlineConfig,
   LintInlineConfig,
   NewInlineConfig,
@@ -208,9 +209,14 @@ export interface ExecutionWorkerParams {
   options: ExecutionOptions;
 
   /**
+   * The initial configuration for the current execution instance, which is the result of merging the user configuration with any configuration provided by plugins during the "config" hook. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
+   */
+  initialConfig: InitialConfig;
+
+  /**
    * The inline configuration for the current execution instance, which is the result of merging the user configuration with any configuration provided by plugins during the "config" hook.
    */
-  config: InlineConfig;
+  inlineConfig: InlineConfig;
 }
 
 export type ExecutionWorkerProcess = WorkerProcess<

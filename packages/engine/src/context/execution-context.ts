@@ -20,14 +20,14 @@ import type {
   EnvironmentContext,
   EnvironmentResolvedConfig,
   ExecutionContext,
+  InitialConfig,
   InlineConfig,
   LogFn,
   Logger,
   LoggerOptions,
   Plugin,
   PluginContext,
-  ResolvedConfig,
-  UserConfig
+  ResolvedConfig
 } from "@powerlines/core";
 import { ExecutionOptions } from "@powerlines/core";
 import { GLOBAL_ENVIRONMENT } from "@powerlines/core/constants";
@@ -68,11 +68,14 @@ export class PowerlinesExecutionContext<
    * @param options - The options for resolving the context.
    * @returns A promise that resolves to the new context.
    */
-  public static override async fromOptions<
+  public static override async init<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
-  >(options: ExecutionOptions): Promise<ExecutionContext<TResolvedConfig>> {
+  >(
+    options: ExecutionOptions,
+    initialConfig: InitialConfig<TResolvedConfig["userConfig"]>
+  ): Promise<ExecutionContext<TResolvedConfig>> {
     const context = new PowerlinesExecutionContext<TResolvedConfig>(options);
-    await context.init(options);
+    await context.init(options, initialConfig);
 
     const powerlinesPath = await resolvePackage("powerlines");
     if (!powerlinesPath) {
@@ -89,16 +92,17 @@ export class PowerlinesExecutionContext<
    * @param options - The options for resolving the context.
    * @returns A promise that resolves to the new context.
    */
-  public static async fromConfig<
+  public static async inline<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
     options: ExecutionOptions,
-    config: InlineConfig
+    initialConfig: InitialConfig<TResolvedConfig["userConfig"]>,
+    inlineConfig: InlineConfig<TResolvedConfig["userConfig"]>
   ): Promise<ExecutionContext<TResolvedConfig>> {
     const context = new PowerlinesExecutionContext<TResolvedConfig>(options);
-    await context.init(options);
+    await context.init(options, initialConfig);
 
-    context.config.inlineConfig = config;
+    context.config.inlineConfig = inlineConfig;
     if (context.config.inlineConfig.command === "new") {
       const workspacePackageJsonPath = joinPaths(
         context.config.cwd,
@@ -226,18 +230,23 @@ export class PowerlinesExecutionContext<
    * @returns A promise that resolves to the cloned context.
    */
   public override async clone(): Promise<ExecutionContext<TResolvedConfig>> {
-    const clone =
-      (await PowerlinesExecutionContext.fromOptions<TResolvedConfig>(
-        this.options
-      )) as Unstable_ExecutionContext<TResolvedConfig>;
+    const clone = (await PowerlinesExecutionContext.init<TResolvedConfig>(
+      this.options,
+      this.initialConfig
+    )) as Unstable_ExecutionContext<TResolvedConfig>;
 
-    clone.config.userConfig = deepClone(this.config.userConfig) as UserConfig;
+    clone.config.userConfig = deepClone(
+      this.config.userConfig
+    ) as TResolvedConfig["userConfig"];
+    clone.config.initialConfig = deepClone(
+      this.config.initialConfig
+    ) as InitialConfig<TResolvedConfig["userConfig"]>;
     clone.config.inlineConfig = deepClone(
       this.config.inlineConfig
-    ) as InlineConfig;
-    clone.config.pluginConfig = deepClone(
-      this.config.pluginConfig
-    ) as Partial<UserConfig>;
+    ) as InlineConfig<TResolvedConfig["userConfig"]>;
+    clone.config.pluginConfig = deepClone(this.config.pluginConfig) as Partial<
+      TResolvedConfig["userConfig"]
+    >;
 
     await clone.setup();
     clone.$$internal = this.$$internal;

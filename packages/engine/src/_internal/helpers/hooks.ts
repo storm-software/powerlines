@@ -46,19 +46,7 @@ import { isString } from "@stryke/type-checks/is-string";
 import { ArrayValues } from "@stryke/types/array";
 import { AnyFunction } from "@stryke/types/base";
 import chalk from "chalk";
-import { createDefu, defu } from "defu";
-
-export const mergeResultObjects = createDefu(
-  <T>(obj: T, key: keyof T, value: any) => {
-    if (isString(obj[key]) && isString(value)) {
-      obj[key] = `${obj[key] || ""}\n${value || ""}`.trim() as T[keyof T];
-
-      return true;
-    }
-
-    return false;
-  }
-);
+import { defu } from "defu";
 
 /**
  * Merges the current hook result with the previous results based on their types.
@@ -67,7 +55,9 @@ export const mergeResultObjects = createDefu(
  * @param previousResults - The previous hook results to merge with the current result.
  * @returns The merged result.
  */
-export function mergeResults<T>(currentResult: T, previousResults: T[]): T[] {
+export function mergeResults<
+  T extends Record<string | number | symbol, any> | string
+>(currentResult: T, previousResults: T[]): T[] {
   if (!previousResults || previousResults.length === 0) {
     return [currentResult];
   }
@@ -81,9 +71,10 @@ export function mergeResults<T>(currentResult: T, previousResults: T[]): T[] {
       }`.trim() as T
     ];
   } else if (isObject(currentResult)) {
-    previousResults = [
-      mergeResultObjects(currentResult, previousResults[0] ?? {})
-    ];
+    previousResults =
+      previousResults.length > 0
+        ? [defu(currentResult, previousResults[0])]
+        : [currentResult];
   }
 
   return previousResults;
