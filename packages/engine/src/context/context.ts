@@ -1370,7 +1370,6 @@ export class PowerlinesContext<
           }
         ]
       },
-      artifactsPath: `.${this.config.framework ?? "powerlines"}`,
       dts: true
     }) as OutputResolvedConfig;
 
@@ -1633,6 +1632,16 @@ export class PowerlinesContext<
       } else {
         this.config.output.minify = false;
       }
+    }
+
+    if (
+      !this.config.userConfig?.output?.artifactsPath &&
+      !this.config.inlineConfig?.output?.artifactsPath &&
+      !this.config.pluginConfig?.output?.artifactsPath
+    ) {
+      this.config.output.artifactsPath = `.${
+        this.config.framework || "powerlines"
+      }`;
     }
 
     if (this.config.output.copy && this.config.output.copy.assets) {
