@@ -225,7 +225,7 @@ export const consoleLog = (meta: LogMeta, ...args: string[]) =>
       meta.category === LogCategories.PERFORMANCE ? "performance" : meta.type
     ),
     {
-      logLevel: "trace"
+      logLevel: "all"
     }
   )(
     `${meta.name ? chalk.bold.hex(BRAND_COLOR)(kebabCase(meta.name)) : ""}${meta.name ? chalk.grey(" > ") : ""}${
@@ -307,6 +307,7 @@ export const createLogFn = (name: string, options: LogFnOptions): LogFn => {
         };
 
     if (
+      logMeta.$$ipc ||
       isValidLogLevelConfig(
         logMeta.type,
         logLevel,
@@ -357,7 +358,10 @@ const validateLogger = (
           }
         };
 
-    if (isValidLogLevelConfig(type, logLevel, params.meta.category)) {
+    if (
+      params.meta.$$ipc ||
+      isValidLogLevelConfig(type, logLevel, params.meta.category)
+    ) {
       callback(params);
     }
   };
@@ -403,7 +407,10 @@ const validateCustomLogger = (
           }
         };
 
-    if (isValidLogLevelConfig(type, logLevel, params.meta.category)) {
+    if (
+      params.meta.$$ipc ||
+      isValidLogLevelConfig(type, logLevel, params.meta.category)
+    ) {
       callback?.(params);
       customCallback?.(params);
     }

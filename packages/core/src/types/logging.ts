@@ -117,6 +117,12 @@ export interface LogMeta {
    * The name of the logger or source of the log message, which can be used to identify the origin of the log entry.
    */
   source?: string;
+  /**
+   * Indicates whether the log message is related to inter-process communication (IPC).
+   *
+   * @internal
+   */
+  $$ipc?: boolean;
 }
 
 export type LogFnOptions = Omit<

@@ -574,7 +574,8 @@ Message: ${toArray(payload.message).filter(Boolean).join("\n")}`
         environment: message.environment,
         plugin: payload.meta.plugin,
         source: payload.meta.source,
-        timestamp: message.timestamp
+        timestamp: message.timestamp,
+        $$ipc: true
       }
     });
   }
