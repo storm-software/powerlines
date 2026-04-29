@@ -54,6 +54,7 @@
     "@powerlines/plugin-rollup": "workspace:*",
     "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",
+    "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",

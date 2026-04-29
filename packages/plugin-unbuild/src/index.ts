@@ -18,6 +18,7 @@
 
 import { Plugin } from "@powerlines/core";
 import { build } from "@storm-software/unbuild";
+import { omit } from "@stryke/helpers/omit";
 import {
   DEFAULT_UNBUILD_CONFIG,
   resolveOptions
@@ -54,7 +55,22 @@ export const plugin = <
       };
     },
     async build() {
-      await build(resolveOptions(this));
+      this.debug("Starting Unbuild build process...");
+
+      const options = resolveOptions(this);
+
+      this.trace({
+        meta: {
+          category: "config"
+        },
+        message: `Resolved Unbuild configuration: \n${JSON.stringify(
+          omit(options, ["plugins"]),
+          null,
+          2
+        )}`
+      });
+
+      await build(options);
     }
   };
 };

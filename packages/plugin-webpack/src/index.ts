@@ -17,8 +17,9 @@
  ------------------------------------------------------------------- */
 
 import { Plugin } from "@powerlines/core";
+import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
-import build from "webpack";
+import webpack from "webpack";
 import { resolveOptions } from "./helpers/resolve-options";
 import { createWebpackPlugin } from "./helpers/unplugin";
 import { WebpackPluginContext, WebpackPluginOptions } from "./types/plugin";
@@ -54,24 +55,37 @@ export const plugin = <
       };
     },
     async build() {
-      build(
-        defu(
-          {
-            entry: this.entry.reduce(
-              (ret, entry) => {
-                ret[entry.output || entry.name || entry.file] = entry.file;
+      this.debug("Starting Webpack build process...");
 
-                return ret;
-              },
-              {} as Record<string, string>
-            )
-          },
-          resolveOptions(this),
-          {
-            plugins: [createWebpackPlugin(this)]
-          }
-        )
+      const options = defu(
+        {
+          entry: this.entry.reduce(
+            (ret, entry) => {
+              ret[entry.output || entry.name || entry.file] = entry.file;
+
+              return ret;
+            },
+            {} as Record<string, string>
+          )
+        },
+        resolveOptions(this),
+        {
+          plugins: [createWebpackPlugin(this)]
+        }
       );
+
+      this.trace({
+        meta: {
+          category: "config"
+        },
+        message: `Resolved Webpack configuration: \n${JSON.stringify(
+          omit(options, ["plugins"]),
+          null,
+          2
+        )}`
+      });
+
+      webpack(options);
     }
   };
 };

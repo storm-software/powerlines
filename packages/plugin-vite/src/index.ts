@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { Context, Plugin } from "@powerlines/core";
+import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
 import { build } from "vite";
 import { DEFAULT_VITE_CONFIG, resolveOptions } from "./helpers/resolve-options";
@@ -58,7 +59,7 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
       };
     },
     async build() {
-      this.trace(`Building the Powerlines plugin.`);
+      this.debug("Starting Vite build process...");
 
       const environments = (this as unknown as Unstable_VitePluginContext)
         ?.$$internal?.api?.context?.environments;
@@ -72,7 +73,7 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
         `Running Vite for ${Object.keys(environments).length} environments.`
       );
 
-      const config = defu(
+      const options = defu(
         {
           config: false,
           entry: this.entry,
@@ -89,7 +90,18 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
         }
       );
 
-      await build(config);
+      this.trace({
+        meta: {
+          category: "config"
+        },
+        message: `Resolved Vite configuration: \n${JSON.stringify(
+          omit(options, ["plugins"]),
+          null,
+          2
+        )}`
+      });
+
+      await build(options);
     }
   };
 };

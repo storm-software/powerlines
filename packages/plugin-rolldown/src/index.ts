@@ -18,6 +18,7 @@
 
 import { Plugin } from "@powerlines/core/types/plugin";
 import { toArray } from "@stryke/convert/to-array";
+import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
 import { rolldown as build } from "rolldown";
 import { resolveOptions } from "./helpers/resolve-options";
@@ -54,14 +55,27 @@ export const plugin = <
       };
     },
     async build() {
-      const result = await build(
-        defu(
-          {
-            plugins: [createRolldownPlugin(this)]
-          },
-          resolveOptions(this)
-        )
+      this.debug("Starting Rolldown build process...");
+
+      const options = defu(
+        {
+          plugins: [createRolldownPlugin(this)]
+        },
+        resolveOptions(this)
       );
+
+      this.trace({
+        meta: {
+          category: "config"
+        },
+        message: `Resolved Rolldown configuration: \n${JSON.stringify(
+          omit(options, ["plugins"]),
+          null,
+          2
+        )}`
+      });
+
+      const result = await build(options);
 
       await Promise.all(
         toArray(this.config.output.format).map(async format =>

@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { Plugin } from "@powerlines/core";
+import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
 import { build } from "esbuild";
 import {
@@ -58,15 +59,28 @@ export const plugin = <
       };
     },
     async build() {
-      await build(
-        defu(
-          {
-            entryPoints: resolveEntry(this, this.entry),
-            plugins: [createEsbuildPlugin(this)]
-          },
-          resolveOptions(this)
-        )
+      this.debug("Starting Esbuild build process...");
+
+      const options = defu(
+        {
+          entryPoints: resolveEntry(this, this.entry),
+          plugins: [createEsbuildPlugin(this)]
+        },
+        resolveOptions(this)
       );
+
+      this.trace({
+        meta: {
+          category: "config"
+        },
+        message: `Resolved Esbuild configuration: \n${JSON.stringify(
+          omit(options, ["plugins"]),
+          null,
+          2
+        )}`
+      });
+
+      await build(options);
     }
   };
 };

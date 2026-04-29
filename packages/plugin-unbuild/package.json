@@ -74,6 +74,7 @@
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@powerlines/plugin-rollup": "workspace:*",
+    "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "defu": "catalog:",

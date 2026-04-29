@@ -21,6 +21,7 @@ import {
   build,
   resolveOptions as resolveOptionsBase
 } from "@storm-software/tsup";
+import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
 import { resolveOptions } from "./helpers/resolve-options";
 import { createTsupPlugin } from "./helpers/unplugin";
@@ -58,13 +59,26 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
       };
     },
     async build() {
-      return build(
-        await resolveOptionsBase(
-          defu(resolveOptions(this), {
-            esbuildPlugins: [createTsupPlugin(this)]
-          })
-        )
+      this.debug("Starting Tsup build process...");
+
+      const options = await resolveOptionsBase(
+        defu(resolveOptions(this), {
+          esbuildPlugins: [createTsupPlugin(this)]
+        })
       );
+
+      this.trace({
+        meta: {
+          category: "config"
+        },
+        message: `Resolved Tsup configuration: \n${JSON.stringify(
+          omit(options, ["plugins"]),
+          null,
+          2
+        )}`
+      });
+
+      return build(options);
     }
   };
 };

@@ -18,6 +18,7 @@
 
 import { Plugin } from "@powerlines/core";
 import { rspack as build } from "@rspack/core";
+import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
 import { resolveOptions } from "./helpers";
 import { createRspackPlugin } from "./helpers/unplugin";
@@ -49,24 +50,37 @@ export const plugin = <
       };
     },
     async build() {
-      build(
-        defu(
-          {
-            entry: this.entry.reduce(
-              (ret, entry) => {
-                ret[entry.output || entry.name || entry.file] = entry.file;
+      this.debug("Starting Rspack build process...");
 
-                return ret;
-              },
-              {} as Record<string, string>
-            )
-          },
-          resolveOptions(this),
-          {
-            plugins: [createRspackPlugin(this)]
-          }
-        )
+      const options = defu(
+        {
+          entry: this.entry.reduce(
+            (ret, entry) => {
+              ret[entry.output || entry.name || entry.file] = entry.file;
+
+              return ret;
+            },
+            {} as Record<string, string>
+          )
+        },
+        resolveOptions(this),
+        {
+          plugins: [createRspackPlugin(this)]
+        }
       );
+
+      this.trace({
+        meta: {
+          category: "config"
+        },
+        message: `Resolved Rspack configuration: \n${JSON.stringify(
+          omit(options, ["plugins"]),
+          null,
+          2
+        )}`
+      });
+
+      build(options);
     }
   };
 };

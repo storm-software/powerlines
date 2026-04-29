@@ -89,9 +89,10 @@
   },
   "dependencies": {
     "@powerlines/core": "workspace:*",
+    "@powerlines/plugin-esbuild": "workspace:*",
     "@powerlines/plugin-rolldown": "workspace:*",
     "@powerlines/plugin-rollup": "workspace:*",
-    "@powerlines/plugin-esbuild": "workspace:*",
+    "@stryke/helpers": "catalog:",
     "defu": "catalog:",
     "unplugin": "catalog:"
   },

@@ -85,12 +85,13 @@
   },
   "dependencies": {
     "@powerlines/core": "workspace:*",
+    "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
     "defu": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
-    "@rspack/core": "catalog:"
+    "@rspack/core": "catalog:",
+    "@types/node": "catalog:"
   },
   "publishConfig": {
     "access": "public"

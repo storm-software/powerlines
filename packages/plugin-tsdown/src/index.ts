@@ -18,6 +18,7 @@
 
 import { Plugin } from "@powerlines/core";
 import { formatPackageJson } from "@powerlines/core/plugin-utils/format-package-json";
+import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
 import { build } from "tsdown";
 import { resolveOptions } from "./helpers/resolve-options";
@@ -44,7 +45,7 @@ export const plugin = <
   return {
     name: "tsdown",
     config() {
-      this.trace(
+      this.debug(
         "Providing default configuration for the Powerlines `tsdown` build plugin."
       );
 
@@ -71,18 +72,28 @@ export const plugin = <
       }
     },
     async build() {
-      this.trace("Starting Tsdown build process...");
+      this.debug("Starting Tsdown build process...");
 
-      await build(
-        defu(
-          {
-            config: false,
-            plugins: createTsdownPlugin(this)
-          },
-          resolveOptions(this)
-        )
+      const options = defu(
+        {
+          config: false,
+          plugins: createTsdownPlugin(this)
+        },
+        resolveOptions(this)
       );
 
+      this.trace({
+        meta: {
+          category: "config"
+        },
+        message: `Resolved Tsdown configuration: \n${JSON.stringify(
+          omit(options, ["plugins"]),
+          null,
+          2
+        )}`
+      });
+
+      await build(options);
       await formatPackageJson(this);
     }
   };

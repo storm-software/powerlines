@@ -85,6 +85,7 @@
     "@rollup/plugin-replace": "catalog:",
     "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",
+    "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",

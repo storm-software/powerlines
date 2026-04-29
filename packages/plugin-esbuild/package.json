@@ -94,6 +94,7 @@
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@stryke/fs": "catalog:",
+    "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
@@ -102,8 +103,8 @@
     "unplugin": "catalog:"
   },
   "devDependencies": {
-    "esbuild": "catalog:",
-    "@types/node": "catalog:"
+    "@types/node": "catalog:",
+    "esbuild": "catalog:"
   },
   "publishConfig": {
     "access": "public"

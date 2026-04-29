@@ -79,6 +79,7 @@
     "@powerlines/core": "workspace:*",
     "@powerlines/plugin-rolldown": "workspace:*",
     "@stryke/convert": "catalog:",
+    "@stryke/helpers": "catalog:",
     "defu": "catalog:",
     "unplugin": "catalog:"
   },
@@ -87,9 +88,9 @@
     "tsdown": "catalog:"
   },
   "peerDependencies": {
-    "tsdown": ">=0.21.2",
     "@arethetypeswrong/core": ">=0.18.2",
-    "publint": ">=0.3.18"
+    "publint": ">=0.3.18",
+    "tsdown": ">=0.21.2"
   },
   "peerDependenciesMeta": {
     "tsdown": {
