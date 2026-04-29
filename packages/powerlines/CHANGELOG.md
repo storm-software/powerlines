@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.44.7](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.44.7) (04/28/2026)
+
+### Miscellaneous
+
+- **core:** Clean up logging message display ([5e479f377](https://github.com/storm-software/powerlines/commit/5e479f377))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.440**
+- Updated **plugin-esbuild** to **v0.13.440**
+- Updated **plugin-unbuild** to **v0.5.439**
+- Updated **plugin-webpack** to **v0.5.437**
+- Updated **plugin-rollup** to **v0.7.438**
+- Updated **plugin-rspack** to **v0.5.437**
+- Updated **plugin-tsdown** to **v0.1.384**
+- Updated **plugin-tsup** to **v0.12.442**
+- Updated **plugin-vite** to **v0.14.437**
+
 ## [0.44.6](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.44.6) (04/28/2026)
 
 ### Updated Dependencies

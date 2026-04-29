@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.62](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.62) (04/28/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Added `@babel/preset-typescript` peer dependency ([ce84d6e7f](https://github.com/storm-software/powerlines/commit/ce84d6e7f))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.8.44**
+- Updated **plugin-plugin** to **v0.12.394**
+- Updated **plugin-babel** to **v0.12.436**
+
 ## [0.26.61](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.61) (04/28/2026)
 
 ### Updated Dependencies

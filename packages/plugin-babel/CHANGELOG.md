@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.436](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.436) (04/28/2026)
+
+### Miscellaneous
+
+- **core:** Clean up logging message display ([5e479f377](https://github.com/storm-software/powerlines/commit/5e479f377))
+
 ## [0.12.430](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.430) (04/27/2026)
 
 ### Miscellaneous
