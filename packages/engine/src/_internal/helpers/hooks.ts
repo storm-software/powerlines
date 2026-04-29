@@ -134,7 +134,7 @@ export async function callHook<
     const logger = context.extendLogger({ category: "hooks" });
 
     logger.debug(
-      ` 🧩 Calling ${hooks.length} ${chalk.bold.cyanBright(
+      `🧩 Calling ${hooks.length} ${chalk.bold.cyanBright(
         `${key}${options?.order ? ` (${options.order})` : ""}`
       )} plugin hook${hooks.length > 1 ? "s" : ""}:\n${hooks
         .map((hook, index) => ` ${index + 1}. ${colorText(hook.plugin.name)}`)

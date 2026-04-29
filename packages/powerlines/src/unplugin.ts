@@ -56,9 +56,7 @@ export function createUnpluginFactory<
   ) => BaseUnpluginOptions
 ): UnpluginFactory<TContext> {
   return (config, meta): UnpluginOptions<TContext> => {
-    let logger = createLogger(config.name || "powerlines", {
-      source: "unplugin"
-    });
+    let logger = createLogger(config.name || "powerlines", {});
     logger.debug("Initializing Unplugin");
 
     try {
@@ -80,7 +78,7 @@ export function createUnpluginFactory<
           { command: "build", ...userConfig }
         );
 
-        logger = api.context.extendLogger({ source: "unplugin" });
+        logger = api.context.logger;
         logger.debug("Powerlines build plugin starting...");
 
         await api.context.setup();

@@ -1012,7 +1012,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       );
     }
 
-    this.#logger = context.extendLogger({ source: "VFS", category: "fs" });
+    this.#logger = context.extendLogger({ category: "fs" });
   }
 
   /**

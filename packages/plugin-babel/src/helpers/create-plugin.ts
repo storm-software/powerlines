@@ -43,7 +43,7 @@ export function createBabelPlugin<
       api.cache.using(() => context.meta.checksum);
       api.assertVersion("^8.0.0-0");
 
-      const logger = context.extendLogger({ source: name, category: "babel" });
+      const logger = context.extendLogger({ category: "babel" });
       logger.trace(
         `Initializing the ${chalk.bold.cyanBright(name)} Babel plugin`
       );

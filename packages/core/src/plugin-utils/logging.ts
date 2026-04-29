@@ -228,12 +228,10 @@ export const consoleLog = (meta: LogMeta, ...args: string[]) =>
       logLevel: "trace"
     }
   )(
-    `${meta.name ? chalk.bold.hex(BRAND_COLOR)(kebabCase(meta.name)) : ""}${
-      meta.command ? chalk.hex(BRAND_COLOR)(` (${meta.command})`) : ""
-    }${meta.name ? chalk.grey(" > ") : ""}${
-      meta.source
+    `${meta.name ? chalk.bold.hex(BRAND_COLOR)(kebabCase(meta.name)) : ""}${meta.name ? chalk.grey(" > ") : ""}${
+      meta.command && kebabCase(meta.command)
         ? `${chalk.bold.hex(BRAND_COLOR)(
-            kebabCase(meta.source)
+            kebabCase(meta.command)
           )}${chalk.grey(" > ")}`
         : ""
     }${
@@ -246,6 +244,12 @@ export const consoleLog = (meta: LogMeta, ...args: string[]) =>
       meta.plugin
         ? `${chalk.bold.hex(BRAND_COLOR)(
             kebabCase(meta.plugin)
+          )}${chalk.grey(" > ")}`
+        : ""
+    }${
+      meta.source
+        ? `${chalk.bold.hex(BRAND_COLOR)(
+            kebabCase(meta.source)
           )}${chalk.grey(" > ")}`
         : ""
     }${
