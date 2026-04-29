@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.45.1](https://github.com/storm-software/powerlines/releases/tag/engine%400.45.1) (04/29/2026)
+
+### Bug Fixes
+
+- **engine:** Resolve issue with null reference in `setup` method ([6941a9016](https://github.com/storm-software/powerlines/commit/6941a9016))
+
 ## [0.45.0](https://github.com/storm-software/powerlines/releases/tag/engine%400.45.0) (04/29/2026)
 
 ### Bug Fixes

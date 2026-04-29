@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-automd",
-  "version": "0.1.449",
+  "version": "0.1.450",
   "private": false,
   "description": "A Powerlines plugin to maintain a project's markdown files using AutoMD generators.",
   "keywords": ["automd", "powerlines", "storm-software", "powerlines-plugin"],
