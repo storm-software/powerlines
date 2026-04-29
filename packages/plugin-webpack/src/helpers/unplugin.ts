@@ -22,6 +22,6 @@ import { WebpackPluginContext } from "../types/plugin";
 
 export function createWebpackPlugin(context: WebpackPluginContext) {
   return createWebpackUnplugin(
-    createUnplugin(context, { silenceHookLogging: true })
+    createUnplugin(context, { silenceHookLogging: true, name: "webpack" })
   )({});
 }

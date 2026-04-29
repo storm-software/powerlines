@@ -16,7 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { POWERLINES_API_FUNCTIONS } from "../constants/api";
+import { SUPPORTED_COMMANDS } from "../constants";
+import { BASE_API_FUNCTIONS, POWERLINES_API_FUNCTIONS } from "../constants/api";
 import {
   BuildInlineConfig,
   CleanInlineConfig,
@@ -43,6 +44,10 @@ import {
   InferHookReturnType
 } from "./hooks";
 import { WorkerProcess } from "./utils";
+
+export type BaseAPIFunctions = (typeof BASE_API_FUNCTIONS)[number];
+export type APIFunctions = (typeof POWERLINES_API_FUNCTIONS)[number];
+export type SupportedCommands = (typeof SUPPORTED_COMMANDS)[number];
 
 /**
  * The Powerlines Base API Interface

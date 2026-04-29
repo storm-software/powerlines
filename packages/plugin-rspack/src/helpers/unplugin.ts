@@ -22,6 +22,6 @@ import { RspackPluginContext } from "../types/plugin";
 
 export function createRspackPlugin(context: RspackPluginContext) {
   return createRspackUnplugin(
-    createUnplugin(context, { silenceHookLogging: true })
+    createUnplugin(context, { silenceHookLogging: true, name: "rspack" })
   )({});
 }

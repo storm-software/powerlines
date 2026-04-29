@@ -117,7 +117,9 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
 
   return () => {
     const logger = ctx.extendLogger(
-      name !== "powerlines" ? { source: name } : {}
+      !options.silenceHookLogging && name !== "powerlines"
+        ? { source: name }
+        : {}
     );
     logger.debug(`Initializing ${titleCase(name)} plugin`);
 

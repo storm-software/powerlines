@@ -22,6 +22,6 @@ import { TsdownPluginContext } from "../types/plugin";
 
 export function createTsdownPlugin(context: TsdownPluginContext) {
   return createRolldownPlugin(
-    createUnplugin(context, { silenceHookLogging: true })
+    createUnplugin(context, { silenceHookLogging: true, name: "tsdown" })
   )({});
 }

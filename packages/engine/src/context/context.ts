@@ -1587,10 +1587,7 @@ export class PowerlinesContext<
       }
     }
 
-    if (
-      this.config.output.dts !== false &&
-      this.config.output.types !== false
-    ) {
+    if (this.config.output.types !== false) {
       this.config.output.types = appendPath(
         replacePathTokens(
           this,
