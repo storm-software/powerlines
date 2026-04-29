@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.44.10](https://github.com/storm-software/powerlines/releases/tag/core%400.44.10) (04/29/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue applying context options to loggers ([5f37b0f3d](https://github.com/storm-software/powerlines/commit/5f37b0f3d))
+
 ## [0.44.9](https://github.com/storm-software/powerlines/releases/tag/core%400.44.9) (04/29/2026)
 
 ### Bug Fixes
