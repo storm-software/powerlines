@@ -59,6 +59,7 @@ export class PowerlinesEngineContext
           return {
             executionId,
             options: {
+              cwd: process.cwd(),
               ...context.options,
               executionId,
               executionIndex
@@ -77,6 +78,7 @@ export class PowerlinesEngineContext
         {
           executionId,
           options: {
+            cwd: process.cwd(),
             ...context.options,
             executionId,
             executionIndex: 0

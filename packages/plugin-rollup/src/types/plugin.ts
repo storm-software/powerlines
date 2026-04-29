@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type {
+  InitialPluginConfig,
   PluginContext,
   ResolvedConfig,
   UserConfig
@@ -28,6 +29,9 @@ export type RollupPluginOptions = Partial<RollupOptions>;
 export interface RollupPluginUserConfig extends UserConfig {
   rollup: RollupPluginOptions;
 }
+
+export type RollupPluginInitialConfig =
+  InitialPluginConfig<RollupPluginUserConfig>;
 
 export interface RollupPluginResolvedConfig extends ResolvedConfig {
   rollup: RollupOptions;

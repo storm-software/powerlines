@@ -16,14 +16,14 @@
 
  ------------------------------------------------------------------- */
 
-import type { MaybePromise, PartialKeys } from "@stryke/types/base";
+import type { MaybePromise } from "@stryke/types/base";
 import type {
   UnpluginOptions as BaseUnpluginOptions,
   HookFilter,
   UnpluginContextMeta
 } from "unplugin";
 import type { API } from "./api";
-import type { ExecutionOptions, InitialConfig } from "./config";
+import type { InitialConfig, InitialPluginConfig } from "./config";
 import type {
   Context,
   PluginContext,
@@ -106,12 +106,12 @@ export type UnpluginInitialConfig = InitialConfig<any> & {
 };
 
 export type UnpluginFactory<TContext extends Context = Context> = (
-  options: PartialKeys<ExecutionOptions, "executionId" | "executionIndex">,
+  options: InitialPluginConfig<TContext["config"]["userConfig"]>,
   meta: UnpluginContextMeta
 ) => UnpluginOptions<TContext>;
 
 export type UnpluginAsyncFactory<TContext extends Context = Context> = (
-  options: PartialKeys<ExecutionOptions, "executionId" | "executionIndex">,
+  options: InitialPluginConfig<TContext["config"]["userConfig"]>,
   meta: UnpluginContextMeta
 ) => Promise<UnpluginOptions<TContext>>;
 

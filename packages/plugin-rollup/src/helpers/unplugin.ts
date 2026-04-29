@@ -23,5 +23,5 @@ import { RollupPluginContext } from "../types/plugin";
 export function createRollupPlugin(context: RollupPluginContext) {
   return createEsbuildPlugin(
     createUnplugin(context, { silenceHookLogging: true, name: "rollup" })
-  )({});
+  )({ ...context.options, ...context.initialConfig });
 }

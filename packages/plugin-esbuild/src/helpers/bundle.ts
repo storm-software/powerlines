@@ -18,6 +18,7 @@
 
 import type {
   CreateUnpluginResolverOptions,
+  InitialPluginConfig,
   PluginContext,
   ResolveOptions
 } from "@powerlines/core";
@@ -83,7 +84,10 @@ export async function bundle<TContext extends PluginContext = PluginContext>(
               ),
               silenceHookLogging: true
             } as CreateUnpluginResolverOptions)
-          )({})
+          )({
+            ...context.options,
+            ...context.initialConfig
+          } as InitialPluginConfig<TContext["config"]["userConfig"]>)
         ]
       }
     )

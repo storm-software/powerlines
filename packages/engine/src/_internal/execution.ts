@@ -784,12 +784,12 @@ ${formatTypes(code)}
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
     options: ExecutionOptions,
-    initialConfig?: InitialConfig<any>
+    initialConfig?: InitialConfig<TResolvedConfig["userConfig"]>
   ): Promise<PowerlinesExecution<TResolvedConfig>> {
     const api = new PowerlinesExecution<TResolvedConfig>(
       await PowerlinesExecutionContext.init<TResolvedConfig>(
         options,
-        initialConfig ?? {}
+        initialConfig ?? ({} as InitialConfig<TResolvedConfig["userConfig"]>)
       )
     );
 

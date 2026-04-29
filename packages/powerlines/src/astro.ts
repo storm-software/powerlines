@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import type { VitePluginUserConfig } from "@powerlines/plugin-vite/types/plugin";
+import type { VitePluginInitialConfig } from "@powerlines/plugin-vite/types/plugin";
 import type { AstroUserConfig } from "astro";
 import { unplugin as vite } from "./vite";
 
@@ -37,9 +37,7 @@ import { unplugin as vite } from "./vite";
  *
  * ```
  */
-export const unplugin = (
-  config: Partial<VitePluginUserConfig> = {}
-): AstroUserConfig => ({
+export const unplugin = (config: VitePluginInitialConfig): AstroUserConfig => ({
   vite: {
     plugins: [vite(config)] as NonNullable<AstroUserConfig["vite"]>["plugins"]
   }

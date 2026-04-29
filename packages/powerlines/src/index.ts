@@ -52,7 +52,7 @@ export async function createEngine(
 export async function createAPI<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 >(options: EngineOptions): Promise<PowerlinesAPI<TResolvedConfig>> {
-  return PowerlinesAPI.init(options);
+  return PowerlinesAPI.init({ cwd: process.cwd(), ...options });
 }
 
 export { PowerlinesAPI, PowerlinesEngine };

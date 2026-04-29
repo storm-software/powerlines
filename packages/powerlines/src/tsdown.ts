@@ -60,6 +60,7 @@ export function unplugin(options: UserConfig = {}): UserConfig {
     entry: options.entry,
     plugins: [
       rolldown({
+        framework: "powerlines",
         name: options.name,
         root: options.cwd ?? process.cwd(),
         output: {

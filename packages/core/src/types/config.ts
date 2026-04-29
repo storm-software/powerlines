@@ -376,10 +376,10 @@ export interface EngineInputOptions {
 
 export type EngineOptions = RequiredKeys<
   EngineInputOptions,
-  "root" | "cwd" | "framework"
+  "root" | "framework"
 >;
 
-export interface ExecutionOptions extends EngineOptions {
+export interface ExecutionOptions extends RequiredKeys<EngineOptions, "cwd"> {
   /**
    * A unique identifier for the current execution instance, which can be used for logging and other purposes to distinguish between different executions in the same process.
    */
@@ -626,6 +626,9 @@ export type PowerlinesCommand =
  */
 export type InitialConfig<TUserConfig extends UserConfig = UserConfig> =
   DeepPartial<TUserConfig>;
+
+export type InitialPluginConfig<TUserConfig extends UserConfig = UserConfig> =
+  InitialConfig<TUserConfig> & EngineOptions;
 
 /**
  * The configuration provided while executing Powerlines commands.

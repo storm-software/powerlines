@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { RollupPluginUserConfig } from "@powerlines/plugin-rollup/types/plugin";
+import { RollupPluginInitialConfig } from "@powerlines/plugin-rollup/types/plugin";
 import { createRollupPlugin } from "unplugin";
 import { createUnpluginFactory } from "./unplugin";
 
@@ -41,6 +41,6 @@ export {
  * })
  * ```
  */
-export const unplugin = createRollupPlugin<Partial<RollupPluginUserConfig>>(
+export const unplugin = createRollupPlugin<RollupPluginInitialConfig>(
   createUnpluginFactory("rollup")
 );

@@ -19,7 +19,7 @@
 import { resolveOptions } from "@powerlines/plugin-rolldown/helpers/resolve-options";
 import {
   RolldownPluginContext,
-  RolldownPluginUserConfig
+  RolldownPluginInitialConfig
 } from "@powerlines/plugin-rolldown/types/plugin";
 import { defu } from "defu";
 import type { InputOptions } from "rolldown";
@@ -46,7 +46,7 @@ export {
  * })
  * ```
  */
-export const unplugin = createRolldownPlugin<Partial<RolldownPluginUserConfig>>(
+export const unplugin = createRolldownPlugin<RolldownPluginInitialConfig>(
   createUnpluginFactory<RolldownPluginContext>("rolldown", (api, plugin) => {
     return {
       ...plugin,

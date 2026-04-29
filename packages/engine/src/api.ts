@@ -68,7 +68,7 @@ export class PowerlinesAPI<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
     options: PartialKeys<ExecutionOptions, "executionId" | "executionIndex">,
-    initialConfig: InitialConfig<any> = {}
+    initialConfig?: InitialConfig<TResolvedConfig["userConfig"]>
   ): Promise<PowerlinesAPI<TResolvedConfig>> {
     const api = new PowerlinesAPI<TResolvedConfig>(
       await PowerlinesExecutionContext.init<TResolvedConfig>(
@@ -77,7 +77,7 @@ export class PowerlinesAPI<
           executionIndex: 0,
           ...options
         },
-        initialConfig
+        initialConfig ?? ({} as InitialConfig<TResolvedConfig["userConfig"]>)
       )
     );
 

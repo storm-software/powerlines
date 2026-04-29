@@ -1348,9 +1348,9 @@ export class PowerlinesContext<
    */
   protected override async init(
     options: ExecutionOptions,
-    initialConfig: InitialConfig<any>
+    initialConfig?: InitialConfig<any>
   ) {
-    await super.init(options, initialConfig);
+    await super.init(options, initialConfig ?? {});
 
     this.options.executionId = options.executionId ?? this.options.executionId;
     this.options.executionIndex =

@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { RspackPluginUserConfig } from "@powerlines/plugin-rspack/types/plugin";
+import { RspackPluginInitialConfig } from "@powerlines/plugin-rspack/types/plugin";
 import { createRspackPlugin } from "unplugin";
 import { createUnpluginFactory } from "./unplugin";
 
@@ -41,6 +41,6 @@ export {
  * }
  * ```
  */
-export const unplugin = createRspackPlugin<Partial<RspackPluginUserConfig>>(
+export const unplugin = createRspackPlugin<RspackPluginInitialConfig>(
   createUnpluginFactory("rspack")
 );

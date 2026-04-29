@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import {
-  ConfigEnv,
+  InitialPluginConfig,
   PluginContext,
   ResolvedConfig,
   UserConfig
@@ -30,6 +30,8 @@ export interface VitePluginUserConfig extends UserConfig {
   vite?: VitePluginOptions;
 }
 
+export type VitePluginInitialConfig = InitialPluginConfig<VitePluginUserConfig>;
+
 export interface VitePluginResolvedConfig extends ResolvedConfig {
   vite: ViteOptions;
 }
@@ -38,5 +40,4 @@ export type VitePluginContext<
   TResolvedConfig extends VitePluginResolvedConfig = VitePluginResolvedConfig
 > = PluginContext<TResolvedConfig> & {
   dev: boolean;
-  configEnv: ConfigEnv;
 };

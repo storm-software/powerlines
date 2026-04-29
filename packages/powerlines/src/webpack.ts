@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { WebpackPluginUserConfig } from "@powerlines/plugin-webpack/types/plugin";
+import { WebpackPluginInitialConfig } from "@powerlines/plugin-webpack/types/plugin";
 import { createWebpackPlugin } from "unplugin";
 import { createUnpluginFactory } from "./unplugin";
 
@@ -40,6 +40,6 @@ export {
  * }
  * ```
  */
-export const unplugin = createWebpackPlugin<Partial<WebpackPluginUserConfig>>(
+export const unplugin = createWebpackPlugin<WebpackPluginInitialConfig>(
   createUnpluginFactory("webpack")
 );

@@ -19,7 +19,7 @@
 import { resolveOptions } from "@powerlines/plugin-vite/helpers/resolve-options";
 import {
   ViteOptions,
-  VitePluginUserConfig
+  VitePluginInitialConfig
 } from "@powerlines/plugin-vite/types";
 import { isDevelopmentMode, isTestMode } from "@stryke/env/environment-checks";
 import defu from "defu";
@@ -44,7 +44,7 @@ export { default as plugin, default as vite } from "@powerlines/plugin-vite";
  *
  * ```
  */
-export const unplugin = createVitePlugin<Partial<VitePluginUserConfig>>(
+export const unplugin = createVitePlugin<VitePluginInitialConfig>(
   createUnpluginFactory("vite", (api, plugin) => {
     return {
       ...plugin,

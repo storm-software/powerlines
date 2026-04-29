@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { resolveOptions } from "@powerlines/plugin-esbuild/helpers/resolve-options";
-import { EsbuildPluginUserConfig } from "@powerlines/plugin-esbuild/types/plugin";
+import { EsbuildPluginInitialConfig } from "@powerlines/plugin-esbuild/types/plugin";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import type { BuildOptions, PluginBuild } from "esbuild";
 import { createEsbuildPlugin } from "unplugin";
@@ -44,7 +44,7 @@ export {
  *
  * ```
  */
-export const unplugin = createEsbuildPlugin<Partial<EsbuildPluginUserConfig>>(
+export const unplugin = createEsbuildPlugin<EsbuildPluginInitialConfig>(
   createUnpluginFactory("esbuild", (api, plugin) => {
     return {
       ...plugin,

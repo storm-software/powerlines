@@ -16,7 +16,12 @@
 
  ------------------------------------------------------------------- */
 
-import { PluginContext, ResolvedConfig, UserConfig } from "@powerlines/core";
+import {
+  InitialPluginConfig,
+  PluginContext,
+  ResolvedConfig,
+  UserConfig
+} from "@powerlines/core";
 import { RspackOptions } from "./build";
 
 export type RspackPluginOptions = Partial<RspackOptions>;
@@ -24,6 +29,9 @@ export type RspackPluginOptions = Partial<RspackOptions>;
 export interface RspackPluginUserConfig extends UserConfig {
   rspack?: RspackPluginOptions;
 }
+
+export type RspackPluginInitialConfig =
+  InitialPluginConfig<RspackPluginUserConfig>;
 
 export interface RspackPluginResolvedConfig extends ResolvedConfig {
   rspack: RspackOptions;
