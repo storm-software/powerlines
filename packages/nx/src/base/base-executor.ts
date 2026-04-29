@@ -104,7 +104,8 @@ export function withExecutor<
           {
             cwd: workspaceConfig.workspaceRoot,
             root: projectConfig.root,
-            configFile: options.configFile || options.config
+            configFile: options.configFile || options.config,
+            framework: "powerlines"
           },
           options,
           {

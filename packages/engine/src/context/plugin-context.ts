@@ -21,6 +21,8 @@ import type {
   EnvironmentContext,
   InferHookParameters,
   InferHookReturnType,
+  LoggerMessage,
+  LogLevel,
   Plugin,
   PluginContext,
   ResolvedConfig
@@ -29,6 +31,7 @@ import {
   Unstable_EnvironmentContext,
   Unstable_PluginContext
 } from "@powerlines/core/types/_internal";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isString } from "@stryke/type-checks/is-string";
 import { UnpluginMessage } from "unplugin";
 
@@ -47,13 +50,22 @@ export function createPluginContext<
   plugin: Plugin<PluginContext<TResolvedConfig>>,
   environment: Unstable_EnvironmentContext<TResolvedConfig>
 ): Unstable_PluginContext<TResolvedConfig> {
-  const normalizeMessage = (message: string | UnpluginMessage): string => {
-    return isString(message) ? message : message.message;
-  };
-
   const logger = environment.extendLogger({
-    plugin: plugin.name.replaceAll(":", " - ")
+    plugin: plugin.name
   });
+
+  const normalizeMessage = (
+    message: string | UnpluginMessage
+  ): LoggerMessage => {
+    return {
+      meta: {
+        ...(isSetObject(message) ? message.meta : {}),
+        environment: environment.environment?.name,
+        plugin: plugin.name
+      },
+      message: isString(message) ? message : message.message
+    };
+  };
 
   const callHookFn = async <TKey extends string>(
     hook: TKey,
@@ -93,6 +105,12 @@ export function createPluginContext<
 
       if (prop === "logger") {
         return logger;
+      }
+
+      if (prop === "log") {
+        return (type: LogLevel, message: string | UnpluginMessage) => {
+          logger.log(type, normalizeMessage(message));
+        };
       }
 
       if (prop === "fatal") {

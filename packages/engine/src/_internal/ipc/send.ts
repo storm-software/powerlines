@@ -16,50 +16,46 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  Context,
-  LogCategories,
-  LoggerMessage,
-  LogLevel
-} from "@powerlines/core";
+import { Context, LogCategories, LogFnMeta } from "@powerlines/core";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
-import { isSetString } from "@stryke/type-checks/is-set-string";
 import { uuid } from "@stryke/unique-id/uuid";
 import { IpcMessageType } from "./messages";
 
 export function sendWriteLogMessage<TContext extends Context = Context>(
   context: TContext,
-  type: LogLevel,
-  message: string | LoggerMessage
+  meta: LogFnMeta,
+  message: string
 ) {
-  const meta = {
-    ...(isSetObject(message) && isSetObject(message.meta) ? message.meta : {}),
-    ...context.logger.options
+  const combinedMeta = {
+    ...context.logger.options,
+    ...(isSetObject(meta) ? meta : { type: meta })
   };
 
   process.send?.({
     id: uuid(),
     type: IpcMessageType.WRITE_LOG,
-    executionId: meta.executionId ?? context.config.executionId,
-    executionIndex: meta.executionIndex ?? context.config.executionIndex,
-    environment: meta.environment,
+    executionId: combinedMeta.executionId || context.config.executionId,
+    executionIndex:
+      combinedMeta.executionIndex ?? context.config.executionIndex,
+    environment: combinedMeta.environment,
     timestamp: Date.now(),
     payload: {
       meta: {
-        type,
-        category: meta.category ?? LogCategories.GENERAL,
-        logId: meta.logId ?? uuid(),
-        timestamp: meta.timestamp ?? Date.now(),
-        name: meta.name ?? context.config.name,
-        executionId: meta.executionId ?? context.config.executionId,
-        executionIndex: meta.executionIndex ?? context.config.executionIndex,
-        command: meta.command ?? context.config.command,
-        hook: meta.hook,
-        environment: meta.environment,
-        plugin: meta.plugin,
-        source: meta.source
+        type: combinedMeta.type,
+        category: combinedMeta.category || LogCategories.GENERAL,
+        logId: combinedMeta.logId || uuid(),
+        timestamp: combinedMeta.timestamp ?? Date.now(),
+        name: combinedMeta.name || context.config.name,
+        executionId: combinedMeta.executionId || context.config.executionId,
+        executionIndex:
+          combinedMeta.executionIndex ?? context.config.executionIndex,
+        command: combinedMeta.command || context.config.command,
+        hook: combinedMeta.hook,
+        environment: combinedMeta.environment,
+        plugin: combinedMeta.plugin,
+        source: combinedMeta.source
       },
-      message: isSetString(message) ? message : message.message
+      message
     }
   });
 }

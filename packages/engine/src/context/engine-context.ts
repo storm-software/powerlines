@@ -56,7 +56,11 @@ export class PowerlinesEngineContext
 
           return {
             executionId,
-            options: { ...context.options, executionId, executionIndex },
+            options: {
+              ...context.options,
+              executionId,
+              executionIndex
+            },
             active: {
               command: null,
               hook: null,
@@ -70,7 +74,11 @@ export class PowerlinesEngineContext
       context.#executions = [
         {
           executionId,
-          options: { ...context.options, executionId, executionIndex: 0 },
+          options: {
+            ...context.options,
+            executionId,
+            executionIndex: 0
+          },
           active: {
             command: null,
             hook: null,

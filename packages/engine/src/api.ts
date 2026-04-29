@@ -22,8 +22,8 @@ import type {
   CleanInlineConfig,
   DeployInlineConfig,
   DocsInlineConfig,
-  EngineOptions,
   ExecutionContext,
+  ExecutionOptions,
   InlineConfig,
   LintInlineConfig,
   NewInlineConfig,
@@ -34,7 +34,6 @@ import type {
 } from "@powerlines/core";
 import { colorText } from "@powerlines/core/plugin-utils/logging";
 import { Unstable_ExecutionContext } from "@powerlines/core/types/_internal";
-import { isDevelopment, isTest } from "@stryke/env/environment-checks";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { PartialKeys } from "@stryke/types/base";
@@ -75,18 +74,14 @@ export class PowerlinesAPI<
   public static async fromOptions<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
-    options: EngineOptions,
+    options: PartialKeys<ExecutionOptions, "executionId" | "executionIndex">,
     override?: InlineConfig
   ): Promise<PowerlinesAPI<TResolvedConfig>> {
     const api = new PowerlinesAPI<TResolvedConfig>(
       await PowerlinesExecutionContext.fromOptions<TResolvedConfig>({
         executionId: uuid(),
-        cwd: process.cwd(),
-        mode: isDevelopment ? "development" : isTest ? "test" : "production",
-        framework: "powerlines",
-        logLevel: "info",
-        ...options,
-        executionIndex: 0
+        executionIndex: 0,
+        ...options
       })
     );
     if (override) {
@@ -190,7 +185,7 @@ export class PowerlinesAPI<
       | PartialKeys<DeployInlineConfig, "command"> = { command: "prepare" }
   ) {
     const timer = this.context.timer("Prepare");
-    this.context.info("🏗️  Preparing the Powerlines project");
+    this.context.info("🏗️ Preparing the Powerlines project");
 
     this.context.debug(
       " Aggregating configuration options for the Powerlines project"

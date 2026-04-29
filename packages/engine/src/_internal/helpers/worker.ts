@@ -454,8 +454,8 @@ export class Worker {
       const workerEnv: NodeJS.ProcessEnv = {
         ...process.env,
         ...((rest.forkOptions?.env ?? {}) as any),
-        POWERLINES_WORKER: "true",
-        NODE_OPTIONS: formattedNodeOptions
+        NODE_OPTIONS: formattedNodeOptions,
+        POWERLINES_WORKER_THREAD_EXECUTION: "true"
       };
 
       if (workerEnv.FORCE_COLOR === undefined) {

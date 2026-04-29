@@ -38,11 +38,11 @@ import type {
   PluginFactory,
   PrepareInlineConfig,
   ResolvedConfig,
-  ResolvedExecutionOptions,
   TestInlineConfig,
   TypesInlineConfig,
   TypesResult
 } from "@powerlines/core";
+import { ExecutionOptions } from "@powerlines/core";
 import { getTypescriptFileHeader } from "@powerlines/core/lib/utilities/file-header";
 import { format, formatFolder } from "@powerlines/core/lib/utilities/format";
 import {
@@ -789,7 +789,7 @@ ${formatTypes(code)}
   public static async fromConfig<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
-    options: ResolvedExecutionOptions,
+    options: ExecutionOptions,
     config: InlineConfig
   ): Promise<PowerlinesExecution<TResolvedConfig>> {
     const api = new PowerlinesExecution<TResolvedConfig>(

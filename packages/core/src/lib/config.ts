@@ -28,8 +28,8 @@ import { loadConfig as loadConfigC12 } from "c12";
 import defu from "defu";
 import type { Jiti } from "jiti";
 import type {
+  EngineOptions,
   ParsedUserConfig,
-  ResolvedEngineOptions,
   UserConfig,
   WorkspaceConfig
 } from "../types/config";
@@ -75,7 +75,7 @@ export async function loadWorkspaceConfig(
  * @returns A promise that resolves to the resolved user configuration.
  */
 export async function loadUserConfigFile(
-  options: ResolvedEngineOptions,
+  options: EngineOptions,
   jiti: Jiti
 ): Promise<ParsedUserConfig> {
   let resolvedUserConfig: Partial<ParsedUserConfig> = {};

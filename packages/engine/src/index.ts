@@ -181,7 +181,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     }
   ) {
     const timer = this.context.timer("Prepare");
-    this.context.info("🏗️  Preparing the Powerlines project");
+    this.context.info("🏗️ Preparing the Powerlines project");
 
     this.context.debug(
       "Aggregating configuration options for the Powerlines project"

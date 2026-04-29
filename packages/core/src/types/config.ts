@@ -22,7 +22,7 @@ import type {
   DeepPartial,
   MaybePromise,
   NonUndefined,
-  PartialKeys
+  RequiredKeys
 } from "@stryke/types/base";
 import {
   TypeDefinition,
@@ -319,7 +319,7 @@ export interface OutputConfig {
   storage?: StoragePort | StoragePreset;
 }
 
-export interface EngineOptions {
+export interface EngineInputOptions {
   /**
    * The name of the project
    */
@@ -328,7 +328,7 @@ export interface EngineOptions {
   /**
    * The root directory of the project
    */
-  root: string;
+  root?: string;
 
   /**
    * The current working directory the Powerlines processes should operate in
@@ -354,7 +354,7 @@ export interface EngineOptions {
    * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
    *
    * @remarks
-   * If no values are provided for {@link OutputConfig.dts | output.dts} or {@link OutputConfig.artifactsPath | output.artifactsFolder}, this value will be used as the default.
+   * If no values are provided for {@link OutputConfig.types | output.types} or {@link OutputConfig.artifactsPath | output.artifactsFolder}, this value will be used as the default.
    *
    * @defaultValue "powerlines"
    */
@@ -374,9 +374,9 @@ export interface EngineOptions {
   configFile?: string;
 }
 
-export type ResolvedEngineOptions = PartialKeys<
-  Required<EngineOptions>,
-  "organization" | "configFile" | "name" | "logLevel"
+export type EngineOptions = RequiredKeys<
+  EngineInputOptions,
+  "root" | "cwd" | "framework"
 >;
 
 export interface ExecutionOptions extends EngineOptions {
@@ -390,12 +390,6 @@ export interface ExecutionOptions extends EngineOptions {
    */
   executionIndex: number;
 }
-
-export type ResolvedExecutionOptions = Pick<
-  ExecutionOptions,
-  "executionIndex" | "executionId"
-> &
-  ResolvedEngineOptions;
 
 export interface Config {
   /**
@@ -719,7 +713,7 @@ export type DeployInlineConfig<TUserConfig extends UserConfig = UserConfig> =
   };
 
 export type UserConfigFn<TUserConfig extends UserConfig = UserConfig> = (
-  params: ResolvedEngineOptions
+  params: EngineOptions
 ) => MaybePromise<TUserConfig>;
 
 export type AnyOutputUserConfig = Partial<Omit<OutputConfig, "copy">> & {

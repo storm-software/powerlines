@@ -22,12 +22,12 @@ import {
   CleanInlineConfig,
   DeployInlineConfig,
   DocsInlineConfig,
+  ExecutionOptions,
   InlineConfig,
   LintInlineConfig,
   NewInlineConfig,
   PrepareInlineConfig,
   ResolvedConfig,
-  ResolvedExecutionOptions,
   TestInlineConfig,
   TypesInlineConfig
 } from "./config";
@@ -200,7 +200,7 @@ export interface ExecutionWorkerParams {
   /**
    * The execution options for the current execution instance
    */
-  options: ResolvedExecutionOptions;
+  options: ExecutionOptions;
 
   /**
    * The inline configuration for the current execution instance, which is the result of merging the user configuration with any configuration provided by plugins during the "config" hook.

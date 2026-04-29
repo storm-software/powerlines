@@ -53,11 +53,7 @@ import type {
 } from "nx/src/config/workspace-json-project-json.js";
 import type { PackageJson as PackageJsonNx } from "nx/src/utils/package-json.js";
 import { readTargetsFromPackageJson } from "nx/src/utils/package-json.js";
-import type {
-  ParsedUserConfig,
-  ResolvedEngineOptions,
-  UserConfig
-} from "powerlines";
+import type { EngineOptions, ParsedUserConfig, UserConfig } from "powerlines";
 import type { NxPluginOptions } from "../types/plugin";
 import { CONFIG_INPUTS } from "./constants";
 
@@ -116,7 +112,7 @@ export interface CreateNxPluginOptions {
 }
 
 type LoadUserConfigFileFunction = (
-  options: ResolvedEngineOptions,
+  options: EngineOptions,
   jiti: Jiti
 ) => Promise<ParsedUserConfig>;
 

@@ -137,7 +137,7 @@ export type LogFnMeta =
   | LogLevel
   | PartialKeys<LogMeta, "logId" | "timestamp" | "name" | "category">;
 
-export type LogFn = (meta: LogFnMeta, ...args: string[]) => void;
+export type LogFn = (meta: LogFnMeta, message: string) => void;
 
 export type LoggerMeta = PartialKeys<
   Omit<LogMeta, "type">,

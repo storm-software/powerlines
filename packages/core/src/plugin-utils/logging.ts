@@ -229,7 +229,7 @@ export const consoleLog = (meta: LogMeta, ...args: string[]) =>
     }
   )(
     `${meta.name ? chalk.bold.hex(BRAND_COLOR)(kebabCase(meta.name)) : ""}${meta.name ? chalk.grey(" > ") : ""}${
-      meta.command && kebabCase(meta.command)
+      meta.command
         ? `${chalk.bold.hex(BRAND_COLOR)(
             kebabCase(meta.command)
           )}${chalk.grey(" > ")}`
@@ -323,7 +323,7 @@ const validateLogger = (
   type: LogLevel,
   name: string,
   options: LoggerOptions,
-  callback: (message: string | LoggerMessage) => void
+  callback: (message: LoggerMessage) => void
 ) => {
   const logLevel = resolveLogLevel(options.logLevel, options.mode);
 
@@ -382,12 +382,12 @@ const validateCustomLogger = (
           name,
           plugin: options.plugin,
           meta: {
+            category: LogCategories.GENERAL,
+            ...options,
             type,
             name,
-            category: LogCategories.GENERAL,
             logId: uuid(),
-            timestamp: Date.now(),
-            ...options
+            timestamp: Date.now()
           },
           message
         }
@@ -396,13 +396,13 @@ const validateCustomLogger = (
           plugin: options.plugin,
           ...message,
           meta: {
+            category: LogCategories.GENERAL,
+            ...options,
             type,
             name,
-            category: LogCategories.GENERAL,
             logId: uuid(),
             timestamp: Date.now(),
             plugin: message.plugin,
-            ...options,
             ...message.meta
           }
         };
@@ -433,7 +433,7 @@ export const withLogger = (logger: Logger, secondaryLogger: Logger): Logger => {
       "error",
       options.name!,
       options,
-      (message: string | LoggerMessage) => {
+      (message: LoggerMessage) => {
         logger.error?.(message);
         secondaryLogger.error?.(message);
       }
@@ -442,7 +442,7 @@ export const withLogger = (logger: Logger, secondaryLogger: Logger): Logger => {
       "warn",
       options.name!,
       options,
-      (message: string | LoggerMessage) => {
+      (message: LoggerMessage) => {
         logger.warn?.(message);
         secondaryLogger.warn?.(message);
       }
@@ -451,7 +451,7 @@ export const withLogger = (logger: Logger, secondaryLogger: Logger): Logger => {
       "info",
       options.name!,
       options,
-      (message: string | LoggerMessage) => {
+      (message: LoggerMessage) => {
         logger.info?.(message);
         secondaryLogger.info?.(message);
       }
@@ -460,7 +460,7 @@ export const withLogger = (logger: Logger, secondaryLogger: Logger): Logger => {
       "debug",
       options.name!,
       options,
-      (message: string | LoggerMessage) => {
+      (message: LoggerMessage) => {
         logger.debug?.(message);
         secondaryLogger.debug?.(message);
       }
@@ -469,9 +469,144 @@ export const withLogger = (logger: Logger, secondaryLogger: Logger): Logger => {
       "trace",
       options.name!,
       options,
-      (message: string | LoggerMessage) => {
+      (message: LoggerMessage) => {
         logger.trace?.(message);
         secondaryLogger.trace?.(message);
+      }
+    )
+  } as Logger;
+
+  result.log = (type: LogLevel, message: string | LoggerMessage) => {
+    switch (type) {
+      case "error":
+        result.error(message);
+        break;
+      case "warn":
+        result.warn(message);
+        break;
+      case "info":
+        result.info(message);
+        break;
+      case "debug":
+        result.debug(message);
+        break;
+      case "trace":
+        result.trace(message);
+        break;
+      case "silent":
+        break;
+      default:
+        result.info(message);
+        break;
+    }
+  };
+
+  return result;
+};
+
+/**
+ * Create a logging function with a specific name and options.
+ *
+ * @param logger - The original logger to wrap with the custom logger.
+ * @param logFn - The custom logging function to use for logging messages, which can be used to override the default logging behavior of the original logger.
+ * @returns A new logger that combines the original logger's options with the custom logging function, allowing for customized logging behavior while still maintaining the original logger's configuration.
+ */
+export const withLogFn = (logger: Logger, logFn: LogFn): Logger => {
+  const result = {
+    options: logger.options,
+    error: validateLogger(
+      "error",
+      logger.options.name!,
+      logger.options,
+      (msg: LoggerMessage) => {
+        logger.error?.(msg);
+        logFn(
+          {
+            category: LogCategories.GENERAL,
+            ...logger.options,
+            type: "error",
+            logId: uuid(),
+            timestamp: Date.now(),
+            ...msg.meta
+          },
+          msg.message
+        );
+      }
+    ),
+    warn: validateLogger(
+      "warn",
+      logger.options.name!,
+      logger.options,
+      (msg: LoggerMessage) => {
+        logger.warn?.(msg);
+        logFn(
+          {
+            category: LogCategories.GENERAL,
+            ...logger.options,
+            type: "warn",
+            logId: uuid(),
+            timestamp: Date.now(),
+            ...msg.meta
+          },
+          msg.message
+        );
+      }
+    ),
+    info: validateLogger(
+      "info",
+      logger.options.name!,
+      logger.options,
+      (msg: LoggerMessage) => {
+        logger.info?.(msg);
+        logFn(
+          {
+            category: LogCategories.GENERAL,
+            ...logger.options,
+            type: "info",
+            logId: uuid(),
+            timestamp: Date.now(),
+            ...msg.meta
+          },
+          msg.message
+        );
+      }
+    ),
+    debug: validateLogger(
+      "debug",
+      logger.options.name!,
+      logger.options,
+      (msg: LoggerMessage) => {
+        logger.debug?.(msg);
+        logFn(
+          {
+            category: LogCategories.GENERAL,
+            ...logger.options,
+            type: "debug",
+            logId: uuid(),
+            timestamp: Date.now(),
+            ...msg.meta
+          },
+          msg.message
+        );
+      }
+    ),
+    trace: validateLogger(
+      "trace",
+      logger.options.name!,
+      logger.options,
+      (msg: LoggerMessage) => {
+        logger.trace?.(msg);
+        logFn(
+          {
+            category: LogCategories.GENERAL,
+            ...logger.options,
+            type: "trace",
+            logId: uuid(),
+            timestamp: Date.now(),
+            ...msg.meta
+          },
+          msg.message
+        );
       }
     )
   } as Logger;
@@ -582,26 +717,16 @@ export const withCustomLogger = (
   return result;
 };
 
-export const consoleLogger = (
-  type: LogLevel,
-  message: string | LoggerMessage
-) =>
+export const consoleLogger: LogFn = (meta: LogFnMeta, message: string) =>
   consoleLog(
-    isSetString(message)
-      ? {
-          type,
-          category: LogCategories.GENERAL,
-          logId: uuid(),
-          timestamp: Date.now()
-        }
-      : {
-          type,
-          category: LogCategories.GENERAL,
-          logId: uuid(),
-          timestamp: Date.now(),
-          ...message.meta
-        },
-    isSetString(message) ? message : message.message
+    {
+      type: isSetString(meta) ? meta : meta.type,
+      category: LogCategories.GENERAL,
+      logId: uuid(),
+      timestamp: Date.now(),
+      ...(isSetObject(meta) ? meta : {})
+    },
+    message
   );
 
 /**
@@ -614,27 +739,24 @@ export const consoleLogger = (
 export const createLogger = (
   name: string,
   options: LoggerOptions,
-  callback: (
-    type: LogLevel,
-    message: string | LoggerMessage
-  ) => void = consoleLogger
+  callback: LogFn = consoleLogger
 ): Logger => {
   const result = {
     options: { ...options, name },
-    error: validateLogger("error", name, { ...options, name }, message =>
-      callback("error", message)
+    error: validateLogger("error", name, { ...options, name }, data =>
+      callback({ ...data.meta, type: "error" }, data.message)
     ),
-    warn: validateLogger("warn", name, { ...options, name }, message =>
-      callback("warn", message)
+    warn: validateLogger("warn", name, { ...options, name }, data =>
+      callback({ ...data.meta, type: "warn" }, data.message)
     ),
-    info: validateLogger("info", name, { ...options, name }, message =>
-      callback("info", message)
+    info: validateLogger("info", name, { ...options, name }, data =>
+      callback({ ...data.meta, type: "info" }, data.message)
     ),
-    debug: validateLogger("debug", name, { ...options, name }, message =>
-      callback("debug", message)
+    debug: validateLogger("debug", name, { ...options, name }, data =>
+      callback({ ...data.meta, type: "debug" }, data.message)
     ),
-    trace: validateLogger("trace", name, { ...options, name }, message =>
-      callback("trace", message)
+    trace: validateLogger("trace", name, { ...options, name }, data =>
+      callback({ ...data.meta, type: "trace" }, data.message)
     )
   } as Logger;
 

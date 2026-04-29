@@ -25,7 +25,7 @@ export type CreateResolverOptions = Omit<
   JitiOptions,
   "fsCache" | "moduleCache" | "interopDefault"
 > &
-  Pick<ResolvedConfig, "mode" | "logLevel" | "skipCache"> & {
+  Partial<Pick<ResolvedConfig, "mode" | "skipCache">> & {
     workspaceRoot: string;
     root: string;
     cacheDir: string;

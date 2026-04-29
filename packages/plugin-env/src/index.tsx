@@ -196,6 +196,25 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           }, [] as string[])
         );
 
+        this.info({
+          meta: {
+            category: "env"
+          },
+          message: `Environment variable config: ${
+            config.env.types.file
+          }${config.env.types.name ? `#${config.env.types.name}` : ""}${
+            config.env.secrets
+              ? `\nSecrets config: ${config.env.secrets?.file}${
+                  config.env.secrets?.name ? `#${config.env.secrets?.name}` : ""
+                }`
+              : ""
+          }Prefixes: ${config.env.prefix.join(", ")}\nShould inject values: ${
+            config.env.inject ? "Yes" : "No"
+          }\nShould validate configuration: ${
+            config.env.validate ? "Yes" : "No"
+          }`
+        });
+
         return config;
       },
       async configResolved() {
@@ -233,8 +252,34 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
 
           this.env.types.env = await readEnvTypeReflection(this, "env");
 
+          this.debug({
+            meta: {
+              category: "env"
+            },
+            message: `Found the following environment configuration parameter definitions: \n${this.env.types.env
+              .getProperties()
+              .map(
+                prop =>
+                  `- ${prop.getNameAsString()} (aliases: ${prop.getAlias().join(", ")})`
+              )
+              .join("\n")}`
+          });
+
           if (existsSync(getEnvReflectionsPath(this, "env"))) {
             this.env.used.env = await readEnvReflection(this);
+
+            this.debug({
+              meta: {
+                category: "env"
+              },
+              message: `Found the following environment configuration parameters used in project: \n${this.env.used.env
+                .getProperties()
+                .map(
+                  prop =>
+                    `- ${prop.getNameAsString()} (aliases: ${prop.getAlias().join(", ")})`
+                )
+                .join("\n")}`
+            });
           }
 
           if (existsSync(getEnvTypeReflectionsPath(this, "secrets"))) {
@@ -242,10 +287,40 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
               this,
               "secrets"
             );
+
+            if (this.env.types.secrets.getProperties().length > 0) {
+              this.debug({
+                meta: {
+                  category: "env"
+                },
+                message: `Found the following secret configuration parameter definitions: \n${this.env.types.secrets
+                  .getProperties()
+                  .map(
+                    prop =>
+                      `- ${prop.getNameAsString()} (aliases: ${prop.getAlias().join(", ")})`
+                  )
+                  .join("\n")}`
+              });
+            }
           }
 
           if (existsSync(getEnvReflectionsPath(this, "secrets"))) {
             this.env.used.secrets = await readSecretsReflection(this);
+
+            if (this.env.used.secrets.getProperties().length > 0) {
+              this.debug({
+                meta: {
+                  category: "env"
+                },
+                message: `Found the following secret configuration parameters used in project: \n${this.env.used.secrets
+                  .getProperties()
+                  .map(
+                    prop =>
+                      `- ${prop.getNameAsString()} (aliases: ${prop.getAlias().join(", ")})`
+                  )
+                  .join("\n")}`
+              });
+            }
           }
         } else {
           this.debug(
@@ -263,6 +338,19 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             );
           }
 
+          this.debug({
+            meta: {
+              category: "env"
+            },
+            message: `Found the following environment configuration parameter definitions: \n${this.env.types.env
+              .getProperties()
+              .map(
+                prop =>
+                  `- ${prop.getNameAsString()} (aliases: ${prop.getAlias().join(", ")})`
+              )
+              .join("\n")}`
+          });
+
           await writeEnvTypeReflection(this, this.env.types.env, "env");
 
           this.env.types.secrets = await reflectSecrets(
@@ -276,15 +364,33 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             );
           }
 
+          if (this.env.types.secrets.getProperties().length > 0) {
+            this.debug({
+              meta: {
+                category: "env"
+              },
+              message: `Found the following secret configuration parameter definitions: \n${this.env.types.secrets
+                .getProperties()
+                .map(
+                  prop =>
+                    `- ${prop.getNameAsString()} (aliases: ${prop.getAlias().join(", ")})`
+                )
+                .join("\n")}`
+            });
+          }
+
           await writeEnvTypeReflection(this, this.env.types.secrets, "secrets");
 
-          this.debug(
-            `Resolved ${
+          this.info({
+            meta: {
+              category: "env"
+            },
+            message: `Resolved ${
               this.env.types.env.getProperties().length ?? 0
             } environment configuration parameters and ${
               this.env.types.secrets?.getProperties().length ?? 0
             } secret configuration parameters`
-          );
+          });
 
           const envWithAlias = this.env.types.env
             .getProperties()

@@ -21,7 +21,6 @@ import plugin from "@powerlines/plugin-plugin";
 import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
-  skipCache: true,
   input: [
     "src/index.tsx",
     "src/types/*.ts",
