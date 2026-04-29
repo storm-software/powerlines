@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Core
 
+## [0.44.9](https://github.com/storm-software/powerlines/releases/tag/core%400.44.9) (04/29/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue preventing IPC log messages from being written ([91b94162c](https://github.com/storm-software/powerlines/commit/91b94162c))
+- **core:** Resolve typing issue with engine options ([c92d928bb](https://github.com/storm-software/powerlines/commit/c92d928bb))
+
 ## [0.44.7](https://github.com/storm-software/powerlines/releases/tag/core%400.44.7) (04/28/2026)
 
 ### Miscellaneous

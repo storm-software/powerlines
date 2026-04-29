@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.44.9](https://github.com/storm-software/powerlines/releases/tag/engine%400.44.9) (04/29/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue preventing IPC log messages from being written ([91b94162c](https://github.com/storm-software/powerlines/commit/91b94162c))
+- **engine:** Resolve issue assigning framework configuration ([0b6c4b442](https://github.com/storm-software/powerlines/commit/0b6c4b442))
+
 ## [0.44.8](https://github.com/storm-software/powerlines/releases/tag/engine%400.44.8) (04/29/2026)
 
 ### Miscellaneous

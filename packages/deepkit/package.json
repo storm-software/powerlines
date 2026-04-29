@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/deepkit",
-  "version": "0.8.45",
+  "version": "0.8.46",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "keywords": ["deepkit", "powerlines", "storm-software"],
