@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.44.8](https://github.com/storm-software/powerlines/releases/tag/engine%400.44.8) (04/29/2026)
+
+### Miscellaneous
+
+- **engine:** Ensure correct category is applied to log messages ([3b56c5669](https://github.com/storm-software/powerlines/commit/3b56c5669))
+
 ## [0.44.7](https://github.com/storm-software/powerlines/releases/tag/engine%400.44.7) (04/28/2026)
 
 ### Miscellaneous
