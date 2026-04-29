@@ -187,7 +187,7 @@ export class PowerlinesContext<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
     options: ExecutionOptions,
-    initialConfig: InitialConfig<any>
+    initialConfig: InitialConfig<TResolvedConfig["userConfig"]>
   ): Promise<Context<TResolvedConfig>> {
     const context = new PowerlinesContext<TResolvedConfig>(options);
     await context.init(options, initialConfig);
@@ -1394,6 +1394,8 @@ export class PowerlinesContext<
       ...this.initialOptions,
       ...initialConfig,
       ...userConfig,
+      inlineConfig: {},
+      pluginConfig: {},
       initialConfig,
       userConfig
     };
@@ -1488,7 +1490,7 @@ export class PowerlinesContext<
       this.config.platform = "neutral";
     }
 
-    this.resolvedConfig.compatibilityDate = resolveCompatibilityDates(
+    this.config.compatibilityDate = resolveCompatibilityDates(
       this.config.inlineConfig.compatibilityDate ??
         this.config.userConfig.compatibilityDate ??
         this.config.initialConfig.compatibilityDate ??
