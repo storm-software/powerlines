@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.442](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.442) (04/29/2026)
+
+### Miscellaneous
+
+- **core:** Added `config` logging to the builder plugins ([2b9bd2509](https://github.com/storm-software/powerlines/commit/2b9bd2509))
+
+### Bug Fixes
+
+- **core:** Resolve issue applying build options to various builder packages ([93f8256b5](https://github.com/storm-software/powerlines/commit/93f8256b5))
+
 ## [0.5.441](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.441) (04/29/2026)
 
 ### Miscellaneous

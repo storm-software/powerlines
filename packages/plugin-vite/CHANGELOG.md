@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.442](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.442) (04/29/2026)
+
+### Miscellaneous
+
+- **core:** Added `config` logging to the builder plugins ([2b9bd2509](https://github.com/storm-software/powerlines/commit/2b9bd2509))
+
+### Bug Fixes
+
+- **core:** Resolve issue applying build options to various builder packages ([93f8256b5](https://github.com/storm-software/powerlines/commit/93f8256b5))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.445**
+- Updated **plugin-esbuild** to **v0.13.445**
+- Updated **plugin-rollup** to **v0.7.443**
+
 ## [0.14.441](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.441) (04/29/2026)
 
 ### Miscellaneous

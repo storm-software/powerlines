@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.445](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.445) (04/29/2026)
+
+### Miscellaneous
+
+- **core:** Added `config` logging to the builder plugins ([2b9bd2509](https://github.com/storm-software/powerlines/commit/2b9bd2509))
+
+### Bug Fixes
+
+- **core:** Resolve issue applying build options to various builder packages ([93f8256b5](https://github.com/storm-software/powerlines/commit/93f8256b5))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.443**
+- Updated **plugin-babel** to **v0.12.441**
+
 ## [0.7.444](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.444) (04/29/2026)
 
 ### Miscellaneous

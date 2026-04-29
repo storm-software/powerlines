@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.389](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.389) (04/29/2026)
+
+### Miscellaneous
+
+- **core:** Added `config` logging to the builder plugins ([2b9bd2509](https://github.com/storm-software/powerlines/commit/2b9bd2509))
+
+### Bug Fixes
+
+- **core:** Resolve issue applying build options to various builder packages ([93f8256b5](https://github.com/storm-software/powerlines/commit/93f8256b5))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.445**
+
 ## [0.1.388](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.388) (04/29/2026)
 
 ### Miscellaneous

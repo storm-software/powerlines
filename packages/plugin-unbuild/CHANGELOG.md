@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Unbuild
 
+## [0.5.444](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.444) (04/29/2026)
+
+### Miscellaneous
+
+- **core:** Added `config` logging to the builder plugins ([2b9bd2509](https://github.com/storm-software/powerlines/commit/2b9bd2509))
+
+### Bug Fixes
+
+- **core:** Resolve issue applying build options to various builder packages ([93f8256b5](https://github.com/storm-software/powerlines/commit/93f8256b5))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.443**
+
 ## [0.5.443](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.443) (04/29/2026)
 
 ### Updated Dependencies

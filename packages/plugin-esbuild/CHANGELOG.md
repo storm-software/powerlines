@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.445](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.445) (04/29/2026)
+
+### Miscellaneous
+
+- **core:** Added `config` logging to the builder plugins ([2b9bd2509](https://github.com/storm-software/powerlines/commit/2b9bd2509))
+
+### Bug Fixes
+
+- **core:** Resolve issue applying build options to various builder packages ([93f8256b5](https://github.com/storm-software/powerlines/commit/93f8256b5))
+
 ## [0.13.444](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.444) (04/29/2026)
 
 ### Miscellaneous

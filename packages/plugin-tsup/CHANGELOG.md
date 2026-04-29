@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.447](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.447) (04/29/2026)
+
+### Miscellaneous
+
+- **core:** Added `config` logging to the builder plugins ([2b9bd2509](https://github.com/storm-software/powerlines/commit/2b9bd2509))
+
+### Bug Fixes
+
+- **core:** Resolve issue applying build options to various builder packages ([93f8256b5](https://github.com/storm-software/powerlines/commit/93f8256b5))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.445**
+
 ## [0.12.446](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.446) (04/29/2026)
 
 ### Miscellaneous
