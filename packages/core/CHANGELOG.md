@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.44.11](https://github.com/storm-software/powerlines/releases/tag/core%400.44.11) (04/29/2026)
+
+### Miscellaneous
+
+- **engine:** Update config resolution logic to properly handle setting `output.types` ([726636ff0](https://github.com/storm-software/powerlines/commit/726636ff0))
+
 ## [0.44.10](https://github.com/storm-software/powerlines/releases/tag/core%400.44.10) (04/29/2026)
 
 ### Bug Fixes

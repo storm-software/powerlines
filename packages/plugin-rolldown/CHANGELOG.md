@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.444](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.444) (04/29/2026)
+
+### Miscellaneous
+
+- **engine:** Update config resolution logic to properly handle setting `output.types` ([726636ff0](https://github.com/storm-software/powerlines/commit/726636ff0))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.442**
+- Updated **plugin-babel** to **v0.12.440**
+
 ## [0.7.443](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.443) (04/29/2026)
 
 ### Updated Dependencies

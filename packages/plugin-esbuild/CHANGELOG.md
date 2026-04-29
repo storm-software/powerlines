@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.444](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.444) (04/29/2026)
+
+### Miscellaneous
+
+- **engine:** Update config resolution logic to properly handle setting `output.types` ([726636ff0](https://github.com/storm-software/powerlines/commit/726636ff0))
+
 ## [0.13.423](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.423) (04/26/2026)
 
 ### Updated Dependencies

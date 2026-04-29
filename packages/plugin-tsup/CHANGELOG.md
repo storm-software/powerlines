@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.446](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.446) (04/29/2026)
+
+### Miscellaneous
+
+- **engine:** Update config resolution logic to properly handle setting `output.types` ([726636ff0](https://github.com/storm-software/powerlines/commit/726636ff0))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.444**
+
 ## [0.12.445](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.445) (04/29/2026)
 
 ### Updated Dependencies

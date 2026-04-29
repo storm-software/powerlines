@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.388](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.388) (04/29/2026)
+
+### Miscellaneous
+
+- **engine:** Update config resolution logic to properly handle setting `output.types` ([726636ff0](https://github.com/storm-software/powerlines/commit/726636ff0))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.444**
+
 ## [0.1.387](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.387) (04/29/2026)
 
 ### Updated Dependencies

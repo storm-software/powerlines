@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.441](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.441) (04/29/2026)
+
+### Miscellaneous
+
+- **engine:** Update config resolution logic to properly handle setting `output.types` ([726636ff0](https://github.com/storm-software/powerlines/commit/726636ff0))
+
 ## [0.5.425](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.425) (04/26/2026)
 
 ### Miscellaneous

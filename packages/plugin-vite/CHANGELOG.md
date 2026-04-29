@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.441](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.441) (04/29/2026)
+
+### Miscellaneous
+
+- **engine:** Update config resolution logic to properly handle setting `output.types` ([726636ff0](https://github.com/storm-software/powerlines/commit/726636ff0))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.444**
+- Updated **plugin-esbuild** to **v0.13.444**
+- Updated **plugin-rollup** to **v0.7.442**
+
 ## [0.14.440](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.440) (04/29/2026)
 
 ### Updated Dependencies
