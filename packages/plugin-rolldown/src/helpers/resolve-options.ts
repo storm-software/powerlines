@@ -161,7 +161,12 @@ export function resolveOptions(context: Context): RolldownOptions {
       cache: !context.config.skipCache
         ? joinPaths(context.cachePath, "rolldown")
         : false,
-      logLevel: context.config.logLevel,
+      logLevel:
+        context.config.logLevel.general === "trace"
+          ? "debug"
+          : context.config.logLevel.general === "debug"
+            ? "warn"
+            : "error",
       onLog(level: "info" | "debug" | "warn", log: RollupLog) {
         if (log.message?.trim()) {
           if (level === "info") {
@@ -171,24 +176,19 @@ export function resolveOptions(context: Context): RolldownOptions {
           }
         }
       },
-      minify:
-        context.config.output.minify ?? context.config.mode === "production",
+      minify: context.config.output.minify,
       output: [
         {
           dir: context.config.output.path,
           format: "es",
           preserveModules: true,
-          sourcemap:
-            context.config.output.sourceMap ??
-            context.config.mode === "development"
+          sourcemap: context.config.output.sourceMap
         },
         {
           dir: context.config.output.path,
           format: "cjs",
           preserveModules: true,
-          sourcemap:
-            context.config.output.sourceMap ??
-            context.config.mode === "development"
+          sourcemap: context.config.output.sourceMap
         }
       ]
     },

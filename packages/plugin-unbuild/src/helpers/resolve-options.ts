@@ -27,7 +27,6 @@ import type {
 } from "@storm-software/unbuild/types";
 import { appendPath, relativePath } from "@stryke/path";
 import { joinPaths } from "@stryke/path/join-paths";
-import { isSet } from "@stryke/type-checks";
 import defu from "defu";
 import { transform } from "esbuild";
 import { TransformResult } from "unplugin";
@@ -212,11 +211,8 @@ export function resolveOptions(context: Context): ExternalUnbuildOptions {
       },
       rollup: resolveRollupOptions(context) as any,
       debug: context.config.mode === "development",
-      minify:
-        context.config.output.minify ?? context.config.mode !== "development",
-      sourcemap: isSet(context.config.output.sourceMap)
-        ? context.config.output.sourceMap
-        : context.config.mode === "development"
+      minify: context.config.output.minify,
+      sourcemap: context.config.output.sourceMap
     },
     DEFAULT_UNBUILD_CONFIG
   ) as ExternalUnbuildOptions;

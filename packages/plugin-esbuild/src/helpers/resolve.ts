@@ -77,8 +77,8 @@ export async function resolveModule<
         `The module "${moduleName}" could not be resolved while evaluating "${
           typeDefinition.file
         }". It is possible the required built-in modules have not yet been generated. Please check the order of your plugins. ${
-          context.config.logLevel === "debug" ||
-          context.config.logLevel === "trace"
+          context.config.logLevel.general === "debug" ||
+          context.config.logLevel.general === "trace"
             ? `
 
 Bundle output for module:
@@ -92,8 +92,8 @@ ${result.text}`
       `Failed to evaluate the bundled module for "${
         typeDefinition.file
       }". Error: ${(error as Error).message}${
-        context.config.logLevel === "debug" ||
-        context.config.logLevel === "trace"
+        context.config.logLevel.general === "debug" ||
+        context.config.logLevel.general === "trace"
           ? `
 
 Bundle output for module:

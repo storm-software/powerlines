@@ -73,10 +73,9 @@ export function resolveOptions(context: Context): ExternalRspackOptions {
       context: joinPaths(context.config.cwd, context.config.root),
       noExternal: context.builtins,
       cache: context.config.mode === "development",
-      devtool: context.config.mode !== "development" ? false : "source-map",
+      devtool: context.config.output.sourceMap ? "source-map" : false,
       optimization: {
-        minimize:
-          context.config.output.minify ?? context.config.mode !== "development"
+        minimize: context.config.output.minify
       }
     }
   ) as ExternalRspackOptions;

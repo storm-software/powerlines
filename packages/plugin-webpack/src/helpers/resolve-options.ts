@@ -75,8 +75,7 @@ export function resolveOptions(context: Context): ExternalWebpackOptions {
       noExternal: context.builtins,
       devtool: context.config.output.sourceMap ? "source-map" : false,
       optimization: {
-        minimize:
-          context.config.output.minify ?? context.config.mode !== "development"
+        minimize: context.config.output.minify
       }
     }
   ) as ExternalWebpackOptions;

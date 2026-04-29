@@ -138,18 +138,14 @@ export function resolveOptions(
       treeshake: (context.config as TsupPluginResolvedConfig).tsup
         ? (context.config as TsupPluginResolvedConfig).tsup?.treeshake
         : undefined,
-      minify:
-        context.config.output.minify ?? context.config.mode !== "development",
+      minify: context.config.output.minify,
       metafile: context.config.mode === "development",
-      sourcemap:
-        context.config.output.sourceMap ??
-        context.config.mode === "development",
+      sourcemap: context.config.output.sourceMap,
       silent:
-        context.config.logLevel === null ||
+        context.config.logLevel.general === "silent" ||
         context.config.mode === "production",
       verbose:
-        context.config.logLevel === null ||
-        context.config.logLevel === "trace" ||
+        context.config.logLevel.general === "trace" ||
         context.config.mode === "development",
       workspaceConfig: { workspaceRoot: context.config.cwd }
     },

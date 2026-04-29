@@ -18,6 +18,11 @@
 
 import { tryGetWorkspaceConfig } from "@storm-software/config-tools/get-config";
 import {
+  isDevelopmentMode,
+  isTestMode,
+  toMode
+} from "@stryke/env/environment-checks";
+import {
   loadEnv as loadEnvBase,
   loadEnvFile as loadEnvFileBase
 } from "@stryke/env/load-env";
@@ -69,7 +74,7 @@ async function loadEnvDirectory<
     loadEnvFiles<TEnv>(options, mode, directory),
     loadConfig({
       cwd: directory,
-      name: "storm",
+      name: context.config.framework,
       envName: mode,
       defaults: {
         NAME:
@@ -116,7 +121,9 @@ export function loadEnvFromContext(
       DEFAULT_LOCALE: workspaceConfig?.locale,
       DEFAULT_TIMEZONE: workspaceConfig?.timezone,
       LOG_LEVEL:
-        context.config.logLevel === "trace" ? "debug" : context.config.logLevel,
+        context.config.logLevel.general === "trace"
+          ? "debug"
+          : context.config.logLevel.general,
       ERROR_URL: workspaceConfig?.error?.url,
       ORGANIZATION:
         context.config.organization ||
@@ -124,9 +131,9 @@ export function loadEnvFromContext(
           ? workspaceConfig.organization.name
           : workspaceConfig?.organization),
       PLATFORM: context.config.platform,
-      MODE: context.config.mode,
-      TEST: context.config.mode === "test",
-      DEBUG: context.config.mode === "development",
+      MODE: toMode(context.config.mode),
+      TEST: isTestMode(context.config.mode),
+      DEBUG: isDevelopmentMode(context.config.mode),
       STACKTRACE: context.config.mode !== "production",
       ENVIRONMENT:
         !context.environment.name ||

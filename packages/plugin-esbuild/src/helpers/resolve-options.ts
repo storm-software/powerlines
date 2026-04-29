@@ -156,11 +156,9 @@ export { ${key} };`;
       platform: context.config.platform,
       outdir: context.config.output.path,
       tsconfig: context.tsconfig.tsconfigFilePath,
-      minify:
-        context.config.output.minify ?? context.config.mode !== "development",
+      minify: context.config.output.minify,
       metafile: context.config.mode === "development",
-      sourcemap:
-        context.config.output.sourceMap ?? context.config.mode === "development"
+      sourcemap: context.config.output.sourceMap
     },
     DEFAULT_ESBUILD_CONFIG
   ) as BuildOptions;

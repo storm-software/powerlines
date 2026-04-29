@@ -176,21 +176,26 @@ export function resolveOptions(context: Context): RollupOptions {
       cache: !context.config.skipCache
         ? joinPaths(context.cachePath, "rollup")
         : false,
-      logLevel: context.config.logLevel,
+      logLevel:
+        context.config.logLevel.general === "trace"
+          ? "debug"
+          : context.config.logLevel.general === "debug"
+            ? "warn"
+            : "error",
       output: [
         {
           dir: context.config.output.path,
           format: "es",
           entryFileNames: "[name].js",
           preserveModules: true,
-          sourcemap: context.config.mode === "development"
+          sourcemap: context.config.output.sourceMap
         },
         {
           dir: context.config.output.path,
           format: "cjs",
           entryFileNames: "[name].cjs",
           preserveModules: true,
-          sourcemap: context.config.mode === "development"
+          sourcemap: context.config.output.sourceMap
         }
       ]
     }

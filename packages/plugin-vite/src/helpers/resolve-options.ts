@@ -95,12 +95,9 @@ export function resolveOptions(context: Context): ViteOptions {
         context.config.mode === "development" ? "development" : "production",
       cacheDir: joinPaths(context.cachePath, "vite"),
       build: {
-        minify:
-          context.config.output.minify ?? context.config.mode !== "development",
+        minify: context.config.output.minify,
         metafile: context.config.mode === "development",
-        sourcemap:
-          context.config.output.sourceMap ??
-          context.config.mode === "development",
+        sourcemap: context.config.output.sourceMap,
         outDir: relativePath(
           appendPath(context.config.root, context.config.cwd),
           context.config.output.path
@@ -117,7 +114,13 @@ export function resolveOptions(context: Context): ViteOptions {
         rollupOptions: resolveRollupOptions(context),
         esbuildOptions: resolveEsbuildOptions(context)
       },
-      logLevel: context.config.logLevel ?? undefined,
+      logLevel:
+        context.config.logLevel.general === "trace"
+          ? "debug"
+          : context.config.logLevel.general === "debug"
+            ? "warn"
+            : "error",
+      clearScreen: true,
       envDir: context.config.root
     } as ViteOptions,
     DEFAULT_VITE_CONFIG

@@ -252,19 +252,16 @@ export function resolveOptions(context: Context): BuildOptions {
       treeshake: (context.config as TsdownPluginResolvedConfig)?.tsdown
         ? (context.config as TsdownPluginResolvedConfig)?.tsdown?.treeshake
         : undefined,
-      minify:
-        context.config.output.minify ?? context.config.mode === "production",
+      minify: context.config.output.minify,
       metafile: context.config.mode === "development",
-      sourcemap:
-        context.config.output.sourceMap ??
-        context.config.mode === "development",
+      sourcemap: context.config.output.sourceMap,
       debug: context.config.mode === "development",
       silent:
-        context.config.logLevel === null ||
+        context.config.logLevel.general === "silent" ||
         context.config.mode === "production",
-      logLevel: context.config.logLevel === "trace" ? "debug" : "error",
+      logLevel: context.config.logLevel.general === "trace" ? "debug" : "error",
       customLogger: {
-        level: context.config.logLevel === "trace" ? "debug" : "error",
+        level: context.config.logLevel.general === "trace" ? "debug" : "error",
         info: (...msgs: any[]) =>
           isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
           context.trace(formatMessage(context, ...msgs)),

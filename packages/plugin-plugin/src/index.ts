@@ -80,22 +80,6 @@ export const plugin = <
 
             this.config.input = input;
           }
-
-          // if (
-          //   !isSet(this.config.tsdown?.attw) &&
-          //   this.config.mode === "development"
-          // ) {
-          //   this.config.tsdown ??= {};
-          //   this.config.tsdown.attw = true;
-          // }
-
-          // if (
-          //   !isSet(this.config.tsdown?.publint) &&
-          //   this.config.mode === "development"
-          // ) {
-          //   this.config.tsdown ??= {};
-          //   this.config.tsdown.publint = true;
-          // }
         }
       }
     }
