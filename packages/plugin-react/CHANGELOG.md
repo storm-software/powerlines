@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.507](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.507) (04/29/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue applying context options to loggers ([5f37b0f3d](https://github.com/storm-software/powerlines/commit/5f37b0f3d))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.8.47**
+- Updated **plugin-plugin** to **v0.12.397**
+- Updated **plugin-alloy** to **v0.26.65**
+- Updated **plugin-babel** to **v0.12.439**
+- Updated **plugin-vite** to **v0.14.440**
+- Updated **plugin-env** to **v0.16.172**
+
 ## [0.1.506](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.506) (04/29/2026)
 
 ### Updated Dependencies

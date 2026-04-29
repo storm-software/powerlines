@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.172](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.172) (04/29/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue applying context options to loggers ([5f37b0f3d](https://github.com/storm-software/powerlines/commit/5f37b0f3d))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.8.47**
+- Updated **plugin-deepkit** to **v0.11.328**
+- Updated **plugin-automd** to **v0.1.446**
+- Updated **plugin-plugin** to **v0.12.397**
+- Updated **plugin-alloy** to **v0.26.65**
+- Updated **plugin-babel** to **v0.12.439**
+- Updated **plugin-tsc** to **v0.2.455**
+
 ## [0.16.171](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.171) (04/29/2026)
 
 ### Updated Dependencies

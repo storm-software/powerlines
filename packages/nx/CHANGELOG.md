@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.20](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.20) (04/29/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue applying context options to loggers ([5f37b0f3d](https://github.com/storm-software/powerlines/commit/5f37b0f3d))
+
 ## [0.13.6](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.6) (04/26/2026)
 
 ### Miscellaneous
