@@ -930,6 +930,9 @@
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
+  "peerDependencies": {
+    "@babel/preset-typescript": ">=8.0.0-rc3"
+  },
   "publishConfig": {
     "access": "public"
   }
