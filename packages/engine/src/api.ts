@@ -106,17 +106,24 @@ export class PowerlinesAPI<
     }
 
     if (api.context.plugins.length === 0) {
-      api.context.warn(
-        "No Powerlines plugins were specified in the options. Please ensure this is correct, as it is generally not recommended."
-      );
+      api.context.warn({
+        meta: {
+          category: "plugins"
+        },
+        message:
+          "No Powerlines plugins were specified in the options. Please ensure this is correct, as it is generally not recommended."
+      });
     } else {
-      api.context.info(
-        `Loaded ${api.context.plugins.length} ${titleCase(
+      api.context.info({
+        meta: {
+          category: "plugins"
+        },
+        message: `Loaded ${api.context.plugins.length} ${titleCase(
           api.context.config.framework
         )} plugin${api.context.plugins.length > 1 ? "s" : ""}: \n${api.context.plugins
           .map((plugin, index) => ` ${index + 1}. ${colorText(plugin.name)}`)
           .join("\n")}`
-      );
+      });
     }
 
     const pluginConfig = await api.callHook("config", {
@@ -151,7 +158,7 @@ export class PowerlinesAPI<
   ) {
     const timer = this.context.timer("Types");
     this.context.info(
-      " 🏗️  Generating typescript declarations for the Powerlines project"
+      "🏗️  Generating typescript declarations for the Powerlines project"
     );
 
     await super.types(inlineConfig);
@@ -183,7 +190,7 @@ export class PowerlinesAPI<
       | PartialKeys<DeployInlineConfig, "command"> = { command: "prepare" }
   ) {
     const timer = this.context.timer("Prepare");
-    this.context.info(" 🏗️  Preparing the Powerlines project");
+    this.context.info("🏗️  Preparing the Powerlines project");
 
     this.context.debug(
       " Aggregating configuration options for the Powerlines project"
@@ -208,7 +215,7 @@ export class PowerlinesAPI<
     inlineConfig: PartialKeys<NewInlineConfig, "command">
   ) {
     const timer = this.context.timer("New");
-    this.context.info(" 🆕 Creating a new Powerlines project");
+    this.context.info("🆕 Creating a new Powerlines project");
 
     await super.new(inlineConfig);
 
@@ -253,7 +260,7 @@ export class PowerlinesAPI<
       | PartialKeys<BuildInlineConfig, "command"> = { command: "lint" }
   ) {
     const timer = this.context.timer("Lint");
-    this.context.info(" 📝 Linting the Powerlines project");
+    this.context.info("📝 Linting the Powerlines project");
 
     await super.lint(inlineConfig);
 
@@ -276,7 +283,7 @@ export class PowerlinesAPI<
       | PartialKeys<BuildInlineConfig, "command"> = { command: "test" }
   ) {
     const timer = this.context.timer("Test");
-    this.context.info(" 🧪 Running tests for the Powerlines project");
+    this.context.info("🧪 Running tests for the Powerlines project");
 
     await super.test(inlineConfig);
 
@@ -299,7 +306,7 @@ export class PowerlinesAPI<
     }
   ) {
     const timer = this.context.timer("Build");
-    this.context.info(" 📦 Building the Powerlines project");
+    this.context.info("📦 Building the Powerlines project");
 
     await super.build(inlineConfig);
 
@@ -317,9 +324,7 @@ export class PowerlinesAPI<
     inlineConfig: DocsInlineConfig = { command: "docs" }
   ) {
     const timer = this.context.timer("Docs");
-    this.context.info(
-      " 📓 Generating documentation for the Powerlines project"
-    );
+    this.context.info("📓 Generating documentation for the Powerlines project");
 
     await super.docs(inlineConfig);
 
@@ -343,7 +348,7 @@ export class PowerlinesAPI<
     }
   ) {
     const timer = this.context.timer("Deploy");
-    this.context.info(" 🚀 Deploying the Powerlines project");
+    this.context.info("🚀 Deploying the Powerlines project");
 
     await super.deploy(inlineConfig);
 
@@ -361,7 +366,7 @@ export class PowerlinesAPI<
    */
   public override async finalize() {
     const timer = this.context.timer("Finalization");
-    this.context.info(" 🏁 Powerlines finalization processes started");
+    this.context.info("🏁 Powerlines finalization processes started");
 
     await super.finalize();
 

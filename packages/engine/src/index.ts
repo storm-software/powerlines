@@ -136,7 +136,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
   ) {
     const timer = this.context.timer("Types");
     this.context.info(
-      " 🏗️  Generating typescript declarations for the Powerlines project"
+      "🏗️  Generating typescript declarations for the Powerlines project"
     );
 
     this.context.debug(
@@ -181,7 +181,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     }
   ) {
     const timer = this.context.timer("Prepare");
-    this.context.info(" 🏗️  Preparing the Powerlines project");
+    this.context.info("🏗️  Preparing the Powerlines project");
 
     this.context.debug(
       "Aggregating configuration options for the Powerlines project"
@@ -212,7 +212,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    */
   public async new(inlineConfig: PartialKeys<NewInlineConfig, "command">) {
     const timer = this.context.timer("New");
-    this.context.info(" 🆕 Creating a new Powerlines project");
+    this.context.info("🆕 Creating a new Powerlines project");
 
     inlineConfig.command ??= "new";
     await Promise.all(
@@ -245,7 +245,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     }
   ) {
     const timer = this.context.timer("Clean");
-    this.context.info(" 🧹 Cleaning the previous Powerlines artifacts");
+    this.context.info("🧹 Cleaning the previous Powerlines artifacts");
 
     inlineConfig.command ??= "clean";
     await Promise.all(
@@ -275,7 +275,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     }
   ) {
     const timer = this.context.timer("Lint");
-    this.context.info(" 📝 Linting the Powerlines project");
+    this.context.info("📝 Linting the Powerlines project");
 
     inlineConfig.command ??= "lint";
     await Promise.all(
@@ -308,7 +308,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     }
   ) {
     const timer = this.context.timer("Test");
-    this.context.info(" 🧪 Running tests for the Powerlines project");
+    this.context.info("🧪 Running tests for the Powerlines project");
 
     inlineConfig.command ??= "test";
     await Promise.all(
@@ -342,7 +342,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     }
   ) {
     const timer = this.context.timer("Build");
-    this.context.info(" 📦 Building the Powerlines project");
+    this.context.info("📦 Building the Powerlines project");
 
     await Promise.all(
       this.#context.executions.map(async execution =>
@@ -372,9 +372,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     }
   ) {
     const timer = this.context.timer("Docs");
-    this.context.info(
-      " 📓 Generating documentation for the Powerlines project"
-    );
+    this.context.info("📓 Generating documentation for the Powerlines project");
 
     inlineConfig.command ??= "docs";
 
@@ -410,7 +408,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     }
   ) {
     const timer = this.context.timer("Deploy");
-    this.context.info(" 🚀 Deploying the Powerlines project");
+    this.context.info("🚀 Deploying the Powerlines project");
 
     inlineConfig.command ??= "deploy";
 
@@ -437,7 +435,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    */
   public async finalize() {
     const timer = this.context.timer("Finalization");
-    this.context.info(" 🏁 Powerlines finalization processes started");
+    this.context.info("🏁 Powerlines finalization processes started");
 
     this.#worker.close();
 
@@ -452,9 +450,16 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
     return this.finalize();
   }
 
+  /**
+   * Handle incoming IPC messages from the worker processes, routing them to the appropriate handlers based on the message type.
+   *
+   * @param message - The IPC message received from a worker process
+   */
   private async handleIpcMessage(message: IpcMessage) {
     switch (message.type) {
-      case IpcMessageType.WRITE_LOG:
+      case IpcMessageType.WRITE_LOG: {
+        const payload = parseWriteLogMessagePayload(message.payload);
+
         this.context.logger.debug({
           meta: {
             category: "ipc",
@@ -462,16 +467,19 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
             executionIndex: message.executionIndex,
             environment: message.environment
           },
-          message: 'Received a "write-log" IPC message from worker'
+          message: `Received a "write-log" IPC message from worker:
+Type: ${payload.meta.type}
+Message: ${toArray(payload.message).filter(Boolean).join("\n")}`
         });
 
         await this.handleWriteLog({
           ...message,
           type: IpcMessageType.WRITE_LOG,
-          payload: parseWriteLogMessagePayload(message.payload)
+          payload
         });
 
         break;
+      }
 
       case IpcMessageType.UPDATE_COMMAND:
         this.context.logger.debug({
@@ -481,7 +489,11 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
             executionIndex: message.executionIndex,
             environment: message.environment
           },
-          message: 'Received an "update-command" IPC message from worker'
+          message: `Received an "update-command" IPC message from worker: \n${JSON.stringify(
+            message,
+            null,
+            2
+          )}`
         });
 
         await this.handleUpdateCommand({
@@ -500,7 +512,11 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
             executionIndex: message.executionIndex,
             environment: message.environment
           },
-          message: 'Received an "update-hook" IPC message from worker'
+          message: `Received an "update-hook" IPC message from worker: \n${JSON.stringify(
+            message,
+            null,
+            2
+          )}`
         });
 
         await this.handleUpdateHook({
@@ -519,7 +535,11 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
             executionIndex: message.executionIndex,
             environment: message.environment
           },
-          message: 'Received an "update-plugin" IPC message from worker'
+          message: `Received an "update-plugin" IPC message from worker: \n${JSON.stringify(
+            message,
+            null,
+            2
+          )}`
         });
 
         await this.handleUpdatePlugin({

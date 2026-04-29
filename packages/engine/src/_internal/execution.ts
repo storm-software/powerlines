@@ -812,17 +812,24 @@ ${formatTypes(code)}
     }
 
     if (api.context.plugins.length === 0) {
-      api.context.warn(
-        "No Powerlines plugins were specified in the options. Please ensure this is correct, as it is generally not recommended."
-      );
+      api.context.warn({
+        meta: {
+          category: "plugins"
+        },
+        message:
+          "No Powerlines plugins were specified in the options. Please ensure this is correct, as it is generally not recommended."
+      });
     } else {
-      api.context.info(
-        `Loaded ${api.context.plugins.length} ${titleCase(
+      api.context.info({
+        meta: {
+          category: "plugins"
+        },
+        message: `Loaded ${api.context.plugins.length} ${titleCase(
           api.context.config.framework
         )} plugin${api.context.plugins.length > 1 ? "s" : ""}: \n${api.context.plugins
           .map((plugin, index) => ` ${index + 1}. ${colorText(plugin.name)}`)
           .join("\n")}`
-      );
+      });
     }
 
     const pluginConfig = await api.callHook("config", {
@@ -1428,11 +1435,14 @@ ${formatTypes(code)}
       }
 
       for (const plugin of result) {
-        this.context.debug(
-          `Successfully initialized the ${chalk.bold.cyanBright(
+        this.context.debug({
+          meta: {
+            category: "plugins"
+          },
+          message: `Successfully initialized the ${chalk.bold.cyanBright(
             plugin.name
           )} plugin`
-        );
+        });
 
         await this.context.addPlugin(plugin);
       }

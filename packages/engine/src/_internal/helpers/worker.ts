@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Logger } from "@powerlines/core";
+import { ExecutionWorkerParams, Logger } from "@powerlines/core";
 import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isString } from "@stryke/type-checks/is-string";
@@ -478,9 +478,29 @@ export class Worker {
       this.#worker = new JestWorker(workerPath, {
         maxRetries: 0,
         numWorkers: cpus().length ?? 3,
+        computeWorkerKey: (method: string, ...args: Array<unknown>) => {
+          let executionParams: {
+            method?: string;
+            executionIndex?: number;
+            name?: string;
+          } = { method };
+          if (args.length > 0 && isSetObject(args[0])) {
+            const arg = args[0] as Partial<ExecutionWorkerParams>;
+            if (isSetObject(arg.options)) {
+              executionParams = {
+                method,
+                executionIndex: arg.options.executionIndex ?? 0,
+                name: arg.options.name
+              };
+            }
+          }
+
+          return JSON.stringify(executionParams);
+        },
         ...rest,
         forkOptions: {
           ...rest.forkOptions,
+          silent: true,
           execArgv: [...execArgv, ...(rest.forkOptions?.execArgv ?? [])],
           env: workerEnv
         }
