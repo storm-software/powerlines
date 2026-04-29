@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.44.6](https://github.com/storm-software/powerlines/releases/tag/core%400.44.6) (04/28/2026)
+
+### Miscellaneous
+
+- **core:** Updated logging display and level defaults ([849734251](https://github.com/storm-software/powerlines/commit/849734251))
+
 ## [0.44.5](https://github.com/storm-software/powerlines/releases/tag/core%400.44.5) (04/28/2026)
 
 ### Bug Fixes
