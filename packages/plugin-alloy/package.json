@@ -931,7 +931,7 @@
     "@types/node": "catalog:"
   },
   "peerDependencies": {
-    "@babel/preset-typescript": ">=8.0.0-rc3"
+    "@babel/preset-typescript": ">=8.0.0-rc4"
   },
   "publishConfig": {
     "access": "public"
