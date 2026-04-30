@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.45.2](https://github.com/storm-software/powerlines/releases/tag/engine%400.45.2) (04/29/2026)
+
+### Miscellaneous
+
+- **plugin-babel:** Upgrade babel packages versions to 8.0.0-rc.4 ([bd7b6e8bb](https://github.com/storm-software/powerlines/commit/bd7b6e8bb))
+
 ## [0.45.1](https://github.com/storm-software/powerlines/releases/tag/engine%400.45.1) (04/29/2026)
 
 ### Bug Fixes

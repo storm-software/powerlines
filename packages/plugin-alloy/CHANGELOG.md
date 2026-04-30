@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.70](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.70) (04/29/2026)
+
+### Miscellaneous
+
+- **plugin-babel:** Upgrade babel packages versions to 8.0.0-rc.4 ([bd7b6e8bb](https://github.com/storm-software/powerlines/commit/bd7b6e8bb))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.8.52**
+- Updated **plugin-plugin** to **v0.12.402**
+- Updated **plugin-babel** to **v0.12.444**
+
 ## [0.26.69](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.69) (04/29/2026)
 
 ### Updated Dependencies

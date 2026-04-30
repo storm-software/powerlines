@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.444](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.444) (04/29/2026)
+
+### Miscellaneous
+
+- **plugin-babel:** Upgrade babel packages versions to 8.0.0-rc.4 ([bd7b6e8bb](https://github.com/storm-software/powerlines/commit/bd7b6e8bb))
+
 ## [0.12.436](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.436) (04/28/2026)
 
 ### Miscellaneous
