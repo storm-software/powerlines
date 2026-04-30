@@ -1275,11 +1275,6 @@ export class PowerlinesContext<
       }
     ) as TResolvedConfig;
 
-    this.config.plugins = (this.config.initialConfig.plugins ?? []).concat(
-      this.config.userConfig.plugins ?? [],
-      this.config.inlineConfig.plugins ?? []
-    );
-
     await this.innerSetup();
   }
 
@@ -1411,6 +1406,11 @@ export class PowerlinesContext<
    */
   protected async innerSetup(): Promise<void> {
     const logger = this.extendLogger({ category: "config" });
+
+    this.config.plugins = (this.config.initialConfig.plugins ?? []).concat(
+      this.config.userConfig.plugins ?? [],
+      this.config.inlineConfig.plugins ?? []
+    );
 
     this.config.output = defu(this.config.output ?? {}, {
       copy: {

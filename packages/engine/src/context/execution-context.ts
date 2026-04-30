@@ -83,6 +83,7 @@ export class PowerlinesExecutionContext<
     }
     context.powerlinesPath = powerlinesPath;
 
+    await context.setup();
     return context;
   }
 
