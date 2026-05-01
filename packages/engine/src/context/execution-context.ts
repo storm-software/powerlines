@@ -39,6 +39,7 @@ import { existsSync } from "@stryke/fs/exists";
 import { readJsonFile } from "@stryke/fs/json";
 import { deepClone } from "@stryke/helpers/deep-clone";
 import { joinPaths } from "@stryke/path/join";
+import { isObject } from "@stryke/type-checks/is-object";
 import { PackageJson } from "@stryke/types/package-json";
 import chalk from "chalk";
 import {
@@ -263,6 +264,8 @@ export class PowerlinesExecutionContext<
         ) as EnvironmentResolvedConfig<TResolvedConfig>["environment"]
       );
 
+    context.$$internal = this.$$internal;
+
     context.dependencies = deepClone<typeof this.dependencies>(
       this.dependencies
     );
@@ -279,11 +282,33 @@ export class PowerlinesExecutionContext<
     context.powerlinesPath ??= this.powerlinesPath;
     context.resolver ??= this.resolver;
 
-    context.$$internal = this.$$internal;
-
     context.plugins = [];
     for (const plugin of this.plugins) {
       await context.addPlugin(plugin);
+    }
+
+    for (const [key, value] of Object.entries(this)) {
+      if (
+        ![
+          "fs",
+          "$$internal",
+          "dependencies",
+          "devDependencies",
+          "persistedMeta",
+          "packageJson",
+          "projectJson",
+          "tsconfig",
+          "resolver",
+          "plugins",
+          "environments"
+        ].includes(key)
+      ) {
+        if (isObject(value) || Array.isArray(value)) {
+          (context as any)[key] = deepClone(value);
+        } else {
+          (context as any)[key] = value;
+        }
+      }
     }
 
     return context;

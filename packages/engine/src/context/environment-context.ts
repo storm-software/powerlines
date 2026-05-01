@@ -230,15 +230,15 @@ export class PowerlinesEnvironmentContext<
         : plugin;
     }
 
-    const pluginId = uuid();
+    const id = uuid();
     const context = createPluginContext<TResolvedConfig>(
-      pluginId,
+      id,
       resolvedPlugin,
       this
     );
 
     this.plugins.push({
-      pluginId,
+      id,
       plugin: resolvedPlugin,
       context
     });
