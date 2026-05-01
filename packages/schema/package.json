@@ -1,0 +1,92 @@
+{
+  "name": "@powerlines/schema",
+  "version": "0.0.1",
+  "private": false,
+  "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
+  "keywords": [
+    "zod",
+    "valibot",
+    "deepkit",
+    "ajv",
+    "standard-schema",
+    "json-schema",
+    "powerlines",
+    "storm-software"
+  ],
+  "homepage": "https://stormsoftware.com",
+  "bugs": {
+    "url": "https://stormsoftware.com/support",
+    "email": "support@stormsoftware.com"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/schema"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Storm Software",
+    "email": "contact@stormsoftware.com",
+    "url": "https://stormsoftware.com"
+  },
+  "maintainers": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./reflect": {
+      "import": "./dist/reflect.mjs",
+      "require": "./dist/reflect.cjs"
+    },
+    "./types": {
+      "import": "./dist/types.mjs",
+      "require": "./dist/types.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "typings": "dist/index.d.mts",
+  "files": ["dist/**/*"],
+  "dependencies": {
+    "@powerlines/core": "workspace:*",
+    "@powerlines/deepkit": "workspace:*",
+    "@powerlines/plugin-rolldown": "workspace:*",
+    "@stryke/fs": "catalog:",
+    "@stryke/helpers": "catalog:",
+    "@stryke/json": "catalog:",
+    "@stryke/path": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "@stryke/types": "catalog:",
+    "defu": "catalog:",
+    "jiti": "catalog:",
+    "rolldown": "catalog:",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
