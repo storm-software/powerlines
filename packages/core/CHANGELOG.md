@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Core
 
+## [0.46.1](https://github.com/storm-software/powerlines/releases/tag/core%400.46.1) (05/01/2026)
+
+### Miscellaneous
+
+- **core:** Mark configuration nodes on context with `DeepReadonly` ([ee87f8e1a](https://github.com/storm-software/powerlines/commit/ee87f8e1a))
+- **engine:** Added logic to ensure `package.json` and `project.json` files are loaded ([5b887a88e](https://github.com/storm-software/powerlines/commit/5b887a88e))
+
 ## [0.46.0](https://github.com/storm-software/powerlines/releases/tag/core%400.46.0) (05/01/2026)
 
 ### Features
