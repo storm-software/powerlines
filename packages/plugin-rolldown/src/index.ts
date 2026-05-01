@@ -64,7 +64,7 @@ export const plugin = <
         resolveOptions(this)
       );
 
-      this.trace({
+      this.debug({
         meta: {
           category: "config"
         },

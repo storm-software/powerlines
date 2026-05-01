@@ -67,7 +67,7 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
         })
       );
 
-      this.trace({
+      this.debug({
         meta: {
           category: "config"
         },

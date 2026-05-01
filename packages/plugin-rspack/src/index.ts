@@ -69,7 +69,7 @@ export const plugin = <
         }
       );
 
-      this.trace({
+      this.debug({
         meta: {
           category: "config"
         },

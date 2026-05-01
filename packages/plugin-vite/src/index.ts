@@ -90,7 +90,7 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
         }
       );
 
-      this.trace({
+      this.debug({
         meta: {
           category: "config"
         },

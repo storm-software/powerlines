@@ -169,7 +169,7 @@ export class PowerlinesEnvironmentContext<
   protected async setEnvironmentConfig(
     config: EnvironmentResolvedConfig<TResolvedConfig>["environment"]
   ): Promise<void> {
-    this.logger.debug({
+    this.logger.trace({
       meta: { category: "config" },
       message: `Updating environment configuration object: \n${this.logConfig(config)}`
     });

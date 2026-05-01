@@ -1226,7 +1226,7 @@ export class PowerlinesContext<
   public async setInlineConfig(
     config: TResolvedConfig["inlineConfig"]
   ): Promise<void> {
-    this.logger.debug({
+    this.logger.trace({
       meta: { category: "config" },
       message: `Updating inline configuration object: \n${this.logConfig(config)}`
     });
@@ -1244,7 +1244,7 @@ export class PowerlinesContext<
   public async setPluginConfig(
     config: TResolvedConfig["pluginConfig"]
   ): Promise<void> {
-    this.logger.debug({
+    this.logger.trace({
       meta: { category: "config" },
       message: `Updating plugin configuration object: \n${this.logConfig(config)}`
     });
@@ -1264,6 +1264,7 @@ export class PowerlinesContext<
         mode: this.initialOptions.mode,
         framework: this.initialOptions.framework,
         initialOptions: this.initialOptions,
+        logLevel: this.initialOptions.logLevel,
         options: this.options,
         inlineConfig: this.inlineConfig,
         userConfig: this.userConfig,
@@ -1271,7 +1272,7 @@ export class PowerlinesContext<
         pluginConfig: this.pluginConfig
       },
       getConfigProps<TResolvedConfig>(this.overriddenConfig),
-      omit(this.options, ["mode", "framework"]),
+      omit(this.options, ["mode", "framework", "logLevel"]),
       getConfigProps<TResolvedConfig>(this.inlineConfig),
       getConfigProps<TResolvedConfig>(this.userConfig),
       getConfigProps<TResolvedConfig>(this.initialConfig),
@@ -1296,7 +1297,7 @@ export class PowerlinesContext<
   protected async setUserConfig(
     config: TResolvedConfig["userConfig"]
   ): Promise<void> {
-    this.logger.debug({
+    this.logger.trace({
       meta: { category: "config" },
       message: `Updating user configuration object: \n${this.logConfig(config)}`
     });
@@ -1467,6 +1468,8 @@ export class PowerlinesContext<
         mergedConfig.logLevel = DEFAULT_PRODUCTION_LOG_LEVEL;
       }
     }
+
+    mergedConfig.logLevel = resolveLogLevel(mergedConfig.logLevel);
 
     if (mergedConfig.tsconfig) {
       mergedConfig.tsconfig = replacePath(
