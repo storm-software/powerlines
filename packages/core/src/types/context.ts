@@ -298,14 +298,6 @@ export interface BaseContext {
    * @returns A logger client instance that extends the current logger with the provided configuration options.
    */
   extendLogger: (options: LoggerOptions, logFn?: LogFn) => Logger;
-
-  /**
-   * A function to create a deep clone of the context
-   *
-   * @remarks
-   * This function is used to create a copy of the context for a specific environment, allowing for environment-specific modifications without affecting the global context.
-   */
-  clone: () => Promise<BaseContext>;
 }
 
 export interface ExecutionStateItem {

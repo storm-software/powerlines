@@ -1395,6 +1395,10 @@ export class PowerlinesContext<
       "latest"
     );
 
+    if (!this.packageJson) {
+      await this.resolvePackageConfigs();
+    }
+
     this.resolvedConfig = mergedConfig;
     this.#configProxy = this.createConfigProxy();
 

@@ -125,21 +125,6 @@ export class PowerlinesBaseContext implements BaseContext {
   }
 
   /**
-   * Creates a clone of the current context with the same configuration and workspace settings. This can be useful for running multiple builds in parallel or for creating isolated contexts for different parts of the build process.
-   *
-   * @remarks
-   * The cloned context will have the same configuration and workspace settings as the original context, but will have a different build ID, release ID, and timestamp. The virtual file system and caches will also be separate between the original and cloned contexts.
-   *
-   * @returns A promise that resolves to the cloned context.
-   */
-  public async clone(): Promise<BaseContext> {
-    const clone = new PowerlinesBaseContext(this.options, this.initialConfig);
-    await clone.init();
-
-    return clone;
-  }
-
-  /**
    * A logging function for fatal messages
    *
    * @param message - The message to log.
@@ -358,24 +343,7 @@ export class PowerlinesBaseContext implements BaseContext {
       mode: this.options.mode
     });
 
-    const projectJsonPath = joinPaths(
-      appendPath(this.options.root, this.options.cwd),
-      "project.json"
-    );
-    if (existsSync(projectJsonPath)) {
-      this.projectJson = await readJsonFile(projectJsonPath);
-    }
-
-    const packageJsonPath = joinPaths(
-      appendPath(this.options.root, this.options.cwd),
-      "package.json"
-    );
-    if (existsSync(packageJsonPath)) {
-      this.packageJson = await readJsonFile<PackageJson>(packageJsonPath);
-      this.options.organization ??= isSetObject(this.packageJson?.author)
-        ? kebabCase(this.packageJson?.author?.name)
-        : kebabCase(this.packageJson?.author);
-    }
+    await this.resolvePackageConfigs();
 
     this.configFile = await loadUserConfigFile(this.options, this.resolver);
     if (this.configFile.config) {
@@ -408,6 +376,35 @@ export class PowerlinesBaseContext implements BaseContext {
       if (!this.options.name) {
         this.options.name = this.projectJson?.name || this.packageJson?.name;
       }
+    }
+  }
+
+  /**
+   * Resolve the package configurations for the project by loading the `package.json` and `project.json` files, if they exist. This function will look for these files in the project root and parse their contents as JavaScript objects. The parsed contents will be stored in the context for later use by plugins and other parts of the build process.
+   *
+   * @remarks
+   * The `package.json` file is typically used to store metadata about the project, such as its name, version, dependencies, and other information. The `project.json` file is an optional file that can be used to store additional configuration or metadata specific to the project, and is not required for all projects.
+   *
+   * @returns A promise that resolves when the package configurations have been loaded and stored in the context.
+   */
+  protected async resolvePackageConfigs() {
+    const projectJsonPath = joinPaths(
+      appendPath(this.options.root, this.options.cwd),
+      "project.json"
+    );
+    if (existsSync(projectJsonPath)) {
+      this.projectJson = await readJsonFile(projectJsonPath);
+    }
+
+    const packageJsonPath = joinPaths(
+      appendPath(this.options.root, this.options.cwd),
+      "package.json"
+    );
+    if (existsSync(packageJsonPath)) {
+      this.packageJson = await readJsonFile<PackageJson>(packageJsonPath);
+      this.options.organization ??= isSetObject(this.packageJson?.author)
+        ? kebabCase(this.packageJson?.author?.name)
+        : kebabCase(this.packageJson?.author);
     }
   }
 
