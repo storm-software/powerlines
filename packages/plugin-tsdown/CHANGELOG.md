@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.397](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.397) (05/01/2026)
+
+### Bug Fixes
+
+- **engine:** Ensure `logLevel` is correctly resolved in context ([d69c058eb](https://github.com/storm-software/powerlines/commit/d69c058eb))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.453**
+
 ## [0.1.396](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.396) (05/01/2026)
 
 ### Updated Dependencies

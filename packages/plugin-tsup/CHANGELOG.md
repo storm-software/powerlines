@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.455](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.455) (05/01/2026)
+
+### Bug Fixes
+
+- **engine:** Ensure `logLevel` is correctly resolved in context ([d69c058eb](https://github.com/storm-software/powerlines/commit/d69c058eb))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.453**
+
 ## [0.12.454](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.454) (05/01/2026)
 
 ### Updated Dependencies

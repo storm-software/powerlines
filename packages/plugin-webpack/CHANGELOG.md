@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Webpack
 
+## [0.5.450](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.450) (05/01/2026)
+
+### Bug Fixes
+
+- **engine:** Ensure `logLevel` is correctly resolved in context ([d69c058eb](https://github.com/storm-software/powerlines/commit/d69c058eb))
+
 ## [0.5.443](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.443) (04/29/2026)
 
 ### Bug Fixes

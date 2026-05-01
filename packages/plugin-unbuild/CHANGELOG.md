@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Unbuild
 
+## [0.5.452](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.452) (05/01/2026)
+
+### Bug Fixes
+
+- **engine:** Ensure `logLevel` is correctly resolved in context ([d69c058eb](https://github.com/storm-software/powerlines/commit/d69c058eb))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.451**
+
 ## [0.5.451](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.451) (05/01/2026)
 
 ### Updated Dependencies
