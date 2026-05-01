@@ -393,17 +393,25 @@ export class PowerlinesBaseContext implements BaseContext {
     cwd: string = this.options.cwd,
     root: string = this.options.root
   ) {
-    const projectJsonPath = joinPaths(appendPath(root, cwd), "project.json");
-    if (existsSync(projectJsonPath)) {
-      this.projectJson = await readJsonFile(projectJsonPath);
-    }
+    if (cwd || root) {
+      const projectJsonPath = joinPaths(
+        appendPath(root || ".", cwd || "."),
+        "project.json"
+      );
+      if (existsSync(projectJsonPath)) {
+        this.projectJson = await readJsonFile(projectJsonPath);
+      }
 
-    const packageJsonPath = joinPaths(appendPath(root, cwd), "package.json");
-    if (existsSync(packageJsonPath)) {
-      this.packageJson = await readJsonFile<PackageJson>(packageJsonPath);
-      this.options.organization ??= isSetObject(this.packageJson?.author)
-        ? kebabCase(this.packageJson?.author?.name)
-        : kebabCase(this.packageJson?.author);
+      const packageJsonPath = joinPaths(
+        appendPath(root || ".", cwd || "."),
+        "package.json"
+      );
+      if (existsSync(packageJsonPath)) {
+        this.packageJson = await readJsonFile<PackageJson>(packageJsonPath);
+        this.options.organization ??= isSetObject(this.packageJson?.author)
+          ? kebabCase(this.packageJson?.author?.name)
+          : kebabCase(this.packageJson?.author);
+      }
     }
   }
 

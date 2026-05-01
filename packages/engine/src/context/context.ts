@@ -58,6 +58,7 @@ import {
 } from "@powerlines/core/lib/entry";
 import {
   createLogger,
+  getPackageJsonOrganization,
   isDuplicate,
   isPlugin,
   mergeConfig,
@@ -1438,7 +1439,12 @@ export class PowerlinesContext<
           )
         ))
     ) {
-      await this.resolvePackageConfigs();
+      await this.resolvePackageConfigs(mergedConfig.cwd, mergedConfig.root);
+
+      if (this.packageJson) {
+        mergedConfig.organization ??=
+          getPackageJsonOrganization(this.packageJson) || "powerlines";
+      }
     }
 
     if (isUndefined(mergedConfig.projectType)) {

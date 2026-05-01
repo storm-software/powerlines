@@ -19,6 +19,7 @@
 import { tryGetWorkspaceConfig } from "@storm-software/config-tools/get-config";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
+import { PackageJson } from "@stryke/types/package-json";
 import { UnresolvedContext } from "../types/context";
 
 /**
@@ -30,59 +31,70 @@ import { UnresolvedContext } from "../types/context";
 export function getOrganizationName(
   context: UnresolvedContext
 ): string | undefined {
+  if (isSetString(context.config.organization)) {
+    return context.config.organization;
+  }
+
+  return getPackageJsonOrganization(context.packageJson);
+}
+
+/**
+ * Get the organization name from the `package.json` file
+ *
+ * @param packageJson - The `package.json` object to extract the organization name from.
+ * @returns The organization name or undefined if not found.
+ */
+export function getPackageJsonOrganization(
+  packageJson: PackageJson
+): string | undefined {
   let result: string | undefined;
-  if (!result && isSetString(context.config.organization)) {
-    result = context.config.organization;
-  }
-
   if (
-    !result &&
-    Array.isArray(context.packageJson.maintainers) &&
-    context.packageJson.maintainers.length > 0
+    Array.isArray(packageJson.maintainers) &&
+    packageJson.maintainers.length > 0
   ) {
-    if (isSetObject(context.packageJson.maintainers[0])) {
-      result = (context.packageJson.maintainers[0] as { name: string }).name;
+    if (isSetObject(packageJson.maintainers[0])) {
+      result = (packageJson.maintainers[0] as { name: string }).name;
     }
 
-    if (!result && isSetString(context.packageJson.maintainers[0])) {
-      result = context.packageJson.maintainers[0];
+    if (!result && isSetString(packageJson.maintainers[0])) {
+      result = packageJson.maintainers[0];
     }
   }
 
   if (
     !result &&
-    Array.isArray(context.packageJson.author) &&
-    context.packageJson.author.length > 0
+    Array.isArray(packageJson.author) &&
+    packageJson.author.length > 0
   ) {
-    if (isSetObject(context.packageJson.author[0])) {
-      result = (context.packageJson.author[0] as { name: string }).name;
+    if (isSetObject(packageJson.author[0])) {
+      result = (packageJson.author[0] as { name: string }).name;
     }
 
-    if (!result && isSetString(context.packageJson.author[0])) {
-      result = context.packageJson.author[0];
+    if (!result && isSetString(packageJson.author[0])) {
+      result = packageJson.author[0];
     }
   }
 
   if (
     !result &&
-    Array.isArray(context.packageJson.contributors) &&
-    context.packageJson.contributors.length > 0
+    Array.isArray(packageJson.contributors) &&
+    packageJson.contributors.length > 0
   ) {
-    if (isSetObject(context.packageJson.contributors[0])) {
-      result = (context.packageJson.contributors[0] as { name: string }).name;
+    if (isSetObject(packageJson.contributors[0])) {
+      result = (packageJson.contributors[0] as { name: string }).name;
     }
 
-    if (!result && isSetString(context.packageJson.contributors[0])) {
-      result = context.packageJson.contributors[0];
+    if (!result && isSetString(packageJson.contributors[0])) {
+      result = packageJson.contributors[0];
     }
   }
 
-  if (!result && isSetString(context.packageJson.namespace)) {
-    result = context.packageJson.namespace.replace(/^@/, "");
+  if (!result && isSetString(packageJson.namespace)) {
+    result = packageJson.namespace?.replace(/^@/, "");
   }
 
-  if (!result && isSetString(context.packageJson.name)) {
-    result = context.packageJson.name.replace(/^@/, "").replace(/\/.*$/, "");
+  if (!result && isSetString(packageJson.name)) {
+    result = packageJson.name.replace(/^@/, "").replace(/\/.*$/, "");
   }
 
   return result;
