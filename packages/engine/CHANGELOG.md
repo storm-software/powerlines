@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.46.2](https://github.com/storm-software/powerlines/releases/tag/engine%400.46.2) (05/01/2026)
+
+### Bug Fixes
+
+- **engine:** Resolve issue overriding config values incorrectly during cloning ([0b3dc5c06](https://github.com/storm-software/powerlines/commit/0b3dc5c06))
+
 ## [0.46.1](https://github.com/storm-software/powerlines/releases/tag/engine%400.46.1) (05/01/2026)
 
 ### Miscellaneous

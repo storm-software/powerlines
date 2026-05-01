@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.181](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.181) (05/01/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Enable `config` logging for package ([8886d9a05](https://github.com/storm-software/powerlines/commit/8886d9a05))
+
+### Bug Fixes
+
+- **engine:** Resolve issue overriding config values incorrectly during cloning ([0b3dc5c06](https://github.com/storm-software/powerlines/commit/0b3dc5c06))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.8.56**
+- Updated **plugin-deepkit** to **v0.11.337**
+- Updated **plugin-automd** to **v0.1.455**
+- Updated **plugin-plugin** to **v0.12.406**
+- Updated **plugin-alloy** to **v0.26.74**
+- Updated **plugin-babel** to **v0.12.448**
+- Updated **plugin-tsc** to **v0.2.464**
+
 ## [0.16.180](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.180) (05/01/2026)
 
 ### Updated Dependencies
