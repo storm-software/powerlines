@@ -1337,6 +1337,23 @@ export class PowerlinesContext<
   }
 
   /**
+   * Resolve the package configurations for the project by loading the `package.json` and `project.json` files, if they exist. This function will look for these files in the project root and parse their contents as JavaScript objects. The parsed contents will be stored in the context for later use by plugins and other parts of the build process.
+   *
+   * @remarks
+   * The `package.json` file is typically used to store metadata about the project, such as its name, version, dependencies, and other information. The `project.json` file is an optional file that can be used to store additional configuration or metadata specific to the project, and is not required for all projects.
+   *
+   * @param cwd - The current working directory to look for the package configurations. Defaults to the `cwd` specified in the context configuration.
+   * @param root - The root directory of the project to look for the package configurations. Defaults to the `root` specified in the context configuration.
+   * @returns A promise that resolves when the package configurations have been loaded and stored in the context.
+   */
+  protected override async resolvePackageConfigs(
+    cwd: string = this.config.cwd,
+    root: string = this.config.root
+  ) {
+    return super.resolvePackageConfigs(cwd, root);
+  }
+
+  /**
    * Initialize the context with the provided configuration options
    */
   protected async resolveConfig(): Promise<void> {
@@ -1395,12 +1412,12 @@ export class PowerlinesContext<
       "latest"
     );
 
+    this.resolvedConfig = mergedConfig;
+    this.#configProxy = this.createConfigProxy();
+
     if (!this.packageJson) {
       await this.resolvePackageConfigs();
     }
-
-    this.resolvedConfig = mergedConfig;
-    this.#configProxy = this.createConfigProxy();
 
     mergedConfig.input = getUniqueInputs(mergedConfig.input);
 

@@ -20,6 +20,7 @@ import type { Format } from "@storm-software/build-tools/types";
 import type { StormWorkspaceConfig } from "@storm-software/config/types";
 import type {
   DeepPartial,
+  DeepReadonly,
   MaybePromise,
   NonUndefined,
   RequiredKeys
@@ -875,22 +876,22 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
      * @remarks
      * This configuration is used during the initialization of the Powerlines API.
      */
-    readonly initialConfig: DeepPartial<TUserConfig>;
+    readonly initialConfig: DeepReadonly<DeepPartial<TUserConfig>>;
 
     /**
      * The configuration options read from a configuration file on disk, which may be used to resolve the final configuration for the context. This typically includes the user configuration options defined in the `powerlines.config.ts` file, as well as any inline configuration options provided during execution.
      */
-    readonly userConfig: TUserConfig;
+    readonly userConfig: DeepReadonly<TUserConfig>;
 
     /**
      * The configuration options that were provided by Powerlines plugins, which may have been merged with the user configuration and modified by the configuration loading process.
      */
-    readonly pluginConfig: DeepPartial<TUserConfig>;
+    readonly pluginConfig: DeepReadonly<DeepPartial<TUserConfig>>;
 
     /**
      * The configuration options provided by plugins added by the user (and other plugins)
      */
-    readonly inlineConfig: InlineConfig<TUserConfig>;
+    readonly inlineConfig: DeepReadonly<InlineConfig<TUserConfig>>;
 
     /**
      * The current working directory the Powerlines processes should operate in
@@ -899,6 +900,11 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
      * If not provided, the {@link WorkspaceConfig.workspaceRoot | workspace root} will be used as the current working directory. If the workspace root cannot be determined, the process's current working directory will be used.
      */
     readonly cwd: string;
+
+    /**
+     * A string identifier for the Powerlines command being executed.
+     */
+    readonly command: NonUndefined<InlineConfig<TUserConfig>["command"]>;
 
     /**
      * A path to a custom configuration file to be used instead of the default `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` files.
@@ -929,11 +935,6 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
      * @see https://github.com/unjs/compatx
      */
     compatibilityDate: CompatibilityDates;
-
-    /**
-     * A string identifier for the Powerlines command being executed.
-     */
-    readonly command: NonUndefined<InlineConfig<TUserConfig>["command"]>;
 
     /**
      * The log level label indicating the severity of the log message, or a more detailed log level configuration object that allows for specifying different log levels for different categories of logs.
@@ -971,7 +972,7 @@ export type EnvironmentResolvedConfig<
    * @remarks
    * This configuration is used during the initialization of the Powerlines API.
    */
-  readonly environmentConfig: EnvironmentConfig;
+  readonly environmentConfig: DeepReadonly<EnvironmentConfig>;
 
   /**
    * The resolved configuration options for the environment, which may include additional properties or modifications made during the configuration loading process.

@@ -831,7 +831,9 @@ export class PowerlinesExecution<
     }
 
     this.context.debug(
-      `Found ${Object.keys(this.context.config.environments).length} configured environment(s) for this Powerlines project.`
+      `Found ${
+        Object.keys(this.context.config.environments).length
+      } configured environment(s) for this Powerlines project.`
     );
 
     return (

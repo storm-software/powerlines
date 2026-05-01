@@ -385,21 +385,20 @@ export class PowerlinesBaseContext implements BaseContext {
    * @remarks
    * The `package.json` file is typically used to store metadata about the project, such as its name, version, dependencies, and other information. The `project.json` file is an optional file that can be used to store additional configuration or metadata specific to the project, and is not required for all projects.
    *
+   * @param cwd - The current working directory to look for the package configurations. Defaults to the `cwd` specified in the context configuration.
+   * @param root - The root directory of the project to look for the package configurations. Defaults to the `root` specified in the context configuration.
    * @returns A promise that resolves when the package configurations have been loaded and stored in the context.
    */
-  protected async resolvePackageConfigs() {
-    const projectJsonPath = joinPaths(
-      appendPath(this.options.root, this.options.cwd),
-      "project.json"
-    );
+  protected async resolvePackageConfigs(
+    cwd: string = this.options.cwd,
+    root: string = this.options.root
+  ) {
+    const projectJsonPath = joinPaths(appendPath(root, cwd), "project.json");
     if (existsSync(projectJsonPath)) {
       this.projectJson = await readJsonFile(projectJsonPath);
     }
 
-    const packageJsonPath = joinPaths(
-      appendPath(this.options.root, this.options.cwd),
-      "package.json"
-    );
+    const packageJsonPath = joinPaths(appendPath(root, cwd), "package.json");
     if (existsSync(packageJsonPath)) {
       this.packageJson = await readJsonFile<PackageJson>(packageJsonPath);
       this.options.organization ??= isSetObject(this.packageJson?.author)

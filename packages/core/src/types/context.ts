@@ -18,7 +18,7 @@
 
 import type { EnvPaths } from "@stryke/env/get-env-paths";
 import { FetchRequestOptions } from "@stryke/http/fetch";
-import { DeepPartial, RequiredKeys } from "@stryke/types/base";
+import { DeepPartial, DeepReadonly, RequiredKeys } from "@stryke/types/base";
 import type { PackageJson } from "@stryke/types/package-json";
 import type { Jiti } from "jiti";
 import type MagicString from "magic-string";
@@ -421,12 +421,12 @@ export interface UnresolvedContext<
       /**
        * The original configuration options that were provided by the user to the Powerlines process, which may be used during the configuration resolution process to ensure that the final configuration is properly merged and applied to the context. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
        */
-      readonly initialConfig: TResolvedConfig["initialConfig"];
+      readonly initialConfig: DeepReadonly<TResolvedConfig["initialConfig"]>;
 
       /**
        * The configuration options that were provided inline to the Powerlines CLI.
        */
-      readonly inlineConfig: TResolvedConfig["inlineConfig"];
+      readonly inlineConfig: DeepReadonly<TResolvedConfig["inlineConfig"]>;
     };
 
   /**
@@ -442,37 +442,37 @@ export interface UnresolvedContext<
   /**
    * The path to a directory where the reflection data buffers (used by the build processes) are stored
    */
-  dataPath: string;
+  readonly dataPath: string;
 
   /**
    * The path to a directory where the project cache (used by the build processes) is stored
    */
-  cachePath: string;
+  readonly cachePath: string;
 
   /**
    * The Powerlines artifacts directory
    */
-  artifactsPath: string;
+  readonly artifactsPath: string;
 
   /**
    * The path to the Powerlines builtin runtime modules directory
    */
-  builtinsPath: string;
+  readonly builtinsPath: string;
 
   /**
    * The path to the Powerlines entry modules directory
    */
-  entryPath: string;
+  readonly entryPath: string;
 
   /**
    * The path to the Powerlines infrastructure modules directory
    */
-  infrastructurePath: string;
+  readonly infrastructurePath: string;
 
   /**
    * The path to the Powerlines TypeScript declaration files directory
    */
-  typesPath: string;
+  readonly typesPath: string;
 
   /**
    * The project's `package.json` file content
@@ -740,7 +740,7 @@ export interface ExecutionContext<
   /**
    * The unique identifier of the execution context, which can be used for logging and other purposes to distinguish between different executions in the same process.
    */
-  id: string;
+  readonly id: string;
 
   /**
    * The expected plugins options for the Powerlines project.
@@ -833,7 +833,7 @@ export interface EnvironmentContextPlugin<
   /**
    * The unique identifier of the plugin, which can be used for logging and other purposes to distinguish between different plugins in the same process.
    */
-  pluginId: string;
+  readonly id: string;
 
   /**
    * The plugin instance associated with this context, which can be used to access the plugin's options and other properties.
