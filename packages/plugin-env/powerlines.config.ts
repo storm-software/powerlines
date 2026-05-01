@@ -37,6 +37,6 @@ export default defineConfig({
   ],
   logLevel: {
     general: "debug",
-    config: "debug"
+    config: "trace"
   }
 });

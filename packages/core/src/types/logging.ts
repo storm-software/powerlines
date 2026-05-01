@@ -18,53 +18,10 @@
 
 import { PartialKeys, RequiredKeys } from "@stryke/types/base";
 import { UnpluginMessage } from "unplugin";
+import { LOG_CATEGORIES, LOG_LEVELS } from "../constants/log-level";
 import { Mode } from "./config";
 
-export const LogLevels = {
-  SILENT: "silent",
-  ERROR: "error",
-  WARN: "warn",
-  INFO: "info",
-  DEBUG: "debug",
-  TRACE: "trace"
-} as const;
-
-export const LOG_LEVELS = [
-  LogLevels.SILENT,
-  LogLevels.ERROR,
-  LogLevels.WARN,
-  LogLevels.INFO,
-  LogLevels.DEBUG,
-  LogLevels.TRACE
-] as const;
-
 export type LogLevel = (typeof LOG_LEVELS)[number];
-
-export const LogCategories = {
-  GENERAL: "general",
-  FS: "fs",
-  PERFORMANCE: "performance",
-  CONFIG: "config",
-  PLUGINS: "plugins",
-  HOOKS: "hooks",
-  ENV: "env",
-  IPC: "ipc",
-  BABEL: "babel",
-  NETWORK: "network"
-} as const;
-
-export const LOG_CATEGORIES = [
-  LogCategories.GENERAL,
-  LogCategories.FS,
-  LogCategories.PERFORMANCE,
-  LogCategories.CONFIG,
-  LogCategories.PLUGINS,
-  LogCategories.HOOKS,
-  LogCategories.ENV,
-  LogCategories.IPC,
-  LogCategories.NETWORK,
-  LogCategories.BABEL
-] as const;
 
 export type LogCategory = (typeof LOG_CATEGORIES)[number];
 

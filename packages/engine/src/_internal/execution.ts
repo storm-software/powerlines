@@ -779,6 +779,13 @@ export class PowerlinesExecution<
       await this.context.setPluginConfig(
         pluginConfig as TResolvedConfig["pluginConfig"]
       );
+    } else {
+      this.context.debug({
+        meta: {
+          category: "config"
+        },
+        message: "No plugin configuration was returned from the config hook."
+      });
     }
 
     timer();

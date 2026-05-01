@@ -16,6 +16,52 @@
 
  ------------------------------------------------------------------- */
 
+export const LogLevels = {
+  SILENT: "silent",
+  ERROR: "error",
+  WARN: "warn",
+  INFO: "info",
+  DEBUG: "debug",
+  TRACE: "trace"
+} as const;
+
+export const LOG_LEVELS = [
+  LogLevels.SILENT,
+  LogLevels.ERROR,
+  LogLevels.WARN,
+  LogLevels.INFO,
+  LogLevels.DEBUG,
+  LogLevels.TRACE
+] as const;
+
+export const LogCategories = {
+  GENERAL: "general",
+  FS: "fs",
+  PERFORMANCE: "performance",
+  CONFIG: "config",
+  PLUGINS: "plugins",
+  HOOKS: "hooks",
+  ENV: "env",
+  IPC: "ipc",
+  BABEL: "babel",
+  NETWORK: "network"
+} as const;
+
+export const LOG_CATEGORIES_ARRAY = Object.values(LogCategories);
+
+export const LOG_CATEGORIES = [
+  LogCategories.GENERAL,
+  LogCategories.FS,
+  LogCategories.PERFORMANCE,
+  LogCategories.CONFIG,
+  LogCategories.PLUGINS,
+  LogCategories.HOOKS,
+  LogCategories.ENV,
+  LogCategories.IPC,
+  LogCategories.NETWORK,
+  LogCategories.BABEL
+] as const;
+
 export const DEFAULT_DEVELOPMENT_LOG_LEVEL = {
   general: "debug",
   fs: "info",

@@ -254,7 +254,7 @@ export class PowerlinesExecutionContext<
   ): Promise<Unstable_EnvironmentContext<TResolvedConfig>> {
     const context =
       await PowerlinesEnvironmentContext.createEnvironment<TResolvedConfig>(
-        deepClone(this.options),
+        deepClone(this.initialOptions),
         deepClone(this.config) as TResolvedConfig,
         deepClone(this.overriddenConfig) as InferOverridableConfig<
           EnvironmentResolvedConfig<TResolvedConfig>

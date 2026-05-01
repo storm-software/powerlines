@@ -82,7 +82,7 @@ export class PowerlinesEnvironmentContext<
   /**
    * Create a new context from the config.
    *
-   * @param options - The resolved execution options.
+   * @param initialOptions - The resolved execution options.
    * @param config - The user configuration options.
    * @param overriddenConfig - The configuration options that should override all other configuration sources, such as CLI flags or environment variables. This is used to ensure that certain configuration values take precedence over any other settings defined in the user configuration or environment configuration, allowing for dynamic overrides based on the execution context.
    * @param environment - The resolved environment configuration, which may include additional properties or modifications made during the configuration loading process. This is used to provide context about the environment in which the command is being executed, allowing for environment-specific behavior and configuration resolution.
@@ -91,7 +91,7 @@ export class PowerlinesEnvironmentContext<
   public static async createEnvironment<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
-    options: ExecutionOptions,
+    initialOptions: ExecutionOptions,
     config: TResolvedConfig,
     overriddenConfig: InferOverridableConfig<
       EnvironmentResolvedConfig<TResolvedConfig>
@@ -99,7 +99,7 @@ export class PowerlinesEnvironmentContext<
     environment: EnvironmentResolvedConfig<TResolvedConfig>["environment"]
   ): Promise<PowerlinesEnvironmentContext<TResolvedConfig>> {
     const context = new PowerlinesEnvironmentContext<TResolvedConfig>(
-      options,
+      initialOptions,
       config,
       overriddenConfig
     );
@@ -111,7 +111,7 @@ export class PowerlinesEnvironmentContext<
   /**
    * The configuration options provided by plugins added by the user (and other plugins)
    */
-  protected environmentConfig: EnvironmentResolvedConfig<TResolvedConfig>["environment"] =
+  protected override environmentConfig: EnvironmentResolvedConfig<TResolvedConfig>["environment"] =
     {} as EnvironmentResolvedConfig<TResolvedConfig>["environment"];
 
   /**
@@ -169,7 +169,7 @@ export class PowerlinesEnvironmentContext<
   protected async setEnvironmentConfig(
     config: EnvironmentResolvedConfig<TResolvedConfig>["environment"]
   ): Promise<void> {
-    this.logger.trace({
+    this.logger.debug({
       meta: { category: "config" },
       message: `Updating environment configuration object: \n${this.logConfig(config)}`
     });

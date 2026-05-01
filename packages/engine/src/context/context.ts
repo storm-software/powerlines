@@ -66,7 +66,6 @@ import {
   withCustomLogger,
   withLogFn
 } from "@powerlines/core/plugin-utils";
-import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { toArray } from "@stryke/convert/to-array";
 import { EnvPaths, getEnvPaths } from "@stryke/env/get-env-paths";
 import { relativeToWorkspaceRoot } from "@stryke/fs/get-workspace-root";
@@ -86,7 +85,6 @@ import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isFunction } from "@stryke/type-checks/is-function";
-import { isPromise } from "@stryke/type-checks/is-promise";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
@@ -132,7 +130,8 @@ const UNRESOLVED_CONFIG_NAMES = [
   "initialConfig",
   "userConfig",
   "inlineConfig",
-  "pluginConfig"
+  "pluginConfig",
+  "environmentConfig"
 ];
 
 export class PowerlinesContext<
@@ -241,6 +240,11 @@ export class PowerlinesContext<
    * The configuration options provided by plugins added by the user (and other plugins)
    */
   protected pluginConfig: TResolvedConfig["pluginConfig"] = {};
+
+  /**
+   * The configuration options provided by the environment
+   */
+  protected environmentConfig: any = {};
 
   /**
    * The resolved entry type definitions for the project
@@ -1226,7 +1230,7 @@ export class PowerlinesContext<
   public async setInlineConfig(
     config: TResolvedConfig["inlineConfig"]
   ): Promise<void> {
-    this.logger.trace({
+    this.logger.debug({
       meta: { category: "config" },
       message: `Updating inline configuration object: \n${this.logConfig(config)}`
     });
@@ -1244,7 +1248,7 @@ export class PowerlinesContext<
   public async setPluginConfig(
     config: TResolvedConfig["pluginConfig"]
   ): Promise<void> {
-    this.logger.trace({
+    this.logger.debug({
       meta: { category: "config" },
       message: `Updating plugin configuration object: \n${this.logConfig(config)}`
     });
@@ -1263,25 +1267,24 @@ export class PowerlinesContext<
       {
         mode: this.initialOptions.mode,
         framework: this.initialOptions.framework,
-        initialOptions: this.initialOptions,
         logLevel: this.initialOptions.logLevel,
-        options: this.options,
+
         inlineConfig: this.inlineConfig,
         userConfig: this.userConfig,
         initialConfig: this.initialConfig,
-        pluginConfig: this.pluginConfig
+        pluginConfig: this.pluginConfig,
+        environmentConfig: this.environmentConfig
       },
       getConfigProps<TResolvedConfig>(this.overriddenConfig),
-      omit(this.options, ["mode", "framework", "logLevel"]),
+      omit(this.options, ["name", "mode", "framework", "logLevel"]),
       getConfigProps<TResolvedConfig>(this.inlineConfig),
       getConfigProps<TResolvedConfig>(this.userConfig),
       getConfigProps<TResolvedConfig>(this.initialConfig),
       getConfigProps<TResolvedConfig>(this.pluginConfig),
       {
+        name: this.initialOptions.name,
         version: this.packageJson?.version,
-        description: this.packageJson?.description
-      },
-      {
+        description: this.packageJson?.description,
         environments: {},
         resolve: {}
       }
@@ -1297,7 +1300,7 @@ export class PowerlinesContext<
   protected async setUserConfig(
     config: TResolvedConfig["userConfig"]
   ): Promise<void> {
-    this.logger.trace({
+    this.logger.debug({
       meta: { category: "config" },
       message: `Updating user configuration object: \n${this.logConfig(config)}`
     });
@@ -1362,15 +1365,23 @@ export class PowerlinesContext<
 
     this.logger.trace({
       meta: { category: "config" },
-      message: `Pre-setup Powerlines configuration object: \n --- Pre-Resolved Config --- \n${this.logConfig(
+      message: `Pre-setup Powerlines configuration object: \n --- Merged Config --- \n\n${this.logConfig(
         mergedConfig
-      )} \n --- Initial Config --- \n${this.logConfig(
+      )} \n\n --- Initial Options --- \n\n${this.logConfig(
+        this.initialOptions
+      )} \n\n --- Initial Config --- \n\n${this.logConfig(
         this.initialConfig
-      )} \n --- User Config --- \n${this.logConfig(
+      )} \n\n --- User Config --- \n\n${this.logConfig(
         this.userConfig
-      )} \n --- Inline Config --- \n${this.logConfig(
+      )} \n\n --- Inline Config --- \n\n${this.logConfig(
         this.inlineConfig
-      )} \n --- Plugin Config --- \n${this.logConfig(this.pluginConfig)}`
+      )} \n\n --- Plugin Config --- \n\n${this.logConfig(
+        this.pluginConfig
+      )} \n\n --- Environment Config --- \n\n${this.logConfig(
+        this.environmentConfig
+      )} \n\n --- Overridden Config --- \n\n${this.logConfig(
+        this.overriddenConfig as Partial<TResolvedConfig>
+      )}`
     });
 
     mergedConfig.output = defu(mergedConfig.output ?? {}, {
@@ -1648,15 +1659,9 @@ export class PowerlinesContext<
 
     this.logger.debug({
       meta: { category: "config" },
-      message: `Resolved Powerlines configuration object: \n --- Resolved Config --- \n${this.logConfig(
+      message: `Resolved Powerlines configuration object: \n${this.logConfig(
         this.resolvedConfig
-      )} \n --- Initial Config --- \n${this.logConfig(
-        this.initialConfig
-      )} \n --- User Config --- \n${this.logConfig(
-        this.userConfig
-      )} \n --- Inline Config --- \n${this.logConfig(
-        this.inlineConfig
-      )} \n --- Plugin Config --- \n${this.logConfig(this.pluginConfig)}`
+      )}`
     });
 
     this.#fs ??= await VirtualFileSystem.create(this);
@@ -1670,26 +1675,44 @@ export class PowerlinesContext<
       | TResolvedConfig["inlineConfig"]
       | TResolvedConfig["pluginConfig"]
   ) {
-    return formatLogMessage({
-      ...omit(config, ["plugins"]),
-      plugins: config.plugins
-        ? config.plugins
-            .flatMap(plugin => toArray(plugin))
-            .map(plugin =>
-              String(
-                isSetString(plugin)
-                  ? plugin
-                  : isPromise(plugin)
-                    ? "<promise>"
-                    : isFunction(plugin)
-                      ? plugin.name || "<anonymous function>"
-                      : Array.isArray(plugin)
-                        ? plugin[0] || "<anonymous function plugin>"
-                        : "<unknown plugin>"
+    return JSON.stringify(
+      {
+        ...omit(config, [
+          "plugins",
+          "initialConfig",
+          "userConfig",
+          "inlineConfig",
+          "pluginConfig",
+          "environmentConfig"
+        ] as (keyof (
+          | TResolvedConfig
+          | TResolvedConfig["initialConfig"]
+          | TResolvedConfig["userConfig"]
+          | TResolvedConfig["inlineConfig"]
+          | TResolvedConfig["pluginConfig"]
+        ))[]),
+        plugins: config.plugins
+          ? config.plugins
+              .flatMap(plugin => toArray(plugin))
+              .map(plugin =>
+                String(
+                  isSetString(plugin)
+                    ? plugin
+                    : isSetObject(plugin) &&
+                        isSetString((plugin as { name: string }).name)
+                      ? (plugin as { name: string }).name
+                      : Array.isArray(plugin) && isSetString(plugin[0])
+                        ? plugin[0]
+                        : "<function-plugin>"
+                )
               )
-            )
-        : undefined
-    });
+          : []
+      },
+      null,
+      2
+    )
+      .replace(/"([^"]+)":/g, "$1:")
+      .replace(/: "([^"]+)"/g, ": $1");
   }
 
   private createConfigProxy(): TResolvedConfig {
@@ -1730,6 +1753,9 @@ export class PowerlinesContext<
           }
           if (key === "pluginConfig") {
             return this.pluginConfig;
+          }
+          if (key === "environmentConfig") {
+            return this.environmentConfig;
           }
         }
 

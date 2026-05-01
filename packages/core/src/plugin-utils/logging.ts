@@ -31,7 +31,11 @@ import { DEFAULT_ENVIRONMENT } from "../constants/environments";
 import {
   DEFAULT_DEVELOPMENT_LOG_LEVEL,
   DEFAULT_PRODUCTION_LOG_LEVEL,
-  DEFAULT_TEST_LOG_LEVEL
+  DEFAULT_TEST_LOG_LEVEL,
+  LOG_CATEGORIES_ARRAY,
+  LOG_LEVELS,
+  LogCategories,
+  LogLevels
 } from "../constants/log-level";
 import { Mode } from "../types/config";
 import { UnresolvedContext } from "../types/context";
@@ -42,6 +46,7 @@ import type {
   LogFn,
   LogFnMeta,
   LogFnOptions,
+  Logger,
   LoggerMessage,
   LoggerOptions,
   LogLevel,
@@ -49,7 +54,6 @@ import type {
   LogLevelUserConfig,
   LogMeta
 } from "../types/logging";
-import { LOG_LEVELS, LogCategories, Logger, LogLevels } from "../types/logging";
 
 /**
  * Determines if the provided log level is considered verbose (debug or trace).
@@ -145,6 +149,13 @@ export function resolveLogLevel(
       babel: logLevel
     };
   } else if (isSetObject(logLevel)) {
+    if (
+      Object.values(logLevel).filter(level => isSetString(level)).length ===
+      LOG_CATEGORIES_ARRAY.length
+    ) {
+      return logLevel as LogLevelResolvedConfig;
+    }
+
     return defu(logLevel, defaultLogLevel) as LogLevelResolvedConfig;
   }
 
@@ -319,7 +330,7 @@ export const createLogFn = (name: string, options: LogFnOptions): LogFn => {
 
 const validateLogger = (
   type: LogLevel,
-  name: string,
+  name: string | undefined,
   options: LoggerOptions,
   callback: (message: LoggerMessage) => void
 ) => {
@@ -367,7 +378,7 @@ const validateLogger = (
 
 const validateCustomLogger = (
   type: LogLevel,
-  name: string,
+  name: string | undefined,
   options: LoggerOptions,
   callback?: (message: string | LoggerMessage) => void,
   customCallback?: (message: CustomLoggerMessage) => void
@@ -429,7 +440,7 @@ export const withLogger = (logger: Logger, secondaryLogger: Logger): Logger => {
     options,
     error: validateLogger(
       "error",
-      options.name!,
+      options.name,
       options,
       (message: LoggerMessage) => {
         logger.error?.(message);
@@ -438,7 +449,7 @@ export const withLogger = (logger: Logger, secondaryLogger: Logger): Logger => {
     ),
     warn: validateLogger(
       "warn",
-      options.name!,
+      options.name,
       options,
       (message: LoggerMessage) => {
         logger.warn?.(message);
@@ -447,7 +458,7 @@ export const withLogger = (logger: Logger, secondaryLogger: Logger): Logger => {
     ),
     info: validateLogger(
       "info",
-      options.name!,
+      options.name,
       options,
       (message: LoggerMessage) => {
         logger.info?.(message);
@@ -456,7 +467,7 @@ export const withLogger = (logger: Logger, secondaryLogger: Logger): Logger => {
     ),
     debug: validateLogger(
       "debug",
-      options.name!,
+      options.name,
       options,
       (message: LoggerMessage) => {
         logger.debug?.(message);
@@ -465,7 +476,7 @@ export const withLogger = (logger: Logger, secondaryLogger: Logger): Logger => {
     ),
     trace: validateLogger(
       "trace",
-      options.name!,
+      options.name,
       options,
       (message: LoggerMessage) => {
         logger.trace?.(message);
@@ -514,7 +525,7 @@ export const withLogFn = (logger: Logger, logFn: LogFn): Logger => {
     options: logger.options,
     error: validateLogger(
       "error",
-      logger.options.name!,
+      logger.options.name,
       logger.options,
       (msg: LoggerMessage) => {
         logger.error?.(msg);
@@ -533,7 +544,7 @@ export const withLogFn = (logger: Logger, logFn: LogFn): Logger => {
     ),
     warn: validateLogger(
       "warn",
-      logger.options.name!,
+      logger.options.name,
       logger.options,
       (msg: LoggerMessage) => {
         logger.warn?.(msg);
@@ -552,7 +563,7 @@ export const withLogFn = (logger: Logger, logFn: LogFn): Logger => {
     ),
     info: validateLogger(
       "info",
-      logger.options.name!,
+      logger.options.name,
       logger.options,
       (msg: LoggerMessage) => {
         logger.info?.(msg);
@@ -571,7 +582,7 @@ export const withLogFn = (logger: Logger, logFn: LogFn): Logger => {
     ),
     debug: validateLogger(
       "debug",
-      logger.options.name!,
+      logger.options.name,
       logger.options,
       (msg: LoggerMessage) => {
         logger.debug?.(msg);
@@ -590,7 +601,7 @@ export const withLogFn = (logger: Logger, logFn: LogFn): Logger => {
     ),
     trace: validateLogger(
       "trace",
-      logger.options.name!,
+      logger.options.name,
       logger.options,
       (msg: LoggerMessage) => {
         logger.trace?.(msg);
@@ -652,35 +663,35 @@ export const withCustomLogger = (
     options: logger.options,
     error: validateCustomLogger(
       "error",
-      logger.options.name!,
+      logger.options.name,
       logger.options,
       logger.error.bind(logger),
       customLogger.error?.bind(customLogger)
     ),
     warn: validateCustomLogger(
       "warn",
-      logger.options.name!,
+      logger.options.name,
       logger.options,
       logger.warn.bind(logger),
       customLogger.warn?.bind(customLogger)
     ),
     info: validateCustomLogger(
       "info",
-      logger.options.name!,
+      logger.options.name,
       logger.options,
       logger.info.bind(logger),
       customLogger.info?.bind(customLogger)
     ),
     debug: validateCustomLogger(
       "debug",
-      logger.options.name!,
+      logger.options.name,
       logger.options,
       logger.debug.bind(logger),
       customLogger.debug?.bind(customLogger)
     ),
     trace: validateCustomLogger(
       "trace",
-      logger.options.name!,
+      logger.options.name,
       logger.options,
       logger.trace.bind(logger),
       customLogger.trace?.bind(customLogger)
