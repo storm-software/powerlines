@@ -86,6 +86,7 @@ import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isFunction } from "@stryke/type-checks/is-function";
+import { isRegExp } from "@stryke/type-checks/is-regexp";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
@@ -1702,41 +1703,66 @@ export class PowerlinesContext<
       | TResolvedConfig["pluginConfig"]
   ) {
     return JSON.stringify(
-      {
-        ...omit(config, [
-          "plugins",
-          "initialConfig",
-          "userConfig",
-          "inlineConfig",
-          "pluginConfig",
-          "environmentConfig"
-        ] as (keyof (
-          | TResolvedConfig
-          | TResolvedConfig["initialConfig"]
-          | TResolvedConfig["userConfig"]
-          | TResolvedConfig["inlineConfig"]
-          | TResolvedConfig["pluginConfig"]
-        ))[]),
-        plugins: config.plugins
-          ? config.plugins
-              .flatMap(plugin => toArray(plugin))
-              .map(plugin =>
-                String(
-                  isSetString(plugin)
-                    ? plugin
-                    : isSetObject(plugin) &&
-                        isSetString((plugin as { name: string }).name)
-                      ? (plugin as { name: string }).name
-                      : Array.isArray(plugin) && isSetString(plugin[0])
-                        ? plugin[0]
-                        : "<function-plugin>"
-                )
+      Object.fromEntries(
+        Object.entries({
+          ...omit(config, [
+            "plugins",
+            "initialConfig",
+            "userConfig",
+            "inlineConfig",
+            "pluginConfig",
+            "environmentConfig"
+          ] as (keyof (
+            | TResolvedConfig
+            | TResolvedConfig["initialConfig"]
+            | TResolvedConfig["userConfig"]
+            | TResolvedConfig["inlineConfig"]
+            | TResolvedConfig["pluginConfig"]
+          ))[]),
+          resolve: {
+            ...config.resolve,
+            external: (config.resolve?.external ?? [])
+              .filter(Boolean)
+              .map(external =>
+                isSetString(external)
+                  ? external
+                  : isRegExp(external)
+                    ? external.source
+                    : "<unknown-external>"
+              ),
+            noExternal: (config.resolve?.noExternal ?? [])
+              .filter(Boolean)
+              .map(noExternal =>
+                isSetString(noExternal)
+                  ? noExternal
+                  : isRegExp(noExternal)
+                    ? noExternal.source
+                    : "<unknown-no-external>"
               )
-          : []
-      },
+          },
+          plugins: config.plugins
+            ? config.plugins
+                .flatMap(plugin => toArray(plugin))
+                .map(plugin =>
+                  String(
+                    isSetString(plugin)
+                      ? plugin
+                      : isSetObject(plugin) &&
+                          isSetString((plugin as { name: string }).name)
+                        ? (plugin as { name: string }).name
+                        : Array.isArray(plugin) && isSetString(plugin[0])
+                          ? plugin[0]
+                          : "<function-plugin>"
+                  )
+                )
+            : []
+        }).sort(([key1], [key2]) => key1.localeCompare(key2))
+      ),
       null,
       4
-    ).replace(/"([^"]+)":/g, "$1:");
+    )
+      .replace(/"([^"]+)":/g, "$1:")
+      .replace(/,$/g, "");
   }
 
   private createConfigProxy(): TResolvedConfig {
