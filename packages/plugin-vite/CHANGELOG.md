@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.453](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.453) (05/01/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolve issue overriding `env` schema ([caf65d8be](https://github.com/storm-software/powerlines/commit/caf65d8be))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.456**
+- Updated **plugin-esbuild** to **v0.13.456**
+- Updated **plugin-rollup** to **v0.7.454**
+
 ## [0.14.452](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.452) (05/01/2026)
 
 ### Updated Dependencies

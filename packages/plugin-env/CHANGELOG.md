@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.185](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.185) (05/01/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolve issue overriding `env` schema ([caf65d8be](https://github.com/storm-software/powerlines/commit/caf65d8be))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.8.60**
+- Updated **plugin-deepkit** to **v0.11.341**
+- Updated **plugin-automd** to **v0.1.459**
+- Updated **plugin-plugin** to **v0.12.410**
+- Updated **plugin-alloy** to **v0.26.78**
+- Updated **plugin-babel** to **v0.12.452**
+- Updated **plugin-tsc** to **v0.2.468**
+
 ## [0.16.184](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.184) (05/01/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Rollup
 
+## [0.7.454](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.454) (05/01/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolve issue overriding `env` schema ([caf65d8be](https://github.com/storm-software/powerlines/commit/caf65d8be))
+
+### Updated Dependencies
+
+- Updated **plugin-babel** to **v0.12.452**
+
 ## [0.7.453](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.453) (05/01/2026)
 
 ### Updated Dependencies

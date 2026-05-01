@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.456](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.456) (05/01/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolve issue overriding `env` schema ([caf65d8be](https://github.com/storm-software/powerlines/commit/caf65d8be))
+
 ## [0.13.453](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.453) (05/01/2026)
 
 ### Bug Fixes

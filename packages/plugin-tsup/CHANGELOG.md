@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.458](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.458) (05/01/2026)
+
+### Bug Fixes
+
+- **plugin-tsup:** Resolve typo issue in helper function ([b34843cb1](https://github.com/storm-software/powerlines/commit/b34843cb1))
+- **plugin-env:** Resolve issue overriding `env` schema ([caf65d8be](https://github.com/storm-software/powerlines/commit/caf65d8be))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.456**
+
 ## [0.12.457](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.457) (05/01/2026)
 
 ### Updated Dependencies

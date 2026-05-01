@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.46.6](https://github.com/storm-software/powerlines/releases/tag/core%400.46.6) (05/01/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolve issue overriding `env` schema ([caf65d8be](https://github.com/storm-software/powerlines/commit/caf65d8be))
+
 ## [0.46.5](https://github.com/storm-software/powerlines/releases/tag/core%400.46.5) (05/01/2026)
 
 ### Miscellaneous

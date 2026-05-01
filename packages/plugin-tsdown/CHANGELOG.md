@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.400](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.400) (05/01/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolve issue overriding `env` schema ([caf65d8be](https://github.com/storm-software/powerlines/commit/caf65d8be))
+
+### Updated Dependencies
+
+- Updated **plugin-rolldown** to **v0.7.456**
+
 ## [0.1.399](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.399) (05/01/2026)
 
 ### Updated Dependencies

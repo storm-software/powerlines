@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.453](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.453) (05/01/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolve issue overriding `env` schema ([caf65d8be](https://github.com/storm-software/powerlines/commit/caf65d8be))
+
 ## [0.5.450](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.450) (05/01/2026)
 
 ### Bug Fixes
