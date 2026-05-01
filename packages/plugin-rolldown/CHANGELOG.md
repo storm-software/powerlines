@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.453](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.453) (05/01/2026)
+
+### Bug Fixes
+
+- **engine:** Ensure `logLevel` is correctly resolved in context ([d69c058eb](https://github.com/storm-software/powerlines/commit/d69c058eb))
+
+### Updated Dependencies
+
+- Updated **plugin-rollup** to **v0.7.451**
+- Updated **plugin-babel** to **v0.12.449**
+
 ## [0.7.452](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.452) (05/01/2026)
 
 ### Updated Dependencies

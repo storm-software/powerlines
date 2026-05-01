@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.453](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.453) (05/01/2026)
+
+### Bug Fixes
+
+- **engine:** Ensure `logLevel` is correctly resolved in context ([d69c058eb](https://github.com/storm-software/powerlines/commit/d69c058eb))
+
 ## [0.13.446](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.446) (04/29/2026)
 
 ### Bug Fixes

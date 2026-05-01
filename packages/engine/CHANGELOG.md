@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.46.3](https://github.com/storm-software/powerlines/releases/tag/engine%400.46.3) (05/01/2026)
+
+### Bug Fixes
+
+- **engine:** Ensure `logLevel` is correctly resolved in context ([d69c058eb](https://github.com/storm-software/powerlines/commit/d69c058eb))
+
 ## [0.46.2](https://github.com/storm-software/powerlines/releases/tag/engine%400.46.2) (05/01/2026)
 
 ### Bug Fixes
