@@ -18,6 +18,7 @@
 
 import type { EnvPaths } from "@stryke/env/get-env-paths";
 import { FetchRequestOptions } from "@stryke/http/fetch";
+import { DeepPartial, RequiredKeys } from "@stryke/types/base";
 import type { PackageJson } from "@stryke/types/package-json";
 import type { Jiti } from "jiti";
 import type MagicString from "magic-string";
@@ -27,14 +28,15 @@ import type { Range } from "semver";
 import type { RequestInfo, Response } from "undici";
 import type { Unimport } from "unimport";
 import type { ExternalIdResult, UnpluginBuildContext } from "unplugin";
+import type { API } from "./api";
 import type {
   EngineOptions,
   EnvironmentResolvedConfig,
   ExecutionOptions,
-  InitialConfig,
   ParsedUserConfig,
   ResolvedConfig,
-  ResolvedEntryTypeDefinition
+  ResolvedEntryTypeDefinition,
+  UserConfig
 } from "./config";
 import type {
   ResolveOptions,
@@ -202,11 +204,6 @@ export interface ResolveResult extends ExternalIdResult {
  */
 export interface BaseContext {
   /**
-   * The options provided to the Powerlines process
-   */
-  options: EngineOptions;
-
-  /**
    * The timestamp when the context was initialized
    */
   timestamp: number;
@@ -227,9 +224,9 @@ export interface BaseContext {
   configFile: ParsedUserConfig;
 
   /**
-   * The initial configuration provided when initializing the context, which may be used during the setup process to ensure that the configuration is properly merged and applied to the context. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
+   * The options provided to the Powerlines process, resolved with default values and merged with any configuration provided by plugins or other sources. This is typically the final configuration used during the build process, but may also include additional options that are relevant to the context and its interactions with the Powerlines engine.
    */
-  initialConfig: InitialConfig<any>;
+  options: RequiredKeys<EngineOptions, "mode" | "cwd" | "root" | "framework">;
 
   /**
    * The log level to use for the Powerlines processes.
@@ -370,6 +367,29 @@ export interface ExecutionState {
  */
 export interface EngineContext extends BaseContext {
   /**
+   * The initial options provided to the Powerlines process before any resolution or merging. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
+   */
+  readonly initialOptions: EngineOptions;
+
+  /**
+   * The options provided to the Powerlines process
+   */
+  options: RequiredKeys<
+    Omit<EngineOptions, "logLevel">,
+    "name" | "root" | "cwd" | "mode" | "framework"
+  > & {
+    /**
+     * The log level to use for logging messages during the build process. This can be a string indicating the log level or a more detailed configuration object that allows for specifying different log levels for different categories of logs.
+     */
+    logLevel: LogLevelResolvedConfig;
+  };
+
+  /**
+   * The initial user configuration provided to the Powerlines process before any resolution or merging. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
+   */
+  readonly initialConfig: DeepPartial<UserConfig>;
+
+  /**
    * A list of all command executions that will be run during the lifecycle of the engine
    */
   executions: ExecutionState[];
@@ -385,26 +405,36 @@ export interface UnresolvedContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > extends BaseContext {
   /**
-   * The options provided to the Powerlines process
+   * The options provided to the Powerlines process, resolved with default values and merged with any configuration provided by plugins or other sources. This is typically the final configuration used during the build process, but may also include additional options that are relevant to the context and its interactions with the Powerlines engine.
    */
-  options: ExecutionOptions;
-
-  /**
-   * The input options used to initialize the context, which may be used when cloning the context to ensure the same configuration is applied to the new context
-   */
-  initialOptions: Partial<EngineOptions>;
-
-  /**
-   * The initial configuration provided when initializing the context, which may be used during the setup process to ensure that the configuration is properly merged and applied to the context. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
-   */
-  initialConfig: InitialConfig<TResolvedConfig["userConfig"]>;
+  options: RequiredKeys<
+    ExecutionOptions,
+    "mode" | "cwd" | "root" | "framework" | "logLevel"
+  >;
 
   /**
    * An object containing the options provided to Powerlines
    */
   config: Omit<TResolvedConfig["userConfig"], "output"> &
-    Required<Pick<TResolvedConfig["userConfig"], "output">> & {
+    Required<Pick<TResolvedConfig["userConfig"], "output">> &
+    Pick<
+      TResolvedConfig,
+      "cwd" | "root" | "mode" | "framework" | "configFile" | "name"
+    > & {
+      /**
+       * The output configuration options for the Powerlines process, which may include settings related to the output directory, file naming conventions, and other options that affect how the compiled output is generated and structured. This is typically derived from the user configuration but may also include additional options provided by plugins or other sources.
+       */
       output: TResolvedConfig["output"];
+
+      /**
+       * The original configuration options that were provided by the user to the Powerlines process, which may be used during the configuration resolution process to ensure that the final configuration is properly merged and applied to the context. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
+       */
+      readonly initialConfig: TResolvedConfig["initialConfig"];
+
+      /**
+       * The configuration options that were provided inline to the Powerlines CLI.
+       */
+      readonly inlineConfig: TResolvedConfig["inlineConfig"];
     };
 
   /**
@@ -710,19 +740,6 @@ export type Context<TResolvedConfig extends ResolvedConfig = ResolvedConfig> =
      * The fully resolved Powerlines configuration
      */
     config: TResolvedConfig;
-
-    /**
-     * Initialize the context with the provided configuration options
-     */
-    setup: () => Promise<void>;
-
-    /**
-     * A function to create a deep clone of the context
-     *
-     * @remarks
-     * This function is used to create a copy of the context for a specific environment, allowing for environment-specific modifications without affecting the global context.
-     */
-    clone: () => Promise<Context<TResolvedConfig>>;
   };
 
 export interface ExecutionContext<
@@ -742,14 +759,14 @@ export interface ExecutionContext<
   plugins: Plugin<PluginContext<TResolvedConfig>>[];
 
   /**
-   * A function to add a plugin to the context and update the configuration options
-   */
-  addPlugin: (plugin: Plugin<PluginContext<TResolvedConfig>>) => Promise<void>;
-
-  /**
    * A table for storing the current context for each configured environment
    */
   environments: Record<string, EnvironmentContext<TResolvedConfig>>;
+
+  /**
+   * A function to add a plugin to the context and update the configuration options
+   */
+  addPlugin: (plugin: Plugin<PluginContext<TResolvedConfig>>) => Promise<void>;
 
   /**
    * Retrieves the context for a specific environment by name
@@ -806,8 +823,8 @@ export interface ExecutionContext<
    * @param environment - The environment configuration to use.
    * @returns A new context instance with the updated environment.
    */
-  in: (
-    environment: EnvironmentResolvedConfig
+  createEnvironment: (
+    environment: EnvironmentResolvedConfig<TResolvedConfig>["environment"]
   ) => Promise<EnvironmentContext<TResolvedConfig>>;
 
   /**
@@ -816,14 +833,6 @@ export interface ExecutionContext<
    * @returns A promise that resolves to the merged environment context.
    */
   toEnvironment: () => Promise<EnvironmentContext<TResolvedConfig>>;
-
-  /**
-   * A function to create a deep clone of the context
-   *
-   * @remarks
-   * This function is used to create a copy of the context for a specific environment, allowing for environment-specific modifications without affecting the global context.
-   */
-  clone: () => Promise<ExecutionContext<TResolvedConfig>>;
 }
 
 export interface EnvironmentContextPlugin<
@@ -862,11 +871,11 @@ export type SelectHookResult<
 
 export interface EnvironmentContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> extends Context<TResolvedConfig> {
+> extends Context<EnvironmentResolvedConfig<TResolvedConfig>> {
   /**
    * The unique identifier of the environment associated with this context, which can be used for logging and other purposes to distinguish between different environments in the same process.
    */
-  id: string;
+  readonly id: string;
 
   /**
    * The expected plugins options for the Powerlines project.
@@ -877,19 +886,14 @@ export interface EnvironmentContext<
   plugins: EnvironmentContextPlugin<TResolvedConfig>[];
 
   /**
-   * A function to add a plugin to the context and update the configuration options
-   */
-  addPlugin: (plugin: Plugin<PluginContext<TResolvedConfig>>) => Promise<void>;
-
-  /**
-   * The environment specific resolved configuration
-   */
-  environment: EnvironmentResolvedConfig;
-
-  /**
    * A table holding references to hook functions registered by plugins
    */
   hooks: HooksList<PluginContext<TResolvedConfig>>;
+
+  /**
+   * A function to add a plugin to the context and update the configuration options
+   */
+  addPlugin: (plugin: Plugin<PluginContext<TResolvedConfig>>) => Promise<void>;
 
   /**
    * Retrieves the hook handlers for a specific hook name
@@ -898,36 +902,29 @@ export interface EnvironmentContext<
     key: TKey,
     options?: SelectHooksOptions
   ) => SelectHookResult<PluginContext<TResolvedConfig>, TKey>;
-
-  /**
-   * A function to create a deep clone of the context
-   *
-   * @remarks
-   * This function is used to create a copy of the context for a specific environment, allowing for environment-specific modifications without affecting the global context.
-   */
-  clone: () => Promise<EnvironmentContext<TResolvedConfig>>;
 }
 
 export interface PluginContext<
-  out TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> extends Context<TResolvedConfig> {
+  out TResolvedConfig extends ResolvedConfig = ResolvedConfig,
+  TApi extends API<any> = API<any>
+> extends Context<EnvironmentResolvedConfig<TResolvedConfig>> {
   /**
    * The unique identifier of the plugin associated with this context, which can be used for logging and other purposes to distinguish between different plugins in the same process.
    */
-  id: string;
+  readonly id: string;
 
   /**
-   * The environment specific resolved configuration
-   */
-  environment: EnvironmentResolvedConfig;
-
-  /**
-   * A function to create a deep clone of the context
+   * The API instance available to the plugin during execution, which provides access to the shared context and the ability to call plugin hooks. This API is specific to the plugin and environment, allowing for environment-specific interactions with the Powerlines engine.
    *
    * @remarks
-   * This function is used to create a copy of the context for a specific environment, allowing for environment-specific modifications without affecting the global context.
+   * The API instance provided in the plugin context may include additional functionality specific to command execution, and it extends the base API with any additional methods or properties that are relevant to the plugin's interactions with the Powerlines engine.
    */
-  clone: () => Promise<PluginContext<TResolvedConfig>>;
+  readonly api: TApi;
+
+  /**
+   * The context for the environment associated with this plugin context, which provides access to the Powerlines engine and other utilities for interacting with the build process. This context is specific to the plugin and environment, allowing for environment-specific modifications without affecting the global context.
+   */
+  readonly environment: EnvironmentContext;
 }
 
 export type BuildPluginContext<

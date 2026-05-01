@@ -17,21 +17,19 @@
  ------------------------------------------------------------------- */
 
 import type {
-  Context,
   EnvironmentResolvedConfig,
-  ExecutionContext
+  ResolvedConfig
 } from "@powerlines/core";
 import { DEFAULT_ENVIRONMENT } from "@powerlines/core/constants";
 import { titleCase } from "@stryke/string-format/title-case";
 import { uuid } from "@stryke/unique-id/uuid";
 import defu from "defu";
 
-export function createEnvironment<TContext extends Context = Context>(
-  name: string,
-  config: Partial<TContext["config"]> = {}
-): EnvironmentResolvedConfig {
+export function createEnvironment<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+>(name: string, config: TResolvedConfig) {
   return defu(config.environments?.[name] ?? {}, {
-    environmentId: uuid(),
+    id: uuid(),
     name,
     title: config.title ?? titleCase(config.name),
     ssr: false,
@@ -55,11 +53,11 @@ export function createEnvironment<TContext extends Context = Context>(
             headers: {}
           }
         : undefined
-  }) as EnvironmentResolvedConfig;
+  }) as unknown as EnvironmentResolvedConfig<TResolvedConfig>["environment"];
 }
 
 export function createDefaultEnvironment<
-  TContext extends ExecutionContext = ExecutionContext
->(config: Partial<TContext["config"]> = {}): EnvironmentResolvedConfig {
-  return createEnvironment(DEFAULT_ENVIRONMENT, config);
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+>(config: TResolvedConfig) {
+  return createEnvironment<TResolvedConfig>(DEFAULT_ENVIRONMENT, config);
 }

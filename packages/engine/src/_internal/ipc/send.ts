@@ -19,9 +19,10 @@
 import { Context, LogCategories, LogFnMeta } from "@powerlines/core";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { uuid } from "@stryke/unique-id/uuid";
-import { IpcMessageType } from "./messages";
+import { messageParent } from "jest-worker";
+import { IpcMessage, IpcMessageType } from "./messages";
 
-export function sendWriteLogMessage<TContext extends Context = Context>(
+function formatWriteLogMessage<TContext extends Context = Context>(
   context: TContext,
   meta: LogFnMeta,
   message: string
@@ -31,12 +32,12 @@ export function sendWriteLogMessage<TContext extends Context = Context>(
     ...(isSetObject(meta) ? meta : { type: meta })
   };
 
-  process.send?.({
+  return {
     id: uuid(),
     type: IpcMessageType.WRITE_LOG,
-    executionId: combinedMeta.executionId || context.config.executionId,
+    executionId: combinedMeta.executionId || context.options.executionId,
     executionIndex:
-      combinedMeta.executionIndex ?? context.config.executionIndex,
+      combinedMeta.executionIndex ?? context.options.executionIndex,
     environment: combinedMeta.environment,
     timestamp: Date.now(),
     payload: {
@@ -46,9 +47,9 @@ export function sendWriteLogMessage<TContext extends Context = Context>(
         logId: combinedMeta.logId || uuid(),
         timestamp: combinedMeta.timestamp ?? Date.now(),
         name: combinedMeta.name || context.config.name,
-        executionId: combinedMeta.executionId || context.config.executionId,
+        executionId: combinedMeta.executionId || context.options.executionId,
         executionIndex:
-          combinedMeta.executionIndex ?? context.config.executionIndex,
+          combinedMeta.executionIndex ?? context.options.executionIndex,
         command: combinedMeta.command || context.config.command,
         hook: combinedMeta.hook,
         environment: combinedMeta.environment,
@@ -57,5 +58,32 @@ export function sendWriteLogMessage<TContext extends Context = Context>(
       },
       message
     }
-  });
+  };
+}
+
+function childProcessSend(message: IpcMessage) {
+  process.send?.(message);
+}
+
+function workerThreadSend(message: IpcMessage) {
+  messageParent(message);
+}
+
+function send(message: IpcMessage) {
+  if (process.env.POWERLINES_EXECUTION_THREAD_TYPE === "child-process") {
+    childProcessSend(message);
+  } else if (process.env.POWERLINES_EXECUTION_THREAD_TYPE === "worker-thread") {
+    workerThreadSend(message);
+  } else {
+    // eslint-disable-next-line no-console
+    console.warn("No IPC mechanism available to send message:", message);
+  }
+}
+
+export function sendWriteLogMessage<TContext extends Context = Context>(
+  context: TContext,
+  meta: LogFnMeta,
+  message: string
+) {
+  send(formatWriteLogMessage(context, meta, message));
 }

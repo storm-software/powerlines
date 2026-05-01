@@ -358,6 +358,7 @@ export function createNxPlugin<
                   defaultConfiguration:
                     options?.clean?.defaultConfiguration || "production",
                   options: {
+                    root: projectRoot,
                     projectType: projectConfig.projectType,
                     outputPath: `{workspaceRoot}/${projectRoot}/dist`,
                     copyPath: `{workspaceRoot}/dist/${projectRoot}`

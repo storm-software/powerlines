@@ -66,7 +66,7 @@ export function createUnpluginResolver<
   context: TContext,
   options: CreateUnpluginResolverOptions = {}
 ): UnpluginFactory<TContext> {
-  const ctx = context as unknown as Unstable_PluginContext;
+  const ctx = context as unknown as Unstable_PluginContext<any>;
   setParseImpl(ctx.parse);
 
   const name = options.name || "powerlines";
@@ -113,7 +113,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
   options: CreateUnpluginOptions = {}
 ): UnpluginFactory<TContext> {
   const ctx = context as unknown as Unstable_PluginContext;
-  setParseImpl(ctx.parse);
+  setParseImpl(ctx.parse.bind(ctx));
 
   const name = options.name || "powerlines";
 
@@ -134,7 +134,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
           logger.debug("Powerlines build plugin starting...");
         }
 
-        await ctx.$$internal.callHook("buildStart", {
+        await ctx.api.callHook("buildStart", {
           sequential: true
         });
       }
@@ -146,9 +146,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
       ): Promise<TransformResult | null | undefined> {
         let transformed: TransformResult | string = code;
 
-        for (const hook of ctx.$$internal.environment.selectHooks(
-          "transform"
-        )) {
+        for (const hook of ctx.environment.selectHooks("transform")) {
           const result: TransformResult | string | undefined =
             await hook.handler.apply(combineContexts(ctx, this), [
               getString(transformed),
@@ -167,7 +165,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
           logger.debug("Powerlines build plugin finishing...");
         }
 
-        return ctx.$$internal.callHook("buildEnd", {
+        return ctx.api.callHook("buildEnd", {
           sequential: true
         });
       }
@@ -177,7 +175,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
           logger.debug("Finalizing Powerlines project output...");
         }
 
-        return ctx.$$internal.callHook("writeBundle", {
+        return ctx.api.callHook("writeBundle", {
           sequential: true
         });
       }
@@ -187,7 +185,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
           name.toLowerCase() === "powerlines"
             ? "powerlines"
             : `powerlines:${kebabCase(name)}`,
-        api: ctx.$$internal.api,
+        api: ctx.api,
         resolveId,
         load,
         transform,

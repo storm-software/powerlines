@@ -28,8 +28,8 @@ import {
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join-paths";
 import { titleCase } from "@stryke/string-format/title-case";
+import { EnvInterface, SecretsInterface } from "../types/env";
 import { EnvPluginContext } from "../types/plugin";
-import { EnvInterface, SecretsInterface } from "../types/runtime";
 import {
   getEnvDefaultTypeDefinition,
   getSecretsDefaultTypeDefinition,

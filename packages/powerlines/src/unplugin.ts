@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type {
-  Context,
+  PluginContext,
   UnpluginBuilderVariant,
   UnpluginFactory,
   UnpluginOptions
@@ -45,7 +45,7 @@ export * from "@powerlines/core/lib/unplugin";
  * @returns The unplugin factory that generates a plugin instance.
  */
 export function createUnpluginFactory<
-  TContext extends Context,
+  TContext extends PluginContext,
   TUnpluginBuilderVariant extends UnpluginBuilderVariant =
     UnpluginBuilderVariant
 >(
@@ -69,7 +69,7 @@ export function createUnpluginFactory<
       let api!: PowerlinesAPI<TContext["config"]>;
 
       async function buildStart(this: UnpluginBuildContext): Promise<void> {
-        api = await PowerlinesAPI.init(
+        api = await PowerlinesAPI.from(
           {
             ...options,
             cwd: getWorkspaceRoot(process.cwd()),
@@ -82,9 +82,7 @@ export function createUnpluginFactory<
         logger = api.context.logger;
         logger.debug("Powerlines build plugin starting...");
 
-        await api.context.setup();
-
-        setParseImpl(api.context.parse);
+        setParseImpl(api.context.parse.bind(api.context));
 
         logger.debug("Preparing build artifacts for the Powerlines project...");
 

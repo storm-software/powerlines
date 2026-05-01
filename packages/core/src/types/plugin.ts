@@ -24,9 +24,9 @@ import { PLUGIN_NON_HOOK_FIELDS } from "../constants/plugin";
 import { BaseCommandType } from "./commands";
 import type {
   EnvironmentConfig,
-  EnvironmentResolvedConfig,
   PluginConfig,
-  ResolvedConfig
+  ResolvedConfig,
+  ResolvedEnvironmentConfig
 } from "./config";
 import type {
   BuildPluginContext,
@@ -105,7 +105,7 @@ export interface Hooks<TContext extends PluginContext> {
     this: TContext,
     name: string,
     environment: EnvironmentConfig
-  ) => MaybePromise<Partial<EnvironmentResolvedConfig> | undefined | null>;
+  ) => MaybePromise<Partial<ResolvedEnvironmentConfig> | undefined | null>;
 
   /**
    * A hook that is called when the plugin is resolved.
@@ -279,19 +279,14 @@ export interface BasePlugin<TContext extends PluginContext> {
   dedupe?: false | ((other: Plugin<any>) => boolean);
 
   /**
-   * A list of pre-requisite plugins that must be loaded before this plugin can be used.
-   */
-  // dependsOn?: PluginConfig<TContext>[];
-
-  /**
    * Define environments where this plugin should be active. By default, the plugin is active in all environments.
    *
    * @param environment - The environment to check.
    * @returns `true` if the plugin should be active in the specified environment, `false` otherwise.
    */
   applyToEnvironment?: (
-    environment: EnvironmentResolvedConfig
-  ) => boolean | PluginConfig<TContext>;
+    environment: ResolvedEnvironmentConfig
+  ) => boolean | PluginConfig<any>;
 
   /**
    * A function that returns configuration options to be merged with the build context's options.

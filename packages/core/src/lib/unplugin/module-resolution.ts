@@ -89,7 +89,7 @@ export function createUnpluginModuleResolutionFunctions<
         ? importer.replace(VIRTUAL_MODULE_PREFIX_REGEX, "")
         : undefined;
 
-      let result = await ctx.$$internal.callHook(
+      let result = await ctx.api.callHook(
         "resolveId",
         {
           sequential: true,
@@ -112,7 +112,7 @@ export function createUnpluginModuleResolutionFunctions<
         };
       }
 
-      result = await ctx.$$internal.callHook(
+      result = await ctx.api.callHook(
         "resolveId",
         {
           sequential: true,
@@ -153,7 +153,7 @@ export function createUnpluginModuleResolutionFunctions<
         };
       }
 
-      result = await ctx.$$internal.callHook(
+      result = await ctx.api.callHook(
         "resolveId",
         {
           sequential: true,
@@ -193,7 +193,7 @@ export function createUnpluginModuleResolutionFunctions<
       ): Promise<LoadResult | null | undefined> {
         const normalizedId = id.replace(VIRTUAL_MODULE_PREFIX_REGEX, "");
 
-        let result = await ctx.$$internal.callHook(
+        let result = await ctx.api.callHook(
           "load",
           {
             sequential: true,
@@ -206,7 +206,7 @@ export function createUnpluginModuleResolutionFunctions<
           return result;
         }
 
-        result = await ctx.$$internal.callHook(
+        result = await ctx.api.callHook(
           "load",
           {
             sequential: true,
@@ -224,7 +224,7 @@ export function createUnpluginModuleResolutionFunctions<
           return result;
         }
 
-        return ctx.$$internal.callHook(
+        return ctx.api.callHook(
           "load",
           {
             sequential: true,

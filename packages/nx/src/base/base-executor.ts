@@ -26,6 +26,7 @@ import defu from "defu";
 import { createJiti } from "jiti";
 import type {
   InlineConfig,
+  Mode,
   OutputConfig,
   PowerlinesCommand,
   PowerlinesEngine
@@ -99,20 +100,13 @@ export function withExecutor<
         createEngine: typeof import("powerlines").createEngine;
       }>(jiti.esmResolve("powerlines"));
 
-      const api = await createEngine(
-        defu(
-          {
-            cwd: workspaceConfig.workspaceRoot,
-            root: projectConfig.root,
-            configFile: options.configFile || options.config,
-            framework: "powerlines"
-          },
-          options,
-          {
-            name: context.projectName
-          }
-        )
-      );
+      const api = await createEngine({
+        name: context.projectName,
+        cwd: context.root,
+        root: projectConfig.root,
+        configFile: options.configFile || options.config,
+        mode: options.mode as Mode
+      });
 
       try {
         return await Promise.resolve(
@@ -126,7 +120,6 @@ export function withExecutor<
                 inlineConfig: defu(
                   {
                     command,
-                    configFile: options.configFile,
                     description: projectConfig.metadata?.description,
                     projectType: projectConfig.projectType,
                     additionalArgs: options.additionalArgs,

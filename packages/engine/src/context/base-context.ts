@@ -19,7 +19,6 @@
 import type {
   BaseContext,
   EngineOptions,
-  InitialConfig,
   LogFn,
   Logger,
   LoggerOptions,
@@ -28,6 +27,7 @@ import type {
   Mode,
   ParsedUserConfig,
   Resolver,
+  UserConfig,
   WorkspaceConfig
 } from "@powerlines/core";
 import { loadUserConfigFile } from "@powerlines/core/lib/config";
@@ -43,19 +43,20 @@ import {
   isTest
 } from "@stryke/env/environment-checks";
 import { EnvPaths, getEnvPaths } from "@stryke/env/get-env-paths";
-import { readJsonFile } from "@stryke/fs";
+import { isFile, readJsonFile } from "@stryke/fs";
 import { resolvePackage } from "@stryke/fs/resolve";
-import { joinPaths } from "@stryke/path";
+import { findFilePath, joinPaths, relativePath } from "@stryke/path";
 import { appendPath } from "@stryke/path/append";
-import { isEqual } from "@stryke/path/is-equal";
 import { replacePath } from "@stryke/path/replace";
+import { kebabCase } from "@stryke/string-format/kebab-case";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
+import { DeepPartial, RequiredKeys } from "@stryke/types/base";
+import { PackageJson } from "@stryke/types/package-json";
 import chalk from "chalk";
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import defu from "defu";
 import { existsSync } from "node:fs";
-import { UserConfig } from "tsdown/config";
 import { createResolver } from "../_internal/helpers/resolver";
 
 export class PowerlinesBaseContext implements BaseContext {
@@ -72,19 +73,22 @@ export class PowerlinesBaseContext implements BaseContext {
   public resolver!: Resolver;
 
   /**
-   * The options provided to the Powerlines process
+   * The options provided to the Powerlines process, resolved with default values and merged with any configuration provided by plugins or other sources. This is typically the final configuration used during the build process, but may also include additional options that are relevant to the context and its interactions with the Powerlines engine.
    */
-  public options!: EngineOptions;
+  public options!: RequiredKeys<
+    EngineOptions,
+    "mode" | "cwd" | "root" | "framework"
+  >;
 
   /**
-   * The input options used to initialize the context, which may be used when cloning the context to ensure the same configuration is applied to the new context
+   * The parsed `package.json` file for the project
    */
-  public initialOptions: Partial<EngineOptions> = {};
+  public packageJson!: PackageJson;
 
   /**
-   * The initial configuration provided when initializing the context, which may be used during the setup process to ensure that the configuration is properly merged and applied to the context. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
+   * The parsed `project.json` file for the project
    */
-  public initialConfig: InitialConfig<any> = {};
+  public projectJson: Record<string, any> | undefined = undefined;
 
   /**
    * The parsed configuration file for the project
@@ -129,8 +133,8 @@ export class PowerlinesBaseContext implements BaseContext {
    * @returns A promise that resolves to the cloned context.
    */
   public async clone(): Promise<BaseContext> {
-    const clone = new PowerlinesBaseContext();
-    await clone.init(this.options, this.initialConfig);
+    const clone = new PowerlinesBaseContext(this.options, this.initialConfig);
+    await clone.init();
 
     return clone;
   }
@@ -230,7 +234,7 @@ export class PowerlinesBaseContext implements BaseContext {
    */
   public createLogger(options: LoggerOptions, logFn?: LogFn): Logger {
     return createLogger(
-      this.options.name || this.options.root,
+      this.options.name || this.options.root || "powerlines",
       { ...this.configFile.config, ...this.options, ...options },
       logFn
     );
@@ -244,6 +248,30 @@ export class PowerlinesBaseContext implements BaseContext {
    */
   public extendLogger(options: LoggerOptions): Logger {
     return extendLogger(this.logger, options);
+  }
+
+  /**
+   * The input options used to initialize the context, which may be used when cloning the context to ensure the same configuration is applied to the new context
+   */
+  protected initialOptions: EngineOptions = {};
+
+  /**
+   * The initial configuration provided when initializing the context, which may be used during the setup process to ensure that the configuration is properly merged and applied to the context. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
+   */
+  protected initialConfig: DeepPartial<UserConfig> = {};
+
+  /**
+   * Initialize the context with the provided configuration options and set up the resolver and user configuration file. This method is called during the construction of the context and can also be called when cloning the context to ensure that the new context has the same configuration and resolver setup as the original context.
+   *
+   * @param options - The configuration options to initialize the context with, which can include properties such as the project root, mode, log level, and other settings that affect the behavior of the context and its plugins.
+   * @param initialConfig - The initial configuration to initialize the context with, which is typically the user configuration provided in the Powerlines configuration file. This can also include additional configuration options provided by plugins or other sources that should be merged with the user configuration during initialization
+   */
+  protected constructor(
+    options: EngineOptions,
+    initialConfig: DeepPartial<UserConfig> = {}
+  ) {
+    this.initialOptions = options;
+    this.initialConfig = initialConfig;
   }
 
   /**
@@ -267,6 +295,120 @@ export class PowerlinesBaseContext implements BaseContext {
           }
         : undefined
     );
+  }
+
+  /**
+   * Initialize the context with the provided configuration options
+   *
+   * @remarks
+   * This method will set up the resolver and load the user configuration file based on the provided options. It is called during the construction of the context and can also be called when cloning the context to ensure that the new context has the same configuration and resolver setup.
+   */
+  protected async init() {
+    if (!this.powerlinesPath) {
+      const powerlinesPath = await resolvePackage("powerlines");
+      if (!powerlinesPath) {
+        throw new Error("Could not resolve `powerlines` package location.");
+      }
+      this.powerlinesPath = powerlinesPath;
+    }
+
+    this.options = defu(this.initialOptions, this.initialConfig, {
+      cwd: process.cwd(),
+      mode: await this.getDefaultMode(),
+      logLevel: await this.getDefaultLogLevel(),
+      framework: "powerlines"
+    }) as RequiredKeys<EngineOptions, "mode" | "cwd" | "root" | "framework">;
+
+    if (!this.options.root) {
+      if (this.options.configFile) {
+        const configFile = appendPath(
+          this.options.configFile,
+          this.options.cwd
+        );
+        if (!existsSync(configFile)) {
+          throw new Error(
+            `The user-provided configuration file at "${
+              this.options.configFile
+            }" does not exist. Please ensure this path is correct and try again.`
+          );
+        }
+        if (!isFile(configFile)) {
+          throw new Error(
+            `The user-provided configuration file at "${
+              this.options.configFile
+            }" is not a file. Please ensure this path is correct and try again.`
+          );
+        }
+
+        this.options.root = relativePath(
+          this.options.cwd,
+          findFilePath(configFile)
+        );
+      } else {
+        this.options.root = ".";
+      }
+    } else {
+      this.options.root = replacePath(this.options.root, this.options.cwd);
+    }
+
+    this.resolver = createResolver({
+      workspaceRoot: this.options.cwd,
+      root: this.options.root,
+      cacheDir: this.envPaths.cache,
+      mode: this.options.mode
+    });
+
+    const projectJsonPath = joinPaths(
+      appendPath(this.options.root, this.options.cwd),
+      "project.json"
+    );
+    if (existsSync(projectJsonPath)) {
+      this.projectJson = await readJsonFile(projectJsonPath);
+    }
+
+    const packageJsonPath = joinPaths(
+      appendPath(this.options.root, this.options.cwd),
+      "package.json"
+    );
+    if (existsSync(packageJsonPath)) {
+      this.packageJson = await readJsonFile<PackageJson>(packageJsonPath);
+      this.options.organization ??= isSetObject(this.packageJson?.author)
+        ? kebabCase(this.packageJson?.author?.name)
+        : kebabCase(this.packageJson?.author);
+    }
+
+    this.configFile = await loadUserConfigFile(this.options, this.resolver);
+    if (this.configFile.config) {
+      if (isSetString(this.configFile.configFile)) {
+        this.options.configFile ??= replacePath(
+          this.configFile.configFile,
+          this.options.cwd
+        );
+      }
+
+      if (!this.options.name) {
+        if (
+          isSetObject(this.configFile.config) &&
+          isSetString((this.configFile.config as UserConfig).name)
+        ) {
+          this.options.name = (this.configFile.config as UserConfig).name;
+        } else if (Array.isArray(this.configFile.config)) {
+          for (const config of this.configFile.config) {
+            if (
+              isSetObject(config) &&
+              isSetString((config as UserConfig).name)
+            ) {
+              this.options.name = (config as UserConfig).name;
+              break;
+            }
+          }
+        }
+      }
+
+      if (!this.options.name) {
+        this.options.name = this.projectJson?.name || this.packageJson?.name;
+      }
+    }
   }
 
   /**
@@ -310,106 +452,5 @@ export class PowerlinesBaseContext implements BaseContext {
         workspaceConfig?.mode ||
         (await this.getDefaultMode())
     );
-  }
-
-  /**
-   * Initialize the context with the provided configuration options
-   *
-   * @remarks
-   * This method will set up the resolver and load the user configuration file based on the provided options. It is called during the construction of the context and can also be called when cloning the context to ensure that the new context has the same configuration and resolver setup.
-   *
-   * @param options - The configuration options to initialize the context with
-   * @param initialConfig - The initial configuration to initialize the context with
-   */
-  protected async init(options: EngineOptions, initialConfig: InitialConfig) {
-    this.initialOptions = { ...options };
-    this.initialConfig = { ...initialConfig };
-
-    if (!this.powerlinesPath) {
-      const powerlinesPath = await resolvePackage("powerlines");
-      if (!powerlinesPath) {
-        throw new Error("Could not resolve `powerlines` package location.");
-      }
-      this.powerlinesPath = powerlinesPath;
-    }
-
-    const cwd = options.cwd || this.options?.cwd || process.cwd();
-    const root = replacePath(
-      (options.root || this.options?.root) &&
-        (options.root || this.options.root).replace(/^\.\/?/, "") &&
-        !isEqual(options.root || this.options.root, cwd)
-        ? options.root || this.options.root
-        : ".",
-      cwd
-    );
-
-    this.options = defu(
-      {
-        name: options.name || this.initialConfig.name,
-        root,
-        cwd,
-        mode: options.mode || this.initialConfig.mode,
-        logLevel: options.logLevel || this.initialConfig.logLevel,
-        framework: options.framework || this.initialConfig.framework,
-        organization: options.organization || this.initialConfig.organization,
-        configFile: options.configFile || this.initialConfig.configFile
-      },
-      this.options ?? {},
-      {
-        mode: await this.getDefaultMode(),
-        logLevel: await this.getDefaultLogLevel()
-      }
-    );
-
-    this.resolver = createResolver({
-      workspaceRoot: cwd,
-      root,
-      cacheDir: this.envPaths.cache,
-      mode: this.options.mode
-    });
-
-    this.configFile = await loadUserConfigFile(this.options, this.resolver);
-    if (!this.options.name) {
-      if (this.configFile.config) {
-        if (
-          isSetObject(this.configFile.config) &&
-          isSetString((this.configFile.config as UserConfig).name)
-        ) {
-          this.options.name = (this.configFile.config as UserConfig).name;
-        } else if (Array.isArray(this.configFile.config)) {
-          for (const config of this.configFile.config) {
-            if (
-              isSetObject(config) &&
-              isSetString((config as UserConfig).name)
-            ) {
-              this.options.name = (config as UserConfig).name;
-              break;
-            }
-          }
-        }
-      }
-
-      if (!this.options.name) {
-        const packageJsonPath = joinPaths(
-          appendPath(this.options.root, this.options.cwd),
-          "package.json"
-        );
-        if (existsSync(packageJsonPath)) {
-          const packageJson = await readJsonFile(packageJsonPath);
-          this.options.name = packageJson.name;
-        }
-
-        if (!this.options.name) {
-          const projectJsonPath = joinPaths(
-            appendPath(this.options.root, this.options.cwd),
-            "project.json"
-          );
-          if (existsSync(projectJsonPath)) {
-            const projectJson = await readJsonFile(projectJsonPath);
-            this.options.name = projectJson.name;
-          }
-        }
-      }
-    }
   }
 }

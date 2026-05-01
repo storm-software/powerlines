@@ -20,8 +20,7 @@ import type {
   EnvironmentContext,
   EnvironmentResolvedConfig,
   ExecutionContext,
-  InitialConfig,
-  InlineConfig,
+  InferOverridableConfig,
   LogFn,
   Logger,
   LoggerOptions,
@@ -33,13 +32,11 @@ import { ExecutionOptions } from "@powerlines/core";
 import { GLOBAL_ENVIRONMENT } from "@powerlines/core/constants";
 import type {
   Unstable_ContextInternal,
-  Unstable_EnvironmentContext,
-  Unstable_ExecutionContext
+  Unstable_EnvironmentContext
 } from "@powerlines/core/types/_internal";
 import { toArray } from "@stryke/convert/to-array";
 import { existsSync } from "@stryke/fs/exists";
 import { readJsonFile } from "@stryke/fs/json";
-import { resolvePackage } from "@stryke/fs/resolve";
 import { deepClone } from "@stryke/helpers/deep-clone";
 import { joinPaths } from "@stryke/path/join";
 import { PackageJson } from "@stryke/types/package-json";
@@ -57,9 +54,25 @@ export class PowerlinesExecutionContext<
   extends PowerlinesContext<TResolvedConfig>
   implements ExecutionContext<TResolvedConfig>
 {
+  /**
+   * Internal references storage
+   *
+   * @danger
+   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
+   *
+   * @internal
+   */
+  #internal = {} as Unstable_ContextInternal<TResolvedConfig>;
+
+  /**
+   * A record of all environments by name
+   */
   #environments: Record<string, Unstable_EnvironmentContext<TResolvedConfig>> =
     {};
 
+  /**
+   * The plugins added to this execution context, which may be used to track the plugins that have been added to the context and ensure that they are properly registered and executed during the build process. This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
+   */
   #plugins: Plugin<PluginContext<TResolvedConfig>>[] = [];
 
   /**
@@ -68,22 +81,18 @@ export class PowerlinesExecutionContext<
    * @param options - The options for resolving the context.
    * @returns A promise that resolves to the new context.
    */
-  public static override async init<
+  public static override async fromInitialConfig<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
     options: ExecutionOptions,
-    initialConfig: InitialConfig<TResolvedConfig["userConfig"]>
-  ): Promise<ExecutionContext<TResolvedConfig>> {
-    const context = new PowerlinesExecutionContext<TResolvedConfig>(options);
-    await context.init(options, initialConfig);
+    initialConfig: TResolvedConfig["initialConfig"]
+  ): Promise<PowerlinesExecutionContext<TResolvedConfig>> {
+    const context = new PowerlinesExecutionContext<TResolvedConfig>(
+      options,
+      initialConfig
+    );
+    await context.init();
 
-    const powerlinesPath = await resolvePackage("powerlines");
-    if (!powerlinesPath) {
-      throw new Error("Could not resolve `powerlines` package location.");
-    }
-    context.powerlinesPath = powerlinesPath;
-
-    await context.setup();
     return context;
   }
 
@@ -93,40 +102,19 @@ export class PowerlinesExecutionContext<
    * @param options - The options for resolving the context.
    * @returns A promise that resolves to the new context.
    */
-  public static async inline<
+  public static async fromInlineConfig<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
     options: ExecutionOptions,
-    initialConfig: InitialConfig<TResolvedConfig["userConfig"]>,
-    inlineConfig: InlineConfig<TResolvedConfig["userConfig"]>
-  ): Promise<ExecutionContext<TResolvedConfig>> {
-    const context = new PowerlinesExecutionContext<TResolvedConfig>(options);
-    await context.init(options, initialConfig);
-
-    context.config.inlineConfig = inlineConfig;
-    if (context.config.inlineConfig.command === "new") {
-      const workspacePackageJsonPath = joinPaths(
-        context.config.cwd,
-        "package.json"
-      );
-      if (!existsSync(workspacePackageJsonPath)) {
-        throw new Error(
-          `The workspace package.json file could not be found at ${workspacePackageJsonPath}`
-        );
-      }
-
-      context.packageJson = await readJsonFile<PackageJson>(
-        workspacePackageJsonPath
-      );
-    }
-
-    await context.setup();
-
-    const powerlinesPath = await resolvePackage("powerlines");
-    if (!powerlinesPath) {
-      throw new Error("Could not resolve `powerlines` package location.");
-    }
-    context.powerlinesPath = powerlinesPath;
+    initialConfig: TResolvedConfig["initialConfig"],
+    inlineConfig: TResolvedConfig["inlineConfig"]
+  ): Promise<PowerlinesExecutionContext<TResolvedConfig>> {
+    const context = new PowerlinesExecutionContext<TResolvedConfig>(
+      options,
+      initialConfig
+    );
+    await context.init();
+    await context.setInlineConfig(inlineConfig);
 
     return context;
   }
@@ -139,8 +127,8 @@ export class PowerlinesExecutionContext<
    *
    * @internal
    */
-  public override get $$internal(): Unstable_ContextInternal<TResolvedConfig> {
-    return super.$$internal;
+  public get $$internal(): Unstable_ContextInternal<TResolvedConfig> {
+    return this.#internal;
   }
 
   /**
@@ -151,12 +139,11 @@ export class PowerlinesExecutionContext<
    *
    * @internal
    */
-  public override set $$internal(
-    value: Unstable_ContextInternal<TResolvedConfig>
-  ) {
-    super.$$internal = value;
+  public set $$internal(value: Unstable_ContextInternal<TResolvedConfig>) {
+    this.#internal = value;
+
     for (const environment of Object.values(this.environments)) {
-      environment.$$internal = super.$$internal;
+      environment.$$internal = value;
     }
   }
 
@@ -185,9 +172,42 @@ export class PowerlinesExecutionContext<
    * Creates a new instance.
    *
    * @param options - The options to use for creating the context, including the resolved configuration and workspace settings.
+   * @param initialConfig - The initial configuration options to use for the context, which can be used to provide default values for configuration options that may be overridden by user configuration or inline configuration. This is typically the configuration options provided by the user in a configuration file on disk, and can include any relevant settings such as environment definitions, plugin configurations, and other parameters that may be relevant to the execution of a Powerlines command.
    */
-  protected constructor(options: ExecutionOptions) {
-    super(options);
+  protected constructor(
+    options: ExecutionOptions,
+    initialConfig: TResolvedConfig["initialConfig"] = {}
+  ) {
+    super(options, initialConfig);
+    this.initialOptions = options;
+    this.initialConfig = initialConfig;
+  }
+
+  /**
+   * A setter function to populate the inline config values provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed. This function can be used to update the context with the inline configuration values, which may be used during the configuration resolution process to ensure that the final configuration reflects both the user configuration and any inline configuration provided during execution.
+   *
+   * @param config - The inline configuration values to set.
+   * @returns A promise that resolves when the inline configuration values have been set.
+   */
+  public override async setInlineConfig(
+    config: TResolvedConfig["inlineConfig"]
+  ): Promise<void> {
+    await super.setInlineConfig(config);
+    if (this.inlineConfig.command === "new") {
+      const workspacePackageJsonPath = joinPaths(
+        this.config.cwd,
+        "package.json"
+      );
+      if (!existsSync(workspacePackageJsonPath)) {
+        throw new Error(
+          `The workspace package.json file could not be found at ${workspacePackageJsonPath}`
+        );
+      }
+
+      this.packageJson = await readJsonFile<PackageJson>(
+        workspacePackageJsonPath
+      );
+    }
   }
 
   /**
@@ -223,61 +243,43 @@ export class PowerlinesExecutionContext<
   }
 
   /**
-   * Creates a clone of the current context with the same configuration and workspace settings. This can be useful for running multiple builds in parallel or for creating isolated contexts for different parts of the build process.
-   *
-   * @remarks
-   * The cloned context will have the same configuration and workspace settings as the original context, but will have a different build ID, release ID, and timestamp. The virtual file system and caches will also be separate between the original and cloned contexts.
-   *
-   * @returns A promise that resolves to the cloned context.
-   */
-  public override async clone(): Promise<ExecutionContext<TResolvedConfig>> {
-    const clone = (await PowerlinesExecutionContext.init<TResolvedConfig>(
-      this.options,
-      this.initialConfig
-    )) as Unstable_ExecutionContext<TResolvedConfig>;
-
-    clone.config.userConfig = deepClone(
-      this.config.userConfig
-    ) as TResolvedConfig["userConfig"];
-    clone.config.initialConfig = deepClone(
-      this.config.initialConfig
-    ) as InitialConfig<TResolvedConfig["userConfig"]>;
-    clone.config.inlineConfig = deepClone(
-      this.config.inlineConfig
-    ) as InlineConfig<TResolvedConfig["userConfig"]>;
-    clone.config.pluginConfig = deepClone(this.config.pluginConfig) as Partial<
-      TResolvedConfig["userConfig"]
-    >;
-
-    await clone.setup();
-    clone.$$internal = this.$$internal;
-
-    return this.copyTo(clone) as ExecutionContext<TResolvedConfig>;
-  }
-
-  /**
    * A function to copy the context and update the fields for a specific environment
    *
    * @param environment - The environment configuration to use.
    * @returns A new context instance with the updated environment.
    */
-  public async in(
-    environment: EnvironmentResolvedConfig
+  public async createEnvironment(
+    environment: EnvironmentResolvedConfig<TResolvedConfig>["environment"]
   ): Promise<Unstable_EnvironmentContext<TResolvedConfig>> {
-    // let environmentContext!: PowerlinesEnvironmentContext<TResolvedConfig>;
-    // if (this.environments[environment.name]) {
-    //   environmentContext = this.environments[
-    //     environment.name
-    //   ]! as PowerlinesEnvironmentContext<TResolvedConfig>;
-    // }
-
-    const context = this.copyTo(
-      await PowerlinesEnvironmentContext.fromConfig(
+    const context =
+      await PowerlinesEnvironmentContext.createEnvironment<TResolvedConfig>(
         deepClone(this.options),
         deepClone(this.config) as TResolvedConfig,
-        deepClone(environment) as EnvironmentResolvedConfig
-      )
-    ) as PowerlinesEnvironmentContext<TResolvedConfig>;
+        deepClone(this.overriddenConfig) as InferOverridableConfig<
+          EnvironmentResolvedConfig<TResolvedConfig>
+        >,
+        deepClone(
+          environment
+        ) as EnvironmentResolvedConfig<TResolvedConfig>["environment"]
+      );
+
+    context.dependencies = deepClone<typeof this.dependencies>(
+      this.dependencies
+    );
+    context.devDependencies = deepClone<typeof this.devDependencies>(
+      this.devDependencies
+    );
+    context.persistedMeta = deepClone<typeof this.persistedMeta>(
+      this.persistedMeta
+    );
+    context.resolvePatterns = deepClone<typeof this.resolvePatterns>(
+      this.resolvePatterns
+    );
+
+    context.powerlinesPath ??= this.powerlinesPath;
+    context.resolver ??= this.resolver;
+
+    context.$$internal = this.$$internal;
 
     context.plugins = [];
     for (const plugin of this.plugins) {
@@ -290,8 +292,8 @@ export class PowerlinesExecutionContext<
   /**
    * Update the context using a new inline configuration options
    */
-  public override async setup() {
-    await super.setup();
+  public override async resolveConfig() {
+    await super.resolveConfig();
 
     await Promise.all(
       toArray(
@@ -302,7 +304,7 @@ export class PowerlinesExecutionContext<
             )
           : createDefaultEnvironment(this.config)
       ).map(async env => {
-        this.#environments[env.name] = await this.in(env);
+        this.#environments[env.name] = await this.createEnvironment(env);
       })
     );
   }
@@ -337,11 +339,12 @@ export class PowerlinesExecutionContext<
     if (Object.keys(this.environments).length === 1) {
       environment = this.environments[Object.keys(this.environments)[0]!];
 
-      this.debug(
-        `Applying the only configured environment: ${chalk.bold.cyanBright(
-          environment?.environment.name
+      this.trace({
+        meta: { category: "plugins" },
+        message: `Applying the only configured environment: ${chalk.bold.cyanBright(
+          environment?.config.environment?.name
         )}`
-      );
+      });
     }
 
     if (!environment) {
@@ -349,13 +352,29 @@ export class PowerlinesExecutionContext<
         throw new Error(`Environment "${name}" not found.`);
       }
 
-      environment = await this.in(createDefaultEnvironment(this.config));
+      environment =
+        await PowerlinesEnvironmentContext.createEnvironment<TResolvedConfig>(
+          deepClone(this.options),
+          deepClone(this.config) as TResolvedConfig,
+          deepClone(this.overriddenConfig) as InferOverridableConfig<
+            EnvironmentResolvedConfig<TResolvedConfig>
+          >,
+          deepClone(
+            createDefaultEnvironment(this.config)
+          ) as EnvironmentResolvedConfig<TResolvedConfig>["environment"]
+        );
 
-      this.warn(
-        `No environment specified, and no default environment found. Using a temporary default environment: ${chalk.bold.cyanBright(
-          environment?.environment.name
+      environment.plugins = [];
+      for (const plugin of this.plugins) {
+        await environment.addPlugin(plugin);
+      }
+
+      this.warn({
+        meta: { category: "plugins" },
+        message: `No environment specified, and no default environment found. Using a temporary default environment: ${chalk.bold.cyanBright(
+          environment.config.environment?.name
         )}`
-      );
+      });
     }
 
     return environment;
@@ -388,13 +407,14 @@ export class PowerlinesExecutionContext<
   public async toEnvironment(): Promise<EnvironmentContext<TResolvedConfig>> {
     let environment: EnvironmentContext<TResolvedConfig>;
     if (Object.keys(this.environments).length > 1) {
-      environment = await this.in(
-        createEnvironment(GLOBAL_ENVIRONMENT, this.config)
+      environment = await this.createEnvironment(
+        createEnvironment<TResolvedConfig>(GLOBAL_ENVIRONMENT, this.config)
       );
 
-      this.debug(
-        `Combined all ${Object.keys(this.environments).length} environments into a single global context.`
-      );
+      this.debug({
+        meta: { category: "plugins" },
+        message: `Combined all ${Object.keys(this.environments).length} environments into a single global context.`
+      });
     } else {
       environment = await this.getEnvironment();
     }

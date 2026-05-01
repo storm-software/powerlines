@@ -29,42 +29,26 @@ import ts from "typescript";
 /**
  * Get the path to the tsconfig.json file.
  *
- * @param workspaceRoot - The root directory of the workspace.
- * @param projectRoot - The root directory of the project.
+ * @param cwd - The root directory of the workspace.
+ * @param root - The root directory of the project.
  * @param tsconfig - The path to the tsconfig.json file.
  * @returns The absolute path to the tsconfig.json file.
  * @throws If the tsconfig.json file does not exist.
  */
 export function getTsconfigFilePath(
-  workspaceRoot: string,
-  projectRoot: string,
+  cwd: string,
+  root: string,
   tsconfig?: string
 ): string {
   let tsconfigFilePath: string | undefined;
   if (tsconfig) {
-    tsconfigFilePath = tryTsconfigFilePath(
-      workspaceRoot,
-      projectRoot,
-      tsconfig
-    );
+    tsconfigFilePath = tryTsconfigFilePath(cwd, root, tsconfig);
   } else {
-    tsconfigFilePath = tryTsconfigFilePath(
-      workspaceRoot,
-      projectRoot,
-      "tsconfig.app.json"
-    );
+    tsconfigFilePath = tryTsconfigFilePath(cwd, root, "tsconfig.app.json");
     if (!tsconfigFilePath) {
-      tsconfigFilePath = tryTsconfigFilePath(
-        workspaceRoot,
-        projectRoot,
-        "tsconfig.lib.json"
-      );
+      tsconfigFilePath = tryTsconfigFilePath(cwd, root, "tsconfig.lib.json");
       if (!tsconfigFilePath) {
-        tsconfigFilePath = tryTsconfigFilePath(
-          workspaceRoot,
-          projectRoot,
-          "tsconfig.json"
-        );
+        tsconfigFilePath = tryTsconfigFilePath(cwd, root, "tsconfig.json");
       }
     }
   }
@@ -72,7 +56,7 @@ export function getTsconfigFilePath(
   if (!tsconfigFilePath) {
     throw new Error(
       `Cannot find the \`tsconfig.json\` configuration file for the project at ${
-        projectRoot
+        root
       }.`
     );
   }
@@ -83,25 +67,22 @@ export function getTsconfigFilePath(
 /**
  * Get the path to the tsconfig.json file.
  *
- * @param workspaceRoot - The root directory of the workspace.
- * @param projectRoot - The root directory of the project.
+ * @param cwd - The root directory of the workspace.
+ * @param root - The root directory of the project.
  * @param tsconfig - The path to the tsconfig.json file.
  * @returns The absolute path to the tsconfig.json file.
  * @throws If the tsconfig.json file does not exist.
  */
 export function tryTsconfigFilePath(
-  workspaceRoot: string,
-  projectRoot: string,
+  cwd: string,
+  root: string,
   tsconfig: string
 ): string | undefined {
   let tsconfigFilePath = tsconfig;
   if (!existsSync(tsconfigFilePath)) {
-    tsconfigFilePath = appendPath(tsconfig, projectRoot);
+    tsconfigFilePath = appendPath(tsconfig, root);
     if (!existsSync(tsconfigFilePath)) {
-      tsconfigFilePath = appendPath(
-        tsconfig,
-        appendPath(projectRoot, workspaceRoot)
-      );
+      tsconfigFilePath = appendPath(tsconfig, appendPath(root, cwd));
       if (!existsSync(tsconfigFilePath)) {
         return undefined;
       }

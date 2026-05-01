@@ -177,8 +177,7 @@
   "devDependencies": {
     "@openfeature/flagd-provider": "catalog:",
     "@openfeature/server-sdk": "catalog:",
-    "@types/node": "catalog:",
-    "vite": "catalog:"
+    "@types/node": "catalog:"
   },
   "publishConfig": {
     "access": "public"

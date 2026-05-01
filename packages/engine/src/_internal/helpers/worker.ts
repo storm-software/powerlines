@@ -24,7 +24,6 @@ import { MaybePromise } from "@stryke/types/base";
 import { formatDuration } from "date-fns/formatDuration";
 import { Worker as JestWorker } from "jest-worker";
 import type { ChildProcess } from "node:child_process";
-import { cpus } from "node:os";
 import { Transform } from "node:stream";
 import { parseArgs } from "node:util";
 import { IpcMessage, IpcMessageType } from "../ipc/messages";
@@ -307,7 +306,9 @@ export type WorkerOptions = ConstructorParameters<typeof JestWorker>[1] & {
   isolatedMemory?: boolean;
 
   /**
-   * The maximum time in milliseconds a worker can run before being terminated. Defaults to `0` (no timeout).
+   * The maximum time in milliseconds a worker can run before being terminated.
+   *
+   * @defaultValue 900000 (15 minutes)
    */
   timeout?: number;
 
@@ -361,11 +362,12 @@ export class Worker {
     protected options: WorkerOptions
   ) {
     const {
-      timeout,
+      timeout = 900_000,
       onRestart,
       debuggerPortOffset = -1,
       enableSourceMaps = false,
       isolatedMemory = false,
+      enableWorkerThreads = false,
       logger,
       ...rest
     } = this.options;
@@ -455,7 +457,9 @@ export class Worker {
         ...process.env,
         ...((rest.forkOptions?.env ?? {}) as any),
         NODE_OPTIONS: formattedNodeOptions,
-        POWERLINES_WORKER_THREAD_EXECUTION: "true"
+        POWERLINES_EXECUTION_THREAD_TYPE: enableWorkerThreads
+          ? "worker-thread"
+          : "child-process"
       };
 
       if (workerEnv.FORCE_COLOR === undefined) {
@@ -477,27 +481,21 @@ export class Worker {
 
       this.#worker = new JestWorker(workerPath, {
         maxRetries: 0,
-        numWorkers: cpus().length ?? 3,
-        computeWorkerKey: (method: string, ...args: Array<unknown>) => {
-          let executionParams: {
-            method?: string;
-            executionIndex?: number;
-            name?: string;
-          } = { method };
+        computeWorkerKey: (_, ...args: Array<unknown>) => {
+          let executionId = "default";
+          let executionIndex = 0;
           if (args.length > 0 && isSetObject(args[0])) {
-            const arg = args[0] as Partial<ExecutionWorkerParams>;
+            const arg = args[0] as ExecutionWorkerParams;
             if (isSetObject(arg.options)) {
-              executionParams = {
-                method,
-                executionIndex: arg.options.executionIndex ?? 0,
-                name: arg.options.name
-              };
+              executionIndex = arg.options.executionIndex ?? 0;
+              executionId = arg.options.executionId || "default";
             }
           }
 
-          return JSON.stringify(executionParams);
+          return `${executionId}-${executionIndex}`;
         },
         ...rest,
+        enableWorkerThreads,
         forkOptions: {
           ...rest.forkOptions,
           silent: true,
@@ -518,7 +516,7 @@ export class Worker {
        *
        * But this property is not available in NodeThreadWorker, so we need to check if we are using ChildProcessWorker
        */
-      if (!rest.enableWorkerThreads) {
+      if (!enableWorkerThreads) {
         for (const worker of ((this.#worker as any)._workerPool?._workers ||
           []) as {
           _child?: ChildProcess;

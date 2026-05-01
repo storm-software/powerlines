@@ -20,8 +20,11 @@ import type {
   EngineContext,
   EngineOptions,
   ExecutionState,
-  InitialConfig
+  LogLevelResolvedConfig,
+  UserConfig
 } from "@powerlines/core";
+import { toArray } from "@stryke/convert/to-array";
+import { DeepPartial, RequiredKeys } from "@stryke/types/base";
 import { uuid } from "@stryke/unique-id/uuid";
 import { PowerlinesBaseContext } from "./base-context";
 
@@ -37,62 +40,100 @@ export class PowerlinesEngineContext
    * @param options - The options to initialize the context with.
    * @returns A promise that resolves to an instance of the PowerlinesEngineContext class.
    */
-  public static async init(
+  public static async fromInitialConfig(
     options: EngineOptions,
-    initialConfig: InitialConfig<any> = {}
+    initialConfig: DeepPartial<UserConfig> = {}
   ): Promise<PowerlinesEngineContext> {
-    const context = new PowerlinesEngineContext();
-    await context.init(options, initialConfig);
+    const context = new PowerlinesEngineContext(options, initialConfig);
+    await context.init();
 
-    if (!context.configFile?.config) {
-      context.fatal(
+    return context;
+  }
+
+  /**
+   * The initial options provided to the Powerlines process before any resolution or merging. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
+   */
+  public override readonly initialOptions: EngineOptions;
+
+  /**
+   * The initial user configuration provided to the Powerlines process before any resolution or merging. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
+   */
+  public override readonly initialConfig: DeepPartial<UserConfig>;
+
+  /**
+   * The options provided to the Powerlines process
+   */
+  public override options: RequiredKeys<
+    Omit<EngineOptions, "logLevel">,
+    "name" | "root" | "cwd" | "mode" | "framework"
+  > & {
+    /**
+     * The log level to use for logging messages during the build process. This can be a string indicating the log level or a more detailed configuration object that allows for specifying different log levels for different categories of logs.
+     */
+    logLevel: LogLevelResolvedConfig;
+  } = {} as RequiredKeys<
+    Omit<EngineOptions, "logLevel">,
+    "name" | "root" | "cwd" | "mode" | "framework"
+  > & {
+    /**
+     * The log level to use for logging messages during the build process. This can be a string indicating the log level or a more detailed configuration object that allows for specifying different log levels for different categories of logs.
+     */
+    logLevel: LogLevelResolvedConfig;
+  };
+
+  /**
+   * Creates a new Context instance.
+   *
+   * @param options - The options to use for creating the context, including the resolved configuration and workspace settings.
+   * @param initialConfig - The initial configuration provided by the user, which can be used to resolve the final configuration for the context. This typically includes the user configuration options defined in the `powerlines.config.ts` file, as well as any inline configuration options provided during execution.
+   */
+  protected constructor(
+    options: EngineOptions,
+    initialConfig: DeepPartial<UserConfig> = {}
+  ) {
+    super(options, initialConfig);
+    this.initialOptions = options;
+    this.initialConfig = initialConfig;
+  }
+
+  /**
+   * Initialize the context with the provided configuration options
+   *
+   * @remarks
+   * This method will set up the resolver and load the user configuration file based on the provided options. It is called during the construction of the context and can also be called when cloning the context to ensure that the new context has the same configuration and resolver setup.
+   */
+  protected override async init() {
+    await super.init();
+
+    if (!this.configFile?.config) {
+      this.fatal(
         "No configuration file found. Please ensure you have a valid configuration file in your project."
       );
       throw new Error("No configuration file found");
     }
 
-    if (Array.isArray(context.configFile.config)) {
-      context.#executions = await Promise.all(
-        context.configFile.config.map(async (_, executionIndex) => {
-          const executionId = uuid();
+    this.#executions = await Promise.all(
+      toArray(this.configFile.config).map(async (_, executionIndex) => {
+        const executionId = uuid();
 
-          return {
-            executionId,
-            options: {
-              cwd: process.cwd(),
-              ...context.options,
-              executionId,
-              executionIndex
-            },
-            active: {
-              command: null,
-              hook: null,
-              plugin: null
-            }
-          };
-        })
-      );
-    } else {
-      const executionId = uuid();
-      context.#executions = [
-        {
+        return {
           executionId,
           options: {
-            cwd: process.cwd(),
-            ...context.options,
+            cwd: this.options.cwd,
+            root: this.options.root,
+            configFile: this.options.configFile,
+            ...this.initialOptions,
             executionId,
-            executionIndex: 0
+            executionIndex
           },
           active: {
             command: null,
             hook: null,
             plugin: null
           }
-        }
-      ];
-    }
-
-    return context;
+        };
+      })
+    );
   }
 
   /**

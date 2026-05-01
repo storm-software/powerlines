@@ -16,9 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import { EnvInterface } from "@powerlines/plugin-env/types/runtime";
+import { EnvInterface } from "@powerlines/plugin-env/types/env";
 
-export interface ReactEnvInterface extends EnvInterface {
+export interface ReactEnv extends EnvInterface {
   /**
    * Disables the React compiler optimizations when set to true.
    *

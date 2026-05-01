@@ -24,6 +24,7 @@ import { replacePath } from "@stryke/path/replace";
 import { camelCase } from "@stryke/string-format/camel-case";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { RequiredKeys } from "@stryke/types/base";
 import { loadConfig as loadConfigC12 } from "c12";
 import defu from "defu";
 import type { Jiti } from "jiti";
@@ -75,7 +76,7 @@ export async function loadWorkspaceConfig(
  * @returns A promise that resolves to the resolved user configuration.
  */
 export async function loadUserConfigFile(
-  options: EngineOptions,
+  options: RequiredKeys<EngineOptions, "root" | "cwd" | "mode" | "framework">,
   jiti: Jiti
 ): Promise<ParsedUserConfig> {
   let resolvedUserConfig: Partial<ParsedUserConfig> = {};

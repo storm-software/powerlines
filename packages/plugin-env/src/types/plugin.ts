@@ -37,7 +37,7 @@ import {
   TypeDefinition,
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
-import { EnvInterface, SecretsInterface } from "./runtime";
+import { EnvInterface, SecretsInterface } from "./env";
 
 export type EnvType = "env" | "secrets";
 

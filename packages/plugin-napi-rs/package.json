@@ -140,6 +140,7 @@
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-automd": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
+    "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/string-format": "catalog:",
@@ -162,8 +163,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "inlinedDependencies": {
-    "@stryke/convert": "0.7.2"
   }
 }

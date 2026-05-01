@@ -19,24 +19,24 @@
 import type {
   Context,
   CopyConfig,
-  CopyResolvedConfig,
   EmitEntryOptions,
   EmitOptions,
   ExecutionOptions,
   FetchOptions,
-  InitialConfig,
+  InferOverridableConfig,
   LogFn,
   LogFnMeta,
   Logger,
   LoggerOptions,
   MetaInfo,
-  OutputResolvedConfig,
   ParsedTypeScriptConfig,
   ParseOptions,
   PluginConfig,
   ResolvedAssetGlob,
   ResolvedConfig,
+  ResolvedCopyConfig,
   ResolvedEntryTypeDefinition,
+  ResolvedOutputConfig,
   ResolveOptions,
   ResolveResult,
   TransformResult,
@@ -66,18 +66,12 @@ import {
   withCustomLogger,
   withLogFn
 } from "@powerlines/core/plugin-utils";
-import { Unstable_ContextInternal } from "@powerlines/core/types/_internal";
 import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { toArray } from "@stryke/convert/to-array";
-import { toBool } from "@stryke/convert/to-bool";
 import { EnvPaths, getEnvPaths } from "@stryke/env/get-env-paths";
-import { existsSync } from "@stryke/fs/exists";
 import { relativeToWorkspaceRoot } from "@stryke/fs/get-workspace-root";
-import { readJsonFile } from "@stryke/fs/json";
-import { resolvePackage } from "@stryke/fs/resolve";
 import { murmurhash } from "@stryke/hash";
 import { hashDirectory } from "@stryke/hash/node";
-import { deepClone } from "@stryke/helpers/deep-clone";
 import { getUnique, getUniqueBy } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
 import { fetchRequest } from "@stryke/http/fetch";
@@ -90,15 +84,14 @@ import { isEqual } from "@stryke/path/is-equal";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
-import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isFunction } from "@stryke/type-checks/is-function";
-import { isObject } from "@stryke/type-checks/is-object";
+import { isPromise } from "@stryke/type-checks/is-promise";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
+import { RequiredKeys } from "@stryke/types/base";
 import { TypeDefinition } from "@stryke/types/configuration";
-import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
 import { match, tsconfigPathsToRegExp } from "bundle-require";
 import { resolveCompatibilityDates } from "compatx";
@@ -135,16 +128,11 @@ setGlobalDispatcher(
   )
 );
 
-const SKIP_CLONING_PROPS = [
-  "dependencies",
-  "devDependencies",
-  "persistedMeta",
-  "packageJson",
-  "projectJson",
-  "tsconfig",
-  "resolver",
-  "fs",
-  "$$internal"
+const UNRESOLVED_CONFIG_NAMES = [
+  "initialConfig",
+  "userConfig",
+  "inlineConfig",
+  "pluginConfig"
 ];
 
 export class PowerlinesContext<
@@ -153,16 +141,6 @@ export class PowerlinesContext<
   extends PowerlinesBaseContext
   implements Context<TResolvedConfig>
 {
-  /**
-   * Internal references storage
-   *
-   * @danger
-   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
-   *
-   * @internal
-   */
-  #internal = {} as Unstable_ContextInternal<TResolvedConfig>;
-
   #checksum: string | null = null;
 
   #buildId: string = uuid();
@@ -177,34 +155,39 @@ export class PowerlinesContext<
 
   #requestCache!: FlatCache;
 
+  #configProxy!: TResolvedConfig;
+
   /**
-   * Create a new Storm context from the workspace root and user config.
+   * Create a new context from the workspace root and user config.
    *
    * @param options - The options for resolving the context.
    * @returns A promise that resolves to the new context.
    */
-  public static async init<
+  public static async fromInitialConfig<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
     options: ExecutionOptions,
-    initialConfig: InitialConfig<TResolvedConfig["userConfig"]>
-  ): Promise<Context<TResolvedConfig>> {
-    const context = new PowerlinesContext<TResolvedConfig>(options);
-    await context.init(options, initialConfig);
-
-    const powerlinesPath = await resolvePackage("powerlines");
-    if (!powerlinesPath) {
-      throw new Error("Could not resolve `powerlines` package location.");
-    }
-    context.powerlinesPath = powerlinesPath;
+    initialConfig: TResolvedConfig["initialConfig"]
+  ): Promise<PowerlinesContext<TResolvedConfig>> {
+    const context = new PowerlinesContext<TResolvedConfig>(
+      options,
+      initialConfig
+    );
+    await context.init();
 
     return context;
   }
 
   /**
-   * The options provided to the Powerlines process
+   * The options provided to the Powerlines process, resolved with default values and merged with any configuration provided by plugins or other sources. This is typically the final configuration used during the build process, but may also include additional options that are relevant to the context and its interactions with the Powerlines engine.
    */
-  public override options: ExecutionOptions;
+  public override options: RequiredKeys<
+    ExecutionOptions,
+    "mode" | "cwd" | "root" | "framework" | "logLevel"
+  > = {} as RequiredKeys<
+    ExecutionOptions,
+    "mode" | "cwd" | "root" | "framework" | "logLevel"
+  >;
 
   /**
    * An object containing the dependencies that should be installed for the project
@@ -222,43 +205,42 @@ export class PowerlinesContext<
   public persistedMeta: MetaInfo | undefined = undefined;
 
   /**
-   * The parsed `package.json` file for the project
-   */
-  public packageJson!: PackageJson;
-
-  /**
-   * The parsed `project.json` file for the project
-   */
-  public projectJson: Record<string, any> | undefined = undefined;
-
-  /**
    * The resolved tsconfig file paths for the project
    */
   public resolvePatterns: RegExp[] = [];
 
   /**
-   * Internal context fields and methods
-   *
-   * @danger
-   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
-   *
-   * @internal
+   * The input options used to initialize the context, which may be used when cloning the context to ensure the same configuration is applied to the new context
    */
-  public get $$internal(): Unstable_ContextInternal<TResolvedConfig> {
-    return this.#internal;
-  }
+  protected override initialOptions: ExecutionOptions = {} as ExecutionOptions;
 
   /**
-   * Internal context fields and methods
-   *
-   * @danger
-   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
-   *
-   * @internal
+   * The resolved configuration for this context
    */
-  public set $$internal(value: Unstable_ContextInternal<TResolvedConfig>) {
-    this.#internal = value;
-  }
+  protected resolvedConfig: TResolvedConfig = {} as TResolvedConfig;
+
+  /**
+   * The configuration options that were overridden by plugins during the build process, which may include additional properties or modifications made during the configuration loading process.
+   */
+  protected overriddenConfig: InferOverridableConfig<TResolvedConfig> =
+    {} as InferOverridableConfig<TResolvedConfig>;
+
+  /**
+   * The configuration options provided inline during execution, such as CLI flags or other parameters that may be relevant to the command being executed. These options can be used to override or supplement the configuration options defined in a configuration file on disk, and are typically provided as part of the execution context when running a Powerlines command.
+   */
+  protected inlineConfig: TResolvedConfig["inlineConfig"] =
+    {} as TResolvedConfig["inlineConfig"];
+
+  /**
+   * The configuration options read from a configuration file on disk, which may be used to resolve the final configuration for the context. This typically includes the user configuration options defined in the `powerlines.config.ts` file, as well as any inline configuration options provided during execution.
+   */
+  protected userConfig: TResolvedConfig["userConfig"] =
+    {} as TResolvedConfig["userConfig"];
+
+  /**
+   * The configuration options provided by plugins added by the user (and other plugins)
+   */
+  protected pluginConfig: TResolvedConfig["pluginConfig"] = {};
 
   /**
    * The resolved entry type definitions for the project
@@ -345,7 +327,11 @@ export class PowerlinesContext<
    * The resolved configuration options
    */
   public get config(): TResolvedConfig {
-    return this.resolvedConfig;
+    if (!this.#configProxy) {
+      this.#configProxy = this.createConfigProxy();
+    }
+
+    return this.#configProxy;
   }
 
   /**
@@ -355,7 +341,8 @@ export class PowerlinesContext<
     return joinPaths(
       this.config.cwd,
       this.config.root,
-      this.config.output.artifactsPath
+      this.config.output?.artifactsPath ||
+        `.${this.config.framework || "powerlines"}`
     );
   }
 
@@ -440,9 +427,7 @@ export class PowerlinesContext<
    * Additional arguments provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed.
    */
   public get additionalArgs(): Record<string, string | string[]> {
-    return Object.entries(
-      this.config.inlineConfig?.additionalArgs ?? {}
-    ).reduce(
+    return Object.entries(this.config.inlineConfig.additionalArgs ?? {}).reduce(
       (ret, [key, value]) => {
         const formattedKey = key.replace(/^--?/, "");
 
@@ -504,41 +489,6 @@ export class PowerlinesContext<
           : this.config.resolve.alias
         : {}
     );
-  }
-
-  /**
-   * Create a new logger instance
-   *
-   * @param options - The configuration options to use for the logger instance, which can be used to customize the appearance and behavior of the log messages generated by the logger. This is typically the name of the plugin or module that is creating the logger instance.
-   * @param logFn - The custom logging function to use for logging messages, which can be used to override the default logging behavior of the original logger.
-   * @returns A logger client instance that can be used to generate log messages with consistent formatting and metadata.
-   */
-  public override createLogger(options: LoggerOptions, logFn?: LogFn): Logger {
-    let logger!: Logger;
-    if (toBool(process.env.POWERLINES_WORKER_THREAD_EXECUTION)) {
-      logger = createLogger(
-        this.config.name,
-        { ...this.options, ...this.config, ...options },
-        (meta: LogFnMeta, message: string) =>
-          sendWriteLogMessage(this, meta, message)
-      );
-    } else {
-      logger = createLogger(this.config.name, {
-        ...this.options,
-        ...this.config,
-        ...options
-      });
-    }
-
-    if (this.config.customLogger) {
-      logger = withCustomLogger(logger, this.config.customLogger);
-    }
-
-    if (logFn) {
-      logger = withLogFn(logger, logFn);
-    }
-
-    return logger;
   }
 
   /**
@@ -634,30 +584,53 @@ export class PowerlinesContext<
   }
 
   /**
-   * Creates a new StormContext instance.
+   * Creates a new Context instance.
    *
    * @param options - The options to use for creating the context, including the resolved configuration and workspace settings.
+   * @param initialConfig - The initial configuration provided by the user, which can be used to resolve the final configuration for the context. This typically includes the user configuration options defined in the `powerlines.config.ts` file, as well as any inline configuration options provided during execution.
    */
-  protected constructor(options: ExecutionOptions) {
-    super();
-    this.options = options;
+  protected constructor(
+    options: ExecutionOptions,
+    initialConfig: TResolvedConfig["initialConfig"]
+  ) {
+    super(options, initialConfig);
+    this.initialOptions = options;
+    this.initialConfig = initialConfig;
   }
 
   /**
-   * Creates a clone of the current context with the same configuration and workspace settings. This can be useful for running multiple builds in parallel or for creating isolated contexts for different parts of the build process.
+   * Create a new logger instance
    *
-   * @remarks
-   * The cloned context will have the same configuration and workspace settings as the original context, but will have a different build ID, release ID, and timestamp. The virtual file system and caches will also be separate between the original and cloned contexts.
-   *
-   * @returns A promise that resolves to the cloned context.
+   * @param options - The configuration options to use for the logger instance, which can be used to customize the appearance and behavior of the log messages generated by the logger. This is typically the name of the plugin or module that is creating the logger instance.
+   * @param logFn - The custom logging function to use for logging messages, which can be used to override the default logging behavior of the original logger.
+   * @returns A logger client instance that can be used to generate log messages with consistent formatting and metadata.
    */
-  public override async clone(): Promise<Context<TResolvedConfig>> {
-    const clone = await PowerlinesContext.init<TResolvedConfig>(
-      this.options,
-      this.initialConfig
-    );
+  public override createLogger(options: LoggerOptions, logFn?: LogFn): Logger {
+    let logger!: Logger;
+    if (isSetString(process.env.POWERLINES_EXECUTION_THREAD_TYPE)) {
+      logger = createLogger(
+        this.config.name,
+        { ...this.options, ...this.config, ...options },
+        (meta: LogFnMeta, message: string) =>
+          sendWriteLogMessage(this, meta, message)
+      );
+    } else {
+      logger = createLogger(this.config.name, {
+        ...this.options,
+        ...this.config,
+        ...options
+      });
+    }
 
-    return this.copyTo(clone);
+    if (this.config.customLogger) {
+      logger = withCustomLogger(logger, this.config.customLogger);
+    }
+
+    if (logFn) {
+      logger = withLogFn(logger, logFn);
+    }
+
+    return logger;
   }
 
   /**
@@ -1235,37 +1208,75 @@ export class PowerlinesContext<
   /**
    * Generates a checksum representing the current context state
    *
-   * @param root - The root directory of the project to generate the checksum for
+   * @param path - The root directory of the project to generate the checksum for
    * @returns A promise that resolves to a string representing the checksum
    */
-  public async generateChecksum(root = this.config.root): Promise<string> {
-    this.#checksum = await hashDirectory(root, {
-      ignore: ["node_modules", ".git", ".nx", ".cache", "tmp", "dist"]
-    });
-
-    return this.#checksum;
+  public async generateChecksum(path?: string): Promise<string> {
+    return hashDirectory(
+      path || appendPath(this.options.root, this.options.cwd)
+    );
   }
 
   /**
-   * Initialize the context with the provided configuration options
+   * A setter function to populate the inline config values provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed. This function can be used to update the context with the inline configuration values, which may be used during the configuration resolution process to ensure that the final configuration reflects both the user configuration and any inline configuration provided during execution.
+   *
+   * @param config - The inline configuration values to set.
+   * @returns A promise that resolves when the inline configuration values have been set.
    */
-  public async setup(): Promise<void> {
-    this.resolvedConfig = mergeConfig(
+  public async setInlineConfig(
+    config: TResolvedConfig["inlineConfig"]
+  ): Promise<void> {
+    this.logger.debug({
+      meta: { category: "config" },
+      message: `Updating inline configuration object: \n${this.logConfig(config)}`
+    });
+
+    this.inlineConfig = config;
+    await this.resolveConfig();
+  }
+
+  /**
+   * A setter function to populate the plugin config values provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed. This function can be used to update the context with the plugin configuration values, which may be used during the configuration resolution process to ensure that the final configuration reflects both the user configuration and any plugin configuration provided during execution.
+   *
+   * @param config - The plugin configuration values to set.
+   * @returns A promise that resolves when the plugin configuration values have been set.
+   */
+  public async setPluginConfig(
+    config: TResolvedConfig["pluginConfig"]
+  ): Promise<void> {
+    this.logger.debug({
+      meta: { category: "config" },
+      message: `Updating plugin configuration object: \n${this.logConfig(config)}`
+    });
+
+    this.pluginConfig = config;
+    await this.resolveConfig();
+  }
+
+  /**
+   * A function to merge the various configuration objects (initial, user, inline, and plugin) into a single resolved configuration object that can be used throughout the Powerlines process. This function takes into account the different sources of configuration and their respective priorities, ensuring that the final configuration reflects the intended settings for the project. The merged configuration is then returned as a new object that can be accessed through the `config` property of the context.
+   *
+   * @returns The merged configuration object that combines the initial, user, inline, and plugin configurations.
+   */
+  protected mergeConfig(): TResolvedConfig {
+    return mergeConfig(
       {
-        root: this.options.root,
-        cwd: this.options.cwd,
-        inlineConfig: this.config.inlineConfig ?? {},
-        userConfig: this.config.userConfig ?? {},
-        initialConfig: this.config.initialConfig ?? {},
-        pluginConfig: this.config.pluginConfig ?? {}
+        mode: this.initialOptions.mode,
+        framework: this.initialOptions.framework,
+        initialOptions: this.initialOptions,
+        options: this.options,
+        inlineConfig: this.inlineConfig,
+        userConfig: this.userConfig,
+        initialConfig: this.initialConfig,
+        pluginConfig: this.pluginConfig
       },
-      getConfigProps(this.config.inlineConfig),
-      getConfigProps(this.config.userConfig),
-      getConfigProps(this.config.initialConfig),
-      getConfigProps(this.config.pluginConfig),
-      this.options,
+      getConfigProps<TResolvedConfig>(this.overriddenConfig),
+      omit(this.options, ["mode", "framework"]),
+      getConfigProps<TResolvedConfig>(this.inlineConfig),
+      getConfigProps<TResolvedConfig>(this.userConfig),
+      getConfigProps<TResolvedConfig>(this.initialConfig),
+      getConfigProps<TResolvedConfig>(this.pluginConfig),
       {
-        name: this.projectJson?.name || this.packageJson?.name,
         version: this.packageJson?.version,
         description: this.packageJson?.description
       },
@@ -1274,256 +1285,140 @@ export class PowerlinesContext<
         resolve: {}
       }
     ) as TResolvedConfig;
-
-    await this.innerSetup();
   }
 
   /**
-   * The resolved configuration for this context
+   * A setter function to populate the user config values provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed. This function can be used to update the context with the user configuration values, which may be used during the configuration resolution process to ensure that the final configuration reflects both the user configuration and any inline configuration provided during execution.
+   *
+   * @param config - The user configuration values to set.
+   * @returns A promise that resolves when the user configuration values have been set.
    */
-  protected resolvedConfig: TResolvedConfig = {} as TResolvedConfig;
+  protected async setUserConfig(
+    config: TResolvedConfig["userConfig"]
+  ): Promise<void> {
+    this.logger.debug({
+      meta: { category: "config" },
+      message: `Updating user configuration object: \n${this.logConfig(config)}`
+    });
 
-  /**
-   * Creates a clone of the current context with the same configuration and workspace settings. This can be useful for running multiple builds in parallel or for creating isolated contexts for different parts of the build process.
-   *
-   * @remarks
-   * The cloned context will have the same configuration and workspace settings as the original context, but will have a different build ID, release ID, and timestamp. The virtual file system and caches will also be separate between the original and cloned contexts.
-   *
-   * @returns The cloned context.
-   */
-  protected copyTo(
-    context: Context<TResolvedConfig>
-  ): Context<TResolvedConfig> {
-    for (const [key, value] of Object.entries(this)) {
-      if (!SKIP_CLONING_PROPS.includes(key)) {
-        if (isObject(value) || Array.isArray(value)) {
-          (context as any)[key] = deepClone(value);
-        } else {
-          (context as any)[key] = value;
-        }
-      }
-    }
-
-    context.initialConfig = deepClone<typeof this.initialConfig>(
-      this.initialConfig
-    );
-    context.initialOptions = deepClone<typeof this.initialOptions>(
-      this.initialOptions
-    );
-    context.options = deepClone<typeof this.options>(this.options);
-
-    context.dependencies = deepClone<typeof this.dependencies>(
-      this.dependencies
-    );
-    context.devDependencies = deepClone<typeof this.devDependencies>(
-      this.devDependencies
-    );
-    context.persistedMeta = this.persistedMeta
-      ? deepClone<typeof this.persistedMeta>(this.persistedMeta)
-      : undefined;
-    context.packageJson = deepClone<typeof this.packageJson>(this.packageJson);
-    context.projectJson = this.projectJson
-      ? deepClone<typeof this.projectJson>(this.projectJson)
-      : undefined;
-    context.tsconfig ??= deepClone<typeof this.tsconfig>(
-      this.tsconfig
-    ) as ParsedTypeScriptConfig;
-
-    context.resolver ??= this.resolver;
-    context.fs ??= this.#fs;
-
-    (context as PowerlinesContext<TResolvedConfig>).$$internal =
-      this.$$internal;
-
-    return context;
-  }
-
-  /**
-   * Initialize the context with the provided configuration options
-   *
-   *   @remarks
-   * This method will set up the resolver and load the user configuration file based on the provided options. It is called during the construction of the context and can also be called when cloning the context to ensure that the new context has the same configuration and resolver setup.
-   *
-   * @param options - The configuration options to initialize the context with
-   */
-  protected override async init(
-    options: ExecutionOptions,
-    initialConfig?: InitialConfig<any>
-  ) {
-    await super.init(options, initialConfig ?? {});
-
-    this.options.executionId = options.executionId ?? this.options.executionId;
-    this.options.executionIndex =
-      options.executionIndex ?? this.options.executionIndex ?? 0;
-
-    const projectJsonPath = joinPaths(
-      this.options.cwd,
-      this.options.root,
-      "project.json"
-    );
-    if (existsSync(projectJsonPath)) {
-      this.projectJson = await readJsonFile(projectJsonPath);
-    }
-
-    const packageJsonPath = joinPaths(
-      this.options.cwd,
-      this.options.root,
-      "package.json"
-    );
-    if (existsSync(packageJsonPath)) {
-      this.packageJson = await readJsonFile<PackageJson>(packageJsonPath);
-      this.options.organization ??= isSetObject(this.packageJson?.author)
-        ? kebabCase(this.packageJson?.author?.name)
-        : kebabCase(this.packageJson?.author);
-    }
-
-    this.#checksum = await this.generateChecksum(
-      joinPaths(this.options.cwd, this.options.root)
-    );
-
-    const userConfig = this.configFile.config
-      ? Array.isArray(this.configFile.config) &&
-        this.configFile.config.length > this.options.executionIndex
-        ? this.configFile.config[this.options.executionIndex]!
-        : this.configFile.config
-      : {};
-
-    this.resolvedConfig = {
-      cwd: this.options.cwd,
-      root: this.options.root,
-      ...this.initialOptions,
-      ...initialConfig,
-      ...userConfig,
-      inlineConfig: {},
-      pluginConfig: {},
-      initialConfig,
-      userConfig
-    };
+    this.userConfig = config;
+    await this.resolveConfig();
   }
 
   /**
    * Initialize the context with the provided configuration options
    */
-  protected async innerSetup(): Promise<void> {
-    const logger = this.extendLogger({ category: "config" });
+  protected override async init() {
+    await super.init();
 
-    this.config.plugins = (this.config.initialConfig.plugins ?? []).concat(
-      this.config.userConfig.plugins ?? [],
-      this.config.inlineConfig.plugins ?? []
-    );
+    this.options.executionId = this.initialOptions.executionId || uuid();
+    this.options.executionIndex = this.initialOptions.executionIndex ?? 0;
 
-    this.config.output = defu(this.config.output ?? {}, {
+    this.#checksum = await this.generateChecksum();
+
+    const result =
+      this.configFile.config &&
+      toArray(this.configFile.config).length > this.options.executionIndex
+        ? toArray(this.configFile.config)[this.options.executionIndex]!
+        : this.configFile.config;
+    if (!result) {
+      this.logger.warn(
+        `No configuration found in ${
+          this.options.configFile
+        } for execution index ${this.options.executionIndex}.`
+      );
+    } else {
+      await this.setUserConfig(
+        (isFunction(result)
+          ? await Promise.resolve(result(this.options))
+          : result) as TResolvedConfig["userConfig"]
+      );
+    }
+  }
+
+  /**
+   * Initialize the context with the provided configuration options
+   */
+  protected async resolveConfig(): Promise<void> {
+    const mergedConfig = this.mergeConfig();
+
+    this.logger.trace({
+      meta: { category: "config" },
+      message: `Pre-setup Powerlines configuration object: \n --- Pre-Resolved Config --- \n${this.logConfig(
+        mergedConfig
+      )} \n --- Initial Config --- \n${this.logConfig(
+        this.initialConfig
+      )} \n --- User Config --- \n${this.logConfig(
+        this.userConfig
+      )} \n --- Inline Config --- \n${this.logConfig(
+        this.inlineConfig
+      )} \n --- Plugin Config --- \n${this.logConfig(this.pluginConfig)}`
+    });
+
+    mergedConfig.output = defu(mergedConfig.output ?? {}, {
       copy: {
         assets: [
           {
             glob: "LICENSE"
           },
           {
-            input: this.config.root,
+            input: mergedConfig.root,
             glob: "*.md"
           },
           {
-            input: this.config.root,
+            input: mergedConfig.root,
             glob: "package.json"
           }
         ]
       },
       dts: true
-    }) as OutputResolvedConfig;
+    }) as ResolvedOutputConfig;
 
-    logger.trace(
-      `Pre-setup Powerlines configuration object: \n${formatLogMessage({
-        ...omit(this.config, [
-          "inlineConfig",
-          "userConfig",
-          "initialConfig",
-          "pluginConfig",
-          "plugins"
-        ]),
-        inlineConfig: isSetObject(this.config.inlineConfig)
-          ? omit(this.config.inlineConfig, ["plugins"])
-          : undefined,
-        userConfig: isSetObject(this.config.userConfig)
-          ? omit(this.config.userConfig, ["plugins"])
-          : undefined,
-        initialConfig: isSetObject(this.config.initialConfig)
-          ? omit(this.config.initialConfig, ["plugins"])
-          : undefined,
-        pluginConfig: isSetObject(this.config.pluginConfig)
-          ? omit(this.config.pluginConfig, ["plugins"])
-          : undefined
-      })}`
-    );
-
-    if (
-      !this.initialOptions.mode &&
-      !this.config.userConfig?.mode &&
-      !this.config.inlineConfig?.mode &&
-      !this.config.initialConfig?.mode &&
-      !this.config.pluginConfig?.mode
-    ) {
-      this.options.mode = "production";
-      this.config.mode = "production";
+    if (!mergedConfig.mode) {
+      mergedConfig.mode = "production";
     }
 
-    if (
-      !this.initialOptions.framework &&
-      !this.config.userConfig?.framework &&
-      !this.config.inlineConfig?.framework &&
-      !this.config.initialConfig?.framework &&
-      !this.config.pluginConfig?.framework
-    ) {
-      this.options.framework = "powerlines";
-      this.config.framework = "powerlines";
+    if (!mergedConfig.framework) {
+      mergedConfig.framework = "powerlines";
     }
 
-    if (
-      !this.config.userConfig?.projectType &&
-      !this.config.inlineConfig?.projectType &&
-      !this.config.initialConfig?.projectType &&
-      !this.config.pluginConfig?.projectType
-    ) {
-      this.config.projectType = "application";
+    if (!mergedConfig.projectType) {
+      mergedConfig.projectType = "application";
     }
 
-    if (
-      !this.config.userConfig?.platform &&
-      !this.config.inlineConfig?.platform &&
-      !this.config.initialConfig?.platform &&
-      !this.config.pluginConfig?.platform
-    ) {
-      this.config.platform = "neutral";
+    if (!mergedConfig.platform) {
+      mergedConfig.platform = "neutral";
     }
 
-    this.config.compatibilityDate = resolveCompatibilityDates(
-      this.config.inlineConfig.compatibilityDate ??
-        this.config.userConfig.compatibilityDate ??
-        this.config.initialConfig.compatibilityDate ??
-        this.config.pluginConfig.compatibilityDate,
+    mergedConfig.compatibilityDate = resolveCompatibilityDates(
+      mergedConfig.compatibilityDate,
       "latest"
     );
 
-    this.config.input = getUniqueInputs(this.config.input);
+    this.resolvedConfig = mergedConfig;
+    this.#configProxy = this.createConfigProxy();
+
+    mergedConfig.input = getUniqueInputs(mergedConfig.input);
 
     if (
-      this.config.name?.startsWith("@") &&
-      this.config.name.split("/").filter(Boolean).length > 1
+      mergedConfig.name?.startsWith("@") &&
+      mergedConfig.name.split("/").filter(Boolean).length > 1
     ) {
-      this.config.name = this.config.name.split("/").filter(Boolean)[1]!;
+      mergedConfig.name = mergedConfig.name.split("/").filter(Boolean)[1]!;
     }
 
-    this.config.title ??= titleCase(this.config.name);
+    mergedConfig.title ??= titleCase(mergedConfig.name);
 
-    if (this.config.resolve.external) {
-      this.config.resolve.external = getUnique(this.config.resolve.external);
+    if (mergedConfig.resolve.external) {
+      mergedConfig.resolve.external = getUnique(mergedConfig.resolve.external);
     }
-    if (this.config.resolve.noExternal) {
-      this.config.resolve.noExternal = getUnique(
-        this.config.resolve.noExternal
+    if (mergedConfig.resolve.noExternal) {
+      mergedConfig.resolve.noExternal = getUnique(
+        mergedConfig.resolve.noExternal
       );
     }
 
-    this.config.plugins = (this.config.plugins ?? [])
+    mergedConfig.plugins = (mergedConfig.plugins ?? [])
       .flatMap(plugin => toArray(plugin))
       .filter(Boolean)
       .reduce((ret, plugin) => {
@@ -1542,104 +1437,92 @@ export class PowerlinesContext<
         return ret;
       }, [] as PluginConfig[]);
 
-    if (
-      !this.config.userConfig?.logLevel &&
-      !this.config.initialConfig?.logLevel &&
-      !this.config.pluginConfig?.logLevel &&
-      !this.config.inlineConfig?.logLevel
-    ) {
-      if (this.config.mode === "development") {
-        this.config.logLevel = DEFAULT_DEVELOPMENT_LOG_LEVEL;
-      } else if (this.config.mode === "test") {
-        this.config.logLevel = DEFAULT_TEST_LOG_LEVEL;
+    if (!mergedConfig.logLevel) {
+      if (mergedConfig.mode === "development") {
+        mergedConfig.logLevel = DEFAULT_DEVELOPMENT_LOG_LEVEL;
+      } else if (mergedConfig.mode === "test") {
+        mergedConfig.logLevel = DEFAULT_TEST_LOG_LEVEL;
       } else {
-        this.config.logLevel = DEFAULT_PRODUCTION_LOG_LEVEL;
+        mergedConfig.logLevel = DEFAULT_PRODUCTION_LOG_LEVEL;
       }
     }
 
-    if (
-      !this.config.userConfig?.tsconfig &&
-      !this.config.initialConfig?.tsconfig &&
-      !this.config.pluginConfig?.tsconfig &&
-      !this.config.inlineConfig?.tsconfig
-    ) {
-      this.config.tsconfig = getTsconfigFilePath(
-        this.config.cwd,
-        this.config.root
+    if (mergedConfig.tsconfig) {
+      mergedConfig.tsconfig = replacePath(
+        replacePathTokens(this, mergedConfig.tsconfig),
+        mergedConfig.cwd
       );
-    } else if (this.config.tsconfig) {
-      this.config.tsconfig = replacePath(
-        replacePathTokens(this, this.config.tsconfig),
-        this.config.cwd
+    } else {
+      mergedConfig.tsconfig = getTsconfigFilePath(
+        mergedConfig.cwd,
+        mergedConfig.root
       );
     }
 
     // #region Configure output
 
-    this.config.output.format = getUnique(
+    mergedConfig.output.format = getUnique(
       toArray(
-        this.config.output?.format ??
-          (this.config.projectType === "library" ? ["cjs", "esm"] : ["esm"])
+        mergedConfig.output?.format ??
+          (mergedConfig.projectType === "library" ? ["cjs", "esm"] : ["esm"])
       )
     );
 
-    if (this.config.output.path) {
-      this.config.output.path = appendPath(
-        replacePathTokens(this, this.config.output.path),
-        this.config.cwd
+    if (mergedConfig.output.path) {
+      mergedConfig.output.path = appendPath(
+        replacePathTokens(this, mergedConfig.output.path),
+        mergedConfig.cwd
       );
     } else {
-      this.config.output.path = appendPath(
-        joinPaths(this.config.root, "dist"),
-        this.config.cwd
+      mergedConfig.output.path = appendPath(
+        joinPaths(mergedConfig.root, "dist"),
+        mergedConfig.cwd
       );
     }
 
-    if (this.config.output.copy !== false) {
-      this.config.output.copy ??= {} as CopyResolvedConfig;
-      if (!this.config.root.replace(/^\.\/?/, "")) {
-        this.config.output.copy.path = this.config.output.copy.path
+    mergedConfig.output.copy ??= {} as ResolvedCopyConfig;
+    if (mergedConfig.output.copy !== false) {
+      if (!mergedConfig.root.replace(/^\.\/?/, "")) {
+        mergedConfig.output.copy.path = mergedConfig.output.copy.path
           ? appendPath(
-              replacePathTokens(this, this.config.output.copy.path),
-              this.config.cwd
+              replacePathTokens(this, mergedConfig.output.copy.path),
+              mergedConfig.cwd
             )
-          : this.config.output.path;
+          : mergedConfig.output.path;
       } else {
-        this.config.output.copy.path = appendPath(
+        mergedConfig.output.copy.path = appendPath(
           replacePathTokens(
             this,
-            this.config.output.copy.path || joinPaths("dist", this.config.root)
+            mergedConfig.output.copy.path ||
+              joinPaths("dist", mergedConfig.root)
           ),
-          this.config.cwd
+          mergedConfig.cwd
         );
       }
     }
 
-    if (this.config.output.types !== false) {
-      this.config.output.types = appendPath(
+    if (mergedConfig.output.types !== false) {
+      mergedConfig.output.types = appendPath(
         replacePathTokens(
           this,
-          this.config.userConfig?.output?.types ||
-            this.config.inlineConfig?.output?.types ||
-            this.config.initialConfig?.output?.types ||
-            this.config.pluginConfig?.output?.types ||
+          mergedConfig.output.types ||
             joinPaths(
-              this.config.root,
-              `${this.config.framework ?? "powerlines"}.d.ts`
+              mergedConfig.root,
+              `${mergedConfig.framework ?? "powerlines"}.d.ts`
             )
         ),
-        this.config.cwd
+        mergedConfig.cwd
       );
     }
 
     if (
-      this.config.output.copy &&
-      this.config.output.copy.path &&
-      this.config.output.copy.assets &&
-      Array.isArray(this.config.output.copy.assets)
+      mergedConfig.output.copy &&
+      mergedConfig.output.copy.path &&
+      mergedConfig.output.copy.assets &&
+      Array.isArray(mergedConfig.output.copy.assets)
     ) {
-      this.config.output.copy.assets = getUniqueBy(
-        this.config.output.copy.assets.map(asset => {
+      mergedConfig.output.copy.assets = getUniqueBy(
+        mergedConfig.output.copy.assets.map(asset => {
           return {
             glob: isSetObject(asset) ? asset.glob : asset,
             input:
@@ -1648,34 +1531,34 @@ export class PowerlinesContext<
               asset.input === "." ||
               asset.input === "/" ||
               asset.input === "./"
-                ? this.options.cwd
-                : isParentPath(asset.input, this.config.cwd) ||
-                    isEqual(asset.input, this.config.cwd)
+                ? mergedConfig.cwd
+                : isParentPath(asset.input, mergedConfig.cwd) ||
+                    isEqual(asset.input, mergedConfig.cwd)
                   ? asset.input
-                  : appendPath(asset.input, this.config.cwd),
+                  : appendPath(asset.input, mergedConfig.cwd),
             output:
               isSetObject(asset) && asset.output
-                ? isParentPath(asset.output, this.config.cwd)
+                ? isParentPath(asset.output, mergedConfig.cwd)
                   ? asset.output
                   : appendPath(
                       joinPaths(
-                        (this.config.output.copy as CopyConfig).path,
+                        (mergedConfig.output.copy as CopyConfig).path,
                         replacePath(
                           replacePath(
                             asset.output,
                             replacePath(
-                              (this.config.output.copy as CopyConfig).path,
-                              this.config.cwd
+                              (mergedConfig.output.copy as CopyConfig).path,
+                              mergedConfig.cwd
                             )
                           ),
-                          (this.config.output.copy as CopyConfig).path
+                          (mergedConfig.output.copy as CopyConfig).path
                         )
                       ),
-                      this.config.cwd
+                      mergedConfig.cwd
                     )
                 : appendPath(
-                    (this.config.output.copy as CopyConfig).path,
-                    this.config.cwd
+                    (mergedConfig.output.copy as CopyConfig).path,
+                    mergedConfig.cwd
                   ),
             ignore:
               isSetObject(asset) && asset.ignore
@@ -1687,45 +1570,30 @@ export class PowerlinesContext<
       );
     }
 
-    if (
-      !this.config.userConfig?.output?.sourceMap &&
-      !this.config.initialConfig?.output?.sourceMap &&
-      !this.config.inlineConfig?.output?.sourceMap &&
-      !this.config.pluginConfig?.output?.sourceMap
-    ) {
-      if (this.config.mode === "development") {
-        this.config.output.sourceMap = true;
+    if (!mergedConfig.output?.sourceMap) {
+      if (mergedConfig.mode === "development") {
+        mergedConfig.output.sourceMap = true;
       } else {
-        this.config.output.sourceMap = false;
+        mergedConfig.output.sourceMap = false;
       }
     }
 
-    if (
-      !this.config.userConfig?.output?.minify &&
-      !this.config.initialConfig?.output?.minify &&
-      !this.config.inlineConfig?.output?.minify &&
-      !this.config.pluginConfig?.output?.minify
-    ) {
-      if (this.config.mode === "production") {
-        this.config.output.minify = true;
+    if (!mergedConfig.output.minify) {
+      if (mergedConfig.mode === "production") {
+        mergedConfig.output.minify = true;
       } else {
-        this.config.output.minify = false;
+        mergedConfig.output.minify = false;
       }
     }
 
-    if (
-      !this.config.userConfig?.output?.artifactsPath &&
-      !this.config.initialConfig?.output?.artifactsPath &&
-      !this.config.inlineConfig?.output?.artifactsPath &&
-      !this.config.pluginConfig?.output?.artifactsPath
-    ) {
-      this.config.output.artifactsPath = `.${
-        this.config.framework || "powerlines"
+    if (!mergedConfig.output.artifactsPath) {
+      mergedConfig.output.artifactsPath = `.${
+        mergedConfig.framework || "powerlines"
       }`;
     }
 
-    if (this.config.output.copy && this.config.output.copy.assets) {
-      this.config.output.copy.assets = this.config.output.copy.assets.map(
+    if (mergedConfig.output.copy && mergedConfig.output.copy.assets) {
+      mergedConfig.output.copy.assets = mergedConfig.output.copy.assets.map(
         asset => ({
           ...asset,
           glob: replacePathTokens(this, asset.glob),
@@ -1739,49 +1607,157 @@ export class PowerlinesContext<
     }
 
     if (
-      (isSetString(this.config.output?.storage) &&
-        this.config.output.storage === "virtual") ||
-      (isSetObject(this.config.output?.storage) &&
-        Object.values(this.config.output.storage).every(
+      (isSetString(mergedConfig.output?.storage) &&
+        mergedConfig.output.storage === "virtual") ||
+      (isSetObject(mergedConfig.output?.storage) &&
+        Object.values(mergedConfig.output.storage).every(
           adapter => adapter.preset === "virtual"
         ))
     ) {
-      this.config.output.overwrite = true;
+      mergedConfig.output.overwrite = true;
     }
-
-    this.#fs ??= await VirtualFileSystem.create(this);
 
     // #endregion Configure output
 
-    if (
-      isSetObject(this.config.inlineConfig) &&
-      isSetObject(this.config.userConfig) &&
-      isSetObject(this.config.initialConfig) &&
-      isSetObject(this.config.pluginConfig)
-    ) {
-      logger.debug(
-        `Resolved Powerlines configuration object: \n${formatLogMessage({
-          ...omit(this.config, [
-            "inlineConfig",
-            "userConfig",
-            "initialConfig",
-            "pluginConfig",
-            "plugins"
-          ]),
-          inlineConfig: isSetObject(this.config.inlineConfig)
-            ? omit(this.config.inlineConfig, ["plugins"])
-            : undefined,
-          userConfig: isSetObject(this.config.userConfig)
-            ? omit(this.config.userConfig, ["plugins"])
-            : undefined,
-          initialConfig: isSetObject(this.config.initialConfig)
-            ? omit(this.config.initialConfig, ["plugins"])
-            : undefined,
-          pluginConfig: isSetObject(this.config.pluginConfig)
-            ? omit(this.config.pluginConfig, ["plugins"])
-            : undefined
-        })}`
-      );
-    }
+    this.resolvedConfig = mergedConfig;
+    this.#configProxy = this.createConfigProxy();
+
+    this.logger.debug({
+      meta: { category: "config" },
+      message: `Resolved Powerlines configuration object: \n --- Resolved Config --- \n${this.logConfig(
+        this.resolvedConfig
+      )} \n --- Initial Config --- \n${this.logConfig(
+        this.initialConfig
+      )} \n --- User Config --- \n${this.logConfig(
+        this.userConfig
+      )} \n --- Inline Config --- \n${this.logConfig(
+        this.inlineConfig
+      )} \n --- Plugin Config --- \n${this.logConfig(this.pluginConfig)}`
+    });
+
+    this.#fs ??= await VirtualFileSystem.create(this);
+  }
+
+  protected logConfig(
+    config:
+      | TResolvedConfig
+      | TResolvedConfig["initialConfig"]
+      | TResolvedConfig["userConfig"]
+      | TResolvedConfig["inlineConfig"]
+      | TResolvedConfig["pluginConfig"]
+  ) {
+    return formatLogMessage({
+      ...omit(config, ["plugins"]),
+      plugins: config.plugins
+        ? config.plugins
+            .flatMap(plugin => toArray(plugin))
+            .map(plugin =>
+              String(
+                isSetString(plugin)
+                  ? plugin
+                  : isPromise(plugin)
+                    ? "<promise>"
+                    : isFunction(plugin)
+                      ? plugin.name || "<anonymous function>"
+                      : Array.isArray(plugin)
+                        ? plugin[0] || "<anonymous function plugin>"
+                        : "<unknown plugin>"
+              )
+            )
+        : undefined
+    });
+  }
+
+  private createConfigProxy(): TResolvedConfig {
+    return new Proxy(this.resolvedConfig, {
+      /**
+       * A trap for the `delete` operator.
+       * @param target - The original object which is being proxied.
+       * @param key - The name or `Symbol` of the property to delete.
+       * @returns A `boolean` indicating whether or not the property was deleted.
+       */
+      deleteProperty: (target: TResolvedConfig, key) => {
+        if (UNRESOLVED_CONFIG_NAMES.includes(key.toString())) {
+          throw new Error(
+            `Cannot delete property ${key.toString()} from config - it is only intended to be used as a reference.`
+          );
+        }
+
+        Reflect.deleteProperty(this.overriddenConfig, key);
+        return Reflect.deleteProperty(target, key);
+      },
+
+      /**
+       * A trap for getting a property value.
+       * @param target - The original object which is being proxied.
+       * @param key - The name or `Symbol` of the property to get.
+       * @param receiver - The proxy or an object that inherits from the proxy.
+       */
+      get: (target: TResolvedConfig, key, receiver) => {
+        if (UNRESOLVED_CONFIG_NAMES.includes(key.toString())) {
+          if (key === "initialConfig") {
+            return this.initialConfig;
+          }
+          if (key === "userConfig") {
+            return this.userConfig;
+          }
+          if (key === "inlineConfig") {
+            return this.inlineConfig;
+          }
+          if (key === "pluginConfig") {
+            return this.pluginConfig;
+          }
+        }
+
+        return Reflect.get(target, key, receiver);
+      },
+
+      /**
+       * A trap for the `in` operator.
+       * @param target - The original object which is being proxied.
+       * @param key - The name or `Symbol` of the property to check for existence.
+       */
+      has: (target: TResolvedConfig, key: string | symbol): boolean => {
+        return (
+          Reflect.has(target, key) ||
+          UNRESOLVED_CONFIG_NAMES.includes(key.toString())
+        );
+      },
+
+      /**
+       * A trap for `Reflect.ownKeys()`.
+       * @param target - The original object which is being proxied.
+       */
+      ownKeys: (target: TResolvedConfig): ArrayLike<string | symbol> => {
+        return getUnique([
+          ...Reflect.ownKeys(target),
+          ...UNRESOLVED_CONFIG_NAMES
+        ]);
+      },
+
+      /**
+       * A trap for setting a property value.
+       * @param target - The original object which is being proxied.
+       * @param key - The name or `Symbol` of the property to set.
+       * @param newValue - The new value to assign to the property.
+       * @param receiver - The object to which the assignment was originally directed.
+       * @returns A `boolean` indicating whether or not the property was set.
+       */
+      set: (
+        target: TResolvedConfig,
+        key: string | symbol,
+        newValue: any,
+        receiver: any
+      ): boolean => {
+        if (UNRESOLVED_CONFIG_NAMES.includes(key.toString())) {
+          throw new Error(
+            `Cannot change property ${key.toString()} from config - it is only intended to be used as a reference.`
+          );
+        }
+
+        Reflect.set(this.overriddenConfig, key, newValue, receiver);
+        return Reflect.set(target, key, newValue, receiver);
+      }
+    });
   }
 }

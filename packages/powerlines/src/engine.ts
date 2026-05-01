@@ -30,15 +30,15 @@ import type { EngineOptions } from "./types";
  */
 export class PowerlinesEngine extends InternalPowerlinesEngine {
   /**
-   * Initialize a Powerlines Engine instance
+   * Create a new Powerlines Engine instance
    *
    * @param options - The options to initialize the context with
    * @returns A new instance of the Powerlines Engine
    */
-  public static override async init(
+  public static override async from(
     options: EngineOptions
   ): Promise<PowerlinesEngine> {
-    const engine = await InternalPowerlinesEngine.init(options);
+    const engine = await InternalPowerlinesEngine.from(options);
 
     engine.context.info(
       `🔌 The Powerlines Engine v${packageJson.version} has started`

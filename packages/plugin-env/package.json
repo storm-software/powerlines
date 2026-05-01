@@ -251,6 +251,20 @@
         "default": "./dist/types/index.mjs"
       }
     },
+    "./types/env": {
+      "require": {
+        "types": "./dist/types/env.d.cts",
+        "default": "./dist/types/env.cjs"
+      },
+      "import": {
+        "types": "./dist/types/env.d.mts",
+        "default": "./dist/types/env.mjs"
+      },
+      "default": {
+        "types": "./dist/types/env.d.mts",
+        "default": "./dist/types/env.mjs"
+      }
+    },
     "./types/plugin": {
       "require": {
         "types": "./dist/types/plugin.d.cts",
@@ -263,20 +277,6 @@
       "default": {
         "types": "./dist/types/plugin.d.mts",
         "default": "./dist/types/plugin.mjs"
-      }
-    },
-    "./types/runtime": {
-      "require": {
-        "types": "./dist/types/runtime.d.cts",
-        "default": "./dist/types/runtime.cjs"
-      },
-      "import": {
-        "types": "./dist/types/runtime.d.mts",
-        "default": "./dist/types/runtime.mjs"
-      },
-      "default": {
-        "types": "./dist/types/runtime.d.mts",
-        "default": "./dist/types/runtime.mjs"
       }
     }
   },

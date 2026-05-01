@@ -135,11 +135,12 @@ export function loadEnvFromContext(
       TEST: isTestMode(context.config.mode),
       DEBUG: isDevelopmentMode(context.config.mode),
       STACKTRACE: context.config.mode !== "production",
+      RUNTIME: context.config.environment.runtime,
       ENVIRONMENT:
-        !context.environment.name ||
-        context.environment.name === DEFAULT_ENVIRONMENT
+        !context.config.environment.name ||
+        context.config.environment.name === DEFAULT_ENVIRONMENT
           ? context.config.mode
-          : context.environment.name
+          : context.config.environment.name
     },
     isSetObject(context?.env?.types?.env)
       ? context.env.types.env?.getProperties().reduce(

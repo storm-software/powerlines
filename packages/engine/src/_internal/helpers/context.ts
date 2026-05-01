@@ -16,10 +16,17 @@
 
  ------------------------------------------------------------------- */
 
-import { UserConfig } from "@powerlines/core";
+import { InferOverridableConfig, ResolvedConfig } from "@powerlines/core";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 
-export function getConfigProps(config: Partial<UserConfig> = {}) {
+export function getConfigProps<TResolvedConfig extends ResolvedConfig>(
+  config:
+    | TResolvedConfig["initialConfig"]
+    | TResolvedConfig["userConfig"]
+    | TResolvedConfig["inlineConfig"]
+    | TResolvedConfig["pluginConfig"]
+    | InferOverridableConfig<TResolvedConfig> = {}
+) {
   return {
     name: config.name,
     title: config.title,

@@ -99,6 +99,11 @@ export interface EnvInterface {
   ORGANIZATION: string;
 
   /**
+   * The runtime that the application is running in.
+   */
+  RUNTIME?: "nodejs" | "deno" | "workerd" | "browser";
+
+  /**
    * The platform for which the application was built.
    *
    * @defaultValue "neutral"

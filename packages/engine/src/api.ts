@@ -22,9 +22,7 @@ import type {
   CleanInlineConfig,
   DeployInlineConfig,
   DocsInlineConfig,
-  ExecutionContext,
   ExecutionOptions,
-  InitialConfig,
   LintInlineConfig,
   NewInlineConfig,
   PrepareInlineConfig,
@@ -32,15 +30,9 @@ import type {
   TestInlineConfig,
   TypesInlineConfig
 } from "@powerlines/core";
-import { colorText } from "@powerlines/core/plugin-utils/logging";
-import { Unstable_ExecutionContext } from "@powerlines/core/types/_internal";
-import { toArray } from "@stryke/convert/to-array";
-import { titleCase } from "@stryke/string-format/title-case";
-import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { PartialKeys } from "@stryke/types/base";
 import { uuid } from "@stryke/unique-id/uuid";
 import { PowerlinesExecution } from "./_internal/execution";
-import { mergeConfigs } from "./_internal/helpers/hooks";
 import { PowerlinesExecutionContext } from "./context/execution-context";
 
 /**
@@ -64,69 +56,23 @@ export class PowerlinesAPI<
    * @param initialConfig - The initial configuration for the API, which can be used to provide additional context or override certain configuration values during initialization. This is particularly useful when initializing the API from a CLI command, where the CLI flags can be passed as part of the initial configuration to ensure they are properly merged with the configuration file and made available to plugins during their setup and execution.
    * @returns A new instance of the Powerlines API
    */
-  public static override async init<
+  public static override async from<
     TResolvedConfig extends ResolvedConfig = ResolvedConfig
   >(
     options: PartialKeys<ExecutionOptions, "executionId" | "executionIndex">,
-    initialConfig?: InitialConfig<TResolvedConfig["userConfig"]>
+    initialConfig?: TResolvedConfig["initialConfig"]
   ): Promise<PowerlinesAPI<TResolvedConfig>> {
     const api = new PowerlinesAPI<TResolvedConfig>(
-      await PowerlinesExecutionContext.init<TResolvedConfig>(
+      await PowerlinesExecutionContext.fromInitialConfig<TResolvedConfig>(
         {
           executionId: uuid(),
           executionIndex: 0,
           ...options
         },
-        initialConfig ?? ({} as InitialConfig<TResolvedConfig["userConfig"]>)
+        initialConfig ?? {}
       )
     );
-
-    (api.context as Unstable_ExecutionContext<TResolvedConfig>).$$internal = {
-      api,
-      addPlugin: api.addPlugin.bind(api)
-    };
-
-    const timer = api.context.timer("Initialization");
-
-    for (const plugin of api.context.config.plugins.flatMap(p => toArray(p)) ??
-      []) {
-      await api.addPlugin(plugin);
-    }
-
-    if (api.context.plugins.length === 0) {
-      api.context.warn({
-        meta: {
-          category: "plugins"
-        },
-        message:
-          "No Powerlines plugins were specified in the options. Please ensure this is correct, as it is generally not recommended."
-      });
-    } else {
-      api.context.info({
-        meta: {
-          category: "plugins"
-        },
-        message: `Loaded ${api.context.plugins.length} ${titleCase(
-          api.context.config.framework
-        )} plugin${api.context.plugins.length > 1 ? "s" : ""}: \n${api.context.plugins
-          .map((plugin, index) => ` ${index + 1}. ${colorText(plugin.name)}`)
-          .join("\n")}`
-      });
-    }
-
-    const pluginConfig = await api.callHook("config", {
-      environment: await api.context.getEnvironment(),
-      sequential: true,
-      result: "merge",
-      merge: mergeConfigs
-    });
-    if (isSetObject(pluginConfig)) {
-      api.context.config.pluginConfig =
-        pluginConfig as TResolvedConfig["pluginConfig"];
-      await api.context.setup();
-    }
-
-    timer();
+    await api.init();
 
     return api;
   }
@@ -377,7 +323,7 @@ export class PowerlinesAPI<
    *
    * @param context - The Powerlines context
    */
-  protected constructor(context: ExecutionContext<TResolvedConfig>) {
+  protected constructor(context: PowerlinesExecutionContext<TResolvedConfig>) {
     super(context);
   }
 }

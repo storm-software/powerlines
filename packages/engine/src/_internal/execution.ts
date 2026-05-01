@@ -25,10 +25,7 @@ import type {
   EnvironmentContext,
   EnvironmentResolvedConfig,
   Execution,
-  ExecutionContext,
   InferHookParameters,
-  InitialConfig,
-  InlineConfig,
   LintInlineConfig,
   NewInlineConfig,
   Plugin,
@@ -55,7 +52,6 @@ import {
   isPluginConfigTuple
 } from "@powerlines/core/plugin-utils";
 import { colorText } from "@powerlines/core/plugin-utils/logging";
-import { Unstable_ExecutionContext } from "@powerlines/core/types/_internal";
 import { formatLogMessage } from "@storm-software/config-tools/logger/console";
 import { toArray } from "@stryke/convert/to-array";
 import { copyFiles } from "@stryke/fs/copy-file";
@@ -110,103 +106,711 @@ export class PowerlinesExecution<
   /**
    * The Powerlines context
    */
-  #context: Unstable_ExecutionContext<TResolvedConfig>;
+  #context: PowerlinesExecutionContext<TResolvedConfig>;
 
-  async #handleBuild(context: EnvironmentContext<TResolvedConfig>) {
-    await this.callHook("build", {
-      environment: context,
-      order: "pre"
-    });
-
-    context.debug(
-      "Formatting the generated entry files before the build process starts."
-    );
-    await formatFolder(context, context.entryPath);
-
-    await this.callHook("build", {
-      environment: context,
-      order: "normal"
-    });
-
-    if (context.config.output.copy) {
-      context.debug("Copying project's files from build output directory.");
-
-      const destinationPath = isParentPath(
-        appendPath(context.config.output.path, context.config.cwd),
-        appendPath(context.config.root, context.config.cwd)
+  /**
+   * Initialize a Powerlines API instance
+   *
+   * @param options - The options to initialize the API with
+   * @returns A new instance of the Powerlines API
+   */
+  public static async from<
+    TResolvedConfig extends ResolvedConfig = ResolvedConfig
+  >(
+    options: ExecutionOptions,
+    initialConfig?: TResolvedConfig["initialConfig"]
+  ): Promise<PowerlinesExecution<TResolvedConfig>> {
+    const api = new PowerlinesExecution<TResolvedConfig>(
+      await PowerlinesExecutionContext.fromInitialConfig<TResolvedConfig>(
+        options,
+        initialConfig ?? {}
       )
-        ? joinPaths(
-            context.config.output.copy.path,
-            relativePath(
-              appendPath(context.config.root, context.config.cwd),
-              appendPath(context.config.output.path, context.config.cwd)
-            )
-          )
-        : joinPaths(context.config.output.copy.path, "dist");
-      const sourcePath = context.config.output.path;
+    );
+    await api.init();
 
-      if (existsSync(sourcePath) && sourcePath !== destinationPath) {
+    return api;
+  }
+
+  /**
+   * The Powerlines context
+   */
+  public get context(): PowerlinesExecutionContext<TResolvedConfig> {
+    return this.#context;
+  }
+
+  /**
+   * Generate the Powerlines typescript declaration file
+   *
+   * @remarks
+   * This method will only generate the typescript declaration file for the Powerlines project. It is generally recommended to run the full `prepare` command, which will run this method as part of its process.
+   *
+   * @param inlineConfig - The inline configuration for the types command
+   */
+  public async types(
+    inlineConfig: PartialKeys<TypesInlineConfig, "command"> = {
+      command: "types"
+    }
+  ) {
+    this.context.debug(
+      " Aggregating configuration options for the Powerlines project"
+    );
+
+    inlineConfig.command ??= "types";
+    await this.context.setInlineConfig(
+      inlineConfig as TResolvedConfig["inlineConfig"]
+    );
+
+    await this.executeEnvironments(async context => {
+      context.debug(
+        `Initializing the processing options for the Powerlines project.`
+      );
+
+      await this.callHook("configResolved", {
+        environment: context,
+        order: "pre"
+      });
+
+      await initializeTsconfig<TResolvedConfig>(context);
+
+      await this.callHook("configResolved", {
+        environment: context,
+        order: "normal"
+      });
+
+      if (context.entry.length > 0) {
         context.debug(
-          `Copying files from project's build output directory (${
-            context.config.output.path
-          }) to the project's copy/publish directory (${destinationPath}).`
+          `The configuration provided ${
+            isObject(context.config.input)
+              ? Object.keys(context.config.input).length
+              : toArray(context.config.input).length
+          } entry point(s), Powerlines has found ${
+            context.entry.length
+          } entry files(s) for the ${context.config.title} project${
+            context.entry.length > 0 && context.entry.length < 10
+              ? `: \n${context.entry
+                  .map(
+                    entry =>
+                      `- ${entry.file}${
+                        entry.output ? ` -> ${entry.output}` : ""
+                      }`
+                  )
+                  .join(" \n")}`
+              : ""
+          }`
         );
-
-        await copyFiles(sourcePath, destinationPath);
       } else {
         context.warn(
-          `The source path for the copy operation ${
-            !existsSync(sourcePath)
-              ? "does not exist"
-              : "is the same as the destination path"
-          }. Source: ${sourcePath}, Destination: ${
-            destinationPath
-          }. Skipping copying of build output files.`
+          `No entry files were found for the ${
+            context.config.title
+          } project. Please ensure this is correct. Powerlines plugins generally require at least one entry point to function properly.`
         );
+      }
+
+      await resolveTsconfig<TResolvedConfig>(context);
+      await installDependencies(context);
+
+      await this.callHook("configResolved", {
+        environment: context,
+        order: "post"
+      });
+
+      context.trace(
+        `Powerlines configuration has been resolved: \n\n${formatLogMessage({
+          ...context.config,
+          userConfig: isSetObject(context.config.userConfig)
+            ? omit(context.config.userConfig, ["plugins"])
+            : undefined,
+          inlineConfig: isSetObject(context.config.inlineConfig)
+            ? omit(context.config.inlineConfig, ["plugins"])
+            : undefined,
+          plugins: context.plugins.map(plugin => plugin.plugin.name)
+        })}`
+      );
+
+      if (!context.fs.existsSync(context.cachePath)) {
+        await createDirectory(context.cachePath);
+      }
+
+      if (!context.fs.existsSync(context.dataPath)) {
+        await createDirectory(context.dataPath);
       }
 
       if (
-        context.config.output.copy.assets &&
-        Array.isArray(context.config.output.copy.assets)
+        context.config.skipCache === true ||
+        context.persistedMeta?.checksum !== context.meta.checksum
       ) {
-        await Promise.all(
-          context.config.output.copy.assets.map(async asset => {
-            context.trace(
-              `Copying asset(s): ${chalk.redBright(
-                context.config.cwd === asset.input
-                  ? asset.glob
-                  : appendPath(
-                      asset.glob,
-                      replacePath(asset.input, context.config.cwd)
-                    )
-              )} -> ${chalk.greenBright(
-                appendPath(
-                  asset.glob,
-                  replacePath(asset.output, context.config.cwd)
-                )
-              )} ${
-                Array.isArray(asset.ignore) && asset.ignore.length > 0
-                  ? ` (ignoring: ${asset.ignore
-                      .map(i => chalk.yellowBright(i))
-                      .join(", ")})`
-                  : ""
-              }`
-            );
+        context.debug(
+          `Using previously prepared files as the meta checksum has not changed.`
+        );
+      } else {
+        context.info(
+          `Running \`prepare\` command as the meta checksum has changed since the last run.`
+        );
 
-            await context.fs.copy(asset, asset.output);
-          })
+        await this.prepare(
+          defu(
+            {
+              output: {
+                types: false
+              }
+            },
+            inlineConfig
+          ) as Parameters<typeof this.prepare>[0]
         );
       }
-    } else {
+
+      await this.handleTypes(context);
+
+      this.context.debug("Formatting files generated during the types step.");
+
+      await format(
+        context,
+        context.typesPath,
+        (await context.fs.read(context.typesPath)) ?? ""
+      );
+
+      await writeMetaFile(context);
+      context.persistedMeta = context.meta;
+    });
+  }
+
+  /**
+   * Prepare the Powerlines API
+   *
+   * @remarks
+   * This method will prepare the Powerlines API for use, initializing any necessary resources.
+   *
+   * @param inlineConfig - The inline configuration for the prepare command
+   */
+  public async prepare(
+    inlineConfig:
+      | PartialKeys<PrepareInlineConfig, "command">
+      | PartialKeys<TypesInlineConfig, "command">
+      | PartialKeys<NewInlineConfig, "command">
+      | PartialKeys<CleanInlineConfig, "command">
+      | PartialKeys<BuildInlineConfig, "command">
+      | PartialKeys<LintInlineConfig, "command">
+      | PartialKeys<TestInlineConfig, "command">
+      | PartialKeys<DocsInlineConfig, "command">
+      | PartialKeys<DeployInlineConfig, "command"> = { command: "prepare" }
+  ) {
+    inlineConfig.command ??= "prepare";
+    await this.context.setInlineConfig(
+      inlineConfig as TResolvedConfig["inlineConfig"]
+    );
+
+    await this.executeEnvironments(async context => {
       context.debug(
-        "No copy configuration found for the project output. Skipping the copying of build output files."
+        `Initializing the processing options for the Powerlines project.`
+      );
+
+      await this.callHook("configResolved", {
+        environment: context,
+        order: "pre"
+      });
+
+      await initializeTsconfig<TResolvedConfig>(context);
+
+      await this.callHook("configResolved", {
+        environment: context,
+        order: "normal"
+      });
+
+      if (context.entry.length > 0) {
+        context.debug(
+          `The configuration provided ${
+            isObject(context.config.input)
+              ? Object.keys(context.config.input).length
+              : toArray(context.config.input).length
+          } entry point(s), Powerlines has found ${
+            context.entry.length
+          } entry files(s) for the ${context.config.title} project${
+            context.entry.length > 0 && context.entry.length < 10
+              ? `: \n${context.entry
+                  .map(
+                    entry =>
+                      `- ${entry.file}${
+                        entry.output ? ` -> ${entry.output}` : ""
+                      }`
+                  )
+                  .join(" \n")}`
+              : ""
+          }`
+        );
+      } else {
+        context.warn(
+          `No entry files were found for the ${
+            context.config.title
+          } project. Please ensure this is correct. Powerlines plugins generally require at least one entry point to function properly.`
+        );
+      }
+
+      await resolveTsconfig<TResolvedConfig>(context);
+      await installDependencies(context);
+
+      await this.callHook("configResolved", {
+        environment: context,
+        order: "post"
+      });
+
+      context.trace({
+        meta: {
+          category: "config"
+        },
+        message: `Powerlines configuration after configResolved hook: \n${formatLogMessage(
+          {
+            ...omit(context.config, [
+              "inlineConfig",
+              "userConfig",
+              "initialConfig",
+              "pluginConfig",
+              "plugins"
+            ]),
+            plugins: context.plugins.map(plugin => plugin.plugin.name),
+
+            inlineConfig: isSetObject(context.config.inlineConfig)
+              ? omit(context.config.inlineConfig, ["plugins"])
+              : undefined,
+            userConfig: isSetObject(context.config.userConfig)
+              ? omit(context.config.userConfig, ["plugins"])
+              : undefined,
+            initialConfig: isSetObject(context.config.initialConfig)
+              ? omit(context.config.initialConfig, ["plugins"])
+              : undefined,
+            pluginConfig: isSetObject(context.config.pluginConfig)
+              ? omit(context.config.pluginConfig, ["plugins"])
+              : undefined
+          }
+        )}`
+      });
+
+      if (!context.fs.existsSync(context.cachePath)) {
+        await createDirectory(context.cachePath);
+      }
+
+      if (!context.fs.existsSync(context.dataPath)) {
+        await createDirectory(context.dataPath);
+      }
+
+      await this.callHook("prepare", {
+        environment: context,
+        order: "pre"
+      });
+      await this.callHook("prepare", {
+        environment: context,
+        order: "normal"
+      });
+
+      await this.callHook("prepare", {
+        environment: context,
+        order: "post"
+      });
+
+      if (context.config.output.types !== false) {
+        await this.handleTypes(context);
+      }
+
+      this.context.debug("Formatting files generated during the prepare step.");
+
+      await Promise.all([
+        formatFolder(context, context.builtinsPath),
+        formatFolder(context, context.entryPath)
+      ]);
+
+      await writeMetaFile(context);
+      context.persistedMeta = context.meta;
+    });
+  }
+
+  /**
+   * Create a new Powerlines project
+   *
+   * @remarks
+   * This method will create a new Powerlines project in the current directory.
+   *
+   * @param inlineConfig - The inline configuration for the new command
+   * @returns A promise that resolves when the project has been created
+   */
+  public async new(inlineConfig: PartialKeys<NewInlineConfig, "command">) {
+    inlineConfig.command ??= "new";
+    await this.prepare(inlineConfig);
+
+    await this.executeEnvironments(async context => {
+      context.debug(
+        "Initializing the processing options for the Powerlines project."
+      );
+
+      await this.callHook("new", {
+        environment: context,
+        order: "pre"
+      });
+
+      const files = await listFiles(
+        joinPaths(context.powerlinesPath, "files/common/**/*.hbs")
+      );
+      for (const file of files) {
+        context.trace(`Adding template file to project: ${file}`);
+
+        const template = Handlebars.compile(file);
+        await context.fs.write(
+          joinPaths(context.config.root, file.replace(".hbs", "")),
+          template(context)
+        );
+      }
+
+      await this.callHook("new", {
+        environment: context,
+        order: "normal"
+      });
+
+      if (context.config.projectType === "application") {
+        const files = await listFiles(
+          joinPaths(context.powerlinesPath, "files/application/**/*.hbs")
+        );
+        for (const file of files) {
+          context.trace(`Adding application template file: ${file}`);
+
+          const template = Handlebars.compile(file);
+          await context.fs.write(
+            joinPaths(context.config.root, file.replace(".hbs", "")),
+            template(context)
+          );
+        }
+      } else {
+        const files = await listFiles(
+          joinPaths(context.powerlinesPath, "files/library/**/*.hbs")
+        );
+        for (const file of files) {
+          context.trace(`Adding library template file: ${file}`);
+
+          const template = Handlebars.compile(file);
+          await context.fs.write(
+            joinPaths(context.config.root, file.replace(".hbs", "")),
+            template(context)
+          );
+        }
+      }
+
+      await this.callHook("new", {
+        environment: context,
+        order: "post"
+      });
+    });
+  }
+
+  /**
+   * Clean any previously prepared artifacts
+   *
+   * @remarks
+   * This method will remove the previous Powerlines artifacts from the project.
+   *
+   * @param inlineConfig - The inline configuration for the clean command
+   * @returns A promise that resolves when the clean command has completed
+   */
+  public async clean(
+    inlineConfig:
+      | PartialKeys<CleanInlineConfig, "command">
+      | PartialKeys<PrepareInlineConfig, "command"> = {
+      command: "clean"
+    }
+  ) {
+    inlineConfig.command ??= "clean";
+    await this.prepare(inlineConfig);
+
+    await this.executeEnvironments(async context => {
+      context.debug("Cleaning the project's dist and artifacts directories.");
+
+      await context.fs.remove(
+        joinPaths(context.config.cwd, context.config.output.path)
+      );
+      await context.fs.remove(
+        joinPaths(
+          context.config.cwd,
+          context.config.root,
+          context.config.output.artifactsPath
+        )
+      );
+
+      await this.callHook("clean", {
+        environment: context,
+        sequential: false
+      });
+    });
+  }
+
+  /**
+   * Lint the project
+   *
+   * @param inlineConfig - The inline configuration for the lint command
+   * @returns A promise that resolves when the lint command has completed
+   */
+  public async lint(
+    inlineConfig:
+      | PartialKeys<LintInlineConfig, "command">
+      | PartialKeys<BuildInlineConfig, "command"> = { command: "lint" }
+  ) {
+    inlineConfig.command ??= "lint";
+    await this.prepare(inlineConfig);
+
+    await this.executeEnvironments(async context => {
+      await this.callHook("lint", {
+        environment: context,
+        sequential: false
+      });
+    });
+  }
+
+  /**
+   * Test the project source code
+   *
+   * @param inlineConfig - The inline configuration for the test command
+   * @returns A promise that resolves when the test command has completed
+   */
+  public async test(
+    inlineConfig:
+      | PartialKeys<TestInlineConfig, "command">
+      | PartialKeys<BuildInlineConfig, "command"> = { command: "test" }
+  ) {
+    inlineConfig.command ??= "test";
+    await this.prepare(inlineConfig);
+
+    await this.executeEnvironments(async context => {
+      await this.callHook("test", {
+        environment: context,
+        sequential: false
+      });
+    });
+  }
+
+  /**
+   * Build the project
+   *
+   * @remarks
+   * This method will build the Powerlines project, generating the necessary artifacts.
+   *
+   * @param inlineConfig - The inline configuration for the build command
+   * @returns A promise that resolves when the build command has completed
+   */
+  public async build(
+    inlineConfig: PartialKeys<BuildInlineConfig, "command"> = {
+      command: "build"
+    }
+  ) {
+    inlineConfig.command ??= "build";
+    await this.context.setInlineConfig(
+      inlineConfig as TResolvedConfig["inlineConfig"]
+    );
+
+    await this.context.generateChecksum();
+    if (
+      this.context.meta.checksum !== this.context.persistedMeta?.checksum ||
+      this.context.config.skipCache
+    ) {
+      this.context.info(
+        !this.context.persistedMeta?.checksum
+          ? "No previous build cache found. Preparing the project for the initial build."
+          : this.context.meta.checksum !== this.context.persistedMeta.checksum
+            ? "The project has been modified since the last time `prepare` was ran. Re-preparing the project."
+            : "The project is configured to skip cache. Re-preparing the project."
+      );
+
+      await this.prepare(inlineConfig);
+    }
+
+    if (this.context.config.singleBuild) {
+      await this.handleBuild(await this.#context.toEnvironment());
+    } else {
+      await this.executeEnvironments(async context => {
+        await this.handleBuild(context);
+      });
+    }
+  }
+
+  /**
+   * Prepare the documentation for the project
+   *
+   * @param inlineConfig - The inline configuration for the docs command
+   * @returns A promise that resolves when the documentation generation has completed
+   */
+  public async docs(inlineConfig: DocsInlineConfig = { command: "docs" }) {
+    inlineConfig.command ??= "docs";
+    await this.context.setInlineConfig(inlineConfig);
+
+    await this.prepare(inlineConfig);
+    await this.executeEnvironments(async context => {
+      context.debug(
+        "Writing documentation for the Powerlines project artifacts."
+      );
+
+      await this.callHook("docs", {
+        environment: context
+      });
+    });
+  }
+
+  /**
+   * Deploy the project source code
+   *
+   * @remarks
+   * This method will prepare and build the Powerlines project, generating the necessary artifacts for the deployment.
+   *
+   * @param inlineConfig - The inline configuration for the deploy command
+   */
+  public async deploy(
+    inlineConfig: PartialKeys<DeployInlineConfig, "command"> = {
+      command: "deploy"
+    }
+  ) {
+    inlineConfig.command ??= "deploy";
+    await this.context.setInlineConfig(
+      inlineConfig as TResolvedConfig["inlineConfig"]
+    );
+
+    await this.prepare(inlineConfig);
+    await this.executeEnvironments(async context => {
+      await this.callHook("deploy", { environment: context });
+    });
+  }
+
+  /**
+   * Finalization/cleanup processing for the Powerlines API
+   *
+   * @remarks
+   * This step includes any final processes or clean up required by Powerlines. It will be run after each Powerlines command.
+   *
+   * @returns A promise that resolves when the finalization process has completed
+   */
+  public async finalize() {
+    await this.executeEnvironments(async context => {
+      await this.callHook("finalize", { environment: context });
+      await context.fs.dispose();
+
+      if (
+        existsSync(context.cachePath) &&
+        !(await listFiles(joinPaths(context.cachePath, "**/*")))?.length
+      ) {
+        await removeDirectory(context.cachePath);
+      }
+    });
+  }
+
+  /**
+   * Invokes the configured plugin hooks
+   *
+   * @remarks
+   * By default, it will call the `"pre"`, `"normal"`, and `"post"` ordered hooks in sequence
+   *
+   * @param hook - The hook to call
+   * @param options - The options to provide to the hook
+   * @param args - The arguments to pass to the hook
+   * @returns The result of the hook call
+   */
+  public async callHook<TKey extends string>(
+    hook: TKey,
+    options: CallHookOptions & {
+      environment?: string | EnvironmentContext<TResolvedConfig>;
+    },
+    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
+  ) {
+    return callHook<TResolvedConfig, TKey>(
+      isSetObject(options?.environment)
+        ? options.environment
+        : await this.#context.getEnvironment(options?.environment),
+      hook,
+      { sequential: true, ...options },
+      ...args
+    );
+  }
+
+  /**
+   * Create a new Powerlines API instance
+   *
+   * @param context - The Powerlines context
+   */
+  protected constructor(context: PowerlinesExecutionContext<TResolvedConfig>) {
+    this.#context = context;
+  }
+
+  /**
+   * Initialize the execution API with the provided configuration options
+   */
+  protected async init() {
+    this.#context.$$internal = {
+      api: this,
+      addPlugin: this.addPlugin.bind(this)
+    };
+
+    const timer = this.#context.timer("Initialization");
+
+    for (const plugin of this.#context.config.plugins.flatMap(p =>
+      toArray(p)
+    ) ?? []) {
+      await this.addPlugin(plugin);
+    }
+
+    if (this.#context.plugins.length === 0) {
+      this.#context.warn({
+        meta: {
+          category: "plugins"
+        },
+        message:
+          "No Powerlines plugins were specified in the options. Please ensure this is correct, as it is generally not recommended."
+      });
+    } else {
+      this.#context.info({
+        meta: {
+          category: "plugins"
+        },
+        message: `Loaded ${this.#context.plugins.length} ${titleCase(
+          this.#context.config.framework
+        )} plugin${this.#context.plugins.length > 1 ? "s" : ""}: \n${this.#context.plugins
+          .map((plugin, index) => ` ${index + 1}. ${colorText(plugin.name)}`)
+          .join("\n")}`
+      });
+    }
+
+    const pluginConfig = await this.callHook("config", {
+      environment: await this.#context.getEnvironment(),
+      sequential: true,
+      result: "merge",
+      merge: mergeConfigs
+    });
+    if (pluginConfig) {
+      await this.context.setPluginConfig(
+        pluginConfig as TResolvedConfig["pluginConfig"]
       );
     }
 
-    await this.callHook("build", {
-      environment: context,
-      order: "post"
-    });
+    timer();
+  }
+
+  /**
+   * Add a Powerlines plugin used in the build process
+   *
+   * @param config - The import path of the plugin to add
+   */
+  protected async addPlugin(
+    config: PluginConfig<PluginContext<TResolvedConfig>>
+  ) {
+    if (config) {
+      const result = await this.initPlugin(config);
+      if (!result) {
+        return;
+      }
+
+      for (const plugin of result) {
+        this.context.debug({
+          meta: {
+            category: "plugins"
+          },
+          message: `Successfully initialized the ${chalk.bold.cyanBright(
+            plugin.name
+          )} plugin`
+        });
+
+        await this.context.addPlugin(plugin);
+      }
+    }
   }
 
   /**
@@ -214,7 +818,7 @@ export class PowerlinesExecution<
    *
    * @returns The configured environments
    */
-  async #getEnvironments() {
+  private async getEnvironments() {
     if (
       !this.context.config.environments ||
       Object.keys(this.context.config.environments).length <= 1
@@ -246,9 +850,10 @@ export class PowerlinesExecution<
               );
 
               if (resolvedEnvironment) {
-                this.context.environments[name] = await this.context.in(
-                  resolvedEnvironment as EnvironmentResolvedConfig
-                );
+                this.context.environments[name] =
+                  await this.context.createEnvironment(
+                    resolvedEnvironment as EnvironmentResolvedConfig<TResolvedConfig>["environment"]
+                  );
               }
             }
 
@@ -264,11 +869,11 @@ export class PowerlinesExecution<
    *
    * @param handle - The handler function to execute for each environment
    */
-  async #executeEnvironments(
+  private async executeEnvironments(
     handle: (context: EnvironmentContext<TResolvedConfig>) => MaybePromise<void>
   ) {
     await Promise.all(
-      (await this.#getEnvironments()).map(async context => {
+      (await this.getEnvironments()).map(async context => {
         return Promise.resolve(handle(context));
       })
     );
@@ -281,7 +886,7 @@ export class PowerlinesExecution<
    * @returns The initialized plugin instance, or null if the plugin was a duplicate
    * @throws Will throw an error if the plugin cannot be found or is invalid
    */
-  async #initPlugin(
+  private async initPlugin(
     config: PluginConfig<PluginContext<TResolvedConfig>>
   ): Promise<Plugin<PluginContext<TResolvedConfig>>[] | null> {
     let awaited = config;
@@ -311,7 +916,7 @@ export class PowerlinesExecution<
     } else if (isFunction(awaited)) {
       plugins = toArray(await Promise.resolve(awaited()));
     } else if (isString(awaited)) {
-      const resolved = await this.#resolvePlugin(awaited);
+      const resolved = await this.resolvePlugin(awaited);
       if (isFunction(resolved)) {
         plugins = toArray(await Promise.resolve(resolved()));
       } else {
@@ -334,7 +939,7 @@ export class PowerlinesExecution<
       for (const pluginConfig of awaited as PluginConfig<
         PluginContext<TResolvedConfig>
       >[]) {
-        const initialized = await this.#initPlugin(pluginConfig);
+        const initialized = await this.initPlugin(pluginConfig);
         if (initialized) {
           plugins.push(...initialized);
         }
@@ -361,7 +966,7 @@ export class PowerlinesExecution<
       }
 
       if (isSetString(pluginConfig)) {
-        const resolved = await this.#resolvePlugin(pluginConfig);
+        const resolved = await this.resolvePlugin(pluginConfig);
         if (isFunction(resolved)) {
           plugins = toArray(
             await Promise.resolve(
@@ -418,7 +1023,7 @@ export class PowerlinesExecution<
     return result;
   }
 
-  async #resolvePlugin<TOptions>(
+  private async resolvePlugin<TOptions>(
     pluginPath: string
   ): Promise<
     | Plugin<PluginContext<TResolvedConfig>>
@@ -533,6 +1138,103 @@ Note: Please ensure the plugin package's default export is a class that extends 
     }
   }
 
+  private async handleBuild(context: EnvironmentContext<TResolvedConfig>) {
+    await this.callHook("build", {
+      environment: context,
+      order: "pre"
+    });
+
+    context.debug(
+      "Formatting the generated entry files before the build process starts."
+    );
+    await formatFolder(context, context.entryPath);
+
+    await this.callHook("build", {
+      environment: context,
+      order: "normal"
+    });
+
+    if (context.config.output.copy) {
+      context.debug("Copying project's files from build output directory.");
+
+      const destinationPath = isParentPath(
+        appendPath(context.config.output.path, context.config.cwd),
+        appendPath(context.config.root, context.config.cwd)
+      )
+        ? joinPaths(
+            context.config.output.copy.path,
+            relativePath(
+              appendPath(context.config.root, context.config.cwd),
+              appendPath(context.config.output.path, context.config.cwd)
+            )
+          )
+        : joinPaths(context.config.output.copy.path, "dist");
+      const sourcePath = context.config.output.path;
+
+      if (existsSync(sourcePath) && sourcePath !== destinationPath) {
+        context.debug(
+          `Copying files from project's build output directory (${
+            context.config.output.path
+          }) to the project's copy/publish directory (${destinationPath}).`
+        );
+
+        await copyFiles(sourcePath, destinationPath);
+      } else {
+        context.warn(
+          `The source path for the copy operation ${
+            !existsSync(sourcePath)
+              ? "does not exist"
+              : "is the same as the destination path"
+          }. Source: ${sourcePath}, Destination: ${
+            destinationPath
+          }. Skipping copying of build output files.`
+        );
+      }
+
+      if (
+        context.config.output.copy.assets &&
+        Array.isArray(context.config.output.copy.assets)
+      ) {
+        await Promise.all(
+          context.config.output.copy.assets.map(async asset => {
+            context.trace(
+              `Copying asset(s): ${chalk.redBright(
+                context.config.cwd === asset.input
+                  ? asset.glob
+                  : appendPath(
+                      asset.glob,
+                      replacePath(asset.input, context.config.cwd)
+                    )
+              )} -> ${chalk.greenBright(
+                appendPath(
+                  asset.glob,
+                  replacePath(asset.output, context.config.cwd)
+                )
+              )} ${
+                Array.isArray(asset.ignore) && asset.ignore.length > 0
+                  ? ` (ignoring: ${asset.ignore
+                      .map(i => chalk.yellowBright(i))
+                      .join(", ")})`
+                  : ""
+              }`
+            );
+
+            await context.fs.copy(asset, asset.output);
+          })
+        );
+      }
+    } else {
+      context.debug(
+        "No copy configuration found for the project output. Skipping the copying of build output files."
+      );
+    }
+
+    await this.callHook("build", {
+      environment: context,
+      order: "post"
+    });
+  }
+
   /**
    * Generate the Powerlines TypeScript declaration file
    *
@@ -542,7 +1244,7 @@ Note: Please ensure the plugin package's default export is a class that extends 
    * @param context - The environment context to use for generating the TypeScript declaration file
    * @returns A promise that resolves when the TypeScript declaration file has been generated
    */
-  async #types(context: EnvironmentContext<TResolvedConfig>) {
+  private async handleTypes(context: EnvironmentContext<TResolvedConfig>) {
     context.debug(
       `Preparing the TypeScript definitions for the Powerlines project.`
     );
@@ -772,710 +1474,5 @@ ${formatTypes(code)}
     // if (!context.tsconfig) {
     //   throw new Error("Failed to parse the TypeScript configuration file.");
     // }
-  }
-
-  /**
-   * Initialize a Powerlines API instance
-   *
-   * @param options - The options to initialize the API with
-   * @returns A new instance of the Powerlines API
-   */
-  public static async init<
-    TResolvedConfig extends ResolvedConfig = ResolvedConfig
-  >(
-    options: ExecutionOptions,
-    initialConfig?: InitialConfig<TResolvedConfig["userConfig"]>
-  ): Promise<PowerlinesExecution<TResolvedConfig>> {
-    const api = new PowerlinesExecution<TResolvedConfig>(
-      await PowerlinesExecutionContext.init<TResolvedConfig>(
-        options,
-        initialConfig ?? ({} as InitialConfig<TResolvedConfig["userConfig"]>)
-      )
-    );
-
-    api.#context.config.initialConfig = initialConfig ?? {};
-    await api.setup();
-
-    return api;
-  }
-
-  /**
-   * The Powerlines context
-   */
-  public get context(): ExecutionContext<TResolvedConfig> {
-    return this.#context;
-  }
-
-  /**
-   * Initialize the execution API with the provided configuration options
-   */
-  public async setup() {
-    await this.#context.setup();
-
-    this.#context.$$internal = {
-      api: this,
-      addPlugin: this.addPlugin.bind(this)
-    };
-
-    const timer = this.#context.timer("Initialization");
-
-    for (const plugin of this.#context.config.plugins.flatMap(p =>
-      toArray(p)
-    ) ?? []) {
-      await this.addPlugin(plugin);
-    }
-
-    if (this.#context.plugins.length === 0) {
-      this.#context.warn({
-        meta: {
-          category: "plugins"
-        },
-        message:
-          "No Powerlines plugins were specified in the options. Please ensure this is correct, as it is generally not recommended."
-      });
-    } else {
-      this.#context.info({
-        meta: {
-          category: "plugins"
-        },
-        message: `Loaded ${this.#context.plugins.length} ${titleCase(
-          this.#context.config.framework
-        )} plugin${this.#context.plugins.length > 1 ? "s" : ""}: \n${this.#context.plugins
-          .map((plugin, index) => ` ${index + 1}. ${colorText(plugin.name)}`)
-          .join("\n")}`
-      });
-    }
-
-    const pluginConfig = await this.callHook("config", {
-      environment: await this.#context.getEnvironment(),
-      sequential: true,
-      result: "merge",
-      merge: mergeConfigs
-    });
-    if (pluginConfig) {
-      this.#context.config.pluginConfig =
-        pluginConfig as TResolvedConfig["pluginConfig"];
-      await this.#context.setup();
-    }
-
-    timer();
-  }
-
-  /**
-   * Generate the Powerlines typescript declaration file
-   *
-   * @remarks
-   * This method will only generate the typescript declaration file for the Powerlines project. It is generally recommended to run the full `prepare` command, which will run this method as part of its process.
-   *
-   * @param inlineConfig - The inline configuration for the types command
-   */
-  public async types(
-    inlineConfig: PartialKeys<TypesInlineConfig, "command"> = {
-      command: "types"
-    }
-  ) {
-    this.context.debug(
-      " Aggregating configuration options for the Powerlines project"
-    );
-
-    inlineConfig.command ??= "types";
-
-    this.context.config.inlineConfig = inlineConfig as InlineConfig;
-    await this.setup();
-
-    await this.#executeEnvironments(async context => {
-      context.debug(
-        `Initializing the processing options for the Powerlines project.`
-      );
-
-      await this.callHook("configResolved", {
-        environment: context,
-        order: "pre"
-      });
-
-      await initializeTsconfig<TResolvedConfig>(context);
-
-      await this.callHook("configResolved", {
-        environment: context,
-        order: "normal"
-      });
-
-      if (context.entry.length > 0) {
-        context.debug(
-          `The configuration provided ${
-            isObject(context.config.input)
-              ? Object.keys(context.config.input).length
-              : toArray(context.config.input).length
-          } entry point(s), Powerlines has found ${
-            context.entry.length
-          } entry files(s) for the ${context.config.title} project${
-            context.entry.length > 0 && context.entry.length < 10
-              ? `: \n${context.entry
-                  .map(
-                    entry =>
-                      `- ${entry.file}${
-                        entry.output ? ` -> ${entry.output}` : ""
-                      }`
-                  )
-                  .join(" \n")}`
-              : ""
-          }`
-        );
-      } else {
-        context.warn(
-          `No entry files were found for the ${
-            context.config.title
-          } project. Please ensure this is correct. Powerlines plugins generally require at least one entry point to function properly.`
-        );
-      }
-
-      await resolveTsconfig<TResolvedConfig>(context);
-      await installDependencies(context);
-
-      await this.callHook("configResolved", {
-        environment: context,
-        order: "post"
-      });
-
-      context.trace(
-        `Powerlines configuration has been resolved: \n\n${formatLogMessage({
-          ...context.config,
-          userConfig: isSetObject(context.config.userConfig)
-            ? omit(context.config.userConfig, ["plugins"])
-            : undefined,
-          inlineConfig: isSetObject(context.config.inlineConfig)
-            ? omit(context.config.inlineConfig, ["plugins"])
-            : undefined,
-          plugins: context.plugins.map(plugin => plugin.plugin.name)
-        })}`
-      );
-
-      if (!context.fs.existsSync(context.cachePath)) {
-        await createDirectory(context.cachePath);
-      }
-
-      if (!context.fs.existsSync(context.dataPath)) {
-        await createDirectory(context.dataPath);
-      }
-
-      if (
-        context.config.skipCache === true ||
-        context.persistedMeta?.checksum !== context.meta.checksum
-      ) {
-        context.debug(
-          `Using previously prepared files as the meta checksum has not changed.`
-        );
-      } else {
-        context.info(
-          `Running \`prepare\` command as the meta checksum has changed since the last run.`
-        );
-
-        await this.prepare(
-          defu(
-            {
-              output: {
-                types: false
-              }
-            },
-            inlineConfig
-          ) as Parameters<typeof this.prepare>[0]
-        );
-      }
-
-      await this.#types(context);
-
-      this.context.debug("Formatting files generated during the types step.");
-
-      await format(
-        context,
-        context.typesPath,
-        (await context.fs.read(context.typesPath)) ?? ""
-      );
-
-      await writeMetaFile(context);
-      context.persistedMeta = context.meta;
-    });
-  }
-
-  /**
-   * Prepare the Powerlines API
-   *
-   * @remarks
-   * This method will prepare the Powerlines API for use, initializing any necessary resources.
-   *
-   * @param inlineConfig - The inline configuration for the prepare command
-   */
-  public async prepare(
-    inlineConfig:
-      | PartialKeys<PrepareInlineConfig, "command">
-      | PartialKeys<TypesInlineConfig, "command">
-      | PartialKeys<NewInlineConfig, "command">
-      | PartialKeys<CleanInlineConfig, "command">
-      | PartialKeys<BuildInlineConfig, "command">
-      | PartialKeys<LintInlineConfig, "command">
-      | PartialKeys<TestInlineConfig, "command">
-      | PartialKeys<DocsInlineConfig, "command">
-      | PartialKeys<DeployInlineConfig, "command"> = { command: "prepare" }
-  ) {
-    inlineConfig.command ??= "prepare";
-
-    this.context.config.inlineConfig = inlineConfig as InlineConfig;
-    await this.setup();
-
-    await this.#executeEnvironments(async context => {
-      context.debug(
-        `Initializing the processing options for the Powerlines project.`
-      );
-
-      await this.callHook("configResolved", {
-        environment: context,
-        order: "pre"
-      });
-
-      await initializeTsconfig<TResolvedConfig>(context);
-
-      await this.callHook("configResolved", {
-        environment: context,
-        order: "normal"
-      });
-
-      if (context.entry.length > 0) {
-        context.debug(
-          `The configuration provided ${
-            isObject(context.config.input)
-              ? Object.keys(context.config.input).length
-              : toArray(context.config.input).length
-          } entry point(s), Powerlines has found ${
-            context.entry.length
-          } entry files(s) for the ${context.config.title} project${
-            context.entry.length > 0 && context.entry.length < 10
-              ? `: \n${context.entry
-                  .map(
-                    entry =>
-                      `- ${entry.file}${
-                        entry.output ? ` -> ${entry.output}` : ""
-                      }`
-                  )
-                  .join(" \n")}`
-              : ""
-          }`
-        );
-      } else {
-        context.warn(
-          `No entry files were found for the ${
-            context.config.title
-          } project. Please ensure this is correct. Powerlines plugins generally require at least one entry point to function properly.`
-        );
-      }
-
-      await resolveTsconfig<TResolvedConfig>(context);
-      await installDependencies(context);
-
-      await this.callHook("configResolved", {
-        environment: context,
-        order: "post"
-      });
-
-      context.trace({
-        meta: {
-          category: "config"
-        },
-        message: `Powerlines configuration after configResolved hook: \n${formatLogMessage(
-          {
-            ...omit(context.config, [
-              "inlineConfig",
-              "userConfig",
-              "initialConfig",
-              "pluginConfig",
-              "plugins"
-            ]),
-            plugins: context.plugins.map(plugin => plugin.plugin.name),
-
-            inlineConfig: isSetObject(context.config.inlineConfig)
-              ? omit(context.config.inlineConfig, ["plugins"])
-              : undefined,
-            userConfig: isSetObject(context.config.userConfig)
-              ? omit(context.config.userConfig, ["plugins"])
-              : undefined,
-            initialConfig: isSetObject(context.config.initialConfig)
-              ? omit(context.config.initialConfig, ["plugins"])
-              : undefined,
-            pluginConfig: isSetObject(context.config.pluginConfig)
-              ? omit(context.config.pluginConfig, ["plugins"])
-              : undefined
-          }
-        )}`
-      });
-
-      if (!context.fs.existsSync(context.cachePath)) {
-        await createDirectory(context.cachePath);
-      }
-
-      if (!context.fs.existsSync(context.dataPath)) {
-        await createDirectory(context.dataPath);
-      }
-
-      await this.callHook("prepare", {
-        environment: context,
-        order: "pre"
-      });
-      await this.callHook("prepare", {
-        environment: context,
-        order: "normal"
-      });
-
-      await this.callHook("prepare", {
-        environment: context,
-        order: "post"
-      });
-
-      if (context.config.output.types !== false) {
-        await this.#types(context);
-      }
-
-      this.context.debug("Formatting files generated during the prepare step.");
-
-      await Promise.all([
-        formatFolder(context, context.builtinsPath),
-        formatFolder(context, context.entryPath)
-      ]);
-
-      await writeMetaFile(context);
-      context.persistedMeta = context.meta;
-    });
-  }
-
-  /**
-   * Create a new Powerlines project
-   *
-   * @remarks
-   * This method will create a new Powerlines project in the current directory.
-   *
-   * @param inlineConfig - The inline configuration for the new command
-   * @returns A promise that resolves when the project has been created
-   */
-  public async new(inlineConfig: PartialKeys<NewInlineConfig, "command">) {
-    inlineConfig.command ??= "new";
-    await this.prepare(inlineConfig);
-
-    await this.#executeEnvironments(async context => {
-      context.debug(
-        "Initializing the processing options for the Powerlines project."
-      );
-
-      await this.callHook("new", {
-        environment: context,
-        order: "pre"
-      });
-
-      const files = await listFiles(
-        joinPaths(context.powerlinesPath, "files/common/**/*.hbs")
-      );
-      for (const file of files) {
-        context.trace(`Adding template file to project: ${file}`);
-
-        const template = Handlebars.compile(file);
-        await context.fs.write(
-          joinPaths(context.config.root, file.replace(".hbs", "")),
-          template(context)
-        );
-      }
-
-      await this.callHook("new", {
-        environment: context,
-        order: "normal"
-      });
-
-      if (context.config.projectType === "application") {
-        const files = await listFiles(
-          joinPaths(context.powerlinesPath, "files/application/**/*.hbs")
-        );
-        for (const file of files) {
-          context.trace(`Adding application template file: ${file}`);
-
-          const template = Handlebars.compile(file);
-          await context.fs.write(
-            joinPaths(context.config.root, file.replace(".hbs", "")),
-            template(context)
-          );
-        }
-      } else {
-        const files = await listFiles(
-          joinPaths(context.powerlinesPath, "files/library/**/*.hbs")
-        );
-        for (const file of files) {
-          context.trace(`Adding library template file: ${file}`);
-
-          const template = Handlebars.compile(file);
-          await context.fs.write(
-            joinPaths(context.config.root, file.replace(".hbs", "")),
-            template(context)
-          );
-        }
-      }
-
-      await this.callHook("new", {
-        environment: context,
-        order: "post"
-      });
-    });
-  }
-
-  /**
-   * Clean any previously prepared artifacts
-   *
-   * @remarks
-   * This method will remove the previous Powerlines artifacts from the project.
-   *
-   * @param inlineConfig - The inline configuration for the clean command
-   * @returns A promise that resolves when the clean command has completed
-   */
-  public async clean(
-    inlineConfig:
-      | PartialKeys<CleanInlineConfig, "command">
-      | PartialKeys<PrepareInlineConfig, "command"> = {
-      command: "clean"
-    }
-  ) {
-    inlineConfig.command ??= "clean";
-    await this.prepare(inlineConfig);
-
-    await this.#executeEnvironments(async context => {
-      context.debug("Cleaning the project's dist and artifacts directories.");
-
-      await context.fs.remove(
-        joinPaths(context.config.cwd, context.config.output.path)
-      );
-      await context.fs.remove(
-        joinPaths(
-          context.config.cwd,
-          context.config.root,
-          context.config.output.artifactsPath
-        )
-      );
-
-      await this.callHook("clean", {
-        environment: context,
-        sequential: false
-      });
-    });
-  }
-
-  /**
-   * Lint the project
-   *
-   * @param inlineConfig - The inline configuration for the lint command
-   * @returns A promise that resolves when the lint command has completed
-   */
-  public async lint(
-    inlineConfig:
-      | PartialKeys<LintInlineConfig, "command">
-      | PartialKeys<BuildInlineConfig, "command"> = { command: "lint" }
-  ) {
-    inlineConfig.command ??= "lint";
-    await this.prepare(inlineConfig);
-
-    await this.#executeEnvironments(async context => {
-      await this.callHook("lint", {
-        environment: context,
-        sequential: false
-      });
-    });
-  }
-
-  /**
-   * Test the project source code
-   *
-   * @param inlineConfig - The inline configuration for the test command
-   * @returns A promise that resolves when the test command has completed
-   */
-  public async test(
-    inlineConfig:
-      | PartialKeys<TestInlineConfig, "command">
-      | PartialKeys<BuildInlineConfig, "command"> = { command: "test" }
-  ) {
-    inlineConfig.command ??= "test";
-    await this.prepare(inlineConfig);
-
-    await this.#executeEnvironments(async context => {
-      await this.callHook("test", {
-        environment: context,
-        sequential: false
-      });
-    });
-  }
-
-  /**
-   * Build the project
-   *
-   * @remarks
-   * This method will build the Powerlines project, generating the necessary artifacts.
-   *
-   * @param inlineConfig - The inline configuration for the build command
-   * @returns A promise that resolves when the build command has completed
-   */
-  public async build(
-    inlineConfig: PartialKeys<BuildInlineConfig, "command"> = {
-      command: "build"
-    }
-  ) {
-    inlineConfig.command ??= "build";
-    await this.context.generateChecksum();
-
-    if (
-      this.context.meta.checksum !== this.context.persistedMeta?.checksum ||
-      this.context.config.skipCache
-    ) {
-      this.context.info(
-        !this.context.persistedMeta?.checksum
-          ? "No previous build cache found. Preparing the project for the initial build."
-          : this.context.meta.checksum !== this.context.persistedMeta.checksum
-            ? "The project has been modified since the last time `prepare` was ran. Re-preparing the project."
-            : "The project is configured to skip cache. Re-preparing the project."
-      );
-
-      await this.prepare(inlineConfig);
-    } else {
-      this.context.config.inlineConfig = inlineConfig as InlineConfig;
-      await this.context.setup();
-    }
-
-    if (this.context.config.singleBuild) {
-      await this.#handleBuild(await this.#context.toEnvironment());
-    } else {
-      await this.#executeEnvironments(async context => {
-        await this.#handleBuild(context);
-      });
-    }
-  }
-
-  /**
-   * Prepare the documentation for the project
-   *
-   * @param inlineConfig - The inline configuration for the docs command
-   * @returns A promise that resolves when the documentation generation has completed
-   */
-  public async docs(inlineConfig: DocsInlineConfig = { command: "docs" }) {
-    inlineConfig.command ??= "docs";
-    await this.prepare(inlineConfig);
-
-    await this.#executeEnvironments(async context => {
-      context.debug(
-        "Writing documentation for the Powerlines project artifacts."
-      );
-
-      await this.callHook("docs", {
-        environment: context
-      });
-    });
-  }
-
-  /**
-   * Deploy the project source code
-   *
-   * @remarks
-   * This method will prepare and build the Powerlines project, generating the necessary artifacts for the deployment.
-   *
-   * @param inlineConfig - The inline configuration for the deploy command
-   */
-  public async deploy(
-    inlineConfig: PartialKeys<DeployInlineConfig, "command"> = {
-      command: "deploy"
-    }
-  ) {
-    inlineConfig.command ??= "deploy";
-    await this.prepare(inlineConfig);
-
-    await this.#executeEnvironments(async context => {
-      await this.callHook("deploy", { environment: context });
-    });
-  }
-
-  /**
-   * Finalization/cleanup processing for the Powerlines API
-   *
-   * @remarks
-   * This step includes any final processes or clean up required by Powerlines. It will be run after each Powerlines command.
-   *
-   * @returns A promise that resolves when the finalization process has completed
-   */
-  public async finalize() {
-    await this.#executeEnvironments(async context => {
-      await this.callHook("finalize", { environment: context });
-      await context.fs.dispose();
-
-      if (
-        existsSync(context.cachePath) &&
-        !(await listFiles(joinPaths(context.cachePath, "**/*")))?.length
-      ) {
-        await removeDirectory(context.cachePath);
-      }
-    });
-  }
-
-  /**
-   * Invokes the configured plugin hooks
-   *
-   * @remarks
-   * By default, it will call the `"pre"`, `"normal"`, and `"post"` ordered hooks in sequence
-   *
-   * @param hook - The hook to call
-   * @param options - The options to provide to the hook
-   * @param args - The arguments to pass to the hook
-   * @returns The result of the hook call
-   */
-  public async callHook<TKey extends string>(
-    hook: TKey,
-    options: CallHookOptions & {
-      environment?: string | EnvironmentContext<TResolvedConfig>;
-    },
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) {
-    return callHook<TResolvedConfig, TKey>(
-      isSetObject(options?.environment)
-        ? options.environment
-        : await this.#context.getEnvironment(options?.environment),
-      hook,
-      { sequential: true, ...options },
-      ...args
-    );
-  }
-
-  /**
-   * Create a new Powerlines API instance
-   *
-   * @param context - The Powerlines context
-   */
-  protected constructor(context: ExecutionContext<TResolvedConfig>) {
-    this.#context = context as Unstable_ExecutionContext<TResolvedConfig>;
-  }
-
-  /**
-   * Add a Powerlines plugin used in the build process
-   *
-   * @param config - The import path of the plugin to add
-   */
-  protected async addPlugin(
-    config: PluginConfig<PluginContext<TResolvedConfig>>
-  ) {
-    if (config) {
-      const result = await this.#initPlugin(config);
-      if (!result) {
-        return;
-      }
-
-      for (const plugin of result) {
-        this.context.debug({
-          meta: {
-            category: "plugins"
-          },
-          message: `Successfully initialized the ${chalk.bold.cyanBright(
-            plugin.name
-          )} plugin`
-        });
-
-        await this.context.addPlugin(plugin);
-      }
-    }
   }
 }

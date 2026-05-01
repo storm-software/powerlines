@@ -16,5 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-export const VIRTUAL_MODULE_PREFIX = "__powerlines-virtual__:";
-export const VIRTUAL_MODULE_PREFIX_REGEX = /^__powerlines-virtual__:/;
+import { prefixRegex } from "@rolldown/pluginutils";
+
+export const VIRTUAL_MODULE_PREFIX = "\0";
+export const VIRTUAL_MODULE_PREFIX_REGEX = prefixRegex("\0");

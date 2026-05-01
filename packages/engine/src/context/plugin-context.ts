@@ -27,13 +27,11 @@ import type {
   PluginContext,
   ResolvedConfig
 } from "@powerlines/core";
-import {
-  Unstable_EnvironmentContext,
-  Unstable_PluginContext
-} from "@powerlines/core/types/_internal";
+import { Unstable_PluginContext } from "@powerlines/core/types/_internal";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isString } from "@stryke/type-checks/is-string";
 import { UnpluginMessage } from "unplugin";
+import { PowerlinesEnvironmentContext } from "./environment-context";
 
 /**
  * Create a Proxy-based PluginContext
@@ -48,7 +46,7 @@ export function createPluginContext<
 >(
   pluginId: string,
   plugin: Plugin<PluginContext<TResolvedConfig>>,
-  environment: Unstable_EnvironmentContext<TResolvedConfig>
+  environment: PowerlinesEnvironmentContext<TResolvedConfig>
 ): Unstable_PluginContext<TResolvedConfig> {
   const logger = environment.extendLogger({
     plugin: plugin.name
@@ -60,7 +58,7 @@ export function createPluginContext<
     return {
       meta: {
         ...(isSetObject(message) ? message.meta : {}),
-        environment: environment.environment?.name,
+        environment: environment.config.environment.name,
         plugin: plugin.name
       },
       message: isString(message) ? message : message.message
@@ -82,8 +80,8 @@ export function createPluginContext<
         ...options,
         environment
       } as Parameters<typeof environment.$$internal.api.callHook>[1],
-      ...args
-    );
+      ...(args as Parameters<typeof environment.$$internal.api.callHook>[2])
+    ) as InferHookReturnType<PluginContext<TResolvedConfig>, TKey>;
   };
 
   const meta = {} as Record<string, any>;
@@ -97,6 +95,14 @@ export function createPluginContext<
           callHook: callHookFn,
           meta
         };
+      }
+
+      if (prop === "api") {
+        return environment.$$internal.api;
+      }
+
+      if (prop === "environment") {
+        return environment;
       }
 
       if (prop === "id") {

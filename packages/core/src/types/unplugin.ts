@@ -16,19 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-import type { MaybePromise } from "@stryke/types/base";
+import type { DeepPartial, MaybePromise } from "@stryke/types/base";
 import type {
   UnpluginOptions as BaseUnpluginOptions,
   HookFilter,
   UnpluginContextMeta
 } from "unplugin";
 import type { API } from "./api";
-import type { InitialConfig, InitialPluginConfig } from "./config";
-import type {
-  Context,
-  PluginContext,
-  WithUnpluginBuildContext
-} from "./context";
+import type { InitialPluginConfig, UserConfig } from "./config";
+import type { PluginContext, WithUnpluginBuildContext } from "./context";
 import type { PluginHook } from "./plugin";
 
 export type UnpluginBuilderVariant =
@@ -58,7 +54,7 @@ export type InferUnpluginVariant<TBuildVariant extends BuilderVariant> =
         : TBuildVariant;
 
 export interface UnpluginOptions<
-  TContext extends Context = Context
+  TContext extends PluginContext = PluginContext
 > extends BaseUnpluginOptions {
   /**
    * An API object that can be used for inter-plugin communication.
@@ -69,7 +65,7 @@ export interface UnpluginOptions<
 }
 
 export type InferUnpluginOptions<
-  TContext extends Context = Context,
+  TContext extends PluginContext = PluginContext,
   TBuilderVariant extends BuilderVariant = BuilderVariant,
   TUnpluginVariant extends InferUnpluginVariant<TBuilderVariant> =
     InferUnpluginVariant<TBuilderVariant>
@@ -98,19 +94,21 @@ export type InferUnpluginOptions<
     : Required<UnpluginOptions<TContext>>[TUnpluginVariant][TKey];
 };
 
-export type UnpluginInitialConfig = InitialConfig<any> & {
+export type UnpluginInitialConfig = DeepPartial<UserConfig> & {
   /**
    * The meta information for the unplugin context
    */
   unplugin: UnpluginContextMeta;
 };
 
-export type UnpluginFactory<TContext extends Context = Context> = (
+export type UnpluginFactory<TContext extends PluginContext = PluginContext> = (
   options: InitialPluginConfig<TContext["config"]["userConfig"]>,
   meta: UnpluginContextMeta
 ) => UnpluginOptions<TContext>;
 
-export type UnpluginAsyncFactory<TContext extends Context = Context> = (
+export type UnpluginAsyncFactory<
+  TContext extends PluginContext = PluginContext
+> = (
   options: InitialPluginConfig<TContext["config"]["userConfig"]>,
   meta: UnpluginContextMeta
 ) => Promise<UnpluginOptions<TContext>>;

@@ -20,12 +20,7 @@
 
 import { API } from "./api";
 import { PluginConfig, ResolvedConfig } from "./config";
-import {
-  Context,
-  EnvironmentContext,
-  ExecutionContext,
-  PluginContext
-} from "./context";
+import { EnvironmentContext, ExecutionContext, PluginContext } from "./context";
 import {
   CallHookOptions,
   InferHookParameters,
@@ -60,17 +55,6 @@ export interface Unstable_ContextInternal<
 }
 
 /**
- * An internal representation of the context, used for managing hooks and environment data.
- *
- * @internal
- */
-export interface Unstable_Context<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> extends Context<TResolvedConfig> {
-  $$internal: Unstable_ContextInternal<TResolvedConfig>;
-}
-
-/**
  * An internal representation of the API context, used for managing hooks and environment data.
  *
  * @internal
@@ -100,13 +84,6 @@ export interface Unstable_EnvironmentContext<
 export interface Unstable_PluginContextInternal<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > extends Unstable_ContextInternal<TResolvedConfig> {
-  /**
-   * The {@link API | API instance} for interacting with Powerlines
-   *
-   * @internal
-   */
-  api: API<TResolvedConfig>;
-
   /**
    * The environment context associated with this plugin context
    *

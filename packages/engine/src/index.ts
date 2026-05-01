@@ -25,18 +25,18 @@ import type {
   EngineContext,
   EngineOptions,
   ExecutionWorkerProcess,
-  InitialConfig,
   LintInlineConfig,
   NewInlineConfig,
   PrepareInlineConfig,
   TestInlineConfig,
-  TypesInlineConfig
+  TypesInlineConfig,
+  UserConfig
 } from "@powerlines/core";
 import { POWERLINES_API_FUNCTIONS } from "@powerlines/core/constants";
 import { toArray } from "@stryke/convert/to-array";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { joinPaths } from "@stryke/path/join";
-import { PartialKeys } from "@stryke/types/base";
+import { DeepPartial, PartialKeys } from "@stryke/types/base";
 import { Worker } from "./_internal/helpers/worker";
 import {
   IpcMessage,
@@ -80,12 +80,12 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    * @param initialConfig - The initial configuration for the context, which can be used to provide additional context or override certain configuration values during initialization. This is particularly useful when initializing the context from a CLI command, where the CLI flags can be passed as part of the initial configuration to ensure they are properly merged with the configuration file and made available to plugins during their setup and execution.
    * @returns A new instance of the Powerlines Engine
    */
-  public static async init(
+  public static async from(
     options: EngineOptions,
-    initialConfig: InitialConfig<any> = {}
+    initialConfig: DeepPartial<UserConfig> = {}
   ): Promise<PowerlinesEngine> {
     const api = new PowerlinesEngine(
-      await PowerlinesEngineContext.init(options, initialConfig)
+      await PowerlinesEngineContext.fromInitialConfig(options, initialConfig)
     );
 
     const packagePath = await resolvePackage("@powerlines/engine");

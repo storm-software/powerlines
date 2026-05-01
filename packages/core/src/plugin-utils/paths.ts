@@ -67,7 +67,7 @@ export function replacePathTokens(
     return path as IsUndefined<typeof path> extends true ? undefined : string;
   }
 
-  const result = path
+  let result = path
     .replaceAll("{cwd}", context.config.cwd || process.cwd())
     .replaceAll("{workspaceRoot}", context.config.cwd || process.cwd())
     .replaceAll("{root}", context.config.root)
@@ -79,8 +79,6 @@ export function replacePathTokens(
     .replaceAll("{logPath}", context.envPaths.log)
     .replaceAll("{tempPath}", context.envPaths.temp)
     .replaceAll("{configPath}", context.envPaths.config)
-    .replaceAll("{outputPath}", context.config.output.path)
-    .replaceAll("{output}", context.config.output.path)
     .replaceAll(
       "{artifactsPath}",
       replacePath(context.artifactsPath, context.config.cwd)
@@ -98,10 +96,21 @@ export function replacePathTokens(
       replacePath(context.entryPath, context.config.cwd)
     );
 
-  return context.config.output.copy &&
-    isSetString(context.config.output.copy.path)
-    ? result
+  if (context.config.output) {
+    if (isSetString(context.config.output.path)) {
+      result = result
+        .replaceAll("{outputPath}", context.config.output.path)
+        .replaceAll("{output}", context.config.output.path);
+    }
+    if (
+      context.config.output.copy &&
+      isSetString(context.config.output.copy?.path)
+    ) {
+      result = result
         .replaceAll("{copyPath}", context.config.output.copy.path)
-        .replaceAll("{copy}", context.config.output.copy.path)
-    : result;
+        .replaceAll("{copy}", context.config.output.copy.path);
+    }
+  }
+
+  return result;
 }

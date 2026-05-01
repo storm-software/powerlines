@@ -206,6 +206,7 @@
   "types": "./dist/index.d.cts",
   "files": ["dist/**/*", "files/**/*", "schemas/**/*"],
   "dependencies": {
+    "@rolldown/pluginutils": "catalog:",
     "@storm-software/config": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@stryke/convert": "catalog:",

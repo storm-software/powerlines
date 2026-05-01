@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { DeepPartial } from "@stryke/types/base";
 import { SUPPORTED_COMMANDS } from "../constants";
 import { BASE_API_FUNCTIONS, POWERLINES_API_FUNCTIONS } from "../constants/api";
 import {
@@ -24,14 +25,14 @@ import {
   DeployInlineConfig,
   DocsInlineConfig,
   ExecutionOptions,
-  InitialConfig,
   InlineConfig,
   LintInlineConfig,
   NewInlineConfig,
   PrepareInlineConfig,
   ResolvedConfig,
   TestInlineConfig,
-  TypesInlineConfig
+  TypesInlineConfig,
+  UserConfig
 } from "./config";
 import type {
   EnvironmentContext,
@@ -211,7 +212,7 @@ export interface ExecutionWorkerParams {
   /**
    * The initial configuration for the current execution instance, which is the result of merging the user configuration with any configuration provided by plugins during the "config" hook. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
    */
-  initialConfig: InitialConfig;
+  initialConfig: DeepPartial<UserConfig>;
 
   /**
    * The inline configuration for the current execution instance, which is the result of merging the user configuration with any configuration provided by plugins during the "config" hook.

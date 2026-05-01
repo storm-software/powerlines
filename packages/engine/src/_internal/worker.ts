@@ -35,7 +35,7 @@ export async function clean({
   initialConfig,
   inlineConfig
 }: ExecutionWorkerParams): Promise<void> {
-  const execution = await PowerlinesExecution.init(options, initialConfig);
+  const execution = await PowerlinesExecution.from(options, initialConfig);
 
   await execution.clean(inlineConfig as CleanInlineConfig);
 }
@@ -45,7 +45,7 @@ export async function prepare({
   initialConfig,
   inlineConfig
 }: ExecutionWorkerParams): Promise<void> {
-  const execution = await PowerlinesExecution.init(options, initialConfig);
+  const execution = await PowerlinesExecution.from(options, initialConfig);
 
   await execution.prepare(inlineConfig as PrepareInlineConfig);
 }
@@ -55,7 +55,7 @@ export async function types({
   initialConfig,
   inlineConfig
 }: ExecutionWorkerParams): Promise<void> {
-  const execution = await PowerlinesExecution.init(options, initialConfig);
+  const execution = await PowerlinesExecution.from(options, initialConfig);
 
   await execution.types(inlineConfig as TypesInlineConfig);
 }
@@ -65,7 +65,7 @@ export async function lint({
   initialConfig,
   inlineConfig
 }: ExecutionWorkerParams): Promise<void> {
-  const execution = await PowerlinesExecution.init(options, initialConfig);
+  const execution = await PowerlinesExecution.from(options, initialConfig);
 
   await execution.lint(inlineConfig as LintInlineConfig);
 }
@@ -75,7 +75,7 @@ export async function test({
   initialConfig,
   inlineConfig
 }: ExecutionWorkerParams): Promise<void> {
-  const execution = await PowerlinesExecution.init(options, initialConfig);
+  const execution = await PowerlinesExecution.from(options, initialConfig);
 
   await execution.test(inlineConfig as TestInlineConfig);
 }
@@ -85,7 +85,7 @@ export async function build({
   initialConfig,
   inlineConfig
 }: ExecutionWorkerParams): Promise<void> {
-  const execution = await PowerlinesExecution.init(options, initialConfig);
+  const execution = await PowerlinesExecution.from(options, initialConfig);
 
   await execution.build(inlineConfig as BuildInlineConfig);
 }
@@ -95,7 +95,7 @@ export async function docs({
   initialConfig,
   inlineConfig
 }: ExecutionWorkerParams): Promise<void> {
-  const execution = await PowerlinesExecution.init(options, initialConfig);
+  const execution = await PowerlinesExecution.from(options, initialConfig);
 
   await execution.docs(inlineConfig as DocsInlineConfig);
 }
@@ -105,7 +105,7 @@ export async function deploy({
   initialConfig,
   inlineConfig
 }: ExecutionWorkerParams): Promise<void> {
-  const execution = await PowerlinesExecution.init(options, initialConfig);
+  const execution = await PowerlinesExecution.from(options, initialConfig);
 
   await execution.deploy(inlineConfig as DeployInlineConfig);
 }
