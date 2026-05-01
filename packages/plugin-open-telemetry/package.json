@@ -74,20 +74,6 @@
         "default": "./dist/components/index.mjs"
       }
     },
-    "./components/http-trace-exporter": {
-      "require": {
-        "types": "./dist/components/http-trace-exporter.d.cts",
-        "default": "./dist/components/http-trace-exporter.cjs"
-      },
-      "import": {
-        "types": "./dist/components/http-trace-exporter.d.mts",
-        "default": "./dist/components/http-trace-exporter.mjs"
-      },
-      "default": {
-        "types": "./dist/components/http-trace-exporter.d.mts",
-        "default": "./dist/components/http-trace-exporter.mjs"
-      }
-    },
     "./components/trace-builtin": {
       "require": {
         "types": "./dist/components/trace-builtin.d.cts",
