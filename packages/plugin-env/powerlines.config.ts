@@ -34,5 +34,9 @@ export default defineConfig({
       json: true,
       markdown: true
     })
-  ]
+  ],
+  logLevel: {
+    general: "debug",
+    config: "debug"
+  }
 });
