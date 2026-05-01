@@ -16,7 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { Context, LogCategories, LogFnMeta } from "@powerlines/core";
+import { Context, LogFnMeta } from "@powerlines/core";
+import { LogCategories } from "@powerlines/core/constants";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { uuid } from "@stryke/unique-id/uuid";
 import { messageParent } from "jest-worker";
