@@ -65,7 +65,7 @@ export const LOG_CATEGORIES = [
 export const DEFAULT_DEVELOPMENT_LOG_LEVEL = {
   general: "debug",
   fs: "info",
-  config: "info",
+  config: "warn",
   plugins: "debug",
   hooks: "debug",
   performance: "debug",
@@ -89,9 +89,9 @@ export const DEFAULT_TEST_LOG_LEVEL = {
 } as const;
 
 export const DEFAULT_PRODUCTION_LOG_LEVEL = {
-  general: "info",
+  general: "warn",
   fs: "error",
-  config: "warn",
+  config: "error",
   plugins: "warn",
   hooks: "warn",
   performance: "info",

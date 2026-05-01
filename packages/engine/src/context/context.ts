@@ -88,6 +88,7 @@ import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
+import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { RequiredKeys } from "@stryke/types/base";
 import { TypeDefinition } from "@stryke/types/configuration";
 import { uuid } from "@stryke/unique-id/uuid";
@@ -95,6 +96,7 @@ import { match, tsconfigPathsToRegExp } from "bundle-require";
 import { resolveCompatibilityDates } from "compatx";
 import defu from "defu";
 import { create, FlatCache } from "flat-cache";
+import { existsSync } from "node:fs";
 import { parse, ParseResult } from "oxc-parser";
 import { Range } from "semver";
 import {
@@ -1365,21 +1367,21 @@ export class PowerlinesContext<
 
     this.logger.trace({
       meta: { category: "config" },
-      message: `Pre-setup Powerlines configuration object: \n --- Merged Config --- \n\n${this.logConfig(
+      message: `Pre-setup Powerlines configuration object: \n --- Merged Config --- \n${this.logConfig(
         mergedConfig
-      )} \n\n --- Initial Options --- \n\n${this.logConfig(
+      )} \n\n --- Initial Options --- \n${this.logConfig(
         this.initialOptions
-      )} \n\n --- Initial Config --- \n\n${this.logConfig(
+      )} \n\n --- Initial Config --- \n${this.logConfig(
         this.initialConfig
-      )} \n\n --- User Config --- \n\n${this.logConfig(
+      )} \n\n --- User Config --- \n${this.logConfig(
         this.userConfig
-      )} \n\n --- Inline Config --- \n\n${this.logConfig(
+      )} \n\n --- Inline Config --- \n${this.logConfig(
         this.inlineConfig
-      )} \n\n --- Plugin Config --- \n\n${this.logConfig(
+      )} \n\n --- Plugin Config --- \n${this.logConfig(
         this.pluginConfig
-      )} \n\n --- Environment Config --- \n\n${this.logConfig(
+      )} \n\n --- Environment Config --- \n${this.logConfig(
         this.environmentConfig
-      )} \n\n --- Overridden Config --- \n\n${this.logConfig(
+      )} \n\n --- Overridden Config --- \n${this.logConfig(
         this.overriddenConfig as Partial<TResolvedConfig>
       )}`
     });
@@ -1403,19 +1405,15 @@ export class PowerlinesContext<
       dts: true
     }) as ResolvedOutputConfig;
 
-    if (!mergedConfig.mode) {
-      mergedConfig.mode = "production";
+    if (isUndefined(mergedConfig.mode)) {
+      mergedConfig.mode = await this.getDefaultMode();
     }
 
-    if (!mergedConfig.framework) {
+    if (isUndefined(mergedConfig.framework)) {
       mergedConfig.framework = "powerlines";
     }
 
-    if (!mergedConfig.projectType) {
-      mergedConfig.projectType = "application";
-    }
-
-    if (!mergedConfig.platform) {
+    if (isUndefined(mergedConfig.platform)) {
       mergedConfig.platform = "neutral";
     }
 
@@ -1424,12 +1422,31 @@ export class PowerlinesContext<
       "latest"
     );
 
-    this.resolvedConfig = mergedConfig;
-    this.#configProxy = this.createConfigProxy();
-
-    if (!this.packageJson) {
+    if (
+      (!this.packageJson &&
+        existsSync(
+          joinPaths(
+            appendPath(mergedConfig.root, mergedConfig.cwd),
+            "package.json"
+          )
+        )) ||
+      (!this.projectJson &&
+        existsSync(
+          joinPaths(
+            appendPath(mergedConfig.root, mergedConfig.cwd),
+            "project.json"
+          )
+        ))
+    ) {
       await this.resolvePackageConfigs();
     }
+
+    if (isUndefined(mergedConfig.projectType)) {
+      mergedConfig.projectType = this.projectJson?.projectType || "application";
+    }
+
+    this.resolvedConfig = mergedConfig;
+    this.#configProxy = this.createConfigProxy();
 
     mergedConfig.input = getUniqueInputs(mergedConfig.input);
 
@@ -1470,7 +1487,7 @@ export class PowerlinesContext<
         return ret;
       }, [] as PluginConfig[]);
 
-    if (!mergedConfig.logLevel) {
+    if (isUndefined(mergedConfig.logLevel)) {
       if (mergedConfig.mode === "development") {
         mergedConfig.logLevel = DEFAULT_DEVELOPMENT_LOG_LEVEL;
       } else if (mergedConfig.mode === "test") {
@@ -1482,7 +1499,7 @@ export class PowerlinesContext<
 
     mergedConfig.logLevel = resolveLogLevel(mergedConfig.logLevel);
 
-    if (mergedConfig.tsconfig) {
+    if (isSetString(mergedConfig.tsconfig)) {
       mergedConfig.tsconfig = replacePath(
         replacePathTokens(this, mergedConfig.tsconfig),
         mergedConfig.cwd
@@ -1503,7 +1520,7 @@ export class PowerlinesContext<
       )
     );
 
-    if (mergedConfig.output.path) {
+    if (isSetString(mergedConfig.output.path)) {
       mergedConfig.output.path = appendPath(
         replacePathTokens(this, mergedConfig.output.path),
         mergedConfig.cwd
@@ -1518,7 +1535,9 @@ export class PowerlinesContext<
     mergedConfig.output.copy ??= {} as ResolvedCopyConfig;
     if (mergedConfig.output.copy !== false) {
       if (!mergedConfig.root.replace(/^\.\/?/, "")) {
-        mergedConfig.output.copy.path = mergedConfig.output.copy.path
+        mergedConfig.output.copy.path = isSetString(
+          mergedConfig.output.copy.path
+        )
           ? appendPath(
               replacePathTokens(this, mergedConfig.output.copy.path),
               mergedConfig.cwd
@@ -1528,8 +1547,9 @@ export class PowerlinesContext<
         mergedConfig.output.copy.path = appendPath(
           replacePathTokens(
             this,
-            mergedConfig.output.copy.path ||
-              joinPaths("dist", mergedConfig.root)
+            isSetString(mergedConfig.output.copy.path)
+              ? mergedConfig.output.copy.path
+              : joinPaths("dist", mergedConfig.root)
           ),
           mergedConfig.cwd
         );
@@ -1605,7 +1625,7 @@ export class PowerlinesContext<
       );
     }
 
-    if (!mergedConfig.output?.sourceMap) {
+    if (isUndefined(mergedConfig.output?.sourceMap)) {
       if (mergedConfig.mode === "development") {
         mergedConfig.output.sourceMap = true;
       } else {
@@ -1613,7 +1633,7 @@ export class PowerlinesContext<
       }
     }
 
-    if (!mergedConfig.output.minify) {
+    if (isUndefined(mergedConfig.output?.minify)) {
       if (mergedConfig.mode === "production") {
         mergedConfig.output.minify = true;
       } else {
@@ -1621,7 +1641,7 @@ export class PowerlinesContext<
       }
     }
 
-    if (!mergedConfig.output.artifactsPath) {
+    if (isUndefined(mergedConfig.output?.artifactsPath)) {
       mergedConfig.output.artifactsPath = `.${
         mergedConfig.framework || "powerlines"
       }`;
@@ -1657,7 +1677,7 @@ export class PowerlinesContext<
     this.resolvedConfig = mergedConfig;
     this.#configProxy = this.createConfigProxy();
 
-    this.logger.debug({
+    this.logger.info({
       meta: { category: "config" },
       message: `Resolved Powerlines configuration object: \n${this.logConfig(
         this.resolvedConfig
@@ -1709,10 +1729,8 @@ export class PowerlinesContext<
           : []
       },
       null,
-      2
-    )
-      .replace(/"([^"]+)":/g, "$1:")
-      .replace(/: "([^"]+)"/g, ": $1");
+      4
+    ).replace(/"([^"]+)":/g, "$1:");
   }
 
   private createConfigProxy(): TResolvedConfig {
