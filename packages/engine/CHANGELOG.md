@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.46.1](https://github.com/storm-software/powerlines/releases/tag/engine%400.46.1) (05/01/2026)
+
+### Miscellaneous
+
+- **engine:** Ensure all child fields are copied over to newly created environment contexts ([89a06ec17](https://github.com/storm-software/powerlines/commit/89a06ec17))
+- **core:** Mark configuration nodes on context with `DeepReadonly` ([ee87f8e1a](https://github.com/storm-software/powerlines/commit/ee87f8e1a))
+- **engine:** Added logic to ensure `package.json` and `project.json` files are loaded ([5b887a88e](https://github.com/storm-software/powerlines/commit/5b887a88e))
+
 ## [0.46.0](https://github.com/storm-software/powerlines/releases/tag/engine%400.46.0) (05/01/2026)
 
 ### Features
