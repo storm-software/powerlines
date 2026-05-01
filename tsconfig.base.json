@@ -155,6 +155,8 @@
       "@powerlines/plugin-vite/*": ["./packages/plugin-vite/src/*"],
       "@powerlines/plugin-webpack": ["./packages/plugin-webpack/src/index.ts"],
       "@powerlines/plugin-webpack/*": ["./packages/plugin-webpack/src/*"],
+      "@powerlines/schema": ["./packages/schema/src/index.ts"],
+      "@powerlines/schema/*": ["./packages/schema/src/*"],
       "@powerlines/tools-config/*": ["./tools/config/*"],
       "@powerlines/tools-nx": ["./tools/nx/src/index.ts"],
       "@powerlines/tools-nx/*": ["./tools/nx/src/*"],

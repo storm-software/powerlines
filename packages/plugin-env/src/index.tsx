@@ -102,53 +102,21 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         };
 
         if (
-          isSetString(config.env.types) ||
-          (config.env.types && isSetString(config.env.types.file))
+          !isSetString(config.env.types) &&
+          !isSetString(config.env.types?.file)
         ) {
-          config.env.types = parseTypeDefinition(
-            config.env.types
-          ) as TypeDefinition;
-
-          const file = await this.fs.resolve(config.env.types.file);
-          if (file) {
-            config.env.types.file = file;
-          }
-        } else {
           this.warn(
             "The `env.types` configuration parameter was not provided. Please ensure this is expected."
           );
 
-          const envDefaultTypeDefinition =
-            await getEnvDefaultTypeDefinition(this);
-
-          const file = await this.fs.resolve(envDefaultTypeDefinition.file);
-          if (file) {
-            config.env.types = parseTypeDefinition(
-              `${file}#${envDefaultTypeDefinition.name}`
-            ) as TypeDefinition;
-          }
+          config.env.types = await getEnvDefaultTypeDefinition(this);
         }
 
         if (
-          isSetString(config.env.secrets) ||
-          (config.env.secrets && isSetString(config.env.secrets.file))
+          !isSetString(config.env.secrets) &&
+          !isSetString(config.env.secrets?.file)
         ) {
-          config.env.secrets = parseTypeDefinition(config.env.secrets);
-
-          const file = await this.fs.resolve(config.env.secrets!.file);
-          if (file) {
-            config.env.secrets!.file = file;
-          }
-        } else {
-          const secretsDefaultTypeDefinition =
-            await getSecretsDefaultTypeDefinition(this);
-
-          const file = await this.fs.resolve(secretsDefaultTypeDefinition.file);
-          if (file) {
-            config.env.secrets = parseTypeDefinition(
-              `${file}#${secretsDefaultTypeDefinition.name}`
-            );
-          }
+          config.env.secrets = await getSecretsDefaultTypeDefinition(this);
         }
 
         if (config.env.types || config.env.secrets) {
@@ -196,25 +164,6 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           }, [] as string[])
         );
 
-        this.info({
-          meta: {
-            category: "env"
-          },
-          message: `Environment configuration definition file: ${
-            config.env.types.file
-          }${config.env.types.name ? `#${config.env.types.name}` : ""}${
-            config.env.secrets
-              ? `\nSecrets configuration definition file: ${config.env.secrets?.file}${
-                  config.env.secrets?.name ? `#${config.env.secrets?.name}` : ""
-                }`
-              : ""
-          }\nEnvironment variable Prefixes: ${config.env.prefix.join(", ")}\nShould inject values: ${
-            config.env.inject ? "Yes" : "No"
-          }\nShould validate configuration: ${
-            config.env.validate ? "Yes" : "No"
-          }`
-        });
-
         return config;
       },
       async configResolved() {
@@ -239,6 +188,55 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             injected: {}
           }
         );
+
+        if (
+          isSetString(this.config.env.types) ||
+          (this.config.env.types && isSetString(this.config.env.types.file))
+        ) {
+          this.config.env.types = parseTypeDefinition(
+            this.config.env.types
+          ) as TypeDefinition;
+
+          const file = await this.fs.resolve(this.config.env.types.file);
+          if (file) {
+            this.config.env.types.file = file;
+          }
+        }
+
+        if (
+          isSetString(this.config.env.secrets) ||
+          (this.config.env.secrets && isSetString(this.config.env.secrets.file))
+        ) {
+          this.config.env.secrets = parseTypeDefinition(
+            this.config.env.secrets
+          )!;
+
+          const file = await this.fs.resolve(this.config.env.secrets.file);
+          if (file) {
+            this.config.env.secrets.file = file;
+          }
+        }
+
+        this.info({
+          meta: {
+            category: "env"
+          },
+          message: `Environment configuration definition file: ${
+            this.config.env.types.file
+          }${this.config.env.types.name ? `#${this.config.env.types.name}` : ""}${
+            this.config.env.secrets
+              ? `\nSecrets configuration definition file: ${this.config.env.secrets?.file}${
+                  this.config.env.secrets?.name
+                    ? `#${this.config.env.secrets?.name}`
+                    : ""
+                }`
+              : ""
+          }\nEnvironment variable Prefixes: ${this.config.env.prefix.join(", ")}\nShould inject values: ${
+            this.config.env.inject ? "Yes" : "No"
+          }\nShould validate configuration: ${
+            this.config.env.validate ? "Yes" : "No"
+          }`
+        });
 
         if (
           this.config.command !== "prepare" &&

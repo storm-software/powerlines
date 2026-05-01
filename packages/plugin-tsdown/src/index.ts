@@ -17,8 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { Plugin } from "@powerlines/core";
+import { formatConfig } from "@powerlines/core/plugin-utils";
 import { formatPackageJson } from "@powerlines/core/plugin-utils/format-package-json";
-import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
 import { build } from "tsdown";
 import { resolveOptions } from "./helpers/resolve-options";
@@ -86,11 +86,7 @@ export const plugin = <
         meta: {
           category: "config"
         },
-        message: `Resolved Tsdown configuration: \n${JSON.stringify(
-          omit(options, ["plugins"]),
-          null,
-          2
-        )}`
+        message: `Resolved Tsdown configuration: \n${formatConfig(options)}`
       });
 
       await build(options);

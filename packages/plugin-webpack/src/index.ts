@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { Plugin } from "@powerlines/core";
-import { omit } from "@stryke/helpers/omit";
+import { formatConfig } from "@powerlines/core/plugin-utils";
 import defu from "defu";
 import webpack from "webpack";
 import { resolveOptions } from "./helpers/resolve-options";
@@ -78,11 +78,7 @@ export const plugin = <
         meta: {
           category: "config"
         },
-        message: `Resolved Webpack configuration: \n${JSON.stringify(
-          omit(options, ["plugins"]),
-          null,
-          2
-        )}`
+        message: `Resolved Webpack configuration: \n${formatConfig(options)}`
       });
 
       webpack(options);

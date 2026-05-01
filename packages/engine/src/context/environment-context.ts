@@ -39,6 +39,7 @@ import {
 } from "@powerlines/core/constants";
 import {
   dedupeHooklist,
+  formatConfig,
   isPlugin,
   isPluginConfig,
   isPluginHookField,
@@ -171,7 +172,7 @@ export class PowerlinesEnvironmentContext<
   ): Promise<void> {
     this.logger.debug({
       meta: { category: "config" },
-      message: `Updating environment configuration object: \n${this.logConfig(config)}`
+      message: `Updating environment configuration object: \n${formatConfig(config)}`
     });
 
     this.environmentConfig = config;

@@ -58,6 +58,7 @@ import {
 } from "@powerlines/core/lib/entry";
 import {
   createLogger,
+  formatConfig,
   getPackageJsonOrganization,
   isDuplicate,
   isPlugin,
@@ -86,7 +87,6 @@ import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isFunction } from "@stryke/type-checks/is-function";
-import { isRegExp } from "@stryke/type-checks/is-regexp";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
@@ -1236,7 +1236,7 @@ export class PowerlinesContext<
   ): Promise<void> {
     this.logger.debug({
       meta: { category: "config" },
-      message: `Updating inline configuration object: \n${this.logConfig(config)}`
+      message: `Updating inline configuration object: \n${formatConfig(config)}`
     });
 
     this.inlineConfig = config;
@@ -1254,7 +1254,7 @@ export class PowerlinesContext<
   ): Promise<void> {
     this.logger.debug({
       meta: { category: "config" },
-      message: `Updating plugin configuration object: \n${this.logConfig(config)}`
+      message: `Updating plugin configuration object: \n${formatConfig(config)}`
     });
 
     this.pluginConfig = config;
@@ -1306,7 +1306,7 @@ export class PowerlinesContext<
   ): Promise<void> {
     this.logger.debug({
       meta: { category: "config" },
-      message: `Updating user configuration object: \n${this.logConfig(config)}`
+      message: `Updating user configuration object: \n${formatConfig(config)}`
     });
 
     this.userConfig = config;
@@ -1369,22 +1369,22 @@ export class PowerlinesContext<
 
     this.logger.trace({
       meta: { category: "config" },
-      message: `Pre-setup Powerlines configuration object: \n --- Merged Config --- \n${this.logConfig(
+      message: `Pre-setup Powerlines configuration object: \n --- Merged Config --- \n${formatConfig(
         mergedConfig
-      )} \n\n --- Initial Options --- \n${this.logConfig(
+      )} \n\n --- Initial Options --- \n${formatConfig(
         this.initialOptions
-      )} \n\n --- Initial Config --- \n${this.logConfig(
+      )} \n\n --- Initial Config --- \n${formatConfig(
         this.initialConfig
-      )} \n\n --- User Config --- \n${this.logConfig(
+      )} \n\n --- User Config --- \n${formatConfig(
         this.userConfig
-      )} \n\n --- Inline Config --- \n${this.logConfig(
+      )} \n\n --- Inline Config --- \n${formatConfig(
         this.inlineConfig
-      )} \n\n --- Plugin Config --- \n${this.logConfig(
+      )} \n\n --- Plugin Config --- \n${formatConfig(
         this.pluginConfig
-      )} \n\n --- Environment Config --- \n${this.logConfig(
+      )} \n\n --- Environment Config --- \n${formatConfig(
         this.environmentConfig
-      )} \n\n --- Overridden Config --- \n${this.logConfig(
-        this.overriddenConfig as Partial<TResolvedConfig>
+      )} \n\n --- Overridden Config --- \n${formatConfig(
+        this.overriddenConfig
       )}`
     });
 
@@ -1686,83 +1686,12 @@ export class PowerlinesContext<
 
     this.logger.info({
       meta: { category: "config" },
-      message: `Resolved Powerlines configuration object: \n${this.logConfig(
+      message: `Resolved Powerlines configuration object: \n${formatConfig(
         this.resolvedConfig
       )}`
     });
 
     this.#fs ??= await VirtualFileSystem.create(this);
-  }
-
-  protected logConfig(
-    config:
-      | TResolvedConfig
-      | TResolvedConfig["initialConfig"]
-      | TResolvedConfig["userConfig"]
-      | TResolvedConfig["inlineConfig"]
-      | TResolvedConfig["pluginConfig"]
-  ) {
-    return JSON.stringify(
-      Object.fromEntries(
-        Object.entries({
-          ...omit(config, [
-            "plugins",
-            "initialConfig",
-            "userConfig",
-            "inlineConfig",
-            "pluginConfig",
-            "environmentConfig"
-          ] as (keyof (
-            | TResolvedConfig
-            | TResolvedConfig["initialConfig"]
-            | TResolvedConfig["userConfig"]
-            | TResolvedConfig["inlineConfig"]
-            | TResolvedConfig["pluginConfig"]
-          ))[]),
-          resolve: {
-            ...config.resolve,
-            external: (config.resolve?.external ?? [])
-              .filter(Boolean)
-              .map(external =>
-                isSetString(external)
-                  ? external
-                  : isRegExp(external)
-                    ? external.source
-                    : "<unknown-external>"
-              ),
-            noExternal: (config.resolve?.noExternal ?? [])
-              .filter(Boolean)
-              .map(noExternal =>
-                isSetString(noExternal)
-                  ? noExternal
-                  : isRegExp(noExternal)
-                    ? noExternal.source
-                    : "<unknown-no-external>"
-              )
-          },
-          plugins: config.plugins
-            ? config.plugins
-                .flatMap(plugin => toArray(plugin))
-                .map(plugin =>
-                  String(
-                    isSetString(plugin)
-                      ? plugin
-                      : isSetObject(plugin) &&
-                          isSetString((plugin as { name: string }).name)
-                        ? (plugin as { name: string }).name
-                        : Array.isArray(plugin) && isSetString(plugin[0])
-                          ? plugin[0]
-                          : "<function-plugin>"
-                  )
-                )
-            : []
-        }).sort(([key1], [key2]) => key1.localeCompare(key2))
-      ),
-      null,
-      4
-    )
-      .replace(/"([^"]+)":/g, "$1:")
-      .replace(/,$/g, "");
   }
 
   private createConfigProxy(): TResolvedConfig {

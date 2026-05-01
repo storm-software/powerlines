@@ -219,7 +219,7 @@ export function resolveOptions(context: Context): BuildOptions {
           define: context.config.define,
           inject: context.config.inject,
           typescript: {
-            target: context.tsconfig.options.target
+            target: context.tsconfig.tsconfigJson?.compilerOptions?.target
           }
         }
       },

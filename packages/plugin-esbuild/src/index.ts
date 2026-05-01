@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { Plugin } from "@powerlines/core";
-import { omit } from "@stryke/helpers/omit";
+import { formatConfig } from "@powerlines/core/plugin-utils";
 import defu from "defu";
 import { build } from "esbuild";
 import {
@@ -73,11 +73,7 @@ export const plugin = <
         meta: {
           category: "config"
         },
-        message: `Resolved Esbuild configuration: \n${JSON.stringify(
-          omit(options, ["plugins"]),
-          null,
-          2
-        )}`
+        message: `Resolved Esbuild configuration: \n${formatConfig(options)}`
       });
 
       await build(options);

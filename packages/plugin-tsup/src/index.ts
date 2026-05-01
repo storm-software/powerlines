@@ -17,11 +17,11 @@
  ------------------------------------------------------------------- */
 
 import { Plugin } from "@powerlines/core";
+import { formatConfig } from "@powerlines/core/plugin-utils";
 import {
   build,
   resolveOptions as resolveOptionsBase
 } from "@storm-software/tsup";
-import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
 import { resolveOptions } from "./helpers/resolve-options";
 import { createTsupPlugin } from "./helpers/unplugin";
@@ -71,11 +71,7 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
         meta: {
           category: "config"
         },
-        message: `Resolved Tsup configuration: \n${JSON.stringify(
-          omit(options, ["plugins"]),
-          null,
-          2
-        )}`
+        message: `Resolved Tsup configuration: \n${formatConfig(options)}`
       });
 
       return build(options);

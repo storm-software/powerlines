@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { Context, Plugin } from "@powerlines/core";
-import { omit } from "@stryke/helpers/omit";
+import type { Context, Plugin } from "@powerlines/core";
+import { formatConfig } from "@powerlines/core/plugin-utils";
 import defu from "defu";
 import { build } from "vite";
 import { DEFAULT_VITE_CONFIG, resolveOptions } from "./helpers/resolve-options";
@@ -94,11 +94,7 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
         meta: {
           category: "config"
         },
-        message: `Resolved Vite configuration: \n${JSON.stringify(
-          omit(options, ["plugins"]),
-          null,
-          2
-        )}`
+        message: `Resolved Vite configuration: \n${formatConfig(options)}`
       });
 
       await build(options);

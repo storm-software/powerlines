@@ -22,6 +22,7 @@ export * from "./context-helpers";
 export * from "./docs-helper";
 export * from "./extend";
 export * from "./filter";
+export * from "./format";
 export * from "./format-package-json";
 export * from "./get-config-path";
 export * from "./helpers";

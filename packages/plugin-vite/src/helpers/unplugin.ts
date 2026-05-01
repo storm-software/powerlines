@@ -23,5 +23,5 @@ import { VitePluginContext } from "../types/plugin";
 export function createVitePlugin(context: VitePluginContext) {
   return createViteUnplugin(
     createUnplugin(context, { silenceHookLogging: true, name: "vite" })
-  )({ ...context.options, ...context.initialConfig });
+  )({ ...context.options, ...context.config.initialConfig });
 }

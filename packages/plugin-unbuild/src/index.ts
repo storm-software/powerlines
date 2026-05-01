@@ -17,8 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { Plugin } from "@powerlines/core";
+import { formatConfig } from "@powerlines/core/plugin-utils";
 import { build } from "@storm-software/unbuild";
-import { omit } from "@stryke/helpers/omit";
 import {
   DEFAULT_UNBUILD_CONFIG,
   resolveOptions
@@ -63,11 +63,7 @@ export const plugin = <
         meta: {
           category: "config"
         },
-        message: `Resolved Unbuild configuration: \n${JSON.stringify(
-          omit(options, ["plugins"]),
-          null,
-          2
-        )}`
+        message: `Resolved Unbuild configuration: \n${formatConfig(options)}`
       });
 
       await build(options);

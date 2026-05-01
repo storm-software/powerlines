@@ -45,6 +45,7 @@ import { getTypescriptFileHeader } from "@powerlines/core/lib/utilities/file-hea
 import { format, formatFolder } from "@powerlines/core/lib/utilities/format";
 import {
   findInvalidPluginConfig,
+  formatConfig,
   isDuplicate,
   isPlugin,
   isPluginConfig,
@@ -357,30 +358,8 @@ export class PowerlinesExecution<
         meta: {
           category: "config"
         },
-        message: `Powerlines configuration after configResolved hook: \n${formatLogMessage(
-          {
-            ...omit(context.config, [
-              "inlineConfig",
-              "userConfig",
-              "initialConfig",
-              "pluginConfig",
-              "plugins"
-            ]),
-            plugins: context.plugins.map(plugin => plugin.plugin.name),
-
-            inlineConfig: isSetObject(context.config.inlineConfig)
-              ? omit(context.config.inlineConfig, ["plugins"])
-              : undefined,
-            userConfig: isSetObject(context.config.userConfig)
-              ? omit(context.config.userConfig, ["plugins"])
-              : undefined,
-            initialConfig: isSetObject(context.config.initialConfig)
-              ? omit(context.config.initialConfig, ["plugins"])
-              : undefined,
-            pluginConfig: isSetObject(context.config.pluginConfig)
-              ? omit(context.config.pluginConfig, ["plugins"])
-              : undefined
-          }
+        message: `Powerlines configuration after configResolved hook: \n${formatConfig(
+          context.config
         )}`
       });
 

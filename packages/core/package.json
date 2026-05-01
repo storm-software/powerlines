@@ -167,6 +167,10 @@
       "import": "./dist/plugin-utils/filter.mjs",
       "require": "./dist/plugin-utils/filter.cjs"
     },
+    "./plugin-utils/format": {
+      "import": "./dist/plugin-utils/format.mjs",
+      "require": "./dist/plugin-utils/format.cjs"
+    },
     "./plugin-utils/format-package-json": {
       "import": "./dist/plugin-utils/format-package-json.mjs",
       "require": "./dist/plugin-utils/format-package-json.cjs"

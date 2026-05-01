@@ -17,8 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { Plugin } from "@powerlines/core";
+import { formatConfig } from "@powerlines/core/plugin-utils";
 import { toArray } from "@stryke/convert/to-array";
-import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
 import { rollup as build } from "rollup";
 import { resolveOptions } from "./helpers";
@@ -68,11 +68,7 @@ export const plugin = <
         meta: {
           category: "config"
         },
-        message: `Resolved Rollup configuration: \n${JSON.stringify(
-          omit(options, ["plugins"]),
-          null,
-          2
-        )}`
+        message: `Resolved Rollup configuration: \n${formatConfig(options)}`
       });
 
       const result = await build(options);

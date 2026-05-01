@@ -17,8 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { Plugin } from "@powerlines/core";
+import { formatConfig } from "@powerlines/core/plugin-utils";
 import { rspack as build } from "@rspack/core";
-import { omit } from "@stryke/helpers/omit";
 import defu from "defu";
 import { resolveOptions } from "./helpers";
 import { createRspackPlugin } from "./helpers/unplugin";
@@ -73,11 +73,7 @@ export const plugin = <
         meta: {
           category: "config"
         },
-        message: `Resolved Rspack configuration: \n${JSON.stringify(
-          omit(options, ["plugins"]),
-          null,
-          2
-        )}`
+        message: `Resolved Rspack configuration: \n${formatConfig(options)}`
       });
 
       build(options);
