@@ -60,7 +60,7 @@ import {
 import { reflectEnv, reflectSecrets } from "./helpers/reflect";
 import { EnvPluginContext, EnvPluginOptions } from "./types/plugin";
 
-export type * from "./types";
+export * from "./types";
 
 declare module "powerlines" {
   interface Config {

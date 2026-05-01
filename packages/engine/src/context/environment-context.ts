@@ -357,6 +357,7 @@ export class PowerlinesEnvironmentContext<
     return mergeConfig(
       {
         ...omit(this.environmentConfig ?? {}, [
+          "name",
           "ssr",
           "preview",
           "consumer",
