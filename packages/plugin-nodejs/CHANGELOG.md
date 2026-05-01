@@ -2,6 +2,15 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.385](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.385) (05/01/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.409**
+- Updated **plugin-alloy** to **v0.26.77**
+- Updated **plugin-babel** to **v0.12.451**
+- Updated **plugin-env** to **v0.16.184**
+
 ## [0.1.384](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.384) (05/01/2026)
 
 ### Updated Dependencies
