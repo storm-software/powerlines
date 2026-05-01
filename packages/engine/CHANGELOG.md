@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.45.3](https://github.com/storm-software/powerlines/releases/tag/engine%400.45.3) (04/29/2026)
+
+### Bug Fixes
+
+- **engine:** Resolve issue with missing `setup` call ([d1bed8133](https://github.com/storm-software/powerlines/commit/d1bed8133))
+
 ## [0.45.2](https://github.com/storm-software/powerlines/releases/tag/engine%400.45.2) (04/29/2026)
 
 ### Miscellaneous
