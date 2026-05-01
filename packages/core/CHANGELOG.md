@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.46.4](https://github.com/storm-software/powerlines/releases/tag/core%400.46.4) (05/01/2026)
+
+### Miscellaneous
+
+- **core:** Clean up logging levels for config resolution ([d22aec170](https://github.com/storm-software/powerlines/commit/d22aec170))
+
 ## [0.46.1](https://github.com/storm-software/powerlines/releases/tag/core%400.46.1) (05/01/2026)
 
 ### Miscellaneous
