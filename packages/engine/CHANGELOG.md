@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.46.4](https://github.com/storm-software/powerlines/releases/tag/engine%400.46.4) (05/01/2026)
+
+### Miscellaneous
+
+- **core:** Clean up logging levels for config resolution ([d22aec170](https://github.com/storm-software/powerlines/commit/d22aec170))
+
+### Bug Fixes
+
+- **engine:** Resolve issue with invalid module import ([bdbfe3e23](https://github.com/storm-software/powerlines/commit/bdbfe3e23))
+
 ## [0.46.3](https://github.com/storm-software/powerlines/releases/tag/engine%400.46.3) (05/01/2026)
 
 ### Bug Fixes
