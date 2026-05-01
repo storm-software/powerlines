@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.46.5](https://github.com/storm-software/powerlines/releases/tag/engine%400.46.5) (05/01/2026)
+
+### Miscellaneous
+
+- **engine:** Added more improvements to config debug logging ([5f3b033c8](https://github.com/storm-software/powerlines/commit/5f3b033c8))
+- **engine:** Ensure `package.json` and `project.json` files are correctly resolved ([74b09900d](https://github.com/storm-software/powerlines/commit/74b09900d))
+
+### Bug Fixes
+
+- **engine:** Fix issue resolving configuration for boolean fields ([5caa53e91](https://github.com/storm-software/powerlines/commit/5caa53e91))
+
 ## [0.46.4](https://github.com/storm-software/powerlines/releases/tag/engine%400.46.4) (05/01/2026)
 
 ### Miscellaneous
