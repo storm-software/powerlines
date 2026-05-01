@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.77](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.77) (05/01/2026)
+
+### Features
+
+- **core:** Major updates to configuration resolution implementation ([e370ab860](https://github.com/storm-software/powerlines/commit/e370ab860))
+
+### Updated Dependencies
+
+- Updated **plugin-automd** to **v0.1.453**
+- Updated **plugin-plugin** to **v0.12.404**
+- Updated **plugin-alloy** to **v0.26.72**
+- Updated **plugin-babel** to **v0.12.446**
+
 ## [0.1.76](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.76) (04/29/2026)
 
 ### Updated Dependencies

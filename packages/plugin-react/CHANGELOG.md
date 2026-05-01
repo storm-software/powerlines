@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.514](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.514) (05/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `pnpm-lock.yaml` file updates ([5c3e0675f](https://github.com/storm-software/powerlines/commit/5c3e0675f))
+
+### Features
+
+- **core:** Major updates to configuration resolution implementation ([e370ab860](https://github.com/storm-software/powerlines/commit/e370ab860))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.8.54**
+- Updated **plugin-plugin** to **v0.12.404**
+- Updated **plugin-alloy** to **v0.26.72**
+- Updated **plugin-babel** to **v0.12.446**
+- Updated **plugin-vite** to **v0.14.447**
+- Updated **plugin-env** to **v0.16.179**
+
 ## [0.1.513](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.513) (04/29/2026)
 
 ### Updated Dependencies

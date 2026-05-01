@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.27](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.27) (05/01/2026)
+
+### Features
+
+- **core:** Major updates to configuration resolution implementation ([e370ab860](https://github.com/storm-software/powerlines/commit/e370ab860))
+
 ## [0.13.20](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.20) (04/29/2026)
 
 ### Bug Fixes

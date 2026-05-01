@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.523](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.523) (05/01/2026)
+
+### Features
+
+- **core:** Major updates to configuration resolution implementation ([e370ab860](https://github.com/storm-software/powerlines/commit/e370ab860))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.404**
+- Updated **plugin-env** to **v0.16.179**
+
 ## [0.12.522](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.522) (04/29/2026)
 
 ### Updated Dependencies

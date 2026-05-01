@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/core",
-  "version": "0.45.3",
+  "version": "0.46.0",
   "private": false,
   "description": "An internal core package for Powerlines - please use the `powerlines` package for public usage.",
   "homepage": "https://stormsoftware.com",

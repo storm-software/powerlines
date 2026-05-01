@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.335](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.335) (05/01/2026)
+
+### Features
+
+- **core:** Major updates to configuration resolution implementation ([e370ab860](https://github.com/storm-software/powerlines/commit/e370ab860))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.8.54**
+- Updated **plugin-plugin** to **v0.12.404**
+- Updated **plugin-tsc** to **v0.2.462**
+
 ## [0.11.334](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.334) (04/29/2026)
 
 ### Updated Dependencies

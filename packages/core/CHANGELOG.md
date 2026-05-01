@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.46.0](https://github.com/storm-software/powerlines/releases/tag/core%400.46.0) (05/01/2026)
+
+### Features
+
+- **core:** Major updates to configuration resolution implementation ([e370ab860](https://github.com/storm-software/powerlines/commit/e370ab860))
+
 ## [0.45.0](https://github.com/storm-software/powerlines/releases/tag/core%400.45.0) (04/29/2026)
 
 ### Bug Fixes

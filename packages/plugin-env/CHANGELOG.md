@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.179](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.179) (05/01/2026)
+
+### Features
+
+- **core:** Major updates to configuration resolution implementation ([e370ab860](https://github.com/storm-software/powerlines/commit/e370ab860))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.8.54**
+- Updated **plugin-deepkit** to **v0.11.335**
+- Updated **plugin-automd** to **v0.1.453**
+- Updated **plugin-plugin** to **v0.12.404**
+- Updated **plugin-alloy** to **v0.26.72**
+- Updated **plugin-babel** to **v0.12.446**
+- Updated **plugin-tsc** to **v0.2.462**
+
 ## [0.16.178](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.178) (04/29/2026)
 
 ### Updated Dependencies
