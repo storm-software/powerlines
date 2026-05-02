@@ -20,7 +20,7 @@ catalog:
   '@babel/types': 8.0.0-rc.4
   '@cacheable/memory': ^2.0.8
   '@cloudflare/unenv-preset': ^2.16.1
-  '@cloudflare/workers-types': ^4.20260501.1
+  '@cloudflare/workers-types': ^4.20260502.1
   '@content-collections/core': ^0.12.0
   '@deepkit/core': 1.0.5
   '@deepkit/type': 1.0.5
@@ -58,8 +58,8 @@ catalog:
   '@prisma/get-platform': 6.19.3
   '@prisma/migrate': 7.6.0
   '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
-  '@pulumi/cloudflare': ^6.14.0
-  '@pulumi/pulumi': ^3.233.0
+  '@pulumi/cloudflare': ^6.15.0
+  '@pulumi/pulumi': ^3.234.0
   '@rolldown/pluginutils': 1.0.0-rc.18
   '@rollup/plugin-alias': ^6.0.0
   '@rollup/plugin-babel': ^7.0.0
@@ -213,7 +213,7 @@ catalog:
   vite: ^8.0.10
   webpack: ^5.106.2
   wrangler: ^4.87.0
-  zod: ^4.4.1
+  zod: ^4.4.2
   zx: ^8.8.5
 
 configDependencies:
