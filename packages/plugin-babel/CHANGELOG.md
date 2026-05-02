@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.12.453](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.453) (05/01/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issues applying virtual module prefixes ([489899c2b](https://github.com/storm-software/powerlines/commit/489899c2b))
+
 ## [0.12.444](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.444) (04/29/2026)
 
 ### Miscellaneous

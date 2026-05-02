@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/core",
-  "version": "0.46.6",
+  "version": "0.46.7",
   "private": false,
   "description": "An internal core package for Powerlines - please use the `powerlines` package for public usage.",
   "homepage": "https://stormsoftware.com",
@@ -208,11 +208,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": [
-    "dist/**/*",
-    "files/**/*",
-    "schemas/**/*"
-  ],
+  "files": ["dist/**/*", "files/**/*", "schemas/**/*"],
   "dependencies": {
     "@rolldown/pluginutils": "catalog:",
     "@storm-software/config": "catalog:",

@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.46.7](https://github.com/storm-software/powerlines/releases/tag/core%400.46.7) (05/01/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issues applying virtual module prefixes ([489899c2b](https://github.com/storm-software/powerlines/commit/489899c2b))
+
 ## [0.46.6](https://github.com/storm-software/powerlines/releases/tag/core%400.46.6) (05/01/2026)
 
 ### Bug Fixes
