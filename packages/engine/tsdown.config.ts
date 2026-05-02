@@ -22,10 +22,9 @@ const config = defineTSDownConfig([
   {
     name: "engine-core",
     entry: [
-      "src/index.ts",
-      "src/api.ts",
-      "src/schemas.ts",
-      "src/storage/index.ts",
+      "src/*.ts",
+      "src/rpc/*.ts",
+      "src/storage/*.ts",
       "src/context/index.ts",
       "src/typescript/index.ts"
     ],

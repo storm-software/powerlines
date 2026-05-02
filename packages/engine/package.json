@@ -179,7 +179,8 @@
     "ts-morph": "catalog:",
     "undici": "catalog:",
     "unimport": "catalog:",
-    "unplugin": "catalog:"
+    "unplugin": "catalog:",
+    "valibot": "catalog:"
   },
   "devDependencies": {
     "@storm-software/testing-tools": "catalog:",

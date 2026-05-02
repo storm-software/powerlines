@@ -208,11 +208,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": [
-    "dist/**/*",
-    "files/**/*",
-    "schemas/**/*"
-  ],
+  "files": ["dist/**/*", "files/**/*", "schemas/**/*"],
   "dependencies": {
     "@rolldown/pluginutils": "catalog:",
     "@storm-software/config": "catalog:",
