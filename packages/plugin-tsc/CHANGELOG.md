@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.2.469](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.469) (05/01/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issues applying virtual module prefixes ([489899c2b](https://github.com/storm-software/powerlines/commit/489899c2b))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.411**
+
 ## [0.2.468](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.468) (05/01/2026)
 
 ### Updated Dependencies
