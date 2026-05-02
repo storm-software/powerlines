@@ -16,10 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import defu from "defu";
 import { Plugin } from "powerlines";
-import { VIRTUAL_MODULE_PREFIX_REGEX } from "powerlines/constants";
-import { createFilterForTransform } from "powerlines/plugin-utils";
+import {
+  createFilterForTransform,
+  removeVirtualPrefix
+} from "powerlines/plugin-utils";
 import ts from "typescript";
 import { typeCheck } from "./helpers/type-check";
 import type {
@@ -54,15 +55,16 @@ export const plugin = <
       this.trace("Merging TypeScript Compiler plugin configuration");
 
       return {
-        tsc: defu(options ?? {}, {
+        tsc: {
           typeCheck: false,
           filter: {
             id: {
               include: /\.(?:[cm]?ts|tsx)(?=\s*$)/i,
               exclude: /\.(?:d|spec|test)\.(?:[cm]?ts|tsx)(?=\s*$)/i
             }
-          }
-        })
+          },
+          ...options
+        }
       };
     },
     async lint() {
@@ -76,9 +78,10 @@ export const plugin = <
       },
       async handler(code: string, id: string) {
         if (
+          this.config.tsc.filter &&
           !createFilterForTransform(
-            this.config.tsc.filter?.id,
-            this.config.tsc.filter?.code
+            this.config.tsc.filter.id,
+            this.config.tsc.filter.code
           )?.(id, code)
         ) {
           return { code, id };
@@ -90,7 +93,7 @@ export const plugin = <
             ...this.tsconfig.options,
             ...this.config.tsc.compilerOptions
           },
-          fileName: id.replace(VIRTUAL_MODULE_PREFIX_REGEX, "")
+          fileName: removeVirtualPrefix(id)
         });
         if (
           result.diagnostics &&

@@ -26,9 +26,10 @@ import type {
   UnpluginOptions
 } from "unplugin";
 import {
-  VIRTUAL_MODULE_PREFIX,
+  addVirtualPrefix,
+  removeVirtualPrefix,
   VIRTUAL_MODULE_PREFIX_REGEX
-} from "../../constants";
+} from "../../plugin-utils";
 import { Unstable_PluginContext } from "../../types/_internal";
 import { PluginContext, ResolveResult } from "../../types/context";
 import { ResolveOptions } from "../../types/fs";
@@ -84,9 +85,9 @@ export function createUnpluginModuleResolutionFunctions<
         isEntry: boolean;
       } = { isEntry: false }
     ): Promise<string | ResolveResult | null | undefined> {
-      const normalizedId = id.replace(VIRTUAL_MODULE_PREFIX_REGEX, "");
+      const normalizedId = removeVirtualPrefix(id);
       const normalizedImporter = importer
-        ? importer.replace(VIRTUAL_MODULE_PREFIX_REGEX, "")
+        ? removeVirtualPrefix(importer)
         : undefined;
 
       let result = await ctx.api.callHook(
@@ -107,7 +108,7 @@ export function createUnpluginModuleResolutionFunctions<
           ...result,
           id:
             result.virtual && options.prefix !== false
-              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
+              ? addVirtualPrefix(result.id)
               : result.id
         };
       }
@@ -130,7 +131,7 @@ export function createUnpluginModuleResolutionFunctions<
           ...result,
           id:
             result.virtual && options.prefix !== false
-              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
+              ? addVirtualPrefix(result.id)
               : result.id
         };
       }
@@ -148,7 +149,7 @@ export function createUnpluginModuleResolutionFunctions<
           ...result,
           id:
             result.virtual && options.prefix !== false
-              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
+              ? addVirtualPrefix(result.id)
               : result.id
         };
       }
@@ -171,7 +172,7 @@ export function createUnpluginModuleResolutionFunctions<
           ...result,
           id:
             result.virtual && options.prefix !== false
-              ? `${VIRTUAL_MODULE_PREFIX}${result.id}`
+              ? addVirtualPrefix(result.id)
               : result.id
         };
       }
@@ -182,16 +183,14 @@ export function createUnpluginModuleResolutionFunctions<
       filter:
         options.prefix !== false
           ? {
-              id: {
-                include: [VIRTUAL_MODULE_PREFIX_REGEX]
-              }
+              id: VIRTUAL_MODULE_PREFIX_REGEX
             }
           : undefined,
       async handler(
         this: UnpluginBuildContext & UnpluginContext,
         id: string
       ): Promise<LoadResult | null | undefined> {
-        const normalizedId = id.replace(VIRTUAL_MODULE_PREFIX_REGEX, "");
+        const normalizedId = removeVirtualPrefix(id);
 
         let result = await ctx.api.callHook(
           "load",

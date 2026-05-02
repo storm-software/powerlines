@@ -38,8 +38,10 @@ import {
 } from "@stryke/types/configuration";
 import defu from "defu";
 import { Plugin } from "powerlines";
-import { VIRTUAL_MODULE_PREFIX } from "powerlines/constants";
-import { getDocsOutputPath } from "powerlines/plugin-utils";
+import {
+  createVirtualPrefixRegex,
+  getDocsOutputPath
+} from "powerlines/plugin-utils";
 import type { UserConfig as ViteUserConfig } from "vite";
 import { envBabelPlugin } from "./babel/plugin";
 import { EnvDocsFile } from "./components/docs";
@@ -75,7 +77,12 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
   options: EnvPluginOptions = {}
 ) => {
   return [
-    deepkit(options.deepkit),
+    deepkit({
+      ...options.deepkit,
+      reflection: "default",
+      level: "all",
+      filter: {}
+    }),
     babel(options.babel),
     {
       name: "env",
@@ -119,23 +126,6 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           config.env.secrets = await getSecretsDefaultTypeDefinition(this);
         }
 
-        if (config.env.types || config.env.secrets) {
-          config.tsc.filter = {
-            id: [
-              new RegExp(
-                `^(${VIRTUAL_MODULE_PREFIX})?${joinPaths(
-                  this.builtinsPath,
-                  "env.ts"
-                )
-                  .replace(/\\/g, "\\\\")
-                  .replace(/\//g, "\\/")
-                  .replace(/\./g, "\\.")
-                  .replace(/\$/g, "\\$")}$`
-              )
-            ]
-          };
-        }
-
         config.env.prefix = toArray(
           (config.env.prefix ?? []) as string[]
         ).reduce(
@@ -163,6 +153,13 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             return ret;
           }, [] as string[])
         );
+
+        config.tsc.filter = {
+          id: [
+            createVirtualPrefixRegex(joinPaths(this.builtinsPath, "env.ts")),
+            createVirtualPrefixRegex(`${this.config.framework}:env`)
+          ]
+        };
 
         return config;
       },

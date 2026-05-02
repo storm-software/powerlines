@@ -30,3 +30,4 @@ export * from "./logging";
 export * from "./merge";
 export * from "./modules";
 export * from "./paths";
+export * from "./virtual";

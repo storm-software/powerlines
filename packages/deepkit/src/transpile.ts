@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { Context } from "@powerlines/core";
-import { VIRTUAL_MODULE_PREFIX_REGEX } from "@powerlines/core/constants/virtual-modules";
+import { removeVirtualPrefix } from "@powerlines/core/plugin-utils";
 import { ReflectionConfig } from "@powerlines/deepkit/vendor/type-compiler/config";
 import ts from "typescript";
 import { createDeclarationTransformer, createTransformer } from "./transformer";
@@ -52,7 +52,7 @@ export function transpile(
         context.tsconfig.tsconfigJson.compilerOptions?.level ??
         context.tsconfig.tsconfigJson.level
     },
-    fileName: id.replace(VIRTUAL_MODULE_PREFIX_REGEX, ""),
+    fileName: removeVirtualPrefix(id),
     transformers: {
       before: [transformer],
       after: [declarationTransformer]
