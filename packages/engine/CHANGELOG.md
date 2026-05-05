@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.47.0](https://github.com/storm-software/powerlines/releases/tag/engine%400.47.0) (05/02/2026)
+
+### Features
+
+- **engine:** Added the RPC module to `engine` package ([af5288fab](https://github.com/storm-software/powerlines/commit/af5288fab))
+
 ## [0.46.6](https://github.com/storm-software/powerlines/releases/tag/engine%400.46.6) (05/01/2026)
 
 ### Bug Fixes
