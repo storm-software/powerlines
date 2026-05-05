@@ -352,7 +352,6 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
             "NamingStrategy",
             "TemplateState",
             "Type",
-            "typeOf",
             "TypeProperty",
             "TypePropertySignature"
           ]
@@ -459,9 +458,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       <VarDeclaration
         name="_serializeEnv"
         const
-        initializer={
-          "serializeFunction<Env>(envSerializer, envNamingStrategy, typeOf<Env>())"
-        }
+        initializer={"serializeFunction<Env>(envSerializer, envNamingStrategy)"}
       />
       <Spacing />
       <TSDoc heading="Serialize a environment configuration object to JSON data objects (not a JSON string).">
@@ -496,7 +493,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       <VarDeclaration
         name="_deserializeEnv"
         const
-        initializer="deserializeFunction<Env>(envSerializer, envNamingStrategy, typeOf<Env>())"
+        initializer="deserializeFunction<Env>(envSerializer, envNamingStrategy)"
       />
       <Spacing />
       <TSDoc heading="Deserialize a environment configuration object from JSON data objects to JavaScript objects, without running any validators.">
