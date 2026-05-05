@@ -31,6 +31,16 @@ export type TypeScriptCompilerPluginOptions = Partial<
   filter?: HookFilter;
 
   /**
+   * The order in which the plugin's transformation hook should be applied relative to other plugins. This can be either `"pre"` or `"post"`.
+   *
+   * @remarks
+   * If no value is specified, the plugin's transformation hook will be applied in the default order determined by Powerlines. Specifying `"pre"` will ensure that the plugin's transformations are applied before other plugins' transformations, while specifying `"post"` will ensure that they are applied after.
+   * - `"pre"` - means the transformation will be applied before other plugins' transformations.
+   * - `"post"` - means the transformation will be applied after other plugins' transformations.
+   */
+  order?: "pre" | "post";
+
+  /**
    * Whether to perform type checking during the `lint` task.
    *
    * @defaultValue false

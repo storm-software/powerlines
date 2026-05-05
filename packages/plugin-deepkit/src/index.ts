@@ -45,7 +45,7 @@ export const plugin = <
   options: DeepkitPluginOptions = {}
 ): Plugin<TContext>[] => {
   return [
-    tsc(options),
+    tsc({ order: "pre", ...options }),
     {
       name: "deepkit",
       config() {

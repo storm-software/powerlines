@@ -73,6 +73,7 @@ export const plugin = <
       }
     },
     transform: {
+      order: options.order,
       filter: {
         id: { exclude: /\.(?:[cm]?js|jsx)(?=\s*$)/i }
       },
