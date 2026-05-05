@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.190](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.190) (05/05/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolve issue serializing env configuration values ([32cb6c1ef](https://github.com/storm-software/powerlines/commit/32cb6c1ef))
+
 ## [0.16.189](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.189) (05/05/2026)
 
 ### Updated Dependencies
