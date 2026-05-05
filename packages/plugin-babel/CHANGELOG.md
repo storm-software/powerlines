@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.1](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.1) (05/05/2026)
+
+### Bug Fixes
+
+- **plugin-babel:** Resolve issue with invalid babel configuration options ([ed4e92623](https://github.com/storm-software/powerlines/commit/ed4e92623))
+
 ## [0.13.0](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.0) (05/05/2026)
 
 ### Features
