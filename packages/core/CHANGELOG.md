@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.47.2](https://github.com/storm-software/powerlines/releases/tag/core%400.47.2) (05/05/2026)
+
+### Miscellaneous
+
+- **core:** Added `prefixRegex` utility function ([b7d1350eb](https://github.com/storm-software/powerlines/commit/b7d1350eb))
+
 ## [0.47.1](https://github.com/storm-software/powerlines/releases/tag/core%400.47.1) (05/05/2026)
 
 ### Bug Fixes

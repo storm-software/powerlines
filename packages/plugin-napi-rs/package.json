@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-napi-rs",
-  "version": "0.2.38",
+  "version": "0.2.39",
   "private": false,
   "description": "A package containing a Powerlines plugin for integrating with N-API Rust modules.",
   "keywords": ["napi-rs", "powerlines", "storm-software", "powerlines-plugin"],

@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.47.2](https://github.com/storm-software/powerlines/releases/tag/engine%400.47.2) (05/05/2026)
+
+### Miscellaneous
+
+- **engine:** Clean up `config` and `plugins` logging messages ([c4c76a4a3](https://github.com/storm-software/powerlines/commit/c4c76a4a3))
+
 ## [0.47.0](https://github.com/storm-software/powerlines/releases/tag/engine%400.47.0) (05/02/2026)
 
 ### Features
