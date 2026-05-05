@@ -159,7 +159,10 @@ export const plugin = <
         caller: {
           name: this.config.framework
         },
-        ...omit(this.config.babel ?? {}, ["skipConfigResolution"]),
+        ...omit(this.config.babel ?? {}, [
+          "skipConfigResolution",
+          "skipTransform"
+        ]),
         filename: removeVirtualPrefix(id),
         plugins: plugins
           .map(plugin => {
