@@ -809,18 +809,25 @@ export class PowerlinesExecution<
       !this.context.config.environments ||
       Object.keys(this.context.config.environments).length <= 1
     ) {
-      this.context.debug(
-        "No environments are configured for this Powerlines project. Using the default environment."
-      );
+      this.context.debug({
+        meta: {
+          category: "config"
+        },
+        message:
+          "No environments are configured for this Powerlines project. Using the default environment."
+      });
 
       return [await this.context.getEnvironment()];
     }
 
-    this.context.debug(
-      `Found ${
+    this.context.debug({
+      meta: {
+        category: "config"
+      },
+      message: `Found ${
         Object.keys(this.context.config.environments).length
       } configured environment(s) for this Powerlines project.`
-    );
+    });
 
     return (
       await Promise.all(
@@ -994,17 +1001,23 @@ export class PowerlinesExecution<
     const result = [] as Plugin<PluginContext<TResolvedConfig>>[];
     for (const plugin of plugins) {
       if (isDuplicate<TResolvedConfig>(plugin, this.context.plugins)) {
-        this.context.trace(
-          `Duplicate ${chalk.bold.cyanBright(
+        this.context.trace({
+          meta: {
+            category: "plugins"
+          },
+          message: `Duplicate ${chalk.bold.cyanBright(
             plugin.name
           )} plugin dependency detected - Skipping initialization.`
-        );
+        });
       } else {
         result.push(plugin);
 
-        this.context.trace(
-          `Initializing the ${chalk.bold.cyanBright(plugin.name)} plugin...`
-        );
+        this.context.trace({
+          meta: {
+            category: "plugins"
+          },
+          message: `Initializing the ${chalk.bold.cyanBright(plugin.name)} plugin...`
+        });
       }
     }
 
