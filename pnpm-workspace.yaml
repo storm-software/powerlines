@@ -20,7 +20,7 @@ catalog:
   '@babel/types': 8.0.0-rc.4
   '@cacheable/memory': ^2.0.8
   '@cloudflare/unenv-preset': ^2.16.1
-  '@cloudflare/workers-types': ^4.20260502.1
+  '@cloudflare/workers-types': ^4.20260505.1
   '@content-collections/core': ^0.12.0
   '@deepkit/core': 1.0.5
   '@deepkit/type': 1.0.5
@@ -108,7 +108,7 @@ catalog:
   '@stryke/types': ^0.12.0
   '@stryke/unique-id': ^0.3.81
   '@swc-node/register': ^1.11.1
-  '@swc/core': ^1.15.32
+  '@swc/core': ^1.15.33
   '@swc/helpers': ^0.5.21
   '@tamagui/static-worker': ^1.144.4
   '@tamagui/types': ^1.144.4
@@ -181,7 +181,7 @@ catalog:
   publint: ^0.3.18
   rimraf: ^6.1.3
   rolldown: 1.0.0-rc.16
-  rollup: ^4.60.2
+  rollup: ^4.60.3
   rollup-plugin-typescript2: ^0.36.0
   satori: ^0.18.4
   sharp: ^0.34.5
@@ -213,7 +213,7 @@ catalog:
   vite: ^8.0.10
   webpack: ^5.106.2
   wrangler: ^4.87.0
-  zod: ^4.4.2
+  zod: ^4.4.3
   zx: ^8.8.5
 
 configDependencies:
