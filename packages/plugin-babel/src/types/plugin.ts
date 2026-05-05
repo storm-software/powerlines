@@ -24,7 +24,19 @@ import type {
 import type { BabelResolvedConfig, BabelUserConfig } from "./config";
 
 export type BabelPluginOptions = Partial<BabelUserConfig> & {
+  /**
+   * Whether to skip resolving the Babel configuration. If true, the plugin will use the provided options as-is without attempting to resolve them against the file system or environment. This can be useful for performance optimization if you already have a fully resolved configuration or want to provide a custom configuration object directly.
+   *
+   * @defaultValue false
+   */
   skipConfigResolution?: boolean;
+
+  /**
+   * Whether to only run the babel plugin without actually transforming the code. This can be useful for performance optimization if you only want to use the plugin's features without modifying the code, such as for collecting metadata or performing side effects.
+   *
+   * @defaultValue false
+   */
+  skipTransform?: boolean;
 };
 
 export type BabelPluginUserConfig = UserConfig & {
@@ -33,7 +45,19 @@ export type BabelPluginUserConfig = UserConfig & {
 
 export interface BabelPluginResolvedConfig extends ResolvedConfig {
   babel: BabelResolvedConfig & {
+    /**
+     * Whether to skip resolving the Babel configuration. If true, the plugin will use the provided options as-is without attempting to resolve them against the file system or environment. This can be useful for performance optimization if you already have a fully resolved configuration or want to provide a custom configuration object directly.
+     *
+     * @defaultValue false
+     */
     skipConfigResolution?: boolean;
+
+    /**
+     * Whether to only run the babel plugin without actually transforming the code. This can be useful for performance optimization if you only want to use the plugin's features without modifying the code, such as for collecting metadata or performing side effects.
+     *
+     * @defaultValue false
+     */
+    skipTransform?: boolean;
   };
 }
 

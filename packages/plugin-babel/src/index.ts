@@ -208,7 +208,10 @@ export const plugin = <
 
       this.trace(`Completed babel transformations for file: ${id}`);
 
-      return { code: result.code, id };
+      return {
+        code: this.config.babel?.skipTransform ? code : result.code,
+        id
+      };
     }
   } as Plugin<TContext>;
 };

@@ -83,7 +83,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
       level: "all",
       filter: {}
     }),
-    babel(options.babel),
+    babel({ ...options.babel }),
     {
       name: "env",
       async config() {
@@ -99,6 +99,8 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             prefix: []
           }),
           babel: {
+            ...options.babel,
+            skipTransform: !options.inject,
             plugins: [envBabelPlugin]
           },
           deepkit: {
