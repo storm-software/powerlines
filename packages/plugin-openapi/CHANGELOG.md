@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Openapi
 
+## [0.2.469](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.469) (05/05/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.415**
+
 ## [0.2.468](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.468) (05/05/2026)
 
 ### Updated Dependencies

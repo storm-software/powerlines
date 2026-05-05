@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-env",
-  "version": "0.16.190",
+  "version": "0.16.191",
   "private": false,
   "description": "A package containing a Powerlines plugin for injecting static .env configuration values to the code so that they're accessible at runtime.",
   "keywords": ["dotenv", "powerlines", "storm-software", "powerlines-plugin"],

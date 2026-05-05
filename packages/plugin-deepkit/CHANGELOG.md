@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.346](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.346) (05/05/2026)
+
+### Features
+
+- **plugin-tsc:** Added the `order` plugin option ([6f70500be](https://github.com/storm-software/powerlines/commit/6f70500be))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.415**
+- Updated **plugin-tsc** to **v0.3.0**
+
 ## [0.11.345](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.345) (05/05/2026)
 
 ### Updated Dependencies
