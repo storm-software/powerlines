@@ -157,10 +157,12 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         );
 
         config.tsc.filter = {
-          id: [
-            createVirtualPrefixRegex(joinPaths(this.builtinsPath, "env.ts")),
-            createVirtualPrefixRegex(`${this.config.framework}:env`)
-          ]
+          id: {
+            include: [
+              createVirtualPrefixRegex(joinPaths(this.builtinsPath, "env.ts")),
+              createVirtualPrefixRegex(`${this.config.framework}:env`)
+            ]
+          }
         };
 
         return config;
