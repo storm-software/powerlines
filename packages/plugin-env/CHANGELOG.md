@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.191](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.191) (05/05/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Cleaned up logic applying resolved `tsc` filter configuration ([086e7e3be](https://github.com/storm-software/powerlines/commit/086e7e3be))
+
+### Features
+
+- **plugin-tsc:** Added the `order` plugin option ([6f70500be](https://github.com/storm-software/powerlines/commit/6f70500be))
+- **plugin-babel:** Added the `skipTransform` plugin option ([b1df1fda4](https://github.com/storm-software/powerlines/commit/b1df1fda4))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.346**
+- Updated **plugin-automd** to **v0.1.464**
+- Updated **plugin-plugin** to **v0.12.415**
+- Updated **plugin-alloy** to **v0.26.83**
+- Updated **plugin-babel** to **v0.13.0**
+- Updated **plugin-tsc** to **v0.3.0**
+
 ## [0.16.190](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.190) (05/05/2026)
 
 ### Bug Fixes

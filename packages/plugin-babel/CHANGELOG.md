@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.0](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.0) (05/05/2026)
+
+### Features
+
+- **plugin-babel:** Added the `skipTransform` plugin option ([b1df1fda4](https://github.com/storm-software/powerlines/commit/b1df1fda4))
+
 ## [0.12.453](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.12.453) (05/01/2026)
 
 ### Bug Fixes

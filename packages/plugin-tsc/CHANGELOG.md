@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.3.0](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.3.0) (05/05/2026)
+
+### Features
+
+- **plugin-tsc:** Added the `order` plugin option ([6f70500be](https://github.com/storm-software/powerlines/commit/6f70500be))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.415**
+
 ## [0.2.472](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.2.472) (05/05/2026)
 
 ### Updated Dependencies
