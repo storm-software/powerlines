@@ -18,6 +18,8 @@
 
 import { toArray } from "@stryke/convert/to-array";
 import { isAbsolutePath } from "@stryke/path/is-type";
+import { isRegExp } from "@stryke/type-checks/is-regexp";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { resolve } from "node:path";
 import picomatch from "picomatch";
 import type { StringFilter, StringOrRegExp } from "unplugin";
@@ -26,10 +28,11 @@ import {
   PluginFilter,
   TransformHookFilter
 } from "../types/hooks";
+import { removeVirtualPrefix } from "./virtual";
 
 const BACKSLASH_REGEX = /\\/g;
 function normalize(path: string): string {
-  return path.replace(BACKSLASH_REGEX, "/");
+  return removeVirtualPrefix(path).replace(BACKSLASH_REGEX, "/");
 }
 
 function getMatcherString(glob: string, cwd: string) {
@@ -92,20 +95,36 @@ export function createFilter(
   };
 }
 
+export function normalizeSingleFilter(
+  filter: string | RegExp
+): string | RegExp {
+  if (isSetString(filter)) {
+    return removeVirtualPrefix(filter);
+  }
+
+  return filter;
+}
+
 export function normalizeFilter(filter: StringFilter): NormalizedStringFilter {
-  if (typeof filter === "string" || filter instanceof RegExp) {
+  if (isSetString(filter) || isRegExp(filter)) {
     return {
-      include: [filter]
+      include: [normalizeSingleFilter(filter)]
     };
   }
+
   if (Array.isArray(filter)) {
     return {
-      include: filter
+      include: filter.map(normalizeSingleFilter)
     };
   }
+
   return {
-    exclude: filter.exclude ? toArray(filter.exclude) : undefined,
-    include: filter.include ? toArray(filter.include) : undefined
+    exclude: filter.exclude
+      ? toArray(filter.exclude).map(normalizeSingleFilter)
+      : undefined,
+    include: filter.include
+      ? toArray(filter.include).map(normalizeSingleFilter)
+      : undefined
   };
 }
 
