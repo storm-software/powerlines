@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.47.1](https://github.com/storm-software/powerlines/releases/tag/core%400.47.1) (05/05/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue applying filter in plugin utility functions ([34398a2fd](https://github.com/storm-software/powerlines/commit/34398a2fd))
+
 ## [0.47.0](https://github.com/storm-software/powerlines/releases/tag/core%400.47.0) (05/02/2026)
 
 ### Features
