@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { createFarmPlugin } from "unplugin";
-import { createUnpluginFactory } from "./unplugin";
+// import { createFarmPlugin } from "unplugin";
+// import { createUnpluginFactory } from "./unplugin";
 
 /**
  * A Farm plugin that will invoke the Powerlines API hooks during the build process.
@@ -36,6 +36,6 @@ import { createUnpluginFactory } from "./unplugin";
  *
  * ```
  */
-export const unplugin = createFarmPlugin(createUnpluginFactory("farm"));
+// export const unplugin = createFarmPlugin(createUnpluginFactory("farm"));
 
-export { unplugin as farm };
+// export { unplugin as farm };

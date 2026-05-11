@@ -16,34 +16,24 @@
 
  ------------------------------------------------------------------- */
 
-import { PowerlinesEngine as InternalPowerlinesEngine } from "@powerlines/engine";
+import { createEngine } from "@powerlines/engine";
 import packageJson from "../package.json" with { type: "json" };
 import type { EngineOptions } from "./types";
 
+export { PowerlinesEngine } from "@powerlines/engine";
+
 /**
- * The Powerlines Engine class
+ * Creates a new {@link PowerlinesEngine} instance.
  *
- * @remarks
- * This class is responsible for managing the Powerlines project lifecycle, including initialization, building, and finalization.
- *
- * @public
+ * @param options - The user configuration options.
+ * @returns A promise that resolves to a {@link PowerlinesEngine} instance.
  */
-export class PowerlinesEngine extends InternalPowerlinesEngine {
-  /**
-   * Create a new Powerlines Engine instance
-   *
-   * @param options - The options to initialize the context with
-   * @returns A new instance of the Powerlines Engine
-   */
-  public static override async from(
-    options: EngineOptions
-  ): Promise<PowerlinesEngine> {
-    const engine = await InternalPowerlinesEngine.from(options);
+export async function createPowerlines(options: EngineOptions) {
+  const engine = await createEngine(options);
 
-    engine.context.info(
-      `🔌 The Powerlines Engine v${packageJson.version} has started`
-    );
+  engine.context.info(
+    `🔌 The Powerlines Engine v${packageJson.version} has started`
+  );
 
-    return engine;
-  }
+  return engine;
 }

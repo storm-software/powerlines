@@ -16,9 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import type { VitePluginInitialConfig } from "@powerlines/plugin-vite/types/plugin";
+// import type { VitePluginInitialConfig } from "@powerlines/plugin-vite/types/plugin";
 import type { AstroUserConfig } from "astro";
-import { unplugin as vite } from "./vite";
+// import { unplugin as vite } from "./vite";
 
 /**
  * An Astro plugin that will invoke the Powerlines API hooks during the build process.
@@ -37,9 +37,9 @@ import { unplugin as vite } from "./vite";
  *
  * ```
  */
-export const unplugin = (config: VitePluginInitialConfig): AstroUserConfig => ({
+export const unplugin = (_config: any): AstroUserConfig => ({
   vite: {
-    plugins: [vite(config)] as NonNullable<AstroUserConfig["vite"]>["plugins"]
+    // plugins: [vite(config)] as NonNullable<AstroUserConfig["vite"]>["plugins"]
   }
 });
 

@@ -17,10 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type {
-  CallHookOptions,
   EnvironmentContext,
-  InferHookParameters,
-  InferHookReturnType,
   LoggerMessage,
   LogLevel,
   Plugin,
@@ -65,25 +62,6 @@ export function createPluginContext<
     };
   };
 
-  const callHookFn = async <TKey extends string>(
-    hook: TKey,
-    options: CallHookOptions,
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ): Promise<
-    InferHookReturnType<PluginContext<TResolvedConfig>, TKey> | undefined
-  > => {
-    return environment.$$internal.api.callHook(
-      hook,
-      {
-        sequential: true,
-        result: "merge",
-        ...options,
-        environment
-      } as Parameters<typeof environment.$$internal.api.callHook>[1],
-      ...(args as Parameters<typeof environment.$$internal.api.callHook>[2])
-    ) as InferHookReturnType<PluginContext<TResolvedConfig>, TKey>;
-  };
-
   const meta = {} as Record<string, any>;
 
   return new Proxy({} as Unstable_PluginContext<TResolvedConfig>, {
@@ -92,13 +70,8 @@ export function createPluginContext<
         return {
           ...environment.$$internal,
           environment,
-          callHook: callHookFn,
           meta
         };
-      }
-
-      if (prop === "api") {
-        return environment.$$internal.api;
       }
 
       if (prop === "environment") {

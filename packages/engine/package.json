@@ -40,108 +40,147 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "default": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    },
-    "./index": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "default": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./api": {
-      "import": {
-        "types": "./dist/api.d.mts",
-        "default": "./dist/api.mjs"
-      },
-      "require": {
-        "types": "./dist/api.d.cts",
-        "default": "./dist/api.cjs"
-      },
-      "default": {
-        "types": "./dist/api.d.cts",
-        "default": "./dist/api.cjs"
-      }
+      "import": "./dist/api/index.mjs",
+      "require": "./dist/api/index.cjs"
     },
-    "./schemas": {
-      "import": {
-        "types": "./dist/schemas.d.mts",
-        "default": "./dist/schemas.mjs"
-      },
-      "require": {
-        "types": "./dist/schemas.d.cts",
-        "default": "./dist/schemas.cjs"
-      },
-      "default": {
-        "types": "./dist/schemas.d.cts",
-        "default": "./dist/schemas.cjs"
-      }
+    "./api/build": {
+      "import": "./dist/api/build.mjs",
+      "require": "./dist/api/build.cjs"
     },
-    "./typescript": {
-      "import": {
-        "types": "./dist/typescript/index.d.mts",
-        "default": "./dist/typescript/index.mjs"
-      },
-      "require": {
-        "types": "./dist/typescript/index.d.cts",
-        "default": "./dist/typescript/index.cjs"
-      },
-      "default": {
-        "types": "./dist/typescript/index.d.cts",
-        "default": "./dist/typescript/index.cjs"
-      }
+    "./api/clean": {
+      "import": "./dist/api/clean.mjs",
+      "require": "./dist/api/clean.cjs"
+    },
+    "./api/create": {
+      "import": "./dist/api/create.mjs",
+      "require": "./dist/api/create.cjs"
+    },
+    "./api/deploy": {
+      "import": "./dist/api/deploy.mjs",
+      "require": "./dist/api/deploy.cjs"
+    },
+    "./api/docs": {
+      "import": "./dist/api/docs.mjs",
+      "require": "./dist/api/docs.cjs"
+    },
+    "./api/lint": {
+      "import": "./dist/api/lint.mjs",
+      "require": "./dist/api/lint.cjs"
+    },
+    "./api/prepare": {
+      "import": "./dist/api/prepare.mjs",
+      "require": "./dist/api/prepare.cjs"
+    },
+    "./api/test": {
+      "import": "./dist/api/test.mjs",
+      "require": "./dist/api/test.cjs"
+    },
+    "./api/types": {
+      "import": "./dist/api/types.mjs",
+      "require": "./dist/api/types.cjs"
     },
     "./context": {
-      "import": {
-        "types": "./dist/context/index.d.mts",
-        "default": "./dist/context/index.mjs"
-      },
-      "require": {
-        "types": "./dist/context/index.d.cts",
-        "default": "./dist/context/index.cjs"
-      },
-      "default": {
-        "types": "./dist/context/index.d.cts",
-        "default": "./dist/context/index.cjs"
-      }
+      "import": "./dist/context/index.mjs",
+      "require": "./dist/context/index.cjs"
+    },
+    "./engine": {
+      "import": "./dist/engine.mjs",
+      "require": "./dist/engine.cjs"
+    },
+    "./execution-host": {
+      "import": "./dist/worker/execution-host.mjs",
+      "require": "./dist/worker/execution-host.cjs"
+    },
+    "./helpers/cache": {
+      "import": "./dist/helpers/cache.mjs",
+      "require": "./dist/helpers/cache.cjs"
+    },
+    "./helpers/constants": {
+      "import": "./dist/helpers/constants.mjs",
+      "require": "./dist/helpers/constants.cjs"
+    },
+    "./helpers/context": {
+      "import": "./dist/helpers/context.mjs",
+      "require": "./dist/helpers/context.cjs"
+    },
+    "./helpers/create-execution-host": {
+      "import": "./dist/helpers/create-execution-host.mjs",
+      "require": "./dist/helpers/create-execution-host.cjs"
+    },
+    "./helpers/environment": {
+      "import": "./dist/helpers/environment.mjs",
+      "require": "./dist/helpers/environment.cjs"
+    },
+    "./helpers/execution-host-worker": {
+      "import": "./dist/helpers/execution-host-worker.mjs",
+      "require": "./dist/helpers/execution-host-worker.cjs"
+    },
+    "./helpers/finalize": {
+      "import": "./dist/helpers/finalize.mjs",
+      "require": "./dist/helpers/finalize.cjs"
+    },
+    "./helpers/generate-types": {
+      "import": "./dist/helpers/generate-types.mjs",
+      "require": "./dist/helpers/generate-types.cjs"
+    },
+    "./helpers/hooks": {
+      "import": "./dist/helpers/hooks.mjs",
+      "require": "./dist/helpers/hooks.cjs"
+    },
+    "./helpers/install": {
+      "import": "./dist/helpers/install.mjs",
+      "require": "./dist/helpers/install.cjs"
+    },
+    "./helpers/install-dependencies": {
+      "import": "./dist/helpers/install-dependencies.mjs",
+      "require": "./dist/helpers/install-dependencies.cjs"
+    },
+    "./helpers/meta": {
+      "import": "./dist/helpers/meta.mjs",
+      "require": "./dist/helpers/meta.cjs"
+    },
+    "./helpers/plugins": {
+      "import": "./dist/helpers/plugins.mjs",
+      "require": "./dist/helpers/plugins.cjs"
+    },
+    "./helpers/resolve-config": {
+      "import": "./dist/helpers/resolve-config.mjs",
+      "require": "./dist/helpers/resolve-config.cjs"
+    },
+    "./helpers/resolve-tsconfig": {
+      "import": "./dist/helpers/resolve-tsconfig.mjs",
+      "require": "./dist/helpers/resolve-tsconfig.cjs"
+    },
+    "./helpers/rpc": {
+      "import": "./dist/helpers/rpc.mjs",
+      "require": "./dist/helpers/rpc.cjs"
+    },
+    "./helpers/vfs": {
+      "import": "./dist/helpers/vfs.mjs",
+      "require": "./dist/helpers/vfs.cjs"
+    },
+    "./schemas": {
+      "import": "./dist/schemas.mjs",
+      "require": "./dist/schemas.cjs"
     },
     "./storage": {
-      "import": {
-        "types": "./dist/storage/index.d.mts",
-        "default": "./dist/storage/index.mjs"
-      },
-      "require": {
-        "types": "./dist/storage/index.d.cts",
-        "default": "./dist/storage/index.cjs"
-      },
-      "default": {
-        "types": "./dist/storage/index.d.cts",
-        "default": "./dist/storage/index.cjs"
-      }
-    }
+      "import": "./dist/storage/index.mjs",
+      "require": "./dist/storage/index.cjs"
+    },
+    "./typescript": {
+      "import": "./dist/typescript/index.mjs",
+      "require": "./dist/typescript/index.cjs"
+    },
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": ["dist/**/*", "schemas/**/*"],
+  "files": ["dist", "schemas"],
   "dependencies": {
     "@cacheable/memory": "catalog:",
     "@donedeal0/superdiff": "catalog:",
@@ -162,25 +201,30 @@
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/unique-id": "catalog:",
+    "@stryke/url": "catalog:",
     "birpc": "catalog:",
     "bundle-require": "catalog:",
     "chalk": "catalog:",
     "compatx": "catalog:",
     "date-fns": "catalog:",
     "defu": "catalog:",
+    "devframe": "catalog:",
     "flat-cache": "catalog:",
+    "get-port-please": "catalog:",
+    "h3": "catalog:",
     "handlebars": "catalog:",
+    "human-id": "catalog:",
     "jest-worker": "catalog:",
     "jiti": "catalog:",
     "locate-character": "catalog:",
     "oxc-parser": "catalog:",
     "oxc-resolver": "catalog:",
-    "structured-clone-es": "catalog:",
+    "sirv": "catalog:",
     "ts-morph": "catalog:",
+    "ua-parser-modern": "catalog:",
     "undici": "catalog:",
     "unimport": "catalog:",
-    "unplugin": "catalog:",
-    "valibot": "catalog:"
+    "unplugin": "catalog:"
   },
   "devDependencies": {
     "@storm-software/testing-tools": "catalog:",

@@ -18,28 +18,18 @@
 
 import { PromiseExecutor } from "@nx/devkit";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
-import defu from "defu";
-import type { BuildInlineConfig, PowerlinesEngine } from "powerlines";
+import type { PowerlinesEngine } from "powerlines";
 import {
   PowerlinesExecutorContext,
   withExecutor
 } from "../../base/base-executor";
 import type { BuildExecutorSchema } from "./schema";
 
-export async function executorFn(
+async function executorFn(
   context: PowerlinesExecutorContext<"build", BuildExecutorSchema>,
   api: PowerlinesEngine
 ): Promise<BaseExecutorResult> {
-  await api.build(
-    defu(
-      {
-        input: context.options.input,
-        skipCache: context.options.skipCache,
-        mode: context.options.mode
-      },
-      context.inlineConfig
-    ) as BuildInlineConfig
-  );
+  await api.build(context.inlineConfig);
 
   return {
     success: true

@@ -16,10 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-import { omit } from "@stryke/helpers/omit";
-import { isString } from "@stryke/type-checks/is-string";
-import type { Options } from "tsup";
-import { unplugin as esbuild } from "./esbuild";
+// import { omit } from "@stryke/helpers/omit";
+// import { isString } from "@stryke/type-checks/is-string";
+// import type { Options } from "tsup";
+// import { unplugin as esbuild } from "./esbuild";
 
 export { default as plugin, default as tsup } from "@powerlines/plugin-tsup";
 
@@ -46,35 +46,35 @@ export { default as plugin, default as tsup } from "@powerlines/plugin-tsup";
  * @param options - The Tsup options to merge with the Powerlines configuration.
  * @returns The merged Tsup configuration options.
  */
-export function unplugin(options: Options = {}): Options {
-  return {
-    ...options,
-    esbuildPlugins: [
-      esbuild({
-        output: {
-          path: options.outDir,
-          format: options.format
-        },
-        esbuild: {
-          ...omit(options, [
-            "plugins",
-            "banner",
-            "footer",
-            "outExtension",
-            "outDir",
-            "format",
-            "minify",
-            "pure",
-            "inject"
-          ]),
-          minify: Boolean(options.minify),
-          pure: Array.isArray(options.pure)
-            ? options.pure
-            : isString(options.pure)
-              ? [options.pure]
-              : []
-        }
-      })
-    ]
-  };
-}
+// export function unplugin(options: Options = {}): Options {
+//   return {
+//     ...options,
+//     esbuildPlugins: [
+//       esbuild({
+//         output: {
+//           path: options.outDir,
+//           format: options.format
+//         },
+//         esbuild: {
+//           ...omit(options, [
+//             "plugins",
+//             "banner",
+//             "footer",
+//             "outExtension",
+//             "outDir",
+//             "format",
+//             "minify",
+//             "pure",
+//             "inject"
+//           ]),
+//           minify: Boolean(options.minify),
+//           pure: Array.isArray(options.pure)
+//             ? options.pure
+//             : isString(options.pure)
+//               ? [options.pure]
+//               : []
+//         }
+//       })
+//     ]
+//   };
+// }

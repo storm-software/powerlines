@@ -55,6 +55,10 @@
       "import": "./dist/constants/commands.mjs",
       "require": "./dist/constants/commands.cjs"
     },
+    "./constants/devtools": {
+      "import": "./dist/constants/devtools.mjs",
+      "require": "./dist/constants/devtools.cjs"
+    },
     "./constants/environments": {
       "import": "./dist/constants/environments.mjs",
       "require": "./dist/constants/environments.cjs"
@@ -90,6 +94,18 @@
     "./lib/entry": {
       "import": "./dist/lib/entry.mjs",
       "require": "./dist/lib/entry.cjs"
+    },
+    "./lib/events": {
+      "import": "./dist/lib/events.mjs",
+      "require": "./dist/lib/events.cjs"
+    },
+    "./lib/resolver": {
+      "import": "./dist/lib/resolver.mjs",
+      "require": "./dist/lib/resolver.cjs"
+    },
+    "./lib/streaming-channel": {
+      "import": "./dist/lib/streaming-channel.mjs",
+      "require": "./dist/lib/streaming-channel.cjs"
     },
     "./lib/unplugin": {
       "import": "./dist/lib/unplugin/index.mjs",
@@ -208,7 +224,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": ["dist/**/*", "files/**/*", "schemas/**/*"],
+  "files": ["dist", "files", "schemas"],
   "dependencies": {
     "@rolldown/pluginutils": "catalog:",
     "@storm-software/config": "catalog:",
@@ -223,10 +239,12 @@
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/unique-id": "catalog:",
+    "birpc": "catalog:",
     "c12": "catalog:",
     "chalk": "catalog:",
     "compatx": "catalog:",
     "defu": "catalog:",
+    "devframe": "catalog:",
     "diff-match-patch": "catalog:",
     "jiti": "catalog:",
     "magic-string": "catalog:",

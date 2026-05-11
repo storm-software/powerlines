@@ -18,5 +18,7 @@
 
 export * from "./config";
 export * from "./entry";
+export * from "./events";
+export * from "./streaming-channel";
 export * from "./unplugin";
 export * from "./utilities";

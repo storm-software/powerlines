@@ -53,9 +53,9 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
-    "./reflect": {
-      "import": "./dist/reflect.mjs",
-      "require": "./dist/reflect.cjs"
+    "./extract": {
+      "import": "./dist/extract.mjs",
+      "require": "./dist/extract.cjs"
     },
     "./types": {
       "import": "./dist/types.mjs",
@@ -67,7 +67,9 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@powerlines/deepkit": "workspace:*",

@@ -16,12 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  InitialPluginConfig,
-  PluginContext,
-  ResolvedConfig,
-  UserConfig
-} from "@powerlines/core";
+import { PluginContext, ResolvedConfig, UserConfig } from "@powerlines/core";
 import { RolldownOptions } from "./build";
 
 export type RolldownPluginOptions = Partial<RolldownOptions>;
@@ -29,9 +24,6 @@ export type RolldownPluginOptions = Partial<RolldownOptions>;
 export interface RolldownPluginUserConfig extends UserConfig {
   rolldown: RolldownPluginOptions;
 }
-
-export type RolldownPluginInitialConfig =
-  InitialPluginConfig<RolldownPluginUserConfig>;
 
 export interface RolldownPluginResolvedConfig extends ResolvedConfig {
   rolldown: RolldownOptions;

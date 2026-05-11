@@ -16,23 +16,24 @@
 
  ------------------------------------------------------------------- */
 
-import { DeepPartial } from "@stryke/types/base";
 import { SUPPORTED_COMMANDS } from "../constants";
-import { BASE_API_FUNCTIONS, POWERLINES_API_FUNCTIONS } from "../constants/api";
+import {
+  BASE_EXECUTION_API_METHODS,
+  EXECUTION_API_METHODS
+} from "../constants/api";
 import {
   BuildInlineConfig,
   CleanInlineConfig,
+  CreateInlineConfig,
   DeployInlineConfig,
   DocsInlineConfig,
   ExecutionOptions,
   InlineConfig,
   LintInlineConfig,
-  NewInlineConfig,
   PrepareInlineConfig,
   ResolvedConfig,
   TestInlineConfig,
-  TypesInlineConfig,
-  UserConfig
+  TypesInlineConfig
 } from "./config";
 import type {
   EnvironmentContext,
@@ -45,10 +46,12 @@ import {
   InferHookParameters,
   InferHookReturnType
 } from "./hooks";
-import { WorkerProcess } from "./utils";
+import type { Worker } from "./utils";
 
-export type BaseAPIFunctions = (typeof BASE_API_FUNCTIONS)[number];
-export type APIFunctions = (typeof POWERLINES_API_FUNCTIONS)[number];
+export type BaseExecutionAPIMethods =
+  (typeof BASE_EXECUTION_API_METHODS)[number];
+export type PowerlinesExecutionAPIMethods =
+  (typeof EXECUTION_API_METHODS)[number];
 export type SupportedCommands = (typeof SUPPORTED_COMMANDS)[number];
 
 /**
@@ -57,7 +60,7 @@ export type SupportedCommands = (typeof SUPPORTED_COMMANDS)[number];
  * @remarks
  * This interface defines the base API for Powerlines, which includes the shared context and the core commands. It is extended by the ExecutionAPI and EngineAPI interfaces to provide additional functionality specific to their respective contexts.
  */
-export interface Execution {
+export interface ExecutionInterface {
   /**
    * Prepare the Powerlines API
    *
@@ -66,16 +69,7 @@ export interface Execution {
    *
    * @param inlineConfig - The inline configuration for the prepare command
    */
-  prepare: (
-    inlineConfig:
-      | PrepareInlineConfig
-      | NewInlineConfig
-      | CleanInlineConfig
-      | BuildInlineConfig
-      | LintInlineConfig
-      | DocsInlineConfig
-      | DeployInlineConfig
-  ) => Promise<void>;
+  prepare: (inlineConfig: PrepareInlineConfig) => Promise<void>;
 
   /**
    * Generate the Powerlines typescript declaration file
@@ -93,10 +87,10 @@ export interface Execution {
    * @remarks
    * This method will create a new Powerlines project in the current directory.
    *
-   * @param inlineConfig - The inline configuration for the new command
+   * @param inlineConfig - The inline configuration for the create command
    * @returns A promise that resolves when the project has been created
    */
-  new: (inlineConfig: NewInlineConfig) => Promise<void>;
+  create: (inlineConfig: CreateInlineConfig) => Promise<void>;
 
   /**
    * Clean any previously prepared artifacts
@@ -107,9 +101,7 @@ export interface Execution {
    * @param inlineConfig - The inline configuration for the clean command
    * @returns A promise that resolves when the clean command has completed
    */
-  clean: (
-    inlineConfig: CleanInlineConfig | PrepareInlineConfig
-  ) => Promise<void>;
+  clean: (inlineConfig: CleanInlineConfig) => Promise<void>;
 
   /**
    * Lint the project source code
@@ -173,9 +165,9 @@ export interface Execution {
  * @remarks
  * The API interface represents the API available during a single execution of Powerlines. It provides access to the shared context and the ability to call plugin hooks. It extends the base API with additional functionality specific to command execution.
  */
-export interface API<
+export interface ExecutionAPI<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> extends Execution {
+> extends ExecutionInterface {
   /**
    * The Powerlines shared API context
    */
@@ -203,16 +195,11 @@ export interface API<
   >;
 }
 
-export interface ExecutionWorkerParams {
+export interface ExecutionHostParams {
   /**
    * The execution options for the current execution instance
    */
   options: ExecutionOptions;
-
-  /**
-   * The initial configuration for the current execution instance, which is the result of merging the user configuration with any configuration provided by plugins during the "config" hook. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
-   */
-  initialConfig: DeepPartial<UserConfig>;
 
   /**
    * The inline configuration for the current execution instance, which is the result of merging the user configuration with any configuration provided by plugins during the "config" hook.
@@ -220,17 +207,26 @@ export interface ExecutionWorkerParams {
   inlineConfig: InlineConfig;
 }
 
-export type ExecutionWorkerProcess = WorkerProcess<
-  ExecutionWorkerParams,
-  typeof POWERLINES_API_FUNCTIONS
+export type ExecutionHost<TExecutionAPIMethods extends ReadonlyArray<string>> =
+  Worker<ExecutionHostParams, TExecutionAPIMethods>;
+
+export type PowerlinesExecutionHost = ExecutionHost<
+  typeof EXECUTION_API_METHODS
 >;
 
 /**
- * The Engine API interface represents the API available during the entire lifecycle of the Powerlines engine. It provides access to the shared context and the registered command executions. It extends the base API with additional functionality specific to the engine lifecycle.
+ * The Engine interface represents the Powerlines process' orchestration and coordination API.
  */
-export interface Engine extends Execution {
+export interface Engine<
+  TExecutionAPIMethods extends ReadonlyArray<string>
+> extends ExecutionInterface {
   /**
    * The Powerlines shared context
    */
   context: EngineContext;
+
+  /**
+   * The execution host, which provides methods to call the execution API functions from the engine context. This allows the engine to invoke commands and other API functions during the execution of Powerlines commands, enabling communication between the engine and the execution contexts.
+   */
+  host: ExecutionHost<TExecutionAPIMethods>;
 }

@@ -16,12 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  InitialPluginConfig,
-  PluginContext,
-  ResolvedConfig,
-  UserConfig
-} from "@powerlines/core";
+import { PluginContext, ResolvedConfig, UserConfig } from "@powerlines/core";
 import { WebpackOptions } from "./build";
 
 export type WebpackPluginOptions = Partial<WebpackOptions>;
@@ -29,9 +24,6 @@ export type WebpackPluginOptions = Partial<WebpackOptions>;
 export interface WebpackPluginUserConfig extends UserConfig {
   webpack?: WebpackPluginOptions;
 }
-
-export type WebpackPluginInitialConfig =
-  InitialPluginConfig<WebpackPluginUserConfig>;
 
 export interface WebpackPluginResolvedConfig extends ResolvedConfig {
   webpack: WebpackOptions;

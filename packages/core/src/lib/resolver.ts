@@ -26,7 +26,7 @@ export type CreateResolverOptions = Omit<
   "fsCache" | "moduleCache" | "interopDefault"
 > &
   Partial<Pick<ResolvedConfig, "mode" | "skipCache">> & {
-    workspaceRoot: string;
+    cwd: string;
     root: string;
     cacheDir: string;
   };
@@ -56,11 +56,11 @@ function resolveOptions(options: CreateResolverOptions): JitiOptions {
  */
 export function createResolver(options: CreateResolverOptions): Resolver {
   const baseResolver = createJiti(
-    joinPaths(options.workspaceRoot, options.root),
+    joinPaths(options.cwd, options.root),
     resolveOptions(options)
   ) as Resolver;
   baseResolver.plugin = createJiti(
-    joinPaths(options.workspaceRoot, options.root),
+    joinPaths(options.cwd, options.root),
     resolveOptions(options)
   );
 

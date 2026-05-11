@@ -103,11 +103,11 @@ export function resolveLogLevel(
       general: "trace",
       fs: "trace",
       performance: "trace",
-      network: "trace",
+      communication: "trace",
       plugins: "trace",
       hooks: "trace",
       env: "trace",
-      ipc: "trace",
+      rpc: "trace",
       config: "trace",
       babel: "trace"
     };
@@ -116,11 +116,11 @@ export function resolveLogLevel(
       general: "silent",
       fs: "silent",
       performance: "silent",
-      network: "silent",
+      communication: "silent",
       plugins: "silent",
       hooks: "silent",
       env: "silent",
-      ipc: "silent",
+      rpc: "silent",
       config: "silent",
       babel: "silent"
     };
@@ -140,11 +140,11 @@ export function resolveLogLevel(
       general: logLevel,
       fs: defaultLogLevel.fs,
       performance: logLevel,
-      network: defaultLogLevel.network,
+      communication: defaultLogLevel.communication,
       plugins: logLevel,
       hooks: logLevel,
       env: defaultLogLevel.env,
-      ipc: defaultLogLevel.ipc,
+      rpc: defaultLogLevel.rpc,
       config: defaultLogLevel.config,
       babel: logLevel
     };
@@ -336,7 +336,7 @@ const validateLogger = (
 ) => {
   const logLevel = resolveLogLevel(options.logLevel, options.mode);
 
-  return (message: string | LoggerMessage) => {
+  return (message: string | LoggerMessage | Error) => {
     const params = isSetString(message)
       ? {
           name,
@@ -351,21 +351,46 @@ const validateLogger = (
           },
           message
         }
-      : {
-          name,
-          plugin: options.plugin,
-          ...message,
-          meta: {
-            type,
+      : message instanceof Error || message.error
+        ? {
             name,
-            category: LogCategories.GENERAL,
-            logId: uuid(),
-            timestamp: Date.now(),
-            plugin: message.plugin,
-            ...options,
-            ...message.meta
+            plugin: options.plugin,
+            message: `${
+              (message instanceof Error ? message : message.error)?.message
+                ? (message instanceof Error ? message : message.error)?.name
+                  ? `[${message.name}]: ${message.message}`
+                  : message.message
+                : JSON.stringify(message)
+            }${
+              (message instanceof Error ? message : message.error)?.stack
+                ? `
+Stack Trace: ${message.stack}`
+                : ""
+            }`,
+            meta: {
+              type,
+              name,
+              category: LogCategories.GENERAL,
+              logId: uuid(),
+              timestamp: Date.now(),
+              ...options
+            }
           }
-        };
+        : {
+            name,
+            plugin: options.plugin,
+            ...message,
+            meta: {
+              type,
+              name,
+              category: LogCategories.GENERAL,
+              logId: uuid(),
+              timestamp: Date.now(),
+              plugin: message.plugin,
+              ...options,
+              ...message.meta
+            }
+          };
 
     if (
       params.meta.$$ipc ||
@@ -746,25 +771,25 @@ export const consoleLogger: LogFn = (meta: LogFnMeta, message: string) =>
  * @returns A logging function.
  */
 export const createLogger = (
-  name: string,
+  name: string | undefined,
   options: LoggerOptions,
   callback: LogFn = consoleLogger
 ): Logger => {
   const result = {
-    options: { ...options, name },
-    error: validateLogger("error", name, { ...options, name }, data =>
+    options: { name, ...options },
+    error: validateLogger("error", name, { name, ...options }, data =>
       callback({ ...data.meta, type: "error" }, data.message)
     ),
-    warn: validateLogger("warn", name, { ...options, name }, data =>
+    warn: validateLogger("warn", name, { name, ...options }, data =>
       callback({ ...data.meta, type: "warn" }, data.message)
     ),
-    info: validateLogger("info", name, { ...options, name }, data =>
+    info: validateLogger("info", name, { name, ...options }, data =>
       callback({ ...data.meta, type: "info" }, data.message)
     ),
-    debug: validateLogger("debug", name, { ...options, name }, data =>
+    debug: validateLogger("debug", name, { name, ...options }, data =>
       callback({ ...data.meta, type: "debug" }, data.message)
     ),
-    trace: validateLogger("trace", name, { ...options, name }, data =>
+    trace: validateLogger("trace", name, { name, ...options }, data =>
       callback({ ...data.meta, type: "trace" }, data.message)
     )
   } as Logger;

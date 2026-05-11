@@ -18,7 +18,6 @@
 
 import { PromiseExecutor } from "@nx/devkit";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
-import defu from "defu";
 import type { PowerlinesEngine } from "powerlines";
 import {
   PowerlinesExecutorContext,
@@ -26,20 +25,11 @@ import {
 } from "../../base/base-executor";
 import { PrepareExecutorSchema } from "./schema";
 
-export async function executorFn(
+async function executorFn(
   context: PowerlinesExecutorContext<"prepare", PrepareExecutorSchema>,
   api: PowerlinesEngine
 ): Promise<BaseExecutorResult> {
-  await api.prepare(
-    defu(
-      {
-        command: "prepare",
-        skipCache: context.options.skipCache,
-        autoInstall: context.options.autoInstall
-      },
-      context.inlineConfig
-    ) as Parameters<PowerlinesEngine["prepare"]>[0]
-  );
+  await api.prepare(context.inlineConfig);
 
   return {
     success: true

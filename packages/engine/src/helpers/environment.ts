@@ -17,13 +17,18 @@
  ------------------------------------------------------------------- */
 
 import type {
+  EnvironmentContext,
   EnvironmentResolvedConfig,
+  ExecutionContext,
   ResolvedConfig
 } from "@powerlines/core";
 import { DEFAULT_ENVIRONMENT } from "@powerlines/core/constants";
 import { titleCase } from "@stryke/string-format/title-case";
+import { isSet } from "@stryke/type-checks/is-set";
+import { MaybePromise } from "@stryke/types/base";
 import { uuid } from "@stryke/unique-id/uuid";
 import defu from "defu";
+import { callHook } from "./hooks";
 
 export function createEnvironment<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
@@ -60,4 +65,76 @@ export function createDefaultEnvironment<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 >(config: TResolvedConfig) {
   return createEnvironment<TResolvedConfig>(DEFAULT_ENVIRONMENT, config);
+}
+
+export async function getEnvironments<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+>(
+  context: ExecutionContext<TResolvedConfig>
+): Promise<EnvironmentContext<TResolvedConfig>[]> {
+  if (
+    !context.config.environments ||
+    Object.keys(context.config.environments).length <= 1
+  ) {
+    context.debug({
+      meta: {
+        category: "config"
+      },
+      message:
+        "No environments are configured for this Powerlines project. Using the default environment."
+    });
+
+    return [await context.getEnvironment()];
+  }
+
+  context.debug({
+    meta: {
+      category: "config"
+    },
+    message: `Found ${
+      Object.keys(context.config.environments).length
+    } configured environment(s) for this Powerlines project.`
+  });
+
+  return (
+    await Promise.all(
+      Object.entries(context.config.environments).map(
+        async ([name, config]) => {
+          const environment = await context.getEnvironmentSafe(name);
+          if (!environment) {
+            const resolvedEnvironment = await callHook(
+              context,
+              "configEnvironment",
+              {
+                environment: name
+              },
+              name,
+              config
+            );
+
+            if (resolvedEnvironment) {
+              context.environments[name] = await context.createEnvironment(
+                resolvedEnvironment as EnvironmentResolvedConfig<TResolvedConfig>["environment"]
+              );
+            }
+          }
+
+          return context.environments[name];
+        }
+      )
+    )
+  ).filter(env => isSet(env));
+}
+
+export async function executeEnvironments<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig
+>(
+  context: ExecutionContext<TResolvedConfig>,
+  handle: (env: EnvironmentContext<TResolvedConfig>) => MaybePromise<void>
+) {
+  await Promise.all(
+    (await getEnvironments<TResolvedConfig>(context)).map(async env =>
+      Promise.resolve(handle(env))
+    )
+  );
 }

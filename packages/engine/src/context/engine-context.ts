@@ -18,21 +18,46 @@
 
 import type {
   EngineContext,
+  EngineExecutionItem,
   EngineOptions,
-  ExecutionState,
-  LogLevelResolvedConfig,
-  UserConfig
+  InlineConfig,
+  LogFn,
+  LoggerOptions,
+  LogLevelResolvedConfig
 } from "@powerlines/core";
+import {
+  createLogger,
+  formatConfig,
+  resolveLogLevel,
+  withCustomLogger
+} from "@powerlines/core/plugin-utils";
 import { toArray } from "@stryke/convert/to-array";
-import { DeepPartial, RequiredKeys } from "@stryke/types/base";
+import { EnvPaths, getEnvPaths } from "@stryke/env/get-env-paths";
+import { kebabCase } from "@stryke/string-format/kebab-case";
 import { uuid } from "@stryke/unique-id/uuid";
+import { createHostContext } from "devframe/node";
+import {
+  ConnectionMeta,
+  DevToolsHost,
+  DevToolsNodeContext
+} from "devframe/types";
+import * as v from "valibot";
+import {
+  getDefaultLogLevel,
+  loadParsedConfig,
+  resolveRoot
+} from "../helpers/resolve-config";
 import { PowerlinesBaseContext } from "./base-context";
 
 export class PowerlinesEngineContext
   extends PowerlinesBaseContext
   implements EngineContext
 {
-  #executions: ExecutionState[] = [];
+  #executions: EngineExecutionItem[] = [];
+
+  #devtools!: DevToolsNodeContext;
+
+  #logLevel!: LogLevelResolvedConfig;
 
   /**
    * Creates a new instance of the PowerlinesEngineContext class.
@@ -40,60 +65,119 @@ export class PowerlinesEngineContext
    * @param options - The options to initialize the context with.
    * @returns A promise that resolves to an instance of the PowerlinesEngineContext class.
    */
-  public static async fromInitialConfig(
+  public static async from(
     options: EngineOptions,
-    initialConfig: DeepPartial<UserConfig> = {}
+    host: DevToolsHost,
+    connection: ConnectionMeta
   ): Promise<PowerlinesEngineContext> {
-    const context = new PowerlinesEngineContext(options, initialConfig);
-    await context.init();
+    const context = new PowerlinesEngineContext(options, connection);
+
+    context.#devtools = await createHostContext({
+      cwd: context.cwd,
+      mode: "dev",
+      host
+    });
+    await options.setup?.(context.#devtools);
+
+    context.#devtools.rpc.register({
+      name: "powerlines:log",
+      type: "event",
+      args: [
+        v.object({
+          meta: v.object({
+            category: v.string(),
+            name: v.string(),
+            command: v.string(),
+            hook: v.string(),
+            plugin: v.string(),
+            source: v.string()
+          }),
+          message: v.string()
+        })
+      ],
+      setup: _ => ({
+        handler: payload => {
+          switch (payload.meta.type) {
+            case "error":
+              context.error(payload);
+              break;
+            case "warn":
+              context.warn(payload);
+              break;
+            case "info":
+              context.info(payload);
+              break;
+            case "debug":
+              context.debug(payload);
+              break;
+            case "trace":
+              context.trace(payload);
+              break;
+            default:
+              context.info(payload);
+              break;
+          }
+        }
+      })
+    });
+
+    context.#logLevel = options.logLevel
+      ? resolveLogLevel(options.logLevel)
+      : await getDefaultLogLevel(context.cwd);
 
     return context;
   }
 
-  /**
-   * The initial options provided to the Powerlines process before any resolution or merging. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
-   */
-  public override readonly initialOptions: EngineOptions;
+  public override createLogger(options: LoggerOptions = {}, logFn?: LogFn) {
+    let logger = createLogger(
+      "engine",
+      {
+        logLevel: this.#logLevel,
+        ...options
+      },
+      logFn
+    );
+    if (this.options.customLogger) {
+      logger = withCustomLogger(logger, this.options.customLogger);
+    }
+    return logger;
+  }
 
-  /**
-   * The initial user configuration provided to the Powerlines process before any resolution or merging. This is typically the user configuration provided in the Powerlines configuration file, but may also include additional configuration options provided by plugins or other sources.
-   */
-  public override readonly initialConfig: DeepPartial<UserConfig>;
+  public get executions(): EngineExecutionItem[] {
+    return this.#executions;
+  }
 
-  /**
-   * The options provided to the Powerlines process
-   */
-  public override options: RequiredKeys<
-    Omit<EngineOptions, "logLevel">,
-    "name" | "root" | "cwd" | "mode" | "framework"
-  > & {
-    /**
-     * The log level to use for logging messages during the build process. This can be a string indicating the log level or a more detailed configuration object that allows for specifying different log levels for different categories of logs.
-     */
-    logLevel: LogLevelResolvedConfig;
-  } = {} as RequiredKeys<
-    Omit<EngineOptions, "logLevel">,
-    "name" | "root" | "cwd" | "mode" | "framework"
-  > & {
-    /**
-     * The log level to use for logging messages during the build process. This can be a string indicating the log level or a more detailed configuration object that allows for specifying different log levels for different categories of logs.
-     */
-    logLevel: LogLevelResolvedConfig;
-  };
+  public get devtools(): DevToolsNodeContext {
+    return this.#devtools;
+  }
+
+  public get envPaths(): EnvPaths {
+    return getEnvPaths({
+      orgId: kebabCase(this.orgId),
+      appId: kebabCase(this.framework),
+      workspaceRoot: this.cwd
+    });
+  }
+
+  public get framework(): string {
+    return this.options.framework || "powerlines";
+  }
+
+  public get orgId(): string {
+    return this.options.orgId || "storm-software";
+  }
 
   /**
    * Creates a new Context instance.
    *
    * @param options - The options to use for creating the context, including the resolved configuration and workspace settings.
-   * @param initialConfig - The initial configuration provided by the user, which can be used to resolve the final configuration for the context. This typically includes the user configuration options defined in the `powerlines.config.ts` file, as well as any inline configuration options provided during execution.
+   * @param connection - The connection metadata for the dev server.
    */
   protected constructor(
-    options: EngineOptions,
-    initialConfig: DeepPartial<UserConfig> = {}
+    public override options: EngineOptions,
+    public connection: ConnectionMeta
   ) {
-    super(options, initialConfig);
-    this.initialOptions = options;
-    this.initialConfig = initialConfig;
+    super(options);
   }
 
   /**
@@ -101,32 +185,62 @@ export class PowerlinesEngineContext
    *
    * @remarks
    * This method will set up the resolver and load the user configuration file based on the provided options. It is called during the construction of the context and can also be called when cloning the context to ensure that the new context has the same configuration and resolver setup.
+   *
+   * @param method - The path to the execution configuration to load and run, which can be used to specify different execution configurations for different commands or scenarios.
+   * @param inlineConfig - Additional configuration options provided at runtime, which can override or supplement the options defined in the user configuration file.
    */
-  protected override async init() {
-    await super.init();
+  public async loadExecutions(
+    method: string,
+    inlineConfig: InlineConfig
+  ): Promise<EngineExecutionItem[]> {
+    const root = resolveRoot(
+      this.cwd,
+      inlineConfig.root,
+      inlineConfig.configFile
+    );
 
-    if (!this.configFile?.config) {
-      this.fatal(
-        "No configuration file found. Please ensure you have a valid configuration file in your project."
-      );
-      throw new Error("No configuration file found");
+    const config = await loadParsedConfig(
+      this.cwd,
+      root,
+      this.framework,
+      this.orgId,
+      inlineConfig
+    );
+    if (!config) {
+      throw new Error("Failed to load configuration");
     }
 
-    this.#executions = await Promise.all(
-      toArray(this.configFile.config).map(async (_, executionIndex) => {
+    const invocationId = uuid();
+    const executions = await Promise.all(
+      toArray(config.config).map(async (_, executionIndex) => {
         const executionId = uuid();
+        const options = {
+          cwd: this.cwd,
+          root,
+          framework: this.framework,
+          orgId: this.orgId,
+          ...this.options,
+          command: method,
+          baseURL: this.#devtools.host.resolveOrigin(),
+          connection: this.connection,
+          configFile: config.configFile!,
+          executionId,
+          executionIndex
+        };
+
+        this.logger.debug({
+          meta: { category: "config" },
+          message: `Invoking ${method} with the following execution parameters: \n --- Options --- \n${formatConfig(
+            options
+          )}\n --- Inline Config --- \n${formatConfig(inlineConfig)}`
+        });
 
         return {
-          executionId,
-          options: {
-            cwd: this.options.cwd,
-            root: this.options.root,
-            configFile: this.options.configFile,
-            ...this.initialOptions,
-            executionId,
-            executionIndex
-          },
-          active: {
+          invocationId,
+          method,
+          configFile: config,
+          options,
+          state: {
             command: null,
             hook: null,
             plugin: null
@@ -134,14 +248,23 @@ export class PowerlinesEngineContext
         };
       })
     );
+
+    this.#executions = this.#executions.concat(executions);
+
+    return executions;
   }
 
   /**
-   * A list of all command executions that will be run during the lifecycle of the engine
+   * Complete an execution by removing it from the list of active executions based on the provided invocation ID and execution ID. This method is typically called when an execution has finished or has been terminated, allowing the context to clean up any resources associated with that execution and update its internal state accordingly.
    *
-   * @returns An array of {@link ExecutionState} representing each execution context for the engine.
+   * @param invocationId - The unique identifier for the invocation of the execution to be completed.
+   * @param executionId - The unique identifier for the specific execution to be completed.
    */
-  public get executions(): ExecutionState[] {
-    return this.#executions;
+  public completeExecution(invocationId: string, executionId: string) {
+    this.#executions = this.#executions.filter(
+      execution =>
+        execution.options.executionId !== executionId ||
+        execution.invocationId !== invocationId
+    );
   }
 }

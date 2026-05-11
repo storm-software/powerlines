@@ -16,9 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import { POWERLINES_API_FUNCTIONS } from "./api";
+import { EXECUTION_API_METHODS } from "./api";
 
 export const SUPPORTED_COMMANDS = [
-  ...POWERLINES_API_FUNCTIONS,
+  ...EXECUTION_API_METHODS,
   "finalize"
-] as const;
+] as readonly string[];

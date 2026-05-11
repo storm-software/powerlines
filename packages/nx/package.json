@@ -181,6 +181,7 @@
     "@stryke/env": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/hash": "catalog:",
+    "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",

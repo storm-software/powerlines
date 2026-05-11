@@ -90,7 +90,7 @@ export function createUnpluginModuleResolutionFunctions<
         ? removeVirtualPrefix(importer)
         : undefined;
 
-      let result = await ctx.api.callHook(
+      let result = await ctx.callHook(
         "resolveId",
         {
           sequential: true,
@@ -113,7 +113,7 @@ export function createUnpluginModuleResolutionFunctions<
         };
       }
 
-      result = await ctx.api.callHook(
+      result = await ctx.callHook(
         "resolveId",
         {
           sequential: true,
@@ -154,7 +154,7 @@ export function createUnpluginModuleResolutionFunctions<
         };
       }
 
-      result = await ctx.api.callHook(
+      result = await ctx.callHook(
         "resolveId",
         {
           sequential: true,
@@ -192,7 +192,7 @@ export function createUnpluginModuleResolutionFunctions<
       ): Promise<LoadResult | null | undefined> {
         const normalizedId = removeVirtualPrefix(id);
 
-        let result = await ctx.api.callHook(
+        let result = await ctx.callHook(
           "load",
           {
             sequential: true,
@@ -205,7 +205,7 @@ export function createUnpluginModuleResolutionFunctions<
           return result;
         }
 
-        result = await ctx.api.callHook(
+        result = await ctx.callHook(
           "load",
           {
             sequential: true,
@@ -223,7 +223,7 @@ export function createUnpluginModuleResolutionFunctions<
           return result;
         }
 
-        return ctx.api.callHook(
+        return ctx.callHook(
           "load",
           {
             sequential: true,

@@ -21,7 +21,11 @@ import { writeError } from "@storm-software/config-tools/logger";
 import { StormWorkspaceConfig } from "@storm-software/config/types";
 import { withRunExecutor } from "@storm-software/workspace-tools/base/base-executor";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
+import { omit } from "@stryke/helpers/omit";
 import { isError } from "@stryke/type-checks/is-error";
+import { isSet } from "@stryke/type-checks/is-set";
+import { isSetArray } from "@stryke/type-checks/is-set-array";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
 import defu from "defu";
 import { createJiti } from "jiti";
 import type {
@@ -96,16 +100,12 @@ export function withExecutor<
         context.projectsConfigurations.projects[context.projectName]!;
 
       const jiti = createJiti(context.root, { cache: false });
-      const { createEngine } = await jiti.import<{
-        createEngine: typeof import("powerlines").createEngine;
+      const { createPowerlines } = await jiti.import<{
+        createPowerlines: typeof import("powerlines").createPowerlines;
       }>(jiti.esmResolve("powerlines"));
 
-      const api = await createEngine({
-        name: context.projectName,
-        cwd: context.root,
-        root: projectConfig.root,
-        configFile: options.configFile || options.config,
-        mode: options.mode as Mode
+      const api = await createPowerlines({
+        cwd: context.root
       });
 
       try {
@@ -119,10 +119,12 @@ export function withExecutor<
                 command,
                 inlineConfig: defu(
                   {
+                    name: context.projectName,
                     command,
-                    description: projectConfig.metadata?.description,
+                    root: projectConfig.root,
+                    configFile: options.configFile || options.config,
                     projectType: projectConfig.projectType,
-                    additionalArgs: options.additionalArgs,
+                    mode: options.mode as Mode,
                     output: {
                       path: options.outputPath,
                       copy:
@@ -135,14 +137,47 @@ export function withExecutor<
                       minify: options.minify,
                       sourceMap: options.sourceMap
                     } as OutputConfig,
-                    resolve: {
-                      external: options.external,
-                      noExternal: options.noExternal,
-                      skipNodeModulesBundle: options.skipNodeModulesBundle
-                    }
+                    resolve:
+                      isSetArray(options.external) ||
+                      isSetArray(options.noExternal) ||
+                      isSet(options.skipNodeModulesBundle)
+                        ? {
+                            external: isSetArray(options.external)
+                              ? options.external
+                              : undefined,
+                            noExternal: isSetArray(options.noExternal)
+                              ? options.noExternal
+                              : undefined,
+                            skipNodeModulesBundle: isSet(
+                              options.skipNodeModulesBundle
+                            )
+                              ? options.skipNodeModulesBundle
+                              : undefined
+                          }
+                        : undefined,
+                    define: isSetObject(options.define)
+                      ? options.define
+                      : undefined,
+                    assets: isSetObject(options.assets)
+                      ? options.assets
+                      : undefined
                   },
-                  options
-                )
+                  omit(options, [
+                    "config",
+                    "configFile",
+                    "outputPath",
+                    "copyPath",
+                    "sourceMap",
+                    "minify",
+                    "format",
+                    "external",
+                    "noExternal",
+                    "skipNodeModulesBundle",
+                    "mode",
+                    "define",
+                    "assets"
+                  ])
+                ) as InlineConfig
               },
               context
             ),
@@ -163,8 +198,6 @@ ${error.stack}`
         );
 
         return { success: false };
-      } finally {
-        await api.finalize();
       }
     },
     {

@@ -19,6 +19,7 @@
 import { toArray } from "@stryke/convert/to-array";
 import { omit } from "@stryke/helpers/omit";
 import { isRegExp } from "@stryke/type-checks/is-regexp";
+import { isSetArray } from "@stryke/type-checks/is-set-array";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { ResolveConfig, ResolvedConfig } from "../types/config";
@@ -41,28 +42,36 @@ export function formatConfig(config: Record<string, any>): string {
           "pluginConfig",
           "environmentConfig"
         ]),
-        resolve: {
-          ...config.resolve,
-          external: ((config.resolve as ResolveConfig)?.external ?? [])
-            .filter(Boolean)
-            .map(external =>
-              isSetString(external)
-                ? external
-                : isRegExp(external)
-                  ? external.source
-                  : "<unknown-external>"
-            ),
-          noExternal: ((config.resolve as ResolveConfig)?.noExternal ?? [])
-            .filter(Boolean)
-            .map(noExternal =>
-              isSetString(noExternal)
-                ? noExternal
-                : isRegExp(noExternal)
-                  ? noExternal.source
-                  : "<unknown-no-external>"
-            )
-        },
-        plugins: config.plugins
+        resolve: isSetObject(config.resolve)
+          ? {
+              ...config.resolve,
+              external: isSetArray((config.resolve as ResolveConfig)?.external)
+                ? ((config.resolve as ResolveConfig)?.external ?? [])
+                    .filter(Boolean)
+                    .map(external =>
+                      isSetString(external)
+                        ? external
+                        : isRegExp(external)
+                          ? external.source
+                          : "<unknown-external>"
+                    )
+                : undefined,
+              noExternal: isSetArray(
+                (config.resolve as ResolveConfig)?.noExternal
+              )
+                ? ((config.resolve as ResolveConfig)?.noExternal ?? [])
+                    .filter(Boolean)
+                    .map(noExternal =>
+                      isSetString(noExternal)
+                        ? noExternal
+                        : isRegExp(noExternal)
+                          ? noExternal.source
+                          : "<unknown-no-external>"
+                    )
+                : undefined
+            }
+          : undefined,
+        plugins: isSetArray(config.plugins)
           ? (toArray(config.plugins) as ResolvedConfig["plugins"])
               ?.flatMap(plugin => toArray(plugin))
               ?.map(plugin =>
@@ -77,7 +86,7 @@ export function formatConfig(config: Record<string, any>): string {
                         : "<function-plugin>"
                 )
               )
-          : []
+          : undefined
       }).sort(([key1], [key2]) => key1.localeCompare(key2))
     ),
     null,

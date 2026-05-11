@@ -22,9 +22,12 @@ const config = defineTSDownConfig([
   {
     name: "engine-core",
     entry: [
-      "src/*.ts",
-      "src/rpc/*.ts",
-      "src/storage/*.ts",
+      "src/index.ts",
+      "src/engine.ts",
+      "src/schemas.ts",
+      "src/api/*.ts",
+      "src/helpers/*.ts",
+      "src/storage/index.ts",
       "src/context/index.ts",
       "src/typescript/index.ts"
     ],
@@ -33,8 +36,10 @@ const config = defineTSDownConfig([
   },
   {
     name: "engine-worker",
-    entry: "src/_internal/worker.ts",
-    outDir: "dist/_internal",
+    format: ["cjs", "esm"],
+    target: "node24",
+    entry: "src/execution-host.ts",
+    outDir: "dist/worker",
     unbundle: false,
     exports: false
   }

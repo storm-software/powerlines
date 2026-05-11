@@ -17,18 +17,29 @@
  ------------------------------------------------------------------- */
 
 import type { Context } from "@powerlines/core";
+import {
+  EnvironmentContext,
+  ExecutionContext,
+  getTypescriptFileHeader,
+  ResolvedConfig,
+  TypesResult
+} from "@powerlines/core";
 import { format } from "@powerlines/core/lib/utilities/format";
 import { toArray } from "@stryke/convert/to-array";
+import { resolvePackage } from "@stryke/fs/resolve";
+import { getUnique } from "@stryke/helpers/get-unique";
 import { appendPath } from "@stryke/path/append";
 import { findFileName } from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { prettyBytes } from "@stryke/string-format/pretty-bytes";
+import { isObject } from "@stryke/type-checks/is-object";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { DiagnosticCategory, Node, Project, SourceFile } from "ts-morph";
-import { createProgram } from "../../typescript/ts-morph";
+import { createProgram } from "../typescript/ts-morph";
+import { callHook } from "./hooks";
 
 interface ModuleExportSpecifier {
   name: string;
@@ -764,4 +775,207 @@ export async function emitBuiltinTypes<TContext extends Context>(
   );
 
   return { code, directives };
+}
+
+/**
+ * Generate the Powerlines TypeScript declaration file
+ *
+ * @param context - The execution context for generating the TypeScript declaration file, which provides access to the project configuration, environment, and utility functions for performing the generation. The context is used to manage the state and behavior of the generation process, allowing for hooks to be called at different stages and for environment-specific configurations to be applied.
+ * @param env - The environment context to use for generating the TypeScript declaration file
+ */
+export async function handleTypes<TResolvedConfig extends ResolvedConfig>(
+  context: ExecutionContext<TResolvedConfig>,
+  env: EnvironmentContext<TResolvedConfig>
+) {
+  env.debug(`Preparing the TypeScript definitions for the Powerlines project.`);
+
+  if (env.fs.existsSync(env.typesPath)) {
+    await env.fs.remove(env.typesPath);
+  }
+
+  const typescriptPath = await resolvePackage("typescript");
+  if (!typescriptPath) {
+    throw new Error(
+      "Could not resolve TypeScript package location. Please ensure TypeScript is installed."
+    );
+  }
+
+  env.debug("Running TypeScript compiler for built-in runtime module files.");
+
+  let { code, directives } = await emitBuiltinTypes(
+    env,
+    (await env.getBuiltins()).reduce<string[]>((ret, builtin) => {
+      const formatted = replacePath(builtin.path, env.config.cwd);
+      if (!ret.includes(formatted)) {
+        ret.push(formatted);
+      }
+
+      return ret;
+    }, [])
+  );
+
+  env.debug(`Generating TypeScript declaration file ${env.typesPath}.`);
+
+  const merge = async (
+    currentResult: string | TypesResult,
+    previousResult: string | TypesResult
+  ): Promise<string | TypesResult> => {
+    if (
+      !isSetString(currentResult) &&
+      !isSetObject(currentResult) &&
+      !isSetString(previousResult) &&
+      !isSetObject(previousResult)
+    ) {
+      return { code, directives };
+    }
+
+    const previous = (
+      await format(
+        env,
+        env.typesPath,
+        isSetString(previousResult)
+          ? previousResult
+          : isSetObject(previousResult)
+            ? previousResult.code
+            : ""
+      )
+    )
+      .trim()
+      .replace(code, "")
+      .trim();
+    const current = (
+      await format(
+        env,
+        env.typesPath,
+        isSetString(currentResult)
+          ? currentResult
+          : isSetObject(currentResult)
+            ? currentResult.code
+            : ""
+      )
+    )
+      .trim()
+      .replace(previous, "")
+      .trim()
+      .replace(code, "")
+      .trim();
+
+    return {
+      directives: [
+        ...(isSetObject(currentResult) && currentResult.directives
+          ? currentResult.directives
+          : []),
+        ...(isSetObject(previousResult) && previousResult.directives
+          ? previousResult.directives
+          : [])
+      ],
+      code: await format(
+        env,
+        env.typesPath,
+        `${
+          !previous.includes(getTypescriptFileHeader(env)) &&
+          !current.includes(getTypescriptFileHeader(env))
+            ? `${code}\n`
+            : ""
+        }${previous}\n${current}`.trim()
+      )
+    };
+  };
+  const asNextParam = (
+    previousResult: string | TypesResult | null | undefined
+  ) => (isObject(previousResult) ? previousResult.code : previousResult);
+
+  let result = await callHook(
+    context,
+    "types",
+    {
+      environment: env,
+      sequential: true,
+      order: "pre",
+      result: "merge",
+      merge,
+      asNextParam
+    },
+    code
+  );
+  if (result) {
+    if (isSetObject(result)) {
+      code = result.code;
+      if (Array.isArray(result.directives) && result.directives.length > 0) {
+        directives = getUnique([...directives, ...result.directives]).filter(
+          Boolean
+        );
+      }
+    } else if (isSetString(result)) {
+      code = result;
+    }
+  }
+
+  result = await callHook(
+    context,
+    "types",
+    {
+      environment: env,
+      sequential: true,
+      order: "normal",
+      result: "merge",
+      merge,
+      asNextParam
+    },
+    code
+  );
+  if (result) {
+    if (isSetObject(result)) {
+      code = result.code;
+      if (Array.isArray(result.directives) && result.directives.length > 0) {
+        directives = getUnique([...directives, ...result.directives]).filter(
+          Boolean
+        );
+      }
+    } else if (isSetString(result)) {
+      code = result;
+    }
+  }
+
+  result = await callHook(
+    context,
+    "types",
+    {
+      environment: env,
+      sequential: true,
+      order: "post",
+      result: "merge",
+      merge,
+      asNextParam
+    },
+    code
+  );
+  if (result) {
+    if (isSetObject(result)) {
+      code = result.code;
+      if (Array.isArray(result.directives) && result.directives.length > 0) {
+        directives = getUnique([...directives, ...result.directives]).filter(
+          Boolean
+        );
+      }
+    } else if (isSetString(result)) {
+      code = result;
+    }
+  }
+
+  if (isSetString(code?.trim()) || directives.length > 0) {
+    await env.fs.write(
+      env.typesPath,
+      `${
+        directives.length > 0
+          ? `${directives.map(directive => `/// <reference types="${directive}" />`).join("\n")}
+
+`
+          : ""
+      }${getTypescriptFileHeader(env, { directive: null, prettierIgnore: false })}
+
+${formatTypes(code)}
+`
+    );
+  }
 }

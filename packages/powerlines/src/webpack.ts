@@ -16,9 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import { WebpackPluginInitialConfig } from "@powerlines/plugin-webpack/types/plugin";
-import { createWebpackPlugin } from "unplugin";
-import { createUnpluginFactory } from "./unplugin";
+// import { WebpackPluginInitialConfig } from "@powerlines/plugin-webpack/types/plugin";
+// import { createWebpackPlugin } from "unplugin";
+// import { createUnpluginFactory } from "./unplugin";
 
 export {
   default as plugin,
@@ -40,6 +40,6 @@ export {
  * }
  * ```
  */
-export const unplugin = createWebpackPlugin<WebpackPluginInitialConfig>(
-  createUnpluginFactory("webpack")
-);
+// export const unplugin = createWebpackPlugin<WebpackPluginInitialConfig>(
+//   createUnpluginFactory("webpack")
+// );

@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-export const BASE_API_FUNCTIONS = [
-  "new",
+export const BASE_EXECUTION_API_METHODS = [
+  "create",
   "clean",
   "prepare",
   "lint",
@@ -27,7 +27,7 @@ export const BASE_API_FUNCTIONS = [
   "deploy"
 ] as const;
 
-export const POWERLINES_API_FUNCTIONS = [
+export const EXECUTION_API_METHODS = [
   "types",
-  ...BASE_API_FUNCTIONS
+  ...BASE_EXECUTION_API_METHODS
 ] as const;

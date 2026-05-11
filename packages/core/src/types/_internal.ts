@@ -18,14 +18,15 @@
 
 /* eslint-disable ts/naming-convention */
 
-import { API } from "./api";
 import { PluginConfig, ResolvedConfig } from "./config";
 import { EnvironmentContext, ExecutionContext, PluginContext } from "./context";
+import { VirtualFileSystemInterface } from "./fs";
 import {
   CallHookOptions,
   InferHookParameters,
   InferHookReturnType
 } from "./hooks";
+import { RpcClient } from "./rpc";
 
 /**
  * Internal fields and methods for internal contexts
@@ -36,11 +37,39 @@ export interface Unstable_ContextInternal<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig
 > {
   /**
-   * The {@link API | API instance} for interacting with Powerlines
+   * Invokes the configured plugin hooks
+   *
+   * @remarks
+   * By default, it will call the `"pre"`, `"normal"`, and `"post"` ordered hooks in sequence
+   *
+   * @param hook - The hook to call
+   * @param options - The options to provide to the hook
+   * @param args - The arguments to pass to the hook
+   * @returns The result of the hook call
+   */
+  callHook: <TKey extends string>(
+    hook: TKey,
+    options: CallHookOptions & {
+      environment?: string | EnvironmentContext<TResolvedConfig>;
+    },
+    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
+  ) => Promise<
+    InferHookReturnType<PluginContext<TResolvedConfig>, TKey> | undefined
+  >;
+
+  /**
+   * The RPC client for communicating with the Powerlines worker
    *
    * @internal
    */
-  api: API<TResolvedConfig>;
+  rpc: RpcClient;
+
+  /**
+   * The virtual file system interface for managing files during the build process
+   *
+   * @internal
+   */
+  fs: VirtualFileSystemInterface;
 
   /**
    * Add a Powerlines plugin used in the build process
@@ -90,26 +119,6 @@ export interface Unstable_PluginContextInternal<
    * @internal
    */
   environment: Unstable_EnvironmentContext<TResolvedConfig>;
-
-  /**
-   * Call a hook within the Powerlines system
-   *
-   * @internal
-   *
-   * @param hook - The name of the hook to call
-   * @param options - Options for calling the hook
-   * @param args - Arguments to pass to the hook
-   * @returns The result of the hook call
-   */
-  callHook: <TKey extends string>(
-    hook: TKey,
-    options: CallHookOptions & {
-      environment?: string | EnvironmentContext<TResolvedConfig>;
-    },
-    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
-  ) => Promise<
-    InferHookReturnType<PluginContext<TResolvedConfig>, TKey> | undefined
-  >;
 
   /**
    * A place to store internal data for the plugin context

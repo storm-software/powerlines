@@ -71,33 +71,29 @@ export function createUnpluginResolver<
 
   const name = options.name || "powerlines";
 
-  return () => {
-    const logger = ctx.extendLogger(
-      !options.silenceHookLogging && name !== "powerlines"
-        ? { source: name }
-        : {}
-    );
-    logger.debug(`Initializing ${titleCase(name)} plugin`);
+  const logger = ctx.extendLogger(
+    !options.silenceHookLogging && name !== "powerlines" ? { source: name } : {}
+  );
+  logger.debug(`Initializing ${titleCase(name)} plugin`);
 
-    try {
-      const { resolveId, load } =
-        createUnpluginModuleResolutionFunctions<TContext>(context, options);
+  try {
+    const { resolveId, load } =
+      createUnpluginModuleResolutionFunctions<TContext>(context, options);
 
-      return {
-        name:
-          name.toLowerCase() === "powerlines"
-            ? "powerlines"
-            : `powerlines:${kebabCase(name)}`,
-        api: ctx.$$internal.api,
-        resolveId,
-        load
-      };
-    } catch (error) {
-      logger.error(error instanceof Error ? error.message : String(error));
+    return () => ({
+      name:
+        name.toLowerCase() === "powerlines"
+          ? "powerlines"
+          : `powerlines:${kebabCase(name)}`,
+      api: context,
+      resolveId,
+      load
+    });
+  } catch (error) {
+    logger.error(error instanceof Error ? error.message : String(error));
 
-      throw error;
-    }
-  };
+    throw error;
+  }
 }
 
 export interface CreateUnpluginOptions extends CreateUnpluginResolverOptions {}
@@ -112,94 +108,89 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
   context: TContext,
   options: CreateUnpluginOptions = {}
 ): UnpluginFactory<TContext> {
-  const ctx = context as unknown as Unstable_PluginContext;
-  setParseImpl(ctx.parse.bind(ctx));
+  setParseImpl(context.parse.bind(context));
 
   const name = options.name || "powerlines";
 
-  return () => {
-    const logger = ctx.extendLogger(
-      !options.silenceHookLogging && name !== "powerlines"
-        ? { source: name }
-        : {}
-    );
-    logger.debug(`Initializing ${titleCase(name)} plugin`);
+  const logger = context.extendLogger(
+    !options.silenceHookLogging && name !== "powerlines" ? { source: name } : {}
+  );
+  logger.debug(`Initializing ${titleCase(name)} plugin`);
 
-    try {
-      const { resolveId, load } =
-        createUnpluginModuleResolutionFunctions<TContext>(context, options);
+  try {
+    const { resolveId, load } =
+      createUnpluginModuleResolutionFunctions<TContext>(context, options);
 
-      async function buildStart(this: UnpluginBuildContext) {
-        if (!options.silenceHookLogging) {
-          logger.debug("Powerlines build plugin starting...");
-        }
-
-        await ctx.api.callHook("buildStart", {
-          sequential: true
-        });
+    async function buildStart(this: UnpluginBuildContext) {
+      if (!options.silenceHookLogging) {
+        logger.debug("Powerlines build plugin starting...");
       }
 
-      async function transform(
-        this: UnpluginBuildContext & UnpluginContext,
-        code: string,
-        id: string
-      ): Promise<TransformResult | null | undefined> {
-        let transformed: TransformResult | string = code;
-
-        for (const hook of ctx.environment.selectHooks("transform")) {
-          const result: TransformResult | string | undefined =
-            await hook.handler.apply(combineContexts(ctx, this), [
-              getString(transformed),
-              removeVirtualPrefix(id)
-            ] as [code: string, id: string]);
-          if (result) {
-            transformed = result;
-          }
-        }
-
-        return transformed;
-      }
-
-      async function buildEnd(this: UnpluginBuildContext): Promise<void> {
-        if (!options.silenceHookLogging) {
-          logger.debug("Powerlines build plugin finishing...");
-        }
-
-        return ctx.api.callHook("buildEnd", {
-          sequential: true
-        });
-      }
-
-      async function writeBundle(): Promise<void> {
-        if (!options.silenceHookLogging) {
-          logger.debug("Finalizing Powerlines project output...");
-        }
-
-        return ctx.api.callHook("writeBundle", {
-          sequential: true
-        });
-      }
-
-      return {
-        name:
-          name.toLowerCase() === "powerlines"
-            ? "powerlines"
-            : `powerlines:${kebabCase(name)}`,
-        api: ctx.api,
-        resolveId,
-        load,
-        transform,
-        buildStart,
-        buildEnd,
-        writeBundle,
-        vite: {
-          sharedDuringBuild: true
-        }
-      };
-    } catch (error) {
-      logger.error(error instanceof Error ? error.message : String(error));
-
-      throw error;
+      await context.callHook("buildStart", {
+        sequential: true
+      });
     }
-  };
+
+    async function transform(
+      this: UnpluginBuildContext & UnpluginContext,
+      code: string,
+      id: string
+    ): Promise<TransformResult | null | undefined> {
+      let transformed: TransformResult | string = code;
+
+      for (const hook of context.environment.selectHooks("transform")) {
+        const result: TransformResult | string | undefined =
+          await hook.handler.apply(combineContexts(context, this), [
+            getString(transformed),
+            removeVirtualPrefix(id)
+          ] as [code: string, id: string]);
+        if (result) {
+          transformed = result;
+        }
+      }
+
+      return transformed;
+    }
+
+    async function buildEnd(this: UnpluginBuildContext): Promise<void> {
+      if (!options.silenceHookLogging) {
+        logger.debug("Powerlines build plugin finishing...");
+      }
+
+      return context.callHook("buildEnd", {
+        sequential: true
+      });
+    }
+
+    async function writeBundle(): Promise<void> {
+      if (!options.silenceHookLogging) {
+        logger.debug("Finalizing Powerlines project output...");
+      }
+
+      return context.callHook("writeBundle", {
+        sequential: true
+      });
+    }
+
+    return () => ({
+      name:
+        name.toLowerCase() === "powerlines"
+          ? "powerlines"
+          : `powerlines:${kebabCase(name)}`,
+      api: context,
+      resolveId,
+      load,
+      transform,
+      buildStart,
+      buildEnd,
+      writeBundle,
+      vite: {
+        sharedDuringBuild: true
+      }
+    });
+  } catch (error) {
+    logger.error(error instanceof Error ? error.message : String(error));
+
+    throw error;
+  }
 }

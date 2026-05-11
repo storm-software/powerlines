@@ -16,15 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-import { resolveOptions } from "@powerlines/plugin-rolldown/helpers/resolve-options";
-import {
-  RolldownPluginContext,
-  RolldownPluginInitialConfig
-} from "@powerlines/plugin-rolldown/types/plugin";
-import { defu } from "defu";
-import type { InputOptions } from "rolldown";
-import { createRolldownPlugin } from "unplugin";
-import { createUnpluginFactory } from "./unplugin";
+// import { resolveOptions } from "@powerlines/plugin-rolldown/helpers/resolve-options";
+// import {
+//   RolldownPluginContext,
+//   RolldownPluginInitialConfig
+// } from "@powerlines/plugin-rolldown/types/plugin";
+// import { defu } from "defu";
+// import type { InputOptions } from "rolldown";
+// import { createRolldownPlugin } from "unplugin";
+// import { createUnpluginFactory } from "./unplugin";
 
 export {
   default as plugin,
@@ -46,25 +46,25 @@ export {
  * })
  * ```
  */
-export const unplugin = createRolldownPlugin<RolldownPluginInitialConfig>(
-  createUnpluginFactory<RolldownPluginContext>("rolldown", (api, plugin) => {
-    return {
-      ...plugin,
-      rolldown: {
-        async options(options: InputOptions) {
-          const merged = defu(await api.context.getEnvironment(), this);
+// export const unplugin = createRolldownPlugin<RolldownPluginInitialConfig>(
+//   createUnpluginFactory<RolldownPluginContext>("rolldown", (api, plugin) => {
+//     return {
+//       ...plugin,
+//       rolldown: {
+//         async options(options: InputOptions) {
+//           const merged = defu(await api.context.getEnvironment(), this);
 
-          return defu(
-            resolveOptions(merged),
-            options,
-            api.callHook(
-              "rolldown:options",
-              { environment: merged },
-              options
-            ) ?? {}
-          );
-        }
-      }
-    };
-  })
-);
+//           return defu(
+//             resolveOptions(merged),
+//             options,
+//             api.callHook(
+//               "rolldown:options",
+//               { environment: merged },
+//               options
+//             ) ?? {}
+//           );
+//         }
+//       }
+//     };
+//   })
+// );

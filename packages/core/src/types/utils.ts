@@ -16,12 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-export type WorkerProcess<
-  TParams,
-  TExposedMethods extends ReadonlyArray<string>
-> = {
+export type Worker<TParams, TExposedMethods extends ReadonlyArray<string>> = {
   [K in TExposedMethods[number]]: (params: TParams) => Promise<void>;
 } & {
   close: () => void;
-  end: () => any;
+  end: () => Promise<void>;
 };

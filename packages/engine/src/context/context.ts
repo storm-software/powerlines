@@ -17,27 +17,33 @@
  ------------------------------------------------------------------- */
 
 import type {
+  CallHookOptions,
   Context,
   CopyConfig,
   EmitEntryOptions,
   EmitOptions,
+  EnvironmentContext,
   ExecutionOptions,
   FetchOptions,
+  InferHookParameters,
+  InferHookReturnType,
   InferOverridableConfig,
-  LogFn,
   LogFnMeta,
   Logger,
   LoggerOptions,
   MetaInfo,
   ParsedTypeScriptConfig,
+  ParsedUserConfig,
   ParseOptions,
   PluginConfig,
+  PluginContext,
   ResolvedAssetGlob,
   ResolvedConfig,
   ResolvedCopyConfig,
   ResolvedEntryTypeDefinition,
   ResolvedOutputConfig,
   ResolveOptions,
+  Resolver,
   ResolveResult,
   TransformResult,
   VirtualFile,
@@ -56,7 +62,9 @@ import {
   isTypeDefinition,
   resolveInputsSync
 } from "@powerlines/core/lib/entry";
+import { createResolver } from "@powerlines/core/lib/resolver";
 import {
+  consoleLogger,
   createLogger,
   formatConfig,
   getPackageJsonOrganization,
@@ -64,10 +72,10 @@ import {
   isPlugin,
   mergeConfig,
   replacePathTokens,
-  resolveLogLevel,
-  withCustomLogger,
-  withLogFn
+  resolveLogLevel
 } from "@powerlines/core/plugin-utils";
+import { Unstable_ContextInternal } from "@powerlines/core/types/_internal";
+import { RpcClient } from "@powerlines/core/types/rpc";
 import { toArray } from "@stryke/convert/to-array";
 import { EnvPaths, getEnvPaths } from "@stryke/env/get-env-paths";
 import { relativeToWorkspaceRoot } from "@stryke/fs/get-workspace-root";
@@ -85,14 +93,15 @@ import { isEqual } from "@stryke/path/is-equal";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join";
 import { replacePath } from "@stryke/path/replace";
+import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
-import { RequiredKeys } from "@stryke/types/base";
 import { TypeDefinition } from "@stryke/types/configuration";
+import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
 import { match, tsconfigPathsToRegExp } from "bundle-require";
 import { resolveCompatibilityDates } from "compatx";
@@ -110,10 +119,14 @@ import {
   setGlobalDispatcher
 } from "undici";
 import { UnpluginBuildContext } from "unplugin";
-import { getConfigProps } from "../_internal/helpers/context";
-import { getPrefixedRootHash } from "../_internal/helpers/meta";
-import { sendWriteLogMessage } from "../_internal/ipc/send";
-import { VirtualFileSystem } from "../_internal/vfs";
+import { getConfigProps } from "../helpers/context";
+import { getPrefixedRootHash } from "../helpers/meta";
+import {
+  getDefaultMode,
+  loadParsedConfig,
+  resolvePackageConfigs
+} from "../helpers/resolve-config";
+import { VirtualFileSystem } from "../helpers/vfs";
 import { getTsconfigFilePath } from "../typescript/tsconfig";
 import { PowerlinesBaseContext } from "./base-context";
 
@@ -131,7 +144,6 @@ setGlobalDispatcher(
 );
 
 const UNRESOLVED_CONFIG_NAMES = [
-  "initialConfig",
   "userConfig",
   "inlineConfig",
   "pluginConfig",
@@ -144,6 +156,17 @@ export class PowerlinesContext<
   extends PowerlinesBaseContext
   implements Context<TResolvedConfig>
 {
+  /**
+   * Internal fields and methods for managing hooks and environment data within the context. This is used to store the RPC client for communicating with the Powerlines worker, as well as any additional internal state or methods that may be needed for managing the context during the build process.
+   *
+   * @danger
+   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
+   *
+   * @internal
+   */
+  #$$internal: Unstable_ContextInternal<TResolvedConfig> =
+    {} as Unstable_ContextInternal<TResolvedConfig>;
+
   #checksum: string | null = null;
 
   #buildId: string = uuid();
@@ -160,37 +183,22 @@ export class PowerlinesContext<
 
   #configProxy!: TResolvedConfig;
 
-  /**
-   * Create a new context from the workspace root and user config.
-   *
-   * @param options - The options for resolving the context.
-   * @returns A promise that resolves to the new context.
-   */
-  public static async fromInitialConfig<
-    TResolvedConfig extends ResolvedConfig = ResolvedConfig
-  >(
-    options: ExecutionOptions,
-    initialConfig: TResolvedConfig["initialConfig"]
-  ): Promise<PowerlinesContext<TResolvedConfig>> {
-    const context = new PowerlinesContext<TResolvedConfig>(
-      options,
-      initialConfig
-    );
-    await context.init();
-
-    return context;
-  }
+  public resolver!: Resolver;
 
   /**
-   * The options provided to the Powerlines process, resolved with default values and merged with any configuration provided by plugins or other sources. This is typically the final configuration used during the build process, but may also include additional options that are relevant to the context and its interactions with the Powerlines engine.
+   * The parsed `package.json` file for the project
    */
-  public override options: RequiredKeys<
-    ExecutionOptions,
-    "mode" | "cwd" | "root" | "framework" | "logLevel"
-  > = {} as RequiredKeys<
-    ExecutionOptions,
-    "mode" | "cwd" | "root" | "framework" | "logLevel"
-  >;
+  public packageJson!: PackageJson;
+
+  /**
+   * The parsed `project.json` file for the project
+   */
+  public projectJson: Record<string, any> | undefined = undefined;
+
+  /**
+   * The parsed configuration file for the project
+   */
+  public configFile!: ParsedUserConfig;
 
   /**
    * An object containing the dependencies that should be installed for the project
@@ -211,11 +219,6 @@ export class PowerlinesContext<
    * The resolved tsconfig file paths for the project
    */
   public resolvePatterns: RegExp[] = [];
-
-  /**
-   * The input options used to initialize the context, which may be used when cloning the context to ensure the same configuration is applied to the new context
-   */
-  protected override initialOptions: ExecutionOptions = {} as ExecutionOptions;
 
   /**
    * The resolved configuration for this context
@@ -249,6 +252,30 @@ export class PowerlinesContext<
    * The configuration options provided by the environment
    */
   protected environmentConfig: any = {};
+
+  /**
+   * Internal fields and methods for managing hooks and environment data within the context. This is used to store the RPC client for communicating with the Powerlines worker, as well as any additional internal state or methods that may be needed for managing the context during the build process.
+   *
+   * @danger
+   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
+   *
+   * @internal
+   */
+  public get $$internal(): Unstable_ContextInternal<any> {
+    return this.#$$internal;
+  }
+
+  /**
+   * Internal fields and methods for managing hooks and environment data within the context. This is used to store the RPC client for communicating with the Powerlines worker, as well as any additional internal state or methods that may be needed for managing the context during the build process.
+   *
+   * @danger
+   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
+   *
+   * @internal
+   */
+  public set $$internal(value: Unstable_ContextInternal<any>) {
+    this.#$$internal = value;
+  }
 
   /**
    * The resolved entry type definitions for the project
@@ -308,6 +335,34 @@ export class PowerlinesContext<
   }
 
   /**
+   * The RPC instance for the context
+   */
+  public get rpc(): RpcClient {
+    return this.$$internal.rpc;
+  }
+
+  /**
+   * Invokes the configured plugin hooks
+   *
+   * @remarks
+   * By default, it will call the `"pre"`, `"normal"`, and `"post"` ordered hooks in sequence
+   *
+   * @param hook - The hook to call
+   * @param options - The options to provide to the hook
+   * @param args - The arguments to pass to the hook
+   * @returns The result of the hook call
+   */
+  public callHook = async <TKey extends string>(
+    hook: TKey,
+    options: CallHookOptions & {
+      environment?: string | EnvironmentContext<TResolvedConfig>;
+    },
+    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
+  ): Promise<
+    InferHookReturnType<PluginContext<TResolvedConfig>, TKey> | undefined
+  > => this.$$internal.callHook<TKey>(hook, options, ...args);
+
+  /**
    * The meta information about the current build
    */
   public get meta() {
@@ -318,7 +373,7 @@ export class PowerlinesContext<
       timestamp: this.timestamp,
       rootHash: murmurhash(
         {
-          workspaceRoot: this.options?.cwd,
+          workspaceRoot: this.config?.cwd,
           root: this.config?.root
         },
         {
@@ -499,10 +554,14 @@ export class PowerlinesContext<
     );
   }
 
+  public override get logger(): Logger {
+    return this.createLogger();
+  }
+
   /**
    * The log level for the context, which determines the minimum level of log messages that will be emitted by the logger. This is resolved based on the configuration options provided by the user, and can be set to different levels for development, production, and test environments. The log level can also be overridden by plugins or other parts of the build process to provide more granular control over logging output.
    */
-  public override get logLevel(): LogLevelResolvedConfig {
+  public get logLevel(): LogLevelResolvedConfig {
     return resolveLogLevel(this.config.logLevel, this.config.mode);
   }
 
@@ -511,8 +570,8 @@ export class PowerlinesContext<
    */
   public override get envPaths(): EnvPaths {
     return getEnvPaths({
-      orgId: this.config.organization,
-      appId: this.config.framework || "powerlines",
+      orgId: kebabCase(this.config.orgId),
+      appId: kebabCase(this.config.framework || "powerlines"),
       workspaceRoot: this.config.cwd
     });
   }
@@ -595,50 +654,30 @@ export class PowerlinesContext<
    * Creates a new Context instance.
    *
    * @param options - The options to use for creating the context, including the resolved configuration and workspace settings.
-   * @param initialConfig - The initial configuration provided by the user, which can be used to resolve the final configuration for the context. This typically includes the user configuration options defined in the `powerlines.config.ts` file, as well as any inline configuration options provided during execution.
    */
-  protected constructor(
-    options: ExecutionOptions,
-    initialConfig: TResolvedConfig["initialConfig"]
-  ) {
-    super(options, initialConfig);
-    this.initialOptions = options;
-    this.initialConfig = initialConfig;
+  protected constructor(public override options: ExecutionOptions) {
+    super(options);
   }
 
-  /**
-   * Create a new logger instance
-   *
-   * @param options - The configuration options to use for the logger instance, which can be used to customize the appearance and behavior of the log messages generated by the logger. This is typically the name of the plugin or module that is creating the logger instance.
-   * @param logFn - The custom logging function to use for logging messages, which can be used to override the default logging behavior of the original logger.
-   * @returns A logger client instance that can be used to generate log messages with consistent formatting and metadata.
-   */
-  public override createLogger(options: LoggerOptions, logFn?: LogFn): Logger {
-    let logger!: Logger;
-    if (isSetString(process.env.POWERLINES_EXECUTION_THREAD_TYPE)) {
-      logger = createLogger(
-        this.config.name,
-        { ...this.options, ...this.config, ...options },
-        (meta: LogFnMeta, message: string) =>
-          sendWriteLogMessage(this, meta, message)
-      );
-    } else {
-      logger = createLogger(this.config.name, {
-        ...this.options,
-        ...this.config,
-        ...options
-      });
-    }
-
-    if (this.config.customLogger) {
-      logger = withCustomLogger(logger, this.config.customLogger);
-    }
-
-    if (logFn) {
-      logger = withLogFn(logger, logFn);
-    }
-
-    return logger;
+  public override createLogger(options: LoggerOptions = {}) {
+    return createLogger(
+      this.config.name || this.options.root,
+      { logLevel: this.logLevel, ...options },
+      (meta: LogFnMeta, message: string) => {
+        consoleLogger(meta, message);
+        void this.rpc.callEvent("powerlines:log", {
+          meta: {
+            category: "general",
+            ...options,
+            ...(isSetObject(meta) ? meta : { type: meta }),
+            name: this.config.name,
+            logId: uuid(),
+            timestamp: Date.now()
+          },
+          message
+        });
+      }
+    );
   }
 
   /**
@@ -683,7 +722,7 @@ export class PowerlinesContext<
       }
     }
 
-    const logger = this.extendLogger({ category: "network" });
+    const logger = this.extendLogger({ category: "communication" });
     const startTime = Date.now();
 
     logger.trace(
@@ -1240,6 +1279,44 @@ export class PowerlinesContext<
     });
 
     this.inlineConfig = config;
+    this.#checksum = await this.generateChecksum();
+
+    this.configFile = await loadParsedConfig(
+      this.options.cwd,
+      this.options.root,
+      this.options.framework,
+      this.options.orgId,
+      config
+    );
+
+    const result =
+      this.configFile.config &&
+      toArray(this.configFile.config).length > this.options.executionIndex
+        ? toArray(this.configFile.config)[this.options.executionIndex]!
+        : this.configFile.config;
+    if (!result) {
+      this.logger.warn(
+        `No configuration found in ${
+          this.options.configFile
+        } for execution index ${this.options.executionIndex}.`
+      );
+    } else {
+      await this.setUserConfig(
+        (isFunction(result)
+          ? await Promise.resolve(
+              result({
+                cwd: this.cwd,
+                root: this.options.root,
+                mode:
+                  this.inlineConfig.mode ||
+                  (await getDefaultMode(this.cwd, this.options.root)),
+                command: this.inlineConfig.command
+              })
+            )
+          : result) as TResolvedConfig["userConfig"]
+      );
+    }
+
     await this.resolveConfig();
   }
 
@@ -1269,24 +1346,17 @@ export class PowerlinesContext<
   protected mergeConfig(): TResolvedConfig {
     return mergeConfig(
       {
-        mode: this.initialOptions.mode,
-        framework: this.initialOptions.framework,
-        logLevel: this.initialOptions.logLevel,
-
         inlineConfig: this.inlineConfig,
         userConfig: this.userConfig,
-        initialConfig: this.initialConfig,
         pluginConfig: this.pluginConfig,
         environmentConfig: this.environmentConfig
       },
       getConfigProps<TResolvedConfig>(this.overriddenConfig),
-      omit(this.options, ["name", "mode", "framework", "logLevel"]),
+      this.options,
       getConfigProps<TResolvedConfig>(this.inlineConfig),
       getConfigProps<TResolvedConfig>(this.userConfig),
-      getConfigProps<TResolvedConfig>(this.initialConfig),
       getConfigProps<TResolvedConfig>(this.pluginConfig),
       {
-        name: this.initialOptions.name,
         version: this.packageJson?.version,
         description: this.packageJson?.description,
         environments: {},
@@ -1316,54 +1386,6 @@ export class PowerlinesContext<
   /**
    * Initialize the context with the provided configuration options
    */
-  protected override async init() {
-    await super.init();
-
-    this.options.executionId = this.initialOptions.executionId || uuid();
-    this.options.executionIndex = this.initialOptions.executionIndex ?? 0;
-
-    this.#checksum = await this.generateChecksum();
-
-    const result =
-      this.configFile.config &&
-      toArray(this.configFile.config).length > this.options.executionIndex
-        ? toArray(this.configFile.config)[this.options.executionIndex]!
-        : this.configFile.config;
-    if (!result) {
-      this.logger.warn(
-        `No configuration found in ${
-          this.options.configFile
-        } for execution index ${this.options.executionIndex}.`
-      );
-    } else {
-      await this.setUserConfig(
-        (isFunction(result)
-          ? await Promise.resolve(result(this.options))
-          : result) as TResolvedConfig["userConfig"]
-      );
-    }
-  }
-
-  /**
-   * Resolve the package configurations for the project by loading the `package.json` and `project.json` files, if they exist. This function will look for these files in the project root and parse their contents as JavaScript objects. The parsed contents will be stored in the context for later use by plugins and other parts of the build process.
-   *
-   * @remarks
-   * The `package.json` file is typically used to store metadata about the project, such as its name, version, dependencies, and other information. The `project.json` file is an optional file that can be used to store additional configuration or metadata specific to the project, and is not required for all projects.
-   *
-   * @param cwd - The current working directory to look for the package configurations. Defaults to the `cwd` specified in the context configuration.
-   * @param root - The root directory of the project to look for the package configurations. Defaults to the `root` specified in the context configuration.
-   * @returns A promise that resolves when the package configurations have been loaded and stored in the context.
-   */
-  protected override async resolvePackageConfigs(
-    cwd: string = this.config.cwd,
-    root: string = this.config.root
-  ) {
-    return super.resolvePackageConfigs(cwd, root);
-  }
-
-  /**
-   * Initialize the context with the provided configuration options
-   */
   protected async resolveConfig(): Promise<void> {
     const mergedConfig = this.mergeConfig();
 
@@ -1371,10 +1393,6 @@ export class PowerlinesContext<
       meta: { category: "config" },
       message: `Pre-setup Powerlines configuration object: \n --- Merged Config --- \n${formatConfig(
         mergedConfig
-      )} \n\n --- Initial Options --- \n${formatConfig(
-        this.initialOptions
-      )} \n\n --- Initial Config --- \n${formatConfig(
-        this.initialConfig
       )} \n\n --- User Config --- \n${formatConfig(
         this.userConfig
       )} \n\n --- Inline Config --- \n${formatConfig(
@@ -1408,7 +1426,7 @@ export class PowerlinesContext<
     }) as ResolvedOutputConfig;
 
     if (isUndefined(mergedConfig.mode)) {
-      mergedConfig.mode = await this.getDefaultMode();
+      mergedConfig.mode = await getDefaultMode(this.cwd, mergedConfig.root);
     }
 
     if (isUndefined(mergedConfig.framework)) {
@@ -1440,11 +1458,22 @@ export class PowerlinesContext<
           )
         ))
     ) {
-      await this.resolvePackageConfigs(mergedConfig.cwd, mergedConfig.root);
+      const result = await resolvePackageConfigs(
+        mergedConfig.cwd,
+        mergedConfig.root
+      );
+      if (result) {
+        if (result.packageJson) {
+          this.packageJson = result.packageJson;
+        }
+        if (result.projectJson) {
+          this.projectJson = result.projectJson;
+        }
 
-      if (this.packageJson) {
-        mergedConfig.organization ??=
-          getPackageJsonOrganization(this.packageJson) || "powerlines";
+        if (this.packageJson) {
+          mergedConfig.organization ??=
+            getPackageJsonOrganization(this.packageJson) || "powerlines";
+        }
       }
     }
 
@@ -1684,6 +1713,13 @@ export class PowerlinesContext<
     this.resolvedConfig = mergedConfig;
     this.#configProxy = this.createConfigProxy();
 
+    this.resolver = createResolver({
+      cwd: this.resolvedConfig.cwd,
+      root: this.resolvedConfig.root,
+      cacheDir: this.envPaths.cache,
+      mode: this.resolvedConfig.mode
+    });
+
     this.logger.info({
       meta: { category: "config" },
       message: `Resolved Powerlines configuration object: \n${formatConfig(
@@ -1721,8 +1757,8 @@ export class PowerlinesContext<
        */
       get: (target: TResolvedConfig, key, receiver) => {
         if (UNRESOLVED_CONFIG_NAMES.includes(key.toString())) {
-          if (key === "initialConfig") {
-            return this.initialConfig;
+          if (key === "cwd") {
+            return this.cwd;
           }
           if (key === "userConfig") {
             return this.userConfig;

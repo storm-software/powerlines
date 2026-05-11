@@ -16,9 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import { RollupPluginInitialConfig } from "@powerlines/plugin-rollup/types/plugin";
-import { createRollupPlugin } from "unplugin";
-import { createUnpluginFactory } from "./unplugin";
+// import { RollupPluginInitialConfig } from "@powerlines/plugin-rollup/types/plugin";
+// import { createRollupPlugin } from "unplugin";
+// import { createUnpluginFactory } from "./unplugin";
 
 export {
   default as plugin,
@@ -41,6 +41,6 @@ export {
  * })
  * ```
  */
-export const unplugin = createRollupPlugin<RollupPluginInitialConfig>(
-  createUnpluginFactory("rollup")
-);
+// export const unplugin = createRollupPlugin<RollupPluginInitialConfig>(
+//   createUnpluginFactory("rollup")
+// );

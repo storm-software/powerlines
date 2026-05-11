@@ -35,7 +35,7 @@ import {
   getParsedTypeScriptConfig,
   getTsconfigFilePath,
   isIncludeMatchFound
-} from "../../typescript/tsconfig";
+} from "../typescript/tsconfig";
 
 export function getTsconfigDtsPath<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig

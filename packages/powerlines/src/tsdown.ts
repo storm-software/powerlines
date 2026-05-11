@@ -16,15 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-import { RolldownOptions } from "@powerlines/plugin-rolldown/types/build";
-import { resolveFromFormat } from "@powerlines/plugin-tsdown/helpers/resolve-options";
-import { toArray } from "@stryke/convert/to-array";
-import { isFunction } from "@stryke/type-checks/is-function";
-import { isSetString } from "@stryke/type-checks/is-set-string";
-import { ModuleFormat } from "rolldown";
+// import { RolldownOptions } from "@powerlines/plugin-rolldown/types/build";
+// import { resolveFromFormat } from "@powerlines/plugin-tsdown/helpers/resolve-options";
+// import { toArray } from "@stryke/convert/to-array";
+// import { isFunction } from "@stryke/type-checks/is-function";
+// import { isSetString } from "@stryke/type-checks/is-set-string";
+// import { ModuleFormat } from "rolldown";
 import type { UserConfig } from "tsdown/config";
-import { unplugin as rolldown } from "./rolldown";
-import { CopyConfig, ResolveConfig } from "./types";
+// import { unplugin as rolldown } from "./rolldown";
+// import { CopyConfig, ResolveConfig } from "./types";
 
 export {
   default as plugin,
@@ -59,81 +59,73 @@ export function unplugin(options: UserConfig = {}): UserConfig {
     ...options,
     entry: options.entry,
     plugins: [
-      rolldown({
-        framework: "powerlines",
-        name: options.name,
-        root: options.cwd ?? process.cwd(),
-        output: {
-          path: options.outDir,
-          format: resolveFromFormat(
-            options.format as ModuleFormat | ModuleFormat[]
-          ),
-          copy: {
-            path: options.outDir!,
-            assets: toArray(options.copy)
-              .map(copy => {
-                if (!copy) {
-                  return undefined;
-                }
-
-                if (isSetString(copy)) {
-                  return copy;
-                }
-
-                if (isFunction(copy)) {
-                  // eslint-disable-next-line no-console
-                  console.warn(
-                    "Function-based copy options are not supported in Powerlines."
-                  );
-
-                  return undefined;
-                }
-
-                return {
-                  input: copy.from,
-                  output: copy.to
-                };
-              })
-              .filter(Boolean) as CopyConfig["assets"]
-          }
-        },
-        resolve: {
-          external: options.external
-            ? (toArray(options.external)
-                .map(external => {
-                  if (isFunction(external)) {
-                    // eslint-disable-next-line no-console
-                    console.warn(
-                      "Function-based external options are not supported in Powerlines."
-                    );
-
-                    return undefined;
-                  }
-
-                  return external;
-                })
-                .filter(Boolean) as ResolveConfig["external"])
-            : undefined,
-          noExternal: options.noExternal
-            ? (toArray(options.noExternal)
-                .map(noExternal => {
-                  if (isFunction(noExternal)) {
-                    // eslint-disable-next-line no-console
-                    console.warn(
-                      "Function-based noExternal options are not supported in Powerlines."
-                    );
-
-                    return undefined;
-                  }
-
-                  return noExternal;
-                })
-                .filter(Boolean) as ResolveConfig["noExternal"])
-            : undefined
-        },
-        rolldown: options.inputOptions as RolldownOptions,
-        tsconfig: isSetString(options.tsconfig) ? options.tsconfig : undefined
-      })
+      // rolldown({
+      //   framework: "powerlines",
+      //   name: options.name,
+      //   root: options.cwd ?? process.cwd(),
+      //   output: {
+      //     path: options.outDir,
+      //     format: resolveFromFormat(
+      //       options.format as ModuleFormat | ModuleFormat[]
+      //     ),
+      //     copy: {
+      //       path: options.outDir!,
+      //       assets: toArray(options.copy)
+      //         .map(copy => {
+      //           if (!copy) {
+      //             return undefined;
+      //           }
+      //           if (isSetString(copy)) {
+      //             return copy;
+      //           }
+      //           if (isFunction(copy)) {
+      //             // eslint-disable-next-line no-console
+      //             console.warn(
+      //               "Function-based copy options are not supported in Powerlines."
+      //             );
+      //             return undefined;
+      //           }
+      //           return {
+      //             input: copy.from,
+      //             output: copy.to
+      //           };
+      //         })
+      //         .filter(Boolean) as CopyConfig["assets"]
+      //     }
+      //   },
+      //   resolve: {
+      //     external: options.external
+      //       ? (toArray(options.external)
+      //           .map(external => {
+      //             if (isFunction(external)) {
+      //               // eslint-disable-next-line no-console
+      //               console.warn(
+      //                 "Function-based external options are not supported in Powerlines."
+      //               );
+      //               return undefined;
+      //             }
+      //             return external;
+      //           })
+      //           .filter(Boolean) as ResolveConfig["external"])
+      //       : undefined,
+      //     noExternal: options.noExternal
+      //       ? (toArray(options.noExternal)
+      //           .map(noExternal => {
+      //             if (isFunction(noExternal)) {
+      //               // eslint-disable-next-line no-console
+      //               console.warn(
+      //                 "Function-based noExternal options are not supported in Powerlines."
+      //               );
+      //               return undefined;
+      //             }
+      //             return noExternal;
+      //           })
+      //           .filter(Boolean) as ResolveConfig["noExternal"])
+      //       : undefined
+      //   },
+      //   rolldown: options.inputOptions as RolldownOptions,
+      //   tsconfig: isSetString(options.tsconfig) ? options.tsconfig : undefined
+      // })
     ]
   };
 }

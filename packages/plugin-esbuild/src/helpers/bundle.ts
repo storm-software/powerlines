@@ -18,7 +18,7 @@
 
 import type {
   CreateUnpluginResolverOptions,
-  InitialPluginConfig,
+  InitialConfig,
   PluginContext,
   ResolveOptions
 } from "@powerlines/core";
@@ -87,7 +87,7 @@ export async function bundle<TContext extends PluginContext = PluginContext>(
           )({
             ...context.options,
             ...context.initialConfig
-          } as InitialPluginConfig<TContext["config"]["userConfig"]>)
+          } as InitialConfig<TContext["config"]["userConfig"]>)
         ]
       }
     )

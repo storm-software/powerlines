@@ -42,9 +42,9 @@ export const LogCategories = {
   PLUGINS: "plugins",
   HOOKS: "hooks",
   ENV: "env",
-  IPC: "ipc",
+  RPC: "rpc",
   BABEL: "babel",
-  NETWORK: "network"
+  COMMUNICATION: "communication"
 } as const;
 
 export const LOG_CATEGORIES_ARRAY = Object.values(LogCategories);
@@ -57,8 +57,8 @@ export const LOG_CATEGORIES = [
   LogCategories.PLUGINS,
   LogCategories.HOOKS,
   LogCategories.ENV,
-  LogCategories.IPC,
-  LogCategories.NETWORK,
+  LogCategories.RPC,
+  LogCategories.COMMUNICATION,
   LogCategories.BABEL
 ] as const;
 
@@ -70,8 +70,8 @@ export const DEFAULT_DEVELOPMENT_LOG_LEVEL = {
   hooks: "debug",
   performance: "debug",
   env: "info",
-  ipc: "info",
-  network: "debug",
+  rpc: "info",
+  communication: "debug",
   babel: "debug"
 } as const;
 
@@ -83,8 +83,8 @@ export const DEFAULT_TEST_LOG_LEVEL = {
   hooks: "warn",
   performance: "info",
   env: "warn",
-  ipc: "warn",
-  network: "warn",
+  rpc: "warn",
+  communication: "warn",
   babel: "warn"
 } as const;
 
@@ -96,7 +96,7 @@ export const DEFAULT_PRODUCTION_LOG_LEVEL = {
   hooks: "warn",
   performance: "info",
   env: "error",
-  ipc: "error",
-  network: "error",
+  rpc: "error",
+  communication: "error",
   babel: "warn"
 } as const;

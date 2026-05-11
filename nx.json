@@ -45,12 +45,12 @@
         "projectLinks": "alias"
       }
     },
-    // {
-    //   "plugin": "@shell-shock/nx/plugin",
-    //   "options": {
-    //     "verboseOutput": true
-    //   }
-    // },
+    {
+      "plugin": "@shell-shock/nx/plugin",
+      "options": {
+        "verboseOutput": true
+      }
+    },
     "./dist/tools/nx/dist/index.js"
   ],
   "analytics": false

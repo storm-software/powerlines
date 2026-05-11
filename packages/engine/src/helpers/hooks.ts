@@ -19,6 +19,7 @@
 import type {
   CallHookOptions,
   EnvironmentContext,
+  ExecutionContext,
   HookListOrders,
   HooksList,
   HooksListItem,
@@ -109,7 +110,7 @@ export function mergeConfigs<T>(currentResult: T, previousResults: T): T {
  * @param args - Arguments to pass to the hook.
  * @returns The return value of the hook.
  */
-export async function callHook<
+async function _callHook<
   TResolvedConfig extends ResolvedConfig,
   TKey extends string
 >(
@@ -343,4 +344,25 @@ export function extractHooks<
   }
 
   return hooks;
+}
+
+export async function callHook<
+  TKey extends string,
+  TResolvedConfig extends ResolvedConfig
+>(
+  context: ExecutionContext<TResolvedConfig>,
+  hook: TKey,
+  options: CallHookOptions & {
+    environment?: string | EnvironmentContext<TResolvedConfig>;
+  },
+  ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
+) {
+  return _callHook<TResolvedConfig, TKey>(
+    isSetObject(options?.environment)
+      ? options.environment
+      : await context.getEnvironment(options?.environment),
+    hook,
+    { sequential: true, ...options },
+    ...args
+  );
 }

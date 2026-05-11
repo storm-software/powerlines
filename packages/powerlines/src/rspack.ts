@@ -16,9 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import { RspackPluginInitialConfig } from "@powerlines/plugin-rspack/types/plugin";
-import { createRspackPlugin } from "unplugin";
-import { createUnpluginFactory } from "./unplugin";
+// import { RspackPluginInitialConfig } from "@powerlines/plugin-rspack/types/plugin";
+// import { createRspackPlugin } from "unplugin";
+// import { createUnpluginFactory } from "./unplugin";
 
 export {
   default as plugin,
@@ -41,6 +41,6 @@ export {
  * }
  * ```
  */
-export const unplugin = createRspackPlugin<RspackPluginInitialConfig>(
-  createUnpluginFactory("rspack")
-);
+// export const unplugin = createRspackPlugin<RspackPluginInitialConfig>(
+//   createUnpluginFactory("rspack")
+// );

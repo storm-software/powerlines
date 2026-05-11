@@ -104,6 +104,6 @@
     "access": "public"
   },
   "inlinedDependencies": {
-    "@stryke/path": "0.28.2"
+    "@stryke/path": "0.29.2"
   }
 }

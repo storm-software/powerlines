@@ -18,18 +18,18 @@
 
 import { PromiseExecutor } from "@nx/devkit";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
-import type { CleanInlineConfig, PowerlinesEngine } from "powerlines";
+import type { PowerlinesEngine } from "powerlines";
 import {
   PowerlinesExecutorContext,
   withExecutor
 } from "../../base/base-executor";
 import type { CleanExecutorSchema } from "./schema";
 
-export async function executorFn(
+async function executorFn(
   context: PowerlinesExecutorContext<"clean", CleanExecutorSchema>,
   api: PowerlinesEngine
 ): Promise<BaseExecutorResult> {
-  await api.clean(context.inlineConfig as CleanInlineConfig);
+  await api.clean(context.inlineConfig);
 
   return {
     success: true

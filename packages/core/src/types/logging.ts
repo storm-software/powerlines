@@ -39,7 +39,7 @@ export interface LogMeta {
    */
   category: LogCategory;
   /**
-   * The timestamp when the IPC message was created, represented as the number of milliseconds since the Unix epoch.
+   * The timestamp when the RPC message was created, represented as the number of milliseconds since the Unix epoch.
    */
   timestamp: number;
   /**
@@ -108,6 +108,7 @@ export type LoggerOptions = Omit<LoggerMeta, "logId" | "timestamp" | "type"> & {
 
 export interface PowerlinesMessage<TMeta> extends UnpluginMessage {
   meta: TMeta;
+  error?: Error;
 }
 
 export type LogMessage = PowerlinesMessage<Partial<LogMeta>>;
@@ -122,7 +123,7 @@ export type LoggerMessage = PowerlinesMessage<LoggerMeta>;
  */
 export interface Logger {
   options: LoggerOptions;
-  error: (message: string | LoggerMessage) => void;
+  error: (message: string | LoggerMessage | Error) => void;
   warn: (message: string | LoggerMessage) => void;
   info: (message: string | LoggerMessage) => void;
   debug: (message: string | LoggerMessage) => void;

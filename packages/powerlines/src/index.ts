@@ -25,34 +25,5 @@
  * @packageDocumentation
  */
 
-import { PowerlinesAPI } from "./api";
-import { PowerlinesEngine } from "./engine";
-import type { EngineOptions, ResolvedConfig } from "./types";
-
+export * from "./engine";
 export type * from "./types";
-
-/**
- * Creates a new {@link PowerlinesEngine} instance.
- *
- * @param options - The user configuration options.
- * @returns A promise that resolves to a {@link PowerlinesEngine} instance.
- */
-export async function createEngine(
-  options: EngineOptions
-): Promise<PowerlinesEngine> {
-  return PowerlinesEngine.from(options);
-}
-
-/**
- * Creates a new {@link PowerlinesAPI} instance.
- *
- * @param options - The user configuration options.
- * @returns A promise that resolves to a {@link PowerlinesAPI} instance.
- */
-export async function createAPI<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig
->(options: EngineOptions): Promise<PowerlinesAPI<TResolvedConfig>> {
-  return PowerlinesAPI.from({ cwd: process.cwd(), ...options });
-}
-
-export { PowerlinesAPI, PowerlinesEngine };

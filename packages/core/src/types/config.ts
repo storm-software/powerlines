@@ -23,6 +23,7 @@ import type {
   DeepReadonly,
   MaybePromise,
   NonUndefined,
+  PartialKeys,
   RequiredKeys
 } from "@stryke/types/base";
 import {
@@ -30,8 +31,12 @@ import {
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
 import type { AssetGlob } from "@stryke/types/file";
+import { BirpcOptions } from "birpc";
 import type { ConfigLayer, ResolvedConfig as ParsedConfig } from "c12";
 import { CompatibilityDates, CompatibilityDateSpec } from "compatx";
+import { RpcCacheOptions } from "devframe/rpc";
+import { WsRpcChannelOptions } from "devframe/rpc/transports/ws-client";
+import { ConnectionMeta, DevtoolDefinition } from "devframe/types";
 import type { PreviewOptions, ResolvedPreviewOptions } from "vite";
 import type { PluginContext } from "./context";
 import { StoragePort, StoragePreset } from "./fs";
@@ -41,6 +46,7 @@ import {
   LogLevelUserConfig
 } from "./logging";
 import type { Plugin } from "./plugin";
+import { RpcClientFunctions, RpcServerFunctions } from "./rpc";
 import type { TSConfig } from "./tsconfig";
 
 /**
@@ -322,45 +328,6 @@ export interface OutputConfig {
 
 export interface Options {
   /**
-   * The name of the project
-   */
-  name?: string;
-
-  /**
-   * The root directory of the project
-   */
-  root?: string;
-
-  /**
-   * Explicitly set a mode to run in. This mode will be used at various points throughout the Powerlines processes, such as when compiling the source code.
-   *
-   * @defaultValue "production"
-   */
-  mode?: Mode;
-
-  /**
-   * The log level to use for logging messages during the build process. This can be a string indicating the log level or a more detailed configuration object that allows for specifying different log levels for different categories of logs.
-   */
-  logLevel?: LogLevelUserConfig;
-
-  /**
-   * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
-   *
-   * @remarks
-   * If no values are provided for {@link OutputConfig.types | output.types} or {@link OutputConfig.artifactsPath | output.artifactsFolder}, this value will be used as the default.
-   *
-   * @defaultValue "powerlines"
-   */
-  framework?: string;
-
-  /**
-   * The organization or author of the project
-   */
-  organization?: string;
-}
-
-export interface EngineOptions extends Options {
-  /**
    * The current working directory the Powerlines processes should operate in
    *
    * @remarks
@@ -369,15 +336,68 @@ export interface EngineOptions extends Options {
   cwd?: string;
 
   /**
-   * A path to a custom configuration file to be used instead of the default `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` files.
+   * The log level label indicating the severity of the log message, or a more detailed log level configuration object that allows for specifying different log levels for different categories of logs.
    *
    * @remarks
-   * This option is useful for running Powerlines commands with different configuration files, such as in CI/CD environments or when testing different configurations.
+   * The log level determines the minimum severity of messages that will be logged. For example, if the log level is set to `LogLevel.INFO`, then messages with a severity of `INFO`, `WARN`, and `ERROR` will be logged, while messages with a severity of `DEBUG` and `TRACE` will be ignored. Setting the log level to `LogLevel.SILENT` will disable all logging. Alternatively, you can provide a more detailed configuration object that allows you to specify different log levels for different categories of logs, providing granular control over the logging behavior for different aspects of the system.
+   *
+   * @defaultValue "info"
    */
-  configFile?: string;
+  logLevel?: LogLevelUserConfig;
 }
 
-export interface ExecutionOptions extends RequiredKeys<EngineOptions, "cwd"> {
+/**
+ * The options required to start the Powerlines engine.
+ */
+export type EngineOptions = Omit<
+  PartialKeys<DevtoolDefinition, "name" | "setup">,
+  "id" | "basePath"
+> &
+  Options & {
+    /**
+     * The host URL for the engine's WebSocket server, which is used for communication between the engine and the various hosts (e.g., dev server, CLI, etc.) that interact with it. This value is required for the engine to function properly, as it allows the engine to establish a WebSocket connection and facilitate communication with other components of the system.
+     */
+    host?: string;
+
+    /**
+     * The port number to use for the websocket connection between the engine and the various hosts.
+     */
+    port?: number;
+
+    /**
+     * A custom logger instance that implements the {@link CustomLogger} interface, which can be used for logging messages during the build process instead of the default Powerlines logger.
+     *
+     * @remarks
+     * Providing a custom logger allows you to integrate Powerlines logging with your own logging system or to customize the logging behavior, such as formatting log messages differently or sending logs to an external service. If a custom logger is not provided, Powerlines will use its default logger implementation.
+     */
+    customLogger?: CustomLogger;
+
+    /**
+     * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
+     *
+     * @remarks
+     * If no values are provided for {@link OutputConfig.types | output.types} or {@link OutputConfig.artifactsPath | output.artifactsFolder}, this value will be used as the default.
+     *
+     * @defaultValue "powerlines"
+     */
+    framework?: string;
+
+    /**
+     * The organization or author of the framework
+     *
+     * @defaultValue "storm-software"
+     */
+    orgId?: string;
+  };
+
+export interface BaseExecutionOptions extends RequiredKeys<Options, "cwd"> {
+  /**
+   * The root directory of the project
+   */
+  root: string;
+}
+
+export interface ExecutionOptions extends BaseExecutionOptions {
   /**
    * A unique identifier for the current execution instance, which can be used for logging and other purposes to distinguish between different executions in the same process.
    */
@@ -387,7 +407,67 @@ export interface ExecutionOptions extends RequiredKeys<EngineOptions, "cwd"> {
    * The index of the current execution instance among all configured instances in the Powerlines process
    */
   executionIndex: number;
+
+  /**
+   * A path to a custom configuration file to be used instead of the default `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` files.
+   *
+   * @remarks
+   * This option is useful for running Powerlines commands with different configuration files, such as in CI/CD environments or when testing different configurations.
+   */
+  configFile: string;
+
+  /**
+   * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
+   *
+   * @remarks
+   * If no values are provided for {@link OutputConfig.types | output.types} or {@link OutputConfig.artifactsPath | output.artifactsFolder}, this value will be used as the default.
+   *
+   * @defaultValue "powerlines"
+   */
+  framework: string;
+
+  /**
+   * The organization or author of the framework
+   *
+   * @defaultValue "storm-software"
+   */
+  orgId: string;
+
+  /**
+   * The base URL for the dev server, which can be used by plugins to construct URLs for assets or API endpoints during development. This value is only relevant in "dev" mode and will be `undefined` in "build" mode.
+   */
+  baseURL?: string;
+
+  /**
+   * Metadata for the connection used by the dev server, including the backend type and websocket configuration.
+   */
+  connection?: ConnectionMeta;
+
+  /**
+   * Options for configuring the WebSocket RPC channel used for communication between the dev server and the client, which can be used by plugins to customize the behavior of the WebSocket connection, such as setting custom timeouts, retry strategies, or other options.
+   */
+  wsOptions?: Partial<WsRpcChannelOptions>;
+
+  /**
+   * Options for configuring the RPC client used for communication between the dev server and the client, which can be used by plugins to customize the behavior of the RPC client, such as setting custom timeouts, retry strategies, or other options.
+   */
+  rpcOptions?: Partial<
+    BirpcOptions<RpcServerFunctions, RpcClientFunctions, boolean>
+  >;
+
+  /**
+   * Options for configuring the RPC cache used for caching RPC responses between the dev server and the client, which can be used by plugins to customize the behavior of the RPC cache, such as setting custom cache keys, expiration times, or other options.
+   *
+   * @remarks
+   * This option can be set to `true` to enable caching with default options, or it can be set to a configuration object that allows for fine-grained control over the caching behavior.
+   */
+  cacheOptions?: boolean | Partial<RpcCacheOptions>;
 }
+
+export type ExecutionHostOptions = RequiredKeys<
+  ExecutionOptions,
+  "baseURL" | "connection"
+>;
 
 export interface Config {
   /**
@@ -517,7 +597,7 @@ export interface EnvironmentConfig extends Config {
   consumer?: "client" | "server";
 }
 
-export interface UserConfig extends Options, Config {
+export interface UserConfig extends Config {
   /**
    * The name of the project
    */
@@ -548,22 +628,11 @@ export interface UserConfig extends Options, Config {
   organization?: string;
 
   /**
-   * The log level label indicating the severity of the log message, or a more detailed log level configuration object that allows for specifying different log levels for different categories of logs.
+   * Explicitly set a mode to run in. This mode will be used at various points throughout the Powerlines processes, such as when compiling the source code.
    *
-   * @remarks
-   * The log level determines the minimum severity of messages that will be logged. For example, if the log level is set to `LogLevel.INFO`, then messages with a severity of `INFO`, `WARN`, and `ERROR` will be logged, while messages with a severity of `DEBUG` and `TRACE` will be ignored. Setting the log level to `LogLevel.SILENT` will disable all logging. Alternatively, you can provide a more detailed configuration object that allows you to specify different log levels for different categories of logs, providing granular control over the logging behavior for different aspects of the system.
-   *
-   * @defaultValue "info"
+   * @defaultValue "production"
    */
-  logLevel?: LogLevelUserConfig;
-
-  /**
-   * A custom logger instance that implements the {@link CustomLogger} interface, which can be used for logging messages during the build process instead of the default Powerlines logger.
-   *
-   * @remarks
-   * Providing a custom logger allows you to integrate Powerlines logging with your own logging system or to customize the logging behavior, such as formatting log messages differently or sending logs to an external service. If a custom logger is not provided, Powerlines will use its default logger implementation.
-   */
-  customLogger?: CustomLogger;
+  mode?: Mode;
 
   /**
    * The type of project being built
@@ -624,18 +693,58 @@ export type PowerlinesCommand =
   | "deploy"
   | "clean";
 
-export type InitialPluginConfig<TUserConfig extends UserConfig = UserConfig> =
-  DeepPartial<TUserConfig> & EngineOptions;
+export type InlineConfigPaths =
+  | {
+      /**
+       * The root directory of the project
+       */
+      root: string;
+
+      /**
+       * A path to a custom configuration file to be used instead of the default `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` files.
+       *
+       * @remarks
+       * This option is useful for running Powerlines commands with different configuration files, such as in CI/CD environments or when testing different configurations.
+       */
+      configFile?: string;
+    }
+  | {
+      /**
+       * The root directory of the project
+       */
+      root?: string;
+
+      /**
+       * A path to a custom configuration file to be used instead of the default `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` files.
+       *
+       * @remarks
+       * This option is useful for running Powerlines commands with different configuration files, such as in CI/CD environments or when testing different configurations.
+       */
+      configFile?: string;
+    };
 
 /**
  * The configuration provided while executing Powerlines commands.
  */
 export type InlineConfig<TUserConfig extends UserConfig = UserConfig> =
-  DeepPartial<TUserConfig> & {
+  DeepPartial<Omit<TUserConfig, "plugins" | "customLogger">> & {
+    /**
+     * The root directory of the project
+     */
+    root?: string;
+
+    /**
+     * A path to a custom configuration file to be used instead of the default `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` files.
+     *
+     * @remarks
+     * This option is useful for running Powerlines commands with different configuration files, such as in CI/CD environments or when testing different configurations.
+     */
+    configFile?: string;
+
     /**
      * A string identifier for the Powerlines command being executed
      */
-    command: PowerlinesCommand;
+    command: string;
 
     /**
      * Additional arguments provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed.
@@ -643,86 +752,48 @@ export type InlineConfig<TUserConfig extends UserConfig = UserConfig> =
     additionalArgs?: Record<string, string | string[]>;
   };
 
-export type NewInlineConfig<TUserConfig extends UserConfig = UserConfig> =
-  InlineConfig<TUserConfig> &
-    Required<Pick<InlineConfig<TUserConfig>, "root">> & {
-      /**
-       * A string identifier for the Powerlines command being executed
-       */
-      command: "new";
-
-      /**
-       * The package name (from the \`package.json\`) for the project that will be used in the \`new\` command to create a new project based on this configuration
-       */
-      packageName?: string;
-    };
+export type CreateInlineConfig<TUserConfig extends UserConfig = UserConfig> =
+  RequiredKeys<InlineConfig<TUserConfig>, "root"> & {
+    /**
+     * The package name (from the \`package.json\`) for the project that will be used in the \`create\` command to create a new project based on this configuration
+     */
+    packageName?: string;
+  };
 
 export type CleanInlineConfig<TUserConfig extends UserConfig = UserConfig> =
-  InlineConfig<TUserConfig> & {
-    /**
-     * A string identifier for the Powerlines command being executed
-     */
-    command: "clean";
-  };
+  InlineConfig<TUserConfig>;
 
 export type PrepareInlineConfig<TUserConfig extends UserConfig = UserConfig> =
-  InlineConfig<TUserConfig> & {
-    /**
-     * A string identifier for the Powerlines command being executed
-     */
-    command: "prepare";
-  };
+  InlineConfig<TUserConfig>;
 
 export type TypesInlineConfig<TUserConfig extends UserConfig = UserConfig> =
-  InlineConfig<TUserConfig> & {
-    /**
-     * A string identifier for the Powerlines command being executed
-     */
-    command: "types";
-  };
+  InlineConfig<TUserConfig>;
 
 export type BuildInlineConfig<TUserConfig extends UserConfig = UserConfig> =
-  InlineConfig<TUserConfig> & {
-    /**
-     * A string identifier for the Powerlines command being executed
-     */
-    command: "build";
-  };
+  InlineConfig<TUserConfig>;
 
 export type LintInlineConfig<TUserConfig extends UserConfig = UserConfig> =
-  InlineConfig<TUserConfig> & {
-    /**
-     * A string identifier for the Powerlines command being executed
-     */
-    command: "lint";
-  };
+  InlineConfig<TUserConfig>;
 
 export type TestInlineConfig<TUserConfig extends UserConfig = UserConfig> =
-  InlineConfig<TUserConfig> & {
-    /**
-     * A string identifier for the Powerlines command being executed
-     */
-    command: "test";
-  };
+  InlineConfig<TUserConfig>;
 
 export type DocsInlineConfig<TUserConfig extends UserConfig = UserConfig> =
-  InlineConfig<TUserConfig> & {
-    /**
-     * A string identifier for the Powerlines command being executed
-     */
-    command: "docs";
-  };
+  InlineConfig<TUserConfig>;
 
 export type DeployInlineConfig<TUserConfig extends UserConfig = UserConfig> =
-  InlineConfig<TUserConfig> & {
+  InlineConfig<TUserConfig>;
+
+export type ConfigParams = BaseExecutionOptions &
+  Pick<Required<UserConfig>, "mode"> & {
     /**
      * A string identifier for the Powerlines command being executed
      */
-    command: "deploy";
+    command: string;
   };
 
 export type UserConfigFn<TUserConfig extends UserConfig = UserConfig> = (
-  params: Options
+  params: ConfigParams
 ) => MaybePromise<TUserConfig>;
 
 export type AnyOutputUserConfig = Partial<Omit<OutputConfig, "copy">> & {
@@ -833,60 +904,26 @@ export type ResolvedOutputConfig = Required<
  * The base resolved configuration options for a Powerlines project, after being processed and normalized by the configuration loading process.
  */
 export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
-  TUserConfig,
-  | "root"
-  | "cwd"
-  | "name"
-  | "title"
-  | "organization"
-  | "compatibilityDate"
-  | "plugins"
-  | "mode"
-  | "environments"
-  | "tsconfig"
-  | "platform"
-  | "projectType"
-  | "input"
-  | "output"
-  | "resolve"
-  | "logLevel"
-  | "framework"
+  RequiredKeys<
+    TUserConfig,
+    | "name"
+    | "title"
+    | "plugins"
+    | "mode"
+    | "organization"
+    | "environments"
+    | "input"
+    | "tsconfig"
+    | "platform"
+    | "projectType"
+  >,
+  "compatibilityDate" | "output" | "resolve" | "logLevel"
 > &
-  Required<
-    Pick<
-      TUserConfig,
-      | "root"
-      | "name"
-      | "title"
-      | "organization"
-      | "compatibilityDate"
-      | "plugins"
-      | "mode"
-      | "environments"
-      | "input"
-      | "tsconfig"
-      | "platform"
-      | "projectType"
-      | "framework"
-    >
-  > & {
-    /**
-     * The configuration provided when initializing the Powerlines API.
-     *
-     * @remarks
-     * This configuration is used during the initialization of the Powerlines API.
-     */
-    readonly initialConfig: DeepReadonly<DeepPartial<TUserConfig>>;
-
+  Omit<ExecutionOptions, "logLevel"> & {
     /**
      * The configuration options read from a configuration file on disk, which may be used to resolve the final configuration for the context. This typically includes the user configuration options defined in the `powerlines.config.ts` file, as well as any inline configuration options provided during execution.
      */
     readonly userConfig: DeepReadonly<TUserConfig>;
-
-    /**
-     * The configuration options that were provided by Powerlines plugins, which may have been merged with the user configuration and modified by the configuration loading process.
-     */
-    readonly pluginConfig: DeepReadonly<DeepPartial<TUserConfig>>;
 
     /**
      * The configuration options provided by plugins added by the user (and other plugins)
@@ -894,12 +931,9 @@ export type ResolvedConfig<TUserConfig extends UserConfig = UserConfig> = Omit<
     readonly inlineConfig: DeepReadonly<InlineConfig<TUserConfig>>;
 
     /**
-     * The current working directory the Powerlines processes should operate in
-     *
-     * @remarks
-     * If not provided, the {@link WorkspaceConfig.workspaceRoot | workspace root} will be used as the current working directory. If the workspace root cannot be determined, the process's current working directory will be used.
+     * The configuration options that were provided by Powerlines plugins, which may have been merged with the user configuration and modified by the configuration loading process.
      */
-    readonly cwd: string;
+    readonly pluginConfig: DeepReadonly<DeepPartial<TUserConfig>>;
 
     /**
      * A string identifier for the Powerlines command being executed.
@@ -950,10 +984,9 @@ export type InferOverridableConfig<
 > = DeepPartial<
   Omit<
     TResolvedConfig,
-    | "initialConfig"
     | "userConfig"
-    | "pluginConfig"
     | "inlineConfig"
+    | "pluginConfig"
     | "cwd"
     | "configFile"
     | "command"

@@ -16,12 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  InitialPluginConfig,
-  PluginContext,
-  ResolvedConfig,
-  UserConfig
-} from "@powerlines/core";
+import { PluginContext, ResolvedConfig, UserConfig } from "@powerlines/core";
 import { TsdownOptions } from "./build";
 
 export type TsdownPluginOptions = Partial<TsdownOptions>;
@@ -29,9 +24,6 @@ export type TsdownPluginOptions = Partial<TsdownOptions>;
 export interface TsdownPluginUserConfig extends UserConfig {
   tsdown?: TsdownPluginOptions;
 }
-
-export type TsdownPluginInitialConfig =
-  InitialPluginConfig<TsdownPluginUserConfig>;
 
 export interface TsdownPluginResolvedConfig extends ResolvedConfig {
   tsdown: TsdownOptions;

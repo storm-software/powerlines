@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { createUnloaderPlugin } from "unplugin";
-import { createUnpluginFactory } from "./unplugin";
+// import { createUnloaderPlugin } from "unplugin";
+// import { createUnpluginFactory } from "./unplugin";
 
 /**
  * An Unloader plugin that will invoke the Powerlines API hooks during processing.
@@ -33,6 +33,6 @@ import { createUnpluginFactory } from "./unplugin";
  *
  * ```
  */
-export const unplugin = createUnloaderPlugin(createUnpluginFactory("unloader"));
+// export const unplugin = createUnloaderPlugin(createUnpluginFactory("unloader"));
 
-export { unplugin as unloader };
+// export { unplugin as unloader };

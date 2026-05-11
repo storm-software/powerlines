@@ -73,7 +73,7 @@ import { fileURLToPath } from "node:url";
 import { FileId, FileMetadata, FileSystem } from "../../schemas/fs";
 import { FileSystemStorageAdapter } from "../storage/file-system";
 import { VirtualStorageAdapter } from "../storage/virtual";
-import { DEFAULT_EXTENSIONS } from "./helpers/constants";
+import { DEFAULT_EXTENSIONS } from "./constants";
 
 interface StorageAdapterState {
   adapter: StorageAdapter;
@@ -986,7 +986,15 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
           return ret;
         },
-        {} as Record<string, VirtualFileMetadata>
+        {} as Record<
+          string,
+          {
+            id: string;
+            type: string;
+            timestamp: number;
+            properties: Record<string, string>;
+          }
+        >
       );
     }
 

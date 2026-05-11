@@ -16,12 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  InitialPluginConfig,
-  PluginContext,
-  ResolvedConfig,
-  UserConfig
-} from "@powerlines/core";
+import { PluginContext, ResolvedConfig, UserConfig } from "@powerlines/core";
 import { EsbuildOptions } from "./build";
 
 export type EsbuildPluginOptions = Partial<EsbuildOptions>;
@@ -29,9 +24,6 @@ export type EsbuildPluginOptions = Partial<EsbuildOptions>;
 export interface EsbuildPluginUserConfig extends UserConfig {
   esbuild?: EsbuildPluginOptions;
 }
-
-export type EsbuildPluginInitialConfig =
-  InitialPluginConfig<EsbuildPluginUserConfig>;
 
 export interface EsbuildPluginResolvedConfig extends ResolvedConfig {
   esbuild: EsbuildOptions;

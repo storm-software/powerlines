@@ -74,7 +74,7 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
             neverBundle: ["powerlines", /^powerlines\/.*$/, /^@powerlines\//],
             skipNodeModulesBundle: true
           },
-          unbundle: true,
+          unbundle: false,
           ...options.tsdown
         }
       };

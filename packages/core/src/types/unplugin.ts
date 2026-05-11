@@ -22,8 +22,7 @@ import type {
   HookFilter,
   UnpluginContextMeta
 } from "unplugin";
-import type { API } from "./api";
-import type { InitialPluginConfig, UserConfig } from "./config";
+import type { UserConfig } from "./config";
 import type { PluginContext, WithUnpluginBuildContext } from "./context";
 import type { PluginHook } from "./plugin";
 
@@ -61,7 +60,7 @@ export interface UnpluginOptions<
    *
    * @see https://rollupjs.org/plugin-development/#direct-plugin-communication
    */
-  api: API<TContext["config"]>;
+  api: TContext;
 }
 
 export type InferUnpluginOptions<
@@ -101,17 +100,20 @@ export type UnpluginInitialConfig = DeepPartial<UserConfig> & {
   unplugin: UnpluginContextMeta;
 };
 
-export type UnpluginFactory<TContext extends PluginContext = PluginContext> = (
-  options: InitialPluginConfig<TContext["config"]["userConfig"]>,
-  meta: UnpluginContextMeta
-) => UnpluginOptions<TContext>;
+export type UnpluginFactory<TContext extends PluginContext = PluginContext> =
+  () => UnpluginOptions<TContext>;
 
-export type UnpluginAsyncFactory<
-  TContext extends PluginContext = PluginContext
-> = (
-  options: InitialPluginConfig<TContext["config"]["userConfig"]>,
-  meta: UnpluginContextMeta
-) => Promise<UnpluginOptions<TContext>>;
+// export type UnpluginFactory<TContext extends PluginContext = PluginContext> = (
+//   options: ExecutionOptions,
+//   meta: UnpluginContextMeta
+// ) => UnpluginOptions<TContext>;
+
+// export type UnpluginAsyncFactory<
+//   TContext extends PluginContext = PluginContext
+// > = (
+//   options: ExecutionAPIOptions,
+//   meta: UnpluginContextMeta
+// ) => Promise<UnpluginOptions<TContext>>;
 
 export type UnpluginHookFunctions<
   TContext extends PluginContext = PluginContext,

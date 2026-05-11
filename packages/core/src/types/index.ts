@@ -24,6 +24,7 @@ export * from "./fs";
 export * from "./hooks";
 export * from "./logging";
 export * from "./plugin";
+export * from "./rpc";
 export * from "./tsconfig";
 export * from "./unplugin";
 export * from "./utils";

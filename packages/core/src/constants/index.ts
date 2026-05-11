@@ -18,6 +18,7 @@
 
 export * from "./api";
 export * from "./commands";
+export * from "./devtools";
 export * from "./environments";
 export * from "./fs";
 export * from "./hooks";

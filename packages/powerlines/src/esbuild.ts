@@ -16,12 +16,12 @@
 
  ------------------------------------------------------------------- */
 
-import { resolveOptions } from "@powerlines/plugin-esbuild/helpers/resolve-options";
-import { EsbuildPluginInitialConfig } from "@powerlines/plugin-esbuild/types/plugin";
-import { isUndefined } from "@stryke/type-checks/is-undefined";
-import type { BuildOptions, PluginBuild } from "esbuild";
-import { createEsbuildPlugin } from "unplugin";
-import { createUnpluginFactory } from "./unplugin";
+// import { resolveOptions } from "@powerlines/plugin-esbuild/helpers/resolve-options";
+// import { EsbuildPluginInitialConfig } from "@powerlines/plugin-esbuild/types/plugin";
+// import { isUndefined } from "@stryke/type-checks/is-undefined";
+// import type { BuildOptions, PluginBuild } from "esbuild";
+// import { createEsbuildPlugin } from "unplugin";
+// import { createUnpluginFactory } from "./unplugin";
 
 export {
   default as esbuild,
@@ -44,32 +44,32 @@ export {
  *
  * ```
  */
-export const unplugin = createEsbuildPlugin<EsbuildPluginInitialConfig>(
-  createUnpluginFactory("esbuild", (api, plugin) => {
-    return {
-      ...plugin,
-      esbuild: {
-        config: options => {
-          options ??= {};
+// export const unplugin = createEsbuildPlugin<EsbuildPluginInitialConfig>(
+//   createUnpluginFactory("esbuild", (api, plugin) => {
+//     return {
+//       ...plugin,
+//       esbuild: {
+//         config: options => {
+//           options ??= {};
 
-          const result = resolveOptions(api.context);
-          for (const key in result) {
-            if (
-              isUndefined(options[key as keyof BuildOptions]) &&
-              !isUndefined(result[key as keyof BuildOptions])
-            ) {
-              options[key as keyof BuildOptions] = result[
-                key as keyof BuildOptions
-              ] as any;
-            }
-          }
-        },
-        setup: async (build: PluginBuild) => {
-          const environment = await api.context.getEnvironment();
+//           const result = resolveOptions(api.context);
+//           for (const key in result) {
+//             if (
+//               isUndefined(options[key as keyof BuildOptions]) &&
+//               !isUndefined(result[key as keyof BuildOptions])
+//             ) {
+//               options[key as keyof BuildOptions] = result[
+//                 key as keyof BuildOptions
+//               ] as any;
+//             }
+//           }
+//         },
+//         setup: async (build: PluginBuild) => {
+//           const environment = await api.context.getEnvironment();
 
-          return api.callHook("esbuild:setup", { environment }, build);
-        }
-      }
-    };
-  })
-);
+//           return api.callHook("esbuild:setup", { environment }, build);
+//         }
+//       }
+//     };
+//   })
+// );

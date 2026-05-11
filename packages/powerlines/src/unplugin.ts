@@ -16,169 +16,178 @@
 
  ------------------------------------------------------------------- */
 
-import type {
-  PluginContext,
-  UnpluginBuilderVariant,
-  UnpluginFactory,
-  UnpluginOptions
-} from "@powerlines/core";
-import { getString } from "@powerlines/core/lib/utilities/source-file";
-import { createLogger } from "@powerlines/core/plugin-utils/logging";
-import { getWorkspaceRoot } from "@stryke/fs/get-workspace-root";
-import { LoadResult } from "rolldown";
-import type {
-  UnpluginOptions as BaseUnpluginOptions,
-  TransformResult,
-  UnpluginBuildContext,
-  UnpluginContext
-} from "unplugin";
-import { setParseImpl } from "unplugin";
-import { PowerlinesAPI } from "./api";
+// import type {
+//   ExecutionAPI,
+//   PluginContext,
+//   UnpluginBuilderVariant,
+//   UnpluginFactory,
+//   UnpluginOptions
+// } from "@powerlines/core";
+// import { getString } from "@powerlines/core/lib/utilities/source-file";
+// import { createLogger } from "@powerlines/core/plugin-utils/logging";
+// import { resolvePluginConfig } from "@powerlines/engine/helpers/context";
+// import { getWorkspaceRoot } from "@stryke/fs/get-workspace-root";
+// import { LoadResult } from "rolldown";
+// import type {
+//   UnpluginOptions as BaseUnpluginOptions,
+//   TransformResult,
+//   UnpluginBuildContext,
+//   UnpluginContext
+// } from "unplugin";
+// import { setParseImpl } from "unplugin";
+// import { createAPI } from "./api";
+// import { PowerlinesExecutionContext } from "./context";
 
 export * from "@powerlines/core/lib/unplugin";
 
-/**
- * Creates a Powerlines unplugin factory that generates a plugin instance.
- *
- * @param variant - The build variant for which to create the unplugin.
- * @param decorate - An optional function to decorate the unplugin options.
- * @returns The unplugin factory that generates a plugin instance.
- */
-export function createUnpluginFactory<
-  TContext extends PluginContext,
-  TUnpluginBuilderVariant extends UnpluginBuilderVariant =
-    UnpluginBuilderVariant
->(
-  variant: TUnpluginBuilderVariant,
-  decorate?: (
-    api: PowerlinesAPI<TContext["config"]>,
-    plugin: UnpluginOptions<TContext>
-  ) => BaseUnpluginOptions
-): UnpluginFactory<TContext> {
-  return (options, meta): UnpluginOptions<TContext> => {
-    let logger = createLogger(options.name || "powerlines", {});
-    logger.debug("Initializing Unplugin");
+// /**
+//  * Creates a Powerlines unplugin factory that generates a plugin instance.
+//  *
+//  * @param variant - The build variant for which to create the unplugin.
+//  * @param decorate - An optional function to decorate the unplugin options.
+//  * @returns The unplugin factory that generates a plugin instance.
+//  */
+// export function createUnpluginFactory<
+//   TContext extends PluginContext,
+//   TUnpluginBuilderVariant extends UnpluginBuilderVariant =
+//     UnpluginBuilderVariant
+// >(
+//   variant: TUnpluginBuilderVariant,
+//   decorate?: (
+//     api: ExecutionAPI<TContext["config"]>,
+//     plugin: UnpluginOptions<TContext>
+//   ) => BaseUnpluginOptions
+// ): UnpluginFactory<TContext> {
+//   return (options, meta): UnpluginOptions<TContext> => {
+//     let logger = createLogger(options.name || "powerlines", {});
+//     logger.debug("Initializing Unplugin");
 
-    try {
-      const initialConfig = {
-        ...options,
-        variant,
-        unplugin: meta
-      };
+//     try {
+//       const initialConfig = {
+//         ...options,
+//         variant,
+//         unplugin: meta
+//       };
 
-      let api!: PowerlinesAPI<TContext["config"]>;
+//       let api!: ExecutionAPI<TContext["config"]>;
 
-      async function buildStart(this: UnpluginBuildContext): Promise<void> {
-        api = await PowerlinesAPI.from(
-          {
-            ...options,
-            cwd: getWorkspaceRoot(process.cwd()),
-            root: initialConfig.root,
-            mode: initialConfig.mode
-          },
-          initialConfig
-        );
+//       async function buildStart(this: UnpluginBuildContext): Promise<void> {
+//         const context = await PowerlinesExecutionContext.from<
+//           TContext["config"]
+//         >(initialConfig, initialConfig);
+//         context.logger.info(
+//           `Starting ${method} execution (${initialConfig.executionId})`
+//         );
 
-        logger = api.context.logger;
-        logger.debug("Powerlines build plugin starting...");
+//         await resolvePluginConfig(context);
 
-        setParseImpl(api.context.parse.bind(api.context));
+//         api = await createAPI({
+//           ...options,
+//           cwd: getWorkspaceRoot(process.cwd()),
+//           root: initialConfig.root,
+//           mode: initialConfig.mode
+//         });
 
-        logger.debug("Preparing build artifacts for the Powerlines project...");
+//         logger = api.context.logger;
+//         logger.debug("Powerlines build plugin starting...");
 
-        await api.prepare({
-          command: "build"
-        });
-      }
+//         setParseImpl(api.context.parse.bind(api.context));
 
-      async function resolveId(
-        this: UnpluginBuildContext & UnpluginContext,
-        id: string,
-        importer?: string,
-        options: {
-          isEntry: boolean;
-        } = { isEntry: false }
-      ) {
-        return api.context.resolve(id, importer, options);
-      }
+//         logger.debug("Preparing build artifacts for the Powerlines project...");
 
-      async function load(
-        this: UnpluginBuildContext & UnpluginContext,
-        id: string
-      ): Promise<LoadResult> {
-        const environment = await api.context.getEnvironment();
+//         await api.prepare({
+//           command: "build"
+//         });
+//       }
 
-        let result = await api.callHook(
-          "load",
-          { environment, order: "pre" },
-          id
-        );
-        if (result) {
-          return result;
-        }
+//       async function resolveId(
+//         this: UnpluginBuildContext & UnpluginContext,
+//         id: string,
+//         importer?: string,
+//         options: {
+//           isEntry: boolean;
+//         } = { isEntry: false }
+//       ) {
+//         return api.context.resolve(id, importer, options);
+//       }
 
-        result = await api.callHook(
-          "load",
-          { environment, order: "normal" },
-          id
-        );
-        if (result) {
-          return result;
-        }
+//       async function load(
+//         this: UnpluginBuildContext & UnpluginContext,
+//         id: string
+//       ): Promise<LoadResult> {
+//         const environment = await api.context.getEnvironment();
 
-        result = await environment.load(id);
-        if (result) {
-          return result;
-        }
+//         let result = await api.callHook(
+//           "load",
+//           { environment, order: "pre" },
+//           id
+//         );
+//         if (result) {
+//           return result;
+//         }
 
-        return api.callHook("load", { environment, order: "post" }, id);
-      }
+//         result = await api.callHook(
+//           "load",
+//           { environment, order: "normal" },
+//           id
+//         );
+//         if (result) {
+//           return result;
+//         }
 
-      async function transform(
-        code: string,
-        id: string
-      ): Promise<TransformResult> {
-        return api.callHook(
-          "transform",
-          {
-            environment: await api.context.getEnvironment(),
-            result: "merge",
-            asNextParam: previousResult => getString(previousResult)
-          },
-          getString(code),
-          id
-        );
-      }
+//         result = await environment.load(id);
+//         if (result) {
+//           return result;
+//         }
 
-      async function writeBundle(): Promise<void> {
-        logger.debug("Finalizing Powerlines project output...");
+//         return api.callHook("load", { environment, order: "post" }, id);
+//       }
 
-        await api.callHook("writeBundle", {
-          environment: await api.context.getEnvironment()
-        });
-      }
+//       async function transform(
+//         code: string,
+//         id: string
+//       ): Promise<TransformResult> {
+//         return api.callHook(
+//           "transform",
+//           {
+//             environment: await api.context.getEnvironment(),
+//             result: "merge",
+//             asNextParam: previousResult => getString(previousResult)
+//           },
+//           getString(code),
+//           id
+//         );
+//       }
 
-      const unpluginOptions = {
-        name: "powerlines",
-        api,
-        resolveId,
-        load,
-        transform,
-        buildStart,
-        writeBundle
-      } as UnpluginOptions<TContext>;
+//       async function writeBundle(): Promise<void> {
+//         logger.debug("Finalizing Powerlines project output...");
 
-      const result = decorate
-        ? decorate(api, unpluginOptions)
-        : unpluginOptions;
+//         await api.callHook("writeBundle", {
+//           environment: await api.context.getEnvironment()
+//         });
+//       }
 
-      logger.debug("Unplugin initialized successfully.");
+//       const unpluginOptions = {
+//         name: "powerlines",
+//         api,
+//         resolveId,
+//         load,
+//         transform,
+//         buildStart,
+//         writeBundle
+//       } as UnpluginOptions<TContext>;
 
-      return { api, ...result };
-    } catch (error) {
-      logger.error((error as Error)?.message);
+//       const result = decorate
+//         ? decorate(api, unpluginOptions)
+//         : unpluginOptions;
 
-      throw error;
-    }
-  };
-}
+//       logger.debug("Unplugin initialized successfully.");
+
+//       return { api, ...result };
+//     } catch (error) {
+//       logger.error((error as Error)?.message);
+
+//       throw error;
+//     }
+//   };
+// }
