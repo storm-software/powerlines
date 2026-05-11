@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.192](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.192) (05/05/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Remove unneeded `typeOf` invocation in generated builtin file ([35c52ff2e](https://github.com/storm-software/powerlines/commit/35c52ff2e))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.347**
+- Updated **plugin-automd** to **v0.1.465**
+- Updated **plugin-plugin** to **v0.12.416**
+- Updated **plugin-alloy** to **v0.26.84**
+- Updated **plugin-babel** to **v0.13.1**
+- Updated **plugin-tsc** to **v0.3.1**
+
 ## [0.16.191](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.191) (05/05/2026)
 
 ### Miscellaneous
