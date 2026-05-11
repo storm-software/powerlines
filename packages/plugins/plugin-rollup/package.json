@@ -1,0 +1,112 @@
+{
+  "name": "@powerlines/plugin-rollup",
+  "version": "0.7.459",
+  "private": false,
+  "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
+  "keywords": ["rollup", "powerlines", "storm-software", "powerlines-plugin"],
+  "homepage": "https://stormsoftware.com",
+  "bugs": {
+    "url": "https://stormsoftware.com/support",
+    "email": "support@stormsoftware.com"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/plugins/plugin-rollup"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Storm Software",
+    "email": "contact@stormsoftware.com",
+    "url": "https://stormsoftware.com"
+  },
+  "maintainers": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./helpers": {
+      "import": "./dist/helpers/index.mjs",
+      "require": "./dist/helpers/index.cjs"
+    },
+    "./helpers/resolve-options": {
+      "import": "./dist/helpers/resolve-options.mjs",
+      "require": "./dist/helpers/resolve-options.cjs"
+    },
+    "./helpers/unplugin": {
+      "import": "./dist/helpers/unplugin.mjs",
+      "require": "./dist/helpers/unplugin.cjs"
+    },
+    "./types": {
+      "import": "./dist/types/index.mjs",
+      "require": "./dist/types/index.cjs"
+    },
+    "./types/build": {
+      "import": "./dist/types/build.mjs",
+      "require": "./dist/types/build.cjs"
+    },
+    "./types/plugin": {
+      "import": "./dist/types/plugin.mjs",
+      "require": "./dist/types/plugin.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "typings": "dist/index.d.mts",
+  "files": ["dist/**/*"],
+  "dependencies": {
+    "@powerlines/core": "workspace:*",
+    "@powerlines/plugin-babel": "workspace:*",
+    "@rollup/plugin-alias": "catalog:",
+    "@rollup/plugin-babel": "catalog:",
+    "@rollup/plugin-inject": "catalog:",
+    "@rollup/plugin-node-resolve": "catalog:",
+    "@rollup/plugin-replace": "catalog:",
+    "@stryke/convert": "catalog:",
+    "@stryke/fs": "catalog:",
+    "@stryke/helpers": "catalog:",
+    "@stryke/path": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "@stryke/types": "catalog:",
+    "defu": "catalog:",
+    "jiti": "catalog:",
+    "rollup-plugin-typescript2": "catalog:",
+    "unplugin": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "rollup": "catalog:"
+  },
+  "peerDependencies": {
+    "rollup": ">=4.46.4"
+  },
+  "peerDependenciesMeta": {
+    "rollup": {
+      "optional": false
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

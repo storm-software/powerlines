@@ -1,0 +1,94 @@
+{
+  "name": "cli",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "packages/devtools/cli/src",
+  "targets": {
+    // "clean": {
+    //   "executor": "@shell-shock/nx:clean"
+    // },
+    // "prepare": {
+    //   "cache": true,
+    //   "inputs": ["typescript", "^production"],
+    //   "outputs": ["{projectRoot}/.shell-shock"],
+    //   "dependsOn": ["^build"],
+    //   "executor": "@shell-shock/nx:prepare",
+    //   "defaultConfiguration": "production",
+    //   "options": {
+    //     "mode": "production"
+    //   },
+    //   "configurations": {
+    //     "development": {
+    //       "mode": "development"
+    //     },
+    //     "staging": {
+    //       "mode": "staging"
+    //     },
+    //     "production": {
+    //       "mode": "production"
+    //     }
+    //   }
+    // },
+    // "build-base": {
+    //   "cache": true,
+    //   "inputs": ["typescript", "^production"],
+    //   "outputs": ["{options.outputPath}"],
+    //   "dependsOn": ["^build"],
+    //   "executor": "@shell-shock/nx:build",
+    //   "defaultConfiguration": "production",
+    //   "options": {
+    //     "mode": "production"
+    //   },
+    //   "configurations": {
+    //     "development": {
+    //       "mode": "development"
+    //     },
+    //     "staging": {
+    //       "mode": "staging"
+    //     },
+    //     "production": {
+    //       "mode": "production"
+    //     }
+    //   }
+    // },
+    // "build": {
+    //   "dependsOn": ["build-base"],
+    //   "executor": "nx:run-commands",
+    //   "options": {
+    //     "command": "pnpm copyfiles --up=3 \"packages/cli/dist/**/*\" dist/packages/powerlines/bin"
+    //   }
+    // },
+    // "docs": {
+    //   "cache": true,
+    //   "inputs": ["typescript", "^production"],
+    //   "outputs": ["{projectRoot}/docs"],
+    //   "dependsOn": ["build"],
+    //   "executor": "@shell-shock/nx:docs",
+    //   "defaultConfiguration": "production",
+    //   "options": {
+    //     "mode": "production"
+    //   },
+    //   "configurations": {
+    //     "development": {
+    //       "mode": "development"
+    //     },
+    //     "staging": {
+    //       "mode": "staging"
+    //     },
+    //     "production": {
+    //       "mode": "production"
+    //     }
+    //   }
+    // }
+  },
+  "implicitDependencies": [
+    "deepkit",
+    "powerlines",
+    "plugin-deepkit",
+    "plugin-style-dictionary",
+    "plugin-automd",
+    "plugin-alloy",
+    "plugin-tsdown",
+    "plugin-nodejs"
+  ]
+}

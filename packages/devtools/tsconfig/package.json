@@ -1,0 +1,72 @@
+{
+  "name": "@powerlines/tsconfig",
+  "version": "0.4.92",
+  "private": false,
+  "description": "A package containing shared TypeScript configuration files (tsconfig.json) used in Powerlines projects.",
+  "keywords": ["powerlines", "storm-software", "typescript", "tsconfig"],
+  "homepage": "https://stormsoftware.com",
+  "bugs": {
+    "url": "https://stormsoftware.com/support",
+    "email": "support@stormsoftware.com"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/devtools/tsconfig"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Storm Software",
+    "email": "contact@stormsoftware.com",
+    "url": "https://stormsoftware.com"
+  },
+  "maintainers": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./base.json": "./base.json",
+    "./monorepo.json": "./monorepo.json",
+    "./recommended.json": "./recommended.json",
+    "./deepkit.json": "./deepkit.json",
+    "./strict.json": "./strict.json"
+  },
+  "files": [
+    "./base.json",
+    "./recommended.json",
+    "./strict.json",
+    "./deepkit.json",
+    "./monorepo.json"
+  ],
+  "devDependencies": {
+    "@storm-software/tsconfig": "catalog:"
+  },
+  "peerDependencies": {
+    "@storm-software/tsconfig": ">=0.48.2"
+  },
+  "peerDependenciesMeta": {
+    "@storm-software/tsconfig": {
+      "optional": false
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

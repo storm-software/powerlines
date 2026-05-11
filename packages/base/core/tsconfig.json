@@ -1,0 +1,17 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "rootDir": "../../..",
+    "types": [
+      "node",
+      "bun-types-no-globals",
+      "./types/prettier-plugin-organize-imports.d.ts"
+    ],
+    "strict": true,
+    "outDir": "../../../dist/out-tsc"
+  },
+  "include": ["src/**/*.ts", "types/**/*.d.ts", "tsdown.config.ts"],
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "reflection": true
+}

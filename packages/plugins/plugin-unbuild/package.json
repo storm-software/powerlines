@@ -1,0 +1,99 @@
+{
+  "name": "@powerlines/plugin-unbuild",
+  "version": "0.5.460",
+  "private": false,
+  "description": "A package containing a Powerlines plugin to build projects using Unbuild.",
+  "keywords": ["unbuild", "powerlines", "storm-software", "powerlines-plugin"],
+  "homepage": "https://stormsoftware.com",
+  "bugs": {
+    "url": "https://stormsoftware.com/support",
+    "email": "support@stormsoftware.com"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/plugins/plugin-unbuild"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Storm Software",
+    "email": "contact@stormsoftware.com",
+    "url": "https://stormsoftware.com"
+  },
+  "maintainers": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./helpers": {
+      "import": "./dist/helpers/index.mjs",
+      "require": "./dist/helpers/index.cjs"
+    },
+    "./helpers/resolve-options": {
+      "import": "./dist/helpers/resolve-options.mjs",
+      "require": "./dist/helpers/resolve-options.cjs"
+    },
+    "./types": {
+      "import": "./dist/types/index.mjs",
+      "require": "./dist/types/index.cjs"
+    },
+    "./types/build": {
+      "import": "./dist/types/build.mjs",
+      "require": "./dist/types/build.cjs"
+    },
+    "./types/plugin": {
+      "import": "./dist/types/plugin.mjs",
+      "require": "./dist/types/plugin.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "typings": "dist/index.d.mts",
+  "files": ["dist/**/*"],
+  "dependencies": {
+    "@powerlines/core": "workspace:*",
+    "@powerlines/plugin-rollup": "workspace:*",
+    "@stryke/helpers": "catalog:",
+    "@stryke/path": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "defu": "catalog:",
+    "esbuild": "catalog:",
+    "unplugin": "catalog:"
+  },
+  "devDependencies": {
+    "@storm-software/unbuild": "catalog:",
+    "@types/node": "catalog:"
+  },
+  "peerDependencies": {
+    "@storm-software/unbuild": ">=0.57.0"
+  },
+  "peerDependenciesMeta": {
+    "@storm-software/unbuild": {
+      "optional": false
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "plugin-eslint",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/plugins/plugin-eslint/src",
+  "targets": {
+    "nx-release-publish": {
+      "executor": "@storm-software/workspace-tools:npm-publish"
+    }
+  }
+}

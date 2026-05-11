@@ -2,21 +2,15 @@
   "extends": "@storm-software/workspace-tools/config/recommended.json",
   "release": {
     "groups": {
-      "powerlines": {
-        "projects": ["packages/core", "packages/engine", "packages/powerlines"],
+      "base": {
+        "projects": ["packages/base/*"],
         "projectsRelationship": "fixed",
         "releaseTag": {
-          "pattern": "powerlines@{version}"
+          "pattern": "base@{version}"
         }
       },
       "packages": {
-        "projects": [
-          "packages/deepkit",
-          "packages/tsconfig",
-          "packages/tsdoc",
-          "packages/nx",
-          "packages/plugin-*"
-        ],
+        "projects": ["packages/devtools/*", "packages/plugins/*"],
         "projectsRelationship": "independent",
         "releaseTag": {
           "pattern": "{projectName}@{version}"

@@ -1,0 +1,22 @@
+{
+  "name": "tsconfig",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/devtools/tsconfig/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "pnpm copyfiles LICENSE dist/packages/devtools/tsconfig",
+          "pnpm copyfiles --up=2 ./packages/devtools/tsconfig/*.md ./packages/devtools/tsconfig/package.json dist/packages/devtools/tsconfig",
+          "pnpm copyfiles --up=3 ./packages/devtools/tsconfig/src/*.json dist/packages/devtools/tsconfig"
+        ]
+      }
+    },
+    "nx-release-publish": {
+      "executor": "@storm-software/workspace-tools:npm-publish"
+    }
+  },
+  "tags": ["platform:neutral"]
+}

@@ -5,167 +5,279 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "@powerlines/core": ["./packages/core/src/index.ts"],
-      "@powerlines/core/*": ["./packages/core/src/*"],
-      "@powerlines/deepkit": ["./packages/deepkit/src/index.ts"],
-      "@powerlines/deepkit/*": ["./packages/deepkit/src/*"],
-      "@powerlines/engine": ["./packages/engine/src/index.ts"],
-      "@powerlines/engine/*": ["./packages/engine/src/*"],
-      "@powerlines/nx": ["./packages/nx/src/index.ts"],
-      "@powerlines/nx/*": ["./packages/nx/src/*"],
-      "@powerlines/plugin-alloy": ["./packages/plugin-alloy/src/index.tsx"],
-      "@powerlines/plugin-alloy/*": ["./packages/plugin-alloy/src/*"],
+      "@powerlines/core": ["./packages/base/core/src/index.ts"],
+      "@powerlines/core/*": ["./packages/base/core/src/*"],
+      "@powerlines/deepkit": ["./packages/base/deepkit/src/index.ts"],
+      "@powerlines/deepkit/*": ["./packages/base/deepkit/src/*"],
+      "@powerlines/engine": ["./packages/base/engine/src/index.ts"],
+      "@powerlines/engine/*": ["./packages/base/engine/src/*"],
+      "@powerlines/nx": ["./packages/devtools/nx/src/index.ts"],
+      "@powerlines/nx/*": ["./packages/devtools/nx/src/*"],
+      "@powerlines/plugin-alloy": [
+        "./packages/plugins/plugin-alloy/src/index.tsx"
+      ],
+      "@powerlines/plugin-alloy/*": ["./packages/plugins/plugin-alloy/src/*"],
       "@powerlines/plugin-asyncapi": [
-        "./packages/plugin-asyncapi/src/index.ts"
+        "./packages/plugins/plugin-asyncapi/src/index.ts"
       ],
-      "@powerlines/plugin-asyncapi/*": ["./packages/plugin-asyncapi/src/*"],
-      "@powerlines/plugin-automd": ["./packages/plugin-automd/src/index.ts"],
-      "@powerlines/plugin-automd/*": ["./packages/plugin-automd/src/*"],
-      "@powerlines/plugin-babel": ["./packages/plugin-babel/src/index.ts"],
-      "@powerlines/plugin-babel/*": ["./packages/plugin-babel/src/*"],
-      "@powerlines/plugin-biome": ["./packages/plugin-biome/src/index.ts"],
-      "@powerlines/plugin-biome/*": ["./packages/plugin-biome/src/*"],
-      "@powerlines/plugin-capnp": ["./packages/plugin-capnp/src/index.ts"],
-      "@powerlines/plugin-capnp/*": ["./packages/plugin-capnp/src/*"],
+      "@powerlines/plugin-asyncapi/*": [
+        "./packages/plugins/plugin-asyncapi/src/*"
+      ],
+      "@powerlines/plugin-automd": [
+        "./packages/plugins/plugin-automd/src/index.ts"
+      ],
+      "@powerlines/plugin-automd/*": ["./packages/plugins/plugin-automd/src/*"],
+      "@powerlines/plugin-babel": [
+        "./packages/plugins/plugin-babel/src/index.ts"
+      ],
+      "@powerlines/plugin-babel/*": ["./packages/plugins/plugin-babel/src/*"],
+      "@powerlines/plugin-biome": [
+        "./packages/plugins/plugin-biome/src/index.ts"
+      ],
+      "@powerlines/plugin-biome/*": ["./packages/plugins/plugin-biome/src/*"],
+      "@powerlines/plugin-capnp": [
+        "./packages/plugins/plugin-capnp/src/index.ts"
+      ],
+      "@powerlines/plugin-capnp/*": ["./packages/plugins/plugin-capnp/src/*"],
       "@powerlines/plugin-cloudflare": [
-        "./packages/plugin-cloudflare/src/index.ts"
+        "./packages/plugins/plugin-cloudflare/src/index.ts"
       ],
-      "@powerlines/plugin-cloudflare/*": ["./packages/plugin-cloudflare/src/*"],
+      "@powerlines/plugin-cloudflare/*": [
+        "./packages/plugins/plugin-cloudflare/src/*"
+      ],
       "@powerlines/plugin-content-collections": [
-        "./packages/plugin-content-collections/src/index.ts"
+        "./packages/plugins/plugin-content-collections/src/index.ts"
       ],
       "@powerlines/plugin-content-collections/*": [
-        "./packages/plugin-content-collections/src/*"
+        "./packages/plugins/plugin-content-collections/src/*"
       ],
-      "@powerlines/plugin-crypto": ["./packages/plugin-crypto/src/index.ts"],
-      "@powerlines/plugin-crypto/*": ["./packages/plugin-crypto/src/*"],
-      "@powerlines/plugin-date": ["./packages/plugin-date/src/index.ts"],
-      "@powerlines/plugin-date/*": ["./packages/plugin-date/src/*"],
-      "@powerlines/plugin-deepkit": ["./packages/plugin-deepkit/src/index.ts"],
-      "@powerlines/plugin-deepkit/*": ["./packages/plugin-deepkit/src/*"],
-      "@powerlines/plugin-env": ["./packages/plugin-env/src/index.tsx"],
-      "@powerlines/plugin-env/*": ["./packages/plugin-env/src/*"],
-      "@powerlines/plugin-esbuild": ["./packages/plugin-esbuild/src/index.ts"],
-      "@powerlines/plugin-esbuild/*": ["./packages/plugin-esbuild/src/*"],
-      "@powerlines/plugin-eslint": ["./packages/plugin-eslint/src/index.ts"],
-      "@powerlines/plugin-eslint/*": ["./packages/plugin-eslint/src/*"],
-      "@powerlines/plugin-graphql": ["./packages/plugin-graphql/src/index.ts"],
-      "@powerlines/plugin-graphql/*": ["./packages/plugin-graphql/src/*"],
-      "@powerlines/plugin-hey-api": ["./packages/plugin-hey-api/src/index.ts"],
-      "@powerlines/plugin-hey-api/*": ["./packages/plugin-hey-api/src/*"],
-      "@powerlines/plugin-i18next": ["./packages/plugin-i18next/src/index.ts"],
-      "@powerlines/plugin-i18next/*": ["./packages/plugin-i18next/src/*"],
-      "@powerlines/plugin-id": ["./packages/plugin-id/src/index.ts"],
-      "@powerlines/plugin-id/*": ["./packages/plugin-id/src/*"],
+      "@powerlines/plugin-crypto": [
+        "./packages/plugins/plugin-crypto/src/index.ts"
+      ],
+      "@powerlines/plugin-crypto/*": ["./packages/plugins/plugin-crypto/src/*"],
+      "@powerlines/plugin-date": [
+        "./packages/plugins/plugin-date/src/index.ts"
+      ],
+      "@powerlines/plugin-date/*": ["./packages/plugins/plugin-date/src/*"],
+      "@powerlines/plugin-deepkit": [
+        "./packages/plugins/plugin-deepkit/src/index.ts"
+      ],
+      "@powerlines/plugin-deepkit/*": [
+        "./packages/plugins/plugin-deepkit/src/*"
+      ],
+      "@powerlines/plugin-env": ["./packages/plugins/plugin-env/src/index.tsx"],
+      "@powerlines/plugin-env/*": ["./packages/plugins/plugin-env/src/*"],
+      "@powerlines/plugin-esbuild": [
+        "./packages/plugins/plugin-esbuild/src/index.ts"
+      ],
+      "@powerlines/plugin-esbuild/*": [
+        "./packages/plugins/plugin-esbuild/src/*"
+      ],
+      "@powerlines/plugin-eslint": [
+        "./packages/plugins/plugin-eslint/src/index.ts"
+      ],
+      "@powerlines/plugin-eslint/*": ["./packages/plugins/plugin-eslint/src/*"],
+      "@powerlines/plugin-graphql": [
+        "./packages/plugins/plugin-graphql/src/index.ts"
+      ],
+      "@powerlines/plugin-graphql/*": [
+        "./packages/plugins/plugin-graphql/src/*"
+      ],
+      "@powerlines/plugin-hey-api": [
+        "./packages/plugins/plugin-hey-api/src/index.ts"
+      ],
+      "@powerlines/plugin-hey-api/*": [
+        "./packages/plugins/plugin-hey-api/src/*"
+      ],
+      "@powerlines/plugin-i18next": [
+        "./packages/plugins/plugin-i18next/src/index.ts"
+      ],
+      "@powerlines/plugin-i18next/*": [
+        "./packages/plugins/plugin-i18next/src/*"
+      ],
+      "@powerlines/plugin-id": ["./packages/plugins/plugin-id/src/index.ts"],
+      "@powerlines/plugin-id/*": ["./packages/plugins/plugin-id/src/*"],
       "@powerlines/plugin-image-compression": [
-        "./packages/plugin-image-compression/src/index.ts"
+        "./packages/plugins/plugin-image-compression/src/index.ts"
       ],
       "@powerlines/plugin-image-compression/*": [
-        "./packages/plugin-image-compression/src/*"
+        "./packages/plugins/plugin-image-compression/src/*"
       ],
-      "@powerlines/plugin-jest": ["./packages/plugin-jest/src/index.ts"],
-      "@powerlines/plugin-jest/*": ["./packages/plugin-jest/src/*"],
-      "@powerlines/plugin-marked": ["./packages/plugin-marked/src/index.ts"],
-      "@powerlines/plugin-marked/*": ["./packages/plugin-marked/src/*"],
-      "@powerlines/plugin-nitro": ["./packages/plugin-nitro/src/index.ts"],
-      "@powerlines/plugin-nitro/*": ["./packages/plugin-nitro/src/*"],
-      "@powerlines/plugin-nodejs": ["./packages/plugin-nodejs/src/index.ts"],
-      "@powerlines/plugin-nodejs/*": ["./packages/plugin-nodejs/src/*"],
-      "@powerlines/plugin-napi-rs": ["./packages/plugin-napi-rs/src/index.ts"],
-      "@powerlines/plugin-napi-rs/*": ["./packages/plugin-napi-rs/src/*"],
-      "@powerlines/plugin-openapi": ["./packages/plugin-openapi/src/index.ts"],
-      "@powerlines/plugin-openapi/*": ["./packages/plugin-openapi/src/*"],
+      "@powerlines/plugin-jest": [
+        "./packages/plugins/plugin-jest/src/index.ts"
+      ],
+      "@powerlines/plugin-jest/*": ["./packages/plugins/plugin-jest/src/*"],
+      "@powerlines/plugin-marked": [
+        "./packages/plugins/plugin-marked/src/index.ts"
+      ],
+      "@powerlines/plugin-marked/*": ["./packages/plugins/plugin-marked/src/*"],
+      "@powerlines/plugin-nitro": [
+        "./packages/plugins/plugin-nitro/src/index.ts"
+      ],
+      "@powerlines/plugin-nitro/*": ["./packages/plugins/plugin-nitro/src/*"],
+      "@powerlines/plugin-nodejs": [
+        "./packages/plugins/plugin-nodejs/src/index.ts"
+      ],
+      "@powerlines/plugin-nodejs/*": ["./packages/plugins/plugin-nodejs/src/*"],
+      "@powerlines/plugin-napi-rs": [
+        "./packages/plugins/plugin-napi-rs/src/index.ts"
+      ],
+      "@powerlines/plugin-napi-rs/*": [
+        "./packages/plugins/plugin-napi-rs/src/*"
+      ],
+      "@powerlines/plugin-openapi": [
+        "./packages/plugins/plugin-openapi/src/index.ts"
+      ],
+      "@powerlines/plugin-openapi/*": [
+        "./packages/plugins/plugin-openapi/src/*"
+      ],
       "@powerlines/plugin-open-feature": [
-        "./packages/plugin-open-feature/src/index.ts"
+        "./packages/plugins/plugin-open-feature/src/index.ts"
       ],
       "@powerlines/plugin-open-feature/*": [
-        "./packages/plugin-open-feature/src/*"
+        "./packages/plugins/plugin-open-feature/src/*"
       ],
       "@powerlines/plugin-open-telemetry": [
-        "./packages/plugin-open-telemetry/src/index.ts"
+        "./packages/plugins/plugin-open-telemetry/src/index.ts"
       ],
       "@powerlines/plugin-open-telemetry/*": [
-        "./packages/plugin-open-telemetry/src/*"
+        "./packages/plugins/plugin-open-telemetry/src/*"
       ],
       "@powerlines/plugin-oxc-transform": [
-        "./packages/plugin-oxc-transform/src/index.ts"
+        "./packages/plugins/plugin-oxc-transform/src/index.ts"
       ],
       "@powerlines/plugin-oxc-transform/*": [
-        "./packages/plugin-oxc-transform/src/*"
+        "./packages/plugins/plugin-oxc-transform/src/*"
       ],
-      "@powerlines/plugin-oxlint": ["./packages/plugin-oxlint/src/index.ts"],
-      "@powerlines/plugin-oxlint/*": ["./packages/plugin-oxlint/src/*"],
-      "@powerlines/plugin-plugin": ["./packages/plugin-plugin/src/index.ts"],
-      "@powerlines/plugin-plugin/*": ["./packages/plugin-plugin/src/*"],
-      "@powerlines/plugin-prisma": ["./packages/plugin-prisma/src/index.ts"],
-      "@powerlines/plugin-prisma/*": ["./packages/plugin-prisma/src/*"],
-      "@powerlines/plugin-pulumi": ["./packages/plugin-pulumi/src/index.ts"],
-      "@powerlines/plugin-pulumi/*": ["./packages/plugin-pulumi/src/*"],
-      "@powerlines/plugin-react": ["./packages/plugin-react/src/index.tsx"],
-      "@powerlines/plugin-react/*": ["./packages/plugin-react/src/*"],
+      "@powerlines/plugin-oxlint": [
+        "./packages/plugins/plugin-oxlint/src/index.ts"
+      ],
+      "@powerlines/plugin-oxlint/*": ["./packages/plugins/plugin-oxlint/src/*"],
+      "@powerlines/plugin-plugin": [
+        "./packages/plugins/plugin-plugin/src/index.ts"
+      ],
+      "@powerlines/plugin-plugin/*": ["./packages/plugins/plugin-plugin/src/*"],
+      "@powerlines/plugin-prisma": [
+        "./packages/plugins/plugin-prisma/src/index.ts"
+      ],
+      "@powerlines/plugin-prisma/*": ["./packages/plugins/plugin-prisma/src/*"],
+      "@powerlines/plugin-pulumi": [
+        "./packages/plugins/plugin-pulumi/src/index.ts"
+      ],
+      "@powerlines/plugin-pulumi/*": ["./packages/plugins/plugin-pulumi/src/*"],
+      "@powerlines/plugin-react": [
+        "./packages/plugins/plugin-react/src/index.tsx"
+      ],
+      "@powerlines/plugin-react/*": ["./packages/plugins/plugin-react/src/*"],
       "@powerlines/plugin-rolldown": [
-        "./packages/plugin-rolldown/src/index.ts"
+        "./packages/plugins/plugin-rolldown/src/index.ts"
       ],
-      "@powerlines/plugin-rolldown/*": ["./packages/plugin-rolldown/src/*"],
-      "@powerlines/plugin-rollup": ["./packages/plugin-rollup/src/index.ts"],
-      "@powerlines/plugin-rollup/*": ["./packages/plugin-rollup/src/*"],
-      "@powerlines/plugin-rspack": ["./packages/plugin-rspack/src/index.ts"],
-      "@powerlines/plugin-rspack/*": ["./packages/plugin-rspack/src/*"],
-      "@powerlines/plugin-satori": ["./packages/plugin-satori/src/index.ts"],
-      "@powerlines/plugin-satori/*": ["./packages/plugin-satori/src/*"],
+      "@powerlines/plugin-rolldown/*": [
+        "./packages/plugins/plugin-rolldown/src/*"
+      ],
+      "@powerlines/plugin-rollup": [
+        "./packages/plugins/plugin-rollup/src/index.ts"
+      ],
+      "@powerlines/plugin-rollup/*": ["./packages/plugins/plugin-rollup/src/*"],
+      "@powerlines/plugin-rspack": [
+        "./packages/plugins/plugin-rspack/src/index.ts"
+      ],
+      "@powerlines/plugin-rspack/*": ["./packages/plugins/plugin-rspack/src/*"],
+      "@powerlines/plugin-satori": [
+        "./packages/plugins/plugin-satori/src/index.ts"
+      ],
+      "@powerlines/plugin-satori/*": ["./packages/plugins/plugin-satori/src/*"],
       "@powerlines/plugin-style-dictionary": [
-        "./packages/plugin-style-dictionary/src/index.ts"
+        "./packages/plugins/plugin-style-dictionary/src/index.ts"
       ],
       "@powerlines/plugin-style-dictionary/*": [
-        "./packages/plugin-style-dictionary/src/*"
+        "./packages/plugins/plugin-style-dictionary/src/*"
       ],
       "@powerlines/plugin-stylelint": [
-        "./packages/plugin-stylelint/src/index.ts"
+        "./packages/plugins/plugin-stylelint/src/index.ts"
       ],
-      "@powerlines/plugin-stylelint/*": ["./packages/plugin-stylelint/src/*"],
-      "@powerlines/plugin-swc": ["./packages/plugin-swc/src/index.ts"],
-      "@powerlines/plugin-swc/*": ["./packages/plugin-swc/src/*"],
-      "@powerlines/plugin-tamagui": ["./packages/plugin-tamagui/src/index.ts"],
-      "@powerlines/plugin-tamagui/*": ["./packages/plugin-tamagui/src/*"],
+      "@powerlines/plugin-stylelint/*": [
+        "./packages/plugins/plugin-stylelint/src/*"
+      ],
+      "@powerlines/plugin-swc": ["./packages/plugins/plugin-swc/src/index.ts"],
+      "@powerlines/plugin-swc/*": ["./packages/plugins/plugin-swc/src/*"],
+      "@powerlines/plugin-tamagui": [
+        "./packages/plugins/plugin-tamagui/src/index.ts"
+      ],
+      "@powerlines/plugin-tamagui/*": [
+        "./packages/plugins/plugin-tamagui/src/*"
+      ],
       "@powerlines/plugin-terraform": [
-        "./packages/plugin-terraform/src/index.ts"
+        "./packages/plugins/plugin-terraform/src/index.ts"
       ],
-      "@powerlines/plugin-terraform/*": ["./packages/plugin-terraform/src/*"],
-      "@powerlines/plugin-tsc": ["./packages/plugin-tsc/src/index.ts"],
-      "@powerlines/plugin-tsc/*": ["./packages/plugin-tsc/src/*"],
-      "@powerlines/plugin-tsdown": ["./packages/plugin-tsdown/src/index.ts"],
-      "@powerlines/plugin-tsdown/*": ["./packages/plugin-tsdown/src/*"],
-      "@powerlines/plugin-tsup": ["./packages/plugin-tsup/src/index.ts"],
-      "@powerlines/plugin-tsup/*": ["./packages/plugin-tsup/src/*"],
-      "@powerlines/plugin-typedoc": ["./packages/plugin-typedoc/src/index.ts"],
-      "@powerlines/plugin-typedoc/*": ["./packages/plugin-typedoc/src/*"],
-      "@powerlines/plugin-unbuild": ["./packages/plugin-unbuild/src/index.ts"],
-      "@powerlines/plugin-unbuild/*": ["./packages/plugin-unbuild/src/*"],
-      "@powerlines/plugin-unenv": ["./packages/plugin-unenv/src/index.ts"],
-      "@powerlines/plugin-unenv/*": ["./packages/plugin-unenv/src/*"],
+      "@powerlines/plugin-terraform/*": [
+        "./packages/plugins/plugin-terraform/src/*"
+      ],
+      "@powerlines/plugin-tsc": ["./packages/plugins/plugin-tsc/src/index.ts"],
+      "@powerlines/plugin-tsc/*": ["./packages/plugins/plugin-tsc/src/*"],
+      "@powerlines/plugin-tsdown": [
+        "./packages/plugins/plugin-tsdown/src/index.ts"
+      ],
+      "@powerlines/plugin-tsdown/*": ["./packages/plugins/plugin-tsdown/src/*"],
+      "@powerlines/plugin-tsup": [
+        "./packages/plugins/plugin-tsup/src/index.ts"
+      ],
+      "@powerlines/plugin-tsup/*": ["./packages/plugins/plugin-tsup/src/*"],
+      "@powerlines/plugin-typedoc": [
+        "./packages/plugins/plugin-typedoc/src/index.ts"
+      ],
+      "@powerlines/plugin-typedoc/*": [
+        "./packages/plugins/plugin-typedoc/src/*"
+      ],
+      "@powerlines/plugin-unbuild": [
+        "./packages/plugins/plugin-unbuild/src/index.ts"
+      ],
+      "@powerlines/plugin-unbuild/*": [
+        "./packages/plugins/plugin-unbuild/src/*"
+      ],
+      "@powerlines/plugin-unenv": [
+        "./packages/plugins/plugin-unenv/src/index.ts"
+      ],
+      "@powerlines/plugin-unenv/*": ["./packages/plugins/plugin-unenv/src/*"],
       "@powerlines/plugin-unimport": [
-        "./packages/plugin-unimport/src/index.ts"
+        "./packages/plugins/plugin-unimport/src/index.ts"
       ],
-      "@powerlines/plugin-unimport/*": ["./packages/plugin-unimport/src/*"],
-      "@powerlines/plugin-unified": ["./packages/plugin-unified/src/index.ts"],
-      "@powerlines/plugin-unified/*": ["./packages/plugin-unified/src/*"],
-      "@powerlines/plugin-untyped": ["./packages/plugin-untyped/src/index.ts"],
-      "@powerlines/plugin-untyped/*": ["./packages/plugin-untyped/src/*"],
-      "@powerlines/plugin-vite": ["./packages/plugin-vite/src/index.ts"],
-      "@powerlines/plugin-vite/*": ["./packages/plugin-vite/src/*"],
-      "@powerlines/plugin-webpack": ["./packages/plugin-webpack/src/index.ts"],
-      "@powerlines/plugin-webpack/*": ["./packages/plugin-webpack/src/*"],
-      "@powerlines/schema": ["./packages/schema/src/index.ts"],
-      "@powerlines/schema/*": ["./packages/schema/src/*"],
+      "@powerlines/plugin-unimport/*": [
+        "./packages/plugins/plugin-unimport/src/*"
+      ],
+      "@powerlines/plugin-unified": [
+        "./packages/plugins/plugin-unified/src/index.ts"
+      ],
+      "@powerlines/plugin-unified/*": [
+        "./packages/plugins/plugin-unified/src/*"
+      ],
+      "@powerlines/plugin-untyped": [
+        "./packages/plugins/plugin-untyped/src/index.ts"
+      ],
+      "@powerlines/plugin-untyped/*": [
+        "./packages/plugins/plugin-untyped/src/*"
+      ],
+      "@powerlines/plugin-vite": [
+        "./packages/plugins/plugin-vite/src/index.ts"
+      ],
+      "@powerlines/plugin-vite/*": ["./packages/plugins/plugin-vite/src/*"],
+      "@powerlines/plugin-webpack": [
+        "./packages/plugins/plugin-webpack/src/index.ts"
+      ],
+      "@powerlines/plugin-webpack/*": [
+        "./packages/plugins/plugin-webpack/src/*"
+      ],
+      "@powerlines/schema": ["./packages/base/schema/src/index.ts"],
+      "@powerlines/schema/*": ["./packages/base/schema/src/*"],
       "@powerlines/tools-config/*": ["./tools/config/*"],
       "@powerlines/tools-nx": ["./tools/nx/src/index.ts"],
       "@powerlines/tools-nx/*": ["./tools/nx/src/*"],
       "@powerlines/tools-scripts": ["./tools/scripts/src/index.ts"],
       "@powerlines/tools-scripts/*": ["./tools/scripts/src/*"],
-      "@powerlines/tsconfig/*": ["./packages/tsconfig/src/*"],
-      "@powerlines/tsdoc/*": ["./packages/tsdoc/src/*"],
-      "powerlines": ["./packages/powerlines/src/index.ts"],
-      "powerlines/*": ["./packages/powerlines/src/*"]
+      "@powerlines/tsconfig/*": ["./packages/devtools/tsconfig/src/*"],
+      "@powerlines/tsdoc/*": ["./packages/devtools/tsdoc/src/*"],
+      "powerlines": ["./packages/devtools/powerlines/src/index.ts"],
+      "powerlines/*": ["./packages/devtools/powerlines/src/*"]
     },
     "verbatimModuleSyntax": false
   }

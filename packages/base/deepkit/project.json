@@ -1,0 +1,72 @@
+{
+  "name": "deepkit",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/base/deepkit/src",
+  "targets": {
+    "generate-schemas": {
+      "cache": true,
+      "inputs": ["{projectRoot}/schemas/*.capnp"],
+      "outputs": ["{projectRoot}/schemas/*.ts"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
+      "options": {
+        "commands": [
+          "pnpm exec storm-capnpc --project-root packages/base/deepkit --schema ./{projectRoot}/schemas"
+        ],
+        "parallel": false
+      }
+    },
+    "build-schemas": {
+      "cache": true,
+      "inputs": ["{projectRoot}/schemas/*.ts"],
+      "outputs": ["{projectRoot}/dist/schemas"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["generate-schemas"],
+      "options": {
+        "command": "tsdown --config=tsdown.schemas.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "build-scripts": {
+      "cache": true,
+      "inputs": ["{projectRoot}/scripts/*.ts"],
+      "outputs": ["{projectRoot}/scripts/*.cjs"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsdown --config=tsdown.scripts.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "build-base": {
+      "cache": false,
+      "inputs": ["typescript", "^production"],
+      "outputs": ["{projectRoot}/dist"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["build-schemas"],
+      "options": {
+        "command": "tsdown --config=tsdown.config.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "build": {
+      "cache": true,
+      "inputs": ["{projectRoot}/dist"],
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["build-base", "build-scripts", "build-schemas"],
+      "options": {
+        "commands": [
+          "pnpm copyfiles LICENSE dist/packages/base/deepkit",
+          "pnpm copyfiles --up=2 ./packages/base/deepkit/*.md ./packages/base/deepkit/package.json dist/packages/base/deepkit",
+          "pnpm copyfiles --up=3 \"./packages/base/deepkit/dist/**/*.{cjs,mjs,cts,mts}\" dist/packages/base/deepkit/dist",
+          "pnpm copyfiles --up=3 \"./packages/base/deepkit/scripts/*.cjs\" dist/packages/base/deepkit/bin",
+          "pnpm copyfiles --up=3 \"./packages/base/deepkit/schemas/*.{cjs,mjs,cts,mts}\" \"./packages/base/deepkit/schemas/*.capnp\" dist/packages/base/deepkit/schemas"
+        ]
+      }
+    },
+    "nx-release-publish": {
+      "executor": "@storm-software/workspace-tools:npm-publish"
+    }
+  }
+}

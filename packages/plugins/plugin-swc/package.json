@@ -1,0 +1,104 @@
+{
+  "name": "@powerlines/plugin-swc",
+  "version": "0.5.473",
+  "type": "module",
+  "description": "A Powerlines plugin to transform project code with SWC.",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/plugins/plugin-swc"
+  },
+  "homepage": "https://stormsoftware.com",
+  "bugs": {
+    "url": "https://stormsoftware.com/support",
+    "email": "support@stormsoftware.com"
+  },
+  "author": {
+    "name": "Storm Software",
+    "email": "contact@stormsoftware.com",
+    "url": "https://stormsoftware.com"
+  },
+  "maintainers": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
+  "private": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "default": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
+    },
+    "./package.json": "./package.json",
+    "./types": {
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/types/index.cjs"
+      },
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      },
+      "default": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      }
+    },
+    "./types/plugin": {
+      "require": {
+        "types": "./dist/types/plugin.d.cts",
+        "default": "./dist/types/plugin.cjs"
+      },
+      "import": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      },
+      "default": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      }
+    }
+  },
+  "typings": "dist/index.d.mts",
+  "files": ["dist/**/*"],
+  "keywords": ["swc", "powerlines", "storm-software", "powerlines-plugin"],
+  "dependencies": {
+    "@swc/core": "catalog:",
+    "defu": "catalog:",
+    "powerlines": "workspace:*"
+  },
+  "devDependencies": {
+    "@powerlines/plugin-plugin": "workspace:*",
+    "@types/node": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "./dist/index.d.cts"
+}

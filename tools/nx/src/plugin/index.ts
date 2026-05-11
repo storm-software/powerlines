@@ -44,7 +44,7 @@ import { readTargetsFromPackageJson } from "nx/src/utils/package-json.js";
 export const name = "powerlines/tools-nx/plugin";
 
 export const createNodesV2: CreateNodesV2 = [
-  "packages/*/powerlines.config.ts",
+  "packages/**/powerlines.config.ts",
   async (configFiles, optionsV2, contextV2): Promise<CreateNodesResultV2> => {
     const nxJson = readNxJson(contextV2.workspaceRoot);
 

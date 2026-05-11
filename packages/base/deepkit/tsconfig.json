@@ -1,0 +1,19 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "rootDir": "../../..",
+    "types": ["node"],
+    "strict": true,
+    "outDir": "../../../dist/out-tsc"
+  },
+  "include": [
+    "src/**/*.ts",
+    "scripts/**/*.ts",
+    "scripts/**/*.ts",
+    "tsdown.scripts.ts",
+    "tsdown.schemas.ts",
+    "tsdown.config.ts"
+  ],
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+}

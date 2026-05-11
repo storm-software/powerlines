@@ -1,0 +1,11 @@
+{
+  "name": "plugin-graphql",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/plugins/plugin-graphql/src",
+  "targets": {
+    "nx-release-publish": {
+      "executor": "@storm-software/workspace-tools:npm-publish"
+    }
+  }
+}

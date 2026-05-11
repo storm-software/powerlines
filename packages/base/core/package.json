@@ -1,0 +1,268 @@
+{
+  "name": "@powerlines/core",
+  "version": "0.47.3",
+  "private": false,
+  "description": "An internal core package for Powerlines - please use the `powerlines` package for public usage.",
+  "homepage": "https://stormsoftware.com",
+  "bugs": {
+    "url": "https://stormsoftware.com/support",
+    "email": "support@stormsoftware.com"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/base/core"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Storm Software",
+    "email": "contact@stormsoftware.com",
+    "url": "https://stormsoftware.com"
+  },
+  "maintainers": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Storm Software",
+      "email": "contact@stormsoftware.com",
+      "url": "https://stormsoftware.com"
+    }
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./constants": {
+      "import": "./dist/constants/index.mjs",
+      "require": "./dist/constants/index.cjs"
+    },
+    "./constants/api": {
+      "import": "./dist/constants/api.mjs",
+      "require": "./dist/constants/api.cjs"
+    },
+    "./constants/commands": {
+      "import": "./dist/constants/commands.mjs",
+      "require": "./dist/constants/commands.cjs"
+    },
+    "./constants/devtools": {
+      "import": "./dist/constants/devtools.mjs",
+      "require": "./dist/constants/devtools.cjs"
+    },
+    "./constants/environments": {
+      "import": "./dist/constants/environments.mjs",
+      "require": "./dist/constants/environments.cjs"
+    },
+    "./constants/fs": {
+      "import": "./dist/constants/fs.mjs",
+      "require": "./dist/constants/fs.cjs"
+    },
+    "./constants/hooks": {
+      "import": "./dist/constants/hooks.mjs",
+      "require": "./dist/constants/hooks.cjs"
+    },
+    "./constants/log-level": {
+      "import": "./dist/constants/log-level.mjs",
+      "require": "./dist/constants/log-level.cjs"
+    },
+    "./constants/meta": {
+      "import": "./dist/constants/meta.mjs",
+      "require": "./dist/constants/meta.cjs"
+    },
+    "./constants/plugin": {
+      "import": "./dist/constants/plugin.mjs",
+      "require": "./dist/constants/plugin.cjs"
+    },
+    "./lib": {
+      "import": "./dist/lib/index.mjs",
+      "require": "./dist/lib/index.cjs"
+    },
+    "./lib/config": {
+      "import": "./dist/lib/config.mjs",
+      "require": "./dist/lib/config.cjs"
+    },
+    "./lib/entry": {
+      "import": "./dist/lib/entry.mjs",
+      "require": "./dist/lib/entry.cjs"
+    },
+    "./lib/events": {
+      "import": "./dist/lib/events.mjs",
+      "require": "./dist/lib/events.cjs"
+    },
+    "./lib/resolver": {
+      "import": "./dist/lib/resolver.mjs",
+      "require": "./dist/lib/resolver.cjs"
+    },
+    "./lib/streaming-channel": {
+      "import": "./dist/lib/streaming-channel.mjs",
+      "require": "./dist/lib/streaming-channel.cjs"
+    },
+    "./lib/unplugin": {
+      "import": "./dist/lib/unplugin/index.mjs",
+      "require": "./dist/lib/unplugin/index.cjs"
+    },
+    "./lib/unplugin/helpers": {
+      "import": "./dist/lib/unplugin/helpers.mjs",
+      "require": "./dist/lib/unplugin/helpers.cjs"
+    },
+    "./lib/unplugin/module-resolution": {
+      "import": "./dist/lib/unplugin/module-resolution.mjs",
+      "require": "./dist/lib/unplugin/module-resolution.cjs"
+    },
+    "./lib/unplugin/plugin": {
+      "import": "./dist/lib/unplugin/plugin.mjs",
+      "require": "./dist/lib/unplugin/plugin.cjs"
+    },
+    "./lib/utilities": {
+      "import": "./dist/lib/utilities/index.mjs",
+      "require": "./dist/lib/utilities/index.cjs"
+    },
+    "./lib/utilities/file-header": {
+      "import": "./dist/lib/utilities/file-header.mjs",
+      "require": "./dist/lib/utilities/file-header.cjs"
+    },
+    "./lib/utilities/format": {
+      "import": "./dist/lib/utilities/format.mjs",
+      "require": "./dist/lib/utilities/format.cjs"
+    },
+    "./lib/utilities/source-file": {
+      "import": "./dist/lib/utilities/source-file.mjs",
+      "require": "./dist/lib/utilities/source-file.cjs"
+    },
+    "./lib/utilities/source-map": {
+      "import": "./dist/lib/utilities/source-map.mjs",
+      "require": "./dist/lib/utilities/source-map.cjs"
+    },
+    "./lib/utilities/write-file": {
+      "import": "./dist/lib/utilities/write-file.mjs",
+      "require": "./dist/lib/utilities/write-file.cjs"
+    },
+    "./plugin-base": {
+      "import": "./dist/plugin-base.mjs",
+      "require": "./dist/plugin-base.cjs"
+    },
+    "./plugin-utils": {
+      "import": "./dist/plugin-utils/index.mjs",
+      "require": "./dist/plugin-utils/index.cjs"
+    },
+    "./plugin-utils/build-helpers": {
+      "import": "./dist/plugin-utils/build-helpers.mjs",
+      "require": "./dist/plugin-utils/build-helpers.cjs"
+    },
+    "./plugin-utils/combine-plugins": {
+      "import": "./dist/plugin-utils/combine-plugins.mjs",
+      "require": "./dist/plugin-utils/combine-plugins.cjs"
+    },
+    "./plugin-utils/context-helpers": {
+      "import": "./dist/plugin-utils/context-helpers.mjs",
+      "require": "./dist/plugin-utils/context-helpers.cjs"
+    },
+    "./plugin-utils/docs-helper": {
+      "import": "./dist/plugin-utils/docs-helper.mjs",
+      "require": "./dist/plugin-utils/docs-helper.cjs"
+    },
+    "./plugin-utils/extend": {
+      "import": "./dist/plugin-utils/extend.mjs",
+      "require": "./dist/plugin-utils/extend.cjs"
+    },
+    "./plugin-utils/filter": {
+      "import": "./dist/plugin-utils/filter.mjs",
+      "require": "./dist/plugin-utils/filter.cjs"
+    },
+    "./plugin-utils/format": {
+      "import": "./dist/plugin-utils/format.mjs",
+      "require": "./dist/plugin-utils/format.cjs"
+    },
+    "./plugin-utils/format-package-json": {
+      "import": "./dist/plugin-utils/format-package-json.mjs",
+      "require": "./dist/plugin-utils/format-package-json.cjs"
+    },
+    "./plugin-utils/get-config-path": {
+      "import": "./dist/plugin-utils/get-config-path.mjs",
+      "require": "./dist/plugin-utils/get-config-path.cjs"
+    },
+    "./plugin-utils/helpers": {
+      "import": "./dist/plugin-utils/helpers.mjs",
+      "require": "./dist/plugin-utils/helpers.cjs"
+    },
+    "./plugin-utils/logging": {
+      "import": "./dist/plugin-utils/logging.mjs",
+      "require": "./dist/plugin-utils/logging.cjs"
+    },
+    "./plugin-utils/merge": {
+      "import": "./dist/plugin-utils/merge.mjs",
+      "require": "./dist/plugin-utils/merge.cjs"
+    },
+    "./plugin-utils/modules": {
+      "import": "./dist/plugin-utils/modules.mjs",
+      "require": "./dist/plugin-utils/modules.cjs"
+    },
+    "./plugin-utils/paths": {
+      "import": "./dist/plugin-utils/paths.mjs",
+      "require": "./dist/plugin-utils/paths.cjs"
+    },
+    "./plugin-utils/virtual": {
+      "import": "./dist/plugin-utils/virtual.mjs",
+      "require": "./dist/plugin-utils/virtual.cjs"
+    },
+    "./types/_internal": {
+      "import": "./dist/types/_internal.mjs",
+      "require": "./dist/types/_internal.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "files": ["dist", "files", "schemas"],
+  "dependencies": {
+    "@rolldown/pluginutils": "catalog:",
+    "@storm-software/config": "catalog:",
+    "@storm-software/config-tools": "catalog:",
+    "@stryke/convert": "catalog:",
+    "@stryke/env": "catalog:",
+    "@stryke/fs": "catalog:",
+    "@stryke/hash": "catalog:",
+    "@stryke/helpers": "catalog:",
+    "@stryke/json": "catalog:",
+    "@stryke/path": "catalog:",
+    "@stryke/string-format": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "@stryke/unique-id": "catalog:",
+    "birpc": "catalog:",
+    "c12": "catalog:",
+    "chalk": "catalog:",
+    "compatx": "catalog:",
+    "defu": "catalog:",
+    "devframe": "catalog:",
+    "diff-match-patch": "catalog:",
+    "jiti": "catalog:",
+    "magic-string": "catalog:",
+    "prettier": "catalog:",
+    "unplugin": "catalog:",
+    "unplugin-combine": "catalog:"
+  },
+  "devDependencies": {
+    "@storm-software/testing-tools": "catalog:",
+    "@stryke/types": "catalog:",
+    "@types/diff-match-patch": "catalog:",
+    "@types/node": "catalog:",
+    "@types/semver": "catalog:",
+    "prettier-plugin-organize-imports": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "^6.0.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
