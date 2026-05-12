@@ -24,9 +24,9 @@
       "options": {
         "commands": [
           "pnpm copyfiles LICENSE dist/packages/devtools/powerlines",
-          "pnpm copyfiles --up=2 ./packages/devtools/powerlines/*.md ./packages/devtools/powerlines/package.json dist/packages/devtools/powerlines",
-          "pnpm copyfiles --up=3 \"./packages/devtools/powerlines/files/**/*\" ./dist/packages/devtools/powerlines/files",
-          "pnpm copyfiles --up=3 \"./packages/devtools/powerlines/dist/**/*\" dist/packages/devtools/powerlines/dist"
+          "pnpm copyfiles --up=3 ./packages/devtools/powerlines/*.md ./packages/devtools/powerlines/package.json dist/packages/devtools/powerlines",
+          "pnpm copyfiles --up=4 \"./packages/devtools/powerlines/files/**/*\" ./dist/packages/devtools/powerlines/files",
+          "pnpm copyfiles --up=4 \"./packages/devtools/powerlines/dist/**/*\" dist/packages/devtools/powerlines/dist"
         ]
       }
     },

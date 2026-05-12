@@ -38,11 +38,11 @@
       "options": {
         "commands": [
           "pnpm copyfiles LICENSE dist/packages/devtools/nx",
-          "pnpm copyfiles --up=2 \"packages/devtools/nx/*.md\" packages/devtools/nx/executors.json packages/devtools/nx/generators.json packages/devtools/nx/package.json dist/packages/devtools/nx",
-          "pnpm copyfiles --up=3 \"packages/devtools/nx/src/executors/*/schema.json\" \"packages/devtools/nx/src/executors/*/schema.d.ts\" \"packages/devtools/nx/src/generators/*/schema.json\" \"packages/devtools/nx/src/generators/*/schema.d.ts\" packages/devtools/nx/dist/src",
-          "pnpm copyfiles --up=3 \"packages/devtools/nx/src/base/*.schema.json\" \"packages/devtools/nx/src/base/*.schema.d.ts\" dist/packages/devtools/nx/dist/src",
-          "pnpm copyfiles --up=3 \"packages/devtools/nx/dist/src/**/*\" dist/packages/devtools/nx/dist",
-          "pnpm copyfiles --up=4 \"packages/devtools/nx/src/**/*.md\" dist/packages/devtools/nx/docs/api"
+          "pnpm copyfiles --up=3 \"packages/devtools/nx/*.md\" packages/devtools/nx/executors.json packages/devtools/nx/generators.json packages/devtools/nx/package.json dist/packages/devtools/nx",
+          "pnpm copyfiles --up=4 \"packages/devtools/nx/src/executors/*/schema.json\" \"packages/devtools/nx/src/executors/*/schema.d.ts\" \"packages/devtools/nx/src/generators/*/schema.json\" \"packages/devtools/nx/src/generators/*/schema.d.ts\" packages/devtools/nx/dist/src",
+          "pnpm copyfiles --up=4 \"packages/devtools/nx/src/base/*.schema.json\" \"packages/devtools/nx/src/base/*.schema.d.ts\" dist/packages/devtools/nx/dist/src",
+          "pnpm copyfiles --up=4 \"packages/devtools/nx/dist/src/**/*\" dist/packages/devtools/nx/dist",
+          "pnpm copyfiles --up=5 \"packages/devtools/nx/src/**/*.md\" dist/packages/devtools/nx/docs/api"
         ],
         "parallel": false
       }

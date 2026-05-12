@@ -58,10 +58,10 @@
       "options": {
         "commands": [
           "pnpm copyfiles LICENSE dist/packages/base/deepkit",
-          "pnpm copyfiles --up=2 ./packages/base/deepkit/*.md ./packages/base/deepkit/package.json dist/packages/base/deepkit",
-          "pnpm copyfiles --up=3 \"./packages/base/deepkit/dist/**/*.{cjs,mjs,cts,mts}\" dist/packages/base/deepkit/dist",
-          "pnpm copyfiles --up=3 \"./packages/base/deepkit/scripts/*.cjs\" dist/packages/base/deepkit/bin",
-          "pnpm copyfiles --up=3 \"./packages/base/deepkit/schemas/*.{cjs,mjs,cts,mts}\" \"./packages/base/deepkit/schemas/*.capnp\" dist/packages/base/deepkit/schemas"
+          "pnpm copyfiles --up=3 ./packages/base/deepkit/*.md ./packages/base/deepkit/package.json dist/packages/base/deepkit",
+          "pnpm copyfiles --up=4 \"./packages/base/deepkit/dist/**/*.{cjs,mjs,cts,mts}\" dist/packages/base/deepkit/dist",
+          "pnpm copyfiles --up=4 \"./packages/base/deepkit/scripts/*.cjs\" dist/packages/base/deepkit/bin",
+          "pnpm copyfiles --up=4 \"./packages/base/deepkit/schemas/*.{cjs,mjs,cts,mts}\" \"./packages/base/deepkit/schemas/*.capnp\" dist/packages/base/deepkit/schemas"
         ]
       }
     },

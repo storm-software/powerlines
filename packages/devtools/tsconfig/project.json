@@ -9,8 +9,8 @@
       "options": {
         "commands": [
           "pnpm copyfiles LICENSE dist/packages/devtools/tsconfig",
-          "pnpm copyfiles --up=2 ./packages/devtools/tsconfig/*.md ./packages/devtools/tsconfig/package.json dist/packages/devtools/tsconfig",
-          "pnpm copyfiles --up=3 ./packages/devtools/tsconfig/src/*.json dist/packages/devtools/tsconfig"
+          "pnpm copyfiles --up=3 ./packages/devtools/tsconfig/*.md ./packages/devtools/tsconfig/package.json dist/packages/devtools/tsconfig",
+          "pnpm copyfiles --up=4 ./packages/devtools/tsconfig/src/*.json dist/packages/devtools/tsconfig"
         ]
       }
     },

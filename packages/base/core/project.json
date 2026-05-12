@@ -37,9 +37,9 @@
       "options": {
         "commands": [
           "pnpm copyfiles LICENSE dist/packages/base/core",
-          "pnpm copyfiles --up=2 ./packages/base/core/*.md ./packages/base/core/package.json dist/packages/base/core",
-          "pnpm copyfiles --up=3 \"./packages/base/core/dist/**/*\" dist/packages/base/core/dist",
-          "pnpm copyfiles --up=3 ./packages/base/core/schemas/*.capnp dist/packages/base/core/schemas"
+          "pnpm copyfiles --up=3 ./packages/base/core/*.md ./packages/base/core/package.json dist/packages/base/core",
+          "pnpm copyfiles --up=4 \"./packages/base/core/dist/**/*\" dist/packages/base/core/dist",
+          "pnpm copyfiles --up=4 ./packages/base/core/schemas/*.capnp dist/packages/base/core/schemas"
         ]
       }
     },

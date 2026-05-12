@@ -24,8 +24,8 @@
       "options": {
         "commands": [
           "pnpm copyfiles LICENSE dist/packages/base/engine",
-          "pnpm copyfiles --up=2 ./packages/base/engine/*.md ./packages/base/engine/package.json dist/packages/base/engine",
-          "pnpm copyfiles --up=3 \"./packages/base/engine/dist/**/*\" dist/packages/base/engine/dist"
+          "pnpm copyfiles --up=3 ./packages/base/engine/*.md ./packages/base/engine/package.json dist/packages/base/engine",
+          "pnpm copyfiles --up=4 \"./packages/base/engine/dist/**/*\" dist/packages/base/engine/dist"
         ]
       }
     },
