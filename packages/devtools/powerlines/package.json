@@ -83,34 +83,6 @@
         "default": "./dist/index.cjs"
       }
     },
-    "./api": {
-      "import": {
-        "types": "./dist/api.d.mts",
-        "default": "./dist/api.mjs"
-      },
-      "require": {
-        "types": "./dist/api.d.cts",
-        "default": "./dist/api.cjs"
-      },
-      "default": {
-        "types": "./dist/api.d.cts",
-        "default": "./dist/api.cjs"
-      }
-    },
-    "./engine": {
-      "import": {
-        "types": "./dist/engine.d.mts",
-        "default": "./dist/engine.mjs"
-      },
-      "require": {
-        "types": "./dist/engine.d.cts",
-        "default": "./dist/engine.cjs"
-      },
-      "default": {
-        "types": "./dist/engine.d.cts",
-        "default": "./dist/engine.cjs"
-      }
-    },
     "./astro": {
       "import": {
         "types": "./dist/astro.d.mts",
@@ -151,20 +123,6 @@
       "default": {
         "types": "./dist/constants.d.cts",
         "default": "./dist/constants.cjs"
-      }
-    },
-    "./context": {
-      "import": {
-        "types": "./dist/context.d.mts",
-        "default": "./dist/context.mjs"
-      },
-      "require": {
-        "types": "./dist/context.d.cts",
-        "default": "./dist/context.cjs"
-      },
-      "default": {
-        "types": "./dist/context.d.cts",
-        "default": "./dist/context.cjs"
       }
     },
     "./esbuild": {
@@ -291,20 +249,6 @@
       "default": {
         "types": "./dist/storage.d.cts",
         "default": "./dist/storage.cjs"
-      }
-    },
-    "./schemas": {
-      "import": {
-        "types": "./dist/schemas.d.mts",
-        "default": "./dist/schemas.mjs"
-      },
-      "require": {
-        "types": "./dist/schemas.d.cts",
-        "default": "./dist/schemas.cjs"
-      },
-      "default": {
-        "types": "./dist/schemas.d.cts",
-        "default": "./dist/schemas.cjs"
       }
     },
     "./tsdown": {

@@ -17,4 +17,6 @@
  ------------------------------------------------------------------- */
 
 export * from "./engine";
+
+export { type PowerlinesEngine } from "./engine";
 export type * from "./types";

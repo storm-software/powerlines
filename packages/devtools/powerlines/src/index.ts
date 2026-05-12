@@ -25,5 +25,29 @@
  * @packageDocumentation
  */
 
-export * from "./engine";
+import type { EngineOptions } from "@powerlines/engine";
+import { createEngine } from "@powerlines/engine";
+import { titleCase } from "@stryke/string-format/title-case";
+import packageJson from "../package.json" with { type: "json" };
+
 export type * from "./types";
+
+/**
+ * Creates a new {@link PowerlinesEngine} instance.
+ *
+ * @param options - The user configuration options.
+ * @returns A promise that resolves to a {@link PowerlinesEngine} instance.
+ */
+export async function createPowerlines(
+  options: Omit<EngineOptions, "framework">
+) {
+  const engine = await createEngine(options);
+
+  engine.context.info(
+    `🔌 ${titleCase(engine.context.framework.name)} Engine v${
+      engine.context.framework.version || packageJson.version
+    } is running...`
+  );
+
+  return engine;
+}
