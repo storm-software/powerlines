@@ -16,12 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  EngineContext,
-  ExecutionHost,
-  ExecutionHostParams,
-  Mode
-} from "@powerlines/core";
+import { Mode } from "@powerlines/core";
+import { getDefaultMode } from "@powerlines/core/lib/config";
 import { resolve } from "@stryke/fs/resolve";
 import { isNumber } from "@stryke/type-checks/is-number";
 import { isSet } from "@stryke/type-checks/is-set";
@@ -32,7 +28,8 @@ import { Worker as JestWorker } from "jest-worker";
 import type { ChildProcess } from "node:child_process";
 import { Transform } from "node:stream";
 import { parseArgs } from "node:util";
-import { getDefaultMode } from "./resolve-config";
+import { ExecutionHost, ExecutionHostParams } from "../types/api";
+import { EngineContext } from "../types/context";
 
 const RESTARTED = Symbol("powerlines-worker:restarted");
 
@@ -105,7 +102,7 @@ const cleanupWorkers = (worker: JestWorker) => {
 };
 
 export interface ExecutionHostWorkerOptions<
-  TExecutionAPIMethods extends ReadonlyArray<string>
+  TExecutionAPI extends ReadonlyArray<string>
 > {
   // /**
   //  * `-1` if not inspectable
@@ -142,12 +139,10 @@ export interface ExecutionHostWorkerOptions<
   /**
    * An array of method names that the worker exposes. These methods will be available on the Worker instance and can be called to execute tasks in the worker process.
    */
-  executionMethods: TExecutionAPIMethods;
+  executionMethods: TExecutionAPI;
 }
 
-export class ExecutionHostWorker<
-  TExecutionAPIMethods extends ReadonlyArray<string>
-> {
+export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
   #worker: JestWorker | undefined;
 
   /**
@@ -157,9 +152,9 @@ export class ExecutionHostWorker<
    * @param options - The options for configuring the worker, including the execution context, exposed methods, timeout, and mode.
    * @returns A promise that resolves to an instance of the ExecutionHostWorker class.
    */
-  public static async from<TExecutionAPIMethods extends ReadonlyArray<string>>(
+  public static async from<TExecutionAPI extends ReadonlyArray<string>>(
     executionHostPath: string,
-    options: ExecutionHostWorkerOptions<TExecutionAPIMethods>
+    options: ExecutionHostWorkerOptions<TExecutionAPI>
   ) {
     const mode = await getDefaultMode(options.context.cwd);
 
@@ -172,10 +167,10 @@ export class ExecutionHostWorker<
       );
     }
 
-    return new ExecutionHostWorker<TExecutionAPIMethods>(resolvedPath, {
+    return new ExecutionHostWorker<TExecutionAPI>(resolvedPath, {
       mode,
       ...options
-    }) as unknown as ExecutionHost<TExecutionAPIMethods>;
+    }) as unknown as ExecutionHost<TExecutionAPI>;
   }
 
   /**
@@ -186,7 +181,7 @@ export class ExecutionHostWorker<
    */
   public constructor(
     protected executionHostPath: string,
-    protected options: ExecutionHostWorkerOptions<TExecutionAPIMethods>
+    protected options: ExecutionHostWorkerOptions<TExecutionAPI>
   ) {
     const {
       timeout = 900_000,
@@ -433,16 +428,16 @@ export class ExecutionHostWorker<
         maxRetries: 0,
         computeWorkerKey: (_, ...args: Array<unknown>) => {
           let executionId = "default";
-          let executionIndex = 0;
+          let configIndex = 0;
           if (args.length > 0 && isSetObject(args[0])) {
             const arg = args[0] as ExecutionHostParams;
             if (isSetObject(arg.options)) {
-              executionIndex = arg.options.executionIndex ?? 0;
+              configIndex = arg.options.configIndex ?? 0;
               executionId = arg.options.executionId || "default";
             }
           }
 
-          return `${executionId}-${executionIndex}`;
+          return `${executionId}-${configIndex}`;
         },
         forkOptions: {
           execArgv,

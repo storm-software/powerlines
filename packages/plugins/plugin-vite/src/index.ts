@@ -17,15 +17,14 @@
  ------------------------------------------------------------------- */
 
 import type { Context, Plugin } from "@powerlines/core";
+import { createUnplugin } from "@powerlines/core";
 import { formatConfig } from "@powerlines/core/plugin-utils";
+import { resolveOptions } from "@powerlines/unplugin/vite";
 import defu from "defu";
-import { build } from "vite";
-import { DEFAULT_VITE_CONFIG, resolveOptions } from "./helpers/resolve-options";
-import { createVitePlugin } from "./helpers/unplugin";
-import { Unstable_VitePluginContext } from "./types/_internal";
+import { createVitePlugin } from "unplugin";
+import { build, InlineConfig } from "vite";
 import { VitePluginContext, VitePluginOptions } from "./types/plugin";
 
-export * from "./helpers";
 export * from "./types";
 
 declare module "@powerlines/core" {
@@ -52,7 +51,6 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
           format: ["cjs", "esm"]
         },
         vite: {
-          ...DEFAULT_VITE_CONFIG,
           ...options
         },
         singleBuild: true
@@ -61,8 +59,7 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
     async build() {
       this.debug("Starting Vite build process...");
 
-      const environments = (this as unknown as Unstable_VitePluginContext)
-        ?.$$internal?.api?.context?.environments;
+      const environments = this.environment.unstable_execution.environments;
       if (!environments || Object.keys(environments).length === 0) {
         throw new Error(
           `No environments found in the Powerlines context. At least one environment should have been generated - please report this issue to https://github.com/storm-software/powerlines/issues.`
@@ -73,22 +70,26 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
         `Running Vite for ${Object.keys(environments).length} environments.`
       );
 
-      const options = defu(
-        {
-          config: false,
-          entry: this.entry,
-          environments: Object.fromEntries(
-            Object.entries(environments).map(([name, env]) => [
-              name,
-              resolveOptions(env as Context)
-            ])
-          )
-        },
-        resolveOptions(this),
-        {
-          plugins: [createVitePlugin(this)]
-        }
-      );
+      const resolved = resolveOptions(this);
+      const options = defu(this.config.vite, {
+        ...resolved,
+        config: false,
+        entry: this.entry,
+        environments: Object.fromEntries(
+          Object.entries(environments).map(([name, env]) => [
+            name,
+            defu(this.config.vite, resolveOptions(env as Context))
+          ])
+        ),
+        plugins: [
+          createVitePlugin(
+            createUnplugin(this, {
+              silenceHookLogging: true,
+              name: "vite"
+            })
+          )()
+        ]
+      }) as InlineConfig;
 
       this.debug({
         meta: {

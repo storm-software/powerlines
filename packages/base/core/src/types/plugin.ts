@@ -21,11 +21,10 @@ import type { AnyFunction, MaybePromise } from "@stryke/types/base";
 import { LoadResult } from "rollup";
 import type { HookFilter, TransformResult } from "unplugin";
 import { PLUGIN_NON_HOOK_FIELDS } from "../constants/plugin";
-import { BaseCommandType } from "./commands";
+import { BaseCommandType } from "./api";
 import type {
   EnvironmentConfig,
   PluginConfig,
-  ResolvedConfig,
   ResolvedEnvironmentConfig
 } from "./config";
 import type {
@@ -305,15 +304,15 @@ export interface BasePlugin<TContext extends PluginContext> {
   config?:
     | PluginHook<
         (
-          this: UnresolvedContext<TContext["config"]>
+          this: UnresolvedContext<TContext["config"], TContext["system"]>
         ) => MaybePromise<DeepPartial<TContext["config"]> & Record<string, any>>
       >
     | (DeepPartial<TContext["config"]> & Record<string, any>);
 }
 
-export type Plugin<
-  TContext extends PluginContext<ResolvedConfig> = PluginContext<ResolvedConfig>
-> = Partial<PluginHooks<TContext>> &
+export type Plugin<TContext extends PluginContext> = Partial<
+  PluginHooks<TContext>
+> &
   BasePlugin<TContext> &
   Pick<UnpluginOptions<TContext>, UnpluginBuilderVariant>;
 

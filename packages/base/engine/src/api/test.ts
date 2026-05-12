@@ -16,8 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-import { ExecutionContext, ResolvedConfig } from "@powerlines/core";
-import { executeEnvironments } from "../helpers/environment";
+import { ExecutionContext } from "@powerlines/core";
+import { executeEnvironments } from "@powerlines/core/lib/environment";
+import { EngineResolvedConfig } from "../types/config";
+import { EngineSystemContext } from "../types/context";
 import { prepare } from "./prepare";
 
 /**
@@ -28,9 +30,10 @@ import { prepare } from "./prepare";
  *
  * @param context - The execution context for the test process, which provides access to the project configuration, environment, and utility functions for performing the test operation. The context is used to manage the state and behavior of the test process, allowing for hooks to be called at different stages of the test and for environment-specific configurations to be applied.
  */
-export async function test<TResolvedConfig extends ResolvedConfig>(
-  context: ExecutionContext<TResolvedConfig>
-) {
+export async function test<
+  TResolvedConfig extends EngineResolvedConfig,
+  TSystemContext extends EngineSystemContext
+>(context: ExecutionContext<TResolvedConfig, TSystemContext>) {
   const timer = context.timer("Testing");
 
   await prepare(context);

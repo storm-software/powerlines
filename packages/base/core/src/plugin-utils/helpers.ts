@@ -30,8 +30,7 @@ import {
 import type {
   PluginConfig,
   PluginConfigObject,
-  PluginConfigTuple,
-  ResolvedConfig
+  PluginConfigTuple
 } from "../types/config";
 import type { PluginContext, WithUnpluginBuildContext } from "../types/context";
 import type { HooksListItem } from "../types/hooks";
@@ -53,9 +52,9 @@ import type {
  * @param value - The object to check
  * @returns True if the object is a {@link Plugin}, false otherwise
  */
-export function isPlugin<
-  TContext extends PluginContext = PluginContext<ResolvedConfig>
->(value: unknown): value is Plugin<TContext> {
+export function isPlugin<TContext extends PluginContext = PluginContext>(
+  value: unknown
+): value is Plugin<TContext> {
   return (
     isSetObject(value) &&
     "name" in value &&
@@ -69,9 +68,9 @@ export function isPlugin<
       ("dedupe" in value && isFunction(value.dedupe))) &&
     PLUGIN_HOOKS_FIELDS.every(
       hook =>
-        isUndefined((value as Plugin<TContext>)[hook]) ||
+        isUndefined((value as Record<string, unknown>)[hook]) ||
         (hook in value &&
-          (isPluginHookFunction((value as Plugin<TContext>)[hook]) ||
+          (isPluginHookFunction((value as Record<string, unknown>)[hook]) ||
             (hook === "config" &&
               isSetObject((value as Plugin<TContext>)[hook]))))
     )
@@ -85,7 +84,7 @@ export function isPlugin<
  * @returns True if the object is a {@link PluginConfigObject}, false otherwise
  */
 export function isPluginConfigObject<
-  TContext extends PluginContext = PluginContext<ResolvedConfig>
+  TContext extends PluginContext = PluginContext
 >(value: unknown): value is PluginConfigObject<TContext> {
   return (
     isSetObject(value) &&
@@ -104,7 +103,7 @@ export function isPluginConfigObject<
  * @returns True if the object is a {@link PluginConfigTuple}, false otherwise
  */
 export function isPluginConfigTuple<
-  TContext extends PluginContext = PluginContext<ResolvedConfig>
+  TContext extends PluginContext = PluginContext
 >(value: unknown): value is PluginConfigTuple<TContext> {
   return (
     Array.isArray(value) &&
@@ -122,13 +121,13 @@ export function isPluginConfigTuple<
  * @param value - The object to check
  * @returns True if the object is a {@link PluginConfig}, false otherwise
  */
-export function isPluginConfig<
-  TContext extends PluginContext = PluginContext<ResolvedConfig>
->(value: unknown): value is PluginConfig<TContext> {
+export function isPluginConfig<TContext extends PluginContext = PluginContext>(
+  value: unknown
+): value is PluginConfig<TContext> {
   return (
     isSetString(value) ||
     isFunction(value) ||
-    isPlugin<TContext>(value) ||
+    isPlugin(value) ||
     isPluginConfigObject(value) ||
     isPluginConfigTuple(value) ||
     (Array.isArray(value) && value.every(item => isPluginConfig(item)))
@@ -268,11 +267,10 @@ export function isUnpluginHookField<
  * @param plugins - The list of plugins to check against
  * @returns True if the plugin should be deduplicated, false otherwise
  */
-export function isDuplicate<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig,
-  TContext extends PluginContext<TResolvedConfig> =
-    PluginContext<TResolvedConfig>
->(plugin: Plugin<TContext>, plugins: Plugin<TContext>[]) {
+export function isDuplicate<TContext extends PluginContext = PluginContext>(
+  plugin: Plugin<TContext>,
+  plugins: Plugin<TContext>[]
+) {
   return (
     plugin.dedupe !== false &&
     plugins.some(
@@ -361,7 +359,7 @@ export function addPluginHook<
  * @returns Null if the configuration is valid, otherwise an array of stringified invalid configurations
  */
 export function findInvalidPluginConfig<
-  TContext extends PluginContext = PluginContext<ResolvedConfig>
+  TContext extends PluginContext = PluginContext
 >(config: PluginConfig<TContext>): string[] | null {
   if (isPluginConfig<TContext>(config)) {
     return null;

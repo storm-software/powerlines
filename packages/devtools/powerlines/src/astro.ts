@@ -16,31 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-// import type { VitePluginInitialConfig } from "@powerlines/plugin-vite/types/plugin";
-import type { AstroUserConfig } from "astro";
-// import { unplugin as vite } from "./vite";
-
-/**
- * An Astro plugin that will invoke the Powerlines API hooks during the build process.
- *
- * @see https://docs.astro.build/en/guides/integrations-guide/#creating-an-integration
- *
- * @example
- * ```js
- * // astro.config.mjs
- * import { defineConfig } from "astro/config";
- * import powerlines from "powerlines/astro";
- *
- * export default defineConfig({
- *   integrations: [powerlines({ name: "example-app", ... })]
- * });
- *
- * ```
- */
-export const unplugin = (_config: any): AstroUserConfig => ({
-  vite: {
-    // plugins: [vite(config)] as NonNullable<AstroUserConfig["vite"]>["plugins"]
-  }
-});
-
-export { unplugin as astro };
+export * from "@powerlines/unplugin/astro";

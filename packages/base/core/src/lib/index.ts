@@ -17,8 +17,18 @@
  ------------------------------------------------------------------- */
 
 export * from "./config";
+export * from "./context-helpers";
 export * from "./entry";
 export * from "./events";
+export * from "./generate-types";
+export * from "./hooks";
+export * from "./install-dependencies";
+export * from "./meta";
+export * from "./plugins";
+export * from "./resolver";
+export * from "./schemas";
 export * from "./streaming-channel";
+export * from "./typescript";
 export * from "./unplugin";
 export * from "./utilities";
+export * from "./vfs";

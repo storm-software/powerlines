@@ -32,8 +32,7 @@ import type {
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
 import { replacePathTokens } from "../plugin-utils/paths";
-import { Config } from "../types";
-import { ResolvedEntryTypeDefinition } from "../types/config";
+import { Config, ResolvedEntryTypeDefinition } from "../types/config";
 import type { Context } from "../types/context";
 
 export function resolveEntryOutput(

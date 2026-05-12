@@ -269,6 +269,8 @@
       ],
       "@powerlines/schema": ["./packages/base/schema/src/index.ts"],
       "@powerlines/schema/*": ["./packages/base/schema/src/*"],
+      "@powerlines/unplugin": ["./packages/devtools/unplugin/src/index.ts"],
+      "@powerlines/unplugin/*": ["./packages/devtools/unplugin/src/*"],
       "@powerlines/tools-config/*": ["./tools/config/*"],
       "@powerlines/tools-nx": ["./tools/nx/src/index.ts"],
       "@powerlines/tools-nx/*": ["./tools/nx/src/*"],

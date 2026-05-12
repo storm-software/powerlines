@@ -23,10 +23,11 @@ const config = defineTSDownConfig([
     name: "core",
     entry: [
       "src/*.ts",
-      "src/constants/*.ts",
       "src/lib/**/*.ts",
-      "src/plugin-utils/*.ts",
-      "src/types/_internal.ts"
+      "src/constants/*.ts",
+      "src/context/*.ts",
+      "src/storage/*.ts",
+      "src/plugin-utils/*.ts"
     ],
     exports: true
   }

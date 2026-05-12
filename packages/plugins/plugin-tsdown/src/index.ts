@@ -16,16 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "@powerlines/core";
+import { createUnplugin, Plugin } from "@powerlines/core";
 import { formatConfig } from "@powerlines/core/plugin-utils";
 import { formatPackageJson } from "@powerlines/core/plugin-utils/format-package-json";
+import { resolveOptions } from "@powerlines/unplugin/tsdown";
 import defu from "defu";
-import { build } from "tsdown";
-import { resolveOptions } from "./helpers/resolve-options";
-import { createTsdownPlugin } from "./helpers/unplugin";
+import { build, InlineConfig } from "tsdown";
+import { createRolldownPlugin } from "unplugin";
 import { TsdownPluginContext, TsdownPluginOptions } from "./types/plugin";
 
-export * from "./helpers";
 export type * from "./types";
 
 declare module "@powerlines/core" {
@@ -74,13 +73,19 @@ export const plugin = <
     async build() {
       this.debug("Starting Tsdown build process...");
 
-      const options = defu(
-        {
-          config: false,
-          plugins: createTsdownPlugin(this)
-        },
-        resolveOptions(this)
-      );
+      const resolved = resolveOptions(this);
+      const options = defu(this.config.tsdown, {
+        ...resolved,
+        config: false,
+        plugins: [
+          createRolldownPlugin(
+            createUnplugin(this, {
+              silenceHookLogging: true,
+              name: "tsdown"
+            })
+          )()
+        ]
+      }) as InlineConfig;
 
       this.debug({
         meta: {

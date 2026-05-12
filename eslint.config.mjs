@@ -30,11 +30,11 @@ export default defineConfig({
     moduleBoundaries: false
   },
   ignores: [
-    "packages/deepkit/schemas/**",
-    "packages/engine/schemas/**",
+    "packages/base/deepkit/schemas/**",
+    "packages/base/engine/schemas/**",
     "**/*.spec.ts"
   ],
   tsdoc: {
-    configFile: "./packages/tsdoc/src/recommended.json"
+    configFile: "./packages/devtools/tsdoc/src/recommended.json"
   }
 });

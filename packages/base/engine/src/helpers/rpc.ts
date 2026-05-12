@@ -16,14 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  createEventEmitter,
-  ExecutionHostOptions,
-  RpcClient,
-  RpcClientFunctions,
-  RpcContext,
-  RpcServerFunctions
-} from "@powerlines/core";
+import { createEventEmitter } from "@powerlines/core/lib/events";
 import { isNumber } from "@stryke/type-checks/is-number";
 import { isSet } from "@stryke/type-checks/is-set";
 import { StormURL } from "@stryke/url";
@@ -35,7 +28,7 @@ import {
   RpcClientEvents
 } from "devframe/client";
 import { RpcCacheManager, RpcFunctionsCollectorBase } from "devframe/rpc";
-import { createRpcClient } from "devframe/rpc/client";
+import { createRpcClient as createDevframeRpcClient } from "devframe/rpc/client";
 import {
   createWsRpcChannel,
   WsRpcChannelOptions
@@ -47,6 +40,13 @@ import {
 import { promiseWithResolver } from "devframe/utils/promise";
 import { humanId } from "human-id";
 import { EventEmitter } from "node:events";
+import { RpcClientOptions } from "../types/config";
+import {
+  RpcClient,
+  RpcClientFunctions,
+  RpcContext,
+  RpcServerFunctions
+} from "../types/rpc";
 
 function createWsRpcClientMode(
   baseURL: StormURL,
@@ -76,18 +76,18 @@ function createWsRpcClientMode(
   for (const name of connectionMeta.jsonSerializableMethods ?? [])
     definitions.set(name, { jsonSerializable: true });
 
-  const serverRpc = createRpcClient<RpcServerFunctions, RpcClientFunctions>(
-    clientRpc.functions,
-    {
-      channel: createWsRpcChannel({
-        url,
-        authToken,
-        definitions,
-        ...wsOptions
-      }),
-      rpcOptions
-    }
-  );
+  const serverRpc = createDevframeRpcClient<
+    RpcServerFunctions,
+    RpcClientFunctions
+  >(clientRpc.functions, {
+    channel: createWsRpcChannel({
+      url,
+      authToken,
+      definitions,
+      ...wsOptions
+    }),
+    rpcOptions
+  });
 
   // Handle server-initiated auth revocation
   clientRpc.register({
@@ -184,7 +184,7 @@ function createWsRpcClientMode(
 
 const CONNECTION_AUTH_TOKEN_KEY = "__DEVTOOLS_CONNECTION_AUTH_TOKEN__";
 
-export function createExecutionRpcClient(options: ExecutionHostOptions) {
+export function createRpcClient(options: RpcClientOptions) {
   const baseURL = new StormURL(options.baseURL);
 
   const cacheManager = new RpcCacheManager({

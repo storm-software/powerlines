@@ -19,12 +19,10 @@
 import { Plugin } from "@powerlines/core";
 import { formatConfig } from "@powerlines/core/plugin-utils";
 import { build } from "@storm-software/unbuild";
-import {
-  DEFAULT_UNBUILD_CONFIG,
-  resolveOptions
-} from "./helpers/resolve-options";
+import { resolveOptions } from "./helpers/resolve-options";
 import { UnbuildPluginContext, UnbuildPluginOptions } from "./types/plugin";
 
+export * from "./helpers";
 export * from "./types";
 
 declare module "@powerlines/core" {
@@ -49,7 +47,6 @@ export const plugin = <
           format: ["esm"]
         },
         unbuild: {
-          ...DEFAULT_UNBUILD_CONFIG,
           ...options
         }
       };

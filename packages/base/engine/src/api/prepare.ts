@@ -16,23 +16,22 @@
 
  ------------------------------------------------------------------- */
 
+import type { ExecutionContext } from "@powerlines/core";
+import { executeEnvironments } from "@powerlines/core/lib/environment";
+import { handleTypes } from "@powerlines/core/lib/generate-types";
+import { installDependencies } from "@powerlines/core/lib/install-dependencies";
+import { writeMetaFile } from "@powerlines/core/lib/meta";
 import {
-  ExecutionContext,
-  formatFolder,
-  ResolvedConfig
-} from "@powerlines/core";
+  initializeTsconfig,
+  resolveTsconfig
+} from "@powerlines/core/lib/typescript/tsconfig";
+import { formatFolder } from "@powerlines/core/lib/utilities/format";
 import { formatConfig } from "@powerlines/core/plugin-utils";
 import { toArray } from "@stryke/convert/to-array";
 import { createDirectory } from "@stryke/fs/helpers";
 import { isObject } from "@stryke/type-checks/is-object";
-import { executeEnvironments } from "../helpers/environment";
-import { handleTypes } from "../helpers/generate-types";
-import { installDependencies } from "../helpers/install-dependencies";
-import { writeMetaFile } from "../helpers/meta";
-import {
-  initializeTsconfig,
-  resolveTsconfig
-} from "../helpers/resolve-tsconfig";
+import { EngineResolvedConfig } from "../types/config";
+import { EngineSystemContext } from "../types/context";
 
 /**
  * Prepare the project
@@ -40,8 +39,12 @@ import {
  * @param context - The execution context for the build process, which provides access to the project configuration, environment, and utility functions for performing the build. The context is used to manage the state and behavior of the build process, allowing for hooks to be called at different stages of the build and for environment-specific configurations to be applied.
  */
 export async function prepare<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig
->(context: ExecutionContext<TResolvedConfig>, skipTypes = false) {
+  TResolvedConfig extends EngineResolvedConfig,
+  TSystemContext extends EngineSystemContext
+>(
+  context: ExecutionContext<TResolvedConfig, TSystemContext>,
+  skipTypes = false
+) {
   const timer = context.timer("Preparation");
 
   await executeEnvironments(context, async env => {
@@ -54,7 +57,7 @@ export async function prepare<
       order: "pre"
     });
 
-    await initializeTsconfig<TResolvedConfig>(env);
+    await initializeTsconfig<TResolvedConfig, TSystemContext>(env);
 
     await context.callHook("configResolved", {
       environment: env,
@@ -90,7 +93,7 @@ export async function prepare<
       );
     }
 
-    await resolveTsconfig<TResolvedConfig>(env);
+    await resolveTsconfig<TResolvedConfig, TSystemContext>(env);
     await installDependencies(env);
 
     await context.callHook("configResolved", {

@@ -16,30 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-// import { WebpackPluginInitialConfig } from "@powerlines/plugin-webpack/types/plugin";
-// import { createWebpackPlugin } from "unplugin";
-// import { createUnpluginFactory } from "./unplugin";
-
-export {
-  default as plugin,
-  default as webpack
-} from "@powerlines/plugin-webpack";
-
-/**
- * An Webpack plugin that will invoke the Powerlines API hooks during the build process.
- *
- * @see https://webpack.js.org/contribute/writing-a-plugin/#basic-plugin-architecture
- *
- * @example
- * ```js
- * // webpack.config.js
- * import powerlines from "powerlines/webpack";
- *
- * export default {
- *  plugins: [powerlines({ name: "example-app", ... })],
- * }
- * ```
- */
-// export const unplugin = createWebpackPlugin<WebpackPluginInitialConfig>(
-//   createUnpluginFactory("webpack")
-// );
+export * from "@powerlines/unplugin/webpack";

@@ -74,17 +74,10 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "peerDependencies": {
-    "@rspack/core": ">=1.5.0"
-  },
-  "peerDependenciesMeta": {
-    "@rspack/core": {
-      "optional": false
-    }
-  },
+  "files": ["dist"],
   "dependencies": {
     "@powerlines/core": "workspace:*",
+    "@powerlines/unplugin": "workspace:*",
     "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
     "defu": "catalog:"
@@ -92,6 +85,14 @@
   "devDependencies": {
     "@rspack/core": "catalog:",
     "@types/node": "catalog:"
+  },
+  "peerDependencies": {
+    "@rspack/core": ">=1.5.0"
+  },
+  "peerDependenciesMeta": {
+    "@rspack/core": {
+      "optional": false
+    }
   },
   "publishConfig": {
     "access": "public"

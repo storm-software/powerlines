@@ -30,7 +30,6 @@ import {
   removeVirtualPrefix,
   VIRTUAL_MODULE_PREFIX_REGEX
 } from "../../plugin-utils";
-import { Unstable_PluginContext } from "../../types/_internal";
 import { PluginContext, ResolveResult } from "../../types/context";
 import { ResolveOptions } from "../../types/fs";
 
@@ -74,8 +73,6 @@ export function createUnpluginModuleResolutionFunctions<
   context: TContext,
   options: CreateUnpluginModuleResolutionFunctionsOptions = {}
 ): Pick<UnpluginOptions, "resolveId" | "load"> {
-  const ctx = context as unknown as Unstable_PluginContext;
-
   return {
     async resolveId(
       this: UnpluginBuildContext & UnpluginContext,
@@ -90,7 +87,7 @@ export function createUnpluginModuleResolutionFunctions<
         ? removeVirtualPrefix(importer)
         : undefined;
 
-      let result = await ctx.callHook(
+      let result = await context.callHook(
         "resolveId",
         {
           sequential: true,
@@ -113,7 +110,7 @@ export function createUnpluginModuleResolutionFunctions<
         };
       }
 
-      result = await ctx.callHook(
+      result = await context.callHook(
         "resolveId",
         {
           sequential: true,
@@ -136,7 +133,7 @@ export function createUnpluginModuleResolutionFunctions<
         };
       }
 
-      result = await ctx.resolve(
+      result = await context.resolve(
         normalizedId,
         normalizedImporter,
         defu(options.overrides ?? {}, {
@@ -154,7 +151,7 @@ export function createUnpluginModuleResolutionFunctions<
         };
       }
 
-      result = await ctx.callHook(
+      result = await context.callHook(
         "resolveId",
         {
           sequential: true,
@@ -192,7 +189,7 @@ export function createUnpluginModuleResolutionFunctions<
       ): Promise<LoadResult | null | undefined> {
         const normalizedId = removeVirtualPrefix(id);
 
-        let result = await ctx.callHook(
+        let result = await context.callHook(
           "load",
           {
             sequential: true,
@@ -205,7 +202,7 @@ export function createUnpluginModuleResolutionFunctions<
           return result;
         }
 
-        result = await ctx.callHook(
+        result = await context.callHook(
           "load",
           {
             sequential: true,
@@ -218,12 +215,12 @@ export function createUnpluginModuleResolutionFunctions<
           return result;
         }
 
-        result = await ctx.load(normalizedId);
+        result = await context.load(normalizedId);
         if (result) {
           return result;
         }
 
-        return ctx.callHook(
+        return context.callHook(
           "load",
           {
             sequential: true,

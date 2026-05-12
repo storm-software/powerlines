@@ -25,9 +25,8 @@ import type {
 } from "unplugin";
 import { setParseImpl } from "unplugin";
 import { removeVirtualPrefix } from "../../plugin-utils";
-import { Unstable_PluginContext } from "../../types/_internal";
-import { PluginContext } from "../../types/context";
-import { UnpluginFactory } from "../../types/unplugin";
+import type { PluginContext } from "../../types/context";
+import type { UnpluginOptions } from "../../types/unplugin";
 import { getString } from "../utilities/source-file";
 import { combineContexts } from "./helpers";
 import {
@@ -65,13 +64,12 @@ export function createUnpluginResolver<
 >(
   context: TContext,
   options: CreateUnpluginResolverOptions = {}
-): UnpluginFactory<TContext> {
-  const ctx = context as unknown as Unstable_PluginContext<any>;
-  setParseImpl(ctx.parse);
+): () => UnpluginOptions<TContext> {
+  setParseImpl(context.parse);
 
   const name = options.name || "powerlines";
 
-  const logger = ctx.extendLogger(
+  const logger = context.extendLogger(
     !options.silenceHookLogging && name !== "powerlines" ? { source: name } : {}
   );
   logger.debug(`Initializing ${titleCase(name)} plugin`);
@@ -85,7 +83,7 @@ export function createUnpluginResolver<
         name.toLowerCase() === "powerlines"
           ? "powerlines"
           : `powerlines:${kebabCase(name)}`,
-      api: context,
+      context,
       resolveId,
       load
     });
@@ -107,7 +105,7 @@ export interface CreateUnpluginOptions extends CreateUnpluginResolverOptions {}
 export function createUnplugin<TContext extends PluginContext = PluginContext>(
   context: TContext,
   options: CreateUnpluginOptions = {}
-): UnpluginFactory<TContext> {
+): () => UnpluginOptions<TContext> {
   setParseImpl(context.parse.bind(context));
 
   const name = options.name || "powerlines";
@@ -177,7 +175,7 @@ export function createUnplugin<TContext extends PluginContext = PluginContext>(
         name.toLowerCase() === "powerlines"
           ? "powerlines"
           : `powerlines:${kebabCase(name)}`,
-      api: context,
+      context,
       resolveId,
       load,
       transform,

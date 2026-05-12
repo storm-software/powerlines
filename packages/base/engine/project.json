@@ -4,25 +4,12 @@
   "projectType": "library",
   "sourceRoot": "packages/base/engine/src",
   "targets": {
-    "generate-schemas": {
-      "cache": true,
-      "inputs": ["{projectRoot}/schemas/*.capnp"],
-      "outputs": ["{projectRoot}/schemas/*.ts"],
-      "executor": "nx:run-commands",
-      "dependsOn": ["clean", "^build"],
-      "options": {
-        "commands": [
-          "pnpm exec storm-capnpc --project-root packages/base/engine --schema packages/base/engine/schemas"
-        ],
-        "parallel": false
-      }
-    },
     "build-base": {
       "cache": true,
       "inputs": ["typescript", "^production"],
       "outputs": ["{projectRoot}/dist"],
       "executor": "nx:run-commands",
-      "dependsOn": ["generate-schemas", "clean", "^build"],
+      "dependsOn": ["clean", "^build"],
       "options": {
         "command": "tsdown --config=tsdown.config.ts",
         "cwd": "{projectRoot}"
@@ -38,8 +25,7 @@
         "commands": [
           "pnpm copyfiles LICENSE dist/packages/base/engine",
           "pnpm copyfiles --up=2 ./packages/base/engine/*.md ./packages/base/engine/package.json dist/packages/base/engine",
-          "pnpm copyfiles --up=3 \"./packages/base/engine/dist/**/*\" dist/packages/base/engine/dist",
-          "pnpm copyfiles --up=3 ./packages/base/engine/schemas/*.capnp dist/packages/base/engine/schemas"
+          "pnpm copyfiles --up=3 \"./packages/base/engine/dist/**/*\" dist/packages/base/engine/dist"
         ]
       }
     },

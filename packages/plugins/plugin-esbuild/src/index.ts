@@ -16,16 +16,12 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "@powerlines/core";
+import { createUnplugin, Plugin } from "@powerlines/core";
 import { formatConfig } from "@powerlines/core/plugin-utils";
+import { resolveEntry, resolveOptions } from "@powerlines/unplugin/esbuild";
 import defu from "defu";
-import { build } from "esbuild";
-import {
-  DEFAULT_ESBUILD_CONFIG,
-  resolveEntry,
-  resolveOptions
-} from "./helpers/resolve-options";
-import { createEsbuildPlugin } from "./helpers/unplugin";
+import { build, BuildOptions, SameShape } from "esbuild";
+import { createEsbuildPlugin } from "unplugin";
 import { EsbuildPluginContext, EsbuildPluginOptions } from "./types/plugin";
 
 export * from "./helpers";
@@ -53,7 +49,6 @@ export const plugin = <
           format: ["esm"]
         },
         esbuild: {
-          ...DEFAULT_ESBUILD_CONFIG,
           ...options
         }
       };
@@ -61,13 +56,20 @@ export const plugin = <
     async build() {
       this.debug("Starting Esbuild build process...");
 
-      const options = defu(
-        {
-          entryPoints: resolveEntry(this, this.entry),
-          plugins: [createEsbuildPlugin(this)]
-        },
-        resolveOptions(this)
-      );
+      const resolved = resolveOptions(this);
+      const options = defu(this.config.esbuild, {
+        ...resolved,
+        entryPoints: resolveEntry(this, this.entry),
+        config: false,
+        plugins: [
+          createEsbuildPlugin(
+            createUnplugin(this, {
+              silenceHookLogging: true,
+              name: "esbuild"
+            })
+          )()
+        ]
+      }) as SameShape<BuildOptions, BuildOptions>;
 
       this.debug({
         meta: {

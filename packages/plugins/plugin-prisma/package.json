@@ -41,132 +41,42 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "default": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      }
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./helpers": {
-      "require": {
-        "types": "./dist/helpers/index.d.cts",
-        "default": "./dist/helpers/index.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/index.d.mts",
-        "default": "./dist/helpers/index.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/index.d.mts",
-        "default": "./dist/helpers/index.mjs"
-      }
+      "import": "./dist/helpers/index.mjs",
+      "require": "./dist/helpers/index.cjs"
     },
     "./helpers/client-generator": {
-      "require": {
-        "types": "./dist/helpers/client-generator.d.cts",
-        "default": "./dist/helpers/client-generator.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/client-generator.d.mts",
-        "default": "./dist/helpers/client-generator.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/client-generator.d.mts",
-        "default": "./dist/helpers/client-generator.mjs"
-      }
+      "import": "./dist/helpers/client-generator.mjs",
+      "require": "./dist/helpers/client-generator.cjs"
     },
     "./helpers/get-schema": {
-      "require": {
-        "types": "./dist/helpers/get-schema.d.cts",
-        "default": "./dist/helpers/get-schema.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/get-schema.d.mts",
-        "default": "./dist/helpers/get-schema.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/get-schema.d.mts",
-        "default": "./dist/helpers/get-schema.mjs"
-      }
+      "import": "./dist/helpers/get-schema.mjs",
+      "require": "./dist/helpers/get-schema.cjs"
     },
     "./helpers/schema-creator": {
-      "require": {
-        "types": "./dist/helpers/schema-creator.d.cts",
-        "default": "./dist/helpers/schema-creator.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/schema-creator.d.mts",
-        "default": "./dist/helpers/schema-creator.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/schema-creator.d.mts",
-        "default": "./dist/helpers/schema-creator.mjs"
-      }
+      "import": "./dist/helpers/schema-creator.mjs",
+      "require": "./dist/helpers/schema-creator.cjs"
     },
     "./helpers/typed-sql": {
-      "require": {
-        "types": "./dist/helpers/typed-sql.d.cts",
-        "default": "./dist/helpers/typed-sql.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/typed-sql.d.mts",
-        "default": "./dist/helpers/typed-sql.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/typed-sql.d.mts",
-        "default": "./dist/helpers/typed-sql.mjs"
-      }
+      "import": "./dist/helpers/typed-sql.mjs",
+      "require": "./dist/helpers/typed-sql.cjs"
     },
-    "./package.json": "./package.json",
     "./types": {
-      "require": {
-        "types": "./dist/types/index.d.cts",
-        "default": "./dist/types/index.cjs"
-      },
-      "import": {
-        "types": "./dist/types/index.d.mts",
-        "default": "./dist/types/index.mjs"
-      },
-      "default": {
-        "types": "./dist/types/index.d.mts",
-        "default": "./dist/types/index.mjs"
-      }
+      "import": "./dist/types/index.mjs",
+      "require": "./dist/types/index.cjs"
     },
     "./types/plugin": {
-      "require": {
-        "types": "./dist/types/plugin.d.cts",
-        "default": "./dist/types/plugin.cjs"
-      },
-      "import": {
-        "types": "./dist/types/plugin.d.mts",
-        "default": "./dist/types/plugin.mjs"
-      },
-      "default": {
-        "types": "./dist/types/plugin.d.mts",
-        "default": "./dist/types/plugin.mjs"
-      }
+      "import": "./dist/types/plugin.mjs",
+      "require": "./dist/types/plugin.cjs"
     },
     "./types/prisma": {
-      "require": {
-        "types": "./dist/types/prisma.d.cts",
-        "default": "./dist/types/prisma.cjs"
-      },
-      "import": {
-        "types": "./dist/types/prisma.d.mts",
-        "default": "./dist/types/prisma.mjs"
-      },
-      "default": {
-        "types": "./dist/types/prisma.d.mts",
-        "default": "./dist/types/prisma.mjs"
-      }
-    }
+      "import": "./dist/types/prisma.mjs",
+      "require": "./dist/types/prisma.cjs"
+    },
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

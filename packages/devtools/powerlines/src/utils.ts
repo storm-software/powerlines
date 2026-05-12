@@ -16,6 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-export * from "@powerlines/core/lib/entry";
-export * from "@powerlines/core/lib/utilities";
-export * from "@powerlines/core/plugin-utils/logging";
+export * from "@powerlines/core/lib";

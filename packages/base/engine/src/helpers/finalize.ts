@@ -16,13 +16,13 @@
 
  ------------------------------------------------------------------- */
 
-import { ExecutionContext, ResolvedConfig } from "@powerlines/core";
+import type { ExecutionContext, ResolvedConfig } from "@powerlines/core";
+import { executeEnvironments } from "@powerlines/core/lib/environment";
+import { callHook } from "@powerlines/core/lib/hooks";
 import { removeDirectory } from "@stryke/fs/helpers";
 import { listFiles } from "@stryke/fs/list-files";
 import { joinPaths } from "@stryke/path/join";
 import { existsSync } from "node:fs";
-import { executeEnvironments } from "./environment";
-import { callHook } from "./hooks";
 
 /**
  * Finalize the execution context by disposing resources and cleaning up.

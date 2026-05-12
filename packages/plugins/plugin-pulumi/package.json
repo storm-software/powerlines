@@ -41,76 +41,26 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "default": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      }
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
-    "./package.json": "./package.json",
     "./types": {
-      "require": {
-        "types": "./dist/types/index.d.cts",
-        "default": "./dist/types/index.cjs"
-      },
-      "import": {
-        "types": "./dist/types/index.d.mts",
-        "default": "./dist/types/index.mjs"
-      },
-      "default": {
-        "types": "./dist/types/index.d.mts",
-        "default": "./dist/types/index.mjs"
-      }
+      "import": "./dist/types/index.mjs",
+      "require": "./dist/types/index.cjs"
     },
     "./types/_internal": {
-      "require": {
-        "types": "./dist/types/_internal.d.cts",
-        "default": "./dist/types/_internal.cjs"
-      },
-      "import": {
-        "types": "./dist/types/_internal.d.mts",
-        "default": "./dist/types/_internal.mjs"
-      },
-      "default": {
-        "types": "./dist/types/_internal.d.mts",
-        "default": "./dist/types/_internal.mjs"
-      }
+      "import": "./dist/types/_internal.mjs",
+      "require": "./dist/types/_internal.cjs"
     },
     "./types/plugin": {
-      "require": {
-        "types": "./dist/types/plugin.d.cts",
-        "default": "./dist/types/plugin.cjs"
-      },
-      "import": {
-        "types": "./dist/types/plugin.d.mts",
-        "default": "./dist/types/plugin.mjs"
-      },
-      "default": {
-        "types": "./dist/types/plugin.d.mts",
-        "default": "./dist/types/plugin.mjs"
-      }
+      "import": "./dist/types/plugin.mjs",
+      "require": "./dist/types/plugin.cjs"
     },
     "./types/pulumi": {
-      "require": {
-        "types": "./dist/types/pulumi.d.cts",
-        "default": "./dist/types/pulumi.cjs"
-      },
-      "import": {
-        "types": "./dist/types/pulumi.d.mts",
-        "default": "./dist/types/pulumi.mjs"
-      },
-      "default": {
-        "types": "./dist/types/pulumi.d.mts",
-        "default": "./dist/types/pulumi.mjs"
-      }
-    }
+      "import": "./dist/types/pulumi.mjs",
+      "require": "./dist/types/pulumi.cjs"
+    },
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

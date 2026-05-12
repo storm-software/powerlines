@@ -24,12 +24,9 @@ const config = defineTSDownConfig([
     entry: [
       "src/index.ts",
       "src/engine.ts",
-      "src/schemas.ts",
       "src/api/*.ts",
       "src/helpers/*.ts",
-      "src/storage/index.ts",
-      "src/context/index.ts",
-      "src/typescript/index.ts"
+      "src/context/index.ts"
     ],
     unbundle: false,
     exports: false

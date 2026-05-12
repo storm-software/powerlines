@@ -16,13 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  ExecutionContext,
-  ExecutionHostParams,
-  ResolvedConfig
-} from "@powerlines/core";
-import { PowerlinesExecutionContext } from "../context/execution-context";
-import { resolvePluginConfig } from "./context";
+import { PowerlinesExecutionContext } from "@powerlines/core/context/execution-context";
+import { resolvePluginConfig } from "@powerlines/core/lib/context-helpers";
+import { ExecutionHostParams } from "../types/api";
+import { EngineResolvedConfig } from "../types/config";
+import { EngineSystemContext } from "../types/context";
 
 /**
  * Creates an execution host with the provided methods. Each method will be wrapped to create an execution context and handle errors appropriately.
@@ -30,25 +28,25 @@ import { resolvePluginConfig } from "./context";
  * @param methods - An object where keys are method names and values are functions that take an execution context and return a promise.
  * @returns An object with the same keys as the input methods, but each function is wrapped to create an execution context and handle errors.
  */
-export function createExecutionHost<TResolvedConfig extends ResolvedConfig>(
-  methods: Record<
-    string,
-    (context: ExecutionContext<TResolvedConfig>) => Promise<void>
-  >
-) {
+export function createExecutionHost<
+  TContext extends PowerlinesExecutionContext<
+    EngineResolvedConfig,
+    EngineSystemContext
+  > = PowerlinesExecutionContext<EngineResolvedConfig, EngineSystemContext>
+>(methods: Record<string, (context: TContext) => Promise<void>>) {
   return Object.fromEntries(
     Object.entries(methods).map(([method, fn]) => [
       method,
       async (params: ExecutionHostParams) => {
-        const context = await PowerlinesExecutionContext.from<TResolvedConfig>(
+        const context = (await PowerlinesExecutionContext.from(
           params.options,
           params.inlineConfig ?? {}
-        );
+        )) as TContext;
         context.logger.info(
           `Starting ${method} execution (${params.options.executionId})`
         );
 
-        await resolvePluginConfig(context);
+        await resolvePluginConfig(context as PowerlinesExecutionContext<any>);
 
         await fn(context);
       }

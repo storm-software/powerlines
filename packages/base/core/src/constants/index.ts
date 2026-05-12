@@ -20,6 +20,7 @@ export * from "./api";
 export * from "./commands";
 export * from "./devtools";
 export * from "./environments";
+export * from "./extensions";
 export * from "./fs";
 export * from "./hooks";
 export * from "./log-level";

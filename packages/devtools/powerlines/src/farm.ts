@@ -16,26 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-// import { createFarmPlugin } from "unplugin";
-// import { createUnpluginFactory } from "./unplugin";
-
-/**
- * A Farm plugin that will invoke the Powerlines API hooks during the build process.
- *
- * @see https://farmjs.dev/plugins/writing-plugins
- *
- * @example
- * ```ts
- * // farm.config.ts
- * import powerlines from "powerlines/farm";
- * import { defineConfig } from "@farmfe/core";
- *
- * export default defineConfig({
- *  plugins: [powerlines({ name: "example-app", ... })],
- * });
- *
- * ```
- */
-// export const unplugin = createFarmPlugin(createUnpluginFactory("farm"));
-
-// export { unplugin as farm };
+export * from "@powerlines/unplugin/farm";

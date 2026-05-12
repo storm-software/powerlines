@@ -19,9 +19,9 @@
 import {
   EnvironmentContext,
   ExecutionContext,
-  formatFolder,
-  ResolvedConfig
+  formatFolder
 } from "@powerlines/core";
+import { executeEnvironments } from "@powerlines/core/lib/environment";
 import { copyFiles } from "@stryke/fs/copy-file";
 import { appendPath } from "@stryke/path/append";
 import { relativePath } from "@stryke/path/file-path-fns";
@@ -30,12 +30,16 @@ import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import chalk from "chalk";
 import { existsSync } from "node:fs";
-import { executeEnvironments } from "../helpers/environment";
+import { EngineResolvedConfig } from "../types/config";
+import { EngineSystemContext } from "../types/context";
 import { prepare } from "./prepare";
 
-async function handleBuild<TResolvedConfig extends ResolvedConfig>(
-  context: ExecutionContext<TResolvedConfig>,
-  env: EnvironmentContext<TResolvedConfig>
+async function handleBuild<
+  TResolvedConfig extends EngineResolvedConfig,
+  TSystemContext extends EngineSystemContext
+>(
+  context: ExecutionContext<TResolvedConfig, TSystemContext>,
+  env: EnvironmentContext<TResolvedConfig, TSystemContext>
 ) {
   await context.callHook("build", {
     environment: env,
@@ -135,9 +139,10 @@ async function handleBuild<TResolvedConfig extends ResolvedConfig>(
  *
  * @param context - The execution context for the build process, which provides access to the project configuration, environment, and utility functions for performing the build. The context is used to manage the state and behavior of the build process, allowing for hooks to be called at different stages of the build and for environment-specific configurations to be applied.
  */
-export async function build<TResolvedConfig extends ResolvedConfig>(
-  context: ExecutionContext<TResolvedConfig>
-) {
+export async function build<
+  TResolvedConfig extends EngineResolvedConfig,
+  TSystemContext extends EngineSystemContext
+>(context: ExecutionContext<TResolvedConfig, TSystemContext>) {
   const timer = context.timer("Building");
 
   await context.generateChecksum();
@@ -153,14 +158,17 @@ export async function build<TResolvedConfig extends ResolvedConfig>(
           : "The project is configured to skip cache. Re-preparing the project."
     );
 
-    await prepare<TResolvedConfig>(context);
+    await prepare<TResolvedConfig, TSystemContext>(context);
   }
 
   if (context.config.singleBuild) {
-    await handleBuild<TResolvedConfig>(context, await context.toEnvironment());
+    await handleBuild<TResolvedConfig, TSystemContext>(
+      context,
+      await context.toEnvironment()
+    );
   } else {
     await executeEnvironments(context, async env => {
-      await handleBuild<TResolvedConfig>(context, env);
+      await handleBuild<TResolvedConfig, TSystemContext>(context, env);
     });
   }
 

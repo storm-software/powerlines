@@ -16,16 +16,16 @@
 
  ------------------------------------------------------------------- */
 
+import { createUnplugin } from "@powerlines/core";
 import { formatConfig } from "@powerlines/core/plugin-utils";
 import { Plugin } from "@powerlines/core/types/plugin";
+import { resolveOptions } from "@powerlines/unplugin/rolldown";
 import { toArray } from "@stryke/convert/to-array";
 import defu from "defu";
-import { rolldown as build } from "rolldown";
-import { resolveOptions } from "./helpers/resolve-options";
-import { createRolldownPlugin } from "./helpers/unplugin";
+import { rolldown as build, InputOptions } from "rolldown";
+import { createRolldownPlugin } from "unplugin";
 import { RolldownPluginContext, RolldownPluginOptions } from "./types/plugin";
 
-export * from "./helpers";
 export * from "./types";
 
 declare module "@powerlines/core" {
@@ -57,12 +57,19 @@ export const plugin = <
     async build() {
       this.debug("Starting Rolldown build process...");
 
-      const options = defu(
-        {
-          plugins: [createRolldownPlugin(this)]
-        },
-        resolveOptions(this)
-      );
+      const resolved = resolveOptions(this);
+      const options = defu(this.config.rolldown, {
+        ...resolved,
+        config: false,
+        plugins: [
+          createRolldownPlugin(
+            createUnplugin(this, {
+              silenceHookLogging: true,
+              name: "rolldown"
+            })
+          )()
+        ]
+      }) as InputOptions;
 
       this.debug({
         meta: {

@@ -16,23 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-// import { createUnloaderPlugin } from "unplugin";
-// import { createUnpluginFactory } from "./unplugin";
-
-/**
- * An Unloader plugin that will invoke the Powerlines API hooks during processing.
- *
- * @example
- * ```ts
- * // unloader.config.js
- * import powerlines from "powerlines/unloader";
- *
- * export default defineConfig({
- *   plugins: [powerlines({ name: "example-app", ... })],
- * });
- *
- * ```
- */
-// export const unplugin = createUnloaderPlugin(createUnpluginFactory("unloader"));
-
-// export { unplugin as unloader };
+export * from "@powerlines/unplugin/unloader";

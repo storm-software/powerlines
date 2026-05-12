@@ -22,10 +22,6 @@ import type {
   CreateInlineConfig,
   DeployInlineConfig,
   DocsInlineConfig,
-  Engine,
-  EngineContext,
-  EngineOptions,
-  ExecutionHost,
   InlineConfig,
   LintInlineConfig,
   PrepareInlineConfig,
@@ -40,6 +36,9 @@ import { EventEmitter } from "node:events";
 import sirv from "sirv";
 import { PowerlinesEngineContext } from "./context/engine-context";
 import { ExecutionHostWorker } from "./helpers/execution-host-worker";
+import { Engine, ExecutionHost } from "./types/api";
+import { EngineOptions } from "./types/config";
+import { EngineContext } from "./types/context";
 
 /**
  * The Powerlines process' orchestration and coordination API.
@@ -47,10 +46,9 @@ import { ExecutionHostWorker } from "./helpers/execution-host-worker";
  * @public
  */
 export class PowerlinesEngine<
-  TExecutionAPIMethods extends ReadonlyArray<string> =
-    typeof EXECUTION_API_METHODS
+  TExecutionAPI extends ReadonlyArray<string> = typeof EXECUTION_API_METHODS
 >
-  implements Engine<TExecutionAPIMethods>, AsyncDisposable
+  implements Engine<TExecutionAPI>, AsyncDisposable
 {
   /**
    * The Powerlines context
@@ -60,7 +58,7 @@ export class PowerlinesEngine<
   /**
    * The execution host, which provides methods to call the execution API functions from the engine context. This allows the engine to invoke commands and other API functions during the execution of Powerlines commands, enabling communication between the engine and the execution contexts.
    */
-  #host: ExecutionHost<TExecutionAPIMethods>;
+  #host: ExecutionHost<TExecutionAPI>;
 
   /**
    * The Powerlines context
@@ -72,7 +70,7 @@ export class PowerlinesEngine<
   /**
    * The execution host, which provides methods to call the execution API functions from the engine context. This allows the engine to invoke commands and other API functions during the execution of Powerlines commands, enabling communication between the engine and the execution contexts.
    */
-  public get host(): ExecutionHost<TExecutionAPIMethods> {
+  public get host(): ExecutionHost<TExecutionAPI> {
     return this.#host;
   }
 
@@ -85,7 +83,7 @@ export class PowerlinesEngine<
    */
   public constructor(
     context: EngineContext,
-    host: ExecutionHost<TExecutionAPIMethods>
+    host: ExecutionHost<TExecutionAPI>
   ) {
     this.#context = context;
     this.#host = host;
@@ -290,7 +288,7 @@ export class PowerlinesEngine<
    * @returns A promise that resolves when all executions for the specified command have completed
    */
   protected async execute(
-    method: TExecutionAPIMethods[number],
+    method: TExecutionAPI[number],
     inlineConfig: InlineConfig
   ) {
     await Promise.all(
@@ -348,17 +346,15 @@ export async function createContext(options: EngineOptions) {
   });
 }
 
-export async function createEngine<
-  TExecutionAPIMethods extends ReadonlyArray<string>
->(
+export async function createEngine<TExecutionAPI extends ReadonlyArray<string>>(
   options: EngineOptions,
   executionHostPath = "@powerlines/engine/execution-host",
-  executionMethods: TExecutionAPIMethods = EXECUTION_API_METHODS as unknown as TExecutionAPIMethods
+  executionMethods: TExecutionAPI = EXECUTION_API_METHODS as unknown as TExecutionAPI
 ) {
   EventEmitter.setMaxListeners(100);
 
   const context = await createContext(options);
-  const host = await ExecutionHostWorker.from<TExecutionAPIMethods>(
+  const host = await ExecutionHostWorker.from<TExecutionAPI>(
     executionHostPath,
     {
       context,
@@ -366,5 +362,5 @@ export async function createEngine<
     }
   );
 
-  return new PowerlinesEngine<TExecutionAPIMethods>(context, host);
+  return new PowerlinesEngine<TExecutionAPI>(context, host);
 }

@@ -16,31 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-// import { RollupPluginInitialConfig } from "@powerlines/plugin-rollup/types/plugin";
-// import { createRollupPlugin } from "unplugin";
-// import { createUnpluginFactory } from "./unplugin";
-
-export {
-  default as plugin,
-  default as rollup
-} from "@powerlines/plugin-rollup";
-
-/**
- * A Rollup plugin that will invoke the Powerlines API hooks during the build process.
- *
- * @see https://rollupjs.org/guide/en/#plugins-overview
- *
- * @example
- * ```ts
- * // rollup.config.ts
- *
- * import powerlines from "powerlines/rollup";
- *
- * export default defineConfig({
- *   plugins: [powerlines({ name: "example-app", ... })],
- * })
- * ```
- */
-// export const unplugin = createRollupPlugin<RollupPluginInitialConfig>(
-//   createUnpluginFactory("rollup")
-// );
+export * from "@powerlines/unplugin/rollup";

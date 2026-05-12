@@ -93,6 +93,7 @@
   },
   "dependencies": {
     "@powerlines/core": "workspace:*",
+    "@powerlines/unplugin": "workspace:*",
     "@stryke/fs": "catalog:",
     "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",

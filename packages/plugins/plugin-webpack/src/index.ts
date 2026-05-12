@@ -16,15 +16,14 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "@powerlines/core";
+import { createUnplugin, Plugin } from "@powerlines/core";
 import { formatConfig } from "@powerlines/core/plugin-utils";
+import { resolveOptions } from "@powerlines/unplugin/webpack";
 import defu from "defu";
-import webpack from "webpack";
-import { resolveOptions } from "./helpers/resolve-options";
-import { createWebpackPlugin } from "./helpers/unplugin";
+import { createWebpackPlugin } from "unplugin";
+import webpack, { Configuration } from "webpack";
 import { WebpackPluginContext, WebpackPluginOptions } from "./types/plugin";
 
-export * from "./helpers";
 export * from "./types";
 
 declare module "@powerlines/core" {
@@ -57,22 +56,27 @@ export const plugin = <
     async build() {
       this.debug("Starting Webpack build process...");
 
-      const options = defu(
-        {
-          entry: this.entry.reduce(
-            (ret, entry) => {
-              ret[entry.output || entry.name || entry.file] = entry.file;
+      const resolved = resolveOptions(this);
+      const options = defu(this.config.webpack, {
+        ...resolved,
+        config: false,
+        entry: this.entry.reduce(
+          (ret, entry) => {
+            ret[entry.output || entry.name || entry.file] = entry.file;
 
-              return ret;
-            },
-            {} as Record<string, string>
-          )
-        },
-        resolveOptions(this),
-        {
-          plugins: [createWebpackPlugin(this)]
-        }
-      );
+            return ret;
+          },
+          {} as Record<string, string>
+        ),
+        plugins: [
+          createWebpackPlugin(
+            createUnplugin(this, {
+              silenceHookLogging: true,
+              name: "webpack"
+            })
+          )()
+        ]
+      }) as Configuration;
 
       this.debug({
         meta: {

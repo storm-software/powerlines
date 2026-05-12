@@ -16,9 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import { ExecutionContext, ResolvedConfig } from "@powerlines/core";
+import { ExecutionContext } from "@powerlines/core";
+import { executeEnvironments } from "@powerlines/core/lib/environment";
 import { joinPaths } from "@stryke/path/join";
-import { executeEnvironments } from "../helpers/environment";
+import { EngineResolvedConfig } from "../types/config";
+import { EngineSystemContext } from "../types/context";
 import { prepare } from "./prepare";
 
 /**
@@ -26,12 +28,13 @@ import { prepare } from "./prepare";
  *
  * @param context - The execution context for the clean process, which provides access to the project configuration, environment, and utility functions for performing the clean operation. The context is used to manage the state and behavior of the clean process, allowing for hooks to be called at different stages of the clean and for environment-specific configurations to be applied.
  */
-export async function clean<TResolvedConfig extends ResolvedConfig>(
-  context: ExecutionContext<TResolvedConfig>
-) {
+export async function clean<
+  TResolvedConfig extends EngineResolvedConfig,
+  TSystemContext extends EngineSystemContext
+>(context: ExecutionContext<TResolvedConfig, TSystemContext>) {
   const timer = context.timer("Cleaning");
 
-  await prepare(context, true);
+  await prepare<TResolvedConfig, TSystemContext>(context, true);
   await executeEnvironments(context, async env => {
     env.debug("Cleaning the project's dist and artifacts directories.");
 

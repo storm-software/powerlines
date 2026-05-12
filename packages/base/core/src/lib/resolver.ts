@@ -16,10 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import type { ResolvedConfig, Resolver } from "@powerlines/core";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
 import { JitiOptions, createJiti } from "jiti";
+import { ResolvedConfig } from "../types/config";
+import { Resolver } from "../types/context";
 
 export type CreateResolverOptions = Omit<
   JitiOptions,

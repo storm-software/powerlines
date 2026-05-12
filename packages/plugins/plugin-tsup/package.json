@@ -74,10 +74,10 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
+  "files": ["dist"],
   "dependencies": {
     "@powerlines/core": "workspace:*",
-    "@powerlines/plugin-esbuild": "workspace:*",
+    "@powerlines/unplugin": "workspace:*",
     "@storm-software/build-tools": "catalog:",
     "@stryke/convert": "catalog:",
     "@stryke/helpers": "catalog:",

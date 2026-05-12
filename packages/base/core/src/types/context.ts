@@ -20,7 +20,6 @@ import type { EnvPaths } from "@stryke/env/get-env-paths";
 import { FetchRequestOptions } from "@stryke/http/fetch";
 import { DeepReadonly } from "@stryke/types/base";
 import type { PackageJson } from "@stryke/types/package-json";
-import { ConnectionMeta, DevToolsNodeContext } from "devframe/types";
 import type { Jiti } from "jiti";
 import type MagicString from "magic-string";
 import type { SourceMap } from "magic-string";
@@ -30,12 +29,10 @@ import type { RequestInfo, Response } from "undici";
 import type { Unimport } from "unimport";
 import type { ExternalIdResult, UnpluginBuildContext } from "unplugin";
 import type {
-  EngineOptions,
   EnvironmentResolvedConfig,
   ExecutionOptions,
-  InlineConfig,
   Options,
-  ParsedUserConfig,
+  PluginConfig,
   ResolvedConfig,
   ResolvedEntryTypeDefinition
 } from "./config";
@@ -54,19 +51,18 @@ import type {
 } from "./hooks";
 import { LogFn, Logger, LoggerOptions, LogMessage } from "./logging";
 import type { Plugin } from "./plugin";
-import { RpcClient } from "./rpc";
 import type { ParsedTypeScriptConfig } from "./tsconfig";
 
-export interface MetaInfo {
+export type MetaInfo = Record<string, any> & {
   /**
    * The checksum generated from the resolved options
    */
   checksum: string;
 
   /**
-   * The build id
+   * The execution id
    */
-  buildId: string;
+  executionId: string;
 
   /**
    * The release id
@@ -74,7 +70,7 @@ export interface MetaInfo {
   releaseId: string;
 
   /**
-   * The build timestamp
+   * The execution timestamp
    */
   timestamp: number;
 
@@ -87,7 +83,7 @@ export interface MetaInfo {
    * A hash that represents the path to the configuration root directory
    */
   configHash: string;
-}
+};
 
 export interface Resolver extends Jiti {
   plugin: Jiti;
@@ -204,7 +200,15 @@ export interface ResolveResult extends ExternalIdResult {
  * @remarks
  * This context provides the foundational structure for interacting with the Powerlines engine.
  */
-export interface BaseContext extends Pick<Required<Options>, "cwd"> {
+export interface BaseContext<TSystemContext = unknown> extends Pick<
+  Required<Options>,
+  "cwd"
+> {
+  /**
+   * The system instance associated with the context, which can be used to interact with the Powerlines engine and perform various operations during the build process. The specific type of the system may vary depending on the environment and use case, but it typically provides methods for logging, file system operations, and other interactions with the Powerlines engine.
+   */
+  system: TSystemContext;
+
   /**
    * The timestamp when the context was initialized
    */
@@ -293,175 +297,15 @@ export interface BaseContext extends Pick<Required<Options>, "cwd"> {
 }
 
 /**
- * The execution scope state represents the current state of a command, hook, or plugin execution within the Powerlines engine. It includes information about the name and type of the execution, as well as any relevant metadata such as the order of hook execution or the timestamp of when the execution started. This state can be used for logging, debugging, and other purposes to provide insight into the behavior of the Powerlines engine during its operation.
- */
-export type ExecutionScopeType = "command" | "hook" | "plugin";
-
-/**
- * The execution state for a command, hook, or plugin execution within the Powerlines engine. This state includes information about the name and type of the execution, as well as any relevant metadata such as the order of hook execution or the timestamp of when the execution started. This state can be used for logging, debugging, and other purposes to provide insight into the behavior of the Powerlines engine during its operation.
- */
-export interface ExecutionScopeState {
-  /**
-   * The timestamp when the command, hook, or plugin execution started
-   */
-  timestamp: number;
-
-  /**
-   * The name of the command, hook, or plugin being executed
-   */
-  name: string;
-
-  /**
-   * The type of execution scope, which can be "command", "hook", or "plugin". This indicates whether the execution state represents a command being executed, a hook being executed, or a plugin being executed.
-   */
-  type: ExecutionScopeType;
-}
-
-/**
- * The execution state for a command execution within the Powerlines engine. This state includes information about the name and type of the execution, as well as any relevant metadata such as the order of hook execution or the timestamp of when the execution started. This state can be used for logging, debugging, and other purposes to provide insight into the behavior of the Powerlines engine during its operation.
- */
-export interface ExecutionCommandScopeState extends ExecutionScopeState {
-  /**
-   * The type of execution scope, which can be "command", "hook", or "plugin". This indicates whether the execution state represents a command being executed, a hook being executed, or a plugin being executed.
-   */
-  type: "command";
-}
-
-/**
- * The execution state for a hook execution within the Powerlines engine. This state includes information about the name and type of the execution, as well as any relevant metadata such as the order of hook execution or the timestamp of when the execution started. This state can be used for logging, debugging, and other purposes to provide insight into the behavior of the Powerlines engine during its operation.
- */
-export interface ExecutionHookScopeState extends ExecutionScopeState {
-  /**
-   * The order of the hook being executed, which can be "pre", "post", or "normal". This indicates whether the hook is being executed
-   */
-  order?: "pre" | "post";
-
-  /**
-   * The type of execution scope, which can be "command", "hook", or "plugin". This indicates whether the execution state represents a command being executed, a hook being executed, or a plugin being executed.
-   */
-  type: "hook";
-}
-
-/**
- * The execution state for a plugin execution within the Powerlines engine. This state includes information about the name and type of the execution, as well as any relevant metadata such as the order of hook execution or the timestamp of when the execution started. This state can be used for logging, debugging, and other purposes to provide insight into the behavior of the Powerlines engine during its operation.
- */
-export interface ExecutionPluginScopeState extends ExecutionScopeState {
-  /**
-   * The type of execution scope, which can be "command", "hook", or "plugin". This indicates whether the execution state represents a command being executed, a hook being executed, or a plugin being executed.
-   */
-  type: "plugin";
-}
-
-/**
- * The execution state for the Powerlines engine, which includes information about the currently active command, hook, and plugin executions. This state can be used for logging, debugging, and other purposes to provide insight into the behavior of the Powerlines engine during its operation.
- */
-export interface ExecutionState {
-  /**
-   * The currently active command execution for this execution context
-   */
-  command: ExecutionCommandScopeState | null;
-
-  /**
-   * The currently active hook execution for this execution context, if any
-   */
-  hook: ExecutionHookScopeState | null;
-
-  /**
-   * The currently active plugin execution for this execution context, if any
-   */
-  plugin: ExecutionPluginScopeState | null;
-}
-
-/**
- * The execution context for a command, hook, or plugin execution within the Powerlines engine. This context includes information about the name and type of the execution, as well as any relevant metadata such as the order of hook execution or the timestamp of when the execution started. This context can be used for logging, debugging, and other purposes to provide insight into the behavior of the Powerlines engine during its operation.
- */
-export interface EngineExecutionItem {
-  /**
-   * A unique identifier for the current invocation (a single invocation can include multiple executions).
-   */
-  invocationId: string;
-
-  /**
-   * The method being executed, which can be one of the supported Powerlines execution API methods such as "build", "docs", or "deploy". This indicates the specific command or action that is being executed within the Powerlines engine.
-   */
-  method: string;
-
-  /**
-   * The options provided to the Powerlines process for this execution
-   */
-  options: ExecutionOptions;
-
-  /**
-   * The parsed user configuration file provided to the Powerlines process before any resolution or merging
-   */
-  configFile: ParsedUserConfig;
-
-  /**
-   * An object representing the currently active command, hook, and plugin executions for this execution context
-   */
-  state: ExecutionState;
-}
-
-/**
- * The Powerlines engine context.
- *
- * @remarks
- * This context is used during the execution of the Powerlines engine, providing access to the input user configurations.
- */
-export interface EngineContext
-  extends BaseContext, Pick<Required<EngineOptions>, "framework" | "orgId"> {
-  /**
-   * The options provided to the Powerlines process
-   */
-  options: EngineOptions;
-
-  /**
-   * The metadata information for the RPC connection
-   */
-  connection: ConnectionMeta;
-
-  /**
-   * The [Devframe](https://devtools.vite.dev/devframe/guide/) context for interacting with the DevTools.
-   *
-   * @see https://devtools.vite.dev/devframe/guide/
-   * @see https://github.com/vitejs/devtools/blob/main/devframe
-   */
-  devtools: DevToolsNodeContext;
-
-  /**
-   * A list of all command executions that will be run during the lifecycle of the engine
-   */
-  executions: EngineExecutionItem[];
-
-  /**
-   * Initialize the context with the provided configuration options
-   *
-   * @remarks
-   * This method will set up the resolver and load the user configuration file based on the provided options. It is called during the construction of the context and can also be called when cloning the context to ensure that the new context has the same configuration and resolver setup.
-   */
-  loadExecutions: (
-    method: string,
-    inlineConfig: InlineConfig
-  ) => Promise<EngineExecutionItem[]>;
-
-  /**
-   * Complete an execution by removing it from the list of active executions based on the provided invocation ID and execution ID. This method is typically called when an execution has finished or has been terminated, allowing the context to clean up any resources associated with that execution and update its internal state accordingly.
-   *
-   * @param invocationId - The unique identifier for the invocation of the execution to be completed.
-   * @param executionId - The unique identifier for the specific execution to be completed.
-   */
-  completeExecution: (invocationId: string, executionId: string) => void;
-}
-
-/**
  * The unresolved Powerlines context.
  *
  * @remarks
  * This context is used before the user configuration has been fully resolved after the `config`.
  */
 export interface UnresolvedContext<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> extends BaseContext {
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig,
+  TSystemContext = unknown
+> extends BaseContext<TSystemContext> {
   /**
    * The options provided to the Powerlines process, resolved with default values and merged with any configuration provided by plugins or other sources. This is typically the final configuration used during the build process, but may also include additional options that are relevant to the context and its interactions with the Powerlines engine.
    */
@@ -493,7 +337,7 @@ export interface UnresolvedContext<
     };
 
   /**
-   * The metadata information
+   * A place to store metadata information on the context for access in plugins and other parts of the system. This can be used to store information about the current execution, such as a unique identifier for the execution, timestamps, or any other relevant data that may be useful for plugins or other parts of the system to access during the build process.
    */
   meta: MetaInfo;
 
@@ -538,6 +382,32 @@ export interface UnresolvedContext<
   readonly typesPath: string;
 
   /**
+   * Invokes the configured plugin hooks
+   *
+   * @remarks
+   * By default, it will call the `"pre"`, `"normal"`, and `"post"` ordered hooks in sequence
+   *
+   * @param hook - The hook to call
+   * @param options - The options to provide to the hook
+   * @param args - The arguments to pass to the hook
+   * @returns The result of the hook call
+   */
+  callHook: <TKey extends string>(
+    hook: TKey,
+    options: CallHookOptions & {
+      environment?: string | EnvironmentContext<TResolvedConfig>;
+    },
+    ...args: InferHookParameters<PluginContext<TResolvedConfig>, TKey>
+  ) => Promise<
+    InferHookReturnType<PluginContext<TResolvedConfig>, TKey> | undefined
+  >;
+
+  /**
+   * The virtual file system interface for managing files during the build process
+   */
+  fs: VirtualFileSystemInterface;
+
+  /**
    * The project's `package.json` file content
    */
   packageJson: PackageJson & Record<string, any>;
@@ -566,16 +436,6 @@ export interface UnresolvedContext<
    * The entry points of the source code
    */
   entry: ResolvedEntryTypeDefinition[];
-
-  /**
-   * The virtual file system manager used during the build process to reference generated runtime files
-   */
-  fs: VirtualFileSystemInterface;
-
-  /**
-   * The RPC client instance used for communication between the engine and its worker threads, allowing for remote procedure calls to be made between the main thread and worker threads for tasks such as logging, file system operations, and other interactions that require communication between the different execution contexts within the Powerlines engine.
-   */
-  rpc: RpcClient;
 
   /**
    * The Jiti module resolver
@@ -794,36 +654,42 @@ export interface UnresolvedContext<
  * @remarks
  * This context is used after the user configuration has been fully resolved and merged with default values, providing access to the final configuration options and utility functions for interacting with the Powerlines engine.
  */
-export type Context<TResolvedConfig extends ResolvedConfig = ResolvedConfig> =
-  Omit<UnresolvedContext<TResolvedConfig>, "config"> & {
-    /**
-     * The fully resolved Powerlines configuration
-     */
-    config: TResolvedConfig;
+export type Context<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig,
+  TSystemContext = unknown
+> = Omit<
+  UnresolvedContext<TResolvedConfig, TSystemContext>,
+  "config" | "callHook"
+> & {
+  /**
+   * The fully resolved Powerlines configuration
+   */
+  config: TResolvedConfig;
 
-    /**
-     * Invokes the configured plugin hooks
-     *
-     * @remarks
-     * By default, it will call the `"pre"`, `"normal"`, and `"post"` ordered hooks in sequence
-     *
-     * @param hook - The hook to call
-     * @param options - The options to provide to the hook
-     * @param args - The arguments to pass to the hook
-     * @returns The result of the hook call
-     */
-    callHook: <TKey extends string>(
-      hook: TKey,
-      options: CallHookOptions & {
-        environment?: string | EnvironmentContext<any>;
-      },
-      ...args: InferHookParameters<PluginContext<any>, TKey>
-    ) => Promise<InferHookReturnType<PluginContext<any>, TKey> | undefined>;
-  };
+  /**
+   * Invokes the configured plugin hooks
+   *
+   * @remarks
+   * By default, it will call the `"pre"`, `"normal"`, and `"post"` ordered hooks in sequence
+   *
+   * @param hook - The hook to call
+   * @param options - The options to provide to the hook
+   * @param args - The arguments to pass to the hook
+   * @returns The result of the hook call
+   */
+  callHook: <TKey extends string>(
+    hook: TKey,
+    options: CallHookOptions & {
+      environment?: string | EnvironmentContext<any, any>;
+    },
+    ...args: InferHookParameters<PluginContext<any, any>, TKey>
+  ) => Promise<InferHookReturnType<PluginContext<any, any>, TKey> | undefined>;
+};
 
 export interface ExecutionContext<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> extends Context<TResolvedConfig> {
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig,
+  TSystemContext = unknown
+> extends Context<TResolvedConfig, TSystemContext> {
   /**
    * The unique identifier of the execution context, which can be used for logging and other purposes to distinguish between different executions in the same process.
    */
@@ -835,17 +701,15 @@ export interface ExecutionContext<
    * @remarks
    * This is a record of plugin identifiers to their respective options. This field is populated by the Powerlines engine during both plugin initialization and the `init` command.
    */
-  plugins: Plugin<PluginContext<TResolvedConfig>>[];
+  plugins: Plugin<PluginContext<TResolvedConfig, TSystemContext>>[];
 
   /**
    * A table for storing the current context for each configured environment
    */
-  environments: Record<string, EnvironmentContext<TResolvedConfig>>;
-
-  /**
-   * A function to add a plugin to the context and update the configuration options
-   */
-  addPlugin: (plugin: Plugin<PluginContext<TResolvedConfig>>) => Promise<void>;
+  environments: Record<
+    string,
+    EnvironmentContext<TResolvedConfig, TSystemContext>
+  >;
 
   /**
    * Retrieves the context for a specific environment by name
@@ -863,7 +727,7 @@ export interface ExecutionContext<
    */
   getEnvironment: (
     name?: string
-  ) => Promise<EnvironmentContext<TResolvedConfig>>;
+  ) => Promise<EnvironmentContext<TResolvedConfig, TSystemContext>>;
 
   /**
    * Safely retrieves the context for a specific environment by name
@@ -894,7 +758,7 @@ export interface ExecutionContext<
    */
   getEnvironmentSafe: (
     name?: string
-  ) => Promise<EnvironmentContext<TResolvedConfig> | undefined>;
+  ) => Promise<EnvironmentContext<TResolvedConfig, TSystemContext> | undefined>;
 
   /**
    * A function to copy the context and update the fields for a specific environment
@@ -904,36 +768,56 @@ export interface ExecutionContext<
    */
   createEnvironment: (
     environment: EnvironmentResolvedConfig<TResolvedConfig>["environment"]
-  ) => Promise<EnvironmentContext<TResolvedConfig>>;
+  ) => Promise<EnvironmentContext<TResolvedConfig, TSystemContext>>;
 
   /**
    * A function to merge all configured environments into a single context
    *
    * @returns A promise that resolves to the merged environment context.
    */
-  toEnvironment: () => Promise<EnvironmentContext<TResolvedConfig>>;
+  toEnvironment: () => Promise<
+    EnvironmentContext<TResolvedConfig, TSystemContext>
+  >;
+
+  /**
+   * A function used internally to add a plugin to the context and update the configuration options
+   *
+   * @danger
+   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
+   *
+   * @internal
+   */
+  unstable_addPlugin: (
+    plugin: PluginConfig<PluginContext<TResolvedConfig, TSystemContext>>
+  ) => Promise<void>;
 }
 
-export interface EnvironmentContextPlugin<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> {
+export interface EnvironmentPlugin<
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig,
+  TSystemContext = unknown
+> extends Plugin<PluginContext<TResolvedConfig, TSystemContext>> {
   /**
-   * The unique identifier of the plugin, which can be used for logging and other purposes to distinguish between different plugins in the same process.
-   */
-  readonly id: string;
-
-  /**
-   * The plugin instance associated with this context, which can be used to access the plugin's options and other properties.
-   */
-  plugin: Plugin<PluginContext<TResolvedConfig>>;
-
-  /**
-   * The context for the plugin, which provides access to the Powerlines engine and other utilities for interacting with the build process.
+   * A internal field to store the plugin configuration and context for the environment context
    *
-   * @remarks
-   * This context is specific to the plugin and environment, allowing for environment-specific modifications without affecting the global context.
+   * @danger
+   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
+   *
+   * @internal
    */
-  context: PluginContext<TResolvedConfig>;
+  $$internal: {
+    /**
+     * The unique identifier of the plugin, which can be used for logging and other purposes to distinguish between different plugins in the same process.
+     */
+    readonly id: string;
+
+    /**
+     * The context for the plugin, which provides access to the Powerlines engine and other utilities for interacting with the build process.
+     *
+     * @remarks
+     * This context is specific to the plugin and environment, allowing for environment-specific modifications without affecting the global context.
+     */
+    readonly context: PluginContext<TResolvedConfig, TSystemContext>;
+  };
 }
 
 export type SelectHookResultItem<
@@ -949,8 +833,9 @@ export type SelectHookResult<
 > = SelectHookResultItem<TContext, TKey>[];
 
 export interface EnvironmentContext<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> extends Context<EnvironmentResolvedConfig<TResolvedConfig>> {
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig,
+  TSystemContext = unknown
+> extends Context<EnvironmentResolvedConfig<TResolvedConfig>, TSystemContext> {
   /**
    * The unique identifier of the environment associated with this context, which can be used for logging and other purposes to distinguish between different environments in the same process.
    */
@@ -962,17 +847,22 @@ export interface EnvironmentContext<
    * @remarks
    * This is a record of plugin identifiers to their respective options. This field is populated by the Powerlines engine during both plugin initialization and the `init` command.
    */
-  plugins: EnvironmentContextPlugin<TResolvedConfig>[];
+  plugins: EnvironmentPlugin<TResolvedConfig, TSystemContext>[];
 
   /**
    * A table holding references to hook functions registered by plugins
    */
-  hooks: HooksList<PluginContext<TResolvedConfig>>;
+  hooks: HooksList<PluginContext<TResolvedConfig, TSystemContext>>;
 
   /**
-   * A function to add a plugin to the context and update the configuration options
+   * The execution context associated with this environment, which provides access to the project configuration, environment, and utility functions for performing the build. The execution context is used to manage the state and behavior of the build process across multiple environments, allowing for hooks to be called at different stages of the build and for environment-specific configurations to be applied.
+   *
+   * @danger
+   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
+   *
+   * @internal
    */
-  addPlugin: (plugin: Plugin<PluginContext<TResolvedConfig>>) => Promise<void>;
+  unstable_execution: ExecutionContext<TResolvedConfig, TSystemContext>;
 
   /**
    * Retrieves the hook handlers for a specific hook name
@@ -980,12 +870,25 @@ export interface EnvironmentContext<
   selectHooks: <TKey extends string>(
     key: TKey,
     options?: SelectHooksOptions
-  ) => SelectHookResult<PluginContext<TResolvedConfig>, TKey>;
+  ) => SelectHookResult<PluginContext<TResolvedConfig, TSystemContext>, TKey>;
+
+  /**
+   * A function used internally to add a plugin to the context and update the configuration options
+   *
+   * @danger
+   * This field is for internal use only and should not be accessed or modified directly. It is unstable and can be changed at anytime.
+   *
+   * @internal
+   */
+  unstable_addPlugin: (
+    plugin: PluginConfig<PluginContext<TResolvedConfig, TSystemContext>>
+  ) => Promise<void>;
 }
 
 export interface PluginContext<
-  out TResolvedConfig extends ResolvedConfig = ResolvedConfig
-> extends Context<EnvironmentResolvedConfig<TResolvedConfig>> {
+  out TResolvedConfig extends ResolvedConfig = ResolvedConfig,
+  TSystemContext = unknown
+> extends Context<EnvironmentResolvedConfig<TResolvedConfig>, TSystemContext> {
   /**
    * The unique identifier of the plugin associated with this context, which can be used for logging and other purposes to distinguish between different plugins in the same process.
    */

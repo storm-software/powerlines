@@ -16,15 +16,12 @@
 
  ------------------------------------------------------------------- */
 
-import type { DeepPartial, MaybePromise } from "@stryke/types/base";
+import type { UnpluginOptions as BaseUnpluginOptions } from "unplugin";
 import type {
-  UnpluginOptions as BaseUnpluginOptions,
-  HookFilter,
-  UnpluginContextMeta
-} from "unplugin";
-import type { UserConfig } from "./config";
-import type { PluginContext, WithUnpluginBuildContext } from "./context";
-import type { PluginHook } from "./plugin";
+  Context,
+  PluginContext,
+  WithUnpluginBuildContext
+} from "./context";
 
 export type UnpluginBuilderVariant =
   | "rollup"
@@ -43,85 +40,29 @@ export type BuilderVariant =
   | "tsdown"
   | "unbuild";
 
-export type InferUnpluginVariant<TBuildVariant extends BuilderVariant> =
-  TBuildVariant extends "tsup"
-    ? "esbuild"
-    : TBuildVariant extends "tsdown"
-      ? "rolldown"
-      : TBuildVariant extends "unbuild"
-        ? "rollup"
-        : TBuildVariant;
-
 export interface UnpluginOptions<
-  TContext extends PluginContext = PluginContext
+  TContext extends Context
 > extends BaseUnpluginOptions {
   /**
    * An API object that can be used for inter-plugin communication.
    *
    * @see https://rollupjs.org/plugin-development/#direct-plugin-communication
    */
-  api: TContext;
+  context: TContext;
 }
-
-export type InferUnpluginOptions<
-  TContext extends PluginContext = PluginContext,
-  TBuilderVariant extends BuilderVariant = BuilderVariant,
-  TUnpluginVariant extends InferUnpluginVariant<TBuilderVariant> =
-    InferUnpluginVariant<TBuilderVariant>
-> = {
-  [TKey in keyof Required<
-    UnpluginOptions<TContext>
-  >[TUnpluginVariant]]?: Required<
-    UnpluginOptions<TContext>
-  >[TUnpluginVariant][TKey] extends
-    | infer THandler
-    | {
-        handler: infer THandler;
-      }
-    ? THandler extends (
-        this: infer TOriginalContext,
-        ...args: infer TArgs
-      ) => infer TReturn
-      ? PluginHook<
-          (
-            this: TOriginalContext & TContext,
-            ...args: TArgs
-          ) => MaybePromise<TReturn>,
-          keyof HookFilter
-        >
-      : Required<UnpluginOptions<TContext>>[TUnpluginVariant][TKey]
-    : Required<UnpluginOptions<TContext>>[TUnpluginVariant][TKey];
-};
-
-export type UnpluginInitialConfig = DeepPartial<UserConfig> & {
-  /**
-   * The meta information for the unplugin context
-   */
-  unplugin: UnpluginContextMeta;
-};
-
-export type UnpluginFactory<TContext extends PluginContext = PluginContext> =
-  () => UnpluginOptions<TContext>;
-
-// export type UnpluginFactory<TContext extends PluginContext = PluginContext> = (
-//   options: ExecutionOptions,
-//   meta: UnpluginContextMeta
-// ) => UnpluginOptions<TContext>;
-
-// export type UnpluginAsyncFactory<
-//   TContext extends PluginContext = PluginContext
-// > = (
-//   options: ExecutionAPIOptions,
-//   meta: UnpluginContextMeta
-// ) => Promise<UnpluginOptions<TContext>>;
 
 export type UnpluginHookFunctions<
   TContext extends PluginContext = PluginContext,
   TUnpluginBuilderVariant extends UnpluginBuilderVariant =
     UnpluginBuilderVariant,
-  TField extends keyof Required<UnpluginOptions>[TUnpluginBuilderVariant] =
-    keyof Required<UnpluginOptions>[TUnpluginBuilderVariant]
-> = Required<UnpluginOptions>[TUnpluginBuilderVariant][TField] extends
+  TField extends keyof Required<
+    UnpluginOptions<TContext>
+  >[TUnpluginBuilderVariant] = keyof Required<
+    UnpluginOptions<TContext>
+  >[TUnpluginBuilderVariant]
+> = Required<
+  UnpluginOptions<TContext>
+>[TUnpluginBuilderVariant][TField] extends
   | infer THandler
   | {
       handler: infer THandler;

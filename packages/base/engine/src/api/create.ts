@@ -16,11 +16,13 @@
 
  ------------------------------------------------------------------- */
 
-import { ExecutionContext, ResolvedConfig } from "@powerlines/core";
+import { ExecutionContext } from "@powerlines/core";
+import { executeEnvironments } from "@powerlines/core/lib/environment";
 import { listFiles } from "@stryke/fs/list-files";
 import { joinPaths } from "@stryke/path/join";
 import Handlebars from "handlebars";
-import { executeEnvironments } from "../helpers/environment";
+import { EngineResolvedConfig } from "../types/config";
+import { EngineSystemContext } from "../types/context";
 import { prepare } from "./prepare";
 
 /**
@@ -28,12 +30,13 @@ import { prepare } from "./prepare";
  *
  * @param context - The execution context for the create process, which provides access to the project configuration, environment, and utility functions for performing the create operation. The context is used to manage the state and behavior of the create process, allowing for hooks to be called at different stages of the create and for environment-specific configurations to be applied.
  */
-export async function create<TResolvedConfig extends ResolvedConfig>(
-  context: ExecutionContext<TResolvedConfig>
-) {
+export async function create<
+  TResolvedConfig extends EngineResolvedConfig,
+  TSystemContext extends EngineSystemContext
+>(context: ExecutionContext<TResolvedConfig, TSystemContext>) {
   const timer = context.timer("Create a New Project Generation");
 
-  await prepare(context, true);
+  await prepare<TResolvedConfig, TSystemContext>(context, true);
   await executeEnvironments(context, async env => {
     env.debug("Initializing the processing options for the project.");
 

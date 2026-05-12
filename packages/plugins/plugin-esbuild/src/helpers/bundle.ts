@@ -18,18 +18,17 @@
 
 import type {
   CreateUnpluginResolverOptions,
-  InitialConfig,
   PluginContext,
   ResolveOptions
 } from "@powerlines/core";
 import { createUnpluginResolver } from "@powerlines/core/lib/unplugin";
+import { resolveOptions } from "@powerlines/unplugin/esbuild";
 import { omit } from "@stryke/helpers/omit";
 import { findFileName } from "@stryke/path/file-path-fns";
 import defu from "defu";
 import { build, OutputFile } from "esbuild";
 import { createEsbuildPlugin } from "unplugin";
 import { EsbuildOptions } from "../types";
-import { resolveOptions } from "./resolve-options";
 
 export type BundleOptions = Partial<EsbuildOptions> & {
   name?: string;
@@ -85,9 +84,8 @@ export async function bundle<TContext extends PluginContext = PluginContext>(
               silenceHookLogging: true
             } as CreateUnpluginResolverOptions)
           )({
-            ...context.options,
-            ...context.initialConfig
-          } as InitialConfig<TContext["config"]["userConfig"]>)
+            ...context.options
+          })
         ]
       }
     )

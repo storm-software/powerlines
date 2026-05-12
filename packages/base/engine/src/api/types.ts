@@ -16,21 +16,24 @@
 
  ------------------------------------------------------------------- */
 
-import { ExecutionContext, format, ResolvedConfig } from "@powerlines/core";
+import { executeEnvironments } from "@powerlines/core/lib/environment";
+import { handleTypes } from "@powerlines/core/lib/generate-types";
+import { installDependencies } from "@powerlines/core/lib/install-dependencies";
+import { writeMetaFile } from "@powerlines/core/lib/meta";
+import {
+  initializeTsconfig,
+  resolveTsconfig
+} from "@powerlines/core/lib/typescript/tsconfig";
+import { format } from "@powerlines/core/lib/utilities/format";
+import { ExecutionContext } from "@powerlines/core/types/context";
 import { formatLogMessage } from "@storm-software/config-tools/logger";
 import { toArray } from "@stryke/convert/to-array";
 import { createDirectory } from "@stryke/fs/helpers";
 import { omit } from "@stryke/helpers/omit";
 import { isObject } from "@stryke/type-checks/is-object";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
-import { executeEnvironments } from "../helpers/environment";
-import { handleTypes } from "../helpers/generate-types";
-import { installDependencies } from "../helpers/install-dependencies";
-import { writeMetaFile } from "../helpers/meta";
-import {
-  initializeTsconfig,
-  resolveTsconfig
-} from "../helpers/resolve-tsconfig";
+import { EngineResolvedConfig } from "../types/config";
+import { EngineSystemContext } from "../types/context";
 import { prepare } from "./prepare";
 
 /**
@@ -42,8 +45,9 @@ import { prepare } from "./prepare";
  * @param context - The execution context for the build process, which provides access to the project configuration, environment, and utility functions for performing the build. The context is used to manage the state and behavior of the build process, allowing for hooks to be called at different stages of the build and for environment-specific configurations to be applied.
  */
 export async function types<
-  TResolvedConfig extends ResolvedConfig = ResolvedConfig
->(context: ExecutionContext<TResolvedConfig>) {
+  TResolvedConfig extends EngineResolvedConfig,
+  TSystemContext extends EngineSystemContext
+>(context: ExecutionContext<TResolvedConfig, TSystemContext>) {
   const timer = context.timer("Type Generation");
   context.debug(
     " Aggregating configuration options for the Powerlines project"
@@ -59,7 +63,7 @@ export async function types<
       order: "pre"
     });
 
-    await initializeTsconfig<TResolvedConfig>(env);
+    await initializeTsconfig<TResolvedConfig, TSystemContext>(env);
 
     await context.callHook("configResolved", {
       environment: env,
@@ -95,7 +99,7 @@ export async function types<
       );
     }
 
-    await resolveTsconfig<TResolvedConfig>(env);
+    await resolveTsconfig<TResolvedConfig, TSystemContext>(env);
     await installDependencies(env);
 
     await context.callHook("configResolved", {
@@ -112,7 +116,7 @@ export async function types<
         inlineConfig: isSetObject(env.config.inlineConfig)
           ? env.config.inlineConfig
           : undefined,
-        plugins: env.plugins.map(plugin => plugin.plugin.name)
+        plugins: env.plugins.map(plugin => plugin.name)
       })}`
     );
 

@@ -11,7 +11,12 @@
     "strict": true,
     "outDir": "../../../dist/out-tsc"
   },
-  "include": ["src/**/*.ts", "types/**/*.d.ts", "tsdown.config.ts"],
+  "include": [
+    "src/**/*.ts",
+    "schemas/**/*.ts",
+    "types/**/*.d.ts",
+    "tsdown.config.ts"
+  ],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "reflection": true
 }

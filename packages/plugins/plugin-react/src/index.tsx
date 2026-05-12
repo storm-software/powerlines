@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { isMatchFound } from "@powerlines/core/lib/typescript";
 import {
   ReflectionKind,
   ReflectionVisibility
@@ -28,7 +29,6 @@ import viteReactPlugin, { BabelOptions } from "@vitejs/plugin-react";
 import type { LoggerEvent } from "babel-plugin-react-compiler";
 import defu from "defu";
 import { Plugin } from "powerlines";
-import { isMatchFound } from "powerlines/typescript";
 import { ReactOptimizedBuiltin } from "./components/react-optimized";
 import type { ReactPluginContext, ReactPluginOptions } from "./types/plugin";
 

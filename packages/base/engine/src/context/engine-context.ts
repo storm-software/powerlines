@@ -17,14 +17,17 @@
  ------------------------------------------------------------------- */
 
 import type {
-  EngineContext,
-  EngineExecutionItem,
-  EngineOptions,
   InlineConfig,
   LogFn,
   LoggerOptions,
   LogLevelResolvedConfig
 } from "@powerlines/core";
+import { PowerlinesBaseContext } from "@powerlines/core/context/base-context";
+import {
+  getDefaultLogLevel,
+  loadParsedConfig,
+  resolveRoot
+} from "@powerlines/core/lib/config";
 import {
   createLogger,
   formatConfig,
@@ -42,16 +45,12 @@ import {
   DevToolsNodeContext
 } from "devframe/types";
 import * as v from "valibot";
-import {
-  getDefaultLogLevel,
-  loadParsedConfig,
-  resolveRoot
-} from "../helpers/resolve-config";
-import { PowerlinesBaseContext } from "./base-context";
+import { EngineOptions } from "../types/config";
+import { EngineContext, EngineExecutionItem } from "../types/context";
 
-export class PowerlinesEngineContext
-  extends PowerlinesBaseContext
-  implements EngineContext
+export class PowerlinesEngineContext<TSystemContext = unknown>
+  extends PowerlinesBaseContext<TSystemContext>
+  implements EngineContext<TSystemContext>
 {
   #executions: EngineExecutionItem[] = [];
 
@@ -65,12 +64,15 @@ export class PowerlinesEngineContext
    * @param options - The options to initialize the context with.
    * @returns A promise that resolves to an instance of the PowerlinesEngineContext class.
    */
-  public static async from(
+  public static async from<TSystemContext = unknown>(
     options: EngineOptions,
     host: DevToolsHost,
     connection: ConnectionMeta
-  ): Promise<PowerlinesEngineContext> {
-    const context = new PowerlinesEngineContext(options, connection);
+  ): Promise<PowerlinesEngineContext<TSystemContext>> {
+    const context = new PowerlinesEngineContext<TSystemContext>(
+      options,
+      connection
+    );
 
     context.#devtools = await createHostContext({
       cwd: context.cwd,
@@ -212,7 +214,7 @@ export class PowerlinesEngineContext
 
     const invocationId = uuid();
     const executions = await Promise.all(
-      toArray(config.config).map(async (_, executionIndex) => {
+      toArray(config.config).map(async (_, configIndex) => {
         const executionId = uuid();
         const options = {
           cwd: this.cwd,
@@ -225,7 +227,7 @@ export class PowerlinesEngineContext
           connection: this.connection,
           configFile: config.configFile!,
           executionId,
-          executionIndex
+          configIndex
         };
 
         this.logger.debug({

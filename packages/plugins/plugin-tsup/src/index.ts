@@ -17,17 +17,19 @@
  ------------------------------------------------------------------- */
 
 import { Plugin } from "@powerlines/core";
+import { createUnplugin } from "@powerlines/core/lib/unplugin";
 import { formatConfig } from "@powerlines/core/plugin-utils";
+import { resolveOptions } from "@powerlines/unplugin/tsup";
 import {
   build,
+  BuildOptions,
   resolveOptions as resolveOptionsBase
 } from "@storm-software/tsup";
 import defu from "defu";
-import { resolveOptions } from "./helpers/resolve-options";
-import { createTsupPlugin } from "./helpers/unplugin";
+import { Options } from "tsup";
+import { createEsbuildPlugin } from "unplugin";
 import { TsupPluginContext, TsupPluginOptions } from "./types/plugin";
 
-export * from "./helpers";
 export * from "./types";
 
 declare module "@powerlines/core" {
@@ -61,11 +63,21 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
     async build() {
       this.debug("Starting Tsup build process...");
 
-      const options = await resolveOptionsBase(
-        defu(resolveOptions(this), {
-          esbuildPlugins: [createTsupPlugin(this)]
-        })
-      );
+      const resolved = resolveOptions(this);
+      const options = resolveOptionsBase(
+        defu(this.config.tsup, {
+          ...resolved,
+          config: false,
+          esbuildPlugins: [
+            createEsbuildPlugin(
+              createUnplugin(this, {
+                silenceHookLogging: true,
+                name: "tsup"
+              })
+            )()
+          ]
+        }) as BuildOptions
+      ) as Options;
 
       this.debug({
         meta: {

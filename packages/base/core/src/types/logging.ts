@@ -53,7 +53,7 @@ export interface LogMeta {
   /**
    * The zero-based index of the current execution within the sequence of executions in the same process.
    */
-  executionIndex?: number;
+  configIndex?: number;
   /**
    * Optional command identifier to specify the command or task associated with the log message, which can be used to provide additional context about the operation being performed when the log entry was generated.
    */

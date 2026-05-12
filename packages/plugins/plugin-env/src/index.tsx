@@ -37,7 +37,7 @@ import {
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
 import defu from "defu";
-import { Plugin } from "powerlines";
+import type { Plugin } from "powerlines";
 import {
   createVirtualPrefixRegex,
   getDocsOutputPath

@@ -16,12 +16,12 @@
 
  ------------------------------------------------------------------- */
 
+import { isMatchFound } from "@powerlines/core/lib/typescript";
 import { render } from "@powerlines/plugin-alloy/render";
 import babel from "@powerlines/plugin-babel";
 import env from "@powerlines/plugin-env";
 import { readEnvTypeReflection } from "@powerlines/plugin-env/helpers/persistence";
 import { Plugin } from "powerlines";
-import { isMatchFound } from "powerlines/typescript";
 import { NodeJsEnvBuiltin } from "./components/env-builtin";
 import { NodeJsPluginContext, NodeJsPluginOptions } from "./types/plugin";
 

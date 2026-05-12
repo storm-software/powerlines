@@ -16,9 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { Context } from "@powerlines/core";
+import { Context, PluginContext } from "@powerlines/core";
 import { getString } from "@powerlines/core/lib/utilities/source-file";
-import { Unstable_PluginContext } from "@powerlines/core/types/_internal";
 import { resolveOptions as resolveRollupOptions } from "@powerlines/plugin-rollup/helpers/resolve-options";
 import type {
   UnbuildOptions as ExternalUnbuildOptions,
@@ -55,7 +54,7 @@ export const DEFAULT_UNBUILD_CONFIG = {
   }
 } as Partial<ExternalUnbuildOptions>;
 
-export const unbuildLoader = (context: Unstable_PluginContext): Loader => {
+export const unbuildLoader = (context: PluginContext): Loader => {
   return async (input, { options }) => {
     if (
       !/\.(?:c|m)?[jt]sx?$/.test(input.path) ||
@@ -83,7 +82,7 @@ export const unbuildLoader = (context: Unstable_PluginContext): Loader => {
 
     let transformed: TransformResult | string = contents;
 
-    let result = await context.$$internal.callHook(
+    let result = await context.callHook(
       "transform",
       {
         sequential: true,
@@ -96,7 +95,7 @@ export const unbuildLoader = (context: Unstable_PluginContext): Loader => {
       transformed = result;
     }
 
-    result = await context.$$internal.callHook(
+    result = await context.callHook(
       "transform",
       {
         sequential: true,
@@ -109,7 +108,7 @@ export const unbuildLoader = (context: Unstable_PluginContext): Loader => {
       transformed = result;
     }
 
-    result = await context.$$internal.callHook(
+    result = await context.callHook(
       "transform",
       {
         sequential: true,
@@ -203,7 +202,7 @@ export function resolveOptions(context: Context): ExternalUnbuildOptions {
 
         return ret;
       }, context.config.resolve.external ?? []),
-      loaders: [unbuildLoader(context as Unstable_PluginContext)],
+      loaders: [unbuildLoader(context as PluginContext)],
       jiti: {
         interopDefault: true,
         fsCache: joinPaths(context.envPaths.cache, "jiti"),

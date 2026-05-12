@@ -16,9 +16,9 @@
 
  ------------------------------------------------------------------- */
 
+import type { EngineOptions } from "@powerlines/engine";
 import { createEngine } from "@powerlines/engine";
 import packageJson from "../package.json" with { type: "json" };
-import type { EngineOptions } from "./types";
 
 export { PowerlinesEngine } from "@powerlines/engine";
 

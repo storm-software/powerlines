@@ -16,31 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-// import { RspackPluginInitialConfig } from "@powerlines/plugin-rspack/types/plugin";
-// import { createRspackPlugin } from "unplugin";
-// import { createUnpluginFactory } from "./unplugin";
-
-export {
-  default as plugin,
-  default as rspack
-} from "@powerlines/plugin-rspack";
-
-/**
- * An Rspack plugin that will invoke the Powerlines API hooks during the build process.
- *
- * @see https://rspack.dev/concepts/plugins
- *
- * @example
- * ```ts
- * // rspack.config.ts
- *
- * import powerlines from "powerlines/rspack";
- *
- * export default {
- *  plugins: [powerlines({ name: "example-app", ... })],
- * }
- * ```
- */
-// export const unplugin = createRspackPlugin<RspackPluginInitialConfig>(
-//   createUnpluginFactory("rspack")
-// );
+export * from "@powerlines/unplugin/rspack";
