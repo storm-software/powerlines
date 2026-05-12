@@ -56,20 +56,6 @@ try {
   }
 
   proc =
-    $`pnpm nx run-many --target=build --projects="powerlines" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
-      `${6 * 60}s`
-    );
-  proc.stdout.on("data", data => {
-    echo`${data}`;
-  });
-  result = await proc;
-  if (!result.ok) {
-    throw new Error(
-      `An error occurred while building the core Powerlines packages in ${configuration} mode: \n\n${result.message}\n`
-    );
-  }
-
-  proc =
     $`pnpm nx run-many --target=build --projects="nx" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
       `${6 * 60}s`
     );
@@ -95,20 +81,6 @@ try {
   }
 
   if (filter === "plugin" || filter === "cli" || filter === "all") {
-    proc =
-      $`pnpm nx run-many --target=build --projects="plugin-plugin,plugin-alloy" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
-        `${8 * 60}s`
-      );
-    proc.stdout.on("data", data => {
-      echo`${data}`;
-    });
-    result = await proc;
-    if (!result.ok) {
-      throw new Error(
-        `An error occurred while building the plugin and alloy plugins in ${configuration} mode: \n\n${result.message}\n`
-      );
-    }
-
     if (filter === "plugin") {
       proc =
         $`pnpm nx run-many --target=build --projects="plugin-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
@@ -161,7 +133,7 @@ try {
 
       if (filter === "all") {
         proc =
-          $`pnpm nx run-many --target=build --exclude="monorepo,examples-*" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
+          $`pnpm nx run-many --target=build --exclude="monorepo" --configuration=${configuration} --outputStyle=dynamic-legacy --parallel=5`.timeout(
             `${20 * 60}s`
           );
         proc.stdout.on("data", data => {
