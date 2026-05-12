@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.9.1](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.1) (05/12/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with directory depth in `copyfile` CLI argument ([f50ceca19](https://github.com/storm-software/powerlines/commit/f50ceca19))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.462**
+
 ## [0.9.0](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.0) (05/12/2026)
 
 ### Miscellaneous

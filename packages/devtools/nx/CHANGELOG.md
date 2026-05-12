@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.41](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.41) (05/12/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with directory depth in `copyfile` CLI argument ([f50ceca19](https://github.com/storm-software/powerlines/commit/f50ceca19))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.6**
+
 ## [0.13.40](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.40) (05/12/2026)
 
 ### Miscellaneous

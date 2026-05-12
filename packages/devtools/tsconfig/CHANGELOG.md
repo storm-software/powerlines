@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.94](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.94) (05/12/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with directory depth in `copyfile` CLI argument ([f50ceca19](https://github.com/storm-software/powerlines/commit/f50ceca19))
+
 ## [0.4.93](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.93) (05/12/2026)
 
 ### Miscellaneous

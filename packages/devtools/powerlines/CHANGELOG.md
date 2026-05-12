@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.6](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.6) (05/12/2026)
+
+### Miscellaneous
+
+- **powerlines:** Clean up exports in aggregate package ([7c5cfe05b](https://github.com/storm-software/powerlines/commit/7c5cfe05b))
+
+### Bug Fixes
+
+- **core:** Resolve issue with directory depth in `copyfile` CLI argument ([f50ceca19](https://github.com/storm-software/powerlines/commit/f50ceca19))
+
+### Updated Dependencies
+
+- Updated **unplugin** to **v0.0.3**
+
 ## [0.47.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.5) (05/12/2026)
 
 ### Miscellaneous

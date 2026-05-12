@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.9.1](https://github.com/storm-software/powerlines/releases/tag/engine%400.9.1) (05/12/2026)
+
+### Miscellaneous
+
+- **powerlines:** Clean up exports in aggregate package ([7c5cfe05b](https://github.com/storm-software/powerlines/commit/7c5cfe05b))
+
+### Bug Fixes
+
+- **core:** Resolve issue with directory depth in `copyfile` CLI argument ([f50ceca19](https://github.com/storm-software/powerlines/commit/f50ceca19))
+
 ## [0.9.0](https://github.com/storm-software/powerlines/releases/tag/engine%400.9.0) (05/12/2026)
 
 ### Miscellaneous

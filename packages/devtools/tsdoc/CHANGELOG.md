@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.42](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.42) (05/12/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with directory depth in `copyfile` CLI argument ([f50ceca19](https://github.com/storm-software/powerlines/commit/f50ceca19))
+
 ## [0.2.41](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.41) (05/12/2026)
 
 ### Miscellaneous
