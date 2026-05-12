@@ -1,6 +1,6 @@
 {
   "name": "powerlines",
-  "version": "0.47.5",
+  "version": "0.47.6",
   "private": false,
   "description": "The \"framework framework\" that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
   "keywords": [
@@ -56,300 +56,90 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "default": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    },
-    "./index": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
-      "default": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./astro": {
-      "import": {
-        "types": "./dist/astro.d.mts",
-        "default": "./dist/astro.mjs"
-      },
-      "require": {
-        "types": "./dist/astro.d.cts",
-        "default": "./dist/astro.cjs"
-      },
-      "default": {
-        "types": "./dist/astro.d.cts",
-        "default": "./dist/astro.cjs"
-      }
+      "import": "./dist/astro.mjs",
+      "require": "./dist/astro.cjs"
     },
     "./config": {
-      "import": {
-        "types": "./dist/config.d.mts",
-        "default": "./dist/config.mjs"
-      },
-      "require": {
-        "types": "./dist/config.d.cts",
-        "default": "./dist/config.cjs"
-      },
-      "default": {
-        "types": "./dist/config.d.cts",
-        "default": "./dist/config.cjs"
-      }
+      "import": "./dist/config.mjs",
+      "require": "./dist/config.cjs"
     },
     "./constants": {
-      "import": {
-        "types": "./dist/constants.d.mts",
-        "default": "./dist/constants.mjs"
-      },
-      "require": {
-        "types": "./dist/constants.d.cts",
-        "default": "./dist/constants.cjs"
-      },
-      "default": {
-        "types": "./dist/constants.d.cts",
-        "default": "./dist/constants.cjs"
-      }
+      "import": "./dist/constants.mjs",
+      "require": "./dist/constants.cjs"
     },
     "./esbuild": {
-      "import": {
-        "types": "./dist/esbuild.d.mts",
-        "default": "./dist/esbuild.mjs"
-      },
-      "require": {
-        "types": "./dist/esbuild.d.cts",
-        "default": "./dist/esbuild.cjs"
-      },
-      "default": {
-        "types": "./dist/esbuild.d.cts",
-        "default": "./dist/esbuild.cjs"
-      }
+      "import": "./dist/esbuild.mjs",
+      "require": "./dist/esbuild.cjs"
     },
     "./farm": {
-      "import": {
-        "types": "./dist/farm.d.mts",
-        "default": "./dist/farm.mjs"
-      },
-      "require": {
-        "types": "./dist/farm.d.cts",
-        "default": "./dist/farm.cjs"
-      },
-      "default": {
-        "types": "./dist/farm.d.cts",
-        "default": "./dist/farm.cjs"
-      }
+      "import": "./dist/farm.mjs",
+      "require": "./dist/farm.cjs"
     },
     "./next": {
-      "import": {
-        "types": "./dist/next.d.mts",
-        "default": "./dist/next.mjs"
-      },
-      "require": {
-        "types": "./dist/next.d.cts",
-        "default": "./dist/next.cjs"
-      },
-      "default": {
-        "types": "./dist/next.d.cts",
-        "default": "./dist/next.cjs"
-      }
+      "import": "./dist/next.mjs",
+      "require": "./dist/next.cjs"
     },
     "./nuxt": {
-      "import": {
-        "types": "./dist/nuxt.d.mts",
-        "default": "./dist/nuxt.mjs"
-      },
-      "require": {
-        "types": "./dist/nuxt.d.cts",
-        "default": "./dist/nuxt.cjs"
-      },
-      "default": {
-        "types": "./dist/nuxt.d.cts",
-        "default": "./dist/nuxt.cjs"
-      }
+      "import": "./dist/nuxt.mjs",
+      "require": "./dist/nuxt.cjs"
     },
     "./plugin-utils": {
-      "import": {
-        "types": "./dist/plugin-utils.d.mts",
-        "default": "./dist/plugin-utils.mjs"
-      },
-      "require": {
-        "types": "./dist/plugin-utils.d.cts",
-        "default": "./dist/plugin-utils.cjs"
-      },
-      "default": {
-        "types": "./dist/plugin-utils.d.cts",
-        "default": "./dist/plugin-utils.cjs"
-      }
+      "import": "./dist/plugin-utils.mjs",
+      "require": "./dist/plugin-utils.cjs"
     },
     "./rolldown": {
-      "import": {
-        "types": "./dist/rolldown.d.mts",
-        "default": "./dist/rolldown.mjs"
-      },
-      "require": {
-        "types": "./dist/rolldown.d.cts",
-        "default": "./dist/rolldown.cjs"
-      },
-      "default": {
-        "types": "./dist/rolldown.d.cts",
-        "default": "./dist/rolldown.cjs"
-      }
+      "import": "./dist/rolldown.mjs",
+      "require": "./dist/rolldown.cjs"
     },
     "./rollup": {
-      "import": {
-        "types": "./dist/rollup.d.mts",
-        "default": "./dist/rollup.mjs"
-      },
-      "require": {
-        "types": "./dist/rollup.d.cts",
-        "default": "./dist/rollup.cjs"
-      },
-      "default": {
-        "types": "./dist/rollup.d.cts",
-        "default": "./dist/rollup.cjs"
-      }
+      "import": "./dist/rollup.mjs",
+      "require": "./dist/rollup.cjs"
     },
     "./rspack": {
-      "import": {
-        "types": "./dist/rspack.d.mts",
-        "default": "./dist/rspack.mjs"
-      },
-      "require": {
-        "types": "./dist/rspack.d.cts",
-        "default": "./dist/rspack.cjs"
-      },
-      "default": {
-        "types": "./dist/rspack.d.cts",
-        "default": "./dist/rspack.cjs"
-      }
+      "import": "./dist/rspack.mjs",
+      "require": "./dist/rspack.cjs"
     },
     "./storage": {
-      "import": {
-        "types": "./dist/storage.d.mts",
-        "default": "./dist/storage.mjs"
-      },
-      "require": {
-        "types": "./dist/storage.d.cts",
-        "default": "./dist/storage.cjs"
-      },
-      "default": {
-        "types": "./dist/storage.d.cts",
-        "default": "./dist/storage.cjs"
-      }
+      "import": "./dist/storage.mjs",
+      "require": "./dist/storage.cjs"
     },
     "./tsdown": {
-      "import": {
-        "types": "./dist/tsdown.d.mts",
-        "default": "./dist/tsdown.mjs"
-      },
-      "require": {
-        "types": "./dist/tsdown.d.cts",
-        "default": "./dist/tsdown.cjs"
-      },
-      "default": {
-        "types": "./dist/tsdown.d.cts",
-        "default": "./dist/tsdown.cjs"
-      }
+      "import": "./dist/tsdown.mjs",
+      "require": "./dist/tsdown.cjs"
     },
     "./tsup": {
-      "import": {
-        "types": "./dist/tsup.d.mts",
-        "default": "./dist/tsup.mjs"
-      },
-      "require": {
-        "types": "./dist/tsup.d.cts",
-        "default": "./dist/tsup.cjs"
-      },
-      "default": {
-        "types": "./dist/tsup.d.cts",
-        "default": "./dist/tsup.cjs"
-      }
+      "import": "./dist/tsup.mjs",
+      "require": "./dist/tsup.cjs"
+    },
+    "./types": {
+      "import": "./dist/types.mjs",
+      "require": "./dist/types.cjs"
     },
     "./unloader": {
-      "import": {
-        "types": "./dist/unloader.d.mts",
-        "default": "./dist/unloader.mjs"
-      },
-      "require": {
-        "types": "./dist/unloader.d.cts",
-        "default": "./dist/unloader.cjs"
-      },
-      "default": {
-        "types": "./dist/unloader.d.cts",
-        "default": "./dist/unloader.cjs"
-      }
+      "import": "./dist/unloader.mjs",
+      "require": "./dist/unloader.cjs"
     },
     "./unplugin": {
-      "import": {
-        "types": "./dist/unplugin.d.mts",
-        "default": "./dist/unplugin.mjs"
-      },
-      "require": {
-        "types": "./dist/unplugin.d.cts",
-        "default": "./dist/unplugin.cjs"
-      },
-      "default": {
-        "types": "./dist/unplugin.d.cts",
-        "default": "./dist/unplugin.cjs"
-      }
+      "import": "./dist/unplugin.mjs",
+      "require": "./dist/unplugin.cjs"
     },
     "./utils": {
-      "import": {
-        "types": "./dist/utils.d.mts",
-        "default": "./dist/utils.mjs"
-      },
-      "require": {
-        "types": "./dist/utils.d.cts",
-        "default": "./dist/utils.cjs"
-      },
-      "default": {
-        "types": "./dist/utils.d.cts",
-        "default": "./dist/utils.cjs"
-      }
+      "import": "./dist/utils.mjs",
+      "require": "./dist/utils.cjs"
     },
     "./vite": {
-      "import": {
-        "types": "./dist/vite.d.mts",
-        "default": "./dist/vite.mjs"
-      },
-      "require": {
-        "types": "./dist/vite.d.cts",
-        "default": "./dist/vite.cjs"
-      },
-      "default": {
-        "types": "./dist/vite.d.cts",
-        "default": "./dist/vite.cjs"
-      }
+      "import": "./dist/vite.mjs",
+      "require": "./dist/vite.cjs"
     },
     "./webpack": {
-      "import": {
-        "types": "./dist/webpack.d.mts",
-        "default": "./dist/webpack.mjs"
-      },
-      "require": {
-        "types": "./dist/webpack.d.cts",
-        "default": "./dist/webpack.cjs"
-      },
-      "default": {
-        "types": "./dist/webpack.d.cts",
-        "default": "./dist/webpack.cjs"
-      }
+      "import": "./dist/webpack.mjs",
+      "require": "./dist/webpack.cjs"
     },
-    "./*": "./*"
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
