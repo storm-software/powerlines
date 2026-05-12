@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.417](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.417) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.5**
+- Updated **plugin-tsdown** to **v0.1.407**
+
 ## [0.12.416](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.416) (05/05/2026)
 
 ### Updated Dependencies

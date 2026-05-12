@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Tamagui
 
+## [0.1.456](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.456) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.5**
+- Updated **plugin-plugin** to **v0.12.417**
+- Updated **plugin-vite** to **v0.14.460**
+
 ## [0.1.455](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.455) (05/05/2026)
 
 ### Updated Dependencies

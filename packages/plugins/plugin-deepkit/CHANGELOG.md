@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.348](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.348) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.5**
+- Updated **plugin-plugin** to **v0.12.417**
+- Updated **plugin-tsc** to **v0.3.2**
+
 ## [0.11.347](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.347) (05/05/2026)
 
 ### Updated Dependencies

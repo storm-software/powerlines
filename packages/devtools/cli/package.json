@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/cli",
-  "version": "0.2.27",
+  "version": "0.2.28",
   "type": "module",
   "description": "The \"framework framework\" that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
   "repository": {
@@ -53,7 +53,11 @@
     "@storm-software/testing-tools": "catalog:",
     "@types/node": "catalog:"
   },
-  "publishConfig": { "access": "public" },
+  "publishConfig": {
+    "access": "public"
+  },
   "types": "./dist/index.d.cts",
-  "bin": { "powerlines": "./dist/bin.mjs" }
+  "bin": {
+    "powerlines": "./dist/bin.mjs"
+  }
 }

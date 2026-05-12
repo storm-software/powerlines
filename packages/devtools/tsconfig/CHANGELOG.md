@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.93](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.93) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
 ## [0.4.47](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.47) (03/28/2026)
 
 ### Miscellaneous

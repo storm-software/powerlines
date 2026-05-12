@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.463](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.463) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **unplugin** to **v0.0.2**
+
 ## [0.7.462](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.462) (05/05/2026)
 
 ### Updated Dependencies

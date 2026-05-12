@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Unbuild
 
+## [0.5.462](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.462) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **unplugin** to **v0.0.2**
+- Updated **plugin-rollup** to **v0.7.461**
+
 ## [0.5.461](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.461) (05/05/2026)
 
 ### Updated Dependencies

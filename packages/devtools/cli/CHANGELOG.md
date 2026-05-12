@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - CLI
 
+## [0.2.28](https://github.com/storm-software/powerlines/releases/tag/cli%400.2.28) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.5**
+
 ## [0.2.27](https://github.com/storm-software/powerlines/releases/tag/cli%400.2.27) (04/26/2026)
 
 ### Updated Dependencies

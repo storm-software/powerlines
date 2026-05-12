@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.2.42](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.42) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.5**
+- Updated **plugin-automd** to **v0.1.466**
+- Updated **plugin-plugin** to **v0.12.417**
+- Updated **plugin-alloy** to **v0.26.85**
+- Updated **plugin-babel** to **v0.13.2**
+
 ## [0.2.41](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.41) (05/05/2026)
 
 ### Updated Dependencies

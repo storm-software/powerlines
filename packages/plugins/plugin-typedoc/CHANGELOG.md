@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.10.474](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.474) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.5**
+- Updated **plugin-plugin** to **v0.12.417**
+
 ## [0.10.473](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.473) (05/05/2026)
 
 ### Updated Dependencies
