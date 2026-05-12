@@ -239,11 +239,9 @@ export class PowerlinesExecutionContext<
       if (
         ![
           "fs",
-          "$$internal",
-          "initialOptions",
+          "system",
           "options",
           "config",
-          "initialConfig",
           "inlineConfig",
           "userConfig",
           "pluginConfig",
