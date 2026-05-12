@@ -29,11 +29,13 @@ import type {
   TypesInlineConfig
 } from "@powerlines/core";
 import { EXECUTION_API_METHODS } from "@powerlines/core/constants";
+import { titleCase } from "@stryke/string-format/title-case";
 import { createH3DevToolsHost } from "devframe/node";
 import { getPort } from "get-port-please";
 import { createApp, fromNodeMiddleware } from "h3";
 import { EventEmitter } from "node:events";
 import sirv from "sirv";
+import packageJson from "../package.json" with { type: "json" };
 import { PowerlinesEngineContext } from "./context/engine-context";
 import { ExecutionHostWorker } from "./helpers/execution-host-worker";
 import { Engine, ExecutionHost } from "./types/api";
@@ -362,5 +364,13 @@ export async function createEngine<TExecutionAPI extends ReadonlyArray<string>>(
     }
   );
 
-  return new PowerlinesEngine<TExecutionAPI>(context, host);
+  const engine = new PowerlinesEngine<TExecutionAPI>(context, host);
+
+  engine.context.info(
+    `🔌 The ${titleCase(context.framework.name)} Engine - v${
+      context.framework.version || packageJson.version
+    } is running...`
+  );
+
+  return engine;
 }
