@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.40](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.40) (05/12/2026)
+
+### Miscellaneous
+
+- **core:** Update `framework` option to use object node ([95e4bcf8d](https://github.com/storm-software/powerlines/commit/95e4bcf8d))
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.5**
+
 ## [0.13.27](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.27) (05/01/2026)
 
 ### Features

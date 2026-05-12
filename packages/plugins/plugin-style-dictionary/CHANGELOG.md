@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.367](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.367) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.5**
+- Updated **plugin-esbuild** to **v0.13.461**
+- Updated **plugin-plugin** to **v0.12.417**
+
 ## [0.3.366](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.366) (05/05/2026)
 
 ### Updated Dependencies

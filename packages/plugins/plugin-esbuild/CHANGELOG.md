@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.461](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.461) (05/12/2026)
+
+### Miscellaneous
+
+- **core:** Update `framework` option to use object node ([95e4bcf8d](https://github.com/storm-software/powerlines/commit/95e4bcf8d))
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **unplugin** to **v0.0.2**
+
 ## [0.13.456](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.456) (05/01/2026)
 
 ### Bug Fixes

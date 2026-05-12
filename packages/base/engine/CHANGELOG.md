@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.9.0](https://github.com/storm-software/powerlines/releases/tag/engine%400.9.0) (05/12/2026)
+
+### Miscellaneous
+
+- **engine:** Added an info message at engine startup ([c816c275f](https://github.com/storm-software/powerlines/commit/c816c275f))
+- **core:** Update `framework` option to use object node ([95e4bcf8d](https://github.com/storm-software/powerlines/commit/95e4bcf8d))
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
 ## [0.47.2](https://github.com/storm-software/powerlines/releases/tag/engine%400.47.2) (05/05/2026)
 
 ### Miscellaneous

@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.92](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.92) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.5**
+- Updated **plugin-esbuild** to **v0.13.461**
+- Updated **plugin-plugin** to **v0.12.417**
+- Updated **plugin-pulumi** to **v0.6.107**
+- Updated **plugin-alloy** to **v0.26.85**
+- Updated **plugin-unenv** to **v0.1.455**
+- Updated **plugin-env** to **v0.16.193**
+
 ## [0.6.91](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.91) (05/05/2026)
 
 ### Updated Dependencies

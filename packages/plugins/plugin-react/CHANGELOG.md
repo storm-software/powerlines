@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.528](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.528) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.5**
+- Updated **plugin-plugin** to **v0.12.417**
+- Updated **plugin-alloy** to **v0.26.85**
+- Updated **plugin-babel** to **v0.13.2**
+- Updated **plugin-vite** to **v0.14.460**
+- Updated **plugin-env** to **v0.16.193**
+
 ## [0.1.527](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.527) (05/05/2026)
 
 ### Updated Dependencies

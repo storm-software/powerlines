@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.9.0](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.0) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.461**
+
 ## [0.8.64](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.8.64) (05/05/2026)
 
 ### Updated Dependencies

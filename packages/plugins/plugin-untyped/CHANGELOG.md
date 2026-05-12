@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Untyped
 
+## [0.2.420](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.420) (05/12/2026)
+
+### Miscellaneous
+
+- **core:** Update `framework` option to use object node ([95e4bcf8d](https://github.com/storm-software/powerlines/commit/95e4bcf8d))
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.5**
+- Updated **plugin-plugin** to **v0.12.417**
+
 ## [0.2.419](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.419) (05/05/2026)
 
 ### Updated Dependencies

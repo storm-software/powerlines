@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.2](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.2) (05/12/2026)
+
+### Miscellaneous
+
+- **core:** Update `framework` option to use object node ([95e4bcf8d](https://github.com/storm-software/powerlines/commit/95e4bcf8d))
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
 ## [0.13.1](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.1) (05/05/2026)
 
 ### Bug Fixes

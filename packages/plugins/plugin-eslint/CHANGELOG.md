@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.8.470](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.470) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.5**
+- Updated **plugin-plugin** to **v0.12.417**
+
 ## [0.8.469](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.469) (05/05/2026)
 
 ### Updated Dependencies

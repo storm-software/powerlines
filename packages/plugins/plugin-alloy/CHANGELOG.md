@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.85](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.85) (05/12/2026)
+
+### Miscellaneous
+
+- **core:** Update `framework` option to use object node ([95e4bcf8d](https://github.com/storm-software/powerlines/commit/95e4bcf8d))
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.5**
+- Updated **plugin-plugin** to **v0.12.417**
+- Updated **plugin-babel** to **v0.13.2**
+
 ## [0.26.84](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.84) (05/05/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.460](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.460) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **unplugin** to **v0.0.2**
+
 ## [0.14.459](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.459) (05/05/2026)
 
 ### Updated Dependencies

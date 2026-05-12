@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.5](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.5) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **unplugin** to **v0.0.2**
+
 ## [0.47.4](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.4) (05/05/2026)
 
 ### Updated Dependencies

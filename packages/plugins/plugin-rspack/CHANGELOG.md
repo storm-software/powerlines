@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.458](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.458) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Reorganize repository folder structure ([c2447100f](https://github.com/storm-software/powerlines/commit/c2447100f))
+
+### Features
+
+- **monorepo:** Reorganize repository package structure and added `unplugin` package ([b99ecea05](https://github.com/storm-software/powerlines/commit/b99ecea05))
+
+### Updated Dependencies
+
+- Updated **unplugin** to **v0.0.2**
+
 ## [0.5.453](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.453) (05/01/2026)
 
 ### Bug Fixes
