@@ -4,6 +4,31 @@
   "projectType": "library",
   "sourceRoot": "packages/devtools/unplugin/src",
   "targets": {
+    "build-base": {
+      "cache": true,
+      "inputs": ["typescript", "^production"],
+      "outputs": ["{projectRoot}/dist"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["clean", "^build"],
+      "options": {
+        "command": "tsdown --config=tsdown.config.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "build": {
+      "cache": true,
+      "inputs": ["{projectRoot}/dist"],
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["typecheck", "build-base"],
+      "options": {
+        "commands": [
+          "pnpm copyfiles LICENSE dist/packages/devtools/unplugin",
+          "pnpm copyfiles --up=3 ./packages/devtools/unplugin/*.md ./packages/devtools/unplugin/package.json dist/packages/devtools/unplugin",
+          "pnpm copyfiles --up=4 \"./packages/devtools/unplugin/dist/**/*\" dist/packages/devtools/unplugin/dist"
+        ]
+      }
+    },
     "nx-release-publish": {
       "executor": "@storm-software/workspace-tools:npm-publish"
     }

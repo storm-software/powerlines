@@ -175,7 +175,7 @@ export class PowerlinesEnvironmentContext<
   public override createLogger(options: LoggerOptions): Logger {
     return super.createLogger({
       ...options,
-      environment: this.config.environment?.name
+      environment: this.environmentConfig?.name || this.config.environment?.name
     });
   }
 
@@ -188,7 +188,7 @@ export class PowerlinesEnvironmentContext<
   public override extendLogger(options: LoggerOptions): Logger {
     return super.extendLogger({
       ...options,
-      environment: this.config.environment?.name
+      environment: this.environmentConfig?.name || this.config.environment?.name
     });
   }
 
@@ -365,6 +365,7 @@ export class PowerlinesEnvironmentContext<
    * @remarks
    * This function is used internally when applying plugins to the environment, and it ensures that the plugin is added to the list of plugins in the context and that any hooks or configuration options provided by the plugin are properly integrated into the context's state. It should not be called directly by external code, as it is intended for internal use only and may be subject to change without warning.
    *
+   * @param execution - The execution context for the build process, which provides access to the project configuration, environment, and utility functions for performing the build. The context is used to manage the state and behavior of the build process, allowing for hooks to be called at different stages of the build and for environment-specific configurations to be applied.
    * @param options - The configuration options for the plugin, which may include properties such as the plugin name, hooks, and any other relevant metadata or settings that should be associated with the plugin when it is added to the context.
    * @param config - The resolved configuration for the environment, which may include properties such as the environment name, SSR settings, and other relevant configuration options that may affect how the plugin is applied to the environment.
    * @param overriddenConfig - The configuration options that should override all other configuration sources, such as CLI flags or environment variables. This is used to ensure that certain configuration values take precedence over any other settings defined in the user configuration or environment configuration, allowing for dynamic overrides based on the execution context.

@@ -186,8 +186,11 @@ export async function initPlugin<
     PluginContext<TResolvedConfig, TSystemContext>
 >(
   context: TContext,
-  config: PluginConfig<TPluginContext>
+  config: PluginConfig<TPluginContext>,
+  options: ResolvePluginsOptions = {}
 ): Promise<Plugin<TPluginContext>[] | null> {
+  const { skipLogging = false } = options;
+
   let awaited = config;
   if (isPromiseLike(config)) {
     awaited = (await Promise.resolve(
@@ -310,27 +313,38 @@ export async function initPlugin<
   const result = [] as Plugin<TPluginContext>[];
   for (const plugin of plugins) {
     if (isDuplicate<TPluginContext>(plugin, context.plugins)) {
-      context.trace({
-        meta: {
-          category: "plugins"
-        },
-        message: `Duplicate ${chalk.bold.cyanBright(
-          plugin.name
-        )} plugin dependency detected - Skipping initialization.`
-      });
+      if (!skipLogging) {
+        context.trace({
+          meta: {
+            category: "plugins"
+          },
+          message: `Duplicate ${chalk.bold.cyanBright(
+            plugin.name
+          )} plugin dependency detected - Skipping initialization.`
+        });
+      }
     } else {
       result.push(plugin);
 
-      context.trace({
-        meta: {
-          category: "plugins"
-        },
-        message: `Initializing the ${chalk.bold.cyanBright(plugin.name)} plugin...`
-      });
+      if (!skipLogging) {
+        context.trace({
+          meta: {
+            category: "plugins"
+          },
+          message: `Initializing the ${chalk.bold.cyanBright(plugin.name)} plugin...`
+        });
+      }
     }
   }
 
   return result;
+}
+
+export interface ResolvePluginsOptions {
+  /**
+   * If true, the plugin resolution process will skip logging messages about the plugin initialization. This can be useful in scenarios where you want to suppress plugin-related logs, such as when running in a non-interactive environment or when you want to reduce log verbosity. By default, this option is false, and plugin initialization messages will be logged using the context's logger.
+   */
+  skipLogging?: boolean;
 }
 
 /**
@@ -350,7 +364,13 @@ export async function resolvePlugins<
     | ExecutionContext<TResolvedConfig, TSystemContext>,
   TPluginContext extends PluginContext<TResolvedConfig, TSystemContext> =
     PluginContext<TResolvedConfig, TSystemContext>
->(context: TContext, config: PluginConfig<TPluginContext>) {
+>(
+  context: TContext,
+  config: PluginConfig<TPluginContext>,
+  options: ResolvePluginsOptions = {}
+) {
+  const { skipLogging = false } = options;
+
   const plugins = [] as Plugin<TPluginContext>[];
   if (config) {
     const result = await initPlugin<
@@ -361,14 +381,16 @@ export async function resolvePlugins<
     >(context, config);
     if (result) {
       for (const plugin of result) {
-        context.debug({
-          meta: {
-            category: "plugins"
-          },
-          message: `Successfully initialized the ${chalk.bold.cyanBright(
-            plugin.name
-          )} plugin`
-        });
+        if (!skipLogging) {
+          context.debug({
+            meta: {
+              category: "plugins"
+            },
+            message: `Successfully initialized the ${chalk.bold.cyanBright(
+              plugin.name
+            )} plugin`
+          });
+        }
 
         plugins.push(plugin);
       }

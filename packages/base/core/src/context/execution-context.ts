@@ -24,7 +24,10 @@ import { joinPaths } from "@stryke/path/join";
 import { isObject } from "@stryke/type-checks/is-object";
 import { PackageJson } from "@stryke/types/package-json";
 import chalk from "chalk";
-import { GLOBAL_ENVIRONMENT } from "../constants/environments";
+import {
+  DEFAULT_ENVIRONMENT,
+  GLOBAL_ENVIRONMENT
+} from "../constants/environments";
 import {
   createDefaultEnvironment,
   createEnvironment
@@ -77,12 +80,17 @@ export class PowerlinesExecutionContext<
     TSystemContext = unknown
   >(
     options: ExecutionOptions,
-    inlineConfig?: TResolvedConfig["inlineConfig"]
+    inlineConfig?: TResolvedConfig["inlineConfig"],
+    system?: TSystemContext
   ): Promise<PowerlinesExecutionContext<TResolvedConfig, TSystemContext>> {
     const context = new PowerlinesExecutionContext<
       TResolvedConfig,
       TSystemContext
     >(options);
+    if (system) {
+      context.system = system;
+    }
+
     await context.init();
 
     if (inlineConfig) {
@@ -405,7 +413,12 @@ export class PowerlinesExecutionContext<
     plugin: PluginConfig<PluginContext<TResolvedConfig, TSystemContext>>
   ) {
     this.plugins.push(
-      ...(await resolvePlugins<TResolvedConfig, TSystemContext>(this, plugin))
+      ...(await resolvePlugins<TResolvedConfig, TSystemContext>(this, plugin, {
+        skipLogging:
+          Object.keys(this.environments).filter(
+            key => key !== DEFAULT_ENVIRONMENT && key !== GLOBAL_ENVIRONMENT
+          ).length > 0
+      }))
     );
 
     await Promise.all(

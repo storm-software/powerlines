@@ -16,11 +16,18 @@
 
  ------------------------------------------------------------------- */
 
+import { LogFnMeta } from "@powerlines/core";
 import { PowerlinesExecutionContext } from "@powerlines/core/context/execution-context";
 import { resolvePluginConfig } from "@powerlines/core/lib/context-helpers";
+import { consoleLogger } from "@powerlines/core/plugin-utils";
+import { titleCase } from "@stryke/string-format/title-case";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { uuid } from "@stryke/unique-id/uuid";
+import { RpcClient } from "../types";
 import { ExecutionHostParams } from "../types/api";
 import { EngineResolvedConfig } from "../types/config";
 import { EngineSystemContext } from "../types/context";
+import { createRpcClient } from "./rpc";
 
 /**
  * Creates an execution host with the provided methods. Each method will be wrapped to create an execution context and handle errors appropriately.
@@ -38,12 +45,48 @@ export function createExecutionHost<
     Object.entries(methods).map(([method, fn]) => [
       method,
       async (params: ExecutionHostParams) => {
-        const context = (await PowerlinesExecutionContext.from(
-          params.options,
-          params.inlineConfig ?? {}
-        )) as TContext;
+        const { options, inlineConfig } = params;
+
+        let rpc!: RpcClient;
+        if (options.baseURL && options.connection) {
+          rpc = createRpcClient(options);
+        } else {
+          throw new Error(
+            `Execution RPC client could not be created - Missing ${
+              !options.baseURL
+                ? `baseURL${options.connection ? ` and connection information` : ""}`
+                : "connection"
+            } or connection information.`
+          );
+        }
+
+        const logFn = (meta: LogFnMeta, message: string) => {
+          consoleLogger(meta, message);
+          if (rpc) {
+            void rpc.callEvent("powerlines:log", {
+              meta: {
+                category: "general",
+                ...options,
+                ...(isSetObject(meta) ? meta : { type: meta }),
+                logId: uuid(),
+                timestamp: Date.now()
+              },
+              message
+            });
+          }
+        };
+
+        const context = (await PowerlinesExecutionContext.from<
+          EngineResolvedConfig,
+          EngineSystemContext
+        >({ ...options, logFn }, inlineConfig ?? {}, {
+          rpc
+        })) as TContext;
+
         context.logger.info(
-          `Starting ${method} execution (${params.options.executionId})`
+          `Starting ${
+            titleCase(options.framework?.name) || "Powerlines"
+          } - ${titleCase(method)} execution (${options.executionId})`
         );
 
         await resolvePluginConfig(context as PowerlinesExecutionContext<any>);

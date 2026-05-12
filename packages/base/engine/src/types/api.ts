@@ -22,7 +22,6 @@ import type {
   CreateInlineConfig,
   DeployInlineConfig,
   DocsInlineConfig,
-  ExecutionOptions,
   InlineConfig,
   LintInlineConfig,
   PrepareInlineConfig,
@@ -30,6 +29,7 @@ import type {
   TypesInlineConfig
 } from "@powerlines/core";
 import { EXECUTION_API_METHODS } from "@powerlines/core/constants/api";
+import { EngineExecutionOptions } from "./config";
 import type { EngineContext } from "./context";
 import type { Worker } from "./utils";
 
@@ -142,7 +142,7 @@ export interface ExecutionHostParams {
   /**
    * The execution options for the current execution instance
    */
-  options: ExecutionOptions;
+  options: EngineExecutionOptions;
 
   /**
    * The inline configuration for the current execution instance, which is the result of merging the user configuration with any configuration provided by plugins during the "config" hook.

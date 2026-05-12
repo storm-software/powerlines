@@ -140,7 +140,7 @@ export interface EngineExecutionItem {
 export interface EngineContext<TSystemContext = unknown>
   extends
     BaseContext<TSystemContext>,
-    Pick<Required<EngineOptions>, "framework" | "orgId"> {
+    Pick<Required<EngineOptions>, "framework"> {
   /**
    * The options provided to the Powerlines process
    */

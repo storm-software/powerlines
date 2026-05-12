@@ -35,7 +35,7 @@ import { CompatibilityDates, CompatibilityDateSpec } from "compatx";
 import type { PreviewOptions, ResolvedPreviewOptions } from "vite";
 import type { PluginContext } from "./context";
 import { StoragePort, StoragePreset } from "./fs";
-import { LogLevelResolvedConfig, LogLevelUserConfig } from "./logging";
+import { LogFn, LogLevelResolvedConfig, LogLevelUserConfig } from "./logging";
 import type { Plugin } from "./plugin";
 import type { TSConfig } from "./tsconfig";
 
@@ -395,6 +395,17 @@ export interface ExecutionOptions extends BaseExecutionOptions {
    * This option is useful for running Powerlines commands with different configuration files, such as in CI/CD environments or when testing different configurations.
    */
   configFile: string;
+
+  /**
+   * A logging function provided by the code invoking the Powerlines execution process, which can be used for logging messages during the build process instead of the default Powerlines logger.
+   *
+   * @remarks
+   * Providing a custom logging function allows you to integrate Powerlines logging with your own logging system or to customize the logging behavior, such as formatting log messages differently or sending logs to an external service. If a custom logging function is not provided, Powerlines will use its default logger implementation.
+   *
+   * @important
+   * This function cannot be provided by the Powerlines engine, as it is not serializable. It must be passed directly to the execution context when creating it, and will not be preserved if the context is cloned or serialized.
+   */
+  logFn?: LogFn;
 }
 
 export interface Config {

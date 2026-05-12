@@ -629,10 +629,14 @@ export class PowerlinesContext<
   }
 
   public override createLogger(options: LoggerOptions = {}) {
-    return createLogger(this.config.name || this.options.root, {
-      logLevel: this.logLevel,
-      ...options
-    });
+    return createLogger(
+      this.config.name || this.options.root,
+      {
+        logLevel: this.logLevel,
+        ...options
+      },
+      this.options.logFn
+    );
   }
 
   /**
