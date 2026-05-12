@@ -39,7 +39,10 @@ export function getDependencyConfig(
 ): GetDependencyConfigResult {
   const noExternal = getUnique(
     toArray(context.config.resolve.noExternal).concat(
-      context.builtins.map(builtin => `${context.config.framework}:${builtin}`)
+      context.builtins.map(
+        builtin =>
+          `${context.config.framework?.name ?? "powerlines"}:${builtin}`
+      )
     )
   );
 

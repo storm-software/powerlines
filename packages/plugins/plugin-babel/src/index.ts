@@ -157,7 +157,7 @@ export const plugin = <
         babelrc: false,
         envName: this.config.mode,
         caller: {
-          name: this.config.framework
+          name: this.config.framework?.name || "powerlines"
         },
         ...omit(this.config.babel ?? {}, [
           "skipConfigResolution",

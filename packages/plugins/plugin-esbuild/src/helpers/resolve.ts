@@ -65,12 +65,12 @@ export async function resolveModule<
     if (
       isSetString((error as Error).message) &&
       new RegExp(
-        `Cannot find module '${context.config.framework || "powerlines"}:.*'`
+        `Cannot find module '${context.config.framework?.name || "powerlines"}:.*'`
       ).test((error as Error).message)
     ) {
       const moduleName = (error as Error).message.match(
         new RegExp(
-          `Cannot find module '(${context.config.framework || "powerlines"}:.*)'`
+          `Cannot find module '(${context.config.framework?.name || "powerlines"}:.*)'`
         )
       )?.[1];
       throw new Error(

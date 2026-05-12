@@ -34,13 +34,16 @@ import { findFilePath, relativePath } from "@stryke/path/file-path-fns";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import { camelCase } from "@stryke/string-format/camel-case";
+import { kebabCase } from "@stryke/string-format/kebab-case";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { PartialKeys } from "@stryke/types/base";
 import { PackageJson } from "@stryke/types/package-json";
 import { loadConfig as loadConfigC12 } from "c12";
 import defu from "defu";
 import { resolveLogLevel } from "../plugin-utils/logging";
 import type {
+  FrameworkOptions,
   InlineConfig,
   Mode,
   ParsedUserConfig,
@@ -246,8 +249,7 @@ export async function loadParsedConfig(
     root,
     mode,
     inlineConfig.command,
-    framework,
-    orgId,
+    { name: framework, orgId },
     inlineConfig.configFile
   );
   if (!configFile) {
@@ -304,7 +306,6 @@ export async function loadWorkspaceConfig(
  * @param mode - The mode to determine which configuration file to load (e.g., "development", "test", "production").
  * @param command - The command being executed (e.g., "build", "dev", "test"), which can be used to further customize the configuration loading logic if needed.
  * @param framework - The name of the framework to use when looking for configuration files (default is "powerlines").
- * @param orgId - The name of the organization to use when looking for configuration files (default is "storm-software").
  * @param configFile - An explicit path to a configuration file to load (optional). If provided, this file will be loaded instead of searching for configuration files based on the mode and framework.
  * @returns A promise that resolves to the resolved user configuration.
  */
@@ -313,10 +314,12 @@ export async function loadUserConfigFile(
   root: string,
   mode: Mode,
   command: string,
-  framework = "powerlines",
-  orgId = "storm-software",
+  framework?: PartialKeys<FrameworkOptions, "orgId">,
   configFile?: string
 ): Promise<ParsedUserConfig> {
+  const frameworkName = kebabCase(framework?.name || "powerlines");
+  const frameworkOrgId = kebabCase(framework?.orgId || "storm-software");
+
   let resolvedUserConfig: Partial<ParsedUserConfig> = {};
 
   let resolvedUserConfigFile: string | undefined;
@@ -334,61 +337,73 @@ export async function loadUserConfigFile(
 
   if (!resolvedUserConfigFile) {
     resolvedUserConfigFile = existsSync(
-      joinPaths(appendPath(root, cwd), `${framework}.${mode}.config.ts`)
+      joinPaths(appendPath(root, cwd), `${frameworkName}.${mode}.config.ts`)
     )
-      ? joinPaths(appendPath(root, cwd), `${framework}.${mode}.config.ts`)
+      ? joinPaths(appendPath(root, cwd), `${frameworkName}.${mode}.config.ts`)
       : existsSync(
-            joinPaths(appendPath(root, cwd), `${framework}.${mode}.config.js`)
+            joinPaths(
+              appendPath(root, cwd),
+              `${frameworkName}.${mode}.config.js`
+            )
           )
-        ? joinPaths(appendPath(root, cwd), `${framework}.${mode}.config.js`)
+        ? joinPaths(appendPath(root, cwd), `${frameworkName}.${mode}.config.js`)
         : existsSync(
               joinPaths(
                 appendPath(root, cwd),
-                `${framework}.${mode}.config.mts`
+                `${frameworkName}.${mode}.config.mts`
               )
             )
-          ? joinPaths(appendPath(root, cwd), `${framework}.${mode}.config.mts`)
+          ? joinPaths(
+              appendPath(root, cwd),
+              `${frameworkName}.${mode}.config.mts`
+            )
           : existsSync(
                 joinPaths(
                   appendPath(root, cwd),
-                  `${framework}.${mode}.config.mjs`
+                  `${frameworkName}.${mode}.config.mjs`
                 )
               )
             ? joinPaths(
                 appendPath(root, cwd),
-                `${framework}.${mode}.config.mjs`
+                `${frameworkName}.${mode}.config.mjs`
               )
             : existsSync(
-                  joinPaths(appendPath(root, cwd), `${framework}.config.ts`)
+                  joinPaths(appendPath(root, cwd), `${frameworkName}.config.ts`)
                 )
-              ? joinPaths(appendPath(root, cwd), `${framework}.config.ts`)
+              ? joinPaths(appendPath(root, cwd), `${frameworkName}.config.ts`)
               : existsSync(
-                    joinPaths(appendPath(root, cwd), `${framework}.config.js`)
+                    joinPaths(
+                      appendPath(root, cwd),
+                      `${frameworkName}.config.js`
+                    )
                   )
-                ? joinPaths(appendPath(root, cwd), `${framework}.config.js`)
+                ? joinPaths(appendPath(root, cwd), `${frameworkName}.config.js`)
                 : existsSync(
                       joinPaths(
                         appendPath(root, cwd),
-                        `${framework}.config.mts`
+                        `${frameworkName}.config.mts`
                       )
                     )
-                  ? joinPaths(appendPath(root, cwd), `${framework}.config.mts`)
+                  ? joinPaths(
+                      appendPath(root, cwd),
+                      `${frameworkName}.config.mts`
+                    )
                   : existsSync(
                         joinPaths(
                           appendPath(root, cwd),
-                          `${framework}.config.mjs`
+                          `${frameworkName}.config.mjs`
                         )
                       )
                     ? joinPaths(
                         appendPath(root, cwd),
-                        `${framework}.config.mjs`
+                        `${frameworkName}.config.mjs`
                       )
                     : undefined;
   }
 
   const envPaths = getEnvPaths({
-    orgId,
-    appId: framework,
+    orgId: frameworkOrgId,
+    appId: frameworkName,
     workspaceRoot: cwd
   });
 
@@ -428,10 +443,10 @@ export async function loadUserConfigFile(
 
   const result = await loadConfigC12({
     cwd: root,
-    name: framework,
+    name: framework?.name,
     envName: mode,
     globalRc: true,
-    packageJson: camelCase(framework),
+    packageJson: camelCase(framework?.name || "powerlines"),
     dotenv: true,
     jiti
   });

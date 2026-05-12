@@ -141,9 +141,9 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           },
           [
             "POWERLINES_",
-            this.config.framework &&
-              this.config.framework !== "powerlines" &&
-              `${constantCase(this.config.framework)}_`
+            this.config.framework?.name &&
+              this.config.framework?.name !== "powerlines" &&
+              `${constantCase(this.config.framework?.name)}_`
           ].filter(Boolean) as string[]
         );
 
@@ -160,7 +160,9 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           id: {
             include: [
               createVirtualPrefixRegex(joinPaths(this.builtinsPath, "env.ts")),
-              createVirtualPrefixRegex(`${this.config.framework}:env`)
+              createVirtualPrefixRegex(
+                `${this.config.framework?.name || "powerlines"}:env`
+              )
             ]
           }
         };

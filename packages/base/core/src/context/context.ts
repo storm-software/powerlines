@@ -82,7 +82,10 @@ import { getPrefixedRootHash } from "../lib/meta";
 import { createResolver } from "../lib/resolver";
 import { getTsconfigFilePath } from "../lib/typescript/tsconfig";
 import { VirtualFileSystem } from "../lib/vfs";
-import { getPackageJsonOrganization } from "../plugin-utils/context-helpers";
+import {
+  getPackageJsonOrganization,
+  getWorkspaceName
+} from "../plugin-utils/context-helpers";
 import { formatConfig } from "../plugin-utils/format";
 import { isDuplicate, isPlugin } from "../plugin-utils/helpers";
 import { createLogger, resolveLogLevel } from "../plugin-utils/logging";
@@ -91,6 +94,7 @@ import { replacePathTokens } from "../plugin-utils/paths";
 import {
   CopyConfig,
   ExecutionOptions,
+  FrameworkOptions,
   InferOverridableConfig,
   ParsedUserConfig,
   PluginConfig,
@@ -370,7 +374,7 @@ export class PowerlinesContext<
       this.config.cwd,
       this.config.root,
       this.config.output?.artifactsPath ||
-        `.${this.config.framework || "powerlines"}`
+        `.${this.config.framework?.name || "powerlines"}`
     );
   }
 
@@ -491,7 +495,7 @@ export class PowerlinesContext<
     return this.builtins.reduce(
       (ret, id) => {
         const moduleId = `${
-          this.config?.framework || "powerlines"
+          this.config?.framework?.name || "powerlines"
         }:${id.replace(/^.*:/, "")}`;
         if (!ret[moduleId]) {
           const path = this.fs.paths[id];
@@ -535,8 +539,8 @@ export class PowerlinesContext<
    */
   public override get envPaths(): EnvPaths {
     return getEnvPaths({
-      orgId: kebabCase(this.config.orgId),
-      appId: kebabCase(this.config.framework || "powerlines"),
+      orgId: kebabCase(this.config.framework?.orgId || "storm-software"),
+      appId: kebabCase(this.config.framework?.name || "powerlines"),
       workspaceRoot: this.config.cwd
     });
   }
@@ -1235,8 +1239,8 @@ export class PowerlinesContext<
     this.configFile = await loadParsedConfig(
       this.options.cwd,
       this.options.root,
-      this.options.framework,
-      this.options.orgId,
+      this.options.framework?.name || "powerlines",
+      this.options.framework?.orgId || "storm-software",
       config
     );
 
@@ -1380,8 +1384,13 @@ export class PowerlinesContext<
       mergedConfig.mode = await getDefaultMode(this.cwd, mergedConfig.root);
     }
 
-    if (isUndefined(mergedConfig.framework)) {
-      mergedConfig.framework = "powerlines";
+    if (
+      isUndefined(mergedConfig.framework) ||
+      !isSetString(mergedConfig.framework.name)
+    ) {
+      mergedConfig.framework ??= {} as FrameworkOptions;
+      mergedConfig.framework.name ??=
+        (await getWorkspaceName(this)) || "powerlines";
     }
 
     if (isUndefined(mergedConfig.platform)) {
@@ -1422,8 +1431,11 @@ export class PowerlinesContext<
         }
 
         if (this.packageJson) {
-          mergedConfig.organization ??=
-            getPackageJsonOrganization(this.packageJson) || "powerlines";
+          mergedConfig.framework ??= {} as FrameworkOptions;
+          mergedConfig.framework.name ??=
+            (await getWorkspaceName(this)) || "powerlines";
+          mergedConfig.framework.orgId ??=
+            getPackageJsonOrganization(this.packageJson) || "storm-software";
         }
       }
     }
@@ -1550,7 +1562,7 @@ export class PowerlinesContext<
           mergedConfig.output.types ||
             joinPaths(
               mergedConfig.root,
-              `${mergedConfig.framework ?? "powerlines"}.d.ts`
+              `${mergedConfig.framework?.name ?? "powerlines"}.d.ts`
             )
         ),
         mergedConfig.cwd
@@ -1630,7 +1642,7 @@ export class PowerlinesContext<
 
     if (isUndefined(mergedConfig.output?.artifactsPath)) {
       mergedConfig.output.artifactsPath = `.${
-        mergedConfig.framework || "powerlines"
+        mergedConfig.framework?.name ?? "powerlines"
       }`;
     }
 

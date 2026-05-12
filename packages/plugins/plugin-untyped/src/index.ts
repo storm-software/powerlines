@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import type { StormWorkspaceConfig } from "@storm-software/config/types";
 import { getGenerateAction } from "@storm-software/untyped/generate";
 import { toArray } from "@stryke/convert/to-array";
 import type { Plugin } from "powerlines";
@@ -70,13 +69,13 @@ export const plugin = <
           cache: this.cachePath
         },
         logLevel: this.config.logLevel
-      } as StormWorkspaceConfig);
+      } as any);
     },
     async prepare() {
       return this.untyped({
         entry: this.config.untyped.schema,
         outputPath: this.config.untyped.outputPath,
-        generatedBy: this.config.framework
+        generatedBy: this.config.framework?.name || "powerlines"
       });
     }
   };

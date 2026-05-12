@@ -30,7 +30,7 @@ export function dayjsModule(context: DatePluginContext) {
 /**
  * The Date module provides utility functions for date manipulation and formatting
  *
- * @module ${context.config.framework}:date
+ * @module ${context.config.framework?.name || "powerlines"}:date
  */
 
 ${getTypescriptFileHeader(context)}
@@ -45,7 +45,7 @@ import {
   DateFormats,
   TimeUnit
 } from "@powerlines/plugin-date/types/runtime";
-import { env } from "${context.config.framework}:env";
+import { env } from "${context.config.framework?.name || "powerlines"}:env";
 
 defaultDayjs.extend(customParseFormatPlugin);
 defaultDayjs.extend(localizedFormatPlugin);

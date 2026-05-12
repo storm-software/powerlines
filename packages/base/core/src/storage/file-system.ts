@@ -113,14 +113,23 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
         if (
           isSetString(existingValue) &&
           existingValue.includes(
-            getFileHeaderWarningText(true, this.context.config.framework)
+            getFileHeaderWarningText(
+              true,
+              this.context.config.framework?.name || "powerlines"
+            )
           )
         ) {
           return writeFileSync(
             this.resolve(key),
             existingValue.replace(
-              getFileHeaderWarningText(true, this.context.config.framework),
-              getFileHeaderWarningText(false, this.context.config.framework)
+              getFileHeaderWarningText(
+                true,
+                this.context.config.framework?.name || "powerlines"
+              ),
+              getFileHeaderWarningText(
+                false,
+                this.context.config.framework?.name || "powerlines"
+              )
             )
           );
         }
@@ -143,14 +152,23 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
         if (
           isSetString(existingValue) &&
           existingValue.includes(
-            getFileHeaderWarningText(true, this.context.config.framework)
+            getFileHeaderWarningText(
+              true,
+              this.context.config.framework?.name || "powerlines"
+            )
           )
         ) {
           return writeFile(
             this.resolve(key),
             existingValue.replace(
-              getFileHeaderWarningText(true, this.context.config.framework),
-              getFileHeaderWarningText(false, this.context.config.framework)
+              getFileHeaderWarningText(
+                true,
+                this.context.config.framework?.name || "powerlines"
+              ),
+              getFileHeaderWarningText(
+                false,
+                this.context.config.framework?.name || "powerlines"
+              )
             )
           );
         }

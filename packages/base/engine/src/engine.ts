@@ -333,7 +333,7 @@ export async function createContext(options: EngineOptions) {
 
   const app = createApp();
   const host = createH3DevToolsHost({
-    appName: options.framework || "powerlines",
+    appName: options.framework?.name || "powerlines",
     origin: `http://${options.host || "localhost"}:${port}`,
     mount: (base, dir) => {
       app.use(base, fromNodeMiddleware(sirv(dir, { dev: true, single: true })));

@@ -249,7 +249,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       normalized = replacePath(normalized, this.#context.builtinsPath);
     }
 
-    return normalizeId(normalized, this.#context.config.framework);
+    return normalizeId(
+      normalized,
+      this.#context.config.framework?.name ?? "powerlines"
+    );
   }
 
   /**
@@ -271,7 +274,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
         ? replacePathTokens(this.#context, path)
         : path,
       this.#context.builtinsPath,
-      this.#context.config.framework
+      this.#context.config.framework?.name ?? "powerlines"
     );
   }
 
@@ -1070,8 +1073,12 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
 
     return (
       this.#getStorage(resolved)?.adapter?.preset === "virtual" ||
-      resolved.startsWith(`${this.#context.config.framework}:`) ||
-      path.startsWith(`${this.#context.config.framework}:`)
+      resolved.startsWith(
+        `${this.#context.config.framework?.name ?? "powerlines"}:`
+      ) ||
+      path.startsWith(
+        `${this.#context.config.framework?.name ?? "powerlines"}:`
+      )
     );
   }
 
@@ -1198,7 +1205,9 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     options?: ResolveOptions
   ): boolean {
     return (
-      path.startsWith(`${this.#context.config.framework}:`) ||
+      path.startsWith(
+        `${this.#context.config.framework?.name ?? "powerlines"}:`
+      ) ||
       this.isVirtual(path, importer, options) ||
       this.isAlias(path) ||
       this.isTsconfigPath(path)

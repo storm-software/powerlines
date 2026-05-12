@@ -103,7 +103,7 @@ async function extractModuleDeclarations(
     .match(
       new RegExp(
         `\\/\\*\\*(?s:.)*?@module\\s+${
-          ctx.context.config.framework
+          ctx.context.config.framework?.name ?? "powerlines"
         }:${name}(?s:.)*?\\*\\/\\s+`
       )
     )
@@ -650,7 +650,7 @@ export async function emitBuiltinTypes<TContext extends Context>(
 
   for (const mod of ctx.modules) {
     code += mod.comment ? `${mod.comment.trim()}\n` : "";
-    code += `declare module "${context.config.framework}:${mod.name}" { \n`;
+    code += `declare module "${context.config.framework?.name ?? "powerlines"}:${mod.name}" { \n`;
     for (const importRef of mod.imports) {
       if (importRef.ambient) {
         code += directives.push(importRef.name);

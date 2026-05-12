@@ -19,6 +19,7 @@
 import type {
   CustomLogger,
   ExecutionOptions,
+  FrameworkOptions,
   Options,
   ResolvedConfig,
   UserConfig
@@ -57,21 +58,9 @@ export type EngineOptions = Omit<
     customLogger?: CustomLogger;
 
     /**
-     * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
-     *
-     * @remarks
-     * If no values are provided for {@link OutputConfig.types | output.types} or {@link OutputConfig.artifactsPath | output.artifactsFolder}, this value will be used as the default.
-     *
-     * @defaultValue "powerlines"
+     * The framework for which the engine is being used, which can be used by plugins to customize their behavior based on the specific framework being targeted. This value is optional and can be set to `undefined` if not applicable, but providing it allows plugins to make informed decisions about how to handle certain tasks or configurations based on the framework being used.
      */
-    framework?: string;
-
-    /**
-     * The organization or author of the framework
-     *
-     * @defaultValue "storm-software"
-     */
-    orgId?: string;
+    framework?: FrameworkOptions;
   };
 
 export interface EngineExecutionOptions extends ExecutionOptions {

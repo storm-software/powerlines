@@ -30,7 +30,7 @@ export function dateFnsModule(context: DatePluginContext) {
 /**
  * The Date module provides utility functions for date manipulation and formatting
  *
- * @module ${context.config.framework}:date
+ * @module ${context.config.framework?.name || "powerlines"}:date
  */
 
 ${getTypescriptFileHeader(context)}

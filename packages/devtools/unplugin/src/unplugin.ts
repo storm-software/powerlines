@@ -91,23 +91,6 @@ export interface UnpluginFactoryOptions extends Options {
    * Providing a custom logger allows you to integrate Powerlines logging with your own logging system or to customize the logging behavior, such as formatting log messages differently or sending logs to an external service. If a custom logger is not provided, Powerlines will use its default logger implementation.
    */
   customLogger?: CustomLogger;
-
-  /**
-   * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
-   *
-   * @remarks
-   * If no values are provided for {@link OutputConfig.types | output.types} or {@link OutputConfig.artifactsPath | output.artifactsFolder}, this value will be used as the default.
-   *
-   * @defaultValue "powerlines"
-   */
-  framework?: string;
-
-  /**
-   * The organization or author of the framework
-   *
-   * @defaultValue "storm-software"
-   */
-  orgId?: string;
 }
 
 export type UnpluginFactoryDecorator<TContext extends ExecutionContext> = (
@@ -162,8 +145,11 @@ export function createUnpluginFactory<
       TContext["system"]
     >;
     try {
-      const framework = params.framework || options.framework || "powerlines";
-      const orgId = params.orgId || options.orgId || "storm-software";
+      const framework =
+        (params.framework?.name ?? options.framework?.name) || "powerlines";
+      const orgId =
+        (params.framework?.orgId ?? options.framework?.orgId) ||
+        "storm-software";
 
       const root = resolveRoot(cwd, params.root, params.configFile);
 
@@ -189,8 +175,6 @@ export function createUnpluginFactory<
         const _options = {
           cwd,
           root,
-          framework,
-          orgId,
           ...params,
           command: "build",
           configFile: config.configFile!,
@@ -202,9 +186,7 @@ export function createUnpluginFactory<
           {
             ...options,
             ..._options,
-            configFile: config.configFile!,
-            framework,
-            orgId
+            configFile: config.configFile!
           },
           _options
         );

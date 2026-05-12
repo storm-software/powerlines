@@ -20,6 +20,7 @@
 
 import type { CreateNodesResultV2, CreateNodesV2 } from "@nx/devkit";
 import { createNodesFromFiles } from "@nx/devkit";
+import { EngineOptions } from "@powerlines/engine";
 import type { ProjectTagVariant } from "@storm-software/workspace-tools/types";
 import { withNamedInputs } from "@storm-software/workspace-tools/utils/nx-json";
 import {
@@ -42,6 +43,7 @@ import { titleCase } from "@stryke/string-format/title-case";
 import { isError } from "@stryke/type-checks/is-error";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
+import { PartialKeys } from "@stryke/types/base";
 import type { PackageJson } from "@stryke/types/package-json";
 import defu from "defu";
 import { createJiti, Jiti } from "jiti";
@@ -53,7 +55,11 @@ import type {
 } from "nx/src/config/workspace-json-project-json.js";
 import type { PackageJson as PackageJsonNx } from "nx/src/utils/package-json.js";
 import { readTargetsFromPackageJson } from "nx/src/utils/package-json.js";
-import type { EngineOptions, ParsedUserConfig, UserConfig } from "powerlines";
+import type {
+  FrameworkOptions,
+  ParsedUserConfig,
+  UserConfig
+} from "powerlines";
 import type { NxPluginOptions } from "../types/plugin";
 import { CONFIG_INPUTS } from "./constants";
 
@@ -112,7 +118,8 @@ export interface CreateNxPluginOptions {
 }
 
 type LoadUserConfigFileFunction = (
-  options: EngineOptions,
+  options: Omit<EngineOptions, "framework"> &
+    PartialKeys<FrameworkOptions, "orgId">,
   jiti: Jiti
 ) => Promise<ParsedUserConfig>;
 
@@ -230,7 +237,7 @@ export function createNxPlugin<
                           ? "test"
                           : "production",
                       configFile,
-                      framework
+                      framework: { name: framework }
                     },
                     resolver
                   );

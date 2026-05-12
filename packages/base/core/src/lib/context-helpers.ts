@@ -62,7 +62,7 @@ export async function resolvePluginConfig<
         category: "plugins"
       },
       message: `Loaded ${context.plugins.length} ${titleCase(
-        context.config.framework
+        context.config.framework?.name ?? "powerlines"
       )} plugin${context.plugins.length > 1 ? "s" : ""}: \n${context.plugins
         .map((plugin, index) => ` ${index + 1}. ${colorText(plugin.name)}`)
         .join("\n")}`

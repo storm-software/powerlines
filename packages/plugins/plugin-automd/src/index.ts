@@ -97,11 +97,13 @@ export const plugin = <
     },
     async configResolved() {
       if (
-        this.config.framework &&
-        !toArray(this.config.automd.prefix).includes(this.config.framework)
+        this.config.framework?.name &&
+        !toArray(this.config.automd.prefix).includes(
+          this.config.framework?.name
+        )
       ) {
         this.config.automd.prefix = toArray(this.config.automd.prefix).concat(
-          this.config.framework
+          this.config.framework?.name
         );
       }
 

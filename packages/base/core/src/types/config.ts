@@ -316,6 +316,35 @@ export interface OutputConfig {
   storage?: StoragePort | StoragePreset;
 }
 
+export interface FrameworkOptions {
+  /**
+   * The name of the framework
+   *
+   * @remarks
+   * This value is used to identify the framework in logs, error messages, and other places where the framework's name is needed.
+   *
+   * @defaultValue "powerlines"
+   */
+  name: string;
+
+  /**
+   * The version of the framework
+   *
+   * @remarks
+   * This value is used to identify the version of the framework in logs, error messages, and other places where the framework's version is needed.
+   *
+   * @defaultValue "0.0.1"
+   */
+  version?: string;
+
+  /**
+   * The organization or author of the framework
+   *
+   * @defaultValue "storm-software"
+   */
+  orgId: string;
+}
+
 export interface Options {
   /**
    * The current working directory the Powerlines processes should operate in
@@ -334,6 +363,11 @@ export interface Options {
    * @defaultValue "info"
    */
   logLevel?: LogLevelUserConfig;
+
+  /**
+   * Details about the framework being used in the current execution, which can be used by plugins and other parts of the system to customize behavior based on the framework.
+   */
+  framework?: FrameworkOptions;
 }
 
 export interface BaseExecutionOptions extends RequiredKeys<Options, "cwd"> {
@@ -361,23 +395,6 @@ export interface ExecutionOptions extends BaseExecutionOptions {
    * This option is useful for running Powerlines commands with different configuration files, such as in CI/CD environments or when testing different configurations.
    */
   configFile: string;
-
-  /**
-   * A string identifier that allows a child framework or tool to identify itself when using Powerlines.
-   *
-   * @remarks
-   * If no values are provided for {@link OutputConfig.types | output.types} or {@link OutputConfig.artifactsPath | output.artifactsFolder}, this value will be used as the default.
-   *
-   * @defaultValue "powerlines"
-   */
-  framework: string;
-
-  /**
-   * The organization or author of the framework
-   *
-   * @defaultValue "storm-software"
-   */
-  orgId: string;
 }
 
 export interface Config {

@@ -320,7 +320,6 @@ export function plugin(options: UserConfig = {}): UserConfig {
     entry: options.entry,
     plugins: [
       rolldown({
-        framework: "powerlines",
         ...options,
         output: {
           path: options.outDir,

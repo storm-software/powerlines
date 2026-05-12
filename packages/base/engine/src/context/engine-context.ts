@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type {
+  FrameworkOptions,
   InlineConfig,
   LogFn,
   LoggerOptions,
@@ -156,17 +157,21 @@ export class PowerlinesEngineContext<TSystemContext = unknown>
   public get envPaths(): EnvPaths {
     return getEnvPaths({
       orgId: kebabCase(this.orgId),
-      appId: kebabCase(this.framework),
+      appId: kebabCase(this.framework.name),
       workspaceRoot: this.cwd
     });
   }
 
-  public get framework(): string {
-    return this.options.framework || "powerlines";
+  public get framework(): FrameworkOptions {
+    return {
+      name: "powerlines",
+      orgId: "storm-software",
+      ...this.options.framework
+    };
   }
 
   public get orgId(): string {
-    return this.options.orgId || "storm-software";
+    return this.framework.orgId;
   }
 
   /**
@@ -204,7 +209,7 @@ export class PowerlinesEngineContext<TSystemContext = unknown>
     const config = await loadParsedConfig(
       this.cwd,
       root,
-      this.framework,
+      this.framework?.name,
       this.orgId,
       inlineConfig
     );

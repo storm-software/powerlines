@@ -30,7 +30,7 @@ export function nanoidModule(context: IdPluginContext) {
 /**
  * The ID module provides a set of utilities for generating unique identifiers.
  *
- * @module ${context.config.framework}:id
+ * @module ${context.config.framework?.name || "powerlines"}:id
  */
 
 ${getTypescriptFileHeader(context)}

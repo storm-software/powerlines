@@ -74,7 +74,7 @@ async function loadEnvDirectory<
     loadEnvFiles<TEnv>(options, mode, directory),
     loadConfig({
       cwd: directory,
-      name: context.config.framework,
+      name: context.config.framework?.name || "powerlines",
       envName: mode,
       defaults: {
         NAME:

@@ -30,7 +30,7 @@ export function cryptoModule(context: CryptoPluginContext) {
 /**
  * The cryptography module provides custom helper functions to support encrypting and decrypting data.
  *
- * @module ${context.config.framework}:crypto
+ * @module ${context.config.framework?.name || "powerlines"}:crypto
  */
 
 ${getFileHeader(context)}
