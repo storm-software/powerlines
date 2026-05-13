@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.10.0](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.10.0) (05/13/2026)
+
+### Features
+
+- **schema:** Added `extract` method to resolve schema definitions from user input parameters ([523f918a7](https://github.com/storm-software/powerlines/commit/523f918a7))
+
+### Updated Dependencies
+
+- Updated **plugin-esbuild** to **v0.13.468**
+
 ## [0.9.6](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.6) (05/13/2026)
 
 ### Miscellaneous

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.374](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.374) (05/13/2026)
+
+### Features
+
+- **schema:** Added `extract` method to resolve schema definitions from user input parameters ([523f918a7](https://github.com/storm-software/powerlines/commit/523f918a7))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.12**
+- Updated **plugin-plugin** to **v0.12.424**
+
 ## [0.3.373](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.373) (05/13/2026)
 
 ### Updated Dependencies

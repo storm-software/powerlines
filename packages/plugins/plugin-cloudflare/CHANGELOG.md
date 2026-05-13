@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.100](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.100) (05/13/2026)
+
+### Features
+
+- **schema:** Added `extract` method to resolve schema definitions from user input parameters ([523f918a7](https://github.com/storm-software/powerlines/commit/523f918a7))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.12**
+- Updated **plugin-plugin** to **v0.12.424**
+- Updated **plugin-pulumi** to **v0.6.114**
+- Updated **plugin-alloy** to **v0.26.93**
+- Updated **plugin-unenv** to **v0.1.462**
+- Updated **plugin-env** to **v0.16.201**
+
 ## [0.6.99](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.99) (05/13/2026)
 
 ### Updated Dependencies

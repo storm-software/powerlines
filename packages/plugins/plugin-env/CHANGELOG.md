@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.201](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.201) (05/13/2026)
+
+### Features
+
+- **schema:** Added `extract` method to resolve schema definitions from user input parameters ([523f918a7](https://github.com/storm-software/powerlines/commit/523f918a7))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.12**
+- Updated **plugin-deepkit** to **v0.11.355**
+- Updated **plugin-automd** to **v0.1.473**
+- Updated **plugin-plugin** to **v0.12.424**
+- Updated **plugin-alloy** to **v0.26.93**
+- Updated **plugin-babel** to **v0.13.9**
+- Updated **plugin-tsc** to **v0.3.9**
+
 ## [0.16.200](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.200) (05/13/2026)
 
 ### Updated Dependencies

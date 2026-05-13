@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.10.0](https://github.com/storm-software/powerlines/releases/tag/schema%400.10.0) (05/13/2026)
+
+### Features
+
+- **schema:** Added `extract` method to resolve schema definitions from user input parameters ([523f918a7](https://github.com/storm-software/powerlines/commit/523f918a7))
+
+### Updated Dependencies
+
+- Updated **unplugin** to **v0.0.8**
+
 ## [0.9.6](https://github.com/storm-software/powerlines/releases/tag/schema%400.9.6) (05/13/2026)
 
 ### Miscellaneous
