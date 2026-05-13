@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.6.117](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.117) (05/13/2026)
+
+### Bug Fixes
+
+- **plugin-pulumi:** Remove invalid invocations of `callHook` method ([9fe1416d3](https://github.com/storm-software/powerlines/commit/9fe1416d3))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.15.1**
+- Updated **powerlines** to **v0.47.15**
+- Updated **plugin-plugin** to **v0.12.427**
+
 ## [0.6.116](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.116) (05/13/2026)
 
 ### Updated Dependencies
