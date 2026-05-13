@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/unplugin",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "keywords": [

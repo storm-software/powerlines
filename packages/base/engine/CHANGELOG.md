@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.15.0](https://github.com/storm-software/powerlines/releases/tag/engine%400.15.0) (05/13/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update packages to a independant release schedule ([fb847942d](https://github.com/storm-software/powerlines/commit/fb847942d))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.15.0**
+
 ## [0.10.1](https://github.com/storm-software/powerlines/releases/tag/engine%400.10.1) (05/13/2026)
 
 ### Miscellaneous
