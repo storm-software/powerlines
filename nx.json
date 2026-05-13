@@ -2,15 +2,12 @@
   "extends": "@storm-software/workspace-tools/config/recommended.json",
   "release": {
     "groups": {
-      "base": {
-        "projects": ["packages/base/*"],
-        "projectsRelationship": "fixed",
-        "releaseTag": {
-          "pattern": "base@{version}"
-        }
-      },
       "packages": {
-        "projects": ["packages/devtools/*", "packages/plugins/*"],
+        "projects": [
+          "packages/base/*",
+          "packages/devtools/*",
+          "packages/plugins/*"
+        ],
         "projectsRelationship": "independent",
         "releaseTag": {
           "pattern": "{projectName}@{version}"
