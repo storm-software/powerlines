@@ -20,25 +20,10 @@ import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
 
 const config = defineTSDownConfig([
   {
-    name: "engine-core",
-    entry: [
-      "src/index.ts",
-      "src/engine.ts",
-      "src/api/*.ts",
-      "src/helpers/*.ts",
-      "src/context/index.ts"
-    ],
+    name: "engine",
+    entry: ["src/*.ts", "src/api/*.ts", "src/helpers/*.ts", "src/context/*.ts"],
     unbundle: false,
-    exports: false
-  },
-  {
-    name: "engine-worker",
-    format: ["cjs", "esm"],
-    target: "node24",
-    entry: "src/execution-host.ts",
-    outDir: "dist/worker",
-    unbundle: false,
-    exports: false
+    exports: true
   }
 ]);
 

@@ -83,13 +83,17 @@
       "import": "./dist/context/index.mjs",
       "require": "./dist/context/index.cjs"
     },
+    "./context/engine-context": {
+      "import": "./dist/context/engine-context.mjs",
+      "require": "./dist/context/engine-context.cjs"
+    },
     "./engine": {
       "import": "./dist/engine.mjs",
       "require": "./dist/engine.cjs"
     },
     "./execution-host": {
-      "import": "./dist/worker/execution-host.mjs",
-      "require": "./dist/worker/execution-host.cjs"
+      "import": "./dist/execution-host.mjs",
+      "require": "./dist/execution-host.cjs"
     },
     "./helpers/create-execution-host": {
       "import": "./dist/helpers/create-execution-host.mjs",
@@ -102,6 +106,10 @@
     "./helpers/finalize": {
       "import": "./dist/helpers/finalize.mjs",
       "require": "./dist/helpers/finalize.cjs"
+    },
+    "./helpers/rpc": {
+      "import": "./dist/helpers/rpc.mjs",
+      "require": "./dist/helpers/rpc.cjs"
     },
     "./package.json": "./package.json"
   },

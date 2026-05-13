@@ -16,13 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-import { LogFnMeta } from "@powerlines/core";
+import { InlineConfig, LogFnMeta } from "@powerlines/core";
 import { PowerlinesExecutionContext } from "@powerlines/core/context/execution-context";
 import { resolvePluginConfig } from "@powerlines/core/lib/context-helpers";
 import { consoleLogger } from "@powerlines/core/plugin-utils";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { DeepPartial } from "@stryke/types/base";
 import { uuid } from "@stryke/unique-id/uuid";
+import { defu } from "defu";
 import { RpcClient } from "../types";
 import { ExecutionHostParams } from "../types/api";
 import { EngineResolvedConfig } from "../types/config";
@@ -33,6 +35,7 @@ import { createRpcClient } from "./rpc";
  * Creates an execution host with the provided methods. Each method will be wrapped to create an execution context and handle errors appropriately.
  *
  * @param methods - An object where keys are method names and values are functions that take an execution context and return a promise.
+ * @param inlineConfig - An optional partial inline configuration object that will be merged with the context's options when creating the execution context for each method.
  * @returns An object with the same keys as the input methods, but each function is wrapped to create an execution context and handle errors.
  */
 export function createExecutionHost<
@@ -40,12 +43,15 @@ export function createExecutionHost<
     EngineResolvedConfig,
     EngineSystemContext
   > = PowerlinesExecutionContext<EngineResolvedConfig, EngineSystemContext>
->(methods: Record<string, (context: TContext) => Promise<void>>) {
+>(
+  methods: Record<string, (context: TContext) => Promise<void>>,
+  inlineConfig: DeepPartial<InlineConfig> = {}
+) {
   return Object.fromEntries(
     Object.entries(methods).map(([method, fn]) => [
       method,
       async (params: ExecutionHostParams) => {
-        const { options, inlineConfig } = params;
+        const { options } = params;
 
         let rpc!: RpcClient;
         if (options.baseURL && options.connection) {
@@ -79,9 +85,13 @@ export function createExecutionHost<
         const context = (await PowerlinesExecutionContext.from<
           EngineResolvedConfig,
           EngineSystemContext
-        >({ ...options, logFn }, inlineConfig ?? {}, {
-          rpc
-        })) as TContext;
+        >(
+          { ...options, logFn },
+          defu(inlineConfig, params.inlineConfig ?? {}) as InlineConfig,
+          {
+            rpc
+          }
+        )) as TContext;
 
         context.logger.info(
           `Starting ${

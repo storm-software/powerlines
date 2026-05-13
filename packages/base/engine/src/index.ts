@@ -16,7 +16,9 @@
 
  ------------------------------------------------------------------- */
 
+export * from "./context";
 export * from "./engine";
-
-export { type PowerlinesEngine } from "./engine";
+export * from "./helpers/create-execution-host";
+export * from "./helpers/finalize";
+export * from "./helpers/rpc";
 export type * from "./types";
