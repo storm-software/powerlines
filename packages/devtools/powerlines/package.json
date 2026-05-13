@@ -165,14 +165,6 @@
     "typescript": "^6.0.3",
     "undici-types": "catalog:"
   },
-  "peerDependencies": {
-    "@powerlines/engine": "*"
-  },
-  "peerDependenciesMeta": {
-    "@powerlines/engine": {
-      "optional": false
-    }
-  },
   "publishConfig": {
     "access": "public"
   },
