@@ -532,7 +532,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
     },
     {
       name: "env:automd-generator",
-      config() {
+      configResolved() {
         return {
           automd: defu(options.automd ?? {}, {
             generators: {

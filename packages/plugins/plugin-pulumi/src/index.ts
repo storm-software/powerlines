@@ -26,7 +26,6 @@ import { MaybePromise } from "@stryke/types/base";
 import defu from "defu";
 import { Plugin, PluginContext } from "powerlines";
 import { getOrganizationName, getWorkspaceName } from "powerlines/plugin-utils";
-import { Unstable_PulumiPluginContext } from "./types/_internal";
 import { PulumiPluginContext, PulumiPluginOptions } from "./types/plugin";
 import { DeployPulumiResult, PulumiOutputRecord } from "./types/pulumi";
 
@@ -112,9 +111,7 @@ export const plugin = <
             );
 
             const resources = {} as PulumiOutputRecord;
-            await (
-              this as unknown as Unstable_PulumiPluginContext
-            ).$$internal.callHook(
+            await this.callHook(
               "pulumi:deploy",
               {
                 sequential: true,

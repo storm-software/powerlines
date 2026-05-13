@@ -25,7 +25,6 @@ import { Plugin, PluginContext } from "powerlines";
 import { getOrganizationName, getWorkspaceName } from "powerlines/plugin-utils";
 import { which } from "shelljs";
 import { TerraformContext } from "./types";
-import { Unstable_TerraformPluginContext } from "./types/_internal";
 import { TerraformPluginContext, TerraformPluginOptions } from "./types/plugin";
 
 export type * from "./types";
@@ -117,9 +116,7 @@ export const plugin = <
           `Creating resources for Terraform stack: ${this.config.terraform.stackName}`
         );
 
-        await (
-          this as unknown as Unstable_TerraformPluginContext
-        ).$$internal.callHook("terraform:deploy", {
+        await this.callHook("terraform:deploy", {
           sequential: true
         });
 

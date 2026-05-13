@@ -69,9 +69,9 @@ export async function resolveRuntimeTypeFile(
  * @param context - The plugin context.
  * @returns The default type definition for the environment variables.
  */
-export async function getEnvDefaultTypeDefinition(
-  context: UnresolvedContext<EnvPluginResolvedConfig>
-): Promise<TypeDefinition> {
+export async function getEnvDefaultTypeDefinition<
+  TContext extends UnresolvedContext<EnvPluginResolvedConfig>
+>(context: TContext): Promise<TypeDefinition> {
   return {
     file: await resolveRuntimeTypeFile(context),
     name: "EnvInterface"
@@ -83,9 +83,9 @@ export async function getEnvDefaultTypeDefinition(
  * @param context - The plugin context.
  * @returns The default type definition for the environment secrets.
  */
-export async function getSecretsDefaultTypeDefinition(
-  context: UnresolvedContext<EnvPluginResolvedConfig>
-): Promise<TypeDefinition> {
+export async function getSecretsDefaultTypeDefinition<
+  TContext extends UnresolvedContext<EnvPluginResolvedConfig>
+>(context: TContext): Promise<TypeDefinition> {
   return {
     file: await resolveRuntimeTypeFile(context),
     name: "SecretsInterface"
