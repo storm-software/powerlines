@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.44](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.44) (05/13/2026)
+
+### Bug Fixes
+
+- **engine:** Ensure the correct paths are used to resolve the execution host ([eed95e21f](https://github.com/storm-software/powerlines/commit/eed95e21f))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.8**
+
 ## [0.13.43](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.43) (05/13/2026)
 
 ### Bug Fixes

@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.8](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.8) (05/13/2026)
+
+### Bug Fixes
+
+- **engine:** Ensure the correct paths are used to resolve the execution host ([eed95e21f](https://github.com/storm-software/powerlines/commit/eed95e21f))
+
 ## [0.47.7](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.7) (05/12/2026)
 
 ### Miscellaneous
