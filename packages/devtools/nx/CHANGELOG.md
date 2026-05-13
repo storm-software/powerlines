@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.43](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.43) (05/13/2026)
+
+### Bug Fixes
+
+- **nx:** Resolve issue reading user configuration in Nx plugin ([538fba1aa](https://github.com/storm-software/powerlines/commit/538fba1aa))
+
 ## [0.13.42](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.42) (05/12/2026)
 
 ### Updated Dependencies
