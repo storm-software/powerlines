@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.9.4](https://github.com/storm-software/powerlines/releases/tag/engine%400.9.4) (05/13/2026)
+
+### Miscellaneous
+
+- **engine:** Ensure all required exports are included in package.json ([271e2b1d2](https://github.com/storm-software/powerlines/commit/271e2b1d2))
+
 ## [0.9.3](https://github.com/storm-software/powerlines/releases/tag/engine%400.9.3) (05/13/2026)
 
 ### Bug Fixes

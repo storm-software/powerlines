@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.9.4](https://github.com/storm-software/powerlines/releases/tag/schema%400.9.4) (05/13/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue publishing package to NPM registry ([fe60f1eec](https://github.com/storm-software/powerlines/commit/fe60f1eec))
+
 ## [0.9.3](https://github.com/storm-software/powerlines/releases/tag/schema%400.9.3) (05/13/2026)
 
 ### Updated Dependencies
