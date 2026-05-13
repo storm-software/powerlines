@@ -20,7 +20,6 @@
 
 import type { CreateNodesResultV2, CreateNodesV2 } from "@nx/devkit";
 import { createNodesFromFiles } from "@nx/devkit";
-import { EngineOptions } from "@powerlines/engine";
 import type { ProjectTagVariant } from "@storm-software/workspace-tools/types";
 import { withNamedInputs } from "@storm-software/workspace-tools/utils/nx-json";
 import {
@@ -46,7 +45,7 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { PartialKeys } from "@stryke/types/base";
 import type { PackageJson } from "@stryke/types/package-json";
 import defu from "defu";
-import { createJiti, Jiti } from "jiti";
+import { createJiti } from "jiti";
 import { readFile } from "node:fs/promises";
 import { readNxJson } from "nx/src/config/nx-json.js";
 import type {
@@ -57,6 +56,7 @@ import type { PackageJson as PackageJsonNx } from "nx/src/utils/package-json.js"
 import { readTargetsFromPackageJson } from "nx/src/utils/package-json.js";
 import type {
   FrameworkOptions,
+  Mode,
   ParsedUserConfig,
   UserConfig
 } from "powerlines";
@@ -118,9 +118,12 @@ export interface CreateNxPluginOptions {
 }
 
 type LoadUserConfigFileFunction = (
-  options: Omit<EngineOptions, "framework"> &
-    PartialKeys<FrameworkOptions, "orgId">,
-  jiti: Jiti
+  cwd: string,
+  root: string,
+  mode: Mode,
+  command: string,
+  framework?: PartialKeys<FrameworkOptions, "orgId">,
+  configFile?: string
 ) => Promise<ParsedUserConfig>;
 
 /**
@@ -228,18 +231,16 @@ export function createNxPlugin<
               try {
                 if (loadUserConfigFile) {
                   const parsedConfig = await loadUserConfigFile(
-                    {
-                      root: projectRoot,
-                      cwd: contextV2.workspaceRoot,
-                      mode: isDevelopment
-                        ? "development"
-                        : isTest
-                          ? "test"
-                          : "production",
-                      configFile,
-                      framework: { name: framework }
-                    },
-                    resolver
+                    contextV2.workspaceRoot,
+                    projectRoot,
+                    isDevelopment
+                      ? "development"
+                      : isTest
+                        ? "test"
+                        : "production",
+                    "build",
+                    { name: framework },
+                    configFile
                   );
                   if (isSetObject(parsedConfig)) {
                     userConfig = parsedConfig.config as UserConfig;
