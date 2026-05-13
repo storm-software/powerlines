@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.8.67](https://github.com/storm-software/powerlines/releases/tag/schema%400.8.67) (05/13/2026)
+
+### Miscellaneous
+
+- **core:** Update `base` release group version plan ([c709de2f4](https://github.com/storm-software/powerlines/commit/c709de2f4))
+
+### Updated Dependencies
+
+- Updated **unplugin** to **v0.0.12**
+
 ## [0.11.1](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.1) (05/13/2026)
 
 ### Updated Dependencies

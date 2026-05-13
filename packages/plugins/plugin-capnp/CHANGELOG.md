@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Capnp
 
+## [0.1.480](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.480) (05/13/2026)
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.16**
+- Updated **plugin-plugin** to **v0.12.428**
+
 ## [0.1.479](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.479) (05/13/2026)
 
 ### Updated Dependencies
