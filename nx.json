@@ -5,11 +5,8 @@
       "base": {
         "projects": ["packages/base/*"],
         "projectsRelationship": "fixed",
-        "version": {
-          "currentVersionResolver": "disk"
-        },
         "releaseTag": {
-          "pattern": "base@{version}"
+          "pattern": "{projectName}@{version}"
         }
       },
       "packages": {
