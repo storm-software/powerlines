@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.9.2](https://github.com/storm-software/powerlines/releases/tag/engine%400.9.2) (05/12/2026)
+
+### Miscellaneous
+
+- **engine:** Added logic to supply `RpcClient` to execution context in host ([c40d2712a](https://github.com/storm-software/powerlines/commit/c40d2712a))
+
 ## [0.9.1](https://github.com/storm-software/powerlines/releases/tag/engine%400.9.1) (05/12/2026)
 
 ### Miscellaneous

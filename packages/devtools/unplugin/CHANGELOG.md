@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.4](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.4) (05/12/2026)
+
+### Miscellaneous
+
+- **monorepo:** Upgrade to Babel v8.0.0-rc.5 ([08017c5e0](https://github.com/storm-software/powerlines/commit/08017c5e0))
+- **engine:** Added logic to supply `RpcClient` to execution context in host ([c40d2712a](https://github.com/storm-software/powerlines/commit/c40d2712a))
+
 ## [0.0.2](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.2) (05/12/2026)
 
 ### Miscellaneous

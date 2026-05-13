@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Core
 
+## [0.9.2](https://github.com/storm-software/powerlines/releases/tag/core%400.9.2) (05/12/2026)
+
+### Miscellaneous
+
+- **engine:** Added logic to supply `RpcClient` to execution context in host ([c40d2712a](https://github.com/storm-software/powerlines/commit/c40d2712a))
+
+### Bug Fixes
+
+- **core:** Resolve maximum call stack error when trying to deep copy `system` context ([29cdc301a](https://github.com/storm-software/powerlines/commit/29cdc301a))
+
 ## [0.47.2](https://github.com/storm-software/powerlines/releases/tag/core%400.47.2) (05/05/2026)
 
 ### Miscellaneous

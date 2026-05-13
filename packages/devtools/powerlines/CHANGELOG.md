@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.7](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.7) (05/12/2026)
+
+### Miscellaneous
+
+- **engine:** Added logic to supply `RpcClient` to execution context in host ([c40d2712a](https://github.com/storm-software/powerlines/commit/c40d2712a))
+
+### Updated Dependencies
+
+- Updated **unplugin** to **v0.0.4**
+
 ## [0.47.6](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.6) (05/12/2026)
 
 ### Miscellaneous
