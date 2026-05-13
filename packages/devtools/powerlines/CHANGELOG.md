@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.9](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.9) (05/13/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue publishing package to NPM registry ([fe60f1eec](https://github.com/storm-software/powerlines/commit/fe60f1eec))
+
+### Updated Dependencies
+
+- Updated **unplugin** to **v0.0.5**
+
 ## [0.47.8](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.8) (05/13/2026)
 
 ### Bug Fixes
