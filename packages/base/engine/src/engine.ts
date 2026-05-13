@@ -357,6 +357,7 @@ export async function createEngine<TExecutionAPI extends ReadonlyArray<string>>(
   const host = await ExecutionHostWorker.from<TExecutionAPI>(
     executionHostPath,
     {
+      root: options.root,
       context,
       executionMethods
     }

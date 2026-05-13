@@ -50,6 +50,11 @@ export type EngineOptions = Omit<
     port?: number;
 
     /**
+     * An optional root directory for the engine to use when resolving paths and loading configuration files. This value can be used to specify a custom root directory for the engine, which can be useful in cases where the default behavior of using the current working directory is not desirable. If this option is not provided, the engine will use the current working directory as the root directory by default.
+     */
+    root?: string;
+
+    /**
      * A custom logger instance that implements the {@link CustomLogger} interface, which can be used for logging messages during the build process instead of the default Powerlines logger.
      *
      * @remarks

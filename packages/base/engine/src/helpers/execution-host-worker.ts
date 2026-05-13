@@ -19,6 +19,7 @@
 import { Mode } from "@powerlines/core";
 import { getDefaultMode } from "@powerlines/core/lib/config";
 import { resolve } from "@stryke/fs/resolve";
+import { appendPath } from "@stryke/path/append";
 import { isNumber } from "@stryke/type-checks/is-number";
 import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
@@ -132,6 +133,11 @@ export interface ExecutionHostWorkerOptions<
   mode?: Mode;
 
   /**
+   * An optional root to resolve the execution host path from, which can be used to specify a custom root directory for the worker to use when resolving paths and loading configuration files. If this option is not provided, the worker will use the current working directory as the root directory by default.
+   */
+  root?: string;
+
+  /**
    * The context of the {@link @powerlines/engine#Engine | Engine instance}, which can be used to access the engine's state and services within the worker.
    */
   context: EngineContext;
@@ -159,7 +165,10 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
     const mode = await getDefaultMode(options.context.cwd);
 
     const resolvedPath = await resolve(executionHostPath, {
-      paths: [options.context.cwd]
+      paths: [
+        options.context.cwd,
+        options.root ? appendPath(options.root, options.context.cwd) : undefined
+      ].filter(Boolean) as string[]
     });
     if (!resolvedPath) {
       throw new Error(

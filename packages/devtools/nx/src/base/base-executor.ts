@@ -105,7 +105,8 @@ export function withExecutor<
       }>(jiti.esmResolve("powerlines"));
 
       const api = await createPowerlines({
-        cwd: context.root
+        cwd: context.root,
+        root: projectConfig.root
       });
 
       try {
