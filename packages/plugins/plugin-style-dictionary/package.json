@@ -63,15 +63,13 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
+  "files": ["dist"],
   "dependencies": {
-    "@powerlines/plugin-esbuild": "workspace:*",
-    "@storm-software/config-tools": "catalog:",
-    "@stryke/path": "catalog:",
+    "@powerlines/schema": "workspace:*",
+    "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "defu": "catalog:",
-    "jiti": "catalog:",
     "powerlines": "workspace:*",
     "style-dictionary": "catalog:"
   },
@@ -81,5 +79,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "inlinedDependencies": {
+    "@storm-software/config-tools": "1.190.2"
   }
 }

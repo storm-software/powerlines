@@ -318,7 +318,7 @@ export interface UnresolvedContext<
     Required<Pick<TResolvedConfig["userConfig"], "output">> &
     Pick<
       TResolvedConfig,
-      "cwd" | "mode" | "framework" | "configFile" | "name" | "logLevel"
+      "cwd" | "mode" | "root" | "framework" | "configFile" | "name" | "logLevel"
     > & {
       /**
        * The output configuration options for the Powerlines process, which may include settings related to the output directory, file naming conventions, and other options that affect how the compiled output is generated and structured. This is typically derived from the user configuration but may also include additional options provided by plugins or other sources.

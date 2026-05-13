@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { resolve } from "@powerlines/plugin-esbuild/helpers/resolve";
+import { resolve } from "@powerlines/schema/resolve";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isFunction } from "@stryke/type-checks/is-function";
 import defu from "defu";
@@ -61,9 +61,9 @@ export const plugin = <
         styleDictionary: defu(options, {
           log: {
             verbosity:
-              this.config.logLevel === LogLevelLabel.TRACE
+              this.config.logLevel.general === LogLevelLabel.TRACE
                 ? "verbose"
-                : this.config.logLevel === LogLevelLabel.DEBUG
+                : this.config.logLevel.general === LogLevelLabel.DEBUG
                   ? "default"
                   : "silent"
           },

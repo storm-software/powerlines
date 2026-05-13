@@ -17,6 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { PluginContext } from "@powerlines/core";
+import { esbuildPlugin } from "@powerlines/deepkit/esbuild-plugin";
+import { reflect, Type } from "@powerlines/deepkit/vendor/type";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { findFileDotExtension } from "@stryke/path/find";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -24,6 +26,7 @@ import {
   TypeDefinition,
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
+import defu from "defu";
 import { bundle, BundleOptions } from "./bundle";
 
 /**
@@ -110,8 +113,8 @@ ${result.text}`
  * Compiles a type definition to a module and returns the specified export from the module.
  *
  * @param context - The context object containing the environment paths.
- * @param type - The type definition to compile. This can be either a string or a {@link TypeDefinition} object.
- * @param overrides - Optional overrides for the ESBuild configuration.
+ * @param input - The type definition to compile. This can be either a string or a {@link TypeDefinition} object.
+ * @param options - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the compiled module.
  */
 export async function resolve<
@@ -119,20 +122,20 @@ export async function resolve<
   TContext extends PluginContext = PluginContext
 >(
   context: TContext,
-  type: TypeDefinitionParameter,
-  overrides?: BundleOptions
+  input: TypeDefinitionParameter,
+  options?: BundleOptions
 ): Promise<TResult> {
   let typeDefinition!: TypeDefinition;
-  if (isSetString(type)) {
-    typeDefinition = parseTypeDefinition(type) as TypeDefinition;
+  if (isSetString(input)) {
+    typeDefinition = parseTypeDefinition(input) as TypeDefinition;
   } else {
-    typeDefinition = type;
+    typeDefinition = input;
   }
 
   const resolved = await resolveModule<Record<string, any>, TContext>(
     context,
     typeDefinition,
-    overrides
+    options
   );
 
   let exportName = typeDefinition.name;
@@ -160,4 +163,35 @@ export async function resolve<
   }
 
   return resolvedExport;
+}
+
+/**
+ * Resolves a type definition to a Deepkit Type reflection. This function compiles the provided type definition to a module, evaluates the module to get the specified export, and then reflects the export to get its Deepkit Type reflection.
+ *
+ * @param context - The context object containing the environment paths.
+ * @param input - The type definition to compile. This can be either a string or a {@link TypeDefinition} object.
+ * @param options - Optional overrides for the ESBuild configuration.
+ * @returns A promise that resolves to the Deepkit Type reflection.
+ */
+export async function resolveReflection<
+  TContext extends PluginContext = PluginContext
+>(
+  context: TContext,
+  input: TypeDefinitionParameter,
+  options?: BundleOptions
+): Promise<Type> {
+  return reflect(
+    await resolve<Type>(
+      context,
+      input,
+      defu(options, {
+        plugins: [
+          esbuildPlugin(context, {
+            reflection: "default",
+            level: "all"
+          })
+        ]
+      })
+    )
+  );
 }

@@ -53,9 +53,25 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
+    "./bundle": {
+      "import": "./dist/bundle.mjs",
+      "require": "./dist/bundle.cjs"
+    },
     "./extract": {
       "import": "./dist/extract.mjs",
       "require": "./dist/extract.cjs"
+    },
+    "./is-schema-definition": {
+      "import": "./dist/is-schema-definition.mjs",
+      "require": "./dist/is-schema-definition.cjs"
+    },
+    "./reflection": {
+      "import": "./dist/reflection.mjs",
+      "require": "./dist/reflection.cjs"
+    },
+    "./resolve": {
+      "import": "./dist/resolve.mjs",
+      "require": "./dist/resolve.cjs"
     },
     "./types": {
       "import": "./dist/types.mjs",
@@ -67,10 +83,13 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
+  "files": ["dist"],
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@powerlines/deepkit": "workspace:*",
+    "@powerlines/unplugin": "workspace:*",
+    "@standard-schema/spec": "catalog:",
+    "@standard-schema/utils": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/helpers": "catalog:",
     "@stryke/json": "catalog:",
@@ -79,10 +98,20 @@
     "@stryke/types": "catalog:",
     "@stryke/zod": "catalog:",
     "defu": "catalog:",
+    "esbuild": "catalog:",
     "typescript": "^6.0.3"
   },
   "devDependencies": {
+    "zod": "catalog:",
     "@types/node": "catalog:"
+  },
+  "peerDependencies": {
+    "zod": "^3.25.0 || ^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "zod": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "access": "public"

@@ -24,7 +24,6 @@ import { build, BuildOptions, SameShape } from "esbuild";
 import { createEsbuildPlugin } from "unplugin";
 import { EsbuildPluginContext, EsbuildPluginOptions } from "./types/plugin";
 
-export * from "./helpers";
 export * from "./types";
 
 declare module "@powerlines/core" {

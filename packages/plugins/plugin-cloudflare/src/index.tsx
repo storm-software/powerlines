@@ -20,9 +20,9 @@ import { For } from "@alloy-js/core";
 import { getCloudflarePreset } from "@cloudflare/unenv-preset";
 import { render } from "@powerlines/plugin-alloy/render";
 import { readEnvTypeReflection } from "@powerlines/plugin-env/helpers";
-import { resolveModule } from "@powerlines/plugin-esbuild/helpers/resolve";
 import pulumi from "@powerlines/plugin-pulumi";
 import unenv from "@powerlines/plugin-unenv";
+import { resolveModule } from "@powerlines/schema/resolve";
 import * as pulumiCloudflare from "@pulumi/cloudflare";
 import { omit } from "@stryke/helpers/omit";
 import { joinPaths, replaceExtension } from "@stryke/path";
@@ -30,8 +30,7 @@ import { kebabCase } from "@stryke/string-format/kebab-case";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { PartialKeys } from "@stryke/types";
 import defu from "defu";
-import { Plugin } from "powerlines";
-
+import { Plugin, UnresolvedContext } from "powerlines";
 import { unstable_readConfig } from "wrangler";
 import { CloudflareEnvBuiltin } from "./components";
 import { CloudflareBuiltin } from "./components/cloudflare-builtin";
@@ -68,7 +67,7 @@ export function plugin<
       config() {
         return {
           cloudflare: defu(omit(options, ["unenv", "pulumi"]), {
-            configPath: resolveWranglerConfigPath(this)
+            configPath: resolveWranglerConfigPath(this as UnresolvedContext)
           }),
           resolve: {
             skipNodeModulesBundle: false

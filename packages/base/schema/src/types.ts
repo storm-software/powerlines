@@ -16,14 +16,61 @@
 
  ------------------------------------------------------------------- */
 
+import { Type } from "@powerlines/deepkit/vendor/type";
+import type { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import type { JsonSchema7Type } from "@stryke/json";
+import type { TypeDefinitionParameter } from "@stryke/types/configuration";
+import * as z3 from "zod/v3";
 
 export type SchemaDefinitionVariant =
   | "json-schema"
   | "standard-schema"
-  | "deepkit";
+  | "zod3"
+  | "reflection";
 
-export interface SchemaReflection {
+export interface SchemaDefinitionBase {
   schema: JsonSchema7Type;
   variant: SchemaDefinitionVariant;
+  input: SchemaDefinitionInput;
 }
+
+export interface SchemaDefinitionJsonSchema extends SchemaDefinitionBase {
+  schema: JsonSchema7Type;
+  variant: "json-schema";
+  input: JsonSchema7Type;
+}
+
+export interface SchemaDefinitionStandardSchema extends SchemaDefinitionBase {
+  schema: JsonSchema7Type;
+  variant: "standard-schema";
+  input: StandardJSONSchemaV1;
+}
+
+export interface SchemaDefinitionZod3 extends SchemaDefinitionBase {
+  schema: JsonSchema7Type;
+  variant: "zod3";
+  input: z3.ZodTypeAny;
+}
+
+export interface SchemaDefinitionReflection extends SchemaDefinitionBase {
+  schema: JsonSchema7Type;
+  variant: "reflection";
+  input: Type;
+}
+
+export type SchemaDefinition =
+  | SchemaDefinitionJsonSchema
+  | SchemaDefinitionStandardSchema
+  | SchemaDefinitionZod3
+  | SchemaDefinitionReflection;
+
+export type SchemaDefinitionInput =
+  | SchemaDefinition
+  | JsonSchema7Type
+  | StandardJSONSchemaV1
+  | z3.ZodTypeAny
+  | Type;
+
+export type SchemaDefinitionParameter =
+  | SchemaDefinitionInput
+  | TypeDefinitionParameter;

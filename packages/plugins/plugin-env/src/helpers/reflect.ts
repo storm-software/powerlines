@@ -16,7 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { reflectType } from "@powerlines/deepkit/reflect-type";
 import {
   merge,
   ReflectionClass,
@@ -25,6 +24,7 @@ import {
   TypeClass,
   TypeObjectLiteral
 } from "@powerlines/deepkit/vendor/type";
+import { resolveReflection } from "@powerlines/schema/resolve";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join-paths";
 import { titleCase } from "@stryke/string-format/title-case";
@@ -222,7 +222,7 @@ export async function reflectEnv(
 ) {
   let config: ReflectionClass<any> | undefined;
   if (file) {
-    const configType = await reflectType(context, {
+    const configType = await resolveReflection(context, {
       file: !isParentPath(file, context.config.cwd)
         ? joinPaths(context.config.cwd, file)
         : file,
@@ -238,7 +238,10 @@ export async function reflectEnv(
       await readEnvTypeReflection(context, "env"),
       config,
       resolveClassType(
-        await reflectType(context, await getEnvDefaultTypeDefinition(context))
+        await resolveReflection(
+          context,
+          await getEnvDefaultTypeDefinition(context)
+        )
       )
     ].filter(Boolean) as ReflectionClass<any>[]
   );
@@ -262,7 +265,7 @@ export async function reflectSecrets(
 ) {
   let config: ReflectionClass<any> | undefined;
   if (file) {
-    const configType = await reflectType(context, {
+    const configType = await resolveReflection(context, {
       file: !isParentPath(file, context.config.cwd)
         ? joinPaths(context.config.cwd, file)
         : file,
@@ -278,7 +281,7 @@ export async function reflectSecrets(
       await readSecretsReflection(context),
       config,
       resolveClassType(
-        await reflectType(
+        await resolveReflection(
           context,
           await getSecretsDefaultTypeDefinition(context)
         )

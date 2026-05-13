@@ -99,6 +99,7 @@
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/typescript": "catalog:",
+    "@powerlines/schema": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
     "@powerlines/plugin-pulumi": "workspace:*",
     "@powerlines/plugin-unenv": "workspace:*",

@@ -18,7 +18,6 @@
 
 export * from "./capnp";
 export * from "./esbuild-plugin";
-export * from "./reflect-type";
 export * from "./resolve-reflections";
 export * from "./rolldown-plugin";
 export * from "./transformer";

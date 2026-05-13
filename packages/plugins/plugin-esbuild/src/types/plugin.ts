@@ -16,8 +16,12 @@
 
  ------------------------------------------------------------------- */
 
-import { PluginContext, ResolvedConfig, UserConfig } from "@powerlines/core";
-import { EsbuildOptions } from "./build";
+import type {
+  PluginContext,
+  ResolvedConfig,
+  UserConfig
+} from "@powerlines/core";
+import type { EsbuildOptions } from "./build";
 
 export type EsbuildPluginOptions = Partial<EsbuildOptions>;
 

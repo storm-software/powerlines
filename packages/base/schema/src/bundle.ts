@@ -25,14 +25,15 @@ import { createUnpluginResolver } from "@powerlines/core/lib/unplugin";
 import { resolveOptions } from "@powerlines/unplugin/esbuild";
 import { omit } from "@stryke/helpers/omit";
 import { findFileName } from "@stryke/path/file-path-fns";
+import { DeepPartial } from "@stryke/types/base";
 import defu from "defu";
+import type { BuildOptions } from "esbuild";
 import { build, OutputFile } from "esbuild";
 import { createEsbuildPlugin } from "unplugin";
-import { EsbuildOptions } from "../types";
 
-export type BundleOptions = Partial<EsbuildOptions> & {
+export type BundleOptions = DeepPartial<BuildOptions> & {
   name?: string;
-  resolve?: Partial<ResolveOptions>;
+  resolve?: DeepPartial<ResolveOptions>;
 };
 
 /**
@@ -40,13 +41,13 @@ export type BundleOptions = Partial<EsbuildOptions> & {
  *
  * @param context - The context object containing the environment paths.
  * @param file - The file path to bundle.
- * @param overrides - Optional overrides for the ESBuild configuration.
+ * @param options - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the bundled module.
  */
 export async function bundle<TContext extends PluginContext = PluginContext>(
   context: TContext,
   file: string,
-  overrides: BundleOptions = {}
+  options: BundleOptions = {}
 ): Promise<OutputFile> {
   const path = await context.fs.resolve(file);
   if (!path || !context.fs.existsSync(path)) {
@@ -67,25 +68,23 @@ export async function bundle<TContext extends PluginContext = PluginContext>(
         packages: "bundle",
         platform: "node",
         logLevel: "silent",
-        ...omit(overrides, ["name", "resolve"])
+        ...omit(options, ["name", "resolve"])
       },
       resolveOptions(context),
       {
         plugins: [
           createEsbuildPlugin(
             createUnpluginResolver(context, {
-              name: overrides.name ?? `${findFileName(file)} Bundler`,
+              name: options.name ?? `${findFileName(file)} Bundler`,
               prefix: false,
               overrides: defu(
-                overrides.resolve ?? {},
+                options.resolve ?? {},
                 { skipNodeModulesBundle: false },
                 context.config.resolve
-              ),
+              ) as CreateUnpluginResolverOptions["overrides"],
               silenceHookLogging: true
-            } as CreateUnpluginResolverOptions)
-          )({
-            ...context.options
-          })
+            })
+          )()
         ]
       }
     )
