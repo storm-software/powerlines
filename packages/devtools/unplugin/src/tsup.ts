@@ -28,7 +28,7 @@ import defu from "defu";
 import type { Options } from "tsup";
 import esbuild, { resolveEntry as resolveEsbuildEntry } from "./esbuild";
 
-export const DEFAULT_OPTIONS = {
+export const DEFAULT_OPTIONS: Partial<Options> = {
   ...DEFAULT_BUILD_OPTIONS,
   target: "esnext",
   config: false,
