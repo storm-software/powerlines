@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.9.6](https://github.com/storm-software/powerlines/releases/tag/engine%400.9.6) (05/13/2026)
+
+### Miscellaneous
+
+- **engine:** Added support for applying default inline configuration through a function ([ef55bfcb2](https://github.com/storm-software/powerlines/commit/ef55bfcb2))
+- **core:** Update base packages' versions ([1b760a087](https://github.com/storm-software/powerlines/commit/1b760a087))
+
 ## [0.9.4](https://github.com/storm-software/powerlines/releases/tag/engine%400.9.4) (05/13/2026)
 
 ### Miscellaneous

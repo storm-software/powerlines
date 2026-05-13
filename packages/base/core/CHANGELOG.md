@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.9.6](https://github.com/storm-software/powerlines/releases/tag/core%400.9.6) (05/13/2026)
+
+### Miscellaneous
+
+- **core:** Update base packages' versions ([1b760a087](https://github.com/storm-software/powerlines/commit/1b760a087))
+
 ## [0.9.2](https://github.com/storm-software/powerlines/releases/tag/core%400.9.2) (05/12/2026)
 
 ### Miscellaneous
