@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.10.1](https://github.com/storm-software/powerlines/releases/tag/core%400.10.1) (05/13/2026)
+
+### Miscellaneous
+
+- **monorepo:** Align `base` packages' versions ([56b48d43f](https://github.com/storm-software/powerlines/commit/56b48d43f))
+
 ## [0.9.6](https://github.com/storm-software/powerlines/releases/tag/core%400.9.6) (05/13/2026)
 
 ### Miscellaneous

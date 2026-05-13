@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.10.1](https://github.com/storm-software/powerlines/releases/tag/schema%400.10.1) (05/13/2026)
+
+### Miscellaneous
+
+- **monorepo:** Align `base` packages' versions ([56b48d43f](https://github.com/storm-software/powerlines/commit/56b48d43f))
+
+### Updated Dependencies
+
+- Updated **unplugin** to **v0.0.9**
+
 ## [0.10.0](https://github.com/storm-software/powerlines/releases/tag/schema%400.10.0) (05/13/2026)
 
 ### Features
