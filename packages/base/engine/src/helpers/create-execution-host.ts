@@ -21,8 +21,9 @@ import { PowerlinesExecutionContext } from "@powerlines/core/context/execution-c
 import { resolvePluginConfig } from "@powerlines/core/lib/context-helpers";
 import { consoleLogger } from "@powerlines/core/plugin-utils";
 import { titleCase } from "@stryke/string-format/title-case";
+import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
-import { DeepPartial } from "@stryke/types/base";
+import { DeepPartial, MaybePromise } from "@stryke/types/base";
 import { uuid } from "@stryke/unique-id/uuid";
 import { defu } from "defu";
 import { RpcClient } from "../types";
@@ -45,7 +46,9 @@ export function createExecutionHost<
   > = PowerlinesExecutionContext<EngineResolvedConfig, EngineSystemContext>
 >(
   methods: Record<string, (context: TContext) => Promise<void>>,
-  inlineConfig: DeepPartial<InlineConfig> = {}
+  inlineConfig:
+    | DeepPartial<InlineConfig>
+    | ((prev: InlineConfig) => MaybePromise<InlineConfig>) = {}
 ) {
   return Object.fromEntries(
     Object.entries(methods).map(([method, fn]) => [
@@ -87,7 +90,9 @@ export function createExecutionHost<
           EngineSystemContext
         >(
           { ...options, logFn },
-          defu(inlineConfig, params.inlineConfig ?? {}) as InlineConfig,
+          isFunction(inlineConfig)
+            ? await Promise.resolve(inlineConfig(params.inlineConfig ?? {}))
+            : (defu(inlineConfig, params.inlineConfig ?? {}) as InlineConfig),
           {
             rpc
           }
