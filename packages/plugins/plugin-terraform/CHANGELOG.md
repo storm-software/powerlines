@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Terraform
 
+## [0.1.76](https://github.com/storm-software/powerlines/releases/tag/plugin-terraform%400.1.76) (05/13/2026)
+
+### Bug Fixes
+
+- **plugin-pulumi:** Remove invalid invocations of `callHook` method ([9fe1416d3](https://github.com/storm-software/powerlines/commit/9fe1416d3))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.15.1**
+- Updated **powerlines** to **v0.47.15**
+- Updated **plugin-plugin** to **v0.12.427**
+
 ## [0.1.75](https://github.com/storm-software/powerlines/releases/tag/plugin-terraform%400.1.75) (05/13/2026)
 
 ### Updated Dependencies

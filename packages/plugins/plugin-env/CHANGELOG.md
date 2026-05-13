@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.204](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.204) (05/13/2026)
+
+### Bug Fixes
+
+- **monorepo:** Ensure packages are updated to latest versions ([577e49a21](https://github.com/storm-software/powerlines/commit/577e49a21))
+- **plugin-pulumi:** Remove invalid invocations of `callHook` method ([9fe1416d3](https://github.com/storm-software/powerlines/commit/9fe1416d3))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.8.66**
+- Updated **schema** to **v0.11.1**
+- Updated **core** to **v0.15.1**
+- Updated **powerlines** to **v0.47.15**
+- Updated **plugin-deepkit** to **v0.11.358**
+- Updated **plugin-automd** to **v0.1.476**
+- Updated **plugin-plugin** to **v0.12.427**
+- Updated **plugin-alloy** to **v0.26.96**
+- Updated **plugin-babel** to **v0.13.12**
+- Updated **plugin-tsc** to **v0.3.12**
+
 ## [0.16.203](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.203) (05/13/2026)
 
 ### Updated Dependencies
