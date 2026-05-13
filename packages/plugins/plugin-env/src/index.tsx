@@ -37,7 +37,7 @@ import {
   TypeDefinitionParameter
 } from "@stryke/types/configuration";
 import defu from "defu";
-import type { Plugin } from "powerlines";
+import type { Plugin, UnresolvedContext } from "powerlines";
 import {
   createVirtualPrefixRegex,
   getDocsOutputPath
@@ -118,14 +118,18 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             "The `env.types` configuration parameter was not provided. Please ensure this is expected."
           );
 
-          config.env.types = await getEnvDefaultTypeDefinition(this);
+          config.env.types = await getEnvDefaultTypeDefinition(
+            this as UnresolvedContext
+          );
         }
 
         if (
           !isSetString(config.env.secrets) &&
           !isSetString(config.env.secrets?.file)
         ) {
-          config.env.secrets = await getSecretsDefaultTypeDefinition(this);
+          config.env.secrets = await getSecretsDefaultTypeDefinition(
+            this as UnresolvedContext
+          );
         }
 
         config.env.prefix = toArray(

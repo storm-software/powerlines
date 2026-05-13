@@ -443,10 +443,10 @@ export async function loadUserConfigFile(
 
   const result = await loadConfigC12({
     cwd: root,
-    name: framework?.name,
+    name: frameworkName,
     envName: mode,
     globalRc: true,
-    packageJson: camelCase(framework?.name || "powerlines"),
+    packageJson: camelCase(frameworkName),
     dotenv: true,
     jiti
   });

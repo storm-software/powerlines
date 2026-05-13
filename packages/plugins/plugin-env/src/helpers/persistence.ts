@@ -36,12 +36,8 @@ import { joinPaths } from "@stryke/path/join-paths";
 import { isEmptyObject } from "@stryke/type-checks/is-empty-object";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import { existsSync } from "node:fs";
-import { Context, UnresolvedContext } from "powerlines";
-import {
-  EnvPluginContext,
-  EnvPluginResolvedConfig,
-  EnvType
-} from "../types/plugin";
+import { UnresolvedContext } from "powerlines";
+import { EnvPluginContext, EnvType } from "../types/plugin";
 import { createEnvReflection } from "./reflect";
 
 /**
@@ -51,7 +47,7 @@ import { createEnvReflection } from "./reflect";
  * @returns The runtime type definition file for the environment variables.
  */
 export async function resolveRuntimeTypeFile(
-  context: UnresolvedContext<EnvPluginResolvedConfig>
+  context: UnresolvedContext
 ): Promise<string> {
   const resolved = await context.fs.resolve("@powerlines/plugin-env/types/env");
   if (!resolved) {
@@ -70,7 +66,7 @@ export async function resolveRuntimeTypeFile(
  * @returns The default type definition for the environment variables.
  */
 export async function getEnvDefaultTypeDefinition<
-  TContext extends UnresolvedContext<EnvPluginResolvedConfig>
+  TContext extends UnresolvedContext
 >(context: TContext): Promise<TypeDefinition> {
   return {
     file: await resolveRuntimeTypeFile(context),
@@ -84,7 +80,7 @@ export async function getEnvDefaultTypeDefinition<
  * @returns The default type definition for the environment secrets.
  */
 export async function getSecretsDefaultTypeDefinition<
-  TContext extends UnresolvedContext<EnvPluginResolvedConfig>
+  TContext extends UnresolvedContext
 >(context: TContext): Promise<TypeDefinition> {
   return {
     file: await resolveRuntimeTypeFile(context),
@@ -100,7 +96,7 @@ export async function getSecretsDefaultTypeDefinition<
  * @returns The path to the environment type reflections.
  */
 export function getEnvTypeReflectionsPath(
-  context: Context<EnvPluginResolvedConfig>,
+  context: EnvPluginContext,
   name: EnvType = "env"
 ): string {
   return joinPaths(getReflectionsPath(context), "env", `${name}-types.bin`);

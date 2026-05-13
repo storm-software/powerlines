@@ -135,7 +135,7 @@ type LoadUserConfigFileFunction = (
 export function createNxPlugin<
   TOptions extends NxPluginOptions = NxPluginOptions
 >(opts?: CreateNxPluginOptions): CreateNodesV2<TOptions> {
-  const framework = opts?.framework || "powerlines";
+  const framework = kebabCase(opts?.framework) || "powerlines";
   const title = `${titleCase(framework)} Nx Plugin`;
 
   try {
@@ -256,7 +256,11 @@ export function createNxPlugin<
                       : isSetString(error)
                         ? error
                         : "Unknown error"
-                  } \n\nThis error can occur if the project depends on another package in the workspace and the dependent package has not been built yet. To resolve this issue, please ensure that all dependent packages have been built successfully.`
+                  } \n\nPlease note: This error can occur if the project depends on another package in the workspace and the dependent package has not been built yet. To resolve this issue, please ensure that all dependent packages have been built successfully.${
+                    isError(error) && error.stack
+                      ? `\n\nStack trace:\n${error.stack}`
+                      : ""
+                  }`
                 );
               }
 
