@@ -18,59 +18,73 @@
 
 import { Type } from "@powerlines/deepkit/vendor/type";
 import type { StandardJSONSchemaV1 } from "@standard-schema/spec";
-import type { JsonSchema7Type } from "@stryke/json";
+import type { JsonSchemaType } from "@stryke/json";
 import type { TypeDefinitionParameter } from "@stryke/types/configuration";
 import * as z3 from "zod/v3";
 
-export type SchemaDefinitionVariant =
+export type SchemaDefinitionSourceVariant =
   | "json-schema"
   | "standard-schema"
   | "zod3"
   | "reflection";
 
-export interface SchemaDefinitionBase {
-  schema: JsonSchema7Type;
-  variant: SchemaDefinitionVariant;
-  input: SchemaDefinitionInput;
-}
+export type SchemaDefinitionInputVariant =
+  | SchemaDefinitionSourceVariant
+  | "type-definition";
 
-export interface SchemaDefinitionJsonSchema extends SchemaDefinitionBase {
-  schema: JsonSchema7Type;
-  variant: "json-schema";
-  input: JsonSchema7Type;
-}
-
-export interface SchemaDefinitionStandardSchema extends SchemaDefinitionBase {
-  schema: JsonSchema7Type;
-  variant: "standard-schema";
-  input: StandardJSONSchemaV1;
-}
-
-export interface SchemaDefinitionZod3 extends SchemaDefinitionBase {
-  schema: JsonSchema7Type;
-  variant: "zod3";
-  input: z3.ZodTypeAny;
-}
-
-export interface SchemaDefinitionReflection extends SchemaDefinitionBase {
-  schema: JsonSchema7Type;
-  variant: "reflection";
-  input: Type;
-}
-
-export type SchemaDefinition =
-  | SchemaDefinitionJsonSchema
-  | SchemaDefinitionStandardSchema
-  | SchemaDefinitionZod3
-  | SchemaDefinitionReflection;
-
-export type SchemaDefinitionInput =
-  | SchemaDefinition
-  | JsonSchema7Type
+export type SchemaDefinitionSourceInput =
+  | JsonSchemaType
   | StandardJSONSchemaV1
   | z3.ZodTypeAny
   | Type;
 
-export type SchemaDefinitionParameter =
-  | SchemaDefinitionInput
+export type SchemaDefinitionInput =
+  | SchemaDefinitionSourceInput
+  | SchemaDefinition
   | TypeDefinitionParameter;
+
+export interface SchemaDefinition<
+  TSchema extends JsonSchemaType = JsonSchemaType
+> {
+  hash: string;
+  variant: SchemaDefinitionInputVariant;
+  schema: TSchema;
+}
+
+export interface SchemaDefinitionSourceBase {
+  hash: string;
+  variant: SchemaDefinitionSourceVariant;
+  schema: SchemaDefinitionSourceInput;
+}
+
+export interface SchemaDefinitionJsonSchemaSource extends SchemaDefinitionSourceBase {
+  variant: "json-schema";
+  schema: JsonSchemaType;
+}
+
+export interface SchemaDefinitionStandardSchemaSource extends SchemaDefinitionSourceBase {
+  variant: "standard-schema";
+  schema: StandardJSONSchemaV1;
+}
+
+export interface SchemaDefinitionZod3Source extends SchemaDefinitionSourceBase {
+  variant: "zod3";
+  schema: z3.ZodTypeAny;
+}
+
+export interface SchemaDefinitionReflectionSource extends SchemaDefinitionSourceBase {
+  variant: "reflection";
+  schema: Type;
+}
+
+export type SchemaDefinitionSource =
+  | SchemaDefinitionJsonSchemaSource
+  | SchemaDefinitionStandardSchemaSource
+  | SchemaDefinitionZod3Source
+  | SchemaDefinitionReflectionSource;
+
+export interface ExtractedSchemaDefinition<
+  TSchema extends JsonSchemaType = JsonSchemaType
+> extends SchemaDefinition<TSchema> {
+  source: SchemaDefinitionSource;
+}

@@ -25,7 +25,7 @@ import type {
 } from "unplugin";
 import { setParseImpl } from "unplugin";
 import { removeVirtualPrefix } from "../../plugin-utils";
-import type { PluginContext } from "../../types/context";
+import type { PluginContext, UnresolvedContext } from "../../types/context";
 import type { UnpluginOptions } from "../../types/unplugin";
 import { getString } from "../utilities/source-file";
 import { combineContexts } from "./helpers";
@@ -59,9 +59,7 @@ export interface CreateUnpluginResolverOptions extends CreateUnpluginModuleResol
  * @param context - The plugin context.
  * @returns The unplugin instance.
  */
-export function createUnpluginResolver<
-  TContext extends PluginContext = PluginContext
->(
+export function createUnpluginResolver<TContext extends UnresolvedContext>(
   context: TContext,
   options: CreateUnpluginResolverOptions = {}
 ): () => UnpluginOptions<TContext> {

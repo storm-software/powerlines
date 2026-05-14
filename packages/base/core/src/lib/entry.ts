@@ -33,10 +33,10 @@ import type {
 } from "@stryke/types/configuration";
 import { replacePathTokens } from "../plugin-utils/paths";
 import { Config, ResolvedEntryTypeDefinition } from "../types/config";
-import type { Context } from "../types/context";
+import type { UnresolvedContext } from "../types/context";
 
-export function resolveEntryOutput(
-  context: Context,
+export function resolveEntryOutput<TContext extends UnresolvedContext>(
+  context: TContext,
   typeDefinition: TypeDefinition
 ): string {
   return replaceExtension(
@@ -59,8 +59,8 @@ export function resolveEntryOutput(
   );
 }
 
-export function resolveInput(
-  context: Context,
+export function resolveInput<TContext extends UnresolvedContext>(
+  context: TContext,
   typeDefinition: TypeDefinition,
   input?: TypeDefinitionParameter,
   output?: string
@@ -79,8 +79,8 @@ export function resolveInput(
  * @param typeDefinitions - The type definitions to resolve.
  * @returns A promise that resolves to an array of resolved entry type definitions.
  */
-export async function resolveInputs(
-  context: Context,
+export async function resolveInputs<TContext extends UnresolvedContext>(
+  context: TContext,
   typeDefinitions:
     | TypeDefinitionParameter
     | TypeDefinitionParameter[]
@@ -158,8 +158,8 @@ export async function resolveInputs(
  * @param typeDefinitions - The type definitions to resolve.
  * @returns A promise that resolves to an array of resolved entry type definitions.
  */
-export function resolveInputsSync(
-  context: Context,
+export function resolveInputsSync<TContext extends UnresolvedContext>(
+  context: TContext,
   typeDefinitions:
     | TypeDefinitionParameter
     | TypeDefinitionParameter[]

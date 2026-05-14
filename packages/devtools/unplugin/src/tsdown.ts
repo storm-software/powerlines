@@ -16,7 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import type { Context, CopyConfig, ResolveConfig } from "@powerlines/core";
+import type {
+  CopyConfig,
+  ResolveConfig,
+  UnresolvedContext
+} from "@powerlines/core";
 import type { GetDependencyConfigResult } from "@powerlines/core/plugin-utils";
 import { getDependencyConfig as _getDependencyConfig } from "@powerlines/core/plugin-utils";
 import type { Format } from "@storm-software/build-tools/types";
@@ -41,8 +45,8 @@ import rolldown from "./rolldown";
  * @param context - The build context.
  * @returns The dependency configuration.
  */
-export function getDependencyConfig(
-  context: Context
+export function getDependencyConfig<TContext extends UnresolvedContext>(
+  context: TContext
 ): GetDependencyConfigResult {
   const { external, noExternal } = _getDependencyConfig(context);
 
@@ -118,7 +122,10 @@ export function resolveFromFormat(
   });
 }
 
-const formatMessage = (context: Context, ...msgs: any[]) =>
+const formatMessage = <TContext extends UnresolvedContext>(
+  context: TContext,
+  ...msgs: any[]
+) =>
   msgs
     .filter(Boolean)
     .join(" ")
@@ -134,7 +141,9 @@ const formatMessage = (context: Context, ...msgs: any[]) =>
  * @param context - The build context.
  * @returns The resolved options.
  */
-export function resolveOptions(context: Context): BuildOptions {
+export function resolveOptions<TContext extends UnresolvedContext>(
+  context: TContext
+): BuildOptions {
   const { external, noExternal } = getDependencyConfig(context);
 
   return defu(

@@ -22,7 +22,7 @@ import {
   TypeNumberBrand,
   TypeObjectLiteral
 } from "@powerlines/deepkit/vendor/type";
-import { JsonSchema7Type } from "@stryke/json/types";
+import { JsonSchemaType } from "@stryke/json/types";
 
 /**
  * Converts a Deepkit type reflection into a JSON Schema representation.
@@ -32,7 +32,7 @@ import { JsonSchema7Type } from "@stryke/json/types";
  */
 export function reflectionToJsonSchema(
   reflection: Type
-): JsonSchema7Type | undefined {
+): JsonSchemaType | undefined {
   switch (reflection.kind) {
     case ReflectionKind.any:
     case ReflectionKind.unknown:
@@ -110,7 +110,7 @@ export function reflectionToJsonSchema(
     case ReflectionKind.tuple: {
       const items = reflection.types
         .map(member => reflectionToJsonSchema(member.type))
-        .filter((item): item is JsonSchema7Type => item !== undefined);
+        .filter((item): item is JsonSchemaType => item !== undefined);
       const required = reflection.types.filter(
         member => !member.optional
       ).length;
@@ -125,7 +125,7 @@ export function reflectionToJsonSchema(
     case ReflectionKind.union: {
       const anyOf = reflection.types
         .map(inner => reflectionToJsonSchema(inner))
-        .filter((item): item is JsonSchema7Type => item !== undefined);
+        .filter((item): item is JsonSchemaType => item !== undefined);
       if (anyOf.length === 0) {
         return undefined;
       }
@@ -137,7 +137,7 @@ export function reflectionToJsonSchema(
     case ReflectionKind.intersection: {
       const allOf = reflection.types
         .map(inner => reflectionToJsonSchema(inner))
-        .filter((item): item is JsonSchema7Type => item !== undefined);
+        .filter((item): item is JsonSchemaType => item !== undefined);
       if (allOf.length === 0) {
         return undefined;
       }
@@ -173,10 +173,10 @@ export function reflectionToJsonSchema(
           const additionalProperties = valueType
             ? reflectionToJsonSchema(valueType)
             : undefined;
-          const schema = { type: "object" } as JsonSchema7Type;
+          const schema = { type: "object" } as JsonSchemaType;
           if (additionalProperties) {
             (
-              schema as { additionalProperties?: JsonSchema7Type }
+              schema as { additionalProperties?: JsonSchemaType }
             ).additionalProperties = additionalProperties;
           }
           return schema;
@@ -226,10 +226,10 @@ export function reflectionToJsonSchema(
  */
 export function objectReflectionToJsonSchema(
   type: TypeObjectLiteral | TypeClass
-): JsonSchema7Type {
-  const properties: Record<string, JsonSchema7Type> = {};
+): JsonSchemaType {
+  const properties: Record<string, JsonSchemaType> = {};
   const required: string[] = [];
-  let additionalProperties: JsonSchema7Type | boolean | undefined;
+  let additionalProperties: JsonSchemaType | boolean | undefined;
   const description =
     "description" in type && typeof type.description === "string"
       ? type.description
@@ -268,14 +268,14 @@ export function objectReflectionToJsonSchema(
   const schema = {
     type: "object",
     properties
-  } as JsonSchema7Type;
+  } as JsonSchemaType;
 
   if (required.length > 0) {
     (schema as { required?: string[] }).required = required;
   }
   if (additionalProperties !== undefined) {
     (
-      schema as { additionalProperties?: JsonSchema7Type | boolean }
+      schema as { additionalProperties?: JsonSchemaType | boolean }
     ).additionalProperties = additionalProperties;
   }
   if (description) {

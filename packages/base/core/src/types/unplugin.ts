@@ -18,8 +18,8 @@
 
 import type { UnpluginOptions as BaseUnpluginOptions } from "unplugin";
 import type {
-  Context,
   PluginContext,
+  UnresolvedContext,
   WithUnpluginBuildContext
 } from "./context";
 
@@ -41,7 +41,7 @@ export type BuilderVariant =
   | "unbuild";
 
 export interface UnpluginOptions<
-  TContext extends Context
+  TContext extends UnresolvedContext
 > extends BaseUnpluginOptions {
   /**
    * An API object that can be used for inter-plugin communication.

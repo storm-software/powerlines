@@ -17,9 +17,9 @@
  ------------------------------------------------------------------- */
 
 import type {
-  Context,
   ExecutionContext,
-  UnpluginOptions
+  UnpluginOptions,
+  UnresolvedContext
 } from "@powerlines/core";
 import alias from "@rollup/plugin-alias";
 import inject from "@rollup/plugin-inject";
@@ -84,7 +84,9 @@ export const dtsBundlePlugin: Plugin = {
  * @param context - The build context.
  * @returns The resolved options.
  */
-export function resolveOptions(context: Context): RollupOptions {
+export function resolveOptions<TContext extends UnresolvedContext>(
+  context: TContext
+): RollupOptions {
   return {
     input: globSync(
       toArray(context.entry).map(entry =>

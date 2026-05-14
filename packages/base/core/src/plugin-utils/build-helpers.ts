@@ -21,7 +21,7 @@ import { getUnique } from "@stryke/helpers/get-unique";
 import { isRegExp } from "@stryke/type-checks/is-regexp";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { ResolveConfig } from "../types/config";
-import { Context } from "../types/context";
+import { UnresolvedContext } from "../types/context";
 
 export interface GetDependencyConfigResult {
   external: ResolveConfig["external"];
@@ -34,8 +34,8 @@ export interface GetDependencyConfigResult {
  * @param context - The build context.
  * @returns The dependency configuration.
  */
-export function getDependencyConfig(
-  context: Context
+export function getDependencyConfig<TContext extends UnresolvedContext>(
+  context: TContext
 ): GetDependencyConfigResult {
   const noExternal = getUnique(
     toArray(context.config.resolve.noExternal).concat(

@@ -17,9 +17,9 @@
  ------------------------------------------------------------------- */
 
 import type {
-  Context,
   ExecutionContext,
-  UnpluginOptions
+  UnpluginOptions,
+  UnresolvedContext
 } from "@powerlines/core";
 import inject from "@rollup/plugin-inject";
 import resolve from "@rollup/plugin-node-resolve";
@@ -57,7 +57,9 @@ export const DEFAULT_OPTIONS = {
  * @param context - The build context.
  * @returns The resolved options.
  */
-export function resolveOptions(context: Context): RolldownOptions {
+export function resolveOptions<TContext extends UnresolvedContext>(
+  context: TContext
+): RolldownOptions {
   return defu<RolldownOptions, any>(
     {
       input: globSync(
@@ -222,11 +224,11 @@ export function createRolldownFactory<TContext extends ExecutionContext>(
           return defu(
             resolveOptions(environment),
             options,
-            unplugin.context.callHook(
+            (await unplugin.context.callHook(
               "rolldown:options",
               { environment },
               options
-            ) ?? {}
+            )) ?? {}
           );
         }
       }

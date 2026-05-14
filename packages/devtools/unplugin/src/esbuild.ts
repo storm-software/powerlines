@@ -17,10 +17,10 @@
  ------------------------------------------------------------------- */
 
 import type {
-  Context,
   ExecutionContext,
   ResolvedEntryTypeDefinition,
-  UnpluginOptions
+  UnpluginOptions,
+  UnresolvedContext
 } from "@powerlines/core";
 import { resolveEntryOutput } from "@powerlines/core/lib/entry";
 import { joinPaths } from "@stryke/path/join-paths";
@@ -60,8 +60,8 @@ export const DEFAULT_OPTIONS: Partial<BuildOptions> = {
  * @param entryPoints - The entry points to resolve.
  * @returns The resolved entry options.
  */
-export function resolveEntry(
-  context: Context,
+export function resolveEntry<TContext extends UnresolvedContext>(
+  context: TContext,
   entryPoints: ResolvedEntryTypeDefinition[] | string[] = []
 ): BuildOptions["entryPoints"] {
   return entryPoints.reduce(
@@ -86,8 +86,8 @@ export function resolveEntry(
  * @param override - Optional esbuild options to override the resolved options.
  * @returns The resolved esbuild options.
  */
-export function resolveOptions(
-  context: Context,
+export function resolveOptions<TContext extends UnresolvedContext>(
+  context: TContext,
   override: DeepPartial<BuildOptions> = {}
 ): BuildOptions {
   if (context.config.inject && Object.keys(context.config.inject).length > 0) {

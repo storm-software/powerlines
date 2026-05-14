@@ -243,7 +243,7 @@ export class PowerlinesEnvironmentContext<
         this
       );
 
-      resolvedPlugin.$$internal = {
+      resolvedPlugin["~internal"] = {
         id,
         context
       };
@@ -254,7 +254,7 @@ export class PowerlinesEnvironmentContext<
         Object.keys(resolvedPlugin)
           .filter(
             key =>
-              key !== "$$internal" &&
+              key !== "~internal" &&
               !PLUGIN_NON_HOOK_FIELDS.includes(
                 key as ArrayValues<typeof PLUGIN_NON_HOOK_FIELDS>
               )
@@ -333,7 +333,7 @@ export class PowerlinesEnvironmentContext<
               return {
                 handler: hook.handler,
                 plugin: hook.plugin,
-                context: plugin.$$internal.context
+                context: plugin["~internal"].context
               };
             });
 

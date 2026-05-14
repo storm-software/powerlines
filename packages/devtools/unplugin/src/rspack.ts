@@ -16,7 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import { Context, ExecutionContext, UnpluginOptions } from "@powerlines/core";
+import {
+  ExecutionContext,
+  UnpluginOptions,
+  UnresolvedContext
+} from "@powerlines/core";
 import { RspackOptionsNormalized } from "@rspack/core";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
@@ -33,8 +37,8 @@ import {
  * @param context - The build context.
  * @returns The resolved options.
  */
-export function resolveOptions(
-  context: Context
+export function resolveOptions<TContext extends UnresolvedContext>(
+  context: TContext
 ): Partial<RspackOptionsNormalized> {
   return {
     output: {

@@ -4,17 +4,11 @@
     "groups": {
       "base": {
         "projects": ["packages/base/*"],
-        "projectsRelationship": "fixed",
-        "releaseTag": {
-          "pattern": "{projectName}@{version}"
-        }
+        "projectsRelationship": "fixed"
       },
       "packages": {
         "projects": ["packages/devtools/*", "packages/plugins/*"],
-        "projectsRelationship": "independent",
-        "releaseTag": {
-          "pattern": "{projectName}@{version}"
-        }
+        "projectsRelationship": "independent"
       }
     }
   },

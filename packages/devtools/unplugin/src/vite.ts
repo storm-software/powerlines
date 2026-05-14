@@ -16,7 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import { Context, ExecutionContext, UnpluginOptions } from "@powerlines/core";
+import {
+  ExecutionContext,
+  UnpluginOptions,
+  UnresolvedContext
+} from "@powerlines/core";
 import { isDevelopmentMode, isTestMode } from "@stryke/env/environment-checks";
 import { appendPath } from "@stryke/path/append";
 import { relativePath } from "@stryke/path/file-path-fns";
@@ -49,7 +53,9 @@ export const DEFAULT_OPTIONS: Partial<UserConfig> = {
  * @param context - The build context.
  * @returns The resolved options.
  */
-export function resolveOptions(context: Context): UserConfig {
+export function resolveOptions<TContext extends UnresolvedContext>(
+  context: TContext
+): UserConfig {
   return defu(
     {
       define: context.config.define,

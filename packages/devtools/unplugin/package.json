@@ -149,6 +149,11 @@
     "rollup-plugin-typescript2": "catalog:"
   },
   "devDependencies": {
+    "rolldown": "catalog:",
+    "tsup": "catalog:",
+    "tsdown": "catalog:",
+    "vite": "catalog:",
+    "webpack": "catalog:",
     "@types/node": "catalog:"
   },
   "peerDependencies": {
@@ -159,7 +164,7 @@
     "astro": ">=5.13.5",
     "esbuild": ">=0.17.19",
     "next": ">=15.5.4",
-    "rolldown": ">=1.0.0-rc.16",
+    "rolldown": ">=1.0.1",
     "rollup": ">=3.20.0",
     "rspack": ">=0.1.1",
     "tsdown": ">=0.21.9",

@@ -16,7 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-import { Context, ResolvedEntryTypeDefinition } from "@powerlines/core";
+import {
+  ResolvedEntryTypeDefinition,
+  UnresolvedContext
+} from "@powerlines/core";
 import { AssetGlob, Entry } from "@storm-software/build-tools/types";
 import { resolveOptions as resolveOptionsBase } from "@storm-software/tsup";
 import { DEFAULT_BUILD_OPTIONS } from "@storm-software/tsup/constants";
@@ -52,8 +55,8 @@ export const DEFAULT_OPTIONS: Partial<Options> = {
  * @param entryPoints - The entry points to resolve.
  * @returns The resolved entry options.
  */
-export function resolveEntry(
-  context: Context,
+export function resolveEntry<TContext extends UnresolvedContext>(
+  context: TContext,
   entryPoints: ResolvedEntryTypeDefinition[] | string[]
 ): Entry {
   return resolveEsbuildEntry(context, entryPoints) as Entry;
@@ -69,8 +72,8 @@ type TsupEsbuildOptions = TsupEsbuildOptionsArgs[0];
  * @param context - The build context.
  * @returns The resolved options.
  */
-export function resolveOptions(
-  context: Context
+export function resolveOptions<TContext extends UnresolvedContext>(
+  context: TContext
 ): Parameters<typeof resolveOptionsBase>[0] {
   const result = defu(
     {

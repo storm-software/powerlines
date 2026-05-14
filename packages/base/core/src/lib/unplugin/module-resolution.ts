@@ -30,7 +30,7 @@ import {
   removeVirtualPrefix,
   VIRTUAL_MODULE_PREFIX_REGEX
 } from "../../plugin-utils";
-import { PluginContext, ResolveResult } from "../../types/context";
+import { ResolveResult, UnresolvedContext } from "../../types/context";
 import { ResolveOptions } from "../../types/fs";
 
 export interface CreateUnpluginModuleResolutionFunctionsOptions {
@@ -68,7 +68,7 @@ export interface CreateUnpluginModuleResolutionFunctionsOptions {
  * @returns The module resolution hooks (`resolveId` and `load`).
  */
 export function createUnpluginModuleResolutionFunctions<
-  TContext extends PluginContext = PluginContext
+  TContext extends UnresolvedContext
 >(
   context: TContext,
   options: CreateUnpluginModuleResolutionFunctionsOptions = {}

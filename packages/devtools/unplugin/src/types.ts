@@ -30,7 +30,7 @@ export type * from "@powerlines/core/types/unplugin";
 export type UnpluginExecutionOptionsBase = Omit<
   PartialKeys<
     ExecutionOptions,
-    "cwd" | "configFile" | "framework" | "orgId" | "root" | "configIndex"
+    "cwd" | "configFile" | "framework" | "root" | "configIndex"
   >,
   "executionId"
 >;

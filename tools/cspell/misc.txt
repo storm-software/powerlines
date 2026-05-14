@@ -20,3 +20,4 @@ proxify
 proxified
 devframe
 myorg
+msgpackr

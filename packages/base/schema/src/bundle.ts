@@ -18,8 +18,8 @@
 
 import type {
   CreateUnpluginResolverOptions,
-  PluginContext,
-  ResolveOptions
+  ResolveOptions,
+  UnresolvedContext
 } from "@powerlines/core";
 import { createUnpluginResolver } from "@powerlines/core/lib/unplugin";
 import { resolveOptions } from "@powerlines/unplugin/esbuild";
@@ -44,7 +44,7 @@ export type BundleOptions = DeepPartial<BuildOptions> & {
  * @param options - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the bundled module.
  */
-export async function bundle<TContext extends PluginContext = PluginContext>(
+export async function bundle<TContext extends UnresolvedContext>(
   context: TContext,
   file: string,
   options: BundleOptions = {}

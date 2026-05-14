@@ -18,7 +18,6 @@
 
 import type { EnvPaths } from "@stryke/env/get-env-paths";
 import { FetchRequestOptions } from "@stryke/http/fetch";
-import { DeepReadonly } from "@stryke/types/base";
 import type { PackageJson } from "@stryke/types/package-json";
 import type { Jiti } from "jiti";
 import type MagicString from "magic-string";
@@ -314,27 +313,7 @@ export interface UnresolvedContext<
   /**
    * An object containing the options provided to Powerlines
    */
-  config: Omit<TResolvedConfig["userConfig"], "output"> &
-    Required<Pick<TResolvedConfig["userConfig"], "output">> &
-    Pick<
-      TResolvedConfig,
-      "cwd" | "mode" | "root" | "framework" | "configFile" | "name" | "logLevel"
-    > & {
-      /**
-       * The output configuration options for the Powerlines process, which may include settings related to the output directory, file naming conventions, and other options that affect how the compiled output is generated and structured. This is typically derived from the user configuration but may also include additional options provided by plugins or other sources.
-       */
-      output: TResolvedConfig["output"];
-
-      /**
-       * The configuration values read from the user configuration file before any resolution or merging with default values or plugin-provided configurations. This represents the raw configuration as defined by the user, and can be useful for debugging or for plugins that need to access the original configuration values before they are processed by Powerlines.
-       */
-      readonly userConfig: DeepReadonly<TResolvedConfig["userConfig"]>;
-
-      /**
-       * The configuration options that were provided inline to the Powerlines CLI.
-       */
-      readonly inlineConfig: DeepReadonly<TResolvedConfig["inlineConfig"]>;
-    };
+  config: Omit<TResolvedConfig, "pluginConfig">;
 
   /**
    * A place to store metadata information on the context for access in plugins and other parts of the system. This can be used to store information about the current execution, such as a unique identifier for the execution, timestamps, or any other relevant data that may be useful for plugins or other parts of the system to access during the build process.
@@ -804,7 +783,7 @@ export interface EnvironmentPlugin<
    *
    * @internal
    */
-  $$internal: {
+  "~internal": {
     /**
      * The unique identifier of the plugin, which can be used for logging and other purposes to distinguish between different plugins in the same process.
      */
