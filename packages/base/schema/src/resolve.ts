@@ -22,12 +22,10 @@ import { reflect, Type } from "@powerlines/deepkit/vendor/type";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { findFileDotExtension } from "@stryke/path/find";
 import { isSetString } from "@stryke/type-checks/is-set-string";
-import {
-  TypeDefinition,
-  TypeDefinitionParameter
-} from "@stryke/types/configuration";
+import { TypeDefinition } from "@stryke/types/configuration";
 import defu from "defu";
 import { bundle, BundleOptions } from "./bundle";
+import { TypeDefinitionReference } from "./types";
 
 /**
  * Compiles a type definition to a module and returns the module.
@@ -42,7 +40,7 @@ export async function resolveModule<
   TContext extends PluginContext = PluginContext
 >(
   context: TContext,
-  type: TypeDefinitionParameter,
+  type: TypeDefinitionReference,
   overrides?: BundleOptions
 ): Promise<TResult> {
   let typeDefinition!: TypeDefinition;
@@ -122,7 +120,7 @@ export async function resolve<
   TContext extends PluginContext = PluginContext
 >(
   context: TContext,
-  input: TypeDefinitionParameter,
+  input: TypeDefinitionReference,
   options?: BundleOptions
 ): Promise<TResult> {
   let typeDefinition!: TypeDefinition;
@@ -177,7 +175,7 @@ export async function resolveReflection<
   TContext extends PluginContext = PluginContext
 >(
   context: TContext,
-  input: TypeDefinitionParameter,
+  input: TypeDefinitionReference,
   options?: BundleOptions
 ): Promise<Type> {
   return reflect(

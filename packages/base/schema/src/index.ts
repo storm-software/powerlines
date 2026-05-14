@@ -18,7 +18,7 @@
 
 export * from "./bundle";
 export * from "./extract";
-export * from "./is-schema-definition";
+export * from "./is-schema";
 export * from "./reflection";
 export * from "./resolve";
 export * from "./types";

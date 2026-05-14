@@ -26,7 +26,6 @@ import type { JsonSchemaType } from "@stryke/json";
 import { isJsonSchemaObjectType, isStandardJsonSchema } from "@stryke/json";
 import { isSetString } from "@stryke/type-checks";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
-import { TypeDefinitionParameter } from "@stryke/types/configuration";
 import {
   extractJsonSchema as extractJsonSchemaZod,
   isZod3Type
@@ -34,28 +33,26 @@ import {
 import defu from "defu";
 import type { BuildOptions } from "esbuild";
 import * as z3 from "zod/v3";
-import {
-  isExtractedSchemaDefinition,
-  isSchemaDefinition
-} from "./is-schema-definition";
+import { isExtractedSchema, isSchema } from "./is-schema";
 import { reflectionToJsonSchema } from "./reflection";
 import { resolve } from "./resolve";
 import {
-  ExtractedSchemaDefinition,
-  SchemaDefinition,
-  SchemaDefinitionInput,
-  SchemaDefinitionInputVariant,
-  SchemaDefinitionSource,
-  SchemaDefinitionSourceInput,
-  SchemaDefinitionSourceVariant
+  ExtractedSchema,
+  Schema,
+  SchemaInput,
+  SchemaInputVariant,
+  SchemaSource,
+  SchemaSourceInput,
+  SchemaSourceVariant,
+  TypeDefinitionReference
 } from "./types";
 
 /**
  * Creates a hash string for a given schema definition input. The function checks the type of the input and generates a hash based on its content. If the input is a Zod schema, it hashes the JSON representation of its internal definition. If the input is a Standard JSON Schema, it hashes the JSON representation of its internal standard schema. If the input is already a JSON Schema object, it hashes its JSON representation directly. If the input is a reflected Deepkit Type object, it hashes its JSON representation. The resulting hash string can be used for caching or comparison purposes.
  */
 export function extractHash(
-  variant: SchemaDefinitionInputVariant,
-  input: SchemaDefinitionInput
+  variant: SchemaInputVariant,
+  input: SchemaInput
 ): string {
   if (isSetString(input)) {
     return murmurhash({ variant, input });
@@ -131,15 +128,15 @@ export function extractJsonSchema(schema: unknown): JsonSchemaType | undefined {
 }
 
 /**
- * Extracts a schema definition from a given input object, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a reflected Deepkit Type object. The function checks the type of the input and attempts to extract the corresponding schema based on its variant. If the input is a Zod schema, it extracts the JSON Schema using the `extractJsonSchema` function. If the input is a Standard JSON Schema, it retrieves the JSON Schema targeting draft-07. If the input is already a JSON Schema object, it uses it directly. If the input is a reflected Deepkit Type object, it extracts the schema using the `extractReflection` function. The function returns a `SchemaDefinition` containing the extracted schema and its variant if successful; otherwise, it throws an error.
+ * Extracts a schema definition from a given input object, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a reflected Deepkit Type object. The function checks the type of the input and attempts to extract the corresponding schema based on its variant. If the input is a Zod schema, it extracts the JSON Schema using the `extractJsonSchema` function. If the input is a Standard JSON Schema, it retrieves the JSON Schema targeting draft-07. If the input is already a JSON Schema object, it uses it directly. If the input is a reflected Deepkit Type object, it extracts the schema using the `extractReflection` function. The function returns a `Schema` containing the extracted schema and its variant if successful; otherwise, it throws an error.
  *
  * @param input - The input object to extract the schema definition from.
- * @returns A `SchemaDefinition` containing the extracted schema and its variant if successful.
+ * @returns A `Schema` containing the extracted schema and its variant if successful.
  * @throws An error if the input does not contain a valid schema definition.
  */
 export function extractResolvedVariant(
-  input: SchemaDefinitionSourceInput
-): SchemaDefinitionSourceVariant {
+  input: SchemaSourceInput
+): SchemaSourceVariant {
   if (isSetObject(input)) {
     if (isZod3Type(input)) {
       return "zod3";
@@ -158,15 +155,13 @@ export function extractResolvedVariant(
 }
 
 /**
- * Extracts a schema definition from a given input object, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a reflected Deepkit Type object. The function checks the type of the input and attempts to extract the corresponding schema based on its variant. If the input is a Zod schema, it extracts the JSON Schema using the `extractJsonSchema` function. If the input is a Standard JSON Schema, it retrieves the JSON Schema targeting draft-07. If the input is already a JSON Schema object, it uses it directly. If the input is a reflected Deepkit Type object, it extracts the schema using the `extractReflection` function. The function returns a `SchemaDefinition` containing the extracted schema and its variant if successful; otherwise, it throws an error.
+ * Extracts a schema definition from a given input object, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a reflected Deepkit Type object. The function checks the type of the input and attempts to extract the corresponding schema based on its variant. If the input is a Zod schema, it extracts the JSON Schema using the `extractJsonSchema` function. If the input is a Standard JSON Schema, it retrieves the JSON Schema targeting draft-07. If the input is already a JSON Schema object, it uses it directly. If the input is a reflected Deepkit Type object, it extracts the schema using the `extractReflection` function. The function returns a `Schema` containing the extracted schema and its variant if successful; otherwise, it throws an error.
  *
  * @param input - The input object to extract the schema definition from.
- * @returns A `SchemaDefinition` containing the extracted schema and its variant if successful.
+ * @returns A `Schema` containing the extracted schema and its variant if successful.
  * @throws An error if the input does not contain a valid schema definition.
  */
-export function extractVariant(
-  input: SchemaDefinitionInput
-): SchemaDefinitionInputVariant {
+export function extractVariant(input: SchemaInput): SchemaInputVariant {
   if (isSetString(input) || isTypeDefinition(input)) {
     return "type-definition";
   }
@@ -182,13 +177,10 @@ export function extractVariant(
  * @returns The extracted JSON Schema if successful.
  * @throws An error if the input does not contain a valid schema definition.
  */
-export async function extractSchema<
+export async function extractSchemaSchema<
   TSchema extends JsonSchemaType = JsonSchemaType
->(
-  input: SchemaDefinitionSourceInput,
-  variant?: SchemaDefinitionInputVariant
-): Promise<TSchema> {
-  if (isExtractedSchemaDefinition<TSchema>(input)) {
+>(input: SchemaSourceInput, variant?: SchemaInputVariant): Promise<TSchema> {
+  if (isExtractedSchema<TSchema>(input)) {
     return input.schema;
   }
 
@@ -215,17 +207,17 @@ export async function extractSchema<
 }
 
 /**
- * Extracts a schema definition from a given input object, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a reflected Deepkit Type object. The function checks the type of the input and attempts to extract the corresponding schema based on its variant. If the input is a Zod schema, it extracts the JSON Schema using the `extractJsonSchema` function. If the input is a Standard JSON Schema, it retrieves the JSON Schema targeting draft-07. If the input is already a JSON Schema object, it uses it directly. If the input is a reflected Deepkit Type object, it extracts the schema using the `extractReflection` function. The function returns a `SchemaDefinition` containing the extracted schema and its variant if successful; otherwise, it throws an error.
+ * Extracts a schema definition from a given input object, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a reflected Deepkit Type object. The function checks the type of the input and attempts to extract the corresponding schema based on its variant. If the input is a Zod schema, it extracts the JSON Schema using the `extractJsonSchema` function. If the input is a Standard JSON Schema, it retrieves the JSON Schema targeting draft-07. If the input is already a JSON Schema object, it uses it directly. If the input is a reflected Deepkit Type object, it extracts the schema using the `extractReflection` function. The function returns a `Schema` containing the extracted schema and its variant if successful; otherwise, it throws an error.
  *
  * @param variant - The variant of the schema definition to extract.
  * @param input - The input object to extract the schema definition from.
- * @returns A `SchemaDefinition` containing the extracted schema and its variant if successful.
+ * @returns A `Schema` containing the extracted schema and its variant if successful.
  * @throws An error if the input does not contain a valid schema definition.
  */
 export function extractSource(
-  variant: SchemaDefinitionSourceVariant,
-  input: SchemaDefinitionSourceInput
-): SchemaDefinitionSource {
+  variant: SchemaSourceVariant,
+  input: SchemaSourceInput
+): SchemaSource {
   if (variant === "zod3") {
     return {
       hash: extractHash(variant, input),
@@ -263,32 +255,32 @@ export function extractSource(
  * @example
  * ```ts
  * // Resolve a schema definition from a file path
- * const schema1 = await extractSchemaDefinition(context, "./schemas.ts#MySchema");
+ * const schema1 = await extractSchema(context, "./schemas.ts#MySchema");
  * // Resolve a schema definition from a JSON Schema object
- * const schema2 = await extractSchemaDefinition(context, schemaObject);
+ * const schema2 = await extractSchema(context, schemaObject);
  * // Resolve a schema definition from a Zod schema
- * const schema3 = await extractSchemaDefinition(context, zodSchema);
+ * const schema3 = await extractSchema(context, zodSchema);
  * // Resolve a schema definition from a reflected Deepkit Type object
- * const schema4 = await extractSchemaDefinition(context, reflectionType);
+ * const schema4 = await extractSchema(context, reflectionType);
  * ```
  *
  * @param context - The plugin context used for resolving the schema definition input.
  * @param input - The schema definition input to extract the JSON Schema from. This can be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a TypeScript type definition.
  * @param options - Optional overrides for the ESBuild configuration used during resolution.
- * @returns A promise that resolves to a {@link ExtractedSchemaDefinition} containing the extracted JSON Schema and its variant, or the bytecode if JSON Schema extraction is not possible.
+ * @returns A promise that resolves to a {@link ExtractedSchema} containing the extracted JSON Schema and its variant, or the bytecode if JSON Schema extraction is not possible.
  */
-export async function extractSchemaDefinition<
+export async function extractSchema<
   TSchema extends JsonSchemaType = JsonSchemaType,
   TContext extends PluginContext = PluginContext
 >(
   context: TContext,
-  input: SchemaDefinitionInput,
+  input: SchemaInput,
   options: Partial<BuildOptions> = {}
-): Promise<ExtractedSchemaDefinition<TSchema>> {
-  if (isExtractedSchemaDefinition<TSchema>(input)) {
+): Promise<ExtractedSchema<TSchema>> {
+  if (isExtractedSchema<TSchema>(input)) {
     return input;
   }
-  if (isSchemaDefinition<TSchema>(input)) {
+  if (isSchema<TSchema>(input)) {
     return {
       ...input,
       source: {
@@ -299,13 +291,13 @@ export async function extractSchemaDefinition<
     };
   }
 
-  let source: SchemaDefinitionSource;
+  let source: SchemaSource;
 
   const variant = extractVariant(input);
   if (variant === "type-definition") {
-    const resolved = await resolve<SchemaDefinitionSourceInput>(
+    const resolved = await resolve<SchemaSourceInput>(
       context,
-      input as TypeDefinitionParameter,
+      input as TypeDefinitionReference,
       defu(options, {
         plugins: [
           esbuildPlugin(context, {
@@ -332,7 +324,7 @@ export async function extractSchemaDefinition<
   return {
     variant,
     source,
-    schema: await extractSchema(source.schema, source.variant),
+    schema: await extractSchemaSchema(source.schema, source.variant),
     hash: extractHash(variant, input)
   };
 }
@@ -355,21 +347,17 @@ export async function extractSchemaDefinition<
  * @param context - The plugin context used for resolving the schema definition input.
  * @param input - The schema definition input to extract the JSON Schema from. This can be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a TypeScript type definition.
  * @param options - Optional overrides for the ESBuild configuration used during resolution.
- * @returns A promise that resolves to a {@link SchemaDefinition} object parsed from the input.
+ * @returns A promise that resolves to a {@link Schema} object parsed from the input.
  */
 export async function extract<
   TSchema extends JsonSchemaType = JsonSchemaType,
   TContext extends PluginContext = PluginContext
 >(
   context: TContext,
-  input: SchemaDefinitionInput,
+  input: SchemaInput,
   options: Partial<BuildOptions> = {}
-): Promise<SchemaDefinition<TSchema>> {
-  const result = await extractSchemaDefinition<TSchema>(
-    context,
-    input,
-    options
-  );
+): Promise<Schema<TSchema>> {
+  const result = await extractSchema<TSchema>(context, input, options);
 
   return result;
 }
