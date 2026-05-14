@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-capnp",
-  "version": "0.1.479",
+  "version": "0.1.480",
   "type": "module",
   "description": "A Powerlines plugin to generate project code from Cap'n Proto schemas.",
   "repository": {
