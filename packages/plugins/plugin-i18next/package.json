@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-i18next",
-  "version": "0.1.374",
+  "version": "0.1.375",
   "private": false,
   "description": "A Powerlines plugin to use i18next for internationalization.",
   "keywords": ["i18next", "powerlines", "storm-software", "powerlines-plugin"],

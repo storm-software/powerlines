@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.379](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.379) (05/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate lock files ([82eee5e77](https://github.com/storm-software/powerlines/commit/82eee5e77))
+
+### Features
+
+- **schema:** Added `untyped` support as a schema input ([2e1840c29](https://github.com/storm-software/powerlines/commit/2e1840c29))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.429**
+- Updated **powerlines** to **v0.47.17**
+
 ## [0.3.378](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.378) (05/13/2026)
 
 ### Updated Dependencies

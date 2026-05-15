@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.13](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.13) (05/15/2026)
+
+### Features
+
+- **schema:** Update structure of the `SchemaDefinition` type definition ([0c88ddb01](https://github.com/storm-software/powerlines/commit/0c88ddb01))
+
 ## [0.0.11](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.11) (05/13/2026)
 
 ### Updated Dependencies

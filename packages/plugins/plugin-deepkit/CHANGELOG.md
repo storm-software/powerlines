@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.360](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.360) (05/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate lock files ([82eee5e77](https://github.com/storm-software/powerlines/commit/82eee5e77))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.429**
+- Updated **powerlines** to **v0.47.17**
+- Updated **plugin-tsc** to **v0.3.14**
+
 ## [0.11.359](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.359) (05/13/2026)
 
 ### Updated Dependencies
