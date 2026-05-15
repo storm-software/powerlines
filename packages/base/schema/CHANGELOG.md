@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.2](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.2) (05/15/2026)
+
+### Miscellaneous
+
+- **schema:** Added the `codegen` module to generate validation code ([587db12f9](https://github.com/storm-software/powerlines/commit/587db12f9))
+- **schema:** Added logic to resolve metadata from JSON schema definitions ([d18296a2f](https://github.com/storm-software/powerlines/commit/d18296a2f))
+
 ## [0.8.67](https://github.com/storm-software/powerlines/releases/tag/schema%400.8.67) (05/13/2026)
 
 ### Miscellaneous
