@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/engine",
-  "version": "0.11.8",
+  "version": "0.11.9",
   "private": false,
   "description": "An internal package containing the core engine modules for Powerlines.",
   "homepage": "https://stormsoftware.com",
