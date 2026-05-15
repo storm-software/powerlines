@@ -57,6 +57,10 @@
       "import": "./dist/bundle.mjs",
       "require": "./dist/bundle.cjs"
     },
+    "./codegen": {
+      "import": "./dist/codegen.mjs",
+      "require": "./dist/codegen.cjs"
+    },
     "./extract": {
       "import": "./dist/extract.mjs",
       "require": "./dist/extract.cjs"

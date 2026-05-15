@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 export * from "./bundle";
+export * from "./codegen";
 export * from "./extract";
 export * from "./jtd";
 export * from "./reflection";

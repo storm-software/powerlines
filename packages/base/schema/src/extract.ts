@@ -132,7 +132,7 @@ export function extractJsonSchema<
       jsonSchema = extractJsonSchemaZod(schema);
     } else if (isStandardJsonSchema(schema)) {
       jsonSchema = schema["~standard"].jsonSchema.input({
-        target: "draft-07"
+        target: "draft-2020-12"
       });
     } else if (isUntypedInput(schema)) {
       jsonSchema = schema.$schema;
