@@ -7,7 +7,7 @@
         "projectsRelationship": "fixed"
       },
       "packages": {
-        "projects": ["packages/devtools/*", "packages/plugins/*"],
+        "projects": ["!packages/devtools/cli", "packages/plugins/*"],
         "projectsRelationship": "independent"
       }
     }
