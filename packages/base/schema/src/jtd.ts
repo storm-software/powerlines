@@ -18,8 +18,12 @@
 
 import { isSetString } from "@stryke/type-checks";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
-import { SomeJTDSchemaType } from "ajv/dist/types/jtd-schema";
-import { JsonSchemaLike, JtdNumberType } from "./types";
+import {
+  JsonSchemaLike,
+  JTDNumberType,
+  JTDSchemaType,
+  SchemaMetadata
+} from "./types";
 
 /**
  * Maps a JSON Schema `format` annotation for integers to the closest JTD numeric type.
@@ -29,7 +33,7 @@ import { JsonSchemaLike, JtdNumberType } from "./types";
  */
 function jsonSchemaIntegerFormatToJtd(
   format: string | undefined
-): JtdNumberType | undefined {
+): JTDNumberType | undefined {
   switch (format) {
     case "int8":
       return "int8";
@@ -57,7 +61,7 @@ function jsonSchemaIntegerFormatToJtd(
  */
 function jsonSchemaNumberFormatToJtd(
   format: string | undefined
-): JtdNumberType | undefined {
+): JTDNumberType | undefined {
   switch (format) {
     case "float":
     case "float32":
@@ -81,7 +85,7 @@ function jsonSchemaNumberFormatToJtd(
 function pickUnsignedIntegerType(
   minimum: number | undefined,
   maximum: number | undefined
-): JtdNumberType | undefined {
+): JTDNumberType | undefined {
   if (minimum === undefined || minimum < 0) {
     return undefined;
   }
@@ -110,7 +114,7 @@ function pickUnsignedIntegerType(
 function pickSignedIntegerType(
   minimum: number | undefined,
   maximum: number | undefined
-): JtdNumberType | undefined {
+): JTDNumberType | undefined {
   if (
     minimum !== undefined &&
     maximum !== undefined &&
@@ -162,10 +166,10 @@ function readTypes(schema: JsonSchemaLike): string[] {
  * @param schema - The source JSON Schema fragment.
  * @returns A metadata bag suitable for attaching to a JTD form, or `undefined` if no annotations are present.
  */
-function collectMetadata(
-  schema: JsonSchemaLike
-): Record<string, unknown> | undefined {
-  const metadata: Record<string, unknown> = {};
+function collectMetadata<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+>(schema: JsonSchemaLike): TMetadata | undefined {
+  const metadata: TMetadata = {} as TMetadata;
   if (typeof schema.description === "string") {
     metadata.description = schema.description;
   }
@@ -189,17 +193,19 @@ function collectMetadata(
  * @param nullable - Whether the schema is nullable in JTD semantics.
  * @returns The decorated JTD form.
  */
-function decorate(
-  form: SomeJTDSchemaType,
+function decorate<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+>(
+  form: JTDSchemaType<TMetadata>,
   schema: JsonSchemaLike,
   nullable: boolean
-): SomeJTDSchemaType {
+): JTDSchemaType<TMetadata> {
   if (nullable) {
     (form as { nullable?: boolean }).nullable = true;
   }
-  const metadata = collectMetadata(schema);
+  const metadata = collectMetadata<TMetadata>(schema);
   if (metadata) {
-    (form as { metadata?: Record<string, unknown> }).metadata = metadata;
+    (form as { metadata?: TMetadata }).metadata = metadata;
   }
   return form;
 }
@@ -207,7 +213,7 @@ function decorate(
 /**
  * Determines whether the supplied list of JSON Schema types collapses to `null` only.
  *
- * @param types - The normalised list of JSON Schema type names.
+ * @param types - The normalized list of JSON Schema type names.
  * @returns `true` if the only declared type is `null`.
  */
 function isNullOnly(types: string[]): boolean {
@@ -217,7 +223,7 @@ function isNullOnly(types: string[]): boolean {
 /**
  * Splits a `null` declaration away from a list of JSON Schema types.
  *
- * @param types - The normalised list of JSON Schema type names.
+ * @param types - The normalized list of JSON Schema type names.
  * @returns A tuple of `[nonNullTypes, nullable]` describing the remaining types and whether `null` was present.
  */
 function stripNull(types: string[]): { types: string[]; nullable: boolean } {
@@ -232,7 +238,9 @@ function stripNull(types: string[]): { types: string[]; nullable: boolean } {
  * @param values - The raw enum values from the JSON Schema fragment.
  * @returns A JTD enum form, or `undefined` if the enum cannot be represented (e.g. empty list).
  */
-function enumToJtd(values: readonly unknown[]): SomeJTDSchemaType | undefined {
+function enumToJtd<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+>(values: readonly unknown[]): JTDSchemaType<TMetadata> | undefined {
   const strings = values
     .filter(v => v !== null && v !== undefined)
     .map(v => String(v));
@@ -248,7 +256,7 @@ function enumToJtd(values: readonly unknown[]): SomeJTDSchemaType | undefined {
  * @param schema - The integer JSON Schema fragment.
  * @returns The chosen JTD integer type.
  */
-function pickIntegerJtdType(schema: JsonSchemaLike): JtdNumberType {
+function pickIntegerJtdType(schema: JsonSchemaLike): JTDNumberType {
   const mapped = jsonSchemaIntegerFormatToJtd(schema.format);
   if (mapped) {
     return mapped;
@@ -266,7 +274,7 @@ function pickIntegerJtdType(schema: JsonSchemaLike): JtdNumberType {
  * @param schema - The number JSON Schema fragment.
  * @returns The chosen JTD floating point type.
  */
-function pickNumberJtdType(schema: JsonSchemaLike): JtdNumberType {
+function pickNumberJtdType(schema: JsonSchemaLike): JTDNumberType {
   return jsonSchemaNumberFormatToJtd(schema.format) ?? "float64";
 }
 
@@ -290,17 +298,16 @@ function pickStringJtdType(schema: JsonSchemaLike): "string" | "timestamp" {
  * @param nullable - Whether the resulting JTD form should be nullable.
  * @returns The JTD properties form representing the object.
  */
-function objectToJtd(
-  schema: JsonSchemaLike,
-  nullable: boolean
-): SomeJTDSchemaType {
+function objectToJtd<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+>(schema: JsonSchemaLike, nullable: boolean): JTDSchemaType<TMetadata> {
   const required = new Set(schema.required ?? []);
-  const properties: Record<string, SomeJTDSchemaType> = {};
-  const optionalProperties: Record<string, SomeJTDSchemaType> = {};
+  const properties: Record<string, JTDSchemaType<TMetadata>> = {};
+  const optionalProperties: Record<string, JTDSchemaType<TMetadata>> = {};
 
   if (schema.properties) {
     for (const [key, value] of Object.entries(schema.properties)) {
-      const converted = jsonSchemaToJtd(value);
+      const converted = jsonSchemaToJtd<TMetadata>(value);
       if (!converted) {
         continue;
       }
@@ -323,24 +330,24 @@ function objectToJtd(
     !hasOptional &&
     isJsonSchemaLike(schema.additionalProperties)
   ) {
-    const values = jsonSchemaToJtd(schema.additionalProperties);
+    const values = jsonSchemaToJtd<TMetadata>(schema.additionalProperties);
     if (values) {
-      return decorate({ values }, schema, nullable);
+      return decorate<TMetadata>({ values }, schema, nullable);
     }
   }
   if (!hasProperties && !hasOptional && schema.patternProperties) {
     const first = Object.values(schema.patternProperties)[0];
     if (first) {
-      const values = jsonSchemaToJtd(first);
+      const values = jsonSchemaToJtd<TMetadata>(first);
       if (values) {
-        return decorate({ values }, schema, nullable);
+        return decorate<TMetadata>({ values }, schema, nullable);
       }
     }
   }
 
   const form: {
-    properties?: Record<string, SomeJTDSchemaType>;
-    optionalProperties?: Record<string, SomeJTDSchemaType>;
+    properties?: Record<string, JTDSchemaType<TMetadata>>;
+    optionalProperties?: Record<string, JTDSchemaType<TMetadata>>;
     additionalProperties?: boolean;
   } = {};
 
@@ -361,7 +368,11 @@ function objectToJtd(
     form.additionalProperties = true;
   }
 
-  return decorate(form as SomeJTDSchemaType, schema, nullable);
+  return decorate<TMetadata>(
+    form as JTDSchemaType<TMetadata>,
+    schema,
+    nullable
+  );
 }
 
 /**
@@ -371,10 +382,9 @@ function objectToJtd(
  * @param nullable - Whether the resulting JTD form should be nullable.
  * @returns The JTD elements form representing the array.
  */
-function arrayToJtd(
-  schema: JsonSchemaLike,
-  nullable: boolean
-): SomeJTDSchemaType {
+function arrayToJtd<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+>(schema: JsonSchemaLike, nullable: boolean): JTDSchemaType<TMetadata> {
   let elementSchema: JsonSchemaLike | undefined;
   if (Array.isArray(schema.items)) {
     // Tuple form — JTD has no native tuple support. Best effort: collapse to
@@ -385,9 +395,11 @@ function arrayToJtd(
     elementSchema = schema.items;
   }
 
-  const elements = elementSchema ? jsonSchemaToJtd(elementSchema) : {};
+  const elements = elementSchema
+    ? jsonSchemaToJtd<TMetadata>(elementSchema)
+    : {};
 
-  return decorate({ elements: elements ?? {} }, schema, nullable);
+  return decorate<TMetadata>({ elements: elements ?? {} }, schema, nullable);
 }
 
 /**
@@ -397,21 +409,24 @@ function arrayToJtd(
  * @param nullable - Whether the resulting JTD form should be nullable.
  * @returns A discriminator form when every branch shares a single tag property, otherwise `undefined`.
  */
-function tryDiscriminator(
+function tryDiscriminator<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+>(
   schemas: readonly JsonSchemaLike[],
   nullable: boolean
-): SomeJTDSchemaType | undefined {
+): JTDSchemaType<TMetadata> | undefined {
   if (schemas.length < 2) {
     return undefined;
   }
 
   let candidateKey: string | undefined;
-  const mapping: Record<string, SomeJTDSchemaType> = {};
+  const mapping: Record<string, JTDSchemaType<TMetadata>> = {};
 
   for (const branch of schemas) {
     if (!isJsonSchemaLike(branch) || !branch.properties) {
       return undefined;
     }
+
     const constantTags = Object.entries(branch.properties).filter(
       ([, value]) =>
         isJsonSchemaLike(value) &&
@@ -423,12 +438,14 @@ function tryDiscriminator(
     if (constantTags.length === 0) {
       return undefined;
     }
+
     const [tagKey, tagSchema] = constantTags[0]!;
     if (!candidateKey) {
       candidateKey = tagKey;
     } else if (candidateKey !== tagKey) {
       return undefined;
     }
+
     const tag =
       typeof tagSchema.const === "string"
         ? tagSchema.const
@@ -443,23 +460,27 @@ function tryDiscriminator(
       properties: restProperties,
       required: restRequired
     };
-    const branchForm = jsonSchemaToJtd(branchSchema);
+
+    const branchForm = jsonSchemaToJtd<TMetadata>(branchSchema);
     if (!branchForm || !isSetObject(branchForm) || "ref" in branchForm) {
       return undefined;
     }
+
     mapping[tag] = branchForm;
   }
 
   if (!candidateKey) {
     return undefined;
   }
-  const form: SomeJTDSchemaType = {
+
+  const form: JTDSchemaType<TMetadata> = {
     discriminator: candidateKey,
     mapping
   };
   if (nullable) {
     (form as { nullable?: boolean }).nullable = true;
   }
+
   return form;
 }
 
@@ -471,9 +492,11 @@ function tryDiscriminator(
  * @param schema - The JSON Schema fragment to convert.
  * @returns A valid JTD form, or `undefined` if the input cannot be represented.
  */
-export function jsonSchemaToJtd(
+export function jsonSchemaToJtd<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+>(
   schema: JsonSchemaLike | undefined | null
-): SomeJTDSchemaType | undefined {
+): JTDSchemaType<TMetadata> | undefined {
   if (!isJsonSchemaLike(schema)) {
     return undefined;
   }
@@ -494,7 +517,7 @@ export function jsonSchemaToJtd(
     );
     const { allOf: _allOf, ...rest } = schema;
 
-    return jsonSchemaToJtd(mergeJsonSchema(merged, rest));
+    return jsonSchemaToJtd<TMetadata>(mergeJsonSchema(merged, rest));
   }
 
   const rawTypes = readTypes(schema);
@@ -503,20 +526,20 @@ export function jsonSchemaToJtd(
 
   // Pure null type → JTD has no first-class null form, emit empty + nullable.
   if (isNullOnly(rawTypes)) {
-    return decorate({}, schema, true);
+    return decorate<TMetadata>({}, schema, true);
   }
 
   // Enum form.
   if (Array.isArray(schema.enum)) {
-    const enumForm = enumToJtd(schema.enum);
+    const enumForm = enumToJtd<TMetadata>(schema.enum);
     if (enumForm) {
-      return decorate(enumForm, schema, nullable);
+      return decorate<TMetadata>(enumForm, schema, nullable);
     }
   }
 
   // const → enum of one (only valid when value is a string in JTD).
   if (isSetString(schema.const)) {
-    return decorate({ enum: [schema.const] }, schema, nullable);
+    return decorate<TMetadata>({ enum: [schema.const] }, schema, nullable);
   }
 
   // anyOf / oneOf — try to detect a discriminated union, otherwise collapse.
@@ -532,29 +555,31 @@ export function jsonSchemaToJtd(
     const unionNullable = nullable || onlyNullBranches.length > 0;
 
     if (nonNullBranches.length === 1) {
-      const collapsed = jsonSchemaToJtd(nonNullBranches[0]);
+      const collapsed = jsonSchemaToJtd<TMetadata>(nonNullBranches[0]);
       if (collapsed) {
-        return decorate(collapsed, schema, unionNullable);
+        return decorate<TMetadata>(collapsed, schema, unionNullable);
       }
     }
 
-    const discriminated = tryDiscriminator(nonNullBranches, unionNullable);
+    const discriminated = tryDiscriminator<TMetadata>(
+      nonNullBranches,
+      unionNullable
+    );
     if (discriminated) {
-      const metadata = collectMetadata(schema);
+      const metadata = collectMetadata<TMetadata>(schema);
       if (metadata) {
-        (discriminated as { metadata?: Record<string, unknown> }).metadata =
-          metadata;
+        (discriminated as { metadata?: TMetadata }).metadata = metadata;
       }
       return discriminated;
     }
 
     // No safe JTD equivalent: emit empty schema (matches any value) with
     // metadata to preserve provenance.
-    const fallback = decorate({}, schema, unionNullable);
+    const fallback = decorate<TMetadata>({}, schema, unionNullable);
     const metadata =
-      (fallback as { metadata?: Record<string, unknown> }).metadata ?? {};
-    metadata.jsonSchemaUnion = union;
-    (fallback as { metadata?: Record<string, unknown> }).metadata = metadata;
+      (fallback as { metadata?: TMetadata }).metadata ?? ({} as TMetadata);
+    metadata.union = union;
+    (fallback as { metadata?: TMetadata }).metadata = metadata;
     return fallback;
   }
 
@@ -565,19 +590,19 @@ export function jsonSchemaToJtd(
     schema.patternProperties ||
     isJsonSchemaLike(schema.additionalProperties)
   ) {
-    const result = objectToJtd(schema, nullable);
+    const result = objectToJtd<TMetadata>(schema, nullable);
     const definitions = schema.definitions ?? schema.$defs;
     if (definitions && Object.keys(definitions).length > 0) {
-      const converted: Record<string, SomeJTDSchemaType> = {};
+      const converted: Record<string, JTDSchemaType<TMetadata>> = {};
       for (const [key, value] of Object.entries(definitions)) {
-        const def = jsonSchemaToJtd(value);
+        const def = jsonSchemaToJtd<TMetadata>(value);
         if (def) {
           converted[key] = def;
         }
       }
       if (Object.keys(converted).length > 0) {
         (
-          result as { definitions?: Record<string, SomeJTDSchemaType> }
+          result as { definitions?: Record<string, JTDSchemaType<TMetadata>> }
         ).definitions = converted;
       }
     }
@@ -585,34 +610,46 @@ export function jsonSchemaToJtd(
   }
 
   if (nonNullTypes.includes("array")) {
-    return arrayToJtd(schema, nullable);
+    return arrayToJtd<TMetadata>(schema, nullable);
   }
 
   // Scalar types.
   if (nonNullTypes.length === 1) {
     const t = nonNullTypes[0]!;
     if (t === "string") {
-      return decorate({ type: pickStringJtdType(schema) }, schema, nullable);
+      return decorate<TMetadata>(
+        { type: pickStringJtdType(schema) },
+        schema,
+        nullable
+      );
     }
     if (t === "boolean") {
-      return decorate({ type: "boolean" }, schema, nullable);
+      return decorate<TMetadata>({ type: "boolean" }, schema, nullable);
     }
     if (t === "integer") {
-      return decorate({ type: pickIntegerJtdType(schema) }, schema, nullable);
+      return decorate<TMetadata>(
+        { type: pickIntegerJtdType(schema) },
+        schema,
+        nullable
+      );
     }
     if (t === "number") {
-      return decorate({ type: pickNumberJtdType(schema) }, schema, nullable);
+      return decorate<TMetadata>(
+        { type: pickNumberJtdType(schema) },
+        schema,
+        nullable
+      );
     }
   }
 
   // Mixed scalar types (e.g. ["string", "number"]) — emit empty schema since
   // JTD has no native union of primitives.
   if (nonNullTypes.length > 1) {
-    return decorate({}, schema, nullable);
+    return decorate<TMetadata>({}, schema, nullable);
   }
 
   // No type info — empty (any) schema, possibly nullable.
-  return decorate({}, schema, nullable);
+  return decorate<TMetadata>({}, schema, nullable);
 }
 
 /**

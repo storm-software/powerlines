@@ -23,7 +23,7 @@ import {
   InputObject as UntypedInputObject,
   Schema as UntypedSchema
 } from "untyped";
-import { ExtractedSchema, Schema } from "./types";
+import { ExtractedSchema, Schema, SchemaMetadata } from "./types";
 
 /**
  * Type guard to check if a given input is a [JSON Type Definition (JTD) schema object](https://tools.ietf.org/html/rfc8927). This function verifies that the input is a non-null object, contains a `jtd` property that is set to `true`, and has a `schema` property that is a JSON Schema (draft-07) object. If all these conditions are met, the function returns `true`, indicating that the input is a valid JTD schema; otherwise, it returns `false`.
@@ -31,10 +31,9 @@ import { ExtractedSchema, Schema } from "./types";
  * @param input - The input to check for being a [JTD schema](https://tools.ietf.org/html/rfc8927).
  * @returns `true` if the input is a [JTD schema](https://tools.ietf.org/html/rfc8927), otherwise `false`.
  */
-export function isJTDSchema<
-  T = unknown,
-  D extends Record<string, unknown> = Record<string, unknown>
->(input: unknown): input is JTDSchemaType<T, D> {
+export function isJTDSchema<TMetadata extends SchemaMetadata = SchemaMetadata>(
+  input: unknown
+): input is JTDSchemaType<TMetadata> {
   return isJsonSchemaObjectType(input) && "jtd" in input && input.jtd === true;
 }
 
@@ -122,10 +121,9 @@ export function isUntypedInput(input: unknown): input is UntypedInputObject {
  * @param input - The input to check for being a {@link Schema}.
  * @returns `true` if the input is a {@link Schema}, otherwise `false`.
  */
-export function isSchema<
-  T = unknown,
-  D extends Record<string, unknown> = Record<string, unknown>
->(input: unknown): input is Schema<T, D> {
+export function isSchema<TMetadata extends SchemaMetadata = SchemaMetadata>(
+  input: unknown
+): input is Schema<TMetadata> {
   return (
     isSetObject(input) &&
     "schema" in input &&
@@ -144,11 +142,10 @@ export function isSchema<
  * @returns `true` if the input is a {@link ExtractedSchema}, otherwise `false`.
  */
 export function isExtractedSchema<
-  T = unknown,
-  D extends Record<string, unknown> = Record<string, unknown>
->(input: unknown): input is ExtractedSchema<T, D> {
+  TMetadata extends SchemaMetadata = SchemaMetadata
+>(input: unknown): input is ExtractedSchema<TMetadata> {
   return (
-    isSchema<T, D>(input) &&
+    isSchema<TMetadata>(input) &&
     "source" in input &&
     isSetObject(input.source) &&
     "schema" in input.source &&

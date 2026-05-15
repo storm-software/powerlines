@@ -33,7 +33,6 @@ import {
   extractJsonSchema as extractJsonSchemaZod,
   isZod3Type
 } from "@stryke/zod";
-import { JTDSchemaType } from "ajv/dist/types/jtd-schema";
 import defu from "defu";
 import type { BuildOptions } from "esbuild";
 import * as z3 from "zod/v3";
@@ -49,9 +48,12 @@ import {
 } from "./type-checks";
 import {
   ExtractedSchema,
+  JsonSchemaLike,
+  JTDSchemaType,
   Schema,
   SchemaInput,
   SchemaInputVariant,
+  SchemaMetadata,
   SchemaSource,
   SchemaSourceInput,
   SchemaSourceVariant,
@@ -96,14 +98,13 @@ export function extractHash(
  * @returns A JSON Schema (draft-07) fragment representing the type, or `undefined` when no schema could be produced.
  */
 export function extractReflection<
-  T = unknown,
-  D extends Record<string, unknown> = Record<string, unknown>
->(reflection: Type): JTDSchemaType<T, D> | undefined {
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+>(reflection: Type): JTDSchemaType<TMetadata> | undefined {
   if (!isType(reflection)) {
     return undefined;
   }
 
-  return reflectionToJsonSchema(reflection);
+  return reflectionToJsonSchema<TMetadata>(reflection);
 }
 
 /**
@@ -116,9 +117,8 @@ export function extractReflection<
  * @returns The extracted JTD schema if successful, otherwise undefined.
  */
 export function extractJsonSchema<
-  T = unknown,
-  D extends Record<string, unknown> = Record<string, unknown>
->(schema: unknown): JTDSchemaType<T, D> | undefined {
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+>(schema: unknown): JTDSchemaType<TMetadata> | undefined {
   if (
     isSetObject(schema) &&
     (isZod3Type(schema) ||
@@ -140,9 +140,9 @@ export function extractJsonSchema<
       jsonSchema = schema;
     }
 
-    const jtd = jsonSchemaToJtd(jsonSchema as Record<string, unknown>);
+    const jtd = jsonSchemaToJtd<TMetadata>(jsonSchema as JsonSchemaLike);
     if (jtd) {
-      return jtd as JTDSchemaType<T, D>;
+      return jtd;
     }
   }
 
@@ -204,33 +204,32 @@ export function extractVariant(input: SchemaInput): SchemaInputVariant {
  * @throws An error if the input does not contain a valid schema definition.
  */
 export async function extractSchemaSchema<
-  T = unknown,
-  D extends Record<string, unknown> = Record<string, unknown>
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
 >(
   input: SchemaSourceInput,
   variant?: SchemaInputVariant
-): Promise<JTDSchemaType<T, D>> {
-  if (isExtractedSchema<T, D>(input)) {
+): Promise<JTDSchemaType<TMetadata>> {
+  if (isExtractedSchema<TMetadata>(input)) {
     return input.schema;
   }
 
   const resolvedVariant = variant ?? extractResolvedVariant(input);
 
-  let schema: JTDSchemaType<T, D> | undefined;
+  let schema: JTDSchemaType<TMetadata> | undefined;
   if (
     resolvedVariant === "zod3" ||
     resolvedVariant === "json-schema" ||
     resolvedVariant === "standard-schema" ||
     resolvedVariant === "untyped"
   ) {
-    const jsonSchema = extractJsonSchema(input);
+    const jsonSchema = extractJsonSchema<TMetadata>(input);
     if (jsonSchema) {
-      schema = jsonSchemaToJtd(jsonSchema) as JTDSchemaType<T, D>;
+      schema = jsonSchemaToJtd<TMetadata>(jsonSchema);
     }
   } else if (resolvedVariant === "reflection") {
-    schema = extractReflection(input as Type);
+    schema = extractReflection<TMetadata>(input as Type);
   } else if (resolvedVariant === "jtd-schema") {
-    schema = input as JTDSchemaType<T, D>;
+    schema = input as JTDSchemaType<TMetadata>;
   }
 
   if (schema) {
@@ -251,8 +250,7 @@ export async function extractSchemaSchema<
  * @throws An error if the input does not contain a valid schema definition.
  */
 export function extractSource<
-  T = unknown,
-  D extends Record<string, unknown> = Record<string, unknown>
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
 >(variant: SchemaSourceVariant, input: SchemaSourceInput): SchemaSource {
   if (variant === "zod3") {
     return {
@@ -288,7 +286,7 @@ export function extractSource<
     return {
       hash: extractHash(variant, input),
       variant: "jtd-schema",
-      schema: input as JTDSchemaType<T, D>
+      schema: input as JTDSchemaType<TMetadata>
     };
   }
 
@@ -318,18 +316,18 @@ export function extractSource<
  * @returns A promise that resolves to a {@link ExtractedSchema} containing the extracted JSON Schema and its variant, or the bytecode if JSON Schema extraction is not possible.
  */
 export async function extractSchema<
-  T = unknown,
-  D extends Record<string, unknown> = Record<string, unknown>,
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>,
   TContext extends Context = Context
 >(
   context: TContext,
   input: SchemaInput,
   options: Partial<BuildOptions> = {}
-): Promise<ExtractedSchema<JTDSchemaType<T, D>>> {
-  if (isExtractedSchema<JTDSchemaType<T, D>>(input)) {
+): Promise<ExtractedSchema<TMetadata>> {
+  if (isExtractedSchema<TMetadata>(input)) {
     return input;
   }
-  if (isSchema<JTDSchemaType<T, D>>(input)) {
+
+  if (isSchema<TMetadata>(input)) {
     return {
       ...input,
       source: {
@@ -380,7 +378,7 @@ export async function extractSchema<
   return {
     variant,
     source,
-    schema: await extractSchemaSchema(source.schema, source.variant),
+    schema: await extractSchemaSchema<TMetadata>(source.schema, source.variant),
     hash: extractHash(variant, input)
   };
 }
@@ -414,15 +412,14 @@ export async function extractSchema<
  * @returns A promise that resolves to a {@link Schema | schema} object parsed from the input.
  */
 export async function extract<
-  T = unknown,
-  D extends Record<string, unknown> = Record<string, unknown>,
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>,
   TContext extends Context = Context
 >(
   context: TContext,
   input: SchemaInput,
   options: Partial<BuildOptions> = {}
-): Promise<Schema<JTDSchemaType<T, D>>> {
-  const result = await extractSchema<T, D>(context, input, options);
+): Promise<Schema<TMetadata>> {
+  const result = await extractSchema<TMetadata>(context, input, options);
 
   return result;
 }
