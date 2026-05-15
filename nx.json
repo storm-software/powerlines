@@ -9,8 +9,9 @@
       "packages": {
         "projects": [
           "!{name}:cli",
-          "packages/devtools/*",
-          "packages/plugins/*"
+          "!{name}:monorepo",
+          "!tools/*",
+          "!packages/base/*"
         ],
         "projectsRelationship": "independent"
       }
