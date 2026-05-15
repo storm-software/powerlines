@@ -61,9 +61,9 @@
       "import": "./dist/extract.mjs",
       "require": "./dist/extract.cjs"
     },
-    "./is-schema-definition": {
-      "import": "./dist/is-schema-definition.mjs",
-      "require": "./dist/is-schema-definition.cjs"
+    "./is-schema": {
+      "import": "./dist/is-schema.mjs",
+      "require": "./dist/is-schema.cjs"
     },
     "./reflection": {
       "import": "./dist/reflection.mjs",
@@ -83,7 +83,9 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@powerlines/deepkit": "workspace:*",

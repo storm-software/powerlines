@@ -20,7 +20,7 @@ catalog:
   '@babel/types': 8.0.0-rc.5
   '@cacheable/memory': ^2.0.8
   '@cloudflare/unenv-preset': ^2.16.1
-  '@cloudflare/workers-types': ^4.20260511.1
+  '@cloudflare/workers-types': ^4.20260515.1
   '@content-collections/core': ^0.12.0
   '@deepkit/core': 1.0.5
   '@deepkit/type': 1.0.5
@@ -39,7 +39,7 @@ catalog:
   '@ls-lint/ls-lint': ^2.3.1
   '@napi-rs/cli': ^3.6.2
   '@noble/ciphers': ^2.2.0
-  '@nx/devkit': ^22.7.1
+  '@nx/devkit': ^22.7.2
   '@nx/eslint-plugin': 22.7.1
   '@nx/jest': 22.7.1
   '@nx/js': 22.7.1
