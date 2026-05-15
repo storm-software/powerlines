@@ -16,7 +16,12 @@
 
  ------------------------------------------------------------------- */
 
-import { isSetString } from "@stryke/type-checks";
+import {
+  isBoolean,
+  isSetArray,
+  isSetString,
+  isUndefined
+} from "@stryke/type-checks";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import {
   JsonSchemaLike,
@@ -170,18 +175,73 @@ function collectMetadata<
   TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
 >(schema: JsonSchemaLike): TMetadata | undefined {
   const metadata: TMetadata = {} as TMetadata;
-  if (typeof schema.description === "string") {
+  if (isSetString(schema.description)) {
     metadata.description = schema.description;
   }
-  if (typeof schema.title === "string") {
-    metadata.title = schema.title;
-  }
-  if (schema.default !== undefined) {
-    metadata.default = schema.default;
-  }
-  if (Array.isArray(schema.examples) && schema.examples.length > 0) {
+
+  if (isSetArray(schema.examples)) {
     metadata.examples = schema.examples;
   }
+
+  if (
+    isSetArray(schema.alias) &&
+    (schema.alias as unknown[]).every(isSetString)
+  ) {
+    metadata.alias = schema.alias as string[];
+  }
+
+  if (isSetString(schema.table)) {
+    metadata.default = schema.table;
+  }
+
+  if (isSetString(schema.title)) {
+    metadata.title = schema.title;
+  }
+
+  if (!isUndefined(schema.default)) {
+    metadata.default = schema.default;
+  }
+
+  if (isBoolean(schema.isHidden)) {
+    metadata.isHidden = schema.isHidden;
+  } else if (isBoolean(schema.hidden)) {
+    metadata.isHidden = schema.hidden;
+  }
+
+  if (isBoolean(schema.isIgnored)) {
+    metadata.isIgnored = schema.isIgnored;
+  } else if (isBoolean(schema.ignored)) {
+    metadata.isIgnored = schema.ignored;
+  }
+
+  if (isBoolean(schema.isReadonly)) {
+    metadata.isReadonly = schema.isReadonly;
+  } else if (isBoolean(schema.readonly)) {
+    metadata.isReadonly = schema.readonly;
+  }
+
+  if (isBoolean(schema.isPrimaryKey)) {
+    metadata.isPrimaryKey = schema.isPrimaryKey;
+  } else if (isBoolean(schema.primaryKey)) {
+    metadata.isPrimaryKey = schema.primaryKey;
+  }
+
+  if (isBoolean(schema.isInternal)) {
+    metadata.isInternal = schema.isInternal;
+  } else if (isBoolean(schema.internal)) {
+    metadata.isInternal = schema.internal;
+  }
+
+  if (isBoolean(schema.isRuntime)) {
+    metadata.isRuntime = schema.isRuntime;
+  } else if (isBoolean(schema.runtime)) {
+    metadata.isRuntime = schema.runtime;
+  }
+
+  if (isSetArray(schema.union)) {
+    metadata.union = schema.union as JsonSchemaLike[];
+  }
+
   return Object.keys(metadata).length > 0 ? metadata : undefined;
 }
 
@@ -305,12 +365,21 @@ function objectToJtd<
   const properties: Record<string, JTDSchemaType<TMetadata>> = {};
   const optionalProperties: Record<string, JTDSchemaType<TMetadata>> = {};
 
+  const metadata = {
+    default: schema.default ?? {}
+  } as TMetadata & { default: Record<string, unknown> };
+
   if (schema.properties) {
     for (const [key, value] of Object.entries(schema.properties)) {
+      if (!isUndefined(value.default)) {
+        metadata.default[key] = value.default;
+      }
+
       const converted = jsonSchemaToJtd<TMetadata>(value);
       if (!converted) {
         continue;
       }
+
       if (required.has(key)) {
         properties[key] = converted;
       } else {
@@ -332,7 +401,7 @@ function objectToJtd<
   ) {
     const values = jsonSchemaToJtd<TMetadata>(schema.additionalProperties);
     if (values) {
-      return decorate<TMetadata>({ values }, schema, nullable);
+      return decorate<TMetadata>({ metadata, values }, schema, nullable);
     }
   }
   if (!hasProperties && !hasOptional && schema.patternProperties) {
@@ -340,16 +409,17 @@ function objectToJtd<
     if (first) {
       const values = jsonSchemaToJtd<TMetadata>(first);
       if (values) {
-        return decorate<TMetadata>({ values }, schema, nullable);
+        return decorate<TMetadata>({ metadata, values }, schema, nullable);
       }
     }
   }
 
   const form: {
+    metadata: TMetadata;
     properties?: Record<string, JTDSchemaType<TMetadata>>;
     optionalProperties?: Record<string, JTDSchemaType<TMetadata>>;
     additionalProperties?: boolean;
-  } = {};
+  } = { metadata };
 
   if (hasProperties) {
     form.properties = properties;
@@ -368,11 +438,7 @@ function objectToJtd<
     form.additionalProperties = true;
   }
 
-  return decorate<TMetadata>(
-    form as JTDSchemaType<TMetadata>,
-    schema,
-    nullable
-  );
+  return decorate<TMetadata>(form, schema, nullable);
 }
 
 /**
