@@ -51,16 +51,19 @@ This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "
 
 # Powerlines - Schema Package
 
-A package for extracting and resolving JSON Schemas from various input formats, including TypeScript type definitions, Zod schemas, and JSON Schema objects. This package is built on top of the Deepkit Type System and provides a powerful and flexible way to work with schemas in your TypeScript projects.
+A package for extracting and resolving schemas from various input formats, including Zod schemas, JSON Schemas, JTD schemas, untyped schemas, and TypeScript type reflections. This package provides a unified interface for working with different schema formats and extracting relevant information for use in other parts of the Powerlines framework.
 
 The input can be one of the following formats:
 
-- A string that references a Typescript module's export
+- A string that references a Typescript module's export (can be in the format `module#export` or just `module`, in which case it will attempt to resolve the default export)
 - A [Zod v3 schema](https://github.com/colinhacks/zod)
 - Any type that adheres to [the Standard JSON Schema specification](https://standardschema.dev/json-schema#what-schema-libraries-support-this-spec)
 - A [JSON Schema object](https://json-schema.org/)
 - A [JTD schema object](https://ajv.js.org/json-type-definition.html)
+- An [Untyped schema](https://github.com/unjs/untyped)
 - A [TypeScript type reflection](https://deepkit.io/en/documentation/runtime-types/reflection)
+
+By allowing for multiple input formats, this package provides flexibility and ease of use for developers working with different schema definitions. It abstracts away the complexities of handling various schema formats and provides a consistent interface for extracting and working with schemas across the Powerlines framework.
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->

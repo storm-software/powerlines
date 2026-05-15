@@ -21,7 +21,11 @@ import type { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import { JsonSchemaType } from "@stryke/json/types";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import { JTDSchemaType } from "ajv/dist/types/jtd-schema";
+import { InputObject, Schema as _Schema } from "untyped";
 import * as z3 from "zod/v3";
+
+export type UntypedInputObject = InputObject;
+export type UntypedSchema = _Schema;
 
 /**
  * The set of numeric `type` strings supported by JSON Type Definition (RFC 8927).
@@ -71,10 +75,11 @@ export interface JsonSchemaLike {
 }
 
 export type SchemaSourceVariant =
-  | "json-schema"
-  | "jtd-schema"
   | "standard-schema"
+  | "jtd-schema"
+  | "json-schema"
   | "zod3"
+  | "untyped"
   | "reflection";
 
 export type SchemaInputVariant = SchemaSourceVariant | "type-definition";
@@ -83,10 +88,12 @@ export type SchemaSourceInput<
   T = unknown,
   D extends Record<string, unknown> = Record<string, unknown>
 > =
+  | StandardJSONSchemaV1
   | JTDSchemaType<T, D>
   | JsonSchemaType
-  | StandardJSONSchemaV1
   | z3.ZodTypeAny
+  | UntypedInputObject
+  | UntypedSchema
   | Type;
 
 export type TypeDefinitionReference = TypeDefinition | string;
@@ -136,11 +143,17 @@ export interface ReflectionSchemaSource extends BaseSchemaSource {
   schema: Type;
 }
 
+export interface UntypedSchemaSource extends BaseSchemaSource {
+  variant: "untyped";
+  schema: UntypedInputObject | UntypedSchema;
+}
+
 export type SchemaSource =
   | JsonSchemaSchemaSource
   | JTDSchemaSchemaSource
   | StandardSchemaSchemaSource
   | Zod3SchemaSource
+  | UntypedSchemaSource
   | ReflectionSchemaSource;
 
 export interface ExtractedSchema<

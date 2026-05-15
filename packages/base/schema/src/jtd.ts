@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { isSetString } from "@stryke/type-checks";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { SomeJTDSchemaType } from "ajv/dist/types/jtd-schema";
 import { JsonSchemaLike, JtdNumberType } from "./types";
@@ -478,7 +479,7 @@ export function jsonSchemaToJtd(
   }
 
   // $ref → JTD ref form. The pointer must reference `#/definitions/<name>`.
-  if (typeof schema.$ref === "string") {
+  if (isSetString(schema.$ref)) {
     const match = /^#\/(?:definitions|\$defs)\/(.+)$/.exec(schema.$ref);
     if (match) {
       return { ref: match[1]! };
@@ -514,7 +515,7 @@ export function jsonSchemaToJtd(
   }
 
   // const → enum of one (only valid when value is a string in JTD).
-  if (typeof schema.const === "string") {
+  if (isSetString(schema.const)) {
     return decorate({ enum: [schema.const] }, schema, nullable);
   }
 

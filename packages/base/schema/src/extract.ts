@@ -37,10 +37,16 @@ import { JTDSchemaType } from "ajv/dist/types/jtd-schema";
 import defu from "defu";
 import type { BuildOptions } from "esbuild";
 import * as z3 from "zod/v3";
-import { isExtractedSchema, isSchema } from "./is-schema";
 import { jsonSchemaToJtd } from "./jtd";
 import { reflectionToJsonSchema } from "./reflection";
 import { resolve } from "./resolve";
+import {
+  isExtractedSchema,
+  isJTDSchema,
+  isSchema,
+  isUntypedInput,
+  isUntypedSchema
+} from "./type-checks";
 import {
   ExtractedSchema,
   Schema,
@@ -49,7 +55,9 @@ import {
   SchemaSource,
   SchemaSourceInput,
   SchemaSourceVariant,
-  TypeDefinitionReference
+  TypeDefinitionReference,
+  UntypedInputObject,
+  UntypedSchema
 } from "./types";
 
 /**
@@ -115,7 +123,9 @@ export function extractJsonSchema<
     isSetObject(schema) &&
     (isZod3Type(schema) ||
       isStandardJsonSchema(schema) ||
-      isJsonSchemaObjectType(schema))
+      isJsonSchemaObjectType(schema) ||
+      isUntypedInput(schema) ||
+      isUntypedSchema(schema))
   ) {
     let jsonSchema: unknown;
     if (isZod3Type(schema)) {
@@ -124,6 +134,8 @@ export function extractJsonSchema<
       jsonSchema = schema["~standard"].jsonSchema.input({
         target: "draft-07"
       });
+    } else if (isUntypedInput(schema)) {
+      jsonSchema = schema.$schema;
     } else {
       jsonSchema = schema;
     }
@@ -152,20 +164,24 @@ export function extractResolvedVariant(
       return "zod3";
     } else if (isStandardJsonSchema(input)) {
       return "standard-schema";
+    } else if (isJTDSchema(input)) {
+      return "jtd-schema";
     } else if (isJsonSchemaObjectType(input)) {
       return "json-schema";
     } else if (isType(input)) {
       return "reflection";
+    } else if (isUntypedInput(input) || isUntypedSchema(input)) {
+      return "untyped";
     }
   }
 
   throw new Error(
-    `Failed to determine the variant of the provided schema definition input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a reflected Deepkit Type object.`
+    `Failed to determine the variant of the provided schema definition input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, a reflected Deepkit Type object, or an Untyped schema.`
   );
 }
 
 /**
- * Extracts a schema definition from a given input object, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a reflected Deepkit Type object. The function checks the type of the input and attempts to extract the corresponding schema based on its variant. If the input is a Zod schema, it extracts the JSON Schema using the `extractJsonSchema` function. If the input is a Standard JSON Schema, it retrieves the JSON Schema targeting draft-07. If the input is already a JSON Schema object, it uses it directly. If the input is a reflected Deepkit Type object, it extracts the schema using the `extractReflection` function. The function returns a `Schema` containing the extracted schema and its variant if successful; otherwise, it throws an error.
+ * Extracts a schema definition from a given input object, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, a reflected Deepkit Type object, or an Untyped schema. The function checks the type of the input and attempts to extract the corresponding schema based on its variant. If the input is a Zod schema, it extracts the JSON Schema using the `extractJsonSchema` function. If the input is a Standard JSON Schema, it retrieves the JSON Schema targeting draft-07. If the input is already a JSON Schema object, it uses it directly. If the input is a reflected Deepkit Type object, it extracts the schema using the `extractReflection` function. The function returns a `Schema` containing the extracted schema and its variant if successful; otherwise, it throws an error.
  *
  * @param input - The input object to extract the schema definition from.
  * @returns A `Schema` containing the extracted schema and its variant if successful.
@@ -176,7 +192,7 @@ export function extractVariant(input: SchemaInput): SchemaInputVariant {
     return "type-definition";
   }
 
-  return extractResolvedVariant(input);
+  return extractResolvedVariant(input as SchemaSourceInput);
 }
 
 /**
@@ -201,12 +217,16 @@ export async function extractSchemaSchema<
   const resolvedVariant = variant ?? extractResolvedVariant(input);
 
   let schema: JTDSchemaType<T, D> | undefined;
-  if (resolvedVariant === "zod3") {
-    schema = extractJsonSchema(input);
-  } else if (resolvedVariant === "standard-schema") {
-    schema = extractJsonSchema(input);
-  } else if (resolvedVariant === "json-schema") {
-    schema = extractJsonSchema(input);
+  if (
+    resolvedVariant === "zod3" ||
+    resolvedVariant === "json-schema" ||
+    resolvedVariant === "standard-schema" ||
+    resolvedVariant === "untyped"
+  ) {
+    const jsonSchema = extractJsonSchema(input);
+    if (jsonSchema) {
+      schema = jsonSchemaToJtd(jsonSchema) as JTDSchemaType<T, D>;
+    }
   } else if (resolvedVariant === "reflection") {
     schema = extractReflection(input as Type);
   } else if (resolvedVariant === "jtd-schema") {
@@ -218,12 +238,12 @@ export async function extractSchemaSchema<
   }
 
   throw new Error(
-    `Failed to extract a valid schema from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a reflected Deepkit Type object.`
+    `Failed to extract a valid schema from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, a JTD schema, an untyped schema, or a reflected Deepkit Type object.`
   );
 }
 
 /**
- * Extracts a schema definition from a given input object, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a reflected Deepkit Type object. The function checks the type of the input and attempts to extract the corresponding schema based on its variant. If the input is a Zod schema, it extracts the JSON Schema using the `extractJsonSchema` function. If the input is a Standard JSON Schema, it retrieves the JSON Schema targeting draft-07. If the input is already a JSON Schema object, it uses it directly. If the input is a reflected Deepkit Type object, it extracts the schema using the `extractReflection` function. The function returns a `Schema` containing the extracted schema and its variant if successful; otherwise, it throws an error.
+ * Extracts a schema definition from a given input object, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, a JTD schema, an untyped schema, or a reflected Deepkit Type object. The function checks the type of the input and attempts to extract the corresponding schema based on its variant. If the input is a Zod schema, it extracts the JSON Schema using the `extractJsonSchema` function. If the input is a Standard JSON Schema, it retrieves the JSON Schema targeting draft-07. If the input is already a JSON Schema object, it uses it directly. If the input is a reflected Deepkit Type object, it extracts the schema using the `extractReflection` function. The function returns a `Schema` containing the extracted schema and its variant if successful; otherwise, it throws an error.
  *
  * @param variant - The variant of the schema definition to extract.
  * @param input - The input object to extract the schema definition from.
@@ -239,6 +259,12 @@ export function extractSource<
       hash: extractHash(variant, input),
       variant: "zod3",
       schema: input as z3.ZodTypeAny
+    };
+  } else if (variant === "untyped") {
+    return {
+      hash: extractHash(variant, input),
+      variant: "untyped",
+      schema: input as UntypedInputObject | UntypedSchema
     };
   } else if (variant === "standard-schema") {
     return {
@@ -267,7 +293,7 @@ export function extractSource<
   }
 
   throw new Error(
-    `Failed to extract source information from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a reflected Deepkit Type object.`
+    `Failed to extract source information from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, a JTD schema, an untyped schema, or a reflected Deepkit Type object.`
   );
 }
 
@@ -338,15 +364,16 @@ export async function extractSchema<
       "jtd-schema",
       "standard-schema",
       "zod3",
+      "untyped",
       "reflection"
     ].includes(variant)
   ) {
-    source = extractSource(variant, input);
+    source = extractSource(variant, input as SchemaSourceInput);
   } else {
     throw new Error(
       `Invalid schema definition input "${
         variant
-      }". The variant must be one of "type-definition", "json-schema", "jtd-schema", "standard-schema", "zod3", or "reflection".`
+      }". The variant must be one of "type-definition", "json-schema", "jtd-schema", "standard-schema", "zod3", "untyped", or "reflection".`
     );
   }
 
@@ -377,10 +404,12 @@ export async function extractSchema<
  * @see https://standardschema.dev/json-schema#what-schema-libraries-support-this-spec
  * @see https://json-schema.org/
  * @see https://ajv.js.org/json-type-definition.html
+ * @see https://deepkit.io/en/documentation/runtime-types/reflection
+ * @see https://github.com/unjs/untyped
  * @see https://www.typescriptlang.org/docs/handbook/2/types-from-types.html
  *
  * @param context - The {@link Context | context} used for resolving the {@link Schema | schema} definition input.
- * @param input - The input object or string to extract the {@link Schema | schema} from. This can be {@link TypeDefinitionReference | a string that references a Typescript module}, a [Zod v3 schema](https://github.com/colinhacks/zod), any type that adheres to [the Standard JSON Schema specification](https://standardschema.dev/json-schema#what-schema-libraries-support-this-spec), a [JSON Schema object](https://json-schema.org/), a [JTD schema object](https://ajv.js.org/json-type-definition.html), or a [TypeScript type reflection](https://deepkit.io/en/documentation/runtime-types/reflection).
+ * @param input - The input object or string to extract the {@link Schema | schema} from. This can be {@link TypeDefinitionReference | a string that references a Typescript module}, a [Zod v3 schema](https://github.com/colinhacks/zod), any type that adheres to [the Standard JSON Schema specification](https://standardschema.dev/json-schema#what-schema-libraries-support-this-spec), a [JSON Schema object](https://json-schema.org/), a [JTD schema object](https://ajv.js.org/json-type-definition.html), an [untyped schema](https://github.com/unjs/untyped), or a [TypeScript type reflection](https://deepkit.io/en/documentation/runtime-types/reflection).
  * @param options - Optional overrides for the [ESBuild configuration](https://esbuild.github.io/api/#general-options) used during resolution.
  * @returns A promise that resolves to a {@link Schema | schema} object parsed from the input.
  */

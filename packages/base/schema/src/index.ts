@@ -18,8 +18,8 @@
 
 export * from "./bundle";
 export * from "./extract";
-export * from "./is-schema";
 export * from "./jtd";
 export * from "./reflection";
 export * from "./resolve";
+export * from "./type-checks";
 export * from "./types";

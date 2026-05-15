@@ -66,6 +66,7 @@
   "files": ["dist"],
   "dependencies": {
     "@powerlines/schema": "workspace:*",
+    "@storm-software/config-tools": "catalog:",
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
@@ -79,8 +80,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "inlinedDependencies": {
-    "@storm-software/config-tools": "1.190.11"
   }
 }
