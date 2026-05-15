@@ -8,9 +8,8 @@
       },
       "packages": {
         "projects": [
-          "!packages/devtools/cli",
-          "!packages/base/*",
-          "!tools/*",
+          "!{name}:cli",
+          "packages/devtools/*",
           "packages/plugins/*"
         ],
         "projectsRelationship": "independent"
