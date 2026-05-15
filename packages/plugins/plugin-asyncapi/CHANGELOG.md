@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Asyncapi
 
+## [0.1.484](https://github.com/storm-software/powerlines/releases/tag/plugin-asyncapi%400.1.484) (05/15/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.431**
+- Updated **powerlines** to **v0.47.19**
+
 ## [0.1.483](https://github.com/storm-software/powerlines/releases/tag/plugin-asyncapi%400.1.483) (05/15/2026)
 
 ### Updated Dependencies
