@@ -74,24 +74,24 @@ catalog:
   '@shell-shock/preset-cli': ^0.9.22
   '@sinclair/typebox': ^0.34.49
   '@standard-schema/spec': ^1.1.0
-  '@storm-software/build-tools': ^0.158.171
-  '@storm-software/config': ^1.137.44
-  '@storm-software/config-tools': ^1.190.11
-  '@storm-software/cspell': ^0.46.80
-  '@storm-software/esbuild': ^0.53.172
-  '@storm-software/eslint': ^0.170.32
-  '@storm-software/git-tools': ^2.131.12
-  '@storm-software/linting-tools': ^1.133.41
-  '@storm-software/markdownlint': ^0.30.168
-  '@storm-software/pnpm-tools': ^0.7.21
-  '@storm-software/prettier': ^0.59.64
-  '@storm-software/testing-tools': ^1.119.165
-  '@storm-software/tsconfig': ^0.48.79
-  '@storm-software/tsdoc': ^0.13.165
-  '@storm-software/tsup': ^0.2.169
-  '@storm-software/unbuild': ^0.57.172
-  '@storm-software/untyped': ^0.24.153
-  '@storm-software/workspace-tools': ^1.295.71
+  '@storm-software/build-tools': ^0.158.173
+  '@storm-software/config': ^1.137.46
+  '@storm-software/config-tools': ^1.190.13
+  '@storm-software/cspell': ^0.46.82
+  '@storm-software/esbuild': ^0.53.174
+  '@storm-software/eslint': ^0.170.34
+  '@storm-software/git-tools': ^2.131.14
+  '@storm-software/linting-tools': ^1.133.43
+  '@storm-software/markdownlint': ^0.30.170
+  '@storm-software/pnpm-tools': ^0.7.23
+  '@storm-software/prettier': ^0.59.66
+  '@storm-software/testing-tools': ^1.119.167
+  '@storm-software/tsconfig': ^0.48.81
+  '@storm-software/tsdoc': ^0.13.167
+  '@storm-software/tsup': ^0.2.171
+  '@storm-software/unbuild': ^0.57.174
+  '@storm-software/untyped': ^0.24.155
+  '@storm-software/workspace-tools': ^1.295.73
   '@stryke/async': ^0.1.5
   '@stryke/capnp': ^0.12.102
   '@stryke/cli': ^0.13.48
@@ -130,6 +130,7 @@ catalog:
   '@types/semver': ^7.7.1
   '@types/unist': ^3.0.3
   '@vitejs/plugin-react': ^5.2.0
+  ajv: ^8.20.0
   automd: ^0.4.3
   babel-plugin-react-compiler: ^1.0.0
   birpc: ^4.0.0
@@ -218,7 +219,7 @@ catalog:
   verdaccio: 6.5.2
   vite: ^8.0.13
   webpack: ^5.106.2
-  wrangler: ^4.91.0
+  wrangler: ^4.92.0
   zod: ^4.4.3
   zx: ^8.8.5
 

@@ -18,19 +18,72 @@
 
 import { Type } from "@powerlines/deepkit/vendor/type";
 import type { StandardJSONSchemaV1 } from "@standard-schema/spec";
-import type { JsonSchemaType } from "@stryke/json";
+import { JsonSchemaType } from "@stryke/json/types";
 import type { TypeDefinition } from "@stryke/types/configuration";
+import { JTDSchemaType } from "ajv/dist/types/jtd-schema";
 import * as z3 from "zod/v3";
+
+/**
+ * The set of numeric `type` strings supported by JSON Type Definition (RFC 8927).
+ */
+export type JtdNumberType =
+  | "float32"
+  | "float64"
+  | "int8"
+  | "uint8"
+  | "int16"
+  | "uint16"
+  | "int32"
+  | "uint32";
+
+/**
+ * The set of `type` strings supported by JSON Type Definition (RFC 8927).
+ */
+export type JtdType = JtdNumberType | "string" | "timestamp" | "boolean";
+
+export interface JsonSchemaLike {
+  type?: string | string[];
+  format?: string;
+  enum?: unknown[];
+  const?: unknown;
+  items?: JsonSchemaLike | JsonSchemaLike[];
+  properties?: Record<string, JsonSchemaLike>;
+  patternProperties?: Record<string, JsonSchemaLike>;
+  additionalProperties?: boolean | JsonSchemaLike;
+  required?: string[];
+  anyOf?: JsonSchemaLike[];
+  oneOf?: JsonSchemaLike[];
+  allOf?: JsonSchemaLike[];
+  $ref?: string;
+  description?: string;
+  title?: string;
+  default?: unknown;
+  examples?: unknown[];
+  minimum?: number;
+  maximum?: number;
+  exclusiveMinimum?: number | boolean;
+  exclusiveMaximum?: number | boolean;
+  nullable?: boolean;
+  definitions?: Record<string, JsonSchemaLike>;
+  $defs?: Record<string, JsonSchemaLike>;
+  discriminator?: { propertyName?: string } | string;
+  [key: string]: unknown;
+}
 
 export type SchemaSourceVariant =
   | "json-schema"
+  | "jtd-schema"
   | "standard-schema"
   | "zod3"
   | "reflection";
 
 export type SchemaInputVariant = SchemaSourceVariant | "type-definition";
 
-export type SchemaSourceInput =
+export type SchemaSourceInput<
+  T = unknown,
+  D extends Record<string, unknown> = Record<string, unknown>
+> =
+  | JTDSchemaType<T, D>
   | JsonSchemaType
   | StandardJSONSchemaV1
   | z3.ZodTypeAny
@@ -40,16 +93,27 @@ export type TypeDefinitionReference = TypeDefinition | string;
 
 export type SchemaInput = SchemaSourceInput | Schema | TypeDefinitionReference;
 
-export interface Schema<TSchema extends JsonSchemaType = JsonSchemaType> {
+export interface Schema<
+  T = unknown,
+  D extends Record<string, unknown> = Record<string, unknown>
+> {
   hash: string;
   variant: SchemaInputVariant;
-  schema: TSchema;
+  schema: JTDSchemaType<T, D>;
 }
 
 export interface BaseSchemaSource {
   hash: string;
   variant: SchemaSourceVariant;
   schema: SchemaSourceInput;
+}
+
+export interface JTDSchemaSchemaSource<
+  T = unknown,
+  D extends Record<string, unknown> = Record<string, unknown>
+> extends BaseSchemaSource {
+  variant: "jtd-schema";
+  schema: JTDSchemaType<T, D>;
 }
 
 export interface JsonSchemaSchemaSource extends BaseSchemaSource {
@@ -74,12 +138,14 @@ export interface ReflectionSchemaSource extends BaseSchemaSource {
 
 export type SchemaSource =
   | JsonSchemaSchemaSource
+  | JTDSchemaSchemaSource
   | StandardSchemaSchemaSource
   | Zod3SchemaSource
   | ReflectionSchemaSource;
 
 export interface ExtractedSchema<
-  TSchema extends JsonSchemaType = JsonSchemaType
-> extends Schema<TSchema> {
+  T = unknown,
+  D extends Record<string, unknown> = Record<string, unknown>
+> extends Schema<T, D> {
   source: SchemaSource;
 }

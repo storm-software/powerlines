@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { PluginContext } from "@powerlines/core";
+import { PluginContext, UnresolvedContext } from "@powerlines/core";
 import { esbuildPlugin } from "@powerlines/deepkit/esbuild-plugin";
 import { reflect, Type } from "@powerlines/deepkit/vendor/type";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
@@ -37,7 +37,7 @@ import { TypeDefinitionReference } from "./types";
  */
 export async function resolveModule<
   TResult,
-  TContext extends PluginContext = PluginContext
+  TContext extends UnresolvedContext = UnresolvedContext
 >(
   context: TContext,
   type: TypeDefinitionReference,
@@ -117,7 +117,7 @@ ${result.text}`
  */
 export async function resolve<
   TResult,
-  TContext extends PluginContext = PluginContext
+  TContext extends UnresolvedContext = UnresolvedContext
 >(
   context: TContext,
   input: TypeDefinitionReference,

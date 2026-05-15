@@ -16,24 +16,29 @@
 
  ------------------------------------------------------------------- */
 
-import type { PluginContext } from "@powerlines/core";
+import type { Context } from "@powerlines/core";
 import { isTypeDefinition } from "@powerlines/core";
 import { esbuildPlugin } from "@powerlines/deepkit/esbuild-plugin";
 import { isType, stringifyType, Type } from "@powerlines/deepkit/vendor/type";
 import { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import { murmurhash } from "@stryke/hash";
-import type { JsonSchemaType } from "@stryke/json";
-import { isJsonSchemaObjectType, isStandardJsonSchema } from "@stryke/json";
+import {
+  isJsonSchemaObjectType,
+  isStandardJsonSchema,
+  JsonSchemaType
+} from "@stryke/json";
 import { isSetString } from "@stryke/type-checks";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import {
   extractJsonSchema as extractJsonSchemaZod,
   isZod3Type
 } from "@stryke/zod";
+import { JTDSchemaType } from "ajv/dist/types/jtd-schema";
 import defu from "defu";
 import type { BuildOptions } from "esbuild";
 import * as z3 from "zod/v3";
 import { isExtractedSchema, isSchema } from "./is-schema";
+import { jsonSchemaToJtd } from "./jtd";
 import { reflectionToJsonSchema } from "./reflection";
 import { resolve } from "./resolve";
 import {
@@ -82,9 +87,10 @@ export function extractHash(
  * @param reflection - The reflected Deepkit Type to convert.
  * @returns A JSON Schema (draft-07) fragment representing the type, or `undefined` when no schema could be produced.
  */
-export function extractReflection(
-  reflection: Type
-): JsonSchemaType | undefined {
+export function extractReflection<
+  T = unknown,
+  D extends Record<string, unknown> = Record<string, unknown>
+>(reflection: Type): JTDSchemaType<T, D> | undefined {
   if (!isType(reflection)) {
     return undefined;
   }
@@ -93,22 +99,25 @@ export function extractReflection(
 }
 
 /**
- * Extracts a JSON Schema object from a given schema definition, if possible.
+ * Extracts a JSON Type Definition (RFC 8927) schema from a given schema definition, if possible.
  *
  * @remarks
- * This function checks if the provided schema is a Zod schema, a Standard JSON Schema, or already a JSON Schema object. If it is a Zod schema, it extracts the corresponding JSON Schema. If it is a Standard JSON Schema, it retrieves the input JSON Schema targeting draft-07. Finally, it checks if the resulting JSON Schema is an object type and returns it if so.
+ * This function checks if the provided input is a Zod schema, a Standard JSON Schema, or already a JSON Schema object, extracts a JSON Schema fragment via the appropriate adapter (Zod and Standard Schema produce draft-07 fragments), and then converts that fragment into a valid JTD form suitable for AJV's JTD validator.
  *
- * @param schema - The schema definition to extract the JSON Schema from. This can be a Zod schema, a Standard JSON Schema, or a JSON Schema object.
- * @returns The extracted JSON Schema (draft-07) object if successful, otherwise undefined.
+ * @param schema - The schema definition to extract from. This can be a Zod schema, a Standard JSON Schema, or a JSON Schema object.
+ * @returns The extracted JTD schema if successful, otherwise undefined.
  */
-export function extractJsonSchema(schema: unknown): JsonSchemaType | undefined {
+export function extractJsonSchema<
+  T = unknown,
+  D extends Record<string, unknown> = Record<string, unknown>
+>(schema: unknown): JTDSchemaType<T, D> | undefined {
   if (
     isSetObject(schema) &&
     (isZod3Type(schema) ||
       isStandardJsonSchema(schema) ||
       isJsonSchemaObjectType(schema))
   ) {
-    let jsonSchema: JsonSchemaType;
+    let jsonSchema: unknown;
     if (isZod3Type(schema)) {
       jsonSchema = extractJsonSchemaZod(schema);
     } else if (isStandardJsonSchema(schema)) {
@@ -119,8 +128,9 @@ export function extractJsonSchema(schema: unknown): JsonSchemaType | undefined {
       jsonSchema = schema;
     }
 
-    if (isJsonSchemaObjectType(jsonSchema)) {
-      return jsonSchema;
+    const jtd = jsonSchemaToJtd(jsonSchema as Record<string, unknown>);
+    if (jtd) {
+      return jtd as JTDSchemaType<T, D>;
     }
   }
 
@@ -178,23 +188,29 @@ export function extractVariant(input: SchemaInput): SchemaInputVariant {
  * @throws An error if the input does not contain a valid schema definition.
  */
 export async function extractSchemaSchema<
-  TSchema extends JsonSchemaType = JsonSchemaType
->(input: SchemaSourceInput, variant?: SchemaInputVariant): Promise<TSchema> {
-  if (isExtractedSchema<TSchema>(input)) {
+  T = unknown,
+  D extends Record<string, unknown> = Record<string, unknown>
+>(
+  input: SchemaSourceInput,
+  variant?: SchemaInputVariant
+): Promise<JTDSchemaType<T, D>> {
+  if (isExtractedSchema<T, D>(input)) {
     return input.schema;
   }
 
   const resolvedVariant = variant ?? extractResolvedVariant(input);
 
-  let schema: TSchema | undefined;
+  let schema: JTDSchemaType<T, D> | undefined;
   if (resolvedVariant === "zod3") {
-    schema = extractJsonSchema(input) as TSchema;
+    schema = extractJsonSchema(input);
   } else if (resolvedVariant === "standard-schema") {
-    schema = extractJsonSchema(input) as TSchema;
+    schema = extractJsonSchema(input);
   } else if (resolvedVariant === "json-schema") {
-    schema = extractJsonSchema(input) as TSchema;
+    schema = extractJsonSchema(input);
   } else if (resolvedVariant === "reflection") {
-    schema = extractReflection(input as Type) as TSchema;
+    schema = extractReflection(input as Type);
+  } else if (resolvedVariant === "jtd-schema") {
+    schema = input as JTDSchemaType<T, D>;
   }
 
   if (schema) {
@@ -214,10 +230,10 @@ export async function extractSchemaSchema<
  * @returns A `Schema` containing the extracted schema and its variant if successful.
  * @throws An error if the input does not contain a valid schema definition.
  */
-export function extractSource(
-  variant: SchemaSourceVariant,
-  input: SchemaSourceInput
-): SchemaSource {
+export function extractSource<
+  T = unknown,
+  D extends Record<string, unknown> = Record<string, unknown>
+>(variant: SchemaSourceVariant, input: SchemaSourceInput): SchemaSource {
   if (variant === "zod3") {
     return {
       hash: extractHash(variant, input),
@@ -241,6 +257,12 @@ export function extractSource(
       hash: extractHash(variant, input),
       variant: "reflection",
       schema: input as Type
+    };
+  } else if (variant === "jtd-schema") {
+    return {
+      hash: extractHash(variant, input),
+      variant: "jtd-schema",
+      schema: input as JTDSchemaType<T, D>
     };
   }
 
@@ -270,22 +292,23 @@ export function extractSource(
  * @returns A promise that resolves to a {@link ExtractedSchema} containing the extracted JSON Schema and its variant, or the bytecode if JSON Schema extraction is not possible.
  */
 export async function extractSchema<
-  TSchema extends JsonSchemaType = JsonSchemaType,
-  TContext extends PluginContext = PluginContext
+  T = unknown,
+  D extends Record<string, unknown> = Record<string, unknown>,
+  TContext extends Context = Context
 >(
   context: TContext,
   input: SchemaInput,
   options: Partial<BuildOptions> = {}
-): Promise<ExtractedSchema<TSchema>> {
-  if (isExtractedSchema<TSchema>(input)) {
+): Promise<ExtractedSchema<JTDSchemaType<T, D>>> {
+  if (isExtractedSchema<JTDSchemaType<T, D>>(input)) {
     return input;
   }
-  if (isSchema<TSchema>(input)) {
+  if (isSchema<JTDSchemaType<T, D>>(input)) {
     return {
       ...input,
       source: {
-        hash: extractHash("json-schema", input.schema),
-        variant: "json-schema",
+        hash: extractHash("jtd-schema", input.schema),
+        variant: "jtd-schema",
         schema: input.schema
       }
     };
@@ -310,14 +333,20 @@ export async function extractSchema<
 
     source = extractSource(extractResolvedVariant(resolved), resolved);
   } else if (
-    ["json-schema", "standard-schema", "zod3", "reflection"].includes(variant)
+    [
+      "json-schema",
+      "jtd-schema",
+      "standard-schema",
+      "zod3",
+      "reflection"
+    ].includes(variant)
   ) {
     source = extractSource(variant, input);
   } else {
     throw new Error(
       `Invalid schema definition input "${
         variant
-      }". The variant must be one of "type-definition", "json-schema", "standard-schema", "zod3", or "reflection".`
+      }". The variant must be one of "type-definition", "json-schema", "jtd-schema", "standard-schema", "zod3", or "reflection".`
     );
   }
 
@@ -344,20 +373,27 @@ export async function extractSchema<
  * const schema4 = await extract(context, reflectionType);
  * ```
  *
- * @param context - The plugin context used for resolving the schema definition input.
- * @param input - The schema definition input to extract the JSON Schema from. This can be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a TypeScript type definition.
- * @param options - Optional overrides for the ESBuild configuration used during resolution.
- * @returns A promise that resolves to a {@link Schema} object parsed from the input.
+ * @see https://github.com/colinhacks/zod
+ * @see https://standardschema.dev/json-schema#what-schema-libraries-support-this-spec
+ * @see https://json-schema.org/
+ * @see https://ajv.js.org/json-type-definition.html
+ * @see https://www.typescriptlang.org/docs/handbook/2/types-from-types.html
+ *
+ * @param context - The {@link Context | context} used for resolving the {@link Schema | schema} definition input.
+ * @param input - The input object or string to extract the {@link Schema | schema} from. This can be {@link TypeDefinitionReference | a string that references a Typescript module}, a [Zod v3 schema](https://github.com/colinhacks/zod), any type that adheres to [the Standard JSON Schema specification](https://standardschema.dev/json-schema#what-schema-libraries-support-this-spec), a [JSON Schema object](https://json-schema.org/), a [JTD schema object](https://ajv.js.org/json-type-definition.html), or a [TypeScript type reflection](https://deepkit.io/en/documentation/runtime-types/reflection).
+ * @param options - Optional overrides for the [ESBuild configuration](https://esbuild.github.io/api/#general-options) used during resolution.
+ * @returns A promise that resolves to a {@link Schema | schema} object parsed from the input.
  */
 export async function extract<
-  TSchema extends JsonSchemaType = JsonSchemaType,
-  TContext extends PluginContext = PluginContext
+  T = unknown,
+  D extends Record<string, unknown> = Record<string, unknown>,
+  TContext extends Context = Context
 >(
   context: TContext,
   input: SchemaInput,
   options: Partial<BuildOptions> = {}
-): Promise<Schema<TSchema>> {
-  const result = await extractSchema<TSchema>(context, input, options);
+): Promise<Schema<JTDSchemaType<T, D>>> {
+  const result = await extractSchema<T, D>(context, input, options);
 
   return result;
 }

@@ -96,6 +96,7 @@
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "@stryke/zod": "catalog:",
+    "ajv": "catalog:",
     "defu": "catalog:",
     "esbuild": "catalog:",
     "typescript": "^6.0.3"

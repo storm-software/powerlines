@@ -32,7 +32,7 @@ This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
-> [!IMPORTANT] 
+> [!IMPORTANT]
 > This repository, and the apps, libraries, and tools contained within, is still in it's initial development phase. As a result, bugs and issues are expected with it's usage. When the main development phase completes, a proper release will be performed, the packages will be available through NPM (and other distributions), and this message will be removed. However, in the meantime, please feel free to report any issues you may come across.
 
 <!-- markdownlint-restore -->
@@ -49,28 +49,39 @@ This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "
 
 <!-- END header -->
 
-# Powerlines - Deepkit Transform Plugin
+# Powerlines - Schema Package
 
-A package containing the Deepkit plugin for Powerlines, various helper utilities, and shared configurations.
+A package for extracting and resolving JSON Schemas from various input formats, including TypeScript type definitions, Zod schemas, and JSON Schema objects. This package is built on top of the Deepkit Type System and provides a powerful and flexible way to work with schemas in your TypeScript projects.
+
+The input can be one of the following formats:
+
+- A string that references a Typescript module's export
+- A [Zod v3 schema](https://github.com/colinhacks/zod)
+- Any type that adheres to [the Standard JSON Schema specification](https://standardschema.dev/json-schema#what-schema-libraries-support-this-spec)
+- A [JSON Schema object](https://json-schema.org/)
+- A [JTD schema object](https://ajv.js.org/json-type-definition.html)
+- A [TypeScript type reflection](https://deepkit.io/en/documentation/runtime-types/reflection)
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 ## Table of Contents
 
-- [Installing](#installing)
-- [Reduced Package Size](#reduced-package-size)
-- [Development](#development)
-  - [Building](#building)
-  - [Running unit tests](#running-unit-tests)
-  - [Linting](#linting)
-- [Storm Workspaces](#storm-workspaces)
-- [Roadmap](#roadmap)
-- [Support](#support)
-- [License](#license)
-- [Changelog](#changelog)
-- [Contributing](#contributing)
-- [Contributors](#contributors)
+- [Powerlines - Schema Package](#powerlines---schema-package)
+  - [Table of Contents](#table-of-contents)
+  - [Installing](#installing)
+  - [Reduced Package Size](#reduced-package-size)
+  - [Development](#development)
+    - [Building](#building)
+    - [Running unit tests](#running-unit-tests)
+    - [Linting](#linting)
+  - [Storm Workspaces](#storm-workspaces)
+  - [Roadmap](#roadmap)
+  - [Support](#support)
+  - [License](#license)
+  - [Changelog](#changelog)
+  - [Contributing](#contributing)
+  - [Contributors](#contributors)
 
 <!-- END doctoc -->
 
@@ -79,14 +90,14 @@ A package containing the Deepkit plugin for Powerlines, various helper utilities
 Using [pnpm](http://pnpm.io):
 
 ```bash
-pnpm add @powerlines/plugin-deepkit
+pnpm add @powerlines/schema
 ```
 
 <details>
   <summary>Using npm</summary>
 
 ```bash
-npm install @powerlines/plugin-deepkit
+npm install @powerlines/schema
 ```
 
 </details>
@@ -95,7 +106,7 @@ npm install @powerlines/plugin-deepkit
   <summary>Using yarn</summary>
 
 ```bash
-yarn add @powerlines/plugin-deepkit
+yarn add @powerlines/schema
 ```
 
 </details>
@@ -114,16 +125,16 @@ commands are available to assist in development.
 
 ### Building
 
-Run `nx build plugin-deepkit` to build the library.
+Run `nx build schema` to build the library.
 
 ### Running unit tests
 
-Run `nx test plugin-deepkit` to execute the unit tests via
+Run `nx test schema` to execute the unit tests via
 [Jest](https://jestjs.io).
 
 ### Linting
 
-Run `nx lint plugin-deepkit` to run
+Run `nx lint schema` to run
 [ESLint](https://eslint.org/) on the package.
 
 <!-- START footer -->

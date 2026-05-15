@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import type { PluginContext } from "@powerlines/core";
+import type { Context } from "@powerlines/core";
 import { Level, Mode } from "@powerlines/deepkit/vendor/type-compiler/config";
 import { omit } from "@stryke/helpers/omit";
 import { isString } from "@stryke/type-checks";
@@ -67,7 +67,7 @@ export interface ESBuildPluginOptions extends Partial<ReflectionConfig> {
  * @param options - Optional esbuild onLoad options and reflection configuration.
  * @returns An esbuild plugin instance.
  */
-export const esbuildPlugin = <TContext extends PluginContext>(
+export const esbuildPlugin = <TContext extends Context>(
   context: TContext,
   options: ESBuildPluginOptions = {}
 ): Plugin => {
