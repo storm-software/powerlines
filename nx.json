@@ -2,17 +2,8 @@
   "extends": "@storm-software/workspace-tools/config/recommended.json",
   "release": {
     "groups": {
-      "base": {
-        "projects": ["packages/base/*"],
-        "projectsRelationship": "fixed"
-      },
       "packages": {
-        "projects": [
-          "!{name}:cli",
-          "!{name}:monorepo",
-          "!tools/*",
-          "!packages/base/*"
-        ],
+        "projects": ["!{name}:cli", "!{name}:monorepo", "!tools/*"],
         "projectsRelationship": "independent"
       }
     }
