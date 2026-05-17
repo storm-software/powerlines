@@ -132,10 +132,9 @@
   "bin": {
     "deepkit-install": "bin/deepkit-install.cjs"
   },
-  "files": ["bin/*", "dist/**/*", "schemas/*"],
+  "files": ["bin", "dist", "schemas"],
   "dependencies": {
     "@powerlines/core": "workspace:*",
-    "@powerlines/plugin-esbuild": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/fs": "catalog:",
