@@ -18,7 +18,7 @@
 
 import { PromiseExecutor } from "@nx/devkit";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
-import type { PowerlinesEngine } from "powerlines";
+import type { PowerlinesEngine } from "powerlines/engine";
 import {
   PowerlinesExecutorContext,
   withExecutor

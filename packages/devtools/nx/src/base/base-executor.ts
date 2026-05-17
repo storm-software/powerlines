@@ -32,9 +32,9 @@ import type {
   InlineConfig,
   Mode,
   OutputConfig,
-  PowerlinesCommand,
-  PowerlinesEngine
+  PowerlinesCommand
 } from "powerlines";
+import type { PowerlinesEngine } from "powerlines/engine";
 import { BaseExecutorSchema } from "./base-executor.schema";
 
 export type PowerlinesExecutorContext<
@@ -101,8 +101,8 @@ export function withExecutor<
 
       const jiti = createJiti(context.root, { cache: false });
       const { createPowerlines } = await jiti.import<{
-        createPowerlines: typeof import("powerlines").createPowerlines;
-      }>(jiti.esmResolve("powerlines"));
+        createPowerlines: typeof import("powerlines/engine").createPowerlines;
+      }>(jiti.esmResolve("powerlines/engine"));
 
       const api = await createPowerlines({
         cwd: context.root,

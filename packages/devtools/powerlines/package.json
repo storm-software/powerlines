@@ -71,6 +71,10 @@
       "import": "./dist/constants.mjs",
       "require": "./dist/constants.cjs"
     },
+    "./engine": {
+      "import": "./dist/engine.mjs",
+      "require": "./dist/engine.cjs"
+    },
     "./esbuild": {
       "import": "./dist/esbuild.mjs",
       "require": "./dist/esbuild.cjs"

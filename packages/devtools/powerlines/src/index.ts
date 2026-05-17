@@ -17,37 +17,15 @@
  ------------------------------------------------------------------- */
 
 /**
- * The powerlines library used by Storm Software for building NodeJS applications.
+ * The main entry point for the Powerlines library, which provides a build toolkit and runtime for NodeJS applications.
  *
  * @remarks
- * A build toolkit and runtime used by Storm Software in TypeScript applications
+ * Powerlines is a build toolkit and runtime used by Storm Software in TypeScript applications, designed to streamline development and enhance productivity. It offers a powerful engine for executing build tasks, a flexible plugin system for extending functionality, and a rich set of utilities for working with schemas, code generation, and more.
  *
  * @packageDocumentation
  */
 
-import type { EngineOptions } from "@powerlines/engine";
-import { createEngine } from "@powerlines/engine";
-import { titleCase } from "@stryke/string-format/title-case";
-import packageJson from "../package.json" with { type: "json" };
-
+export * from "./config";
+export * from "./plugin-utils";
+export * from "./storage";
 export type * from "./types";
-
-/**
- * Creates a new {@link PowerlinesEngine} instance.
- *
- * @param options - The user configuration options.
- * @returns A promise that resolves to a {@link PowerlinesEngine} instance.
- */
-export async function createPowerlines(
-  options: Omit<EngineOptions, "framework">
-) {
-  const engine = await createEngine(options);
-
-  engine.context.info(
-    `🔌 ${titleCase(engine.context.framework.name)} Engine v${
-      engine.context.framework.version || packageJson.version
-    } is running...`
-  );
-
-  return engine;
-}

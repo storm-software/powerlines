@@ -16,29 +16,29 @@
 
  ------------------------------------------------------------------- */
 
-import { PromiseExecutor } from "@nx/devkit";
-import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
-import type { PowerlinesEngine } from "powerlines/engine";
-import {
-  PowerlinesExecutorContext,
-  withExecutor
-} from "../../base/base-executor";
-import { PrepareExecutorSchema } from "./schema";
+import type { EngineOptions } from "@powerlines/engine";
+import { createEngine } from "@powerlines/engine";
+import { titleCase } from "@stryke/string-format/title-case";
 
-async function executorFn(
-  context: PowerlinesExecutorContext<"prepare", PrepareExecutorSchema>,
-  api: PowerlinesEngine
-): Promise<BaseExecutorResult> {
-  await api.prepare(context.inlineConfig);
+export type * from "@powerlines/engine";
+export type * from "@powerlines/engine/context";
 
-  return {
-    success: true
-  };
+/**
+ * Creates a new {@link PowerlinesEngine} instance.
+ *
+ * @param options - The user configuration options.
+ * @returns A promise that resolves to a {@link PowerlinesEngine} instance.
+ */
+export async function createPowerlines(
+  options: Omit<EngineOptions, "framework">
+) {
+  const engine = await createEngine(options);
+
+  engine.context.info(
+    `🔌 ${titleCase(engine.context.framework.name)} Engine v${
+      engine.context.framework.version || "1.0.0"
+    } is running...`
+  );
+
+  return engine;
 }
-
-const executor: PromiseExecutor<PrepareExecutorSchema> = withExecutor<
-  "prepare",
-  PrepareExecutorSchema
->("prepare", executorFn);
-
-export default executor;

@@ -18,5 +18,6 @@
 
 // Re-export all types from the core package, as well as any additional types defined in this package
 export type * from "@powerlines/core";
-export type * from "@powerlines/engine";
+export type * from "@powerlines/engine/context";
+export type * from "@powerlines/engine/types";
 export type * from "@powerlines/unplugin";
