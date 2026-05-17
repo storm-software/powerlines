@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.9.12](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.12) (05/17/2026)
+
+### Miscellaneous
+
+- **deepkit:** Remove invalid inter-project dependencies ([bd74d29b1](https://github.com/storm-software/powerlines/commit/bd74d29b1))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.15.13**
+
 ## [0.9.11](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.11) (05/17/2026)
 
 ### Updated Dependencies
