@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.15.5](https://github.com/storm-software/powerlines/releases/tag/engine%400.15.5) (05/17/2026)
+
+### Miscellaneous
+
+- **core:** Allow passing `plugins` as inline configuration parameters ([298ce2d30](https://github.com/storm-software/powerlines/commit/298ce2d30))
+- **core:** Update types to include missing Options parameters ([76b25247d](https://github.com/storm-software/powerlines/commit/76b25247d))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.15.5**
+
 ## [0.15.4](https://github.com/storm-software/powerlines/releases/tag/engine%400.15.4) (05/17/2026)
 
 ### Updated Dependencies
