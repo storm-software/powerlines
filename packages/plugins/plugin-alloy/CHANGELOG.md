@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.112](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.112) (05/17/2026)
+
+### Miscellaneous
+
+- **core:** Typescript type definition clean up ([3acbdf0aa](https://github.com/storm-software/powerlines/commit/3acbdf0aa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.441**
+- Updated **plugin-babel** to **v0.13.26**
+- Updated **powerlines** to **v0.47.29**
+- Updated **deepkit** to **v0.9.9**
+- Updated **core** to **v0.15.10**
+
 ## [0.26.111](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.111) (05/17/2026)
 
 ### Updated Dependencies

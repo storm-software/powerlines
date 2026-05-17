@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.15.10](https://github.com/storm-software/powerlines/releases/tag/core%400.15.10) (05/17/2026)
+
+### Miscellaneous
+
+- **core:** Typescript type definition clean up ([3acbdf0aa](https://github.com/storm-software/powerlines/commit/3acbdf0aa))
+
 ## [0.15.6](https://github.com/storm-software/powerlines/releases/tag/core%400.15.6) (05/17/2026)
 
 ### Bug Fixes
