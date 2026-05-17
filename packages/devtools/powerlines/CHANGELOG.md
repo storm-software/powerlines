@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.30](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.30) (05/17/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update module exports to reduce unneeded bundling ([60e7c4710](https://github.com/storm-software/powerlines/commit/60e7c4710))
+
 ## [0.47.29](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.29) (05/17/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.68](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.68) (05/17/2026)
+
+### Miscellaneous
+
+- **powerlines:** Update module exports to reduce unneeded bundling ([60e7c4710](https://github.com/storm-software/powerlines/commit/60e7c4710))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.30**
+
 ## [0.13.67](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.67) (05/17/2026)
 
 ### Updated Dependencies
