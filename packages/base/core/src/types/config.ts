@@ -435,6 +435,16 @@ export interface Config {
   compatibilityDate?: CompatibilityDateSpec;
 
   /**
+   * The log level label indicating the severity of the log message, or a more detailed log level configuration object that allows for specifying different log levels for different categories of logs.
+   *
+   * @remarks
+   * The log level determines the minimum severity of messages that will be logged. For example, if the log level is set to `LogLevel.INFO`, then messages with a severity of `INFO`, `WARN`, and `ERROR` will be logged, while messages with a severity of `DEBUG` and `TRACE` will be ignored. Setting the log level to `LogLevel.SILENT` will disable all logging. Alternatively, you can provide a more detailed configuration object that allows you to specify different log levels for different categories of logs, providing granular control over the logging behavior for different aspects of the system.
+   *
+   * @defaultValue "info"
+   */
+  logLevel?: LogLevelUserConfig;
+
+  /**
    * Configuration for module resolution during processing of the source code
    */
   resolve?: ResolveConfig;

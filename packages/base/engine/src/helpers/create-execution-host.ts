@@ -16,20 +16,20 @@
 
  ------------------------------------------------------------------- */
 
-import { InlineConfig, LogFnMeta } from "@powerlines/core";
+import type { InlineConfig, LogFnMeta } from "@powerlines/core";
 import { PowerlinesExecutionContext } from "@powerlines/core/context/execution-context";
 import { resolvePluginConfig } from "@powerlines/core/lib/context-helpers";
 import { consoleLogger } from "@powerlines/core/plugin-utils";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
-import { DeepPartial, MaybePromise } from "@stryke/types/base";
+import type { DeepPartial, MaybePromise } from "@stryke/types/base";
 import { uuid } from "@stryke/unique-id/uuid";
 import { defu } from "defu";
-import { RpcClient } from "../types";
-import { ExecutionHostParams } from "../types/api";
-import { EngineResolvedConfig } from "../types/config";
-import { EngineSystemContext } from "../types/context";
+import type { RpcClient } from "../types";
+import type { ExecutionHostParams } from "../types/api";
+import type { EngineResolvedConfig } from "../types/config";
+import type { EngineSystemContext } from "../types/context";
 import { createRpcClient } from "./rpc";
 
 /**
