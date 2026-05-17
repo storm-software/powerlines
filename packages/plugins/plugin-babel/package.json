@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-babel",
-  "version": "0.13.19",
+  "version": "0.13.20",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "keywords": ["babel", "powerlines", "storm-software", "powerlines-plugin"],

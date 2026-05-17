@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-tsc",
-  "version": "0.3.19",
+  "version": "0.3.20",
   "type": "module",
   "description": "A package containing the TypeScript compiler plugin for Powerlines.",
   "repository": {
