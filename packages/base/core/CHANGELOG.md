@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.15.11](https://github.com/storm-software/powerlines/releases/tag/core%400.15.11) (05/17/2026)
+
+### Miscellaneous
+
+- **core:** Added the `enable` helper function ([196c7941b](https://github.com/storm-software/powerlines/commit/196c7941b))
+
 ## [0.15.10](https://github.com/storm-software/powerlines/releases/tag/core%400.15.10) (05/17/2026)
 
 ### Miscellaneous
