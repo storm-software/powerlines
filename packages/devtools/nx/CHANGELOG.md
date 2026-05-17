@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.60](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.60) (05/17/2026)
+
+### Miscellaneous
+
+- **nx:** Reduce interpackage dependencies in Nx plugin ([26e6321c9](https://github.com/storm-software/powerlines/commit/26e6321c9))
+
 ## [0.13.59](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.59) (05/17/2026)
 
 ### Miscellaneous
