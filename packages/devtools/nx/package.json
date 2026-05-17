@@ -185,6 +185,7 @@
     "@stryke/path": "catalog:",
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
+    "powerlines": "workspace:*",
     "defu": "catalog:",
     "jiti": "catalog:"
   },
@@ -197,7 +198,6 @@
     "eslint-flat-config-utils": "catalog:",
     "jsonc-eslint-parser": "catalog:",
     "nx": "catalog:",
-    "powerlines": "workspace:*",
     "untyped": "catalog:"
   },
   "peerDependencies": {
