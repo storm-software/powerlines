@@ -16,8 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { MemberDeclarationContext, useContext } from "@alloy-js/core";
-import { memo } from "@alloy-js/core/jsx-runtime";
+import { MemberDeclarationContext, memo, useContext } from "@alloy-js/core";
 import { TSOutputSymbol } from "@alloy-js/typescript";
 import { isValidJSIdentifier } from "../helpers/utilities";
 

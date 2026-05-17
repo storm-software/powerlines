@@ -201,7 +201,7 @@ export interface ResolveResult extends ExternalIdResult {
  * @remarks
  * This context provides the foundational structure for interacting with the Powerlines engine.
  */
-export interface BaseContext<TSystemContext = unknown> extends Pick<
+export interface BaseContext<TSystemContext = any> extends Pick<
   Required<Options>,
   "cwd"
 > {
@@ -305,7 +305,7 @@ export interface BaseContext<TSystemContext = unknown> extends Pick<
  */
 export interface UnresolvedContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig,
-  TSystemContext = unknown
+  TSystemContext = any
 > extends BaseContext<TSystemContext> {
   /**
    * The options provided to the Powerlines process, resolved with default values and merged with any configuration provided by plugins or other sources. This is typically the final configuration used during the build process, but may also include additional options that are relevant to the context and its interactions with the Powerlines engine.
@@ -637,7 +637,7 @@ export interface UnresolvedContext<
  */
 export type Context<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig,
-  TSystemContext = unknown
+  TSystemContext = any
 > = Omit<
   UnresolvedContext<TResolvedConfig, TSystemContext>,
   "config" | "callHook"
@@ -677,7 +677,7 @@ export type Context<
 
 export interface ExecutionContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig,
-  TSystemContext = unknown
+  TSystemContext = any
 > extends Context<TResolvedConfig, TSystemContext> {
   /**
    * The unique identifier of the execution context, which can be used for logging and other purposes to distinguish between different executions in the same process.
@@ -783,7 +783,7 @@ export interface ExecutionContext<
 
 export interface EnvironmentPlugin<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig,
-  TSystemContext = unknown
+  TSystemContext = any
 > extends Plugin<PluginContext<TResolvedConfig, TSystemContext>> {
   /**
    * A internal field to store the plugin configuration and context for the environment context
@@ -823,7 +823,7 @@ export type SelectHookResult<
 
 export interface EnvironmentContext<
   TResolvedConfig extends ResolvedConfig = ResolvedConfig,
-  TSystemContext = unknown
+  TSystemContext = any
 > extends Context<EnvironmentResolvedConfig<TResolvedConfig>, TSystemContext> {
   /**
    * The unique identifier of the environment associated with this context, which can be used for logging and other purposes to distinguish between different environments in the same process.
@@ -876,7 +876,7 @@ export interface EnvironmentContext<
 
 export interface PluginContext<
   out TResolvedConfig extends ResolvedConfig = ResolvedConfig,
-  TSystemContext = unknown
+  TSystemContext = any
 > extends Context<EnvironmentResolvedConfig<TResolvedConfig>, TSystemContext> {
   /**
    * The unique identifier of the plugin associated with this context, which can be used for logging and other purposes to distinguish between different plugins in the same process.
