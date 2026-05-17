@@ -201,14 +201,10 @@
     "untyped": "catalog:"
   },
   "peerDependencies": {
-    "nx": ">=22.7.0",
-    "powerlines": "*"
+    "nx": ">=22.7.0"
   },
   "peerDependenciesMeta": {
     "nx": {
-      "optional": false
-    },
-    "powerlines": {
       "optional": false
     }
   },
