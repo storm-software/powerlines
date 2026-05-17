@@ -82,7 +82,7 @@ export class PowerlinesExecutionContext<
     options: ExecutionOptions,
     inlineConfig?: TResolvedConfig["inlineConfig"],
     system?: TSystemContext
-  ): Promise<PowerlinesExecutionContext<TResolvedConfig, TSystemContext>> {
+  ): Promise<ExecutionContext<TResolvedConfig, TSystemContext>> {
     const context = new PowerlinesExecutionContext<
       TResolvedConfig,
       TSystemContext

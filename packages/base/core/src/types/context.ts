@@ -18,6 +18,7 @@
 
 import type { EnvPaths } from "@stryke/env/get-env-paths";
 import { FetchRequestOptions } from "@stryke/http/fetch";
+import { DeepPartial } from "@stryke/types/base";
 import type { PackageJson } from "@stryke/types/package-json";
 import type { Jiti } from "jiti";
 import type MagicString from "magic-string";
@@ -33,7 +34,8 @@ import type {
   Options,
   PluginConfig,
   ResolvedConfig,
-  ResolvedEntryTypeDefinition
+  ResolvedEntryTypeDefinition,
+  UserConfig
 } from "./config";
 import type {
   ResolveOptions,
@@ -644,6 +646,14 @@ export type Context<
    * The fully resolved Powerlines configuration
    */
   config: TResolvedConfig;
+
+  /**
+   * A setter function to populate the plugin config values provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed. This function can be used to update the context with the plugin configuration values, which may be used during the configuration resolution process to ensure that the final configuration reflects both the user configuration and any plugin configuration provided during execution.
+   *
+   * @param config - The plugin configuration values to set.
+   * @returns A promise that resolves when the plugin configuration values have been set.
+   */
+  setPluginConfig: (config: DeepPartial<UserConfig>) => Promise<void>;
 
   /**
    * Invokes the configured plugin hooks

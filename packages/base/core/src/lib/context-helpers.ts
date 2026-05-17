@@ -19,9 +19,14 @@
 import { toArray } from "@stryke/convert/to-array";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isSetString } from "@stryke/type-checks/is-set-string";
-import { PowerlinesExecutionContext } from "../context";
 import { colorText } from "../plugin-utils/logging";
-import type { InferOverridableConfig, ResolvedConfig } from "../types";
+import type {
+  ExecutionContext,
+  InferOverridableConfig,
+  PluginConfig,
+  PluginContext,
+  ResolvedConfig
+} from "../types";
 import { mergeConfigs } from "./hooks";
 
 export function getConfigProps<TResolvedConfig extends ResolvedConfig>(
@@ -38,13 +43,20 @@ export function getConfigProps<TResolvedConfig extends ResolvedConfig>(
 }
 
 export async function resolvePluginConfig<
-  TContext extends PowerlinesExecutionContext
+  TResolvedConfig extends ResolvedConfig = ResolvedConfig,
+  TSystemContext = unknown,
+  TContext extends ExecutionContext<TResolvedConfig, TSystemContext> =
+    ExecutionContext<TResolvedConfig, TSystemContext>
 >(context: TContext) {
   const timer = context.timer(
     `${titleCase(context.config.command)} Execution - Initialization`
   );
 
-  for (const plugin of context.config.plugins.flatMap(p => toArray(p)) ?? []) {
+  for (const plugin of (
+    context.config.plugins as PluginConfig<
+      PluginContext<TResolvedConfig, TSystemContext>
+    >[]
+  ).flatMap(p => toArray(p)) ?? []) {
     await context.unstable_addPlugin(plugin);
   }
 

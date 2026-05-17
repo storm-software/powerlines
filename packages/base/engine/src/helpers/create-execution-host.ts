@@ -16,7 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import type { InlineConfig, LogFnMeta } from "@powerlines/core";
+import type {
+  ExecutionContext,
+  InlineConfig,
+  LogFnMeta
+} from "@powerlines/core";
 import { PowerlinesExecutionContext } from "@powerlines/core/context/execution-context";
 import { resolvePluginConfig } from "@powerlines/core/lib/context-helpers";
 import { consoleLogger } from "@powerlines/core/plugin-utils";
@@ -40,10 +44,8 @@ import { createRpcClient } from "./rpc";
  * @returns An object with the same keys as the input methods, but each function is wrapped to create an execution context and handle errors.
  */
 export function createExecutionHost<
-  TContext extends PowerlinesExecutionContext<
-    EngineResolvedConfig,
-    EngineSystemContext
-  > = PowerlinesExecutionContext<EngineResolvedConfig, EngineSystemContext>
+  TContext extends ExecutionContext<EngineResolvedConfig, EngineSystemContext> =
+    ExecutionContext<EngineResolvedConfig, EngineSystemContext>
 >(
   methods: Record<string, (context: TContext) => Promise<void>>,
   inlineConfig:
@@ -104,8 +106,9 @@ export function createExecutionHost<
           } - ${titleCase(method)} execution (${options.executionId})`
         );
 
-        await resolvePluginConfig(context as PowerlinesExecutionContext<any>);
-
+        await resolvePluginConfig<EngineResolvedConfig, EngineSystemContext>(
+          context
+        );
         await fn(context);
       }
     ])
