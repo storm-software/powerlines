@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.15.12](https://github.com/storm-software/powerlines/releases/tag/core%400.15.12) (05/17/2026)
+
+### Miscellaneous
+
+- **monorepo:** Clean up package dependencies ([6d2cc096b](https://github.com/storm-software/powerlines/commit/6d2cc096b))
+
 ## [0.15.11](https://github.com/storm-software/powerlines/releases/tag/core%400.15.11) (05/17/2026)
 
 ### Miscellaneous
