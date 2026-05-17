@@ -676,7 +676,7 @@ export type InlineConfigPaths =
  * The configuration provided while executing Powerlines commands.
  */
 export type InlineConfig<TUserConfig extends UserConfig = UserConfig> =
-  DeepPartial<Omit<TUserConfig, "plugins" | "customLogger">> & {
+  DeepPartial<TUserConfig> & {
     /**
      * The root directory of the project
      */

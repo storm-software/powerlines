@@ -95,6 +95,10 @@
       "import": "./dist/execution-host.mjs",
       "require": "./dist/execution-host.cjs"
     },
+    "./helpers": {
+      "import": "./dist/helpers/index.mjs",
+      "require": "./dist/helpers/index.cjs"
+    },
     "./helpers/create-execution-host": {
       "import": "./dist/helpers/create-execution-host.mjs",
       "require": "./dist/helpers/create-execution-host.cjs"
