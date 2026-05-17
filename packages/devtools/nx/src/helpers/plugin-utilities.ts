@@ -31,21 +31,17 @@ import {
   addProjectTag,
   setDefaultProjectTags
 } from "@storm-software/workspace-tools/utils/project-tags";
-import { isDevelopment, isTest } from "@stryke/env/environment-checks";
+import { isDevelopment } from "@stryke/env/environment-checks";
 import { getEnvPaths } from "@stryke/env/get-env-paths";
 import { existsSync } from "@stryke/fs/exists";
-import { murmurhash } from "@stryke/hash";
 import { joinPaths } from "@stryke/path/join-paths";
-import { camelCase } from "@stryke/string-format/camel-case";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isError } from "@stryke/type-checks/is-error";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
-import { PartialKeys } from "@stryke/types/base";
 import type { PackageJson } from "@stryke/types/package-json";
 import defu from "defu";
-import { createJiti } from "jiti";
 import { readFile } from "node:fs/promises";
 import { readNxJson } from "nx/src/config/nx-json.js";
 import type {
@@ -54,12 +50,6 @@ import type {
 } from "nx/src/config/workspace-json-project-json.js";
 import type { PackageJson as PackageJsonNx } from "nx/src/utils/package-json.js";
 import { readTargetsFromPackageJson } from "nx/src/utils/package-json.js";
-import type {
-  FrameworkOptions,
-  Mode,
-  ParsedUserConfig,
-  UserConfig
-} from "powerlines";
 import type { NxPluginOptions } from "../types/plugin";
 import { CONFIG_INPUTS } from "./constants";
 
@@ -117,14 +107,14 @@ export interface CreateNxPluginOptions {
   framework?: string;
 }
 
-type LoadUserConfigFileFunction = (
-  cwd: string,
-  root: string,
-  mode: Mode,
-  command: string,
-  framework?: PartialKeys<FrameworkOptions, "orgId">,
-  configFile?: string
-) => Promise<ParsedUserConfig>;
+// type LoadUserConfigFileFunction = (
+//   cwd: string,
+//   root: string,
+//   mode: Mode,
+//   command: string,
+//   framework?: PartialKeys<FrameworkOptions, "orgId">,
+//   configFile?: string
+// ) => Promise<ParsedUserConfig>;
 
 /**
  * Creates an Nx plugin that integrates Powerlines into the Nx build process.
@@ -165,34 +155,34 @@ export function createNxPlugin<
         }
 
         const nxJson = readNxJson(contextV2.workspaceRoot);
-        const resolver = createJiti(contextV2.workspaceRoot, {
-          debug: !!options?.debug,
-          interopDefault: true,
-          fsCache: joinPaths(
-            envPaths.cache,
-            "nx-plugin",
-            murmurhash(contextV2.workspaceRoot, {
-              maxLength: 45
-            }),
-            "jiti"
-          ),
-          moduleCache: true
-        });
+        // const resolver = createJiti(contextV2.workspaceRoot, {
+        //   debug: !!options?.debug,
+        //   interopDefault: true,
+        //   fsCache: joinPaths(
+        //     envPaths.cache,
+        //     "nx-plugin",
+        //     murmurhash(contextV2.workspaceRoot, {
+        //       maxLength: 45
+        //     }),
+        //     "jiti"
+        //   ),
+        //   moduleCache: true
+        // });
 
-        let loadUserConfigFile: LoadUserConfigFileFunction | undefined;
-        try {
-          loadUserConfigFile = await resolver
-            .import<{
-              loadUserConfigFile: LoadUserConfigFileFunction;
-            }>(resolver.esmResolve("powerlines/config"))
-            .then(mod => mod?.loadUserConfigFile);
-        } catch (error) {
-          console.warn(
-            `[${title}] - ${new Date().toISOString()} - Failed to load user configuration file function: ${
-              isError(error) ? error.message : "Unknown error"
-            }`
-          );
-        }
+        // let loadUserConfigFile: LoadUserConfigFileFunction | undefined;
+        // try {
+        //   loadUserConfigFile = await resolver
+        //     .import<{
+        //       loadUserConfigFile: LoadUserConfigFileFunction;
+        //     }>(resolver.esmResolve("powerlines/config"))
+        //     .then(mod => mod?.loadUserConfigFile);
+        // } catch (error) {
+        //   console.warn(
+        //     `[${title}] - ${new Date().toISOString()} - Failed to load user configuration file function: ${
+        //       isError(error) ? error.message : "Unknown error"
+        //     }`
+        //   );
+        // }
 
         return createNodesFromFiles(
           async (configFile, _, context) => {
@@ -227,42 +217,42 @@ export function createNxPlugin<
                 );
               }
 
-              let userConfig = {} as UserConfig;
-              try {
-                if (loadUserConfigFile) {
-                  const parsedConfig = await loadUserConfigFile(
-                    contextV2.workspaceRoot,
-                    projectRoot,
-                    isDevelopment
-                      ? "development"
-                      : isTest
-                        ? "test"
-                        : "production",
-                    "build",
-                    { name: framework },
-                    configFile
-                  );
-                  if (isSetObject(parsedConfig)) {
-                    userConfig = parsedConfig.config as UserConfig;
-                  }
-                }
-              } catch (error) {
-                console.warn(
-                  `[${title}] - ${new Date().toISOString()} - Failed to load user configuration for project in ${
-                    projectRoot
-                  } - ${
-                    isError(error)
-                      ? error.message
-                      : isSetString(error)
-                        ? error
-                        : "Unknown error"
-                  } \n\nPlease note: This error can occur if the project depends on another package in the workspace and the dependent package has not been built yet. To resolve this issue, please ensure that all dependent packages have been built successfully.${
-                    isError(error) && error.stack
-                      ? `\n\nStack trace:\n${error.stack}`
-                      : ""
-                  }`
-                );
-              }
+              // let userConfig = {} as UserConfig;
+              // try {
+              //   if (loadUserConfigFile) {
+              //     const parsedConfig = await loadUserConfigFile(
+              //       contextV2.workspaceRoot,
+              //       projectRoot,
+              //       isDevelopment
+              //         ? "development"
+              //         : isTest
+              //           ? "test"
+              //           : "production",
+              //       "build",
+              //       { name: framework },
+              //       configFile
+              //     );
+              //     if (isSetObject(parsedConfig)) {
+              //       userConfig = parsedConfig.config as UserConfig;
+              //     }
+              //   }
+              // } catch (error) {
+              //   console.warn(
+              //     `[${title}] - ${new Date().toISOString()} - Failed to load user configuration for project in ${
+              //       projectRoot
+              //     } - ${
+              //       isError(error)
+              //         ? error.message
+              //         : isSetString(error)
+              //           ? error
+              //           : "Unknown error"
+              //     } \n\nPlease note: This error can occur if the project depends on another package in the workspace and the dependent package has not been built yet. To resolve this issue, please ensure that all dependent packages have been built successfully.${
+              //       isError(error) && error.stack
+              //         ? `\n\nStack trace:\n${error.stack}`
+              //         : ""
+              //     }`
+              //   );
+              // }
 
               if (
                 !existsSync(
@@ -302,20 +292,20 @@ export function createNxPlugin<
               }
 
               const packageJson: PackageJson = JSON.parse(packageJsonContent);
-              if (
-                !(userConfig && Object.keys(userConfig).length > 0) &&
-                !packageJson?.[camelCase(framework)]
-              ) {
-                if (options?.verboseOutput) {
-                  console.debug(
-                    `[${title}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${
-                      framework
-                    } configuration found for project in root directory.`
-                  );
-                }
+              // if (
+              //   !(userConfig && Object.keys(userConfig).length > 0) &&
+              //   !packageJson?.[camelCase(framework)]
+              // ) {
+              //   if (options?.verboseOutput) {
+              //     console.debug(
+              //       `[${title}] - ${new Date().toISOString()} - Skipping ${projectRoot} - no ${
+              //         framework
+              //       } configuration found for project in root directory.`
+              //     );
+              //   }
 
-                return {};
-              }
+              //   return {};
+              // }
 
               const projectConfig = getProjectConfigFromProjectRoot(
                 projectRoot,
@@ -453,7 +443,7 @@ export function createNxPlugin<
                     options?.build?.dependsOn ??
                     ([
                       `^${options?.build?.targetName || "build"}`,
-                      userConfig.skipCache || isDevelopment
+                      isDevelopment
                         ? undefined
                         : isSetObject(options?.prepare) &&
                             options?.prepare?.targetName
@@ -504,7 +494,7 @@ export function createNxPlugin<
                     options?.lint?.dependsOn ??
                     ([
                       `^${options?.lint?.targetName || "lint"}`,
-                      userConfig.skipCache || isDevelopment
+                      isDevelopment
                         ? undefined
                         : isSetObject(options?.prepare) &&
                             options?.prepare?.targetName
@@ -557,7 +547,7 @@ export function createNxPlugin<
                       `^${options?.docs?.targetName || "docs"}`,
                       options?.build !== false &&
                         `${options?.build?.targetName || "build"}`,
-                      userConfig.skipCache || isDevelopment
+                      isDevelopment
                         ? undefined
                         : isSetObject(options?.prepare) &&
                             options?.prepare?.targetName
@@ -610,7 +600,7 @@ export function createNxPlugin<
                       `^${options?.deploy?.targetName || "deploy"}`,
                       options?.build !== false &&
                         `${options?.build?.targetName || "build"}`,
-                      userConfig.skipCache || isDevelopment
+                      isDevelopment
                         ? undefined
                         : isSetObject(options?.prepare) &&
                             options?.prepare?.targetName
@@ -660,7 +650,6 @@ export function createNxPlugin<
               return {
                 projects: {
                   [root]: defu(projectConfig, {
-                    name: kebabCase(userConfig.name)!,
                     projectType: projectConfig.projectType || "library",
                     root,
                     sourceRoot: joinPaths(root, "src"),
