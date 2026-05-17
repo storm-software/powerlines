@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.15.6](https://github.com/storm-software/powerlines/releases/tag/core%400.15.6) (05/17/2026)
+
+### Bug Fixes
+
+- **core:** Resolve typing issues with `ExecutionContext` definition ([137d80935](https://github.com/storm-software/powerlines/commit/137d80935))
+
 ## [0.15.5](https://github.com/storm-software/powerlines/releases/tag/core%400.15.5) (05/17/2026)
 
 ### Miscellaneous
