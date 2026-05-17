@@ -247,6 +247,10 @@
       "import": "./dist/plugin-utils/docs-helper.mjs",
       "require": "./dist/plugin-utils/docs-helper.cjs"
     },
+    "./plugin-utils/enable-plugin": {
+      "import": "./dist/plugin-utils/enable-plugin.mjs",
+      "require": "./dist/plugin-utils/enable-plugin.cjs"
+    },
     "./plugin-utils/extend": {
       "import": "./dist/plugin-utils/extend.mjs",
       "require": "./dist/plugin-utils/extend.cjs"

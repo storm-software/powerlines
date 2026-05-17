@@ -4,7 +4,6 @@ packages:
   - docs/*
 
 catalog:
-  '@alloy-js/babel-preset': ^0.3.0
   '@alloy-js/core': ^0.23.1
   '@alloy-js/json': ^0.23.0
   '@alloy-js/markdown': ^0.23.0
