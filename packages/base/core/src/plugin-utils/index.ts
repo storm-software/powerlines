@@ -20,6 +20,7 @@ export * from "./build-helpers";
 export * from "./combine-plugins";
 export * from "./context-helpers";
 export * from "./docs-helper";
+export * from "./enable-plugin";
 export * from "./extend";
 export * from "./filter";
 export * from "./format";

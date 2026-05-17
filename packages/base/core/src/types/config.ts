@@ -699,6 +699,16 @@ export type InlineConfig<TUserConfig extends UserConfig = UserConfig> =
      * Additional arguments provided during execution of the command, such as CLI flags or other parameters that may be relevant to the command being executed.
      */
     additionalArgs?: Record<string, string | string[]>;
+
+    /**
+     * Details about the framework being used in the current execution, which can be used by plugins and other parts of the system to customize behavior based on the framework.
+     *
+     * @remarks
+     * This should only be used by framework plugins to ensure the correct framework name is applied
+     *
+     * @internal
+     */
+    framework?: FrameworkOptions;
   };
 
 export type CreateInlineConfig<TUserConfig extends UserConfig = UserConfig> =
