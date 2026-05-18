@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.43](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.43) (05/18/2026)
+
+### Miscellaneous
+
+- **powerlines:** Export `core` module from `powerlines` package ([b53e45b30](https://github.com/storm-software/powerlines/commit/b53e45b30))
+
 ## [0.47.42](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.42) (05/18/2026)
 
 ### Updated Dependencies

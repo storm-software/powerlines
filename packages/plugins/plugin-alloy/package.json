@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-alloy",
-  "version": "0.26.125",
+  "version": "0.26.126",
   "description": "A package containing various Alloy framework components and helper utilities.",
   "keywords": ["alloy-js", "powerlines", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
