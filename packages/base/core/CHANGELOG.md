@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.15.15](https://github.com/storm-software/powerlines/releases/tag/core%400.15.15) (05/17/2026)
+
+### Miscellaneous
+
+- **core:** Update to bump package version back to v0.47 ([b7b986257](https://github.com/storm-software/powerlines/commit/b7b986257))
+
 ## [0.15.12](https://github.com/storm-software/powerlines/releases/tag/core%400.15.12) (05/17/2026)
 
 ### Miscellaneous
