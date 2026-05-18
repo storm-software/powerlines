@@ -23,6 +23,7 @@ import { appendPath } from "@stryke/path/append";
 import { isNumber } from "@stryke/type-checks/is-number";
 import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { formatDuration } from "date-fns/formatDuration";
 import { Worker as JestWorker } from "jest-worker";
@@ -221,18 +222,40 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
     if (process.env.NODE_OPTIONS) {
       let isInString = false;
       let willStartNewArg = true;
-      for (let i = 0; i < process.env.NODE_OPTIONS.length; i++) {
-        let char = process.env.NODE_OPTIONS[i];
+
+      const stringifiedNodeOptions = process.env.NODE_OPTIONS.split(" ").filter(
+        part =>
+          ((part.startsWith('"') && part.endsWith('"')) ||
+            (part.startsWith("'") && part.endsWith("'"))) &&
+          part
+            .replace(/^['"]|['"]$/g, "")
+            .split(" ")
+            .filter(isSetString).length > 0 &&
+          part
+            .replace(/^['"]|['"]$/g, "")
+            .split(" ")
+            .filter(isSetString)
+            .every(p => p.startsWith("--"))
+      );
+      args.push(
+        ...stringifiedNodeOptions.map(part => part.replace(/^['"]|['"]$/g, ""))
+      );
+
+      const inputNodeModules = stringifiedNodeOptions.reduce((acc, part) => {
+        return acc.replace(part, "").trim();
+      }, process.env.NODE_OPTIONS);
+      for (let i = 0; i < inputNodeModules.length; i++) {
+        let char = inputNodeModules[i];
         if (char) {
           // Skip any escaped characters in strings.
           if (char === "\\" && isInString) {
             // Ensure we don't have an escape character at the end.
-            if (process.env.NODE_OPTIONS.length === i + 1) {
+            if (inputNodeModules.length === i + 1) {
               throw new Error("Invalid escape character at the end.");
             }
 
             // Skip the next character.
-            char = process.env.NODE_OPTIONS[++i];
+            char = inputNodeModules[++i];
             if (!char) {
               continue;
             }
@@ -435,6 +458,7 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
 
       this.#worker = new JestWorker(executionHostPath, {
         maxRetries: 0,
+        exposedMethods: executionMethods,
         computeWorkerKey: (_, ...args: Array<unknown>) => {
           let executionId = "default";
           let configIndex = 0;
