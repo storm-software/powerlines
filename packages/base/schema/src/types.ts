@@ -149,6 +149,20 @@ export interface SchemaMetadata {
   [key: string]: unknown | undefined;
 }
 
+export type JTDSchemaObjectForm<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+> =
+  | {
+      properties: Record<string, JTDSchemaType<TMetadata>>;
+      optionalProperties?: Record<string, JTDSchemaType<TMetadata>>;
+      additionalProperties?: boolean;
+    }
+  | {
+      properties?: Record<string, JTDSchemaType<TMetadata>>;
+      optionalProperties: Record<string, JTDSchemaType<TMetadata>>;
+      additionalProperties?: boolean;
+    };
+
 export type JTDSchemaType<
   TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
 > = (
@@ -167,16 +181,7 @@ export type JTDSchemaType<
   | {
       values: JTDSchemaType<TMetadata>;
     }
-  | {
-      properties: Record<string, JTDSchemaType<TMetadata>>;
-      optionalProperties?: Record<string, JTDSchemaType<TMetadata>>;
-      additionalProperties?: boolean;
-    }
-  | {
-      properties?: Record<string, JTDSchemaType<TMetadata>>;
-      optionalProperties: Record<string, JTDSchemaType<TMetadata>>;
-      additionalProperties?: boolean;
-    }
+  | JTDSchemaObjectForm<TMetadata>
   | {
       discriminator: string;
       mapping: Record<string, JTDSchemaType<TMetadata>>;
@@ -184,6 +189,14 @@ export type JTDSchemaType<
   // eslint-disable-next-line ts/no-empty-object-type
   | {}
 ) & {
+  nullable?: boolean;
+  metadata?: TMetadata;
+  definitions?: Record<string, JTDSchemaType<TMetadata>>;
+};
+
+export type JTDSchemaObjectType<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+> = JTDSchemaObjectForm<TMetadata> & {
   nullable?: boolean;
   metadata?: TMetadata;
   definitions?: Record<string, JTDSchemaType<TMetadata>>;
@@ -214,12 +227,24 @@ export type TypeDefinitionReference = TypeDefinition | string;
 
 export type SchemaInput = SchemaSourceInput | Schema | TypeDefinitionReference;
 
+/**
+ * A type representing a schema that has been extracted from a source input. This type includes a `hash` property, which is a string that uniquely identifies the schema based on its content and source; a `variant` property, which indicates the format or type of the original input from which the schema was extracted (e.g., "jtd-schema", "json-schema", "zod3", "untyped", "reflection", or "type-definition"); and a `schema` property, which is the extracted schema itself represented as a JSON Type Definition (JTD) schema object with optional metadata. This type can be used to represent schemas in a standardized format regardless of their original source or representation.
+ */
 export interface Schema<
   TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
 > {
   hash: string;
   variant: SchemaInputVariant;
   schema: JTDSchemaType<TMetadata>;
+}
+
+/**
+ * A type representing a JSON Type Definition (JTD) schema that specifically has an object form (i.e., it has either a `properties` property that is an object or an `optionalProperties` property that is an object, as per the structure of JTD schema objects). This type extends the base {@link Schema} type and narrows the `schema` property to be a `JTDSchemaObjectType`, which ensures that any schema of this type will have the structure of a JTD object schema.
+ */
+export interface ObjectSchema<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+> extends Schema<TMetadata> {
+  schema: JTDSchemaObjectType<TMetadata>;
 }
 
 export interface BaseSchemaSource {

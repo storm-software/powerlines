@@ -65,6 +65,10 @@
       "import": "./dist/extract.mjs",
       "require": "./dist/extract.cjs"
     },
+    "./helpers": {
+      "import": "./dist/helpers.mjs",
+      "require": "./dist/helpers.cjs"
+    },
     "./jtd": {
       "import": "./dist/jtd.mjs",
       "require": "./dist/jtd.cjs"
