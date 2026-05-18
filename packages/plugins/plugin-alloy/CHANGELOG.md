@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.123](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.123) (05/18/2026)
+
+### Features
+
+- **engine:** Modernize execution host worker implementation ([0dfc42798](https://github.com/storm-software/powerlines/commit/0dfc42798))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.452**
+- Updated **plugin-babel** to **v0.13.36**
+- Updated **powerlines** to **v0.47.40**
+- Updated **deepkit** to **v0.9.17**
+- Updated **core** to **v0.15.18**
+
 ## [0.26.122](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.122) (05/18/2026)
 
 ### Updated Dependencies

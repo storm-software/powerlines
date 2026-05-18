@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.15.20](https://github.com/storm-software/powerlines/releases/tag/engine%400.15.20) (05/18/2026)
+
+### Features
+
+- **engine:** Modernize execution host worker implementation ([0dfc42798](https://github.com/storm-software/powerlines/commit/0dfc42798))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.15.18**
+
 ## [0.15.19](https://github.com/storm-software/powerlines/releases/tag/engine%400.15.19) (05/18/2026)
 
 ### Bug Fixes

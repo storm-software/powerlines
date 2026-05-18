@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.36](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.36) (05/18/2026)
+
+### Features
+
+- **engine:** Modernize execution host worker implementation ([0dfc42798](https://github.com/storm-software/powerlines/commit/0dfc42798))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.15.18**
+
 ## [0.13.34](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.34) (05/18/2026)
 
 ### Updated Dependencies
