@@ -349,7 +349,7 @@ export async function createContext(options: EngineOptions) {
 export async function createEngine<TExecutionAPI extends ReadonlyArray<string>>(
   options: EngineOptions,
   executionHostPath = "@powerlines/engine/execution-host",
-  executionMethods: TExecutionAPI = EXECUTION_API_METHODS as unknown as TExecutionAPI
+  executionMethods?: TExecutionAPI
 ) {
   EventEmitter.setMaxListeners(100);
 

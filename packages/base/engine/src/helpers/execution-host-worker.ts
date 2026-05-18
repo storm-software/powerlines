@@ -18,15 +18,19 @@
 
 import { Mode } from "@powerlines/core";
 import { getDefaultMode } from "@powerlines/core/lib/config";
+import { toArray } from "@stryke/convert/to-array";
 import { resolve } from "@stryke/fs/resolve";
 import { appendPath } from "@stryke/path/append";
+import { isFunction } from "@stryke/type-checks/is-function";
 import { isNumber } from "@stryke/type-checks/is-number";
 import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
+import { AnyFunction } from "@stryke/types/base";
 import { formatDuration } from "date-fns/formatDuration";
 import { Worker as JestWorker } from "jest-worker";
+import { createJiti } from "jiti";
 import type { ChildProcess } from "node:child_process";
 import { Transform } from "node:stream";
 import { parseArgs } from "node:util";
@@ -146,7 +150,7 @@ export interface ExecutionHostWorkerOptions<
   /**
    * An array of method names that the worker exposes. These methods will be available on the Worker instance and can be called to execute tasks in the worker process.
    */
-  executionMethods: TExecutionAPI;
+  executionMethods?: TExecutionAPI;
 }
 
 export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
@@ -177,28 +181,46 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
       );
     }
 
-    return new ExecutionHostWorker<TExecutionAPI>(resolvedPath, {
-      mode,
-      ...options
-    }) as unknown as ExecutionHost<TExecutionAPI>;
+    let exposedMethods = toArray((options.executionMethods ?? []) as string[]);
+    if (exposedMethods.length === 0) {
+      const jiti = createJiti(import.meta.url);
+      const mod: Record<string, AnyFunction> = await jiti.import(
+        jiti.esmResolve(resolvedPath)
+      );
+      if (isFunction(mod)) {
+        exposedMethods.push(...exposedMethods, "default");
+      } else if (isSetObject(mod)) {
+        exposedMethods = Object.keys(mod).filter(name => isFunction(mod[name]));
+      }
+    }
+
+    return new ExecutionHostWorker<TExecutionAPI>(
+      resolvedPath,
+      exposedMethods,
+      {
+        mode,
+        ...options
+      }
+    ) as unknown as ExecutionHost<TExecutionAPI>;
   }
 
   /**
    * Create a new worker instance.
    *
    * @param executionHostPath - The path to the worker file.
+   * @param exposedMethods - An array of method names that the worker exposes.
    * @param options - The options for the worker, including exposed methods, timeout, and hooks for activity and restart.
    */
   public constructor(
     protected executionHostPath: string,
+    protected exposedMethods: string[],
     protected options: ExecutionHostWorkerOptions<TExecutionAPI>
   ) {
     const {
       timeout = 900_000,
       isolatedMemory = false,
       mode = "production",
-      context,
-      executionMethods
+      context
     } = this.options;
 
     const logger = context.extendLogger({ category: "communication" });
@@ -458,7 +480,7 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
 
       this.#worker = new JestWorker(executionHostPath, {
         maxRetries: 0,
-        exposedMethods: executionMethods,
+        exposedMethods: this.exposedMethods,
         computeWorkerKey: (_, ...args: Array<unknown>) => {
           let executionId = "default";
           let configIndex = 0;
@@ -477,6 +499,7 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
           env
         }
       });
+
       restartPromise = new Promise(resolve => {
         resolveRestartPromise = resolve;
       });
@@ -561,7 +584,7 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
     };
     createWorker();
 
-    for (const method of executionMethods) {
+    for (const method of this.exposedMethods) {
       if (method.startsWith("_")) {
         continue;
       }
