@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.17](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.17) (05/18/2026)
+
+### Miscellaneous
+
+- **schema:** Added logic to cache schema JSONs during extraction ([89fc8e645](https://github.com/storm-software/powerlines/commit/89fc8e645))
+
+### Features
+
+- **schema:** Added various helper function to manipulate schemas ([98517f5f6](https://github.com/storm-software/powerlines/commit/98517f5f6))
+
 ## [0.11.16](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.16) (05/17/2026)
 
 ### Updated Dependencies
