@@ -27,6 +27,7 @@ import {
   isStandardJsonSchema,
   JsonSchemaType
 } from "@stryke/json";
+import { joinPaths } from "@stryke/path/join";
 import { isSetString } from "@stryke/type-checks";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import {
@@ -341,6 +342,8 @@ export async function extractSchema<
   let source: SchemaSource;
 
   const variant = extractVariant(input);
+  const hash = extractHash(variant, input);
+
   if (variant === "type-definition") {
     const resolved = await resolve<SchemaSourceInput>(
       context,
@@ -379,7 +382,7 @@ export async function extractSchema<
     variant,
     source,
     schema: await extractSchemaSchema<TMetadata>(source.schema, source.variant),
-    hash: extractHash(variant, input)
+    hash
   };
 }
 
@@ -419,7 +422,39 @@ export async function extract<
   input: SchemaInput,
   options: Partial<BuildOptions> = {}
 ): Promise<Schema<TMetadata>> {
-  const result = await extractSchema<TMetadata>(context, input, options);
+  if (isExtractedSchema<TMetadata>(input) || isSchema<TMetadata>(input)) {
+    return input;
+  }
+
+  const variant = extractVariant(input);
+  const hash = extractHash(variant, input);
+  const cacheFilePath = joinPaths(context.cachePath, "schemas", `${hash}.json`);
+
+  let result: Schema<TMetadata> | undefined;
+  if (
+    context.config.skipCache !== true &&
+    context.fs.existsSync(cacheFilePath)
+  ) {
+    const schema = await context.fs.read(cacheFilePath);
+    if (schema) {
+      result = {
+        variant,
+        hash,
+        schema: JSON.parse(schema) as JTDSchemaType<TMetadata>
+      };
+    }
+  }
+
+  result ??= await extractSchema<TMetadata>(context, input, options);
+  if (!result?.schema) {
+    throw new Error(
+      `Failed to extract a valid schema from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, a JTD schema, an untyped schema, or a reflected Deepkit Type object.`
+    );
+  }
+
+  if (context.config.skipCache !== true) {
+    await context.fs.write(cacheFilePath, JSON.stringify(result.schema));
+  }
 
   return result;
 }
