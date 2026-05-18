@@ -29,3 +29,5 @@ export * from "./config";
 export * from "./plugin-utils";
 export * from "./storage";
 export type * from "./types";
+
+export * from "@powerlines/core";
