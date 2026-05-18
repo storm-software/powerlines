@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.15.19](https://github.com/storm-software/powerlines/releases/tag/engine%400.15.19) (05/18/2026)
+
+### Bug Fixes
+
+- **engine:** Use `jiti` to determine exposed methods of module ([029cb6a29](https://github.com/storm-software/powerlines/commit/029cb6a29))
+
 ## [0.15.18](https://github.com/storm-software/powerlines/releases/tag/engine%400.15.18) (05/18/2026)
 
 ### Updated Dependencies
