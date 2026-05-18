@@ -3,11 +3,7 @@
   "compilerOptions": {
     "lib": ["ESNext"],
     "rootDir": "../../..",
-    "types": [
-      "node",
-      "bun-types-no-globals",
-      "./types/prettier-plugin-organize-imports.d.ts"
-    ],
+    "types": ["node", "./types/prettier-plugin-organize-imports.d.ts"],
     "strict": true,
     "outDir": "../../../dist/out-tsc"
   },
@@ -17,6 +13,5 @@
     "types/**/*.d.ts",
     "tsdown.config.ts"
   ],
-  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "reflection": true
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

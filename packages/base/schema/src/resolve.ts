@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { PluginContext, UnresolvedContext } from "@powerlines/core";
+import type { PluginContext, UnresolvedContext } from "@powerlines/core";
 import { esbuildPlugin } from "@powerlines/deepkit/esbuild-plugin";
 import { reflect, Type } from "@powerlines/deepkit/vendor/type";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
