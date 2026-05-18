@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.15.17](https://github.com/storm-software/powerlines/releases/tag/engine%400.15.17) (05/18/2026)
+
+### Bug Fixes
+
+- **engine:** Fixes to node-options parsing and exposed methods parameters ([4de4067b2](https://github.com/storm-software/powerlines/commit/4de4067b2))
+
 ## [0.15.16](https://github.com/storm-software/powerlines/releases/tag/engine%400.15.16) (05/17/2026)
 
 ### Updated Dependencies
