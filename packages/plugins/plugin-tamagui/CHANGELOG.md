@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tamagui
 
+## [0.1.492](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.492) (05/18/2026)
+
+### Features
+
+- **monorepo:** Rename `devtools` group to `devkit` and reorganize packages ([697c657e3](https://github.com/storm-software/powerlines/commit/697c657e3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.453**
+- Updated **plugin-vite** to **v0.14.495**
+- Updated **powerlines** to **v0.47.41**
+
 ## [0.1.491](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.491) (05/18/2026)
 
 ### Updated Dependencies

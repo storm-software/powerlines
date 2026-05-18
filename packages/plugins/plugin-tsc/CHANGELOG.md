@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.3.38](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.3.38) (05/18/2026)
+
+### Features
+
+- **monorepo:** Rename `devtools` group to `devkit` and reorganize packages ([697c657e3](https://github.com/storm-software/powerlines/commit/697c657e3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.453**
+- Updated **powerlines** to **v0.47.41**
+- Updated **core** to **v0.15.19**
+
 ## [0.3.37](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.3.37) (05/18/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.79](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.79) (05/18/2026)
+
+### Features
+
+- **monorepo:** Rename `devtools` group to `devkit` and reorganize packages ([697c657e3](https://github.com/storm-software/powerlines/commit/697c657e3))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.41**
+
 ## [0.13.78](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.78) (05/18/2026)
 
 ### Updated Dependencies

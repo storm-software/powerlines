@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.567](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.567) (05/18/2026)
+
+### Features
+
+- **monorepo:** Rename `devtools` group to `devkit` and reorganize packages ([697c657e3](https://github.com/storm-software/powerlines/commit/697c657e3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.453**
+- Updated **plugin-alloy** to **v0.26.124**
+- Updated **plugin-babel** to **v0.13.37**
+- Updated **plugin-vite** to **v0.14.495**
+- Updated **plugin-env** to **v0.16.232**
+- Updated **powerlines** to **v0.47.41**
+- Updated **deepkit** to **v0.9.18**
+- Updated **core** to **v0.15.19**
+
 ## [0.1.566](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.566) (05/18/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.541](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.541) (05/18/2026)
+
+### Features
+
+- **monorepo:** Rename `devtools` group to `devkit` and reorganize packages ([697c657e3](https://github.com/storm-software/powerlines/commit/697c657e3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.453**
+- Updated **plugin-env** to **v0.16.232**
+- Updated **powerlines** to **v0.47.41**
+
 ## [0.10.540](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.540) (05/18/2026)
 
 ### Updated Dependencies

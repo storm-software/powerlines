@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.15.19](https://github.com/storm-software/powerlines/releases/tag/core%400.15.19) (05/18/2026)
+
+### Features
+
+- **monorepo:** Rename `devtools` group to `devkit` and reorganize packages ([697c657e3](https://github.com/storm-software/powerlines/commit/697c657e3))
+
 ## [0.15.16](https://github.com/storm-software/powerlines/releases/tag/core%400.15.16) (05/17/2026)
 
 ### Miscellaneous

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.496](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.496) (05/18/2026)
+
+### Features
+
+- **monorepo:** Rename `devtools` group to `devkit` and reorganize packages ([697c657e3](https://github.com/storm-software/powerlines/commit/697c657e3))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.41**
+- Updated **unplugin** to **v0.0.34**
+- Updated **core** to **v0.15.19**
+
 ## [0.13.495](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.495) (05/18/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.121](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.121) (05/18/2026)
+
+### Features
+
+- **monorepo:** Rename `devtools` group to `devkit` and reorganize packages ([697c657e3](https://github.com/storm-software/powerlines/commit/697c657e3))
+
 ## [0.4.94](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.94) (05/12/2026)
 
 ### Bug Fixes

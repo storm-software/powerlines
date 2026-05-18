@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Capnp
 
+## [0.1.505](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.505) (05/18/2026)
+
+### Features
+
+- **monorepo:** Rename `devtools` group to `devkit` and reorganize packages ([697c657e3](https://github.com/storm-software/powerlines/commit/697c657e3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.453**
+- Updated **powerlines** to **v0.47.41**
+
 ## [0.1.504](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.504) (05/18/2026)
 
 ### Updated Dependencies

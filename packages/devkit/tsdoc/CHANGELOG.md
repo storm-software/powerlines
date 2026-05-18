@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.69](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.69) (05/18/2026)
+
+### Features
+
+- **monorepo:** Rename `devtools` group to `devkit` and reorganize packages ([697c657e3](https://github.com/storm-software/powerlines/commit/697c657e3))
+
 ## [0.2.42](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.42) (05/12/2026)
 
 ### Bug Fixes

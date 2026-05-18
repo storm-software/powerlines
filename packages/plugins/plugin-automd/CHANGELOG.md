@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Automd
 
+## [0.1.502](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.502) (05/18/2026)
+
+### Features
+
+- **monorepo:** Rename `devtools` group to `devkit` and reorganize packages ([697c657e3](https://github.com/storm-software/powerlines/commit/697c657e3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.453**
+- Updated **powerlines** to **v0.47.41**
+- Updated **core** to **v0.15.19**
+
 ## [0.1.501](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.501) (05/18/2026)
 
 ### Updated Dependencies

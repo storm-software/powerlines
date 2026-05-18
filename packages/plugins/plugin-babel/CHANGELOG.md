@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.37](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.37) (05/18/2026)
+
+### Features
+
+- **monorepo:** Rename `devtools` group to `devkit` and reorganize packages ([697c657e3](https://github.com/storm-software/powerlines/commit/697c657e3))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.41**
+- Updated **core** to **v0.15.19**
+
 ## [0.13.36](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.36) (05/18/2026)
 
 ### Features

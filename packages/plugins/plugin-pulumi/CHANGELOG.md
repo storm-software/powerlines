@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.6.143](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.143) (05/18/2026)
+
+### Features
+
+- **monorepo:** Rename `devtools` group to `devkit` and reorganize packages ([697c657e3](https://github.com/storm-software/powerlines/commit/697c657e3))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.453**
+- Updated **powerlines** to **v0.47.41**
+
 ## [0.6.142](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.142) (05/18/2026)
 
 ### Updated Dependencies
