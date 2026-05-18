@@ -34,8 +34,8 @@ import { getPort } from "get-port-please";
 import { createApp, fromNodeMiddleware } from "h3";
 import { EventEmitter } from "node:events";
 import sirv from "sirv";
+import { ExecutionHostWorker } from "./_internal/execution-host-worker";
 import { PowerlinesEngineContext } from "./context/engine-context";
-import { ExecutionHostWorker } from "./helpers/execution-host-worker";
 import { Engine, ExecutionHost } from "./types/api";
 import { EngineOptions } from "./types/config";
 import { EngineContext } from "./types/context";
@@ -264,7 +264,7 @@ export class PowerlinesEngine<
     const timer = this.context.timer("Finalize");
     this.context.info("🏁 Finalization processes started");
 
-    await this.host.end();
+    await this.host.finalize();
 
     this.context.debug("✔ Finalization completed successfully");
     timer();
@@ -295,10 +295,7 @@ export class PowerlinesEngine<
       (await this.context.loadExecutions(method, inlineConfig)).map(
         async execution => {
           try {
-            await this.host[method]({
-              options: execution.options,
-              inlineConfig
-            });
+            await this.host[method](execution.options, inlineConfig);
           } catch (error) {
             this.context.error(
               `Execution of method "${method}" failed for execution with invocation ID "${
@@ -348,20 +345,17 @@ export async function createContext(options: EngineOptions) {
 
 export async function createEngine<TExecutionAPI extends ReadonlyArray<string>>(
   options: EngineOptions,
-  executionHostPath = "@powerlines/engine/execution-host",
-  executionMethods?: TExecutionAPI
+  apiPath = "@powerlines/engine/api",
+  apiMethods?: TExecutionAPI
 ) {
-  EventEmitter.setMaxListeners(100);
+  EventEmitter.setMaxListeners(Infinity);
 
   const context = await createContext(options);
-  const host = await ExecutionHostWorker.from<TExecutionAPI>(
-    executionHostPath,
-    {
-      root: options.root,
-      context,
-      executionMethods
-    }
-  );
+  const host = await ExecutionHostWorker.from<TExecutionAPI>(apiPath, {
+    root: options.root,
+    context,
+    apiMethods
+  });
 
   return new PowerlinesEngine<TExecutionAPI>(context, host);
 }

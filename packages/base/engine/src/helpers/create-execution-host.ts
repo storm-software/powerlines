@@ -35,6 +35,7 @@ import type { ExecutionHostParams } from "../types/api";
 import type { EngineResolvedConfig } from "../types/config";
 import type { EngineSystemContext } from "../types/context";
 import { createRpcClient } from "./rpc";
+import { MessagePortDuplex } from "./stream";
 
 /**
  * Creates an execution host with the provided methods. Each method will be wrapped to create an execution context and handle errors appropriately.
@@ -56,7 +57,14 @@ export function createExecutionHost<
     Object.entries(methods).map(([method, fn]) => [
       method,
       async (params: ExecutionHostParams) => {
-        const { options } = params;
+        const { options, port } = params;
+
+        const duplex = new MessagePortDuplex(port);
+        duplex.setEncoding("utf8");
+        duplex.on("data", (chunk: string) => duplex.write(chunk.toUpperCase()));
+        duplex.on("end", () => {
+          duplex.end();
+        });
 
         let rpc!: RpcClient;
         if (options.baseURL && options.connection) {

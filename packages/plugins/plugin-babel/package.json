@@ -86,7 +86,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
+  "files": ["dist"],
   "dependencies": {
     "@babel/core": "catalog:",
     "@babel/generator": "catalog:",
@@ -108,8 +108,8 @@
     "@types/node": "catalog:"
   },
   "peerDependencies": {
-    "@babel/plugin-syntax-jsx": ">=8.0.0-rc.4",
-    "@babel/plugin-syntax-typescript": ">=8.0.0-rc.4"
+    "@babel/plugin-syntax-jsx": ">=8.0.0-rc.5",
+    "@babel/plugin-syntax-typescript": ">=8.0.0-rc.5"
   },
   "peerDependenciesMeta": {
     "@babel/plugin-syntax-jsx": {

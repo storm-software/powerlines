@@ -43,6 +43,10 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
+    "./api": {
+      "import": "./dist/api.mjs",
+      "require": "./dist/api.cjs"
+    },
     "./api/build": {
       "import": "./dist/api/build.mjs",
       "require": "./dist/api/build.cjs"
@@ -91,10 +95,6 @@
       "import": "./dist/engine.mjs",
       "require": "./dist/engine.cjs"
     },
-    "./execution-host": {
-      "import": "./dist/execution-host.mjs",
-      "require": "./dist/execution-host.cjs"
-    },
     "./helpers": {
       "import": "./dist/helpers/index.mjs",
       "require": "./dist/helpers/index.cjs"
@@ -103,10 +103,6 @@
       "import": "./dist/helpers/create-execution-host.mjs",
       "require": "./dist/helpers/create-execution-host.cjs"
     },
-    "./helpers/execution-host-worker": {
-      "import": "./dist/helpers/execution-host-worker.mjs",
-      "require": "./dist/helpers/execution-host-worker.cjs"
-    },
     "./helpers/finalize": {
       "import": "./dist/helpers/finalize.mjs",
       "require": "./dist/helpers/finalize.cjs"
@@ -114,6 +110,10 @@
     "./helpers/rpc": {
       "import": "./dist/helpers/rpc.mjs",
       "require": "./dist/helpers/rpc.cjs"
+    },
+    "./helpers/stream": {
+      "import": "./dist/helpers/stream.mjs",
+      "require": "./dist/helpers/stream.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -145,9 +145,10 @@
     "h3": "catalog:",
     "handlebars": "catalog:",
     "human-id": "catalog:",
-    "jest-worker": "catalog:",
     "jiti": "catalog:",
+    "piscina": "catalog:",
     "sirv": "catalog:",
+    "structured-clone-es": "catalog:",
     "ua-parser-modern": "catalog:",
     "unimport": "catalog:",
     "unplugin": "catalog:"

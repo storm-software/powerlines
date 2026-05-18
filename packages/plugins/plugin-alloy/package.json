@@ -295,7 +295,6 @@
     "@alloy-js/json": "catalog:",
     "@alloy-js/markdown": "catalog:",
     "@alloy-js/typescript": "catalog:",
-    "@babel/preset-typescript": "catalog:",
     "@powerlines/deepkit": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@storm-software/config-tools": "catalog:",
@@ -315,14 +314,19 @@
     "unctx": "catalog:"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "catalog:",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "peerDependencies": {
+    "@babel/preset-typescript": "8.0.0-rc5",
     "@alloy-js/babel-preset": ">=0.3.0"
   },
   "peerDependenciesMeta": {
     "@alloy-js/babel-preset": {
+      "optional": false
+    },
+    "@babel/preset-typescript": {
       "optional": false
     }
   },

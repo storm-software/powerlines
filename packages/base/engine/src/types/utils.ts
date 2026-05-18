@@ -16,9 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-export type Worker<TParams, TExposedMethods extends ReadonlyArray<string>> = {
-  [K in TExposedMethods[number]]: (params: TParams) => Promise<void>;
+export type Worker<
+  TParams extends any[],
+  TExposedMethods extends ReadonlyArray<string>
+> = {
+  [K in TExposedMethods[number]]: (...params: TParams) => Promise<void>;
 } & {
-  close: () => void;
-  end: () => Promise<void>;
+  finalize: () => Promise<void>;
 };

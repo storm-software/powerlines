@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { Mode } from "@powerlines/core";
+import { InlineConfig, Mode } from "@powerlines/core";
 import { getDefaultMode } from "@powerlines/core/lib/config";
 import { toArray } from "@stryke/convert/to-array";
 import { resolve } from "@stryke/fs/resolve";
@@ -29,12 +29,17 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { AnyFunction } from "@stryke/types/base";
 import { formatDuration } from "date-fns/formatDuration";
-import { Worker as JestWorker } from "jest-worker";
 import { createJiti } from "jiti";
-import type { ChildProcess } from "node:child_process";
-import { Transform } from "node:stream";
+import { pipeline } from "node:stream";
 import { parseArgs } from "node:util";
-import { ExecutionHost, ExecutionHostParams } from "../types/api";
+import {
+  MessageChannel,
+  StructuredSerializeOptions
+} from "node:worker_threads";
+import Piscina from "piscina";
+import { MessagePortDuplex } from "../helpers/stream";
+import { ExecutionHost } from "../types/api";
+import { EngineExecutionOptions } from "../types/config";
 import { EngineContext } from "../types/context";
 
 const RESTARTED = Symbol("powerlines-worker:restarted");
@@ -99,14 +104,6 @@ function getNodeDebugType(nodeOptions: NodeOptions): NodeInspectType {
   return undefined;
 }
 
-const cleanupWorkers = (worker: JestWorker) => {
-  for (const curWorker of ((worker as any)._workerPool?._workers || []) as {
-    _child?: ChildProcess;
-  }[]) {
-    curWorker._child?.kill("SIGINT");
-  }
-};
-
 export interface ExecutionHostWorkerOptions<
   TExecutionAPI extends ReadonlyArray<string>
 > {
@@ -150,26 +147,26 @@ export interface ExecutionHostWorkerOptions<
   /**
    * An array of method names that the worker exposes. These methods will be available on the Worker instance and can be called to execute tasks in the worker process.
    */
-  executionMethods?: TExecutionAPI;
+  apiMethods?: TExecutionAPI;
 }
 
 export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
-  #worker: JestWorker | undefined;
+  #worker: Piscina | undefined;
 
   /**
    * Creates a new instance of the ExecutionHostWorker class, which manages a worker process for executing tasks related to the Powerlines Engine. The worker is initialized with the specified options and can be used to run tasks in an isolated environment, with support for automatic restarts and activity monitoring.
    *
-   * @param executionHostPath - The path to the Execution Host file.
+   * @param apiPath - The path to the Execution Host file.
    * @param options - The options for configuring the worker, including the execution context, exposed methods, timeout, and mode.
    * @returns A promise that resolves to an instance of the ExecutionHostWorker class.
    */
   public static async from<TExecutionAPI extends ReadonlyArray<string>>(
-    executionHostPath: string,
+    apiPath: string,
     options: ExecutionHostWorkerOptions<TExecutionAPI>
   ) {
     const mode = await getDefaultMode(options.context.cwd);
 
-    const resolvedPath = await resolve(executionHostPath, {
+    const resolvedPath = await resolve(apiPath, {
       paths: [
         options.context.cwd,
         options.root ? appendPath(options.root, options.context.cwd) : undefined
@@ -177,11 +174,11 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
     });
     if (!resolvedPath) {
       throw new Error(
-        `Could not resolve the provided Execution Host path: \`${executionHostPath}\`.`
+        `Could not resolve the provided Execution Host path: \`${apiPath}\`.`
       );
     }
 
-    let exposedMethods = toArray((options.executionMethods ?? []) as string[]);
+    let exposedMethods = toArray((options.apiMethods ?? []) as string[]);
     if (exposedMethods.length === 0) {
       const jiti = createJiti(import.meta.url);
       const mod: Record<string, AnyFunction> = await jiti.import(
@@ -233,7 +230,7 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
 
     // ensure we end workers if they weren't before exit
     process.on("exit", () => {
-      this.close();
+      void this.finalize();
     });
 
     let nodeOptions = {} as {
@@ -423,8 +420,7 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
     }
 
     const onHanging = () => {
-      const worker = this.#worker;
-      if (!worker) {
+      if (!this.#worker) {
         return;
       }
 
@@ -438,7 +434,7 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
         }. Subsequent errors may be a result of the worker exiting.`
       );
 
-      void worker.end().then(() => {
+      void this.finalize().then(() => {
         resolve(RESTARTED);
       });
     };
@@ -478,110 +474,70 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
         }
       }
 
-      this.#worker = new JestWorker(executionHostPath, {
-        maxRetries: 0,
-        exposedMethods: this.exposedMethods,
-        computeWorkerKey: (_, ...args: Array<unknown>) => {
-          let executionId = "default";
-          let configIndex = 0;
-          if (args.length > 0 && isSetObject(args[0])) {
-            const arg = args[0] as ExecutionHostParams;
-            if (isSetObject(arg.options)) {
-              configIndex = arg.options.configIndex ?? 0;
-              executionId = arg.options.executionId || "default";
-            }
-          }
-
-          return `${executionId}-${configIndex}`;
-        },
-        forkOptions: {
-          execArgv,
-          env
-        }
+      this.#worker = new Piscina({
+        filename: executionHostPath,
+        execArgv,
+        env
       });
 
       restartPromise = new Promise(resolve => {
         resolveRestartPromise = resolve;
       });
 
-      for (const worker of ((this.#worker as any)._workerPool?._workers ||
-        []) as {
-        _child?: ChildProcess;
-      }[]) {
-        worker._child?.on("exit", (code, signal) => {
-          logger.debug(
-            `Worker process exited with code ${code} and signal ${signal}`
+      this.#worker.on("exit", (code, signal) => {
+        logger.debug(
+          `Worker process exited with code ${code} and signal ${signal}`
+        );
+
+        if ((code || (signal && signal !== "SIGINT")) && this.#worker) {
+          const error = new Error(
+            `Execution Host Worker exited unexpectedly with code ${
+              code
+            } and signal ${signal}`
           );
+          logger.error(error);
 
-          if ((code || (signal && signal !== "SIGINT")) && this.#worker) {
-            const error = new Error(
-              `Execution Host Worker exited unexpectedly with code ${
-                code
-              } and signal ${signal}`
-            );
-            logger.error(error);
-
+          void this.finalize().then(() => {
             throw error;
-          }
-        });
-
-        worker._child?.on("error", error => {
-          logger.error({
-            meta: { category: "communication" },
-            message: `Worker process emitted an error: ${error.message}`,
-            error
           });
-        });
-
-        // if a child process emits a particular message, we track that as activity
-        // so the parent process can keep track of progress
-        worker._child?.on("message", data => {
-          onActivity();
-
-          if (Array.isArray(data) && data.length > 1 && isNumber(data[0])) {
-            if (data[0] === 0) {
-              logger.trace(
-                `Received message from worker: ${JSON.stringify(data.slice(1), null, 2)}`
-              );
-            } else {
-              logger.debug(
-                `Received error message from worker: ${JSON.stringify(
-                  data.slice(1),
-                  null,
-                  2
-                )}`
-              );
-            }
-          }
-
-          logger.trace(
-            `Received message from worker: ${JSON.stringify(data, null, 2)}`
-          );
-        });
-      }
-
-      let aborted = false;
-      const onActivityAbort = () => {
-        if (!aborted) {
-          aborted = true;
-        }
-      };
-
-      // Listen to the worker's stdout and stderr, if there's any thing logged, abort the activity first
-      const abortActivityStreamOnLog = new Transform({
-        transform(_chunk, _encoding, callback) {
-          onActivityAbort();
-          callback();
         }
       });
-      // Stop the activity if there's any output from the worker
-      this.#worker.getStdout().pipe(abortActivityStreamOnLog);
-      this.#worker.getStderr().pipe(abortActivityStreamOnLog);
 
-      // Pipe the worker's stdout and stderr to the parent process
-      this.#worker.getStdout().pipe(process.stdout);
-      this.#worker.getStderr().pipe(process.stderr);
+      this.#worker.on("error", error => {
+        logger.error({
+          meta: { category: "communication" },
+          message: `Worker process emitted an error: ${error.message}`,
+          error
+        });
+      });
+
+      // if a child process emits a particular message, we track that as activity
+      // so the parent process can keep track of progress
+      this.#worker.on("message", data => {
+        onActivity();
+
+        if (Array.isArray(data) && data.length > 1 && isNumber(data[0])) {
+          if (data[0] === 0) {
+            logger.trace(
+              `Received message from worker: ${JSON.stringify(data.slice(1), null, 2)}`
+            );
+          } else {
+            logger.debug(
+              `Received error message from worker: ${JSON.stringify(
+                data.slice(1),
+                null,
+                2
+              )}`
+            );
+          }
+        }
+
+        logger.trace(
+          `Received message from worker: ${JSON.stringify(data, null, 2)}`
+        );
+      });
     };
+
     createWorker();
 
     for (const method of this.exposedMethods) {
@@ -589,8 +545,57 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
         continue;
       }
 
+      const callWorker = async (
+        options: EngineExecutionOptions,
+        inlineConfig: InlineConfig
+      ) => {
+        if (!this.#worker) {
+          throw new Error("Execution Host Worker is not initialized");
+        }
+
+        const { port1, port2 } = new MessageChannel();
+        const promise = this.#worker.run(
+          { options, inlineConfig, port: port2 },
+          {
+            name: method,
+            transferList: [port2] as StructuredSerializeOptions
+          }
+        );
+
+        let aborted = false;
+        const onActivityAbort = () => {
+          if (!aborted) {
+            aborted = true;
+          }
+        };
+        const duplex = new MessagePortDuplex(port1, { onActivityAbort });
+
+        pipeline(
+          duplex,
+          process.stdout,
+          (err: NodeJS.ErrnoException | null) => {
+            if (err) {
+              logger.debug(
+                `Received exception message from worker: ${JSON.stringify(
+                  err,
+                  null,
+                  2
+                )}`
+              );
+
+              throw err;
+            }
+          }
+        );
+
+        await promise;
+      };
+
       (this as any)[method] = timeout
-        ? async (...args: any[]) => {
+        ? async (
+            options: EngineExecutionOptions,
+            inlineConfig: InlineConfig
+          ) => {
             activeTasks++;
             try {
               let attempts = 0;
@@ -598,10 +603,7 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
                 onActivity();
 
                 const result = await Promise.race([
-                  // eslint-disable-next-line ts/no-unsafe-call
-                  (this.#worker as any)[method](
-                    args.length > 0 && args[0] ? args[0] : {}
-                  ),
+                  callWorker(options, inlineConfig),
                   restartPromise
                 ]);
                 if (result !== RESTARTED) {
@@ -619,34 +621,22 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
               onActivity();
             }
           }
-        : // eslint-disable-next-line ts/no-unsafe-call
-          (this.#worker as any)[method].bind(this.#worker);
+        : callWorker.bind(this);
     }
   }
 
   /**
-   * Ends the worker process and cleans up any resources associated with it. This method should be called when the worker is no longer needed, to ensure that it is properly terminated and does not continue to consume system resources. If the worker is already terminated or was never initialized, this method will throw an error.
-   *
-   * @returns A promise that resolves when the worker has been successfully terminated.
+   * Closes the worker process, terminating it if it's still running. This method should be called when the worker is no longer needed, to free up system resources and ensure a clean shutdown. If the worker has already been terminated, this method will have no effect.
    */
-  public async end(): ReturnType<JestWorker["end"]> {
+  public async finalize(): Promise<void> {
     const worker = this.#worker;
     if (!worker) {
-      throw new Error("Execution Host Worker is not initialized");
+      return;
     }
 
-    cleanupWorkers(worker);
+    await worker.close({
+      force: true
+    });
     this.#worker = undefined;
-    return worker.end();
-  }
-
-  /**
-   * Quietly end the worker if it exists
-   */
-  public close(): void {
-    if (this.#worker) {
-      cleanupWorkers(this.#worker);
-      void this.#worker.end();
-    }
   }
 }

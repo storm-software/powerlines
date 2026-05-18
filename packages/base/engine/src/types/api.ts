@@ -140,6 +140,11 @@ export interface ExecutionInterface {
 
 export interface ExecutionHostParams {
   /**
+   * The {@link MessagePort} used for communication between the execution host and the engine. This port will be used to send and receive messages, allowing the execution host to invoke API methods and return results to the engine.
+   */
+  port: MessagePort;
+
+  /**
    * The execution options for the current execution instance
    */
   options: EngineExecutionOptions;
@@ -151,7 +156,7 @@ export interface ExecutionHostParams {
 }
 
 export type ExecutionHost<TExecutionAPI extends ReadonlyArray<string>> = Worker<
-  ExecutionHostParams,
+  [EngineExecutionOptions, InlineConfig],
   TExecutionAPI
 >;
 

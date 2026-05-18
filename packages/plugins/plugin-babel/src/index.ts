@@ -16,7 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { PluginItem, PresetItem, transformAsync } from "@babel/core";
+import type { PluginItem, PresetItem } from "@babel/core";
+import { transformAsync } from "@babel/core";
 import type { Plugin } from "@powerlines/core";
 import { removeVirtualPrefix } from "@powerlines/core/plugin-utils";
 import { omit } from "@stryke/helpers/omit";
@@ -33,14 +34,14 @@ import {
   resolveBabelPlugin,
   resolveBabelPreset
 } from "./helpers/options";
-import {
+import type {
   ResolvedBabelTransformPluginOptions,
   ResolvedBabelTransformPresetOptions
 } from "./types/config";
-import { BabelPluginContext, BabelPluginOptions } from "./types/plugin";
+import type { BabelPluginContext, BabelPluginOptions } from "./types/plugin";
 
 export * from "./helpers";
-export * from "./types";
+export type * from "./types";
 
 declare module "@powerlines/core" {
   interface Config {

@@ -17,6 +17,6 @@
  ------------------------------------------------------------------- */
 
 export * from "./create-execution-host";
-export * from "./execution-host-worker";
 export * from "./finalize";
 export * from "./rpc";
+export * from "./stream";
