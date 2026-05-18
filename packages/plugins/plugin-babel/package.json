@@ -101,7 +101,8 @@
     "@stryke/types": "catalog:",
     "chalk": "catalog:",
     "defu": "catalog:",
-    "jiti": "catalog:"
+    "jiti": "catalog:",
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@types/babel__helper-plugin-utils": "catalog:",

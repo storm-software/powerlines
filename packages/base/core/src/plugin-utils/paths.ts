@@ -73,7 +73,7 @@ export function replacePathTokens(
     .replaceAll("{root}", context.config.root)
     .replaceAll("{projectRoot}", context.config.root)
     .replaceAll("{sourceRoot}", joinPaths(context.config.root, "src"))
-    .replaceAll("{powerlinesPath}", context.powerlinesPath)
+    // .replaceAll("{powerlinesPath}", context.powerlinesPath)
     .replaceAll("{cachePath}", context.cachePath)
     .replaceAll("{dataPath}", context.dataPath)
     .replaceAll("{logPath}", context.envPaths.log)

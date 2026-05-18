@@ -73,13 +73,13 @@
   "files": ["dist"],
   "dependencies": {
     "@powerlines/core": "workspace:*",
-    "@powerlines/plugin-rollup": "workspace:*",
     "@powerlines/unplugin": "workspace:*",
     "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "defu": "catalog:",
     "esbuild": "catalog:",
+    "powerlines": "workspace:*",
     "unplugin": "catalog:"
   },
   "devDependencies": {

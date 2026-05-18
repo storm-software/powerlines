@@ -18,7 +18,7 @@
 
 import { createProgram } from "@powerlines/core/lib/typescript";
 import { replacePath } from "@stryke/path/replace";
-import { Context } from "powerlines";
+import type { Context } from "powerlines";
 import { flattenDiagnosticMessageText } from "typescript";
 
 /**

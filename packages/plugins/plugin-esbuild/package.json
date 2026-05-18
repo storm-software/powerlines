@@ -82,15 +82,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "peerDependencies": {
-    "esbuild": ">=0.27.3"
-  },
-  "peerDependenciesMeta": {
-    "esbuild": {
-      "optional": false
-    }
-  },
+  "files": ["dist"],
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@powerlines/unplugin": "workspace:*",
@@ -101,11 +93,20 @@
     "@stryke/types": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
+    "powerlines": "workspace:*",
     "unplugin": "catalog:"
   },
   "devDependencies": {
     "@types/node": "catalog:",
     "esbuild": "catalog:"
+  },
+  "peerDependencies": {
+    "esbuild": ">=0.27.3"
+  },
+  "peerDependenciesMeta": {
+    "esbuild": {
+      "optional": false
+    }
   },
   "publishConfig": {
     "access": "public"

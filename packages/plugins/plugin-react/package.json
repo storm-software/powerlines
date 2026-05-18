@@ -1,18 +1,24 @@
 {
   "name": "@powerlines/plugin-react",
   "version": "0.1.566",
-  "type": "module",
+  "private": false,
   "description": "A package containing a Powerlines plugin for building a React application.",
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/storm-software/powerlines.git",
-    "directory": "packages/plugins/plugin-react"
-  },
+  "keywords": ["react", "powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
     "email": "support@stormsoftware.com"
   },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/storm-software/powerlines.git",
+    "directory": "packages/plugins/plugin-react"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/storm-software"
+  },
+  "license": "Apache-2.0",
   "author": {
     "name": "Storm Software",
     "email": "contact@stormsoftware.com",
@@ -32,15 +38,7 @@
       "url": "https://stormsoftware.com"
     }
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/storm-software"
-  },
-  "license": "Apache-2.0",
-  "private": false,
-  "typings": "dist/index.d.mts",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -68,30 +66,22 @@
     },
     "./package.json": "./package.json"
   },
-  "files": ["dist/**/*"],
-  "keywords": ["react", "powerlines", "storm-software", "powerlines-plugin"],
-  "peerDependencies": {
-    "react": ">=19.2.0",
-    "react-dom": ">=19.2.0"
-  },
-  "peerDependenciesMeta": {
-    "react": {
-      "optional": false
-    },
-    "react-dom": {
-      "optional": false
-    }
-  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "typings": "dist/index.d.mts",
+  "files": ["dist"],
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/json": "catalog:",
     "@alloy-js/markdown": "catalog:",
     "@alloy-js/typescript": "catalog:",
     "@babel/core": "catalog:",
-    "@powerlines/plugin-vite": "workspace:*",
+    "@powerlines/core": "workspace:*",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
+    "@powerlines/plugin-vite": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/cli": "catalog:",
     "@stryke/convert": "catalog:",
@@ -108,8 +98,19 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:"
   },
+  "peerDependencies": {
+    "react": ">=19.2.0",
+    "react-dom": ">=19.2.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    }
+  },
   "publishConfig": {
     "access": "public"
-  },
-  "types": "./dist/index.d.cts"
+  }
 }

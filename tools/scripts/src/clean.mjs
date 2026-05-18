@@ -47,7 +47,7 @@ try {
   }
 
   proc =
-    $`rm -rf ./packages/*/dist ./packages/*/.powerlines ./packages/*/.shell-shock`.timeout(
+    $`rm -rf ./packages/{base,devkit,plugins}/*/dist ./packages/{base,devkit,plugins}/*/.powerlines ./packages/{base,devkit,plugins}/*/.shell-shock`.timeout(
       `${5 * 60}s`
     );
   proc.stdout.on("data", data => {

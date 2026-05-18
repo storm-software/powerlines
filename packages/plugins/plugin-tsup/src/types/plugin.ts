@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { PluginContext, ResolvedConfig, UserConfig } from "@powerlines/core";
-import { TsupOptions } from "./build";
+import type { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
+import type { TsupOptions } from "./build";
 
 export type TsupPluginOptions = Partial<TsupOptions>;
 

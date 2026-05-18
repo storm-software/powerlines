@@ -16,16 +16,22 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "@powerlines/core";
-import { formatConfig } from "@powerlines/core/plugin-utils";
-import { rspack as build } from "@rspack/core";
+import { createUnplugin } from "@powerlines/core";
+import { resolveOptions } from "@powerlines/unplugin/rspack";
+import { rspack as build, MultiRspackOptions } from "@rspack/core";
 import defu from "defu";
-import { resolveOptions } from "./helpers";
-import { createRspackPlugin } from "./helpers/unplugin";
-import { RspackPluginContext, RspackPluginOptions } from "./types/plugin";
+import type { Plugin } from "powerlines";
+import { formatConfig } from "powerlines/plugin-utils";
+import { createRspackPlugin } from "unplugin";
+import type { RspackPluginContext, RspackPluginOptions } from "./types/plugin";
 
-export * from "./helpers";
-export * from "./types";
+export type * from "./types";
+
+declare module "powerlines" {
+  interface Config {
+    rspack?: RspackPluginOptions;
+  }
+}
 
 /**
  * A Powerlines plugin to assist in developing other Powerlines plugins.
@@ -65,7 +71,14 @@ export const plugin = <
         },
         resolveOptions(this),
         {
-          plugins: [createRspackPlugin(this)]
+          plugins: [
+            createRspackPlugin(
+              createUnplugin(this, {
+                silenceHookLogging: true,
+                name: "rspack"
+              })
+            )()
+          ]
         }
       );
 
@@ -76,7 +89,7 @@ export const plugin = <
         message: `Resolved Rspack configuration: \n${formatConfig(options)}`
       });
 
-      build(options);
+      build([options] as MultiRspackOptions);
     }
   };
 };

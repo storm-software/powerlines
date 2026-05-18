@@ -23,11 +23,11 @@ import { isParentPath } from "@stryke/path/is-parent-path";
 import { joinPaths } from "@stryke/path/join-paths";
 import { replacePath } from "@stryke/path/replace";
 import defu from "defu";
-import { Plugin } from "powerlines";
+import type { Plugin } from "powerlines";
 import { replacePathTokens } from "powerlines/plugin-utils";
-import { CapnpPluginContext, CapnpPluginOptions } from "./types/plugin";
+import type { CapnpPluginContext, CapnpPluginOptions } from "./types/plugin";
 
-export * from "./types";
+export type * from "./types";
 
 declare module "powerlines" {
   interface Config {

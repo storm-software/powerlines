@@ -16,16 +16,19 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "@powerlines/core";
-import { formatConfig } from "@powerlines/core/plugin-utils";
 import { build } from "@storm-software/unbuild";
+import type { Plugin } from "powerlines";
+import { formatConfig } from "powerlines/plugin-utils";
 import { resolveOptions } from "./helpers/resolve-options";
-import { UnbuildPluginContext, UnbuildPluginOptions } from "./types/plugin";
+import type {
+  UnbuildPluginContext,
+  UnbuildPluginOptions
+} from "./types/plugin";
 
 export * from "./helpers";
-export * from "./types";
+export type * from "./types";
 
-declare module "@powerlines/core" {
+declare module "powerlines" {
   interface Config {
     unbuild?: UnbuildPluginOptions;
   }

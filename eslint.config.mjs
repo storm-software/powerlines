@@ -35,6 +35,6 @@ export default defineConfig({
     "**/*.spec.ts"
   ],
   tsdoc: {
-    configFile: "./packages/devtools/tsdoc/src/recommended.json"
+    configFile: "./packages/devkit/tsdoc/src/recommended.json"
   }
 });

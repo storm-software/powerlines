@@ -17,8 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { declare } from "@babel/helper-plugin-utils";
-import type { Context } from "@powerlines/core";
 import chalk from "chalk";
+import type { Context } from "powerlines";
 import type {
   BabelTransformPluginBuilder,
   DeclareBabelTransformPluginReturn

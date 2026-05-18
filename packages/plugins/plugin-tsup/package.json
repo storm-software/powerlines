@@ -85,6 +85,7 @@
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "defu": "catalog:",
+    "powerlines": "workspace:*",
     "unplugin": "catalog:"
   },
   "devDependencies": {

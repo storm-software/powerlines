@@ -323,22 +323,6 @@ export class PowerlinesExecutionContext<
         createDefaultEnvironment(this.config)
       );
 
-      // environment = await PowerlinesEnvironmentContext.from<TResolvedConfig>(
-      //   deepClone(this.options),
-      //   deepClone(this.config) as TResolvedConfig,
-      //   deepClone(this.overriddenConfig) as InferOverridableConfig<
-      //     EnvironmentResolvedConfig<TResolvedConfig>
-      //   >,
-      //   deepClone(
-      //     createDefaultEnvironment(this.config)
-      //   ) as EnvironmentResolvedConfig<TResolvedConfig>["environment"]
-      // );
-
-      // environment.plugins = [];
-      // for (const plugin of this.plugins) {
-      //   await environment.addPlugin(plugin);
-      // }
-
       this.warn({
         meta: { category: "plugins" },
         message: `No environment specified, and no default environment found. Using a temporary default environment: ${chalk.bold.cyanBright(

@@ -73,7 +73,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": ["dist/**/*"],
+  "files": ["dist"],
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@powerlines/unplugin": "workspace:*",
@@ -86,6 +86,7 @@
     "defu": "catalog:",
     "glob": "catalog:",
     "jiti": "catalog:",
+    "powerlines": "workspace:*",
     "unplugin": "catalog:"
   },
   "devDependencies": {

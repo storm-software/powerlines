@@ -180,7 +180,11 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
 
     let exposedMethods = toArray((options.apiMethods ?? []) as string[]);
     if (exposedMethods.length === 0) {
-      const jiti = createJiti(import.meta.url);
+      const jiti = createJiti(import.meta.url, {
+        cache: false,
+        interopDefault: true,
+        tsconfigPaths: true
+      });
       const mod: Record<string, AnyFunction> = await jiti.import(
         jiti.esmResolve(resolvedPath)
       );

@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { PluginContext, ResolvedConfig, UserConfig } from "@powerlines/core";
-import { TsdownOptions } from "./build";
+import type { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
+import type { TsdownOptions } from "./build";
 
 export type TsdownPluginOptions = Partial<TsdownOptions>;
 

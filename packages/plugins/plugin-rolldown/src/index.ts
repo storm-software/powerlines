@@ -17,18 +17,21 @@
  ------------------------------------------------------------------- */
 
 import { createUnplugin } from "@powerlines/core";
-import { formatConfig } from "@powerlines/core/plugin-utils";
-import { Plugin } from "@powerlines/core/types/plugin";
 import { resolveOptions } from "@powerlines/unplugin/rolldown";
 import { toArray } from "@stryke/convert/to-array";
 import defu from "defu";
+import type { Plugin } from "powerlines";
+import { formatConfig } from "powerlines/plugin-utils";
 import { rolldown as build, InputOptions } from "rolldown";
 import { createRolldownPlugin } from "unplugin";
-import { RolldownPluginContext, RolldownPluginOptions } from "./types/plugin";
+import type {
+  RolldownPluginContext,
+  RolldownPluginOptions
+} from "./types/plugin";
 
 export * from "./types";
 
-declare module "@powerlines/core" {
+declare module "powerlines" {
   interface Config {
     rolldown?: RolldownPluginOptions;
   }

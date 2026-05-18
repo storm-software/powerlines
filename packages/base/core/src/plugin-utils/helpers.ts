@@ -21,7 +21,7 @@ import { isFunction } from "@stryke/type-checks/is-function";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
-import { AnyFunction } from "@stryke/types/base";
+import type { AnyFunction } from "@stryke/types/base";
 import {
   PLUGIN_HOOKS_FIELDS,
   PLUGIN_NON_HOOK_FIELDS,
@@ -223,10 +223,11 @@ export function extractPluginHook<
  */
 export function isUnpluginHookKey<
   TUnpluginBuilderVariant extends UnpluginBuilderVariant =
-    UnpluginBuilderVariant
+    UnpluginBuilderVariant,
+  TContext extends PluginContext = PluginContext
 >(
   keys: string
-): keys is `${TUnpluginBuilderVariant}:${keyof UnpluginOptions[TUnpluginBuilderVariant] & string}` {
+): keys is `${TUnpluginBuilderVariant}:${keyof UnpluginOptions<TContext>[TUnpluginBuilderVariant] & string}` {
   return UNPLUGIN_BUILDER_VARIANTS.some(variant =>
     keys.startsWith(`${variant}:`)
   );

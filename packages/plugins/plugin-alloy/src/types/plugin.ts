@@ -23,28 +23,7 @@ import {
 } from "@powerlines/plugin-babel/types/plugin";
 import { PluginContext } from "powerlines";
 
-export type AlloyPluginOptions = Partial<PrintTreeOptions> & {
-  /**
-   * If true, the Alloy framework is used to generate Typescript output files.
-   *
-   * @defaultValue true
-   */
-  typescript?: boolean;
-
-  /**
-   * If true, the Alloy framework is used to generate JSON output files.
-   *
-   * @defaultValue false
-   */
-  json?: boolean;
-
-  /**
-   * If true, the Alloy framework is used to generate Markdown output files.
-   *
-   * @defaultValue false
-   */
-  markdown?: boolean;
-};
+export type AlloyPluginOptions = Partial<PrintTreeOptions>;
 
 export type AlloyPluginUserConfig = BabelPluginUserConfig & {
   alloy?: AlloyPluginOptions;

@@ -1,0 +1,36 @@
+{
+  "name": "schema",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/devkit/schema/src",
+  "targets": {
+    "build-base": {
+      "cache": true,
+      "inputs": ["typescript", "^production"],
+      "outputs": ["{projectRoot}/dist"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["clean", "^build"],
+      "options": {
+        "command": "tsdown --config=tsdown.config.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "build": {
+      "cache": true,
+      "inputs": ["{projectRoot}/dist"],
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["typecheck", "build-base"],
+      "options": {
+        "commands": [
+          "pnpm copyfiles LICENSE dist/packages/devkit/schema",
+          "pnpm copyfiles --up=3 ./packages/devkit/schema/*.md ./packages/devkit/schema/package.json dist/packages/devkit/schema",
+          "pnpm copyfiles --up=4 \"./packages/devkit/schema/dist/**/*\" dist/packages/devkit/schema/dist"
+        ]
+      }
+    },
+    "nx-release-publish": {
+      "executor": "@storm-software/workspace-tools:npm-publish"
+    }
+  }
+}

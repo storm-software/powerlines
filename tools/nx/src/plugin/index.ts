@@ -28,6 +28,9 @@ import {
   addProjectTag,
   setDefaultProjectTags
 } from "@storm-software/workspace-tools/utils/project-tags";
+import { appendPath } from "@stryke/path/append";
+import { findFolderName } from "@stryke/path/find";
+import { resolveParentPath } from "@stryke/path/resolve-parent-path";
 import defu from "defu";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
@@ -70,7 +73,6 @@ export const createNodesV2: CreateNodesV2 = [
             "utf8"
           );
           const packageJson = JSON.parse(packageJsonContent);
-
           if (!packageJson.name) {
             console.warn(
               `[${name}]: The package.json file located at ${join(
@@ -149,10 +151,14 @@ export const createNodesV2: CreateNodesV2 = [
           };
 
           setDefaultProjectTags(projectConfig, name);
+
+          const packageGroup = findFolderName(
+            resolveParentPath(appendPath(root, context.workspaceRoot))
+          );
           addProjectTag(
             projectConfig,
             "powerlines" as ProjectTagVariant,
-            "library",
+            packageGroup,
             {
               overwrite: true
             }
@@ -171,7 +177,8 @@ export const createNodesV2: CreateNodesV2 = [
                   // eslint-disable-next-line ts/no-unnecessary-type-assertion
                   projectType: "library" as ProjectType,
                   sourceRoot: join(root, "src"),
-                  implicitDependencies: ["engine"]
+                  implicitDependencies:
+                    packageGroup === "plugins" ? ["powerlines"] : []
                 }
               )
             }

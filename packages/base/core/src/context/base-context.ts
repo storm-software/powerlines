@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { EnvPaths } from "@stryke/env/get-env-paths";
-import { resolvePackage } from "@stryke/fs/resolve";
 import chalk from "chalk";
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import { extendLogger } from "../plugin-utils/logging";
@@ -167,12 +166,12 @@ export abstract class PowerlinesBaseContext<
    * Initialize the context with the provided configuration options
    */
   protected async init() {
-    if (!this.powerlinesPath) {
-      const powerlinesPath = await resolvePackage("powerlines");
-      if (!powerlinesPath) {
-        throw new Error("Could not resolve `powerlines` package location.");
-      }
-      this.powerlinesPath = powerlinesPath;
-    }
+    // if (!this.powerlinesPath) {
+    //   const powerlinesPath = await resolvePackage("powerlines");
+    //   if (!powerlinesPath) {
+    //     throw new Error("Could not resolve `powerlines` package location.");
+    //   }
+    //   this.powerlinesPath = powerlinesPath;
+    // }
   }
 }

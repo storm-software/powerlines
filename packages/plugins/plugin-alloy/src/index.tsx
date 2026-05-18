@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import babel from "@powerlines/plugin-babel";
-import { StormJSON } from "@stryke/json/storm-json";
 import { findFileExtension } from "@stryke/path/file-path-fns";
 import type { Plugin } from "powerlines";
 import type { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
@@ -50,7 +49,6 @@ export const plugin = <
 
         return {
           alloy: {
-            typescript: true,
             ...options
           },
           babel: {
@@ -92,7 +90,7 @@ export const plugin = <
 
           await this.fs.write(
             this.tsconfig.tsconfigFilePath,
-            StormJSON.stringify(this.tsconfig.tsconfigJson)
+            JSON.stringify(this.tsconfig.tsconfigJson, null, 2)
           );
         }
       }

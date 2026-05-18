@@ -1595,7 +1595,7 @@ export class PowerlinesContext<
                   ? asset.input
                   : appendPath(asset.input, mergedConfig.cwd),
             output:
-              isSetObject(asset) && asset.output
+              isSetObject(asset) && isSetString(asset.output)
                 ? isParentPath(asset.output, mergedConfig.cwd)
                   ? asset.output
                   : appendPath(

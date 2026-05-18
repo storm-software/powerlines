@@ -16,23 +16,23 @@
 
  ------------------------------------------------------------------- */
 
-import { Plugin } from "@powerlines/core";
 import { createUnplugin } from "@powerlines/core/lib/unplugin";
-import { formatConfig } from "@powerlines/core/plugin-utils";
 import { resolveOptions } from "@powerlines/unplugin/tsup";
+import type { BuildOptions } from "@storm-software/tsup";
 import {
   build,
-  BuildOptions,
   resolveOptions as resolveOptionsBase
 } from "@storm-software/tsup";
 import defu from "defu";
-import { Options } from "tsup";
+import type { Plugin } from "powerlines";
+import { formatConfig } from "powerlines/plugin-utils";
+import type { Options } from "tsup";
 import { createEsbuildPlugin } from "unplugin";
-import { TsupPluginContext, TsupPluginOptions } from "./types/plugin";
+import type { TsupPluginContext, TsupPluginOptions } from "./types/plugin";
 
-export * from "./types";
+export type * from "./types";
 
-declare module "@powerlines/core" {
+declare module "powerlines" {
   interface Config {
     tsup?: TsupPluginOptions;
   }

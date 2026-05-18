@@ -16,17 +16,18 @@
 
  ------------------------------------------------------------------- */
 
-import { createUnplugin, Plugin } from "@powerlines/core";
-import { formatConfig } from "@powerlines/core/plugin-utils";
+import { createUnplugin } from "@powerlines/core";
 import { resolveEntry, resolveOptions } from "@powerlines/unplugin/esbuild";
 import defu from "defu";
 import { build, BuildOptions, SameShape } from "esbuild";
+import type { Plugin } from "powerlines";
+import { formatConfig } from "powerlines/plugin-utils";
 import { createEsbuildPlugin } from "unplugin";
 import { EsbuildPluginContext, EsbuildPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
-declare module "@powerlines/core" {
+declare module "powerlines" {
   interface Config {
     esbuild?: EsbuildPluginOptions;
   }

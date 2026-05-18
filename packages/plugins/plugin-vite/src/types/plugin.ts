@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { PluginContext, ResolvedConfig, UserConfig } from "@powerlines/core";
-import { ViteOptions } from "./build";
+import type { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
+import type { ViteOptions } from "./build";
 
 export type VitePluginOptions = Partial<ViteOptions>;
 

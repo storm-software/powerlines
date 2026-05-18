@@ -16,17 +16,22 @@
 
  ------------------------------------------------------------------- */
 
-import { createUnplugin, Plugin } from "@powerlines/core";
-import { formatConfig } from "@powerlines/core/plugin-utils";
+import { createUnplugin } from "@powerlines/core";
 import { resolveOptions } from "@powerlines/unplugin/webpack";
 import defu from "defu";
+import type { Plugin } from "powerlines";
+import { formatConfig } from "powerlines/plugin-utils";
 import { createWebpackPlugin } from "unplugin";
-import webpack, { Configuration } from "webpack";
-import { WebpackPluginContext, WebpackPluginOptions } from "./types/plugin";
+import type { Configuration } from "webpack";
+import webpack from "webpack";
+import type {
+  WebpackPluginContext,
+  WebpackPluginOptions
+} from "./types/plugin";
 
-export * from "./types";
+export type * from "./types";
 
-declare module "@powerlines/core" {
+declare module "powerlines" {
   interface Config {
     webpack?: WebpackPluginOptions;
   }

@@ -16,11 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import type {
-  PluginContext,
-  ResolvedConfig,
-  UserConfig
-} from "@powerlines/core";
+import type { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 import type { BabelResolvedConfig, BabelUserConfig } from "./config";
 
 export type BabelPluginOptions = Partial<BabelUserConfig> & {

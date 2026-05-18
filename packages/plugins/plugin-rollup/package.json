@@ -91,6 +91,7 @@
     "@stryke/types": "catalog:",
     "defu": "catalog:",
     "jiti": "catalog:",
+    "powerlines": "workspace:*",
     "rollup-plugin-typescript2": "catalog:",
     "unplugin": "catalog:"
   },

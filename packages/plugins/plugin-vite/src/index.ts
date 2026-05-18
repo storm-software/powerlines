@@ -16,18 +16,18 @@
 
  ------------------------------------------------------------------- */
 
-import type { Context, Plugin } from "@powerlines/core";
 import { createUnplugin } from "@powerlines/core";
-import { formatConfig } from "@powerlines/core/plugin-utils";
 import { resolveOptions } from "@powerlines/unplugin/vite";
 import defu from "defu";
+import type { Context, Plugin } from "powerlines";
+import { formatConfig } from "powerlines/plugin-utils";
 import { createVitePlugin } from "unplugin";
 import { build, InlineConfig } from "vite";
-import { VitePluginContext, VitePluginOptions } from "./types/plugin";
+import type { VitePluginContext, VitePluginOptions } from "./types/plugin";
 
-export * from "./types";
+export type * from "./types";
 
-declare module "@powerlines/core" {
+declare module "powerlines" {
   interface Config {
     vite?: VitePluginOptions;
   }

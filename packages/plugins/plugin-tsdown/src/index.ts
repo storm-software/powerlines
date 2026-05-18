@@ -16,18 +16,18 @@
 
  ------------------------------------------------------------------- */
 
-import { createUnplugin, Plugin } from "@powerlines/core";
-import { formatConfig } from "@powerlines/core/plugin-utils";
-import { formatPackageJson } from "@powerlines/core/plugin-utils/format-package-json";
+import { createUnplugin } from "@powerlines/core";
 import { resolveOptions } from "@powerlines/unplugin/tsdown";
 import defu from "defu";
+import type { Plugin } from "powerlines";
+import { formatConfig, formatPackageJson } from "powerlines/plugin-utils";
 import { build, InlineConfig } from "tsdown";
 import { createRolldownPlugin } from "unplugin";
-import { TsdownPluginContext, TsdownPluginOptions } from "./types/plugin";
+import type { TsdownPluginContext, TsdownPluginOptions } from "./types/plugin";
 
 export type * from "./types";
 
-declare module "@powerlines/core" {
+declare module "powerlines" {
   interface Config {
     tsdown?: TsdownPluginOptions;
   }

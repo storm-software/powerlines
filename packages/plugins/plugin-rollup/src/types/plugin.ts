@@ -16,11 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import type {
-  PluginContext,
-  ResolvedConfig,
-  UserConfig
-} from "@powerlines/core";
+import type { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 import type { RollupOptions } from "./build";
 
 export type RollupPluginOptions = Partial<RollupOptions>;

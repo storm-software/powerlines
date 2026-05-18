@@ -29,7 +29,7 @@ import type {
   PresetObject,
   PresetTarget
 } from "@babel/core";
-import type { Context, LogFn, Logger } from "@powerlines/core";
+import type { Context, LogFn, Logger } from "powerlines";
 
 export interface NamedImportDefinition {
   name: string;

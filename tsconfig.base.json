@@ -11,8 +11,8 @@
       "@powerlines/deepkit/*": ["./packages/base/deepkit/src/*"],
       "@powerlines/engine": ["./packages/base/engine/src/index.ts"],
       "@powerlines/engine/*": ["./packages/base/engine/src/*"],
-      "@powerlines/nx": ["./packages/devtools/nx/src/index.ts"],
-      "@powerlines/nx/*": ["./packages/devtools/nx/src/*"],
+      "@powerlines/nx": ["./packages/devkit/nx/src/index.ts"],
+      "@powerlines/nx/*": ["./packages/devkit/nx/src/*"],
       "@powerlines/plugin-alloy": [
         "./packages/plugins/plugin-alloy/src/index.tsx"
       ],
@@ -267,19 +267,19 @@
       "@powerlines/plugin-webpack/*": [
         "./packages/plugins/plugin-webpack/src/*"
       ],
-      "@powerlines/schema": ["./packages/base/schema/src/index.ts"],
-      "@powerlines/schema/*": ["./packages/base/schema/src/*"],
-      "@powerlines/unplugin": ["./packages/devtools/unplugin/src/index.ts"],
-      "@powerlines/unplugin/*": ["./packages/devtools/unplugin/src/*"],
+      "@powerlines/schema": ["./packages/devkit/schema/src/index.ts"],
+      "@powerlines/schema/*": ["./packages/devkit/schema/src/*"],
+      "@powerlines/unplugin": ["./packages/devkit/unplugin/src/index.ts"],
+      "@powerlines/unplugin/*": ["./packages/devkit/unplugin/src/*"],
       "@powerlines/tools-config/*": ["./tools/config/*"],
       "@powerlines/tools-nx": ["./tools/nx/src/index.ts"],
       "@powerlines/tools-nx/*": ["./tools/nx/src/*"],
       "@powerlines/tools-scripts": ["./tools/scripts/src/index.ts"],
       "@powerlines/tools-scripts/*": ["./tools/scripts/src/*"],
-      "@powerlines/tsconfig/*": ["./packages/devtools/tsconfig/src/*"],
-      "@powerlines/tsdoc/*": ["./packages/devtools/tsdoc/src/*"],
-      "powerlines": ["./packages/devtools/powerlines/src/index.ts"],
-      "powerlines/*": ["./packages/devtools/powerlines/src/*"]
+      "@powerlines/tsconfig/*": ["./packages/devkit/tsconfig/src/*"],
+      "@powerlines/tsdoc/*": ["./packages/devkit/tsdoc/src/*"],
+      "powerlines": ["./packages/devkit/powerlines/src/index.ts"],
+      "powerlines/*": ["./packages/devkit/powerlines/src/*"]
     },
     "verbatimModuleSyntax": false
   }

@@ -62,8 +62,9 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
+  "files": ["dist"],
   "dependencies": {
+    "@powerlines/core": "workspace:*",
     "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
@@ -71,7 +72,8 @@
     "@stryke/types": "catalog:",
     "c12": "catalog:",
     "defu": "catalog:",
-    "markdown-toc": "catalog:"
+    "markdown-toc": "catalog:",
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@powerlines/plugin-plugin": "workspace:*",

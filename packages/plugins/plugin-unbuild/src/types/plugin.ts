@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { PluginContext, ResolvedConfig, UserConfig } from "@powerlines/core";
-import { UnbuildOptions } from "./build";
+import type { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
+import type { UnbuildOptions } from "./build";
 
 export type UnbuildPluginOptions = Partial<UnbuildOptions>;
 

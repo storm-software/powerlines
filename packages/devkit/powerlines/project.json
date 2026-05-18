@@ -1,0 +1,39 @@
+{
+  "name": "powerlines",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/devkit/powerlines/src",
+  "targets": {
+    "build-base": {
+      "cache": false,
+      "inputs": ["typescript", "^production"],
+      "outputs": ["{projectRoot}/dist"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
+      "options": {
+        "command": "tsdown --config=tsdown.config.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "build": {
+      "cache": false,
+      "inputs": ["{projectRoot}/dist"],
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "executor": "nx:run-commands",
+      "dependsOn": ["typecheck", "build-base"],
+      "options": {
+        "commands": [
+          "pnpm copyfiles LICENSE dist/packages/devkit/powerlines",
+          "pnpm copyfiles --up=3 ./packages/devkit/powerlines/*.md ./packages/devkit/powerlines/package.json dist/packages/devkit/powerlines",
+          "pnpm copyfiles --up=4 \"./packages/devkit/powerlines/files/**/*\" ./dist/packages/devkit/powerlines/files",
+          "pnpm copyfiles --up=4 \"./packages/devkit/powerlines/dist/**/*\" dist/packages/devkit/powerlines/dist"
+        ]
+      }
+    },
+    "nx-release-publish": {
+      "executor": "@storm-software/workspace-tools:npm-publish"
+    }
+  },
+  "tags": ["platform:node"],
+  "implicitDependencies": ["core", "engine"]
+}

@@ -20,6 +20,7 @@ import { VitePluginResolvedConfig } from "@powerlines/plugin-vite/types/plugin";
 import { resolvePackage } from "@stryke/fs/resolve";
 import { murmurhash } from "@stryke/hash/neutral";
 import { joinPaths } from "@stryke/path/join";
+import { titleCase } from "@stryke/string-format/title-case";
 import type { ExtractedResponse } from "@tamagui/static-worker";
 import * as Static from "@tamagui/static-worker";
 import {
@@ -78,11 +79,11 @@ export const plugin = <
             disableExtraction: false,
             platform: "web" as const,
             logTimings:
-              this.config.logLevel === "debug" ||
-              this.config.logLevel === "trace",
-            prefixLogs: "Powerlines"
+              this.config.logLevel.performance === "debug" ||
+              this.config.logLevel.performance === "trace",
+            prefixLogs: titleCase(this.config.framework?.name) || "Powerlines"
           }
-        )
+        ) as Partial<Static.TamaguiOptions>
       );
 
       const alias: ResolveConfig["alias"] = [];
@@ -173,9 +174,7 @@ export const plugin = <
             _frameTimestamp: undefined,
             _WORKLET: false,
             __DEV__: `${this.config.mode === "development"}`,
-            "process.env.NODE_ENV": JSON.stringify(
-              process.env.NODE_ENV || this.config.mode
-            ),
+            "process.env.NODE_ENV": JSON.stringify(this.config.mode),
             "process.env.ENABLE_RSC": JSON.stringify(
               process.env.ENABLE_RSC || ""
             ),
@@ -233,16 +232,17 @@ export const plugin = <
     },
     async resolveId(id: string) {
       if (
-        this.environment?.name &&
-        (this.environment.name === "ios" || this.environment.name === "android")
+        this.config.environment?.name &&
+        (this.config.environment.name === "ios" ||
+          this.config.environment.name === "android")
       ) {
         return;
       }
 
       if (
         this.config?.tamagui?.disableServerOptimization &&
-        this.environment?.name &&
-        this.environment.name !== "client"
+        this.config.environment?.name &&
+        this.config.environment.name !== "client"
       ) {
         // only optimize on client - server should produce identical styles anyway!
         return;
@@ -277,16 +277,17 @@ export const plugin = <
       }
 
       if (
-        this.environment?.name &&
-        (this.environment.name === "ios" || this.environment.name === "android")
+        this.config.environment?.name &&
+        (this.config.environment.name === "ios" ||
+          this.config.environment.name === "android")
       ) {
         return;
       }
 
       if (
         this.config?.tamagui?.disableServerOptimization &&
-        this.environment?.name &&
-        this.environment.name !== "client"
+        this.config.environment?.name &&
+        this.config.environment.name !== "client"
       ) {
         return;
       }
@@ -311,17 +312,17 @@ export const plugin = <
         }
 
         if (
-          this.environment?.name &&
-          (this.environment.name === "ios" ||
-            this.environment.name === "android")
+          this.config.environment?.name &&
+          (this.config.environment.name === "ios" ||
+            this.config.environment.name === "android")
         ) {
           return;
         }
 
         if (
           this.config?.tamagui?.disableServerOptimization &&
-          this.environment?.name &&
-          this.environment.name !== "client"
+          this.config.environment?.name &&
+          this.config.environment.name !== "client"
         ) {
           return;
         }
@@ -339,7 +340,9 @@ export const plugin = <
 
         if (shouldPrintDebug) {
           this.trace(
-            `Current file: ${id} in environment: ${this.environment?.name}, shouldDisable: ${shouldDisable}\n\nOriginal source:\n${code}\n\n`
+            `Current file: ${id} in environment: ${
+              this.config.environment?.name
+            }, shouldDisable: ${shouldDisable}\n\nOriginal source:\n${code}\n\n`
           );
         }
 
@@ -349,18 +352,16 @@ export const plugin = <
 
         const cacheKey = murmurhash({
           cacheEnv:
-            this.environment.name === "client" ||
-            this.environment.name === "ssr"
+            this.config.environment.name === "client" ||
+            this.config.environment.name === "ssr"
               ? // same cache key for ssr and web since they are the same
                 "web"
-              : this.environment.name,
+              : this.config.environment.name,
           code,
           id
         });
-
-        const cached = memoryCache[cacheKey];
-        if (cached) {
-          return cached;
+        if (memoryCache[cacheKey]) {
+          return memoryCache[cacheKey];
         }
 
         let extracted: ExtractedResponse | null;
@@ -381,21 +382,21 @@ export const plugin = <
           return;
         }
 
-        const rootRelativeId = `${validId}.tamagui.css`;
-
-        let absoluteId = rootRelativeId;
+        let absoluteId = `${validId}.tamagui.css`;
         if (!absoluteId.startsWith(this.config.root)) {
-          absoluteId = joinPaths(this.config.root, rootRelativeId);
+          absoluteId = joinPaths(this.config.root, `${validId}.tamagui.css`);
         }
 
         let source = extracted.js;
         if (extracted.styles) {
-          this.addWatchFile(rootRelativeId);
+          this.addWatchFile(`${validId}.tamagui.css`);
 
           if (server && cssMap.has(absoluteId)) {
             if (server) {
               const { moduleGraph } = server;
-              const modules = moduleGraph.getModulesByFile(rootRelativeId);
+              const modules = moduleGraph.getModulesByFile(
+                `${validId}.tamagui.css`
+              );
 
               if (modules) {
                 for (const module of modules) {
@@ -409,7 +410,7 @@ export const plugin = <
             }
           }
 
-          source = `${source.toString()}\nimport "${rootRelativeId}";`;
+          source = `${source.toString()}\nimport "${validId}.tamagui.css";`;
           cssMap.set(absoluteId, extracted.styles);
         }
 
@@ -425,7 +426,6 @@ export const plugin = <
         }
 
         memoryCache[cacheKey] = result;
-
         return result;
       }
     },

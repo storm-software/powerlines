@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { PluginContext, ResolvedConfig, UserConfig } from "@powerlines/core";
-import { WebpackOptions } from "./build";
+import type { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
+import type { WebpackOptions } from "./build";
 
 export type WebpackPluginOptions = Partial<WebpackOptions>;
 

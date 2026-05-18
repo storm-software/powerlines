@@ -35,10 +35,10 @@ import { loadConfig as loadConfigFile } from "c12";
 import defu from "defu";
 import toc from "markdown-toc";
 import type { Plugin } from "powerlines";
-import { AutoMDPluginContext, AutoMDPluginOptions } from "./types/plugin";
-import { TOCOptions } from "./types/toc";
+import type { AutoMDPluginContext, AutoMDPluginOptions } from "./types/plugin";
+import type { TOCOptions } from "./types/toc";
 
-export * from "./types";
+export type * from "./types";
 
 declare module "powerlines" {
   interface Config {

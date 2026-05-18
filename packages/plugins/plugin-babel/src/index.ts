@@ -18,15 +18,14 @@
 
 import type { PluginItem, PresetItem } from "@babel/core";
 import { transformAsync } from "@babel/core";
-import type { Plugin } from "@powerlines/core";
-import { removeVirtualPrefix } from "@powerlines/core/plugin-utils";
 import { omit } from "@stryke/helpers/omit";
 import { findFileExtensionSafe } from "@stryke/path/file-path-fns";
-import { isParentPath } from "@stryke/path/is-parent-path";
 import { isEmptyObject } from "@stryke/type-checks/is-empty-object";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import defu from "defu";
 import { isSet } from "node:util/types";
+import type { Plugin } from "powerlines";
+import { removeVirtualPrefix } from "powerlines/plugin-utils";
 import { isDuplicatePlugin, isDuplicatePreset } from "./helpers/filters";
 import {
   getUniquePlugins,
@@ -43,7 +42,7 @@ import type { BabelPluginContext, BabelPluginOptions } from "./types/plugin";
 export * from "./helpers";
 export type * from "./types";
 
-declare module "@powerlines/core" {
+declare module "powerlines" {
   interface Config {
     babel?: BabelPluginOptions;
   }
@@ -85,7 +84,7 @@ export const plugin = <
     },
     async transform(code: string, id: string) {
       if (
-        isParentPath(id, this.powerlinesPath) ||
+        // isParentPath(id, this.powerlinesPath) ||
         code.includes("/* @powerlines-ignore */") ||
         code.includes("/* @powerlines-disable */")
       ) {

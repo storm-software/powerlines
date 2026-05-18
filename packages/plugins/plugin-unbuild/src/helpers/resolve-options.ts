@@ -16,9 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { Context, PluginContext } from "@powerlines/core";
 import { getString } from "@powerlines/core/lib/utilities/source-file";
-import { resolveOptions as resolveRollupOptions } from "@powerlines/plugin-rollup/helpers/resolve-options";
+import { resolveOptions as resolveRollupOptions } from "@powerlines/unplugin/rollup";
 import type {
   UnbuildOptions as ExternalUnbuildOptions,
   Loader,
@@ -28,6 +27,7 @@ import { appendPath, relativePath } from "@stryke/path";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
 import { transform } from "esbuild";
+import type { Context, PluginContext } from "powerlines";
 import { TransformResult } from "unplugin";
 import { UnbuildPluginResolvedConfig } from "../types";
 

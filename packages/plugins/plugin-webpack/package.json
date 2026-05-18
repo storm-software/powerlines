@@ -81,6 +81,7 @@
     "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
     "defu": "catalog:",
+    "powerlines": "workspace:*",
     "unplugin": "catalog:"
   },
   "devDependencies": {

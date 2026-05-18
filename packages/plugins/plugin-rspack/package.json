@@ -80,7 +80,9 @@
     "@powerlines/unplugin": "workspace:*",
     "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
-    "defu": "catalog:"
+    "defu": "catalog:",
+    "powerlines": "workspace:*",
+    "unplugin": "catalog:"
   },
   "devDependencies": {
     "@rspack/core": "catalog:",

@@ -29,11 +29,11 @@ catalog:
   "@graphql-codegen/cli": ^6.3.1
   "@graphql-codegen/plugin-helpers": ^6.3.0
   "@hey-api/openapi-ts": ^0.88.2
-  "@jest/pattern": ^30.0.1
+  "@jest/pattern": ^30.4.0
   "@jest/reporters": ^30.4.1
-  "@jest/schemas": ^30.0.5
+  "@jest/schemas": ^30.4.1
   "@jest/test-result": ^30.4.1
-  "@jest/types": ^30.3.0
+  "@jest/types": ^30.4.1
   "@jridgewell/sourcemap-codec": ^1.5.5
   "@ls-lint/ls-lint": ^2.3.1
   "@napi-rs/cli": ^3.6.2
@@ -139,7 +139,7 @@ catalog:
   chalk: 5.6.2
   compatx: ^0.2.0
   copyfiles: ^2.4.1
-  date-fns: ^4.1.0
+  date-fns: ^4.2.0
   defu: ^6.1.7
   devframe: ^0.1.22
   diff-match-patch: ^1.0.5
@@ -195,13 +195,13 @@ catalog:
   sherif: ^1.11.1
   sirv: ^3.0.2
   structured-clone-es: ^2.0.0
-  style-dictionary: ^5.4.0
+  style-dictionary: ^5.4.1
   stylelint: ^16.26.1
   svgo: ^4.0.1
   ts-jest: ^29.4.9
   ts-morph: ^27.0.2
   ts-pattern: ^5.9.0
-  tsdown: ^0.21.10
+  tsdown: ^0.22.0
   tslib: ^2.8.1
   tsup: 8.4.0
   typedoc: 0.25.12

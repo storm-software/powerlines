@@ -61,6 +61,7 @@
   "files": ["dist/**/*"],
   "dependencies": {
     "@powerlines/plugin-vite": "workspace:*",
+    "@stryke/string-format": "catalog:",
     "@stryke/fs": "catalog:",
     "@stryke/hash": "catalog:",
     "@stryke/path": "catalog:",
