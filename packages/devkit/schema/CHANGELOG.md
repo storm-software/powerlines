@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.24](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.24) (05/19/2026)
+
+### Miscellaneous
+
+- **schema:** Added `persistence` module to support cache writes ([c092ebb15](https://github.com/storm-software/powerlines/commit/c092ebb15))
+
 ## [0.11.23](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.23) (05/19/2026)
 
 ### Updated Dependencies

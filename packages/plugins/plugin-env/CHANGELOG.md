@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.237](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.237) (05/19/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Update package to use schema persistence helpers ([82e223b68](https://github.com/storm-software/powerlines/commit/82e223b68))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.129**
+- Updated **schema** to **v0.11.24**
+
 ## [0.16.236](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.236) (05/19/2026)
 
 ### Updated Dependencies
