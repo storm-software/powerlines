@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.6.148](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.148) (05/19/2026)
+
+### Miscellaneous
+
+- **core:** Update organization to be optional and clean up schema usage ([c5adee768](https://github.com/storm-software/powerlines/commit/c5adee768))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.458**
+- Updated **powerlines** to **v0.47.46**
+
 ## [0.6.147](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.147) (05/19/2026)
 
 ### Updated Dependencies
