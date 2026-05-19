@@ -29,31 +29,31 @@ import {
   ElseIfClause,
   FunctionDeclaration,
   IfStatement,
-  InterfaceMember,
   VarDeclaration
 } from "@alloy-js/typescript";
 import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
 import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
 import { refkey } from "@powerlines/plugin-alloy/helpers/refkey";
-import { ComponentProps } from "@powerlines/plugin-alloy/types/components";
+import type { ComponentProps } from "@powerlines/plugin-alloy/types/components";
 import {
   BuiltinFile,
-  BuiltinFileProps
-} from "@powerlines/plugin-alloy/typescript/components/builtin-file";
-import { InterfaceDeclaration } from "@powerlines/plugin-alloy/typescript/components/interface-declaration";
-import { ObjectDeclaration } from "@powerlines/plugin-alloy/typescript/components/object-declaration";
+  BuiltinFileProps,
+  InterfaceDeclaration,
+  InterfaceMember,
+  ObjectDeclaration,
+  TSDocSchemaProperty
+} from "@powerlines/plugin-alloy/typescript/components";
 import {
   TSDoc,
   TSDocParam,
   TSDocRemarks,
   TSDocReturns
 } from "@powerlines/plugin-alloy/typescript/components/tsdoc";
-import { TSDocSchemaProperty } from "@powerlines/plugin-alloy/typescript/components/tsdoc-schema";
-import { JTDSchemaType } from "@powerlines/schema";
-import { getProperties } from "@powerlines/schema/helpers";
+import type { JTDSchemaType } from "@powerlines/schema";
+import { getPropertiesList } from "@powerlines/schema/helpers";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { loadEnvFromContext } from "../helpers/load";
-import { EnvPluginContext } from "../types/plugin";
+import type { EnvPluginContext } from "../types/plugin";
 
 /**
  * Generates the environment configuration typescript definition for the Powerlines project.
@@ -83,7 +83,7 @@ export function EnvTypeDefinition() {
           {prefix => (
             <For
               each={
-                Object.values(getProperties(context.env.vars.schema)).filter(
+                getPropertiesList(context.env.vars.schema).filter(
                   property => !property.metadata?.isIgnored
                 ) ?? []
               }
@@ -276,7 +276,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
 
   const reflectionGetProperties = computed(
     () =>
-      Object.values(getProperties(context.env.vars.schema))
+      getPropertiesList(context.env.vars.schema)
         .filter(property => !property.metadata?.isIgnored)
         .sort((a, b) =>
           !a.metadata?.name && !b.metadata?.name
@@ -290,7 +290,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
   );
   const reflectionSetProperties = computed(
     () =>
-      Object.values(getProperties(context.env.vars.schema))
+      getPropertiesList(context.env.vars.schema)
         .filter(
           property =>
             !property.metadata?.isIgnored && !property.metadata?.isReadonly

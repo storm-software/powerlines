@@ -63,6 +63,46 @@ export function getProperties<TMetadata extends SchemaMetadata>(
 }
 
 /**
+ * A helper function to get a list of properties from a JTD object schema. This function takes an {@link ObjectSchema} as input and returns an array of its properties, where each element is an object containing the property name, the corresponding JTD schema type, and an `optional` flag indicating whether the property is optional (i.e., defined in `optionalProperties`) or required (i.e., defined in `properties`). The function utilizes the `getProperties` helper function to first retrieve the properties as a record and then converts that record into an array format for easier iteration and access.
+ *
+ * @param obj - The {@link ObjectSchema} from which to extract the properties.
+ * @returns An array of properties defined in the JTD object schema, where each element is an object containing the property name, the corresponding JTD schema type, and an `optional` flag.
+ */
+export function getPropertiesList<TMetadata extends SchemaMetadata>(
+  obj: ObjectSchema<TMetadata> | JTDSchemaObjectType<TMetadata>
+): Array<JTDSchemaType<TMetadata> & { name: string; optional: boolean }> {
+  return Object.values(getProperties(obj));
+}
+
+/**
+ * A helper function to add a property to a JTD object schema. This function takes a JTD object schema (either {@link JTDSchemaObjectType} or {@link ObjectSchema}), a property name, and a JTD schema type as input. It adds the specified property to the appropriate section of the JTD schema based on whether the property is optional or required. If the property is optional (i.e., has `nullable: true`), it is added to the `optionalProperties` section of the schema; otherwise, it is added to the `properties` section. The function also ensures that the property's metadata includes its name for easier identification and access in future operations.
+ *
+ * @param obj - The JTD object schema to which the property should be added.
+ * @param name - The name of the property to add.
+ * @param property - The JTD schema type of the property to add, which may include a `nullable` flag indicating whether the property is optional.
+ */
+export function addProperty<TMetadata extends SchemaMetadata>(
+  obj: ObjectSchema<TMetadata> | JTDSchemaObjectType<TMetadata>,
+  name: string,
+  property: JTDSchemaType<TMetadata>
+) {
+  const schema = isObjectSchema(obj) ? obj.schema : obj;
+  if (property.nullable) {
+    schema.optionalProperties ??= {};
+    schema.optionalProperties[name] = {
+      ...property,
+      metadata: { ...property.metadata, name } as TMetadata
+    };
+  } else {
+    schema.properties ??= {};
+    schema.properties[name] = {
+      ...property,
+      metadata: { ...property.metadata, name } as TMetadata
+    };
+  }
+}
+
+/**
  * Merges multiple JTD object schemas into a single schema. This function takes an array of JTD object schemas (either {@link JTDSchemaObjectType} or {@link ObjectSchema}) and combines their properties into a single JTD object schema. The resulting schema will contain all properties from the input schemas, with optional properties marked accordingly. If there are overlapping properties between the input schemas, the function will merge them using a deep merge strategy (via `defu`) if they are both JTD object schemas; otherwise, the property from the first schema in the input array will take precedence.
  *
  * @remarks

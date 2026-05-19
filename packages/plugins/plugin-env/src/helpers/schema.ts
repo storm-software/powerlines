@@ -16,20 +16,17 @@
 
  ------------------------------------------------------------------- */
 
-import { ObjectSchema } from "@powerlines/schema";
+import { getCacheDirectory } from "@powerlines/schema";
 import { extract } from "@powerlines/schema/extract";
 import { getProperties, mergeSchemas } from "@powerlines/schema/helpers";
+import { joinPaths } from "@stryke/path/join";
 import { isSetArray } from "@stryke/type-checks/is-set-array";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isString } from "@stryke/type-checks/is-string";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import defu from "defu";
 import { UnresolvedContext } from "powerlines";
-import {
-  EnvPluginContext,
-  EnvPluginOptions,
-  EnvSchemaMetadata
-} from "../types/plugin";
+import { EnvPluginContext, EnvPluginOptions, EnvSchema } from "../types/plugin";
 import { loadEnv } from "./load";
 
 /**
@@ -98,10 +95,7 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
   const defaultSecretsTypeDefinition =
     await getDefaultSecretsTypeDefinition(context);
 
-  const vars = (await extract(
-    context,
-    context.config.env.vars
-  )) as ObjectSchema<EnvSchemaMetadata>;
+  const vars = (await extract(context, context.config.env.vars)) as EnvSchema;
   if (
     (isString(context.config.env.vars) &&
       context.config.env.vars !==
@@ -116,17 +110,14 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
   ) {
     vars.schema = mergeSchemas(
       vars,
-      (await extract(
-        context,
-        defaultVarsTypeDefinition
-      )) as ObjectSchema<EnvSchemaMetadata>
+      (await extract(context, defaultVarsTypeDefinition)) as EnvSchema
     );
   }
 
   const secrets = (await extract(
     context,
     context.config.env.secrets
-  )) as ObjectSchema<EnvSchemaMetadata>;
+  )) as EnvSchema;
   if (
     (isString(context.config.env.secrets) &&
       context.config.env.secrets !==
@@ -141,10 +132,7 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
   ) {
     secrets.schema = mergeSchemas(
       secrets,
-      (await extract(
-        context,
-        defaultSecretsTypeDefinition
-      )) as ObjectSchema<EnvSchemaMetadata>
+      (await extract(context, defaultSecretsTypeDefinition)) as EnvSchema
     );
   }
 
@@ -160,6 +148,7 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
       injected: []
     }
   );
+  await readActiveEnv(context);
 
   const properties = getProperties(context.env.vars);
   context.info({
@@ -233,13 +222,12 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
           context.env.vars.schema.optionalProperties?.[unprefixedKey]
         ) {
           context.env.vars.schema.optionalProperties[unprefixedKey].metadata ??=
-            {} as EnvSchemaMetadata;
+            {};
           context.env.vars.schema.optionalProperties[
             unprefixedKey
           ].metadata.default = value;
         } else if (context.env.vars.schema.properties?.[unprefixedKey]) {
-          context.env.vars.schema.properties[unprefixedKey].metadata ??=
-            {} as EnvSchemaMetadata;
+          context.env.vars.schema.properties[unprefixedKey].metadata ??= {};
           context.env.vars.schema.properties[unprefixedKey].metadata.default =
             value;
         }
@@ -252,16 +240,83 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
           aliases[unprefixedKey].optional &&
           context.env.vars.schema.optionalProperties?.[alias]
         ) {
-          context.env.vars.schema.optionalProperties[alias].metadata ??=
-            {} as EnvSchemaMetadata;
+          context.env.vars.schema.optionalProperties[alias].metadata ??= {};
           context.env.vars.schema.optionalProperties[alias].metadata.default =
             value;
         } else if (context.env.vars.schema.properties?.[alias]) {
-          context.env.vars.schema.properties[alias].metadata ??=
-            {} as EnvSchemaMetadata;
+          context.env.vars.schema.properties[alias].metadata ??= {};
           context.env.vars.schema.properties[alias].metadata.default = value;
         }
       }
     }
   }
+}
+
+/**
+ * Reads the active environment variables and secrets from the plugin context's cache and stores them in the plugin context for use during the build process. This function should be called during the plugin's `buildStart` hook to ensure that the active environment variables and secrets are available before the build process begins.
+ *
+ * @param context - The plugin context
+ * @returns A promise that resolves when the active environment variables and secrets have been read and stored in the plugin context.
+ */
+export async function readActiveEnv<TContext extends EnvPluginContext>(
+  context: TContext
+) {
+  context.env.vars.active ??= [];
+  if (
+    context.fs.existsSync(
+      joinPaths(getCacheDirectory(context), "env", "vars.json")
+    )
+  ) {
+    const content = await context.fs.read(
+      joinPaths(getCacheDirectory(context), "env", "vars.json")
+    );
+    if (content) {
+      context.env.vars.active = JSON.parse(content)?.elements ?? [];
+    }
+  }
+
+  context.env.secrets.active ??= [];
+  if (
+    context.fs.existsSync(
+      joinPaths(getCacheDirectory(context), "env", "secrets.json")
+    )
+  ) {
+    const content = await context.fs.read(
+      joinPaths(getCacheDirectory(context), "env", "secrets.json")
+    );
+    if (content) {
+      context.env.secrets.active = JSON.parse(content)?.elements ?? [];
+    }
+  }
+}
+
+/**
+ * Writes the active environment variables and secrets from the plugin context to the plugin context's cache for use during the build process. This function should be called whenever the active environment variables and secrets are updated in the plugin context to ensure that the latest values are available during the build process.
+ *
+ * @param context - The plugin context
+ * @returns A promise that resolves when the active environment variables and secrets have been written to the plugin context's cache.
+ */
+export async function writeActiveEnv<TContext extends EnvPluginContext>(
+  context: TContext
+) {
+  return Promise.all(
+    [
+      isSetArray(context.env.vars.active)
+        ? context.fs.write(
+            joinPaths(getCacheDirectory(context), "env", "vars.json"),
+            JSON.stringify({
+              elements: context.env.vars.active
+            })
+          )
+        : undefined,
+      isSetArray(context.env.secrets.active)
+        ? context.fs.write(
+            joinPaths(getCacheDirectory(context), "env", "secrets.json"),
+            JSON.stringify({
+              elements: context.env.secrets.active
+            })
+          )
+        : undefined
+    ].filter(Boolean) as Promise<void>[]
+  );
 }

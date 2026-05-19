@@ -126,7 +126,12 @@ export type EnvPluginResolvedConfig = BabelPluginResolvedConfig & {
     };
 };
 
-export interface EnvSchemaMetadata extends SchemaMetadata {
+/**
+ * The schema for the environment variables or secrets used by the project and expected to be injected into the source code (if {@link EnvPluginOptions.inject} is true). This schema extends the base {@link ObjectSchema} with additional metadata specific to environment variables, including an `active` property that lists the environment variables or secrets that are currently active and should be injected during the build process.
+ */
+export interface EnvSchema<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+> extends ObjectSchema<TMetadata> {
   /**
    * The active environment variables or secrets that are used by the project and are expected to be injected into the source code (if {@link EnvPluginOptions.inject} is true).
    */
@@ -143,7 +148,7 @@ export interface EnvPluginContext<
      * @remarks
      * This value is parsed from the {@link EnvPluginOptions.vars} option.
      */
-    vars: ObjectSchema<EnvSchemaMetadata>;
+    vars: EnvSchema;
 
     /**
      * The type definition for the expected env secret parameters
@@ -151,7 +156,7 @@ export interface EnvPluginContext<
      * @remarks
      * This value is parsed from the {@link EnvPluginOptions.secrets} option.
      */
-    secrets: ObjectSchema<EnvSchemaMetadata>;
+    secrets: EnvSchema;
 
     /**
      * The parsed .env configuration object

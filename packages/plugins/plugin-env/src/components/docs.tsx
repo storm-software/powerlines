@@ -27,7 +27,7 @@ import {
 } from "@powerlines/plugin-alloy/markdown/components/markdown-file";
 import { MarkdownTable } from "@powerlines/plugin-alloy/markdown/components/markdown-table";
 import { stringifyType } from "@powerlines/schema/codegen";
-import { getProperties } from "@powerlines/schema/helpers";
+import { getPropertiesList } from "@powerlines/schema/helpers";
 import { joinPaths } from "@stryke/path/join";
 import { getDocsOutputPath } from "powerlines/plugin-utils";
 import { EnvPluginContext } from "../types/plugin";
@@ -72,9 +72,10 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
       <Spacing />
       <MarkdownTable
         data={
-          Object.values(getProperties(context.env.vars))
+          getPropertiesList(context.env.vars)
             .filter(
               property =>
+                context.env.vars.active?.includes(property.name) &&
                 !property?.metadata?.isHidden &&
                 !property?.metadata?.isIgnored &&
                 !property?.metadata?.isReadonly &&
