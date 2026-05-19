@@ -19,7 +19,7 @@ catalog:
   '@babel/types': 8.0.0-rc.5
   '@cacheable/memory': ^2.0.9
   '@cloudflare/unenv-preset': ^2.16.1
-  '@cloudflare/workers-types': ^4.20260518.1
+  '@cloudflare/workers-types': ^4.20260519.1
   '@content-collections/core': ^0.12.0
   '@deepkit/core': 1.0.5
   '@deepkit/type': 1.0.5
@@ -176,7 +176,7 @@ catalog:
   oxc-parser: ^0.99.0
   oxc-resolver: ^11.19.1
   oxc-transform: ^0.99.0
-  oxlint: ^1.65.0
+  oxlint: ^1.66.0
   oxlint-tsgolint: ^0.14.2
   piscina: ^5.1.4
   pluralize: ^8.0.0
@@ -198,7 +198,7 @@ catalog:
   style-dictionary: ^5.4.1
   stylelint: ^16.26.1
   svgo: ^4.0.1
-  ts-jest: ^29.4.9
+  ts-jest: ^29.4.10
   ts-morph: ^27.0.2
   ts-pattern: ^5.9.0
   tsdown: ^0.22.0
@@ -219,7 +219,7 @@ catalog:
   verdaccio: 6.5.2
   vite: ^8.0.13
   webpack: ^5.106.2
-  wrangler: ^4.92.0
+  wrangler: ^4.93.0
   zod: ^4.4.3
   zx: ^8.8.5
 
