@@ -113,81 +113,116 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
                 ? join(String(env.DATA_DIR), "${titleCase(
                   context.config.name
                 )}")
-                : join(homedir, "Library", "Application Support", "${titleCase(
+                : join(homedir, "Library", "Application Support", ${
                   context.config.organization
-                )}", "${titleCase(context.config.name)}"),
+                    ? `"${titleCase(context.config.organization)}", `
+                    : ""
+                }"${titleCase(context.config.name)}"),
               config: env.CONFIG_DIR
                 ? join(String(env.CONFIG_DIR), "${titleCase(
                   context.config.name
                 )}")
-                : join(homedir, "Library", "Preferences", "${titleCase(
+                : join(homedir, "Library", "Preferences", ${
                   context.config.organization
-                )}", "${titleCase(context.config.name)}"),
+                    ? `"${titleCase(context.config.organization)}", `
+                    : ""
+                }"${titleCase(context.config.name)}"),
               cache: env.CACHE_DIR
                 ? join(String(env.CACHE_DIR), "${titleCase(
                   context.config.name
                 )}")
-                : join(homedir, "Library", "Caches", "${titleCase(
+                : join(homedir, "Library", "Caches", ${
                   context.config.organization
-                )}", "${titleCase(context.config.name)}"),
+                    ? `"${titleCase(context.config.organization)}", `
+                    : ""
+                }"${titleCase(context.config.name)}"),
               log: env.LOG_DIR
                 ? join(String(env.LOG_DIR), "${titleCase(context.config.name)}")
-                : join(homedir, "Library", "Logs", "${titleCase(
+                : join(homedir, "Library", "Logs", ${
                   context.config.organization
-                )}", "${titleCase(context.config.name)}"),
+                    ? `"${titleCase(context.config.organization)}", `
+                    : ""
+                }"${titleCase(context.config.name)}"),
               temp: env.TEMP_DIR
                 ? join(String(env.TEMP_DIR), "${titleCase(
                   context.config.name
                 )}")
-                : join(tmpdir, "${titleCase(
+                : join(tmpdir, ${
                   context.config.organization
-                )}", "${titleCase(context.config.name)}")
+                    ? `"${titleCase(context.config.organization)}", `
+                    : ""
+                }"${titleCase(context.config.name)}")
             }
               : isWindows
             ? {
               data: env.DATA_DIR
                 ? join(String(env.DATA_DIR), "${titleCase(context.config.name)}")
-                : join(env.LOCALAPPDATA || join(homedir, "AppData", "Local"), "${titleCase(context.config.organization)}", "${titleCase(
-                  context.config.name
-                )}", "Data"),
+                : join(env.LOCALAPPDATA || join(homedir, "AppData", "Local"), ${
+                  context.config.organization
+                    ? `"${titleCase(context.config.organization)}", `
+                    : ""
+                }"${titleCase(context.config.name)}", "Data"),
               config: env.CONFIG_DIR
                 ? join(env.CONFIG_DIR!, "${titleCase(context.config.name)}")
-                : join(env.APPDATA || join(homedir, "AppData", "Roaming"), "${titleCase(context.config.organization)}", "${titleCase(
-                  context.config.name
-                )}", "Config"),
+                : join(env.APPDATA || join(homedir, "AppData", "Roaming"), ${
+                  context.config.organization
+                    ? `"${titleCase(context.config.organization)}", `
+                    : ""
+                }"${titleCase(context.config.name)}", "Config"),
               cache: env.CACHE_DIR
                 ? join(String(env.CACHE_DIR), "${titleCase(context.config.name)}")
-                : join(env.LOCALAPPDATA || join(homedir, "AppData", "Local"), "Cache", "${titleCase(context.config.organization)}", "${titleCase(
-                  context.config.name
-                )}"),
+                : join(env.LOCALAPPDATA || join(homedir, "AppData", "Local"), "Cache", ${
+                  context.config.organization
+                    ? `"${titleCase(context.config.organization)}", `
+                    : ""
+                }"${titleCase(context.config.name)}"),
               log: env.LOG_DIR
                 ? join(String(env.LOG_DIR), "${titleCase(context.config.name)}")
-                : join(env.LOCALAPPDATA || join(homedir, "AppData", "Local"), "${titleCase(context.config.organization)}", "${titleCase(
-                  context.config.name
-                )}", "Log"),
+                : join(env.LOCALAPPDATA || join(homedir, "AppData", "Local"), ${
+                  context.config.organization
+                    ? `"${titleCase(context.config.organization)}", `
+                    : ""
+                }"${titleCase(context.config.name)}", "Log"),
               temp: env.TEMP_DIR
                 ? join(String(env.TEMP_DIR), "${titleCase(context.config.name)}")
-                : join(tmpdir, "${titleCase(context.config.organization)}", "${titleCase(context.config.name)}")
+                : join(tmpdir, ${
+                  context.config.organization
+                    ? `"${titleCase(context.config.organization)}", `
+                    : ""
+                }"${titleCase(context.config.name)}")
             }
               :
             {
               data: env.DATA_DIR
-                ? join(String(env.DATA_DIR), "${kebabCase(context.config.name)}")
+                ? join(String(env.DATA_DIR), "${kebabCase(
+                  context.config.name
+                )}")
                 : join(
-                    env.XDG_DATA_HOME || join(homedir, ".local", "share"),
-                    "${kebabCase(context.config.organization)}",
-                    "${kebabCase(context.config.name)}"
+                    env.XDG_DATA_HOME || join(homedir, ".local", "share"), ${
+                      context.config.organization
+                        ? `"${kebabCase(context.config.organization)}", `
+                        : ""
+                    }"${kebabCase(context.config.name)}"
                   ),
               config: env.CONFIG_DIR
-                ? join(String(env.CONFIG_DIR), "${kebabCase(context.config.name)}")
+                ? join(String(env.CONFIG_DIR), "${kebabCase(
+                  context.config.name
+                )}")
                 : join(
                     env.XDG_CONFIG_HOME || join(homedir, ".config"),
-                    "${kebabCase(context.config.organization)}",
-                    "${kebabCase(context.config.name)}"
+                    ${
+                      context.config.organization
+                        ? `"${kebabCase(context.config.organization)}", `
+                        : ""
+                    }"${kebabCase(context.config.name)}"
                   ),
               cache: env.CACHE_DIR
                 ? join(String(env.CACHE_DIR), "${kebabCase(context.config.name)}")
-                : join(env.XDG_CACHE_HOME || join(homedir, ".cache"), "${kebabCase(context.config.organization)}", "${kebabCase(
+                : join(env.XDG_CACHE_HOME || join(homedir, ".cache"), ${
+                  context.config.organization
+                    ? `"${kebabCase(context.config.organization)}", `
+                    : ""
+                }"${kebabCase(context.config.name)}"
                   context.config.name
                 )}"),
               log: env.LOG_DIR
@@ -198,10 +233,16 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
               temp: env.TEMP_DIR
                 ? join(String(env.TEMP_DIR), "${kebabCase(context.config.name)}")
                 : (env.DEVENV_RUNTIME || env.XDG_RUNTIME_DIR
-                    ? join((env.DEVENV_RUNTIME || env.XDG_RUNTIME_DIR)!, "${kebabCase(context.config.organization)}", "${kebabCase(
-                      context.config.name
-                    )}")
-                    : join(tmpdir, basename(homedir), "${kebabCase(context.config.organization)}", "${kebabCase(context.config.name)}"))
+                    ? join((env.DEVENV_RUNTIME || env.XDG_RUNTIME_DIR)!, ${
+                      context.config.organization
+                        ? `"${kebabCase(context.config.organization)}", `
+                        : ""
+                    }"${kebabCase(context.config.name)}")
+                    : join(tmpdir, basename(homedir), ${
+                      context.config.organization
+                        ? `"${kebabCase(context.config.organization)}", `
+                        : ""
+                    }"${kebabCase(context.config.name)}"))
           } as EnvPaths; `}
       />
       <Spacing />

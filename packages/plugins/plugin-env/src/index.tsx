@@ -126,7 +126,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           `Environment plugin configuration has been resolved for the Powerlines project.`
         );
 
-        await extractEnvSchema(this, options);
+        await extractEnvSchema(this);
       },
       async prepare() {
         this.debug(

@@ -19,7 +19,7 @@
 import { For } from "@alloy-js/core";
 import { getCloudflarePreset } from "@cloudflare/unenv-preset";
 import { render } from "@powerlines/plugin-alloy/render";
-import { readEnvTypeReflection } from "@powerlines/plugin-env/helpers";
+import { extractEnvSchema } from "@powerlines/plugin-env/helpers";
 import pulumi from "@powerlines/plugin-pulumi";
 import unenv from "@powerlines/plugin-unenv";
 import { resolveModule } from "@powerlines/schema/resolve";
@@ -95,13 +95,13 @@ export function plugin<
         ) as WranglerResolvedConfig;
       },
       async prepare() {
-        const result = await readEnvTypeReflection(this, "env");
+        await extractEnvSchema(this);
 
         return render(
           this,
           <>
             <CloudflareBuiltin />
-            <CloudflareEnvBuiltin reflection={result} />
+            <CloudflareEnvBuiltin />
           </>
         );
       },

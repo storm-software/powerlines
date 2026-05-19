@@ -18,7 +18,11 @@
 
 import { getCacheDirectory } from "@powerlines/schema";
 import { extract } from "@powerlines/schema/extract";
-import { getProperties, mergeSchemas } from "@powerlines/schema/helpers";
+import {
+  getProperties,
+  getPropertiesList,
+  mergeSchemas
+} from "@powerlines/schema/helpers";
 import { joinPaths } from "@stryke/path/join";
 import { isSetArray } from "@stryke/type-checks/is-set-array";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
@@ -26,7 +30,7 @@ import { isString } from "@stryke/type-checks/is-string";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import defu from "defu";
 import { UnresolvedContext } from "powerlines";
-import { EnvPluginContext, EnvPluginOptions, EnvSchema } from "../types/plugin";
+import { EnvPluginContext, EnvSchema } from "../types/plugin";
 import { loadEnv } from "./load";
 
 /**
@@ -84,12 +88,10 @@ export async function getDefaultSecretsTypeDefinition<
  * This function should be called during the plugin's `config` hook to ensure that the environment variables and secrets schema is available in the plugin context before the build process begins. The resulting schema will be used to validate the loaded environment variables and secrets, as well as to provide type information for the injected environment variables and secrets during the build process.
  *
  * @param context - The plugin context
- * @param options - The plugin options containing the environment variables and secrets type definitions to extract the schema from. If not provided, the default type definitions will be used.
  * @returns A promise that resolves when the schema has been extracted and stored in the plugin context.
  */
 export async function extractEnvSchema<TContext extends EnvPluginContext>(
-  context: TContext,
-  options: EnvPluginOptions = {}
+  context: TContext
 ): Promise<void> {
   const defaultVarsTypeDefinition = await getDefaultVarsTypeDefinition(context);
   const defaultSecretsTypeDefinition =
@@ -156,7 +158,7 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
       category: "env"
     },
     message: `Environment Variables configuration: ${
-      options.vars ? "" : "Defaulted "
+      context.config.env.vars ? "" : "Defaulted "
     }${
       context.env.vars.variant === "reflection"
         ? "Deepkit type definition"
@@ -167,10 +169,10 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
             : context.env.vars.variant === "zod3"
               ? "Zod v3 schema"
               : "Typescript exported type"
-    }${options.vars ? " from plugin options" : ""} provided ${
+    }${context.config.env.vars ? " from plugin options" : ""} provided ${
       Object.keys(properties).length
     } parameters\nEnvironment Secret configuration: ${
-      options.secrets ? "" : "Defaulted "
+      context.config.env.secrets ? "" : "Defaulted "
     }${
       context.env.secrets.variant === "reflection"
         ? "Deepkit type definition"
@@ -181,9 +183,9 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
             : context.env.secrets.variant === "zod3"
               ? "Zod v3 schema"
               : "Typescript exported type"
-    }${options.secrets ? " from plugin options" : ""} provided ${
+    }${context.config.env.secrets ? " from plugin options" : ""} provided ${
       context.env.secrets?.schema
-        ? Object.keys(getProperties(context.env.secrets)).length
+        ? getPropertiesList(context.env.secrets).length
         : "0"
     } parameters\nEnvironment variable Prefixes: ${context.config.env.prefix.join(
       ", "

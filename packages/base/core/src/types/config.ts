@@ -873,7 +873,6 @@ export type ResolvedConfig<
       | "title"
       | "plugins"
       | "mode"
-      | "organization"
       | "environments"
       | "input"
       | "tsconfig"

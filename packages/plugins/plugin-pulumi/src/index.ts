@@ -145,7 +145,7 @@ export const plugin = <
             name: this.config.name,
             runtime: { name: "nodejs" },
             description: this.config.description,
-            author: this.config.organization
+            author: this.config.organization || this.config.name
           }) as ProjectSettings
         );
 
