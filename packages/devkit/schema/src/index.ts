@@ -22,6 +22,7 @@ export * from "./constants";
 export * from "./extract";
 export * from "./helpers";
 export * from "./jtd";
+export * from "./persistence";
 export * from "./reflection";
 export * from "./resolve";
 export * from "./type-checks";

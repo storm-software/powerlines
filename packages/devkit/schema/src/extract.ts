@@ -38,6 +38,7 @@ import defu from "defu";
 import type { BuildOptions } from "esbuild";
 import * as z3 from "zod/v3";
 import { jsonSchemaToJtd } from "./jtd";
+import { getCacheDirectory, writeSchema } from "./persistence";
 import { reflectionToJsonSchema } from "./reflection";
 import { resolve } from "./resolve";
 import {
@@ -426,11 +427,12 @@ export async function extract<
     return input;
   }
 
+  let result: Schema<TMetadata> | undefined;
+
   const variant = extractVariant(input);
   const hash = extractHash(variant, input);
-  const cacheFilePath = joinPaths(context.cachePath, "schemas", `${hash}.json`);
 
-  let result: Schema<TMetadata> | undefined;
+  const cacheFilePath = joinPaths(getCacheDirectory(context), `${hash}.json`);
   if (
     context.config.skipCache !== true &&
     context.fs.existsSync(cacheFilePath)
@@ -453,7 +455,7 @@ export async function extract<
   }
 
   if (context.config.skipCache !== true) {
-    await context.fs.write(cacheFilePath, JSON.stringify(result.schema));
+    await writeSchema(context, result);
   }
 
   return result;

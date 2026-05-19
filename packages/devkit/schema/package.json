@@ -77,6 +77,10 @@
       "import": "./dist/jtd.mjs",
       "require": "./dist/jtd.cjs"
     },
+    "./persistence": {
+      "import": "./dist/persistence.mjs",
+      "require": "./dist/persistence.cjs"
+    },
     "./reflection": {
       "import": "./dist/reflection.mjs",
       "require": "./dist/reflection.cjs"
