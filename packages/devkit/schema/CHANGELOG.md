@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.25](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.25) (05/19/2026)
+
+### Miscellaneous
+
+- **schema:** Update schema codegen to use JTD schema formatting ([43743007e](https://github.com/storm-software/powerlines/commit/43743007e))
+
 ## [0.11.24](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.24) (05/19/2026)
 
 ### Miscellaneous
