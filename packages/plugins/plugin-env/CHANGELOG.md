@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.235](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.235) (05/19/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Remove dependency on `deepkit` packages at runtime ([2321ae01d](https://github.com/storm-software/powerlines/commit/2321ae01d))
+
+### Updated Dependencies
+
+- Updated **plugin-deepkit** to **v0.11.387**
+- Updated **plugin-automd** to **v0.1.505**
+- Updated **plugin-plugin** to **v0.12.456**
+- Updated **plugin-alloy** to **v0.26.127**
+- Updated **plugin-babel** to **v0.13.40**
+- Updated **powerlines** to **v0.47.44**
+- Updated **schema** to **v0.11.22**
+- Updated **core** to **v0.15.21**
+
 ## [0.16.234](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.234) (05/18/2026)
 
 ### Updated Dependencies

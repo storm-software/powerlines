@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.22](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.22) (05/19/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Remove dependency on `deepkit` packages at runtime ([2321ae01d](https://github.com/storm-software/powerlines/commit/2321ae01d))
+
+### Updated Dependencies
+
+- Updated **unplugin** to **v0.0.36**
+- Updated **deepkit** to **v0.9.20**
+- Updated **core** to **v0.15.21**
+
 ## [0.11.21](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.21) (05/18/2026)
 
 ### Updated Dependencies

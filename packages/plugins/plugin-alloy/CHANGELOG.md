@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.127](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.127) (05/19/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Remove dependency on `deepkit` packages at runtime ([2321ae01d](https://github.com/storm-software/powerlines/commit/2321ae01d))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.456**
+- Updated **plugin-babel** to **v0.13.40**
+- Updated **powerlines** to **v0.47.44**
+- Updated **schema** to **v0.11.22**
+- Updated **deepkit** to **v0.9.20**
+
 ## [0.26.126](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.126) (05/18/2026)
 
 ### Updated Dependencies
