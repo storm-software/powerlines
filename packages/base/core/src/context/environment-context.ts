@@ -22,7 +22,11 @@ import { isObject } from "@stryke/type-checks/is-object";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { ArrayValues } from "@stryke/types/array";
 import { uuid } from "@stryke/unique-id/uuid";
-import { DEFAULT_ENVIRONMENT, PLUGIN_NON_HOOK_FIELDS } from "../constants";
+import {
+  DEFAULT_ENVIRONMENT,
+  GLOBAL_ENVIRONMENT,
+  PLUGIN_NON_HOOK_FIELDS
+} from "../constants";
 import { extractHooks } from "../lib/hooks";
 import { resolvePlugins } from "../lib/plugins";
 import {
@@ -205,7 +209,14 @@ export class PowerlinesEnvironmentContext<
   ): Promise<void> {
     const plugins = await resolvePlugins<TResolvedConfig, TSystemContext>(
       this,
-      plugin
+      plugin,
+      {
+        skipLogging: !!(
+          this.environmentConfig?.name &&
+          this.environmentConfig.name !== DEFAULT_ENVIRONMENT &&
+          this.environmentConfig.name !== GLOBAL_ENVIRONMENT
+        )
+      }
     );
     for (const plugin of plugins) {
       let resolvedPlugin = plugin as EnvironmentPlugin<

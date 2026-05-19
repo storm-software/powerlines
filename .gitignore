@@ -13,11 +13,11 @@ out
 
 packages/base/deepkit/scripts/*.cjs
 
-packages/base/deepkit/schemas
-!packages/base/deepkit/schemas/*.capnp
+./packages/base/deepkit/schemas/*
+!./packages/base/deepkit/schemas/*.capnp
 
-packages/base/engine/schemas
-!packages/base/engine/schemas/*.capnp
+./packages/base/engine/schemas/*
+!./packages/base/engine/schemas/*.capnp
 
 # \!examples/**/.powerlines
 
