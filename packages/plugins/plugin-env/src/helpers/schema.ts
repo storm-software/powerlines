@@ -19,7 +19,6 @@
 import { ObjectSchema } from "@powerlines/schema";
 import { extract } from "@powerlines/schema/extract";
 import { getProperties, mergeSchemas } from "@powerlines/schema/helpers";
-import { joinPaths } from "@stryke/path/join";
 import { isSetArray } from "@stryke/type-checks/is-set-array";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isString } from "@stryke/type-checks/is-string";
@@ -106,7 +105,9 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
   if (
     (isString(context.config.env.vars) &&
       context.config.env.vars !==
-        `${defaultVarsTypeDefinition.file}#${defaultVarsTypeDefinition.name}`) ||
+        `${defaultVarsTypeDefinition.file}#${
+          defaultVarsTypeDefinition.name
+        }`) ||
     (isSetObject(context.config.env.vars) &&
       ((context.config.env.vars as TypeDefinition).file !==
         defaultVarsTypeDefinition.file ||
@@ -129,7 +130,9 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
   if (
     (isString(context.config.env.secrets) &&
       context.config.env.secrets !==
-        `${defaultSecretsTypeDefinition.file}#${defaultSecretsTypeDefinition.name}`) ||
+        `${defaultSecretsTypeDefinition.file}#${
+          defaultSecretsTypeDefinition.name
+        }`) ||
     (isSetObject(context.config.env.secrets) &&
       ((context.config.env.secrets as TypeDefinition).file !==
         defaultSecretsTypeDefinition.file ||
@@ -261,71 +264,4 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
       }
     }
   }
-}
-
-/**
- * Reads the active environment variables and secrets from the plugin context's cache and stores them in the plugin context for use during the build process. This function should be called during the plugin's `buildStart` hook to ensure that the active environment variables and secrets are available before the build process begins.
- *
- * @param context - The plugin context
- * @returns A promise that resolves when the active environment variables and secrets have been read and stored in the plugin context.
- */
-export async function readActiveEnv<TContext extends EnvPluginContext>(
-  context: TContext
-) {
-  context.env.vars.schema.metadata ??= {} as EnvSchemaMetadata;
-  context.env.vars.schema.metadata.active ??= [];
-  if (context.fs.existsSync(joinPaths(context.cachePath, "env", "vars.json"))) {
-    const content = await context.fs.read(
-      joinPaths(context.cachePath, "env", "vars.json")
-    );
-    if (content) {
-      context.env.vars.schema.metadata.active =
-        JSON.parse(content)?.elements ?? [];
-    }
-  }
-
-  context.env.secrets.schema.metadata ??= {} as EnvSchemaMetadata;
-  context.env.secrets.schema.metadata.active ??= [];
-  if (
-    context.fs.existsSync(joinPaths(context.cachePath, "env", "secrets.json"))
-  ) {
-    const content = await context.fs.read(
-      joinPaths(context.cachePath, "env", "secrets.json")
-    );
-    if (content) {
-      context.env.secrets.schema.metadata.active =
-        JSON.parse(content)?.elements ?? [];
-    }
-  }
-}
-
-/**
- * Writes the active environment variables and secrets from the plugin context to the plugin context's cache for use during the build process. This function should be called whenever the active environment variables and secrets are updated in the plugin context to ensure that the latest values are available during the build process.
- *
- * @param context - The plugin context
- * @returns A promise that resolves when the active environment variables and secrets have been written to the plugin context's cache.
- */
-export async function writeActiveEnv<TContext extends EnvPluginContext>(
-  context: TContext
-) {
-  return Promise.all(
-    [
-      isSetArray(context.env.vars.schema.metadata?.active)
-        ? context.fs.write(
-            joinPaths(context.cachePath, "env", "vars.json"),
-            JSON.stringify({
-              elements: context.env.vars.schema.metadata!.active
-            })
-          )
-        : undefined,
-      isSetArray(context.env.secrets.schema.metadata?.active)
-        ? context.fs.write(
-            joinPaths(context.cachePath, "env", "secrets.json"),
-            JSON.stringify({
-              elements: context.env.secrets.schema.metadata!.active
-            })
-          )
-        : undefined
-    ].filter(Boolean) as Promise<void>[]
-  );
 }

@@ -19,6 +19,7 @@
 import { render } from "@powerlines/plugin-alloy/render";
 import automd from "@powerlines/plugin-automd";
 import babel from "@powerlines/plugin-babel";
+import { writeSchema } from "@powerlines/schema/persistence";
 import { toArray } from "@stryke/convert/to-array";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { joinPaths } from "@stryke/path/join";
@@ -34,9 +35,7 @@ import { env } from "./helpers/automd-generator";
 import {
   extractEnvSchema,
   getDefaultSecretsTypeDefinition,
-  getDefaultVarsTypeDefinition,
-  readActiveEnv,
-  writeActiveEnv
+  getDefaultVarsTypeDefinition
 } from "./helpers/schema";
 import type { EnvPluginContext, EnvPluginOptions } from "./types/plugin";
 
@@ -134,8 +133,6 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           `Preparing the Environment runtime artifacts for the Powerlines project.`
         );
 
-        await readActiveEnv(this);
-
         return render(
           this,
           <EnvBuiltin defaultConfig={this.config.env.defaultConfig} />
@@ -149,14 +146,12 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           )}"`
         );
 
-        await readActiveEnv(this);
-
         return render(this, <EnvDocsFile levelOffset={0} />);
       },
       async buildEnd() {
         this.debug("Writing active environment variables to disk.");
 
-        await writeActiveEnv(this);
+        await writeSchema(this, this.env.vars);
       }
     },
     {
