@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.238](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.238) (05/19/2026)
+
+### Miscellaneous
+
+- **schema:** Update schema codegen to use JTD schema formatting ([43743007e](https://github.com/storm-software/powerlines/commit/43743007e))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.130**
+- Updated **schema** to **v0.11.25**
+
 ## [0.16.237](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.237) (05/19/2026)
 
 ### Miscellaneous
