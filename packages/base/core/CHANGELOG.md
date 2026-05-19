@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.15.23](https://github.com/storm-software/powerlines/releases/tag/core%400.15.23) (05/19/2026)
+
+### Miscellaneous
+
+- **core:** Update organization to be optional and clean up schema usage ([c5adee768](https://github.com/storm-software/powerlines/commit/c5adee768))
+
 ## [0.15.19](https://github.com/storm-software/powerlines/releases/tag/core%400.15.19) (05/18/2026)
 
 ### Features

@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.440](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.440) (05/19/2026)
+
+### Miscellaneous
+
+- **core:** Update organization to be optional and clean up schema usage ([c5adee768](https://github.com/storm-software/powerlines/commit/c5adee768))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.458**
+- Updated **plugin-alloy** to **v0.26.131**
+- Updated **plugin-babel** to **v0.13.42**
+- Updated **plugin-env** to **v0.16.239**
+- Updated **powerlines** to **v0.47.46**
+- Updated **core** to **v0.15.23**
+
 ## [0.1.439](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.439) (05/19/2026)
 
 ### Updated Dependencies
