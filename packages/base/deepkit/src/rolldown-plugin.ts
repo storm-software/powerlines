@@ -17,27 +17,33 @@
  ------------------------------------------------------------------- */
 
 import type { Context } from "@powerlines/core";
+import { omit } from "@stryke/helpers/omit";
 import { findFileExtension } from "@stryke/path";
 import { isString } from "@stryke/type-checks";
 import type { HookFilter, LoadResult, Plugin, PluginContext } from "rolldown";
 import { DiagnosticCategory } from "typescript";
 import { transpile } from "./transpile";
+import { ReflectionConfig } from "./types";
+
+export interface RolldownPluginOptions extends Partial<ReflectionConfig> {
+  filter?: Partial<Pick<HookFilter, "id">>;
+}
 
 /**
  * Rolldown plugin for Deepkit Type reflections.
  *
  * @param context - The Powerlines context.
- * @param filter - Optional filter to limit which files are processed.
+ * @param options - Optional Rolldown plugin options, including filter and reflection configuration.
  * @returns A Rolldown plugin instance.
  */
 export const rolldownPlugin = (
   context: Context,
-  filter: Partial<Pick<HookFilter, "id">> = {}
+  options: RolldownPluginOptions = {}
 ): Plugin => {
   return {
     name: "powerlines:deepkit",
     load: {
-      filter: { id: /\.(m|c)?tsx?$/, ...filter },
+      filter: { id: /\.(m|c)?tsx?$/, ...options.filter },
       async handler(this: PluginContext, id: string): Promise<LoadResult> {
         const path = await context.resolve(id);
         if (!path?.id) {
@@ -49,7 +55,12 @@ export const rolldownPlugin = (
           return null;
         }
 
-        const result = transpile(context, contents, path.id);
+        const result = transpile(
+          context,
+          contents,
+          path.id,
+          omit(options, ["filter"])
+        );
         if (result.diagnostics && result.diagnostics.length > 0) {
           if (
             result.diagnostics.some(

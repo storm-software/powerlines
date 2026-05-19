@@ -117,6 +117,7 @@
     "@stryke/types": "catalog:",
     "@stryke/zod": "catalog:",
     "ajv": "catalog:",
+    "ajv-formats": "catalog:",
     "defu": "catalog:",
     "esbuild": "catalog:",
     "typescript": "^6.0.3",

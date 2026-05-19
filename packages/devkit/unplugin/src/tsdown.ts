@@ -38,6 +38,7 @@ import { ModuleFormat } from "rolldown";
 import { UserConfig as BuildOptions, Format as TsdownFormat } from "tsdown";
 import type { UserConfig } from "tsdown/config";
 import rolldown from "./rolldown";
+import { UnpluginExecutionOptions } from "./types";
 
 /**
  * Get the {@link ResolveConfig.external | external} and {@link ResolveConfig.noExternal | noExternal} dependencies for the build configuration.
@@ -72,7 +73,6 @@ export const DEFAULT_OPTIONS: Partial<BuildOptions> = {
   platform: "neutral",
   target: "esnext",
   fixedExtension: true,
-  nodeProtocol: true,
   clean: false
 } as const;
 
@@ -272,6 +272,7 @@ export function resolveOptions<TContext extends UnresolvedContext>(
       minify: context.config.output.minify,
       metafile: context.config.mode === "development",
       sourcemap: context.config.output.sourceMap,
+      nodeProtocol: context.config.output.nodeProtocol,
       debug: context.config.mode === "development",
       silent:
         context.config.logLevel.general === "silent" ||
@@ -361,8 +362,8 @@ export function plugin(options: UserConfig = {}): UserConfig {
           }
         },
         resolve: {
-          external: options.external
-            ? (toArray(options.external)
+          external: options.deps?.neverBundle
+            ? (toArray(options.deps?.neverBundle)
                 .map(external => {
                   if (isFunction(external)) {
                     // eslint-disable-next-line no-console
@@ -375,23 +376,29 @@ export function plugin(options: UserConfig = {}): UserConfig {
                 })
                 .filter(Boolean) as ResolveConfig["external"])
             : undefined,
-          noExternal: options.noExternal
-            ? (toArray(options.noExternal)
-                .map(noExternal => {
-                  if (isFunction(noExternal)) {
-                    // eslint-disable-next-line no-console
-                    console.warn(
-                      "Function-based noExternal options are not supported in Powerlines."
-                    );
-                    return undefined;
-                  }
-                  return noExternal;
-                })
-                .filter(Boolean) as ResolveConfig["noExternal"])
-            : undefined
+          noExternal:
+            (options.deps?.skipNodeModulesBundle && options.deps?.onlyBundle) ||
+            (!options.deps?.skipNodeModulesBundle && options.deps?.alwaysBundle)
+              ? (toArray(
+                  options.deps?.skipNodeModulesBundle
+                    ? options.deps?.onlyBundle
+                    : options.deps?.alwaysBundle
+                )
+                  .map(noExternal => {
+                    if (isFunction(noExternal)) {
+                      // eslint-disable-next-line no-console
+                      console.warn(
+                        "Function-based noExternal options are not supported in Powerlines."
+                      );
+                      return undefined;
+                    }
+                    return noExternal;
+                  })
+                  .filter(Boolean) as ResolveConfig["noExternal"])
+              : undefined
         },
         tsconfig: isSetString(options.tsconfig) ? options.tsconfig : undefined
-      })
+      } as UnpluginExecutionOptions)
     ]
   };
 }

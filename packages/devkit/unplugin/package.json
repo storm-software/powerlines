@@ -146,15 +146,16 @@
     "defu": "catalog:",
     "glob": "catalog:",
     "jiti": "catalog:",
+    "rolldown-plugin-dts": "catalog:",
     "rollup-plugin-typescript2": "catalog:"
   },
   "devDependencies": {
+    "@types/node": "catalog:",
     "rolldown": "catalog:",
-    "tsup": "catalog:",
     "tsdown": "catalog:",
+    "tsup": "catalog:",
     "vite": "catalog:",
-    "webpack": "catalog:",
-    "@types/node": "catalog:"
+    "webpack": "catalog:"
   },
   "peerDependencies": {
     "@farmfe/cli": ">=1.0.5",

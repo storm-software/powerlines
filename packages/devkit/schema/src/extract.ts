@@ -18,7 +18,7 @@
 
 import type { Context } from "@powerlines/core";
 import { isTypeDefinition } from "@powerlines/core";
-import { esbuildPlugin } from "@powerlines/deepkit/esbuild-plugin";
+import { rolldownPlugin } from "@powerlines/deepkit/rolldown-plugin";
 import { isType, stringifyType, Type } from "@powerlines/deepkit/vendor/type";
 import { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import { murmurhash } from "@stryke/hash";
@@ -35,7 +35,7 @@ import {
   isZod3Type
 } from "@stryke/zod";
 import defu from "defu";
-import type { BuildOptions } from "esbuild";
+import type { BuildOptions } from "rolldown";
 import * as z3 from "zod/v3";
 import { jsonSchemaToJtd } from "./jtd";
 import { getCacheDirectory, writeSchema } from "./persistence";
@@ -351,7 +351,7 @@ export async function extractSchema<
       input as TypeDefinitionReference,
       defu(options, {
         plugins: [
-          esbuildPlugin(context, {
+          rolldownPlugin(context, {
             reflection: "default",
             level: "all"
           })

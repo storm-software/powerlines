@@ -58,9 +58,9 @@ export async function resolveModule<
 
   let resolved: any;
   try {
-    resolved = await context.resolver.evalModule(result.text, {
-      filename: result.path,
-      ext: findFileDotExtension(result.path)
+    resolved = await context.resolver.evalModule(result.code, {
+      filename: result.fileName,
+      ext: findFileDotExtension(result.fileName)
     });
   } catch (error) {
     if (
@@ -83,7 +83,7 @@ export async function resolveModule<
             ? `
 
 Bundle output for module:
-${result.text}`
+${result.code}`
             : ""
         }`
       );
@@ -98,7 +98,7 @@ ${result.text}`
           ? `
 
 Bundle output for module:
-${result.text}`
+${result.code}`
           : ""
       }`
     );

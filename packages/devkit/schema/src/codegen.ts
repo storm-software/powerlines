@@ -21,9 +21,9 @@ import { isBoolean } from "@stryke/type-checks/is-boolean";
 import { isNull } from "@stryke/type-checks/is-null";
 import { isNumber } from "@stryke/type-checks/is-number";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
-import type { Options } from "ajv/lib/jtd";
-import Ajv from "ajv/lib/jtd";
-import standaloneCode from "ajv/lib/standalone";
+import type { Options } from "ajv";
+import Ajv from "ajv";
+import standaloneCode from "ajv/dist/standalone";
 import { getProperties } from "./helpers";
 import { JTDSchemaType, JTDType } from "./types";
 
@@ -124,6 +124,7 @@ export async function generateCode(
 ) {
   return standaloneCode(
     new Ajv({
+      jtd: true,
       schemas,
       code: { source: true, esm: true }
     }),

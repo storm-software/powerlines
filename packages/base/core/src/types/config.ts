@@ -292,6 +292,19 @@ export interface OutputConfig {
   minify?: boolean;
 
   /**
+   * Control whether built-in Node.js module imports use the `node:` protocol.
+   *
+   * @remarks
+   * If no option is provided, built-in module imports are not transformed. The following options are available for this setting:
+   * - `true`: Add the node: prefix to built-in module imports.
+   * - `"strip"`: Remove the node: prefix from built-in module imports.
+   *
+   * @see https://tsdown.dev/reference/api/Interface.InlineConfig#nodeprotocol
+   * @see https://nodejs.org/api/esm.html#node-imports
+   */
+  nodeProtocol?: "strip" | true;
+
+  /**
    * Whether to overwrite previously generated files in the artifacts directory during the build process.
    *
    * @remarks

@@ -17,44 +17,12 @@
  ------------------------------------------------------------------- */
 
 import type { Context } from "@powerlines/core";
-import { Level, Mode } from "@powerlines/deepkit/vendor/type-compiler/config";
 import { omit } from "@stryke/helpers/omit";
 import { isString } from "@stryke/type-checks";
 import type { OnLoadOptions, Plugin } from "esbuild";
 import { DiagnosticCategory } from "typescript";
 import { transpile } from "./transpile";
-
-export interface ReflectionConfig {
-  /**
-   * Allows to exclude type definitions/TS files from being included in the type compilation step. When a global .d.ts is matched, their types won't be embedded (useful to exclude DOM for example)
-   */
-  exclude?: string[];
-
-  /**
-   * Either a boolean indication general reflection mode, or a list of globs to match against.
-   *
-   * @remarks
-   * - `default`: The default reflection mode, which includes a standard set of type information in the output.
-   * - `true`: An alias for "default", enabling the default reflection mode.
-   * - `false`: Disables reflection, resulting in no type information being included in the output.
-   * - `string[]`: A list of glob patterns to match against files for which reflection should be applied. Only files matching these patterns will have type information included in the output.
-   *
-   * @defaultValue "default"
-   */
-  reflection?: string[] | Mode;
-
-  /**
-   * Defines the level of reflection to be used during the transpilation process.
-   *
-   * @remarks
-   * The level determines how much extra data is captured in the byte code for each type. This can be one of the following values:
-   * - `minimal` - Only the essential type information is captured. (only "hidden", "ignore" and "internal", "readonly")
-   * - `default` - Additional type information is captured, including some contextual data. (adds "alias" and "runtime")
-   * - `extended` - Even more detailed type information is captured, including extended contextual data. (adds "permissions" and "domain")
-   * - `all` - All available type information is captured, including detailed contextual data. (adds "title" and "description")
-   */
-  level?: Level;
-}
+import { ReflectionConfig } from "./types";
 
 export interface ESBuildPluginOptions extends Partial<ReflectionConfig> {
   onLoad?: Partial<OnLoadOptions>;

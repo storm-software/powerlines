@@ -30,12 +30,13 @@ import { joinPaths } from "@stryke/path/join-paths";
 import { isString } from "@stryke/type-checks/is-string";
 import { defu } from "defu";
 import { globSync } from "glob";
-import type { InputOptions } from "rolldown";
+import { builtinModules } from "node:module";
+import type { InputOptions, Plugin } from "rolldown";
 import { RolldownOptions, RollupLog } from "rolldown";
+import { dts as dtsBundlePlugin } from "rolldown-plugin-dts";
 import { viteAliasPlugin as alias } from "rolldown/experimental";
 import typescriptPlugin from "rollup-plugin-typescript2";
 import { createRolldownPlugin } from "unplugin";
-import { dtsBundlePlugin } from "./rollup";
 import {
   createUnpluginFactory,
   UnpluginFactoryDecorator,
@@ -129,8 +130,71 @@ export function resolveOptions<TContext extends UnresolvedContext>(
           moduleDirectories: ["node_modules"],
           preferBuiltins: true
         }),
-        dtsBundlePlugin
-      ],
+        context.config.output.dts &&
+        toArray(context.config.output.format).includes("esm")
+          ? dtsBundlePlugin({
+              tsconfig: appendPath(
+                context.tsconfig.tsconfigFilePath,
+                context.config.cwd
+              )
+            })
+          : undefined,
+        context.config.output.dts &&
+        toArray(context.config.output.format).includes("cjs")
+          ? dtsBundlePlugin({
+              tsconfig: appendPath(
+                context.tsconfig.tsconfigFilePath,
+                context.config.cwd
+              ),
+              emitDtsOnly: true,
+              cjsDefault: true
+            })
+          : undefined,
+        {
+          name: `powerlines:node-protocol`,
+          resolveId: {
+            order: "pre",
+            filter: {
+              id:
+                context.config.output.nodeProtocol === "strip"
+                  ? new RegExp(
+                      `^node:(${builtinModules
+                        .filter(mod => !mod.startsWith("node:"))
+                        .join("|")})$`
+                    )
+                  : new RegExp(
+                      `^(${builtinModules
+                        .filter(mod => !mod.startsWith("node:"))
+                        .join("|")})$`
+                    )
+            },
+            handler:
+              context.config.output.nodeProtocol === "strip"
+                ? async (id: string, ...args: any[]) => {
+                    const resolved = await context.resolve(
+                      id.slice(5),
+                      ...args
+                    );
+                    if (resolved && !resolved.external) {
+                      return resolved;
+                    }
+
+                    return {
+                      id: id.slice(5), // "node:".length
+                      external: true,
+                      moduleSideEffects: false
+                    };
+                  }
+                : id => {
+                    return {
+                      id: `node:${id}`,
+                      external: true,
+                      moduleSideEffects: false
+                    };
+                  }
+          }
+        } as Plugin
+      ].filter(Boolean) as Plugin[],
       resolve: {
         alias: context.alias,
         mainFields: context.config.resolve.mainFields,
@@ -139,11 +203,9 @@ export function resolveOptions<TContext extends UnresolvedContext>(
         extensions: context.config.resolve.extensions
       },
       transform: {
+        target: context.tsconfig.tsconfigJson?.compilerOptions?.target,
         define: context.config.define,
-        inject: context.config.inject,
-        typescript: {
-          target: context.tsconfig.tsconfigJson?.compilerOptions?.target
-        }
+        inject: context.config.inject
       },
       platform: context.config.platform,
       tsconfig: appendPath(
@@ -160,6 +222,14 @@ export function resolveOptions<TContext extends UnresolvedContext>(
             ? "warn"
             : "error",
       onLog(level: "info" | "debug" | "warn", log: RollupLog) {
+        if (
+          context.config.logLevel.general !== "trace" &&
+          level === "warn" &&
+          log.code === "PLUGIN_TIMINGS"
+        ) {
+          return;
+        }
+
         if (log.message?.trim()) {
           if (level === "info") {
             context.logger.debug(log.message?.trim() ?? "");
@@ -168,21 +238,54 @@ export function resolveOptions<TContext extends UnresolvedContext>(
           }
         }
       },
-      minify: context.config.output.minify,
       output: [
-        {
-          dir: context.config.output.path,
-          format: "es",
-          preserveModules: true,
-          sourcemap: context.config.output.sourceMap
-        },
-        {
-          dir: context.config.output.path,
-          format: "cjs",
-          preserveModules: true,
-          sourcemap: context.config.output.sourceMap
-        }
-      ]
+        toArray(context.config.output.format).includes("esm")
+          ? {
+              dir: context.config.output.path,
+              format: "es",
+              sourcemap: context.config.output.sourceMap,
+              codeSplitting: true,
+              exports: "named",
+              minify: context.config.output.minify
+                ? {
+                    compress: {
+                      dropDebugger:
+                        context.config.mode === "production" ? true : undefined,
+                      unused:
+                        context.config.mode === "production" ? true : undefined,
+                      treeshake: true
+                    },
+                    mangle: true
+                  }
+                : context.config.mode === "production"
+                  ? "dce-only"
+                  : undefined
+            }
+          : undefined,
+        toArray(context.config.output.format).includes("cjs")
+          ? {
+              dir: context.config.output.path,
+              format: "cjs",
+              sourcemap: context.config.output.sourceMap,
+              codeSplitting: true,
+              exports: "auto",
+              minify: context.config.output.minify
+                ? {
+                    compress: {
+                      dropDebugger:
+                        context.config.mode === "production" ? true : undefined,
+                      unused:
+                        context.config.mode === "production" ? true : undefined,
+                      treeshake: true
+                    },
+                    mangle: true
+                  }
+                : context.config.mode === "production"
+                  ? "dce-only"
+                  : undefined
+            }
+          : undefined
+      ].filter(Boolean) as RolldownOptions["output"]
     },
     DEFAULT_OPTIONS
   );
