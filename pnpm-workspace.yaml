@@ -58,7 +58,7 @@ catalog:
   '@prisma/migrate': 7.6.0
   '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
   '@pulumi/cloudflare': ^6.15.0
-  '@pulumi/pulumi': ^3.241.0
+  '@pulumi/pulumi': ^3.242.0
   '@rolldown/pluginutils': 1.0.0-rc.18
   '@rollup/plugin-alias': ^6.0.0
   '@rollup/plugin-babel': ^7.0.0

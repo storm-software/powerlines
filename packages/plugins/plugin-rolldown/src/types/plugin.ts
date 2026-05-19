@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
-import { RolldownOptions } from "./build";
+import type { RolldownOptions } from "./build";
 
 export type RolldownPluginOptions = Partial<RolldownOptions>;
 
