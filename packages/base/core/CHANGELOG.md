@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.15.25](https://github.com/storm-software/powerlines/releases/tag/core%400.15.25) (05/19/2026)
+
+### Miscellaneous
+
+- **schema:** Update bundling process to use `rolldown` instead of `esbuild` ([f23d58df0](https://github.com/storm-software/powerlines/commit/f23d58df0))
+
 ## [0.15.23](https://github.com/storm-software/powerlines/releases/tag/core%400.15.23) (05/19/2026)
 
 ### Miscellaneous
