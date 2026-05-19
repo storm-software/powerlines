@@ -48,9 +48,12 @@ import type {
   Mode,
   ParsedUserConfig,
   UserConfig,
+  UserConfigExport,
+  UserConfigFn,
+  UserConfigFnObject,
+  UserConfigFnPromise,
   WorkspaceConfig
 } from "../types/config";
-import { AnyUserConfig } from "../types/config";
 import { Context } from "../types/context";
 import { LogLevelResolvedConfig } from "../types/logging";
 import { createResolver } from "./resolver";
@@ -415,7 +418,7 @@ export async function loadUserConfigFile(
   });
 
   if (resolvedUserConfigFile) {
-    const resolved = await jiti.import<{ default: AnyUserConfig }>(
+    const resolved = await jiti.import<{ default: UserConfigExport }>(
       jiti.esmResolve(resolvedUserConfigFile)
     );
     if (resolved?.default) {
@@ -461,15 +464,39 @@ export async function loadUserConfigFile(
     },
     resolvedUserConfig,
     isSetObject(result?.config) ? { ...result.config, ...result } : {}
-  );
+  ) as ParsedUserConfig;
 }
 
 /**
- * A type helper to make it easier to use `powerlines.config.ts` files.
+ * Type helper to make it easier to use `powerlines.config.ts` files. Accepts a direct {@link UserConfig} object, or a function that returns it. The function receives a {@link ConfigParams} object.
  *
- * @remarks
- * The function accepts a direct {@link AnyUserConfig} object/function and returns it typed as a {@link UserConfig} object.
+ * @example
+ * ```ts
+ * import { defineConfig } from 'powerlines';
+ *
+ * export default defineConfig({
+ *   // Your configuration here
+ * });
+ *
+ * // Or with a function
+ * export default defineConfig((env) => {
+ *   console.log(`Running command: ${env.command} in mode: ${env.mode}`);
+ *   return {
+ *     // Your configuration here
+ *   };
+ * });
+ * ```
  */
-export function defineConfig(config: AnyUserConfig): UserConfig {
-  return config as any;
+export function defineConfig(config: UserConfig): UserConfig;
+export function defineConfig(config: UserConfig[]): UserConfig[];
+export function defineConfig(config: Promise<UserConfig>): Promise<UserConfig>;
+export function defineConfig(
+  config: Promise<UserConfig[]>
+): Promise<UserConfig[]>;
+export function defineConfig(config: UserConfigFnObject): UserConfigFnObject;
+export function defineConfig(config: UserConfigFnPromise): UserConfigFnPromise;
+export function defineConfig(config: UserConfigFn): UserConfigFn;
+export function defineConfig(config: UserConfigExport): UserConfigExport;
+export function defineConfig(config: UserConfigExport): UserConfigExport {
+  return config;
 }

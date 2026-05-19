@@ -398,7 +398,8 @@ export class PowerlinesExecutionContext<
       ...(await resolvePlugins<TResolvedConfig, TSystemContext>(this, plugin, {
         skipLogging:
           Object.keys(this.environments).filter(
-            key => key !== DEFAULT_ENVIRONMENT && key !== GLOBAL_ENVIRONMENT
+            key =>
+              key && key !== DEFAULT_ENVIRONMENT && key !== GLOBAL_ENVIRONMENT
           ).length > 0
       }))
     );

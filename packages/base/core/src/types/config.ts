@@ -644,16 +644,48 @@ export interface UserConfig extends Config {
   singleBuild?: boolean;
 }
 
-export type PowerlinesCommand =
-  | "new"
-  | "types"
-  | "prepare"
-  | "build"
-  | "lint"
-  | "test"
-  | "docs"
-  | "deploy"
-  | "clean";
+export type ConfigParams = BaseExecutionOptions &
+  Pick<Required<UserConfig>, "mode"> & {
+    /**
+     * A string identifier for the Powerlines command being executed
+     */
+    command: string;
+  };
+
+export type UserInputConfig<TUserConfig extends UserConfig = UserConfig> =
+  DeepPartial<TUserConfig>;
+
+export type UserConfigFnObject<TUserConfig extends UserConfig = UserConfig> = (
+  env: ConfigParams
+) => UserInputConfig<TUserConfig> | UserInputConfig<TUserConfig>[];
+export type UserConfigFnPromise<TUserConfig extends UserConfig = UserConfig> = (
+  env: ConfigParams
+) => Promise<UserInputConfig<TUserConfig> | UserInputConfig<TUserConfig>[]>;
+export type UserConfigFn<TUserConfig extends UserConfig = UserConfig> = (
+  env: ConfigParams
+) =>
+  | UserInputConfig<TUserConfig>
+  | UserInputConfig<TUserConfig>[]
+  | Promise<UserInputConfig<TUserConfig> | UserInputConfig<TUserConfig>[]>;
+
+export type UserConfigExport<TUserConfig extends UserConfig = UserConfig> =
+  | UserInputConfig<TUserConfig>
+  | UserInputConfig<TUserConfig>[]
+  | Promise<UserInputConfig<TUserConfig> | UserInputConfig<TUserConfig>[]>
+  | UserConfigFnObject<TUserConfig>
+  | UserConfigFnPromise<TUserConfig>
+  | UserConfigFn<TUserConfig>;
+
+export type ParsedUserConfig<TUserConfig extends UserConfig = UserConfig> =
+  ParsedConfig<UserInputConfig<TUserConfig>> & {
+    /**
+     * The path to the user configuration file, if it exists.
+     *
+     * @remarks
+     * This is typically the `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` file in the project root.
+     */
+    configFile?: ConfigLayer<UserInputConfig<TUserConfig>>["configFile"];
+  };
 
 export type InlineConfigPaths =
   | {
@@ -755,57 +787,6 @@ export type DocsInlineConfig<TUserConfig extends UserConfig = UserConfig> =
 
 export type DeployInlineConfig<TUserConfig extends UserConfig = UserConfig> =
   InlineConfig<TUserConfig>;
-
-export type ConfigParams = BaseExecutionOptions &
-  Pick<Required<UserConfig>, "mode"> & {
-    /**
-     * A string identifier for the Powerlines command being executed
-     */
-    command: string;
-  };
-
-export type UserConfigFn<TUserConfig extends UserConfig = UserConfig> = (
-  params: ConfigParams
-) => MaybePromise<TUserConfig>;
-
-export type AnyOutputUserConfig = Partial<Omit<OutputConfig, "copy">> & {
-  /**
-   * The output configuration options to use for the build process
-   */
-  copy?: Partial<OutputConfig>;
-};
-
-/**
- * The configuration options for a Powerlines project, after being resolved and normalized by the configuration loading process.
- *
- * @remarks
- * This type represents the final shape of the configuration object that will be used throughout the Powerlines processes. It includes all default values, resolved paths, and normalized options. It is expected to be used in `powerlines.config.ts` files and by plugins and build processes to access the configuration options in a consistent format.
- */
-export type AnyUserConfig<TUserConfig extends UserConfig = UserConfig> =
-  | (Partial<Omit<TUserConfig, "output" | "resolve">> & {
-      /**
-       * The output configuration options to use for the build process
-       */
-      output?: Partial<AnyOutputUserConfig>;
-
-      /**
-       * Configuration for module resolution during processing of the source code
-       */
-      resolve?: Partial<ResolveConfig>;
-    } & Record<string, any>)
-  | UserConfigFn<TUserConfig>
-  | AnyUserConfig<TUserConfig>[];
-
-export type ParsedUserConfig<TUserConfig extends UserConfig = UserConfig> =
-  ParsedConfig<AnyUserConfig<TUserConfig>> & {
-    /**
-     * The path to the user configuration file, if it exists.
-     *
-     * @remarks
-     * This is typically the `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` file in the project root.
-     */
-    configFile?: ConfigLayer<AnyUserConfig<TUserConfig>>["configFile"];
-  };
 
 export interface ResolvedEntryTypeDefinition extends TypeDefinition {
   /**
