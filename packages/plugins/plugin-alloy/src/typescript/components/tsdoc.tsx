@@ -27,12 +27,9 @@ import {
   splitProps
 } from "@alloy-js/core";
 import { JSDocExampleProps, ParameterDescriptor } from "@alloy-js/typescript";
-import { stringifyDefaultValue } from "@powerlines/deepkit/utilities";
-import {
-  ReflectionKind,
-  ReflectionParameter,
-  ReflectionProperty
-} from "@powerlines/deepkit/vendor/type";
+
+import { stringifyValue } from "@powerlines/schema/codegen";
+import { JTDType } from "@powerlines/schema/types";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { Spacing } from "../../core/components/spacing";
@@ -181,8 +178,21 @@ export function TSDocPermission(props: ComponentProps) {
   );
 }
 
+/**
+ * Create a TSDoc `@group` tag.
+ */
+export function TSDocGroup(props: ComponentProps) {
+  const [{ children }, rest] = splitProps(props, ["children"]);
+
+  return (
+    <TSDocTag {...rest} tag="group">
+      {children}
+    </TSDocTag>
+  );
+}
+
 export interface TSDocDefaultValueProps extends ComponentProps {
-  type: ReflectionKind | ReflectionProperty | ReflectionParameter;
+  type?: JTDType;
   defaultValue: any;
 }
 
@@ -197,7 +207,7 @@ export function TSDocDefaultValue(props: TSDocDefaultValueProps) {
       {"@defaultValue "}
       <Show when={!isUndefined(defaultValue)}>
         <align width={2}>
-          <Prose>{stringifyDefaultValue(type, defaultValue)}</Prose>
+          <Prose>{stringifyValue(defaultValue, type)}</Prose>
         </align>
       </Show>
     </>
@@ -299,17 +309,17 @@ export function TSDocRuntime() {
 }
 
 export interface TSDocAttributesTagsProps {
-  type?: ReflectionKind | ReflectionProperty | ReflectionParameter;
+  type?: JTDType;
+  defaultValue?: any;
   title?: string;
   alias?: string[];
-  permission?: string[];
-  domain?: string;
-  readonly?: boolean;
-  internal?: boolean;
-  ignore?: boolean;
-  hidden?: boolean;
-  runtime?: boolean;
-  defaultValue?: any;
+  groups?: string[];
+  resourceId?: string;
+  isReadonly?: boolean;
+  isInternal?: boolean;
+  isIgnored?: boolean;
+  isHidden?: boolean;
+  isRuntime?: boolean;
 }
 
 /**
@@ -320,28 +330,28 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
     {
       type,
       alias,
-      permission,
-      readonly,
-      internal,
-      ignore,
-      hidden,
-      runtime,
+      groups,
+      isReadonly,
+      isInternal,
+      isIgnored,
+      isHidden,
+      isRuntime,
       defaultValue
     }
   ] = splitProps(props, [
     "type",
     "alias",
-    "permission",
-    "readonly",
-    "internal",
-    "ignore",
-    "hidden",
-    "runtime",
+    "groups",
+    "isReadonly",
+    "isInternal",
+    "isIgnored",
+    "isHidden",
+    "isRuntime",
     "defaultValue"
   ]);
 
   const title = computed(() => props.title?.trim() || "");
-  const domain = computed(() => props.domain?.trim() || "");
+  const domain = computed(() => props.resourceId?.trim() || "");
 
   return (
     <>
@@ -363,39 +373,34 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
       </Show>
       <Show
         when={
-          !isUndefined(permission) &&
-          permission.length > 0 &&
-          permission.some(p => isSetString(p?.trim()))
+          !isUndefined(groups) &&
+          groups.length > 0 &&
+          groups.some(g => isSetString(g?.trim()))
         }>
-        <For each={permission?.filter(p => isSetString(p?.trim())) ?? []}>
-          {permission => <TSDocPermission>{permission}</TSDocPermission>}
+        <For each={groups?.filter(g => isSetString(g?.trim())) ?? []}>
+          {group => <TSDocGroup>{group}</TSDocGroup>}
         </For>
       </Show>
-      <Show when={readonly === true}>
+      <Show when={isReadonly === true}>
         <TSDocReadonly />
       </Show>
-      <Show when={internal === true}>
+      <Show when={isInternal === true}>
         <TSDocInternal />
       </Show>
-      <Show when={ignore === true}>
+      <Show when={isIgnored === true}>
         <TSDocIgnore />
       </Show>
-      <Show when={hidden === true}>
+      <Show when={isHidden === true}>
         <TSDocHidden />
       </Show>
-      <Show when={runtime === true}>
+      <Show when={isRuntime === true}>
         <TSDocRuntime />
       </Show>
       <Show
         when={
-          runtime !== true && !isUndefined(type) && !isUndefined(defaultValue)
+          isRuntime !== true && !isUndefined(type) && !isUndefined(defaultValue)
         }>
-        <TSDocDefaultValue
-          type={
-            type as ReflectionKind | ReflectionProperty | ReflectionParameter
-          }
-          defaultValue={defaultValue}
-        />
+        <TSDocDefaultValue type={type} defaultValue={defaultValue} />
       </Show>
     </>
   );

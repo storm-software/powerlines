@@ -18,6 +18,7 @@
 
 export * from "./bundle";
 export * from "./codegen";
+export * from "./constants";
 export * from "./extract";
 export * from "./helpers";
 export * from "./jtd";

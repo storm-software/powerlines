@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { getProperties } from "@powerlines/schema/helpers";
 import { tryGetWorkspaceConfig } from "@storm-software/config-tools/get-config";
 import {
   isDevelopmentMode,
@@ -142,10 +143,10 @@ export function loadEnvFromContext(
           ? context.config.mode
           : context.config.environment.name
     },
-    isSetObject(context?.env?.types?.env)
-      ? context.env.types.env?.getProperties().reduce(
-          (ret, prop) => {
-            ret[prop.name] = parsed[prop.name] ?? prop.getDefaultValue();
+    isSetObject(context.env.vars)
+      ? Object.entries(getProperties(context.env.vars)).reduce(
+          (ret, [name, prop]) => {
+            ret[name] = parsed[name] ?? prop.metadata?.default;
             return ret;
           },
           {} as Record<string, any>

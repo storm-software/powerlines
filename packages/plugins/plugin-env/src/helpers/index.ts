@@ -16,9 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./create-reflection-resource";
+export * from "./automd-generator";
 export * from "./load";
-export * from "./persistence";
-export * from "./reflect";
+export * from "./schema";
 export * from "./source-file-env";
-export * from "./template-helpers";

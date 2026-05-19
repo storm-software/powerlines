@@ -30,7 +30,6 @@ import {
   MemberDeclaration,
   Name,
   Namekey,
-  Ref,
   Refkey,
   Show,
   splitProps,
@@ -48,27 +47,30 @@ import {
   useTSNamePolicy
 } from "@alloy-js/typescript";
 import {
-  ReflectionClass,
-  ReflectionProperty,
+  getProperties,
+  JTDSchemaObjectType,
+  JTDSchemaType,
+  JTDType,
   stringifyType
-} from "@powerlines/deepkit/vendor/type";
+} from "@powerlines/schema";
+import { camelCase } from "@stryke/string-format/camel-case";
 import { pascalCase } from "@stryke/string-format/pascal-case";
-import { isString } from "@stryke/type-checks/is-string";
+import { isSetString } from "@stryke/type-checks/is-set-string";
+import { PartialKeys } from "@stryke/types/base";
+import { uuid } from "@stryke/unique-id/uuid";
 import {
-  ReflectionClassContext,
-  ReflectionPropertyContext
-} from "../../core/contexts/reflection";
+  SchemaContext,
+  SchemaPropertyContext
+} from "../../core/contexts/schema";
 import { ComponentProps } from "../../types/components";
 import { MemberScope } from "../contexts/member-scope";
 import { PropertyName } from "./property-name";
 import { TSDoc } from "./tsdoc";
-import { TSDocContextProperty, TSDocReflectionClass } from "./tsdoc-reflection";
+import { TSDocObjectSchema, TSDocSchemaProperty } from "./tsdoc-schema";
 import { TypeParameters } from "./type-parameters";
 
-export interface InterfaceDeclarationProps<
-  T extends Record<string, any> = Record<string, any>
->
-  extends CommonDeclarationProps, ComponentProps {
+export interface InterfaceDeclarationProps
+  extends PartialKeys<CommonDeclarationProps, "name">, ComponentProps {
   /**
    * A base type that this interface extends. This can be used to represent inheritance
    */
@@ -80,20 +82,12 @@ export interface InterfaceDeclarationProps<
   typeParameters?: TypeParameterDescriptor[] | string[];
 
   /**
-   * The reflection class that describes the properties of this interface.
+   * The JTD Schema that describes the properties of this interface.
    *
    * @remarks
-   * This is used to generate the members of the interface based on the properties of the reflection class.
+   * This is used to generate the members of the interface based on the properties of the schema.
    */
-  reflection?: ReflectionClass<T>;
-
-  /**
-   * A default value for this interface.
-   *
-   * @remarks
-   * This is used when the interface is used as a type for a variable declaration, to provide an initial value for the variable.
-   */
-  defaultValue?: Ref<Partial<T>>;
+  schema?: JTDSchemaObjectType;
 
   /**
    * Documentation for the interface. This can be a string or any Alloy component that renders documentation content (such as `TSDoc`).
@@ -103,8 +97,7 @@ export interface InterfaceDeclarationProps<
 
 export interface InterfaceDeclarationPropertyProps
   extends Omit<InterfaceMemberProps, "name">, ComponentProps {
-  property: ReflectionProperty;
-  defaultValue?: any;
+  schema: JTDSchemaType;
 }
 
 export interface InterfaceExpressionProps {
@@ -132,25 +125,32 @@ export const InterfaceExpression = ensureTypeRefContext(
 );
 
 export interface InterfaceMemberPropsBase {
-  type?: Children;
   children?: Children;
-  readonly?: boolean;
   doc?: Children;
   refkey?: Refkey | Refkey[];
 }
 export interface InterfacePropertyMemberProps extends InterfaceMemberPropsBase {
   name: string | Namekey;
+  isReadonly?: boolean;
+  type?: Children | JTDType;
   optional?: boolean;
   nullish?: boolean;
 }
 
 export interface InterfaceIndexerMemberProps extends InterfaceMemberPropsBase {
   indexer: Children;
+  isReadonly?: boolean;
+  type?: Children | JTDType;
+}
+
+export interface InterfaceSchemaMemberProps extends InterfaceMemberPropsBase {
+  schema: JTDSchemaType;
 }
 
 export type InterfaceMemberProps =
   | InterfacePropertyMemberProps
-  | InterfaceIndexerMemberProps;
+  | InterfaceIndexerMemberProps
+  | InterfaceSchemaMemberProps;
 
 /**
  * Create a TypeScript interface member.
@@ -162,8 +162,19 @@ export type InterfaceMemberProps =
  * children of the component.
  */
 export function InterfaceMember(props: InterfaceMemberProps) {
-  const type = props.type ?? props.children;
-  const readonly = props.readonly ? "readonly " : "";
+  const type = (props as InterfaceSchemaMemberProps).schema
+    ? stringifyType((props as InterfaceSchemaMemberProps).schema)
+    : ((props as InterfacePropertyMemberProps | InterfaceIndexerMemberProps)
+        .type ?? props.children);
+
+  const readonly =
+    ((props as InterfaceSchemaMemberProps).schema &&
+      (props as InterfaceSchemaMemberProps).schema?.metadata?.isReadonly) ||
+    (!(props as InterfaceSchemaMemberProps).schema &&
+      (props as InterfacePropertyMemberProps | InterfaceIndexerMemberProps)
+        .isReadonly)
+      ? "readonly "
+      : "";
 
   if ("indexer" in props) {
     return (
@@ -176,19 +187,34 @@ export function InterfaceMember(props: InterfaceMemberProps) {
     );
   }
 
-  const optionality = props.optional ? "?" : "";
+  const optional =
+    !!(
+      (props as InterfaceSchemaMemberProps).schema &&
+      (props as InterfaceSchemaMemberProps).schema?.nullable
+    ) ||
+    !!(
+      !(props as InterfaceSchemaMemberProps).schema &&
+      (props as InterfacePropertyMemberProps).optional
+    );
+
   const scope = useTSMemberScope();
   const sym = createSymbol(
     TSOutputSymbol,
-    props.name,
+    String(
+      ((props as InterfaceSchemaMemberProps).schema
+        ? (props as InterfaceSchemaMemberProps).schema.metadata?.name ||
+          (props as InterfaceSchemaMemberProps).schema.metadata?.resourceId
+        : isSetString((props as InterfacePropertyMemberProps).name)
+          ? (props as InterfacePropertyMemberProps).name
+          : (props as InterfacePropertyMemberProps).name.toString()) ||
+        uuid().replace(/-/g, "")
+    ),
     scope.ownerSymbol.staticMembers,
     {
       refkeys: props.refkey,
       tsFlags:
         TSSymbolFlags.TypeSymbol |
-        ((props.nullish ?? props.optional)
-          ? TSSymbolFlags.Nullish
-          : TSSymbolFlags.None),
+        (optional ? TSSymbolFlags.Nullish : TSSymbolFlags.None),
       namePolicy: useTSNamePolicy().for("interface-member"),
       binder: scope.binder
     }
@@ -211,7 +237,7 @@ export function InterfaceMember(props: InterfaceMemberProps) {
       </Show>
       {readonly}
       <PropertyName />
-      {optionality}: {type}
+      {optional ? "?" : ""}: {type}
     </MemberDeclaration>
   );
 }
@@ -227,15 +253,21 @@ const BaseInterfaceDeclaration = ensureTypeRefContext(
     const currentScope = useTSLexicalScope();
 
     const binder = currentScope?.binder;
-    const sym = createSymbol(TSOutputSymbol, props.name, currentScope.types, {
-      refkeys: props.refkey,
-      default: props.default,
-      export: props.export,
-      metadata: props.metadata,
-      tsFlags: TSSymbolFlags.TypeSymbol,
-      namePolicy: useTSNamePolicy().for("interface"),
-      binder
-    });
+    const sym = createSymbol(
+      TSOutputSymbol,
+      (isSetString(props.name) ? props.name : props.name?.toString()) ||
+        uuid().replace(/-/g, ""),
+      currentScope.types,
+      {
+        refkeys: props.refkey,
+        default: props.default,
+        export: props.export,
+        metadata: props.metadata,
+        tsFlags: TSSymbolFlags.TypeSymbol,
+        namePolicy: useTSNamePolicy().for("interface"),
+        binder
+      }
+    );
 
     effect(() => {
       if (ExprSlot.ref.value) {
@@ -270,34 +302,31 @@ const BaseInterfaceDeclaration = ensureTypeRefContext(
 );
 
 /**
- * Generates a TypeScript interface for the given reflection class.
+ * Generates a TypeScript interface for the given schema.
  */
-export function InterfaceDeclaration<
-  T extends Record<string, any> = Record<string, any>
->(props: InterfaceDeclarationProps<T>) {
-  const [{ name, reflection, doc, defaultValue }, rest] = splitProps(props, [
+export function InterfaceDeclaration(props: InterfaceDeclarationProps) {
+  const [{ name, schema, doc }, rest] = splitProps(props, [
     "name",
-    "reflection",
-    "doc",
-    "defaultValue"
+    "schema",
+    "doc"
   ]);
 
   const interfaceName = computed(() =>
     pascalCase(
-      (isString(name) ? name : name.toString()) || reflection?.getName()
+      isSetString(name)
+        ? name
+        : schema?.metadata?.name || schema?.metadata?.title || ""
     )
   );
-
   const properties = computed(() =>
-    reflection
-      ? reflection
-          .getProperties()
-          .filter(item => !item.isIgnored())
+    schema
+      ? Object.values(getProperties(schema))
+          .filter(property => !property.metadata?.isIgnored)
           .sort((a, b) =>
-            (a.isReadonly() && b.isReadonly()) ||
-            (!a.isReadonly() && !b.isReadonly())
-              ? a.getNameAsString().localeCompare(b.getNameAsString())
-              : a.isReadonly()
+            (a.metadata?.isReadonly && b.metadata?.isReadonly) ||
+            (!a.metadata?.isReadonly && !b.metadata?.isReadonly)
+              ? a.name.localeCompare(b.name)
+              : a.metadata?.isReadonly
                 ? 1
                 : -1
           )
@@ -306,30 +335,21 @@ export function InterfaceDeclaration<
 
   return (
     <Show
-      when={reflection && properties.value.length > 0}
+      when={schema && properties.value.length > 0}
       fallback={
         <BaseInterfaceDeclaration {...props} name={interfaceName.value} />
       }>
-      <ReflectionClassContext.Provider
-        value={{
-          reflection: reflection!
-        }}>
-        <TSDocReflectionClass<T> heading={doc} reflection={reflection!} />
+      <SchemaContext.Provider value={schema}>
+        <TSDocObjectSchema heading={doc} schema={schema!} />
         <BaseInterfaceDeclaration
           export={true}
           name={interfaceName.value}
-          defaultValue={defaultValue}
           {...rest}>
           <For each={properties} doubleHardline={true} semicolon={true}>
-            {prop => (
-              <InterfaceDeclarationProperty
-                property={prop}
-                defaultValue={defaultValue?.value?.[prop.getNameAsString()]}
-              />
-            )}
+            {property => <InterfaceDeclarationProperty schema={property} />}
           </For>
         </BaseInterfaceDeclaration>
-      </ReflectionClassContext.Provider>
+      </SchemaContext.Provider>
     </Show>
   );
 }
@@ -340,22 +360,27 @@ export function InterfaceDeclaration<
 export function InterfaceDeclarationProperty(
   props: InterfaceDeclarationPropertyProps
 ) {
-  const [{ property, defaultValue }, rest] = splitProps(props, [
-    "property",
-    "defaultValue"
-  ]);
+  const [{ schema }, rest] = splitProps(props, ["schema"]);
+
+  const name = computed(
+    () =>
+      schema.metadata?.name ||
+      camelCase(schema.metadata?.title || schema.metadata?.resourceId)
+  );
 
   return (
-    <ReflectionPropertyContext.Provider value={{ property, defaultValue }}>
-      <TSDocContextProperty />
-      <InterfaceMember
-        name={property.getNameAsString()}
-        readonly={property.isReadonly()}
-        optional={property.isOptional()}
-        nullish={property.isNullable()}
-        type={stringifyType(property.getType())}
-        {...rest}
-      />
-    </ReflectionPropertyContext.Provider>
+    <Show when={isSetString(name.value)}>
+      <SchemaPropertyContext.Provider value={schema}>
+        <TSDocSchemaProperty schema={schema} />
+        <InterfaceMember
+          name={name.value!}
+          isReadonly={schema.metadata?.isReadonly}
+          optional={!!schema.metadata?.isOptional}
+          nullish={!!schema?.nullable}
+          type={(schema as { type?: JTDType }).type}
+          {...rest}
+        />
+      </SchemaPropertyContext.Provider>
+    </Show>
   );
 }

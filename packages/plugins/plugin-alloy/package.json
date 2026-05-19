@@ -83,9 +83,9 @@
       "import": "./dist/core/contexts/meta.mjs",
       "require": "./dist/core/contexts/meta.cjs"
     },
-    "./core/contexts/reflection": {
-      "import": "./dist/core/contexts/reflection.mjs",
-      "require": "./dist/core/contexts/reflection.cjs"
+    "./core/contexts/schema": {
+      "import": "./dist/core/contexts/schema.mjs",
+      "require": "./dist/core/contexts/schema.cjs"
     },
     "./core/helpers": {
       "import": "./dist/core/helpers/index.mjs",
@@ -231,9 +231,9 @@
       "import": "./dist/typescript/components/tsdoc.mjs",
       "require": "./dist/typescript/components/tsdoc.cjs"
     },
-    "./typescript/components/tsdoc-reflection": {
-      "import": "./dist/typescript/components/tsdoc-reflection.mjs",
-      "require": "./dist/typescript/components/tsdoc-reflection.cjs"
+    "./typescript/components/tsdoc-schema": {
+      "import": "./dist/typescript/components/tsdoc-schema.mjs",
+      "require": "./dist/typescript/components/tsdoc-schema.cjs"
     },
     "./typescript/components/type-declaration": {
       "import": "./dist/typescript/components/type-declaration.mjs",

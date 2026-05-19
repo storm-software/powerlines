@@ -58,7 +58,7 @@ catalog:
   '@prisma/migrate': 7.6.0
   '@prisma/prisma-schema-wasm': 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
   '@pulumi/cloudflare': ^6.15.0
-  '@pulumi/pulumi': ^3.239.0
+  '@pulumi/pulumi': ^3.241.0
   '@rolldown/pluginutils': 1.0.0-rc.18
   '@rollup/plugin-alias': ^6.0.0
   '@rollup/plugin-babel': ^7.0.0
@@ -154,7 +154,7 @@ catalog:
   h3: ^1.15.11
   handlebars: ^4.7.9
   human-id: ^4.1.3
-  i18next-cli: ^1.57.0
+  i18next-cli: ^1.58.0
   i18next-resources-for-ts: ^2.1.0
   jest: ^30.4.2
   jest-config: ^30.4.2
@@ -183,7 +183,7 @@ catalog:
   prettier: ^3.8.3
   prettier-plugin-organize-imports: ^4.3.0
   prisma-util: ^2.1.1
-  protobufjs: ^7.5.9
+  protobufjs: ^7.6.0
   publint: ^0.3.21
   rimraf: ^6.1.3
   rolldown: ^1.0.1

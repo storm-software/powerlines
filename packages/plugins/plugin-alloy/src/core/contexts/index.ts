@@ -18,4 +18,4 @@
 
 export * from "./context";
 export * from "./meta";
-export * from "./reflection";
+export * from "./schema";

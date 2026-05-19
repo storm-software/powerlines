@@ -18,10 +18,6 @@
 
 import { code, Show } from "@alloy-js/core";
 import { Link } from "@alloy-js/markdown";
-import {
-  ReflectionClass,
-  stringifyType
-} from "@powerlines/deepkit/vendor/type";
 import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
 import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
 import { Heading } from "@powerlines/plugin-alloy/markdown/components/heading";
@@ -30,6 +26,8 @@ import {
   MarkdownFileProps
 } from "@powerlines/plugin-alloy/markdown/components/markdown-file";
 import { MarkdownTable } from "@powerlines/plugin-alloy/markdown/components/markdown-table";
+import { stringifyType } from "@powerlines/schema/codegen";
+import { getProperties } from "@powerlines/schema/helpers";
 import { joinPaths } from "@stryke/path/join";
 import { getDocsOutputPath } from "powerlines/plugin-utils";
 import { EnvPluginContext } from "../types/plugin";
@@ -44,15 +42,13 @@ export interface EnvDocsFileProps extends Partial<MarkdownFileProps> {
    * @defaultValue 0
    */
   levelOffset?: number;
-
-  reflection: ReflectionClass<any>;
 }
 
 /**
  * Generates the environment configuration markdown documentation for the Powerlines project.
  */
 export function EnvDocsFile(props: EnvDocsFileProps) {
-  const { levelOffset = 0, reflection, ...rest } = props;
+  const { levelOffset = 0, ...rest } = props;
 
   const context = usePowerlines<EnvPluginContext>();
 
@@ -76,31 +72,34 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
       <Spacing />
       <MarkdownTable
         data={
-          reflection
-            ?.getProperties()
+          Object.values(getProperties(context.env.vars))
             .filter(
               property =>
-                !property.isHidden() &&
-                !property.isIgnored() &&
-                !property.isReadonly() &&
-                !property.isInternal()
+                !property?.metadata?.isHidden &&
+                !property?.metadata?.isIgnored &&
+                !property?.metadata?.isReadonly &&
+                !property?.metadata?.isInternal
             )
             .sort((a, b) =>
-              a.getNameAsString().localeCompare(b.getNameAsString())
+              !a.metadata?.name && !b.metadata?.name
+                ? 0
+                : !a.metadata?.name
+                  ? 1
+                  : !b.metadata?.name
+                    ? -1
+                    : a.metadata?.name.localeCompare(b.metadata?.name)
             )
-            .map(reflectionProperty => {
+            .map(property => {
               return {
-                name: reflectionProperty.getNameAsString().trim(),
-                description: (reflectionProperty.getDescription() ?? "").trim(),
-                type: stringifyType(reflectionProperty.getType())
+                name: property.metadata?.name?.trim(),
+                description: (property.metadata?.description ?? "").trim(),
+                type: stringifyType(property)
                   .trim()
                   .replaceAll(/\s*(?:\||&)\s*/g, ", or "),
-                defaultValue: reflectionProperty.hasDefault()
-                  ? String(reflectionProperty.getDefaultValue())?.includes('"')
-                    ? reflectionProperty.getDefaultValue()
-                    : `\`${reflectionProperty.getDefaultValue()}\``
+                defaultValue: property.metadata?.defaultValue
+                  ? stringifyType(property.metadata.defaultValue)
                   : "",
-                required: reflectionProperty.isValueRequired() ? "" : "✔"
+                required: property.optional ? "" : "✔"
               };
             }) ?? []
         }

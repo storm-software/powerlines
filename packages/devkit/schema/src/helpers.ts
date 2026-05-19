@@ -34,10 +34,13 @@ import {
  */
 export function getProperties<TMetadata extends SchemaMetadata>(
   obj: ObjectSchema<TMetadata> | JTDSchemaObjectType<TMetadata>
-): Record<string, JTDSchemaType<TMetadata> & { optional: boolean }> {
+): Record<
+  string,
+  JTDSchemaType<TMetadata> & { name: string; optional: boolean }
+> {
   const properties: Record<
     string,
-    JTDSchemaType<TMetadata> & { optional: boolean }
+    JTDSchemaType<TMetadata> & { name: string; optional: boolean }
   > = {};
 
   const schema = isObjectSchema(obj) ? obj.schema : obj;
@@ -46,13 +49,13 @@ export function getProperties<TMetadata extends SchemaMetadata>(
     isSetObject(schema.optionalProperties)
   ) {
     for (const [key, value] of Object.entries(schema.optionalProperties)) {
-      properties[key] = { ...value, optional: true };
+      properties[key] = { ...value, name: key, optional: true };
     }
   }
 
   if ("properties" in schema && isSetObject(schema.properties)) {
     for (const [key, value] of Object.entries(schema.properties)) {
-      properties[key] = { ...value, optional: false };
+      properties[key] = { ...value, name: key, optional: false };
     }
   }
 

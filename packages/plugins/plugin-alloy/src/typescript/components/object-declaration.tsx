@@ -34,86 +34,67 @@ import {
   useTSNamePolicy,
   VarDeclarationProps
 } from "@alloy-js/typescript";
-import { stringifyDefaultValue } from "@powerlines/deepkit/utilities";
-import type {
-  ReflectionClass,
-  ReflectionProperty
-} from "@powerlines/deepkit/vendor/type";
+import {
+  getProperties,
+  JTDSchemaObjectType,
+  JTDSchemaType
+} from "@powerlines/schema";
 import { camelCase } from "@stryke/string-format/camel-case";
-import { pascalCase } from "@stryke/string-format/pascal-case";
-import { isString } from "@stryke/type-checks/is-string";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import {
-  ReflectionClassContext,
-  ReflectionPropertyContext
-} from "../../core/contexts/reflection";
+  SchemaContext,
+  SchemaPropertyContext
+} from "../../core/contexts/schema";
 import { ComponentProps } from "../../types/components";
-import {
-  TSDocReflectionClass,
-  TSDocReflectionProperty
-} from "./tsdoc-reflection";
+import { TSDocObjectSchema, TSDocSchemaProperty } from "./tsdoc-schema";
 
-export interface ComputedRef<T = any> {
-  readonly value: T;
-}
-
-export interface ObjectDeclarationProps<
-  T extends Record<string, any> = Record<string, any>
-> extends VarDeclarationProps {
-  reflection?: ComputedRef<ReflectionClass<T>>;
-  defaultValue?: ComputedRef<Partial<T> | undefined>;
+export interface ObjectDeclarationProps extends VarDeclarationProps {
+  schema?: JTDSchemaObjectType;
 }
 
 /**
  * Generates a TypeScript object for the given reflection class.
  */
-export function ObjectDeclaration<
-  T extends Record<string, any> = Record<string, any>
->(props: ObjectDeclarationProps<T>) {
-  if (!props.reflection?.value) {
+export function ObjectDeclaration(props: ObjectDeclarationProps) {
+  const { schema } = props;
+  if (!schema) {
     return null;
   }
 
-  const objectName = computed(() =>
-    camelCase(
-      (isString(props.name) ? props.name : props.name.toString()) ||
-        props.reflection!.value.getName()
-    )
+  const name = computed(() =>
+    camelCase(isSetString(props.name) ? props.name : schema.metadata?.name)
   );
-  const objectType = computed(
-    () => props.type || pascalCase(props.reflection!.value.getName())
+
+  const defaultValues = computed(
+    () => (schema.metadata?.default || {}) as Record<string, any>
   );
   const properties = computed(() =>
-    props
-      .reflection!.value.getProperties()
+    Object.values(getProperties(schema))
       .filter(
-        item =>
-          !item.isIgnored() &&
-          !item.isRuntime() &&
+        property =>
+          !property.metadata?.isIgnored &&
+          !property.metadata?.isRuntime &&
           !isUndefined(
-            props.defaultValue?.value?.[item.getNameAsString()] ??
-              item.getAlias().reduce((ret, alias) => {
+            defaultValues.value[property.name] ??
+              property.metadata?.alias?.reduce((ret, alias) => {
                 if (
                   isUndefined(ret) &&
-                  !isUndefined(
-                    (props.defaultValue as Record<string, any>)?.value?.[alias]
-                  )
+                  !isUndefined(defaultValues.value[alias])
                 ) {
-                  return (props.defaultValue as Record<string, any>)?.value?.[
-                    alias
-                  ];
+                  return defaultValues.value[alias];
                 }
 
                 return ret;
               }, undefined) ??
-              item.getDefaultValue()
+              property.metadata?.default
           )
       )
       .sort((a, b) =>
-        (a.isReadonly() && b.isReadonly()) ||
-        (!a.isReadonly() && !b.isReadonly())
-          ? a.getNameAsString().localeCompare(b.getNameAsString())
-          : a.isReadonly()
+        (a.metadata?.isReadonly && b.metadata?.isReadonly) ||
+        (!a.metadata?.isReadonly && !b.metadata?.isReadonly)
+          ? a.name.localeCompare(b.name)
+          : a.metadata?.isReadonly
             ? 1
             : -1
       )
@@ -121,7 +102,7 @@ export function ObjectDeclaration<
 
   const TypeSymbolSlot = createSymbolSlot();
   const ValueTypeSymbolSlot = createSymbolSlot();
-  const sym = createValueSymbol(props.name, {
+  const sym = createValueSymbol(name.value || "schema", {
     refkeys: props.refkey,
     default: props.default,
     export: props.export,
@@ -143,18 +124,10 @@ export function ObjectDeclaration<
   ) : undefined;
 
   return (
-    <Show when={!!props.reflection.value}>
-      <ReflectionClassContext.Provider
-        value={{
-          reflection: props.reflection.value as ReflectionClass<any>,
-          override: {
-            name: objectName.value,
-            type: objectType.value,
-            defaultValue: props.defaultValue?.value
-          }
-        }}>
-        <Show when={!!objectName.value && !!objectType.value}>
-          <TSDocReflectionClass reflection={props.reflection.value} />
+    <Show when={!!schema}>
+      <SchemaContext.Provider value={schema}>
+        <Show when={!!name.value && !!type}>
+          <TSDocObjectSchema schema={schema} />
           <CoreDeclaration symbol={sym}>
             {props.export ? "export " : ""}
             {props.default ? "default " : ""}
@@ -167,13 +140,8 @@ export function ObjectDeclaration<
                     each={properties.value ?? []}
                     comma={true}
                     doubleHardline={true}>
-                    {prop => (
-                      <ObjectDeclarationProperty
-                        property={prop}
-                        defaultValue={
-                          props.defaultValue?.value?.[prop.getNameAsString()]
-                        }
-                      />
+                    {property => (
+                      <ObjectDeclarationProperty schema={property} />
                     )}
                   </For>
                 </ObjectExpression>
@@ -182,14 +150,13 @@ export function ObjectDeclaration<
           </CoreDeclaration>
         </Show>
         <hbr />
-      </ReflectionClassContext.Provider>
+      </SchemaContext.Provider>
     </Show>
   );
 }
 
 export interface ObjectDeclarationPropertyProps extends ComponentProps {
-  property: ReflectionProperty;
-  defaultValue?: any;
+  schema: JTDSchemaType;
 }
 
 /**
@@ -198,22 +165,29 @@ export interface ObjectDeclarationPropertyProps extends ComponentProps {
 export function ObjectDeclarationProperty(
   props: ObjectDeclarationPropertyProps
 ) {
-  const [{ property, defaultValue }] = splitProps(props, [
-    "property",
-    "defaultValue"
-  ]);
+  const [{ schema }, rest] = splitProps(props, ["schema"]);
+
+  const name = computed(
+    () =>
+      schema.metadata?.name ||
+      camelCase(schema.metadata?.title || schema.metadata?.resourceId)
+  );
 
   return (
-    <ReflectionPropertyContext.Provider value={{ property, defaultValue }}>
-      <TSDocReflectionProperty
-        reflection={property}
-        defaultValue={defaultValue}
-      />
-      <ObjectProperty
-        name={property.getNameAsString()}
-        value={stringifyDefaultValue(property, defaultValue)}
-      />
-      <hbr />
-    </ReflectionPropertyContext.Provider>
+    <Show when={isSetString(name.value)}>
+      <SchemaPropertyContext.Provider value={schema}>
+        <TSDocSchemaProperty schema={schema} />
+        <ObjectProperty
+          name={name.value}
+          value={
+            !isUndefined(schema.metadata?.default)
+              ? JSON.stringify(schema.metadata?.default)
+              : undefined
+          }
+          {...rest}
+        />
+        <hbr />
+      </SchemaPropertyContext.Provider>
+    </Show>
   );
 }

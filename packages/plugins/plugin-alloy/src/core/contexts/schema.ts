@@ -19,72 +19,28 @@
 import type { ComponentContext } from "@alloy-js/core";
 import { createContext, createNamedContext, useContext } from "@alloy-js/core";
 import type {
-  ReflectionClass,
   ReflectionMethod,
-  ReflectionParameter,
-  ReflectionProperty
+  ReflectionParameter
 } from "@powerlines/deepkit/vendor/type";
-import { ReflectionOverrideInterface } from "../../types/components";
-
-export interface ReflectionClassContextInterface<
-  T extends Record<string, any> = Record<string, any>
-> {
-  reflection: ReflectionClass<T>;
-  override?: ReflectionOverrideInterface<T>;
-}
+import { JTDSchemaType } from "@powerlines/schema";
 
 /**
  * The reflection class context used in template rendering.
  */
-export const ReflectionClassContext: ComponentContext<
-  ReflectionClassContextInterface<any>
-> = createContext<ReflectionClassContextInterface<any>>();
+export const SchemaContext: ComponentContext<JTDSchemaType> =
+  createContext<JTDSchemaType>();
 
 /**
- * Hook to access the Reflection context.
+ * Hook to access the schema context.
  *
- * @returns A reactive version of the current reflection.
+ * @returns A reactive version of the current schema.
  */
-export function useReflectionClass<
-  T extends Record<string, any> = Record<string, any>
->() {
-  const context = useContext<ReflectionClassContextInterface<T>>(
-    ReflectionClassContext
-  )!;
+export function useSchema() {
+  const context = useContext<JTDSchemaType>(SchemaContext)!;
 
   if (!context) {
     throw new Error(
-      "Powerlines - ReflectionClass Context is not set. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."
-    );
-  }
-
-  return context;
-}
-
-export interface ReflectionPropertyContextInterface {
-  property: ReflectionProperty;
-  defaultValue?: any;
-}
-
-/**
- * The reflection property context used in template rendering.
- */
-export const ReflectionPropertyContext: ComponentContext<ReflectionPropertyContextInterface> =
-  createNamedContext<ReflectionPropertyContextInterface>("ReflectionProperty");
-
-/**
- * Hook to access the Reflection Property context.
- *
- * @returns A reactive version of the current reflection.
- */
-export function useReflectionPropertyContext() {
-  const context = useContext<ReflectionPropertyContextInterface>(
-    ReflectionPropertyContext
-  )!;
-
-  if (!context) {
-    throw new Error(
-      "Powerlines - Reflection Property Context is not set. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."
+      "Powerlines - Schema Context is not set. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."
     );
   }
 
@@ -92,16 +48,21 @@ export function useReflectionPropertyContext() {
 }
 
 /**
- * Hook to access the Reflection Property context.
- *
- * @returns A reactive version of the current reflection.
+ * The schema property context used in template rendering.
  */
-export function useReflectionProperty() {
-  const context = useReflectionPropertyContext();
+export const SchemaPropertyContext: ComponentContext<JTDSchemaType> =
+  createNamedContext<JTDSchemaType>("SchemaProperty");
 
+/**
+ * Hook to access the Schema Property context.
+ *
+ * @returns A reactive version of the current schema property.
+ */
+export function useSchemaProperty() {
+  const context = useContext<JTDSchemaType>(SchemaPropertyContext)!;
   if (!context) {
     throw new Error(
-      "Powerlines - Reflection Property Context is not set. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."
+      "Powerlines - Schema Property Context is not set. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."
     );
   }
 

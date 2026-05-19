@@ -16,16 +16,16 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./builtin-file";
-export * from "./class-declaration";
-export * from "./dynamic-import-statement";
-export * from "./entry-file";
-export * from "./interface-declaration";
-export * from "./object-declaration";
-export * from "./property-name";
-export * from "./record-expression";
-export * from "./tsdoc";
-export * from "./tsdoc-schema";
-export * from "./type-declaration";
-export * from "./type-parameters";
-export * from "./typescript-file";
+export const JTDTypes = {
+  STRING: "string",
+  TIMESTAMP: "timestamp",
+  BOOLEAN: "boolean",
+  FLOAT32: "float32",
+  FLOAT64: "float64",
+  INT8: "int8",
+  UINT8: "uint8",
+  INT16: "int16",
+  UINT16: "uint16",
+  INT32: "int32",
+  UINT32: "uint32"
+} as const;

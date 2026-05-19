@@ -26,20 +26,12 @@ import {
 } from "@alloy-js/core";
 import {
   InterfaceDeclaration as BaseInterfaceDeclaration,
-  ClassDeclaration,
-  ClassMethod,
   ElseIfClause,
   FunctionDeclaration,
   IfStatement,
   InterfaceMember,
-  NewExpression,
   VarDeclaration
 } from "@alloy-js/typescript";
-import {
-  ReflectionClass,
-  ReflectionKind,
-  ReflectionProperty
-} from "@powerlines/deepkit/vendor/type";
 import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
 import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
 import { refkey } from "@powerlines/plugin-alloy/helpers/refkey";
@@ -48,44 +40,32 @@ import {
   BuiltinFile,
   BuiltinFileProps
 } from "@powerlines/plugin-alloy/typescript/components/builtin-file";
-import type { InterfaceDeclarationProps } from "@powerlines/plugin-alloy/typescript/components/interface-declaration";
 import { InterfaceDeclaration } from "@powerlines/plugin-alloy/typescript/components/interface-declaration";
 import { ObjectDeclaration } from "@powerlines/plugin-alloy/typescript/components/object-declaration";
 import {
   TSDoc,
-  TSDocExample,
-  TSDocLink,
   TSDocParam,
   TSDocRemarks,
-  TSDocReturns,
-  TSDocThrows
+  TSDocReturns
 } from "@powerlines/plugin-alloy/typescript/components/tsdoc";
-import { TSDocReflectionProperty } from "@powerlines/plugin-alloy/typescript/components/tsdoc-reflection";
+import { TSDocSchemaProperty } from "@powerlines/plugin-alloy/typescript/components/tsdoc-schema";
+import { JTDSchemaType } from "@powerlines/schema";
+import { getProperties } from "@powerlines/schema/helpers";
 import { getUnique } from "@stryke/helpers/get-unique";
-import { titleCase } from "@stryke/string-format/title-case";
-import defu from "defu";
 import { loadEnvFromContext } from "../helpers/load";
 import { EnvPluginContext } from "../types/plugin";
 
 /**
  * Generates the environment configuration typescript definition for the Powerlines project.
  */
-export function EnvTypeDefinition(
-  props: Omit<InterfaceDeclarationProps, "name">
-) {
-  const [{ defaultValue, reflection }] = splitProps(props, [
-    "defaultValue",
-    "reflection"
-  ]);
-
+export function EnvTypeDefinition() {
   const context = usePowerlines<EnvPluginContext>();
 
   return (
     <>
       <InterfaceDeclaration
         name="UnprefixedEnv"
-        defaultValue={defaultValue}
-        reflection={reflection}
+        schema={context.env.vars.schema}
         export
       />
       <Spacing />
@@ -103,18 +83,18 @@ export function EnvTypeDefinition(
           {prefix => (
             <For
               each={
-                reflection
-                  ?.getProperties()
-                  .filter(property => !property.isIgnored()) ?? []
+                Object.values(getProperties(context.env.vars.schema)).filter(
+                  property => !property.metadata?.isIgnored
+                ) ?? []
               }
               doubleHardline>
               {property => (
                 <>
-                  <TSDocReflectionProperty reflection={property} />
+                  <TSDocSchemaProperty schema={property} />
                   <InterfaceMember
-                    name={`${prefix}_${property.getNameAsString()}`}
-                    type={`UnprefixedEnv["${property.getNameAsString()}"]`}
-                    readonly={property.isReadonly()}
+                    name={`${prefix}_${property.metadata?.name}`}
+                    type={`UnprefixedEnv["${property.metadata?.name}"]`}
+                    isReadonly={property.metadata?.isReadonly}
                   />
                 </>
               )}
@@ -149,12 +129,14 @@ function ConfigPropertyConditional(props: ConfigPropertyConditionalProps) {
 interface ConfigPropertyProps extends ComponentProps {
   index: number;
   context: EnvPluginContext;
-  property: ReflectionProperty;
+  name: string;
+  property: JTDSchemaType;
 }
 
 function ConfigPropertyGet(props: ConfigPropertyProps) {
-  const [{ context, property, index }] = splitProps(props, [
+  const [{ context, name, property, index }] = splitProps(props, [
     "context",
+    "name",
     "property",
     "index"
   ]);
@@ -165,14 +147,14 @@ function ConfigPropertyGet(props: ConfigPropertyProps) {
         <IfStatement
           condition={
             <>
-              <ConfigPropertyConditional
-                name={property.getNameAsString()}
-                context={context}
-              />
+              <ConfigPropertyConditional name={name} context={context} />
               <Show
-                when={property.getAlias() && property.getAlias().length > 0}>
+                when={
+                  property.metadata?.alias &&
+                  property.metadata?.alias.length > 0
+                }>
                 {code` || `}
-                <For each={property.getAlias()} joiner={code` || `}>
+                <For each={property.metadata?.alias ?? []} joiner={code` || `}>
                   {alias => (
                     <ConfigPropertyConditional name={alias} context={context} />
                   )}
@@ -180,20 +162,20 @@ function ConfigPropertyGet(props: ConfigPropertyProps) {
               </Show>
             </>
           }>
-          {code`return target["${property.getNameAsString()}"];`}
+          {code`return target["${name}"];`}
         </IfStatement>
       ) : (
         <ElseIfClause
           condition={
             <>
-              <ConfigPropertyConditional
-                name={property.getNameAsString()}
-                context={context}
-              />
+              <ConfigPropertyConditional name={name} context={context} />
               <Show
-                when={property.getAlias() && property.getAlias().length > 0}>
+                when={
+                  property.metadata?.alias &&
+                  property.metadata?.alias.length > 0
+                }>
                 {code` || `}
-                <For each={property.getAlias()} joiner={code` || `}>
+                <For each={property.metadata?.alias ?? []} joiner={code` || `}>
                   {alias => (
                     <ConfigPropertyConditional name={alias} context={context} />
                   )}
@@ -201,7 +183,7 @@ function ConfigPropertyGet(props: ConfigPropertyProps) {
               </Show>
             </>
           }>
-          {code`return target["${property.getNameAsString()}"];`}
+          {code`return target["${name}"];`}
         </ElseIfClause>
       )}
     </>
@@ -209,8 +191,9 @@ function ConfigPropertyGet(props: ConfigPropertyProps) {
 }
 
 function ConfigPropertySet(props: ConfigPropertyProps) {
-  const [{ context, property, index }] = splitProps(props, [
+  const [{ context, name, property, index }] = splitProps(props, [
     "context",
+    "name",
     "property",
     "index"
   ]);
@@ -221,14 +204,14 @@ function ConfigPropertySet(props: ConfigPropertyProps) {
         <IfStatement
           condition={
             <>
-              <ConfigPropertyConditional
-                name={property.getNameAsString()}
-                context={context}
-              />
+              <ConfigPropertyConditional name={name} context={context} />
               <Show
-                when={property.getAlias() && property.getAlias().length > 0}>
+                when={
+                  property.metadata?.alias &&
+                  property.metadata?.alias.length > 0
+                }>
                 {code` || `}
-                <For each={property.getAlias()} joiner={code` || `}>
+                <For each={property.metadata?.alias ?? []} joiner={code` || `}>
                   {alias => (
                     <ConfigPropertyConditional name={alias} context={context} />
                   )}
@@ -237,7 +220,7 @@ function ConfigPropertySet(props: ConfigPropertyProps) {
             </>
           }>
           {code`
-    target["${property.getNameAsString()}"] = newValue;
+    target["${name}"] = newValue;
     return true;
 `}
         </IfStatement>
@@ -245,14 +228,14 @@ function ConfigPropertySet(props: ConfigPropertyProps) {
         <ElseIfClause
           condition={
             <>
-              <ConfigPropertyConditional
-                name={property.getNameAsString()}
-                context={context}
-              />
+              <ConfigPropertyConditional name={name} context={context} />
               <Show
-                when={property.getAlias() && property.getAlias().length > 0}>
+                when={
+                  property.metadata?.alias &&
+                  property.metadata?.alias.length > 0
+                }>
                 {code` || `}
-                <For each={property.getAlias()} joiner={code` || `}>
+                <For each={property.metadata?.alias ?? []} joiner={code` || `}>
                   {alias => (
                     <ConfigPropertyConditional name={alias} context={context} />
                   )}
@@ -261,7 +244,7 @@ function ConfigPropertySet(props: ConfigPropertyProps) {
             </>
           }>
           {code`
-    target["${property.getNameAsString()}"] = newValue;
+    target["${name}"] = newValue;
     return true;
 `}
         </ElseIfClause>
@@ -272,20 +255,17 @@ function ConfigPropertySet(props: ConfigPropertyProps) {
 
 export interface EnvBuiltinProps extends Omit<BuiltinFileProps, "id"> {
   defaultConfig?: Children;
-  reflection: ReflectionClass<any>;
 }
 
 const createEnvRefkey = refkey("createEnv");
 const envRefkey = refkey("env");
-const envSerializerRefkey = refkey("EnvSerializer");
 
 /**
  * Generates the environment configuration module for the Powerlines project.
  */
 export function EnvBuiltin(props: EnvBuiltinProps) {
-  const [{ defaultConfig, reflection, children }, rest] = splitProps(props, [
+  const [{ defaultConfig, children }, rest] = splitProps(props, [
     "defaultConfig",
-    "reflection",
     "children"
   ]);
 
@@ -294,46 +274,35 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
     () => context && loadEnvFromContext(context, process.env)
   );
 
-  const envInstance = computed(() => {
-    const result = new ReflectionClass(
-      {
-        kind: ReflectionKind.objectLiteral,
-        description: `The initial environment configuration state for the ${titleCase(
-          context?.config?.name
-        )} project.`,
-        types: []
-      },
-      reflection
-    );
-
-    result
-      .getProperties()
-      .filter(
-        property => property.isRuntime() || property.getTags().runtime === true
-      )
-      .forEach(property => {
-        result.removeProperty(property.getNameAsString());
-      });
-
-    return result;
-  });
-
   const reflectionGetProperties = computed(
     () =>
-      reflection
-        ?.getProperties()
-        .filter(property => !property.isIgnored())
+      Object.values(getProperties(context.env.vars.schema))
+        .filter(property => !property.metadata?.isIgnored)
         .sort((a, b) =>
-          a.getNameAsString().localeCompare(b.getNameAsString())
+          !a.metadata?.name && !b.metadata?.name
+            ? 0
+            : !a.metadata?.name
+              ? 1
+              : !b.metadata?.name
+                ? -1
+                : a.metadata?.name.localeCompare(b.metadata?.name)
         ) ?? []
   );
   const reflectionSetProperties = computed(
     () =>
-      reflection
-        ?.getProperties()
-        .filter(property => !property.isIgnored() && !property.isReadonly())
+      Object.values(getProperties(context.env.vars.schema))
+        .filter(
+          property =>
+            !property.metadata?.isIgnored && !property.metadata?.isReadonly
+        )
         .sort((a, b) =>
-          a.getNameAsString().localeCompare(b.getNameAsString())
+          !a.metadata?.name && !b.metadata?.name
+            ? 0
+            : !a.metadata?.name
+              ? 1
+              : !b.metadata?.name
+                ? -1
+                : a.metadata?.name.localeCompare(b.metadata?.name)
         ) ?? []
   );
 
@@ -341,183 +310,20 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
     <BuiltinFile
       id="env"
       description="The environment configuration module provides an interface to define environment configuration parameters."
-      {...rest}
-      imports={defu(
-        {
-          "@powerlines/deepkit/vendor/type": [
-            "serializeFunction",
-            "deserializeFunction",
-            "ReflectionKind",
-            "Serializer",
-            "NamingStrategy",
-            "TemplateState",
-            "Type",
-            "TypeProperty",
-            "TypePropertySignature"
-          ]
-        },
-        rest.imports ?? {}
-      )}>
-      <Show when={Boolean(reflection)}>
-        <EnvTypeDefinition
-          defaultValue={defaultValue}
-          reflection={reflection}
-        />
-        <hbr />
-        <hbr />
+      {...rest}>
+      <Show when={Boolean(context.env.vars.schema)}>
+        <EnvTypeDefinition defaultValue={defaultValue} />
+        <Spacing />
       </Show>
-
       <ObjectDeclaration
         name="initialEnv"
         type="Partial<Env>"
-        defaultValue={defaultValue}
-        reflection={envInstance}
+        schema={context.env.vars.schema}
         export
         const
         doc="The initial environment configuration object values for the runtime."
       />
       <Spacing />
-
-      <TSDoc heading="The environment configuration serializer for the Powerlines application.">
-        <TSDocLink>
-          {`https://deepkit.io/docs/serialization/serializers`}
-        </TSDocLink>
-        <TSDocLink>
-          {`https://github.com/marcj/untitled-code/blob/master/packages/type/src/serializer.ts#L1918`}
-        </TSDocLink>
-        <TSDocRemarks>
-          {`This serializer is used to serialize and deserialize the Powerlines environment configuration.`}
-        </TSDocRemarks>
-      </TSDoc>
-      <ClassDeclaration
-        refkey={envSerializerRefkey}
-        name="EnvSerializer"
-        extends="Serializer"
-        export>
-        <ClassMethod
-          name="constructor"
-          public
-          doc="Initializes a new instance of the `EnvSerializer` class.">
-          {code`super("env");
-
-          this.deserializeRegistry.register(
-            ReflectionKind.boolean,
-            (type: Type, state: TemplateState) => {
-              state.addSetter(
-                \`typeof \${state.accessor.toString()} !== "boolean" ? \${state.accessor.toString()} === 1 || \${state.accessor.toString()} === "1" || \${state.accessor.toString()}.toLowerCase() === "t" || \${state.accessor.toString()}.toLowerCase() === "true" || \${state.accessor.toString()}.toLowerCase() === "y" || \${state.accessor.toString()}.toLowerCase() === "yes" : \${state.accessor.toString()}\`
-              );
-            }
-          ); `}
-        </ClassMethod>
-      </ClassDeclaration>
-      <Spacing />
-
-      <VarDeclaration
-        name="envNamingStrategy"
-        const
-        doc="The environment naming strategy for the runtime."
-        initializer={code`new class extends NamingStrategy {
-                    constructor() {
-                        super("env");
-                    }
-
-                    getPropertyName(type: TypeProperty | TypePropertySignature, forSerializer: string): string | undefined {
-                      const name = super.getPropertyName(type, forSerializer);
-                      if (!name) {
-                        return name;
-                      }
-
-                      return name.replace(/^(${getUnique(
-                        context.config.env.prefix
-                      )
-                        .map(prefix => prefix.replace(/_$/, ""))
-                        .join("|")})_/, "");
-                    }
-                  }; `}
-      />
-      <Spacing />
-
-      <TSDoc heading="A {@link EnvSerializer | environment configuration serializer} instance for the Powerlines application.">
-        <TSDocLink>
-          {`https://deepkit.io/docs/serialization/serializers`}
-        </TSDocLink>
-        <TSDocLink>
-          {`https://github.com/marcj/untitled-code/blob/master/packages/type/src/serializer.ts#L1918`}
-        </TSDocLink>
-        <TSDocRemarks>
-          {`This serializer is used to serialize and deserialize the Powerlines environment configuration.`}
-        </TSDocRemarks>
-      </TSDoc>
-      <VarDeclaration
-        name="envSerializer"
-        const
-        initializer={<NewExpression args={[]} target="EnvSerializer" />}
-      />
-      <Spacing />
-
-      <VarDeclaration
-        name="_serializeEnv"
-        const
-        initializer={"serializeFunction<Env>(envSerializer, envNamingStrategy)"}
-      />
-      <Spacing />
-      <TSDoc heading="Serialize a environment configuration object to JSON data objects (not a JSON string).">
-        <TSDocRemarks>
-          {`The resulting JSON object can be stringified using \`JSON.stringify()\`.`}
-        </TSDocRemarks>
-        <TSDocExample>{`const json = serializeEnv(env);`}</TSDocExample>
-        <Spacing />
-        <TSDocParam name="input">
-          {`The environment configuration object to serialize.`}
-        </TSDocParam>
-        <TSDocReturns>
-          {`The serialized environment configuration as JSON data objects.`}
-        </TSDocReturns>
-        <TSDocThrows>
-          {`ValidationError when serialization or validation fails.`}
-        </TSDocThrows>
-      </TSDoc>
-      <FunctionDeclaration
-        name="serializeEnv"
-        export
-        parameters={[
-          {
-            name: "input",
-            type: "Env"
-          }
-        ]}>
-        {code` return _serializeEnv(input, { loosely: true }); `}
-      </FunctionDeclaration>
-      <Spacing />
-
-      <VarDeclaration
-        name="_deserializeEnv"
-        const
-        initializer="deserializeFunction<Env>(envSerializer, envNamingStrategy)"
-      />
-      <Spacing />
-      <TSDoc heading="Deserialize a environment configuration object from JSON data objects to JavaScript objects, without running any validators.">
-        <TSDocRemarks>
-          {`Types that are already correct will be used as-is.`}
-        </TSDocRemarks>
-        <TSDocExample>{`const env = deserializeEnv(json);`}</TSDocExample>
-        <TSDocThrows>
-          {`ValidationError when deserialization fails.`}
-        </TSDocThrows>
-      </TSDoc>
-      <FunctionDeclaration
-        name="deserializeEnv"
-        export
-        parameters={[
-          {
-            name: "input",
-            type: "Env"
-          }
-        ]}>
-        {code` return _deserializeEnv(input, { loosely: true }); `}
-      </FunctionDeclaration>
-      <Spacing />
-
       <TSDoc heading="Initializes the Powerlines environment configuration module.">
         <TSDocRemarks>
           {`This function initializes the Powerlines environment configuration object.`}
@@ -553,12 +359,12 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
     {
       get: (target: UnprefixedEnv, propertyName: string) => { `}
           <hbr />
-
-          <For each={reflectionGetProperties}>
-            {(property: ReflectionProperty, index: number) => (
+          <For each={reflectionGetProperties.value}>
+            {(property: JTDSchemaType & { name: string }, index: number) => (
               <ConfigPropertyGet
                 index={index}
                 context={context}
+                name={property.name}
                 property={property}
               />
             )}
@@ -570,11 +376,12 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           <Spacing />
           {code` set: (target: UnprefixedEnv, propertyName: string, newValue: any) => { `}
           <hbr />
-          <For each={reflectionSetProperties} ender={code` else `}>
-            {(property: ReflectionProperty, index: number) => (
+          <For each={reflectionSetProperties.value} ender={code` else `}>
+            {(property: JTDSchemaType & { name: string }, index: number) => (
               <ConfigPropertySet
                 index={index}
                 context={context}
+                name={property.name}
                 property={property}
               />
             )}
@@ -589,8 +396,6 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         </FunctionDeclaration>
       </Show>
       <Spacing />
-      <hbr />
-
       <TSDoc heading="The environment configuration object.">
         <TSDocRemarks>
           {`This object provides access to the environment configuration parameters in the application runtime.`}

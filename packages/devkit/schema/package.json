@@ -61,6 +61,10 @@
       "import": "./dist/codegen.mjs",
       "require": "./dist/codegen.cjs"
     },
+    "./constants": {
+      "import": "./dist/constants.mjs",
+      "require": "./dist/constants.cjs"
+    },
     "./extract": {
       "import": "./dist/extract.mjs",
       "require": "./dist/extract.cjs"
@@ -95,7 +99,9 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@powerlines/deepkit": "workspace:*",

@@ -16,51 +16,29 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  ReflectionClass,
-  ReflectionKind
-} from "@powerlines/deepkit/vendor/type";
 import { render } from "@powerlines/plugin-alloy/render";
 import automd from "@powerlines/plugin-automd";
 import babel from "@powerlines/plugin-babel";
-import deepkit from "@powerlines/plugin-deepkit";
-import { TypeScriptCompilerPluginUserConfig } from "@powerlines/plugin-tsc";
-import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { toArray } from "@stryke/convert/to-array";
-import { existsSync } from "@stryke/fs/exists";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { joinPaths } from "@stryke/path/join";
 import { constantCase } from "@stryke/string-format/constant-case";
-import { isSetString } from "@stryke/type-checks/is-set-string";
-import {
-  TypeDefinition,
-  TypeDefinitionParameter
-} from "@stryke/types/configuration";
 import defu from "defu";
 import type { Plugin, UnresolvedContext } from "powerlines";
-import {
-  createVirtualPrefixRegex,
-  getDocsOutputPath
-} from "powerlines/plugin-utils";
+import { getDocsOutputPath } from "powerlines/plugin-utils";
 import type { UserConfig as ViteUserConfig } from "vite";
 import { envBabelPlugin } from "./babel/plugin";
 import { EnvDocsFile } from "./components/docs";
 import { EnvBuiltin } from "./components/env-builtin";
 import { env } from "./helpers/automd-generator";
-import { loadEnv } from "./helpers/load";
 import {
-  getEnvDefaultTypeDefinition,
-  getEnvReflectionsPath,
-  getEnvTypeReflectionsPath,
-  getSecretsDefaultTypeDefinition,
-  readEnvReflection,
-  readEnvTypeReflection,
-  readSecretsReflection,
-  writeEnvReflection,
-  writeEnvTypeReflection
-} from "./helpers/persistence";
-import { reflectEnv, reflectSecrets } from "./helpers/reflect";
-import { EnvPluginContext, EnvPluginOptions } from "./types/plugin";
+  extractEnvSchema,
+  getDefaultSecretsTypeDefinition,
+  getDefaultVarsTypeDefinition,
+  readActiveEnv,
+  writeActiveEnv
+} from "./helpers/schema";
+import type { EnvPluginContext, EnvPluginOptions } from "./types/plugin";
 
 export * from "./types";
 
@@ -77,12 +55,6 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
   options: EnvPluginOptions = {}
 ) => {
   return [
-    deepkit({
-      ...options.deepkit,
-      reflection: "default",
-      level: "all",
-      filter: {}
-    }),
     babel(options.babel),
     {
       name: "env",
@@ -93,7 +65,6 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
 
         const config = {
           env: defu(options, {
-            types: {} as TypeDefinitionParameter,
             validate: false,
             inject: false,
             prefix: []
@@ -102,32 +73,21 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             ...options.babel,
             skipTransform: !options.inject,
             plugins: [envBabelPlugin]
-          },
-          deepkit: {
-            reflection: "default",
-            level: "all"
-          },
-          tsc: {} as TypeScriptCompilerPluginUserConfig["tsc"]
+          }
         };
 
-        if (
-          !isSetString(config.env.types) &&
-          !isSetString(config.env.types?.file)
-        ) {
+        if (!config.env.vars) {
           this.warn(
-            "The `env.types` configuration parameter was not provided. Please ensure this is expected."
+            "The `env.vars` configuration parameter was not provided. Please ensure this is expected."
           );
 
-          config.env.types = await getEnvDefaultTypeDefinition(
+          config.env.vars = await getDefaultVarsTypeDefinition(
             this as UnresolvedContext
           );
         }
 
-        if (
-          !isSetString(config.env.secrets) &&
-          !isSetString(config.env.secrets?.file)
-        ) {
-          config.env.secrets = await getSecretsDefaultTypeDefinition(
+        if (!config.env.secrets) {
+          config.env.secrets = await getDefaultSecretsTypeDefinition(
             this as UnresolvedContext
           );
         }
@@ -160,17 +120,6 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           }, [] as string[])
         );
 
-        config.tsc.filter = {
-          id: {
-            include: [
-              createVirtualPrefixRegex(joinPaths(this.builtinsPath, "env.ts")),
-              createVirtualPrefixRegex(
-                `${this.config.framework?.name || "powerlines"}:env`
-              )
-            ]
-          }
-        };
-
         return config;
       },
       async configResolved() {
@@ -178,338 +127,19 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           `Environment plugin configuration has been resolved for the Powerlines project.`
         );
 
-        this.env = defu(
-          {
-            parsed: await loadEnv(this, this.config.env)
-          },
-          this.env ?? {},
-          {
-            types: {
-              env: {}
-            },
-            used: {
-              env: {},
-              secrets: {}
-            },
-            parsed: {},
-            injected: {}
-          }
-        );
-
-        if (
-          isSetString(this.config.env.types) ||
-          (this.config.env.types && isSetString(this.config.env.types.file))
-        ) {
-          this.config.env.types = parseTypeDefinition(
-            this.config.env.types
-          ) as TypeDefinition;
-
-          const file = await this.fs.resolve(this.config.env.types.file);
-          if (file) {
-            this.config.env.types.file = file;
-          }
-        }
-
-        if (
-          isSetString(this.config.env.secrets) ||
-          (this.config.env.secrets && isSetString(this.config.env.secrets.file))
-        ) {
-          this.config.env.secrets = parseTypeDefinition(
-            this.config.env.secrets
-          )!;
-
-          const file = await this.fs.resolve(this.config.env.secrets.file);
-          if (file) {
-            this.config.env.secrets.file = file;
-          }
-        }
-
-        this.info({
-          meta: {
-            category: "env"
-          },
-          message: `Environment configuration definition file: ${
-            this.config.env.types.file
-          }${this.config.env.types.name ? `#${this.config.env.types.name}` : ""}${
-            this.config.env.secrets
-              ? `\nSecrets configuration definition file: ${this.config.env.secrets?.file}${
-                  this.config.env.secrets?.name
-                    ? `#${this.config.env.secrets?.name}`
-                    : ""
-                }`
-              : ""
-          }\nEnvironment variable Prefixes: ${this.config.env.prefix.join(", ")}\nShould inject values: ${
-            this.config.env.inject ? "Yes" : "No"
-          }\nShould validate configuration: ${
-            this.config.env.validate ? "Yes" : "No"
-          }`
-        });
-
-        if (
-          this.config.command !== "prepare" &&
-          !this.config.skipCache &&
-          this.persistedMeta?.checksum === this.meta.checksum &&
-          existsSync(getEnvTypeReflectionsPath(this, "env"))
-        ) {
-          this.debug(
-            `Skipping reflection initialization as the meta checksum has not changed.`
-          );
-
-          this.env.types.env = await readEnvTypeReflection(this, "env");
-
-          this.debug({
-            meta: {
-              category: "env"
-            },
-            message: `Found the following environment configuration parameter definitions: \n${this.env.types.env
-              .getProperties()
-              .map(
-                prop =>
-                  `- ${prop.getNameAsString()}${
-                    prop.getAlias().length > 0
-                      ? ` (aliases: ${prop.getAlias().join(", ")})`
-                      : ""
-                  }`
-              )
-              .join("\n")}`
-          });
-
-          if (existsSync(getEnvReflectionsPath(this, "env"))) {
-            this.env.used.env = await readEnvReflection(this);
-
-            this.debug({
-              meta: {
-                category: "env"
-              },
-              message: `Found the following environment configuration parameters used in project: \n${this.env.used.env
-                .getProperties()
-                .map(
-                  prop =>
-                    `- ${prop.getNameAsString()}${
-                      prop.getAlias().length > 0
-                        ? ` (aliases: ${prop.getAlias().join(", ")})`
-                        : ""
-                    }`
-                )
-                .join("\n")}`
-            });
-          }
-
-          if (existsSync(getEnvTypeReflectionsPath(this, "secrets"))) {
-            this.env.types.secrets = await readEnvTypeReflection(
-              this,
-              "secrets"
-            );
-
-            if (this.env.types.secrets.getProperties().length > 0) {
-              this.debug({
-                meta: {
-                  category: "env"
-                },
-                message: `Found the following secret configuration parameter definitions: \n${this.env.types.secrets
-                  .getProperties()
-                  .map(
-                    prop =>
-                      `- ${prop.getNameAsString()} (aliases: ${prop.getAlias().join(", ")})`
-                  )
-                  .join("\n")}`
-              });
-            }
-          }
-
-          if (existsSync(getEnvReflectionsPath(this, "secrets"))) {
-            this.env.used.secrets = await readSecretsReflection(this);
-
-            if (this.env.used.secrets.getProperties().length > 0) {
-              this.debug({
-                meta: {
-                  category: "env"
-                },
-                message: `Found the following secret configuration parameters used in project: \n${this.env.used.secrets
-                  .getProperties()
-                  .map(
-                    prop =>
-                      `- ${prop.getNameAsString()} (aliases: ${prop.getAlias().join(", ")})`
-                  )
-                  .join("\n")}`
-              });
-            }
-          }
-        } else {
-          this.debug(
-            `Starting environment configuration reflection initialization.`
-          );
-
-          this.env.types.env = await reflectEnv(
-            this,
-            this.config.env.types?.file,
-            this.config.env.types?.name
-          );
-          if (!this.env.types.env) {
-            throw new Error(
-              "Failed to find the environment configuration type reflection in the context."
-            );
-          }
-
-          this.debug({
-            meta: {
-              category: "env"
-            },
-            message: `Found the following environment configuration parameter definitions: \n${this.env.types.env
-              .getProperties()
-              .map(
-                prop =>
-                  `- ${prop.getNameAsString()} (aliases: ${prop.getAlias().join(", ")})`
-              )
-              .join("\n")}`
-          });
-
-          await writeEnvTypeReflection(this, this.env.types.env, "env");
-
-          this.env.types.secrets = await reflectSecrets(
-            this,
-            this.config.env.secrets?.file,
-            this.config.env.secrets?.name
-          );
-          if (!this.env.types.secrets) {
-            throw new Error(
-              "Failed to find the secrets configuration type reflection in the context."
-            );
-          }
-
-          if (this.env.types.secrets.getProperties().length > 0) {
-            this.debug({
-              meta: {
-                category: "env"
-              },
-              message: `Found the following secret configuration parameter definitions: \n${this.env.types.secrets
-                .getProperties()
-                .map(
-                  prop =>
-                    `- ${prop.getNameAsString()} (aliases: ${prop.getAlias().join(", ")})`
-                )
-                .join("\n")}`
-            });
-          }
-
-          await writeEnvTypeReflection(this, this.env.types.secrets, "secrets");
-
-          this.info({
-            meta: {
-              category: "env"
-            },
-            message: `Resolved ${
-              this.env.types.env.getProperties().length ?? 0
-            } environment configuration parameters and ${
-              this.env.types.secrets?.getProperties().length ?? 0
-            } secret configuration parameters`
-          });
-
-          const envWithAlias = this.env.types.env
-            .getProperties()
-            .filter(prop => prop.getAlias().length > 0);
-
-          Object.entries(await loadEnv(this, this.config.env)).forEach(
-            ([key, value]) => {
-              const unprefixedKey = this.config.env.prefix.reduce(
-                (ret, prefix) => {
-                  if (key.replace(/_$/g, "").startsWith(prefix)) {
-                    return key.replace(/_$/g, "").slice(prefix.length);
-                  }
-                  return ret;
-                },
-                key
-              );
-
-              const aliasKey = envWithAlias.find(prop =>
-                prop?.getAlias().reverse().includes(unprefixedKey)
-              );
-              if (this.env.types.env?.hasProperty(unprefixedKey) || aliasKey) {
-                this.env.types.env
-                  .getProperty(unprefixedKey)
-                  .setDefaultValue(value);
-              }
-            }
-          );
-
-          this.env.used.env = new ReflectionClass(
-            {
-              kind: ReflectionKind.objectLiteral,
-              typeName: "Env",
-              description: `An object containing the environment configuration parameters used by the ${
-                this.config.name
-                  ? `${this.config.name} application`
-                  : "application"
-              }.`,
-              types: []
-            },
-            this.env.types.env
-          );
-
-          await writeEnvReflection(this, this.env.used.env, "env");
-
-          if (this.env.types.secrets) {
-            await writeEnvTypeReflection(
-              this,
-              this.env.types.secrets,
-              "secrets"
-            );
-
-            this.env.used.secrets = new ReflectionClass(
-              {
-                kind: ReflectionKind.objectLiteral,
-                typeName: "Secrets",
-                description: `An object containing the secret configuration parameters used by the ${
-                  this.config.name
-                    ? `${this.config.name} application`
-                    : "application"
-                }.`,
-                types: []
-              },
-              this.env.types.secrets
-            );
-            await writeEnvReflection(this, this.env.used.secrets, "secrets");
-          }
-        }
+        await extractEnvSchema(this, options);
       },
       async prepare() {
         this.debug(
           `Preparing the Environment runtime artifacts for the Powerlines project.`
         );
 
-        const result = await readEnvTypeReflection(this, "env");
+        await readActiveEnv(this);
 
         return render(
           this,
-          <EnvBuiltin
-            defaultConfig={this.config.env.defaultConfig}
-            reflection={result}
-          />
+          <EnvBuiltin defaultConfig={this.config.env.defaultConfig} />
         );
-      },
-      transform: {
-        order: "post",
-        async handler() {
-          if (this.env.used.env.getProperties().length > 0) {
-            this.trace(
-              `Persisting used environment configuration reflections to ${getEnvReflectionsPath(
-                this,
-                "env"
-              )}.`
-            );
-            await writeEnvReflection(this, this.env.used.env, "env");
-          }
-
-          if (this.env.used.secrets.getProperties().length > 0) {
-            this.trace(
-              `Persisting used secret configuration reflections to ${getEnvReflectionsPath(
-                this,
-                "secrets"
-              )}.`
-            );
-            await writeEnvReflection(this, this.env.used.secrets, "secrets");
-          }
-        }
       },
       async docs() {
         this.debug(
@@ -519,19 +149,14 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           )}"`
         );
 
-        const result = await readEnvTypeReflection(this, "env");
+        await readActiveEnv(this);
 
-        return render(
-          this,
-          <EnvDocsFile levelOffset={0} reflection={result} />
-        );
+        return render(this, <EnvDocsFile levelOffset={0} />);
       },
       async buildEnd() {
-        const reflectionPath = getEnvReflectionsPath(this, "env");
+        this.debug("Writing active environment variables to disk.");
 
-        this.debug(`Writing env reflection types to ${reflectionPath}.`);
-
-        await writeEnvReflection(this, this.env.used.env, "env");
+        await writeActiveEnv(this);
       }
     },
     {

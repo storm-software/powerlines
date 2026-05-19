@@ -28,6 +28,7 @@ import {
   TypeObjectLiteral
 } from "@powerlines/deepkit/vendor/type";
 import { isSetArray, isSetObject, isSetString } from "@stryke/type-checks";
+import defu from "defu";
 import { JTDSchemaType, SchemaMetadata } from "./types";
 
 /**
@@ -444,17 +445,17 @@ function mergePropertiesForms<
   };
 
   for (const form of forms) {
-    const p = (
+    const properties = (
       form as { properties?: Record<string, JTDSchemaType<TMetadata>> }
     ).properties;
-    const o = (
+    const optionalProperties = (
       form as { optionalProperties?: Record<string, JTDSchemaType<TMetadata>> }
     ).optionalProperties;
-    if (p) {
-      Object.assign(merged.properties, p);
+    if (properties) {
+      defu(merged.properties, properties);
     }
-    if (o) {
-      Object.assign(merged.optionalProperties, o);
+    if (optionalProperties) {
+      defu(merged.optionalProperties, optionalProperties);
     }
     if ((form as { additionalProperties?: boolean }).additionalProperties) {
       merged.additionalProperties = true;
@@ -599,7 +600,10 @@ function objectReflectionToJtd<
   schema.metadata.isHidden = reflection.isHidden();
 
   if (isSetString(reflection.databaseSchemaName)) {
-    schema.metadata.table = reflection.databaseSchemaName;
+    schema.metadata.resourceId = reflection.databaseSchemaName;
+  }
+  if (isSetString(reflection.getName())) {
+    schema.metadata.name = reflection.getName();
   }
   if (isSetString(reflection.getDescription())) {
     schema.metadata.description = reflection.getDescription();
@@ -637,9 +641,23 @@ function objectReflectionToJtd<
       property.metadata.isRuntime = propertyReflection.isRuntime();
       property.metadata.isPrimaryKey = propertyReflection.isPrimaryKey();
       property.metadata.isHidden = propertyReflection.isHidden();
+      property.nullable = propertyReflection.isNullable();
+      property.metadata.visibility = propertyReflection.isPublic()
+        ? "public"
+        : propertyReflection.isProtected()
+          ? "protected"
+          : propertyReflection.isPrivate()
+            ? "private"
+            : undefined;
 
       if (propertyReflection.hasDefault()) {
         property.metadata.default = propertyReflection.getDefaultValue();
+      }
+      if (isSetString(propertyReflection.getNameAsString())) {
+        property.metadata.name = propertyReflection.getNameAsString();
+      }
+      if (isSetArray(propertyReflection.getGroups())) {
+        property.metadata.groups = propertyReflection.getGroups();
       }
       if (isSetString(propertyReflection.getDescription())) {
         property.metadata.description = propertyReflection.getDescription();

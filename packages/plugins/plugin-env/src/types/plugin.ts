@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import { Children } from "@alloy-js/core";
-import { Reflection } from "@powerlines/deepkit/types";
 import { AutoMDPluginOptions } from "@powerlines/plugin-automd/types/plugin";
 import {
   BabelPluginContext,
@@ -25,19 +24,14 @@ import {
   BabelPluginResolvedConfig,
   BabelPluginUserConfig
 } from "@powerlines/plugin-babel/types";
-import {
-  DeepkitPluginContext,
-  DeepkitPluginOptions,
-  DeepkitPluginResolvedConfig,
-  DeepkitPluginUserConfig
-} from "@powerlines/plugin-deepkit/types/plugin";
+import type {
+  ObjectSchema,
+  SchemaInput,
+  SchemaMetadata
+} from "@powerlines/schema";
 import type { DotenvParseOutput } from "@stryke/env/types";
-import {
-  DotenvConfiguration,
-  TypeDefinition,
-  TypeDefinitionParameter
-} from "@stryke/types/configuration";
-import { EnvInterface, SecretsInterface } from "./env";
+import { RequiredKeys } from "@stryke/types";
+import { DotenvConfiguration } from "@stryke/types/configuration";
 
 export type EnvType = "env" | "secrets";
 
@@ -45,12 +39,12 @@ export type EnvPluginOptions = Omit<DotenvConfiguration, "types"> & {
   /**
    * A path to the type definition for the expected env configuration parameters. This value can include both a path to the typescript file and the name of the type definition to use separated by a `":"` or `"#"` character. For example: `"./src/types/env.ts#ConfigConfiguration"`.
    */
-  types?: TypeDefinitionParameter;
+  vars?: SchemaInput;
 
   /**
    * A path to the type definition for the expected env secret parameters. This value can include both a path to the typescript file and the name of the type definition to use separated by a `":"` or `"#"` character. For example: `"./src/types/env.ts#ConfigSecrets"`.
    */
-  secrets?: TypeDefinitionParameter;
+  secrets?: SchemaInput;
 
   /**
    * An additional prefix (or list of additional prefixes) to apply to the environment variables
@@ -97,109 +91,67 @@ export type EnvPluginOptions = Omit<DotenvConfiguration, "types"> & {
    * The README.md file should contain the `<!-- automd:env --><!-- /automd -->` comment block where the documentation will be injected.
    */
   automd?: AutoMDPluginOptions;
-
-  /**
-   * Alloy configuration options to use when injecting environment variables into the source code.
-   *
-   * @remarks
-   * This option allows you to customize the Deepkit transformation process used to inject environment variables into the source code. If not provided, the plugin will use default Deepkit settings.
-   */
-  deepkit?: DeepkitPluginOptions;
 };
 
-export type EnvPluginUserConfig = BabelPluginUserConfig &
-  DeepkitPluginUserConfig & {
-    env: EnvPluginOptions;
-  };
+export type EnvPluginUserConfig = BabelPluginUserConfig & {
+  env: EnvPluginOptions;
+};
 
-export type EnvPluginResolvedConfig = BabelPluginResolvedConfig &
-  DeepkitPluginResolvedConfig & {
-    env: Required<Pick<DotenvConfiguration, "additionalFiles">> &
-      Required<Pick<EnvPluginOptions, "defaultConfig">> & {
-        /**
-         * The type definition for the expected env variable parameters
-         *
-         * @remarks
-         * This value is parsed from the {@link EnvPluginOptions.types} option.
-         */
-        types: TypeDefinition;
+export type EnvPluginResolvedConfig = BabelPluginResolvedConfig & {
+  env: Required<Pick<DotenvConfiguration, "additionalFiles">> &
+    RequiredKeys<EnvPluginOptions, "vars" | "secrets" | "defaultConfig"> & {
+      /**
+       * Should the plugin inject the env variables in the source code with their values?
+       *
+       * @remarks
+       * This value is the result of reflecting the {@link EnvPluginOptions.inject} option.
+       */
+      inject: boolean;
 
-        /**
-         * The type definition for the expected env secret parameters
-         *
-         * @remarks
-         * This value is parsed from the {@link EnvPluginOptions.secrets} option.
-         */
-        secrets: TypeDefinition;
+      /**
+       * Should the plugin validate the loaded environment variables against the provided type definitions?
+       *
+       * @remarks
+       * This value is the result of reflecting the {@link EnvPluginOptions.validate} option.
+       */
+      validate: boolean;
 
-        /**
-         * Should the plugin inject the env variables in the source code with their values?
-         *
-         * @remarks
-         * This value is the result of reflecting the {@link EnvPluginOptions.inject} option.
-         */
-        inject: boolean;
+      /**
+       * The prefix used for environment variables
+       *
+       * @remarks
+       * This value is used to filter environment variables that are loaded from the .env file and the process environment.
+       */
+      prefix: string[];
+    };
+};
 
-        /**
-         * Should the plugin validate the loaded environment variables against the provided type definitions?
-         *
-         * @remarks
-         * This value is the result of reflecting the {@link EnvPluginOptions.validate} option.
-         */
-        validate: boolean;
-
-        /**
-         * The prefix used for environment variables
-         *
-         * @remarks
-         * This value is used to filter environment variables that are loaded from the .env file and the process environment.
-         */
-        prefix: string[];
-      };
-  };
+export interface EnvSchemaMetadata extends SchemaMetadata {
+  /**
+   * The active environment variables or secrets that are used by the project and are expected to be injected into the source code (if {@link EnvPluginOptions.inject} is true).
+   */
+  active: string[];
+}
 
 export interface EnvPluginContext<
   TResolvedConfig extends EnvPluginResolvedConfig = EnvPluginResolvedConfig
->
-  extends
-    BabelPluginContext<TResolvedConfig>,
-    DeepkitPluginContext<TResolvedConfig> {
+> extends BabelPluginContext<TResolvedConfig> {
   env: {
     /**
-     * The type definitions reflection for the env variables and secrets
+     * The type definition for the expected env variable parameters
      *
      * @remarks
-     * These reflections contains the structure of the expected environment variables and secrets as defined by the type definitions provided in the plugin configuration.
+     * This value is parsed from the {@link EnvPluginOptions.vars} option.
      */
-    types: {
-      /**
-       * The type definitions for the expected env variables
-       */
-      env: Reflection;
-
-      /**
-       * The type definitions for the expected env secrets
-       */
-      secrets: Reflection;
-    };
+    vars: ObjectSchema<EnvSchemaMetadata>;
 
     /**
-     * The current **used** environment variables and secrets reflection
+     * The type definition for the expected env secret parameters
      *
      * @remarks
-     * This reflection contains the structure of the current environment variables and secrets as defined during the plugin initialization by extracting the values from the source code.
+     * This value is parsed from the {@link EnvPluginOptions.secrets} option.
      */
-    used: {
-      /**
-       * The current env variables reflection
-       */
-      env: Reflection<EnvInterface>;
-
-      /**
-       * The current env secrets reflection
-       */
-      secrets: Reflection<SecretsInterface>;
-    };
+    secrets: ObjectSchema<EnvSchemaMetadata>;
 
     /**
      * The parsed .env configuration object
@@ -215,6 +167,6 @@ export interface EnvPluginContext<
      * @remarks
      * This reflection contains the structure of the injected environment variables and secrets that were injected into the source code during the build process.
      */
-    injected: Reflection;
+    injected: string[];
   };
 }

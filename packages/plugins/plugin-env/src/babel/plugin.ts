@@ -18,11 +18,13 @@
 
 import { NodePath } from "@babel/core";
 import * as t from "@babel/types";
-import { stringifyDefaultValue } from "@powerlines/deepkit/utilities";
 import { createBabelPlugin } from "@powerlines/plugin-babel/helpers/create-plugin";
 import { addImport } from "@powerlines/plugin-babel/helpers/module-helpers";
 import { BabelPluginPass } from "@powerlines/plugin-babel/types/config";
-import { EnvPluginContext } from "../types/plugin";
+import { getProperties, stringifyValue } from "@powerlines/schema";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { isUndefined } from "@stryke/type-checks/is-undefined";
+import { EnvPluginContext, EnvSchemaMetadata } from "../types/plugin";
 
 /*
  * The Powerlines - Environment Configuration Babel Plugin
@@ -33,16 +35,12 @@ import { EnvPluginContext } from "../types/plugin";
 export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
   "env",
   ({ logger, context }) => {
+    const vars = getProperties(context.env.vars);
     function extractEnv(
       node: t.Identifier,
       pass: BabelPluginPass,
-      isInjectable = false,
-      isUsingBuiltin = false
+      isInjectable = false
     ) {
-      const envTypesAliasProperties = context.env.types.env
-        ?.getProperties()
-        .filter(prop => prop.getAlias().length > 0);
-
       if (node.name) {
         const name = node.name.replace(
           new RegExp(`^(${context.config.env.prefix.join("|")})_`),
@@ -59,97 +57,58 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
         });
 
         if (
-          context.env.types.env?.hasProperty(name) ||
-          envTypesAliasProperties.some(prop => prop.getAlias().includes(name))
+          name in vars &&
+          isSetObject(vars[name]) &&
+          !vars[name]?.metadata?.isIgnored
         ) {
-          const envProperty = context.env.types.env.hasProperty(name)
-            ? context.env.types.env.getProperty(name)
-            : envTypesAliasProperties.find(prop =>
-                prop.getAlias().includes(name)
-              );
-          if (!envProperty || envProperty.isIgnored()) {
-            return;
-          }
+          vars[name].metadata ??= {} as EnvSchemaMetadata;
 
-          if (!context.env.used.env.hasProperty(name)) {
-            logger.debug({
-              meta: {
-                category: "env"
-              },
-              message: `Adding "${name}" environment variables found in "${
-                pass.filename || "unknown file"
-              }" to used environment configuration reflection object.`
-            });
+          logger.debug({
+            meta: {
+              category: "env"
+            },
+            message: `The "${name}" environment variable is used in the source code file "${
+              pass.filename || "unknown file"
+            }" and will be added to the environment schema's active variables list.`
+          });
 
-            context.env.used.env.addProperty(envProperty.property);
-          }
-
-          if (context.config.env.inject && isInjectable) {
-            let value = context.env.parsed?.[name];
-            if (value === undefined) {
-              const prefix = context.config.env.prefix.find(pre => {
-                return context.env.parsed[`${pre.replace(/_$/g, "")}_${name}`];
-              });
-              if (prefix) {
-                value =
-                  context.env.parsed[`${prefix.replace(/_$/g, "")}_${name}`];
-              }
-            }
-
-            value ??= envProperty.getDefaultValue();
-
-            if (envProperty.isValueRequired() && value === undefined) {
+          vars[name].metadata.active ??= [];
+          vars[name].metadata.active.push(name);
+          if (
+            !vars[name].metadata.isRuntime &&
+            ((context.config.env.inject && isInjectable) ||
+              context.config.env.validate)
+          ) {
+            if (
+              context.config.env.validate &&
+              !vars[name].optional &&
+              isUndefined(vars[name].metadata.default)
+            ) {
               throw new Error(
-                `Environment variable \`${name}\` is not defined in the .env configuration files`
+                `Environment variable \`${
+                  name
+                }\` is missing a default value, but is active in the source code${
+                  pass.filename ? ` file \`${pass.filename}\`` : ""
+                }.\n\nPlease add a default value to the schema, or if this variable is optional, please mark it as optional in the type definition.`
               );
             }
 
-            return stringifyDefaultValue(envProperty, value);
+            return stringifyValue(vars[name].metadata.default);
           }
         } else if (context.config.env.validate) {
           throw new Error(
-            `The "${name}" environment variable is not defined in the \`env\` type definition, but is used in the source code file ${
-              pass.filename ? pass.filename : "unknown"
-            }.
-
-          The following environment configuration names are defined in the \`env\` type definition: \n${context.env.types.env
-            ?.getPropertyNames()
-            .sort((a, b) => String(a).localeCompare(String(b)))
-            .map(
-              typeDef =>
-                ` - ${String(typeDef)} ${
-                  envTypesAliasProperties.some(
-                    prop =>
-                      prop.getNameAsString() === String(typeDef) &&
-                      prop.getAlias().length > 0
-                  )
-                    ? `(Alias: ${envTypesAliasProperties
-                        ?.find(
-                          prop => prop.getNameAsString() === String(typeDef)
-                        )
-                        ?.getAlias()
-                        .join(", ")})`
-                    : ""
-                }`
-            )
-            .join(
-              "\n"
-            )} \n\nUsing the following env prefix: \n${context.config.env.prefix
-            .map(prefix => ` - ${prefix}`)
-            .join(
-              "\n"
-            )} \n\nPlease check your \`env\` configuration option. If you are using a custom dotenv type definition, please make sure that the configuration names match the ones in the code. \n\n`
+            `Environment variable \`${name}\` is active in the source code${
+              pass.filename ? ` file \`${pass.filename}\`` : ""
+            }, but is not defined in the \`vars\` schema. Please check the \`env.vars\` configuration option. If you are using a custom env schema, please make sure that the configuration variable names match the ones used in the source code.`
           );
-        } else if (pass.filename && isUsingBuiltin) {
+        } else {
           logger.warn({
             meta: {
               category: "env"
             },
-            message: `The "${
-              name
-            }" environment variable is used in the source code file ${
-              pass.filename
-            }, but is not defined in the \`env\` type definition. If this is intentional, you can ignore this warning. Otherwise, please check your \`env\` configuration option. If you are using a custom dotenv type definition, please make sure that the configuration names match the ones in the code.`
+            message: `Environment variable \`${name}\` is active in the source code${
+              pass.filename ? ` file \`${pass.filename}\`` : ""
+            }, but is not defined in the \`vars\` schema. If this is intentional, you can ignore this warning. Otherwise, please check the \`env.vars\` configuration option. If you are using a custom env schema, please make sure that the configuration variable names match the ones used in the source code.`
           });
         }
       }
@@ -181,7 +140,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
               return;
             }
 
-            extractEnv(identifier, pass, false, false);
+            extractEnv(identifier, pass, false);
 
             path.replaceWithSourceString(`env.${identifier.name}`);
             addImport(path, {
@@ -204,7 +163,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
               return;
             }
 
-            extractEnv(identifier, pass, false, false);
+            extractEnv(identifier, pass, false);
 
             path.replaceWithSourceString(`env.${identifier.name}`);
             addImport(path, {
@@ -223,7 +182,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
               return;
             }
 
-            extractEnv(identifier, pass, false, true);
+            extractEnv(identifier, pass, false);
           }
         }
       }

@@ -80,6 +80,11 @@ export interface JsonSchemaLike {
 
 export interface SchemaMetadata {
   /**
+   * A name for the schema, which can be used by documentation tools or other libraries that support this feature to provide a human-readable name or description for the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   */
+  name?: string;
+
+  /**
    * A title for the schema, which can be used by documentation tools or other libraries that support this feature to provide a human-readable name or description for the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
   title?: string;
@@ -100,9 +105,22 @@ export interface SchemaMetadata {
   examples?: unknown[];
 
   /**
-   * A table name for the schema, which can be used by documentation tools or other libraries that support this feature to provide a human-readable name or description for the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   * An array of strings indicating groups that the schema belongs to. This property can be used for organizational or categorization purposes in documentation tools or other libraries that support this feature. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   *
+   * @remarks
+   * The concept of "groups" is not a standard feature of JSON Schema or JSON Type Definition, but it can be a useful convention for organizing schemas in larger projects or for providing additional metadata that can be leveraged by documentation generators or other tools. The specific meaning and usage of groups would depend on the conventions established within the project or the tools being used.
    */
-  table?: string;
+  groups?: string[];
+
+  /**
+   * A visibility level for the schema, which can be used by documentation tools or other libraries that support this feature to determine how the schema should be presented or accessed. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   */
+  visibility?: "public" | "protected" | "private";
+
+  /**
+   * A resource identifier for the schema, which can be used by documentation tools or other libraries that support this feature to provide a human-readable name or description for the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   */
+  resourceId?: string;
 
   /**
    * An indicator specifying if the field should be marked as hidden or not.

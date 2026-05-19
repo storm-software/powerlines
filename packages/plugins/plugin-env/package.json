@@ -72,29 +72,17 @@
       "import": "./dist/helpers/automd-generator.mjs",
       "require": "./dist/helpers/automd-generator.cjs"
     },
-    "./helpers/create-reflection-resource": {
-      "import": "./dist/helpers/create-reflection-resource.mjs",
-      "require": "./dist/helpers/create-reflection-resource.cjs"
-    },
     "./helpers/load": {
       "import": "./dist/helpers/load.mjs",
       "require": "./dist/helpers/load.cjs"
     },
-    "./helpers/persistence": {
-      "import": "./dist/helpers/persistence.mjs",
-      "require": "./dist/helpers/persistence.cjs"
-    },
-    "./helpers/reflect": {
-      "import": "./dist/helpers/reflect.mjs",
-      "require": "./dist/helpers/reflect.cjs"
+    "./helpers/schema": {
+      "import": "./dist/helpers/schema.mjs",
+      "require": "./dist/helpers/schema.cjs"
     },
     "./helpers/source-file-env": {
       "import": "./dist/helpers/source-file-env.mjs",
       "require": "./dist/helpers/source-file-env.cjs"
-    },
-    "./helpers/template-helpers": {
-      "import": "./dist/helpers/template-helpers.mjs",
-      "require": "./dist/helpers/template-helpers.cjs"
     },
     "./types": {
       "import": "./dist/types/index.mjs",
@@ -123,11 +111,9 @@
     "@babel/core": "catalog:",
     "@babel/types": "catalog:",
     "@powerlines/core": "workspace:*",
-    "@powerlines/deepkit": "workspace:*",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-automd": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
-    "@powerlines/plugin-deepkit": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
     "@powerlines/schema": "workspace:*",
     "@storm-software/config-tools": "catalog:",
