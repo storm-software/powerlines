@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.9.24](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.24) (05/19/2026)
+
+### Miscellaneous
+
+- **schema:** Update bundling process to use `rolldown` instead of `esbuild` ([f23d58df0](https://github.com/storm-software/powerlines/commit/f23d58df0))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.15.25**
+
 ## [0.9.23](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.23) (05/19/2026)
 
 ### Updated Dependencies
