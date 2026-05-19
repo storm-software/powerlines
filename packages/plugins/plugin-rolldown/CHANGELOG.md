@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.504](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.504) (05/19/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace's `devenv` modules ([4e5df77ba](https://github.com/storm-software/powerlines/commit/4e5df77ba))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.47**
+- Updated **unplugin** to **v0.0.39**
+- Updated **core** to **v0.15.24**
+
 ## [0.7.503](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.503) (05/19/2026)
 
 ### Updated Dependencies
