@@ -19,6 +19,7 @@
 import { Type } from "@powerlines/deepkit/vendor/type";
 import type { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import type { TypeDefinition } from "@stryke/types/configuration";
+import { FormatName } from "ajv-formats/dist/formats";
 import { InputObject, Schema as _Schema } from "untyped";
 import * as z3 from "zod/v3";
 
@@ -145,6 +146,16 @@ type UncheckedJSONSchemaType<T, IsPartial extends boolean> = (
       : T extends string
         ? {
             type: JSONType<"string", IsPartial>;
+
+            /**
+             * A format for the schema, which can be used by validation libraries or other tools that support this feature to provide additional validation or formatting rules for the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+             *
+             * @see https://ajv.js.org/packages/ajv-formats.html
+             *
+             * @remarks
+             * The `format` property is a string that specifies the format of the data that the schema represents. It can be used to indicate that a string should be validated as an email address, a date-time, a URI, or any other format supported by compatible validation libraries. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+             */
+            format?: FormatName;
           } & StringKeywords
         : T extends boolean
           ? {
@@ -204,6 +215,16 @@ type UncheckedJSONSchemaType<T, IsPartial extends boolean> = (
                       "type"
                     > & {
                       type?: "string";
+
+                      /**
+                       * A format for the schema, which can be used by validation libraries or other tools that support this feature to provide additional validation or formatting rules for the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+                       *
+                       * @see https://ajv.js.org/packages/ajv-formats.html
+                       *
+                       * @remarks
+                       * The `format` property is a string that specifies the format of the data that the schema represents. It can be used to indicate that a string should be validated as an email address, a date-time, a URI, or any other format supported by compatible validation libraries. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+                       */
+                      format?: FormatName;
                     };
                     dependencies?: {
                       [K in keyof T]?:

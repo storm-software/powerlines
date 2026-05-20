@@ -171,7 +171,10 @@ function reflectionToJsonSchemaInner<T = unknown>(
     case ReflectionKind.bigint:
       return withReflectionTags<T>(reflection, { type: "integer" });
     case ReflectionKind.regexp:
-      return withReflectionTags<T>(reflection, { type: "string" });
+      return withReflectionTags<T>(reflection, {
+        type: "string",
+        format: "regex"
+      });
     case ReflectionKind.literal: {
       const { literal } = reflection;
       if (
@@ -187,7 +190,10 @@ function reflectionToJsonSchemaInner<T = unknown>(
         });
       }
       if (literal instanceof RegExp) {
-        return withReflectionTags<T>(reflection, { type: "string" });
+        return withReflectionTags<T>(reflection, {
+          type: "string",
+          format: "regex"
+        });
       }
       return withReflectionTags<T>(reflection, {});
     }
@@ -306,8 +312,15 @@ function reflectionToJsonSchemaInner<T = unknown>(
             format: "date-time"
           });
         case "RegExp":
+          return withReflectionTags<T>(reflection, {
+            type: "string",
+            format: "regex"
+          });
         case "URL":
-          return withReflectionTags<T>(reflection, { type: "string" });
+          return withReflectionTags<T>(reflection, {
+            type: "string",
+            format: "uri"
+          });
         case "Set": {
           const itemType = reflection.arguments?.[0];
           const items = itemType
@@ -344,6 +357,7 @@ function reflectionToJsonSchemaInner<T = unknown>(
         case "BigUint64Array":
           return withReflectionTags<T>(reflection, {
             type: "string",
+            format: "byte",
             contentEncoding: "base64"
           });
         case undefined:
