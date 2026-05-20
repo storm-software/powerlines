@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.245](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.245) (05/20/2026)
+
+### Miscellaneous
+
+- **schema:** Complete migration to JSON schema objects ([637d3653e](https://github.com/storm-software/powerlines/commit/637d3653e))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.15.29**
+- Updated **plugin-alloy** to **v0.26.137**
+- Updated **plugin-automd** to **v0.1.513**
+- Updated **plugin-babel** to **v0.13.48**
+- Updated **plugin-deepkit** to **v0.11.395**
+- Updated **plugin-plugin** to **v0.12.464**
+- Updated **powerlines** to **v0.47.52**
+- Updated **schema** to **v0.11.32**
+
 ## [0.16.244](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.244) (05/20/2026)
 
 ### Updated Dependencies

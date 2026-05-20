@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.32](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.32) (05/20/2026)
+
+### Miscellaneous
+
+- **schema:** Complete migration to JSON schema objects ([637d3653e](https://github.com/storm-software/powerlines/commit/637d3653e))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.15.29**
+- Updated **deepkit** to **v0.9.28**
+- Updated **unplugin** to **v0.0.44**
+
 ## [0.11.31](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.31) (05/20/2026)
 
 ### Updated Dependencies
