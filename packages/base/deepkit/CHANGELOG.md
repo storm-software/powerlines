@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.9.25](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.25) (05/19/2026)
+
+### Miscellaneous
+
+- **core:** Disable repeated plugin logging ([0fe7b70fe](https://github.com/storm-software/powerlines/commit/0fe7b70fe))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.15.26**
+
 ## [0.9.24](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.24) (05/19/2026)
 
 ### Miscellaneous

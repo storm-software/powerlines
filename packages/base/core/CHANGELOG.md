@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Core
 
+## [0.15.26](https://github.com/storm-software/powerlines/releases/tag/core%400.15.26) (05/19/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace `devenv` modules ([aec471d52](https://github.com/storm-software/powerlines/commit/aec471d52))
+- **core:** Improvements to config types and utilities ([a27ad9fd4](https://github.com/storm-software/powerlines/commit/a27ad9fd4))
+- **core:** Disable repeated plugin logging ([0fe7b70fe](https://github.com/storm-software/powerlines/commit/0fe7b70fe))
+
 ## [0.15.25](https://github.com/storm-software/powerlines/releases/tag/core%400.15.25) (05/19/2026)
 
 ### Miscellaneous
