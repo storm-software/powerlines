@@ -20,7 +20,7 @@ import type { Context } from "@powerlines/core";
 import { joinPaths } from "@stryke/path/join";
 import { extractHash, extractVariant } from "./extract";
 import { isSchema } from "./type-checks";
-import { Schema, SchemaInput, SchemaMetadata } from "./types";
+import { Schema, SchemaInput } from "./types";
 
 /**
  * A helper function to get the cache directory path for storing schemas. This function takes a context object as input and returns the path to the cache directory where schemas are stored. The cache directory is constructed by joining the `cachePath` property from the context with a subdirectory named "schemas". This function is useful for centralizing the logic for determining where schema files should be cached, ensuring that all schema-related file operations use a consistent location for storing and retrieving cached schemas.
@@ -39,7 +39,10 @@ export function getCacheDirectory(context: Context): string {
  * @param input - The input schema from which to extract the variant and hash for constructing the cache file path.
  * @returns The file path to the cached schema JSON file, constructed by joining the cache directory path with a filename derived from the extracted hash of the schema input.
  */
-export function getCacheFilePath(context: Context, input: SchemaInput): string {
+export function getCacheFilePath<T = unknown>(
+  context: Context,
+  input: SchemaInput<T>
+): string {
   const variant = extractVariant(input);
   const hash = extractHash(variant, input);
 
@@ -53,13 +56,13 @@ export function getCacheFilePath(context: Context, input: SchemaInput): string {
  * @param schema - The schema to be written to the file system, which must be a valid schema object containing a `variant`, `schema`, and `hash` property.
  * @throws Will throw an error if the provided input is not a valid schema.
  */
-export async function writeSchema<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>,
-  TContext extends Context = Context
->(context: TContext, schema: Schema<TMetadata>) {
-  if (!isSchema<TMetadata>(schema)) {
+export async function writeSchema<T = unknown>(
+  context: Context,
+  schema: Schema<T>
+) {
+  if (!isSchema<T>(schema)) {
     throw new Error(
-      `The provided input is not a valid schema. A valid schema must have a "variant" property indicating the type of the input and a "schema" property containing the parsed JTD schema object.`
+      `The provided input is not a valid schema. A valid schema must have a "variant" property indicating the type of the input and a "schema" property containing the parsed JSON Schema object.`
     );
   }
 
@@ -76,13 +79,10 @@ export async function writeSchema<
  * @param input - The input schema from which to extract the variant and hash for locating the cached schema file.
  * @returns A promise that resolves to the parsed schema object if found in the cache, or `undefined` if the schema does not exist in the cache.
  */
-export async function readSchemaSafe<
-  TContext extends Context = Context,
-  TMetadata extends SchemaMetadata = SchemaMetadata
->(
-  context: TContext,
-  input: SchemaInput
-): Promise<Schema<TMetadata> | undefined> {
+export async function readSchemaSafe<T = unknown>(
+  context: Context,
+  input: SchemaInput<T>
+): Promise<Schema<T> | undefined> {
   const cacheFilePath = getCacheFilePath(context, input);
   if (!(await context.fs.exists(cacheFilePath))) {
     return undefined;
@@ -104,11 +104,11 @@ export async function readSchemaSafe<
  * @returns A promise that resolves to the parsed schema object if found in the cache, or throws an error if the schema does not exist in the cache.
  * @throws Will throw an error if the schema with the specified variant and hash does not exist in the cache.
  */
-export async function readSchema<
-  TContext extends Context = Context,
-  TMetadata extends SchemaMetadata = SchemaMetadata
->(context: TContext, input: SchemaInput): Promise<Schema<TMetadata>> {
-  const schema = await readSchemaSafe<TContext, TMetadata>(context, input);
+export async function readSchema<T = unknown>(
+  context: Context,
+  input: SchemaInput<T>
+): Promise<Schema<T>> {
+  const schema = await readSchemaSafe<T>(context, input);
   if (!schema) {
     const variant = extractVariant(input);
     const hash = extractHash(variant, input);

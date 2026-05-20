@@ -27,9 +27,10 @@ import Ajv from "ajv";
 import { formatNames, fullFormats } from "ajv-formats/dist/formats";
 import { _, Name } from "ajv/dist/compile/codegen";
 import standaloneCode from "ajv/dist/standalone";
-import { getProperties } from "./helpers";
+import { getPropertiesList } from "./helpers";
 import { getPrimarySchemaType, isSchemaNullable } from "./metadata";
-import { JsonSchemaPrimitiveType, JsonSchemaType } from "./types";
+import { isJsonSchemaObject } from "./type-checks";
+import { JsonSchema, JsonSchemaLike, JsonSchemaPrimitiveType } from "./types";
 
 /**
  * Stringifies a value for generated TypeScript code.
@@ -56,17 +57,18 @@ export function stringifyValue(
 /**
  * Stringifies a JSON Schema fragment into a TypeScript-like type string.
  */
-export function stringifyType(schema?: JsonSchemaType): string {
+export function stringifyType<T = unknown>(schema?: JsonSchema<T>): string {
   if (!schema) {
     return "unknown";
   }
 
   if (isSetString(schema.$ref)) {
     const match = /^#\/(?:definitions|\$defs)\/(.+)$/.exec(schema.$ref);
+
     return match?.[1] ?? schema.$ref;
   }
 
-  const primaryType = getPrimarySchemaType(schema);
+  const primaryType = getPrimarySchemaType(schema as JsonSchemaLike);
   if (primaryType) {
     if (primaryType === "integer" || primaryType === "number") {
       return "number";
@@ -84,6 +86,7 @@ export function stringifyType(schema?: JsonSchemaType): string {
 
   if (schema.type === "array" || schema.items) {
     const items = Array.isArray(schema.items) ? schema.items[0] : schema.items;
+
     return `${stringifyType(items)}[]`;
   }
 
@@ -99,22 +102,24 @@ export function stringifyType(schema?: JsonSchemaType): string {
       return `{ [key: string]: ${stringifyType(schema.additionalProperties)} }`;
     }
 
-    if (schema.properties) {
-      return `{ ${Object.entries(getProperties(schema as never))
-        .map(([key, value]) => {
+    if (isJsonSchemaObject(schema)) {
+      return `{ ${getPropertiesList(schema as JsonSchema<Record<string, any>>)
+        .map(property => {
           const suffix =
-            value.optional || value.nullable
-              ? `${value.optional ? "?" : ""}${value.nullable ? " | null" : ""}`
+            property.optional || property.nullable
+              ? `${property.optional ? "?" : ""}${property.nullable ? " | null" : ""}`
               : "";
-          return `${key}${suffix}: ${stringifyType(value)}`;
+
+          return `${property.key}${suffix}: ${stringifyType(property.value)}`;
         })
         .join(";\n")} }`;
     }
   }
 
   if (schema.oneOf || schema.anyOf) {
-    const branches = schema.oneOf ?? schema.anyOf ?? [];
-    return branches.map(branch => stringifyType(branch)).join(" | ");
+    return ((schema.oneOf ?? schema.anyOf ?? []) as JsonSchema<T>[])
+      .map(branch => stringifyType(branch))
+      .join(" | ");
   }
 
   if (schema.allOf) {
@@ -146,6 +151,6 @@ export async function generateCode(
   return standaloneCode(ajv, refsOrFuncts);
 }
 
-export function isNullableSchema(schema?: JsonSchemaType): boolean {
+export function isNullableSchema(schema?: JsonSchema): boolean {
   return isSchemaNullable(schema);
 }

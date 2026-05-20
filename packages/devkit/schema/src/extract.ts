@@ -22,11 +22,7 @@ import { rolldownPlugin } from "@powerlines/deepkit/rolldown-plugin";
 import { isType, stringifyType, Type } from "@powerlines/deepkit/vendor/type";
 import { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import { murmurhash } from "@stryke/hash";
-import {
-  isJsonSchemaObjectType,
-  isStandardJsonSchema,
-  JsonSchemaType
-} from "@stryke/json";
+import { isStandardJsonSchema } from "@stryke/json";
 import { joinPaths } from "@stryke/path/join";
 import { isSetString } from "@stryke/type-checks";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
@@ -37,24 +33,22 @@ import {
 import defu from "defu";
 import type { BuildOptions } from "rolldown";
 import * as z3 from "zod/v3";
-import { jtdToJsonSchema } from "./jtd";
 import { getCacheDirectory, writeSchema } from "./persistence";
 import { reflectionToJsonSchema } from "./reflection";
 import { resolve } from "./resolve";
 import {
   isExtractedSchema,
-  isJTDSchema,
+  isJsonSchema,
   isSchema,
   isUntypedInput,
   isUntypedSchema
 } from "./type-checks";
 import {
   ExtractedSchema,
-  JTDSchemaType,
+  JsonSchema,
   Schema,
   SchemaInput,
   SchemaInputVariant,
-  SchemaMetadata,
   SchemaSource,
   SchemaSourceInput,
   SchemaSourceVariant,
@@ -63,12 +57,159 @@ import {
   UntypedSchema
 } from "./types";
 
+function convertNestedUntypedSchema(value: unknown): unknown {
+  if (isUntypedSchema(value)) {
+    return convertUntypedSchemaToJsonSchema(value);
+  }
+
+  if (isSetObject(value)) {
+    if (isUntypedInput(value)) {
+      return convertUntypedInputToJsonSchema(value);
+    }
+
+    const nested = value as Record<string, unknown>;
+    if ("$schema" in nested && isUntypedSchema(nested.$schema)) {
+      return convertUntypedSchemaToJsonSchema(nested.$schema);
+    }
+  }
+
+  return value;
+}
+
+function convertNestedUntypedSchemaArray(value: unknown): unknown {
+  if (!Array.isArray(value)) {
+    return value;
+  }
+
+  return value.map(item => convertNestedUntypedSchema(item));
+}
+
+function convertUntypedSchemaToJsonSchema<T = unknown>(
+  schema: UntypedSchema | Record<string, unknown>
+): JsonSchema<T> {
+  const source = schema as Record<string, unknown>;
+  const jsonSchema: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(source)) {
+    if (
+      key === "tsType" ||
+      key === "markdownType" ||
+      key === "tags" ||
+      key === "args" ||
+      key === "resolve"
+    ) {
+      continue;
+    }
+
+    if (key === "id" && isSetString(value)) {
+      jsonSchema.$id = value;
+      continue;
+    }
+
+    if (
+      key === "properties" ||
+      key === "patternProperties" ||
+      key === "dependentSchemas" ||
+      key === "$defs" ||
+      key === "definitions"
+    ) {
+      if (!isSetObject(value)) {
+        jsonSchema[key] = value;
+        continue;
+      }
+
+      jsonSchema[key] = Object.fromEntries(
+        Object.entries(value).map(([propertyKey, propertyValue]) => [
+          propertyKey,
+          convertNestedUntypedSchema(propertyValue)
+        ])
+      );
+      continue;
+    }
+
+    if (
+      key === "items" ||
+      key === "contains" ||
+      key === "if" ||
+      key === "then" ||
+      key === "else" ||
+      key === "not" ||
+      key === "propertyNames" ||
+      key === "additionalProperties" ||
+      key === "unevaluatedProperties"
+    ) {
+      jsonSchema[key] = convertNestedUntypedSchema(value);
+      continue;
+    }
+
+    if (key === "oneOf" || key === "anyOf" || key === "allOf") {
+      jsonSchema[key] = convertNestedUntypedSchemaArray(value);
+      continue;
+    }
+
+    jsonSchema[key] = value;
+  }
+
+  return jsonSchema as JsonSchema<T>;
+}
+
+function convertUntypedInputToJsonSchema<T = unknown>(
+  input: UntypedInputObject
+): JsonSchema<T> {
+  const inputObject = input as Record<string, unknown>;
+  const base = isUntypedSchema(inputObject.$schema)
+    ? convertUntypedSchemaToJsonSchema<T>(inputObject.$schema)
+    : ({} as JsonSchema<T>);
+  const properties: Record<string, JsonSchema<T>> = {};
+
+  for (const [key, value] of Object.entries(inputObject)) {
+    if (key.startsWith("$")) {
+      continue;
+    }
+
+    if (!isSetObject(value)) {
+      continue;
+    }
+
+    if (isUntypedInput(value)) {
+      properties[key] = convertUntypedInputToJsonSchema<T>(value);
+      continue;
+    }
+
+    const nested = value as Record<string, unknown>;
+    if ("$schema" in nested && isUntypedSchema(nested.$schema)) {
+      properties[key] = convertUntypedSchemaToJsonSchema<T>(nested.$schema);
+      continue;
+    }
+
+    if (isUntypedSchema(value)) {
+      properties[key] = convertUntypedSchemaToJsonSchema<T>(value);
+    }
+  }
+
+  const baseProperties = isSetObject(base.properties)
+    ? (base.properties as Record<string, JsonSchema<T>>)
+    : {};
+  const mergedProperties = {
+    ...baseProperties,
+    ...properties
+  };
+
+  return {
+    ...base,
+    type: base.type ?? "object",
+    ...(Object.keys(mergedProperties).length > 0
+      ? { properties: mergedProperties }
+      : {})
+  } as JsonSchema<T>;
+}
+
 /**
  * Creates a hash string for a given schema definition input.
  */
-export function extractHash(
+export function extractHash<T = unknown>(
   variant: SchemaInputVariant,
-  input: SchemaInput
+  input: SchemaInput<T>
 ): string {
   if (isSetString(input)) {
     return murmurhash({ variant, input });
@@ -77,8 +218,18 @@ export function extractHash(
       return murmurhash({ variant, input: input._def });
     } else if (isStandardJsonSchema(input)) {
       return murmurhash({ variant, input: input["~standard"] });
-    } else if (isJsonSchemaObjectType(input)) {
+    } else if (isJsonSchema(input)) {
       return murmurhash({ variant, input });
+    } else if (isUntypedInput(input)) {
+      return murmurhash({
+        variant,
+        input: convertUntypedInputToJsonSchema(input)
+      });
+    } else if (isUntypedSchema(input)) {
+      return murmurhash({
+        variant,
+        input: convertUntypedSchemaToJsonSchema(input)
+      });
     } else if (isType(input)) {
       return murmurhash({ variant, input: stringifyType(input) });
     }
@@ -92,42 +243,45 @@ export function extractHash(
 /**
  * Converts a reflected Deepkit {@link Type} into a JSON Schema (draft-07) representation.
  */
-export function extractReflection<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(reflection: Type): JsonSchemaType | undefined {
+export function extractReflection<T = unknown>(
+  reflection: Type
+): JsonSchema<T> | undefined {
   if (!isType(reflection)) {
     return undefined;
   }
 
-  return reflectionToJsonSchema<TMetadata>(reflection);
+  return reflectionToJsonSchema<T>(reflection);
 }
 
 /**
  * Extracts a JSON Schema from Zod, Standard Schema, untyped, or JSON Schema inputs.
  */
-export function extractJsonSchema<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(schema: unknown): JsonSchemaType | undefined {
+export function extractJsonSchema<T = unknown>(
+  schema: unknown
+): JsonSchema<T> | undefined {
   if (
     isSetObject(schema) &&
     (isZod3Type(schema) ||
       isStandardJsonSchema(schema) ||
-      isJsonSchemaObjectType(schema) ||
+      isJsonSchema(schema) ||
       isUntypedInput(schema) ||
       isUntypedSchema(schema))
   ) {
     if (isZod3Type(schema)) {
-      return extractJsonSchemaZod(schema) as JsonSchemaType;
+      return extractJsonSchemaZod(schema) as JsonSchema<T>;
     }
     if (isStandardJsonSchema(schema)) {
       return schema["~standard"].jsonSchema.input({
         target: "draft-2020-12"
-      }) as JsonSchemaType;
+      }) as JsonSchema<T>;
     }
     if (isUntypedInput(schema)) {
-      return schema.$schema as JsonSchemaType;
+      return convertUntypedInputToJsonSchema<T>(schema);
     }
-    return schema as JsonSchemaType;
+    if (isUntypedSchema(schema)) {
+      return convertUntypedSchemaToJsonSchema<T>(schema);
+    }
+    return schema;
   }
 
   return undefined;
@@ -141,9 +295,7 @@ export function extractResolvedVariant(
       return "zod3";
     } else if (isStandardJsonSchema(input)) {
       return "standard-schema";
-    } else if (isJTDSchema(input)) {
-      return "jtd-schema";
-    } else if (isJsonSchemaObjectType(input)) {
+    } else if (isJsonSchema(input)) {
       return "json-schema";
     } else if (isType(input)) {
       return "reflection";
@@ -157,7 +309,9 @@ export function extractResolvedVariant(
   );
 }
 
-export function extractVariant(input: SchemaInput): SchemaInputVariant {
+export function extractVariant<T = unknown>(
+  input: SchemaInput<T>
+): SchemaInputVariant {
   if (isSetString(input) || isTypeDefinition(input)) {
     return "type-definition";
   }
@@ -165,30 +319,26 @@ export function extractVariant(input: SchemaInput): SchemaInputVariant {
   return extractResolvedVariant(input as SchemaSourceInput);
 }
 
-export async function extractSchemaSchema<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(
+export async function extractSchemaSchema<T = unknown>(
   input: SchemaSourceInput,
   variant?: SchemaInputVariant
-): Promise<JsonSchemaType> {
-  if (isExtractedSchema<TMetadata>(input)) {
+): Promise<JsonSchema<T>> {
+  if (isExtractedSchema<T>(input)) {
     return input.schema;
   }
 
   const resolvedVariant = variant ?? extractResolvedVariant(input);
 
-  let schema: JsonSchemaType | undefined;
+  let schema: JsonSchema<T> | undefined;
   if (
     resolvedVariant === "zod3" ||
     resolvedVariant === "json-schema" ||
     resolvedVariant === "standard-schema" ||
     resolvedVariant === "untyped"
   ) {
-    schema = extractJsonSchema<TMetadata>(input);
+    schema = extractJsonSchema<T>(input);
   } else if (resolvedVariant === "reflection") {
-    schema = extractReflection<TMetadata>(input as Type);
-  } else if (resolvedVariant === "jtd-schema") {
-    schema = jtdToJsonSchema<TMetadata>(input as JTDSchemaType<TMetadata>);
+    schema = extractReflection(input as Type);
   }
 
   if (schema) {
@@ -196,13 +346,14 @@ export async function extractSchemaSchema<
   }
 
   throw new Error(
-    `Failed to extract a valid schema from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, a JTD schema, an untyped schema, or a reflected Deepkit Type object.`
+    `Failed to extract a valid schema from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, an untyped schema, or a reflected Deepkit Type object.`
   );
 }
 
-export function extractSource<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(variant: SchemaSourceVariant, input: SchemaSourceInput): SchemaSource {
+export function extractSource(
+  variant: SchemaSourceVariant,
+  input: SchemaSourceInput
+): SchemaSource {
   if (variant === "zod3") {
     return {
       hash: extractHash(variant, input),
@@ -225,7 +376,7 @@ export function extractSource<
     return {
       hash: extractHash(variant, input),
       variant: "json-schema",
-      schema: input as JsonSchemaType
+      schema: input as JsonSchema
     };
   } else if (variant === "reflection") {
     return {
@@ -233,32 +384,23 @@ export function extractSource<
       variant: "reflection",
       schema: input as Type
     };
-  } else if (variant === "jtd-schema") {
-    return {
-      hash: extractHash(variant, input),
-      variant: "jtd-schema",
-      schema: input as JTDSchemaType<TMetadata>
-    };
   }
 
   throw new Error(
-    `Failed to extract source information from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, a JTD schema, an untyped schema, or a reflected Deepkit Type object.`
+    `Failed to extract source information from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, an untyped schema, or a reflected Deepkit Type object.`
   );
 }
 
-export async function extractSchema<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>,
-  TContext extends Context = Context
->(
-  context: TContext,
+export async function extractSchema<T = unknown>(
+  context: Context,
   input: SchemaInput,
   options: Partial<BuildOptions> = {}
-): Promise<ExtractedSchema<TMetadata>> {
-  if (isExtractedSchema<TMetadata>(input)) {
+): Promise<ExtractedSchema<T>> {
+  if (isExtractedSchema<T>(input)) {
     return input;
   }
 
-  if (isSchema<TMetadata>(input)) {
+  if (isSchema<T>(input)) {
     return {
       ...input,
       source: {
@@ -292,7 +434,6 @@ export async function extractSchema<
   } else if (
     [
       "json-schema",
-      "jtd-schema",
       "standard-schema",
       "zod3",
       "untyped",
@@ -304,37 +445,34 @@ export async function extractSchema<
     throw new Error(
       `Invalid schema definition input "${
         variant
-      }". The variant must be one of "type-definition", "json-schema", "jtd-schema", "standard-schema", "zod3", "untyped", or "reflection".`
+      }". The variant must be one of "type-definition", "json-schema", "standard-schema", "zod3", "untyped", or "reflection".`
     );
   }
 
   return {
     variant,
     source,
-    schema: await extractSchemaSchema<TMetadata>(source.schema, source.variant),
+    schema: await extractSchemaSchema<T>(source.schema, source.variant),
     hash
   };
 }
 
 /**
- * Extracts and normalises a schema definition to JSON Schema.
+ * Extracts and normalizes a schema definition to JSON Schema.
  *
  * @see https://json-schema.org/
  * @see https://ajv.js.org/json-schema.html
  */
-export async function extract<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>,
-  TContext extends Context = Context
->(
-  context: TContext,
+export async function extract<T = unknown>(
+  context: Context,
   input: SchemaInput,
   options: Partial<BuildOptions> = {}
-): Promise<Schema<TMetadata>> {
-  if (isExtractedSchema<TMetadata>(input) || isSchema<TMetadata>(input)) {
+): Promise<Schema<T>> {
+  if (isExtractedSchema<T>(input) || isSchema<T>(input)) {
     return input;
   }
 
-  let result: Schema<TMetadata> | undefined;
+  let result: Schema<T> | undefined;
 
   const variant = extractVariant(input);
   const hash = extractHash(variant, input);
@@ -349,15 +487,15 @@ export async function extract<
       result = {
         variant,
         hash,
-        schema: JSON.parse(schema) as JsonSchemaType
+        schema: JSON.parse(schema) as JsonSchema
       };
     }
   }
 
-  result ??= await extractSchema<TMetadata>(context, input, options);
+  result ??= await extractSchema<T>(context, input, options);
   if (!result?.schema) {
     throw new Error(
-      `Failed to extract a valid schema from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, a JTD schema, an untyped schema, or a reflected Deepkit Type object.`
+      `Failed to extract a valid schema from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, an untyped schema, or a reflected Deepkit Type object.`
     );
   }
 

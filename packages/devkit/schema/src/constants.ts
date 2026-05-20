@@ -16,6 +16,8 @@
 
  ------------------------------------------------------------------- */
 
+import { SchemaMetadata } from "./types";
+
 export const JsonSchemaTypes = {
   STRING: "string",
   NUMBER: "number",
@@ -26,17 +28,29 @@ export const JsonSchemaTypes = {
   ARRAY: "array"
 } as const;
 
-/** @deprecated Use {@link JsonSchemaTypes} instead. */
-export const JTDTypes = {
-  STRING: "string",
-  TIMESTAMP: "timestamp",
-  BOOLEAN: "boolean",
-  FLOAT32: "float32",
-  FLOAT64: "float64",
-  INT8: "int8",
-  UINT8: "uint8",
-  INT16: "int16",
-  UINT16: "uint16",
-  INT32: "int32",
-  UINT32: "uint32"
-} as const;
+export const JSON_SCHEMA_DATA_TYPES = [
+  JsonSchemaTypes.STRING,
+  JsonSchemaTypes.NUMBER,
+  JsonSchemaTypes.INTEGER,
+  JsonSchemaTypes.BOOLEAN,
+  JsonSchemaTypes.ARRAY,
+  JsonSchemaTypes.OBJECT,
+  JsonSchemaTypes.NULL
+] as const;
+
+export const JSON_SCHEMA_METADATA_KEYS = [
+  "name",
+  "title",
+  "description",
+  "default",
+  "examples",
+  "groups",
+  "visibility",
+  "isHidden",
+  "isIgnored",
+  "isInternal",
+  "isRuntime",
+  "isReadonly",
+  "isPrimaryKey",
+  "alias"
+] satisfies ReadonlyArray<keyof SchemaMetadata>;

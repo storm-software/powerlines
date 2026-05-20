@@ -73,9 +73,9 @@
       "import": "./dist/helpers.mjs",
       "require": "./dist/helpers.cjs"
     },
-    "./jtd": {
-      "import": "./dist/jtd.mjs",
-      "require": "./dist/jtd.cjs"
+    "./metadata": {
+      "import": "./dist/metadata.mjs",
+      "require": "./dist/metadata.cjs"
     },
     "./persistence": {
       "import": "./dist/persistence.mjs",

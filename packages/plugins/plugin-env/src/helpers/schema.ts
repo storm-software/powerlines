@@ -16,21 +16,19 @@
 
  ------------------------------------------------------------------- */
 
-import { getCacheDirectory } from "@powerlines/schema";
 import { extract } from "@powerlines/schema/extract";
 import {
   getProperties,
   getPropertiesList,
   mergeSchemas
 } from "@powerlines/schema/helpers";
-import { joinPaths } from "@stryke/path/join";
 import { isSetArray } from "@stryke/type-checks/is-set-array";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isString } from "@stryke/type-checks/is-string";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import defu from "defu";
 import { UnresolvedContext } from "powerlines";
-import { EnvPluginContext, EnvSchema } from "../types/plugin";
+import { Env, EnvPluginContext } from "../types/plugin";
 import { loadEnv } from "./load";
 
 /**
@@ -90,14 +88,17 @@ export async function getDefaultSecretsTypeDefinition<
  * @param context - The plugin context
  * @returns A promise that resolves when the schema has been extracted and stored in the plugin context.
  */
-export async function extractEnvSchema<TContext extends EnvPluginContext>(
+export async function extractEnv<TContext extends EnvPluginContext>(
   context: TContext
 ): Promise<void> {
   const defaultVarsTypeDefinition = await getDefaultVarsTypeDefinition(context);
   const defaultSecretsTypeDefinition =
     await getDefaultSecretsTypeDefinition(context);
 
-  const vars = (await extract(context, context.config.env.vars)) as EnvSchema;
+  const vars = await extract<Record<string, Env>>(
+    context,
+    context.config.env.vars
+  );
   if (
     (isString(context.config.env.vars) &&
       context.config.env.vars !==
@@ -110,16 +111,16 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
         (context.config.env.vars as TypeDefinition).name !==
           defaultVarsTypeDefinition.name))
   ) {
-    vars.schema = mergeSchemas(
+    vars.schema = mergeSchemas<Record<string, Env>>(
       vars,
-      (await extract(context, defaultVarsTypeDefinition)) as EnvSchema
+      await extract<Record<string, Env>>(context, defaultVarsTypeDefinition)
     );
   }
 
-  const secrets = (await extract(
+  const secrets = await extract<Record<string, Env>>(
     context,
     context.config.env.secrets
-  )) as EnvSchema;
+  );
   if (
     (isString(context.config.env.secrets) &&
       context.config.env.secrets !==
@@ -132,9 +133,9 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
         (context.config.env.secrets as TypeDefinition).name !==
           defaultSecretsTypeDefinition.name))
   ) {
-    secrets.schema = mergeSchemas(
+    secrets.schema = mergeSchemas<Record<string, Env>>(
       secrets,
-      (await extract(context, defaultSecretsTypeDefinition)) as EnvSchema
+      await extract<Record<string, Env>>(context, defaultSecretsTypeDefinition)
     );
   }
 
@@ -150,7 +151,6 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
       injected: []
     }
   );
-  await readActiveEnv(context);
 
   const properties = getProperties(context.env.vars);
   context.info({
@@ -199,10 +199,14 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
   const aliases = Object.fromEntries(
     Object.entries(properties).flatMap(
       ([key, prop]) =>
-        (isSetArray(prop.metadata?.alias)
-          ? prop.metadata?.alias?.map(alias => [
+        (isSetArray(prop.alias)
+          ? prop.alias?.map(alias => [
               alias,
-              { ...prop, metadata: { ...prop.metadata, alias: [key] } }
+              {
+                ...prop,
+                name: alias,
+                alias: [...(prop.alias?.filter(a => a !== alias) ?? []), key]
+              }
             ])
           : []) as [string, typeof prop][]
     )
@@ -218,7 +222,7 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
       return ret;
     }, key);
     if (properties[unprefixedKey]) {
-      if (!properties[unprefixedKey].metadata?.isRuntime) {
+      if (!properties[unprefixedKey]?.isRuntime) {
         const propertySchema =
           context.env.vars.schema.properties?.[unprefixedKey];
         if (propertySchema) {
@@ -226,9 +230,8 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
         }
       }
     } else if (aliases[unprefixedKey]) {
-      if (!aliases[unprefixedKey].metadata?.isRuntime) {
-        const alias =
-          aliases[unprefixedKey].metadata?.alias?.[0] ?? unprefixedKey;
+      if (!aliases[unprefixedKey]?.isRuntime) {
+        const alias = aliases[unprefixedKey]?.alias?.[0] ?? unprefixedKey;
         const aliasSchema = context.env.vars.schema.properties?.[alias];
         if (aliasSchema) {
           aliasSchema.default = value;
@@ -236,73 +239,4 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
       }
     }
   }
-}
-
-/**
- * Reads the active environment variables and secrets from the plugin context's cache and stores them in the plugin context for use during the build process. This function should be called during the plugin's `buildStart` hook to ensure that the active environment variables and secrets are available before the build process begins.
- *
- * @param context - The plugin context
- * @returns A promise that resolves when the active environment variables and secrets have been read and stored in the plugin context.
- */
-export async function readActiveEnv<TContext extends EnvPluginContext>(
-  context: TContext
-) {
-  context.env.vars.active ??= [];
-  if (
-    context.fs.existsSync(
-      joinPaths(getCacheDirectory(context), "env", "vars.json")
-    )
-  ) {
-    const content = await context.fs.read(
-      joinPaths(getCacheDirectory(context), "env", "vars.json")
-    );
-    if (content) {
-      context.env.vars.active = JSON.parse(content)?.elements ?? [];
-    }
-  }
-
-  context.env.secrets.active ??= [];
-  if (
-    context.fs.existsSync(
-      joinPaths(getCacheDirectory(context), "env", "secrets.json")
-    )
-  ) {
-    const content = await context.fs.read(
-      joinPaths(getCacheDirectory(context), "env", "secrets.json")
-    );
-    if (content) {
-      context.env.secrets.active = JSON.parse(content)?.elements ?? [];
-    }
-  }
-}
-
-/**
- * Writes the active environment variables and secrets from the plugin context to the plugin context's cache for use during the build process. This function should be called whenever the active environment variables and secrets are updated in the plugin context to ensure that the latest values are available during the build process.
- *
- * @param context - The plugin context
- * @returns A promise that resolves when the active environment variables and secrets have been written to the plugin context's cache.
- */
-export async function writeActiveEnv<TContext extends EnvPluginContext>(
-  context: TContext
-) {
-  return Promise.all(
-    [
-      isSetArray(context.env.vars.active)
-        ? context.fs.write(
-            joinPaths(getCacheDirectory(context), "env", "vars.json"),
-            JSON.stringify({
-              elements: context.env.vars.active
-            })
-          )
-        : undefined,
-      isSetArray(context.env.secrets.active)
-        ? context.fs.write(
-            joinPaths(getCacheDirectory(context), "env", "secrets.json"),
-            JSON.stringify({
-              elements: context.env.secrets.active
-            })
-          )
-        : undefined
-    ].filter(Boolean) as Promise<void>[]
-  );
 }

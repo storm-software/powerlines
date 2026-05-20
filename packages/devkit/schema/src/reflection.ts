@@ -27,11 +27,19 @@ import {
   TypeNumberBrand,
   TypeObjectLiteral
 } from "@powerlines/deepkit/vendor/type";
-import { isSetArray, isSetObject, isSetString } from "@stryke/type-checks";
-import { JsonSchemaType } from "@stryke/json/types";
+import {
+  isSetArray,
+  isSetObject,
+  isSetString,
+  isUndefined
+} from "@stryke/type-checks";
 import defu from "defu";
-import { applySchemaMetadata, getSchemaMetadata } from "./metadata";
-import { JsonSchemaLike, SchemaMetadata } from "./types";
+import {
+  isJsonSchema,
+  isJsonSchemaObject,
+  isNullOnlyJsonSchema
+} from "./type-checks";
+import { JsonSchema, JsonSchemaLike, JsonSchemaObject } from "./types";
 
 /**
  * Maps a Deepkit numeric `brand` to JSON Schema `type` and `format`.
@@ -66,32 +74,44 @@ function numberBrandToJsonSchema(brand: TypeNumberBrand | undefined): {
   }
 }
 
-function withReflectionTags<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(reflection: Type, schema: JsonSchemaLike): JsonSchemaLike {
+function withReflectionTags<T = unknown>(
+  reflection: Type,
+  schema: Partial<JsonSchema<T>>
+): JsonSchema<T> {
   if (!isSetObject((reflection as { tags?: TagsReflection })?.tags)) {
-    return schema;
+    return schema as JsonSchema<T>;
   }
 
   const tags = (reflection as { tags: TagsReflection }).tags;
-  const metadata = {
-    ...getSchemaMetadata<TMetadata>(schema),
-    ...(tags.readonly === true ? { isReadonly: true } : {}),
-    ...(tags.ignore === true ? { isIgnored: true } : {}),
-    ...(tags.internal === true ? { isInternal: true } : {}),
-    ...(tags.runtime === true ? { isRuntime: true } : {}),
-    ...(tags.hidden === true ? { isHidden: true } : {}),
-    ...(isSetArray(tags.alias) ? { alias: tags.alias } : {}),
-    ...(isSetString(tags.title) ? { title: tags.title } : {})
-  } as TMetadata;
+  if (isSetString(tags.title)) {
+    schema.title = tags.title;
+  }
+  if (isSetArray(tags.alias)) {
+    schema.alias = tags.alias;
+  }
+  if (!isUndefined(tags.hidden)) {
+    schema.isHidden = tags.hidden;
+  }
+  if (!isUndefined(tags.ignore)) {
+    schema.isIgnored = tags.ignore;
+  }
+  if (!isUndefined(tags.internal)) {
+    schema.isInternal = tags.internal;
+  }
+  if (!isUndefined(tags.runtime)) {
+    schema.isRuntime = tags.runtime;
+  }
+  if (!isUndefined(tags.readonly)) {
+    schema.isReadonly = tags.readonly;
+  }
 
-  return applySchemaMetadata(schema, metadata);
+  return schema as JsonSchema<T>;
 }
 
-function withNullable(
-  schema: JsonSchemaLike,
+function withNullable<T = unknown>(
+  schema: JsonSchema<T>,
   nullable: boolean
-): JsonSchemaLike {
+): JsonSchema<T> {
   if (!nullable) {
     return schema;
   }
@@ -105,44 +125,48 @@ function withNullable(
     types.push("null");
   }
 
-  return { ...schema, type: types.length === 1 ? types[0] : types };
+  return {
+    ...schema,
+    type: types.length === 1 ? types[0] : types
+  } as JsonSchema<T>;
 }
 
 /**
  * Converts a Deepkit type reflection into a JSON Schema (draft-07) fragment.
  */
-export function reflectionToJsonSchema<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(reflection: Type): JsonSchemaType | undefined {
-  return reflectionToJsonSchemaInner<TMetadata>(reflection);
+export function reflectionToJsonSchema<T = unknown>(
+  reflection: Type
+): JsonSchema<T> | undefined {
+  return reflectionToJsonSchemaInner<T>(reflection);
 }
 
-function reflectionToJsonSchemaInner<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(reflection: Type): JsonSchemaType | undefined {
+function reflectionToJsonSchemaInner<T = unknown>(
+  reflection: Type
+): JsonSchema<T> | undefined {
   switch (reflection.kind) {
     case ReflectionKind.any:
     case ReflectionKind.unknown:
     case ReflectionKind.void:
     case ReflectionKind.object:
-      return withReflectionTags<TMetadata>(reflection, {});
+      return withReflectionTags<T>(reflection, {});
     case ReflectionKind.never:
       return undefined;
     case ReflectionKind.undefined:
     case ReflectionKind.null:
-      return withReflectionTags<TMetadata>(reflection, { type: "null" });
+      return withReflectionTags<T>(reflection, { type: "null" });
     case ReflectionKind.string:
-      return withReflectionTags<TMetadata>(reflection, { type: "string" });
+      return withReflectionTags<T>(reflection, { type: "string" });
     case ReflectionKind.boolean:
-      return withReflectionTags<TMetadata>(reflection, { type: "boolean" });
+      return withReflectionTags<T>(reflection, { type: "boolean" });
     case ReflectionKind.number: {
       const numeric = numberBrandToJsonSchema(reflection.brand);
-      return withReflectionTags<TMetadata>(reflection, numeric);
+
+      return withReflectionTags<T>(reflection, numeric);
     }
     case ReflectionKind.bigint:
-      return withReflectionTags<TMetadata>(reflection, { type: "integer" });
+      return withReflectionTags<T>(reflection, { type: "integer" });
     case ReflectionKind.regexp:
-      return withReflectionTags<TMetadata>(reflection, { type: "string" });
+      return withReflectionTags<T>(reflection, { type: "string" });
     case ReflectionKind.literal: {
       const { literal } = reflection;
       if (
@@ -150,20 +174,20 @@ function reflectionToJsonSchemaInner<
         typeof literal === "number" ||
         typeof literal === "boolean"
       ) {
-        return withReflectionTags<TMetadata>(reflection, { const: literal });
+        return withReflectionTags<T>(reflection, { const: literal });
       }
       if (typeof literal === "bigint") {
-        return withReflectionTags<TMetadata>(reflection, {
+        return withReflectionTags<T>(reflection, {
           const: String(literal)
         });
       }
       if (literal instanceof RegExp) {
-        return withReflectionTags<TMetadata>(reflection, { type: "string" });
+        return withReflectionTags<T>(reflection, { type: "string" });
       }
-      return withReflectionTags<TMetadata>(reflection, {});
+      return withReflectionTags<T>(reflection, {});
     }
     case ReflectionKind.templateLiteral:
-      return withReflectionTags<TMetadata>(reflection, { type: "string" });
+      return withReflectionTags<T>(reflection, { type: "string" });
     case ReflectionKind.enum: {
       const values = reflection.values.filter(
         value =>
@@ -172,28 +196,29 @@ function reflectionToJsonSchemaInner<
           typeof value === "boolean"
       );
       if (values.length === 0) {
-        return withReflectionTags<TMetadata>(reflection, {});
+        return withReflectionTags<T>(reflection, {});
       }
-      return withReflectionTags<TMetadata>(reflection, { enum: values });
+      return withReflectionTags<T>(reflection, { enum: values });
     }
     case ReflectionKind.array: {
-      const items = reflectionToJsonSchemaInner<TMetadata>(reflection.type);
-      return withReflectionTags<TMetadata>(reflection, {
+      const items = reflectionToJsonSchemaInner<T>(reflection.type);
+
+      return withReflectionTags<T>(reflection, {
         type: "array",
         items: items ?? {}
       });
     }
     case ReflectionKind.tuple: {
       const items = reflection.types
-        .map(member => reflectionToJsonSchemaInner<TMetadata>(member.type))
-        .filter((item): item is JsonSchemaType => item !== undefined);
+        .map(member => reflectionToJsonSchemaInner<T>(member.type))
+        .filter((item): item is JsonSchema => item !== undefined);
       if (items.length <= 1) {
-        return withReflectionTags<TMetadata>(reflection, {
+        return withReflectionTags<T>(reflection, {
           type: "array",
           items: items[0] ?? {}
         });
       }
-      return withReflectionTags<TMetadata>(reflection, {
+      return withReflectionTags<T>(reflection, {
         type: "array",
         items,
         minItems: items.length,
@@ -202,24 +227,24 @@ function reflectionToJsonSchemaInner<
     }
     case ReflectionKind.union: {
       const branches = reflection.types
-        .map(inner => reflectionToJsonSchemaInner<TMetadata>(inner))
-        .filter((item): item is JsonSchemaType => item !== undefined);
+        .map(inner => reflectionToJsonSchemaInner<T>(inner))
+        .filter(isJsonSchema) as JsonSchema<T>[];
       const nullable = reflection.types.some(
         inner =>
           inner.kind === ReflectionKind.null ||
           inner.kind === ReflectionKind.undefined
       );
       const nonNull = branches.filter(
-        branch => branch.type !== "null" && !isNullOnlySchema(branch)
+        branch => branch.type !== "null" && !isNullOnlyJsonSchema(branch)
       );
 
       if (nonNull.length === 0) {
-        return withReflectionTags<TMetadata>(reflection, { type: "null" });
+        return withReflectionTags<T>(reflection, { type: "null" });
       }
 
       if (nonNull.length === 1) {
         return withNullable(
-          withReflectionTags<TMetadata>(reflection, nonNull[0]!),
+          withReflectionTags<T>(reflection, nonNull[0] ?? {}),
           nullable
         );
       }
@@ -229,66 +254,62 @@ function reflectionToJsonSchemaInner<
         .filter(value => value !== undefined);
       if (enumValues.length === nonNull.length) {
         return withNullable(
-          withReflectionTags<TMetadata>(reflection, { enum: enumValues }),
+          withReflectionTags<T>(reflection, { enum: enumValues }),
           nullable
         );
       }
 
-      const discriminator = tryReflectionDiscriminator<TMetadata>(
-        reflection.types
-      );
+      const discriminator = tryReflectionDiscriminator<T>(reflection.types);
       if (discriminator) {
         return withNullable(
-          withReflectionTags<TMetadata>(reflection, discriminator),
+          withReflectionTags<T>(reflection, discriminator),
           nullable
         );
       }
 
       return withNullable(
-        withReflectionTags<TMetadata>(reflection, { anyOf: nonNull }),
+        withReflectionTags<T>(reflection, { anyOf: nonNull }),
         nullable
       );
     }
     case ReflectionKind.intersection: {
       const members = reflection.types
-        .map(inner => reflectionToJsonSchemaInner<TMetadata>(inner))
-        .filter((item): item is JsonSchemaType => item !== undefined);
+        .map(inner => reflectionToJsonSchemaInner<T>(inner))
+        .filter((item): item is JsonSchema => item !== undefined);
       if (members.length === 0) {
         return undefined;
       }
       if (members.length === 1) {
-        return withReflectionTags<TMetadata>(reflection, members[0]!);
+        return withReflectionTags<T>(reflection, members[0] ?? {});
       }
-      if (members.every(isObjectSchema)) {
-        return withReflectionTags<TMetadata>(
-          reflection,
-          mergeObjectSchemas(members)
-        );
+      if (members.every(isJsonSchemaObject)) {
+        return withReflectionTags<T>(reflection, mergeObjectSchemas(members));
       }
-      return withReflectionTags<TMetadata>(reflection, { allOf: members });
+      return withReflectionTags<T>(reflection, { allOf: members });
     }
     case ReflectionKind.promise:
-      return reflectionToJsonSchemaInner<TMetadata>(reflection.type);
+      return reflectionToJsonSchemaInner<T>(reflection.type);
     case ReflectionKind.objectLiteral:
-      return objectReflectionToJsonSchema<TMetadata>(reflection);
+      return objectReflectionToJsonSchema(reflection);
     case ReflectionKind.class: {
       const classType = reflection.classType as { name?: string } | undefined;
       const className = classType?.name;
       switch (className) {
         case "Date":
-          return withReflectionTags<TMetadata>(reflection, {
+          return withReflectionTags<T>(reflection, {
             type: "string",
             format: "date-time"
           });
         case "RegExp":
         case "URL":
-          return withReflectionTags<TMetadata>(reflection, { type: "string" });
+          return withReflectionTags<T>(reflection, { type: "string" });
         case "Set": {
           const itemType = reflection.arguments?.[0];
           const items = itemType
-            ? reflectionToJsonSchemaInner<TMetadata>(itemType)
+            ? reflectionToJsonSchemaInner<T>(itemType)
             : undefined;
-          return withReflectionTags<TMetadata>(reflection, {
+
+          return withReflectionTags<T>(reflection, {
             type: "array",
             items: items ?? {},
             uniqueItems: true
@@ -297,9 +318,10 @@ function reflectionToJsonSchemaInner<
         case "Map": {
           const valueType = reflection.arguments?.[1];
           const values = valueType
-            ? reflectionToJsonSchemaInner<TMetadata>(valueType)
+            ? reflectionToJsonSchemaInner<T>(valueType)
             : undefined;
-          return withReflectionTags<TMetadata>(reflection, {
+
+          return withReflectionTags<T>(reflection, {
             type: "object",
             additionalProperties: values ?? true
           });
@@ -315,13 +337,13 @@ function reflectionToJsonSchemaInner<
         case "Float64Array":
         case "BigInt64Array":
         case "BigUint64Array":
-          return withReflectionTags<TMetadata>(reflection, {
+          return withReflectionTags<T>(reflection, {
             type: "string",
             contentEncoding: "base64"
           });
         case undefined:
         default:
-          return objectReflectionToJsonSchema<TMetadata>(reflection);
+          return objectReflectionToJsonSchema(reflection);
       }
     }
     case ReflectionKind.symbol:
@@ -343,20 +365,10 @@ function reflectionToJsonSchemaInner<
   }
 }
 
-function isNullOnlySchema(schema: JsonSchemaLike): boolean {
-  return schema.type === "null";
-}
-
-function isObjectSchema(schema: JsonSchemaLike): boolean {
-  return (
-    schema.type === "object" ||
-    isSetObject(schema.properties) ||
-    schema.additionalProperties !== undefined
-  );
-}
-
-function mergeObjectSchemas(schemas: JsonSchemaLike[]): JsonSchemaLike {
-  const merged: JsonSchemaLike = {
+function mergeObjectSchemas<T = unknown>(
+  schemas: JsonSchema<T>[]
+): JsonSchema<T> {
+  const merged: JsonSchema<T> = {
     type: "object",
     properties: {},
     required: []
@@ -383,9 +395,9 @@ function mergeObjectSchemas(schemas: JsonSchemaLike[]): JsonSchemaLike {
   return merged;
 }
 
-function tryReflectionDiscriminator<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(types: readonly Type[]): JsonSchemaLike | undefined {
+function tryReflectionDiscriminator<T = unknown>(
+  types: readonly Type[]
+): JsonSchema<T> | undefined {
   const nonNullTypes = types.filter(
     t => t.kind !== ReflectionKind.null && t.kind !== ReflectionKind.undefined
   );
@@ -446,8 +458,8 @@ function tryReflectionDiscriminator<
       )
     } as TypeObjectLiteral | TypeClass;
 
-    const body = objectReflectionToJsonSchema<TMetadata>(filteredBranch);
-    if (!body || !isObjectSchema(body)) {
+    const body = objectReflectionToJsonSchema(filteredBranch);
+    if (!body || !isJsonSchemaObject(body)) {
       return undefined;
     }
 
@@ -459,7 +471,7 @@ function tryReflectionDiscriminator<
       },
       required: [tagKey, ...(body.required ?? [])],
       additionalProperties: body.additionalProperties ?? false
-    });
+    } as JsonSchemaLike);
   }
 
   if (!tagKey) {
@@ -469,18 +481,18 @@ function tryReflectionDiscriminator<
   return {
     oneOf: branches,
     discriminator: { propertyName: tagKey }
-  };
+  } as JsonSchema<T>;
 }
 
 function objectReflectionToJsonSchema<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(type: TypeObjectLiteral | TypeClass): JsonSchemaType {
+  T extends Record<string, any> = Record<string, any>
+>(type: TypeObjectLiteral | TypeClass): JsonSchema<T> {
   const reflection = ReflectionClass.from(type);
-  const properties: Record<string, JsonSchemaLike> = {};
-  const required: string[] = [];
-  let additionalProperties: boolean | JsonSchemaLike | undefined;
 
-  const metadata = {
+  const schema: JsonSchemaObject<T> = {
+    type: "object",
+    properties: {},
+    required: [],
     isReadonly: reflection.isReadonly(),
     isIgnored: reflection.isIgnored(),
     isInternal: reflection.isInternal(),
@@ -495,30 +507,28 @@ function objectReflectionToJsonSchema<
     ...(isSetString(reflection.getDescription())
       ? { description: reflection.getDescription() }
       : {}),
-    ...(isSetArray(reflection.getAlias()) ? { alias: reflection.getAlias() } : {}),
+    ...(isSetArray(reflection.getAlias())
+      ? { alias: reflection.getAlias() }
+      : {}),
     ...(isSetString(reflection.getTitle())
       ? { title: reflection.getTitle() }
       : {})
-  } as TMetadata;
+  };
 
   for (const propertyReflection of reflection.getProperties()) {
     if (propertyReflection.getKind() === ReflectionKind.indexSignature) {
-      const valueSchema = reflectionToJsonSchemaInner<TMetadata>(
-        propertyReflection.type
-      );
-      additionalProperties = valueSchema ?? true;
+      schema.additionalProperties =
+        reflectionToJsonSchemaInner(propertyReflection.type) ?? true;
       continue;
     }
 
-    const property = reflectionToJsonSchemaInner<TMetadata>(
-      propertyReflection.type
-    );
+    let property = reflectionToJsonSchemaInner<any>(propertyReflection.type);
     if (!property) {
       continue;
     }
 
-    const propertyMetadata = {
-      ...getSchemaMetadata<TMetadata>(property),
+    property = {
+      ...property,
       isReadonly: propertyReflection.isReadonly(),
       isIgnored: propertyReflection.isIgnored(),
       isInternal: propertyReflection.isInternal(),
@@ -550,28 +560,19 @@ function objectReflectionToJsonSchema<
       ...(isSetString(propertyReflection.getTitle())
         ? { title: propertyReflection.getTitle() }
         : {})
-    } as TMetadata;
+    };
 
-    let propertySchema = applySchemaMetadata(property, propertyMetadata);
     if (propertyReflection.isNullable()) {
-      propertySchema = withNullable(propertySchema, true);
+      property = withNullable(property, true);
     }
 
-    properties[propertyReflection.name] = propertySchema;
+    schema.properties ??= {};
+    schema.properties[propertyReflection.name] = property;
     if (!propertyReflection.isOptional()) {
-      required.push(propertyReflection.name);
+      schema.required ??= [];
+      schema.required.push(propertyReflection.name);
     }
   }
 
-  const schema: JsonSchemaLike = {
-    type: "object",
-    properties,
-    ...(required.length > 0 ? { required } : {}),
-    ...(additionalProperties !== undefined ? { additionalProperties } : {})
-  };
-
-  return applySchemaMetadata(
-    schema,
-    metadata
-  ) as JsonSchemaType;
+  return schema;
 }

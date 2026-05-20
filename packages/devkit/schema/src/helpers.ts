@@ -17,36 +17,22 @@
  ------------------------------------------------------------------- */
 
 import { isSetObject } from "@stryke/type-checks";
-import { JsonSchemaType } from "@stryke/json/types";
 import { defu } from "defu";
-import { getSchemaMetadata, isPropertyOptional, isSchemaNullable } from "./metadata";
-import { isJsonSchemaObject, isObjectSchema } from "./type-checks";
-import {
-  JsonSchemaObjectType,
-  JsonSchemaType,
-  ObjectSchema,
-  SchemaMetadata
-} from "./types";
-
-export type SchemaProperty<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
-> = JsonSchemaType & {
-  name: string;
-  optional: boolean;
-  nullable: boolean;
-  metadata?: TMetadata;
-};
+import { isPropertyOptional, isSchemaNullable } from "./metadata";
+import { isJsonSchemaObject, isSchema } from "./type-checks";
+import { JsonSchema, JsonSchemaLike, Schema } from "./types";
 
 /**
  * Extracts object properties from a JSON Schema object form.
  */
-export function getProperties<TMetadata extends SchemaMetadata>(
-  obj: ObjectSchema<TMetadata> | JsonSchemaObjectType<TMetadata>
-): Record<string, SchemaProperty<TMetadata>> {
-  const properties: Record<string, SchemaProperty<TMetadata>> = {};
-  const schema = isObjectSchema(obj) ? obj.schema : obj;
-
-  if (!isSetObject(schema.properties)) {
+export function getProperties<T = unknown>(
+  obj: Schema<Record<string, T>> | JsonSchema<Record<string, T>>
+): Record<string, T> {
+  const properties: Record<string, T> = {};
+  const schema: JsonSchema<Record<string, T>> = isSchema<Record<string, T>>(obj)
+    ? obj.schema
+    : obj;
+  if (!isJsonSchemaObject(schema) || !isSetObject(schema.properties)) {
     return properties;
   }
 
@@ -55,9 +41,8 @@ export function getProperties<TMetadata extends SchemaMetadata>(
       ...value,
       name: key,
       optional: isPropertyOptional(schema, key),
-      nullable: isSchemaNullable(value),
-      metadata: getSchemaMetadata<TMetadata>(value)
-    };
+      nullable: isSchemaNullable(value as JsonSchemaLike)
+    } as T;
   }
 
   return properties;
@@ -66,34 +51,32 @@ export function getProperties<TMetadata extends SchemaMetadata>(
 /**
  * Returns object properties as an array.
  */
-export function getPropertiesList<TMetadata extends SchemaMetadata>(
-  obj: ObjectSchema<TMetadata> | JsonSchemaObjectType<TMetadata>
-): Array<SchemaProperty<TMetadata>> {
-  return Object.values(getProperties(obj));
+export function getPropertiesList<T = unknown>(
+  obj: Schema<Record<string, T>> | JsonSchema<Record<string, T>>
+): Array<T> {
+  return Object.values(getProperties<T>(obj));
 }
 
 /**
  * Adds a property to a JSON Schema object form.
  */
-export function addProperty<TMetadata extends SchemaMetadata>(
-  obj: ObjectSchema<TMetadata> | JsonSchemaObjectType<TMetadata>,
+export function addProperty<T = unknown>(
+  obj: Schema<Record<string, T>> | JsonSchema<Record<string, T>>,
   name: string,
-  property: JsonSchemaType
+  property: JsonSchema
 ) {
-  const schema = isObjectSchema(obj) ? obj.schema : obj;
-  schema.type ??= "object";
+  const schema: JsonSchema<Record<string, T>> = isSchema<Record<string, T>>(obj)
+    ? obj.schema
+    : obj;
+  if (!isJsonSchemaObject(schema)) {
+    throw new Error("Cannot add property to non-object schema");
+  }
+
   schema.properties ??= {};
   schema.required ??= [];
 
-  const metadata = getSchemaMetadata<TMetadata>(property);
-  const propertySchema = metadata
-    ? ({ ...property, ...metadata } as JsonSchemaType)
-    : property;
-
-  schema.properties[name] = propertySchema;
-
-  const optional = metadata?.isOptional === true;
-  if (optional) {
+  schema.properties[name] = { ...property, name };
+  if (property?.optional) {
     schema.required = schema.required.filter(key => key !== name);
   } else if (!schema.required.includes(name)) {
     schema.required.push(name);
@@ -107,48 +90,20 @@ export function addProperty<TMetadata extends SchemaMetadata>(
 /**
  * Merges multiple JSON Schema object forms into one.
  */
-export function mergeSchemas<TMetadata extends SchemaMetadata>(
-  ...schemas: (JsonSchemaObjectType<TMetadata> | ObjectSchema<TMetadata>)[]
-): JsonSchemaObjectType<TMetadata> {
-  const mergedSchema: JsonSchemaObjectType<TMetadata> = {
-    type: "object",
-    properties: {},
-    required: [],
-    additionalProperties: false
-  };
-
-  for (const schema of schemas.reverse()) {
-    const properties = getProperties(schema);
-    for (const [key, value] of Object.entries(properties)) {
-      if (value.optional) {
-        mergedSchema.properties![key] = (
-          mergedSchema.properties![key] &&
-          isJsonSchemaObject(mergedSchema.properties![key]) &&
-          isJsonSchemaObject(value)
-            ? defu(mergedSchema.properties![key], value)
-            : value
-        ) as JsonSchemaType;
-        mergedSchema.required = (mergedSchema.required ?? []).filter(
-          requiredKey => requiredKey !== key
-        );
-      } else {
-        mergedSchema.properties![key] = (
-          mergedSchema.properties![key] &&
-          isJsonSchemaObject(mergedSchema.properties![key]) &&
-          isJsonSchemaObject(value)
-            ? defu(mergedSchema.properties![key], value)
-            : value
-        ) as JsonSchemaType;
-        mergedSchema.required = Array.from(
-          new Set([...(mergedSchema.required ?? []), key])
-        );
-      }
+export function mergeSchemas<T = unknown>(
+  ...schemas: (JsonSchema<T> | Schema<T>)[]
+): JsonSchema<T> {
+  const result: JsonSchema<T> = {} as JsonSchema<T>;
+  for (const schema of schemas) {
+    const jsonSchema: JsonSchema<T> = isSchema<T>(schema)
+      ? schema.schema
+      : schema;
+    if (!isJsonSchemaObject(jsonSchema)) {
+      continue;
     }
+
+    defu(result, jsonSchema);
   }
 
-  if ((mergedSchema.required?.length ?? 0) === 0) {
-    delete mergedSchema.required;
-  }
-
-  return mergedSchema;
+  return result;
 }

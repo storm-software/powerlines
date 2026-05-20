@@ -81,11 +81,11 @@
     "storm-ops": {
       "flake": false,
       "locked": {
-        "lastModified": 1779220684,
-        "narHash": "sha256-O0e2X14kKrVRgmgknhv8woLi9ohexX+aK5F4M9C2uL8=",
+        "lastModified": 1779253869,
+        "narHash": "sha256-5pvpjez0Eb/hLW1vcWDnyvIn7odlqIQiZR4aHaIqeDo=",
         "owner": "storm-software",
         "repo": "storm-ops",
-        "rev": "9659ccd4025df160370c7ddced3599f9d70e7dfa",
+        "rev": "47c3910bc49b35e3fc843c225065362635a01262",
         "type": "github"
       },
       "original": {

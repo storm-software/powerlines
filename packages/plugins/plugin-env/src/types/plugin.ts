@@ -24,11 +24,7 @@ import {
   BabelPluginResolvedConfig,
   BabelPluginUserConfig
 } from "@powerlines/plugin-babel/types";
-import type {
-  ObjectSchema,
-  SchemaInput,
-  SchemaMetadata
-} from "@powerlines/schema";
+import type { JsonSchema, Schema, SchemaInput } from "@powerlines/schema";
 import type { DotenvParseOutput } from "@stryke/env/types";
 import { RequiredKeys } from "@stryke/types";
 import { DotenvConfiguration } from "@stryke/types/configuration";
@@ -127,16 +123,20 @@ export type EnvPluginResolvedConfig = BabelPluginResolvedConfig & {
 };
 
 /**
- * The schema for the environment variables or secrets used by the project and expected to be injected into the source code (if {@link EnvPluginOptions.inject} is true). This schema extends the base {@link ObjectSchema} with additional metadata specific to environment variables, including an `active` property that lists the environment variables or secrets that are currently active and should be injected during the build process.
+ * The schema for environment variables and secrets used by the plugin.
+ *
+ * @remarks
+ * This schema is the result of parsing the type definitions provided in the {@link EnvPluginOptions.vars} and {@link EnvPluginOptions.secrets} options, and is used to validate the loaded environment variables and secrets, as well as to determine which variables should be injected into the source code when the {@link EnvPluginOptions.inject} option is enabled.
  */
-export interface EnvSchema<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
-> extends ObjectSchema<TMetadata> {
+export type Env = JsonSchema & {
   /**
-   * The active environment variables or secrets that are used by the project and are expected to be injected into the source code (if {@link EnvPluginOptions.inject} is true).
+   * An indicator specifying whether or not this environment variable or secret is active and should be injected during the build process.
+   *
+   * @remarks
+   * This value is determined during the build process based on the loaded environment variables and secrets, and is used to filter which variables are actually injected into the source code when the {@link EnvPluginOptions.inject} option is enabled.
    */
-  active: string[];
-}
+  active: boolean;
+};
 
 export interface EnvPluginContext<
   TResolvedConfig extends EnvPluginResolvedConfig = EnvPluginResolvedConfig
@@ -148,7 +148,7 @@ export interface EnvPluginContext<
      * @remarks
      * This value is parsed from the {@link EnvPluginOptions.vars} option.
      */
-    vars: EnvSchema;
+    vars: Schema<Record<string, Env>>;
 
     /**
      * The type definition for the expected env secret parameters
@@ -156,7 +156,7 @@ export interface EnvPluginContext<
      * @remarks
      * This value is parsed from the {@link EnvPluginOptions.secrets} option.
      */
-    secrets: EnvSchema;
+    secrets: Schema<Record<string, Env>>;
 
     /**
      * The parsed .env configuration object

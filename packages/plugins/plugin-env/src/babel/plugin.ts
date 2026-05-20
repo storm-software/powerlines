@@ -24,7 +24,7 @@ import { BabelPluginPass } from "@powerlines/plugin-babel/types/config";
 import { getProperties, stringifyValue } from "@powerlines/schema";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
-import { EnvPluginContext, EnvSchemaMetadata } from "../types/plugin";
+import { Env, EnvPluginContext } from "../types/plugin";
 
 /*
  * The Powerlines - Environment Configuration Babel Plugin
@@ -35,7 +35,7 @@ import { EnvPluginContext, EnvSchemaMetadata } from "../types/plugin";
 export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
   "env",
   ({ logger, context }) => {
-    const vars = getProperties(context.env.vars);
+    const vars = getProperties<Env>(context.env.vars);
     function extractEnv(
       node: t.Identifier,
       pass: BabelPluginPass,
@@ -56,12 +56,8 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
           }.`
         });
 
-        if (
-          name in vars &&
-          isSetObject(vars[name]) &&
-          !vars[name]?.metadata?.isIgnored
-        ) {
-          vars[name].metadata ??= {} as EnvSchemaMetadata;
+        if (name in vars && isSetObject(vars[name]) && !vars[name]?.isIgnored) {
+          vars[name] ??= {} as Env;
 
           logger.debug({
             meta: {
@@ -72,17 +68,16 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
             }" and will be added to the environment schema's active variables list.`
           });
 
-          vars[name].metadata.active ??= [];
-          vars[name].metadata.active.push(name);
+          vars[name].active = true;
           if (
-            !vars[name].metadata.isRuntime &&
+            !vars[name].isRuntime &&
             ((context.config.env.inject && isInjectable) ||
               context.config.env.validate)
           ) {
             if (
               context.config.env.validate &&
               !vars[name].optional &&
-              isUndefined(vars[name].metadata.default)
+              isUndefined(vars[name].default)
             ) {
               throw new Error(
                 `Environment variable \`${
@@ -93,7 +88,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
               );
             }
 
-            return stringifyValue(vars[name].metadata.default);
+            return stringifyValue(vars[name].default);
           }
         } else if (context.config.env.validate) {
           throw new Error(

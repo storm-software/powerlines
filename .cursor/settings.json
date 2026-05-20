@@ -11,6 +11,9 @@
     },
     "langfuse": {
       "enabled": true
+    },
+    "docs-canvas": {
+      "enabled": true
     }
   }
 }

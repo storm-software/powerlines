@@ -16,75 +16,32 @@
 
  ------------------------------------------------------------------- */
 
-import { isSetArray, isSetString } from "@stryke/type-checks";
+import { isSetString } from "@stryke/type-checks";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
-import { JsonSchemaLike, SchemaMetadata } from "./types";
-
-const METADATA_KEYS = [
-  "name",
-  "title",
-  "description",
-  "default",
-  "examples",
-  "groups",
-  "visibility",
-  "resourceId",
-  "isHidden",
-  "isIgnored",
-  "isInternal",
-  "isRuntime",
-  "isReadonly",
-  "isPrimaryKey",
-  "alias",
-  "union"
-] as const satisfies ReadonlyArray<keyof SchemaMetadata>;
-
-/**
- * Reads Powerlines schema metadata from a JSON Schema fragment.
- *
- * @remarks
- * Metadata may live on the schema root (JSON Schema style) or under a legacy
- * `metadata` object from JTD-shaped inputs.
- */
-export function getSchemaMetadata<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(schema: JsonSchemaLike | undefined | null): TMetadata | undefined {
-  if (!isSetObject(schema)) {
-    return undefined;
-  }
-
-  const legacy = isSetObject(schema.metadata)
-    ? (schema.metadata as TMetadata)
-    : undefined;
-  const metadata = { ...legacy } as TMetadata;
-
-  for (const key of METADATA_KEYS) {
-    if (schema[key] !== undefined) {
-      (metadata as Record<string, unknown>)[key] = schema[key];
-    }
-  }
-
-  return Object.keys(metadata).length > 0 ? metadata : undefined;
-}
+import { JSON_SCHEMA_METADATA_KEYS } from "./constants";
+import {
+  JsonSchema,
+  JsonSchemaLike,
+  JsonSchemaObject,
+  SchemaMetadata
+} from "./types";
 
 /**
  * Applies Powerlines schema metadata onto a JSON Schema fragment.
  */
 export function applySchemaMetadata<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(
-  schema: JsonSchemaLike,
-  metadata: TMetadata | undefined
-): JsonSchemaLike {
+  T = unknown,
+  TMetadata extends SchemaMetadata = SchemaMetadata
+>(schema: JsonSchema<T>, metadata: TMetadata | undefined): JsonSchema<T> {
   if (!metadata) {
     return schema;
   }
 
-  const result: JsonSchemaLike = { ...schema };
-  for (const key of METADATA_KEYS) {
+  const result: JsonSchema<T> = { ...schema };
+  for (const key of JSON_SCHEMA_METADATA_KEYS) {
     const value = metadata[key];
-    if (value !== undefined) {
-      result[key] = value;
+    if (value !== undefined && value !== null) {
+      result[key as keyof JsonSchema<T>] = value;
     }
   }
 
@@ -104,6 +61,7 @@ export function isSchemaNullable(schema: JsonSchemaLike | undefined): boolean {
   }
 
   const types = readSchemaTypes(schema);
+
   return types.includes("null");
 }
 
@@ -111,15 +69,16 @@ export function isSchemaNullable(schema: JsonSchemaLike | undefined): boolean {
  * Returns whether an object property is optional (not listed in `required`).
  */
 export function isPropertyOptional(
-  parent: JsonSchemaLike,
+  parent: JsonSchemaObject,
   propertyName: string
 ): boolean {
   const required = parent.required ?? [];
+
   return !required.includes(propertyName);
 }
 
 /**
- * Normalises the JSON Schema `type` keyword to a string array.
+ * Normalizes the JSON Schema `type` keyword to a string array.
  */
 export function readSchemaTypes(schema: JsonSchemaLike): string[] {
   if (Array.isArray(schema.type)) {

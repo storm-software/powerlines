@@ -33,7 +33,7 @@ import { EnvDocsFile } from "./components/docs";
 import { EnvBuiltin } from "./components/env-builtin";
 import { env } from "./helpers/automd-generator";
 import {
-  extractEnvSchema,
+  extractEnv,
   getDefaultSecretsTypeDefinition,
   getDefaultVarsTypeDefinition
 } from "./helpers/schema";
@@ -126,7 +126,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           `Environment plugin configuration has been resolved for the Powerlines project.`
         );
 
-        await extractEnvSchema(this);
+        await extractEnv(this);
       },
       async prepare() {
         this.debug(
