@@ -391,6 +391,32 @@ export function extractSource(
   );
 }
 
+/**
+ * Extracts a JSON Schema from a given schema definition input, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, an untyped schema, or a reflected Deepkit Type object. If the input is a type definition reference (e.g. a file path with an export), it will be resolved and bundled using ESBuild to obtain the actual schema definition before extraction.
+ *
+ * @example
+ * ```ts
+ * // Resolve a schema definition from a file path
+ * const schema1 = await extract(context, "./schemas.ts#MySchema");
+ * // Resolve a schema definition from a JSON Schema object
+ * const schema2 = await extract(context, schemaObject);
+ * // Resolve a schema definition from a Zod schema
+ * const schema3 = await extract(context, zodSchema);
+ * // Resolve a schema definition from a reflected Deepkit Type object
+ * const schema4 = await extract(context, reflectionType);
+ * ```
+ *
+ * @see https://github.com/colinhacks/zod
+ * @see https://standardschema.dev/json-schema#what-schema-libraries-support-this-spec
+ * @see https://json-schema.org/
+ * @see https://ajv.js.org/json-type-definition.html
+ * @see https://deepkit.io/en/documentation/runtime-types/reflection
+ *
+ * @param context - The context object providing access to the file system and cache path.
+ * @param input - The schema definition input to extract, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, an untyped schema, or a reflected Deepkit Type object. If the input is a string or a type definition reference, it will be resolved and bundled to obtain the actual schema definition before extraction.
+ * @param options - Optional overrides for the ESBuild configuration used during extraction. This can include custom plugins, loaders, or other build options to control how the schema definition is resolved and bundled when the input is a type definition reference.
+ * @returns A promise that resolves to the extracted and normalized schema as a JSON Schema object. The function will attempt to extract a valid JSON Schema from the provided input, and if successful, it will return the schema. If the extraction process fails or if the input is not a valid schema definition, it will throw an error indicating the failure.
+ */
 export async function extractSchema<T = unknown>(
   context: Context,
   input: SchemaInput,
@@ -458,10 +484,33 @@ export async function extractSchema<T = unknown>(
 }
 
 /**
- * Extracts and normalizes a schema definition to JSON Schema.
+ * Extracts a JSON Schema from a given schema definition input, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, an untyped schema, or a reflected Deepkit Type object. If the input is a type definition reference (e.g. a file path with an export), it will be resolved and bundled using ESBuild to obtain the actual schema definition before extraction.
  *
+ * @example
+ * ```ts
+ * // Resolve a schema definition from a file path
+ * const schema1 = await extract(context, "./schemas.ts#MySchema");
+ * // Resolve a schema definition from a JSON Schema object
+ * const schema2 = await extract(context, schemaObject);
+ * // Resolve a schema definition from a Zod schema
+ * const schema3 = await extract(context, zodSchema);
+ * // Resolve a schema definition from a reflected Deepkit Type object
+ * const schema4 = await extract(context, reflectionType);
+ * ```
+ *
+ * @see https://github.com/colinhacks/zod
+ * @see https://standardschema.dev/json-schema#what-schema-libraries-support-this-spec
  * @see https://json-schema.org/
- * @see https://ajv.js.org/json-schema.html
+ * @see https://ajv.js.org/json-type-definition.html
+ * @see https://deepkit.io/en/documentation/runtime-types/reflection
+ * @see https://github.com/unjs/untyped
+ * @see https://www.typescriptlang.org/docs/handbook/2/types-from-types.html
+ *
+ * @param context - The context object providing access to the file system and cache path.
+ * @param input - The schema definition input to extract, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, an untyped schema, or a reflected Deepkit Type object.
+ * @param options - Optional overrides for the ESBuild configuration used during extraction.
+ * @returns A promise that resolves to the extracted and normalized schema as a JSON Schema object.
+ * @throws Will throw an error if the input is not a valid schema definition or if the extraction process fails to produce a valid schema.
  */
 export async function extract<T = unknown>(
   context: Context,

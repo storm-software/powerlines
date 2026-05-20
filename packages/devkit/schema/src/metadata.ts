@@ -21,13 +21,17 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { JSON_SCHEMA_METADATA_KEYS } from "./constants";
 import {
   JsonSchema,
-  JsonSchemaLike,
   JsonSchemaObject,
+  JsonSchemaPrimitiveType,
   SchemaMetadata
 } from "./types";
 
 /**
  * Applies Powerlines schema metadata onto a JSON Schema fragment.
+ *
+ * @param schema - The JSON Schema fragment to apply metadata to.
+ * @param metadata - The Powerlines schema metadata to apply.
+ * @returns A new JSON Schema fragment with the metadata applied.
  */
 export function applySchemaMetadata<
   T = unknown,
@@ -50,8 +54,14 @@ export function applySchemaMetadata<
 
 /**
  * Returns whether a JSON Schema fragment accepts `null`.
+ *
+ * @remarks
+ * This is true if the schema has `nullable: true` or if its `type` includes `"null"`.
+ *
+ * @param schema - The JSON Schema fragment to check.
+ * @returns `true` if the schema accepts `null`, otherwise `false`.
  */
-export function isSchemaNullable(schema: JsonSchemaLike | undefined): boolean {
+export function isSchemaNullable<T = unknown>(schema?: JsonSchema<T>): boolean {
   if (!isSetObject(schema)) {
     return false;
   }
@@ -67,11 +77,17 @@ export function isSchemaNullable(schema: JsonSchemaLike | undefined): boolean {
 
 /**
  * Returns whether an object property is optional (not listed in `required`).
+ *
+ * @remarks
+ * In JSON Schema, object properties are optional by default unless they are listed in the `required` array of the parent schema. This function checks whether a given property name is not included in the `required` array of its parent schema, indicating that it is optional.
+ *
+ * @param parent - The parent JSON Schema object containing the property.
+ * @param propertyName - The name of the property to check for optionality.
+ * @returns `true` if the property is optional, otherwise `false`.
  */
-export function isPropertyOptional(
-  parent: JsonSchemaObject,
-  propertyName: string
-): boolean {
+export function isPropertyOptional<
+  T extends Record<string, any> = Record<string, any>
+>(parent: JsonSchemaObject<T>, propertyName: string): boolean {
   const required = parent.required ?? [];
 
   return !required.includes(propertyName);
@@ -79,23 +95,34 @@ export function isPropertyOptional(
 
 /**
  * Normalizes the JSON Schema `type` keyword to a string array.
+ *
+ * @remarks
+ * This function ensures that the `type` keyword of a JSON Schema fragment is always represented as an array of strings, even if it was originally defined as a single string. This normalization simplifies type checking and processing of JSON Schemas by providing a consistent format for the `type` information.
+ *
+ * @param schema - The JSON Schema fragment to read types from.
+ * @returns An array of JSON Schema primitive type names defined in the `type` keyword, or an empty array if no valid types are found.
  */
-export function readSchemaTypes(schema: JsonSchemaLike): string[] {
-  if (Array.isArray(schema.type)) {
-    return schema.type.filter(isSetString);
+export function readSchemaTypes<T = unknown>(
+  schema?: JsonSchema<T>
+): JsonSchemaPrimitiveType[] {
+  if (Array.isArray(schema?.type)) {
+    return schema.type.filter(isSetString) as JsonSchemaPrimitiveType[];
   }
-  if (isSetString(schema.type)) {
-    return [schema.type];
+  if (isSetString(schema?.type)) {
+    return [schema.type as JsonSchemaPrimitiveType];
   }
   return [];
 }
 
 /**
  * Returns the primary non-null JSON Schema type name for a fragment.
+ *
+ * @param schema - The JSON Schema fragment to check.
+ * @returns The primary non-null JSON Schema type name, or `undefined` if none is found.
  */
-export function getPrimarySchemaType(
-  schema: JsonSchemaLike | undefined
-): string | undefined {
+export function getPrimarySchemaType<T = unknown>(
+  schema?: JsonSchema<T>
+): JsonSchemaPrimitiveType | undefined {
   if (!isSetObject(schema)) {
     return undefined;
   }

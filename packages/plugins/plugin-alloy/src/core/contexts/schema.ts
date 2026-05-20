@@ -18,17 +18,13 @@
 
 import type { ComponentContext } from "@alloy-js/core";
 import { createContext, createNamedContext, useContext } from "@alloy-js/core";
-import type {
-  ReflectionMethod,
-  ReflectionParameter
-} from "@powerlines/deepkit/vendor/type";
-import { JsonSchemaType } from "@powerlines/schema";
+import { JsonSchemaLike } from "@powerlines/schema";
 
 /**
  * The reflection class context used in template rendering.
  */
-export const SchemaContext: ComponentContext<JsonSchemaType> =
-  createContext<JsonSchemaType>();
+export const SchemaContext: ComponentContext<JsonSchemaLike> =
+  createContext<JsonSchemaLike>();
 
 /**
  * Hook to access the schema context.
@@ -36,7 +32,7 @@ export const SchemaContext: ComponentContext<JsonSchemaType> =
  * @returns A reactive version of the current schema.
  */
 export function useSchema() {
-  const context = useContext<JsonSchemaType>(SchemaContext)!;
+  const context = useContext<JsonSchemaLike>(SchemaContext)!;
 
   if (!context) {
     throw new Error(
@@ -50,8 +46,8 @@ export function useSchema() {
 /**
  * The schema property context used in template rendering.
  */
-export const SchemaPropertyContext: ComponentContext<JsonSchemaType> =
-  createNamedContext<JsonSchemaType>("SchemaProperty");
+export const SchemaPropertyContext: ComponentContext<JsonSchemaLike> =
+  createNamedContext<JsonSchemaLike>("SchemaProperty");
 
 /**
  * Hook to access the Schema Property context.
@@ -59,7 +55,7 @@ export const SchemaPropertyContext: ComponentContext<JsonSchemaType> =
  * @returns A reactive version of the current schema property.
  */
 export function useSchemaProperty() {
-  const context = useContext<JsonSchemaType>(SchemaPropertyContext)!;
+  const context = useContext<JsonSchemaLike>(SchemaPropertyContext)!;
   if (!context) {
     throw new Error(
       "Powerlines - Schema Property Context is not set. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."
@@ -69,40 +65,40 @@ export function useSchemaProperty() {
   return context;
 }
 
-/**
- * The reflection method context used in template rendering.
- */
-export const ReflectionMethodContext: ComponentContext<ReflectionMethod> =
-  createNamedContext<ReflectionMethod>("ReflectionMethod");
+// /**
+//  * The reflection method context used in template rendering.
+//  */
+// export const ReflectionMethodContext: ComponentContext<ReflectionMethod> =
+//   createNamedContext<ReflectionMethod>("ReflectionMethod");
 
-/**
- * Hook to access the Reflection Method context.
- *
- * @returns A reactive version of the current reflection.
- */
-export function useReflectionMethod() {
-  const context = useContext<ReflectionMethod>(ReflectionMethodContext)!;
+// /**
+//  * Hook to access the Reflection Method context.
+//  *
+//  * @returns A reactive version of the current reflection.
+//  */
+// export function useReflectionMethod() {
+//   const context = useContext<ReflectionMethod>(ReflectionMethodContext)!;
 
-  if (!context) {
-    throw new Error(
-      "Powerlines - Reflection Method Context is not set. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."
-    );
-  }
+//   if (!context) {
+//     throw new Error(
+//       "Powerlines - Reflection Method Context is not set. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."
+//     );
+//   }
 
-  return context;
-}
+//   return context;
+// }
 
-/**
- * The reflection parameter context used in template rendering.
- */
-export const ReflectionParameterContext: ComponentContext<ReflectionParameter> =
-  createNamedContext<ReflectionParameter>("ReflectionParameter");
+// /**
+//  * The reflection parameter context used in template rendering.
+//  */
+// export const ReflectionParameterContext: ComponentContext<ReflectionParameter> =
+//   createNamedContext<ReflectionParameter>("ReflectionParameter");
 
-/**
- * Hook to access the Reflection Parameter context.
- *
- * @returns A reactive version of the current reflection.
- */
-export function useReflectionParameter() {
-  return useContext<ReflectionParameter>(ReflectionParameterContext)!;
-}
+// /**
+//  * Hook to access the Reflection Parameter context.
+//  *
+//  * @returns A reactive version of the current reflection.
+//  */
+// export function useReflectionParameter() {
+//   return useContext<ReflectionParameter>(ReflectionParameterContext)!;
+// }

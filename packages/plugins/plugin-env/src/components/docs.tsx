@@ -26,11 +26,12 @@ import {
   MarkdownFileProps
 } from "@powerlines/plugin-alloy/markdown/components/markdown-file";
 import { MarkdownTable } from "@powerlines/plugin-alloy/markdown/components/markdown-table";
+import { JsonSchema } from "@powerlines/schema";
 import { stringifyType } from "@powerlines/schema/codegen";
 import { getPropertiesList } from "@powerlines/schema/helpers";
 import { joinPaths } from "@stryke/path/join";
 import { getDocsOutputPath } from "powerlines/plugin-utils";
-import { EnvPluginContext } from "../types/plugin";
+import { Env, EnvPluginContext } from "../types/plugin";
 
 export interface EnvDocsFileProps extends Partial<MarkdownFileProps> {
   /**
@@ -57,7 +58,7 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
       path={joinPaths(getDocsOutputPath(context.config.root), "env.md")}
       {...rest}>
       <Heading level={1 + levelOffset}>Environment Configuration</Heading>
-      {code`Below is a list of environment variables used by the`}
+      {code`Below is a list of environment configuration parameters used by the`}
       <Show when={!!context.packageJson.name}>
         <Link
           href={`https://www.npmjs.com/package/${context.packageJson.name}`}
@@ -66,39 +67,41 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
       </Show>
       {code`package. These values can be updated in the \`.env\` file in the root of the project.`}
       <Spacing />
-      <Heading level={2 + levelOffset}>Environment Variables</Heading>
+      <Heading level={2 + levelOffset}>Variables</Heading>
       <Spacing />
       {code`The below list of environment variables are used as configuration parameters to drive the processing of the application. The data contained in these variables are **not** considered sensitive or confidential. Any values provided in these variables will be available in plain text.`}
       <Spacing />
       <MarkdownTable
         data={
-          getPropertiesList(context.env.vars)
+          getPropertiesList<Env>(context.env.vars)
             .filter(
               property =>
-                context.env.vars.active?.includes(property.name) &&
-                !property?.metadata?.isHidden &&
-                !property?.metadata?.isIgnored &&
-                !property?.metadata?.isReadonly &&
-                !property?.metadata?.isInternal
+                getPropertiesList<Env>(context.env.vars).some(
+                  p => p.name === property.name && p.active
+                ) &&
+                !property?.isHidden &&
+                !property?.isIgnored &&
+                !property?.isReadonly &&
+                !property?.isInternal
             )
             .sort((a, b) =>
-              !a.metadata?.name && !b.metadata?.name
+              !a?.name && !b?.name
                 ? 0
-                : !a.metadata?.name
+                : !a?.name
                   ? 1
-                  : !b.metadata?.name
+                  : !b?.name
                     ? -1
-                    : a.metadata?.name.localeCompare(b.metadata?.name)
+                    : a.name.localeCompare(b.name)
             )
             .map(property => {
               return {
-                name: property.metadata?.name?.trim(),
-                description: (property.metadata?.description ?? "").trim(),
-                type: stringifyType(property)
+                name: property.name?.trim(),
+                description: (property.description ?? "").trim(),
+                type: stringifyType<any>(property as JsonSchema<any>)
                   .trim()
                   .replaceAll(/\s*(?:\||&)\s*/g, ", or "),
-                defaultValue: property.metadata?.defaultValue
-                  ? stringifyType(property.metadata.defaultValue)
+                defaultValue: property.defaultValue
+                  ? stringifyType(property.defaultValue)
                   : "",
                 required: property.optional ? "" : "✔"
               };

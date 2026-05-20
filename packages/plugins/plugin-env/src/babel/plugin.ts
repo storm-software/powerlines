@@ -57,7 +57,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
         });
 
         if (name in vars && isSetObject(vars[name]) && !vars[name]?.isIgnored) {
-          vars[name] ??= {} as Env;
+          vars[name] ??= {} as Env[string];
 
           logger.debug({
             meta: {
@@ -68,16 +68,16 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
             }" and will be added to the environment schema's active variables list.`
           });
 
-          vars[name].active = true;
+          vars[name]!.active = true;
           if (
-            !vars[name].isRuntime &&
+            !vars[name]!.isRuntime &&
             ((context.config.env.inject && isInjectable) ||
               context.config.env.validate)
           ) {
             if (
               context.config.env.validate &&
-              !vars[name].optional &&
-              isUndefined(vars[name].default)
+              !vars[name]!.optional &&
+              isUndefined(vars[name]!.default)
             ) {
               throw new Error(
                 `Environment variable \`${
@@ -88,7 +88,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
               );
             }
 
-            return stringifyValue(vars[name].default);
+            return stringifyValue(vars[name]!.default);
           }
         } else if (context.config.env.validate) {
           throw new Error(

@@ -95,10 +95,7 @@ export async function extractEnv<TContext extends EnvPluginContext>(
   const defaultSecretsTypeDefinition =
     await getDefaultSecretsTypeDefinition(context);
 
-  const vars = await extract<Record<string, Env>>(
-    context,
-    context.config.env.vars
-  );
+  const vars = await extract<Env>(context, context.config.env.vars);
   if (
     (isString(context.config.env.vars) &&
       context.config.env.vars !==
@@ -111,16 +108,13 @@ export async function extractEnv<TContext extends EnvPluginContext>(
         (context.config.env.vars as TypeDefinition).name !==
           defaultVarsTypeDefinition.name))
   ) {
-    vars.schema = mergeSchemas<Record<string, Env>>(
+    vars.schema = mergeSchemas<Env>(
       vars,
-      await extract<Record<string, Env>>(context, defaultVarsTypeDefinition)
+      await extract<Env>(context, defaultVarsTypeDefinition)
     );
   }
 
-  const secrets = await extract<Record<string, Env>>(
-    context,
-    context.config.env.secrets
-  );
+  const secrets = await extract<Env>(context, context.config.env.secrets);
   if (
     (isString(context.config.env.secrets) &&
       context.config.env.secrets !==
@@ -133,9 +127,9 @@ export async function extractEnv<TContext extends EnvPluginContext>(
         (context.config.env.secrets as TypeDefinition).name !==
           defaultSecretsTypeDefinition.name))
   ) {
-    secrets.schema = mergeSchemas<Record<string, Env>>(
+    secrets.schema = mergeSchemas<Env>(
       secrets,
-      await extract<Record<string, Env>>(context, defaultSecretsTypeDefinition)
+      await extract<Env>(context, defaultSecretsTypeDefinition)
     );
   }
 

@@ -128,15 +128,16 @@ export type EnvPluginResolvedConfig = BabelPluginResolvedConfig & {
  * @remarks
  * This schema is the result of parsing the type definitions provided in the {@link EnvPluginOptions.vars} and {@link EnvPluginOptions.secrets} options, and is used to validate the loaded environment variables and secrets, as well as to determine which variables should be injected into the source code when the {@link EnvPluginOptions.inject} option is enabled.
  */
-export type Env = JsonSchema & {
-  /**
-   * An indicator specifying whether or not this environment variable or secret is active and should be injected during the build process.
-   *
-   * @remarks
-   * This value is determined during the build process based on the loaded environment variables and secrets, and is used to filter which variables are actually injected into the source code when the {@link EnvPluginOptions.inject} option is enabled.
-   */
-  active: boolean;
-};
+export type Env<T extends Record<string, any> = Record<string, any>> =
+  JsonSchema<T> & {
+    /**
+     * An indicator specifying whether or not this environment variable or secret is active and should be injected during the build process.
+     *
+     * @remarks
+     * This value is determined during the build process based on the loaded environment variables and secrets, and is used to filter which variables are actually injected into the source code when the {@link EnvPluginOptions.inject} option is enabled.
+     */
+    active: string[];
+  };
 
 export interface EnvPluginContext<
   TResolvedConfig extends EnvPluginResolvedConfig = EnvPluginResolvedConfig
@@ -148,7 +149,7 @@ export interface EnvPluginContext<
      * @remarks
      * This value is parsed from the {@link EnvPluginOptions.vars} option.
      */
-    vars: Schema<Record<string, Env>>;
+    vars: Schema<Env>;
 
     /**
      * The type definition for the expected env secret parameters
@@ -156,7 +157,7 @@ export interface EnvPluginContext<
      * @remarks
      * This value is parsed from the {@link EnvPluginOptions.secrets} option.
      */
-    secrets: Schema<Record<string, Env>>;
+    secrets: Schema<Env>;
 
     /**
      * The parsed .env configuration object

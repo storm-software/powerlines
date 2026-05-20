@@ -39,7 +39,12 @@ import {
   isJsonSchemaObject,
   isNullOnlyJsonSchema
 } from "./type-checks";
-import { JsonSchema, JsonSchemaLike, JsonSchemaObject } from "./types";
+import {
+  JsonSchema,
+  JsonSchemaLike,
+  JsonSchemaObject,
+  JsonSchemaProperty
+} from "./types";
 
 /**
  * Maps a Deepkit numeric `brand` to JSON Schema `type` and `format`.
@@ -567,7 +572,8 @@ function objectReflectionToJsonSchema<
     }
 
     schema.properties ??= {};
-    schema.properties[propertyReflection.name] = property;
+    schema.properties[propertyReflection.name] =
+      property as JsonSchemaProperty<T>;
     if (!propertyReflection.isOptional()) {
       schema.required ??= [];
       schema.required.push(propertyReflection.name);

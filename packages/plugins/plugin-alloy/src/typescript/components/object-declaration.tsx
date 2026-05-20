@@ -35,11 +35,10 @@ import {
   VarDeclarationProps
 } from "@alloy-js/typescript";
 import {
-  getProperties,
-  getSchemaMetadata,
-  JsonSchemaObjectType,
-  JsonSchemaType,
-  SchemaProperty
+  getPropertiesList,
+  JsonSchema,
+  JsonSchemaLike,
+  JsonSchemaProperty
 } from "@powerlines/schema";
 import { camelCase } from "@stryke/string-format/camel-case";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -51,39 +50,39 @@ import {
 import { ComponentProps } from "../../types/components";
 import { TSDocObjectSchema, TSDocSchemaProperty } from "./tsdoc-schema";
 
-export interface ObjectDeclarationProps extends VarDeclarationProps {
-  schema?: JsonSchemaObjectType;
+export interface ObjectDeclarationProps<
+  T extends Record<string, any> = Record<string, any>
+> extends VarDeclarationProps {
+  schema?: JsonSchema<T>;
 }
 
 /**
  * Generates a TypeScript object for the given reflection class.
  */
-export function ObjectDeclaration(props: ObjectDeclarationProps) {
+export function ObjectDeclaration<
+  T extends Record<string, any> = Record<string, any>
+>(props: ObjectDeclarationProps<T>) {
   const { schema } = props;
   if (!schema) {
     return null;
   }
 
   const name = computed(() =>
-    camelCase(
-      isSetString(props.name)
-        ? props.name
-        : getSchemaMetadata(schema)?.name
-    )
+    camelCase(isSetString(props.name) ? props.name : schema?.name)
   );
 
   const defaultValues = computed(
-    () => (getSchemaMetadata(schema)?.default || {}) as Record<string, unknown>
+    () => (schema?.default || {}) as Record<string, unknown>
   );
   const properties = computed(() =>
-    Object.values(getProperties(schema))
+    getPropertiesList<T>(schema)
       .filter(
         property =>
           !property.metadata?.isIgnored &&
           !property.metadata?.isRuntime &&
           !isUndefined(
             defaultValues.value[property.name] ??
-              property.metadata?.alias?.reduce((ret, alias) => {
+              property?.alias?.reduce((ret, alias) => {
                 if (
                   isUndefined(ret) &&
                   !isUndefined(defaultValues.value[alias])
@@ -92,8 +91,8 @@ export function ObjectDeclaration(props: ObjectDeclarationProps) {
                 }
 
                 return ret;
-              }, undefined) ??
-              property.metadata?.default
+              }, undefined as any) ??
+              property?.default
           )
       )
       .sort((a, b) =>
@@ -131,7 +130,7 @@ export function ObjectDeclaration(props: ObjectDeclarationProps) {
 
   return (
     <Show when={!!schema}>
-      <SchemaContext.Provider value={schema}>
+      <SchemaContext.Provider value={schema as JsonSchemaLike}>
         <Show when={!!name.value && !!type}>
           <TSDocObjectSchema schema={schema} />
           <CoreDeclaration symbol={sym}>
@@ -161,16 +160,18 @@ export function ObjectDeclaration(props: ObjectDeclarationProps) {
   );
 }
 
-export interface ObjectDeclarationPropertyProps extends ComponentProps {
-  schema: JsonSchemaType | SchemaProperty;
+export interface ObjectDeclarationPropertyProps<
+  T extends Record<string, any> = Record<string, any>
+> extends ComponentProps {
+  schema: JsonSchemaProperty<T>;
 }
 
 /**
  * Generates a TypeScript object property for the given reflection class.
  */
-export function ObjectDeclarationProperty(
-  props: ObjectDeclarationPropertyProps
-) {
+export function ObjectDeclarationProperty<
+  T extends Record<string, any> = Record<string, any>
+>(props: ObjectDeclarationPropertyProps<T>) {
   const [{ schema }, rest] = splitProps(props, ["schema"]);
 
   const name = computed(
@@ -185,7 +186,7 @@ export function ObjectDeclarationProperty(
 
   return (
     <Show when={isSetString(name.value)}>
-      <SchemaPropertyContext.Provider value={schema}>
+      <SchemaPropertyContext.Provider value={schema as JsonSchemaLike}>
         <TSDocSchemaProperty schema={schema} />
         <ObjectProperty
           name={name.value}

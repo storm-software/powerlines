@@ -48,13 +48,12 @@ import {
 } from "@alloy-js/typescript";
 import {
   getPrimarySchemaType,
-  getProperties,
-  getSchemaMetadata,
+  getPropertiesList,
   isSchemaNullable,
-  JsonSchemaObjectType,
+  JsonSchema,
+  JsonSchemaLike,
   JsonSchemaPrimitiveType,
-  JsonSchemaType,
-  SchemaProperty,
+  JsonSchemaProperty,
   stringifyType
 } from "@powerlines/schema";
 import { camelCase } from "@stryke/string-format/camel-case";
@@ -73,7 +72,9 @@ import { TSDoc } from "./tsdoc";
 import { TSDocObjectSchema, TSDocSchemaProperty } from "./tsdoc-schema";
 import { TypeParameters } from "./type-parameters";
 
-export interface InterfaceDeclarationProps
+export interface InterfaceDeclarationProps<
+  T extends Record<string, any> = Record<string, any>
+>
   extends PartialKeys<CommonDeclarationProps, "name">, ComponentProps {
   /**
    * A base type that this interface extends. This can be used to represent inheritance
@@ -91,7 +92,7 @@ export interface InterfaceDeclarationProps
    * @remarks
    * This is used to generate the members of the interface based on the properties of the schema.
    */
-  schema?: JsonSchemaObjectType;
+  schema?: JsonSchema<T>;
 
   /**
    * Documentation for the interface. This can be a string or any Alloy component that renders documentation content (such as `TSDoc`).
@@ -99,9 +100,11 @@ export interface InterfaceDeclarationProps
   doc?: Children;
 }
 
-export interface InterfaceDeclarationPropertyProps
-  extends Omit<InterfaceMemberProps, "name">, ComponentProps {
-  schema: JsonSchemaType | SchemaProperty;
+export interface InterfaceDeclarationPropertyProps<
+  T extends Record<string, any> = Record<string, any>
+>
+  extends Omit<InterfaceMemberProps<T>, "name">, ComponentProps {
+  schema: JsonSchemaProperty<T>;
 }
 
 export interface InterfaceExpressionProps {
@@ -132,29 +135,31 @@ export interface InterfaceMemberPropsBase {
   children?: Children;
   doc?: Children;
   refkey?: Refkey | Refkey[];
-}
-export interface InterfacePropertyMemberProps extends InterfaceMemberPropsBase {
-  name: string | Namekey;
   isReadonly?: boolean;
   type?: Children | JsonSchemaPrimitiveType;
-  optional?: boolean;
   nullish?: boolean;
+}
+
+export interface InterfacePropertyMemberProps extends InterfaceMemberPropsBase {
+  name: string | Namekey;
 }
 
 export interface InterfaceIndexerMemberProps extends InterfaceMemberPropsBase {
   indexer: Children;
-  isReadonly?: boolean;
-  type?: Children | JsonSchemaPrimitiveType;
 }
 
-export interface InterfaceSchemaMemberProps extends InterfaceMemberPropsBase {
-  schema: JsonSchemaType | SchemaProperty;
+export interface InterfaceSchemaMemberProps<
+  T extends Record<string, any> = Record<string, any>
+> extends InterfaceMemberPropsBase {
+  schema: JsonSchemaProperty<T>;
 }
 
-export type InterfaceMemberProps =
+export type InterfaceMemberProps<
+  T extends Record<string, any> = Record<string, any>
+> =
   | InterfacePropertyMemberProps
   | InterfaceIndexerMemberProps
-  | InterfaceSchemaMemberProps;
+  | InterfaceSchemaMemberProps<T>;
 
 /**
  * Create a TypeScript interface member.
@@ -165,19 +170,17 @@ export type InterfaceMemberProps =
  * The type of the member can be provided either as the `type` prop or as the
  * children of the component.
  */
-export function InterfaceMember(props: InterfaceMemberProps) {
-  const type = (props as InterfaceSchemaMemberProps).schema
-    ? stringifyType((props as InterfaceSchemaMemberProps).schema)
-    : ((props as InterfacePropertyMemberProps | InterfaceIndexerMemberProps)
-        .type ?? props.children);
+export function InterfaceMember<
+  T extends Record<string, any> = Record<string, any>
+>(props: InterfaceMemberProps<T>) {
+  const type = (props as InterfaceSchemaMemberProps<T>).schema
+    ? stringifyType<T>((props as InterfaceSchemaMemberProps<T>).schema)
+    : (props.type ?? props.children);
 
   const readonly =
-    ((props as InterfaceSchemaMemberProps).schema &&
-      getSchemaMetadata((props as InterfaceSchemaMemberProps).schema)
-        ?.isReadonly) ||
-    (!(props as InterfaceSchemaMemberProps).schema &&
-      (props as InterfacePropertyMemberProps | InterfaceIndexerMemberProps)
-        .isReadonly)
+    ((props as InterfaceSchemaMemberProps<T>).schema &&
+      (props as InterfaceSchemaMemberProps<T>).schema?.isReadonly) ||
+    (!(props as InterfaceSchemaMemberProps<T>).schema && props.isReadonly)
       ? "readonly "
       : "";
 
@@ -194,30 +197,20 @@ export function InterfaceMember(props: InterfaceMemberProps) {
 
   const optional =
     !!(
-      (props as InterfaceSchemaMemberProps).schema &&
-      ("optional" in (props as InterfaceSchemaMemberProps).schema
-        ? (props as InterfaceSchemaMemberProps).schema.optional
-        : false)
-    ) ||
-    !!(
-      !(props as InterfaceSchemaMemberProps).schema &&
-      (props as InterfacePropertyMemberProps).optional
-    );
+      (props as InterfaceSchemaMemberProps<T>).schema &&
+      "nullable" in (props as InterfaceSchemaMemberProps<T>).schema &&
+      (props as InterfaceSchemaMemberProps<T>).schema.nullable
+    ) || !!props.nullish;
 
   const scope = useTSMemberScope();
   const sym = createSymbol(
     TSOutputSymbol,
-    String(
-      ((props as InterfaceSchemaMemberProps).schema
-        ? getSchemaMetadata((props as InterfaceSchemaMemberProps).schema)
-            ?.name ||
-          getSchemaMetadata((props as InterfaceSchemaMemberProps).schema)
-            ?.resourceId
-        : isSetString((props as InterfacePropertyMemberProps).name)
-          ? (props as InterfacePropertyMemberProps).name
-          : (props as InterfacePropertyMemberProps).name.toString()) ||
-        uuid().replace(/-/g, "")
-    ),
+    (((props as InterfaceSchemaMemberProps<T>).schema
+      ? (props as InterfaceSchemaMemberProps<T>).schema?.name
+      : undefined) || isSetString((props as InterfacePropertyMemberProps).name)
+      ? (props as InterfacePropertyMemberProps).name
+      : (props as InterfacePropertyMemberProps).name.toString()) ||
+      uuid().replace(/-/g, ""),
     scope.ownerSymbol.staticMembers,
     {
       refkeys: props.refkey,
@@ -230,7 +223,6 @@ export function InterfaceMember(props: InterfaceMemberProps) {
   );
 
   const taken = takeSymbols();
-
   effect(() => {
     if (taken.size > 1) return;
     const symbol = Array.from(taken)[0];
@@ -313,7 +305,9 @@ const BaseInterfaceDeclaration = ensureTypeRefContext(
 /**
  * Generates a TypeScript interface for the given schema.
  */
-export function InterfaceDeclaration(props: InterfaceDeclarationProps) {
+export function InterfaceDeclaration<
+  T extends Record<string, any> = Record<string, any>
+>(props: InterfaceDeclarationProps<T>) {
   const [{ name, schema, doc }, rest] = splitProps(props, [
     "name",
     "schema",
@@ -321,21 +315,23 @@ export function InterfaceDeclaration(props: InterfaceDeclarationProps) {
   ]);
 
   const interfaceName = computed(() =>
-    pascalCase(
-      isSetString(name)
-        ? name
-        : getSchemaMetadata(schema)?.name || getSchemaMetadata(schema)?.title || ""
-    )
+    pascalCase(isSetString(name) ? name : schema?.name || schema?.title || "")
   );
   const properties = computed(() =>
     schema
-      ? Object.values(getProperties(schema))
-          .filter(property => !property.metadata?.isIgnored)
+      ? getPropertiesList<T>(schema as Parameters<typeof getPropertiesList>[0])
+          .filter(property => !property?.isIgnored)
           .sort((a, b) =>
-            (a.metadata?.isReadonly && b.metadata?.isReadonly) ||
-            (!a.metadata?.isReadonly && !b.metadata?.isReadonly)
-              ? a.name.localeCompare(b.name)
-              : a.metadata?.isReadonly
+            (a?.isReadonly && b?.isReadonly) ||
+            (!a?.isReadonly && !b?.isReadonly)
+              ? !a.name && !b.name
+                ? 0
+                : !a.name
+                  ? -1
+                  : !b.name
+                    ? 1
+                    : a.name.localeCompare(b.name)
+              : a?.isReadonly
                 ? 1
                 : -1
           )
@@ -346,9 +342,17 @@ export function InterfaceDeclaration(props: InterfaceDeclarationProps) {
     <Show
       when={schema && properties.value.length > 0}
       fallback={
-        <BaseInterfaceDeclaration {...props} name={interfaceName.value} />
+        <BaseInterfaceDeclaration
+          {...props}
+          schema={{
+            type: "object",
+            name: interfaceName.value,
+            properties: {}
+          }}
+          name={interfaceName.value}
+        />
       }>
-      <SchemaContext.Provider value={schema}>
+      <SchemaContext.Provider value={schema as JsonSchemaLike}>
         <TSDocObjectSchema heading={doc} schema={schema!} />
         <BaseInterfaceDeclaration
           export={true}
@@ -366,9 +370,9 @@ export function InterfaceDeclaration(props: InterfaceDeclarationProps) {
 /**
  * Generates a TypeScript interface property for the given reflection class.
  */
-export function InterfaceDeclarationProperty(
-  props: InterfaceDeclarationPropertyProps
-) {
+export function InterfaceDeclarationProperty<
+  T extends Record<string, any> = Record<string, any>
+>(props: InterfaceDeclarationPropertyProps<T>) {
   const [{ schema }, rest] = splitProps(props, ["schema"]);
 
   const name = computed(
@@ -381,14 +385,13 @@ export function InterfaceDeclarationProperty(
 
   return (
     <Show when={isSetString(name.value)}>
-      <SchemaPropertyContext.Provider value={schema}>
+      <SchemaPropertyContext.Provider value={schema as JsonSchemaLike}>
         <TSDocSchemaProperty schema={schema} />
         <InterfaceMember
-          name={name.value!}
+          name={name.value}
           isReadonly={schema.metadata?.isReadonly}
-          optional={schema.optional}
-          nullish={schema.nullable || isSchemaNullable(schema)}
-          type={getPrimarySchemaType(schema) as JsonSchemaPrimitiveType}
+          nullish={schema.nullable || isSchemaNullable<T>(schema)}
+          type={getPrimarySchemaType<T>(schema)}
           {...rest}
         />
       </SchemaPropertyContext.Provider>

@@ -23,13 +23,10 @@ import {
   Show,
   splitProps
 } from "@alloy-js/core";
-
 import {
   getPrimarySchemaType,
-  getSchemaMetadata,
-  JsonSchemaObjectType,
-  JsonSchemaPrimitiveType,
-  JsonSchemaType
+  JsonSchema,
+  JsonSchemaProperty
 } from "@powerlines/schema";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isSetObject } from "@stryke/type-checks";
@@ -38,14 +35,18 @@ import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { Spacing } from "../../core/components/spacing";
 import { TSDoc, TSDocAttributesTags, TSDocProps } from "./tsdoc";
 
-export interface TSDocObjectSchemaProps extends TSDocProps {
-  schema: JsonSchemaObjectType;
+export interface TSDocObjectSchemaProps<
+  T extends Record<string, any> = Record<string, any>
+> extends TSDocProps {
+  schema: JsonSchema<T>;
 }
 
 /**
  * Generates a TSDoc documentation block for the given reflection class. This component will render the description of the reflection as the main content of the documentation block, and will render any additional attributes (such as title, alias, domain, permission, etc.) as tags in the documentation block. If there are child elements provided, they will be rendered as a list below the main content of the documentation block. This is useful for rendering additional details about the reflection that may not be included in the description, such as information about properties or methods of a class.
  */
-export function TSDocObjectSchema(props: TSDocObjectSchemaProps) {
+export function TSDocObjectSchema<
+  T extends Record<string, any> = Record<string, any>
+>(props: TSDocObjectSchemaProps<T>) {
   const [{ children, heading, schema }, rest] = splitProps(props, [
     "heading",
     "children",
@@ -56,22 +57,18 @@ export function TSDocObjectSchema(props: TSDocObjectSchemaProps) {
     return null;
   }
 
-  const metadata = computed(() => getSchemaMetadata(schema));
-  const title = computed(
-    () => metadata.value?.title || titleCase(metadata.value?.name)
-  );
+  const title = computed(() => schema?.title || titleCase(schema?.name));
   const computedHeading = computed(
-    () => heading || metadata.value?.description || title.value
+    () => heading || schema?.description || title.value
   );
 
-  const alias = computed(() => metadata.value?.alias);
-  const domain = computed(() => metadata.value?.resourceId);
-  const groups = computed(() => metadata.value?.groups);
-  const isReadonly = computed(() => metadata.value?.isReadonly);
-  const isInternal = computed(() => metadata.value?.isInternal);
-  const isRuntime = computed(() => metadata.value?.isRuntime);
-  const isIgnore = computed(() => metadata.value?.isIgnored);
-  const isHidden = computed(() => metadata.value?.isHidden);
+  const alias = computed(() => schema?.alias);
+  const groups = computed(() => schema?.groups);
+  const isReadonly = computed(() => schema?.isReadonly);
+  const isInternal = computed(() => schema?.isInternal);
+  const isRuntime = computed(() => schema?.isRuntime);
+  const isIgnore = computed(() => schema?.isIgnored);
+  const isHidden = computed(() => schema?.isHidden);
 
   if (
     !computedHeading.value ||
@@ -85,7 +82,6 @@ export function TSDocObjectSchema(props: TSDocObjectSchemaProps) {
       isSetString(title.value) ||
       (!isUndefined(alias.value) && alias.value.length > 0) ||
       (!isUndefined(groups.value) && groups.value.length > 0) ||
-      isSetString(domain.value) ||
       !isUndefined(isReadonly.value) ||
       !isUndefined(isInternal.value) ||
       !isUndefined(isRuntime.value) ||
@@ -103,10 +99,9 @@ export function TSDocObjectSchema(props: TSDocObjectSchemaProps) {
       }>
       <Show when={hasAttributes.value}>
         <TSDocAttributesTags
-          type={getPrimarySchemaType(schema) as JsonSchemaPrimitiveType}
+          type={getPrimarySchemaType<T>(schema)}
           title={title.value}
           alias={alias.value}
-          resourceId={domain.value}
           groups={groups.value}
           isReadonly={Boolean(isReadonly.value)}
           isInternal={Boolean(isInternal.value)}
@@ -129,14 +124,18 @@ export function TSDocObjectSchema(props: TSDocObjectSchemaProps) {
   );
 }
 
-export interface TSDocSchemaPropertyProps extends TSDocProps {
-  schema: JsonSchemaType;
+export interface TSDocSchemaPropertyProps<
+  T extends Record<string, any> = Record<string, any>
+> extends TSDocProps {
+  schema: JsonSchemaProperty<T>;
 }
 
 /**
  * Generates a TSDoc documentation block for the given reflection property. This component will render the description of the reflection as the main content of the documentation block, and will render any additional attributes (such as title, alias, domain, permission, etc.) as tags in the documentation block. If there are child elements provided, they will be rendered as a list below the main content of the documentation block. This is useful for rendering additional details about the reflection that may not be included in the description, such as information about parameters of a method or properties of a class.
  */
-export function TSDocSchemaProperty(props: TSDocSchemaPropertyProps) {
+export function TSDocSchemaProperty<
+  T extends Record<string, any> = Record<string, any>
+>(props: TSDocSchemaPropertyProps<T>) {
   const [{ children, schema }, rest] = splitProps(props, [
     "children",
     "schema"
@@ -146,38 +145,33 @@ export function TSDocSchemaProperty(props: TSDocSchemaPropertyProps) {
     return null;
   }
 
-  const metadata = computed(() => getSchemaMetadata(schema));
   const hasAttributes = computed(
     () =>
-      isSetString(metadata.value?.title) ||
-      (!isUndefined(metadata.value?.alias) &&
-        metadata.value?.alias.length > 0) ||
-      (!isUndefined(metadata.value?.groups) &&
-        metadata.value?.groups.length > 0) ||
-      isSetString(metadata.value?.resourceId) ||
-      !isUndefined(metadata.value?.isReadonly) ||
-      !isUndefined(metadata.value?.isInternal) ||
-      !isUndefined(metadata.value?.isRuntime) ||
-      !isUndefined(metadata.value?.isIgnored) ||
-      !isUndefined(metadata.value?.isHidden) ||
-      !isUndefined(metadata.value?.default)
+      isSetString(schema?.title) ||
+      (!isUndefined(schema?.alias) && schema?.alias.length > 0) ||
+      (!isUndefined(schema?.groups) && schema?.groups.length > 0) ||
+      !isUndefined(schema?.isReadonly) ||
+      !isUndefined(schema?.isInternal) ||
+      !isUndefined(schema?.isRuntime) ||
+      !isUndefined(schema?.isIgnored) ||
+      !isUndefined(schema?.isHidden) ||
+      !isUndefined(schema?.default)
   );
 
   return (
-    <TSDoc heading={metadata.value?.description} {...rest}>
+    <TSDoc heading={schema?.description} {...rest}>
       <Show when={hasAttributes.value}>
         <TSDocAttributesTags
-          type={getPrimarySchemaType(schema) as JsonSchemaPrimitiveType}
-          title={metadata.value?.title}
-          alias={metadata.value?.alias}
-          resourceId={metadata.value?.resourceId}
-          groups={metadata.value?.groups}
-          isReadonly={metadata.value?.isReadonly}
-          isInternal={metadata.value?.isInternal}
-          isRuntime={metadata.value?.isRuntime}
-          isIgnored={metadata.value?.isIgnored}
-          isHidden={metadata.value?.isHidden}
-          defaultValue={metadata.value?.default}
+          type={getPrimarySchemaType<T>(schema)}
+          title={schema?.title}
+          alias={schema?.alias}
+          groups={schema?.groups}
+          isReadonly={schema?.isReadonly}
+          isInternal={schema?.isInternal}
+          isRuntime={schema?.isRuntime}
+          isIgnored={schema?.isIgnored}
+          isHidden={schema?.isHidden}
+          defaultValue={schema?.default}
         />
       </Show>
       <Show

@@ -49,7 +49,7 @@ import {
   TSDocRemarks,
   TSDocReturns
 } from "@powerlines/plugin-alloy/typescript/components/tsdoc";
-import type { SchemaProperty } from "@powerlines/schema";
+import type { JsonSchemaProperty } from "@powerlines/schema";
 import { getPropertiesList } from "@powerlines/schema/helpers";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { loadEnvFromContext } from "../helpers/load";
@@ -84,7 +84,7 @@ export function EnvTypeDefinition() {
             <For
               each={
                 getPropertiesList(context.env.vars.schema).filter(
-                  property => !property.metadata?.isIgnored
+                  property => !property?.isIgnored
                 ) ?? []
               }
               doubleHardline>
@@ -92,9 +92,9 @@ export function EnvTypeDefinition() {
                 <>
                   <TSDocSchemaProperty schema={property} />
                   <InterfaceMember
-                    name={`${prefix}_${property.metadata?.name}`}
-                    type={`UnprefixedEnv["${property.metadata?.name}"]`}
-                    isReadonly={property.metadata?.isReadonly}
+                    name={`${prefix}_${property?.name}`}
+                    type={`UnprefixedEnv["${property?.name}"]`}
+                    isReadonly={property?.isReadonly}
                   />
                 </>
               )}
@@ -130,7 +130,7 @@ interface ConfigPropertyProps extends ComponentProps {
   index: number;
   context: EnvPluginContext;
   name: string;
-  property: SchemaProperty;
+  property: JsonSchemaProperty;
 }
 
 function ConfigPropertyGet(props: ConfigPropertyProps) {
@@ -148,13 +148,9 @@ function ConfigPropertyGet(props: ConfigPropertyProps) {
           condition={
             <>
               <ConfigPropertyConditional name={name} context={context} />
-              <Show
-                when={
-                  property.metadata?.alias &&
-                  property.metadata?.alias.length > 0
-                }>
+              <Show when={property?.alias && property?.alias.length > 0}>
                 {code` || `}
-                <For each={property.metadata?.alias ?? []} joiner={code` || `}>
+                <For each={property?.alias ?? []} joiner={code` || `}>
                   {alias => (
                     <ConfigPropertyConditional name={alias} context={context} />
                   )}
@@ -169,13 +165,9 @@ function ConfigPropertyGet(props: ConfigPropertyProps) {
           condition={
             <>
               <ConfigPropertyConditional name={name} context={context} />
-              <Show
-                when={
-                  property.metadata?.alias &&
-                  property.metadata?.alias.length > 0
-                }>
+              <Show when={property?.alias && property?.alias.length > 0}>
                 {code` || `}
-                <For each={property.metadata?.alias ?? []} joiner={code` || `}>
+                <For each={property?.alias ?? []} joiner={code` || `}>
                   {alias => (
                     <ConfigPropertyConditional name={alias} context={context} />
                   )}
@@ -205,13 +197,9 @@ function ConfigPropertySet(props: ConfigPropertyProps) {
           condition={
             <>
               <ConfigPropertyConditional name={name} context={context} />
-              <Show
-                when={
-                  property.metadata?.alias &&
-                  property.metadata?.alias.length > 0
-                }>
+              <Show when={property?.alias && property?.alias.length > 0}>
                 {code` || `}
-                <For each={property.metadata?.alias ?? []} joiner={code` || `}>
+                <For each={property?.alias ?? []} joiner={code` || `}>
                   {alias => (
                     <ConfigPropertyConditional name={alias} context={context} />
                   )}
@@ -229,13 +217,9 @@ function ConfigPropertySet(props: ConfigPropertyProps) {
           condition={
             <>
               <ConfigPropertyConditional name={name} context={context} />
-              <Show
-                when={
-                  property.metadata?.alias &&
-                  property.metadata?.alias.length > 0
-                }>
+              <Show when={property?.alias && property?.alias.length > 0}>
                 {code` || `}
-                <For each={property.metadata?.alias ?? []} joiner={code` || `}>
+                <For each={property?.alias ?? []} joiner={code` || `}>
                   {alias => (
                     <ConfigPropertyConditional name={alias} context={context} />
                   )}
@@ -277,32 +261,29 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
   const reflectionGetProperties = computed(
     () =>
       getPropertiesList(context.env.vars.schema)
-        .filter(property => !property.metadata?.isIgnored)
+        .filter(property => !property?.isIgnored)
         .sort((a, b) =>
-          !a.metadata?.name && !b.metadata?.name
+          !a?.name && !b?.name
             ? 0
-            : !a.metadata?.name
+            : !a?.name
               ? 1
-              : !b.metadata?.name
+              : !b?.name
                 ? -1
-                : a.metadata?.name.localeCompare(b.metadata?.name)
+                : a?.name.localeCompare(b?.name)
         ) ?? []
   );
   const reflectionSetProperties = computed(
     () =>
       getPropertiesList(context.env.vars.schema)
-        .filter(
-          property =>
-            !property.metadata?.isIgnored && !property.metadata?.isReadonly
-        )
+        .filter(property => !property?.isIgnored && !property?.isReadonly)
         .sort((a, b) =>
-          !a.metadata?.name && !b.metadata?.name
+          !a?.name && !b?.name
             ? 0
-            : !a.metadata?.name
+            : !a?.name
               ? 1
-              : !b.metadata?.name
+              : !b?.name
                 ? -1
-                : a.metadata?.name.localeCompare(b.metadata?.name)
+                : a?.name.localeCompare(b?.name)
         ) ?? []
   );
 
@@ -360,7 +341,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       get: (target: UnprefixedEnv, propertyName: string) => { `}
           <hbr />
           <For each={reflectionGetProperties.value}>
-            {(property: SchemaProperty, index: number) => (
+            {(property: JsonSchemaProperty, index: number) => (
               <ConfigPropertyGet
                 index={index}
                 context={context}
@@ -377,7 +358,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           {code` set: (target: UnprefixedEnv, propertyName: string, newValue: any) => { `}
           <hbr />
           <For each={reflectionSetProperties.value} ender={code` else `}>
-            {(property: SchemaProperty, index: number) => (
+            {(property: JsonSchemaProperty, index: number) => (
               <ConfigPropertySet
                 index={index}
                 context={context}
