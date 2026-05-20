@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import astro from "./astro";
+import esbuild from "./esbuild";
 import farm from "./farm";
 import next from "./next";
 import nuxt from "./nuxt";
@@ -33,6 +34,7 @@ export * from "./unplugin";
 
 export const plugins = {
   astro,
+  esbuild,
   farm,
   next,
   nuxt,
