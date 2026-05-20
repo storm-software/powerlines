@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.43](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.43) (05/20/2026)
+
+### Miscellaneous
+
+- **unplugin:** Added `esbuild` to exports ([fab7697fa](https://github.com/storm-software/powerlines/commit/fab7697fa))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.15.28**
+
 ## [0.0.42](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.42) (05/19/2026)
 
 ### Updated Dependencies
