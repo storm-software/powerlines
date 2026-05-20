@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-open-telemetry",
-  "version": "0.1.68",
+  "version": "0.1.69",
   "private": false,
   "description": "A package containing a Powerlines plugin for registering OpenTelemetry integration at runtime.",
   "keywords": [

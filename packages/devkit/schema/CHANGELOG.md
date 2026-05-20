@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.35](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.35) (05/20/2026)
+
+### Miscellaneous
+
+- **schema:** Added `format` to JSON schema type definition ([3c70e9f47](https://github.com/storm-software/powerlines/commit/3c70e9f47))
+- **schema:** Completed JSON schema migration changes ([1a2b0e606](https://github.com/storm-software/powerlines/commit/1a2b0e606))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.15.32**
+- Updated **deepkit** to **v0.9.31**
+- Updated **unplugin** to **v0.0.47**
+
 ## [0.11.34](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.34) (05/20/2026)
 
 ### Updated Dependencies
