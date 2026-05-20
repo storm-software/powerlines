@@ -25,9 +25,11 @@ import {
 } from "@alloy-js/core";
 
 import {
-  JTDSchemaObjectType,
-  JTDSchemaType,
-  JTDType
+  getPrimarySchemaType,
+  getSchemaMetadata,
+  JsonSchemaObjectType,
+  JsonSchemaPrimitiveType,
+  JsonSchemaType
 } from "@powerlines/schema";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isSetObject } from "@stryke/type-checks";
@@ -37,7 +39,7 @@ import { Spacing } from "../../core/components/spacing";
 import { TSDoc, TSDocAttributesTags, TSDocProps } from "./tsdoc";
 
 export interface TSDocObjectSchemaProps extends TSDocProps {
-  schema: JTDSchemaObjectType;
+  schema: JsonSchemaObjectType;
 }
 
 /**
@@ -54,21 +56,22 @@ export function TSDocObjectSchema(props: TSDocObjectSchemaProps) {
     return null;
   }
 
+  const metadata = computed(() => getSchemaMetadata(schema));
   const title = computed(
-    () => schema.metadata?.title || titleCase(schema.metadata?.name)
+    () => metadata.value?.title || titleCase(metadata.value?.name)
   );
   const computedHeading = computed(
-    () => heading || schema.metadata?.description || title.value
+    () => heading || metadata.value?.description || title.value
   );
 
-  const alias = computed(() => schema.metadata?.alias);
-  const domain = computed(() => schema.metadata?.resourceId);
-  const groups = computed(() => schema.metadata?.groups);
-  const isReadonly = computed(() => schema.metadata?.isReadonly);
-  const isInternal = computed(() => schema.metadata?.isInternal);
-  const isRuntime = computed(() => schema.metadata?.isRuntime);
-  const isIgnore = computed(() => schema.metadata?.isIgnore);
-  const isHidden = computed(() => schema.metadata?.isHidden);
+  const alias = computed(() => metadata.value?.alias);
+  const domain = computed(() => metadata.value?.resourceId);
+  const groups = computed(() => metadata.value?.groups);
+  const isReadonly = computed(() => metadata.value?.isReadonly);
+  const isInternal = computed(() => metadata.value?.isInternal);
+  const isRuntime = computed(() => metadata.value?.isRuntime);
+  const isIgnore = computed(() => metadata.value?.isIgnored);
+  const isHidden = computed(() => metadata.value?.isHidden);
 
   if (
     !computedHeading.value ||
@@ -100,7 +103,7 @@ export function TSDocObjectSchema(props: TSDocObjectSchemaProps) {
       }>
       <Show when={hasAttributes.value}>
         <TSDocAttributesTags
-          type={(schema as { type?: JTDType }).type}
+          type={getPrimarySchemaType(schema) as JsonSchemaPrimitiveType}
           title={title.value}
           alias={alias.value}
           resourceId={domain.value}
@@ -127,7 +130,7 @@ export function TSDocObjectSchema(props: TSDocObjectSchemaProps) {
 }
 
 export interface TSDocSchemaPropertyProps extends TSDocProps {
-  schema: JTDSchemaType;
+  schema: JsonSchemaType;
 }
 
 /**
@@ -143,37 +146,38 @@ export function TSDocSchemaProperty(props: TSDocSchemaPropertyProps) {
     return null;
   }
 
+  const metadata = computed(() => getSchemaMetadata(schema));
   const hasAttributes = computed(
     () =>
-      isSetString(schema.metadata?.title) ||
-      (!isUndefined(schema.metadata?.alias) &&
-        schema.metadata?.alias.length > 0) ||
-      (!isUndefined(schema.metadata?.groups) &&
-        schema.metadata?.groups.length > 0) ||
-      isSetString(schema.metadata?.resourceId) ||
-      !isUndefined(schema.metadata?.isReadonly) ||
-      !isUndefined(schema.metadata?.isInternal) ||
-      !isUndefined(schema.metadata?.isRuntime) ||
-      !isUndefined(schema.metadata?.isIgnored) ||
-      !isUndefined(schema.metadata?.isHidden) ||
-      !isUndefined(schema?.metadata?.default)
+      isSetString(metadata.value?.title) ||
+      (!isUndefined(metadata.value?.alias) &&
+        metadata.value?.alias.length > 0) ||
+      (!isUndefined(metadata.value?.groups) &&
+        metadata.value?.groups.length > 0) ||
+      isSetString(metadata.value?.resourceId) ||
+      !isUndefined(metadata.value?.isReadonly) ||
+      !isUndefined(metadata.value?.isInternal) ||
+      !isUndefined(metadata.value?.isRuntime) ||
+      !isUndefined(metadata.value?.isIgnored) ||
+      !isUndefined(metadata.value?.isHidden) ||
+      !isUndefined(metadata.value?.default)
   );
 
   return (
-    <TSDoc heading={schema.metadata?.description} {...rest}>
+    <TSDoc heading={metadata.value?.description} {...rest}>
       <Show when={hasAttributes.value}>
         <TSDocAttributesTags
-          type={(schema as { type?: JTDType }).type}
-          title={schema.metadata?.title}
-          alias={schema.metadata?.alias}
-          resourceId={schema.metadata?.resourceId}
-          groups={schema.metadata?.groups}
-          isReadonly={schema.metadata?.isReadonly}
-          isInternal={schema.metadata?.isInternal}
-          isRuntime={schema.metadata?.isRuntime}
-          isIgnored={schema.metadata?.isIgnored}
-          isHidden={schema.metadata?.isHidden}
-          defaultValue={schema.metadata?.default}
+          type={getPrimarySchemaType(schema) as JsonSchemaPrimitiveType}
+          title={metadata.value?.title}
+          alias={metadata.value?.alias}
+          resourceId={metadata.value?.resourceId}
+          groups={metadata.value?.groups}
+          isReadonly={metadata.value?.isReadonly}
+          isInternal={metadata.value?.isInternal}
+          isRuntime={metadata.value?.isRuntime}
+          isIgnored={metadata.value?.isIgnored}
+          isHidden={metadata.value?.isHidden}
+          defaultValue={metadata.value?.default}
         />
       </Show>
       <Show

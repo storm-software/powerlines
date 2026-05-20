@@ -16,730 +16,201 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  isBoolean,
-  isSetArray,
-  isSetString,
-  isUndefined
-} from "@stryke/type-checks";
+import { isSetArray, isSetString } from "@stryke/type-checks";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
-import {
-  JsonSchemaLike,
-  JTDNumberType,
-  JTDSchemaType,
-  SchemaMetadata
-} from "./types";
+import { JsonSchemaType } from "@stryke/json/types";
+import { applySchemaMetadata, getSchemaMetadata } from "./metadata";
+import { JsonSchemaLike, JTDSchemaType, SchemaMetadata } from "./types";
 
-/**
- * Maps a JSON Schema `format` annotation for integers to the closest JTD numeric type.
- *
- * @param format - The JSON Schema format hint to map.
- * @returns The matching JTD numeric type, or `undefined` if no exact match exists.
- */
-function jsonSchemaIntegerFormatToJtd(
-  format: string | undefined
-): JTDNumberType | undefined {
-  switch (format) {
-    case "int8":
-      return "int8";
-    case "uint8":
-      return "uint8";
-    case "int16":
-      return "int16";
-    case "uint16":
-      return "uint16";
-    case "int32":
-      return "int32";
-    case "uint32":
-      return "uint32";
-    case undefined:
-    default:
-      return undefined;
-  }
-}
-
-/**
- * Maps a JSON Schema `format` annotation for floating point numbers to the closest JTD numeric type.
- *
- * @param format - The JSON Schema format hint to map.
- * @returns The matching JTD numeric type, or `undefined` if no exact match exists.
- */
-function jsonSchemaNumberFormatToJtd(
-  format: string | undefined
-): JTDNumberType | undefined {
-  switch (format) {
-    case "float":
-    case "float32":
-      return "float32";
-    case "double":
-    case "float64":
-      return "float64";
-    case undefined:
-    default:
-      return undefined;
-  }
-}
-
-/**
- * Picks the smallest unsigned JTD integer type that can hold the provided bounds.
- *
- * @param minimum - The inclusive lower bound, when known.
- * @param maximum - The inclusive upper bound, when known.
- * @returns The narrowest unsigned JTD integer type that can represent the range, or `undefined` if the range cannot be expressed as an unsigned integer.
- */
-function pickUnsignedIntegerType(
-  minimum: number | undefined,
-  maximum: number | undefined
-): JTDNumberType | undefined {
-  if (minimum === undefined || minimum < 0) {
-    return undefined;
-  }
-  if (maximum === undefined) {
-    return undefined;
-  }
-  if (maximum <= 0xff) {
-    return "uint8";
-  }
-  if (maximum <= 0xffff) {
-    return "uint16";
-  }
-  if (maximum <= 0xffffffff) {
-    return "uint32";
-  }
-  return undefined;
-}
-
-/**
- * Picks the smallest signed JTD integer type that can hold the provided bounds.
- *
- * @param minimum - The inclusive lower bound, when known.
- * @param maximum - The inclusive upper bound, when known.
- * @returns The narrowest signed JTD integer type that can represent the range, or `undefined` if the range cannot be expressed as a signed integer.
- */
-function pickSignedIntegerType(
-  minimum: number | undefined,
-  maximum: number | undefined
-): JTDNumberType | undefined {
-  if (
-    minimum !== undefined &&
-    maximum !== undefined &&
-    minimum >= -0x80 &&
-    maximum <= 0x7f
-  ) {
-    return "int8";
-  }
-  if (
-    minimum !== undefined &&
-    maximum !== undefined &&
-    minimum >= -0x8000 &&
-    maximum <= 0x7fff
-  ) {
-    return "int16";
-  }
-  return "int32";
-}
-
-/**
- * Tests whether the provided value is a non-null object that can be inspected as a JSON Schema fragment.
- *
- * @param value - The value to test.
- * @returns `true` if the value is a plain object suitable for JSON-Schema conversion.
- */
-function isJsonSchemaLike(value: unknown): value is JsonSchemaLike {
+function isJtdForm(value: unknown): value is JTDSchemaType {
   return isSetObject(value);
 }
 
-/**
- * Reads the JSON Schema `type` field as an array, normalising the single-string form.
- *
- * @param schema - The JSON Schema fragment to inspect.
- * @returns The list of JSON Schema type names declared on the fragment.
- */
-function readTypes(schema: JsonSchemaLike): string[] {
-  if (Array.isArray(schema.type)) {
-    return schema.type;
-  }
-  if (typeof schema.type === "string") {
-    return [schema.type];
-  }
-  return [];
+function jtdMetadataToJsonSchema<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+>(form: JTDSchemaType<TMetadata>): JsonSchemaLike {
+  const metadata = getSchemaMetadata<TMetadata>(form);
+  const base: JsonSchemaLike = {};
+  return metadata ? applySchemaMetadata(base, metadata) : base;
 }
 
-/**
- * Builds a JTD `metadata` object from the JSON Schema annotation keywords found on a fragment.
- *
- * @param schema - The source JSON Schema fragment.
- * @returns A metadata bag suitable for attaching to a JTD form, or `undefined` if no annotations are present.
- */
-function collectMetadata<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(schema: JsonSchemaLike): TMetadata | undefined {
-  const metadata: TMetadata = {} as TMetadata;
-  if (isSetString(schema.description)) {
-    metadata.description = schema.description;
-  }
-
-  if (isSetArray(schema.examples)) {
-    metadata.examples = schema.examples;
-  }
-
-  if (
-    isSetArray(schema.alias) &&
-    (schema.alias as unknown[]).every(isSetString)
-  ) {
-    metadata.alias = schema.alias as string[];
-  }
-
-  if (isSetString(schema.table)) {
-    metadata.default = schema.table;
-  }
-
-  if (isSetString(schema.title)) {
-    metadata.title = schema.title;
-  }
-
-  if (!isUndefined(schema.default)) {
-    metadata.default = schema.default;
-  }
-
-  if (isBoolean(schema.isHidden)) {
-    metadata.isHidden = schema.isHidden;
-  } else if (isBoolean(schema.hidden)) {
-    metadata.isHidden = schema.hidden;
-  }
-
-  if (isBoolean(schema.isIgnored)) {
-    metadata.isIgnored = schema.isIgnored;
-  } else if (isBoolean(schema.ignored)) {
-    metadata.isIgnored = schema.ignored;
-  }
-
-  if (isBoolean(schema.isReadonly)) {
-    metadata.isReadonly = schema.isReadonly;
-  } else if (isBoolean(schema.readonly)) {
-    metadata.isReadonly = schema.readonly;
-  }
-
-  if (isBoolean(schema.isPrimaryKey)) {
-    metadata.isPrimaryKey = schema.isPrimaryKey;
-  } else if (isBoolean(schema.primaryKey)) {
-    metadata.isPrimaryKey = schema.primaryKey;
-  }
-
-  if (isBoolean(schema.isInternal)) {
-    metadata.isInternal = schema.isInternal;
-  } else if (isBoolean(schema.internal)) {
-    metadata.isInternal = schema.internal;
-  }
-
-  if (isBoolean(schema.isRuntime)) {
-    metadata.isRuntime = schema.isRuntime;
-  } else if (isBoolean(schema.runtime)) {
-    metadata.isRuntime = schema.runtime;
-  }
-
-  if (isSetArray(schema.union)) {
-    metadata.union = schema.union as JsonSchemaLike[];
-  }
-
-  return Object.keys(metadata).length > 0 ? metadata : undefined;
-}
-
-/**
- * Attaches metadata and nullability flags to a JTD form, mutating and returning the form.
- *
- * @param form - The base JTD form to decorate.
- * @param schema - The source JSON Schema fragment from which annotations are read.
- * @param nullable - Whether the schema is nullable in JTD semantics.
- * @returns The decorated JTD form.
- */
-function decorate<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(
-  form: JTDSchemaType<TMetadata>,
+function withJtdNullable(
   schema: JsonSchemaLike,
-  nullable: boolean
-): JTDSchemaType<TMetadata> {
-  if (nullable) {
-    (form as { nullable?: boolean }).nullable = true;
+  nullable: boolean | undefined
+): JsonSchemaLike {
+  if (!nullable) {
+    return schema;
   }
-  const metadata = collectMetadata<TMetadata>(schema);
-  if (metadata) {
-    (form as { metadata?: TMetadata }).metadata = metadata;
+
+  const types = Array.isArray(schema.type)
+    ? [...schema.type]
+    : schema.type
+      ? [schema.type]
+      : [];
+  if (!types.includes("null")) {
+    types.push("null");
   }
-  return form;
+
+  return { ...schema, type: types.length === 1 ? types[0] : types };
 }
 
 /**
- * Determines whether the supplied list of JSON Schema types collapses to `null` only.
+ * Converts a JSON Type Definition (RFC 8927) schema into JSON Schema (draft-07).
  *
- * @param types - The normalized list of JSON Schema type names.
- * @returns `true` if the only declared type is `null`.
+ * @param schema - The JTD schema to convert.
+ * @returns A JSON Schema fragment, or `undefined` when the input is not a JTD form.
  */
-function isNullOnly(types: string[]): boolean {
-  return types.length > 0 && types.every(t => t === "null");
-}
-
-/**
- * Splits a `null` declaration away from a list of JSON Schema types.
- *
- * @param types - The normalized list of JSON Schema type names.
- * @returns A tuple of `[nonNullTypes, nullable]` describing the remaining types and whether `null` was present.
- */
-function stripNull(types: string[]): { types: string[]; nullable: boolean } {
-  const nullable = types.includes("null");
-
-  return { types: types.filter(t => t !== "null"), nullable };
-}
-
-/**
- * Converts a JSON Schema `enum` keyword to a JTD enum form, stringifying values when required.
- *
- * @param values - The raw enum values from the JSON Schema fragment.
- * @returns A JTD enum form, or `undefined` if the enum cannot be represented (e.g. empty list).
- */
-function enumToJtd<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(values: readonly unknown[]): JTDSchemaType<TMetadata> | undefined {
-  const strings = values
-    .filter(v => v !== null && v !== undefined)
-    .map(v => String(v));
-  if (strings.length === 0) {
-    return undefined;
-  }
-  return { enum: Array.from(new Set(strings)) };
-}
-
-/**
- * Selects the most appropriate JTD numeric `type` value for a JSON Schema integer fragment.
- *
- * @param schema - The integer JSON Schema fragment.
- * @returns The chosen JTD integer type.
- */
-function pickIntegerJtdType(schema: JsonSchemaLike): JTDNumberType {
-  const mapped = jsonSchemaIntegerFormatToJtd(schema.format);
-  if (mapped) {
-    return mapped;
-  }
-  const unsigned = pickUnsignedIntegerType(schema.minimum, schema.maximum);
-  if (unsigned) {
-    return unsigned;
-  }
-  return pickSignedIntegerType(schema.minimum, schema.maximum) ?? "int32";
-}
-
-/**
- * Selects the most appropriate JTD numeric `type` value for a JSON Schema number fragment.
- *
- * @param schema - The number JSON Schema fragment.
- * @returns The chosen JTD floating point type.
- */
-function pickNumberJtdType(schema: JsonSchemaLike): JTDNumberType {
-  return jsonSchemaNumberFormatToJtd(schema.format) ?? "float64";
-}
-
-/**
- * Selects the JTD string `type` value for a JSON Schema string fragment, mapping `format: "date-time"` to `timestamp`.
- *
- * @param schema - The string JSON Schema fragment.
- * @returns The chosen JTD string type.
- */
-function pickStringJtdType(schema: JsonSchemaLike): "string" | "timestamp" {
-  if (schema.format === "date-time") {
-    return "timestamp";
-  }
-  return "string";
-}
-
-/**
- * Converts a JSON Schema object fragment into a JTD properties form.
- *
- * @param schema - The object JSON Schema fragment.
- * @param nullable - Whether the resulting JTD form should be nullable.
- * @returns The JTD properties form representing the object.
- */
-function objectToJtd<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(schema: JsonSchemaLike, nullable: boolean): JTDSchemaType<TMetadata> {
-  const required = new Set(schema.required ?? []);
-  const properties: Record<string, JTDSchemaType<TMetadata>> = {};
-  const optionalProperties: Record<string, JTDSchemaType<TMetadata>> = {};
-
-  const metadata = {
-    default: schema.default ?? {}
-  } as TMetadata & { default: Record<string, unknown> };
-
-  if (schema.properties) {
-    for (const [key, value] of Object.entries(schema.properties)) {
-      if (!isUndefined(value.default)) {
-        metadata.default[key] = value.default;
-      }
-
-      const converted = jsonSchemaToJtd<TMetadata>(value);
-      if (!converted) {
-        continue;
-      }
-
-      if (required.has(key)) {
-        properties[key] = converted;
-      } else {
-        optionalProperties[key] = converted;
-      }
-    }
-  }
-
-  const hasProperties = Object.keys(properties).length > 0;
-  const hasOptional = Object.keys(optionalProperties).length > 0;
-
-  // JTD requires `values` form for open maps with a single value schema.
-  // patternProperties / additionalProperties: object collapses to `values`
-  // when there are no declared properties.
-  if (
-    !hasProperties &&
-    !hasOptional &&
-    isJsonSchemaLike(schema.additionalProperties)
-  ) {
-    const values = jsonSchemaToJtd<TMetadata>(schema.additionalProperties);
-    if (values) {
-      return decorate<TMetadata>({ metadata, values }, schema, nullable);
-    }
-  }
-  if (!hasProperties && !hasOptional && schema.patternProperties) {
-    const first = Object.values(schema.patternProperties)[0];
-    if (first) {
-      const values = jsonSchemaToJtd<TMetadata>(first);
-      if (values) {
-        return decorate<TMetadata>({ metadata, values }, schema, nullable);
-      }
-    }
-  }
-
-  const form: {
-    metadata: TMetadata;
-    properties?: Record<string, JTDSchemaType<TMetadata>>;
-    optionalProperties?: Record<string, JTDSchemaType<TMetadata>>;
-    additionalProperties?: boolean;
-  } = { metadata };
-
-  if (hasProperties) {
-    form.properties = properties;
-  } else if (!hasOptional) {
-    // JTD object form must have at least one of properties / optionalProperties.
-    form.properties = {};
-  }
-  if (hasOptional) {
-    form.optionalProperties = optionalProperties;
-  }
-  if (
-    schema.additionalProperties === true ||
-    isJsonSchemaLike(schema.additionalProperties) ||
-    schema.patternProperties !== undefined
-  ) {
-    form.additionalProperties = true;
-  }
-
-  return decorate<TMetadata>(form, schema, nullable);
-}
-
-/**
- * Converts a JSON Schema array fragment into a JTD elements form.
- *
- * @param schema - The array JSON Schema fragment.
- * @param nullable - Whether the resulting JTD form should be nullable.
- * @returns The JTD elements form representing the array.
- */
-function arrayToJtd<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(schema: JsonSchemaLike, nullable: boolean): JTDSchemaType<TMetadata> {
-  let elementSchema: JsonSchemaLike | undefined;
-  if (Array.isArray(schema.items)) {
-    // Tuple form — JTD has no native tuple support. Best effort: collapse to
-    // the union (anyOf) of the tuple member schemas; if there is only one
-    // distinct shape, fall back to using it directly.
-    elementSchema = schema.items[0];
-  } else if (schema.items) {
-    elementSchema = schema.items;
-  }
-
-  const elements = elementSchema
-    ? jsonSchemaToJtd<TMetadata>(elementSchema)
-    : {};
-
-  return decorate<TMetadata>({ elements: elements ?? {} }, schema, nullable);
-}
-
-/**
- * Attempts to detect and emit a JTD discriminator form from a JSON Schema `oneOf` or `anyOf` fragment.
- *
- * @param schemas - The list of candidate JSON Schema fragments.
- * @param nullable - Whether the resulting JTD form should be nullable.
- * @returns A discriminator form when every branch shares a single tag property, otherwise `undefined`.
- */
-function tryDiscriminator<
+export function jtdToJsonSchema<
   TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
 >(
-  schemas: readonly JsonSchemaLike[],
-  nullable: boolean
-): JTDSchemaType<TMetadata> | undefined {
-  if (schemas.length < 2) {
+  schema: JTDSchemaType<TMetadata> | undefined | null
+): JsonSchemaType | undefined {
+  if (!isJtdForm(schema)) {
     return undefined;
   }
 
-  let candidateKey: string | undefined;
-  const mapping: Record<string, JTDSchemaType<TMetadata>> = {};
+  const annotations = jtdMetadataToJsonSchema(schema);
+  const nullable = schema.nullable === true;
 
-  for (const branch of schemas) {
-    if (!isJsonSchemaLike(branch) || !branch.properties) {
-      return undefined;
-    }
-
-    const constantTags = Object.entries(branch.properties).filter(
-      ([, value]) =>
-        isJsonSchemaLike(value) &&
-        (typeof value.const === "string" ||
-          (Array.isArray(value.enum) &&
-            value.enum.length === 1 &&
-            typeof value.enum[0] === "string"))
+  if (isSetString((schema as { ref?: string }).ref)) {
+    const ref = (schema as { ref: string }).ref;
+    return withJtdNullable(
+      {
+        ...annotations,
+        $ref: `#/definitions/${ref}`
+      },
+      nullable
     );
-    if (constantTags.length === 0) {
-      return undefined;
+  }
+
+  if ("type" in schema && isSetString(schema.type)) {
+    const jtdType = schema.type;
+    if (jtdType === "timestamp") {
+      return withJtdNullable(
+        { ...annotations, type: "string", format: "date-time" },
+        nullable
+      );
     }
-
-    const [tagKey, tagSchema] = constantTags[0]!;
-    if (!candidateKey) {
-      candidateKey = tagKey;
-    } else if (candidateKey !== tagKey) {
-      return undefined;
+    if (jtdType === "boolean" || jtdType === "string") {
+      return withJtdNullable({ ...annotations, type: jtdType }, nullable);
     }
-
-    const tag =
-      typeof tagSchema.const === "string"
-        ? tagSchema.const
-        : (tagSchema.enum?.[0] as string);
-
-    // Remove the discriminator property from the branch before converting,
-    // as JTD's mapping schemas describe the remainder of the object.
-    const { [tagKey]: _omit, ...restProperties } = branch.properties;
-    const restRequired = (branch.required ?? []).filter(k => k !== tagKey);
-    const branchSchema: JsonSchemaLike = {
-      ...branch,
-      properties: restProperties,
-      required: restRequired
-    };
-
-    const branchForm = jsonSchemaToJtd<TMetadata>(branchSchema);
-    if (!branchForm || !isSetObject(branchForm) || "ref" in branchForm) {
-      return undefined;
-    }
-
-    mapping[tag] = branchForm;
-  }
-
-  if (!candidateKey) {
-    return undefined;
-  }
-
-  const form: JTDSchemaType<TMetadata> = {
-    discriminator: candidateKey,
-    mapping
-  };
-  if (nullable) {
-    (form as { nullable?: boolean }).nullable = true;
-  }
-
-  return form;
-}
-
-/**
- * Converts a JSON Schema fragment (draft-07 style, as produced by `zod-to-json-schema`, Standard Schema, etc.) into a valid JSON Type Definition (RFC 8927) schema.
- *
- * Unsupported JSON Schema keywords (`pattern`, `const`, `minItems`, `maxItems`, `uniqueItems`, etc.) are dropped — JTD intentionally omits these. Annotation keywords (`description`, `title`, `default`, `examples`) are preserved under the JTD `metadata` field.
- *
- * @param schema - The JSON Schema fragment to convert.
- * @returns A valid JTD form, or `undefined` if the input cannot be represented.
- */
-export function jsonSchemaToJtd<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(
-  schema: JsonSchemaLike | undefined | null
-): JTDSchemaType<TMetadata> | undefined {
-  if (!isJsonSchemaLike(schema)) {
-    return undefined;
-  }
-
-  // $ref → JTD ref form. The pointer must reference `#/definitions/<name>`.
-  if (isSetString(schema.$ref)) {
-    const match = /^#\/(?:definitions|\$defs)\/(.+)$/.exec(schema.$ref);
-    if (match) {
-      return { ref: match[1]! };
+    if (
+      jtdType.startsWith("int") ||
+      jtdType.startsWith("uint") ||
+      jtdType.startsWith("float")
+    ) {
+      return withJtdNullable(
+        {
+          ...annotations,
+          type: jtdType.startsWith("float") ? "number" : "integer",
+          format: jtdType
+        },
+        nullable
+      );
     }
   }
 
-  // allOf — fold member schemas together via shallow merge before converting.
-  if (Array.isArray(schema.allOf) && schema.allOf.length > 0) {
-    const merged = schema.allOf.reduce<JsonSchemaLike>(
-      (acc, current) => mergeJsonSchema(acc, current),
-      {}
+  if ("enum" in schema && isSetArray(schema.enum)) {
+    return withJtdNullable({ ...annotations, enum: schema.enum }, nullable);
+  }
+
+  if ("elements" in schema) {
+    const items = jtdToJsonSchema(schema.elements) ?? {};
+    return withJtdNullable(
+      { ...annotations, type: "array", items },
+      nullable
     );
-    const { allOf: _allOf, ...rest } = schema;
-
-    return jsonSchemaToJtd<TMetadata>(mergeJsonSchema(merged, rest));
   }
 
-  const rawTypes = readTypes(schema);
-  const { types: nonNullTypes, nullable: typeIsNullable } = stripNull(rawTypes);
-  const nullable = Boolean(schema.nullable) || typeIsNullable;
-
-  // Pure null type → JTD has no first-class null form, emit empty + nullable.
-  if (isNullOnly(rawTypes)) {
-    return decorate<TMetadata>({}, schema, true);
-  }
-
-  // Enum form.
-  if (Array.isArray(schema.enum)) {
-    const enumForm = enumToJtd<TMetadata>(schema.enum);
-    if (enumForm) {
-      return decorate<TMetadata>(enumForm, schema, nullable);
-    }
-  }
-
-  // const → enum of one (only valid when value is a string in JTD).
-  if (isSetString(schema.const)) {
-    return decorate<TMetadata>({ enum: [schema.const] }, schema, nullable);
-  }
-
-  // anyOf / oneOf — try to detect a discriminated union, otherwise collapse.
-  const union = schema.oneOf ?? schema.anyOf;
-  if (Array.isArray(union) && union.length > 0) {
-    const branches = union.filter(isJsonSchemaLike);
-    const onlyNullBranches = branches.filter(b =>
-      readTypes(b).includes("null")
+  if ("values" in schema) {
+    const additionalProperties = jtdToJsonSchema(schema.values) ?? true;
+    return withJtdNullable(
+      { ...annotations, type: "object", additionalProperties },
+      nullable
     );
-    const nonNullBranches = branches.filter(
-      b => !isNullOnly(readTypes(b)) && readTypes(b).join() !== "null"
-    );
-    const unionNullable = nullable || onlyNullBranches.length > 0;
-
-    if (nonNullBranches.length === 1) {
-      const collapsed = jsonSchemaToJtd<TMetadata>(nonNullBranches[0]);
-      if (collapsed) {
-        return decorate<TMetadata>(collapsed, schema, unionNullable);
-      }
-    }
-
-    const discriminated = tryDiscriminator<TMetadata>(
-      nonNullBranches,
-      unionNullable
-    );
-    if (discriminated) {
-      const metadata = collectMetadata<TMetadata>(schema);
-      if (metadata) {
-        (discriminated as { metadata?: TMetadata }).metadata = metadata;
-      }
-      return discriminated;
-    }
-
-    // No safe JTD equivalent: emit empty schema (matches any value) with
-    // metadata to preserve provenance.
-    const fallback = decorate<TMetadata>({}, schema, unionNullable);
-    const metadata =
-      (fallback as { metadata?: TMetadata }).metadata ?? ({} as TMetadata);
-    metadata.union = union;
-    (fallback as { metadata?: TMetadata }).metadata = metadata;
-    return fallback;
   }
 
-  // Object form — `type: "object"` or implicit via `properties`.
+  if ("discriminator" in schema && isSetObject(schema.mapping)) {
+    const tag = schema.discriminator;
+    const oneOf = Object.entries(schema.mapping).map(([tagValue, branch]) => {
+      const converted = jtdToJsonSchema(branch) ?? { type: "object" };
+      return {
+        type: "object",
+        properties: {
+          [tag]: { const: tagValue },
+          ...(converted.properties ?? {})
+        },
+        required: [tag, ...(converted.required ?? [])],
+        additionalProperties: converted.additionalProperties ?? false
+      } satisfies JsonSchemaLike;
+    });
+
+    return withJtdNullable(
+      {
+        ...annotations,
+        oneOf,
+        discriminator: { propertyName: tag }
+      },
+      nullable
+    );
+  }
+
   if (
-    nonNullTypes.includes("object") ||
-    schema.properties ||
-    schema.patternProperties ||
-    isJsonSchemaLike(schema.additionalProperties)
+    ("properties" in schema && isSetObject(schema.properties)) ||
+    ("optionalProperties" in schema && isSetObject(schema.optionalProperties))
   ) {
-    const result = objectToJtd<TMetadata>(schema, nullable);
-    const definitions = schema.definitions ?? schema.$defs;
-    if (definitions && Object.keys(definitions).length > 0) {
-      const converted: Record<string, JTDSchemaType<TMetadata>> = {};
-      for (const [key, value] of Object.entries(definitions)) {
-        const def = jsonSchemaToJtd<TMetadata>(value);
-        if (def) {
-          converted[key] = def;
+    const properties: Record<string, JsonSchemaLike> = {};
+    const required: string[] = [];
+
+    if (schema.properties) {
+      for (const [key, value] of Object.entries(schema.properties)) {
+        const converted = jtdToJsonSchema(value);
+        if (converted) {
+          properties[key] = converted;
+          required.push(key);
         }
       }
-      if (Object.keys(converted).length > 0) {
-        (
-          result as { definitions?: Record<string, JTDSchemaType<TMetadata>> }
-        ).definitions = converted;
+    }
+
+    if (schema.optionalProperties) {
+      for (const [key, value] of Object.entries(schema.optionalProperties)) {
+        const converted = jtdToJsonSchema(value);
+        if (converted) {
+          properties[key] = converted;
+        }
       }
     }
-    return result;
-  }
 
-  if (nonNullTypes.includes("array")) {
-    return arrayToJtd<TMetadata>(schema, nullable);
-  }
-
-  // Scalar types.
-  if (nonNullTypes.length === 1) {
-    const t = nonNullTypes[0]!;
-    if (t === "string") {
-      return decorate<TMetadata>(
-        { type: pickStringJtdType(schema) },
-        schema,
-        nullable
-      );
-    }
-    if (t === "boolean") {
-      return decorate<TMetadata>({ type: "boolean" }, schema, nullable);
-    }
-    if (t === "integer") {
-      return decorate<TMetadata>(
-        { type: pickIntegerJtdType(schema) },
-        schema,
-        nullable
-      );
-    }
-    if (t === "number") {
-      return decorate<TMetadata>(
-        { type: pickNumberJtdType(schema) },
-        schema,
-        nullable
-      );
-    }
-  }
-
-  // Mixed scalar types (e.g. ["string", "number"]) — emit empty schema since
-  // JTD has no native union of primitives.
-  if (nonNullTypes.length > 1) {
-    return decorate<TMetadata>({}, schema, nullable);
-  }
-
-  // No type info — empty (any) schema, possibly nullable.
-  return decorate<TMetadata>({}, schema, nullable);
-}
-
-/**
- * Shallow-merges two JSON Schema fragments, combining `required` arrays and `properties` maps.
- *
- * @param left - The base schema fragment.
- * @param right - The schema fragment to merge into the base.
- * @returns A merged schema fragment. Neither input is mutated.
- */
-function mergeJsonSchema(
-  left: JsonSchemaLike,
-  right: JsonSchemaLike
-): JsonSchemaLike {
-  const merged: JsonSchemaLike = { ...left, ...right };
-  if (left.properties || right.properties) {
-    merged.properties = {
-      ...(left.properties ?? {}),
-      ...(right.properties ?? {})
+    const result: JsonSchemaLike = {
+      ...annotations,
+      type: "object",
+      properties,
+      ...(required.length > 0 ? { required } : {}),
+      ...(schema.additionalProperties
+        ? { additionalProperties: true }
+        : { additionalProperties: false })
     };
+
+    if (schema.definitions) {
+      const definitions: Record<string, JsonSchemaLike> = {};
+      for (const [key, value] of Object.entries(schema.definitions)) {
+        const converted = jtdToJsonSchema(value);
+        if (converted) {
+          definitions[key] = converted;
+        }
+      }
+      if (Object.keys(definitions).length > 0) {
+        result.definitions = definitions;
+      }
+    }
+
+    return withJtdNullable(result, nullable);
   }
-  if (left.required || right.required) {
-    merged.required = Array.from(
-      new Set([...(left.required ?? []), ...(right.required ?? [])])
-    );
+
+  if (Object.keys(schema).length === 0 || (nullable && Object.keys(schema).length === 1)) {
+    return withJtdNullable(annotations, nullable);
   }
-  return merged;
+
+  return withJtdNullable(annotations, nullable);
 }
+

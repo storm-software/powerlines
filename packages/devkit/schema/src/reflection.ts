@@ -28,313 +28,281 @@ import {
   TypeObjectLiteral
 } from "@powerlines/deepkit/vendor/type";
 import { isSetArray, isSetObject, isSetString } from "@stryke/type-checks";
+import { JsonSchemaType } from "@stryke/json/types";
 import defu from "defu";
-import { JTDSchemaType, SchemaMetadata } from "./types";
+import { applySchemaMetadata, getSchemaMetadata } from "./metadata";
+import { JsonSchemaLike, SchemaMetadata } from "./types";
 
 /**
- * Maps a Deepkit numeric `brand` to the JTD numeric `type` keyword that best preserves the underlying width and signedness.
- *
- * @param brand - The Deepkit `TypeNumberBrand` of a numeric reflection, or `undefined` when no brand is set.
- * @returns The JTD numeric `type` keyword to use.
+ * Maps a Deepkit numeric `brand` to JSON Schema `type` and `format`.
  */
-function numberBrandToJtdType(
-  brand: TypeNumberBrand | undefined
-):
-  | "int8"
-  | "uint8"
-  | "int16"
-  | "uint16"
-  | "int32"
-  | "uint32"
-  | "float32"
-  | "float64" {
+function numberBrandToJsonSchema(brand: TypeNumberBrand | undefined): {
+  type: "integer" | "number";
+  format?: string;
+} {
   switch (brand) {
     case TypeNumberBrand.integer:
-      return "int32";
+      return { type: "integer" };
     case TypeNumberBrand.int8:
-      return "int8";
+      return { type: "integer", format: "int8" };
     case TypeNumberBrand.uint8:
-      return "uint8";
+      return { type: "integer", format: "uint8" };
     case TypeNumberBrand.int16:
-      return "int16";
+      return { type: "integer", format: "int16" };
     case TypeNumberBrand.uint16:
-      return "uint16";
+      return { type: "integer", format: "uint16" };
     case TypeNumberBrand.int32:
-      return "int32";
+      return { type: "integer", format: "int32" };
     case TypeNumberBrand.uint32:
-      return "uint32";
+      return { type: "integer", format: "uint32" };
     case TypeNumberBrand.float:
     case TypeNumberBrand.float32:
-      return "float32";
+      return { type: "number", format: "float" };
     case TypeNumberBrand.float64:
-      return "float64";
+      return { type: "number", format: "double" };
     case undefined:
     default:
-      return "float64";
+      return { type: "number" };
   }
 }
 
+function withReflectionTags<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+>(reflection: Type, schema: JsonSchemaLike): JsonSchemaLike {
+  if (!isSetObject((reflection as { tags?: TagsReflection })?.tags)) {
+    return schema;
+  }
+
+  const tags = (reflection as { tags: TagsReflection }).tags;
+  const metadata = {
+    ...getSchemaMetadata<TMetadata>(schema),
+    ...(tags.readonly === true ? { isReadonly: true } : {}),
+    ...(tags.ignore === true ? { isIgnored: true } : {}),
+    ...(tags.internal === true ? { isInternal: true } : {}),
+    ...(tags.runtime === true ? { isRuntime: true } : {}),
+    ...(tags.hidden === true ? { isHidden: true } : {}),
+    ...(isSetArray(tags.alias) ? { alias: tags.alias } : {}),
+    ...(isSetString(tags.title) ? { title: tags.title } : {})
+  } as TMetadata;
+
+  return applySchemaMetadata(schema, metadata);
+}
+
+function withNullable(
+  schema: JsonSchemaLike,
+  nullable: boolean
+): JsonSchemaLike {
+  if (!nullable) {
+    return schema;
+  }
+
+  const types = Array.isArray(schema.type)
+    ? [...schema.type]
+    : schema.type
+      ? [schema.type]
+      : [];
+  if (!types.includes("null")) {
+    types.push("null");
+  }
+
+  return { ...schema, type: types.length === 1 ? types[0] : types };
+}
+
 /**
- * Converts a Deepkit type reflection into a JSON Type Definition (RFC 8927) form suitable for AJV's JTD validator.
- *
- * @remarks
- * Some TypeScript constructs have no direct JTD equivalent and are handled with the closest available form:
- *
- * - `null` and `undefined` become the empty JTD form with `nullable: true`.
- * - Unions of primitives that cannot be expressed as a JTD enum collapse to the empty form (which validates any value).
- * - String/number/bigint literal unions are emitted as a JTD enum (non-string members are stringified, as JTD requires string enum members).
- * - Tuples are emitted as a JTD elements form whose element schema is the single tuple member type, or the empty schema for mixed tuples.
- * - `Date` is emitted as `{ type: "timestamp" }`.
- * - Discriminated unions of object literals (a shared string-literal tag property) are emitted as a JTD discriminator form.
- *
- * @param reflection - The Deepkit type reflection to convert.
- * @returns The corresponding JTD form, or `undefined` if the type cannot be represented.
+ * Converts a Deepkit type reflection into a JSON Schema (draft-07) fragment.
  */
 export function reflectionToJsonSchema<
   TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(reflection: Type): JTDSchemaType<TMetadata> | undefined {
-  const result = reflectionToJtd<TMetadata>(reflection);
-
-  return result;
+>(reflection: Type): JsonSchemaType | undefined {
+  return reflectionToJsonSchemaInner<TMetadata>(reflection);
 }
 
-/**
- * Internal worker that performs the recursive Deepkit reflection → JTD conversion.
- *
- * @param reflection - The Deepkit type reflection to convert.
- * @returns The corresponding JTD form, or `undefined` if the type cannot be represented.
- */
-function reflectionToJtd<
+function reflectionToJsonSchemaInner<
   TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(reflection: Type): JTDSchemaType<TMetadata> | undefined {
-  const schema = {} as JTDSchemaType<TMetadata>;
-
-  if (isSetObject((reflection as { tags?: TagsReflection })?.tags)) {
-    const tags = (reflection as { tags: TagsReflection }).tags;
-
-    schema.metadata = (schema.metadata ?? {}) as TMetadata;
-    if (tags.readonly === true) {
-      schema.metadata.isReadonly = true;
-    }
-    if (tags.ignore === true) {
-      schema.metadata.isIgnored = true;
-    }
-    if (tags.internal === true) {
-      schema.metadata.isInternal = true;
-    }
-    if (tags.runtime === true) {
-      schema.metadata.isRuntime = true;
-    }
-    if (tags.hidden === true) {
-      schema.metadata.isHidden = true;
-    }
-    if (isSetArray(tags.alias)) {
-      schema.metadata.alias = tags.alias;
-    }
-    if (isSetString(tags.title)) {
-      schema.metadata.title = tags.title;
-    }
-  }
-
+>(reflection: Type): JsonSchemaType | undefined {
   switch (reflection.kind) {
     case ReflectionKind.any:
     case ReflectionKind.unknown:
     case ReflectionKind.void:
     case ReflectionKind.object:
-      return {};
+      return withReflectionTags<TMetadata>(reflection, {});
     case ReflectionKind.never:
       return undefined;
     case ReflectionKind.undefined:
     case ReflectionKind.null:
-      return { nullable: true };
+      return withReflectionTags<TMetadata>(reflection, { type: "null" });
     case ReflectionKind.string:
-      return { ...schema, type: "string" };
+      return withReflectionTags<TMetadata>(reflection, { type: "string" });
     case ReflectionKind.boolean:
-      return { ...schema, type: "boolean" };
-    case ReflectionKind.number:
-      return {
-        ...schema,
-        type: numberBrandToJtdType(reflection.brand)
-      };
+      return withReflectionTags<TMetadata>(reflection, { type: "boolean" });
+    case ReflectionKind.number: {
+      const numeric = numberBrandToJsonSchema(reflection.brand);
+      return withReflectionTags<TMetadata>(reflection, numeric);
+    }
     case ReflectionKind.bigint:
-      // JTD has no native 64-bit integer type — float64 is the widest numeric form.
-      return { ...schema, type: "float64" };
+      return withReflectionTags<TMetadata>(reflection, { type: "integer" });
     case ReflectionKind.regexp:
-      return { ...schema, type: "string" };
+      return withReflectionTags<TMetadata>(reflection, { type: "string" });
     case ReflectionKind.literal: {
       const { literal } = reflection;
-      if (typeof literal === "string") {
-        return { ...schema, enum: [literal] };
+      if (
+        typeof literal === "string" ||
+        typeof literal === "number" ||
+        typeof literal === "boolean"
+      ) {
+        return withReflectionTags<TMetadata>(reflection, { const: literal });
       }
-
-      if (typeof literal === "number" || typeof literal === "bigint") {
-        return {
-          ...schema,
-          enum: [String(literal)]
-        };
+      if (typeof literal === "bigint") {
+        return withReflectionTags<TMetadata>(reflection, {
+          const: String(literal)
+        });
       }
-
-      if (typeof literal === "boolean") {
-        // JTD has no boolean literal — emit the type form.
-        return { ...schema, type: "boolean" };
-      }
-
       if (literal instanceof RegExp) {
-        return { ...schema, type: "string" };
+        return withReflectionTags<TMetadata>(reflection, { type: "string" });
       }
-
-      return schema;
+      return withReflectionTags<TMetadata>(reflection, {});
     }
     case ReflectionKind.templateLiteral:
-      return { ...schema, type: "string" };
+      return withReflectionTags<TMetadata>(reflection, { type: "string" });
     case ReflectionKind.enum: {
-      const values = reflection.values
-        .filter(
-          (value): value is string | number =>
-            typeof value === "string" || typeof value === "number"
-        )
-        .map(value => String(value));
-
-      const unique = Array.from(new Set(values));
-      if (unique.length === 0) {
-        return schema;
+      const values = reflection.values.filter(
+        value =>
+          typeof value === "string" ||
+          typeof value === "number" ||
+          typeof value === "boolean"
+      );
+      if (values.length === 0) {
+        return withReflectionTags<TMetadata>(reflection, {});
       }
-
-      return { ...schema, enum: unique };
+      return withReflectionTags<TMetadata>(reflection, { enum: values });
     }
     case ReflectionKind.array: {
-      const items = reflectionToJtd<TMetadata>(reflection.type);
-
-      return { ...schema, elements: items ?? {} };
+      const items = reflectionToJsonSchemaInner<TMetadata>(reflection.type);
+      return withReflectionTags<TMetadata>(reflection, {
+        type: "array",
+        items: items ?? {}
+      });
     }
     case ReflectionKind.tuple: {
       const items = reflection.types
-        .map(member => reflectionToJtd<TMetadata>(member.type))
-        .filter((item): item is JTDSchemaType<TMetadata> => item !== undefined);
-      if (items.length === 0) {
-        return { ...schema, elements: {} };
+        .map(member => reflectionToJsonSchemaInner<TMetadata>(member.type))
+        .filter((item): item is JsonSchemaType => item !== undefined);
+      if (items.length <= 1) {
+        return withReflectionTags<TMetadata>(reflection, {
+          type: "array",
+          items: items[0] ?? {}
+        });
       }
-
-      if (items.length === 1) {
-        return { ...schema, elements: items[0]! };
-      }
-
-      // JTD has no tuple form — accept any element shape.
-      return { ...schema, elements: {} };
+      return withReflectionTags<TMetadata>(reflection, {
+        type: "array",
+        items,
+        minItems: items.length,
+        maxItems: items.length
+      });
     }
     case ReflectionKind.union: {
       const branches = reflection.types
-        .map(inner => reflectionToJtd<TMetadata>(inner))
-        .filter((item): item is JTDSchemaType<TMetadata> => item !== undefined);
-
+        .map(inner => reflectionToJsonSchemaInner<TMetadata>(inner))
+        .filter((item): item is JsonSchemaType => item !== undefined);
       const nullable = reflection.types.some(
         inner =>
           inner.kind === ReflectionKind.null ||
           inner.kind === ReflectionKind.undefined
       );
-      const nonNull = branches.filter(b => !isPureNullable(b));
+      const nonNull = branches.filter(
+        branch => branch.type !== "null" && !isNullOnlySchema(branch)
+      );
 
       if (nonNull.length === 0) {
-        return { ...schema, nullable: true };
+        return withReflectionTags<TMetadata>(reflection, { type: "null" });
       }
 
       if (nonNull.length === 1) {
-        const only = nonNull[0]!;
-        if (nullable) {
-          (only as { nullable?: boolean }).nullable = true;
-        }
-
-        return { ...schema, ...only };
-      }
-
-      // String-enum union: combine all enum branches into one JTD enum.
-      if (nonNull.every(isEnumForm)) {
-        const merged = Array.from(
-          new Set(nonNull.flatMap(b => (b as { enum: string[] }).enum))
+        return withNullable(
+          withReflectionTags<TMetadata>(reflection, nonNull[0]!),
+          nullable
         );
-        const form: JTDSchemaType<TMetadata> = { ...schema, enum: merged };
-
-        if (nullable) {
-          (form as { nullable?: boolean }).nullable = true;
-        }
-
-        return { ...schema, ...form };
       }
 
-      // Discriminated union of object literals: detect a shared string-literal tag.
+      const enumValues = nonNull
+        .map(branch => branch.const)
+        .filter(value => value !== undefined);
+      if (enumValues.length === nonNull.length) {
+        return withNullable(
+          withReflectionTags<TMetadata>(reflection, { enum: enumValues }),
+          nullable
+        );
+      }
+
       const discriminator = tryReflectionDiscriminator<TMetadata>(
         reflection.types
       );
       if (discriminator) {
-        if (nullable) {
-          (discriminator as { nullable?: boolean }).nullable = true;
-        }
-
-        return { ...schema, ...discriminator };
+        return withNullable(
+          withReflectionTags<TMetadata>(reflection, discriminator),
+          nullable
+        );
       }
 
-      // Fallback — JTD has no general union; allow any value.
-      const fallback: JTDSchemaType<TMetadata> = {};
-      if (nullable) {
-        (fallback as { nullable?: boolean }).nullable = true;
-      }
-
-      return { ...schema, ...fallback };
+      return withNullable(
+        withReflectionTags<TMetadata>(reflection, { anyOf: nonNull }),
+        nullable
+      );
     }
     case ReflectionKind.intersection: {
       const members = reflection.types
-        .map(inner => reflectionToJtd<TMetadata>(inner))
-        .filter(
-          (item): item is JTDSchemaType<TMetadata> | undefined =>
-            item !== undefined
-        );
+        .map(inner => reflectionToJsonSchemaInner<TMetadata>(inner))
+        .filter((item): item is JsonSchemaType => item !== undefined);
       if (members.length === 0) {
-        return undefined as JTDSchemaType<TMetadata> | undefined;
+        return undefined;
       }
-
       if (members.length === 1) {
-        return { ...schema, ...members[0] };
+        return withReflectionTags<TMetadata>(reflection, members[0]!);
       }
-
-      if (
-        members.every(member => member && isPropertiesForm<TMetadata>(member))
-      ) {
-        return mergePropertiesForms<TMetadata>(
-          members as JTDSchemaType<TMetadata>[]
+      if (members.every(isObjectSchema)) {
+        return withReflectionTags<TMetadata>(
+          reflection,
+          mergeObjectSchemas(members)
         );
       }
-
-      return { ...schema, ...members[0] };
+      return withReflectionTags<TMetadata>(reflection, { allOf: members });
     }
     case ReflectionKind.promise:
-      return reflectionToJtd<TMetadata>(reflection.type);
+      return reflectionToJsonSchemaInner<TMetadata>(reflection.type);
     case ReflectionKind.objectLiteral:
-      return objectReflectionToJtd<TMetadata>(reflection);
+      return objectReflectionToJsonSchema<TMetadata>(reflection);
     case ReflectionKind.class: {
       const classType = reflection.classType as { name?: string } | undefined;
       const className = classType?.name;
       switch (className) {
         case "Date":
-          return { ...schema, type: "timestamp" };
+          return withReflectionTags<TMetadata>(reflection, {
+            type: "string",
+            format: "date-time"
+          });
         case "RegExp":
-          return { ...schema, type: "string" };
         case "URL":
-          return { ...schema, type: "string" };
+          return withReflectionTags<TMetadata>(reflection, { type: "string" });
         case "Set": {
           const itemType = reflection.arguments?.[0];
           const items = itemType
-            ? reflectionToJtd<TMetadata>(itemType)
+            ? reflectionToJsonSchemaInner<TMetadata>(itemType)
             : undefined;
-
-          return { ...schema, elements: items ?? {} };
+          return withReflectionTags<TMetadata>(reflection, {
+            type: "array",
+            items: items ?? {},
+            uniqueItems: true
+          });
         }
         case "Map": {
           const valueType = reflection.arguments?.[1];
           const values = valueType
-            ? reflectionToJtd<TMetadata>(valueType)
+            ? reflectionToJsonSchemaInner<TMetadata>(valueType)
             : undefined;
-
-          return { ...schema, values: values ?? {} };
+          return withReflectionTags<TMetadata>(reflection, {
+            type: "object",
+            additionalProperties: values ?? true
+          });
         }
         case "Uint8Array":
         case "Uint8ClampedArray":
@@ -347,11 +315,13 @@ function reflectionToJtd<
         case "Float64Array":
         case "BigInt64Array":
         case "BigUint64Array":
-          // Base64-encoded binary payload — represented as a plain string in JTD.
-          return { ...schema, type: "string" };
+          return withReflectionTags<TMetadata>(reflection, {
+            type: "string",
+            contentEncoding: "base64"
+          });
         case undefined:
         default:
-          return objectReflectionToJtd<TMetadata>(reflection);
+          return objectReflectionToJsonSchema<TMetadata>(reflection);
       }
     }
     case ReflectionKind.symbol:
@@ -373,131 +343,49 @@ function reflectionToJtd<
   }
 }
 
-/**
- * Tests whether a JTD form is an enum form.
- *
- * @param form - The JTD form to inspect.
- * @returns `true` if the form is a JTD enum form.
- */
-function isEnumForm<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(
-  form: JTDSchemaType<TMetadata>
-): form is { enum: string[]; nullable?: boolean; metadata?: TMetadata } {
-  return Array.isArray((form as { enum?: unknown[] }).enum);
+function isNullOnlySchema(schema: JsonSchemaLike): boolean {
+  return schema.type === "null";
 }
 
-/**
- * Tests whether a JTD form is a properties form (object).
- *
- * @param form - The JTD form to inspect.
- * @returns `true` if the form is a JTD properties form.
- */
-function isPropertiesForm<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(
-  form: JTDSchemaType<TMetadata>
-): form is {
-  properties: Record<string, JTDSchemaType<TMetadata>>;
-  optionalProperties?: Record<string, JTDSchemaType<TMetadata>>;
-  nullable?: boolean;
-  metadata?: TMetadata;
-} {
+function isObjectSchema(schema: JsonSchemaLike): boolean {
   return (
-    "properties" in (form as object) || "optionalProperties" in (form as object)
+    schema.type === "object" ||
+    isSetObject(schema.properties) ||
+    schema.additionalProperties !== undefined
   );
 }
 
-/**
- * Tests whether a JTD form is the empty `{ nullable: true }` placeholder.
- *
- * @param form - The JTD form to inspect.
- * @returns `true` if the form has no shape constraints beyond `nullable`.
- */
-function isPureNullable<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(form: JTDSchemaType<TMetadata>): boolean {
-  const keys = Object.keys(form as object).filter(
-    k => k !== "nullable" && k !== "metadata"
-  );
-
-  return (
-    keys.length === 0 && (form as { nullable?: boolean }).nullable === true
-  );
-}
-
-/**
- * Shallow-merges two JTD properties forms, unioning their `properties` and `optionalProperties` maps.
- *
- * @param forms - The JTD properties forms to merge.
- * @returns The merged JTD properties form.
- */
-function mergePropertiesForms<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(forms: JTDSchemaType<TMetadata>[]): JTDSchemaType<TMetadata> {
-  const merged: {
-    properties: Record<string, JTDSchemaType<TMetadata>>;
-    optionalProperties: Record<string, JTDSchemaType<TMetadata>>;
-    additionalProperties?: boolean;
-  } = {
+function mergeObjectSchemas(schemas: JsonSchemaLike[]): JsonSchemaLike {
+  const merged: JsonSchemaLike = {
+    type: "object",
     properties: {},
-    optionalProperties: {}
+    required: []
   };
 
-  for (const form of forms) {
-    const properties = (
-      form as { properties?: Record<string, JTDSchemaType<TMetadata>> }
-    ).properties;
-    const optionalProperties = (
-      form as { optionalProperties?: Record<string, JTDSchemaType<TMetadata>> }
-    ).optionalProperties;
-    if (properties) {
-      defu(merged.properties, properties);
+  for (const schema of schemas) {
+    if (schema.properties) {
+      merged.properties = defu(merged.properties, schema.properties);
     }
-    if (optionalProperties) {
-      defu(merged.optionalProperties, optionalProperties);
+    if (schema.required) {
+      merged.required = Array.from(
+        new Set([...(merged.required ?? []), ...schema.required])
+      );
     }
-    if ((form as { additionalProperties?: boolean }).additionalProperties) {
-      merged.additionalProperties = true;
+    if (schema.additionalProperties !== undefined) {
+      merged.additionalProperties = schema.additionalProperties;
     }
   }
 
-  const hasProperties = Object.keys(merged.properties).length > 0;
-  const hasOptional = Object.keys(merged.optionalProperties).length > 0;
-  const result: JTDSchemaType<TMetadata> = {};
-
-  if (hasProperties) {
-    (
-      result as { properties: Record<string, JTDSchemaType<TMetadata>> }
-    ).properties = merged.properties;
-  } else if (!hasOptional) {
-    (
-      result as { properties: Record<string, JTDSchemaType<TMetadata>> }
-    ).properties = {};
+  if ((merged.required?.length ?? 0) === 0) {
+    delete merged.required;
   }
 
-  if (hasOptional) {
-    (
-      result as { optionalProperties: Record<string, JTDSchemaType<TMetadata>> }
-    ).optionalProperties = merged.optionalProperties;
-  }
-
-  if (merged.additionalProperties) {
-    (result as { additionalProperties: boolean }).additionalProperties = true;
-  }
-
-  return result;
+  return merged;
 }
 
-/**
- * Detects whether a Deepkit union represents a tagged union and, when so, emits the corresponding JTD discriminator form.
- *
- * @param types - The Deepkit reflection types that make up the union branches.
- * @returns A JTD discriminator form if every non-null branch is an object literal that shares a string-literal tag property, otherwise `undefined`.
- */
 function tryReflectionDiscriminator<
   TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(types: readonly Type[]): JTDSchemaType<TMetadata> | undefined {
+>(types: readonly Type[]): JsonSchemaLike | undefined {
   const nonNullTypes = types.filter(
     t => t.kind !== ReflectionKind.null && t.kind !== ReflectionKind.undefined
   );
@@ -516,7 +404,7 @@ function tryReflectionDiscriminator<
   }
 
   let tagKey: string | undefined;
-  const mapping: Record<string, JTDSchemaType<TMetadata>> = {};
+  const branches: JsonSchemaLike[] = [];
 
   for (const branch of objectBranches) {
     const literalProps: Array<{ name: string; literal: string }> = [];
@@ -546,7 +434,6 @@ function tryReflectionDiscriminator<
       return undefined;
     }
 
-    // Build the branch body excluding the discriminator property.
     const filteredBranch = {
       ...branch,
       types: branch.types.filter(
@@ -559,131 +446,132 @@ function tryReflectionDiscriminator<
       )
     } as TypeObjectLiteral | TypeClass;
 
-    const body = objectReflectionToJtd<TMetadata>(filteredBranch);
-    if (!body || !isPropertiesForm<TMetadata>(body)) {
+    const body = objectReflectionToJsonSchema<TMetadata>(filteredBranch);
+    if (!body || !isObjectSchema(body)) {
       return undefined;
     }
 
-    mapping[first.literal] = body;
+    branches.push({
+      type: "object",
+      properties: {
+        [tagKey]: { const: first.literal },
+        ...(body.properties ?? {})
+      },
+      required: [tagKey, ...(body.required ?? [])],
+      additionalProperties: body.additionalProperties ?? false
+    });
   }
 
   if (!tagKey) {
     return undefined;
   }
 
-  return { discriminator: tagKey, mapping };
+  return {
+    oneOf: branches,
+    discriminator: { propertyName: tagKey }
+  };
 }
 
-/**
- * Internal worker that produces a JTD properties form (or `values` form for index signatures alone) from a Deepkit object-like type.
- *
- * @param type - The class or object literal type whose members should be serialized.
- * @returns A JTD properties or values form describing the type's members.
- */
-function objectReflectionToJtd<
+function objectReflectionToJsonSchema<
   TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
->(type: TypeObjectLiteral | TypeClass): JTDSchemaType<TMetadata> {
+>(type: TypeObjectLiteral | TypeClass): JsonSchemaType {
   const reflection = ReflectionClass.from(type);
+  const properties: Record<string, JsonSchemaLike> = {};
+  const required: string[] = [];
+  let additionalProperties: boolean | JsonSchemaLike | undefined;
 
-  const schema = {} as {
-    properties?: Record<string, JTDSchemaType<TMetadata>>;
-    optionalProperties?: Record<string, JTDSchemaType<TMetadata>>;
-    additionalProperties?: boolean;
-    metadata?: TMetadata;
-  };
-
-  schema.metadata = (schema.metadata ?? {}) as TMetadata;
-  schema.metadata.isReadonly = reflection.isReadonly();
-  schema.metadata.isIgnored = reflection.isIgnored();
-  schema.metadata.isInternal = reflection.isInternal();
-  schema.metadata.isRuntime = reflection.isRuntime();
-  schema.metadata.isHidden = reflection.isHidden();
-
-  if (isSetString(reflection.databaseSchemaName)) {
-    schema.metadata.resourceId = reflection.databaseSchemaName;
-  }
-  if (isSetString(reflection.getName())) {
-    schema.metadata.name = reflection.getName();
-  }
-  if (isSetString(reflection.getDescription())) {
-    schema.metadata.description = reflection.getDescription();
-  }
-  if (isSetArray(reflection.getAlias())) {
-    schema.metadata.alias = reflection.getAlias();
-  }
-  if (isSetString(reflection.getTitle())) {
-    schema.metadata.title = reflection.getTitle();
-  }
-
-  const properties: Record<string, JTDSchemaType<TMetadata>> = {};
-  const optionalProperties: Record<string, JTDSchemaType<TMetadata>> = {};
+  const metadata = {
+    isReadonly: reflection.isReadonly(),
+    isIgnored: reflection.isIgnored(),
+    isInternal: reflection.isInternal(),
+    isRuntime: reflection.isRuntime(),
+    isHidden: reflection.isHidden(),
+    ...(isSetString(reflection.databaseSchemaName)
+      ? { resourceId: reflection.databaseSchemaName }
+      : {}),
+    ...(isSetString(reflection.getName())
+      ? { name: reflection.getName() }
+      : {}),
+    ...(isSetString(reflection.getDescription())
+      ? { description: reflection.getDescription() }
+      : {}),
+    ...(isSetArray(reflection.getAlias()) ? { alias: reflection.getAlias() } : {}),
+    ...(isSetString(reflection.getTitle())
+      ? { title: reflection.getTitle() }
+      : {})
+  } as TMetadata;
 
   for (const propertyReflection of reflection.getProperties()) {
     if (propertyReflection.getKind() === ReflectionKind.indexSignature) {
-      const valueSchema = reflectionToJtd<TMetadata>(propertyReflection.type);
-      if (valueSchema) {
-        return {
-          ...schema,
-          values: valueSchema,
-          additionalProperties: true
-        };
-      }
-    } else {
-      const property = reflectionToJtd<TMetadata>(propertyReflection.type);
-      if (!property) {
-        continue;
-      }
+      const valueSchema = reflectionToJsonSchemaInner<TMetadata>(
+        propertyReflection.type
+      );
+      additionalProperties = valueSchema ?? true;
+      continue;
+    }
 
-      property.metadata = (property.metadata ?? {}) as TMetadata;
-      property.metadata.isReadonly = propertyReflection.isReadonly();
-      property.metadata.isIgnored = propertyReflection.isIgnored();
-      property.metadata.isInternal = propertyReflection.isInternal();
-      property.metadata.isRuntime = propertyReflection.isRuntime();
-      property.metadata.isPrimaryKey = propertyReflection.isPrimaryKey();
-      property.metadata.isHidden = propertyReflection.isHidden();
-      property.nullable = propertyReflection.isNullable();
-      property.metadata.visibility = propertyReflection.isPublic()
+    const property = reflectionToJsonSchemaInner<TMetadata>(
+      propertyReflection.type
+    );
+    if (!property) {
+      continue;
+    }
+
+    const propertyMetadata = {
+      ...getSchemaMetadata<TMetadata>(property),
+      isReadonly: propertyReflection.isReadonly(),
+      isIgnored: propertyReflection.isIgnored(),
+      isInternal: propertyReflection.isInternal(),
+      isRuntime: propertyReflection.isRuntime(),
+      isPrimaryKey: propertyReflection.isPrimaryKey(),
+      isHidden: propertyReflection.isHidden(),
+      visibility: propertyReflection.isPublic()
         ? "public"
         : propertyReflection.isProtected()
           ? "protected"
           : propertyReflection.isPrivate()
             ? "private"
-            : undefined;
+            : undefined,
+      ...(propertyReflection.hasDefault()
+        ? { default: propertyReflection.getDefaultValue() }
+        : {}),
+      ...(isSetString(propertyReflection.getNameAsString())
+        ? { name: propertyReflection.getNameAsString() }
+        : {}),
+      ...(isSetArray(propertyReflection.getGroups())
+        ? { groups: propertyReflection.getGroups() }
+        : {}),
+      ...(isSetString(propertyReflection.getDescription())
+        ? { description: propertyReflection.getDescription() }
+        : {}),
+      ...(isSetArray(propertyReflection.getAlias())
+        ? { alias: propertyReflection.getAlias() }
+        : {}),
+      ...(isSetString(propertyReflection.getTitle())
+        ? { title: propertyReflection.getTitle() }
+        : {})
+    } as TMetadata;
 
-      if (propertyReflection.hasDefault()) {
-        property.metadata.default = propertyReflection.getDefaultValue();
-      }
-      if (isSetString(propertyReflection.getNameAsString())) {
-        property.metadata.name = propertyReflection.getNameAsString();
-      }
-      if (isSetArray(propertyReflection.getGroups())) {
-        property.metadata.groups = propertyReflection.getGroups();
-      }
-      if (isSetString(propertyReflection.getDescription())) {
-        property.metadata.description = propertyReflection.getDescription();
-      }
-      if (isSetArray(propertyReflection.getAlias())) {
-        property.metadata.alias = propertyReflection.getAlias();
-      }
-      if (isSetString(propertyReflection.getTitle())) {
-        property.metadata.title = propertyReflection.getTitle();
-      }
+    let propertySchema = applySchemaMetadata(property, propertyMetadata);
+    if (propertyReflection.isNullable()) {
+      propertySchema = withNullable(propertySchema, true);
+    }
 
-      if (propertyReflection.isOptional()) {
-        optionalProperties[propertyReflection.name] = property;
-      } else {
-        properties[propertyReflection.name] = property;
-      }
+    properties[propertyReflection.name] = propertySchema;
+    if (!propertyReflection.isOptional()) {
+      required.push(propertyReflection.name);
     }
   }
 
-  if (Object.keys(properties).length > 0) {
-    schema.properties = properties;
-  } else if (Object.keys(optionalProperties).length > 0) {
-    schema.optionalProperties = optionalProperties;
-  } else {
-    schema.properties = {};
-  }
+  const schema: JsonSchemaLike = {
+    type: "object",
+    properties,
+    ...(required.length > 0 ? { required } : {}),
+    ...(additionalProperties !== undefined ? { additionalProperties } : {})
+  };
 
-  return schema;
+  return applySchemaMetadata(
+    schema,
+    metadata
+  ) as JsonSchemaType;
 }

@@ -22,13 +22,13 @@ import type {
   ReflectionMethod,
   ReflectionParameter
 } from "@powerlines/deepkit/vendor/type";
-import { JTDSchemaType } from "@powerlines/schema";
+import { JsonSchemaType } from "@powerlines/schema";
 
 /**
  * The reflection class context used in template rendering.
  */
-export const SchemaContext: ComponentContext<JTDSchemaType> =
-  createContext<JTDSchemaType>();
+export const SchemaContext: ComponentContext<JsonSchemaType> =
+  createContext<JsonSchemaType>();
 
 /**
  * Hook to access the schema context.
@@ -36,7 +36,7 @@ export const SchemaContext: ComponentContext<JTDSchemaType> =
  * @returns A reactive version of the current schema.
  */
 export function useSchema() {
-  const context = useContext<JTDSchemaType>(SchemaContext)!;
+  const context = useContext<JsonSchemaType>(SchemaContext)!;
 
   if (!context) {
     throw new Error(
@@ -50,8 +50,8 @@ export function useSchema() {
 /**
  * The schema property context used in template rendering.
  */
-export const SchemaPropertyContext: ComponentContext<JTDSchemaType> =
-  createNamedContext<JTDSchemaType>("SchemaProperty");
+export const SchemaPropertyContext: ComponentContext<JsonSchemaType> =
+  createNamedContext<JsonSchemaType>("SchemaProperty");
 
 /**
  * Hook to access the Schema Property context.
@@ -59,7 +59,7 @@ export const SchemaPropertyContext: ComponentContext<JTDSchemaType> =
  * @returns A reactive version of the current schema property.
  */
 export function useSchemaProperty() {
-  const context = useContext<JTDSchemaType>(SchemaPropertyContext)!;
+  const context = useContext<JsonSchemaType>(SchemaPropertyContext)!;
   if (!context) {
     throw new Error(
       "Powerlines - Schema Property Context is not set. Please make sure the Alloy components are being provided to an invocation of the `render` function added to plugins by `@powerlines/plugin-alloy`."

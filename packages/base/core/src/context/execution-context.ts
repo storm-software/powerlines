@@ -43,7 +43,8 @@ import type {
   Plugin,
   PluginConfig,
   PluginContext,
-  ResolvedConfig
+  ResolvedConfig,
+  VirtualFileSystemInterface
 } from "../types";
 import { PowerlinesContext } from "./context";
 import { PowerlinesEnvironmentContext } from "./environment-context";
@@ -121,6 +122,15 @@ export class PowerlinesExecutionContext<
     Plugin<PluginContext<TResolvedConfig, TSystemContext>>
   > {
     return this.#plugins;
+  }
+
+  /**
+   * The virtual file system interface for the project
+   */
+  public override get fs(): VirtualFileSystemInterface {
+    throw new Error(
+      "The virtual file system is not available on the execution context. Please use the environment context instead."
+    );
   }
 
   /**

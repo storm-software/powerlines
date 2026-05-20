@@ -49,7 +49,7 @@ import {
   TSDocRemarks,
   TSDocReturns
 } from "@powerlines/plugin-alloy/typescript/components/tsdoc";
-import type { JTDSchemaType } from "@powerlines/schema";
+import type { SchemaProperty } from "@powerlines/schema";
 import { getPropertiesList } from "@powerlines/schema/helpers";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { loadEnvFromContext } from "../helpers/load";
@@ -130,7 +130,7 @@ interface ConfigPropertyProps extends ComponentProps {
   index: number;
   context: EnvPluginContext;
   name: string;
-  property: JTDSchemaType;
+  property: SchemaProperty;
 }
 
 function ConfigPropertyGet(props: ConfigPropertyProps) {
@@ -360,7 +360,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       get: (target: UnprefixedEnv, propertyName: string) => { `}
           <hbr />
           <For each={reflectionGetProperties.value}>
-            {(property: JTDSchemaType & { name: string }, index: number) => (
+            {(property: SchemaProperty, index: number) => (
               <ConfigPropertyGet
                 index={index}
                 context={context}
@@ -377,7 +377,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           {code` set: (target: UnprefixedEnv, propertyName: string, newValue: any) => { `}
           <hbr />
           <For each={reflectionSetProperties.value} ender={code` else `}>
-            {(property: JTDSchemaType & { name: string }, index: number) => (
+            {(property: SchemaProperty, index: number) => (
               <ConfigPropertySet
                 index={index}
                 context={context}

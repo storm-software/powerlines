@@ -29,7 +29,7 @@ import {
 import { JSDocExampleProps, ParameterDescriptor } from "@alloy-js/typescript";
 
 import { stringifyValue } from "@powerlines/schema/codegen";
-import { JTDType } from "@powerlines/schema/types";
+import { JsonSchemaPrimitiveType } from "@powerlines/schema/types";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { Spacing } from "../../core/components/spacing";
@@ -192,7 +192,7 @@ export function TSDocGroup(props: ComponentProps) {
 }
 
 export interface TSDocDefaultValueProps extends ComponentProps {
-  type?: JTDType;
+  type?: JsonSchemaPrimitiveType;
   defaultValue: any;
 }
 
@@ -309,7 +309,7 @@ export function TSDocRuntime() {
 }
 
 export interface TSDocAttributesTagsProps {
-  type?: JTDType;
+  type?: JsonSchemaPrimitiveType;
   defaultValue?: any;
   title?: string;
   alias?: string[];

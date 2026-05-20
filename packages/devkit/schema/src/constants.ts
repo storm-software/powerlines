@@ -16,6 +16,17 @@
 
  ------------------------------------------------------------------- */
 
+export const JsonSchemaTypes = {
+  STRING: "string",
+  NUMBER: "number",
+  INTEGER: "integer",
+  BOOLEAN: "boolean",
+  NULL: "null",
+  OBJECT: "object",
+  ARRAY: "array"
+} as const;
+
+/** @deprecated Use {@link JsonSchemaTypes} instead. */
 export const JTDTypes = {
   STRING: "string",
   TIMESTAMP: "timestamp",

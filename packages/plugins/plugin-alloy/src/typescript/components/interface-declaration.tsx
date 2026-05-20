@@ -47,10 +47,14 @@ import {
   useTSNamePolicy
 } from "@alloy-js/typescript";
 import {
+  getPrimarySchemaType,
   getProperties,
-  JTDSchemaObjectType,
-  JTDSchemaType,
-  JTDType,
+  getSchemaMetadata,
+  isSchemaNullable,
+  JsonSchemaObjectType,
+  JsonSchemaPrimitiveType,
+  JsonSchemaType,
+  SchemaProperty,
   stringifyType
 } from "@powerlines/schema";
 import { camelCase } from "@stryke/string-format/camel-case";
@@ -82,12 +86,12 @@ export interface InterfaceDeclarationProps
   typeParameters?: TypeParameterDescriptor[] | string[];
 
   /**
-   * The JTD Schema that describes the properties of this interface.
+   * The JSON Schema that describes the properties of this interface.
    *
    * @remarks
    * This is used to generate the members of the interface based on the properties of the schema.
    */
-  schema?: JTDSchemaObjectType;
+  schema?: JsonSchemaObjectType;
 
   /**
    * Documentation for the interface. This can be a string or any Alloy component that renders documentation content (such as `TSDoc`).
@@ -97,7 +101,7 @@ export interface InterfaceDeclarationProps
 
 export interface InterfaceDeclarationPropertyProps
   extends Omit<InterfaceMemberProps, "name">, ComponentProps {
-  schema: JTDSchemaType;
+  schema: JsonSchemaType | SchemaProperty;
 }
 
 export interface InterfaceExpressionProps {
@@ -132,7 +136,7 @@ export interface InterfaceMemberPropsBase {
 export interface InterfacePropertyMemberProps extends InterfaceMemberPropsBase {
   name: string | Namekey;
   isReadonly?: boolean;
-  type?: Children | JTDType;
+  type?: Children | JsonSchemaPrimitiveType;
   optional?: boolean;
   nullish?: boolean;
 }
@@ -140,11 +144,11 @@ export interface InterfacePropertyMemberProps extends InterfaceMemberPropsBase {
 export interface InterfaceIndexerMemberProps extends InterfaceMemberPropsBase {
   indexer: Children;
   isReadonly?: boolean;
-  type?: Children | JTDType;
+  type?: Children | JsonSchemaPrimitiveType;
 }
 
 export interface InterfaceSchemaMemberProps extends InterfaceMemberPropsBase {
-  schema: JTDSchemaType;
+  schema: JsonSchemaType | SchemaProperty;
 }
 
 export type InterfaceMemberProps =
@@ -169,7 +173,8 @@ export function InterfaceMember(props: InterfaceMemberProps) {
 
   const readonly =
     ((props as InterfaceSchemaMemberProps).schema &&
-      (props as InterfaceSchemaMemberProps).schema?.metadata?.isReadonly) ||
+      getSchemaMetadata((props as InterfaceSchemaMemberProps).schema)
+        ?.isReadonly) ||
     (!(props as InterfaceSchemaMemberProps).schema &&
       (props as InterfacePropertyMemberProps | InterfaceIndexerMemberProps)
         .isReadonly)
@@ -190,7 +195,9 @@ export function InterfaceMember(props: InterfaceMemberProps) {
   const optional =
     !!(
       (props as InterfaceSchemaMemberProps).schema &&
-      (props as InterfaceSchemaMemberProps).schema?.nullable
+      ("optional" in (props as InterfaceSchemaMemberProps).schema
+        ? (props as InterfaceSchemaMemberProps).schema.optional
+        : false)
     ) ||
     !!(
       !(props as InterfaceSchemaMemberProps).schema &&
@@ -202,8 +209,10 @@ export function InterfaceMember(props: InterfaceMemberProps) {
     TSOutputSymbol,
     String(
       ((props as InterfaceSchemaMemberProps).schema
-        ? (props as InterfaceSchemaMemberProps).schema.metadata?.name ||
-          (props as InterfaceSchemaMemberProps).schema.metadata?.resourceId
+        ? getSchemaMetadata((props as InterfaceSchemaMemberProps).schema)
+            ?.name ||
+          getSchemaMetadata((props as InterfaceSchemaMemberProps).schema)
+            ?.resourceId
         : isSetString((props as InterfacePropertyMemberProps).name)
           ? (props as InterfacePropertyMemberProps).name
           : (props as InterfacePropertyMemberProps).name.toString()) ||
@@ -315,7 +324,7 @@ export function InterfaceDeclaration(props: InterfaceDeclarationProps) {
     pascalCase(
       isSetString(name)
         ? name
-        : schema?.metadata?.name || schema?.metadata?.title || ""
+        : getSchemaMetadata(schema)?.name || getSchemaMetadata(schema)?.title || ""
     )
   );
   const properties = computed(() =>
@@ -365,7 +374,9 @@ export function InterfaceDeclarationProperty(
   const name = computed(
     () =>
       schema.metadata?.name ||
-      camelCase(schema.metadata?.title || schema.metadata?.resourceId)
+      camelCase(
+        schema.metadata?.title || schema.metadata?.resourceId || schema.name
+      )
   );
 
   return (
@@ -375,9 +386,9 @@ export function InterfaceDeclarationProperty(
         <InterfaceMember
           name={name.value!}
           isReadonly={schema.metadata?.isReadonly}
-          optional={!!schema.metadata?.isOptional}
-          nullish={!!schema?.nullable}
-          type={(schema as { type?: JTDType }).type}
+          optional={schema.optional}
+          nullish={schema.nullable || isSchemaNullable(schema)}
+          type={getPrimarySchemaType(schema) as JsonSchemaPrimitiveType}
           {...rest}
         />
       </SchemaPropertyContext.Provider>

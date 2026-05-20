@@ -20,91 +20,104 @@ import { toBool } from "@stryke/convert/to-bool";
 import { isBoolean } from "@stryke/type-checks/is-boolean";
 import { isNull } from "@stryke/type-checks/is-null";
 import { isNumber } from "@stryke/type-checks/is-number";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import type { Options } from "ajv";
 import Ajv from "ajv";
+import { formatNames, fullFormats } from "ajv-formats/dist/formats";
+import { _, Name } from "ajv/dist/compile/codegen";
 import standaloneCode from "ajv/dist/standalone";
 import { getProperties } from "./helpers";
-import { JTDSchemaType, JTDType } from "./types";
+import { getPrimarySchemaType, isSchemaNullable } from "./metadata";
+import { JsonSchemaPrimitiveType, JsonSchemaType } from "./types";
 
 /**
- * Stringifies a value as a string.
- *
- * @remarks
- * This function is used to convert a value into a string representation that can be used in generated code, such as default values in TypeScript declarations. It handles different types of values, including booleans, numbers, and strings, and formats them appropriately. For example, boolean values are converted to "true" or "false", numbers are formatted with locale-specific separators, and strings are JSON-stringified with escaped quotes. The function also takes into account the type of the value when stringifying, allowing for specific formatting based on the type (e.g., different handling for integers vs. floats). This ensures that the generated code is both accurate and readable.
- *
- * @param value - The value to stringify.
- * @returns A string representation of the value.
+ * Stringifies a value for generated TypeScript code.
  */
-export function stringifyValue(value?: unknown, type?: JTDType): string {
+export function stringifyValue(
+  value?: unknown,
+  type?: JsonSchemaPrimitiveType | string
+): string {
   return isUndefined(value)
     ? "undefined"
     : isNull(value)
       ? "null"
       : type === "boolean" || isBoolean(value)
         ? String(toBool(value))
-        : type && type.startsWith("float")
+        : type === "number" || isNumber(value)
           ? Number.parseFloat(String(value)).toLocaleString(undefined, {
               maximumFractionDigits: 20
             })
-          : (type && ["int", "uint"].some(prefix => type.startsWith(prefix))) ||
-              isNumber(value)
+          : type === "integer"
             ? Number.parseInt(String(value)).toLocaleString()
-            : type === "timestamp"
-              ? `"${new Date(String(value)).toISOString()}"`
-              : JSON.stringify(
-                  String(value).replaceAll('"', '\\"'),
-                  undefined,
-                  2
-                );
+            : JSON.stringify(value);
 }
 
 /**
- * Stringifies a JTD schema type into a string representation. This function takes a JTD schema type as input and returns a string that represents the type in a human-readable format. It handles various JTD schema constructs, such as references, primitive types, enums, arrays, objects, and discriminated unions. The resulting string can be used for documentation, error messages, or any context where a textual representation of the schema type is needed. The function recursively processes nested schemas to ensure that complex types are accurately represented in the output string.
- *
- * @param schema - The JTD schema type to stringify.
- * @returns A string representation of the JTD schema type.
+ * Stringifies a JSON Schema fragment into a TypeScript-like type string.
  */
-export function stringifyType(schema?: JTDSchemaType): string {
+export function stringifyType(schema?: JsonSchemaType): string {
   if (!schema) {
     return "unknown";
   }
 
-  if ("ref" in schema) {
-    return schema.ref;
+  if (isSetString(schema.$ref)) {
+    const match = /^#\/(?:definitions|\$defs)\/(.+)$/.exec(schema.$ref);
+    return match?.[1] ?? schema.$ref;
   }
 
-  if ("type" in schema) {
-    return ["float", "uint", "int"].some(prefix =>
-      schema.type.startsWith(prefix)
-    )
-      ? "number"
-      : schema.type === "timestamp"
-        ? "string"
-        : schema.type;
+  const primaryType = getPrimarySchemaType(schema);
+  if (primaryType) {
+    if (primaryType === "integer" || primaryType === "number") {
+      return "number";
+    }
+    return primaryType;
   }
 
-  if ("enum" in schema) {
+  if (Array.isArray(schema.enum)) {
     return schema.enum.map(value => JSON.stringify(value)).join(" | ");
   }
 
-  if ("elements" in schema) {
-    return `${stringifyType(schema.elements)}[]`;
+  if (schema.const !== undefined) {
+    return JSON.stringify(schema.const);
   }
 
-  if ("values" in schema) {
-    return `{ [key: string]: ${stringifyType(schema.values)} }`;
+  if (schema.type === "array" || schema.items) {
+    const items = Array.isArray(schema.items) ? schema.items[0] : schema.items;
+    return `${stringifyType(items)}[]`;
   }
 
-  if ("properties" in schema || "optionalProperties" in schema) {
-    return `{ ${Object.entries(getProperties(schema))
-      .map(([key, value]) => {
-        return `${key}${value.optional ? "?" : ""}: ${stringifyType(value)}`;
-      })
-      .join(";\n")} }`;
+  if (
+    schema.type === "object" ||
+    schema.properties ||
+    schema.additionalProperties
+  ) {
+    if (
+      schema.additionalProperties &&
+      typeof schema.additionalProperties === "object"
+    ) {
+      return `{ [key: string]: ${stringifyType(schema.additionalProperties)} }`;
+    }
+
+    if (schema.properties) {
+      return `{ ${Object.entries(getProperties(schema as never))
+        .map(([key, value]) => {
+          const suffix =
+            value.optional || value.nullable
+              ? `${value.optional ? "?" : ""}${value.nullable ? " | null" : ""}`
+              : "";
+          return `${key}${suffix}: ${stringifyType(value)}`;
+        })
+        .join(";\n")} }`;
+    }
   }
 
-  if ("discriminator" in schema) {
+  if (schema.oneOf || schema.anyOf) {
+    const branches = schema.oneOf ?? schema.anyOf ?? [];
+    return branches.map(branch => stringifyType(branch)).join(" | ");
+  }
+
+  if (schema.allOf) {
     return "object";
   }
 
@@ -112,22 +125,27 @@ export function stringifyType(schema?: JTDSchemaType): string {
 }
 
 /**
- * Generates standalone validation code for the provided JSON schemas using the Ajv library. This function takes an array of JSON schemas and an optional set of references or functions, and returns a string containing the generated validation code. The generated code can be used to validate data against the provided schemas without requiring the Ajv library at runtime, making it suitable for use in environments where minimizing dependencies is important.
- *
- * @param schemas - An array of JSON schemas to generate validation code for. Each schema should be a valid JSON schema object that defines the structure and constraints of the data to be validated.
- * @param refsOrFuncts - An optional parameter that can be either an object containing schema references or a function that returns such an object. This parameter allows you to provide additional schemas that may be referenced by the main schemas, or to define custom functions that can be used in the generated validation code. If not provided, the function will generate code based solely on the provided schemas.
- * @returns A promise that resolves to a string containing the generated standalone validation code.
+ * Generates standalone JSON Schema validation code using Ajv.
  */
 export async function generateCode(
   schemas: Options["schemas"],
   refsOrFuncts?: Parameters<typeof standaloneCode>[1]
 ) {
-  return standaloneCode(
-    new Ajv({
-      jtd: true,
-      schemas,
-      code: { source: true, esm: true }
-    }),
-    refsOrFuncts
-  );
+  const ajv = new Ajv({
+    schemas,
+    code: { source: true, esm: true }
+  });
+
+  ajv.opts.code.formats ??= _`await import("ajv-formats/dist/formats").${new Name(
+    "fullFormats"
+  )}`;
+  for (const formatName of formatNames) {
+    ajv.addFormat(formatName, fullFormats[formatName]);
+  }
+
+  return standaloneCode(ajv, refsOrFuncts);
+}
+
+export function isNullableSchema(schema?: JsonSchemaType): boolean {
+  return isSchemaNullable(schema);
 }

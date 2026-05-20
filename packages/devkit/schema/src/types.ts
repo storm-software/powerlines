@@ -27,27 +27,16 @@ export type UntypedInputObject = InputObject;
 export type UntypedSchema = _Schema;
 
 /**
- * The set of numeric `type` strings supported by JSON Type Definition (RFC 8927).
+ * JSON Schema primitive type names used by {@link stringifyType}.
  */
-export type JTDNumberType =
-  | "float32"
-  | "float64"
-  | "int8"
-  | "uint8"
-  | "int16"
-  | "uint16"
-  | "int32"
-  | "uint32";
-
-/**
- * The set of string `type` strings supported by JSON Type Definition (RFC 8927).
- */
-export type JTDStringType = "string" | "timestamp";
-
-/**
- * The set of `type` strings supported by JSON Type Definition (RFC 8927).
- */
-export type JTDType = JTDNumberType | JTDStringType | "boolean";
+export type JsonSchemaPrimitiveType =
+  | "string"
+  | "number"
+  | "integer"
+  | "boolean"
+  | "null"
+  | "object"
+  | "array";
 
 export interface JsonSchemaLike {
   type?: string | string[];
@@ -75,8 +64,19 @@ export interface JsonSchemaLike {
   definitions?: Record<string, JsonSchemaLike>;
   $defs?: Record<string, JsonSchemaLike>;
   discriminator?: { propertyName?: string } | string;
+  metadata?: Partial<SchemaMetadata>;
   [key: string]: unknown;
 }
+
+export type SchemaType = JsonSchemaType;
+
+export type JsonSchemaObjectType<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+> = JsonSchemaType & {
+  type: "object";
+  properties: Record<string, JsonSchemaType>;
+  required?: string[];
+} & Partial<TMetadata>;
 
 export interface SchemaMetadata {
   /**
@@ -106,9 +106,6 @@ export interface SchemaMetadata {
 
   /**
    * An array of strings indicating groups that the schema belongs to. This property can be used for organizational or categorization purposes in documentation tools or other libraries that support this feature. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
-   *
-   * @remarks
-   * The concept of "groups" is not a standard feature of JSON Schema or JSON Type Definition, but it can be a useful convention for organizing schemas in larger projects or for providing additional metadata that can be leveraged by documentation generators or other tools. The specific meaning and usage of groups would depend on the conventions established within the project or the tools being used.
    */
   groups?: string[];
 
@@ -145,80 +142,59 @@ export interface SchemaMetadata {
   isRuntime?: boolean;
 
   /**
-   * An indicator specifying if the field is read-only or not. This property can be used to indicate that a field should not be modified after it has been set, which can be useful for documentation purposes or to assist developers in understanding the expected behavior of the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   * An indicator specifying if the field is read-only or not.
    */
   isReadonly?: boolean;
 
   /**
-   * An indicator specifying if the field is a primary key or not. This property can be used to indicate that a field serves as a unique identifier for records in a dataset, which can be useful for documentation purposes or to assist developers in understanding the expected structure and behavior of the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   * An indicator specifying if the field is a primary key or not.
    */
   isPrimaryKey?: boolean;
 
   /**
-   * An array of strings or an alias reference to indicate that the field is an alias for one or more other fields. This property can be used to provide alternative names or references for a field, which can be useful for documentation purposes or to assist developers in understanding the expected structure and content of the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   * An array of strings or an alias reference to indicate that the field is an alias for one or more other fields.
    */
   alias?: string[];
 
   /**
-   * Schemas that are unioned together to form a single schema. This property can be used to represent complex data structures that can conform to multiple different schemas. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   * Schemas that are unioned together to form a single schema.
    */
   union?: JsonSchemaLike[];
+
+  /**
+   * Whether the property is optional on its parent object.
+   */
+  isOptional?: boolean;
 
   [key: string]: unknown | undefined;
 }
 
-export type JTDSchemaObjectForm<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
-> =
-  | {
-      properties: Record<string, JTDSchemaType<TMetadata>>;
-      optionalProperties?: Record<string, JTDSchemaType<TMetadata>>;
-      additionalProperties?: boolean;
-    }
-  | {
-      properties?: Record<string, JTDSchemaType<TMetadata>>;
-      optionalProperties: Record<string, JTDSchemaType<TMetadata>>;
-      additionalProperties?: boolean;
-    };
+/** @deprecated Use {@link JsonSchemaType} instead. */
+export type JTDNumberType =
+  | "float32"
+  | "float64"
+  | "int8"
+  | "uint8"
+  | "int16"
+  | "uint16"
+  | "int32"
+  | "uint32";
 
-export type JTDSchemaType<
-  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
-> = (
-  | {
-      ref: string;
-    }
-  | {
-      type: JTDType;
-    }
-  | {
-      enum: string[];
-    }
-  | {
-      elements: JTDSchemaType<TMetadata>;
-    }
-  | {
-      values: JTDSchemaType<TMetadata>;
-    }
-  | JTDSchemaObjectForm<TMetadata>
-  | {
-      discriminator: string;
-      mapping: Record<string, JTDSchemaType<TMetadata>>;
-    }
-  // eslint-disable-next-line ts/no-empty-object-type
-  | {}
-) & {
-  nullable?: boolean;
-  metadata?: TMetadata;
-  definitions?: Record<string, JTDSchemaType<TMetadata>>;
-};
+/** @deprecated Use {@link JsonSchemaPrimitiveType} instead. */
+export type JTDStringType = "string" | "timestamp";
 
+/** @deprecated Use {@link JsonSchemaPrimitiveType} instead. */
+export type JTDType = JTDNumberType | JTDStringType | "boolean";
+
+/** @deprecated Use {@link JsonSchemaObjectType} instead. */
 export type JTDSchemaObjectType<
   TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
-> = JTDSchemaObjectForm<TMetadata> & {
-  nullable?: boolean;
-  metadata?: TMetadata;
-  definitions?: Record<string, JTDSchemaType<TMetadata>>;
-};
+> = JsonSchemaObjectType<TMetadata>;
+
+/** @deprecated Use {@link JsonSchemaType} instead. */
+export type JTDSchemaType<
+  TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
+> = JsonSchemaType & Partial<TMetadata>;
 
 export type SchemaSourceVariant =
   | "standard-schema"
@@ -234,35 +210,35 @@ export type SchemaSourceInput<
   TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
 > =
   | StandardJSONSchemaV1
-  | JTDSchemaType<TMetadata>
   | JsonSchemaType
   | z3.ZodTypeAny
   | UntypedInputObject
   | UntypedSchema
-  | Type;
+  | Type
+  | JTDSchemaType<TMetadata>;
 
 export type TypeDefinitionReference = TypeDefinition | string;
 
 export type SchemaInput = SchemaSourceInput | Schema | TypeDefinitionReference;
 
 /**
- * A type representing a schema that has been extracted from a source input. This type includes a `hash` property, which is a string that uniquely identifies the schema based on its content and source; a `variant` property, which indicates the format or type of the original input from which the schema was extracted (e.g., "jtd-schema", "json-schema", "zod3", "untyped", "reflection", or "type-definition"); and a `schema` property, which is the extracted schema itself represented as a JSON Type Definition (JTD) schema object with optional metadata. This type can be used to represent schemas in a standardized format regardless of their original source or representation.
+ * A schema extracted from a source input, normalised to JSON Schema.
  */
 export interface Schema<
   TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
 > {
   hash: string;
   variant: SchemaInputVariant;
-  schema: JTDSchemaType<TMetadata>;
+  schema: JsonSchemaType & Partial<TMetadata>;
 }
 
 /**
- * A type representing a JSON Type Definition (JTD) schema that specifically has an object form (i.e., it has either a `properties` property that is an object or an `optionalProperties` property that is an object, as per the structure of JTD schema objects). This type extends the base {@link Schema} type and narrows the `schema` property to be a `JTDSchemaObjectType`, which ensures that any schema of this type will have the structure of a JTD object schema.
+ * A JSON Schema object form (has `type: "object"` and `properties`).
  */
 export interface ObjectSchema<
   TMetadata extends Partial<SchemaMetadata> = Partial<SchemaMetadata>
 > extends Schema<TMetadata> {
-  schema: JTDSchemaObjectType<TMetadata>;
+  schema: JsonSchemaObjectType<TMetadata>;
 }
 
 export interface BaseSchemaSource {

@@ -36,8 +36,10 @@ import {
 } from "@alloy-js/typescript";
 import {
   getProperties,
-  JTDSchemaObjectType,
-  JTDSchemaType
+  getSchemaMetadata,
+  JsonSchemaObjectType,
+  JsonSchemaType,
+  SchemaProperty
 } from "@powerlines/schema";
 import { camelCase } from "@stryke/string-format/camel-case";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -50,7 +52,7 @@ import { ComponentProps } from "../../types/components";
 import { TSDocObjectSchema, TSDocSchemaProperty } from "./tsdoc-schema";
 
 export interface ObjectDeclarationProps extends VarDeclarationProps {
-  schema?: JTDSchemaObjectType;
+  schema?: JsonSchemaObjectType;
 }
 
 /**
@@ -63,11 +65,15 @@ export function ObjectDeclaration(props: ObjectDeclarationProps) {
   }
 
   const name = computed(() =>
-    camelCase(isSetString(props.name) ? props.name : schema.metadata?.name)
+    camelCase(
+      isSetString(props.name)
+        ? props.name
+        : getSchemaMetadata(schema)?.name
+    )
   );
 
   const defaultValues = computed(
-    () => (schema.metadata?.default || {}) as Record<string, any>
+    () => (getSchemaMetadata(schema)?.default || {}) as Record<string, unknown>
   );
   const properties = computed(() =>
     Object.values(getProperties(schema))
@@ -156,7 +162,7 @@ export function ObjectDeclaration(props: ObjectDeclarationProps) {
 }
 
 export interface ObjectDeclarationPropertyProps extends ComponentProps {
-  schema: JTDSchemaType;
+  schema: JsonSchemaType | SchemaProperty;
 }
 
 /**
@@ -170,7 +176,11 @@ export function ObjectDeclarationProperty(
   const name = computed(
     () =>
       schema.metadata?.name ||
-      camelCase(schema.metadata?.title || schema.metadata?.resourceId)
+      camelCase(
+        schema.metadata?.title ||
+          schema.metadata?.resourceId ||
+          ("name" in schema ? schema.name : undefined)
+      )
   );
 
   return (

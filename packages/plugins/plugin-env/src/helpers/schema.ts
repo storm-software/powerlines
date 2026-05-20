@@ -219,35 +219,19 @@ export async function extractEnvSchema<TContext extends EnvPluginContext>(
     }, key);
     if (properties[unprefixedKey]) {
       if (!properties[unprefixedKey].metadata?.isRuntime) {
-        if (
-          properties[unprefixedKey].optional &&
-          context.env.vars.schema.optionalProperties?.[unprefixedKey]
-        ) {
-          context.env.vars.schema.optionalProperties[unprefixedKey].metadata ??=
-            {};
-          context.env.vars.schema.optionalProperties[
-            unprefixedKey
-          ].metadata.default = value;
-        } else if (context.env.vars.schema.properties?.[unprefixedKey]) {
-          context.env.vars.schema.properties[unprefixedKey].metadata ??= {};
-          context.env.vars.schema.properties[unprefixedKey].metadata.default =
-            value;
+        const propertySchema =
+          context.env.vars.schema.properties?.[unprefixedKey];
+        if (propertySchema) {
+          propertySchema.default = value;
         }
       }
     } else if (aliases[unprefixedKey]) {
       if (!aliases[unprefixedKey].metadata?.isRuntime) {
         const alias =
           aliases[unprefixedKey].metadata?.alias?.[0] ?? unprefixedKey;
-        if (
-          aliases[unprefixedKey].optional &&
-          context.env.vars.schema.optionalProperties?.[alias]
-        ) {
-          context.env.vars.schema.optionalProperties[alias].metadata ??= {};
-          context.env.vars.schema.optionalProperties[alias].metadata.default =
-            value;
-        } else if (context.env.vars.schema.properties?.[alias]) {
-          context.env.vars.schema.properties[alias].metadata ??= {};
-          context.env.vars.schema.properties[alias].metadata.default = value;
+        const aliasSchema = context.env.vars.schema.properties?.[alias];
+        if (aliasSchema) {
+          aliasSchema.default = value;
         }
       }
     }
