@@ -220,7 +220,7 @@ catalog:
   untyped: ^1.5.2
   verdaccio: 6.5.2
   vite: ^8.0.13
-  webpack: ^5.106.2
+  webpack: ^5.107.0
   wrangler: ^4.93.0
   zod: ^4.4.3
   zx: ^8.8.5
