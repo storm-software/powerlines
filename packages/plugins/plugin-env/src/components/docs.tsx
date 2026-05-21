@@ -79,10 +79,10 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
                 getPropertiesList<Env>(context.env.vars).some(
                   p => p.name === property.name && p.active
                 ) &&
-                !property?.isHidden &&
-                !property?.isIgnored &&
-                !property?.isReadonly &&
-                !property?.isInternal
+                !property?.hidden &&
+                !property?.ignore &&
+                !property?.readOnly &&
+                !property?.internal
             )
             .sort((a, b) =>
               !a?.name && !b?.name
@@ -100,10 +100,10 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
                 type: stringifyType<any>(property as JsonSchema<any>)
                   .trim()
                   .replaceAll(/\s*(?:\||&)\s*/g, ", or "),
-                defaultValue: property.defaultValue
-                  ? stringifyType(property.defaultValue)
+                defaultValue: property.default
+                  ? stringifyType(property.default)
                   : "",
-                required: property.optional ? "" : "✔"
+                required: property.nullable ? "" : "✔"
               };
             }) ?? []
         }

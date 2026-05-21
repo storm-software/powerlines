@@ -70,7 +70,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
 
           vars[name]!.active = true;
           if (
-            !vars[name]!.isRuntime &&
+            !vars[name]!.runtime &&
             ((context.config.env.inject && isInjectable) ||
               context.config.env.validate)
           ) {

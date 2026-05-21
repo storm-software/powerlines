@@ -25,17 +25,17 @@ export const metadata = {
   icon: "⬚"
 } satisfies CommandMetadata;
 
-export interface NewOptions {
+export interface CreateOptions {
   /**
-   * The root directory of the project to initialize. Defaults to the current working directory if not specified.
+   * The root directory of the project to create. Defaults to the current working directory if not specified.
    *
    * @remarks
-   * This option allows you to specify the base directory for the project initialization process, which can be useful if your project structure requires initializing the project from a different location than the default. If not provided, Powerlines will use the current working directory as the root for the project initialization process.
+   * This option allows you to specify the base directory for the project creation process, which can be useful if your project structure requires creating the project from a different location than the default. If not provided, Powerlines will use the current working directory as the root for the project creation process.
    */
   root: string;
 }
 
-async function handler(options: NewOptions) {
+async function handler(options: CreateOptions) {
   const api = await createEngine({
     cwd: process.cwd(),
     root: options.root

@@ -63,12 +63,12 @@ export function TSDocObjectSchema<
   );
 
   const alias = computed(() => schema?.alias);
-  const groups = computed(() => schema?.groups);
-  const isReadonly = computed(() => schema?.isReadonly);
-  const isInternal = computed(() => schema?.isInternal);
-  const isRuntime = computed(() => schema?.isRuntime);
-  const isIgnore = computed(() => schema?.isIgnored);
-  const isHidden = computed(() => schema?.isHidden);
+  const tags = computed(() => schema?.tags);
+  const readOnly = computed(() => schema?.readOnly);
+  const internal = computed(() => schema?.internal);
+  const runtime = computed(() => schema?.runtime);
+  const ignore = computed(() => schema?.ignore);
+  const hidden = computed(() => schema?.hidden);
 
   if (
     !computedHeading.value ||
@@ -81,12 +81,12 @@ export function TSDocObjectSchema<
     () =>
       isSetString(title.value) ||
       (!isUndefined(alias.value) && alias.value.length > 0) ||
-      (!isUndefined(groups.value) && groups.value.length > 0) ||
-      !isUndefined(isReadonly.value) ||
-      !isUndefined(isInternal.value) ||
-      !isUndefined(isRuntime.value) ||
-      !isUndefined(isIgnore.value) ||
-      !isUndefined(isHidden.value)
+      (!isUndefined(tags.value) && tags.value.length > 0) ||
+      !isUndefined(readOnly.value) ||
+      !isUndefined(internal.value) ||
+      !isUndefined(runtime.value) ||
+      !isUndefined(ignore.value) ||
+      !isUndefined(hidden.value)
   );
 
   return (
@@ -102,12 +102,12 @@ export function TSDocObjectSchema<
           type={getPrimarySchemaType<T>(schema)}
           title={title.value}
           alias={alias.value}
-          groups={groups.value}
-          isReadonly={Boolean(isReadonly.value)}
-          isInternal={Boolean(isInternal.value)}
-          isRuntime={Boolean(isRuntime.value)}
-          isIgnored={Boolean(isIgnore.value)}
-          isHidden={Boolean(isHidden.value)}
+          tags={tags.value}
+          readOnly={Boolean(readOnly.value)}
+          internal={Boolean(internal.value)}
+          runtime={Boolean(runtime.value)}
+          ignore={Boolean(ignore.value)}
+          hidden={Boolean(hidden.value)}
         />
       </Show>
       <Show
@@ -149,12 +149,12 @@ export function TSDocSchemaProperty<
     () =>
       isSetString(schema?.title) ||
       (!isUndefined(schema?.alias) && schema?.alias.length > 0) ||
-      (!isUndefined(schema?.groups) && schema?.groups.length > 0) ||
-      !isUndefined(schema?.isReadonly) ||
-      !isUndefined(schema?.isInternal) ||
-      !isUndefined(schema?.isRuntime) ||
-      !isUndefined(schema?.isIgnored) ||
-      !isUndefined(schema?.isHidden) ||
+      (!isUndefined(schema?.tags) && schema?.tags.length > 0) ||
+      !isUndefined(schema?.readOnly) ||
+      !isUndefined(schema?.internal) ||
+      !isUndefined(schema?.runtime) ||
+      !isUndefined(schema?.ignore) ||
+      !isUndefined(schema?.hidden) ||
       !isUndefined(schema?.default)
   );
 
@@ -165,13 +165,13 @@ export function TSDocSchemaProperty<
           type={getPrimarySchemaType<T>(schema)}
           title={schema?.title}
           alias={schema?.alias}
-          groups={schema?.groups}
-          isReadonly={schema?.isReadonly}
-          isInternal={schema?.isInternal}
-          isRuntime={schema?.isRuntime}
-          isIgnored={schema?.isIgnored}
-          isHidden={schema?.isHidden}
-          defaultValue={schema?.default}
+          tags={schema?.tags}
+          readOnly={schema?.readOnly}
+          internal={schema?.internal}
+          runtime={schema?.runtime}
+          ignore={schema?.ignore}
+          hidden={schema?.hidden}
+          default={schema?.default}
         />
       </Show>
       <Show

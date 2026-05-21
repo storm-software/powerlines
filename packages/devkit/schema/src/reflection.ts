@@ -48,26 +48,35 @@ import {
 
 /**
  * Maps a Deepkit numeric `brand` to JSON Schema `type` and `format`.
+ *
+ * @remarks
+ * This function takes a `TypeNumberBrand` (which represents specific numeric types in Deepkit, such as `integer`, `float`, `int8`, etc.) and returns a corresponding JSON Schema fragment that includes the appropriate `type`, `format`, and any relevant keywords (like `multipleOf` for integers). If the brand is not recognized, it defaults to a generic JSON Schema for numbers.
+ *
+ * @param brand - The Deepkit numeric brand to convert.
+ * @return A JSON Schema fragment representing the numeric type corresponding to the provided brand.
  */
-function numberBrandToJsonSchema(brand: TypeNumberBrand | undefined): {
-  type: "integer" | "number";
-  format?: string;
-} {
+function numberBrandToJsonSchema(
+  brand: TypeNumberBrand | undefined
+): JsonSchema<number> {
   switch (brand) {
     case TypeNumberBrand.integer:
-      return { type: "integer" };
+      return {
+        type: "integer",
+        format: "int32",
+        multipleOf: 1
+      };
     case TypeNumberBrand.int8:
-      return { type: "integer", format: "int8" };
+      return { type: "integer", format: "int8", multipleOf: 1 };
     case TypeNumberBrand.uint8:
-      return { type: "integer", format: "uint8" };
+      return { type: "integer", format: "uint8", multipleOf: 1 };
     case TypeNumberBrand.int16:
-      return { type: "integer", format: "int16" };
+      return { type: "integer", format: "int16", multipleOf: 1 };
     case TypeNumberBrand.uint16:
-      return { type: "integer", format: "uint16" };
+      return { type: "integer", format: "uint16", multipleOf: 1 };
     case TypeNumberBrand.int32:
-      return { type: "integer", format: "int32" };
+      return { type: "integer", format: "int32", multipleOf: 1 };
     case TypeNumberBrand.uint32:
-      return { type: "integer", format: "uint32" };
+      return { type: "integer", format: "uint32", multipleOf: 1 };
     case TypeNumberBrand.float:
     case TypeNumberBrand.float32:
       return { type: "number", format: "float" };
@@ -95,19 +104,19 @@ function withReflectionTags<T = unknown>(
     schema.alias = tags.alias;
   }
   if (!isUndefined(tags.hidden)) {
-    schema.isHidden = tags.hidden;
+    schema.hidden = tags.hidden;
   }
   if (!isUndefined(tags.ignore)) {
-    schema.isIgnored = tags.ignore;
+    schema.ignore = tags.ignore;
   }
   if (!isUndefined(tags.internal)) {
-    schema.isInternal = tags.internal;
+    schema.internal = tags.internal;
   }
   if (!isUndefined(tags.runtime)) {
-    schema.isRuntime = tags.runtime;
+    schema.runtime = tags.runtime;
   }
   if (!isUndefined(tags.readonly)) {
-    schema.isReadonly = tags.readonly;
+    schema.readOnly = tags.readonly;
   }
 
   return schema as JsonSchema<T>;
@@ -153,27 +162,44 @@ function reflectionToJsonSchemaInner<T = unknown>(
     case ReflectionKind.unknown:
     case ReflectionKind.void:
     case ReflectionKind.object:
-      return withReflectionTags<T>(reflection, {});
+      return withReflectionTags<T>(reflection, { name: reflection.typeName });
     case ReflectionKind.never:
       return undefined;
     case ReflectionKind.undefined:
     case ReflectionKind.null:
-      return withReflectionTags<T>(reflection, { type: "null" });
+      return withReflectionTags<T>(reflection, {
+        type: "null",
+        name: reflection.typeName,
+        nullable: true
+      });
     case ReflectionKind.string:
-      return withReflectionTags<T>(reflection, { type: "string" });
+      return withReflectionTags<T>(reflection, {
+        type: "string",
+        name: reflection.typeName
+      });
     case ReflectionKind.boolean:
-      return withReflectionTags<T>(reflection, { type: "boolean" });
+      return withReflectionTags<T>(reflection, {
+        type: "boolean",
+        name: reflection.typeName
+      });
     case ReflectionKind.number: {
       const numeric = numberBrandToJsonSchema(reflection.brand);
 
-      return withReflectionTags<T>(reflection, numeric);
+      return withReflectionTags<T>(reflection, numeric as JsonSchema<T>);
     }
     case ReflectionKind.bigint:
-      return withReflectionTags<T>(reflection, { type: "integer" });
+      return withReflectionTags<T>(reflection, {
+        type: "integer",
+        name: reflection.typeName,
+        format: "int64",
+        multipleOf: 1
+      });
     case ReflectionKind.regexp:
       return withReflectionTags<T>(reflection, {
         type: "string",
-        format: "regex"
+        name: reflection.typeName,
+        format: "regex",
+        contentMediaType: "text/regex"
       });
     case ReflectionKind.literal: {
       const { literal } = reflection;
@@ -182,20 +208,32 @@ function reflectionToJsonSchemaInner<T = unknown>(
         typeof literal === "number" ||
         typeof literal === "boolean"
       ) {
-        return withReflectionTags<T>(reflection, { const: literal });
+        return withReflectionTags<T>(reflection, {
+          type: typeof literal,
+          name: reflection.typeName,
+          const: literal
+        });
       }
       if (typeof literal === "bigint") {
         return withReflectionTags<T>(reflection, {
+          type: "integer",
+          name: reflection.typeName,
+          format: "int64",
+          multipleOf: 1,
           const: String(literal)
         });
       }
       if (literal instanceof RegExp) {
         return withReflectionTags<T>(reflection, {
           type: "string",
-          format: "regex"
+          name: reflection.typeName,
+          format: "regex",
+          const: literal.source
         });
       }
-      return withReflectionTags<T>(reflection, {});
+      return withReflectionTags<T>(reflection, {
+        name: reflection.typeName
+      });
     }
     case ReflectionKind.templateLiteral:
       return withReflectionTags<T>(reflection, { type: "string" });
@@ -207,15 +245,23 @@ function reflectionToJsonSchemaInner<T = unknown>(
           typeof value === "boolean"
       );
       if (values.length === 0) {
-        return withReflectionTags<T>(reflection, {});
+        return withReflectionTags<T>(reflection, {
+          name: reflection.typeName,
+          description: reflection.description
+        });
       }
-      return withReflectionTags<T>(reflection, { enum: values });
+      return withReflectionTags<T>(reflection, {
+        name: reflection.typeName,
+        description: reflection.description,
+        enum: values
+      });
     }
     case ReflectionKind.array: {
       const items = reflectionToJsonSchemaInner<T>(reflection.type);
 
       return withReflectionTags<T>(reflection, {
         type: "array",
+        name: reflection.typeName,
         items: items ?? {}
       });
     }
@@ -226,11 +272,13 @@ function reflectionToJsonSchemaInner<T = unknown>(
       if (items.length <= 1) {
         return withReflectionTags<T>(reflection, {
           type: "array",
+          name: reflection.typeName,
           items: items[0] ?? {}
         });
       }
       return withReflectionTags<T>(reflection, {
         type: "array",
+        name: reflection.typeName,
         items,
         minItems: items.length,
         maxItems: items.length
@@ -250,12 +298,18 @@ function reflectionToJsonSchemaInner<T = unknown>(
       );
 
       if (nonNull.length === 0) {
-        return withReflectionTags<T>(reflection, { type: "null" });
+        return withReflectionTags<T>(reflection, {
+          type: "null",
+          nullable: true
+        });
       }
 
       if (nonNull.length === 1) {
         return withNullable(
-          withReflectionTags<T>(reflection, nonNull[0] ?? {}),
+          withReflectionTags<T>(reflection, {
+            name: reflection.typeName,
+            ...nonNull[0]
+          }),
           nullable
         );
       }
@@ -265,7 +319,10 @@ function reflectionToJsonSchemaInner<T = unknown>(
         .filter(value => value !== undefined);
       if (enumValues.length === nonNull.length) {
         return withNullable(
-          withReflectionTags<T>(reflection, { enum: enumValues }),
+          withReflectionTags<T>(reflection, {
+            name: reflection.typeName,
+            enum: enumValues
+          }),
           nullable
         );
       }
@@ -273,13 +330,19 @@ function reflectionToJsonSchemaInner<T = unknown>(
       const discriminator = tryReflectionDiscriminator<T>(reflection.types);
       if (discriminator) {
         return withNullable(
-          withReflectionTags<T>(reflection, discriminator),
+          withReflectionTags<T>(reflection, {
+            name: reflection.typeName,
+            ...discriminator
+          }),
           nullable
         );
       }
 
       return withNullable(
-        withReflectionTags<T>(reflection, { anyOf: nonNull }),
+        withReflectionTags<T>(reflection, {
+          name: reflection.typeName,
+          anyOf: nonNull
+        }),
         nullable
       );
     }
@@ -291,12 +354,21 @@ function reflectionToJsonSchemaInner<T = unknown>(
         return undefined;
       }
       if (members.length === 1) {
-        return withReflectionTags<T>(reflection, members[0] ?? {});
+        return withReflectionTags<T>(reflection, {
+          name: reflection.typeName,
+          ...members[0]
+        });
       }
       if (members.every(isJsonSchemaObject)) {
-        return withReflectionTags<T>(reflection, mergeObjectSchemas(members));
+        return withReflectionTags<T>(reflection, {
+          name: reflection.typeName,
+          ...mergeObjectSchemas(members)
+        });
       }
-      return withReflectionTags<T>(reflection, { allOf: members });
+      return withReflectionTags<T>(reflection, {
+        name: reflection.typeName,
+        allOf: members
+      });
     }
     case ReflectionKind.promise:
       return reflectionToJsonSchemaInner<T>(reflection.type);
@@ -362,7 +434,11 @@ function reflectionToJsonSchemaInner<T = unknown>(
           });
         case undefined:
         default:
-          return objectReflectionToJsonSchema(reflection);
+          return withReflectionTags<T>(reflection, {
+            name: reflection.typeName,
+            description: reflection.description,
+            ...objectReflectionToJsonSchema(reflection)
+          });
       }
     }
     case ReflectionKind.symbol:
@@ -510,15 +586,20 @@ function objectReflectionToJsonSchema<
 
   const schema: JsonSchemaObject<T> = {
     type: "object",
+    name: reflection.getName(),
+    description: reflection.getDescription(),
     properties: {},
     required: [],
-    isReadonly: reflection.isReadonly(),
-    isIgnored: reflection.isIgnored(),
-    isInternal: reflection.isInternal(),
-    isRuntime: reflection.isRuntime(),
-    isHidden: reflection.isHidden(),
+    readOnly: reflection.isReadonly(),
+    ignore: reflection.isIgnored(),
+    internal: reflection.isInternal(),
+    runtime: reflection.isRuntime(),
+    hidden: reflection.isHidden(),
+    primaryKey: reflection
+      .getPrimaries()
+      .map(primary => primary.getNameAsString()),
     ...(isSetString(reflection.databaseSchemaName)
-      ? { resourceId: reflection.databaseSchemaName }
+      ? { databaseSchemaName: reflection.databaseSchemaName }
       : {}),
     ...(isSetString(reflection.getName())
       ? { name: reflection.getName() }
@@ -548,12 +629,13 @@ function objectReflectionToJsonSchema<
 
     property = {
       ...property,
-      isReadonly: propertyReflection.isReadonly(),
-      isIgnored: propertyReflection.isIgnored(),
-      isInternal: propertyReflection.isInternal(),
-      isRuntime: propertyReflection.isRuntime(),
-      isPrimaryKey: propertyReflection.isPrimaryKey(),
-      isHidden: propertyReflection.isHidden(),
+      name: propertyReflection.getNameAsString(),
+      description: propertyReflection.getDescription(),
+      readOnly: propertyReflection.isReadonly(),
+      ignore: propertyReflection.isIgnored(),
+      internal: propertyReflection.isInternal(),
+      runtime: propertyReflection.isRuntime(),
+      hidden: propertyReflection.isHidden(),
       visibility: propertyReflection.isPublic()
         ? "public"
         : propertyReflection.isProtected()
@@ -564,14 +646,8 @@ function objectReflectionToJsonSchema<
       ...(propertyReflection.hasDefault()
         ? { default: propertyReflection.getDefaultValue() }
         : {}),
-      ...(isSetString(propertyReflection.getNameAsString())
-        ? { name: propertyReflection.getNameAsString() }
-        : {}),
       ...(isSetArray(propertyReflection.getGroups())
-        ? { groups: propertyReflection.getGroups() }
-        : {}),
-      ...(isSetString(propertyReflection.getDescription())
-        ? { description: propertyReflection.getDescription() }
+        ? { tags: propertyReflection.getGroups() }
         : {}),
       ...(isSetArray(propertyReflection.getAlias())
         ? { alias: propertyReflection.getAlias() }

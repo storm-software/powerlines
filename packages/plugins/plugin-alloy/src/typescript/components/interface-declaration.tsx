@@ -135,7 +135,7 @@ export interface InterfaceMemberPropsBase {
   children?: Children;
   doc?: Children;
   refkey?: Refkey | Refkey[];
-  isReadonly?: boolean;
+  readOnly?: boolean;
   type?: Children | JsonSchemaPrimitiveType;
   nullish?: boolean;
 }
@@ -179,8 +179,8 @@ export function InterfaceMember<
 
   const readonly =
     ((props as InterfaceSchemaMemberProps<T>).schema &&
-      (props as InterfaceSchemaMemberProps<T>).schema?.isReadonly) ||
-    (!(props as InterfaceSchemaMemberProps<T>).schema && props.isReadonly)
+      (props as InterfaceSchemaMemberProps<T>).schema?.readOnly) ||
+    (!(props as InterfaceSchemaMemberProps<T>).schema && props.readOnly)
       ? "readonly "
       : "";
 
@@ -320,10 +320,9 @@ export function InterfaceDeclaration<
   const properties = computed(() =>
     schema
       ? getPropertiesList<T>(schema as Parameters<typeof getPropertiesList>[0])
-          .filter(property => !property?.isIgnored)
+          .filter(property => !property?.ignore)
           .sort((a, b) =>
-            (a?.isReadonly && b?.isReadonly) ||
-            (!a?.isReadonly && !b?.isReadonly)
+            (a?.readOnly && b?.readOnly) || (!a?.readOnly && !b?.readOnly)
               ? !a.name && !b.name
                 ? 0
                 : !a.name
@@ -331,7 +330,7 @@ export function InterfaceDeclaration<
                   : !b.name
                     ? 1
                     : a.name.localeCompare(b.name)
-              : a?.isReadonly
+              : a?.readOnly
                 ? 1
                 : -1
           )
@@ -377,10 +376,8 @@ export function InterfaceDeclarationProperty<
 
   const name = computed(
     () =>
-      schema.metadata?.name ||
-      camelCase(
-        schema.metadata?.title || schema.metadata?.resourceId || schema.name
-      )
+      schema?.name ||
+      camelCase(schema?.title || schema?.databaseSchemaName || schema?.$id)
   );
 
   return (
@@ -389,8 +386,8 @@ export function InterfaceDeclarationProperty<
         <TSDocSchemaProperty schema={schema} />
         <InterfaceMember
           name={name.value}
-          isReadonly={schema.metadata?.isReadonly}
-          nullish={schema.nullable || isSchemaNullable<T>(schema)}
+          readOnly={schema?.readOnly}
+          nullish={schema?.nullable || isSchemaNullable<T>(schema)}
           type={getPrimarySchemaType<T>(schema)}
           {...rest}
         />

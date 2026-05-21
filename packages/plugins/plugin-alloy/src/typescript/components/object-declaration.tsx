@@ -78,8 +78,8 @@ export function ObjectDeclaration<
     getPropertiesList<T>(schema)
       .filter(
         property =>
-          !property.metadata?.isIgnored &&
-          !property.metadata?.isRuntime &&
+          !property?.ignore &&
+          !property?.runtime &&
           !isUndefined(
             defaultValues.value[property.name] ??
               property?.alias?.reduce((ret, alias) => {
@@ -96,10 +96,9 @@ export function ObjectDeclaration<
           )
       )
       .sort((a, b) =>
-        (a.metadata?.isReadonly && b.metadata?.isReadonly) ||
-        (!a.metadata?.isReadonly && !b.metadata?.isReadonly)
+        (a?.readOnly && b?.readOnly) || (!a?.readOnly && !b?.readOnly)
           ? a.name.localeCompare(b.name)
-          : a.metadata?.isReadonly
+          : a?.readOnly
             ? 1
             : -1
       )
@@ -176,12 +175,8 @@ export function ObjectDeclarationProperty<
 
   const name = computed(
     () =>
-      schema.metadata?.name ||
-      camelCase(
-        schema.metadata?.title ||
-          schema.metadata?.resourceId ||
-          ("name" in schema ? schema.name : undefined)
-      )
+      schema?.name ||
+      camelCase(schema?.title || schema?.databaseSchemaName || schema?.$id)
   );
 
   return (
@@ -191,8 +186,8 @@ export function ObjectDeclarationProperty<
         <ObjectProperty
           name={name.value}
           value={
-            !isUndefined(schema.metadata?.default)
-              ? JSON.stringify(schema.metadata?.default)
+            !isUndefined(schema?.default)
+              ? JSON.stringify(schema?.default)
               : undefined
           }
           {...rest}

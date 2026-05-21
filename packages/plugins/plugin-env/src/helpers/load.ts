@@ -146,7 +146,7 @@ export function loadEnvFromContext(
     isSetObject(context.env.vars)
       ? Object.entries(getProperties(context.env.vars)).reduce(
           (ret, [name, prop]) => {
-            ret[name] = parsed[name] ?? prop.metadata?.default;
+            ret[name] = parsed[name] ?? prop?.default;
             return ret;
           },
           {} as Record<string, any>

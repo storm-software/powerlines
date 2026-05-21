@@ -310,16 +310,16 @@ export function TSDocRuntime() {
 
 export interface TSDocAttributesTagsProps {
   type?: JsonSchemaPrimitiveType;
-  defaultValue?: any;
+  default?: any;
   title?: string;
   alias?: string[];
-  groups?: string[];
+  tags?: string[];
   resourceId?: string;
-  isReadonly?: boolean;
-  isInternal?: boolean;
-  isIgnored?: boolean;
-  isHidden?: boolean;
-  isRuntime?: boolean;
+  readOnly?: boolean;
+  internal?: boolean;
+  ignore?: boolean;
+  hidden?: boolean;
+  runtime?: boolean;
 }
 
 /**
@@ -330,24 +330,24 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
     {
       type,
       alias,
-      groups,
-      isReadonly,
-      isInternal,
-      isIgnored,
-      isHidden,
-      isRuntime,
-      defaultValue
+      tags,
+      readOnly,
+      internal,
+      ignore,
+      hidden,
+      runtime,
+      default: defaultValue
     }
   ] = splitProps(props, [
     "type",
     "alias",
-    "groups",
-    "isReadonly",
-    "isInternal",
-    "isIgnored",
-    "isHidden",
-    "isRuntime",
-    "defaultValue"
+    "tags",
+    "readOnly",
+    "internal",
+    "ignore",
+    "hidden",
+    "runtime",
+    "default"
   ]);
 
   const title = computed(() => props.title?.trim() || "");
@@ -373,32 +373,32 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
       </Show>
       <Show
         when={
-          !isUndefined(groups) &&
-          groups.length > 0 &&
-          groups.some(g => isSetString(g?.trim()))
+          !isUndefined(tags) &&
+          tags.length > 0 &&
+          tags.some(g => isSetString(g?.trim()))
         }>
-        <For each={groups?.filter(g => isSetString(g?.trim())) ?? []}>
-          {group => <TSDocGroup>{group}</TSDocGroup>}
+        <For each={tags?.filter(g => isSetString(g?.trim())) ?? []}>
+          {tag => <TSDocGroup>{tag}</TSDocGroup>}
         </For>
       </Show>
-      <Show when={isReadonly === true}>
+      <Show when={readOnly === true}>
         <TSDocReadonly />
       </Show>
-      <Show when={isInternal === true}>
+      <Show when={internal === true}>
         <TSDocInternal />
       </Show>
-      <Show when={isIgnored === true}>
+      <Show when={ignore === true}>
         <TSDocIgnore />
       </Show>
-      <Show when={isHidden === true}>
+      <Show when={hidden === true}>
         <TSDocHidden />
       </Show>
-      <Show when={isRuntime === true}>
+      <Show when={runtime === true}>
         <TSDocRuntime />
       </Show>
       <Show
         when={
-          isRuntime !== true && !isUndefined(type) && !isUndefined(defaultValue)
+          runtime !== true && !isUndefined(type) && !isUndefined(defaultValue)
         }>
         <TSDocDefaultValue type={type} defaultValue={defaultValue} />
       </Show>
@@ -410,7 +410,7 @@ export interface TSDocParamProps {
   name: Children;
   children?: Children;
   optional?: boolean;
-  defaultValue?: Children;
+  default?: Children;
 }
 
 /**
@@ -423,7 +423,7 @@ export function TSDocParam(props: TSDocParamProps) {
       <TSDocParamName
         name={props.name}
         optional={props.optional}
-        defaultValue={props.defaultValue}
+        default={props.default}
       />
       <TSDocParamDescription children={props.children} />
     </>
@@ -433,7 +433,7 @@ export function TSDocParam(props: TSDocParamProps) {
 interface TSDocParamNameProps {
   name: Children;
   optional?: boolean;
-  defaultValue?: Children;
+  default?: Children;
 }
 
 function TSDocParamName(props: TSDocParamNameProps) {
@@ -441,7 +441,7 @@ function TSDocParamName(props: TSDocParamNameProps) {
     <>
       <Show when={props.optional}>{"["}</Show>
       {props.name}
-      <Show when={Boolean(props.defaultValue)}>={props.defaultValue}</Show>
+      <Show when={Boolean(props.default)}>={props.default}</Show>
       <Show when={props.optional}>{"]"}</Show>
     </>
   );

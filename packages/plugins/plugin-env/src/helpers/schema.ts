@@ -216,7 +216,7 @@ export async function extractEnv<TContext extends EnvPluginContext>(
       return ret;
     }, key);
     if (properties[unprefixedKey]) {
-      if (!properties[unprefixedKey]?.isRuntime) {
+      if (!properties[unprefixedKey]?.runtime) {
         const propertySchema =
           context.env.vars.schema.properties?.[unprefixedKey];
         if (propertySchema) {
@@ -224,7 +224,7 @@ export async function extractEnv<TContext extends EnvPluginContext>(
         }
       }
     } else if (aliases[unprefixedKey]) {
-      if (!aliases[unprefixedKey]?.isRuntime) {
+      if (!aliases[unprefixedKey]?.runtime) {
         const alias = aliases[unprefixedKey]?.alias?.[0] ?? unprefixedKey;
         const aliasSchema = context.env.vars.schema.properties?.[alias];
         if (aliasSchema) {

@@ -94,7 +94,7 @@ export function EnvTypeDefinition() {
                   <InterfaceMember
                     name={`${prefix}_${property?.name}`}
                     type={`UnprefixedEnv["${property?.name}"]`}
-                    isReadonly={property?.isReadonly}
+                    readOnly={property?.readOnly}
                   />
                 </>
               )}
@@ -275,7 +275,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
   const reflectionSetProperties = computed(
     () =>
       getPropertiesList(context.env.vars.schema)
-        .filter(property => !property?.isIgnored && !property?.isReadonly)
+        .filter(property => !property?.isIgnored && !property?.readOnly)
         .sort((a, b) =>
           !a?.name && !b?.name
             ? 0

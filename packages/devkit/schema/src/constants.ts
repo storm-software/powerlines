@@ -39,18 +39,18 @@ export const JSON_SCHEMA_DATA_TYPES = [
 ] as const;
 
 export const JSON_SCHEMA_METADATA_KEYS = [
-  "name",
+  "docs",
+  "deprecated",
   "title",
   "description",
-  "default",
   "examples",
-  "groups",
   "visibility",
-  "isHidden",
-  "isIgnored",
-  "isInternal",
-  "isRuntime",
-  "isReadonly",
-  "isPrimaryKey",
-  "alias"
+  "hidden",
+  "ignore",
+  "internal",
+  "runtime",
+  "readOnly",
+  "writeOnly",
+  "alias",
+  "tags"
 ] satisfies ReadonlyArray<keyof SchemaMetadata>;

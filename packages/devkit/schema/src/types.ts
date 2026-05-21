@@ -51,30 +51,66 @@ type UnionToIntersection<U> = (U extends any ? (_: U) => void : never) extends (
 /**
  * A JSON Schema type that is compatible with all the JSON schema variants, and includes additional Powerlines-specific metadata properties. This type is designed to be flexible and accommodate various schema shapes while still providing the ability to include metadata for documentation or other purposes. The presence of the metadata properties does not affect the validation behavior of the schema itself, but they can provide additional context or information about the schema when used in conjunction with compatible tools.
  */
-export type JsonSchemaLike = UncheckedJSONSchemaType<Known, true> &
+export type JsonSchemaLike = UncheckedJsonSchemaType<Known, true> &
   SchemaMetadata;
 
-type UncheckedPartialSchema<T> = Partial<UncheckedJSONSchemaType<T, true>>;
+type UncheckedPartialSchema<T> = Partial<UncheckedJsonSchemaType<T, true>>;
 
-type JSONType<
+export type JsonType<
   T extends string,
   IsPartial extends boolean
 > = IsPartial extends true ? T | undefined : T;
 
-interface NumberKeywords {
+export type NumberFormat =
+  | "int32"
+  | "float"
+  | "double"
+  | "int8"
+  | "uint8"
+  | "int16"
+  | "uint16"
+  | "int64"
+  | "uint64";
+
+export interface NumberKeywords {
+  /** The inclusive lower bound allowed for numeric values. */
   minimum?: number;
+
+  /** The inclusive upper bound allowed for numeric values. */
   maximum?: number;
+
+  /** The exclusive lower bound allowed for numeric values. */
   exclusiveMinimum?: number;
+
+  /** The exclusive upper bound allowed for numeric values. */
   exclusiveMaximum?: number;
+
+  /** The numeric increment that values must be a multiple of. */
   multipleOf?: number;
-  format?: string;
+
+  /** The numeric format hint recognized by compatible validators. */
+  format?: NumberFormat | string;
 }
 
-interface StringKeywords {
+export interface StringKeywords {
+  /** The minimum number of characters allowed in the string. */
   minLength?: number;
+
+  /** The maximum number of characters allowed in the string. */
   maxLength?: number;
+
+  /** A regular expression that matching strings must satisfy. */
   pattern?: string;
-  format?: string;
+
+  /**
+   * A format for the schema, which can be used by validation libraries or other tools that support this feature to provide additional validation or formatting rules for the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   *
+   * @see https://ajv.js.org/packages/ajv-formats.html
+   *
+   * @remarks
+   * The `format` property is a string that specifies the format of the data that the schema represents. It can be used to indicate that a string should be validated as an email address, a date-time, a URI, or any other format supported by compatible validation libraries. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   */
+  format?: FormatName | string;
 }
 
 type Known =
@@ -90,7 +126,7 @@ type Known =
 
 type UncheckedPropertiesSchema<T> = {
   [K in keyof T]-?:
-    | (UncheckedJSONSchemaType<T[K], false> & Nullable<T[K]>)
+    | (UncheckedJsonSchemaType<T[K], false> & Nullable<T[K]>)
     | {
         $ref: string;
       };
@@ -102,32 +138,46 @@ type UncheckedRequiredMembers<T> = {
 
 type Nullable<T> = undefined extends T
   ? {
+      /** Indicates that the value may be null in addition to the declared type. */
       nullable: true;
+
+      /** A constant value constrained to null when the schema is nullable. */
       const?: null;
+
+      /** Allowed values, including null when the schema is nullable. */
       enum?: readonly (T | null)[];
+
+      /** The default value to use when none is provided. */
       default?: T | null;
     }
   : {
+      /** Indicates whether the value may be null. */
       nullable?: false;
+
+      /** A constant value allowed by the schema. */
       const?: T;
+
+      /** The set of values allowed by the schema. */
       enum?: readonly T[];
+
+      /** The default value to use when none is provided. */
       default?: T;
     };
 
-type UncheckedJSONSchemaType<T, IsPartial extends boolean> = (
+type UncheckedJsonSchemaType<T, IsPartial extends boolean> = (
   | {
-      anyOf: readonly UncheckedJSONSchemaType<T, IsPartial>[];
+      anyOf: readonly UncheckedJsonSchemaType<T, IsPartial>[];
     }
   | {
-      oneOf: readonly UncheckedJSONSchemaType<T, IsPartial>[];
+      oneOf: readonly UncheckedJsonSchemaType<T, IsPartial>[];
     }
   | ({
       type: readonly (T extends number
-        ? JSONType<"number" | "integer", IsPartial>
+        ? JsonType<"number" | "integer", IsPartial>
         : T extends string
-          ? JSONType<"string", IsPartial>
+          ? JsonType<"string", IsPartial>
           : T extends boolean
-            ? JSONType<"boolean", IsPartial>
+            ? JsonType<"boolean", IsPartial>
             : never)[];
     } & UnionToIntersection<
       T extends number
@@ -141,31 +191,23 @@ type UncheckedJSONSchemaType<T, IsPartial extends boolean> = (
     >)
   | ((T extends number
       ? {
-          type: JSONType<"number" | "integer", IsPartial>;
+          type: JsonType<"number" | "integer", IsPartial>;
         } & NumberKeywords
       : T extends string
         ? {
-            type: JSONType<"string", IsPartial>;
-
-            /**
-             * A format for the schema, which can be used by validation libraries or other tools that support this feature to provide additional validation or formatting rules for the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
-             *
-             * @see https://ajv.js.org/packages/ajv-formats.html
-             *
-             * @remarks
-             * The `format` property is a string that specifies the format of the data that the schema represents. It can be used to indicate that a string should be validated as an email address, a date-time, a URI, or any other format supported by compatible validation libraries. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
-             */
-            format?: FormatName;
+            type: JsonType<"string", IsPartial>;
           } & StringKeywords
         : T extends boolean
           ? {
-              type: JSONType<"boolean", IsPartial>;
+              type: JsonType<"boolean", IsPartial>;
             }
           : T extends readonly [any, ...any[]]
             ? {
-                type: JSONType<"array", IsPartial>;
+                type: JsonType<"array", IsPartial>;
+
+                /** The tuple items in order. */
                 items: {
-                  readonly [K in keyof T]-?: UncheckedJSONSchemaType<
+                  readonly [K in keyof T]-?: UncheckedJsonSchemaType<
                     T[K],
                     false
                   > &
@@ -173,111 +215,191 @@ type UncheckedJSONSchemaType<T, IsPartial extends boolean> = (
                 } & {
                   length: T["length"];
                 };
+
+                /** The minimum number of items allowed in the tuple. */
                 minItems: T["length"];
               } & (
                 | {
+                    /** The maximum number of items allowed in the tuple. */
                     maxItems: T["length"];
                   }
                 | {
+                    /** Disallows items beyond the tuple length. */
                     additionalItems: false;
                   }
               )
             : T extends readonly any[]
               ? {
-                  type: JSONType<"array", IsPartial>;
-                  items: UncheckedJSONSchemaType<T[0], false>;
+                  type: JsonType<"array", IsPartial>;
+
+                  /** The schema that each array item must satisfy. */
+                  items: UncheckedJsonSchemaType<T[0], false>;
+
+                  /** A schema that at least one array item must satisfy. */
                   contains?: UncheckedPartialSchema<T[0]>;
+
+                  /** The minimum number of items allowed in the array. */
                   minItems?: number;
+
+                  /** The maximum number of items allowed in the array. */
                   maxItems?: number;
+
+                  /** The minimum number of matching items required by {@link contains}. */
                   minContains?: number;
+
+                  /** The maximum number of matching items allowed by {@link contains}. */
                   maxContains?: number;
+
+                  /** Indicates that array items must be unique. */
                   uniqueItems?: true;
+
+                  /** Additional tuple items are not permitted in this schema shape. */
                   additionalItems?: never;
                 }
               : T extends Record<string, any>
                 ? {
-                    type: JSONType<"object", IsPartial>;
+                    type: JsonType<"object", IsPartial>;
+
+                    /** The schema for properties not matched by {@link properties} or {@link patternProperties}. */
                     additionalProperties?:
                       | boolean
-                      | UncheckedJSONSchemaType<T[string], false>;
+                      | UncheckedJsonSchemaType<T[string], false>;
+
+                    /** The schema for properties not yet evaluated by other object keywords. */
                     unevaluatedProperties?:
                       | boolean
-                      | UncheckedJSONSchemaType<T[string], false>;
+                      | UncheckedJsonSchemaType<T[string], false>;
+
+                    /** The declared object properties and their schemas. */
                     properties?: IsPartial extends true
                       ? Partial<UncheckedPropertiesSchema<T>>
                       : UncheckedPropertiesSchema<T>;
+
+                    /** The schemas for properties whose names match the given patterns. */
                     patternProperties?: Record<
                       string,
-                      UncheckedJSONSchemaType<T[string], false>
+                      UncheckedJsonSchemaType<T[string], false>
                     >;
+
+                    /** The schema that each property name must satisfy. */
                     propertyNames?: Omit<
-                      UncheckedJSONSchemaType<string, false>,
+                      UncheckedJsonSchemaType<string, false>,
                       "type"
                     > & {
                       type?: "string";
-
-                      /**
-                       * A format for the schema, which can be used by validation libraries or other tools that support this feature to provide additional validation or formatting rules for the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
-                       *
-                       * @see https://ajv.js.org/packages/ajv-formats.html
-                       *
-                       * @remarks
-                       * The `format` property is a string that specifies the format of the data that the schema represents. It can be used to indicate that a string should be validated as an email address, a date-time, a URI, or any other format supported by compatible validation libraries. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
-                       */
-                      format?: FormatName;
                     };
+
+                    /** A map of property-specific dependency requirements. */
                     dependencies?: {
                       [K in keyof T]?:
                         | readonly (keyof T)[]
                         | UncheckedPartialSchema<T>;
                     };
+
+                    /** Properties that become required when the key property is present. */
                     dependentRequired?: {
                       [K in keyof T]?: readonly (keyof T)[];
                     };
+
+                    /** Subschemas that apply when the key property is present. */
                     dependentSchemas?: {
                       [K in keyof T]?: UncheckedPartialSchema<T>;
                     };
+
+                    /** The minimum number of own properties allowed. */
                     minProperties?: number;
+
+                    /** The maximum number of own properties allowed. */
                     maxProperties?: number;
+
+                    /**
+                     * An optional array of property names that are considered primary keys for the object. This property can be used by validation libraries or other tools that support this feature to provide additional validation rules or constraints for the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+                     */
+                    primaryKey?: (keyof T)[];
+
+                    /**
+                     * A name for the database schema associated with the data represented by this schema. This property can be used by documentation tools or other libraries that support this feature to provide additional context or information about the data model that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+                     */
+                    databaseSchemaName?: string;
                   } & (IsPartial extends true
                     ? {
+                        /** The set of required property names for partial schemas. */
                         required: readonly (keyof T)[];
                       }
                     : [UncheckedRequiredMembers<T>] extends [never]
                       ? {
+                          /** The set of required property names when none are statically required. */
                           required?: readonly UncheckedRequiredMembers<T>[];
                         }
                       : {
+                          /** The set of required property names for the object. */
                           required: readonly UncheckedRequiredMembers<T>[];
                         })
                 : T extends null
                   ? {
-                      type: JSONType<"null", IsPartial>;
+                      /** The JSON Schema null type. */
+                      type: JsonType<"null", IsPartial>;
+
+                      /** Indicates that only null is allowed. */
                       nullable: true;
                     }
                   : never) & {
+      /** A set of schemas where the data must satisfy all members. */
       allOf?: readonly UncheckedPartialSchema<T>[];
+
+      /** A set of schemas where the data must satisfy at least one member. */
       anyOf?: readonly UncheckedPartialSchema<T>[];
+
+      /** A set of schemas where the data must satisfy exactly one member. */
       oneOf?: readonly UncheckedPartialSchema<T>[];
+
+      /** A schema that the data must not satisfy. */
       if?: UncheckedPartialSchema<T>;
+
+      /** A schema applied when {@link if} matches. */
       then?: UncheckedPartialSchema<T>;
+
+      /** A schema applied when {@link if} does not match. */
       else?: UncheckedPartialSchema<T>;
+
+      /** A schema that must not match the data. */
       not?: UncheckedPartialSchema<T>;
     })
 ) & {
-  [keyword: string]: any;
+  /**
+   * A unique identifier for the schema, which can be used to reference or identify the schema in various contexts. This property is part of the JSON Schema specification and does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   */
   $id?: string;
-  $ref?: string;
-  $defs?: Record<string, UncheckedJSONSchemaType<Known, true>>;
-  definitions?: Record<string, UncheckedJSONSchemaType<Known, true>>;
-};
 
-export interface SchemaMetadata {
+  /**
+   * A reference to another schema definition, which can be used to reuse or reference schema definitions in other parts of the document or external schemas. This property is part of the JSON Schema specification and does not affect the validation behavior of the schema itself, but it can be used to create modular and reusable schema structures.
+   */
+  $ref?: string;
+
+  /**
+   * A comment or annotation for the schema, which can be used to provide additional context or information about the schema. This property is part of the JSON Schema specification and does not affect the validation behavior of the schema itself, but it can be used by documentation tools or other libraries that support this feature.
+   */
+  $comment?: string;
+
+  /**
+   * A record of schema definitions that can be referenced throughout the schema using `$ref`. This property can be used to define reusable schema components and reduce redundancy in schema definitions. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   */
+  $defs?: Record<string, UncheckedJsonSchemaType<Known, true>>;
+
+  /**
+   * A record of schema definitions that can be referenced throughout the schema using `$ref`. This property is a legacy version of `$defs` and is maintained for backward compatibility with earlier versions of the JSON Schema specification. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   */
+  definitions?: Record<string, UncheckedJsonSchemaType<Known, true>>;
+
   /**
    * A name for the schema, which can be used by documentation tools or other libraries that support this feature to provide a human-readable name or description for the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
   name?: string;
 
+  [keyword: string]: any;
+};
+
+export interface SchemaMetadata {
   /**
    * A title for the schema, which can be used by documentation tools or other libraries that support this feature to provide a human-readable name or description for the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
@@ -289,19 +411,24 @@ export interface SchemaMetadata {
   description?: string;
 
   /**
-   * A default value for the schema, which can be used by validation libraries or other tools that support this feature. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   * A URL or string containing documentation for the schema, which can be used by documentation tools or other libraries that support this feature to provide additional information or resources related to the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
-  default?: unknown;
+  docs?: string;
 
   /**
    * An array of example values that conform to the schema. This property can be used to provide sample data for documentation purposes or to assist developers in understanding the expected structure and content of the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
    */
-  examples?: unknown[];
+  examples?: string[];
+
+  /**
+   * An array of strings or an alias reference to indicate that the field is an alias for one or more other fields.
+   */
+  alias?: string[];
 
   /**
    * An array of strings indicating groups that the schema belongs to. This property can be used for organizational or categorization purposes in documentation tools or other libraries that support this feature. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
-  groups?: string[];
+  tags?: string[];
 
   /**
    * A visibility level for the schema, which can be used by documentation tools or other libraries that support this feature to determine how the schema should be presented or accessed. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
@@ -309,48 +436,68 @@ export interface SchemaMetadata {
   visibility?: "public" | "protected" | "private";
 
   /**
-   * An indicator specifying if the field should be marked as hidden or not.
+   * An indicator specifying if the field is deprecated or not. This property can be used by documentation tools or other libraries that support this feature to provide additional information or warnings about the usage of the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
-  isHidden?: boolean;
+  deprecated?: boolean;
 
   /**
-   * An indicator specifying if the field should be ignored or not.
+   * An indicator specifying if the field should be marked as hidden or not. This property can be used by documentation tools or other libraries that support this feature to provide additional information or warnings about the usage of the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
-  isIgnored?: boolean;
+  hidden?: boolean;
+
+  /**
+   * An indicator specifying if the field should be ignored or not. This property can be used by documentation tools or other libraries that support this feature to provide additional information or warnings about the usage of the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   */
+  ignore?: boolean;
 
   /**
    * An indicator specifying if the field is internal or not.
    *
    * @internal
    */
-  isInternal?: boolean;
+  internal?: boolean;
 
   /**
    * An indicator specifying if the field should only be populated at runtime or not.
    */
-  isRuntime?: boolean;
+  runtime?: boolean;
 
   /**
    * An indicator specifying if the field is read-only or not.
    */
-  isReadonly?: boolean;
+  readOnly?: boolean;
 
   /**
-   * An indicator specifying if the field is a primary key or not.
+   * An indicator specifying if the field is write-only or not. This property can be used by documentation tools or other libraries that support this feature to provide additional information or warnings about the usage of the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
-  isPrimaryKey?: boolean;
+  writeOnly?: boolean;
 
   /**
-   * An array of strings or an alias reference to indicate that the field is an alias for one or more other fields.
+   * The content media type for the schema, which can be used by documentation tools or other libraries that support this feature to provide additional information about the expected content type of the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
    */
-  alias?: string[];
+  contentMediaType?: string;
+
+  /**
+   * The content encoding for the schema, which can be used by documentation tools or other libraries that support this feature to provide additional information about the expected encoding of the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   */
+  contentEncoding?: string;
+
+  /**
+   * The content schema for the schema, which can be used by documentation tools or other libraries that support this feature to provide additional information about the expected structure of the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   */
+  contentSchema?: string;
 }
 
 export type JsonSchemaProperty<
   T extends Record<string, any> = Record<string, any>,
   TName extends string = string
 > = JsonSchemaObject<T[TName]> & {
+  /** The property name within the parent object schema. */
   name: TName;
+
+  /**
+   * An indicator specifying if the field is nullable or not. If `true`, the field can accept `null` as a valid value. This property can be used by validation libraries or other tools that support this feature to provide additional validation rules for the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   */
   nullable: boolean;
 };
 
@@ -359,7 +506,7 @@ export type JsonSchemaProperty<
  */
 export type JsonSchema<T = unknown> = StrictNullChecksWrapper<
   "JsonSchema",
-  UncheckedJSONSchemaType<T, false>
+  UncheckedJsonSchemaType<T, false>
 > &
   SchemaMetadata;
 
@@ -369,8 +516,13 @@ export type JsonSchema<T = unknown> = StrictNullChecksWrapper<
 export type JsonSchemaObject<
   T extends Record<string, any> = Record<string, any>
 > = Omit<JsonSchemaLike, "type" | "properties" | "required"> & {
+  /** The JSON Schema object type discriminator. */
   type: "object";
+
+  /** The object properties mapped to their schema definitions. */
   properties: Record<string, JsonSchemaProperty<T>>;
+
+  /** The property names that are required on the object. */
   required?: string[];
 } & SchemaMetadata;
 
@@ -402,41 +554,66 @@ export type SchemaInput<T = unknown> =
  * A schema extracted from a source input, normalized to JSON Schema.
  */
 export interface Schema<T = unknown> {
+  /** A stable content hash for the normalized schema. */
   hash: string;
+
+  /** The source variant used to derive the normalized {@link JsonSchema}. */
   variant: SchemaInputVariant;
+
+  /** The normalized schema definition. */
   schema: JsonSchema<T>;
 }
 
 export interface BaseSchemaSource {
+  /** A stable content hash for the original source schema. */
   hash: string;
+
+  /** The specific source format used for the schema input. */
   variant: SchemaSourceVariant;
+
+  /** The original schema input captured before normalization. */
   schema: SchemaSourceInput;
 }
 
 export interface JsonSchemaSchemaSource<
   TMetadata extends SchemaMetadata = SchemaMetadata
 > extends BaseSchemaSource {
+  /** Indicates the source input already uses JSON Schema syntax. */
   variant: "json-schema";
+
+  /** The original JSON Schema document. */
   schema: JsonSchema<TMetadata>;
 }
 
 export interface StandardSchemaSchemaSource extends BaseSchemaSource {
+  /** Indicates the source input follows the Standard Schema format. */
   variant: "standard-schema";
+
+  /** The original Standard Schema document. */
   schema: StandardJSONSchemaV1;
 }
 
 export interface Zod3SchemaSource extends BaseSchemaSource {
+  /** Indicates the source input is a Zod v3 schema. */
   variant: "zod3";
+
+  /** The original Zod v3 schema instance. */
   schema: z3.ZodTypeAny;
 }
 
 export interface ReflectionSchemaSource extends BaseSchemaSource {
+  /** Indicates the source input is a Deepkit reflection {@link Type}. */
   variant: "reflection";
+
+  /** The original Deepkit reflection type. */
   schema: Type;
 }
 
 export interface UntypedSchemaSource extends BaseSchemaSource {
+  /** Indicates the source input comes from the Untyped schema model. */
   variant: "untyped";
+
+  /** The original Untyped schema input. */
   schema: UntypedInputObject | UntypedSchema;
 }
 
@@ -448,5 +625,6 @@ export type SchemaSource =
   | ReflectionSchemaSource;
 
 export interface ExtractedSchema<T = unknown> extends Schema<T> {
+  /** The schema source that produced this normalized schema. */
   source: SchemaSource;
 }
