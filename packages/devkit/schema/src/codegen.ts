@@ -30,7 +30,7 @@ import standaloneCode from "ajv/dist/standalone";
 import { getPropertiesList } from "./helpers";
 import { getPrimarySchemaType, isSchemaNullable } from "./metadata";
 import { isJsonSchemaObject } from "./type-checks";
-import { JsonSchema, JsonSchemaLike, JsonSchemaPrimitiveType } from "./types";
+import { JsonSchema, JsonSchemaPrimitiveType } from "./types";
 
 /**
  * Stringifies a value for generated TypeScript code.
@@ -68,11 +68,12 @@ export function stringifyType<T = unknown>(schema?: JsonSchema<T>): string {
     return match?.[1] ?? schema.$ref;
   }
 
-  const primaryType = getPrimarySchemaType(schema as JsonSchemaLike);
+  const primaryType = getPrimarySchemaType(schema);
   if (primaryType) {
     if (primaryType === "integer" || primaryType === "number") {
       return "number";
     }
+
     return primaryType;
   }
 
