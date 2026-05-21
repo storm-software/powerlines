@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.142](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.142) (05/21/2026)
+
+### Miscellaneous
+
+- **schema:** Added vocabularies to JSON schema type definitions ([95d03c549](https://github.com/storm-software/powerlines/commit/95d03c549))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.9.33**
+- Updated **plugin-babel** to **v0.13.53**
+- Updated **plugin-plugin** to **v0.12.469**
+- Updated **powerlines** to **v0.47.57**
+- Updated **schema** to **v0.11.37**
+
 ## [0.26.141](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.141) (05/20/2026)
 
 ### Updated Dependencies
