@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.15.33](https://github.com/storm-software/powerlines/releases/tag/core%400.15.33) (05/20/2026)
+
+### Miscellaneous
+
+- **core:** Improve color-coded console logging ([fd81a7d52](https://github.com/storm-software/powerlines/commit/fd81a7d52))
+
 ## [0.15.26](https://github.com/storm-software/powerlines/releases/tag/core%400.15.26) (05/19/2026)
 
 ### Miscellaneous

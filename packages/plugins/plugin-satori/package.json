@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-satori",
-  "version": "0.1.515",
+  "version": "0.1.516",
   "type": "module",
   "description": "A Powerlines plugin to use Satori to generate SVG files from jsx/tsx components.",
   "repository": {
