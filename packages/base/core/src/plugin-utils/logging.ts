@@ -25,7 +25,7 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { RequiredKeys } from "@stryke/types/base";
 import { uuid } from "@stryke/unique-id/uuid";
-import chalk from "chalk";
+import chalk, { ChalkInstance } from "chalk";
 import { defu } from "defu";
 import { DEFAULT_ENVIRONMENT } from "../constants/environments";
 import {
@@ -162,29 +162,17 @@ export function resolveLogLevel(
   return defaultLogLevel;
 }
 
-const BADGE_COLORS = [
-  "#00A0DD",
-  "#6FCE4E",
-  "#FBBF24",
-  "#F43F5E",
-  "#3B82F6",
-  "#A855F7",
-  "#469592",
-  "#288EDF",
-  "#D8B4FE",
-  "#10B981",
-  "#EF4444",
-  "#F0EC56",
-  "#F472B6",
-  "#22D3EE",
-  "#EAB308",
-  "#84CC16",
-  "#F87171",
-  "#0EA5E9",
-  "#D946EF",
-  "#FACC15",
-  "#34D399",
-  "#8B5CF6"
+const colors = [
+  chalk.green,
+  chalk.greenBright,
+  chalk.red,
+  chalk.redBright,
+  chalk.cyan,
+  chalk.cyanBright,
+  chalk.yellow,
+  chalk.yellowBright,
+  chalk.magenta,
+  chalk.magentaBright
 ] as const;
 
 const BRAND_COLOR = getColor("brand");
@@ -195,15 +183,13 @@ const BRAND_COLOR = getColor("brand");
  * @param text - The input text to generate the color from.
  * @return A hexadecimal color string.
  */
-export const getTextColor = (text: string): string => {
-  return (
-    BADGE_COLORS[
-      text
-        .split("")
-        .map(char => char.charCodeAt(0))
-        .reduce((ret, charCode) => ret + charCode, 0) % BADGE_COLORS.length
-    ] || BADGE_COLORS[0]
-  );
+export const getTextColor = (text: string): ChalkInstance => {
+  let code = 0;
+  for (let i = 0; i < text.length; ++i) {
+    code += text.charCodeAt(i);
+  }
+
+  return colors[code % colors.length] ?? chalk.cyanBright;
 };
 
 /**
@@ -215,7 +201,7 @@ export const getTextColor = (text: string): string => {
 export const colorText = (text: string): string => {
   const title = titleCase(text);
 
-  return chalk.hex(getTextColor(title))(title);
+  return getTextColor(title)(title);
 };
 
 /**
@@ -227,7 +213,7 @@ export const colorText = (text: string): string => {
 export const colorBackground = (text: string): string => {
   const title = titleCase(text);
 
-  return chalk.inverse.hex(getTextColor(title))(` ${title} `);
+  return chalk.inverse(getTextColor(title)(` ${title} `));
 };
 
 export const consoleLog = (meta: LogMeta, ...args: string[]) =>
