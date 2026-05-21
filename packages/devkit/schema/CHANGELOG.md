@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.37](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.37) (05/21/2026)
+
+### Miscellaneous
+
+- **schema:** Added vocabularies to JSON schema type definitions ([95d03c549](https://github.com/storm-software/powerlines/commit/95d03c549))
+
+### Bug Fixes
+
+- **schema:** Resolve typing issue with stale function parameters ([f0d6082d2](https://github.com/storm-software/powerlines/commit/f0d6082d2))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.1**
+- Updated **deepkit** to **v0.9.33**
+- Updated **unplugin** to **v0.0.49**
+
 ## [0.11.36](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.36) (05/20/2026)
 
 ### Updated Dependencies

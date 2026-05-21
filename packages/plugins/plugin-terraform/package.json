@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-terraform",
-  "version": "0.1.117",
+  "version": "0.1.118",
   "private": false,
   "description": "A Powerlines plugin to deploy infrastructure using Terraform.",
   "keywords": [
