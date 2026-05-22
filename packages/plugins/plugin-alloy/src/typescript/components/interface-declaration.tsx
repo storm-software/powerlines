@@ -174,7 +174,7 @@ export function InterfaceMember<
   T extends Record<string, any> = Record<string, any>
 >(props: InterfaceMemberProps<T>) {
   const type = (props as InterfaceSchemaMemberProps<T>).schema
-    ? stringifyType<T>((props as InterfaceSchemaMemberProps<T>).schema)
+    ? stringifyType<T[keyof T]>((props as InterfaceSchemaMemberProps<T>).schema)
     : (props.type ?? props.children);
 
   const readonly =
@@ -387,8 +387,8 @@ export function InterfaceDeclarationProperty<
         <InterfaceMember
           name={name.value}
           readOnly={schema?.readOnly}
-          nullish={schema?.nullable || isSchemaNullable<T>(schema)}
-          type={getPrimarySchemaType<T>(schema)}
+          nullish={schema?.nullable || isSchemaNullable<T[keyof T]>(schema)}
+          type={getPrimarySchemaType<T[keyof T]>(schema)}
           {...rest}
         />
       </SchemaPropertyContext.Provider>

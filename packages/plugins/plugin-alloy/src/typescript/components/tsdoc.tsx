@@ -313,7 +313,6 @@ export interface TSDocAttributesTagsProps {
   title?: string;
   alias?: string[];
   tags?: string[];
-  resourceId?: string;
   readOnly?: boolean;
   internal?: boolean;
   ignore?: boolean;
@@ -350,7 +349,6 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
   ]);
 
   const title = computed(() => props.title?.trim() || "");
-  const domain = computed(() => props.resourceId?.trim() || "");
 
   return (
     <>
@@ -366,9 +364,6 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
         <For each={alias?.filter(a => isSetString(a?.trim())) ?? []}>
           {alias => <TSDocAlias>{alias}</TSDocAlias>}
         </For>
-      </Show>
-      <Show when={isSetString(domain.value)}>
-        <TSDocDomain>{domain.value}</TSDocDomain>
       </Show>
       <Show
         when={

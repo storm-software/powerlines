@@ -162,7 +162,7 @@ export function TSDocSchemaProperty<
     <TSDoc heading={schema?.description} {...rest}>
       <Show when={hasAttributes.value}>
         <TSDocAttributesTags
-          type={getPrimarySchemaType<T>(schema)}
+          type={getPrimarySchemaType<T[keyof T]>(schema)}
           title={schema?.title}
           alias={schema?.alias}
           tags={schema?.tags}

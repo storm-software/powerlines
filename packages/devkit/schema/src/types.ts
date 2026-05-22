@@ -504,7 +504,7 @@ export interface SchemaMetadata {
 
 export type JsonSchemaProperty<
   T extends Record<string, any> = Record<string, any>,
-  TName extends keyof T & string = keyof T & string
+  TName extends keyof T = keyof T
 > = JsonSchema<T[TName]> & {
   /** The property name within the parent object schema. */
   name: TName;
