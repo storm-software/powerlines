@@ -19,7 +19,6 @@
 import { render } from "@powerlines/plugin-alloy/render";
 import automd from "@powerlines/plugin-automd";
 import babel from "@powerlines/plugin-babel";
-import { writeSchema } from "@powerlines/schema/persistence";
 import { toArray } from "@stryke/convert/to-array";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { joinPaths } from "@stryke/path/join";
@@ -34,8 +33,9 @@ import { EnvBuiltin } from "./components/env-builtin";
 import { env } from "./helpers/automd-generator";
 import {
   extractEnv,
+  getDefaultVarsTypeDefinition as getDefaultConfigTypeDefinition,
   getDefaultSecretsTypeDefinition,
-  getDefaultVarsTypeDefinition
+  writeEnv
 } from "./helpers/schema";
 import type { EnvPluginContext, EnvPluginOptions } from "./types/plugin";
 
@@ -75,12 +75,12 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           }
         };
 
-        if (!config.env.vars) {
+        if (!config.env.config) {
           this.warn(
-            "The `env.vars` configuration parameter was not provided. Please ensure this is expected."
+            "The `env.config` configuration parameter was not provided. Please ensure this is expected."
           );
 
-          config.env.vars = await getDefaultVarsTypeDefinition(
+          config.env.config = await getDefaultConfigTypeDefinition(
             this as UnresolvedContext
           );
         }
@@ -151,7 +151,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
       async buildEnd() {
         this.debug("Writing active environment variables to disk.");
 
-        await writeSchema(this, this.env.vars);
+        await writeEnv(this);
       }
     },
     {

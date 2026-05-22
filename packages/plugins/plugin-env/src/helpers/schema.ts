@@ -16,19 +16,22 @@
 
  ------------------------------------------------------------------- */
 
+import { isSchema, Schema, writeSchema } from "@powerlines/schema";
 import { extract } from "@powerlines/schema/extract";
 import {
   getProperties,
   getPropertiesList,
   mergeSchemas
 } from "@powerlines/schema/helpers";
+import { omit } from "@stryke/helpers/omit";
+import { joinPaths } from "@stryke/path/join";
 import { isSetArray } from "@stryke/type-checks/is-set-array";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isString } from "@stryke/type-checks/is-string";
 import type { TypeDefinition } from "@stryke/types/configuration";
 import defu from "defu";
 import { UnresolvedContext } from "powerlines";
-import { Env, EnvPluginContext } from "../types/plugin";
+import { EnvPluginContext, EnvSchema } from "../types/plugin";
 import { loadEnv } from "./load";
 
 /**
@@ -80,6 +83,58 @@ export async function getDefaultSecretsTypeDefinition<
 }
 
 /**
+ * A helper function to get the cache directory path for storing schemas. This function takes a context object as input and returns the path to the cache directory where schemas are stored. The cache directory is constructed by joining the `cachePath` property from the context with a subdirectory named "schemas". This function is useful for centralizing the logic for determining where schema files should be cached, ensuring that all schema-related file operations use a consistent location for storing and retrieving cached schemas.
+ *
+ * @param context - The context object providing access to the cache path.
+ * @returns The path to the cache directory for storing schemas, constructed by joining the context's `cachePath` with the "schemas" subdirectory.
+ */
+export function getCacheDirectory<TContext extends EnvPluginContext>(
+  context: TContext
+): string {
+  return joinPaths(context.cachePath, "env");
+}
+
+export function getCacheFilePath<TContext extends EnvPluginContext>(
+  context: TContext,
+  variant: "config" | "secrets"
+): string {
+  return joinPaths(getCacheDirectory(context), `${variant}.json`);
+}
+
+async function writeActive<TContext extends EnvPluginContext>(
+  context: TContext,
+  variant: "config" | "secrets",
+  schema: EnvSchema
+) {
+  if (!isSchema<EnvSchema>(schema)) {
+    throw new Error(
+      `The provided input is not a valid env schema. A valid schema must have a "variant" property indicating the type of the input and a "schema" property containing the parsed JSON Schema object.`
+    );
+  }
+
+  await context.fs.write(
+    getCacheFilePath(context, variant),
+    JSON.stringify(schema.schema)
+  );
+}
+
+async function readActive<TContext extends EnvPluginContext>(
+  context: TContext,
+  variant: "config" | "secrets"
+): Promise<string[]> {
+  if (!context.fs.existsSync(getCacheFilePath(context, variant))) {
+    return [];
+  }
+
+  const data = await context.fs.read(getCacheFilePath(context, variant));
+  if (!data) {
+    return [];
+  }
+
+  return JSON.parse(data);
+}
+
+/**
  * Extracts the environment variables and secrets schema from the provided type definitions in the plugin options, merges them with the default environment variables and secrets schema, and stores the resulting schema in the plugin context for later use during the build process.
  *
  * @remarks
@@ -95,26 +150,36 @@ export async function extractEnv<TContext extends EnvPluginContext>(
   const defaultSecretsTypeDefinition =
     await getDefaultSecretsTypeDefinition(context);
 
-  const vars = await extract<Env>(context, context.config.env.vars);
+  const config = (await extract<Record<string, any>>(
+    context,
+    context.config.env.config
+  )) as EnvSchema;
+  config.active = await readActive(context, "config");
+
   if (
-    (isString(context.config.env.vars) &&
-      context.config.env.vars !==
+    (isString(context.config.env.config) &&
+      context.config.env.config !==
         `${defaultVarsTypeDefinition.file}#${
           defaultVarsTypeDefinition.name
         }`) ||
-    (isSetObject(context.config.env.vars) &&
-      ((context.config.env.vars as TypeDefinition).file !==
+    (isSetObject(context.config.env.config) &&
+      ((context.config.env.config as TypeDefinition).file !==
         defaultVarsTypeDefinition.file ||
-        (context.config.env.vars as TypeDefinition).name !==
+        (context.config.env.config as TypeDefinition).name !==
           defaultVarsTypeDefinition.name))
   ) {
-    vars.schema = mergeSchemas<Env>(
-      vars,
-      await extract<Env>(context, defaultVarsTypeDefinition)
+    config.schema = mergeSchemas<Record<string, any>>(
+      config,
+      await extract<Record<string, any>>(context, defaultVarsTypeDefinition)
     );
   }
 
-  const secrets = await extract<Env>(context, context.config.env.secrets);
+  const secrets = (await extract<Record<string, any>>(
+    context,
+    context.config.env.secrets
+  )) as EnvSchema;
+  secrets.active = await readActive(context, "secrets");
+
   if (
     (isString(context.config.env.secrets) &&
       context.config.env.secrets !==
@@ -127,43 +192,44 @@ export async function extractEnv<TContext extends EnvPluginContext>(
         (context.config.env.secrets as TypeDefinition).name !==
           defaultSecretsTypeDefinition.name))
   ) {
-    secrets.schema = mergeSchemas<Env>(
+    secrets.schema = mergeSchemas<Record<string, any>>(
       secrets,
-      await extract<Env>(context, defaultSecretsTypeDefinition)
+      await extract<Record<string, any>>(context, defaultSecretsTypeDefinition)
     );
   }
 
   context.env = defu(
     {
-      vars,
+      config,
       secrets,
       parsed: await loadEnv(context, context.config.env)
     },
     context.env ?? {},
     {
+      active: [],
       parsed: {},
       injected: []
     }
   );
 
-  const properties = getProperties(context.env.vars);
+  const properties = getProperties(context.env.config);
   context.info({
     meta: {
       category: "env"
     },
     message: `Environment Variables configuration: ${
-      context.config.env.vars ? "" : "Defaulted "
+      context.config.env.config ? "" : "Defaulted "
     }${
-      context.env.vars.variant === "reflection"
+      context.env.config.variant === "reflection"
         ? "Deepkit type definition"
-        : context.env.vars.variant === "json-schema"
+        : context.env.config.variant === "json-schema"
           ? "JSON Schema"
-          : context.env.vars.variant === "standard-schema"
+          : context.env.config.variant === "standard-schema"
             ? "Standard Schema"
-            : context.env.vars.variant === "zod3"
+            : context.env.config.variant === "zod3"
               ? "Zod v3 schema"
               : "Typescript exported type"
-    }${context.config.env.vars ? " from plugin options" : ""} provided ${
+    }${context.config.env.config ? " from plugin options" : ""} provided ${
       Object.keys(properties).length
     } parameters\nEnvironment Secret configuration: ${
       context.config.env.secrets ? "" : "Defaulted "
@@ -218,7 +284,7 @@ export async function extractEnv<TContext extends EnvPluginContext>(
     if (properties[unprefixedKey]) {
       if (!properties[unprefixedKey]?.runtime) {
         const propertySchema =
-          context.env.vars.schema.properties?.[unprefixedKey];
+          context.env.config.schema.properties?.[unprefixedKey];
         if (propertySchema) {
           propertySchema.default = value;
         }
@@ -226,11 +292,28 @@ export async function extractEnv<TContext extends EnvPluginContext>(
     } else if (aliases[unprefixedKey]) {
       if (!aliases[unprefixedKey]?.runtime) {
         const alias = aliases[unprefixedKey]?.alias?.[0] ?? unprefixedKey;
-        const aliasSchema = context.env.vars.schema.properties?.[alias];
+        const aliasSchema = context.env.config.schema.properties?.[alias];
         if (aliasSchema) {
           aliasSchema.default = value;
         }
       }
     }
   }
+}
+
+/**
+ * Writes the environment variables and secrets schema stored in the plugin context to the cache directory for later retrieval during the build process. This function should be called during the plugin's `build` hook after the schema has been extracted and stored in the plugin context to ensure that the active environment variables and secrets are persisted across builds and can be accessed during the build process for validation and injection purposes.
+ *
+ * @param context - The plugin context containing the environment variables and secrets schema to be written to the cache directory.
+ * @returns A promise that resolves when the schema has been successfully written to the cache directory.
+ */
+export async function writeEnv<TContext extends EnvPluginContext>(
+  context: TContext
+): Promise<void[]> {
+  return Promise.all([
+    writeSchema(context, omit(context.env.config, ["active"]) as Schema),
+    writeSchema(context, omit(context.env.secrets, ["active"]) as Schema),
+    writeActive(context, "config", context.env.config),
+    writeActive(context, "secrets", context.env.secrets)
+  ]);
 }

@@ -16,8 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { code, Show } from "@alloy-js/core";
-import { Link } from "@alloy-js/markdown";
+import { code } from "@alloy-js/core";
 import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
 import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
 import { Heading } from "@powerlines/plugin-alloy/markdown/components/heading";
@@ -31,7 +30,7 @@ import { stringifyType } from "@powerlines/schema/codegen";
 import { getPropertiesList } from "@powerlines/schema/helpers";
 import { joinPaths } from "@stryke/path/join";
 import { getDocsOutputPath } from "powerlines/plugin-utils";
-import { Env, EnvPluginContext } from "../types/plugin";
+import { EnvPluginContext } from "../types/plugin";
 
 export interface EnvDocsFileProps extends Partial<MarkdownFileProps> {
   /**
@@ -57,27 +56,24 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
     <MarkdownFile
       path={joinPaths(getDocsOutputPath(context.config.root), "env.md")}
       {...rest}>
-      <Heading level={1 + levelOffset}>Environment Configuration</Heading>
-      {code`Below is a list of environment configuration parameters used by the`}
-      <Show when={!!context.packageJson.name}>
-        <Link
-          href={`https://www.npmjs.com/package/${context.packageJson.name}`}
-          title={context.packageJson.name!}
-        />
-      </Show>
-      {code`package. These values can be updated in the \`.env\` file in the root of the project.`}
+      <Heading level={1 + levelOffset}>Environment</Heading>
+      {code`The ${
+        context.config.name
+      } package uses various configuration parameters to control the behavior of the application. These parameters can be provided as environment variables when the application is run, or they can be defined in a \`config.json\` file in the application configuration directory.`}
       <Spacing />
-      <Heading level={2 + levelOffset}>Variables</Heading>
+      <Heading level={2 + levelOffset}>Configuration</Heading>
       <Spacing />
-      {code`The below list of environment variables are used as configuration parameters to drive the processing of the application. The data contained in these variables are **not** considered sensitive or confidential. Any values provided in these variables will be available in plain text.`}
+      {code`The below list of configuration parameters are **not** considered sensitive or confidential. Any values provided in these variables will be available in plain text locally.`}
       <Spacing />
       <MarkdownTable
         data={
-          getPropertiesList<Env>(context.env.vars)
+          getPropertiesList(context.env.config)
             .filter(
               property =>
-                getPropertiesList<Env>(context.env.vars).some(
-                  p => p.name === property.name && p.active
+                getPropertiesList(context.env.config).some(
+                  p =>
+                    p.name === property.name &&
+                    context.env.config.active.includes(property.name)
                 ) &&
                 !property?.hidden &&
                 !property?.ignore &&

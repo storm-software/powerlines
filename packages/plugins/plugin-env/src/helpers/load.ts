@@ -143,8 +143,8 @@ export function loadEnvFromContext(
           ? context.config.mode
           : context.config.environment.name
     },
-    isSetObject(context.env.vars)
-      ? Object.entries(getProperties(context.env.vars)).reduce(
+    isSetObject(context.env.config)
+      ? Object.entries(getProperties(context.env.config)).reduce(
           (ret, [name, prop]) => {
             ret[name] = parsed[name] ?? prop?.default;
             return ret;

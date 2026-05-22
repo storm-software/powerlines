@@ -24,7 +24,7 @@ import {
   BabelPluginResolvedConfig,
   BabelPluginUserConfig
 } from "@powerlines/plugin-babel/types";
-import type { JsonSchema, Schema, SchemaInput } from "@powerlines/schema";
+import type { Schema, SchemaInput } from "@powerlines/schema";
 import type { DotenvParseOutput } from "@stryke/env/types";
 import { RequiredKeys } from "@stryke/types";
 import { DotenvConfiguration } from "@stryke/types/configuration";
@@ -35,7 +35,7 @@ export type EnvPluginOptions = Omit<DotenvConfiguration, "types"> & {
   /**
    * A path to the type definition for the expected env configuration parameters. This value can include both a path to the typescript file and the name of the type definition to use separated by a `":"` or `"#"` character. For example: `"./src/types/env.ts#ConfigConfiguration"`.
    */
-  vars?: SchemaInput;
+  config?: SchemaInput;
 
   /**
    * A path to the type definition for the expected env secret parameters. This value can include both a path to the typescript file and the name of the type definition to use separated by a `":"` or `"#"` character. For example: `"./src/types/env.ts#ConfigSecrets"`.
@@ -95,7 +95,7 @@ export type EnvPluginUserConfig = BabelPluginUserConfig & {
 
 export type EnvPluginResolvedConfig = BabelPluginResolvedConfig & {
   env: Required<Pick<DotenvConfiguration, "additionalFiles">> &
-    RequiredKeys<EnvPluginOptions, "vars" | "secrets" | "defaultConfig"> & {
+    RequiredKeys<EnvPluginOptions, "config" | "secrets" | "defaultConfig"> & {
       /**
        * Should the plugin inject the env variables in the source code with their values?
        *
@@ -126,14 +126,14 @@ export type EnvPluginResolvedConfig = BabelPluginResolvedConfig & {
  * The schema for environment variables and secrets used by the plugin.
  *
  * @remarks
- * This schema is the result of parsing the type definitions provided in the {@link EnvPluginOptions.vars} and {@link EnvPluginOptions.secrets} options, and is used to validate the loaded environment variables and secrets, as well as to determine which variables should be injected into the source code when the {@link EnvPluginOptions.inject} option is enabled.
+ * This schema is the result of parsing the type definitions provided in the {@link EnvPluginOptions.config} and {@link EnvPluginOptions.secrets} options, and is used to validate the loaded environment variables and secrets, as well as to determine which variables should be injected into the source code when the {@link EnvPluginOptions.inject} option is enabled.
  */
-export type Env = JsonSchema<Record<string, any>> & {
+export type EnvSchema = Schema<Record<string, any>> & {
   /**
-   * An indicator specifying whether or not this environment variable or secret is active and should be injected during the build process.
+   * The list of active environment variables or secrets that should be injected into the source code when the {@link EnvPluginOptions.inject} option is enabled. This list is determined by filtering the properties defined in the schema based on the provided prefix and any additional filtering criteria defined in the type definition, such as an `active` property.
    *
    * @remarks
-   * This value is determined during the build process based on the loaded environment variables and secrets, and is used to filter which variables are actually injected into the source code when the {@link EnvPluginOptions.inject} option is enabled.
+   * If the type definition includes an `active` property for each environment variable or secret, this list will be determined by including only the variables or secrets that have `active` set to `true`. If the type definition does not include an `active` property, all variables or secrets defined in the schema that match the provided prefix will be included in this list.
    */
   active: string[];
 };
@@ -146,9 +146,9 @@ export interface EnvPluginContext<
      * The type definition for the expected env variable parameters
      *
      * @remarks
-     * This value is parsed from the {@link EnvPluginOptions.vars} option.
+     * This value is parsed from the {@link EnvPluginOptions.config} option.
      */
-    vars: Schema<Env>;
+    config: EnvSchema;
 
     /**
      * The type definition for the expected env secret parameters
@@ -156,7 +156,7 @@ export interface EnvPluginContext<
      * @remarks
      * This value is parsed from the {@link EnvPluginOptions.secrets} option.
      */
-    secrets: Schema<Env>;
+    secrets: EnvSchema;
 
     /**
      * The parsed .env configuration object

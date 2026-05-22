@@ -21,10 +21,14 @@ import * as t from "@babel/types";
 import { createBabelPlugin } from "@powerlines/plugin-babel/helpers/create-plugin";
 import { addImport } from "@powerlines/plugin-babel/helpers/module-helpers";
 import { BabelPluginPass } from "@powerlines/plugin-babel/types/config";
-import { getProperties, stringifyValue } from "@powerlines/schema";
+import {
+  getProperties,
+  JsonSchemaProperty,
+  stringifyValue
+} from "@powerlines/schema";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
-import { Env, EnvPluginContext } from "../types/plugin";
+import { EnvPluginContext } from "../types/plugin";
 
 /*
  * The Powerlines - Environment Configuration Babel Plugin
@@ -35,7 +39,7 @@ import { Env, EnvPluginContext } from "../types/plugin";
 export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
   "env",
   ({ logger, context }) => {
-    const vars = getProperties<Env>(context.env.vars);
+    const config = getProperties(context.env.config);
     function extractEnv(
       node: t.Identifier,
       pass: BabelPluginPass,
@@ -56,8 +60,12 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
           }.`
         });
 
-        if (name in vars && isSetObject(vars[name]) && !vars[name]?.isIgnored) {
-          vars[name] ??= {} as Env[string];
+        if (
+          name in config &&
+          isSetObject(config[name]) &&
+          !config[name]?.isIgnored
+        ) {
+          config[name] ??= {} as JsonSchemaProperty<Record<string, any>>;
 
           logger.debug({
             meta: {
@@ -68,16 +76,16 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
             }" and will be added to the environment schema's active variables list.`
           });
 
-          vars[name]!.active = true;
+          context.env.config.active.push(name);
           if (
-            !vars[name]!.runtime &&
+            !config[name].runtime &&
             ((context.config.env.inject && isInjectable) ||
               context.config.env.validate)
           ) {
             if (
               context.config.env.validate &&
-              !vars[name]!.optional &&
-              isUndefined(vars[name]!.default)
+              !config[name].optional &&
+              isUndefined(config[name].default)
             ) {
               throw new Error(
                 `Environment variable \`${
@@ -88,13 +96,13 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
               );
             }
 
-            return stringifyValue(vars[name]!.default);
+            return stringifyValue(config[name].default);
           }
         } else if (context.config.env.validate) {
           throw new Error(
             `Environment variable \`${name}\` is active in the source code${
               pass.filename ? ` file \`${pass.filename}\`` : ""
-            }, but is not defined in the \`vars\` schema. Please check the \`env.vars\` configuration option. If you are using a custom env schema, please make sure that the configuration variable names match the ones used in the source code.`
+            }, but is not defined in the \`config\` schema. Please check the \`env.config\` configuration option. If you are using a custom env schema, please make sure that the configuration variable names match the ones used in the source code.`
           );
         } else {
           logger.warn({
@@ -103,7 +111,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
             },
             message: `Environment variable \`${name}\` is active in the source code${
               pass.filename ? ` file \`${pass.filename}\`` : ""
-            }, but is not defined in the \`vars\` schema. If this is intentional, you can ignore this warning. Otherwise, please check the \`env.vars\` configuration option. If you are using a custom env schema, please make sure that the configuration variable names match the ones used in the source code.`
+            }, but is not defined in the \`config\` schema. If this is intentional, you can ignore this warning. Otherwise, please check the \`env.config\` configuration option. If you are using a custom env schema, please make sure that the configuration variable names match the ones used in the source code.`
           });
         }
       }

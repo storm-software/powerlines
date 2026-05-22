@@ -65,7 +65,7 @@ export function EnvTypeDefinition() {
     <>
       <InterfaceDeclaration
         name="UnprefixedEnv"
-        schema={context.env.vars.schema}
+        schema={context.env.config.schema}
         export
       />
       <Spacing />
@@ -83,7 +83,7 @@ export function EnvTypeDefinition() {
           {prefix => (
             <For
               each={
-                getPropertiesList(context.env.vars.schema).filter(
+                getPropertiesList(context.env.config.schema).filter(
                   property => !property?.isIgnored
                 ) ?? []
               }
@@ -260,7 +260,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
 
   const reflectionGetProperties = computed(
     () =>
-      getPropertiesList(context.env.vars.schema)
+      getPropertiesList(context.env.config.schema)
         .filter(property => !property?.isIgnored)
         .sort((a, b) =>
           !a?.name && !b?.name
@@ -274,7 +274,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
   );
   const reflectionSetProperties = computed(
     () =>
-      getPropertiesList(context.env.vars.schema)
+      getPropertiesList(context.env.config.schema)
         .filter(property => !property?.isIgnored && !property?.readOnly)
         .sort((a, b) =>
           !a?.name && !b?.name
@@ -292,14 +292,14 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       id="env"
       description="The environment configuration module provides an interface to define environment configuration parameters."
       {...rest}>
-      <Show when={Boolean(context.env.vars.schema)}>
+      <Show when={Boolean(context.env.config.schema)}>
         <EnvTypeDefinition defaultValue={defaultValue} />
         <Spacing />
       </Show>
       <ObjectDeclaration
         name="initialEnv"
         type="Partial<Env>"
-        schema={context.env.vars.schema}
+        schema={context.env.config.schema}
         export
         const
         doc="The initial environment configuration object values for the runtime."
