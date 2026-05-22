@@ -127,6 +127,7 @@ catalog:
   "@types/react-dom": ^19.2.3
   "@types/semver": ^7.7.1
   "@types/unist": ^3.0.3
+  "@valibot/to-json-schema": ^1.7.0
   "@vitejs/plugin-react": ^5.2.0
   ajv: ^8.20.0
   ajv-formats: ^3.0.1
@@ -217,6 +218,7 @@ catalog:
   unplugin: ^3.0.0
   unplugin-combine: ^2.4.0
   untyped: ^1.5.2
+  valibot: ^1.4.0
   verdaccio: 6.5.2
   vite: ^8.0.14
   webpack: ^5.107.1

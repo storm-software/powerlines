@@ -16,13 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-import { isSchema, Schema, writeSchema } from "@powerlines/schema";
-import { extract } from "@powerlines/schema/extract";
 import {
+  extract,
   getProperties,
   getPropertiesList,
-  mergeSchemas
-} from "@powerlines/schema/helpers";
+  isSchema,
+  mergeSchemas,
+  Schema,
+  writeSchema
+} from "@powerlines/schema";
 import { omit } from "@stryke/helpers/omit";
 import { joinPaths } from "@stryke/path/join";
 import { isSetArray } from "@stryke/type-checks/is-set-array";

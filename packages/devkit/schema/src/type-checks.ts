@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import type { StandardSchemaV1 } from "@standard-schema/spec";
 import { isJsonSchemaObjectType } from "@stryke/json";
 import {
   isFunction,
@@ -27,6 +28,7 @@ import {
   InputObject as UntypedInputObject,
   Schema as UntypedSchema
 } from "untyped";
+import type { BaseSchema } from "valibot";
 import { JSON_SCHEMA_DATA_TYPES } from "./constants";
 import { ExtractedSchema, JsonSchema, JsonSchemaObject, Schema } from "./types";
 
@@ -109,6 +111,52 @@ const TYPE_KEYWORD_VALIDATORS: Record<
   },
   null: {}
 };
+
+/**
+ * Type guard for Standard Schema V1 objects.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a Standard Schema V1 object, false otherwise.
+ */
+export function isStandardSchema(input: unknown): input is StandardSchemaV1 {
+  if (!isSetObject(input)) {
+    return false;
+  }
+
+  const schema = input as Record<string, unknown>;
+  if (!isSetObject(schema["~standard"])) {
+    return false;
+  }
+
+  const standard = schema["~standard"] as Record<string, unknown>;
+
+  return standard.version === 1 && isFunction(standard.validate);
+}
+
+/**
+ * Type guard for Valibot BaseSchema objects.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a Valibot BaseSchema, false otherwise.
+ */
+export function isValibotSchema(
+  input: unknown
+): input is BaseSchema<any, any, any> {
+  if (!isSetObject(input) || !isStandardSchema(input)) {
+    return false;
+  }
+
+  const schema = input as unknown as Record<string, unknown>;
+
+  return (
+    schema.kind === "schema" &&
+    isSetString(schema.type) &&
+    isSetBoolean(schema.async) &&
+    isFunction(schema.reference) &&
+    isSetString(schema.expects) &&
+    isFunction(schema["~run"])
+  );
+}
 
 /**
  * Type guard for JSON Schema types.

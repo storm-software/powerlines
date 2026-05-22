@@ -44,7 +44,6 @@ export const JSON_SCHEMA_METADATA_KEYS = [
   "title",
   "description",
   "examples",
-  "visibility",
   "hidden",
   "ignore",
   "internal",

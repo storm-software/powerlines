@@ -46,8 +46,7 @@ export function applySchemaMetadata<
   for (const key of JSON_SCHEMA_METADATA_KEYS) {
     const value = metadata[key];
     if (value !== undefined && value !== null) {
-      result[key as keyof JsonSchema<T>] =
-        value as JsonSchema<T>[keyof JsonSchema<T>];
+      result[key as keyof JsonSchema<T>] = value;
     }
   }
 
@@ -92,7 +91,10 @@ export function isPropertyOptional<
 >(parent: JsonSchemaObject<T>, propertyName: string): boolean {
   const required = parent.required ?? [];
 
-  return !required.includes(propertyName);
+  return (
+    !required.includes(propertyName) &&
+    !isSchemaNullable<T>(parent.properties[propertyName] as JsonSchema<T>)
+  );
 }
 
 /**

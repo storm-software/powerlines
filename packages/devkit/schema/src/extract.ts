@@ -30,6 +30,7 @@ import {
   extractJsonSchema as extractJsonSchemaZod,
   isZod3Type
 } from "@stryke/zod";
+import { toJsonSchema } from "@valibot/to-json-schema";
 import defu from "defu";
 import type { BuildOptions } from "rolldown";
 import * as z3 from "zod/v3";
@@ -42,7 +43,8 @@ import {
   isJsonSchemaObject,
   isSchema,
   isUntypedInput,
-  isUntypedSchema
+  isUntypedSchema,
+  isValibotSchema
 } from "./type-checks";
 import {
   ExtractedSchema,
@@ -55,7 +57,8 @@ import {
   SchemaSourceVariant,
   TypeDefinitionReference,
   UntypedInputObject,
-  UntypedSchema
+  UntypedSchema,
+  ValibotSchema
 } from "./types";
 
 function convertNestedUntypedSchema(value: unknown): unknown {
@@ -83,6 +86,14 @@ function convertNestedUntypedSchemaArray(value: unknown): unknown {
   }
 
   return value.map(item => convertNestedUntypedSchema(item));
+}
+
+function convertValibotSchemaToJsonSchema<T = unknown>(
+  schema: unknown
+): JsonSchema<T> {
+  return toJsonSchema(schema as never, {
+    target: "draft-07"
+  }) as JsonSchema<T>;
 }
 
 function convertUntypedSchemaToJsonSchema<T = unknown>(
@@ -229,6 +240,11 @@ export function extractHash<T = unknown>(
       return murmurhash({ variant, input: input["~standard"] });
     } else if (isJsonSchema(input)) {
       return murmurhash({ variant, input });
+    } else if (isValibotSchema(input)) {
+      return murmurhash({
+        variant,
+        input: convertValibotSchemaToJsonSchema(input)
+      });
     } else if (isUntypedInput(input)) {
       return murmurhash({
         variant,
@@ -245,7 +261,7 @@ export function extractHash<T = unknown>(
   }
 
   throw new Error(
-    `Failed to create an input hash for the provided schema definition input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, or a reflected Deepkit Type object.`
+    `Failed to create an input hash for the provided schema definition input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, a Valibot BaseSchema, or a reflected Deepkit Type object.`
   );
 }
 
@@ -263,18 +279,12 @@ export function extractReflection<T = unknown>(
 }
 
 /**
- * Extracts a JSON Schema from Zod, Standard Schema, untyped, or JSON Schema inputs.
+ * Extracts a JSON Schema from Zod, Standard Schema, Valibot, untyped, or JSON Schema inputs.
  */
 export function extractJsonSchema<T = unknown>(
   schema: unknown
 ): JsonSchema<T> | undefined {
-  if (
-    isSetObject(schema) &&
-    (isZod3Type(schema) ||
-      isStandardJsonSchema(schema) ||
-      isUntypedInput(schema) ||
-      isUntypedSchema(schema))
-  ) {
+  if (isSetObject(schema)) {
     if (isZod3Type(schema)) {
       return extractJsonSchemaZod(schema) as JsonSchema<T>;
     }
@@ -283,14 +293,18 @@ export function extractJsonSchema<T = unknown>(
         target: "draft-2020-12"
       }) as JsonSchema<T>;
     }
+    if (isValibotSchema(schema)) {
+      return convertValibotSchemaToJsonSchema<T>(schema);
+    }
     if (isUntypedInput(schema)) {
       return convertUntypedInputToJsonSchema<T>(schema);
     }
     if (isUntypedSchema(schema)) {
       return convertUntypedSchemaToJsonSchema<T>(schema);
     }
-  } else if (isJsonSchema<T>(schema)) {
-    return schema;
+    if (isJsonSchema<T>(schema)) {
+      return schema;
+    }
   }
 
   return undefined;
@@ -306,6 +320,8 @@ export function extractResolvedVariant(
       return "standard-schema";
     } else if (isJsonSchema(input)) {
       return "json-schema";
+    } else if (isValibotSchema(input)) {
+      return "valibot";
     } else if (isType(input)) {
       return "reflection";
     } else if (isUntypedInput(input) || isUntypedSchema(input)) {
@@ -314,7 +330,7 @@ export function extractResolvedVariant(
   }
 
   throw new Error(
-    `Failed to determine the variant of the provided schema definition input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, a reflected Deepkit Type object, or an Untyped schema.`
+    `Failed to determine the variant of the provided schema definition input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, a Valibot BaseSchema, a reflected Deepkit Type object, or an Untyped schema.`
   );
 }
 
@@ -328,7 +344,7 @@ export function extractVariant<T = unknown>(
   return extractResolvedVariant(input as SchemaSourceInput);
 }
 
-export async function extractSchemaSchema<T = unknown>(
+async function extractSchemaSchema<T = unknown>(
   input: SchemaSourceInput,
   variant?: SchemaInputVariant
 ): Promise<JsonSchema<T>> {
@@ -343,7 +359,8 @@ export async function extractSchemaSchema<T = unknown>(
     resolvedVariant === "zod3" ||
     resolvedVariant === "json-schema" ||
     resolvedVariant === "standard-schema" ||
-    resolvedVariant === "untyped"
+    resolvedVariant === "untyped" ||
+    resolvedVariant === "valibot"
   ) {
     schema = extractJsonSchema<T>(input);
   } else if (resolvedVariant === "reflection") {
@@ -355,7 +372,7 @@ export async function extractSchemaSchema<T = unknown>(
   }
 
   throw new Error(
-    `Failed to extract a valid schema from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, an untyped schema, or a reflected Deepkit Type object.`
+    `Failed to extract a valid schema from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, a Valibot BaseSchema, an untyped schema, or a reflected Deepkit Type object.`
   );
 }
 
@@ -386,6 +403,12 @@ export function extractSource(
       hash: extractHash(variant, input),
       variant: "json-schema",
       schema: input as JsonSchema
+    };
+  } else if (variant === "valibot") {
+    return {
+      hash: extractHash(variant, input),
+      variant: "valibot",
+      schema: input as ValibotSchema
     };
   } else if (variant === "reflection") {
     return {

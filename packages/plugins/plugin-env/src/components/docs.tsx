@@ -25,9 +25,7 @@ import {
   MarkdownFileProps
 } from "@powerlines/plugin-alloy/markdown/components/markdown-file";
 import { MarkdownTable } from "@powerlines/plugin-alloy/markdown/components/markdown-table";
-import { JsonSchema } from "@powerlines/schema";
-import { stringifyType } from "@powerlines/schema/codegen";
-import { getPropertiesList } from "@powerlines/schema/helpers";
+import { getPropertiesList, stringifyType } from "@powerlines/schema";
 import { joinPaths } from "@stryke/path/join";
 import { getDocsOutputPath } from "powerlines/plugin-utils";
 import { EnvPluginContext } from "../types/plugin";
@@ -93,7 +91,7 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
               return {
                 name: property.name?.trim(),
                 description: (property.description ?? "").trim(),
-                type: stringifyType<any>(property as JsonSchema<any>)
+                type: stringifyType<any>(property)
                   .trim()
                   .replaceAll(/\s*(?:\||&)\s*/g, ", or "),
                 defaultValue: property.default

@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { getProperties } from "@powerlines/schema/helpers";
+import { getProperties } from "@powerlines/schema";
 import { tryGetWorkspaceConfig } from "@storm-software/config-tools/get-config";
 import {
   isDevelopmentMode,

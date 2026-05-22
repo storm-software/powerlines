@@ -16,15 +16,22 @@
 
  ------------------------------------------------------------------- */
 
-import { Type } from "@powerlines/deepkit/vendor/type";
+import type { Type } from "@powerlines/deepkit/vendor/type";
 import type { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import type { TypeDefinition } from "@stryke/types/configuration";
-import { FormatName } from "ajv-formats/dist/formats";
-import { InputObject, Schema as _Schema } from "untyped";
+import type { FormatName } from "ajv-formats/dist/formats";
+import type { InputObject, Schema as _Schema } from "untyped";
+import type { BaseIssue, BaseSchema } from "valibot";
 import * as z3 from "zod/v3";
 
 export type UntypedInputObject = InputObject;
 export type UntypedSchema = _Schema;
+
+export type ValibotSchema<
+  TInput = unknown,
+  TOutput = unknown,
+  TIssue extends BaseIssue<unknown> = BaseIssue<unknown>
+> = BaseSchema<TInput, TOutput, TIssue>;
 
 /**
  * JSON Schema primitive type names used by {@link stringifyType}.
@@ -382,19 +389,31 @@ type UncheckedJsonSchemaType<T, IsPartial extends boolean> = (
   $comment?: string;
 
   /**
-   * A record of schema definitions that can be referenced throughout the schema using `$ref`. This property can be used to define reusable schema components and reduce redundancy in schema definitions. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   * A record of schema definitions that can be referenced throughout the schema using {@link UncheckedJsonSchemaType.$ref}. This property can be used to define reusable schema components and reduce redundancy in schema definitions. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
   $defs?: Record<string, UncheckedJsonSchemaType<Known, true>>;
-
-  /**
-   * A record of schema definitions that can be referenced throughout the schema using `$ref`. This property is a legacy version of `$defs` and is maintained for backward compatibility with earlier versions of the JSON Schema specification. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
-   */
-  definitions?: Record<string, UncheckedJsonSchemaType<Known, true>>;
 
   /**
    * A name for the schema, which can be used by documentation tools or other libraries that support this feature to provide a human-readable name or description for the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
   name?: string;
+
+  /**
+   * A unique identifier for the schema, which can be used to reference or identify the schema in various contexts. This property is part of the JSON Schema specification and does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   *
+   * @remarks
+   * This property is a legacy version of {@link UncheckedJsonSchemaType.$id} and is maintained for backward compatibility with earlier versions of the JSON Schema specification. The presence of this property does not affect the validation behavior of the schema itself, but it can be used to reference or identify the schema in various contexts when used in conjunction with compatible tools.
+   *
+   * @deprecated Use {@link UncheckedJsonSchemaType.$id} instead.
+   */
+  id?: string;
+
+  /**
+   * A record of schema definitions that can be referenced throughout the schema using {@link UncheckedJsonSchemaType.$ref}. This property is a legacy version of {@link UncheckedJsonSchemaType.$defs} and is maintained for backward compatibility with earlier versions of the JSON Schema specification. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   *
+   * @deprecated Use {@link UncheckedJsonSchemaType.$defs} instead.
+   */
+  definitions?: Record<string, UncheckedJsonSchemaType<Known, true>>;
 
   [keyword: string]: any;
 };
@@ -418,7 +437,7 @@ export interface SchemaMetadata {
   /**
    * An array of example values that conform to the schema. This property can be used to provide sample data for documentation purposes or to assist developers in understanding the expected structure and content of the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
    */
-  examples?: string[];
+  examples?: unknown[];
 
   /**
    * An array of strings or an alias reference to indicate that the field is an alias for one or more other fields.
@@ -429,11 +448,6 @@ export interface SchemaMetadata {
    * An array of strings indicating groups that the schema belongs to. This property can be used for organizational or categorization purposes in documentation tools or other libraries that support this feature. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
   tags?: string[];
-
-  /**
-   * A visibility level for the schema, which can be used by documentation tools or other libraries that support this feature to determine how the schema should be presented or accessed. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
-   */
-  visibility?: "public" | "protected" | "private";
 
   /**
    * An indicator specifying if the field is deprecated or not. This property can be used by documentation tools or other libraries that support this feature to provide additional information or warnings about the usage of the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
@@ -531,6 +545,7 @@ export type SchemaSourceVariant =
   | "json-schema"
   | "zod3"
   | "untyped"
+  | "valibot"
   | "reflection";
 
 export type SchemaInputVariant = SchemaSourceVariant | "type-definition";
@@ -541,6 +556,7 @@ export type SchemaSourceInput<T = unknown> =
   | z3.ZodTypeAny
   | UntypedInputObject
   | UntypedSchema
+  | ValibotSchema
   | Type;
 
 export type TypeDefinitionReference = TypeDefinition | string;
@@ -617,11 +633,20 @@ export interface UntypedSchemaSource extends BaseSchemaSource {
   schema: UntypedInputObject | UntypedSchema;
 }
 
+export interface ValibotSchemaSource extends BaseSchemaSource {
+  /** Indicates the source input comes from the Valibot schema model. */
+  variant: "valibot";
+
+  /** The original Valibot schema input. */
+  schema: ValibotSchema;
+}
+
 export type SchemaSource =
   | JsonSchemaSchemaSource
   | StandardSchemaSchemaSource
   | Zod3SchemaSource
   | UntypedSchemaSource
+  | ValibotSchemaSource
   | ReflectionSchemaSource;
 
 export interface ExtractedSchema<T = unknown> extends Schema<T> {

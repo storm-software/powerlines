@@ -16,6 +16,29 @@
 
  ------------------------------------------------------------------- */
 
+declare module "zod" {
+  interface GlobalMeta {
+    id?: string;
+    title?: string;
+    description?: string;
+    docs?: string;
+    alias?: string[];
+    tags?: string[];
+    deprecated?: boolean;
+    hidden?: boolean;
+    ignore?: boolean;
+    internal?: boolean;
+    runtime?: boolean;
+    examples?: unknown[];
+    readOnly?: boolean;
+    writeOnly?: boolean;
+    contentEncoding?: string;
+    contentMediaType?: string;
+    contentSchema?: string;
+    [keyword: string]: unknown;
+  }
+}
+
 export * from "./bundle";
 export * from "./codegen";
 export * from "./constants";

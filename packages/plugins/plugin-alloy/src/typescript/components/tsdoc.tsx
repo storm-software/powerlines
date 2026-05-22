@@ -27,14 +27,13 @@ import {
   splitProps
 } from "@alloy-js/core";
 import { JSDocExampleProps, ParameterDescriptor } from "@alloy-js/typescript";
-
-import { stringifyValue } from "@powerlines/schema/codegen";
-import { JsonSchemaPrimitiveType } from "@powerlines/schema/types";
+import type { JsonSchemaPrimitiveType } from "@powerlines/schema";
+import { stringifyValue } from "@powerlines/schema";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { Spacing } from "../../core/components/spacing";
 import { usePowerlinesSafe } from "../../core/contexts/context";
-import { ComponentProps } from "../../types/components";
+import type { ComponentProps } from "../../types/components";
 
 export interface TSDocProps extends ComponentProps {
   heading?: Children;

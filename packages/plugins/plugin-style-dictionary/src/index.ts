@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { resolve } from "@powerlines/schema/resolve";
+import { resolve } from "@powerlines/schema";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import { isFunction } from "@stryke/type-checks/is-function";
 import defu from "defu";

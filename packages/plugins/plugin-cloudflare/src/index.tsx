@@ -19,10 +19,10 @@
 import { For } from "@alloy-js/core";
 import { getCloudflarePreset } from "@cloudflare/unenv-preset";
 import { render } from "@powerlines/plugin-alloy/render";
-import { extractEnvSchema } from "@powerlines/plugin-env/helpers";
+import { extractEnv } from "@powerlines/plugin-env/helpers";
 import pulumi from "@powerlines/plugin-pulumi";
 import unenv from "@powerlines/plugin-unenv";
-import { resolveModule } from "@powerlines/schema/resolve";
+import { resolveModule } from "@powerlines/schema";
 import * as pulumiCloudflare from "@pulumi/cloudflare";
 import { omit } from "@stryke/helpers/omit";
 import { joinPaths, replaceExtension } from "@stryke/path";
@@ -95,7 +95,7 @@ export function plugin<
         ) as WranglerResolvedConfig;
       },
       async prepare() {
-        await extractEnvSchema(this);
+        await extractEnv(this);
 
         return render(
           this,

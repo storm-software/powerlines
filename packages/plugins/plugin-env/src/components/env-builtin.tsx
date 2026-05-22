@@ -50,7 +50,7 @@ import {
   TSDocReturns
 } from "@powerlines/plugin-alloy/typescript/components/tsdoc";
 import type { JsonSchemaProperty } from "@powerlines/schema";
-import { getPropertiesList } from "@powerlines/schema/helpers";
+import { getPropertiesList } from "@powerlines/schema";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { loadEnvFromContext } from "../helpers/load";
 import type { EnvPluginContext } from "../types/plugin";
@@ -258,10 +258,10 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
     () => context && loadEnvFromContext(context, process.env)
   );
 
-  const reflectionGetProperties = computed(
+  const schemaGetProperties = computed(
     () =>
       getPropertiesList(context.env.config.schema)
-        .filter(property => !property?.isIgnored)
+        .filter(property => !property?.isIgnored && !property?.writeOnly)
         .sort((a, b) =>
           !a?.name && !b?.name
             ? 0
@@ -272,7 +272,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
                 : a?.name.localeCompare(b?.name)
         ) ?? []
   );
-  const reflectionSetProperties = computed(
+  const schemaSetProperties = computed(
     () =>
       getPropertiesList(context.env.config.schema)
         .filter(property => !property?.isIgnored && !property?.readOnly)
@@ -340,7 +340,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
     {
       get: (target: UnprefixedEnv, propertyName: string) => { `}
           <hbr />
-          <For each={reflectionGetProperties.value}>
+          <For each={schemaGetProperties.value}>
             {(property: JsonSchemaProperty, index: number) => (
               <ConfigPropertyGet
                 index={index}
@@ -357,7 +357,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           <Spacing />
           {code` set: (target: UnprefixedEnv, propertyName: string, newValue: any) => { `}
           <hbr />
-          <For each={reflectionSetProperties.value} ender={code` else `}>
+          <For each={schemaSetProperties.value} ender={code` else `}>
             {(property: JsonSchemaProperty, index: number) => (
               <ConfigPropertySet
                 index={index}
