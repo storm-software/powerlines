@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.42](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.42) (05/22/2026)
+
+### Features
+
+- **schema:** Added support for `valibot` schema inputs ([972b781ed](https://github.com/storm-software/powerlines/commit/972b781ed))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.5**
+- Updated **deepkit** to **v0.9.37**
+- Updated **unplugin** to **v0.0.53**
+
 ## [0.11.41](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.41) (05/22/2026)
 
 ### Miscellaneous

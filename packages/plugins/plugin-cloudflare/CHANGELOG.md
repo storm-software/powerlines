@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.156](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.156) (05/22/2026)
+
+### Features
+
+- **schema:** Added support for `valibot` schema inputs ([972b781ed](https://github.com/storm-software/powerlines/commit/972b781ed))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.147**
+- Updated **plugin-env** to **v0.16.257**
+- Updated **plugin-plugin** to **v0.12.473**
+- Updated **plugin-pulumi** to **v0.6.163**
+- Updated **plugin-unenv** to **v0.1.511**
+- Updated **powerlines** to **v0.47.61**
+- Updated **schema** to **v0.11.42**
+
 ## [0.6.155](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.155) (05/22/2026)
 
 ### Updated Dependencies

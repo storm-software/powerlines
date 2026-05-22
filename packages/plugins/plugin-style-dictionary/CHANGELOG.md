@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.426](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.426) (05/22/2026)
+
+### Features
+
+- **schema:** Added support for `valibot` schema inputs ([972b781ed](https://github.com/storm-software/powerlines/commit/972b781ed))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.473**
+- Updated **powerlines** to **v0.47.61**
+- Updated **schema** to **v0.11.42**
+
 ## [0.3.425](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.425) (05/22/2026)
 
 ### Updated Dependencies

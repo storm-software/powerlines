@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.257](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.257) (05/22/2026)
+
+### Features
+
+- **schema:** Added support for `valibot` schema inputs ([972b781ed](https://github.com/storm-software/powerlines/commit/972b781ed))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.5**
+- Updated **plugin-alloy** to **v0.26.147**
+- Updated **plugin-automd** to **v0.1.522**
+- Updated **plugin-babel** to **v0.13.57**
+- Updated **plugin-deepkit** to **v0.11.404**
+- Updated **plugin-plugin** to **v0.12.473**
+- Updated **powerlines** to **v0.47.61**
+- Updated **schema** to **v0.11.42**
+
 ## [0.16.256](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.256) (05/22/2026)
 
 ### Updated Dependencies
