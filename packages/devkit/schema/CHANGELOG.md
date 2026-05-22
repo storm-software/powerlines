@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.41](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.41) (05/22/2026)
+
+### Miscellaneous
+
+- **schema:** Increased strictness of the `JsonSchema` type ([b7ed88c8e](https://github.com/storm-software/powerlines/commit/b7ed88c8e))
+
 ## [0.11.40](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.40) (05/22/2026)
 
 ### Updated Dependencies
