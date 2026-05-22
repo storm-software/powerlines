@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.255](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.255) (05/22/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Update plugin to independently manage `active` config ([94ca6d34e](https://github.com/storm-software/powerlines/commit/94ca6d34e))
+
 ## [0.16.254](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.254) (05/22/2026)
 
 ### Updated Dependencies

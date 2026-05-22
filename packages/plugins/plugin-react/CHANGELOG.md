@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.590](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.590) (05/22/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-env** to **v0.16.255**
+
 ## [0.1.589](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.589) (05/22/2026)
 
 ### Updated Dependencies
