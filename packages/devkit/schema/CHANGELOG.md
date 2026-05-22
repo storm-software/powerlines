@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.44](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.44) (05/22/2026)
+
+### Bug Fixes
+
+- **schema:** Resolved typing issues around `JsonSchemaProperty` type ([735bf5332](https://github.com/storm-software/powerlines/commit/735bf5332))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.6**
+- Updated **deepkit** to **v0.9.38**
+- Updated **unplugin** to **v0.0.54**
+
 ## [0.11.43](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.43) (05/22/2026)
 
 ### Miscellaneous
