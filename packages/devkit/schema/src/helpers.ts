@@ -49,7 +49,9 @@ export function getProperties<
     properties[key] = {
       ...value,
       name: key,
-      nullable: isSchemaNullable<T>(value) || isPropertyOptional(schema, key)
+      nullable:
+        isSchemaNullable(value as JsonSchema<any>) ||
+        isPropertyOptional(schema, key)
     };
   }
 

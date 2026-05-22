@@ -21,6 +21,7 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { JSON_SCHEMA_METADATA_KEYS } from "./constants";
 import {
   JsonSchema,
+  JsonSchemaNullable,
   JsonSchemaObject,
   JsonSchemaPrimitiveType,
   SchemaMetadata
@@ -45,7 +46,8 @@ export function applySchemaMetadata<
   for (const key of JSON_SCHEMA_METADATA_KEYS) {
     const value = metadata[key];
     if (value !== undefined && value !== null) {
-      result[key as keyof JsonSchema<T>] = value;
+      result[key as keyof JsonSchema<T>] =
+        value as JsonSchema<T>[keyof JsonSchema<T>];
     }
   }
 
@@ -66,7 +68,7 @@ export function isSchemaNullable<T = unknown>(schema?: JsonSchema<T>): boolean {
     return false;
   }
 
-  if (schema.nullable === true) {
+  if ((schema as JsonSchemaNullable<T>).nullable === true) {
     return true;
   }
 

@@ -234,7 +234,7 @@ export function isJsonSchemaObject<
 export function isNullOnlyJsonSchema(
   input: unknown
 ): input is JsonSchema<null> {
-  return isJsonSchema(input) && input.type === "null";
+  return isJsonSchema<null>(input) && input.type === "null";
 }
 
 /**

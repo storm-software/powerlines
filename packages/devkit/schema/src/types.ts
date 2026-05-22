@@ -126,7 +126,7 @@ type Known =
 
 type UncheckedPropertiesSchema<T> = {
   [K in keyof T]-?:
-    | (UncheckedJsonSchemaType<T[K], false> & Nullable<T[K]>)
+    | (UncheckedJsonSchemaType<T[K], false> & JsonSchemaNullable<T[K]>)
     | {
         $ref: string;
       };
@@ -136,7 +136,7 @@ type UncheckedRequiredMembers<T> = {
   [K in keyof T]-?: undefined extends T[K] ? never : K;
 }[keyof T];
 
-type Nullable<T> = undefined extends T
+export type JsonSchemaNullable<T> = undefined extends T
   ? {
       /** Indicates that the value may be null in addition to the declared type. */
       nullable: true;
@@ -211,7 +211,7 @@ type UncheckedJsonSchemaType<T, IsPartial extends boolean> = (
                     T[K],
                     false
                   > &
-                    Nullable<T[K]>;
+                    JsonSchemaNullable<T[K]>;
                 } & {
                   length: T["length"];
                 };
@@ -411,7 +411,7 @@ export interface SchemaMetadata {
   description?: string;
 
   /**
-   * A URL or string containing documentation for the schema, which can be used by documentation tools or other libraries that support this feature to provide additional information or resources related to the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   * A URL to external documentation for the schema, which can be used by documentation tools or other libraries that support this feature to provide additional information or resources related to the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
   docs?: string;
 
@@ -490,8 +490,8 @@ export interface SchemaMetadata {
 
 export type JsonSchemaProperty<
   T extends Record<string, any> = Record<string, any>,
-  TName extends string = string
-> = JsonSchemaObject<T[TName]> & {
+  TName extends keyof T & string = keyof T & string
+> = JsonSchema<T[TName]> & {
   /** The property name within the parent object schema. */
   name: TName;
 
@@ -564,7 +564,7 @@ export interface Schema<T = unknown> {
   schema: JsonSchema<T>;
 }
 
-export interface BaseSchemaSource {
+export interface BaseSchemaSource<T = unknown> {
   /** A stable content hash for the original source schema. */
   hash: string;
 
@@ -572,17 +572,17 @@ export interface BaseSchemaSource {
   variant: SchemaSourceVariant;
 
   /** The original schema input captured before normalization. */
-  schema: SchemaSourceInput;
+  schema: SchemaSourceInput<T>;
 }
 
 export interface JsonSchemaSchemaSource<
-  TMetadata extends SchemaMetadata = SchemaMetadata
-> extends BaseSchemaSource {
+  T = unknown
+> extends BaseSchemaSource<T> {
   /** Indicates the source input already uses JSON Schema syntax. */
   variant: "json-schema";
 
   /** The original JSON Schema document. */
-  schema: JsonSchema<TMetadata>;
+  schema: JsonSchema<T>;
 }
 
 export interface StandardSchemaSchemaSource extends BaseSchemaSource {

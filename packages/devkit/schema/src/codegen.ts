@@ -22,15 +22,12 @@ import { isNull } from "@stryke/type-checks/is-null";
 import { isNumber } from "@stryke/type-checks/is-number";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
-import type { Options } from "ajv";
-import Ajv from "ajv";
-import { formatNames, fullFormats } from "ajv-formats/dist/formats";
-import { _, Name } from "ajv/dist/compile/codegen";
 import standaloneCode from "ajv/dist/standalone";
 import { getPropertiesList } from "./helpers";
 import { getPrimarySchemaType, isSchemaNullable } from "./metadata";
-import { isJsonSchemaObject } from "./type-checks";
+import { isJsonSchema, isJsonSchemaObject } from "./type-checks";
 import { JsonSchema, JsonSchemaPrimitiveType } from "./types";
+import { getValidator } from "./validate";
 
 /**
  * Stringifies a value for generated TypeScript code.
@@ -77,7 +74,7 @@ export function stringifyType<T = unknown>(schema?: JsonSchema<T>): string {
     return primaryType;
   }
 
-  if (Array.isArray(schema.enum)) {
+  if (schema.type === "array" && Array.isArray(schema.enum)) {
     return schema.enum.map(value => JSON.stringify(value)).join(" | ");
   }
 
@@ -96,10 +93,7 @@ export function stringifyType<T = unknown>(schema?: JsonSchema<T>): string {
     schema.properties ||
     schema.additionalProperties
   ) {
-    if (
-      schema.additionalProperties &&
-      typeof schema.additionalProperties === "object"
-    ) {
+    if (isJsonSchema(schema.additionalProperties)) {
       return `{ [key: string]: ${stringifyType(schema.additionalProperties)} }`;
     }
 
@@ -107,11 +101,11 @@ export function stringifyType<T = unknown>(schema?: JsonSchema<T>): string {
       return `{ ${getPropertiesList(schema as JsonSchema<Record<string, any>>)
         .map(property => {
           const suffix =
-            property.optional || property.nullable
+            schema.required?.includes(property.name) || property.nullable
               ? `${property.optional ? "?" : ""}${property.nullable ? " | null" : ""}`
               : "";
 
-          return `${property.key}${suffix}: ${stringifyType(property.value)}`;
+          return `${property.name}${suffix}: ${stringifyType(property)}`;
         })
         .join(";\n")} }`;
     }
@@ -133,25 +127,21 @@ export function stringifyType<T = unknown>(schema?: JsonSchema<T>): string {
 /**
  * Generates standalone JSON Schema validation code using Ajv.
  */
-export async function generateCode(
-  schemas: Options["schemas"],
+export async function generateCode<T = unknown>(
+  schemas: JsonSchema<T>,
   refsOrFuncts?: Parameters<typeof standaloneCode>[1]
 ) {
-  const ajv = new Ajv({
-    schemas,
-    code: { source: true, esm: true }
-  });
-
-  ajv.opts.code.formats ??= _`await import("ajv-formats/dist/formats").${new Name(
-    "fullFormats"
-  )}`;
-  for (const formatName of formatNames) {
-    ajv.addFormat(formatName, fullFormats[formatName]);
-  }
+  const ajv = getValidator(schemas);
 
   return standaloneCode(ajv, refsOrFuncts);
 }
 
+/**
+ * A helper function to determine if a JSON Schema fragment is nullable, for use in code generation.
+ *
+ * @param schema - The JSON Schema fragment to check.
+ * @returns `true` if the schema is nullable, otherwise `false`. A schema is considered nullable if it has `nullable: true` or if its `type` includes `"null"`.
+ */
 export function isNullableSchema(schema?: JsonSchema): boolean {
   return isSchemaNullable(schema);
 }

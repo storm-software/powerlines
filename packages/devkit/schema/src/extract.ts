@@ -39,6 +39,7 @@ import { resolve } from "./resolve";
 import {
   isExtractedSchema,
   isJsonSchema,
+  isJsonSchemaObject,
   isSchema,
   isUntypedInput,
   isUntypedSchema
@@ -157,9 +158,11 @@ function convertUntypedInputToJsonSchema<T = unknown>(
   input: UntypedInputObject
 ): JsonSchema<T> {
   const inputObject = input as Record<string, unknown>;
-  const base = isUntypedSchema(inputObject.$schema)
-    ? convertUntypedSchemaToJsonSchema<T>(inputObject.$schema)
-    : ({} as JsonSchema<T>);
+  const base = (
+    isUntypedSchema(inputObject.$schema)
+      ? convertUntypedSchemaToJsonSchema<T>(inputObject.$schema)
+      : {}
+  ) as JsonSchema<T>;
   const properties: Record<string, JsonSchema<T>> = {};
 
   for (const [key, value] of Object.entries(inputObject)) {
@@ -187,6 +190,12 @@ function convertUntypedInputToJsonSchema<T = unknown>(
     }
   }
 
+  if (!isJsonSchemaObject(base)) {
+    throw new Error(
+      `Failed to convert untyped input to JSON Schema. The base schema must be a valid JSON Schema object.`
+    );
+  }
+
   const baseProperties = isSetObject(base.properties)
     ? (base.properties as Record<string, JsonSchema<T>>)
     : {};
@@ -201,7 +210,7 @@ function convertUntypedInputToJsonSchema<T = unknown>(
     ...(Object.keys(mergedProperties).length > 0
       ? { properties: mergedProperties }
       : {})
-  } as JsonSchema<T>;
+  };
 }
 
 /**
@@ -263,7 +272,6 @@ export function extractJsonSchema<T = unknown>(
     isSetObject(schema) &&
     (isZod3Type(schema) ||
       isStandardJsonSchema(schema) ||
-      isJsonSchema(schema) ||
       isUntypedInput(schema) ||
       isUntypedSchema(schema))
   ) {
@@ -281,6 +289,7 @@ export function extractJsonSchema<T = unknown>(
     if (isUntypedSchema(schema)) {
       return convertUntypedSchemaToJsonSchema<T>(schema);
     }
+  } else if (isJsonSchema<T>(schema)) {
     return schema;
   }
 
@@ -536,7 +545,7 @@ export async function extract<T = unknown>(
       result = {
         variant,
         hash,
-        schema: JSON.parse(schema) as JsonSchema
+        schema: JSON.parse(schema) as JsonSchema<T>
       };
     }
   }
