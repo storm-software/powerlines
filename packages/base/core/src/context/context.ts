@@ -236,8 +236,7 @@ export class PowerlinesContext<
   /**
    * The configuration options read from a configuration file on disk, which may be used to resolve the final configuration for the context. This typically includes the user configuration options defined in the `powerlines.config.ts` file, as well as any inline configuration options provided during execution.
    */
-  protected userConfig: TResolvedConfig["userConfig"] =
-    {} as TResolvedConfig["userConfig"];
+  protected userConfig: TResolvedConfig["userConfig"] = {};
 
   /**
    * The configuration options provided by plugins added by the user (and other plugins)

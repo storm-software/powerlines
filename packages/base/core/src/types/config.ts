@@ -425,7 +425,7 @@ export interface Config {
   /**
    * Defines entries and location(s) of entry modules for the bundle. Relative paths are resolved based on the `root` option.
    */
-  input:
+  input?:
     | TypeDefinitionParameter
     | TypeDefinitionParameter[]
     | Record<string, TypeDefinitionParameter | TypeDefinitionParameter[]>;
@@ -652,40 +652,33 @@ export type ConfigParams = BaseExecutionOptions &
     command: string;
   };
 
-export type UserInputConfig<TUserConfig extends UserConfig = UserConfig> =
-  DeepPartial<TUserConfig>;
-
-export type UserConfigFnObject<TUserConfig extends UserConfig = UserConfig> = (
+export type UserConfigFnObject = (
   env: ConfigParams
-) => UserInputConfig<TUserConfig> | UserInputConfig<TUserConfig>[];
-export type UserConfigFnPromise<TUserConfig extends UserConfig = UserConfig> = (
+) => UserConfig | UserConfig[];
+export type UserConfigFnPromise = (
   env: ConfigParams
-) => Promise<UserInputConfig<TUserConfig> | UserInputConfig<TUserConfig>[]>;
-export type UserConfigFn<TUserConfig extends UserConfig = UserConfig> = (
+) => Promise<UserConfig | UserConfig[]>;
+export type UserConfigFn = (
   env: ConfigParams
-) =>
-  | UserInputConfig<TUserConfig>
-  | UserInputConfig<TUserConfig>[]
-  | Promise<UserInputConfig<TUserConfig> | UserInputConfig<TUserConfig>[]>;
+) => UserConfig | UserConfig[] | Promise<UserConfig | UserConfig[]>;
 
-export type UserConfigExport<TUserConfig extends UserConfig = UserConfig> =
-  | UserInputConfig<TUserConfig>
-  | UserInputConfig<TUserConfig>[]
-  | Promise<UserInputConfig<TUserConfig> | UserInputConfig<TUserConfig>[]>
-  | UserConfigFnObject<TUserConfig>
-  | UserConfigFnPromise<TUserConfig>
-  | UserConfigFn<TUserConfig>;
+export type UserConfigExport =
+  | UserConfig
+  | UserConfig[]
+  | Promise<UserConfig | UserConfig[]>
+  | UserConfigFnObject
+  | UserConfigFnPromise
+  | UserConfigFn;
 
-export type ParsedUserConfig<TUserConfig extends UserConfig = UserConfig> =
-  ParsedConfig<UserInputConfig<TUserConfig>> & {
-    /**
-     * The path to the user configuration file, if it exists.
-     *
-     * @remarks
-     * This is typically the `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` file in the project root.
-     */
-    configFile?: ConfigLayer<UserInputConfig<TUserConfig>>["configFile"];
-  };
+export type ParsedUserConfig = ParsedConfig<UserConfig> & {
+  /**
+   * The path to the user configuration file, if it exists.
+   *
+   * @remarks
+   * This is typically the `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` file in the project root.
+   */
+  configFile?: ConfigLayer<UserConfig>["configFile"];
+};
 
 export type InlineConfigPaths =
   | {
@@ -802,7 +795,7 @@ export interface ResolvedEntryTypeDefinition extends TypeDefinition {
 
 export type ResolvedEnvironmentConfig = RequiredKeys<
   Omit<EnvironmentConfig, "preview">,
-  "consumer" | "ssr"
+  "input" | "consumer" | "ssr"
 > & {
   /**
    * A string identifier for the environment used by the system and plugins to determine which environment-specific configuration to use during the build process.
@@ -863,17 +856,17 @@ export type ResolvedConfig<
   Omit<
     RequiredKeys<
       TUserConfig,
+      | "input"
       | "name"
       | "title"
       | "plugins"
       | "mode"
-      | "environments"
       | "input"
       | "tsconfig"
       | "platform"
       | "projectType"
     >,
-    "compatibilityDate" | "output" | "resolve" | "logLevel"
+    "compatibilityDate" | "output" | "resolve" | "logLevel" | "environments"
   > & {
     /**
      * The configuration options read from a configuration file on disk, which may be used to resolve the final configuration for the context. This typically includes the user configuration options defined in the `powerlines.config.ts` file, as well as any inline configuration options provided during execution.
@@ -932,6 +925,11 @@ export type ResolvedConfig<
      * The log level determines the minimum severity of messages that will be logged. For example, if the log level is set to `LogLevel.INFO`, then messages with a severity of `INFO`, `WARN`, and `ERROR` will be logged, while messages with a severity of `DEBUG` and `TRACE` will be ignored. Setting the log level to `LogLevel.SILENT` will disable all logging. Alternatively, you can provide a more detailed configuration object that allows you to specify different log levels for different categories of logs, providing granular control over the logging behavior for different aspects of the system.
      */
     logLevel: LogLevelResolvedConfig;
+
+    /**
+     * Environment-specific configurations
+     */
+    environments: Record<string, ResolvedEnvironmentConfig>;
   };
 
 export type InferOverridableConfig<

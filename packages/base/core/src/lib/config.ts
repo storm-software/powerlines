@@ -47,11 +47,11 @@ import type {
   InlineConfig,
   Mode,
   ParsedUserConfig,
+  UserConfig,
   UserConfigExport,
   UserConfigFn,
   UserConfigFnObject,
   UserConfigFnPromise,
-  UserInputConfig,
   WorkspaceConfig
 } from "../types/config";
 import { Context } from "../types/context";
@@ -487,14 +487,12 @@ export async function loadUserConfigFile(
  * });
  * ```
  */
-export function defineConfig(config: UserInputConfig): UserInputConfig;
-export function defineConfig(config: UserInputConfig[]): UserInputConfig[];
+export function defineConfig(config: UserConfig): UserConfig;
+export function defineConfig(config: UserConfig[]): UserConfig[];
+export function defineConfig(config: Promise<UserConfig>): Promise<UserConfig>;
 export function defineConfig(
-  config: Promise<UserInputConfig>
-): Promise<UserInputConfig>;
-export function defineConfig(
-  config: Promise<UserInputConfig[]>
-): Promise<UserInputConfig[]>;
+  config: Promise<UserConfig[]>
+): Promise<UserConfig[]>;
 export function defineConfig(config: UserConfigFnObject): UserConfigFnObject;
 export function defineConfig(config: UserConfigFnPromise): UserConfigFnPromise;
 export function defineConfig(config: UserConfigFn): UserConfigFn;

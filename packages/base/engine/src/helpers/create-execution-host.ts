@@ -117,6 +117,15 @@ export function createExecutionHost<
         await resolvePluginConfig<EngineResolvedConfig, EngineSystemContext>(
           context
         );
+
+        if (!context.config.input) {
+          throw new Error(
+            `No input defined in configuration for ${
+              method
+            } execution. Please ensure that the configuration file defines an input for this execution, or provide an inline configuration with the necessary input.`
+          );
+        }
+
         await fn(context);
       }
     ])
