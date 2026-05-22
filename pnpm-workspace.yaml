@@ -200,7 +200,7 @@ catalog:
   style-dictionary: ^5.4.1
   stylelint: ^16.26.1
   svgo: ^4.0.1
-  ts-jest: ^29.4.10
+  ts-jest: ^29.4.11
   ts-morph: ^27.0.2
   ts-pattern: ^5.9.0
   tsdown: ^0.22.0
@@ -219,9 +219,9 @@ catalog:
   unplugin-combine: ^2.4.0
   untyped: ^1.5.2
   verdaccio: 6.5.2
-  vite: ^8.0.13
-  webpack: ^5.107.0
-  wrangler: ^4.93.0
+  vite: ^8.0.14
+  webpack: ^5.107.1
+  wrangler: ^4.93.1
   zod: ^4.4.3
   zx: ^8.8.5
 
