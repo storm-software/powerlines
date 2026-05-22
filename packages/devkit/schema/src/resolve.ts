@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { PluginContext, UnresolvedContext } from "@powerlines/core";
-import { esbuildPlugin } from "@powerlines/deepkit/esbuild-plugin";
+import { rolldownPlugin } from "@powerlines/deepkit/rolldown-plugin";
 import { reflect, Type } from "@powerlines/deepkit/vendor/type";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { findFileDotExtension } from "@stryke/path/find";
@@ -184,7 +184,7 @@ export async function resolveReflection<
       input,
       defu(options, {
         plugins: [
-          esbuildPlugin(context, {
+          rolldownPlugin(context, {
             reflection: "default",
             level: "all"
           })
