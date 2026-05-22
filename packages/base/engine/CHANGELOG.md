@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.3](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.3) (05/22/2026)
+
+### Bug Fixes
+
+- **core:** Resolve typing issues with `input` config ([c90616d6d](https://github.com/storm-software/powerlines/commit/c90616d6d))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.3**
+
 ## [0.49.2](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.2) (05/21/2026)
 
 ### Updated Dependencies
