@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.251](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.251) (05/21/2026)
+
+### Miscellaneous
+
+- **plugin-env:** Update `Env` type definition ([006beabfc](https://github.com/storm-software/powerlines/commit/006beabfc))
+
 ## [0.16.250](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.250) (05/21/2026)
 
 ### Miscellaneous
