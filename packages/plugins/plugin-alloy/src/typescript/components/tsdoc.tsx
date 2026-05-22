@@ -191,7 +191,7 @@ export function TSDocGroup(props: ComponentProps) {
 }
 
 export interface TSDocDefaultValueProps extends ComponentProps {
-  type?: JsonSchemaPrimitiveType;
+  type?: JsonSchemaPrimitiveType | string;
   defaultValue: any;
 }
 
@@ -308,7 +308,7 @@ export function TSDocRuntime() {
 }
 
 export interface TSDocAttributesTagsProps {
-  type?: JsonSchemaPrimitiveType;
+  type?: JsonSchemaPrimitiveType | string;
   default?: any;
   title?: string;
   alias?: string[];

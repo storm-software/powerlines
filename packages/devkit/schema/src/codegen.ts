@@ -48,7 +48,9 @@ export function stringifyValue(
             })
           : type === "integer"
             ? Number.parseInt(String(value)).toLocaleString()
-            : JSON.stringify(value);
+            : type === "string" || type === "object" || type === "array"
+              ? JSON.stringify(value)
+              : String(value);
 }
 
 /**

@@ -136,7 +136,7 @@ export interface InterfaceMemberPropsBase {
   doc?: Children;
   refkey?: Refkey | Refkey[];
   readOnly?: boolean;
-  type?: Children | JsonSchemaPrimitiveType;
+  type?: Children | JsonSchemaPrimitiveType | string;
   nullish?: boolean;
 }
 
