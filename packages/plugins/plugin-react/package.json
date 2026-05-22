@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-react",
-  "version": "0.1.592",
+  "version": "0.1.593",
   "private": false,
   "description": "A package containing a Powerlines plugin for building a React application.",
   "keywords": ["react", "powerlines", "storm-software", "powerlines-plugin"],

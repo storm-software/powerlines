@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.148](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.148) (05/22/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update default value rendering to allow unrestricted types ([158bd703d](https://github.com/storm-software/powerlines/commit/158bd703d))
+
+### Updated Dependencies
+
+- Updated **schema** to **v0.11.43**
+
 ## [0.26.147](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.147) (05/22/2026)
 
 ### Features

@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-style-dictionary",
-  "version": "0.3.426",
+  "version": "0.3.427",
   "private": false,
   "description": "A Powerlines plugin to generate project code with Style Dictionary.",
   "keywords": [

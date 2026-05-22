@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Open Telemetry
 
+## [0.1.79](https://github.com/storm-software/powerlines/releases/tag/plugin-open-telemetry%400.1.79) (05/22/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.148**
+- Updated **plugin-env** to **v0.16.258**
+
 ## [0.1.78](https://github.com/storm-software/powerlines/releases/tag/plugin-open-telemetry%400.1.78) (05/22/2026)
 
 ### Updated Dependencies

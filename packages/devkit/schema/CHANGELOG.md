@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.43](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.43) (05/22/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update default value rendering to allow unrestricted types ([158bd703d](https://github.com/storm-software/powerlines/commit/158bd703d))
+
 ## [0.11.42](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.42) (05/22/2026)
 
 ### Features
