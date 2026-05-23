@@ -22,6 +22,7 @@ import { rolldownPlugin } from "@powerlines/deepkit/rolldown-plugin";
 import { isType, stringifyType, Type } from "@powerlines/deepkit/vendor/type";
 import { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import { murmurhash } from "@stryke/hash";
+import { deepClone } from "@stryke/helpers/deep-clone";
 import { isStandardJsonSchema } from "@stryke/json";
 import { joinPaths } from "@stryke/path/join";
 import { isSetString } from "@stryke/type-checks";
@@ -38,10 +39,10 @@ import { getCacheDirectory, writeSchema } from "./persistence";
 import { reflectionToJsonSchema } from "./reflection";
 import { resolve } from "./resolve";
 import {
-  isExtractedSchema,
   isJsonSchema,
   isJsonSchemaObject,
   isSchema,
+  isSchemaWithSource,
   isUntypedInput,
   isUntypedSchema,
   isValibotSchema
@@ -60,6 +61,205 @@ import {
   UntypedSchema,
   ValibotSchema
 } from "./types";
+
+const SCHEMA_BUNDLE_BASE_URI = "https://powerlines.invalid/";
+
+function normalizeUri(uri: string): string {
+  return uri.endsWith("#") ? uri.slice(0, -1) : uri;
+}
+
+function stripUriFragment(uri: string): string {
+  const hashIndex = uri.indexOf("#");
+
+  return hashIndex >= 0 ? uri.slice(0, hashIndex) : uri;
+}
+
+function escapeJsonPointerToken(token: string): string {
+  return token.replaceAll("~", "~0").replaceAll("/", "~1");
+}
+
+function toJsonPointer(path: string[]): string {
+  if (path.length === 0) {
+    return "";
+  }
+
+  return `/${path.map(segment => escapeJsonPointerToken(segment)).join("/")}`;
+}
+
+function resolveUri(reference: string, baseUri: string): string {
+  try {
+    return normalizeUri(new URL(reference, baseUri).toString());
+  } catch {
+    return normalizeUri(reference);
+  }
+}
+
+function collectReferenceTargets(
+  value: unknown,
+  path: string[],
+  baseUri: string,
+  uriToPointer: Map<string, string>,
+  dynamicUriToFragment: Map<string, string>
+): void {
+  if (!isSetObject(value)) {
+    return;
+  }
+
+  const schema = value as Record<string, unknown>;
+  const pointer = toJsonPointer(path);
+
+  const currentBaseUri = isSetString(schema.$id)
+    ? resolveUri(schema.$id, baseUri)
+    : baseUri;
+
+  const currentDocumentUri = stripUriFragment(currentBaseUri);
+
+  uriToPointer.set(currentBaseUri, pointer);
+  uriToPointer.set(currentDocumentUri, pointer);
+
+  if (isSetString(schema.$anchor)) {
+    uriToPointer.set(`${currentDocumentUri}#${schema.$anchor}`, pointer);
+  }
+
+  if (isSetString(schema.$dynamicAnchor)) {
+    const dynamicTarget = `${currentDocumentUri}#${schema.$dynamicAnchor}`;
+    uriToPointer.set(dynamicTarget, pointer);
+    dynamicUriToFragment.set(dynamicTarget, `#${schema.$dynamicAnchor}`);
+  }
+
+  for (const [key, child] of Object.entries(schema)) {
+    if (Array.isArray(child)) {
+      child.forEach((entry, index) => {
+        collectReferenceTargets(
+          entry,
+          [...path, key, String(index)],
+          currentBaseUri,
+          uriToPointer,
+          dynamicUriToFragment
+        );
+      });
+      continue;
+    }
+
+    collectReferenceTargets(
+      child,
+      [...path, key],
+      currentBaseUri,
+      uriToPointer,
+      dynamicUriToFragment
+    );
+  }
+}
+
+function rewriteReferenceTargets(
+  value: unknown,
+  path: string[],
+  baseUri: string,
+  uriToPointer: Map<string, string>,
+  dynamicUriToFragment: Map<string, string>
+): void {
+  if (!isSetObject(value)) {
+    return;
+  }
+
+  const schema = value as Record<string, unknown>;
+
+  const currentBaseUri = isSetString(schema.$id)
+    ? resolveUri(schema.$id, baseUri)
+    : baseUri;
+
+  if (isSetString(schema.$ref)) {
+    const resolvedRefUri = resolveUri(schema.$ref, currentBaseUri);
+    const pointer =
+      uriToPointer.get(resolvedRefUri) ??
+      uriToPointer.get(stripUriFragment(resolvedRefUri));
+
+    if (pointer !== undefined) {
+      schema.$ref = pointer.length > 0 ? `#${pointer}` : "#";
+    }
+  }
+
+  if (isSetString(schema.$dynamicRef)) {
+    const resolvedDynamicRefUri = resolveUri(
+      schema.$dynamicRef,
+      currentBaseUri
+    );
+    const dynamicFragment = dynamicUriToFragment.get(resolvedDynamicRefUri);
+
+    if (dynamicFragment) {
+      schema.$dynamicRef = dynamicFragment;
+    } else {
+      const pointer =
+        uriToPointer.get(resolvedDynamicRefUri) ??
+        uriToPointer.get(stripUriFragment(resolvedDynamicRefUri));
+
+      if (pointer !== undefined) {
+        schema.$dynamicRef = pointer.length > 0 ? `#${pointer}` : "#";
+      }
+    }
+  }
+
+  for (const [key, child] of Object.entries(schema)) {
+    if (Array.isArray(child)) {
+      child.forEach((entry, index) => {
+        rewriteReferenceTargets(
+          entry,
+          [...path, key, String(index)],
+          currentBaseUri,
+          uriToPointer,
+          dynamicUriToFragment
+        );
+      });
+      continue;
+    }
+
+    rewriteReferenceTargets(
+      child,
+      [...path, key],
+      currentBaseUri,
+      uriToPointer,
+      dynamicUriToFragment
+    );
+  }
+}
+
+/**
+ * Bundles all external references in a JSON Schema into a single schema document by collecting all reference targets and rewriting the references to point to the bundled definitions. This ensures that the resulting schema is self-contained and can be used independently without relying on external documents.
+ *
+ * @param schema - The JSON Schema to bundle references for.
+ * @returns A new JSON Schema with all references bundled and rewritten to point to the bundled definitions.
+ */
+export function bundleReferences(schema: JsonSchema): JsonSchema {
+  if (!isSetObject(schema)) {
+    return schema;
+  }
+
+  const bundledSchema = deepClone(schema) as Record<string, unknown>;
+  const baseUri = isSetString(bundledSchema.$id)
+    ? resolveUri(bundledSchema.$id, SCHEMA_BUNDLE_BASE_URI)
+    : SCHEMA_BUNDLE_BASE_URI;
+
+  const uriToPointer = new Map<string, string>();
+  const dynamicUriToFragment = new Map<string, string>();
+
+  collectReferenceTargets(
+    bundledSchema,
+    [],
+    baseUri,
+    uriToPointer,
+    dynamicUriToFragment
+  );
+
+  rewriteReferenceTargets(
+    bundledSchema,
+    [],
+    baseUri,
+    uriToPointer,
+    dynamicUriToFragment
+  );
+
+  return bundledSchema;
+}
 
 function convertNestedUntypedSchema(value: unknown): unknown {
   if (isUntypedSchema(value)) {
@@ -88,17 +288,15 @@ function convertNestedUntypedSchemaArray(value: unknown): unknown {
   return value.map(item => convertNestedUntypedSchema(item));
 }
 
-function convertValibotSchemaToJsonSchema<T = unknown>(
-  schema: unknown
-): JsonSchema<T> {
+function convertValibotSchemaToJsonSchema(schema: unknown): JsonSchema {
   return toJsonSchema(schema as never, {
-    target: "draft-07"
-  }) as JsonSchema<T>;
+    target: "draft-2020-12"
+  }) as JsonSchema;
 }
 
-function convertUntypedSchemaToJsonSchema<T = unknown>(
+function convertUntypedSchemaToJsonSchema(
   schema: UntypedSchema | Record<string, unknown>
-): JsonSchema<T> {
+): JsonSchema {
   const source = schema as Record<string, unknown>;
   const jsonSchema: Record<string, unknown> = {};
 
@@ -162,19 +360,17 @@ function convertUntypedSchemaToJsonSchema<T = unknown>(
     jsonSchema[key] = value;
   }
 
-  return jsonSchema as JsonSchema<T>;
+  return jsonSchema;
 }
 
-function convertUntypedInputToJsonSchema<T = unknown>(
+function convertUntypedInputToJsonSchema(
   input: UntypedInputObject
-): JsonSchema<T> {
+): JsonSchema {
   const inputObject = input as Record<string, unknown>;
-  const base = (
-    isUntypedSchema(inputObject.$schema)
-      ? convertUntypedSchemaToJsonSchema<T>(inputObject.$schema)
-      : {}
-  ) as JsonSchema<T>;
-  const properties: Record<string, JsonSchema<T>> = {};
+  const base = isUntypedSchema(inputObject.$schema)
+    ? convertUntypedSchemaToJsonSchema(inputObject.$schema)
+    : {};
+  const properties: Record<string, JsonSchema> = {};
 
   for (const [key, value] of Object.entries(inputObject)) {
     if (key.startsWith("$")) {
@@ -186,18 +382,18 @@ function convertUntypedInputToJsonSchema<T = unknown>(
     }
 
     if (isUntypedInput(value)) {
-      properties[key] = convertUntypedInputToJsonSchema<T>(value);
+      properties[key] = convertUntypedInputToJsonSchema(value);
       continue;
     }
 
     const nested = value as Record<string, unknown>;
     if ("$schema" in nested && isUntypedSchema(nested.$schema)) {
-      properties[key] = convertUntypedSchemaToJsonSchema<T>(nested.$schema);
+      properties[key] = convertUntypedSchemaToJsonSchema(nested.$schema);
       continue;
     }
 
     if (isUntypedSchema(value)) {
-      properties[key] = convertUntypedSchemaToJsonSchema<T>(value);
+      properties[key] = convertUntypedSchemaToJsonSchema(value);
     }
   }
 
@@ -207,9 +403,7 @@ function convertUntypedInputToJsonSchema<T = unknown>(
     );
   }
 
-  const baseProperties = isSetObject(base.properties)
-    ? (base.properties as Record<string, JsonSchema<T>>)
-    : {};
+  const baseProperties = isSetObject(base.properties) ? base.properties : {};
   const mergedProperties = {
     ...baseProperties,
     ...properties
@@ -227,11 +421,13 @@ function convertUntypedInputToJsonSchema<T = unknown>(
 /**
  * Creates a hash string for a given schema definition input.
  */
-export function extractHash<T = unknown>(
+export function extractHash(
   variant: SchemaInputVariant,
-  input: SchemaInput<T>
+  input: SchemaInput
 ): string {
   if (isSetString(input)) {
+    return murmurhash({ variant, input });
+  } else if (typeof input === "boolean") {
     return murmurhash({ variant, input });
   } else if (isSetObject(input)) {
     if (isZod3Type(input)) {
@@ -266,43 +462,39 @@ export function extractHash<T = unknown>(
 }
 
 /**
- * Converts a reflected Deepkit {@link Type} into a JSON Schema (draft-07) representation.
+ * Converts a reflected Deepkit {@link Type} into a JSON Schema (draft-2020-12) representation.
  */
-export function extractReflection<T = unknown>(
-  reflection: Type
-): JsonSchema<T> | undefined {
+export function extractReflection(reflection: Type): JsonSchema | undefined {
   if (!isType(reflection)) {
     return undefined;
   }
 
-  return reflectionToJsonSchema<T>(reflection);
+  return reflectionToJsonSchema(reflection);
 }
 
 /**
  * Extracts a JSON Schema from Zod, Standard Schema, Valibot, untyped, or JSON Schema inputs.
  */
-export function extractJsonSchema<T = unknown>(
-  schema: unknown
-): JsonSchema<T> | undefined {
+export function extractJsonSchema(schema: unknown): JsonSchema | undefined {
   if (isSetObject(schema)) {
     if (isZod3Type(schema)) {
-      return extractJsonSchemaZod(schema) as JsonSchema<T>;
+      return extractJsonSchemaZod(schema) as JsonSchema;
     }
     if (isStandardJsonSchema(schema)) {
       return schema["~standard"].jsonSchema.input({
         target: "draft-2020-12"
-      }) as JsonSchema<T>;
+      });
     }
     if (isValibotSchema(schema)) {
-      return convertValibotSchemaToJsonSchema<T>(schema);
+      return convertValibotSchemaToJsonSchema(schema);
     }
     if (isUntypedInput(schema)) {
-      return convertUntypedInputToJsonSchema<T>(schema);
+      return convertUntypedInputToJsonSchema(schema);
     }
     if (isUntypedSchema(schema)) {
-      return convertUntypedSchemaToJsonSchema<T>(schema);
+      return convertUntypedSchemaToJsonSchema(schema);
     }
-    if (isJsonSchema<T>(schema)) {
+    if (isJsonSchema(schema)) {
       return schema;
     }
   }
@@ -310,9 +502,20 @@ export function extractJsonSchema<T = unknown>(
   return undefined;
 }
 
+/**
+ * Resolves the concrete source variant for a schema source input.
+ *
+ * @param input - The schema source input to inspect.
+ * @returns The resolved schema source variant.
+ * @throws Will throw an error when the input cannot be mapped to a supported source variant.
+ */
 export function extractResolvedVariant(
   input: SchemaSourceInput
 ): SchemaSourceVariant {
+  if (typeof input === "boolean") {
+    return "json-schema";
+  }
+
   if (isSetObject(input)) {
     if (isZod3Type(input)) {
       return "zod3";
@@ -334,9 +537,13 @@ export function extractResolvedVariant(
   );
 }
 
-export function extractVariant<T = unknown>(
-  input: SchemaInput<T>
-): SchemaInputVariant {
+/**
+ * Determines the top-level input variant for schema extraction.
+ *
+ * @param input - The schema input to classify.
+ * @returns The resolved schema input variant.
+ */
+export function extractVariant(input: SchemaInput): SchemaInputVariant {
   if (isSetString(input) || isTypeDefinition(input)) {
     return "type-definition";
   }
@@ -344,17 +551,25 @@ export function extractVariant<T = unknown>(
   return extractResolvedVariant(input as SchemaSourceInput);
 }
 
-async function extractSchemaSchema<T = unknown>(
+/**
+ * Extracts and normalizes a JSON Schema from a concrete schema source input.
+ *
+ * @param input - The schema source input to extract from.
+ * @param variant - Optional source variant override. When omitted, the variant is inferred from the input.
+ * @returns A promise that resolves to a bundled JSON Schema.
+ * @throws Will throw an error if no valid JSON Schema can be extracted from the input.
+ */
+export async function extractSchema(
   input: SchemaSourceInput,
   variant?: SchemaInputVariant
-): Promise<JsonSchema<T>> {
-  if (isExtractedSchema<T>(input)) {
+): Promise<JsonSchema> {
+  if (isSchemaWithSource(input)) {
     return input.schema;
   }
 
   const resolvedVariant = variant ?? extractResolvedVariant(input);
 
-  let schema: JsonSchema<T> | undefined;
+  let schema: JsonSchema | undefined;
   if (
     resolvedVariant === "zod3" ||
     resolvedVariant === "json-schema" ||
@@ -362,13 +577,13 @@ async function extractSchemaSchema<T = unknown>(
     resolvedVariant === "untyped" ||
     resolvedVariant === "valibot"
   ) {
-    schema = extractJsonSchema<T>(input);
+    schema = extractJsonSchema(input);
   } else if (resolvedVariant === "reflection") {
     schema = extractReflection(input as Type);
   }
 
   if (schema) {
-    return schema;
+    return bundleReferences(schema);
   }
 
   throw new Error(
@@ -376,6 +591,14 @@ async function extractSchemaSchema<T = unknown>(
   );
 }
 
+/**
+ * Builds source metadata for a schema input using a known source variant.
+ *
+ * @param variant - The schema source variant associated with the input.
+ * @param input - The schema source input to wrap.
+ * @returns The normalized schema source payload, including the source hash and variant.
+ * @throws Will throw an error if the provided variant is unsupported.
+ */
 export function extractSource(
   variant: SchemaSourceVariant,
   input: SchemaSourceInput
@@ -424,7 +647,7 @@ export function extractSource(
 }
 
 /**
- * Extracts a JSON Schema from a given schema definition input, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, an untyped schema, or a reflected Deepkit Type object. If the input is a type definition reference (e.g. a file path with an export), it will be resolved and bundled using ESBuild to obtain the actual schema definition before extraction.
+ * Extracts a JSON Schema from a given schema definition input, which can be a Zod schema, a Valibot schema, any Standard JSON Schema type, a plain JSON Schema object, an untyped schema, or a Deepkit Type object. If the input is a type definition reference (e.g. a file path with an export), it will be resolved and bundled using Rolldown to obtain the actual schema definition before extraction.
  *
  * @example
  * ```ts
@@ -438,27 +661,28 @@ export function extractSource(
  * const schema4 = await extract(context, reflectionType);
  * ```
  *
- * @see https://github.com/colinhacks/zod
+ * @see https://zod.dev/
+ * @see https://valibot.dev/
  * @see https://standardschema.dev/json-schema#what-schema-libraries-support-this-spec
  * @see https://json-schema.org/
  * @see https://ajv.js.org/json-type-definition.html
  * @see https://deepkit.io/en/documentation/runtime-types/reflection
  *
  * @param context - The context object providing access to the file system and cache path.
- * @param input - The schema definition input to extract, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, an untyped schema, or a reflected Deepkit Type object. If the input is a string or a type definition reference, it will be resolved and bundled to obtain the actual schema definition before extraction.
- * @param options - Optional overrides for the ESBuild configuration used during extraction. This can include custom plugins, loaders, or other build options to control how the schema definition is resolved and bundled when the input is a type definition reference.
+ * @param input - The schema definition input to extract, which can be a Zod schema, a Valibot schema, any Standard JSON Schema type, a plain JSON Schema object, an untyped schema, or a reflected Deepkit Type object. If the input is a string or a type definition reference, it will be resolved and bundled to obtain the actual schema definition before extraction.
+ * @param options - Optional overrides for the Rolldown configuration used during extraction. This can include custom plugins, loaders, or other build options to control how the schema definition is resolved and bundled when the input is a type definition reference.
  * @returns A promise that resolves to the extracted and normalized schema as a JSON Schema object. The function will attempt to extract a valid JSON Schema from the provided input, and if successful, it will return the schema. If the extraction process fails or if the input is not a valid schema definition, it will throw an error indicating the failure.
  */
-export async function extractSchema<T = unknown>(
+export async function extractSchemaWithSource(
   context: Context,
   input: SchemaInput,
   options: Partial<BuildOptions> = {}
-): Promise<ExtractedSchema<T>> {
-  if (isExtractedSchema<T>(input)) {
+): Promise<ExtractedSchema> {
+  if (isSchemaWithSource(input)) {
     return input;
   }
 
-  if (isSchema<T>(input)) {
+  if (isSchema(input)) {
     return {
       ...input,
       source: {
@@ -495,6 +719,7 @@ export async function extractSchema<T = unknown>(
       "standard-schema",
       "zod3",
       "untyped",
+      "valibot",
       "reflection"
     ].includes(variant)
   ) {
@@ -510,13 +735,13 @@ export async function extractSchema<T = unknown>(
   return {
     variant,
     source,
-    schema: await extractSchemaSchema<T>(source.schema, source.variant),
+    schema: await extractSchema(source.schema, source.variant),
     hash
   };
 }
 
 /**
- * Extracts a JSON Schema from a given schema definition input, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, an untyped schema, or a reflected Deepkit Type object. If the input is a type definition reference (e.g. a file path with an export), it will be resolved and bundled using ESBuild to obtain the actual schema definition before extraction.
+ * Extracts a JSON Schema from a given schema definition input, which can be a Zod schema, a Valibot schema, any Standard JSON Schema type, a plain JSON Schema object, an untyped schema, or a Deepkit Type object. If the input is a type definition reference (e.g. a file path with an export), it will be resolved and bundled using Rolldown to obtain the actual schema definition before extraction.
  *
  * @example
  * ```ts
@@ -530,7 +755,8 @@ export async function extractSchema<T = unknown>(
  * const schema4 = await extract(context, reflectionType);
  * ```
  *
- * @see https://github.com/colinhacks/zod
+ * @see https://zod.dev/
+ * @see https://valibot.dev/
  * @see https://standardschema.dev/json-schema#what-schema-libraries-support-this-spec
  * @see https://json-schema.org/
  * @see https://ajv.js.org/json-type-definition.html
@@ -539,21 +765,21 @@ export async function extractSchema<T = unknown>(
  * @see https://www.typescriptlang.org/docs/handbook/2/types-from-types.html
  *
  * @param context - The context object providing access to the file system and cache path.
- * @param input - The schema definition input to extract, which can be a Zod schema, a Standard JSON Schema, a JSON Schema object, an untyped schema, or a reflected Deepkit Type object.
- * @param options - Optional overrides for the ESBuild configuration used during extraction.
+ * @param input - The schema definition input to extract, which can be a Zod schema, a Valibot schema, any Standard JSON Schema type, a plain JSON Schema object, an untyped schema, or a reflected Deepkit Type object.
+ * @param options - Optional overrides for the Rolldown configuration used during extraction.
  * @returns A promise that resolves to the extracted and normalized schema as a JSON Schema object.
  * @throws Will throw an error if the input is not a valid schema definition or if the extraction process fails to produce a valid schema.
  */
-export async function extract<T = unknown>(
+export async function extract(
   context: Context,
   input: SchemaInput,
   options: Partial<BuildOptions> = {}
-): Promise<Schema<T>> {
-  if (isExtractedSchema<T>(input) || isSchema<T>(input)) {
+): Promise<Schema> {
+  if (isSchemaWithSource(input) || isSchema(input)) {
     return input;
   }
 
-  let result: Schema<T> | undefined;
+  let result: Schema | undefined;
 
   const variant = extractVariant(input);
   const hash = extractHash(variant, input);
@@ -568,15 +794,15 @@ export async function extract<T = unknown>(
       result = {
         variant,
         hash,
-        schema: JSON.parse(schema) as JsonSchema<T>
+        schema: JSON.parse(schema) as JsonSchema
       };
     }
   }
 
-  result ??= await extractSchema<T>(context, input, options);
+  result ??= await extractSchemaWithSource(context, input, options);
   if (!result?.schema) {
     throw new Error(
-      `Failed to extract a valid schema from the provided input. The input must be a Zod schema, a Standard JSON Schema, a JSON Schema object, an untyped schema, or a reflected Deepkit Type object.`
+      `Failed to extract a valid schema from the provided input. The input must be a Zod schema, a Valibot schema, any Standard JSON Schema type, a plain JSON Schema object, an untyped schema, or a reflected Deepkit Type object.`
     );
   }
 

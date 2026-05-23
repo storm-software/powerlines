@@ -24,7 +24,7 @@ import {
   BabelPluginResolvedConfig,
   BabelPluginUserConfig
 } from "@powerlines/plugin-babel/types";
-import type { Schema, SchemaInput } from "@powerlines/schema";
+import type { JsonSchemaObject, Schema, SchemaInput } from "@powerlines/schema";
 import type { DotenvParseOutput } from "@stryke/env/types";
 import { RequiredKeys } from "@stryke/types";
 import { DotenvConfiguration } from "@stryke/types/configuration";
@@ -128,7 +128,7 @@ export type EnvPluginResolvedConfig = BabelPluginResolvedConfig & {
  * @remarks
  * This schema is the result of parsing the type definitions provided in the {@link EnvPluginOptions.config} and {@link EnvPluginOptions.secrets} options, and is used to validate the loaded environment variables and secrets, as well as to determine which variables should be injected into the source code when the {@link EnvPluginOptions.inject} option is enabled.
  */
-export type EnvSchema = Schema<Record<string, any>> & {
+export type EnvSchema = Schema<JsonSchemaObject> & {
   /**
    * The list of active environment variables or secrets that should be injected into the source code when the {@link EnvPluginOptions.inject} option is enabled. This list is determined by filtering the properties defined in the schema based on the provided prefix and any additional filtering criteria defined in the type definition, such as an `active` property.
    *

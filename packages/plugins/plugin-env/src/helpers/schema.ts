@@ -21,6 +21,7 @@ import {
   getProperties,
   getPropertiesList,
   isSchema,
+  JsonSchemaObject,
   mergeSchemas,
   Schema,
   writeSchema
@@ -108,7 +109,7 @@ async function writeActive<TContext extends EnvPluginContext>(
   variant: "config" | "secrets",
   schema: EnvSchema
 ) {
-  if (!isSchema<EnvSchema>(schema)) {
+  if (!isSchema(schema)) {
     throw new Error(
       `The provided input is not a valid env schema. A valid schema must have a "variant" property indicating the type of the input and a "schema" property containing the parsed JSON Schema object.`
     );
@@ -152,7 +153,7 @@ export async function extractEnv<TContext extends EnvPluginContext>(
   const defaultSecretsTypeDefinition =
     await getDefaultSecretsTypeDefinition(context);
 
-  const config = (await extract<Record<string, any>>(
+  const config = (await extract(
     context,
     context.config.env.config
   )) as EnvSchema;
@@ -170,13 +171,13 @@ export async function extractEnv<TContext extends EnvPluginContext>(
         (context.config.env.config as TypeDefinition).name !==
           defaultVarsTypeDefinition.name))
   ) {
-    config.schema = mergeSchemas<Record<string, any>>(
+    config.schema = mergeSchemas(
       config,
-      await extract<Record<string, any>>(context, defaultVarsTypeDefinition)
-    );
+      await extract(context, defaultVarsTypeDefinition)
+    ) as JsonSchemaObject;
   }
 
-  const secrets = (await extract<Record<string, any>>(
+  const secrets = (await extract(
     context,
     context.config.env.secrets
   )) as EnvSchema;
@@ -194,10 +195,10 @@ export async function extractEnv<TContext extends EnvPluginContext>(
         (context.config.env.secrets as TypeDefinition).name !==
           defaultSecretsTypeDefinition.name))
   ) {
-    secrets.schema = mergeSchemas<Record<string, any>>(
+    secrets.schema = mergeSchemas(
       secrets,
-      await extract<Record<string, any>>(context, defaultSecretsTypeDefinition)
-    );
+      await extract(context, defaultSecretsTypeDefinition)
+    ) as JsonSchemaObject;
   }
 
   context.env = defu(
@@ -285,8 +286,9 @@ export async function extractEnv<TContext extends EnvPluginContext>(
     }, key);
     if (properties[unprefixedKey]) {
       if (!properties[unprefixedKey]?.runtime) {
-        const propertySchema =
-          context.env.config.schema.properties?.[unprefixedKey];
+        const propertySchema = getProperties(context.env.config.schema)?.[
+          unprefixedKey
+        ];
         if (propertySchema) {
           propertySchema.default = value;
         }
@@ -294,7 +296,7 @@ export async function extractEnv<TContext extends EnvPluginContext>(
     } else if (aliases[unprefixedKey]) {
       if (!aliases[unprefixedKey]?.runtime) {
         const alias = aliases[unprefixedKey]?.alias?.[0] ?? unprefixedKey;
-        const aliasSchema = context.env.config.schema.properties?.[alias];
+        const aliasSchema = getProperties(context.env.config.schema)?.[alias];
         if (aliasSchema) {
           aliasSchema.default = value;
         }

@@ -39,10 +39,7 @@ export function getCacheDirectory(context: Context): string {
  * @param input - The input schema from which to extract the variant and hash for constructing the cache file path.
  * @returns The file path to the cached schema JSON file, constructed by joining the cache directory path with a filename derived from the extracted hash of the schema input.
  */
-export function getCacheFilePath<T = unknown>(
-  context: Context,
-  input: SchemaInput<T>
-): string {
+export function getCacheFilePath(context: Context, input: SchemaInput): string {
   const variant = extractVariant(input);
   const hash = extractHash(variant, input);
 
@@ -56,11 +53,8 @@ export function getCacheFilePath<T = unknown>(
  * @param schema - The schema to be written to the file system, which must be a valid schema object containing a `variant`, `schema`, and `hash` property.
  * @throws Will throw an error if the provided input is not a valid schema.
  */
-export async function writeSchema<T = unknown>(
-  context: Context,
-  schema: Schema<T>
-) {
-  if (!isSchema<T>(schema)) {
+export async function writeSchema(context: Context, schema: Schema) {
+  if (!isSchema(schema)) {
     throw new Error(
       `The provided input is not a valid schema. A valid schema must have a "variant" property indicating the type of the input and a "schema" property containing the parsed JSON Schema object.`
     );
@@ -79,10 +73,10 @@ export async function writeSchema<T = unknown>(
  * @param input - The input schema from which to extract the variant and hash for locating the cached schema file.
  * @returns A promise that resolves to the parsed schema object if found in the cache, or `undefined` if the schema does not exist in the cache.
  */
-export async function readSchemaSafe<T = unknown>(
+export async function readSchemaSafe(
   context: Context,
-  input: SchemaInput<T>
-): Promise<Schema<T> | undefined> {
+  input: SchemaInput
+): Promise<Schema | undefined> {
   const cacheFilePath = getCacheFilePath(context, input);
   if (!(await context.fs.exists(cacheFilePath))) {
     return undefined;
@@ -104,11 +98,11 @@ export async function readSchemaSafe<T = unknown>(
  * @returns A promise that resolves to the parsed schema object if found in the cache, or throws an error if the schema does not exist in the cache.
  * @throws Will throw an error if the schema with the specified variant and hash does not exist in the cache.
  */
-export async function readSchema<T = unknown>(
+export async function readSchema(
   context: Context,
-  input: SchemaInput<T>
-): Promise<Schema<T>> {
-  const schema = await readSchemaSafe<T>(context, input);
+  input: SchemaInput
+): Promise<Schema> {
+  const schema = await readSchemaSafe(context, input);
   if (!schema) {
     const variant = extractVariant(input);
     const hash = extractHash(variant, input);

@@ -37,8 +37,9 @@ import {
 import {
   getPropertiesList,
   JsonSchema,
-  JsonSchemaLike,
-  JsonSchemaProperty
+  JsonSchemaObject,
+  JsonSchemaType,
+  stringifyValue
 } from "@powerlines/schema";
 import { camelCase } from "@stryke/string-format/camel-case";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -50,18 +51,14 @@ import {
 import { ComponentProps } from "../../types/components";
 import { TSDocObjectSchema, TSDocSchemaProperty } from "./tsdoc-schema";
 
-export interface ObjectDeclarationProps<
-  T extends Record<string, any> = Record<string, any>
-> extends VarDeclarationProps {
-  schema?: JsonSchema<T>;
+export interface ObjectDeclarationProps extends VarDeclarationProps {
+  schema?: JsonSchemaObject;
 }
 
 /**
  * Generates a TypeScript object for the given reflection class.
  */
-export function ObjectDeclaration<
-  T extends Record<string, any> = Record<string, any>
->(props: ObjectDeclarationProps<T>) {
+export function ObjectDeclaration(props: ObjectDeclarationProps) {
   const { schema } = props;
   if (!schema) {
     return null;
@@ -71,11 +68,16 @@ export function ObjectDeclaration<
     camelCase(isSetString(props.name) ? props.name : schema?.name)
   );
 
-  const defaultValues = computed(
-    () => (schema?.default || {}) as Record<string, unknown>
+  const defaultValues = computed(() =>
+    Object.fromEntries(
+      getPropertiesList(schema).map(property => [
+        property.name,
+        property.default
+      ]) || {}
+    )
   );
   const properties = computed(() =>
-    getPropertiesList<T>(schema)
+    getPropertiesList(schema)
       .filter(
         property =>
           !property?.ignore &&
@@ -129,7 +131,7 @@ export function ObjectDeclaration<
 
   return (
     <Show when={!!schema}>
-      <SchemaContext.Provider value={schema as JsonSchemaLike}>
+      <SchemaContext.Provider value={schema}>
         <Show when={!!name.value && !!type}>
           <TSDocObjectSchema schema={schema} />
           <CoreDeclaration symbol={sym}>
@@ -145,7 +147,10 @@ export function ObjectDeclaration<
                     comma={true}
                     doubleHardline={true}>
                     {property => (
-                      <ObjectDeclarationProperty schema={property} />
+                      <ObjectDeclarationProperty
+                        name={property.name}
+                        schema={property}
+                      />
                     )}
                   </For>
                 </ObjectExpression>
@@ -159,37 +164,35 @@ export function ObjectDeclaration<
   );
 }
 
-export interface ObjectDeclarationPropertyProps<
-  T extends Record<string, any> = Record<string, any>
-> extends ComponentProps {
-  schema: JsonSchemaProperty<T>;
+export interface ObjectDeclarationPropertyProps extends ComponentProps {
+  name: string;
+  required?: boolean;
+  value?: unknown;
+  schema: JsonSchema;
 }
 
 /**
  * Generates a TypeScript object property for the given reflection class.
  */
-export function ObjectDeclarationProperty<
-  T extends Record<string, any> = Record<string, any>
->(props: ObjectDeclarationPropertyProps<T>) {
-  const [{ schema }, rest] = splitProps(props, ["schema"]);
-
-  const name = computed(
-    () =>
-      schema?.name ||
-      camelCase(schema?.title || schema?.databaseSchemaName || schema?.$id)
-  );
+export function ObjectDeclarationProperty(
+  props: ObjectDeclarationPropertyProps
+) {
+  const [{ schema, name, value }, rest] = splitProps(props, [
+    "schema",
+    "name",
+    "value"
+  ]);
 
   return (
-    <Show when={isSetString(name.value)}>
-      <SchemaPropertyContext.Provider value={schema as JsonSchemaLike}>
-        <TSDocSchemaProperty schema={schema} />
+    <Show when={isSetString(name)}>
+      <SchemaPropertyContext.Provider value={schema}>
+        <TSDocSchemaProperty schema={schema} defaultValue={value} />
         <ObjectProperty
-          name={name.value}
-          value={
-            !isUndefined(schema?.default)
-              ? JSON.stringify(schema?.default)
-              : undefined
-          }
+          name={name}
+          value={stringifyValue(
+            value,
+            (schema as { type?: JsonSchemaType }).type
+          )}
           {...rest}
         />
         <hbr />

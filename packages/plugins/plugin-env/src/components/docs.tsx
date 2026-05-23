@@ -91,13 +91,13 @@ export function EnvDocsFile(props: EnvDocsFileProps) {
               return {
                 name: property.name?.trim(),
                 description: (property.description ?? "").trim(),
-                type: stringifyType<any>(property)
+                type: stringifyType(property)
                   .trim()
                   .replaceAll(/\s*(?:\||&)\s*/g, ", or "),
                 defaultValue: property.default
                   ? stringifyType(property.default)
                   : "",
-                required: property.nullable ? "" : "✔"
+                required: property.required ? "" : "✔"
               };
             }) ?? []
         }

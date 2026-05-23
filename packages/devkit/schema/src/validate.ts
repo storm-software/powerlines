@@ -26,7 +26,7 @@ import { JsonSchema } from "./types";
  * @param schema - The JSON Schema to create a validator for.
  * @returns An Ajv instance with the schema added.
  */
-export function getValidator<T = unknown>(schema: JsonSchema<T>): Ajv {
+export function getValidator(schema: JsonSchema): Ajv {
   const ajv = new Ajv({
     schemas: [schema],
     code: { source: true, esm: true }
@@ -43,10 +43,8 @@ export function getValidator<T = unknown>(schema: JsonSchema<T>): Ajv {
  * @param schema - The JSON Schema to create a validation function for.
  * @returns A function that validates data against the schema and returns a boolean indicating validity.
  */
-export function getValidatorFunction<T = unknown>(
-  schema: JsonSchema<T>
-): ValidateFunction<T> {
+export function getValidatorFunction(schema: JsonSchema): ValidateFunction {
   const ajv = getValidator(schema);
 
-  return ajv.compile<T>(schema);
+  return ajv.compile(schema);
 }

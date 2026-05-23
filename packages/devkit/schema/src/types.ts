@@ -19,14 +19,28 @@
 import type { Type } from "@powerlines/deepkit/vendor/type";
 import type { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import type { TypeDefinition } from "@stryke/types/configuration";
-import type { FormatName } from "ajv-formats/dist/formats";
 import type { InputObject, Schema as _Schema } from "untyped";
 import type { BaseIssue, BaseSchema } from "valibot";
 import * as z3 from "zod/v3";
+import { JSON_SCHEMA_PRIMITIVE_TYPES, JSON_SCHEMA_TYPES } from "./constants";
 
+/**
+ * Alias for the Untyped object-input schema shape.
+ */
 export type UntypedInputObject = InputObject;
+
+/**
+ * Alias for the Untyped schema document shape.
+ */
 export type UntypedSchema = _Schema;
 
+/**
+ * A Valibot schema instance.
+ *
+ * @template TInput - The raw input type accepted by the schema.
+ * @template TOutput - The parsed output type produced by the schema.
+ * @template TIssue - The issue type emitted for validation errors.
+ */
 export type ValibotSchema<
   TInput = unknown,
   TOutput = unknown,
@@ -34,391 +48,97 @@ export type ValibotSchema<
 > = BaseSchema<TInput, TOutput, TIssue>;
 
 /**
- * JSON Schema primitive type names used by {@link stringifyType}.
+ * Primitive JSON Schema `type` keyword values.
+ *
+ * @see https://json-schema.org/draft/2020-12/json-schema-core#section-7.6.1
  */
 export type JsonSchemaPrimitiveType =
-  | "string"
-  | "number"
-  | "integer"
-  | "boolean"
-  | "null"
-  | "object"
-  | "array";
-
-type StrictNullChecksWrapper<Name extends string, Type> = undefined extends null
-  ? `strictNullChecks must be true in tsconfig to use ${Name}`
-  : Type;
-
-type UnionToIntersection<U> = (U extends any ? (_: U) => void : never) extends (
-  _: infer I
-) => void
-  ? I
-  : never;
+  (typeof JSON_SCHEMA_PRIMITIVE_TYPES)[number];
 
 /**
- * A JSON Schema type that is compatible with all the JSON schema variants, and includes additional Powerlines-specific metadata properties. This type is designed to be flexible and accommodate various schema shapes while still providing the ability to include metadata for documentation or other purposes. The presence of the metadata properties does not affect the validation behavior of the schema itself, but they can provide additional context or information about the schema when used in conjunction with compatible tools.
+ * JSON Schema type names for the `type` keyword.
+ *
+ * @see https://json-schema.org/draft/2020-12/json-schema-core#section-7.6.1
  */
-export type JsonSchemaLike = UncheckedJsonSchemaType<Known, true> &
-  SchemaMetadata;
+export type JsonSchemaType = (typeof JSON_SCHEMA_TYPES)[number];
 
-type UncheckedPartialSchema<T> = Partial<UncheckedJsonSchemaType<T, true>>;
-
-export type JsonType<
-  T extends string,
-  IsPartial extends boolean
-> = IsPartial extends true ? T | undefined : T;
-
-export type NumberFormat =
-  | "int32"
-  | "float"
-  | "double"
-  | "int8"
-  | "uint8"
-  | "int16"
-  | "uint16"
-  | "int64"
-  | "uint64";
-
-export interface NumberKeywords {
-  /** The inclusive lower bound allowed for numeric values. */
-  minimum?: number;
-
-  /** The inclusive upper bound allowed for numeric values. */
-  maximum?: number;
-
-  /** The exclusive lower bound allowed for numeric values. */
-  exclusiveMinimum?: number;
-
-  /** The exclusive upper bound allowed for numeric values. */
-  exclusiveMaximum?: number;
-
-  /** The numeric increment that values must be a multiple of. */
-  multipleOf?: number;
-
-  /** The numeric format hint recognized by compatible validators. */
-  format?: NumberFormat | string;
-}
-
-export interface StringKeywords {
-  /** The minimum number of characters allowed in the string. */
-  minLength?: number;
-
-  /** The maximum number of characters allowed in the string. */
-  maxLength?: number;
-
-  /** A regular expression that matching strings must satisfy. */
-  pattern?: string;
-
+/**
+ * Metadata and annotation keywords shared across JSON Schema shapes.
+ *
+ * @see https://json-schema.org/draft/2020-12/json-schema-core#section-8
+ */
+export interface JsonSchemaMetadataKeywords {
   /**
-   * A format for the schema, which can be used by validation libraries or other tools that support this feature to provide additional validation or formatting rules for the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   * A unique identifier keyword that is used to identify a schema and can be used for referencing the schema within other schemas. It is a URI that serves as a unique identifier for the schema.
    *
-   * @see https://ajv.js.org/packages/ajv-formats.html
-   *
-   * @remarks
-   * The `format` property is a string that specifies the format of the data that the schema represents. It can be used to indicate that a string should be validated as an email address, a date-time, a URI, or any other format supported by compatible validation libraries. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
-   */
-  format?: FormatName | string;
-}
-
-type Known =
-  | {
-      [key: string]: Known;
-    }
-  | [Known, ...Known[]]
-  | Known[]
-  | number
-  | string
-  | boolean
-  | null;
-
-type UncheckedPropertiesSchema<T> = {
-  [K in keyof T]-?:
-    | (UncheckedJsonSchemaType<T[K], false> & JsonSchemaNullable<T[K]>)
-    | {
-        $ref: string;
-      };
-};
-
-type UncheckedRequiredMembers<T> = {
-  [K in keyof T]-?: undefined extends T[K] ? never : K;
-}[keyof T];
-
-export type JsonSchemaNullable<T> = undefined extends T
-  ? {
-      /** Indicates that the value may be null in addition to the declared type. */
-      nullable: true;
-
-      /** A constant value constrained to null when the schema is nullable. */
-      const?: null;
-
-      /** Allowed values, including null when the schema is nullable. */
-      enum?: readonly (T | null)[];
-
-      /** The default value to use when none is provided. */
-      default?: T | null;
-    }
-  : {
-      /** Indicates whether the value may be null. */
-      nullable?: false;
-
-      /** A constant value allowed by the schema. */
-      const?: T;
-
-      /** The set of values allowed by the schema. */
-      enum?: readonly T[];
-
-      /** The default value to use when none is provided. */
-      default?: T;
-    };
-
-type UncheckedJsonSchemaType<T, IsPartial extends boolean> = (
-  | {
-      anyOf: readonly UncheckedJsonSchemaType<T, IsPartial>[];
-    }
-  | {
-      oneOf: readonly UncheckedJsonSchemaType<T, IsPartial>[];
-    }
-  | ({
-      type: readonly (T extends number
-        ? JsonType<"number" | "integer", IsPartial>
-        : T extends string
-          ? JsonType<"string", IsPartial>
-          : T extends boolean
-            ? JsonType<"boolean", IsPartial>
-            : never)[];
-    } & UnionToIntersection<
-      T extends number
-        ? NumberKeywords
-        : T extends string
-          ? StringKeywords
-          : T extends boolean
-            ? // eslint-disable-next-line ts/no-empty-object-type
-              {}
-            : never
-    >)
-  | ((T extends number
-      ? {
-          type: JsonType<"number" | "integer", IsPartial>;
-        } & NumberKeywords
-      : T extends string
-        ? {
-            type: JsonType<"string", IsPartial>;
-          } & StringKeywords
-        : T extends boolean
-          ? {
-              type: JsonType<"boolean", IsPartial>;
-            }
-          : T extends readonly [any, ...any[]]
-            ? {
-                type: JsonType<"array", IsPartial>;
-
-                /** The tuple items in order. */
-                items: {
-                  readonly [K in keyof T]-?: UncheckedJsonSchemaType<
-                    T[K],
-                    false
-                  > &
-                    JsonSchemaNullable<T[K]>;
-                } & {
-                  length: T["length"];
-                };
-
-                /** The minimum number of items allowed in the tuple. */
-                minItems: T["length"];
-              } & (
-                | {
-                    /** The maximum number of items allowed in the tuple. */
-                    maxItems: T["length"];
-                  }
-                | {
-                    /** Disallows items beyond the tuple length. */
-                    additionalItems: false;
-                  }
-              )
-            : T extends readonly any[]
-              ? {
-                  type: JsonType<"array", IsPartial>;
-
-                  /** The schema that each array item must satisfy. */
-                  items: UncheckedJsonSchemaType<T[0], false>;
-
-                  /** A schema that at least one array item must satisfy. */
-                  contains?: UncheckedPartialSchema<T[0]>;
-
-                  /** The minimum number of items allowed in the array. */
-                  minItems?: number;
-
-                  /** The maximum number of items allowed in the array. */
-                  maxItems?: number;
-
-                  /** The minimum number of matching items required by {@link contains}. */
-                  minContains?: number;
-
-                  /** The maximum number of matching items allowed by {@link contains}. */
-                  maxContains?: number;
-
-                  /** Indicates that array items must be unique. */
-                  uniqueItems?: true;
-
-                  /** Additional tuple items are not permitted in this schema shape. */
-                  additionalItems?: never;
-                }
-              : T extends Record<string, any>
-                ? {
-                    type: JsonType<"object", IsPartial>;
-
-                    /** The schema for properties not matched by {@link properties} or {@link patternProperties}. */
-                    additionalProperties?:
-                      | boolean
-                      | UncheckedJsonSchemaType<T[string], false>;
-
-                    /** The schema for properties not yet evaluated by other object keywords. */
-                    unevaluatedProperties?:
-                      | boolean
-                      | UncheckedJsonSchemaType<T[string], false>;
-
-                    /** The declared object properties and their schemas. */
-                    properties?: IsPartial extends true
-                      ? Partial<UncheckedPropertiesSchema<T>>
-                      : UncheckedPropertiesSchema<T>;
-
-                    /** The schemas for properties whose names match the given patterns. */
-                    patternProperties?: Record<
-                      string,
-                      UncheckedJsonSchemaType<T[string], false>
-                    >;
-
-                    /** The schema that each property name must satisfy. */
-                    propertyNames?: Omit<
-                      UncheckedJsonSchemaType<string, false>,
-                      "type"
-                    > & {
-                      type?: "string";
-                    };
-
-                    /** A map of property-specific dependency requirements. */
-                    dependencies?: {
-                      [K in keyof T]?:
-                        | readonly (keyof T)[]
-                        | UncheckedPartialSchema<T>;
-                    };
-
-                    /** Properties that become required when the key property is present. */
-                    dependentRequired?: {
-                      [K in keyof T]?: readonly (keyof T)[];
-                    };
-
-                    /** Subschemas that apply when the key property is present. */
-                    dependentSchemas?: {
-                      [K in keyof T]?: UncheckedPartialSchema<T>;
-                    };
-
-                    /** The minimum number of own properties allowed. */
-                    minProperties?: number;
-
-                    /** The maximum number of own properties allowed. */
-                    maxProperties?: number;
-
-                    /**
-                     * An optional array of property names that are considered primary keys for the object. This property can be used by validation libraries or other tools that support this feature to provide additional validation rules or constraints for the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
-                     */
-                    primaryKey?: (keyof T)[];
-
-                    /**
-                     * A name for the database schema associated with the data represented by this schema. This property can be used by documentation tools or other libraries that support this feature to provide additional context or information about the data model that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
-                     */
-                    databaseSchemaName?: string;
-                  } & (IsPartial extends true
-                    ? {
-                        /** The set of required property names for partial schemas. */
-                        required: readonly (keyof T)[];
-                      }
-                    : [UncheckedRequiredMembers<T>] extends [never]
-                      ? {
-                          /** The set of required property names when none are statically required. */
-                          required?: readonly UncheckedRequiredMembers<T>[];
-                        }
-                      : {
-                          /** The set of required property names for the object. */
-                          required: readonly UncheckedRequiredMembers<T>[];
-                        })
-                : T extends null
-                  ? {
-                      /** The JSON Schema null type. */
-                      type: JsonType<"null", IsPartial>;
-
-                      /** Indicates that only null is allowed. */
-                      nullable: true;
-                    }
-                  : never) & {
-      /** A set of schemas where the data must satisfy all members. */
-      allOf?: readonly UncheckedPartialSchema<T>[];
-
-      /** A set of schemas where the data must satisfy at least one member. */
-      anyOf?: readonly UncheckedPartialSchema<T>[];
-
-      /** A set of schemas where the data must satisfy exactly one member. */
-      oneOf?: readonly UncheckedPartialSchema<T>[];
-
-      /** A schema that the data must not satisfy. */
-      if?: UncheckedPartialSchema<T>;
-
-      /** A schema applied when {@link if} matches. */
-      then?: UncheckedPartialSchema<T>;
-
-      /** A schema applied when {@link if} does not match. */
-      else?: UncheckedPartialSchema<T>;
-
-      /** A schema that must not match the data. */
-      not?: UncheckedPartialSchema<T>;
-    })
-) & {
-  /**
-   * A unique identifier for the schema, which can be used to reference or identify the schema in various contexts. This property is part of the JSON Schema specification and does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.1
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-8.2.1
    */
   $id?: string;
 
   /**
-   * A reference to another schema definition, which can be used to reuse or reference schema definitions in other parts of the document or external schemas. This property is part of the JSON Schema specification and does not affect the validation behavior of the schema itself, but it can be used to create modular and reusable schema structures.
+   * A keyword used to specify the version of the JSON Schema specification that the schema adheres to. It is a URI that indicates which version of the JSON Schema specification the schema is written against.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-8.1.1
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.2
    */
-  $ref?: string;
+  $schema?: string;
 
   /**
-   * A comment or annotation for the schema, which can be used to provide additional context or information about the schema. This property is part of the JSON Schema specification and does not affect the validation behavior of the schema itself, but it can be used by documentation tools or other libraries that support this feature.
+   * A keyword that is used in meta-schemas to identify the vocabularies available for use in schemas described by that meta-schema.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-8.1.2
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.2
+   */
+  $vocabulary?: Record<string, boolean>;
+
+  /**
+   * A comment or annotation for the schema, which can be used to provide additional context or information about the schema. It allows schema authors to include human-readable explanations or notes within the schema without affecting its validation behavior.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-8.3
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.3
    */
   $comment?: string;
 
   /**
-   * A record of schema definitions that can be referenced throughout the schema using {@link UncheckedJsonSchemaType.$ref}. This property can be used to define reusable schema components and reduce redundancy in schema definitions. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
+   * A plain-name fragment identifier for the schema resource.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-8.2.2
    */
-  $defs?: Record<string, UncheckedJsonSchemaType<Known, true>>;
+  $anchor?: string;
+
+  /**
+   * The `$defs` keyword is used to define reusable sub-schemas within a JSON Schema. It allows you to define sub-schemas that can be referenced elsewhere in the schema using the `$ref` keyword. The `$defs` keyword is an object where each key is a unique identifier for the sub-schema, and the value is the sub-schema itself.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-8.2.4
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.4
+   * @see https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-8.2.4
+   * @see https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#appendix-A
+   */
+  $defs?: Record<string, JsonSchema>;
+
+  /**
+   * The `$dynamicRef` keyword is used to reference a dynamic anchor defined in a JSON Schema. It allows you to reference a sub-schema that is determined at runtime based on the context of the validation. The value of `$dynamicRef` is a URI that points to the dynamic anchor defined using the `$dynamicAnchor` keyword.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-8.2.3.2
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.6
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.7
+   */
+  $dynamicRef?: string;
+
+  /**
+   * The `$dynamicAnchor` keyword is used to define a dynamic anchor within a JSON Schema. A dynamic anchor is a placeholder that can be referenced using the `$dynamicRef` keyword. It allows for more flexible referencing of sub-schemas, as the actual schema that the dynamic anchor points to can be determined at runtime based on the context of the validation.
+   *
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.6
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.7
+   */
+  $dynamicAnchor?: string;
 
   /**
    * A name for the schema, which can be used by documentation tools or other libraries that support this feature to provide a human-readable name or description for the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
   name?: string;
 
-  /**
-   * A unique identifier for the schema, which can be used to reference or identify the schema in various contexts. This property is part of the JSON Schema specification and does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
-   *
-   * @remarks
-   * This property is a legacy version of {@link UncheckedJsonSchemaType.$id} and is maintained for backward compatibility with earlier versions of the JSON Schema specification. The presence of this property does not affect the validation behavior of the schema itself, but it can be used to reference or identify the schema in various contexts when used in conjunction with compatible tools.
-   *
-   * @deprecated Use {@link UncheckedJsonSchemaType.$id} instead.
-   */
-  id?: string;
-
-  /**
-   * A record of schema definitions that can be referenced throughout the schema using {@link UncheckedJsonSchemaType.$ref}. This property is a legacy version of {@link UncheckedJsonSchemaType.$defs} and is maintained for backward compatibility with earlier versions of the JSON Schema specification. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
-   *
-   * @deprecated Use {@link UncheckedJsonSchemaType.$defs} instead.
-   */
-  definitions?: Record<string, UncheckedJsonSchemaType<Known, true>>;
-
-  [keyword: string]: any;
-};
-
-export interface SchemaMetadata {
   /**
    * A title for the schema, which can be used by documentation tools or other libraries that support this feature to provide a human-readable name or description for the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
@@ -452,7 +172,10 @@ export interface SchemaMetadata {
   /**
    * An indicator specifying if the field is deprecated or not. This property can be used by documentation tools or other libraries that support this feature to provide additional information or warnings about the usage of the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
-  deprecated?: boolean;
+  deprecated?:
+    | boolean
+    | string
+    | { message?: string; since?: string; alternative?: string };
 
   /**
    * An indicator specifying if the field should be marked as hidden or not. This property can be used by documentation tools or other libraries that support this feature to provide additional information or warnings about the usage of the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
@@ -485,61 +208,1016 @@ export interface SchemaMetadata {
    * An indicator specifying if the field is write-only or not. This property can be used by documentation tools or other libraries that support this feature to provide additional information or warnings about the usage of the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the schema when used in conjunction with compatible tools.
    */
   writeOnly?: boolean;
+}
+
+/**
+ * A keyword group corresponding to logical operators for combining or modifying the boolean assertion results of the subschemas. They have no direct impact on annotation collection, although they enable the same annotation keyword to be applied to an instance location with different values.
+ *
+ * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.2.1
+ * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.5
+ */
+export interface JsonSchemaLogicKeywords {
+  /**
+   * A set of schemas where the data must satisfy all members.
+   *
+   * @remarks
+   * An instance validates successfully against this keyword if it validates successfully against all schemas defined by this keyword's value.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.2.1.1
+   */
+  allOf?: JsonSchema[];
 
   /**
-   * The content media type for the schema, which can be used by documentation tools or other libraries that support this feature to provide additional information about the expected content type of the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   * A set of schemas where the data must satisfy at least one member.
+   *
+   * @remarks
+   * An instance validates successfully against this keyword if it validates successfully against at least one schema defined by this keyword's value. Note that when annotations are being collected, all subschemas **MUST** be examined so that annotations are collected from each subschema that validates successfully.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.2.1.2
+   */
+  anyOf?: JsonSchema[];
+
+  /**
+   * A set of schemas where the data must satisfy exactly one member.
+   *
+   * @remarks
+   * An instance validates successfully against this keyword if it validates successfully against exactly one schema defined by this keyword's value.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.2.1.3
+   */
+  oneOf?: JsonSchema[];
+
+  /**
+   * A schema that must not match the data.
+   *
+   * @remarks
+   * An instance is valid against this keyword if it fails to validate successfully against the schema defined by this keyword
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.2.1.4
+   */
+  not?: JsonSchema;
+}
+
+/**
+ * A set of JSON Schema keywords that define conditional combination rules for schemas. These keywords work together to implement conditional application of a subschema based on the outcome of another subschema.
+ *
+ * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.2.2
+ * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.5
+ */
+export interface JsonSchemaConditionalKeywords {
+  /**
+   * A schema that the data must not satisfy.
+   *
+   * @remarks
+   * Instances that successfully validate against this keyword's subschema **MUST** also be valid against the subschema value of the {@link then} keyword, if present. Instances that fail to validate against this keyword's subschema **MUST** also be valid against the subschema value of the {@link else} keyword, if present.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.2.2.1
+   */
+  if?: JsonSchema;
+
+  /**
+   * A schema applied when {@link if} matches.
+   *
+   * @remarks
+   * When {@link if} is present, and the instance successfully validates against its subschema, then validation succeeds against this keyword if the instance also successfully validates against this keyword's subschema.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.2.2.2
+   */
+  then?: JsonSchema;
+
+  /**
+   * A schema applied when {@link if} does not match.
+   *
+   * @remarks
+   * When {@link if} is present, and the instance fails to validate against its subschema, then validation succeeds against this keyword if the instance successfully validates against this keyword's subschema.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.2.2.3
+   */
+  else?: JsonSchema;
+}
+
+/**
+ * Shared JSON Schema keyword groups applied to most schema variants.
+ */
+export type JsonSchemaKeywords = JsonSchemaMetadataKeywords &
+  JsonSchemaLogicKeywords &
+  JsonSchemaConditionalKeywords;
+
+/**
+ * A schema that can point to another schema via `$ref`.
+ */
+export interface JsonSchemaAny extends JsonSchemaKeywords {
+  /**
+   * A URI reference to another schema.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-8.2.3.1
+   */
+  $ref?: string;
+}
+
+/**
+ * JSON Schema keywords for array validation.
+ *
+ * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.3.1
+ */
+export interface JsonSchemaArray extends JsonSchemaKeywords {
+  /**
+   * Declares that the instance must be an array.
+   */
+  type: "array";
+
+  /**
+   * Schemas for positional items at each tuple index.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.3.1.1
+   */
+  prefixItems?: JsonSchema[];
+
+  /**
+   * Schema for array items beyond `prefixItems`, or all items when `prefixItems` is omitted.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.3.1.2
+   */
+  items?: JsonSchema;
+
+  /**
+   * A subschema that at least one array item must satisfy.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.3.1.3
+   */
+  contains?: JsonSchema;
+
+  /**
+   * Minimum number of items allowed.
+   */
+  minItems?: number;
+
+  /**
+   * Maximum number of items allowed.
+   */
+  maxItems?: number;
+
+  /**
+   * Whether all items must be unique.
+   */
+  uniqueItems?: boolean;
+
+  /**
+   * Minimum count of items that must satisfy `contains`.
+   */
+  minContains?: number;
+
+  /**
+   * Maximum count of items that may satisfy `contains`.
+   */
+  maxContains?: number;
+
+  /**
+   * Controls validation of array items not covered by prior applicators.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-11.2
+   */
+  unevaluatedItems?: boolean | JsonSchema;
+}
+
+/**
+ * Integer schema specialized for 64-bit integer semantics.
+ */
+export interface JsonSchemaBigint extends JsonSchemaKeywords {
+  /**
+   * Declares that the instance must be an integer.
+   */
+  type: "integer";
+
+  /**
+   * Identifies an `int64` integer representation.
+   */
+  format: "int64";
+
+  /**
+   * Inclusive lower bound for valid values.
+   */
+  minimum?: bigint;
+
+  /**
+   * Exclusive lower bound for valid values.
+   */
+  exclusiveMinimum?: bigint;
+
+  /**
+   * Inclusive upper bound for valid values.
+   */
+  maximum?: bigint;
+
+  /**
+   * Exclusive upper bound for valid values.
+   */
+  exclusiveMaximum?: bigint;
+
+  /**
+   * Constraint requiring values to be divisible by this number.
+   */
+  multipleOf?: bigint;
+
+  /**
+   * A keyword that is used to specify a default value for a property in a JSON Schema. It provides a default value that can be used when an instance does not provide a value for that property.
+   *
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10.2
+   */
+  default?: bigint;
+
+  /**
+   * Fixed set of allowed integer values.
+   */
+  enum?: bigint[];
+}
+
+/**
+ * Boolean schema keywords.
+ */
+export interface JsonSchemaBoolean extends JsonSchemaKeywords {
+  /**
+   * Declares that the instance must be a boolean.
+   */
+  type: "boolean";
+
+  /**
+   * A keyword that is used to specify a default value for a property in a JSON Schema. It provides a default value that can be used when an instance does not provide a value for that property.
+   *
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10.2
+   */
+  default?: boolean;
+}
+
+/**
+ * Date and time schema variants.
+ *
+ * @remarks
+ * This type supports either direct date/time format constraints or recursive unions through `anyOf`.
+ *
+ * @see https://json-schema.org/draft/2020-12/json-schema-validation#section-7
+ */
+export type JsonSchemaDate = JsonSchemaKeywords &
+  (
+    | {
+        /**
+         * Declares the storage type used for temporal values.
+         */
+        type: "integer" | "string";
+
+        /**
+         * A date/time format name used for semantic validation.
+         */
+        format:
+          | "date"
+          | "time"
+          | "date-time"
+          | "iso-time"
+          | "iso-date-time"
+          | "unix-time";
+
+        /**
+         * Inclusive lower bound for numeric time representations.
+         */
+        minimum?: number;
+
+        /**
+         * Inclusive upper bound for numeric time representations.
+         */
+        maximum?: number;
+
+        /**
+         * A keyword that is used to specify a default value for a property in a JSON Schema. It provides a default value that can be used when an instance does not provide a value for that property.
+         *
+         * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10.2
+         */
+        default?: string | number;
+      }
+    | {
+        /**
+         * Alternative date/time schemas where at least one must match.
+         */
+        anyOf: JsonSchemaDate[];
+      }
+  );
+
+/**
+ * Enum-constrained schema.
+ *
+ * @template T - The literal type allowed by the enum values.
+ */
+export interface JsonSchemaEnum<
+  T extends string | number | bigint | boolean | null =
+    | string
+    | number
+    | bigint
+    | boolean
+    | null
+> extends JsonSchemaKeywords {
+  /**
+   * Primitive type of the enum values.
+   */
+  type: JsonSchemaPrimitiveType;
+
+  /**
+   * The complete set of allowed literal values.
+   */
+  enum: T[];
+
+  /**
+   * A keyword that is used to specify a default value for a property in a JSON Schema. It provides a default value that can be used when an instance does not provide a value for that property.
+   *
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10.2
+   */
+  default?: T;
+}
+
+export interface JsonSchemaAllOf extends JsonSchemaKeywords {
+  /**
+   * Subschemas that must all validate successfully.
+   */
+  allOf: JsonSchema[];
+
+  /**
+   * Controls validation for object properties not evaluated by prior keywords.
+   */
+  unevaluatedProperties?: boolean | JsonSchema;
+}
+
+/**
+ * A schema that matches exactly one literal value.
+ */
+export interface JsonSchemaLiteral extends JsonSchemaKeywords {
+  /**
+   * Constant value that an instance must equal.
+   */
+  const: unknown;
+
+  /**
+   * Optional explicit type constraint for the constant.
+   */
+  type?: JsonSchemaType | JsonSchemaType[];
+}
+
+/**
+ * Array representation for map-like entries as `[key, value]` tuples.
+ */
+export interface JsonSchemaMap extends JsonSchemaKeywords {
+  /**
+   * Declares that the map is represented as an array.
+   */
+  type: "array";
+
+  /**
+   * Maximum number of entries allowed.
+   */
+  maxItems: 125;
+
+  /**
+   * Tuple schema describing each map entry as `[key, value]`.
+   */
+  items: {
+    /**
+     * Declares that each entry is an array tuple.
+     */
+    type: "array";
+
+    /**
+     * Two-position tuple schemas for key and value.
+     */
+    prefixItems: [JsonSchema, JsonSchema];
+
+    /**
+     * Disallows additional tuple positions.
+     */
+    items?: false;
+
+    /**
+     * Minimum tuple length.
+     */
+    minItems: 2;
+
+    /**
+     * Maximum tuple length.
+     */
+    maxItems: 2;
+  };
+}
+
+/**
+ * Enum schema that allows both string and numeric enum members.
+ */
+export interface JsonSchemaNativeEnum extends JsonSchemaKeywords {
+  /**
+   * Type domain allowed by the native enum.
+   */
+  type: "string" | "number" | ["string", "number"];
+
+  /**
+   * Allowed enum member values.
+   */
+  enum: (string | number)[];
+}
+
+/**
+ * A schema that intentionally matches no values.
+ */
+export interface JsonSchemaNever extends JsonSchemaKeywords {
+  /**
+   * Negated schema used to make validation impossible.
+   */
+  not: JsonSchemaAny;
+}
+
+/**
+ * Schema representing the JSON `null` literal type.
+ */
+export interface JsonSchemaNull extends JsonSchemaKeywords {
+  /**
+   * The JSON Schema null type. This property is used to indicate that the schema represents a null value, which is a special value in JSON that represents the absence of a value or a null reference. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   */
+  type: "null";
+
+  /**
+   * A constant value constrained to null when the schema is nullable.
+   */
+  const?: null;
+
+  /**
+   * Allowed values, including null when the schema is nullable.
+   */
+  enum?: null[];
+
+  /**
+   * A keyword that is used to specify a default value for a property in a JSON Schema. It provides a default value that can be used when an instance does not provide a value for that property.
+   *
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10.2
+   */
+  default?: null;
+}
+
+/**
+ * Nullable schema variants that include an explicit `null` branch.
+ */
+export type JsonSchemaNullable = JsonSchemaKeywords &
+  (
+    | {
+        /**
+         * Two-branch union that includes a non-null schema and explicit `null` schema.
+         */
+        anyOf: [JsonSchema, JsonSchemaNull];
+      }
+    | {
+        /**
+         * Primitive `type` tuple that explicitly includes `null`.
+         */
+        type:
+          | [Exclude<JsonSchemaType, "null">, "null"]
+          | ["null", Exclude<JsonSchemaType, "null">];
+      }
+  );
+
+/**
+ * Numeric schema keywords for numbers and integers.
+ *
+ * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.2
+ */
+export interface JsonSchemaNumber extends JsonSchemaKeywords {
+  /**
+   * Declares whether values are numbers or integers.
+   */
+  type: "number" | "integer";
+
+  /**
+   * Optional semantic format for numeric values.
+   */
+  format?:
+    | "int32"
+    | "float"
+    | "double"
+    | "int8"
+    | "uint8"
+    | "int16"
+    | "uint16"
+    | "uint64"
+    | string;
+
+  /**
+   * Inclusive lower bound for numeric values.
+   */
+  minimum?: number;
+
+  /**
+   * Exclusive lower bound for numeric values.
+   */
+  exclusiveMinimum?: number;
+
+  /**
+   * Inclusive upper bound for numeric values.
+   */
+  maximum?: number;
+
+  /**
+   * Exclusive upper bound for numeric values.
+   */
+  exclusiveMaximum?: number;
+
+  /**
+   * Constraint requiring values to be divisible by this value.
+   */
+  multipleOf?: number;
+
+  /**
+   * A keyword that is used to specify a default value for a property in a JSON Schema. It provides a default value that can be used when an instance does not provide a value for that property.
+   *
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10.2
+   */
+  default?: number;
+
+  /**
+   * Fixed set of allowed numeric values.
+   */
+  enum?: number[];
+}
+
+/**
+ * Integer-only numeric schema.
+ */
+export interface JsonSchemaInteger extends JsonSchemaNumber {
+  /**
+   * Declares that values must be integers.
+   */
+  type: "integer";
+
+  /**
+   * Optional integer-specific format.
+   */
+  format?: "int32" | "int8" | "uint8" | "int16" | "uint16" | "uint64" | string;
+}
+
+/**
+ * Floating-point numeric schema.
+ */
+export interface JsonSchemaDecimal extends JsonSchemaNumber {
+  /**
+   * Declares that values are non-integer numbers.
+   */
+  type: "number";
+
+  /**
+   * Optional floating-point format.
+   */
+  format?: "float" | "double" | string;
+}
+
+/**
+ * Object schema keywords.
+ *
+ * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.3.2
+ */
+export interface JsonSchemaObject extends JsonSchemaKeywords {
+  /**
+   * The JSON Schema object type. This property is used to indicate that the schema represents an object, which is a collection of key-value pairs where the keys are strings and the values can be of any type defined by the schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   */
+  type: "object";
+
+  /**
+   * The declared object properties and their schemas. This property can be used to define the expected structure of an object, where each key represents a property name and the corresponding value is a schema that defines the expected type and constraints for that property. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.3.2.1
+   */
+  properties?: Record<string, JsonSchema>;
+
+  /**
+   * The schemas for properties whose names match the given patterns.
+   *
+   * @remarks
+   * Each property name of this object **SHOULD** be a valid regular expression, according to the [ECMA-262 regular expression dialect](https://www.ecma-international.org/ecma-262/). Each property value of this object **MUST** be a valid JSON Schema.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.3.2.2
+   */
+  patternProperties?: Record<string, JsonSchema>;
+
+  /**
+   * The schema for properties not matched by {@link properties} or {@link patternProperties}. This property can be used to allow additional properties in the object that are not explicitly defined in the {@link properties} or {@link patternProperties} keywords. The value of this property can be a boolean, where `true` allows any additional properties and `false` disallows any additional properties, or it can be a schema that defines the expected structure of the additional properties. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.3.2.3
+   */
+  additionalProperties?: boolean | JsonSchema;
+
+  /**
+   * A list of property names that are required for the object. This property can be used by validation libraries or other tools that support this feature to enforce the presence of certain properties in the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   */
+  required?: string[];
+
+  /**
+   * A keyword that is used to specify a default value for a property in a JSON Schema. It provides a default value that can be used when an instance does not provide a value for that property.
+   *
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10.2
+   */
+  default?: Record<string, unknown>;
+
+  /**
+   * The schema for properties that have not yet been evaluated by other object keywords. This property can be used to apply a schema to properties that are not explicitly defined in the {@link properties} or {@link patternProperties} keywords, and that have not been evaluated by any other object keywords such as {@link additionalProperties} or {@link dependencies}. The value of this property can be a boolean, where `true` allows any unevaluated properties and `false` disallows any unevaluated properties, or it can be a schema that defines the expected structure of the unevaluated properties. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   */
+  unevaluatedProperties?: boolean | JsonSchema;
+
+  /**
+   * A map of property-specific dependency requirements.
+   */
+  dependencies?: Record<string, string[] | JsonSchema>;
+
+  /**
+   * Properties that become required when the key property is present.
+   */
+  dependentRequired?: Record<string, string[]>;
+
+  /**
+   * Subschemas that apply when the key property is present.
+   *
+   * @remarks
+   * If the object key is a property in the instance, the entire instance must validate against the subschema. Its use is dependent on the presence of the property.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.2.2.4
+   */
+  dependentSchemas?: Record<string, JsonSchema>;
+
+  /**
+   * The minimum number of own properties allowed.
+   */
+  minProperties?: number;
+
+  /**
+   * The maximum number of own properties allowed.
+   */
+  maxProperties?: number;
+
+  /**
+   * An optional array of property names that are considered primary keys for the object. This property can be used by validation libraries or other tools that support this feature to provide additional validation rules or constraints for the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   */
+  primaryKey?: string[];
+
+  /**
+   * A name for the database schema associated with the data represented by this schema. This property can be used by documentation tools or other libraries that support this feature to provide additional context or information about the data model that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   */
+  databaseSchema?: string;
+}
+
+export interface JsonSchemaString extends JsonSchemaKeywords {
+  /**
+   * Declares that the instance must be a string.
+   */
+  type: "string";
+
+  /**
+   * The minimum number of characters allowed in the string.
+   */
+  minLength?: number;
+
+  /**
+   * The maximum number of characters allowed in the string.
+   */
+  maxLength?: number;
+
+  /**
+   * A regular expression that matching strings must satisfy.
+   */
+  pattern?: string;
+
+  /**
+   * A format for the schema, which can be used by validation libraries or other tools that support this feature to provide additional validation or formatting rules for the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   *
+   * @see https://ajv.js.org/packages/ajv-formats.html
+   *
+   * @remarks
+   * The `format` property is a string that specifies the format of the data that the schema represents. It can be used to indicate that a string should be validated as an email address, a date-time, a URI, or any other format supported by compatible validation libraries. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   */
+  format?:
+    | "date"
+    | "time"
+    | "date-time"
+    | "iso-time"
+    | "iso-date-time"
+    | "duration"
+    | "uri"
+    | "uri-reference"
+    | "uri-template"
+    | "url"
+    | "email"
+    | "hostname"
+    | "ipv4"
+    | "ipv6"
+    | "regex"
+    | "uuid"
+    | "json-pointer"
+    | "json-pointer-uri-fragment"
+    | "relative-json-pointer"
+    | "byte"
+    | "int32"
+    | "int64"
+    | "float"
+    | "double"
+    | "password"
+    | "binary"
+    | string;
+
+  /**
+   * A keyword that is used to specify a default value for a property in a JSON Schema. It provides a default value that can be used when an instance does not provide a value for that property.
+   *
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10.2
+   */
+  default?: string;
+
+  /**
+   * Fixed set of allowed string values.
+   */
+  enum?: string[];
+
+  /**
+   * A keyword used to specify the media type of the content that the schema represents. It can be used by validation libraries or other tools that support this feature to provide additional validation or processing rules for the data based on its media type. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   *
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.8
    */
   contentMediaType?: string;
 
   /**
-   * The content encoding for the schema, which can be used by documentation tools or other libraries that support this feature to provide additional information about the expected encoding of the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   * A keyword used to specify the content encoding of the data that the schema represents. It can be used by validation libraries or other tools that support this feature to provide additional validation or processing rules for the data based on its content encoding. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   *
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.8
    */
   contentEncoding?: string;
 
   /**
-   * The content schema for the schema, which can be used by documentation tools or other libraries that support this feature to provide additional information about the expected structure of the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   * A keyword used to specify a schema for the content that the schema represents. It can be used by validation libraries or other tools that support this feature to provide additional validation or processing rules for the data based on its schema. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   *
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.2.9
    */
   contentSchema?: string;
 }
 
-export type JsonSchemaProperty<
-  T extends Record<string, any> = Record<string, any>,
-  TName extends keyof T = keyof T
-> = JsonSchema<T[TName]> & {
-  /** The property name within the parent object schema. */
-  name: TName;
+/**
+ * Set-like array schema that enforces item uniqueness.
+ */
+export interface JsonSchemaSet extends JsonSchemaKeywords {
+  /**
+   * Declares that set values are serialized as arrays.
+   */
+  type: "array";
 
   /**
-   * An indicator specifying if the field is nullable or not. If `true`, the field can accept `null` as a valid value. This property can be used by validation libraries or other tools that support this feature to provide additional validation rules for the data that the schema represents. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   * Enforces set semantics by requiring distinct elements.
    */
-  nullable: boolean;
+  uniqueItems: true;
+
+  /**
+   * Schemas for positional items at each tuple index.
+   */
+  prefixItems?: JsonSchema[];
+
+  /**
+   * Schema for remaining items.
+   */
+  items?: JsonSchema;
+
+  /**
+   * Subschema that at least one item must satisfy.
+   */
+  contains?: JsonSchema;
+
+  /**
+   * Minimum number of items allowed.
+   */
+  minItems?: number;
+
+  /**
+   * Maximum number of items allowed.
+   */
+  maxItems?: number;
+
+  /**
+   * Minimum number of items that must satisfy {@link JsonSchemaSet.contains | contains}.
+   */
+  minContains?: number;
+
+  /**
+   * Maximum number of items that may satisfy {@link JsonSchemaSet.contains | contains}.
+   */
+  maxContains?: number;
+
+  /**
+   * Controls validation for items not otherwise evaluated.
+   */
+  unevaluatedItems?: boolean | JsonSchema;
+}
+
+/**
+ * Schema used to validate record keys.
+ */
+export type JsonSchemaRecordPropertyNames = JsonSchema;
+
+/**
+ * Record/object schema with key constraints.
+ */
+export interface JsonSchemaRecord extends JsonSchemaKeywords {
+  /**
+   * Declares that the instance must be an object.
+   */
+  type: "object";
+
+  /**
+   * The schemas for properties whose names match the given patterns.
+   *
+   * @remarks
+   * Each property name of this object **SHOULD** be a valid regular expression, according to the [ECMA-262 regular expression dialect](https://www.ecma-international.org/ecma-262/). Each property value of this object **MUST** be a valid JSON Schema.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.3.2.2
+   */
+  patternProperties?: Record<string, JsonSchema>;
+
+  /**
+   * The schema for properties not matched by {@link properties} or {@link patternProperties}. This property can be used to allow additional properties in the object that are not explicitly defined in the `properties` or `patternProperties` keywords. The value of this property can be a boolean, where `true` allows any additional properties and `false` disallows any additional properties, or it can be a schema that defines the expected structure of the additional properties. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.3.2.3
+   */
+  additionalProperties?: boolean | JsonSchema;
+
+  /**
+   * The schema that each property name must satisfy.
+   */
+  propertyNames?: JsonSchemaRecordPropertyNames;
+
+  /**
+   * A keyword that is used to specify a default value for a property in a JSON Schema. It provides a default value that can be used when an instance does not provide a value for that property.
+   *
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10.2
+   */
+  default?: Record<string, unknown>;
+}
+
+/**
+ * Tuple schema modeled with positional {@link JsonSchemaTuple.prefixItems | prefixItems} plus optional trailing {@link JsonSchemaTuple.items | items}.
+ */
+export type JsonSchemaTuple = JsonSchemaKeywords & {
+  /**
+   * Declares that tuple values are represented as arrays.
+   */
+  type: "array";
+
+  /**
+   * Minimum number of elements required.
+   */
+  minItems?: number;
+
+  /**
+   * Maximum number of elements allowed.
+   */
+  maxItems?: number;
+
+  /**
+   * Positional schemas for tuple elements.
+   */
+  prefixItems: JsonSchema[];
+
+  /**
+   * The schema applied to items beyond {@link prefixItems}. In draft 2020-12,
+   * tuple positions are modeled with {@link prefixItems}, while {@link items}
+   * applies to the remaining elements.
+   *
+   * @remarks
+   * The behavior of {@link items} without {@link prefixItems} is identical to that of the schema form of {@link items} in drafts prior to 2020-12. When {@link prefixItems} is present, the behavior of {@link items} is identical to the former {@link additionalItems} keyword.
+   *
+   * @see https://json-schema.org/draft/2020-12/json-schema-core#section-10.3.1.2
+   */
+  items?: JsonSchema;
+
+  /**
+   * Subschema that at least one tuple element must satisfy.
+   */
+  contains?: JsonSchema;
+
+  /**
+   * Whether tuple elements must be unique.
+   */
+  uniqueItems?: boolean;
+
+  /**
+   * Minimum number of elements that must satisfy {@link JsonSchemaTuple.contains | contains}.
+   */
+  minContains?: number;
+
+  /**
+   * Maximum number of elements that may satisfy {@link JsonSchemaTuple.contains | contains}.
+   */
+  maxContains?: number;
+
+  /**
+   * Controls validation of unevaluated tuple elements.
+   */
+  unevaluatedItems?: boolean | JsonSchema;
 };
 
 /**
- * A JSON Schema type that includes additional Powerlines-specific metadata properties. This type extends the standard JSON Schema definition with optional properties such as `name`, `title`, `description`, `default`, `examples`, `groups`, `visibility`, and various flags for controlling how the schema is treated by documentation tools or other libraries that support these features. The presence of these metadata properties does not affect the validation behavior of the schema itself, but they can provide additional context or information about the schema when used in conjunction with compatible tools.
+ * Schema used to represent undefined-like semantics through negation.
  */
-export type JsonSchema<T = unknown> = StrictNullChecksWrapper<
-  "JsonSchema",
-  UncheckedJsonSchemaType<T, false>
-> &
-  SchemaMetadata;
+export interface JsonSchemaUndefined extends JsonSchemaKeywords {
+  /**
+   * Negated schema marker used to represent undefined-like semantics.
+   */
+  not: JsonSchemaAny;
+
+  /**
+   * A keyword that is used to specify a default value for a property in a JSON Schema. It provides a default value that can be used when an instance does not provide a value for that property.
+   *
+   * @see https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10.2
+   */
+  default?: undefined;
+}
 
 /**
- * A JSON Schema object type that includes a `type` property set to "object", a `properties` object defining the properties of the schema, and optional metadata properties. This type is used to represent JSON Schema definitions for objects, and it extends the standard JSON Schema definition with additional Powerlines-specific metadata properties. The presence of these metadata properties does not affect the validation behavior of the schema itself, but they can provide additional context or information about the schema when used in conjunction with compatible tools.
+ * Union schema represented as either primitive type unions or `anyOf` compositions.
  */
-export type JsonSchemaObject<
-  T extends Record<string, any> = Record<string, any>
-> = Omit<JsonSchemaLike, "type" | "properties" | "required"> & {
-  /** The JSON Schema object type discriminator. */
-  type: "object";
+export type JsonSchemaUnion = JsonSchemaKeywords &
+  (JsonSchemaPrimitiveUnion | JsonSchemaAnyOf);
 
-  /** The object properties mapped to their schema definitions. */
-  properties: Record<string, JsonSchemaProperty<T>>;
+/**
+ * Union of primitive type combinations and enum-backed primitive unions.
+ */
+export type JsonSchemaPrimitiveUnion = JsonSchemaKeywords &
+  (
+    | {
+        /**
+         * Primitive `type` or list of primitive types accepted by the union.
+         */
+        type: JsonSchemaPrimitiveType | JsonSchemaPrimitiveType[];
+      }
+    | {
+        /**
+         * Enum values that may be of different primitive types.
+         */
+        enum: (string | number | bigint | boolean | null)[];
+      }
+  );
 
-  /** The property names that are required on the object. */
-  required?: string[];
-} & SchemaMetadata;
+/**
+ * Permissive schema alias for unknown values.
+ */
+export type JsonSchemaUnknown = JsonSchemaKeywords & JsonSchemaAny;
 
+/**
+ * `anyOf` composition schema.
+ */
+export interface JsonSchemaAnyOf extends JsonSchemaKeywords {
+  /**
+   * Subschemas where at least one must validate.
+   */
+  anyOf: JsonSchema[];
+}
+
+/**
+ * A reference schema that resolves through a URI.
+ */
+export interface JsonSchemaRef extends JsonSchemaKeywords {
+  /**
+   * URI reference to a schema definition.
+   */
+  $ref: string;
+}
+
+/**
+ * JSON Schema (draft 2020-12) type that can be used to validate JSON data. It is a union of all the specific JSON Schema types, as well as the metadata properties that can be included in any JSON Schema.
+ *
+ * @see https://json-schema.org/draft/2020-12
+ * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01
+ */
+export type JsonSchema =
+  | JsonSchemaString
+  | JsonSchemaInteger
+  | JsonSchemaDecimal
+  | JsonSchemaBigint
+  | JsonSchemaBoolean
+  | JsonSchemaDate
+  | JsonSchemaEnum
+  | JsonSchemaLiteral
+  | JsonSchemaNativeEnum
+  | JsonSchemaNull
+  | JsonSchemaArray
+  | JsonSchemaObject
+  | JsonSchemaRecord
+  | JsonSchemaTuple
+  | JsonSchemaUnion
+  | JsonSchemaUndefined
+  | JsonSchemaRef
+  | JsonSchemaNever
+  | JsonSchemaMap
+  | JsonSchemaAny
+  | JsonSchemaNullable
+  | JsonSchemaAllOf
+  | JsonSchemaUnknown
+  | JsonSchemaSet;
+
+/**
+ * Supported source variants from which a schema can be extracted.
+ */
 export type SchemaSourceVariant =
   | "standard-schema"
   | "json-schema"
@@ -548,28 +1226,37 @@ export type SchemaSourceVariant =
   | "valibot"
   | "reflection";
 
+/**
+ * Accepted schema input variants, including raw type definitions.
+ */
 export type SchemaInputVariant = SchemaSourceVariant | "type-definition";
 
-export type SchemaSourceInput<T = unknown> =
+/**
+ * Raw schema source input union before normalization.
+ */
+export type SchemaSourceInput =
   | StandardJSONSchemaV1
-  | JsonSchema<T>
+  | JsonSchema
   | z3.ZodTypeAny
   | UntypedInputObject
   | UntypedSchema
   | ValibotSchema
   | Type;
 
+/**
+ * A reusable reference to a type definition value or identifier.
+ */
 export type TypeDefinitionReference = TypeDefinition | string;
 
-export type SchemaInput<T = unknown> =
-  | SchemaSourceInput<T>
-  | Schema<T>
-  | TypeDefinitionReference;
+/**
+ * Any accepted schema input, including normalized schemas and references.
+ */
+export type SchemaInput = SchemaSourceInput | Schema | TypeDefinitionReference;
 
 /**
  * A schema extracted from a source input, normalized to JSON Schema.
  */
-export interface Schema<T = unknown> {
+export interface Schema<TJsonSchema extends JsonSchema = JsonSchema> {
   /** A stable content hash for the normalized schema. */
   hash: string;
 
@@ -577,10 +1264,13 @@ export interface Schema<T = unknown> {
   variant: SchemaInputVariant;
 
   /** The normalized schema definition. */
-  schema: JsonSchema<T>;
+  schema: TJsonSchema;
 }
 
-export interface BaseSchemaSource<T = unknown> {
+/**
+ * Base metadata captured for schema source inputs.
+ */
+export interface BaseSchemaSource {
   /** A stable content hash for the original source schema. */
   hash: string;
 
@@ -588,19 +1278,23 @@ export interface BaseSchemaSource<T = unknown> {
   variant: SchemaSourceVariant;
 
   /** The original schema input captured before normalization. */
-  schema: SchemaSourceInput<T>;
+  schema: SchemaSourceInput;
 }
 
-export interface JsonSchemaSchemaSource<
-  T = unknown
-> extends BaseSchemaSource<T> {
+/**
+ * Source descriptor for schemas that already use JSON Schema.
+ */
+export interface JsonSchemaSchemaSource extends BaseSchemaSource {
   /** Indicates the source input already uses JSON Schema syntax. */
   variant: "json-schema";
 
   /** The original JSON Schema document. */
-  schema: JsonSchema<T>;
+  schema: JsonSchema;
 }
 
+/**
+ * Source descriptor for Standard Schema inputs.
+ */
 export interface StandardSchemaSchemaSource extends BaseSchemaSource {
   /** Indicates the source input follows the Standard Schema format. */
   variant: "standard-schema";
@@ -609,6 +1303,9 @@ export interface StandardSchemaSchemaSource extends BaseSchemaSource {
   schema: StandardJSONSchemaV1;
 }
 
+/**
+ * Source descriptor for Zod v3 schema inputs.
+ */
 export interface Zod3SchemaSource extends BaseSchemaSource {
   /** Indicates the source input is a Zod v3 schema. */
   variant: "zod3";
@@ -617,6 +1314,9 @@ export interface Zod3SchemaSource extends BaseSchemaSource {
   schema: z3.ZodTypeAny;
 }
 
+/**
+ * Source descriptor for Deepkit reflection type inputs.
+ */
 export interface ReflectionSchemaSource extends BaseSchemaSource {
   /** Indicates the source input is a Deepkit reflection {@link Type}. */
   variant: "reflection";
@@ -625,6 +1325,9 @@ export interface ReflectionSchemaSource extends BaseSchemaSource {
   schema: Type;
 }
 
+/**
+ * Source descriptor for Untyped schema inputs.
+ */
 export interface UntypedSchemaSource extends BaseSchemaSource {
   /** Indicates the source input comes from the Untyped schema model. */
   variant: "untyped";
@@ -633,6 +1336,9 @@ export interface UntypedSchemaSource extends BaseSchemaSource {
   schema: UntypedInputObject | UntypedSchema;
 }
 
+/**
+ * Source descriptor for Valibot schema inputs.
+ */
 export interface ValibotSchemaSource extends BaseSchemaSource {
   /** Indicates the source input comes from the Valibot schema model. */
   variant: "valibot";
@@ -641,6 +1347,9 @@ export interface ValibotSchemaSource extends BaseSchemaSource {
   schema: ValibotSchema;
 }
 
+/**
+ * Union of all normalized schema source descriptor variants.
+ */
 export type SchemaSource =
   | JsonSchemaSchemaSource
   | StandardSchemaSchemaSource
@@ -649,7 +1358,12 @@ export type SchemaSource =
   | ValibotSchemaSource
   | ReflectionSchemaSource;
 
-export interface ExtractedSchema<T = unknown> extends Schema<T> {
-  /** The schema source that produced this normalized schema. */
+/**
+ * A normalized schema plus metadata about the source that produced it.
+ */
+export interface ExtractedSchema extends Schema {
+  /**
+   * The schema source that produced this normalized schema.
+   */
   source: SchemaSource;
 }

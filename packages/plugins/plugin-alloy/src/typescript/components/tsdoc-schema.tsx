@@ -23,11 +23,7 @@ import {
   Show,
   splitProps
 } from "@alloy-js/core";
-import {
-  getPrimarySchemaType,
-  JsonSchema,
-  JsonSchemaProperty
-} from "@powerlines/schema";
+import { getPrimarySchemaType, JsonSchema } from "@powerlines/schema";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isSetObject } from "@stryke/type-checks";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -35,18 +31,14 @@ import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { Spacing } from "../../core/components/spacing";
 import { TSDoc, TSDocAttributesTags, TSDocProps } from "./tsdoc";
 
-export interface TSDocObjectSchemaProps<
-  T extends Record<string, any> = Record<string, any>
-> extends TSDocProps {
-  schema: JsonSchema<T>;
+export interface TSDocObjectSchemaProps extends TSDocProps {
+  schema: JsonSchema;
 }
 
 /**
  * Generates a TSDoc documentation block for the given reflection class. This component will render the description of the reflection as the main content of the documentation block, and will render any additional attributes (such as title, alias, domain, permission, etc.) as tags in the documentation block. If there are child elements provided, they will be rendered as a list below the main content of the documentation block. This is useful for rendering additional details about the reflection that may not be included in the description, such as information about properties or methods of a class.
  */
-export function TSDocObjectSchema<
-  T extends Record<string, any> = Record<string, any>
->(props: TSDocObjectSchemaProps<T>) {
+export function TSDocObjectSchema(props: TSDocObjectSchemaProps) {
   const [{ children, heading, schema }, rest] = splitProps(props, [
     "heading",
     "children",
@@ -99,7 +91,7 @@ export function TSDocObjectSchema<
       }>
       <Show when={hasAttributes.value}>
         <TSDocAttributesTags
-          type={getPrimarySchemaType<T>(schema)}
+          type={getPrimarySchemaType(schema)}
           title={title.value}
           alias={alias.value}
           tags={tags.value}
@@ -124,21 +116,19 @@ export function TSDocObjectSchema<
   );
 }
 
-export interface TSDocSchemaPropertyProps<
-  T extends Record<string, any> = Record<string, any>
-> extends TSDocProps {
-  schema: JsonSchemaProperty<T>;
+export interface TSDocSchemaPropertyProps extends TSDocProps {
+  schema: JsonSchema;
+  defaultValue?: unknown;
 }
 
 /**
  * Generates a TSDoc documentation block for the given reflection property. This component will render the description of the reflection as the main content of the documentation block, and will render any additional attributes (such as title, alias, domain, permission, etc.) as tags in the documentation block. If there are child elements provided, they will be rendered as a list below the main content of the documentation block. This is useful for rendering additional details about the reflection that may not be included in the description, such as information about parameters of a method or properties of a class.
  */
-export function TSDocSchemaProperty<
-  T extends Record<string, any> = Record<string, any>
->(props: TSDocSchemaPropertyProps<T>) {
-  const [{ children, schema }, rest] = splitProps(props, [
+export function TSDocSchemaProperty(props: TSDocSchemaPropertyProps) {
+  const [{ children, schema, defaultValue }, rest] = splitProps(props, [
     "children",
-    "schema"
+    "schema",
+    "defaultValue"
   ]);
 
   if (!isSetObject(schema)) {
@@ -155,14 +145,14 @@ export function TSDocSchemaProperty<
       !isUndefined(schema?.runtime) ||
       !isUndefined(schema?.ignore) ||
       !isUndefined(schema?.hidden) ||
-      !isUndefined(schema?.default)
+      !isUndefined(defaultValue)
   );
 
   return (
     <TSDoc heading={schema?.description} {...rest}>
       <Show when={hasAttributes.value}>
         <TSDocAttributesTags
-          type={getPrimarySchemaType<T[keyof T]>(schema)}
+          type={getPrimarySchemaType(schema)}
           title={schema?.title}
           alias={schema?.alias}
           tags={schema?.tags}
@@ -171,7 +161,7 @@ export function TSDocSchemaProperty<
           runtime={schema?.runtime}
           ignore={schema?.ignore}
           hidden={schema?.hidden}
-          default={schema?.default}
+          default={defaultValue}
         />
       </Show>
       <Show

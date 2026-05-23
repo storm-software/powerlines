@@ -16,9 +16,9 @@
 
  ------------------------------------------------------------------- */
 
-import { SchemaMetadata } from "./types";
+import type { JsonSchemaMetadataKeywords } from "./types";
 
-export const JsonSchemaTypes = {
+export const JsonSchemaTypeNames = {
   STRING: "string",
   NUMBER: "number",
   INTEGER: "integer",
@@ -28,14 +28,18 @@ export const JsonSchemaTypes = {
   ARRAY: "array"
 } as const;
 
-export const JSON_SCHEMA_DATA_TYPES = [
-  JsonSchemaTypes.STRING,
-  JsonSchemaTypes.NUMBER,
-  JsonSchemaTypes.INTEGER,
-  JsonSchemaTypes.BOOLEAN,
-  JsonSchemaTypes.ARRAY,
-  JsonSchemaTypes.OBJECT,
-  JsonSchemaTypes.NULL
+export const JSON_SCHEMA_PRIMITIVE_TYPES = [
+  JsonSchemaTypeNames.STRING,
+  JsonSchemaTypeNames.NUMBER,
+  JsonSchemaTypeNames.INTEGER,
+  JsonSchemaTypeNames.BOOLEAN,
+  JsonSchemaTypeNames.NULL
+] as const;
+
+export const JSON_SCHEMA_TYPES = [
+  ...JSON_SCHEMA_PRIMITIVE_TYPES,
+  JsonSchemaTypeNames.ARRAY,
+  JsonSchemaTypeNames.OBJECT
 ] as const;
 
 export const JSON_SCHEMA_METADATA_KEYS = [
@@ -52,4 +56,4 @@ export const JSON_SCHEMA_METADATA_KEYS = [
   "writeOnly",
   "alias",
   "tags"
-] satisfies ReadonlyArray<keyof SchemaMetadata>;
+] satisfies ReadonlyArray<keyof JsonSchemaMetadataKeywords>;

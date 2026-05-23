@@ -44,7 +44,7 @@ export type BundleOptions = DeepPartial<
  *
  * @param context - The context object containing the environment paths.
  * @param file - The file path to bundle.
- * @param options - Optional overrides for the ESBuild configuration.
+ * @param options - Optional overrides for the Rolldown configuration.
  * @returns A promise that resolves to the bundled module.
  */
 export async function bundle<TContext extends UnresolvedContext>(

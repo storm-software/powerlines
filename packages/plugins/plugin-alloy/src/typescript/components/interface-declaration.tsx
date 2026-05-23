@@ -51,12 +51,9 @@ import {
   getPropertiesList,
   isSchemaNullable,
   JsonSchema,
-  JsonSchemaLike,
   JsonSchemaPrimitiveType,
-  JsonSchemaProperty,
   stringifyType
 } from "@powerlines/schema";
-import { camelCase } from "@stryke/string-format/camel-case";
 import { pascalCase } from "@stryke/string-format/pascal-case";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { PartialKeys } from "@stryke/types/base";
@@ -72,9 +69,7 @@ import { TSDoc } from "./tsdoc";
 import { TSDocObjectSchema, TSDocSchemaProperty } from "./tsdoc-schema";
 import { TypeParameters } from "./type-parameters";
 
-export interface InterfaceDeclarationProps<
-  T extends Record<string, any> = Record<string, any>
->
+export interface InterfaceDeclarationProps
   extends PartialKeys<CommonDeclarationProps, "name">, ComponentProps {
   /**
    * A base type that this interface extends. This can be used to represent inheritance
@@ -92,7 +87,7 @@ export interface InterfaceDeclarationProps<
    * @remarks
    * This is used to generate the members of the interface based on the properties of the schema.
    */
-  schema?: JsonSchema<T>;
+  schema?: JsonSchema;
 
   /**
    * Documentation for the interface. This can be a string or any Alloy component that renders documentation content (such as `TSDoc`).
@@ -100,12 +95,13 @@ export interface InterfaceDeclarationProps<
   doc?: Children;
 }
 
-export interface InterfaceDeclarationPropertyProps<
-  T extends Record<string, any> = Record<string, any>
->
-  extends Omit<InterfaceMemberProps<T>, "name">, ComponentProps {
-  schema: JsonSchemaProperty<T>;
-}
+export type InterfaceDeclarationPropertyProps = InterfaceMemberProps &
+  ComponentProps & {
+    schema: JsonSchema;
+    name: string;
+    required: boolean;
+    defaultValue?: unknown;
+  };
 
 export interface InterfaceExpressionProps {
   children?: Children;
@@ -133,6 +129,7 @@ export const InterfaceExpression = ensureTypeRefContext(
 
 export interface InterfaceMemberPropsBase {
   children?: Children;
+  name: string | Namekey;
   doc?: Children;
   refkey?: Refkey | Refkey[];
   readOnly?: boolean;
@@ -140,26 +137,18 @@ export interface InterfaceMemberPropsBase {
   nullish?: boolean;
 }
 
-export interface InterfacePropertyMemberProps extends InterfaceMemberPropsBase {
-  name: string | Namekey;
-}
-
 export interface InterfaceIndexerMemberProps extends InterfaceMemberPropsBase {
   indexer: Children;
 }
 
-export interface InterfaceSchemaMemberProps<
-  T extends Record<string, any> = Record<string, any>
-> extends InterfaceMemberPropsBase {
-  schema: JsonSchemaProperty<T>;
+export interface InterfaceSchemaMemberProps extends InterfaceMemberPropsBase {
+  schema: JsonSchema;
+  required: boolean;
 }
 
-export type InterfaceMemberProps<
-  T extends Record<string, any> = Record<string, any>
-> =
-  | InterfacePropertyMemberProps
+export type InterfaceMemberProps =
   | InterfaceIndexerMemberProps
-  | InterfaceSchemaMemberProps<T>;
+  | InterfaceSchemaMemberProps;
 
 /**
  * Create a TypeScript interface member.
@@ -170,17 +159,15 @@ export type InterfaceMemberProps<
  * The type of the member can be provided either as the `type` prop or as the
  * children of the component.
  */
-export function InterfaceMember<
-  T extends Record<string, any> = Record<string, any>
->(props: InterfaceMemberProps<T>) {
-  const type = (props as InterfaceSchemaMemberProps<T>).schema
-    ? stringifyType<T[keyof T]>((props as InterfaceSchemaMemberProps<T>).schema)
+export function InterfaceMember(props: InterfaceMemberProps) {
+  const type = (props as InterfaceSchemaMemberProps).schema
+    ? stringifyType((props as InterfaceSchemaMemberProps).schema)
     : (props.type ?? props.children);
 
   const readonly =
-    ((props as InterfaceSchemaMemberProps<T>).schema &&
-      (props as InterfaceSchemaMemberProps<T>).schema?.readOnly) ||
-    (!(props as InterfaceSchemaMemberProps<T>).schema && props.readOnly)
+    ((props as InterfaceSchemaMemberProps).schema &&
+      (props as InterfaceSchemaMemberProps).schema?.readOnly) ||
+    (!(props as InterfaceSchemaMemberProps).schema && props.readOnly)
       ? "readonly "
       : "";
 
@@ -195,28 +182,20 @@ export function InterfaceMember<
     );
   }
 
-  const optional =
-    !!(
-      (props as InterfaceSchemaMemberProps<T>).schema &&
-      "nullable" in (props as InterfaceSchemaMemberProps<T>).schema &&
-      (props as InterfaceSchemaMemberProps<T>).schema.nullable
-    ) || !!props.nullish;
-
   const scope = useTSMemberScope();
   const sym = createSymbol(
     TSOutputSymbol,
-    (((props as InterfaceSchemaMemberProps<T>).schema
-      ? (props as InterfaceSchemaMemberProps<T>).schema?.name
-      : undefined) || isSetString((props as InterfacePropertyMemberProps).name)
-      ? (props as InterfacePropertyMemberProps).name
-      : (props as InterfacePropertyMemberProps).name.toString()) ||
-      uuid().replace(/-/g, ""),
+    ((props.schema ? props.schema?.name : undefined) || isSetString(props.name)
+      ? props.name
+      : props.name.toString()) || uuid().replace(/-/g, ""),
     scope.ownerSymbol.staticMembers,
     {
       refkeys: props.refkey,
       tsFlags:
         TSSymbolFlags.TypeSymbol |
-        (optional ? TSSymbolFlags.Nullish : TSSymbolFlags.None),
+        (!!(props.schema && isSchemaNullable(props.schema)) || !!props.nullish
+          ? TSSymbolFlags.Nullish
+          : TSSymbolFlags.None),
       namePolicy: useTSNamePolicy().for("interface-member"),
       binder: scope.binder
     }
@@ -238,7 +217,7 @@ export function InterfaceMember<
       </Show>
       {readonly}
       <PropertyName />
-      {optional ? "?" : ""}: {type}
+      {!props.required ? "?" : ""}: {type}
     </MemberDeclaration>
   );
 }
@@ -305,9 +284,7 @@ const BaseInterfaceDeclaration = ensureTypeRefContext(
 /**
  * Generates a TypeScript interface for the given schema.
  */
-export function InterfaceDeclaration<
-  T extends Record<string, any> = Record<string, any>
->(props: InterfaceDeclarationProps<T>) {
+export function InterfaceDeclaration(props: InterfaceDeclarationProps) {
   const [{ name, schema, doc }, rest] = splitProps(props, [
     "name",
     "schema",
@@ -319,7 +296,7 @@ export function InterfaceDeclaration<
   );
   const properties = computed(() =>
     schema
-      ? getPropertiesList<T>(schema as Parameters<typeof getPropertiesList>[0])
+      ? getPropertiesList(schema as Parameters<typeof getPropertiesList>[0])
           .filter(property => !property?.ignore)
           .sort((a, b) =>
             (a?.readOnly && b?.readOnly) || (!a?.readOnly && !b?.readOnly)
@@ -351,14 +328,20 @@ export function InterfaceDeclaration<
           name={interfaceName.value}
         />
       }>
-      <SchemaContext.Provider value={schema as JsonSchemaLike}>
+      <SchemaContext.Provider value={schema as JsonSchema}>
         <TSDocObjectSchema heading={doc} schema={schema!} />
         <BaseInterfaceDeclaration
           export={true}
           name={interfaceName.value}
           {...rest}>
           <For each={properties} doubleHardline={true} semicolon={true}>
-            {property => <InterfaceDeclarationProperty schema={property} />}
+            {property => (
+              <InterfaceDeclarationProperty
+                name={property.name}
+                schema={property}
+                required={!!property?.required}
+              />
+            )}
           </For>
         </BaseInterfaceDeclaration>
       </SchemaContext.Provider>
@@ -369,26 +352,27 @@ export function InterfaceDeclaration<
 /**
  * Generates a TypeScript interface property for the given reflection class.
  */
-export function InterfaceDeclarationProperty<
-  T extends Record<string, any> = Record<string, any>
->(props: InterfaceDeclarationPropertyProps<T>) {
-  const [{ schema }, rest] = splitProps(props, ["schema"]);
-
-  const name = computed(
-    () =>
-      schema?.name ||
-      camelCase(schema?.title || schema?.databaseSchemaName || schema?.$id)
-  );
+export function InterfaceDeclarationProperty(
+  props: InterfaceDeclarationPropertyProps
+) {
+  const [{ schema, name, required, defaultValue }, rest] = splitProps(props, [
+    "schema",
+    "name",
+    "required",
+    "defaultValue"
+  ]);
 
   return (
-    <Show when={isSetString(name.value)}>
-      <SchemaPropertyContext.Provider value={schema as JsonSchemaLike}>
-        <TSDocSchemaProperty schema={schema} />
+    <Show when={isSetString(name)}>
+      <SchemaPropertyContext.Provider value={schema}>
+        <TSDocSchemaProperty schema={schema} defaultValue={defaultValue} />
         <InterfaceMember
-          name={name.value}
+          name={name}
+          schema={schema}
+          required={required}
           readOnly={schema?.readOnly}
-          nullish={schema?.nullable || isSchemaNullable<T[keyof T]>(schema)}
-          type={getPrimarySchemaType<T[keyof T]>(schema)}
+          nullish={isSchemaNullable(schema)}
+          type={getPrimarySchemaType(schema)}
           {...rest}
         />
       </SchemaPropertyContext.Provider>

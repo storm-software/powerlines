@@ -17,24 +17,39 @@
  ------------------------------------------------------------------- */
 
 import { toBool } from "@stryke/convert/to-bool";
+import { isInteger, isObject, isString } from "@stryke/type-checks";
 import { isBoolean } from "@stryke/type-checks/is-boolean";
 import { isNull } from "@stryke/type-checks/is-null";
 import { isNumber } from "@stryke/type-checks/is-number";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import standaloneCode from "ajv/dist/standalone";
-import { getPropertiesList } from "./helpers";
-import { getPrimarySchemaType, isSchemaNullable } from "./metadata";
+import { getPropertiesList, isSchemaNullable } from "./helpers";
+import { getPrimarySchemaType } from "./metadata";
 import { isJsonSchema, isJsonSchemaObject } from "./type-checks";
-import { JsonSchema, JsonSchemaPrimitiveType } from "./types";
+import { JsonSchema, JsonSchemaType } from "./types";
 import { getValidator } from "./validate";
+
+interface JsonSchemaObjectView {
+  $ref?: string;
+  type?: JsonSchemaType | readonly JsonSchemaType[];
+  enum?: readonly unknown[];
+  const?: unknown;
+  items?: JsonSchema;
+  properties?: Record<string, JsonSchema>;
+  additionalProperties?: boolean | JsonSchema;
+  required?: string[];
+  oneOf?: JsonSchema[];
+  anyOf?: JsonSchema[];
+  allOf?: JsonSchema[];
+}
 
 /**
  * Stringifies a value for generated TypeScript code.
  */
 export function stringifyValue(
   value?: unknown,
-  type?: JsonSchemaPrimitiveType | string
+  type?: JsonSchemaType | string
 ): string {
   return isUndefined(value)
     ? "undefined"
@@ -56,15 +71,21 @@ export function stringifyValue(
 /**
  * Stringifies a JSON Schema fragment into a TypeScript-like type string.
  */
-export function stringifyType<T = unknown>(schema?: JsonSchema<T>): string {
+export function stringifyType(schema?: JsonSchema): string {
   if (!schema) {
     return "unknown";
   }
 
-  if (isSetString(schema.$ref)) {
-    const match = /^#\/(?:definitions|\$defs)\/(.+)$/.exec(schema.$ref);
+  if (typeof schema === "boolean") {
+    return schema ? "unknown" : "never";
+  }
 
-    return match?.[1] ?? schema.$ref;
+  const objectSchema = schema as JsonSchemaObjectView;
+
+  if (isSetString(objectSchema.$ref)) {
+    const match = /^#\/(?:definitions|\$defs)\/(.+)$/.exec(objectSchema.$ref);
+
+    return match?.[1] ?? objectSchema.$ref;
   }
 
   const primaryType = getPrimarySchemaType(schema);
@@ -76,35 +97,39 @@ export function stringifyType<T = unknown>(schema?: JsonSchema<T>): string {
     return primaryType;
   }
 
-  if (schema.type === "array" && Array.isArray(schema.enum)) {
-    return schema.enum.map(value => JSON.stringify(value)).join(" | ");
+  if (objectSchema.type === "array" && Array.isArray(objectSchema.enum)) {
+    const enumValues = objectSchema.enum as readonly unknown[];
+
+    return enumValues
+      .map((value: unknown) => JSON.stringify(value))
+      .join(" | ");
   }
 
-  if (schema.const !== undefined) {
-    return JSON.stringify(schema.const);
+  if (objectSchema.const !== undefined) {
+    return JSON.stringify(objectSchema.const);
   }
 
-  if (schema.type === "array" || schema.items) {
-    const items = Array.isArray(schema.items) ? schema.items[0] : schema.items;
-
-    return `${stringifyType(items)}[]`;
+  if (objectSchema.type === "array" || objectSchema.items) {
+    return `${stringifyType(objectSchema.items)}[]`;
   }
 
   if (
-    schema.type === "object" ||
-    schema.properties ||
-    schema.additionalProperties
+    objectSchema.type === "object" ||
+    objectSchema.properties ||
+    objectSchema.additionalProperties
   ) {
-    if (isJsonSchema(schema.additionalProperties)) {
-      return `{ [key: string]: ${stringifyType(schema.additionalProperties)} }`;
+    if (isJsonSchema(objectSchema.additionalProperties)) {
+      return `{ [key: string]: ${stringifyType(objectSchema.additionalProperties)} }`;
     }
 
-    if (isJsonSchemaObject(schema)) {
-      return `{ ${getPropertiesList(schema as JsonSchema<Record<string, any>>)
+    if (isJsonSchemaObject(objectSchema)) {
+      const required = objectSchema.required ?? [];
+
+      return `{ ${getPropertiesList(objectSchema)
         .map(property => {
           const suffix =
-            schema.required?.includes(property.name) || property.nullable
-              ? `${property.optional ? "?" : ""}${property.nullable ? " | null" : ""}`
+            !required.includes(property.name) || isSchemaNullable(property)
+              ? `${!required.includes(property.name) ? "?" : ""}${isSchemaNullable(property) ? " | null" : ""}`
               : "";
 
           return `${property.name}${suffix}: ${stringifyType(property)}`;
@@ -113,13 +138,13 @@ export function stringifyType<T = unknown>(schema?: JsonSchema<T>): string {
     }
   }
 
-  if (schema.oneOf || schema.anyOf) {
-    return ((schema.oneOf ?? schema.anyOf ?? []) as JsonSchema<T>[])
+  if (objectSchema.oneOf || objectSchema.anyOf) {
+    return (objectSchema.oneOf ?? objectSchema.anyOf ?? [])
       .map(branch => stringifyType(branch))
       .join(" | ");
   }
 
-  if (schema.allOf) {
+  if (objectSchema.allOf) {
     return "object";
   }
 
@@ -127,23 +152,37 @@ export function stringifyType<T = unknown>(schema?: JsonSchema<T>): string {
 }
 
 /**
+ * Returns a string type representation of a value based on its type and an optional JSON Schema primitive type hint.
+ *
+ * @param value - The value whose type is to be represented as a string.
+ * @returns A string representation of the value's type, which may be influenced by the provided JSON Schema primitive type hint. The function handles various JavaScript types and formats them accordingly, including special handling for `undefined`, `null`, booleans, numbers (with formatting), strings, objects, and arrays. If a specific type hint is provided, it will take precedence in determining the string representation of the value.
+ */
+export function getJsonSchemaType(value?: unknown): JsonSchemaType | undefined {
+  return isNull(value)
+    ? "null"
+    : isBoolean(value)
+      ? "boolean"
+      : isInteger(value)
+        ? "integer"
+        : isNumber(value)
+          ? "number"
+          : isString(value)
+            ? "string"
+            : isObject(value)
+              ? "object"
+              : Array.isArray(value)
+                ? "array"
+                : undefined;
+}
+
+/**
  * Generates standalone JSON Schema validation code using Ajv.
  */
-export async function generateCode<T = unknown>(
-  schemas: JsonSchema<T>,
+export async function generateCode(
+  schemas: JsonSchema,
   refsOrFuncts?: Parameters<typeof standaloneCode>[1]
 ) {
   const ajv = getValidator(schemas);
 
   return standaloneCode(ajv, refsOrFuncts);
-}
-
-/**
- * A helper function to determine if a JSON Schema fragment is nullable, for use in code generation.
- *
- * @param schema - The JSON Schema fragment to check.
- * @returns `true` if the schema is nullable, otherwise `false`. A schema is considered nullable if it has `nullable: true` or if its `type` includes `"null"`.
- */
-export function isNullableSchema(schema?: JsonSchema): boolean {
-  return isSchemaNullable(schema);
 }

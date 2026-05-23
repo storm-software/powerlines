@@ -18,14 +18,15 @@
 
 import { isSetObject } from "@stryke/type-checks";
 import { defu } from "defu";
-import { isPropertyOptional, isSchemaNullable } from "./metadata";
+import { readSchemaTypes } from "./metadata";
 import { isJsonSchemaObject, isSchema } from "./type-checks";
-import {
-  JsonSchema,
-  JsonSchemaObject,
-  JsonSchemaProperty,
-  Schema
-} from "./types";
+import { JsonSchema, JsonSchemaObject, Schema } from "./types";
+
+export type GetPropertiesResult = JsonSchema & {
+  name: string;
+  required: boolean;
+  default?: unknown;
+};
 
 /**
  * Extracts object properties from a JSON Schema object form.
@@ -36,22 +37,37 @@ import {
  * @param obj - The JSON Schema object form or a Schema wrapper to extract properties from.
  * @returns An object mapping property names to their corresponding JSON Schema fragments, including metadata.
  */
-export function getProperties<
-  T extends Record<string, any> = Record<string, any>
->(obj: Schema<T> | JsonSchema<T>): Record<string, JsonSchemaProperty<T>> {
-  const properties: Record<string, JsonSchemaProperty<T>> = {};
-  const schema: JsonSchema<T> = isSchema<T>(obj) ? obj.schema : obj;
-  if (!isJsonSchemaObject<T>(schema) || !isSetObject(schema.properties)) {
+export function getProperties(
+  obj: Schema | JsonSchemaObject
+): Record<
+  string,
+  JsonSchema & { name: string; required: boolean; default?: unknown }
+> {
+  const properties: Record<
+    string,
+    JsonSchema & { name: string; required: boolean; default?: unknown }
+  > = {};
+  const schema: JsonSchema = isSchema(obj) ? obj.schema : obj;
+  if (!isJsonSchemaObject(schema)) {
+    return properties;
+  }
+
+  if (!isSetObject(schema.properties)) {
     return properties;
   }
 
   for (const [key, value] of Object.entries(schema.properties)) {
+    const propertySchema: Record<string, unknown> = {};
+
+    if (typeof value !== "boolean") {
+      Object.assign(propertySchema, value);
+    }
+
     properties[key] = {
-      ...value,
+      ...propertySchema,
       name: key,
-      nullable:
-        isSchemaNullable(value as JsonSchema<any>) ||
-        isPropertyOptional(schema, key)
+      required: !isPropertyOptional(schema, key),
+      default: schema.default?.[key] ?? propertySchema.default
     };
   }
 
@@ -67,10 +83,8 @@ export function getProperties<
  * @param obj - The JSON Schema object form or a Schema wrapper to extract properties from.
  * @returns An array of JSON Schema fragments representing the properties, each including metadata.
  */
-export function getPropertiesList<
-  T extends Record<string, any> = Record<string, any>
->(obj: Schema<T> | JsonSchema<T>): Array<JsonSchemaProperty<T>> {
-  return Object.values(getProperties<T>(obj));
+export function getPropertiesList(obj: Schema | JsonSchemaObject) {
+  return Object.values(getProperties(obj));
 }
 
 /**
@@ -84,15 +98,13 @@ export function getPropertiesList<
  * @param property - The JSON Schema fragment representing the property's schema, including metadata.
  * @throws Will throw an error if the provided schema is not an object form.
  */
-export function addProperty<
-  T extends Record<string, any> = Record<string, any>
->(
-  obj: Schema<T> | JsonSchema<T>,
+export function addProperty(
+  obj: Schema | JsonSchemaObject,
   name: string,
-  property: JsonSchemaProperty<T>
+  property: JsonSchema
 ): void {
-  const schema = (isSchema<T>(obj) ? obj.schema : obj) as JsonSchemaObject<T>;
-  if (!isJsonSchemaObject<T>(schema)) {
+  const schema = (isSchema(obj) ? obj.schema : obj) as JsonSchemaObject;
+  if (!isJsonSchemaObject(schema)) {
     throw new Error("Cannot add property to non-object schema");
   }
 
@@ -100,9 +112,7 @@ export function addProperty<
   schema.required ??= [];
 
   schema.properties[name] = { ...property, name };
-  if (property?.optional) {
-    schema.required = schema.required.filter(key => key !== name);
-  } else if (!schema.required.includes(name)) {
+  if (!schema.required.includes(name)) {
     schema.required.push(name);
   }
 
@@ -120,15 +130,11 @@ export function addProperty<
  * @param schemas - An array of JSON Schema objects or Schema wrappers to merge.
  * @returns A new JSON Schema object that is the result of merging all input schemas.
  */
-export function mergeSchemas<
-  T extends Record<string, any> = Record<string, any>
->(...schemas: (JsonSchema<T> | Schema<T>)[]): JsonSchema<T> {
-  const result: JsonSchema<T> = {} as JsonSchema<T>;
+export function mergeSchemas(...schemas: (JsonSchema | Schema)[]): JsonSchema {
+  const result: JsonSchema = {};
   for (const schema of schemas) {
-    const jsonSchema: JsonSchema<T> = isSchema<T>(schema)
-      ? schema.schema
-      : schema;
-    if (!isJsonSchemaObject<T>(jsonSchema)) {
+    const jsonSchema: JsonSchema = isSchema(schema) ? schema.schema : schema;
+    if (!isJsonSchemaObject(jsonSchema)) {
       continue;
     }
 
@@ -136,4 +142,48 @@ export function mergeSchemas<
   }
 
   return result;
+}
+
+/**
+ * Returns whether a JSON Schema fragment accepts `null`.
+ *
+ * @remarks
+ * This is true if the schema has `nullable: true` or if its `type` includes `"null"`.
+ *
+ * @param schema - The JSON Schema fragment to check.
+ * @returns `true` if the schema accepts `null`, otherwise `false`.
+ */
+export function isSchemaNullable(schema?: JsonSchema): boolean {
+  if (!isSetObject(schema)) {
+    return false;
+  }
+
+  if ((schema as { nullable?: true }).nullable === true) {
+    return true;
+  }
+
+  return readSchemaTypes(schema).includes("null");
+}
+
+/**
+ * Returns whether an object property is optional (not listed in `required`).
+ *
+ * @remarks
+ * In JSON Schema, object properties are optional by default unless they are listed in the `required` array of the parent schema. This function checks whether a given property name is not included in the `required` array of its parent schema, indicating that it is optional.
+ *
+ * @param parent - The parent JSON Schema object containing the property.
+ * @param propertyName - The name of the property to check for optionality.
+ * @returns `true` if the property is optional, otherwise `false`.
+ */
+export function isPropertyOptional(
+  parent: JsonSchemaObject,
+  propertyName: string
+): boolean {
+  if (!parent.properties?.[propertyName]) {
+    throw new Error(
+      `The property "${propertyName}" does not exist in the parent schema.`
+    );
+  }
+
+  return !(parent.required ?? []).includes(propertyName);
 }

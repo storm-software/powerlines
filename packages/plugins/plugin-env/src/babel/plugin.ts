@@ -84,7 +84,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
           ) {
             if (
               context.config.env.validate &&
-              !config[name].optional &&
+              !config[name].required &&
               isUndefined(config[name].default)
             ) {
               throw new Error(

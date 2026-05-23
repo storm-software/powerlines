@@ -49,8 +49,11 @@ import {
   TSDocRemarks,
   TSDocReturns
 } from "@powerlines/plugin-alloy/typescript/components/tsdoc";
-import type { JsonSchemaProperty } from "@powerlines/schema";
-import { getPropertiesList } from "@powerlines/schema";
+import {
+  getPropertiesList,
+  GetPropertiesResult,
+  JsonSchema
+} from "@powerlines/schema";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { loadEnvFromContext } from "../helpers/load";
 import type { EnvPluginContext } from "../types/plugin";
@@ -84,17 +87,22 @@ export function EnvTypeDefinition() {
             <For
               each={
                 getPropertiesList(context.env.config.schema).filter(
-                  property => !property?.isIgnored
+                  property => !property.ignore
                 ) ?? []
               }
               doubleHardline>
               {property => (
                 <>
-                  <TSDocSchemaProperty schema={property} />
+                  <TSDocSchemaProperty
+                    schema={property}
+                    defaultValue={property?.default}
+                  />
                   <InterfaceMember
-                    name={`${prefix}_${property?.name}`}
-                    type={`UnprefixedEnv["${property?.name}"]`}
-                    readOnly={property?.readOnly}
+                    name={`${prefix}_${property.name}`}
+                    type={`UnprefixedEnv["${property.name}"]`}
+                    schema={property}
+                    required={property.required}
+                    readOnly={property.readOnly}
                   />
                 </>
               )}
@@ -130,7 +138,7 @@ interface ConfigPropertyProps extends ComponentProps {
   index: number;
   context: EnvPluginContext;
   name: string;
-  property: JsonSchemaProperty;
+  property: JsonSchema;
 }
 
 function ConfigPropertyGet(props: ConfigPropertyProps) {
@@ -260,8 +268,8 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
 
   const schemaGetProperties = computed(
     () =>
-      getPropertiesList(context.env.config.schema)
-        .filter(property => !property?.isIgnored && !property?.writeOnly)
+      (getPropertiesList(context.env.config)
+        .filter(property => !property?.ignore && !property?.writeOnly)
         .sort((a, b) =>
           !a?.name && !b?.name
             ? 0
@@ -270,12 +278,12 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
               : !b?.name
                 ? -1
                 : a?.name.localeCompare(b?.name)
-        ) ?? []
+        ) ?? []) as GetPropertiesResult[]
   );
   const schemaSetProperties = computed(
     () =>
-      getPropertiesList(context.env.config.schema)
-        .filter(property => !property?.isIgnored && !property?.readOnly)
+      (getPropertiesList(context.env.config)
+        .filter(property => !property?.ignore && !property?.readOnly)
         .sort((a, b) =>
           !a?.name && !b?.name
             ? 0
@@ -284,7 +292,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
               : !b?.name
                 ? -1
                 : a?.name.localeCompare(b?.name)
-        ) ?? []
+        ) ?? []) as GetPropertiesResult[]
   );
 
   return (
@@ -341,7 +349,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       get: (target: UnprefixedEnv, propertyName: string) => { `}
           <hbr />
           <For each={schemaGetProperties.value}>
-            {(property: JsonSchemaProperty, index: number) => (
+            {(property: GetPropertiesResult, index: number) => (
               <ConfigPropertyGet
                 index={index}
                 context={context}
@@ -358,7 +366,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           {code` set: (target: UnprefixedEnv, propertyName: string, newValue: any) => { `}
           <hbr />
           <For each={schemaSetProperties.value} ender={code` else `}>
-            {(property: JsonSchemaProperty, index: number) => (
+            {(property: GetPropertiesResult, index: number) => (
               <ConfigPropertySet
                 index={index}
                 context={context}
