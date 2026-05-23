@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.45](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.45) (05/22/2026)
+
+### Bug Fixes
+
+- **schema:** Fix issue with incorrect plugin usage in `resolve` call ([5c9479e47](https://github.com/storm-software/powerlines/commit/5c9479e47))
+
 ## [0.11.44](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.44) (05/22/2026)
 
 ### Bug Fixes
