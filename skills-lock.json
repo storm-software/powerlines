@@ -42,6 +42,30 @@
       "sourceType": "github",
       "skillPath": "skills/caveman-stats/SKILL.md",
       "computedHash": "47ce2de3d6cb39a75047b5c962e4eb3da15594e7397c94103e9a104d42626553"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "9e1c8b3103f92fa8092568a44fe64858de7c5c9dc65ce4bea8f168080e889cfd"
+    },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "computedHash": "5ea13a6d9f0d4bb694405d79acd00cadec0d21bb138c4dd10fcf3c500cb835c2"
+    },
+    "tsdoc-comments": {
+      "source": "marius-townhouse/effective-typescript-skills",
+      "sourceType": "github",
+      "skillPath": "skills/tsdoc-comments/SKILL.md",
+      "computedHash": "f68df8fcde59d498eb543ec88467ebb6f81b2ed38a920cc3723ae5e293baaeb4"
+    },
+    "writing-json-schemas": {
+      "source": "zaggino/z-schema",
+      "sourceType": "github",
+      "skillPath": "skills/writing-json-schemas/SKILL.md",
+      "computedHash": "9b3b90c7d96bc9ef8c643dd464b2097d2a22f87ffc7f6c85a2973f5de2636409"
     }
   }
 }
