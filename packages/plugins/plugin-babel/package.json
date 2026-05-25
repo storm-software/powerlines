@@ -109,15 +109,23 @@
     "@types/node": "catalog:"
   },
   "peerDependencies": {
+    "@babel/plugin-syntax-import-attributes": ">=8.0.0-rc.1",
     "@babel/plugin-syntax-jsx": ">=8.0.0-rc.6",
-    "@babel/plugin-syntax-typescript": ">=8.0.0-rc.6"
+    "@babel/plugin-syntax-typescript": ">=8.0.0-rc.6",
+    "@babel/plugin-transform-json-modules": ">=8.0.0-rc.6"
   },
   "peerDependenciesMeta": {
+    "@babel/plugin-syntax-import-attributes": {
+      "optional": false
+    },
     "@babel/plugin-syntax-jsx": {
       "optional": true
     },
     "@babel/plugin-syntax-typescript": {
       "optional": true
+    },
+    "@babel/plugin-transform-json-modules": {
+      "optional": false
     }
   },
   "publishConfig": {

@@ -38,7 +38,7 @@ import {
 } from "node:worker_threads";
 import Piscina from "piscina";
 import { MessagePortDuplex } from "../helpers/stream";
-import { ExecutionHost } from "../types/api";
+import { ExecutionApi } from "../types/api";
 import { EngineExecutionOptions } from "../types/config";
 import { EngineContext } from "../types/context";
 
@@ -104,8 +104,8 @@ function getNodeDebugType(nodeOptions: NodeOptions): NodeInspectType {
   return undefined;
 }
 
-export interface ExecutionHostWorkerOptions<
-  TExecutionAPI extends ReadonlyArray<string>
+export interface ExecutionApiWorkerOptions<
+  TExecutionApi extends ReadonlyArray<string>
 > {
   // /**
   //  * `-1` if not inspectable
@@ -145,24 +145,24 @@ export interface ExecutionHostWorkerOptions<
   context: EngineContext;
 
   /**
-   * An array of method names that the worker exposes. These methods will be available on the Worker instance and can be called to execute tasks in the worker process.
+   * An array of command names that the execution API worker exposes. These commands will be available on the execution API worker instance and can be called to execute tasks in the worker process.
    */
-  apiMethods?: TExecutionAPI;
+  commands?: TExecutionApi;
 }
 
-export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
+export class ExecutionApiWorker<TExecutionApi extends ReadonlyArray<string>> {
   #worker: Piscina | undefined;
 
   /**
-   * Creates a new instance of the ExecutionHostWorker class, which manages a worker process for executing tasks related to the Powerlines Engine. The worker is initialized with the specified options and can be used to run tasks in an isolated environment, with support for automatic restarts and activity monitoring.
+   * Creates a new instance of the Execution API Worker class, which manages a worker process for executing tasks related to the Powerlines Engine. The worker is initialized with the specified options and can be used to run tasks in an isolated environment, with support for automatic restarts and activity monitoring.
    *
-   * @param apiPath - The path to the Execution Host file.
+   * @param apiPath - The path to the Execution API file.
    * @param options - The options for configuring the worker, including the execution context, exposed methods, timeout, and mode.
-   * @returns A promise that resolves to an instance of the ExecutionHostWorker class.
+   * @returns A promise that resolves to an instance of the ExecutionApiWorker class.
    */
-  public static async from<TExecutionAPI extends ReadonlyArray<string>>(
+  public static async from<TExecutionApi extends ReadonlyArray<string>>(
     apiPath: string,
-    options: ExecutionHostWorkerOptions<TExecutionAPI>
+    options: ExecutionApiWorkerOptions<TExecutionApi>
   ) {
     const mode = await getDefaultMode(options.context.cwd);
 
@@ -174,48 +174,43 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
     });
     if (!resolvedPath) {
       throw new Error(
-        `Could not resolve the provided Execution Host path: \`${apiPath}\`.`
+        `Could not resolve the provided Execution API path: \`${apiPath}\`.`
       );
     }
 
-    let exposedMethods = toArray((options.apiMethods ?? []) as string[]);
-    if (exposedMethods.length === 0) {
+    let commands = toArray((options.commands ?? []) as string[]);
+    if (commands.length === 0) {
       const jiti = createJiti(import.meta.url, {
         cache: false,
         interopDefault: true,
         tsconfigPaths: true
       });
       const mod: Record<string, AnyFunction> = await jiti.import(
-        jiti.esmResolve(resolvedPath)
+        jiti.esmResolve(resolvedPath),
+        { default: true }
       );
-      if (isFunction(mod)) {
-        exposedMethods.push(...exposedMethods, "default");
-      } else if (isSetObject(mod)) {
-        exposedMethods = Object.keys(mod).filter(name => isFunction(mod[name]));
+      if (isSetObject(mod)) {
+        commands = Object.keys(mod).filter(name => isFunction(mod[name]));
       }
     }
 
-    return new ExecutionHostWorker<TExecutionAPI>(
-      resolvedPath,
-      exposedMethods,
-      {
-        mode,
-        ...options
-      }
-    ) as unknown as ExecutionHost<TExecutionAPI>;
+    return new ExecutionApiWorker<TExecutionApi>(resolvedPath, commands, {
+      mode,
+      ...options
+    }) as unknown as ExecutionApi<TExecutionApi>;
   }
 
   /**
-   * Create a new worker instance.
+   * Create a new API worker instance.
    *
-   * @param executionHostPath - The path to the worker file.
-   * @param exposedMethods - An array of method names that the worker exposes.
-   * @param options - The options for the worker, including exposed methods, timeout, and hooks for activity and restart.
+   * @param executionApiPath - The path to the worker file.
+   * @param commands - An array of command names that the worker exposes.
+   * @param options - The options for the worker, including exposed commands, timeout, and hooks for activity and restart.
    */
   public constructor(
-    protected executionHostPath: string,
-    protected exposedMethods: string[],
-    protected options: ExecutionHostWorkerOptions<TExecutionAPI>
+    protected executionApiPath: string,
+    protected commands: string[],
+    protected options: ExecutionApiWorkerOptions<TExecutionApi>
   ) {
     const {
       timeout = 900_000,
@@ -458,7 +453,7 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
         ...process.env,
         NODE_ENV: mode,
         NODE_OPTIONS: nodeOptionsParts.join(" "),
-        POWERLINES_EXECUTION_HOST_WORKER: "true"
+        POWERLINES_EXECUTION_WORKER: "true"
       };
 
       // Mirror the enablement heuristic from picocolors (see https://github.com/vercel/next.js/blob/6a40da0345939fe4f7b1ae519b296a86dd103432/packages/next/src/lib/picocolors.ts#L21-L24).
@@ -478,12 +473,12 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
 
       logger.debug(
         `Creating worker from file ${
-          executionHostPath
+          executionApiPath
         } with execution arguments: ${JSON.stringify(execArgv, null, 2)}`
       );
 
       this.#worker = new Piscina({
-        filename: executionHostPath,
+        filename: executionApiPath,
         execArgv,
         env
       });
@@ -548,8 +543,8 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
 
     createWorker();
 
-    for (const method of this.exposedMethods) {
-      if (method.startsWith("_")) {
+    for (const command of this.commands) {
+      if (command.startsWith("_")) {
         continue;
       }
 
@@ -563,9 +558,8 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
 
         const { port1, port2 } = new MessageChannel();
         const promise = this.#worker.run(
-          { options, inlineConfig, port: port2 },
+          { command, options, inlineConfig, port: port2 },
           {
-            name: method,
             transferList: [port2] as StructuredSerializeOptions
           }
         );
@@ -599,7 +593,7 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
         await promise;
       };
 
-      (this as any)[method] = timeout
+      (this as any)[command] = timeout
         ? async (
             options: EngineExecutionOptions,
             inlineConfig: InlineConfig
@@ -620,7 +614,7 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
 
                 logger.warn(
                   `Execution Host Worker was restarted while calling method "${
-                    method
+                    command
                   }" (attempt ${attempts++}). Retrying the call...`
                 );
               }

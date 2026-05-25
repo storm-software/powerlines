@@ -99,9 +99,9 @@
       "import": "./dist/helpers/index.mjs",
       "require": "./dist/helpers/index.cjs"
     },
-    "./helpers/create-execution-host": {
-      "import": "./dist/helpers/create-execution-host.mjs",
-      "require": "./dist/helpers/create-execution-host.cjs"
+    "./helpers/create-api": {
+      "import": "./dist/helpers/create-api.mjs",
+      "require": "./dist/helpers/create-api.cjs"
     },
     "./helpers/finalize": {
       "import": "./dist/helpers/finalize.mjs",

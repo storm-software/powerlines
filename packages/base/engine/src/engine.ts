@@ -34,9 +34,9 @@ import { getPort } from "get-port-please";
 import { createApp, fromNodeMiddleware } from "h3";
 import { EventEmitter } from "node:events";
 import sirv from "sirv";
-import { ExecutionHostWorker } from "./_internal/execution-host-worker";
+import { ExecutionApiWorker } from "./_internal/execution-api-worker";
 import { PowerlinesEngineContext } from "./context/engine-context";
-import { Engine, ExecutionHost } from "./types/api";
+import { Engine, ExecutionApi } from "./types/api";
 import { EngineOptions } from "./types/config";
 import { EngineContext } from "./types/context";
 
@@ -46,9 +46,9 @@ import { EngineContext } from "./types/context";
  * @public
  */
 export class PowerlinesEngine<
-  TExecutionAPI extends ReadonlyArray<string> = typeof EXECUTION_API_METHODS
+  TExecutionApi extends ReadonlyArray<string> = typeof EXECUTION_API_METHODS
 >
-  implements Engine<TExecutionAPI>, AsyncDisposable
+  implements Engine<TExecutionApi>, AsyncDisposable
 {
   /**
    * The Powerlines context
@@ -58,7 +58,7 @@ export class PowerlinesEngine<
   /**
    * The execution host, which provides methods to call the execution API functions from the engine context. This allows the engine to invoke commands and other API functions during the execution of Powerlines commands, enabling communication between the engine and the execution contexts.
    */
-  #host: ExecutionHost<TExecutionAPI>;
+  #api: ExecutionApi<TExecutionApi>;
 
   /**
    * The Powerlines context
@@ -70,23 +70,20 @@ export class PowerlinesEngine<
   /**
    * The execution host, which provides methods to call the execution API functions from the engine context. This allows the engine to invoke commands and other API functions during the execution of Powerlines commands, enabling communication between the engine and the execution contexts.
    */
-  public get host(): ExecutionHost<TExecutionAPI> {
-    return this.#host;
+  public get api(): ExecutionApi<TExecutionApi> {
+    return this.#api;
   }
 
   /**
    * Create a new Powerlines Engine instance
    *
    * @param context - The Powerlines context
-   * @param host - The API host for the execution workers
+   * @param api - The API host for the execution workers
    * @returns A new instance of the Powerlines Engine
    */
-  public constructor(
-    context: EngineContext,
-    host: ExecutionHost<TExecutionAPI>
-  ) {
+  public constructor(context: EngineContext, api: ExecutionApi<TExecutionApi>) {
     this.#context = context;
-    this.#host = host;
+    this.#api = api;
   }
 
   /**
@@ -264,7 +261,7 @@ export class PowerlinesEngine<
     const timer = this.context.timer("Finalize");
     this.context.info("🏁 Finalization processes started");
 
-    await this.host.finalize();
+    await this.api.finalize();
 
     this.context.debug("✔ Finalization completed successfully");
     timer();
@@ -288,14 +285,14 @@ export class PowerlinesEngine<
    * @returns A promise that resolves when all executions for the specified command have completed
    */
   protected async execute(
-    method: TExecutionAPI[number],
+    method: TExecutionApi[number],
     inlineConfig: InlineConfig
   ) {
     await Promise.all(
       (await this.context.loadExecutions(method, inlineConfig)).map(
         async execution => {
           try {
-            await this.host[method](execution.options, inlineConfig);
+            await this.api[method](execution.options, inlineConfig);
           } catch (error) {
             this.context.error(
               `Execution of method "${method}" failed for execution with invocation ID "${
@@ -343,19 +340,19 @@ export async function createContext(options: EngineOptions) {
   });
 }
 
-export async function createEngine<TExecutionAPI extends ReadonlyArray<string>>(
+export async function createEngine<TExecutionApi extends ReadonlyArray<string>>(
   options: EngineOptions,
   apiPath = "@powerlines/engine/api",
-  apiMethods?: TExecutionAPI
+  apiMethods?: TExecutionApi
 ) {
   EventEmitter.setMaxListeners(Infinity);
 
   const context = await createContext(options);
-  const host = await ExecutionHostWorker.from<TExecutionAPI>(apiPath, {
+  const host = await ExecutionApiWorker.from<TExecutionApi>(apiPath, {
     root: options.root,
     context,
-    apiMethods
+    commands: apiMethods
   });
 
-  return new PowerlinesEngine<TExecutionAPI>(context, host);
+  return new PowerlinesEngine<TExecutionApi>(context, host);
 }

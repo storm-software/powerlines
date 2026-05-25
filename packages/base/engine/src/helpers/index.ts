@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./create-execution-host";
+export * from "./create-api";
 export * from "./finalize";
 export * from "./rpc";
 export * from "./stream";

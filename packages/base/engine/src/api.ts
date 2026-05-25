@@ -16,35 +16,25 @@
 
  ------------------------------------------------------------------- */
 
-import { build as executeBuild } from "./api/build";
-import { clean as executeClean } from "./api/clean";
-import { create as executeCreate } from "./api/create";
-import { deploy as executeDeploy } from "./api/deploy";
-import { docs as executeDocs } from "./api/docs";
-import { lint as executeLint } from "./api/lint";
-import { prepare as executePrepare } from "./api/prepare";
-import { test as executeTest } from "./api/test";
-import { types as executeTypes } from "./api/types";
-import { createExecutionHost } from "./helpers/create-execution-host";
+import { build } from "./api/build";
+import { clean } from "./api/clean";
+import { create } from "./api/create";
+import { deploy } from "./api/deploy";
+import { docs } from "./api/docs";
+import { lint } from "./api/lint";
+import { prepare } from "./api/prepare";
+import { test } from "./api/test";
+import { types } from "./api/types";
+import { createApi } from "./helpers/create-api";
 
-const executionHost = createExecutionHost({
-  types: executeTypes,
-  prepare: executePrepare,
-  create: executeCreate,
-  clean: executeClean,
-  lint: executeLint,
-  test: executeTest,
-  build: executeBuild,
-  docs: executeDocs,
-  deploy: executeDeploy
+export default createApi({
+  types,
+  prepare,
+  create,
+  clean,
+  lint,
+  test,
+  build,
+  docs,
+  deploy
 });
-
-export const types = executionHost.types;
-export const prepare = executionHost.prepare;
-export const create = executionHost.create;
-export const clean = executionHost.clean;
-export const lint = executionHost.lint;
-export const test = executionHost.test;
-export const build = executionHost.build;
-export const docs = executionHost.docs;
-export const deploy = executionHost.deploy;
