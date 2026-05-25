@@ -113,12 +113,6 @@ export const plugin = <
         return { code, id };
       }
 
-      if (
-        !isDuplicatePlugin(plugins, "@babel/plugin-syntax-import-attributes")
-      ) {
-        plugins.push("@babel/plugin-syntax-import-attributes");
-      }
-
       if (!this.config.babel?.skipConfigResolution) {
         if (
           !isDuplicatePlugin(plugins, "@babel/plugin-transform-json-modules")

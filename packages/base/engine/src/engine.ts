@@ -28,7 +28,6 @@ import type {
   TestInlineConfig,
   TypesInlineConfig
 } from "@powerlines/core";
-import { EXECUTION_API_METHODS } from "@powerlines/core/constants";
 import { createH3DevToolsHost } from "devframe/node";
 import { getPort } from "get-port-please";
 import { createApp, fromNodeMiddleware } from "h3";
@@ -36,7 +35,7 @@ import { EventEmitter } from "node:events";
 import sirv from "sirv";
 import { ExecutionApiWorker } from "./_internal/execution-api-worker";
 import { PowerlinesEngineContext } from "./context/engine-context";
-import { Engine, ExecutionApi } from "./types/api";
+import { Engine } from "./types/api";
 import { EngineOptions } from "./types/config";
 import { EngineContext } from "./types/context";
 
@@ -45,11 +44,7 @@ import { EngineContext } from "./types/context";
  *
  * @public
  */
-export class PowerlinesEngine<
-  TExecutionApi extends ReadonlyArray<string> = typeof EXECUTION_API_METHODS
->
-  implements Engine<TExecutionApi>, AsyncDisposable
-{
+export class PowerlinesEngine implements Engine, AsyncDisposable {
   /**
    * The Powerlines context
    */
@@ -58,7 +53,7 @@ export class PowerlinesEngine<
   /**
    * The execution host, which provides methods to call the execution API functions from the engine context. This allows the engine to invoke commands and other API functions during the execution of Powerlines commands, enabling communication between the engine and the execution contexts.
    */
-  #api: ExecutionApi<TExecutionApi>;
+  #api: ExecutionApiWorker;
 
   /**
    * The Powerlines context
@@ -70,7 +65,7 @@ export class PowerlinesEngine<
   /**
    * The execution host, which provides methods to call the execution API functions from the engine context. This allows the engine to invoke commands and other API functions during the execution of Powerlines commands, enabling communication between the engine and the execution contexts.
    */
-  public get api(): ExecutionApi<TExecutionApi> {
+  public get api(): ExecutionApiWorker {
     return this.#api;
   }
 
@@ -81,7 +76,7 @@ export class PowerlinesEngine<
    * @param api - The API host for the execution workers
    * @returns A new instance of the Powerlines Engine
    */
-  public constructor(context: EngineContext, api: ExecutionApi<TExecutionApi>) {
+  public constructor(context: EngineContext, api: ExecutionApiWorker) {
     this.#context = context;
     this.#api = api;
   }
@@ -280,22 +275,19 @@ export class PowerlinesEngine<
    * @remarks
    * This method will load the executions for the specified command and inline configuration, then execute each one while managing their lifecycle, including handling their completion and any errors that may occur during execution.
    *
-   * @param method - The path to the execution configuration to load and run, which can be used to specify different execution configurations for different commands or scenarios.
+   * @param command - The path to the execution configuration to load and run, which can be used to specify different execution configurations for different commands or scenarios.
    * @param inlineConfig - Additional configuration options provided at runtime, which can override or supplement the options defined in the user configuration file.
    * @returns A promise that resolves when all executions for the specified command have completed
    */
-  protected async execute(
-    method: TExecutionApi[number],
-    inlineConfig: InlineConfig
-  ) {
+  protected async execute(command: string, inlineConfig: InlineConfig) {
     await Promise.all(
-      (await this.context.loadExecutions(method, inlineConfig)).map(
+      (await this.context.loadExecutions(command, inlineConfig)).map(
         async execution => {
           try {
-            await this.api[method](execution.options, inlineConfig);
+            await this.api.execute(command, execution.options, inlineConfig);
           } catch (error) {
             this.context.error(
-              `Execution of method "${method}" failed for execution with invocation ID "${
+              `Execution of method "${command}" failed for execution with invocation ID "${
                 execution.invocationId
               }" and execution ID "${execution.options.executionId}": \n\n${
                 error instanceof Error
@@ -340,19 +332,17 @@ export async function createContext(options: EngineOptions) {
   });
 }
 
-export async function createEngine<TExecutionApi extends ReadonlyArray<string>>(
+export async function createEngine(
   options: EngineOptions,
-  apiPath = "@powerlines/engine/api",
-  apiMethods?: TExecutionApi
+  apiPath = "@powerlines/engine/api"
 ) {
   EventEmitter.setMaxListeners(Infinity);
 
   const context = await createContext(options);
-  const host = await ExecutionApiWorker.from<TExecutionApi>(apiPath, {
+  const host = await ExecutionApiWorker.from(apiPath, {
     root: options.root,
-    context,
-    commands: apiMethods
+    context
   });
 
-  return new PowerlinesEngine<TExecutionApi>(context, host);
+  return new PowerlinesEngine(context, host);
 }

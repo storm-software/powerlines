@@ -28,10 +28,8 @@ import type {
   TestInlineConfig,
   TypesInlineConfig
 } from "@powerlines/core";
-import { EXECUTION_API_METHODS } from "@powerlines/core/constants/api";
 import { EngineExecutionOptions } from "./config";
 import type { EngineContext } from "./context";
-import type { Worker } from "./utils";
 
 /**
  * The Powerlines Base API Interface
@@ -160,19 +158,19 @@ export interface ExecutionApiParams {
   inlineConfig: InlineConfig;
 }
 
-export type ExecutionApi<TExecutionApi extends ReadonlyArray<string>> = Worker<
-  [EngineExecutionOptions, InlineConfig],
-  TExecutionApi
->;
-
-export type PowerlinesExecutionApi = ExecutionApi<typeof EXECUTION_API_METHODS>;
+export interface ExecutionApiWorkerInterface {
+  execute: (
+    command: string,
+    options: EngineExecutionOptions,
+    inlineConfig: InlineConfig
+  ) => Promise<void>;
+  finalize: () => Promise<void>;
+}
 
 /**
  * The Engine interface represents the Powerlines process' orchestration and coordination API.
  */
-export interface Engine<
-  TExecutionApi extends ReadonlyArray<string>
-> extends ExecutionInterface {
+export interface Engine extends ExecutionInterface {
   /**
    * The Powerlines shared context
    */
@@ -181,5 +179,5 @@ export interface Engine<
   /**
    * The execution host, which provides methods to call the execution API functions from the engine context. This allows the engine to invoke commands and other API functions during the execution of Powerlines commands, enabling communication between the engine and the execution contexts.
    */
-  api: ExecutionApi<TExecutionApi>;
+  api: ExecutionApiWorkerInterface;
 }

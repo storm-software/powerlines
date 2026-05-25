@@ -16,20 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-import { InlineConfig, Mode } from "@powerlines/core";
+import type { InlineConfig, Logger, Mode } from "@powerlines/core";
 import { getDefaultMode } from "@powerlines/core/lib/config";
-import { toArray } from "@stryke/convert/to-array";
 import { resolve } from "@stryke/fs/resolve";
 import { appendPath } from "@stryke/path/append";
-import { isFunction } from "@stryke/type-checks/is-function";
 import { isNumber } from "@stryke/type-checks/is-number";
 import { isSet } from "@stryke/type-checks/is-set";
-import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
-import { AnyFunction } from "@stryke/types/base";
 import { formatDuration } from "date-fns/formatDuration";
-import { createJiti } from "jiti";
 import { pipeline } from "node:stream";
 import { parseArgs } from "node:util";
 import {
@@ -38,7 +33,7 @@ import {
 } from "node:worker_threads";
 import Piscina from "piscina";
 import { MessagePortDuplex } from "../helpers/stream";
-import { ExecutionApi } from "../types/api";
+import { ExecutionApiWorkerInterface } from "../types";
 import { EngineExecutionOptions } from "../types/config";
 import { EngineContext } from "../types/context";
 
@@ -104,9 +99,7 @@ function getNodeDebugType(nodeOptions: NodeOptions): NodeInspectType {
   return undefined;
 }
 
-export interface ExecutionApiWorkerOptions<
-  TExecutionApi extends ReadonlyArray<string>
-> {
+export interface ExecutionApiWorkerOptions {
   // /**
   //  * `-1` if not inspectable
   //  */
@@ -143,15 +136,39 @@ export interface ExecutionApiWorkerOptions<
    * The context of the {@link @powerlines/engine#Engine | Engine instance}, which can be used to access the engine's state and services within the worker.
    */
   context: EngineContext;
-
-  /**
-   * An array of command names that the execution API worker exposes. These commands will be available on the execution API worker instance and can be called to execute tasks in the worker process.
-   */
-  commands?: TExecutionApi;
 }
 
-export class ExecutionApiWorker<TExecutionApi extends ReadonlyArray<string>> {
+export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
   #worker: Piscina | undefined;
+
+  #logger: Logger;
+
+  #activeTasks = 0;
+
+  #restartPromise: Promise<typeof RESTARTED> | null = null;
+
+  #resolveRestartPromise: ((arg: typeof RESTARTED) => void) | null = null;
+
+  #hangingTimer: NodeJS.Timeout | false = false;
+
+  #createWorker: () => void;
+
+  protected get restartPromise() {
+    if (!this.#restartPromise) {
+      this.#restartPromise = new Promise(resolve => {
+        this.#resolveRestartPromise = resolve;
+      });
+    }
+    return this.#restartPromise;
+  }
+
+  protected resolveRestartPromise() {
+    if (this.#resolveRestartPromise) {
+      this.#resolveRestartPromise(RESTARTED);
+      this.#restartPromise = null;
+      this.#resolveRestartPromise = null;
+    }
+  }
 
   /**
    * Creates a new instance of the Execution API Worker class, which manages a worker process for executing tasks related to the Powerlines Engine. The worker is initialized with the specified options and can be used to run tasks in an isolated environment, with support for automatic restarts and activity monitoring.
@@ -160,9 +177,9 @@ export class ExecutionApiWorker<TExecutionApi extends ReadonlyArray<string>> {
    * @param options - The options for configuring the worker, including the execution context, exposed methods, timeout, and mode.
    * @returns A promise that resolves to an instance of the ExecutionApiWorker class.
    */
-  public static async from<TExecutionApi extends ReadonlyArray<string>>(
+  public static async from(
     apiPath: string,
-    options: ExecutionApiWorkerOptions<TExecutionApi>
+    options: ExecutionApiWorkerOptions
   ) {
     const mode = await getDefaultMode(options.context.cwd);
 
@@ -178,53 +195,47 @@ export class ExecutionApiWorker<TExecutionApi extends ReadonlyArray<string>> {
       );
     }
 
-    let commands = toArray((options.commands ?? []) as string[]);
-    if (commands.length === 0) {
-      const jiti = createJiti(import.meta.url, {
-        cache: false,
-        interopDefault: true,
-        tsconfigPaths: true
-      });
-      const mod: Record<string, AnyFunction> = await jiti.import(
-        jiti.esmResolve(resolvedPath),
-        { default: true }
-      );
-      if (isSetObject(mod)) {
-        commands = Object.keys(mod).filter(name => isFunction(mod[name]));
-      }
-    }
+    // let commands = toArray((options.commands ?? []) as string[]);
+    // if (commands.length === 0) {
+    //   const jiti = createJiti(import.meta.url, {
+    //     cache: false,
+    //     interopDefault: true,
+    //     tsconfigPaths: true
+    //   });
+    //   const mod: Record<string, AnyFunction> = await jiti.import(
+    //     jiti.esmResolve(resolvedPath),
+    //     { default: true }
+    //   );
+    //   if (isSetObject(mod)) {
+    //     commands = Object.keys(mod).filter(name => isFunction(mod[name]));
+    //   }
+    // }
 
-    return new ExecutionApiWorker<TExecutionApi>(resolvedPath, commands, {
+    return new ExecutionApiWorker(resolvedPath, {
       mode,
       ...options
-    }) as unknown as ExecutionApi<TExecutionApi>;
+    });
   }
 
   /**
    * Create a new API worker instance.
    *
    * @param executionApiPath - The path to the worker file.
-   * @param commands - An array of command names that the worker exposes.
    * @param options - The options for the worker, including exposed commands, timeout, and hooks for activity and restart.
    */
-  public constructor(
+  protected constructor(
     protected executionApiPath: string,
-    protected commands: string[],
-    protected options: ExecutionApiWorkerOptions<TExecutionApi>
+    protected options: ExecutionApiWorkerOptions
   ) {
     const {
-      timeout = 900_000,
       isolatedMemory = false,
       mode = "production",
       context
     } = this.options;
 
-    const logger = context.extendLogger({ category: "communication" });
+    this.options.timeout ??= 900_000;
 
-    let restartPromise: Promise<typeof RESTARTED>;
-    let resolveRestartPromise: (arg: typeof RESTARTED) => void;
-    let activeTasks = 0;
-
+    this.#logger = context.extendLogger({ category: "communication" });
     this.#worker = undefined;
 
     // ensure we end workers if they weren't before exit
@@ -418,37 +429,7 @@ export class ExecutionApiWorker<TExecutionApi extends ReadonlyArray<string>> {
       }
     }
 
-    const onHanging = () => {
-      if (!this.#worker) {
-        return;
-      }
-
-      const resolve = resolveRestartPromise;
-      // eslint-disable-next-line ts/no-use-before-define
-      createWorker();
-
-      logger.warn(
-        `Sending SIGTERM signal to worker due to timeout${
-          timeout ? ` of ${formatDuration({ seconds: timeout / 1000 })}` : ""
-        }. Subsequent errors may be a result of the worker exiting.`
-      );
-
-      void this.finalize().then(() => {
-        resolve(RESTARTED);
-      });
-    };
-
-    let hangingTimer: NodeJS.Timeout | false = false;
-
-    const onActivity = () => {
-      if (hangingTimer) {
-        clearTimeout(hangingTimer);
-      }
-
-      hangingTimer = activeTasks > 0 && setTimeout(onHanging, timeout);
-    };
-
-    const createWorker = () => {
+    this.#createWorker = () => {
       const env: NodeJS.ProcessEnv = {
         ...process.env,
         NODE_ENV: mode,
@@ -471,7 +452,7 @@ export class ExecutionApiWorker<TExecutionApi extends ReadonlyArray<string>> {
         env.FORCE_COLOR = "1";
       }
 
-      logger.debug(
+      this.#logger.debug(
         `Creating worker from file ${
           executionApiPath
         } with execution arguments: ${JSON.stringify(execArgv, null, 2)}`
@@ -483,12 +464,12 @@ export class ExecutionApiWorker<TExecutionApi extends ReadonlyArray<string>> {
         env
       });
 
-      restartPromise = new Promise(resolve => {
-        resolveRestartPromise = resolve;
+      this.#restartPromise = new Promise(resolve => {
+        this.#resolveRestartPromise = resolve;
       });
 
       this.#worker.on("exit", (code, signal) => {
-        logger.debug(
+        this.#logger.debug(
           `Worker process exited with code ${code} and signal ${signal}`
         );
 
@@ -498,7 +479,7 @@ export class ExecutionApiWorker<TExecutionApi extends ReadonlyArray<string>> {
               code
             } and signal ${signal}`
           );
-          logger.error(error);
+          this.#logger.error(error);
 
           void this.finalize().then(() => {
             throw error;
@@ -507,7 +488,7 @@ export class ExecutionApiWorker<TExecutionApi extends ReadonlyArray<string>> {
       });
 
       this.#worker.on("error", error => {
-        logger.error({
+        this.#logger.error({
           meta: { category: "communication" },
           message: `Worker process emitted an error: ${error.message}`,
           error
@@ -517,15 +498,15 @@ export class ExecutionApiWorker<TExecutionApi extends ReadonlyArray<string>> {
       // if a child process emits a particular message, we track that as activity
       // so the parent process can keep track of progress
       this.#worker.on("message", data => {
-        onActivity();
+        this.onActivity();
 
         if (Array.isArray(data) && data.length > 1 && isNumber(data[0])) {
           if (data[0] === 0) {
-            logger.trace(
+            this.#logger.trace(
               `Received message from worker: ${JSON.stringify(data.slice(1), null, 2)}`
             );
           } else {
-            logger.debug(
+            this.#logger.debug(
               `Received error message from worker: ${JSON.stringify(
                 data.slice(1),
                 null,
@@ -535,95 +516,47 @@ export class ExecutionApiWorker<TExecutionApi extends ReadonlyArray<string>> {
           }
         }
 
-        logger.trace(
+        this.#logger.trace(
           `Received message from worker: ${JSON.stringify(data, null, 2)}`
         );
       });
     };
 
-    createWorker();
+    this.#createWorker();
+  }
 
-    for (const command of this.commands) {
-      if (command.startsWith("_")) {
-        continue;
-      }
+  public async execute(
+    command: string,
+    options: EngineExecutionOptions,
+    inlineConfig: InlineConfig
+  ) {
+    if (this.options.timeout) {
+      this.#activeTasks++;
+      try {
+        let attempts = 0;
+        for (;;) {
+          this.onActivity();
 
-      const callWorker = async (
-        options: EngineExecutionOptions,
-        inlineConfig: InlineConfig
-      ) => {
-        if (!this.#worker) {
-          throw new Error("Execution Host Worker is not initialized");
+          const result = await Promise.race([
+            this.innerExecute(command, options, inlineConfig),
+            this.#restartPromise
+          ]);
+          if (result !== RESTARTED) {
+            return;
+          }
+
+          this.#logger.warn(
+            `Execution Host Worker was restarted while calling method "${
+              command
+            }" (attempt ${attempts++}). Retrying the call...`
+          );
         }
-
-        const { port1, port2 } = new MessageChannel();
-        const promise = this.#worker.run(
-          { command, options, inlineConfig, port: port2 },
-          {
-            transferList: [port2] as StructuredSerializeOptions
-          }
-        );
-
-        let aborted = false;
-        const onActivityAbort = () => {
-          if (!aborted) {
-            aborted = true;
-          }
-        };
-        const duplex = new MessagePortDuplex(port1, { onActivityAbort });
-
-        pipeline(
-          duplex,
-          process.stdout,
-          (err: NodeJS.ErrnoException | null) => {
-            if (err) {
-              logger.debug(
-                `Received exception message from worker: ${JSON.stringify(
-                  err,
-                  null,
-                  2
-                )}`
-              );
-
-              throw err;
-            }
-          }
-        );
-
-        await promise;
-      };
-
-      (this as any)[command] = timeout
-        ? async (
-            options: EngineExecutionOptions,
-            inlineConfig: InlineConfig
-          ) => {
-            activeTasks++;
-            try {
-              let attempts = 0;
-              for (;;) {
-                onActivity();
-
-                const result = await Promise.race([
-                  callWorker(options, inlineConfig),
-                  restartPromise
-                ]);
-                if (result !== RESTARTED) {
-                  return result;
-                }
-
-                logger.warn(
-                  `Execution Host Worker was restarted while calling method "${
-                    command
-                  }" (attempt ${attempts++}). Retrying the call...`
-                );
-              }
-            } finally {
-              activeTasks--;
-              onActivity();
-            }
-          }
-        : callWorker.bind(this);
+      } finally {
+        this.#activeTasks--;
+        this.onActivity();
+      }
+    } else {
+      await this.innerExecute(command, options, inlineConfig);
     }
   }
 
@@ -640,5 +573,77 @@ export class ExecutionApiWorker<TExecutionApi extends ReadonlyArray<string>> {
       force: true
     });
     this.#worker = undefined;
+  }
+
+  protected onHanging() {
+    if (!this.#worker) {
+      return;
+    }
+
+    this.#createWorker();
+
+    this.#logger.warn(
+      `Sending SIGTERM signal to worker due to timeout${
+        this.options.timeout
+          ? ` of ${formatDuration({ seconds: this.options.timeout / 1000 })}`
+          : ""
+      }. Subsequent errors may be a result of the worker exiting.`
+    );
+
+    void this.finalize().then(() => {
+      this.#resolveRestartPromise?.(RESTARTED);
+    });
+  }
+
+  protected onActivity() {
+    if (this.#hangingTimer) {
+      clearTimeout(this.#hangingTimer);
+    }
+
+    this.#hangingTimer =
+      this.#activeTasks > 0 &&
+      setTimeout(() => this.onHanging(), this.options.timeout);
+  }
+
+  protected async innerExecute(
+    command: string,
+    options: EngineExecutionOptions,
+    inlineConfig: InlineConfig
+  ) {
+    if (!this.#worker) {
+      throw new Error("Execution Host Worker is not initialized");
+    }
+
+    const { port1, port2 } = new MessageChannel();
+    const promise = this.#worker.run(
+      { command, options, inlineConfig, port: port2 },
+      {
+        transferList: [port2] as StructuredSerializeOptions
+      }
+    );
+
+    let aborted = false;
+    const onActivityAbort = () => {
+      if (!aborted) {
+        aborted = true;
+      }
+    };
+    const duplex = new MessagePortDuplex(port1, { onActivityAbort });
+
+    pipeline(duplex, process.stdout, (err: NodeJS.ErrnoException | null) => {
+      if (err) {
+        this.#logger.debug(
+          `Received exception message from worker: ${JSON.stringify(
+            err,
+            null,
+            2
+          )}`
+        );
+
+        throw err;
+      }
+    });
+
+    await promise;
   }
 }
