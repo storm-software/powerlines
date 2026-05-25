@@ -19,7 +19,7 @@ catalog:
   '@babel/types': 8.0.0-rc.5
   '@cacheable/memory': ^2.0.9
   '@cloudflare/unenv-preset': ^2.16.1
-  '@cloudflare/workers-types': ^4.20260523.1
+  '@cloudflare/workers-types': ^4.20260525.1
   '@content-collections/core': ^0.12.0
   '@deepkit/core': 1.0.5
   '@deepkit/type': 1.0.5
@@ -219,7 +219,7 @@ catalog:
   unplugin: ^3.0.0
   unplugin-combine: ^2.4.0
   untyped: ^1.5.2
-  valibot: ^1.4.0
+  valibot: ^1.4.1
   verdaccio: 6.5.2
   vite: ^8.0.14
   webpack: ^5.107.1

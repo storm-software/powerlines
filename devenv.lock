@@ -3,11 +3,11 @@
     "devenv": {
       "locked": {
         "dir": "src/modules",
-        "lastModified": 1779460760,
-        "narHash": "sha256-icE9NT38wxcdpozLZa0uS1lTYfuPAYxpIebOQrJBKXo=",
+        "lastModified": 1779636362,
+        "narHash": "sha256-Q/hy/ybvbe91fjA1MbulUwPjJH9yKaFZnSaTkwLE8S0=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "e5f1a41c245ddacb841321026570fa963cedab33",
+        "rev": "9d6e68dac81fab1f7f2ec6784220151b4fba4b59",
         "type": "github"
       },
       "original": {
@@ -55,11 +55,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1779414690,
-        "narHash": "sha256-gOTcX/9MZVMUE0Xvb4IEcv+0TQJkZFNEnL757ljU360=",
+        "lastModified": 1779536132,
+        "narHash": "sha256-q+fF42iv/geEbHfgSzy3tS0FF/EyD6XTZ98E6yxiBO8=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "6dedf69f94d03cbe7bdde106f2d4c23ae2a853bf",
+        "rev": "3d8f0f3f72a6cd4d93d0ad13203f2ea1cb7e1456",
         "type": "github"
       },
       "original": {
@@ -81,15 +81,16 @@
     "storm-ops": {
       "flake": false,
       "locked": {
-        "lastModified": 1779437116,
-        "narHash": "sha256-HkZecjcSH+iijCo7azzpqopzxxXLBHBYE8HX6EddQN4=",
+        "lastModified": 1779464727,
+        "narHash": "sha256-zgfC/0+g9VjxU6LWNtTMfFZMW5QbNHdSv6rEg6anxWQ=",
         "owner": "storm-software",
         "repo": "storm-ops",
-        "rev": "eb206b9a10666d67ccdbe098f94214e8efa4726a",
+        "rev": "f0d9a62636f081517e044a371e7026ce60a8a070",
         "type": "github"
       },
       "original": {
         "owner": "storm-software",
+        "ref": "main",
         "repo": "storm-ops",
         "type": "github"
       }

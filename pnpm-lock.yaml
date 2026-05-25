@@ -52,8 +52,8 @@ catalogs:
       specifier: ^2.16.1
       version: 2.16.1
     '@cloudflare/workers-types':
-      specifier: ^4.20260523.1
-      version: 4.20260523.1
+      specifier: ^4.20260525.1
+      version: 4.20260525.1
     '@content-collections/core':
       specifier: ^0.12.0
       version: 0.12.0
@@ -652,8 +652,8 @@ catalogs:
       specifier: ^1.5.2
       version: 1.5.2
     valibot:
-      specifier: ^1.4.0
-      version: 1.4.0
+      specifier: ^1.4.1
+      version: 1.4.1
     verdaccio:
       specifier: 6.5.2
       version: 6.5.2
@@ -1435,7 +1435,7 @@ importers:
         version: 0.3.22(zod@4.4.3)
       '@valibot/to-json-schema':
         specifier: 'catalog:'
-        version: 1.7.0(valibot@1.4.0(typescript@6.0.3))
+        version: 1.7.0(valibot@1.4.1(typescript@6.0.3))
       ajv:
         specifier: 'catalog:'
         version: 8.20.0
@@ -1460,7 +1460,7 @@ importers:
         version: 25.9.1
       valibot:
         specifier: 'catalog:'
-        version: 1.4.0(typescript@6.0.3)
+        version: 1.4.1(typescript@6.0.3)
       zod:
         specifier: 'catalog:'
         version: 4.4.3
@@ -1927,7 +1927,7 @@ importers:
         version: 2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260521.1)
       '@cloudflare/workers-types':
         specifier: 'catalog:'
-        version: 4.20260523.1
+        version: 4.20260525.1
       '@powerlines/plugin-alloy':
         specifier: workspace:*
         version: link:../plugin-alloy
@@ -1939,7 +1939,7 @@ importers:
         version: 25.9.1
       wrangler:
         specifier: 'catalog:'
-        version: 4.94.0(@cloudflare/workers-types@4.20260523.1)
+        version: 4.94.0(@cloudflare/workers-types@4.20260525.1)
       zod:
         specifier: 'catalog:'
         version: 4.4.3
@@ -5154,8 +5154,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@cloudflare/workers-types@4.20260523.1':
-    resolution: {integrity: sha512-Kr66Jip2K3t0srdoLLImzblTTx2T409Zk2J6AHANmlB950rlHr2henMQx7+cdQOLm2p1CttuBcYB1UVjdiFN8Q==}
+  '@cloudflare/workers-types@4.20260525.1':
+    resolution: {integrity: sha512-vQSjvQINGx2i3dovvVyszew4HU3+82eAuD2ryNmedBIzLcLwluKsnPLTAuL4FDVRyz+MikQEihEBsUmcTElEVQ==}
 
   '@colordx/core@5.4.3':
     resolution: {integrity: sha512-kIxYSfA5T8HXjav55UaaH/o/cKivF6jCCGIb8eqtcsfI46wsvlSiT8jMDyrl779qLec3c2c2oHBZo4oAhvbjrQ==}
@@ -12519,8 +12519,8 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
 
-  '@vitest/eslint-plugin@1.6.17':
-    resolution: {integrity: sha512-sIVY9ZeVcXyPxFCNRkIt8Yw4keKIcUyp9/8qnmuomPwE+ST1htw5sZsbqdUMTiah9SmCg1JYoK9RqdDtPeNYYg==}
+  '@vitest/eslint-plugin@1.6.18':
+    resolution: {integrity: sha512-J6U4X0jH3NwTuYouvrJn6I8ypTOU+GhKEjyVwpoPnDuc23usa/xi/R0caWLBbNp3xLy3/rL1YkuJuneTMVV4Mg==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/eslint': '*'
@@ -13310,8 +13310,8 @@ packages:
     resolution: {integrity: sha512-YBjSAiTqM04ZVei6sXighu679a3SqWORA3qZTEqZImnlkDIFtKc6pNutpjyZ8RJTjQtuYfeetkxM11GwoYXMIQ==}
     engines: {node: '>= 0.10'}
 
-  browserify-sign@4.2.5:
-    resolution: {integrity: sha512-C2AUdAJg6rlM2W5QMp2Q4KGQMVBwR1lIimTsUnutJ8bMpW5B52pGpR2gEnNBNwijumDo5FojQ0L9JrXA8m4YEw==}
+  browserify-sign@4.2.6:
+    resolution: {integrity: sha512-sd+Q65fjlWCYWtZKXiKfrUc8d+4jtp/8f0W2NkwzLtoW4bI6UDnWusLWIurHnmurW0XShIRxpwiOX4EoPtXUAg==}
     engines: {node: '>= 0.10'}
 
   browserify-zlib@0.1.4:
@@ -14859,8 +14859,8 @@ packages:
     resolution: {integrity: sha512-w+5mJ3GuFL+NjVtJlvydShqE1eN3h3PbI7/5LAsYJP/2qtuMXjfL2LpHSRqo4b4eSF5K/DH1JXKUAHSB2UW50g==}
     engines: {node: '>= 0.4'}
 
-  es-toolkit@1.46.1:
-    resolution: {integrity: sha512-5eNtXOs3tbfxXOj04tjjseeWkRWaoCjdEI+96DgwzZoe6c9juL49pXlzAFTI72aWC9Y8p7168g6XIKjh7k6pyQ==}
+  es-toolkit@1.47.0:
+    resolution: {integrity: sha512-n1GuoD0WEQZMBk5tttoZSqwgyLx01oqa5XsBmCHwPyNe1S9jPBEmtR2pSgp2kJuWE3ciFZ6yRHmY4pM4C3OOkw==}
 
   es6-object-assign@1.1.0:
     resolution: {integrity: sha512-MEl9uirslVwqQU369iHNWZXsI8yaZYGg/D65aOgZkeyFJwHYSxilf7rQzXKI7DdDuBPrBXbfk3sl9hJhmd5AUw==}
@@ -17968,8 +17968,8 @@ packages:
   markdown-it-container@4.0.0:
     resolution: {integrity: sha512-HaNccxUH0l7BNGYbFbjmGpf5aLHAMTinqRZQAEQbMr2cdD3z91Q6kIo1oUn1CQndkT03jat6ckrdRYuwwqLlQw==}
 
-  markdown-it-deflist@3.0.0:
-    resolution: {integrity: sha512-OxPmQ/keJZwbubjiQWOvKLHwpV2wZ5I3Smc81OjhwbfJsjdRrvD5aLTQxmZzzePeO0kbGzAo3Krk4QLgA8PWLg==}
+  markdown-it-deflist@3.0.1:
+    resolution: {integrity: sha512-pPtXxihDMi9jrwLLQ+Jra/FM20F/FFJWiVjXf0Js6Lwp7LFj+MuK6cUJNMVTRL+n9d/JqF4MEqYZwSMgVodK5g==}
 
   markdown-it-footnote@4.0.0:
     resolution: {integrity: sha512-WYJ7urf+khJYl3DqofQpYfEYkZKbmXmwxQV8c8mO/hGIhgZ1wOe7R4HLFNwqx7TjILbnC98fuyeSsin19JdFcQ==}
@@ -22516,8 +22516,8 @@ packages:
     resolution: {integrity: sha512-kiGUalWN+rgBJ/1OHZsBtU4rXZOfj/7rKQxULKlIzwzQSvMJUUNgPwJEEh7gU6xEVxC0ahoOBvN2YI8GH6FNgA==}
     engines: {node: '>=10.12.0'}
 
-  valibot@1.4.0:
-    resolution: {integrity: sha512-iC/x7fVcSyOwlm/VSt7RlHnzNGLGvR9GnxdifUeWoCJo0q4ZZvrVkIHC6faTlkxG47I2Y4UrFquPuVHCrOnrLg==}
+  valibot@1.4.1:
+    resolution: {integrity: sha512-klCmFTz2jeDluy9RwX+F884TCiogtdBJ/YaxSx1EOBYXa3NXNWj8kR1jjN8rzluwojJVWWaHJ4r1U5LfICnM3g==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -25567,7 +25567,7 @@ snapshots:
   '@cloudflare/workerd-windows-64@1.20260521.1':
     optional: true
 
-  '@cloudflare/workers-types@4.20260523.1': {}
+  '@cloudflare/workers-types@4.20260525.1': {}
 
   '@colordx/core@5.4.3': {}
 
@@ -28506,7 +28506,7 @@ snapshots:
       clipanion: 4.0.0-rc.4(typanion@3.14.0)
       colorette: 2.0.20
       emnapi: 1.10.0(node-addon-api@7.1.1)
-      es-toolkit: 1.46.1
+      es-toolkit: 1.47.0
       js-yaml: 4.1.1
       obug: 2.1.1
       semver: 7.8.1
@@ -31759,7 +31759,7 @@ snapshots:
       markdown-it: 14.2.0
       markdown-it-abbr: 2.0.0
       markdown-it-container: 4.0.0
-      markdown-it-deflist: 3.0.0
+      markdown-it-deflist: 3.0.1
       markdown-it-footnote: 4.0.0
       markdown-it-ins: 4.0.0
       markdown-it-mark: 4.0.0
@@ -32125,7 +32125,7 @@ snapshots:
       chokidar: 4.0.3
       commander: 12.1.0
       defu: 6.1.7
-      es-toolkit: 1.46.1
+      es-toolkit: 1.47.0
       esbuild: 0.25.12
       globby: 14.1.0
     transitivePeerDependencies:
@@ -32163,7 +32163,7 @@ snapshots:
       '@typescript-eslint/parser': 8.59.4(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3)
       '@typescript-eslint/utils': 8.59.4(@types/eslint@9.6.1)(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3)
       '@unocss/eslint-plugin': 66.5.12(@types/eslint@9.6.1)(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3)
-      '@vitest/eslint-plugin': 1.6.17(@types/eslint@9.6.1)(@typescript-eslint/eslint-plugin@8.59.4(@types/eslint@9.6.1)(@typescript-eslint/parser@8.59.4(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3)
+      '@vitest/eslint-plugin': 1.6.18(@types/eslint@9.6.1)(@typescript-eslint/eslint-plugin@8.59.4(@types/eslint@9.6.1)(@typescript-eslint/parser@8.59.4(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3)
       astro-eslint-parser: 1.2.2
       chalk: 4.1.2
       defu: 6.1.7
@@ -32378,7 +32378,7 @@ snapshots:
       '@storm-software/config-tools': 1.190.29(magicast@0.5.3)(zod@4.4.3)
       chokidar: 4.0.3
       commander: 12.1.0
-      es-toolkit: 1.46.1
+      es-toolkit: 1.47.0
       globby: 14.1.0
       nx: 22.7.2(@swc-node/register@1.11.1(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@swc/core@1.15.40(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@6.0.3))(@swc/core@1.15.40(@swc/helpers@0.5.21))
       rolldown: 1.0.0-beta.1(@babel/runtime@7.29.2)
@@ -34577,9 +34577,9 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.12.2':
     optional: true
 
-  '@valibot/to-json-schema@1.7.0(valibot@1.4.0(typescript@6.0.3))':
+  '@valibot/to-json-schema@1.7.0(valibot@1.4.1(typescript@6.0.3))':
     dependencies:
-      valibot: 1.4.0(typescript@6.0.3)
+      valibot: 1.4.1(typescript@6.0.3)
 
   '@verdaccio/auth@8.0.0-next-8.37':
     dependencies:
@@ -34763,7 +34763,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/eslint-plugin@1.6.17(@types/eslint@9.6.1)(@typescript-eslint/eslint-plugin@8.59.4(@types/eslint@9.6.1)(@typescript-eslint/parser@8.59.4(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3)':
+  '@vitest/eslint-plugin@1.6.18(@types/eslint@9.6.1)(@typescript-eslint/eslint-plugin@8.59.4(@types/eslint@9.6.1)(@typescript-eslint/parser@8.59.4(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3))(eslint@9.39.4(@types/eslint@9.6.1)(jiti@2.7.0))(typescript@6.0.3)':
     dependencies:
       '@types/eslint': 9.6.1
       '@typescript-eslint/scope-manager': 8.59.4
@@ -35827,7 +35827,7 @@ snapshots:
       randombytes: 2.1.0
       safe-buffer: 5.2.1
 
-  browserify-sign@4.2.5:
+  browserify-sign@4.2.6:
     dependencies:
       bn.js: 5.2.3
       browserify-rsa: 4.1.1
@@ -36752,7 +36752,7 @@ snapshots:
   crypto-browserify@3.12.0:
     dependencies:
       browserify-cipher: 1.0.1
-      browserify-sign: 4.2.5
+      browserify-sign: 4.2.6
       create-ecdh: 4.0.4
       create-hash: 1.2.0
       create-hmac: 1.1.7
@@ -37159,14 +37159,14 @@ snapshots:
 
   devframe@0.1.22(typescript@6.0.3):
     dependencies:
-      '@valibot/to-json-schema': 1.7.0(valibot@1.4.0(typescript@6.0.3))
+      '@valibot/to-json-schema': 1.7.0(valibot@1.4.1(typescript@6.0.3))
       birpc: 4.0.0
       cac: 7.0.0
       h3: 1.15.11
       logs-sdk: 0.0.6
       mrmime: 2.0.1
       pathe: 2.0.3
-      valibot: 1.4.0(typescript@6.0.3)
+      valibot: 1.4.1(typescript@6.0.3)
       ws: 8.21.0
     transitivePeerDependencies:
       - bufferutil
@@ -37582,7 +37582,7 @@ snapshots:
       is-date-object: 1.1.0
       is-symbol: 1.1.1
 
-  es-toolkit@1.46.1: {}
+  es-toolkit@1.47.0: {}
 
   es6-object-assign@1.1.0: {}
 
@@ -41849,7 +41849,7 @@ snapshots:
 
   markdown-it-container@4.0.0: {}
 
-  markdown-it-deflist@3.0.0: {}
+  markdown-it-deflist@3.0.1: {}
 
   markdown-it-footnote@4.0.0: {}
 
@@ -47939,7 +47939,7 @@ snapshots:
       '@types/istanbul-lib-coverage': 2.0.6
       convert-source-map: 2.0.0
 
-  valibot@1.4.0(typescript@6.0.3):
+  valibot@1.4.1(typescript@6.0.3):
     optionalDependencies:
       typescript: 6.0.3
 
@@ -48429,7 +48429,7 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20260521.1
       '@cloudflare/workerd-windows-64': 1.20260521.1
 
-  wrangler@4.94.0(@cloudflare/workers-types@4.20260523.1):
+  wrangler@4.94.0(@cloudflare/workers-types@4.20260525.1):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.5.0
       '@cloudflare/unenv-preset': 2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260521.1)
@@ -48441,7 +48441,7 @@ snapshots:
       unenv: 2.0.0-rc.24
       workerd: 1.20260521.1
     optionalDependencies:
-      '@cloudflare/workers-types': 4.20260523.1
+      '@cloudflare/workers-types': 4.20260525.1
       fsevents: 2.3.3
     transitivePeerDependencies:
       - bufferutil

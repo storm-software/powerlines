@@ -63,6 +63,58 @@ export type JsonSchemaPrimitiveType =
 export type JsonSchemaType = (typeof JSON_SCHEMA_TYPES)[number];
 
 /**
+ * Semantic format names for JSON Schema integer types.
+ */
+export type JsonSchemaIntegerFormat =
+  | "int8"
+  | "uint8"
+  | "int16"
+  | "uint16"
+  | "int32"
+  | "uint32"
+  | "int64"
+  | "uint64";
+
+/**
+ * Semantic format names for JSON Schema decimal types.
+ */
+export type JsonSchemaDecimalFormat = "float" | "double";
+
+/**
+ * Semantic format names for JSON Schema numeric types, including both integer and decimal formats.
+ */
+export type JsonSchemaNumberFormat =
+  | JsonSchemaDecimalFormat
+  | JsonSchemaIntegerFormat;
+
+/**
+ * Semantic format names for JSON Schema string types.
+ */
+export type JsonSchemaStringFormat =
+  | "binary"
+  | "date"
+  | "time"
+  | "date-time"
+  | "iso-time"
+  | "iso-date-time"
+  | "duration"
+  | "uri"
+  | "uri-reference"
+  | "uri-template"
+  | "url"
+  | "email"
+  | "hostname"
+  | "ipv4"
+  | "ipv6"
+  | "regex"
+  | "uuid"
+  | "json-pointer"
+  | "json-pointer-uri-fragment"
+  | "relative-json-pointer"
+  | "byte"
+  | "password";
+
+/**
  * Metadata and annotation keywords shared across JSON Schema shapes.
  *
  * @see https://json-schema.org/draft/2020-12/json-schema-core#section-8
@@ -691,16 +743,7 @@ export interface JsonSchemaNumber extends JsonSchemaKeywords {
   /**
    * Optional semantic format for numeric values.
    */
-  format?:
-    | "int32"
-    | "float"
-    | "double"
-    | "int8"
-    | "uint8"
-    | "int16"
-    | "uint16"
-    | "uint64"
-    | string;
+  format?: JsonSchemaNumberFormat | string;
 
   /**
    * Inclusive lower bound for numeric values.
@@ -752,7 +795,7 @@ export interface JsonSchemaInteger extends JsonSchemaNumber {
   /**
    * Optional integer-specific format.
    */
-  format?: "int32" | "int8" | "uint8" | "int16" | "uint16" | "uint64" | string;
+  format?: JsonSchemaIntegerFormat | string;
 }
 
 /**
@@ -767,7 +810,7 @@ export interface JsonSchemaDecimal extends JsonSchemaNumber {
   /**
    * Optional floating-point format.
    */
-  format?: "float" | "double" | string;
+  format?: JsonSchemaDecimalFormat | string;
 }
 
 /**
@@ -892,34 +935,7 @@ export interface JsonSchemaString extends JsonSchemaKeywords {
    * @remarks
    * The `format` property is a string that specifies the format of the data that the schema represents. It can be used to indicate that a string should be validated as an email address, a date-time, a URI, or any other format supported by compatible validation libraries. The presence of this property does not affect the validation behavior of the schema itself, but it can provide additional context or information about the expected data when used in conjunction with compatible tools.
    */
-  format?:
-    | "date"
-    | "time"
-    | "date-time"
-    | "iso-time"
-    | "iso-date-time"
-    | "duration"
-    | "uri"
-    | "uri-reference"
-    | "uri-template"
-    | "url"
-    | "email"
-    | "hostname"
-    | "ipv4"
-    | "ipv6"
-    | "regex"
-    | "uuid"
-    | "json-pointer"
-    | "json-pointer-uri-fragment"
-    | "relative-json-pointer"
-    | "byte"
-    | "int32"
-    | "int64"
-    | "float"
-    | "double"
-    | "password"
-    | "binary"
-    | string;
+  format?: JsonSchemaStringFormat | string;
 
   /**
    * A keyword that is used to specify a default value for a property in a JSON Schema. It provides a default value that can be used when an instance does not provide a value for that property.
