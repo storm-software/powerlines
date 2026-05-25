@@ -1603,6 +1603,9 @@ importers:
       '@alloy-js/typescript':
         specifier: 'catalog:'
         version: 0.23.0
+      '@babel/preset-typescript':
+        specifier: 'catalog:'
+        version: 8.0.0-rc.6(@babel/core@7.29.7)
       '@powerlines/deepkit':
         specifier: workspace:*
         version: link:../../base/deepkit
@@ -1655,9 +1658,6 @@ importers:
         specifier: 'catalog:'
         version: 2.5.0
     devDependencies:
-      '@babel/preset-typescript':
-        specifier: 'catalog:'
-        version: 8.0.0-rc.6(@babel/core@7.29.7)
       '@powerlines/plugin-plugin':
         specifier: workspace:*
         version: link:../plugin-plugin

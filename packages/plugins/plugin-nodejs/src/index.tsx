@@ -20,7 +20,7 @@ import { isMatchFound } from "@powerlines/core/lib/typescript";
 import { render } from "@powerlines/plugin-alloy/render";
 import babel from "@powerlines/plugin-babel";
 import env from "@powerlines/plugin-env";
-import { readEnvTypeReflection } from "@powerlines/plugin-env/helpers/persistence";
+import { extractEnv } from "@powerlines/plugin-env/helpers";
 import { Plugin } from "powerlines";
 import { NodeJsEnvBuiltin } from "./components/env-builtin";
 import { NodeJsPluginContext, NodeJsPluginOptions } from "./types/plugin";
@@ -59,14 +59,11 @@ export const plugin = <
         }
       },
       async prepare() {
-        const result = await readEnvTypeReflection(this, "env");
+        await extractEnv(this);
 
         return render(
           this,
-          <NodeJsEnvBuiltin
-            defaultConfig={this.config.env.defaultConfig}
-            reflection={result}
-          />
+          <NodeJsEnvBuiltin defaultConfig={this.config.env.defaultConfig} />
         );
       }
     }
