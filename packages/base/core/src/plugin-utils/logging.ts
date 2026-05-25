@@ -344,13 +344,19 @@ const validateLogger = (
             message: `${
               (message instanceof Error ? message : message.error)?.message
                 ? (message instanceof Error ? message : message.error)?.name
-                  ? `[${message.name}]: ${message.message}`
-                  : message.message
-                : JSON.stringify(message)
+                  ? `[${
+                      (message instanceof Error ? message : message.error)?.name
+                    }]: ${message.message || (message instanceof Error ? message : message.error)?.message}`
+                  : message.message ||
+                    (message instanceof Error ? message : message.error)
+                      ?.message
+                : message.message
+                  ? message.message
+                  : JSON.stringify(message)
             }${
               (message instanceof Error ? message : message.error)?.stack
                 ? `
-Stack Trace: ${message.stack}`
+Stack Trace: ${(message instanceof Error ? message : message.error)?.stack}`
                 : ""
             }`,
             meta: {
