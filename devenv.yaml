@@ -4,7 +4,7 @@ inputs:
   nixpkgs-unstable:
     url: github:nixos/nixpkgs/nixpkgs-unstable
   storm-ops:
-    url: github:storm-software/storm-ops?ref=main
+    url: github:storm-software/storm-ops
     flake: false
   treefmt-nix:
     url: github:numtide/treefmt-nix
