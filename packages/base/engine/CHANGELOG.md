@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.14](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.14) (05/25/2026)
+
+### Bug Fixes
+
+- **engine:** Resolve issue applying API command handlers ([15a91da51](https://github.com/storm-software/powerlines/commit/15a91da51))
+- **engine:** Resolve issue invoking commands in API worker ([0161cfbaf](https://github.com/storm-software/powerlines/commit/0161cfbaf))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.13**
+
 ## [0.49.13](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.13) (05/25/2026)
 
 ### Miscellaneous
