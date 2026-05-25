@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.599](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.599) (05/25/2026)
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.10**
+- Updated **deepkit** to **v0.9.42**
+- Updated **plugin-alloy** to **v0.26.154**
+- Updated **plugin-babel** to **v0.13.62**
+- Updated **plugin-env** to **v0.16.264**
+- Updated **plugin-plugin** to **v0.12.478**
+- Updated **plugin-vite** to **v0.14.520**
+- Updated **powerlines** to **v0.47.66**
+
 ## [0.1.598](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.598) (05/25/2026)
 
 ### Updated Dependencies
