@@ -319,7 +319,7 @@
     "@types/node": "catalog:"
   },
   "peerDependencies": {
-    "@babel/preset-typescript": "8.0.0-rc5",
+    "@babel/preset-typescript": "8.0.0-rc.6",
     "@alloy-js/babel-preset": ">=0.3.0"
   },
   "peerDependenciesMeta": {
