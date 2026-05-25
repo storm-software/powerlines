@@ -109,8 +109,8 @@
     "@types/node": "catalog:"
   },
   "peerDependencies": {
-    "@babel/plugin-syntax-jsx": ">=8.0.0-rc.5",
-    "@babel/plugin-syntax-typescript": ">=8.0.0-rc.5"
+    "@babel/plugin-syntax-jsx": ">=8.0.0-rc.6",
+    "@babel/plugin-syntax-typescript": ">=8.0.0-rc.6"
   },
   "peerDependenciesMeta": {
     "@babel/plugin-syntax-jsx": {
