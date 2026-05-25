@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.47](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.47) (05/25/2026)
+
+### Miscellaneous
+
+- **schema:** Added `JsonSchemaLike` type definition ([be5fdface](https://github.com/storm-software/powerlines/commit/be5fdface))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.8**
+- Updated **deepkit** to **v0.9.40**
+- Updated **unplugin** to **v0.0.56**
+
 ## [0.11.46](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.46) (05/23/2026)
 
 ### Source Code Improvements
