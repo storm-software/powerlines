@@ -461,22 +461,26 @@ export class ExecutionHostWorker<TExecutionAPI extends ReadonlyArray<string>> {
         POWERLINES_EXECUTION_HOST_WORKER: "true"
       };
 
-      if (env.FORCE_COLOR === undefined) {
-        // Mirror the enablement heuristic from picocolors (see https://github.com/vercel/next.js/blob/6a40da0345939fe4f7b1ae519b296a86dd103432/packages/next/src/lib/picocolors.ts#L21-L24).
-        // Picocolors snapshots `process.env`/`stdout.isTTY` at module load time, so when the worker
-        // process bootstraps with piped stdio its own check would disable colors. Re-evaluating the
-        // same conditions here lets us opt the worker into color output only when the parent would
-        // have seen colors, while still respecting explicit opt-outs like NO_COLOR.
-        const supportsColors =
-          !env.NO_COLOR &&
-          !env.CI &&
-          env.TERM !== "dumb" &&
-          (process.stdout.isTTY || process.stderr?.isTTY);
-
-        if (supportsColors) {
-          env.FORCE_COLOR = "1";
-        }
+      // Mirror the enablement heuristic from picocolors (see https://github.com/vercel/next.js/blob/6a40da0345939fe4f7b1ae519b296a86dd103432/packages/next/src/lib/picocolors.ts#L21-L24).
+      // Picocolors snapshots `process.env`/`stdout.isTTY` at module load time, so when the worker
+      // process bootstraps with piped stdio its own check would disable colors. Re-evaluating the
+      // same conditions here lets us opt the worker into color output only when the parent would
+      // have seen colors, while still respecting explicit opt-outs like NO_COLOR.
+      if (
+        env.FORCE_COLOR === undefined &&
+        !env.NO_COLOR &&
+        !env.CI &&
+        env.TERM !== "dumb" &&
+        (process.stdout.isTTY || process.stderr?.isTTY)
+      ) {
+        env.FORCE_COLOR = "1";
       }
+
+      logger.debug(
+        `Creating worker from file ${
+          executionHostPath
+        } with execution arguments: ${JSON.stringify(execArgv, null, 2)}`
+      );
 
       this.#worker = new Piscina({
         filename: executionHostPath,
