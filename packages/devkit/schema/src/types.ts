@@ -1216,6 +1216,94 @@ export type JsonSchema =
   | JsonSchemaSet;
 
 /**
+ * An object containing common JSON Schema metadata properties that can be included in any schema type. This interface is used to define the shared metadata properties that can be present in all JSON Schema types, such as `$id`, `$schema`, `title`, `description`, and others. It serves as a base for all specific JSON Schema types, allowing them to include these common metadata properties without having to redefine them in each type.
+ */
+export interface JsonSchemaLike extends JsonSchemaKeywords {
+  $id?: string;
+  $schema?: string;
+  $vocabulary?: Record<string, boolean>;
+  $comment?: string;
+  $anchor?: string;
+  $defs?: Record<string, JsonSchema>;
+  $dynamicRef?: string;
+  $dynamicAnchor?: string;
+  $ref?: string;
+
+  name?: string;
+  title?: string;
+  description?: string;
+  docs?: string;
+  examples?: unknown[];
+  alias?: string[];
+  tags?: string[];
+  deprecated?:
+    | boolean
+    | string
+    | { message?: string; since?: string; alternative?: string };
+  hidden?: boolean;
+  ignore?: boolean;
+  internal?: boolean;
+  runtime?: boolean;
+  readOnly?: boolean;
+  writeOnly?: boolean;
+
+  type?:
+    | JsonSchemaType
+    | JsonSchemaType[]
+    | JsonSchemaPrimitiveType
+    | JsonSchemaPrimitiveType[]
+    | [Exclude<JsonSchemaType, "null">, "null"]
+    | ["null", Exclude<JsonSchemaType, "null">];
+  const?: unknown;
+  enum?: (string | number | bigint | boolean | null)[];
+  format?: string;
+  default?: unknown;
+
+  allOf?: JsonSchema[];
+  anyOf?: JsonSchema[] | [JsonSchema, JsonSchemaNull];
+  oneOf?: JsonSchema[];
+  not?: JsonSchema;
+  if?: JsonSchema;
+  then?: JsonSchema;
+  else?: JsonSchema;
+
+  properties?: Record<string, JsonSchema>;
+  patternProperties?: Record<string, JsonSchema>;
+  additionalProperties?: boolean | JsonSchema;
+  required?: string[];
+  propertyNames?: JsonSchemaRecordPropertyNames;
+  dependencies?: Record<string, string[] | JsonSchema>;
+  dependentRequired?: Record<string, string[]>;
+  dependentSchemas?: Record<string, JsonSchema>;
+  minProperties?: number;
+  maxProperties?: number;
+  primaryKey?: string[];
+  databaseSchema?: string;
+  unevaluatedProperties?: boolean | JsonSchema;
+
+  prefixItems?: JsonSchema[];
+  items?: JsonSchema | JsonSchemaMap["items"];
+  contains?: JsonSchema;
+  minItems?: number;
+  maxItems?: number;
+  uniqueItems?: boolean;
+  minContains?: number;
+  maxContains?: number;
+  unevaluatedItems?: boolean | JsonSchema;
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string;
+  contentMediaType?: string;
+  contentEncoding?: string;
+  contentSchema?: string;
+  minimum?: number | bigint;
+  exclusiveMinimum?: number | bigint;
+  maximum?: number | bigint;
+  exclusiveMaximum?: number | bigint;
+  multipleOf?: number | bigint;
+}
+
+/**
  * Supported source variants from which a schema can be extracted.
  */
 export type SchemaSourceVariant =
