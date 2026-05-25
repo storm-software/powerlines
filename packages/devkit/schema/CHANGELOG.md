@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.48](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.48) (05/25/2026)
+
+### Miscellaneous
+
+- **schema:** Added various format types to exports ([52a1c2946](https://github.com/storm-software/powerlines/commit/52a1c2946))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.9**
+- Updated **deepkit** to **v0.9.41**
+- Updated **unplugin** to **v0.0.57**
+
 ## [0.11.47](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.47) (05/25/2026)
 
 ### Miscellaneous
