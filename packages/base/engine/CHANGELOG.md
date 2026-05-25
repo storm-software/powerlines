@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.13](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.13) (05/25/2026)
+
+### Miscellaneous
+
+- **engine:** Added debug logging to execution host worker class ([1166a04e8](https://github.com/storm-software/powerlines/commit/1166a04e8))
+
 ## [0.49.12](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.12) (05/25/2026)
 
 ### Updated Dependencies
