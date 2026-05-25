@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.46](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.46) (05/23/2026)
+
+### Source Code Improvements
+
+- **schema:** Overhaul of `JsonSchema` type definition ([ceb7465ec](https://github.com/storm-software/powerlines/commit/ceb7465ec))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.7**
+- Updated **deepkit** to **v0.9.39**
+- Updated **unplugin** to **v0.0.55**
+
 ## [0.11.45](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.45) (05/22/2026)
 
 ### Bug Fixes
