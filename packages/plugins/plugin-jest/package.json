@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-jest",
-  "version": "0.1.535",
+  "version": "0.1.536",
   "type": "module",
   "description": "A package containing the Jest testing plugin for Powerlines.",
   "repository": {

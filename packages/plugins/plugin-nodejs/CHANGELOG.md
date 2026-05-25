@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.466](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.466) (05/25/2026)
+
+### Bug Fixes
+
+- **plugin-nodejs:** Resolve issue with invalid package export ([d50787bf2](https://github.com/storm-software/powerlines/commit/d50787bf2))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.11**
+- Updated **plugin-alloy** to **v0.26.155**
+- Updated **plugin-babel** to **v0.13.63**
+- Updated **plugin-env** to **v0.16.265**
+- Updated **plugin-plugin** to **v0.12.479**
+- Updated **powerlines** to **v0.47.67**
+
 ## [0.1.465](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.465) (05/25/2026)
 
 ### Updated Dependencies

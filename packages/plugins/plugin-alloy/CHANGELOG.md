@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.155](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.155) (05/25/2026)
+
+### Bug Fixes
+
+- **plugin-nodejs:** Resolve issue with invalid package export ([d50787bf2](https://github.com/storm-software/powerlines/commit/d50787bf2))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.9.43**
+- Updated **plugin-babel** to **v0.13.63**
+- Updated **plugin-plugin** to **v0.12.479**
+- Updated **powerlines** to **v0.47.67**
+- Updated **schema** to **v0.11.50**
+
 ## [0.26.154](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.154) (05/25/2026)
 
 ### Updated Dependencies
