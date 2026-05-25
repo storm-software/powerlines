@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.12](https://github.com/storm-software/powerlines/releases/tag/core%400.48.12) (05/25/2026)
+
+### Miscellaneous
+
+- **engine:** Clean up error logging logic ([0b0d4b7e9](https://github.com/storm-software/powerlines/commit/0b0d4b7e9))
+
 ## [0.48.3](https://github.com/storm-software/powerlines/releases/tag/core%400.48.3) (05/22/2026)
 
 ### Bug Fixes
