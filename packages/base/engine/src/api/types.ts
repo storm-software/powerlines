@@ -30,6 +30,7 @@ import { formatLogMessage } from "@storm-software/config-tools/logger";
 import { toArray } from "@stryke/convert/to-array";
 import { createDirectory } from "@stryke/fs/helpers";
 import { omit } from "@stryke/helpers/omit";
+import { replacePath } from "@stryke/path/replace";
 import { isObject } from "@stryke/type-checks/is-object";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { EngineResolvedConfig } from "../types/config";
@@ -71,20 +72,26 @@ export async function types<
     });
 
     if (env.entry.length > 0) {
+      const entriesLength = isObject(env.config.input)
+        ? Object.keys(env.config.input).length
+        : toArray(env.config.input).length;
       env.debug(
-        `The configuration provided ${
-          isObject(env.config.input)
-            ? Object.keys(env.config.input).length
-            : toArray(env.config.input).length
-        } entry point(s), Powerlines has found ${
-          env.entry.length
-        } entry files(s) for the ${env.config.title} project${
+        `The configuration provided ${entriesLength} entry point${
+          entriesLength !== 1 ? "s" : ""
+        }, Powerlines has found ${env.entry.length} entry file${
+          env.entry.length !== 1 ? "s" : ""
+        } for the ${env.config.title} project${
           env.entry.length > 0 && env.entry.length < 10
             ? `: \n${env.entry
                 .map(
                   entry =>
-                    `- ${entry.file}${
-                      entry.output ? ` -> ${entry.output}` : ""
+                    `- ${replacePath(entry.file, context.config.root)}${
+                      entry.output
+                        ? ` -> ${replacePath(
+                            entry.output,
+                            context.config.root
+                          )}`
+                        : ""
                     }`
                 )
                 .join(" \n")}`
