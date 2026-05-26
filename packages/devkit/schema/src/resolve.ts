@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { PluginContext, UnresolvedContext } from "@powerlines/core";
-import { rolldownPlugin } from "@powerlines/deepkit/rolldown-plugin";
+import { esbuildPlugin } from "@powerlines/deepkit/esbuild-plugin";
 import { reflect, Type } from "@powerlines/deepkit/vendor/type";
 import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
 import { findFileDotExtension } from "@stryke/path/find";
@@ -58,8 +58,9 @@ export async function resolveModule<
 
   let resolved: any;
   try {
-    resolved = await context.resolver.evalModule(result.code, {
-      ext: findFileDotExtension(result.fileName)
+    resolved = await context.resolver.evalModule(result.text, {
+      filename: result.path,
+      ext: findFileDotExtension(result.path)
     });
   } catch (error) {
     if (
@@ -82,7 +83,7 @@ export async function resolveModule<
             ? `
 
 Bundle output for module:
-${result.code}`
+${result.text}`
             : ""
         }`
       );
@@ -97,7 +98,7 @@ ${result.code}`
           ? `
 
 Bundle output for module:
-${result.code}`
+${result.text}`
           : ""
       }`
     );
@@ -183,7 +184,7 @@ export async function resolveReflection<
       input,
       defu(options, {
         plugins: [
-          rolldownPlugin(context, {
+          esbuildPlugin(context, {
             reflection: "default",
             level: "all"
           })
