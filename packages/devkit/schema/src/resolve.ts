@@ -59,7 +59,6 @@ export async function resolveModule<
   let resolved: any;
   try {
     resolved = await context.resolver.evalModule(result.code, {
-      filename: result.fileName,
       ext: findFileDotExtension(result.fileName)
     });
   } catch (error) {

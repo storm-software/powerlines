@@ -198,7 +198,6 @@ export function resolveOptions<TContext extends UnresolvedContext>(
       resolve: {
         alias: context.alias,
         mainFields: context.config.resolve.mainFields,
-        conditions: context.config.resolve.conditions,
         define: context.config.define,
         extensions: context.config.resolve.extensions
       },

@@ -65,7 +65,6 @@ export async function bundle<TContext extends UnresolvedContext>(
   const resolvedOptions = resolveOptions(context);
 
   const result = await build({
-    bundle: true,
     platform: "node",
     ...resolvedOptions,
     ...userOptions,
