@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.17](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.17) (05/26/2026)
+
+### Bug Fixes
+
+- **engine:** Ensure `--no-experimental-strip-types` is passed in node options ([fa4d28964](https://github.com/storm-software/powerlines/commit/fa4d28964))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.16**
+
 ## [0.49.16](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.16) (05/26/2026)
 
 ### Updated Dependencies
