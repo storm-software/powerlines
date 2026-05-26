@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.66](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.66) (05/25/2026)
+
+### Bug Fixes
+
+- **engine:** Resolve issue applying API command handlers ([15a91da51](https://github.com/storm-software/powerlines/commit/15a91da51))
+- **engine:** Resolve issue invoking commands in API worker ([0161cfbaf](https://github.com/storm-software/powerlines/commit/0161cfbaf))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.13**
+- Updated **powerlines** to **v0.47.70**
+
 ## [0.13.65](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.65) (05/25/2026)
 
 ### Updated Dependencies

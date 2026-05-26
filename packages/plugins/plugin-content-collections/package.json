@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-content-collections",
-  "version": "0.1.530",
+  "version": "0.1.531",
   "private": false,
   "description": "A Powerlines plugin to generate project code using Content Collections.",
   "keywords": [
