@@ -195,22 +195,6 @@ export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
       );
     }
 
-    // let commands = toArray((options.commands ?? []) as string[]);
-    // if (commands.length === 0) {
-    //   const jiti = createJiti(import.meta.url, {
-    //     cache: false,
-    //     interopDefault: true,
-    //     tsconfigPaths: true
-    //   });
-    //   const mod: Record<string, AnyFunction> = await jiti.import(
-    //     jiti.esmResolve(resolvedPath),
-    //     { default: true }
-    //   );
-    //   if (isSetObject(mod)) {
-    //     commands = Object.keys(mod).filter(name => isFunction(mod[name]));
-    //   }
-    // }
-
     return new ExecutionApiWorker(resolvedPath, {
       mode,
       ...options
@@ -427,6 +411,11 @@ export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
       } else {
         nodeOptionsParts.push(formatted);
       }
+    }
+
+    // Issue: https://github.com/nodejs/node/issues/59706
+    if (!nodeOptionsParts.includes("--no-experimental-strip-types")) {
+      nodeOptionsParts.push("--no-experimental-strip-types");
     }
 
     this.#createWorker = () => {
