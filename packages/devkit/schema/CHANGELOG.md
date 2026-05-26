@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.54](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.54) (05/25/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue with `bundle` implementation ([5e7601693](https://github.com/storm-software/powerlines/commit/5e7601693))
+
 ## [0.11.53](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.53) (05/25/2026)
 
 ### Bug Fixes
