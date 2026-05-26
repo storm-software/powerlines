@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.62](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.62) (05/25/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue running eval on bundled module ([bb1a9c421](https://github.com/storm-software/powerlines/commit/bb1a9c421))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.14**
+
 ## [0.0.61](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.61) (05/25/2026)
 
 ### Updated Dependencies

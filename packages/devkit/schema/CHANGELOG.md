@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.53](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.53) (05/25/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue running eval on bundled module ([bb1a9c421](https://github.com/storm-software/powerlines/commit/bb1a9c421))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.14**
+- Updated **deepkit** to **v0.9.46**
+- Updated **unplugin** to **v0.0.62**
+
 ## [0.11.52](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.52) (05/25/2026)
 
 ### Updated Dependencies

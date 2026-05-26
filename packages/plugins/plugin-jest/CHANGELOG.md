@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Jest
 
+## [0.1.540](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.540) (05/25/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.483**
+- Updated **powerlines** to **v0.47.71**
+
 ## [0.1.539](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.539) (05/25/2026)
 
 ### Updated Dependencies
