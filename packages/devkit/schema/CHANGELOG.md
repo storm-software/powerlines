@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.55](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.55) (05/26/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue with invalid plugin provided to `bundle` function ([c4b5a10a3](https://github.com/storm-software/powerlines/commit/c4b5a10a3))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.15**
+- Updated **deepkit** to **v0.9.47**
+- Updated **unplugin** to **v0.0.63**
+
 ## [0.11.54](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.54) (05/25/2026)
 
 ### Bug Fixes
