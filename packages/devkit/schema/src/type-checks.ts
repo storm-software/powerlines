@@ -18,9 +18,11 @@
 
 import type { StandardSchemaV1 } from "@standard-schema/spec";
 import { isFunction, isSetObject, isSetString } from "@stryke/type-checks";
-import {
+import type {
+  FunctionArg as UntypedFunctionArg,
   InputObject as UntypedInputObject,
-  Schema as UntypedSchema
+  Schema as UntypedSchema,
+  TypeDescriptor as UntypedTypeDescriptor
 } from "untyped";
 import type { BaseSchema } from "valibot";
 import { JSON_SCHEMA_PRIMITIVE_TYPES, JSON_SCHEMA_TYPES } from "./constants";
@@ -128,6 +130,95 @@ const DATE_FORMAT_SET = new Set([
 
 const isSetBigint = (value: unknown): value is bigint =>
   typeof value === "bigint";
+
+type UntypedJSType =
+  | "string"
+  | "number"
+  | "bigint"
+  | "boolean"
+  | "symbol"
+  | "function"
+  | "object"
+  | "any"
+  | "array";
+
+const UNTYPED_TYPE_NAME_SET = new Set<UntypedJSType>([
+  "string",
+  "number",
+  "bigint",
+  "boolean",
+  "symbol",
+  "function",
+  "object",
+  "any",
+  "array"
+]);
+
+const isUntypedJSType = (value: unknown): value is UntypedJSType =>
+  isSetString(value) && UNTYPED_TYPE_NAME_SET.has(value as UntypedJSType);
+
+const isUntypedTypeDescriptor = (
+  value: unknown
+): value is UntypedTypeDescriptor => {
+  if (!isSetObject(value)) {
+    return false;
+  }
+
+  const descriptor = value as Record<string, unknown>;
+  if (
+    descriptor.type !== undefined &&
+    !(
+      (isSetString(descriptor.type) && isUntypedJSType(descriptor.type)) ||
+      (Array.isArray(descriptor.type) &&
+        descriptor.type.every(item => isUntypedJSType(item)))
+    )
+  ) {
+    return false;
+  }
+
+  if (descriptor.tsType !== undefined && !isSetString(descriptor.tsType)) {
+    return false;
+  }
+
+  if (
+    descriptor.markdownType !== undefined &&
+    !isSetString(descriptor.markdownType)
+  ) {
+    return false;
+  }
+
+  if (
+    descriptor.items !== undefined &&
+    !(
+      isUntypedTypeDescriptor(descriptor.items) ||
+      (Array.isArray(descriptor.items) &&
+        descriptor.items.every(item => isUntypedTypeDescriptor(item)))
+    )
+  ) {
+    return false;
+  }
+
+  return true;
+};
+
+const isUntypedFunctionArg = (value: unknown): value is UntypedFunctionArg => {
+  if (!isUntypedTypeDescriptor(value)) {
+    return false;
+  }
+
+  const arg = value as Record<string, unknown>;
+  if (arg.name !== undefined && !isSetString(arg.name)) {
+    return false;
+  }
+
+  return arg.optional === undefined || typeof arg.optional === "boolean";
+};
+
+const isRecordOfUntypedSchema = (
+  value: unknown
+): value is Record<string, UntypedSchema> =>
+  isSetObject(value) &&
+  Object.values(value).every(item => isUntypedSchema(item));
 
 const isArrayOf = <T>(
   value: unknown,
@@ -1084,7 +1175,19 @@ export function isUntypedSchema(input: unknown): input is UntypedSchema {
   }
 
   const schema = input as Record<string, unknown>;
+  if (!isUntypedTypeDescriptor(schema)) {
+    return false;
+  }
   if ("id" in schema && !isSetString(schema.id)) {
+    return false;
+  }
+  if ("resolve" in schema && !isFunction(schema.resolve)) {
+    return false;
+  }
+  if ("properties" in schema && !isRecordOfUntypedSchema(schema.properties)) {
+    return false;
+  }
+  if ("required" in schema && !isStringArray(schema.required)) {
     return false;
   }
   if ("title" in schema && !isSetString(schema.title)) {
@@ -1096,36 +1199,35 @@ export function isUntypedSchema(input: unknown): input is UntypedSchema {
   if ("$schema" in schema && !isSetString(schema.$schema)) {
     return false;
   }
-  if ("tsType" in schema && !isSetString(schema.tsType)) {
-    return false;
-  }
-  if ("markdownType" in schema && !isSetString(schema.markdownType)) {
+  if ("tags" in schema && !isStringArray(schema.tags)) {
     return false;
   }
   if (
-    "type" in schema &&
-    !isSetString(schema.type) &&
-    !Array.isArray(schema.type)
+    "args" in schema &&
+    (!Array.isArray(schema.args) ||
+      !schema.args.every(item => isUntypedFunctionArg(item)))
   ) {
     return false;
   }
-  if ("required" in schema && !Array.isArray(schema.required)) {
-    return false;
-  }
-  if ("tags" in schema && !Array.isArray(schema.tags)) {
-    return false;
-  }
-  if ("args" in schema && !Array.isArray(schema.args)) {
-    return false;
-  }
-  if ("properties" in schema && !isSetObject(schema.properties)) {
-    return false;
-  }
-  if ("resolve" in schema && !isFunction(schema.resolve)) {
+  if ("returns" in schema && !isUntypedTypeDescriptor(schema.returns)) {
     return false;
   }
 
   return true;
+}
+
+/**
+ * Strict type guard for untyped schema objects.
+ *
+ * @remarks
+ * This guard narrows values to the Untyped schema model while explicitly
+ * rejecting values that are also valid JSON Schema instances.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is an untyped schema and not a JSON Schema.
+ */
+export function isUntypedSchemaStrict(input: unknown): input is UntypedSchema {
+  return isUntypedSchema(input) && !isJsonSchema(input);
 }
 
 /**
@@ -1147,6 +1249,35 @@ export function isUntypedInput(input: unknown): input is UntypedInputObject {
     return false;
   }
   if ("$resolve" in inputObject && !isFunction(inputObject.$resolve)) {
+    return false;
+  }
+
+  return true;
+}
+
+/**
+ * Strict type guard for untyped input objects.
+ *
+ * @remarks
+ * This guard narrows values to the Untyped input-object model while
+ * explicitly rejecting values that are valid JSON Schema objects.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is an untyped input object and not JSON Schema.
+ */
+export function isUntypedInputStrict(
+  input: unknown
+): input is UntypedInputObject {
+  if (!isUntypedInput(input) || isJsonSchema(input)) {
+    return false;
+  }
+
+  const inputObject = input as Record<string, unknown>;
+  if (
+    "$schema" in inputObject &&
+    inputObject.$schema !== undefined &&
+    !isUntypedSchemaStrict(inputObject.$schema)
+  ) {
     return false;
   }
 

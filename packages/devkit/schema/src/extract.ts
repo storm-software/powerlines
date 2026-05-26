@@ -44,7 +44,9 @@ import {
   isSchema,
   isSchemaWithSource,
   isUntypedInput,
+  isUntypedInputStrict,
   isUntypedSchema,
+  isUntypedSchemaStrict,
   isValibotSchema
 } from "./type-checks";
 import {
@@ -478,7 +480,15 @@ export function extractReflection(reflection: Type): JsonSchema | undefined {
 export function extractJsonSchema(schema: unknown): JsonSchema | undefined {
   if (isSetObject(schema)) {
     if (isZod3Type(schema)) {
-      return extractJsonSchemaZod(schema) as JsonSchema;
+      return extractJsonSchemaZod(schema, {
+        target: "draft-2020-12"
+      }) as JsonSchema;
+    }
+    if (isUntypedInputStrict(schema)) {
+      return convertUntypedInputToJsonSchema(schema);
+    }
+    if (isUntypedSchemaStrict(schema)) {
+      return convertUntypedSchemaToJsonSchema(schema);
     }
     if (isStandardJsonSchema(schema)) {
       return schema["~standard"].jsonSchema.input({
@@ -487,12 +497,6 @@ export function extractJsonSchema(schema: unknown): JsonSchema | undefined {
     }
     if (isValibotSchema(schema)) {
       return convertValibotSchemaToJsonSchema(schema);
-    }
-    if (isUntypedInput(schema)) {
-      return convertUntypedInputToJsonSchema(schema);
-    }
-    if (isUntypedSchema(schema)) {
-      return convertUntypedSchemaToJsonSchema(schema);
     }
     if (isJsonSchema(schema)) {
       return schema;
@@ -519,6 +523,8 @@ export function extractResolvedVariant(
   if (isSetObject(input)) {
     if (isZod3Type(input)) {
       return "zod3";
+    } else if (isUntypedInputStrict(input) || isUntypedSchemaStrict(input)) {
+      return "untyped";
     } else if (isStandardJsonSchema(input)) {
       return "standard-schema";
     } else if (isJsonSchema(input)) {
@@ -527,8 +533,6 @@ export function extractResolvedVariant(
       return "valibot";
     } else if (isType(input)) {
       return "reflection";
-    } else if (isUntypedInput(input) || isUntypedSchema(input)) {
-      return "untyped";
     }
   }
 
