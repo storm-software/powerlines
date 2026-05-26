@@ -18,7 +18,7 @@
 
 import type { Context } from "@powerlines/core";
 import { isTypeDefinition } from "@powerlines/core";
-import { rolldownPlugin } from "@powerlines/deepkit/rolldown-plugin";
+import { esbuildPlugin } from "@powerlines/deepkit/esbuild-plugin";
 import { isType, stringifyType, Type } from "@powerlines/deepkit/vendor/type";
 import { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import { murmurhash } from "@stryke/hash";
@@ -33,8 +33,8 @@ import {
 } from "@stryke/zod";
 import { toJsonSchema } from "@valibot/to-json-schema";
 import defu from "defu";
-import type { BuildOptions } from "rolldown";
 import * as z3 from "zod/v3";
+import { BundleOptions } from "./bundle";
 import { getCacheDirectory, writeSchema } from "./persistence";
 import { reflectionToJsonSchema } from "./reflection";
 import { resolve } from "./resolve";
@@ -676,7 +676,7 @@ export function extractSource(
 export async function extractSchemaWithSource(
   context: Context,
   input: SchemaInput,
-  options: Partial<BuildOptions> = {}
+  options: BundleOptions = {}
 ): Promise<ExtractedSchema> {
   if (isSchemaWithSource(input)) {
     return input;
@@ -704,7 +704,7 @@ export async function extractSchemaWithSource(
       input as TypeDefinitionReference,
       defu(options, {
         plugins: [
-          rolldownPlugin(context, {
+          esbuildPlugin(context, {
             reflection: "default",
             level: "all"
           })
@@ -773,7 +773,7 @@ export async function extractSchemaWithSource(
 export async function extract(
   context: Context,
   input: SchemaInput,
-  options: Partial<BuildOptions> = {}
+  options: BundleOptions = {}
 ): Promise<Schema> {
   if (isSchemaWithSource(input) || isSchema(input)) {
     return input;
