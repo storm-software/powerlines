@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.276](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.276) (05/27/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resovle issue with missing secret values ([294f48c2c](https://github.com/storm-software/powerlines/commit/294f48c2c))
+
 ## [0.16.275](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.275) (05/27/2026)
 
 ### Updated Dependencies
