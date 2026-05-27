@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.274](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.274) (05/27/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolve issue extracting environment variables ([d688996ae](https://github.com/storm-software/powerlines/commit/d688996ae))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.18**
+- Updated **plugin-alloy** to **v0.26.164**
+- Updated **plugin-automd** to **v0.1.536**
+- Updated **plugin-babel** to **v0.13.71**
+- Updated **plugin-deepkit** to **v0.11.418**
+- Updated **plugin-plugin** to **v0.12.487**
+- Updated **powerlines** to **v0.47.75**
+- Updated **schema** to **v0.11.58**
+
 ## [0.16.273](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.273) (05/26/2026)
 
 ### Updated Dependencies
