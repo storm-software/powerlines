@@ -135,19 +135,24 @@ export interface InterfaceMemberPropsBase {
   readOnly?: boolean;
   type?: Children | JsonSchemaPrimitiveType | string;
   nullish?: boolean;
+  required?: boolean;
 }
 
 export interface InterfaceIndexerMemberProps extends InterfaceMemberPropsBase {
   indexer: Children;
 }
 
+export interface InterfaceTypeMemberProps extends InterfaceMemberPropsBase {
+  type: string;
+}
+
 export interface InterfaceSchemaMemberProps extends InterfaceMemberPropsBase {
   schema: JsonSchema;
-  required: boolean;
 }
 
 export type InterfaceMemberProps =
   | InterfaceIndexerMemberProps
+  | InterfaceTypeMemberProps
   | InterfaceSchemaMemberProps;
 
 /**
@@ -185,7 +190,9 @@ export function InterfaceMember(props: InterfaceMemberProps) {
   const scope = useTSMemberScope();
   const sym = createSymbol(
     TSOutputSymbol,
-    ((props.schema ? props.schema?.name : undefined) || isSetString(props.name)
+    (((props as InterfaceSchemaMemberProps).schema
+      ? (props as InterfaceSchemaMemberProps).schema?.name
+      : undefined) || isSetString(props.name)
       ? props.name
       : props.name.toString()) || uuid().replace(/-/g, ""),
     scope.ownerSymbol.staticMembers,
@@ -193,7 +200,10 @@ export function InterfaceMember(props: InterfaceMemberProps) {
       refkeys: props.refkey,
       tsFlags:
         TSSymbolFlags.TypeSymbol |
-        (!!(props.schema && isSchemaNullable(props.schema)) || !!props.nullish
+        (!!(
+          (props as InterfaceSchemaMemberProps).schema &&
+          isSchemaNullable((props as InterfaceSchemaMemberProps).schema)
+        ) || !!props.nullish
           ? TSSymbolFlags.Nullish
           : TSSymbolFlags.None),
       namePolicy: useTSNamePolicy().for("interface-member"),
@@ -328,7 +338,7 @@ export function InterfaceDeclaration(props: InterfaceDeclarationProps) {
           name={interfaceName.value}
         />
       }>
-      <SchemaContext.Provider value={schema as JsonSchema}>
+      <SchemaContext.Provider value={schema}>
         <TSDocObjectSchema heading={doc} schema={schema!} />
         <BaseInterfaceDeclaration
           export={true}
