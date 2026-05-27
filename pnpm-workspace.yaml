@@ -36,7 +36,7 @@ catalog:
   "@babel/types": 8.0.0-rc.6
   "@cacheable/memory": ^2.0.9
   "@cloudflare/unenv-preset": ^2.16.1
-  "@cloudflare/workers-types": ^4.20260526.1
+  "@cloudflare/workers-types": ^4.20260527.1
   "@content-collections/core": ^0.12.0
   "@deepkit/core": 1.0.5
   "@deepkit/type": 1.0.5
