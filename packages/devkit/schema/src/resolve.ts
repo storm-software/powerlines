@@ -32,7 +32,7 @@ import { bundle, BundleOptions } from "./bundle";
  * Compiles a type definition to a module and returns the module.
  *
  * @param context - The context object containing the environment paths.
- * @param type - The type definition to compile. This can be either a string or a {@link FileReference} object.
+ * @param input - The type definition to compile. This can be either a string or a {@link FileReference} object.
  * @param overrides - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the compiled module.
  */
@@ -41,21 +41,19 @@ export async function resolveModule<
   TContext extends UnresolvedContext = UnresolvedContext
 >(
   context: TContext,
-  type: FileReference,
+  input: FileReferenceInput,
   overrides?: BundleOptions
 ): Promise<TResult> {
-  let typeDefinition!: FileReference;
-  if (isSetString(type)) {
-    typeDefinition = extractFileReference(type) as FileReference;
-  } else {
-    typeDefinition = type;
+  const fileReference = extractFileReference(input);
+  if (!fileReference) {
+    throw new Error(
+      `Failed to extract a file reference from the provided input ${JSON.stringify(
+        input
+      )}. The input must be a string or an object with a "file" property that specifies the file path and optional export name.`
+    );
   }
 
-  const result = await bundle<TContext>(
-    context,
-    typeDefinition.file,
-    overrides
-  );
+  const result = await bundle<TContext>(context, fileReference.file, overrides);
 
   let resolved: any;
   try {
@@ -77,7 +75,7 @@ export async function resolveModule<
       )?.[1];
       throw new Error(
         `The module "${moduleName}" could not be resolved while evaluating "${
-          typeDefinition.file
+          fileReference.file
         }". It is possible the required built-in modules have not yet been generated. Please check the order of your plugins. ${
           context.config.logLevel.general === "debug" ||
           context.config.logLevel.general === "trace"
@@ -92,7 +90,7 @@ ${result.text}`
 
     throw new Error(
       `Failed to evaluate the bundled module for "${
-        typeDefinition.file
+        fileReference.file
       }". Error: ${(error as Error).message}${
         context.config.logLevel.general === "debug" ||
         context.config.logLevel.general === "trace"
