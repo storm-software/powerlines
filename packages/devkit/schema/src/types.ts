@@ -18,7 +18,7 @@
 
 import type { Type } from "@powerlines/deepkit/vendor/type";
 import type { StandardJSONSchemaV1 } from "@standard-schema/spec";
-import type { FileReference } from "@stryke/types/configuration";
+import type { FileReferenceInput } from "@stryke/types/configuration";
 import type { InputObject, Schema as _Schema } from "untyped";
 import type { BaseIssue, BaseSchema } from "valibot";
 import * as z3 from "zod/v3";
@@ -1350,7 +1350,7 @@ export type SchemaSourceInput =
 /**
  * Any accepted schema input, including normalized schemas and references.
  */
-export type SchemaInput = SchemaSourceInput | Schema | FileReference;
+export type SchemaInput = SchemaSourceInput | Schema | FileReferenceInput;
 
 /**
  * A schema extracted from a source input, normalized to JSON Schema.
