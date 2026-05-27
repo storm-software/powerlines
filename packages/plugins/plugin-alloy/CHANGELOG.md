@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.165](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.165) (05/27/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Allow `type` prop for interface member renedering ([eea841b97](https://github.com/storm-software/powerlines/commit/eea841b97))
+
 ## [0.26.164](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.164) (05/27/2026)
 
 ### Updated Dependencies
