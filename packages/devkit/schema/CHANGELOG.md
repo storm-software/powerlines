@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.60](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.60) (05/27/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue with extracting schema `variant` ([290c0e2e0](https://github.com/storm-software/powerlines/commit/290c0e2e0))
+
 ## [0.11.59](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.59) (05/27/2026)
 
 ### Features

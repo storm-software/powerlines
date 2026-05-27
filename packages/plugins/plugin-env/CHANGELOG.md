@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.278](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.278) (05/27/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue with extracting schema `variant` ([290c0e2e0](https://github.com/storm-software/powerlines/commit/290c0e2e0))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.167**
+- Updated **schema** to **v0.11.60**
+
 ## [0.16.277](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.277) (05/27/2026)
 
 ### Features
