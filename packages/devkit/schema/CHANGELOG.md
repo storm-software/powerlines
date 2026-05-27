@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.63](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.63) (05/27/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue applying string schema inputs ([514c1864d](https://github.com/storm-software/powerlines/commit/514c1864d))
+
 ## [0.11.62](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.62) (05/27/2026)
 
 ### Bug Fixes
