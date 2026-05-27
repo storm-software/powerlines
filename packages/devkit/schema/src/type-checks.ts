@@ -379,6 +379,9 @@ const hasValidJsonSchemaKeywords = (
 
 /**
  * Type guard for shared JSON Schema keyword groups.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a JSON Schema keyword group, false otherwise.
  */
 export function isJsonSchemaKeywords(
   input: unknown
@@ -392,6 +395,9 @@ export function isJsonSchemaKeywords(
 
 /**
  * Type guard for generic JSON Schema objects with optional `$ref`.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a generic JSON Schema object, false otherwise.
  */
 export function isJsonSchemaAny(input: unknown): input is JsonSchemaAny {
   if (!isSetObject(input)) {
@@ -405,6 +411,9 @@ export function isJsonSchemaAny(input: unknown): input is JsonSchemaAny {
 
 /**
  * Type guard for JSON Schema array types.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a JSON Schema array schema, false otherwise.
  */
 export function isJsonSchemaArray(input: unknown): input is JsonSchemaArray {
   if (!isSetObject(input)) {
@@ -433,6 +442,9 @@ export function isJsonSchemaArray(input: unknown): input is JsonSchemaArray {
 
 /**
  * Type guard for bigint-backed integer schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a bigint-backed integer schema, false otherwise.
  */
 export function isJsonSchemaBigint(input: unknown): input is JsonSchemaBigint {
   if (!isSetObject(input)) {
@@ -461,6 +473,9 @@ export function isJsonSchemaBigint(input: unknown): input is JsonSchemaBigint {
 
 /**
  * Type guard for boolean schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a boolean schema, false otherwise.
  */
 export function isJsonSchemaBoolean(
   input: unknown
@@ -480,6 +495,9 @@ export function isJsonSchemaBoolean(
 
 /**
  * Type guard for date/time schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a date or time schema, false otherwise.
  */
 export function isJsonSchemaDate(input: unknown): input is JsonSchemaDate {
   if (!isSetObject(input)) {
@@ -514,6 +532,9 @@ export function isJsonSchemaDate(input: unknown): input is JsonSchemaDate {
 
 /**
  * Type guard for enum-constrained schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is an enum-constrained schema, false otherwise.
  */
 export function isJsonSchemaEnum(input: unknown): input is JsonSchemaEnum {
   if (!isSetObject(input)) {
@@ -566,6 +587,9 @@ export function isJsonSchemaEnum(input: unknown): input is JsonSchemaEnum {
 
 /**
  * Type guard for `allOf` composition schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is an `allOf` schema, false otherwise.
  */
 export function isJsonSchemaAllOf(input: unknown): input is JsonSchemaAllOf {
   if (!isSetObject(input)) {
@@ -589,6 +613,9 @@ export function isJsonSchemaAllOf(input: unknown): input is JsonSchemaAllOf {
 
 /**
  * Type guard for literal-value schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a literal-value schema, false otherwise.
  */
 export function isJsonSchemaLiteral(
   input: unknown
@@ -611,6 +638,9 @@ export function isJsonSchemaLiteral(
 
 /**
  * Type guard for map tuple-array schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a map tuple-array schema, false otherwise.
  */
 export function isJsonSchemaMap(input: unknown): input is JsonSchemaMap {
   if (!isSetObject(input)) {
@@ -640,6 +670,9 @@ export function isJsonSchemaMap(input: unknown): input is JsonSchemaMap {
 
 /**
  * Type guard for native enum schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a native enum schema, false otherwise.
  */
 export function isJsonSchemaNativeEnum(
   input: unknown
@@ -667,6 +700,9 @@ export function isJsonSchemaNativeEnum(
 
 /**
  * Type guard for impossible/never schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a never schema, false otherwise.
  */
 export function isJsonSchemaNever(input: unknown): input is JsonSchemaNever {
   if (!isSetObject(input)) {
@@ -680,6 +716,9 @@ export function isJsonSchemaNever(input: unknown): input is JsonSchemaNever {
 
 /**
  * Type guard for `null` schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a null schema, false otherwise.
  */
 export function isJsonSchemaNull(input: unknown): input is JsonSchemaNull {
   if (!isSetObject(input)) {
@@ -700,6 +739,9 @@ export function isJsonSchemaNull(input: unknown): input is JsonSchemaNull {
 
 /**
  * Type guard for nullable schema unions.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a nullable schema union, false otherwise.
  */
 export function isJsonSchemaNullable(
   input: unknown
@@ -737,6 +779,9 @@ export function isJsonSchemaNullable(
 
 /**
  * Type guard for numeric schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a numeric schema, false otherwise.
  */
 export function isJsonSchemaNumber(input: unknown): input is JsonSchemaNumber {
   if (!isSetObject(input)) {
@@ -765,6 +810,9 @@ export function isJsonSchemaNumber(input: unknown): input is JsonSchemaNumber {
 
 /**
  * Type guard for integer schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is an integer schema, false otherwise.
  */
 export function isJsonSchemaInteger(
   input: unknown
@@ -774,6 +822,9 @@ export function isJsonSchemaInteger(
 
 /**
  * Type guard for decimal schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a decimal schema, false otherwise.
  */
 export function isJsonSchemaDecimal(
   input: unknown
@@ -783,6 +834,9 @@ export function isJsonSchemaDecimal(
 
 /**
  * Type guard for object schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is an object schema, false otherwise.
  */
 export function isJsonSchemaObject(input: unknown): input is JsonSchemaObject {
   if (!isSetObject(input)) {
@@ -823,6 +877,9 @@ export function isJsonSchemaObject(input: unknown): input is JsonSchemaObject {
 
 /**
  * Type guard for string schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a string schema, false otherwise.
  */
 export function isJsonSchemaString(input: unknown): input is JsonSchemaString {
   if (!isSetObject(input)) {
@@ -848,6 +905,9 @@ export function isJsonSchemaString(input: unknown): input is JsonSchemaString {
 
 /**
  * Type guard for set-like array schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a set-like array schema, false otherwise.
  */
 export function isJsonSchemaSet(input: unknown): input is JsonSchemaSet {
   if (!isSetObject(input)) {
@@ -875,6 +935,9 @@ export function isJsonSchemaSet(input: unknown): input is JsonSchemaSet {
 
 /**
  * Type guard for record schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a record schema, false otherwise.
  */
 export function isJsonSchemaRecord(input: unknown): input is JsonSchemaRecord {
   if (!isSetObject(input)) {
@@ -897,6 +960,9 @@ export function isJsonSchemaRecord(input: unknown): input is JsonSchemaRecord {
 
 /**
  * Type guard for tuple schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a tuple schema, false otherwise.
  */
 export function isJsonSchemaTuple(input: unknown): input is JsonSchemaTuple {
   if (!isSetObject(input)) {
@@ -924,6 +990,9 @@ export function isJsonSchemaTuple(input: unknown): input is JsonSchemaTuple {
 
 /**
  * Type guard for undefined-representing schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is an undefined-representing schema, false otherwise.
  */
 export function isJsonSchemaUndefined(
   input: unknown
@@ -943,6 +1012,9 @@ export function isJsonSchemaUndefined(
 
 /**
  * Type guard for primitive-union schema variants.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a primitive-union schema variant, false otherwise.
  */
 export function isJsonSchemaPrimitiveUnion(
   input: unknown
@@ -1012,6 +1084,9 @@ export function isJsonSchemaPrimitiveUnion(
 
 /**
  * Type guard for union schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a union schema, false otherwise.
  */
 export function isJsonSchemaUnion(input: unknown): input is JsonSchemaUnion {
   if (!isSetObject(input)) {
@@ -1028,6 +1103,9 @@ export function isJsonSchemaUnion(input: unknown): input is JsonSchemaUnion {
 
 /**
  * Type guard for permissive unknown schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a permissive unknown schema, false otherwise.
  */
 export function isJsonSchemaUnknown(
   input: unknown
@@ -1037,6 +1115,9 @@ export function isJsonSchemaUnknown(
 
 /**
  * Type guard for `anyOf` composition schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is an `anyOf` schema, false otherwise.
  */
 export function isJsonSchemaAnyOf(input: unknown): input is JsonSchemaAnyOf {
   if (!isSetObject(input)) {
@@ -1052,6 +1133,9 @@ export function isJsonSchemaAnyOf(input: unknown): input is JsonSchemaAnyOf {
 
 /**
  * Type guard for reference schemas.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a reference schema, false otherwise.
  */
 export function isJsonSchemaRef(input: unknown): input is JsonSchemaRef {
   if (!isSetObject(input)) {
@@ -1317,4 +1401,16 @@ export function isSchemaWithSource(input: unknown): input is SchemaWithSource {
     "variant" in input.source &&
     isSetString(input.source.variant)
   );
+}
+
+/**
+ * Type guard for Powerlines Schemas that are in Object form.
+ *
+ * @param input - The value to check.
+ * @returns True if the input is a Powerlines Schema object in Object form, false otherwise.
+ */
+export function isSchemaObject(
+  input: unknown
+): input is Schema<JsonSchemaObject> {
+  return isSchema(input) && isJsonSchemaObject(input.schema);
 }

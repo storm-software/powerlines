@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import {
-  ResolvedEntryTypeDefinition,
+  ResolvedEntryFileReference,
   UnresolvedContext
 } from "@powerlines/core";
 import { AssetGlob, Entry } from "@storm-software/build-tools/types";
@@ -57,7 +57,7 @@ export const DEFAULT_OPTIONS: Partial<Options> = {
  */
 export function resolveEntry<TContext extends UnresolvedContext>(
   context: TContext,
-  entryPoints: ResolvedEntryTypeDefinition[] | string[]
+  entryPoints: ResolvedEntryFileReference[] | string[]
 ): Entry {
   return resolveEsbuildEntry(context, entryPoints) as Entry;
 }

@@ -21,8 +21,9 @@ import {
   getProperties,
   getPropertiesList,
   isSchema,
+  isSchemaObject,
   JsonSchemaObject,
-  mergeSchemas,
+  merge,
   Schema,
   writeSchema
 } from "@powerlines/schema";
@@ -30,8 +31,8 @@ import { omit } from "@stryke/helpers/omit";
 import { joinPaths } from "@stryke/path/join";
 import { isSetArray } from "@stryke/type-checks/is-set-array";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
-import { isString } from "@stryke/type-checks/is-string";
-import type { TypeDefinition } from "@stryke/types/configuration";
+import { isSetString } from "@stryke/type-checks/is-set-string";
+import type { FileReference } from "@stryke/types/configuration";
 import { UnresolvedContext } from "powerlines";
 import { EnvPluginContext, EnvSchema } from "../types/plugin";
 import { loadEnv } from "./load";
@@ -61,12 +62,12 @@ export async function resolveRuntimeTypeFile<
  * @param context - The plugin context.
  * @returns The default type definition for the environment variables.
  */
-export async function getDefaultVarsTypeDefinition<
-  TContext extends UnresolvedContext
->(context: TContext): Promise<TypeDefinition> {
+export async function getDefaultConfig<TContext extends UnresolvedContext>(
+  context: TContext
+): Promise<FileReference> {
   return {
     file: await resolveRuntimeTypeFile(context),
-    name: "EnvInterface"
+    export: "EnvInterface"
   };
 }
 
@@ -75,12 +76,12 @@ export async function getDefaultVarsTypeDefinition<
  * @param context - The plugin context.
  * @returns The default type definition for the environment secrets.
  */
-export async function getDefaultSecretsTypeDefinition<
-  TContext extends UnresolvedContext
->(context: TContext): Promise<TypeDefinition> {
+export async function getDefaultSecrets<TContext extends UnresolvedContext>(
+  context: TContext
+): Promise<FileReference> {
   return {
     file: await resolveRuntimeTypeFile(context),
-    name: "SecretsInterface"
+    export: "SecretsInterface"
   };
 }
 
@@ -148,9 +149,8 @@ async function readActive<TContext extends EnvPluginContext>(
 export async function extractEnv<TContext extends EnvPluginContext>(
   context: TContext
 ): Promise<void> {
-  const defaultVarsTypeDefinition = await getDefaultVarsTypeDefinition(context);
-  const defaultSecretsTypeDefinition =
-    await getDefaultSecretsTypeDefinition(context);
+  const defaultConfig = await getDefaultConfig(context);
+  const defaultSecrets = await getDefaultSecrets(context);
 
   context.env ??= {} as EnvPluginContext["env"];
   context.env.parsed ??= {};
@@ -163,20 +163,19 @@ export async function extractEnv<TContext extends EnvPluginContext>(
   context.env.config.active = await readActive(context, "config");
 
   if (
-    (isString(context.config.env.config) &&
-      context.config.env.config !==
-        `${defaultVarsTypeDefinition.file}#${
-          defaultVarsTypeDefinition.name
-        }`) ||
+    (isSetString(context.config.env.config) &&
+      new RegExp(`${defaultConfig.file}[:#;@]?${defaultConfig.export}`).test(
+        context.config.env.config
+      ) === false) ||
     (isSetObject(context.config.env.config) &&
-      ((context.config.env.config as TypeDefinition).file !==
-        defaultVarsTypeDefinition.file ||
-        (context.config.env.config as TypeDefinition).name !==
-          defaultVarsTypeDefinition.name))
+      ((context.config.env.config as FileReference).file !==
+        defaultConfig.file ||
+        (context.config.env.config as FileReference).export !==
+          defaultConfig.export))
   ) {
-    context.env.config.schema = mergeSchemas(
-      context.env.config,
-      await extract(context, defaultVarsTypeDefinition)
+    context.env.config.schema = merge(
+      await extract(context, defaultConfig),
+      context.env.config
     ) as JsonSchemaObject;
   }
 
@@ -187,20 +186,19 @@ export async function extractEnv<TContext extends EnvPluginContext>(
   context.env.secrets.active = await readActive(context, "secrets");
 
   if (
-    (isString(context.config.env.secrets) &&
-      context.config.env.secrets !==
-        `${defaultSecretsTypeDefinition.file}#${
-          defaultSecretsTypeDefinition.name
-        }`) ||
+    (isSetString(context.config.env.secrets) &&
+      new RegExp(`${defaultSecrets.file}[:#;@]?${defaultSecrets.export}`).test(
+        context.config.env.secrets
+      ) === false) ||
     (isSetObject(context.config.env.secrets) &&
-      ((context.config.env.secrets as TypeDefinition).file !==
-        defaultSecretsTypeDefinition.file ||
-        (context.config.env.secrets as TypeDefinition).name !==
-          defaultSecretsTypeDefinition.name))
+      ((context.config.env.secrets as FileReference).file !==
+        defaultSecrets.file ||
+        (context.config.env.secrets as FileReference).export !==
+          defaultSecrets.export))
   ) {
-    context.env.secrets.schema = mergeSchemas(
-      context.env.secrets,
-      await extract(context, defaultSecretsTypeDefinition)
+    context.env.secrets.schema = merge(
+      await extract(context, defaultSecrets),
+      context.env.secrets
     ) as JsonSchemaObject;
   }
 
@@ -220,7 +218,11 @@ export async function extractEnv<TContext extends EnvPluginContext>(
             ? "Standard Schema"
             : context.env.config.variant === "zod3"
               ? "Zod v3 schema"
-              : "Typescript exported type"
+              : context.env.config.variant === "valibot"
+                ? "Valibot schema"
+                : context.env.config.variant === "untyped"
+                  ? "Untyped configuration"
+                  : "Typescript exported type"
     }${context.config.env.config ? " from plugin options" : ""} provided ${
       Object.keys(properties).length
     } parameters\nEnvironment Secret configuration: ${
@@ -234,7 +236,11 @@ export async function extractEnv<TContext extends EnvPluginContext>(
             ? "Standard Schema"
             : context.env.secrets.variant === "zod3"
               ? "Zod v3 schema"
-              : "Typescript exported type"
+              : context.env.secrets.variant === "valibot"
+                ? "Valibot schema"
+                : context.env.secrets.variant === "untyped"
+                  ? "Untyped configuration"
+                  : "Typescript exported type"
     }${context.config.env.secrets ? " from plugin options" : ""} provided ${
       context.env.secrets?.schema
         ? getPropertiesList(context.env.secrets).length
@@ -290,6 +296,12 @@ export async function extractEnv<TContext extends EnvPluginContext>(
         }
       }
     }
+  }
+
+  if (!isSchemaObject(context.env.config)) {
+    throw new Error(
+      "Invalid environment variable schema extracted. Please ensure the `env.types` option points to a valid TypeScript type definition file that exports an interface representing the environment variable schema."
+    );
   }
 }
 

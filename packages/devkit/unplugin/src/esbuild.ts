@@ -18,7 +18,7 @@
 
 import type {
   ExecutionContext,
-  ResolvedEntryTypeDefinition,
+  ResolvedEntryFileReference,
   UnpluginOptions,
   UnresolvedContext
 } from "@powerlines/core";
@@ -62,7 +62,7 @@ export const DEFAULT_OPTIONS: Partial<BuildOptions> = {
  */
 export function resolveEntry<TContext extends UnresolvedContext>(
   context: TContext,
-  entryPoints: ResolvedEntryTypeDefinition[] | string[] = []
+  entryPoints: ResolvedEntryFileReference[] | string[] = []
 ): BuildOptions["entryPoints"] {
   return entryPoints.reduce(
     (ret, entry) => {

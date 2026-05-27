@@ -66,10 +66,12 @@
     "@powerlines/deepkit": "workspace:*",
     "@powerlines/unplugin": "workspace:*",
     "@standard-schema/spec": "catalog:",
+    "@stryke/convert": "catalog:",
     "@stryke/hash": "catalog:",
     "@stryke/helpers": "catalog:",
     "@stryke/json": "catalog:",
     "@stryke/path": "catalog:",
+    "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "@stryke/zod": "catalog:",
@@ -78,8 +80,10 @@
     "ajv-formats": "catalog:",
     "defu": "catalog:",
     "esbuild": "catalog:",
+    "smol-toml": "catalog:",
     "typescript": "^6.0.3",
-    "untyped": "catalog:"
+    "untyped": "catalog:",
+    "yaml": "catalog:"
   },
   "devDependencies": {
     "@types/node": "catalog:",
@@ -87,14 +91,14 @@
     "zod": "catalog:"
   },
   "peerDependencies": {
-    "zod": "^3.25.0 || ^4.0.0",
-    "valibot": "^1.4.0 || ^1.5.0"
+    "valibot": "^1.4.0 || ^1.5.0",
+    "zod": "^3.25.0 || ^4.0.0"
   },
   "peerDependenciesMeta": {
-    "zod": {
+    "valibot": {
       "optional": true
     },
-    "valibot": {
+    "zod": {
       "optional": true
     }
   },

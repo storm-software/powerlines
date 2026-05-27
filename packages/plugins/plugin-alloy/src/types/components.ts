@@ -18,7 +18,7 @@
 
 import type { Children, Context } from "@alloy-js/core";
 import type { SourceFileContext } from "@alloy-js/typescript";
-import { ResolvedEntryTypeDefinition, StoragePreset } from "powerlines";
+import { ResolvedEntryFileReference, StoragePreset } from "powerlines";
 
 export interface CopyOutputFile {
   kind: "file";
@@ -53,7 +53,7 @@ export type OutputFile =
   | (WriteOutputFile & { kind: "file" })
   | (WriteOutputFile & {
       kind: "entry";
-      typeDefinition?: ResolvedEntryTypeDefinition;
+      typeDefinition?: ResolvedEntryFileReference;
     })
   | (WriteOutputFile & { kind: "builtin"; id: string })
   | CopyOutputFile;
@@ -65,7 +65,7 @@ export interface OutputDirectory {
 }
 
 export interface RenderEntryContext {
-  typeDefinition: ResolvedEntryTypeDefinition;
+  typeDefinition: ResolvedEntryFileReference;
 }
 
 export interface RenderBuiltinContext {

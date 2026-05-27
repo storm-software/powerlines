@@ -33,8 +33,8 @@ import { EnvBuiltin } from "./components/env-builtin";
 import { env } from "./helpers/automd-generator";
 import {
   extractEnv,
-  getDefaultVarsTypeDefinition as getDefaultConfigTypeDefinition,
-  getDefaultSecretsTypeDefinition,
+  getDefaultConfig,
+  getDefaultSecrets,
   writeEnv
 } from "./helpers/schema";
 import type { EnvPluginContext, EnvPluginOptions } from "./types/plugin";
@@ -80,13 +80,11 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             "The `env.config` configuration parameter was not provided. Please ensure this is expected."
           );
 
-          config.env.config = await getDefaultConfigTypeDefinition(
-            this as UnresolvedContext
-          );
+          config.env.config = await getDefaultConfig(this as UnresolvedContext);
         }
 
         if (!config.env.secrets) {
-          config.env.secrets = await getDefaultSecretsTypeDefinition(
+          config.env.secrets = await getDefaultSecrets(
             this as UnresolvedContext
           );
         }

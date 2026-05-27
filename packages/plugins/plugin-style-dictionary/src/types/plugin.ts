@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { TypeDefinitionParameter } from "@stryke/types/configuration";
+import { FileReferenceInput } from "@stryke/types/configuration";
 import {
   EnvironmentConfig,
   PluginContext,
@@ -70,67 +70,65 @@ export type StyleDictionaryPluginOptions = Omit<Config, "platforms"> & {
    * Custom Style Dictionary actions to register.
    *
    * @remarks
-   * This value can be a {@link TypeDefinitionParameter} pointing to a module export or an actual builder function.
+   * This value can be a {@link FileReferenceInput} pointing to a module export or an actual builder function.
    */
-  customActions?: TypeDefinitionParameter | CustomActionsBuilder;
+  customActions?: FileReferenceInput | CustomActionsBuilder;
 
   /**
    * Custom Style Dictionary file headers to register.
    *
    * @remarks
-   * This value can be a {@link TypeDefinitionParameter} pointing to a module export or an actual builder function.
+   * This value can be a {@link FileReferenceInput} pointing to a module export or an actual builder function.
    */
-  customFileHeaders?: TypeDefinitionParameter | CustomFileHeadersBuilder;
+  customFileHeaders?: FileReferenceInput | CustomFileHeadersBuilder;
 
   /**
    * Custom Style Dictionary filters to register.
    *
    * @remarks
-   * This value can be a {@link TypeDefinitionParameter} pointing to a module export or an actual builder function.
+   * This value can be a {@link FileReferenceInput} pointing to a module export or an actual builder function.
    */
-  customFilters?: TypeDefinitionParameter | CustomFiltersBuilder;
+  customFilters?: FileReferenceInput | CustomFiltersBuilder;
 
   /**
    * Custom Style Dictionary formats to register.
    *
    * @remarks
-   * This value can be a {@link TypeDefinitionParameter} pointing to a module export or an actual builder function.
+   * This value can be a {@link FileReferenceInput} pointing to a module export or an actual builder function.
    */
-  customFormats?: TypeDefinitionParameter | CustomFormatsBuilder;
+  customFormats?: FileReferenceInput | CustomFormatsBuilder;
 
   /**
    * Custom Style Dictionary preprocessors to register.
    *
    * @remarks
-   * This value can be a {@link TypeDefinitionParameter} pointing to a module export or an actual builder function.
+   * This value can be a {@link FileReferenceInput} pointing to a module export or an actual builder function.
    */
-  customPreprocessors?: TypeDefinitionParameter | CustomPreprocessorsBuilder;
+  customPreprocessors?: FileReferenceInput | CustomPreprocessorsBuilder;
 
   /**
    * Custom Style Dictionary parsers to register.
    *
    * @remarks
-   * This value can be a {@link TypeDefinitionParameter} pointing to a module export or an actual builder function.
+   * This value can be a {@link FileReferenceInput} pointing to a module export or an actual builder function.
    */
-  customParsers?: TypeDefinitionParameter | CustomParsersBuilder;
+  customParsers?: FileReferenceInput | CustomParsersBuilder;
 
   /**
    * Custom Style Dictionary transform groups to register.
    *
    * @remarks
-   * This value can be a {@link TypeDefinitionParameter} pointing to a module export or an actual builder function.
+   * This value can be a {@link FileReferenceInput} pointing to a module export or an actual builder function.
    */
-  customTransformGroups?:
-    | TypeDefinitionParameter
-    | CustomTransformGroupsBuilder;
+  customTransformGroups?: FileReferenceInput | CustomTransformGroupsBuilder;
 
   /**
    * Custom Style Dictionary transforms to register.
    *
    * @remarks
-   * This value can be a {@link TypeDefinitionParameter} pointing to a module export or an actual builder function.
+   * This value can be a {@link FileReferenceInput} pointing to a module export or an actual builder function.
    */
-  customTransforms?: TypeDefinitionParameter | CustomTransformsBuilder;
+  customTransforms?: FileReferenceInput | CustomTransformsBuilder;
 
   /**
    * An existing Style Dictionary instance to use.

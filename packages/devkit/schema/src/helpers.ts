@@ -16,17 +16,60 @@
 
  ------------------------------------------------------------------- */
 
+import { getUnique } from "@stryke/helpers/get-unique";
+import { findFileExtensionSafe } from "@stryke/path/find";
 import { isSetObject } from "@stryke/type-checks";
 import { defu } from "defu";
+import { VALID_SOURCE_FILE_EXTENSIONS } from "./constants";
 import { readSchemaTypes } from "./metadata";
-import { isJsonSchemaObject, isSchema } from "./type-checks";
-import { JsonSchema, JsonSchemaObject, Schema } from "./types";
+import { isJsonSchema, isJsonSchemaObject, isSchema } from "./type-checks";
+import { JsonSchema, JsonSchemaLike, JsonSchemaObject, Schema } from "./types";
 
 export type GetPropertiesResult = JsonSchema & {
   name: string;
   required: boolean;
   default?: unknown;
 };
+
+/**
+ * Retrieves the JSON Schema from a Schema wrapper or returns the input if it's already a JSON Schema.
+ *
+ * @remarks
+ * This function checks if the input is a Schema wrapper (an object with a `schema` property) and returns the `schema` if it is. If the input is already a JSON Schema, it returns it directly. This allows for flexibility in handling both raw JSON Schema objects and wrapped schemas without needing to check the type at every usage point.
+ *
+ * @param input - The input which can be either a Schema wrapper or a JSON Schema object.
+ * @returns The JSON Schema object.
+ * @throws Will throw a TypeError if the input is neither a valid Schema wrapper nor a valid JSON Schema object.
+ */
+export function getJsonSchema(input: Schema | JsonSchema): JsonSchema {
+  const schema = isSchema(input) ? input.schema : input;
+  if (!isJsonSchema(schema)) {
+    throw new TypeError("The provided input is not a valid JSON Schema");
+  }
+
+  return schema;
+}
+
+/**
+ * Retrieves the JSON Schema in Object form from a Schema wrapper or returns the input if it's already a JSON Schema.
+ *
+ * @remarks
+ * This function checks if the input is a Schema wrapper (an object with a `schema` property) and returns the `schema` if it is. If the input is already a JSON Schema object, it returns it directly. This allows for flexibility in handling both raw JSON Schema objects and wrapped schemas without needing to check the type at every usage point.
+ *
+ * @param input - The input which can be either a Schema wrapper or a JSON Schema object.
+ * @returns The JSON Schema object.
+ * @throws Will throw a TypeError if the input is neither a valid Schema wrapper nor a valid JSON Schema object.
+ */
+export function getJsonSchemaObject(
+  input: Schema | JsonSchema
+): JsonSchemaObject {
+  const schema = getJsonSchema(input);
+  if (!isJsonSchemaObject(schema)) {
+    throw new TypeError("The provided input is not a valid JSON Schema object");
+  }
+
+  return schema;
+}
 
 /**
  * Extracts object properties from a JSON Schema object form.
@@ -47,11 +90,8 @@ export function getProperties(
     string,
     JsonSchema & { name: string; required: boolean; default?: unknown }
   > = {};
-  const schema: JsonSchema = isSchema(obj) ? obj.schema : obj;
-  if (!isJsonSchemaObject(schema)) {
-    return properties;
-  }
 
+  const schema = getJsonSchemaObject(obj);
   if (!isSetObject(schema.properties)) {
     return properties;
   }
@@ -103,10 +143,7 @@ export function addProperty(
   name: string,
   property: JsonSchema
 ): void {
-  const schema = (isSchema(obj) ? obj.schema : obj) as JsonSchemaObject;
-  if (!isJsonSchemaObject(schema)) {
-    throw new Error("Cannot add property to non-object schema");
-  }
+  const schema = getJsonSchemaObject(obj);
 
   schema.properties ??= {};
   schema.required ??= [];
@@ -122,23 +159,26 @@ export function addProperty(
 }
 
 /**
- * Merges multiple JSON Schema object forms into one.
+ * Merges multiple JSON Schemas into one.
  *
  * @remarks
- * This function takes multiple JSON Schema objects or Schema wrappers and merges them into a single JSON Schema object. The merging process combines properties and metadata from all provided schemas, with later schemas in the arguments list taking precedence over earlier ones in case of conflicts. The resulting schema will include all unique properties and metadata from the input schemas.
+ * This function takes multiple JSON Schemas or Schema wrappers and merges them into a single JSON Schema object. The merging process combines properties and metadata from all provided schemas, with later schemas in the arguments list taking precedence over earlier ones in case of conflicts. The resulting schema will include all unique properties and metadata from the input schemas.
  *
- * @param schemas - An array of JSON Schema objects or Schema wrappers to merge.
- * @returns A new JSON Schema object that is the result of merging all input schemas.
+ * @param schemas - An array of JSON Schemas or Schema wrappers to merge.
+ * @returns A new JSON Schema that is the result of merging all input schemas.
  */
-export function mergeSchemas(...schemas: (JsonSchema | Schema)[]): JsonSchema {
-  const result: JsonSchema = {};
-  for (const schema of schemas) {
-    const jsonSchema: JsonSchema = isSchema(schema) ? schema.schema : schema;
-    if (!isJsonSchemaObject(jsonSchema)) {
-      continue;
+export function merge(...schemas: (JsonSchema | Schema)[]): JsonSchema {
+  let result: JsonSchema = {};
+  for (const schema of schemas.reverse()) {
+    if (
+      !(result as JsonSchemaLike).type ||
+      (result as JsonSchemaLike).type === (schema as JsonSchemaLike).type
+    ) {
+      result = defu(result, getJsonSchema(schema)) as JsonSchema;
+      if (isJsonSchemaObject(result)) {
+        result.required = getUnique(result.required ?? []);
+      }
     }
-
-    defu(result, jsonSchema);
   }
 
   return result;
@@ -186,4 +226,14 @@ export function isPropertyOptional(
   }
 
   return !(parent.required ?? []).includes(propertyName);
+}
+
+/**
+ * Checks if a given file name has a valid schema input file extension.
+ *
+ * @param fileName - The file name to check for a valid schema input extension.
+ * @returns `true` if the file name has a valid schema input extension, otherwise `false`.
+ */
+export function isValidSchemaInputFile(fileName: string): boolean {
+  return VALID_SOURCE_FILE_EXTENSIONS.includes(findFileExtensionSafe(fileName));
 }

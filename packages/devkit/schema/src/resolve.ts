@@ -19,19 +19,20 @@
 import type { PluginContext, UnresolvedContext } from "@powerlines/core";
 import { esbuildPlugin } from "@powerlines/deepkit/esbuild-plugin";
 import { reflect, Type } from "@powerlines/deepkit/vendor/type";
-import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
-import { findFileDotExtension } from "@stryke/path/find";
+import { extractFileReference } from "@stryke/convert/extract-file-reference";
+import { findFileDotExtension, findFileExtensionSafe } from "@stryke/path/find";
 import { isSetString } from "@stryke/type-checks/is-set-string";
-import { TypeDefinition } from "@stryke/types/configuration";
+import { FileReference, FileReferenceInput } from "@stryke/types/configuration";
 import defu from "defu";
+import { parse as parseToml } from "smol-toml";
+import { parse as parseYaml } from "yaml";
 import { bundle, BundleOptions } from "./bundle";
-import { TypeDefinitionReference } from "./types";
 
 /**
  * Compiles a type definition to a module and returns the module.
  *
  * @param context - The context object containing the environment paths.
- * @param type - The type definition to compile. This can be either a string or a {@link TypeDefinition} object.
+ * @param type - The type definition to compile. This can be either a string or a {@link FileReference} object.
  * @param overrides - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the compiled module.
  */
@@ -40,12 +41,12 @@ export async function resolveModule<
   TContext extends UnresolvedContext = UnresolvedContext
 >(
   context: TContext,
-  type: TypeDefinitionReference,
+  type: FileReference,
   overrides?: BundleOptions
 ): Promise<TResult> {
-  let typeDefinition!: TypeDefinition;
+  let typeDefinition!: FileReference;
   if (isSetString(type)) {
-    typeDefinition = parseTypeDefinition(type) as TypeDefinition;
+    typeDefinition = extractFileReference(type) as FileReference;
   } else {
     typeDefinition = type;
   }
@@ -111,7 +112,7 @@ ${result.text}`
  * Compiles a type definition to a module and returns the specified export from the module.
  *
  * @param context - The context object containing the environment paths.
- * @param input - The type definition to compile. This can be either a string or a {@link TypeDefinition} object.
+ * @param input - The type definition to compile. This can be either a string or a {@link FileReference} object.
  * @param options - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the compiled module.
  */
@@ -120,23 +121,71 @@ export async function resolve<
   TContext extends UnresolvedContext = UnresolvedContext
 >(
   context: TContext,
-  input: TypeDefinitionReference,
+  input: FileReferenceInput,
   options?: BundleOptions
 ): Promise<TResult> {
-  let typeDefinition!: TypeDefinition;
-  if (isSetString(input)) {
-    typeDefinition = parseTypeDefinition(input) as TypeDefinition;
-  } else {
-    typeDefinition = input;
+  const fileReference = extractFileReference(input);
+  if (!fileReference) {
+    throw new Error(
+      `Failed to extract a file reference from the provided input. The input must be a string or an object with a "file" property that specifies the file path and optional export name.`
+    );
+  }
+
+  const extension = findFileExtensionSafe(fileReference.file);
+  if (extension.startsWith("json")) {
+    try {
+      const json = await context.fs.read(fileReference.file);
+      if (!isSetString(json)) {
+        throw new Error(
+          `The file at "${fileReference.file}" could not be read as a string. Please ensure the file exists and contains valid JSON.`
+        );
+      }
+
+      return JSON.parse(json) as TResult;
+    } catch (error) {
+      throw new Error(
+        `Failed to read or parse the JSON file at "${fileReference.file}". Please ensure the file exists and contains valid JSON. Error: ${(error as Error).message}`
+      );
+    }
+  } else if (extension === "yaml" || extension === "yml") {
+    try {
+      const yaml = await context.fs.read(fileReference.file);
+      if (!isSetString(yaml)) {
+        throw new Error(
+          `The file at "${fileReference.file}" could not be read as a string. Please ensure the file exists and contains valid YAML.`
+        );
+      }
+
+      return parseYaml(yaml) as TResult;
+    } catch (error) {
+      throw new Error(
+        `Failed to read or parse the YAML file at "${fileReference.file}". Please ensure the file exists and contains valid YAML. Error: ${(error as Error).message}`
+      );
+    }
+  } else if (extension === "toml") {
+    try {
+      const toml = await context.fs.read(fileReference.file);
+      if (!isSetString(toml)) {
+        throw new Error(
+          `The file at "${fileReference.file}" could not be read as a string. Please ensure the file exists and contains valid TOML.`
+        );
+      }
+
+      return parseToml(toml) as TResult;
+    } catch (error) {
+      throw new Error(
+        `Failed to read or parse the TOML file at "${fileReference.file}". Please ensure the file exists and contains valid TOML. Error: ${(error as Error).message}`
+      );
+    }
   }
 
   const resolved = await resolveModule<Record<string, any>, TContext>(
     context,
-    typeDefinition,
+    fileReference,
     options
   );
 
-  let exportName = typeDefinition.name;
+  let exportName = fileReference.export;
   if (!exportName) {
     exportName = "default";
   }
@@ -145,11 +194,11 @@ export async function resolve<
   if (resolvedExport === undefined) {
     throw new Error(
       `The export "${exportName}" could not be resolved in the "${
-        typeDefinition.file
+        fileReference.file
       }" module. ${
         Object.keys(resolved).length === 0
           ? `After bundling, no exports were found in the module. Please ensure that the "${
-              typeDefinition.file
+              fileReference.file
             }" module has a "${exportName}" export with the desired value.`
           : `After bundling, the available exports were: ${Object.keys(
               resolved
@@ -167,7 +216,7 @@ export async function resolve<
  * Resolves a type definition to a Deepkit Type reflection. This function compiles the provided type definition to a module, evaluates the module to get the specified export, and then reflects the export to get its Deepkit Type reflection.
  *
  * @param context - The context object containing the environment paths.
- * @param input - The type definition to compile. This can be either a string or a {@link TypeDefinition} object.
+ * @param input - The type definition to compile. This can be either a string or a {@link FileReference} object.
  * @param options - Optional overrides for the ESBuild configuration.
  * @returns A promise that resolves to the Deepkit Type reflection.
  */
@@ -175,7 +224,7 @@ export async function resolveReflection<
   TContext extends PluginContext = PluginContext
 >(
   context: TContext,
-  input: TypeDefinitionReference,
+  input: FileReference,
   options?: BundleOptions
 ): Promise<Type> {
   return reflect(

@@ -35,7 +35,7 @@ import type {
   UnenvPluginUserConfig
 } from "@powerlines/plugin-unenv";
 import type { RequiredKeys } from "@stryke/types/base";
-import type { PluginContext, ResolvedEntryTypeDefinition } from "powerlines";
+import type { PluginContext, ResolvedEntryFileReference } from "powerlines";
 import { WorkerModuleMetadata } from "./worker-module";
 import { WranglerResolvedConfig } from "./wrangler";
 
@@ -112,7 +112,7 @@ export type CloudflareWorkerMetadata = RequiredKeys<
   /**
    * The resolved entry definition for the Worker module, including the original entry definition and the resolved file path to the module.
    */
-  entry: ResolvedEntryTypeDefinition;
+  entry: ResolvedEntryFileReference;
 };
 
 export type CloudflareWorkerEntryModule = Record<

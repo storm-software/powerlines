@@ -22,18 +22,18 @@ import type {
   TsdownPluginResolvedConfig,
   TsdownPluginUserConfig
 } from "@powerlines/plugin-tsdown";
-import { TypeDefinitionParameter } from "@stryke/types/configuration";
+import { FileReferenceInput } from "@stryke/types/configuration";
 
 export interface PluginPluginTypesOptions {
   /**
    * The type definition for the plugin's options.
    */
-  options?: TypeDefinitionParameter;
+  options?: FileReferenceInput;
 
   /**
    * The type definition for the plugin's user config.
    */
-  userConfig?: TypeDefinitionParameter;
+  userConfig?: FileReferenceInput;
 }
 
 export interface PluginPluginOptions extends TsdownPluginOptions {

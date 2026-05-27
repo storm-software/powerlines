@@ -19,6 +19,7 @@
 import type { EngineOptions } from "@powerlines/engine";
 import { createEngine } from "@powerlines/engine";
 import { titleCase } from "@stryke/string-format/title-case";
+import packageJson from "../package.json" with { type: "json" };
 
 export type * from "@powerlines/engine";
 export type * from "@powerlines/engine/context";
@@ -35,8 +36,8 @@ export async function createPowerlines(
   const engine = await createEngine(options);
 
   engine.context.info(
-    `🔌 ${titleCase(engine.context.framework.name)} Engine v${
-      engine.context.framework.version || "1.0.0"
+    `🔌 ${titleCase(engine.context.framework.name) || "Powerlines"} Engine v${
+      engine.context.framework.version || packageJson.version || "1.0.0"
     } is running...`
   );
 

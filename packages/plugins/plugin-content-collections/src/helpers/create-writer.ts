@@ -18,9 +18,9 @@
 
 import {
   DataFileCollection,
+  FileReferenceFileConfiguration,
   JavaScriptFileConfiguration,
   serialize,
-  TypeDefinitionFileConfiguration,
   Writer
 } from "@content-collections/core";
 import { joinPaths } from "@stryke/path/join-paths";
@@ -66,7 +66,7 @@ export { ${configuration.collections
         "content"
       );
     },
-    createTypeDefinitionFile: async (_: TypeDefinitionFileConfiguration) =>
+    createFileReferenceFile: async (_: FileReferenceFileConfiguration) =>
       Promise.resolve(),
     createDataFiles: async (collections: Array<DataFileCollection>) => {
       await Promise.all(

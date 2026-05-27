@@ -39,7 +39,7 @@ import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
-import { TypeDefinition } from "@stryke/types/configuration";
+import { FileReference } from "@stryke/types/configuration";
 import { PackageJson } from "@stryke/types/package-json";
 import { uuid } from "@stryke/unique-id/uuid";
 import { match, tsconfigPathsToRegExp } from "bundle-require";
@@ -75,7 +75,7 @@ import {
 import { getConfigProps } from "../lib/context-helpers";
 import {
   getUniqueInputs,
-  isTypeDefinition,
+  isFileReference,
   resolveInputsSync
 } from "../lib/entry";
 import { callHook } from "../lib/hooks";
@@ -102,7 +102,7 @@ import {
   ResolvedAssetGlob,
   ResolvedConfig,
   ResolvedCopyConfig,
-  ResolvedEntryTypeDefinition,
+  ResolvedEntryFileReference,
   ResolvedOutputConfig
 } from "../types/config";
 import {
@@ -252,7 +252,7 @@ export class PowerlinesContext<
   /**
    * The resolved entry type definitions for the project
    */
-  public get entry(): ResolvedEntryTypeDefinition[] {
+  public get entry(): ResolvedEntryFileReference[] {
     const entry = this.resolvedEntry;
 
     return resolveInputsSync(
@@ -261,7 +261,7 @@ export class PowerlinesContext<
         ? entry
         : Array.isArray(this.config.input) ||
             (isSetObject(this.config.input) &&
-              !isTypeDefinition(this.config.input))
+              !isFileReference(this.config.input))
           ? this.config.input
           : toArray(this.config.input).flat()
     );
@@ -582,39 +582,39 @@ export class PowerlinesContext<
   /**
    * The entry points that exist in the Powerlines virtual file system
    */
-  protected get resolvedEntry(): ResolvedEntryTypeDefinition[] {
+  protected get resolvedEntry(): ResolvedEntryFileReference[] {
     return Object.entries(this.fs.metadata)
       .filter(([, meta]) => meta && meta.type === "entry")
       .map(([path, meta]) => {
-        const typeDefinition = {
+        const fileReference = {
           file: path
-        } as ResolvedEntryTypeDefinition;
+        } as ResolvedEntryFileReference;
 
         if (meta.properties) {
           if (isSetString(meta.properties.file)) {
-            typeDefinition.file = meta.properties.file;
+            fileReference.file = meta.properties.file;
           }
-          if (isSetString(meta.properties.name)) {
-            typeDefinition.name = meta.properties.name;
+          if (isSetString(meta.properties.export)) {
+            fileReference.export = meta.properties.export;
           }
           if (
             isSetString(meta.properties["input.file"]) ||
-            isSetString(meta.properties["input.name"])
+            isSetString(meta.properties["input.export"])
           ) {
-            typeDefinition.input ??= {} as TypeDefinition;
+            fileReference.input ??= {} as FileReference;
             if (isSetString(meta.properties["input.file"])) {
-              typeDefinition.input.file = meta.properties["input.file"];
+              fileReference.input.file = meta.properties["input.file"];
             }
-            if (isSetString(meta.properties["input.name"])) {
-              typeDefinition.input.name = meta.properties["input.name"];
+            if (isSetString(meta.properties["input.export"])) {
+              fileReference.input.export = meta.properties["input.export"];
             }
           }
           if (isSetString(meta.properties.output)) {
-            typeDefinition.output = meta.properties.output;
+            fileReference.output = meta.properties.output;
           }
         }
 
-        return typeDefinition;
+        return fileReference;
       })
       .filter(Boolean);
   }
@@ -1095,14 +1095,14 @@ export class PowerlinesContext<
             type: "entry",
             properties: {
               file: appendPath(path, this.entryPath),
-              name: options?.name,
+              export: options?.export,
               output: options?.output,
               "input.file": options?.input?.file,
-              "input.name": options?.input?.name
+              "input.export": options?.input?.export
             }
           }
         },
-        omit(options, ["name"])
+        omit(options, ["export"])
       )
     );
   }
@@ -1128,14 +1128,14 @@ export class PowerlinesContext<
             type: "entry",
             properties: {
               file: appendPath(path, this.entryPath),
-              name: options?.name,
+              export: options?.export,
               output: options?.output,
               "input.file": options?.input?.file,
-              "input.name": options?.input?.name
+              "input.export": options?.input?.export
             }
           }
         },
-        omit(options, ["name"])
+        omit(options, ["export"])
       )
     );
   }

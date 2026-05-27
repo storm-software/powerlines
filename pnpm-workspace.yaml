@@ -109,23 +109,23 @@ catalog:
   "@storm-software/unbuild": ^0.57.194
   "@storm-software/untyped": ^0.24.175
   "@storm-software/workspace-tools": ^1.296.11
-  "@stryke/async": ^0.1.6
-  "@stryke/capnp": ^0.12.103
-  "@stryke/cli": ^0.13.49
-  "@stryke/convert": ^0.7.8
-  "@stryke/env": ^0.20.94
-  "@stryke/fs": ^0.33.77
-  "@stryke/hash": ^0.13.30
-  "@stryke/helpers": ^0.10.17
-  "@stryke/http": ^0.12.67
-  "@stryke/json": ^0.15.1
-  "@stryke/path": ^0.29.4
-  "@stryke/string-format": ^0.17.19
-  "@stryke/type-checks": ^0.6.10
-  "@stryke/types": ^0.12.5
-  "@stryke/unique-id": ^0.3.88
-  "@stryke/url": ^0.4.28
-  "@stryke/zod": ^0.3.23
+  "@stryke/async": ^0.1.7
+  "@stryke/capnp": ^0.12.104
+  "@stryke/cli": ^0.13.50
+  "@stryke/convert": ^0.7.9
+  "@stryke/env": ^0.20.95
+  "@stryke/fs": ^0.33.78
+  "@stryke/hash": ^0.13.31
+  "@stryke/helpers": ^0.10.18
+  "@stryke/http": ^0.12.68
+  "@stryke/json": ^0.15.2
+  "@stryke/path": ^0.29.5
+  "@stryke/string-format": ^0.17.20
+  "@stryke/type-checks": ^0.6.11
+  "@stryke/types": ^0.12.6
+  "@stryke/unique-id": ^0.3.89
+  "@stryke/url": ^0.4.29
+  "@stryke/zod": ^0.3.24
   "@swc-node/register": ^1.11.1
   "@swc/core": ^1.15.40
   "@swc/helpers": ^0.5.22
@@ -215,6 +215,7 @@ catalog:
   sherif: ^1.11.1
   sheriff: ^0.0.2
   sirv: ^3.0.2
+  smol-toml: ^1.6.1
   structured-clone-es: ^2.0.0
   style-dictionary: ^5.4.1
   stylelint: ^16.26.1
@@ -243,6 +244,7 @@ catalog:
   vitest: ~4.1.7
   webpack: ^5.107.2
   wrangler: ^4.95.0
+  yaml: ^2.9.0
   zod: ^4.4.3
   zx: ^8.8.5
 fetchTimeout: 240000

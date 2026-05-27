@@ -18,6 +18,23 @@
 
 import type { JsonSchemaMetadataKeywords } from "./types";
 
+export const VALID_SOURCE_FILE_EXTENSIONS = [
+  "ts",
+  "cts",
+  "mts",
+  "tsx",
+  "js",
+  "cjs",
+  "mjs",
+  "jsx",
+  "json",
+  "jsonc",
+  "json5",
+  "yaml",
+  "yml",
+  "toml"
+] as const as string[];
+
 export const JsonSchemaTypeNames = {
   STRING: "string",
   NUMBER: "number",

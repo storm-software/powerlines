@@ -22,7 +22,7 @@ import { hasFileExtension } from "@stryke/path/file-path-fns";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import { isSet } from "@stryke/type-checks/is-set";
 import defu from "defu";
-import { ResolvedEntryTypeDefinition } from "powerlines";
+import { ResolvedEntryFileReference } from "powerlines";
 import { usePowerlinesSafe } from "../../core/contexts/context";
 import { TypescriptFile, TypescriptFileProps } from "./typescript-file";
 
@@ -37,7 +37,7 @@ export type EntryFileProps = TypescriptFileProps & {
   /**
    * Render metadata information about the entrypoint
    */
-  typeDefinition?: ResolvedEntryTypeDefinition;
+  typeDefinition?: ResolvedEntryFileReference;
 };
 
 /**

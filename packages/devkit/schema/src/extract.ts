@@ -17,16 +17,20 @@
  ------------------------------------------------------------------- */
 
 import type { Context } from "@powerlines/core";
-import { isTypeDefinition } from "@powerlines/core";
+import { isFileReference } from "@powerlines/core";
 import { esbuildPlugin } from "@powerlines/deepkit/esbuild-plugin";
 import { isType, stringifyType, Type } from "@powerlines/deepkit/vendor/type";
 import { StandardJSONSchemaV1 } from "@standard-schema/spec";
+import { extractFileReference } from "@stryke/convert/extract-file-reference";
 import { murmurhash } from "@stryke/hash";
 import { deepClone } from "@stryke/helpers/deep-clone";
 import { isStandardJsonSchema } from "@stryke/json";
+import { findFileExtensionSafe } from "@stryke/path/find";
 import { joinPaths } from "@stryke/path/join";
+import { list } from "@stryke/string-format/list";
 import { isSetString } from "@stryke/type-checks";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
+import { FileReferenceInput } from "@stryke/types";
 import {
   extractJsonSchema as extractJsonSchemaZod,
   isZod3Type
@@ -35,6 +39,7 @@ import { toJsonSchema } from "@valibot/to-json-schema";
 import defu from "defu";
 import * as z3 from "zod/v3";
 import { BundleOptions } from "./bundle";
+import { VALID_SOURCE_FILE_EXTENSIONS } from "./constants";
 import { getCacheDirectory, writeSchema } from "./persistence";
 import { reflectionToJsonSchema } from "./reflection";
 import { resolve } from "./resolve";
@@ -58,7 +63,6 @@ import {
   SchemaSource,
   SchemaSourceInput,
   SchemaSourceVariant,
-  TypeDefinitionReference,
   UntypedInputObject,
   UntypedSchema,
   ValibotSchema
@@ -548,8 +552,8 @@ export function extractResolvedVariant(
  * @returns The resolved schema input variant.
  */
 export function extractVariant(input: SchemaInput): SchemaInputVariant {
-  if (isSetString(input) || isTypeDefinition(input)) {
-    return "type-definition";
+  if (isFileReference(input)) {
+    return "file-reference";
   }
 
   return extractResolvedVariant(input as SchemaSourceInput);
@@ -702,10 +706,34 @@ export async function extractSchemaWithSource(
   const variant = extractVariant(input);
   const hash = extractHash(variant, input);
 
-  if (variant === "type-definition") {
+  if (variant === "file-reference") {
+    const fileReference = extractFileReference(input as FileReferenceInput);
+    if (!fileReference) {
+      throw new Error(
+        `Failed to extract a valid file reference from the provided input "${JSON.stringify(
+          input
+        )}". Please ensure that the input is correctly formatted as a file reference (e.g. "./schema.ts#MySchema") and that the file exists at the specified path.`
+      );
+    }
+
+    if (
+      !VALID_SOURCE_FILE_EXTENSIONS.includes(
+        findFileExtensionSafe(fileReference.file)
+      )
+    ) {
+      throw new Error(
+        `The provided schema file input "${
+          fileReference.file
+        }" has an invalid file extension. Please ensure that the file has one of the following extensions: ${list(
+          VALID_SOURCE_FILE_EXTENSIONS,
+          { conjunction: "or" }
+        )}.`
+      );
+    }
+
     const resolved = await resolve<SchemaSourceInput>(
       context,
-      input as TypeDefinitionReference,
+      input as FileReferenceInput,
       defu(options, {
         plugins: [
           esbuildPlugin(context, {
@@ -732,7 +760,7 @@ export async function extractSchemaWithSource(
     throw new Error(
       `Invalid schema definition input "${
         variant
-      }". The variant must be one of "type-definition", "json-schema", "standard-schema", "zod3", "untyped", or "reflection".`
+      }". The variant must be one of "file-reference", "json-schema", "standard-schema", "zod3", "untyped", or "reflection".`
     );
   }
 

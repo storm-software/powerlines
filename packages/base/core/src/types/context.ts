@@ -33,7 +33,7 @@ import type {
   Options,
   PluginConfig,
   ResolvedConfig,
-  ResolvedEntryTypeDefinition,
+  ResolvedEntryFileReference,
   UserConfig
 } from "./config";
 import type {
@@ -192,7 +192,7 @@ export interface EmitOptions extends WriteOptions {
  * Options for emitting entry virtual files
  */
 export type EmitEntryOptions = EmitOptions &
-  Omit<ResolvedEntryTypeDefinition, "file">;
+  Omit<ResolvedEntryFileReference, "file">;
 
 export interface ResolveResult extends ExternalIdResult {
   /**
@@ -422,7 +422,7 @@ export interface UnresolvedContext<
   /**
    * The entry points of the source code
    */
-  entry: ResolvedEntryTypeDefinition[];
+  entry: ResolvedEntryFileReference[];
 
   /**
    * The Jiti module resolver

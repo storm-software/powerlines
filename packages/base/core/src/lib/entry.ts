@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import { parseTypeDefinition } from "@stryke/convert/parse-type-definition";
+import { extractFileReference } from "@stryke/convert/extract-file-reference";
 import { toArray } from "@stryke/convert/to-array";
 import { murmurhash } from "@stryke/hash";
 import { getUniqueBy } from "@stryke/helpers/get-unique";
@@ -28,20 +28,20 @@ import { isObject } from "@stryke/type-checks/is-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import type {
-  TypeDefinition,
-  TypeDefinitionParameter
+  FileReference,
+  FileReferenceParameter
 } from "@stryke/types/configuration";
 import { replacePathTokens } from "../plugin-utils/paths";
 import {
   Config,
   ResolvedConfig,
-  ResolvedEntryTypeDefinition
+  ResolvedEntryFileReference
 } from "../types/config";
 import type { UnresolvedContext } from "../types/context";
 
 export function resolveEntryOutput<TContext extends UnresolvedContext>(
   context: TContext,
-  typeDefinition: TypeDefinition
+  fileReference: FileReference
 ): string {
   return replaceExtension(
     replacePath(
@@ -49,7 +49,7 @@ export function resolveEntryOutput<TContext extends UnresolvedContext>(
         replacePath(
           replacePath(
             replacePath(
-              typeDefinition.file,
+              fileReference.file,
               joinPaths(context.config.cwd, context.config.root, "src")
             ),
             joinPaths(context.config.cwd, context.config.root)
@@ -65,39 +65,39 @@ export function resolveEntryOutput<TContext extends UnresolvedContext>(
 
 export function resolveInput<TContext extends UnresolvedContext>(
   context: TContext,
-  typeDefinition: TypeDefinition,
-  input?: TypeDefinitionParameter,
+  fileReference: FileReference,
+  input?: FileReferenceParameter,
   output?: string
-): ResolvedEntryTypeDefinition {
+): ResolvedEntryFileReference {
   return {
-    ...typeDefinition,
-    input: isSetString(input) ? { file: String(input) } : typeDefinition,
-    output: output || resolveEntryOutput(context, typeDefinition)
+    ...fileReference,
+    input: isSetString(input) ? { file: String(input) } : fileReference,
+    output: output || resolveEntryOutput(context, fileReference)
   };
 }
 
 /**
- * Resolves multiple type definitions into their corresponding resolved entry type definitions.
+ * Resolves multiple file references into their corresponding resolved entry file references.
  *
  * @param context - The current context
- * @param typeDefinitions - The type definitions to resolve.
- * @returns A promise that resolves to an array of resolved entry type definitions.
+ * @param fileReferences - The file references to resolve.
+ * @returns A promise that resolves to an array of resolved entry file references .
  */
 export async function resolveInputs<TContext extends UnresolvedContext>(
   context: TContext,
-  typeDefinitions:
-    | TypeDefinitionParameter
-    | TypeDefinitionParameter[]
-    | Record<string, TypeDefinitionParameter | TypeDefinitionParameter[]>
-): Promise<ResolvedEntryTypeDefinition[]> {
+  fileReferences:
+    | FileReferenceParameter
+    | FileReferenceParameter[]
+    | Record<string, FileReferenceParameter | FileReferenceParameter[]>
+): Promise<ResolvedEntryFileReference[]> {
   return (
     await Promise.all(
-      (isObject(typeDefinitions) && !isTypeDefinition(typeDefinitions)
-        ? Object.values(typeDefinitions).flat()
-        : toArray(typeDefinitions)
+      (isObject(fileReferences) && !isFileReference(fileReferences)
+        ? Object.values(fileReferences).flat()
+        : toArray(fileReferences)
       )
         .map(async entry => {
-          if (isResolvedEntryTypeDefinition(entry)) {
+          if (isResolvedEntryFileReference(entry)) {
             return {
               ...entry,
               output: entry.output
@@ -107,9 +107,9 @@ export async function resolveInputs<TContext extends UnresolvedContext>(
             };
           }
 
-          let typeDefinition: TypeDefinition;
+          let typeDefinition: FileReference;
           if (isString(entry)) {
-            typeDefinition = parseTypeDefinition(
+            typeDefinition = extractFileReference(
               replacePathTokens(context, entry)
             )!;
           } else {
@@ -128,10 +128,10 @@ export async function resolveInputs<TContext extends UnresolvedContext>(
               context,
               {
                 file: replacePath(filePath, context.config.root),
-                name: typeDefinition.name
+                export: typeDefinition.export
               },
-              (entry as ResolvedEntryTypeDefinition).input,
-              (entry as ResolvedEntryTypeDefinition).output
+              (entry as ResolvedEntryFileReference).input,
+              (entry as ResolvedEntryFileReference).output
             );
           }
 
@@ -142,10 +142,10 @@ export async function resolveInputs<TContext extends UnresolvedContext>(
               context,
               {
                 file: replacePath(file, context.config.root),
-                name: typeDefinition.name
+                export: typeDefinition.export
               },
-              (entry as ResolvedEntryTypeDefinition).input,
-              (entry as ResolvedEntryTypeDefinition).output
+              (entry as ResolvedEntryFileReference).input,
+              (entry as ResolvedEntryFileReference).output
             )
           );
         })
@@ -156,26 +156,26 @@ export async function resolveInputs<TContext extends UnresolvedContext>(
 }
 
 /**
- * Resolves multiple type definitions into their corresponding resolved entry type definitions.
+ * Resolves multiple file references into their corresponding resolved entry file references.
  *
  * @param context - The current context
- * @param typeDefinitions - The type definitions to resolve.
- * @returns A promise that resolves to an array of resolved entry type definitions.
+ * @param fileReferences - The file references to resolve.
+ * @returns An array of resolved entry file references.
  */
 export function resolveInputsSync<TContext extends UnresolvedContext>(
   context: TContext,
-  typeDefinitions:
-    | TypeDefinitionParameter
-    | TypeDefinitionParameter[]
-    | Record<string, TypeDefinitionParameter | TypeDefinitionParameter[]>
-): ResolvedEntryTypeDefinition[] {
+  fileReferences:
+    | FileReferenceParameter
+    | FileReferenceParameter[]
+    | Record<string, FileReferenceParameter | FileReferenceParameter[]>
+): ResolvedEntryFileReference[] {
   return (
-    isObject(typeDefinitions) && !isTypeDefinition(typeDefinitions)
-      ? Object.values(typeDefinitions).flat()
-      : toArray(typeDefinitions)
+    isObject(fileReferences) && !isFileReference(fileReferences)
+      ? Object.values(fileReferences).flat()
+      : toArray(fileReferences)
   )
     .map(entry => {
-      if (isResolvedEntryTypeDefinition(entry)) {
+      if (isResolvedEntryFileReference(entry)) {
         return {
           ...entry,
           output: entry.output
@@ -185,9 +185,9 @@ export function resolveInputsSync<TContext extends UnresolvedContext>(
         };
       }
 
-      let typeDefinition: TypeDefinition;
+      let typeDefinition: FileReference;
       if (isString(entry)) {
-        typeDefinition = parseTypeDefinition(
+        typeDefinition = extractFileReference(
           replacePathTokens(context, entry)
         )!;
       } else {
@@ -201,7 +201,7 @@ export function resolveInputsSync<TContext extends UnresolvedContext>(
       if (context.fs.isFileSync(filePath)) {
         return resolveInput(context, {
           file: appendPath(filePath, context.config.cwd),
-          name: typeDefinition.name
+          export: typeDefinition.export
         });
       }
 
@@ -210,7 +210,7 @@ export function resolveInputsSync<TContext extends UnresolvedContext>(
         .map(file =>
           resolveInput(context, {
             file,
-            name: typeDefinition.name
+            export: typeDefinition.export
           })
         );
     })
@@ -219,27 +219,27 @@ export function resolveInputsSync<TContext extends UnresolvedContext>(
 }
 
 /**
- * Checks if the provided entry is a type definition.
+ * Checks if the provided entry is a file reference.
  *
  * @param entry - The entry to check.
- * @returns True if the entry is a type definition, false otherwise.
+ * @returns True if the entry is a file reference, false otherwise.
  */
-export function isTypeDefinition(entry: any): entry is TypeDefinition {
+export function isFileReference(entry: any): entry is FileReference {
   return !isString(entry) && entry.file !== undefined;
 }
 
 /**
- * Checks if the provided entry is a resolved entry type definition.
+ * Checks if the provided entry is a resolved entry file reference.
  *
  * @param entry - The entry to check.
- * @returns True if the entry is a resolved entry type definition, false otherwise.
+ * @returns True if the entry is a resolved entry file reference, false otherwise.
  */
-export function isResolvedEntryTypeDefinition(
-  entry: TypeDefinitionParameter | ResolvedEntryTypeDefinition
-): entry is ResolvedEntryTypeDefinition {
+export function isResolvedEntryFileReference(
+  entry: FileReferenceParameter | ResolvedEntryFileReference
+): entry is ResolvedEntryFileReference {
   return (
-    isTypeDefinition(entry) &&
-    (entry as ResolvedEntryTypeDefinition).output !== undefined
+    isFileReference(entry) &&
+    (entry as ResolvedEntryFileReference).output !== undefined
   );
 }
 
@@ -254,7 +254,7 @@ export function getUniqueInputs(
 ): ResolvedConfig["input"] {
   return isObject(inputs)
     ? inputs
-    : getUniqueBy(toArray(inputs), (item: TypeDefinitionParameter) =>
+    : getUniqueBy(toArray(inputs), (item: FileReferenceParameter) =>
         isSetString(item) ? item : murmurhash(item ?? {}, { maxLength: 24 })
       );
 }
