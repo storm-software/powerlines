@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.61](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.61) (05/27/2026)
+
+### Bug Fixes
+
+- **schema:** Ensure extension validation is only thrown when extension is set ([c2a752630](https://github.com/storm-software/powerlines/commit/c2a752630))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.20**
+- Updated **deepkit** to **v0.9.52**
+- Updated **unplugin** to **v0.0.68**
+
 ## [0.11.60](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.60) (05/27/2026)
 
 ### Bug Fixes

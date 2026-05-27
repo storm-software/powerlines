@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.77](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.77) (05/27/2026)
+
+### Miscellaneous
+
+- **powerlines:** Added `schema` export to package ([a8367f716](https://github.com/storm-software/powerlines/commit/a8367f716))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.20**
+- Updated **engine** to **v0.49.21**
+- Updated **schema** to **v0.11.61**
+- Updated **unplugin** to **v0.0.68**
+
 ## [0.47.76](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.76) (05/27/2026)
 
 ### Features
