@@ -32,7 +32,7 @@ export default defineConfig({
   ignores: [
     "packages/base/deepkit/schemas/**",
     "packages/base/engine/schemas/**",
-    "**/*.spec.ts"
+    "**/*.{spec,test}.ts"
   ],
   tsdoc: {
     configFile: "./packages/devkit/tsdoc/src/recommended.json"

@@ -29,13 +29,15 @@
         "projectLinks": "alias"
       }
     },
-    // {
-    //   "plugin": "@shell-shock/nx/plugin",
-    //   "options": {
-    //     "verboseOutput": true
-    //   }
-    // },
-    "./dist/tools/nx/dist/index.js"
+    "./dist/tools/nx/dist/index.js",
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testTargetName": "test",
+        "ciTargetName": "test-ci",
+        "testMode": "watch"
+      }
+    }
   ],
   "analytics": false
 }

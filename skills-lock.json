@@ -61,6 +61,12 @@
       "skillPath": "skills/tsdoc-comments/SKILL.md",
       "computedHash": "f68df8fcde59d498eb543ec88467ebb6f81b2ed38a920cc3723ae5e293baaeb4"
     },
+    "vitest": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "skillPath": "skills/vitest/SKILL.md",
+      "computedHash": "669c7275f7e1379b06b2bcfa593603aead4c983b951c7e8edbc09640aa38d0a1"
+    },
     "writing-json-schemas": {
       "source": "zaggino/z-schema",
       "sourceType": "github",

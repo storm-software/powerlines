@@ -23,12 +23,12 @@
   },
   "license": "Apache-2.0",
   "private": true,
-  "packageManager": "pnpm@10.30.0",
+  "packageManager": "pnpm@11.1.2",
   "engines": {
-    "pnpm": ">=10.30.0",
-    "node": ">=25.5.0"
+    "pnpm": ">=11.1.2",
+    "node": ">=26.2.0"
   },
-  "keywords": ["storm-software", "storm", "storm-ops", "sullivanpj"],
+  "keywords": ["storm-software", "powerlines", "sullivanpj"],
   "scripts": {
     "adr": "pnpm log4brains adr new",
     "adr-preview": "pnpm log4brains preview",
@@ -49,7 +49,7 @@
     "postinstall": "pnpm bootstrap",
     "push": "git push origin main:main",
     "release": "pnpm exec zx tools/scripts/src/release.mjs",
-    "sherif": "pnpm exec sherif -f -i typescript -i react -i react-dom",
+    "sheriff": "pnpm exec sheriff -f -i typescript -i react -i react-dom",
     "start": "nx serve",
     "update-storm": "pnpm exec zx tools/scripts/src/update-storm.mjs",
     "view-config": "pnpm exec storm-config"
@@ -58,9 +58,10 @@
     "@arethetypeswrong/core": "catalog:",
     "@ls-lint/ls-lint": "catalog:",
     "@nx/eslint-plugin": "catalog:",
-    "@nx/jest": "catalog:",
     "@nx/js": "catalog:",
     "@nx/plugin": "catalog:",
+    "@nx/vite": "catalog:",
+    "@nx/vitest": "catalog:",
     "@nx/workspace": "catalog:",
     "@shell-shock/nx": "catalog:",
     "@storm-software/config": "catalog:",
@@ -81,24 +82,22 @@
     "@swc/helpers": "catalog:",
     "@taplo/cli": "catalog:",
     "@types/babel-plugin-macros": "catalog:",
-    "@types/jest": "catalog:",
     "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "copyfiles": "catalog:",
     "eslint": "catalog:",
-    "jest": "catalog:",
-    "jest-environment-jsdom": "catalog:",
-    "jest-environment-node": "catalog:",
     "lefthook": "catalog:",
     "log4brains": "catalog:",
     "nx": "catalog:",
     "prettier": "catalog:",
     "publint": "catalog:",
     "rimraf": "catalog:",
-    "sherif": "catalog:",
-    "ts-jest": "catalog:",
+    "sheriff": "catalog:",
     "tslib": "catalog:",
     "typescript": "^6.0.3",
     "verdaccio": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:",
     "zx": "catalog:"
   },
   "manypkg": {
@@ -109,13 +108,13 @@
   "nx": {
     "includedScripts": [
       "lint-knip",
-      "lint-sherif",
+      "lint-sheriff",
       "lint-ls",
       "lint",
       "format-readme",
       "format-prettier",
       "format-toml",
-      "format-sherif",
+      "format-sheriff",
       "commit",
       "release"
     ]

@@ -465,3 +465,5 @@ devenv.local.nix
 
 .claude/worktrees
 .claude/settings.local.json
+
+vitest.config.*.timestamp*
