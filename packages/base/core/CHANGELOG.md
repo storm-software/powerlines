@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.17](https://github.com/storm-software/powerlines/releases/tag/core%400.48.17) (05/26/2026)
+
+### Miscellaneous
+
+- **engine:** Resolve issue with API worker invocations ([51d75ce54](https://github.com/storm-software/powerlines/commit/51d75ce54))
+
 ## [0.48.12](https://github.com/storm-software/powerlines/releases/tag/core%400.48.12) (05/25/2026)
 
 ### Miscellaneous

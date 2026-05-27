@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Asyncapi
 
+## [0.1.539](https://github.com/storm-software/powerlines/releases/tag/plugin-asyncapi%400.1.539) (05/26/2026)
+
+### Miscellaneous
+
+- **engine:** Resolve issue with API worker invocations ([51d75ce54](https://github.com/storm-software/powerlines/commit/51d75ce54))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.486**
+- Updated **powerlines** to **v0.47.74**
+
 ## [0.1.538](https://github.com/storm-software/powerlines/releases/tag/plugin-asyncapi%400.1.538) (05/26/2026)
 
 ### Updated Dependencies
