@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Content Collections
 
+## [0.1.537](https://github.com/storm-software/powerlines/releases/tag/plugin-content-collections%400.1.537) (05/27/2026)
+
+### Features
+
+- **schema:** Extended support for additional schema file references ([9d212fcd5](https://github.com/storm-software/powerlines/commit/9d212fcd5))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.488**
+- Updated **powerlines** to **v0.47.76**
+
 ## [0.1.536](https://github.com/storm-software/powerlines/releases/tag/plugin-content-collections%400.1.536) (05/27/2026)
 
 ### Updated Dependencies

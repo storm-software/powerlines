@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.166](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.166) (05/27/2026)
+
+### Features
+
+- **schema:** Extended support for additional schema file references ([9d212fcd5](https://github.com/storm-software/powerlines/commit/9d212fcd5))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.9.51**
+- Updated **plugin-babel** to **v0.13.72**
+- Updated **plugin-plugin** to **v0.12.488**
+- Updated **powerlines** to **v0.47.76**
+- Updated **schema** to **v0.11.59**
+
 ## [0.26.165](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.165) (05/27/2026)
 
 ### Miscellaneous

@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.277](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.277) (05/27/2026)
+
+### Features
+
+- **schema:** Extended support for additional schema file references ([9d212fcd5](https://github.com/storm-software/powerlines/commit/9d212fcd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.19**
+- Updated **plugin-alloy** to **v0.26.166**
+- Updated **plugin-automd** to **v0.1.537**
+- Updated **plugin-babel** to **v0.13.72**
+- Updated **plugin-deepkit** to **v0.11.419**
+- Updated **plugin-plugin** to **v0.12.488**
+- Updated **powerlines** to **v0.47.76**
+- Updated **schema** to **v0.11.59**
+
 ## [0.16.276](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.276) (05/27/2026)
 
 ### Bug Fixes

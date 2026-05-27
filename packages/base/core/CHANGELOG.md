@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.19](https://github.com/storm-software/powerlines/releases/tag/core%400.48.19) (05/27/2026)
+
+### Features
+
+- **schema:** Extended support for additional schema file references ([9d212fcd5](https://github.com/storm-software/powerlines/commit/9d212fcd5))
+
 ## [0.48.17](https://github.com/storm-software/powerlines/releases/tag/core%400.48.17) (05/26/2026)
 
 ### Miscellaneous

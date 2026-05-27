@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.72](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.72) (05/27/2026)
+
+### Miscellaneous
+
+- **plugin-babel:** Skip JSON file transformation when plugin is missing ([8ab91b169](https://github.com/storm-software/powerlines/commit/8ab91b169))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.19**
+- Updated **powerlines** to **v0.47.76**
+
 ## [0.13.71](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.71) (05/27/2026)
 
 ### Updated Dependencies

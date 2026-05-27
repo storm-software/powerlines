@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Satori
 
+## [0.1.536](https://github.com/storm-software/powerlines/releases/tag/plugin-satori%400.1.536) (05/27/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.488**
+- Updated **powerlines** to **v0.47.76**
+
 ## [0.1.535](https://github.com/storm-software/powerlines/releases/tag/plugin-satori%400.1.535) (05/27/2026)
 
 ### Updated Dependencies

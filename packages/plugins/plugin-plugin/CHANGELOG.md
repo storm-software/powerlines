@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.488](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.488) (05/27/2026)
+
+### Features
+
+- **schema:** Extended support for additional schema file references ([9d212fcd5](https://github.com/storm-software/powerlines/commit/9d212fcd5))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.477**
+- Updated **powerlines** to **v0.47.76**
+
 ## [0.12.487](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.487) (05/27/2026)
 
 ### Updated Dependencies

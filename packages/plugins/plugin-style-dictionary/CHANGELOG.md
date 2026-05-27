@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.444](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.444) (05/27/2026)
+
+### Features
+
+- **schema:** Extended support for additional schema file references ([9d212fcd5](https://github.com/storm-software/powerlines/commit/9d212fcd5))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.488**
+- Updated **powerlines** to **v0.47.76**
+- Updated **schema** to **v0.11.59**
+
 ## [0.3.443](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.443) (05/27/2026)
 
 ### Updated Dependencies

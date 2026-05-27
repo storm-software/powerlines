@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.67](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.67) (05/27/2026)
+
+### Features
+
+- **schema:** Extended support for additional schema file references ([9d212fcd5](https://github.com/storm-software/powerlines/commit/9d212fcd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.19**
+
 ## [0.0.66](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.66) (05/27/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,27 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.612](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.612) (05/27/2026)
+
+### Bug Fixes
+
+- **plugin-react:** Resolve typing issues in plugin ([ec548e529](https://github.com/storm-software/powerlines/commit/ec548e529))
+
+### Features
+
+- **schema:** Extended support for additional schema file references ([9d212fcd5](https://github.com/storm-software/powerlines/commit/9d212fcd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.19**
+- Updated **plugin-alloy** to **v0.26.166**
+- Updated **plugin-babel** to **v0.13.72**
+- Updated **plugin-env** to **v0.16.277**
+- Updated **plugin-plugin** to **v0.12.488**
+- Updated **plugin-vite** to **v0.14.530**
+- Updated **powerlines** to **v0.47.76**
+- Updated **schema** to **v0.11.59**
+
 ## [0.1.611](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.611) (05/27/2026)
 
 ### Updated Dependencies
