@@ -716,15 +716,14 @@ export async function extractSchemaWithSource(
       );
     }
 
-    if (
-      !VALID_SOURCE_FILE_EXTENSIONS.includes(
-        findFileExtensionSafe(fileReference.file)
-      )
-    ) {
+    const extension = findFileExtensionSafe(fileReference.file);
+    if (extension && !VALID_SOURCE_FILE_EXTENSIONS.includes(extension)) {
       throw new Error(
         `The provided schema file input "${
           fileReference.file
-        }" has an invalid file extension. Please ensure that the file has one of the following extensions: ${list(
+        }" has an invalid file extension (.${
+          extension
+        }). Please ensure that the file has one of the following extensions: ${list(
           VALID_SOURCE_FILE_EXTENSIONS,
           { conjunction: "or" }
         )}.`
