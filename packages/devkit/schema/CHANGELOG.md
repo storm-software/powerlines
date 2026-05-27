@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.57](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.57) (05/26/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `vitest` support for workspace ([21a085de0](https://github.com/storm-software/powerlines/commit/21a085de0))
+
+### Bug Fixes
+
+- **schema:** Ensure we do not incorrectly assign `untyped` as variant ([78ec27da1](https://github.com/storm-software/powerlines/commit/78ec27da1))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.17**
+- Updated **deepkit** to **v0.9.49**
+- Updated **unplugin** to **v0.0.65**
+
 ## [0.11.56](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.56) (05/26/2026)
 
 ### Updated Dependencies

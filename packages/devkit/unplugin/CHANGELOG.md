@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.65](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.65) (05/26/2026)
+
+### Miscellaneous
+
+- **core:** Improve entry point logging messages ([2408f9d04](https://github.com/storm-software/powerlines/commit/2408f9d04))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.17**
+
 ## [0.0.64](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.64) (05/26/2026)
 
 ### Updated Dependencies

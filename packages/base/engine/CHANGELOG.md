@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.18](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.18) (05/26/2026)
+
+### Miscellaneous
+
+- **engine:** Resolve issue with API worker invocations ([51d75ce54](https://github.com/storm-software/powerlines/commit/51d75ce54))
+- **core:** Improve entry point logging messages ([2408f9d04](https://github.com/storm-software/powerlines/commit/2408f9d04))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.17**
+
 ## [0.49.17](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.17) (05/26/2026)
 
 ### Bug Fixes
