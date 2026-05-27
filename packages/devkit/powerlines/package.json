@@ -107,6 +107,10 @@
       "import": "./dist/rspack.mjs",
       "require": "./dist/rspack.cjs"
     },
+    "./schema": {
+      "import": "./dist/schema.mjs",
+      "require": "./dist/schema.cjs"
+    },
     "./storage": {
       "import": "./dist/storage.mjs",
       "require": "./dist/storage.cjs"
@@ -148,17 +152,21 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
+  "bin": {
+    "powerlines": "./bin/bin.mjs"
+  },
   "files": ["dist", "files"],
   "dependencies": {
     "@babel/types": "catalog:",
     "@powerlines/core": "workspace:*",
     "@powerlines/engine": "workspace:*",
+    "@powerlines/schema": "workspace:*",
     "@powerlines/unplugin": "workspace:*",
     "@storm-software/config": "catalog:",
     "@storm-software/config-tools": "catalog:",
-    "@stryke/fs": "catalog:",
     "@stryke/convert": "catalog:",
     "@stryke/env": "catalog:",
+    "@stryke/fs": "catalog:",
     "defu": "catalog:",
     "unplugin": "catalog:"
   },
@@ -171,8 +179,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "bin": {
-    "powerlines": "./bin/bin.mjs"
   }
 }
