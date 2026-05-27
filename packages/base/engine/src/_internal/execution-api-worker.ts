@@ -31,7 +31,7 @@ import {
   MessageChannel,
   StructuredSerializeOptions
 } from "node:worker_threads";
-import Piscina from "piscina";
+import Tinypool from "tinypool";
 import { MessagePortDuplex } from "../helpers/stream";
 import { ExecutionApiWorkerInterface } from "../types";
 import { EngineExecutionOptions } from "../types/config";
@@ -139,7 +139,7 @@ export interface ExecutionApiWorkerOptions {
 }
 
 export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
-  #worker: Piscina | undefined;
+  #worker: Tinypool | undefined;
 
   #logger: Logger;
 
@@ -413,13 +413,13 @@ export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
       }
     }
 
-    // Issue: https://github.com/nodejs/node/issues/59706
-    if (!nodeOptionsParts.includes("--no-experimental-strip-types")) {
-      nodeOptionsParts.push("--no-experimental-strip-types");
-    }
+    // // Issue: https://github.com/nodejs/node/issues/59706
+    // if (!nodeOptionsParts.includes("--no-experimental-strip-types")) {
+    //   nodeOptionsParts.push("--no-experimental-strip-types");
+    // }
 
     this.#createWorker = () => {
-      const env: NodeJS.ProcessEnv = {
+      const env: Record<string, string> = {
         ...process.env,
         NODE_ENV: mode,
         NODE_OPTIONS: nodeOptionsParts.join(" "),
@@ -447,7 +447,8 @@ export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
         } with execution arguments: ${JSON.stringify(execArgv, null, 2)}`
       );
 
-      this.#worker = new Piscina({
+      this.#worker = new Tinypool({
+        terminateTimeout: 5000,
         filename: executionApiPath,
         execArgv,
         env
@@ -558,9 +559,7 @@ export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
       return;
     }
 
-    await worker.close({
-      force: true
-    });
+    await worker.destroy();
     this.#worker = undefined;
   }
 

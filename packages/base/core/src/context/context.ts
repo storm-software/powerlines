@@ -23,7 +23,6 @@ import { murmurhash } from "@stryke/hash";
 import { hashDirectory } from "@stryke/hash/node";
 import { getUnique, getUniqueBy } from "@stryke/helpers/get-unique";
 import { omit } from "@stryke/helpers/omit";
-import { fetchRequest } from "@stryke/http/fetch";
 import { appendPath } from "@stryke/path/append";
 import {
   findFileDotExtensionSafe,
@@ -53,10 +52,12 @@ import { Range } from "semver";
 import {
   Agent,
   BodyInit,
+  fetch,
   interceptors,
   RequestInfo,
   Response,
-  setGlobalDispatcher
+  setGlobalDispatcher,
+  RequestInit as UndiciRequestInit
 } from "undici";
 import { UnpluginBuildContext } from "unplugin";
 import {
@@ -660,12 +661,23 @@ export class PowerlinesContext<
     input: RequestInfo,
     options: FetchOptions = {}
   ): Promise<Response> {
+    const { skipCache, timeout = 30000, signal, ...fetchOptions } = options;
+    const url =
+      typeof input === "string"
+        ? input
+        : "url" in input
+          ? input.url
+          : input.toString();
+
     const cacheKey = murmurhash({
-      input: input.toString(),
-      options: JSON.stringify(options)
+      input: url,
+      options: JSON.stringify({
+        ...fetchOptions,
+        timeout
+      })
     });
 
-    if (!this.config.skipCache && !options.skipCache) {
+    if (!this.config.skipCache && !skipCache) {
       const cached = this.requestCache.get<
         {
           body: BodyInit;
@@ -685,11 +697,49 @@ export class PowerlinesContext<
 
     logger.trace(
       `Sending fetch request (${
-        options.method?.toUpperCase() || "GET"
-      }): ${input.toString()}`
+        fetchOptions.method?.toUpperCase() || "GET"
+      }): ${url}`
     );
 
-    const response = await fetchRequest(input, { timeout: 12_000, ...options });
+    const requestController = new AbortController();
+    const timeoutMs =
+      typeof timeout === "number" && Number.isFinite(timeout) ? timeout : 30000;
+    const timeoutId =
+      timeoutMs > 0
+        ? setTimeout(() => {
+            requestController.abort(
+              new Error(`Fetch request timed out after ${timeoutMs}ms`)
+            );
+          }, timeoutMs)
+        : undefined;
+
+    const onAbort = () => {
+      requestController.abort(signal?.reason);
+    };
+
+    if (signal) {
+      if (signal.aborted) {
+        onAbort();
+      } else {
+        signal.addEventListener("abort", onAbort, { once: true });
+      }
+    }
+
+    let response: Response;
+    try {
+      response = await fetch(input, {
+        ...(fetchOptions as UndiciRequestInit),
+        signal: requestController.signal
+      });
+    } finally {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      if (signal) {
+        signal.removeEventListener("abort", onAbort);
+      }
+    }
+
     const result = {
       body: await response.text(),
       status: response.status,
@@ -697,7 +747,7 @@ export class PowerlinesContext<
       headers: Object.fromEntries(response.headers.entries())
     };
 
-    if (!this.config.skipCache && !options.skipCache) {
+    if (!this.config.skipCache && !skipCache) {
       try {
         this.requestCache.set(cacheKey, result);
       } catch {
@@ -707,8 +757,8 @@ export class PowerlinesContext<
 
     logger.trace(
       `Fetch request (${
-        options.method?.toUpperCase() || "GET"
-      }) completed in ${Date.now() - startTime}ms: ${input.toString()} - ${
+        fetchOptions.method?.toUpperCase() || "GET"
+      }) completed in ${Date.now() - startTime}ms: ${url} - ${
         response.status
       } / ${response.statusText} \n - Response Headers: ${JSON.stringify(
         result.headers

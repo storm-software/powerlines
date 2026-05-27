@@ -83,6 +83,7 @@
       "import": "./dist/api/types.mjs",
       "require": "./dist/api/types.cjs"
     },
+    "./chunk-C_NdSu1c": "./dist/chunk-C_NdSu1c.cjs",
     "./context": {
       "import": "./dist/context/index.mjs",
       "require": "./dist/context/index.cjs"
@@ -95,6 +96,8 @@
       "import": "./dist/engine.mjs",
       "require": "./dist/engine.cjs"
     },
+    "./engine-CSxGz1az": "./dist/engine-CSxGz1az.mjs",
+    "./engine-DOd1eqhI": "./dist/engine-DOd1eqhI.cjs",
     "./helpers": {
       "import": "./dist/helpers/index.mjs",
       "require": "./dist/helpers/index.cjs"
@@ -115,7 +118,7 @@
       "import": "./dist/helpers/stream.mjs",
       "require": "./dist/helpers/stream.cjs"
     },
-    "./package.json": "./package.json"
+    "./*": "./*"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -131,7 +134,6 @@
     "@stryke/fs": "catalog:",
     "@stryke/hash": "catalog:",
     "@stryke/helpers": "catalog:",
-    "@stryke/http": "catalog:",
     "@stryke/json": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/string-format": "catalog:",
@@ -146,9 +148,9 @@
     "handlebars": "catalog:",
     "human-id": "catalog:",
     "jiti": "catalog:",
-    "piscina": "catalog:",
     "sirv": "catalog:",
     "structured-clone-es": "catalog:",
+    "tinypool": "catalog:",
     "ua-parser-modern": "catalog:",
     "unimport": "catalog:",
     "unplugin": "catalog:"

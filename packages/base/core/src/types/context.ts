@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import type { EnvPaths } from "@stryke/env/get-env-paths";
-import { FetchRequestOptions } from "@stryke/http/fetch";
 import { DeepPartial } from "@stryke/types/base";
 import type { PackageJson } from "@stryke/types/package-json";
 import type { Jiti } from "jiti";
@@ -145,11 +144,18 @@ export interface InitContextOptions {
 /**
  * Options for fetch requests made via the context's {@link Context.fetch} method
  */
-export interface FetchOptions extends FetchRequestOptions {
+export interface FetchOptions extends RequestInit {
   /**
    * An indicator specifying that the request should bypass any caching
    */
   skipCache?: boolean;
+
+  /**
+   * The maximum time in milliseconds to wait for the request to complete.
+   *
+   * @defaultValue 30000
+   */
+  timeout?: number;
 }
 
 /**
