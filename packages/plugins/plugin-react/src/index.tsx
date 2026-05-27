@@ -17,14 +17,13 @@
  ------------------------------------------------------------------- */
 
 import { isMatchFound } from "@powerlines/core/lib/typescript";
-import {
-  ReflectionKind,
-  ReflectionVisibility
-} from "@powerlines/deepkit/vendor/type";
+
 import { render } from "@powerlines/plugin-alloy/render";
 import babel, { BabelPluginResolvedConfig } from "@powerlines/plugin-babel";
 import env from "@powerlines/plugin-env";
 import { VitePluginResolvedConfig } from "@powerlines/plugin-vite/types/plugin";
+import { addProperty } from "@powerlines/schema";
+import { kebabCase } from "@stryke/string-format/kebab-case";
 import viteReactPlugin, { BabelOptions } from "@vitejs/plugin-react";
 import type { LoggerEvent } from "babel-plugin-react-compiler";
 import defu from "defu";
@@ -73,7 +72,9 @@ export const plugin = <
                 target: "19",
                 compilationMode: "infer",
                 gating: {
-                  source: `${this.config.framework}:react/optimized`,
+                  source: `${
+                    kebabCase(this.config.framework?.name) || "powerlines"
+                  }:react/optimized`,
                   importSpecifierName: "isOptimizationEnabled"
                 },
                 enableReanimatedCheck: true,
@@ -163,7 +164,7 @@ export const plugin = <
         }
 
         // Client platform
-        if (this.environment.consumer === "client") {
+        if (this.config.environment.consumer === "client") {
           if (
             !isMatchFound("dom", this.tsconfig.tsconfigJson.compilerOptions.lib)
           ) {
@@ -193,7 +194,7 @@ export const plugin = <
           this.tsconfig.tsconfigJson.compilerOptions.resolveJsonModule = true;
         }
 
-        if ((this.config as VitePluginResolvedConfig).vite) {
+        if ((this.config as unknown as VitePluginResolvedConfig).vite) {
           this.tsconfig.tsconfigJson.compilerOptions.types ??= [];
 
           if (
@@ -207,8 +208,9 @@ export const plugin = <
             );
           }
 
-          const viteBuildConfig = (this.config as VitePluginResolvedConfig)
-            .vite;
+          const viteBuildConfig = (
+            this.config as unknown as VitePluginResolvedConfig
+          ).vite;
           viteBuildConfig.build ??= {};
           viteBuildConfig.build.target = "chrome95";
 
@@ -225,18 +227,14 @@ export const plugin = <
         }
 
         if (
-          this.env?.types?.env &&
-          !this.env.types.env.hasProperty("DISABLE_REACT_COMPILER")
+          this.env?.config &&
+          !this.env?.config.schema?.properties?.DISABLE_REACT_COMPILER
         ) {
-          this.env.types.env.addProperty({
+          addProperty(this.env?.config, "DISABLE_REACT_COMPILER", {
             name: "DISABLE_REACT_COMPILER",
-            optional: true,
-            readonly: true,
+            readOnly: true,
             description: "Disables the React compiler optimizations.",
-            visibility: ReflectionVisibility.public,
-            type: {
-              kind: ReflectionKind.boolean
-            },
+            type: "boolean",
             default: false
           });
         }
