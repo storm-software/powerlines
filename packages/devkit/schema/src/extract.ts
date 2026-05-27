@@ -552,7 +552,7 @@ export function extractResolvedVariant(
  * @returns The resolved schema input variant.
  */
 export function extractVariant(input: SchemaInput): SchemaInputVariant {
-  if (isFileReference(input)) {
+  if (isSetString(input) || isFileReference(input)) {
     return "file-reference";
   }
 

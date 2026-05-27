@@ -75,19 +75,10 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           }
         };
 
-        if (!config.env.config) {
-          this.warn(
-            "The `env.config` configuration parameter was not provided. Please ensure this is expected."
-          );
-
-          config.env.config = await getDefaultConfig(this as UnresolvedContext);
-        }
-
-        if (!config.env.secrets) {
-          config.env.secrets = await getDefaultSecrets(
-            this as UnresolvedContext
-          );
-        }
+        config.env.config ??= await getDefaultConfig(this as UnresolvedContext);
+        config.env.secrets ??= await getDefaultSecrets(
+          this as UnresolvedContext
+        );
 
         config.env.prefix = toArray(
           (config.env.prefix ?? []) as string[]
