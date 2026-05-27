@@ -24,10 +24,6 @@
   "license": "Apache-2.0",
   "private": true,
   "packageManager": "pnpm@11.1.2",
-  "engines": {
-    "pnpm": ">=11.1.2",
-    "node": ">=26.2.0"
-  },
   "keywords": ["storm-software", "powerlines", "sullivanpj"],
   "scripts": {
     "adr": "pnpm log4brains adr new",

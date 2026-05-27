@@ -157,7 +157,10 @@ export function loadEnvFromContext(
 
 export async function loadEnv<
   TEnv extends DotenvParseOutput = DotenvParseOutput
->(context: EnvPluginContext, options: EnvPluginOptions): Promise<TEnv> {
+>(
+  context: EnvPluginContext,
+  options: EnvPluginOptions = context.config.env
+): Promise<TEnv> {
   const workspaceConfig = await tryGetWorkspaceConfig();
 
   const [project, workspace, config] = await Promise.all([

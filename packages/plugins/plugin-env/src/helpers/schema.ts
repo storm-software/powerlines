@@ -32,7 +32,6 @@ import { isSetArray } from "@stryke/type-checks/is-set-array";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isString } from "@stryke/type-checks/is-string";
 import type { TypeDefinition } from "@stryke/types/configuration";
-import defu from "defu";
 import { UnresolvedContext } from "powerlines";
 import { EnvPluginContext, EnvSchema } from "../types/plugin";
 import { loadEnv } from "./load";
@@ -153,11 +152,15 @@ export async function extractEnv<TContext extends EnvPluginContext>(
   const defaultSecretsTypeDefinition =
     await getDefaultSecretsTypeDefinition(context);
 
-  const config = (await extract(
+  context.env ??= {} as EnvPluginContext["env"];
+  context.env.parsed ??= {};
+  context.env.injected ??= [];
+
+  context.env.config = (await extract(
     context,
     context.config.env.config
   )) as EnvSchema;
-  config.active = await readActive(context, "config");
+  context.env.config.active = await readActive(context, "config");
 
   if (
     (isString(context.config.env.config) &&
@@ -171,8 +174,8 @@ export async function extractEnv<TContext extends EnvPluginContext>(
         (context.config.env.config as TypeDefinition).name !==
           defaultVarsTypeDefinition.name))
   ) {
-    config.schema = mergeSchemas(
-      config,
+    context.env.config.schema = mergeSchemas(
+      context.env.config,
       await extract(context, defaultVarsTypeDefinition)
     ) as JsonSchemaObject;
   }
@@ -200,20 +203,6 @@ export async function extractEnv<TContext extends EnvPluginContext>(
       await extract(context, defaultSecretsTypeDefinition)
     ) as JsonSchemaObject;
   }
-
-  context.env = defu(
-    {
-      config,
-      secrets,
-      parsed: await loadEnv(context, context.config.env)
-    },
-    context.env ?? {},
-    {
-      active: [],
-      parsed: {},
-      injected: []
-    }
-  );
 
   const properties = getProperties(context.env.config);
   context.info({
@@ -275,9 +264,8 @@ export async function extractEnv<TContext extends EnvPluginContext>(
     )
   );
 
-  for (const [key, value] of Object.entries(
-    await loadEnv(context, context.config.env)
-  )) {
+  context.env.parsed = await loadEnv(context);
+  for (const [key, value] of Object.entries(context.env.parsed)) {
     const unprefixedKey = context.config.env.prefix.reduce((ret, prefix) => {
       if (key.replace(/_$/g, "").startsWith(prefix)) {
         return key.replace(/_$/g, "").slice(prefix.length);
