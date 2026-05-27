@@ -31,7 +31,7 @@ import {
   ResolvedBabelTransformPluginOptions,
   ResolvedBabelTransformPresetOptions
 } from "../types/config";
-import { getPluginName, isDuplicatePlugin, isDuplicatePreset } from "./filters";
+import { getPluginName, includesPlugin, includesPreset } from "./filters";
 
 export function resolvePluginFunction(
   context: Context,
@@ -177,7 +177,7 @@ export function getUniquePlugins<
   T extends BabelTransformPluginOptions | ResolvedBabelTransformPluginOptions
 >(plugins: T[]): T[] {
   return plugins.reduce((ret: T[], plugin: T) => {
-    if (plugin && !isDuplicatePlugin(ret, plugin)) {
+    if (plugin && !includesPlugin(ret, plugin)) {
       ret.push(plugin);
     }
 
@@ -195,7 +195,7 @@ export function getUniquePresets<
   T extends BabelTransformPresetOptions | ResolvedBabelTransformPresetOptions
 >(presets: T[]): T[] {
   return presets.reduce((ret: T[], preset: T) => {
-    if (preset && !isDuplicatePreset(ret, preset)) {
+    if (preset && !includesPreset(ret, preset)) {
       ret.push(preset);
     }
 

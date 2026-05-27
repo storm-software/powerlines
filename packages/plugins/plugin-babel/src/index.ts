@@ -26,7 +26,7 @@ import defu from "defu";
 import { isSet } from "node:util/types";
 import type { Plugin } from "powerlines";
 import { removeVirtualPrefix } from "powerlines/plugin-utils";
-import { isDuplicatePlugin, isDuplicatePreset } from "./helpers/filters";
+import { includesPlugin, includesPreset } from "./helpers/filters";
 import {
   getUniquePlugins,
   getUniquePresets,
@@ -114,9 +114,7 @@ export const plugin = <
       }
 
       if (!this.config.babel?.skipConfigResolution) {
-        if (
-          !isDuplicatePlugin(plugins, "@babel/plugin-transform-json-modules")
-        ) {
+        if (!includesPlugin(plugins, "@babel/plugin-transform-json-modules")) {
           plugins.push("@babel/plugin-transform-json-modules");
         }
 
@@ -126,8 +124,8 @@ export const plugin = <
               fullExtension: true
             })
           ) &&
-          !isDuplicatePlugin(plugins, "@babel/plugin-syntax-typescript") &&
-          !isDuplicatePreset(presets, "@babel/preset-typescript")
+          !includesPlugin(plugins, "@babel/plugin-syntax-typescript") &&
+          !includesPreset(presets, "@babel/preset-typescript")
         ) {
           plugins.unshift("@babel/plugin-syntax-typescript");
         }
@@ -138,11 +136,20 @@ export const plugin = <
               fullExtension: true
             })
           ) &&
-          !isDuplicatePlugin(plugins, "@babel/plugin-syntax-jsx") &&
-          !isDuplicatePreset(presets, "@babel/preset-react")
+          !includesPlugin(plugins, "@babel/plugin-syntax-jsx") &&
+          !includesPreset(presets, "@babel/preset-react")
         ) {
           plugins.unshift("@babel/plugin-syntax-jsx");
         }
+      }
+
+      if (
+        !includesPlugin(plugins, "@babel/plugin-transform-json-modules") &&
+        !includesPreset(presets, "@babel/preset-env") &&
+        findFileExtensionSafe(id).startsWith("json")
+      ) {
+        // Skipping transformation for JSON files if the transform-json-modules plugin is not included, as Babel cannot process JSON files without it.
+        return { code, id };
       }
 
       this.trace(

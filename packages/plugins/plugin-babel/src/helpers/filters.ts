@@ -56,7 +56,7 @@ export function getPluginName(
  * @param plugin - The Babel plugin to check for duplicates.
  * @returns True if the plugin is a duplicate, false otherwise.
  */
-export function isDuplicatePlugin<
+export function includesPlugin<
   T extends BabelTransformPluginOptions | ResolvedBabelTransformPluginOptions
 >(plugins: T[], plugin: T): boolean {
   return !!(
@@ -76,7 +76,7 @@ export function isDuplicatePlugin<
  * @param preset - The Babel preset to check for duplicates.
  * @returns True if the preset is a duplicate, false otherwise.
  */
-export function isDuplicatePreset<
+export function includesPreset<
   T extends BabelTransformPresetOptions | ResolvedBabelTransformPresetOptions
 >(presets: T[], preset: T): boolean {
   return !!(
