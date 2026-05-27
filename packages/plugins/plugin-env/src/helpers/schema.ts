@@ -180,11 +180,11 @@ export async function extractEnv<TContext extends EnvPluginContext>(
     ) as JsonSchemaObject;
   }
 
-  const secrets = (await extract(
+  context.env.secrets = (await extract(
     context,
     context.config.env.secrets
   )) as EnvSchema;
-  secrets.active = await readActive(context, "secrets");
+  context.env.secrets.active = await readActive(context, "secrets");
 
   if (
     (isString(context.config.env.secrets) &&
@@ -198,8 +198,8 @@ export async function extractEnv<TContext extends EnvPluginContext>(
         (context.config.env.secrets as TypeDefinition).name !==
           defaultSecretsTypeDefinition.name))
   ) {
-    secrets.schema = mergeSchemas(
-      secrets,
+    context.env.secrets.schema = mergeSchemas(
+      context.env.secrets,
       await extract(context, defaultSecretsTypeDefinition)
     ) as JsonSchemaObject;
   }
