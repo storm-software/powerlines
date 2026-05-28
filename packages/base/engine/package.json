@@ -83,7 +83,6 @@
       "import": "./dist/api/types.mjs",
       "require": "./dist/api/types.cjs"
     },
-    "./chunk-C_NdSu1c": "./dist/chunk-C_NdSu1c.cjs",
     "./context": {
       "import": "./dist/context/index.mjs",
       "require": "./dist/context/index.cjs"
