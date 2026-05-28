@@ -18,6 +18,7 @@
 
 import type { InlineConfig, Logger, Mode } from "@powerlines/core";
 import { getDefaultMode } from "@powerlines/core/lib/config";
+import { isDebug } from "@stryke/env/environment-checks";
 import { resolve } from "@stryke/fs/resolve";
 import { appendPath } from "@stryke/path/append";
 import { isNumber } from "@stryke/type-checks/is-number";
@@ -357,7 +358,7 @@ export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
     delete nodeOptions["inspect-brk"];
     delete nodeOptions.inspect_brk;
 
-    if (mode === "development") {
+    if (isDebug) {
       const nodeDebugType = getNodeDebugType(originalOptions);
       if (nodeDebugType) {
         const debuggerAddress = getParsedDebugAddress(
@@ -369,6 +370,10 @@ export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
           port: debuggerAddress.port === 0 ? 0 : debuggerAddress.port + 1 + 1
         };
         nodeOptions[nodeDebugType] = formatDebugAddress(address);
+
+        this.#logger.info(
+          `Node.js debugger listening on ${nodeOptions[nodeDebugType]}`
+        );
       }
 
       nodeOptions["enable-source-maps"] = true;
