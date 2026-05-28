@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.68](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.68) (05/28/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue with missing `Type` deserialization ([e4a10122f](https://github.com/storm-software/powerlines/commit/e4a10122f))
+
 ## [0.11.67](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.67) (05/28/2026)
 
 ### Bug Fixes
