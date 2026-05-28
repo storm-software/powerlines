@@ -438,6 +438,8 @@ export function extractHash(
   } else if (isSetObject(input)) {
     if (isZod3Type(input)) {
       return murmurhash({ variant, input: input._def });
+    } else if (isType(input)) {
+      return murmurhash({ variant, input: stringifyType(input) });
     } else if (isStandardJsonSchema(input)) {
       return murmurhash({ variant, input: input["~standard"] });
     } else if (isJsonSchema(input)) {
@@ -457,8 +459,6 @@ export function extractHash(
         variant,
         input: convertUntypedSchemaToJsonSchema(input)
       });
-    } else if (isType(input)) {
-      return murmurhash({ variant, input: stringifyType(input) });
     }
   }
 
@@ -520,13 +520,11 @@ export function extractJsonSchema(schema: unknown): JsonSchema | undefined {
 export function extractResolvedVariant(
   input: SchemaSourceInput
 ): SchemaSourceVariant {
-  if (typeof input === "boolean") {
-    return "json-schema";
-  }
-
   if (isSetObject(input)) {
     if (isZod3Type(input)) {
       return "zod3";
+    } else if (isType(input)) {
+      return "reflection";
     } else if (isUntypedInputStrict(input) || isUntypedSchemaStrict(input)) {
       return "untyped";
     } else if (isStandardJsonSchema(input)) {
@@ -535,8 +533,6 @@ export function extractResolvedVariant(
       return "json-schema";
     } else if (isValibotSchema(input)) {
       return "valibot";
-    } else if (isType(input)) {
-      return "reflection";
     }
   }
 
@@ -759,7 +755,7 @@ export async function extractSchemaWithSource(
     throw new Error(
       `Invalid schema definition input "${
         variant
-      }". The variant must be one of "file-reference", "json-schema", "standard-schema", "zod3", "untyped", or "reflection".`
+      }". The variant must be one of "file-reference", "json-schema", "standard-schema", "zod3", "valibot", "untyped", or "reflection".`
     );
   }
 
@@ -782,8 +778,10 @@ export async function extractSchemaWithSource(
  * const schema2 = await extract(context, schemaObject);
  * // Resolve a schema definition from a Zod schema
  * const schema3 = await extract(context, zodSchema);
+ * // Resolve a schema definition from a Valibot schema
+ * const schema4 = await extract(context, valibotSchema);
  * // Resolve a schema definition from a reflected Deepkit Type object
- * const schema4 = await extract(context, reflectionType);
+ * const schema5 = await extract(context, reflectionType);
  * ```
  *
  * @see https://zod.dev/
