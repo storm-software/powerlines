@@ -91,7 +91,7 @@ export const plugin = <
         meta: {
           category: "config"
         },
-        message: `Resolved Tsdown configuration: \n${formatConfig(options)}`
+        message: `Resolved Tsdown Build configuration: \n${formatConfig(options)}`
       });
 
       await build(options);

@@ -61,7 +61,6 @@ export const plugin = <
             cjsDefault: true,
             nodeProtocol: true,
             fixedExtension: true,
-            exports: true,
             unbundle: true
           }
         };
