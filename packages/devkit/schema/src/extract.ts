@@ -19,7 +19,7 @@
 import type { Context } from "@powerlines/core";
 import { isFileReference } from "@powerlines/core";
 import { esbuildPlugin } from "@powerlines/deepkit/esbuild-plugin";
-import { isType, stringifyType, Type } from "@powerlines/deepkit/vendor/type";
+import { deserializeType, isType, SerializedType, stringifyType, Type } from "@powerlines/deepkit/vendor/type";
 import { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import { extractFileReference } from "@stryke/convert/extract-file-reference";
 import { murmurhash } from "@stryke/hash";
@@ -67,6 +67,7 @@ import {
   UntypedSchema,
   ValibotSchema
 } from "./types";
+import { SerializedTypes } from "../../../base/deepkit/schemas/reflection";
 
 const SCHEMA_BUNDLE_BASE_URI = "https://powerlines.invalid/";
 
@@ -510,6 +511,8 @@ export function extractJsonSchema(schema: unknown): JsonSchema | undefined {
   return undefined;
 }
 
+
+
 /**
  * Resolves the concrete source variant for a schema source input.
  *
@@ -726,7 +729,7 @@ export async function extractSchemaWithSource(
       );
     }
 
-    const resolved = await resolve<SchemaSourceInput>(
+    let resolved = await resolve<SchemaSourceInput>(
       context,
       input as FileReferenceInput,
       defu(options, {
@@ -738,6 +741,15 @@ export async function extractSchemaWithSource(
         ]
       })
     );
+
+    try {
+      const type = deserializeType(resolved as SerializedType[]);
+      if (isType(type)) {
+        resolved = type;
+      }
+    } catch {
+      // If deserialization fails, we assume the resolved output is not a reflected type and proceed with it as-is.
+    }
 
     source = extractSource(extractResolvedVariant(resolved), resolved);
   } else if (
