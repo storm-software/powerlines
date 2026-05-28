@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-cloudflare",
-  "version": "0.6.183",
+  "version": "0.6.184",
   "private": false,
   "description": "A Powerlines plugin that provides integration with Cloudflare services.",
   "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
@@ -41,50 +41,160 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "default": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
     },
     "./components": {
-      "import": "./dist/components/index.mjs",
-      "require": "./dist/components/index.cjs"
+      "require": {
+        "types": "./dist/components/index.d.cts",
+        "default": "./dist/components/index.cjs"
+      },
+      "import": {
+        "types": "./dist/components/index.d.mts",
+        "default": "./dist/components/index.mjs"
+      },
+      "default": {
+        "types": "./dist/components/index.d.mts",
+        "default": "./dist/components/index.mjs"
+      }
     },
     "./components/cloudflare-builtin": {
-      "import": "./dist/components/cloudflare-builtin.mjs",
-      "require": "./dist/components/cloudflare-builtin.cjs"
+      "require": {
+        "types": "./dist/components/cloudflare-builtin.d.cts",
+        "default": "./dist/components/cloudflare-builtin.cjs"
+      },
+      "import": {
+        "types": "./dist/components/cloudflare-builtin.d.mts",
+        "default": "./dist/components/cloudflare-builtin.mjs"
+      },
+      "default": {
+        "types": "./dist/components/cloudflare-builtin.d.mts",
+        "default": "./dist/components/cloudflare-builtin.mjs"
+      }
     },
     "./components/env-builtin": {
-      "import": "./dist/components/env-builtin.mjs",
-      "require": "./dist/components/env-builtin.cjs"
+      "require": {
+        "types": "./dist/components/env-builtin.d.cts",
+        "default": "./dist/components/env-builtin.cjs"
+      },
+      "import": {
+        "types": "./dist/components/env-builtin.d.mts",
+        "default": "./dist/components/env-builtin.mjs"
+      },
+      "default": {
+        "types": "./dist/components/env-builtin.d.mts",
+        "default": "./dist/components/env-builtin.mjs"
+      }
     },
     "./components/worker-entry": {
-      "import": "./dist/components/worker-entry.mjs",
-      "require": "./dist/components/worker-entry.cjs"
+      "require": {
+        "types": "./dist/components/worker-entry.d.cts",
+        "default": "./dist/components/worker-entry.cjs"
+      },
+      "import": {
+        "types": "./dist/components/worker-entry.d.mts",
+        "default": "./dist/components/worker-entry.mjs"
+      },
+      "default": {
+        "types": "./dist/components/worker-entry.d.mts",
+        "default": "./dist/components/worker-entry.mjs"
+      }
     },
     "./helpers/constants": {
-      "import": "./dist/helpers/constants.mjs",
-      "require": "./dist/helpers/constants.cjs"
+      "require": {
+        "types": "./dist/helpers/constants.d.cts",
+        "default": "./dist/helpers/constants.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/constants.d.mts",
+        "default": "./dist/helpers/constants.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/constants.d.mts",
+        "default": "./dist/helpers/constants.mjs"
+      }
     },
     "./helpers/wrangler": {
-      "import": "./dist/helpers/wrangler.mjs",
-      "require": "./dist/helpers/wrangler.cjs"
+      "require": {
+        "types": "./dist/helpers/wrangler.d.cts",
+        "default": "./dist/helpers/wrangler.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/wrangler.d.mts",
+        "default": "./dist/helpers/wrangler.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/wrangler.d.mts",
+        "default": "./dist/helpers/wrangler.mjs"
+      }
     },
+    "./package.json": "./package.json",
     "./types": {
-      "import": "./dist/types/index.mjs",
-      "require": "./dist/types/index.cjs"
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/types/index.cjs"
+      },
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      },
+      "default": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      }
     },
     "./types/plugin": {
-      "import": "./dist/types/plugin.mjs",
-      "require": "./dist/types/plugin.cjs"
+      "require": {
+        "types": "./dist/types/plugin.d.cts",
+        "default": "./dist/types/plugin.cjs"
+      },
+      "import": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      },
+      "default": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      }
     },
     "./types/worker-module": {
-      "import": "./dist/types/worker-module.mjs",
-      "require": "./dist/types/worker-module.cjs"
+      "require": {
+        "types": "./dist/types/worker-module.d.cts",
+        "default": "./dist/types/worker-module.cjs"
+      },
+      "import": {
+        "types": "./dist/types/worker-module.d.mts",
+        "default": "./dist/types/worker-module.mjs"
+      },
+      "default": {
+        "types": "./dist/types/worker-module.d.mts",
+        "default": "./dist/types/worker-module.mjs"
+      }
     },
     "./types/wrangler": {
-      "import": "./dist/types/wrangler.mjs",
-      "require": "./dist/types/wrangler.cjs"
-    },
-    "./package.json": "./package.json"
+      "require": {
+        "types": "./dist/types/wrangler.d.cts",
+        "default": "./dist/types/wrangler.cjs"
+      },
+      "import": {
+        "types": "./dist/types/wrangler.d.mts",
+        "default": "./dist/types/wrangler.mjs"
+      },
+      "default": {
+        "types": "./dist/types/wrangler.d.mts",
+        "default": "./dist/types/wrangler.mjs"
+      }
+    }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

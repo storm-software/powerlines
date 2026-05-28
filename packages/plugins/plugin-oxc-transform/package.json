@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-oxc-transform",
-  "version": "0.5.552",
+  "version": "0.5.553",
   "type": "module",
   "description": "A Powerlines plugin to transform project code with Oxc Transformer.",
   "repository": {
@@ -42,18 +42,48 @@
   "module": "./dist/index.mjs",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "default": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
     },
+    "./package.json": "./package.json",
     "./types": {
-      "import": "./dist/types/index.mjs",
-      "require": "./dist/types/index.cjs"
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/types/index.cjs"
+      },
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      },
+      "default": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      }
     },
     "./types/plugin": {
-      "import": "./dist/types/plugin.mjs",
-      "require": "./dist/types/plugin.cjs"
-    },
-    "./package.json": "./package.json"
+      "require": {
+        "types": "./dist/types/plugin.d.cts",
+        "default": "./dist/types/plugin.cjs"
+      },
+      "import": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      },
+      "default": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      }
+    }
   },
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
