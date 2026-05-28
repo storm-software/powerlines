@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/engine",
-  "version": "0.49.23",
+  "version": "0.49.24",
   "private": false,
   "description": "An internal package containing the core engine modules for Powerlines.",
   "homepage": "https://stormsoftware.com",
@@ -96,8 +96,8 @@
       "import": "./dist/engine.mjs",
       "require": "./dist/engine.cjs"
     },
-    "./engine-CSxGz1az": "./dist/engine-CSxGz1az.mjs",
-    "./engine-DOd1eqhI": "./dist/engine-DOd1eqhI.cjs",
+    "./engine-CwATBJKZ": "./dist/engine-CwATBJKZ.cjs",
+    "./engine-DL7ZeYlx": "./dist/engine-DL7ZeYlx.mjs",
     "./helpers": {
       "import": "./dist/helpers/index.mjs",
       "require": "./dist/helpers/index.cjs"
