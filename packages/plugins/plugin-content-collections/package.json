@@ -46,30 +46,90 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "default": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
     },
     "./helpers": {
-      "import": "./dist/helpers/index.mjs",
-      "require": "./dist/helpers/index.cjs"
+      "require": {
+        "types": "./dist/helpers/index.d.cts",
+        "default": "./dist/helpers/index.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/index.d.mts",
+        "default": "./dist/helpers/index.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/index.d.mts",
+        "default": "./dist/helpers/index.mjs"
+      }
     },
     "./helpers/create-emitter": {
-      "import": "./dist/helpers/create-emitter.mjs",
-      "require": "./dist/helpers/create-emitter.cjs"
+      "require": {
+        "types": "./dist/helpers/create-emitter.d.cts",
+        "default": "./dist/helpers/create-emitter.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/create-emitter.d.mts",
+        "default": "./dist/helpers/create-emitter.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/create-emitter.d.mts",
+        "default": "./dist/helpers/create-emitter.mjs"
+      }
     },
     "./helpers/create-writer": {
-      "import": "./dist/helpers/create-writer.mjs",
-      "require": "./dist/helpers/create-writer.cjs"
+      "require": {
+        "types": "./dist/helpers/create-writer.d.cts",
+        "default": "./dist/helpers/create-writer.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/create-writer.d.mts",
+        "default": "./dist/helpers/create-writer.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/create-writer.d.mts",
+        "default": "./dist/helpers/create-writer.mjs"
+      }
     },
+    "./package.json": "./package.json",
     "./types": {
-      "import": "./dist/types/index.mjs",
-      "require": "./dist/types/index.cjs"
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/types/index.cjs"
+      },
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      },
+      "default": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      }
     },
     "./types/plugin": {
-      "import": "./dist/types/plugin.mjs",
-      "require": "./dist/types/plugin.cjs"
-    },
-    "./package.json": "./package.json"
+      "require": {
+        "types": "./dist/types/plugin.d.cts",
+        "default": "./dist/types/plugin.cjs"
+      },
+      "import": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      },
+      "default": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      }
+    }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

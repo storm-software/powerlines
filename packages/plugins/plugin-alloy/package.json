@@ -40,250 +40,860 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "default": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
     },
     "./core": {
-      "import": "./dist/core/index.mjs",
-      "require": "./dist/core/index.cjs"
+      "require": {
+        "types": "./dist/core/index.d.cts",
+        "default": "./dist/core/index.cjs"
+      },
+      "import": {
+        "types": "./dist/core/index.d.mts",
+        "default": "./dist/core/index.mjs"
+      },
+      "default": {
+        "types": "./dist/core/index.d.mts",
+        "default": "./dist/core/index.mjs"
+      }
     },
     "./core/components": {
-      "import": "./dist/core/components/index.mjs",
-      "require": "./dist/core/components/index.cjs"
+      "require": {
+        "types": "./dist/core/components/index.d.cts",
+        "default": "./dist/core/components/index.cjs"
+      },
+      "import": {
+        "types": "./dist/core/components/index.d.mts",
+        "default": "./dist/core/components/index.mjs"
+      },
+      "default": {
+        "types": "./dist/core/components/index.d.mts",
+        "default": "./dist/core/components/index.mjs"
+      }
     },
     "./core/components/infrastructure-file": {
-      "import": "./dist/core/components/infrastructure-file.mjs",
-      "require": "./dist/core/components/infrastructure-file.cjs"
+      "require": {
+        "types": "./dist/core/components/infrastructure-file.d.cts",
+        "default": "./dist/core/components/infrastructure-file.cjs"
+      },
+      "import": {
+        "types": "./dist/core/components/infrastructure-file.d.mts",
+        "default": "./dist/core/components/infrastructure-file.mjs"
+      },
+      "default": {
+        "types": "./dist/core/components/infrastructure-file.d.mts",
+        "default": "./dist/core/components/infrastructure-file.mjs"
+      }
     },
     "./core/components/output": {
-      "import": "./dist/core/components/output.mjs",
-      "require": "./dist/core/components/output.cjs"
+      "require": {
+        "types": "./dist/core/components/output.d.cts",
+        "default": "./dist/core/components/output.cjs"
+      },
+      "import": {
+        "types": "./dist/core/components/output.d.mts",
+        "default": "./dist/core/components/output.mjs"
+      },
+      "default": {
+        "types": "./dist/core/components/output.d.mts",
+        "default": "./dist/core/components/output.mjs"
+      }
     },
     "./core/components/single-line-comment": {
-      "import": "./dist/core/components/single-line-comment.mjs",
-      "require": "./dist/core/components/single-line-comment.cjs"
+      "require": {
+        "types": "./dist/core/components/single-line-comment.d.cts",
+        "default": "./dist/core/components/single-line-comment.cjs"
+      },
+      "import": {
+        "types": "./dist/core/components/single-line-comment.d.mts",
+        "default": "./dist/core/components/single-line-comment.mjs"
+      },
+      "default": {
+        "types": "./dist/core/components/single-line-comment.d.mts",
+        "default": "./dist/core/components/single-line-comment.mjs"
+      }
     },
     "./core/components/source-file": {
-      "import": "./dist/core/components/source-file.mjs",
-      "require": "./dist/core/components/source-file.cjs"
+      "require": {
+        "types": "./dist/core/components/source-file.d.cts",
+        "default": "./dist/core/components/source-file.cjs"
+      },
+      "import": {
+        "types": "./dist/core/components/source-file.d.mts",
+        "default": "./dist/core/components/source-file.mjs"
+      },
+      "default": {
+        "types": "./dist/core/components/source-file.d.mts",
+        "default": "./dist/core/components/source-file.mjs"
+      }
     },
     "./core/components/spacing": {
-      "import": "./dist/core/components/spacing.mjs",
-      "require": "./dist/core/components/spacing.cjs"
+      "require": {
+        "types": "./dist/core/components/spacing.d.cts",
+        "default": "./dist/core/components/spacing.cjs"
+      },
+      "import": {
+        "types": "./dist/core/components/spacing.d.mts",
+        "default": "./dist/core/components/spacing.mjs"
+      },
+      "default": {
+        "types": "./dist/core/components/spacing.d.mts",
+        "default": "./dist/core/components/spacing.mjs"
+      }
     },
     "./core/contexts": {
-      "import": "./dist/core/contexts/index.mjs",
-      "require": "./dist/core/contexts/index.cjs"
+      "require": {
+        "types": "./dist/core/contexts/index.d.cts",
+        "default": "./dist/core/contexts/index.cjs"
+      },
+      "import": {
+        "types": "./dist/core/contexts/index.d.mts",
+        "default": "./dist/core/contexts/index.mjs"
+      },
+      "default": {
+        "types": "./dist/core/contexts/index.d.mts",
+        "default": "./dist/core/contexts/index.mjs"
+      }
     },
     "./core/contexts/context": {
-      "import": "./dist/core/contexts/context.mjs",
-      "require": "./dist/core/contexts/context.cjs"
+      "require": {
+        "types": "./dist/core/contexts/context.d.cts",
+        "default": "./dist/core/contexts/context.cjs"
+      },
+      "import": {
+        "types": "./dist/core/contexts/context.d.mts",
+        "default": "./dist/core/contexts/context.mjs"
+      },
+      "default": {
+        "types": "./dist/core/contexts/context.d.mts",
+        "default": "./dist/core/contexts/context.mjs"
+      }
     },
     "./core/contexts/meta": {
-      "import": "./dist/core/contexts/meta.mjs",
-      "require": "./dist/core/contexts/meta.cjs"
+      "require": {
+        "types": "./dist/core/contexts/meta.d.cts",
+        "default": "./dist/core/contexts/meta.cjs"
+      },
+      "import": {
+        "types": "./dist/core/contexts/meta.d.mts",
+        "default": "./dist/core/contexts/meta.mjs"
+      },
+      "default": {
+        "types": "./dist/core/contexts/meta.d.mts",
+        "default": "./dist/core/contexts/meta.mjs"
+      }
     },
     "./core/contexts/schema": {
-      "import": "./dist/core/contexts/schema.mjs",
-      "require": "./dist/core/contexts/schema.cjs"
+      "require": {
+        "types": "./dist/core/contexts/schema.d.cts",
+        "default": "./dist/core/contexts/schema.cjs"
+      },
+      "import": {
+        "types": "./dist/core/contexts/schema.d.mts",
+        "default": "./dist/core/contexts/schema.mjs"
+      },
+      "default": {
+        "types": "./dist/core/contexts/schema.d.mts",
+        "default": "./dist/core/contexts/schema.mjs"
+      }
     },
     "./core/helpers": {
-      "import": "./dist/core/helpers/index.mjs",
-      "require": "./dist/core/helpers/index.cjs"
+      "require": {
+        "types": "./dist/core/helpers/index.d.cts",
+        "default": "./dist/core/helpers/index.cjs"
+      },
+      "import": {
+        "types": "./dist/core/helpers/index.d.mts",
+        "default": "./dist/core/helpers/index.mjs"
+      },
+      "default": {
+        "types": "./dist/core/helpers/index.d.mts",
+        "default": "./dist/core/helpers/index.mjs"
+      }
     },
     "./core/helpers/code": {
-      "import": "./dist/core/helpers/code.mjs",
-      "require": "./dist/core/helpers/code.cjs"
+      "require": {
+        "types": "./dist/core/helpers/code.d.cts",
+        "default": "./dist/core/helpers/code.cjs"
+      },
+      "import": {
+        "types": "./dist/core/helpers/code.d.mts",
+        "default": "./dist/core/helpers/code.mjs"
+      },
+      "default": {
+        "types": "./dist/core/helpers/code.d.mts",
+        "default": "./dist/core/helpers/code.mjs"
+      }
     },
     "./hcl": {
-      "import": "./dist/hcl/index.mjs",
-      "require": "./dist/hcl/index.cjs"
+      "require": {
+        "types": "./dist/hcl/index.d.cts",
+        "default": "./dist/hcl/index.cjs"
+      },
+      "import": {
+        "types": "./dist/hcl/index.d.mts",
+        "default": "./dist/hcl/index.mjs"
+      },
+      "default": {
+        "types": "./dist/hcl/index.d.mts",
+        "default": "./dist/hcl/index.mjs"
+      }
     },
     "./hcl/components": {
-      "import": "./dist/hcl/components/index.mjs",
-      "require": "./dist/hcl/components/index.cjs"
+      "require": {
+        "types": "./dist/hcl/components/index.d.cts",
+        "default": "./dist/hcl/components/index.cjs"
+      },
+      "import": {
+        "types": "./dist/hcl/components/index.d.mts",
+        "default": "./dist/hcl/components/index.mjs"
+      },
+      "default": {
+        "types": "./dist/hcl/components/index.d.mts",
+        "default": "./dist/hcl/components/index.mjs"
+      }
     },
     "./hcl/components/block-declaration": {
-      "import": "./dist/hcl/components/block-declaration.mjs",
-      "require": "./dist/hcl/components/block-declaration.cjs"
+      "require": {
+        "types": "./dist/hcl/components/block-declaration.d.cts",
+        "default": "./dist/hcl/components/block-declaration.cjs"
+      },
+      "import": {
+        "types": "./dist/hcl/components/block-declaration.d.mts",
+        "default": "./dist/hcl/components/block-declaration.mjs"
+      },
+      "default": {
+        "types": "./dist/hcl/components/block-declaration.d.mts",
+        "default": "./dist/hcl/components/block-declaration.mjs"
+      }
     },
     "./hcl/components/hcl-file": {
-      "import": "./dist/hcl/components/hcl-file.mjs",
-      "require": "./dist/hcl/components/hcl-file.cjs"
+      "require": {
+        "types": "./dist/hcl/components/hcl-file.d.cts",
+        "default": "./dist/hcl/components/hcl-file.cjs"
+      },
+      "import": {
+        "types": "./dist/hcl/components/hcl-file.d.mts",
+        "default": "./dist/hcl/components/hcl-file.mjs"
+      },
+      "default": {
+        "types": "./dist/hcl/components/hcl-file.d.mts",
+        "default": "./dist/hcl/components/hcl-file.mjs"
+      }
     },
     "./hcl/components/packer-file": {
-      "import": "./dist/hcl/components/packer-file.mjs",
-      "require": "./dist/hcl/components/packer-file.cjs"
+      "require": {
+        "types": "./dist/hcl/components/packer-file.d.cts",
+        "default": "./dist/hcl/components/packer-file.cjs"
+      },
+      "import": {
+        "types": "./dist/hcl/components/packer-file.d.mts",
+        "default": "./dist/hcl/components/packer-file.mjs"
+      },
+      "default": {
+        "types": "./dist/hcl/components/packer-file.d.mts",
+        "default": "./dist/hcl/components/packer-file.mjs"
+      }
     },
     "./hcl/components/terraform-file": {
-      "import": "./dist/hcl/components/terraform-file.mjs",
-      "require": "./dist/hcl/components/terraform-file.cjs"
+      "require": {
+        "types": "./dist/hcl/components/terraform-file.d.cts",
+        "default": "./dist/hcl/components/terraform-file.cjs"
+      },
+      "import": {
+        "types": "./dist/hcl/components/terraform-file.d.mts",
+        "default": "./dist/hcl/components/terraform-file.mjs"
+      },
+      "default": {
+        "types": "./dist/hcl/components/terraform-file.d.mts",
+        "default": "./dist/hcl/components/terraform-file.mjs"
+      }
     },
     "./helpers": {
-      "import": "./dist/helpers/index.mjs",
-      "require": "./dist/helpers/index.cjs"
+      "require": {
+        "types": "./dist/helpers/index.d.cts",
+        "default": "./dist/helpers/index.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/index.d.mts",
+        "default": "./dist/helpers/index.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/index.d.mts",
+        "default": "./dist/helpers/index.mjs"
+      }
     },
     "./helpers/capnp": {
-      "import": "./dist/helpers/capnp.mjs",
-      "require": "./dist/helpers/capnp.cjs"
+      "require": {
+        "types": "./dist/helpers/capnp.d.cts",
+        "default": "./dist/helpers/capnp.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/capnp.d.mts",
+        "default": "./dist/helpers/capnp.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/capnp.d.mts",
+        "default": "./dist/helpers/capnp.mjs"
+      }
     },
     "./helpers/create-builtin": {
-      "import": "./dist/helpers/create-builtin.mjs",
-      "require": "./dist/helpers/create-builtin.cjs"
+      "require": {
+        "types": "./dist/helpers/create-builtin.d.cts",
+        "default": "./dist/helpers/create-builtin.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/create-builtin.d.mts",
+        "default": "./dist/helpers/create-builtin.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/create-builtin.d.mts",
+        "default": "./dist/helpers/create-builtin.mjs"
+      }
     },
     "./helpers/refkey": {
-      "import": "./dist/helpers/refkey.mjs",
-      "require": "./dist/helpers/refkey.cjs"
+      "require": {
+        "types": "./dist/helpers/refkey.d.cts",
+        "default": "./dist/helpers/refkey.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/refkey.d.mts",
+        "default": "./dist/helpers/refkey.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/refkey.d.mts",
+        "default": "./dist/helpers/refkey.mjs"
+      }
     },
     "./helpers/typescript": {
-      "import": "./dist/helpers/typescript.mjs",
-      "require": "./dist/helpers/typescript.cjs"
+      "require": {
+        "types": "./dist/helpers/typescript.d.cts",
+        "default": "./dist/helpers/typescript.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/typescript.d.mts",
+        "default": "./dist/helpers/typescript.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/typescript.d.mts",
+        "default": "./dist/helpers/typescript.mjs"
+      }
     },
     "./markdown": {
-      "import": "./dist/markdown/index.mjs",
-      "require": "./dist/markdown/index.cjs"
+      "require": {
+        "types": "./dist/markdown/index.d.cts",
+        "default": "./dist/markdown/index.cjs"
+      },
+      "import": {
+        "types": "./dist/markdown/index.d.mts",
+        "default": "./dist/markdown/index.mjs"
+      },
+      "default": {
+        "types": "./dist/markdown/index.d.mts",
+        "default": "./dist/markdown/index.mjs"
+      }
     },
     "./markdown/components": {
-      "import": "./dist/markdown/components/index.mjs",
-      "require": "./dist/markdown/components/index.cjs"
+      "require": {
+        "types": "./dist/markdown/components/index.d.cts",
+        "default": "./dist/markdown/components/index.cjs"
+      },
+      "import": {
+        "types": "./dist/markdown/components/index.d.mts",
+        "default": "./dist/markdown/components/index.mjs"
+      },
+      "default": {
+        "types": "./dist/markdown/components/index.d.mts",
+        "default": "./dist/markdown/components/index.mjs"
+      }
     },
     "./markdown/components/front-matter": {
-      "import": "./dist/markdown/components/front-matter.mjs",
-      "require": "./dist/markdown/components/front-matter.cjs"
+      "require": {
+        "types": "./dist/markdown/components/front-matter.d.cts",
+        "default": "./dist/markdown/components/front-matter.cjs"
+      },
+      "import": {
+        "types": "./dist/markdown/components/front-matter.d.mts",
+        "default": "./dist/markdown/components/front-matter.mjs"
+      },
+      "default": {
+        "types": "./dist/markdown/components/front-matter.d.mts",
+        "default": "./dist/markdown/components/front-matter.mjs"
+      }
     },
     "./markdown/components/heading": {
-      "import": "./dist/markdown/components/heading.mjs",
-      "require": "./dist/markdown/components/heading.cjs"
+      "require": {
+        "types": "./dist/markdown/components/heading.d.cts",
+        "default": "./dist/markdown/components/heading.cjs"
+      },
+      "import": {
+        "types": "./dist/markdown/components/heading.d.mts",
+        "default": "./dist/markdown/components/heading.mjs"
+      },
+      "default": {
+        "types": "./dist/markdown/components/heading.d.mts",
+        "default": "./dist/markdown/components/heading.mjs"
+      }
     },
     "./markdown/components/markdown-file": {
-      "import": "./dist/markdown/components/markdown-file.mjs",
-      "require": "./dist/markdown/components/markdown-file.cjs"
+      "require": {
+        "types": "./dist/markdown/components/markdown-file.d.cts",
+        "default": "./dist/markdown/components/markdown-file.cjs"
+      },
+      "import": {
+        "types": "./dist/markdown/components/markdown-file.d.mts",
+        "default": "./dist/markdown/components/markdown-file.mjs"
+      },
+      "default": {
+        "types": "./dist/markdown/components/markdown-file.d.mts",
+        "default": "./dist/markdown/components/markdown-file.mjs"
+      }
     },
     "./markdown/components/markdown-table": {
-      "import": "./dist/markdown/components/markdown-table.mjs",
-      "require": "./dist/markdown/components/markdown-table.cjs"
+      "require": {
+        "types": "./dist/markdown/components/markdown-table.d.cts",
+        "default": "./dist/markdown/components/markdown-table.cjs"
+      },
+      "import": {
+        "types": "./dist/markdown/components/markdown-table.d.mts",
+        "default": "./dist/markdown/components/markdown-table.mjs"
+      },
+      "default": {
+        "types": "./dist/markdown/components/markdown-table.d.mts",
+        "default": "./dist/markdown/components/markdown-table.mjs"
+      }
     },
     "./markdown/contexts": {
-      "import": "./dist/markdown/contexts/index.mjs",
-      "require": "./dist/markdown/contexts/index.cjs"
+      "require": {
+        "types": "./dist/markdown/contexts/index.d.cts",
+        "default": "./dist/markdown/contexts/index.cjs"
+      },
+      "import": {
+        "types": "./dist/markdown/contexts/index.d.mts",
+        "default": "./dist/markdown/contexts/index.mjs"
+      },
+      "default": {
+        "types": "./dist/markdown/contexts/index.d.mts",
+        "default": "./dist/markdown/contexts/index.mjs"
+      }
     },
     "./markdown/contexts/markdown-table": {
-      "import": "./dist/markdown/contexts/markdown-table.mjs",
-      "require": "./dist/markdown/contexts/markdown-table.cjs"
+      "require": {
+        "types": "./dist/markdown/contexts/markdown-table.d.cts",
+        "default": "./dist/markdown/contexts/markdown-table.cjs"
+      },
+      "import": {
+        "types": "./dist/markdown/contexts/markdown-table.d.mts",
+        "default": "./dist/markdown/contexts/markdown-table.mjs"
+      },
+      "default": {
+        "types": "./dist/markdown/contexts/markdown-table.d.mts",
+        "default": "./dist/markdown/contexts/markdown-table.mjs"
+      }
     },
+    "./package.json": "./package.json",
     "./render": {
-      "import": "./dist/render.mjs",
-      "require": "./dist/render.cjs"
+      "require": {
+        "types": "./dist/render.d.cts",
+        "default": "./dist/render.cjs"
+      },
+      "import": {
+        "types": "./dist/render.d.mts",
+        "default": "./dist/render.mjs"
+      },
+      "default": {
+        "types": "./dist/render.d.mts",
+        "default": "./dist/render.mjs"
+      }
     },
     "./types": {
-      "import": "./dist/types/index.mjs",
-      "require": "./dist/types/index.cjs"
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/types/index.cjs"
+      },
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      },
+      "default": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      }
     },
     "./types/components": {
-      "import": "./dist/types/components.mjs",
-      "require": "./dist/types/components.cjs"
+      "require": {
+        "types": "./dist/types/components.d.cts",
+        "default": "./dist/types/components.cjs"
+      },
+      "import": {
+        "types": "./dist/types/components.d.mts",
+        "default": "./dist/types/components.mjs"
+      },
+      "default": {
+        "types": "./dist/types/components.d.mts",
+        "default": "./dist/types/components.mjs"
+      }
     },
     "./types/plugin": {
-      "import": "./dist/types/plugin.mjs",
-      "require": "./dist/types/plugin.cjs"
+      "require": {
+        "types": "./dist/types/plugin.d.cts",
+        "default": "./dist/types/plugin.cjs"
+      },
+      "import": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      },
+      "default": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      }
     },
     "./typescript": {
-      "import": "./dist/typescript/index.mjs",
-      "require": "./dist/typescript/index.cjs"
+      "require": {
+        "types": "./dist/typescript/index.d.cts",
+        "default": "./dist/typescript/index.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/index.d.mts",
+        "default": "./dist/typescript/index.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/index.d.mts",
+        "default": "./dist/typescript/index.mjs"
+      }
     },
     "./typescript/components": {
-      "import": "./dist/typescript/components/index.mjs",
-      "require": "./dist/typescript/components/index.cjs"
+      "require": {
+        "types": "./dist/typescript/components/index.d.cts",
+        "default": "./dist/typescript/components/index.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/index.d.mts",
+        "default": "./dist/typescript/components/index.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/index.d.mts",
+        "default": "./dist/typescript/components/index.mjs"
+      }
     },
     "./typescript/components/builtin-file": {
-      "import": "./dist/typescript/components/builtin-file.mjs",
-      "require": "./dist/typescript/components/builtin-file.cjs"
+      "require": {
+        "types": "./dist/typescript/components/builtin-file.d.cts",
+        "default": "./dist/typescript/components/builtin-file.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/builtin-file.d.mts",
+        "default": "./dist/typescript/components/builtin-file.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/builtin-file.d.mts",
+        "default": "./dist/typescript/components/builtin-file.mjs"
+      }
     },
     "./typescript/components/class-declaration": {
-      "import": "./dist/typescript/components/class-declaration.mjs",
-      "require": "./dist/typescript/components/class-declaration.cjs"
+      "require": {
+        "types": "./dist/typescript/components/class-declaration.d.cts",
+        "default": "./dist/typescript/components/class-declaration.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/class-declaration.d.mts",
+        "default": "./dist/typescript/components/class-declaration.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/class-declaration.d.mts",
+        "default": "./dist/typescript/components/class-declaration.mjs"
+      }
     },
     "./typescript/components/dynamic-import-statement": {
-      "import": "./dist/typescript/components/dynamic-import-statement.mjs",
-      "require": "./dist/typescript/components/dynamic-import-statement.cjs"
+      "require": {
+        "types": "./dist/typescript/components/dynamic-import-statement.d.cts",
+        "default": "./dist/typescript/components/dynamic-import-statement.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/dynamic-import-statement.d.mts",
+        "default": "./dist/typescript/components/dynamic-import-statement.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/dynamic-import-statement.d.mts",
+        "default": "./dist/typescript/components/dynamic-import-statement.mjs"
+      }
     },
     "./typescript/components/entry-file": {
-      "import": "./dist/typescript/components/entry-file.mjs",
-      "require": "./dist/typescript/components/entry-file.cjs"
+      "require": {
+        "types": "./dist/typescript/components/entry-file.d.cts",
+        "default": "./dist/typescript/components/entry-file.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/entry-file.d.mts",
+        "default": "./dist/typescript/components/entry-file.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/entry-file.d.mts",
+        "default": "./dist/typescript/components/entry-file.mjs"
+      }
     },
     "./typescript/components/interface-declaration": {
-      "import": "./dist/typescript/components/interface-declaration.mjs",
-      "require": "./dist/typescript/components/interface-declaration.cjs"
+      "require": {
+        "types": "./dist/typescript/components/interface-declaration.d.cts",
+        "default": "./dist/typescript/components/interface-declaration.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/interface-declaration.d.mts",
+        "default": "./dist/typescript/components/interface-declaration.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/interface-declaration.d.mts",
+        "default": "./dist/typescript/components/interface-declaration.mjs"
+      }
     },
     "./typescript/components/object-declaration": {
-      "import": "./dist/typescript/components/object-declaration.mjs",
-      "require": "./dist/typescript/components/object-declaration.cjs"
+      "require": {
+        "types": "./dist/typescript/components/object-declaration.d.cts",
+        "default": "./dist/typescript/components/object-declaration.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/object-declaration.d.mts",
+        "default": "./dist/typescript/components/object-declaration.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/object-declaration.d.mts",
+        "default": "./dist/typescript/components/object-declaration.mjs"
+      }
     },
     "./typescript/components/property-name": {
-      "import": "./dist/typescript/components/property-name.mjs",
-      "require": "./dist/typescript/components/property-name.cjs"
+      "require": {
+        "types": "./dist/typescript/components/property-name.d.cts",
+        "default": "./dist/typescript/components/property-name.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/property-name.d.mts",
+        "default": "./dist/typescript/components/property-name.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/property-name.d.mts",
+        "default": "./dist/typescript/components/property-name.mjs"
+      }
     },
     "./typescript/components/record-expression": {
-      "import": "./dist/typescript/components/record-expression.mjs",
-      "require": "./dist/typescript/components/record-expression.cjs"
+      "require": {
+        "types": "./dist/typescript/components/record-expression.d.cts",
+        "default": "./dist/typescript/components/record-expression.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/record-expression.d.mts",
+        "default": "./dist/typescript/components/record-expression.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/record-expression.d.mts",
+        "default": "./dist/typescript/components/record-expression.mjs"
+      }
     },
     "./typescript/components/tsdoc": {
-      "import": "./dist/typescript/components/tsdoc.mjs",
-      "require": "./dist/typescript/components/tsdoc.cjs"
+      "require": {
+        "types": "./dist/typescript/components/tsdoc.d.cts",
+        "default": "./dist/typescript/components/tsdoc.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/tsdoc.d.mts",
+        "default": "./dist/typescript/components/tsdoc.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/tsdoc.d.mts",
+        "default": "./dist/typescript/components/tsdoc.mjs"
+      }
     },
     "./typescript/components/tsdoc-schema": {
-      "import": "./dist/typescript/components/tsdoc-schema.mjs",
-      "require": "./dist/typescript/components/tsdoc-schema.cjs"
+      "require": {
+        "types": "./dist/typescript/components/tsdoc-schema.d.cts",
+        "default": "./dist/typescript/components/tsdoc-schema.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/tsdoc-schema.d.mts",
+        "default": "./dist/typescript/components/tsdoc-schema.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/tsdoc-schema.d.mts",
+        "default": "./dist/typescript/components/tsdoc-schema.mjs"
+      }
     },
     "./typescript/components/type-declaration": {
-      "import": "./dist/typescript/components/type-declaration.mjs",
-      "require": "./dist/typescript/components/type-declaration.cjs"
+      "require": {
+        "types": "./dist/typescript/components/type-declaration.d.cts",
+        "default": "./dist/typescript/components/type-declaration.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/type-declaration.d.mts",
+        "default": "./dist/typescript/components/type-declaration.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/type-declaration.d.mts",
+        "default": "./dist/typescript/components/type-declaration.mjs"
+      }
     },
     "./typescript/components/type-parameters": {
-      "import": "./dist/typescript/components/type-parameters.mjs",
-      "require": "./dist/typescript/components/type-parameters.cjs"
+      "require": {
+        "types": "./dist/typescript/components/type-parameters.d.cts",
+        "default": "./dist/typescript/components/type-parameters.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/type-parameters.d.mts",
+        "default": "./dist/typescript/components/type-parameters.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/type-parameters.d.mts",
+        "default": "./dist/typescript/components/type-parameters.mjs"
+      }
     },
     "./typescript/components/typescript-file": {
-      "import": "./dist/typescript/components/typescript-file.mjs",
-      "require": "./dist/typescript/components/typescript-file.cjs"
+      "require": {
+        "types": "./dist/typescript/components/typescript-file.d.cts",
+        "default": "./dist/typescript/components/typescript-file.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/components/typescript-file.d.mts",
+        "default": "./dist/typescript/components/typescript-file.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/components/typescript-file.d.mts",
+        "default": "./dist/typescript/components/typescript-file.mjs"
+      }
     },
     "./typescript/contexts": {
-      "import": "./dist/typescript/contexts/index.mjs",
-      "require": "./dist/typescript/contexts/index.cjs"
+      "require": {
+        "types": "./dist/typescript/contexts/index.d.cts",
+        "default": "./dist/typescript/contexts/index.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/contexts/index.d.mts",
+        "default": "./dist/typescript/contexts/index.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/contexts/index.d.mts",
+        "default": "./dist/typescript/contexts/index.mjs"
+      }
     },
     "./typescript/contexts/lexical-scope": {
-      "import": "./dist/typescript/contexts/lexical-scope.mjs",
-      "require": "./dist/typescript/contexts/lexical-scope.cjs"
+      "require": {
+        "types": "./dist/typescript/contexts/lexical-scope.d.cts",
+        "default": "./dist/typescript/contexts/lexical-scope.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/contexts/lexical-scope.d.mts",
+        "default": "./dist/typescript/contexts/lexical-scope.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/contexts/lexical-scope.d.mts",
+        "default": "./dist/typescript/contexts/lexical-scope.mjs"
+      }
     },
     "./typescript/contexts/member-scope": {
-      "import": "./dist/typescript/contexts/member-scope.mjs",
-      "require": "./dist/typescript/contexts/member-scope.cjs"
+      "require": {
+        "types": "./dist/typescript/contexts/member-scope.d.cts",
+        "default": "./dist/typescript/contexts/member-scope.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/contexts/member-scope.d.mts",
+        "default": "./dist/typescript/contexts/member-scope.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/contexts/member-scope.d.mts",
+        "default": "./dist/typescript/contexts/member-scope.mjs"
+      }
     },
     "./typescript/helpers": {
-      "import": "./dist/typescript/helpers/index.mjs",
-      "require": "./dist/typescript/helpers/index.cjs"
+      "require": {
+        "types": "./dist/typescript/helpers/index.d.cts",
+        "default": "./dist/typescript/helpers/index.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/helpers/index.d.mts",
+        "default": "./dist/typescript/helpers/index.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/helpers/index.d.mts",
+        "default": "./dist/typescript/helpers/index.mjs"
+      }
     },
     "./typescript/helpers/get-call-signature-props": {
-      "import": "./dist/typescript/helpers/get-call-signature-props.mjs",
-      "require": "./dist/typescript/helpers/get-call-signature-props.cjs"
+      "require": {
+        "types": "./dist/typescript/helpers/get-call-signature-props.d.cts",
+        "default": "./dist/typescript/helpers/get-call-signature-props.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/helpers/get-call-signature-props.d.mts",
+        "default": "./dist/typescript/helpers/get-call-signature-props.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/helpers/get-call-signature-props.d.mts",
+        "default": "./dist/typescript/helpers/get-call-signature-props.mjs"
+      }
     },
     "./typescript/helpers/utilities": {
-      "import": "./dist/typescript/helpers/utilities.mjs",
-      "require": "./dist/typescript/helpers/utilities.cjs"
+      "require": {
+        "types": "./dist/typescript/helpers/utilities.d.cts",
+        "default": "./dist/typescript/helpers/utilities.cjs"
+      },
+      "import": {
+        "types": "./dist/typescript/helpers/utilities.d.mts",
+        "default": "./dist/typescript/helpers/utilities.mjs"
+      },
+      "default": {
+        "types": "./dist/typescript/helpers/utilities.d.mts",
+        "default": "./dist/typescript/helpers/utilities.mjs"
+      }
     },
     "./yaml": {
-      "import": "./dist/yaml/index.mjs",
-      "require": "./dist/yaml/index.cjs"
+      "require": {
+        "types": "./dist/yaml/index.d.cts",
+        "default": "./dist/yaml/index.cjs"
+      },
+      "import": {
+        "types": "./dist/yaml/index.d.mts",
+        "default": "./dist/yaml/index.mjs"
+      },
+      "default": {
+        "types": "./dist/yaml/index.d.mts",
+        "default": "./dist/yaml/index.mjs"
+      }
     },
     "./yaml/components": {
-      "import": "./dist/yaml/components/index.mjs",
-      "require": "./dist/yaml/components/index.cjs"
+      "require": {
+        "types": "./dist/yaml/components/index.d.cts",
+        "default": "./dist/yaml/components/index.cjs"
+      },
+      "import": {
+        "types": "./dist/yaml/components/index.d.mts",
+        "default": "./dist/yaml/components/index.mjs"
+      },
+      "default": {
+        "types": "./dist/yaml/components/index.d.mts",
+        "default": "./dist/yaml/components/index.mjs"
+      }
     },
     "./yaml/components/yaml-file": {
-      "import": "./dist/yaml/components/yaml-file.mjs",
-      "require": "./dist/yaml/components/yaml-file.cjs"
-    },
-    "./package.json": "./package.json"
+      "require": {
+        "types": "./dist/yaml/components/yaml-file.d.cts",
+        "default": "./dist/yaml/components/yaml-file.cjs"
+      },
+      "import": {
+        "types": "./dist/yaml/components/yaml-file.d.mts",
+        "default": "./dist/yaml/components/yaml-file.mjs"
+      },
+      "default": {
+        "types": "./dist/yaml/components/yaml-file.d.mts",
+        "default": "./dist/yaml/components/yaml-file.mjs"
+      }
+    }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

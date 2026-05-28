@@ -41,30 +41,90 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "default": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
     },
     "./helpers/format-path": {
-      "import": "./dist/helpers/format-path.mjs",
-      "require": "./dist/helpers/format-path.cjs"
+      "require": {
+        "types": "./dist/helpers/format-path.d.cts",
+        "default": "./dist/helpers/format-path.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/format-path.d.mts",
+        "default": "./dist/helpers/format-path.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/format-path.d.mts",
+        "default": "./dist/helpers/format-path.mjs"
+      }
     },
+    "./package.json": "./package.json",
     "./types": {
-      "import": "./dist/types/index.mjs",
-      "require": "./dist/types/index.cjs"
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/types/index.cjs"
+      },
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      },
+      "default": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/types/index.mjs"
+      }
     },
     "./types/plugin": {
-      "import": "./dist/types/plugin.mjs",
-      "require": "./dist/types/plugin.cjs"
+      "require": {
+        "types": "./dist/types/plugin.d.cts",
+        "default": "./dist/types/plugin.cjs"
+      },
+      "import": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      },
+      "default": {
+        "types": "./dist/types/plugin.d.mts",
+        "default": "./dist/types/plugin.mjs"
+      }
     },
     "./types/targets": {
-      "import": "./dist/types/targets.mjs",
-      "require": "./dist/types/targets.cjs"
+      "require": {
+        "types": "./dist/types/targets.d.cts",
+        "default": "./dist/types/targets.cjs"
+      },
+      "import": {
+        "types": "./dist/types/targets.d.mts",
+        "default": "./dist/types/targets.mjs"
+      },
+      "default": {
+        "types": "./dist/types/targets.d.mts",
+        "default": "./dist/types/targets.mjs"
+      }
     },
     "./types/wasm": {
-      "import": "./dist/types/wasm.mjs",
-      "require": "./dist/types/wasm.cjs"
-    },
-    "./package.json": "./package.json"
+      "require": {
+        "types": "./dist/types/wasm.d.cts",
+        "default": "./dist/types/wasm.cjs"
+      },
+      "import": {
+        "types": "./dist/types/wasm.d.mts",
+        "default": "./dist/types/wasm.mjs"
+      },
+      "default": {
+        "types": "./dist/types/wasm.d.mts",
+        "default": "./dist/types/wasm.mjs"
+      }
+    }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
