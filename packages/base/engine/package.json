@@ -96,8 +96,6 @@
       "import": "./dist/engine.mjs",
       "require": "./dist/engine.cjs"
     },
-    "./engine-CSxGz1az": "./dist/engine-CSxGz1az.mjs",
-    "./engine-DOd1eqhI": "./dist/engine-DOd1eqhI.cjs",
     "./helpers": {
       "import": "./dist/helpers/index.mjs",
       "require": "./dist/helpers/index.cjs"

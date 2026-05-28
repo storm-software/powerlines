@@ -44,7 +44,13 @@ export type GetPropertiesResult = JsonSchema & {
 export function getJsonSchema(input: Schema | JsonSchema): JsonSchema {
   const schema = isSchema(input) ? input.schema : input;
   if (!isJsonSchema(schema)) {
-    throw new TypeError("The provided input is not a valid JSON Schema");
+    throw new TypeError(
+      `The provided input is not a valid JSON Schema: ${JSON.stringify(
+        schema,
+        null,
+        2
+      )}`
+    );
   }
 
   return schema;
@@ -65,7 +71,9 @@ export function getJsonSchemaObject(
 ): JsonSchemaObject {
   const schema = getJsonSchema(input);
   if (!isJsonSchemaObject(schema)) {
-    throw new TypeError("The provided input is not a valid JSON Schema object");
+    throw new TypeError(
+      `The provided input is not a valid JSON Schema object: ${JSON.stringify(schema, null, 2)}`
+    );
   }
 
   return schema;

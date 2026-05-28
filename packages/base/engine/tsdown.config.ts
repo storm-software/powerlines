@@ -22,7 +22,8 @@ const config = defineTSDownConfig([
   {
     name: "engine",
     entry: ["src/*.ts", "src/api/*.ts", "src/helpers/*.ts", "src/context/*.ts"],
-    unbundle: false
+    unbundle: false,
+    exports: false
   }
 ]);
 
