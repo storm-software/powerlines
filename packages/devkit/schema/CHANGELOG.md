@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.67](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.67) (05/28/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue with type checking order in `extract` components ([433cf4b98](https://github.com/storm-software/powerlines/commit/433cf4b98))
+
 ## [0.11.66](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.66) (05/28/2026)
 
 ### Updated Dependencies
