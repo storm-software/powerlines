@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.25](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.25) (05/28/2026)
+
+### Miscellaneous
+
+- **monorepo:** Force update `devenv` modules ([b20e1c5d9](https://github.com/storm-software/powerlines/commit/b20e1c5d9))
+- **schema:** Print schema when throwing invalid type errors ([1a228b7df](https://github.com/storm-software/powerlines/commit/1a228b7df))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.23**
+
 ## [0.49.24](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.24) (05/28/2026)
 
 ### Miscellaneous

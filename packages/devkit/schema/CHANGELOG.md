@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.65](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.65) (05/28/2026)
+
+### Miscellaneous
+
+- **schema:** Print schema when throwing invalid type errors ([1a228b7df](https://github.com/storm-software/powerlines/commit/1a228b7df))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.23**
+- Updated **deepkit** to **v0.9.55**
+- Updated **unplugin** to **v0.0.71**
+
 ## [0.11.64](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.64) (05/28/2026)
 
 ### Updated Dependencies

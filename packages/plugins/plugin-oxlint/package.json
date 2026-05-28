@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-oxlint",
-  "version": "0.7.546",
+  "version": "0.7.547",
   "type": "module",
   "description": "A package containing a Powerlines plugin for running Oxlint on the codebase.",
   "repository": {
