@@ -152,6 +152,21 @@ export async function extractEnv<TContext extends EnvPluginContext>(
   const defaultConfig = await getDefaultConfig(context);
   const defaultSecrets = await getDefaultSecrets(context);
 
+  context.debug({
+    meta: {
+      category: "env"
+    },
+    message: `Environment Variables configuration: ${
+      context.config.env.config
+        ? JSON.stringify(context.config.env.config, null, 2)
+        : "None"
+    }\nEnvironment Secret configuration: ${
+      context.config.env.secrets
+        ? JSON.stringify(context.config.env.secrets, null, 2)
+        : "None"
+    }`
+  });
+
   context.env ??= {} as EnvPluginContext["env"];
   context.env.parsed ??= {};
   context.env.injected ??= [];
