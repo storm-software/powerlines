@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.484](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.484) (05/28/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Ensure `exports` build option is correctly applied ([bd922f955](https://github.com/storm-software/powerlines/commit/bd922f955))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.24**
+- Updated **powerlines** to **v0.47.83**
+- Updated **unplugin** to **v0.0.72**
+
 ## [0.1.483](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.483) (05/28/2026)
 
 ### Updated Dependencies

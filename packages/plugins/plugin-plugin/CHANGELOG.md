@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.495](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.495) (05/28/2026)
+
+### Miscellaneous
+
+- **plugin-plugin:** Ensure `exports` build option is correctly applied ([bd922f955](https://github.com/storm-software/powerlines/commit/bd922f955))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.484**
+- Updated **powerlines** to **v0.47.83**
+
 ## [0.12.494](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.494) (05/28/2026)
 
 ### Updated Dependencies
