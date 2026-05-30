@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.126](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.126) (05/30/2026)
+
+### Miscellaneous
+
+- **nx:** Added `framework` to options to allow custom values ([d4a55259d](https://github.com/storm-software/powerlines/commit/d4a55259d))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.88**
+
 ## [0.13.125](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.125) (05/30/2026)
 
 ### Miscellaneous
