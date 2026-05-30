@@ -108,7 +108,6 @@ export function withExecutor<
 
       const jiti = createJiti(context.root, {
         cache: false,
-        interopDefault: true,
         tsconfigPaths: true
       });
       const api = await jiti
@@ -193,6 +192,7 @@ export function withExecutor<
             ),
             async (inlineConfig: InlineConfig) =>
               api({
+                // eslint-disable-next-line ts/no-unnecessary-type-assertion
                 options: defu(defaultOptions, {
                   executionId: `${context.projectName}-${command}-${options.configIndex}`,
                   cwd: context.root,
@@ -206,7 +206,7 @@ export function withExecutor<
                     name: "powerlines",
                     orgId: "storm-software"
                   }
-                }),
+                }) as ExecutionOptions,
                 command,
                 inlineConfig
               })
