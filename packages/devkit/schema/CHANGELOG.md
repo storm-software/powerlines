@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.74](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.74) (05/30/2026)
+
+### Bug Fixes
+
+- **schema:** Update options provided to `bundle` to prevent missing imports ([ec4b44faf](https://github.com/storm-software/powerlines/commit/ec4b44faf))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.30**
+- Updated **deepkit** to **v0.9.62**
+- Updated **unplugin** to **v0.0.78**
+
 ## [0.11.73](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.73) (05/30/2026)
 
 ### Miscellaneous
