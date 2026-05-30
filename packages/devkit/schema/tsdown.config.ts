@@ -20,8 +20,7 @@ import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
 
 const config = defineTSDownConfig({
   name: "schema",
-  entry: "src/index.ts",
-  exports: true
+  entry: "src/index.ts"
 });
 
 export default config;

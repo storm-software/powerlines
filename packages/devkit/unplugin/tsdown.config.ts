@@ -20,8 +20,7 @@ import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
 
 const config = defineTSDownConfig({
   name: "unplugin",
-  entry: "src/*.ts",
-  exports: true
+  entry: "src/*.ts"
 });
 
 export default config;
