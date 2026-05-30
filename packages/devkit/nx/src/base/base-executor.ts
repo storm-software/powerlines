@@ -16,11 +16,11 @@
 
  ------------------------------------------------------------------- */
 
-import { ExecutorContext, PromiseExecutor } from "@nx/devkit";
+import type { ExecutorContext, PromiseExecutor } from "@nx/devkit";
 import { writeError } from "@storm-software/config-tools/logger";
-import { StormWorkspaceConfig } from "@storm-software/config/types";
+import type { StormWorkspaceConfig } from "@storm-software/config/types";
 import { withRunExecutor } from "@storm-software/workspace-tools/base/base-executor";
-import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
+import type { BaseExecutorResult } from "@storm-software/workspace-tools/types";
 import { omit } from "@stryke/helpers/omit";
 import { joinPaths } from "@stryke/path/join";
 import { kebabCase } from "@stryke/string-format/kebab-case";
@@ -40,8 +40,8 @@ import type {
   Mode,
   OutputConfig
 } from "powerlines";
-import { formatExecutionId } from "powerlines";
-import { BaseExecutorSchema } from "./base-executor.schema";
+import { formatExecutionId } from "powerlines/plugin-utils";
+import type { BaseExecutorSchema } from "./base-executor.schema";
 
 export type PowerlinesExecutorContext<
   TExecutorSchema extends BaseExecutorSchema = BaseExecutorSchema
