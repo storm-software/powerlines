@@ -23,6 +23,7 @@ import { withRunExecutor } from "@storm-software/workspace-tools/base/base-execu
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
 import { omit } from "@stryke/helpers/omit";
 import { joinPaths } from "@stryke/path/join";
+import { kebabCase } from "@stryke/string-format/kebab-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isError } from "@stryke/type-checks/is-error";
 import { isSet } from "@stryke/type-checks/is-set";
@@ -34,6 +35,7 @@ import { createJiti } from "jiti";
 import type {
   ExecutionApiParams,
   ExecutionOptions,
+  FrameworkOptions,
   InlineConfig,
   Mode,
   OutputConfig
@@ -70,6 +72,22 @@ export interface WithExecutorOptions {
    * This can be useful for setting default values for options that are commonly used across multiple executions, or for providing a consistent set of options for all executions of the executor without requiring the caller to specify them each time.
    */
   defaultOptions?: DeepPartial<ExecutionOptions>;
+
+  /**
+   * Details about the framework being used in the current execution, which can be used by plugins and other parts of the system to customize behavior based on the framework.
+   *
+   * @remarks
+   * This should only be used by framework plugins to ensure the correct framework name is applied
+   *
+   * @defaultValue
+   * ```ts
+   * {
+   *   name: "powerlines",
+   *   orgId: "storm-software"
+   * }
+   * ```
+   */
+  framework?: FrameworkOptions;
 }
 
 /**
@@ -97,10 +115,17 @@ export function withExecutor<
     | undefined,
   options: WithExecutorOptions = {}
 ): PromiseExecutor<TExecutorSchema> {
-  const { importPath = "powerlines/api", defaultOptions = {} } = options;
+  const {
+    importPath = "powerlines/api",
+    defaultOptions = {},
+    framework = {} as FrameworkOptions
+  } = options;
+
+  framework.name ??= "powerlines";
+  framework.orgId ??= "storm-software";
 
   return withRunExecutor(
-    `Powerlines - ${titleCase(command)} executor`,
+    `${titleCase(framework.name)} - ${titleCase(command)} executor`,
     async (
       options: TExecutorSchema,
       context: ExecutorContext,
@@ -108,7 +133,9 @@ export function withExecutor<
     ): Promise<BaseExecutorResult | null | undefined> => {
       if (!context.projectName) {
         throw new Error(
-          `The Powerlines - ${titleCase(command)} executor requires \`projectName\` on the context object.`
+          `The ${titleCase(framework.name)} - ${titleCase(
+            command
+          )} executor requires \`projectName\` on the context object.`
         );
       }
 
@@ -119,7 +146,9 @@ export function withExecutor<
         !context.projectsConfigurations.projects[context.projectName]?.root
       ) {
         throw new Error(
-          `The Powerlines - ${titleCase(command)} executor requires \`projectsConfigurations\` on the context object.`
+          `The ${titleCase(framework.name)} - ${titleCase(
+            command
+          )} executor requires \`projectsConfigurations\` on the context object.`
         );
       }
 
@@ -225,12 +254,12 @@ export function withExecutor<
                   configFile:
                     options.configFile ||
                     options.config ||
-                    joinPaths(projectConfig.root, "powerlines.config.ts"),
+                    joinPaths(
+                      projectConfig.root,
+                      `${kebabCase(framework.name)}.config.ts`
+                    ),
                   configIndex: options.configIndex,
-                  framework: {
-                    name: "powerlines",
-                    orgId: "storm-software"
-                  }
+                  framework
                 }) as ExecutionOptions,
                 command,
                 inlineConfig
@@ -239,9 +268,9 @@ export function withExecutor<
         );
       } catch (error) {
         writeError(
-          `An error occurred while executing the Powerlines - ${titleCase(
-            command
-          )} executor: ${
+          `An error occurred while executing the ${titleCase(
+            framework.name
+          )} - ${titleCase(command)} executor: ${
             isError(error)
               ? `${error.message}
 
