@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Hey API
 
+## [0.1.500](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.500) (05/28/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.497**
+- Updated **powerlines** to **v0.47.85**
+
 ## [0.1.499](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.499) (05/28/2026)
 
 ### Miscellaneous
