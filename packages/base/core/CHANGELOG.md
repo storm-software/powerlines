@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.25](https://github.com/storm-software/powerlines/releases/tag/core%400.48.25) (05/30/2026)
+
+### Source Code Improvements
+
+- **engine:** Simplify the usage of execution API methods directly ([d0ff5edbb](https://github.com/storm-software/powerlines/commit/d0ff5edbb))
+
 ## [0.48.19](https://github.com/storm-software/powerlines/releases/tag/core%400.48.19) (05/27/2026)
 
 ### Features

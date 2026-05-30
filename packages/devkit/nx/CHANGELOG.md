@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.124](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.124) (05/30/2026)
+
+### Miscellaneous
+
+- **nx:** Added the `configIndex` executor option ([2958fad5b](https://github.com/storm-software/powerlines/commit/2958fad5b))
+
+### Bug Fixes
+
+- **nx:** Resolve issue dynamically importing `api` module ([e8a1e81d0](https://github.com/storm-software/powerlines/commit/e8a1e81d0))
+
+### Source Code Improvements
+
+- **engine:** Simplify the usage of execution API methods directly ([d0ff5edbb](https://github.com/storm-software/powerlines/commit/d0ff5edbb))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.86**
+
 ## [0.13.123](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.123) (05/28/2026)
 
 ### Updated Dependencies

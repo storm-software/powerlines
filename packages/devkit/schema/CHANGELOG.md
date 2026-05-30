@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.69](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.69) (05/30/2026)
+
+### Source Code Improvements
+
+- **engine:** Simplify the usage of execution API methods directly ([d0ff5edbb](https://github.com/storm-software/powerlines/commit/d0ff5edbb))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.25**
+- Updated **deepkit** to **v0.9.57**
+- Updated **unplugin** to **v0.0.73**
+
 ## [0.11.68](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.68) (05/28/2026)
 
 ### Bug Fixes

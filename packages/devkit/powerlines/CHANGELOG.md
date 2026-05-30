@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.86](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.86) (05/30/2026)
+
+### Bug Fixes
+
+- **nx:** Resolve issue dynamically importing `api` module ([e8a1e81d0](https://github.com/storm-software/powerlines/commit/e8a1e81d0))
+
+### Source Code Improvements
+
+- **engine:** Simplify the usage of execution API methods directly ([d0ff5edbb](https://github.com/storm-software/powerlines/commit/d0ff5edbb))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.25**
+- Updated **engine** to **v0.49.27**
+- Updated **schema** to **v0.11.69**
+- Updated **unplugin** to **v0.0.73**
+
 ## [0.47.85](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.85) (05/28/2026)
 
 ### Updated Dependencies

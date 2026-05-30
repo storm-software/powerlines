@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.27](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.27) (05/30/2026)
+
+### Source Code Improvements
+
+- **engine:** Simplify the usage of execution API methods directly ([d0ff5edbb](https://github.com/storm-software/powerlines/commit/d0ff5edbb))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.25**
+
 ## [0.49.26](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.26) (05/28/2026)
 
 ### Updated Dependencies
