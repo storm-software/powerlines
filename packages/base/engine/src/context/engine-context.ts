@@ -32,6 +32,7 @@ import {
 import {
   createLogger,
   formatConfig,
+  formatExecutionId,
   resolveLogLevel,
   withCustomLogger
 } from "@powerlines/core/plugin-utils";
@@ -193,11 +194,11 @@ export class PowerlinesEngineContext<TSystemContext = unknown>
    * @remarks
    * This method will set up the resolver and load the user configuration file based on the provided options. It is called during the construction of the context and can also be called when cloning the context to ensure that the new context has the same configuration and resolver setup.
    *
-   * @param method - The path to the execution configuration to load and run, which can be used to specify different execution configurations for different commands or scenarios.
+   * @param command - The path to the execution configuration to load and run, which can be used to specify different execution configurations for different commands or scenarios.
    * @param inlineConfig - Additional configuration options provided at runtime, which can override or supplement the options defined in the user configuration file.
    */
   public async loadExecutions(
-    method: string,
+    command: string,
     inlineConfig: InlineConfig
   ): Promise<EngineExecutionItem[]> {
     const root = resolveRoot(
@@ -220,14 +221,19 @@ export class PowerlinesEngineContext<TSystemContext = unknown>
     const invocationId = uuid();
     const executions = await Promise.all(
       toArray(config.config).map(async (_, configIndex) => {
-        const executionId = uuid();
+        const executionId = formatExecutionId(
+          config.config.name || inlineConfig.name || root,
+          command,
+          configIndex
+        );
+
         const options = {
           cwd: this.cwd,
           root,
           framework: this.framework,
           orgId: this.orgId,
           ...this.options,
-          command: method,
+          command,
           baseURL: this.#devtools.host.resolveOrigin(),
           connection: this.connection,
           configFile: config.configFile!,
@@ -237,14 +243,14 @@ export class PowerlinesEngineContext<TSystemContext = unknown>
 
         this.logger.debug({
           meta: { category: "config" },
-          message: `Invoking ${method} with the following execution parameters: \n --- Options --- \n${formatConfig(
+          message: `Invoking ${command} with the following execution parameters: \n --- Options --- \n${formatConfig(
             options
           )}\n --- Inline Config --- \n${formatConfig(inlineConfig)}`
         });
 
         return {
           invocationId,
-          method,
+          command,
           configFile: config,
           options,
           state: {

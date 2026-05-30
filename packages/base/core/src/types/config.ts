@@ -391,12 +391,12 @@ export interface ExecutionOptions extends BaseExecutionOptions {
   /**
    * A unique identifier for the current execution instance, which can be used for logging and other purposes to distinguish between different executions in the same process.
    */
-  executionId: string;
+  executionId?: string;
 
   /**
    * The index of the current execution instance among all configured instances in the Powerlines process
    */
-  configIndex: number;
+  configIndex?: number;
 
   /**
    * A path to a custom configuration file to be used instead of the default `powerlines.json`, `powerlines.config.js`, or `powerlines.config.ts` files.

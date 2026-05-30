@@ -111,9 +111,9 @@ export interface EngineExecutionItem {
   invocationId: string;
 
   /**
-   * The method being executed, which can be one of the supported Powerlines execution API methods such as "build", "docs", or "deploy". This indicates the specific command or action that is being executed within the Powerlines engine.
+   * The command being executed, which can be one of the supported Powerlines execution API methods such as "build", "docs", or "deploy". This indicates the specific command or action that is being executed within the Powerlines engine.
    */
-  method: string;
+  command: string;
 
   /**
    * The options provided to the Powerlines process for this execution

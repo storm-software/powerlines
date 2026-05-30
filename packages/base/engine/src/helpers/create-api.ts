@@ -24,7 +24,10 @@ import type {
 } from "@powerlines/core";
 import { PowerlinesExecutionContext } from "@powerlines/core/context/execution-context";
 import { resolvePluginConfig } from "@powerlines/core/lib/context-helpers";
-import { consoleLogger } from "@powerlines/core/plugin-utils";
+import {
+  consoleLogger,
+  formatExecutionId
+} from "@powerlines/core/plugin-utils";
 import { list } from "@stryke/string-format/list";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isFunction } from "@stryke/type-checks/is-function";
@@ -75,6 +78,13 @@ export function createApi<
         )}.`
       );
     }
+
+    options.configIndex ??= 0;
+    options.executionId ??= formatExecutionId(
+      params.inlineConfig.name || options.root,
+      command,
+      options.configIndex
+    );
 
     let rpc: RpcClient | undefined;
     if (isEngineExecutionOptions(options) && options.channel) {

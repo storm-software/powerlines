@@ -393,8 +393,7 @@ export class PowerlinesEnvironmentContext<
     super(options);
 
     this.#execution = execution;
-    this.userConfig =
-      config.userConfig ?? ({} as TResolvedConfig["userConfig"]);
+    this.userConfig = config.userConfig ?? {};
     this.inlineConfig =
       config.inlineConfig ?? ({} as TResolvedConfig["inlineConfig"]);
     this.pluginConfig = config.pluginConfig ?? {};

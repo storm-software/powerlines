@@ -300,7 +300,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
           } finally {
             this.context.completeExecution(
               execution.invocationId,
-              execution.options.executionId
+              execution.options.executionId!
             );
           }
         }

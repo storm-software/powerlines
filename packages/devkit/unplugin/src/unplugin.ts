@@ -42,6 +42,7 @@ import { getString } from "@powerlines/core/lib/utilities/source-file";
 import {
   addVirtualPrefix,
   formatConfig,
+  formatExecutionId,
   removeVirtualPrefix,
   VIRTUAL_MODULE_PREFIX_REGEX
 } from "@powerlines/core/plugin-utils";
@@ -55,7 +56,6 @@ import { isFunction } from "@stryke/type-checks/is-function";
 import { isObject } from "@stryke/type-checks/is-object";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
-import { uuid } from "@stryke/unique-id/uuid";
 import { LoadResult } from "rolldown";
 import type {
   TransformResult,
@@ -141,10 +141,7 @@ export function createUnpluginFactory<
   const virtualModulePrefix = options.virtualModulePrefix ?? "\\0";
 
   return (params = {}): UnpluginOptions<TContext> => {
-    let context!: PowerlinesExecutionContext<
-      TContext["config"],
-      TContext["system"]
-    >;
+    let context!: ExecutionContext<TContext["config"], TContext["system"]>;
     try {
       const framework =
         (params.framework?.name ?? options.framework?.name) || "powerlines";
@@ -179,7 +176,11 @@ export function createUnpluginFactory<
           ...params,
           command: "build",
           configFile: config.configFile!,
-          executionId: uuid(),
+          executionId: formatExecutionId(
+            config.config.name || root,
+            "build",
+            0
+          ),
           configIndex: 0
         };
 

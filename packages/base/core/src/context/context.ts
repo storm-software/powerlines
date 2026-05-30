@@ -84,6 +84,7 @@ import { createResolver } from "../lib/resolver";
 import { getTsconfigFilePath } from "../lib/typescript/tsconfig";
 import { VirtualFileSystem } from "../lib/vfs";
 import {
+  formatExecutionId,
   getPackageJsonOrganization,
   getWorkspaceName
 } from "../plugin-utils/context-helpers";
@@ -250,6 +251,20 @@ export class PowerlinesContext<
   protected environmentConfig: any = {};
 
   /**
+   * A unique identifier for the current execution, which can be used for logging and other purposes to distinguish between different executions in the same process.
+   */
+  protected get executionId(): string {
+    return (
+      this.options.executionId ||
+      formatExecutionId(
+        this.config.name,
+        this.config.command,
+        this.options.configIndex
+      )
+    );
+  }
+
+  /**
    * The resolved entry type definitions for the project
    */
   public get entry(): ResolvedEntryFileReference[] {
@@ -336,7 +351,8 @@ export class PowerlinesContext<
    */
   public get meta() {
     return {
-      executionId: this.#buildId,
+      executionId: this.executionId,
+      buildId: this.#buildId,
       releaseId: this.#releaseId,
       checksum: this.#checksum,
       timestamp: this.timestamp,
@@ -1297,10 +1313,12 @@ export class PowerlinesContext<
       config
     );
 
+    const configIndex = this.options.configIndex ?? 0;
+
     const result =
       this.configFile.config &&
-      toArray(this.configFile.config).length > this.options.configIndex
-        ? toArray(this.configFile.config)[this.options.configIndex]!
+      toArray(this.configFile.config).length > configIndex
+        ? toArray(this.configFile.config)[configIndex]!
         : this.configFile.config;
     if (!result) {
       this.logger.warn(

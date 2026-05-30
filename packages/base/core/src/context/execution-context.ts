@@ -105,7 +105,7 @@ export class PowerlinesExecutionContext<
    * The unique identifier of the execution context, which can be used for logging and other purposes to distinguish between different executions in the same process.
    */
   public get id(): string {
-    return this.options.executionId;
+    return this.executionId;
   }
 
   /**

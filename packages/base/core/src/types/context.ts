@@ -60,17 +60,22 @@ export type MetaInfo = Record<string, any> & {
   checksum: string;
 
   /**
-   * The execution id
+   * The unique identifier of the execution, which can be used for logging and other purposes to distinguish between different executions in the same process.
    */
   executionId: string;
 
   /**
-   * The release id
+   * The build id, which is a unique identifier for the current build process. This can be used for logging and other purposes to distinguish between different builds in the same process.
+   */
+  buildId: string;
+
+  /**
+   * The release id, which is a unique identifier for the current release. This can be used for logging and other purposes to distinguish between different releases in the same process.
    */
   releaseId: string;
 
   /**
-   * The execution timestamp
+   * The timestamp when the execution context was initialized
    */
   timestamp: number;
 

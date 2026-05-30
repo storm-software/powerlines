@@ -38,6 +38,7 @@ import type {
   Mode,
   OutputConfig
 } from "powerlines";
+import { formatExecutionId } from "powerlines";
 import { BaseExecutorSchema } from "./base-executor.schema";
 
 export type PowerlinesExecutorContext<
@@ -54,6 +55,23 @@ export type PowerlinesExecutorApi = (
   inlineConfig: InlineConfig
 ) => Promise<void>;
 
+export interface WithExecutorOptions {
+  /**
+   * The import path for the executor API module, which is used to dynamically import the API function that will be called during execution. This value should be a string representing the module path, and it defaults to "powerlines/api" if not provided. The specified module should export a default function that matches the expected signature for the executor API, which will be invoked with the execution parameters when the executor is run.
+   *
+   * @defaultValue "powerlines/api"
+   */
+  importPath?: string;
+
+  /**
+   * Default options to be merged with the execution options, which can be used to provide default values for certain execution parameters or to override specific options for all executions of the executor. This value should be an object that matches the shape of the `ExecutionOptions` type, and it will be merged with the options provided during execution to create the final set of options that will be passed to the executor API function.
+   *
+   * @remarks
+   * This can be useful for setting default values for options that are commonly used across multiple executions, or for providing a consistent set of options for all executions of the executor without requiring the caller to specify them each time.
+   */
+  defaultOptions?: DeepPartial<ExecutionOptions>;
+}
+
 /**
  * A utility function to create a Powerlines executor that can be used with the `withRunExecutor` function.
  *
@@ -62,7 +80,7 @@ export type PowerlinesExecutorApi = (
  *
  * @param command - The command that the executor will handle (e.g., "new", "prepare", "build", etc.).
  * @param executorFn - The function that will be executed when the command is run.
- * @param defaultOptions - Default options to be merged with the execution options.
+ * @param options - Additional options for configuring the executor, such as the import path for the API module and default execution options.
  * @returns A Promise that resolves to the result of the executor function.
  */
 export function withExecutor<
@@ -77,8 +95,10 @@ export function withExecutor<
     | BaseExecutorResult
     | null
     | undefined,
-  defaultOptions: DeepPartial<ExecutionOptions> = {}
+  options: WithExecutorOptions = {}
 ): PromiseExecutor<TExecutorSchema> {
+  const { importPath = "powerlines/api", defaultOptions = {} } = options;
+
   return withRunExecutor(
     `Powerlines - ${titleCase(command)} executor`,
     async (
@@ -113,7 +133,7 @@ export function withExecutor<
       const api = await jiti
         .import<{
           default: (params: ExecutionApiParams) => Promise<void>;
-        }>(jiti.esmResolve("powerlines/api"))
+        }>(jiti.esmResolve(importPath))
         .then(mod => mod.default);
 
       try {
@@ -192,9 +212,14 @@ export function withExecutor<
             ),
             async (inlineConfig: InlineConfig) =>
               api({
-                // eslint-disable-next-line ts/no-unnecessary-type-assertion
                 options: defu(defaultOptions, {
-                  executionId: `${context.projectName}-${command}-${options.configIndex}`,
+                  executionId: formatExecutionId(
+                    inlineConfig.name ||
+                      context.projectName ||
+                      projectConfig.root,
+                    command,
+                    options.configIndex ?? 0
+                  ),
                   cwd: context.root,
                   root: projectConfig.root,
                   configFile:
