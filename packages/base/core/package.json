@@ -51,81 +51,41 @@
       "import": "./dist/constants/api.mjs",
       "require": "./dist/constants/api.cjs"
     },
-    "./constants/api.test": {
-      "import": "./dist/constants/api.test.mjs",
-      "require": "./dist/constants/api.test.cjs"
-    },
     "./constants/commands": {
       "import": "./dist/constants/commands.mjs",
       "require": "./dist/constants/commands.cjs"
-    },
-    "./constants/commands.test": {
-      "import": "./dist/constants/commands.test.mjs",
-      "require": "./dist/constants/commands.test.cjs"
     },
     "./constants/devtools": {
       "import": "./dist/constants/devtools.mjs",
       "require": "./dist/constants/devtools.cjs"
     },
-    "./constants/devtools.test": {
-      "import": "./dist/constants/devtools.test.mjs",
-      "require": "./dist/constants/devtools.test.cjs"
-    },
     "./constants/environments": {
       "import": "./dist/constants/environments.mjs",
       "require": "./dist/constants/environments.cjs"
-    },
-    "./constants/environments.test": {
-      "import": "./dist/constants/environments.test.mjs",
-      "require": "./dist/constants/environments.test.cjs"
     },
     "./constants/extensions": {
       "import": "./dist/constants/extensions.mjs",
       "require": "./dist/constants/extensions.cjs"
     },
-    "./constants/extensions.test": {
-      "import": "./dist/constants/extensions.test.mjs",
-      "require": "./dist/constants/extensions.test.cjs"
-    },
     "./constants/fs": {
       "import": "./dist/constants/fs.mjs",
       "require": "./dist/constants/fs.cjs"
-    },
-    "./constants/fs.test": {
-      "import": "./dist/constants/fs.test.mjs",
-      "require": "./dist/constants/fs.test.cjs"
     },
     "./constants/hooks": {
       "import": "./dist/constants/hooks.mjs",
       "require": "./dist/constants/hooks.cjs"
     },
-    "./constants/hooks.test": {
-      "import": "./dist/constants/hooks.test.mjs",
-      "require": "./dist/constants/hooks.test.cjs"
-    },
     "./constants/log-level": {
       "import": "./dist/constants/log-level.mjs",
       "require": "./dist/constants/log-level.cjs"
-    },
-    "./constants/log-level.test": {
-      "import": "./dist/constants/log-level.test.mjs",
-      "require": "./dist/constants/log-level.test.cjs"
     },
     "./constants/meta": {
       "import": "./dist/constants/meta.mjs",
       "require": "./dist/constants/meta.cjs"
     },
-    "./constants/meta.test": {
-      "import": "./dist/constants/meta.test.mjs",
-      "require": "./dist/constants/meta.test.cjs"
-    },
     "./constants/plugin": {
       "import": "./dist/constants/plugin.mjs",
       "require": "./dist/constants/plugin.cjs"
-    },
-    "./constants/plugin.test": {
-      "import": "./dist/constants/plugin.test.mjs",
-      "require": "./dist/constants/plugin.test.cjs"
     },
     "./context": {
       "import": "./dist/context/index.mjs",
@@ -135,41 +95,21 @@
       "import": "./dist/context/base-context.mjs",
       "require": "./dist/context/base-context.cjs"
     },
-    "./context/base-context.test": {
-      "import": "./dist/context/base-context.test.mjs",
-      "require": "./dist/context/base-context.test.cjs"
-    },
     "./context/context": {
       "import": "./dist/context/context.mjs",
       "require": "./dist/context/context.cjs"
-    },
-    "./context/context.test": {
-      "import": "./dist/context/context.test.mjs",
-      "require": "./dist/context/context.test.cjs"
     },
     "./context/environment-context": {
       "import": "./dist/context/environment-context.mjs",
       "require": "./dist/context/environment-context.cjs"
     },
-    "./context/environment-context.test": {
-      "import": "./dist/context/environment-context.test.mjs",
-      "require": "./dist/context/environment-context.test.cjs"
-    },
     "./context/execution-context": {
       "import": "./dist/context/execution-context.mjs",
       "require": "./dist/context/execution-context.cjs"
     },
-    "./context/execution-context.test": {
-      "import": "./dist/context/execution-context.test.mjs",
-      "require": "./dist/context/execution-context.test.cjs"
-    },
     "./context/plugin-context": {
       "import": "./dist/context/plugin-context.mjs",
       "require": "./dist/context/plugin-context.cjs"
-    },
-    "./context/plugin-context.test": {
-      "import": "./dist/context/plugin-context.test.mjs",
-      "require": "./dist/context/plugin-context.test.cjs"
     },
     "./lib": {
       "import": "./dist/lib/index.mjs",
@@ -179,89 +119,45 @@
       "import": "./dist/lib/config.mjs",
       "require": "./dist/lib/config.cjs"
     },
-    "./lib/config.test": {
-      "import": "./dist/lib/config.test.mjs",
-      "require": "./dist/lib/config.test.cjs"
-    },
     "./lib/context-helpers": {
       "import": "./dist/lib/context-helpers.mjs",
       "require": "./dist/lib/context-helpers.cjs"
-    },
-    "./lib/context-helpers.test": {
-      "import": "./dist/lib/context-helpers.test.mjs",
-      "require": "./dist/lib/context-helpers.test.cjs"
     },
     "./lib/entry": {
       "import": "./dist/lib/entry.mjs",
       "require": "./dist/lib/entry.cjs"
     },
-    "./lib/entry.test": {
-      "import": "./dist/lib/entry.test.mjs",
-      "require": "./dist/lib/entry.test.cjs"
-    },
     "./lib/environment": {
       "import": "./dist/lib/environment.mjs",
       "require": "./dist/lib/environment.cjs"
-    },
-    "./lib/environment.test": {
-      "import": "./dist/lib/environment.test.mjs",
-      "require": "./dist/lib/environment.test.cjs"
     },
     "./lib/events": {
       "import": "./dist/lib/events.mjs",
       "require": "./dist/lib/events.cjs"
     },
-    "./lib/events.test": {
-      "import": "./dist/lib/events.test.mjs",
-      "require": "./dist/lib/events.test.cjs"
-    },
     "./lib/generate-types": {
       "import": "./dist/lib/generate-types.mjs",
       "require": "./dist/lib/generate-types.cjs"
-    },
-    "./lib/generate-types.test": {
-      "import": "./dist/lib/generate-types.test.mjs",
-      "require": "./dist/lib/generate-types.test.cjs"
     },
     "./lib/hooks": {
       "import": "./dist/lib/hooks.mjs",
       "require": "./dist/lib/hooks.cjs"
     },
-    "./lib/hooks.test": {
-      "import": "./dist/lib/hooks.test.mjs",
-      "require": "./dist/lib/hooks.test.cjs"
-    },
     "./lib/install-dependencies": {
       "import": "./dist/lib/install-dependencies.mjs",
       "require": "./dist/lib/install-dependencies.cjs"
-    },
-    "./lib/install-dependencies.test": {
-      "import": "./dist/lib/install-dependencies.test.mjs",
-      "require": "./dist/lib/install-dependencies.test.cjs"
     },
     "./lib/meta": {
       "import": "./dist/lib/meta.mjs",
       "require": "./dist/lib/meta.cjs"
     },
-    "./lib/meta.test": {
-      "import": "./dist/lib/meta.test.mjs",
-      "require": "./dist/lib/meta.test.cjs"
-    },
     "./lib/plugins": {
       "import": "./dist/lib/plugins.mjs",
       "require": "./dist/lib/plugins.cjs"
     },
-    "./lib/plugins.test": {
-      "import": "./dist/lib/plugins.test.mjs",
-      "require": "./dist/lib/plugins.test.cjs"
-    },
     "./lib/resolver": {
       "import": "./dist/lib/resolver.mjs",
       "require": "./dist/lib/resolver.cjs"
-    },
-    "./lib/resolver.test": {
-      "import": "./dist/lib/resolver.test.mjs",
-      "require": "./dist/lib/resolver.test.cjs"
     },
     "./lib/schemas": {
       "import": "./dist/lib/schemas.mjs",
@@ -271,10 +167,6 @@
       "import": "./dist/lib/streaming-channel.mjs",
       "require": "./dist/lib/streaming-channel.cjs"
     },
-    "./lib/streaming-channel.test": {
-      "import": "./dist/lib/streaming-channel.test.mjs",
-      "require": "./dist/lib/streaming-channel.test.cjs"
-    },
     "./lib/typescript": {
       "import": "./dist/lib/typescript/index.mjs",
       "require": "./dist/lib/typescript/index.cjs"
@@ -283,17 +175,9 @@
       "import": "./dist/lib/typescript/ts-morph.mjs",
       "require": "./dist/lib/typescript/ts-morph.cjs"
     },
-    "./lib/typescript/ts-morph.test": {
-      "import": "./dist/lib/typescript/ts-morph.test.mjs",
-      "require": "./dist/lib/typescript/ts-morph.test.cjs"
-    },
     "./lib/typescript/tsconfig": {
       "import": "./dist/lib/typescript/tsconfig.mjs",
       "require": "./dist/lib/typescript/tsconfig.cjs"
-    },
-    "./lib/typescript/tsconfig.test": {
-      "import": "./dist/lib/typescript/tsconfig.test.mjs",
-      "require": "./dist/lib/typescript/tsconfig.test.cjs"
     },
     "./lib/unplugin": {
       "import": "./dist/lib/unplugin/index.mjs",
@@ -303,25 +187,13 @@
       "import": "./dist/lib/unplugin/helpers.mjs",
       "require": "./dist/lib/unplugin/helpers.cjs"
     },
-    "./lib/unplugin/helpers.test": {
-      "import": "./dist/lib/unplugin/helpers.test.mjs",
-      "require": "./dist/lib/unplugin/helpers.test.cjs"
-    },
     "./lib/unplugin/module-resolution": {
       "import": "./dist/lib/unplugin/module-resolution.mjs",
       "require": "./dist/lib/unplugin/module-resolution.cjs"
     },
-    "./lib/unplugin/module-resolution.test": {
-      "import": "./dist/lib/unplugin/module-resolution.test.mjs",
-      "require": "./dist/lib/unplugin/module-resolution.test.cjs"
-    },
     "./lib/unplugin/plugin": {
       "import": "./dist/lib/unplugin/plugin.mjs",
       "require": "./dist/lib/unplugin/plugin.cjs"
-    },
-    "./lib/unplugin/plugin.test": {
-      "import": "./dist/lib/unplugin/plugin.test.mjs",
-      "require": "./dist/lib/unplugin/plugin.test.cjs"
     },
     "./lib/utilities": {
       "import": "./dist/lib/utilities/index.mjs",
@@ -331,57 +203,29 @@
       "import": "./dist/lib/utilities/file-header.mjs",
       "require": "./dist/lib/utilities/file-header.cjs"
     },
-    "./lib/utilities/file-header.test": {
-      "import": "./dist/lib/utilities/file-header.test.mjs",
-      "require": "./dist/lib/utilities/file-header.test.cjs"
-    },
     "./lib/utilities/format": {
       "import": "./dist/lib/utilities/format.mjs",
       "require": "./dist/lib/utilities/format.cjs"
-    },
-    "./lib/utilities/format.test": {
-      "import": "./dist/lib/utilities/format.test.mjs",
-      "require": "./dist/lib/utilities/format.test.cjs"
     },
     "./lib/utilities/source-file": {
       "import": "./dist/lib/utilities/source-file.mjs",
       "require": "./dist/lib/utilities/source-file.cjs"
     },
-    "./lib/utilities/source-file.test": {
-      "import": "./dist/lib/utilities/source-file.test.mjs",
-      "require": "./dist/lib/utilities/source-file.test.cjs"
-    },
     "./lib/utilities/source-map": {
       "import": "./dist/lib/utilities/source-map.mjs",
       "require": "./dist/lib/utilities/source-map.cjs"
-    },
-    "./lib/utilities/source-map.test": {
-      "import": "./dist/lib/utilities/source-map.test.mjs",
-      "require": "./dist/lib/utilities/source-map.test.cjs"
     },
     "./lib/utilities/write-file": {
       "import": "./dist/lib/utilities/write-file.mjs",
       "require": "./dist/lib/utilities/write-file.cjs"
     },
-    "./lib/utilities/write-file.test": {
-      "import": "./dist/lib/utilities/write-file.test.mjs",
-      "require": "./dist/lib/utilities/write-file.test.cjs"
-    },
     "./lib/vfs": {
       "import": "./dist/lib/vfs.mjs",
       "require": "./dist/lib/vfs.cjs"
     },
-    "./lib/vfs.test": {
-      "import": "./dist/lib/vfs.test.mjs",
-      "require": "./dist/lib/vfs.test.cjs"
-    },
     "./plugin-base": {
       "import": "./dist/plugin-base.mjs",
       "require": "./dist/plugin-base.cjs"
-    },
-    "./plugin-base.test": {
-      "import": "./dist/plugin-base.test.mjs",
-      "require": "./dist/plugin-base.test.cjs"
     },
     "./plugin-utils": {
       "import": "./dist/plugin-utils/index.mjs",
@@ -391,57 +235,29 @@
       "import": "./dist/plugin-utils/build-helpers.mjs",
       "require": "./dist/plugin-utils/build-helpers.cjs"
     },
-    "./plugin-utils/build-helpers.test": {
-      "import": "./dist/plugin-utils/build-helpers.test.mjs",
-      "require": "./dist/plugin-utils/build-helpers.test.cjs"
-    },
     "./plugin-utils/combine-plugins": {
       "import": "./dist/plugin-utils/combine-plugins.mjs",
       "require": "./dist/plugin-utils/combine-plugins.cjs"
-    },
-    "./plugin-utils/combine-plugins.test": {
-      "import": "./dist/plugin-utils/combine-plugins.test.mjs",
-      "require": "./dist/plugin-utils/combine-plugins.test.cjs"
     },
     "./plugin-utils/context-helpers": {
       "import": "./dist/plugin-utils/context-helpers.mjs",
       "require": "./dist/plugin-utils/context-helpers.cjs"
     },
-    "./plugin-utils/context-helpers.test": {
-      "import": "./dist/plugin-utils/context-helpers.test.mjs",
-      "require": "./dist/plugin-utils/context-helpers.test.cjs"
-    },
     "./plugin-utils/docs-helper": {
       "import": "./dist/plugin-utils/docs-helper.mjs",
       "require": "./dist/plugin-utils/docs-helper.cjs"
-    },
-    "./plugin-utils/docs-helper.test": {
-      "import": "./dist/plugin-utils/docs-helper.test.mjs",
-      "require": "./dist/plugin-utils/docs-helper.test.cjs"
     },
     "./plugin-utils/enable-plugin": {
       "import": "./dist/plugin-utils/enable-plugin.mjs",
       "require": "./dist/plugin-utils/enable-plugin.cjs"
     },
-    "./plugin-utils/enable-plugin.test": {
-      "import": "./dist/plugin-utils/enable-plugin.test.mjs",
-      "require": "./dist/plugin-utils/enable-plugin.test.cjs"
-    },
     "./plugin-utils/extend": {
       "import": "./dist/plugin-utils/extend.mjs",
       "require": "./dist/plugin-utils/extend.cjs"
     },
-    "./plugin-utils/extend.test": {
-      "import": "./dist/plugin-utils/extend.test.mjs",
-      "require": "./dist/plugin-utils/extend.test.cjs"
-    },
     "./plugin-utils/filter": {
       "import": "./dist/plugin-utils/filter.mjs",
       "require": "./dist/plugin-utils/filter.cjs"
-    },
-    "./plugin-utils/filter.test": {
-      "import": "./dist/plugin-utils/filter.test.mjs",
-      "require": "./dist/plugin-utils/filter.test.cjs"
     },
     "./plugin-utils/format": {
       "import": "./dist/plugin-utils/format.mjs",
@@ -451,77 +267,37 @@
       "import": "./dist/plugin-utils/format-package-json.mjs",
       "require": "./dist/plugin-utils/format-package-json.cjs"
     },
-    "./plugin-utils/format-package-json.test": {
-      "import": "./dist/plugin-utils/format-package-json.test.mjs",
-      "require": "./dist/plugin-utils/format-package-json.test.cjs"
-    },
-    "./plugin-utils/format.test": {
-      "import": "./dist/plugin-utils/format.test.mjs",
-      "require": "./dist/plugin-utils/format.test.cjs"
-    },
     "./plugin-utils/get-config-path": {
       "import": "./dist/plugin-utils/get-config-path.mjs",
       "require": "./dist/plugin-utils/get-config-path.cjs"
-    },
-    "./plugin-utils/get-config-path.test": {
-      "import": "./dist/plugin-utils/get-config-path.test.mjs",
-      "require": "./dist/plugin-utils/get-config-path.test.cjs"
     },
     "./plugin-utils/helpers": {
       "import": "./dist/plugin-utils/helpers.mjs",
       "require": "./dist/plugin-utils/helpers.cjs"
     },
-    "./plugin-utils/helpers.test": {
-      "import": "./dist/plugin-utils/helpers.test.mjs",
-      "require": "./dist/plugin-utils/helpers.test.cjs"
-    },
     "./plugin-utils/install": {
       "import": "./dist/plugin-utils/install.mjs",
       "require": "./dist/plugin-utils/install.cjs"
-    },
-    "./plugin-utils/install.test": {
-      "import": "./dist/plugin-utils/install.test.mjs",
-      "require": "./dist/plugin-utils/install.test.cjs"
     },
     "./plugin-utils/logging": {
       "import": "./dist/plugin-utils/logging.mjs",
       "require": "./dist/plugin-utils/logging.cjs"
     },
-    "./plugin-utils/logging.test": {
-      "import": "./dist/plugin-utils/logging.test.mjs",
-      "require": "./dist/plugin-utils/logging.test.cjs"
-    },
     "./plugin-utils/merge": {
       "import": "./dist/plugin-utils/merge.mjs",
       "require": "./dist/plugin-utils/merge.cjs"
-    },
-    "./plugin-utils/merge.test": {
-      "import": "./dist/plugin-utils/merge.test.mjs",
-      "require": "./dist/plugin-utils/merge.test.cjs"
     },
     "./plugin-utils/modules": {
       "import": "./dist/plugin-utils/modules.mjs",
       "require": "./dist/plugin-utils/modules.cjs"
     },
-    "./plugin-utils/modules.test": {
-      "import": "./dist/plugin-utils/modules.test.mjs",
-      "require": "./dist/plugin-utils/modules.test.cjs"
-    },
     "./plugin-utils/paths": {
       "import": "./dist/plugin-utils/paths.mjs",
       "require": "./dist/plugin-utils/paths.cjs"
     },
-    "./plugin-utils/paths.test": {
-      "import": "./dist/plugin-utils/paths.test.mjs",
-      "require": "./dist/plugin-utils/paths.test.cjs"
-    },
     "./plugin-utils/virtual": {
       "import": "./dist/plugin-utils/virtual.mjs",
       "require": "./dist/plugin-utils/virtual.cjs"
-    },
-    "./plugin-utils/virtual.test": {
-      "import": "./dist/plugin-utils/virtual.test.mjs",
-      "require": "./dist/plugin-utils/virtual.test.cjs"
     },
     "./storage": {
       "import": "./dist/storage/index.mjs",
@@ -531,33 +307,17 @@
       "import": "./dist/storage/base.mjs",
       "require": "./dist/storage/base.cjs"
     },
-    "./storage/base.test": {
-      "import": "./dist/storage/base.test.mjs",
-      "require": "./dist/storage/base.test.cjs"
-    },
     "./storage/file-system": {
       "import": "./dist/storage/file-system.mjs",
       "require": "./dist/storage/file-system.cjs"
-    },
-    "./storage/file-system.test": {
-      "import": "./dist/storage/file-system.test.mjs",
-      "require": "./dist/storage/file-system.test.cjs"
     },
     "./storage/helpers": {
       "import": "./dist/storage/helpers.mjs",
       "require": "./dist/storage/helpers.cjs"
     },
-    "./storage/helpers.test": {
-      "import": "./dist/storage/helpers.test.mjs",
-      "require": "./dist/storage/helpers.test.cjs"
-    },
     "./storage/virtual": {
       "import": "./dist/storage/virtual.mjs",
       "require": "./dist/storage/virtual.cjs"
-    },
-    "./storage/virtual.test": {
-      "import": "./dist/storage/virtual.test.mjs",
-      "require": "./dist/storage/virtual.test.cjs"
     },
     "./package.json": "./package.json"
   },

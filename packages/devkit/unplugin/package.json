@@ -65,125 +65,61 @@
       "import": "./dist/astro.mjs",
       "require": "./dist/astro.cjs"
     },
-    "./astro.test": {
-      "import": "./dist/astro.test.mjs",
-      "require": "./dist/astro.test.cjs"
-    },
     "./esbuild": {
       "import": "./dist/esbuild.mjs",
       "require": "./dist/esbuild.cjs"
-    },
-    "./esbuild.test": {
-      "import": "./dist/esbuild.test.mjs",
-      "require": "./dist/esbuild.test.cjs"
     },
     "./farm": {
       "import": "./dist/farm.mjs",
       "require": "./dist/farm.cjs"
     },
-    "./farm.test": {
-      "import": "./dist/farm.test.mjs",
-      "require": "./dist/farm.test.cjs"
-    },
-    "./index.test": {
-      "import": "./dist/index.test.mjs",
-      "require": "./dist/index.test.cjs"
-    },
     "./next": {
       "import": "./dist/next.mjs",
       "require": "./dist/next.cjs"
-    },
-    "./next.test": {
-      "import": "./dist/next.test.mjs",
-      "require": "./dist/next.test.cjs"
     },
     "./nuxt": {
       "import": "./dist/nuxt.mjs",
       "require": "./dist/nuxt.cjs"
     },
-    "./nuxt.test": {
-      "import": "./dist/nuxt.test.mjs",
-      "require": "./dist/nuxt.test.cjs"
-    },
     "./rolldown": {
       "import": "./dist/rolldown.mjs",
       "require": "./dist/rolldown.cjs"
-    },
-    "./rolldown.test": {
-      "import": "./dist/rolldown.test.mjs",
-      "require": "./dist/rolldown.test.cjs"
     },
     "./rollup": {
       "import": "./dist/rollup.mjs",
       "require": "./dist/rollup.cjs"
     },
-    "./rollup.test": {
-      "import": "./dist/rollup.test.mjs",
-      "require": "./dist/rollup.test.cjs"
-    },
     "./rspack": {
       "import": "./dist/rspack.mjs",
       "require": "./dist/rspack.cjs"
-    },
-    "./rspack.test": {
-      "import": "./dist/rspack.test.mjs",
-      "require": "./dist/rspack.test.cjs"
     },
     "./tsdown": {
       "import": "./dist/tsdown.mjs",
       "require": "./dist/tsdown.cjs"
     },
-    "./tsdown.test": {
-      "import": "./dist/tsdown.test.mjs",
-      "require": "./dist/tsdown.test.cjs"
-    },
     "./tsup": {
       "import": "./dist/tsup.mjs",
       "require": "./dist/tsup.cjs"
-    },
-    "./tsup.test": {
-      "import": "./dist/tsup.test.mjs",
-      "require": "./dist/tsup.test.cjs"
     },
     "./types": {
       "import": "./dist/types.mjs",
       "require": "./dist/types.cjs"
     },
-    "./types.test": {
-      "import": "./dist/types.test.mjs",
-      "require": "./dist/types.test.cjs"
-    },
     "./unloader": {
       "import": "./dist/unloader.mjs",
       "require": "./dist/unloader.cjs"
-    },
-    "./unloader.test": {
-      "import": "./dist/unloader.test.mjs",
-      "require": "./dist/unloader.test.cjs"
     },
     "./unplugin": {
       "import": "./dist/unplugin.mjs",
       "require": "./dist/unplugin.cjs"
     },
-    "./unplugin.test": {
-      "import": "./dist/unplugin.test.mjs",
-      "require": "./dist/unplugin.test.cjs"
-    },
     "./vite": {
       "import": "./dist/vite.mjs",
       "require": "./dist/vite.cjs"
     },
-    "./vite.test": {
-      "import": "./dist/vite.test.mjs",
-      "require": "./dist/vite.test.cjs"
-    },
     "./webpack": {
       "import": "./dist/webpack.mjs",
       "require": "./dist/webpack.cjs"
-    },
-    "./webpack.test": {
-      "import": "./dist/webpack.test.mjs",
-      "require": "./dist/webpack.test.cjs"
     },
     "./package.json": "./package.json"
   },

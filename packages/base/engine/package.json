@@ -115,12 +115,18 @@
       "import": "./dist/helpers/stream.mjs",
       "require": "./dist/helpers/stream.cjs"
     },
-    "./*": "./*"
+    "./helpers/type-checks": {
+      "import": "./dist/helpers/type-checks.mjs",
+      "require": "./dist/helpers/type-checks.cjs"
+    },
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@storm-software/config": "catalog:",
