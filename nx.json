@@ -29,15 +29,7 @@
         "projectLinks": "alias"
       }
     },
-    "./dist/tools/nx/dist/index.js",
-    {
-      "plugin": "@nx/vitest",
-      "options": {
-        "testTargetName": "test",
-        "ciTargetName": "test-ci",
-        "testMode": "watch"
-      }
-    }
+    "./dist/tools/nx/dist/index.js"
   ],
   "analytics": false
 }
