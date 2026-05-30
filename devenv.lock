@@ -53,27 +53,10 @@
         "type": "github"
       }
     },
-    "nixpkgs-unstable": {
-      "locked": {
-        "lastModified": 1779877693,
-        "narHash": "sha256-NOF9NAREhxr50bbBfVcVOq+ArCMSoe8dP79Pk2uyARk=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "4100e830e085863741bc69b156ec4ccd53ab5be0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "devenv": "devenv",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable",
         "storm-ops": "storm-ops",
         "treefmt-nix": "treefmt-nix"
       }
@@ -81,11 +64,11 @@
     "storm-ops": {
       "flake": false,
       "locked": {
-        "lastModified": 1780122528,
-        "narHash": "sha256-nlMvSRchDSz/Mnx+lT638xgu9Gh9YigiEqIM2YF/6SI=",
+        "lastModified": 1780137985,
+        "narHash": "sha256-3qmsKy1TawyOB5+usFx2lxmz/e5bM6SQxlVZ+muKyis=",
         "owner": "storm-software",
         "repo": "storm-ops",
-        "rev": "bcbc59a290ff30bb57a5224789269ecb8414bd43",
+        "rev": "4f3b2542e5032dc03d4cb90dcf3a2d938494ff30",
         "type": "github"
       },
       "original": {
