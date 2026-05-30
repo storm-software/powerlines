@@ -59,16 +59,19 @@ export async function bundle<TContext extends UnresolvedContext>(
   const result = await build(
     defu(
       {
+        platform: "node",
+        ...omit(options, ["name", "resolve"]),
+        logLevel: "silent",
         entryPoints: [path],
         write: false,
         sourcemap: false,
         splitting: false,
-        treeShaking: true,
+        treeShaking: false,
         bundle: true,
         packages: "bundle",
-        platform: "node",
-        logLevel: "silent",
-        ...omit(options, ["name", "resolve"])
+        keepNames: true,
+        metafile: false,
+        mainFields: ["module", "main"]
       },
       resolveOptions(context),
       {
