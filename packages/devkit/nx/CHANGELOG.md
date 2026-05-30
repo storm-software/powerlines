@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.128](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.128) (05/30/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove unused `jest.config.ts` files from projects and update `tsconfig.spec.json` files ([3c764d62e](https://github.com/storm-software/powerlines/commit/3c764d62e))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.89**
+
 ## [0.13.127](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.127) (05/30/2026)
 
 ### Bug Fixes

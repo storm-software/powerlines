@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.9.60](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.60) (05/30/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove unused `jest.config.ts` files from projects and update `tsconfig.spec.json` files ([3c764d62e](https://github.com/storm-software/powerlines/commit/3c764d62e))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.28**
+
 ## [0.9.59](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.59) (05/30/2026)
 
 ### Updated Dependencies

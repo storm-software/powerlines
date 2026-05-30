@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Untyped
 
+## [0.2.504](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.504) (05/30/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added missing `tsconfig.spec.json` and `vitest.config.mts` file updates ([5483a572b](https://github.com/storm-software/powerlines/commit/5483a572b))
+- **monorepo:** Remove unused `jest.config.ts` files from projects and update `tsconfig.spec.json` files ([3c764d62e](https://github.com/storm-software/powerlines/commit/3c764d62e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.501**
+- Updated **powerlines** to **v0.47.89**
+
 ## [0.2.503](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.503) (05/30/2026)
 
 ### Updated Dependencies

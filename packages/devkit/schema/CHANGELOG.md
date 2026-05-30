@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.72](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.72) (05/30/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove unused `jest.config.ts` files from projects and update `tsconfig.spec.json` files ([3c764d62e](https://github.com/storm-software/powerlines/commit/3c764d62e))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.28**
+- Updated **deepkit** to **v0.9.60**
+- Updated **unplugin** to **v0.0.76**
+
 ## [0.11.71](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.71) (05/30/2026)
 
 ### Updated Dependencies

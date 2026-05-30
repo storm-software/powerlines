@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.76](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.76) (05/30/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove unused `jest.config.ts` files from projects and update `tsconfig.spec.json` files ([3c764d62e](https://github.com/storm-software/powerlines/commit/3c764d62e))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.28**
+
 ## [0.0.75](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.75) (05/30/2026)
 
 ### Updated Dependencies

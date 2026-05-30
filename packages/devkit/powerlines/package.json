@@ -1,6 +1,6 @@
 {
   "name": "powerlines",
-  "version": "0.47.88",
+  "version": "0.47.89",
   "private": false,
   "description": "The \"framework framework\" that simplifies modern dev tool usage, generates virtual (or actual) code modules, and improves DX across the board.",
   "keywords": [
@@ -171,10 +171,7 @@
   "bin": {
     "powerlines": "./bin/bin.mjs"
   },
-  "files": [
-    "dist",
-    "files"
-  ],
+  "files": ["dist", "files"],
   "dependencies": {
     "@babel/types": "catalog:",
     "@powerlines/core": "workspace:*",

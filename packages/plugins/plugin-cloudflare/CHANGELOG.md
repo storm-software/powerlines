@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.191](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.191) (05/30/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added missing `tsconfig.spec.json` and `vitest.config.mts` file updates ([5483a572b](https://github.com/storm-software/powerlines/commit/5483a572b))
+- **monorepo:** Remove unused `jest.config.ts` files from projects and update `tsconfig.spec.json` files ([3c764d62e](https://github.com/storm-software/powerlines/commit/3c764d62e))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.181**
+- Updated **plugin-env** to **v0.16.292**
+- Updated **plugin-plugin** to **v0.12.501**
+- Updated **plugin-pulumi** to **v0.6.191**
+- Updated **plugin-unenv** to **v0.1.539**
+- Updated **powerlines** to **v0.47.89**
+- Updated **schema** to **v0.11.72**
+
 ## [0.6.190](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.190) (05/30/2026)
 
 ### Updated Dependencies

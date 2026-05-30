@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.10.558](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.558) (05/30/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added missing `tsconfig.spec.json` and `vitest.config.mts` file updates ([5483a572b](https://github.com/storm-software/powerlines/commit/5483a572b))
+- **monorepo:** Remove unused `jest.config.ts` files from projects and update `tsconfig.spec.json` files ([3c764d62e](https://github.com/storm-software/powerlines/commit/3c764d62e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.501**
+- Updated **powerlines** to **v0.47.89**
+
 ## [0.10.557](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.557) (05/30/2026)
 
 ### Updated Dependencies

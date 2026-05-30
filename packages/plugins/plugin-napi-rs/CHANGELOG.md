@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.2.138](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.138) (05/30/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added missing `tsconfig.spec.json` and `vitest.config.mts` file updates ([5483a572b](https://github.com/storm-software/powerlines/commit/5483a572b))
+- **monorepo:** Remove unused `jest.config.ts` files from projects and update `tsconfig.spec.json` files ([3c764d62e](https://github.com/storm-software/powerlines/commit/3c764d62e))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.181**
+- Updated **plugin-automd** to **v0.1.550**
+- Updated **plugin-babel** to **v0.13.85**
+- Updated **plugin-plugin** to **v0.12.501**
+- Updated **powerlines** to **v0.47.89**
+
 ## [0.2.137](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.137) (05/30/2026)
 
 ### Updated Dependencies

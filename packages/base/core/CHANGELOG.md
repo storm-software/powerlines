@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.28](https://github.com/storm-software/powerlines/releases/tag/core%400.48.28) (05/30/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove unused `jest.config.ts` files from projects and update `tsconfig.spec.json` files ([3c764d62e](https://github.com/storm-software/powerlines/commit/3c764d62e))
+
 ## [0.48.26](https://github.com/storm-software/powerlines/releases/tag/core%400.48.26) (05/30/2026)
 
 ### Miscellaneous

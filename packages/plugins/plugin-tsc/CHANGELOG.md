@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.3.86](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.3.86) (05/30/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added missing `tsconfig.spec.json` and `vitest.config.mts` file updates ([5483a572b](https://github.com/storm-software/powerlines/commit/5483a572b))
+- **monorepo:** Remove unused `jest.config.ts` files from projects and update `tsconfig.spec.json` files ([3c764d62e](https://github.com/storm-software/powerlines/commit/3c764d62e))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.28**
+- Updated **plugin-plugin** to **v0.12.501**
+- Updated **powerlines** to **v0.47.89**
+
 ## [0.3.85](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.3.85) (05/30/2026)
 
 ### Updated Dependencies

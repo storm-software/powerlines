@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.636](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.636) (05/30/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added missing `tsconfig.spec.json` and `vitest.config.mts` file updates ([5483a572b](https://github.com/storm-software/powerlines/commit/5483a572b))
+- **monorepo:** Remove unused `jest.config.ts` files from projects and update `tsconfig.spec.json` files ([3c764d62e](https://github.com/storm-software/powerlines/commit/3c764d62e))
+
+### Updated Dependencies
+
+- Updated **plugin-env** to **v0.16.292**
+- Updated **plugin-plugin** to **v0.12.501**
+- Updated **powerlines** to **v0.47.89**
+
 ## [0.12.635](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.635) (05/30/2026)
 
 ### Updated Dependencies

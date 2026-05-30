@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.181](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.181) (05/30/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove unused `jest.config.ts` files from projects and update `tsconfig.spec.json` files ([3c764d62e](https://github.com/storm-software/powerlines/commit/3c764d62e))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.9.60**
+- Updated **plugin-babel** to **v0.13.85**
+- Updated **plugin-plugin** to **v0.12.501**
+- Updated **powerlines** to **v0.47.89**
+- Updated **schema** to **v0.11.72**
+
 ## [0.26.179](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.179) (05/30/2026)
 
 ### Updated Dependencies
