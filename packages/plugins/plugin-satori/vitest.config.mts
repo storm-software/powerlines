@@ -15,7 +15,7 @@ export default defineConfig(() => ({
     reporters: ['default'],
     coverage: {
       reportsDirectory: '../../../coverage/packages/plugins/plugin-satori',
-      provider: 'v8'
+      provider: 'v8' as const
     }
   }
 }));

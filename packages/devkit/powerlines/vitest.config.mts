@@ -1,21 +1,21 @@
-import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
-import { defineConfig } from 'vitest/config';
+import { nxCopyAssetsPlugin } from "@nx/vite/plugins/nx-copy-assets.plugin";
+import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig(() => ({
   root: __dirname,
-  cacheDir: '../../../node_modules/.vite/packages/devkit/powerlines',
-  plugins: [nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
+  cacheDir: "../../../node_modules/.vite/packages/devkit/powerlines",
+  plugins: [nxViteTsPaths(), nxCopyAssetsPlugin(["*.md"])],
   test: {
-    name: 'powerlines',
+    name: "powerlines",
     watch: false,
     globals: true,
-    environment: 'node',
-    include: ['{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    reporters: ['default'],
+    environment: "node",
+    include: ["{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+    reporters: ["default"],
     coverage: {
-      reportsDirectory: '../../../coverage/packages/devkit/powerlines',
-      provider: 'v8'
+      reportsDirectory: "../../../coverage/packages/devkit/powerlines",
+      provider: "v8" as const
     }
   }
 }));

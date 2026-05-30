@@ -36,7 +36,7 @@ catalog:
   "@babel/types": 8.0.0-rc.6
   "@cacheable/memory": ^2.0.9
   "@cloudflare/unenv-preset": ^2.16.1
-  "@cloudflare/workers-types": ^4.20260529.1
+  "@cloudflare/workers-types": ^4.20260530.1
   "@content-collections/core": ^0.12.0
   "@deepkit/core": 1.0.5
   "@deepkit/type": 1.0.5
@@ -79,7 +79,7 @@ catalog:
   "@pulumi/pulumi": ^3.244.0
   "@rolldown/pluginutils": 1.0.0-rc.18
   "@rollup/plugin-alias": ^6.0.0
-  "@rollup/plugin-babel": ^7.0.0
+  "@rollup/plugin-babel": ^7.1.0
   "@rollup/plugin-inject": ^5.0.5
   "@rollup/plugin-node-resolve": ^16.0.3
   "@rollup/plugin-replace": ^6.0.3
@@ -91,24 +91,24 @@ catalog:
   "@shell-shock/preset-cli": ^0.9.22
   "@sinclair/typebox": ^0.34.49
   "@standard-schema/spec": ^1.1.0
-  "@storm-software/build-tools": ^0.158.196
-  "@storm-software/config": ^1.137.68
-  "@storm-software/config-tools": ^1.190.36
-  "@storm-software/cspell": ^0.46.104
-  "@storm-software/esbuild": ^0.53.197
-  "@storm-software/eslint": ^0.170.57
-  "@storm-software/git-tools": ^2.131.42
-  "@storm-software/linting-tools": ^1.133.66
-  "@storm-software/markdownlint": ^0.30.192
-  "@storm-software/pnpm-tools": ^0.7.47
-  "@storm-software/prettier": ^0.59.88
-  "@storm-software/testing-tools": ^1.119.189
-  "@storm-software/tsconfig": ^0.48.103
-  "@storm-software/tsdoc": ^0.13.189
-  "@storm-software/tsup": ^0.2.194
-  "@storm-software/unbuild": ^0.57.197
-  "@storm-software/untyped": ^0.24.178
-  "@storm-software/workspace-tools": ^1.296.14
+  "@storm-software/build-tools": ^0.158.197
+  "@storm-software/config": ^1.137.69
+  "@storm-software/config-tools": ^1.190.37
+  "@storm-software/cspell": ^0.46.105
+  "@storm-software/esbuild": ^0.53.198
+  "@storm-software/eslint": ^0.170.58
+  "@storm-software/git-tools": ^2.131.43
+  "@storm-software/linting-tools": ^1.133.67
+  "@storm-software/markdownlint": ^0.30.193
+  "@storm-software/pnpm-tools": ^0.7.48
+  "@storm-software/prettier": ^0.59.89
+  "@storm-software/testing-tools": ^1.119.190
+  "@storm-software/tsconfig": ^0.48.104
+  "@storm-software/tsdoc": ^0.13.190
+  "@storm-software/tsup": ^0.2.195
+  "@storm-software/unbuild": ^0.57.198
+  "@storm-software/untyped": ^0.24.179
+  "@storm-software/workspace-tools": ^1.296.15
   "@stryke/async": ^0.1.7
   "@stryke/capnp": ^0.12.105
   "@stryke/cli": ^0.13.51
@@ -206,7 +206,7 @@ catalog:
   publint: ^0.3.21
   rimraf: ^6.1.3
   rolldown: ^1.0.3
-  rolldown-plugin-dts: ^0.25.1
+  rolldown-plugin-dts: ^0.25.2
   rollup: ^4.60.4
   rollup-plugin-typescript2: ^0.36.0
   satori: ^0.18.4

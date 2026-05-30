@@ -15,7 +15,7 @@
   },
   "include": ["**/*.json", "src/**/*.ts", "src/**/*.d.ts", "tsdown.config.mjs"],
   "exclude": [
-    "jest.config.ts",
+    "vitest.config.mts",
     "src/generators/**/files/**/*",
     "src/**/*.spec.ts",
     "src/**/*.test.ts"
