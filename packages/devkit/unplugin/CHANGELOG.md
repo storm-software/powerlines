@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.74](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.74) (05/30/2026)
+
+### Miscellaneous
+
+- **nx:** Update `withExecutor` to simplify reuse ([ca9f91d0a](https://github.com/storm-software/powerlines/commit/ca9f91d0a))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.26**
+
 ## [0.0.73](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.73) (05/30/2026)
 
 ### Updated Dependencies

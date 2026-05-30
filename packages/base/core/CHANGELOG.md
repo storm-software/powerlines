@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.26](https://github.com/storm-software/powerlines/releases/tag/core%400.48.26) (05/30/2026)
+
+### Miscellaneous
+
+- **nx:** Update `withExecutor` to simplify reuse ([ca9f91d0a](https://github.com/storm-software/powerlines/commit/ca9f91d0a))
+
 ## [0.48.25](https://github.com/storm-software/powerlines/releases/tag/core%400.48.25) (05/30/2026)
 
 ### Source Code Improvements

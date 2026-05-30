@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.28](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.28) (05/30/2026)
+
+### Miscellaneous
+
+- **nx:** Update `withExecutor` to simplify reuse ([ca9f91d0a](https://github.com/storm-software/powerlines/commit/ca9f91d0a))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.26**
+
 ## [0.49.27](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.27) (05/30/2026)
 
 ### Source Code Improvements

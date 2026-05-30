@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.125](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.125) (05/30/2026)
+
+### Miscellaneous
+
+- **nx:** Update `withExecutor` to simplify reuse ([ca9f91d0a](https://github.com/storm-software/powerlines/commit/ca9f91d0a))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.87**
+
 ## [0.13.124](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.124) (05/30/2026)
 
 ### Miscellaneous
