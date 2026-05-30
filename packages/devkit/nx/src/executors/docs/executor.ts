@@ -18,27 +18,25 @@
 
 import { PromiseExecutor } from "@nx/devkit";
 import { BaseExecutorResult } from "@storm-software/workspace-tools/types";
-import type { PowerlinesEngine } from "powerlines/engine";
 import {
+  PowerlinesExecutorApi,
   PowerlinesExecutorContext,
   withExecutor
 } from "../../base/base-executor";
 import type { DocsExecutorSchema } from "./schema";
 
 async function executorFn(
-  context: PowerlinesExecutorContext<"docs", DocsExecutorSchema>,
-  api: PowerlinesEngine
+  context: PowerlinesExecutorContext<DocsExecutorSchema>,
+  api: PowerlinesExecutorApi
 ): Promise<BaseExecutorResult> {
-  await api.docs(context.inlineConfig);
+  await api(context.inlineConfig);
 
   return {
     success: true
   };
 }
 
-const executor: PromiseExecutor<DocsExecutorSchema> = withExecutor<
-  "docs",
-  DocsExecutorSchema
->("docs", executorFn);
+const executor: PromiseExecutor<DocsExecutorSchema> =
+  withExecutor<DocsExecutorSchema>("docs", executorFn);
 
 export default executor;

@@ -22,14 +22,17 @@ import type {
   CreateInlineConfig,
   DeployInlineConfig,
   DocsInlineConfig,
+  ExecutionContext,
+  ExecutionOptions,
   InlineConfig,
   LintInlineConfig,
   PrepareInlineConfig,
   TestInlineConfig,
   TypesInlineConfig
 } from "@powerlines/core";
-import { EngineExecutionOptions } from "./config";
-import type { EngineContext } from "./context";
+import { createApi } from "../helpers";
+import { EngineExecutionOptions, EngineResolvedConfig } from "./config";
+import type { EngineContext, EngineSystemContext } from "./context";
 
 /**
  * The Powerlines Base API Interface
@@ -136,21 +139,19 @@ export interface ExecutionInterface {
   finalize: () => Promise<void>;
 }
 
-export interface ExecutionApiParams {
-  /**
-   * The command being executed, which corresponds to the method name in the execution API. This value is used to identify which command is being invoked and can be used for logging, error handling, and other purposes within the execution host.
-   */
-  command: string;
-
-  /**
-   * The {@link MessagePort} used for communication between the execution host and the engine. This port will be used to send and receive messages, allowing the execution host to invoke API methods and return results to the engine.
-   */
-  port: MessagePort;
-
+export interface ExecutionApiParams<
+  TOptions extends ExecutionOptions = ExecutionOptions,
+  TCommand extends string = string
+> {
   /**
    * The execution options for the current execution instance
    */
-  options: EngineExecutionOptions;
+  options: TOptions;
+
+  /**
+   * The command being executed, which corresponds to the method name in the execution API. This value is used to identify which command is being invoked and can be used for logging, error handling, and other purposes within the execution host.
+   */
+  command: TCommand;
 
   /**
    * The inline configuration for the current execution instance, which is the result of merging the user configuration with any configuration provided by plugins during the "config" hook.
@@ -177,7 +178,14 @@ export interface Engine extends ExecutionInterface {
   context: EngineContext;
 
   /**
-   * The execution host, which provides methods to call the execution API functions from the engine context. This allows the engine to invoke commands and other API functions during the execution of Powerlines commands, enabling communication between the engine and the execution contexts.
+   * The execution API worker, which provides methods to call the execution API functions from the engine context. This allows the engine to invoke commands and other API functions during the execution of Powerlines commands, enabling communication between the engine and the execution contexts.
    */
   api: ExecutionApiWorkerInterface;
 }
+
+export type ExecutionApi = ReturnType<
+  typeof createApi<
+    ExecutionContext<EngineResolvedConfig, EngineSystemContext>,
+    ExecutionOptions
+  >
+>;

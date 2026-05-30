@@ -522,7 +522,7 @@ export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
 
   public async execute(
     command: string,
-    options: EngineExecutionOptions,
+    options: Omit<EngineExecutionOptions, "channel">,
     inlineConfig: InlineConfig
   ) {
     if (this.options.timeout) {
@@ -600,7 +600,7 @@ export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
 
   protected async innerExecute(
     command: string,
-    options: EngineExecutionOptions,
+    options: Omit<EngineExecutionOptions, "channel">,
     inlineConfig: InlineConfig
   ) {
     if (!this.#worker) {
@@ -609,7 +609,7 @@ export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
 
     const { port1, port2 } = new MessageChannel();
     const promise = this.#worker.run(
-      { command, options, inlineConfig, port: port2 },
+      { command, options: { ...options, channel: port2 }, inlineConfig },
       {
         transferList: [port2] as StructuredSerializeOptions
       }

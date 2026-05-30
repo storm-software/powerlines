@@ -68,6 +68,8 @@ export type EngineOptions = Omit<
     framework?: FrameworkOptions;
   };
 
+export interface ApiExecutionOptions extends ExecutionOptions {}
+
 export interface EngineExecutionOptions extends ExecutionOptions {
   /**
    * The base URL for the dev server, which can be used by plugins to construct URLs for assets or API endpoints during development. This value is only relevant in "dev" mode and will be `undefined` in "build" mode.
@@ -78,6 +80,11 @@ export interface EngineExecutionOptions extends ExecutionOptions {
    * Metadata for the connection used by the dev server, including the backend type and websocket configuration.
    */
   connection: ConnectionMeta;
+
+  /**
+   * The {@link MessagePort} used for communication between the execution host and the engine. This port will be used to send and receive messages, allowing the execution host to invoke API methods and return results to the engine.
+   */
+  channel: MessagePort;
 
   /**
    * Options for configuring the WebSocket RPC channel used for communication between the dev server and the client, which can be used by plugins to customize the behavior of the WebSocket connection, such as setting custom timeouts, retry strategies, or other options.

@@ -185,15 +185,16 @@
     "@stryke/path": "catalog:",
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
-    "powerlines": "workspace:*",
     "defu": "catalog:",
-    "jiti": "catalog:"
+    "jiti": "catalog:",
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@nx/workspace": "catalog:",
     "@storm-software/testing-tools": "catalog:",
     "@storm-software/tsup": "catalog:",
     "@storm-software/untyped": "catalog:",
+    "@stryke/types": "catalog:",
     "@types/node": "catalog:",
     "eslint-flat-config-utils": "catalog:",
     "jsonc-eslint-parser": "catalog:",

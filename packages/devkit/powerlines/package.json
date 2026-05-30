@@ -59,6 +59,10 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
+    "./api": {
+      "import": "./dist/api.mjs",
+      "require": "./dist/api.cjs"
+    },
     "./astro": {
       "import": "./dist/astro.mjs",
       "require": "./dist/astro.cjs"
@@ -82,6 +86,10 @@
     "./farm": {
       "import": "./dist/farm.mjs",
       "require": "./dist/farm.cjs"
+    },
+    "./helpers": {
+      "import": "./dist/helpers.mjs",
+      "require": "./dist/helpers.cjs"
     },
     "./next": {
       "import": "./dist/next.mjs",

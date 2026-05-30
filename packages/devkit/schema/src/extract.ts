@@ -19,7 +19,13 @@
 import type { Context } from "@powerlines/core";
 import { isFileReference } from "@powerlines/core";
 import { esbuildPlugin } from "@powerlines/deepkit/esbuild-plugin";
-import { deserializeType, isType, SerializedType, stringifyType, Type } from "@powerlines/deepkit/vendor/type";
+import {
+  deserializeType,
+  isType,
+  SerializedType,
+  stringifyType,
+  Type
+} from "@powerlines/deepkit/vendor/type";
 import { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import { extractFileReference } from "@stryke/convert/extract-file-reference";
 import { murmurhash } from "@stryke/hash";
@@ -67,7 +73,6 @@ import {
   UntypedSchema,
   ValibotSchema
 } from "./types";
-import { SerializedTypes } from "../../../base/deepkit/schemas/reflection";
 
 const SCHEMA_BUNDLE_BASE_URI = "https://powerlines.invalid/";
 
@@ -481,6 +486,9 @@ export function extractReflection(reflection: Type): JsonSchema | undefined {
 
 /**
  * Extracts a JSON Schema from Zod, Standard Schema, Valibot, untyped, or JSON Schema inputs.
+ *
+ * @param schema - The schema input to extract a JSON Schema from.
+ * @returns The extracted JSON Schema, or `undefined` if the input is not a supported schema type.
  */
 export function extractJsonSchema(schema: unknown): JsonSchema | undefined {
   if (isSetObject(schema)) {
@@ -510,8 +518,6 @@ export function extractJsonSchema(schema: unknown): JsonSchema | undefined {
 
   return undefined;
 }
-
-
 
 /**
  * Resolves the concrete source variant for a schema source input.

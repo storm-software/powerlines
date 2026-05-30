@@ -35,8 +35,7 @@ export type Commands<TContext extends Context = Context> = Record<
   (this: TContext) => MaybePromise<void>
 >;
 
-export type BaseExecutionAPIMethods =
+export type BaseExecutionApiMethods =
   (typeof BASE_EXECUTION_API_METHODS)[number];
-export type PowerlinesExecutionAPIMethods =
-  (typeof EXECUTION_API_METHODS)[number];
+export type ExecutionApiMethods = (typeof EXECUTION_API_METHODS)[number];
 export type SupportedCommands = (typeof SUPPORTED_COMMANDS)[number];

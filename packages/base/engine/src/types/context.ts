@@ -118,7 +118,7 @@ export interface EngineExecutionItem {
   /**
    * The options provided to the Powerlines process for this execution
    */
-  options: EngineExecutionOptions;
+  options: Omit<EngineExecutionOptions, "channel">;
 
   /**
    * The parsed user configuration file provided to the Powerlines process before any resolution or merging
