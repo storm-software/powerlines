@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.73](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.73) (05/30/2026)
+
+### Miscellaneous
+
+- **core:** Update `tsdown` configuration for packages ([1db4c39a7](https://github.com/storm-software/powerlines/commit/1db4c39a7))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.29**
+- Updated **deepkit** to **v0.9.61**
+- Updated **unplugin** to **v0.0.77**
+
 ## [0.11.72](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.72) (05/30/2026)
 
 ### Miscellaneous

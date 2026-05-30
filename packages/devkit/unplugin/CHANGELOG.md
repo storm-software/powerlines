@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.77](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.77) (05/30/2026)
+
+### Miscellaneous
+
+- **core:** Update `tsdown` configuration for packages ([1db4c39a7](https://github.com/storm-software/powerlines/commit/1db4c39a7))
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue including `.test.ts` files in package distribution ([d44fba030](https://github.com/storm-software/powerlines/commit/d44fba030))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.29**
+
 ## [0.0.76](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.76) (05/30/2026)
 
 ### Miscellaneous

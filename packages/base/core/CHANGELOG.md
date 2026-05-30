@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.29](https://github.com/storm-software/powerlines/releases/tag/core%400.48.29) (05/30/2026)
+
+### Miscellaneous
+
+- **core:** Update `tsdown` configuration for packages ([1db4c39a7](https://github.com/storm-software/powerlines/commit/1db4c39a7))
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue including `.test.ts` files in package distribution ([d44fba030](https://github.com/storm-software/powerlines/commit/d44fba030))
+
 ## [0.48.28](https://github.com/storm-software/powerlines/releases/tag/core%400.48.28) (05/30/2026)
 
 ### Miscellaneous
