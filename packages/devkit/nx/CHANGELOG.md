@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.127](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.127) (05/30/2026)
+
+### Bug Fixes
+
+- **nx:** Update imports to specify types more strictly ([3d7cc12bf](https://github.com/storm-software/powerlines/commit/3d7cc12bf))
+
 ## [0.13.126](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.126) (05/30/2026)
 
 ### Miscellaneous
