@@ -83,6 +83,20 @@
         "default": "./dist/helpers/create-operation-id.mjs"
       }
     },
+    "./helpers/create-operation-id.test": {
+      "require": {
+        "types": "./dist/helpers/create-operation-id.test.d.cts",
+        "default": "./dist/helpers/create-operation-id.test.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/create-operation-id.test.d.mts",
+        "default": "./dist/helpers/create-operation-id.test.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/create-operation-id.test.d.mts",
+        "default": "./dist/helpers/create-operation-id.test.mjs"
+      }
+    },
     "./package.json": "./package.json",
     "./types": {
       "require": {
@@ -133,5 +147,18 @@
   "publishConfig": {
     "access": "public"
   },
-  "types": "./dist/index.d.cts"
+  "types": "./dist/index.d.cts",
+  "inlinedDependencies": {
+    "@jridgewell/sourcemap-codec": "1.5.5",
+    "@vitest/expect": "4.1.7",
+    "@vitest/pretty-format": "4.1.7",
+    "@vitest/runner": "4.1.7",
+    "@vitest/snapshot": "4.1.7",
+    "@vitest/spy": "4.1.7",
+    "@vitest/utils": "4.1.7",
+    "chai": "6.2.2",
+    "magic-string": "0.30.21",
+    "tinyrainbow": "3.1.0",
+    "vitest": "4.1.7"
+  }
 }

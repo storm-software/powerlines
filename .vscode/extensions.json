@@ -12,7 +12,6 @@
     "eamodio.gitlens",
     "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
-    "firsttris.vscode-jest-runner",
     "github.copilot-chat",
     "github.github-vscode-theme",
     "github.vscode-pull-request-github",
@@ -28,6 +27,7 @@
     "streetsidesoftware.code-spell-checker",
     "tamasfe.even-better-toml",
     "unifiedjs.vscode-mdx",
-    "yzhang.markdown-all-in-one"
+    "yzhang.markdown-all-in-one",
+    "vitest.explorer"
   ]
 }

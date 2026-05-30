@@ -48,7 +48,7 @@ export async function render<TContext extends PluginContext>(
 ) {
   const meta = {} as Record<string, MetaItem>;
   const output = await renderAsync(
-    <Output<TContext> context={context} meta={meta}>
+    <Output context={context} meta={meta}>
       {children}
     </Output>
   );
@@ -140,9 +140,7 @@ export function renderString<TContext extends PluginContext>(
   children: Children,
   options?: PrintTreeOptions
 ) {
-  const tree = renderTree(
-    <Output<TContext> context={context}>{children}</Output>
-  );
+  const tree = renderTree(<Output context={context}>{children}</Output>);
 
   return printTree(tree, options);
 }

@@ -75,9 +75,17 @@
       "import": "./dist/constants.mjs",
       "require": "./dist/constants.cjs"
     },
+    "./constants.test": {
+      "import": "./dist/constants.test.mjs",
+      "require": "./dist/constants.test.cjs"
+    },
     "./engine": {
       "import": "./dist/engine.mjs",
       "require": "./dist/engine.cjs"
+    },
+    "./engine.test": {
+      "import": "./dist/engine.test.mjs",
+      "require": "./dist/engine.test.cjs"
     },
     "./esbuild": {
       "import": "./dist/esbuild.mjs",
@@ -163,7 +171,10 @@
   "bin": {
     "powerlines": "./bin/bin.mjs"
   },
-  "files": ["dist", "files"],
+  "files": [
+    "dist",
+    "files"
+  ],
   "dependencies": {
     "@babel/types": "catalog:",
     "@powerlines/core": "workspace:*",

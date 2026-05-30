@@ -87,6 +87,20 @@
         "default": "./dist/helpers/create-emitter.mjs"
       }
     },
+    "./helpers/create-emitter.test": {
+      "require": {
+        "types": "./dist/helpers/create-emitter.test.d.cts",
+        "default": "./dist/helpers/create-emitter.test.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/create-emitter.test.d.mts",
+        "default": "./dist/helpers/create-emitter.test.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/create-emitter.test.d.mts",
+        "default": "./dist/helpers/create-emitter.test.mjs"
+      }
+    },
     "./helpers/create-writer": {
       "require": {
         "types": "./dist/helpers/create-writer.d.cts",
@@ -99,6 +113,20 @@
       "default": {
         "types": "./dist/helpers/create-writer.d.mts",
         "default": "./dist/helpers/create-writer.mjs"
+      }
+    },
+    "./helpers/create-writer.test": {
+      "require": {
+        "types": "./dist/helpers/create-writer.test.d.cts",
+        "default": "./dist/helpers/create-writer.test.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/create-writer.test.d.mts",
+        "default": "./dist/helpers/create-writer.test.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/create-writer.test.d.mts",
+        "default": "./dist/helpers/create-writer.test.mjs"
       }
     },
     "./package.json": "./package.json",
@@ -163,5 +191,18 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "inlinedDependencies": {
+    "@jridgewell/sourcemap-codec": "1.5.5",
+    "@vitest/expect": "4.1.7",
+    "@vitest/pretty-format": "4.1.7",
+    "@vitest/runner": "4.1.7",
+    "@vitest/snapshot": "4.1.7",
+    "@vitest/spy": "4.1.7",
+    "@vitest/utils": "4.1.7",
+    "chai": "6.2.2",
+    "magic-string": "0.30.21",
+    "tinyrainbow": "3.1.0",
+    "vitest": "4.1.7"
   }
 }

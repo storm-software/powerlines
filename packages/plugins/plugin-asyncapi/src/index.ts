@@ -63,8 +63,8 @@ export const plugin = <
           compile: false,
           debug:
             this.config.mode === "development" ||
-            this.config.logLevel === "debug" ||
-            this.config.logLevel === "trace",
+            this.config.logLevel.general === "debug" ||
+            this.config.logLevel.general === "trace",
           targetDir: joinPaths(this.builtinsPath, "asyncapi")
         })
       };

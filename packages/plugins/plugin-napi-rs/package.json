@@ -68,6 +68,34 @@
         "default": "./dist/helpers/format-path.mjs"
       }
     },
+    "./helpers/format-path.test": {
+      "require": {
+        "types": "./dist/helpers/format-path.test.d.cts",
+        "default": "./dist/helpers/format-path.test.cjs"
+      },
+      "import": {
+        "types": "./dist/helpers/format-path.test.d.mts",
+        "default": "./dist/helpers/format-path.test.mjs"
+      },
+      "default": {
+        "types": "./dist/helpers/format-path.test.d.mts",
+        "default": "./dist/helpers/format-path.test.mjs"
+      }
+    },
+    "./index.test": {
+      "require": {
+        "types": "./dist/index.test.d.cts",
+        "default": "./dist/index.test.cjs"
+      },
+      "import": {
+        "types": "./dist/index.test.d.mts",
+        "default": "./dist/index.test.mjs"
+      },
+      "default": {
+        "types": "./dist/index.test.d.mts",
+        "default": "./dist/index.test.mjs"
+      }
+    },
     "./package.json": "./package.json",
     "./types": {
       "require": {
@@ -109,6 +137,20 @@
       "default": {
         "types": "./dist/types/targets.d.mts",
         "default": "./dist/types/targets.mjs"
+      }
+    },
+    "./types/targets.test": {
+      "require": {
+        "types": "./dist/types/targets.test.d.cts",
+        "default": "./dist/types/targets.test.cjs"
+      },
+      "import": {
+        "types": "./dist/types/targets.test.d.mts",
+        "default": "./dist/types/targets.test.mjs"
+      },
+      "default": {
+        "types": "./dist/types/targets.test.d.mts",
+        "default": "./dist/types/targets.test.mjs"
       }
     },
     "./types/wasm": {
@@ -163,5 +205,18 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "inlinedDependencies": {
+    "@jridgewell/sourcemap-codec": "1.5.5",
+    "@vitest/expect": "4.1.7",
+    "@vitest/pretty-format": "4.1.7",
+    "@vitest/runner": "4.1.7",
+    "@vitest/snapshot": "4.1.7",
+    "@vitest/spy": "4.1.7",
+    "@vitest/utils": "4.1.7",
+    "chai": "6.2.2",
+    "magic-string": "0.30.21",
+    "tinyrainbow": "3.1.0",
+    "vitest": "4.1.7"
   }
 }

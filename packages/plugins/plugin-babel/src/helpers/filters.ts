@@ -38,15 +38,23 @@ export function getPluginName(
     | ((...args: any[]) => any)
     | undefined
 ): string | undefined {
-  return isSetString(plugin)
-    ? plugin
-    : Array.isArray(plugin) && plugin.length > 0
-      ? getPluginName(plugin[0])
-      : (plugin as BabelTransformPlugin).$$name ||
-          (plugin as BabelTransformPlugin).name
-        ? (plugin as BabelTransformPlugin).$$name ||
-          (plugin as BabelTransformPlugin).name
-        : undefined;
+  if (isSetString(plugin)) {
+    return plugin;
+  }
+
+  if (Array.isArray(plugin) && plugin.length > 0) {
+    return getPluginName(plugin[0]);
+  }
+
+  if (!plugin) {
+    return undefined;
+  }
+
+  return (
+    (plugin as BabelTransformPlugin).$$name ||
+    (plugin as BabelTransformPlugin).name ||
+    undefined
+  );
 }
 
 /**

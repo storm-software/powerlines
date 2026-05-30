@@ -25,5 +25,9 @@ import { Refkey, refkey as refkeyExternal } from "@alloy-js/core";
  * Values are compared using the SameValueZero algorithm, which considers objects the same if they are reference identical, and primitives the same if they are the same value, with the exception of `NaN`, which is always considered equal to other `NaN` values, and `-0`, which is considered identical to `+0`
  */
 export function refkey(...args: unknown[]): Refkey {
+  if (args.length === 0) {
+    return refkeyExternal();
+  }
+
   return refkeyExternal("powerlines", ...args);
 }
