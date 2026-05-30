@@ -5,7 +5,7 @@
       "name": "Debug CF Build Script",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/q845mzglbbmqy7i5mlkhy4yvbw7l1j7g-pnpm-10.32.1/bin/pnpm",
+      "program": "/nix/store/q5a7ifamw5c6c9llfdj8h487qz4rasr9-pnpm-11.1.2/bin/pnpm",
       "args": [
         "nx",
         "run",
@@ -20,7 +20,7 @@
       "name": "Debug CLI",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/q845mzglbbmqy7i5mlkhy4yvbw7l1j7g-pnpm-10.32.1/bin/pnpm",
+      "program": "/nix/store/q5a7ifamw5c6c9llfdj8h487qz4rasr9-pnpm-11.1.2/bin/pnpm",
       "args": ["./packages/cli/dist/bin.mjs"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
@@ -29,7 +29,7 @@
       "name": "Debug CLI Build Script",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/q845mzglbbmqy7i5mlkhy4yvbw7l1j7g-pnpm-10.32.1/bin/pnpm",
+      "program": "/nix/store/q5a7ifamw5c6c9llfdj8h487qz4rasr9-pnpm-11.1.2/bin/pnpm",
       "args": [
         "nx",
         "run",
@@ -44,7 +44,7 @@
       "name": "Debug TSDown Build Script",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/q845mzglbbmqy7i5mlkhy4yvbw7l1j7g-pnpm-10.32.1/bin/pnpm",
+      "program": "/nix/store/q5a7ifamw5c6c9llfdj8h487qz4rasr9-pnpm-11.1.2/bin/pnpm",
       "args": [
         "nx",
         "run",
@@ -59,7 +59,7 @@
       "name": "Debug Alloy Build Script",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/q845mzglbbmqy7i5mlkhy4yvbw7l1j7g-pnpm-10.32.1/bin/pnpm",
+      "program": "/nix/store/q5a7ifamw5c6c9llfdj8h487qz4rasr9-pnpm-11.1.2/bin/pnpm",
       "args": [
         "nx",
         "run",
@@ -74,7 +74,7 @@
       "name": "Debug Env Build Script",
       "type": "node",
       "request": "launch",
-      "program": "/nix/store/q845mzglbbmqy7i5mlkhy4yvbw7l1j7g-pnpm-10.32.1/bin/pnpm",
+      "program": "/nix/store/q5a7ifamw5c6c9llfdj8h487qz4rasr9-pnpm-11.1.2/bin/pnpm",
       "args": [
         "nx",
         "run",
