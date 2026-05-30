@@ -44,6 +44,15 @@ export default defineUntypedSchema({
         "The path to the Powerlines configuration file. Alias for `config`."
     }
   },
+  configIndex: {
+    $schema: {
+      title: "Powerlines Configuration Index",
+      type: "number",
+      description:
+        "The index in the Powerlines configuration file to use (if an array of configurations are provided)."
+    },
+    $default: 0
+  },
   input: {
     $schema: {
       title: "Input Entry File(s)",

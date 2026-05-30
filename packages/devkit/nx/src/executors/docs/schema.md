@@ -22,6 +22,16 @@ The path to the Powerlines configuration file. Alias for `configFile`.
 The path to the Powerlines configuration file. Alias for `config`.
 
 
+## `configIndex`
+- **Type**: `number`
+- **Default**: `0`
+
+> Powerlines Configuration Index
+
+
+The index in the Powerlines configuration file to use (if an array of configurations are provided).
+
+
 ## `input`
 - **Type**: `array`
 

@@ -18,6 +18,13 @@
       "description": "The path to the Powerlines configuration file. Alias for `config`.",
       "id": "#configFile"
     },
+    "configIndex": {
+      "title": "Powerlines Configuration Index",
+      "type": "number",
+      "description": "The index in the Powerlines configuration file to use (if an array of configurations are provided).",
+      "id": "#configIndex",
+      "default": 0
+    },
     "input": {
       "title": "Input Entry File(s)",
       "format": "path",
@@ -194,6 +201,7 @@
   },
   "type": "object",
   "default": {
+    "configIndex": 0,
     "copyPath": {},
     "format": [
       "cjs",

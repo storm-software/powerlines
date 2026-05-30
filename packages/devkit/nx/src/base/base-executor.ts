@@ -132,6 +132,7 @@ export function withExecutor<
                     command,
                     root: projectConfig.root,
                     configFile: options.configFile || options.config,
+                    configIndex: options.configIndex,
                     projectType: projectConfig.projectType,
                     mode: options.mode as Mode,
                     output: {
@@ -193,14 +194,14 @@ export function withExecutor<
             async (inlineConfig: InlineConfig) =>
               api({
                 options: defu(defaultOptions, {
-                  executionId: `${context.projectName}-${command}-${Date.now()}`,
+                  executionId: `${context.projectName}-${command}-${options.configIndex}`,
                   cwd: context.root,
                   root: projectConfig.root,
                   configFile:
                     options.configFile ||
                     options.config ||
                     joinPaths(projectConfig.root, "powerlines.config.ts"),
-                  configIndex: 0,
+                  configIndex: options.configIndex,
                   framework: {
                     name: "powerlines",
                     orgId: "storm-software"

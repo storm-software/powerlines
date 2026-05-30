@@ -24,6 +24,15 @@ export interface PrepareExecutorSchema {
  configFile?: string,
 
  /**
+  * Powerlines Configuration Index
+  * 
+  * The index in the Powerlines configuration file to use (if an array of configurations are provided).
+  * 
+  * @default 0
+ */
+ configIndex?: number,
+
+ /**
   * Input Entry File(s)
   * 
   * The entry file(s) that serve as the input for the project
