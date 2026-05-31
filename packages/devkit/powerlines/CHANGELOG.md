@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.95](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.95) (05/31/2026)
+
+### Miscellaneous
+
+- **powerlines:** Add separate exports for each API module ([f79e1c157](https://github.com/storm-software/powerlines/commit/f79e1c157))
+
+### Updated Dependencies
+
+- Updated **schema** to **v0.11.77**
+
 ## [0.47.94](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.94) (05/31/2026)
 
 ### Miscellaneous

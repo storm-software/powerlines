@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.77](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.77) (05/31/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue type-checking JSON Object Schemas ([5d2fa083b](https://github.com/storm-software/powerlines/commit/5d2fa083b))
+
 ## [0.11.76](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.76) (05/30/2026)
 
 ### Bug Fixes
