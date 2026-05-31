@@ -20,9 +20,8 @@ import type { Context } from "@powerlines/core";
 import { isFileReference } from "@powerlines/core";
 import { esbuildPlugin } from "@powerlines/deepkit/esbuild-plugin";
 import {
-  deserializeType,
   isType,
-  SerializedType,
+  reflect,
   stringifyType,
   Type
 } from "@powerlines/deepkit/vendor/type";
@@ -749,12 +748,12 @@ export async function extractSchemaWithSource(
     );
 
     try {
-      const type = deserializeType(resolved as SerializedType[]);
+      const type = reflect(resolved);
       if (isType(type)) {
         resolved = type;
       }
     } catch {
-      // If deserialization fails, we assume the resolved output is not a reflected type and proceed with it as-is.
+      // If reflection fails, we assume the resolved output is not a reflected type and proceed with it as-is.
     }
 
     source = extractSource(extractResolvedVariant(resolved), resolved);

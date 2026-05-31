@@ -16,11 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import type {
-  CreateUnpluginResolverOptions,
-  ResolveOptions,
-  UnresolvedContext
-} from "@powerlines/core";
+import type { ResolveOptions, UnresolvedContext } from "@powerlines/core";
 import { createUnpluginResolver } from "@powerlines/core/lib/unplugin";
 import { resolveOptions } from "@powerlines/unplugin/esbuild";
 import { omit } from "@stryke/helpers/omit";
@@ -70,8 +66,7 @@ export async function bundle<TContext extends UnresolvedContext>(
         bundle: true,
         packages: "bundle",
         keepNames: true,
-        metafile: false,
-        mainFields: ["module", "main"]
+        metafile: false
       },
       resolveOptions(context),
       {
@@ -80,11 +75,9 @@ export async function bundle<TContext extends UnresolvedContext>(
             createUnpluginResolver(context, {
               name: options.name ?? `${findFileName(file)} Bundler`,
               prefix: false,
-              overrides: defu(
-                options.resolve ?? {},
-                { skipNodeModulesBundle: false },
-                context.config.resolve
-              ) as CreateUnpluginResolverOptions["overrides"],
+              overrides: defu(options.resolve ?? {}, {
+                skipNodeModulesBundle: false
+              }),
               silenceHookLogging: true
             })
           )()
