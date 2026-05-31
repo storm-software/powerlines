@@ -80,6 +80,81 @@ describe("devkit/schema/src/helpers.ts", () => {
     expect(merged.required.sort()).toEqual(["id", "name"]);
   });
 
+  it("merge recursively merges nested property schemas", () => {
+    const merged = merge(
+      {
+        type: "object",
+        properties: {
+          id: { type: "string", description: "base desc" },
+          age: { type: "number" }
+        },
+        required: ["id"]
+      },
+      {
+        type: "object",
+        properties: {
+          id: { type: "string", title: "ID field" },
+          name: { type: "string" }
+        },
+        required: ["name"]
+      }
+    ) as any;
+
+    // Shared 'id' property should be recursively merged
+    expect(merged.properties.id).toMatchObject({
+      type: "string",
+      description: "base desc",
+      title: "ID field"
+    });
+    // Properties unique to each schema are preserved
+    expect(merged.properties.age).toMatchObject({ type: "number" });
+    expect(merged.properties.name).toMatchObject({ type: "string" });
+    // required arrays are unioned
+    expect(merged.required.sort()).toEqual(["id", "name"]);
+  });
+
+  it("merge recursively merges $defs", () => {
+    const merged = merge(
+      {
+        type: "object",
+        $defs: { Addr: { type: "object", properties: { street: { type: "string" } } } }
+      },
+      {
+        type: "object",
+        $defs: { Addr: { type: "object", properties: { city: { type: "string" } } } }
+      }
+    ) as any;
+
+    expect(merged.$defs.Addr.properties).toMatchObject({
+      street: { type: "string" },
+      city: { type: "string" }
+    });
+  });
+
+  it("merge concatenates allOf arrays", () => {
+    const merged = merge(
+      { allOf: [{ type: "object" }] },
+      { allOf: [{ type: "string" }] }
+    ) as any;
+
+    expect(merged.allOf).toHaveLength(2);
+    expect(merged.allOf[0]).toMatchObject({ type: "object" });
+    expect(merged.allOf[1]).toMatchObject({ type: "string" });
+  });
+
+  it("merge recursively merges single-schema keywords like 'not'", () => {
+    const merged = merge(
+      { not: { type: "string", minLength: 1 } },
+      { not: { type: "string", maxLength: 10 } }
+    ) as any;
+
+    expect(merged.not).toMatchObject({ type: "string", minLength: 1, maxLength: 10 });
+  });
+
+  it("merge returns empty object when given no schemas", () => {
+    expect(merge()).toEqual({});
+  });
+
   it("isSchemaNullable and isPropertyOptional return expected booleans", () => {
     expect(isSchemaNullable({ type: ["string", "null"] } as any)).toBe(true);
     expect(isSchemaNullable({ type: "string" } as any)).toBe(false);

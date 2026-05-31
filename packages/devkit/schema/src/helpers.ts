@@ -19,7 +19,6 @@
 import { getUnique } from "@stryke/helpers/get-unique";
 import { findFileExtensionSafe } from "@stryke/path/find";
 import { isSetObject } from "@stryke/type-checks";
-import { defu } from "defu";
 import { VALID_SOURCE_FILE_EXTENSIONS } from "./constants";
 import { readSchemaTypes } from "./metadata";
 import { isJsonSchema, isJsonSchemaObject, isSchema } from "./type-checks";
@@ -167,29 +166,144 @@ export function addProperty(
 }
 
 /**
+ * Keywords whose values are a flat record of named JSON Schema fragments.
+ * Each child schema is merged recursively with its counterpart.
+ */
+const SCHEMA_RECORD_KEYWORDS = new Set([
+  "properties",
+  "patternProperties",
+  "$defs",
+  "definitions",
+  "dependentSchemas"
+]);
+
+/**
+ * Keywords whose value is a single JSON Schema fragment that should be
+ * recursively merged when both sides define it.
+ */
+const SCHEMA_SINGLE_KEYWORDS = new Set([
+  "if",
+  "then",
+  "else",
+  "not",
+  "contains",
+  "items",
+  "additionalProperties",
+  "unevaluatedProperties",
+  "propertyNames",
+  "unevaluatedItems"
+]);
+
+/**
+ * Keywords whose values are arrays of JSON Schema fragments that should be
+ * concatenated (rather than overridden) during a merge.
+ */
+const SCHEMA_ARRAY_CONCAT_KEYWORDS = new Set(["allOf", "anyOf", "oneOf"]);
+
+/**
+ * Recursively merges two JSON Schema fragments. `override` wins for any scalar
+ * key that both schemas define, while structured keywords are handled
+ * specially:
+ *
+ * - `properties`, `patternProperties`, `$defs`, `definitions`,
+ *   `dependentSchemas` — each matching child schema is merged recursively.
+ * - `allOf`, `anyOf`, `oneOf` — arrays are concatenated.
+ * - `if`, `then`, `else`, `not`, `contains`, `items`,
+ *   `additionalProperties`, `unevaluatedProperties`, `propertyNames`,
+ *   `unevaluatedItems` — merged recursively when both sides are schemas.
+ * - `required` — arrays are unioned and deduplicated.
+ */
+function mergeTwo(base: JsonSchema, override: JsonSchema): JsonSchema {
+  const baseObj = base as Record<string, unknown>;
+  const result: Record<string, unknown> = { ...baseObj };
+
+  for (const [key, overrideValue] of Object.entries(
+    override as Record<string, unknown>
+  )) {
+    const baseValue = result[key];
+
+    if (key === "required") {
+      result[key] = getUnique([
+        ...(Array.isArray(baseValue) ? (baseValue as string[]) : []),
+        ...(Array.isArray(overrideValue) ? (overrideValue as string[]) : [])
+      ]);
+    } else if (
+      SCHEMA_RECORD_KEYWORDS.has(key) &&
+      isSetObject(baseValue) &&
+      isSetObject(overrideValue)
+    ) {
+      const merged: Record<string, unknown> = {
+        ...(baseValue as Record<string, unknown>)
+      };
+      for (const [childKey, childOverride] of Object.entries(
+        overrideValue as Record<string, unknown>
+      )) {
+        const childBase = merged[childKey];
+        merged[childKey] =
+          isJsonSchema(childBase) && isJsonSchema(childOverride)
+            ? mergeTwo(childBase, childOverride)
+            : childOverride;
+      }
+      result[key] = merged;
+    } else if (
+      SCHEMA_ARRAY_CONCAT_KEYWORDS.has(key) &&
+      Array.isArray(baseValue) &&
+      Array.isArray(overrideValue)
+    ) {
+      result[key] = [
+        ...(baseValue as JsonSchema[]),
+        ...(overrideValue as JsonSchema[])
+      ];
+    } else if (
+      SCHEMA_SINGLE_KEYWORDS.has(key) &&
+      isJsonSchema(baseValue) &&
+      isJsonSchema(overrideValue)
+    ) {
+      result[key] = mergeTwo(baseValue, overrideValue);
+    } else {
+      result[key] = overrideValue;
+    }
+  }
+
+  return result;
+}
+
+/**
  * Merges multiple JSON Schemas into one.
  *
  * @remarks
- * This function takes multiple JSON Schemas or Schema wrappers and merges them into a single JSON Schema object. The merging process combines properties and metadata from all provided schemas, with later schemas in the arguments list taking precedence over earlier ones in case of conflicts. The resulting schema will include all unique properties and metadata from the input schemas.
+ * This function takes multiple JSON Schemas or Schema wrappers and merges them
+ * into a single JSON Schema object. Later schemas in the argument list take
+ * precedence over earlier ones for scalar conflicts.
+ *
+ * Structured keywords are merged recursively:
+ * - Named child schemas (`properties`, `$defs`, etc.) are merged
+ *   per-property via recursive calls to `merge`.
+ * - Composition arrays (`allOf`, `anyOf`, `oneOf`) are concatenated.
+ * - Single-schema keywords (`if`, `then`, `else`, `not`, `items`, etc.)
+ *   are merged recursively when both sides define them.
+ * - `required` arrays are unioned and deduplicated.
  *
  * @param schemas - An array of JSON Schemas or Schema wrappers to merge.
  * @returns A new JSON Schema that is the result of merging all input schemas.
  */
 export function merge(...schemas: (JsonSchema | Schema)[]): JsonSchema {
-  let result: JsonSchema = {};
-  for (const schema of schemas.reverse()) {
-    if (
-      !(result as JsonSchemaLike).type ||
-      (result as JsonSchemaLike).type === (schema as JsonSchemaLike).type
-    ) {
-      result = defu(result, getJsonSchema(schema)) as JsonSchema;
-      if (isJsonSchemaObject(result)) {
-        result.required = getUnique(result.required ?? []);
-      }
-    }
+  const jsonSchemas = schemas.map(s => getJsonSchema(s));
+  if (jsonSchemas.length === 0) {
+    return {};
   }
 
-  return result;
+  return jsonSchemas.reduce((acc, schema) => {
+    const accType = (acc as JsonSchemaLike).type;
+    const schemaType = (schema as JsonSchemaLike).type;
+
+    if (accType && schemaType && accType !== schemaType) {
+      // Incompatible types — the later schema wins entirely.
+      return schema;
+    }
+
+    return mergeTwo(acc, schema);
+  });
 }
 
 /**
