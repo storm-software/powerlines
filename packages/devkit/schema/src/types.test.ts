@@ -7,7 +7,7 @@ describe("devkit/schema/src/types.ts", () => {
     expect(typeof moduleExports).toBe("object");
   });
 
-  it("has at least one runtime export", () => {
-    expect(Object.keys(moduleExports).length).toBeGreaterThan(0);
+  it("has no runtime exports for type-only module", () => {
+    expect(Object.keys(moduleExports).length).toBe(0);
   });
 });

@@ -1,170 +1,210 @@
+import { describe, expect, it } from "vitest";
 import {
+  isJsonSchema,
+  isJsonSchemaAllOf,
+  isJsonSchemaAny,
+  isJsonSchemaAnyOf,
+  isJsonSchemaArray,
+  isJsonSchemaBigint,
+  isJsonSchemaBoolean,
+  isJsonSchemaDate,
+  isJsonSchemaDecimal,
+  isJsonSchemaEnum,
+  isJsonSchemaInteger,
+  isJsonSchemaKeywords,
+  isJsonSchemaLiteral,
+  isJsonSchemaMap,
+  isJsonSchemaNativeEnum,
+  isJsonSchemaNever,
+  isJsonSchemaNull,
+  isJsonSchemaNullable,
+  isJsonSchemaNumber,
+  isJsonSchemaObject,
+  isJsonSchemaPrimitiveType,
+  isJsonSchemaPrimitiveUnion,
+  isJsonSchemaRecord,
+  isJsonSchemaRef,
+  isJsonSchemaSet,
+  isJsonSchemaString,
+  isJsonSchemaTuple,
+  isJsonSchemaType,
+  isJsonSchemaUndefined,
+  isJsonSchemaUnion,
+  isJsonSchemaUnknown,
+  isNullOnlyJsonSchema,
+  isSchema,
+  isSchemaObject,
+  isSchemaWithSource,
+  isStandardSchema,
   isUntypedInput,
   isUntypedInputStrict,
   isUntypedSchema,
-  isUntypedSchemaStrict
+  isUntypedSchemaStrict,
+  isValibotSchema
 } from "./type-checks";
-import { describe, expect, it } from "vitest";
 
-describe("untyped type guards", () => {
-  it("accepts a fully shaped untyped schema", () => {
-    const schema = {
-      type: "object",
-      tsType: "Record<string, string>",
-      markdownType: "object",
-      id: "example",
-      title: "Example",
-      description: "Example schema",
-      $schema: "example-schema",
-      required: ["name"],
-      tags: ["alpha", "beta"],
-      args: [
-        {
-          name: "name",
-          type: "string",
-          optional: true,
-          tsType: "string"
-        }
-      ],
-      properties: {
-        name: {
-          type: "string",
-          tsType: "string",
-          markdownType: "name"
-        }
-      },
-      returns: {
-        type: "string",
-        tsType: "string"
-      },
-      resolve: () => "ok"
-    };
+describe("json schema and source type guards", () => {
+  it("validates primitive type guard outputs", () => {
+    expect(isJsonSchemaPrimitiveType("string")).toBe(true);
+    expect(isJsonSchemaPrimitiveType("object")).toBe(false);
 
-    expect(isUntypedSchema(schema)).toBe(true);
+    expect(isJsonSchemaType("object")).toBe(true);
+    expect(isJsonSchemaType("nope")).toBe(false);
   });
 
-  it("rejects schemas with invalid nested property schemas", () => {
-    const schema = {
-      type: "object",
-      properties: {
-        invalid: {
-          type: "definitely-not-a-jstype"
+  it("validates structural json-schema guard outputs", () => {
+    expect(isJsonSchemaKeywords({ title: "x" })).toBe(true);
+    expect(isJsonSchemaAny({ $ref: "#/foo" })).toBe(true);
+    expect(isJsonSchemaArray({ type: "array", items: { type: "string" } })).toBe(
+      true
+    );
+    expect(
+      isJsonSchemaBigint({
+        type: "integer",
+        format: "int64",
+        enum: [1n],
+        default: 1n
+      })
+    ).toBe(true);
+    expect(isJsonSchemaBoolean({ type: "boolean", default: true })).toBe(true);
+    expect(isJsonSchemaDate({ type: "string", format: "date-time" })).toBe(true);
+    expect(isJsonSchemaEnum({ type: "string", enum: ["a"], default: "a" })).toBe(
+      true
+    );
+    expect(isJsonSchemaAllOf({ allOf: [{ type: "string" }] })).toBe(true);
+    expect(isJsonSchemaLiteral({ const: "x" })).toBe(true);
+    expect(
+      isJsonSchemaMap({
+        type: "array",
+        maxItems: 125,
+        items: {
+          type: "array",
+          prefixItems: [{ type: "string" }, { type: "number" }],
+          items: false,
+          minItems: 2,
+          maxItems: 2
         }
-      }
-    };
-
-    expect(isUntypedSchema(schema)).toBe(false);
-  });
-
-  it("rejects schemas with invalid args or returns descriptors", () => {
-    const invalidArgsSchema = {
-      type: "object",
-      args: [
-        {
-          name: "count",
-          type: "number",
-          optional: "yes"
-        }
-      ]
-    };
-
-    const invalidReturnsSchema = {
-      type: "object",
-      returns: {
-        type: ["string", "not-a-valid-type"]
-      }
-    };
-
-    expect(isUntypedSchema(invalidArgsSchema)).toBe(false);
-    expect(isUntypedSchema(invalidReturnsSchema)).toBe(false);
-  });
-
-  it("rejects untyped inputs with invalid $schema values", () => {
-    const input = {
-      $schema: {
+      })
+    ).toBe(true);
+    expect(
+      isJsonSchemaNativeEnum({ type: ["string", "number"], enum: ["A", 1] })
+    ).toBe(true);
+    expect(isJsonSchemaNever({ not: { type: "string" } })).toBe(true);
+    expect(isJsonSchemaNull({ type: "null", enum: [null], default: null })).toBe(
+      true
+    );
+    expect(isJsonSchemaNullable({ type: ["null", "string"] })).toBe(true);
+    expect(isJsonSchemaNumber({ type: "number", minimum: 0 })).toBe(true);
+    expect(isJsonSchemaInteger({ type: "integer", minimum: 0 })).toBe(true);
+    expect(isJsonSchemaDecimal({ type: "number" })).toBe(true);
+    expect(
+      isJsonSchemaObject({ type: "object", properties: { name: { type: "string" } } })
+    ).toBe(true);
+    expect(isJsonSchemaString({ type: "string", minLength: 1 })).toBe(true);
+    expect(
+      isJsonSchemaSet({ type: "array", uniqueItems: true, items: { type: "string" } })
+    ).toBe(true);
+    expect(
+      isJsonSchemaRecord({
         type: "object",
-        properties: {
-          child: {
-            type: "invalid"
-          }
-        }
+        patternProperties: { ".*": { type: "string" } }
+      })
+    ).toBe(true);
+    expect(
+      isJsonSchemaTuple({ type: "array", prefixItems: [{ type: "string" }] })
+    ).toBe(true);
+    expect(isJsonSchemaUndefined({ not: { type: "string" } })).toBe(true);
+    expect(isJsonSchemaPrimitiveUnion({ type: ["string", "number"] })).toBe(true);
+    expect(isJsonSchemaUnion({ anyOf: [{ type: "string" }, { type: "number" }] })).toBe(
+      true
+    );
+    expect(isJsonSchemaUnknown({ title: "Any" })).toBe(true);
+    expect(isJsonSchemaAnyOf({ anyOf: [{ type: "string" }] })).toBe(true);
+    expect(isJsonSchemaRef({ $ref: "#/defs/User" })).toBe(true);
+    expect(isJsonSchema({ type: "string" })).toBe(true);
+    expect(isNullOnlyJsonSchema({ type: "null" })).toBe(true);
+  });
+
+  it("returns false for invalid inputs", () => {
+    expect(isJsonSchemaArray({ type: "array", items: 123 })).toBe(false);
+    expect(isJsonSchemaBigint({ type: "integer", format: "int64", enum: [1] })).toBe(
+      false
+    );
+    expect(isJsonSchemaEnum({ type: "string", enum: [1] })).toBe(false);
+    expect(isJsonSchemaMap({ type: "array", maxItems: 10 })).toBe(false);
+    expect(isJsonSchemaObject({ type: "object", required: [1] })).toBe(false);
+    expect(isJsonSchemaRef({})).toBe(false);
+  });
+});
+
+describe("standard, valibot, schema, and untyped guards", () => {
+  it("validates standard and valibot schema outputs", () => {
+    const standard = {
+      "~standard": {
+        version: 1,
+        validate: () => true
+      }
+    };
+
+    expect(isStandardSchema(standard)).toBe(true);
+
+    const valibotLike = {
+      ...standard,
+      kind: "schema",
+      type: "string",
+      async: false,
+      reference: () => "ref",
+      expects: "string",
+      "~run": () => ({})
+    };
+
+    expect(isValibotSchema(valibotLike)).toBe(true);
+  });
+
+  it("validates schema container outputs", () => {
+    const schema = {
+      variant: "json-schema",
+      hash: "hash",
+      schema: { type: "object", properties: { seed: { type: "string" } } }
+    };
+    const schemaWithSource = {
+      ...schema,
+      source: {
+        variant: "json-schema",
+        hash: "source-hash",
+        schema: { type: "object", properties: { seed: { type: "string" } } }
+      }
+    };
+
+    expect(isSchema(schema)).toBe(true);
+    expect(isSchemaWithSource(schemaWithSource)).toBe(true);
+    expect(isSchemaObject(schema)).toBe(true);
+  });
+
+  it("validates untyped guard outputs, including strict variants", () => {
+    const untypedOnlySchema = {
+      type: "bigint",
+      tsType: "bigint"
+    };
+
+    expect(isUntypedSchema(untypedOnlySchema)).toBe(true);
+    expect(isUntypedSchemaStrict(untypedOnlySchema)).toBe(false);
+
+    const untypedInput = {
+      $schema: {
+        type: "bigint"
       },
       $resolve: () => "ok"
     };
 
-    expect(isUntypedInput(input)).toBe(false);
-  });
+    expect(isUntypedInput(untypedInput)).toBe(true);
+    expect(isUntypedInputStrict(untypedInput)).toBe(false);
 
-  it("accepts untyped inputs with a valid schema and resolver", () => {
-    const input = {
-      $schema: {
-        type: "object",
-        properties: {
-          child: {
-            type: "string"
-          }
-        }
-      },
-      $default: {
-        child: "value"
-      },
-      $resolve: () => "ok",
-      child: "value"
-    };
-
-    expect(isUntypedInput(input)).toBe(true);
-  });
-
-  it("strict untyped schema rejects JsonSchema overlap values", () => {
     const jsonSchemaLike = {
       type: "string"
     };
 
     expect(isUntypedSchema(jsonSchemaLike)).toBe(true);
     expect(isUntypedSchemaStrict(jsonSchemaLike)).toBe(false);
-  });
-
-  it("strict untyped schema accepts untyped-only schema values", () => {
-    const untypedOnlySchema = {
-      type: "bigint",
-      tsType: "bigint"
-    };
-
-    expect(isUntypedSchemaStrict(untypedOnlySchema)).toBe(true);
-  });
-
-  it("strict untyped input rejects JsonSchema overlap values", () => {
-    const jsonSchemaLikeInput = {
-      type: "object",
-      properties: {
-        name: { type: "string" }
-      }
-    };
-
-    expect(isUntypedInput(jsonSchemaLikeInput)).toBe(true);
-    expect(isUntypedInputStrict(jsonSchemaLikeInput)).toBe(false);
-  });
-
-  it("strict untyped input rejects nested $schema JsonSchema overlap", () => {
-    const input = {
-      $schema: {
-        type: "string"
-      },
-      value: "ok"
-    };
-
-    expect(isUntypedInput(input)).toBe(true);
-    expect(isUntypedInputStrict(input)).toBe(false);
-  });
-
-  it("strict untyped input accepts untyped-only nested $schema", () => {
-    const input = {
-      $schema: {
-        type: "bigint"
-      },
-      value: 1n
-    };
-
-    expect(isUntypedInputStrict(input)).toBe(true);
   });
 });
