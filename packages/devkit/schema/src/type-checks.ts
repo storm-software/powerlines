@@ -17,7 +17,13 @@
  ------------------------------------------------------------------- */
 
 import type { StandardSchemaV1 } from "@standard-schema/spec";
-import { isFunction, isSetObject, isSetString } from "@stryke/type-checks";
+import {
+  isBoolean,
+  isFunction,
+  isSetObject,
+  isSetString,
+  isString
+} from "@stryke/type-checks";
 import type {
   FunctionArg as UntypedFunctionArg,
   InputObject as UntypedInputObject,
@@ -65,10 +71,8 @@ import {
 const isSetNumber = (value: unknown): value is number =>
   typeof value === "number" && Number.isFinite(value);
 
-const isSetBoolean = (value: unknown): value is boolean =>
-  typeof value === "boolean";
 const isSchemaLikeValue = (value: unknown): boolean =>
-  isSetObject(value) || isSetBoolean(value);
+  isSetObject(value) || isBoolean(value);
 
 const isRecordOfSchemaLike = (
   value: unknown
@@ -77,7 +81,7 @@ const isRecordOfSchemaLike = (
   Object.values(value).every(item => isSchemaLikeValue(item));
 
 const isVocabularyMap = (value: unknown): value is Record<string, boolean> =>
-  isSetObject(value) && Object.values(value).every(item => isSetBoolean(item));
+  isSetObject(value) && Object.values(value).every(item => isBoolean(item));
 
 const isStringArray = (value: unknown): value is string[] =>
   Array.isArray(value) && value.every(item => isSetString(item));
@@ -235,11 +239,14 @@ const isTupleOfTwo = <A, B>(
   aPredicate(value[0]) &&
   bPredicate(value[1]);
 
-const isOptionalString = (value: unknown): value is string | undefined =>
-  value === undefined || isSetString(value);
+const isOptionalString = (
+  value: unknown,
+  allowEmpty = false
+): value is string | undefined =>
+  value === undefined || (isString(value) && (allowEmpty || value.length > 0));
 
 const isOptionalBoolean = (value: unknown): value is boolean | undefined =>
-  value === undefined || isSetBoolean(value);
+  value === undefined || isBoolean(value);
 
 const isOptionalNumber = (value: unknown): value is number | undefined =>
   value === undefined || isSetNumber(value);
@@ -293,7 +300,7 @@ const hasValidJsonSchemaKeywords = (
   ) {
     return false;
   }
-  if (!isOptionalString(schema.$comment)) {
+  if (!isOptionalString(schema.$comment, true)) {
     return false;
   }
   if (!isOptionalString(schema.$anchor)) {
@@ -311,13 +318,13 @@ const hasValidJsonSchemaKeywords = (
   if (!isOptionalString(schema.name)) {
     return false;
   }
-  if (!isOptionalString(schema.title)) {
+  if (!isOptionalString(schema.title, true)) {
     return false;
   }
-  if (!isOptionalString(schema.description)) {
+  if (!isOptionalString(schema.description, true)) {
     return false;
   }
-  if (!isOptionalString(schema.docs)) {
+  if (!isOptionalString(schema.docs, true)) {
     return false;
   }
   if (schema.examples !== undefined && !Array.isArray(schema.examples)) {
@@ -435,7 +442,7 @@ export function isJsonSchemaArray(input: unknown): input is JsonSchemaArray {
     isOptionalNumber(schema.minContains) &&
     isOptionalNumber(schema.maxContains) &&
     (schema.unevaluatedItems === undefined ||
-      isSetBoolean(schema.unevaluatedItems) ||
+      isBoolean(schema.unevaluatedItems) ||
       isJsonSchema(schema.unevaluatedItems))
   );
 }
@@ -573,8 +580,8 @@ export function isJsonSchemaEnum(input: unknown): input is JsonSchemaEnum {
 
   if (typeName === "boolean") {
     return (
-      enumValues.every(value => isSetBoolean(value)) &&
-      (defaultValue === undefined || isSetBoolean(defaultValue))
+      enumValues.every(value => isBoolean(value)) &&
+      (defaultValue === undefined || isBoolean(defaultValue))
     );
   }
 
@@ -606,7 +613,7 @@ export function isJsonSchemaAllOf(input: unknown): input is JsonSchemaAllOf {
 
   return (
     schema.unevaluatedProperties === undefined ||
-    isSetBoolean(schema.unevaluatedProperties) ||
+    isBoolean(schema.unevaluatedProperties) ||
     isJsonSchema(schema.unevaluatedProperties)
   );
 }
@@ -853,11 +860,11 @@ export function isJsonSchemaObject(input: unknown): input is JsonSchemaObject {
     (schema.patternProperties === undefined ||
       isRecordOfSchemaLike(schema.patternProperties)) &&
     (schema.additionalProperties === undefined ||
-      isSetBoolean(schema.additionalProperties) ||
+      isBoolean(schema.additionalProperties) ||
       isJsonSchema(schema.additionalProperties)) &&
     (schema.required === undefined || isStringArray(schema.required)) &&
     (schema.unevaluatedProperties === undefined ||
-      isSetBoolean(schema.unevaluatedProperties) ||
+      isBoolean(schema.unevaluatedProperties) ||
       isJsonSchema(schema.unevaluatedProperties)) &&
     (schema.dependencies === undefined ||
       (isSetObject(schema.dependencies) &&
@@ -928,7 +935,7 @@ export function isJsonSchemaSet(input: unknown): input is JsonSchemaSet {
     isOptionalNumber(schema.minContains) &&
     isOptionalNumber(schema.maxContains) &&
     (schema.unevaluatedItems === undefined ||
-      isSetBoolean(schema.unevaluatedItems) ||
+      isBoolean(schema.unevaluatedItems) ||
       isJsonSchema(schema.unevaluatedItems))
   );
 }
@@ -952,7 +959,7 @@ export function isJsonSchemaRecord(input: unknown): input is JsonSchemaRecord {
     (schema.patternProperties === undefined ||
       isRecordOfSchemaLike(schema.patternProperties)) &&
     (schema.additionalProperties === undefined ||
-      isSetBoolean(schema.additionalProperties) ||
+      isBoolean(schema.additionalProperties) ||
       isJsonSchema(schema.additionalProperties)) &&
     isOptionalJsonSchema(schema.propertyNames)
   );
@@ -983,7 +990,7 @@ export function isJsonSchemaTuple(input: unknown): input is JsonSchemaTuple {
     isOptionalNumber(schema.minContains) &&
     isOptionalNumber(schema.maxContains) &&
     (schema.unevaluatedItems === undefined ||
-      isSetBoolean(schema.unevaluatedItems) ||
+      isBoolean(schema.unevaluatedItems) ||
       isJsonSchema(schema.unevaluatedItems))
   );
 }
@@ -1056,8 +1063,8 @@ export function isJsonSchemaPrimitiveUnion(
 
     if (schema.type === "boolean") {
       return (
-        schema.enum.every(value => isSetBoolean(value)) &&
-        (schema.default === undefined || isSetBoolean(schema.default))
+        schema.enum.every(value => isBoolean(value)) &&
+        (schema.default === undefined || isBoolean(schema.default))
       );
     }
 
@@ -1186,7 +1193,7 @@ export function isValibotSchema(
   return (
     schema.kind === "schema" &&
     isSetString(schema.type) &&
-    isSetBoolean(schema.async) &&
+    isBoolean(schema.async) &&
     isFunction(schema.reference) &&
     isSetString(schema.expects) &&
     isFunction(schema["~run"])
