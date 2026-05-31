@@ -60,8 +60,44 @@
       "require": "./dist/index.cjs"
     },
     "./api": {
-      "import": "./dist/api.mjs",
-      "require": "./dist/api.cjs"
+      "import": "./dist/api/index.mjs",
+      "require": "./dist/api/index.cjs"
+    },
+    "./api/build": {
+      "import": "./dist/api/build.mjs",
+      "require": "./dist/api/build.cjs"
+    },
+    "./api/clean": {
+      "import": "./dist/api/clean.mjs",
+      "require": "./dist/api/clean.cjs"
+    },
+    "./api/create": {
+      "import": "./dist/api/create.mjs",
+      "require": "./dist/api/create.cjs"
+    },
+    "./api/deploy": {
+      "import": "./dist/api/deploy.mjs",
+      "require": "./dist/api/deploy.cjs"
+    },
+    "./api/docs": {
+      "import": "./dist/api/docs.mjs",
+      "require": "./dist/api/docs.cjs"
+    },
+    "./api/lint": {
+      "import": "./dist/api/lint.mjs",
+      "require": "./dist/api/lint.cjs"
+    },
+    "./api/prepare": {
+      "import": "./dist/api/prepare.mjs",
+      "require": "./dist/api/prepare.cjs"
+    },
+    "./api/test": {
+      "import": "./dist/api/test.mjs",
+      "require": "./dist/api/test.cjs"
+    },
+    "./api/types": {
+      "import": "./dist/api/types.mjs",
+      "require": "./dist/api/types.cjs"
     },
     "./astro": {
       "import": "./dist/astro.mjs",

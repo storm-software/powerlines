@@ -16,11 +16,4 @@
 
  ------------------------------------------------------------------- */
 
-import { defineTSDownConfig } from "@powerlines/tools-config/tsdown.config";
-
-const config = defineTSDownConfig({
-  name: "powerlines",
-  entry: ["src/*.ts", "src/api/*.ts"]
-});
-
-export default config;
+export * from "@powerlines/engine/api/lint";
