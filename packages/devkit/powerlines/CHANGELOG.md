@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.94](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.94) (05/31/2026)
+
+### Miscellaneous
+
+- **powerlines:** Added `api` command handlers to export ([5bfe3b225](https://github.com/storm-software/powerlines/commit/5bfe3b225))
+
 ## [0.47.93](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.93) (05/30/2026)
 
 ### Updated Dependencies
