@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-unified",
-  "version": "0.1.171",
+  "version": "0.1.172",
   "private": false,
   "description": "A Powerlines plugin to use the Unified ecosystem to generate content.",
   "keywords": ["unified", "powerlines", "storm-software", "powerlines-plugin"],

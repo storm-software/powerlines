@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.299](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.299) (05/31/2026)
+
+### Features
+
+- **schema:** Added code to generate the `parse` function for the provided JSON schema ([08443e2bd](https://github.com/storm-software/powerlines/commit/08443e2bd))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.188**
+- Updated **plugin-automd** to **v0.1.557**
+- Updated **plugin-babel** to **v0.13.92**
+- Updated **plugin-deepkit** to **v0.11.439**
+- Updated **plugin-plugin** to **v0.12.508**
+- Updated **powerlines** to **v0.47.96**
+- Updated **schema** to **v0.11.78**
+
 ## [0.16.298](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.298) (05/31/2026)
 
 ### Updated Dependencies
