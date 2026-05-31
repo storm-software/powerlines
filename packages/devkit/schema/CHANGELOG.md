@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.76](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.76) (05/30/2026)
+
+### Bug Fixes
+
+- **schema:** Update `merge` function to handle any JSON schema type ([2b1039592](https://github.com/storm-software/powerlines/commit/2b1039592))
+
 ## [0.11.75](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.75) (05/30/2026)
 
 ### Bug Fixes
