@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.75](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.75) (05/30/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue reflecting the `SerializedType` after bundling ([5591292d6](https://github.com/storm-software/powerlines/commit/5591292d6))
+
 ## [0.11.74](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.74) (05/30/2026)
 
 ### Bug Fixes

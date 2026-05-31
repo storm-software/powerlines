@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Unenv
 
+## [0.1.542](https://github.com/storm-software/powerlines/releases/tag/plugin-unenv%400.1.542) (05/30/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.504**
+- Updated **powerlines** to **v0.47.92**
+
 ## [0.1.541](https://github.com/storm-software/powerlines/releases/tag/plugin-unenv%400.1.541) (05/30/2026)
 
 ### Updated Dependencies

@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-rollup",
-  "version": "0.7.546",
+  "version": "0.7.547",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "keywords": ["rollup", "powerlines", "storm-software", "powerlines-plugin"],
