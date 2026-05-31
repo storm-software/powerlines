@@ -50,6 +50,7 @@ import {
   TSDocReturns
 } from "@powerlines/plugin-alloy/typescript/components/tsdoc";
 import {
+  generateParserCode,
   getPropertiesList,
   GetPropertiesResult,
   JsonSchema
@@ -295,6 +296,8 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         ) ?? []) as GetPropertiesResult[]
   );
 
+  const parserCode = generateParserCode(context.env.config.schema);
+
   return (
     <BuiltinFile
       id="env"
@@ -324,6 +327,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           {`The initialized Powerlines configuration object.`}
         </TSDocReturns>
       </TSDoc>
+      {parserCode}
       <Show when={Boolean(context?.entryPath)}>
         <FunctionDeclaration
           refkey={createEnvRefkey}
@@ -341,7 +345,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           returnType="Env">
           {code`
   return new Proxy<Env>(
-    deserializeEnv({
+    parse({
       ...initialEnv,
       ...environmentConfig
     } as Env),

@@ -209,8 +209,7 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
                   context.config.name
                 )}")
                 : join(
-                    env.XDG_CONFIG_HOME || join(homedir, ".config"),
-                    ${
+                    env.XDG_CONFIG_HOME || join(homedir, ".config"), ${
                       context.config.organization
                         ? `"${kebabCase(context.config.organization)}", `
                         : ""
@@ -223,13 +222,15 @@ export function NodeJsEnvBuiltin(props: EnvBuiltinProps) {
                     ? `"${kebabCase(context.config.organization)}", `
                     : ""
                 }"${kebabCase(context.config.name)}"
-                  context.config.name
-                )}"),
+              ),
               log: env.LOG_DIR
                 ? join(String(env.LOG_DIR), "${kebabCase(context.config.name)}")
-                : join(env.XDG_STATE_HOME || join(homedir, ".local", "state"), "${kebabCase(context.config.organization)}", "${kebabCase(
-                  context.config.name
-                )}"),
+                : join(env.XDG_STATE_HOME || join(homedir, ".local", "state"), ${
+                  context.config.organization
+                    ? `"${kebabCase(context.config.organization)}", `
+                    : ""
+                }"${kebabCase(context.config.name)}"
+              ),
               temp: env.TEMP_DIR
                 ? join(String(env.TEMP_DIR), "${kebabCase(context.config.name)}")
                 : (env.DEVENV_RUNTIME || env.XDG_RUNTIME_DIR
