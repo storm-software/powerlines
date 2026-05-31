@@ -17,3 +17,12 @@
  ------------------------------------------------------------------- */
 
 export { default } from "@powerlines/engine/api";
+export * from "@powerlines/engine/api/build";
+export * from "@powerlines/engine/api/clean";
+export * from "@powerlines/engine/api/create";
+export * from "@powerlines/engine/api/deploy";
+export * from "@powerlines/engine/api/docs";
+export * from "@powerlines/engine/api/lint";
+export * from "@powerlines/engine/api/prepare";
+export * from "@powerlines/engine/api/test";
+export * from "@powerlines/engine/api/types";
