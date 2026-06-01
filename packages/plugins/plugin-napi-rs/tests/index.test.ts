@@ -6,16 +6,18 @@ describe("napi-rs plugin", () => {
     expect(typeof plugin).toBe("function");
   });
 
-  it("plugin() returns an object", () => {
+  it("plugin() returns an array", () => {
     const result = plugin();
     expect(typeof result).toBe("object");
     expect(result).not.toBeNull();
+    expect(Array.isArray(result)).toBe(true);
+    expect(result.length).toBeGreaterThan(0);
   });
 
-  it("plugin() returns an object with a name property", () => {
+  it("plugin() returns plugin objects with a name property", () => {
     const result = plugin();
-    expect(result).toHaveProperty("name");
-    expect(typeof result.name).toBe("string");
+    expect(result[0]).toHaveProperty("name");
+    expect(typeof result[0].name).toBe("string");
   });
 
   it("plugin() accepts an empty options object", () => {
@@ -25,6 +27,6 @@ describe("napi-rs plugin", () => {
   it("plugin() returns the same name for all calls", () => {
     const r1 = plugin();
     const r2 = plugin({});
-    expect(r1.name).toBe(r2.name);
+    expect(r1[0].name).toBe(r2[0].name);
   });
 });

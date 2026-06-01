@@ -17,7 +17,7 @@ describe("unplugin index", () => {
     expect(typeof plugins.esbuild).toBeDefined();
     expect(typeof plugins.rollup).toBeDefined();
     expect(typeof plugins.rolldown).toBeDefined();
-    expect(typeof plugins.webpack).toBeFalsy();
+    expect(typeof plugins.webpack).toBeDefined();
   });
 
   it("plugins includes tsup and tsdown adapters", () => {

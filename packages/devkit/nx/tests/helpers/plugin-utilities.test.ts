@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { CONFIG_INPUTS } from "../../src/helpers/constants";
-import { getNxPluginInputs, getNxTargetInputs } from "../../src/helpers/plugin-utilities"92;
+import { getNxPluginInputs, getNxTargetInputs } from "../../src/helpers/plugin-utilities";
 
 describe("getNxTargetInputs", () => {
   it("returns an array of strings", () => {

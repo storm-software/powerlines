@@ -1,3 +1,4 @@
+import type { Plugin } from "powerlines";
 import { describe, expect, it } from "vitest";
 import { plugin } from "../src/index";
 
@@ -6,16 +7,20 @@ describe("terraform plugin", () => {
     expect(typeof plugin).toBe("function");
   });
 
-  it("plugin() returns an object", () => {
+  it("plugin() returns an array", () => {
     const result = plugin();
     expect(typeof result).toBe("object");
     expect(result).not.toBeNull();
+    expect(Array.isArray(result)).toBe(true);
+    expect(result.length).toBeGreaterThan(0);
   });
 
-  it("plugin() returns an object with a name property", () => {
+  it("plugin() returns plugin objects with a name property", () => {
     const result = plugin();
-    expect(result).toHaveProperty("name");
-    expect(typeof result.name).toBe("string");
+    result.forEach((pluginInstance: Plugin<any>) => {
+      expect(pluginInstance).toHaveProperty("name");
+      expect(typeof pluginInstance.name).toBe("string");
+    });
   });
 
   it("plugin() accepts an empty options object", () => {
@@ -25,6 +30,10 @@ describe("terraform plugin", () => {
   it("plugin() returns the same name for all calls", () => {
     const r1 = plugin();
     const r2 = plugin({});
-    expect(r1.name).toBe(r2.name);
+    r1.forEach((pluginInstance: Plugin<any>, index: number) => {
+      expect(pluginInstance).toHaveProperty("name");
+      expect(typeof pluginInstance.name).toBe("string");
+      expect(pluginInstance.name).toBe(r2[index].name);
+    });
   });
 });

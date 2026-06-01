@@ -28,6 +28,7 @@ import tsdown from "./tsdown";
 import tsup from "./tsup";
 import unloader from "./unloader";
 import vite from "./vite";
+import webpack from "./webpack";
 
 export type * from "./types";
 export * from "./unplugin";
@@ -44,7 +45,8 @@ export const plugins = {
   tsdown,
   tsup,
   unloader,
-  vite
+  vite,
+  webpack
 };
 
 export default plugins;
