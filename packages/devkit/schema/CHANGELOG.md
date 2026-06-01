@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.85](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.85) (06/01/2026)
+
+### Bug Fixes
+
+- **schema:** Ensure the correct type is returned from parser function ([e15b851c6](https://github.com/storm-software/powerlines/commit/e15b851c6))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.35**
+- Updated **deepkit** to **v0.9.67**
+- Updated **unplugin** to **v0.0.83**
+
 ## [0.11.84](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.84) (06/01/2026)
 
 ### Miscellaneous

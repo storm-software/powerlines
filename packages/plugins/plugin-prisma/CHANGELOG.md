@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.246](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.246) (06/01/2026)
+
+### Bug Fixes
+
+- **schema:** Ensure the correct type is returned from parser function ([e15b851c6](https://github.com/storm-software/powerlines/commit/e15b851c6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.515**
+- Updated **plugin-pulumi** to **v0.6.205**
+- Updated **powerlines** to **v0.47.103**
+
 ## [0.4.245](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.245) (06/01/2026)
 
 ### Updated Dependencies
