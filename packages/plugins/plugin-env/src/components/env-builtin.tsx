@@ -316,19 +316,20 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         doc="The initial environment configuration object values for the runtime."
       />
       <Spacing />
-      <TSDoc heading="Initializes the Powerlines environment configuration module.">
-        <TSDocRemarks>
-          {`This function initializes the Powerlines environment configuration object.`}
-        </TSDocRemarks>
-        <TSDocParam name="environmentConfig">
-          {`The dynamic/runtime configuration - this could include the current environment variables or any other environment-specific settings provided by the runtime.`}
-        </TSDocParam>
-        <TSDocReturns>
-          {`The initialized Powerlines configuration object.`}
-        </TSDocReturns>
-      </TSDoc>
       {parserCode}
+      <Spacing />
       <Show when={Boolean(context?.entryPath)}>
+        <TSDoc heading="Initializes the Powerlines environment configuration module.">
+          <TSDocRemarks>
+            {`This function initializes the Powerlines environment configuration object.`}
+          </TSDocRemarks>
+          <TSDocParam name="environmentConfig">
+            {`The dynamic/runtime configuration - this could include the current environment variables or any other environment-specific settings provided by the runtime.`}
+          </TSDocParam>
+          <TSDocReturns>
+            {`The initialized Powerlines configuration object.`}
+          </TSDocReturns>
+        </TSDoc>
         <FunctionDeclaration
           refkey={createEnvRefkey}
           async={false}
