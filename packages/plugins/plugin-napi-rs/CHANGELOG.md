@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.2.151](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.151) (06/01/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.194**
+- Updated **plugin-automd** to **v0.1.563**
+- Updated **plugin-babel** to **v0.13.98**
+- Updated **plugin-plugin** to **v0.12.514**
+- Updated **powerlines** to **v0.47.102**
+
 ## [0.2.150](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.150) (06/01/2026)
 
 ### Updated Dependencies
