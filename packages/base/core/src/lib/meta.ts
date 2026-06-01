@@ -20,6 +20,7 @@ import { existsSync } from "@stryke/fs/exists";
 import { readJsonFile } from "@stryke/fs/json";
 import { removeFile } from "@stryke/fs/remove-file";
 import { joinPaths } from "@stryke/path/join-paths";
+import { replacePath } from "@stryke/path/replace";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { ROOT_HASH_LENGTH } from "../constants";
 import type { Context, MetaInfo } from "../types";
@@ -81,7 +82,12 @@ export async function getPersistedMeta(
 export async function writeMetaFile(context: Context): Promise<void> {
   const metaFilePath = joinPaths(context.dataPath, "meta.json");
 
-  context.debug(`Writing runtime metadata to ${metaFilePath}`);
+  context.debug(
+    `Writing runtime metadata to ${replacePath(
+      metaFilePath,
+      context.config.cwd
+    )}`
+  );
 
   await context.fs.write(metaFilePath, JSON.stringify(context.meta, null, 2));
 }

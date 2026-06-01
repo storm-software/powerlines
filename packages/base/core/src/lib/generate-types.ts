@@ -817,7 +817,12 @@ export async function handleTypes<
     }, [])
   );
 
-  env.debug(`Generating TypeScript declaration file ${env.typesPath}.`);
+  env.debug(
+    `Generating TypeScript declaration file ${replacePath(
+      env.typesPath,
+      context.config.cwd
+    )}.`
+  );
 
   const merge = async (
     currentResult: string | TypesResult,

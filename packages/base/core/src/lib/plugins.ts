@@ -382,7 +382,7 @@ export async function resolvePlugins<
     if (result) {
       for (const plugin of result) {
         if (!skipLogging) {
-          context.debug({
+          context.trace({
             meta: {
               category: "plugins"
             },

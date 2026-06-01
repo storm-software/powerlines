@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import * as moduleExports from "../../src/context/base-context"47;
+import * as moduleExports from "../../src/context/base-context";
 
 describe("base/core/src/context/base-context.ts", () => {
   it("loads module exports", () => {
