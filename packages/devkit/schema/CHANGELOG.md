@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.86](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.86) (06/01/2026)
+
+### Bug Fixes
+
+- **schema:** Updated parser logic to properly handle `alias` on properties ([10f8d850c](https://github.com/storm-software/powerlines/commit/10f8d850c))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.36**
+- Updated **deepkit** to **v0.9.68**
+- Updated **unplugin** to **v0.0.84**
+
 ## [0.11.85](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.85) (06/01/2026)
 
 ### Bug Fixes
