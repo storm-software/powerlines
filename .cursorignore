@@ -1,3 +1,20 @@
 # Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
 .nx
-
+.devenv
+.direnv
+.docusaurus
+.git
+.next
+.next-dev
+.tamagui
+.tsbuildinfo
+.code-search
+bower_components
+coverage
+dist
+out
+out-dev
+storybook-static
+storybook-static-dev
+temp
+tmp

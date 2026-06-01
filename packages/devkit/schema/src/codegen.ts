@@ -605,7 +605,11 @@ export function generateParserCode(schema: JsonSchema): string {
       const name = property.name;
       propertyNames.add(name);
 
-      const accessor = `${valueVar}[${JSON.stringify(name)}]`;
+      const accessor = property.alias?.length
+        ? `(${valueVar}[${JSON.stringify(name)}] ?? ${property.alias
+            .map(alias => `${valueVar}[${JSON.stringify(alias)}]`)
+            .join(" ?? ")})`
+        : `${valueVar}[${JSON.stringify(name)}]`;
       const propertyPath = childPath(pathVar, `.${name}`);
       const propertyVar = nextTemp(
         name ? `${camelCase(name)}Property` : "property"
@@ -788,7 +792,7 @@ export function generateParserCode(schema: JsonSchema): string {
         "result",
         "errors"
       ).join("\n")}\n\n  return result${
-        schema.name ? ` as ${stringifyType(schema)}` : ""
+        definition.name ? ` as ${stringifyType(definition)}` : ""
       };\n}`
   );
 

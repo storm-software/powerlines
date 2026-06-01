@@ -318,6 +318,20 @@ export async function extractEnv<TContext extends EnvPluginContext>(
       "Invalid environment variable schema extracted. Please ensure the `env.types` option points to a valid TypeScript type definition file that exports an interface representing the environment variable schema."
     );
   }
+
+  getPropertiesList(context.env.config).forEach(property => {
+    property.alias ??= [];
+    context.config.env.prefix.forEach(prefix => {
+      property.alias!.push(`${prefix}_${property.name}`);
+    });
+  });
+
+  getPropertiesList(context.env.secrets).forEach(property => {
+    property.alias ??= [];
+    context.config.env.prefix.forEach(prefix => {
+      property.alias!.push(`${prefix}_${property.name}`);
+    });
+  });
 }
 
 /**
