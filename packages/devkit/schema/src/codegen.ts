@@ -596,7 +596,7 @@ export function generateParserCode(schema: JsonSchema): string {
     const resultVar = nextTemp(
       type || view.name ? `${camelCase(type || view.name)}Schema` : "schema"
     );
-    lines.push(`  const ${resultVar} = {} as Record<string, any>`);
+    lines.push(`const ${resultVar} = {} as Record<string, any>`);
 
     const properties = isJsonSchemaObject(view) ? getPropertiesList(view) : [];
     const propertyNames = new Set<string>();
@@ -608,17 +608,17 @@ export function generateParserCode(schema: JsonSchema): string {
       const accessor = `${valueVar}[${JSON.stringify(name)}]`;
       const propertyPath = childPath(pathVar, `.${name}`);
       const propertyVar = nextTemp(
-        type || view.name
-          ? `${camelCase(type || view.name)}Property`
-          : "property"
+        name ? `${camelCase(name)}Property` : "property"
       );
 
       const missingBranch =
         property.default !== undefined
-          ? `${resultVar}[${JSON.stringify(name)}] = ${JSON.stringify(property.default)};`
+          ? `${resultVar}[${JSON.stringify(name)}] = ${JSON.stringify(
+              property.default
+            )};`
           : property.required
             ? `errors.push({ path: ${propertyPath}, message: "Required property is missing" });`
-            : ``;
+            : "";
 
       lines.push(
         `  if (${accessor} !== undefined) {`,
@@ -633,11 +633,11 @@ export function generateParserCode(schema: JsonSchema): string {
           errorsVar
         )
       );
-      lines.push(`    ${resultVar}[${JSON.stringify(name)}] = ${propertyVar};`);
+      lines.push(`${resultVar}[${JSON.stringify(name)}] = ${propertyVar};`);
       if (missingBranch) {
-        lines.push(`  } else { ${missingBranch} }`);
+        lines.push(`} else { ${missingBranch} }`);
       } else {
-        lines.push(`  }`);
+        lines.push("}");
       }
     }
 
@@ -645,8 +645,8 @@ export function generateParserCode(schema: JsonSchema): string {
     if (isJsonSchema(additional)) {
       const additionalVar = nextTemp(
         type || view.name
-          ? `${camelCase(type || view.name)}Additional`
-          : "additional"
+          ? `${camelCase(type || view.name)}AdditionalProperties`
+          : "additionalProperties"
       );
 
       lines.push(
@@ -781,13 +781,15 @@ export function generateParserCode(schema: JsonSchema): string {
 
   const parserFunctions = Object.entries(definitions).map(
     ([name, definition]) =>
-      `function ${toParserIdentifier(name)}(value, path, errors) {\n  let result;\n${generateStatements(
+      `function ${toParserIdentifier(name)}(value, path, errors) {\nlet result;\n${generateStatements(
         definition,
         "value",
         "path",
         "result",
         "errors"
-      ).join("\n")}\n\n  return result;\n}`
+      ).join("\n")}\n\n  return result${
+        schema.name ? ` as ${stringifyType(schema)}` : ""
+      };\n}`
   );
 
   return `/**
