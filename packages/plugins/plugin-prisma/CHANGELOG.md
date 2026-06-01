@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.243](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.243) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.512**
+- Updated **plugin-pulumi** to **v0.6.202**
+- Updated **powerlines** to **v0.47.100**
+
 ## [0.4.242](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.242) (06/01/2026)
 
 ### Updated Dependencies

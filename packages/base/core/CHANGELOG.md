@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.33](https://github.com/storm-software/powerlines/releases/tag/core%400.48.33) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
 ## [0.48.29](https://github.com/storm-software/powerlines/releases/tag/core%400.48.29) (05/30/2026)
 
 ### Miscellaneous

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.612](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.612) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **plugin-env** to **v0.16.303**
+- Updated **plugin-plugin** to **v0.12.512**
+- Updated **powerlines** to **v0.47.100**
+
 ## [0.10.611](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.611) (06/01/2026)
 
 ### Updated Dependencies

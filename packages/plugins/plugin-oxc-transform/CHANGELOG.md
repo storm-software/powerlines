@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Oxc Transform
 
+## [0.5.570](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.570) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.512**
+- Updated **powerlines** to **v0.47.100**
+
 ## [0.5.569](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.569) (06/01/2026)
 
 ### Updated Dependencies

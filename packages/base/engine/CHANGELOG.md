@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.35](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.35) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.33**
+
 ## [0.49.34](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.34) (06/01/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.469](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.469) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.512**
+- Updated **powerlines** to **v0.47.100**
+- Updated **schema** to **v0.11.82**
+
 ## [0.3.468](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.468) (06/01/2026)
 
 ### Updated Dependencies

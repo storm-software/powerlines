@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.96](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.96) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.33**
+- Updated **powerlines** to **v0.47.100**
+
 ## [0.13.95](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.95) (06/01/2026)
 
 ### Updated Dependencies

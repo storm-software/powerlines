@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.501](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.501) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.33**
+- Updated **powerlines** to **v0.47.100**
+- Updated **unplugin** to **v0.0.81**
+
 ## [0.1.500](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.500) (06/01/2026)
 
 ### Updated Dependencies
