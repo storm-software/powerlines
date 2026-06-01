@@ -71,7 +71,8 @@ export const plugin = <
           prisma: defu(options, {
             schema: joinPaths(this.config.root, "prisma", "*.prisma"),
             configFile:
-              options.configFile || getConfigPath(this, "prisma.config"),
+              options.configFile ||
+              getConfigPath(this as TContext, "prisma.config"),
             runtime: options.runtime || "nodejs",
             outputPath: joinPaths("{builtinPath}", "prisma"),
             prismaPostgres: options.prismaPostgres

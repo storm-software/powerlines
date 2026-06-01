@@ -27,13 +27,7 @@ export default defineConfig({
     "src/components/*.ts",
     "src/components/*.tsx"
   ],
-  plugins: [
-    plugin(),
-    alloy({
-      json: true,
-      markdown: true
-    })
-  ],
+  plugins: [plugin(), alloy()],
   resolve: {
     external: ["react", "react-dom"]
   }

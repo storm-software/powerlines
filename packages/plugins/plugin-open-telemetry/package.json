@@ -88,20 +88,6 @@
         "default": "./dist/components/trace-builtin.mjs"
       }
     },
-    "./components/trace-builtin.test": {
-      "require": {
-        "types": "./dist/components/trace-builtin.test.d.cts",
-        "default": "./dist/components/trace-builtin.test.cjs"
-      },
-      "import": {
-        "types": "./dist/components/trace-builtin.test.d.mts",
-        "default": "./dist/components/trace-builtin.test.mjs"
-      },
-      "default": {
-        "types": "./dist/components/trace-builtin.test.d.mts",
-        "default": "./dist/components/trace-builtin.test.mjs"
-      }
-    },
     "./helpers": {
       "require": {
         "types": "./dist/helpers/index.d.cts",
@@ -128,34 +114,6 @@
       "default": {
         "types": "./dist/helpers/automd-generator.d.mts",
         "default": "./dist/helpers/automd-generator.mjs"
-      }
-    },
-    "./helpers/automd-generator.test": {
-      "require": {
-        "types": "./dist/helpers/automd-generator.test.d.cts",
-        "default": "./dist/helpers/automd-generator.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/automd-generator.test.d.mts",
-        "default": "./dist/helpers/automd-generator.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/automd-generator.test.d.mts",
-        "default": "./dist/helpers/automd-generator.test.mjs"
-      }
-    },
-    "./index.test": {
-      "require": {
-        "types": "./dist/index.test.d.cts",
-        "default": "./dist/index.test.cjs"
-      },
-      "import": {
-        "types": "./dist/index.test.d.mts",
-        "default": "./dist/index.test.mjs"
-      },
-      "default": {
-        "types": "./dist/index.test.d.mts",
-        "default": "./dist/index.test.mjs"
       }
     },
     "./package.json": "./package.json",

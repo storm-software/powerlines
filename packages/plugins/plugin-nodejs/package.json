@@ -83,20 +83,6 @@
         "default": "./dist/components/env-builtin.mjs"
       }
     },
-    "./components/env-builtin.test": {
-      "require": {
-        "types": "./dist/components/env-builtin.test.d.cts",
-        "default": "./dist/components/env-builtin.test.cjs"
-      },
-      "import": {
-        "types": "./dist/components/env-builtin.test.d.mts",
-        "default": "./dist/components/env-builtin.test.mjs"
-      },
-      "default": {
-        "types": "./dist/components/env-builtin.test.d.mts",
-        "default": "./dist/components/env-builtin.test.mjs"
-      }
-    },
     "./package.json": "./package.json",
     "./types": {
       "require": {

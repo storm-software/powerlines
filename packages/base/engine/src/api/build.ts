@@ -75,9 +75,13 @@ async function handleBuild<
 
     if (existsSync(sourcePath) && sourcePath !== destinationPath) {
       env.debug(
-        `Copying files from project's build output directory (${
-          env.config.output.path
-        }) to the project's copy/publish directory (${destinationPath}).`
+        `Copying files from project's build output directory (${replacePath(
+          env.config.output.path,
+          env.config.cwd
+        )}) to the project's copy/publish directory (${replacePath(
+          destinationPath,
+          env.config.cwd
+        )}).`
       );
 
       await copyFiles(sourcePath, destinationPath);
@@ -87,9 +91,13 @@ async function handleBuild<
           !existsSync(sourcePath)
             ? "does not exist"
             : "is the same as the destination path"
-        }. Source: ${sourcePath}, Destination: ${
-          destinationPath
-        }. Skipping copying of build output files.`
+        }. Source: ${replacePath(
+          sourcePath,
+          env.config.cwd
+        )}, Destination: ${replacePath(
+          destinationPath,
+          env.config.cwd
+        )}. Skipping copying of build output files.`
       );
     }
 

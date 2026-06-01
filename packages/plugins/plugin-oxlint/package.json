@@ -81,20 +81,6 @@
         "default": "./dist/helpers/generate-config.mjs"
       }
     },
-    "./helpers/generate-config.test": {
-      "require": {
-        "types": "./dist/helpers/generate-config.test.d.cts",
-        "default": "./dist/helpers/generate-config.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/generate-config.test.d.mts",
-        "default": "./dist/helpers/generate-config.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/generate-config.test.d.mts",
-        "default": "./dist/helpers/generate-config.test.mjs"
-      }
-    },
     "./package.json": "./package.json",
     "./types": {
       "require": {

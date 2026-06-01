@@ -83,20 +83,6 @@
         "default": "./dist/helpers/create-operation-id.mjs"
       }
     },
-    "./helpers/create-operation-id.test": {
-      "require": {
-        "types": "./dist/helpers/create-operation-id.test.d.cts",
-        "default": "./dist/helpers/create-operation-id.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/create-operation-id.test.d.mts",
-        "default": "./dist/helpers/create-operation-id.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/create-operation-id.test.d.mts",
-        "default": "./dist/helpers/create-operation-id.test.mjs"
-      }
-    },
     "./package.json": "./package.json",
     "./types": {
       "require": {

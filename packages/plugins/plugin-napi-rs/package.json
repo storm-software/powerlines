@@ -68,34 +68,6 @@
         "default": "./dist/helpers/format-path.mjs"
       }
     },
-    "./helpers/format-path.test": {
-      "require": {
-        "types": "./dist/helpers/format-path.test.d.cts",
-        "default": "./dist/helpers/format-path.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/format-path.test.d.mts",
-        "default": "./dist/helpers/format-path.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/format-path.test.d.mts",
-        "default": "./dist/helpers/format-path.test.mjs"
-      }
-    },
-    "./index.test": {
-      "require": {
-        "types": "./dist/index.test.d.cts",
-        "default": "./dist/index.test.cjs"
-      },
-      "import": {
-        "types": "./dist/index.test.d.mts",
-        "default": "./dist/index.test.mjs"
-      },
-      "default": {
-        "types": "./dist/index.test.d.mts",
-        "default": "./dist/index.test.mjs"
-      }
-    },
     "./package.json": "./package.json",
     "./types": {
       "require": {
@@ -137,20 +109,6 @@
       "default": {
         "types": "./dist/types/targets.d.mts",
         "default": "./dist/types/targets.mjs"
-      }
-    },
-    "./types/targets.test": {
-      "require": {
-        "types": "./dist/types/targets.test.d.cts",
-        "default": "./dist/types/targets.test.cjs"
-      },
-      "import": {
-        "types": "./dist/types/targets.test.d.mts",
-        "default": "./dist/types/targets.test.mjs"
-      },
-      "default": {
-        "types": "./dist/types/targets.test.d.mts",
-        "default": "./dist/types/targets.test.mjs"
       }
     },
     "./types/wasm": {

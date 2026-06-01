@@ -82,20 +82,6 @@
         "default": "./dist/babel/plugin.mjs"
       }
     },
-    "./babel/plugin.test": {
-      "require": {
-        "types": "./dist/babel/plugin.test.d.cts",
-        "default": "./dist/babel/plugin.test.cjs"
-      },
-      "import": {
-        "types": "./dist/babel/plugin.test.d.mts",
-        "default": "./dist/babel/plugin.test.mjs"
-      },
-      "default": {
-        "types": "./dist/babel/plugin.test.d.mts",
-        "default": "./dist/babel/plugin.test.mjs"
-      }
-    },
     "./components": {
       "require": {
         "types": "./dist/components/index.d.cts",
@@ -124,20 +110,6 @@
         "default": "./dist/components/docs.mjs"
       }
     },
-    "./components/docs.test": {
-      "require": {
-        "types": "./dist/components/docs.test.d.cts",
-        "default": "./dist/components/docs.test.cjs"
-      },
-      "import": {
-        "types": "./dist/components/docs.test.d.mts",
-        "default": "./dist/components/docs.test.mjs"
-      },
-      "default": {
-        "types": "./dist/components/docs.test.d.mts",
-        "default": "./dist/components/docs.test.mjs"
-      }
-    },
     "./components/env-builtin": {
       "require": {
         "types": "./dist/components/env-builtin.d.cts",
@@ -150,20 +122,6 @@
       "default": {
         "types": "./dist/components/env-builtin.d.mts",
         "default": "./dist/components/env-builtin.mjs"
-      }
-    },
-    "./components/env-builtin.test": {
-      "require": {
-        "types": "./dist/components/env-builtin.test.d.cts",
-        "default": "./dist/components/env-builtin.test.cjs"
-      },
-      "import": {
-        "types": "./dist/components/env-builtin.test.d.mts",
-        "default": "./dist/components/env-builtin.test.mjs"
-      },
-      "default": {
-        "types": "./dist/components/env-builtin.test.d.mts",
-        "default": "./dist/components/env-builtin.test.mjs"
       }
     },
     "./helpers": {
@@ -194,20 +152,6 @@
         "default": "./dist/helpers/automd-generator.mjs"
       }
     },
-    "./helpers/automd-generator.test": {
-      "require": {
-        "types": "./dist/helpers/automd-generator.test.d.cts",
-        "default": "./dist/helpers/automd-generator.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/automd-generator.test.d.mts",
-        "default": "./dist/helpers/automd-generator.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/automd-generator.test.d.mts",
-        "default": "./dist/helpers/automd-generator.test.mjs"
-      }
-    },
     "./helpers/load": {
       "require": {
         "types": "./dist/helpers/load.d.cts",
@@ -220,20 +164,6 @@
       "default": {
         "types": "./dist/helpers/load.d.mts",
         "default": "./dist/helpers/load.mjs"
-      }
-    },
-    "./helpers/load.test": {
-      "require": {
-        "types": "./dist/helpers/load.test.d.cts",
-        "default": "./dist/helpers/load.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/load.test.d.mts",
-        "default": "./dist/helpers/load.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/load.test.d.mts",
-        "default": "./dist/helpers/load.test.mjs"
       }
     },
     "./helpers/schema": {
@@ -250,20 +180,6 @@
         "default": "./dist/helpers/schema.mjs"
       }
     },
-    "./helpers/schema.test": {
-      "require": {
-        "types": "./dist/helpers/schema.test.d.cts",
-        "default": "./dist/helpers/schema.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/schema.test.d.mts",
-        "default": "./dist/helpers/schema.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/schema.test.d.mts",
-        "default": "./dist/helpers/schema.test.mjs"
-      }
-    },
     "./helpers/source-file-env": {
       "require": {
         "types": "./dist/helpers/source-file-env.d.cts",
@@ -276,34 +192,6 @@
       "default": {
         "types": "./dist/helpers/source-file-env.d.mts",
         "default": "./dist/helpers/source-file-env.mjs"
-      }
-    },
-    "./helpers/source-file-env.test": {
-      "require": {
-        "types": "./dist/helpers/source-file-env.test.d.cts",
-        "default": "./dist/helpers/source-file-env.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/source-file-env.test.d.mts",
-        "default": "./dist/helpers/source-file-env.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/source-file-env.test.d.mts",
-        "default": "./dist/helpers/source-file-env.test.mjs"
-      }
-    },
-    "./index.test": {
-      "require": {
-        "types": "./dist/index.test.d.cts",
-        "default": "./dist/index.test.cjs"
-      },
-      "import": {
-        "types": "./dist/index.test.d.mts",
-        "default": "./dist/index.test.mjs"
-      },
-      "default": {
-        "types": "./dist/index.test.d.mts",
-        "default": "./dist/index.test.mjs"
       }
     },
     "./package.json": "./package.json",

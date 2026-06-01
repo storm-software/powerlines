@@ -95,20 +95,6 @@
         "default": "./dist/core/components/infrastructure-file.mjs"
       }
     },
-    "./core/components/infrastructure-file.test": {
-      "require": {
-        "types": "./dist/core/components/infrastructure-file.test.d.cts",
-        "default": "./dist/core/components/infrastructure-file.test.cjs"
-      },
-      "import": {
-        "types": "./dist/core/components/infrastructure-file.test.d.mts",
-        "default": "./dist/core/components/infrastructure-file.test.mjs"
-      },
-      "default": {
-        "types": "./dist/core/components/infrastructure-file.test.d.mts",
-        "default": "./dist/core/components/infrastructure-file.test.mjs"
-      }
-    },
     "./core/components/output": {
       "require": {
         "types": "./dist/core/components/output.d.cts",
@@ -121,20 +107,6 @@
       "default": {
         "types": "./dist/core/components/output.d.mts",
         "default": "./dist/core/components/output.mjs"
-      }
-    },
-    "./core/components/output.test": {
-      "require": {
-        "types": "./dist/core/components/output.test.d.cts",
-        "default": "./dist/core/components/output.test.cjs"
-      },
-      "import": {
-        "types": "./dist/core/components/output.test.d.mts",
-        "default": "./dist/core/components/output.test.mjs"
-      },
-      "default": {
-        "types": "./dist/core/components/output.test.d.mts",
-        "default": "./dist/core/components/output.test.mjs"
       }
     },
     "./core/components/single-line-comment": {
@@ -151,20 +123,6 @@
         "default": "./dist/core/components/single-line-comment.mjs"
       }
     },
-    "./core/components/single-line-comment.test": {
-      "require": {
-        "types": "./dist/core/components/single-line-comment.test.d.cts",
-        "default": "./dist/core/components/single-line-comment.test.cjs"
-      },
-      "import": {
-        "types": "./dist/core/components/single-line-comment.test.d.mts",
-        "default": "./dist/core/components/single-line-comment.test.mjs"
-      },
-      "default": {
-        "types": "./dist/core/components/single-line-comment.test.d.mts",
-        "default": "./dist/core/components/single-line-comment.test.mjs"
-      }
-    },
     "./core/components/source-file": {
       "require": {
         "types": "./dist/core/components/source-file.d.cts",
@@ -179,20 +137,6 @@
         "default": "./dist/core/components/source-file.mjs"
       }
     },
-    "./core/components/source-file.test": {
-      "require": {
-        "types": "./dist/core/components/source-file.test.d.cts",
-        "default": "./dist/core/components/source-file.test.cjs"
-      },
-      "import": {
-        "types": "./dist/core/components/source-file.test.d.mts",
-        "default": "./dist/core/components/source-file.test.mjs"
-      },
-      "default": {
-        "types": "./dist/core/components/source-file.test.d.mts",
-        "default": "./dist/core/components/source-file.test.mjs"
-      }
-    },
     "./core/components/spacing": {
       "require": {
         "types": "./dist/core/components/spacing.d.cts",
@@ -205,20 +149,6 @@
       "default": {
         "types": "./dist/core/components/spacing.d.mts",
         "default": "./dist/core/components/spacing.mjs"
-      }
-    },
-    "./core/components/spacing.test": {
-      "require": {
-        "types": "./dist/core/components/spacing.test.d.cts",
-        "default": "./dist/core/components/spacing.test.cjs"
-      },
-      "import": {
-        "types": "./dist/core/components/spacing.test.d.mts",
-        "default": "./dist/core/components/spacing.test.mjs"
-      },
-      "default": {
-        "types": "./dist/core/components/spacing.test.d.mts",
-        "default": "./dist/core/components/spacing.test.mjs"
       }
     },
     "./core/contexts": {
@@ -249,20 +179,6 @@
         "default": "./dist/core/contexts/context.mjs"
       }
     },
-    "./core/contexts/context.test": {
-      "require": {
-        "types": "./dist/core/contexts/context.test.d.cts",
-        "default": "./dist/core/contexts/context.test.cjs"
-      },
-      "import": {
-        "types": "./dist/core/contexts/context.test.d.mts",
-        "default": "./dist/core/contexts/context.test.mjs"
-      },
-      "default": {
-        "types": "./dist/core/contexts/context.test.d.mts",
-        "default": "./dist/core/contexts/context.test.mjs"
-      }
-    },
     "./core/contexts/meta": {
       "require": {
         "types": "./dist/core/contexts/meta.d.cts",
@@ -277,20 +193,6 @@
         "default": "./dist/core/contexts/meta.mjs"
       }
     },
-    "./core/contexts/meta.test": {
-      "require": {
-        "types": "./dist/core/contexts/meta.test.d.cts",
-        "default": "./dist/core/contexts/meta.test.cjs"
-      },
-      "import": {
-        "types": "./dist/core/contexts/meta.test.d.mts",
-        "default": "./dist/core/contexts/meta.test.mjs"
-      },
-      "default": {
-        "types": "./dist/core/contexts/meta.test.d.mts",
-        "default": "./dist/core/contexts/meta.test.mjs"
-      }
-    },
     "./core/contexts/schema": {
       "require": {
         "types": "./dist/core/contexts/schema.d.cts",
@@ -303,20 +205,6 @@
       "default": {
         "types": "./dist/core/contexts/schema.d.mts",
         "default": "./dist/core/contexts/schema.mjs"
-      }
-    },
-    "./core/contexts/schema.test": {
-      "require": {
-        "types": "./dist/core/contexts/schema.test.d.cts",
-        "default": "./dist/core/contexts/schema.test.cjs"
-      },
-      "import": {
-        "types": "./dist/core/contexts/schema.test.d.mts",
-        "default": "./dist/core/contexts/schema.test.mjs"
-      },
-      "default": {
-        "types": "./dist/core/contexts/schema.test.d.mts",
-        "default": "./dist/core/contexts/schema.test.mjs"
       }
     },
     "./core/helpers": {
@@ -345,20 +233,6 @@
       "default": {
         "types": "./dist/core/helpers/code.d.mts",
         "default": "./dist/core/helpers/code.mjs"
-      }
-    },
-    "./core/helpers/code.test": {
-      "require": {
-        "types": "./dist/core/helpers/code.test.d.cts",
-        "default": "./dist/core/helpers/code.test.cjs"
-      },
-      "import": {
-        "types": "./dist/core/helpers/code.test.d.mts",
-        "default": "./dist/core/helpers/code.test.mjs"
-      },
-      "default": {
-        "types": "./dist/core/helpers/code.test.d.mts",
-        "default": "./dist/core/helpers/code.test.mjs"
       }
     },
     "./hcl": {
@@ -403,20 +277,6 @@
         "default": "./dist/hcl/components/block-declaration.mjs"
       }
     },
-    "./hcl/components/block-declaration.test": {
-      "require": {
-        "types": "./dist/hcl/components/block-declaration.test.d.cts",
-        "default": "./dist/hcl/components/block-declaration.test.cjs"
-      },
-      "import": {
-        "types": "./dist/hcl/components/block-declaration.test.d.mts",
-        "default": "./dist/hcl/components/block-declaration.test.mjs"
-      },
-      "default": {
-        "types": "./dist/hcl/components/block-declaration.test.d.mts",
-        "default": "./dist/hcl/components/block-declaration.test.mjs"
-      }
-    },
     "./hcl/components/hcl-file": {
       "require": {
         "types": "./dist/hcl/components/hcl-file.d.cts",
@@ -429,20 +289,6 @@
       "default": {
         "types": "./dist/hcl/components/hcl-file.d.mts",
         "default": "./dist/hcl/components/hcl-file.mjs"
-      }
-    },
-    "./hcl/components/hcl-file.test": {
-      "require": {
-        "types": "./dist/hcl/components/hcl-file.test.d.cts",
-        "default": "./dist/hcl/components/hcl-file.test.cjs"
-      },
-      "import": {
-        "types": "./dist/hcl/components/hcl-file.test.d.mts",
-        "default": "./dist/hcl/components/hcl-file.test.mjs"
-      },
-      "default": {
-        "types": "./dist/hcl/components/hcl-file.test.d.mts",
-        "default": "./dist/hcl/components/hcl-file.test.mjs"
       }
     },
     "./hcl/components/packer-file": {
@@ -459,20 +305,6 @@
         "default": "./dist/hcl/components/packer-file.mjs"
       }
     },
-    "./hcl/components/packer-file.test": {
-      "require": {
-        "types": "./dist/hcl/components/packer-file.test.d.cts",
-        "default": "./dist/hcl/components/packer-file.test.cjs"
-      },
-      "import": {
-        "types": "./dist/hcl/components/packer-file.test.d.mts",
-        "default": "./dist/hcl/components/packer-file.test.mjs"
-      },
-      "default": {
-        "types": "./dist/hcl/components/packer-file.test.d.mts",
-        "default": "./dist/hcl/components/packer-file.test.mjs"
-      }
-    },
     "./hcl/components/terraform-file": {
       "require": {
         "types": "./dist/hcl/components/terraform-file.d.cts",
@@ -485,20 +317,6 @@
       "default": {
         "types": "./dist/hcl/components/terraform-file.d.mts",
         "default": "./dist/hcl/components/terraform-file.mjs"
-      }
-    },
-    "./hcl/components/terraform-file.test": {
-      "require": {
-        "types": "./dist/hcl/components/terraform-file.test.d.cts",
-        "default": "./dist/hcl/components/terraform-file.test.cjs"
-      },
-      "import": {
-        "types": "./dist/hcl/components/terraform-file.test.d.mts",
-        "default": "./dist/hcl/components/terraform-file.test.mjs"
-      },
-      "default": {
-        "types": "./dist/hcl/components/terraform-file.test.d.mts",
-        "default": "./dist/hcl/components/terraform-file.test.mjs"
       }
     },
     "./helpers": {
@@ -529,20 +347,6 @@
         "default": "./dist/helpers/capnp.mjs"
       }
     },
-    "./helpers/capnp.test": {
-      "require": {
-        "types": "./dist/helpers/capnp.test.d.cts",
-        "default": "./dist/helpers/capnp.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/capnp.test.d.mts",
-        "default": "./dist/helpers/capnp.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/capnp.test.d.mts",
-        "default": "./dist/helpers/capnp.test.mjs"
-      }
-    },
     "./helpers/create-builtin": {
       "require": {
         "types": "./dist/helpers/create-builtin.d.cts",
@@ -555,20 +359,6 @@
       "default": {
         "types": "./dist/helpers/create-builtin.d.mts",
         "default": "./dist/helpers/create-builtin.mjs"
-      }
-    },
-    "./helpers/create-builtin.test": {
-      "require": {
-        "types": "./dist/helpers/create-builtin.test.d.cts",
-        "default": "./dist/helpers/create-builtin.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/create-builtin.test.d.mts",
-        "default": "./dist/helpers/create-builtin.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/create-builtin.test.d.mts",
-        "default": "./dist/helpers/create-builtin.test.mjs"
       }
     },
     "./helpers/refkey": {
@@ -585,20 +375,6 @@
         "default": "./dist/helpers/refkey.mjs"
       }
     },
-    "./helpers/refkey.test": {
-      "require": {
-        "types": "./dist/helpers/refkey.test.d.cts",
-        "default": "./dist/helpers/refkey.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/refkey.test.d.mts",
-        "default": "./dist/helpers/refkey.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/refkey.test.d.mts",
-        "default": "./dist/helpers/refkey.test.mjs"
-      }
-    },
     "./helpers/typescript": {
       "require": {
         "types": "./dist/helpers/typescript.d.cts",
@@ -611,20 +387,6 @@
       "default": {
         "types": "./dist/helpers/typescript.d.mts",
         "default": "./dist/helpers/typescript.mjs"
-      }
-    },
-    "./helpers/typescript.test": {
-      "require": {
-        "types": "./dist/helpers/typescript.test.d.cts",
-        "default": "./dist/helpers/typescript.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/typescript.test.d.mts",
-        "default": "./dist/helpers/typescript.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/typescript.test.d.mts",
-        "default": "./dist/helpers/typescript.test.mjs"
       }
     },
     "./markdown": {
@@ -669,20 +431,6 @@
         "default": "./dist/markdown/components/front-matter.mjs"
       }
     },
-    "./markdown/components/front-matter.test": {
-      "require": {
-        "types": "./dist/markdown/components/front-matter.test.d.cts",
-        "default": "./dist/markdown/components/front-matter.test.cjs"
-      },
-      "import": {
-        "types": "./dist/markdown/components/front-matter.test.d.mts",
-        "default": "./dist/markdown/components/front-matter.test.mjs"
-      },
-      "default": {
-        "types": "./dist/markdown/components/front-matter.test.d.mts",
-        "default": "./dist/markdown/components/front-matter.test.mjs"
-      }
-    },
     "./markdown/components/heading": {
       "require": {
         "types": "./dist/markdown/components/heading.d.cts",
@@ -695,20 +443,6 @@
       "default": {
         "types": "./dist/markdown/components/heading.d.mts",
         "default": "./dist/markdown/components/heading.mjs"
-      }
-    },
-    "./markdown/components/heading.test": {
-      "require": {
-        "types": "./dist/markdown/components/heading.test.d.cts",
-        "default": "./dist/markdown/components/heading.test.cjs"
-      },
-      "import": {
-        "types": "./dist/markdown/components/heading.test.d.mts",
-        "default": "./dist/markdown/components/heading.test.mjs"
-      },
-      "default": {
-        "types": "./dist/markdown/components/heading.test.d.mts",
-        "default": "./dist/markdown/components/heading.test.mjs"
       }
     },
     "./markdown/components/markdown-file": {
@@ -725,20 +459,6 @@
         "default": "./dist/markdown/components/markdown-file.mjs"
       }
     },
-    "./markdown/components/markdown-file.test": {
-      "require": {
-        "types": "./dist/markdown/components/markdown-file.test.d.cts",
-        "default": "./dist/markdown/components/markdown-file.test.cjs"
-      },
-      "import": {
-        "types": "./dist/markdown/components/markdown-file.test.d.mts",
-        "default": "./dist/markdown/components/markdown-file.test.mjs"
-      },
-      "default": {
-        "types": "./dist/markdown/components/markdown-file.test.d.mts",
-        "default": "./dist/markdown/components/markdown-file.test.mjs"
-      }
-    },
     "./markdown/components/markdown-table": {
       "require": {
         "types": "./dist/markdown/components/markdown-table.d.cts",
@@ -751,20 +471,6 @@
       "default": {
         "types": "./dist/markdown/components/markdown-table.d.mts",
         "default": "./dist/markdown/components/markdown-table.mjs"
-      }
-    },
-    "./markdown/components/markdown-table.test": {
-      "require": {
-        "types": "./dist/markdown/components/markdown-table.test.d.cts",
-        "default": "./dist/markdown/components/markdown-table.test.cjs"
-      },
-      "import": {
-        "types": "./dist/markdown/components/markdown-table.test.d.mts",
-        "default": "./dist/markdown/components/markdown-table.test.mjs"
-      },
-      "default": {
-        "types": "./dist/markdown/components/markdown-table.test.d.mts",
-        "default": "./dist/markdown/components/markdown-table.test.mjs"
       }
     },
     "./markdown/contexts": {
@@ -793,20 +499,6 @@
       "default": {
         "types": "./dist/markdown/contexts/markdown-table.d.mts",
         "default": "./dist/markdown/contexts/markdown-table.mjs"
-      }
-    },
-    "./markdown/contexts/markdown-table.test": {
-      "require": {
-        "types": "./dist/markdown/contexts/markdown-table.test.d.cts",
-        "default": "./dist/markdown/contexts/markdown-table.test.cjs"
-      },
-      "import": {
-        "types": "./dist/markdown/contexts/markdown-table.test.d.mts",
-        "default": "./dist/markdown/contexts/markdown-table.test.mjs"
-      },
-      "default": {
-        "types": "./dist/markdown/contexts/markdown-table.test.d.mts",
-        "default": "./dist/markdown/contexts/markdown-table.test.mjs"
       }
     },
     "./package.json": "./package.json",
@@ -908,20 +600,6 @@
         "default": "./dist/typescript/components/builtin-file.mjs"
       }
     },
-    "./typescript/components/builtin-file.test": {
-      "require": {
-        "types": "./dist/typescript/components/builtin-file.test.d.cts",
-        "default": "./dist/typescript/components/builtin-file.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/builtin-file.test.d.mts",
-        "default": "./dist/typescript/components/builtin-file.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/builtin-file.test.d.mts",
-        "default": "./dist/typescript/components/builtin-file.test.mjs"
-      }
-    },
     "./typescript/components/class-declaration": {
       "require": {
         "types": "./dist/typescript/components/class-declaration.d.cts",
@@ -934,20 +612,6 @@
       "default": {
         "types": "./dist/typescript/components/class-declaration.d.mts",
         "default": "./dist/typescript/components/class-declaration.mjs"
-      }
-    },
-    "./typescript/components/class-declaration.test": {
-      "require": {
-        "types": "./dist/typescript/components/class-declaration.test.d.cts",
-        "default": "./dist/typescript/components/class-declaration.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/class-declaration.test.d.mts",
-        "default": "./dist/typescript/components/class-declaration.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/class-declaration.test.d.mts",
-        "default": "./dist/typescript/components/class-declaration.test.mjs"
       }
     },
     "./typescript/components/dynamic-import-statement": {
@@ -964,20 +628,6 @@
         "default": "./dist/typescript/components/dynamic-import-statement.mjs"
       }
     },
-    "./typescript/components/dynamic-import-statement.test": {
-      "require": {
-        "types": "./dist/typescript/components/dynamic-import-statement.test.d.cts",
-        "default": "./dist/typescript/components/dynamic-import-statement.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/dynamic-import-statement.test.d.mts",
-        "default": "./dist/typescript/components/dynamic-import-statement.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/dynamic-import-statement.test.d.mts",
-        "default": "./dist/typescript/components/dynamic-import-statement.test.mjs"
-      }
-    },
     "./typescript/components/entry-file": {
       "require": {
         "types": "./dist/typescript/components/entry-file.d.cts",
@@ -990,20 +640,6 @@
       "default": {
         "types": "./dist/typescript/components/entry-file.d.mts",
         "default": "./dist/typescript/components/entry-file.mjs"
-      }
-    },
-    "./typescript/components/entry-file.test": {
-      "require": {
-        "types": "./dist/typescript/components/entry-file.test.d.cts",
-        "default": "./dist/typescript/components/entry-file.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/entry-file.test.d.mts",
-        "default": "./dist/typescript/components/entry-file.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/entry-file.test.d.mts",
-        "default": "./dist/typescript/components/entry-file.test.mjs"
       }
     },
     "./typescript/components/interface-declaration": {
@@ -1020,20 +656,6 @@
         "default": "./dist/typescript/components/interface-declaration.mjs"
       }
     },
-    "./typescript/components/interface-declaration.test": {
-      "require": {
-        "types": "./dist/typescript/components/interface-declaration.test.d.cts",
-        "default": "./dist/typescript/components/interface-declaration.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/interface-declaration.test.d.mts",
-        "default": "./dist/typescript/components/interface-declaration.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/interface-declaration.test.d.mts",
-        "default": "./dist/typescript/components/interface-declaration.test.mjs"
-      }
-    },
     "./typescript/components/object-declaration": {
       "require": {
         "types": "./dist/typescript/components/object-declaration.d.cts",
@@ -1046,20 +668,6 @@
       "default": {
         "types": "./dist/typescript/components/object-declaration.d.mts",
         "default": "./dist/typescript/components/object-declaration.mjs"
-      }
-    },
-    "./typescript/components/object-declaration.test": {
-      "require": {
-        "types": "./dist/typescript/components/object-declaration.test.d.cts",
-        "default": "./dist/typescript/components/object-declaration.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/object-declaration.test.d.mts",
-        "default": "./dist/typescript/components/object-declaration.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/object-declaration.test.d.mts",
-        "default": "./dist/typescript/components/object-declaration.test.mjs"
       }
     },
     "./typescript/components/property-name": {
@@ -1076,20 +684,6 @@
         "default": "./dist/typescript/components/property-name.mjs"
       }
     },
-    "./typescript/components/property-name.test": {
-      "require": {
-        "types": "./dist/typescript/components/property-name.test.d.cts",
-        "default": "./dist/typescript/components/property-name.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/property-name.test.d.mts",
-        "default": "./dist/typescript/components/property-name.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/property-name.test.d.mts",
-        "default": "./dist/typescript/components/property-name.test.mjs"
-      }
-    },
     "./typescript/components/record-expression": {
       "require": {
         "types": "./dist/typescript/components/record-expression.d.cts",
@@ -1102,20 +696,6 @@
       "default": {
         "types": "./dist/typescript/components/record-expression.d.mts",
         "default": "./dist/typescript/components/record-expression.mjs"
-      }
-    },
-    "./typescript/components/record-expression.test": {
-      "require": {
-        "types": "./dist/typescript/components/record-expression.test.d.cts",
-        "default": "./dist/typescript/components/record-expression.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/record-expression.test.d.mts",
-        "default": "./dist/typescript/components/record-expression.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/record-expression.test.d.mts",
-        "default": "./dist/typescript/components/record-expression.test.mjs"
       }
     },
     "./typescript/components/tsdoc": {
@@ -1146,34 +726,6 @@
         "default": "./dist/typescript/components/tsdoc-schema.mjs"
       }
     },
-    "./typescript/components/tsdoc-schema.test": {
-      "require": {
-        "types": "./dist/typescript/components/tsdoc-schema.test.d.cts",
-        "default": "./dist/typescript/components/tsdoc-schema.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/tsdoc-schema.test.d.mts",
-        "default": "./dist/typescript/components/tsdoc-schema.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/tsdoc-schema.test.d.mts",
-        "default": "./dist/typescript/components/tsdoc-schema.test.mjs"
-      }
-    },
-    "./typescript/components/tsdoc.test": {
-      "require": {
-        "types": "./dist/typescript/components/tsdoc.test.d.cts",
-        "default": "./dist/typescript/components/tsdoc.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/tsdoc.test.d.mts",
-        "default": "./dist/typescript/components/tsdoc.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/tsdoc.test.d.mts",
-        "default": "./dist/typescript/components/tsdoc.test.mjs"
-      }
-    },
     "./typescript/components/type-declaration": {
       "require": {
         "types": "./dist/typescript/components/type-declaration.d.cts",
@@ -1186,20 +738,6 @@
       "default": {
         "types": "./dist/typescript/components/type-declaration.d.mts",
         "default": "./dist/typescript/components/type-declaration.mjs"
-      }
-    },
-    "./typescript/components/type-declaration.test": {
-      "require": {
-        "types": "./dist/typescript/components/type-declaration.test.d.cts",
-        "default": "./dist/typescript/components/type-declaration.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/type-declaration.test.d.mts",
-        "default": "./dist/typescript/components/type-declaration.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/type-declaration.test.d.mts",
-        "default": "./dist/typescript/components/type-declaration.test.mjs"
       }
     },
     "./typescript/components/type-parameters": {
@@ -1216,20 +754,6 @@
         "default": "./dist/typescript/components/type-parameters.mjs"
       }
     },
-    "./typescript/components/type-parameters.test": {
-      "require": {
-        "types": "./dist/typescript/components/type-parameters.test.d.cts",
-        "default": "./dist/typescript/components/type-parameters.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/type-parameters.test.d.mts",
-        "default": "./dist/typescript/components/type-parameters.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/type-parameters.test.d.mts",
-        "default": "./dist/typescript/components/type-parameters.test.mjs"
-      }
-    },
     "./typescript/components/typescript-file": {
       "require": {
         "types": "./dist/typescript/components/typescript-file.d.cts",
@@ -1242,20 +766,6 @@
       "default": {
         "types": "./dist/typescript/components/typescript-file.d.mts",
         "default": "./dist/typescript/components/typescript-file.mjs"
-      }
-    },
-    "./typescript/components/typescript-file.test": {
-      "require": {
-        "types": "./dist/typescript/components/typescript-file.test.d.cts",
-        "default": "./dist/typescript/components/typescript-file.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/components/typescript-file.test.d.mts",
-        "default": "./dist/typescript/components/typescript-file.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/components/typescript-file.test.d.mts",
-        "default": "./dist/typescript/components/typescript-file.test.mjs"
       }
     },
     "./typescript/contexts": {
@@ -1286,20 +796,6 @@
         "default": "./dist/typescript/contexts/lexical-scope.mjs"
       }
     },
-    "./typescript/contexts/lexical-scope.test": {
-      "require": {
-        "types": "./dist/typescript/contexts/lexical-scope.test.d.cts",
-        "default": "./dist/typescript/contexts/lexical-scope.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/contexts/lexical-scope.test.d.mts",
-        "default": "./dist/typescript/contexts/lexical-scope.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/contexts/lexical-scope.test.d.mts",
-        "default": "./dist/typescript/contexts/lexical-scope.test.mjs"
-      }
-    },
     "./typescript/contexts/member-scope": {
       "require": {
         "types": "./dist/typescript/contexts/member-scope.d.cts",
@@ -1312,20 +808,6 @@
       "default": {
         "types": "./dist/typescript/contexts/member-scope.d.mts",
         "default": "./dist/typescript/contexts/member-scope.mjs"
-      }
-    },
-    "./typescript/contexts/member-scope.test": {
-      "require": {
-        "types": "./dist/typescript/contexts/member-scope.test.d.cts",
-        "default": "./dist/typescript/contexts/member-scope.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/contexts/member-scope.test.d.mts",
-        "default": "./dist/typescript/contexts/member-scope.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/contexts/member-scope.test.d.mts",
-        "default": "./dist/typescript/contexts/member-scope.test.mjs"
       }
     },
     "./typescript/helpers": {
@@ -1356,20 +838,6 @@
         "default": "./dist/typescript/helpers/get-call-signature-props.mjs"
       }
     },
-    "./typescript/helpers/get-call-signature-props.test": {
-      "require": {
-        "types": "./dist/typescript/helpers/get-call-signature-props.test.d.cts",
-        "default": "./dist/typescript/helpers/get-call-signature-props.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/helpers/get-call-signature-props.test.d.mts",
-        "default": "./dist/typescript/helpers/get-call-signature-props.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/helpers/get-call-signature-props.test.d.mts",
-        "default": "./dist/typescript/helpers/get-call-signature-props.test.mjs"
-      }
-    },
     "./typescript/helpers/utilities": {
       "require": {
         "types": "./dist/typescript/helpers/utilities.d.cts",
@@ -1382,20 +850,6 @@
       "default": {
         "types": "./dist/typescript/helpers/utilities.d.mts",
         "default": "./dist/typescript/helpers/utilities.mjs"
-      }
-    },
-    "./typescript/helpers/utilities.test": {
-      "require": {
-        "types": "./dist/typescript/helpers/utilities.test.d.cts",
-        "default": "./dist/typescript/helpers/utilities.test.cjs"
-      },
-      "import": {
-        "types": "./dist/typescript/helpers/utilities.test.d.mts",
-        "default": "./dist/typescript/helpers/utilities.test.mjs"
-      },
-      "default": {
-        "types": "./dist/typescript/helpers/utilities.test.d.mts",
-        "default": "./dist/typescript/helpers/utilities.test.mjs"
       }
     },
     "./yaml": {
@@ -1438,20 +892,6 @@
       "default": {
         "types": "./dist/yaml/components/yaml-file.d.mts",
         "default": "./dist/yaml/components/yaml-file.mjs"
-      }
-    },
-    "./yaml/components/yaml-file.test": {
-      "require": {
-        "types": "./dist/yaml/components/yaml-file.test.d.cts",
-        "default": "./dist/yaml/components/yaml-file.test.cjs"
-      },
-      "import": {
-        "types": "./dist/yaml/components/yaml-file.test.d.mts",
-        "default": "./dist/yaml/components/yaml-file.test.mjs"
-      },
-      "default": {
-        "types": "./dist/yaml/components/yaml-file.test.d.mts",
-        "default": "./dist/yaml/components/yaml-file.test.mjs"
       }
     }
   },

@@ -87,20 +87,6 @@
         "default": "./dist/helpers/create-emitter.mjs"
       }
     },
-    "./helpers/create-emitter.test": {
-      "require": {
-        "types": "./dist/helpers/create-emitter.test.d.cts",
-        "default": "./dist/helpers/create-emitter.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/create-emitter.test.d.mts",
-        "default": "./dist/helpers/create-emitter.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/create-emitter.test.d.mts",
-        "default": "./dist/helpers/create-emitter.test.mjs"
-      }
-    },
     "./helpers/create-writer": {
       "require": {
         "types": "./dist/helpers/create-writer.d.cts",
@@ -113,20 +99,6 @@
       "default": {
         "types": "./dist/helpers/create-writer.d.mts",
         "default": "./dist/helpers/create-writer.mjs"
-      }
-    },
-    "./helpers/create-writer.test": {
-      "require": {
-        "types": "./dist/helpers/create-writer.test.d.cts",
-        "default": "./dist/helpers/create-writer.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/create-writer.test.d.mts",
-        "default": "./dist/helpers/create-writer.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/create-writer.test.d.mts",
-        "default": "./dist/helpers/create-writer.test.mjs"
       }
     },
     "./package.json": "./package.json",

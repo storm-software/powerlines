@@ -81,20 +81,6 @@
         "default": "./dist/components/nanoid.mjs"
       }
     },
-    "./components/nanoid.test": {
-      "require": {
-        "types": "./dist/components/nanoid.test.d.cts",
-        "default": "./dist/components/nanoid.test.cjs"
-      },
-      "import": {
-        "types": "./dist/components/nanoid.test.d.mts",
-        "default": "./dist/components/nanoid.test.mjs"
-      },
-      "default": {
-        "types": "./dist/components/nanoid.test.d.mts",
-        "default": "./dist/components/nanoid.test.mjs"
-      }
-    },
     "./package.json": "./package.json",
     "./types": {
       "require": {

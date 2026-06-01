@@ -82,20 +82,6 @@
         "default": "./dist/helpers/format-message.mjs"
       }
     },
-    "./helpers/format-message.test": {
-      "require": {
-        "types": "./dist/helpers/format-message.test.d.cts",
-        "default": "./dist/helpers/format-message.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/format-message.test.d.mts",
-        "default": "./dist/helpers/format-message.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/format-message.test.d.mts",
-        "default": "./dist/helpers/format-message.test.mjs"
-      }
-    },
     "./package.json": "./package.json",
     "./types": {
       "require": {

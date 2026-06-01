@@ -82,20 +82,6 @@
         "default": "./dist/components/react-optimized.mjs"
       }
     },
-    "./components/react-optimized.test": {
-      "require": {
-        "types": "./dist/components/react-optimized.test.d.cts",
-        "default": "./dist/components/react-optimized.test.cjs"
-      },
-      "import": {
-        "types": "./dist/components/react-optimized.test.d.mts",
-        "default": "./dist/components/react-optimized.test.mjs"
-      },
-      "default": {
-        "types": "./dist/components/react-optimized.test.d.mts",
-        "default": "./dist/components/react-optimized.test.mjs"
-      }
-    },
     "./package.json": "./package.json",
     "./types": {
       "require": {

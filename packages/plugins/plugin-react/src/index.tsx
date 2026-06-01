@@ -17,17 +17,16 @@
  ------------------------------------------------------------------- */
 
 import { isMatchFound } from "@powerlines/core/lib/typescript";
-
 import { render } from "@powerlines/plugin-alloy/render";
 import babel, { BabelPluginResolvedConfig } from "@powerlines/plugin-babel";
 import env from "@powerlines/plugin-env";
-import { VitePluginResolvedConfig } from "@powerlines/plugin-vite/types/plugin";
+import type { VitePluginResolvedConfig } from "@powerlines/plugin-vite/types/plugin";
 import { addProperty } from "@powerlines/schema";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import viteReactPlugin, { BabelOptions } from "@vitejs/plugin-react";
 import type { LoggerEvent } from "babel-plugin-react-compiler";
 import defu from "defu";
-import { Plugin } from "powerlines";
+import type { Plugin } from "powerlines";
 import { ReactOptimizedBuiltin } from "./components/react-optimized";
 import type { ReactPluginContext, ReactPluginOptions } from "./types/plugin";
 

@@ -83,20 +83,6 @@
         "default": "./dist/helpers/type-check.mjs"
       }
     },
-    "./helpers/type-check.test": {
-      "require": {
-        "types": "./dist/helpers/type-check.test.d.cts",
-        "default": "./dist/helpers/type-check.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/type-check.test.d.mts",
-        "default": "./dist/helpers/type-check.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/type-check.test.d.mts",
-        "default": "./dist/helpers/type-check.test.mjs"
-      }
-    },
     "./package.json": "./package.json",
     "./types": {
       "require": {

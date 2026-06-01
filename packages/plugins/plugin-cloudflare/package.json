@@ -82,20 +82,6 @@
         "default": "./dist/components/cloudflare-builtin.mjs"
       }
     },
-    "./components/cloudflare-builtin.test": {
-      "require": {
-        "types": "./dist/components/cloudflare-builtin.test.d.cts",
-        "default": "./dist/components/cloudflare-builtin.test.cjs"
-      },
-      "import": {
-        "types": "./dist/components/cloudflare-builtin.test.d.mts",
-        "default": "./dist/components/cloudflare-builtin.test.mjs"
-      },
-      "default": {
-        "types": "./dist/components/cloudflare-builtin.test.d.mts",
-        "default": "./dist/components/cloudflare-builtin.test.mjs"
-      }
-    },
     "./components/env-builtin": {
       "require": {
         "types": "./dist/components/env-builtin.d.cts",
@@ -108,20 +94,6 @@
       "default": {
         "types": "./dist/components/env-builtin.d.mts",
         "default": "./dist/components/env-builtin.mjs"
-      }
-    },
-    "./components/env-builtin.test": {
-      "require": {
-        "types": "./dist/components/env-builtin.test.d.cts",
-        "default": "./dist/components/env-builtin.test.cjs"
-      },
-      "import": {
-        "types": "./dist/components/env-builtin.test.d.mts",
-        "default": "./dist/components/env-builtin.test.mjs"
-      },
-      "default": {
-        "types": "./dist/components/env-builtin.test.d.mts",
-        "default": "./dist/components/env-builtin.test.mjs"
       }
     },
     "./components/worker-entry": {
@@ -138,20 +110,6 @@
         "default": "./dist/components/worker-entry.mjs"
       }
     },
-    "./components/worker-entry.test": {
-      "require": {
-        "types": "./dist/components/worker-entry.test.d.cts",
-        "default": "./dist/components/worker-entry.test.cjs"
-      },
-      "import": {
-        "types": "./dist/components/worker-entry.test.d.mts",
-        "default": "./dist/components/worker-entry.test.mjs"
-      },
-      "default": {
-        "types": "./dist/components/worker-entry.test.d.mts",
-        "default": "./dist/components/worker-entry.test.mjs"
-      }
-    },
     "./helpers/constants": {
       "require": {
         "types": "./dist/helpers/constants.d.cts",
@@ -166,20 +124,6 @@
         "default": "./dist/helpers/constants.mjs"
       }
     },
-    "./helpers/constants.test": {
-      "require": {
-        "types": "./dist/helpers/constants.test.d.cts",
-        "default": "./dist/helpers/constants.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/constants.test.d.mts",
-        "default": "./dist/helpers/constants.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/constants.test.d.mts",
-        "default": "./dist/helpers/constants.test.mjs"
-      }
-    },
     "./helpers/wrangler": {
       "require": {
         "types": "./dist/helpers/wrangler.d.cts",
@@ -192,20 +136,6 @@
       "default": {
         "types": "./dist/helpers/wrangler.d.mts",
         "default": "./dist/helpers/wrangler.mjs"
-      }
-    },
-    "./helpers/wrangler.test": {
-      "require": {
-        "types": "./dist/helpers/wrangler.test.d.cts",
-        "default": "./dist/helpers/wrangler.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/wrangler.test.d.mts",
-        "default": "./dist/helpers/wrangler.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/wrangler.test.d.mts",
-        "default": "./dist/helpers/wrangler.test.mjs"
       }
     },
     "./package.json": "./package.json",
@@ -263,20 +193,6 @@
       "default": {
         "types": "./dist/types/wrangler.d.mts",
         "default": "./dist/types/wrangler.mjs"
-      }
-    },
-    "./types/wrangler.test": {
-      "require": {
-        "types": "./dist/types/wrangler.test.d.cts",
-        "default": "./dist/types/wrangler.test.cjs"
-      },
-      "import": {
-        "types": "./dist/types/wrangler.test.d.mts",
-        "default": "./dist/types/wrangler.test.mjs"
-      },
-      "default": {
-        "types": "./dist/types/wrangler.test.d.mts",
-        "default": "./dist/types/wrangler.test.mjs"
       }
     }
   },

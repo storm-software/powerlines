@@ -54,20 +54,6 @@
         "default": "./dist/index.mjs"
       }
     },
-    "./index.test": {
-      "require": {
-        "types": "./dist/index.test.d.cts",
-        "default": "./dist/index.test.cjs"
-      },
-      "import": {
-        "types": "./dist/index.test.d.mts",
-        "default": "./dist/index.test.mjs"
-      },
-      "default": {
-        "types": "./dist/index.test.d.mts",
-        "default": "./dist/index.test.mjs"
-      }
-    },
     "./package.json": "./package.json",
     "./types": {
       "require": {

@@ -82,20 +82,6 @@
         "default": "./dist/helpers/client-generator.mjs"
       }
     },
-    "./helpers/client-generator.test": {
-      "require": {
-        "types": "./dist/helpers/client-generator.test.d.cts",
-        "default": "./dist/helpers/client-generator.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/client-generator.test.d.mts",
-        "default": "./dist/helpers/client-generator.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/client-generator.test.d.mts",
-        "default": "./dist/helpers/client-generator.test.mjs"
-      }
-    },
     "./helpers/get-schema": {
       "require": {
         "types": "./dist/helpers/get-schema.d.cts",
@@ -108,20 +94,6 @@
       "default": {
         "types": "./dist/helpers/get-schema.d.mts",
         "default": "./dist/helpers/get-schema.mjs"
-      }
-    },
-    "./helpers/get-schema.test": {
-      "require": {
-        "types": "./dist/helpers/get-schema.test.d.cts",
-        "default": "./dist/helpers/get-schema.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/get-schema.test.d.mts",
-        "default": "./dist/helpers/get-schema.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/get-schema.test.d.mts",
-        "default": "./dist/helpers/get-schema.test.mjs"
       }
     },
     "./helpers/schema-creator": {
@@ -138,20 +110,6 @@
         "default": "./dist/helpers/schema-creator.mjs"
       }
     },
-    "./helpers/schema-creator.test": {
-      "require": {
-        "types": "./dist/helpers/schema-creator.test.d.cts",
-        "default": "./dist/helpers/schema-creator.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/schema-creator.test.d.mts",
-        "default": "./dist/helpers/schema-creator.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/schema-creator.test.d.mts",
-        "default": "./dist/helpers/schema-creator.test.mjs"
-      }
-    },
     "./helpers/typed-sql": {
       "require": {
         "types": "./dist/helpers/typed-sql.d.cts",
@@ -164,34 +122,6 @@
       "default": {
         "types": "./dist/helpers/typed-sql.d.mts",
         "default": "./dist/helpers/typed-sql.mjs"
-      }
-    },
-    "./helpers/typed-sql.test": {
-      "require": {
-        "types": "./dist/helpers/typed-sql.test.d.cts",
-        "default": "./dist/helpers/typed-sql.test.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/typed-sql.test.d.mts",
-        "default": "./dist/helpers/typed-sql.test.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/typed-sql.test.d.mts",
-        "default": "./dist/helpers/typed-sql.test.mjs"
-      }
-    },
-    "./index.test": {
-      "require": {
-        "types": "./dist/index.test.d.cts",
-        "default": "./dist/index.test.cjs"
-      },
-      "import": {
-        "types": "./dist/index.test.d.mts",
-        "default": "./dist/index.test.mjs"
-      },
-      "default": {
-        "types": "./dist/index.test.d.mts",
-        "default": "./dist/index.test.mjs"
       }
     },
     "./package.json": "./package.json",
