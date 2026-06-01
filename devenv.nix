@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   name = "storm-software/powerlines";
 
@@ -10,4 +10,8 @@
     ];
     disableHint = true;
   };
+
+  packages = [
+    pkgs.capnproto
+  ];
 }
