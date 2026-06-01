@@ -252,19 +252,38 @@ export function generateParserCode(schema: JsonSchema): string {
       ? {}
       : { ...rootSchema.definitions, ...rootSchema.$defs };
 
+  let tempCounter = 0;
+
+  function nextTemp(prefix: string): string {
+    const id = tempCounter;
+    tempCounter += 1;
+
+    return `__${prefix}_${id}`;
+  }
+
+  function indent(lines: string[], size = 2): string[] {
+    const padding = " ".repeat(size);
+
+    return lines.map(line => `${padding}${line}`);
+  }
+
   /**
-   * Generates a JavaScript expression that parses `valueExpr` against `fragment`.
-   * The expression has access to an in-scope mutable `errors` array.
+   * Generates inline parsing statements for a schema fragment.
    */
-  function generateExpression(
+  function generateStatements(
     fragment: JsonSchema,
     valueExpr: string,
-    pathExpr: string
-  ): string {
+    pathExpr: string,
+    targetVar: string,
+    errorsVar = "errors"
+  ): string[] {
     if (typeof fragment === "boolean") {
       return fragment
-        ? valueExpr
-        : `((value, path) => { errors.push({ path, message: "No value is allowed at this location" }); return value; })(${valueExpr}, ${pathExpr})`;
+        ? [`${targetVar} = ${valueExpr};`]
+        : [
+            `${errorsVar}.push({ path: ${pathExpr}, message: "No value is allowed at this location" });`,
+            `${targetVar} = ${valueExpr};`
+          ];
     }
 
     const view = fragment as JsonSchemaObjectView;
@@ -272,87 +291,196 @@ export function generateParserCode(schema: JsonSchema): string {
     if (isSetString(view.$ref)) {
       const refName = resolveLocalRefName(view.$ref);
       if (refName && refName in definitions) {
-        return `${toParserIdentifier(refName)}(${valueExpr}, ${pathExpr}, errors)`;
+        return [
+          `${targetVar} = ${toParserIdentifier(refName)}(${valueExpr}, ${pathExpr}, ${errorsVar});`
+        ];
       }
 
       // Unknown / external reference — pass the value through unchanged.
-      return valueExpr;
+      return [`${targetVar} = ${valueExpr};`];
     }
 
-    return `((value, path) => {\n${generateBody(view)}\n})(${valueExpr}, ${pathExpr})`;
-  }
-
-  /**
-   * Generates the body statements (including a terminating `return`) for the
-   * arrow function produced by {@link generateExpression}.
-   */
-  function generateBody(view: JsonSchemaObjectView): string {
-    const lines: string[] = [];
-    const nullable = isSchemaNullable(view);
+    const valueVar = nextTemp("value");
+    const pathVar = nextTemp("path");
+    const lines: string[] = [
+      `const ${valueVar} = ${valueExpr};`,
+      `const ${pathVar} = ${pathExpr};`
+    ];
 
     if (view.default !== undefined) {
       lines.push(
-        `if (value === undefined) { return ${JSON.stringify(view.default)}; }`
+        `if (${valueVar} === undefined) {`,
+        `  ${targetVar} = ${JSON.stringify(view.default)};`,
+        `} else {`
       );
+
+      if (isSchemaNullable(view)) {
+        lines.push(
+          `  if (${valueVar} === null) {`,
+          `    ${targetVar} = null;`,
+          `  } else {`
+        );
+        lines.push(
+          ...indent(
+            generateCoreStatements(
+              view,
+              valueVar,
+              pathVar,
+              targetVar,
+              errorsVar
+            ),
+            4
+          )
+        );
+        lines.push(`  }`);
+      } else {
+        lines.push(
+          ...indent(
+            generateCoreStatements(
+              view,
+              valueVar,
+              pathVar,
+              targetVar,
+              errorsVar
+            ),
+            2
+          )
+        );
+      }
+
+      lines.push(`}`);
+
+      return lines;
+    }
+
+    lines.push(
+      `if (${valueVar} === undefined) {`,
+      `  ${errorsVar}.push({ path: ${pathVar}, message: "A value is required" });`,
+      `  ${targetVar} = ${valueVar};`,
+      `} else {`
+    );
+
+    if (isSchemaNullable(view)) {
+      lines.push(
+        `  if (${valueVar} === null) {`,
+        `    ${targetVar} = null;`,
+        `  } else {`
+      );
+      lines.push(
+        ...indent(
+          generateCoreStatements(view, valueVar, pathVar, targetVar, errorsVar),
+          4
+        )
+      );
+      lines.push(`  }`);
     } else {
       lines.push(
-        `if (value === undefined) { errors.push({ path, message: "A value is required" }); return value; }`
+        ...indent(
+          generateCoreStatements(view, valueVar, pathVar, targetVar, errorsVar),
+          2
+        )
       );
     }
 
-    if (nullable) {
-      lines.push(`if (value === null) { return null; }`);
-    }
+    lines.push(`}`);
+
+    return lines;
+  }
+
+  /**
+   * Generates inline parsing statements assuming `value` is already defined.
+   */
+  function generateCoreStatements(
+    view: JsonSchemaObjectView,
+    valueVar: string,
+    pathVar: string,
+    targetVar: string,
+    errorsVar: string
+  ): string[] {
+    const lines: string[] = [];
 
     if (view.const !== undefined) {
       const constValue = JSON.stringify(view.const);
       lines.push(
-        `if (JSON.stringify(value) !== ${JSON.stringify(constValue)}) { errors.push({ path, message: "Expected the constant value " + ${JSON.stringify(constValue)} }); }`,
-        `return ${constValue};`
+        `if (JSON.stringify(${valueVar}) !== ${constValue}) { ${
+          errorsVar
+        }.push({ path: ${pathVar}, message: "Expected the constant value " + ${
+          constValue
+        } }); }`,
+        `${targetVar} = ${constValue};`
       );
 
-      return lines.join("\n");
+      return lines;
     }
 
     if (Array.isArray(view.enum)) {
       const enumValues = JSON.stringify(view.enum);
       lines.push(
-        `if (!${enumValues}.some(allowed => JSON.stringify(allowed) === JSON.stringify(value))) { errors.push({ path, message: "Expected one of " + ${JSON.stringify(enumValues)} }); }`,
-        `return value;`
+        `if (!${enumValues}.some(allowed => JSON.stringify(allowed) === JSON.stringify(${
+          valueVar
+        }))) { ${errorsVar}.push({ path: ${
+          pathVar
+        }, message: "Expected one of " + ${enumValues} }); }`,
+        `${targetVar} = ${valueVar};`
       );
 
-      return lines.join("\n");
+      return lines;
     }
 
     if (Array.isArray(view.oneOf) || Array.isArray(view.anyOf)) {
       const branches = view.oneOf ?? view.anyOf ?? [];
-      const branchFns = branches
-        .map(
-          branch =>
-            `(value, path, errors) => (${generateExpression(branch, "value", "path")})`
-        )
-        .join(",\n");
+      const matchedVar = nextTemp("matched");
+
+      lines.push(`let ${matchedVar} = false;`);
+
+      for (const branch of branches) {
+        const branchErrorsVar = nextTemp("branchErrors");
+        const branchResultVar = nextTemp("branchResult");
+
+        lines.push(`if (!${matchedVar}) {`);
+        lines.push(
+          `  const ${branchErrorsVar}: { path: string; message: string }[] = [];`,
+          `  let ${branchResultVar};`
+        );
+        lines.push(
+          ...indent(
+            generateStatements(
+              branch,
+              valueVar,
+              pathVar,
+              branchResultVar,
+              branchErrorsVar
+            ),
+            2
+          )
+        );
+        lines.push(
+          `  if (${branchErrorsVar}.length === 0) {`,
+          `    ${targetVar} = ${branchResultVar};`,
+          `    ${matchedVar} = true;`,
+          `  }`,
+          `}`
+        );
+      }
 
       lines.push(
-        `const branches = [\n${branchFns}\n];`,
-        `for (const branch of branches) {`,
-        `  const branchErrors = [];`,
-        `  const branchResult = branch(value, path, branchErrors);`,
-        `  if (branchErrors.length === 0) { return branchResult; }`,
-        `}`,
-        `errors.push({ path, message: "Value does not match any of the allowed schemas" });`,
-        `return value;`
+        `if (!${matchedVar}) {`,
+        `  ${errorsVar}.push({ path: ${pathVar}, message: "Value does not match any of the allowed schemas" });`,
+        `  ${targetVar} = ${valueVar};`,
+        `}`
       );
 
-      return lines.join("\n");
+      return lines;
     }
 
     if (Array.isArray(view.allOf)) {
       const { allOf, ...rest } = view;
       const merged = merge(rest, ...allOf);
-      lines.push(`return ${generateExpression(merged, "value", "path")};`);
+      lines.push(
+        ...generateStatements(merged, valueVar, pathVar, targetVar, errorsVar)
+      );
 
-      return lines.join("\n");
+      return lines;
     }
 
     const declaredTypes = readDeclaredTypes(view);
@@ -363,73 +491,122 @@ export function generateParserCode(schema: JsonSchema): string {
 
     switch (primaryType) {
       case "object":
-        lines.push(generateObjectBody(view));
+        lines.push(
+          ...generateObjectStatements(
+            view,
+            valueVar,
+            pathVar,
+            targetVar,
+            errorsVar
+          )
+        );
         break;
       case "array":
-        lines.push(generateArrayBody(view));
+        lines.push(
+          ...generateArrayStatements(
+            view,
+            valueVar,
+            pathVar,
+            targetVar,
+            errorsVar
+          )
+        );
         break;
       case "string":
         lines.push(
-          `if (typeof value === "string") { return value; }`,
-          `if (typeof value === "number" || typeof value === "boolean") { return String(value); }`,
-          `errors.push({ path, message: "Expected a string value" });`,
-          `return value;`
+          `if (typeof ${valueVar} === "string") {`,
+          `  ${targetVar} = ${valueVar};`,
+          `} else if (typeof ${valueVar} === "number" || typeof ${valueVar} === "boolean") {`,
+          `  ${targetVar} = String(${valueVar});`,
+          `} else {`,
+          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected a string value" });`,
+          `  ${targetVar} = ${valueVar};`,
+          `}`
         );
         break;
       case "integer":
         lines.push(
-          `if (typeof value === "number" && Number.isInteger(value)) { return value; }`,
-          `if (typeof value === "string" && value.trim() !== "" && Number.isInteger(Number(value))) { return Number(value); }`,
-          `if (typeof value === "boolean") { return value ? 1 : 0; }`,
-          `errors.push({ path, message: "Expected an integer value" });`,
-          `return value;`
+          `if (typeof ${valueVar} === "number" && Number.isInteger(${valueVar})) {`,
+          `  ${targetVar} = ${valueVar};`,
+          `} else if (typeof ${valueVar} === "string" && ${valueVar}.trim() !== "" && Number.isInteger(Number(${valueVar}))) {`,
+          `  ${targetVar} = Number(${valueVar});`,
+          `} else if (typeof ${valueVar} === "boolean") {`,
+          `  ${targetVar} = ${valueVar} ? 1 : 0;`,
+          `} else {`,
+          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected an integer value" });`,
+          `  ${targetVar} = ${valueVar};`,
+          `}`
         );
         break;
       case "number":
         lines.push(
-          `if (typeof value === "number") { return value; }`,
-          `if (typeof value === "string" && value.trim() !== "" && !Number.isNaN(Number(value))) { return Number(value); }`,
-          `if (typeof value === "boolean") { return value ? 1 : 0; }`,
-          `errors.push({ path, message: "Expected a number value" });`,
-          `return value;`
+          `if (typeof ${valueVar} === "number") {`,
+          `  ${targetVar} = ${valueVar};`,
+          `} else if (typeof ${valueVar} === "string" && ${valueVar}.trim() !== "" && !Number.isNaN(Number(${valueVar}))) {`,
+          `  ${targetVar} = Number(${valueVar});`,
+          `} else if (typeof ${valueVar} === "boolean") {`,
+          `  ${targetVar} = ${valueVar} ? 1 : 0;`,
+          `} else {`,
+          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected a number value" });`,
+          `  ${targetVar} = ${valueVar};`,
+          `}`
         );
         break;
       case "boolean":
         lines.push(
-          `if (typeof value === "boolean") { return value; }`,
-          `if (value === "true" || value === 1) { return true; }`,
-          `if (value === "false" || value === 0) { return false; }`,
-          `errors.push({ path, message: "Expected a boolean value" });`,
-          `return value;`
+          `if (typeof ${valueVar} === "boolean") {`,
+          `  ${targetVar} = ${valueVar};`,
+          `} else if (${valueVar} === "true" || ${valueVar} === 1) {`,
+          `  ${targetVar} = true;`,
+          `} else if (${valueVar} === "false" || ${valueVar} === 0) {`,
+          `  ${targetVar} = false;`,
+          `} else {`,
+          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected a boolean value" });`,
+          `  ${targetVar} = ${valueVar};`,
+          `}`
         );
         break;
       case "null":
         lines.push(
-          `if (value === null) { return null; }`,
-          `errors.push({ path, message: "Expected a null value" });`,
-          `return value;`
+          `if (${valueVar} === null) {`,
+          `  ${targetVar} = null;`,
+          `} else {`,
+          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected a null value" });`,
+          `  ${targetVar} = ${valueVar};`,
+          `}`
         );
         break;
       case undefined:
       default:
-        lines.push(`return value;`);
+        lines.push(`${targetVar} = ${valueVar};`);
         break;
     }
 
-    return lines.join("\n");
+    return lines;
   }
 
   /**
    * Generates the parsing statements for an `object` schema, applying property
    * defaults and recursing into each declared property.
    */
-  function generateObjectBody(view: JsonSchemaObjectView): string {
+  function generateObjectStatements(
+    view: JsonSchemaObjectView,
+    valueVar: string,
+    pathVar: string,
+    targetVar: string,
+    errorsVar: string
+  ): string[] {
     const type = stringifyType(view);
 
     const lines: string[] = [
-      `if (typeof value !== "object" || value === null || Array.isArray(value)) { errors.push({ path, message: "Expected an object value" }); return value; }`,
-      `const result = {}${type ? ` as ${type}` : ""};`
+      `if (typeof ${valueVar} !== "object" || ${valueVar} === null || Array.isArray(${valueVar})) {`,
+      `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected an object value" });`,
+      `  ${targetVar} = ${valueVar};`,
+      `} else {`
     ];
+
+    const resultVar = nextTemp("object");
+    lines.push(`  const ${resultVar} = {}${type ? ` as ${type}` : ""};`);
 
     const properties = isJsonSchemaObject(view) ? getPropertiesList(view) : [];
     const propertyNames = new Set<string>();
@@ -438,106 +615,190 @@ export function generateParserCode(schema: JsonSchema): string {
       const name = property.name;
       propertyNames.add(name);
 
-      const accessor = `value[${JSON.stringify(name)}]`;
-      const propertyPath = childPath("path", `.${name}`);
-      const propertyExpression = generateExpression(
-        property,
-        accessor,
-        propertyPath
-      );
+      const accessor = `${valueVar}[${JSON.stringify(name)}]`;
+      const propertyPath = childPath(pathVar, `.${name}`);
+      const propertyVar = nextTemp("property");
 
       const missingBranch =
         property.default !== undefined
-          ? `result[${JSON.stringify(name)}] = ${JSON.stringify(property.default)};`
+          ? `${resultVar}[${JSON.stringify(name)}] = ${JSON.stringify(property.default)};`
           : property.required
             ? `errors.push({ path: ${propertyPath}, message: "Required property is missing" });`
             : ``;
 
       lines.push(
-        `if (${accessor} !== undefined) {`,
-        `  result[${JSON.stringify(name)}] = ${propertyExpression};`,
-        `}${missingBranch ? ` else { ${missingBranch} }` : ``}`
+        `  if (${accessor} !== undefined) {`,
+        `    let ${propertyVar};`
       );
+      lines.push(
+        ...indent(
+          generateStatements(
+            property,
+            accessor,
+            propertyPath,
+            propertyVar,
+            errorsVar
+          ),
+          4
+        )
+      );
+      lines.push(`    ${resultVar}[${JSON.stringify(name)}] = ${propertyVar};`);
+      if (missingBranch) {
+        lines.push(`  } else { ${missingBranch} }`);
+      } else {
+        lines.push(`  }`);
+      }
     }
 
     const additional = view.additionalProperties;
     if (isJsonSchema(additional)) {
-      const additionalExpression = generateExpression(
-        additional,
-        `value[key]`,
-        `path + "." + key`
-      );
+      const additionalVar = nextTemp("additional");
 
       lines.push(
-        `for (const key of Object.keys(value)) {`,
-        `  if (${JSON.stringify([...propertyNames])}.includes(key)) { continue; }`,
-        `  result[key] = ${additionalExpression};`,
-        `}`
+        `  for (const key of Object.keys(${valueVar})) {`,
+        `    if (${JSON.stringify([...propertyNames])}.includes(key)) { continue; }`,
+        `    let ${additionalVar};`
       );
+      lines.push(
+        ...indent(
+          generateStatements(
+            additional,
+            `${valueVar}[key]`,
+            `${pathVar} + "." + key`,
+            additionalVar,
+            errorsVar
+          ),
+          4
+        )
+      );
+      lines.push(`    ${resultVar}[key] = ${additionalVar};`, `}`);
     } else if (additional !== false) {
       lines.push(
-        `for (const key of Object.keys(value)) {`,
-        `  if (${JSON.stringify([...propertyNames])}.includes(key)) { continue; }`,
-        `  result[key] = value[key];`,
+        `  for (const key of Object.keys(${valueVar})) {`,
+        `    if (${JSON.stringify([...propertyNames])}.includes(key)) { continue; }`,
+        `    ${resultVar}[key] = ${valueVar}[key];`,
         `}`
       );
     }
 
-    lines.push(`return result;`);
+    lines.push(`  ${targetVar} = ${resultVar};`, `}`);
 
-    return lines.join("\n");
+    return lines;
   }
 
   /**
    * Generates the parsing statements for an `array` schema, recursing into each
    * item (supporting both list and tuple `items`/`prefixItems` forms).
    */
-  function generateArrayBody(view: JsonSchemaObjectView): string {
+  function generateArrayStatements(
+    view: JsonSchemaObjectView,
+    valueVar: string,
+    pathVar: string,
+    targetVar: string,
+    errorsVar: string
+  ): string[] {
     const lines: string[] = [
-      `if (!Array.isArray(value)) { errors.push({ path, message: "Expected an array value" }); return value; }`
+      `if (!Array.isArray(${valueVar})) {`,
+      `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected an array value" });`,
+      `  ${targetVar} = ${valueVar};`,
+      `} else {`
     ];
+
+    const resultVar = nextTemp("array");
+    lines.push(`  const ${resultVar}: unknown[] = [];`);
 
     const tupleItems =
       view.prefixItems ?? (Array.isArray(view.items) ? view.items : undefined);
 
     if (tupleItems) {
       const listItems = !Array.isArray(view.items) ? view.items : undefined;
-      const itemExpressions = tupleItems.map(
-        (item, index) =>
-          `index === ${index} ? (${generateExpression(item, "item", childPath("path", `[${index}]`))})`
+      lines.push(
+        `  for (let index = 0; index < ${valueVar}.length; index += 1) {`,
+        `    const item = ${valueVar}[index];`,
+        `    let itemResult;`
       );
-      const fallbackExpression = listItems
-        ? generateExpression(listItems, "item", `path + "[" + index + "]"`)
-        : "item";
+
+      tupleItems.forEach((item, index) => {
+        lines.push(
+          `${index === 0 ? "    if" : "    else if"} (index === ${index}) {`
+        );
+        lines.push(
+          ...indent(
+            generateStatements(
+              item,
+              "item",
+              childPath(pathVar, `[${index}]`),
+              "itemResult",
+              errorsVar
+            ),
+            6
+          )
+        );
+        lines.push(`    }`);
+      });
+
+      if (listItems) {
+        lines.push(`    else {`);
+        lines.push(
+          ...indent(
+            generateStatements(
+              listItems,
+              "item",
+              `${pathVar} + "[" + index + "]"`,
+              "itemResult",
+              errorsVar
+            ),
+            6
+          )
+        );
+        lines.push(`    }`);
+      } else {
+        lines.push(`    else { itemResult = item; }`);
+      }
 
       lines.push(
-        `return value.map((item, index) => ${itemExpressions.join(" : ")}${
-          itemExpressions.length > 0 ? " : " : ""
-        }${fallbackExpression});`
+        `    ${resultVar}.push(itemResult);`,
+        `  }`,
+        `  ${targetVar} = ${resultVar};`,
+        `}`
       );
 
-      return lines.join("\n");
+      return lines;
     }
 
     const itemSchema = (view.items ?? true) as JsonSchema;
-    const itemExpression = generateExpression(
-      itemSchema,
-      "item",
-      `path + "[" + index + "]"`
+    lines.push(
+      `  for (let index = 0; index < ${valueVar}.length; index += 1) {`,
+      `    const item = ${valueVar}[index];`,
+      `    let itemResult;`
+    );
+    lines.push(
+      ...indent(
+        generateStatements(
+          itemSchema,
+          "item",
+          `${pathVar} + "[" + index + "]"`,
+          "itemResult",
+          errorsVar
+        ),
+        4
+      )
+    );
+    lines.push(
+      `    ${resultVar}.push(itemResult);`,
+      `  }`,
+      `  ${targetVar} = ${resultVar};`,
+      `}`
     );
 
-    lines.push(`return value.map((item, index) => ${itemExpression});`);
-
-    return lines.join("\n");
+    return lines;
   }
 
   const parserFunctions = Object.entries(definitions).map(
     ([name, definition]) =>
-      `function ${toParserIdentifier(name)}(value, path, errors) {\n  return ${generateExpression(
-        definition,
-        "value",
-        "path"
-      )};\n}`
+      `function ${toParserIdentifier(name)}(value, path, errors) {\n  let result;\n${indent(
+        generateStatements(definition, "value", "path", "result", "errors")
+      ).join("\n")}\n\n  return result;\n}`
   );
 
   return `/**
@@ -574,7 +835,8 @@ export function parse(value: unknown)${
   } {
   const errors: { path: string; message: string }[] = [];
 
-  const result = ${generateExpression(schema, "value", '"$"')};
+  let result;
+${indent(generateStatements(schema, "value", '"$"', "result", "errors")).join("\n")}
 
   if (errors.length > 0) {
     throw new ParserError(errors);

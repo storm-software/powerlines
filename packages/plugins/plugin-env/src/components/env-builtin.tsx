@@ -55,6 +55,7 @@ import {
   GetPropertiesResult,
   JsonSchema
 } from "@powerlines/schema";
+import { deepClone } from "@stryke/helpers/deep-clone";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { loadEnvFromContext } from "../helpers/load";
 import type { EnvPluginContext } from "../types/plugin";
@@ -267,9 +268,15 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
     () => context && loadEnvFromContext(context, process.env)
   );
 
+  const schema = computed(() => {
+    const result = deepClone(context.env.config.schema);
+    result.name = "Env";
+    return result;
+  });
+
   const schemaGetProperties = computed(
     () =>
-      (getPropertiesList(context.env.config)
+      (getPropertiesList(schema.value)
         .filter(property => !property?.ignore && !property?.writeOnly)
         .sort((a, b) =>
           !a?.name && !b?.name
@@ -283,7 +290,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
   );
   const schemaSetProperties = computed(
     () =>
-      (getPropertiesList(context.env.config)
+      (getPropertiesList(schema.value)
         .filter(property => !property?.ignore && !property?.readOnly)
         .sort((a, b) =>
           !a?.name && !b?.name
@@ -296,21 +303,21 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         ) ?? []) as GetPropertiesResult[]
   );
 
-  const parserCode = generateParserCode(context.env.config.schema);
+  const parserCode = generateParserCode(schema.value);
 
   return (
     <BuiltinFile
       id="env"
       description="The environment configuration module provides an interface to define environment configuration parameters."
       {...rest}>
-      <Show when={Boolean(context.env.config.schema)}>
+      <Show when={Boolean(schema.value)}>
         <EnvTypeDefinition defaultValue={defaultValue} />
         <Spacing />
       </Show>
       <ObjectDeclaration
         name="initialEnv"
         type="Partial<Env>"
-        schema={context.env.config.schema}
+        schema={schema.value}
         export
         const
         doc="The initial environment configuration object values for the runtime."
@@ -349,7 +356,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
     parse({
       ...initialEnv,
       ...environmentConfig
-    } as Env),
+    }),
     {
       get: (target: UnprefixedEnv, propertyName: string) => { `}
           <hbr />
