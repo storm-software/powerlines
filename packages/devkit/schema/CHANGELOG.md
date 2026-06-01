@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.81](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.81) (06/01/2026)
+
+### Bug Fixes
+
+- **schema:** Resolved issue with generated parser code ([0e6b6a2fa](https://github.com/storm-software/powerlines/commit/0e6b6a2fa))
+
 ## [0.11.80](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.80) (06/01/2026)
 
 ### Updated Dependencies

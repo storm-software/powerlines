@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Unified
 
+## [0.1.175](https://github.com/storm-software/powerlines/releases/tag/plugin-unified%400.1.175) (06/01/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.511**
+- Updated **powerlines** to **v0.47.99**
+
 ## [0.1.174](https://github.com/storm-software/powerlines/releases/tag/plugin-unified%400.1.174) (06/01/2026)
 
 ### Updated Dependencies
