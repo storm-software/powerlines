@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.84](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.84) (06/01/2026)
+
+### Miscellaneous
+
+- **schema:** Clean up generated code variable names and resolve type issues ([81350792b](https://github.com/storm-software/powerlines/commit/81350792b))
+
 ## [0.11.83](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.83) (06/01/2026)
 
 ### Bug Fixes
