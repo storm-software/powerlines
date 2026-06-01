@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.78](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.78) (05/31/2026)
+
+### Features
+
+- **schema:** Added code to generate the `parse` function for the provided JSON schema ([08443e2bd](https://github.com/storm-software/powerlines/commit/08443e2bd))
+
 ## [0.11.77](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.77) (05/31/2026)
 
 ### Bug Fixes

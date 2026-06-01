@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.500](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.500) (05/31/2026)
+
+### Features
+
+- **schema:** Added code to generate the `parse` function for the provided JSON schema ([08443e2bd](https://github.com/storm-software/powerlines/commit/08443e2bd))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.188**
+- Updated **plugin-babel** to **v0.13.92**
+- Updated **plugin-env** to **v0.16.299**
+- Updated **plugin-plugin** to **v0.12.508**
+- Updated **powerlines** to **v0.47.96**
+
 ## [0.1.499](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.499) (05/31/2026)
 
 ### Updated Dependencies
