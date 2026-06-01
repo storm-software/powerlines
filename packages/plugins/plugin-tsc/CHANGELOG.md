@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.3.97](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.3.97) (06/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove unneeded `inlinedDependencies` configuration ([1d796be53](https://github.com/storm-software/powerlines/commit/1d796be53))
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.33**
+- Updated **plugin-plugin** to **v0.12.512**
+- Updated **powerlines** to **v0.47.100**
+
 ## [0.3.96](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.3.96) (06/01/2026)
 
 ### Updated Dependencies

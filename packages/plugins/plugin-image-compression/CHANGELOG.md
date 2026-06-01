@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Image Compression
 
+## [0.2.510](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.510) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.512**
+- Updated **powerlines** to **v0.47.100**
+
 ## [0.2.509](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.509) (06/01/2026)
 
 ### Updated Dependencies

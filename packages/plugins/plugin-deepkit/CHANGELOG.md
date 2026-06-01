@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.443](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.443) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.9.65**
+- Updated **plugin-plugin** to **v0.12.512**
+- Updated **plugin-tsc** to **v0.3.97**
+- Updated **powerlines** to **v0.47.100**
+
 ## [0.11.442](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.442) (06/01/2026)
 
 ### Updated Dependencies

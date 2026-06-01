@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.82](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.82) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.33**
+- Updated **deepkit** to **v0.9.65**
+- Updated **unplugin** to **v0.0.81**
+
 ## [0.11.81](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.81) (06/01/2026)
 
 ### Bug Fixes

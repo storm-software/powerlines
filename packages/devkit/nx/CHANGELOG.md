@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.139](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.139) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.100**
+
 ## [0.13.138](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.138) (06/01/2026)
 
 ### Updated Dependencies

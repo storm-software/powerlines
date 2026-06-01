@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unimport
 
+## [0.1.562](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.562) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.512**
+- Updated **powerlines** to **v0.47.100**
+
 ## [0.1.561](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.561) (06/01/2026)
 
 ### Updated Dependencies

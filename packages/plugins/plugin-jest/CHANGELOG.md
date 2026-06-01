@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Jest
 
+## [0.1.569](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.569) (06/01/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.512**
+- Updated **powerlines** to **v0.47.100**
+
 ## [0.1.568](https://github.com/storm-software/powerlines/releases/tag/plugin-jest%400.1.568) (06/01/2026)
 
 ### Updated Dependencies

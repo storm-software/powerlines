@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Hey API
 
+## [0.1.515](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.515) (06/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove unneeded `inlinedDependencies` configuration ([1d796be53](https://github.com/storm-software/powerlines/commit/1d796be53))
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with `.test.ts` files being included in package ([638b7cd5e](https://github.com/storm-software/powerlines/commit/638b7cd5e))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.512**
+- Updated **powerlines** to **v0.47.100**
+
 ## [0.1.514](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.514) (06/01/2026)
 
 ### Updated Dependencies
