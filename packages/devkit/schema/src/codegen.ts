@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { toBool } from "@stryke/convert/to-bool";
+import { camelCase } from "@stryke/string-format/camel-case";
 import { isInteger, isObject, isString } from "@stryke/type-checks";
 import { isBoolean } from "@stryke/type-checks/is-boolean";
 import { isNull } from "@stryke/type-checks/is-null";
@@ -27,26 +28,8 @@ import standaloneCode from "ajv/dist/standalone";
 import { getPropertiesList, isSchemaNullable, merge } from "./helpers";
 import { getPrimarySchemaType } from "./metadata";
 import { isJsonSchema, isJsonSchemaObject } from "./type-checks";
-import { JsonSchema, JsonSchemaType } from "./types";
+import { JsonSchema, JsonSchemaLike, JsonSchemaType } from "./types";
 import { getValidator } from "./validate";
-
-interface JsonSchemaObjectView {
-  $ref?: string;
-  type?: JsonSchemaType | readonly JsonSchemaType[];
-  enum?: readonly unknown[];
-  const?: unknown;
-  default?: unknown;
-  items?: JsonSchema | JsonSchema[];
-  prefixItems?: JsonSchema[];
-  properties?: Record<string, JsonSchema>;
-  additionalProperties?: boolean | JsonSchema;
-  required?: string[];
-  oneOf?: JsonSchema[];
-  anyOf?: JsonSchema[];
-  allOf?: JsonSchema[];
-  $defs?: Record<string, JsonSchema>;
-  definitions?: Record<string, JsonSchema>;
-}
 
 /**
  * Stringifies a value for generated TypeScript code.
@@ -88,7 +71,7 @@ export function stringifyType(schema?: JsonSchema): string {
     return schema.name;
   }
 
-  const objectSchema = schema as JsonSchemaObjectView;
+  const objectSchema = schema as JsonSchemaLike;
 
   if (isSetString(objectSchema.$ref)) {
     const match = /^#\/(?:definitions|\$defs)\/(.+)$/.exec(objectSchema.$ref);
@@ -207,13 +190,13 @@ function toParserIdentifier(name: string): string {
  * Returns the list of JSON Schema `type` keyword values declared on a fragment,
  * preserving `object` and `array` (which {@link readSchemaTypes} intentionally drops).
  */
-function readDeclaredTypes(schema: JsonSchemaObjectView): JsonSchemaType[] {
+function readDeclaredTypes(schema: JsonSchemaLike): JsonSchemaType[] {
   const type = schema.type;
   if (Array.isArray(type)) {
     return [...type];
   }
 
-  return type ? [type as JsonSchemaType] : [];
+  return type ? [type] : [];
 }
 
 /**
@@ -245,33 +228,33 @@ function childPath(pathExpr: string, segment: string): string {
  */
 export function generateParserCode(schema: JsonSchema): string {
   const rootSchema =
-    typeof schema === "boolean" ? schema : (schema as JsonSchemaObjectView);
+    typeof schema === "boolean" ? schema : (schema as JsonSchemaLike);
 
   const definitions: Record<string, JsonSchema> =
     typeof rootSchema === "boolean"
       ? {}
-      : { ...rootSchema.definitions, ...rootSchema.$defs };
+      : {
+          ...(
+            rootSchema as {
+              definitions?: Record<string, JsonSchema>;
+            }
+          ).definitions,
+          ...rootSchema.$defs
+        };
 
-  let tempCounter = 0;
-
+  const tempCounter = {} as Record<string, number>;
   function nextTemp(prefix: string): string {
-    const id = tempCounter;
-    tempCounter += 1;
+    const id = tempCounter[prefix] ?? 0;
+    tempCounter[prefix] = id + 1;
 
-    return `__${prefix}_${id}`;
-  }
-
-  function indent(lines: string[], size = 2): string[] {
-    const padding = " ".repeat(size);
-
-    return lines.map(line => `${padding}${line}`);
+    return `${prefix}${id > 0 ? `${id}` : ""}`;
   }
 
   /**
    * Generates inline parsing statements for a schema fragment.
    */
   function generateStatements(
-    fragment: JsonSchema,
+    fragment: JsonSchemaLike,
     valueExpr: string,
     pathExpr: string,
     targetVar: string,
@@ -286,10 +269,8 @@ export function generateParserCode(schema: JsonSchema): string {
           ];
     }
 
-    const view = fragment as JsonSchemaObjectView;
-
-    if (isSetString(view.$ref)) {
-      const refName = resolveLocalRefName(view.$ref);
+    if (isSetString(fragment.$ref)) {
+      const refName = resolveLocalRefName(fragment.$ref);
       if (refName && refName in definitions) {
         return [
           `${targetVar} = ${toParserIdentifier(refName)}(${valueExpr}, ${pathExpr}, ${errorsVar});`
@@ -300,50 +281,48 @@ export function generateParserCode(schema: JsonSchema): string {
       return [`${targetVar} = ${valueExpr};`];
     }
 
-    const valueVar = nextTemp("value");
-    const pathVar = nextTemp("path");
+    const valueVar = nextTemp(
+      fragment.name ? `${camelCase(fragment.name)}Value` : "value"
+    );
+    const pathVar = nextTemp(
+      fragment.name ? `${camelCase(fragment.name)}Path` : "path"
+    );
     const lines: string[] = [
       `const ${valueVar} = ${valueExpr};`,
       `const ${pathVar} = ${pathExpr};`
     ];
 
-    if (view.default !== undefined) {
+    if (fragment.default !== undefined) {
       lines.push(
         `if (${valueVar} === undefined) {`,
-        `  ${targetVar} = ${JSON.stringify(view.default)};`,
+        `  ${targetVar} = ${JSON.stringify(fragment.default)};`,
         `} else {`
       );
 
-      if (isSchemaNullable(view)) {
+      if (isSchemaNullable(fragment)) {
         lines.push(
           `  if (${valueVar} === null) {`,
           `    ${targetVar} = null;`,
           `  } else {`
         );
         lines.push(
-          ...indent(
-            generateCoreStatements(
-              view,
-              valueVar,
-              pathVar,
-              targetVar,
-              errorsVar
-            ),
-            4
+          ...generateCoreStatements(
+            fragment,
+            valueVar,
+            pathVar,
+            targetVar,
+            errorsVar
           )
         );
         lines.push(`  }`);
       } else {
         lines.push(
-          ...indent(
-            generateCoreStatements(
-              view,
-              valueVar,
-              pathVar,
-              targetVar,
-              errorsVar
-            ),
-            2
+          ...generateCoreStatements(
+            fragment,
+            valueVar,
+            pathVar,
+            targetVar,
+            errorsVar
           )
         );
       }
@@ -360,24 +339,30 @@ export function generateParserCode(schema: JsonSchema): string {
       `} else {`
     );
 
-    if (isSchemaNullable(view)) {
+    if (isSchemaNullable(fragment)) {
       lines.push(
         `  if (${valueVar} === null) {`,
         `    ${targetVar} = null;`,
         `  } else {`
       );
       lines.push(
-        ...indent(
-          generateCoreStatements(view, valueVar, pathVar, targetVar, errorsVar),
-          4
+        ...generateCoreStatements(
+          fragment,
+          valueVar,
+          pathVar,
+          targetVar,
+          errorsVar
         )
       );
       lines.push(`  }`);
     } else {
       lines.push(
-        ...indent(
-          generateCoreStatements(view, valueVar, pathVar, targetVar, errorsVar),
-          2
+        ...generateCoreStatements(
+          fragment,
+          valueVar,
+          pathVar,
+          targetVar,
+          errorsVar
         )
       );
     }
@@ -391,7 +376,7 @@ export function generateParserCode(schema: JsonSchema): string {
    * Generates inline parsing statements assuming `value` is already defined.
    */
   function generateCoreStatements(
-    view: JsonSchemaObjectView,
+    view: JsonSchemaLike,
     valueVar: string,
     pathVar: string,
     targetVar: string,
@@ -429,13 +414,19 @@ export function generateParserCode(schema: JsonSchema): string {
 
     if (Array.isArray(view.oneOf) || Array.isArray(view.anyOf)) {
       const branches = view.oneOf ?? view.anyOf ?? [];
-      const matchedVar = nextTemp("matched");
+      const matchedVar = nextTemp(
+        view.name ? `${camelCase(view.name)}Matched` : "matched"
+      );
 
       lines.push(`let ${matchedVar} = false;`);
 
       for (const branch of branches) {
-        const branchErrorsVar = nextTemp("branchErrors");
-        const branchResultVar = nextTemp("branchResult");
+        const branchErrorsVar = nextTemp(
+          view.name ? `${camelCase(view.name)}BranchErrors` : "branchErrors"
+        );
+        const branchResultVar = nextTemp(
+          view.name ? `${camelCase(view.name)}BranchResult` : "branchResult"
+        );
 
         lines.push(`if (!${matchedVar}) {`);
         lines.push(
@@ -443,15 +434,12 @@ export function generateParserCode(schema: JsonSchema): string {
           `  let ${branchResultVar};`
         );
         lines.push(
-          ...indent(
-            generateStatements(
-              branch,
-              valueVar,
-              pathVar,
-              branchResultVar,
-              branchErrorsVar
-            ),
-            2
+          ...generateStatements(
+            branch,
+            valueVar,
+            pathVar,
+            branchResultVar,
+            branchErrorsVar
           )
         );
         lines.push(
@@ -590,7 +578,7 @@ export function generateParserCode(schema: JsonSchema): string {
    * defaults and recursing into each declared property.
    */
   function generateObjectStatements(
-    view: JsonSchemaObjectView,
+    view: JsonSchemaLike,
     valueVar: string,
     pathVar: string,
     targetVar: string,
@@ -605,8 +593,10 @@ export function generateParserCode(schema: JsonSchema): string {
       `} else {`
     ];
 
-    const resultVar = nextTemp("object");
-    lines.push(`  const ${resultVar} = {}${type ? ` as ${type}` : ""};`);
+    const resultVar = nextTemp(
+      type || view.name ? `${camelCase(type || view.name)}Schema` : "schema"
+    );
+    lines.push(`  const ${resultVar} = {} as Record<string, any>`);
 
     const properties = isJsonSchemaObject(view) ? getPropertiesList(view) : [];
     const propertyNames = new Set<string>();
@@ -617,7 +607,11 @@ export function generateParserCode(schema: JsonSchema): string {
 
       const accessor = `${valueVar}[${JSON.stringify(name)}]`;
       const propertyPath = childPath(pathVar, `.${name}`);
-      const propertyVar = nextTemp("property");
+      const propertyVar = nextTemp(
+        type || view.name
+          ? `${camelCase(type || view.name)}Property`
+          : "property"
+      );
 
       const missingBranch =
         property.default !== undefined
@@ -631,15 +625,12 @@ export function generateParserCode(schema: JsonSchema): string {
         `    let ${propertyVar};`
       );
       lines.push(
-        ...indent(
-          generateStatements(
-            property,
-            accessor,
-            propertyPath,
-            propertyVar,
-            errorsVar
-          ),
-          4
+        ...generateStatements(
+          property as JsonSchemaLike,
+          accessor,
+          propertyPath,
+          propertyVar,
+          errorsVar
         )
       );
       lines.push(`    ${resultVar}[${JSON.stringify(name)}] = ${propertyVar};`);
@@ -652,7 +643,11 @@ export function generateParserCode(schema: JsonSchema): string {
 
     const additional = view.additionalProperties;
     if (isJsonSchema(additional)) {
-      const additionalVar = nextTemp("additional");
+      const additionalVar = nextTemp(
+        type || view.name
+          ? `${camelCase(type || view.name)}Additional`
+          : "additional"
+      );
 
       lines.push(
         `  for (const key of Object.keys(${valueVar})) {`,
@@ -660,18 +655,15 @@ export function generateParserCode(schema: JsonSchema): string {
         `    let ${additionalVar};`
       );
       lines.push(
-        ...indent(
-          generateStatements(
-            additional,
-            `${valueVar}[key]`,
-            `${pathVar} + "." + key`,
-            additionalVar,
-            errorsVar
-          ),
-          4
+        ...generateStatements(
+          additional,
+          `${valueVar}[key]`,
+          `${pathVar} + "." + key`,
+          additionalVar,
+          errorsVar
         )
       );
-      lines.push(`    ${resultVar}[key] = ${additionalVar};`, `}`);
+      lines.push(`${resultVar}[key] = ${additionalVar};`, `}`);
     } else if (additional !== false) {
       lines.push(
         `  for (const key of Object.keys(${valueVar})) {`,
@@ -681,7 +673,7 @@ export function generateParserCode(schema: JsonSchema): string {
       );
     }
 
-    lines.push(`  ${targetVar} = ${resultVar};`, `}`);
+    lines.push(`${targetVar} = ${resultVar};`, `}`);
 
     return lines;
   }
@@ -691,7 +683,7 @@ export function generateParserCode(schema: JsonSchema): string {
    * item (supporting both list and tuple `items`/`prefixItems` forms).
    */
   function generateArrayStatements(
-    view: JsonSchemaObjectView,
+    view: JsonSchemaLike,
     valueVar: string,
     pathVar: string,
     targetVar: string,
@@ -704,7 +696,9 @@ export function generateParserCode(schema: JsonSchema): string {
       `} else {`
     ];
 
-    const resultVar = nextTemp("array");
+    const resultVar = nextTemp(
+      view.name ? `${camelCase(view.name)}Array` : "array"
+    );
     lines.push(`  const ${resultVar}: unknown[] = [];`);
 
     const tupleItems =
@@ -723,37 +717,31 @@ export function generateParserCode(schema: JsonSchema): string {
           `${index === 0 ? "    if" : "    else if"} (index === ${index}) {`
         );
         lines.push(
-          ...indent(
-            generateStatements(
-              item,
-              "item",
-              childPath(pathVar, `[${index}]`),
-              "itemResult",
-              errorsVar
-            ),
-            6
+          ...generateStatements(
+            item,
+            "item",
+            childPath(pathVar, `[${index}]`),
+            "itemResult",
+            errorsVar
           )
         );
-        lines.push(`    }`);
+        lines.push("}");
       });
 
       if (listItems) {
-        lines.push(`    else {`);
+        lines.push("else {");
         lines.push(
-          ...indent(
-            generateStatements(
-              listItems,
-              "item",
-              `${pathVar} + "[" + index + "]"`,
-              "itemResult",
-              errorsVar
-            ),
-            6
+          ...generateStatements(
+            listItems as JsonSchemaLike,
+            "item",
+            `${pathVar} + "[" + index + "]"`,
+            "itemResult",
+            errorsVar
           )
         );
-        lines.push(`    }`);
+        lines.push("}");
       } else {
-        lines.push(`    else { itemResult = item; }`);
+        lines.push("else { itemResult = item; }");
       }
 
       lines.push(
@@ -773,15 +761,12 @@ export function generateParserCode(schema: JsonSchema): string {
       `    let itemResult;`
     );
     lines.push(
-      ...indent(
-        generateStatements(
-          itemSchema,
-          "item",
-          `${pathVar} + "[" + index + "]"`,
-          "itemResult",
-          errorsVar
-        ),
-        4
+      ...generateStatements(
+        itemSchema,
+        "item",
+        `${pathVar} + "[" + index + "]"`,
+        "itemResult",
+        errorsVar
       )
     );
     lines.push(
@@ -796,8 +781,12 @@ export function generateParserCode(schema: JsonSchema): string {
 
   const parserFunctions = Object.entries(definitions).map(
     ([name, definition]) =>
-      `function ${toParserIdentifier(name)}(value, path, errors) {\n  let result;\n${indent(
-        generateStatements(definition, "value", "path", "result", "errors")
+      `function ${toParserIdentifier(name)}(value, path, errors) {\n  let result;\n${generateStatements(
+        definition,
+        "value",
+        "path",
+        "result",
+        "errors"
       ).join("\n")}\n\n  return result;\n}`
   );
 
@@ -830,13 +819,13 @@ ${parserFunctions.join("\n\n")}
  * @param value - The input value to parse.
  * @returns The parsed value conforming to the schema.
  */
-export function parse(value: unknown)${
+export function parse(value: Record<string, unknown>)${
     schema.name ? `: ${stringifyType(schema)}` : ""
   } {
   const errors: { path: string; message: string }[] = [];
 
   let result;
-${indent(generateStatements(schema, "value", '"$"', "result", "errors")).join("\n")}
+${generateStatements(schema, "value", '"$"', "result", "errors").join("\n")}
 
   if (errors.length > 0) {
     throw new ParserError(errors);
