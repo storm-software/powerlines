@@ -1,9 +1,12 @@
+# yaml-language-server: $schema=https://devenv.sh/devenv.schema.json
 inputs:
   storm-ops:
-    url: github:storm-software/storm-ops?ref=main
+    url: github:storm-software/storm-ops
     flake: false
   nixpkgs:
     url: github:cachix/devenv-nixpkgs/rolling
+  nixpkgs-unstable:
+    url: github:nixos/nixpkgs/nixpkgs-unstable
   treefmt-nix:
     url: github:numtide/treefmt-nix
     inputs:
