@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.34](https://github.com/storm-software/powerlines/releases/tag/core%400.48.34) (06/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Clean up logged string values ([5738c8a9b](https://github.com/storm-software/powerlines/commit/5738c8a9b))
+
 ## [0.48.33](https://github.com/storm-software/powerlines/releases/tag/core%400.48.33) (06/01/2026)
 
 ### Bug Fixes

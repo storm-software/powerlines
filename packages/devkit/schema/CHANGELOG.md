@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.83](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.83) (06/01/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issues with generated parser code ([b62541217](https://github.com/storm-software/powerlines/commit/b62541217))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.34**
+- Updated **deepkit** to **v0.9.66**
+- Updated **unplugin** to **v0.0.82**
+
 ## [0.11.82](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.82) (06/01/2026)
 
 ### Bug Fixes
