@@ -82,8 +82,11 @@ export async function resolveModule<
             ? `
 
 Bundle output for module:
-${result.text && result.text.length > 20_000
-                ? `${result.text.slice(0, 20_000)}\n... [truncated]`
+${
+  result.text && result.text.length > 20_000
+    ? `${result.text.slice(0, 20_000)}\n... [truncated]`
+    : result.text
+}`
             : ""
         }`
       );
