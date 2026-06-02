@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.39](https://github.com/storm-software/powerlines/releases/tag/core%400.48.39) (06/02/2026)
+
+### Miscellaneous
+
+- **schema:** Resolve issue applying defaults in schema source code ([762443fca](https://github.com/storm-software/powerlines/commit/762443fca))
+
 ## [0.48.34](https://github.com/storm-software/powerlines/releases/tag/core%400.48.34) (06/01/2026)
 
 ### Miscellaneous

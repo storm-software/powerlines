@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.312](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.312) (06/02/2026)
+
+### Miscellaneous
+
+- **schema:** Resolve issue applying defaults in schema source code ([762443fca](https://github.com/storm-software/powerlines/commit/762443fca))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.39**
+- Updated **plugin-alloy** to **v0.26.201**
+- Updated **plugin-automd** to **v0.1.570**
+- Updated **plugin-babel** to **v0.13.105**
+- Updated **plugin-deepkit** to **v0.11.452**
+- Updated **plugin-plugin** to **v0.12.521**
+- Updated **powerlines** to **v0.47.109**
+- Updated **schema** to **v0.11.91**
+
 ## [0.16.311](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.311) (06/02/2026)
 
 ### Miscellaneous

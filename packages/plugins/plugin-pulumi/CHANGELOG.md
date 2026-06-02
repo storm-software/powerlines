@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.6.211](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.211) (06/02/2026)
+
+### Miscellaneous
+
+- **schema:** Resolve issue applying defaults in schema source code ([762443fca](https://github.com/storm-software/powerlines/commit/762443fca))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.521**
+- Updated **powerlines** to **v0.47.109**
+
 ## [0.6.210](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.210) (06/02/2026)
 
 ### Updated Dependencies

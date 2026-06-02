@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Terraform
 
+## [0.1.170](https://github.com/storm-software/powerlines/releases/tag/plugin-terraform%400.1.170) (06/02/2026)
+
+### Miscellaneous
+
+- **schema:** Resolve issue applying defaults in schema source code ([762443fca](https://github.com/storm-software/powerlines/commit/762443fca))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.521**
+- Updated **powerlines** to **v0.47.109**
+
 ## [0.1.169](https://github.com/storm-software/powerlines/releases/tag/plugin-terraform%400.1.169) (06/02/2026)
 
 ### Updated Dependencies
