@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.88](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.88) (06/01/2026)
+
+### Miscellaneous
+
+- **schema:** Added log message truncation to `resolveModules` error message ([1dcabd416](https://github.com/storm-software/powerlines/commit/1dcabd416))
+
+### Bug Fixes
+
+- **schema:** Resolve syntax issue ([0b0ac7ff0](https://github.com/storm-software/powerlines/commit/0b0ac7ff0))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.38**
+- Updated **deepkit** to **v0.9.70**
+- Updated **unplugin** to **v0.0.86**
+
 ## [0.11.87](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.87) (06/01/2026)
 
 ### Bug Fixes
