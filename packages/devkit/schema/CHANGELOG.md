@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.92](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.92) (06/02/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve syntax issue with generated parser code ([a2ab1cb85](https://github.com/storm-software/powerlines/commit/a2ab1cb85))
+
 ## [0.11.91](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.91) (06/02/2026)
 
 ### Miscellaneous
