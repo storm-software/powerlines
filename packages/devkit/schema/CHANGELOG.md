@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.87](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.87) (06/01/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve typing issues with `parse` function return ([13fbcbaa8](https://github.com/storm-software/powerlines/commit/13fbcbaa8))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.37**
+- Updated **deepkit** to **v0.9.69**
+- Updated **unplugin** to **v0.0.85**
+
 ## [0.11.86](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.86) (06/01/2026)
 
 ### Bug Fixes
