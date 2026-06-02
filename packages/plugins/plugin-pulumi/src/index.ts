@@ -80,7 +80,7 @@ export const plugin = <
         };
       },
       async configResolved() {
-        const organizationName = kebabCase(getOrganizationName(this));
+        const organizationName = kebabCase(await getOrganizationName(this));
         const workspaceName = kebabCase(await getWorkspaceName(this));
         const projectName = kebabCase(this.config.name);
 

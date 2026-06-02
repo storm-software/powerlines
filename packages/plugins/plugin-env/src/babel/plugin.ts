@@ -21,11 +21,7 @@ import * as t from "@babel/types";
 import { createBabelPlugin } from "@powerlines/plugin-babel/helpers/create-plugin";
 import { addImport } from "@powerlines/plugin-babel/helpers/module-helpers";
 import { BabelPluginPass } from "@powerlines/plugin-babel/types/config";
-import {
-  getProperties,
-  JsonSchemaProperty,
-  stringifyValue
-} from "@powerlines/schema";
+import { getProperties } from "@powerlines/schema";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { EnvPluginContext } from "../types/plugin";
@@ -63,9 +59,9 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
         if (
           name in config &&
           isSetObject(config[name]) &&
-          !config[name]?.isIgnored
+          !config[name]?.ignore
         ) {
-          config[name] ??= {} as JsonSchemaProperty<Record<string, any>>;
+          config[name] ??= {} as any;
 
           logger.debug({
             meta: {
@@ -78,14 +74,14 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
 
           context.env.config.active.push(name);
           if (
-            !config[name].runtime &&
+            !config[name]?.runtime &&
             ((context.config.env.inject && isInjectable) ||
               context.config.env.validate)
           ) {
             if (
               context.config.env.validate &&
-              !config[name].required &&
-              isUndefined(config[name].default)
+              !config[name]?.required &&
+              isUndefined(config[name]?.default)
             ) {
               throw new Error(
                 `Environment variable \`${
@@ -95,8 +91,6 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
                 }.\n\nPlease add a default value to the schema, or if this variable is optional, please mark it as optional in the type definition.`
               );
             }
-
-            return stringifyValue(config[name].default);
           }
         } else if (context.config.env.validate) {
           throw new Error(
@@ -115,8 +109,6 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
           });
         }
       }
-
-      return undefined;
     }
 
     return {

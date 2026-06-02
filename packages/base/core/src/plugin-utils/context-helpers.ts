@@ -28,14 +28,18 @@ import { UnresolvedContext } from "../types/context";
  * @param context - The Powerlines plugin context.
  * @returns The organization name or undefined if not found.
  */
-export function getOrganizationName(
+export async function getOrganizationName(
   context: UnresolvedContext
-): string | undefined {
+): Promise<string | undefined> {
   if (isSetString(context.config.organization)) {
     return context.config.organization;
   }
 
-  return getPackageJsonOrganization(context.packageJson);
+  return (
+    getPackageJsonOrganization(context.packageJson) ||
+    (await getWorkspaceName(context)) ||
+    context.config.name
+  );
 }
 
 /**

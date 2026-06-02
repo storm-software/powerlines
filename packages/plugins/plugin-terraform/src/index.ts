@@ -99,7 +99,7 @@ export const plugin = <
 
         this.terraform.command = command;
 
-        const organizationName = kebabCase(getOrganizationName(this));
+        const organizationName = kebabCase(await getOrganizationName(this));
         const workspaceName = kebabCase(await getWorkspaceName(this));
         const projectName = kebabCase(this.config.name);
 

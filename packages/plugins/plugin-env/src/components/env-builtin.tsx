@@ -53,26 +53,29 @@ import {
   generateParserCode,
   getPropertiesList,
   GetPropertiesResult,
-  JsonSchema
+  JsonSchema,
+  JsonSchemaObject
 } from "@powerlines/schema";
 import { deepClone } from "@stryke/helpers/deep-clone";
 import { getUnique } from "@stryke/helpers/get-unique";
+import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { loadEnvFromContext } from "../helpers/load";
 import type { EnvPluginContext } from "../types/plugin";
+
+export interface EnvTypeDefinitionProps extends ComponentProps {
+  schema: JsonSchemaObject;
+}
 
 /**
  * Generates the environment configuration typescript definition for the Powerlines project.
  */
-export function EnvTypeDefinition() {
+export function EnvTypeDefinition(props: EnvTypeDefinitionProps) {
   const context = usePowerlines<EnvPluginContext>();
+  const { schema } = props;
 
   return (
     <>
-      <InterfaceDeclaration
-        name="UnprefixedEnv"
-        schema={context.env.config.schema}
-        export
-      />
+      <InterfaceDeclaration name="UnprefixedEnv" schema={schema} export />
       <Spacing />
       <TSDoc heading="The environment configuration object with prefixed keys.">
         <TSDocRemarks>
@@ -88,7 +91,7 @@ export function EnvTypeDefinition() {
           {prefix => (
             <For
               each={
-                getPropertiesList(context.env.config.schema).filter(
+                getPropertiesList(schema).filter(
                   property => !property.ignore
                 ) ?? []
               }
@@ -271,6 +274,23 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
   const schema = computed(() => {
     const result = deepClone(context.env.config.schema);
     result.name = "Env";
+
+    Object.entries(defaultValue.value ?? {}).forEach(([key, value]) => {
+      const unprefixedKey = key.replace(
+        new RegExp(`^(${context.config.env.prefix.join("|")})_`),
+        ""
+      );
+      if (
+        unprefixedKey in (result.properties ?? {}) &&
+        isSetObject(result.properties?.[unprefixedKey])
+      ) {
+        result.properties[unprefixedKey] = {
+          ...result.properties?.[unprefixedKey],
+          default: value
+        } as JsonSchema;
+      }
+    });
+
     return result;
   });
 
@@ -311,7 +331,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       description="The environment configuration module provides an interface to define environment configuration parameters."
       {...rest}>
       <Show when={Boolean(schema.value)}>
-        <EnvTypeDefinition defaultValue={defaultValue} />
+        <EnvTypeDefinition schema={schema.value} />
         <Spacing />
       </Show>
       <ObjectDeclaration

@@ -92,11 +92,10 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             return ret;
           },
           [
-            "POWERLINES_",
-            this.config.framework?.name &&
-              this.config.framework?.name !== "powerlines" &&
-              `${constantCase(this.config.framework?.name)}_`
-          ].filter(Boolean) as string[]
+            this.config.framework?.name
+              ? `${constantCase(this.config.framework?.name)}_`
+              : "POWERLINES_"
+          ].filter(Boolean)
         );
 
         config.env.prefix = getUnique(
@@ -106,7 +105,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
             }
             return ret;
           }, [] as string[])
-        );
+        ).toReversed();
 
         return config;
       },

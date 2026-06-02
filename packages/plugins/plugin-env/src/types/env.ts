@@ -315,7 +315,7 @@ export interface EnvInterface {
    * @title Error Details URL
    * @category neutral
    */
-  ERROR_URL: string;
+  ERROR_URL?: string;
 
   /**
    * The default timezone for the application.

@@ -206,8 +206,12 @@ function readDeclaredTypes(schema: JsonSchemaLike): JsonSchemaType[] {
 /**
  * Generates a JavaScript expression that builds a path string for a child element.
  */
-function childPath(pathExpr: string, segment: string): string {
-  return `${pathExpr} + ${JSON.stringify(segment)}`;
+function childPath(pathExpr: string, segment: string | number): string {
+  return pathExpr
+    ? `${pathExpr} + ${typeof segment === "number" ? `[${segment}]` : `.${segment}`}`
+    : typeof segment === "number"
+      ? `[${segment}]`
+      : segment;
 }
 
 /**
@@ -268,7 +272,9 @@ export function generateParserCode(schema: JsonSchema): string {
       return fragment
         ? [`${targetVar} = ${valueExpr};`]
         : [
-            `${errorsVar}.push({ path: ${pathExpr}, message: "No value is allowed at this location" });`,
+            `${errorsVar}.push({ ${
+              pathExpr ? `path: ${pathExpr}` : ""
+            }, message: "No value is allowed at this location" });`,
             `${targetVar} = ${valueExpr};`
           ];
     }
@@ -360,7 +366,7 @@ export function generateParserCode(schema: JsonSchema): string {
           errorsVar
         )
       );
-      lines.push(`  }`);
+      lines.push(`}`);
     } else {
       lines.push(
         ...generateCoreStatements(
@@ -408,9 +414,9 @@ export function generateParserCode(schema: JsonSchema): string {
       lines.push(
         `if (!${enumValues}.some(allowed => JSON.stringify(allowed) === JSON.stringify(${
           valueVar
-        }))) { ${errorsVar}.push({ path: ${
-          pathVar
-        }, message: "Expected one of " + ${enumValues} }); }`,
+        }))) { ${errorsVar}.push({ ${
+          pathVar ? `path: ${pathVar},` : ""
+        } message: "Expected one of " + ${enumValues} }); }`,
         `${targetVar} = ${valueVar};`
       );
 
@@ -458,7 +464,9 @@ export function generateParserCode(schema: JsonSchema): string {
 
       lines.push(
         `if (!${matchedVar}) {`,
-        `  ${errorsVar}.push({ path: ${pathVar}, message: "Value does not match any of the allowed schemas" });`,
+        `  ${errorsVar}.push({ ${
+          pathVar ? `path: ${pathVar},` : ""
+        } message: "Value does not match any of the allowed schemas" });`,
         `  ${targetVar} = ${valueVar};`,
         `}`
       );
@@ -512,7 +520,9 @@ export function generateParserCode(schema: JsonSchema): string {
           `} else if (typeof ${valueVar} === "number" || typeof ${valueVar} === "boolean") {`,
           `  ${targetVar} = String(${valueVar});`,
           `} else {`,
-          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected a string value" });`,
+          `  ${errorsVar}.push({ ${
+            pathVar ? `path: ${pathVar},` : ""
+          } message: "Expected a string value" });`,
           `  ${targetVar} = ${valueVar};`,
           `}`
         );
@@ -526,7 +536,9 @@ export function generateParserCode(schema: JsonSchema): string {
           `} else if (typeof ${valueVar} === "boolean") {`,
           `  ${targetVar} = ${valueVar} ? 1 : 0;`,
           `} else {`,
-          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected an integer value" });`,
+          `  ${errorsVar}.push({ ${
+            pathVar ? `path: ${pathVar},` : ""
+          } message: "Expected an integer value" });`,
           `  ${targetVar} = ${valueVar};`,
           `}`
         );
@@ -540,7 +552,9 @@ export function generateParserCode(schema: JsonSchema): string {
           `} else if (typeof ${valueVar} === "boolean") {`,
           `  ${targetVar} = ${valueVar} ? 1 : 0;`,
           `} else {`,
-          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected a number value" });`,
+          `  ${errorsVar}.push({ ${
+            pathVar ? `path: ${pathVar},` : ""
+          } message: "Expected a number value" });`,
           `  ${targetVar} = ${valueVar};`,
           `}`
         );
@@ -554,7 +568,9 @@ export function generateParserCode(schema: JsonSchema): string {
           `} else if (${valueVar} === "false" || ${valueVar} === 0) {`,
           `  ${targetVar} = false;`,
           `} else {`,
-          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected a boolean value" });`,
+          `  ${errorsVar}.push({ ${
+            pathVar ? `path: ${pathVar},` : ""
+          } message: "Expected a boolean value" });`,
           `  ${targetVar} = ${valueVar};`,
           `}`
         );
@@ -564,7 +580,9 @@ export function generateParserCode(schema: JsonSchema): string {
           `if (${valueVar} === null) {`,
           `  ${targetVar} = null;`,
           `} else {`,
-          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected a null value" });`,
+          `  ${errorsVar}.push({ ${
+            pathVar ? `path: ${pathVar},` : ""
+          } message: "Expected a null value" });`,
           `  ${targetVar} = ${valueVar};`,
           `}`
         );
@@ -592,7 +610,9 @@ export function generateParserCode(schema: JsonSchema): string {
     const type = stringifyType(schema);
     const lines: string[] = [
       `if (typeof ${valueVar} !== "object" || ${valueVar} === null || Array.isArray(${valueVar})) {`,
-      `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected an object value" });`,
+      `  ${errorsVar}.push({ ${
+        pathVar ? `path: ${pathVar},` : ""
+      } message: "Expected an object value" });`,
       `  ${targetVar} = ${valueVar};`,
       `} else {`
     ];
@@ -619,7 +639,7 @@ export function generateParserCode(schema: JsonSchema): string {
           accessor = `${valueVar}[${JSON.stringify(property.name)}]`;
         }
 
-        const propertyPath = childPath(pathVar, `.${property.name}`);
+        const propertyPath = childPath(pathVar, property.name);
         const propertyVar = nextTemp(
           property.name ? `${camelCase(property.name)}Property` : "property"
         );
@@ -734,7 +754,7 @@ export function generateParserCode(schema: JsonSchema): string {
           ...generateStatements(
             item,
             "item",
-            childPath(pathVar, `[${index}]`),
+            childPath(pathVar, index),
             "itemResult",
             errorsVar
           )
@@ -841,7 +861,7 @@ export function parse(value: Record<string, unknown>)${
   const errors: { path: string; message: string }[] = [];
 
   let result;
-${generateStatements(schema, "value", '"$"', "result", "errors").join("\n")}
+${generateStatements(schema, "value", "", "result", "errors").join("\n")}
 
   if (errors.length > 0) {
     throw new ParserError(errors);
