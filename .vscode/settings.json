@@ -61,7 +61,7 @@
     "napi-derive": ["napi"]
   },
   "nix.enableLanguageServer": true,
-  "nix.serverPath": "nixd", // or "nil"
+  "nix.serverPath": ["devenv", "lsp"],
   "nix.serverSettings": {
     // check https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md for all nixd config
     "nixd": {

@@ -837,7 +837,7 @@ ${generateStatements(schema, "value", '"$"', "result", "errors").join("\n")}
     throw new ParserError(errors);
   }
 
-  return result;
+  return result${schema.name ? ` as ${stringifyType(schema)}` : ""};
 }`;
 }
 

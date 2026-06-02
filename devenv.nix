@@ -11,7 +11,7 @@
     disableHint = true;
   };
 
-  packages = [
-    pkgs.capnproto
+  packages = with pkgs; [
+    capnproto
   ];
 }
