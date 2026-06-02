@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.90](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.90) (06/02/2026)
+
+### Miscellaneous
+
+- **schema:** Ensure property aliases are properly handled in `parse` function ([0f9778cd7](https://github.com/storm-software/powerlines/commit/0f9778cd7))
+
 ## [0.11.89](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.89) (06/01/2026)
 
 ### Miscellaneous
