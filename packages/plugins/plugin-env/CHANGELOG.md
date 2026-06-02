@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.307](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.307) (06/01/2026)
+
+### Bug Fixes
+
+- **schema:** Updated parser logic to properly handle `alias` on properties ([10f8d850c](https://github.com/storm-software/powerlines/commit/10f8d850c))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.36**
+- Updated **plugin-alloy** to **v0.26.196**
+- Updated **plugin-automd** to **v0.1.565**
+- Updated **plugin-babel** to **v0.13.100**
+- Updated **plugin-deepkit** to **v0.11.447**
+- Updated **plugin-plugin** to **v0.12.516**
+- Updated **powerlines** to **v0.47.104**
+- Updated **schema** to **v0.11.86**
+
 ## [0.16.306](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.306) (06/01/2026)
 
 ### Updated Dependencies
