@@ -80,32 +80,25 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
           this as UnresolvedContext
         );
 
-        config.env.prefix = toArray(
-          (config.env.prefix ?? []) as string[]
-        ).reduce(
-          (ret: string[], prefix: string) => {
-            const formattedPrefix = constantCase(prefix);
-            if (!ret.includes(formattedPrefix)) {
-              ret.push(formattedPrefix);
-            }
-
-            return ret;
-          },
-          [
-            this.config.framework?.name
-              ? `${constantCase(this.config.framework?.name)}_`
-              : "POWERLINES_"
-          ].filter(Boolean)
-        );
-
         config.env.prefix = getUnique(
-          toArray(config.env.prefix).reduce((ret, prefix) => {
-            if (!ret.includes(prefix.replace(/_$/g, ""))) {
-              ret.push(prefix.replace(/_$/g, ""));
-            }
-            return ret;
-          }, [] as string[])
-        ).toReversed();
+          toArray((config.env.prefix ?? []) as string[])
+            .reduce(
+              (ret: string[], prefix: string) => {
+                const formattedPrefix = constantCase(prefix.replace(/_$/g, ""));
+                if (!ret.includes(formattedPrefix)) {
+                  ret.push(formattedPrefix);
+                }
+
+                return ret;
+              },
+              [
+                this.config.framework?.name
+                  ? `${constantCase(this.config.framework?.name)}`
+                  : "POWERLINES"
+              ]
+            )
+            .reverse()
+        );
 
         return config;
       },

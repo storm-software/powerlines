@@ -321,19 +321,23 @@ export async function extractEnv<TContext extends EnvPluginContext>(
 
   getPropertiesList(context.env.config).forEach(property => {
     property.alias ??= [];
-    const alias = property.alias;
+    const aliases = [...property.alias];
     context.config.env.prefix.forEach(prefix => {
-      property.alias!.push(`${prefix}_${property.name}`);
-      property.alias!.push(...alias.map(a => `${prefix}_${a}`));
+      if (!property.alias!.includes(`${prefix}_${property.name}`)) {
+        property.alias!.push(`${prefix}_${property.name}`);
+        property.alias!.push(...aliases.map(alias => `${prefix}_${alias}`));
+      }
     });
   });
 
   getPropertiesList(context.env.secrets).forEach(property => {
     property.alias ??= [];
-    const alias = property.alias;
+    const aliases = [...property.alias];
     context.config.env.prefix.forEach(prefix => {
-      property.alias!.push(`${prefix}_${property.name}`);
-      property.alias!.push(...alias.map(a => `${prefix}_${a}`));
+      if (!property.alias!.includes(`${prefix}_${property.name}`)) {
+        property.alias!.push(`${prefix}_${property.name}`);
+        property.alias!.push(...aliases.map(alias => `${prefix}_${alias}`));
+      }
     });
   });
 }
