@@ -76,7 +76,8 @@ export async function bundle<TContext extends UnresolvedContext>(
               name: options.name ?? `${findFileName(file)} Bundler`,
               prefix: false,
               overrides: defu(options.resolve ?? {}, {
-                skipNodeModulesBundle: false
+                skipNodeModulesBundle: false,
+                external: ["@alloy-js/*"],
               }),
               silenceHookLogging: true
             })
