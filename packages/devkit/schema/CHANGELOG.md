@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.89](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.89) (06/01/2026)
+
+### Miscellaneous
+
+- **schema:** Added `alloy-js` modules to external dependencies during bundling ([c8d57f905](https://github.com/storm-software/powerlines/commit/c8d57f905))
+
 ## [0.11.88](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.88) (06/01/2026)
 
 ### Miscellaneous
