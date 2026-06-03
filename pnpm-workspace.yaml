@@ -217,7 +217,7 @@ catalog:
   sirv: ^3.0.2
   smol-toml: ^1.6.1
   structured-clone-es: ^2.0.0
-  style-dictionary: ^5.4.2
+  style-dictionary: ^5.4.3
   stylelint: ^16.26.1
   svgo: ^4.0.1
   tinypool: ^2.1.0

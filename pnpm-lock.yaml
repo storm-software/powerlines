@@ -612,8 +612,8 @@ catalogs:
       specifier: ^2.0.0
       version: 2.0.0
     style-dictionary:
-      specifier: ^5.4.2
-      version: 5.4.2
+      specifier: ^5.4.3
+      version: 5.4.3
     stylelint:
       specifier: ^16.26.1
       version: 16.26.1
@@ -3355,7 +3355,7 @@ importers:
         version: link:../../devkit/powerlines
       style-dictionary:
         specifier: 'catalog:'
-        version: 5.4.2(tslib@2.8.1)
+        version: 5.4.3(tslib@2.8.1)
     devDependencies:
       '@powerlines/plugin-plugin':
         specifier: workspace:*
@@ -20910,8 +20910,8 @@ packages:
   structured-clone-es@2.0.0:
     resolution: {integrity: sha512-5UuAHmBLXYPCl22xWJrFuGmIhBKQzxISPVz6E7nmTmTcAOpUzlbjKJsRrCE4vADmMQ0dzeCnlWn9XufnAGf76Q==}
 
-  style-dictionary@5.4.2:
-    resolution: {integrity: sha512-Mienm46H28PWnydBiLFN7nR1QXqTO2FA+Aa/W7jcBJV8N0QGDDTfPQbb10TqwRybdY0rvp1G4pjdVM2HklGI0g==}
+  style-dictionary@5.4.3:
+    resolution: {integrity: sha512-VpIXPFqIJXR5bLzWhV9PjB7NBteyAVHq9THk5Hyw6zRqAjgfJkH9zalC9szLthkQlS+S8szmmq6tlnLWFksmTQ==}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
@@ -31147,7 +31147,7 @@ snapshots:
       '@stryke/types': 0.12.12
       defu: 6.1.7
       powerlines: link:packages/devkit/powerlines
-      style-dictionary: 5.4.2(tslib@2.8.1)
+      style-dictionary: 5.4.3(tslib@2.8.1)
     transitivePeerDependencies:
       - '@nx/jest'
       - bufferutil
@@ -45492,7 +45492,7 @@ snapshots:
 
   structured-clone-es@2.0.0: {}
 
-  style-dictionary@5.4.2(tslib@2.8.1):
+  style-dictionary@5.4.3(tslib@2.8.1):
     dependencies:
       '@bundled-es-modules/deepmerge': 4.3.2
       '@bundled-es-modules/glob': 13.0.6
