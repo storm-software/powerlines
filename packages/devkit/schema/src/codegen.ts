@@ -309,7 +309,13 @@ export function generateParserCode(schema: JsonSchema): string {
 
     if (fragment.default !== undefined) {
       lines.push(
-        `if (${valueVar} === undefined) {`,
+        `if (${valueVar} === undefined${
+          fragment.type === "string"
+            ? ` || ${valueVar} === ""`
+            : fragment.type === "number" || fragment.type === "integer"
+              ? ` || Number.isNaN(${valueVar})`
+              : ""
+        }) {`,
         `  ${targetVar} = ${JSON.stringify(fragment.default)};`,
         `} else {`
       );
@@ -401,7 +407,7 @@ export function generateParserCode(schema: JsonSchema): string {
     if (schema.const !== undefined) {
       const constValue = JSON.stringify(schema.const);
       lines.push(
-        `if (JSON.stringify(${valueVar}) !== ${constValue}) { ${
+        `if (${schema.type === "string" ? valueVar : `JSON.stringify(${valueVar})`} !== ${constValue}) { ${
           errorsVar
         }.push({ path: ${pathVar}, message: "Expected the constant value " + ${
           constValue
