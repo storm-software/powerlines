@@ -458,7 +458,7 @@ export function generateParserCode(schema: JsonSchema): string {
 
       lines.push(
         `if (!${matchedVar}) {`,
-        `  ${errorsVar}.push({ path: ${pathVar}, message: "Value does not match any of the allowed schemas" });`,
+        `  ${errorsVar}.push({ path: ${pathVar}, message: \`The provided value \${JSON.stringify(${valueVar})} does not match the allowed schemas\` });`,
         `  ${targetVar} = ${valueVar};`,
         `}`
       );
