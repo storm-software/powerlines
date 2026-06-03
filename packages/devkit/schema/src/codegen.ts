@@ -613,7 +613,7 @@ export function generateParserCode(schema: JsonSchema): string {
             .alias!.map(alias => `${valueVar}[${JSON.stringify(alias)}]`)
             .join(` ${isJsonSchemaString(property) ? "||" : "??"} `)} ${
             isJsonSchemaString(property) ? "||" : "??"
-          } ${valueVar}[${JSON.stringify(property.name)}]`;
+          } ${valueVar}[${JSON.stringify(property.name)}])`;
           property.alias!.forEach(alias => propertyNames.add(alias));
         } else {
           accessor = `${valueVar}[${JSON.stringify(property.name)}]`;
