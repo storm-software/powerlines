@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.105](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.105) (06/03/2026)
+
+### Miscellaneous
+
+- **schema:** Added `parseSafe` to parser generation code ([a00d4cb57](https://github.com/storm-software/powerlines/commit/a00d4cb57))
+
 ## [0.11.104](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.104) (06/03/2026)
 
 ### Miscellaneous
