@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.206](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.206) (06/03/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Added `kind` metadata to file logging ([f5cea43a0](https://github.com/storm-software/powerlines/commit/f5cea43a0))
+
+### Updated Dependencies
+
+- Updated **plugin-babel** to **v0.13.109**
+- Updated **plugin-plugin** to **v0.12.525**
+- Updated **powerlines** to **v0.47.113**
+- Updated **schema** to **v0.11.95**
+
 ## [0.26.205](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.205) (06/03/2026)
 
 ### Miscellaneous

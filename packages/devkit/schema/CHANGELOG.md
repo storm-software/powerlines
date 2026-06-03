@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.95](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.95) (06/03/2026)
+
+### Miscellaneous
+
+- **schema:** Ensure alloy-js modules are not bundled ([0737e46a5](https://github.com/storm-software/powerlines/commit/0737e46a5))
+
 ## [0.11.94](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.94) (06/03/2026)
 
 ### Updated Dependencies
