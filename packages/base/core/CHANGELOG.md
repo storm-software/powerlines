@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.43](https://github.com/storm-software/powerlines/releases/tag/core%400.48.43) (06/03/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with missing configuration in resolved values ([d9150cfa0](https://github.com/storm-software/powerlines/commit/d9150cfa0))
+
 ## [0.48.42](https://github.com/storm-software/powerlines/releases/tag/core%400.48.42) (06/03/2026)
 
 ### Miscellaneous
