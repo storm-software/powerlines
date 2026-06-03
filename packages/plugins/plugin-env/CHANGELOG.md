@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.325](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.325) (06/03/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue losing references in `getProperties` function ([71e27a23b](https://github.com/storm-software/powerlines/commit/71e27a23b))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.214**
+- Updated **plugin-automd** to **v0.1.582**
+- Updated **plugin-babel** to **v0.13.117**
+- Updated **plugin-deepkit** to **v0.11.464**
+- Updated **plugin-plugin** to **v0.12.533**
+- Updated **powerlines** to **v0.47.121**
+- Updated **schema** to **v0.11.103**
+
 ## [0.16.324](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.324) (06/03/2026)
 
 ### Updated Dependencies
