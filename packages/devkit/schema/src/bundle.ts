@@ -62,7 +62,7 @@ export async function bundle<TContext extends UnresolvedContext>(
         write: false,
         sourcemap: false,
         splitting: false,
-        treeShaking: false,
+        treeShaking: true,
         bundle: true,
         packages: "bundle",
         keepNames: true,

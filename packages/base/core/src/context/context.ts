@@ -1762,6 +1762,7 @@ export class PowerlinesContext<
     });
 
     this.#fs ??= await VirtualFileSystem.create(this);
+    this.#checksum = await this.generateChecksum();
   }
 
   private createConfigProxy(): TResolvedConfig {
