@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.41](https://github.com/storm-software/powerlines/releases/tag/core%400.48.41) (06/03/2026)
+
+### Miscellaneous
+
+- **core:** Small updates to log message strings ([dcb4386f3](https://github.com/storm-software/powerlines/commit/dcb4386f3))
+
 ## [0.48.39](https://github.com/storm-software/powerlines/releases/tag/core%400.48.39) (06/02/2026)
 
 ### Miscellaneous
