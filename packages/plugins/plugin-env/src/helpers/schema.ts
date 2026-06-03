@@ -288,8 +288,8 @@ export async function extractEnv<TContext extends EnvPluginContext>(
   context.env.parsed = await loadEnv(context);
   for (const [key, value] of Object.entries(context.env.parsed)) {
     const unprefixedKey = context.config.env.prefix.reduce((ret, prefix) => {
-      if (key.replace(/_$/g, "").startsWith(prefix)) {
-        return key.replace(/_$/g, "").slice(prefix.length);
+      if (key.startsWith(prefix)) {
+        return key.slice(prefix.length + 1); // + 1 to account for the underscore after the prefix
       }
       return ret;
     }, key);
