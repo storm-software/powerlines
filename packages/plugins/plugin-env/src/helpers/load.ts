@@ -31,7 +31,6 @@ import type { DotenvParseOutput } from "@stryke/env/types";
 import { joinPaths } from "@stryke/path/join-paths";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
-import type { PackageJson } from "@stryke/types/package-json";
 import { loadConfig } from "c12";
 import defu from "defu";
 import { WorkspaceConfig } from "powerlines";
@@ -68,7 +67,6 @@ async function loadEnvDirectory<
   directory: string,
   mode: string,
   cacheDir: string,
-  packageJson: PackageJson,
   workspaceConfig?: WorkspaceConfig
 ): Promise<TEnv> {
   const [envResult, c12Result] = await Promise.all([
@@ -77,14 +75,6 @@ async function loadEnvDirectory<
       cwd: directory,
       name: context.config.framework?.name || "powerlines",
       envName: mode,
-      defaults: {
-        NAME:
-          workspaceConfig?.namespace && packageJson.name
-            ? packageJson.name?.replace(`@${workspaceConfig.namespace}/`, "")
-            : context.config.name,
-        MODE: mode,
-        ORG: context.config.organization || workspaceConfig?.organization
-      },
       globalRc: true,
       packageJson: true,
       dotenv: true,
@@ -170,7 +160,6 @@ export async function loadEnv<
       context.config.root,
       context.config.mode,
       context.cachePath,
-      context.packageJson,
       workspaceConfig
     ),
     loadEnvDirectory<TEnv>(
@@ -179,7 +168,6 @@ export async function loadEnv<
       context.config.cwd,
       context.config.mode,
       context.cachePath,
-      context.packageJson,
       workspaceConfig
     ),
     loadEnvDirectory<TEnv>(
@@ -188,7 +176,6 @@ export async function loadEnv<
       context.envPaths.config,
       context.config.mode,
       context.cachePath,
-      context.packageJson,
       workspaceConfig
     )
   ]);

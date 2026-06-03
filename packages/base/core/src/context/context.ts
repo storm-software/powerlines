@@ -85,6 +85,7 @@ import { getTsconfigFilePath } from "../lib/typescript/tsconfig";
 import { VirtualFileSystem } from "../lib/vfs";
 import {
   formatExecutionId,
+  getOrganizationName,
   getPackageJsonOrganization,
   getWorkspaceName
 } from "../plugin-utils/context-helpers";
@@ -1580,6 +1581,8 @@ export class PowerlinesContext<
         mergedConfig.root
       );
     }
+
+    mergedConfig.organization ??= await getOrganizationName(this);
 
     // #region Configure output
 

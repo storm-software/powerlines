@@ -93,7 +93,7 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
               },
               [
                 this.config.framework?.name
-                  ? `${constantCase(this.config.framework?.name)}`
+                  ? `${constantCase(this.config.framework.name)}`
                   : "POWERLINES"
               ]
             )
