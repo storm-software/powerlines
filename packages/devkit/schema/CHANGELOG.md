@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.99](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.99) (06/03/2026)
+
+### Miscellaneous
+
+- **schema:** Added the provided value to the validation logging in the `parse` function ([e0b68fd63](https://github.com/storm-software/powerlines/commit/e0b68fd63))
+
 ## [0.11.98](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.98) (06/03/2026)
 
 ### Bug Fixes
