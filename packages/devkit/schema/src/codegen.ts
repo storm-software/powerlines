@@ -29,6 +29,7 @@ import { getPropertiesList, isSchemaNullable, merge } from "./helpers";
 import { getPrimarySchemaType } from "./metadata";
 import {
   isJsonSchema,
+  isJsonSchemaLiteral,
   isJsonSchemaObject,
   isJsonSchemaString
 } from "./type-checks";
@@ -81,6 +82,14 @@ export function stringifyType(schema?: JsonSchema): string {
     const match = /^#\/(?:definitions|\$defs)\/(.+)$/.exec(objectSchema.$ref);
 
     return match?.[1] ?? objectSchema.$ref;
+  }
+
+  if (isJsonSchemaLiteral(schema) && !isUndefined(schema.const)) {
+    return JSON.stringify(
+      isSetString(schema.const)
+        ? schema.const.replaceAll(/^['"`]|['"`]$/g, "")
+        : schema.const
+    );
   }
 
   const primaryType = getPrimarySchemaType(schema);
