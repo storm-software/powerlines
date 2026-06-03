@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.100](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.100) (06/03/2026)
+
+### Bug Fixes
+
+- **schema:** Resolved issue stringifying literal schema types ([4331745d9](https://github.com/storm-software/powerlines/commit/4331745d9))
+
 ## [0.11.99](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.99) (06/03/2026)
 
 ### Miscellaneous
