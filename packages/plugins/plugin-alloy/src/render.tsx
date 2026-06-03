@@ -24,9 +24,13 @@ import {
   renderTree,
   traverseOutput
 } from "@alloy-js/core";
+import { noop } from "@stryke/helpers/noop";
 import { findFileExtension } from "@stryke/path/file-path-fns";
+import { replacePath } from "@stryke/path/replace";
+import { list } from "@stryke/string-format/list";
 import { PluginContext } from "powerlines";
 import { MetaItem, Output } from "./core";
+import { OutputFile } from "./types";
 
 /**
  * A function to render children components within the [Alloy](https://alloy-framework.github.io) context, and write any saved content to the file system.
@@ -53,15 +57,19 @@ export async function render<TContext extends PluginContext>(
     </Output>
   );
 
-  if (!Object.keys(output).length) {
-    context.debug(
-      "No output files were rendered by Alloy-js component templates."
-    );
+  const files = [] as OutputFile[];
+  await traverseOutput(output, {
+    visitDirectory: noop,
+    visitFile: file => files.push(file)
+  });
+
+  if (!files.length) {
+    context.debug("No output files were rendered by the Alloy-js components.");
   } else {
     context.debug(
-      `Processing ${
-        Object.keys(output).length
-      } rendered output files from Alloy-js component templates.`
+      `Rendering ${files.length} output files from Alloy-js components: ${list(
+        files.map(f => replacePath(f.path, context.config.cwd))
+      )}.`
     );
 
     await traverseOutput(output, {
