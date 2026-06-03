@@ -219,27 +219,32 @@ function childPath(pathExpr: string, segment: string): string {
   return `${pathExpr} + ${JSON.stringify(segment)}`;
 }
 
+export interface GenerateParserCodeOptions {
+  /**
+   * Whether to ignore `default` values in the schema when generating the parser code. By default, the generated code will apply default values for missing properties and root/array values. Set this option to `true` to disable default value application, causing the generated parser to treat missing values as validation errors instead.
+   */
+  ignoreDefaults?: boolean;
+}
+
 /**
  * Generates standalone parser code for a JSON Schema.
  *
  * @remarks
- * The generated `parse` function reads an arbitrary input value and converts it
- * into the shape described by the schema. It walks the schema recursively to:
- *
- * - resolve local `$ref` pointers (`#/$defs/*` and `#/definitions/*`) into
- *   dedicated parser functions so recursive schemas are supported,
- * - apply `default` values for object properties (and root/array values) that
- *   are missing from the input,
- * - coerce primitive values to the declared type (for example `"42"` to `42`
- *   for an `integer` schema, or `1` to `true` for a `boolean` schema),
- * - validate `const`, `enum`, `oneOf`/`anyOf` and `allOf` constraints, and
- * - collect detailed, path-aware errors and throw a `ParserError` when the
- *   input cannot be converted into a valid value.
+ * The generated `parse` function reads an arbitrary input value and converts it into the shape described by the schema. It walks the schema recursively to:
+ * - Resolve local `$ref` pointers (`#/$defs/*` and `#/definitions/*`) into dedicated parser functions so recursive schemas are supported,
+ * - If {@link GenerateParserCodeOptions.ignoreDefaults | options.ignoreDefaults} is not `true`, apply `default` values for object properties (and root/array values) that are missing from the input,
+ * - Coerce primitive values to the declared type (for example `"42"` to `42` for an `integer` schema, or `1` to `true` for a `boolean` schema),
+ * - Validate `const`, `enum`, `oneOf`/`anyOf` and `allOf` constraints, and
+ * - Collect detailed, path-aware errors and throw a `ParserError` when the input cannot be converted into a valid value.
  *
  * @param schema - The JSON Schema to generate parser code for.
+ * @param options - Options to customize the generated code. By default, the generated code will apply default values from the schema for missing properties and root/array values. Set `options.ignoreDefaults` to `true` to disable default value application.
  * @returns The generated standalone parser code as a string.
  */
-export function generateParserCode(schema: JsonSchema): string {
+export function generateParserCode(
+  schema: JsonSchema,
+  options: GenerateParserCodeOptions = {}
+): string {
   const rootSchema =
     typeof schema === "boolean" ? schema : (schema as JsonSchemaLike);
 
@@ -307,7 +312,7 @@ export function generateParserCode(schema: JsonSchema): string {
       `const ${pathVar} = ${pathExpr};`
     ];
 
-    if (fragment.default !== undefined) {
+    if (!options.ignoreDefaults && fragment.default !== undefined) {
       lines.push(
         `if (${valueVar} === undefined${
           fragment.type === "string"
@@ -564,9 +569,9 @@ export function generateParserCode(schema: JsonSchema): string {
         lines.push(
           `if (typeof ${valueVar} === "boolean") {`,
           `  ${targetVar} = ${valueVar};`,
-          `} else if (${valueVar} === "true" || ${valueVar} === 1) {`,
+          `} else if ((typeof ${valueVar} === "string" && (${valueVar}.toLowerCase() === "true" || ${valueVar}.toLowerCase() === "t" || ${valueVar}.toLowerCase() === "yes" || ${valueVar}.toLowerCase() === "y" || (!Number.isNaN(Number.parseInt(${valueVar})) && Number.parseInt(${valueVar}) > 0))) || (typeof ${valueVar} === "number" && ${valueVar} > 0)) {`,
           `  ${targetVar} = true;`,
-          `} else if (${valueVar} === "false" || ${valueVar} === 0) {`,
+          `} else if ((typeof ${valueVar} === "string" && (${valueVar}.toLowerCase() === "false" || ${valueVar}.toLowerCase() === "f" || ${valueVar}.toLowerCase() === "no" || ${valueVar}.toLowerCase() === "n" || (!Number.isNaN(Number.parseInt(${valueVar})) && Number.parseInt(${valueVar}) <= 0))) || (typeof ${valueVar} === "number" && ${valueVar} <= 0)) {`,
           `  ${targetVar} = false;`,
           `} else {`,
           `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected a boolean value" });`,
@@ -594,8 +599,7 @@ export function generateParserCode(schema: JsonSchema): string {
   }
 
   /**
-   * Generates the parsing statements for an `object` schema, applying property
-   * defaults and recursing into each declared property.
+   * Generates the parsing statements for an `object` schema, applying property defaults and recursing into each declared property.
    */
   function generateObjectStatements(
     schema: JsonSchemaLike,
