@@ -325,8 +325,15 @@ export async function extractEnv<TContext extends EnvPluginContext>(
     context.config.env.prefix.forEach(prefix => {
       if (!property.alias!.includes(`${prefix}_${property.name}`)) {
         property.alias!.push(`${prefix}_${property.name}`);
-        property.alias!.push(...aliases.map(alias => `${prefix}_${alias}`));
       }
+
+      aliases
+        .map(alias => `${prefix}_${alias}`)
+        .forEach(prefixedAlias => {
+          if (!property.alias!.includes(prefixedAlias)) {
+            property.alias!.push(prefixedAlias);
+          }
+        });
     });
   });
 
@@ -336,8 +343,15 @@ export async function extractEnv<TContext extends EnvPluginContext>(
     context.config.env.prefix.forEach(prefix => {
       if (!property.alias!.includes(`${prefix}_${property.name}`)) {
         property.alias!.push(`${prefix}_${property.name}`);
-        property.alias!.push(...aliases.map(alias => `${prefix}_${alias}`));
       }
+
+      aliases
+        .map(alias => `${prefix}_${alias}`)
+        .forEach(prefixedAlias => {
+          if (!property.alias!.includes(prefixedAlias)) {
+            property.alias!.push(prefixedAlias);
+          }
+        });
     });
   });
 }

@@ -51,7 +51,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
           meta: {
             category: "env"
           },
-          message: `Environment variable ${name} found in ${
+          message: `Environment variable \`${name}\` found in ${
             pass.filename || "unknown file"
           }.`
         });
@@ -67,7 +67,7 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
             meta: {
               category: "env"
             },
-            message: `The "${name}" environment variable is used in the source code file "${
+            message: `The \`${name}\` environment variable is used in the source code file "${
               pass.filename || "unknown file"
             }" and will be added to the environment schema's active variables list.`
           });

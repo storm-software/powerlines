@@ -74,3 +74,42 @@ export const JSON_SCHEMA_METADATA_KEYS = [
   "alias",
   "tags"
 ] satisfies ReadonlyArray<keyof JsonSchemaMetadataKeywords>;
+
+/**
+ * Keywords whose values are a flat record of named JSON Schema fragments.
+ * Each child schema is merged recursively with its counterpart.
+ */
+export const SCHEMA_RECORD_KEYWORDS = new Set([
+  "properties",
+  "patternProperties",
+  "$defs",
+  "definitions",
+  "dependentSchemas"
+]);
+
+/**
+ * Keywords whose value is a single JSON Schema fragment that should be
+ * recursively merged when both sides define it.
+ */
+export const SCHEMA_SINGLE_KEYWORDS = new Set([
+  "if",
+  "then",
+  "else",
+  "not",
+  "contains",
+  "items",
+  "additionalProperties",
+  "unevaluatedProperties",
+  "propertyNames",
+  "unevaluatedItems"
+]);
+
+/**
+ * Keywords whose values are arrays of JSON Schema fragments that should be
+ * concatenated (rather than overridden) during a merge.
+ */
+export const SCHEMA_ARRAY_CONCAT_KEYWORDS = new Set([
+  "allOf",
+  "anyOf",
+  "oneOf"
+]);

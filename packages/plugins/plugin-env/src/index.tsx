@@ -81,24 +81,22 @@ export const plugin = <TContext extends EnvPluginContext = EnvPluginContext>(
         );
 
         config.env.prefix = getUnique(
-          toArray((config.env.prefix ?? []) as string[])
-            .reduce(
-              (ret: string[], prefix: string) => {
-                const formattedPrefix = constantCase(prefix.replace(/_$/g, ""));
-                if (!ret.includes(formattedPrefix)) {
-                  ret.push(formattedPrefix);
-                }
+          toArray((config.env.prefix ?? []) as string[]).reduce(
+            (ret: string[], prefix: string) => {
+              const formattedPrefix = constantCase(prefix.replace(/_$/g, ""));
+              if (!ret.includes(formattedPrefix)) {
+                ret.push(formattedPrefix);
+              }
 
-                return ret;
-              },
-              [
-                this.config.framework?.name
-                  ? `${constantCase(this.config.framework.name)}`
-                  : "POWERLINES"
-              ]
-            )
-            .reverse()
-        );
+              return ret;
+            },
+            [
+              this.config.framework?.name
+                ? `${constantCase(this.config.framework.name)}`
+                : "POWERLINES"
+            ]
+          )
+        ).toReversed();
 
         return config;
       },

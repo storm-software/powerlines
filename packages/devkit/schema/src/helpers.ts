@@ -19,7 +19,12 @@
 import { getUnique } from "@stryke/helpers/get-unique";
 import { findFileExtensionSafe } from "@stryke/path/find";
 import { isSetObject } from "@stryke/type-checks";
-import { VALID_SOURCE_FILE_EXTENSIONS } from "./constants";
+import {
+  SCHEMA_ARRAY_CONCAT_KEYWORDS,
+  SCHEMA_RECORD_KEYWORDS,
+  SCHEMA_SINGLE_KEYWORDS,
+  VALID_SOURCE_FILE_EXTENSIONS
+} from "./constants";
 import { readSchemaTypes } from "./metadata";
 import { isJsonSchema, isJsonSchemaObject, isSchema } from "./type-checks";
 import { JsonSchema, JsonSchemaLike, JsonSchemaObject, Schema } from "./types";
@@ -81,36 +86,27 @@ export function getJsonSchemaObject(
  */
 export function getProperties(
   obj: Schema | JsonSchemaObject
-): Record<
-  string,
-  JsonSchema & { name: string; required: boolean; default?: unknown }
-> {
-  const properties: Record<
-    string,
-    JsonSchema & { name: string; required: boolean; default?: unknown }
-  > = {};
-
+): Record<string, GetPropertiesResult> {
   const schema = getJsonSchemaObject(obj);
   if (!isSetObject(schema.properties)) {
-    return properties;
+    return {};
   }
 
-  for (const [key, value] of Object.entries(schema.properties)) {
-    const propertySchema: Record<string, unknown> = {};
+  return Object.entries(schema.properties).reduce(
+    (ret, [key, value]) => {
+      value.name = key;
+      (value as GetPropertiesResult).required = !isPropertyOptional(
+        schema,
+        key
+      );
+      (value as GetPropertiesResult).default =
+        schema.default?.[key] ?? (value as GetPropertiesResult).default;
 
-    if (typeof value !== "boolean") {
-      Object.assign(propertySchema, value);
-    }
-
-    properties[key] = {
-      ...propertySchema,
-      name: key,
-      required: !isPropertyOptional(schema, key),
-      default: schema.default?.[key] ?? propertySchema.default
-    };
-  }
-
-  return properties;
+      ret[key] = value as GetPropertiesResult;
+      return ret;
+    },
+    {} as Record<string, GetPropertiesResult>
+  );
 }
 
 /**
@@ -147,7 +143,8 @@ export function addProperty(
   schema.properties ??= {};
   schema.required ??= [];
 
-  schema.properties[name] = { ...property, name };
+  property.name = name;
+  schema.properties[name] = property;
   if (!schema.required.includes(name)) {
     schema.required.push(name);
   }
@@ -156,41 +153,6 @@ export function addProperty(
     delete schema.required;
   }
 }
-
-/**
- * Keywords whose values are a flat record of named JSON Schema fragments.
- * Each child schema is merged recursively with its counterpart.
- */
-const SCHEMA_RECORD_KEYWORDS = new Set([
-  "properties",
-  "patternProperties",
-  "$defs",
-  "definitions",
-  "dependentSchemas"
-]);
-
-/**
- * Keywords whose value is a single JSON Schema fragment that should be
- * recursively merged when both sides define it.
- */
-const SCHEMA_SINGLE_KEYWORDS = new Set([
-  "if",
-  "then",
-  "else",
-  "not",
-  "contains",
-  "items",
-  "additionalProperties",
-  "unevaluatedProperties",
-  "propertyNames",
-  "unevaluatedItems"
-]);
-
-/**
- * Keywords whose values are arrays of JSON Schema fragments that should be
- * concatenated (rather than overridden) during a merge.
- */
-const SCHEMA_ARRAY_CONCAT_KEYWORDS = new Set(["allOf", "anyOf", "oneOf"]);
 
 /**
  * Recursively merges two JSON Schema fragments. `override` wins for any scalar
