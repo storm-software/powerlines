@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.98](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.98) (06/03/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue truncating module text ([3a17a76e1](https://github.com/storm-software/powerlines/commit/3a17a76e1))
+
 ## [0.11.97](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.97) (06/03/2026)
 
 ### Updated Dependencies
