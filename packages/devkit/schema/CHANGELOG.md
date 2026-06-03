@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.103](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.103) (06/03/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue losing references in `getProperties` function ([71e27a23b](https://github.com/storm-software/powerlines/commit/71e27a23b))
+
 ## [0.11.102](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.102) (06/03/2026)
 
 ### Bug Fixes
