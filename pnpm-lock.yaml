@@ -1556,7 +1556,7 @@ importers:
         version: 0.3.96(@nx/jest@22.7.5(@babel/traverse@7.29.7)(@swc-node/register@1.11.1(@swc/core@1.15.40(@swc/helpers@0.5.23))(@swc/types@0.1.26)(typescript@6.0.3))(@swc/core@1.15.40(@swc/helpers@0.5.23))(@types/node@25.9.1)(babel-plugin-macros@3.1.0)(esbuild-register@3.6.0(esbuild@0.28.0))(nx@22.7.5(@swc-node/register@1.11.1(@swc/core@1.15.40(@swc/helpers@0.5.23))(@swc/types@0.1.26)(typescript@6.0.3))(@swc/core@1.15.40(@swc/helpers@0.5.23)))(ts-node@10.9.2(@swc/core@1.15.40(@swc/helpers@0.5.23))(@types/node@25.9.1)(typescript@6.0.3))(typescript@6.0.3)(verdaccio@6.5.2(typanion@3.14.0)))(jest@30.0.5(@types/node@25.9.1)(babel-plugin-macros@3.1.0)(esbuild-register@3.6.0(esbuild@0.28.0))(ts-node@10.9.2(@swc/core@1.15.40(@swc/helpers@0.5.23))(@types/node@25.9.1)(typescript@6.0.3)))(magicast@0.5.3)(zod@4.4.3)
       astro:
         specifier: '>=5.13.5'
-        version: 6.4.2(@types/node@25.9.1)(db0@0.3.4)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.61.0)(terser@5.48.0)(yaml@2.9.0)
+        version: 6.4.3(@types/node@25.9.1)(db0@0.3.4)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.61.0)(terser@5.48.0)(yaml@2.9.0)
       defu:
         specifier: 'catalog:'
         version: 6.1.7
@@ -12563,8 +12563,8 @@ packages:
     resolution: {integrity: sha512-+QDcgc7e+au6EZ0YjMmRRjNoQo5bDMlaR45aWDoFsuxQTCM9qmCHRoiKJPELgckJ8Wmr7vcfpa9eCDHBFh6G4w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  astro@6.4.2:
-    resolution: {integrity: sha512-8H89CH2dKL5SCU99OCqdU9BGjmPkSJqaPurywj5XMo7eMFGUFD3vsNhdEKnEh4mK4LgGje3/QDTTSIIGst0G0Q==}
+  astro@6.4.3:
+    resolution: {integrity: sha512-heArIk8zLcxuoj1WgBH2zGdAD8zKSU1mEcBvS6hYMEHRPlbtvB+4Y8ri9Z27hzeryvGaFgrH32zjghEfV2y07g==}
     engines: {node: '>=22.12.0', npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -34114,7 +34114,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  astro@6.4.2(@types/node@25.9.1)(db0@0.3.4)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.61.0)(terser@5.48.0)(yaml@2.9.0):
+  astro@6.4.3(@types/node@25.9.1)(db0@0.3.4)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.61.0)(terser@5.48.0)(yaml@2.9.0):
     dependencies:
       '@astrojs/compiler': 4.0.0
       '@astrojs/internal-helpers': 0.10.0
