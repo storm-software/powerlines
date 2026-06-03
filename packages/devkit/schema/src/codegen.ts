@@ -221,6 +221,13 @@ function childPath(pathExpr: string, segment: string): string {
 
 export interface GenerateParserCodeOptions {
   /**
+   * The name of the parser function to generate.
+   *
+   * @defaultValue "parse"
+   */
+  name?: string;
+
+  /**
    * Whether to ignore `default` values in the schema when generating the parser code. By default, the generated code will apply default values for missing properties and root/array values. Set this option to `true` to disable default value application, causing the generated parser to treat missing values as validation errors instead.
    */
   ignoreDefaults?: boolean;
@@ -235,7 +242,7 @@ export interface GenerateParserCodeOptions {
  * - If {@link GenerateParserCodeOptions.ignoreDefaults | options.ignoreDefaults} is not `true`, apply `default` values for object properties (and root/array values) that are missing from the input,
  * - Coerce primitive values to the declared type (for example `"42"` to `42` for an `integer` schema, or `1` to `true` for a `boolean` schema),
  * - Validate `const`, `enum`, `oneOf`/`anyOf` and `allOf` constraints, and
- * - Collect detailed, path-aware errors and throw a `ParserError` when the input cannot be converted into a valid value.
+ * - Collect detailed, path-aware errors and throw a `Error` when the input cannot be converted into a valid value.
  *
  * @param schema - The JSON Schema to generate parser code for.
  * @param options - Options to customize the generated code. By default, the generated code will apply default values from the schema for missing properties and root/array values. Set `options.ignoreDefaults` to `true` to disable default value application.
@@ -282,7 +289,7 @@ export function generateParserCode(
       return fragment
         ? [`${targetVar} = ${valueExpr};`]
         : [
-            `${errorsVar}.push({ path: ${pathExpr}, message: "No value is allowed at this location" });`,
+            `${errorsVar}.push({ path: ${pathExpr}, failure: "No value is allowed at this location" });`,
             `${targetVar} = ${valueExpr};`
           ];
     }
@@ -360,7 +367,7 @@ export function generateParserCode(
 
     lines.push(
       `if (${valueVar} === undefined) {`,
-      `  ${errorsVar}.push({ path: ${pathVar}, message: "A value is required" });`,
+      `  ${errorsVar}.push({ path: ${pathVar}, failure: "A value is required" });`,
       `  ${targetVar} = ${valueVar};`,
       `} else {`
     );
@@ -414,7 +421,7 @@ export function generateParserCode(
       lines.push(
         `if (${schema.type === "string" ? valueVar : `JSON.stringify(${valueVar})`} !== ${constValue}) { ${
           errorsVar
-        }.push({ path: ${pathVar}, message: "Expected the constant value " + ${
+        }.push({ path: ${pathVar}, failure: "Expected the constant value " + ${
           constValue
         } }); }`,
         `${targetVar} = ${constValue};`
@@ -430,7 +437,7 @@ export function generateParserCode(
           valueVar
         }))) { ${errorsVar}.push({ path: ${
           pathVar
-        }, message: "Expected one of " + ${enumValues} }); }`,
+        }, failure: "Expected one of " + ${enumValues} }); }`,
         `${targetVar} = ${valueVar};`
       );
 
@@ -455,7 +462,7 @@ export function generateParserCode(
 
         lines.push(`if (!${matchedVar}) {`);
         lines.push(
-          `  const ${branchErrorsVar}: { path: string; message: string }[] = [];`,
+          `  const ${branchErrorsVar}: { path: string; failure: string }[] = [];`,
           `  let ${branchResultVar};`
         );
         lines.push(
@@ -478,7 +485,7 @@ export function generateParserCode(
 
       lines.push(
         `if (!${matchedVar}) {`,
-        `  ${errorsVar}.push({ path: ${pathVar}, message: \`The provided value \${JSON.stringify(${valueVar})} does not match the allowed schemas\` });`,
+        `  ${errorsVar}.push({ path: ${pathVar}, failure: \`The provided value \${JSON.stringify(${valueVar})} does not match the allowed schemas\` });`,
         `  ${targetVar} = ${valueVar};`,
         `}`
       );
@@ -532,7 +539,7 @@ export function generateParserCode(
           `} else if (typeof ${valueVar} === "number" || typeof ${valueVar} === "boolean") {`,
           `  ${targetVar} = String(${valueVar});`,
           `} else {`,
-          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected a string value" });`,
+          `  ${errorsVar}.push({ path: ${pathVar}, failure: "Expected a string value" });`,
           `  ${targetVar} = ${valueVar};`,
           `}`
         );
@@ -546,7 +553,7 @@ export function generateParserCode(
           `} else if (typeof ${valueVar} === "boolean") {`,
           `  ${targetVar} = ${valueVar} ? 1 : 0;`,
           `} else {`,
-          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected an integer value" });`,
+          `  ${errorsVar}.push({ path: ${pathVar}, failure: "Expected an integer value" });`,
           `  ${targetVar} = ${valueVar};`,
           `}`
         );
@@ -560,7 +567,7 @@ export function generateParserCode(
           `} else if (typeof ${valueVar} === "boolean") {`,
           `  ${targetVar} = ${valueVar} ? 1 : 0;`,
           `} else {`,
-          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected a number value" });`,
+          `  ${errorsVar}.push({ path: ${pathVar}, failure: "Expected a number value" });`,
           `  ${targetVar} = ${valueVar};`,
           `}`
         );
@@ -574,7 +581,7 @@ export function generateParserCode(
           `} else if ((typeof ${valueVar} === "string" && (${valueVar}.toLowerCase() === "false" || ${valueVar}.toLowerCase() === "f" || ${valueVar}.toLowerCase() === "no" || ${valueVar}.toLowerCase() === "n" || (!Number.isNaN(Number.parseInt(${valueVar})) && Number.parseInt(${valueVar}) <= 0))) || (typeof ${valueVar} === "number" && ${valueVar} <= 0)) {`,
           `  ${targetVar} = false;`,
           `} else {`,
-          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected a boolean value" });`,
+          `  ${errorsVar}.push({ path: ${pathVar}, failure: "Expected a boolean value" });`,
           `  ${targetVar} = ${valueVar};`,
           `}`
         );
@@ -584,7 +591,7 @@ export function generateParserCode(
           `if (${valueVar} === null) {`,
           `  ${targetVar} = null;`,
           `} else {`,
-          `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected a null value" });`,
+          `  ${errorsVar}.push({ path: ${pathVar}, failure: "Expected a null value" });`,
           `  ${targetVar} = ${valueVar};`,
           `}`
         );
@@ -611,7 +618,7 @@ export function generateParserCode(
     const type = stringifyType(schema);
     const lines: string[] = [
       `if (typeof ${valueVar} !== "object" || ${valueVar} === null || Array.isArray(${valueVar})) {`,
-      `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected an object value" });`,
+      `  ${errorsVar}.push({ path: ${pathVar}, failure: "Expected an object value" });`,
       `  ${targetVar} = ${valueVar};`,
       `} else {`
     ];
@@ -649,7 +656,7 @@ export function generateParserCode(
                 property.default
               )};`
             : property.required
-              ? `errors.push({ path: ${propertyPath}, message: "Required property is missing" });`
+              ? `${errorsVar}.push({ path: ${propertyPath}, failure: "Required property is missing" });`
               : "";
 
         lines.push(
@@ -725,7 +732,7 @@ export function generateParserCode(
   ): string[] {
     const lines: string[] = [
       `if (!Array.isArray(${valueVar})) {`,
-      `  ${errorsVar}.push({ path: ${pathVar}, message: "Expected an array value" });`,
+      `  ${errorsVar}.push({ path: ${pathVar}, failure: "Expected an array value" });`,
       `  ${targetVar} = ${valueVar};`,
       `} else {`
     ];
@@ -825,45 +832,52 @@ export function generateParserCode(
       };\n}`
   );
 
-  return `/**
- * Error thrown when an input value cannot be parsed into the type described by the JSON Schema.
- */
-export class ParserError extends Error {
-  public override name = "ParserError";
-
-  public errors: { path: string; message: string }[];
-
-  public constructor(errors: { path: string; message: string }[]) {
-    super(
-      "Failed to parse the provided value against the JSON Schema:\\n" +
-        errors.map(error => "  - " + error.path + ": " + error.message).join("\\n")
-    );
-
-    this.errors = errors;
-  }
-}
-
-${parserFunctions.join("\n\n")}
+  return `${parserFunctions.join("\n\n")}
 
 /**
- * Parses an input value into the type described by the JSON Schema.
+ * Safely parses an input value into the type described by the JSON Schema, returning an array of validation errors when the value cannot be converted into a valid result.
  *
  * @remarks
- * The parser applies default values for missing properties, coerces primitive values to the declared type, and throws a {@link ParserError} (containing a detailed list of validation errors) when the value cannot be converted into a valid result.
+ * The parser applies default values for missing properties, coerces primitive values to the declared type, and returns an array of validation errors when the value cannot be converted into a valid result.
+ *
+ * @param value - The input value to parse.
+ * @returns The parsed value conforming to the schema or an array of validation errors.
+ */
+export function ${options.name || "parse"}Safe(value: Record<string, unknown>)${
+    schema.name ? `: ${stringifyType(schema)}` : ""
+  } | { path: string; failure: string }[] {
+  const errors: { path: string; failure: string }[] = [];
+
+  let result;
+  ${generateStatements(schema, "value", '"$"', "result", "errors").join("\n")}
+
+  if (errors.length > 0) {
+    return errors;
+  }
+
+  return result${schema.name ? ` as ${stringifyType(schema)}` : ""};
+}
+
+/**
+ * Parses an input value into the type described by the JSON Schema, throwing an error if the value cannot be converted into a valid result.
+ *
+ * @remarks
+ * The parser applies default values for missing properties, coerces primitive values to the declared type, and throws a {@link Error} (containing a detailed list of validation errors) when the value cannot be converted into a valid result.
  *
  * @param value - The input value to parse.
  * @returns The parsed value conforming to the schema.
+ * @throws {Error} When the input value cannot be parsed into a valid result according to the schema. The error contains a detailed list of validation errors with their respective paths and failure messages.
  */
-export function parse(value: Record<string, unknown>)${
+export function ${options.name || "parse"}(value: Record<string, unknown>)${
     schema.name ? `: ${stringifyType(schema)}` : ""
   } {
-  const errors: { path: string; message: string }[] = [];
+  const errors: { path: string; failure: string }[] = [];
 
-  let result;
-${generateStatements(schema, "value", '"$"', "result", "errors").join("\n")}
-
-  if (errors.length > 0) {
-    throw new ParserError(errors);
+  const result = ${options.name || "parse"}Safe(value);
+  if (Array.isArray(result) && result.length > 0 && result.every(error => "path" in error && typeof error.path === "string" && error.path && "failure" in error && typeof error.failure === "string" && error.failure)) {
+    throw new Error(\`The following validation errors occurred while parsing the ${
+      schema.name ? `${schema.name} input` : "input value"
+    }: \\n\${Object.entries(result.reduce((acc, error) => ((acc[error.path] ??= []).push(error.failure), acc), {} as Record<string, string[]>)).map(([path, failures]) => \`\${path.replace(/^\\$\\./, "") ? \`\${path.replace(/^\\$\\./, "")}: \\n\` : ""}\${failures.map(failure => \` - \${failure}\`).join("\\n")}\`).join("\\n")}\`);
   }
 
   return result${schema.name ? ` as ${stringifyType(schema)}` : ""};
