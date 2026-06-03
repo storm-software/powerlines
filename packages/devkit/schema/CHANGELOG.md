@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.96](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.96) (06/03/2026)
+
+### Miscellaneous
+
+- **schema:** Treeshake `build` output in `bundle` function ([d6b322848](https://github.com/storm-software/powerlines/commit/d6b322848))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.42**
+- Updated **deepkit** to **v0.9.74**
+- Updated **unplugin** to **v0.0.90**
+
 ## [0.11.95](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.95) (06/03/2026)
 
 ### Miscellaneous

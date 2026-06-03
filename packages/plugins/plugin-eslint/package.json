@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-eslint",
-  "version": "0.8.578",
+  "version": "0.8.579",
   "private": false,
   "description": "A package containing a Powerlines plugin for running ESLint on the codebase.",
   "keywords": ["eslint", "powerlines", "storm-software", "powerlines-plugin"],

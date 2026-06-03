@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.42](https://github.com/storm-software/powerlines/releases/tag/core%400.48.42) (06/03/2026)
+
+### Miscellaneous
+
+- **schema:** Treeshake `build` output in `bundle` function ([d6b322848](https://github.com/storm-software/powerlines/commit/d6b322848))
+
 ## [0.48.41](https://github.com/storm-software/powerlines/releases/tag/core%400.48.41) (06/03/2026)
 
 ### Miscellaneous

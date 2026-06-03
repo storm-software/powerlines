@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-webpack",
-  "version": "0.5.565",
+  "version": "0.5.566",
   "private": false,
   "description": "A package containing a Powerlines plugin to build projects using Webpack.",
   "keywords": ["webpack", "powerlines", "storm-software", "powerlines-plugin"],

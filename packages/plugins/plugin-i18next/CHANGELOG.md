@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin I18next
 
+## [0.1.472](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.472) (06/03/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.526**
+- Updated **powerlines** to **v0.47.114**
+
 ## [0.1.471](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.471) (06/03/2026)
 
 ### Updated Dependencies
