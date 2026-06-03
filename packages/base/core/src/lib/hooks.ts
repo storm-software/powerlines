@@ -129,12 +129,20 @@ async function _callHook<
   const hooks = context.selectHooks(key, options);
   if (hooks.length > 0) {
     const logger = context.extendLogger({ category: "hooks" });
+    const pluginNumberWidth =
+      hooks.length >= 10 ? String(hooks.length).length : 1;
 
     logger.debug(
       `🧩 Calling ${hooks.length} ${chalk.bold.cyanBright(
         `${key}${options?.order ? ` (${options.order})` : ""}`
       )} plugin hook${hooks.length > 1 ? "s" : ""}:\n${hooks
-        .map((hook, index) => ` ${index + 1}. ${colorText(hook.plugin.name)}`)
+        .map(
+          (hook, index) =>
+            `${String(index + 1).padStart(
+              pluginNumberWidth,
+              "0"
+            )}. ${colorText(hook.plugin.name)}`
+        )
         .join("\n")}`
     );
 

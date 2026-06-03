@@ -69,6 +69,9 @@ export async function resolvePluginConfig<
         "No Powerlines plugins were specified in the options. Please ensure this is correct, as it is generally not recommended."
     });
   } else {
+    const pluginNumberWidth =
+      context.plugins.length >= 10 ? String(context.plugins.length).length : 1;
+
     context.info({
       meta: {
         category: "plugins"
@@ -76,7 +79,13 @@ export async function resolvePluginConfig<
       message: `Loaded ${context.plugins.length} ${titleCase(
         context.config.framework?.name ?? "powerlines"
       )} plugin${context.plugins.length > 1 ? "s" : ""}: \n${context.plugins
-        .map((plugin, index) => ` ${index + 1}. ${colorText(plugin.name)}`)
+        .map(
+          (plugin, index) =>
+            `${String(index + 1).padStart(
+              pluginNumberWidth,
+              "0"
+            )}. ${colorText(plugin.name)}`
+        )
         .join("\n")}`
     });
   }

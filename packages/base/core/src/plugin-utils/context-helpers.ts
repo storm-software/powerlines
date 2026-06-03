@@ -141,7 +141,7 @@ export async function getWorkspaceName(
  * Format an execution ID based on the project name, command, and config index.
  *
  * @remarks
- * The execution ID is formatted as `${projectName}-${command}-#${index}`, where:
+ * The execution ID is formatted as `${projectName}:${command}:${index}`, where:
  * - `projectName` is the name of the project.
  * - `command` is the command being executed.
  * - `index` is a zero-padded number representing the execution index (starting from 1).
@@ -149,10 +149,10 @@ export async function getWorkspaceName(
  * @example
  * ```ts
  * const executionId = formatExecutionId("my-project", "build", 0);
- * // This will return "my-project-build-01"
+ * // This will return "my-project:build:01"
  *
  * const executionId2 = formatExecutionId("my-project", "test", 5);
- * // This will return "my-project-test-06"
+ * // This will return "my-project:test:06"
  * ```
  *
  * @param projectName - The name of the project.
@@ -165,5 +165,5 @@ export function formatExecutionId(
   command: string,
   configIndex: number = 0
 ) {
-  return `${projectName}-${command}-${String(configIndex + 1).padStart(2, "0")}`;
+  return `${projectName}:${command}:${String(configIndex + 1).padStart(2, "0")}`;
 }
