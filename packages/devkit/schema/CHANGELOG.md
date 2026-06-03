@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.93](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.93) (06/03/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue with missing characters in generated code ([dadb552de](https://github.com/storm-software/powerlines/commit/dadb552de))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.40**
+- Updated **deepkit** to **v0.9.72**
+- Updated **unplugin** to **v0.0.88**
+
 ## [0.11.92](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.92) (06/02/2026)
 
 ### Bug Fixes
