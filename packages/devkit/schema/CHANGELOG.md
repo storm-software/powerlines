@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.102](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.102) (06/03/2026)
+
+### Bug Fixes
+
+- **schema:** Resolve issue checking string literal value ([4e8633238](https://github.com/storm-software/powerlines/commit/4e8633238))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.45**
+- Updated **deepkit** to **v0.9.77**
+- Updated **unplugin** to **v0.0.93**
+
 ## [0.11.101](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.101) (06/03/2026)
 
 ### Updated Dependencies
