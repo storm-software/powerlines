@@ -77,7 +77,12 @@ export async function bundle<TContext extends UnresolvedContext>(
               prefix: false,
               overrides: defu(options.resolve ?? {}, {
                 skipNodeModulesBundle: false,
-                external: ["@alloy-js/*"],
+                external: [
+                  "@alloy-js/core",
+                  "@alloy-js/typescript",
+                  "@alloy-js/json",
+                  "@alloy-js/markdown"
+                ]
               }),
               silenceHookLogging: true
             })
