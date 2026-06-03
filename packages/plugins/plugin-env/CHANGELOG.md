@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.326](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.326) (06/03/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolve issue stripping prefix from parsed environment variables ([097ae9a43](https://github.com/storm-software/powerlines/commit/097ae9a43))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.215**
+- Updated **plugin-automd** to **v0.1.583**
+- Updated **plugin-babel** to **v0.13.118**
+- Updated **plugin-deepkit** to **v0.11.465**
+- Updated **plugin-plugin** to **v0.12.534**
+- Updated **powerlines** to **v0.47.122**
+- Updated **schema** to **v0.11.104**
+
 ## [0.16.325](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.325) (06/03/2026)
 
 ### Bug Fixes

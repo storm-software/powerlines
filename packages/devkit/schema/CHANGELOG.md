@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.104](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.104) (06/03/2026)
+
+### Miscellaneous
+
+- **schema:** Added the `options` parameter to `generateParserCode` function ([5de5275ce](https://github.com/storm-software/powerlines/commit/5de5275ce))
+
 ## [0.11.103](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.103) (06/03/2026)
 
 ### Bug Fixes
