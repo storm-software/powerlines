@@ -68,7 +68,19 @@ export async function render<TContext extends PluginContext>(
   } else {
     context.debug(
       `Rendering ${files.length} output files from Alloy-js components: ${list(
-        files.map(f => replacePath(f.path, context.config.cwd))
+        files.map(
+          file =>
+            `${replacePath(file.path, context.config.cwd)}${
+              meta[file.path]?.kind === "builtin" ||
+              meta[file.path]?.kind === "infrastructure"
+                ? ` (${
+                    meta[file.path]?.kind === "builtin"
+                      ? "Builtin"
+                      : "Infrastructure"
+                  })`
+                : ""
+            }`
+        )
       )}.`
     );
 
