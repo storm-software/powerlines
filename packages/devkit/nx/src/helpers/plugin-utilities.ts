@@ -398,11 +398,9 @@ export function createNxPlugin<
                     `@${framework}/nx:${options?.prepare?.targetName || "prepare"}`,
                   dependsOn:
                     options?.prepare?.dependsOn ??
-                    ([
-                      `^${options?.prepare?.targetName || "build"}`,
-                      options?.clean !== false &&
-                        `${options?.clean?.targetName || "clean"}`
-                    ].filter(Boolean) as string[]),
+                    [`^${options?.prepare?.targetName || "build"}`].filter(
+                      Boolean
+                    ),
                   defaultConfiguration:
                     options?.prepare?.defaultConfiguration || "production",
                   options: {
