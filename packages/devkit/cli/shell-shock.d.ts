@@ -1175,7 +1175,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_ID
      * @alias SHELL_SHOCK_BUILD_ID
      * @readonly
-     * @defaultValue "8e9681ad-e0da-4967-9d86-fc2ff6b4209a"
+     * @defaultValue "199b0c9b-09e7-4a8e-92d8-ed9581eaa4f4"
      */
     readonly CLI_BUILD_ID: string;
     /**
@@ -1184,7 +1184,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_TIMESTAMP
      * @alias SHELL_SHOCK_BUILD_TIMESTAMP
      * @readonly
-     * @defaultValue "2026-06-05T12:50:39.619Z"
+     * @defaultValue "2026-06-05T13:05:39.688Z"
      */
     readonly CLI_BUILD_TIMESTAMP: string;
     /**
@@ -1193,7 +1193,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_CHECKSUM
      * @alias SHELL_SHOCK_BUILD_CHECKSUM
      * @readonly
-     * @defaultValue "BkVv_9xZmXVMU1g0PeFEeWSbaOJhRXMG"
+     * @defaultValue "nQKBkV2pHRrVh_8MC5lk5VdNdAi4kExl"
      */
     readonly CLI_BUILD_CHECKSUM: string;
     /**
@@ -1202,7 +1202,7 @@ declare module "shell-shock:env" {
      * @alias RELEASE_ID
      * @alias SHELL_SHOCK_RELEASE_ID
      * @readonly
-     * @defaultValue "9681ade0-da39-471d-86fc-2ff6b4209a61"
+     * @defaultValue "9b0c9b09-e71a-4e92-98ed-9581eaa4f4d1"
      */
     readonly CLI_RELEASE_ID: string;
     /**
@@ -1260,7 +1260,7 @@ declare module "shell-shock:env" {
      *
      * @alias ENVIRONMENT
      * @alias SHELL_SHOCK_ENVIRONMENT
-     * @defaultValue "production"
+     * @defaultValue "development"
      */
     CLI_ENVIRONMENT: string;
     /**
@@ -1268,7 +1268,7 @@ declare module "shell-shock:env" {
      *
      * @alias DEBUG
      * @alias SHELL_SHOCK_DEBUG
-     * @defaultValue false
+     * @defaultValue true
      */
     CLI_DEBUG: boolean;
     /**
@@ -1437,7 +1437,7 @@ declare module "shell-shock:env" {
      *
      * @alias STACKTRACE
      * @alias SHELL_SHOCK_STACKTRACE
-     * @defaultValue false
+     * @defaultValue true
      */
     CLI_STACKTRACE: boolean;
     /**
@@ -2213,7 +2213,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_ID
      * @alias CLI_BUILD_ID
      * @readonly
-     * @defaultValue "8e9681ad-e0da-4967-9d86-fc2ff6b4209a"
+     * @defaultValue "199b0c9b-09e7-4a8e-92d8-ed9581eaa4f4"
      */
     readonly SHELL_SHOCK_BUILD_ID: string;
     /**
@@ -2222,7 +2222,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_TIMESTAMP
      * @alias CLI_BUILD_TIMESTAMP
      * @readonly
-     * @defaultValue "2026-06-05T12:50:39.619Z"
+     * @defaultValue "2026-06-05T13:05:39.688Z"
      */
     readonly SHELL_SHOCK_BUILD_TIMESTAMP: string;
     /**
@@ -2231,7 +2231,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_CHECKSUM
      * @alias CLI_BUILD_CHECKSUM
      * @readonly
-     * @defaultValue "BkVv_9xZmXVMU1g0PeFEeWSbaOJhRXMG"
+     * @defaultValue "nQKBkV2pHRrVh_8MC5lk5VdNdAi4kExl"
      */
     readonly SHELL_SHOCK_BUILD_CHECKSUM: string;
     /**
@@ -2240,7 +2240,7 @@ declare module "shell-shock:env" {
      * @alias RELEASE_ID
      * @alias CLI_RELEASE_ID
      * @readonly
-     * @defaultValue "9681ade0-da39-471d-86fc-2ff6b4209a61"
+     * @defaultValue "9b0c9b09-e71a-4e92-98ed-9581eaa4f4d1"
      */
     readonly SHELL_SHOCK_RELEASE_ID: string;
     /**
@@ -2298,7 +2298,7 @@ declare module "shell-shock:env" {
      *
      * @alias ENVIRONMENT
      * @alias CLI_ENVIRONMENT
-     * @defaultValue "production"
+     * @defaultValue "development"
      */
     SHELL_SHOCK_ENVIRONMENT: string;
     /**
@@ -2306,7 +2306,7 @@ declare module "shell-shock:env" {
      *
      * @alias DEBUG
      * @alias CLI_DEBUG
-     * @defaultValue false
+     * @defaultValue true
      */
     SHELL_SHOCK_DEBUG: boolean;
     /**
@@ -2475,7 +2475,7 @@ declare module "shell-shock:env" {
      *
      * @alias STACKTRACE
      * @alias CLI_STACKTRACE
-     * @defaultValue false
+     * @defaultValue true
      */
     SHELL_SHOCK_STACKTRACE: boolean;
     /**
@@ -8836,23 +8836,6 @@ declare module "shell-shock:banner/completions" {
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the Completions - Fish Configuration command.
- *
- * @module shell-shock:banner/completions/fish/config
- */
-declare module "shell-shock:banner/completions/fish/config" {
-  /**
-   * Write the  command-line interface application banner for the Completions - Fish Configuration command to the console.
-   *
-   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
-   *   displaying the banner. This can be used to create a delay before the banner
-   *   is shown, allowing for any necessary setup or initialization to occur
-   *   first. The default value is 500 milliseconds.
-   */
-  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
-}
-
-/**
  * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Configuration command.
  *
  * @module shell-shock:banner/completions/zsh/config
@@ -8894,6 +8877,23 @@ declare module "shell-shock:banner/completions/bash/config" {
 declare module "shell-shock:banner/completions/powershell/config" {
   /**
    * Write the  command-line interface application banner for the Completions - PowerShell Configuration command to the console.
+   *
+   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
+   *   displaying the banner. This can be used to create a delay before the banner
+   *   is shown, allowing for any necessary setup or initialization to occur
+   *   first. The default value is 500 milliseconds.
+   */
+  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
+}
+
+/**
+ * A collection of utility functions that assist in displaying banner information for the Completions - Fish Configuration command.
+ *
+ * @module shell-shock:banner/completions/fish/config
+ */
+declare module "shell-shock:banner/completions/fish/config" {
+  /**
+   * Write the  command-line interface application banner for the Completions - Fish Configuration command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9057,23 +9057,6 @@ declare module "shell-shock:banner/prepare" {
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the Completions - Fish Script command.
- *
- * @module shell-shock:banner/completions/fish/script
- */
-declare module "shell-shock:banner/completions/fish/script" {
-  /**
-   * Write the  command-line interface application banner for the Completions - Fish Script command to the console.
-   *
-   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
-   *   displaying the banner. This can be used to create a delay before the banner
-   *   is shown, allowing for any necessary setup or initialization to occur
-   *   first. The default value is 500 milliseconds.
-   */
-  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
-}
-
-/**
  * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Script command.
  *
  * @module shell-shock:banner/completions/zsh/script
@@ -9115,6 +9098,23 @@ declare module "shell-shock:banner/completions/bash/script" {
 declare module "shell-shock:banner/completions/powershell/script" {
   /**
    * Write the  command-line interface application banner for the Completions - PowerShell Script command to the console.
+   *
+   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
+   *   displaying the banner. This can be used to create a delay before the banner
+   *   is shown, allowing for any necessary setup or initialization to occur
+   *   first. The default value is 500 milliseconds.
+   */
+  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
+}
+
+/**
+ * A collection of utility functions that assist in displaying banner information for the Completions - Fish Script command.
+ *
+ * @module shell-shock:banner/completions/fish/script
+ */
+declare module "shell-shock:banner/completions/fish/script" {
+  /**
+   * Write the  command-line interface application banner for the Completions - Fish Script command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9284,24 +9284,6 @@ declare module "shell-shock:help/completions" {
 }
 
 /**
- * A collection of utility functions that assist in displaying help information for the Completions - Fish Configuration command.
- *
- * @module shell-shock:help/completions/fish/config
- */
-declare module "shell-shock:help/completions/fish/config" {
-  /**
-   * Utility functions for displaying help information for the Completions - Fish Configuration command.
-   *
-   * @remarks
-   * This module contains utility functions that assist in displaying help information for the Completions - Fish Configuration command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
-   */
-  /**
-   * Display help information for the Completions - Fish Configuration command.
-   */
-  export function showHelp(): void;
-}
-
-/**
  * A collection of utility functions that assist in displaying help information for the Completions - Zsh Configuration command.
  *
  * @module shell-shock:help/completions/zsh/config
@@ -9352,6 +9334,24 @@ declare module "shell-shock:help/completions/powershell/config" {
   /**
    * Display help information for the Completions - PowerShell Configuration
    * command.
+   */
+  export function showHelp(): void;
+}
+
+/**
+ * A collection of utility functions that assist in displaying help information for the Completions - Fish Configuration command.
+ *
+ * @module shell-shock:help/completions/fish/config
+ */
+declare module "shell-shock:help/completions/fish/config" {
+  /**
+   * Utility functions for displaying help information for the Completions - Fish Configuration command.
+   *
+   * @remarks
+   * This module contains utility functions that assist in displaying help information for the Completions - Fish Configuration command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   */
+  /**
+   * Display help information for the Completions - Fish Configuration command.
    */
   export function showHelp(): void;
 }
@@ -9519,24 +9519,6 @@ declare module "shell-shock:help/prepare" {
 }
 
 /**
- * A collection of utility functions that assist in displaying help information for the Completions - Fish Script command.
- *
- * @module shell-shock:help/completions/fish/script
- */
-declare module "shell-shock:help/completions/fish/script" {
-  /**
-   * Utility functions for displaying help information for the Completions - Fish Script command.
-   *
-   * @remarks
-   * This module contains utility functions that assist in displaying help information for the Completions - Fish Script command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
-   */
-  /**
-   * Display help information for the Completions - Fish Script command.
-   */
-  export function showHelp(): void;
-}
-
-/**
  * A collection of utility functions that assist in displaying help information for the Completions - Zsh Script command.
  *
  * @module shell-shock:help/completions/zsh/script
@@ -9586,6 +9568,24 @@ declare module "shell-shock:help/completions/powershell/script" {
    */
   /**
    * Display help information for the Completions - PowerShell Script command.
+   */
+  export function showHelp(): void;
+}
+
+/**
+ * A collection of utility functions that assist in displaying help information for the Completions - Fish Script command.
+ *
+ * @module shell-shock:help/completions/fish/script
+ */
+declare module "shell-shock:help/completions/fish/script" {
+  /**
+   * Utility functions for displaying help information for the Completions - Fish Script command.
+   *
+   * @remarks
+   * This module contains utility functions that assist in displaying help information for the Completions - Fish Script command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   */
+  /**
+   * Display help information for the Completions - Fish Script command.
    */
   export function showHelp(): void;
 }

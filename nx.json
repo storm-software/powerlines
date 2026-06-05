@@ -3,20 +3,8 @@
   "release": {
     "groups": {
       "packages": {
-        "projects": [
-          "!{name}:cli",
-          "!{name}:powerlines",
-          "!{name}:monorepo",
-          "!tools/*"
-        ],
+        "projects": ["!{name}:cli", "!{name}:monorepo", "!tools/*"],
         "projectsRelationship": "independent"
-      },
-      "powerlines": {
-        "projects": ["{name}:cli", "{name}:powerlines"],
-        "projectsRelationship": "fixed",
-        "releaseTag": {
-          "pattern": "powerlines@{version}"
-        }
       }
     }
   },
