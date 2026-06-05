@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.9.79](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.79) (06/05/2026)
+
+### Features
+
+- **cli:** Updated CLI to deploy as standalone package ([990f64bc9](https://github.com/storm-software/powerlines/commit/990f64bc9))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.47**
+
 ## [0.9.78](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.78) (06/04/2026)
 
 ### Updated Dependencies

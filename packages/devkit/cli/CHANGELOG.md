@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - CLI
 
+## [0.47.125](https://github.com/storm-software/powerlines/releases/tag/cli%400.47.125) (06/05/2026)
+
+### Features
+
+- **cli:** Updated CLI to deploy as standalone package ([990f64bc9](https://github.com/storm-software/powerlines/commit/990f64bc9))
+
 ## [0.2.40](https://github.com/storm-software/powerlines/releases/tag/cli%400.2.40) (05/13/2026)
 
 ### Updated Dependencies

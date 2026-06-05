@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.49](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.49) (06/05/2026)
+
+### Features
+
+- **cli:** Updated CLI to deploy as standalone package ([990f64bc9](https://github.com/storm-software/powerlines/commit/990f64bc9))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.47**
+
 ## [0.49.48](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.48) (06/04/2026)
 
 ### Updated Dependencies
