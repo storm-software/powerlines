@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Automd
 
+## [0.1.586](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.586) (06/05/2026)
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.47**
+- Updated **plugin-plugin** to **v0.12.537**
+
 ## [0.1.585](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.585) (06/04/2026)
 
 ### Updated Dependencies

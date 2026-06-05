@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.125](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.125) (06/05/2026)
+
+### Features
+
+- **cli:** Updated CLI to deploy as standalone package ([990f64bc9](https://github.com/storm-software/powerlines/commit/990f64bc9))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.47**
+- Updated **engine** to **v0.49.49**
+- Updated **schema** to **v0.11.107**
+- Updated **unplugin** to **v0.0.95**
+
 ## [0.47.124](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.124) (06/04/2026)
 
 ### Updated Dependencies
