@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.163](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.163) (06/04/2026)
+
+### Bug Fixes
+
+- **nx:** Remove `clean` target dependency ([186b3bd22](https://github.com/storm-software/powerlines/commit/186b3bd22))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.124**
+
 ## [0.13.162](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.162) (06/03/2026)
 
 ### Updated Dependencies
