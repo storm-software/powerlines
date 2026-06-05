@@ -36,9 +36,11 @@ import {
   resolveLogLevel,
   withCustomLogger
 } from "@powerlines/core/plugin-utils";
+import { getName } from "@powerlines/core/plugin-utils/context-helpers";
 import { toArray } from "@stryke/convert/to-array";
 import { EnvPaths, getEnvPaths } from "@stryke/env/get-env-paths";
 import { kebabCase } from "@stryke/string-format/kebab-case";
+import { PartialKeys } from "@stryke/types/base";
 import { uuid } from "@stryke/unique-id/uuid";
 import { createHostContext } from "devframe/node";
 import {
@@ -199,7 +201,7 @@ export class PowerlinesEngineContext<TSystemContext = unknown>
    */
   public async loadExecutions(
     command: string,
-    inlineConfig: InlineConfig
+    inlineConfig: PartialKeys<InlineConfig, "command">
   ): Promise<EngineExecutionItem[]> {
     const root = resolveRoot(
       this.cwd,
@@ -212,7 +214,7 @@ export class PowerlinesEngineContext<TSystemContext = unknown>
       root,
       this.framework?.name,
       this.orgId,
-      inlineConfig
+      { ...inlineConfig, command }
     );
     if (!config) {
       throw new Error("Failed to load configuration");
@@ -222,7 +224,9 @@ export class PowerlinesEngineContext<TSystemContext = unknown>
     const executions = await Promise.all(
       toArray(config.config).map(async (_, configIndex) => {
         const executionId = formatExecutionId(
-          config.config.name || inlineConfig.name || root,
+          config.config.name ||
+            inlineConfig.name ||
+            (await getName(this.cwd, root)),
           command,
           configIndex
         );

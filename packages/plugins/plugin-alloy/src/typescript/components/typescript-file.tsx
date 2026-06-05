@@ -149,6 +149,7 @@ export function TypescriptFileHeader(props: TypescriptFileHeaderProps) {
     hashbang,
     disableEslint = true,
     disableBiome = true,
+    disableOxlint = true,
     children
   } = props;
 
@@ -177,11 +178,22 @@ export function TypescriptFileHeader(props: TypescriptFileHeaderProps) {
         </SingleLineComment>
         <hbr />
       </Show>
+      <Show when={Boolean(disableOxlint)}>
+        <SingleLineComment variant="slash-star">
+          {"oxlint-disable"}
+        </SingleLineComment>
+        <hbr />
+      </Show>
       <Show when={Boolean(disableBiome)}>
         <SingleLineComment>{"biome-ignore lint: disable"}</SingleLineComment>
         <hbr />
       </Show>
-      <Show when={Boolean(disableEslint) || Boolean(disableBiome)}>
+      <Show
+        when={
+          Boolean(disableEslint) ||
+          Boolean(disableBiome) ||
+          Boolean(disableOxlint)
+        }>
         <hbr />
       </Show>
       <Show when={Boolean(children)}>

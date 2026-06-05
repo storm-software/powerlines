@@ -100,7 +100,7 @@ export function loadEnvFromContext(
   parsed: DotenvParseOutput,
   workspaceConfig?: WorkspaceConfig
 ) {
-  return defu(
+  const result = defu(
     {
       APP_NAME: kebabCase(context.config.name),
       APP_VERSION: context.packageJson.version,
@@ -143,6 +143,19 @@ export function loadEnvFromContext(
         )
       : {}
   );
+
+  if (!["error", "warn", "info", "debug"].includes(result.LOG_LEVEL)) {
+    if (!result.LOG_LEVEL || String(result.LOG_LEVEL) === "silent") {
+      result.LOG_LEVEL = "error";
+    } else if (String(result.LOG_LEVEL) === "trace") {
+      result.LOG_LEVEL = "debug";
+    } else {
+      result.LOG_LEVEL =
+        context.config.mode === "production" ? "info" : "debug";
+    }
+  }
+
+  return result;
 }
 
 export async function loadEnv<

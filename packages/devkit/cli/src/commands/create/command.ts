@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { CommandMetadata } from "@shell-shock/core";
-import { createEngine } from "powerlines";
+import { createPowerlines } from "../../utilities/create-powerlines";
 
 export const metadata = {
   title: "Create Project",
@@ -36,15 +36,8 @@ export interface CreateOptions {
 }
 
 async function handler(options: CreateOptions) {
-  const api = await createEngine({
-    cwd: process.cwd(),
-    root: options.root
-  });
-  await api.create({
-    ...options,
-    root: options.root,
-    command: "create"
-  });
+  const engine = await createPowerlines(options);
+  await engine.create(options);
 }
 
 export default handler;

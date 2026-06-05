@@ -72,6 +72,7 @@ export function MarkdownFileHeader(props: MarkdownFileHeaderProps) {
       children,
       disableEslint = true,
       disableBiome = true,
+      disableOxlint = true,
       disablePrettier = false,
       frontMatter
     }
@@ -79,6 +80,7 @@ export function MarkdownFileHeader(props: MarkdownFileHeaderProps) {
     "children",
     "disableEslint",
     "disableBiome",
+    "disableOxlint",
     "disablePrettier",
     "frontMatter"
   ]);
@@ -94,6 +96,12 @@ export function MarkdownFileHeader(props: MarkdownFileHeaderProps) {
       <Show when={Boolean(disableEslint)}>
         <SingleLineComment variant="markdown">
           {"eslint-disable"}
+        </SingleLineComment>
+        <hbr />
+      </Show>
+      <Show when={Boolean(disableOxlint)}>
+        <SingleLineComment variant="markdown">
+          {"oxlint-disable"}
         </SingleLineComment>
         <hbr />
       </Show>
@@ -113,7 +121,8 @@ export function MarkdownFileHeader(props: MarkdownFileHeaderProps) {
         when={
           Boolean(disableEslint) ||
           Boolean(disablePrettier) ||
-          Boolean(disableBiome)
+          Boolean(disableBiome) ||
+          Boolean(disableOxlint)
         }>
         <hbr />
       </Show>

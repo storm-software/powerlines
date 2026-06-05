@@ -111,7 +111,7 @@
       }
     }
   },
-  "files": ["dist/**/*"],
+  "files": ["dist"],
   "keywords": ["oxlint", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@storm-software/config-tools": "catalog:",

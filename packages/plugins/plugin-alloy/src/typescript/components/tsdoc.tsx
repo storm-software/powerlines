@@ -361,9 +361,9 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
           alias.length > 0 &&
           alias.some(a => isSetString(a?.trim()))
         }>
-        <For each={alias?.filter(a => isSetString(a?.trim())) ?? []}>
-          {alias => <TSDocAlias>{alias}</TSDocAlias>}
-        </For>
+        {(alias?.filter(a => isSetString(a?.trim())) ?? []).map(alias => (
+          <TSDocAlias>{alias}</TSDocAlias>
+        ))}
       </Show>
       <Show
         when={
@@ -371,9 +371,9 @@ export function TSDocAttributesTags(props: TSDocAttributesTagsProps) {
           tags.length > 0 &&
           tags.some(g => isSetString(g?.trim()))
         }>
-        <For each={tags?.filter(g => isSetString(g?.trim())) ?? []}>
-          {tag => <TSDocGroup>{tag}</TSDocGroup>}
-        </For>
+        {(tags?.filter(g => isSetString(g?.trim())) ?? []).map(tag => (
+          <TSDocGroup>{tag}</TSDocGroup>
+        ))}
       </Show>
       <Show when={readOnly === true}>
         <TSDocReadonly />

@@ -18,7 +18,7 @@
 
 import type { CommandMetadata } from "@shell-shock/core";
 import { removeDirectory } from "@stryke/fs";
-import { createEngine } from "powerlines";
+import { createPowerlines } from "../../utilities/create-powerlines";
 
 export const metadata = {
   title: "Garbage Collection",
@@ -47,31 +47,28 @@ export interface GarbageCollectionOptions {
 /**
  * Perform garbage collection to clean up unnecessary system files based on the specified options. This can help free up disk space and improve system performance.
  *
- * @param _options - The options for garbage collection.
+ * @param options - The options for garbage collection.
  * @param type - The type of environment paths to clean up. Can be "data", "cache", "logs", "temp", or "all" to clean all types.
  * @returns A promise that resolves when the garbage collection process is complete.
  */
 async function handler(
-  _options: GarbageCollectionOptions = {},
+  options: GarbageCollectionOptions = {},
   type: "data" | "cache" | "logs" | "temp" | "all" = "all"
 ) {
-  const api = await createEngine({
-    cwd: process.cwd(),
-    root: process.cwd()
-  });
+  const engine = await createPowerlines({ root: process.cwd(), ...options });
 
   const envPaths = [] as string[];
   if (type === "all" || type === "data") {
-    envPaths.push(api.context.envPaths.data);
+    envPaths.push(engine.context.envPaths.data);
   }
   if (type === "all" || type === "cache") {
-    envPaths.push(api.context.envPaths.cache);
+    envPaths.push(engine.context.envPaths.cache);
   }
   if (type === "all" || type === "logs") {
-    envPaths.push(api.context.envPaths.log);
+    envPaths.push(engine.context.envPaths.log);
   }
   if (type === "all" || type === "temp") {
-    envPaths.push(api.context.envPaths.temp);
+    envPaths.push(engine.context.envPaths.temp);
   }
 
   await Promise.all(

@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { CommandMetadata } from "@shell-shock/core";
-import { createEngine } from "powerlines";
+import { createPowerlines } from "../../utilities/create-powerlines";
 
 export const metadata = {
   title: "Generate Documentation",
@@ -36,11 +36,8 @@ export interface DocsOptions {
 }
 
 async function handler(options: DocsOptions) {
-  const api = await createEngine({
-    cwd: process.cwd(),
-    root: options.root || process.cwd()
-  });
-  await api.docs({ ...options, command: "docs" });
+  const engine = await createPowerlines(options);
+  await engine.docs(options);
 }
 
 export default handler;

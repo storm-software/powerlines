@@ -37,15 +37,12 @@
     "url": "https://github.com/sponsors/storm-software"
   },
   "license": "Apache-2.0",
-  "private": true,
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "files": ["dist/**/*"],
+  "private": false,
+  "files": ["dist"],
   "keywords": ["cli", "powerlines", "storm-software", "shell-shock"],
   "dependencies": {
     "@shell-shock/core": "catalog:",
     "@shell-shock/preset-cli": "catalog:",
-    "@powerlines/deepkit": "workspace:*",
     "powerlines": "workspace:*"
   },
   "devDependencies": {
@@ -53,11 +50,31 @@
     "@storm-software/testing-tools": "catalog:",
     "@types/node": "catalog:"
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "publishConfig": { "access": "public" },
   "types": "./dist/index.d.cts",
-  "bin": {
-    "powerlines": "./dist/bin.mjs"
+  "bin": { "cli": "./dist/bin.mjs" },
+  "exports": {
+    "./bin": "./dist/bin.mjs",
+    "./build": "./dist/build.mjs",
+    "./changelog": "./dist/changelog.mjs",
+    "./clean": "./dist/clean.mjs",
+    "./completions-bash-config": "./dist/completions-bash-config.mjs",
+    "./completions-bash-script": "./dist/completions-bash-script.mjs",
+    "./completions-fish-config": "./dist/completions-fish-config.mjs",
+    "./completions-fish-script": "./dist/completions-fish-script.mjs",
+    "./completions-powershell-config": "./dist/completions-powershell-config.mjs",
+    "./completions-powershell-script": "./dist/completions-powershell-script.mjs",
+    "./completions-zsh-config": "./dist/completions-zsh-config.mjs",
+    "./completions-zsh-script": "./dist/completions-zsh-script.mjs",
+    "./create": "./dist/create.mjs",
+    "./deploy": "./dist/deploy.mjs",
+    "./docs": "./dist/docs.mjs",
+    "./gc": "./dist/gc.mjs",
+    "./help": "./dist/help.mjs",
+    "./lint": "./dist/lint.mjs",
+    "./package.json": "./package.json",
+    "./prepare": "./dist/prepare.mjs",
+    "./types": "./dist/types.mjs",
+    "./upgrade": "./dist/upgrade.mjs"
   }
 }

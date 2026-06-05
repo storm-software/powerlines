@@ -51,6 +51,7 @@ import { getWorkspaceRoot } from "@stryke/fs/get-workspace-root";
 import { createDirectory } from "@stryke/fs/helpers";
 import { replacePath } from "@stryke/path/replace";
 import { kebabCase } from "@stryke/string-format/kebab-case";
+import { list } from "@stryke/string-format/list";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isFunction } from "@stryke/type-checks/is-function";
 import { isObject } from "@stryke/type-checks/is-object";
@@ -131,8 +132,9 @@ export function createUnpluginFactory<
 ): UnpluginFactory<TContext> {
   if (!isUnpluginBuilderVariant(options.variant)) {
     throw new Error(
-      `Invalid unplugin builder variant: ${String(options.variant)}. Expected one of: ${UNPLUGIN_BUILDER_VARIANTS.join(
-        ", "
+      `Invalid unplugin builder variant: ${String(options.variant)}. Expected one of: ${list(
+        UNPLUGIN_BUILDER_VARIANTS.map(variant => JSON.stringify(variant)),
+        { conjunction: "or" }
       )}.`
     );
   }
@@ -233,19 +235,16 @@ export function createUnpluginFactory<
             env.debug(
               `The configuration provided ${entriesLength} entry point${
                 entriesLength !== 1 ? "s" : ""
-              }, Powerlines has found ${env.entry.length} entry file${
+              }, ${titleCase(env.config.framework?.name) || "Powerlines"} has found ${env.entry.length} entry file${
                 env.entry.length !== 1 ? "s" : ""
               } for the ${env.config.title} project${
                 env.entry.length > 0 && env.entry.length < 10
                   ? `: \n${env.entry
                       .map(
                         entry =>
-                          `- ${replacePath(entry.file, context.config.root)}${
+                          `- ${replacePath(entry.file, context.config.cwd)}${
                             entry.output
-                              ? ` -> ${replacePath(
-                                  entry.output,
-                                  context.config.root
-                                )}`
+                              ? ` -> ${replacePath(entry.output, context.config.cwd)}`
                               : ""
                           }`
                       )

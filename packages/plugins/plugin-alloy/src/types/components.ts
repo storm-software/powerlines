@@ -145,6 +145,8 @@ export interface SourceFileHeaderProps extends ComponentProps {
   /**
    * If true, disables the ESLint directive at the top of the file.
    *
+   * @see https://eslint.org/docs
+   *
    * @defaultValue true
    */
   disableEslint?: boolean;
@@ -152,9 +154,20 @@ export interface SourceFileHeaderProps extends ComponentProps {
   /**
    * If true, disables the Biome directive at the top of the file.
    *
+   * @see https://biomejs.dev/guides/getting-started/
+   *
    * @defaultValue true
    */
   disableBiome?: boolean;
+
+  /**
+   * If true, disables the Oxlint directive at the top of the file.
+   *
+   * @see https://oxc.rs/docs/guide/usage/linter
+   *
+   * @defaultValue true
+   */
+  disableOxlint?: boolean;
 
   /**
    * If true, disables the Prettier directive at the top of the file.

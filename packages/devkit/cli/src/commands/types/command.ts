@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { CommandMetadata } from "@shell-shock/core";
-import { createEngine } from "powerlines";
+import { createPowerlines } from "../../utilities/create-powerlines";
 
 export const metadata = {
   title: "Generate Typescript Declaration File",
@@ -36,11 +36,8 @@ export interface TypesOptions {
 }
 
 async function handler(options: TypesOptions) {
-  const api = await createEngine({
-    cwd: process.cwd(),
-    root: options.root || process.cwd()
-  });
-  await api.types({ ...options, command: "types" });
+  const engine = await createPowerlines(options);
+  await engine.types(options);
 }
 
 export default handler;

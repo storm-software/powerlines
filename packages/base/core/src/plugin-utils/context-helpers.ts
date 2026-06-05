@@ -17,6 +17,9 @@
  ------------------------------------------------------------------- */
 
 import { tryGetWorkspaceConfig } from "@storm-software/config-tools/get-config";
+import { existsSync } from "@stryke/fs/exists";
+import { readJsonFile } from "@stryke/fs/json";
+import { joinPaths } from "@stryke/path/join";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { PackageJson } from "@stryke/types/package-json";
@@ -166,4 +169,33 @@ export function formatExecutionId(
   configIndex: number = 0
 ) {
   return `${projectName}:${command}:${String(configIndex + 1).padStart(2, "0")}`;
+}
+
+/**
+ * Retrieves the project name from the context by checking various sources such as `project.json`, `package.json`, workspace configuration, and finally falling back to the context configuration.
+ *
+ * @param cwd - The current working directory.
+ * @param root - The root directory of the project.
+ * @returns The project name or undefined if not found.
+ */
+export async function getName(cwd: string, root: string): Promise<string> {
+  const projectRoot = joinPaths(cwd, root);
+
+  const projectJsonPath = joinPaths(projectRoot, "project.json");
+  if (existsSync(projectJsonPath)) {
+    const projectJson = await readJsonFile<{ name: string }>(projectJsonPath);
+    if (isSetString(projectJson.name)) {
+      return projectJson.name;
+    }
+  }
+
+  const packageJsonPath = joinPaths(projectRoot, "package.json");
+  if (existsSync(packageJsonPath)) {
+    const packageJson = await readJsonFile<PackageJson>(packageJsonPath);
+    if (isSetString(packageJson.name)) {
+      return packageJson.name.replace(/^@[^/]+\//, "");
+    }
+  }
+
+  return root.replace(/\/*$/, "").replace("/", "-");
 }

@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { BaseContext, InlineConfig, ParsedUserConfig } from "@powerlines/core";
+import type { PartialKeys } from "@stryke/types/base";
 import { ConnectionMeta, DevToolsNodeContext } from "devframe/types";
 import type { EngineExecutionOptions, EngineOptions } from "./config";
 import { RpcClient } from "./rpc";
@@ -172,7 +173,7 @@ export interface EngineContext<TSystemContext = unknown>
    */
   loadExecutions: (
     method: string,
-    inlineConfig: InlineConfig
+    inlineConfig: PartialKeys<InlineConfig, "command">
   ) => Promise<EngineExecutionItem[]>;
 
   /**

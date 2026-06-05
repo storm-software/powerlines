@@ -28,6 +28,7 @@ import type {
   TestInlineConfig,
   TypesInlineConfig
 } from "@powerlines/core";
+import type { PartialKeys } from "@stryke/types/base";
 import { createH3DevToolsHost } from "devframe/node";
 import { getPort } from "get-port-please";
 import { createApp, fromNodeMiddleware } from "h3";
@@ -90,7 +91,9 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    * @param inlineConfig - The inline configuration for the create command
    * @returns A promise that resolves when the project has been created
    */
-  public async create(inlineConfig: CreateInlineConfig) {
+  public async create(
+    inlineConfig: PartialKeys<CreateInlineConfig, "command">
+  ) {
     const timer = this.context.timer("Create");
     this.context.info("🆕 Creating a new project");
 
@@ -108,7 +111,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    *
    * @param inlineConfig - The inline configuration for the types command
    */
-  public async types(inlineConfig: TypesInlineConfig) {
+  public async types(inlineConfig: PartialKeys<TypesInlineConfig, "command">) {
     const timer = this.context.timer("Types");
     this.context.info("🏗️  Generating typescript declarations for the project");
 
@@ -126,7 +129,9 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    *
    * @param inlineConfig - The inline configuration for the prepare command
    */
-  public async prepare(inlineConfig: PrepareInlineConfig) {
+  public async prepare(
+    inlineConfig: PartialKeys<PrepareInlineConfig, "command">
+  ) {
     const timer = this.context.timer("Prepare");
     this.context.info("🏗️ Preparing the project");
 
@@ -145,7 +150,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    * @param inlineConfig - The inline configuration for the clean command
    * @returns A promise that resolves when the clean command has completed
    */
-  public async clean(inlineConfig: CleanInlineConfig) {
+  public async clean(inlineConfig: PartialKeys<CleanInlineConfig, "command">) {
     const timer = this.context.timer("Clean");
     this.context.info("🧹 Cleaning the previous artifacts");
 
@@ -161,7 +166,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    * @param inlineConfig - The inline configuration for the lint command
    * @returns A promise that resolves when the lint command has completed
    */
-  public async lint(inlineConfig: LintInlineConfig) {
+  public async lint(inlineConfig: PartialKeys<LintInlineConfig, "command">) {
     const timer = this.context.timer("Lint");
     this.context.info("📝 Linting the project");
 
@@ -180,7 +185,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    * @param inlineConfig - The inline configuration for the test command
    * @returns A promise that resolves when the test command has completed
    */
-  public async test(inlineConfig: TestInlineConfig) {
+  public async test(inlineConfig: PartialKeys<TestInlineConfig, "command">) {
     const timer = this.context.timer("Test");
     this.context.info("🧪 Running tests for the project");
 
@@ -199,7 +204,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    * @param inlineConfig - The inline configuration for the build command
    * @returns A promise that resolves when the build command has completed
    */
-  public async build(inlineConfig: BuildInlineConfig) {
+  public async build(inlineConfig: PartialKeys<BuildInlineConfig, "command">) {
     const timer = this.context.timer("Build");
     this.context.info("📦 Building the project");
 
@@ -215,7 +220,7 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    * @param inlineConfig - The inline configuration for the docs command
    * @returns A promise that resolves when the documentation generation has completed
    */
-  public async docs(inlineConfig: DocsInlineConfig) {
+  public async docs(inlineConfig: PartialKeys<DocsInlineConfig, "command">) {
     const timer = this.context.timer("Docs");
     this.context.info("📓 Generating documentation for the project");
 
@@ -234,7 +239,9 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    * @param inlineConfig - The inline configuration for the deploy command
    * @returns A promise that resolves when the deploy command has completed
    */
-  public async deploy(inlineConfig: DeployInlineConfig) {
+  public async deploy(
+    inlineConfig: PartialKeys<DeployInlineConfig, "command">
+  ) {
     const timer = this.context.timer("Deploy");
     this.context.info("🚀 Deploying the project");
 
@@ -279,7 +286,10 @@ export class PowerlinesEngine implements Engine, AsyncDisposable {
    * @param inlineConfig - Additional configuration options provided at runtime, which can override or supplement the options defined in the user configuration file.
    * @returns A promise that resolves when all executions for the specified command have completed
    */
-  protected async execute(command: string, inlineConfig: InlineConfig) {
+  protected async execute(
+    command: string,
+    inlineConfig: PartialKeys<InlineConfig, "command">
+  ) {
     await Promise.all(
       (await this.context.loadExecutions(command, inlineConfig)).map(
         async execution => {

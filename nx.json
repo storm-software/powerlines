@@ -3,8 +3,20 @@
   "release": {
     "groups": {
       "packages": {
-        "projects": ["!{name}:cli", "!{name}:monorepo", "!tools/*"],
+        "projects": [
+          "!{name}:cli",
+          "!{name}:powerlines",
+          "!{name}:monorepo",
+          "!tools/*"
+        ],
         "projectsRelationship": "independent"
+      },
+      "powerlines": {
+        "projects": ["{name}:cli", "{name}:powerlines"],
+        "projectsRelationship": "fixed",
+        "releaseTag": {
+          "pattern": "powerlines@{version}"
+        }
       }
     }
   },
@@ -27,6 +39,12 @@
       "plugin": "@storm-software/workspace-tools/plugins/typescript/tsdown",
       "options": {
         "projectLinks": "alias"
+      }
+    },
+    {
+      "plugin": "@shell-shock/nx/plugin",
+      "options": {
+        "verboseOutput": true
       }
     },
     "./dist/tools/nx/dist/index.js"

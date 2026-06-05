@@ -108,6 +108,7 @@ export function resolveLogLevel(
       hooks: "trace",
       env: "trace",
       rpc: "trace",
+      schema: "trace",
       config: "trace",
       babel: "trace"
     };
@@ -121,6 +122,7 @@ export function resolveLogLevel(
       hooks: "silent",
       env: "silent",
       rpc: "silent",
+      schema: "silent",
       config: "silent",
       babel: "silent"
     };
@@ -145,6 +147,7 @@ export function resolveLogLevel(
       hooks: logLevel,
       env: defaultLogLevel.env,
       rpc: defaultLogLevel.rpc,
+      schema: defaultLogLevel.schema,
       config: defaultLogLevel.config,
       babel: logLevel
     };

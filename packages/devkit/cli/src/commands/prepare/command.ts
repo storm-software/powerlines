@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type { CommandMetadata } from "@shell-shock/core";
-import { createEngine } from "powerlines";
+import { createPowerlines } from "../../utilities/create-powerlines";
 
 export const metadata = {
   title: "Prepare Artifacts",
@@ -37,11 +37,8 @@ export interface PrepareOptions {
 }
 
 async function handler(options: PrepareOptions) {
-  const api = await createEngine({
-    cwd: process.cwd(),
-    root: options.root || process.cwd()
-  });
-  await api.prepare({ ...options, command: "prepare" });
+  const engine = await createPowerlines(options);
+  await engine.prepare(options);
 }
 
 export default handler;

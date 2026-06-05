@@ -25,6 +25,7 @@ import { isNumber } from "@stryke/type-checks/is-number";
 import { isSet } from "@stryke/type-checks/is-set";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
+import { PartialKeys } from "@stryke/types/base";
 import { formatDuration } from "date-fns/formatDuration";
 import { pipeline } from "node:stream";
 import { parseArgs } from "node:util";
@@ -523,7 +524,7 @@ export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
   public async execute(
     command: string,
     options: Omit<EngineExecutionOptions, "channel">,
-    inlineConfig: InlineConfig
+    inlineConfig: PartialKeys<InlineConfig, "command">
   ) {
     if (this.options.timeout) {
       this.#activeTasks++;
@@ -601,7 +602,7 @@ export class ExecutionApiWorker implements ExecutionApiWorkerInterface {
   protected async innerExecute(
     command: string,
     options: Omit<EngineExecutionOptions, "channel">,
-    inlineConfig: InlineConfig
+    inlineConfig: PartialKeys<InlineConfig, "command">
   ) {
     if (!this.#worker) {
       throw new Error("Execution Host Worker is not initialized");

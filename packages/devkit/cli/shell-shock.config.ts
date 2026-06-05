@@ -27,8 +27,11 @@ const config: UserConfig = defineConfig({
   output: {
     storage: "fs"
   },
-  reference:
-    "https://docs.stormsoftware.com/projects/powerlines/reference/{command}",
+  logLevel: {
+    general: "debug",
+    config: "trace"
+  },
+  docs: "https://docs.stormsoftware.com/projects/powerlines/reference/{command}",
   plugins: [
     preset({
       theme: {

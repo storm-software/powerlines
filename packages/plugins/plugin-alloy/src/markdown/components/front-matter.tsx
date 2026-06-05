@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { code, For } from "@alloy-js/core";
+import { Spacing } from "../../core/components/spacing";
 
 export interface FrontMatterProps {
   data: Record<string, any>;
@@ -35,8 +36,9 @@ export function FrontMatter(props: FrontMatterProps) {
       <For each={Object.entries(props.data)} hardline>
         {([key, value]) => code`${key}: ${JSON.stringify(value)}`}
       </For>
-      {"---"}
       <hbr />
+      {"---"}
+      <Spacing />
     </>
   );
 }

@@ -56,6 +56,7 @@ import {
   JsonSchema,
   JsonSchemaObject
 } from "@powerlines/schema";
+import { toArray } from "@stryke/convert/to-array";
 import { deepClone } from "@stryke/helpers/deep-clone";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
@@ -85,7 +86,7 @@ export function EnvTypeDefinition(props: EnvTypeDefinitionProps) {
       <BaseInterfaceDeclaration name="Env" export extends="UnprefixedEnv">
         <For
           each={getUnique(context.config.env.prefix).map(prefix =>
-            prefix.replace(/_$/, "")
+            prefix.replace(/_*$/, "")
           )}
           doubleHardline>
           {prefix => (
@@ -99,7 +100,15 @@ export function EnvTypeDefinition(props: EnvTypeDefinitionProps) {
               {property => (
                 <>
                   <TSDocSchemaProperty
-                    schema={property}
+                    schema={{
+                      ...property,
+                      alias: [
+                        property.name,
+                        ...toArray(property.alias).filter(
+                          alias => alias !== `${prefix}_${property.name}`
+                        )
+                      ]
+                    }}
                     defaultValue={property?.default}
                   />
                   <InterfaceMember
@@ -296,7 +305,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
 
   const schemaGetProperties = computed(
     () =>
-      (getPropertiesList(schema.value)
+      getPropertiesList(schema.value)
         .filter(property => !property?.ignore && !property?.writeOnly)
         .sort((a, b) =>
           !a?.name && !b?.name
@@ -306,11 +315,11 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
               : !b?.name
                 ? -1
                 : a?.name.localeCompare(b?.name)
-        ) ?? []) as GetPropertiesResult[]
+        ) ?? []
   );
   const schemaSetProperties = computed(
     () =>
-      (getPropertiesList(schema.value)
+      getPropertiesList(schema.value)
         .filter(property => !property?.ignore && !property?.readOnly)
         .sort((a, b) =>
           !a?.name && !b?.name
@@ -320,7 +329,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
               : !b?.name
                 ? -1
                 : a?.name.localeCompare(b?.name)
-        ) ?? []) as GetPropertiesResult[]
+        ) ?? []
   );
 
   const parserCode = generateParserCode(schema.value);
@@ -346,15 +355,16 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       {parserCode}
       <Spacing />
       <Show when={Boolean(context?.entryPath)}>
-        <TSDoc heading="Initializes the Powerlines environment configuration module.">
+        <TSDoc
+          heading={`Initializes the ${context?.config?.framework?.name || "Powerlines"} environment configuration module.`}>
           <TSDocRemarks>
-            {`This function initializes the Powerlines environment configuration object.`}
+            {`This function initializes the ${context?.config?.framework?.name || "Powerlines"} environment configuration object.`}
           </TSDocRemarks>
           <TSDocParam name="environmentConfig">
             {`The dynamic/runtime configuration - this could include the current environment variables or any other environment-specific settings provided by the runtime.`}
           </TSDocParam>
           <TSDocReturns>
-            {`The initialized Powerlines configuration object.`}
+            {`The initialized ${context?.config?.framework?.name || "Powerlines"} configuration object.`}
           </TSDocReturns>
         </TSDoc>
         <FunctionDeclaration
@@ -417,9 +427,10 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
         </FunctionDeclaration>
       </Show>
       <Spacing />
-      <TSDoc heading="The environment configuration object.">
+      <TSDoc
+        heading={`The ${context?.config?.framework?.name || "Powerlines"} environment configuration object.`}>
         <TSDocRemarks>
-          {`This object provides access to the environment configuration parameters in the application runtime.`}
+          {`This object provides access to the ${context?.config?.framework?.name || "Powerlines"} environment configuration parameters in the application runtime.`}
         </TSDocRemarks>
       </TSDoc>
       <VarDeclaration

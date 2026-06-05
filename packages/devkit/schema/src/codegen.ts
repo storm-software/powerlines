@@ -18,6 +18,7 @@
 
 import { toBool } from "@stryke/convert/to-bool";
 import { camelCase } from "@stryke/string-format/camel-case";
+import { list } from "@stryke/string-format/list";
 import { isInteger, isObject, isSetArray, isString } from "@stryke/type-checks";
 import { isBoolean } from "@stryke/type-checks/is-boolean";
 import { isNull } from "@stryke/type-checks/is-null";
@@ -437,7 +438,12 @@ export function generateParserCode(
           valueVar
         }))) { ${errorsVar}.push({ path: ${
           pathVar
-        }, failure: "Expected one of " + ${enumValues} }); }`,
+        }, failure: \`Expected one of: ${list(
+          schema.enum.map(value => JSON.stringify(value)),
+          {
+            conjunction: "or"
+          }
+        )}, instead received: \${JSON.stringify(${valueVar})}\` }); }`,
         `${targetVar} = ${valueVar};`
       );
 
