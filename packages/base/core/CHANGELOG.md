@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.49](https://github.com/storm-software/powerlines/releases/tag/core%400.48.49) (06/06/2026)
+
+### Bug Fixes
+
+- **engine:** Resolve issue with invalid `name` parameter resolution logic ([0efa8418d](https://github.com/storm-software/powerlines/commit/0efa8418d))
+
 ## [0.48.47](https://github.com/storm-software/powerlines/releases/tag/core%400.48.47) (06/05/2026)
 
 ### Features

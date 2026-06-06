@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.166](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.166) (06/06/2026)
+
+### Bug Fixes
+
+- **engine:** Resolve issue with invalid `name` parameter resolution logic ([0efa8418d](https://github.com/storm-software/powerlines/commit/0efa8418d))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.127**
+
 ## [0.13.165](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.165) (06/05/2026)
 
 ### Updated Dependencies
