@@ -647,7 +647,7 @@ export class PowerlinesContext<
 
   public override createLogger(options: LoggerOptions = {}) {
     return createLogger(
-      this.config.name || this.options.root,
+      this.config.name,
       {
         logLevel: this.logLevel,
         ...options
@@ -1379,10 +1379,10 @@ export class PowerlinesContext<
         environmentConfig: this.environmentConfig
       },
       getConfigProps<TResolvedConfig>(this.overriddenConfig),
-      this.options,
       getConfigProps<TResolvedConfig>(this.inlineConfig),
       getConfigProps<TResolvedConfig>(this.userConfig),
       getConfigProps<TResolvedConfig>(this.pluginConfig),
+      this.options,
       {
         version: this.packageJson?.version,
         description: this.packageJson?.description,

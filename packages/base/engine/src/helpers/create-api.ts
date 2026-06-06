@@ -26,7 +26,8 @@ import { PowerlinesExecutionContext } from "@powerlines/core/context/execution-c
 import { resolvePluginConfig } from "@powerlines/core/lib/context-helpers";
 import {
   consoleLogger,
-  formatExecutionId
+  formatExecutionId,
+  getName
 } from "@powerlines/core/plugin-utils";
 import { list } from "@stryke/string-format/list";
 import { titleCase } from "@stryke/string-format/title-case";
@@ -79,9 +80,10 @@ export function createApi<
       );
     }
 
+    options.name ??= await getName(options.cwd, options.root);
     options.configIndex ??= 0;
     options.executionId ??= formatExecutionId(
-      params.inlineConfig.name || options.root,
+      options.name,
       command,
       options.configIndex
     );
@@ -109,19 +111,21 @@ export function createApi<
     }
 
     const logFn = (meta: LogFnMeta, message: string) => {
+      const resolvedMeta = {
+        category: "general",
+        ...options,
+        ...(isSetObject(meta) ? meta : { type: meta }),
+        logId: uuid(),
+        timestamp: Date.now()
+      };
+
       if (rpc) {
         void rpc.callEvent("powerlines:log", {
-          meta: {
-            category: "general",
-            ...options,
-            ...(isSetObject(meta) ? meta : { type: meta }),
-            logId: uuid(),
-            timestamp: Date.now()
-          },
+          meta: resolvedMeta,
           message
         });
       } else {
-        consoleLogger(meta, message);
+        consoleLogger(resolvedMeta, message);
       }
     };
 

@@ -40,7 +40,7 @@ import type {
   Mode,
   OutputConfig
 } from "powerlines";
-import { formatExecutionId } from "powerlines/plugin-utils";
+import { formatExecutionId, getName } from "powerlines/plugin-utils";
 import type { BaseExecutorSchema } from "./base-executor.schema";
 
 export type PowerlinesExecutorContext<
@@ -176,7 +176,6 @@ export function withExecutor<
                 command,
                 inlineConfig: defu(
                   {
-                    name: context.projectName,
                     command,
                     root: projectConfig.root,
                     configFile: options.configFile || options.config,
@@ -239,13 +238,17 @@ export function withExecutor<
               },
               context
             ),
-            async (inlineConfig: InlineConfig) =>
-              api({
+            async (inlineConfig: InlineConfig) => {
+              const name =
+                inlineConfig.name ||
+                context.projectName ||
+                (await getName(context.root, projectConfig.root));
+
+              return api({
                 options: defu(defaultOptions, {
+                  name,
                   executionId: formatExecutionId(
-                    inlineConfig.name ||
-                      context.projectName ||
-                      projectConfig.root,
+                    name,
                     command,
                     options.configIndex ?? 0
                   ),
@@ -263,7 +266,8 @@ export function withExecutor<
                 }) as ExecutionOptions,
                 command,
                 inlineConfig
-              })
+              });
+            }
           )
         );
       } catch (error) {

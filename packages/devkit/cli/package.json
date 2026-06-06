@@ -50,13 +50,9 @@
     "@storm-software/testing-tools": "catalog:",
     "@types/node": "catalog:"
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "publishConfig": { "access": "public" },
   "types": "./dist/index.d.cts",
-  "bin": {
-    "cli": "./dist/bin.mjs"
-  },
+  "bin": { "powerlines": "./dist/bin.mjs" },
   "exports": {
     "./bin": "./dist/bin.mjs",
     "./build": "./dist/build.mjs",

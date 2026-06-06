@@ -72,6 +72,11 @@ export interface ApiExecutionOptions extends ExecutionOptions {}
 
 export interface EngineExecutionOptions extends ExecutionOptions {
   /**
+   * The name of the project being built, which can be used by plugins to customize their behavior based on the specific project being built. This value is optional and can be set to `undefined` if not applicable, but providing it allows plugins to make informed decisions about how to handle certain tasks or configurations based on the project being built.
+   */
+  name: string;
+
+  /**
    * The base URL for the dev server, which can be used by plugins to construct URLs for assets or API endpoints during development. This value is only relevant in "dev" mode and will be `undefined` in "build" mode.
    */
   baseURL: string;

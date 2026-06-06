@@ -389,6 +389,11 @@ export interface BaseExecutionOptions extends RequiredKeys<Options, "cwd"> {
 
 export interface ExecutionOptions extends BaseExecutionOptions {
   /**
+   * The name of the project being built, which can be used by plugins to customize their behavior based on the specific project being built. This value is optional and can be set to `undefined` if not applicable, but providing it allows plugins to make informed decisions about how to handle certain tasks or configurations based on the project being built.
+   */
+  name?: string;
+
+  /**
    * A unique identifier for the current execution instance, which can be used for logging and other purposes to distinguish between different executions in the same process.
    */
   executionId?: string;

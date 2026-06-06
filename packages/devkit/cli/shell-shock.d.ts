@@ -109,7 +109,7 @@ declare module "shell-shock:env" {
      * The application's cached data directory.
      *
      * @title Cache Directory
-     * @alias CLI_CACHE_DIR
+     * @alias POWERLINES_CACHE_DIR
      * @alias SHELL_SHOCK_CACHE_DIR
      * @runtime
      *
@@ -120,8 +120,8 @@ declare module "shell-shock:env" {
      *
      * @title Continuous Integration
      * @alias CONTINUOUS_INTEGRATION
-     * @alias CLI_CI
-     * @alias CLI_CONTINUOUS_INTEGRATION
+     * @alias POWERLINES_CI
+     * @alias POWERLINES_CONTINUOUS_INTEGRATION
      * @alias SHELL_SHOCK_CI
      * @alias SHELL_SHOCK_CONTINUOUS_INTEGRATION
      *
@@ -131,7 +131,7 @@ declare module "shell-shock:env" {
      * The application's configuration data directory.
      *
      * @title Configuration Directory
-     * @alias CLI_CONFIG_DIR
+     * @alias POWERLINES_CONFIG_DIR
      * @alias SHELL_SHOCK_CONFIG_DIR
      * @runtime
      *
@@ -141,7 +141,7 @@ declare module "shell-shock:env" {
      * The application's runtime data directory.
      *
      * @title Data Directory
-     * @alias CLI_DATA_DIR
+     * @alias POWERLINES_DATA_DIR
      * @alias SHELL_SHOCK_DATA_DIR
      * @runtime
      *
@@ -150,7 +150,7 @@ declare module "shell-shock:env" {
     /**
      * Indicates if the application is running in debug mode.
      *
-     * @alias CLI_DEBUG
+     * @alias POWERLINES_DEBUG
      * @alias SHELL_SHOCK_DEBUG
      *
      */
@@ -158,7 +158,7 @@ declare module "shell-shock:env" {
     /**
      * The default locale to be used in the application.
      *
-     * @alias CLI_DEFAULT_LOCALE
+     * @alias POWERLINES_DEFAULT_LOCALE
      * @alias SHELL_SHOCK_DEFAULT_LOCALE
      *
      */
@@ -166,7 +166,7 @@ declare module "shell-shock:env" {
     /**
      * The default timezone for the application.
      *
-     * @alias CLI_DEFAULT_TIMEZONE
+     * @alias POWERLINES_DEFAULT_TIMEZONE
      * @alias SHELL_SHOCK_DEFAULT_TIMEZONE
      *
      */
@@ -174,7 +174,7 @@ declare module "shell-shock:env" {
     /**
      * The environment the application is running in. This value will be populated with the value of `MODE` if not provided.
      *
-     * @alias CLI_ENVIRONMENT
+     * @alias POWERLINES_ENVIRONMENT
      * @alias SHELL_SHOCK_ENVIRONMENT
      *
      */
@@ -183,7 +183,7 @@ declare module "shell-shock:env" {
      * A web page to lookup error messages and display additional information given an error code.
      *
      * @title Error Details URL
-     * @alias CLI_ERROR_URL
+     * @alias POWERLINES_ERROR_URL
      * @alias SHELL_SHOCK_ERROR_URL
      *
      */
@@ -191,7 +191,7 @@ declare module "shell-shock:env" {
     /**
      * An indicator that specifies the current runtime is a force color environment.
      *
-     * @alias CLI_FORCE_COLOR
+     * @alias POWERLINES_FORCE_COLOR
      * @alias SHELL_SHOCK_FORCE_COLOR
      *
      */
@@ -199,7 +199,7 @@ declare module "shell-shock:env" {
     /**
      * An indicator that specifies the current runtime should force hyperlinks in terminal output.
      *
-     * @alias CLI_FORCE_HYPERLINK
+     * @alias POWERLINES_FORCE_HYPERLINK
      * @alias SHELL_SHOCK_FORCE_HYPERLINK
      *
      */
@@ -207,7 +207,7 @@ declare module "shell-shock:env" {
     /**
      * Indicates if error data should be included.
      *
-     * @alias CLI_INCLUDE_ERROR_DATA
+     * @alias POWERLINES_INCLUDE_ERROR_DATA
      * @alias SHELL_SHOCK_INCLUDE_ERROR_DATA
      *
      */
@@ -216,7 +216,7 @@ declare module "shell-shock:env" {
      * The application's logging directory.
      *
      * @title Log Directory
-     * @alias CLI_LOG_DIR
+     * @alias POWERLINES_LOG_DIR
      * @alias SHELL_SHOCK_LOG_DIR
      * @runtime
      *
@@ -225,7 +225,7 @@ declare module "shell-shock:env" {
     /**
      * The default lowest log level to accept. If `null`, the logger will reject all records.
      *
-     * @alias CLI_LOG_LEVEL
+     * @alias POWERLINES_LOG_LEVEL
      * @alias SHELL_SHOCK_LOG_LEVEL
      *
      */
@@ -233,7 +233,7 @@ declare module "shell-shock:env" {
     /**
      * An indicator that specifies the current runtime is a minimal environment.
      *
-     * @alias CLI_MINIMAL
+     * @alias POWERLINES_MINIMAL
      * @alias SHELL_SHOCK_MINIMAL
      *
      */
@@ -243,9 +243,9 @@ declare module "shell-shock:env" {
      *
      * @alias NODE_ENV
      * @alias VERCEL_ENV
-     * @alias CLI_MODE
-     * @alias CLI_NODE_ENV
-     * @alias CLI_VERCEL_ENV
+     * @alias POWERLINES_MODE
+     * @alias POWERLINES_NODE_ENV
+     * @alias POWERLINES_VERCEL_ENV
      * @alias SHELL_SHOCK_MODE
      * @alias SHELL_SHOCK_NODE_ENV
      * @alias SHELL_SHOCK_VERCEL_ENV
@@ -255,7 +255,7 @@ declare module "shell-shock:env" {
     /**
      * An indicator that specifies the current runtime is a no color environment.
      *
-     * @alias CLI_NO_COLOR
+     * @alias POWERLINES_NO_COLOR
      * @alias SHELL_SHOCK_NO_COLOR
      *
      */
@@ -264,8 +264,8 @@ declare module "shell-shock:env" {
      * The name of the organization that maintains the application.
      *
      * @alias ORG
-     * @alias CLI_ORGANIZATION
-     * @alias CLI_ORG
+     * @alias POWERLINES_ORGANIZATION
+     * @alias POWERLINES_ORG
      * @alias SHELL_SHOCK_ORGANIZATION
      * @alias SHELL_SHOCK_ORG
      *
@@ -274,7 +274,7 @@ declare module "shell-shock:env" {
     /**
      * The platform for which the application was built.
      *
-     * @alias CLI_PLATFORM
+     * @alias POWERLINES_PLATFORM
      * @alias SHELL_SHOCK_PLATFORM
      *
      */
@@ -282,7 +282,7 @@ declare module "shell-shock:env" {
     /**
      * The runtime that the application is running in.
      *
-     * @alias CLI_RUNTIME
+     * @alias POWERLINES_RUNTIME
      * @alias SHELL_SHOCK_RUNTIME
      *
      */
@@ -290,7 +290,7 @@ declare module "shell-shock:env" {
     /**
      * An environment variable that can be set to skip the version check when determining if a check for updates is required. If this variable is set to any value, the `isCheckForUpdatesRequired` function will return `false`, indicating that a check for updates is not required. This can be useful in CI environments or other non-interactive contexts where you want to avoid performing a version check, which may involve file system operations or network requests. By setting this environment variable, you can ensure that the upgrade process proceeds without checking for updates, which can help speed up the process in certain scenarios.
      *
-     * @alias CLI_SKIP_UPDATE_CHECK
+     * @alias POWERLINES_SKIP_UPDATE_CHECK
      * @alias SHELL_SHOCK_SKIP_UPDATE_CHECK
      *
      */
@@ -298,7 +298,7 @@ declare module "shell-shock:env" {
     /**
      * Indicates if error stack traces should be captured.
      *
-     * @alias CLI_STACKTRACE
+     * @alias POWERLINES_STACKTRACE
      * @alias SHELL_SHOCK_STACKTRACE
      *
      */
@@ -307,7 +307,7 @@ declare module "shell-shock:env" {
      * The application's temporary data directory.
      *
      * @title Temporary Directory
-     * @alias CLI_TEMP_DIR
+     * @alias POWERLINES_TEMP_DIR
      * @alias SHELL_SHOCK_TEMP_DIR
      * @runtime
      *
@@ -316,7 +316,7 @@ declare module "shell-shock:env" {
     /**
      * An indicator that specifies the current runtime is a test environment.
      *
-     * @alias CLI_TEST
+     * @alias POWERLINES_TEST
      * @alias SHELL_SHOCK_TEST
      *
      */
@@ -324,7 +324,7 @@ declare module "shell-shock:env" {
     /**
      * The appcircle build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_AC_APPCIRCLE
+     * @alias POWERLINES_AC_APPCIRCLE
      * @alias SHELL_SHOCK_AC_APPCIRCLE
      * @readonly
      * @hidden
@@ -335,7 +335,7 @@ declare module "shell-shock:env" {
     /**
      * The name of the agent running the application. This variable is set by certain CI/CD systems.
      *
-     * @alias CLI_AGENT_NAME
+     * @alias POWERLINES_AGENT_NAME
      * @alias SHELL_SHOCK_AGENT_NAME
      * @readonly
      * @hidden
@@ -346,7 +346,7 @@ declare module "shell-shock:env" {
     /**
      * The agola git reference. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_AGOLA_GIT_REF
+     * @alias POWERLINES_AGOLA_GIT_REF
      * @alias SHELL_SHOCK_AGOLA_GIT_REF
      * @readonly
      * @hidden
@@ -357,7 +357,7 @@ declare module "shell-shock:env" {
     /**
      * The name of the application.
      *
-     * @alias CLI_APP_NAME
+     * @alias POWERLINES_APP_NAME
      * @alias SHELL_SHOCK_APP_NAME
      * @readonly
      *
@@ -366,7 +366,7 @@ declare module "shell-shock:env" {
     /**
      * The version of the application.
      *
-     * @alias CLI_APP_VERSION
+     * @alias POWERLINES_APP_VERSION
      * @alias SHELL_SHOCK_APP_VERSION
      * @readonly
      *
@@ -375,7 +375,7 @@ declare module "shell-shock:env" {
     /**
      * The appcenter build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_APPCENTER_BUILD_ID
+     * @alias POWERLINES_APPCENTER_BUILD_ID
      * @alias SHELL_SHOCK_APPCENTER_BUILD_ID
      * @readonly
      * @hidden
@@ -386,7 +386,7 @@ declare module "shell-shock:env" {
     /**
      * A variable that specifies the application data directory on Windows.
      *
-     * @alias CLI_APPDATA
+     * @alias POWERLINES_APPDATA
      * @alias SHELL_SHOCK_APPDATA
      * @readonly
      * @hidden
@@ -397,7 +397,7 @@ declare module "shell-shock:env" {
     /**
      * The appveyor build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_APPVEYOR
+     * @alias POWERLINES_APPVEYOR
      * @alias SHELL_SHOCK_APPVEYOR
      * @readonly
      * @hidden
@@ -408,7 +408,7 @@ declare module "shell-shock:env" {
     /**
      * The bamboo plan key. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_bamboo_planKey
+     * @alias POWERLINES_bamboo_planKey
      * @alias SHELL_SHOCK_bamboo_planKey
      * @readonly
      * @hidden
@@ -419,7 +419,7 @@ declare module "shell-shock:env" {
     /**
      * The bitbucket commit. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_BITBUCKET_COMMIT
+     * @alias POWERLINES_BITBUCKET_COMMIT
      * @alias SHELL_SHOCK_BITBUCKET_COMMIT
      * @readonly
      * @hidden
@@ -430,7 +430,7 @@ declare module "shell-shock:env" {
     /**
      * The bitrise build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_BITRISE_IO
+     * @alias POWERLINES_BITRISE_IO
      * @alias SHELL_SHOCK_BITRISE_IO
      * @readonly
      * @hidden
@@ -441,7 +441,7 @@ declare module "shell-shock:env" {
     /**
      * The buddy workspace ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_BUDDY_WORKSPACE_ID
+     * @alias POWERLINES_BUDDY_WORKSPACE_ID
      * @alias SHELL_SHOCK_BUDDY_WORKSPACE_ID
      * @readonly
      * @hidden
@@ -452,7 +452,7 @@ declare module "shell-shock:env" {
     /**
      * A checksum hash created during the build.
      *
-     * @alias CLI_BUILD_CHECKSUM
+     * @alias POWERLINES_BUILD_CHECKSUM
      * @alias SHELL_SHOCK_BUILD_CHECKSUM
      * @readonly
      *
@@ -461,7 +461,7 @@ declare module "shell-shock:env" {
     /**
      * The unique identifier for the build.
      *
-     * @alias CLI_BUILD_ID
+     * @alias POWERLINES_BUILD_ID
      * @alias SHELL_SHOCK_BUILD_ID
      * @readonly
      *
@@ -470,7 +470,7 @@ declare module "shell-shock:env" {
     /**
      * The timestamp the build was ran at.
      *
-     * @alias CLI_BUILD_TIMESTAMP
+     * @alias POWERLINES_BUILD_TIMESTAMP
      * @alias SHELL_SHOCK_BUILD_TIMESTAMP
      * @readonly
      *
@@ -479,7 +479,7 @@ declare module "shell-shock:env" {
     /**
      * The builder output build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_BUILDER_OUTPUT
+     * @alias POWERLINES_BUILDER_OUTPUT
      * @alias SHELL_SHOCK_BUILDER_OUTPUT
      * @readonly
      * @hidden
@@ -490,7 +490,7 @@ declare module "shell-shock:env" {
     /**
      * The buildkite build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_BUILDKITE
+     * @alias POWERLINES_BUILDKITE
      * @alias SHELL_SHOCK_BUILDKITE
      * @readonly
      * @hidden
@@ -501,7 +501,7 @@ declare module "shell-shock:env" {
     /**
      * The cf build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_CF_BUILD_ID
+     * @alias POWERLINES_CF_BUILD_ID
      * @alias SHELL_SHOCK_CF_BUILD_ID
      * @readonly
      * @hidden
@@ -512,7 +512,7 @@ declare module "shell-shock:env" {
     /**
      * The ci name. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_CI_NAME
+     * @alias POWERLINES_CI_NAME
      * @alias SHELL_SHOCK_CI_NAME
      * @readonly
      * @hidden
@@ -523,7 +523,7 @@ declare module "shell-shock:env" {
     /**
      * The xcode project build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_CI_XCODE_PROJECT
+     * @alias POWERLINES_CI_XCODE_PROJECT
      * @alias SHELL_SHOCK_CI_XCODE_PROJECT
      * @readonly
      * @hidden
@@ -534,7 +534,7 @@ declare module "shell-shock:env" {
     /**
      * The circleci build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_CIRCLECI
+     * @alias POWERLINES_CIRCLECI
      * @alias SHELL_SHOCK_CIRCLECI
      * @readonly
      * @hidden
@@ -545,7 +545,7 @@ declare module "shell-shock:env" {
     /**
      * The cirrus-ci build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_CIRRUS_CI
+     * @alias POWERLINES_CIRRUS_CI
      * @alias SHELL_SHOCK_CIRRUS_CI
      * @readonly
      * @hidden
@@ -556,7 +556,7 @@ declare module "shell-shock:env" {
     /**
      * The cm build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_CM_BUILD_ID
+     * @alias POWERLINES_CM_BUILD_ID
      * @alias SHELL_SHOCK_CM_BUILD_ID
      * @readonly
      * @hidden
@@ -567,7 +567,7 @@ declare module "shell-shock:env" {
     /**
      * The codebuild build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_CODEBUILD
+     * @alias POWERLINES_CODEBUILD
      * @alias SHELL_SHOCK_CODEBUILD
      * @readonly
      * @hidden
@@ -578,7 +578,7 @@ declare module "shell-shock:env" {
     /**
      * The color terminal type. This variable is set by certain terminal emulators.
      *
-     * @alias CLI_COLORTERM
+     * @alias POWERLINES_COLORTERM
      * @alias SHELL_SHOCK_COLORTERM
      * @readonly
      * @hidden
@@ -589,7 +589,7 @@ declare module "shell-shock:env" {
     /**
      * The ConEmu task name. This variable is set by certain terminal emulators.
      *
-     * @alias CLI_ConEmuTask
+     * @alias POWERLINES_ConEmuTask
      * @alias SHELL_SHOCK_ConEmuTask
      * @readonly
      * @hidden
@@ -600,7 +600,7 @@ declare module "shell-shock:env" {
     /**
      * The cursor trace ID. This variable is set by certain terminal emulators.
      *
-     * @alias CLI_CURSOR_TRACE_ID
+     * @alias POWERLINES_CURSOR_TRACE_ID
      * @alias SHELL_SHOCK_CURSOR_TRACE_ID
      * @readonly
      * @hidden
@@ -611,7 +611,7 @@ declare module "shell-shock:env" {
     /**
      * A variable that specifies the [Devenv](https://devenv.sh/) runtime directory.
      *
-     * @alias CLI_DEVENV_RUNTIME
+     * @alias POWERLINES_DEVENV_RUNTIME
      * @alias SHELL_SHOCK_DEVENV_RUNTIME
      * @readonly
      * @hidden
@@ -622,7 +622,7 @@ declare module "shell-shock:env" {
     /**
      * The drone build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_DRONE
+     * @alias POWERLINES_DRONE
      * @alias SHELL_SHOCK_DRONE
      * @readonly
      * @hidden
@@ -633,7 +633,7 @@ declare module "shell-shock:env" {
     /**
      * The dsari build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_DSARI
+     * @alias POWERLINES_DSARI
      * @alias SHELL_SHOCK_DSARI
      * @readonly
      * @hidden
@@ -644,7 +644,7 @@ declare module "shell-shock:env" {
     /**
      * The earthly build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_EARTHLY_CI
+     * @alias POWERLINES_EARTHLY_CI
      * @alias SHELL_SHOCK_EARTHLY_CI
      * @readonly
      * @hidden
@@ -655,7 +655,7 @@ declare module "shell-shock:env" {
     /**
      * The eas build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_EAS_BUILD
+     * @alias POWERLINES_EAS_BUILD
      * @alias SHELL_SHOCK_EAS_BUILD
      * @readonly
      * @hidden
@@ -666,7 +666,7 @@ declare module "shell-shock:env" {
     /**
      * The gerrit project. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_GERRIT_PROJECT
+     * @alias POWERLINES_GERRIT_PROJECT
      * @alias SHELL_SHOCK_GERRIT_PROJECT
      * @readonly
      * @hidden
@@ -677,7 +677,7 @@ declare module "shell-shock:env" {
     /**
      * The gitea actions build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_GITEA_ACTIONS
+     * @alias POWERLINES_GITEA_ACTIONS
      * @alias SHELL_SHOCK_GITEA_ACTIONS
      * @readonly
      * @hidden
@@ -688,7 +688,7 @@ declare module "shell-shock:env" {
     /**
      * The github actions build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_GITHUB_ACTIONS
+     * @alias POWERLINES_GITHUB_ACTIONS
      * @alias SHELL_SHOCK_GITHUB_ACTIONS
      * @readonly
      * @hidden
@@ -699,7 +699,7 @@ declare module "shell-shock:env" {
     /**
      * The gitlab ci build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_GITLAB_CI
+     * @alias POWERLINES_GITLAB_CI
      * @alias SHELL_SHOCK_GITLAB_CI
      * @readonly
      * @hidden
@@ -710,7 +710,7 @@ declare module "shell-shock:env" {
     /**
      * The go cd build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_GOCD
+     * @alias POWERLINES_GOCD
      * @alias SHELL_SHOCK_GOCD
      * @readonly
      * @hidden
@@ -721,7 +721,7 @@ declare module "shell-shock:env" {
     /**
      * The harness build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_HARNESS_BUILD_ID
+     * @alias POWERLINES_HARNESS_BUILD_ID
      * @alias SHELL_SHOCK_HARNESS_BUILD_ID
      * @readonly
      * @hidden
@@ -732,7 +732,7 @@ declare module "shell-shock:env" {
     /**
      * The hudson build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_HUDSON
+     * @alias POWERLINES_HUDSON
      * @alias SHELL_SHOCK_HUDSON
      * @readonly
      * @hidden
@@ -743,7 +743,7 @@ declare module "shell-shock:env" {
     /**
      * The jenkins url. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_JENKINS_URL
+     * @alias POWERLINES_JENKINS_URL
      * @alias SHELL_SHOCK_JENKINS_URL
      * @readonly
      * @hidden
@@ -754,7 +754,7 @@ declare module "shell-shock:env" {
     /**
      * The layerci build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_LAYERCI
+     * @alias POWERLINES_LAYERCI
      * @alias SHELL_SHOCK_LAYERCI
      * @readonly
      * @hidden
@@ -765,7 +765,7 @@ declare module "shell-shock:env" {
     /**
      * A variable that specifies the current user's local application data directory on Windows.
      *
-     * @alias CLI_LOCALAPPDATA
+     * @alias POWERLINES_LOCALAPPDATA
      * @alias SHELL_SHOCK_LOCALAPPDATA
      * @readonly
      * @hidden
@@ -776,7 +776,7 @@ declare module "shell-shock:env" {
     /**
      * The magnum build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_MAGNUM
+     * @alias POWERLINES_MAGNUM
      * @alias SHELL_SHOCK_MAGNUM
      * @readonly
      * @hidden
@@ -787,7 +787,7 @@ declare module "shell-shock:env" {
     /**
      * The netlify build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_NETLIFY
+     * @alias POWERLINES_NETLIFY
      * @alias SHELL_SHOCK_NETLIFY
      * @readonly
      * @hidden
@@ -798,7 +798,7 @@ declare module "shell-shock:env" {
     /**
      * The nevercode build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_NEVERCODE
+     * @alias POWERLINES_NEVERCODE
      * @alias SHELL_SHOCK_NEVERCODE
      * @readonly
      * @hidden
@@ -809,7 +809,7 @@ declare module "shell-shock:env" {
     /**
      * The now builder build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_NOW_BUILDER
+     * @alias POWERLINES_NOW_BUILDER
      * @alias SHELL_SHOCK_NOW_BUILDER
      * @readonly
      * @hidden
@@ -820,7 +820,7 @@ declare module "shell-shock:env" {
     /**
      * The prow job ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_PROW_JOB_ID
+     * @alias POWERLINES_PROW_JOB_ID
      * @alias SHELL_SHOCK_PROW_JOB_ID
      * @readonly
      * @hidden
@@ -831,7 +831,7 @@ declare module "shell-shock:env" {
     /**
      * The release build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_RELEASE_BUILD_ID
+     * @alias POWERLINES_RELEASE_BUILD_ID
      * @alias SHELL_SHOCK_RELEASE_BUILD_ID
      * @readonly
      * @hidden
@@ -842,7 +842,7 @@ declare module "shell-shock:env" {
     /**
      * The unique identifier for the release.
      *
-     * @alias CLI_RELEASE_ID
+     * @alias POWERLINES_RELEASE_ID
      * @alias SHELL_SHOCK_RELEASE_ID
      * @readonly
      *
@@ -851,7 +851,7 @@ declare module "shell-shock:env" {
     /**
      * The tag for the release. This is generally in the format of "\<APP_NAME\>\@\<APP_VERSION\>".
      *
-     * @alias CLI_RELEASE_TAG
+     * @alias POWERLINES_RELEASE_TAG
      * @alias SHELL_SHOCK_RELEASE_TAG
      * @readonly
      *
@@ -860,7 +860,7 @@ declare module "shell-shock:env" {
     /**
      * The render build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_RENDER
+     * @alias POWERLINES_RENDER
      * @alias SHELL_SHOCK_RENDER
      * @readonly
      * @hidden
@@ -871,7 +871,7 @@ declare module "shell-shock:env" {
     /**
      * The unique identifier for the current run. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_RUN_ID
+     * @alias POWERLINES_RUN_ID
      * @alias SHELL_SHOCK_RUN_ID
      * @readonly
      * @hidden
@@ -882,7 +882,7 @@ declare module "shell-shock:env" {
     /**
      * The sailci build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_SAILCI
+     * @alias POWERLINES_SAILCI
      * @alias SHELL_SHOCK_SAILCI
      * @readonly
      * @hidden
@@ -893,7 +893,7 @@ declare module "shell-shock:env" {
     /**
      * The screwdriver build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_SCREWDRIVER
+     * @alias POWERLINES_SCREWDRIVER
      * @alias SHELL_SHOCK_SCREWDRIVER
      * @readonly
      * @hidden
@@ -904,7 +904,7 @@ declare module "shell-shock:env" {
     /**
      * The semaphore build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_SEMAPHORE
+     * @alias POWERLINES_SEMAPHORE
      * @alias SHELL_SHOCK_SEMAPHORE
      * @readonly
      * @hidden
@@ -915,7 +915,7 @@ declare module "shell-shock:env" {
     /**
      * The sourcehut build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_SOURCEHUT
+     * @alias POWERLINES_SOURCEHUT
      * @alias SHELL_SHOCK_SOURCEHUT
      * @readonly
      * @hidden
@@ -926,7 +926,7 @@ declare module "shell-shock:env" {
     /**
      * The spaceship build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_SPACESHIP_CI
+     * @alias POWERLINES_SPACESHIP_CI
      * @alias SHELL_SHOCK_SPACESHIP_CI
      * @readonly
      * @hidden
@@ -937,7 +937,7 @@ declare module "shell-shock:env" {
     /**
      * The strider build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_STRIDER
+     * @alias POWERLINES_STRIDER
      * @alias SHELL_SHOCK_STRIDER
      * @readonly
      * @hidden
@@ -948,7 +948,7 @@ declare module "shell-shock:env" {
     /**
      * The task ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_TASK_ID
+     * @alias POWERLINES_TASK_ID
      * @alias SHELL_SHOCK_TASK_ID
      * @readonly
      * @hidden
@@ -959,7 +959,7 @@ declare module "shell-shock:env" {
     /**
      * The teamcity version. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_TEAMCITY_VERSION
+     * @alias POWERLINES_TEAMCITY_VERSION
      * @alias SHELL_SHOCK_TEAMCITY_VERSION
      * @readonly
      * @hidden
@@ -970,7 +970,7 @@ declare module "shell-shock:env" {
     /**
      * The terminal type. This variable is set by certain CI/CD systems.
      *
-     * @alias CLI_TERM
+     * @alias POWERLINES_TERM
      * @alias SHELL_SHOCK_TERM
      * @readonly
      * @hidden
@@ -981,7 +981,7 @@ declare module "shell-shock:env" {
     /**
      * The terminal program name. This variable is set by certain terminal emulators.
      *
-     * @alias CLI_TERM_PROGRAM
+     * @alias POWERLINES_TERM_PROGRAM
      * @alias SHELL_SHOCK_TERM_PROGRAM
      * @readonly
      * @hidden
@@ -992,7 +992,7 @@ declare module "shell-shock:env" {
     /**
      * The terminal program version. This variable is set by certain terminal emulators.
      *
-     * @alias CLI_TERM_PROGRAM_VERSION
+     * @alias POWERLINES_TERM_PROGRAM_VERSION
      * @alias SHELL_SHOCK_TERM_PROGRAM_VERSION
      * @readonly
      * @hidden
@@ -1003,7 +1003,7 @@ declare module "shell-shock:env" {
     /**
      * The terminal emulator name. This variable is set by certain terminal emulators.
      *
-     * @alias CLI_TERMINAL_EMULATOR
+     * @alias POWERLINES_TERMINAL_EMULATOR
      * @alias SHELL_SHOCK_TERMINAL_EMULATOR
      * @readonly
      * @hidden
@@ -1014,7 +1014,7 @@ declare module "shell-shock:env" {
     /**
      * An indicator that specifies the current terminal is running Terminus Sublime. This variable is set by certain terminal emulators.
      *
-     * @alias CLI_TERMINUS_SUBLIME
+     * @alias POWERLINES_TERMINUS_SUBLIME
      * @alias SHELL_SHOCK_TERMINUS_SUBLIME
      * @readonly
      * @hidden
@@ -1025,7 +1025,7 @@ declare module "shell-shock:env" {
     /**
      * The task force build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_TF_BUILD
+     * @alias POWERLINES_TF_BUILD
      * @alias SHELL_SHOCK_TF_BUILD
      * @readonly
      * @hidden
@@ -1036,7 +1036,7 @@ declare module "shell-shock:env" {
     /**
      * The travis build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_TRAVIS
+     * @alias POWERLINES_TRAVIS
      * @alias SHELL_SHOCK_TRAVIS
      * @readonly
      * @hidden
@@ -1047,7 +1047,7 @@ declare module "shell-shock:env" {
     /**
      * The vela build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_VELA
+     * @alias POWERLINES_VELA
      * @alias SHELL_SHOCK_VELA
      * @readonly
      * @hidden
@@ -1058,7 +1058,7 @@ declare module "shell-shock:env" {
     /**
      * The VTE version. This variable is set by certain terminal emulators.
      *
-     * @alias CLI_VTE_VERSION
+     * @alias POWERLINES_VTE_VERSION
      * @alias SHELL_SHOCK_VTE_VERSION
      * @readonly
      * @hidden
@@ -1069,7 +1069,7 @@ declare module "shell-shock:env" {
     /**
      * The terminal emulator session ID. This variable is set by certain terminal emulators.
      *
-     * @alias CLI_WT_SESSION
+     * @alias POWERLINES_WT_SESSION
      * @alias SHELL_SHOCK_WT_SESSION
      * @readonly
      * @hidden
@@ -1080,7 +1080,7 @@ declare module "shell-shock:env" {
     /**
      * The xcode server build ID. This value is set by certain CI/CD systems.
      *
-     * @alias CLI_XCS
+     * @alias POWERLINES_XCS
      * @alias SHELL_SHOCK_XCS
      * @readonly
      * @hidden
@@ -1091,7 +1091,7 @@ declare module "shell-shock:env" {
     /**
      * A variable that specifies the cache path in the home directory on Linux systems using the XDG base directory specification.
      *
-     * @alias CLI_XDG_CACHE_HOME
+     * @alias POWERLINES_XDG_CACHE_HOME
      * @alias SHELL_SHOCK_XDG_CACHE_HOME
      * @readonly
      * @hidden
@@ -1102,7 +1102,7 @@ declare module "shell-shock:env" {
     /**
      * A variable that specifies the configuration path in the home directory on Linux systems using the XDG base directory specification.
      *
-     * @alias CLI_XDG_CONFIG_HOME
+     * @alias POWERLINES_XDG_CONFIG_HOME
      * @alias SHELL_SHOCK_XDG_CONFIG_HOME
      * @readonly
      * @hidden
@@ -1113,7 +1113,7 @@ declare module "shell-shock:env" {
     /**
      * A variable that specifies the data path in the home directory on Linux systems using the XDG base directory specification.
      *
-     * @alias CLI_XDG_DATA_HOME
+     * @alias POWERLINES_XDG_DATA_HOME
      * @alias SHELL_SHOCK_XDG_DATA_HOME
      * @readonly
      * @hidden
@@ -1124,7 +1124,7 @@ declare module "shell-shock:env" {
     /**
      * A variable that specifies the runtime directory on Linux systems using the XDG base directory specification.
      *
-     * @alias CLI_XDG_RUNTIME_DIR
+     * @alias POWERLINES_XDG_RUNTIME_DIR
      * @alias SHELL_SHOCK_XDG_RUNTIME_DIR
      * @readonly
      * @hidden
@@ -1135,7 +1135,7 @@ declare module "shell-shock:env" {
     /**
      * A variable that specifies the state directory on Linux systems using the XDG base directory specification.
      *
-     * @alias CLI_XDG_STATE_HOME
+     * @alias POWERLINES_XDG_STATE_HOME
      * @alias SHELL_SHOCK_XDG_STATE_HOME
      * @readonly
      * @hidden
@@ -1157,74 +1157,74 @@ declare module "shell-shock:env" {
      * @alias APP_NAME
      * @alias SHELL_SHOCK_APP_NAME
      * @readonly
-     * @defaultValue "cli"
+     * @defaultValue "powerlines"
      */
-    readonly CLI_APP_NAME: string;
+    readonly POWERLINES_APP_NAME: string;
     /**
      * The version of the application.
      *
      * @alias APP_VERSION
      * @alias SHELL_SHOCK_APP_VERSION
      * @readonly
-     * @defaultValue "0.2.40"
+     * @defaultValue "0.47.125"
      */
-    readonly CLI_APP_VERSION: string;
+    readonly POWERLINES_APP_VERSION: string;
     /**
      * The unique identifier for the build.
      *
      * @alias BUILD_ID
      * @alias SHELL_SHOCK_BUILD_ID
      * @readonly
-     * @defaultValue "199b0c9b-09e7-4a8e-92d8-ed9581eaa4f4"
+     * @defaultValue "3dff6f92-afb0-45ec-afb8-2be969a70ca6"
      */
-    readonly CLI_BUILD_ID: string;
+    readonly POWERLINES_BUILD_ID: string;
     /**
      * The timestamp the build was ran at.
      *
      * @alias BUILD_TIMESTAMP
      * @alias SHELL_SHOCK_BUILD_TIMESTAMP
      * @readonly
-     * @defaultValue "2026-06-05T13:05:39.688Z"
+     * @defaultValue "2026-06-06T04:20:03.424Z"
      */
-    readonly CLI_BUILD_TIMESTAMP: string;
+    readonly POWERLINES_BUILD_TIMESTAMP: string;
     /**
      * A checksum hash created during the build.
      *
      * @alias BUILD_CHECKSUM
      * @alias SHELL_SHOCK_BUILD_CHECKSUM
      * @readonly
-     * @defaultValue "nQKBkV2pHRrVh_8MC5lk5VdNdAi4kExl"
+     * @defaultValue "do-pZQ87akHO7OEI9G3pidTjx8a9aY2r"
      */
-    readonly CLI_BUILD_CHECKSUM: string;
+    readonly POWERLINES_BUILD_CHECKSUM: string;
     /**
      * The unique identifier for the release.
      *
      * @alias RELEASE_ID
      * @alias SHELL_SHOCK_RELEASE_ID
      * @readonly
-     * @defaultValue "9b0c9b09-e71a-4e92-98ed-9581eaa4f4d1"
+     * @defaultValue "ff6f92af-b045-4c6f-b82b-e969a70ca6ea"
      */
-    readonly CLI_RELEASE_ID: string;
+    readonly POWERLINES_RELEASE_ID: string;
     /**
      * The tag for the release. This is generally in the format of "\<APP_NAME\>\@\<APP_VERSION\>".
      *
      * @alias RELEASE_TAG
      * @alias SHELL_SHOCK_RELEASE_TAG
      * @readonly
-     * @defaultValue "cli@0.2.40"
+     * @defaultValue "powerlines@0.47.125"
      */
-    readonly CLI_RELEASE_TAG: string;
+    readonly POWERLINES_RELEASE_TAG: string;
     /**
      * The name of the organization that maintains the application.
      *
      * @alias ORGANIZATION
      * @alias ORG
-     * @alias CLI_ORG
+     * @alias POWERLINES_ORG
      * @alias SHELL_SHOCK_ORGANIZATION
      * @alias SHELL_SHOCK_ORG
      * @defaultValue "Storm Software"
      */
-    CLI_ORGANIZATION: string;
+    POWERLINES_ORGANIZATION: string;
     /**
      * The runtime that the application is running in.
      *
@@ -1232,7 +1232,7 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_RUNTIME
      *
      */
-    CLI_RUNTIME?: "nodejs" | "deno" | "workerd" | "browser";
+    POWERLINES_RUNTIME?: "nodejs" | "deno" | "workerd" | "browser";
     /**
      * The platform for which the application was built.
      *
@@ -1240,21 +1240,21 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_PLATFORM
      *
      */
-    CLI_PLATFORM: "node" | "neutral" | "browser";
+    POWERLINES_PLATFORM: "node" | "neutral" | "browser";
     /**
      * The mode in which the application is running.
      *
      * @alias MODE
      * @alias NODE_ENV
      * @alias VERCEL_ENV
-     * @alias CLI_NODE_ENV
-     * @alias CLI_VERCEL_ENV
+     * @alias POWERLINES_NODE_ENV
+     * @alias POWERLINES_VERCEL_ENV
      * @alias SHELL_SHOCK_MODE
      * @alias SHELL_SHOCK_NODE_ENV
      * @alias SHELL_SHOCK_VERCEL_ENV
      *
      */
-    CLI_MODE: "development" | "test" | "production";
+    POWERLINES_MODE: "development" | "test" | "production";
     /**
      * The environment the application is running in. This value will be populated with the value of `MODE` if not provided.
      *
@@ -1262,7 +1262,7 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_ENVIRONMENT
      * @defaultValue "development"
      */
-    CLI_ENVIRONMENT: string;
+    POWERLINES_ENVIRONMENT: string;
     /**
      * Indicates if the application is running in debug mode.
      *
@@ -1270,7 +1270,7 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_DEBUG
      * @defaultValue true
      */
-    CLI_DEBUG: boolean;
+    POWERLINES_DEBUG: boolean;
     /**
      * An indicator that specifies the current runtime is a test environment.
      *
@@ -1278,7 +1278,7 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_TEST
      * @defaultValue false
      */
-    CLI_TEST: boolean;
+    POWERLINES_TEST: boolean;
     /**
      * An indicator that specifies the current runtime is a minimal environment.
      *
@@ -1286,7 +1286,7 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_MINIMAL
      * @defaultValue false
      */
-    CLI_MINIMAL: boolean;
+    POWERLINES_MINIMAL: boolean;
     /**
      * An indicator that specifies the current runtime is a no color environment.
      *
@@ -1294,7 +1294,7 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_NO_COLOR
      * @defaultValue false
      */
-    CLI_NO_COLOR: boolean;
+    POWERLINES_NO_COLOR: boolean;
     /**
      * An indicator that specifies the current runtime is a force color environment.
      *
@@ -1302,7 +1302,7 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_FORCE_COLOR
      *
      */
-    CLI_FORCE_COLOR: boolean | number;
+    POWERLINES_FORCE_COLOR: boolean | number;
     /**
      * An indicator that specifies the current runtime should force hyperlinks in terminal output.
      *
@@ -1310,7 +1310,7 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_FORCE_HYPERLINK
      *
      */
-    CLI_FORCE_HYPERLINK: boolean | number;
+    POWERLINES_FORCE_HYPERLINK: boolean | number;
     /**
      * The name of the agent running the application. This variable is set by certain CI/CD systems.
      *
@@ -1321,7 +1321,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_AGENT_NAME?: string;
+    readonly POWERLINES_AGENT_NAME?: string;
     /**
      * The color terminal type. This variable is set by certain terminal emulators.
      *
@@ -1332,7 +1332,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_COLORTERM?: string;
+    readonly POWERLINES_COLORTERM?: string;
     /**
      * The terminal type. This variable is set by certain CI/CD systems.
      *
@@ -1343,7 +1343,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_TERM?: string;
+    readonly POWERLINES_TERM?: string;
     /**
      * The terminal program name. This variable is set by certain terminal emulators.
      *
@@ -1354,7 +1354,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_TERM_PROGRAM?: string;
+    readonly POWERLINES_TERM_PROGRAM?: string;
     /**
      * The terminal program version. This variable is set by certain terminal emulators.
      *
@@ -1365,7 +1365,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_TERM_PROGRAM_VERSION?: string;
+    readonly POWERLINES_TERM_PROGRAM_VERSION?: string;
     /**
      * The terminal emulator name. This variable is set by certain terminal emulators.
      *
@@ -1376,7 +1376,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_TERMINAL_EMULATOR?: string;
+    readonly POWERLINES_TERMINAL_EMULATOR?: string;
     /**
      * The terminal emulator session ID. This variable is set by certain terminal emulators.
      *
@@ -1387,7 +1387,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_WT_SESSION?: string;
+    readonly POWERLINES_WT_SESSION?: string;
     /**
      * An indicator that specifies the current terminal is running Terminus Sublime. This variable is set by certain terminal emulators.
      *
@@ -1398,7 +1398,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_TERMINUS_SUBLIME?: boolean;
+    readonly POWERLINES_TERMINUS_SUBLIME?: boolean;
     /**
      * The ConEmu task name. This variable is set by certain terminal emulators.
      *
@@ -1409,7 +1409,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_ConEmuTask?: string;
+    readonly POWERLINES_ConEmuTask?: string;
     /**
      * The cursor trace ID. This variable is set by certain terminal emulators.
      *
@@ -1420,7 +1420,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_CURSOR_TRACE_ID?: string;
+    readonly POWERLINES_CURSOR_TRACE_ID?: string;
     /**
      * The VTE version. This variable is set by certain terminal emulators.
      *
@@ -1431,7 +1431,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_VTE_VERSION?: string;
+    readonly POWERLINES_VTE_VERSION?: string;
     /**
      * Indicates if error stack traces should be captured.
      *
@@ -1439,7 +1439,7 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_STACKTRACE
      * @defaultValue true
      */
-    CLI_STACKTRACE: boolean;
+    POWERLINES_STACKTRACE: boolean;
     /**
      * Indicates if error data should be included.
      *
@@ -1447,7 +1447,7 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_INCLUDE_ERROR_DATA
      * @defaultValue false
      */
-    CLI_INCLUDE_ERROR_DATA: boolean;
+    POWERLINES_INCLUDE_ERROR_DATA: boolean;
     /**
      * A web page to lookup error messages and display additional information given an error code.
      *
@@ -1456,7 +1456,7 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_ERROR_URL
      * @defaultValue "https://developer.stormsoftware.com/static/errors"
      */
-    CLI_ERROR_URL?: string;
+    POWERLINES_ERROR_URL?: string;
     /**
      * The default timezone for the application.
      *
@@ -1464,7 +1464,7 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_DEFAULT_TIMEZONE
      * @defaultValue "America/New_York"
      */
-    CLI_DEFAULT_TIMEZONE: string;
+    POWERLINES_DEFAULT_TIMEZONE: string;
     /**
      * The default locale to be used in the application.
      *
@@ -1472,7 +1472,7 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_DEFAULT_LOCALE
      * @defaultValue "en-US"
      */
-    CLI_DEFAULT_LOCALE: string;
+    POWERLINES_DEFAULT_LOCALE: string;
     /**
      * The default lowest log level to accept. If `null`, the logger will reject all records.
      *
@@ -1480,19 +1480,19 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_LOG_LEVEL
      *
      */
-    CLI_LOG_LEVEL?: unknown;
+    POWERLINES_LOG_LEVEL?: unknown;
     /**
      * An indicator that specifies the current runtime is a continuous integration environment.
      *
      * @title Continuous Integration
      * @alias CI
      * @alias CONTINUOUS_INTEGRATION
-     * @alias CLI_CONTINUOUS_INTEGRATION
+     * @alias POWERLINES_CONTINUOUS_INTEGRATION
      * @alias SHELL_SHOCK_CI
      * @alias SHELL_SHOCK_CONTINUOUS_INTEGRATION
      * @defaultValue false
      */
-    CLI_CI: boolean;
+    POWERLINES_CI: boolean;
     /**
      * The unique identifier for the current run. This value is set by certain CI/CD systems.
      *
@@ -1503,7 +1503,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_RUN_ID?: string;
+    readonly POWERLINES_RUN_ID?: string;
     /**
      * The agola git reference. This value is set by certain CI/CD systems.
      *
@@ -1514,7 +1514,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_AGOLA_GIT_REF?: string;
+    readonly POWERLINES_AGOLA_GIT_REF?: string;
     /**
      * The appcircle build ID. This value is set by certain CI/CD systems.
      *
@@ -1525,7 +1525,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_AC_APPCIRCLE?: string;
+    readonly POWERLINES_AC_APPCIRCLE?: string;
     /**
      * The appveyor build ID. This value is set by certain CI/CD systems.
      *
@@ -1536,7 +1536,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_APPVEYOR?: string;
+    readonly POWERLINES_APPVEYOR?: string;
     /**
      * The codebuild build ID. This value is set by certain CI/CD systems.
      *
@@ -1547,7 +1547,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_CODEBUILD?: string;
+    readonly POWERLINES_CODEBUILD?: string;
     /**
      * The task force build ID. This value is set by certain CI/CD systems.
      *
@@ -1558,7 +1558,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_TF_BUILD?: string;
+    readonly POWERLINES_TF_BUILD?: string;
     /**
      * The bamboo plan key. This value is set by certain CI/CD systems.
      *
@@ -1569,7 +1569,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_bamboo_planKey?: string;
+    readonly POWERLINES_bamboo_planKey?: string;
     /**
      * The bitbucket commit. This value is set by certain CI/CD systems.
      *
@@ -1580,7 +1580,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_BITBUCKET_COMMIT?: string;
+    readonly POWERLINES_BITBUCKET_COMMIT?: string;
     /**
      * The bitrise build ID. This value is set by certain CI/CD systems.
      *
@@ -1591,7 +1591,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_BITRISE_IO?: string;
+    readonly POWERLINES_BITRISE_IO?: string;
     /**
      * The buddy workspace ID. This value is set by certain CI/CD systems.
      *
@@ -1602,7 +1602,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_BUDDY_WORKSPACE_ID?: string;
+    readonly POWERLINES_BUDDY_WORKSPACE_ID?: string;
     /**
      * The buildkite build ID. This value is set by certain CI/CD systems.
      *
@@ -1613,7 +1613,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_BUILDKITE?: string;
+    readonly POWERLINES_BUILDKITE?: string;
     /**
      * The circleci build ID. This value is set by certain CI/CD systems.
      *
@@ -1624,7 +1624,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_CIRCLECI?: string;
+    readonly POWERLINES_CIRCLECI?: string;
     /**
      * The cirrus-ci build ID. This value is set by certain CI/CD systems.
      *
@@ -1635,7 +1635,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_CIRRUS_CI?: string;
+    readonly POWERLINES_CIRRUS_CI?: string;
     /**
      * The cf build ID. This value is set by certain CI/CD systems.
      *
@@ -1646,7 +1646,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_CF_BUILD_ID?: string;
+    readonly POWERLINES_CF_BUILD_ID?: string;
     /**
      * The cm build ID. This value is set by certain CI/CD systems.
      *
@@ -1657,7 +1657,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_CM_BUILD_ID?: string;
+    readonly POWERLINES_CM_BUILD_ID?: string;
     /**
      * The ci name. This value is set by certain CI/CD systems.
      *
@@ -1668,7 +1668,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_CI_NAME?: string;
+    readonly POWERLINES_CI_NAME?: string;
     /**
      * The drone build ID. This value is set by certain CI/CD systems.
      *
@@ -1679,7 +1679,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_DRONE?: string;
+    readonly POWERLINES_DRONE?: string;
     /**
      * The dsari build ID. This value is set by certain CI/CD systems.
      *
@@ -1690,7 +1690,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_DSARI?: string;
+    readonly POWERLINES_DSARI?: string;
     /**
      * The earthly build ID. This value is set by certain CI/CD systems.
      *
@@ -1701,7 +1701,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_EARTHLY_CI?: string;
+    readonly POWERLINES_EARTHLY_CI?: string;
     /**
      * The eas build ID. This value is set by certain CI/CD systems.
      *
@@ -1712,7 +1712,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_EAS_BUILD?: string;
+    readonly POWERLINES_EAS_BUILD?: string;
     /**
      * The gerrit project. This value is set by certain CI/CD systems.
      *
@@ -1723,7 +1723,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_GERRIT_PROJECT?: string;
+    readonly POWERLINES_GERRIT_PROJECT?: string;
     /**
      * The gitea actions build ID. This value is set by certain CI/CD systems.
      *
@@ -1734,7 +1734,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_GITEA_ACTIONS?: string;
+    readonly POWERLINES_GITEA_ACTIONS?: string;
     /**
      * The github actions build ID. This value is set by certain CI/CD systems.
      *
@@ -1745,7 +1745,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_GITHUB_ACTIONS?: string;
+    readonly POWERLINES_GITHUB_ACTIONS?: string;
     /**
      * The gitlab ci build ID. This value is set by certain CI/CD systems.
      *
@@ -1756,7 +1756,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_GITLAB_CI?: string;
+    readonly POWERLINES_GITLAB_CI?: string;
     /**
      * The go cd build ID. This value is set by certain CI/CD systems.
      *
@@ -1767,7 +1767,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_GOCD?: string;
+    readonly POWERLINES_GOCD?: string;
     /**
      * The builder output build ID. This value is set by certain CI/CD systems.
      *
@@ -1778,7 +1778,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_BUILDER_OUTPUT?: string;
+    readonly POWERLINES_BUILDER_OUTPUT?: string;
     /**
      * The harness build ID. This value is set by certain CI/CD systems.
      *
@@ -1789,7 +1789,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_HARNESS_BUILD_ID?: string;
+    readonly POWERLINES_HARNESS_BUILD_ID?: string;
     /**
      * The jenkins url. This value is set by certain CI/CD systems.
      *
@@ -1800,7 +1800,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_JENKINS_URL?: string;
+    readonly POWERLINES_JENKINS_URL?: string;
     /**
      * The layerci build ID. This value is set by certain CI/CD systems.
      *
@@ -1811,7 +1811,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_LAYERCI?: string;
+    readonly POWERLINES_LAYERCI?: string;
     /**
      * The magnum build ID. This value is set by certain CI/CD systems.
      *
@@ -1822,7 +1822,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_MAGNUM?: string;
+    readonly POWERLINES_MAGNUM?: string;
     /**
      * The netlify build ID. This value is set by certain CI/CD systems.
      *
@@ -1833,7 +1833,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_NETLIFY?: string;
+    readonly POWERLINES_NETLIFY?: string;
     /**
      * The nevercode build ID. This value is set by certain CI/CD systems.
      *
@@ -1844,7 +1844,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_NEVERCODE?: string;
+    readonly POWERLINES_NEVERCODE?: string;
     /**
      * The prow job ID. This value is set by certain CI/CD systems.
      *
@@ -1855,7 +1855,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_PROW_JOB_ID?: string;
+    readonly POWERLINES_PROW_JOB_ID?: string;
     /**
      * The release build ID. This value is set by certain CI/CD systems.
      *
@@ -1866,7 +1866,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_RELEASE_BUILD_ID?: string;
+    readonly POWERLINES_RELEASE_BUILD_ID?: string;
     /**
      * The render build ID. This value is set by certain CI/CD systems.
      *
@@ -1877,7 +1877,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_RENDER?: string;
+    readonly POWERLINES_RENDER?: string;
     /**
      * The sailci build ID. This value is set by certain CI/CD systems.
      *
@@ -1888,7 +1888,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_SAILCI?: string;
+    readonly POWERLINES_SAILCI?: string;
     /**
      * The hudson build ID. This value is set by certain CI/CD systems.
      *
@@ -1899,7 +1899,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_HUDSON?: string;
+    readonly POWERLINES_HUDSON?: string;
     /**
      * The screwdriver build ID. This value is set by certain CI/CD systems.
      *
@@ -1910,7 +1910,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_SCREWDRIVER?: string;
+    readonly POWERLINES_SCREWDRIVER?: string;
     /**
      * The semaphore build ID. This value is set by certain CI/CD systems.
      *
@@ -1921,7 +1921,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_SEMAPHORE?: string;
+    readonly POWERLINES_SEMAPHORE?: string;
     /**
      * The sourcehut build ID. This value is set by certain CI/CD systems.
      *
@@ -1932,7 +1932,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_SOURCEHUT?: string;
+    readonly POWERLINES_SOURCEHUT?: string;
     /**
      * The spaceship build ID. This value is set by certain CI/CD systems.
      *
@@ -1943,7 +1943,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_SPACESHIP_CI?: string;
+    readonly POWERLINES_SPACESHIP_CI?: string;
     /**
      * The strider build ID. This value is set by certain CI/CD systems.
      *
@@ -1954,7 +1954,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_STRIDER?: string;
+    readonly POWERLINES_STRIDER?: string;
     /**
      * The task ID. This value is set by certain CI/CD systems.
      *
@@ -1965,7 +1965,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_TASK_ID?: string;
+    readonly POWERLINES_TASK_ID?: string;
     /**
      * The teamcity version. This value is set by certain CI/CD systems.
      *
@@ -1976,7 +1976,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_TEAMCITY_VERSION?: string;
+    readonly POWERLINES_TEAMCITY_VERSION?: string;
     /**
      * The travis build ID. This value is set by certain CI/CD systems.
      *
@@ -1987,7 +1987,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_TRAVIS?: string;
+    readonly POWERLINES_TRAVIS?: string;
     /**
      * The vela build ID. This value is set by certain CI/CD systems.
      *
@@ -1998,7 +1998,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_VELA?: string;
+    readonly POWERLINES_VELA?: string;
     /**
      * The now builder build ID. This value is set by certain CI/CD systems.
      *
@@ -2009,7 +2009,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_NOW_BUILDER?: string;
+    readonly POWERLINES_NOW_BUILDER?: string;
     /**
      * The appcenter build ID. This value is set by certain CI/CD systems.
      *
@@ -2020,7 +2020,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_APPCENTER_BUILD_ID?: string;
+    readonly POWERLINES_APPCENTER_BUILD_ID?: string;
     /**
      * The xcode project build ID. This value is set by certain CI/CD systems.
      *
@@ -2031,7 +2031,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_CI_XCODE_PROJECT?: string;
+    readonly POWERLINES_CI_XCODE_PROJECT?: string;
     /**
      * The xcode server build ID. This value is set by certain CI/CD systems.
      *
@@ -2042,7 +2042,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_XCS?: string;
+    readonly POWERLINES_XCS?: string;
     /**
      * The application's runtime data directory.
      *
@@ -2052,7 +2052,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    CLI_DATA_DIR?: string;
+    POWERLINES_DATA_DIR?: string;
     /**
      * The application's configuration data directory.
      *
@@ -2062,7 +2062,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    CLI_CONFIG_DIR?: string;
+    POWERLINES_CONFIG_DIR?: string;
     /**
      * The application's cached data directory.
      *
@@ -2072,7 +2072,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    CLI_CACHE_DIR?: string;
+    POWERLINES_CACHE_DIR?: string;
     /**
      * The application's logging directory.
      *
@@ -2082,7 +2082,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    CLI_LOG_DIR?: string;
+    POWERLINES_LOG_DIR?: string;
     /**
      * The application's temporary data directory.
      *
@@ -2092,7 +2092,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    CLI_TEMP_DIR?: string;
+    POWERLINES_TEMP_DIR?: string;
     /**
      * A variable that specifies the current user's local application data directory on Windows.
      *
@@ -2103,7 +2103,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_LOCALAPPDATA?: string;
+    readonly POWERLINES_LOCALAPPDATA?: string;
     /**
      * A variable that specifies the application data directory on Windows.
      *
@@ -2114,7 +2114,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_APPDATA?: string;
+    readonly POWERLINES_APPDATA?: string;
     /**
      * A variable that specifies the data path in the home directory on Linux systems using the XDG base directory specification.
      *
@@ -2125,7 +2125,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_XDG_DATA_HOME?: string;
+    readonly POWERLINES_XDG_DATA_HOME?: string;
     /**
      * A variable that specifies the configuration path in the home directory on Linux systems using the XDG base directory specification.
      *
@@ -2136,7 +2136,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_XDG_CONFIG_HOME?: string;
+    readonly POWERLINES_XDG_CONFIG_HOME?: string;
     /**
      * A variable that specifies the cache path in the home directory on Linux systems using the XDG base directory specification.
      *
@@ -2147,7 +2147,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_XDG_CACHE_HOME?: string;
+    readonly POWERLINES_XDG_CACHE_HOME?: string;
     /**
      * A variable that specifies the state directory on Linux systems using the XDG base directory specification.
      *
@@ -2158,7 +2158,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_XDG_STATE_HOME?: string;
+    readonly POWERLINES_XDG_STATE_HOME?: string;
     /**
      * A variable that specifies the runtime directory on Linux systems using the XDG base directory specification.
      *
@@ -2169,7 +2169,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_XDG_RUNTIME_DIR?: string;
+    readonly POWERLINES_XDG_RUNTIME_DIR?: string;
     /**
      * A variable that specifies the [Devenv](https://devenv.sh/) runtime directory.
      *
@@ -2180,7 +2180,7 @@ declare module "shell-shock:env" {
      * @runtime
      *
      */
-    readonly CLI_DEVENV_RUNTIME?: string;
+    readonly POWERLINES_DEVENV_RUNTIME?: string;
     /**
      * An environment variable that can be set to skip the version check when determining if a check for updates is required. If this variable is set to any value, the `isCheckForUpdatesRequired` function will return `false`, indicating that a check for updates is not required. This can be useful in CI environments or other non-interactive contexts where you want to avoid performing a version check, which may involve file system operations or network requests. By setting this environment variable, you can ensure that the upgrade process proceeds without checking for updates, which can help speed up the process in certain scenarios.
      *
@@ -2188,68 +2188,68 @@ declare module "shell-shock:env" {
      * @alias SHELL_SHOCK_SKIP_UPDATE_CHECK
      *
      */
-    CLI_SKIP_UPDATE_CHECK?: boolean;
+    POWERLINES_SKIP_UPDATE_CHECK?: boolean;
     /**
      * The name of the application.
      *
      * @alias APP_NAME
-     * @alias CLI_APP_NAME
+     * @alias POWERLINES_APP_NAME
      * @readonly
-     * @defaultValue "cli"
+     * @defaultValue "powerlines"
      */
     readonly SHELL_SHOCK_APP_NAME: string;
     /**
      * The version of the application.
      *
      * @alias APP_VERSION
-     * @alias CLI_APP_VERSION
+     * @alias POWERLINES_APP_VERSION
      * @readonly
-     * @defaultValue "0.2.40"
+     * @defaultValue "0.47.125"
      */
     readonly SHELL_SHOCK_APP_VERSION: string;
     /**
      * The unique identifier for the build.
      *
      * @alias BUILD_ID
-     * @alias CLI_BUILD_ID
+     * @alias POWERLINES_BUILD_ID
      * @readonly
-     * @defaultValue "199b0c9b-09e7-4a8e-92d8-ed9581eaa4f4"
+     * @defaultValue "3dff6f92-afb0-45ec-afb8-2be969a70ca6"
      */
     readonly SHELL_SHOCK_BUILD_ID: string;
     /**
      * The timestamp the build was ran at.
      *
      * @alias BUILD_TIMESTAMP
-     * @alias CLI_BUILD_TIMESTAMP
+     * @alias POWERLINES_BUILD_TIMESTAMP
      * @readonly
-     * @defaultValue "2026-06-05T13:05:39.688Z"
+     * @defaultValue "2026-06-06T04:20:03.424Z"
      */
     readonly SHELL_SHOCK_BUILD_TIMESTAMP: string;
     /**
      * A checksum hash created during the build.
      *
      * @alias BUILD_CHECKSUM
-     * @alias CLI_BUILD_CHECKSUM
+     * @alias POWERLINES_BUILD_CHECKSUM
      * @readonly
-     * @defaultValue "nQKBkV2pHRrVh_8MC5lk5VdNdAi4kExl"
+     * @defaultValue "do-pZQ87akHO7OEI9G3pidTjx8a9aY2r"
      */
     readonly SHELL_SHOCK_BUILD_CHECKSUM: string;
     /**
      * The unique identifier for the release.
      *
      * @alias RELEASE_ID
-     * @alias CLI_RELEASE_ID
+     * @alias POWERLINES_RELEASE_ID
      * @readonly
-     * @defaultValue "9b0c9b09-e71a-4e92-98ed-9581eaa4f4d1"
+     * @defaultValue "ff6f92af-b045-4c6f-b82b-e969a70ca6ea"
      */
     readonly SHELL_SHOCK_RELEASE_ID: string;
     /**
      * The tag for the release. This is generally in the format of "\<APP_NAME\>\@\<APP_VERSION\>".
      *
      * @alias RELEASE_TAG
-     * @alias CLI_RELEASE_TAG
+     * @alias POWERLINES_RELEASE_TAG
      * @readonly
-     * @defaultValue "cli@0.2.40"
+     * @defaultValue "powerlines@0.47.125"
      */
     readonly SHELL_SHOCK_RELEASE_TAG: string;
     /**
@@ -2257,8 +2257,8 @@ declare module "shell-shock:env" {
      *
      * @alias ORGANIZATION
      * @alias ORG
-     * @alias CLI_ORGANIZATION
-     * @alias CLI_ORG
+     * @alias POWERLINES_ORGANIZATION
+     * @alias POWERLINES_ORG
      * @alias SHELL_SHOCK_ORG
      * @defaultValue "Storm Software"
      */
@@ -2267,7 +2267,7 @@ declare module "shell-shock:env" {
      * The runtime that the application is running in.
      *
      * @alias RUNTIME
-     * @alias CLI_RUNTIME
+     * @alias POWERLINES_RUNTIME
      *
      */
     SHELL_SHOCK_RUNTIME?: "nodejs" | "deno" | "workerd" | "browser";
@@ -2275,7 +2275,7 @@ declare module "shell-shock:env" {
      * The platform for which the application was built.
      *
      * @alias PLATFORM
-     * @alias CLI_PLATFORM
+     * @alias POWERLINES_PLATFORM
      *
      */
     SHELL_SHOCK_PLATFORM: "node" | "neutral" | "browser";
@@ -2285,9 +2285,9 @@ declare module "shell-shock:env" {
      * @alias MODE
      * @alias NODE_ENV
      * @alias VERCEL_ENV
-     * @alias CLI_MODE
-     * @alias CLI_NODE_ENV
-     * @alias CLI_VERCEL_ENV
+     * @alias POWERLINES_MODE
+     * @alias POWERLINES_NODE_ENV
+     * @alias POWERLINES_VERCEL_ENV
      * @alias SHELL_SHOCK_NODE_ENV
      * @alias SHELL_SHOCK_VERCEL_ENV
      *
@@ -2297,7 +2297,7 @@ declare module "shell-shock:env" {
      * The environment the application is running in. This value will be populated with the value of `MODE` if not provided.
      *
      * @alias ENVIRONMENT
-     * @alias CLI_ENVIRONMENT
+     * @alias POWERLINES_ENVIRONMENT
      * @defaultValue "development"
      */
     SHELL_SHOCK_ENVIRONMENT: string;
@@ -2305,7 +2305,7 @@ declare module "shell-shock:env" {
      * Indicates if the application is running in debug mode.
      *
      * @alias DEBUG
-     * @alias CLI_DEBUG
+     * @alias POWERLINES_DEBUG
      * @defaultValue true
      */
     SHELL_SHOCK_DEBUG: boolean;
@@ -2313,7 +2313,7 @@ declare module "shell-shock:env" {
      * An indicator that specifies the current runtime is a test environment.
      *
      * @alias TEST
-     * @alias CLI_TEST
+     * @alias POWERLINES_TEST
      * @defaultValue false
      */
     SHELL_SHOCK_TEST: boolean;
@@ -2321,7 +2321,7 @@ declare module "shell-shock:env" {
      * An indicator that specifies the current runtime is a minimal environment.
      *
      * @alias MINIMAL
-     * @alias CLI_MINIMAL
+     * @alias POWERLINES_MINIMAL
      * @defaultValue false
      */
     SHELL_SHOCK_MINIMAL: boolean;
@@ -2329,7 +2329,7 @@ declare module "shell-shock:env" {
      * An indicator that specifies the current runtime is a no color environment.
      *
      * @alias NO_COLOR
-     * @alias CLI_NO_COLOR
+     * @alias POWERLINES_NO_COLOR
      * @defaultValue false
      */
     SHELL_SHOCK_NO_COLOR: boolean;
@@ -2337,7 +2337,7 @@ declare module "shell-shock:env" {
      * An indicator that specifies the current runtime is a force color environment.
      *
      * @alias FORCE_COLOR
-     * @alias CLI_FORCE_COLOR
+     * @alias POWERLINES_FORCE_COLOR
      *
      */
     SHELL_SHOCK_FORCE_COLOR: boolean | number;
@@ -2345,7 +2345,7 @@ declare module "shell-shock:env" {
      * An indicator that specifies the current runtime should force hyperlinks in terminal output.
      *
      * @alias FORCE_HYPERLINK
-     * @alias CLI_FORCE_HYPERLINK
+     * @alias POWERLINES_FORCE_HYPERLINK
      *
      */
     SHELL_SHOCK_FORCE_HYPERLINK: boolean | number;
@@ -2353,7 +2353,7 @@ declare module "shell-shock:env" {
      * The name of the agent running the application. This variable is set by certain CI/CD systems.
      *
      * @alias AGENT_NAME
-     * @alias CLI_AGENT_NAME
+     * @alias POWERLINES_AGENT_NAME
      * @readonly
      * @hidden
      * @runtime
@@ -2364,7 +2364,7 @@ declare module "shell-shock:env" {
      * The color terminal type. This variable is set by certain terminal emulators.
      *
      * @alias COLORTERM
-     * @alias CLI_COLORTERM
+     * @alias POWERLINES_COLORTERM
      * @readonly
      * @hidden
      * @runtime
@@ -2375,7 +2375,7 @@ declare module "shell-shock:env" {
      * The terminal type. This variable is set by certain CI/CD systems.
      *
      * @alias TERM
-     * @alias CLI_TERM
+     * @alias POWERLINES_TERM
      * @readonly
      * @hidden
      * @runtime
@@ -2386,7 +2386,7 @@ declare module "shell-shock:env" {
      * The terminal program name. This variable is set by certain terminal emulators.
      *
      * @alias TERM_PROGRAM
-     * @alias CLI_TERM_PROGRAM
+     * @alias POWERLINES_TERM_PROGRAM
      * @readonly
      * @hidden
      * @runtime
@@ -2397,7 +2397,7 @@ declare module "shell-shock:env" {
      * The terminal program version. This variable is set by certain terminal emulators.
      *
      * @alias TERM_PROGRAM_VERSION
-     * @alias CLI_TERM_PROGRAM_VERSION
+     * @alias POWERLINES_TERM_PROGRAM_VERSION
      * @readonly
      * @hidden
      * @runtime
@@ -2408,7 +2408,7 @@ declare module "shell-shock:env" {
      * The terminal emulator name. This variable is set by certain terminal emulators.
      *
      * @alias TERMINAL_EMULATOR
-     * @alias CLI_TERMINAL_EMULATOR
+     * @alias POWERLINES_TERMINAL_EMULATOR
      * @readonly
      * @hidden
      * @runtime
@@ -2419,7 +2419,7 @@ declare module "shell-shock:env" {
      * The terminal emulator session ID. This variable is set by certain terminal emulators.
      *
      * @alias WT_SESSION
-     * @alias CLI_WT_SESSION
+     * @alias POWERLINES_WT_SESSION
      * @readonly
      * @hidden
      * @runtime
@@ -2430,7 +2430,7 @@ declare module "shell-shock:env" {
      * An indicator that specifies the current terminal is running Terminus Sublime. This variable is set by certain terminal emulators.
      *
      * @alias TERMINUS_SUBLIME
-     * @alias CLI_TERMINUS_SUBLIME
+     * @alias POWERLINES_TERMINUS_SUBLIME
      * @readonly
      * @hidden
      * @runtime
@@ -2441,7 +2441,7 @@ declare module "shell-shock:env" {
      * The ConEmu task name. This variable is set by certain terminal emulators.
      *
      * @alias ConEmuTask
-     * @alias CLI_ConEmuTask
+     * @alias POWERLINES_ConEmuTask
      * @readonly
      * @hidden
      * @runtime
@@ -2452,7 +2452,7 @@ declare module "shell-shock:env" {
      * The cursor trace ID. This variable is set by certain terminal emulators.
      *
      * @alias CURSOR_TRACE_ID
-     * @alias CLI_CURSOR_TRACE_ID
+     * @alias POWERLINES_CURSOR_TRACE_ID
      * @readonly
      * @hidden
      * @runtime
@@ -2463,7 +2463,7 @@ declare module "shell-shock:env" {
      * The VTE version. This variable is set by certain terminal emulators.
      *
      * @alias VTE_VERSION
-     * @alias CLI_VTE_VERSION
+     * @alias POWERLINES_VTE_VERSION
      * @readonly
      * @hidden
      * @runtime
@@ -2474,7 +2474,7 @@ declare module "shell-shock:env" {
      * Indicates if error stack traces should be captured.
      *
      * @alias STACKTRACE
-     * @alias CLI_STACKTRACE
+     * @alias POWERLINES_STACKTRACE
      * @defaultValue true
      */
     SHELL_SHOCK_STACKTRACE: boolean;
@@ -2482,7 +2482,7 @@ declare module "shell-shock:env" {
      * Indicates if error data should be included.
      *
      * @alias INCLUDE_ERROR_DATA
-     * @alias CLI_INCLUDE_ERROR_DATA
+     * @alias POWERLINES_INCLUDE_ERROR_DATA
      * @defaultValue false
      */
     SHELL_SHOCK_INCLUDE_ERROR_DATA: boolean;
@@ -2491,7 +2491,7 @@ declare module "shell-shock:env" {
      *
      * @title Error Details URL
      * @alias ERROR_URL
-     * @alias CLI_ERROR_URL
+     * @alias POWERLINES_ERROR_URL
      * @defaultValue "https://developer.stormsoftware.com/static/errors"
      */
     SHELL_SHOCK_ERROR_URL?: string;
@@ -2499,7 +2499,7 @@ declare module "shell-shock:env" {
      * The default timezone for the application.
      *
      * @alias DEFAULT_TIMEZONE
-     * @alias CLI_DEFAULT_TIMEZONE
+     * @alias POWERLINES_DEFAULT_TIMEZONE
      * @defaultValue "America/New_York"
      */
     SHELL_SHOCK_DEFAULT_TIMEZONE: string;
@@ -2507,7 +2507,7 @@ declare module "shell-shock:env" {
      * The default locale to be used in the application.
      *
      * @alias DEFAULT_LOCALE
-     * @alias CLI_DEFAULT_LOCALE
+     * @alias POWERLINES_DEFAULT_LOCALE
      * @defaultValue "en-US"
      */
     SHELL_SHOCK_DEFAULT_LOCALE: string;
@@ -2515,7 +2515,7 @@ declare module "shell-shock:env" {
      * The default lowest log level to accept. If `null`, the logger will reject all records.
      *
      * @alias LOG_LEVEL
-     * @alias CLI_LOG_LEVEL
+     * @alias POWERLINES_LOG_LEVEL
      *
      */
     SHELL_SHOCK_LOG_LEVEL?: unknown;
@@ -2525,8 +2525,8 @@ declare module "shell-shock:env" {
      * @title Continuous Integration
      * @alias CI
      * @alias CONTINUOUS_INTEGRATION
-     * @alias CLI_CI
-     * @alias CLI_CONTINUOUS_INTEGRATION
+     * @alias POWERLINES_CI
+     * @alias POWERLINES_CONTINUOUS_INTEGRATION
      * @alias SHELL_SHOCK_CONTINUOUS_INTEGRATION
      * @defaultValue false
      */
@@ -2535,7 +2535,7 @@ declare module "shell-shock:env" {
      * The unique identifier for the current run. This value is set by certain CI/CD systems.
      *
      * @alias RUN_ID
-     * @alias CLI_RUN_ID
+     * @alias POWERLINES_RUN_ID
      * @readonly
      * @hidden
      * @runtime
@@ -2546,7 +2546,7 @@ declare module "shell-shock:env" {
      * The agola git reference. This value is set by certain CI/CD systems.
      *
      * @alias AGOLA_GIT_REF
-     * @alias CLI_AGOLA_GIT_REF
+     * @alias POWERLINES_AGOLA_GIT_REF
      * @readonly
      * @hidden
      * @runtime
@@ -2557,7 +2557,7 @@ declare module "shell-shock:env" {
      * The appcircle build ID. This value is set by certain CI/CD systems.
      *
      * @alias AC_APPCIRCLE
-     * @alias CLI_AC_APPCIRCLE
+     * @alias POWERLINES_AC_APPCIRCLE
      * @readonly
      * @hidden
      * @runtime
@@ -2568,7 +2568,7 @@ declare module "shell-shock:env" {
      * The appveyor build ID. This value is set by certain CI/CD systems.
      *
      * @alias APPVEYOR
-     * @alias CLI_APPVEYOR
+     * @alias POWERLINES_APPVEYOR
      * @readonly
      * @hidden
      * @runtime
@@ -2579,7 +2579,7 @@ declare module "shell-shock:env" {
      * The codebuild build ID. This value is set by certain CI/CD systems.
      *
      * @alias CODEBUILD
-     * @alias CLI_CODEBUILD
+     * @alias POWERLINES_CODEBUILD
      * @readonly
      * @hidden
      * @runtime
@@ -2590,7 +2590,7 @@ declare module "shell-shock:env" {
      * The task force build ID. This value is set by certain CI/CD systems.
      *
      * @alias TF_BUILD
-     * @alias CLI_TF_BUILD
+     * @alias POWERLINES_TF_BUILD
      * @readonly
      * @hidden
      * @runtime
@@ -2601,7 +2601,7 @@ declare module "shell-shock:env" {
      * The bamboo plan key. This value is set by certain CI/CD systems.
      *
      * @alias bamboo_planKey
-     * @alias CLI_bamboo_planKey
+     * @alias POWERLINES_bamboo_planKey
      * @readonly
      * @hidden
      * @runtime
@@ -2612,7 +2612,7 @@ declare module "shell-shock:env" {
      * The bitbucket commit. This value is set by certain CI/CD systems.
      *
      * @alias BITBUCKET_COMMIT
-     * @alias CLI_BITBUCKET_COMMIT
+     * @alias POWERLINES_BITBUCKET_COMMIT
      * @readonly
      * @hidden
      * @runtime
@@ -2623,7 +2623,7 @@ declare module "shell-shock:env" {
      * The bitrise build ID. This value is set by certain CI/CD systems.
      *
      * @alias BITRISE_IO
-     * @alias CLI_BITRISE_IO
+     * @alias POWERLINES_BITRISE_IO
      * @readonly
      * @hidden
      * @runtime
@@ -2634,7 +2634,7 @@ declare module "shell-shock:env" {
      * The buddy workspace ID. This value is set by certain CI/CD systems.
      *
      * @alias BUDDY_WORKSPACE_ID
-     * @alias CLI_BUDDY_WORKSPACE_ID
+     * @alias POWERLINES_BUDDY_WORKSPACE_ID
      * @readonly
      * @hidden
      * @runtime
@@ -2645,7 +2645,7 @@ declare module "shell-shock:env" {
      * The buildkite build ID. This value is set by certain CI/CD systems.
      *
      * @alias BUILDKITE
-     * @alias CLI_BUILDKITE
+     * @alias POWERLINES_BUILDKITE
      * @readonly
      * @hidden
      * @runtime
@@ -2656,7 +2656,7 @@ declare module "shell-shock:env" {
      * The circleci build ID. This value is set by certain CI/CD systems.
      *
      * @alias CIRCLECI
-     * @alias CLI_CIRCLECI
+     * @alias POWERLINES_CIRCLECI
      * @readonly
      * @hidden
      * @runtime
@@ -2667,7 +2667,7 @@ declare module "shell-shock:env" {
      * The cirrus-ci build ID. This value is set by certain CI/CD systems.
      *
      * @alias CIRRUS_CI
-     * @alias CLI_CIRRUS_CI
+     * @alias POWERLINES_CIRRUS_CI
      * @readonly
      * @hidden
      * @runtime
@@ -2678,7 +2678,7 @@ declare module "shell-shock:env" {
      * The cf build ID. This value is set by certain CI/CD systems.
      *
      * @alias CF_BUILD_ID
-     * @alias CLI_CF_BUILD_ID
+     * @alias POWERLINES_CF_BUILD_ID
      * @readonly
      * @hidden
      * @runtime
@@ -2689,7 +2689,7 @@ declare module "shell-shock:env" {
      * The cm build ID. This value is set by certain CI/CD systems.
      *
      * @alias CM_BUILD_ID
-     * @alias CLI_CM_BUILD_ID
+     * @alias POWERLINES_CM_BUILD_ID
      * @readonly
      * @hidden
      * @runtime
@@ -2700,7 +2700,7 @@ declare module "shell-shock:env" {
      * The ci name. This value is set by certain CI/CD systems.
      *
      * @alias CI_NAME
-     * @alias CLI_CI_NAME
+     * @alias POWERLINES_CI_NAME
      * @readonly
      * @hidden
      * @runtime
@@ -2711,7 +2711,7 @@ declare module "shell-shock:env" {
      * The drone build ID. This value is set by certain CI/CD systems.
      *
      * @alias DRONE
-     * @alias CLI_DRONE
+     * @alias POWERLINES_DRONE
      * @readonly
      * @hidden
      * @runtime
@@ -2722,7 +2722,7 @@ declare module "shell-shock:env" {
      * The dsari build ID. This value is set by certain CI/CD systems.
      *
      * @alias DSARI
-     * @alias CLI_DSARI
+     * @alias POWERLINES_DSARI
      * @readonly
      * @hidden
      * @runtime
@@ -2733,7 +2733,7 @@ declare module "shell-shock:env" {
      * The earthly build ID. This value is set by certain CI/CD systems.
      *
      * @alias EARTHLY_CI
-     * @alias CLI_EARTHLY_CI
+     * @alias POWERLINES_EARTHLY_CI
      * @readonly
      * @hidden
      * @runtime
@@ -2744,7 +2744,7 @@ declare module "shell-shock:env" {
      * The eas build ID. This value is set by certain CI/CD systems.
      *
      * @alias EAS_BUILD
-     * @alias CLI_EAS_BUILD
+     * @alias POWERLINES_EAS_BUILD
      * @readonly
      * @hidden
      * @runtime
@@ -2755,7 +2755,7 @@ declare module "shell-shock:env" {
      * The gerrit project. This value is set by certain CI/CD systems.
      *
      * @alias GERRIT_PROJECT
-     * @alias CLI_GERRIT_PROJECT
+     * @alias POWERLINES_GERRIT_PROJECT
      * @readonly
      * @hidden
      * @runtime
@@ -2766,7 +2766,7 @@ declare module "shell-shock:env" {
      * The gitea actions build ID. This value is set by certain CI/CD systems.
      *
      * @alias GITEA_ACTIONS
-     * @alias CLI_GITEA_ACTIONS
+     * @alias POWERLINES_GITEA_ACTIONS
      * @readonly
      * @hidden
      * @runtime
@@ -2777,7 +2777,7 @@ declare module "shell-shock:env" {
      * The github actions build ID. This value is set by certain CI/CD systems.
      *
      * @alias GITHUB_ACTIONS
-     * @alias CLI_GITHUB_ACTIONS
+     * @alias POWERLINES_GITHUB_ACTIONS
      * @readonly
      * @hidden
      * @runtime
@@ -2788,7 +2788,7 @@ declare module "shell-shock:env" {
      * The gitlab ci build ID. This value is set by certain CI/CD systems.
      *
      * @alias GITLAB_CI
-     * @alias CLI_GITLAB_CI
+     * @alias POWERLINES_GITLAB_CI
      * @readonly
      * @hidden
      * @runtime
@@ -2799,7 +2799,7 @@ declare module "shell-shock:env" {
      * The go cd build ID. This value is set by certain CI/CD systems.
      *
      * @alias GOCD
-     * @alias CLI_GOCD
+     * @alias POWERLINES_GOCD
      * @readonly
      * @hidden
      * @runtime
@@ -2810,7 +2810,7 @@ declare module "shell-shock:env" {
      * The builder output build ID. This value is set by certain CI/CD systems.
      *
      * @alias BUILDER_OUTPUT
-     * @alias CLI_BUILDER_OUTPUT
+     * @alias POWERLINES_BUILDER_OUTPUT
      * @readonly
      * @hidden
      * @runtime
@@ -2821,7 +2821,7 @@ declare module "shell-shock:env" {
      * The harness build ID. This value is set by certain CI/CD systems.
      *
      * @alias HARNESS_BUILD_ID
-     * @alias CLI_HARNESS_BUILD_ID
+     * @alias POWERLINES_HARNESS_BUILD_ID
      * @readonly
      * @hidden
      * @runtime
@@ -2832,7 +2832,7 @@ declare module "shell-shock:env" {
      * The jenkins url. This value is set by certain CI/CD systems.
      *
      * @alias JENKINS_URL
-     * @alias CLI_JENKINS_URL
+     * @alias POWERLINES_JENKINS_URL
      * @readonly
      * @hidden
      * @runtime
@@ -2843,7 +2843,7 @@ declare module "shell-shock:env" {
      * The layerci build ID. This value is set by certain CI/CD systems.
      *
      * @alias LAYERCI
-     * @alias CLI_LAYERCI
+     * @alias POWERLINES_LAYERCI
      * @readonly
      * @hidden
      * @runtime
@@ -2854,7 +2854,7 @@ declare module "shell-shock:env" {
      * The magnum build ID. This value is set by certain CI/CD systems.
      *
      * @alias MAGNUM
-     * @alias CLI_MAGNUM
+     * @alias POWERLINES_MAGNUM
      * @readonly
      * @hidden
      * @runtime
@@ -2865,7 +2865,7 @@ declare module "shell-shock:env" {
      * The netlify build ID. This value is set by certain CI/CD systems.
      *
      * @alias NETLIFY
-     * @alias CLI_NETLIFY
+     * @alias POWERLINES_NETLIFY
      * @readonly
      * @hidden
      * @runtime
@@ -2876,7 +2876,7 @@ declare module "shell-shock:env" {
      * The nevercode build ID. This value is set by certain CI/CD systems.
      *
      * @alias NEVERCODE
-     * @alias CLI_NEVERCODE
+     * @alias POWERLINES_NEVERCODE
      * @readonly
      * @hidden
      * @runtime
@@ -2887,7 +2887,7 @@ declare module "shell-shock:env" {
      * The prow job ID. This value is set by certain CI/CD systems.
      *
      * @alias PROW_JOB_ID
-     * @alias CLI_PROW_JOB_ID
+     * @alias POWERLINES_PROW_JOB_ID
      * @readonly
      * @hidden
      * @runtime
@@ -2898,7 +2898,7 @@ declare module "shell-shock:env" {
      * The release build ID. This value is set by certain CI/CD systems.
      *
      * @alias RELEASE_BUILD_ID
-     * @alias CLI_RELEASE_BUILD_ID
+     * @alias POWERLINES_RELEASE_BUILD_ID
      * @readonly
      * @hidden
      * @runtime
@@ -2909,7 +2909,7 @@ declare module "shell-shock:env" {
      * The render build ID. This value is set by certain CI/CD systems.
      *
      * @alias RENDER
-     * @alias CLI_RENDER
+     * @alias POWERLINES_RENDER
      * @readonly
      * @hidden
      * @runtime
@@ -2920,7 +2920,7 @@ declare module "shell-shock:env" {
      * The sailci build ID. This value is set by certain CI/CD systems.
      *
      * @alias SAILCI
-     * @alias CLI_SAILCI
+     * @alias POWERLINES_SAILCI
      * @readonly
      * @hidden
      * @runtime
@@ -2931,7 +2931,7 @@ declare module "shell-shock:env" {
      * The hudson build ID. This value is set by certain CI/CD systems.
      *
      * @alias HUDSON
-     * @alias CLI_HUDSON
+     * @alias POWERLINES_HUDSON
      * @readonly
      * @hidden
      * @runtime
@@ -2942,7 +2942,7 @@ declare module "shell-shock:env" {
      * The screwdriver build ID. This value is set by certain CI/CD systems.
      *
      * @alias SCREWDRIVER
-     * @alias CLI_SCREWDRIVER
+     * @alias POWERLINES_SCREWDRIVER
      * @readonly
      * @hidden
      * @runtime
@@ -2953,7 +2953,7 @@ declare module "shell-shock:env" {
      * The semaphore build ID. This value is set by certain CI/CD systems.
      *
      * @alias SEMAPHORE
-     * @alias CLI_SEMAPHORE
+     * @alias POWERLINES_SEMAPHORE
      * @readonly
      * @hidden
      * @runtime
@@ -2964,7 +2964,7 @@ declare module "shell-shock:env" {
      * The sourcehut build ID. This value is set by certain CI/CD systems.
      *
      * @alias SOURCEHUT
-     * @alias CLI_SOURCEHUT
+     * @alias POWERLINES_SOURCEHUT
      * @readonly
      * @hidden
      * @runtime
@@ -2975,7 +2975,7 @@ declare module "shell-shock:env" {
      * The spaceship build ID. This value is set by certain CI/CD systems.
      *
      * @alias SPACESHIP_CI
-     * @alias CLI_SPACESHIP_CI
+     * @alias POWERLINES_SPACESHIP_CI
      * @readonly
      * @hidden
      * @runtime
@@ -2986,7 +2986,7 @@ declare module "shell-shock:env" {
      * The strider build ID. This value is set by certain CI/CD systems.
      *
      * @alias STRIDER
-     * @alias CLI_STRIDER
+     * @alias POWERLINES_STRIDER
      * @readonly
      * @hidden
      * @runtime
@@ -2997,7 +2997,7 @@ declare module "shell-shock:env" {
      * The task ID. This value is set by certain CI/CD systems.
      *
      * @alias TASK_ID
-     * @alias CLI_TASK_ID
+     * @alias POWERLINES_TASK_ID
      * @readonly
      * @hidden
      * @runtime
@@ -3008,7 +3008,7 @@ declare module "shell-shock:env" {
      * The teamcity version. This value is set by certain CI/CD systems.
      *
      * @alias TEAMCITY_VERSION
-     * @alias CLI_TEAMCITY_VERSION
+     * @alias POWERLINES_TEAMCITY_VERSION
      * @readonly
      * @hidden
      * @runtime
@@ -3019,7 +3019,7 @@ declare module "shell-shock:env" {
      * The travis build ID. This value is set by certain CI/CD systems.
      *
      * @alias TRAVIS
-     * @alias CLI_TRAVIS
+     * @alias POWERLINES_TRAVIS
      * @readonly
      * @hidden
      * @runtime
@@ -3030,7 +3030,7 @@ declare module "shell-shock:env" {
      * The vela build ID. This value is set by certain CI/CD systems.
      *
      * @alias VELA
-     * @alias CLI_VELA
+     * @alias POWERLINES_VELA
      * @readonly
      * @hidden
      * @runtime
@@ -3041,7 +3041,7 @@ declare module "shell-shock:env" {
      * The now builder build ID. This value is set by certain CI/CD systems.
      *
      * @alias NOW_BUILDER
-     * @alias CLI_NOW_BUILDER
+     * @alias POWERLINES_NOW_BUILDER
      * @readonly
      * @hidden
      * @runtime
@@ -3052,7 +3052,7 @@ declare module "shell-shock:env" {
      * The appcenter build ID. This value is set by certain CI/CD systems.
      *
      * @alias APPCENTER_BUILD_ID
-     * @alias CLI_APPCENTER_BUILD_ID
+     * @alias POWERLINES_APPCENTER_BUILD_ID
      * @readonly
      * @hidden
      * @runtime
@@ -3063,7 +3063,7 @@ declare module "shell-shock:env" {
      * The xcode project build ID. This value is set by certain CI/CD systems.
      *
      * @alias CI_XCODE_PROJECT
-     * @alias CLI_CI_XCODE_PROJECT
+     * @alias POWERLINES_CI_XCODE_PROJECT
      * @readonly
      * @hidden
      * @runtime
@@ -3074,7 +3074,7 @@ declare module "shell-shock:env" {
      * The xcode server build ID. This value is set by certain CI/CD systems.
      *
      * @alias XCS
-     * @alias CLI_XCS
+     * @alias POWERLINES_XCS
      * @readonly
      * @hidden
      * @runtime
@@ -3086,7 +3086,7 @@ declare module "shell-shock:env" {
      *
      * @title Data Directory
      * @alias DATA_DIR
-     * @alias CLI_DATA_DIR
+     * @alias POWERLINES_DATA_DIR
      * @runtime
      *
      */
@@ -3096,7 +3096,7 @@ declare module "shell-shock:env" {
      *
      * @title Configuration Directory
      * @alias CONFIG_DIR
-     * @alias CLI_CONFIG_DIR
+     * @alias POWERLINES_CONFIG_DIR
      * @runtime
      *
      */
@@ -3106,7 +3106,7 @@ declare module "shell-shock:env" {
      *
      * @title Cache Directory
      * @alias CACHE_DIR
-     * @alias CLI_CACHE_DIR
+     * @alias POWERLINES_CACHE_DIR
      * @runtime
      *
      */
@@ -3116,7 +3116,7 @@ declare module "shell-shock:env" {
      *
      * @title Log Directory
      * @alias LOG_DIR
-     * @alias CLI_LOG_DIR
+     * @alias POWERLINES_LOG_DIR
      * @runtime
      *
      */
@@ -3126,7 +3126,7 @@ declare module "shell-shock:env" {
      *
      * @title Temporary Directory
      * @alias TEMP_DIR
-     * @alias CLI_TEMP_DIR
+     * @alias POWERLINES_TEMP_DIR
      * @runtime
      *
      */
@@ -3135,7 +3135,7 @@ declare module "shell-shock:env" {
      * A variable that specifies the current user's local application data directory on Windows.
      *
      * @alias LOCALAPPDATA
-     * @alias CLI_LOCALAPPDATA
+     * @alias POWERLINES_LOCALAPPDATA
      * @readonly
      * @hidden
      * @runtime
@@ -3146,7 +3146,7 @@ declare module "shell-shock:env" {
      * A variable that specifies the application data directory on Windows.
      *
      * @alias APPDATA
-     * @alias CLI_APPDATA
+     * @alias POWERLINES_APPDATA
      * @readonly
      * @hidden
      * @runtime
@@ -3157,7 +3157,7 @@ declare module "shell-shock:env" {
      * A variable that specifies the data path in the home directory on Linux systems using the XDG base directory specification.
      *
      * @alias XDG_DATA_HOME
-     * @alias CLI_XDG_DATA_HOME
+     * @alias POWERLINES_XDG_DATA_HOME
      * @readonly
      * @hidden
      * @runtime
@@ -3168,7 +3168,7 @@ declare module "shell-shock:env" {
      * A variable that specifies the configuration path in the home directory on Linux systems using the XDG base directory specification.
      *
      * @alias XDG_CONFIG_HOME
-     * @alias CLI_XDG_CONFIG_HOME
+     * @alias POWERLINES_XDG_CONFIG_HOME
      * @readonly
      * @hidden
      * @runtime
@@ -3179,7 +3179,7 @@ declare module "shell-shock:env" {
      * A variable that specifies the cache path in the home directory on Linux systems using the XDG base directory specification.
      *
      * @alias XDG_CACHE_HOME
-     * @alias CLI_XDG_CACHE_HOME
+     * @alias POWERLINES_XDG_CACHE_HOME
      * @readonly
      * @hidden
      * @runtime
@@ -3190,7 +3190,7 @@ declare module "shell-shock:env" {
      * A variable that specifies the state directory on Linux systems using the XDG base directory specification.
      *
      * @alias XDG_STATE_HOME
-     * @alias CLI_XDG_STATE_HOME
+     * @alias POWERLINES_XDG_STATE_HOME
      * @readonly
      * @hidden
      * @runtime
@@ -3201,7 +3201,7 @@ declare module "shell-shock:env" {
      * A variable that specifies the runtime directory on Linux systems using the XDG base directory specification.
      *
      * @alias XDG_RUNTIME_DIR
-     * @alias CLI_XDG_RUNTIME_DIR
+     * @alias POWERLINES_XDG_RUNTIME_DIR
      * @readonly
      * @hidden
      * @runtime
@@ -3212,7 +3212,7 @@ declare module "shell-shock:env" {
      * A variable that specifies the [Devenv](https://devenv.sh/) runtime directory.
      *
      * @alias DEVENV_RUNTIME
-     * @alias CLI_DEVENV_RUNTIME
+     * @alias POWERLINES_DEVENV_RUNTIME
      * @readonly
      * @hidden
      * @runtime
@@ -3223,7 +3223,7 @@ declare module "shell-shock:env" {
      * An environment variable that can be set to skip the version check when determining if a check for updates is required. If this variable is set to any value, the `isCheckForUpdatesRequired` function will return `false`, indicating that a check for updates is not required. This can be useful in CI environments or other non-interactive contexts where you want to avoid performing a version check, which may involve file system operations or network requests. By setting this environment variable, you can ensure that the upgrade process proceeds without checking for updates, which can help speed up the process in certain scenarios.
      *
      * @alias SKIP_UPDATE_CHECK
-     * @alias CLI_SKIP_UPDATE_CHECK
+     * @alias POWERLINES_SKIP_UPDATE_CHECK
      *
      */
     SHELL_SHOCK_SKIP_UPDATE_CHECK?: boolean;
@@ -3360,7 +3360,7 @@ declare module "shell-shock:state" {
   import { AsyncLocalStorage } from "node:async_hooks";
 
   /**
-   * An object representing the global options available for every command in the  command-line application.
+   * An object representing the global options available for every command in the Powerlines command-line application.
    */
   export interface GlobalOptions {
     /**
@@ -3399,11 +3399,11 @@ declare module "shell-shock:state" {
     THandler extends (...params: any[]) => any = any
   > {
     /**
-     * The full command path as a string. For example, if the user runs `cli foo bar`, this would be `foo bar`. This is useful for commands that need to know their full invocation path, such as for help text or for commands that have dynamic behavior based on their position in the command hierarchy.
+     * The full command path as a string. For example, if the user runs `powerlines foo bar`, this would be `foo bar`. This is useful for commands that need to know their full invocation path, such as for help text or for commands that have dynamic behavior based on their position in the command hierarchy.
      */
     path: string;
     /**
-     * An array of command path segments. For example, if the user runs `cli foo bar`, this would be `["foo", "bar"]`. This is useful for commands that need to know their individual path segments, such as for dynamic routing or for commands that have behavior based on specific segments in the command hierarchy.
+     * An array of command path segments. For example, if the user runs `powerlines foo bar`, this would be `["foo", "bar"]`. This is useful for commands that need to know their individual path segments, such as for dynamic routing or for commands that have behavior based on specific segments in the command hierarchy.
      */
     segments: string[];
     /**
@@ -3417,7 +3417,7 @@ declare module "shell-shock:state" {
     | "executing"
     | "completed";
   /**
-   * The state object for the Command Line Interface application context.
+   * The state object for the Powerlines application context.
    */
   export interface GlobalContextState {
     /**
@@ -3438,7 +3438,7 @@ declare module "shell-shock:state" {
     meta: Map<string, unknown>;
   }
   /**
-   * The context object for the Command Line Interface application.
+   * The context object for the Powerlines application.
    */
   export interface GlobalContext {
     /**
@@ -3455,29 +3455,29 @@ declare module "shell-shock:state" {
     state: GlobalContextState;
   }
   /**
-   * The global Command Line Interface application context store instance.
+   * The global Powerlines application context store instance.
    *
    * @internal
    *
    */
   export const unstable_globalStore: AsyncLocalStorage<GlobalContext>;
   /**
-   * Get the Command Line Interface application context for the current application.
+   * Get the Powerlines application context for the current application.
    *
-   * @returns The Command Line Interface application context for the current
-   *   application or undefined if the context is not available.
+   * @returns The Powerlines application context for the current application or
+   *   undefined if the context is not available.
    *
    */
   export function useGlobal(): GlobalContext;
   /**
-   * A utility hook function to get the command-line arguments from the Command Line Interface application context.
+   * A utility hook function to get the command-line arguments from the Powerlines application context.
    *
    * @returns An array of command-line arguments from the application context.
    *
    */
   export function useArgs(): string[];
   /**
-   * A utility hook function to get the command-line global options from the Command Line Interface application context.
+   * A utility hook function to get the command-line global options from the Powerlines application context.
    *
    * @returns An object containing the global options from the application
    *   context.
@@ -3485,14 +3485,14 @@ declare module "shell-shock:state" {
    */
   export function useGlobalOptions(): GlobalOptions;
   /**
-   * A utility hook function to get the state of the Command Line Interface application context.
+   * A utility hook function to get the state of the Powerlines application context.
    *
    * @returns The state of the application context.
    *
    */
   export function useState(): GlobalContextState;
   /**
-   * A utility function to update the state of the Command Line Interface application context.
+   * A utility function to update the state of the Powerlines application context.
    *
    * @remarks
    * This function will throw an error if the global context is not available, so it should only be used within a valid context scope, such as within a command handler or within the `withGlobal()` function.
@@ -3508,38 +3508,37 @@ declare module "shell-shock:state" {
       | ((prev: GlobalContextState) => GlobalContextState)
   ): void;
   /**
-   * A utility hook function to get the execution ID of the Command Line Interface application context.
+   * A utility hook function to get the execution ID of the Powerlines application context.
    *
    * @returns The execution ID of the application context.
    *
    */
   export function useExecutionId(): string;
   /**
-   * A utility hook function to get the metadata of the Command Line Interface application context.
+   * A utility hook function to get the metadata of the Powerlines application context.
    *
    * @returns The metadata of the application context.
    *
    */
   export function useMeta(): Map<string, unknown>;
   /**
-   * A utility hook function to get the current status of the Command Line Interface application.
+   * A utility hook function to get the current status of the Powerlines application.
    *
    * @returns The current status of the application.
    *
    */
   export function useStatus(): GlobalContextStatus;
   /**
-   * The global Command Line Interface - command context store instance.
+   * The global Powerlines - command context store instance.
    *
    * @internal
    *
    */
   export const unstable_commandStore: AsyncLocalStorage<CommandContext<any>>;
   /**
-   * Get the Command Line Interface - command context for the current application.
+   * Get the Powerlines - command context for the current application.
    *
-   * @returns The Command Line Interface - command context for the current
-   *   application.
+   * @returns The Powerlines - command context for the current application.
    *
    */
   export function useCommand(): CommandContext;
@@ -3554,10 +3553,10 @@ declare module "shell-shock:state" {
    * A utility hook function to get the full command path as a string.
    *
    * @returns The full command path as a string. For example, if the user runs
-   *   `cli foo bar`, this would return `"foo bar"`. This is useful for commands
-   *   that need to know their full invocation path, such as for help text or for
-   *   commands that have dynamic behavior based on their position in the command
-   *   hierarchy.
+   *   `powerlines foo bar`, this would return `"foo bar"`. This is useful for
+   *   commands that need to know their full invocation path, such as for help
+   *   text or for commands that have dynamic behavior based on their position in
+   *   the command hierarchy.
    *
    */
   export function usePath(): string;
@@ -3585,7 +3584,7 @@ declare module "shell-shock:state" {
    */
   export function isHelp(): boolean;
   /**
-   * A utility function to wrap the Command Line Interface application within the global context scope.
+   * A utility function to wrap the Powerlines application within the global context scope.
    *
    * @param handler - The callback function to run within the global context
    *   scope. This function will receive the global context as its argument,
@@ -3598,7 +3597,7 @@ declare module "shell-shock:state" {
    */
   export function withGlobal(handler: () => any): Promise<Promise<void>>;
   /**
-   * A utility function to wrap a Command Line Interface application command handler within the command context scope.
+   * A utility function to wrap a Powerlines application command handler within the command context scope.
    *
    * @param handler - The callback function to run within the command context
    *   scope. This function will receive the command context as its argument,
@@ -8728,19 +8727,19 @@ declare module "shell-shock:upgrade" {
    */
   export function updateVersionCheckFile(): Promise<void>;
   /**
-   * Run upgrade processing for the application.
+   * Run upgrade processing for the Powerlines application.
    */
   export function executeUpgrade(): Promise<void>;
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the  command-line interface application.
+ * A collection of utility functions that assist in displaying banner information for the Powerlines command-line interface application.
  *
  * @module shell-shock:banner
  */
 declare module "shell-shock:banner" {
   /**
-   * Write the  command-line interface application banner for the Command Line Interface command to the console.
+   * Write the Powerlines command-line interface application banner for the Powerlines command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8757,7 +8756,7 @@ declare module "shell-shock:banner" {
  */
 declare module "shell-shock:banner/completions/bash" {
   /**
-   * Write the  command-line interface application banner for the Completions - Bash command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - Bash command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8774,7 +8773,7 @@ declare module "shell-shock:banner/completions/bash" {
  */
 declare module "shell-shock:banner/build" {
   /**
-   * Write the  command-line interface application banner for the Build command to the console.
+   * Write the Powerlines command-line interface application banner for the Build command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8791,7 +8790,7 @@ declare module "shell-shock:banner/build" {
  */
 declare module "shell-shock:banner/changelog" {
   /**
-   * Write the  command-line interface application banner for the Changelog command to the console.
+   * Write the Powerlines command-line interface application banner for the Changelog command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8808,7 +8807,7 @@ declare module "shell-shock:banner/changelog" {
  */
 declare module "shell-shock:banner/clean" {
   /**
-   * Write the  command-line interface application banner for the Clean command to the console.
+   * Write the Powerlines command-line interface application banner for the Clean command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8825,58 +8824,7 @@ declare module "shell-shock:banner/clean" {
  */
 declare module "shell-shock:banner/completions" {
   /**
-   * Write the  command-line interface application banner for the Completions command to the console.
-   *
-   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
-   *   displaying the banner. This can be used to create a delay before the banner
-   *   is shown, allowing for any necessary setup or initialization to occur
-   *   first. The default value is 500 milliseconds.
-   */
-  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
-}
-
-/**
- * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Configuration command.
- *
- * @module shell-shock:banner/completions/zsh/config
- */
-declare module "shell-shock:banner/completions/zsh/config" {
-  /**
-   * Write the  command-line interface application banner for the Completions - Zsh Configuration command to the console.
-   *
-   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
-   *   displaying the banner. This can be used to create a delay before the banner
-   *   is shown, allowing for any necessary setup or initialization to occur
-   *   first. The default value is 500 milliseconds.
-   */
-  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
-}
-
-/**
- * A collection of utility functions that assist in displaying banner information for the Completions - Bash Configuration command.
- *
- * @module shell-shock:banner/completions/bash/config
- */
-declare module "shell-shock:banner/completions/bash/config" {
-  /**
-   * Write the  command-line interface application banner for the Completions - Bash Configuration command to the console.
-   *
-   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
-   *   displaying the banner. This can be used to create a delay before the banner
-   *   is shown, allowing for any necessary setup or initialization to occur
-   *   first. The default value is 500 milliseconds.
-   */
-  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
-}
-
-/**
- * A collection of utility functions that assist in displaying banner information for the Completions - PowerShell Configuration command.
- *
- * @module shell-shock:banner/completions/powershell/config
- */
-declare module "shell-shock:banner/completions/powershell/config" {
-  /**
-   * Write the  command-line interface application banner for the Completions - PowerShell Configuration command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8893,7 +8841,58 @@ declare module "shell-shock:banner/completions/powershell/config" {
  */
 declare module "shell-shock:banner/completions/fish/config" {
   /**
-   * Write the  command-line interface application banner for the Completions - Fish Configuration command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - Fish Configuration command to the console.
+   *
+   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
+   *   displaying the banner. This can be used to create a delay before the banner
+   *   is shown, allowing for any necessary setup or initialization to occur
+   *   first. The default value is 500 milliseconds.
+   */
+  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
+}
+
+/**
+ * A collection of utility functions that assist in displaying banner information for the Completions - Bash Configuration command.
+ *
+ * @module shell-shock:banner/completions/bash/config
+ */
+declare module "shell-shock:banner/completions/bash/config" {
+  /**
+   * Write the Powerlines command-line interface application banner for the Completions - Bash Configuration command to the console.
+   *
+   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
+   *   displaying the banner. This can be used to create a delay before the banner
+   *   is shown, allowing for any necessary setup or initialization to occur
+   *   first. The default value is 500 milliseconds.
+   */
+  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
+}
+
+/**
+ * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Configuration command.
+ *
+ * @module shell-shock:banner/completions/zsh/config
+ */
+declare module "shell-shock:banner/completions/zsh/config" {
+  /**
+   * Write the Powerlines command-line interface application banner for the Completions - Zsh Configuration command to the console.
+   *
+   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
+   *   displaying the banner. This can be used to create a delay before the banner
+   *   is shown, allowing for any necessary setup or initialization to occur
+   *   first. The default value is 500 milliseconds.
+   */
+  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
+}
+
+/**
+ * A collection of utility functions that assist in displaying banner information for the Completions - PowerShell Configuration command.
+ *
+ * @module shell-shock:banner/completions/powershell/config
+ */
+declare module "shell-shock:banner/completions/powershell/config" {
+  /**
+   * Write the Powerlines command-line interface application banner for the Completions - PowerShell Configuration command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8910,7 +8909,7 @@ declare module "shell-shock:banner/completions/fish/config" {
  */
 declare module "shell-shock:banner/create" {
   /**
-   * Write the  command-line interface application banner for the Create Project command to the console.
+   * Write the Powerlines command-line interface application banner for the Create Project command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8927,7 +8926,7 @@ declare module "shell-shock:banner/create" {
  */
 declare module "shell-shock:banner/deploy" {
   /**
-   * Write the  command-line interface application banner for the Deploy command to the console.
+   * Write the Powerlines command-line interface application banner for the Deploy command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8944,7 +8943,7 @@ declare module "shell-shock:banner/deploy" {
  */
 declare module "shell-shock:banner/docs" {
   /**
-   * Write the  command-line interface application banner for the Generate Documentation command to the console.
+   * Write the Powerlines command-line interface application banner for the Generate Documentation command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8961,7 +8960,7 @@ declare module "shell-shock:banner/docs" {
  */
 declare module "shell-shock:banner/completions/fish" {
   /**
-   * Write the  command-line interface application banner for the Completions - Fish command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - Fish command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8978,7 +8977,7 @@ declare module "shell-shock:banner/completions/fish" {
  */
 declare module "shell-shock:banner/gc" {
   /**
-   * Write the  command-line interface application banner for the Garbage Collection command to the console.
+   * Write the Powerlines command-line interface application banner for the Garbage Collection command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8995,7 +8994,7 @@ declare module "shell-shock:banner/gc" {
  */
 declare module "shell-shock:banner/help" {
   /**
-   * Write the  command-line interface application banner for the Help command to the console.
+   * Write the Powerlines command-line interface application banner for the Help command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9012,7 +9011,7 @@ declare module "shell-shock:banner/help" {
  */
 declare module "shell-shock:banner/lint" {
   /**
-   * Write the  command-line interface application banner for the Lint Source Code command to the console.
+   * Write the Powerlines command-line interface application banner for the Lint Source Code command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9029,7 +9028,7 @@ declare module "shell-shock:banner/lint" {
  */
 declare module "shell-shock:banner/completions/powershell" {
   /**
-   * Write the  command-line interface application banner for the Completions - PowerShell command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - PowerShell command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9046,58 +9045,7 @@ declare module "shell-shock:banner/completions/powershell" {
  */
 declare module "shell-shock:banner/prepare" {
   /**
-   * Write the  command-line interface application banner for the Prepare Artifacts command to the console.
-   *
-   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
-   *   displaying the banner. This can be used to create a delay before the banner
-   *   is shown, allowing for any necessary setup or initialization to occur
-   *   first. The default value is 500 milliseconds.
-   */
-  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
-}
-
-/**
- * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Script command.
- *
- * @module shell-shock:banner/completions/zsh/script
- */
-declare module "shell-shock:banner/completions/zsh/script" {
-  /**
-   * Write the  command-line interface application banner for the Completions - Zsh Script command to the console.
-   *
-   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
-   *   displaying the banner. This can be used to create a delay before the banner
-   *   is shown, allowing for any necessary setup or initialization to occur
-   *   first. The default value is 500 milliseconds.
-   */
-  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
-}
-
-/**
- * A collection of utility functions that assist in displaying banner information for the Completions - Bash Script command.
- *
- * @module shell-shock:banner/completions/bash/script
- */
-declare module "shell-shock:banner/completions/bash/script" {
-  /**
-   * Write the  command-line interface application banner for the Completions - Bash Script command to the console.
-   *
-   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
-   *   displaying the banner. This can be used to create a delay before the banner
-   *   is shown, allowing for any necessary setup or initialization to occur
-   *   first. The default value is 500 milliseconds.
-   */
-  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
-}
-
-/**
- * A collection of utility functions that assist in displaying banner information for the Completions - PowerShell Script command.
- *
- * @module shell-shock:banner/completions/powershell/script
- */
-declare module "shell-shock:banner/completions/powershell/script" {
-  /**
-   * Write the  command-line interface application banner for the Completions - PowerShell Script command to the console.
+   * Write the Powerlines command-line interface application banner for the Prepare Artifacts command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9114,7 +9062,58 @@ declare module "shell-shock:banner/completions/powershell/script" {
  */
 declare module "shell-shock:banner/completions/fish/script" {
   /**
-   * Write the  command-line interface application banner for the Completions - Fish Script command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - Fish Script command to the console.
+   *
+   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
+   *   displaying the banner. This can be used to create a delay before the banner
+   *   is shown, allowing for any necessary setup or initialization to occur
+   *   first. The default value is 500 milliseconds.
+   */
+  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
+}
+
+/**
+ * A collection of utility functions that assist in displaying banner information for the Completions - Bash Script command.
+ *
+ * @module shell-shock:banner/completions/bash/script
+ */
+declare module "shell-shock:banner/completions/bash/script" {
+  /**
+   * Write the Powerlines command-line interface application banner for the Completions - Bash Script command to the console.
+   *
+   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
+   *   displaying the banner. This can be used to create a delay before the banner
+   *   is shown, allowing for any necessary setup or initialization to occur
+   *   first. The default value is 500 milliseconds.
+   */
+  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
+}
+
+/**
+ * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Script command.
+ *
+ * @module shell-shock:banner/completions/zsh/script
+ */
+declare module "shell-shock:banner/completions/zsh/script" {
+  /**
+   * Write the Powerlines command-line interface application banner for the Completions - Zsh Script command to the console.
+   *
+   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
+   *   displaying the banner. This can be used to create a delay before the banner
+   *   is shown, allowing for any necessary setup or initialization to occur
+   *   first. The default value is 500 milliseconds.
+   */
+  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
+}
+
+/**
+ * A collection of utility functions that assist in displaying banner information for the Completions - PowerShell Script command.
+ *
+ * @module shell-shock:banner/completions/powershell/script
+ */
+declare module "shell-shock:banner/completions/powershell/script" {
+  /**
+   * Write the Powerlines command-line interface application banner for the Completions - PowerShell Script command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9131,7 +9130,7 @@ declare module "shell-shock:banner/completions/fish/script" {
  */
 declare module "shell-shock:banner/types" {
   /**
-   * Write the  command-line interface application banner for the Generate Typescript Declaration File command to the console.
+   * Write the Powerlines command-line interface application banner for the Generate Typescript Declaration File command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9148,7 +9147,7 @@ declare module "shell-shock:banner/types" {
  */
 declare module "shell-shock:banner/upgrade" {
   /**
-   * Write the  command-line interface application banner for the Upgrade command to the console.
+   * Write the Powerlines command-line interface application banner for the Upgrade command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9165,7 +9164,7 @@ declare module "shell-shock:banner/upgrade" {
  */
 declare module "shell-shock:banner/completions/zsh" {
   /**
-   * Write the  command-line interface application banner for the Completions - Zsh command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - Zsh command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9176,19 +9175,19 @@ declare module "shell-shock:banner/completions/zsh" {
 }
 
 /**
- * A collection of utility functions that assist in displaying help information for the  command-line interface application.
+ * A collection of utility functions that assist in displaying help information for the Powerlines command-line interface application.
  *
  * @module shell-shock:help
  */
 declare module "shell-shock:help" {
   /**
-   * Utility functions for displaying help information for the  application.
+   * Utility functions for displaying help information for the Powerlines application.
    *
    * @remarks
-   * This module contains utility functions that assist in displaying help information for the  application. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   * This module contains utility functions that assist in displaying help information for the Powerlines application. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
    */
   /**
-   * Display help information for the application.
+   * Display help information for the Powerlines application.
    */
   export function showHelp(): void;
 }
@@ -9284,19 +9283,19 @@ declare module "shell-shock:help/completions" {
 }
 
 /**
- * A collection of utility functions that assist in displaying help information for the Completions - Zsh Configuration command.
+ * A collection of utility functions that assist in displaying help information for the Completions - Fish Configuration command.
  *
- * @module shell-shock:help/completions/zsh/config
+ * @module shell-shock:help/completions/fish/config
  */
-declare module "shell-shock:help/completions/zsh/config" {
+declare module "shell-shock:help/completions/fish/config" {
   /**
-   * Utility functions for displaying help information for the Completions - Zsh Configuration command.
+   * Utility functions for displaying help information for the Completions - Fish Configuration command.
    *
    * @remarks
-   * This module contains utility functions that assist in displaying help information for the Completions - Zsh Configuration command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   * This module contains utility functions that assist in displaying help information for the Completions - Fish Configuration command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
    */
   /**
-   * Display help information for the Completions - Zsh Configuration command.
+   * Display help information for the Completions - Fish Configuration command.
    */
   export function showHelp(): void;
 }
@@ -9320,6 +9319,24 @@ declare module "shell-shock:help/completions/bash/config" {
 }
 
 /**
+ * A collection of utility functions that assist in displaying help information for the Completions - Zsh Configuration command.
+ *
+ * @module shell-shock:help/completions/zsh/config
+ */
+declare module "shell-shock:help/completions/zsh/config" {
+  /**
+   * Utility functions for displaying help information for the Completions - Zsh Configuration command.
+   *
+   * @remarks
+   * This module contains utility functions that assist in displaying help information for the Completions - Zsh Configuration command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   */
+  /**
+   * Display help information for the Completions - Zsh Configuration command.
+   */
+  export function showHelp(): void;
+}
+
+/**
  * A collection of utility functions that assist in displaying help information for the Completions - PowerShell Configuration command.
  *
  * @module shell-shock:help/completions/powershell/config
@@ -9334,24 +9351,6 @@ declare module "shell-shock:help/completions/powershell/config" {
   /**
    * Display help information for the Completions - PowerShell Configuration
    * command.
-   */
-  export function showHelp(): void;
-}
-
-/**
- * A collection of utility functions that assist in displaying help information for the Completions - Fish Configuration command.
- *
- * @module shell-shock:help/completions/fish/config
- */
-declare module "shell-shock:help/completions/fish/config" {
-  /**
-   * Utility functions for displaying help information for the Completions - Fish Configuration command.
-   *
-   * @remarks
-   * This module contains utility functions that assist in displaying help information for the Completions - Fish Configuration command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
-   */
-  /**
-   * Display help information for the Completions - Fish Configuration command.
    */
   export function showHelp(): void;
 }
@@ -9519,19 +9518,19 @@ declare module "shell-shock:help/prepare" {
 }
 
 /**
- * A collection of utility functions that assist in displaying help information for the Completions - Zsh Script command.
+ * A collection of utility functions that assist in displaying help information for the Completions - Fish Script command.
  *
- * @module shell-shock:help/completions/zsh/script
+ * @module shell-shock:help/completions/fish/script
  */
-declare module "shell-shock:help/completions/zsh/script" {
+declare module "shell-shock:help/completions/fish/script" {
   /**
-   * Utility functions for displaying help information for the Completions - Zsh Script command.
+   * Utility functions for displaying help information for the Completions - Fish Script command.
    *
    * @remarks
-   * This module contains utility functions that assist in displaying help information for the Completions - Zsh Script command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   * This module contains utility functions that assist in displaying help information for the Completions - Fish Script command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
    */
   /**
-   * Display help information for the Completions - Zsh Script command.
+   * Display help information for the Completions - Fish Script command.
    */
   export function showHelp(): void;
 }
@@ -9555,6 +9554,24 @@ declare module "shell-shock:help/completions/bash/script" {
 }
 
 /**
+ * A collection of utility functions that assist in displaying help information for the Completions - Zsh Script command.
+ *
+ * @module shell-shock:help/completions/zsh/script
+ */
+declare module "shell-shock:help/completions/zsh/script" {
+  /**
+   * Utility functions for displaying help information for the Completions - Zsh Script command.
+   *
+   * @remarks
+   * This module contains utility functions that assist in displaying help information for the Completions - Zsh Script command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   */
+  /**
+   * Display help information for the Completions - Zsh Script command.
+   */
+  export function showHelp(): void;
+}
+
+/**
  * A collection of utility functions that assist in displaying help information for the Completions - PowerShell Script command.
  *
  * @module shell-shock:help/completions/powershell/script
@@ -9568,24 +9585,6 @@ declare module "shell-shock:help/completions/powershell/script" {
    */
   /**
    * Display help information for the Completions - PowerShell Script command.
-   */
-  export function showHelp(): void;
-}
-
-/**
- * A collection of utility functions that assist in displaying help information for the Completions - Fish Script command.
- *
- * @module shell-shock:help/completions/fish/script
- */
-declare module "shell-shock:help/completions/fish/script" {
-  /**
-   * Utility functions for displaying help information for the Completions - Fish Script command.
-   *
-   * @remarks
-   * This module contains utility functions that assist in displaying help information for the Completions - Fish Script command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
-   */
-  /**
-   * Display help information for the Completions - Fish Script command.
    */
   export function showHelp(): void;
 }

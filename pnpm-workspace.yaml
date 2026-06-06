@@ -36,7 +36,7 @@ catalog:
   "@babel/types": 8.0.0-rc.6
   "@cacheable/memory": ^2.0.9
   "@cloudflare/unenv-preset": ^2.16.1
-  "@cloudflare/workers-types": ^4.20260604.1
+  "@cloudflare/workers-types": ^4.20260605.1
   "@content-collections/core": ^0.12.0
   "@deepkit/core": 1.0.5
   "@deepkit/type": 1.0.5
@@ -76,7 +76,7 @@ catalog:
   "@prisma/migrate": 7.6.0
   "@prisma/prisma-schema-wasm": 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
   "@pulumi/cloudflare": ^6.17.0
-  "@pulumi/pulumi": ^3.244.0
+  "@pulumi/pulumi": ^3.245.0
   "@rolldown/pluginutils": 1.0.0-rc.18
   "@rollup/plugin-alias": ^6.0.0
   "@rollup/plugin-babel": ^7.1.0
@@ -85,10 +85,10 @@ catalog:
   "@rollup/plugin-replace": ^6.0.3
   "@rollup/pluginutils": ^4.2.1
   "@rspack/core": ^1.7.11
-  "@shell-shock/core": ^0.17.11
-  "@shell-shock/eslint-plugin": ^0.0.76
-  "@shell-shock/nx": ^0.0.84
-  "@shell-shock/preset-cli": ^0.9.23
+  "@shell-shock/core": ^0.17.12
+  "@shell-shock/eslint-plugin": ^0.0.77
+  "@shell-shock/nx": ^0.0.85
+  "@shell-shock/preset-cli": ^0.9.24
   "@sinclair/typebox": ^0.34.49
   "@standard-schema/spec": ^1.1.0
   "@storm-software/build-tools": ^0.158.200
@@ -175,7 +175,7 @@ catalog:
   h3: ^1.15.11
   handlebars: ^4.7.9
   human-id: ^4.2.0
-  i18next-cli: ^1.59.1
+  i18next-cli: ^1.61.0
   i18next-resources-for-ts: ^2.1.0
   jest: ^30.4.2
   jest-config: ^30.4.2
@@ -223,15 +223,15 @@ catalog:
   tinypool: ^2.1.0
   ts-morph: ^27.0.2
   ts-pattern: ^5.9.0
-  tsdown: ^0.22.1
+  tsdown: ^0.22.2
   tslib: ^2.8.1
   tsup: 8.4.0
   typedoc: 0.25.12
   typedoc-plugin-markdown: 4.0.0-next.20
   ua-parser-modern: ^0.1.1
   unctx: ^2.5.0
-  undici: ^7.27.0
-  undici-types: ^7.27.0
+  undici: ^7.27.1
+  undici-types: ^7.27.1
   unenv: npm:unenv-nightly@2.0.0-20251124-134829-ab99519
   unified: ^11.0.5
   unimport: ^5.7.0

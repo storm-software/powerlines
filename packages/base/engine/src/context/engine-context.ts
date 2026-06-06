@@ -209,29 +209,37 @@ export class PowerlinesEngineContext<TSystemContext = unknown>
       inlineConfig.configFile
     );
 
-    const config = await loadParsedConfig(
+    const parsedConfig = await loadParsedConfig(
       this.cwd,
       root,
       this.framework?.name,
       this.orgId,
       { ...inlineConfig, command }
     );
-    if (!config) {
+    if (!parsedConfig) {
       throw new Error("Failed to load configuration");
     }
 
+    const configs = toArray(parsedConfig.config);
+    const name =
+      inlineConfig.name ||
+      configs.reduce(
+        (ret, config) => ret || config.name,
+        undefined as string | undefined
+      ) ||
+      (await getName(this.cwd, root));
+
     const invocationId = uuid();
     const executions = await Promise.all(
-      toArray(config.config).map(async (_, configIndex) => {
+      configs.map(async (config, configIndex) => {
         const executionId = formatExecutionId(
-          config.config.name ||
-            inlineConfig.name ||
-            (await getName(this.cwd, root)),
+          config.name || name,
           command,
           configIndex
         );
 
         const options = {
+          name: config.name || name,
           cwd: this.cwd,
           root,
           framework: this.framework,
@@ -240,7 +248,7 @@ export class PowerlinesEngineContext<TSystemContext = unknown>
           command,
           baseURL: this.#devtools.host.resolveOrigin(),
           connection: this.connection,
-          configFile: config.configFile!,
+          configFile: parsedConfig.configFile!,
           executionId,
           configIndex
         };
@@ -255,7 +263,7 @@ export class PowerlinesEngineContext<TSystemContext = unknown>
         return {
           invocationId,
           command,
-          configFile: config,
+          configFile: parsedConfig,
           options,
           state: {
             command: null,
