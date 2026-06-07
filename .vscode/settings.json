@@ -48,6 +48,7 @@
     "**/node_modules/**": true,
     "**/out": true,
     "**/out-dev": true,
+    "**/out-tsc": true,
     "**/public": true,
     "**/public-dev": true,
     "**/storybook-static": true,
@@ -187,7 +188,7 @@
   },
   "[markdown]": {
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
     "editor.formatOnPaste": true
   },
   "[mdx]": {

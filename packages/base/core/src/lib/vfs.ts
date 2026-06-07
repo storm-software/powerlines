@@ -188,6 +188,13 @@ function normalizeGlobPatterns(
  */
 export class VirtualFileSystem implements VirtualFileSystemInterface {
   /**
+   * An unstable storage property that can be used for testing or debugging purposes. This property is not intended for production use and may be removed or changed without warning in future releases.
+   *
+   * @internal
+   */
+  static unstable_storage: FileSystem | null = null;
+
+  /**
    * A map of virtual file IDs to their associated metadata.
    */
   #metadata: Record<string, VirtualFileMetadata>;
@@ -631,7 +638,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns A promise that resolves to a new virtual file system instance.
    */
   public static async create(context: Context): Promise<VirtualFileSystem> {
-    context.debug(
+    context.trace(
       "Starting virtual file system (VFS) initialization processes..."
     );
 
@@ -640,13 +647,18 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       !context.config.skipCache &&
       existsSync(joinPaths(context.dataPath, "fs.bin"))
     ) {
-      const buffer = await readFileBuffer(
-        joinPaths(context.dataPath, "fs.bin")
-      );
+      if (!VirtualFileSystem.unstable_storage) {
+        context.debug("Reading virtual file system (VFS) from local storage");
 
-      const message = new capnp.Message(buffer, false);
-      const fs = message.getRoot(FileSystem);
+        const buffer = await readFileBuffer(
+          joinPaths(context.dataPath, "fs.bin")
+        );
 
+        const message = new capnp.Message(buffer, false);
+        VirtualFileSystem.unstable_storage = message.getRoot(FileSystem);
+      }
+
+      const fs = VirtualFileSystem.unstable_storage;
       result = new VirtualFileSystem(context, fs);
 
       if (fs._hasStorage() && fs.storage.length > 0) {
@@ -691,7 +703,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       result = new VirtualFileSystem(context, message.initRoot(FileSystem));
     }
 
-    result.#logger.debug(
+    result.#logger.trace(
       "Successfully completed virtual file system (VFS) initialization."
     );
 
@@ -705,7 +717,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns A new virtual file system instance.
    */
   public static createSync(context: Context): VirtualFileSystem {
-    context.debug(
+    context.trace(
       "Starting virtual file system (VFS) initialization processes..."
     );
 
@@ -714,11 +726,18 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       !context.config.skipCache &&
       existsSync(joinPaths(context.dataPath, "fs.bin"))
     ) {
-      const buffer = readFileBufferSync(joinPaths(context.dataPath, "fs.bin"));
+      if (!VirtualFileSystem.unstable_storage) {
+        context.debug("Reading virtual file system (VFS) from local storage");
 
-      const message = new capnp.Message(buffer, false);
-      const fs = message.getRoot(FileSystem);
+        const buffer = readFileBufferSync(
+          joinPaths(context.dataPath, "fs.bin")
+        );
 
+        const message = new capnp.Message(buffer, false);
+        VirtualFileSystem.unstable_storage = message.getRoot(FileSystem);
+      }
+
+      const fs = VirtualFileSystem.unstable_storage;
       result = new VirtualFileSystem(context, fs);
 
       if (fs._hasStorage() && fs.storage.length > 0) {
@@ -761,7 +780,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       result = new VirtualFileSystem(context, message.initRoot(FileSystem));
     }
 
-    result.#logger.debug(
+    result.#logger.trace(
       "Successfully completed virtual file system (VFS) initialization."
     );
 
