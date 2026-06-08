@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.2.179](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.179) (06/08/2026)
+
+### Bug Fixes
+
+- **plugin-napi-rs:** Resolve issue with invalid `packageJsonPath` value ([b8743ef88](https://github.com/storm-software/powerlines/commit/b8743ef88))
+
 ## [0.2.178](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.178) (06/08/2026)
 
 ### Updated Dependencies
