@@ -19,6 +19,8 @@
 import { NapiCli, parseTriple } from "@napi-rs/cli";
 import { toArray } from "@stryke/convert/to-array";
 import { appendPath } from "@stryke/path/append";
+import { joinPaths } from "@stryke/path/join";
+import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { defu } from "defu";
 import { Plugin } from "powerlines";
@@ -175,7 +177,7 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
           }
 
           if (!this.config.napi.packageJsonPath) {
-            this.config.napi.packageJsonPath = appendPath(
+            this.config.napi.packageJsonPath = joinPaths(
               this.config.root,
               "package.json"
             );
@@ -199,7 +201,9 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
         packageJson.napi = {
           binaryName: this.config.napi.binaryName,
           packageName: this.config.napi.packageName,
-          targets: this.config.napi.targets?.map(target => target.triple),
+          targets: this.config.napi.targets?.map(target =>
+            isSetString(target) ? target : target.triple
+          ),
           npmClient: this.config.napi.npmClient,
           constEnum: this.config.napi.constEnum,
           dtsHeader: this.config.napi.dtsHeader,
