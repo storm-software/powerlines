@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.332](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.332) (06/08/2026)
+
+### Miscellaneous
+
+- **cli:** Update shell-shock package dependencies ([c0a947e4a](https://github.com/storm-software/powerlines/commit/c0a947e4a))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.50**
+- Updated **plugin-alloy** to **v0.26.221**
+- Updated **plugin-automd** to **v0.1.589**
+- Updated **plugin-babel** to **v0.13.124**
+- Updated **plugin-deepkit** to **v0.11.471**
+- Updated **plugin-plugin** to **v0.12.540**
+- Updated **powerlines** to **v0.47.128**
+- Updated **schema** to **v0.11.110**
+
 ## [0.16.331](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.331) (06/06/2026)
 
 ### Updated Dependencies
