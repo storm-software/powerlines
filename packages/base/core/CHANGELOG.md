@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.50](https://github.com/storm-software/powerlines/releases/tag/core%400.48.50) (06/08/2026)
+
+### Miscellaneous
+
+- **core:** Update VFS to share a file storage object ([87616218d](https://github.com/storm-software/powerlines/commit/87616218d))
+
 ## [0.48.49](https://github.com/storm-software/powerlines/releases/tag/core%400.48.49) (06/06/2026)
 
 ### Bug Fixes
