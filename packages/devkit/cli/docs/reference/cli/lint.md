@@ -2,7 +2,7 @@
 id: "lint"
 name: "lint"
 path: "lint"
-reference:
+reference: "https://docs.stormsoftware.com/projects/powerlines/reference/cli/lint"
 virtual: false
 title: "Lint Source Code"
 description: "Lint the project's source code for style and syntax errors."
@@ -24,32 +24,47 @@ Lint the project's source code for style and syntax errors.
 
 ## Usage
 
-The lint command can be executed using the following syntax:
+The `lint` command can be executed using the following syntax:
 
+<details>
+<summary>Using npm:</summary>
 
-```bash
-$ npx cli lint [options]
+```sh
+npx powerlines lint [options]
 ```
 
+</details>
 
-```bash
-$ yarn exec cli lint [options]
+<details>
+<summary>Using yarn:</summary>
+
+```sh
+yarn exec powerlines lint [options]
 ```
 
+</details>
 
-```bash
-$ pnpm exec cli lint [options]
+<details>
+<summary>Using pnpm:</summary>
+
+```sh
+pnpm exec powerlines lint [options]
 ```
 
+</details>
 
-```bash
-$ bun x cli lint [options]
+<details>
+<summary>Using bun:</summary>
+
+```sh
+bun x powerlines lint [options]
 ```
 
+</details>
 
 ## Options
 
-The following options are available for the lint command:
+The following options are available for the `lint` command:
 
-This command does not have any options.
+
 

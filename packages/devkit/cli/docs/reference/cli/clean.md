@@ -2,7 +2,7 @@
 id: "clean"
 name: "clean"
 path: "clean"
-reference:
+reference: "https://docs.stormsoftware.com/projects/powerlines/reference/cli/clean"
 virtual: false
 title: "Clean"
 description: "Cleans the project by removing build artifacts and temporary files."
@@ -24,32 +24,47 @@ Cleans the project by removing build artifacts and temporary files.
 
 ## Usage
 
-The clean command can be executed using the following syntax:
+The `clean` command can be executed using the following syntax:
 
+<details>
+<summary>Using npm:</summary>
 
-```bash
-$ npx cli clean [options]
+```sh
+npx powerlines clean [options]
 ```
 
+</details>
 
-```bash
-$ yarn exec cli clean [options]
+<details>
+<summary>Using yarn:</summary>
+
+```sh
+yarn exec powerlines clean [options]
 ```
 
+</details>
 
-```bash
-$ pnpm exec cli clean [options]
+<details>
+<summary>Using pnpm:</summary>
+
+```sh
+pnpm exec powerlines clean [options]
 ```
 
+</details>
 
-```bash
-$ bun x cli clean [options]
+<details>
+<summary>Using bun:</summary>
+
+```sh
+bun x powerlines clean [options]
 ```
 
+</details>
 
 ## Options
 
-The following options are available for the clean command:
+The following options are available for the `clean` command:
 
-This command does not have any options.
+
 

@@ -9,7 +9,7 @@
 
 # Environment
 
-The cli package uses various configuration parameters to control the behavior of the application. These parameters can be provided as environment variables when the application is run, or they can be defined in a `config.json` file in the application configuration directory.
+The powerlines package uses various configuration parameters to control the behavior of the application. These parameters can be provided as environment variables when the application is run, or they can be defined in a `config.json` file in the application configuration directory.
 
 ## Configuration
 

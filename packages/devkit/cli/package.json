@@ -75,6 +75,6 @@
     "./package.json": "./package.json",
     "./prepare": "./dist/prepare.mjs",
     "./types": "./dist/types.mjs",
-    "./upgrade": "./dist/upgrade.mjs"
+    "./update": "./dist/update.mjs"
   }
 }

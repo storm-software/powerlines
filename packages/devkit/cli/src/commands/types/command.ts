@@ -20,8 +20,8 @@ import type { CommandMetadata } from "@shell-shock/core";
 import { createPowerlines } from "../../utilities/create-powerlines";
 
 export const metadata = {
-  title: "Generate Typescript Declaration File",
-  description: "Generate the project's Typescript declaration file.",
+  title: "Generate Typescript Declarations",
+  description: "Generate a Typescript declaration (dts) file for the project.",
   icon: "🖹"
 } satisfies CommandMetadata;
 

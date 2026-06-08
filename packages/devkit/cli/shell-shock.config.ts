@@ -31,7 +31,7 @@ const config: UserConfig = defineConfig({
     general: "debug",
     config: "trace"
   },
-  docs: "https://docs.stormsoftware.com/projects/powerlines/reference/{command}",
+  docs: "https://docs.stormsoftware.com/projects/powerlines/reference/cli/{command}",
   plugins: [
     preset({
       theme: {

@@ -109,25 +109,23 @@ yarn add @powerlines/cli
 
 ## Commands
 
-The following commands are available in the command-line interface application:
+The following commands are available in the Powerlines command-line interface application:
 
-### Generate Typescript Declaration File
+### Generate Typescript Declarations
 
-Generate the project's Typescript declaration file.
+Generate a Typescript declaration (dts) file for the project.
 
 #### Usage
 
-The types command can be executed using the following syntax:
+The `types` command can be executed using the following syntax:
 
-```bash
-$ npx cli types [options]
+```sh
+npx powerlines types [options]
 ```
 
 #### Options
 
-The following options are available for the types command:
-
-This command does not have any options.
+The following options are available for the `types` command:
 
 ### Prepare Artifacts
 
@@ -135,127 +133,15 @@ Generate the project's required build and deployment artifacts.
 
 #### Usage
 
-The prepare command can be executed using the following syntax:
+The `prepare` command can be executed using the following syntax:
 
-```bash
-$ npx cli prepare [options]
+```sh
+npx powerlines prepare [options]
 ```
 
 #### Options
 
-The following options are available for the prepare command:
-
-This command does not have any options.
-
-### Garbage Collection
-
-Perform garbage collection to clean up unnecessary system files based on the specified options. This can help free up disk space and improve system performance.
-
-Note: The actual types of environment paths available for cleanup may vary based on the project's configuration and the underlying system's operating system.
-
-#### Usage
-
-The gc command can be executed using the following syntax:
-
-```bash
-$ npx cli gc [options]
-```
-
-#### Options
-
-The following options are available for the gc command:
-
-This command does not have any options.
-
-### Generate Documentation
-
-Generate documentation for the project's source code.
-
-#### Usage
-
-The docs command can be executed using the following syntax:
-
-```bash
-$ npx cli docs [options]
-```
-
-#### Options
-
-The following options are available for the docs command:
-
-This command does not have any options.
-
-### Deploy
-
-Deploys the project and its generated assets/artifacts.
-
-#### Usage
-
-The deploy command can be executed using the following syntax:
-
-```bash
-$ npx cli deploy [options]
-```
-
-#### Options
-
-The following options are available for the deploy command:
-
-This command does not have any options.
-
-### Create Project
-
-Create a new Powerlines project.
-
-#### Usage
-
-The create command can be executed using the following syntax:
-
-```bash
-$ npx cli create [options]
-```
-
-#### Options
-
-The following options are available for the create command:
-
-This command does not have any options.
-
-### Clean
-
-Cleans the project by removing build artifacts and temporary files.
-
-#### Usage
-
-The clean command can be executed using the following syntax:
-
-```bash
-$ npx cli clean [options]
-```
-
-#### Options
-
-The following options are available for the clean command:
-
-This command does not have any options.
-
-### Build
-
-Builds the project for production deployment.
-
-#### Usage
-
-The build command can be executed using the following syntax:
-
-```bash
-$ npx cli build [options]
-```
-
-#### Options
-
-The following options are available for the build command:
-
-This command does not have any options.
+The following options are available for the `prepare` command:
 
 ### Lint Source Code
 
@@ -263,53 +149,156 @@ Lint the project's source code for style and syntax errors.
 
 #### Usage
 
-The lint command can be executed using the following syntax:
+The `lint` command can be executed using the following syntax:
 
-```bash
-$ npx cli lint [options]
+```sh
+npx powerlines lint [options]
 ```
 
 #### Options
 
-The following options are available for the lint command:
+The following options are available for the `lint` command:
 
-This command does not have any options.
+### Garbage Collection
+
+Perform garbage collection to clean up unnecessary system files based on the specified options. This can help free up disk space and improve system performance. Please note: the actual types of environment paths available for cleanup may vary based on the project's configuration and the underlying system's operating system.
+
+The `gc` command can also be invoked using the alias `garbage-collection`.
+
+#### Usage
+
+The `gc` command can be executed using the following syntax:
+
+```sh
+npx powerlines gc <type> [options]
+npx powerlines gc [options] <type>
+```
+
+#### Positional Arguments
+
+The following positional arguments are available for the `gc` command:
+
+#### Options
+
+The following options are available for the `gc` command:
+
+### Generate Documentation
+
+Generate documentation for the project's source code.
+
+#### Usage
+
+The `docs` command can be executed using the following syntax:
+
+```sh
+npx powerlines docs [options]
+```
+
+#### Options
+
+The following options are available for the `docs` command:
+
+### Deploy
+
+Deploys the project and its generated assets/artifacts.
+
+The `deploy` command can also be invoked using the alias `deployment`.
+
+#### Usage
+
+The `deploy` command can be executed using the following syntax:
+
+```sh
+npx powerlines deploy [options]
+```
+
+#### Options
+
+The following options are available for the `deploy` command:
+
+### Create Project
+
+Create a new Powerlines project.
+
+#### Usage
+
+The `create` command can be executed using the following syntax:
+
+```sh
+npx powerlines create [options]
+```
+
+#### Options
+
+The following options are available for the `create` command:
+
+### Clean
+
+Cleans the project by removing build artifacts and temporary files.
+
+#### Usage
+
+The `clean` command can be executed using the following syntax:
+
+```sh
+npx powerlines clean [options]
+```
+
+#### Options
+
+The following options are available for the `clean` command:
+
+### Build
+
+Builds the project for production deployment.
+
+#### Usage
+
+The `build` command can be executed using the following syntax:
+
+```sh
+npx powerlines build [options]
+```
+
+#### Options
+
+The following options are available for the `build` command:
 
 ### Changelog
 
-Display the Command Line Interface changelog.
+Display the Powerlines changelog.
 
 #### Usage
 
-The changelog command can be executed using the following syntax:
+The `changelog` command can be executed using the following syntax:
 
-```bash
-$ npx cli changelog [options]
+```sh
+npx powerlines changelog [options]
 ```
 
 #### Options
 
-The following options are available for the changelog command:
+The following options are available for the `changelog` command:
 
 This command does not have any options.
 
-### Upgrade
+### Update
 
-A command for checking and upgrading the version of the command-line interface application.
+A command for checking and updating the version of the Powerlines command-line interface application.
+
+The `update` command can also be invoked using the alias `upgrade`.
 
 #### Usage
 
-The upgrade command can be executed using the following syntax:
+The `update` command can be executed using the following syntax:
 
-```bash
-$ npx cli upgrade [options]
+```sh
+npx powerlines update [options]
 ```
 
 #### Options
 
-The following options are available for the upgrade command:
-
-This command does not have any options.
+The following options are available for the `update` command:
 
 ### Help
 
@@ -317,15 +306,22 @@ Display command usage details and other useful information to the user.
 
 #### Usage
 
-The help command can be executed using the following syntax:
+The `help` command can be executed using the following syntax:
 
-```bash
-$ npx cli help [options]
+```sh
+npx powerlines help <commands...> [options]
+npx powerlines help [options] <commands...>
 ```
+
+#### Positional Arguments
+
+The following positional arguments are available for the `help` command:
+
+This command does not have any arguments.
 
 #### Options
 
-The following options are available for the help command:
+The following options are available for the `help` command:
 
 This command does not have any options.
 
@@ -533,3 +529,7 @@ generation of development tools, please reach out on our
 <!-- prettier-ignore-end -->
 
 <!-- END footer -->
+
+```
+
+```

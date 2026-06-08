@@ -2,7 +2,7 @@
 id: "prepare"
 name: "prepare"
 path: "prepare"
-reference:
+reference: "https://docs.stormsoftware.com/projects/powerlines/reference/cli/prepare"
 virtual: false
 title: "Prepare Artifacts"
 description: "Generate the project's required build and deployment artifacts."
@@ -24,32 +24,47 @@ Generate the project's required build and deployment artifacts.
 
 ## Usage
 
-The prepare command can be executed using the following syntax:
+The `prepare` command can be executed using the following syntax:
 
+<details>
+<summary>Using npm:</summary>
 
-```bash
-$ npx cli prepare [options]
+```sh
+npx powerlines prepare [options]
 ```
 
+</details>
 
-```bash
-$ yarn exec cli prepare [options]
+<details>
+<summary>Using yarn:</summary>
+
+```sh
+yarn exec powerlines prepare [options]
 ```
 
+</details>
 
-```bash
-$ pnpm exec cli prepare [options]
+<details>
+<summary>Using pnpm:</summary>
+
+```sh
+pnpm exec powerlines prepare [options]
 ```
 
+</details>
 
-```bash
-$ bun x cli prepare [options]
+<details>
+<summary>Using bun:</summary>
+
+```sh
+bun x powerlines prepare [options]
 ```
 
+</details>
 
 ## Options
 
-The following options are available for the prepare command:
+The following options are available for the `prepare` command:
 
-This command does not have any options.
+
 

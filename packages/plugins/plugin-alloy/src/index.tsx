@@ -21,6 +21,8 @@ import { findFileExtension } from "@stryke/path/file-path-fns";
 import type { Plugin } from "powerlines";
 import type { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";
 
+export type * from "./types";
+
 declare module "powerlines" {
   interface Config {
     alloy?: AlloyPluginOptions;

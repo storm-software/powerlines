@@ -22,6 +22,7 @@ import { createBabelPlugin } from "@powerlines/plugin-babel/helpers/create-plugi
 import { addImport } from "@powerlines/plugin-babel/helpers/module-helpers";
 import { BabelPluginPass } from "@powerlines/plugin-babel/types/config";
 import { getProperties } from "@powerlines/schema";
+import { replacePath } from "@stryke/path/replace";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isUndefined } from "@stryke/type-checks/is-undefined";
 import { EnvPluginContext } from "../types/plugin";
@@ -52,7 +53,9 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
             category: "env"
           },
           message: `Environment variable \`${name}\` found in ${
-            pass.filename || "unknown file"
+            pass.filename
+              ? replacePath(pass.filename, context.config.cwd)
+              : "unknown file"
           }.`
         });
 
@@ -68,7 +71,9 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
               category: "env"
             },
             message: `The \`${name}\` environment variable is used in the source code file "${
-              pass.filename || "unknown file"
+              pass.filename
+                ? replacePath(pass.filename, context.config.cwd)
+                : "unknown file"
             }" and will be added to the environment schema's active variables list.`
           });
 
@@ -87,7 +92,9 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
                 `Environment variable \`${
                   name
                 }\` is missing a default value, but is active in the source code${
-                  pass.filename ? ` file \`${pass.filename}\`` : ""
+                  pass.filename
+                    ? ` file \`${replacePath(pass.filename, context.config.cwd)}\``
+                    : ""
                 }.\n\nPlease add a default value to the schema, or if this variable is optional, please mark it as optional in the type definition.`
               );
             }
@@ -95,7 +102,9 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
         } else if (context.config.env.validate) {
           throw new Error(
             `Environment variable \`${name}\` is active in the source code${
-              pass.filename ? ` file \`${pass.filename}\`` : ""
+              pass.filename
+                ? ` file \`${replacePath(pass.filename, context.config.cwd)}\``
+                : ""
             }, but is not defined in the \`config\` schema. Please check the \`env.config\` configuration option. If you are using a custom env schema, please make sure that the configuration variable names match the ones used in the source code.`
           );
         } else {
@@ -104,7 +113,9 @@ export const envBabelPlugin = createBabelPlugin<EnvPluginContext>(
               category: "env"
             },
             message: `Environment variable \`${name}\` is active in the source code${
-              pass.filename ? ` file \`${pass.filename}\`` : ""
+              pass.filename
+                ? ` file \`${replacePath(pass.filename, context.config.cwd)}\``
+                : ""
             }, but is not defined in the \`config\` schema. If this is intentional, you can ignore this warning. Otherwise, please check the \`env.config\` configuration option. If you are using a custom env schema, please make sure that the configuration variable names match the ones used in the source code.`
           });
         }

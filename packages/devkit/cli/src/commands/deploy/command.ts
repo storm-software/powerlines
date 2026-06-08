@@ -22,7 +22,7 @@ import { createPowerlines } from "../../utilities/create-powerlines";
 export const metadata = {
   title: "Deploy",
   description: "Deploys the project and its generated assets/artifacts.",
-  alias: ["deployment", "publish"],
+  alias: ["deployment"],
   icon: "🛪"
 } satisfies CommandMetadata;
 

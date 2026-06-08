@@ -90,7 +90,7 @@ interface SpawnOptions {
 declare function spawn(
   argv: string[],
   optionsOrTimeoutMs?: number | SpawnOptions
-): Promise<Promise<SpawnResult>>;
+): Promise<SpawnResult>;
 
 /**
  * The environment configuration module provides an interface to define environment configuration parameters.
@@ -288,7 +288,7 @@ declare module "shell-shock:env" {
      */
     RUNTIME?: "nodejs" | "deno" | "workerd" | "browser";
     /**
-     * An environment variable that can be set to skip the version check when determining if a check for updates is required. If this variable is set to any value, the `isCheckForUpdatesRequired` function will return `false`, indicating that a check for updates is not required. This can be useful in CI environments or other non-interactive contexts where you want to avoid performing a version check, which may involve file system operations or network requests. By setting this environment variable, you can ensure that the upgrade process proceeds without checking for updates, which can help speed up the process in certain scenarios.
+     * An environment variable that can be set to skip the version check when determining if a check for updates is required. If this variable is set to any value, the `isCheckForUpdatesRequired` function will return `false`, indicating that a check for updates is not required. This can be useful in CI environments or other non-interactive contexts where you want to avoid performing a version check, which may involve file system operations or network requests. By setting this environment variable, you can ensure that the update process proceeds without checking for updates, which can help speed up the process in certain scenarios.
      *
      * @alias POWERLINES_SKIP_UPDATE_CHECK
      * @alias SHELL_SHOCK_SKIP_UPDATE_CHECK
@@ -1175,7 +1175,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_ID
      * @alias SHELL_SHOCK_BUILD_ID
      * @readonly
-     * @defaultValue "3dff6f92-afb0-45ec-afb8-2be969a70ca6"
+     * @defaultValue "76b0ed6a-668c-491d-918b-0281e33b2bf6"
      */
     readonly POWERLINES_BUILD_ID: string;
     /**
@@ -1184,7 +1184,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_TIMESTAMP
      * @alias SHELL_SHOCK_BUILD_TIMESTAMP
      * @readonly
-     * @defaultValue "2026-06-06T04:20:03.424Z"
+     * @defaultValue "2026-06-08T05:44:27.332Z"
      */
     readonly POWERLINES_BUILD_TIMESTAMP: string;
     /**
@@ -1193,7 +1193,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_CHECKSUM
      * @alias SHELL_SHOCK_BUILD_CHECKSUM
      * @readonly
-     * @defaultValue "do-pZQ87akHO7OEI9G3pidTjx8a9aY2r"
+     * @defaultValue "Lw2xc3v8wPvRwdhwt4cqvW2sdSaxVbnD"
      */
     readonly POWERLINES_BUILD_CHECKSUM: string;
     /**
@@ -1202,7 +1202,7 @@ declare module "shell-shock:env" {
      * @alias RELEASE_ID
      * @alias SHELL_SHOCK_RELEASE_ID
      * @readonly
-     * @defaultValue "ff6f92af-b045-4c6f-b82b-e969a70ca6ea"
+     * @defaultValue "b0ed6a66-8cf9-4d51-8b02-81e33b2bf6fc"
      */
     readonly POWERLINES_RELEASE_ID: string;
     /**
@@ -1260,7 +1260,7 @@ declare module "shell-shock:env" {
      *
      * @alias ENVIRONMENT
      * @alias SHELL_SHOCK_ENVIRONMENT
-     * @defaultValue "development"
+     * @defaultValue "production"
      */
     POWERLINES_ENVIRONMENT: string;
     /**
@@ -1268,7 +1268,7 @@ declare module "shell-shock:env" {
      *
      * @alias DEBUG
      * @alias SHELL_SHOCK_DEBUG
-     * @defaultValue true
+     * @defaultValue false
      */
     POWERLINES_DEBUG: boolean;
     /**
@@ -1437,7 +1437,7 @@ declare module "shell-shock:env" {
      *
      * @alias STACKTRACE
      * @alias SHELL_SHOCK_STACKTRACE
-     * @defaultValue true
+     * @defaultValue false
      */
     POWERLINES_STACKTRACE: boolean;
     /**
@@ -2182,7 +2182,7 @@ declare module "shell-shock:env" {
      */
     readonly POWERLINES_DEVENV_RUNTIME?: string;
     /**
-     * An environment variable that can be set to skip the version check when determining if a check for updates is required. If this variable is set to any value, the `isCheckForUpdatesRequired` function will return `false`, indicating that a check for updates is not required. This can be useful in CI environments or other non-interactive contexts where you want to avoid performing a version check, which may involve file system operations or network requests. By setting this environment variable, you can ensure that the upgrade process proceeds without checking for updates, which can help speed up the process in certain scenarios.
+     * An environment variable that can be set to skip the version check when determining if a check for updates is required. If this variable is set to any value, the `isCheckForUpdatesRequired` function will return `false`, indicating that a check for updates is not required. This can be useful in CI environments or other non-interactive contexts where you want to avoid performing a version check, which may involve file system operations or network requests. By setting this environment variable, you can ensure that the update process proceeds without checking for updates, which can help speed up the process in certain scenarios.
      *
      * @alias SKIP_UPDATE_CHECK
      * @alias SHELL_SHOCK_SKIP_UPDATE_CHECK
@@ -2213,7 +2213,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_ID
      * @alias POWERLINES_BUILD_ID
      * @readonly
-     * @defaultValue "3dff6f92-afb0-45ec-afb8-2be969a70ca6"
+     * @defaultValue "76b0ed6a-668c-491d-918b-0281e33b2bf6"
      */
     readonly SHELL_SHOCK_BUILD_ID: string;
     /**
@@ -2222,7 +2222,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_TIMESTAMP
      * @alias POWERLINES_BUILD_TIMESTAMP
      * @readonly
-     * @defaultValue "2026-06-06T04:20:03.424Z"
+     * @defaultValue "2026-06-08T05:44:27.332Z"
      */
     readonly SHELL_SHOCK_BUILD_TIMESTAMP: string;
     /**
@@ -2231,7 +2231,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_CHECKSUM
      * @alias POWERLINES_BUILD_CHECKSUM
      * @readonly
-     * @defaultValue "do-pZQ87akHO7OEI9G3pidTjx8a9aY2r"
+     * @defaultValue "Lw2xc3v8wPvRwdhwt4cqvW2sdSaxVbnD"
      */
     readonly SHELL_SHOCK_BUILD_CHECKSUM: string;
     /**
@@ -2240,7 +2240,7 @@ declare module "shell-shock:env" {
      * @alias RELEASE_ID
      * @alias POWERLINES_RELEASE_ID
      * @readonly
-     * @defaultValue "ff6f92af-b045-4c6f-b82b-e969a70ca6ea"
+     * @defaultValue "b0ed6a66-8cf9-4d51-8b02-81e33b2bf6fc"
      */
     readonly SHELL_SHOCK_RELEASE_ID: string;
     /**
@@ -2298,7 +2298,7 @@ declare module "shell-shock:env" {
      *
      * @alias ENVIRONMENT
      * @alias POWERLINES_ENVIRONMENT
-     * @defaultValue "development"
+     * @defaultValue "production"
      */
     SHELL_SHOCK_ENVIRONMENT: string;
     /**
@@ -2306,7 +2306,7 @@ declare module "shell-shock:env" {
      *
      * @alias DEBUG
      * @alias POWERLINES_DEBUG
-     * @defaultValue true
+     * @defaultValue false
      */
     SHELL_SHOCK_DEBUG: boolean;
     /**
@@ -2475,7 +2475,7 @@ declare module "shell-shock:env" {
      *
      * @alias STACKTRACE
      * @alias POWERLINES_STACKTRACE
-     * @defaultValue true
+     * @defaultValue false
      */
     SHELL_SHOCK_STACKTRACE: boolean;
     /**
@@ -3220,7 +3220,7 @@ declare module "shell-shock:env" {
      */
     readonly SHELL_SHOCK_DEVENV_RUNTIME?: string;
     /**
-     * An environment variable that can be set to skip the version check when determining if a check for updates is required. If this variable is set to any value, the `isCheckForUpdatesRequired` function will return `false`, indicating that a check for updates is not required. This can be useful in CI environments or other non-interactive contexts where you want to avoid performing a version check, which may involve file system operations or network requests. By setting this environment variable, you can ensure that the upgrade process proceeds without checking for updates, which can help speed up the process in certain scenarios.
+     * An environment variable that can be set to skip the version check when determining if a check for updates is required. If this variable is set to any value, the `isCheckForUpdatesRequired` function will return `false`, indicating that a check for updates is not required. This can be useful in CI environments or other non-interactive contexts where you want to avoid performing a version check, which may involve file system operations or network requests. By setting this environment variable, you can ensure that the update process proceeds without checking for updates, which can help speed up the process in certain scenarios.
      *
      * @alias SKIP_UPDATE_CHECK
      * @alias POWERLINES_SKIP_UPDATE_CHECK
@@ -3376,9 +3376,13 @@ declare module "shell-shock:state" {
      */
     verbose?: boolean | undefined;
     /**
-     * Enable colored terminal output.
+     * Force colored terminal output.
      */
     color?: boolean | undefined;
+    /**
+     * Force colored terminal output. This property is the negative form of color.
+     */
+    noColor?: boolean | undefined;
     /**
      * Do not display the application banner displayed while running the CLI - will be set to true if running in a CI pipeline.
      */
@@ -3391,6 +3395,10 @@ declare module "shell-shock:state" {
      * Disable interactive mode - will be set to true if running in a CI pipeline.
      */
     nonInteractive?: boolean | undefined;
+    /**
+     * Skip all prompts by answering yes to all of them - will be set to true if running in a CI pipeline.
+     */
+    yes?: boolean | undefined;
   }
   /**
    * The context object for the current command execution, containing the command path and segments.
@@ -8383,11 +8391,11 @@ declare module "shell-shock:prompts" {
 }
 
 /**
- * A collection of application upgrade utility functions for Shell Shock.
+ * A collection of application update utility functions for Shell Shock.
  *
- * @module shell-shock:upgrade
+ * @module shell-shock:update
  */
-declare module "shell-shock:upgrade" {
+declare module "shell-shock:update" {
   /**
    * Options for the `locatePackageJson` handler function.
    */
@@ -8397,7 +8405,7 @@ declare module "shell-shock:upgrade" {
      */
     cwd?: string;
     /**
-     * Whether to only locate a package.json file if it contains the application as a dependency. If set to `true`, the function will check if the located package.json file has the application listed as a dependency in its dependencies, devDependencies, peerDependencies, or optionalDependencies before returning its path. This can be useful in monorepo setups where multiple package.json files may exist, but only the one that includes the application as a dependency is relevant for upgrade purposes.
+     * Whether to only locate a package.json file if it contains the application as a dependency. If set to `true`, the function will check if the located package.json file has the application listed as a dependency in its dependencies, devDependencies, peerDependencies, or optionalDependencies before returning its path. This can be useful in monorepo setups where multiple package.json files may exist, but only the one that includes the application as a dependency is relevant for update purposes.
      */
     isDependencyRequired?: boolean;
   }
@@ -8405,7 +8413,7 @@ declare module "shell-shock:upgrade" {
    * Locate the package.json file currently being used by the command-line/workspace.
    *
    * @remarks
-   * This function is used to determine the package.json file currently being used by the command-line/workspace. It can be used in the CLI upgrade command to check if the application is using npm, yarn, or another package manager.
+   * This function is used to determine the package.json file currently being used by the command-line/workspace. It can be used in the CLI update command to check if the application is using npm, yarn, or another package manager.
    *
    *
    * @param options - The options for the `locatePackageJson` function. Currently,
@@ -8431,7 +8439,7 @@ declare module "shell-shock:upgrade" {
    * Locate the lockfile currently being used by the command-line/workspace.
    *
    * @remarks
-   * This function is used to determine the lockfile currently being used by the command-line/workspace. It can be used in the CLI upgrade command to check if the application is using npm, yarn, or another package manager.
+   * This function is used to determine the lockfile currently being used by the command-line/workspace. It can be used in the CLI update command to check if the application is using npm, yarn, or another package manager.
    *
    *
    * @param options - The options for the `locateLockfile` function. Currently,
@@ -8452,7 +8460,7 @@ declare module "shell-shock:upgrade" {
    * Get the package manager currently being used by the command-line/workspace.
    *
    * @remarks
-   * This function is used to determine the package manager currently being used by the command-line/workspace. It can be used in the CLI upgrade command to check if the application is using npm, yarn, or another package manager.
+   * This function is used to determine the package manager currently being used by the command-line/workspace. It can be used in the CLI update command to check if the application is using npm, yarn, or another package manager.
    *
    *
    * @param options - The options for the `getPackageManager` function. Currently,
@@ -8558,7 +8566,7 @@ declare module "shell-shock:upgrade" {
    * Fetch details of an npm package.
    *
    * @remarks
-   * This function is used to fetch an npm package. It can be used in the CLI upgrade command to check if the application is using npm, yarn, or another package manager.
+   * This function is used to fetch an npm package. It can be used in the CLI update command to check if the application is using npm, yarn, or another package manager.
    *
    *
    * @param packageName - The name of the npm package to fetch.
@@ -8573,7 +8581,7 @@ declare module "shell-shock:upgrade" {
    * Get the latest version of the application from the npm registry.
    *
    * @remarks
-   * This function is used to retrieve the latest version of the application from the npm registry. It can be used in the CLI upgrade command to check if there is a newer version of the application available.
+   * This function is used to retrieve the latest version of the application from the npm registry. It can be used in the CLI update command to check if there is a newer version of the application available.
    *
    *
    * @param packageName - The name of the npm package to fetch.
@@ -8585,31 +8593,31 @@ declare module "shell-shock:upgrade" {
     packageName?: string
   ): Promise<string | undefined>;
   /**
-   * A function to get the upgrade command for a specific package manager.
+   * A function to get the update command for a specific package manager.
    *
    * @remarks
-   * This function is used to get the appropriate upgrade command for a specific package manager. It can be used in the CLI upgrade command to determine which command to run based on the package manager being used by the application.
+   * This function is used to get the appropriate update command for a specific package manager. It can be used in the CLI update command to determine which command to run based on the package manager being used by the application.
    *
    *
-   * @param packageManager - The name of the package manager to get the upgrade
+   * @param packageManager - The name of the package manager to get the update
    *   command for. This should be one of "npm", "yarn", "pnpm", "deno", or "bun".
-   * @param cwd - The current working directory to use when determining the
-   *   upgrade command. This can be used to locate the appropriate package.json
-   *   and lockfile to determine how to run the upgrade command. If not provided,
-   *   the process's current working directory will be used.
+   * @param cwd - The current working directory to use when determining the update
+   *   command. This can be used to locate the appropriate package.json and
+   *   lockfile to determine how to run the update command. If not provided, the
+   *   process's current working directory will be used.
    * @returns An array of strings representing the command and its arguments to
-   *   run in order to upgrade the application dependencies using the specified
+   *   run in order to update the application dependencies using the specified
    *   package manager.
    *
    */
-  export function getUpgradeCommand(
+  export function getUpdateCommand(
     packageManager: string,
     cwd?: string
   ): Promise<string[]>;
   /**
-   * Options for the `upgrade` handler function.
+   * Options for the `update` handler function.
    */
-  interface UpgradeBaseOptions {
+  interface UpdateBaseOptions {
     /**
      * A callback function that is called with the stdout output of the command.
      */
@@ -8620,26 +8628,25 @@ declare module "shell-shock:upgrade" {
     stderr?: (err: string) => void;
   }
   /**
-   * Options for the `upgrade` handler function.
+   * Options for the `update` handler function.
    */
-  export type UpgradeOptions = UpgradeBaseOptions &
+  export type UpdateOptions = UpdateBaseOptions &
     GetPackageManagerOptions &
     Parameters<typeof spawn>[1];
   /**
-   * Upgrade the application dependencies.
+   * Update the application dependencies.
    *
    * @remarks
-   * This function is used to upgrade the application dependencies. It can be used in the CLI upgrade command to ensure that all necessary dependencies are up-to-date.
+   * This function is used to update the application dependencies. It can be used in the CLI update command to ensure that all necessary dependencies are up-to-date.
    *
    *
-   * @param options - The options for the `upgrade` function. Currently, there are
+   * @param options - The options for the `update` function. Currently, there are
    *   no options available, but this parameter is included for future
    *   extensibility.
-   * @returns A promise that resolves when the upgrade of dependencies is
-   *   complete.
+   * @returns A promise that resolves when the update of dependencies is complete.
    *
    */
-  export function upgrade(options?: UpgradeOptions): Promise<void>;
+  export function update(options?: UpdateOptions): Promise<void>;
   /**
    * Options for the `checkForUpdates` handler function.
    */
@@ -8689,7 +8696,7 @@ declare module "shell-shock:upgrade" {
    * Check for updates to the application dependencies.
    *
    * @remarks
-   * This function is used to check for updates to the application dependencies. It can be used in the CLI upgrade command to ensure that all necessary dependencies are up-to-date.
+   * This function is used to check for updates to the application dependencies. It can be used in the CLI update command to ensure that all necessary dependencies are up-to-date.
    *
    *
    * @param options - The options for the `checkForUpdates` function. Currently,
@@ -8706,7 +8713,7 @@ declare module "shell-shock:upgrade" {
    * A helper function that verifies if a check for updates is required.
    *
    * @remarks
-   * This function is used to determine if a check for updates is required based on the last time a check was performed. It can be used in the CLI upgrade command to avoid unnecessary checks for updates if one was recently performed. The function checks for the existence of a "version-check.json" file in the data directory, which contains a timestamp of the last check for updates. If the file does not exist or if the timestamp is older than a specified stale time, the function will return true, indicating that a check for updates is required. Otherwise, it will return false.
+   * This function is used to determine if a check for updates is required based on the last time a check was performed. It can be used in the CLI update command to avoid unnecessary checks for updates if one was recently performed. The function checks for the existence of a "update-check.json" file in the data directory, which contains a timestamp of the last check for updates. If the file does not exist or if the timestamp is older than a specified stale time, the function will return true, indicating that a check for updates is required. Otherwise, it will return false.
    *
    *
    * @returns A promise that resolves to a boolean indicating whether a check for
@@ -8718,7 +8725,7 @@ declare module "shell-shock:upgrade" {
    * A helper function that updates the version check file.
    *
    * @remarks
-   * This function is used to update the version check file with the current timestamp. It can be used in the CLI upgrade command to record the last time a check for updates was performed. The function writes a "version-check.json" file in the data directory, which contains a timestamp of the last check for updates.
+   * This function is used to update the version check file with the current timestamp. It can be used in the CLI update command to record the last time a check for updates was performed. The function writes a "update-check.json" file in the data directory, which contains a timestamp of the last check for updates.
    *
    *
    * @returns A promise that resolves to a boolean indicating whether a check for
@@ -8727,9 +8734,9 @@ declare module "shell-shock:upgrade" {
    */
   export function updateVersionCheckFile(): Promise<void>;
   /**
-   * Run upgrade processing for the Powerlines application.
+   * Run update processing for the Powerlines application.
    */
-  export function executeUpgrade(): Promise<void>;
+  export function executeUpdate(): Promise<void>;
 }
 
 /**
@@ -8835,13 +8842,13 @@ declare module "shell-shock:banner/completions" {
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the Completions - Fish Configuration command.
+ * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Configuration command.
  *
- * @module shell-shock:banner/completions/fish/config
+ * @module shell-shock:banner/completions/zsh/config
  */
-declare module "shell-shock:banner/completions/fish/config" {
+declare module "shell-shock:banner/completions/zsh/config" {
   /**
-   * Write the Powerlines command-line interface application banner for the Completions - Fish Configuration command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - Zsh Configuration command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8869,13 +8876,13 @@ declare module "shell-shock:banner/completions/bash/config" {
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Configuration command.
+ * A collection of utility functions that assist in displaying banner information for the Completions - PowerShell Configuration command.
  *
- * @module shell-shock:banner/completions/zsh/config
+ * @module shell-shock:banner/completions/powershell/config
  */
-declare module "shell-shock:banner/completions/zsh/config" {
+declare module "shell-shock:banner/completions/powershell/config" {
   /**
-   * Write the Powerlines command-line interface application banner for the Completions - Zsh Configuration command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - PowerShell Configuration command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8886,13 +8893,13 @@ declare module "shell-shock:banner/completions/zsh/config" {
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the Completions - PowerShell Configuration command.
+ * A collection of utility functions that assist in displaying banner information for the Completions - Fish Configuration command.
  *
- * @module shell-shock:banner/completions/powershell/config
+ * @module shell-shock:banner/completions/fish/config
  */
-declare module "shell-shock:banner/completions/powershell/config" {
+declare module "shell-shock:banner/completions/fish/config" {
   /**
-   * Write the Powerlines command-line interface application banner for the Completions - PowerShell Configuration command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - Fish Configuration command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9056,13 +9063,13 @@ declare module "shell-shock:banner/prepare" {
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the Completions - Fish Script command.
+ * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Script command.
  *
- * @module shell-shock:banner/completions/fish/script
+ * @module shell-shock:banner/completions/zsh/script
  */
-declare module "shell-shock:banner/completions/fish/script" {
+declare module "shell-shock:banner/completions/zsh/script" {
   /**
-   * Write the Powerlines command-line interface application banner for the Completions - Fish Script command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - Zsh Script command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9090,23 +9097,6 @@ declare module "shell-shock:banner/completions/bash/script" {
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Script command.
- *
- * @module shell-shock:banner/completions/zsh/script
- */
-declare module "shell-shock:banner/completions/zsh/script" {
-  /**
-   * Write the Powerlines command-line interface application banner for the Completions - Zsh Script command to the console.
-   *
-   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
-   *   displaying the banner. This can be used to create a delay before the banner
-   *   is shown, allowing for any necessary setup or initialization to occur
-   *   first. The default value is 500 milliseconds.
-   */
-  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
-}
-
-/**
  * A collection of utility functions that assist in displaying banner information for the Completions - PowerShell Script command.
  *
  * @module shell-shock:banner/completions/powershell/script
@@ -9124,13 +9114,13 @@ declare module "shell-shock:banner/completions/powershell/script" {
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the Generate Typescript Declaration File command.
+ * A collection of utility functions that assist in displaying banner information for the Completions - Fish Script command.
  *
- * @module shell-shock:banner/types
+ * @module shell-shock:banner/completions/fish/script
  */
-declare module "shell-shock:banner/types" {
+declare module "shell-shock:banner/completions/fish/script" {
   /**
-   * Write the Powerlines command-line interface application banner for the Generate Typescript Declaration File command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - Fish Script command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9141,13 +9131,30 @@ declare module "shell-shock:banner/types" {
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the Upgrade command.
+ * A collection of utility functions that assist in displaying banner information for the Generate Typescript Declarations command.
  *
- * @module shell-shock:banner/upgrade
+ * @module shell-shock:banner/types
  */
-declare module "shell-shock:banner/upgrade" {
+declare module "shell-shock:banner/types" {
   /**
-   * Write the Powerlines command-line interface application banner for the Upgrade command to the console.
+   * Write the Powerlines command-line interface application banner for the Generate Typescript Declarations command to the console.
+   *
+   * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
+   *   displaying the banner. This can be used to create a delay before the banner
+   *   is shown, allowing for any necessary setup or initialization to occur
+   *   first. The default value is 500 milliseconds.
+   */
+  export function showBanner(sleepTimeoutMs?: number): Promise<void>;
+}
+
+/**
+ * A collection of utility functions that assist in displaying banner information for the Update command.
+ *
+ * @module shell-shock:banner/update
+ */
+declare module "shell-shock:banner/update" {
+  /**
+   * Write the Powerlines command-line interface application banner for the Update command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9283,19 +9290,19 @@ declare module "shell-shock:help/completions" {
 }
 
 /**
- * A collection of utility functions that assist in displaying help information for the Completions - Fish Configuration command.
+ * A collection of utility functions that assist in displaying help information for the Completions - Zsh Configuration command.
  *
- * @module shell-shock:help/completions/fish/config
+ * @module shell-shock:help/completions/zsh/config
  */
-declare module "shell-shock:help/completions/fish/config" {
+declare module "shell-shock:help/completions/zsh/config" {
   /**
-   * Utility functions for displaying help information for the Completions - Fish Configuration command.
+   * Utility functions for displaying help information for the Completions - Zsh Configuration command.
    *
    * @remarks
-   * This module contains utility functions that assist in displaying help information for the Completions - Fish Configuration command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   * This module contains utility functions that assist in displaying help information for the Completions - Zsh Configuration command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
    */
   /**
-   * Display help information for the Completions - Fish Configuration command.
+   * Display help information for the Completions - Zsh Configuration command.
    */
   export function showHelp(): void;
 }
@@ -9319,24 +9326,6 @@ declare module "shell-shock:help/completions/bash/config" {
 }
 
 /**
- * A collection of utility functions that assist in displaying help information for the Completions - Zsh Configuration command.
- *
- * @module shell-shock:help/completions/zsh/config
- */
-declare module "shell-shock:help/completions/zsh/config" {
-  /**
-   * Utility functions for displaying help information for the Completions - Zsh Configuration command.
-   *
-   * @remarks
-   * This module contains utility functions that assist in displaying help information for the Completions - Zsh Configuration command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
-   */
-  /**
-   * Display help information for the Completions - Zsh Configuration command.
-   */
-  export function showHelp(): void;
-}
-
-/**
  * A collection of utility functions that assist in displaying help information for the Completions - PowerShell Configuration command.
  *
  * @module shell-shock:help/completions/powershell/config
@@ -9351,6 +9340,24 @@ declare module "shell-shock:help/completions/powershell/config" {
   /**
    * Display help information for the Completions - PowerShell Configuration
    * command.
+   */
+  export function showHelp(): void;
+}
+
+/**
+ * A collection of utility functions that assist in displaying help information for the Completions - Fish Configuration command.
+ *
+ * @module shell-shock:help/completions/fish/config
+ */
+declare module "shell-shock:help/completions/fish/config" {
+  /**
+   * Utility functions for displaying help information for the Completions - Fish Configuration command.
+   *
+   * @remarks
+   * This module contains utility functions that assist in displaying help information for the Completions - Fish Configuration command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   */
+  /**
+   * Display help information for the Completions - Fish Configuration command.
    */
   export function showHelp(): void;
 }
@@ -9518,19 +9525,19 @@ declare module "shell-shock:help/prepare" {
 }
 
 /**
- * A collection of utility functions that assist in displaying help information for the Completions - Fish Script command.
+ * A collection of utility functions that assist in displaying help information for the Completions - Zsh Script command.
  *
- * @module shell-shock:help/completions/fish/script
+ * @module shell-shock:help/completions/zsh/script
  */
-declare module "shell-shock:help/completions/fish/script" {
+declare module "shell-shock:help/completions/zsh/script" {
   /**
-   * Utility functions for displaying help information for the Completions - Fish Script command.
+   * Utility functions for displaying help information for the Completions - Zsh Script command.
    *
    * @remarks
-   * This module contains utility functions that assist in displaying help information for the Completions - Fish Script command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   * This module contains utility functions that assist in displaying help information for the Completions - Zsh Script command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
    */
   /**
-   * Display help information for the Completions - Fish Script command.
+   * Display help information for the Completions - Zsh Script command.
    */
   export function showHelp(): void;
 }
@@ -9554,24 +9561,6 @@ declare module "shell-shock:help/completions/bash/script" {
 }
 
 /**
- * A collection of utility functions that assist in displaying help information for the Completions - Zsh Script command.
- *
- * @module shell-shock:help/completions/zsh/script
- */
-declare module "shell-shock:help/completions/zsh/script" {
-  /**
-   * Utility functions for displaying help information for the Completions - Zsh Script command.
-   *
-   * @remarks
-   * This module contains utility functions that assist in displaying help information for the Completions - Zsh Script command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
-   */
-  /**
-   * Display help information for the Completions - Zsh Script command.
-   */
-  export function showHelp(): void;
-}
-
-/**
  * A collection of utility functions that assist in displaying help information for the Completions - PowerShell Script command.
  *
  * @module shell-shock:help/completions/powershell/script
@@ -9590,38 +9579,55 @@ declare module "shell-shock:help/completions/powershell/script" {
 }
 
 /**
- * A collection of utility functions that assist in displaying help information for the Generate Typescript Declaration File command.
+ * A collection of utility functions that assist in displaying help information for the Completions - Fish Script command.
  *
- * @module shell-shock:help/types
+ * @module shell-shock:help/completions/fish/script
  */
-declare module "shell-shock:help/types" {
+declare module "shell-shock:help/completions/fish/script" {
   /**
-   * Utility functions for displaying help information for the Generate Typescript Declaration File command.
+   * Utility functions for displaying help information for the Completions - Fish Script command.
    *
    * @remarks
-   * This module contains utility functions that assist in displaying help information for the Generate Typescript Declaration File command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   * This module contains utility functions that assist in displaying help information for the Completions - Fish Script command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
    */
   /**
-   * Display help information for the Generate Typescript Declaration File
-   * command.
+   * Display help information for the Completions - Fish Script command.
    */
   export function showHelp(): void;
 }
 
 /**
- * A collection of utility functions that assist in displaying help information for the Upgrade command.
+ * A collection of utility functions that assist in displaying help information for the Generate Typescript Declarations command.
  *
- * @module shell-shock:help/upgrade
+ * @module shell-shock:help/types
  */
-declare module "shell-shock:help/upgrade" {
+declare module "shell-shock:help/types" {
   /**
-   * Utility functions for displaying help information for the Upgrade command.
+   * Utility functions for displaying help information for the Generate Typescript Declarations command.
    *
    * @remarks
-   * This module contains utility functions that assist in displaying help information for the Upgrade command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   * This module contains utility functions that assist in displaying help information for the Generate Typescript Declarations command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
    */
   /**
-   * Display help information for the Upgrade command.
+   * Display help information for the Generate Typescript Declarations command.
+   */
+  export function showHelp(): void;
+}
+
+/**
+ * A collection of utility functions that assist in displaying help information for the Update command.
+ *
+ * @module shell-shock:help/update
+ */
+declare module "shell-shock:help/update" {
+  /**
+   * Utility functions for displaying help information for the Update command.
+   *
+   * @remarks
+   * This module contains utility functions that assist in displaying help information for the Update command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   */
+  /**
+   * Display help information for the Update command.
    */
   export function showHelp(): void;
 }

@@ -36,7 +36,7 @@ catalog:
   "@babel/types": 8.0.0-rc.6
   "@cacheable/memory": ^2.0.9
   "@cloudflare/unenv-preset": ^2.16.1
-  "@cloudflare/workers-types": ^4.20260605.1
+  "@cloudflare/workers-types": ^4.20260608.1
   "@content-collections/core": ^0.12.0
   "@deepkit/core": 1.0.5
   "@deepkit/type": 1.0.5
@@ -85,10 +85,10 @@ catalog:
   "@rollup/plugin-replace": ^6.0.3
   "@rollup/pluginutils": ^4.2.1
   "@rspack/core": ^1.7.11
-  "@shell-shock/core": ^0.17.12
-  "@shell-shock/eslint-plugin": ^0.0.77
-  "@shell-shock/nx": ^0.0.85
-  "@shell-shock/preset-cli": ^0.9.24
+  "@shell-shock/core": ^0.17.19
+  "@shell-shock/eslint-plugin": ^0.0.83
+  "@shell-shock/nx": ^0.0.92
+  "@shell-shock/preset-cli": ^0.9.31
   "@sinclair/typebox": ^0.34.49
   "@standard-schema/spec": ^1.1.0
   "@storm-software/build-tools": ^0.158.200
@@ -140,9 +140,9 @@ catalog:
   "@types/hast": ^3.0.4
   "@types/jest": ^30.0.0
   "@types/mdast": ^4.0.4
-  "@types/node": ^25.9.1
+  "@types/node": ^25.9.2
   "@types/pluralize": ^0.0.33
-  "@types/react": ^19.2.16
+  "@types/react": ^19.2.17
   "@types/react-dom": ^19.2.3
   "@types/semver": ^7.7.1
   "@types/unist": ^3.0.3
@@ -230,8 +230,8 @@ catalog:
   typedoc-plugin-markdown: 4.0.0-next.20
   ua-parser-modern: ^0.1.1
   unctx: ^2.5.0
-  undici: ^7.27.1
-  undici-types: ^7.27.1
+  undici: ^7.27.2
+  undici-types: ^7.27.2
   unenv: npm:unenv-nightly@2.0.0-20251124-134829-ab99519
   unified: ^11.0.5
   unimport: ^5.7.0

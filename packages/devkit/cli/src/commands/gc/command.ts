@@ -23,10 +23,10 @@ import { createPowerlines } from "../../utilities/create-powerlines";
 export const metadata = {
   title: "Garbage Collection",
   description:
-    "Perform garbage collection to clean up unnecessary system files based on the specified options. This can help free up disk space and improve system performance. \n\nNote: The actual types of environment paths available for cleanup may vary based on the project's configuration and the underlying system's operating system.",
+    "Perform garbage collection to clean up unnecessary system files based on the specified options. This can help free up disk space and improve system performance. Please note: the actual types of environment paths available for cleanup may vary based on the project's configuration and the underlying system's operating system.",
   icon: "🗶",
   tags: ["Utility"],
-  alias: ["prune", "garbage-collection"]
+  alias: ["garbage-collection"]
 } satisfies CommandMetadata;
 
 export interface GarbageCollectionOptions {

@@ -2,7 +2,7 @@
 id: "docs"
 name: "docs"
 path: "docs"
-reference:
+reference: "https://docs.stormsoftware.com/projects/powerlines/reference/cli/docs"
 virtual: false
 title: "Generate Documentation"
 description: "Generate documentation for the project's source code."
@@ -24,32 +24,47 @@ Generate documentation for the project's source code.
 
 ## Usage
 
-The docs command can be executed using the following syntax:
+The `docs` command can be executed using the following syntax:
 
+<details>
+<summary>Using npm:</summary>
 
-```bash
-$ npx cli docs [options]
+```sh
+npx powerlines docs [options]
 ```
 
+</details>
 
-```bash
-$ yarn exec cli docs [options]
+<details>
+<summary>Using yarn:</summary>
+
+```sh
+yarn exec powerlines docs [options]
 ```
 
+</details>
 
-```bash
-$ pnpm exec cli docs [options]
+<details>
+<summary>Using pnpm:</summary>
+
+```sh
+pnpm exec powerlines docs [options]
 ```
 
+</details>
 
-```bash
-$ bun x cli docs [options]
+<details>
+<summary>Using bun:</summary>
+
+```sh
+bun x powerlines docs [options]
 ```
 
+</details>
 
 ## Options
 
-The following options are available for the docs command:
+The following options are available for the `docs` command:
 
-This command does not have any options.
+
 

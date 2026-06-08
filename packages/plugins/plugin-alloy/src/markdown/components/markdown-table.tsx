@@ -23,12 +23,27 @@ import { ComponentProps } from "../../types/components";
 import {
   MarkdownTableColumnContextInterface,
   MarkdownTableContext,
+  MarkdownTableContextInterface,
   useMarkdownTable
 } from "../contexts/markdown-table";
 
 export interface MarkdownTableProps<
   T extends Record<string, any> = Record<string, any>
 > extends ComponentProps {
+  /**
+   * An optional array of column definitions. If not provided, columns will be inferred from the keys of the first data object.
+   *
+   * @remarks
+   * This prop allows you to explicitly define the columns of the markdown table, including their order, alignment, and width. If this prop is not provided, the component will attempt to infer the columns from the keys of the first object in the `data` array. Each column definition should include the `name` of the column (which corresponds to a key in the data objects), an optional `align` property to specify text alignment (left, right, or center), and an optional `width` property to specify the width of the column in characters.
+   */
+  columns?: MarkdownTableColumnContextInterface<T>[];
+
+  /**
+   * An array of data objects to be rendered in the markdown table. Each object should have keys corresponding to the column names.
+   *
+   * @remarks
+   * This prop is required and should contain an array of objects representing the rows of the markdown table. Each object should have keys that correspond to the `name` properties defined in the `columns` prop (or inferred from the first object if `columns` is not provided). The values of these keys will be rendered in the respective columns of the table. If the `data` array is empty, the component will render nothing.
+   */
   data: T[];
 }
 
@@ -38,19 +53,34 @@ export interface MarkdownTableProps<
 export function MarkdownTable<
   T extends Record<string, any> = Record<string, any>
 >(props: MarkdownTableProps<T>) {
-  const [{ children, data }] = splitProps(props, ["children", "data"]);
+  const [{ children, columns, data }] = splitProps(props, [
+    "children",
+    "columns",
+    "data"
+  ]);
 
-  const columns = computed(() =>
-    Object.keys(data).map((name: string, index: number) => ({
-      index,
-      name,
-      align: "left" as const,
-      width: 20
-    }))
+  if (data.length === 0) {
+    return null;
+  }
+
+  const cols = computed(() =>
+    columns && columns.length > 0
+      ? columns
+      : Object.keys(data[0] ?? {}).map((name: string, index: number) => ({
+          index,
+          name,
+          align: "left" as const,
+          width: 20
+        }))
   );
 
   return (
-    <MarkdownTableContext.Provider value={{ columns: columns.value, data }}>
+    <MarkdownTableContext.Provider
+      value={
+        { columns: cols.value, data } as MarkdownTableContextInterface<
+          Record<string, any>
+        >
+      }>
       <Show when={Boolean(children)}>{children}</Show>
     </MarkdownTableContext.Provider>
   );
