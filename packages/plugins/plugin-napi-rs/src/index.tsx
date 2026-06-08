@@ -249,12 +249,36 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
           `Building the N-API Rust runtime artifacts for the Powerlines project.`
         );
 
+        let manifestPath = this.config.napi.manifestPath;
+        if (manifestPath && !this.fs.existsSync(manifestPath)) {
+          if (this.fs.existsSync(formatPath(this, manifestPath)!)) {
+            manifestPath = joinPaths(
+              this.config.cwd,
+              this.config.napi.manifestPath
+            );
+          } else if (
+            this.fs.existsSync(joinPaths(this.config.cwd, manifestPath))
+          ) {
+            manifestPath = joinPaths(
+              this.config.cwd,
+              this.config.napi.manifestPath
+            );
+          } else if (
+            this.fs.existsSync(joinPaths(this.config.root, manifestPath))
+          ) {
+            manifestPath = joinPaths(
+              this.config.root,
+              this.config.napi.manifestPath
+            );
+          }
+        }
+
         const { task } = await this.napi.build({
           cwd: appendPath(this.config.root, this.config.cwd),
           package: this.config.napi.packageName,
           outputDir: formatPath(this, this.config.napi.outputDir),
           configPath: formatPath(this, this.config.napi.configPath),
-          manifestPath: formatPath(this, this.config.napi.manifestPath),
+          manifestPath,
           packageJsonPath: formatPath(this, this.config.napi.packageJsonPath),
           target: this.config.napi.target?.triple,
           profile: this.config.napi.profile,
