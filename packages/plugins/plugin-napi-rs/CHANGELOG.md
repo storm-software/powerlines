@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.2.182](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.182) (06/10/2026)
+
+### Bug Fixes
+
+- **plugin-napi-rs:** Ensure `manifestPath` is relative to root directory ([f5e9bedae](https://github.com/storm-software/powerlines/commit/f5e9bedae))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.223**
+- Updated **plugin-automd** to **v0.1.591**
+- Updated **plugin-babel** to **v0.13.126**
+- Updated **plugin-plugin** to **v0.12.542**
+- Updated **powerlines** to **v0.47.130**
+
 ## [0.2.181](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.181) (06/08/2026)
 
 ### Bug Fixes
