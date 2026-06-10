@@ -33,15 +33,18 @@ import { NapiPluginContext } from "../types";
  */
 export function formatPath(
   context: NapiPluginContext,
-  path?: string
+  path?: string,
+  appendRoot = true
 ): string | undefined {
-  const cwd = appendPath(context.config.root, context.config.cwd);
+  const root = appendPath(context.config.root, context.config.cwd);
 
   return path
     ? relativePath(
-        cwd,
+        root,
         appendPath(
-          appendPath(replacePathTokens(context, path), context.config.root),
+          appendRoot
+            ? appendPath(replacePathTokens(context, path), context.config.root)
+            : replacePathTokens(context, path),
           context.config.cwd
         )
       )

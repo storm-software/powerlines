@@ -36,7 +36,7 @@ catalog:
   "@babel/types": 8.0.0-rc.6
   "@cacheable/memory": ^2.0.9
   "@cloudflare/unenv-preset": ^2.16.1
-  "@cloudflare/workers-types": ^4.20260608.1
+  "@cloudflare/workers-types": ^4.20260609.1
   "@content-collections/core": ^0.12.0
   "@deepkit/core": 1.0.5
   "@deepkit/type": 1.0.5
@@ -127,7 +127,7 @@ catalog:
   "@stryke/url": ^0.4.35
   "@stryke/zod": ^0.3.30
   "@swc-node/register": ^1.11.1
-  "@swc/core": ^1.15.40
+  "@swc/core": ^1.15.41
   "@swc/helpers": ^0.5.23
   "@tamagui/static-worker": ^1.144.4
   "@tamagui/types": ^1.144.4
@@ -146,7 +146,7 @@ catalog:
   "@types/react-dom": ^19.2.3
   "@types/semver": ^7.7.1
   "@types/unist": ^3.0.3
-  "@valibot/to-json-schema": ^1.7.0
+  "@valibot/to-json-schema": ^1.7.1
   "@vitejs/plugin-react": ^5.2.0
   "@vitest/coverage-v8": ~4.1.8
   ajv: ^8.20.0
@@ -175,7 +175,7 @@ catalog:
   h3: ^1.15.11
   handlebars: ^4.7.9
   human-id: ^4.2.0
-  i18next-cli: ^1.61.0
+  i18next-cli: ^1.61.1
   i18next-resources-for-ts: ^2.1.0
   jest: ^30.4.2
   jest-config: ^30.4.2
@@ -217,7 +217,7 @@ catalog:
   sirv: ^3.0.2
   smol-toml: ^1.6.1
   structured-clone-es: ^2.0.0
-  style-dictionary: ^5.4.3
+  style-dictionary: ^5.4.4
   stylelint: ^16.26.1
   svgo: ^4.0.1
   tinypool: ^2.1.0
@@ -243,7 +243,7 @@ catalog:
   vite: ^8.0.16
   vitest: ~4.1.8
   webpack: ^5.107.2
-  wrangler: ^4.98.0
+  wrangler: ^4.99.0
   yaml: ^2.9.0
   zod: ^4.4.3
   zx: ^8.8.5

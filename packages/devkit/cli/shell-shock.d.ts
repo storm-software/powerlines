@@ -1175,7 +1175,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_ID
      * @alias SHELL_SHOCK_BUILD_ID
      * @readonly
-     * @defaultValue "76b0ed6a-668c-491d-918b-0281e33b2bf6"
+     * @defaultValue "91d7cad5-eea4-4700-9433-c9a61d141bdf"
      */
     readonly POWERLINES_BUILD_ID: string;
     /**
@@ -1184,7 +1184,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_TIMESTAMP
      * @alias SHELL_SHOCK_BUILD_TIMESTAMP
      * @readonly
-     * @defaultValue "2026-06-08T05:44:27.332Z"
+     * @defaultValue "2026-06-08T22:18:06.173Z"
      */
     readonly POWERLINES_BUILD_TIMESTAMP: string;
     /**
@@ -1193,7 +1193,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_CHECKSUM
      * @alias SHELL_SHOCK_BUILD_CHECKSUM
      * @readonly
-     * @defaultValue "Lw2xc3v8wPvRwdhwt4cqvW2sdSaxVbnD"
+     * @defaultValue "CNzBr9GCDond2mCkKXFSe9s2s1zBoE5Q"
      */
     readonly POWERLINES_BUILD_CHECKSUM: string;
     /**
@@ -1202,7 +1202,7 @@ declare module "shell-shock:env" {
      * @alias RELEASE_ID
      * @alias SHELL_SHOCK_RELEASE_ID
      * @readonly
-     * @defaultValue "b0ed6a66-8cf9-4d51-8b02-81e33b2bf6fc"
+     * @defaultValue "d7cad5ee-a4f7-4054-b3c9-a61d141bdf34"
      */
     readonly POWERLINES_RELEASE_ID: string;
     /**
@@ -1260,7 +1260,7 @@ declare module "shell-shock:env" {
      *
      * @alias ENVIRONMENT
      * @alias SHELL_SHOCK_ENVIRONMENT
-     * @defaultValue "production"
+     * @defaultValue "development"
      */
     POWERLINES_ENVIRONMENT: string;
     /**
@@ -1268,7 +1268,7 @@ declare module "shell-shock:env" {
      *
      * @alias DEBUG
      * @alias SHELL_SHOCK_DEBUG
-     * @defaultValue false
+     * @defaultValue true
      */
     POWERLINES_DEBUG: boolean;
     /**
@@ -1437,7 +1437,7 @@ declare module "shell-shock:env" {
      *
      * @alias STACKTRACE
      * @alias SHELL_SHOCK_STACKTRACE
-     * @defaultValue false
+     * @defaultValue true
      */
     POWERLINES_STACKTRACE: boolean;
     /**
@@ -2213,7 +2213,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_ID
      * @alias POWERLINES_BUILD_ID
      * @readonly
-     * @defaultValue "76b0ed6a-668c-491d-918b-0281e33b2bf6"
+     * @defaultValue "91d7cad5-eea4-4700-9433-c9a61d141bdf"
      */
     readonly SHELL_SHOCK_BUILD_ID: string;
     /**
@@ -2222,7 +2222,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_TIMESTAMP
      * @alias POWERLINES_BUILD_TIMESTAMP
      * @readonly
-     * @defaultValue "2026-06-08T05:44:27.332Z"
+     * @defaultValue "2026-06-08T22:18:06.173Z"
      */
     readonly SHELL_SHOCK_BUILD_TIMESTAMP: string;
     /**
@@ -2231,7 +2231,7 @@ declare module "shell-shock:env" {
      * @alias BUILD_CHECKSUM
      * @alias POWERLINES_BUILD_CHECKSUM
      * @readonly
-     * @defaultValue "Lw2xc3v8wPvRwdhwt4cqvW2sdSaxVbnD"
+     * @defaultValue "CNzBr9GCDond2mCkKXFSe9s2s1zBoE5Q"
      */
     readonly SHELL_SHOCK_BUILD_CHECKSUM: string;
     /**
@@ -2240,7 +2240,7 @@ declare module "shell-shock:env" {
      * @alias RELEASE_ID
      * @alias POWERLINES_RELEASE_ID
      * @readonly
-     * @defaultValue "b0ed6a66-8cf9-4d51-8b02-81e33b2bf6fc"
+     * @defaultValue "d7cad5ee-a4f7-4054-b3c9-a61d141bdf34"
      */
     readonly SHELL_SHOCK_RELEASE_ID: string;
     /**
@@ -2298,7 +2298,7 @@ declare module "shell-shock:env" {
      *
      * @alias ENVIRONMENT
      * @alias POWERLINES_ENVIRONMENT
-     * @defaultValue "production"
+     * @defaultValue "development"
      */
     SHELL_SHOCK_ENVIRONMENT: string;
     /**
@@ -2306,7 +2306,7 @@ declare module "shell-shock:env" {
      *
      * @alias DEBUG
      * @alias POWERLINES_DEBUG
-     * @defaultValue false
+     * @defaultValue true
      */
     SHELL_SHOCK_DEBUG: boolean;
     /**
@@ -2475,7 +2475,7 @@ declare module "shell-shock:env" {
      *
      * @alias STACKTRACE
      * @alias POWERLINES_STACKTRACE
-     * @defaultValue false
+     * @defaultValue true
      */
     SHELL_SHOCK_STACKTRACE: boolean;
     /**
@@ -8842,13 +8842,13 @@ declare module "shell-shock:banner/completions" {
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Configuration command.
+ * A collection of utility functions that assist in displaying banner information for the Completions - Bash Configuration command.
  *
- * @module shell-shock:banner/completions/zsh/config
+ * @module shell-shock:banner/completions/bash/config
  */
-declare module "shell-shock:banner/completions/zsh/config" {
+declare module "shell-shock:banner/completions/bash/config" {
   /**
-   * Write the Powerlines command-line interface application banner for the Completions - Zsh Configuration command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - Bash Configuration command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -8859,13 +8859,13 @@ declare module "shell-shock:banner/completions/zsh/config" {
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the Completions - Bash Configuration command.
+ * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Configuration command.
  *
- * @module shell-shock:banner/completions/bash/config
+ * @module shell-shock:banner/completions/zsh/config
  */
-declare module "shell-shock:banner/completions/bash/config" {
+declare module "shell-shock:banner/completions/zsh/config" {
   /**
-   * Write the Powerlines command-line interface application banner for the Completions - Bash Configuration command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - Zsh Configuration command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9063,13 +9063,13 @@ declare module "shell-shock:banner/prepare" {
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Script command.
+ * A collection of utility functions that assist in displaying banner information for the Completions - Bash Script command.
  *
- * @module shell-shock:banner/completions/zsh/script
+ * @module shell-shock:banner/completions/bash/script
  */
-declare module "shell-shock:banner/completions/zsh/script" {
+declare module "shell-shock:banner/completions/bash/script" {
   /**
-   * Write the Powerlines command-line interface application banner for the Completions - Zsh Script command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - Bash Script command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9080,13 +9080,13 @@ declare module "shell-shock:banner/completions/zsh/script" {
 }
 
 /**
- * A collection of utility functions that assist in displaying banner information for the Completions - Bash Script command.
+ * A collection of utility functions that assist in displaying banner information for the Completions - Zsh Script command.
  *
- * @module shell-shock:banner/completions/bash/script
+ * @module shell-shock:banner/completions/zsh/script
  */
-declare module "shell-shock:banner/completions/bash/script" {
+declare module "shell-shock:banner/completions/zsh/script" {
   /**
-   * Write the Powerlines command-line interface application banner for the Completions - Bash Script command to the console.
+   * Write the Powerlines command-line interface application banner for the Completions - Zsh Script command to the console.
    *
    * @param sleepTimeoutMs - The amount of time in milliseconds to sleep before
    *   displaying the banner. This can be used to create a delay before the banner
@@ -9290,24 +9290,6 @@ declare module "shell-shock:help/completions" {
 }
 
 /**
- * A collection of utility functions that assist in displaying help information for the Completions - Zsh Configuration command.
- *
- * @module shell-shock:help/completions/zsh/config
- */
-declare module "shell-shock:help/completions/zsh/config" {
-  /**
-   * Utility functions for displaying help information for the Completions - Zsh Configuration command.
-   *
-   * @remarks
-   * This module contains utility functions that assist in displaying help information for the Completions - Zsh Configuration command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
-   */
-  /**
-   * Display help information for the Completions - Zsh Configuration command.
-   */
-  export function showHelp(): void;
-}
-
-/**
  * A collection of utility functions that assist in displaying help information for the Completions - Bash Configuration command.
  *
  * @module shell-shock:help/completions/bash/config
@@ -9321,6 +9303,24 @@ declare module "shell-shock:help/completions/bash/config" {
    */
   /**
    * Display help information for the Completions - Bash Configuration command.
+   */
+  export function showHelp(): void;
+}
+
+/**
+ * A collection of utility functions that assist in displaying help information for the Completions - Zsh Configuration command.
+ *
+ * @module shell-shock:help/completions/zsh/config
+ */
+declare module "shell-shock:help/completions/zsh/config" {
+  /**
+   * Utility functions for displaying help information for the Completions - Zsh Configuration command.
+   *
+   * @remarks
+   * This module contains utility functions that assist in displaying help information for the Completions - Zsh Configuration command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   */
+  /**
+   * Display help information for the Completions - Zsh Configuration command.
    */
   export function showHelp(): void;
 }
@@ -9525,24 +9525,6 @@ declare module "shell-shock:help/prepare" {
 }
 
 /**
- * A collection of utility functions that assist in displaying help information for the Completions - Zsh Script command.
- *
- * @module shell-shock:help/completions/zsh/script
- */
-declare module "shell-shock:help/completions/zsh/script" {
-  /**
-   * Utility functions for displaying help information for the Completions - Zsh Script command.
-   *
-   * @remarks
-   * This module contains utility functions that assist in displaying help information for the Completions - Zsh Script command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
-   */
-  /**
-   * Display help information for the Completions - Zsh Script command.
-   */
-  export function showHelp(): void;
-}
-
-/**
  * A collection of utility functions that assist in displaying help information for the Completions - Bash Script command.
  *
  * @module shell-shock:help/completions/bash/script
@@ -9556,6 +9538,24 @@ declare module "shell-shock:help/completions/bash/script" {
    */
   /**
    * Display help information for the Completions - Bash Script command.
+   */
+  export function showHelp(): void;
+}
+
+/**
+ * A collection of utility functions that assist in displaying help information for the Completions - Zsh Script command.
+ *
+ * @module shell-shock:help/completions/zsh/script
+ */
+declare module "shell-shock:help/completions/zsh/script" {
+  /**
+   * Utility functions for displaying help information for the Completions - Zsh Script command.
+   *
+   * @remarks
+   * This module contains utility functions that assist in displaying help information for the Completions - Zsh Script command. The main function exported by this module is the `showHelp` function, which can be used to display help information for the specified command or application. This function can be called from within the command's handler or from any other part of the application where help information needs to be displayed.
+   */
+  /**
+   * Display help information for the Completions - Zsh Script command.
    */
   export function showHelp(): void;
 }
