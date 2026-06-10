@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.2.181](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.181) (06/08/2026)
+
+### Bug Fixes
+
+- **plugin-napi-rs:** Resolve issue with invalid `manifestPath` parameter ([3e018cf93](https://github.com/storm-software/powerlines/commit/3e018cf93))
+
 ## [0.2.180](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.180) (06/08/2026)
 
 ### Updated Dependencies
