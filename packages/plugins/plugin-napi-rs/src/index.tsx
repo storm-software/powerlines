@@ -251,7 +251,7 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
 
         const { task } = await this.napi.build({
           cwd: appendPath(this.config.root, this.config.cwd),
-          package: this.config.napi.packageName,
+          package: this.config.napi.binaryName,
           outputDir: formatPath(this, this.config.napi.outputDir),
           configPath: formatPath(this, this.config.napi.configPath),
           manifestPath: formatPath(this, this.config.napi.manifestPath, false),
