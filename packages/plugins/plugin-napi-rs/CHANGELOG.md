@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.2.183](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.183) (06/10/2026)
+
+### Bug Fixes
+
+- **plugin-napi-rs:** Ensure correct `package` option is provided to N-API ([3f6601229](https://github.com/storm-software/powerlines/commit/3f6601229))
+
 ## [0.2.182](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.182) (06/10/2026)
 
 ### Bug Fixes
