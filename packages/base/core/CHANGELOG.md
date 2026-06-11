@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.55](https://github.com/storm-software/powerlines/releases/tag/core%400.48.55) (06/11/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with invalid prettier configuration ([866b6ab7a](https://github.com/storm-software/powerlines/commit/866b6ab7a))
+
 ## [0.48.54](https://github.com/storm-software/powerlines/releases/tag/core%400.48.54) (06/11/2026)
 
 ### Miscellaneous
