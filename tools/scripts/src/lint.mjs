@@ -1,7 +1,7 @@
 #!/usr/bin/env zx
 /* -------------------------------------------------------------------
 
-                   ⚡ Storm Software - Powerlines
+                   🗲 Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -20,21 +20,37 @@
 import { $, argv, chalk, echo } from "zx";
 
 try {
-  await echo`${chalk.whiteBright(" 📋  Linting the monorepo...")}`;
+  echo`${chalk.whiteBright(" 📋  Linting the monorepo...")}`;
 
-  let files = "--all";
+  let filesArg = "--all";
+  let filesList = "";
   if (argv._ && argv._.length > 0) {
-    files = `--files ${argv._.join(" ")}`;
+    filesList = argv._.join(" ");
+    filesArg = `--files ${argv._.join(",")}`;
   }
 
   let proc =
-    $`pnpm nx run-many --target=lint ${files} --exclude=monorepo --outputStyle=dynamic-legacy --parallel=5`.timeout(
+    $`pnpm exec eslint --fix --quiet --color --config ./eslint.config.mjs --cache --cache-location ./node_modules/.cache/eslint --concurrency auto ${
+      filesList || "packages/**"
+    }`.timeout(`${30 * 60}s`);
+  proc.stdout.on("data", data => {
+    echo`${data}`;
+  });
+  let result = await proc;
+  if (result.exitCode !== 0) {
+    throw new Error(
+      `An error occurred while running ESLint on the monorepo: \n\n${result.message}\n`
+    );
+  }
+
+  proc =
+    $`pnpm nx run-many --target=lint ${filesArg} --exclude=monorepo --outputStyle=dynamic-legacy --parallel=5`.timeout(
       `${30 * 60}s`
     );
   proc.stdout.on("data", data => {
     echo`${data}`;
   });
-  let result = await proc;
+  result = await proc;
   if (result.exitCode !== 0) {
     throw new Error(
       `An error occurred while linting the monorepo: \n\n${result.message}\n`

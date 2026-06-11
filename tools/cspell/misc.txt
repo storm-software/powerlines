@@ -22,3 +22,4 @@ devframe
 myorg
 msgpackr
 unioned
+smol

@@ -13,6 +13,7 @@
       "plugin": "@storm-software/workspace-tools/plugins/typescript",
       "options": {
         "enableTypecheck": false,
+        "enableEslint": false,
         "projectLinks": "alias"
       }
     },

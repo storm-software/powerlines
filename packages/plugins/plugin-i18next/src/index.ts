@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                   ⚡ Storm Software - Powerlines
+                   🗲 Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -24,7 +24,7 @@ import { isSet } from "@stryke/type-checks/is-set";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isString } from "@stryke/type-checks/is-string";
 import defu from "defu";
-import { I18nextToolkitConfig, runExtractor } from "i18next-cli";
+import { runExtractor } from "i18next-cli";
 import { mergeResourcesAsInterface } from "i18next-resources-for-ts";
 import type { Plugin } from "powerlines";
 import { getOutputPath } from "./helpers/config-utils";
@@ -115,7 +115,7 @@ export const plugin = <
     },
     async configResolved() {},
     async prepare() {
-      await runExtractor(this.config.i18next as I18nextToolkitConfig, {
+      await runExtractor(this.config.i18next, {
         isWatchMode: false,
         isDryRun: false,
         syncAll: true,
