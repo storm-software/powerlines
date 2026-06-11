@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.671](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.671) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.54**
+- Updated **plugin-alloy** to **v0.26.225**
+- Updated **plugin-babel** to **v0.13.128**
+- Updated **plugin-env** to **v0.16.336**
+- Updated **plugin-plugin** to **v0.12.544**
+- Updated **plugin-vite** to **v0.14.586**
+- Updated **powerlines** to **v0.47.132**
+- Updated **schema** to **v0.11.114**
+
 ## [0.1.670](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.670) (06/10/2026)
 
 ### Updated Dependencies

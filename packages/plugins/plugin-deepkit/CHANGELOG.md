@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.475](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.475) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.9.86**
+- Updated **plugin-plugin** to **v0.12.544**
+- Updated **plugin-tsc** to **v0.3.129**
+- Updated **powerlines** to **v0.47.132**
+
 ## [0.11.474](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.474) (06/10/2026)
 
 ### Updated Dependencies

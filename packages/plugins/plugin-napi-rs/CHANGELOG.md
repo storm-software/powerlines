@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.2.185](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.185) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+- **core:** Added logic to default to base `@storm-software/prettier` configuration during formatting ([44cc903c7](https://github.com/storm-software/powerlines/commit/44cc903c7))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.225**
+- Updated **plugin-automd** to **v0.1.593**
+- Updated **plugin-babel** to **v0.13.128**
+- Updated **plugin-plugin** to **v0.12.544**
+- Updated **powerlines** to **v0.47.132**
+
 ## [0.2.184](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.184) (06/10/2026)
 
 ### Bug Fixes

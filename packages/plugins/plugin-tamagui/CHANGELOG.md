@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tamagui
 
+## [0.1.583](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.583) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.544**
+- Updated **plugin-vite** to **v0.14.586**
+- Updated **powerlines** to **v0.47.132**
+
 ## [0.1.582](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.582) (06/10/2026)
 
 ### Updated Dependencies

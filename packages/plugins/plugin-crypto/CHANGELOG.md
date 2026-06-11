@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.645](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.645) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+
+### Updated Dependencies
+
+- Updated **plugin-env** to **v0.16.336**
+- Updated **plugin-plugin** to **v0.12.544**
+- Updated **powerlines** to **v0.47.132**
+
 ## [0.10.644](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.644) (06/10/2026)
 
 ### Updated Dependencies

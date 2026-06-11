@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Image Compression
 
+## [0.2.542](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.542) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.544**
+- Updated **powerlines** to **v0.47.132**
+
 ## [0.2.541](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.541) (06/10/2026)
 
 ### Updated Dependencies

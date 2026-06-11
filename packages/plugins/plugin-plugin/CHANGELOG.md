@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.544](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.544) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.533**
+- Updated **powerlines** to **v0.47.132**
+
 ## [0.12.543](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.543) (06/10/2026)
 
 ### Updated Dependencies
