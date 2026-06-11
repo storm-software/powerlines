@@ -73,8 +73,8 @@ export async function format(
         data,
         defu(
           {
-            absolutePath: path,
-            ...resolvedConfig
+            ...resolvedConfig,
+            filepath: path
           },
           findFileExtension(path) === "ts" || findFileExtension(path) === "tsx"
             ? { plugins: [importsPlugin] }
