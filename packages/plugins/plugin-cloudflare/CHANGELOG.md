@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.235](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.235) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.225**
+- Updated **plugin-env** to **v0.16.336**
+- Updated **plugin-plugin** to **v0.12.544**
+- Updated **plugin-pulumi** to **v0.6.234**
+- Updated **plugin-unenv** to **v0.1.582**
+- Updated **powerlines** to **v0.47.132**
+- Updated **schema** to **v0.11.114**
+
 ## [0.6.234](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.234) (06/10/2026)
 
 ### Updated Dependencies

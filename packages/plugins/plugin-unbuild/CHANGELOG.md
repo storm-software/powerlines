@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Unbuild
 
+## [0.5.588](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.588) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.54**
+- Updated **powerlines** to **v0.47.132**
+- Updated **unplugin** to **v0.0.102**
+
 ## [0.5.587](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.587) (06/10/2026)
 
 ### Updated Dependencies

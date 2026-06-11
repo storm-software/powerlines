@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.54](https://github.com/storm-software/powerlines/releases/tag/core%400.48.54) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+- **core:** Added logic to default to base `@storm-software/prettier` configuration during formatting ([44cc903c7](https://github.com/storm-software/powerlines/commit/44cc903c7))
+
 ## [0.48.50](https://github.com/storm-software/powerlines/releases/tag/core%400.48.50) (06/08/2026)
 
 ### Miscellaneous

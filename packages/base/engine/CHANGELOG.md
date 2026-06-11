@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.56](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.56) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.54**
+
 ## [0.49.55](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.55) (06/10/2026)
 
 ### Updated Dependencies

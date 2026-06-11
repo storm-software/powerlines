@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.501](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.501) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.544**
+- Updated **powerlines** to **v0.47.132**
+- Updated **schema** to **v0.11.114**
+
 ## [0.3.500](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.500) (06/10/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.225](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.225) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.9.86**
+- Updated **plugin-babel** to **v0.13.128**
+- Updated **plugin-plugin** to **v0.12.544**
+- Updated **powerlines** to **v0.47.132**
+- Updated **schema** to **v0.11.114**
+
 ## [0.26.224](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.224) (06/10/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.275](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.275) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.544**
+- Updated **plugin-pulumi** to **v0.6.234**
+- Updated **powerlines** to **v0.47.132**
+
 ## [0.4.274](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.274) (06/10/2026)
 
 ### Updated Dependencies

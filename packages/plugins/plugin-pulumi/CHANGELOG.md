@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.6.234](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.234) (06/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `eslint` to `lint` script and ran linting on workspace ([181bbb3d6](https://github.com/storm-software/powerlines/commit/181bbb3d6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.544**
+- Updated **powerlines** to **v0.47.132**
+
 ## [0.6.233](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.233) (06/10/2026)
 
 ### Updated Dependencies
