@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.116](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.116) (06/11/2026)
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.56**
+- Updated **deepkit** to **v0.9.88**
+- Updated **unplugin** to **v0.0.104**
+
 ## [0.11.115](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.115) (06/11/2026)
 
 ### Updated Dependencies
