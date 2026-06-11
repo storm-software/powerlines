@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import prettierConfig from "@storm-software/prettier/config";
+import prettierConfig from "@storm-software/prettier";
 import { listFiles } from "@stryke/fs/list-files";
 import { appendPath } from "@stryke/path/append";
 import { findFileExtension } from "@stryke/path/file-path-fns";
@@ -66,7 +66,7 @@ export async function format(
     }
 
     // If no config was found, we can use the default Prettier settings
-    resolvedConfig ??= prettierConfig;
+    resolvedConfig ??= prettierConfig as Options;
 
     if (resolvedConfig) {
       code = await prettier(

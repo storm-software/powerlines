@@ -96,19 +96,19 @@ catalog:
   "@storm-software/config-tools": ^1.190.53
   "@storm-software/cspell": ^0.46.121
   "@storm-software/esbuild": ^0.53.214
-  "@storm-software/eslint": ^0.170.76
+  "@storm-software/eslint": ^0.170.77
   "@storm-software/git-tools": ^2.131.60
   "@storm-software/linting-tools": ^1.133.83
   "@storm-software/markdownlint": ^0.30.209
   "@storm-software/pnpm-tools": ^0.7.64
-  "@storm-software/prettier": ^0.59.105
+  "@storm-software/prettier": ^0.59.106
   "@storm-software/testing-tools": ^1.119.206
   "@storm-software/tsconfig": ^0.48.120
   "@storm-software/tsdoc": ^0.13.206
   "@storm-software/tsup": ^0.2.211
   "@storm-software/unbuild": ^0.57.214
   "@storm-software/untyped": ^0.24.195
-  "@storm-software/workspace-tools": ^1.296.31
+  "@storm-software/workspace-tools": ^1.296.32
   "@stryke/async": ^0.1.12
   "@stryke/capnp": ^0.12.111
   "@stryke/cli": ^0.13.57
