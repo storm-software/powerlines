@@ -330,6 +330,7 @@
     "@donedeal0/superdiff": "catalog:",
     "@jridgewell/sourcemap-codec": "catalog:",
     "@rolldown/pluginutils": "catalog:",
+    "@storm-software/prettier": "catalog:",
     "@storm-software/config": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",

@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                   ⚡ Storm Software - Powerlines
+                   🗲 Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -53,7 +53,7 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
           napi: {
             dts: "binding.d.ts",
             jsBinding: "binding.js",
-            outputDir: this.config.root,
+            outputDir: "./",
             platform: true,
             strip: false,
             ...options
@@ -252,7 +252,7 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
         const { task } = await this.napi.build({
           cwd: appendPath(this.config.root, this.config.cwd),
           package: this.config.napi.binaryName,
-          outputDir: formatPath(this, this.config.napi.outputDir),
+          outputDir: this.config.napi.outputDir,
           configPath: formatPath(this, this.config.napi.configPath),
           manifestPath: formatPath(this, this.config.napi.manifestPath, false),
           packageJsonPath: formatPath(this, this.config.napi.packageJsonPath),

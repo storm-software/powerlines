@@ -1,6 +1,6 @@
 /* -------------------------------------------------------------------
 
-                   ⚡ Storm Software - Powerlines
+                   🗲 Storm Software - Powerlines
 
  This code was released as part of the Powerlines project. Powerlines
  is maintained by Storm Software under the Apache-2.0 license, and is
@@ -16,12 +16,13 @@
 
  ------------------------------------------------------------------- */
 
+import prettierConfig from "@storm-software/prettier/config";
 import { listFiles } from "@stryke/fs/list-files";
 import { appendPath } from "@stryke/path/append";
 import { findFileExtension } from "@stryke/path/file-path-fns";
 import { isParentPath } from "@stryke/path/is-parent-path";
 import { defu } from "defu";
-import { format as prettier, resolveConfig } from "prettier";
+import { Options, format as prettier, resolveConfig } from "prettier";
 import importsPlugin from "prettier-plugin-organize-imports";
 import { Context } from "../../types/context";
 
@@ -57,7 +58,16 @@ export async function format(
 
   let code = data;
   try {
-    const resolvedConfig = await resolveConfig(path);
+    let resolvedConfig = null as Options | null;
+    try {
+      resolvedConfig = await resolveConfig(path);
+    } catch {
+      // If resolving the config fails, we can ignore it and use the default Prettier settings
+    }
+
+    // If no config was found, we can use the default Prettier settings
+    resolvedConfig ??= prettierConfig;
+
     if (resolvedConfig) {
       code = await prettier(
         data,
