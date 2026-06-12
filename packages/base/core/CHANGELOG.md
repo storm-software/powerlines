@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.56](https://github.com/storm-software/powerlines/releases/tag/core%400.48.56) (06/11/2026)
+
+### Bug Fixes
+
+- **core:** Ensure `filepath` parameter is provided to `format` function ([7b29e0ee3](https://github.com/storm-software/powerlines/commit/7b29e0ee3))
+
 ## [0.48.55](https://github.com/storm-software/powerlines/releases/tag/core%400.48.55) (06/11/2026)
 
 ### Bug Fixes
