@@ -199,6 +199,19 @@ export interface EmitOptions extends WriteOptions {
 export type EmitEntryOptions = EmitOptions &
   Omit<ResolvedEntryFileReference, "file">;
 
+/**
+ * Options for emitting entry virtual files
+ */
+export type EmitBuiltinOptions = EmitOptions & {
+  /**
+   * An indicator specifying that the emitted builtin file should be treated as an internal module, which means it will not be exposed to the user and can only be imported by other virtual files within the Powerlines runtime.
+   *
+   * @remarks
+   * This is useful for built-in modules that are meant to be used internally by the Powerlines engine and should not be accessible to user code.
+   */
+  internal?: boolean;
+};
+
 export interface ResolveResult extends ExternalIdResult {
   /**
    * A flag indicating whether the resolved module is part of the generated runtime modules
@@ -568,7 +581,7 @@ export interface UnresolvedContext<
   emitBuiltin: (
     code: string,
     id: string,
-    options?: EmitOptions
+    options?: EmitBuiltinOptions
   ) => Promise<void>;
 
   /**
@@ -578,7 +591,11 @@ export interface UnresolvedContext<
    * @param id - The unique identifier of the builtin file
    * @param options - Additional options for writing the builtin file
    */
-  emitBuiltinSync: (code: string, id: string, options?: EmitOptions) => void;
+  emitBuiltinSync: (
+    code: string,
+    id: string,
+    options?: EmitBuiltinOptions
+  ) => void;
 
   /**
    * Resolves a entry virtual file and writes it to the VFS if it does not already exist

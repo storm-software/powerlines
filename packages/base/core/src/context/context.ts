@@ -109,6 +109,7 @@ import {
 } from "../types/config";
 import {
   Context,
+  EmitBuiltinOptions,
   EmitEntryOptions,
   EmitOptions,
   EnvironmentContext,
@@ -1167,7 +1168,7 @@ export class PowerlinesContext<
   public async emitBuiltin(
     code: string,
     id: string,
-    options: EmitOptions = {}
+    options: EmitBuiltinOptions = {}
   ): Promise<void> {
     if (!this.builtinsPath) {
       throw new Error(
@@ -1184,7 +1185,9 @@ export class PowerlinesContext<
     return this.emit(
       code,
       appendPath(id, this.builtinsPath),
-      defu(options, { meta: { type: "builtin", id } })
+      defu(options, {
+        meta: { type: "builtin", id, internal: options?.internal }
+      })
     );
   }
 
@@ -1195,7 +1198,11 @@ export class PowerlinesContext<
    * @param id - The unique identifier of the builtin file
    * @param options - Optional write file options
    */
-  public emitBuiltinSync(code: string, id: string, options: EmitOptions = {}) {
+  public emitBuiltinSync(
+    code: string,
+    id: string,
+    options: EmitBuiltinOptions = {}
+  ) {
     if (!this.builtinsPath) {
       throw new Error(
         `The builtins path is not set. Cannot emit builtin file with id "${id}".`
@@ -1211,7 +1218,9 @@ export class PowerlinesContext<
     return this.emitSync(
       code,
       appendPath(id, this.builtinsPath),
-      defu(options, { meta: { type: "builtin", id } })
+      defu(options, {
+        meta: { type: "builtin", id, internal: options?.internal }
+      })
     );
   }
 

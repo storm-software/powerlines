@@ -311,7 +311,8 @@ specification. Contributions of any kind welcome!
 <div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
 <br />
 
-<hr />
+---
+
 <br />
 
 <div align="center">

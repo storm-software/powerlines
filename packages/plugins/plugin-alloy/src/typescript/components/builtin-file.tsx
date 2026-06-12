@@ -51,6 +51,13 @@ export type BuiltinFileProps = Omit<TypescriptFileProps, "path"> &
      * @defaultValue false
      */
     tsx?: boolean;
+
+    /**
+     * Whether the file is internal and should not be included in the public API documentation.
+     *
+     * @defaultValue false
+     */
+    internal?: boolean;
   };
 
 /**
@@ -60,15 +67,18 @@ export type BuiltinFileProps = Omit<TypescriptFileProps, "path"> &
  * @returns The rendered source file component.
  */
 export function BuiltinFile(props: BuiltinFileProps) {
-  const [{ children, imports, builtinImports, id, description, tsx }, rest] =
-    splitProps(props, [
-      "children",
-      "imports",
-      "builtinImports",
-      "id",
-      "description",
-      "tsx"
-    ]);
+  const [
+    { children, imports, builtinImports, id, description, tsx, internal },
+    rest
+  ] = splitProps(props, [
+    "children",
+    "imports",
+    "builtinImports",
+    "id",
+    "description",
+    "tsx",
+    "internal"
+  ]);
 
   const context = usePowerlinesSafe();
   const path = computed(() =>
@@ -94,7 +104,8 @@ export function BuiltinFile(props: BuiltinFileProps) {
       meta={{
         kind: "builtin",
         extension: tsx ? "tsx" : "ts",
-        id: replaceExtension(id)
+        id: replaceExtension(id),
+        internal
       }}
       {...rest}
       path={path.value}>

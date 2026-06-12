@@ -14,8 +14,10 @@ describe("env plugin", () => {
 
   it("plugin() returns an object with a name property", () => {
     const result = plugin();
-    expect(result).toHaveProperty("name");
-    expect(typeof result.name).toBe("string");
+    result.forEach((item) => {
+      expect(item).toHaveProperty("name");
+      expect(typeof item.name).toBe("string");
+    });
   });
 
   it("plugin() accepts an empty options object", () => {
@@ -25,6 +27,8 @@ describe("env plugin", () => {
   it("plugin() returns the same name for all calls", () => {
     const r1 = plugin();
     const r2 = plugin({});
-    expect(r1.name).toBe(r2.name);
+    r1.forEach((item, index) => {
+      expect(item.name).toBe(r2[index].name);
+    });
   });
 });
