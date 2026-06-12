@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+export * from "./alert";
 export * from "./front-matter";
 export * from "./heading";
 export * from "./markdown-file";

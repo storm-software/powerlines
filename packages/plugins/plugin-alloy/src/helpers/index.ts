@@ -19,4 +19,3 @@
 export * from "./capnp";
 export * from "./create-builtin";
 export * from "./refkey";
-export * from "./typescript";

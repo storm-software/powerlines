@@ -907,6 +907,7 @@
     "@alloy-js/markdown": "catalog:",
     "@alloy-js/typescript": "catalog:",
     "@powerlines/deepkit": "workspace:*",
+    "@powerlines/schema": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",

@@ -16,20 +16,39 @@
 
  ------------------------------------------------------------------- */
 
-import { getUnionTypes, kindToName } from "@powerlines/deepkit/utilities";
-import { getClassName } from "@powerlines/deepkit/vendor/core";
+import type {
+  GetPropertiesResult,
+  JsonSchema,
+  JsonSchemaAnyOf,
+  JsonSchemaEnum,
+  JsonSchemaLike,
+  JsonSchemaNativeEnum,
+  JsonSchemaObject
+} from "@powerlines/schema";
 import {
-  memberNameToString,
-  ReflectionClass,
-  ReflectionKind,
-  ReflectionMethod,
-  ReflectionParameter,
-  ReflectionProperty,
-  Type,
-  TypeEnum,
-  TypeLiteral,
-  TypeUnion
-} from "@powerlines/deepkit/vendor/type";
+  getPropertiesList,
+  isJsonSchemaAnyOf,
+  isJsonSchemaArray,
+  isJsonSchemaBigint,
+  isJsonSchemaBoolean,
+  isJsonSchemaDate,
+  isJsonSchemaEnum,
+  isJsonSchemaInteger,
+  isJsonSchemaLiteral,
+  isJsonSchemaMap,
+  isJsonSchemaNativeEnum,
+  isJsonSchemaNever,
+  isJsonSchemaNull,
+  isJsonSchemaNumber,
+  isJsonSchemaObject,
+  isJsonSchemaRecord,
+  isJsonSchemaRef,
+  isJsonSchemaSet,
+  isJsonSchemaString,
+  isJsonSchemaTuple,
+  isJsonSchemaUndefined,
+  isJsonSchemaUnion
+} from "@powerlines/schema";
 import { capnpc } from "@stryke/capnp/compile";
 import { resolveOptions } from "@stryke/capnp/helpers";
 import type { CapnpcOptions, CapnpcResult } from "@stryke/capnp/types";
@@ -42,15 +61,12 @@ import { getWords } from "@stryke/string-format/get-words";
 import { pascalCase } from "@stryke/string-format/pascal-case";
 import { titleCase } from "@stryke/string-format/title-case";
 import { isBigInt } from "@stryke/type-checks/is-bigint";
-import { isNull } from "@stryke/type-checks/is-null";
 import { isNumber } from "@stryke/type-checks/is-number";
 import { isString } from "@stryke/type-checks/is-string";
-import { isUndefined } from "@stryke/type-checks/is-undefined";
 import defu from "defu";
-import { Buffer } from "node:buffer";
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
-import { Context, PluginContext } from "powerlines";
+import type { Context, PluginContext } from "powerlines";
 import { getFileHeader } from "powerlines/utils";
 
 /**
@@ -95,13 +111,10 @@ export async function compile(
  * @returns A string representation of the value.
  */
 export function stringifyCapnpDefaultValue(
-  property: ReflectionProperty | ReflectionParameter,
+  property: GetPropertiesResult,
   value?: any
 ): string {
-  return stringifyCapnpValue(
-    property.type,
-    value ?? property.getDefaultValue()
-  );
+  return stringifyCapnpValue(property, value ?? property.default);
 }
 
 /**
@@ -111,16 +124,15 @@ export function stringifyCapnpDefaultValue(
  * @param value - The value to stringify.
  * @returns A string representation of the value.
  */
-export function stringifyCapnpValue(type: Type, value: any): string {
-  return type.kind === ReflectionKind.string ||
-    (type.kind === ReflectionKind.literal && isString(type.literal))
+export function stringifyCapnpValue(schema: JsonSchema, value: any): string {
+  return isJsonSchemaString(schema) ||
+    (isJsonSchemaLiteral(schema) && isString((schema as JsonSchemaLike).const))
     ? `"${String(value)}"`
-    : type.kind === ReflectionKind.enum
+    : isJsonSchemaEnum(schema) || isJsonSchemaNativeEnum(schema)
       ? `${camelCase(String(value))}`
-      : type.kind === ReflectionKind.array
+      : isJsonSchemaArray(schema) && !isJsonSchemaMap(schema)
         ? StormJSON.stringify(value)
-        : type.kind === ReflectionKind.object ||
-            type.kind === ReflectionKind.objectLiteral
+        : isJsonSchemaObject(schema) || isJsonSchemaRecord(schema)
           ? StormJSON.stringify(value).replaceAll("{", "(").replaceAll("}", ")")
           : String(value);
 }
@@ -131,20 +143,22 @@ export function stringifyCapnpValue(type: Type, value: any): string {
  * @param type - The TypeEnum to evaluate.
  * @returns A string representation of the property.
  */
-export function getCapnpEnumTypes(type: Type): "Text" | "Float32" | null {
-  if (type.kind !== ReflectionKind.enum) {
+export function getCapnpEnumTypes(
+  schema: JsonSchema
+): "Text" | "Float32" | null {
+  const s = schema as JsonSchemaLike;
+  if (!s.enum || !Array.isArray(s.enum)) {
     return null;
   }
 
-  const unique = getUniqueBy(
-    type.values.filter(value => !isUndefined(value) && !isNull(value)),
-    enumMember => (isString(enumMember) ? "Text" : "Float32")
-  );
-  if (unique.length === 0) {
+  const values = s.enum.filter(v => v !== null && v !== undefined);
+  if (values.length === 0) {
     return null;
   }
 
-  return unique[0] && isString(unique[0]) ? "Text" : "Float32";
+  const unique = getUniqueBy(values, v => (isString(v) ? "Text" : "Float32"));
+
+  return unique.length > 0 && isString(unique[0]) ? "Text" : "Float32";
 }
 
 /**
@@ -153,13 +167,11 @@ export function getCapnpEnumTypes(type: Type): "Text" | "Float32" | null {
  * @param type - The Type to check.
  * @returns True if the Type is a `Void` type, false otherwise.
  */
-export function isVoidType(type: Type): boolean {
+export function isVoidType(schema: JsonSchema): boolean {
   return (
-    type.kind === ReflectionKind.void ||
-    type.kind === ReflectionKind.never ||
-    type.kind === ReflectionKind.null ||
-    type.kind === ReflectionKind.undefined ||
-    type.kind === ReflectionKind.symbol
+    isJsonSchemaNever(schema) ||
+    isJsonSchemaNull(schema) ||
+    isJsonSchemaUndefined(schema)
   );
 }
 
@@ -169,8 +181,18 @@ export function isVoidType(type: Type): boolean {
  * @param type - The {@link TypeUnion} to convert.
  * @returns A string representation of the Cap'n Proto primitive type.
  */
-export function getCapnpUnionTypes(type: Type): Type[] {
-  return getUnionTypes(type);
+export function getCapnpUnionTypes(schema: JsonSchema): JsonSchema[] {
+  const s = schema as JsonSchemaLike;
+  if (Array.isArray(s.anyOf)) {
+    return s.anyOf;
+  }
+  if (Array.isArray(s.oneOf)) {
+    return s.oneOf;
+  }
+  if (Array.isArray(s.type)) {
+    return (s.type as string[]).map(t => ({ type: t }) as JsonSchema);
+  }
+  return [];
 }
 
 /**
@@ -179,9 +201,12 @@ export function getCapnpUnionTypes(type: Type): Type[] {
  * @param type - The {@link TypeUnion} to convert.
  * @returns An array of Cap'n Proto primitive types.
  */
-export function isCapnpStringUnion(type: Type): boolean {
-  return getCapnpUnionTypes(type).some(
-    member => member.kind === ReflectionKind.string
+export function isCapnpStringUnion(schema: JsonSchema): boolean {
+  return getCapnpUnionTypes(schema).some(
+    member =>
+      isJsonSchemaString(member) ||
+      (isJsonSchemaLiteral(member) &&
+        isString((member as JsonSchemaLike).const))
   );
 }
 
@@ -209,7 +234,7 @@ export interface GenerateCapnpOptions {
 
 export async function generateCapnp(
   context: PluginContext,
-  reflection: ReflectionClass<any>,
+  schema: JsonSchemaObject,
   options: GenerateCapnpOptions
 ) {
   const capnpId = await generateCapnpId();
@@ -218,11 +243,7 @@ export async function generateCapnp(
 ${getFileHeader(context)
   .replace(/^\r*\n*/g, "")
   .replaceAll("//", "#")}
-${
-  reflection.getMethods().length === 0
-    ? generateCapnpStruct(reflection, options)
-    : generateCapnpInterface(reflection, options)
-}
+${generateCapnpStruct(schema, options)}
 `.trim();
 }
 
@@ -231,37 +252,30 @@ export interface GenerateCapnpStructOptions extends GenerateCapnpOptions {
 }
 
 export function generateCapnpStruct(
-  reflection: ReflectionClass<any>,
+  schema: JsonSchemaObject,
   options: GenerateCapnpStructOptions = {}
 ): string {
-  const structName =
-    options?.name ||
-    reflection.getTitle() ||
-    reflection.getClassName() ||
-    reflection.getName();
+  const structName = options?.name || schema.title || schema.name || "Schema";
 
-  return `${generateCapnpEnums(reflection)}struct ${pascalCase(structName)} {
+  return `${generateCapnpEnums(schema)}struct ${pascalCase(structName)} {
   # Struct definition for ${titleCase(structName)}.
 
-  ${generateCapnpSchema(reflection, options)}
+  ${generateCapnpSchema(schema, options)}
 }
 `;
 }
 
 export function generateCapnpInterface(
-  reflection: ReflectionClass<any>,
+  schema: JsonSchemaObject,
   options: GenerateCapnpStructOptions = {}
 ): string {
   const interfaceName =
-    options?.name ||
-    reflection.getTitle() ||
-    reflection.getClassName() ||
-    reflection.getName();
+    options?.name || schema.title || schema.name || "Schema";
 
-  return `${generateCapnpEnums(reflection)}interface ${pascalCase(interfaceName)} {
+  return `${generateCapnpEnums(schema)}interface ${pascalCase(interfaceName)} {
   # Interface definition for ${titleCase(interfaceName)}.
 
-  ${generateCapnpSchema(reflection, options)}
+  ${generateCapnpSchema(schema, options)}
 }
 `;
 }
@@ -270,24 +284,26 @@ function formatEnumName(name: string) {
   return pascalCase(`${name}_Type`);
 }
 
-function generateCapnpEnums(reflection: ReflectionClass<any>): string {
-  const enums = reflection
-    .getProperties()
+function generateCapnpEnums(schema: JsonSchemaObject): string {
+  const props = getPropertiesList(schema);
+  const enums = props
     .filter(
       prop =>
-        !prop.isIgnored() &&
-        (prop.type.kind === ReflectionKind.enum ||
-          (prop.type.kind === ReflectionKind.union &&
-            getCapnpUnionTypes(prop.type).filter(
-              type =>
-                type.kind === ReflectionKind.literal &&
-                (isString(type.literal) || isNumber(type.literal))
+        !(prop as JsonSchemaLike).ignore &&
+        (isJsonSchemaEnum(prop) ||
+          isJsonSchemaNativeEnum(prop) ||
+          ((isJsonSchemaUnion(prop) || isJsonSchemaAnyOf(prop)) &&
+            getCapnpUnionTypes(prop).filter(
+              t =>
+                isJsonSchemaLiteral(t) &&
+                (isString((t as JsonSchemaLike).const) ||
+                  isNumber((t as JsonSchemaLike).const))
             ).length === 1))
     )
     .sort((a, b) =>
-      (a.isReadonly() && b.isReadonly()) || (!a.isReadonly() && !b.isReadonly())
-        ? b.getNameAsString().localeCompare(a.getNameAsString())
-        : a.isReadonly()
+      (a.readOnly && b.readOnly) || (!a.readOnly && !b.readOnly)
+        ? b.name.localeCompare(a.name)
+        : a.readOnly
           ? 1
           : -1
     );
@@ -296,10 +312,13 @@ function generateCapnpEnums(reflection: ReflectionClass<any>): string {
   }
 
   return `${enums
-    .map(enumeration =>
+    .map(prop =>
       generateCapnpEnumSchema(
-        enumeration.type as TypeEnum | TypeUnion,
-        formatEnumName(enumeration.getNameAsString())
+        prop as unknown as
+          | JsonSchemaEnum
+          | JsonSchemaNativeEnum
+          | JsonSchemaAnyOf,
+        formatEnumName(prop.name)
       )
     )
     .join("\n\n")}
@@ -308,41 +327,30 @@ function generateCapnpEnums(reflection: ReflectionClass<any>): string {
 }
 
 export function generateCapnpSchema(
-  reflection: ReflectionClass<any>,
+  schema: JsonSchemaObject,
   options: GenerateCapnpStructOptions = {}
 ): string {
   let index = 0;
   const indexCounter: () => number = options?.indexCounter ?? (() => index++);
 
-  return `${reflection
-    .getProperties()
-    .filter(prop => !prop.isIgnored())
+  const props = getPropertiesList(schema);
+  const filteredProps = props
+    .filter(prop => !(prop as JsonSchemaLike).ignore)
     .sort((a, b) =>
-      (a.isReadonly() && b.isReadonly()) || (!a.isReadonly() && !b.isReadonly())
-        ? b.getNameAsString().localeCompare(a.getNameAsString())
-        : a.isReadonly()
+      (a.readOnly && b.readOnly) || (!a.readOnly && !b.readOnly)
+        ? b.name.localeCompare(a.name)
+        : a.readOnly
           ? 1
           : -1
-    )
+    );
+
+  const hasMap = props.some(prop => isJsonSchemaMap(prop));
+  const hasDate = props.some(prop => isJsonSchemaDate(prop));
+
+  return `${filteredProps
     .map(prop => generateCapnpPropertySchema(prop, indexCounter))
-    .join(" \n\n\t")}${reflection
-    .getMethods()
-    .filter(methods => !methods.isIgnored())
-    .sort((a, b) =>
-      (a.isReadonly() && b.isReadonly()) || (!a.isReadonly() && !b.isReadonly())
-        ? String(b.getName()).localeCompare(String(a.getName()))
-        : a.isReadonly()
-          ? 1
-          : -1
-    )
-    .map(methods => generateCapnpMethodSchema(methods, indexCounter))
     .join(" \n\n\t")}${
-    reflection
-      .getProperties()
-      .some(
-        prop =>
-          prop.type.kind === ReflectionKind.class && prop.type.classType === Map
-      )
+    hasMap
       ? `
   struct Map(Key, Value) {
     entries @0 :List(Entry);
@@ -354,13 +362,7 @@ export function generateCapnpSchema(
   }`
       : ""
   }${
-    reflection
-      .getProperties()
-      .some(
-        prop =>
-          prop.type.kind === ReflectionKind.class &&
-          prop.type.classType === Date
-      )
+    hasDate
       ? `
   struct Date {
     # A standard Gregorian calendar date.
@@ -385,50 +387,10 @@ export function generateCapnpSchema(
   }`;
 }
 
-export function generateCapnpMethodSchema(
-  reflection: ReflectionMethod,
-  indexCounter: () => number
-): string {
-  const methodName =
-    reflection.getTitle() || typeof reflection.getName() === "string"
-      ? String(reflection.getName())
-      : "";
-  if (!methodName) {
-    throw new Error(
-      `Cannot generate Cap'n Proto schema for method without a name - Parent interface: ${reflection.reflectionClass.getName()}`
-    );
-  }
-
-  return `${camelCase(methodName)} @${indexCounter()} (${reflection
-    .getParameters()
-    .map(param => {
-      return `${camelCase(
-        param.getName()
-      )} :${generateCapnpPrimitive(param.getType())}${
-        param.hasDefault() ? ` = ${stringifyCapnpDefaultValue(param)}` : ""
-      }`;
-    })
-    .join(", ")})${
-    isVoidType(reflection.getReturnType())
-      ? ""
-      : ` -> (${kindToName(
-          reflection.getReturnType().kind
-        )}: ${generateCapnpPrimitive(reflection.getReturnType())})`
-  }; # ${(
-    reflection.getDescription() ||
-    `The ${titleCase(
-      reflection.reflectionClass.getTitle() ||
-        reflection.reflectionClass.getName()
-    )} interface ${titleCase(methodName)} method.`
-  ).replaceAll("\n", ". ")}`;
-}
-
-function generateCapnpPropertyComment(reflection: ReflectionProperty) {
+function generateCapnpPropertyComment(prop: GetPropertiesResult) {
   const result = getWords(
-    reflection.getDescription() ||
-      `A schema property for ${titleCase(
-        reflection.getTitle() || reflection.getNameAsString()
-      )} field.`,
+    prop.description ||
+      `A schema property for ${titleCase(prop.title || prop.name)} field.`,
     {
       relaxed: true
     }
@@ -456,164 +418,111 @@ function generateCapnpPropertyComment(reflection: ReflectionProperty) {
 }
 
 function generateCapnpPropertySchema(
-  reflection: ReflectionProperty,
+  prop: GetPropertiesResult,
   indexCounter: () => number
 ): string {
-  if (reflection.type.kind === ReflectionKind.union) {
-    if (getCapnpUnionTypes(reflection.type).length === 0) {
-      return `${camelCase(reflection.getNameAsString())} @${indexCounter()} :Void;
-${generateCapnpPropertyComment(reflection)}`;
+  const propName = prop.name;
+  const defaultStr =
+    prop.default !== undefined ? ` = ${stringifyCapnpDefaultValue(prop)}` : "";
+
+  if (isJsonSchemaUnion(prop) || isJsonSchemaAnyOf(prop)) {
+    const unionTypes = getCapnpUnionTypes(prop);
+    if (unionTypes.length === 0) {
+      return `${camelCase(propName)} @${indexCounter()} :Void;
+${generateCapnpPropertyComment(prop)}`;
     } else if (
-      getCapnpUnionTypes(reflection.type).filter(
-        type =>
-          type.kind === ReflectionKind.literal &&
-          (isString(type.literal) || isNumber(type.literal))
+      unionTypes.filter(
+        t =>
+          isJsonSchemaLiteral(t) &&
+          (isString((t as JsonSchemaLike).const) ||
+            isNumber((t as JsonSchemaLike).const))
       ).length === 1
     ) {
-      return `${camelCase(reflection.getNameAsString())} @${indexCounter()} :${formatEnumName(
-        reflection.getNameAsString()
-      )}${
-        reflection.hasDefault()
-          ? ` = ${stringifyCapnpDefaultValue(reflection)}`
-          : ""
-      };
-${generateCapnpPropertyComment(reflection)}`;
+      return `${camelCase(propName)} @${indexCounter()} :${formatEnumName(propName)}${defaultStr};
+${generateCapnpPropertyComment(prop)}`;
     } else {
-      return `${camelCase(reflection.getNameAsString())} :union {
-${getCapnpUnionTypes(reflection.type)
-  .map(
-    type =>
-      `   ${kindToName(type.kind)} @${indexCounter()} :${generateCapnpPrimitive(
-        type
-      )};`
-  )
+      return `${camelCase(propName)} :union {
+${unionTypes
+  .map(t => {
+    const typeName = getJsonSchemaCapnpTypeName(t);
+
+    return `   ${typeName} @${indexCounter()} :${generateCapnpPrimitive(t)};`;
+  })
   .join("\n")}
   }
-${generateCapnpPropertyComment(reflection)}`;
+${generateCapnpPropertyComment(prop)}`;
     }
-  } else if (reflection.type.kind === ReflectionKind.array) {
-    return `${camelCase(reflection.getNameAsString())} @${indexCounter()} :List(${generateCapnpPrimitive(reflection.getSubType())})${
-      reflection.hasDefault()
-        ? ` = ${stringifyCapnpDefaultValue(reflection)}`
-        : ""
-    };
-${generateCapnpPropertyComment(reflection)}`;
-  } else if (reflection.type.kind === ReflectionKind.class) {
-    if (reflection.type.classType === Map) {
-      return `${camelCase(reflection.getNameAsString())} @${indexCounter()} :Map(${
-        !reflection.type.typeArguments ||
-        reflection.type.typeArguments.length === 0 ||
-        !reflection.type.typeArguments[0]
-          ? "Data"
-          : generateCapnpPrimitive(reflection.type.typeArguments[0])
-      }, ${
-        !reflection.type.typeArguments ||
-        reflection.type.typeArguments.length < 2 ||
-        !reflection.type.typeArguments[1]
-          ? "Data"
-          : generateCapnpPrimitive(reflection.type.typeArguments[1])
-      })${
-        reflection.hasDefault()
-          ? ` = ${stringifyCapnpDefaultValue(reflection)}`
-          : ""
-      };
-${generateCapnpPropertyComment(reflection)}`;
-    } else if (reflection.type.classType === Date) {
-      return `${camelCase(reflection.getNameAsString())} @${indexCounter()} :Data${
-        reflection.hasDefault()
-          ? ` = ${stringifyCapnpDefaultValue(reflection)}`
-          : ""
-      };
-${generateCapnpPropertyComment(reflection)}`;
-    } else if (reflection.type.classType === Buffer) {
-      return `${camelCase(reflection.getNameAsString())} @${indexCounter()} :Data${
-        reflection.hasDefault()
-          ? ` = ${stringifyCapnpDefaultValue(reflection)}`
-          : ""
-      };
-${generateCapnpPropertyComment(reflection)}`;
-    } else if (reflection.type.classType === ArrayBuffer) {
-      return `${camelCase(reflection.getNameAsString())} @${indexCounter()} :Data${
-        reflection.hasDefault()
-          ? ` = ${stringifyCapnpDefaultValue(reflection)}`
-          : ""
-      };
-${generateCapnpPropertyComment(reflection)}`;
-    } else {
-      return `${camelCase(reflection.getNameAsString())} @${indexCounter()} :${pascalCase(
-        reflection.type.typeName || getClassName(reflection.type.classType)
-      )}${generateCapnpStruct(reflection.reflectionClass, {
-        name: pascalCase(
-          reflection.type.typeName || getClassName(reflection.type.classType)
-        )
-      })}${
-        reflection.hasDefault()
-          ? ` = ${stringifyCapnpDefaultValue(reflection)}`
-          : ""
-      };
-${generateCapnpPropertyComment(reflection)}`;
-    }
-  } else if (reflection.type.kind === ReflectionKind.objectLiteral) {
-    return `${camelCase(reflection.getNameAsString())} @${indexCounter()} :${pascalCase(
-      reflection.type.typeName ||
-        memberNameToString(reflection.getNameAsString())
-    )}${generateCapnpStruct(reflection.reflectionClass, {
-      name: pascalCase(
-        reflection.type.typeName ||
-          memberNameToString(reflection.getNameAsString())
-      )
-    })}${
-      reflection.hasDefault()
-        ? ` = ${stringifyCapnpDefaultValue(reflection)}`
-        : ""
-    };
-${generateCapnpPropertyComment(reflection)}`;
-  } else if (reflection.type.kind === ReflectionKind.enum) {
-    return `${camelCase(reflection.getNameAsString())} @${indexCounter()} :${pascalCase(
-      reflection.getNameAsString()
-    )}${
-      reflection.hasDefault()
-        ? ` = ${stringifyCapnpDefaultValue(reflection)}`
-        : ""
-    };
-${generateCapnpPropertyComment(reflection)}`;
+  } else if (isJsonSchemaMap(prop)) {
+    const keySchema = prop.items?.prefixItems?.[0];
+    const valueSchema = prop.items?.prefixItems?.[1];
+
+    return `${camelCase(propName)} @${indexCounter()} :Map(${
+      keySchema ? generateCapnpPrimitive(keySchema) : "Data"
+    }, ${valueSchema ? generateCapnpPrimitive(valueSchema) : "Data"})${defaultStr};
+${generateCapnpPropertyComment(prop)}`;
+  } else if (isJsonSchemaDate(prop)) {
+    return `${camelCase(propName)} @${indexCounter()} :Data${defaultStr};
+${generateCapnpPropertyComment(prop)}`;
+  } else if (isJsonSchemaSet(prop) || isJsonSchemaTuple(prop)) {
+    const itemSchema = (prop as unknown as JsonSchemaLike).items as
+      | JsonSchema
+      | undefined;
+
+    return `${camelCase(propName)} @${indexCounter()} :List(${
+      itemSchema ? generateCapnpPrimitive(itemSchema) : "Data"
+    })${defaultStr};
+${generateCapnpPropertyComment(prop)}`;
+  } else if (isJsonSchemaArray(prop)) {
+    const itemSchema = (prop as unknown as JsonSchemaLike).items as
+      | JsonSchema
+      | undefined;
+
+    return `${camelCase(propName)} @${indexCounter()} :List(${
+      itemSchema ? generateCapnpPrimitive(itemSchema) : "Data"
+    })${defaultStr};
+${generateCapnpPropertyComment(prop)}`;
+  } else if (isJsonSchemaRef(prop)) {
+    const refName = prop.$ref.split("/").pop() || prop.$ref;
+
+    return `${camelCase(propName)} @${indexCounter()} :${pascalCase(refName)}${defaultStr};
+${generateCapnpPropertyComment(prop)}`;
+  } else if (isJsonSchemaObject(prop) || isJsonSchemaRecord(prop)) {
+    const typeName = prop.title || propName;
+
+    return `${camelCase(propName)} @${indexCounter()} :${pascalCase(typeName)}${generateCapnpStruct(
+      prop as unknown as JsonSchemaObject,
+      {
+        name: pascalCase(typeName)
+      }
+    )}${defaultStr};
+${generateCapnpPropertyComment(prop)}`;
+  } else if (isJsonSchemaEnum(prop) || isJsonSchemaNativeEnum(prop)) {
+    return `${camelCase(propName)} @${indexCounter()} :${pascalCase(propName)}${defaultStr};
+${generateCapnpPropertyComment(prop)}`;
   }
 
-  return `${camelCase(reflection.getNameAsString())} @${indexCounter()} :${generateCapnpPrimitive(
-    reflection.getType()
-  )}${
-    reflection.hasDefault()
-      ? ` = ${stringifyCapnpDefaultValue(reflection)}`
-      : ""
-  };
-${generateCapnpPropertyComment(reflection)}`;
+  return `${camelCase(propName)} @${indexCounter()} :${generateCapnpPrimitive(prop)}${defaultStr};
+${generateCapnpPropertyComment(prop)}`;
 }
 
 export function generateCapnpEnumSchema(
-  type: TypeEnum | TypeUnion,
+  schema: JsonSchemaEnum | JsonSchemaNativeEnum | JsonSchemaAnyOf,
   name: string
 ): string {
-  if (type.kind === ReflectionKind.union) {
+  if (isJsonSchemaAnyOf(schema)) {
+    const enumValues = (schema.anyOf || [])
+      .filter(
+        t =>
+          isJsonSchemaLiteral(t) &&
+          (isString((t as JsonSchemaLike).const) ||
+            isNumber((t as JsonSchemaLike).const))
+      )
+      .map(t => (t as JsonSchemaLike).const as string | number);
+
     return generateCapnpEnumSchema(
       {
-        kind: ReflectionKind.enum,
-        indexType: type,
-        enum: (type.types as TypeLiteral[]).reduce<
-          Record<string, string | number>
-        >((ret, type) => {
-          if (isString(type.literal) || isNumber(type.literal)) {
-            ret[camelCase(String(type.literal))] = type.literal;
-          }
-
-          return ret;
-        }, {}),
-        values: (
-          getCapnpUnionTypes(type).filter(
-            type =>
-              type.kind === ReflectionKind.literal &&
-              (isString(type.literal) || isNumber(type.literal))
-          ) as TypeLiteral[]
-        ).map(type => type.literal as string | number)
+        type: enumValues.some(v => isString(v)) ? "string" : "number",
+        enum: enumValues
       },
       name
     );
@@ -622,32 +531,27 @@ export function generateCapnpEnumSchema(
   let index = 0;
   const indexCounter: () => number = () => index++;
 
-  const enumType = getCapnpEnumTypes(type);
+  const enumType = getCapnpEnumTypes(schema);
   if (!enumType) {
     return "";
   }
 
+  const values = (schema.enum || []).filter(
+    v => v !== null && v !== undefined
+  ) as (string | number)[];
+  const schemaTitle = (schema as JsonSchemaLike).title;
+
   return `enum ${pascalCase(name)} {
-${
-  type.enum && Object.entries(type.enum).length > 0
-    ? Object.entries(type.enum)
-        .filter(([, value]) => value !== null && value !== undefined)
-        .map(([key]) => `    ${camelCase(key)} @${indexCounter()};`)
-        .join("\n")
-    : type.values
-        .filter(value => value !== null && value !== undefined)
-        .map(
-          value =>
-            `${
-              enumType === "Text" && value
-                ? camelCase(String(value))
-                : `${
-                    type.typeName ? `${camelCase(type.typeName)}_` : ""
-                  }${value || ""}`
-            } @${indexCounter()};`
-        )
-        .join("\n")
-}
+${values
+  .map(
+    value =>
+      `    ${
+        enumType === "Text" && value
+          ? camelCase(String(value))
+          : `${schemaTitle ? `${camelCase(schemaTitle)}_` : ""}${value || ""}`
+      } @${indexCounter()};`
+  )
+  .join("\n")}
   }`;
 }
 
@@ -657,39 +561,72 @@ ${
  * @param type - The Deepkit Type to convert.
  * @returns A string representation of the Cap'n Proto primitive type.
  */
-export function generateCapnpPrimitive(type: Type): string {
-  return type.kind === ReflectionKind.never ||
-    type.kind === ReflectionKind.void ||
-    type.kind === ReflectionKind.null ||
-    type.kind === ReflectionKind.undefined ||
-    type.kind === ReflectionKind.symbol
-    ? "Void"
-    : type.kind === ReflectionKind.class && type.classType === Date
-      ? "Date"
-      : type.kind === ReflectionKind.class && type.classType === Set
-        ? `List(${
-            type.typeArguments && type.typeArguments[0]
-              ? generateCapnpPrimitive(type.typeArguments[0])
-              : "Data"
-          })`
-        : type.kind === ReflectionKind.bigint
-          ? "UInt64"
-          : type.kind === ReflectionKind.number
-            ? "Float64"
-            : type.kind === ReflectionKind.string ||
-                type.kind === ReflectionKind.regexp
-              ? "Text"
-              : type.kind === ReflectionKind.boolean
-                ? "Bool"
-                : type.kind === ReflectionKind.literal
-                  ? isNumber(type.literal)
-                    ? "Float64"
-                    : isBigInt(type.literal)
-                      ? "UInt64"
-                      : isString(type.literal)
-                        ? "Text"
-                        : typeof type.literal === "boolean"
-                          ? "Bool"
-                          : "Data"
-                  : "Data";
+/**
+ * Generates a string representation of Cap'n Proto primitive types from a JSON Schema.
+ *
+ * @param schema - The JSON Schema to convert.
+ * @returns A string representation of the Cap'n Proto primitive type.
+ */
+export function generateCapnpPrimitive(schema: JsonSchema): string {
+  if (
+    isJsonSchemaNever(schema) ||
+    isJsonSchemaNull(schema) ||
+    isJsonSchemaUndefined(schema)
+  ) {
+    return "Void";
+  }
+  if (isJsonSchemaDate(schema)) {
+    return "Date";
+  }
+  if (isJsonSchemaSet(schema)) {
+    const itemSchema = (schema as JsonSchemaLike).items as
+      | JsonSchema
+      | undefined;
+
+    return `List(${itemSchema ? generateCapnpPrimitive(itemSchema) : "Data"})`;
+  }
+  if (isJsonSchemaBigint(schema)) {
+    return "UInt64";
+  }
+  if (isJsonSchemaNumber(schema) || isJsonSchemaInteger(schema)) {
+    return "Float64";
+  }
+  if (isJsonSchemaString(schema)) {
+    return "Text";
+  }
+  if (isJsonSchemaBoolean(schema)) {
+    return "Bool";
+  }
+  if (isJsonSchemaLiteral(schema)) {
+    const constVal = (schema as JsonSchemaLike).const;
+    if (isNumber(constVal)) return "Float64";
+    if (isBigInt(constVal)) return "UInt64";
+    if (isString(constVal)) return "Text";
+    if (typeof constVal === "boolean") return "Bool";
+  }
+  return "Data";
+}
+
+/**
+ * Returns a descriptive Cap'n Proto field name for a JSON Schema member in a union.
+ *
+ * @param schema - The JSON Schema union member.
+ * @returns A camelCase name suitable for use as a Cap'n Proto union field label.
+ */
+function getJsonSchemaCapnpTypeName(schema: JsonSchema): string {
+  const s = schema as JsonSchemaLike;
+  if (s.title || s.name) return camelCase(String(s.title || s.name));
+  if (s.type) {
+    return camelCase(
+      Array.isArray(s.type) ? String(s.type[0]) : String(s.type)
+    );
+  }
+  if ("const" in s) {
+    if (isString(s.const)) return "string";
+    if (isNumber(s.const)) return "number";
+    if (typeof s.const === "boolean") return "bool";
+    if (isBigInt(s.const)) return "bigInt";
+  }
+  if (s.anyOf) return "union";
+  return "data";
 }
