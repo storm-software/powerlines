@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.57](https://github.com/storm-software/powerlines/releases/tag/core%400.48.57) (06/12/2026)
+
+### Features
+
+- **core:** Added `internal` metadata to builtin files ([4b89a954c](https://github.com/storm-software/powerlines/commit/4b89a954c))
+
 ## [0.48.56](https://github.com/storm-software/powerlines/releases/tag/core%400.48.56) (06/11/2026)
 
 ### Bug Fixes

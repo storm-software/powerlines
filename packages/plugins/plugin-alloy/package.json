@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-alloy",
-  "version": "0.26.227",
+  "version": "0.26.228",
   "description": "A package containing various Alloy framework components and helper utilities.",
   "keywords": ["alloy-js", "powerlines", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
@@ -375,20 +375,6 @@
         "default": "./dist/helpers/refkey.mjs"
       }
     },
-    "./helpers/typescript": {
-      "require": {
-        "types": "./dist/helpers/typescript.d.cts",
-        "default": "./dist/helpers/typescript.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/typescript.d.mts",
-        "default": "./dist/helpers/typescript.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/typescript.d.mts",
-        "default": "./dist/helpers/typescript.mjs"
-      }
-    },
     "./markdown": {
       "require": {
         "types": "./dist/markdown/index.d.cts",
@@ -415,6 +401,20 @@
       "default": {
         "types": "./dist/markdown/components/index.d.mts",
         "default": "./dist/markdown/components/index.mjs"
+      }
+    },
+    "./markdown/components/alert": {
+      "require": {
+        "types": "./dist/markdown/components/alert.d.cts",
+        "default": "./dist/markdown/components/alert.cjs"
+      },
+      "import": {
+        "types": "./dist/markdown/components/alert.d.mts",
+        "default": "./dist/markdown/components/alert.mjs"
+      },
+      "default": {
+        "types": "./dist/markdown/components/alert.d.mts",
+        "default": "./dist/markdown/components/alert.mjs"
       }
     },
     "./markdown/components/front-matter": {

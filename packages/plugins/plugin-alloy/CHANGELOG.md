@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.228](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.228) (06/12/2026)
+
+### Features
+
+- **plugin-alloy:** Added the `Alert` markdown component ([dfa1d2e2c](https://github.com/storm-software/powerlines/commit/dfa1d2e2c))
+- **core:** Added `internal` metadata to builtin files ([4b89a954c](https://github.com/storm-software/powerlines/commit/4b89a954c))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.9.89**
+- Updated **plugin-babel** to **v0.13.131**
+- Updated **plugin-plugin** to **v0.12.547**
+- Updated **powerlines** to **v0.47.135**
+- Updated **schema** to **v0.11.117**
+
 ## [0.26.227](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.227) (06/11/2026)
 
 ### Updated Dependencies

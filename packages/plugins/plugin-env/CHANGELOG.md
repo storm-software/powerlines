@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.339](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.339) (06/12/2026)
+
+### Features
+
+- **core:** Added `internal` metadata to builtin files ([4b89a954c](https://github.com/storm-software/powerlines/commit/4b89a954c))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.57**
+- Updated **plugin-alloy** to **v0.26.228**
+- Updated **plugin-automd** to **v0.1.596**
+- Updated **plugin-babel** to **v0.13.131**
+- Updated **plugin-deepkit** to **v0.11.478**
+- Updated **plugin-plugin** to **v0.12.547**
+- Updated **powerlines** to **v0.47.135**
+- Updated **schema** to **v0.11.117**
+
 ## [0.16.338](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.338) (06/11/2026)
 
 ### Updated Dependencies
