@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Unbuild
 
+## [0.5.592](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.592) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.58**
+- Updated **powerlines** to **v0.47.136**
+- Updated **unplugin** to **v0.0.106**
+
 ## [0.5.591](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.591) (06/12/2026)
 
 ### Updated Dependencies

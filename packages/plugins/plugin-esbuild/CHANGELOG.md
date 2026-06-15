@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.591](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.591) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.58**
+- Updated **powerlines** to **v0.47.136**
+- Updated **unplugin** to **v0.0.106**
+
 ## [0.13.590](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.590) (06/12/2026)
 
 ### Updated Dependencies

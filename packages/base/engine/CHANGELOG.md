@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.60](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.60) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.58**
+
 ## [0.49.59](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.59) (06/12/2026)
 
 ### Updated Dependencies

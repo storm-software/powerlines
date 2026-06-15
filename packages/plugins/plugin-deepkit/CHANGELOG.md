@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.479](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.479) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.9.90**
+- Updated **plugin-plugin** to **v0.12.548**
+- Updated **plugin-tsc** to **v0.3.133**
+- Updated **powerlines** to **v0.47.136**
+
 ## [0.11.478](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.478) (06/12/2026)
 
 ### Updated Dependencies

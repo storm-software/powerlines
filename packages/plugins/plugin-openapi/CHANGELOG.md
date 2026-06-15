@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Openapi
 
+## [0.2.602](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.602) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.548**
+- Updated **powerlines** to **v0.47.136**
+
 ## [0.2.601](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.601) (06/12/2026)
 
 ### Updated Dependencies

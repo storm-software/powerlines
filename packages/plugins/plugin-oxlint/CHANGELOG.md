@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Oxlint
 
+## [0.7.601](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.601) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.548**
+- Updated **powerlines** to **v0.47.136**
+
 ## [0.7.600](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.600) (06/12/2026)
 
 ### Updated Dependencies

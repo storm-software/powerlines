@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.649](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.649) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **plugin-env** to **v0.16.340**
+- Updated **plugin-plugin** to **v0.12.548**
+- Updated **powerlines** to **v0.47.136**
+
 ## [0.10.648](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.648) (06/12/2026)
 
 ### Updated Dependencies

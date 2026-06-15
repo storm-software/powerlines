@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rollup
 
+## [0.7.591](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.591) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.58**
+- Updated **powerlines** to **v0.47.136**
+- Updated **unplugin** to **v0.0.106**
+
 ## [0.7.590](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.590) (06/12/2026)
 
 ### Updated Dependencies

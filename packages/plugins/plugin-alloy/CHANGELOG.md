@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.229](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.229) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.9.90**
+- Updated **plugin-babel** to **v0.13.132**
+- Updated **plugin-plugin** to **v0.12.548**
+- Updated **powerlines** to **v0.47.136**
+- Updated **schema** to **v0.11.118**
+
 ## [0.26.228](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.228) (06/12/2026)
 
 ### Features

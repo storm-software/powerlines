@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.58](https://github.com/storm-software/powerlines/releases/tag/core%400.48.58) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Features
+
+- **core:** Update VFS to allow buffer reads/writes and use message pack to serialize schemas ([c4f202547](https://github.com/storm-software/powerlines/commit/c4f202547))
+
 ## [0.48.57](https://github.com/storm-software/powerlines/releases/tag/core%400.48.57) (06/12/2026)
 
 ### Features

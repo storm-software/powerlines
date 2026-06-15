@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.132](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.132) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.58**
+- Updated **powerlines** to **v0.47.136**
+
 ## [0.13.131](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.131) (06/12/2026)
 
 ### Updated Dependencies

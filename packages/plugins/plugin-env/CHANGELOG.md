@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.340](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.340) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.58**
+- Updated **plugin-alloy** to **v0.26.229**
+- Updated **plugin-automd** to **v0.1.597**
+- Updated **plugin-babel** to **v0.13.132**
+- Updated **plugin-deepkit** to **v0.11.479**
+- Updated **plugin-plugin** to **v0.12.548**
+- Updated **powerlines** to **v0.47.136**
+- Updated **schema** to **v0.11.118**
+
 ## [0.16.339](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.339) (06/12/2026)
 
 ### Features

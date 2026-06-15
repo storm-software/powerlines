@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Satori
 
+## [0.1.596](https://github.com/storm-software/powerlines/releases/tag/plugin-satori%400.1.596) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.548**
+- Updated **powerlines** to **v0.47.136**
+
 ## [0.1.595](https://github.com/storm-software/powerlines/releases/tag/plugin-satori%400.1.595) (06/12/2026)
 
 ### Updated Dependencies
