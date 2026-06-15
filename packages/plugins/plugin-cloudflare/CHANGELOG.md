@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.239](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.239) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.229**
+- Updated **plugin-env** to **v0.16.340**
+- Updated **plugin-plugin** to **v0.12.548**
+- Updated **plugin-pulumi** to **v0.6.238**
+- Updated **plugin-unenv** to **v0.1.586**
+- Updated **powerlines** to **v0.47.136**
+- Updated **schema** to **v0.11.118**
+
 ## [0.6.238](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.238) (06/12/2026)
 
 ### Updated Dependencies

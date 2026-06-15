@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.505](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.505) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.548**
+- Updated **powerlines** to **v0.47.136**
+- Updated **schema** to **v0.11.118**
+
 ## [0.3.504](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.504) (06/12/2026)
 
 ### Updated Dependencies

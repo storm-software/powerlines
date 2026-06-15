@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.133](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.133) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
 ## [0.2.69](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.69) (05/18/2026)
 
 ### Features

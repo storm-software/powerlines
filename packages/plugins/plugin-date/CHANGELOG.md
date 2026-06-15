@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.684](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.684) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **plugin-env** to **v0.16.340**
+- Updated **plugin-plugin** to **v0.12.548**
+- Updated **powerlines** to **v0.47.136**
+
 ## [0.12.683](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.683) (06/12/2026)
 
 ### Updated Dependencies

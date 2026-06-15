@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.234](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.234) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.229**
+- Updated **plugin-automd** to **v0.1.597**
+- Updated **plugin-babel** to **v0.13.132**
+- Updated **plugin-plugin** to **v0.12.548**
+- Updated **powerlines** to **v0.47.136**
+
 ## [0.1.233](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.233) (06/12/2026)
 
 ### Updated Dependencies

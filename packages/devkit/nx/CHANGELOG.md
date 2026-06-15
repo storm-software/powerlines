@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.175](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.175) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.136**
+
 ## [0.13.174](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.174) (06/12/2026)
 
 ### Updated Dependencies

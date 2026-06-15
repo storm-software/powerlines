@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.541](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.541) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.58**
+- Updated **plugin-alloy** to **v0.26.229**
+- Updated **plugin-babel** to **v0.13.132**
+- Updated **plugin-env** to **v0.16.340**
+- Updated **plugin-plugin** to **v0.12.548**
+- Updated **powerlines** to **v0.47.136**
+
 ## [0.1.540](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.540) (06/12/2026)
 
 ### Updated Dependencies

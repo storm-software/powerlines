@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.279](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.279) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.548**
+- Updated **plugin-pulumi** to **v0.6.238**
+- Updated **powerlines** to **v0.47.136**
+
 ## [0.4.278](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.278) (06/12/2026)
 
 ### Updated Dependencies

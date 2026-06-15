@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.185](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.185) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
 ## [0.4.121](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.121) (05/18/2026)
 
 ### Features

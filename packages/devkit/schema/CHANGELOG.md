@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.118](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.118) (06/15/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update asset references to the newly created `media` folder ([406660742](https://github.com/storm-software/powerlines/commit/406660742))
+
+### Features
+
+- **core:** Update VFS to allow buffer reads/writes and use message pack to serialize schemas ([c4f202547](https://github.com/storm-software/powerlines/commit/c4f202547))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.58**
+- Updated **deepkit** to **v0.9.90**
+- Updated **unplugin** to **v0.0.106**
+
 ## [0.11.117](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.117) (06/12/2026)
 
 ### Updated Dependencies
