@@ -18,7 +18,6 @@
 
 import { decode, encode } from "@msgpack/msgpack";
 import type { Context } from "@powerlines/core";
-import { stringToUint8Array } from "@stryke/convert";
 import { joinPaths } from "@stryke/path/join";
 import { extractHash, extractVariant } from "./extract";
 import { isSchema } from "./type-checks";
@@ -45,7 +44,7 @@ export function getCacheFilePath(context: Context, input: SchemaInput): string {
   const variant = extractVariant(input);
   const hash = extractHash(variant, input);
 
-  return joinPaths(getCacheDirectory(context), `${hash}.pfs`);
+  return joinPaths(getCacheDirectory(context), `${hash}.pbf`);
 }
 
 /**
@@ -64,7 +63,7 @@ export async function writeSchema(context: Context, schema: Schema) {
 
   await context.fs.write(
     getCacheFilePath(context, schema),
-    encode(schema.schema)
+    encode<Schema>(schema.schema)
   );
 }
 
@@ -84,12 +83,12 @@ export async function readSchemaSafe(
     return undefined;
   }
 
-  const data = await context.fs.read(cacheFilePath);
+  const data = await context.fs.readBuffer(cacheFilePath);
   if (!data) {
     return undefined;
   }
 
-  const result = decode<Schema>(stringToUint8Array(data));
+  const result = decode<Schema>(data);
   if (!isSchema(result)) {
     return undefined;
   }

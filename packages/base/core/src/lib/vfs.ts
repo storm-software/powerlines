@@ -1621,7 +1621,11 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       return undefined;
     }
 
-    return isString(result) ? result : uint8ArrayToString(toUint8Array(result));
+    return !result
+      ? undefined
+      : isString(result)
+        ? result
+        : uint8ArrayToString(toUint8Array(result));
   }
 
   /**
@@ -1644,7 +1648,11 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       return undefined;
     }
 
-    return isString(result) ? result : uint8ArrayToString(toUint8Array(result));
+    return !result
+      ? undefined
+      : isString(result)
+        ? result
+        : uint8ArrayToString(toUint8Array(result));
   }
 
   /**
@@ -1760,10 +1768,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     this.paths[id] = resolvedPath;
     this.ids[resolvedPath] = id;
 
-    return adapter.set(
-      relativeKey,
-      isString(code) ? code : uint8ArrayToString(toUint8Array(code))
-    );
+    return adapter.set(relativeKey, code);
   }
 
   /**
@@ -1806,10 +1811,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     this.paths[id] = resolvedPath;
     this.ids[resolvedPath] = id;
 
-    return adapter.setSync(
-      relativeKey,
-      isString(data) ? data : uint8ArrayToString(toUint8Array(data))
-    );
+    return adapter.setSync(relativeKey, data);
   }
 
   /**
