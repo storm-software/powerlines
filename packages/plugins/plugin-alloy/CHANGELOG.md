@@ -1,4 +1,4 @@
-![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark.gif)
+![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/media/banner-1280x320-dark.gif)
 
 # Changelog for Powerlines - Plugin Alloy
 
@@ -5503,7 +5503,7 @@
 - Updated **deepkit** to **v0.5.17**
 - Updated **nx** to **v0.11.33**
 
-![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/banner-1280x320-dark.gif)
+![Powerlines' logo banner](https://public.storm-cdn.com/powerlines/media/banner-1280x320-dark.gif)
 
 # Changelog for Powerlines - Alloy
 
