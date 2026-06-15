@@ -98,7 +98,7 @@ export abstract class BaseStorageAdapter<
    * @param key - The key whose value is to be retrieved.
    * @returns The value associated with the key, or `null` if the key does not exist.
    */
-  public abstract getSync(key: string): string | null;
+  public abstract getSync(key: string): string | NodeJS.ArrayBufferView | null;
 
   /**
    * Asynchronously retrieves the value associated with a given key.
@@ -106,7 +106,9 @@ export abstract class BaseStorageAdapter<
    * @param key - The key whose value is to be retrieved.
    * @returns A promise that resolves to the value associated with the key, or `null` if the key does not exist.
    */
-  public async get(key: string): Promise<string | null> {
+  public async get(
+    key: string
+  ): Promise<string | NodeJS.ArrayBufferView | null> {
     return this.getSync(key);
   }
 
@@ -116,7 +118,10 @@ export abstract class BaseStorageAdapter<
    * @param key - The key to set the value for.
    * @param value - The value to set.
    */
-  public abstract setSync(key: string, value: string): void;
+  public abstract setSync(
+    key: string,
+    value: string | NodeJS.ArrayBufferView
+  ): void;
 
   /**
    * Asynchronously sets the value for a given key.
@@ -124,7 +129,10 @@ export abstract class BaseStorageAdapter<
    * @param key - The key to set the value for.
    * @param value - The value to set.
    */
-  public async set(key: string, value: string): Promise<void> {
+  public async set(
+    key: string,
+    value: string | NodeJS.ArrayBufferView
+  ): Promise<void> {
     if (!this.isReadOnly && (!this.existsSync(key) || this.overwrite)) {
       this.setSync(key, value);
     }

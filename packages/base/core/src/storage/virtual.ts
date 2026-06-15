@@ -68,7 +68,7 @@ export class VirtualStorageAdapter extends BaseStorageAdapter {
    * @param key - The key whose value is to be retrieved.
    * @returns The value associated with the key, or `null` if the key does not exist.
    */
-  public getSync(key: string): string | null {
+  public getSync(key: string): string | NodeJS.ArrayBufferView | null {
     return this.data.get(this.resolve(key)) ?? null;
   }
 
@@ -78,7 +78,7 @@ export class VirtualStorageAdapter extends BaseStorageAdapter {
    * @param key - The key to set the value for.
    * @param value - The value to set.
    */
-  public setSync(key: string, value: string) {
+  public setSync(key: string, value: string | NodeJS.ArrayBufferView) {
     if (!this.isReadOnly && (!this.existsSync(key) || this.overwrite)) {
       this.data.set(this.resolve(key), value);
     }

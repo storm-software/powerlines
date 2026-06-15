@@ -62,6 +62,7 @@
   "typings": "dist/index.d.mts",
   "files": ["dist"],
   "dependencies": {
+    "@msgpack/msgpack": "catalog:",
     "@powerlines/core": "workspace:*",
     "@powerlines/deepkit": "workspace:*",
     "@powerlines/unplugin": "workspace:*",

@@ -26,6 +26,7 @@ export default defineConfig({
   typescript: {
     typeImports: "off"
   },
+  mdx: false,
   nx: {
     moduleBoundaries: false
   },

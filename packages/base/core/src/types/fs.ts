@@ -63,7 +63,7 @@ export interface StorageAdapter {
    * @param key - The key to read the value for.
    * @returns A promise that resolves to the value if found, otherwise `null`.
    */
-  get: (key: string) => Promise<string | null>;
+  get: (key: string) => Promise<string | NodeJS.ArrayBufferView | null>;
 
   /**
    * Synchronously reads the value associated with a key from the storage.
@@ -71,7 +71,7 @@ export interface StorageAdapter {
    * @param key - The key to read the value for.
    * @returns The value if found, otherwise `null`.
    */
-  getSync: (key: string) => string | null;
+  getSync: (key: string) => string | NodeJS.ArrayBufferView | null;
 
   /**
    * Writes a value to the storage for the given key.
@@ -79,7 +79,7 @@ export interface StorageAdapter {
    * @param key - The key to associate the value with.
    * @param value - The value to store.
    */
-  set: (key: string, value: string) => Promise<void>;
+  set: (key: string, value: string | NodeJS.ArrayBufferView) => Promise<void>;
 
   /**
    * Synchronously writes a value to the storage for the given key.
@@ -87,7 +87,7 @@ export interface StorageAdapter {
    * @param key - The key to associate the value with.
    * @param value - The value to store.
    */
-  setSync: (key: string, value: string) => void;
+  setSync: (key: string, value: string | NodeJS.ArrayBufferView) => void;
 
   /**
    * Removes a value from the storage.
@@ -521,6 +521,21 @@ export interface VirtualFileSystemInterface {
   readSync: (path: string) => string | undefined;
 
   /**
+   * Reads a file from the virtual file system (VFS).
+   *
+   * @param path - The path or id of the file.
+   * @returns The contents of the file if it exists, otherwise undefined.
+   */
+  readBuffer: (path: string) => Promise<NodeJS.ArrayBufferView | undefined>;
+
+  /**
+   * Reads a file from the virtual file system (VFS).
+   *
+   * @param path - The path or id of the file.
+   */
+  readBufferSync: (path: string) => NodeJS.ArrayBufferView | undefined;
+
+  /**
    * Writes a file to the virtual file system (VFS).
    *
    * @param path - The path to the file.
@@ -528,7 +543,11 @@ export interface VirtualFileSystemInterface {
    * @param options - Options for writing the file.
    * @returns A promise that resolves when the file is written.
    */
-  write: (path: string, data: string, options?: WriteOptions) => Promise<void>;
+  write: (
+    path: string,
+    data: string | NodeJS.ArrayBufferView,
+    options?: WriteOptions
+  ) => Promise<void>;
 
   /**
    * Writes a file to the virtual file system (VFS).
@@ -537,7 +556,11 @@ export interface VirtualFileSystemInterface {
    * @param data - The contents of the file.
    * @param options - Options for writing the file.
    */
-  writeSync: (path: string, data: string, options?: WriteOptions) => void;
+  writeSync: (
+    path: string,
+    data: string | NodeJS.ArrayBufferView,
+    options?: WriteOptions
+  ) => void;
 
   /**
    * Creates a directory at the specified path.

@@ -17,6 +17,7 @@
  ------------------------------------------------------------------- */
 
 import * as capnp from "@stryke/capnp";
+import { stringToUint8Array, uint8ArrayToString } from "@stryke/convert";
 import { toArray } from "@stryke/convert/to-array";
 import {
   readFileBuffer,
@@ -83,6 +84,10 @@ interface StorageAdapterState {
 
 function toFilePath(path: PathOrFileDescriptor): string {
   return correctPath(slash(path?.toString() || ".").replace(/^file:\/\//, ""));
+}
+
+function toUint8Array(view: NodeJS.ArrayBufferView): Uint8Array {
+  return new Uint8Array(view.buffer, view.byteOffset, view.byteLength);
 }
 
 /**
@@ -1611,7 +1616,12 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     const { adapter } = this.#getStorage(filePath);
     this.#logger.trace(`Reading ${adapter.name} file: ${filePath}`);
 
-    return (await adapter.get(filePath)) ?? undefined;
+    const result = await adapter.get(filePath);
+    if (!result) {
+      return undefined;
+    }
+
+    return isString(result) ? result : uint8ArrayToString(toUint8Array(result));
   }
 
   /**
@@ -1629,7 +1639,60 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     const { adapter } = this.#getStorage(filePath);
     this.#logger.trace(`Reading ${adapter.name} file: ${filePath}`);
 
-    return adapter.getSync(filePath) ?? undefined;
+    const result = adapter.getSync(filePath);
+    if (!result) {
+      return undefined;
+    }
+
+    return isString(result) ? result : uint8ArrayToString(toUint8Array(result));
+  }
+
+  /**
+   * Asynchronously reads a file from the virtual file system (VFS) as a buffer.
+   *
+   * @param path - The path or ID of the file to read.
+   * @returns A promise that resolves to the file contents as a buffer, or `undefined` if the file does not exist.
+   */
+  public async readBuffer(
+    path: string
+  ): Promise<NodeJS.ArrayBufferView | undefined> {
+    const filePath = await this.resolve(path, undefined, { isFile: true });
+    if (!filePath || !this.existsSync(filePath)) {
+      return undefined;
+    }
+
+    const { adapter } = this.#getStorage(filePath);
+    this.#logger.trace(`Reading ${adapter.name} file buffer: ${filePath}`);
+
+    const result = await adapter.get(filePath);
+    if (!result) {
+      return undefined;
+    }
+
+    return isString(result) ? stringToUint8Array(result) : result;
+  }
+
+  /**
+   * Synchronously reads a file from the virtual file system (VFS) as a buffer.
+   *
+   * @param path - The path or ID of the file to read.
+   * @returns The file contents as a buffer, or `undefined` if the file does not exist.
+   */
+  public readBufferSync(path: string): NodeJS.ArrayBufferView | undefined {
+    const filePath = this.resolveSync(path, undefined, { isFile: true });
+    if (!filePath || !this.existsSync(filePath)) {
+      return undefined;
+    }
+
+    const { adapter } = this.#getStorage(filePath);
+    this.#logger.trace(`Reading ${adapter.name} file buffer: ${filePath}`);
+
+    const result = adapter.getSync(filePath);
+    if (!result) {
+      return undefined;
+    }
+
+    return isString(result) ? stringToUint8Array(result) : result;
   }
 
   /**
@@ -1642,7 +1705,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    */
   public async write(
     path: string,
-    data: string = "",
+    data: string | NodeJS.ArrayBufferView = "",
     options: WriteOptions = {}
   ): Promise<void> {
     const meta = options.meta ?? {};
@@ -1654,35 +1717,27 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
       options.storage as StoragePreset
     );
 
-    this.#logger.trace(
-      `Writing ${resolvedPath} to ${
-        adapter.name === "virtual"
-          ? "the virtual file system"
-          : adapter.name === "file-system"
-            ? "the local file system"
-            : adapter.name
-      } (size: ${prettyBytes(new Blob(toArray(data)).size)})`
-    );
-
     let code = data;
-    try {
-      if (!options.skipFormat) {
-        code = await format(this.#context, resolvedPath, data);
+    if (isString(data)) {
+      try {
+        if (!options.skipFormat) {
+          code = await format(this.#context, resolvedPath, data);
+        }
+      } catch (err) {
+        // Only warn about formatting errors for certain file types
+        if (
+          DEFAULT_EXTENSIONS.includes(
+            findFileExtensionSafe(resolvedPath, {
+              fullExtension: false
+            })
+          )
+        ) {
+          this.#logger.warn(
+            `Failed to format file ${resolvedPath} before writing: ${(err as Error).message}`
+          );
+        }
+        code = data;
       }
-    } catch (err) {
-      // Only warn about formatting errors for certain file types
-      if (
-        DEFAULT_EXTENSIONS.includes(
-          findFileExtensionSafe(resolvedPath, {
-            fullExtension: false
-          })
-        )
-      ) {
-        this.#logger.warn(
-          `Failed to format file ${resolvedPath} before writing: ${(err as Error).message}`
-        );
-      }
-      code = data;
     }
 
     this.#logger.trace(
@@ -1692,7 +1747,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           : adapter.name === "file-system"
             ? "the local file system"
             : adapter.name
-      } (size: ${prettyBytes(new Blob(toArray(code)).size)})`
+      } (size: ${prettyBytes(isString(code) ? new Blob(toArray(code)).size : code.byteLength)})`
     );
 
     const id = this.#normalizeId(meta.id || resolvedPath);
@@ -1705,7 +1760,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     this.paths[id] = resolvedPath;
     this.ids[resolvedPath] = id;
 
-    return adapter.set(relativeKey, code);
+    return adapter.set(
+      relativeKey,
+      isString(code) ? code : uint8ArrayToString(toUint8Array(code))
+    );
   }
 
   /**
@@ -1717,7 +1775,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    */
   public writeSync(
     path: string,
-    data: string = "",
+    data: string | NodeJS.ArrayBufferView = "",
     options: WriteOptions = {}
   ): void {
     const meta = options.meta ?? {};
@@ -1735,7 +1793,7 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
           : adapter.name === "file-system"
             ? "the local file system"
             : adapter.name
-      } (size: ${prettyBytes(new Blob(toArray(data)).size)})`
+      } (size: ${prettyBytes(isString(data) ? new Blob(toArray(data)).size : data.byteLength)})`
     );
 
     const id = this.#normalizeId(meta.id || resolvedPath);
@@ -1748,7 +1806,10 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
     this.paths[id] = resolvedPath;
     this.ids[resolvedPath] = id;
 
-    return adapter.setSync(relativeKey, data);
+    return adapter.setSync(
+      relativeKey,
+      isString(data) ? data : uint8ArrayToString(toUint8Array(data))
+    );
   }
 
   /**

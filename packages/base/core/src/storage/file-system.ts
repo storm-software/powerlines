@@ -16,6 +16,7 @@
 
  ------------------------------------------------------------------- */
 
+import { writeFileBuffer, writeFileBufferSync } from "@stryke/fs/buffer";
 import { exists, existsSync } from "@stryke/fs/exists";
 import { createDirectory, createDirectorySync } from "@stryke/fs/helpers";
 import { isDirectory, isFile } from "@stryke/fs/is-file";
@@ -23,6 +24,7 @@ import { listFiles, listFilesSync } from "@stryke/fs/list-files";
 import { readFile, readFileSync } from "@stryke/fs/read-file";
 import { writeFile, writeFileSync } from "@stryke/fs/write-file";
 import { isSetString } from "@stryke/type-checks/is-set-string";
+import { isString } from "@stryke/type-checks/is-string";
 import { unlinkSync } from "node:fs";
 import { unlink } from "node:fs/promises";
 import { getFileHeaderWarningText } from "../lib/utilities/file-header";
@@ -106,7 +108,7 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
    * @param key - The key to set the value for.
    * @param value - The value to set.
    */
-  public setSync(key: string, value: string) {
+  public setSync(key: string, value: string | NodeJS.ArrayBufferView): void {
     if (!this.isReadOnly) {
       if (this.existsSync(this.resolve(key)) && !this.overwrite) {
         const existingValue = this.getSync(this.resolve(key));
@@ -133,8 +135,16 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
             )
           );
         }
-      } else {
+      } else if (isString(value)) {
         return writeFileSync(this.resolve(key), value);
+      } else {
+        return writeFileBufferSync(
+          this.resolve(key),
+          value.buffer.slice(
+            value.byteOffset,
+            value.byteOffset + value.byteLength
+          ) as ArrayBuffer
+        );
       }
     }
   }
@@ -145,7 +155,10 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
    * @param key - The key to set the value for.
    * @param value - The value to set.
    */
-  public override async set(key: string, value: string): Promise<void> {
+  public override async set(
+    key: string,
+    value: string | NodeJS.ArrayBufferView
+  ): Promise<void> {
     if (!this.isReadOnly) {
       if (this.existsSync(this.resolve(key)) && !this.overwrite) {
         const existingValue = await this.get(this.resolve(key));
@@ -172,8 +185,16 @@ export class FileSystemStorageAdapter extends BaseStorageAdapter {
             )
           );
         }
-      } else {
+      } else if (isString(value)) {
         return writeFile(this.resolve(key), value);
+      } else {
+        return writeFileBuffer(
+          this.resolve(key),
+          value.buffer.slice(
+            value.byteOffset,
+            value.byteOffset + value.byteLength
+          ) as ArrayBuffer
+        );
       }
     }
   }

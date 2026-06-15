@@ -88,7 +88,7 @@
     "prettier": "catalog:",
     "publint": "catalog:",
     "rimraf": "catalog:",
-    "sheriff": "catalog:",
+    "sherif": "catalog:",
     "tslib": "catalog:",
     "typescript": "^6.0.3",
     "verdaccio": "catalog:",
