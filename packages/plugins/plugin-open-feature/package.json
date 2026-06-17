@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-open-feature",
-  "version": "0.1.236",
+  "version": "0.1.237",
   "private": false,
   "description": "A package containing a Powerlines plugin for managing Open Feature feature flags at runtime.",
   "keywords": [

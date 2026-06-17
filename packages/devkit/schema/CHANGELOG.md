@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.121](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.121) (06/17/2026)
+
+### Miscellaneous
+
+- **schema:** Update `SchemaInput` to allow type parameter and added `SchemaOf` type ([3f00aeee4](https://github.com/storm-software/powerlines/commit/3f00aeee4))
+
 ## [0.11.120](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.120) (06/17/2026)
 
 ### Features
