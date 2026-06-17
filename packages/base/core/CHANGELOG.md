@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.59](https://github.com/storm-software/powerlines/releases/tag/core%400.48.59) (06/15/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue writing buffers to file ([332c3a4fe](https://github.com/storm-software/powerlines/commit/332c3a4fe))
+
 ## [0.48.58](https://github.com/storm-software/powerlines/releases/tag/core%400.48.58) (06/15/2026)
 
 ### Miscellaneous

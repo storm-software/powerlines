@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.119](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.119) (06/15/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue writing buffers to file ([332c3a4fe](https://github.com/storm-software/powerlines/commit/332c3a4fe))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.59**
+- Updated **deepkit** to **v0.9.91**
+- Updated **unplugin** to **v0.0.107**
+
 ## [0.11.118](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.118) (06/15/2026)
 
 ### Miscellaneous
