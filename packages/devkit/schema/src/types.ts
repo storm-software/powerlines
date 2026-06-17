@@ -16,11 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-import type { Type } from "@powerlines/deepkit/vendor/type";
+import type { ReceiveType, Type } from "@powerlines/deepkit/vendor/type";
 import type { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import type { FileReferenceInput } from "@stryke/types/configuration";
-import type { JSONSchemaType } from "ajv";
-import type { InputObject, Schema as _Schema } from "untyped";
+import type { InputObject, Schema as UntypedBaseSchema } from "untyped";
 import type { BaseIssue, BaseSchema } from "valibot";
 import * as z3 from "zod/v3";
 import { JSON_SCHEMA_PRIMITIVE_TYPES, JSON_SCHEMA_TYPES } from "./constants";
@@ -33,7 +32,7 @@ export type UntypedInputObject = InputObject;
 /**
  * Alias for the Untyped schema document shape.
  */
-export type UntypedSchema = _Schema;
+export type UntypedSchema = UntypedBaseSchema;
 
 /**
  * A Valibot schema instance.
@@ -1320,6 +1319,104 @@ export interface JsonSchemaLike extends JsonSchemaKeywords {
   multipleOf?: number | bigint;
 }
 
+type IsAny<T> = 0 extends 1 & T ? true : false;
+
+type IsNever<T> = [T] extends [never] ? true : false;
+
+type IsUnknown<T> =
+  IsAny<T> extends true
+    ? false
+    : unknown extends T
+      ? [keyof T] extends [never]
+        ? true
+        : false
+      : false;
+
+type IsUnion<T, U = T> =
+  IsNever<T> extends true
+    ? false
+    : T extends any
+      ? [U] extends [T]
+        ? false
+        : true
+      : false;
+
+type IsTuple<T extends readonly unknown[]> = number extends T["length"]
+  ? false
+  : true;
+
+type JsonSchemaPrefixItems<T extends readonly unknown[]> = {
+  [K in keyof T]: JsonSchemaOf<T[K]>;
+} extends infer P
+  ? P extends readonly JsonSchema[]
+    ? [...P]
+    : JsonSchema[]
+  : JsonSchema[];
+
+type JsonSchemaRequiredObjectKeys<T extends object> = {
+  [K in keyof T]-?: undefined extends T[K] ? never : K;
+}[keyof T] &
+  string;
+
+type JsonSchemaObjectProperties<T extends object> = {
+  [K in keyof T]-?: JsonSchemaOf<T[K]>;
+};
+
+type JsonSchemaForTuple<T extends readonly unknown[]> = JsonSchemaTuple & {
+  prefixItems: JsonSchemaPrefixItems<T>;
+  minItems: T["length"];
+  maxItems: T["length"];
+};
+
+type JsonSchemaForArray<T extends readonly unknown[]> =
+  IsTuple<T> extends true
+    ? JsonSchemaForTuple<T>
+    : JsonSchemaArray & {
+        items?: JsonSchemaOf<T[number]>;
+      };
+
+type JsonSchemaRecordValue<T extends object> =
+  T extends Record<string, infer V> ? V : unknown;
+
+type JsonSchemaForRecord<T extends object> = JsonSchemaRecord & {
+  additionalProperties?: JsonSchemaOf<JsonSchemaRecordValue<T>>;
+};
+
+type JsonSchemaForObject<T extends object> = string extends keyof T
+  ? JsonSchemaForRecord<T>
+  : JsonSchemaObject & {
+      properties?: JsonSchemaObjectProperties<T>;
+      required?: JsonSchemaRequiredObjectKeys<T>[];
+    };
+
+type JsonSchemaForNonNull<T> = T extends string
+  ? JsonSchemaString
+  : T extends bigint
+    ? JsonSchemaBigint
+    : T extends number
+      ? JsonSchemaNumber
+      : T extends boolean
+        ? JsonSchemaBoolean
+        : T extends Date
+          ? JsonSchemaDate
+          : T extends Map<infer K, infer V>
+            ? JsonSchemaMap & {
+                items: JsonSchemaMap["items"] & {
+                  prefixItems: [JsonSchemaOf<K>, JsonSchemaOf<V>];
+                };
+              }
+            : T extends Set<infer U>
+              ? JsonSchemaSet & {
+                  items?: JsonSchemaOf<U>;
+                }
+              : T extends readonly unknown[]
+                ? JsonSchemaForArray<T>
+                : T extends (...args: any[]) => any
+                  ? JsonSchemaNever
+                  : T extends object
+                    ? JsonSchemaForObject<T>
+                    : JsonSchemaUnknown;
+
 /**
  * Validates a JSON Schema type for a given TypeScript type.
  *
@@ -1330,7 +1427,26 @@ export interface JsonSchemaLike extends JsonSchemaKeywords {
  *
  * @template T - The TypeScript type for which to derive the JSON Schema.
  */
-export type JsonSchemaOf<T> = JSONSchemaType<T>;
+export type JsonSchemaOf<T> =
+  IsAny<T> extends true
+    ? JsonSchemaAny
+    : IsNever<T> extends true
+      ? JsonSchemaNever
+      : IsUnknown<T> extends true
+        ? JsonSchemaUnknown
+        : IsUnion<T> extends true
+          ? null extends T
+            ? JsonSchemaNullable & {
+                anyOf: [JsonSchemaOf<Exclude<T, null>>, JsonSchemaNull];
+              }
+            : JsonSchemaAnyOf & {
+                anyOf: Array<T extends unknown ? JsonSchemaOf<T> : never>;
+              }
+          : [T] extends [null]
+            ? JsonSchemaNull
+            : [T] extends [undefined]
+              ? JsonSchemaUndefined
+              : JsonSchemaForNonNull<T>;
 
 /**
  * Supported source variants from which a schema can be extracted.
@@ -1351,19 +1467,22 @@ export type SchemaInputVariant = SchemaSourceVariant | "file-reference";
 /**
  * Raw schema source input union before normalization.
  */
-export type SchemaSourceInput =
-  | StandardJSONSchemaV1
-  | JsonSchema
-  | z3.ZodTypeAny
+export type SchemaSourceInput<T = any> =
+  | StandardJSONSchemaV1<T>
+  | JsonSchemaOf<T>
+  | z3.ZodType<T, any, any>
   | UntypedInputObject
   | UntypedSchema
-  | ValibotSchema
-  | Type;
+  | ValibotSchema<T>
+  | ReceiveType<T>;
 
 /**
  * Any accepted schema input, including normalized schemas and references.
  */
-export type SchemaInput = SchemaSourceInput | Schema | FileReferenceInput;
+export type SchemaInput<T = any> =
+  | SchemaSourceInput<T>
+  | Schema<JsonSchemaOf<T>>
+  | FileReferenceInput;
 
 /**
  * A schema extracted from a source input, normalized to JSON Schema.
@@ -1380,9 +1499,18 @@ export interface Schema<TJsonSchema extends JsonSchema = JsonSchema> {
 }
 
 /**
+ * A normalized JSON Schema extracted from a source input of type `T`. This type represents the result of the schema extraction process, where a raw schema input (which could be in various formats such as Zod, Untyped, Valibot, or Deepkit reflection types) is transformed into a standardized JSON Schema format. The `SchemaOf<T>` type captures the normalized JSON Schema along with metadata about the source variant and a content hash for caching or identification purposes.
+ *
+ * @template T - The original TypeScript type for which the schema is being extracted. This type parameter is used to derive the appropriate JSON Schema representation based on the structure and constraints of `T`.
+ *
+ * @see {@link Schema}
+ */
+export type SchemaOf<T> = Schema<JsonSchemaOf<T>>;
+
+/**
  * Base metadata captured for schema source inputs.
  */
-export interface BaseSchemaSource {
+export interface BaseSchemaSource<T = any> {
   /** A stable content hash for the original source schema. */
   hash: string;
 
@@ -1390,46 +1518,48 @@ export interface BaseSchemaSource {
   variant: SchemaSourceVariant;
 
   /** The original schema input captured before normalization. */
-  schema: SchemaSourceInput;
+  schema: SchemaSourceInput<T>;
 }
 
 /**
  * Source descriptor for schemas that already use JSON Schema.
  */
-export interface JsonSchemaSchemaSource extends BaseSchemaSource {
+export interface JsonSchemaSchemaSource<T = any> extends BaseSchemaSource<T> {
   /** Indicates the source input already uses JSON Schema syntax. */
   variant: "json-schema";
 
   /** The original JSON Schema document. */
-  schema: JsonSchema;
+  schema: JsonSchemaOf<T>;
 }
 
 /**
  * Source descriptor for Standard Schema inputs.
  */
-export interface StandardSchemaSchemaSource extends BaseSchemaSource {
+export interface StandardSchemaSchemaSource<
+  T = any
+> extends BaseSchemaSource<T> {
   /** Indicates the source input follows the Standard Schema format. */
   variant: "standard-schema";
 
   /** The original Standard Schema document. */
-  schema: StandardJSONSchemaV1;
+  schema: StandardJSONSchemaV1<T>;
 }
 
 /**
  * Source descriptor for Zod v3 schema inputs.
  */
-export interface Zod3SchemaSource extends BaseSchemaSource {
+export interface Zod3SchemaSource<T = any> extends BaseSchemaSource<T> {
   /** Indicates the source input is a Zod v3 schema. */
   variant: "zod3";
 
   /** The original Zod v3 schema instance. */
-  schema: z3.ZodTypeAny;
+  schema: z3.ZodType<T, any, any>;
 }
 
 /**
  * Source descriptor for Deepkit reflection type inputs.
  */
-export interface ReflectionSchemaSource extends BaseSchemaSource {
+export interface ReflectionSchemaSource<T = any> extends BaseSchemaSource<T> {
   /** Indicates the source input is a Deepkit reflection {@link Type}. */
   variant: "reflection";
 
@@ -1440,7 +1570,7 @@ export interface ReflectionSchemaSource extends BaseSchemaSource {
 /**
  * Source descriptor for Untyped schema inputs.
  */
-export interface UntypedSchemaSource extends BaseSchemaSource {
+export interface UntypedSchemaSource<T = any> extends BaseSchemaSource<T> {
   /** Indicates the source input comes from the Untyped schema model. */
   variant: "untyped";
 
@@ -1451,24 +1581,24 @@ export interface UntypedSchemaSource extends BaseSchemaSource {
 /**
  * Source descriptor for Valibot schema inputs.
  */
-export interface ValibotSchemaSource extends BaseSchemaSource {
+export interface ValibotSchemaSource<T = any> extends BaseSchemaSource<T> {
   /** Indicates the source input comes from the Valibot schema model. */
   variant: "valibot";
 
   /** The original Valibot schema input. */
-  schema: ValibotSchema;
+  schema: ValibotSchema<T>;
 }
 
 /**
  * Union of all normalized schema source descriptor variants.
  */
-export type SchemaSource =
-  | JsonSchemaSchemaSource
-  | StandardSchemaSchemaSource
-  | Zod3SchemaSource
-  | UntypedSchemaSource
-  | ValibotSchemaSource
-  | ReflectionSchemaSource;
+export type SchemaSource<T = any> =
+  | JsonSchemaSchemaSource<T>
+  | StandardSchemaSchemaSource<T>
+  | Zod3SchemaSource<T>
+  | UntypedSchemaSource<T>
+  | ValibotSchemaSource<T>
+  | ReflectionSchemaSource<T>;
 
 /**
  * A normalized schema plus metadata about the source that produced it.
