@@ -19,6 +19,7 @@
 import type { Type } from "@powerlines/deepkit/vendor/type";
 import type { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import type { FileReferenceInput } from "@stryke/types/configuration";
+import type { JSONSchemaType } from "ajv";
 import type { InputObject, Schema as _Schema } from "untyped";
 import type { BaseIssue, BaseSchema } from "valibot";
 import * as z3 from "zod/v3";
@@ -1318,6 +1319,18 @@ export interface JsonSchemaLike extends JsonSchemaKeywords {
   exclusiveMaximum?: number | bigint;
   multipleOf?: number | bigint;
 }
+
+/**
+ * Validates a JSON Schema type for a given TypeScript type.
+ *
+ * @remarks
+ * This utility type is used to derive a JSON Schema type from a TypeScript type `T`. It ensures that the resulting JSON Schema is compatible with the structure and constraints of the TypeScript type. The specific mapping from TypeScript types to JSON Schema types is determined by the implementation of the schema extraction logic, which may involve analyzing the properties, types, and other characteristics of `T` to produce an appropriate JSON Schema representation.
+ *
+ * @see https://ajv.js.org/guide/typescript.html#utility-types-for-schemas
+ *
+ * @template T - The TypeScript type for which to derive the JSON Schema.
+ */
+export type JsonSchemaOf<T> = JSONSchemaType<T>;
 
 /**
  * Supported source variants from which a schema can be extracted.

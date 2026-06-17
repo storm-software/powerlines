@@ -52,7 +52,7 @@ import {
 import {
   generateParserCode,
   getPropertiesList,
-  GetPropertiesResult,
+  GetPropertyResult,
   JsonSchema,
   JsonSchemaObject
 } from "@powerlines/schema";
@@ -391,7 +391,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       get: (target: UnprefixedEnv, propertyName: string) => { `}
           <hbr />
           <For each={schemaGetProperties.value}>
-            {(property: GetPropertiesResult, index: number) => (
+            {(property: GetPropertyResult, index: number) => (
               <ConfigPropertyGet
                 index={index}
                 context={context}
@@ -408,7 +408,7 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
           {code` set: (target: UnprefixedEnv, propertyName: string, newValue: any) => { `}
           <hbr />
           <For each={schemaSetProperties.value} ender={code` else `}>
-            {(property: GetPropertiesResult, index: number) => (
+            {(property: GetPropertyResult, index: number) => (
               <ConfigPropertySet
                 index={index}
                 context={context}

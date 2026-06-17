@@ -36,7 +36,7 @@ catalog:
   "@babel/types": 8.0.0-rc.6
   "@cacheable/memory": ^2.0.9
   "@cloudflare/unenv-preset": ^2.16.1
-  "@cloudflare/workers-types": ^4.20260615.1
+  "@cloudflare/workers-types": ^4.20260616.1
   "@content-collections/core": ^0.12.0
   "@deepkit/core": 1.0.5
   "@deepkit/type": 1.0.5
@@ -86,10 +86,10 @@ catalog:
   "@rollup/plugin-replace": ^6.0.3
   "@rollup/pluginutils": ^4.2.1
   "@rspack/core": ^1.7.11
-  "@shell-shock/core": ^0.17.21
-  "@shell-shock/eslint-plugin": ^0.0.85
-  "@shell-shock/nx": ^0.0.94
-  "@shell-shock/preset-cli": ^0.9.33
+  "@shell-shock/core": ^0.17.22
+  "@shell-shock/eslint-plugin": ^0.0.86
+  "@shell-shock/nx": ^0.0.95
+  "@shell-shock/preset-cli": ^0.9.34
   "@sinclair/typebox": ^0.34.49
   "@standard-schema/spec": ^1.1.0
   "@storm-software/build-tools": ^0.158.229
@@ -110,23 +110,23 @@ catalog:
   "@storm-software/unbuild": ^0.57.230
   "@storm-software/untyped": ^0.24.211
   "@storm-software/workspace-tools": ^1.296.49
-  "@stryke/async": ^0.1.12
-  "@stryke/capnp": ^0.12.111
-  "@stryke/cli": ^0.13.57
-  "@stryke/convert": ^0.7.15
-  "@stryke/env": ^0.20.102
-  "@stryke/fs": ^0.33.85
-  "@stryke/hash": ^0.13.38
-  "@stryke/helpers": ^0.10.24
-  "@stryke/http": ^0.12.74
-  "@stryke/json": ^0.15.8
-  "@stryke/path": ^0.29.11
-  "@stryke/string-format": ^0.17.26
-  "@stryke/type-checks": ^0.6.17
-  "@stryke/types": ^0.12.12
-  "@stryke/unique-id": ^0.3.96
-  "@stryke/url": ^0.4.35
-  "@stryke/zod": ^0.3.30
+  "@stryke/async": ^0.1.13
+  "@stryke/capnp": ^0.12.112
+  "@stryke/cli": ^0.13.58
+  "@stryke/convert": ^0.7.16
+  "@stryke/env": ^0.20.103
+  "@stryke/fs": ^0.33.86
+  "@stryke/hash": ^0.13.39
+  "@stryke/helpers": ^0.10.25
+  "@stryke/http": ^0.12.75
+  "@stryke/json": ^0.15.9
+  "@stryke/path": ^0.29.12
+  "@stryke/string-format": ^0.17.27
+  "@stryke/type-checks": ^0.6.18
+  "@stryke/types": ^0.12.13
+  "@stryke/unique-id": ^0.3.97
+  "@stryke/url": ^0.4.36
+  "@stryke/zod": ^0.3.31
   "@swc-node/register": ^1.11.1
   "@swc/core": ^1.15.41
   "@swc/helpers": ^0.5.23
@@ -150,7 +150,7 @@ catalog:
   "@types/unist": ^3.0.3
   "@valibot/to-json-schema": ^1.7.1
   "@vitejs/plugin-react": ^5.2.0
-  "@vitest/coverage-v8": ~4.1.8
+  "@vitest/coverage-v8": ~4.1.9
   ajv: ^8.20.0
   ajv-formats: ^3.0.1
   automd: ^0.4.3
@@ -167,7 +167,7 @@ catalog:
   devframe: ^0.1.22
   diff-match-patch: ^1.0.5
   esbuild: ^0.27.7
-  eslint: ^9.39.4
+  eslint: ^10.5.0
   eslint-flat-config-utils: ^2.1.4
   execa: ^9.6.1
   flat-cache: ^6.1.22
@@ -177,7 +177,7 @@ catalog:
   h3: ^1.15.11
   handlebars: ^4.7.9
   human-id: ^4.2.0
-  i18next-cli: ^1.63.1
+  i18next-cli: ^1.64.0
   i18next-resources-for-ts: ^2.1.0
   jest: ^30.4.2
   jest-config: ^30.4.2
@@ -197,7 +197,7 @@ catalog:
   oxc-parser: ^0.99.0
   oxc-resolver: ^11.20.0
   oxc-transform: ^0.99.0
-  oxlint: ^1.69.0
+  oxlint: ^1.70.0
   oxlint-tsgolint: ^0.14.2
   picomatch: ^4.0.4
   piscina: ^5.1.4
@@ -233,8 +233,8 @@ catalog:
   typedoc-plugin-markdown: 4.0.0-next.20
   ua-parser-modern: ^0.1.1
   unctx: ^2.5.0
-  undici: ^7.27.2
-  undici-types: ^7.27.2
+  undici: ^7.28.0
+  undici-types: ^7.28.0
   unenv: npm:unenv-nightly@2.0.0-20251124-134829-ab99519
   unified: ^11.0.5
   unimport: ^5.7.0
@@ -244,9 +244,9 @@ catalog:
   valibot: ^1.4.1
   verdaccio: 6.5.2
   vite: ^8.0.16
-  vitest: ~4.1.8
+  vitest: ~4.1.9
   webpack: ^5.107.2
-  wrangler: ^4.100.0
+  wrangler: ^4.101.0
   yaml: ^2.9.0
   zod: ^4.4.3
   zx: ^8.8.5

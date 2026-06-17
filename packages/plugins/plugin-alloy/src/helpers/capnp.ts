@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import type {
-  GetPropertiesResult,
+  GetPropertyResult,
   JsonSchema,
   JsonSchemaAnyOf,
   JsonSchemaEnum,
@@ -111,7 +111,7 @@ export async function compile(
  * @returns A string representation of the value.
  */
 export function stringifyCapnpDefaultValue(
-  property: GetPropertiesResult,
+  property: GetPropertyResult,
   value?: any
 ): string {
   return stringifyCapnpValue(property, value ?? property.default);
@@ -387,7 +387,7 @@ export function generateCapnpSchema(
   }`;
 }
 
-function generateCapnpPropertyComment(prop: GetPropertiesResult) {
+function generateCapnpPropertyComment(prop: GetPropertyResult) {
   const result = getWords(
     prop.description ||
       `A schema property for ${titleCase(prop.title || prop.name)} field.`,
@@ -418,7 +418,7 @@ function generateCapnpPropertyComment(prop: GetPropertiesResult) {
 }
 
 function generateCapnpPropertySchema(
-  prop: GetPropertiesResult,
+  prop: GetPropertyResult,
   indexCounter: () => number
 ): string {
   const propName = prop.name;

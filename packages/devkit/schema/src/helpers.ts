@@ -29,7 +29,7 @@ import { readSchemaTypes } from "./metadata";
 import { isJsonSchema, isJsonSchemaObject, isSchema } from "./type-checks";
 import { JsonSchema, JsonSchemaLike, JsonSchemaObject, Schema } from "./types";
 
-export type GetPropertiesResult = JsonSchema & {
+export type GetPropertyResult = JsonSchema & {
   name: string;
   required: boolean;
   default?: unknown;
@@ -86,7 +86,7 @@ export function getJsonSchemaObject(
  */
 export function getProperties(
   obj: Schema | JsonSchemaObject
-): Record<string, GetPropertiesResult> {
+): Record<string, GetPropertyResult> {
   const schema = getJsonSchemaObject(obj);
   if (!isSetObject(schema.properties)) {
     return {};
@@ -95,17 +95,14 @@ export function getProperties(
   return Object.entries(schema.properties).reduce(
     (ret, [key, value]) => {
       value.name = key;
-      (value as GetPropertiesResult).required = !isPropertyOptional(
-        schema,
-        key
-      );
-      (value as GetPropertiesResult).default =
-        schema.default?.[key] ?? (value as GetPropertiesResult).default;
+      (value as GetPropertyResult).required = !isPropertyOptional(schema, key);
+      (value as GetPropertyResult).default =
+        schema.default?.[key] ?? (value as GetPropertyResult).default;
 
-      ret[key] = value as GetPropertiesResult;
+      ret[key] = value as GetPropertyResult;
       return ret;
     },
-    {} as Record<string, GetPropertiesResult>
+    {} as Record<string, GetPropertyResult>
   );
 }
 
@@ -120,6 +117,39 @@ export function getProperties(
  */
 export function getPropertiesList(obj: Schema | JsonSchemaObject) {
   return Object.values(getProperties(obj));
+}
+
+/**
+ * Extracts object properties from a JSON Schema object form.
+ *
+ * @remarks
+ * This function returns an empty object if the schema is not an object form or if it has no properties.
+ *
+ * @param obj - The JSON Schema object form or a Schema wrapper to extract properties from.
+ * @returns An object mapping property names to their corresponding JSON Schema fragments, including metadata.
+ */
+export function getProperty<TSchema extends JsonSchemaObject>(
+  obj: Schema<TSchema> | TSchema,
+  name: keyof TSchema["properties"] & string
+): GetPropertyResult {
+  const schema = getJsonSchemaObject(obj);
+  if (!isSetObject(schema.properties)) {
+    throw new TypeError(`The provided schema does not have any properties`);
+  }
+
+  const property = schema.properties[name];
+  if (!property) {
+    throw new TypeError(
+      `The provided schema does not have a property named "${name}"`
+    );
+  }
+
+  return {
+    ...property,
+    name,
+    required: !isPropertyOptional(schema, name),
+    default: schema.default?.[name] ?? (property as JsonSchemaLike)?.default
+  };
 }
 
 /**
