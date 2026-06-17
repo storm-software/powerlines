@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.120](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.120) (06/17/2026)
+
+### Features
+
+- **schema:** Added `getProperty` utility and `JsonSchemaOf` type ([3e91a3305](https://github.com/storm-software/powerlines/commit/3e91a3305))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.60**
+- Updated **deepkit** to **v0.9.92**
+- Updated **unplugin** to **v0.0.108**
+
 ## [0.11.119](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.119) (06/15/2026)
 
 ### Bug Fixes

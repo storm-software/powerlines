@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.231](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.231) (06/17/2026)
+
+### Features
+
+- **schema:** Added `getProperty` utility and `JsonSchemaOf` type ([3e91a3305](https://github.com/storm-software/powerlines/commit/3e91a3305))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.9.92**
+- Updated **plugin-babel** to **v0.13.134**
+- Updated **plugin-plugin** to **v0.12.550**
+- Updated **powerlines** to **v0.47.138**
+- Updated **schema** to **v0.11.120**
+
 ## [0.26.230](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.230) (06/15/2026)
 
 ### Updated Dependencies

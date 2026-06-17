@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.342](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.342) (06/17/2026)
+
+### Features
+
+- **schema:** Added `getProperty` utility and `JsonSchemaOf` type ([3e91a3305](https://github.com/storm-software/powerlines/commit/3e91a3305))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.60**
+- Updated **plugin-alloy** to **v0.26.231**
+- Updated **plugin-automd** to **v0.1.599**
+- Updated **plugin-babel** to **v0.13.134**
+- Updated **plugin-deepkit** to **v0.11.481**
+- Updated **plugin-plugin** to **v0.12.550**
+- Updated **powerlines** to **v0.47.138**
+- Updated **schema** to **v0.11.120**
+
 ## [0.16.341](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.341) (06/15/2026)
 
 ### Updated Dependencies
