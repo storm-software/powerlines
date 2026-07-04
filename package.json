@@ -24,7 +24,11 @@
   "license": "Apache-2.0",
   "private": true,
   "packageManager": "pnpm@11.1.2",
-  "keywords": ["storm-software", "powerlines", "sullivanpj"],
+  "keywords": [
+    "storm-software",
+    "powerlines",
+    "sullivanpj"
+  ],
   "scripts": {
     "adr": "pnpm log4brains adr new",
     "adr-preview": "pnpm log4brains preview",
@@ -64,6 +68,7 @@
     "@storm-software/config-tools": "catalog:",
     "@storm-software/cspell": "catalog:",
     "@storm-software/eslint": "catalog:",
+    "@storm-software/eslint-plugin-tsdoc": "^0.0.46",
     "@storm-software/git-tools": "catalog:",
     "@storm-software/linting-tools": "catalog:",
     "@storm-software/markdownlint": "catalog:",

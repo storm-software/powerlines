@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 declare module "@asyncapi/generator" {
-  import { AsyncAPISchema } from "@asyncapi/parser/esm/models/v3/asyncapi";
+  import { AsyncAPIDocument } from "@asyncapi/parser/esm/models/v3/asyncapi";
 
   export interface GeneratorOptions {
     templateParams?: Record<string, unknown>;
@@ -45,7 +45,7 @@ declare module "@asyncapi/generator" {
     );
 
     generate(
-      asyncapi: AsyncAPISchema | string,
+      asyncapi: AsyncAPIDocument | string,
       params?: Record<string, unknown>
     ): Promise<void>;
   }
