@@ -199,10 +199,11 @@
     "eslint-flat-config-utils": "catalog:",
     "jsonc-eslint-parser": "catalog:",
     "nx": "catalog:",
+    "tsdown": "catalog:",
     "untyped": "catalog:"
   },
   "peerDependencies": {
-    "nx": ">=22.7.0"
+    "nx": ">=23.0.0"
   },
   "peerDependenciesMeta": {
     "nx": {

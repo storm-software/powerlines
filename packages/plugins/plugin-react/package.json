@@ -149,6 +149,7 @@
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
     "@powerlines/plugin-vite": "workspace:*",
+    "@rolldown/plugin-babel": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@stryke/cli": "catalog:",
     "@stryke/convert": "catalog:",

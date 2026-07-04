@@ -175,9 +175,9 @@ export default plugin;
 //       environments.client = {
 //         consumer: userConfig.environments?.client?.consumer ?? "client",
 //         build: {
-//           rollupOptions: {
+//           rolldownOptions: {
 //             input:
-//               userConfig.environments?.client?.build?.rollupOptions?.input ??
+//               userConfig.environments?.client?.build?.rolldownOptions?.input ??
 //               useNitro(ctx).options.renderer?.template
 //           }
 //         }

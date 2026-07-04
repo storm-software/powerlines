@@ -22,9 +22,11 @@ import babel, { BabelPluginResolvedConfig } from "@powerlines/plugin-babel";
 import env from "@powerlines/plugin-env";
 import type { VitePluginResolvedConfig } from "@powerlines/plugin-vite/types/plugin";
 import { addProperty } from "@powerlines/schema";
+import rolldownBabel from "@rolldown/plugin-babel";
 import { kebabCase } from "@stryke/string-format/kebab-case";
-import viteReactPlugin, { BabelOptions } from "@vitejs/plugin-react";
+import viteReactPlugin from "@vitejs/plugin-react";
 import type { LoggerEvent } from "babel-plugin-react-compiler";
+import reactCompilerPreset from "babel-plugin-react-compiler";
 import defu from "defu";
 import type { Plugin } from "powerlines";
 import { ReactOptimizedBuiltin } from "./components/react-optimized";
@@ -139,7 +141,11 @@ export const plugin = <
         this.devDependencies["@types/react"] = "^19.2.3";
         this.devDependencies["@types/react-dom"] = "^19.2.3";
 
-        if (this.config.react.compiler !== false) {
+        const usesVite = Boolean(
+          (this.config as unknown as VitePluginResolvedConfig).vite
+        );
+
+        if (this.config.react.compiler !== false && !usesVite) {
           (this.config as BabelPluginResolvedConfig).babel ??=
             {} as BabelPluginResolvedConfig["babel"];
 
@@ -193,7 +199,7 @@ export const plugin = <
           this.tsconfig.tsconfigJson.compilerOptions.resolveJsonModule = true;
         }
 
-        if ((this.config as unknown as VitePluginResolvedConfig).vite) {
+        if (usesVite) {
           this.tsconfig.tsconfigJson.compilerOptions.types ??= [];
 
           if (
@@ -216,13 +222,20 @@ export const plugin = <
           viteBuildConfig.plugins ??= [];
           viteBuildConfig.plugins.unshift(
             viteReactPlugin({
-              babel: (this.config as BabelPluginResolvedConfig)
-                .babel as BabelOptions,
               jsxImportSource: this.config.react.jsxImportSource,
               jsxRuntime: this.config.react.jsxRuntime,
               reactRefreshHost: this.config.react.reactRefreshHost
             })
           );
+
+          if (this.config.react.compiler !== false) {
+            viteBuildConfig.plugins.push(
+              rolldownBabel({
+                ...(this.config.react.compiler ?? {}),
+                presets: [reactCompilerPreset]
+              })
+            );
+          }
         }
 
         if (
