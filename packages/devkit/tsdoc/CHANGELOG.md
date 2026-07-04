@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.136](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.136) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
 ## [0.2.133](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.133) (06/15/2026)
 
 ### Miscellaneous

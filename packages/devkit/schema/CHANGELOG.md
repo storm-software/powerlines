@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.122](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.122) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.61**
+- Updated **deepkit** to **v0.9.93**
+- Updated **unplugin** to **v0.0.109**
+
 ## [0.11.121](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.121) (06/17/2026)
 
 ### Miscellaneous

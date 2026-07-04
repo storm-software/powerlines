@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Webpack
 
+## [0.5.592](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.592) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.61**
+- Updated **powerlines** to **v0.47.140**
+- Updated **unplugin** to **v0.0.109**
+
 ## [0.5.591](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.591) (06/17/2026)
 
 ### Updated Dependencies

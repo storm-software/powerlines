@@ -1,14 +1,9 @@
 {
   "name": "@powerlines/plugin-rolldown",
-  "version": "0.7.596",
+  "version": "0.7.597",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
-  "keywords": [
-    "rolldown",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "keywords": ["rolldown", "powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -66,9 +61,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@powerlines/unplugin": "workspace:*",

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.595](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.595) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.61**
+- Updated **powerlines** to **v0.47.140**
+- Updated **unplugin** to **v0.0.109**
+
 ## [0.13.594](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.594) (06/17/2026)
 
 ### Updated Dependencies

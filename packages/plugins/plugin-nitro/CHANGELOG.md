@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Nitro
 
+## [0.1.493](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.493) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.0.1 ([b660b7ca0](https://github.com/storm-software/powerlines/commit/b660b7ca0))
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **powerlines** to **v0.47.140**
+
 ## [0.1.492](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.492) (06/17/2026)
 
 ### Updated Dependencies

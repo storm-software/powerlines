@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Terraform
 
+## [0.1.201](https://github.com/storm-software/powerlines/releases/tag/plugin-terraform%400.1.201) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **powerlines** to **v0.47.140**
+
 ## [0.1.200](https://github.com/storm-software/powerlines/releases/tag/plugin-terraform%400.1.200) (06/17/2026)
 
 ### Updated Dependencies

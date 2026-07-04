@@ -1,14 +1,9 @@
 {
   "name": "@powerlines/plugin-pulumi",
-  "version": "0.6.241",
+  "version": "0.6.242",
   "private": false,
   "description": "A Powerlines plugin to deploy infrastructure using Pulumi.",
-  "keywords": [
-    "pulumi",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "keywords": ["pulumi", "powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -107,9 +102,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
+  "files": ["dist/**/*"],
   "dependencies": {
     "@pulumi/pulumi": "catalog:",
     "@stryke/fs": "catalog:",

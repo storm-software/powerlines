@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.9.93](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.93) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.61**
+
 ## [0.9.92](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.92) (06/17/2026)
 
 ### Updated Dependencies

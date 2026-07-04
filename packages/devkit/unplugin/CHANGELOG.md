@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.109](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.109) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.61**
+
 ## [0.0.108](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.108) (06/17/2026)
 
 ### Updated Dependencies

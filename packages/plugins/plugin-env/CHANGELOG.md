@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.344](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.344) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.61**
+- Updated **plugin-alloy** to **v0.26.233**
+- Updated **plugin-automd** to **v0.1.601**
+- Updated **plugin-babel** to **v0.13.136**
+- Updated **plugin-deepkit** to **v0.11.483**
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **powerlines** to **v0.47.140**
+- Updated **schema** to **v0.11.122**
+
 ## [0.16.343](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.343) (06/17/2026)
 
 ### Updated Dependencies

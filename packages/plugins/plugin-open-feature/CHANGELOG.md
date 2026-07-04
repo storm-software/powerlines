@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.238](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.238) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.233**
+- Updated **plugin-automd** to **v0.1.601**
+- Updated **plugin-babel** to **v0.13.136**
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **powerlines** to **v0.47.140**
+
 ## [0.1.237](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.237) (06/17/2026)
 
 ### Updated Dependencies

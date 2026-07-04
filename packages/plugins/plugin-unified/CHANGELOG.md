@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unified
 
+## [0.1.216](https://github.com/storm-software/powerlines/releases/tag/plugin-unified%400.1.216) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **powerlines** to **v0.47.140**
+
 ## [0.1.215](https://github.com/storm-software/powerlines/releases/tag/plugin-unified%400.1.215) (06/17/2026)
 
 ### Updated Dependencies

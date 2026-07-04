@@ -1,14 +1,9 @@
 {
   "name": "@powerlines/plugin-marked",
-  "version": "0.1.565",
+  "version": "0.1.566",
   "private": false,
   "description": "A Powerlines plugin to use the Marked markdown compiler to generate HTML.",
-  "keywords": [
-    "marked",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "keywords": ["marked", "powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -93,9 +88,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
+  "files": ["dist/**/*"],
   "dependencies": {
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
