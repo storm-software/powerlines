@@ -2,7 +2,11 @@
   "name": "@powerlines/plugin-alloy",
   "version": "0.26.232",
   "description": "A package containing various Alloy framework components and helper utilities.",
-  "keywords": ["alloy-js", "powerlines", "powerlines-plugin"],
+  "keywords": [
+    "alloy-js",
+    "powerlines",
+    "powerlines-plugin"
+  ],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -899,16 +903,18 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "./dist/index.d.mts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
-    "@babel/preset-typescript": "catalog:",
     "@alloy-js/core": "catalog:",
     "@alloy-js/json": "catalog:",
     "@alloy-js/markdown": "catalog:",
     "@alloy-js/typescript": "catalog:",
+    "@babel/preset-typescript": "catalog:",
     "@powerlines/deepkit": "workspace:*",
-    "@powerlines/schema": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
+    "@powerlines/schema": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",
@@ -926,6 +932,7 @@
     "unctx": "catalog:"
   },
   "devDependencies": {
+    "@alloy-js/babel-preset": ">=0.3.0",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },

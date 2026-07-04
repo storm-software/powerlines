@@ -3,7 +3,11 @@
   "version": "0.9.92",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
-  "keywords": ["deepkit", "powerlines", "storm-software"],
+  "keywords": [
+    "deepkit",
+    "powerlines",
+    "storm-software"
+  ],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -132,15 +136,19 @@
   "bin": {
     "deepkit-install": "bin/deepkit-install.cjs"
   },
-  "files": ["bin", "dist", "schemas"],
+  "files": [
+    "bin",
+    "dist",
+    "schemas"
+  ],
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/fs": "catalog:",
-    "@stryke/path": "catalog:",
-    "@stryke/json": "catalog:",
     "@stryke/helpers": "catalog:",
+    "@stryke/json": "catalog:",
+    "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",
     "defu": "catalog:",
@@ -155,8 +163,7 @@
     "@deepkit/type-spec": "catalog:",
     "@types/node": "catalog:",
     "rolldown": "catalog:",
-    "tsdown": "catalog:",
-    "esbuild": "catalog:"
+    "tsdown": "catalog:"
   },
   "peerDependencies": {
     "esbuild": "*",

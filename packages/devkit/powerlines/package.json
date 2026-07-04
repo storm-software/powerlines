@@ -199,7 +199,11 @@
   "bin": {
     "powerlines": "./bin/bin.mjs"
   },
-  "files": ["dist", "bin", "files"],
+  "files": [
+    "dist",
+    "bin",
+    "files"
+  ],
   "dependencies": {
     "@babel/types": "catalog:",
     "@powerlines/core": "workspace:*",

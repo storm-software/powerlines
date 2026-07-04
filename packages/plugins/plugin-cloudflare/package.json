@@ -3,7 +3,11 @@
   "version": "0.6.242",
   "private": false,
   "description": "A Powerlines plugin that provides integration with Cloudflare services.",
-  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -199,7 +203,9 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "peerDependencies": {
     "@cloudflare/unenv-preset": ">=2.16.0",
     "@cloudflare/workers-types": ">=4.20240909.0",
@@ -209,10 +215,10 @@
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/typescript": "catalog:",
-    "@powerlines/schema": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
     "@powerlines/plugin-pulumi": "workspace:*",
     "@powerlines/plugin-unenv": "workspace:*",
+    "@powerlines/schema": "workspace:*",
     "@pulumi/cloudflare": "catalog:",
     "@pulumi/pulumi": "catalog:",
     "@storm-software/config-tools": "catalog:",

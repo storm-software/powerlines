@@ -60,7 +60,9 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@msgpack/msgpack": "catalog:",
     "@powerlines/core": "workspace:*",

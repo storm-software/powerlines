@@ -3,7 +3,12 @@
   "version": "0.1.540",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
-  "keywords": ["tsdown", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "tsdown",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -62,7 +67,9 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@powerlines/unplugin": "workspace:*",
@@ -73,11 +80,13 @@
     "unplugin": "catalog:"
   },
   "devDependencies": {
+    "@arethetypeswrong/core": "catalog:",
     "@types/node": "catalog:",
+    "publint": "catalog:",
     "tsdown": "catalog:"
   },
   "peerDependencies": {
-    "@arethetypeswrong/core": ">=0.18.2",
+    "@arethetypeswrong/core": ">=0.18.4",
     "publint": ">=0.3.18",
     "tsdown": ">=0.21.2"
   },

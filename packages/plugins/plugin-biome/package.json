@@ -83,8 +83,15 @@
       }
     }
   },
-  "files": ["dist/**/*"],
-  "keywords": ["biome", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "biome",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "peerDependencies": {
     "@biomejs/biome": ">=2.0.0"
   },
@@ -103,6 +110,7 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
+    "@biomejs/biome": ">=2.0.0",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },

@@ -83,7 +83,9 @@
       }
     }
   },
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "keywords": [
     "stylelint",
     "powerlines",

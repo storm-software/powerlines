@@ -111,8 +111,15 @@
       }
     }
   },
-  "files": ["dist"],
-  "keywords": ["oxlint", "powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "oxlint",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
     "@stryke/cli": "catalog:",

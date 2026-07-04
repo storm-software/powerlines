@@ -114,13 +114,19 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
-  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
+    "@powerlines/plugin-tsdown": "workspace:*",
     "@stryke/path": "catalog:",
     "@stryke/types": "catalog:",
-    "powerlines": "workspace:*",
-    "@powerlines/plugin-tsdown": "workspace:*"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "catalog:"

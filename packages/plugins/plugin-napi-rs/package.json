@@ -3,7 +3,12 @@
   "version": "0.2.192",
   "private": false,
   "description": "A package containing a Powerlines plugin for integrating with N-API Rust modules.",
-  "keywords": ["napi-rs", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "napi-rs",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -130,7 +135,9 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/json": "catalog:",
@@ -151,6 +158,7 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
+    "@napi-rs/wasm-runtime": ">=1.1.4",
     "@types/node": "catalog:"
   },
   "peerDependencies": {
