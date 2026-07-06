@@ -52,7 +52,8 @@ export const DEFAULT_TARGETS = [
   "x86_64-unknown-linux-gnu"
 ] as const;
 
-export type Platform = NodeJS.Platform | "wasm" | "wasi" | "openharmony";
+export type Platform =
+  NodeJS.Platform | "wasm" | "wasi" | "wasip1" | "openharmony";
 
 // https://nodejs.org/api/process.html#process_process_arch
 type NodeJSArch =

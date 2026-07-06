@@ -184,10 +184,7 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
           }
         }
 
-        if (
-          this.config.napi.target?.platform === "wasm" ||
-          this.config.napi.target?.platform === "wasi"
-        ) {
+        if (this.config.napi.target?.arch === "wasm32") {
           this.dependencies["@napi-rs/wasm-runtime"] = "^1.1.4";
         }
 
@@ -213,8 +210,7 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
           dtsHeaderFile: this.config.napi.dtsHeaderFile,
           ...packageJson.napi,
           wasm:
-            this.config.napi.target?.platform === "wasm" ||
-            this.config.napi.target?.platform === "wasi"
+            this.config.napi.target?.arch === "wasm32"
               ? defu(
                   packageJson.napi?.wasm ?? {},
                   this.config.napi.wasm ?? {},
@@ -239,10 +235,15 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
 
         this.napi = new NapiCli();
 
-        if (this.config.napi.npmDir) {
+        const npmDir = formatPath(this, this.config.napi.npmDir);
+        if (npmDir) {
+          if (this.fs.existsSync(npmDir)) {
+            await this.fs.remove(npmDir);
+          }
+
           await this.napi.createNpmDirs({
             cwd: appendPath(this.config.root, this.config.cwd),
-            npmDir: formatPath(this, this.config.napi.npmDir),
+            npmDir,
             configPath: formatPath(this, this.config.napi.configPath),
             packageJsonPath: formatPath(this, this.config.napi.packageJsonPath)
           });
