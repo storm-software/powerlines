@@ -932,7 +932,7 @@
     "unctx": "catalog:"
   },
   "devDependencies": {
-    "@alloy-js/babel-preset": ">=0.3.0",
+    "@alloy-js/babel-preset": "catalog:",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },

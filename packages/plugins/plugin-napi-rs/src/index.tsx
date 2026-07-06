@@ -184,7 +184,10 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
           }
         }
 
-        if (this.config.napi.target?.platform === "wasm") {
+        if (
+          this.config.napi.target?.platform === "wasm" ||
+          this.config.napi.target?.platform === "wasi"
+        ) {
           this.dependencies["@napi-rs/wasm-runtime"] = "^1.1.4";
         }
 
@@ -210,7 +213,8 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
           dtsHeaderFile: this.config.napi.dtsHeaderFile,
           ...packageJson.napi,
           wasm:
-            this.config.napi.target?.platform === "wasm"
+            this.config.napi.target?.platform === "wasm" ||
+            this.config.napi.target?.platform === "wasi"
               ? defu(
                   packageJson.napi?.wasm ?? {},
                   this.config.napi.wasm ?? {},

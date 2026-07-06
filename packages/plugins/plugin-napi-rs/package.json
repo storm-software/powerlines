@@ -158,7 +158,7 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@napi-rs/wasm-runtime": ">=1.1.4",
+    "@napi-rs/wasm-runtime": "catalog:",
     "@types/node": "catalog:"
   },
   "peerDependencies": {

@@ -112,9 +112,9 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@babel/plugin-syntax-jsx": ">=8.0.0-rc.6",
-    "@babel/plugin-syntax-typescript": ">=8.0.0-rc.6",
-    "@babel/plugin-transform-json-modules": ">=8.0.0-rc.6",
+    "@babel/plugin-syntax-jsx": "catalog:",
+    "@babel/plugin-syntax-typescript": "catalog:",
+    "@babel/plugin-transform-json-modules": "catalog:",
     "@types/babel__helper-plugin-utils": "catalog:",
     "@types/node": "catalog:"
   },

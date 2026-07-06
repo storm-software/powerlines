@@ -110,7 +110,7 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@biomejs/biome": ">=2.0.0",
+    "@biomejs/biome": "catalog:",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
