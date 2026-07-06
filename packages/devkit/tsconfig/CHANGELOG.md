@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.188](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.188) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
 ## [0.4.185](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.185) (06/15/2026)
 
 ### Miscellaneous

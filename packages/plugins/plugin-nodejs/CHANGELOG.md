@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.545](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.545) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.61**
+- Updated **plugin-alloy** to **v0.26.233**
+- Updated **plugin-babel** to **v0.13.136**
+- Updated **plugin-env** to **v0.16.344**
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **powerlines** to **v0.47.140**
+
 ## [0.1.544](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.544) (06/17/2026)
 
 ### Updated Dependencies

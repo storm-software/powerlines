@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.136](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.136) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.61**
+- Updated **powerlines** to **v0.47.140**
+
 ## [0.13.135](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.135) (06/17/2026)
 
 ### Updated Dependencies

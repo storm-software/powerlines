@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.283](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.283) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **plugin-pulumi** to **v0.6.242**
+- Updated **powerlines** to **v0.47.140**
+
 ## [0.4.282](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.282) (06/17/2026)
 
 ### Updated Dependencies

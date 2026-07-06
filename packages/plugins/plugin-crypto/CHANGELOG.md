@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.653](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.653) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **plugin-env** to **v0.16.344**
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **powerlines** to **v0.47.140**
+
 ## [0.10.652](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.652) (06/17/2026)
 
 ### Updated Dependencies

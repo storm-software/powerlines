@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.552](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.552) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.541**
+- Updated **powerlines** to **v0.47.140**
+
 ## [0.12.551](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.551) (06/17/2026)
 
 ### Updated Dependencies

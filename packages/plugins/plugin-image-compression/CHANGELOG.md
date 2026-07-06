@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Image Compression
 
+## [0.2.550](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.550) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **powerlines** to **v0.47.140**
+
 ## [0.2.549](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.549) (06/17/2026)
 
 ### Updated Dependencies

@@ -1,14 +1,9 @@
 {
   "name": "@powerlines/plugin-i18next",
-  "version": "0.1.497",
+  "version": "0.1.498",
   "private": false,
   "description": "A Powerlines plugin to use i18next for internationalization.",
-  "keywords": [
-    "i18next",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "keywords": ["i18next", "powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -107,9 +102,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
+  "files": ["dist/**/*"],
   "dependencies": {
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rollup
 
+## [0.7.595](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.595) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate `pnpm-lock.yaml` files ([6fc355d75](https://github.com/storm-software/powerlines/commit/6fc355d75))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.61**
+- Updated **powerlines** to **v0.47.140**
+- Updated **unplugin** to **v0.0.109**
+
 ## [0.7.594](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.594) (06/17/2026)
 
 ### Updated Dependencies

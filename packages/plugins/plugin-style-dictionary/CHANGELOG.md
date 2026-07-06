@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.509](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.509) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **powerlines** to **v0.47.140**
+- Updated **schema** to **v0.11.122**
+
 ## [0.3.508](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.508) (06/17/2026)
 
 ### Updated Dependencies

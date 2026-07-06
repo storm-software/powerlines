@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Openapi
 
+## [0.2.606](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.606) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **powerlines** to **v0.47.140**
+
 ## [0.2.605](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.605) (06/17/2026)
 
 ### Updated Dependencies

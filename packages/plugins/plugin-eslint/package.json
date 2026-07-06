@@ -1,14 +1,9 @@
 {
   "name": "@powerlines/plugin-eslint",
-  "version": "0.8.604",
+  "version": "0.8.605",
   "private": false,
   "description": "A package containing a Powerlines plugin for running ESLint on the codebase.",
-  "keywords": [
-    "eslint",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "keywords": ["eslint", "powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -120,9 +115,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": [
-    "dist/**/*"
-  ],
+  "files": ["dist/**/*"],
   "dependencies": {
     "@storm-software/config-tools": "catalog:",
     "@stryke/fs": "catalog:",

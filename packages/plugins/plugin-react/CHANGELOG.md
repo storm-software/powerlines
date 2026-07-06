@@ -2,6 +2,24 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.679](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.679) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.0.1 ([b660b7ca0](https://github.com/storm-software/powerlines/commit/b660b7ca0))
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.61**
+- Updated **plugin-alloy** to **v0.26.233**
+- Updated **plugin-babel** to **v0.13.136**
+- Updated **plugin-env** to **v0.16.344**
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **plugin-vite** to **v0.14.594**
+- Updated **powerlines** to **v0.47.140**
+- Updated **schema** to **v0.11.122**
+
 ## [0.1.678](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.678) (06/17/2026)
 
 ### Updated Dependencies

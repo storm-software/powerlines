@@ -1,14 +1,9 @@
 {
   "name": "@powerlines/plugin-unified",
-  "version": "0.1.215",
+  "version": "0.1.216",
   "private": false,
   "description": "A Powerlines plugin to use the Unified ecosystem to generate content.",
-  "keywords": [
-    "unified",
-    "powerlines",
-    "storm-software",
-    "powerlines-plugin"
-  ],
+  "keywords": ["unified", "powerlines", "storm-software", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -93,9 +88,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
+  "files": ["dist/**/*"],
   "dependencies": {
     "@rollup/pluginutils": "catalog:",
     "@stryke/fs": "catalog:",

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Automd
 
+## [0.1.601](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.601) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.61**
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **powerlines** to **v0.47.140**
+
 ## [0.1.600](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.600) (06/17/2026)
 
 ### Updated Dependencies

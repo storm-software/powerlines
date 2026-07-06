@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.63](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.63) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.61**
+
 ## [0.49.62](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.62) (06/17/2026)
 
 ### Updated Dependencies

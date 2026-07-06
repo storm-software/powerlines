@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/schema",
-  "version": "0.11.121",
+  "version": "0.11.122",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "keywords": [
@@ -60,9 +60,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "dependencies": {
     "@msgpack/msgpack": "catalog:",
     "@powerlines/core": "workspace:*",

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Oxlint
 
+## [0.7.605](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.605) (07/04/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace linting issues ([2351aebd5](https://github.com/storm-software/powerlines/commit/2351aebd5))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.552**
+- Updated **powerlines** to **v0.47.140**
+
 ## [0.7.604](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.604) (06/17/2026)
 
 ### Updated Dependencies
