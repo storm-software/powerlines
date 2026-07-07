@@ -117,6 +117,24 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
         }
 
         if (
+          !this.config.napi.crossCompile &&
+          this.additionalArgs.crossCompile
+        ) {
+          this.config.napi.crossCompile = Boolean(
+            this.additionalArgs.crossCompile
+          );
+        }
+
+        if (
+          !this.config.napi.useNapiCross &&
+          this.additionalArgs.useNapiCross
+        ) {
+          this.config.napi.useNapiCross = Boolean(
+            this.additionalArgs.useNapiCross
+          );
+        }
+
+        if (
           !this.config.napi.configPath &&
           this.additionalArgs.configPath &&
           (isString(this.additionalArgs.configPath) ||
@@ -273,6 +291,8 @@ export const plugin = <TContext extends NapiPluginContext = NapiPluginContext>(
           jsBinding: this.config.napi.jsBinding,
           dts: this.config.napi.dts,
           dtsCache: this.config.napi.dtsCache ?? !this.config.skipCache,
+          crossCompile: this.config.napi.crossCompile,
+          useNapiCross: this.config.napi.useNapiCross,
           verbose: isVerbose(this)
         });
 
