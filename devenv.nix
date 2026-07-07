@@ -13,7 +13,32 @@
 
   packages = with pkgs; [
     capnproto
+    gnupg
+    git-crypt
+    zizmor
+    taplo
+    typos
+    rustfmt
+    nixfmt
+    nixpkgs-fmt
+    yamllint
+    ls-lint
   ];
+
+  scripts = {
+    bootstrap.exec = "pnpm bootstrap";
+    update-storm.exec = "pnpm update-storm";
+    build.exec = "pnpm build";
+    build-dev.exec = "pnpm build-dev";
+    clean.exec = "pnpm clean";
+    lint.exec = "pnpm lint";
+    format.exec = "pnpm format";
+    test.exec = "pnpm test";
+    test-ci.exec = "pnpm test-ci";
+    docs.exec = "pnpm docs";
+    release.exec = "pnpm release --base=$1 --head=$2";
+    nuke.exec = "pnpm nuke";
+  };
 
   profiles = {
     development.module = {
