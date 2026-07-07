@@ -23,12 +23,12 @@
   },
   "license": "Apache-2.0",
   "private": true,
-  "packageManager": "pnpm@11.1.2",
-  "keywords": [
-    "storm-software",
-    "powerlines",
-    "sullivanpj"
-  ],
+  "packageManager": "pnpm@11.9.0",
+  "engines": {
+    "node": ">=24.16.0",
+    "pnpm": ">=11.9.0"
+  },
+  "keywords": ["storm-software", "powerlines", "sullivanpj"],
   "scripts": {
     "adr": "pnpm log4brains adr new",
     "adr-preview": "pnpm log4brains preview",
