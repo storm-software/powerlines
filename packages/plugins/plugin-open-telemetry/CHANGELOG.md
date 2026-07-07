@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Open Telemetry
 
+## [0.1.166](https://github.com/storm-software/powerlines/releases/tag/plugin-open-telemetry%400.1.166) (07/07/2026)
+
+### Miscellaneous
+
+- **plugin-napi-rs:** Ensure wasm target configuration is applied in `package.json` files ([c9d7260c1](https://github.com/storm-software/powerlines/commit/c9d7260c1))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.234**
+- Updated **plugin-automd** to **v0.1.602**
+- Updated **plugin-babel** to **v0.13.137**
+- Updated **plugin-env** to **v0.16.345**
+- Updated **plugin-plugin** to **v0.12.553**
+- Updated **powerlines** to **v0.47.141**
+
 ## [0.1.165](https://github.com/storm-software/powerlines/releases/tag/plugin-open-telemetry%400.1.165) (07/04/2026)
 
 ### Miscellaneous

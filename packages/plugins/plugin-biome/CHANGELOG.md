@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Biome
 
+## [0.2.608](https://github.com/storm-software/powerlines/releases/tag/plugin-biome%400.2.608) (07/07/2026)
+
+### Miscellaneous
+
+- **plugin-napi-rs:** Ensure wasm target configuration is applied in `package.json` files ([c9d7260c1](https://github.com/storm-software/powerlines/commit/c9d7260c1))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.553**
+- Updated **powerlines** to **v0.47.141**
+
 ## [0.2.607](https://github.com/storm-software/powerlines/releases/tag/plugin-biome%400.2.607) (07/04/2026)
 
 ### Miscellaneous

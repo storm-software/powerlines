@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.234](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.234) (07/07/2026)
+
+### Miscellaneous
+
+- **plugin-napi-rs:** Ensure wasm target configuration is applied in `package.json` files ([c9d7260c1](https://github.com/storm-software/powerlines/commit/c9d7260c1))
+
+### Updated Dependencies
+
+- Updated **deepkit** to **v0.9.94**
+- Updated **plugin-babel** to **v0.13.137**
+- Updated **plugin-plugin** to **v0.12.553**
+- Updated **powerlines** to **v0.47.141**
+- Updated **schema** to **v0.11.123**
+
 ## [0.26.233](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.233) (07/04/2026)
 
 ### Miscellaneous

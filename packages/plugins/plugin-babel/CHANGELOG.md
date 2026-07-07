@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.137](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.137) (07/07/2026)
+
+### Miscellaneous
+
+- **plugin-napi-rs:** Ensure wasm target configuration is applied in `package.json` files ([c9d7260c1](https://github.com/storm-software/powerlines/commit/c9d7260c1))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.62**
+- Updated **powerlines** to **v0.47.141**
+
 ## [0.13.136](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.136) (07/04/2026)
 
 ### Miscellaneous
