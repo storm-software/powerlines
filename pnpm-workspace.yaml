@@ -27,19 +27,19 @@ catalog:
   "@alloy-js/json": ^0.23.0
   "@alloy-js/markdown": ^0.23.0
   "@alloy-js/typescript": ^0.23.0
-  "@arethetypeswrong/core": ^0.18.4
+  "@arethetypeswrong/core": ^0.18.5
   "@asyncapi/generator": ^2.11.0
   "@asyncapi/parser": ^3.6.0
   "@babel/core": ^8.0.1
   "@babel/generator": ^8.0.0
   "@babel/helper-plugin-utils": ^8.0.1
-  "@babel/parser": ^8.0.0
+  "@babel/parser": ^8.0.4
   "@babel/plugin-syntax-jsx": ^8.0.1
   "@babel/plugin-syntax-typescript": ^8.0.3
   "@babel/plugin-transform-json-modules": ^8.0.1
   "@babel/preset-typescript": ^8.0.1
-  "@babel/types": ^8.0.0
-  "@biomejs/biome": ^2.5.2
+  "@babel/types": ^8.0.4
+  "@biomejs/biome": ^2.5.3
   "@cacheable/memory": ^2.2.0
   "@cloudflare/unenv-preset": ^2.16.1
   "@cloudflare/workers-types": ^4.20260702.1
@@ -98,7 +98,7 @@ catalog:
   "@prisma/migrate": 7.6.0
   "@prisma/prisma-schema-wasm": 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
   "@pulumi/cloudflare": ^6.17.0
-  "@pulumi/pulumi": ^3.250.0
+  "@pulumi/pulumi": ^3.251.0
   "@rolldown/pluginutils": ^1.0.1
   "@rollup/plugin-alias": ^6.0.0
   "@rollup/plugin-babel": ^7.1.0
@@ -111,27 +111,27 @@ catalog:
   "@shell-shock/eslint-plugin": ^0.0.86
   "@shell-shock/nx": ^0.0.95
   "@shell-shock/preset-cli": ^0.9.34
-  "@sinclair/typebox": ^0.34.49
+  "@sinclair/typebox": ^0.34.50
   "@standard-schema/spec": ^1.1.0
-  "@storm-software/build-tools": ^0.158.249
-  "@storm-software/config": ^1.138.26
-  "@storm-software/config-tools": ^1.190.89
-  "@storm-software/cspell": ^0.46.157
-  "@storm-software/esbuild": ^0.53.250
-  "@storm-software/eslint": ^0.170.123
-  "@storm-software/eslint-plugin-tsdoc": ^0.0.52
-  "@storm-software/git-tools": ^2.131.97
-  "@storm-software/linting-tools": ^1.134.19
-  "@storm-software/markdownlint": ^0.30.245
-  "@storm-software/pnpm-tools": ^0.7.100
-  "@storm-software/prettier": ^0.59.142
-  "@storm-software/testing-tools": ^1.119.242
-  "@storm-software/tsconfig": ^0.48.156
-  "@storm-software/tsdoc": ^0.13.242
-  "@storm-software/tsup": ^0.2.247
-  "@storm-software/unbuild": ^0.57.250
-  "@storm-software/untyped": ^0.24.231
-  "@storm-software/workspace-tools": ^1.296.69
+  "@storm-software/build-tools": ^0.158.252
+  "@storm-software/config": ^1.138.29
+  "@storm-software/config-tools": ^1.190.92
+  "@storm-software/cspell": ^0.46.160
+  "@storm-software/esbuild": ^0.53.253
+  "@storm-software/eslint": ^0.170.126
+  "@storm-software/eslint-plugin-tsdoc": ^0.0.55
+  "@storm-software/git-tools": ^2.131.100
+  "@storm-software/linting-tools": ^1.134.22
+  "@storm-software/markdownlint": ^0.30.248
+  "@storm-software/pnpm-tools": ^0.7.103
+  "@storm-software/prettier": ^0.59.145
+  "@storm-software/testing-tools": ^1.119.245
+  "@storm-software/tsconfig": ^0.48.159
+  "@storm-software/tsdoc": ^0.13.245
+  "@storm-software/tsup": ^0.2.250
+  "@storm-software/unbuild": ^0.57.253
+  "@storm-software/untyped": ^0.24.234
+  "@storm-software/workspace-tools": ^1.296.72
   "@stryke/async": ^0.1.23
   "@stryke/capnp": ^0.12.122
   "@stryke/cli": ^0.13.68
@@ -160,10 +160,10 @@ catalog:
   "@types/bun": ^1.3.14
   "@types/diff-match-patch": ^1.0.36
   "@types/estree": ^1.0.9
-  "@types/hast": ^3.0.4
+  "@types/hast": ^3.0.5
   "@types/jest": ^30.0.0
   "@types/mdast": ^4.0.4
-  "@types/node": ^25.9.4
+  "@types/node": ^25.9.5
   "@types/picomatch": ^4.0.3
   "@types/pluralize": ^0.0.33
   "@types/react": ^19.2.17
@@ -176,7 +176,7 @@ catalog:
   "@vitest/coverage-v8": ~4.1.10
   ajv: ^8.20.0
   ajv-formats: ^3.0.1
-  astro: ^7.0.6
+  astro: ^7.0.7
   automd: ^0.4.3
   babel-plugin-react-compiler: ^1.0.0
   birpc: ^4.0.0
@@ -227,7 +227,7 @@ catalog:
   picomatch: ^4.0.5
   piscina: ^5.1.4
   pluralize: ^8.0.0
-  prettier: ^3.9.4
+  prettier: ^3.9.5
   prettier-plugin-organize-imports: ^4.3.0
   prisma-util: ^2.1.1
   protobufjs: ^7.6.5
@@ -235,7 +235,7 @@ catalog:
   react: ^19.2.7
   react-dom: ^19.2.7
   rimraf: ^6.1.3
-  rolldown: ^1.1.4
+  rolldown: ^1.1.5
   rolldown-plugin-dts: ^0.25.2
   rollup: ^4.62.2
   rollup-plugin-typescript2: ^0.36.0
@@ -244,7 +244,6 @@ catalog:
   sharp: ^0.34.5
   shelljs: ^0.10.0
   sherif: ^1.13.0
-  sheriff: ^0.0.0
   sirv: ^3.0.2
   smol-toml: ^1.7.0
   structured-clone-es: ^2.0.0
@@ -254,7 +253,7 @@ catalog:
   tinypool: ^2.1.0
   ts-morph: ^27.0.2
   ts-pattern: ^5.9.0
-  tsdown: ^0.22.3
+  tsdown: ^0.22.4
   tslib: ^2.8.1
   tsup: 8.4.0
   typedoc: 0.25.12
@@ -272,10 +271,10 @@ catalog:
   untyped: ^1.5.2
   valibot: ^1.4.2
   verdaccio: 6.5.2
-  vite: ^8.1.3
+  vite: ^8.1.4
   vitest: ~4.1.10
   webpack: ^5.108.4
-  wrangler: ^4.107.0
+  wrangler: ^4.110.0
   yaml: ^2.9.0
   zod: ^4.4.3
   zx: ^8.8.5
