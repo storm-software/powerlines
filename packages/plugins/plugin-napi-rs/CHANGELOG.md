@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.2.195](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.195) (07/07/2026)
+
+### Miscellaneous
+
+- **plugin-napi-rs:** Update plugin to allow `crossCompile` and `useNapiCross` flags from Nx target ([9605dc975](https://github.com/storm-software/powerlines/commit/9605dc975))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.235**
+- Updated **plugin-automd** to **v0.1.603**
+- Updated **plugin-babel** to **v0.13.138**
+- Updated **plugin-plugin** to **v0.12.554**
+- Updated **powerlines** to **v0.47.142**
+
 ## [0.2.194](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.194) (07/07/2026)
 
 ### Miscellaneous
