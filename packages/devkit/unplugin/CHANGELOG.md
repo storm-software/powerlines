@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.112](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.112) (07/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([bb88d4292](https://github.com/storm-software/powerlines/commit/bb88d4292))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.64**
+
 ## [0.0.111](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.111) (07/07/2026)
 
 ### Updated Dependencies

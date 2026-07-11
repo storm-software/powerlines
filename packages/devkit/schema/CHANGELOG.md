@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Schema
 
+## [0.11.125](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.125) (07/11/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([bb88d4292](https://github.com/storm-software/powerlines/commit/bb88d4292))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.64**
+- Updated **deepkit** to **v0.9.96**
+- Updated **unplugin** to **v0.0.112**
+
 ## [0.11.124](https://github.com/storm-software/powerlines/releases/tag/schema%400.11.124) (07/07/2026)
 
 ### Updated Dependencies

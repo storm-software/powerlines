@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/core",
-  "version": "0.48.63",
+  "version": "0.48.64",
   "private": false,
   "description": "An internal core package for Powerlines - please use the `powerlines` package for public usage.",
   "homepage": "https://stormsoftware.com",
@@ -324,10 +324,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": [
-    "dist",
-    "schemas"
-  ],
+  "files": ["dist", "schemas"],
   "dependencies": {
     "@cacheable/memory": "catalog:",
     "@donedeal0/superdiff": "catalog:",
