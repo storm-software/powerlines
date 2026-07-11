@@ -1,5 +1,4 @@
 import * as $ from "@stryke/capnp";
-
 //#region schemas/reflection.d.ts
 declare const _capnpFileId: bigint;
 declare const ReflectionKind: {
@@ -170,9 +169,9 @@ declare class EntityOptions_EntityIndexOptions extends $.Struct {
   _initNames(length: number): $.List<string>;
   set names(value: $.List<string>);
   /**
-  * JSON stringified options
-  *
-  */
+   * JSON stringified options
+   *
+   */
   get options(): string;
   set options(value: string);
   toString(): string;
@@ -1173,9 +1172,9 @@ declare class SerializedTypeLiteralSymbol extends $.Struct {
     size: $.ObjectSize;
   };
   /**
-  * "symbol"
-  *
-  */
+   * "symbol"
+   *
+   */
   get type(): string;
   set type(value: string);
   get name(): string;
@@ -1189,9 +1188,9 @@ declare class SerializedTypeLiteralBigInt extends $.Struct {
     size: $.ObjectSize;
   };
   /**
-  * "bigint"
-  *
-  */
+   * "bigint"
+   *
+   */
   get type(): string;
   set type(value: string);
   get value(): string;
@@ -1205,9 +1204,9 @@ declare class SerializedTypeLiteralRegex extends $.Struct {
     size: $.ObjectSize;
   };
   /**
-  * "regex"
-  *
-  */
+   * "regex"
+   *
+   */
   get type(): string;
   set type(value: string);
   get regex(): string;
@@ -1377,9 +1376,9 @@ declare const SerializedType_Type_Which: {
   readonly TUPLE_MEMBER: 20;
   readonly REST: 21;
   /**
-  * For any other type that is not explicitly defined
-  *
-  */
+   * For any other type that is not explicitly defined
+   *
+   */
   readonly OTHER: 22;
 };
 type SerializedType_Type_Which = (typeof SerializedType_Type_Which)[keyof typeof SerializedType_Type_Which];
@@ -1569,9 +1568,9 @@ declare class SerializedType_Type extends $.Struct {
   _adoptOther(value: $.Orphan<SerializedTypeOther>): void;
   _disownOther(): $.Orphan<SerializedTypeOther>;
   /**
-  * For any other type that is not explicitly defined
-  *
-  */
+   * For any other type that is not explicitly defined
+   *
+   */
   get other(): SerializedTypeOther;
   _hasOther(): boolean;
   _initOther(): SerializedTypeOther;
