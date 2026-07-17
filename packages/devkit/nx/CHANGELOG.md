@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.183](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.183) (07/17/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update storm-ops packages ([e21bf52bf](https://github.com/storm-software/powerlines/commit/e21bf52bf))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.144**
+
 ## [0.13.182](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.182) (07/11/2026)
 
 ### Updated Dependencies
