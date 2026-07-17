@@ -22,7 +22,7 @@
       ],
       "options": {
         "commands": [
-          "storm-untyped generate --entry=\"packages/devkit/nx/src/**/{untyped.ts,*.untyped.ts}\""
+          "pnpm exec storm-untyped generate --entry=\"packages/devkit/nx/src/**/{untyped.ts,*.untyped.ts}\""
         ]
       }
     },

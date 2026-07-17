@@ -113,25 +113,25 @@ catalog:
   "@shell-shock/preset-cli": ^0.9.34
   "@sinclair/typebox": ^0.34.52
   "@standard-schema/spec": ^1.1.0
-  "@storm-software/build-tools": ^0.158.266
-  "@storm-software/config": ^1.138.43
-  "@storm-software/config-tools": ^1.190.106
-  "@storm-software/cspell": ^0.46.174
-  "@storm-software/esbuild": ^0.53.267
-  "@storm-software/eslint": ^0.170.140
-  "@storm-software/eslint-plugin-tsdoc": ^0.0.69
-  "@storm-software/git-tools": ^2.131.114
-  "@storm-software/linting-tools": ^1.134.36
-  "@storm-software/markdownlint": ^0.30.262
-  "@storm-software/pnpm-tools": ^0.7.117
-  "@storm-software/prettier": ^0.59.159
-  "@storm-software/testing-tools": ^1.119.259
-  "@storm-software/tsconfig": ^0.48.173
-  "@storm-software/tsdoc": ^0.13.259
-  "@storm-software/tsup": ^0.2.264
-  "@storm-software/unbuild": ^0.57.267
-  "@storm-software/untyped": ^0.24.248
-  "@storm-software/workspace-tools": ^1.296.86
+  "@storm-software/build-tools": ^0.158.267
+  "@storm-software/config": ^1.138.44
+  "@storm-software/config-tools": ^1.190.107
+  "@storm-software/cspell": ^0.46.175
+  "@storm-software/esbuild": ^0.53.268
+  "@storm-software/eslint": ^0.170.141
+  "@storm-software/eslint-plugin-tsdoc": ^0.0.70
+  "@storm-software/git-tools": ^2.131.115
+  "@storm-software/linting-tools": ^1.134.37
+  "@storm-software/markdownlint": ^0.30.263
+  "@storm-software/pnpm-tools": ^0.7.118
+  "@storm-software/prettier": ^0.59.160
+  "@storm-software/testing-tools": ^1.119.260
+  "@storm-software/tsconfig": ^0.48.174
+  "@storm-software/tsdoc": ^0.13.260
+  "@storm-software/tsup": ^0.2.265
+  "@storm-software/unbuild": ^0.57.268
+  "@storm-software/untyped": ^0.24.249
+  "@storm-software/workspace-tools": ^1.296.87
   "@stryke/async": ^0.1.23
   "@stryke/capnp": ^0.12.122
   "@stryke/cli": ^0.13.68
@@ -293,6 +293,8 @@ minimumReleaseAgeExclude:
   - workerd
   - wrangler
   - oxlint
+  - "@rushstack/terminal@0.24.1"
+  - "@rushstack/ts-command-line@5.3.11"
 onlyBuiltDependencies:
   - "@biomejs/biome"
   - "@deepkit/type-compiler"
