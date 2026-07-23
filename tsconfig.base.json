@@ -219,6 +219,12 @@
         "./packages/plugins/plugin-tsdown/src/index.ts"
       ],
       "@powerlines/plugin-tsdown/*": ["./packages/plugins/plugin-tsdown/src/*"],
+      "@powerlines/plugin-power-plant": [
+        "./packages/plugins/plugin-power-plant/src/index.ts"
+      ],
+      "@powerlines/plugin-power-plant/*": [
+        "./packages/plugins/plugin-power-plant/src/*"
+      ],
       "@powerlines/plugin-tsup": [
         "./packages/plugins/plugin-tsup/src/index.ts"
       ],

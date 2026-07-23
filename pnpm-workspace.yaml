@@ -39,7 +39,7 @@ catalog:
   "@babel/plugin-transform-json-modules": ^8.0.1
   "@babel/preset-typescript": ^8.0.1
   "@babel/types": ^8.0.4
-  "@biomejs/biome": ^2.5.4
+  "@biomejs/biome": ^2.5.5
   "@cacheable/memory": ^2.2.0
   "@cloudflare/unenv-preset": ^2.16.1
   "@cloudflare/workers-types": ^4.20260702.1
@@ -62,11 +62,11 @@ catalog:
   "@jridgewell/sourcemap-codec": ^1.5.5
   "@ls-lint/ls-lint": ^2.3.1
   "@msgpack/msgpack": ^3.1.3
-  "@napi-rs/cli": ^3.7.3
+  "@napi-rs/cli": ^3.7.4
   "@napi-rs/wasm-runtime": ^1.1.6
   "@noble/ciphers": ^2.2.0
-  "@nuxt/kit": ^4.4.8
-  "@nuxt/schema": ^4.4.8
+  "@nuxt/kit": ^4.5.0
+  "@nuxt/schema": ^4.5.0
   "@nx/devkit": ^22.7.7
   "@nx/eslint-plugin": 23.0.1
   "@nx/js": 23.0.1
@@ -79,16 +79,17 @@ catalog:
   "@openfeature/server-sdk": ^1.22.0
   "@opentelemetry/api": ^1.9.1
   "@opentelemetry/api-logs": ^0.220.0
-  "@opentelemetry/context-async-hooks": ^2.9.0
+  "@opentelemetry/context-async-hooks": ^2.10.0
   "@opentelemetry/core": ^1.30.1
   "@opentelemetry/exporter-trace-otlp-http": ^0.220.0
   "@opentelemetry/instrumentation": ^0.220.0
   "@opentelemetry/otlp-exporter-base": ^0.205.0
   "@opentelemetry/otlp-transformer": ^0.205.0
-  "@opentelemetry/resources": ^2.9.0
+  "@opentelemetry/resources": ^2.10.0
   "@opentelemetry/sdk-logs": ^0.220.0
-  "@opentelemetry/sdk-metrics": ^2.9.0
-  "@opentelemetry/sdk-trace-base": ^2.9.0
+  "@opentelemetry/sdk-metrics": ^2.10.0
+  "@opentelemetry/sdk-trace-base": ^2.10.0
+  "@power-plant/core": ^0.0.20
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0
   "@prisma/config": 7.6.0
@@ -97,7 +98,7 @@ catalog:
   "@prisma/get-platform": 6.19.3
   "@prisma/migrate": 7.6.0
   "@prisma/prisma-schema-wasm": 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
-  "@pulumi/cloudflare": ^6.17.0
+  "@pulumi/cloudflare": ^6.18.0
   "@pulumi/pulumi": ^3.253.0
   "@rolldown/pluginutils": ^1.0.1
   "@rollup/plugin-alias": ^6.0.0
@@ -113,44 +114,44 @@ catalog:
   "@shell-shock/preset-cli": ^0.9.34
   "@sinclair/typebox": ^0.34.52
   "@standard-schema/spec": ^1.1.0
-  "@storm-software/build-tools": ^0.158.267
-  "@storm-software/config": ^1.138.44
-  "@storm-software/config-tools": ^1.190.107
-  "@storm-software/cspell": ^0.46.175
-  "@storm-software/esbuild": ^0.53.268
-  "@storm-software/eslint": ^0.170.141
-  "@storm-software/eslint-plugin-tsdoc": ^0.0.70
-  "@storm-software/git-tools": ^2.131.115
-  "@storm-software/linting-tools": ^1.134.37
-  "@storm-software/markdownlint": ^0.30.263
-  "@storm-software/pnpm-tools": ^0.7.118
-  "@storm-software/prettier": ^0.59.160
-  "@storm-software/testing-tools": ^1.119.260
-  "@storm-software/tsconfig": ^0.48.174
-  "@storm-software/tsdoc": ^0.13.260
-  "@storm-software/tsup": ^0.2.265
-  "@storm-software/unbuild": ^0.57.268
-  "@storm-software/untyped": ^0.24.249
-  "@storm-software/workspace-tools": ^1.296.87
-  "@stryke/async": ^0.1.23
-  "@stryke/capnp": ^0.12.122
-  "@stryke/cli": ^0.13.68
-  "@stryke/convert": ^0.7.26
-  "@stryke/env": ^0.20.113
-  "@stryke/fs": ^0.33.96
-  "@stryke/hash": ^0.13.49
-  "@stryke/helpers": ^0.10.35
-  "@stryke/http": ^0.12.86
-  "@stryke/json": ^0.15.19
-  "@stryke/path": ^0.29.22
-  "@stryke/string-format": ^0.17.37
-  "@stryke/type-checks": ^0.6.28
-  "@stryke/types": ^0.12.23
-  "@stryke/unique-id": ^0.3.107
-  "@stryke/url": ^0.4.46
-  "@stryke/zod": ^0.3.41
-  "@swc-node/register": ^1.11.1
-  "@swc/core": ^1.15.43
+  "@storm-software/build-tools": ^0.158.269
+  "@storm-software/config": ^1.138.46
+  "@storm-software/config-tools": ^1.190.109
+  "@storm-software/cspell": ^0.46.177
+  "@storm-software/esbuild": ^0.53.270
+  "@storm-software/eslint": ^0.170.143
+  "@storm-software/eslint-plugin-tsdoc": ^0.0.72
+  "@storm-software/git-tools": ^2.131.117
+  "@storm-software/linting-tools": ^1.134.39
+  "@storm-software/markdownlint": ^0.30.265
+  "@storm-software/pnpm-tools": ^0.7.120
+  "@storm-software/prettier": ^0.59.162
+  "@storm-software/testing-tools": ^1.119.262
+  "@storm-software/tsconfig": ^0.48.176
+  "@storm-software/tsdoc": ^0.13.262
+  "@storm-software/tsup": ^0.2.267
+  "@storm-software/unbuild": ^0.57.270
+  "@storm-software/untyped": ^0.24.251
+  "@storm-software/workspace-tools": ^1.296.89
+  "@stryke/async": ^0.1.24
+  "@stryke/capnp": ^0.12.123
+  "@stryke/cli": ^0.13.69
+  "@stryke/convert": ^0.7.27
+  "@stryke/env": ^0.20.114
+  "@stryke/fs": ^0.33.97
+  "@stryke/hash": ^0.13.50
+  "@stryke/helpers": ^0.10.36
+  "@stryke/http": ^0.12.87
+  "@stryke/json": ^0.15.20
+  "@stryke/path": ^0.29.23
+  "@stryke/string-format": ^0.17.38
+  "@stryke/type-checks": ^0.6.29
+  "@stryke/types": ^0.12.24
+  "@stryke/unique-id": ^0.3.108
+  "@stryke/url": ^0.4.47
+  "@stryke/zod": ^0.3.42
+  "@swc-node/register": ^1.12.1
+  "@swc/core": ^1.15.46
   "@swc/helpers": ^0.5.23
   "@tamagui/static-worker": ^1.144.4
   "@tamagui/types": ^1.144.4
@@ -172,11 +173,11 @@ catalog:
   "@types/unist": ^3.0.3
   "@valibot/to-json-schema": ^1.7.1
   "@rolldown/plugin-babel": ^0.2.3
-  "@vitejs/plugin-react": ^6.0.3
+  "@vitejs/plugin-react": ^6.0.4
   "@vitest/coverage-v8": ~4.1.10
   ajv: ^8.20.0
   ajv-formats: ^3.0.1
-  astro: ^7.0.9
+  astro: ^7.1.3
   automd: ^0.4.3
   babel-plugin-react-compiler: ^1.0.0
   birpc: ^4.0.0
@@ -201,7 +202,7 @@ catalog:
   h3: ^1.15.11
   handlebars: ^4.7.9
   human-id: ^4.2.0
-  i18next-cli: ^1.66.0
+  i18next-cli: ^1.66.2
   i18next-resources-for-ts: ^2.1.0
   jest: ^30.4.2
   jest-config: ^30.4.2
@@ -215,25 +216,25 @@ catalog:
   magic-string: ^0.30.21
   markdown-toc: ^1.2.0
   marked: ^17.0.6
-  next: ^16.2.10
+  next: ^16.2.11
   nitro: 3.0.260429-beta
   nx: 23.0.1
   openapi-typescript: ^7.13.0
   oxc-parser: ^0.99.0
   oxc-resolver: ^11.24.2
   oxc-transform: ^0.99.0
-  oxlint: ^1.74.0
+  oxlint: ^1.75.0
   oxlint-tsgolint: ^0.14.2
   picomatch: ^4.0.5
   piscina: ^5.1.4
   pluralize: ^8.0.0
-  prettier: ^3.9.5
+  prettier: ^3.9.6
   prettier-plugin-organize-imports: ^4.3.0
   prisma-util: ^2.1.1
   protobufjs: ^7.6.5
   publint: ^0.3.21
-  react: ^19.2.7
-  react-dom: ^19.2.7
+  react: ^19.2.8
+  react-dom: ^19.2.8
   rimraf: ^6.1.3
   rolldown: ^1.2.0
   rolldown-plugin-dts: ^0.25.2
@@ -253,7 +254,7 @@ catalog:
   tinypool: ^2.1.0
   ts-morph: ^27.0.2
   ts-pattern: ^5.9.0
-  tsdown: ^0.22.8
+  tsdown: ^0.22.13
   tslib: ^2.8.1
   tsup: 8.4.0
   typedoc: 0.25.12
@@ -268,13 +269,14 @@ catalog:
   unloader: ^0.9.0
   unplugin: ^3.3.0
   unplugin-combine: ^2.4.0
+  unstorage: ^1.17.5
   untyped: ^1.5.2
   valibot: ^1.4.2
   verdaccio: 6.5.2
-  vite: ^8.1.4
+  vite: ^8.1.5
   vitest: ~4.1.10
   webpack: ^5.108.4
-  wrangler: ^4.111.0
+  wrangler: ^4.113.0
   yaml: ^2.9.0
   zod: ^4.4.3
   zx: ^8.8.5
@@ -295,6 +297,8 @@ minimumReleaseAgeExclude:
   - oxlint
   - "@rushstack/terminal@0.24.1"
   - "@rushstack/ts-command-line@5.3.11"
+  - "@power-plant/core"
+  - "@power-plant/schema"
 onlyBuiltDependencies:
   - "@biomejs/biome"
   - "@deepkit/type-compiler"
@@ -354,6 +358,7 @@ overrides:
   "@powerlines/plugin-oxlint": workspace:*
   "@powerlines/plugin-plugin": workspace:*
   "@powerlines/plugin-prisma": workspace:*
+  "@powerlines/plugin-power-plant": workspace:*
   "@powerlines/plugin-pulumi": workspace:*
   "@powerlines/plugin-react": workspace:*
   "@powerlines/plugin-rolldown": workspace:*
