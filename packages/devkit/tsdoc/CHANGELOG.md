@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.146](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.146) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([c56b107e9](https://github.com/storm-software/powerlines/commit/c56b107e9))
+
 ## [0.2.145](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.145) (07/24/2026)
 
 ### Miscellaneous
