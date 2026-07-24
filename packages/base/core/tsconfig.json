@@ -5,7 +5,8 @@
     "rootDir": "../../..",
     "types": ["node", "./types/prettier-plugin-organize-imports.d.ts"],
     "strict": true,
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "../../../dist/out-tsc",
+    "ignoreDeprecations": "6.0"
   },
   "include": [
     "src/**/*.ts",

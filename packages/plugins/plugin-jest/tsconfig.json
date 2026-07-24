@@ -3,7 +3,8 @@
   "compilerOptions": {
     "types": ["node", "jest"],
     "strict": true,
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "../../../dist/out-tsc",
+    "ignoreDeprecations": "6.0"
   },
   "include": ["src/**/*.ts", "powerlines.config.ts", "powerlines.d.ts"],
   "exclude": ["vitest.config.mts", "src/**/*.spec.ts", "src/**/*.test.ts"]

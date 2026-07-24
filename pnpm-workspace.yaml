@@ -66,12 +66,12 @@ catalog:
   "@nuxt/kit": ^4.5.0
   "@nuxt/schema": ^4.5.0
   "@nx/devkit": ^23.1.0
-  "@nx/eslint-plugin": 23.0.1
-  "@nx/js": 23.0.1
-  "@nx/plugin": 23.0.1
-  "@nx/vite": 23.0.1
-  "@nx/vitest": 23.0.1
-  "@nx/workspace": 23.0.1
+  "@nx/eslint-plugin": 23.1.0
+  "@nx/js": 23.1.0
+  "@nx/plugin": 23.1.0
+  "@nx/vite": 23.1.0
+  "@nx/vitest": 23.1.0
+  "@nx/workspace": 23.1.0
   "@openfeature/core": ^1.11.0
   "@openfeature/flagd-provider": ^0.14.0
   "@openfeature/server-sdk": ^1.22.0
@@ -228,7 +228,7 @@ catalog:
   marked: ^17.0.6
   next: ^16.2.11
   nitro: 3.0.260429-beta
-  nx: 23.0.1
+  nx: 23.1.0
   openapi-typescript: ^7.13.0
   oxc-parser: ^0.99.0
   oxc-resolver: ^11.24.2

@@ -5,7 +5,8 @@
     "jsxImportSource": "@alloy-js/core",
     "lib": ["esnext"],
     "types": ["node"],
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "../../../dist/out-tsc",
+    "ignoreDeprecations": "6.0"
   },
   "include": [
     "src/**/*.ts",

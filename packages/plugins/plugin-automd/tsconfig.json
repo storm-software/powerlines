@@ -1,6 +1,10 @@
 {
   "extends": "../../../tsconfig.base.json",
-  "compilerOptions": { "types": ["node"], "outDir": "../../../dist/out-tsc" },
+  "compilerOptions": {
+    "types": ["node"],
+    "outDir": "../../../dist/out-tsc",
+    "ignoreDeprecations": "6.0"
+  },
   "include": [
     "src/**/*.ts",
     "types/*.d.ts",

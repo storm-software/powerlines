@@ -6,7 +6,8 @@
     "lib": ["esnext"],
     "types": ["node"],
     "strict": false,
-    "outDir": "../../../dist/out-tsc"
+    "outDir": "../../../dist/out-tsc",
+    "ignoreDeprecations": "6.0"
   },
   "include": [
     "src/**/*.ts",

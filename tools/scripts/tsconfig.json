@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["node"],
-    "outDir": "dist"
+    "outDir": "dist",
+    "ignoreDeprecations": "6.0"
   },
   "include": ["src/**/*.ts", "src/*.mjs"],
   "exclude": ["vitest.config.mts", "src/**/*.spec.ts", "src/**/*.test.ts"]
