@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Power Plant
 
+## [0.1.8](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.8) (07/24/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Ensure `extract` provides the correct context values ([f86d74c6f](https://github.com/storm-software/powerlines/commit/f86d74c6f))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.73**
+- Updated **plugin-plugin** to **v0.12.564**
+- Updated **powerlines** to **v0.47.152**
+
 ## [0.1.7](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.7) (07/24/2026)
 
 ### Miscellaneous

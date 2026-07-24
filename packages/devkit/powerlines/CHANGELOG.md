@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.152](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.152) (07/24/2026)
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.73**
+- Updated **engine** to **v0.49.75**
+- Updated **unplugin** to **v0.0.121**
+
 ## [0.47.151](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.151) (07/24/2026)
 
 ### Updated Dependencies

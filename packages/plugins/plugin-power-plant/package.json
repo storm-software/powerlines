@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-power-plant",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "type": "module",
   "description": "A Powerlines plugin to generate project code using Power Plant.",
   "repository": {
@@ -174,10 +174,7 @@
     "copy-anything": "4.0.5",
     "defu": "6.1.7",
     "esbuild": "0.28.1",
-    "glob": [
-      "11.1.0",
-      "13.0.6"
-    ],
+    "glob": ["11.1.0", "13.0.6"],
     "is-what": "5.5.0",
     "jiti": "2.7.0",
     "json5": "2.2.3",
@@ -200,10 +197,7 @@
     "superjson": "2.2.6",
     "ts-json-schema-generator": "2.9.0",
     "tslib": "2.8.1",
-    "typescript": [
-      "5.9.3",
-      "6.0.3"
-    ],
+    "typescript": ["5.9.3", "6.0.3"],
     "ufo": "1.6.4",
     "undici": "7.28.0",
     "untyped": "1.5.2",
