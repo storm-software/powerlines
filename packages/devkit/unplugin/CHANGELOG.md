@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.120](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.120) (07/24/2026)
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.72**
+
 ## [0.0.119](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.119) (07/24/2026)
 
 ### Miscellaneous

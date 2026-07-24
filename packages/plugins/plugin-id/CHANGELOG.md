@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin ID
 
+## [0.9.621](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.621) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([1cf66046a](https://github.com/storm-software/powerlines/commit/1cf66046a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.563**
+- Updated **powerlines** to **v0.47.151**
+
 ## [0.9.620](https://github.com/storm-software/powerlines/releases/tag/plugin-id%400.9.620) (07/24/2026)
 
 ### Updated Dependencies

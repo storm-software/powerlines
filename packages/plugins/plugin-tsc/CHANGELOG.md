@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.3.148](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.3.148) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([1cf66046a](https://github.com/storm-software/powerlines/commit/1cf66046a))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.72**
+- Updated **plugin-plugin** to **v0.12.563**
+- Updated **powerlines** to **v0.47.151**
+
 ## [0.3.147](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.3.147) (07/24/2026)
 
 ### Updated Dependencies
