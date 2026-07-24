@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.198](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.198) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([c56b107e9](https://github.com/storm-software/powerlines/commit/c56b107e9))
+
 ## [0.4.197](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.197) (07/24/2026)
 
 ### Miscellaneous
