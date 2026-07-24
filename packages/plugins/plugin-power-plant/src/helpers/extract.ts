@@ -16,5 +16,24 @@
 
  ------------------------------------------------------------------- */
 
-export * from "./extract";
-export * from "./storage-adapter";
+import { SchemaConfig, extract as extractSchema } from "@power-plant/schema";
+import { Context } from "@powerlines/core";
+import { createStorageAdapter } from "./storage-adapter";
+
+/**
+ * Extracts the schema using the provided context.
+ *
+ * @param context - The context to use.
+ * @param schema - The schema to extract.
+ * @returns The extracted schema.
+ */
+export async function extract<TSchema extends SchemaConfig>(
+  context: Context,
+  schema: SchemaConfig<TSchema>
+) {
+  return extractSchema<TSchema>(schema, {
+    cwd: context.cwd,
+    tsconfig: context.tsconfig.tsconfigFilePath,
+    storage: createStorageAdapter(context.fs)
+  });
+}

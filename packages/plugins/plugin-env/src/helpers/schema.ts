@@ -17,7 +17,6 @@
  ------------------------------------------------------------------- */
 
 import {
-  extract,
   getProperties,
   getPropertiesList,
   isSchema,
@@ -25,6 +24,7 @@ import {
   JsonSchemaObject,
   merge
 } from "@power-plant/schema";
+import { extract } from "@powerlines/plugin-power-plant/helpers";
 import { joinPaths } from "@stryke/path/join";
 import { isSetArray } from "@stryke/type-checks/is-set-array";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
@@ -168,7 +168,10 @@ export async function extractEnv<TContext extends EnvPluginContext>(
   context.env.parsed ??= {};
   context.env.injected ??= [];
 
-  context.env.config = (await extract(context.config.env.config)) as EnvSchema;
+  context.env.config = (await extract(
+    context,
+    context.config.env.config
+  )) as EnvSchema;
   context.env.config.active = await readActive(context, "config");
 
   if (
@@ -183,12 +186,13 @@ export async function extractEnv<TContext extends EnvPluginContext>(
           defaultConfig.export))
   ) {
     context.env.config.schema = merge(
-      await extract(defaultConfig),
+      await extract(context, defaultConfig),
       context.env.config
     ) as JsonSchemaObject;
   }
 
   context.env.secrets = (await extract(
+    context,
     context.config.env.secrets
   )) as EnvSchema;
   context.env.secrets.active = await readActive(context, "secrets");
@@ -205,7 +209,7 @@ export async function extractEnv<TContext extends EnvPluginContext>(
           defaultSecrets.export))
   ) {
     context.env.secrets.schema = merge(
-      await extract(defaultSecrets),
+      await extract(context, defaultSecrets),
       context.env.secrets
     ) as JsonSchemaObject;
   }
