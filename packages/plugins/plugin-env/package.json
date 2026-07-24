@@ -3,7 +3,12 @@
   "version": "0.16.352",
   "private": false,
   "description": "A package containing a Powerlines plugin for injecting static .env configuration values to the code so that they're accessible at runtime.",
-  "keywords": ["dotenv", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "dotenv",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -242,7 +247,9 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/json": "catalog:",
@@ -251,12 +258,12 @@
     "@babel/core": "catalog:",
     "@babel/types": "catalog:",
     "@power-plant/alloy-js": "catalog:",
+    "@power-plant/schema": "catalog:",
     "@powerlines/core": "workspace:*",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-automd": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
-    "@power-plant/schema": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",
