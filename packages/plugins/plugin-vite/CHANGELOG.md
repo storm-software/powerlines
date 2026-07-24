@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.603](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.603) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.70**
+- Updated **powerlines** to **v0.47.149**
+- Updated **unplugin** to **v0.0.118**
+
 ## [0.14.602](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.602) (07/24/2026)
 
 ### Updated Dependencies

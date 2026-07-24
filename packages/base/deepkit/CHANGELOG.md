@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Deepkit
 
+## [0.9.102](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.102) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.70**
+
 ## [0.9.101](https://github.com/storm-software/powerlines/releases/tag/deepkit%400.9.101) (07/24/2026)
 
 ### Updated Dependencies

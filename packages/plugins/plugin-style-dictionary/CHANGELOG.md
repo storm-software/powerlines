@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.518](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.518) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.561**
+- Updated **plugin-power-plant** to **v0.1.5**
+- Updated **powerlines** to **v0.47.149**
+
 ## [0.3.517](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.517) (07/24/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.197](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.197) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
 ## [0.4.191](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.191) (07/11/2026)
 
 ### Miscellaneous

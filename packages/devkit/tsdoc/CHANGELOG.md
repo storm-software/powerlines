@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.145](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.145) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
 ## [0.2.139](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.139) (07/11/2026)
 
 ### Miscellaneous
