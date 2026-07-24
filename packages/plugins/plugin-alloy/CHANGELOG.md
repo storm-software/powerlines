@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.241](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.241) (07/24/2026)
+
+### Miscellaneous
+
+- **plugin-power-plant:** Ensure `tsconfig` is provided to `execute` functions ([77c802004](https://github.com/storm-software/powerlines/commit/77c802004))
+
+### Updated Dependencies
+
+- Updated **plugin-babel** to **v0.13.144**
+- Updated **plugin-plugin** to **v0.12.560**
+- Updated **plugin-power-plant** to **v0.1.4**
+- Updated **powerlines** to **v0.47.148**
+
 ## [0.26.240](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.240) (07/24/2026)
 
 ### Updated Dependencies

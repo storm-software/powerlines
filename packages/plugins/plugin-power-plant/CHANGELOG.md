@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Power Plant
 
+## [0.1.4](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.4) (07/24/2026)
+
+### Miscellaneous
+
+- **plugin-power-plant:** Ensure `tsconfig` is provided to `execute` functions ([77c802004](https://github.com/storm-software/powerlines/commit/77c802004))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.560**
+- Updated **powerlines** to **v0.47.148**
+
 ## [0.1.3](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.3) (07/24/2026)
 
 ### Updated Dependencies
