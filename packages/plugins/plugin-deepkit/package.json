@@ -87,8 +87,14 @@
   },
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist"],
-  "keywords": ["deepkit", "powerlines", "powerlines-plugin"],
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "deepkit",
+    "powerlines",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@powerlines/deepkit": "workspace:*",
     "@powerlines/plugin-tsc": "workspace:*",

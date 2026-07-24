@@ -97,7 +97,7 @@ catalog:
   "@power-plant/openapi-typescript": ^0.0.6
   "@power-plant/prisma": ^0.0.7
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.25
+  "@power-plant/schema": ^0.0.26
   "@power-plant/style-dictionary": ^0.0.11
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0
@@ -264,7 +264,7 @@ catalog:
   tinypool: ^2.1.0
   ts-morph: ^27.0.2
   ts-pattern: ^5.9.0
-  tsdown: ^0.22.13
+  tsdown: ^0.22.14
   tslib: ^2.8.1
   tsup: 8.4.0
   typedoc: 0.25.12
@@ -285,7 +285,7 @@ catalog:
   verdaccio: 6.5.2
   vite: ^8.1.5
   vitest: ~4.1.10
-  webpack: ^5.108.4
+  webpack: ^5.109.0
   wrangler: ^4.114.0
   yaml: ^2.9.0
   zod: ^4.4.3
