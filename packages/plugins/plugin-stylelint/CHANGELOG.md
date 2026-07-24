@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Stylelint
 
+## [0.1.616](https://github.com/storm-software/powerlines/releases/tag/plugin-stylelint%400.1.616) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([1cf66046a](https://github.com/storm-software/powerlines/commit/1cf66046a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.563**
+- Updated **powerlines** to **v0.47.151**
+
 ## [0.1.615](https://github.com/storm-software/powerlines/releases/tag/plugin-stylelint%400.1.615) (07/24/2026)
 
 ### Updated Dependencies

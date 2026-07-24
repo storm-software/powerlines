@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rollup
 
+## [0.7.606](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.606) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([1cf66046a](https://github.com/storm-software/powerlines/commit/1cf66046a))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.72**
+- Updated **powerlines** to **v0.47.151**
+- Updated **unplugin** to **v0.0.120**
+
 ## [0.7.605](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.605) (07/24/2026)
 
 ### Updated Dependencies

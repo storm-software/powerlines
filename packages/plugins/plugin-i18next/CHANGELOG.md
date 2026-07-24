@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin I18next
 
+## [0.1.509](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.509) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([1cf66046a](https://github.com/storm-software/powerlines/commit/1cf66046a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.563**
+- Updated **powerlines** to **v0.47.151**
+
 ## [0.1.508](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.508) (07/24/2026)
 
 ### Updated Dependencies

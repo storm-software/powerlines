@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.6.253](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.253) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([1cf66046a](https://github.com/storm-software/powerlines/commit/1cf66046a))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.563**
+- Updated **powerlines** to **v0.47.151**
+
 ## [0.6.252](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.252) (07/24/2026)
 
 ### Updated Dependencies
