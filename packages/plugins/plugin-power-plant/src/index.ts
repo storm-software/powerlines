@@ -64,7 +64,8 @@ export const plugin = <
     async configResolved() {
       this.powerplant = {
         execute: await createExecute({
-          storage: createStorageAdapter(this.fs)
+          storage: createStorageAdapter(this.fs),
+          tsconfig: this.tsconfig.tsconfigFilePath
         }),
         options: {} as TContext["powerplant"]["options"]
       };

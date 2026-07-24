@@ -86,15 +86,10 @@ export async function render<TContext extends PluginContext>(
   context: TContext,
   template: Children
 ) {
-  // Power Plant generate types may not resolve cleanly across package boundaries.
-  // eslint-disable-next-line ts/no-unsafe-call -- generate entry typing
-  const documents = (await generate(
-    // Alloy Children types can diverge across transitive @alloy-js/core versions.
-    (
-      <PowerlinesContext.Provider value={context}>
-        {template}
-      </PowerlinesContext.Provider>
-    ) as never,
+  const documents: Record<string, GeneratedDocument> = await generate(
+    <PowerlinesContext.Provider value={context}>
+      {template}
+    </PowerlinesContext.Provider>,
     {},
     {
       cwd: context.config.cwd,
@@ -106,9 +101,10 @@ export async function render<TContext extends PluginContext>(
       },
       settings: {
         skipStorage: true
-      }
+      },
+      tsconfig: context.tsconfig.tsconfigFilePath
     }
-  )) as Record<string, GeneratedDocument>;
+  );
 
   const entries = Object.values(documents);
   if (!entries.length) {
