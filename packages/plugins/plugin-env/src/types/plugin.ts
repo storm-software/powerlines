@@ -17,6 +17,11 @@
  ------------------------------------------------------------------- */
 
 import { Children } from "@alloy-js/core";
+import type {
+  JsonSchemaObject,
+  SchemaConfig,
+  SchemaEnvelope
+} from "@power-plant/schema";
 import { AutoMDPluginOptions } from "@powerlines/plugin-automd/types/plugin";
 import {
   BabelPluginContext,
@@ -24,7 +29,6 @@ import {
   BabelPluginResolvedConfig,
   BabelPluginUserConfig
 } from "@powerlines/plugin-babel/types";
-import type { JsonSchemaObject, Schema, SchemaInput } from "@powerlines/schema";
 import type { DotenvParseOutput } from "@stryke/env/types";
 import { RequiredKeys } from "@stryke/types";
 import { DotenvConfiguration } from "@stryke/types/configuration";
@@ -35,12 +39,12 @@ export type EnvPluginOptions = Omit<DotenvConfiguration, "types"> & {
   /**
    * A path to the type definition for the expected env configuration parameters. This value can include both a path to the typescript file and the name of the type definition to use separated by a `":"` or `"#"` character. For example: `"./src/types/env.ts#ConfigConfiguration"`.
    */
-  config?: SchemaInput;
+  config?: SchemaConfig;
 
   /**
    * A path to the type definition for the expected env secret parameters. This value can include both a path to the typescript file and the name of the type definition to use separated by a `":"` or `"#"` character. For example: `"./src/types/env.ts#ConfigSecrets"`.
    */
-  secrets?: SchemaInput;
+  secrets?: SchemaConfig;
 
   /**
    * An additional prefix (or list of additional prefixes) to apply to the environment variables
@@ -128,7 +132,7 @@ export type EnvPluginResolvedConfig = BabelPluginResolvedConfig & {
  * @remarks
  * This schema is the result of parsing the type definitions provided in the {@link EnvPluginOptions.config} and {@link EnvPluginOptions.secrets} options, and is used to validate the loaded environment variables and secrets, as well as to determine which variables should be injected into the source code when the {@link EnvPluginOptions.inject} option is enabled.
  */
-export type EnvSchema = Schema<JsonSchemaObject> & {
+export type EnvSchema = SchemaEnvelope<JsonSchemaObject> & {
   /**
    * The list of active environment variables or secrets that should be injected into the source code when the {@link EnvPluginOptions.inject} option is enabled. This list is determined by filtering the properties defined in the schema based on the provided prefix and any additional filtering criteria defined in the type definition, such as an `active` property.
    *

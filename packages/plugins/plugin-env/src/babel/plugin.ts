@@ -18,10 +18,10 @@
 
 import { NodePath } from "@babel/core";
 import * as t from "@babel/types";
+import { getProperties } from "@power-plant/schema";
 import { createBabelPlugin } from "@powerlines/plugin-babel/helpers/create-plugin";
 import { addImport } from "@powerlines/plugin-babel/helpers/module-helpers";
 import { BabelPluginPass } from "@powerlines/plugin-babel/types/config";
-import { getProperties } from "@powerlines/schema";
 import { replacePath } from "@stryke/path/replace";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isUndefined } from "@stryke/type-checks/is-undefined";

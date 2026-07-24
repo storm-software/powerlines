@@ -1,1 +1,1 @@
-/nix/store/bfplhw1d7yirnlr0pqgb65y083vnbi9a-claude-agents-fullstack-developer.md
+/nix/store/igq59riy92080gvvl6m6wn59mrasidzy-claude-agents-fullstack-developer.md

@@ -155,6 +155,14 @@
       "import": "./dist/schema.mjs",
       "require": "./dist/schema.cjs"
     },
+    "./schema-bundle": {
+      "import": "./dist/schema-bundle.mjs",
+      "require": "./dist/schema-bundle.cjs"
+    },
+    "./schema-resolve": {
+      "import": "./dist/schema-resolve.mjs",
+      "require": "./dist/schema-resolve.cjs"
+    },
     "./storage": {
       "import": "./dist/storage.mjs",
       "require": "./dist/storage.cjs"
@@ -199,24 +207,34 @@
   "bin": {
     "powerlines": "./bin/bin.mjs"
   },
-  "files": ["dist", "bin", "files"],
+  "files": [
+    "dist",
+    "bin",
+    "files"
+  ],
   "dependencies": {
     "@babel/types": "catalog:",
+    "@power-plant/schema": "catalog:",
     "@powerlines/core": "workspace:*",
     "@powerlines/engine": "workspace:*",
-    "@powerlines/schema": "workspace:*",
     "@powerlines/unplugin": "workspace:*",
     "@storm-software/config": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@stryke/convert": "catalog:",
     "@stryke/env": "catalog:",
     "@stryke/fs": "catalog:",
+    "@stryke/helpers": "catalog:",
+    "@stryke/path": "catalog:",
+    "@stryke/type-checks": "catalog:",
+    "@stryke/types": "catalog:",
     "defu": "catalog:",
-    "unplugin": "catalog:"
+    "esbuild": "catalog:",
+    "smol-toml": "catalog:",
+    "unplugin": "catalog:",
+    "yaml": "catalog:"
   },
   "devDependencies": {
     "@storm-software/testing-tools": "catalog:",
-    "@stryke/types": "catalog:",
     "@types/node": "catalog:",
     "typescript": "^6.0.3",
     "undici-types": "catalog:"

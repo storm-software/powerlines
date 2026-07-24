@@ -23,11 +23,8 @@ import {
   isSchema,
   isSchemaObject,
   JsonSchemaObject,
-  merge,
-  Schema,
-  writeSchema
-} from "@powerlines/schema";
-import { omit } from "@stryke/helpers/omit";
+  merge
+} from "@power-plant/schema";
 import { joinPaths } from "@stryke/path/join";
 import { isSetArray } from "@stryke/type-checks/is-set-array";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
@@ -171,10 +168,7 @@ export async function extractEnv<TContext extends EnvPluginContext>(
   context.env.parsed ??= {};
   context.env.injected ??= [];
 
-  context.env.config = (await extract(
-    context,
-    context.config.env.config
-  )) as EnvSchema;
+  context.env.config = (await extract(context.config.env.config)) as EnvSchema;
   context.env.config.active = await readActive(context, "config");
 
   if (
@@ -189,13 +183,12 @@ export async function extractEnv<TContext extends EnvPluginContext>(
           defaultConfig.export))
   ) {
     context.env.config.schema = merge(
-      await extract(context, defaultConfig),
+      await extract(defaultConfig),
       context.env.config
     ) as JsonSchemaObject;
   }
 
   context.env.secrets = (await extract(
-    context,
     context.config.env.secrets
   )) as EnvSchema;
   context.env.secrets.active = await readActive(context, "secrets");
@@ -212,51 +205,48 @@ export async function extractEnv<TContext extends EnvPluginContext>(
           defaultSecrets.export))
   ) {
     context.env.secrets.schema = merge(
-      await extract(context, defaultSecrets),
+      await extract(defaultSecrets),
       context.env.secrets
     ) as JsonSchemaObject;
   }
 
   const properties = getProperties(context.env.config);
+  const describeVariant = (variant: EnvSchema["variant"]) => {
+    switch (variant) {
+      case "json-schema":
+        return "JSON Schema";
+      case "standard-schema":
+        return "Standard Schema";
+      case "zod3":
+        return "Zod v3 schema";
+      case "valibot":
+        return "Valibot schema";
+      case "untyped":
+        return "Untyped configuration";
+      case "file-reference":
+        return "Typescript exported type";
+      default: {
+        const _exhaustive: never = variant;
+
+        return _exhaustive;
+      }
+    }
+  };
   context.info({
     meta: {
       category: "env"
     },
     message: `Environment Variables configuration: ${
       context.config.env.config ? "" : "Defaulted "
-    }${
-      context.env.config.variant === "reflection"
-        ? "Deepkit type definition"
-        : context.env.config.variant === "json-schema"
-          ? "JSON Schema"
-          : context.env.config.variant === "standard-schema"
-            ? "Standard Schema"
-            : context.env.config.variant === "zod3"
-              ? "Zod v3 schema"
-              : context.env.config.variant === "valibot"
-                ? "Valibot schema"
-                : context.env.config.variant === "untyped"
-                  ? "Untyped configuration"
-                  : "Typescript exported type"
-    }${context.config.env.config ? " from plugin options" : ""} provided ${
+    }${describeVariant(context.env.config.variant)}${
+      context.config.env.config ? " from plugin options" : ""
+    } provided ${
       Object.keys(properties).length
     } parameters\nEnvironment Secret configuration: ${
       context.config.env.secrets ? "" : "Defaulted "
-    }${
-      context.env.secrets.variant === "reflection"
-        ? "Deepkit type definition"
-        : context.env.secrets.variant === "json-schema"
-          ? "JSON Schema"
-          : context.env.secrets.variant === "standard-schema"
-            ? "Standard Schema"
-            : context.env.secrets.variant === "zod3"
-              ? "Zod v3 schema"
-              : context.env.secrets.variant === "valibot"
-                ? "Valibot schema"
-                : context.env.secrets.variant === "untyped"
-                  ? "Untyped configuration"
-                  : "Typescript exported type"
-    }${context.config.env.secrets ? " from plugin options" : ""} provided ${
+    }${describeVariant(context.env.secrets.variant)}${
+      context.config.env.secrets ? " from plugin options" : ""
+    } provided ${
       context.env.secrets?.schema
         ? getPropertiesList(context.env.secrets).length
         : "0"
@@ -366,8 +356,6 @@ export async function writeEnv<TContext extends EnvPluginContext>(
   context: TContext
 ): Promise<void[]> {
   return Promise.all([
-    writeSchema(context, omit(context.env.config, ["active"]) as Schema),
-    writeSchema(context, omit(context.env.secrets, ["active"]) as Schema),
     writeActive(context, "config", context.env.config),
     writeActive(context, "secrets", context.env.secrets)
   ]);

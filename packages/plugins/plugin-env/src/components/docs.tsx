@@ -24,8 +24,9 @@ import {
   MarkdownFileProps
 } from "@power-plant/alloy-js/markdown/components/markdown-file";
 import { MarkdownTable } from "@power-plant/alloy-js/markdown/components/markdown-table";
+import { getPropertiesList } from "@power-plant/schema";
+import { stringifyType } from "@power-plant/schema/codegen";
 import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
-import { getPropertiesList, stringifyType } from "@powerlines/schema";
 import { joinPaths } from "@stryke/path/join";
 import { getDocsOutputPath } from "powerlines/plugin-utils";
 import { EnvPluginContext } from "../types/plugin";

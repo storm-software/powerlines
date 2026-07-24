@@ -23,10 +23,10 @@ allowBuilds:
   workerd: true
 catalog:
   "@alloy-js/babel-preset": ^0.3.0
-  "@alloy-js/core": ^0.23.1
-  "@alloy-js/json": ^0.23.0
-  "@alloy-js/markdown": ^0.23.0
-  "@alloy-js/typescript": ^0.23.0
+  "@alloy-js/core": ^0.24.1
+  "@alloy-js/json": ^0.24.0
+  "@alloy-js/markdown": ^0.24.0
+  "@alloy-js/typescript": ^0.24.0
   "@arethetypeswrong/core": ^0.18.5
   "@asyncapi/generator": ^2.11.0
   "@asyncapi/parser": ^3.6.0
@@ -65,7 +65,7 @@ catalog:
   "@noble/ciphers": ^2.2.0
   "@nuxt/kit": ^4.5.0
   "@nuxt/schema": ^4.5.0
-  "@nx/devkit": ^22.7.7
+  "@nx/devkit": ^23.0.1
   "@nx/eslint-plugin": 23.0.1
   "@nx/js": 23.0.1
   "@nx/plugin": 23.0.1
@@ -97,6 +97,7 @@ catalog:
   "@power-plant/openapi-typescript": ^0.0.3
   "@power-plant/prisma": ^0.0.4
   "@power-plant/prisma-schema": ^0.0.1
+  "@power-plant/schema": ^0.0.22
   "@power-plant/style-dictionary": ^0.0.8
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0

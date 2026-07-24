@@ -16,12 +16,12 @@
 
  ------------------------------------------------------------------- */
 
+import { addProperty } from "@power-plant/schema";
 import { isMatchFound } from "@powerlines/core/lib/typescript";
 import { render } from "@powerlines/plugin-alloy/render";
 import babel, { BabelPluginResolvedConfig } from "@powerlines/plugin-babel";
 import env from "@powerlines/plugin-env";
 import type { VitePluginResolvedConfig } from "@powerlines/plugin-vite/types/plugin";
-import { addProperty } from "@powerlines/schema";
 import rolldownBabel from "@rolldown/plugin-babel";
 import { kebabCase } from "@stryke/string-format/kebab-case";
 import viteReactPlugin from "@vitejs/plugin-react";

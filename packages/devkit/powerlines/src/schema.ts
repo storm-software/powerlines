@@ -16,4 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-export * from "@powerlines/schema";
+export * from "@power-plant/schema";
+export * from "@power-plant/schema/codegen";
+export * from "./schema-bundle";
+export * from "./schema-resolve";

@@ -256,7 +256,7 @@
     "@powerlines/plugin-automd": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
-    "@powerlines/schema": "workspace:*",
+    "@power-plant/schema": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",

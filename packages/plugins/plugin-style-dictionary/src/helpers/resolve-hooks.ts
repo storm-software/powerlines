@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import { resolve } from "@powerlines/schema";
 import { isFunction } from "@stryke/type-checks/is-function";
+import { resolve } from "powerlines/schema";
 import type { Hooks } from "style-dictionary/types";
 import { fileHeader } from "../style-dictionary/file-header";
 import type {

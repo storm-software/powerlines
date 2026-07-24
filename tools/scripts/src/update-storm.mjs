@@ -24,7 +24,7 @@ try {
 
   // 1) Update @storm-software/*, @stryke/*, and @shell-shock/* packages to the latest version
   await echo`${chalk.whiteBright("Checking for storm-software, stryke, and shell-shock updates...")}`;
-  let proc = $`pnpm exec storm-pnpm update --all`.timeout(`${8 * 60}s`);
+  let proc = $`pnpm exec storm-pnpm update --all`.timeout(`${10 * 60}s`);
   proc.stdout.on("data", data => echo`${data}`);
   let result = await proc;
   if (result.exitCode !== 0) {
@@ -54,7 +54,7 @@ try {
   //   }
 
   // 4) Install git hooks to ensure that the correct versions of the CLI and other tools are used when running git commands
-  proc = $`pnpm exec storm-git prepare`.timeout(`${8 * 60}s`);
+  proc = $`pnpm exec storm-git prepare`.timeout(`${10 * 60}s`);
   proc.stdout.on("data", data => echo`${data}`);
   result = await proc;
   if (result.exitCode !== 0) {

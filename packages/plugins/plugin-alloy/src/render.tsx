@@ -64,12 +64,10 @@ function getDocumentContents(document: GeneratedDocument): string {
 }
 
 /**
- * A function to render children components within the [Alloy](https://alloy-framework.github.io) context, and write any saved content to the file system.
+ * A function to render Alloy-js template components within the [Alloy-js](https://alloy-framework.github.io) context, and write any saved content to the file system.
  *
  * @remarks
- * Uses Power Plant's {@link generate | `generate`} entry point to create an
- * execution context and render Alloy-js templates, then emits the resulting
- * documents through the Powerlines plugin context.
+ * Uses Power Plant's {@link generate | `generate`} entry point to create an execution context and render Alloy-js templates, then emits the resulting documents through the Powerlines plugin context.
  *
  * @example
  * ```tsx
@@ -81,12 +79,12 @@ function getDocumentContents(document: GeneratedDocument): string {
  * @see https://github.com/storm-software/power-plant/blob/main/packages/generators/alloy-js/src/generate.ts
  *
  * @param context - The Powerlines plugin context.
- * @param children - The children components to render.
+ * @param template - The children components to render.
  * @returns A promise that resolves when rendering is complete.
  */
 export async function render<TContext extends PluginContext>(
   context: TContext,
-  children: Children
+  template: Children
 ) {
   // Power Plant generate types may not resolve cleanly across package boundaries.
   // eslint-disable-next-line ts/no-unsafe-call -- generate entry typing
@@ -94,7 +92,7 @@ export async function render<TContext extends PluginContext>(
     // Alloy Children types can diverge across transitive @alloy-js/core versions.
     (
       <PowerlinesContext.Provider value={context}>
-        {children}
+        {template}
       </PowerlinesContext.Provider>
     ) as never,
     {},
@@ -113,7 +111,6 @@ export async function render<TContext extends PluginContext>(
   )) as Record<string, GeneratedDocument>;
 
   const entries = Object.values(documents);
-
   if (!entries.length) {
     context.debug("No output files were rendered by the Alloy-js components.");
     return;

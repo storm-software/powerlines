@@ -292,7 +292,7 @@
     "@power-plant/core": "catalog:",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-power-plant": "workspace:*",
-    "@powerlines/schema": "workspace:*",
+    "@power-plant/schema": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@stryke/capnp": "catalog:",
     "@stryke/convert": "catalog:",

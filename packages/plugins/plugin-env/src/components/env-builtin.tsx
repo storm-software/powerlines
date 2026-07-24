@@ -45,19 +45,19 @@ import {
   TSDocRemarks,
   TSDocReturns
 } from "@power-plant/alloy-js/typescript/components/tsdoc";
+import {
+  getPropertiesList,
+  GetPropertyResult,
+  JsonSchema,
+  JsonSchemaObject
+} from "@power-plant/schema";
+import { generateParserCode } from "@power-plant/schema/codegen";
 import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
 import { refkey } from "@powerlines/plugin-alloy/helpers/refkey";
 import {
   BuiltinFile,
   BuiltinFileProps
 } from "@powerlines/plugin-alloy/typescript/components";
-import {
-  generateParserCode,
-  getPropertiesList,
-  GetPropertyResult,
-  JsonSchema,
-  JsonSchemaObject
-} from "@powerlines/schema";
 import { toArray } from "@stryke/convert/to-array";
 import { deepClone } from "@stryke/helpers/deep-clone";
 import { getUnique } from "@stryke/helpers/get-unique";

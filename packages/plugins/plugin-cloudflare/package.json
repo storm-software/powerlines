@@ -213,7 +213,6 @@
     "@powerlines/plugin-env": "workspace:*",
     "@powerlines/plugin-pulumi": "workspace:*",
     "@powerlines/plugin-unenv": "workspace:*",
-    "@powerlines/schema": "workspace:*",
     "@pulumi/cloudflare": "catalog:",
     "@pulumi/pulumi": "catalog:",
     "@storm-software/config-tools": "catalog:",

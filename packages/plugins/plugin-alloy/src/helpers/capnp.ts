@@ -24,7 +24,7 @@ import type {
   JsonSchemaLike,
   JsonSchemaNativeEnum,
   JsonSchemaObject
-} from "@powerlines/schema";
+} from "@power-plant/schema";
 import {
   getPropertiesList,
   isJsonSchemaAnyOf,
@@ -48,7 +48,7 @@ import {
   isJsonSchemaTuple,
   isJsonSchemaUndefined,
   isJsonSchemaUnion
-} from "@powerlines/schema";
+} from "@power-plant/schema";
 import { capnpc } from "@stryke/capnp/compile";
 import { resolveOptions } from "@stryke/capnp/helpers";
 import type { CapnpcOptions, CapnpcResult } from "@stryke/capnp/types";
@@ -213,8 +213,7 @@ export function isCapnpStringUnion(schema: JsonSchema): boolean {
 export const LARGE_BUFFER = 1024 * 1000000;
 export type IOType = "overlapped" | "pipe" | "ignore" | "inherit";
 export type StdioOptions =
-  | IOType
-  | Array<IOType | "ipc" | number | null | undefined>;
+  IOType | Array<IOType | "ipc" | number | null | undefined>;
 
 const execAsync = promisify(exec);
 
@@ -315,9 +314,7 @@ function generateCapnpEnums(schema: JsonSchemaObject): string {
     .map(prop =>
       generateCapnpEnumSchema(
         prop as unknown as
-          | JsonSchemaEnum
-          | JsonSchemaNativeEnum
-          | JsonSchemaAnyOf,
+          JsonSchemaEnum | JsonSchemaNativeEnum | JsonSchemaAnyOf,
         formatEnumName(prop.name)
       )
     )
@@ -465,8 +462,7 @@ ${generateCapnpPropertyComment(prop)}`;
 ${generateCapnpPropertyComment(prop)}`;
   } else if (isJsonSchemaSet(prop) || isJsonSchemaTuple(prop)) {
     const itemSchema = (prop as unknown as JsonSchemaLike).items as
-      | JsonSchema
-      | undefined;
+      JsonSchema | undefined;
 
     return `${camelCase(propName)} @${indexCounter()} :List(${
       itemSchema ? generateCapnpPrimitive(itemSchema) : "Data"
@@ -474,8 +470,7 @@ ${generateCapnpPropertyComment(prop)}`;
 ${generateCapnpPropertyComment(prop)}`;
   } else if (isJsonSchemaArray(prop)) {
     const itemSchema = (prop as unknown as JsonSchemaLike).items as
-      | JsonSchema
-      | undefined;
+      JsonSchema | undefined;
 
     return `${camelCase(propName)} @${indexCounter()} :List(${
       itemSchema ? generateCapnpPrimitive(itemSchema) : "Data"
@@ -580,8 +575,7 @@ export function generateCapnpPrimitive(schema: JsonSchema): string {
   }
   if (isJsonSchemaSet(schema)) {
     const itemSchema = (schema as JsonSchemaLike).items as
-      | JsonSchema
-      | undefined;
+      JsonSchema | undefined;
 
     return `List(${itemSchema ? generateCapnpPrimitive(itemSchema) : "Data"})`;
   }
