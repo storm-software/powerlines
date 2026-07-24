@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.515](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.515) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace to use `@power-plant/schema` and remove duplicate local package ([a22321d7b](https://github.com/storm-software/powerlines/commit/a22321d7b))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.558**
+- Updated **plugin-power-plant** to **v0.1.2**
+- Updated **powerlines** to **v0.47.146**
+
 ## [0.3.514](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.514) (07/24/2026)
 
 ### Source Code Improvements

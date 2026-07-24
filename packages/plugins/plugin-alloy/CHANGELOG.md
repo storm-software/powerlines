@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.239](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.239) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace to use `@power-plant/schema` and remove duplicate local package ([a22321d7b](https://github.com/storm-software/powerlines/commit/a22321d7b))
+
+### Updated Dependencies
+
+- Updated **plugin-babel** to **v0.13.142**
+- Updated **plugin-plugin** to **v0.12.558**
+- Updated **plugin-power-plant** to **v0.1.2**
+- Updated **powerlines** to **v0.47.146**
+
 ## [0.26.238](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.238) (07/24/2026)
 
 ### Source Code Improvements

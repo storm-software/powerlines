@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-nodejs",
-  "version": "0.1.550",
+  "version": "0.1.551",
   "type": "module",
   "description": "A package containing a Powerlines plugin for building a Node.js application.",
   "repository": {

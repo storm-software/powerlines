@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.685](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.685) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace to use `@power-plant/schema` and remove duplicate local package ([a22321d7b](https://github.com/storm-software/powerlines/commit/a22321d7b))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.67**
+- Updated **plugin-alloy** to **v0.26.239**
+- Updated **plugin-babel** to **v0.13.142**
+- Updated **plugin-env** to **v0.16.350**
+- Updated **plugin-plugin** to **v0.12.558**
+- Updated **plugin-vite** to **v0.14.600**
+- Updated **powerlines** to **v0.47.146**
+
 ## [0.1.684](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.684) (07/24/2026)
 
 ### Source Code Improvements

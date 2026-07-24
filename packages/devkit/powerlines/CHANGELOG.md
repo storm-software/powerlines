@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.146](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.146) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace to use `@power-plant/schema` and remove duplicate local package ([a22321d7b](https://github.com/storm-software/powerlines/commit/a22321d7b))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.67**
+- Updated **engine** to **v0.49.69**
+- Updated **unplugin** to **v0.0.115**
+
 ## [0.47.145](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.145) (07/24/2026)
 
 ### Updated Dependencies

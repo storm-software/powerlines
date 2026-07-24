@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.249](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.249) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace to use `@power-plant/schema` and remove duplicate local package ([a22321d7b](https://github.com/storm-software/powerlines/commit/a22321d7b))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.239**
+- Updated **plugin-env** to **v0.16.350**
+- Updated **plugin-plugin** to **v0.12.558**
+- Updated **plugin-pulumi** to **v0.6.248**
+- Updated **plugin-unenv** to **v0.1.596**
+- Updated **powerlines** to **v0.47.146**
+
 ## [0.6.248](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.248) (07/24/2026)
 
 ### Source Code Improvements
