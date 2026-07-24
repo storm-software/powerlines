@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.66](https://github.com/storm-software/powerlines/releases/tag/core%400.48.66) (07/24/2026)
+
+### Source Code Improvements
+
+- **monorepo:** Update the plugin packages to use Power Plant for source code generation ([7915fff2a](https://github.com/storm-software/powerlines/commit/7915fff2a))
+
 ## [0.48.64](https://github.com/storm-software/powerlines/releases/tag/core%400.48.64) (07/11/2026)
 
 ### Miscellaneous

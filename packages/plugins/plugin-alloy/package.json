@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-alloy",
-  "version": "0.26.237",
+  "version": "0.26.238",
   "description": "A Powerlines plugin to generate project code using Alloy JS via Power Plant.",
   "keywords": ["alloy-js", "powerlines", "powerlines-plugin"],
   "homepage": "https://stormsoftware.com",
