@@ -26,12 +26,9 @@ export default defineConfig({
     "src/index.tsx",
     "src/render.tsx",
     "src/core/**/*.{ts,tsx}",
-    "src/hcl/**/*.{ts,tsx}",
     "src/helpers/**/*.{ts,tsx}",
-    "src/markdown/**/*.{ts,tsx}",
     "src/types/**/*.{ts,tsx}",
-    "src/typescript/**/*.{ts,tsx}",
-    "src/yaml/**/*.{ts,tsx}"
+    "src/typescript/**/*.{ts,tsx}"
   ],
   plugins: [plugin(), babel()],
   resolve: {
@@ -39,7 +36,9 @@ export default defineConfig({
       "@alloy-js/core",
       "@alloy-js/typescript",
       "@alloy-js/json",
-      "@alloy-js/markdown"
+      "@alloy-js/markdown",
+      "@power-plant/alloy-js",
+      "@power-plant/core"
     ]
   },
   babel: {

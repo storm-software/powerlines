@@ -1,11 +1,6 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": { "types": ["node"], "outDir": "../../../dist/out-tsc" },
-  "include": [
-    "src/**/*.ts",
-    "types/*.d.ts",
-    "powerlines.config.ts",
-    "powerlines.d.ts"
-  ],
+  "include": ["src/**/*.ts", "powerlines.config.ts", "powerlines.d.ts"],
   "exclude": ["vitest.config.mts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

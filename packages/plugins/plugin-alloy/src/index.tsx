@@ -32,14 +32,21 @@ declare module "powerlines" {
 /**
  * Alloy-js plugin for Powerlines.
  *
+ * @remarks
+ * Integrates Alloy-js via Power Plant when a `template` is provided, and
+ * configures Babel/tsdown for Alloy JSX builds.
+ *
+ * @see https://alloy-framework.github.io/alloy/guides/getting-started/
+ * @see https://github.com/storm-software/power-plant/tree/main/packages/generators/alloy-js
+ *
  * @param options - The Alloy-js plugin user configuration options.
- * @returns A Powerlines plugin that integrates Alloy-js transformations.
+ * @returns Powerlines plugin instances.
  */
 export const plugin = <
   TContext extends AlloyPluginContext = AlloyPluginContext
 >(
   options: AlloyPluginOptions = {}
-) => {
+): Plugin<TContext>[] => {
   return [
     babel(),
     {
@@ -78,7 +85,8 @@ export const plugin = <
               "@alloy-js/core",
               "@alloy-js/typescript",
               "@alloy-js/json",
-              "@alloy-js/markdown"
+              "@alloy-js/markdown",
+              "@power-plant/alloy-js"
             ]
           }
         };
@@ -97,7 +105,7 @@ export const plugin = <
         }
       }
     }
-  ] as Plugin<TContext>[];
+  ];
 };
 
 export default plugin;

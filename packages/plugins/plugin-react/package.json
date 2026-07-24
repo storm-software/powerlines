@@ -137,6 +137,7 @@
     "@alloy-js/markdown": "catalog:",
     "@alloy-js/typescript": "catalog:",
     "@babel/core": "catalog:",
+    "@power-plant/alloy-js": "catalog:",
     "@powerlines/core": "workspace:*",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",

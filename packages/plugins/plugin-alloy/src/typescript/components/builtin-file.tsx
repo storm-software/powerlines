@@ -17,18 +17,20 @@
  ------------------------------------------------------------------- */
 
 import { computed, splitProps } from "@alloy-js/core";
-import { hasFileExtension } from "@stryke/path/file-path-fns";
-import { replaceExtension, replacePath } from "@stryke/path/replace";
-import { isSet } from "@stryke/type-checks/is-set";
-import { usePowerlinesSafe } from "../../core/contexts/context";
-import type { TSDocModuleProps } from "./tsdoc";
-import { TSDocModule } from "./tsdoc";
 import {
   TypescriptFile,
   TypescriptFileHeader,
   TypescriptFileHeaderImports,
-  TypescriptFileProps
-} from "./typescript-file";
+  type TypescriptFileProps
+} from "@power-plant/alloy-js/typescript/components/typescript-file";
+import {
+  TSDocModule,
+  type TSDocModuleProps
+} from "@power-plant/alloy-js/typescript/components/tsdoc";
+import { hasFileExtension } from "@stryke/path/file-path-fns";
+import { replaceExtension, replacePath } from "@stryke/path/replace";
+import { isSet } from "@stryke/type-checks/is-set";
+import { usePowerlinesSafe } from "../../core/contexts/context";
 
 export type BuiltinFileProps = Omit<TypescriptFileProps, "path"> &
   Omit<TSDocModuleProps, "name"> & {

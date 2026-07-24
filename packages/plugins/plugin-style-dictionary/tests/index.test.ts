@@ -6,25 +6,29 @@ describe("style-dictionary plugin", () => {
     expect(typeof plugin).toBe("function");
   });
 
-  it("plugin() returns an object", () => {
+  it("plugin() returns plugin instances", () => {
     const result = plugin();
-    expect(typeof result).toBe("object");
-    expect(result).not.toBeNull();
+    expect(Array.isArray(result)).toBe(true);
+    expect(result).toHaveLength(2);
   });
 
-  it("plugin() returns an object with a name property", () => {
+  it("plugin() includes power-plant and style-dictionary plugins", () => {
     const result = plugin();
-    expect(result).toHaveProperty("name");
-    expect(typeof result.name).toBe("string");
+    expect(result.map(pluginInstance => pluginInstance.name)).toEqual([
+      "power-plant",
+      "style-dictionary"
+    ]);
   });
 
   it("plugin() accepts an empty options object", () => {
     expect(() => plugin({})).not.toThrow();
   });
 
-  it("plugin() returns the same name for all calls", () => {
+  it("plugin() returns the same plugin names for all calls", () => {
     const r1 = plugin();
     const r2 = plugin({});
-    expect(r1.name).toBe(r2.name);
+    expect(r1.map(pluginInstance => pluginInstance.name)).toEqual(
+      r2.map(pluginInstance => pluginInstance.name)
+    );
   });
 });

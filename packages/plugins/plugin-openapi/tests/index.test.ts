@@ -6,25 +6,30 @@ describe("openapi plugin", () => {
     expect(typeof plugin).toBe("function");
   });
 
-  it("plugin() returns an object", () => {
+  it("plugin() returns plugin instances", () => {
     const result = plugin();
-    expect(typeof result).toBe("object");
-    expect(result).not.toBeNull();
+    expect(Array.isArray(result)).toBe(true);
+    expect(result).toHaveLength(2);
   });
 
-  it("plugin() returns an object with a name property", () => {
+  it("plugin() returns objects with name properties", () => {
     const result = plugin();
-    expect(result).toHaveProperty("name");
-    expect(typeof result.name).toBe("string");
+    for (const instance of result) {
+      expect(instance).toHaveProperty("name");
+      expect(typeof instance.name).toBe("string");
+    }
   });
 
   it("plugin() accepts an empty options object", () => {
     expect(() => plugin({})).not.toThrow();
   });
 
-  it("plugin() returns the same name for all calls", () => {
+  it("plugin() returns the same openapi name for all calls", () => {
     const r1 = plugin();
     const r2 = plugin({});
-    expect(r1.name).toBe(r2.name);
+    const openapiPlugin = (plugins: ReturnType<typeof plugin>) =>
+      plugins.find(instance => instance.name === "openapi");
+
+    expect(openapiPlugin(r1)?.name).toBe(openapiPlugin(r2)?.name);
   });
 });

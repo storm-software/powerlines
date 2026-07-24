@@ -8,32 +8,38 @@ describe("prisma plugin", () => {
   });
 
   it("plugin() returns an array", () => {
-      const result = plugin();
-      expect(typeof result).toBe("object");
-      expect(result).not.toBeNull();
-      expect(Array.isArray(result)).toBe(true);
-      expect(result.length).toBeGreaterThan(0);
-    });
+    const result = plugin();
+    expect(typeof result).toBe("object");
+    expect(result).not.toBeNull();
+    expect(Array.isArray(result)).toBe(true);
+    expect(result.length).toBeGreaterThan(0);
+  });
 
-    it("plugin() returns plugin objects with a name property", () => {
-      const result = plugin();
-      result.forEach((pluginInstance: Plugin<any>) => {
-        expect(pluginInstance).toHaveProperty("name");
-        expect(typeof pluginInstance.name).toBe("string");
-      });
+  it("plugin() returns plugin objects with a name property", () => {
+    const result = plugin();
+    result.forEach((pluginInstance: Plugin<any>) => {
+      expect(pluginInstance).toHaveProperty("name");
+      expect(typeof pluginInstance.name).toBe("string");
     });
+  });
 
-    it("plugin() accepts an empty options object", () => {
-      expect(() => plugin({})).not.toThrow();
-    });
+  it("plugin() includes power-plant and prisma plugins", () => {
+    const names = plugin().map(pluginInstance => pluginInstance.name);
+    expect(names.some(name => name.startsWith("power-plant"))).toBe(true);
+    expect(names).toContain("prisma");
+  });
 
-    it("plugin() returns the same name for all calls", () => {
-      const r1 = plugin();
-      const r2 = plugin({});
-      r1.forEach((pluginInstance: Plugin<any>, index: number) => {
-        expect(pluginInstance).toHaveProperty("name");
-        expect(typeof pluginInstance.name).toBe("string");
-        expect(pluginInstance.name).toBe(r2[index].name);
-      });
+  it("plugin() accepts an empty options object", () => {
+    expect(() => plugin({})).not.toThrow();
+  });
+
+  it("plugin() returns the same name for all calls", () => {
+    const r1 = plugin();
+    const r2 = plugin({});
+    r1.forEach((pluginInstance: Plugin<any>, index: number) => {
+      expect(pluginInstance).toHaveProperty("name");
+      expect(typeof pluginInstance.name).toBe("string");
+      expect(pluginInstance.name).toBe(r2[index].name);
     });
+  });
 });

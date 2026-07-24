@@ -95,6 +95,9 @@
   "typings": "dist/index.d.mts",
   "files": ["dist"],
   "dependencies": {
+    "@power-plant/core": "catalog:",
+    "@power-plant/style-dictionary": "catalog:",
+    "@powerlines/plugin-power-plant": "workspace:*",
     "@powerlines/schema": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/string-format": "catalog:",

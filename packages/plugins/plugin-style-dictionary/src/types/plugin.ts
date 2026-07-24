@@ -16,15 +16,15 @@
 
  ------------------------------------------------------------------- */
 
+import type { Options as PowerPlantStyleDictionaryOptions } from "@power-plant/style-dictionary";
+import type {
+  PowerPlantPluginContext,
+  PowerPlantPluginResolvedConfig
+} from "@powerlines/plugin-power-plant/types/plugin";
 import { FileReferenceInput } from "@stryke/types/configuration";
-import {
-  EnvironmentConfig,
-  PluginContext,
-  ResolvedConfig,
-  UserConfig
-} from "powerlines";
-import StyleDictionary, { Config } from "style-dictionary";
-import {
+import type { EnvironmentConfig, ResolvedConfig, UserConfig } from "powerlines";
+import type { DesignTokens } from "style-dictionary/types";
+import type {
   Action,
   FileHeader,
   Filter,
@@ -55,7 +55,16 @@ export type CustomParsersBuilder = (
 export type CustomPreprocessorsBuilder =
   StyleDictionaryExtensionBuilder<Preprocessor>;
 
-export type StyleDictionaryPluginOptions = Omit<Config, "platforms"> & {
+export type StyleDictionaryPluginOptions = PowerPlantStyleDictionaryOptions & {
+  /**
+   * Design tokens passed to the Style Dictionary generator.
+   *
+   * @remarks
+   * When omitted, tokens are loaded from `source` / `include` paths in the
+   * Style Dictionary config.
+   */
+  tokens?: DesignTokens;
+
   /**
    * Whether to skip the Style Dictionary build process.
    *
@@ -129,14 +138,6 @@ export type StyleDictionaryPluginOptions = Omit<Config, "platforms"> & {
    * This value can be a {@link FileReferenceInput} pointing to a module export or an actual builder function.
    */
   customTransforms?: FileReferenceInput | CustomTransformsBuilder;
-
-  /**
-   * An existing Style Dictionary instance to use.
-   *
-   * @remarks
-   * If provided, this instance will be used instead of creating a new one.
-   */
-  instance?: StyleDictionary;
 };
 
 export type StyleDictionaryPluginEnvironmentConfig = EnvironmentConfig &
@@ -147,14 +148,17 @@ export type StyleDictionaryPluginUserConfig = UserConfig & {
   environments?: Record<string, StyleDictionaryPluginEnvironmentConfig>;
 };
 
-export type StyleDictionaryPluginResolvedConfig = ResolvedConfig & {
-  styleDictionary: StyleDictionaryPluginOptions;
-  environments: Record<string, StyleDictionaryPluginEnvironmentConfig>;
-};
+export type StyleDictionaryPluginResolvedConfig = ResolvedConfig &
+  PowerPlantPluginResolvedConfig<DesignTokens, PowerPlantStyleDictionaryOptions> & {
+    styleDictionary: StyleDictionaryPluginOptions;
+    environments: Record<string, StyleDictionaryPluginEnvironmentConfig>;
+  };
 
 export type StyleDictionaryPluginContext<
   TResolvedConfig extends StyleDictionaryPluginResolvedConfig =
     StyleDictionaryPluginResolvedConfig
-> = PluginContext<TResolvedConfig> & {
-  styleDictionary: StyleDictionary;
-};
+> = PowerPlantPluginContext<
+  DesignTokens,
+  PowerPlantStyleDictionaryOptions,
+  TResolvedConfig
+>;

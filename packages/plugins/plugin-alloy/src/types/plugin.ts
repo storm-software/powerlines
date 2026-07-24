@@ -17,22 +17,44 @@
  ------------------------------------------------------------------- */
 
 import type { PrintTreeOptions } from "@alloy-js/core";
+import type { Options as PowerPlantAlloyJsOptions } from "@power-plant/alloy-js";
 import {
   BabelPluginResolvedConfig,
   BabelPluginUserConfig
 } from "@powerlines/plugin-babel/types/plugin";
-import { PluginContext } from "powerlines";
+import type {
+  PowerPlantPluginContext,
+  PowerPlantPluginResolvedConfig
+} from "@powerlines/plugin-power-plant/types/plugin";
+import type { PluginContext } from "powerlines";
 
-export type AlloyPluginOptions = Partial<PrintTreeOptions>;
+export type PowerPlantAlloyOptions = PowerPlantAlloyJsOptions;
+
+export type AlloyPluginOptions = Partial<PowerPlantAlloyJsOptions> &
+  Partial<PrintTreeOptions>;
 
 export type AlloyPluginUserConfig = BabelPluginUserConfig & {
   alloy?: AlloyPluginOptions;
 };
 
-export type AlloyPluginResolvedConfig = BabelPluginResolvedConfig & {
-  alloy: AlloyPluginOptions;
-};
+export type AlloyPluginResolvedConfig = BabelPluginResolvedConfig &
+  Partial<
+    PowerPlantPluginResolvedConfig<Record<string, unknown>, PowerPlantAlloyOptions>
+  > & {
+    alloy: AlloyPluginOptions;
+  };
 
 export type AlloyPluginContext<
   TResolvedConfig extends AlloyPluginResolvedConfig = AlloyPluginResolvedConfig
-> = PluginContext<TResolvedConfig>;
+> = PluginContext<TResolvedConfig> &
+  Partial<
+    PowerPlantPluginContext<
+      Record<string, unknown>,
+      PowerPlantAlloyOptions,
+      TResolvedConfig &
+        PowerPlantPluginResolvedConfig<
+          Record<string, unknown>,
+          PowerPlantAlloyOptions
+        >
+    >
+  >;

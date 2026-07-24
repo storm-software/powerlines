@@ -16,24 +16,60 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  Children,
-  printTree,
-  PrintTreeOptions,
-  renderAsync,
-  renderTree,
-  traverseOutput
-} from "@alloy-js/core";
-import { noop } from "@stryke/helpers/noop";
+import type { Children, PrintTreeOptions } from "@alloy-js/core";
+import { Output, printTree, renderTree } from "@alloy-js/core";
+import { generate } from "@power-plant/alloy-js/generate";
+import type { GeneratedDocument, MetaConfig } from "@power-plant/core";
 import { findFileExtension } from "@stryke/path/file-path-fns";
 import { replacePath } from "@stryke/path/replace";
 import { list } from "@stryke/string-format/list";
-import { PluginContext } from "powerlines";
-import { MetaItem, Output } from "./core";
-import { OutputFile } from "./types";
+import type { PluginContext, StoragePreset } from "powerlines";
+import { PowerlinesContext } from "./core/contexts/context";
+
+export interface MetaItem extends MetaConfig {
+  /**
+   * The kind of metadata item.
+   */
+  kind?: "builtin" | "entry" | "infrastructure" | string;
+
+  /**
+   * Whether to skip formatting for this output.
+   */
+  skipFormat?: boolean;
+
+  /**
+   * The storage preset or adapter name for the output files.
+   */
+  storage?: StoragePreset | string;
+
+  /**
+   * Built-in / infrastructure module id.
+   */
+  id?: string;
+
+  /**
+   * Entry type definition metadata.
+   */
+  typeDefinition?: Record<string, unknown>;
+
+  [key: string]: any;
+}
+
+function getDocumentMeta(document: GeneratedDocument): MetaItem {
+  return document.meta ?? document.chunks?.[0]?.meta ?? {};
+}
+
+function getDocumentContents(document: GeneratedDocument): string {
+  return (document.chunks ?? []).map(chunk => chunk.content ?? "").join("");
+}
 
 /**
  * A function to render children components within the [Alloy](https://alloy-framework.github.io) context, and write any saved content to the file system.
+ *
+ * @remarks
+ * Uses Power Plant's {@link generate | `generate`} entry point to create an
+ * execution context and render Alloy-js templates, then emits the resulting
+ * documents through the Powerlines plugin context.
  *
  * @example
  * ```tsx
@@ -41,6 +77,8 @@ import { OutputFile } from "./types";
  *
  * await render(context, <> ... </>);
  * ```
+ *
+ * @see https://github.com/storm-software/power-plant/blob/main/packages/generators/alloy-js/src/generate.ts
  *
  * @param context - The Powerlines plugin context.
  * @param children - The children components to render.
@@ -50,93 +88,88 @@ export async function render<TContext extends PluginContext>(
   context: TContext,
   children: Children
 ) {
-  const meta = {} as Record<string, MetaItem>;
-  const output = await renderAsync(
-    <Output context={context} meta={meta}>
-      {children}
-    </Output>
+  // Power Plant generate types may not resolve cleanly across package boundaries.
+  // eslint-disable-next-line ts/no-unsafe-call -- generate entry typing
+  const documents = (await generate(
+    // Alloy Children types can diverge across transitive @alloy-js/core versions.
+    (
+      <PowerlinesContext.Provider value={context}>
+        {children}
+      </PowerlinesContext.Provider>
+    ) as never,
+    {},
+    {
+      cwd: context.config.cwd,
+      logger: {
+        debug: message => context.debug(message),
+        info: message => context.info(message),
+        warn: message => context.warn(message),
+        error: message => context.error(message)
+      },
+      settings: {
+        skipStorage: true
+      }
+    }
+  )) as Record<string, GeneratedDocument>;
+
+  const entries = Object.values(documents);
+
+  if (!entries.length) {
+    context.debug("No output files were rendered by the Alloy-js components.");
+    return;
+  }
+
+  context.debug(
+    `Emitting ${entries.length} output files from Alloy-js components: ${list(
+      entries.map(document => {
+        const metadata = getDocumentMeta(document);
+
+        return `${replacePath(document.path, context.config.cwd)}${
+          metadata.kind === "builtin" || metadata.kind === "infrastructure"
+            ? ` (${metadata.kind === "builtin" ? "Builtin" : "Infrastructure"})`
+            : ""
+        }`;
+      })
+    )}.`
   );
 
-  const files = [] as OutputFile[];
-  await traverseOutput(output, {
-    visitDirectory: noop,
-    visitFile: file => files.push(file)
-  });
+  for (const document of entries) {
+    const metadata = getDocumentMeta(document);
+    const contents = getDocumentContents(document);
 
-  if (!files.length) {
-    context.debug("No output files were rendered by the Alloy-js components.");
-  } else {
-    context.debug(
-      `Rendering ${files.length} output files from Alloy-js components: ${list(
-        files.map(
-          file =>
-            `${replacePath(file.path, context.config.cwd)}${
-              meta[file.path]?.kind === "builtin" ||
-              meta[file.path]?.kind === "infrastructure"
-                ? ` (${
-                    meta[file.path]?.kind === "builtin"
-                      ? "Builtin"
-                      : "Infrastructure"
-                  })`
-                : ""
-            }`
-        )
-      )}.`
-    );
-
-    await traverseOutput(output, {
-      visitDirectory: directory => {
-        if (context.fs.existsSync(directory.path)) {
-          return;
-        }
-
-        context.fs.mkdirSync(directory.path);
-      },
-      visitFile: file => {
-        if ("contents" in file) {
-          const metadata = meta[file.path] ?? {};
-          if (metadata.kind === "builtin") {
-            if (!metadata.id) {
-              throw new Error(
-                `Built-in file "${
-                  file.path
-                }" is missing its ID in the render metadata.`
-              );
-            }
-
-            context.emitBuiltinSync(file.contents, metadata.id, {
-              skipFormat: metadata.skipFormat,
-              storage: metadata.storage,
-              extension: findFileExtension(file.path)
-            });
-          } else if (metadata.kind === "entry") {
-            context.emitEntrySync(file.contents, file.path, {
-              skipFormat: metadata.skipFormat,
-              storage: metadata.storage,
-              ...(metadata.typeDefinition ?? {})
-            });
-          } else if (metadata.kind === "infrastructure") {
-            if (!metadata.id) {
-              throw new Error(
-                `Infrastructure file "${
-                  file.path
-                }" is missing its ID in the render metadata.`
-              );
-            }
-
-            context.emitInfrastructureSync(file.contents, metadata.id, {
-              skipFormat: metadata.skipFormat,
-              storage: metadata.storage,
-              extension: findFileExtension(file.path)
-            });
-          } else {
-            context.emitSync(file.contents, file.path, metadata);
-          }
-        } else {
-          context.fs.copySync(file.sourcePath, file.path);
-        }
+    if (metadata.kind === "builtin") {
+      if (!metadata.id) {
+        throw new Error(
+          `Built-in file "${document.path}" is missing its ID in the render metadata.`
+        );
       }
-    });
+
+      context.emitBuiltinSync(contents, metadata.id, {
+        skipFormat: metadata.skipFormat,
+        storage: metadata.storage,
+        extension: findFileExtension(document.path)
+      });
+    } else if (metadata.kind === "entry") {
+      context.emitEntrySync(contents, document.path, {
+        skipFormat: metadata.skipFormat,
+        storage: metadata.storage,
+        ...(metadata.typeDefinition ?? {})
+      });
+    } else if (metadata.kind === "infrastructure") {
+      if (!metadata.id) {
+        throw new Error(
+          `Infrastructure file "${document.path}" is missing its ID in the render metadata.`
+        );
+      }
+
+      context.emitInfrastructureSync(contents, metadata.id, {
+        skipFormat: metadata.skipFormat,
+        storage: metadata.storage,
+        extension: findFileExtension(document.path)
+      });
+    } else {
+      context.emitSync(contents, document.path, metadata);
+    }
   }
 }
 
@@ -160,7 +193,11 @@ export function renderString<TContext extends PluginContext>(
   children: Children,
   options?: PrintTreeOptions
 ) {
-  const tree = renderTree(<Output context={context}>{children}</Output>);
+  const tree = renderTree(
+    <PowerlinesContext.Provider value={context}>
+      <Output basePath={context.config.cwd}>{children}</Output>
+    </PowerlinesContext.Provider>
+  );
 
   return printTree(tree, options);
 }

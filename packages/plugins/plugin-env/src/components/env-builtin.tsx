@@ -31,24 +31,26 @@ import {
   IfStatement,
   VarDeclaration
 } from "@alloy-js/typescript";
-import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
-import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
-import { refkey } from "@powerlines/plugin-alloy/helpers/refkey";
-import type { ComponentProps } from "@powerlines/plugin-alloy/types/components";
+import { Spacing } from "@power-plant/alloy-js/core/components/spacing";
+import type { ComponentProps } from "@power-plant/alloy-js/core/types/components";
 import {
-  BuiltinFile,
-  BuiltinFileProps,
   InterfaceDeclaration,
   InterfaceMember,
   ObjectDeclaration,
   TSDocSchemaProperty
-} from "@powerlines/plugin-alloy/typescript/components";
+} from "@power-plant/alloy-js/typescript/components";
 import {
   TSDoc,
   TSDocParam,
   TSDocRemarks,
   TSDocReturns
-} from "@powerlines/plugin-alloy/typescript/components/tsdoc";
+} from "@power-plant/alloy-js/typescript/components/tsdoc";
+import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
+import { refkey } from "@powerlines/plugin-alloy/helpers/refkey";
+import {
+  BuiltinFile,
+  BuiltinFileProps
+} from "@powerlines/plugin-alloy/typescript/components";
 import {
   generateParserCode,
   getPropertiesList,

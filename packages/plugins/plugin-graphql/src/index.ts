@@ -16,20 +16,22 @@
 
  ------------------------------------------------------------------- */
 
-import {
-  generate,
-  loadContext,
-  updateContextWithCliFlags
-} from "@graphql-codegen/cli";
-import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { findFileName } from "@stryke/path/file-path-fns";
-import { isParentPath } from "@stryke/path/is-parent-path";
+import type { GeneratorConfigObject } from "@power-plant/core";
+import type { Options as PowerPlantGraphQLCodegenOptions } from "@power-plant/graphql-codegen";
+import graphqlCodegenGenerator from "@power-plant/graphql-codegen";
+import { schemaToCodegenDocument } from "@power-plant/graphql-schema/codegen";
+import powerPlant from "@powerlines/plugin-power-plant";
+import { existsSync } from "@stryke/fs/exists";
 import { joinPaths } from "@stryke/path/join-paths";
-import { replacePath } from "@stryke/path/replace";
 import defu from "defu";
-import { Plugin } from "powerlines";
-import { getConfigPath, replacePathTokens } from "powerlines/plugin-utils";
-import { GraphQLPluginContext, GraphQLPluginOptions } from "./types/plugin";
+import type { GraphQLSchema } from "graphql";
+import { buildSchema, isSchema } from "graphql";
+import type { Plugin } from "powerlines";
+import { replacePathTokens } from "powerlines/plugin-utils";
+import type {
+  GraphQLPluginContext,
+  GraphQLPluginOptions
+} from "./types/plugin";
 
 export * from "./types";
 
@@ -40,103 +42,132 @@ declare module "powerlines" {
 }
 
 /**
- * A Powerlines plugin to integrate GraphQL for code generation.
+ * A Powerlines plugin to integrate GraphQL Codegen via Power Plant.
+ *
+ * @see https://the-guild.dev/graphql/codegen
+ * @see https://github.com/storm-software/power-plant/tree/main/packages/generators/graphql-codegen
  *
  * @param options - The plugin options.
- * @returns A Powerlines plugin instance.
+ * @returns Powerlines plugin instances.
  */
 export const plugin = <
   TContext extends GraphQLPluginContext = GraphQLPluginContext
 >(
   options: GraphQLPluginOptions = {}
-): Plugin<TContext> => {
-  return {
-    name: "graphql",
-    config() {
-      let configFile = options.configFile;
-      if (!configFile) {
-        configFile = getConfigPath(this, "codegen");
-        if (!configFile) {
-          configFile = getConfigPath(this, "graphql-codegen");
-          if (!configFile) {
-            throw new Error(
-              `No GraphQL Codegen configuration file found. Please specify a valid config file path in the Biome plugin's \`configFile\` options.`
-            );
+): Plugin<TContext>[] => {
+  const generatorConfig = {
+    ...(graphqlCodegenGenerator as GeneratorConfigObject<
+      GraphQLSchema,
+      PowerPlantGraphQLCodegenOptions
+    >)
+  } as GeneratorConfigObject<GraphQLSchema, PowerPlantGraphQLCodegenOptions>;
+
+  return [
+    powerPlant<GraphQLSchema, PowerPlantGraphQLCodegenOptions, TContext>(
+      generatorConfig
+    ),
+    {
+      name: "graphql",
+      config() {
+        return {
+          graphql: defu(options, {
+            schema: joinPaths(
+              this.config.cwd ?? "./",
+              this.config.root,
+              "schema.graphql"
+            ),
+            filename: joinPaths("{builtinPath}", "graphql", "types.ts"),
+            documents: [],
+            config: {}
+          })
+        };
+      },
+      async configResolved() {
+        this.dependencies.graphql = "latest";
+
+        if (!this.config.graphql.schema) {
+          throw new Error(
+            'GraphQL schema is required. Please specify it in the plugin options or your Powerlines configuration under "graphql.schema".'
+          );
+        }
+
+        if (!this.config.graphql.plugins?.length) {
+          throw new Error(
+            'GraphQL Codegen plugins are required. Please specify them in the plugin options or your Powerlines configuration under "graphql.plugins".'
+          );
+        }
+
+        if (!this.config.graphql.pluginMap) {
+          throw new Error(
+            'GraphQL Codegen pluginMap is required. Please specify it in the plugin options or your Powerlines configuration under "graphql.pluginMap".'
+          );
+        }
+
+        let document: GraphQLSchema | undefined;
+
+        if (isSchema(this.config.graphql.schema)) {
+          document = this.config.graphql.schema;
+        } else {
+          const schemaRef = (
+            this.config.graphql.schema as URL | string
+          ).toString();
+
+          if (existsSync(schemaRef)) {
+            const sdl = await this.fs.read(schemaRef);
+            if (!sdl) {
+              throw new Error(
+                `Failed to read GraphQL schema from file: ${schemaRef}`
+              );
+            }
+
+            document = buildSchema(sdl);
+          } else {
+            const response = await this.fetch(schemaRef);
+            if (!response) {
+              throw new Error(
+                `Failed to fetch GraphQL schema from endpoint: ${schemaRef}`
+              );
+            }
+
+            document = buildSchema(await response.text());
           }
         }
-      }
 
-      return {
-        graphql: defu(options, {
-          configFile,
-          silent: this.config.logLevel === null,
-          verbose:
-            this.config.logLevel === LogLevelLabel.DEBUG ||
-            this.config.logLevel === LogLevelLabel.TRACE,
-          debug: this.config.mode === "development",
-          outputPath: joinPaths("{builtinPath}", "graphql")
-        })
-      };
-    },
-    async configResolved() {
-      this.dependencies.graphql = "latest";
-
-      this.config.graphql.outputPath = replacePathTokens(
-        this,
-        this.config.graphql.outputPath
-      );
-
-      this.graphql ??= {} as GraphQLPluginContext["graphql"];
-
-      this.graphql.codegen = await loadContext(this.config.graphql.configFile);
-      updateContextWithCliFlags(this.graphql.codegen, {
-        require: [],
-        overwrite: true,
-        project: this.config.root,
-        ...this.config.graphql,
-        config: this.config.graphql.configFile,
-        watch: false
-      });
-    },
-    async prepare() {
-      const result = await generate(
-        {
-          ...this.graphql.codegen,
-          cwd: joinPaths(this.config.cwd, this.config.root)
-        } as Parameters<typeof generate>[0],
-        false
-      );
-
-      if (isParentPath(this.config.graphql.outputPath, this.builtinsPath)) {
-        await Promise.all(
-          result.map(async output =>
-            this.emitBuiltin(
-              output.content,
-              findFileName(
-                joinPaths(
-                  replacePath(
-                    this.config.graphql.outputPath,
-                    this.builtinsPath
-                  ),
-                  output.filename
-                ),
-                { withExtension: false }
-              )
-            )
-          )
+        this.config.graphql.filename = replacePathTokens(
+          this,
+          this.config.graphql.filename
         );
-      } else {
-        await Promise.all(
-          result.map(async output =>
-            this.fs.write(
-              joinPaths(this.config.graphql.outputPath, output.filename),
-              output.content
-            )
-          )
-        );
+        this.config.graphql.document = document;
+
+        const {
+          schema: _schema,
+          document: loadedDocument,
+          filename,
+          documents,
+          plugins,
+          pluginMap,
+          config,
+          ...rest
+        } = this.config.graphql;
+
+        this.config.powerplant = {
+          ...generatorConfig,
+          input: loadedDocument
+        };
+
+        this.powerplant.options = {
+          ...rest,
+          filename,
+          documents: documents ?? [],
+          plugins,
+          pluginMap,
+          config: config ?? {},
+          schema: schemaToCodegenDocument(loadedDocument),
+          schemaAst: loadedDocument
+        } as TContext["powerplant"]["options"];
       }
     }
-  };
+  ];
 };
 
 export default plugin;

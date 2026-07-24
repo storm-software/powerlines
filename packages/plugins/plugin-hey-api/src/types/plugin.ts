@@ -18,7 +18,16 @@
 
 import type { UserConfig as HeyAPIUserConfig } from "@hey-api/openapi-ts";
 import { OpenApi } from "@hey-api/openapi-ts";
-import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
+import type {
+  PowerPlantPluginContext,
+  PowerPlantPluginResolvedConfig
+} from "@powerlines/plugin-power-plant/types/plugin";
+import type { Arrayable } from "@stryke/types/array";
+import type { ResolvedConfig, UserConfig } from "powerlines";
+
+export type PowerPlantHeyAPIOptions = Arrayable<
+  Omit<HeyAPIUserConfig, "input">
+>;
 
 export type HeyAPIPluginOutputOptions = HeyAPIUserConfig["output"] & {
   /**
@@ -56,13 +65,21 @@ export type HeyAPIPluginUserConfig = UserConfig & {
   heyApi?: HeyAPIPluginOptions;
 };
 
-export type HeyAPIPluginResolvedConfig = ResolvedConfig & {
-  heyApi: Omit<HeyAPIPluginOptions, "schema"> & {
-    schema: HeyAPIPluginOptions["schema"] | OpenApi.V3_0_X;
+export type HeyAPIPluginResolvedConfig = ResolvedConfig &
+  PowerPlantPluginResolvedConfig<
+    Record<string, unknown>,
+    PowerPlantHeyAPIOptions
+  > & {
+    heyApi: Omit<HeyAPIPluginOptions, "schema"> & {
+      schema: HeyAPIPluginOptions["schema"] | OpenApi.V3_0_X;
+    };
   };
-};
 
 export type HeyAPIPluginContext<
   TResolvedConfig extends HeyAPIPluginResolvedConfig =
     HeyAPIPluginResolvedConfig
-> = PluginContext<TResolvedConfig>;
+> = PowerPlantPluginContext<
+  Record<string, unknown>,
+  PowerPlantHeyAPIOptions,
+  TResolvedConfig
+>;

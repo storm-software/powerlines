@@ -18,12 +18,12 @@
 
 import { code, Show, splitProps } from "@alloy-js/core";
 import { TypeDeclaration, VarDeclaration } from "@alloy-js/typescript";
-import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
-import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
+import { Spacing } from "@power-plant/alloy-js/core/components/spacing";
 import {
   TSDoc,
   TSDocRemarks
-} from "@powerlines/plugin-alloy/typescript/components/tsdoc";
+} from "@power-plant/alloy-js/typescript/components/tsdoc";
+import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
 import {
   EnvBuiltin,
   EnvBuiltinProps

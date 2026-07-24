@@ -1,0 +1,21 @@
+diff --git a/dist/default.mjs b/dist/default.mjs
+index 9fbabeb4156ed2225003c23b4076359bc58b61e7..f7e77f17ac8048b35b800acce3e9d1935ae68cce 100644
+--- a/dist/default.mjs
++++ b/dist/default.mjs
+@@ -1,6 +1,6 @@
+ import { PrismaClientJsGenerator } from "@prisma/client-generator-js";
+ import { PrismaClientTsGenerator } from "@prisma/client-generator-ts";
+-import { GeneratorRegistry } from "./registry";
++import { GeneratorRegistry } from "./registry.mjs";
+ const defaultRegistry = new GeneratorRegistry();
+ defaultRegistry.add(new PrismaClientJsGenerator());
+ const tsGenerator = new PrismaClientTsGenerator();
+diff --git a/dist/index.mjs b/dist/index.mjs
+index eba6eb4f6144b332e8ee9c7754aa0793a8399789..a23f19e4007c874d49b322f10db0417dc2cdf327 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -1,2 +1,2 @@
+-export * from "./default";
+-export * from "./registry";
++export * from "./default.mjs";
++export * from "./registry.mjs";

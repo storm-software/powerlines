@@ -256,9 +256,7 @@ export async function initPlugin<
     isPluginConfigObject<TPluginContext>(awaited)
   ) {
     let pluginConfig!:
-      | string
-      | PluginFactory<TPluginContext>
-      | Plugin<TPluginContext>;
+      string | PluginFactory<TPluginContext> | Plugin<TPluginContext>;
     let pluginOptions: any;
 
     if (isPluginConfigTuple<TPluginContext>(awaited)) {

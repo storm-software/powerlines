@@ -18,16 +18,16 @@
 
 import { code, Show, splitProps } from "@alloy-js/core";
 import { FunctionDeclaration } from "@alloy-js/typescript";
+import {
+  TSDoc,
+  TSDocLink,
+  TSDocReturns
+} from "@power-plant/alloy-js/typescript/components/tsdoc";
 import { refkey } from "@powerlines/plugin-alloy/helpers/refkey";
 import {
   BuiltinFile,
   BuiltinFileProps
 } from "@powerlines/plugin-alloy/typescript/components/builtin-file";
-import {
-  TSDoc,
-  TSDocLink,
-  TSDocReturns
-} from "@powerlines/plugin-alloy/typescript/components/tsdoc";
 import defu from "defu";
 
 export interface ReactOptimizedBuiltinProps extends Omit<

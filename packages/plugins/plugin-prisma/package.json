@@ -54,76 +54,6 @@
         "default": "./dist/index.mjs"
       }
     },
-    "./helpers": {
-      "require": {
-        "types": "./dist/helpers/index.d.cts",
-        "default": "./dist/helpers/index.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/index.d.mts",
-        "default": "./dist/helpers/index.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/index.d.mts",
-        "default": "./dist/helpers/index.mjs"
-      }
-    },
-    "./helpers/client-generator": {
-      "require": {
-        "types": "./dist/helpers/client-generator.d.cts",
-        "default": "./dist/helpers/client-generator.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/client-generator.d.mts",
-        "default": "./dist/helpers/client-generator.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/client-generator.d.mts",
-        "default": "./dist/helpers/client-generator.mjs"
-      }
-    },
-    "./helpers/get-schema": {
-      "require": {
-        "types": "./dist/helpers/get-schema.d.cts",
-        "default": "./dist/helpers/get-schema.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/get-schema.d.mts",
-        "default": "./dist/helpers/get-schema.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/get-schema.d.mts",
-        "default": "./dist/helpers/get-schema.mjs"
-      }
-    },
-    "./helpers/schema-creator": {
-      "require": {
-        "types": "./dist/helpers/schema-creator.d.cts",
-        "default": "./dist/helpers/schema-creator.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/schema-creator.d.mts",
-        "default": "./dist/helpers/schema-creator.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/schema-creator.d.mts",
-        "default": "./dist/helpers/schema-creator.mjs"
-      }
-    },
-    "./helpers/typed-sql": {
-      "require": {
-        "types": "./dist/helpers/typed-sql.d.cts",
-        "default": "./dist/helpers/typed-sql.cjs"
-      },
-      "import": {
-        "types": "./dist/helpers/typed-sql.d.mts",
-        "default": "./dist/helpers/typed-sql.mjs"
-      },
-      "default": {
-        "types": "./dist/helpers/typed-sql.d.mts",
-        "default": "./dist/helpers/typed-sql.mjs"
-      }
-    },
     "./package.json": "./package.json",
     "./types": {
       "require": {
@@ -152,20 +82,6 @@
         "types": "./dist/types/plugin.d.mts",
         "default": "./dist/types/plugin.mjs"
       }
-    },
-    "./types/prisma": {
-      "require": {
-        "types": "./dist/types/prisma.d.cts",
-        "default": "./dist/types/prisma.cjs"
-      },
-      "import": {
-        "types": "./dist/types/prisma.d.mts",
-        "default": "./dist/types/prisma.mjs"
-      },
-      "default": {
-        "types": "./dist/types/prisma.d.mts",
-        "default": "./dist/types/prisma.mjs"
-      }
     }
   },
   "main": "./dist/index.cjs",
@@ -174,31 +90,18 @@
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
   "dependencies": {
+    "@power-plant/core": "catalog:",
+    "@power-plant/prisma": "catalog:",
+    "@power-plant/prisma-schema": "catalog:",
+    "@powerlines/plugin-power-plant": "workspace:*",
     "@powerlines/plugin-pulumi": "workspace:*",
-    "@prisma/client-generator-registry": "catalog:",
-    "@prisma/config": "catalog:",
-    "@prisma/dmmf": "catalog:",
-    "@prisma/generator-helper": "catalog:",
-    "@prisma/get-platform": "catalog:",
-    "@prisma/migrate": "catalog:",
-    "@prisma/prisma-schema-wasm": "catalog:",
-    "@stryke/cli": "catalog:",
-    "@stryke/convert": "catalog:",
-    "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/string-format": "catalog:",
-    "@stryke/type-checks": "catalog:",
-    "@stryke/types": "catalog:",
     "defu": "catalog:",
-    "fp-ts": "catalog:",
-    "jiti": "catalog:",
-    "powerlines": "workspace:*",
-    "prisma-util": "catalog:",
-    "ts-pattern": "catalog:"
+    "powerlines": "workspace:*"
   },
   "devDependencies": {
     "@powerlines/plugin-plugin": "workspace:*",
-    "@prisma/client-generator-ts": "catalog:",
     "@pulumi/pulumi": "catalog:",
     "@types/node": "catalog:"
   },

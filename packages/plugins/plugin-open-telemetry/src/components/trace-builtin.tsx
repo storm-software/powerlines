@@ -18,16 +18,16 @@
 
 import { code, Show, splitProps } from "@alloy-js/core";
 import { FunctionDeclaration } from "@alloy-js/typescript";
+import { Spacing } from "@power-plant/alloy-js/core/components/spacing";
+import {
+  TSDoc,
+  TSDocParam
+} from "@power-plant/alloy-js/typescript/components/tsdoc";
 import { usePowerlines } from "@powerlines/plugin-alloy/core";
-import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
 import {
   BuiltinFile,
   BuiltinFileProps
 } from "@powerlines/plugin-alloy/typescript/components/builtin-file";
-import {
-  TSDoc,
-  TSDocParam
-} from "@powerlines/plugin-alloy/typescript/components/tsdoc";
 import defu from "defu";
 import { OpenTelemetryPluginContext } from "../types";
 

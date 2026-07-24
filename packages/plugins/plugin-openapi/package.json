@@ -95,13 +95,15 @@
     "powerlines-plugin"
   ],
   "dependencies": {
+    "@power-plant/core": "catalog:",
+    "@power-plant/openapi-schema": "catalog:",
+    "@power-plant/openapi-typescript": "catalog:",
+    "@powerlines/plugin-power-plant": "workspace:*",
+    "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
-    "@stryke/type-checks": "catalog:",
-    "@stryke/types": "catalog:",
     "defu": "catalog:",
-    "jiti": "catalog:",
-    "openapi-typescript": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "workspace:*",
+    "yaml": "catalog:"
   },
   "devDependencies": {
     "@powerlines/plugin-plugin": "workspace:*",

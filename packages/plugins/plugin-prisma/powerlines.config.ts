@@ -21,16 +21,6 @@ import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
   skipCache: true,
-  input: ["src/**/*.ts"],
-  plugins: [plugin()],
-  output: {
-    dts: false
-  },
-  resolve: {
-    noExternal: ["prisma-util", "@prisma/client-generator-ts"],
-    skipNodeModulesBundle: true
-  },
-  tsdown: {
-    unbundle: false
-  }
+  input: ["src/index.ts", "src/types/*.ts"],
+  plugins: [plugin()]
 });

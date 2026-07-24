@@ -18,15 +18,15 @@
 
 import { code, Show, splitProps } from "@alloy-js/core";
 import { FunctionDeclaration, VarDeclaration } from "@alloy-js/typescript";
-import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
+import { Spacing } from "@power-plant/alloy-js/core/components/spacing";
+import {
+  TSDoc,
+  TSDocParam
+} from "@power-plant/alloy-js/typescript/components/tsdoc";
 import {
   BuiltinFile,
   BuiltinFileProps
 } from "@powerlines/plugin-alloy/typescript/components/builtin-file";
-import {
-  TSDoc,
-  TSDocParam
-} from "@powerlines/plugin-alloy/typescript/components/tsdoc";
 import defu from "defu";
 
 export type FeaturesBuiltinProps = Omit<BuiltinFileProps, "id">;

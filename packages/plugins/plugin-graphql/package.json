@@ -90,17 +90,17 @@
   "typings": "dist/index.d.mts",
   "files": ["dist/**/*"],
   "dependencies": {
-    "@graphql-codegen/cli": "catalog:",
-    "@storm-software/config-tools": "catalog:",
+    "@power-plant/core": "catalog:",
+    "@power-plant/graphql-codegen": "catalog:",
+    "@power-plant/graphql-schema": "catalog:",
+    "@powerlines/plugin-power-plant": "workspace:*",
+    "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
-    "@stryke/type-checks": "catalog:",
-    "@stryke/types": "catalog:",
     "defu": "catalog:",
-    "jiti": "catalog:",
+    "graphql": "catalog:",
     "powerlines": "workspace:*"
   },
   "devDependencies": {
-    "@graphql-codegen/plugin-helpers": "catalog:",
     "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },

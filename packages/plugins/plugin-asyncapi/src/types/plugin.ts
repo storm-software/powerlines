@@ -16,20 +16,27 @@
 
  ------------------------------------------------------------------- */
 
-import { GeneratorOptions } from "@asyncapi/generator";
-import { AsyncAPIDocument } from "@asyncapi/parser/esm/models/v3/asyncapi";
-import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
+import type { Options as PowerPlantAsyncAPIOptions } from "@power-plant/asyncapi";
+import type {
+  PowerPlantPluginContext,
+  PowerPlantPluginResolvedConfig
+} from "@powerlines/plugin-power-plant/types/plugin";
+import type { ResolvedConfig, UserConfig } from "powerlines";
 
+/**
+ * Options for the AsyncAPI Powerlines plugin.
+ */
 export interface AsyncAPIPluginOptions {
   /**
    * The path to the AsyncAPI schema file.
    *
    * @remarks
-   * This can be a string file path/remote URL string or a {@link URL} object.
+   * This can be a string file path/remote URL string, a {@link URL} object, or an
+   * already-loaded AsyncAPI document.
    *
    * @defaultValue "\{projectRoot\}/schema.yaml"
    */
-  schema?: string | URL | AsyncAPIDocument;
+  schema?: string | URL | Record<string, unknown>;
 
   /**
    * The name of the AsyncAPI template to use.
@@ -57,7 +64,7 @@ export interface AsyncAPIPluginOptions {
   /**
    * Template parameters to pass to the AsyncAPI generator.
    */
-  templateParams?: Record<string, any>;
+  templateParams?: Record<string, unknown>;
 
   /**
    * Glob patterns to prevent overwriting specific files.
@@ -75,7 +82,7 @@ export interface AsyncAPIPluginOptions {
    * @remarks
    * If no value is provided, the default registry configured for the repository will be used.
    */
-  registry?: string | { url: string; auth?: string; token?: string };
+  registry?: string | { url?: string; auth?: string; token?: string };
 
   /**
    * Whether to force write files even if they exist.
@@ -105,25 +112,47 @@ export interface AsyncAPIPluginOptions {
    * Optional parameter to map schema references from a base url to a local base folder e.g. url=https://schema.example.com/crm/  folder=./test/docs/ .
    */
   mapBaseUrlToFolder?: Record<string, string>;
+
+  /**
+   * Type of output. Can be either `'fs'` or `'string'`.
+   *
+   * @defaultValue "string"
+   */
+  output?: "fs" | "string";
+
+  /**
+   * Install the template and its dependencies, even when the template has already been installed.
+   *
+   * @defaultValue false
+   */
+  install?: boolean;
 }
 
 export type AsyncAPIPluginUserConfig = UserConfig & {
-  asyncapi?: GeneratorOptions &
-    Required<
-      Pick<AsyncAPIPluginOptions, "schema" | "templateName" | "outputPath">
-    >;
+  asyncapi?: Required<
+    Pick<AsyncAPIPluginOptions, "schema" | "templateName" | "outputPath">
+  > &
+    Omit<AsyncAPIPluginOptions, "schema" | "templateName" | "outputPath">;
 };
 
-export type AsyncAPIPluginResolvedConfig = ResolvedConfig & {
-  asyncapi: GeneratorOptions &
-    Required<
+export type AsyncAPIPluginResolvedConfig = ResolvedConfig &
+  PowerPlantPluginResolvedConfig<
+    Record<string, unknown>,
+    PowerPlantAsyncAPIOptions
+  > & {
+    asyncapi: Required<
       Pick<AsyncAPIPluginOptions, "schema" | "templateName" | "outputPath">
-    > & {
-      document: string | AsyncAPIDocument;
-    };
-};
+    > &
+      Omit<AsyncAPIPluginOptions, "schema" | "templateName" | "outputPath"> & {
+        document: string | Record<string, unknown>;
+      };
+  };
 
 export type AsyncAPIPluginContext<
   TResolvedConfig extends AsyncAPIPluginResolvedConfig =
     AsyncAPIPluginResolvedConfig
-> = PluginContext<TResolvedConfig>;
+> = PowerPlantPluginContext<
+  Record<string, unknown>,
+  PowerPlantAsyncAPIOptions,
+  TResolvedConfig
+>;

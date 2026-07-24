@@ -16,13 +16,22 @@
 
  ------------------------------------------------------------------- */
 
-import type { ExecuteFunction, GeneratorConfig } from "@power-plant/core";
+import type {
+  ExecuteFunction,
+  GeneratorConfig,
+  InferEngineOptions
+} from "@power-plant/core";
 import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 
 export type PowerPlantPluginOptions<
   TSpec,
   TOptions extends object
 > = GeneratorConfig<TSpec, TOptions>;
+
+export type PowerPlantExecuteOptions<
+  TSpec,
+  TOptions extends object
+> = InferEngineOptions<GeneratorConfig<TSpec, TOptions>> & TOptions;
 
 export type PowerPlantPluginUserConfig<
   TSpec,
@@ -46,5 +55,13 @@ export type PowerPlantPluginContext<
 > = PluginContext<TResolvedConfig> & {
   powerplant: {
     execute: ExecuteFunction;
+    /**
+     * Options passed to {@link ExecuteFunction} during `prepare`.
+     *
+     * @remarks
+     * Other plugins may mutate this before the Power Plant `prepare` hook runs
+     * (e.g. to supply generator-specific options or an `input`/`inputPath`).
+     */
+    options: PowerPlantExecuteOptions<TSpec, TOptions>;
   };
 };

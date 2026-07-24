@@ -118,6 +118,9 @@
   "keywords": ["hey-api", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
     "@hey-api/openapi-ts": "catalog:",
+    "@power-plant/core": "catalog:",
+    "@power-plant/hey-api": "catalog:",
+    "@powerlines/plugin-power-plant": "workspace:*",
     "@stryke/path": "catalog:",
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",

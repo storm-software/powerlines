@@ -123,6 +123,8 @@
   ],
   "dependencies": {
     "@power-plant/core": "catalog:",
+    "@stryke/string-format": "catalog:",
+    "@stryke/type-checks": "catalog:",
     "powerlines": "workspace:*",
     "unstorage": "catalog:"
   },

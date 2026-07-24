@@ -89,9 +89,9 @@
   "files": ["dist/**/*"],
   "keywords": ["asyncapi", "powerlines", "storm-software", "powerlines-plugin"],
   "dependencies": {
-    "@asyncapi/generator": "catalog:",
-    "@asyncapi/parser": "catalog:",
-    "@stryke/convert": "catalog:",
+    "@power-plant/asyncapi": "catalog:",
+    "@power-plant/core": "catalog:",
+    "@powerlines/plugin-power-plant": "workspace:*",
     "@stryke/fs": "catalog:",
     "@stryke/path": "catalog:",
     "defu": "catalog:",

@@ -16,8 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-import { Generator } from "@asyncapi/generator";
-import { isAsyncAPIDocument } from "@asyncapi/parser/esm/document";
+import type { Options as PowerPlantAsyncAPIOptions } from "@power-plant/asyncapi";
+import asyncapiGenerator from "@power-plant/asyncapi";
+import type { GeneratorConfigObject } from "@power-plant/core";
+import powerPlant from "@powerlines/plugin-power-plant";
 import { existsSync } from "@stryke/fs/exists";
 import { isPackageExists } from "@stryke/fs/package-fns";
 import { joinPaths } from "@stryke/path/join";
@@ -37,110 +39,159 @@ declare module "powerlines" {
   }
 }
 
+function isLoadedDocument(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !(value instanceof URL);
+}
+
 /**
- * A Powerlines plugin to integrate AsyncAPI for code generation.
+ * A Powerlines plugin to integrate AsyncAPI for code generation via Power Plant.
  *
  * @param options - The plugin options.
- * @returns A Powerlines plugin instance.
+ * @returns Powerlines plugin instances.
  */
 export const plugin = <
   TContext extends AsyncAPIPluginContext = AsyncAPIPluginContext
 >(
   options: AsyncAPIPluginOptions
-): Plugin<TContext> => {
-  return {
-    name: "asyncapi",
-    config() {
-      return {
-        asyncapi: defu(options, {
-          schema: joinPaths(
-            this.config.cwd ?? "./",
-            this.config.root,
-            "schema.yaml"
-          ),
-          output: "string",
-          install: false,
-          compile: false,
-          debug:
-            this.config.mode === "development" ||
-            this.config.logLevel.general === "debug" ||
-            this.config.logLevel.general === "trace",
-          targetDir: joinPaths(this.builtinsPath, "asyncapi")
-        })
-      };
-    },
-    async configResolved() {
-      if (!this.config.asyncapi.schema) {
-        throw new Error(
-          'AsyncAPI schema is required. Please specify it in the plugin options or your Powerlines configuration under "asyncapi.schema".'
-        );
-      }
+): Plugin<TContext>[] => {
+  const generatorConfig = {
+    ...(asyncapiGenerator as GeneratorConfigObject<
+      Record<string, unknown>,
+      PowerPlantAsyncAPIOptions
+    >)
+  } as GeneratorConfigObject<
+    Record<string, unknown>,
+    PowerPlantAsyncAPIOptions
+  >;
 
-      if (
-        !this.config.asyncapi.document ||
-        !isAsyncAPIDocument(this.config.asyncapi.document)
-      ) {
-        if (isAsyncAPIDocument(this.config.asyncapi.schema)) {
-          this.config.asyncapi.document = this.config.asyncapi.schema;
-        } else if (existsSync(this.config.asyncapi.schema.toString())) {
-          const document = await this.fs.read(
-            this.config.asyncapi.schema.toString()
+  return [
+    powerPlant<Record<string, unknown>, PowerPlantAsyncAPIOptions, TContext>(
+      generatorConfig
+    ),
+    {
+      name: "asyncapi",
+      config() {
+        return {
+          asyncapi: defu(options, {
+            schema: joinPaths(
+              this.config.cwd ?? "./",
+              this.config.root,
+              "schema.yaml"
+            ),
+            output: "string",
+            install: false,
+            compile: false,
+            debug:
+              this.config.mode === "development" ||
+              this.config.logLevel.general === "debug" ||
+              this.config.logLevel.general === "trace",
+            outputPath: joinPaths(this.builtinsPath, "asyncapi")
+          })
+        };
+      },
+      async configResolved() {
+        if (!this.config.asyncapi.schema) {
+          throw new Error(
+            'AsyncAPI schema is required. Please specify it in the plugin options or your Powerlines configuration under "asyncapi.schema".'
           );
-          if (!document) {
-            throw new Error(
-              `Failed to read AsyncAPI schema from file: ${this.config.asyncapi.schema.toString()}`
-            );
-          }
-
-          this.config.asyncapi.document = document;
-        } else {
-          const document = await this.fetch(
-            this.config.asyncapi.schema.toString()
-          );
-          if (!document) {
-            throw new Error(
-              `Failed to fetch AsyncAPI schema from endpoint: ${this.config.asyncapi.schema.toString()}`
-            );
-          }
-
-          this.config.asyncapi.document = await document.text();
         }
-      }
 
-      if (!this.config.asyncapi.templateName) {
-        throw new Error(
-          'AsyncAPI template name is required. Please specify it in the plugin options or your Powerlines configuration under "asyncapi.templateName".'
+        if (
+          !this.config.asyncapi.document ||
+          !isLoadedDocument(this.config.asyncapi.document)
+        ) {
+          if (isLoadedDocument(this.config.asyncapi.schema)) {
+            this.config.asyncapi.document = this.config.asyncapi.schema;
+          } else if (existsSync(this.config.asyncapi.schema.toString())) {
+            const document = await this.fs.read(
+              this.config.asyncapi.schema.toString()
+            );
+            if (!document) {
+              throw new Error(
+                `Failed to read AsyncAPI schema from file: ${this.config.asyncapi.schema.toString()}`
+              );
+            }
+
+            this.config.asyncapi.document = document;
+          } else {
+            const document = await this.fetch(
+              this.config.asyncapi.schema.toString()
+            );
+            if (!document) {
+              throw new Error(
+                `Failed to fetch AsyncAPI schema from endpoint: ${this.config.asyncapi.schema.toString()}`
+              );
+            }
+
+            this.config.asyncapi.document = await document.text();
+          }
+        }
+
+        if (!this.config.asyncapi.templateName) {
+          throw new Error(
+            'AsyncAPI template name is required. Please specify it in the plugin options or your Powerlines configuration under "asyncapi.templateName".'
+          );
+        }
+
+        if (!this.config.asyncapi.outputPath) {
+          throw new Error(
+            'AsyncAPI output path is required. Please specify it in the plugin options or your Powerlines configuration under "asyncapi.outputPath".'
+          );
+        }
+
+        if (
+          !existsSync(this.config.asyncapi.templateName) &&
+          !isPackageExists(this.config.asyncapi.templateName)
+        ) {
+          this.devDependencies[this.config.asyncapi.templateName] = "latest";
+        }
+
+        this.config.asyncapi.outputPath = replacePathTokens(
+          this,
+          this.config.asyncapi.outputPath
         );
+
+        const {
+          schema: _schema,
+          document,
+          templateName,
+          outputPath,
+          entrypoint,
+          templateParams,
+          noOverwriteGlobs,
+          disabledHooks,
+          registry,
+          forceWrite,
+          debug,
+          compile,
+          mapBaseUrlToFolder,
+          ...rest
+        } = this.config.asyncapi;
+
+        this.config.powerplant = {
+          ...generatorConfig,
+          input: document
+        };
+
+        this.powerplant.options = {
+          ...rest,
+          templateName,
+          outputPath,
+          entrypoint,
+          templateParams,
+          noOverwriteGlobs,
+          disabledHooks,
+          registry,
+          forceWrite,
+          debug,
+          compile,
+          mapBaseUrlToFolder,
+          output: "string",
+          install: false
+        } as TContext["powerplant"]["options"];
       }
-
-      if (!this.config.asyncapi.outputPath) {
-        throw new Error(
-          'AsyncAPI output path is required. Please specify it in the plugin options or your Powerlines configuration under "asyncapi.outputPath".'
-        );
-      }
-
-      if (
-        !existsSync(this.config.asyncapi.templateName) &&
-        !isPackageExists(this.config.asyncapi.templateName)
-      ) {
-        this.devDependencies[this.config.asyncapi.templateName] = "latest";
-      }
-
-      this.config.asyncapi.outputPath = replacePathTokens(
-        this,
-        this.config.asyncapi.outputPath
-      );
-    },
-    async prepare() {
-      const generator = new Generator(
-        this.config.asyncapi.templateName,
-        this.config.asyncapi.outputPath,
-        this.config.asyncapi
-      );
-
-      await generator.generate(this.config.asyncapi.document);
     }
-  };
+  ];
 };
 
 export default plugin;

@@ -17,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { code, Show, splitProps } from "@alloy-js/core";
-import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
+import { Spacing } from "@power-plant/alloy-js/core/components/spacing";
 import {
   EnvBuiltin,
   EnvBuiltinProps

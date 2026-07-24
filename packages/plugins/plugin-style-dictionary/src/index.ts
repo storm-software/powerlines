@@ -16,21 +16,16 @@
 
  ------------------------------------------------------------------- */
 
-import { resolve } from "@powerlines/schema";
+import type { GeneratorConfigObject } from "@power-plant/core";
+import type { Options as PowerPlantStyleDictionaryOptions } from "@power-plant/style-dictionary";
+import styleDictionaryGenerator from "@power-plant/style-dictionary";
+import powerPlant from "@powerlines/plugin-power-plant";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
-import { isFunction } from "@stryke/type-checks/is-function";
 import defu from "defu";
-import { Plugin } from "powerlines";
-import StyleDictionary from "style-dictionary";
-import { fileHeader } from "./style-dictionary/file-header";
-import {
-  CustomActionsBuilder,
-  CustomFileHeadersBuilder,
-  CustomFiltersBuilder,
-  CustomParsersBuilder,
-  CustomPreprocessorsBuilder,
-  CustomTransformGroupsBuilder,
-  CustomTransformsBuilder,
+import type { Plugin } from "powerlines";
+import type { DesignTokens } from "style-dictionary/types";
+import { resolveStyleDictionaryHooks } from "./helpers/resolve-hooks";
+import type {
   StyleDictionaryPluginContext,
   StyleDictionaryPluginOptions
 } from "./types/plugin";
@@ -44,203 +39,93 @@ declare module "powerlines" {
 }
 
 /**
- * A Powerlines plugin to integrate style-dictionary for code generation.
+ * A Powerlines plugin to integrate Style Dictionary for code generation via Power Plant.
  *
  * @param options - The plugin options.
- * @returns A Powerlines plugin instance.
+ * @returns Powerlines plugin instances.
  */
 export const plugin = <
   TContext extends StyleDictionaryPluginContext = StyleDictionaryPluginContext
 >(
   options: StyleDictionaryPluginOptions = {}
-): Plugin<TContext> => {
-  return {
-    name: "style-dictionary",
-    config() {
-      return {
-        styleDictionary: defu(options, {
-          log: {
-            verbosity:
-              this.config.logLevel.general === LogLevelLabel.TRACE
-                ? "verbose"
-                : this.config.logLevel.general === LogLevelLabel.DEBUG
-                  ? "default"
-                  : "silent"
-          },
-          fileHeader: "powerlines/file-header"
-        })
-      };
-    },
-    async configResolved() {
-      this.styleDictionary =
-        this.config.styleDictionary.instance ??
-        new StyleDictionary(this.config.styleDictionary);
+): Plugin<TContext>[] => {
+  const generatorConfig = {
+    ...(styleDictionaryGenerator as GeneratorConfigObject<
+      DesignTokens,
+      PowerPlantStyleDictionaryOptions
+    >)
+  } as GeneratorConfigObject<DesignTokens, PowerPlantStyleDictionaryOptions>;
 
-      this.styleDictionary.registerFileHeader(fileHeader(this));
+  return [
+    powerPlant<DesignTokens, PowerPlantStyleDictionaryOptions, TContext>(
+      generatorConfig
+    ),
+    {
+      name: "style-dictionary",
+      config() {
+        return {
+          styleDictionary: defu(options, {
+            log: {
+              verbosity:
+                this.config.logLevel.general === LogLevelLabel.TRACE
+                  ? "verbose"
+                  : this.config.logLevel.general === LogLevelLabel.DEBUG
+                    ? "default"
+                    : "silent"
+            },
+            usesDtcg: true
+          })
+        };
+      },
+      async configResolved() {
+        const {
+          skipBuild: _skipBuild,
+          tokens,
+          customActions,
+          customFileHeaders,
+          customFilters,
+          customFormats,
+          customPreprocessors,
+          customParsers,
+          customTransforms,
+          customTransformGroups,
+          hooks: existingHooks,
+          ...styleDictionaryOptions
+        } = this.config.styleDictionary;
 
-      if (this.config.styleDictionary.customActions) {
-        let builder!: CustomActionsBuilder;
-        if (isFunction(this.config.styleDictionary.customActions)) {
-          builder = this.config.styleDictionary.customActions;
-        } else {
-          builder = await resolve<CustomActionsBuilder>(
-            this,
-            this.config.styleDictionary.customActions
-          );
-        }
+        const resolvedHooks = await resolveStyleDictionaryHooks(this, {
+          customActions,
+          customFileHeaders,
+          customFilters,
+          customFormats,
+          customPreprocessors,
+          customParsers,
+          customTransforms,
+          customTransformGroups
+        });
 
-        Object.entries(isFunction(builder) ? builder(this) : builder).forEach(
-          ([name, action]) => {
-            this.styleDictionary.registerAction({
-              ...action,
-              name
-            });
+        this.config.powerplant = {
+          ...generatorConfig,
+          input: tokens ?? {}
+        };
+
+        this.powerplant.options = {
+          ...styleDictionaryOptions,
+          hooks: defu(resolvedHooks, existingHooks)
+        } as TContext["powerplant"]["options"];
+      },
+      prepare: {
+        order: "pre",
+        async handler() {
+          if (this.config.styleDictionary.skipBuild) {
+            const noopExecute: TContext["powerplant"]["execute"] = async () =>
+              ({}) as any;
+            this.powerplant.execute = noopExecute;
           }
-        );
-      }
-
-      if (this.config.styleDictionary.customFileHeaders) {
-        let builder!: CustomFileHeadersBuilder;
-        if (isFunction(this.config.styleDictionary.customFileHeaders)) {
-          builder = this.config.styleDictionary.customFileHeaders;
-        } else {
-          builder = await resolve<CustomFileHeadersBuilder>(
-            this,
-            this.config.styleDictionary.customFileHeaders
-          );
-        }
-
-        Object.entries(isFunction(builder) ? builder(this) : builder).forEach(
-          ([name, fileHeader]) => {
-            this.styleDictionary.registerFileHeader({
-              name,
-              fileHeader
-            });
-          }
-        );
-      }
-
-      if (this.config.styleDictionary.customFilters) {
-        let builder!: CustomFiltersBuilder;
-        if (isFunction(this.config.styleDictionary.customFilters)) {
-          builder = this.config.styleDictionary.customFilters;
-        } else {
-          builder = await resolve<CustomFiltersBuilder>(
-            this,
-            this.config.styleDictionary.customFilters
-          );
-        }
-
-        Object.entries(isFunction(builder) ? builder(this) : builder).forEach(
-          ([name, filter]) => {
-            this.styleDictionary.registerFilter({
-              ...filter,
-              name
-            });
-          }
-        );
-      }
-
-      if (this.config.styleDictionary.customPreprocessors) {
-        let builder!: CustomPreprocessorsBuilder;
-        if (isFunction(this.config.styleDictionary.customPreprocessors)) {
-          builder = this.config.styleDictionary.customPreprocessors;
-        } else {
-          builder = await resolve<CustomPreprocessorsBuilder>(
-            this,
-            this.config.styleDictionary.customPreprocessors
-          );
-        }
-
-        Object.entries(isFunction(builder) ? builder(this) : builder).forEach(
-          ([name, preprocessor]) => {
-            this.styleDictionary.registerPreprocessor({
-              ...preprocessor,
-              name
-            });
-          }
-        );
-      }
-
-      if (this.config.styleDictionary.customParsers) {
-        let builder!: CustomParsersBuilder;
-        if (isFunction(this.config.styleDictionary.customParsers)) {
-          builder = this.config.styleDictionary.customParsers;
-        } else {
-          builder = await resolve<CustomParsersBuilder>(
-            this,
-            this.config.styleDictionary.customParsers
-          );
-        }
-
-        Object.entries(isFunction(builder) ? builder(this) : builder).forEach(
-          ([name, parser]) => {
-            this.styleDictionary.registerParser({
-              ...parser,
-              name
-            });
-          }
-        );
-      }
-
-      if (this.config.styleDictionary.customTransforms) {
-        let builder!: CustomTransformsBuilder;
-        if (isFunction(this.config.styleDictionary.customTransforms)) {
-          builder = this.config.styleDictionary.customTransforms;
-        } else {
-          builder = await resolve<CustomTransformsBuilder>(
-            this,
-            this.config.styleDictionary.customTransforms
-          );
-        }
-
-        Object.entries(isFunction(builder) ? builder(this) : builder).forEach(
-          ([name, transform]) => {
-            this.styleDictionary.registerTransform({
-              ...transform,
-              name
-            });
-          }
-        );
-      }
-
-      if (this.config.styleDictionary.customTransformGroups) {
-        let builder!: CustomTransformGroupsBuilder;
-        if (isFunction(this.config.styleDictionary.customTransformGroups)) {
-          builder = this.config.styleDictionary.customTransformGroups;
-        } else {
-          builder = await resolve<CustomTransformGroupsBuilder>(
-            this,
-            this.config.styleDictionary.customTransformGroups
-          );
-        }
-
-        Object.entries(isFunction(builder) ? builder(this) : builder).forEach(
-          ([name, transformGroup]) => {
-            this.styleDictionary.registerTransformGroup({
-              name,
-              transforms: transformGroup
-            });
-          }
-        );
-      }
-    },
-    async clean() {
-      await this.styleDictionary.cleanAllPlatforms({
-        cache: !this.config.skipCache
-      });
-    },
-    prepare: {
-      order: "pre",
-      async handler() {
-        if (!this.config.styleDictionary.skipBuild) {
-          await this.styleDictionary.buildAllPlatforms({
-            cache: !this.config.skipCache
-          });
         }
       }
     }
-  };
+  ];
 };
 
 export default plugin;

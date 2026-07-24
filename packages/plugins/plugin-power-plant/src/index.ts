@@ -16,7 +16,10 @@
 
  ------------------------------------------------------------------- */
 
+import type { GeneratorConfig } from "@power-plant/core";
 import { createExecute } from "@power-plant/core";
+import { isGeneratorConfigObject } from "@power-plant/core/helpers";
+import { kebabCase } from "@stryke/string-format/kebab-case";
 import type { Plugin } from "powerlines";
 import { createStorageAdapter } from "./helpers/storage-adapter";
 import type {
@@ -44,10 +47,15 @@ export const plugin = <
   TContext extends PowerPlantPluginContext<TSpec, TOptions> =
     PowerPlantPluginContext<TSpec, TOptions>
 >(
-  options: PowerPlantPluginOptions<TSpec, TOptions>
+  options: GeneratorConfig<TSpec, TOptions>
 ): Plugin<TContext> => {
+  const name = kebabCase(
+    (isGeneratorConfigObject(options) ? options.meta?.name : String(options)) ??
+      "default"
+  );
+
   return {
-    name: "power-plant",
+    name: name ? `power-plant:${name}` : "power-plant",
     config() {
       return {
         powerplant: options
@@ -57,12 +65,14 @@ export const plugin = <
       this.powerplant = {
         execute: await createExecute({
           storage: createStorageAdapter(this.fs)
-        })
+        }),
+        options: {} as TContext["powerplant"]["options"]
       };
     },
     async prepare() {
-      await this.powerplant.execute<TSpec, TOptions & TContext["config"]>(
-        this.config.powerplant
+      await this.powerplant.execute<TSpec, TOptions>(
+        this.config.powerplant,
+        this.powerplant.options
       );
     }
   };

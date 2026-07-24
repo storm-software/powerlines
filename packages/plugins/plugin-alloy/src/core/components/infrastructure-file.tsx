@@ -17,6 +17,10 @@
  ------------------------------------------------------------------- */
 
 import { computed, splitProps } from "@alloy-js/core";
+import {
+  SourceFile,
+  type SourceFileProps
+} from "@power-plant/alloy-js/core/components/source-file";
 import { appendExtension, appendPath } from "@stryke/path/append";
 import {
   findFileExtensionSafe,
@@ -24,8 +28,7 @@ import {
 } from "@stryke/path/file-path-fns";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
 import defu from "defu";
-import { usePowerlinesSafe } from "../../core/contexts/context";
-import { SourceFile, SourceFileProps } from "./source-file";
+import { usePowerlinesSafe } from "../contexts/context";
 
 export type InfrastructureFileProps = Omit<SourceFileProps, "path"> & {
   /**
@@ -77,7 +80,8 @@ export function InfrastructureFile(props: InfrastructureFileProps) {
       path={path.value}
       meta={defu(
         {
-          kind: "infrastructure"
+          kind: "infrastructure",
+          id: replaceExtension(id)
         },
         meta ?? {}
       )}>

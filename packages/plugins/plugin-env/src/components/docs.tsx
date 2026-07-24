@@ -17,14 +17,14 @@
  ------------------------------------------------------------------- */
 
 import { code } from "@alloy-js/core";
-import { Spacing } from "@powerlines/plugin-alloy/core/components/spacing";
-import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
-import { Heading } from "@powerlines/plugin-alloy/markdown/components/heading";
+import { Spacing } from "@power-plant/alloy-js/core/components/spacing";
+import { Heading } from "@power-plant/alloy-js/markdown/components/heading";
 import {
   MarkdownFile,
   MarkdownFileProps
-} from "@powerlines/plugin-alloy/markdown/components/markdown-file";
-import { MarkdownTable } from "@powerlines/plugin-alloy/markdown/components/markdown-table";
+} from "@power-plant/alloy-js/markdown/components/markdown-file";
+import { MarkdownTable } from "@power-plant/alloy-js/markdown/components/markdown-table";
+import { usePowerlines } from "@powerlines/plugin-alloy/core/contexts/context";
 import { getPropertiesList, stringifyType } from "@powerlines/schema";
 import { joinPaths } from "@stryke/path/join";
 import { getDocsOutputPath } from "powerlines/plugin-utils";
