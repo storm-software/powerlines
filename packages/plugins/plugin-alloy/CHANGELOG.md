@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.242](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.242) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
+### Updated Dependencies
+
+- Updated **plugin-babel** to **v0.13.145**
+- Updated **plugin-plugin** to **v0.12.561**
+- Updated **plugin-power-plant** to **v0.1.5**
+- Updated **powerlines** to **v0.47.149**
+
 ## [0.26.241](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.241) (07/24/2026)
 
 ### Miscellaneous

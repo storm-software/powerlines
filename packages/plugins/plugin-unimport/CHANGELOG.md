@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unimport
 
+## [0.1.611](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.611) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.561**
+- Updated **powerlines** to **v0.47.149**
+
 ## [0.1.610](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.610) (07/24/2026)
 
 ### Updated Dependencies

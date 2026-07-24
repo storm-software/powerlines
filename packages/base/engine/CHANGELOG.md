@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.72](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.72) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.70**
+
 ## [0.49.71](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.71) (07/24/2026)
 
 ### Updated Dependencies

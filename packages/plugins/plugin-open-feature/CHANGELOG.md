@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.247](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.247) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.242**
+- Updated **plugin-automd** to **v0.1.610**
+- Updated **plugin-babel** to **v0.13.145**
+- Updated **plugin-plugin** to **v0.12.561**
+- Updated **powerlines** to **v0.47.149**
+
 ## [0.1.246](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.246) (07/24/2026)
 
 ### Updated Dependencies

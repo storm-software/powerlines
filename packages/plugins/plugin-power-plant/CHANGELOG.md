@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Power Plant
 
+## [0.1.5](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.5) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.561**
+- Updated **powerlines** to **v0.47.149**
+
 ## [0.1.4](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.4) (07/24/2026)
 
 ### Miscellaneous

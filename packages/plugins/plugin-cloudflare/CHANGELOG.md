@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.252](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.252) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.242**
+- Updated **plugin-env** to **v0.16.353**
+- Updated **plugin-plugin** to **v0.12.561**
+- Updated **plugin-pulumi** to **v0.6.251**
+- Updated **plugin-unenv** to **v0.1.599**
+- Updated **powerlines** to **v0.47.149**
+
 ## [0.6.251](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.251) (07/24/2026)
 
 ### Updated Dependencies

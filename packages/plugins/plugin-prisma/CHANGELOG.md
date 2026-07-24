@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.292](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.292) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.561**
+- Updated **plugin-power-plant** to **v0.1.5**
+- Updated **plugin-pulumi** to **v0.6.251**
+- Updated **powerlines** to **v0.47.149**
+
 ## [0.4.291](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.291) (07/24/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.353](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.353) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.70**
+- Updated **plugin-alloy** to **v0.26.242**
+- Updated **plugin-automd** to **v0.1.610**
+- Updated **plugin-babel** to **v0.13.145**
+- Updated **plugin-deepkit** to **v0.11.492**
+- Updated **plugin-plugin** to **v0.12.561**
+- Updated **powerlines** to **v0.47.149**
+
 ## [0.16.352](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.352) (07/24/2026)
 
 ### Updated Dependencies

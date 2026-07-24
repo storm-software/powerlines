@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.662](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.662) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
+### Updated Dependencies
+
+- Updated **plugin-env** to **v0.16.353**
+- Updated **plugin-plugin** to **v0.12.561**
+- Updated **powerlines** to **v0.47.149**
+
 ## [0.10.661](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.661) (07/24/2026)
 
 ### Updated Dependencies

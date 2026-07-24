@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unified
 
+## [0.1.225](https://github.com/storm-software/powerlines/releases/tag/plugin-unified%400.1.225) (07/24/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Nx packages to v23.1.0 ([3515cf650](https://github.com/storm-software/powerlines/commit/3515cf650))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.561**
+- Updated **powerlines** to **v0.47.149**
+
 ## [0.1.224](https://github.com/storm-software/powerlines/releases/tag/plugin-unified%400.1.224) (07/24/2026)
 
 ### Updated Dependencies
