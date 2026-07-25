@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.356](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.356) (07/24/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Ensure `extract` provides the correct context values ([f86d74c6f](https://github.com/storm-software/powerlines/commit/f86d74c6f))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.73**
+- Updated **plugin-alloy** to **v0.26.245**
+- Updated **plugin-automd** to **v0.1.613**
+- Updated **plugin-babel** to **v0.13.148**
+- Updated **plugin-deepkit** to **v0.11.495**
+- Updated **plugin-plugin** to **v0.12.564**
+- Updated **plugin-power-plant** to **v0.1.8**
+- Updated **powerlines** to **v0.47.152**
+
 ## [0.16.355](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.355) (07/24/2026)
 
 ### Updated Dependencies
