@@ -244,14 +244,15 @@ export function resolveOptions<TContext extends UnresolvedContext>(
         }
       },
       deps: {
-        neverBundle: external,
+        neverBundle: context.config.resolve.skipNodeModulesBundle
+          ? true
+          : external,
         alwaysBundle: context.config.resolve.skipNodeModulesBundle
           ? undefined
           : noExternal,
         onlyBundle: context.config.resolve.skipNodeModulesBundle
           ? noExternal
-          : undefined,
-        skipNodeModulesBundle: context.config.resolve.skipNodeModulesBundle
+          : undefined
       },
       alias: context.alias,
       resolve: {
