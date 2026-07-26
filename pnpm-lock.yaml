@@ -15491,8 +15491,8 @@ packages:
   invariant@2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
 
-  ip-address@10.2.2:
-    resolution: {integrity: sha512-aNJVEVdXTr/g5+N2VCLo+CTrFLo/Y+9rx9RC5BpxPtf7NEknmzY+UQvMO8Fjni5KFmDaHJieL8HCMJKjJXsTgg==}
+  ip-address@10.3.0:
+    resolution: {integrity: sha512-WjqUcdgafPtBplAfDpvR1ZWncdjC2q0P1PHmCkh4edxwiANBDhuDx26cKD7HIl6UGd6BSjwnPVt58X0r5Z85eQ==}
     engines: {node: '>= 12'}
 
   ipaddr.js@1.9.1:
@@ -38808,7 +38808,7 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
-  ip-address@10.2.2: {}
+  ip-address@10.3.0: {}
 
   ipaddr.js@1.9.1: {}
 
@@ -44971,7 +44971,7 @@ snapshots:
 
   socks@2.8.9:
     dependencies:
-      ip-address: 10.2.2
+      ip-address: 10.3.0
       smart-buffer: 4.2.0
 
   sonic-boom@3.8.1:
