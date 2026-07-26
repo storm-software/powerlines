@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.80](https://github.com/storm-software/powerlines/releases/tag/core%400.48.80) (07/26/2026)
+
+### Miscellaneous
+
+- **core:** Update dependencies and mark `override` as option in `creteProgram` ([c49b9dec0](https://github.com/storm-software/powerlines/commit/c49b9dec0))
+
 ## [0.48.78](https://github.com/storm-software/powerlines/releases/tag/core%400.48.78) (07/26/2026)
 
 ### Miscellaneous
