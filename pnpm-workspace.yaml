@@ -87,18 +87,18 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.26
-  "@power-plant/asyncapi": ^0.0.25
-  "@power-plant/core": ^0.0.29
-  "@power-plant/graphql-codegen": ^0.0.25
+  "@power-plant/alloy-js": ^0.0.29
+  "@power-plant/asyncapi": ^0.0.28
+  "@power-plant/core": ^0.0.32
+  "@power-plant/graphql-codegen": ^0.0.28
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.25
+  "@power-plant/hey-api": ^0.0.28
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.9
-  "@power-plant/prisma": ^0.0.10
+  "@power-plant/openapi-typescript": ^0.0.12
+  "@power-plant/prisma": ^0.0.13
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.28
-  "@power-plant/style-dictionary": ^0.0.14
+  "@power-plant/schema": ^0.0.31
+  "@power-plant/style-dictionary": ^0.0.17
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0
   "@prisma/config": 7.6.0
@@ -201,7 +201,7 @@ catalog:
   devframe: ^0.1.22
   diff-match-patch: ^1.0.5
   esbuild: ^0.28.1
-  eslint: ^10.7.0
+  eslint: ^10.8.0
   eslint-flat-config-utils: ^2.1.4
   execa: ^9.6.1
   flat-cache: ^6.1.23
@@ -212,7 +212,7 @@ catalog:
   h3: ^1.15.11
   handlebars: ^4.7.9
   human-id: ^4.2.0
-  i18next-cli: ^1.66.2
+  i18next-cli: ^1.67.2
   i18next-resources-for-ts: ^2.1.0
   jest: ^30.4.2
   jest-config: ^30.4.2
@@ -272,8 +272,8 @@ catalog:
   ua-parser-modern: ^0.1.1
   unctx: ^2.5.0
   unenv: "npm:unenv-nightly@2.0.0-20251124-134829-ab99519"
-  undici: ^7.28.0
-  undici-types: ^7.28.0
+  undici: ^7.29.0
+  undici-types: ^7.29.0
   unified: ^11.0.5
   unimport: ^5.7.0
   unloader: ^0.9.0
