@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-pulumi",
-  "version": "0.6.261",
+  "version": "0.6.262",
   "private": false,
   "description": "A Powerlines plugin to deploy infrastructure using Pulumi.",
   "keywords": ["pulumi", "powerlines", "storm-software", "powerlines-plugin"],
