@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.78](https://github.com/storm-software/powerlines/releases/tag/core%400.48.78) (07/26/2026)
+
+### Miscellaneous
+
+- **core:** Added `FileReferenceInput` type references to project ([61365e0a9](https://github.com/storm-software/powerlines/commit/61365e0a9))
+
 ## [0.48.71](https://github.com/storm-software/powerlines/releases/tag/core%400.48.71) (07/24/2026)
 
 ### Miscellaneous

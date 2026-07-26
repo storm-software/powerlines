@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-nitro",
-  "version": "0.1.509",
+  "version": "0.1.510",
   "type": "module",
   "description": "A package containing a Powerlines plugin for creating a server application that runs on Nitro.",
   "repository": {

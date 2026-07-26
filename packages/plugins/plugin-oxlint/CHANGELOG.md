@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Oxlint
 
+## [0.7.622](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.622) (07/26/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.569**
+- Updated **powerlines** to **v0.47.157**
+
 ## [0.7.621](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.621) (07/26/2026)
 
 ### Updated Dependencies
