@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Swc
 
+## [0.5.625](https://github.com/storm-software/powerlines/releases/tag/plugin-swc%400.5.625) (07/26/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.567**
+- Updated **powerlines** to **v0.47.155**
+
 ## [0.5.624](https://github.com/storm-software/powerlines/releases/tag/plugin-swc%400.5.624) (07/25/2026)
 
 ### Updated Dependencies

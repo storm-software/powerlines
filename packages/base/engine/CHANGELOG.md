@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.78](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.78) (07/26/2026)
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.76**
+
 ## [0.49.77](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.77) (07/25/2026)
 
 ### Updated Dependencies
