@@ -29,7 +29,7 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import type {
   FileReference,
-  FileReferenceParameter
+  FileReferenceInput
 } from "@stryke/types/configuration";
 import { replacePathTokens } from "../plugin-utils/paths";
 import {
@@ -66,7 +66,7 @@ export function resolveEntryOutput<TContext extends UnresolvedContext>(
 export function resolveInput<TContext extends UnresolvedContext>(
   context: TContext,
   fileReference: FileReference,
-  input?: FileReferenceParameter,
+  input?: FileReferenceInput,
   output?: string
 ): ResolvedEntryFileReference {
   return {
@@ -86,9 +86,9 @@ export function resolveInput<TContext extends UnresolvedContext>(
 export async function resolveInputs<TContext extends UnresolvedContext>(
   context: TContext,
   fileReferences:
-    | FileReferenceParameter
-    | FileReferenceParameter[]
-    | Record<string, FileReferenceParameter | FileReferenceParameter[]>
+    | FileReferenceInput
+    | FileReferenceInput[]
+    | Record<string, FileReferenceInput | FileReferenceInput[]>
 ): Promise<ResolvedEntryFileReference[]> {
   return (
     await Promise.all(
@@ -165,9 +165,9 @@ export async function resolveInputs<TContext extends UnresolvedContext>(
 export function resolveInputsSync<TContext extends UnresolvedContext>(
   context: TContext,
   fileReferences:
-    | FileReferenceParameter
-    | FileReferenceParameter[]
-    | Record<string, FileReferenceParameter | FileReferenceParameter[]>
+    | FileReferenceInput
+    | FileReferenceInput[]
+    | Record<string, FileReferenceInput | FileReferenceInput[]>
 ): ResolvedEntryFileReference[] {
   return (
     isObject(fileReferences) && !isFileReference(fileReferences)
@@ -235,7 +235,7 @@ export function isFileReference(entry: any): entry is FileReference {
  * @returns True if the entry is a resolved entry file reference, false otherwise.
  */
 export function isResolvedEntryFileReference(
-  entry: FileReferenceParameter | ResolvedEntryFileReference
+  entry: FileReferenceInput | ResolvedEntryFileReference
 ): entry is ResolvedEntryFileReference {
   return (
     isFileReference(entry) &&
@@ -254,7 +254,7 @@ export function getUniqueInputs(
 ): ResolvedConfig["input"] {
   return isObject(inputs)
     ? inputs
-    : getUniqueBy(toArray(inputs), (item: FileReferenceParameter) =>
+    : getUniqueBy(toArray(inputs), (item: FileReferenceInput) =>
         isSetString(item) ? item : murmurhash(item ?? {}, { maxLength: 24 })
       );
 }
