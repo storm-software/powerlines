@@ -87,18 +87,18 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.31
-  "@power-plant/asyncapi": ^0.0.30
-  "@power-plant/core": ^0.0.34
-  "@power-plant/graphql-codegen": ^0.0.30
+  "@power-plant/alloy-js": ^0.0.33
+  "@power-plant/asyncapi": ^0.0.32
+  "@power-plant/core": ^0.0.36
+  "@power-plant/graphql-codegen": ^0.0.32
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.30
+  "@power-plant/hey-api": ^0.0.32
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.14
-  "@power-plant/prisma": ^0.0.15
+  "@power-plant/openapi-typescript": ^0.0.16
+  "@power-plant/prisma": ^0.0.17
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.33
-  "@power-plant/style-dictionary": ^0.0.19
+  "@power-plant/schema": ^0.0.35
+  "@power-plant/style-dictionary": ^0.0.21
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0
   "@prisma/config": 7.6.0
@@ -142,23 +142,23 @@ catalog:
   "@storm-software/unbuild": ^0.57.270
   "@storm-software/untyped": ^0.24.251
   "@storm-software/workspace-tools": ^1.296.89
-  "@stryke/async": ^0.1.24
-  "@stryke/capnp": ^0.12.123
-  "@stryke/cli": ^0.13.69
-  "@stryke/convert": ^0.7.27
-  "@stryke/env": ^0.20.114
-  "@stryke/fs": ^0.33.97
-  "@stryke/hash": ^0.13.50
-  "@stryke/helpers": ^0.10.36
-  "@stryke/http": ^0.12.87
-  "@stryke/json": ^0.15.20
-  "@stryke/path": ^0.29.23
-  "@stryke/string-format": ^0.17.38
-  "@stryke/type-checks": ^0.6.29
-  "@stryke/types": ^0.12.24
-  "@stryke/unique-id": ^0.3.108
-  "@stryke/url": ^0.4.47
-  "@stryke/zod": ^0.3.42
+  "@stryke/async": ^0.1.25
+  "@stryke/capnp": ^0.12.124
+  "@stryke/cli": ^0.13.70
+  "@stryke/convert": ^0.7.28
+  "@stryke/env": ^0.20.115
+  "@stryke/fs": ^0.33.98
+  "@stryke/hash": ^0.13.51
+  "@stryke/helpers": ^0.10.37
+  "@stryke/http": ^0.12.88
+  "@stryke/json": ^0.15.21
+  "@stryke/path": ^0.29.24
+  "@stryke/string-format": ^0.17.39
+  "@stryke/type-checks": ^0.6.30
+  "@stryke/types": ^0.12.25
+  "@stryke/unique-id": ^0.3.109
+  "@stryke/url": ^0.4.48
+  "@stryke/zod": ^0.3.43
   "@swc-node/register": ^1.12.1
   "@swc/core": ^1.15.46
   "@swc/helpers": ^0.5.23

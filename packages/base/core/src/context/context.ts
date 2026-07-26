@@ -49,6 +49,7 @@ import { create, FlatCache } from "flat-cache";
 import { existsSync } from "node:fs";
 import { parse, ParseResult } from "oxc-parser";
 import { Range } from "semver";
+import { Project } from "ts-morph";
 import {
   Agent,
   BodyInit,
@@ -81,6 +82,7 @@ import {
 import { callHook } from "../lib/hooks";
 import { getPrefixedRootHash } from "../lib/meta";
 import { createResolver } from "../lib/resolver";
+import { createProgram } from "../lib/typescript/ts-morph";
 import { getTsconfigFilePath } from "../lib/typescript/tsconfig";
 import { VirtualFileSystem } from "../lib/vfs";
 import {
@@ -182,6 +184,8 @@ export class PowerlinesContext<
   #requestCache!: FlatCache;
 
   #configProxy!: TResolvedConfig;
+
+  #project!: Project;
 
   public resolver!: Resolver;
 
@@ -314,6 +318,18 @@ export class PowerlinesContext<
     }
 
     return this.#fs;
+  }
+
+  public get project(): Project {
+    if (!this.#project) {
+      this.#project = createProgram(this);
+    }
+
+    return this.#project;
+  }
+
+  public set project(value: Project) {
+    this.#project = value;
   }
 
   /**

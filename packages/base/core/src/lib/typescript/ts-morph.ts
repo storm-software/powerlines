@@ -150,11 +150,12 @@ export class VirtualFileSystemHost
  * Create a ts-morph {@link Project} instance used for type reflection and module manipulation during processing
  *
  * @param context - The Powerlines context
+ * @param override - The override options to apply to the project
  * @returns A ts-morph {@link Project} instance
  */
 export function createProgram(
   context: Context,
-  override: Partial<ProjectOptions>
+  override: Partial<ProjectOptions> = {}
 ): Project {
   context.debug(
     `Creating ts-morph Project instance with configuration from: ${

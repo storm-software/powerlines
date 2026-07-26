@@ -24,6 +24,7 @@ import type MagicString from "magic-string";
 import type { SourceMap } from "magic-string";
 import type { ParseResult, ParserOptions } from "oxc-parser";
 import type { Range } from "semver";
+import { Project } from "ts-morph";
 import type { RequestInfo, Response } from "undici";
 import type { Unimport } from "unimport";
 import type { ExternalIdResult, UnpluginBuildContext } from "unplugin";
@@ -350,6 +351,11 @@ export interface UnresolvedContext<
    * The metadata information currently written to disk
    */
   persistedMeta?: MetaInfo;
+
+  /**
+   * The ts-morph {@link Project} instance used for type reflection and module manipulation during processing
+   */
+  project: Project;
 
   /**
    * The path to a directory where the reflection data buffers (used by the build processes) are stored
