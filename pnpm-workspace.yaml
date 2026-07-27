@@ -85,18 +85,18 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.39
-  "@power-plant/asyncapi": ^0.0.38
-  "@power-plant/core": ^0.0.42
-  "@power-plant/graphql-codegen": ^0.0.38
+  "@power-plant/alloy-js": ^0.0.41
+  "@power-plant/asyncapi": ^0.0.40
+  "@power-plant/core": ^0.0.44
+  "@power-plant/graphql-codegen": ^0.0.40
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.38
+  "@power-plant/hey-api": ^0.0.40
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.22
-  "@power-plant/prisma": ^0.0.23
+  "@power-plant/openapi-typescript": ^0.0.24
+  "@power-plant/prisma": ^0.0.25
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.41
-  "@power-plant/style-dictionary": ^0.0.27
+  "@power-plant/schema": ^0.0.43
+  "@power-plant/style-dictionary": ^0.0.29
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0
   "@prisma/config": 7.6.0
@@ -254,7 +254,7 @@ catalog:
   shelljs: ^0.10.0
   sherif: ^1.13.0
   sirv: ^3.0.2
-  smol-toml: ^1.7.0
+  smol-toml: ^1.7.1
   structured-clone-es: ^2.0.0
   style-dictionary: ^5.5.0
   stylelint: ^16.26.1
