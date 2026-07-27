@@ -3,7 +3,6 @@ packages:
   - packages/**
   - docs/*
 allowBuilds:
-  "@deepkit/type-compiler": false
   "@hyperjump/json-pointer": true
   "@hyperjump/json-schema": true
   "@hyperjump/json-schema-core": true
@@ -44,10 +43,9 @@ catalog:
   "@cloudflare/unenv-preset": ^2.16.1
   "@cloudflare/workers-types": ^4.20260702.1
   "@content-collections/core": ^0.12.0
-  "@deepkit/core": 1.0.5
-  "@deepkit/type": 1.0.5
-  "@deepkit/type-compiler": 1.0.5
-  "@deepkit/type-spec": 1.0.1
+  "@deepkit/core": ^1.0.19
+  "@deepkit/type": ^1.0.19
+  "@deepkit/type-spec": ^1.0.19
   "@donedeal0/superdiff": ^3.2.0
   "@farmfe/cli": ^1.0.5
   "@farmfe/core": ^1.7.11
@@ -87,18 +85,18 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.38
-  "@power-plant/asyncapi": ^0.0.37
-  "@power-plant/core": ^0.0.41
-  "@power-plant/graphql-codegen": ^0.0.37
+  "@power-plant/alloy-js": ^0.0.39
+  "@power-plant/asyncapi": ^0.0.38
+  "@power-plant/core": ^0.0.42
+  "@power-plant/graphql-codegen": ^0.0.38
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.37
+  "@power-plant/hey-api": ^0.0.38
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.21
-  "@power-plant/prisma": ^0.0.22
+  "@power-plant/openapi-typescript": ^0.0.22
+  "@power-plant/prisma": ^0.0.23
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.40
-  "@power-plant/style-dictionary": ^0.0.26
+  "@power-plant/schema": ^0.0.41
+  "@power-plant/style-dictionary": ^0.0.27
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0
   "@prisma/config": 7.6.0
@@ -310,7 +308,6 @@ minimumReleaseAgeExclude:
   - "@rushstack/ts-command-line@5.3.11"
 onlyBuiltDependencies:
   - "@biomejs/biome"
-  - "@deepkit/type-compiler"
   - "@hyperjump/json-pointer"
   - "@hyperjump/json-schema"
   - "@hyperjump/json-schema-core"
