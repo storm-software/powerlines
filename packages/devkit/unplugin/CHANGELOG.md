@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.130](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.130) (07/27/2026)
+
+### Miscellaneous
+
+- **unplugin:** Update `tsdown` options mapping to no longer use deprecated `skipNodeModulesBundle` flag ([4d8db8c7f](https://github.com/storm-software/powerlines/commit/4d8db8c7f))
+
+### Features
+
+- **monorepo:** Use `deepkit` logic from Power Plant and `zod` for defining `env` type schemas ([f6bd02caa](https://github.com/storm-software/powerlines/commit/f6bd02caa))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.82**
+
 ## [0.0.129](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.129) (07/26/2026)
 
 ### Updated Dependencies

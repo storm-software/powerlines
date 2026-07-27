@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.156](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.156) (07/27/2026)
+
+### Features
+
+- **monorepo:** Use `deepkit` logic from Power Plant and `zod` for defining `env` type schemas ([f6bd02caa](https://github.com/storm-software/powerlines/commit/f6bd02caa))
+
 ## [0.2.146](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.146) (07/24/2026)
 
 ### Miscellaneous

@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Open Telemetry
 
+## [0.1.186](https://github.com/storm-software/powerlines/releases/tag/plugin-open-telemetry%400.1.186) (07/27/2026)
+
+### Features
+
+- **monorepo:** Use `deepkit` logic from Power Plant and `zod` for defining `env` type schemas ([f6bd02caa](https://github.com/storm-software/powerlines/commit/f6bd02caa))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.254**
+- Updated **plugin-automd** to **v0.1.622**
+- Updated **plugin-babel** to **v0.13.157**
+- Updated **plugin-env** to **v0.16.365**
+- Updated **plugin-plugin** to **v0.12.573**
+- Updated **powerlines** to **v0.47.161**
+
 ## [0.1.185](https://github.com/storm-software/powerlines/releases/tag/plugin-open-telemetry%400.1.185) (07/26/2026)
 
 ### Updated Dependencies

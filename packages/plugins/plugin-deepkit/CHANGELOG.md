@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.504](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.504) (07/27/2026)
+
+### Features
+
+- **monorepo:** Use `deepkit` logic from Power Plant and `zod` for defining `env` type schemas ([f6bd02caa](https://github.com/storm-software/powerlines/commit/f6bd02caa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.573**
+- Updated **plugin-tsc** to **v0.3.158**
+- Updated **powerlines** to **v0.47.161**
+
 ## [0.11.503](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.503) (07/26/2026)
 
 ### Updated Dependencies

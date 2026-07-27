@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin I18next
 
+## [0.1.519](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.519) (07/27/2026)
+
+### Features
+
+- **monorepo:** Use `deepkit` logic from Power Plant and `zod` for defining `env` type schemas ([f6bd02caa](https://github.com/storm-software/powerlines/commit/f6bd02caa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.573**
+- Updated **powerlines** to **v0.47.161**
+
 ## [0.1.518](https://github.com/storm-software/powerlines/releases/tag/plugin-i18next%400.1.518) (07/26/2026)
 
 ### Updated Dependencies

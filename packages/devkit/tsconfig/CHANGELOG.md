@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.208](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.208) (07/27/2026)
+
+### Features
+
+- **monorepo:** Use `deepkit` logic from Power Plant and `zod` for defining `env` type schemas ([f6bd02caa](https://github.com/storm-software/powerlines/commit/f6bd02caa))
+
 ## [0.4.198](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.198) (07/24/2026)
 
 ### Miscellaneous
