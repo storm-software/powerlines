@@ -72,6 +72,12 @@
       "sourceType": "github",
       "skillPath": "skills/writing-json-schemas/SKILL.md",
       "computedHash": "9b3b90c7d96bc9ef8c643dd464b2097d2a22f87ffc7f6c85a2973f5de2636409"
+    },
+    "zod": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.curated/zod/SKILL.md",
+      "computedHash": "c69b5133b65643317236707f2cd3e521b4fc6e5ee5fd6c6c00cf62a37dfd0144"
     }
   }
 }

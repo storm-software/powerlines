@@ -117,6 +117,34 @@
       }
     },
     "./package.json": "./package.json",
+    "./schemas": {
+      "require": {
+        "types": "./dist/schemas/index.d.cts",
+        "default": "./dist/schemas/index.cjs"
+      },
+      "import": {
+        "types": "./dist/schemas/index.d.mts",
+        "default": "./dist/schemas/index.mjs"
+      },
+      "default": {
+        "types": "./dist/schemas/index.d.mts",
+        "default": "./dist/schemas/index.mjs"
+      }
+    },
+    "./schemas/env": {
+      "require": {
+        "types": "./dist/schemas/env.d.cts",
+        "default": "./dist/schemas/env.cjs"
+      },
+      "import": {
+        "types": "./dist/schemas/env.d.mts",
+        "default": "./dist/schemas/env.mjs"
+      },
+      "default": {
+        "types": "./dist/schemas/env.d.mts",
+        "default": "./dist/schemas/env.mjs"
+      }
+    },
     "./types": {
       "require": {
         "types": "./dist/types/index.d.cts",
@@ -129,20 +157,6 @@
       "default": {
         "types": "./dist/types/index.d.mts",
         "default": "./dist/types/index.mjs"
-      }
-    },
-    "./types/env": {
-      "require": {
-        "types": "./dist/types/env.d.cts",
-        "default": "./dist/types/env.cjs"
-      },
-      "import": {
-        "types": "./dist/types/env.d.mts",
-        "default": "./dist/types/env.mjs"
-      },
-      "default": {
-        "types": "./dist/types/env.d.mts",
-        "default": "./dist/types/env.mjs"
       }
     },
     "./types/plugin": {
@@ -164,7 +178,9 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/json": "catalog:",
@@ -173,6 +189,7 @@
     "@power-plant/alloy-js": "catalog:",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-automd": "workspace:*",
+    "@powerlines/plugin-env": "workspace:*",
     "@powerlines/plugin-plugin": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/convert": "catalog:",
@@ -186,7 +203,8 @@
     "automd": "catalog:",
     "c12": "catalog:",
     "defu": "catalog:",
-    "powerlines": "workspace:*"
+    "powerlines": "workspace:*",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@opentelemetry/api": "catalog:",

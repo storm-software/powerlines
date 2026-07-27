@@ -95,7 +95,15 @@ export const plugin = <
                 : "en"
           },
           types: {
-            enableSelector: false
+            enableSelector: false,
+            input: [
+              "src/**/*.ts",
+              "src/**/*.tsx",
+              "src/**/*.js",
+              "src/**/*.jsx"
+            ],
+            output: "locales",
+            indentation: 2
           },
           locales: [] as string[]
         }

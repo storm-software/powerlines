@@ -17,9 +17,9 @@
  ------------------------------------------------------------------- */
 
 import {
-  createDeclarationTransformer,
-  createTransformer
-} from "@powerlines/deepkit/transformer";
+  declarationTransformer,
+  transformer
+} from "@power-plant/schema/deepkit";
 import tsc from "@powerlines/plugin-tsc";
 import { appendPath } from "@stryke/path/append";
 import { Plugin } from "powerlines";
@@ -52,37 +52,16 @@ export const plugin = <
         return {
           deepkit: options ?? {},
           resolve: {
-            external: [
-              "@powerlines/deepkit/vendor/type-compiler",
-              "@powerlines/deepkit/vendor/type-compiler/compiler",
-              "@powerlines/deepkit/vendor/type-compiler/config",
-              "@powerlines/deepkit/vendor/type-spec",
-              "@powerlines/deepkit/vendor/type",
-              "@powerlines/deepkit/vendor/core"
-            ]
+            external: ["@power-plant/schema/deepkit"]
           }
         };
       },
       configResolved: {
         order: "post",
         async handler() {
-          const reflection =
-            this.config.deepkit.reflection ||
-            this.tsconfig.tsconfigJson.compilerOptions?.reflection ||
-            this.tsconfig.tsconfigJson.reflection ||
-            "default";
-          const level =
-            this.config.deepkit.level ||
-            this.tsconfig.tsconfigJson.compilerOptions?.level ||
-            this.tsconfig.tsconfigJson.level ||
-            "default";
-
           this.config.tsc ??= {} as TContext["config"]["tsc"];
           this.config.tsc.compilerOptions = {
             ...(this.config.tsc.compilerOptions ?? {}),
-            exclude: this.config.deepkit.exclude ?? [],
-            reflection,
-            level,
             configFilePath: appendPath(
               this.tsconfig.tsconfigFilePath,
               this.config.cwd
@@ -94,12 +73,8 @@ export const plugin = <
             after: []
           };
 
-          this.config.tsc.transformers.before!.push(
-            createTransformer(this, this.config.deepkit)
-          );
-          this.config.tsc.transformers.after!.push(
-            createDeclarationTransformer(this, this.config.deepkit)
-          );
+          this.config.tsc.transformers.before!.push(transformer);
+          this.config.tsc.transformers.after!.push(declarationTransformer);
         }
       }
     }

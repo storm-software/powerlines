@@ -17,24 +17,13 @@
  ------------------------------------------------------------------- */
 
 import alloy from "@powerlines/plugin-alloy";
-import deepkit from "@powerlines/plugin-deepkit";
 import plugin from "@powerlines/plugin-plugin";
 import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
   skipCache: true,
   input: ["src/**/*.ts", "src/**/*.tsx"],
-  plugins: [
-    plugin(),
-    deepkit({
-      reflection: "default",
-      level: "all"
-    }),
-    alloy({
-      json: true,
-      markdown: true
-    })
-  ],
+  plugins: [plugin(), alloy()],
   logLevel: {
     general: "debug",
     config: "trace"

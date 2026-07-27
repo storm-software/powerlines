@@ -37,12 +37,12 @@ export type EnvType = "env" | "secrets";
 
 export type EnvPluginOptions = Omit<DotenvConfiguration, "types"> & {
   /**
-   * A path to the type definition for the expected env configuration parameters. This value can include both a path to the typescript file and the name of the type definition to use separated by a `":"` or `"#"` character. For example: `"./src/types/env.ts#ConfigConfiguration"`.
+   * A path to the schema for the expected env configuration parameters. This value can include both a path to the typescript file and the name of the schema export to use separated by a `":"` or `"#"` character. For example: `"./src/schemas/env.ts#envSchema"`.
    */
   config?: SchemaConfig;
 
   /**
-   * A path to the type definition for the expected env secret parameters. This value can include both a path to the typescript file and the name of the type definition to use separated by a `":"` or `"#"` character. For example: `"./src/types/env.ts#ConfigSecrets"`.
+   * A path to the schema for the expected env secret parameters. This value can include both a path to the typescript file and the name of the schema export to use separated by a `":"` or `"#"` character. For example: `"./src/schemas/env.ts#secretsSchema"`.
    */
   secrets?: SchemaConfig;
 

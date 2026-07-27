@@ -87,18 +87,18 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.34
-  "@power-plant/asyncapi": ^0.0.33
-  "@power-plant/core": ^0.0.37
-  "@power-plant/graphql-codegen": ^0.0.33
+  "@power-plant/alloy-js": ^0.0.38
+  "@power-plant/asyncapi": ^0.0.37
+  "@power-plant/core": ^0.0.41
+  "@power-plant/graphql-codegen": ^0.0.37
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.33
+  "@power-plant/hey-api": ^0.0.37
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.17
-  "@power-plant/prisma": ^0.0.18
+  "@power-plant/openapi-typescript": ^0.0.21
+  "@power-plant/prisma": ^0.0.22
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.36
-  "@power-plant/style-dictionary": ^0.0.22
+  "@power-plant/schema": ^0.0.40
+  "@power-plant/style-dictionary": ^0.0.26
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0
   "@prisma/config": 7.6.0
@@ -226,7 +226,7 @@ catalog:
   magic-string: ^0.30.21
   markdown-toc: ^1.2.0
   marked: ^17.0.6
-  next: ^16.2.11
+  next: ^16.2.12
   nitro: 3.0.260429-beta
   nx: 23.1.0
   openapi-typescript: ^7.13.0
@@ -333,7 +333,6 @@ onlyBuiltDependencies:
 overrides:
   "@powerlines/cli": workspace:*
   "@powerlines/core": workspace:*
-  "@powerlines/deepkit": workspace:*
   "@powerlines/engine": workspace:*
   "@powerlines/nx": workspace:*
   "@powerlines/plugin-alloy": workspace:*
@@ -416,10 +415,6 @@ overrides:
 patchedDependencies:
   "@alloy-js/babel-plugin-jsx-dom-expressions": patches/@alloy-js__babel-plugin-jsx-dom-expressions.patch
   "@content-collections/core": patches/@content-collections__core.patch
-  "@deepkit/core": patches/@deepkit__core.patch
-  "@deepkit/type": patches/@deepkit__type.patch
-  "@deepkit/type-compiler": patches/@deepkit__type-compiler.patch
-  "@deepkit/type-spec": patches/@deepkit__type-spec.patch
   "@prisma/client-generator-registry@6.19.3": patches/@prisma__client-generator-registry@6.19.3.patch
   automd: patches/automd.patch
 shamefullyHoist: true

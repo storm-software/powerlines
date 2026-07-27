@@ -33,6 +33,7 @@ import { ReactOptimizedBuiltin } from "./components/react-optimized";
 import type { ReactPluginContext, ReactPluginOptions } from "./types/plugin";
 
 export * from "./components";
+export * from "./schemas";
 export * from "./types";
 
 declare module "powerlines" {

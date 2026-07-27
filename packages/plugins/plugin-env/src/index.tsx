@@ -39,6 +39,14 @@ import {
 } from "./helpers/schema";
 import type { EnvPluginContext, EnvPluginOptions } from "./types/plugin";
 
+export {
+  envSchema,
+  secretsSchema,
+  type Env,
+  type EnvInput,
+  type Secrets,
+  type SecretsInput
+} from "./schemas/env";
 export * from "./types";
 
 declare module "powerlines" {

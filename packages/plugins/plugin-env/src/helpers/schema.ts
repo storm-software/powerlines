@@ -35,18 +35,20 @@ import { EnvPluginContext, EnvSchema } from "../types/plugin";
 import { loadEnv } from "./load";
 
 /**
- * Resolves the runtime type definition file for the environment variables.
+ * Resolves the runtime Zod schema file for the environment variables.
  *
  * @param context - The plugin context.
- * @returns The runtime type definition file for the environment variables.
+ * @returns The runtime schema file for the environment variables.
  */
-export async function resolveRuntimeTypeFile<
+export async function resolveRuntimeSchemaFile<
   TContext extends UnresolvedContext
 >(context: TContext): Promise<string> {
-  const resolved = await context.fs.resolve("@powerlines/plugin-env/types/env");
+  const resolved = await context.fs.resolve(
+    "@powerlines/plugin-env/schemas/env"
+  );
   if (!resolved) {
     throw new Error(
-      `Failed to resolve the runtime type definition file for the environment variables. Please ensure that the "@powerlines/plugin-env" package is installed.`
+      `Failed to resolve the runtime schema file for the environment variables. Please ensure that the "@powerlines/plugin-env" package is installed.`
     );
   }
 
@@ -54,31 +56,32 @@ export async function resolveRuntimeTypeFile<
 }
 
 /**
- * Gets the default type definition for the environment variables.
+ * Gets the default Zod schema reference for the environment variables.
  *
  * @param context - The plugin context.
- * @returns The default type definition for the environment variables.
+ * @returns The default schema reference for the environment variables.
  */
 export async function getDefaultConfig<TContext extends UnresolvedContext>(
   context: TContext
 ): Promise<FileReference> {
   return {
-    file: await resolveRuntimeTypeFile(context),
-    export: "EnvInterface"
+    file: await resolveRuntimeSchemaFile(context),
+    export: "envSchema"
   };
 }
 
-/** Gets the default type definition for the environment secrets.
+/**
+ * Gets the default Zod schema reference for the environment secrets.
  *
  * @param context - The plugin context.
- * @returns The default type definition for the environment secrets.
+ * @returns The default schema reference for the environment secrets.
  */
 export async function getDefaultSecrets<TContext extends UnresolvedContext>(
   context: TContext
 ): Promise<FileReference> {
   return {
-    file: await resolveRuntimeTypeFile(context),
-    export: "SecretsInterface"
+    file: await resolveRuntimeSchemaFile(context),
+    export: "secretsSchema"
   };
 }
 
@@ -229,6 +232,8 @@ export async function extractEnv<TContext extends EnvPluginContext>(
         return "Untyped configuration";
       case "file-reference":
         return "Typescript exported type";
+      case "reflection":
+        return "TypeScript reflection";
       default: {
         const _exhaustive: never = variant;
 

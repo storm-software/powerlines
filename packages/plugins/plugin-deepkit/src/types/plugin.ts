@@ -16,16 +16,14 @@
 
  ------------------------------------------------------------------- */
 
-import { ReflectionConfig } from "@powerlines/deepkit/vendor/type-compiler/config";
-import {
+import type {
   TypeScriptCompilerPluginContext,
   TypeScriptCompilerPluginOptions,
   TypeScriptCompilerPluginResolvedConfig,
   TypeScriptCompilerPluginUserConfig
-} from "@powerlines/plugin-tsc/types/plugin";
+} from "@powerlines/plugin-tsc";
 
-export type DeepkitPluginOptions = Partial<ReflectionConfig> &
-  TypeScriptCompilerPluginOptions;
+export type DeepkitPluginOptions = TypeScriptCompilerPluginOptions;
 
 export interface DeepkitPluginUserConfig extends TypeScriptCompilerPluginUserConfig {
   /**

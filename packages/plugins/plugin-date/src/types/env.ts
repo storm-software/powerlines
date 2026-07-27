@@ -16,8 +16,6 @@
 
  ------------------------------------------------------------------- */
 
-import { EnvInterface } from "@powerlines/plugin-env/types/env";
-
 /**
  * The various types of date formats used in Storm Stack applications.
  */
@@ -839,13 +837,4 @@ export interface PowerlinesDateInterface<TDate, TLocale> {
    * @returns The localized meridiem string.
    */
   getMeridiemText: (meridiem: "am" | "pm") => string;
-}
-
-export interface DateEnv extends EnvInterface {
-  /**
-   * The locale to use for date formatting and parsing. This can be set via the `LOCALE` environment variable or the `DEFAULT_LOCALE` environment variable, with `LOCALE` taking precedence if both are set. If neither is set, it will default to "en-US".
-   *
-   * @runtime
-   */
-  LOCALE?: string;
 }

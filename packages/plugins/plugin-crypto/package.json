@@ -53,6 +53,34 @@
         "default": "./dist/index.mjs"
       }
     },
+    "./components": {
+      "require": {
+        "types": "./dist/components/index.d.cts",
+        "default": "./dist/components/index.cjs"
+      },
+      "import": {
+        "types": "./dist/components/index.d.mts",
+        "default": "./dist/components/index.mjs"
+      },
+      "default": {
+        "types": "./dist/components/index.d.mts",
+        "default": "./dist/components/index.mjs"
+      }
+    },
+    "./components/crypto-builtin": {
+      "require": {
+        "types": "./dist/components/crypto-builtin.d.cts",
+        "default": "./dist/components/crypto-builtin.cjs"
+      },
+      "import": {
+        "types": "./dist/components/crypto-builtin.d.mts",
+        "default": "./dist/components/crypto-builtin.mjs"
+      },
+      "default": {
+        "types": "./dist/components/crypto-builtin.d.mts",
+        "default": "./dist/components/crypto-builtin.mjs"
+      }
+    },
     "./package.json": "./package.json",
     "./types": {
       "require": {
@@ -83,10 +111,22 @@
       }
     }
   },
-  "files": ["dist/**/*"],
-  "keywords": ["powerlines", "storm-software", "powerlines-plugin"],
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "dependencies": {
+    "@alloy-js/core": "catalog:",
+    "@alloy-js/json": "catalog:",
+    "@alloy-js/markdown": "catalog:",
+    "@alloy-js/typescript": "catalog:",
     "@noble/ciphers": "catalog:",
+    "@power-plant/alloy-js": "catalog:",
+    "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/path": "catalog:",

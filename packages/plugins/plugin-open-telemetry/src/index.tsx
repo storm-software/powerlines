@@ -28,6 +28,7 @@ import type {
   OpenTelemetryPluginOptions
 } from "./types/plugin";
 
+export * from "./schemas";
 export type * from "./types";
 
 declare module "powerlines" {
