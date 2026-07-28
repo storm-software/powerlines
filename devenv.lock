@@ -52,7 +52,6 @@
       },
       "original": {
         "owner": "storm-software",
-        "ref": "main",
         "repo": "storm-ops",
         "type": "github"
       }
