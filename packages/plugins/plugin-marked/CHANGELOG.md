@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Marked
 
+## [0.1.594](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.594) (07/28/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.580**
+- Updated **powerlines** to **v0.47.168**
+
 ## [0.1.593](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.593) (07/28/2026)
 
 ### Updated Dependencies
