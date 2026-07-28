@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.203](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.203) (07/27/2026)
+
+### Miscellaneous
+
+- **monorepo:** Resolve workspace build issue ([a53170bd1](https://github.com/storm-software/powerlines/commit/a53170bd1))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.164**
+
 ## [0.13.202](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.202) (07/27/2026)
 
 ### Updated Dependencies
