@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-esbuild",
-  "version": "0.13.620",
+  "version": "0.13.621",
   "private": false,
   "description": "A package containing a Powerlines plugin to build projects using esbuild.",
   "keywords": ["esbuild", "powerlines", "storm-software", "powerlines-plugin"],
