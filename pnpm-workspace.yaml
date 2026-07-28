@@ -85,18 +85,18 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.41
-  "@power-plant/asyncapi": ^0.0.40
-  "@power-plant/core": ^0.0.44
-  "@power-plant/graphql-codegen": ^0.0.40
+  "@power-plant/alloy-js": ^0.0.43
+  "@power-plant/asyncapi": ^0.0.42
+  "@power-plant/core": ^0.0.46
+  "@power-plant/graphql-codegen": ^0.0.42
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.40
+  "@power-plant/hey-api": ^0.0.42
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.24
-  "@power-plant/prisma": ^0.0.25
+  "@power-plant/openapi-typescript": ^0.0.26
+  "@power-plant/prisma": ^0.0.27
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.43
-  "@power-plant/style-dictionary": ^0.0.29
+  "@power-plant/schema": ^0.0.44
+  "@power-plant/style-dictionary": ^0.0.31
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0
   "@prisma/config": 7.6.0
@@ -231,7 +231,7 @@ catalog:
   oxc-parser: ^0.99.0
   oxc-resolver: ^11.24.2
   oxc-transform: ^0.99.0
-  oxlint: ^1.75.0
+  oxlint: ^1.76.0
   oxlint-tsgolint: ^0.14.2
   picomatch: ^4.0.5
   piscina: ^5.1.4
@@ -246,7 +246,7 @@ catalog:
   rimraf: ^6.1.3
   rolldown: ^1.2.0
   rolldown-plugin-dts: ^0.25.2
-  rollup: ^4.62.2
+  rollup: ^4.62.3
   rollup-plugin-typescript2: ^0.36.0
   rspack: ^0.1.1
   satori: ^0.18.4

@@ -28,11 +28,7 @@
     "node": ">=24.16.0",
     "pnpm": ">=11.9.0"
   },
-  "keywords": [
-    "storm-software",
-    "powerlines",
-    "sullivanpj"
-  ],
+  "keywords": ["storm-software", "powerlines", "sullivanpj"],
   "scripts": {
     "adr": "pnpm log4brains adr new",
     "adr-preview": "pnpm log4brains preview",
