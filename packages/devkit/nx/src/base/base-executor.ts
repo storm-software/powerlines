@@ -40,7 +40,6 @@ import type {
   Mode,
   OutputConfig
 } from "powerlines";
-import { formatExecutionId, getName } from "powerlines/plugin-utils";
 import type { BaseExecutorSchema } from "./base-executor.schema";
 
 export type PowerlinesExecutorContext<
@@ -159,11 +158,23 @@ export function withExecutor<
         cache: false,
         tsconfigPaths: true
       });
-      const api = await jiti
-        .import<{
-          default: (params: ExecutionApiParams) => Promise<void>;
-        }>(jiti.esmResolve(importPath))
-        .then(mod => mod.default);
+      // Load via jiti — static require() of powerlines/plugin-utils fails when Nx
+      // registers ts-node + tsconfig paths (maps to ESM .ts source under type:module).
+      const [{ formatExecutionId, getName }, api] = await Promise.all([
+        jiti.import<{
+          formatExecutionId: (
+            projectName: string,
+            command: string,
+            configIndex?: number
+          ) => string;
+          getName: (cwd: string, root: string) => Promise<string>;
+        }>("powerlines/plugin-utils"),
+        jiti
+          .import<{
+            default: (params: ExecutionApiParams) => Promise<void>;
+          }>(jiti.esmResolve(importPath))
+          .then(mod => mod.default)
+      ]);
 
       try {
         return await Promise.resolve(

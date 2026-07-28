@@ -1,5 +1,13 @@
 {
   "extends": "@storm-software/workspace-tools/config/recommended.json",
+  "targetDefaults": {
+    "clean": {
+      "cache": false,
+      "inputs": ["{workspaceRoot}/dist/{projectRoot}", "{projectRoot}/dist"],
+      "outputs": [],
+      "dependsOn": ["^clean"]
+    }
+  },
   "release": {
     "groups": {
       "packages": {
