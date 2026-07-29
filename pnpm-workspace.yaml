@@ -283,7 +283,7 @@ catalog:
   verdaccio: 6.5.2
   vite: ^8.1.5
   vitest: ~4.1.10
-  webpack: ^5.109.0
+  webpack: ^5.109.1
   wrangler: ^4.115.0
   yaml: ^2.9.0
   zod: ^4.4.3
