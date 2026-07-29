@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.93](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.93) (07/29/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([6d8e17f5e](https://github.com/storm-software/powerlines/commit/6d8e17f5e))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.91**
+
 ## [0.49.92](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.92) (07/28/2026)
 
 ### Updated Dependencies

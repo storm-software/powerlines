@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.91](https://github.com/storm-software/powerlines/releases/tag/core%400.48.91) (07/29/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies ([6d8e17f5e](https://github.com/storm-software/powerlines/commit/6d8e17f5e))
+
 ## [0.48.82](https://github.com/storm-software/powerlines/releases/tag/core%400.48.82) (07/27/2026)
 
 ### Features
