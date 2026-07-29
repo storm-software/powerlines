@@ -80,17 +80,21 @@ function getDocumentContents(document: GeneratedDocument): string {
  *
  * @param context - The Powerlines plugin context.
  * @param template - The children components to render.
+ * @param spec - The spec to use for the render.
  * @returns A promise that resolves when rendering is complete.
  */
-export async function render<TContext extends PluginContext>(
+export async function render<TContext extends PluginContext, TSpec = any>(
   context: TContext,
-  template: Children
+  template: Children,
+  spec: TSpec
 ) {
   const documents: Record<string, GeneratedDocument> = await generate(
     <PowerlinesContext.Provider value={context}>
       {template}
     </PowerlinesContext.Provider>,
-    {},
+    {
+      input: spec ?? {}
+    },
     {
       cwd: context.config.cwd,
       logger: {
