@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.263](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.263) (07/29/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Ensure spec is provided to render method ([6b2e36c0d](https://github.com/storm-software/powerlines/commit/6b2e36c0d))
+
 ## [0.26.262](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.262) (07/28/2026)
 
 ### Updated Dependencies
