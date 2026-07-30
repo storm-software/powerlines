@@ -54,7 +54,12 @@ export const plugin = <
             types: false
           },
           resolve: {
-            external: ["powerlines", /^powerlines\/.*$/, /^@powerlines\/.*$/]
+            external: [
+              "powerlines",
+              /^powerlines\/.*$/,
+              /^@powerlines\/.*$/,
+              /^@power-plant\/.*$/
+            ]
           },
           tsdown: {
             target: "esnext",

@@ -207,7 +207,11 @@
   "bin": {
     "powerlines": "./bin/bin.mjs"
   },
-  "files": ["dist", "bin", "files"],
+  "files": [
+    "dist",
+    "bin",
+    "files"
+  ],
   "dependencies": {
     "@babel/types": "catalog:",
     "@power-plant/schema": "catalog:",
