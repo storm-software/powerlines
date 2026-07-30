@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.518](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.518) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.587**
+- Updated **plugin-tsc** to **v0.3.172**
+- Updated **powerlines** to **v0.47.175**
+
 ## [0.11.517](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.517) (07/30/2026)
 
 ### Updated Dependencies

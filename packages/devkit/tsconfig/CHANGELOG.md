@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.222](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.222) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
 ## [0.4.221](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.221) (07/30/2026)
 
 ### Bug Fixes

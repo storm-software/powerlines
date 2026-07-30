@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Marked
 
+## [0.1.601](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.601) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.587**
+- Updated **powerlines** to **v0.47.175**
+
 ## [0.1.600](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.600) (07/30/2026)
 
 ### Updated Dependencies

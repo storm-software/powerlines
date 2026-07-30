@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.144](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.144) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.96**
+
 ## [0.0.143](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.143) (07/30/2026)
 
 ### Bug Fixes

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.175](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.175) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.96**
+- Updated **engine** to **v0.49.98**
+- Updated **unplugin** to **v0.0.144**
+
 ## [0.47.174](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.174) (07/30/2026)
 
 ### Bug Fixes

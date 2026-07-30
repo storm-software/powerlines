@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.627](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.627) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.96**
+- Updated **powerlines** to **v0.47.175**
+- Updated **unplugin** to **v0.0.144**
+
 ## [0.5.626](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.626) (07/30/2026)
 
 ### Updated Dependencies

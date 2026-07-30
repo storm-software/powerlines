@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.280](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.280) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.270**
+- Updated **plugin-env** to **v0.16.381**
+- Updated **plugin-plugin** to **v0.12.587**
+- Updated **plugin-pulumi** to **v0.6.277**
+- Updated **plugin-unenv** to **v0.1.625**
+- Updated **powerlines** to **v0.47.175**
+
 ## [0.6.279](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.279) (07/30/2026)
 
 ### Updated Dependencies
