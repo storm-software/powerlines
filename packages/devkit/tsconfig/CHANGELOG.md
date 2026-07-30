@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.221](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.221) (07/30/2026)
+
+### Bug Fixes
+
+- **plugin-plugin:** Ensure Power Plant packages are marked external ([65d9cb53b](https://github.com/storm-software/powerlines/commit/65d9cb53b))
+
 ## [0.4.217](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.217) (07/29/2026)
 
 ### Miscellaneous

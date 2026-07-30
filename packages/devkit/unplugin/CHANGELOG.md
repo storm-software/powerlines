@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.143](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.143) (07/30/2026)
+
+### Bug Fixes
+
+- **plugin-plugin:** Ensure Power Plant packages are marked external ([65d9cb53b](https://github.com/storm-software/powerlines/commit/65d9cb53b))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.95**
+
 ## [0.0.142](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.142) (07/30/2026)
 
 ### Updated Dependencies

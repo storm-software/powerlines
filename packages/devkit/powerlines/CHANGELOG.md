@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.174](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.174) (07/30/2026)
+
+### Bug Fixes
+
+- **plugin-plugin:** Ensure Power Plant packages are marked external ([65d9cb53b](https://github.com/storm-software/powerlines/commit/65d9cb53b))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.95**
+- Updated **engine** to **v0.49.97**
+- Updated **unplugin** to **v0.0.143**
+
 ## [0.47.173](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.173) (07/30/2026)
 
 ### Updated Dependencies

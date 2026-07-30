@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.586](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.586) (07/30/2026)
+
+### Bug Fixes
+
+- **plugin-plugin:** Ensure Power Plant packages are marked external ([65d9cb53b](https://github.com/storm-software/powerlines/commit/65d9cb53b))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.575**
+- Updated **powerlines** to **v0.47.174**
+
 ## [0.12.585](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.585) (07/30/2026)
 
 ### Updated Dependencies
