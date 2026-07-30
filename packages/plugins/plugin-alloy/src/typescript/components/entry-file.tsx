@@ -17,10 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { computed, splitProps } from "@alloy-js/core";
-import {
-  TypescriptFile,
-  type TypescriptFileProps
-} from "@power-plant/alloy-js/typescript/components/typescript-file";
+import type { TypescriptFileProps } from "@power-plant/alloy-js/typescript/components/typescript-file";
+import { TypescriptFile } from "@power-plant/alloy-js/typescript/components/typescript-file";
 import { appendPath } from "@stryke/path/append";
 import { hasFileExtension } from "@stryke/path/file-path-fns";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
@@ -28,6 +26,7 @@ import { isSet } from "@stryke/type-checks/is-set";
 import defu from "defu";
 import type { ResolvedEntryFileReference } from "powerlines";
 import { usePowerlinesSafe } from "../../core/contexts/context";
+import { getPrefix } from "../../helpers/prefix";
 
 export type EntryFileProps = TypescriptFileProps & {
   /**
@@ -69,15 +68,20 @@ export function EntryFile(props: EntryFileProps) {
 
   return (
     <TypescriptFile
+      prefix={getPrefix(context)}
       {...rest}
       path={fullPath.value}
       meta={defu(
         {
-          kind: "entry"
+          data: {
+            kind: "entry"
+          }
         },
         meta ?? {},
         {
-          typeDefinition
+          data: {
+            typeDefinition
+          }
         }
       )}>
       {children}

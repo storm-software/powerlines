@@ -86,7 +86,7 @@ function getDocumentContents(document: GeneratedDocument): string {
 export async function render<TContext extends PluginContext, TSpec = any>(
   context: TContext,
   template: Children,
-  spec: TSpec
+  spec: TSpec = {} as TSpec
 ) {
   const documents: Record<string, GeneratedDocument> = await generate(
     <PowerlinesContext.Provider value={context}>
@@ -122,8 +122,9 @@ export async function render<TContext extends PluginContext, TSpec = any>(
         const metadata = getDocumentMeta(document);
 
         return `${replacePath(document.path, context.config.cwd)}${
-          metadata.kind === "builtin" || metadata.kind === "infrastructure"
-            ? ` (${metadata.kind === "builtin" ? "Builtin" : "Infrastructure"})`
+          metadata.data?.kind === "builtin" ||
+          metadata.data?.kind === "infrastructure"
+            ? ` (${metadata.data?.kind === "builtin" ? "Builtin" : "Infrastructure"})`
             : ""
         }`;
       })
@@ -134,34 +135,34 @@ export async function render<TContext extends PluginContext, TSpec = any>(
     const metadata = getDocumentMeta(document);
     const contents = getDocumentContents(document);
 
-    if (metadata.kind === "builtin") {
-      if (!metadata.id) {
+    if (metadata.data?.kind === "builtin") {
+      if (!metadata.data?.id) {
         throw new Error(
           `Built-in file "${document.path}" is missing its ID in the render metadata.`
         );
       }
 
-      context.emitBuiltinSync(contents, metadata.id, {
-        skipFormat: metadata.skipFormat,
-        storage: metadata.storage,
+      context.emitBuiltinSync(contents, metadata.data?.id, {
+        skipFormat: metadata.data?.skipFormat,
+        storage: metadata.data?.storage,
         extension: findFileExtension(document.path)
       });
-    } else if (metadata.kind === "entry") {
+    } else if (metadata.data?.kind === "entry") {
       context.emitEntrySync(contents, document.path, {
-        skipFormat: metadata.skipFormat,
-        storage: metadata.storage,
-        ...(metadata.typeDefinition ?? {})
+        skipFormat: metadata.data?.skipFormat,
+        storage: metadata.data?.storage,
+        ...(metadata.data?.typeDefinition ?? {})
       });
-    } else if (metadata.kind === "infrastructure") {
-      if (!metadata.id) {
+    } else if (metadata.data?.kind === "infrastructure") {
+      if (!metadata.data?.id) {
         throw new Error(
           `Infrastructure file "${document.path}" is missing its ID in the render metadata.`
         );
       }
 
-      context.emitInfrastructureSync(contents, metadata.id, {
-        skipFormat: metadata.skipFormat,
-        storage: metadata.storage,
+      context.emitInfrastructureSync(contents, metadata.data?.id, {
+        skipFormat: metadata.data?.skipFormat,
+        storage: metadata.data?.storage,
         extension: findFileExtension(document.path)
       });
     } else {

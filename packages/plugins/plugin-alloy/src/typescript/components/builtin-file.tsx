@@ -17,18 +17,17 @@
  ------------------------------------------------------------------- */
 
 import { computed, splitProps } from "@alloy-js/core";
+import type { TSDocModuleProps } from "@power-plant/alloy-js/typescript/components/tsdoc";
+import { TSDocModule } from "@power-plant/alloy-js/typescript/components/tsdoc";
+import type { TypescriptFileProps } from "@power-plant/alloy-js/typescript/components/typescript-file";
 import {
   TypescriptFile,
   TypescriptFileHeader,
-  TypescriptFileHeaderImports,
-  type TypescriptFileProps
+  TypescriptFileHeaderImports
 } from "@power-plant/alloy-js/typescript/components/typescript-file";
-import {
-  TSDocModule,
-  type TSDocModuleProps
-} from "@power-plant/alloy-js/typescript/components/tsdoc";
 import { hasFileExtension } from "@stryke/path/file-path-fns";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
+import { kebabCase } from "@stryke/string-format/kebab-case";
 import { isSet } from "@stryke/type-checks/is-set";
 import { usePowerlinesSafe } from "../../core/contexts/context";
 
@@ -94,6 +93,7 @@ export function BuiltinFile(props: BuiltinFileProps) {
 
   return (
     <TypescriptFile
+      prefix={kebabCase(context?.config.framework?.name) || "powerlines"}
       header={
         <TypescriptFileHeader
           header={<TSDocModule name={id}>{description}</TSDocModule>}>
@@ -104,10 +104,12 @@ export function BuiltinFile(props: BuiltinFileProps) {
         </TypescriptFileHeader>
       }
       meta={{
-        kind: "builtin",
-        extension: tsx ? "tsx" : "ts",
-        id: replaceExtension(id),
-        internal
+        data: {
+          kind: "builtin",
+          extension: tsx ? "tsx" : "ts",
+          id: replaceExtension(id),
+          internal
+        }
       }}
       {...rest}
       path={path.value}>

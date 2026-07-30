@@ -25,6 +25,8 @@ import { Plugin } from "powerlines";
 import { NodeJsEnvBuiltin } from "./components/env-builtin";
 import { NodeJsPluginContext, NodeJsPluginOptions } from "./types/plugin";
 
+export type * from "./types";
+
 declare module "powerlines" {
   interface Config {
     nodejs?: NodeJsPluginOptions;
