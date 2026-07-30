@@ -3,7 +3,12 @@
   "version": "0.13.169",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
-  "keywords": ["babel", "powerlines", "storm-software", "powerlines-plugin"],
+  "keywords": [
+    "babel",
+    "powerlines",
+    "storm-software",
+    "powerlines-plugin"
+  ],
   "homepage": "https://stormsoftware.com",
   "bugs": {
     "url": "https://stormsoftware.com/support",
@@ -86,7 +91,9 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@babel/core": "catalog:",
     "@babel/generator": "catalog:",
@@ -112,9 +119,9 @@
     "@types/node": "catalog:"
   },
   "peerDependencies": {
-    "@babel/plugin-syntax-jsx": ">=8.0.0-rc.6",
-    "@babel/plugin-syntax-typescript": ">=8.0.0-rc.6",
-    "@babel/plugin-transform-json-modules": ">=8.0.0-rc.6"
+    "@babel/plugin-syntax-jsx": ">=8.0.1",
+    "@babel/plugin-syntax-typescript": ">=8.0.3",
+    "@babel/plugin-transform-json-modules": ">=8.0.1"
   },
   "peerDependenciesMeta": {
     "@babel/plugin-syntax-jsx": {
