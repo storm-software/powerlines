@@ -98,6 +98,7 @@ export function BuiltinFile(props: BuiltinFileProps) {
         <TypescriptFileHeader
           header={<TSDocModule name={id}>{description}</TSDocModule>}>
           <TypescriptFileHeaderImports
+            prefix={kebabCase(context?.config.framework?.name) || "powerlines"}
             imports={imports}
             builtinImports={builtinImports}
           />
