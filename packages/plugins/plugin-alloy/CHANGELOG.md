@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.271](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.271) (07/30/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue providing `prefix` property to builtin file ([3f165007e](https://github.com/storm-software/powerlines/commit/3f165007e))
+
 ## [0.26.270](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.270) (07/30/2026)
 
 ### Miscellaneous
