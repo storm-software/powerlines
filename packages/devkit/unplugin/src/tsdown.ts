@@ -73,7 +73,10 @@ export const DEFAULT_OPTIONS: Partial<BuildOptions> = {
   platform: "neutral",
   target: "esnext",
   fixedExtension: true,
-  clean: false
+  clean: false,
+  deps: {
+    resolveDepSubpath: true
+  }
 } as const;
 
 /**
@@ -250,9 +253,12 @@ export function resolveOptions<TContext extends UnresolvedContext>(
         alwaysBundle: context.config.resolve.skipNodeModulesBundle
           ? undefined
           : noExternal,
-        onlyBundle: context.config.resolve.skipNodeModulesBundle
-          ? noExternal
-          : undefined
+        onlyBundle:
+          context.config.resolve.skipNodeModulesBundle &&
+          noExternal &&
+          noExternal.length > 0
+            ? noExternal
+            : false
       },
       alias: context.alias,
       resolve: {

@@ -95,7 +95,7 @@ catalog:
   "@power-plant/openapi-typescript": ^0.0.35
   "@power-plant/prisma": ^0.0.36
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.53
+  "@power-plant/schema": ^0.0.54
   "@power-plant/style-dictionary": ^0.0.40
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0
@@ -180,7 +180,7 @@ catalog:
   "@types/unist": ^3.0.3
   "@valibot/to-json-schema": ^1.7.1
   "@rolldown/plugin-babel": ^0.2.3
-  "@vitejs/plugin-react": ^6.0.4
+  "@vitejs/plugin-react": ^6.0.5
   "@vitest/coverage-v8": ~4.1.10
   ajv: ^8.20.0
   ajv-formats: ^3.0.1
@@ -284,7 +284,7 @@ catalog:
   vite: ^8.1.5
   vitest: ~4.1.10
   webpack: ^5.109.2
-  wrangler: ^4.116.0
+  wrangler: ^4.117.0
   yaml: ^2.9.0
   zod: ^4.4.3
   zx: ^8.8.5
