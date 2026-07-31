@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.8.640](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.640) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.587**
+- Updated **powerlines** to **v0.47.175**
+
 ## [0.8.639](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.639) (07/30/2026)
 
 ### Updated Dependencies

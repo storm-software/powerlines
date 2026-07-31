@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.690](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.690) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.270**
+- Updated **plugin-env** to **v0.16.381**
+- Updated **plugin-plugin** to **v0.12.587**
+- Updated **powerlines** to **v0.47.175**
+
 ## [0.10.689](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.689) (07/30/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unified
 
+## [0.1.251](https://github.com/storm-software/powerlines/releases/tag/plugin-unified%400.1.251) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.587**
+- Updated **powerlines** to **v0.47.175**
+
 ## [0.1.250](https://github.com/storm-software/powerlines/releases/tag/plugin-unified%400.1.250) (07/30/2026)
 
 ### Updated Dependencies

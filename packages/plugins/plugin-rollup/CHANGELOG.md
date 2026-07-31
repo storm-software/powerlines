@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rollup
 
+## [0.7.630](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.630) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.96**
+- Updated **powerlines** to **v0.47.175**
+- Updated **unplugin** to **v0.0.144**
+
 ## [0.7.629](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.629) (07/30/2026)
 
 ### Updated Dependencies

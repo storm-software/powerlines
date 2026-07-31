@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.576](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.576) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.96**
+- Updated **powerlines** to **v0.47.175**
+- Updated **unplugin** to **v0.0.144**
+
 ## [0.1.575](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.575) (07/30/2026)
 
 ### Updated Dependencies

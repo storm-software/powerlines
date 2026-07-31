@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.170](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.170) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
 ## [0.2.169](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.169) (07/30/2026)
 
 ### Bug Fixes

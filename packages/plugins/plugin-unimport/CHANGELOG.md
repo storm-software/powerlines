@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unimport
 
+## [0.1.637](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.637) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.587**
+- Updated **powerlines** to **v0.47.175**
+
 ## [0.1.636](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.636) (07/30/2026)
 
 ### Updated Dependencies

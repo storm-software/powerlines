@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.544](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.544) (07/30/2026)
+
+### Miscellaneous
+
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.587**
+- Updated **plugin-power-plant** to **v0.1.31**
+- Updated **powerlines** to **v0.47.175**
+
 ## [0.3.543](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.543) (07/30/2026)
 
 ### Updated Dependencies
