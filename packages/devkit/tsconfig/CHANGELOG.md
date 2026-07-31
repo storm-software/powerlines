@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.224](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.224) (07/31/2026)
+
+### Miscellaneous
+
+- **plugin-tsdown:** Update `tsdown` build options to use latest API ([4ed0fd209](https://github.com/storm-software/powerlines/commit/4ed0fd209))
+
 ## [0.4.222](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.222) (07/30/2026)
 
 ### Miscellaneous

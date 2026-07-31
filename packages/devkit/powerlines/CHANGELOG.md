@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.177](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.177) (07/31/2026)
+
+### Miscellaneous
+
+- **plugin-tsdown:** Update `tsdown` build options to use latest API ([4ed0fd209](https://github.com/storm-software/powerlines/commit/4ed0fd209))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.98**
+- Updated **engine** to **v0.49.100**
+- Updated **unplugin** to **v0.0.146**
+
 ## [0.47.176](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.176) (07/31/2026)
 
 ### Updated Dependencies

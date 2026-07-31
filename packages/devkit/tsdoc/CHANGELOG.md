@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.172](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.172) (07/31/2026)
+
+### Miscellaneous
+
+- **plugin-tsdown:** Update `tsdown` build options to use latest API ([4ed0fd209](https://github.com/storm-software/powerlines/commit/4ed0fd209))
+
 ## [0.2.170](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.170) (07/30/2026)
 
 ### Miscellaneous
