@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.272](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.272) (07/31/2026)
+
+### Bug Fixes
+
+- **plugin-alloy:** Resolve issue applying prefix to builtin imports ([e4ded7911](https://github.com/storm-software/powerlines/commit/e4ded7911))
+
+### Updated Dependencies
+
+- Updated **plugin-babel** to **v0.13.173**
+- Updated **plugin-plugin** to **v0.12.588**
+- Updated **plugin-power-plant** to **v0.1.32**
+- Updated **powerlines** to **v0.47.176**
+
 ## [0.26.271](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.271) (07/30/2026)
 
 ### Bug Fixes
