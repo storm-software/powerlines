@@ -27,9 +27,9 @@ import {
 } from "@power-plant/alloy-js/typescript/components/typescript-file";
 import { hasFileExtension } from "@stryke/path/file-path-fns";
 import { replaceExtension, replacePath } from "@stryke/path/replace";
-import { kebabCase } from "@stryke/string-format/kebab-case";
 import { isSet } from "@stryke/type-checks/is-set";
 import { usePowerlinesSafe } from "../../core/contexts/context";
+import { getPrefix } from "../../helpers/prefix";
 
 export type BuiltinFileProps = Omit<TypescriptFileProps, "path"> &
   Omit<TSDocModuleProps, "name"> & {
@@ -91,14 +91,20 @@ export function BuiltinFile(props: BuiltinFileProps) {
     )
   );
 
+  const prefix = computed(() => getPrefix(context));
+
   return (
     <TypescriptFile
-      prefix={kebabCase(context?.config.framework?.name) || "powerlines"}
+      prefix={prefix.value}
       header={
         <TypescriptFileHeader
-          header={<TSDocModule name={id}>{description}</TSDocModule>}>
+          header={
+            <TSDocModule name={`${prefix.value}:${id}`}>
+              {description}
+            </TSDocModule>
+          }>
           <TypescriptFileHeaderImports
-            prefix={kebabCase(context?.config.framework?.name) || "powerlines"}
+            prefix={prefix.value}
             imports={imports}
             builtinImports={builtinImports}
           />

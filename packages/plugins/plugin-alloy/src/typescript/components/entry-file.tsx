@@ -66,10 +66,12 @@ export function EntryFile(props: EntryFileProps) {
       : path
   );
 
+  const prefix = computed(() => getPrefix(context));
+
   return (
     <TypescriptFile
-      prefix={getPrefix(context)}
       {...rest}
+      prefix={prefix.value}
       path={fullPath.value}
       meta={defu(
         {
