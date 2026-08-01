@@ -32,7 +32,7 @@ import { joinPaths } from "@stryke/path/join-paths";
 import { titleCase } from "@stryke/string-format/title-case";
 import { FilterPattern } from "@stryke/types/file";
 import { TsConfigJson } from "@stryke/types/tsconfig";
-import chalk from "chalk";
+import chalk from "../chalk";
 import defu from "defu";
 import ts from "typescript";
 import { ResolvedConfig } from "../../types/config";

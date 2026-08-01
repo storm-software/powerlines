@@ -25,7 +25,6 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { ArrayValues } from "@stryke/types/array";
 import { AnyFunction } from "@stryke/types/base";
-import chalk from "chalk";
 import { defu } from "defu";
 import {
   addPluginHook,
@@ -48,6 +47,7 @@ import type {
   PluginHookFields,
   ResolvedConfig
 } from "../types";
+import chalk from "./chalk";
 
 /**
  * Merges the current hook result with the previous results based on their types.

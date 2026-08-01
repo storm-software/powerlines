@@ -17,8 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { EnvPaths } from "@stryke/env/get-env-paths";
-import chalk from "chalk";
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
+import chalk from "../lib/chalk";
 import { extendLogger } from "../plugin-utils/logging";
 import { Options } from "../types/config";
 import { BaseContext } from "../types/context";

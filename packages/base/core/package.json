@@ -115,6 +115,10 @@
       "import": "./dist/lib/index.mjs",
       "require": "./dist/lib/index.cjs"
     },
+    "./lib/chalk": {
+      "import": "./dist/lib/chalk.mjs",
+      "require": "./dist/lib/chalk.cjs"
+    },
     "./lib/config": {
       "import": "./dist/lib/config.mjs",
       "require": "./dist/lib/config.cjs"

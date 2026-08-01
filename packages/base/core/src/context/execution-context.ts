@@ -23,7 +23,7 @@ import { deepClone } from "@stryke/helpers/deep-clone";
 import { joinPaths } from "@stryke/path/join";
 import { isObject } from "@stryke/type-checks/is-object";
 import { PackageJson } from "@stryke/types/package-json";
-import chalk from "chalk";
+import chalk from "../lib/chalk";
 import {
   DEFAULT_ENVIRONMENT,
   GLOBAL_ENVIRONMENT

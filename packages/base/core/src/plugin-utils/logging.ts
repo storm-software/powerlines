@@ -25,7 +25,6 @@ import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { RequiredKeys } from "@stryke/types/base";
 import { uuid } from "@stryke/unique-id/uuid";
-import chalk, { ChalkInstance } from "chalk";
 import { defu } from "defu";
 import { DEFAULT_ENVIRONMENT } from "../constants/environments";
 import {
@@ -37,6 +36,7 @@ import {
   LogCategories,
   LogLevels
 } from "../constants/log-level";
+import chalk, { ChalkInstance } from "../lib/chalk";
 import { Mode } from "../types/config";
 import { UnresolvedContext } from "../types/context";
 import type {

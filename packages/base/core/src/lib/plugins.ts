@@ -27,7 +27,6 @@ import { isPromiseLike } from "@stryke/type-checks/is-promise";
 import { isSetString } from "@stryke/type-checks/is-set-string";
 import { isString } from "@stryke/type-checks/is-string";
 import { MaybePromise } from "@stryke/types/base";
-import chalk from "chalk";
 import {
   findInvalidPluginConfig,
   isDuplicate,
@@ -46,6 +45,7 @@ import type {
   PluginFactory,
   ResolvedConfig
 } from "../types";
+import chalk from "./chalk";
 
 /**
  * Resolve a plugin module based on the provided plugin path. This function checks if the plugin package is installed, attempts to import the plugin module, and handles various error cases such as missing packages or invalid module exports. It supports both direct plugin exports and plugins exported from a "plugin" subdirectory within the package.
