@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.174](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.174) (08/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate workspace's devenv modules ([2abe4fe5d](https://github.com/storm-software/powerlines/commit/2abe4fe5d))
+
 ## [0.2.172](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.172) (07/31/2026)
 
 ### Miscellaneous

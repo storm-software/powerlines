@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.102](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.102) (08/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate workspace's devenv modules ([2abe4fe5d](https://github.com/storm-software/powerlines/commit/2abe4fe5d))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.100**
+
 ## [0.49.101](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.101) (08/01/2026)
 
 ### Updated Dependencies

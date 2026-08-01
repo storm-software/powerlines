@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.100](https://github.com/storm-software/powerlines/releases/tag/core%400.48.100) (08/01/2026)
+
+### Miscellaneous
+
+- **monorepo:** Regenerate workspace's devenv modules ([2abe4fe5d](https://github.com/storm-software/powerlines/commit/2abe4fe5d))
+
 ## [0.48.98](https://github.com/storm-software/powerlines/releases/tag/core%400.48.98) (07/31/2026)
 
 ### Miscellaneous
