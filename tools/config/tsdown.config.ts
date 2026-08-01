@@ -40,7 +40,7 @@ export const DEFAULT_OPTIONS: Omit<Partial<UserConfig>, "name"> = {
   nodeProtocol: true,
   unbundle: true,
   deps: {
-    skipNodeModulesBundle: true
+    neverBundle: true
   }
 };
 
