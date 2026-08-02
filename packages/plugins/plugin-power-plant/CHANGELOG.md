@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Power Plant
 
+## [0.1.41](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.41) (08/02/2026)
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.106**
+- Updated **plugin-plugin** to **v0.12.597**
+- Updated **powerlines** to **v0.47.185**
+
 ## [0.1.40](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.40) (08/02/2026)
 
 ### Updated Dependencies
