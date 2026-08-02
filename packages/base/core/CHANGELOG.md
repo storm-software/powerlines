@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.101](https://github.com/storm-software/powerlines/releases/tag/core%400.48.101) (08/01/2026)
+
+### Bug Fixes
+
+- **core:** Resolve format issue with `chalk` package dependency ([d6db4e300](https://github.com/storm-software/powerlines/commit/d6db4e300))
+
 ## [0.48.100](https://github.com/storm-software/powerlines/releases/tag/core%400.48.100) (08/01/2026)
 
 ### Miscellaneous
