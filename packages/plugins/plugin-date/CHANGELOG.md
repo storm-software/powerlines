@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.732](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.732) (08/02/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-env** to **v0.16.388**
+- Updated **plugin-plugin** to **v0.12.593**
+- Updated **powerlines** to **v0.47.181**
+
 ## [0.12.731](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.731) (08/01/2026)
 
 ### Updated Dependencies
