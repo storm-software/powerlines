@@ -85,18 +85,18 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.60
-  "@power-plant/asyncapi": ^0.0.59
-  "@power-plant/core": ^0.0.63
-  "@power-plant/graphql-codegen": ^0.0.59
+  "@power-plant/alloy-js": ^0.0.62
+  "@power-plant/asyncapi": ^0.0.61
+  "@power-plant/core": ^0.0.65
+  "@power-plant/graphql-codegen": ^0.0.61
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.59
+  "@power-plant/hey-api": ^0.0.61
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.43
-  "@power-plant/prisma": ^0.0.44
+  "@power-plant/openapi-typescript": ^0.0.45
+  "@power-plant/prisma": ^0.0.46
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.61
-  "@power-plant/style-dictionary": ^0.0.48
+  "@power-plant/schema": ^0.0.63
+  "@power-plant/style-dictionary": ^0.0.50
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0
   "@prisma/config": 7.6.0
@@ -396,16 +396,8 @@ overrides:
   "@typescript/vfs": ">=1.6.4"
   debug: ">=4.3.7"
   follow-redirects: ">=1.15.9"
-  got: ">=14.4.2"
-  ip: ">=2.0.1"
-  loader-utils: ">=3.3.1"
   lru-cache: ^8.0.5
-  markdown-it: ">=14.1.0"
-  node-fetch: ">=3.3.2"
   nth-check: ">=2.1.1"
-  parse-path: ">=7.0.0"
-  parse-url: ">=9.2.0"
-  postcss: ">=8.4.47"
   powerlines: workspace:*
   shell-quote: ">=1.8.1"
   simple-git: ">=3.27.0"
