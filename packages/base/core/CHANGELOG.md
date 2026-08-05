@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.107](https://github.com/storm-software/powerlines/releases/tag/core%400.48.107) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
 ## [0.48.102](https://github.com/storm-software/powerlines/releases/tag/core%400.48.102) (08/02/2026)
 
 ### Miscellaneous

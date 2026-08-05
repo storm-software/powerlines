@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.282](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.282) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **plugin-babel** to **v0.13.183**
+- Updated **plugin-plugin** to **v0.12.598**
+- Updated **plugin-power-plant** to **v0.1.42**
+- Updated **powerlines** to **v0.47.186**
+
 ## [0.26.281](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.281) (08/02/2026)
 
 ### Updated Dependencies

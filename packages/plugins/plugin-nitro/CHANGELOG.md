@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Nitro
 
+## [0.1.539](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.539) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.598**
+- Updated **powerlines** to **v0.47.186**
+
 ## [0.1.538](https://github.com/storm-software/powerlines/releases/tag/plugin-nitro%400.1.538) (08/02/2026)
 
 ### Updated Dependencies

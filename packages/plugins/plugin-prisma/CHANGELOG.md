@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.329](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.329) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.598**
+- Updated **plugin-power-plant** to **v0.1.42**
+- Updated **plugin-pulumi** to **v0.6.288**
+- Updated **powerlines** to **v0.47.186**
+
 ## [0.4.328](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.328) (08/02/2026)
 
 ### Updated Dependencies

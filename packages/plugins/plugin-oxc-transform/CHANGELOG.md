@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Oxc Transform
 
+## [0.5.656](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.656) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.598**
+- Updated **powerlines** to **v0.47.186**
+
 ## [0.5.655](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.655) (08/02/2026)
 
 ### Updated Dependencies

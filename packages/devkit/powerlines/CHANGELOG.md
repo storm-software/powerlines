@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.186](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.186) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.107**
+- Updated **engine** to **v0.49.109**
+- Updated **unplugin** to **v0.0.155**
+
 ## [0.47.185](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.185) (08/02/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Terraform
 
+## [0.1.247](https://github.com/storm-software/powerlines/releases/tag/plugin-terraform%400.1.247) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.598**
+- Updated **powerlines** to **v0.47.186**
+
 ## [0.1.246](https://github.com/storm-software/powerlines/releases/tag/plugin-terraform%400.1.246) (08/02/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Power Plant
 
+## [0.1.42](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.42) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.107**
+- Updated **plugin-plugin** to **v0.12.598**
+- Updated **powerlines** to **v0.47.186**
+
 ## [0.1.41](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.41) (08/02/2026)
 
 ### Updated Dependencies

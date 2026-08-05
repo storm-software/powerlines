@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.292](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.292) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.282**
+- Updated **plugin-env** to **v0.16.393**
+- Updated **plugin-plugin** to **v0.12.598**
+- Updated **plugin-pulumi** to **v0.6.288**
+- Updated **plugin-unenv** to **v0.1.636**
+- Updated **powerlines** to **v0.47.186**
+
 ## [0.6.291](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.291) (08/02/2026)
 
 ### Updated Dependencies

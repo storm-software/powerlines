@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Napi Rs
 
+## [0.2.242](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.242) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.282**
+- Updated **plugin-automd** to **v0.1.647**
+- Updated **plugin-babel** to **v0.13.183**
+- Updated **plugin-plugin** to **v0.12.598**
+- Updated **powerlines** to **v0.47.186**
+
 ## [0.2.241](https://github.com/storm-software/powerlines/releases/tag/plugin-napi-rs%400.2.241) (08/02/2026)
 
 ### Updated Dependencies

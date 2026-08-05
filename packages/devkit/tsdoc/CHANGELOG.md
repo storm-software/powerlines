@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.180](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.180) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
 ## [0.2.174](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.174) (08/01/2026)
 
 ### Miscellaneous

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.155](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.155) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.107**
+
 ## [0.0.154](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.154) (08/02/2026)
 
 ### Updated Dependencies

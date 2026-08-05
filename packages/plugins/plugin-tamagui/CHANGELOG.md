@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tamagui
 
+## [0.1.637](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.637) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.598**
+- Updated **plugin-vite** to **v0.14.640**
+- Updated **powerlines** to **v0.47.186**
+
 ## [0.1.636](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.636) (08/02/2026)
 
 ### Updated Dependencies

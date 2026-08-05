@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Webpack
 
+## [0.5.638](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.638) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.107**
+- Updated **powerlines** to **v0.47.186**
+- Updated **unplugin** to **v0.0.155**
+
 ## [0.5.637](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.637) (08/02/2026)
 
 ### Updated Dependencies

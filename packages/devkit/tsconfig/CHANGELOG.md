@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.232](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.232) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
 ## [0.4.226](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.226) (08/01/2026)
 
 ### Miscellaneous

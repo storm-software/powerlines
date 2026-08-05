@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.641](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.641) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.107**
+- Updated **powerlines** to **v0.47.186**
+- Updated **unplugin** to **v0.0.155**
+
 ## [0.13.640](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.640) (08/02/2026)
 
 ### Updated Dependencies

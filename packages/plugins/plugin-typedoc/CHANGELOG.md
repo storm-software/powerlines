@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.10.655](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.655) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.598**
+- Updated **powerlines** to **v0.47.186**
+
 ## [0.10.654](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.654) (08/02/2026)
 
 ### Updated Dependencies

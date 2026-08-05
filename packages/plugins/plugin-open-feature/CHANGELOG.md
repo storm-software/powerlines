@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.287](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.287) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.282**
+- Updated **plugin-automd** to **v0.1.647**
+- Updated **plugin-babel** to **v0.13.183**
+- Updated **plugin-plugin** to **v0.12.598**
+- Updated **powerlines** to **v0.47.186**
+
 ## [0.1.286](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.286) (08/02/2026)
 
 ### Updated Dependencies

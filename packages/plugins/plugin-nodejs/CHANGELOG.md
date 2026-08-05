@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.594](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.594) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.107**
+- Updated **plugin-alloy** to **v0.26.282**
+- Updated **plugin-babel** to **v0.13.183**
+- Updated **plugin-env** to **v0.16.393**
+- Updated **plugin-plugin** to **v0.12.598**
+- Updated **powerlines** to **v0.47.186**
+
 ## [0.1.593](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.593) (08/02/2026)
 
 ### Updated Dependencies

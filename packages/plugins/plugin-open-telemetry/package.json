@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-open-telemetry",
-  "version": "0.1.213",
+  "version": "0.1.214",
   "private": false,
   "description": "A package containing a Powerlines plugin for registering OpenTelemetry integration at runtime.",
   "keywords": [
@@ -178,9 +178,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": [
-    "dist/**/*"
-  ],
+  "files": ["dist/**/*"],
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/json": "catalog:",
