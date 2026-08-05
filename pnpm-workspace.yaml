@@ -284,7 +284,7 @@ catalog:
   vite: ^8.2.0
   vitest: ~4.1.10
   webpack: ^5.109.2
-  wrangler: ^4.118.0
+  wrangler: ^4.119.0
   yaml: ^2.9.0
   zod: ^4.4.3
   zx: ^8.8.5
