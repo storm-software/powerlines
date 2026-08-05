@@ -16,8 +16,13 @@
 
  ------------------------------------------------------------------- */
 
-import { SchemaConfig, extract as extractSchema } from "@power-plant/schema";
+import {
+  InferExtractOptions,
+  SchemaConfig,
+  extract as extractSchema
+} from "@power-plant/schema";
 import { Context } from "@powerlines/core";
+import { resolveOptions } from "@powerlines/unplugin/esbuild";
 import { createStorageAdapter } from "./storage-adapter";
 
 /**
@@ -25,13 +30,18 @@ import { createStorageAdapter } from "./storage-adapter";
  *
  * @param context - The context to use.
  * @param schema - The schema to extract.
+ * @param options - The options to use.
  * @returns The extracted schema.
  */
 export async function extract<TSchema extends SchemaConfig>(
   context: Context,
-  schema: SchemaConfig<TSchema>
+  schema: SchemaConfig<TSchema>,
+  options: InferExtractOptions<SchemaConfig<TSchema>>
 ) {
+  const resolvedOptions = resolveOptions(context, options);
+
   return extractSchema<TSchema>(schema, {
+    ...resolvedOptions,
     cwd: context.cwd,
     tsconfig: context.tsconfig.tsconfigFilePath,
     storage: createStorageAdapter(context.fs)

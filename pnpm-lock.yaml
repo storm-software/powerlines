@@ -78,8 +78,8 @@ catalogs:
       specifier: ^8.0.4
       version: 8.0.4
     '@biomejs/biome':
-      specifier: ^2.5.6
-      version: 2.5.6
+      specifier: ^2.5.7
+      version: 2.5.7
     '@cacheable/memory':
       specifier: ^2.2.0
       version: 2.2.0
@@ -246,8 +246,8 @@ catalogs:
       specifier: ^6.18.0
       version: 6.18.0
     '@pulumi/pulumi':
-      specifier: ^3.255.0
-      version: 3.255.0
+      specifier: ^3.256.0
+      version: 3.256.0
     '@rolldown/plugin-babel':
       specifier: ^0.2.3
       version: 0.2.3
@@ -477,8 +477,8 @@ catalogs:
       specifier: ^4.0.0
       version: 4.0.0
     bun-types-no-globals:
-      specifier: ^1.3.11
-      version: 1.3.11
+      specifier: ^1.3.14
+      version: 1.3.14
     bundle-require:
       specifier: ^5.1.0
       version: 5.1.0
@@ -540,8 +540,8 @@ catalogs:
       specifier: ^4.2.0
       version: 4.2.0
     i18next-cli:
-      specifier: ^1.67.4
-      version: 1.67.4
+      specifier: ^1.67.6
+      version: 1.67.6
     i18next-resources-for-ts:
       specifier: ^2.1.0
       version: 2.1.0
@@ -1056,7 +1056,7 @@ importers:
         version: 6.1.7
       devframe:
         specifier: 'catalog:'
-        version: 0.1.22(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(typescript@6.0.3)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 0.1.22(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(typescript@6.0.3)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
       diff-match-patch:
         specifier: 'catalog:'
         version: 1.0.5
@@ -1092,10 +1092,10 @@ importers:
         version: 7.29.0
       unplugin:
         specifier: 'catalog:'
-        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
       unplugin-combine:
         specifier: 'catalog:'
-        version: 2.4.0(@rspack/core@1.7.12(@swc/helpers@0.5.23))(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)))(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 2.4.0(@rspack/core@1.7.12(@swc/helpers@0.5.23))(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)))(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
     devDependencies:
       '@storm-software/testing-tools':
         specifier: 'catalog:'
@@ -1120,7 +1120,7 @@ importers:
         version: 7.8.0
       bun-types-no-globals:
         specifier: 'catalog:'
-        version: 1.3.11
+        version: 1.3.14
       prettier-plugin-organize-imports:
         specifier: 'catalog:'
         version: 4.3.0(prettier@3.9.6)(typescript@6.0.3)
@@ -1189,7 +1189,7 @@ importers:
         version: 6.1.7
       devframe:
         specifier: 'catalog:'
-        version: 0.1.22(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(typescript@6.0.3)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 0.1.22(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(typescript@6.0.3)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
       get-port-please:
         specifier: 'catalog:'
         version: 3.2.0
@@ -1222,7 +1222,7 @@ importers:
         version: 5.7.0
       unplugin:
         specifier: 'catalog:'
-        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
     devDependencies:
       '@storm-software/testing-tools':
         specifier: 'catalog:'
@@ -1396,7 +1396,7 @@ importers:
         version: 1.7.1
       unplugin:
         specifier: 'catalog:'
-        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
       yaml:
         specifier: 'catalog:'
         version: 2.9.0
@@ -1494,7 +1494,7 @@ importers:
         version: 1.7.11(@types/node@25.9.5)
       '@nuxt/kit':
         specifier: 'catalog:'
-        version: 4.5.1(magic-string@1.1.0)(magicast@0.5.4)(rolldown@1.2.2)(unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25)))
+        version: 4.5.1(magic-string@1.1.0)(magicast@0.5.4)(rolldown@1.2.2)(unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25)))
       '@nuxt/schema':
         specifier: 'catalog:'
         version: 4.5.1
@@ -1766,7 +1766,7 @@ importers:
     devDependencies:
       '@biomejs/biome':
         specifier: 'catalog:'
-        version: 2.5.6
+        version: 2.5.7
       '@powerlines/plugin-plugin':
         specifier: workspace:*
         version: link:../plugin-plugin
@@ -1830,7 +1830,7 @@ importers:
         version: 6.18.0(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)
       '@pulumi/pulumi':
         specifier: 'catalog:'
-        version: 3.255.0(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)
+        version: 3.256.0(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)
       '@storm-software/config-tools':
         specifier: 'catalog:'
         version: 1.190.111(magicast@0.5.4)(zod@4.4.3)
@@ -2160,7 +2160,7 @@ importers:
         version: link:../../devkit/powerlines
       unplugin:
         specifier: 'catalog:'
-        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -2296,7 +2296,7 @@ importers:
         version: 6.1.7
       i18next-cli:
         specifier: 'catalog:'
-        version: 1.67.4(@swc/helpers@0.5.23)(@types/node@25.9.5)(react-dom@17.0.2(react@17.0.2))(typescript@6.0.3)
+        version: 1.67.6(@swc/helpers@0.5.23)(@types/node@25.9.5)(react-dom@17.0.2(react@17.0.2))(typescript@6.0.3)
       i18next-resources-for-ts:
         specifier: 'catalog:'
         version: 2.1.0(@swc/helpers@0.5.23)
@@ -2966,7 +2966,7 @@ importers:
         version: link:../plugin-plugin
       '@pulumi/pulumi':
         specifier: 'catalog:'
-        version: 3.255.0(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)
+        version: 3.256.0(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)
       '@types/node':
         specifier: 'catalog:'
         version: 25.9.5
@@ -2975,7 +2975,7 @@ importers:
     dependencies:
       '@pulumi/pulumi':
         specifier: 'catalog:'
-        version: 3.255.0(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)
+        version: 3.256.0(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)
       '@stryke/fs':
         specifier: 'catalog:'
         version: 0.33.103(fdacfab0c7dd67c8409c209f2c935e17)
@@ -3145,7 +3145,7 @@ importers:
         version: link:../../devkit/powerlines
       unplugin:
         specifier: 'catalog:'
-        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -3209,7 +3209,7 @@ importers:
         version: 0.36.0(rollup@4.62.4)(typescript@6.0.3)
       unplugin:
         specifier: 'catalog:'
-        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -3240,7 +3240,7 @@ importers:
         version: link:../../devkit/powerlines
       unplugin:
         specifier: 'catalog:'
-        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
     devDependencies:
       '@rspack/core':
         specifier: 'catalog:'
@@ -3496,7 +3496,7 @@ importers:
         version: 6.0.3
       unplugin:
         specifier: 'catalog:'
-        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
     devDependencies:
       '@powerlines/plugin-plugin':
         specifier: workspace:*
@@ -3527,7 +3527,7 @@ importers:
         version: link:../../devkit/powerlines
       unplugin:
         specifier: 'catalog:'
-        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
     devDependencies:
       '@arethetypeswrong/core':
         specifier: 'catalog:'
@@ -3576,7 +3576,7 @@ importers:
         version: link:../../devkit/powerlines
       unplugin:
         specifier: 'catalog:'
-        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25))
+        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25))
     devDependencies:
       '@storm-software/tsup':
         specifier: 'catalog:'
@@ -3647,7 +3647,7 @@ importers:
         version: link:../../devkit/powerlines
       unplugin:
         specifier: 'catalog:'
-        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25))
+        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25))
     devDependencies:
       '@storm-software/unbuild':
         specifier: 'catalog:'
@@ -3799,7 +3799,7 @@ importers:
         version: link:../../devkit/powerlines
       unplugin:
         specifier: 'catalog:'
-        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -3830,7 +3830,7 @@ importers:
         version: link:../../devkit/powerlines
       unplugin:
         specifier: 'catalog:'
-        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+        version: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -4991,59 +4991,59 @@ packages:
     resolution: {integrity: sha512-6zABk/ECA/QYSCQ1NGiVwwbQerUCZ+TQbp64Q3AgmfNvurHH0j8TtXa1qbShXA6qqkpAj4V5W8pP6mLe1mcMqA==}
     engines: {node: '>=18'}
 
-  '@biomejs/biome@2.5.6':
-    resolution: {integrity: sha512-lxVNjv7UF6KfhMJfL9gaUHbWdJdHbsAj6OSmwSYNdhRuG67NxNQ4Xdvh3TUxsSK9sBzJBQhEJj3AopmmNJ5pSA==}
+  '@biomejs/biome@2.5.7':
+    resolution: {integrity: sha512-zr8K/DcY5tYsQOQwqMJ0AWElo6QgmgNI7idXgXLhevVszlt8RGVpesEJPqx3ThazLaOwjJ5Y8fz3BtH5fGZNsw==}
     engines: {node: '>=14.21.3'}
     hasBin: true
 
-  '@biomejs/cli-darwin-arm64@2.5.6':
-    resolution: {integrity: sha512-zMOLZP4oMrjh6m1zcSj1ud2awUPgTuMVbmQhYYWL7J8HwCnbHHBvTm7VBTRuY7epT5bez76IpKYQ11ZAqHFlnw==}
+  '@biomejs/cli-darwin-arm64@2.5.7':
+    resolution: {integrity: sha512-vxo/Ls3/PYdQWyLhYYcgMOCzQypAjcY+iihS8M0wW03l16TCLW4zqZzGo75gm1VdCMj38hTVZ31KBWrZ4G9dJw==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [darwin]
 
-  '@biomejs/cli-darwin-x64@2.5.6':
-    resolution: {integrity: sha512-JAC1VqzvO7Th5ZplU0G2uGfkZbxEe9uDDektPAhF0JLusoz1w+T4okp2bkykI0bbaO2vslKiRfj4gU43JaGreA==}
+  '@biomejs/cli-darwin-x64@2.5.7':
+    resolution: {integrity: sha512-Cd3Ga61amT/Yl/0x8elP5hhGYaFy4bw6WuysTgf7oo8TA5tJ5A1k+DkVoJ2BHbTVil51gTX9VPzArnrlLJ3Kyg==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [darwin]
 
-  '@biomejs/cli-linux-arm64-musl@2.5.6':
-    resolution: {integrity: sha512-eUa3jeeYvfMt19LBeh6E5PUZpxnTC4JqNWo+EDjTtQjAr2xLGnWaxACtVU1DQqmHYbvThlJzLX+ZsYgrqh2qVw==}
+  '@biomejs/cli-linux-arm64-musl@2.5.7':
+    resolution: {integrity: sha512-xPI5yB6XlpDbNkS+bm1t42olw5c4l3UrlOmLg7KtLJvjvkNF/1V4tnUgfkylGIeb3u/T+BzMGYqgQhzjAoJzuQ==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@biomejs/cli-linux-arm64@2.5.6':
-    resolution: {integrity: sha512-6XsYwCFkp5sMxl85ffhgeGpGgs6A7dRYFnkceZ7WVxvycuTnGdD5xa534Z3xfrBQ0JCMK/mujT6ZNPJoghedwg==}
+  '@biomejs/cli-linux-arm64@2.5.7':
+    resolution: {integrity: sha512-rR2QE0yF2GYSuYuKIa7pKvODGJqnOH+2eDREAM8wV+mWKSkMQKdAp4zXEZfTaxY8PMoNONnpgSWcBCyLDPDOKg==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@biomejs/cli-linux-x64-musl@2.5.6':
-    resolution: {integrity: sha512-2Vp13QdKysH3HIWLaYLhUUwbK+jbZonJD1K+Lr0d0RO4wH7mkYd43vJixEDm8cUWrowoRz4UUHF1nm9Ae7ym8A==}
+  '@biomejs/cli-linux-x64-musl@2.5.7':
+    resolution: {integrity: sha512-rE5VZi+qtmPgQH+l7jVxYoZ18b/TiHEhulhMpjmCZH1PltSbjRcxNWywC3HZ9tYottG7ORkeTtoscBilKSBm0g==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@biomejs/cli-linux-x64@2.5.6':
-    resolution: {integrity: sha512-Pop9VXCFUhFTMfFefZ39S+u2rOPyNp5iHlxbZRwXGACHLy2r0jjiRgJHmaEKJzL3SyxlVeGShXhvvElvWowonA==}
+  '@biomejs/cli-linux-x64@2.5.7':
+    resolution: {integrity: sha512-FQgqJhscrqJUFptGaRSUJWlXAExwWcDwLuK49dvKfkQ1bB5SEEyFssnsxQY83Xm6jR0EbbX3+8+D5bfvYqUG2Q==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@biomejs/cli-win32-arm64@2.5.6':
-    resolution: {integrity: sha512-tDGshcm6BdkZOCGnTDX0Y8/U4IfBSlnUU7T56nNDuPEfed+aHg+u8G36NB43fJVl0Os6+QURXIE1yuD7AaEofA==}
+  '@biomejs/cli-win32-arm64@2.5.7':
+    resolution: {integrity: sha512-Oq4x0CCwP4jirrcTywXs5kOGZ4v5vuEP+gWrbtjApOA2CL9F3F9GlIdQIci8AKSCa/zURanMRpX/4wQ7Am6hHg==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [win32]
 
-  '@biomejs/cli-win32-x64@2.5.6':
-    resolution: {integrity: sha512-WN05KwXnTO/2J45RQPvzZMXf7tZUIofHoR35xIPfCo7pQ2RFidxI8sfb5mGsaTxdMmEOzHzOPRCdA5/fCpc7xQ==}
+  '@biomejs/cli-win32-x64@2.5.7':
+    resolution: {integrity: sha512-V+0wu/nrj2S+MhP4EQ0uHNolP0IALEsz45pg0WoKkHfDeh0+ItHwP/p7bX5RPoMOl9NkpHYWdYPhIcy2mACHvQ==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
@@ -9638,8 +9638,8 @@ packages:
   '@pulumi/cloudflare@6.18.0':
     resolution: {integrity: sha512-L49neVgL7crzUKr+lfNYAmooqnmSGPg6TN8+PXouxyjojjwMdRM3WLNPkUxYu3vqr0WhD86afqdujee1Kz4R9w==}
 
-  '@pulumi/pulumi@3.255.0':
-    resolution: {integrity: sha512-nvGpp6ebUpkSLn0UxqiTo5xlTYRqxp9OzMGgixIW2kFu0CQ3VgUtIOoKkEzU2ftVNY44utwDh+CKXQlK+bPmuw==}
+  '@pulumi/pulumi@3.256.0':
+    resolution: {integrity: sha512-EK1TQieOmxTxbIpX5EKTPpC1WYappH3ASEZzN6Q9gs7rZjuZCATXI9Am8nszmlRdtPlAiVSW8NfQNKCnaNk34A==}
     engines: {node: '>=22'}
     peerDependencies:
       ts-node: '>= 7.0.1 < 12'
@@ -12565,8 +12565,8 @@ packages:
   builtin-status-codes@3.0.0:
     resolution: {integrity: sha512-HpGFw18DgFWlncDfjTa2rcQ4W88O1mC8e8yZ2AvQY5KDaktSTwo+KRf6nHK6FRI5FyRyb/5T6+TSxfP7QyGsmQ==}
 
-  bun-types-no-globals@1.3.11:
-    resolution: {integrity: sha512-jOcqsuCabyA9aXeNhpibWyX/lxHe/jnDM7WT/8vamZ1iKp5vZ5ik+bos/az9j8I6GArkKXXZY2dQ8T0nv1Oo3g==}
+  bun-types-no-globals@1.3.14:
+    resolution: {integrity: sha512-hxGtnF1C+6TkVcxOBvOA0ozYN4I7WZnfDb/yWljG01xXrIxgS8ia4HUwaM5JFlJzL2zupSz6yuJO628Lg9prOQ==}
 
   bun-types@1.3.14:
     resolution: {integrity: sha512-4N0ig0fEomHt5R0KCFWjovxow98rIoRwKolrYdCcknNwMekCXRnWEUvgu5soYV8QXtVsrUD8B95MBOZGPvr6KQ==}
@@ -15261,8 +15261,8 @@ packages:
   hyphenate-style-name@1.1.0:
     resolution: {integrity: sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==}
 
-  i18next-cli@1.67.4:
-    resolution: {integrity: sha512-WfjPrkfrcA8UargszNUYMZRY07Lrx08AMiFzAYPys9+22cFrb7vTp7d1wExxmdEG4g7oql6v9rAKXrB9XgkaqQ==}
+  i18next-cli@1.67.6:
+    resolution: {integrity: sha512-V8SYI8YweTDba17iYnk+7N3/MuVu1BOVuNU4a3Gz/gRWzwJwBnsxYoiCxrdqiGf8ALc0EdNSxo44ztDNKgZkPg==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -20973,8 +20973,8 @@ packages:
     resolution: {integrity: sha512-6M8R2xSKplkQ+0mAm07IMh548GLLPUnRQZJCCe/W4rfk/SXW2bs8ZJSWa5kjdIdsx3hLG5oLWROJ4+N5hpX08g==}
     engines: {node: '>=18.12.0'}
 
-  verkit@0.3.1:
-    resolution: {integrity: sha512-w2Eo8LSIIoW7qxNBzT7/17k+bh8plXo7G3dHjEIDqPlnluhzaxr9JX8F28VSYEtDvc1/a3WBDih6xNUZseebXg==}
+  verkit@0.3.2:
+    resolution: {integrity: sha512-zj/ob3UsvJGN0whEAKFp53REA5X66hvffVqoCtVQAakJKnKlH+/PcOfMoFwIG/o4rElqLv/ycAFlx8ZlXUorCg==}
     engines: {node: '>=18.12.0'}
 
   verror@1.10.0:
@@ -23650,39 +23650,39 @@ snapshots:
 
   '@bcoe/v8-coverage@1.0.2': {}
 
-  '@biomejs/biome@2.5.6':
+  '@biomejs/biome@2.5.7':
     optionalDependencies:
-      '@biomejs/cli-darwin-arm64': 2.5.6
-      '@biomejs/cli-darwin-x64': 2.5.6
-      '@biomejs/cli-linux-arm64': 2.5.6
-      '@biomejs/cli-linux-arm64-musl': 2.5.6
-      '@biomejs/cli-linux-x64': 2.5.6
-      '@biomejs/cli-linux-x64-musl': 2.5.6
-      '@biomejs/cli-win32-arm64': 2.5.6
-      '@biomejs/cli-win32-x64': 2.5.6
+      '@biomejs/cli-darwin-arm64': 2.5.7
+      '@biomejs/cli-darwin-x64': 2.5.7
+      '@biomejs/cli-linux-arm64': 2.5.7
+      '@biomejs/cli-linux-arm64-musl': 2.5.7
+      '@biomejs/cli-linux-x64': 2.5.7
+      '@biomejs/cli-linux-x64-musl': 2.5.7
+      '@biomejs/cli-win32-arm64': 2.5.7
+      '@biomejs/cli-win32-x64': 2.5.7
 
-  '@biomejs/cli-darwin-arm64@2.5.6':
+  '@biomejs/cli-darwin-arm64@2.5.7':
     optional: true
 
-  '@biomejs/cli-darwin-x64@2.5.6':
+  '@biomejs/cli-darwin-x64@2.5.7':
     optional: true
 
-  '@biomejs/cli-linux-arm64-musl@2.5.6':
+  '@biomejs/cli-linux-arm64-musl@2.5.7':
     optional: true
 
-  '@biomejs/cli-linux-arm64@2.5.6':
+  '@biomejs/cli-linux-arm64@2.5.7':
     optional: true
 
-  '@biomejs/cli-linux-x64-musl@2.5.6':
+  '@biomejs/cli-linux-x64-musl@2.5.7':
     optional: true
 
-  '@biomejs/cli-linux-x64@2.5.6':
+  '@biomejs/cli-linux-x64@2.5.7':
     optional: true
 
-  '@biomejs/cli-win32-arm64@2.5.6':
+  '@biomejs/cli-win32-arm64@2.5.7':
     optional: true
 
-  '@biomejs/cli-win32-x64@2.5.6':
+  '@biomejs/cli-win32-x64@2.5.7':
     optional: true
 
   '@braidai/lang@1.1.2': {}
@@ -27080,7 +27080,7 @@ snapshots:
       node-gyp: 12.4.0
       proc-log: 6.1.0
 
-  '@nuxt/kit@4.5.1(magic-string@1.1.0)(magicast@0.5.4)(rolldown@1.2.2)(unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25)))':
+  '@nuxt/kit@4.5.1(magic-string@1.1.0)(magicast@0.5.4)(rolldown@1.2.2)(unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25)))':
     dependencies:
       c12: 3.3.4(magicast@0.5.4)
       consola: 3.4.2
@@ -27100,7 +27100,7 @@ snapshots:
       scule: 1.3.0
       tinyglobby: 0.2.17
       ufo: 1.6.4
-      unctx: 3.0.0(magic-string@1.1.0)(rolldown@1.2.2)(unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25)))
+      unctx: 3.0.0(magic-string@1.1.0)(rolldown@1.2.2)(unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25)))
       untyped: 2.0.0
       verkit: 0.2.0
     transitivePeerDependencies:
@@ -30546,13 +30546,13 @@ snapshots:
 
   '@pulumi/cloudflare@6.18.0(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
-      '@pulumi/pulumi': 3.255.0(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)
+      '@pulumi/pulumi': 3.256.0(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)
     transitivePeerDependencies:
       - supports-color
       - ts-node
       - typescript
 
-  '@pulumi/pulumi@3.255.0(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)':
+  '@pulumi/pulumi@3.256.0(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
       '@grpc/grpc-js': 1.14.4
       '@logdna/tail-file': 2.2.0
@@ -35688,7 +35688,7 @@ snapshots:
 
   builtin-status-codes@3.0.0: {}
 
-  bun-types-no-globals@1.3.11: {}
+  bun-types-no-globals@1.3.14: {}
 
   bun-types@1.3.14:
     dependencies:
@@ -36836,13 +36836,13 @@ snapshots:
 
   devalue@5.9.0: {}
 
-  devframe@0.1.22(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(typescript@6.0.3)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)):
+  devframe@0.1.22(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(typescript@6.0.3)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)):
     dependencies:
       '@valibot/to-json-schema': 1.7.1(valibot@1.4.2(typescript@6.0.3))
       birpc: 4.0.0
       cac: 7.0.0
       h3: 1.15.11
-      logs-sdk: 0.0.6(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+      logs-sdk: 0.0.6(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
       mrmime: 2.0.1
       pathe: 2.0.3
       valibot: 1.4.2(typescript@6.0.3)
@@ -38916,7 +38916,7 @@ snapshots:
 
   hyphenate-style-name@1.1.0: {}
 
-  i18next-cli@1.67.4(@swc/helpers@0.5.23)(@types/node@25.9.5)(react-dom@17.0.2(react@17.0.2))(typescript@6.0.3):
+  i18next-cli@1.67.6(@swc/helpers@0.5.23)(@types/node@25.9.5)(react-dom@17.0.2(react@17.0.2))(typescript@6.0.3):
     dependencies:
       '@croct/json5-parser': 0.2.2
       '@swc/core': 1.15.47(@swc/helpers@0.5.23)
@@ -41034,11 +41034,11 @@ snapshots:
 
   loglevel@1.9.2: {}
 
-  logs-sdk@0.0.6(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)):
+  logs-sdk@0.0.6(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)):
     dependencies:
       magic-string: 0.30.21
       oxc-parser: 0.126.0
-      unplugin: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+      unplugin: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
     transitivePeerDependencies:
       - '@farmfe/core'
       - '@rspack/core'
@@ -46176,7 +46176,7 @@ snapshots:
       tinyglobby: 0.2.17
       tree-kill: 1.2.2
       unconfig-core: 7.5.0
-      verkit: 0.3.1
+      verkit: 0.3.2
     optionalDependencies:
       '@arethetypeswrong/core': 0.18.5
       publint: 0.3.23
@@ -46423,11 +46423,11 @@ snapshots:
 
   uncrypto@0.1.3: {}
 
-  unctx@3.0.0(magic-string@1.1.0)(rolldown@1.2.2)(unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25))):
+  unctx@3.0.0(magic-string@1.1.0)(rolldown@1.2.2)(unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25))):
     optionalDependencies:
       magic-string: 1.1.0
       rolldown: 1.2.2
-      unplugin: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25))
+      unplugin: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25))
 
   underscore@1.13.7: {}
 
@@ -46565,13 +46565,13 @@ snapshots:
 
   unpipe@1.0.0: {}
 
-  unplugin-combine@2.4.0(@rspack/core@1.7.12(@swc/helpers@0.5.23))(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)))(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)):
+  unplugin-combine@2.4.0(@rspack/core@1.7.12(@swc/helpers@0.5.23))(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)))(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)):
     optionalDependencies:
       '@rspack/core': 1.7.12(@swc/helpers@0.5.23)
       esbuild: 0.28.1
       rolldown: 1.2.2
       rollup: 4.62.4
-      unplugin: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
+      unplugin: 3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13))
       vite: 8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0)
       webpack: 5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)
 
@@ -46587,7 +46587,7 @@ snapshots:
       picomatch: 4.0.5
       webpack-virtual-modules: 0.6.2
 
-  unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)):
+  unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)):
     dependencies:
       '@jridgewell/remapping': 2.3.5
       picomatch: 4.0.5
@@ -46595,7 +46595,7 @@ snapshots:
     optionalDependencies:
       '@farmfe/core': 1.7.11(@types/node@25.9.5)
       '@rspack/core': 1.7.12(@swc/helpers@0.5.23)
-      bun-types-no-globals: 1.3.11
+      bun-types-no-globals: 1.3.14
       esbuild: 0.28.1
       rolldown: 1.2.2
       rollup: 4.62.4
@@ -46603,7 +46603,7 @@ snapshots:
       vite: 8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0)
       webpack: 5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.2.13)
 
-  unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.11)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25)):
+  unplugin@3.3.0(@farmfe/core@1.7.11(@types/node@25.9.5))(@rspack/core@1.7.12(@swc/helpers@0.5.23))(bun-types-no-globals@1.3.14)(esbuild@0.28.1)(rolldown@1.2.2)(rollup@4.62.4)(unloader@0.9.0)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.1)(tsx@4.23.5)(yaml@2.9.0))(webpack@5.109.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(esbuild@0.28.1)(postcss@8.5.25)):
     dependencies:
       '@jridgewell/remapping': 2.3.5
       picomatch: 4.0.5
@@ -46611,7 +46611,7 @@ snapshots:
     optionalDependencies:
       '@farmfe/core': 1.7.11(@types/node@25.9.5)
       '@rspack/core': 1.7.12(@swc/helpers@0.5.23)
-      bun-types-no-globals: 1.3.11
+      bun-types-no-globals: 1.3.14
       esbuild: 0.28.1
       rolldown: 1.2.2
       rollup: 4.62.4
@@ -46860,7 +46860,7 @@ snapshots:
 
   verkit@0.2.0: {}
 
-  verkit@0.3.1: {}
+  verkit@0.3.2: {}
 
   verror@1.10.0:
     dependencies:
