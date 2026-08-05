@@ -383,6 +383,7 @@
     "@types/semver": "catalog:",
     "bun-types-no-globals": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
+    "prettier-plugin-sh": "catalog:",
     "tsdown": "catalog:",
     "typescript": "^6.0.3",
     "undici-types": "catalog:"
