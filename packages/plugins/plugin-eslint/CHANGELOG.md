@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.8.652](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.652) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.8.651](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.651) (08/05/2026)
 
 ### Miscellaneous

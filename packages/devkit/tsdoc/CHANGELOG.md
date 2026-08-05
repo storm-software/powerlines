@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.181](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.181) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace's devenv modules ([55225b194](https://github.com/storm-software/powerlines/commit/55225b194))
+
 ## [0.2.180](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.180) (08/05/2026)
 
 ### Miscellaneous

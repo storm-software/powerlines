@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsc
 
+## [0.3.184](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.3.184) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.108**
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.3.183](https://github.com/storm-software/powerlines/releases/tag/plugin-tsc%400.3.183) (08/05/2026)
 
 ### Miscellaneous

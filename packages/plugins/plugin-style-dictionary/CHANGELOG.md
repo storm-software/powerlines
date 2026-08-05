@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Style Dictionary
 
+## [0.3.556](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.556) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **plugin-power-plant** to **v0.1.43**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.3.555](https://github.com/storm-software/powerlines/releases/tag/plugin-style-dictionary%400.3.555) (08/05/2026)
 
 ### Miscellaneous

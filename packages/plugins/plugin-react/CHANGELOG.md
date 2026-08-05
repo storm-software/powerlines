@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.729](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.729) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.108**
+- Updated **plugin-alloy** to **v0.26.283**
+- Updated **plugin-babel** to **v0.13.184**
+- Updated **plugin-env** to **v0.16.394**
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **plugin-vite** to **v0.14.641**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.1.728](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.728) (08/05/2026)
 
 ### Miscellaneous

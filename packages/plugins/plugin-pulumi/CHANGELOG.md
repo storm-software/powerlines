@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.6.289](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.289) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.6.288](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.288) (08/05/2026)
 
 ### Miscellaneous

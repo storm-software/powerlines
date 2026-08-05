@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.588](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.588) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.108**
+- Updated **powerlines** to **v0.47.187**
+- Updated **unplugin** to **v0.0.156**
+
 ## [0.1.587](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.587) (08/05/2026)
 
 ### Miscellaneous

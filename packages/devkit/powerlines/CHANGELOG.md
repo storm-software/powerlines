@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.187](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.187) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace's devenv modules ([55225b194](https://github.com/storm-software/powerlines/commit/55225b194))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.108**
+- Updated **engine** to **v0.49.110**
+- Updated **unplugin** to **v0.0.156**
+
 ## [0.47.186](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.186) (08/05/2026)
 
 ### Miscellaneous

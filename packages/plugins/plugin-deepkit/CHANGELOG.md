@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.530](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.530) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **plugin-tsc** to **v0.3.184**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.11.529](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.529) (08/05/2026)
 
 ### Miscellaneous

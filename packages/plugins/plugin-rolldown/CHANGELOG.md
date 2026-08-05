@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rolldown
 
+## [0.7.644](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.644) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.108**
+- Updated **powerlines** to **v0.47.187**
+- Updated **unplugin** to **v0.0.156**
+
 ## [0.7.643](https://github.com/storm-software/powerlines/releases/tag/plugin-rolldown%400.7.643) (08/05/2026)
 
 ### Miscellaneous

@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.394](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.394) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.108**
+- Updated **plugin-alloy** to **v0.26.283**
+- Updated **plugin-automd** to **v0.1.648**
+- Updated **plugin-babel** to **v0.13.184**
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **plugin-power-plant** to **v0.1.43**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.16.393](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.393) (08/05/2026)
 
 ### Miscellaneous

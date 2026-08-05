@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Power Plant
 
+## [0.1.43](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.43) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Bug Fixes
+
+- **plugin-power-plant:** Resolve issue with missing aliases in `extract` function ([2f2ee466a](https://github.com/storm-software/powerlines/commit/2f2ee466a))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.108**
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **powerlines** to **v0.47.187**
+- Updated **unplugin** to **v0.0.156**
+
 ## [0.1.42](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.42) (08/05/2026)
 
 ### Miscellaneous

@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.108](https://github.com/storm-software/powerlines/releases/tag/core%400.48.108) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+- **monorepo:** Update workspace's devenv modules ([55225b194](https://github.com/storm-software/powerlines/commit/55225b194))
+
 ## [0.48.107](https://github.com/storm-software/powerlines/releases/tag/core%400.48.107) (08/05/2026)
 
 ### Miscellaneous

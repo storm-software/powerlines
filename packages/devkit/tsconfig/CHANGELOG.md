@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.233](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.233) (08/05/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace's devenv modules ([55225b194](https://github.com/storm-software/powerlines/commit/55225b194))
+
 ## [0.4.232](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.232) (08/05/2026)
 
 ### Miscellaneous

@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.703](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.703) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.283**
+- Updated **plugin-env** to **v0.16.394**
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.10.702](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.702) (08/05/2026)
 
 ### Miscellaneous

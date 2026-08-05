@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Oxlint
 
+## [0.7.652](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.652) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.7.651](https://github.com/storm-software/powerlines/releases/tag/plugin-oxlint%400.7.651) (08/05/2026)
 
 ### Miscellaneous

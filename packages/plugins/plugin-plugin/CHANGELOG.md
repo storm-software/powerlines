@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.599](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.599) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.588**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.12.598](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.598) (08/05/2026)
 
 ### Miscellaneous

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tamagui
 
+## [0.1.638](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.638) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **plugin-vite** to **v0.14.641**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.1.637](https://github.com/storm-software/powerlines/releases/tag/plugin-tamagui%400.1.637) (08/05/2026)
 
 ### Miscellaneous

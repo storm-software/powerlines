@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Hey API
 
+## [0.1.602](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.602) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **plugin-power-plant** to **v0.1.43**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.1.601](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.601) (08/05/2026)
 
 ### Miscellaneous

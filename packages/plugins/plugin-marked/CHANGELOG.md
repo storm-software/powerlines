@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Marked
 
+## [0.1.613](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.613) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.1.612](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.612) (08/05/2026)
 
 ### Miscellaneous

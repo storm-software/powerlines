@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.330](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.330) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **plugin-power-plant** to **v0.1.43**
+- Updated **plugin-pulumi** to **v0.6.289**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.4.329](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.329) (08/05/2026)
 
 ### Miscellaneous

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.639](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.639) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.108**
+- Updated **powerlines** to **v0.47.187**
+- Updated **unplugin** to **v0.0.156**
+
 ## [0.5.638](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.638) (08/05/2026)
 
 ### Miscellaneous

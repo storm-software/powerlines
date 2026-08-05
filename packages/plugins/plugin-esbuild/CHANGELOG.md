@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Esbuild
 
+## [0.13.642](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.642) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.108**
+- Updated **powerlines** to **v0.47.187**
+- Updated **unplugin** to **v0.0.156**
+
 ## [0.13.641](https://github.com/storm-software/powerlines/releases/tag/plugin-esbuild%400.13.641) (08/05/2026)
 
 ### Miscellaneous

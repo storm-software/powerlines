@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.184](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.184) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.108**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.13.183](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.183) (08/05/2026)
 
 ### Miscellaneous

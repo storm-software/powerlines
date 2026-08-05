@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Automd
 
+## [0.1.648](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.648) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.108**
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.1.647](https://github.com/storm-software/powerlines/releases/tag/plugin-automd%400.1.647) (08/05/2026)
 
 ### Miscellaneous

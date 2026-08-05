@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.283](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.283) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-babel** to **v0.13.184**
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **plugin-power-plant** to **v0.1.43**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.26.282](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.282) (08/05/2026)
 
 ### Miscellaneous

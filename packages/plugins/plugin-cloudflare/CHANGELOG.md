@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.293](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.293) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.283**
+- Updated **plugin-env** to **v0.16.394**
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **plugin-pulumi** to **v0.6.289**
+- Updated **plugin-unenv** to **v0.1.637**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.6.292](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.292) (08/05/2026)
 
 ### Miscellaneous

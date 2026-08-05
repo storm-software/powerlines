@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.595](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.595) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.108**
+- Updated **plugin-alloy** to **v0.26.283**
+- Updated **plugin-babel** to **v0.13.184**
+- Updated **plugin-env** to **v0.16.394**
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.1.594](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.594) (08/05/2026)
 
 ### Miscellaneous

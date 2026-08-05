@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unified
 
+## [0.1.263](https://github.com/storm-software/powerlines/releases/tag/plugin-unified%400.1.263) (08/05/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.599**
+- Updated **powerlines** to **v0.47.187**
+
 ## [0.1.262](https://github.com/storm-software/powerlines/releases/tag/plugin-unified%400.1.262) (08/05/2026)
 
 ### Miscellaneous
