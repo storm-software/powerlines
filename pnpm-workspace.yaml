@@ -85,18 +85,18 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.67
-  "@power-plant/asyncapi": ^0.0.66
-  "@power-plant/core": ^0.0.70
-  "@power-plant/graphql-codegen": ^0.0.66
+  "@power-plant/alloy-js": ^0.0.72
+  "@power-plant/asyncapi": ^0.0.71
+  "@power-plant/core": ^0.0.75
+  "@power-plant/graphql-codegen": ^0.0.71
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.66
+  "@power-plant/hey-api": ^0.0.71
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.50
-  "@power-plant/prisma": ^0.0.51
+  "@power-plant/openapi-typescript": ^0.0.55
+  "@power-plant/prisma": ^0.0.56
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.68
-  "@power-plant/style-dictionary": ^0.0.55
+  "@power-plant/schema": ^0.0.73
+  "@power-plant/style-dictionary": ^0.0.60
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0
   "@prisma/config": 7.6.0
@@ -121,25 +121,25 @@ catalog:
   "@shell-shock/preset-cli": ^0.9.34
   "@sinclair/typebox": ^0.34.52
   "@standard-schema/spec": ^1.1.0
-  "@storm-software/build-tools": ^0.158.272
-  "@storm-software/config": ^1.138.49
-  "@storm-software/config-tools": ^1.190.112
-  "@storm-software/cspell": ^0.46.180
-  "@storm-software/esbuild": ^0.53.273
-  "@storm-software/eslint": ^0.170.146
-  "@storm-software/eslint-plugin-tsdoc": ^0.0.75
-  "@storm-software/git-tools": ^2.131.120
-  "@storm-software/linting-tools": ^1.134.42
-  "@storm-software/markdownlint": ^0.30.268
-  "@storm-software/pnpm-tools": ^0.7.123
-  "@storm-software/prettier": ^0.59.165
-  "@storm-software/testing-tools": ^1.119.265
-  "@storm-software/tsconfig": ^0.48.179
-  "@storm-software/tsdoc": ^0.13.265
-  "@storm-software/tsup": ^0.2.270
-  "@storm-software/unbuild": ^0.57.273
-  "@storm-software/untyped": ^0.24.254
-  "@storm-software/workspace-tools": ^1.296.92
+  "@storm-software/build-tools": ^0.158.273
+  "@storm-software/config": ^1.138.50
+  "@storm-software/config-tools": ^1.190.113
+  "@storm-software/cspell": ^0.46.181
+  "@storm-software/esbuild": ^0.53.274
+  "@storm-software/eslint": ^0.170.147
+  "@storm-software/eslint-plugin-tsdoc": ^0.0.76
+  "@storm-software/git-tools": ^2.131.121
+  "@storm-software/linting-tools": ^1.134.43
+  "@storm-software/markdownlint": ^0.30.269
+  "@storm-software/pnpm-tools": ^0.7.124
+  "@storm-software/prettier": ^0.59.166
+  "@storm-software/testing-tools": ^1.119.266
+  "@storm-software/tsconfig": ^0.48.180
+  "@storm-software/tsdoc": ^0.13.266
+  "@storm-software/tsup": ^0.2.271
+  "@storm-software/unbuild": ^0.57.274
+  "@storm-software/untyped": ^0.24.255
+  "@storm-software/workspace-tools": ^1.296.93
   "@stryke/async": ^0.1.30
   "@stryke/capnp": ^0.12.129
   "@stryke/cli": ^0.13.75
@@ -210,7 +210,7 @@ catalog:
   h3: ^1.15.11
   handlebars: ^4.7.9
   human-id: ^4.2.0
-  i18next-cli: ^1.67.6
+  i18next-cli: ^1.67.7
   i18next-resources-for-ts: ^2.1.0
   jest: ^30.4.2
   jest-config: ^30.4.2
