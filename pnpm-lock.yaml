@@ -207,41 +207,41 @@ catalogs:
       specifier: ^2.10.0
       version: 2.10.0
     '@power-plant/alloy-js':
+      specifier: ^0.0.80
+      version: 0.0.80
+    '@power-plant/asyncapi':
       specifier: ^0.0.79
       version: 0.0.79
-    '@power-plant/asyncapi':
-      specifier: ^0.0.78
-      version: 0.0.78
     '@power-plant/core':
-      specifier: ^0.0.82
-      version: 0.0.82
+      specifier: ^0.0.83
+      version: 0.0.83
     '@power-plant/graphql-codegen':
-      specifier: ^0.0.78
-      version: 0.0.78
+      specifier: ^0.0.79
+      version: 0.0.79
     '@power-plant/graphql-schema':
       specifier: ^0.0.1
       version: 0.0.1
     '@power-plant/hey-api':
-      specifier: ^0.0.78
-      version: 0.0.78
+      specifier: ^0.0.79
+      version: 0.0.79
     '@power-plant/openapi-schema':
       specifier: ^0.0.1
       version: 0.0.1
     '@power-plant/openapi-typescript':
-      specifier: ^0.0.62
-      version: 0.0.62
-    '@power-plant/prisma':
       specifier: ^0.0.63
       version: 0.0.63
+    '@power-plant/prisma':
+      specifier: ^0.0.64
+      version: 0.0.64
     '@power-plant/prisma-schema':
       specifier: ^0.0.1
       version: 0.0.1
     '@power-plant/schema':
-      specifier: ^0.0.80
-      version: 0.0.80
+      specifier: ^0.0.81
+      version: 0.0.81
     '@power-plant/style-dictionary':
-      specifier: ^0.0.67
-      version: 0.0.67
+      specifier: ^0.0.68
+      version: 0.0.68
     '@pulumi/cloudflare':
       specifier: ^6.19.0
       version: 6.19.0
@@ -1357,7 +1357,7 @@ importers:
         version: 8.0.4
       '@power-plant/schema':
         specifier: 'catalog:'
-        version: 0.0.80(b3e0c2a941968dde844305bd5e8180e4)
+        version: 0.0.81(b3e0c2a941968dde844305bd5e8180e4)
       '@powerlines/core':
         specifier: workspace:*
         version: link:../../base/core
@@ -1557,13 +1557,13 @@ importers:
         version: 8.0.1(@babel/core@7.29.7)
       '@power-plant/alloy-js':
         specifier: 'catalog:'
-        version: 0.0.79(bb5822706a82043a62fa367ee3f3d154)
+        version: 0.0.80(bb5822706a82043a62fa367ee3f3d154)
       '@power-plant/core':
         specifier: 'catalog:'
-        version: 0.0.82(db255fc8ce14ba5d51230718c28b1f1b)
+        version: 0.0.83(db255fc8ce14ba5d51230718c28b1f1b)
       '@power-plant/schema':
         specifier: 'catalog:'
-        version: 0.0.80(db255fc8ce14ba5d51230718c28b1f1b)
+        version: 0.0.81(db255fc8ce14ba5d51230718c28b1f1b)
       '@powerlines/plugin-babel':
         specifier: workspace:*
         version: link:../plugin-babel
@@ -1615,10 +1615,10 @@ importers:
     dependencies:
       '@power-plant/asyncapi':
         specifier: 'catalog:'
-        version: 0.0.78(ee8f257ac9aad7b9042f157f924f3a80)
+        version: 0.0.79(ee8f257ac9aad7b9042f157f924f3a80)
       '@power-plant/core':
         specifier: 'catalog:'
-        version: 0.0.82(74958d8df7618c54105f4ffc74a940af)
+        version: 0.0.83(74958d8df7618c54105f4ffc74a940af)
       '@powerlines/plugin-power-plant':
         specifier: workspace:*
         version: link:../plugin-power-plant
@@ -1824,7 +1824,7 @@ importers:
         version: 0.24.0
       '@power-plant/alloy-js':
         specifier: 'catalog:'
-        version: 0.0.79(e7ee48013bc4897d6d436d543567d0d0)
+        version: 0.0.80(e7ee48013bc4897d6d436d543567d0d0)
       '@powerlines/plugin-env':
         specifier: workspace:*
         version: link:../plugin-env
@@ -1952,7 +1952,7 @@ importers:
         version: 2.2.0
       '@power-plant/alloy-js':
         specifier: 'catalog:'
-        version: 0.0.79(e7ee48013bc4897d6d436d543567d0d0)
+        version: 0.0.80(e7ee48013bc4897d6d436d543567d0d0)
       '@powerlines/plugin-alloy':
         specifier: workspace:*
         version: link:../plugin-alloy
@@ -2011,7 +2011,7 @@ importers:
     dependencies:
       '@power-plant/schema':
         specifier: 'catalog:'
-        version: 0.0.80(db255fc8ce14ba5d51230718c28b1f1b)
+        version: 0.0.81(db255fc8ce14ba5d51230718c28b1f1b)
       '@powerlines/plugin-tsc':
         specifier: workspace:*
         version: link:../plugin-tsc
@@ -2057,10 +2057,10 @@ importers:
         version: 8.0.4
       '@power-plant/alloy-js':
         specifier: 'catalog:'
-        version: 0.0.79(e7ee48013bc4897d6d436d543567d0d0)
+        version: 0.0.80(e7ee48013bc4897d6d436d543567d0d0)
       '@power-plant/schema':
         specifier: 'catalog:'
-        version: 0.0.80(db255fc8ce14ba5d51230718c28b1f1b)
+        version: 0.0.81(db255fc8ce14ba5d51230718c28b1f1b)
       '@powerlines/core':
         specifier: workspace:*
         version: link:../../base/core
@@ -2210,10 +2210,10 @@ importers:
     dependencies:
       '@power-plant/core':
         specifier: 'catalog:'
-        version: 0.0.82(221469441cdb702240cf37561142ec3f)
+        version: 0.0.83(221469441cdb702240cf37561142ec3f)
       '@power-plant/graphql-codegen':
         specifier: 'catalog:'
-        version: 0.0.78(d8fd4a05c49ece5e6e85fcbf34c0c7fa)
+        version: 0.0.79(d8fd4a05c49ece5e6e85fcbf34c0c7fa)
       '@power-plant/graphql-schema':
         specifier: 'catalog:'
         version: 0.0.1(52b586b513d2b9b4f472c4e44e10e4e5)
@@ -2250,10 +2250,10 @@ importers:
         version: 0.88.2(magicast@0.5.4)(typescript@6.0.3)
       '@power-plant/core':
         specifier: 'catalog:'
-        version: 0.0.82(221469441cdb702240cf37561142ec3f)
+        version: 0.0.83(221469441cdb702240cf37561142ec3f)
       '@power-plant/hey-api':
         specifier: 'catalog:'
-        version: 0.0.78(e57c0e139c45902408fa3f26bff9a02f)
+        version: 0.0.79(e57c0e139c45902408fa3f26bff9a02f)
       '@powerlines/plugin-power-plant':
         specifier: workspace:*
         version: link:../plugin-power-plant
@@ -2573,7 +2573,7 @@ importers:
         version: 0.24.0
       '@power-plant/alloy-js':
         specifier: 'catalog:'
-        version: 0.0.79(ac5edb6d4c205e659772bf9d76633dc2)
+        version: 0.0.80(ac5edb6d4c205e659772bf9d76633dc2)
       '@powerlines/plugin-alloy':
         specifier: workspace:*
         version: link:../plugin-alloy
@@ -2625,7 +2625,7 @@ importers:
         version: 1.23.0(@openfeature/core@1.12.0)
       '@power-plant/alloy-js':
         specifier: 'catalog:'
-        version: 0.0.79(e7ee48013bc4897d6d436d543567d0d0)
+        version: 0.0.80(e7ee48013bc4897d6d436d543567d0d0)
       '@powerlines/plugin-alloy':
         specifier: workspace:*
         version: link:../plugin-alloy
@@ -2698,7 +2698,7 @@ importers:
         version: 0.24.0
       '@power-plant/alloy-js':
         specifier: 'catalog:'
-        version: 0.0.79(e7ee48013bc4897d6d436d543567d0d0)
+        version: 0.0.80(e7ee48013bc4897d6d436d543567d0d0)
       '@powerlines/plugin-alloy':
         specifier: workspace:*
         version: link:../plugin-alloy
@@ -2801,13 +2801,13 @@ importers:
     dependencies:
       '@power-plant/core':
         specifier: 'catalog:'
-        version: 0.0.82(221469441cdb702240cf37561142ec3f)
+        version: 0.0.83(221469441cdb702240cf37561142ec3f)
       '@power-plant/openapi-schema':
         specifier: 'catalog:'
         version: 0.0.1(17faef5f7285dc0ce66537887e77f476)
       '@power-plant/openapi-typescript':
         specifier: 'catalog:'
-        version: 0.0.62(e57c0e139c45902408fa3f26bff9a02f)
+        version: 0.0.63(e57c0e139c45902408fa3f26bff9a02f)
       '@powerlines/plugin-power-plant':
         specifier: workspace:*
         version: link:../plugin-power-plant
@@ -2916,10 +2916,10 @@ importers:
     dependencies:
       '@power-plant/core':
         specifier: 'catalog:'
-        version: 0.0.82(cce3f78b2a7728792ca5d3b61a97114c)
+        version: 0.0.83(cce3f78b2a7728792ca5d3b61a97114c)
       '@power-plant/schema':
         specifier: 'catalog:'
-        version: 0.0.80(cce3f78b2a7728792ca5d3b61a97114c)
+        version: 0.0.81(cce3f78b2a7728792ca5d3b61a97114c)
       '@stryke/string-format':
         specifier: 'catalog:'
         version: 0.17.44(3b53ae4b16c472cd600f083d2f332c71)
@@ -2944,10 +2944,10 @@ importers:
     dependencies:
       '@power-plant/core':
         specifier: 'catalog:'
-        version: 0.0.82(db255fc8ce14ba5d51230718c28b1f1b)
+        version: 0.0.83(db255fc8ce14ba5d51230718c28b1f1b)
       '@power-plant/prisma':
         specifier: 'catalog:'
-        version: 0.0.63(a859f0cf706de76ae27c1e5dee477ed8)
+        version: 0.0.64(a859f0cf706de76ae27c1e5dee477ed8)
       '@power-plant/prisma-schema':
         specifier: 'catalog:'
         version: 0.0.1(590264031a73791ab4b54b4f780d029f)
@@ -3039,10 +3039,10 @@ importers:
         version: 8.0.1
       '@power-plant/alloy-js':
         specifier: 'catalog:'
-        version: 0.0.79(e7ee48013bc4897d6d436d543567d0d0)
+        version: 0.0.80(e7ee48013bc4897d6d436d543567d0d0)
       '@power-plant/schema':
         specifier: 'catalog:'
-        version: 0.0.80(db255fc8ce14ba5d51230718c28b1f1b)
+        version: 0.0.81(db255fc8ce14ba5d51230718c28b1f1b)
       '@powerlines/core':
         specifier: workspace:*
         version: link:../../base/core
@@ -3320,10 +3320,10 @@ importers:
     dependencies:
       '@power-plant/core':
         specifier: 'catalog:'
-        version: 0.0.82(58a772c84794ba0f95983b9cea9d67a9)
+        version: 0.0.83(58a772c84794ba0f95983b9cea9d67a9)
       '@power-plant/style-dictionary':
         specifier: 'catalog:'
-        version: 0.0.67(58a772c84794ba0f95983b9cea9d67a9)
+        version: 0.0.68(58a772c84794ba0f95983b9cea9d67a9)
       '@powerlines/plugin-power-plant':
         specifier: workspace:*
         version: link:../plugin-power-plant
@@ -9409,16 +9409,16 @@ packages:
   '@poppinss/exception@1.2.3':
     resolution: {integrity: sha512-dCED+QRChTVatE9ibtoaxc+WkdzOSjYTKi/+uacHWIsfodVfpsueo3+DKpgU5Px8qXjgmXkSvhXvSCz3fnP9lw==}
 
-  '@power-plant/alloy-js@0.0.79':
-    resolution: {integrity: sha512-gnuGTEIt1Ct5+uCYFpnuJBP8XME+zS4XMYjbNWco5gWucTkfYV111hSePbNqpXUCIsAYDAXld/83RsX/uWhd/Q==}
+  '@power-plant/alloy-js@0.0.80':
+    resolution: {integrity: sha512-oPOTZHcZEpsreLjS3u9a+zW8kR0o7oiNyR6SAaIXx8cdBm7m5m5S2jGENijQYaItmdtlj/yWV6T0WIBxHokn2w==}
     peerDependencies:
       '@alloy-js/babel-preset': '>=0.3.0'
 
   '@power-plant/asyncapi-schema@0.0.1':
     resolution: {integrity: sha512-O5VboKlMoEedS6lAT39phZb6QuFKKhGvqoEo18GmOmL3qiJthUNDS8sxIyZVM455R9AECQEYvUtZ/9mof7UTGg==}
 
-  '@power-plant/asyncapi@0.0.78':
-    resolution: {integrity: sha512-1s1fBJryyZ+cPQXElTG9whAhvyYcDMOny0bjxgsVI14ioqXbeA3RS0malf1bGyT8qdlA6iu1BmGa+9eKHW+37g==}
+  '@power-plant/asyncapi@0.0.79':
+    resolution: {integrity: sha512-8ShrsJ4hIlCmZugS8do8+Me8ZeS6TKhs+PTJLxPah/3y+YN+NJaGxb4S/XqybVqYCgy5yJ2cxR++wpFtwYzWCQ==}
 
   '@power-plant/core@0.0.16':
     resolution: {integrity: sha512-7CEBJE4VsB4dVBmclpIxkQzs6YMjPwEvK9gkjO2u2Afa3JavlsKzAgVHBoo5gFKzuhhd1rRWo46uLVt7Z3l+0g==}
@@ -9432,35 +9432,35 @@ packages:
   '@power-plant/core@0.0.6':
     resolution: {integrity: sha512-iXjhZKucO/hgDu+YOpvqyhJZPEUuhucyLUhIrCf2+VDAmsoip0pFPV+/5WbdUpHkBNAcO1trX3umNVrt/nUd7Q==}
 
-  '@power-plant/core@0.0.82':
-    resolution: {integrity: sha512-RisBuKlxa4EeUJOFRNk2A0WAMcYaNmcfCNSJzXI9ZLF94zRFcrA5NIH8zCLJS05JXwLSP1VuUvDBTOI5m0W0gA==}
+  '@power-plant/core@0.0.83':
+    resolution: {integrity: sha512-wiwXD2KcYNEf7yAJrQY8GrmI1KCZC7bQjlJugzc6wrRiOhU/3t/84oPA06YTF142yzF1EUpMto1nLhyeiPx4Fw==}
 
   '@power-plant/dtcg-schema@0.0.1':
     resolution: {integrity: sha512-VkM7yuIbOi/vTPLmleXYxD4mlccCVefYhlgWcb3nafI1ogYYTa7yRb5GMSn0NYefVOCGZGxF1bQ/WSjIqU54/w==}
 
-  '@power-plant/graphql-codegen@0.0.78':
-    resolution: {integrity: sha512-AQB4qOkFpJwoXYmbv9WcoscZx/bTOegD9rM8kv3SjQNA/IYlPVd8Jdu3y6EQkwo3+M3y5/Y54WgPM0oYxKcRhg==}
+  '@power-plant/graphql-codegen@0.0.79':
+    resolution: {integrity: sha512-wZbPRF5K4cLR1A4cdFk0tAEG61nldrpzJOLZdttnZFQB5DURA58Pgzg9NPlqMRv2DoB9eq0UpuNzn6hrO1gGHA==}
 
   '@power-plant/graphql-schema@0.0.1':
     resolution: {integrity: sha512-XOb3b9N71an79G0gYdyZUWSx+Q6tsdyl/M6cI0NFbSnE/uIb8c7DgB/jQxxMFewVpQL7qTQXvlxtSQdnBqj5OQ==}
 
-  '@power-plant/hey-api@0.0.78':
-    resolution: {integrity: sha512-Ly24cftji2JzpMNFYfIcNGjK9k0CsaSetpNCfKVd7xk9R0BYBI0EUgoHRnXHNkZKoj2zqNtHutxLbxlohPv0iQ==}
+  '@power-plant/hey-api@0.0.79':
+    resolution: {integrity: sha512-7oFvf52BOEJHPG4Xkoh78l6h8KebuXPNRPD5JgGbeCufDjZ0e64O0uiS8MYh0SEoGtzr+f0jjBdYaZLZvmDiTw==}
 
-  '@power-plant/noop-output@0.0.61':
-    resolution: {integrity: sha512-3ei/D3hKRkpfzAVbLxTKdOIB1nQ8ILf6bsXLRfjfZDeMkMk+V8xw79yuZYYTeDumXOeXB0+MORXvvSqcKZhOwQ==}
+  '@power-plant/noop-output@0.0.62':
+    resolution: {integrity: sha512-FkFpDtCB9zTGZiFccu1FF7f/Qnc/DmwcV0CaHRIlhLy36y4MvFor251Tjxclx7i7qPpfJPjzrECJTBO06WGA4w==}
 
   '@power-plant/openapi-schema@0.0.1':
     resolution: {integrity: sha512-VgNNhL99Fgz5ruKnxTginonO7ODIWX8YfRRbdwHW9x2riiCTegPvResL62/a9sArzHyoQCpMFuYmI6Z0GdKFNA==}
 
-  '@power-plant/openapi-typescript@0.0.62':
-    resolution: {integrity: sha512-q+j55lWD9WA4B9PJx6A0kB+YLg6TNrAqp1V10SMF8ZyYe949YnByNeEuy2+2SxrkaLvn9iRrHx8ZRkKIhlVSww==}
+  '@power-plant/openapi-typescript@0.0.63':
+    resolution: {integrity: sha512-qaBWyRLMEaKUDPJSny8M4eexGrQmw+ExCGUqO5wwtAHrEa5QXsdh3wYyvst/zkiYS7jPhTqRIj+92oYSdxxMwg==}
 
   '@power-plant/prisma-schema@0.0.1':
     resolution: {integrity: sha512-WS8ca/TSWwzwA6H+MqtCTN0IOWPPZAGiUCDYeA0hvdsgdBc+sEG9cGjLfw4iAJErOXrH9rS+Lqs7j96IBgsC/Q==}
 
-  '@power-plant/prisma@0.0.63':
-    resolution: {integrity: sha512-1ata/W7x4B8yUvoF9R70hdyPgw3W6K5cFJ/COI/EbeFITWesWg3+mmmK9FOm1QQe4a6v0vKgBVkkdDojkvwzNA==}
+  '@power-plant/prisma@0.0.64':
+    resolution: {integrity: sha512-7glbUG6dOPPtr5tCAdEgjomdsdsGCN+OS9/iXOfoch06xW2Ogxj+mpck3Q7y+uTv/pnLvOTFN5QsxuLsY/uNbQ==}
 
   '@power-plant/schema@0.0.16':
     resolution: {integrity: sha512-ph+mBwquF++p+nlfQ+FNRhx0UvY8gafQC2HZS0VY8ka0qu/iv+XU7ANDXkfXhmFJPA2Cga9B1fU+1VVExvJ7cA==}
@@ -9506,8 +9506,8 @@ packages:
       zod:
         optional: true
 
-  '@power-plant/schema@0.0.80':
-    resolution: {integrity: sha512-7+Yf/oIE5xRaGbtf3CLzIcvSVUWtZ28bnXkoTrN1Xt05nMCA1mpk/yYxvautVHe03b85nDATiNXszSw5Hzfy/g==}
+  '@power-plant/schema@0.0.81':
+    resolution: {integrity: sha512-PYJFV9N86z4i2HnYbJOtxlafnT5wua16afwIhymqY3wCQqqfmlIb5rLFFioxdKBThdMGcZrRJjixnAYi3IJrvA==}
     peerDependencies:
       valibot: ^1.4.0 || ^1.5.0
       zod: ^3.25.0 || ^4.0.0
@@ -9517,8 +9517,8 @@ packages:
       zod:
         optional: true
 
-  '@power-plant/style-dictionary@0.0.67':
-    resolution: {integrity: sha512-PmwOn0cbGYKJZRjnjo/vAdP8WmN9SBCskOmVSzvhIEkRH/0MRhbv9TgpUEQ125JYpHTdb5IsmL/YJwOCJfFihw==}
+  '@power-plant/style-dictionary@0.0.68':
+    resolution: {integrity: sha512-asq3sN9o8h7SWfsKaAYuqDnl59qlQMJwwJHXOy8NusSaSA6nmQ1ErUmfV32TB+I8qYU2yryNIf1ziMORIV9mPg==}
 
   '@powerlines/deepkit@0.9.113':
     resolution: {integrity: sha512-L3sKewruQPBNWUT9bbK1FzU6EZX7koKwHhPhKwvD6qxj+y9XVxRWH5bcWn69QvFPzpUlbA5dhg5mhIVKqUPV7Q==}
@@ -28699,16 +28699,16 @@ snapshots:
 
   '@poppinss/exception@1.2.3': {}
 
-  '@power-plant/alloy-js@0.0.79(ac5edb6d4c205e659772bf9d76633dc2)':
+  '@power-plant/alloy-js@0.0.80(ac5edb6d4c205e659772bf9d76633dc2)':
     dependencies:
       '@alloy-js/babel-preset': 0.3.0(@babel/core@8.0.1)
       '@alloy-js/core': 0.24.1
       '@alloy-js/json': 0.24.0
       '@alloy-js/markdown': 0.24.0
       '@alloy-js/typescript': 0.24.0
-      '@power-plant/core': 0.0.82(58a772c84794ba0f95983b9cea9d67a9)
-      '@power-plant/noop-output': 0.0.61(6d606aa1612c963d3cb50fd22b1cd04e)
-      '@power-plant/schema': 0.0.80(58a772c84794ba0f95983b9cea9d67a9)
+      '@power-plant/core': 0.0.83(58a772c84794ba0f95983b9cea9d67a9)
+      '@power-plant/noop-output': 0.0.62(6d606aa1612c963d3cb50fd22b1cd04e)
+      '@power-plant/schema': 0.0.81(58a772c84794ba0f95983b9cea9d67a9)
       '@stryke/convert': 0.7.33
       '@stryke/helpers': 0.10.42
       '@stryke/path': 0.29.29(3b53ae4b16c472cd600f083d2f332c71)
@@ -28746,16 +28746,16 @@ snapshots:
       - valibot
       - zod
 
-  '@power-plant/alloy-js@0.0.79(bb5822706a82043a62fa367ee3f3d154)':
+  '@power-plant/alloy-js@0.0.80(bb5822706a82043a62fa367ee3f3d154)':
     dependencies:
       '@alloy-js/babel-preset': 0.3.0(@babel/core@7.29.7)
       '@alloy-js/core': 0.24.1
       '@alloy-js/json': 0.24.0
       '@alloy-js/markdown': 0.24.0
       '@alloy-js/typescript': 0.24.0
-      '@power-plant/core': 0.0.82(db255fc8ce14ba5d51230718c28b1f1b)
-      '@power-plant/noop-output': 0.0.61(db255fc8ce14ba5d51230718c28b1f1b)
-      '@power-plant/schema': 0.0.80(db255fc8ce14ba5d51230718c28b1f1b)
+      '@power-plant/core': 0.0.83(db255fc8ce14ba5d51230718c28b1f1b)
+      '@power-plant/noop-output': 0.0.62(db255fc8ce14ba5d51230718c28b1f1b)
+      '@power-plant/schema': 0.0.81(db255fc8ce14ba5d51230718c28b1f1b)
       '@stryke/convert': 0.7.33
       '@stryke/helpers': 0.10.42
       '@stryke/path': 0.29.29(@nx/jest@23.1.1(@babel/traverse@7.29.8)(@swc-node/register@1.12.1(@swc/core@1.15.47(@swc/helpers@0.5.23))(@swc/types@0.1.28)(typescript@6.0.3))(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(babel-plugin-macros@3.1.0)(esbuild-register@3.6.0(esbuild@0.28.1))(jest@30.0.5(@types/node@25.9.5)(babel-plugin-macros@3.1.0)(esbuild-register@3.6.0(esbuild@0.28.1))(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3)))(nx@23.1.0(@swc-node/register@1.12.1(@swc/core@1.15.47(@swc/helpers@0.5.23))(@swc/types@0.1.28)(typescript@6.0.3))(@swc/core@1.15.47(@swc/helpers@0.5.23)))(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)(verdaccio@6.5.2(encoding@0.1.13)(typanion@3.14.0)))(jest@30.0.5(@types/node@25.9.5)(babel-plugin-macros@3.1.0)(esbuild-register@3.6.0(esbuild@0.28.1))(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3)))
@@ -28793,16 +28793,16 @@ snapshots:
       - valibot
       - zod
 
-  '@power-plant/alloy-js@0.0.79(e7ee48013bc4897d6d436d543567d0d0)':
+  '@power-plant/alloy-js@0.0.80(e7ee48013bc4897d6d436d543567d0d0)':
     dependencies:
       '@alloy-js/babel-preset': 0.3.0(@babel/core@8.0.1)
       '@alloy-js/core': 0.24.1
       '@alloy-js/json': 0.24.0
       '@alloy-js/markdown': 0.24.0
       '@alloy-js/typescript': 0.24.0
-      '@power-plant/core': 0.0.82(db255fc8ce14ba5d51230718c28b1f1b)
-      '@power-plant/noop-output': 0.0.61(db255fc8ce14ba5d51230718c28b1f1b)
-      '@power-plant/schema': 0.0.80(db255fc8ce14ba5d51230718c28b1f1b)
+      '@power-plant/core': 0.0.83(db255fc8ce14ba5d51230718c28b1f1b)
+      '@power-plant/noop-output': 0.0.62(db255fc8ce14ba5d51230718c28b1f1b)
+      '@power-plant/schema': 0.0.81(db255fc8ce14ba5d51230718c28b1f1b)
       '@stryke/convert': 0.7.33
       '@stryke/helpers': 0.10.42
       '@stryke/path': 0.29.29(@nx/jest@23.1.1(@babel/traverse@7.29.8)(@swc-node/register@1.12.1(@swc/core@1.15.47(@swc/helpers@0.5.23))(@swc/types@0.1.28)(typescript@6.0.3))(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(babel-plugin-macros@3.1.0)(esbuild-register@3.6.0(esbuild@0.28.1))(jest@30.0.5(@types/node@25.9.5)(babel-plugin-macros@3.1.0)(esbuild-register@3.6.0(esbuild@0.28.1))(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3)))(nx@23.1.0(@swc-node/register@1.12.1(@swc/core@1.15.47(@swc/helpers@0.5.23))(@swc/types@0.1.28)(typescript@6.0.3))(@swc/core@1.15.47(@swc/helpers@0.5.23)))(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3))(typescript@6.0.3)(verdaccio@6.5.2(encoding@0.1.13)(typanion@3.14.0)))(jest@30.0.5(@types/node@25.9.5)(babel-plugin-macros@3.1.0)(esbuild-register@3.6.0(esbuild@0.28.1))(ts-node@10.9.2(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/node@25.9.5)(typescript@6.0.3)))
@@ -28872,14 +28872,14 @@ snapshots:
       - uploadthing
       - valibot
 
-  '@power-plant/asyncapi@0.0.78(ee8f257ac9aad7b9042f157f924f3a80)':
+  '@power-plant/asyncapi@0.0.79(ee8f257ac9aad7b9042f157f924f3a80)':
     dependencies:
       '@asyncapi/generator': 3.3.0(@asyncapi/raml-dt-schema-parser@4.0.24(encoding@0.1.13))(@swc/core@1.15.47(@swc/helpers@0.5.23))(@types/babel__core@7.20.5)(@types/node@25.9.5)(encoding@0.1.13)(supports-color@7.2.0)
       '@asyncapi/generator-hooks': 0.1.0
       '@asyncapi/parser': 3.6.2(encoding@0.1.13)
       '@power-plant/asyncapi-schema': 0.0.1(fabc79101bc8954e9317e2711e8391af)
-      '@power-plant/core': 0.0.82(74958d8df7618c54105f4ffc74a940af)
-      '@power-plant/schema': 0.0.80(74958d8df7618c54105f4ffc74a940af)
+      '@power-plant/core': 0.0.83(74958d8df7618c54105f4ffc74a940af)
+      '@power-plant/schema': 0.0.81(74958d8df7618c54105f4ffc74a940af)
       '@stryke/convert': 0.7.33
       '@stryke/type-checks': 0.6.35
       '@stryke/types': 0.12.30
@@ -29112,9 +29112,9 @@ snapshots:
       - valibot
       - zod
 
-  '@power-plant/core@0.0.82(221469441cdb702240cf37561142ec3f)':
+  '@power-plant/core@0.0.83(221469441cdb702240cf37561142ec3f)':
     dependencies:
-      '@power-plant/schema': 0.0.80(221469441cdb702240cf37561142ec3f)
+      '@power-plant/schema': 0.0.81(221469441cdb702240cf37561142ec3f)
       '@stryke/convert': 0.7.33
       '@stryke/date': 0.0.14
       '@stryke/env': 0.20.120(65db57b34900923a1db87324e74d0089)
@@ -29158,9 +29158,9 @@ snapshots:
       - valibot
       - zod
 
-  '@power-plant/core@0.0.82(58a772c84794ba0f95983b9cea9d67a9)':
+  '@power-plant/core@0.0.83(58a772c84794ba0f95983b9cea9d67a9)':
     dependencies:
-      '@power-plant/schema': 0.0.80(58a772c84794ba0f95983b9cea9d67a9)
+      '@power-plant/schema': 0.0.81(58a772c84794ba0f95983b9cea9d67a9)
       '@stryke/convert': 0.7.33
       '@stryke/date': 0.0.14
       '@stryke/env': 0.20.120(b169f4332e71451607a846bc297b521e)
@@ -29204,9 +29204,9 @@ snapshots:
       - valibot
       - zod
 
-  '@power-plant/core@0.0.82(74958d8df7618c54105f4ffc74a940af)':
+  '@power-plant/core@0.0.83(74958d8df7618c54105f4ffc74a940af)':
     dependencies:
-      '@power-plant/schema': 0.0.80(74958d8df7618c54105f4ffc74a940af)
+      '@power-plant/schema': 0.0.81(74958d8df7618c54105f4ffc74a940af)
       '@stryke/convert': 0.7.33
       '@stryke/date': 0.0.14
       '@stryke/env': 0.20.120(9a272ae1b4e2334491b055d4bf5bf948)
@@ -29250,9 +29250,9 @@ snapshots:
       - valibot
       - zod
 
-  '@power-plant/core@0.0.82(cce3f78b2a7728792ca5d3b61a97114c)':
+  '@power-plant/core@0.0.83(cce3f78b2a7728792ca5d3b61a97114c)':
     dependencies:
-      '@power-plant/schema': 0.0.80(cce3f78b2a7728792ca5d3b61a97114c)
+      '@power-plant/schema': 0.0.81(cce3f78b2a7728792ca5d3b61a97114c)
       '@stryke/convert': 0.7.33
       '@stryke/date': 0.0.14
       '@stryke/env': 0.20.120(b169f4332e71451607a846bc297b521e)
@@ -29296,9 +29296,9 @@ snapshots:
       - valibot
       - zod
 
-  '@power-plant/core@0.0.82(db255fc8ce14ba5d51230718c28b1f1b)':
+  '@power-plant/core@0.0.83(db255fc8ce14ba5d51230718c28b1f1b)':
     dependencies:
-      '@power-plant/schema': 0.0.80(db255fc8ce14ba5d51230718c28b1f1b)
+      '@power-plant/schema': 0.0.81(db255fc8ce14ba5d51230718c28b1f1b)
       '@stryke/convert': 0.7.33
       '@stryke/date': 0.0.14
       '@stryke/env': 0.20.120(65db57b34900923a1db87324e74d0089)
@@ -29373,13 +29373,13 @@ snapshots:
       - uploadthing
       - valibot
 
-  '@power-plant/graphql-codegen@0.0.78(d8fd4a05c49ece5e6e85fcbf34c0c7fa)':
+  '@power-plant/graphql-codegen@0.0.79(d8fd4a05c49ece5e6e85fcbf34c0c7fa)':
     dependencies:
       '@graphql-codegen/core': 6.2.0(graphql@17.0.2)
       '@graphql-codegen/plugin-helpers': 7.1.0(graphql@17.0.2)
-      '@power-plant/core': 0.0.82(221469441cdb702240cf37561142ec3f)
+      '@power-plant/core': 0.0.83(221469441cdb702240cf37561142ec3f)
       '@power-plant/graphql-schema': 0.0.1(52b586b513d2b9b4f472c4e44e10e4e5)
-      '@power-plant/schema': 0.0.80(221469441cdb702240cf37561142ec3f)
+      '@power-plant/schema': 0.0.81(221469441cdb702240cf37561142ec3f)
       '@stryke/convert': 0.7.33
       '@stryke/type-checks': 0.6.35
       '@stryke/types': 0.12.30
@@ -29445,12 +29445,12 @@ snapshots:
       - uploadthing
       - valibot
 
-  '@power-plant/hey-api@0.0.78(e57c0e139c45902408fa3f26bff9a02f)':
+  '@power-plant/hey-api@0.0.79(e57c0e139c45902408fa3f26bff9a02f)':
     dependencies:
       '@hey-api/openapi-ts': 0.99.0(magicast@0.5.4)(typescript@6.0.3)
-      '@power-plant/core': 0.0.82(221469441cdb702240cf37561142ec3f)
+      '@power-plant/core': 0.0.83(221469441cdb702240cf37561142ec3f)
       '@power-plant/openapi-schema': 0.0.1(17faef5f7285dc0ce66537887e77f476)
-      '@power-plant/schema': 0.0.80(221469441cdb702240cf37561142ec3f)
+      '@power-plant/schema': 0.0.81(221469441cdb702240cf37561142ec3f)
       '@stryke/convert': 0.7.33
       '@stryke/type-checks': 0.6.35
       '@stryke/types': 0.12.30
@@ -29494,9 +29494,9 @@ snapshots:
       - vue-tsc
       - zod
 
-  '@power-plant/noop-output@0.0.61(6d606aa1612c963d3cb50fd22b1cd04e)':
+  '@power-plant/noop-output@0.0.62(6d606aa1612c963d3cb50fd22b1cd04e)':
     dependencies:
-      '@power-plant/core': 0.0.82(58a772c84794ba0f95983b9cea9d67a9)
+      '@power-plant/core': 0.0.83(58a772c84794ba0f95983b9cea9d67a9)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -29524,9 +29524,9 @@ snapshots:
       - valibot
       - zod
 
-  '@power-plant/noop-output@0.0.61(db255fc8ce14ba5d51230718c28b1f1b)':
+  '@power-plant/noop-output@0.0.62(db255fc8ce14ba5d51230718c28b1f1b)':
     dependencies:
-      '@power-plant/core': 0.0.82(db255fc8ce14ba5d51230718c28b1f1b)
+      '@power-plant/core': 0.0.83(db255fc8ce14ba5d51230718c28b1f1b)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -29579,11 +29579,11 @@ snapshots:
       - valibot
       - vue-tsc
 
-  '@power-plant/openapi-typescript@0.0.62(e57c0e139c45902408fa3f26bff9a02f)':
+  '@power-plant/openapi-typescript@0.0.63(e57c0e139c45902408fa3f26bff9a02f)':
     dependencies:
-      '@power-plant/core': 0.0.82(221469441cdb702240cf37561142ec3f)
+      '@power-plant/core': 0.0.83(221469441cdb702240cf37561142ec3f)
       '@power-plant/openapi-schema': 0.0.1(17faef5f7285dc0ce66537887e77f476)
-      '@power-plant/schema': 0.0.80(221469441cdb702240cf37561142ec3f)
+      '@power-plant/schema': 0.0.81(221469441cdb702240cf37561142ec3f)
       openapi-typescript: 7.13.0(typescript@6.0.3)
     transitivePeerDependencies:
       - '@arethetypeswrong/core'
@@ -29656,11 +29656,11 @@ snapshots:
       - uploadthing
       - valibot
 
-  '@power-plant/prisma@0.0.63(a859f0cf706de76ae27c1e5dee477ed8)':
+  '@power-plant/prisma@0.0.64(a859f0cf706de76ae27c1e5dee477ed8)':
     dependencies:
-      '@power-plant/core': 0.0.82(db255fc8ce14ba5d51230718c28b1f1b)
+      '@power-plant/core': 0.0.83(db255fc8ce14ba5d51230718c28b1f1b)
       '@power-plant/prisma-schema': 0.0.1(590264031a73791ab4b54b4f780d029f)
-      '@power-plant/schema': 0.0.80(db255fc8ce14ba5d51230718c28b1f1b)
+      '@power-plant/schema': 0.0.81(db255fc8ce14ba5d51230718c28b1f1b)
       '@prisma/client-generator-registry': 6.19.3(patch_hash=6dece1d42732fefb2c567e3ffa4d4ff932962c935d34f130adccd18c8e7f5b2a)(typescript@6.0.3)
       '@prisma/engines': 6.19.3
       '@prisma/internals': 6.19.3(typescript@6.0.3)
@@ -29922,7 +29922,7 @@ snapshots:
       - supports-color
       - uploadthing
 
-  '@power-plant/schema@0.0.80(221469441cdb702240cf37561142ec3f)':
+  '@power-plant/schema@0.0.81(221469441cdb702240cf37561142ec3f)':
     dependencies:
       '@deepkit/core': 1.0.19
       '@deepkit/type': 1.0.19(@deepkit/core@1.0.19)
@@ -29986,7 +29986,7 @@ snapshots:
       - supports-color
       - uploadthing
 
-  '@power-plant/schema@0.0.80(58a772c84794ba0f95983b9cea9d67a9)':
+  '@power-plant/schema@0.0.81(58a772c84794ba0f95983b9cea9d67a9)':
     dependencies:
       '@deepkit/core': 1.0.19
       '@deepkit/type': 1.0.19(@deepkit/core@1.0.19)
@@ -30050,7 +30050,7 @@ snapshots:
       - supports-color
       - uploadthing
 
-  '@power-plant/schema@0.0.80(74958d8df7618c54105f4ffc74a940af)':
+  '@power-plant/schema@0.0.81(74958d8df7618c54105f4ffc74a940af)':
     dependencies:
       '@deepkit/core': 1.0.19
       '@deepkit/type': 1.0.19(@deepkit/core@1.0.19)
@@ -30114,7 +30114,7 @@ snapshots:
       - supports-color
       - uploadthing
 
-  '@power-plant/schema@0.0.80(b3e0c2a941968dde844305bd5e8180e4)':
+  '@power-plant/schema@0.0.81(b3e0c2a941968dde844305bd5e8180e4)':
     dependencies:
       '@deepkit/core': 1.0.19
       '@deepkit/type': 1.0.19(@deepkit/core@1.0.19)
@@ -30178,7 +30178,7 @@ snapshots:
       - supports-color
       - uploadthing
 
-  '@power-plant/schema@0.0.80(cce3f78b2a7728792ca5d3b61a97114c)':
+  '@power-plant/schema@0.0.81(cce3f78b2a7728792ca5d3b61a97114c)':
     dependencies:
       '@deepkit/core': 1.0.19
       '@deepkit/type': 1.0.19(@deepkit/core@1.0.19)
@@ -30242,7 +30242,7 @@ snapshots:
       - supports-color
       - uploadthing
 
-  '@power-plant/schema@0.0.80(db255fc8ce14ba5d51230718c28b1f1b)':
+  '@power-plant/schema@0.0.81(db255fc8ce14ba5d51230718c28b1f1b)':
     dependencies:
       '@deepkit/core': 1.0.19
       '@deepkit/type': 1.0.19(@deepkit/core@1.0.19)
@@ -30306,11 +30306,11 @@ snapshots:
       - supports-color
       - uploadthing
 
-  '@power-plant/style-dictionary@0.0.67(58a772c84794ba0f95983b9cea9d67a9)':
+  '@power-plant/style-dictionary@0.0.68(58a772c84794ba0f95983b9cea9d67a9)':
     dependencies:
-      '@power-plant/core': 0.0.82(58a772c84794ba0f95983b9cea9d67a9)
+      '@power-plant/core': 0.0.83(58a772c84794ba0f95983b9cea9d67a9)
       '@power-plant/dtcg-schema': 0.0.1(ea4602776a78b42674c0a539b58f6767)
-      '@power-plant/schema': 0.0.80(58a772c84794ba0f95983b9cea9d67a9)
+      '@power-plant/schema': 0.0.81(58a772c84794ba0f95983b9cea9d67a9)
       '@stryke/type-checks': 0.6.35
       '@stryke/types': 0.12.30
       style-dictionary: 5.5.0
