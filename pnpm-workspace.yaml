@@ -61,8 +61,8 @@ catalog:
   "@napi-rs/cli": ^3.8.2
   "@napi-rs/wasm-runtime": ^1.2.2
   "@noble/ciphers": ^2.2.0
-  "@nuxt/kit": ^4.5.1
-  "@nuxt/schema": ^4.5.1
+  "@nuxt/kit": ^4.5.2
+  "@nuxt/schema": ^4.5.2
   "@nx/devkit": ^23.1.1
   "@nx/eslint-plugin": 23.1.0
   "@nx/js": 23.1.0
@@ -85,18 +85,18 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.72
-  "@power-plant/asyncapi": ^0.0.71
-  "@power-plant/core": ^0.0.75
-  "@power-plant/graphql-codegen": ^0.0.71
+  "@power-plant/alloy-js": ^0.0.77
+  "@power-plant/asyncapi": ^0.0.76
+  "@power-plant/core": ^0.0.80
+  "@power-plant/graphql-codegen": ^0.0.76
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.71
+  "@power-plant/hey-api": ^0.0.76
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.55
-  "@power-plant/prisma": ^0.0.56
+  "@power-plant/openapi-typescript": ^0.0.60
+  "@power-plant/prisma": ^0.0.61
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.73
-  "@power-plant/style-dictionary": ^0.0.60
+  "@power-plant/schema": ^0.0.78
+  "@power-plant/style-dictionary": ^0.0.65
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0
   "@prisma/config": 7.6.0
@@ -121,25 +121,25 @@ catalog:
   "@shell-shock/preset-cli": ^0.9.34
   "@sinclair/typebox": ^0.34.52
   "@standard-schema/spec": ^1.1.0
-  "@storm-software/build-tools": ^0.158.273
-  "@storm-software/config": ^1.138.50
-  "@storm-software/config-tools": ^1.190.113
-  "@storm-software/cspell": ^0.46.181
-  "@storm-software/esbuild": ^0.53.274
-  "@storm-software/eslint": ^0.170.147
-  "@storm-software/eslint-plugin-tsdoc": ^0.0.76
-  "@storm-software/git-tools": ^2.131.121
-  "@storm-software/linting-tools": ^1.134.43
-  "@storm-software/markdownlint": ^0.30.269
-  "@storm-software/pnpm-tools": ^0.7.124
-  "@storm-software/prettier": ^0.59.166
-  "@storm-software/testing-tools": ^1.119.266
-  "@storm-software/tsconfig": ^0.48.180
-  "@storm-software/tsdoc": ^0.13.266
-  "@storm-software/tsup": ^0.2.271
-  "@storm-software/unbuild": ^0.57.274
-  "@storm-software/untyped": ^0.24.255
-  "@storm-software/workspace-tools": ^1.296.93
+  "@storm-software/build-tools": ^0.158.274
+  "@storm-software/config": ^1.138.51
+  "@storm-software/config-tools": ^1.190.114
+  "@storm-software/cspell": ^0.46.182
+  "@storm-software/esbuild": ^0.53.275
+  "@storm-software/eslint": ^0.170.148
+  "@storm-software/eslint-plugin-tsdoc": ^0.0.77
+  "@storm-software/git-tools": ^2.131.122
+  "@storm-software/linting-tools": ^1.134.44
+  "@storm-software/markdownlint": ^0.30.270
+  "@storm-software/pnpm-tools": ^0.7.125
+  "@storm-software/prettier": ^0.59.167
+  "@storm-software/testing-tools": ^1.119.267
+  "@storm-software/tsconfig": ^0.48.181
+  "@storm-software/tsdoc": ^0.13.267
+  "@storm-software/tsup": ^0.2.272
+  "@storm-software/unbuild": ^0.57.275
+  "@storm-software/untyped": ^0.24.256
+  "@storm-software/workspace-tools": ^1.296.94
   "@stryke/async": ^0.1.30
   "@stryke/capnp": ^0.12.129
   "@stryke/cli": ^0.13.75
@@ -245,7 +245,7 @@ catalog:
   react: ^19.2.8
   react-dom: ^19.2.8
   rimraf: ^6.1.3
-  rolldown: ^1.2.2
+  rolldown: ^1.2.3
   rolldown-plugin-dts: ^0.25.2
   rollup: ^4.62.4
   rollup-plugin-typescript2: ^0.36.0
@@ -307,6 +307,7 @@ minimumReleaseAgeExclude:
   - oxlint
   - "@rushstack/terminal@0.24.1"
   - "@rushstack/ts-command-line@5.3.11"
+  - "@asyncapi/parser@3.6.2"
 onlyBuiltDependencies:
   - "@biomejs/biome"
   - "@hyperjump/json-pointer"
