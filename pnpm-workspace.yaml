@@ -85,18 +85,18 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.77
-  "@power-plant/asyncapi": ^0.0.76
-  "@power-plant/core": ^0.0.80
-  "@power-plant/graphql-codegen": ^0.0.76
+  "@power-plant/alloy-js": ^0.0.78
+  "@power-plant/asyncapi": ^0.0.77
+  "@power-plant/core": ^0.0.81
+  "@power-plant/graphql-codegen": ^0.0.77
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.76
+  "@power-plant/hey-api": ^0.0.77
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.60
-  "@power-plant/prisma": ^0.0.61
+  "@power-plant/openapi-typescript": ^0.0.61
+  "@power-plant/prisma": ^0.0.62
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.78
-  "@power-plant/style-dictionary": ^0.0.65
+  "@power-plant/schema": ^0.0.79
+  "@power-plant/style-dictionary": ^0.0.66
   "@prisma/client-generator-registry": 7.6.0
   "@prisma/client-generator-ts": 7.6.0
   "@prisma/config": 7.6.0
@@ -105,7 +105,7 @@ catalog:
   "@prisma/get-platform": 6.19.3
   "@prisma/migrate": 7.6.0
   "@prisma/prisma-schema-wasm": 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
-  "@pulumi/cloudflare": ^6.18.0
+  "@pulumi/cloudflare": ^6.19.0
   "@pulumi/pulumi": ^3.256.0
   "@rolldown/pluginutils": ^1.0.1
   "@rollup/plugin-alias": ^6.0.0
