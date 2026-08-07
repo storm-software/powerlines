@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.112](https://github.com/storm-software/powerlines/releases/tag/core%400.48.112) (08/07/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Power Plant package dependencies ([d42674f3d](https://github.com/storm-software/powerlines/commit/d42674f3d))
+
 ## [0.48.108](https://github.com/storm-software/powerlines/releases/tag/core%400.48.108) (08/05/2026)
 
 ### Miscellaneous

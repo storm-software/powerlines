@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.185](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.185) (08/07/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Power Plant package dependencies ([d42674f3d](https://github.com/storm-software/powerlines/commit/d42674f3d))
+
 ## [0.2.181](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.181) (08/05/2026)
 
 ### Miscellaneous

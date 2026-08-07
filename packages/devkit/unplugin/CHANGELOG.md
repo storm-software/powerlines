@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.160](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.160) (08/07/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Power Plant package dependencies ([d42674f3d](https://github.com/storm-software/powerlines/commit/d42674f3d))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.112**
+
 ## [0.0.159](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.159) (08/07/2026)
 
 ### Updated Dependencies

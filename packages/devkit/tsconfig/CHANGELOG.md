@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.237](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.237) (08/07/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update Power Plant package dependencies ([d42674f3d](https://github.com/storm-software/powerlines/commit/d42674f3d))
+
 ## [0.4.233](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.233) (08/05/2026)
 
 ### Miscellaneous
