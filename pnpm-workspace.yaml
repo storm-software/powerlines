@@ -121,26 +121,26 @@ catalog:
   "@shell-shock/preset-cli": ^0.9.34
   "@sinclair/typebox": ^0.34.52
   "@standard-schema/spec": ^1.1.0
-  "@storm-software/build-tools": ^0.158.275
-  "@storm-software/config": ^1.138.52
-  "@storm-software/config-tools": ^1.190.115
-  "@storm-software/cspell": ^0.46.183
-  "@storm-software/esbuild": ^0.53.276
-  "@storm-software/eslint": ^0.170.149
-  "@storm-software/eslint-plugin-pnpm": ^0.0.78
-  "@storm-software/eslint-plugin-tsdoc": ^0.0.78
-  "@storm-software/git-tools": ^2.131.123
-  "@storm-software/linting-tools": ^1.134.45
-  "@storm-software/markdownlint": ^0.30.271
-  "@storm-software/pnpm-tools": ^0.7.126
-  "@storm-software/prettier": ^0.59.168
-  "@storm-software/testing-tools": ^1.119.268
-  "@storm-software/tsconfig": ^0.48.182
-  "@storm-software/tsdoc": ^0.13.268
-  "@storm-software/tsup": ^0.2.273
-  "@storm-software/unbuild": ^0.57.276
-  "@storm-software/untyped": ^0.24.257
-  "@storm-software/workspace-tools": ^1.296.95
+  "@storm-software/build-tools": ^0.158.277
+  "@storm-software/config": ^1.138.54
+  "@storm-software/config-tools": ^1.190.117
+  "@storm-software/cspell": ^0.46.185
+  "@storm-software/esbuild": ^0.53.278
+  "@storm-software/eslint": ^0.170.151
+  "@storm-software/eslint-plugin-pnpm": ^0.0.80
+  "@storm-software/eslint-plugin-tsdoc": ^0.0.80
+  "@storm-software/git-tools": ^2.131.125
+  "@storm-software/linting-tools": ^1.134.47
+  "@storm-software/markdownlint": ^0.30.273
+  "@storm-software/pnpm-tools": ^0.7.128
+  "@storm-software/prettier": ^0.59.170
+  "@storm-software/testing-tools": ^1.119.270
+  "@storm-software/tsconfig": ^0.48.184
+  "@storm-software/tsdoc": ^0.13.270
+  "@storm-software/tsup": ^0.2.275
+  "@storm-software/unbuild": ^0.57.278
+  "@storm-software/untyped": ^0.24.259
+  "@storm-software/workspace-tools": ^1.296.98
   "@stryke/async": ^0.1.30
   "@stryke/capnp": ^0.12.129
   "@stryke/cli": ^0.13.75

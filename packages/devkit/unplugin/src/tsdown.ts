@@ -25,6 +25,7 @@ import type { GetDependencyConfigResult } from "@powerlines/core/plugin-utils";
 import { getDependencyConfig as _getDependencyConfig } from "@powerlines/core/plugin-utils";
 import type { Format } from "@storm-software/build-tools/types";
 import { toArray } from "@stryke/convert/to-array";
+import { getUniqueBy } from "@stryke/helpers/get-unique";
 import { appendPath } from "@stryke/path/append";
 import { relativePath } from "@stryke/path/file-path-fns";
 import { globToRegex } from "@stryke/path/glob-to-regex";
@@ -40,6 +41,18 @@ import type { UserConfig } from "tsdown/config";
 import rolldown from "./rolldown";
 import { UnpluginExecutionOptions } from "./types";
 
+export interface GetDependencyConfigOptions {
+  /**
+   * Whether to match like patterns.
+   *
+   * @remarks
+   * If `true`, the dependencies will be matched like patterns, for example `"dependency"` will match `/^dependency\/`.
+   *
+   * @defaultValue true
+   */
+  matchLikePattern?: boolean;
+}
+
 /**
  * Get the {@link ResolveConfig.external | external} and {@link ResolveConfig.noExternal | noExternal} dependencies for the build configuration.
  *
@@ -47,7 +60,8 @@ import { UnpluginExecutionOptions } from "./types";
  * @returns The dependency configuration.
  */
 export function getDependencyConfig<TContext extends UnresolvedContext>(
-  context: TContext
+  context: TContext,
+  options: GetDependencyConfigOptions = {}
 ): GetDependencyConfigResult {
   const { external, noExternal } = _getDependencyConfig(context);
 
@@ -55,16 +69,66 @@ export function getDependencyConfig<TContext extends UnresolvedContext>(
     external:
       !external || external.length === 0
         ? undefined
-        : external.map(ext =>
-            isSetString(ext) && ext.includes("*") ? globToRegex(ext) : ext
+        : getUniqueBy(
+            external
+              .filter(Boolean)
+              .map(ext =>
+                isSetString(ext) && ext.includes("*") ? globToRegex(ext) : ext
+              )
+              .reduce(
+                (ret, ext) => {
+                  ret.push(ext);
+                  if (
+                    options.matchLikePattern !== false &&
+                    isSetString(ext) &&
+                    ((!ext.startsWith("@") && !ext.includes("/")) ||
+                      (ext.startsWith("@") &&
+                        ext.indexOf("/") === ext.lastIndexOf("/")))
+                  ) {
+                    ret.push(
+                      new RegExp(
+                        `^${ext.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}\/`
+                      )
+                    );
+                  }
+                  return ret;
+                },
+                [] as (string | RegExp)[]
+              ),
+            (item: string | RegExp) => (isSetString(item) ? item : item.source)
           ),
     noExternal:
       !noExternal || noExternal.length === 0
         ? undefined
-        : noExternal.map(noExt =>
-            isSetString(noExt) && noExt.includes("*")
-              ? globToRegex(noExt)
-              : noExt
+        : getUniqueBy(
+            noExternal
+              .filter(Boolean)
+              .map(noExt =>
+                isSetString(noExt) && noExt.includes("*")
+                  ? globToRegex(noExt)
+                  : noExt
+              )
+              .reduce(
+                (ret, ext) => {
+                  ret.push(ext);
+                  if (
+                    options.matchLikePattern !== false &&
+                    isSetString(ext) &&
+                    ((!ext.startsWith("@") && !ext.includes("/")) ||
+                      (ext.startsWith("@") &&
+                        ext.indexOf("/") === ext.lastIndexOf("/")))
+                  ) {
+                    ret.push(
+                      new RegExp(
+                        `^${ext.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}\/`
+                      )
+                    );
+                  }
+                  return ret;
+                },
+                [] as (string | RegExp)[]
+              ),
+            (item: string | RegExp) => (isSetString(item) ? item : item.source)
           )
   };
 }
@@ -73,10 +137,7 @@ export const DEFAULT_OPTIONS: Partial<BuildOptions> = {
   platform: "neutral",
   target: "esnext",
   fixedExtension: true,
-  clean: false,
-  deps: {
-    resolveDepSubpath: true
-  }
+  clean: false
 } as const;
 
 /**
