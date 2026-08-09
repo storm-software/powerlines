@@ -348,9 +348,17 @@ export function resolveOptions<TContext extends UnresolvedContext>(
       silent:
         context.config.logLevel.general === "silent" ||
         context.config.mode === "production",
-      logLevel: context.config.logLevel.general === "trace" ? "debug" : "error",
+      logLevel:
+        context.config.logLevel.general === "trace" ||
+        context.config.logLevel.general === "debug"
+          ? "info"
+          : "error",
       customLogger: {
-        level: context.config.logLevel.general === "trace" ? "debug" : "error",
+        level:
+          context.config.logLevel.general === "trace" ||
+          context.config.logLevel.general === "debug"
+            ? "info"
+            : "error",
         info: (...msgs: any[]) =>
           isSetString(formatMessage(context, ...msgs).replace(/\s+/g, "")) &&
           context.trace(formatMessage(context, ...msgs)),
