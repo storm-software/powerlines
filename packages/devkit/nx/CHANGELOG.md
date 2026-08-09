@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.234](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.234) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Simplify build and extend build timeout ([5be46332c](https://github.com/storm-software/powerlines/commit/5be46332c))
+- **nx:** Resolve issue with missing javascript in built package ([eec171476](https://github.com/storm-software/powerlines/commit/eec171476))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.195**
+
 ## [0.13.233](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.233) (08/09/2026)
 
 ### Bug Fixes
