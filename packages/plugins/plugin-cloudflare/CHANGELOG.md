@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.305](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.305) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.295**
+- Updated **plugin-env** to **v0.16.406**
+- Updated **plugin-plugin** to **v0.12.611**
+- Updated **plugin-pulumi** to **v0.6.301**
+- Updated **plugin-unenv** to **v0.1.649**
+- Updated **powerlines** to **v0.47.199**
+
 ## [0.6.304](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.304) (08/09/2026)
 
 ### Updated Dependencies

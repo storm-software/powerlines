@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.295](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.295) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
+### Updated Dependencies
+
+- Updated **plugin-babel** to **v0.13.196**
+- Updated **plugin-plugin** to **v0.12.611**
+- Updated **plugin-power-plant** to **v0.1.55**
+- Updated **powerlines** to **v0.47.199**
+
 ## [0.26.294](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.294) (08/09/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.167](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.167) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.119**
+
 ## [0.0.166](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.166) (08/09/2026)
 
 ### Updated Dependencies

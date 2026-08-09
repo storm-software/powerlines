@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Oxc Transform
 
+## [0.5.669](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.669) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.611**
+- Updated **powerlines** to **v0.47.199**
+
 ## [0.5.668](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.668) (08/09/2026)
 
 ### Updated Dependencies

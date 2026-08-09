@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.199](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.199) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.119**
+- Updated **engine** to **v0.49.121**
+- Updated **unplugin** to **v0.0.167**
+
 ## [0.47.198](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.198) (08/09/2026)
 
 ### Bug Fixes

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Graphql
 
+## [0.1.661](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.661) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.611**
+- Updated **plugin-power-plant** to **v0.1.55**
+- Updated **powerlines** to **v0.47.199**
+
 ## [0.1.660](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.660) (08/09/2026)
 
 ### Updated Dependencies
