@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.239](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.239) (08/09/2026)
+
+### Bug Fixes
+
+- **nx:** Resolve issue applying `external` and `noExternal` defaults ([113b5b0c9](https://github.com/storm-software/powerlines/commit/113b5b0c9))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.200**
+
 ## [0.13.238](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.238) (08/09/2026)
 
 ### Bug Fixes

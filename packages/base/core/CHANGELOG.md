@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.120](https://github.com/storm-software/powerlines/releases/tag/core%400.48.120) (08/09/2026)
+
+### Bug Fixes
+
+- **core:** Resolve issue with bundled dependencies ([4ea32db0a](https://github.com/storm-software/powerlines/commit/4ea32db0a))
+- **nx:** Resolve issue applying `external` and `noExternal` defaults ([113b5b0c9](https://github.com/storm-software/powerlines/commit/113b5b0c9))
+
 ## [0.48.119](https://github.com/storm-software/powerlines/releases/tag/core%400.48.119) (08/09/2026)
 
 ### Bug Fixes
