@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Vite
 
+## [0.14.648](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.648) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.115**
+- Updated **powerlines** to **v0.47.194**
+- Updated **unplugin** to **v0.0.163**
+
 ## [0.14.647](https://github.com/storm-software/powerlines/releases/tag/plugin-vite%400.14.647) (08/07/2026)
 
 ### Updated Dependencies

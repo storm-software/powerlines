@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.240](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.240) (08/09/2026)
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
 ## [0.4.237](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.237) (08/07/2026)
 
 ### Miscellaneous

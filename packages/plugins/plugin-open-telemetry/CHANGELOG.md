@@ -2,6 +2,25 @@
 
 # Changelog for Powerlines - Plugin Open Telemetry
 
+## [0.1.222](https://github.com/storm-software/powerlines/releases/tag/plugin-open-telemetry%400.1.222) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.290**
+- Updated **plugin-automd** to **v0.1.655**
+- Updated **plugin-babel** to **v0.13.191**
+- Updated **plugin-env** to **v0.16.401**
+- Updated **plugin-plugin** to **v0.12.606**
+- Updated **powerlines** to **v0.47.194**
+
 ## [0.1.221](https://github.com/storm-software/powerlines/releases/tag/plugin-open-telemetry%400.1.221) (08/07/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Graphql
 
+## [0.1.656](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.656) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.606**
+- Updated **plugin-power-plant** to **v0.1.50**
+- Updated **powerlines** to **v0.47.194**
+
 ## [0.1.655](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.655) (08/07/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.233](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.233) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.194**
+
 ## [0.13.232](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.232) (08/07/2026)
 
 ### Updated Dependencies

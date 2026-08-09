@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.188](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.188) (08/09/2026)
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
 ## [0.2.185](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.185) (08/07/2026)
 
 ### Miscellaneous

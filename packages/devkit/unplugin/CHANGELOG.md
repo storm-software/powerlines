@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.163](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.163) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+- **plugin-tsdown:** Update `external` and `noExternal` options to include "like" imports ([bc451b7dd](https://github.com/storm-software/powerlines/commit/bc451b7dd))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.115**
+
 ## [0.0.162](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.162) (08/07/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.115](https://github.com/storm-software/powerlines/releases/tag/core%400.48.115) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
 ## [0.48.112](https://github.com/storm-software/powerlines/releases/tag/core%400.48.112) (08/07/2026)
 
 ### Miscellaneous

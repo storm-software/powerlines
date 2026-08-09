@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.337](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.337) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.606**
+- Updated **plugin-power-plant** to **v0.1.50**
+- Updated **plugin-pulumi** to **v0.6.296**
+- Updated **powerlines** to **v0.47.194**
+
 ## [0.4.336](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.336) (08/07/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Date
 
+## [0.12.745](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.745) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
+### Updated Dependencies
+
+- Updated **plugin-env** to **v0.16.401**
+- Updated **plugin-plugin** to **v0.12.606**
+- Updated **powerlines** to **v0.47.194**
+
 ## [0.12.744](https://github.com/storm-software/powerlines/releases/tag/plugin-date%400.12.744) (08/07/2026)
 
 ### Updated Dependencies

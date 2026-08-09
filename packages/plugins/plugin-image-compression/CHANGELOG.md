@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Image Compression
 
+## [0.2.604](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.604) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.606**
+- Updated **powerlines** to **v0.47.194**
+
 ## [0.2.603](https://github.com/storm-software/powerlines/releases/tag/plugin-image-compression%400.2.603) (08/07/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,23 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.710](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.710) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.290**
+- Updated **plugin-env** to **v0.16.401**
+- Updated **plugin-plugin** to **v0.12.606**
+- Updated **powerlines** to **v0.47.194**
+
 ## [0.10.709](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.709) (08/07/2026)
 
 ### Updated Dependencies
