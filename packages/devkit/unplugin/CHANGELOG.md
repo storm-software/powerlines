@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.165](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.165) (08/09/2026)
+
+### Bug Fixes
+
+- **unplugin:** Resolved issue with invalid `tsdown` log level ([fd7aa4ccc](https://github.com/storm-software/powerlines/commit/fd7aa4ccc))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.117**
+
 ## [0.0.164](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.164) (08/09/2026)
 
 ### Updated Dependencies
