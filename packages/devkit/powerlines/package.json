@@ -233,6 +233,7 @@
     "@powerlines/tools-config": "workspace:*",
     "@storm-software/testing-tools": "catalog:",
     "@types/node": "catalog:",
+    "tsdown": "catalog:",
     "typescript": "^6.0.3",
     "undici-types": "catalog:"
   },
