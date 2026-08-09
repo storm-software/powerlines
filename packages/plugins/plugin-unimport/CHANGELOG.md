@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Unimport
 
+## [0.1.659](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.659) (08/09/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.609**
+- Updated **powerlines** to **v0.47.197**
+
 ## [0.1.658](https://github.com/storm-software/powerlines/releases/tag/plugin-unimport%400.1.658) (08/09/2026)
 
 ### Updated Dependencies

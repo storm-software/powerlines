@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.8.662](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.662) (08/09/2026)
+
+### Bug Fixes
+
+- **core:** Resolve typescript configuration issues ([d5cef1ff1](https://github.com/storm-software/powerlines/commit/d5cef1ff1))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.609**
+- Updated **powerlines** to **v0.47.197**
+
 ## [0.8.661](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.661) (08/09/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Power Plant
 
+## [0.1.53](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.53) (08/09/2026)
+
+### Bug Fixes
+
+- **core:** Resolve typescript configuration issues ([d5cef1ff1](https://github.com/storm-software/powerlines/commit/d5cef1ff1))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.609**
+- Updated **powerlines** to **v0.47.197**
+- Updated **unplugin** to **v0.0.166**
+
 ## [0.1.52](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.52) (08/09/2026)
 
 ### Updated Dependencies

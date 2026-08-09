@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Webpack
 
+## [0.5.649](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.649) (08/09/2026)
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.118**
+- Updated **powerlines** to **v0.47.197**
+- Updated **unplugin** to **v0.0.166**
+
 ## [0.5.648](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.648) (08/09/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.118](https://github.com/storm-software/powerlines/releases/tag/core%400.48.118) (08/09/2026)
+
+### Bug Fixes
+
+- **core:** Resolve typescript configuration issues ([d5cef1ff1](https://github.com/storm-software/powerlines/commit/d5cef1ff1))
+
 ## [0.48.115](https://github.com/storm-software/powerlines/releases/tag/core%400.48.115) (08/09/2026)
 
 ### Bug Fixes

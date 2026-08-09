@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.236](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.236) (08/09/2026)
+
+### Bug Fixes
+
+- **core:** Resolve typescript configuration issues ([d5cef1ff1](https://github.com/storm-software/powerlines/commit/d5cef1ff1))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.197**
+
 ## [0.13.235](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.235) (08/09/2026)
 
 ### Updated Dependencies
