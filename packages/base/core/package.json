@@ -328,10 +328,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": [
-    "dist",
-    "schemas"
-  ],
+  "files": ["dist", "schemas"],
   "dependencies": {
     "@cacheable/memory": "catalog:",
     "@donedeal0/superdiff": "catalog:",
@@ -354,6 +351,7 @@
     "birpc": "catalog:",
     "bundle-require": "catalog:",
     "c12": "catalog:",
+    "chalk": "catalog:",
     "compatx": "catalog:",
     "date-fns": "catalog:",
     "defu": "catalog:",
@@ -382,15 +380,11 @@
     "@types/picomatch": "catalog:",
     "@types/semver": "catalog:",
     "bun-types-no-globals": "catalog:",
-    "chalk": "catalog:",
     "tsdown": "catalog:",
     "typescript": "^6.0.3",
     "undici-types": "catalog:"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "inlinedDependencies": {
-    "chalk": "5.6.2"
   }
 }
