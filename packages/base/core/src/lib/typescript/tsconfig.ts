@@ -395,18 +395,23 @@ export function tryTsconfigFilePath(
   root: string,
   tsconfig: string
 ): string | undefined {
-  let tsconfigFilePath = tsconfig;
-  if (!existsSync(tsconfigFilePath)) {
-    tsconfigFilePath = appendPath(tsconfig, root);
-    if (!existsSync(tsconfigFilePath)) {
-      tsconfigFilePath = appendPath(tsconfig, appendPath(root, cwd));
-      if (!existsSync(tsconfigFilePath)) {
-        return undefined;
-      }
+  if (isAbsolute(tsconfig) && existsSync(tsconfig)) {
+    return tsconfig;
+  }
+
+  const candidates = [
+    appendPath(tsconfig, root),
+    appendPath(tsconfig, appendPath(root, cwd)),
+    tsconfig
+  ];
+
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) {
+      return candidate;
     }
   }
 
-  return tsconfigFilePath;
+  return undefined;
 }
 
 /**

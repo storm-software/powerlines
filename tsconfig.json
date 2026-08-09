@@ -1,6 +1,5 @@
 {
   "extends": "./tsconfig.base.json",
-  "files": [],
   "references": [
     { "path": "./packages/base/core" },
     { "path": "./packages/base/engine" },
@@ -68,12 +67,5 @@
     { "path": "./tools/nx" },
     { "path": "./tools/scripts" }
   ],
-  "compilerOptions": {
-    "types": ["node", "node"],
-    "jsx": "preserve",
-    "lib": ["esnext"],
-    "esModuleInterop": true,
-    "isolatedModules": true
-  },
-  "include": ["powerlines.d.ts"]
+  "files": []
 }

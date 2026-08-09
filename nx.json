@@ -46,6 +46,10 @@
     // },
     "./dist/tools/nx/dist/index.js"
   ],
+  "sync": {
+    "applyChanges": true,
+    "globalGenerators": ["@nx/js:typescript-sync"]
+  },
   "analytics": false,
   "parallel": 5
 }

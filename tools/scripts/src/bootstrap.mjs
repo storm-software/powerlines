@@ -37,14 +37,25 @@ try {
     platform: "node"
   });
 
-  const proc = $`pnpm nx reset --onlyDaemon`.timeout(`${2 * 60}s`);
+  let proc = $`pnpm nx reset --onlyDaemon`.timeout(`${2 * 60}s`);
   proc.stdout.on("data", data => {
     echo`${data}`;
   });
-  const result = await proc;
+  let result = await proc;
   if (result.exitCode !== 0) {
     throw new Error(
       `An error occurred while resetting the Nx daemon process: \n\n${result.message}\n`
+    );
+  }
+
+  proc = $`pnpm nx sync`.timeout(`${2 * 60}s`);
+  proc.stdout.on("data", data => {
+    echo`${data}`;
+  });
+  result = await proc;
+  if (result.exitCode !== 0) {
+    throw new Error(
+      `An error occurred while syncing the Nx monorepo: \n\n${result.message}\n`
     );
   }
 

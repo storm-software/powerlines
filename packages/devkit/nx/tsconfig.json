@@ -20,6 +20,9 @@
   "references": [
     {
       "path": "../powerlines"
+    },
+    {
+      "path": "../../../tools/config"
     }
   ],
   "include": [
