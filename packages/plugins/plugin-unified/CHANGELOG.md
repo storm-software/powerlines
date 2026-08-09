@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Unified
 
+## [0.1.275](https://github.com/storm-software/powerlines/releases/tag/plugin-unified%400.1.275) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.611**
+- Updated **powerlines** to **v0.47.199**
+
 ## [0.1.274](https://github.com/storm-software/powerlines/releases/tag/plugin-unified%400.1.274) (08/09/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.342](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.342) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.611**
+- Updated **plugin-power-plant** to **v0.1.55**
+- Updated **plugin-pulumi** to **v0.6.301**
+- Updated **powerlines** to **v0.47.199**
+
 ## [0.4.341](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.341) (08/09/2026)
 
 ### Updated Dependencies

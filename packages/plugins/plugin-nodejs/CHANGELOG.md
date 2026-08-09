@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Nodejs
 
+## [0.1.607](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.607) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.295**
+- Updated **plugin-babel** to **v0.13.196**
+- Updated **plugin-env** to **v0.16.406**
+- Updated **plugin-plugin** to **v0.12.611**
+- Updated **powerlines** to **v0.47.199**
+
 ## [0.1.606](https://github.com/storm-software/powerlines/releases/tag/plugin-nodejs%400.1.606) (08/09/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.600](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.600) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.119**
+- Updated **powerlines** to **v0.47.199**
+- Updated **unplugin** to **v0.0.167**
+
 ## [0.1.599](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.599) (08/09/2026)
 
 ### Updated Dependencies

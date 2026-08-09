@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.715](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.715) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.295**
+- Updated **plugin-env** to **v0.16.406**
+- Updated **plugin-plugin** to **v0.12.611**
+- Updated **powerlines** to **v0.47.199**
+
 ## [0.10.714](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.714) (08/09/2026)
 
 ### Updated Dependencies

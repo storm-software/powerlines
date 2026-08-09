@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.244](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.244) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
 ## [0.4.240](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.240) (08/09/2026)
 
 ### Source Code Improvements

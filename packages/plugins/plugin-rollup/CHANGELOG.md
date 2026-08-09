@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rollup
 
+## [0.7.654](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.654) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.119**
+- Updated **powerlines** to **v0.47.199**
+- Updated **unplugin** to **v0.0.167**
+
 ## [0.7.653](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.653) (08/09/2026)
 
 ### Updated Dependencies

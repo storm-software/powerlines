@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.6.301](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.301) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.611**
+- Updated **powerlines** to **v0.47.199**
+
 ## [0.6.300](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.300) (08/09/2026)
 
 ### Updated Dependencies

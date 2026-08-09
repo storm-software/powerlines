@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.119](https://github.com/storm-software/powerlines/releases/tag/core%400.48.119) (08/09/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+
 ## [0.48.118](https://github.com/storm-software/powerlines/releases/tag/core%400.48.118) (08/09/2026)
 
 ### Bug Fixes
