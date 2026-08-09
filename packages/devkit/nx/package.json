@@ -8,7 +8,6 @@
     "url": "https://github.com/storm-software/powerlines.git",
     "directory": "packages/devkit/nx"
   },
-  "type": "commonjs",
   "exports": {
     "./package.json": "./package.json",
     "./docs/*": "./docs/*",

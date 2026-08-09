@@ -46,5 +46,6 @@
     // },
     "./dist/tools/nx/dist/index.js"
   ],
-  "analytics": false
+  "analytics": false,
+  "parallel": 5
 }
