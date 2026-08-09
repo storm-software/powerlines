@@ -33,10 +33,7 @@ const config = defineTSDownConfig([
     clean: false,
     unbundle: false,
     exports: false,
-    fixedExtension: false,
-    deps: {
-      skipNodeModulesBundle: true
-    }
+    fixedExtension: false
   },
   {
     name: "nx-libs",
@@ -51,10 +48,7 @@ const config = defineTSDownConfig([
     clean: false,
     unbundle: true,
     exports: false,
-    fixedExtension: false,
-    deps: {
-      skipNodeModulesBundle: true
-    }
+    fixedExtension: false
   }
 ]);
 

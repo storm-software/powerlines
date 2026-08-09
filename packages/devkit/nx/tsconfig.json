@@ -1,26 +1,27 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
+    "incremental": true,
+    "composite": true,
     "target": "ESNext",
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "moduleDetection": "force",
     "rootDir": "../../../",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": [
-      "node"
-    ],
+    "resolveJsonModule": true,
+    "types": ["node"],
     "strict": false,
     "outDir": "../../../dist/out-tsc",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
-    "ignoreDeprecations": "6.0",
-    "composite": true,
-    "incremental": true,
-    "resolveJsonModule": true
+    "ignoreDeprecations": "6.0"
   },
+  "references": [
+    {
+      "path": "../powerlines"
+    }
+  ],
   "include": [
     "**/*.json",
     "src/**/*.ts",
@@ -33,10 +34,5 @@
     "src/generators/**/files/**/*",
     "src/**/*.spec.ts",
     "src/**/*.test.ts"
-  ],
-  "references": [
-    {
-      "path": "../powerlines"
-    }
   ]
 }

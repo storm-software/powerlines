@@ -26,6 +26,17 @@
         ]
       }
     },
+    "build-base": {
+      "cache": true,
+      "inputs": ["typescript", "^production"],
+      "outputs": ["{projectRoot}/dist/src"],
+      "dependsOn": ["build-untyped", "typecheck"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsdown --config=tsdown.config.mjs",
+        "cwd": "{projectRoot}"
+      }
+    },
     "build": {
       "cache": true,
       "inputs": ["typescript", "^production"],
