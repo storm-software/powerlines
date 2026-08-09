@@ -207,11 +207,7 @@
   "bin": {
     "powerlines": "./bin/bin.mjs"
   },
-  "files": [
-    "dist",
-    "bin",
-    "files"
-  ],
+  "files": ["dist", "bin", "files"],
   "dependencies": {
     "@babel/types": "catalog:",
     "@power-plant/schema": "catalog:",
@@ -234,6 +230,7 @@
     "yaml": "catalog:"
   },
   "devDependencies": {
+    "@powerlines/tools-config": "workspace:*",
     "@storm-software/testing-tools": "catalog:",
     "@types/node": "catalog:",
     "typescript": "^6.0.3",

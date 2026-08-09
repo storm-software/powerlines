@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "type": "module",
   "private": true,
+  "dependencies": {
+    "tsdown": "catalog:"
+  },
   "exports": {
     "./package.json": "./package.json",
     "./tsdown.config": "./tsdown.config.ts",

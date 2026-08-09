@@ -29,5 +29,10 @@ export default defineConfig({
     "src/components/*.tsx",
     "src/helpers/*.ts"
   ],
+  tsdown: {
+    dts: {
+      build: true
+    }
+  },
   plugins: [plugin(), alloy()]
 });

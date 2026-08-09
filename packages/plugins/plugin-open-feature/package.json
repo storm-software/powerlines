@@ -160,7 +160,6 @@
     "@power-plant/alloy-js": "catalog:",
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-automd": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/convert": "catalog:",
     "@stryke/env": "catalog:",
@@ -177,6 +176,7 @@
   },
   "devDependencies": {
     "@openfeature/flagd-provider": "catalog:",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

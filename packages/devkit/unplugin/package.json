@@ -152,6 +152,7 @@
     "rollup-plugin-typescript2": "catalog:"
   },
   "devDependencies": {
+    "@powerlines/tools-config": "workspace:*",
     "@farmfe/cli": "catalog:",
     "@farmfe/core": "catalog:",
     "@nuxt/kit": "catalog:",

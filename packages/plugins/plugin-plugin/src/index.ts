@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* -------------------------------------------------------------------
 
                    🗲 Storm Software - Powerlines
@@ -55,12 +54,7 @@ export const plugin = <
             types: false
           },
           resolve: {
-            external: [
-              "powerlines",
-              /^powerlines\/.*$/,
-              /^@powerlines\/.*$/,
-              /^@power-plant\/.*$/
-            ]
+            external: ["powerlines", /^@powerlines\//, /^@power-plant\//]
           },
           tsdown: {
             target: "esnext",

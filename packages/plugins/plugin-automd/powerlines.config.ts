@@ -22,6 +22,11 @@ import { defineConfig } from "powerlines/config";
 export default defineConfig({
   skipCache: true,
   input: ["src/**/*.ts"],
+  tsdown: {
+    dts: {
+      build: true
+    }
+  },
   plugins: [plugin()],
   resolve: {
     noExternal: ["automd"],

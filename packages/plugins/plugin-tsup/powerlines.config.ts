@@ -20,5 +20,10 @@ import plugin from "@powerlines/core/plugin-base";
 import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
+  tsdown: {
+    dts: {
+      build: true
+    }
+  },
   plugins: [plugin()]
 });

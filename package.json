@@ -28,11 +28,7 @@
     "node": ">=24.16.0",
     "pnpm": ">=11.9.0"
   },
-  "keywords": [
-    "storm-software",
-    "powerlines",
-    "sullivanpj"
-  ],
+  "keywords": ["storm-software", "powerlines", "sullivanpj"],
   "scripts": {
     "adr": "pnpm log4brains adr new",
     "adr-preview": "pnpm log4brains preview",
@@ -72,7 +68,7 @@
     "@storm-software/config-tools": "catalog:",
     "@storm-software/cspell": "catalog:",
     "@storm-software/eslint": "catalog:",
-    "@storm-software/eslint-plugin-pnpm": "^0.0.76",
+    "@storm-software/eslint-plugin-pnpm": "catalog:",
     "@storm-software/eslint-plugin-tsdoc": "catalog:",
     "@storm-software/git-tools": "catalog:",
     "@storm-software/linting-tools": "catalog:",
@@ -82,6 +78,7 @@
     "@storm-software/testing-tools": "catalog:",
     "@storm-software/tsconfig": "catalog:",
     "@storm-software/untyped": "catalog:",
+    "@stryke/capnp": "catalog:",
     "@storm-software/workspace-tools": "catalog:",
     "@swc-node/register": "catalog:",
     "@swc/core": "catalog:",
@@ -125,6 +122,6 @@
       "release"
     ]
   },
-  "prettier": "@storm-software/prettier/recommended.json",
+  "prettier": "@storm-software/prettier",
   "triggerEmptyDevReleaseByIncrementingThisNumber": 0
 }

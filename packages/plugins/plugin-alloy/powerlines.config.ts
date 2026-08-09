@@ -58,6 +58,9 @@ export default defineConfig({
       transform: {
         jsx: "preserve"
       }
+    },
+    dts: {
+      build: true
     }
   }
 });

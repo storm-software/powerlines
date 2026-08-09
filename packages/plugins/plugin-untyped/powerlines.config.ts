@@ -21,5 +21,10 @@ import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
   input: ["src/index.ts", "src/types/*.ts"],
+  tsdown: {
+    dts: {
+      build: true
+    }
+  },
   plugins: [plugin()]
 });

@@ -27,8 +27,6 @@ catalog:
   "@alloy-js/markdown": ^0.24.0
   "@alloy-js/typescript": ^0.24.0
   "@arethetypeswrong/core": ^0.18.5
-  "@asyncapi/generator": ^2.11.0
-  "@asyncapi/parser": ^3.6.0
   "@babel/core": ^8.0.1
   "@babel/generator": ^8.0.0
   "@babel/helper-plugin-utils": ^8.0.1
@@ -43,9 +41,6 @@ catalog:
   "@cloudflare/unenv-preset": ^2.16.1
   "@cloudflare/workers-types": ^4.20260702.1
   "@content-collections/core": ^0.12.0
-  "@deepkit/core": ^1.0.19
-  "@deepkit/type": ^1.0.19
-  "@deepkit/type-spec": ^1.0.19
   "@donedeal0/superdiff": ^3.2.0
   "@farmfe/cli": ^1.0.5
   "@farmfe/core": ^1.7.11
@@ -57,10 +52,9 @@ catalog:
   "@jest/types": ^30.4.1
   "@jridgewell/sourcemap-codec": ^1.5.5
   "@ls-lint/ls-lint": ^2.3.1
-  "@msgpack/msgpack": ^3.1.3
   "@napi-rs/cli": ^3.8.2
   "@napi-rs/wasm-runtime": ^1.2.2
-  "@noble/ciphers": ^2.2.0
+  "@noble/ciphers": ^2.3.0
   "@nuxt/kit": ^4.5.2
   "@nuxt/schema": ^4.5.2
   "@nx/devkit": ^23.1.1
@@ -97,14 +91,6 @@ catalog:
   "@power-plant/prisma-schema": ^0.0.1
   "@power-plant/schema": ^0.0.81
   "@power-plant/style-dictionary": ^0.0.68
-  "@prisma/client-generator-registry": 7.6.0
-  "@prisma/client-generator-ts": 7.6.0
-  "@prisma/config": 7.6.0
-  "@prisma/dmmf": 7.6.0
-  "@prisma/generator-helper": 7.6.0
-  "@prisma/get-platform": 6.19.3
-  "@prisma/migrate": 7.6.0
-  "@prisma/prisma-schema-wasm": 6.19.0-26.2ba551f319ab1df4bc874a89965d8b3641056773
   "@pulumi/cloudflare": ^6.19.0
   "@pulumi/pulumi": ^3.256.0
   "@rolldown/pluginutils": ^1.0.1
@@ -132,7 +118,7 @@ catalog:
   "@storm-software/git-tools": ^2.131.138
   "@storm-software/linting-tools": ^1.134.60
   "@storm-software/markdownlint": ^0.30.285
-  "@storm-software/pnpm-tools": ^0.7.143
+  "@storm-software/pnpm-tools": ^0.7.144
   "@storm-software/prettier": ^0.59.183
   "@storm-software/testing-tools": ^1.119.282
   "@storm-software/tsconfig": ^0.48.196
@@ -140,7 +126,7 @@ catalog:
   "@storm-software/tsup": ^0.2.288
   "@storm-software/unbuild": ^0.57.291
   "@storm-software/untyped": ^0.24.272
-  "@storm-software/workspace-tools": ^1.296.114
+  "@storm-software/workspace-tools": ^1.296.115
   "@stryke/async": ^0.1.35
   "@stryke/capnp": ^0.12.136
   "@stryke/cli": ^0.13.81
@@ -149,7 +135,6 @@ catalog:
   "@stryke/fs": ^0.33.109
   "@stryke/hash": ^0.13.62
   "@stryke/helpers": ^0.10.47
-  "@stryke/http": ^0.12.99
   "@stryke/json": ^0.15.31
   "@stryke/path": ^0.29.34
   "@stryke/string-format": ^0.17.49
@@ -157,7 +142,6 @@ catalog:
   "@stryke/types": ^0.12.35
   "@stryke/unique-id": ^0.3.120
   "@stryke/url": ^0.4.59
-  "@stryke/zod": ^0.3.53
   "@swc-node/register": ^1.12.1
   "@swc/core": ^1.15.47
   "@swc/helpers": ^0.5.23
@@ -179,12 +163,9 @@ catalog:
   "@types/react-dom": ^19.2.4
   "@types/semver": ^7.8.0
   "@types/unist": ^3.0.3
-  "@valibot/to-json-schema": ^1.7.1
   "@rolldown/plugin-babel": ^0.2.3
   "@vitejs/plugin-react": ^6.0.5
   "@vitest/coverage-v8": ~4.1.10
-  ajv: ^8.20.0
-  ajv-formats: ^3.0.1
   astro: ^7.2.0
   automd: ^0.4.3
   babel-plugin-react-compiler: ^1.0.0
@@ -204,7 +185,6 @@ catalog:
   eslint-flat-config-utils: ^2.1.4
   execa: ^9.6.1
   flat-cache: ^6.1.23
-  fp-ts: ^2.16.11
   get-port-please: ^3.2.0
   glob: ^13.0.6
   graphql: ^17.0.2
@@ -228,19 +208,16 @@ catalog:
   next: ^16.3.0
   nitro: 3.0.260429-beta
   nx: 23.1.0
-  openapi-typescript: ^7.13.0
   oxc-parser: ^0.99.0
   oxc-resolver: ^11.24.2
   oxc-transform: ^0.99.0
   oxlint: ^1.77.0
   oxlint-tsgolint: ^0.14.2
   picomatch: ^4.0.5
-  piscina: ^5.1.4
   pluralize: ^8.0.0
   prettier: ^3.9.6
   prettier-plugin-organize-imports: ^4.3.0
   prettier-plugin-sh: ^0.19.0
-  prisma-util: ^2.1.1
   protobufjs: ^7.6.5
   publint: ^0.3.23
   react: ^19.2.8
@@ -263,14 +240,12 @@ catalog:
   svgo: ^4.0.2
   tinypool: ^2.1.0
   ts-morph: ^27.0.2
-  ts-pattern: ^5.9.0
   tsdown: ^0.22.14
   tslib: ^2.8.1
   tsup: 8.4.0
   typedoc: 0.25.12
   typedoc-plugin-markdown: 4.0.0-next.20
   ua-parser-modern: ^0.1.1
-  unctx: ^2.5.0
   unenv: npm:unenv-nightly@2.0.0-20251124-134829-ab99519
   undici: ^7.29.0
   undici-types: ^7.29.0
@@ -281,7 +256,6 @@ catalog:
   unplugin-combine: ^2.4.0
   unstorage: ^1.17.5
   untyped: ^1.5.2
-  valibot: ^1.4.2
   verdaccio: 6.5.2
   vite: ^8.2.1
   vitest: ~4.1.10
@@ -291,8 +265,6 @@ catalog:
   zod: ^4.4.3
   zx: ^8.8.5
 fetchTimeout: 240000
-ignoredBuiltDependencies:
-  - rspack
 minimumReleaseAgeExclude:
   - "@storm-software/*"
   - "@stryke/*"
@@ -309,99 +281,12 @@ minimumReleaseAgeExclude:
   - "@rushstack/terminal@0.24.1"
   - "@rushstack/ts-command-line@5.3.11"
   - "@asyncapi/parser@3.6.2"
-onlyBuiltDependencies:
-  - "@biomejs/biome"
-  - "@hyperjump/json-pointer"
-  - "@hyperjump/json-schema"
-  - "@hyperjump/json-schema-core"
-  - "@hyperjump/pact"
-  - "@parcel/watcher"
-  - "@prisma/engines"
-  - "@swc/core"
-  - bufferutil
-  - core-js
-  - esbuild
-  - lefthook
-  - nx
-  - oxc-resolver
-  - plain-crypto-js
-  - protobufjs
-  - sharp
-  - unrs-resolver
-  - utf-8-validate
-  - workerd
 overrides:
-  "@powerlines/cli": workspace:*
-  "@powerlines/core": workspace:*
-  "@powerlines/engine": workspace:*
-  "@powerlines/nx": workspace:*
-  "@powerlines/plugin-alloy": workspace:*
-  "@powerlines/plugin-asyncapi": workspace:*
-  "@powerlines/plugin-automd": workspace:*
-  "@powerlines/plugin-babel": workspace:*
-  "@powerlines/plugin-biome": workspace:*
-  "@powerlines/plugin-capnp": workspace:*
-  "@powerlines/plugin-cloudflare": workspace:*
-  "@powerlines/plugin-content-collections": workspace:*
-  "@powerlines/plugin-crypto": workspace:*
-  "@powerlines/plugin-date": workspace:*
-  "@powerlines/plugin-deepkit": workspace:*
-  "@powerlines/plugin-env": workspace:*
-  "@powerlines/plugin-esbuild": workspace:*
-  "@powerlines/plugin-eslint": workspace:*
-  "@powerlines/plugin-graphql": workspace:*
-  "@powerlines/plugin-hey-api": workspace:*
-  "@powerlines/plugin-i18next": workspace:*
-  "@powerlines/plugin-id": workspace:*
-  "@powerlines/plugin-image-compression": workspace:*
-  "@powerlines/plugin-jest": workspace:*
-  "@powerlines/plugin-marked": workspace:*
-  "@powerlines/plugin-napi-rs": workspace:*
-  "@powerlines/plugin-nitro": workspace:*
-  "@powerlines/plugin-nodejs": workspace:*
-  "@powerlines/plugin-open-feature": workspace:*
-  "@powerlines/plugin-open-telemetry": workspace:*
-  "@powerlines/plugin-openapi": workspace:*
-  "@powerlines/plugin-oxc-transform": workspace:*
-  "@powerlines/plugin-oxlint": workspace:*
-  "@powerlines/plugin-plugin": workspace:*
-  "@powerlines/plugin-prisma": workspace:*
-  "@powerlines/plugin-power-plant": workspace:*
-  "@powerlines/plugin-pulumi": workspace:*
-  "@powerlines/plugin-react": workspace:*
-  "@powerlines/plugin-rolldown": workspace:*
-  "@powerlines/plugin-rollup": workspace:*
-  "@powerlines/plugin-rspack": workspace:*
-  "@powerlines/plugin-satori": workspace:*
-  "@powerlines/plugin-style-dictionary": workspace:*
-  "@powerlines/plugin-stylelint": workspace:*
-  "@powerlines/plugin-swc": workspace:*
-  "@powerlines/plugin-tamagui": workspace:*
-  "@powerlines/plugin-terraform": workspace:*
-  "@powerlines/plugin-tsc": workspace:*
-  "@powerlines/plugin-tsdown": workspace:*
-  "@powerlines/plugin-tsup": workspace:*
-  "@powerlines/plugin-typedoc": workspace:*
-  "@powerlines/plugin-unbuild": workspace:*
-  "@powerlines/plugin-unenv": workspace:*
-  "@powerlines/plugin-unified": workspace:*
-  "@powerlines/plugin-unimport": workspace:*
-  "@powerlines/plugin-untyped": workspace:*
-  "@powerlines/plugin-vite": workspace:*
-  "@powerlines/plugin-webpack": workspace:*
-  "@powerlines/tools-config": workspace:*
-  "@powerlines/tools-nx": workspace:*
-  "@powerlines/tools-readme-templates": workspace:*
-  "@powerlines/tools-scripts": workspace:*
-  "@powerlines/tsconfig": workspace:*
-  "@powerlines/tsdoc": workspace:*
-  "@powerlines/unplugin": workspace:*
   "@typescript/vfs": ">=1.6.4"
   debug: ">=4.3.7"
   follow-redirects: ">=1.15.9"
   lru-cache: ^8.0.5
   nth-check: ">=2.1.1"
-  powerlines: workspace:*
   shell-quote: ">=1.8.1"
   simple-git: ">=3.27.0"
 patchedDependencies:
@@ -409,6 +294,9 @@ patchedDependencies:
   "@content-collections/core": patches/@content-collections__core.patch
   "@prisma/client-generator-registry@6.19.3": patches/@prisma__client-generator-registry@6.19.3.patch
   automd: patches/automd.patch
-shamefullyHoist: true
 trustPolicy: off
+cleanupUnusedCatalogs: true
+catalogMode: strict
+linkWorkspacePackages: true
+engineStrict: true
 useNodeVersion: 26.2.0

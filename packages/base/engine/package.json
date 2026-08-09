@@ -159,6 +159,7 @@
     "unplugin": "catalog:"
   },
   "devDependencies": {
+    "@powerlines/tools-config": "workspace:*",
     "@storm-software/testing-tools": "catalog:",
     "@stryke/types": "catalog:",
     "@types/node": "catalog:",

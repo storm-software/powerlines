@@ -39,7 +39,6 @@ import { ModuleFormat } from "rolldown";
 import { UserConfig as BuildOptions, Format as TsdownFormat } from "tsdown";
 import type { UserConfig } from "tsdown/config";
 import rolldown from "./rolldown";
-import { UnpluginExecutionOptions } from "./types";
 
 export interface GetDependencyConfigOptions {
   /**
@@ -326,7 +325,11 @@ export function resolveOptions<TContext extends UnresolvedContext>(
         alias: context.alias
       },
       platform: context.config.platform,
-      dts: context.config.output.dts,
+      dts: context.config.output.dts
+        ? {
+            build: true
+          }
+        : undefined,
       outDir: relativePath(
         appendPath(context.config.root, context.config.cwd),
         context.config.output.path
@@ -445,10 +448,17 @@ export function plugin(options: UserConfig = {}): UserConfig {
                 .filter(Boolean) as ResolveConfig["external"])
             : undefined,
           noExternal:
-            (options.deps?.skipNodeModulesBundle && options.deps?.onlyBundle) ||
-            (!options.deps?.skipNodeModulesBundle && options.deps?.alwaysBundle)
+            ((options.deps?.skipNodeModulesBundle ||
+              options.deps?.neverBundle === true) &&
+              options.deps?.onlyBundle) ||
+            (!(
+              options.deps?.skipNodeModulesBundle ||
+              options.deps?.neverBundle === true
+            ) &&
+              options.deps?.alwaysBundle)
               ? (toArray(
-                  options.deps?.skipNodeModulesBundle
+                  options.deps?.skipNodeModulesBundle ||
+                    options.deps?.neverBundle === true
                     ? options.deps?.onlyBundle
                     : options.deps?.alwaysBundle
                 )
@@ -466,7 +476,7 @@ export function plugin(options: UserConfig = {}): UserConfig {
               : undefined
         },
         tsconfig: isSetString(options.tsconfig) ? options.tsconfig : undefined
-      } as UnpluginExecutionOptions)
+      })
     ]
   };
 }

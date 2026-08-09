@@ -121,7 +121,7 @@
   ],
   "prettier.requireConfig": true,
   "prettier.bracketSameLine": true,
-  "prettier.configPath": "./node_modules/@storm-software/prettier/recommended.json",
+  "prettier.configPath": "./node_modules/@storm-software/prettier/recommended.mjs",
   "prettier.ignorePath": "./node_modules/@storm-software/prettier/.prettierignore",
   "prettier.enableDebugLogs": false,
   "prettier.enable": true,

@@ -188,7 +188,6 @@
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-automd": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/convert": "catalog:",
     "@stryke/env": "catalog:",
@@ -217,6 +216,7 @@
     "@opentelemetry/sdk-logs": "catalog:",
     "@opentelemetry/sdk-metrics": "catalog:",
     "@opentelemetry/sdk-trace-base": "catalog:",
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:",
     "protobufjs": "catalog:"
   },

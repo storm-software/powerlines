@@ -27,6 +27,11 @@ export default defineConfig({
     "src/components/*.ts",
     "src/components/*.tsx"
   ],
+  tsdown: {
+    dts: {
+      build: true
+    }
+  },
   plugins: [plugin(), alloy()],
   resolve: {
     external: ["react", "react-dom"]

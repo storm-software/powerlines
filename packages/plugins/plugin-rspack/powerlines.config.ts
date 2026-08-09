@@ -21,5 +21,10 @@ import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
   skipCache: true,
+  tsdown: {
+    dts: {
+      build: true
+    }
+  },
   plugins: [plugin()]
 });

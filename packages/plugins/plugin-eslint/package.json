@@ -126,6 +126,7 @@
     "powerlines": "workspace:*"
   },
   "devDependencies": {
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {

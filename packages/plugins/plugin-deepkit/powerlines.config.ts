@@ -32,6 +32,9 @@ export default defineConfig({
     ]
   },
   tsdown: {
-    unbundle: false
+    unbundle: false,
+    dts: {
+      build: true
+    }
   }
 });

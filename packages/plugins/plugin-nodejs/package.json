@@ -123,13 +123,13 @@
     "@powerlines/plugin-alloy": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-env": "workspace:*",
-    "@powerlines/plugin-plugin": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/string-format": "catalog:",
     "defu": "catalog:",
     "powerlines": "workspace:*"
   },
   "devDependencies": {
+    "@powerlines/plugin-plugin": "workspace:*",
     "@types/node": "catalog:"
   },
   "publishConfig": {
