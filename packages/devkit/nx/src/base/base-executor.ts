@@ -203,7 +203,10 @@ export function withExecutor<
                               assets: options.assets
                             },
                       minify: options.minify,
-                      sourceMap: options.sourceMap
+                      sourceMap: options.sourceMap,
+                      ...(isSetArray(options.format)
+                        ? { format: options.format }
+                        : {})
                     } as OutputConfig,
                     resolve:
                       isSetArray(options.external) ||

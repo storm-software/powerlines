@@ -112,8 +112,8 @@ export default defineUntypedSchema({
         enum: ["cjs", "esm", "iife"]
       }
     },
-    $resolve: (val: string[] = ["cjs", "esm"]) =>
-      val.filter(format => ["cjs", "esm", "iife"].includes(format))
+    $resolve: (val?: string[]) =>
+      val?.filter(format => ["cjs", "esm", "iife"].includes(format))
   },
   platform: {
     $schema: {

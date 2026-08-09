@@ -89,7 +89,7 @@ Minify the output
 
 ## `format`
 - **Type**: `array`
-- **Default**: `["cjs","esm"]`
+- **Default**: `undefined`
 
 > Format
 

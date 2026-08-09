@@ -92,11 +92,7 @@
           "iife"
         ]
       },
-      "id": "#format",
-      "default": [
-        "cjs",
-        "esm"
-      ]
+      "id": "#format"
     },
     "platform": {
       "title": "Platform",
@@ -221,10 +217,6 @@
   "default": {
     "configIndex": 0,
     "copyPath": {},
-    "format": [
-      "cjs",
-      "esm"
-    ],
     "external": [],
     "noExternal": [],
     "define": {},

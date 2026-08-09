@@ -93,7 +93,6 @@ export interface PrepareExecutorSchema {
   * 
   * The format to build
   * 
-  * @default ["cjs","esm"]
  */
  format?: Array<string>,
 

@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* -------------------------------------------------------------------
 
                    🗲 Storm Software - Powerlines
@@ -41,7 +40,6 @@ import { titleCase } from "@stryke/string-format/title-case";
 import { isError } from "@stryke/type-checks/is-error";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
-import type { PackageJson } from "@stryke/types/package-json";
 import defu from "defu";
 import { readFile } from "node:fs/promises";
 import { readNxJson } from "nx/src/config/nx-json.js";
@@ -51,6 +49,10 @@ import type {
 } from "nx/src/config/workspace-json-project-json.js";
 import type { PackageJson as PackageJsonNx } from "nx/src/utils/package-json.js";
 import { readTargetsFromPackageJson } from "nx/src/utils/package-json.js";
+import {
+  detectPackageManager,
+  getPackageManagerCommand
+} from "nx/src/utils/package-manager.js";
 import type { NxPluginOptions } from "../types/plugin";
 import { CONFIG_INPUTS } from "./constants";
 
@@ -156,6 +158,10 @@ export function createNxPlugin<
         }
 
         const nxJson = readNxJson(contextV2.workspaceRoot);
+        const packageManagerCommand = getPackageManagerCommand(
+          detectPackageManager(contextV2.workspaceRoot),
+          contextV2.workspaceRoot
+        );
         // const resolver = createJiti(contextV2.workspaceRoot, {
         //   debug: !!options?.debug,
         //   interopDefault: true,
@@ -292,7 +298,9 @@ export function createNxPlugin<
                 return {};
               }
 
-              const packageJson: PackageJson = JSON.parse(packageJsonContent);
+              const packageJson = JSON.parse(
+                packageJsonContent
+              ) as PackageJsonNx;
               // if (
               //   !(userConfig && Object.keys(userConfig).length > 0) &&
               //   !packageJson?.[camelCase(framework)]
@@ -310,7 +318,9 @@ export function createNxPlugin<
 
               const projectConfig = getProjectConfigFromProjectRoot(
                 projectRoot,
-                packageJson
+                packageJson as Parameters<
+                  typeof getProjectConfigFromProjectRoot
+                >[1]
               );
               if (!projectConfig) {
                 if (options?.verboseOutput) {
@@ -326,10 +336,11 @@ export function createNxPlugin<
 
               const targets: ProjectConfiguration["targets"] =
                 readTargetsFromPackageJson(
-                  packageJson as PackageJsonNx,
+                  packageJson,
                   nxJson,
                   projectRoot,
-                  context.workspaceRoot
+                  context.workspaceRoot,
+                  packageManagerCommand
                 );
 
               if (options?.verboseOutput) {
