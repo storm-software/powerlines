@@ -109,21 +109,19 @@
       "title": "External",
       "type": "array",
       "description": "The external dependencies",
-      "id": "#external",
-      "default": [],
       "items": {
-        "type": "any"
-      }
+        "type": "string"
+      },
+      "id": "#external"
     },
     "noExternal": {
       "title": "No External",
       "type": "array",
       "description": "The dependencies that should not be treated as external",
-      "id": "#noExternal",
-      "default": [],
       "items": {
-        "type": "any"
-      }
+        "type": "string"
+      },
+      "id": "#noExternal"
     },
     "skipNodeModulesBundle": {
       "title": "Skip Node Modules Bundle",
@@ -199,8 +197,6 @@
   "default": {
     "configIndex": 0,
     "copyPath": {},
-    "external": [],
-    "noExternal": [],
     "define": {},
     "assets": {},
     "additionalArgs": {}

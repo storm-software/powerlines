@@ -112,7 +112,7 @@ export interface BaseExecutorSchema {
   * The external dependencies
   * 
  */
- external?: Array<any>,
+ external?: Array<string>,
 
  /**
   * No External
@@ -120,7 +120,7 @@ export interface BaseExecutorSchema {
   * The dependencies that should not be treated as external
   * 
  */
- noExternal?: Array<any>,
+ noExternal?: Array<string>,
 
  /**
   * Skip Node Modules Bundle

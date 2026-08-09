@@ -127,17 +127,19 @@ export default defineUntypedSchema({
     $schema: {
       title: "External",
       type: "array",
-      description: "The external dependencies"
+      description: "The external dependencies",
+      items: { type: "string" }
     },
-    $resolve: (val: string[] = []) => ([] as string[]).concat(val)
+    $resolve: (val?: string[]) => (Array.isArray(val) ? val : undefined)
   },
   noExternal: {
     $schema: {
       title: "No External",
       type: "array",
-      description: "The dependencies that should not be treated as external"
+      description: "The dependencies that should not be treated as external",
+      items: { type: "string" }
     },
-    $resolve: (val: string[] = []) => ([] as string[]).concat(val)
+    $resolve: (val?: string[]) => (Array.isArray(val) ? val : undefined)
   },
   skipNodeModulesBundle: {
     $schema: {

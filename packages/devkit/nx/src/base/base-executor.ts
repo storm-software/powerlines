@@ -213,17 +213,18 @@ export function withExecutor<
                       isSetArray(options.noExternal) ||
                       isSet(options.skipNodeModulesBundle)
                         ? {
-                            external: isSetArray(options.external)
-                              ? options.external
-                              : undefined,
-                            noExternal: isSetArray(options.noExternal)
-                              ? options.noExternal
-                              : undefined,
-                            skipNodeModulesBundle: isSet(
-                              options.skipNodeModulesBundle
-                            )
-                              ? options.skipNodeModulesBundle
-                              : undefined
+                            ...(isSetArray(options.external)
+                              ? { external: options.external }
+                              : {}),
+                            ...(isSetArray(options.noExternal)
+                              ? { noExternal: options.noExternal }
+                              : {}),
+                            ...(isSet(options.skipNodeModulesBundle)
+                              ? {
+                                  skipNodeModulesBundle:
+                                    options.skipNodeModulesBundle
+                                }
+                              : {})
                           }
                         : undefined,
                     define: isSetObject(options.define)

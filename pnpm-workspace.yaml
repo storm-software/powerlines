@@ -107,41 +107,41 @@ catalog:
   "@shell-shock/preset-cli": ^0.9.34
   "@sinclair/typebox": ^0.34.52
   "@standard-schema/spec": ^1.1.0
-  "@storm-software/build-tools": ^0.158.291
-  "@storm-software/config": ^1.138.67
-  "@storm-software/config-tools": ^1.190.131
-  "@storm-software/cspell": ^0.46.198
-  "@storm-software/esbuild": ^0.53.292
-  "@storm-software/eslint": ^0.170.166
-  "@storm-software/eslint-plugin-pnpm": ^0.0.94
-  "@storm-software/eslint-plugin-tsdoc": ^0.0.94
-  "@storm-software/git-tools": ^2.131.139
-  "@storm-software/linting-tools": ^1.134.61
-  "@storm-software/markdownlint": ^0.30.286
-  "@storm-software/pnpm-tools": ^0.7.145
-  "@storm-software/prettier": ^0.59.184
-  "@storm-software/testing-tools": ^1.119.283
-  "@storm-software/tsconfig": ^0.48.197
-  "@storm-software/tsdoc": ^0.13.283
-  "@storm-software/tsup": ^0.2.289
-  "@storm-software/unbuild": ^0.57.292
-  "@storm-software/untyped": ^0.24.273
-  "@storm-software/workspace-tools": ^1.297.0
-  "@stryke/async": ^0.1.35
-  "@stryke/capnp": ^0.12.136
-  "@stryke/cli": ^0.13.81
-  "@stryke/convert": ^0.7.38
-  "@stryke/env": ^0.20.126
-  "@stryke/fs": ^0.33.109
-  "@stryke/hash": ^0.13.62
-  "@stryke/helpers": ^0.10.47
-  "@stryke/json": ^0.15.31
-  "@stryke/path": ^0.29.34
-  "@stryke/string-format": ^0.17.49
-  "@stryke/type-checks": ^0.6.40
-  "@stryke/types": ^0.12.35
-  "@stryke/unique-id": ^0.3.120
-  "@stryke/url": ^0.4.59
+  "@storm-software/build-tools": ^0.158.292
+  "@storm-software/config": ^1.138.68
+  "@storm-software/config-tools": ^1.190.132
+  "@storm-software/cspell": ^0.46.199
+  "@storm-software/esbuild": ^0.53.293
+  "@storm-software/eslint": ^0.170.167
+  "@storm-software/eslint-plugin-pnpm": ^0.0.95
+  "@storm-software/eslint-plugin-tsdoc": ^0.0.95
+  "@storm-software/git-tools": ^2.131.140
+  "@storm-software/linting-tools": ^1.134.62
+  "@storm-software/markdownlint": ^0.30.287
+  "@storm-software/pnpm-tools": ^0.7.146
+  "@storm-software/prettier": ^0.59.185
+  "@storm-software/testing-tools": ^1.119.284
+  "@storm-software/tsconfig": ^0.48.198
+  "@storm-software/tsdoc": ^0.13.284
+  "@storm-software/tsup": ^0.2.290
+  "@storm-software/unbuild": ^0.57.293
+  "@storm-software/untyped": ^0.24.274
+  "@storm-software/workspace-tools": ^1.297.1
+  "@stryke/async": ^0.1.36
+  "@stryke/capnp": ^0.12.137
+  "@stryke/cli": ^0.13.82
+  "@stryke/convert": ^0.7.39
+  "@stryke/env": ^0.20.127
+  "@stryke/fs": ^0.33.110
+  "@stryke/hash": ^0.13.63
+  "@stryke/helpers": ^0.10.48
+  "@stryke/json": ^0.15.32
+  "@stryke/path": ^0.29.35
+  "@stryke/string-format": ^0.17.50
+  "@stryke/type-checks": ^0.6.41
+  "@stryke/types": ^0.12.36
+  "@stryke/unique-id": ^0.3.121
+  "@stryke/url": ^0.4.60
   "@swc-node/register": ^1.12.1
   "@swc/core": ^1.15.47
   "@swc/helpers": ^0.5.23
@@ -180,7 +180,7 @@ catalog:
   defu: ^6.1.7
   devframe: ^0.1.22
   diff-match-patch: ^1.0.5
-  esbuild: ^0.28.1
+  esbuild: ^0.28.2
   eslint: ^10.8.1
   eslint-flat-config-utils: ^2.1.4
   execa: ^9.6.1
@@ -216,8 +216,6 @@ catalog:
   picomatch: ^4.0.5
   pluralize: ^8.0.0
   prettier: ^3.9.6
-  prettier-plugin-organize-imports: ^4.3.0
-  prettier-plugin-sh: ^0.19.0
   protobufjs: ^7.6.5
   publint: ^0.3.23
   react: ^19.2.8

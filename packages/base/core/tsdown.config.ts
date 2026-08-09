@@ -28,7 +28,11 @@ const config = defineTSDownConfig([
       "src/context/*.ts",
       "src/storage/*.ts",
       "src/plugin-utils/*.ts"
-    ]
+    ],
+    deps: {
+      neverBundle: true,
+      alwaysBundle: ["chalk"]
+    }
   }
 ]);
 
