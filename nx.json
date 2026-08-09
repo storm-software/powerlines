@@ -22,20 +22,20 @@
       "options": {
         "enableTypecheck": false,
         "enableEslint": false,
-        "projectLinks": "alias"
+        "projectLinks": "reference"
       }
     },
     "@storm-software/workspace-tools/plugins/typescript/untyped",
     {
       "plugin": "@storm-software/workspace-tools/plugins/typescript/tsup",
       "options": {
-        "projectLinks": "alias"
+        "projectLinks": "reference"
       }
     },
     {
       "plugin": "@storm-software/workspace-tools/plugins/typescript/tsdown",
       "options": {
-        "projectLinks": "alias"
+        "projectLinks": "reference"
       }
     },
     // {

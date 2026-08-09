@@ -2,17 +2,23 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "moduleDetection": "force",
     "rootDir": "../..",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "strict": false,
     "outDir": "../../dist/out-tsc",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
-    "ignoreDeprecations": "6.0"
+    "ignoreDeprecations": "6.0",
+    "composite": true,
+    "incremental": true
   },
   "include": [
     "src/index.ts",
@@ -21,5 +27,10 @@
     "src/**/*.d.ts",
     "tsup.config.ts"
   ],
-  "exclude": ["vitest.config.mts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+  "exclude": [
+    "vitest.config.mts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ],
+  "references": []
 }

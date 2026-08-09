@@ -1,9 +1,13 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "outDir": "../../../dist/out-tsc",
-    "ignoreDeprecations": "6.0"
+    "ignoreDeprecations": "6.0",
+    "composite": true,
+    "incremental": true
   },
   "include": [
     "src/**/*.ts",
@@ -11,6 +15,21 @@
     "powerlines.config.ts",
     "powerlines.d.ts"
   ],
-  "exclude": ["vitest.config.mts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "reflection": true
+  "exclude": [
+    "vitest.config.mts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ],
+  "reflection": true,
+  "references": [
+    {
+      "path": "../../devkit/powerlines"
+    },
+    {
+      "path": "../plugin-plugin"
+    },
+    {
+      "path": "../plugin-power-plant"
+    }
+  ]
 }

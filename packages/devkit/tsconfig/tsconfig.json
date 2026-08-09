@@ -3,7 +3,12 @@
   "compilerOptions": {
     "resolveJsonModule": true,
     "outDir": "../../../dist/out-tsc",
-    "ignoreDeprecations": "6.0"
+    "ignoreDeprecations": "6.0",
+    "composite": true,
+    "incremental": true
   },
-  "include": ["src/**/*.json"]
+  "include": [
+    "src/**/*.json"
+  ],
+  "references": []
 }

@@ -66,7 +66,9 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
           fixedExtension: true,
           nodeProtocol: true,
           minify: false,
-          dts: true,
+          dts: {
+            build: true
+          },
           shims: true,
           outDir: "dist",
           clean: true,

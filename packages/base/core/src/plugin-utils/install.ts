@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import type { Context } from "@powerlines/core";
+import type { Context } from "../types/context";
 import { install } from "@stryke/fs/install";
 import {
   doesPackageMatch,

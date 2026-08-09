@@ -101,7 +101,8 @@ export const createNodesV2: CreateNodesV2 = [
               packageJson as PackageJsonNx,
               nxJson,
               projectRoot,
-              context.workspaceRoot
+              context.workspaceRoot,
+              { preInstall: "pnpm install", install: "pnpm install", ciInstall: "pnpm install --frozen-lockfile", exec: "pnpm exec" } as any
             );
 
           targets.clean ??= {

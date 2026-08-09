@@ -33,6 +33,7 @@ import { titleCase } from "@stryke/string-format/title-case";
 import { FilterPattern } from "@stryke/types/file";
 import { TsConfigJson } from "@stryke/types/tsconfig";
 import defu from "defu";
+import { dirname, isAbsolute } from "node:path";
 import ts from "typescript";
 import { ResolvedConfig } from "../../types/config";
 import { EnvironmentContext } from "../../types/context";
@@ -67,7 +68,7 @@ async function resolveTsconfigChanges<
     context.config.tsconfigRaw
   );
 
-  const tsconfigFilePath = getTsconfigFilePath(
+  const tsconfigFilePath = resolveAbsoluteTsconfigPath(
     context.config.cwd,
     context.config.root,
     context.config.tsconfig
@@ -203,7 +204,7 @@ export async function initializeTsconfig<
     );
   }
 
-  const tsconfigFilePath = getTsconfigFilePath(
+  const tsconfigFilePath = resolveAbsoluteTsconfigPath(
     context.config.cwd,
     context.config.root,
     context.config.tsconfig
@@ -409,6 +410,30 @@ export function tryTsconfigFilePath(
 }
 
 /**
+ * Resolve an absolute path to the project's `tsconfig.json` file.
+ *
+ * @param workspaceRoot - The root directory of the workspace.
+ * @param projectRoot - The root directory of the project.
+ * @param tsconfig - The path to the tsconfig.json file.
+ * @returns The absolute path to the tsconfig.json file.
+ */
+export function resolveAbsoluteTsconfigPath(
+  workspaceRoot: string,
+  projectRoot: string,
+  tsconfig?: string
+): string {
+  const tsconfigFilePath = getTsconfigFilePath(
+    workspaceRoot,
+    projectRoot,
+    tsconfig
+  );
+
+  return isAbsolute(tsconfigFilePath)
+    ? tsconfigFilePath
+    : appendPath(tsconfigFilePath, workspaceRoot);
+}
+
+/**
  * Check if the TypeScript configuration type matches any of the provided types.
  *
  * @param tsconfigType - The type from the TypeScript configuration.
@@ -540,7 +565,7 @@ export function getParsedTypeScriptConfig(
   originalTsconfigJson?: TSConfig,
   host: ts.ParseConfigHost = ts.sys
 ): ParsedTypeScriptConfig {
-  const tsconfigFilePath = getTsconfigFilePath(
+  const tsconfigFilePath = resolveAbsoluteTsconfigPath(
     workspaceRoot,
     projectRoot,
     tsconfig
@@ -555,10 +580,12 @@ export function getParsedTypeScriptConfig(
     );
   }
 
+  const configDir = dirname(tsconfigFilePath);
+
   const parsedCommandLine = ts.parseJsonConfigFileContent(
     defu(tsconfigRaw ?? {}, tsconfigJson),
     host,
-    appendPath(projectRoot, workspaceRoot)
+    configDir
   );
   if (parsedCommandLine.errors.length > 0) {
     const errorMessage = `Cannot parse the TypeScript compiler options. Please investigate the following issues:

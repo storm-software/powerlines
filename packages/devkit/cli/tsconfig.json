@@ -3,10 +3,30 @@
   "compilerOptions": {
     "jsx": "preserve",
     "jsxImportSource": "@alloy-js/core",
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "outDir": "../../../dist/out-tsc",
-    "ignoreDeprecations": "6.0"
+    "ignoreDeprecations": "6.0",
+    "composite": true,
+    "incremental": true,
+    "resolveJsonModule": true
   },
-  "include": ["src/**/*.ts", "shell-shock.config.ts", "shell-shock.d.ts"],
-  "exclude": ["vitest.config.mts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+  "include": [
+    "src/**/*.ts",
+    "shell-shock.config.ts",
+    "shell-shock.d.ts",
+    "**/*.json",
+    "package.json"
+  ],
+  "exclude": [
+    "vitest.config.mts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ],
+  "references": [
+    {
+      "path": "../powerlines"
+    }
+  ]
 }

@@ -23,6 +23,9 @@ export default defineConfig({
   input: ["src/index.ts", "src/types/*.ts"],
   plugins: [plugin()],
   tsdown: {
-    exports: false
+    exports: false,
+    dts: {
+      build: true
+    }
   }
 });

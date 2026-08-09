@@ -41,42 +41,52 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./src/index.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./helpers": {
+      "types": "./src/helpers/index.ts",
       "import": "./dist/helpers/index.mjs",
       "require": "./dist/helpers/index.cjs"
     },
     "./helpers/ast-utils": {
+      "types": "./src/helpers/ast-utils.ts",
       "import": "./dist/helpers/ast-utils.mjs",
       "require": "./dist/helpers/ast-utils.cjs"
     },
     "./helpers/create-plugin": {
+      "types": "./src/helpers/create-plugin.ts",
       "import": "./dist/helpers/create-plugin.mjs",
       "require": "./dist/helpers/create-plugin.cjs"
     },
     "./helpers/filters": {
+      "types": "./src/helpers/filters.ts",
       "import": "./dist/helpers/filters.mjs",
       "require": "./dist/helpers/filters.cjs"
     },
     "./helpers/module-helpers": {
+      "types": "./src/helpers/module-helpers.ts",
       "import": "./dist/helpers/module-helpers.mjs",
       "require": "./dist/helpers/module-helpers.cjs"
     },
     "./helpers/options": {
+      "types": "./src/helpers/options.ts",
       "import": "./dist/helpers/options.mjs",
       "require": "./dist/helpers/options.cjs"
     },
     "./types": {
+      "types": "./src/types/index.ts",
       "import": "./dist/types/index.mjs",
       "require": "./dist/types/index.cjs"
     },
     "./types/config": {
+      "types": "./src/types/config.ts",
       "import": "./dist/types/config.mjs",
       "require": "./dist/types/config.cjs"
     },
     "./types/plugin": {
+      "types": "./src/types/plugin.ts",
       "import": "./dist/types/plugin.mjs",
       "require": "./dist/types/plugin.cjs"
     },

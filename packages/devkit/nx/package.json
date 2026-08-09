@@ -18,6 +18,7 @@
     "./generators.json": "./generators.json",
     "./generators/*/schema.json": "./dist/src/generators/*/schema.json",
     ".": {
+      "types": "./src/index.ts",
       "import": {
         "types": "./dist/src/index.d.mts",
         "default": "./dist/src/index.mjs"
@@ -32,6 +33,7 @@
       }
     },
     "./index": {
+      "types": "./src/index.ts",
       "import": {
         "types": "./dist/src/index.d.mts",
         "default": "./dist/src/index.mjs"
@@ -46,6 +48,7 @@
       }
     },
     "./base/*": {
+      "types": "./src/base/*/index.ts",
       "import": {
         "types": "./dist/src/base/*.d.mts",
         "default": "./dist/src/base/*.mjs"
@@ -60,6 +63,7 @@
       }
     },
     "./types/*": {
+      "types": "./src/types/*/index.ts",
       "import": {
         "types": "./dist/src/types/*.d.mts",
         "default": "./dist/src/types/*.mjs"
@@ -74,6 +78,7 @@
       }
     },
     "./helpers/*": {
+      "types": "./src/helpers/*/index.ts",
       "import": {
         "types": "./dist/src/helpers/*.d.mts",
         "default": "./dist/src/helpers/*.mjs"
@@ -88,6 +93,7 @@
       }
     },
     "./plugin": {
+      "types": "./src/plugin/index.ts",
       "import": {
         "types": "./dist/src/plugin/index.d.mts",
         "default": "./dist/src/plugin/index.mjs"
@@ -102,6 +108,7 @@
       }
     },
     "./executors/*/untyped": {
+      "types": "./src/executors/*/untyped/index.ts",
       "import": {
         "types": "./dist/src/executors/*/untyped.d.mts",
         "default": "./dist/src/executors/*/untyped.mjs"
@@ -116,6 +123,7 @@
       }
     },
     "./generators/*/untyped": {
+      "types": "./src/generators/*/untyped/index.ts",
       "import": {
         "types": "./dist/src/generators/*/untyped.d.mts",
         "default": "./dist/src/generators/*/untyped.mjs"
@@ -130,6 +138,7 @@
       }
     },
     "./executors/*/executor": {
+      "types": "./src/executors/*/executor/index.ts",
       "import": {
         "types": "./dist/src/executors/*/executor.d.mts",
         "default": "./dist/src/executors/*/executor.mjs"
@@ -144,6 +153,7 @@
       }
     },
     "./generators/*/generator": {
+      "types": "./src/generators/*/generator/index.ts",
       "import": {
         "types": "./dist/src/generators/*/generator.d.mts",
         "default": "./dist/src/generators/*/generator.mjs"

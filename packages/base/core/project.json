@@ -22,7 +22,7 @@
       "inputs": ["typescript", "^production"],
       "outputs": ["{projectRoot}/dist"],
       "executor": "nx:run-commands",
-      "dependsOn": ["clean", "generate-schemas", "^build"],
+      "dependsOn": ["generate-schemas", "^build"],
       "options": {
         "command": "tsdown --config=tsdown.config.ts",
         "cwd": "{projectRoot}"

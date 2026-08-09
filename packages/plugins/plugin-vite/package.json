@@ -41,22 +41,27 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./src/index.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./types": {
+      "types": "./src/types/index.ts",
       "import": "./dist/types/index.mjs",
       "require": "./dist/types/index.cjs"
     },
     "./types/_internal": {
+      "types": "./src/types/_internal/index.ts",
       "import": "./dist/types/_internal.mjs",
       "require": "./dist/types/_internal.cjs"
     },
     "./types/build": {
+      "types": "./src/types/build.ts",
       "import": "./dist/types/build.mjs",
       "require": "./dist/types/build.cjs"
     },
     "./types/plugin": {
+      "types": "./src/types/plugin.ts",
       "import": "./dist/types/plugin.mjs",
       "require": "./dist/types/plugin.cjs"
     },

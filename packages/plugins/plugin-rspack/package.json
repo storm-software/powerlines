@@ -41,30 +41,37 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./src/index.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./helpers": {
+      "types": "./src/helpers/index.ts",
       "import": "./dist/helpers/index.mjs",
       "require": "./dist/helpers/index.cjs"
     },
     "./helpers/resolve-options": {
+      "types": "./src/helpers/resolve-options/index.ts",
       "import": "./dist/helpers/resolve-options.mjs",
       "require": "./dist/helpers/resolve-options.cjs"
     },
     "./helpers/unplugin": {
+      "types": "./src/helpers/unplugin/index.ts",
       "import": "./dist/helpers/unplugin.mjs",
       "require": "./dist/helpers/unplugin.cjs"
     },
     "./types": {
+      "types": "./src/types/index.ts",
       "import": "./dist/types/index.mjs",
       "require": "./dist/types/index.cjs"
     },
     "./types/build": {
+      "types": "./src/types/build.ts",
       "import": "./dist/types/build.mjs",
       "require": "./dist/types/build.cjs"
     },
     "./types/plugin": {
+      "types": "./src/types/plugin.ts",
       "import": "./dist/types/plugin.mjs",
       "require": "./dist/types/plugin.cjs"
     },

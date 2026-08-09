@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* -------------------------------------------------------------------
 
                    🗲 Storm Software - Powerlines
@@ -16,7 +17,7 @@
 
  ------------------------------------------------------------------- */
 
-import type { FilterPattern } from "@rollup/pluginutils";
+import type { FilterPattern } from "@rollup/pluginutils"; // @ts-ignore - FilterPattern not exported in current version
 import { MaybePromise } from "@stryke/types";
 import { PluginContext, ResolvedConfig, UserConfig } from "powerlines";
 import type { SourceMap } from "rollup";

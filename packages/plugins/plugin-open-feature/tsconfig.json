@@ -3,10 +3,16 @@
   "compilerOptions": {
     "jsx": "preserve",
     "jsxImportSource": "@alloy-js/core",
-    "lib": ["esnext"],
-    "types": ["node"],
+    "lib": [
+      "esnext"
+    ],
+    "types": [
+      "node"
+    ],
     "outDir": "../../../dist/out-tsc",
-    "ignoreDeprecations": "6.0"
+    "ignoreDeprecations": "6.0",
+    "composite": true,
+    "incremental": true
   },
   "include": [
     "src/**/*.ts",
@@ -14,5 +20,23 @@
     "powerlines.config.ts",
     "powerlines.d.ts"
   ],
-  "exclude": ["vitest.config.mts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+  "exclude": [
+    "vitest.config.mts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ],
+  "references": [
+    {
+      "path": "../../devkit/powerlines"
+    },
+    {
+      "path": "../plugin-alloy"
+    },
+    {
+      "path": "../plugin-automd"
+    },
+    {
+      "path": "../plugin-plugin"
+    }
+  ]
 }

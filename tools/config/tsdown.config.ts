@@ -34,7 +34,9 @@ export const DEFAULT_OPTIONS: Omit<Partial<UserConfig>, "name"> = {
   platform: "node",
   tsconfig: "./tsconfig.json",
   minify: false,
-  dts: true,
+  dts: {
+    build: true
+  },
   shims: false,
   fixedExtension: true,
   nodeProtocol: true,
