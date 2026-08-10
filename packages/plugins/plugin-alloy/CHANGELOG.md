@@ -2,6 +2,33 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.299](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.299) (08/10/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+- **plugin-alloy:** Resolve issue applying prefix to builtin imports ([e4ded7911](https://github.com/storm-software/powerlines/commit/e4ded7911))
+- **plugin-alloy:** Resolve issue providing `prefix` property to builtin file ([3f165007e](https://github.com/storm-software/powerlines/commit/3f165007e))
+- **plugin-alloy:** Ensure spec is provided to render method ([6b2e36c0d](https://github.com/storm-software/powerlines/commit/6b2e36c0d))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
+### Updated Dependencies
+
+- Updated **plugin-babel** to **v0.13.200**
+- Updated **plugin-plugin** to **v0.12.615**
+- Updated **plugin-power-plant** to **v0.1.59**
+- Updated **powerlines** to **v0.47.203**
+
 ## [0.26.298](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.298) (08/10/2026)
 
 ### Updated Dependencies

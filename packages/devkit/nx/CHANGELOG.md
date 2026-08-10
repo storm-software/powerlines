@@ -2,6 +2,26 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.242](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.242) (08/10/2026)
+
+### Bug Fixes
+
+- **nx:** Resolve issue applying `external` and `noExternal` defaults ([113b5b0c9](https://github.com/storm-software/powerlines/commit/113b5b0c9))
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+- **nx:** Resolve issue with invalid Nx plugin option handling ([61f665032](https://github.com/storm-software/powerlines/commit/61f665032))
+- **core:** Resolve typescript configuration issues ([d5cef1ff1](https://github.com/storm-software/powerlines/commit/d5cef1ff1))
+- **monorepo:** Simplify build and extend build timeout ([5be46332c](https://github.com/storm-software/powerlines/commit/5be46332c))
+- **nx:** Resolve issue with missing javascript in built package ([eec171476](https://github.com/storm-software/powerlines/commit/eec171476))
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.203**
+
 ## [0.13.241](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.241) (08/10/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,27 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.655](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.655) (08/10/2026)
+
+### Miscellaneous
+
+- **core:** Add missing prettier configurations to dev dependencies ([6fe67f4aa](https://github.com/storm-software/powerlines/commit/6fe67f4aa))
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.203**
+
 ## [0.5.654](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.654) (08/10/2026)
 
 ### Updated Dependencies

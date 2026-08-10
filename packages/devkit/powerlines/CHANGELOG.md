@@ -2,6 +2,31 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.203](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.203) (08/10/2026)
+
+### Miscellaneous
+
+- **monorepo:** Remove `bin` from `package.json` temporarily ([11cfbe26b](https://github.com/storm-software/powerlines/commit/11cfbe26b))
+- **monorepo:** Update Power Plant package dependencies ([d42674f3d](https://github.com/storm-software/powerlines/commit/d42674f3d))
+- **monorepo:** Update workspace's devenv modules ([55225b194](https://github.com/storm-software/powerlines/commit/55225b194))
+- **monorepo:** Update GitHub workflow action's SHA versions ([7c714bc4f](https://github.com/storm-software/powerlines/commit/7c714bc4f))
+- **monorepo:** Regenerate workspace's devenv modules ([2abe4fe5d](https://github.com/storm-software/powerlines/commit/2abe4fe5d))
+- **plugin-tsdown:** Update `tsdown` build options to use latest API ([4ed0fd209](https://github.com/storm-software/powerlines/commit/4ed0fd209))
+- **plugin-alloy:** Update alloy-js components to use `prefix` property ([2bdf082a6](https://github.com/storm-software/powerlines/commit/2bdf082a6))
+- **monorepo:** Update workspace packages' dependencies ([6d8e17f5e](https://github.com/storm-software/powerlines/commit/6d8e17f5e))
+
+### Bug Fixes
+
+- **monorepo:** Resolve issue with missing `dependsOn` in `nx-release-publish` targets ([c60c35722](https://github.com/storm-software/powerlines/commit/c60c35722))
+- **nx:** Resolve issue with invalid Nx plugin option handling ([61f665032](https://github.com/storm-software/powerlines/commit/61f665032))
+- **engine:** Resolve issue with missing dev dependencies ([4e9430b63](https://github.com/storm-software/powerlines/commit/4e9430b63))
+- **monorepo:** Resolve configuration issues preventing workspace build ([c91cd0672](https://github.com/storm-software/powerlines/commit/c91cd0672))
+- **plugin-plugin:** Ensure Power Plant packages are marked external ([65d9cb53b](https://github.com/storm-software/powerlines/commit/65d9cb53b))
+
+### Source Code Improvements
+
+- **monorepo:** Update workspace to use project references instead of path aliases ([fff0a68e8](https://github.com/storm-software/powerlines/commit/fff0a68e8))
+
 ## [0.47.202](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.202) (08/10/2026)
 
 ### Updated Dependencies
