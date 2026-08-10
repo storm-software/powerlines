@@ -52,7 +52,7 @@ catalog:
   "@jest/types": ^30.4.1
   "@jridgewell/sourcemap-codec": ^1.5.5
   "@ls-lint/ls-lint": ^2.3.1
-  "@napi-rs/cli": ^3.8.2
+  "@napi-rs/cli": ^3.8.3
   "@napi-rs/wasm-runtime": ^1.2.2
   "@noble/ciphers": ^2.3.0
   "@nuxt/kit": ^4.5.2
@@ -79,18 +79,18 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.81
-  "@power-plant/asyncapi": ^0.0.80
-  "@power-plant/core": ^0.0.84
-  "@power-plant/graphql-codegen": ^0.0.80
+  "@power-plant/alloy-js": ^0.0.83
+  "@power-plant/asyncapi": ^0.0.82
+  "@power-plant/core": ^0.0.86
+  "@power-plant/graphql-codegen": ^0.0.82
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.80
+  "@power-plant/hey-api": ^0.0.82
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.64
-  "@power-plant/prisma": ^0.0.65
+  "@power-plant/openapi-typescript": ^0.0.66
+  "@power-plant/prisma": ^0.0.67
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.82
-  "@power-plant/style-dictionary": ^0.0.69
+  "@power-plant/schema": ^0.0.84
+  "@power-plant/style-dictionary": ^0.0.71
   "@pulumi/cloudflare": ^6.19.0
   "@pulumi/pulumi": ^3.256.0
   "@rolldown/pluginutils": ^1.0.1
@@ -191,7 +191,7 @@ catalog:
   h3: ^1.15.11
   handlebars: ^4.7.9
   human-id: ^4.2.0
-  i18next-cli: ^1.67.8
+  i18next-cli: ^1.67.9
   i18next-resources-for-ts: ^2.1.0
   jest: ^30.4.2
   jest-config: ^30.4.2
@@ -211,7 +211,7 @@ catalog:
   oxc-parser: ^0.99.0
   oxc-resolver: ^11.24.2
   oxc-transform: ^0.99.0
-  oxlint: ^1.77.0
+  oxlint: ^1.78.0
   oxlint-tsgolint: ^0.14.2
   picomatch: ^4.0.5
   pluralize: ^8.0.0
