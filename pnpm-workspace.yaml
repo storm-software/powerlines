@@ -107,26 +107,26 @@ catalog:
   "@shell-shock/preset-cli": ^0.9.34
   "@sinclair/typebox": ^0.34.52
   "@standard-schema/spec": ^1.1.0
-  "@storm-software/build-tools": ^0.158.292
-  "@storm-software/config": ^1.138.68
-  "@storm-software/config-tools": ^1.190.132
-  "@storm-software/cspell": ^0.46.199
-  "@storm-software/esbuild": ^0.53.293
-  "@storm-software/eslint": ^0.170.167
-  "@storm-software/eslint-plugin-pnpm": ^0.0.95
-  "@storm-software/eslint-plugin-tsdoc": ^0.0.95
-  "@storm-software/git-tools": ^2.131.140
-  "@storm-software/linting-tools": ^1.134.62
-  "@storm-software/markdownlint": ^0.30.287
-  "@storm-software/pnpm-tools": ^0.7.146
-  "@storm-software/prettier": ^0.59.185
-  "@storm-software/testing-tools": ^1.119.284
-  "@storm-software/tsconfig": ^0.48.198
-  "@storm-software/tsdoc": ^0.13.284
-  "@storm-software/tsup": ^0.2.290
-  "@storm-software/unbuild": ^0.57.293
-  "@storm-software/untyped": ^0.24.274
-  "@storm-software/workspace-tools": ^1.297.1
+  "@storm-software/build-tools": ^0.158.293
+  "@storm-software/config": ^1.138.69
+  "@storm-software/config-tools": ^1.190.133
+  "@storm-software/cspell": ^0.46.200
+  "@storm-software/esbuild": ^0.53.294
+  "@storm-software/eslint": ^0.170.168
+  "@storm-software/eslint-plugin-pnpm": ^0.0.96
+  "@storm-software/eslint-plugin-tsdoc": ^0.0.96
+  "@storm-software/git-tools": ^2.131.141
+  "@storm-software/linting-tools": ^1.134.63
+  "@storm-software/markdownlint": ^0.30.288
+  "@storm-software/pnpm-tools": ^0.7.147
+  "@storm-software/prettier": ^0.59.186
+  "@storm-software/testing-tools": ^1.119.285
+  "@storm-software/tsconfig": ^0.48.199
+  "@storm-software/tsdoc": ^0.13.285
+  "@storm-software/tsup": ^0.2.291
+  "@storm-software/unbuild": ^0.57.294
+  "@storm-software/untyped": ^0.24.275
+  "@storm-software/workspace-tools": ^1.297.2
   "@stryke/async": ^0.1.36
   "@stryke/capnp": ^0.12.137
   "@stryke/cli": ^0.13.82
@@ -258,7 +258,7 @@ catalog:
   vite: ^8.2.1
   vitest: ~4.1.10
   webpack: ^5.109.2
-  wrangler: ^4.120.0
+  wrangler: ^4.120.1
   yaml: ^2.9.0
   zod: ^4.4.3
   zx: ^8.8.5
