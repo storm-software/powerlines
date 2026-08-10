@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.243](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.243) (08/10/2026)
+
+### Bug Fixes
+
+- **nx:** Remove `tsconfigPath` from Jiti options ([7cfc821c5](https://github.com/storm-software/powerlines/commit/7cfc821c5))
+
 ## [0.13.242](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.242) (08/10/2026)
 
 ### Bug Fixes
