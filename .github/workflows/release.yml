@@ -69,7 +69,7 @@ jobs:
           storm-bot-github-token: ${{ secrets.STORM_BOT_GITHUB_TOKEN }}
 
       - name: Release repository updates
-        run: storm-software/action-release@main
+        uses: storm-software/action-release@main
         with:
           tag: ${{ inputs.tag }}
           env: |
