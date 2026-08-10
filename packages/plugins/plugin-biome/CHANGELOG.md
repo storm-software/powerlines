@@ -2,6 +2,13 @@
 
 # Changelog for Powerlines - Plugin Biome
 
+## [0.2.668](https://github.com/storm-software/powerlines/releases/tag/plugin-biome%400.2.668) (08/10/2026)
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.613**
+- Updated **powerlines** to **v0.47.201**
+
 ## [0.2.667](https://github.com/storm-software/powerlines/releases/tag/plugin-biome%400.2.667) (08/09/2026)
 
 ### Updated Dependencies

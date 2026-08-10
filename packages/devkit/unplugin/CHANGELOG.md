@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.169](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.169) (08/10/2026)
+
+### Continuous Integration
+
+- **monorepo:** Update release workflow to use `storm-software/action-release` action ([739560192](https://github.com/storm-software/powerlines/commit/739560192))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.121**
+
 ## [0.0.168](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.168) (08/09/2026)
 
 ### Updated Dependencies
