@@ -155,8 +155,7 @@ export function withExecutor<
         context.projectsConfigurations.projects[context.projectName]!;
 
       const jiti = createJiti(context.root, {
-        cache: false,
-        tsconfigPaths: true
+        cache: false
       });
       // Load via jiti — static require() of powerlines/plugin-utils fails when Nx
       // registers ts-node + tsconfig paths (maps to ESM .ts source under type:module).
