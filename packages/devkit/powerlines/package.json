@@ -204,10 +204,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "bin": {
-    "powerlines": "./bin/bin.mjs"
-  },
-  "files": ["dist", "bin", "files"],
+  "files": ["dist", "files"],
   "dependencies": {
     "@babel/types": "catalog:",
     "@power-plant/schema": "catalog:",
