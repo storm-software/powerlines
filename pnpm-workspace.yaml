@@ -52,7 +52,7 @@ catalog:
   "@jest/types": ^30.4.1
   "@jridgewell/sourcemap-codec": ^1.5.5
   "@ls-lint/ls-lint": ^2.3.1
-  "@napi-rs/cli": ^3.8.3
+  "@napi-rs/cli": ^3.8.4
   "@napi-rs/wasm-runtime": ^1.2.2
   "@noble/ciphers": ^2.3.0
   "@nuxt/kit": ^4.5.2

@@ -160,9 +160,7 @@ function normalizePath(
 function normalizeGlobPatterns(
   workspaceRoot: string,
   patterns:
-    | string
-    | Omit<AssetGlob, "output">
-    | (string | Omit<AssetGlob, "output">)[]
+    string | Omit<AssetGlob, "output"> | (string | Omit<AssetGlob, "output">)[]
 ): string[] {
   return getUnique(
     toArray(patterns)
@@ -1839,12 +1837,9 @@ export class VirtualFileSystem implements VirtualFileSystemInterface {
    * @returns The metadata of the file, or undefined if the file does not exist.
    */
   public getMetadata(pathOrId: string): VirtualFileMetadata | undefined {
-    const resolved = this.resolveSync(pathOrId);
-    if (resolved && this.metadata[resolved]) {
-      return this.metadata[resolved];
-    }
+    const id = this.ids[pathOrId] ?? pathOrId;
 
-    return undefined;
+    return this.metadata[id];
   }
 
   /**
