@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.621](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.621) (08/11/2026)
+
+### Bug Fixes
+
+- **plugin-plugin:** Fixed issue resolving default exports in CJS ([8b78ae488](https://github.com/storm-software/powerlines/commit/8b78ae488))
+
 ## [0.12.620](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.620) (08/11/2026)
 
 ### Updated Dependencies
