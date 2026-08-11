@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.125](https://github.com/storm-software/powerlines/releases/tag/core%400.48.125) (08/10/2026)
+
+### Bug Fixes
+
+- **plugin-power-plant:** Resolve issue with vfs in Power Plant plugin ([f076355c8](https://github.com/storm-software/powerlines/commit/f076355c8))
+
 ## [0.48.120](https://github.com/storm-software/powerlines/releases/tag/core%400.48.120) (08/09/2026)
 
 ### Bug Fixes
