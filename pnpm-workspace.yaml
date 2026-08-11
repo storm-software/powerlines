@@ -79,18 +79,18 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.85
-  "@power-plant/asyncapi": ^0.0.84
+  "@power-plant/alloy-js": ^0.0.86
+  "@power-plant/asyncapi": ^0.0.85
   "@power-plant/core": ^0.0.89
-  "@power-plant/graphql-codegen": ^0.0.84
+  "@power-plant/graphql-codegen": ^0.0.85
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.84
+  "@power-plant/hey-api": ^0.0.85
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.68
-  "@power-plant/prisma": ^0.0.69
+  "@power-plant/openapi-typescript": ^0.0.69
+  "@power-plant/prisma": ^0.0.70
   "@power-plant/prisma-schema": ^0.0.1
   "@power-plant/schema": ^0.0.87
-  "@power-plant/style-dictionary": ^0.0.73
+  "@power-plant/style-dictionary": ^0.0.74
   "@pulumi/cloudflare": ^6.19.0
   "@pulumi/pulumi": ^3.256.0
   "@rolldown/pluginutils": ^1.0.1

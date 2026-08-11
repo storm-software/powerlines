@@ -40,7 +40,7 @@ export const DEFAULT_OPTIONS: Omit<Partial<UserConfig>, "name"> = {
   shims: false,
   fixedExtension: true,
   nodeProtocol: true,
-  unbundle: true,
+  unbundle: false,
   deps: {
     neverBundle: true
   }
