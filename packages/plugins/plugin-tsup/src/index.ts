@@ -91,4 +91,3 @@ export const plugin = <TContext extends TsupPluginContext = TsupPluginContext>(
   };
 };
 
-export default plugin;

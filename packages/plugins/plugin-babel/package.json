@@ -106,6 +106,7 @@
     "@powerlines/core": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/fs": "catalog:",
+    "@stryke/helpers": "catalog:",
     "@stryke/path": "catalog:",
     "@stryke/type-checks": "catalog:",
     "@stryke/types": "catalog:",

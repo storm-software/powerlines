@@ -6,7 +6,7 @@
 # compiled output
 dist
 tmp
-/out-tsc
+out-tsc
 out
 .nx
 **/.powerlines

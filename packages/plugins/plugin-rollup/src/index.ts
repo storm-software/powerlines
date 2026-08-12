@@ -91,4 +91,3 @@ export const plugin = <
   };
 };
 
-export default plugin;

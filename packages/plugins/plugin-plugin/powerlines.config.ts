@@ -16,17 +16,15 @@
 
  ------------------------------------------------------------------- */
 
-import tsdown from "@powerlines/plugin-tsdown";
+import { plugin as tsdown } from "@powerlines/plugin-tsdown";
 import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
   input: ["src/index.ts", "src/types/*.ts"],
-  plugins: [
-    tsdown({
-      exports: false,
-      dts: {
-        build: true
-      }
-    })
-  ]
+  tsdown: {
+    dts: {
+      build: true
+    }
+  },
+  plugins: [tsdown()]
 });

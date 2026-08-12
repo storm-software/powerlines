@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import plugin from "@powerlines/core/plugin-base";
+import { plugin } from "@powerlines/core/plugin-base";
 import { defineConfig } from "powerlines/config";
 
 export default defineConfig({

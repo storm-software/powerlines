@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* -------------------------------------------------------------------
 
                    🗲 Storm Software - Powerlines
@@ -33,7 +32,7 @@ import type {
   BabelPluginContext,
   BabelPluginResolvedConfig,
   BabelPluginUserConfig
-} from "@powerlines/plugin-babel/types";
+} from "@powerlines/plugin-babel";
 
 export interface OpenFeaturePluginOptions {
   /**

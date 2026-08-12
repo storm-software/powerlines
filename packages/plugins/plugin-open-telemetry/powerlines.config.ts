@@ -17,8 +17,8 @@
 
  ------------------------------------------------------------------- */
 
-import alloy from "@powerlines/plugin-alloy";
-import plugin from "@powerlines/plugin-plugin";
+import { plugin as alloy } from "@powerlines/plugin-alloy";
+import { plugin } from "@powerlines/plugin-plugin";
 import { defineConfig } from "powerlines/config";
 
 export default defineConfig({

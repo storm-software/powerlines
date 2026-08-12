@@ -61,4 +61,3 @@ export const plugin = <TContext extends SwcPluginContext = SwcPluginContext>(
   };
 };
 
-export default plugin;

@@ -16,8 +16,8 @@
 
  ------------------------------------------------------------------- */
 
-import babel from "@powerlines/plugin-babel";
-import plugin from "@powerlines/plugin-plugin";
+import { plugin as babel } from "@powerlines/plugin-babel";
+import { plugin } from "@powerlines/plugin-plugin";
 import { findFileExtension } from "@stryke/path/file-path-fns";
 import { defineConfig } from "powerlines/config";
 

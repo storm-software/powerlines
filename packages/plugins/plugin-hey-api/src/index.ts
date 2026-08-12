@@ -19,7 +19,7 @@
 import { OpenApi } from "@hey-api/openapi-ts";
 import type { GeneratorConfigObject } from "@power-plant/core";
 import heyApiGenerator from "@power-plant/hey-api";
-import powerPlant from "@powerlines/plugin-power-plant";
+import { plugin as powerPlant } from "@powerlines/plugin-power-plant";
 import { joinPaths } from "@stryke/path/join-paths";
 import { isSetObject } from "@stryke/type-checks/is-set-object";
 import { isSetString } from "@stryke/type-checks/is-set-string";
@@ -182,4 +182,3 @@ export const plugin = <
   ];
 };
 
-export default plugin;

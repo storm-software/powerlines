@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import babel from "@powerlines/plugin-babel";
+import { plugin as babel } from "@powerlines/plugin-babel";
 import { findFileExtension } from "@stryke/path/file-path-fns";
 import type { Plugin } from "powerlines";
 import type { AlloyPluginContext, AlloyPluginOptions } from "./types/plugin";

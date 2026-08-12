@@ -2,6 +2,8 @@ packages:
   - tools/*
   - packages/**
   - docs/*
+  - "!**/out-tsc/**"
+  - "!**/dist/**"
 allowBuilds:
   "@hyperjump/json-pointer": true
   "@hyperjump/json-schema": true
@@ -36,7 +38,7 @@ catalog:
   "@babel/plugin-transform-json-modules": ^8.0.1
   "@babel/preset-typescript": ^8.0.1
   "@babel/types": ^8.0.4
-  "@biomejs/biome": ^2.5.7
+  "@biomejs/biome": ^2.5.8
   "@cacheable/memory": ^2.2.0
   "@cloudflare/unenv-preset": ^2.16.1
   "@cloudflare/workers-types": ^4.20260702.1
@@ -166,7 +168,7 @@ catalog:
   "@rolldown/plugin-babel": ^0.2.3
   "@vitejs/plugin-react": ^6.0.5
   "@vitest/coverage-v8": ~4.1.10
-  astro: ^7.2.0
+  astro: ^7.2.1
   automd: ^0.4.3
   babel-plugin-react-compiler: ^1.0.0
   birpc: ^4.1.0
@@ -191,7 +193,7 @@ catalog:
   h3: ^1.15.11
   handlebars: ^4.7.9
   human-id: ^4.2.0
-  i18next-cli: ^1.67.9
+  i18next-cli: ^1.69.0
   i18next-resources-for-ts: ^2.1.0
   jest: ^30.4.2
   jest-config: ^30.4.2
@@ -231,7 +233,7 @@ catalog:
   shelljs: ^0.10.0
   sherif: ^1.13.0
   sirv: ^3.0.2
-  smol-toml: ^1.7.1
+  smol-toml: ^1.8.0
   structured-clone-es: ^2.0.1
   style-dictionary: ^5.5.1
   stylelint: ^16.26.1
@@ -258,7 +260,7 @@ catalog:
   vite: ^8.2.1
   vitest: ~4.1.10
   webpack: ^5.109.2
-  wrangler: ^4.120.1
+  wrangler: ^4.122.0
   yaml: ^2.9.0
   zod: ^4.4.3
   zx: ^8.8.5

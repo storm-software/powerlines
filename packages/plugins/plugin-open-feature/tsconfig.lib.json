@@ -1,0 +1,28 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "tsBuildInfoFile": "out-tsc/tsconfig.tsbuildinfo",
+    "jsx": "preserve",
+    "jsxImportSource": "@alloy-js/core",
+    "lib": ["esnext"],
+    "rootDir": ".",
+    "types": ["node"],
+    "outDir": "./out-tsc"
+  },
+  "references": [
+    { "path": "../../devkit/powerlines/tsconfig.lib.json" },
+    { "path": "../plugin-automd/tsconfig.lib.json" },
+    { "path": "../plugin-babel/tsconfig.lib.json" },
+    { "path": "../plugin-alloy/tsconfig.lib.json" },
+    { "path": "../plugin-plugin/tsconfig.lib.json" }
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "powerlines.config.ts",
+    "powerlines.d.ts"
+  ],
+  "exclude": ["vitest.config.mts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+}

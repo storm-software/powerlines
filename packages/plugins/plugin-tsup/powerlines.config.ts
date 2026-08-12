@@ -16,14 +16,10 @@
 
  ------------------------------------------------------------------- */
 
-import plugin from "@powerlines/core/plugin-base";
+import { plugin } from "@powerlines/core/plugin-base";
 import { defineConfig } from "powerlines/config";
 
 export default defineConfig({
-  tsdown: {
-    dts: {
-      build: true
-    }
-  },
+  input: ["src/index.ts", "src/types/*.ts"],
   plugins: [plugin()]
 });

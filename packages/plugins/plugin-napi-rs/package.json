@@ -138,6 +138,7 @@
     "@alloy-js/typescript": "catalog:",
     "@napi-rs/cli": "catalog:",
     "@powerlines/plugin-alloy": "workspace:*",
+    "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-automd": "workspace:*",
     "@stryke/convert": "catalog:",
     "@stryke/fs": "catalog:",

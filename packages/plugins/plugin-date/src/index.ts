@@ -16,7 +16,7 @@
 
  ------------------------------------------------------------------- */
 
-import env from "@powerlines/plugin-env";
+import { plugin as env } from "@powerlines/plugin-env";
 import { Plugin } from "powerlines";
 import { dateFnsModule } from "./components/date-fns";
 import { dayjsModule } from "./components/dayjs";
@@ -118,4 +118,3 @@ export function plugin<TContext extends DatePluginContext = DatePluginContext>(
   ] as Plugin<TContext>[];
 }
 
-export default plugin;

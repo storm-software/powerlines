@@ -39,6 +39,7 @@ import { ModuleFormat } from "rolldown";
 import { UserConfig as BuildOptions, Format as TsdownFormat } from "tsdown";
 import type { UserConfig } from "tsdown/config";
 import rolldown from "./rolldown";
+import type { UnpluginExecutionOptions } from "./types";
 
 export interface GetDependencyConfigOptions {
   /**
@@ -396,12 +397,14 @@ export function resolveOptions<TContext extends UnresolvedContext>(
  * @returns The merged Tsdown configuration options.
  */
 export function plugin(options: UserConfig = {}): UserConfig {
+  const { plugins: _tsdownPlugins, ...rolldownOptions } = options;
+
   return {
     ...options,
     entry: options.entry,
     plugins: [
       rolldown({
-        ...options,
+        ...rolldownOptions,
         output: {
           path: options.outDir,
           format: resolveFromFormat(
@@ -476,7 +479,7 @@ export function plugin(options: UserConfig = {}): UserConfig {
               : undefined
         },
         tsconfig: isSetString(options.tsconfig) ? options.tsconfig : undefined
-      })
+      } satisfies UnpluginExecutionOptions)
     ]
   };
 }

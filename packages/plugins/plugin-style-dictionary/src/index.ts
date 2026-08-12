@@ -19,7 +19,7 @@
 import type { GeneratorConfigObject } from "@power-plant/core";
 import type { Options as PowerPlantStyleDictionaryOptions } from "@power-plant/style-dictionary";
 import styleDictionaryGenerator from "@power-plant/style-dictionary";
-import powerPlant from "@powerlines/plugin-power-plant";
+import { plugin as powerPlant } from "@powerlines/plugin-power-plant";
 import { LogLevelLabel } from "@storm-software/config-tools/types";
 import defu from "defu";
 import type { Plugin } from "powerlines";
@@ -128,4 +128,3 @@ export const plugin = <
   ];
 };
 
-export default plugin;

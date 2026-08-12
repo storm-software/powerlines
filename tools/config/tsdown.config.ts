@@ -24,7 +24,7 @@ export type TSDownOptions = Partial<UserConfig> & Pick<UserConfig, "name">;
 export const DEFAULT_OPTIONS: Omit<Partial<UserConfig>, "name"> = {
   target: "esnext",
   logLevel: "error",
-  outDir: "dist",
+  outDir: "./dist",
   format: ["cjs", "esm"],
   cjsDefault: true,
   treeshake: true,
@@ -32,7 +32,7 @@ export const DEFAULT_OPTIONS: Omit<Partial<UserConfig>, "name"> = {
   clean: false,
   sourcemap: false,
   platform: "node",
-  tsconfig: "./tsconfig.json",
+  tsconfig: "./tsconfig.lib.json",
   minify: false,
   dts: {
     build: true

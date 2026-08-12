@@ -19,7 +19,7 @@
 import type { Options as PowerPlantAsyncAPIOptions } from "@power-plant/asyncapi";
 import asyncapiGenerator from "@power-plant/asyncapi";
 import type { GeneratorConfigObject } from "@power-plant/core";
-import powerPlant from "@powerlines/plugin-power-plant";
+import { plugin as powerPlant } from "@powerlines/plugin-power-plant";
 import { existsSync } from "@stryke/fs/exists";
 import { isPackageExists } from "@stryke/fs/package-fns";
 import { joinPaths } from "@stryke/path/join";
@@ -194,4 +194,3 @@ export const plugin = <
   ];
 };
 
-export default plugin;

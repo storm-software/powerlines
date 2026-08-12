@@ -26,7 +26,7 @@ try {
   await build({
     entryPoints: ["tools/nx/src/plugin/index.ts"],
     target: "node22",
-    outdir: "dist/tools/nx/dist",
+    outdir: "dist/nx-plugin",
     tsconfig: "tools/nx/tsconfig.json",
     packages: "bundle",
     external: ["nx", "@nx/*"],

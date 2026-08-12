@@ -159,6 +159,7 @@
     "@openfeature/server-sdk": "catalog:",
     "@power-plant/alloy-js": "catalog:",
     "@powerlines/plugin-alloy": "workspace:*",
+    "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-automd": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/convert": "catalog:",

@@ -47,7 +47,7 @@
     //     "verboseOutput": true
     //   }
     // },
-    "./dist/tools/nx/dist/index.js"
+    "./dist/nx-plugin/index.js"
   ],
   "sync": {
     "applyChanges": true,

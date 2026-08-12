@@ -6,14 +6,15 @@
       "ESNext"
     ],
     "moduleDetection": "force",
-    "rootDir": "../..",
+    "rootDir": ".",
+     "outDir": "./dist",
+    "tsBuildInfoFile": "out-tsc/tsconfig.tsbuildinfo",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "types": [
       "node"
     ],
     "strict": false,
-    "outDir": "../../dist/out-tsc",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "ignoreDeprecations": "6.0",

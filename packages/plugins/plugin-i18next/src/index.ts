@@ -243,4 +243,3 @@ declare module 'i18next' {
   };
 };
 
-export default plugin;

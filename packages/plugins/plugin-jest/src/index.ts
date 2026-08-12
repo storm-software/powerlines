@@ -228,4 +228,3 @@ ${chalk.bold(`Time:`)}        ${formatTime((Date.now() - results.startTime) / 10
   };
 };
 
-export default plugin;

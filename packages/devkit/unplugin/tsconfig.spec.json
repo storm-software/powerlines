@@ -1,8 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "types": ["node"],
-    "outDir": "../../../dist/out-tsc"
+    "types": ["node"]
   },
   "include": [
     "vitest.config.mts",

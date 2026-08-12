@@ -1,41 +1,15 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "incremental": true,
-    "composite": true,
-    "target": "ESNext",
-    "lib": ["ESNext"],
-    "moduleDetection": "force",
-    "rootDir": "../../../",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
-    "types": ["node"],
-    "strict": false,
-    "outDir": "../../../dist/out-tsc",
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
     "ignoreDeprecations": "6.0"
   },
   "references": [
     {
-      "path": "../powerlines"
+      "path": "./tsconfig.lib.json"
     },
     {
-      "path": "../../../tools/config"
+      "path": "./tsconfig.spec.json"
     }
   ],
-  "include": [
-    "**/*.json",
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "tsdown.config.mjs",
-    "package.json"
-  ],
-  "exclude": [
-    "vitest.config.mts",
-    "src/generators/**/files/**/*",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
-  ]
+  "files": []
 }

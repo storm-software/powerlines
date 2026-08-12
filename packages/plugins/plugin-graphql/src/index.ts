@@ -20,7 +20,7 @@ import type { GeneratorConfigObject } from "@power-plant/core";
 import type { Options as PowerPlantGraphQLCodegenOptions } from "@power-plant/graphql-codegen";
 import graphqlCodegenGenerator from "@power-plant/graphql-codegen";
 import { schemaToCodegenDocument } from "@power-plant/graphql-schema/codegen";
-import powerPlant from "@powerlines/plugin-power-plant";
+import { plugin as powerPlant } from "@powerlines/plugin-power-plant";
 import { existsSync } from "@stryke/fs/exists";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
@@ -170,4 +170,3 @@ export const plugin = <
   ];
 };
 
-export default plugin;

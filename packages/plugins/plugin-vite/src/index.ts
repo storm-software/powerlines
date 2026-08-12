@@ -103,4 +103,3 @@ export const plugin = <TContext extends VitePluginContext = VitePluginContext>(
   };
 };
 
-export default plugin;

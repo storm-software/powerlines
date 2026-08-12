@@ -84,4 +84,3 @@ export function plugin(options: IdPluginOptions = {}): Plugin<IdPluginContext> {
   };
 }
 
-export default plugin;

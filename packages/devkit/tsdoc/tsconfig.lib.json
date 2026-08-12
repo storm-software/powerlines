@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "resolveJsonModule": true,
+    "outDir": "./out-tsc",
+    "rootDir": "."
+  },
+  "references": [],
+  "include": [
+    "src/**/*.json"
+  ]
+}

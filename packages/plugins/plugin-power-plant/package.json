@@ -136,6 +136,9 @@
     "powerlines-plugin"
   ],
   "dependencies": {
+    "@powerlines/core": "workspace:*",
+    "@powerlines/plugin-babel": "workspace:*",
+    "@powerlines/unplugin": "workspace:*",
     "@power-plant/core": "catalog:",
     "@power-plant/schema": "catalog:",
     "@stryke/string-format": "catalog:",

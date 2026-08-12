@@ -16,10 +16,12 @@
 
  ------------------------------------------------------------------- */
 
-import tsdown from "@powerlines/plugin-tsdown";
+import { plugin as tsdown } from "@powerlines/plugin-tsdown";
 import { appendPath } from "@stryke/path/append";
 import type { Plugin } from "powerlines";
 import type { PluginPluginContext, PluginPluginOptions } from "./types/plugin";
+
+export type * from "./types";
 
 declare module "powerlines" {
   interface Config {
@@ -84,5 +86,3 @@ export const plugin = <
     }
   ];
 };
-
-export default plugin;

@@ -18,7 +18,7 @@
 
 import { bytesToHex, randomBytes } from "@noble/ciphers/utils.js";
 import { render } from "@powerlines/plugin-alloy/render";
-import env from "@powerlines/plugin-env";
+import { plugin as env } from "@powerlines/plugin-env";
 import defu from "defu";
 import { Plugin } from "powerlines";
 import { CryptoBuiltin } from "./components/crypto-builtin";

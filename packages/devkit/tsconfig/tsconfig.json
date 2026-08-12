@@ -1,14 +1,12 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "resolveJsonModule": true,
-    "outDir": "../../../dist/out-tsc",
-    "ignoreDeprecations": "6.0",
-    "composite": true,
-    "incremental": true
+    "ignoreDeprecations": "6.0"
   },
-  "include": [
-    "src/**/*.json"
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    }
   ],
-  "references": []
+  "files": []
 }

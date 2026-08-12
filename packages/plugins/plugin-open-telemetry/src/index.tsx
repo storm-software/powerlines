@@ -18,8 +18,8 @@
  ------------------------------------------------------------------- */
 
 import { render } from "@powerlines/plugin-alloy/render";
-import automd from "@powerlines/plugin-automd";
-import env from "@powerlines/plugin-env";
+import { plugin as automd } from "@powerlines/plugin-automd";
+import { plugin as env } from "@powerlines/plugin-env";
 import defu from "defu";
 import { Plugin } from "powerlines";
 import { TraceBuiltin } from "./components/trace-builtin";

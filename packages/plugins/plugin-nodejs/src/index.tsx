@@ -18,8 +18,8 @@
 
 import { isMatchFound } from "@powerlines/core/lib/typescript";
 import { render } from "@powerlines/plugin-alloy/render";
-import babel from "@powerlines/plugin-babel";
-import env from "@powerlines/plugin-env";
+import { plugin as babel } from "@powerlines/plugin-babel";
+import { plugin as env } from "@powerlines/plugin-env";
 import { extractEnv } from "@powerlines/plugin-env/helpers";
 import { Plugin } from "powerlines";
 import { NodeJsEnvBuiltin } from "./components/env-builtin";

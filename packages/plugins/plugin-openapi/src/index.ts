@@ -20,7 +20,7 @@
 import type { OpenAPISchema } from "@power-plant/openapi-schema";
 import type { Options as PowerPlantOpenAPITypeScriptOptions } from "@power-plant/openapi-typescript";
 import openapiTypeScriptGenerator from "@power-plant/openapi-typescript";
-import powerPlant from "@powerlines/plugin-power-plant";
+import { plugin as powerPlant } from "@powerlines/plugin-power-plant";
 import { existsSync } from "@stryke/fs/exists";
 import { joinPaths } from "@stryke/path/join-paths";
 import defu from "defu";
@@ -151,4 +151,3 @@ export const plugin = <
   ];
 };
 
-export default plugin;

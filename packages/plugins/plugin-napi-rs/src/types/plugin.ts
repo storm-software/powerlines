@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* -------------------------------------------------------------------
 
                    🗲 Storm Software - Powerlines
@@ -22,12 +21,12 @@ import type {
   AlloyPluginContext,
   AlloyPluginResolvedConfig,
   AlloyPluginUserConfig
-} from "@powerlines/plugin-alloy/types";
+} from "@powerlines/plugin-alloy";
 import type {
   BabelPluginContext,
   BabelPluginResolvedConfig,
   BabelPluginUserConfig
-} from "@powerlines/plugin-babel/types";
+} from "@powerlines/plugin-babel";
 import { RequiredKeys } from "@stryke/types/base";
 import { Target, TargetTriple } from "./targets";
 import { WasmOptions } from "./wasm";

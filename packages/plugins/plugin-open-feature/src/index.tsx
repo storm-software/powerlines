@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* -------------------------------------------------------------------
 
                    🗲 Storm Software - Powerlines
@@ -18,7 +17,7 @@
  ------------------------------------------------------------------- */
 
 import { render } from "@powerlines/plugin-alloy/render";
-import automd from "@powerlines/plugin-automd";
+import { plugin as automd } from "@powerlines/plugin-automd";
 import defu from "defu";
 import { Plugin } from "powerlines";
 import { FeaturesBuiltin } from "./components/features-builtin";

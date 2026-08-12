@@ -173,4 +173,3 @@ export const plugin = <
   ] as Plugin<TContext>[];
 };
 
-export default plugin;

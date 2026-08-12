@@ -118,5 +118,3 @@ export const plugin = <TContext extends BasePluginContext = BasePluginContext>(
     }
   };
 };
-
-export default plugin;

@@ -20,7 +20,7 @@ import {
   declarationTransformer,
   transformer
 } from "@power-plant/schema/deepkit";
-import tsc from "@powerlines/plugin-tsc";
+import { plugin as tsc } from "@powerlines/plugin-tsc";
 import { appendPath } from "@stryke/path/append";
 import { Plugin } from "powerlines";
 import { DeepkitPluginContext, DeepkitPluginOptions } from "./types/plugin";
@@ -81,4 +81,3 @@ export const plugin = <
   ] as Plugin<TContext>[];
 };
 
-export default plugin;

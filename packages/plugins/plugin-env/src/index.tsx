@@ -17,8 +17,8 @@
  ------------------------------------------------------------------- */
 
 import { render } from "@powerlines/plugin-alloy/render";
-import automd from "@powerlines/plugin-automd";
-import babel from "@powerlines/plugin-babel";
+import { plugin as automd } from "@powerlines/plugin-automd";
+import { plugin as babel } from "@powerlines/plugin-babel";
 import { toArray } from "@stryke/convert/to-array";
 import { getUnique } from "@stryke/helpers/get-unique";
 import { joinPaths } from "@stryke/path/join";

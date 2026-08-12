@@ -1,37 +1,15 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "lib": [
-      "ESNext"
-    ],
-    "rootDir": "../../..",
-    "types": [
-      "node",
-      "./types/prettier-plugin-organize-imports.d.ts"
-    ],
-    "strict": true,
-    "outDir": "../../../dist/out-tsc",
-    "ignoreDeprecations": "6.0",
-    "composite": true,
-    "incremental": true,
-    "resolveJsonModule": true
+    "ignoreDeprecations": "6.0"
   },
-  "include": [
-    "src/**/*.ts",
-    "schemas/**/*.ts",
-    "types/**/*.d.ts",
-    "tsdown.config.ts",
-    "**/*.json",
-    "package.json"
-  ],
-  "exclude": [
-    "vitest.config.mts",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
-  ],
   "references": [
     {
-      "path": "../../../tools/config"
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+  "files": []
 }

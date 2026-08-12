@@ -19,8 +19,8 @@
 import type { GeneratorConfigObject } from "@power-plant/core";
 import type { Options as PowerPlantPrismaOptions } from "@power-plant/prisma";
 import type { PrismaSchema } from "@power-plant/prisma-schema";
-import powerPlant from "@powerlines/plugin-power-plant";
-import pulumi from "@powerlines/plugin-pulumi";
+import { plugin as powerPlant } from "@powerlines/plugin-power-plant";
+import { plugin as pulumi } from "@powerlines/plugin-pulumi";
 import { joinPaths } from "@stryke/path/join-paths";
 import { constantCase } from "@stryke/string-format/constant-case";
 import { kebabCase } from "@stryke/string-format/kebab-case";
@@ -191,4 +191,3 @@ export const plugin = <
   ];
 };
 
-export default plugin;

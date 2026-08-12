@@ -154,8 +154,9 @@ export function withExecutor<
       const projectConfig =
         context.projectsConfigurations.projects[context.projectName]!;
 
-      const jiti = createJiti(context.root, {
-        cache: false
+      const jiti = createJiti(import.meta.url, {
+        cache: false,
+        interopDefault: true
       });
       // Load via jiti — static require() of powerlines/plugin-utils fails when Nx
       // registers ts-node + tsconfig paths (maps to ESM .ts source under type:module).
@@ -168,11 +169,10 @@ export function withExecutor<
           ) => string;
           getName: (cwd: string, root: string) => Promise<string>;
         }>("powerlines/plugin-utils"),
-        jiti
-          .import<{
-            default: (params: ExecutionApiParams) => Promise<void>;
-          }>(jiti.esmResolve(importPath))
-          .then(mod => mod.default)
+        jiti.import<(params: ExecutionApiParams) => Promise<void>>(
+          jiti.esmResolve(importPath),
+          { default: true }
+        )
       ]);
 
       try {
