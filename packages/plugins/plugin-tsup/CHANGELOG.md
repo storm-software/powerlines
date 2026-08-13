@@ -2,6 +2,14 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.668](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.668) (08/13/2026)
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.130**
+- Updated **powerlines** to **v0.47.211**
+- Updated **unplugin** to **v0.0.178**
+
 ## [0.12.667](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.667) (08/12/2026)
 
 ### Bug Fixes
