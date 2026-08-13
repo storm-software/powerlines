@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.129](https://github.com/storm-software/powerlines/releases/tag/core%400.48.129) (08/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues preventing imports ([0a56c8e40](https://github.com/storm-software/powerlines/commit/0a56c8e40))
+
 ## [0.48.125](https://github.com/storm-software/powerlines/releases/tag/core%400.48.125) (08/10/2026)
 
 ### Bug Fixes

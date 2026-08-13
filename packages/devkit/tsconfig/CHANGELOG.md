@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.254](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.254) (08/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues preventing imports ([0a56c8e40](https://github.com/storm-software/powerlines/commit/0a56c8e40))
+
 ## [0.4.244](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.244) (08/09/2026)
 
 ### Bug Fixes

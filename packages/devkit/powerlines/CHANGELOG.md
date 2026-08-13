@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.210](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.210) (08/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues preventing imports ([0a56c8e40](https://github.com/storm-software/powerlines/commit/0a56c8e40))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.129**
+- Updated **engine** to **v0.49.131**
+- Updated **unplugin** to **v0.0.177**
+
 ## [0.47.209](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.209) (08/11/2026)
 
 ### Updated Dependencies

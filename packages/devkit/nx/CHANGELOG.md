@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.250](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.250) (08/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues preventing imports ([0a56c8e40](https://github.com/storm-software/powerlines/commit/0a56c8e40))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.210**
+
 ## [0.13.249](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.249) (08/11/2026)
 
 ### Updated Dependencies

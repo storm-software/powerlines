@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.554](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.554) (08/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues preventing imports ([0a56c8e40](https://github.com/storm-software/powerlines/commit/0a56c8e40))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.623**
+- Updated **plugin-tsc** to **v0.3.208**
+- Updated **powerlines** to **v0.47.210**
+
 ## [0.11.553](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.553) (08/11/2026)
 
 ### Updated Dependencies

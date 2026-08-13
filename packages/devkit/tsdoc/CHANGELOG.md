@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.202](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.202) (08/12/2026)
+
+### Bug Fixes
+
+- **monorepo:** Resolve build issues preventing imports ([0a56c8e40](https://github.com/storm-software/powerlines/commit/0a56c8e40))
+
 ## [0.2.192](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.192) (08/09/2026)
 
 ### Bug Fixes
