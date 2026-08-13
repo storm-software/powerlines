@@ -54,8 +54,8 @@ catalog:
   "@jest/types": ^30.4.1
   "@jridgewell/sourcemap-codec": ^1.5.5
   "@ls-lint/ls-lint": ^2.3.1
-  "@napi-rs/cli": ^3.8.5
-  "@napi-rs/wasm-runtime": ^1.2.2
+  "@napi-rs/cli": ^3.8.6
+  "@napi-rs/wasm-runtime": ^1.2.3
   "@noble/ciphers": ^2.3.0
   "@nuxt/kit": ^4.5.2
   "@nuxt/schema": ^4.5.2
@@ -81,18 +81,18 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.86
-  "@power-plant/asyncapi": ^0.0.85
-  "@power-plant/core": ^0.0.89
-  "@power-plant/graphql-codegen": ^0.0.85
+  "@power-plant/alloy-js": ^0.0.87
+  "@power-plant/asyncapi": ^0.0.86
+  "@power-plant/core": ^0.0.90
+  "@power-plant/graphql-codegen": ^0.0.86
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.85
+  "@power-plant/hey-api": ^0.0.86
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.69
-  "@power-plant/prisma": ^0.0.70
+  "@power-plant/openapi-typescript": ^0.0.70
+  "@power-plant/prisma": ^0.0.71
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.87
-  "@power-plant/style-dictionary": ^0.0.74
+  "@power-plant/schema": ^0.0.88
+  "@power-plant/style-dictionary": ^0.0.75
   "@pulumi/cloudflare": ^6.19.0
   "@pulumi/pulumi": ^3.256.0
   "@rolldown/pluginutils": ^1.0.1
@@ -103,10 +103,10 @@ catalog:
   "@rollup/plugin-replace": ^6.0.3
   "@rollup/pluginutils": ^4.2.1
   "@rspack/core": ^1.7.12
-  "@shell-shock/core": ^0.17.22
-  "@shell-shock/eslint-plugin": ^0.0.86
-  "@shell-shock/nx": ^0.0.95
-  "@shell-shock/preset-cli": ^0.9.34
+  "@shell-shock/core": ^0.17.23
+  "@shell-shock/eslint-plugin": ^0.0.87
+  "@shell-shock/nx": ^0.0.96
+  "@shell-shock/preset-cli": ^0.9.35
   "@sinclair/typebox": ^0.34.52
   "@standard-schema/spec": ^1.1.0
   "@storm-software/build-tools": ^0.158.293
@@ -281,6 +281,20 @@ minimumReleaseAgeExclude:
   - "@rushstack/terminal@0.24.1"
   - "@rushstack/ts-command-line@5.3.11"
   - "@asyncapi/parser@3.6.2"
+  - '@powerlines/core@0.48.129'
+  - '@powerlines/engine@0.49.131'
+  - '@powerlines/nx@0.13.250'
+  - '@powerlines/plugin-alloy@0.26.308'
+  - '@powerlines/plugin-automd@0.1.672'
+  - '@powerlines/plugin-babel@0.13.207'
+  - '@powerlines/plugin-env@0.16.419'
+  - '@powerlines/plugin-nodejs@0.1.620'
+  - '@powerlines/plugin-plugin@0.12.623'
+  - '@powerlines/plugin-power-plant@0.1.67'
+  - '@powerlines/plugin-style-dictionary@0.3.580'
+  - '@powerlines/plugin-tsdown@0.1.611'
+  - '@powerlines/unplugin@0.0.177'
+  - powerlines@0.47.210
 overrides:
   "@typescript/vfs": ">=1.6.4"
   debug: ">=4.3.7"
