@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.133](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.133) (09/04/2026)
+
+### Bug Fixes
+
+- **monorepo:** Remove `jest` references and update packages to use `vitest` ([8a08559bc](https://github.com/storm-software/powerlines/commit/8a08559bc))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.131**
+
 ## [0.49.132](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.132) (08/13/2026)
 
 ### Updated Dependencies

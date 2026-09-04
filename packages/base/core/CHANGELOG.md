@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.131](https://github.com/storm-software/powerlines/releases/tag/core%400.48.131) (09/04/2026)
+
+### Bug Fixes
+
+- **monorepo:** Remove `jest` references and update packages to use `vitest` ([8a08559bc](https://github.com/storm-software/powerlines/commit/8a08559bc))
+
 ## [0.48.129](https://github.com/storm-software/powerlines/releases/tag/core%400.48.129) (08/12/2026)
 
 ### Bug Fixes

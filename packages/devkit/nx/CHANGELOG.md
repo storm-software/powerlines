@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.252](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.252) (09/04/2026)
+
+### Bug Fixes
+
+- **monorepo:** Remove `jest` references and update packages to use `vitest` ([8a08559bc](https://github.com/storm-software/powerlines/commit/8a08559bc))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.212**
+
 ## [0.13.251](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.251) (08/13/2026)
 
 ### Updated Dependencies
