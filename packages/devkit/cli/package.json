@@ -54,7 +54,6 @@
   },
   "devDependencies": {
     "@shell-shock/eslint-plugin": "catalog:",
-    "@storm-software/testing-tools": "catalog:",
     "@types/node": "catalog:"
   },
   "publishConfig": {

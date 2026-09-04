@@ -75,7 +75,6 @@
   },
   "devDependencies": {
     "@nx/workspace": "catalog:",
-    "@storm-software/testing-tools": "catalog:",
     "@types/node": "catalog:",
     "eslint-flat-config-utils": "catalog:",
     "jsonc-eslint-parser": "catalog:",

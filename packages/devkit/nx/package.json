@@ -201,7 +201,6 @@
   "devDependencies": {
     "@powerlines/tools-config": "workspace:*",
     "@nx/workspace": "catalog:",
-    "@storm-software/testing-tools": "catalog:",
     "@storm-software/tsup": "catalog:",
     "@storm-software/untyped": "catalog:",
     "@stryke/types": "catalog:",

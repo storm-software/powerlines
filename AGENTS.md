@@ -21,3 +21,30 @@
 - The `nx-generate` skill handles generator discovery internally - don't call nx_docs just to look up generator syntax
 
 <!-- nx configuration end-->
+
+# External Packages — Do Not Patch
+
+The following packages are maintained in external repositories and must **never** be patched in this workspace:
+
+- `powerlines` (and `@powerlines/*` scoped packages)
+- `power-plant` (and `@power-plant/*` scoped packages)
+- `shell-shock` (and `@shell-shock/*` scoped packages)
+- `razorwind` (and `@razorwind/*` scoped packages)
+- `cyclone-ui`
+- `storm-ops`
+
+This includes files under `node_modules`, vendored copies, generated artifacts, and any local overrides.
+
+When a fix is needed in one of these packages:
+
+1. **Do not** edit source files belonging to these packages in this repo.
+2. **Do** produce a descriptive fix outline that can be applied in the external repository.
+3. The outline should include:
+   - **Repository** — which external package/repo the change belongs to
+   - **Problem** — what is broken or missing, with reproduction steps if applicable
+   - **Root cause** — why the issue occurs
+   - **Proposed fix** — specific files, functions, or config to change and what to change
+   - **Verification** — how to confirm the fix works (tests, commands, or manual checks)
+   - **Workarounds** — any temporary mitigations in this repo, if applicable, without patching the external package
+
+If unsure whether a dependency belongs to one of these packages, treat it as external and ask before making changes.

@@ -38,7 +38,7 @@ catalog:
   "@babel/plugin-transform-json-modules": ^8.0.1
   "@babel/preset-typescript": ^8.0.1
   "@babel/types": ^8.0.4
-  "@biomejs/biome": ^2.5.8
+  "@biomejs/biome": ^2.5.9
   "@cacheable/memory": ^2.2.0
   "@cloudflare/unenv-preset": ^2.16.1
   "@cloudflare/workers-types": ^4.20260702.1
@@ -81,20 +81,20 @@ catalog:
   "@opentelemetry/sdk-logs": ^0.220.0
   "@opentelemetry/sdk-metrics": ^2.10.0
   "@opentelemetry/sdk-trace-base": ^2.10.0
-  "@power-plant/alloy-js": ^0.0.87
-  "@power-plant/asyncapi": ^0.0.86
-  "@power-plant/core": ^0.0.90
-  "@power-plant/graphql-codegen": ^0.0.86
+  "@power-plant/alloy-js": ^0.0.89
+  "@power-plant/asyncapi": ^0.0.87
+  "@power-plant/core": ^0.0.92
+  "@power-plant/graphql-codegen": ^0.0.88
   "@power-plant/graphql-schema": ^0.0.1
-  "@power-plant/hey-api": ^0.0.86
+  "@power-plant/hey-api": ^0.0.87
   "@power-plant/openapi-schema": ^0.0.1
-  "@power-plant/openapi-typescript": ^0.0.70
-  "@power-plant/prisma": ^0.0.71
+  "@power-plant/openapi-typescript": ^0.0.72
+  "@power-plant/prisma": ^0.0.73
   "@power-plant/prisma-schema": ^0.0.1
-  "@power-plant/schema": ^0.0.88
-  "@power-plant/style-dictionary": ^0.0.75
+  "@power-plant/schema": ^0.0.90
+  "@power-plant/style-dictionary": ^0.0.77
   "@pulumi/cloudflare": ^6.19.0
-  "@pulumi/pulumi": ^3.256.0
+  "@pulumi/pulumi": ^3.258.0
   "@rolldown/pluginutils": ^1.0.1
   "@rollup/plugin-alias": ^6.0.0
   "@rollup/plugin-babel": ^7.1.0
@@ -103,49 +103,48 @@ catalog:
   "@rollup/plugin-replace": ^6.0.3
   "@rollup/pluginutils": ^4.2.1
   "@rspack/core": ^1.7.12
-  "@shell-shock/core": ^0.17.23
-  "@shell-shock/eslint-plugin": ^0.0.87
-  "@shell-shock/nx": ^0.0.96
-  "@shell-shock/preset-cli": ^0.9.35
+  "@shell-shock/core": ^0.17.24
+  "@shell-shock/eslint-plugin": ^0.0.88
+  "@shell-shock/nx": ^0.0.97
+  "@shell-shock/preset-cli": ^0.9.36
   "@sinclair/typebox": ^0.34.52
   "@standard-schema/spec": ^1.1.0
-  "@storm-software/build-tools": ^0.158.293
-  "@storm-software/config": ^1.138.69
-  "@storm-software/config-tools": ^1.190.133
-  "@storm-software/cspell": ^0.46.200
-  "@storm-software/esbuild": ^0.53.294
-  "@storm-software/eslint": ^0.170.168
-  "@storm-software/eslint-plugin-pnpm": ^0.0.96
-  "@storm-software/eslint-plugin-tsdoc": ^0.0.96
-  "@storm-software/git-tools": ^2.131.141
-  "@storm-software/linting-tools": ^1.134.63
-  "@storm-software/markdownlint": ^0.30.288
-  "@storm-software/pnpm-tools": ^0.7.147
-  "@storm-software/prettier": ^0.59.186
-  "@storm-software/testing-tools": ^1.119.285
-  "@storm-software/tsconfig": ^0.48.199
-  "@storm-software/tsdoc": ^0.13.285
-  "@storm-software/tsup": ^0.2.291
-  "@storm-software/unbuild": ^0.57.294
-  "@storm-software/untyped": ^0.24.275
-  "@storm-software/workspace-tools": ^1.297.2
-  "@stryke/async": ^0.1.36
-  "@stryke/capnp": ^0.12.137
-  "@stryke/cli": ^0.13.82
-  "@stryke/convert": ^0.7.39
-  "@stryke/env": ^0.20.127
-  "@stryke/fs": ^0.33.110
-  "@stryke/hash": ^0.13.63
-  "@stryke/helpers": ^0.10.48
-  "@stryke/json": ^0.15.32
-  "@stryke/path": ^0.29.35
-  "@stryke/string-format": ^0.17.50
-  "@stryke/type-checks": ^0.6.41
-  "@stryke/types": ^0.12.36
-  "@stryke/unique-id": ^0.3.121
-  "@stryke/url": ^0.4.60
+  "@storm-software/build-tools": ^0.158.294
+  "@storm-software/config": ^1.138.70
+  "@storm-software/config-tools": ^1.190.134
+  "@storm-software/cspell": ^0.46.201
+  "@storm-software/esbuild": ^0.53.295
+  "@storm-software/eslint": ^0.170.169
+  "@storm-software/eslint-plugin-pnpm": ^0.0.97
+  "@storm-software/eslint-plugin-tsdoc": ^0.0.97
+  "@storm-software/git-tools": ^2.131.142
+  "@storm-software/linting-tools": ^1.134.64
+  "@storm-software/markdownlint": ^0.30.289
+  "@storm-software/pnpm-tools": ^0.7.148
+  "@storm-software/prettier": ^0.59.187
+  "@storm-software/tsconfig": ^0.48.200
+  "@storm-software/tsdoc": ^0.13.286
+  "@storm-software/tsup": ^0.2.292
+  "@storm-software/unbuild": ^0.57.295
+  "@storm-software/untyped": ^0.24.276
+  "@storm-software/workspace-tools": ^1.297.3
+  "@stryke/async": ^0.1.42
+  "@stryke/capnp": ^0.12.143
+  "@stryke/cli": ^0.13.88
+  "@stryke/convert": ^0.7.45
+  "@stryke/env": ^0.20.133
+  "@stryke/fs": ^0.33.116
+  "@stryke/hash": ^0.13.69
+  "@stryke/helpers": ^0.10.54
+  "@stryke/json": ^0.15.38
+  "@stryke/path": ^0.29.41
+  "@stryke/string-format": ^0.17.56
+  "@stryke/type-checks": ^0.6.47
+  "@stryke/types": ^0.12.42
+  "@stryke/unique-id": ^0.3.127
+  "@stryke/url": ^0.4.66
   "@swc-node/register": ^1.12.1
-  "@swc/core": ^1.15.47
+  "@swc/core": ^1.16.1
   "@swc/helpers": ^0.5.23
   "@tamagui/static-worker": ^1.144.4
   "@tamagui/types": ^1.144.4
@@ -168,7 +167,7 @@ catalog:
   "@rolldown/plugin-babel": ^0.2.3
   "@vitejs/plugin-react": ^6.0.5
   "@vitest/coverage-v8": ~4.1.10
-  astro: ^7.2.1
+  astro: ^7.2.2
   automd: ^0.4.3
   babel-plugin-react-compiler: ^1.0.0
   birpc: ^4.1.0
@@ -193,7 +192,7 @@ catalog:
   h3: ^1.15.11
   handlebars: ^4.7.9
   human-id: ^4.2.0
-  i18next-cli: ^1.69.0
+  i18next-cli: ^1.69.2
   i18next-resources-for-ts: ^2.1.0
   jest: ^30.4.2
   jest-config: ^30.4.2
@@ -207,13 +206,13 @@ catalog:
   magic-string: ^0.30.21
   markdown-toc: ^1.2.0
   marked: ^17.0.6
-  next: ^16.3.0
+  next: ^16.3.1
   nitro: 3.0.260429-beta
   nx: 23.1.0
   oxc-parser: ^0.99.0
   oxc-resolver: ^11.24.2
   oxc-transform: ^0.99.0
-  oxlint: ^1.78.0
+  oxlint: ^1.79.0
   oxlint-tsgolint: ^0.14.2
   picomatch: ^4.0.5
   pluralize: ^8.0.0
@@ -223,7 +222,7 @@ catalog:
   react: ^19.2.8
   react-dom: ^19.2.8
   rimraf: ^6.1.3
-  rolldown: ^1.2.3
+  rolldown: ^1.2.4
   rolldown-plugin-dts: ^0.25.2
   rollup: ^4.62.4
   rollup-plugin-typescript2: ^0.36.0
@@ -260,7 +259,7 @@ catalog:
   vite: ^8.2.1
   vitest: ~4.1.10
   webpack: ^5.109.2
-  wrangler: ^4.122.0
+  wrangler: ^4.124.0
   yaml: ^2.9.0
   zod: ^4.4.3
   zx: ^8.8.5
@@ -281,20 +280,20 @@ minimumReleaseAgeExclude:
   - "@rushstack/terminal@0.24.1"
   - "@rushstack/ts-command-line@5.3.11"
   - "@asyncapi/parser@3.6.2"
-  - '@powerlines/core@0.48.129'
-  - '@powerlines/engine@0.49.131'
-  - '@powerlines/nx@0.13.250'
-  - '@powerlines/plugin-alloy@0.26.308'
-  - '@powerlines/plugin-automd@0.1.672'
-  - '@powerlines/plugin-babel@0.13.207'
-  - '@powerlines/plugin-env@0.16.419'
-  - '@powerlines/plugin-nodejs@0.1.620'
-  - '@powerlines/plugin-plugin@0.12.623'
-  - '@powerlines/plugin-power-plant@0.1.67'
-  - '@powerlines/plugin-style-dictionary@0.3.580'
-  - '@powerlines/plugin-tsdown@0.1.611'
-  - '@powerlines/unplugin@0.0.177'
-  - powerlines@0.47.210
+  - "@powerlines/core@0.48.129 || 0.48.130"
+  - "@powerlines/engine@0.49.131 || 0.49.132"
+  - "@powerlines/nx@0.13.250 || 0.13.251"
+  - "@powerlines/plugin-alloy@0.26.308 || 0.26.309"
+  - "@powerlines/plugin-automd@0.1.672 || 0.1.673"
+  - "@powerlines/plugin-babel@0.13.207 || 0.13.208"
+  - "@powerlines/plugin-env@0.16.419 || 0.16.420"
+  - "@powerlines/plugin-nodejs@0.1.620"
+  - "@powerlines/plugin-plugin@0.12.623 || 0.12.624"
+  - "@powerlines/plugin-power-plant@0.1.67 || 0.1.68"
+  - "@powerlines/plugin-style-dictionary@0.3.580"
+  - "@powerlines/plugin-tsdown@0.1.611 || 0.1.612"
+  - "@powerlines/unplugin@0.0.177 || 0.0.178"
+  - powerlines@0.47.210 || 0.47.211
 overrides:
   "@typescript/vfs": ">=1.6.4"
   debug: ">=4.3.7"

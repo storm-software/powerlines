@@ -75,7 +75,6 @@
     "@storm-software/markdownlint": "catalog:",
     "@storm-software/pnpm-tools": "catalog:",
     "@storm-software/prettier": "catalog:",
-    "@storm-software/testing-tools": "catalog:",
     "@storm-software/tsconfig": "catalog:",
     "@storm-software/untyped": "catalog:",
     "@stryke/capnp": "catalog:",
