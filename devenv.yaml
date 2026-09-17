@@ -7,4 +7,5 @@ inputs:
     url: github:cachix/devenv-nixpkgs/rolling
 imports:
   - storm-ops/devenv-modules/pnpm
-  - storm-ops/devenv-modules/claude
+  - storm-ops/devenv-modules/graphify
+  - storm-ops/devenv-modules/agents

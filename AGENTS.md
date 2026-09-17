@@ -48,3 +48,6 @@ When a fix is needed in one of these packages:
    - **Workarounds** — any temporary mitigations in this repo, if applicable, without patching the external package
 
 If unsure whether a dependency belongs to one of these packages, treat it as external and ask before making changes.
+If unsure whether a dependency belongs to one of these packages, treat it as external and ask before making changes.
+<!-- storm configuration start-->
+<!-- storm configuration end-->

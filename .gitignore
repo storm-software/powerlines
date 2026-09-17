@@ -11,6 +11,8 @@ out
 .nx
 **/.powerlines
 
+graphify-out
+
 packages/base/deepkit/scripts/*.cjs
 packages/base/deepkit/schemas
 !packages/base/deepkit/schemas/*.capnp
