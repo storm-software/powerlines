@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Alloy
 
+## [0.26.311](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.311) (09/17/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies and devenv modules ([f04c75cf1](https://github.com/storm-software/powerlines/commit/f04c75cf1))
+
+### Updated Dependencies
+
+- Updated **plugin-babel** to **v0.13.210**
+- Updated **plugin-plugin** to **v0.12.626**
+- Updated **plugin-power-plant** to **v0.1.70**
+- Updated **powerlines** to **v0.47.213**
+
 ## [0.26.310](https://github.com/storm-software/powerlines/releases/tag/plugin-alloy%400.26.310) (09/04/2026)
 
 ### Updated Dependencies

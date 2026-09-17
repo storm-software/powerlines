@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.253](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.253) (09/17/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies and devenv modules ([f04c75cf1](https://github.com/storm-software/powerlines/commit/f04c75cf1))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.213**
+
 ## [0.13.252](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.252) (09/04/2026)
 
 ### Bug Fixes

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Unbuild
 
+## [0.5.669](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.669) (09/17/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies and devenv modules ([f04c75cf1](https://github.com/storm-software/powerlines/commit/f04c75cf1))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.132**
+- Updated **powerlines** to **v0.47.213**
+- Updated **unplugin** to **v0.0.180**
+
 ## [0.5.668](https://github.com/storm-software/powerlines/releases/tag/plugin-unbuild%400.5.668) (09/04/2026)
 
 ### Updated Dependencies

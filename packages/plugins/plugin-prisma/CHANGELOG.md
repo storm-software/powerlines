@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Prisma
 
+## [0.4.357](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.357) (09/17/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies and devenv modules ([f04c75cf1](https://github.com/storm-software/powerlines/commit/f04c75cf1))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.626**
+- Updated **plugin-power-plant** to **v0.1.70**
+- Updated **plugin-pulumi** to **v0.6.316**
+- Updated **powerlines** to **v0.47.213**
+
 ## [0.4.356](https://github.com/storm-software/powerlines/releases/tag/plugin-prisma%400.4.356) (09/04/2026)
 
 ### Updated Dependencies

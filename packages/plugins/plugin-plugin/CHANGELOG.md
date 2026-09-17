@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Plugin
 
+## [0.12.626](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.626) (09/17/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies and devenv modules ([f04c75cf1](https://github.com/storm-software/powerlines/commit/f04c75cf1))
+
+### Updated Dependencies
+
+- Updated **plugin-tsdown** to **v0.1.614**
+- Updated **powerlines** to **v0.47.213**
+
 ## [0.12.625](https://github.com/storm-software/powerlines/releases/tag/plugin-plugin%400.12.625) (09/04/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Hey API
 
+## [0.1.629](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.629) (09/17/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies and devenv modules ([f04c75cf1](https://github.com/storm-software/powerlines/commit/f04c75cf1))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.626**
+- Updated **plugin-power-plant** to **v0.1.70**
+- Updated **powerlines** to **v0.47.213**
+
 ## [0.1.628](https://github.com/storm-software/powerlines/releases/tag/plugin-hey-api%400.1.628) (09/04/2026)
 
 ### Updated Dependencies

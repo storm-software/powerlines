@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.757](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.757) (09/17/2026)
+
+### Miscellaneous
+
+- **monorepo:** Update workspace packages' dependencies and devenv modules ([f04c75cf1](https://github.com/storm-software/powerlines/commit/f04c75cf1))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.132**
+- Updated **plugin-alloy** to **v0.26.311**
+- Updated **plugin-babel** to **v0.13.210**
+- Updated **plugin-env** to **v0.16.422**
+- Updated **plugin-plugin** to **v0.12.626**
+- Updated **plugin-vite** to **v0.14.667**
+- Updated **powerlines** to **v0.47.213**
+
 ## [0.1.756](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.756) (09/04/2026)
 
 ### Updated Dependencies
