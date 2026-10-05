@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin Env
 
+## [0.16.423](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.423) (10/05/2026)
+
+### Bug Fixes
+
+- **plugin-env:** Resolve issue leaking build server details in env defaults ([0584f7ec9](https://github.com/storm-software/powerlines/commit/0584f7ec9))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.133**
+- Updated **plugin-alloy** to **v0.26.312**
+- Updated **plugin-automd** to **v0.1.676**
+- Updated **plugin-babel** to **v0.13.211**
+- Updated **plugin-plugin** to **v0.12.627**
+- Updated **plugin-power-plant** to **v0.1.71**
+- Updated **powerlines** to **v0.47.214**
+
 ## [0.16.422](https://github.com/storm-software/powerlines/releases/tag/plugin-env%400.16.422) (09/17/2026)
 
 ### Miscellaneous

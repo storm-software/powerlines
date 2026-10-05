@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-tsup",
-  "version": "0.12.670",
+  "version": "0.12.671",
   "private": false,
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "keywords": ["tsup", "powerlines", "storm-software", "powerlines-plugin"],
