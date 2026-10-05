@@ -293,7 +293,8 @@ export function EnvBuiltin(props: EnvBuiltinProps) {
       );
       if (
         unprefixedKey in (result.properties ?? {}) &&
-        isSetObject(result.properties?.[unprefixedKey])
+        isSetObject(result.properties?.[unprefixedKey]) &&
+        !result.properties[unprefixedKey].runtime
       ) {
         result.properties[unprefixedKey] = {
           ...result.properties?.[unprefixedKey],
