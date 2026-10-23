@@ -311,9 +311,8 @@ export function resolveOptions<TContext extends UnresolvedContext>(
         neverBundle: context.config.resolve.skipNodeModulesBundle
           ? true
           : external,
-        alwaysBundle: context.config.resolve.skipNodeModulesBundle
-          ? undefined
-          : noExternal,
+        // tsdown checks `alwaysBundle` before `neverBundle: true`, so `noExternal` still applies when skipping `node_modules`
+        alwaysBundle: noExternal,
         onlyBundle:
           context.config.resolve.skipNodeModulesBundle &&
           noExternal &&
