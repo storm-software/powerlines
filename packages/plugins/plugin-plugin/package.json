@@ -1,6 +1,6 @@
 {
   "name": "@powerlines/plugin-plugin",
-  "version": "0.12.628",
+  "version": "0.12.629",
   "type": "module",
   "description": "A package containing a Powerlines plugin to assist in developing other Powerlines plugins.",
   "repository": {

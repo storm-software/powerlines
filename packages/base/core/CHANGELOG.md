@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.135](https://github.com/storm-software/powerlines/releases/tag/core%400.48.135) (10/23/2026)
+
+### Bug Fixes
+
+- **core:** Resolve build issue with cleaned dependencies ([b37898d57](https://github.com/storm-software/powerlines/commit/b37898d57))
+
 ## [0.48.131](https://github.com/storm-software/powerlines/releases/tag/core%400.48.131) (09/04/2026)
 
 ### Bug Fixes
