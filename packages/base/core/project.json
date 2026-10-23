@@ -9,7 +9,7 @@
       "inputs": ["{projectRoot}/schemas/*.capnp"],
       "outputs": ["{projectRoot}/schemas/*.ts"],
       "executor": "nx:run-commands",
-      "dependsOn": ["clean", "^build"],
+      "dependsOn": ["^build"],
       "options": {
         "commands": [
           "pnpm exec storm-capnpc --project-root packages/base/core --schema packages/base/core/schemas"
