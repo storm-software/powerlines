@@ -74,6 +74,38 @@ A package containing a Powerlines plugin that integrates ESLint into the Powerli
 
 <!-- END doctoc -->
 
+## Features
+
+- Runs ESLint on project TypeScript files through the `lint` hook (artifacts and `node_modules` excluded)
+- Supports flat and legacy ESLint via `loadESLint`; results written to `outputFile` or logged per file
+- Exposes the instance on context (`this.eslint`) with a lint-message formatter under `./helpers/format-message`
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-eslint
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as eslint } from "@powerlines/plugin-eslint";
+
+export default defineConfig({
+  plugins: [
+    eslint({
+    configFile: "./eslint.config.mjs",
+    fix: true
+  })
+  ]
+});
+```
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

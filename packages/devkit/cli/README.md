@@ -53,6 +53,27 @@ This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "
 
 The Powerlines command-line interface application.
 
+## Quick Features
+
+- Nine commands: `build`, `clean`, `create`, `deploy` (alias `deployment`), `docs`, `gc` (alias `garbage-collection`), `lint`, `prepare`, `types`, plus `update`/`upgrade`, `changelog`, and `help`.
+- Typical flow: `create` → `prepare` → `lint` → `build` → `deploy`; use `clean`, `types`, or `docs` when needed and `gc` to free disk space.
+- Each command builds one engine instance, runs one engine method, and logs the engine version on start.
+- `root` is required for `create` and optional (defaults to the current working directory) for the other commands.
+
+## Usage
+
+Run commands through the `powerlines` binary:
+
+```bash
+powerlines create --root <project-dir>
+powerlines prepare --root <project-dir>
+powerlines lint --root <project-dir>
+powerlines build --root <project-dir>
+powerlines deploy --root <project-dir>
+```
+
+See [quick-start](../../docs/cli/quick-start.md) for the guided sequence, [api-reference](../../docs/cli/api-reference.md) for every command signature, and [configuration](../../docs/cli/configuration.md) for behavior options.
+
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -78,6 +99,10 @@ The Powerlines command-line interface application.
 <!-- END doctoc -->
 
 ## Installing
+
+> [!NOTE]
+> The `package.json` for this package currently sets `private: true`.
+> Confirm the publish state before relying on a registry install.
 
 Using [pnpm](http://pnpm.io):
 
@@ -347,7 +372,7 @@ Run `nx build cli` to build the library.
 ### Running unit tests
 
 Run `nx test cli` to execute the unit tests via
-[Jest](https://jestjs.io).
+[Vitest](https://vitest.dev).
 
 ### Linting
 

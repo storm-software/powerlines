@@ -74,6 +74,37 @@ A Powerlines plugin to generate project code with [OpenAPI](https://heyapi.dev/)
 
 <!-- END doctoc -->
 
+## Features
+
+- Generates typed API clients from OpenAPI schemas with Hey API
+- Resolves schemas from URL or inline documents; fills missing `operationId` values from operation summaries
+- Delegates generation to the Power Plant plugin; `createOperationId` helper under `./helpers/create-operation-id`
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-hey-api
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as heyApi } from "@powerlines/plugin-hey-api";
+
+export default defineConfig({
+  plugins: [
+    heyApi({
+    schema: "https://api.example.com/openapi.json"
+  })
+  ]
+});
+```
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

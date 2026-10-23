@@ -53,6 +53,25 @@ This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "
 
 A shared TSDoc configuration containing various tsdoc.json files used in Powerlines projects.
 
+## Quick Features
+
+- Two shipped configs: `recommended.json` (most projects — Powerlines base tags plus the shared Storm Software recommended tags) and `base.json` (only the Powerlines tags, including `@runtime` and `@domain`).
+- `recommended.json` extends `@storm-software/tsdoc/recommended.json` (required peer `@storm-software/tsdoc >=0.13.146`).
+- JSON files only — no runtime code; resolved through the `exports` map.
+
+## Usage
+
+Create a `tsdoc.json` file in your project that extends the shipped config:
+
+```json
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+  "extends": ["@powerlines/tsdoc/recommended.json"]
+}
+```
+
+The `extends` value is an array of config paths, matching the shape used in the shipped `recommended.json`.
+
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -102,12 +121,10 @@ yarn add -D @powerlines/tsdoc
 
 </details>
 
-## Reduced Package Size
+## Package Contents
 
-This project uses [tsup](https://tsup.egoist.dev/) to package the source code
-due to its ability to remove unused code and ship smaller javascript files
-thanks to code splitting. This helps to greatly reduce the size of the package
-and to make it easier to use in other projects.
+This package ships JSON files only — it has no runtime code and no bundled
+output. The build copies `src/*.json` to the package root.
 
 ## Development
 
@@ -117,14 +134,6 @@ commands are available to assist in development.
 ### Building
 
 Run `nx build tsdoc` to build the library.
-
-### Running unit tests
-
-Run `nx test tsdoc` to execute the unit tests via [Jest](https://jestjs.io).
-
-### Linting
-
-Run `nx lint tsdoc` to run [ESLint](https://eslint.org/) on the package.
 
 <!-- START footer -->
 <!-- prettier-ignore-start -->

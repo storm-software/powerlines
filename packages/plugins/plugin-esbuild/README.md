@@ -74,6 +74,37 @@ A package containing a Powerlines plugin to build projects using ESBuild.
 
 <!-- END doctoc -->
 
+## Features
+
+- Builds projects with esbuild through the `build` hook (ESM output format)
+- Resolves entry points and wires Powerlines unplugins through `createEsbuildPlugin`
+- Typed build options via `./types/build` (`EsbuildOptions`) and `./types/plugin`
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-esbuild
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as esbuild } from "@powerlines/plugin-esbuild";
+
+export default defineConfig({
+  plugins: [
+    esbuild()
+  ]
+});
+```
+
+Requires peer `esbuild >= 0.27.3`, installed by the consumer.
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

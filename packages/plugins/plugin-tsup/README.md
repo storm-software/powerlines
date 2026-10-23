@@ -74,6 +74,40 @@ A package containing a Powerlines plugin to assist in running Tsup builds on Pow
 
 <!-- END doctoc -->
 
+## Features
+
+- Runs [tsup](https://tsup.egoist.dev/) builds on Powerlines projects
+- Supplies default tsup build configuration through the `config` hook
+- Runs the build through the `build` hook
+- Accepts `Partial<TsupOptions>` (for example `dts: true`)
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-tsup
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as tsup } from "@powerlines/plugin-tsup";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [tsup()]
+});
+```
+
+Run the build with the Powerlines CLI. To pass options inline:
+
+```ts
+export default defineConfig({
+  plugins: [tsup({ dts: true })]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

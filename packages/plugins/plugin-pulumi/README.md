@@ -74,6 +74,34 @@ A package containing a Powerlines plugin to configure infrastructure and deploy 
 
 <!-- END doctoc -->
 
+## Features
+
+- Deploys project infrastructure using [Pulumi IaC](https://www.pulumi.com).
+- Configures stacks through `stackSettings`.
+- Tracks stack state in the Pulumi console.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-pulumi
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as pulumi } from "@powerlines/plugin-pulumi";
+
+export default defineConfig({
+  plugins: [pulumi({ stackSettings: {} })],
+  pulumi: { stackSettings: {} }
+});
+```
+
+Then run the Powerlines build for your project.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

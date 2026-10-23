@@ -76,6 +76,46 @@ A Powerlines plugin to generate project code with the [Unified](https://unified.
 
 <!-- END doctoc -->
 
+## Features
+
+- Processes content with [Unified](https://unifiedjs.com/) (remark and rehype plugins)
+- Matches files per rule with `include` / `exclude` patterns
+- Builds a Unified `Processor` in each rule's `setup` function
+- Supports optional `transform.pre` and `transform.post` steps around processor output
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-unified
+```
+
+Register it in `powerlines.config.ts` with one rule:
+
+```ts
+import { plugin as unified } from "@powerlines/plugin-unified";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [
+    unified({
+      rules: [
+        {
+          include: /\.md$/,
+          setup: processor => {
+            // Add remark or rehype plugins here
+            return processor;
+          }
+        }
+      ]
+    })
+  ]
+});
+```
+
+Each rule matches files with `include` / `exclude` and builds its processor in `setup`.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

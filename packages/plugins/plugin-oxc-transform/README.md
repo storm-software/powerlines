@@ -74,6 +74,34 @@ A Powerlines plugin to transform project code with [Oxc Transformer](https://oxc
 
 <!-- END doctoc -->
 
+## Features
+
+- Transforms project code with [Oxc Transformer](https://oxc.rs/docs/guide/usage/transformer.html).
+- Supports transform options such as `target` (e.g. `"es2022"`).
+- Surfaces syntax errors in the build output.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-oxc-transform
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as oxcTransform } from "@powerlines/plugin-oxc-transform";
+
+export default defineConfig({
+  plugins: [oxcTransform({ target: "es2022" })],
+  oxcTransform: { target: "es2022" }
+});
+```
+
+Then run the Powerlines build for your project.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

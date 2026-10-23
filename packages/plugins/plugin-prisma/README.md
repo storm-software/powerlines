@@ -74,6 +74,34 @@ A Powerlines plugin to generate project code with [Prisma](https://www.prisma.io
 
 <!-- END doctoc -->
 
+## Features
+
+- Generates project code and a Prisma client from a Prisma schema (PSL).
+- Reads the schema from a configured path (e.g. `./prisma/schema.prisma`).
+- Re-runs generation after the schema changes.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-prisma
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as prisma } from "@powerlines/plugin-prisma";
+
+export default defineConfig({
+  plugins: [prisma({ schema: "./prisma/schema.prisma" })],
+  prisma: { schema: "./prisma/schema.prisma" }
+});
+```
+
+Then run the Powerlines build for your project and import the generated client in your app code.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

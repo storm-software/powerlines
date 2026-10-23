@@ -74,6 +74,34 @@ A package containing a Powerlines plugin that integrates with Nitro.
 
 <!-- END doctoc -->
 
+## Features
+
+- Builds a server application that runs on [Nitro](https://nitro.build).
+- Serves project routes through the Nitro runtime.
+- Supports options such as `preset` (e.g. `"node-server"`).
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-nitro
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as nitro } from "@powerlines/plugin-nitro";
+
+export default defineConfig({
+  plugins: [nitro({ preset: "node-server" })],
+  nitro: { preset: "node-server" }
+});
+```
+
+Then run the Powerlines build for your project and start the server to serve the routes locally.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

@@ -75,6 +75,40 @@ values into the code so that they're accessible at runtime.
 
 <!-- END doctoc -->
 
+## Features
+
+- Injects `.env` configuration values into code so they are accessible at runtime
+- Filters by prefix with validation; context exposes `env.config`, `env.secrets`, `env.parsed`, and `env.injected`
+- Renders `env.md` docs, registers the env Babel/vite integrations, and writes active variables at `buildEnd`
+- Helpers for loading, schemas, and source-file env plus env-builtin components (`./components/*`, `./helpers/*`, `./schemas/*`)
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-env
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as env } from "@powerlines/plugin-env";
+
+export default defineConfig({
+  plugins: [
+    env({
+    prefix: "APP_",
+    inject: true,
+    validate: true
+  })
+  ]
+});
+```
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

@@ -78,6 +78,39 @@ Huge thanks to [dmtrKovalenko](https://github.com/dmtrKovalenko) for their work 
 
 <!-- END doctoc -->
 
+## Features
+
+- Injects a consistent date interface at build time across `date-fns`, `dayjs`, `luxon`, and `moment.js`
+- Emits the matching date module as the `date` builtin during `prepare`
+- Pins the selected date library as a dependency; resolved config requires `type` and `defaultLocale`
+- Composes the `env` plugin for configuration values
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-date
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as date } from "@powerlines/plugin-date";
+
+export default defineConfig({
+  plugins: [
+    date({
+    type: "date-fns",
+    defaultLocale: "en-US"
+  })
+  ]
+});
+```
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

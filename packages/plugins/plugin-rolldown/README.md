@@ -74,6 +74,34 @@ A Powerlines plugin to assist in building projects with [Rolldown](https://rolld
 
 <!-- END doctoc -->
 
+## Features
+
+- Bundles projects with [Rolldown](https://rolldown.rs/).
+- Defines bundle behavior fully through the underlying Rolldown options.
+- Exposes public option and config types via `./types` subpaths.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-rolldown
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as rolldown } from "@powerlines/plugin-rolldown";
+
+export default defineConfig({
+  plugins: [rolldown()],
+  rolldown: {}
+});
+```
+
+Then run the Powerlines build for your project and check the output directory for the bundle.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

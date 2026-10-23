@@ -74,6 +74,34 @@ A Powerlines plugin to generate project code with [OpenAPI](https://openapis.org
 
 <!-- END doctoc -->
 
+## Features
+
+- Generates project code from OpenAPI specifications.
+- Writes generated clients to a configured `outputPath`.
+- Regenerates output after the spec changes.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-openapi
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as openapi } from "@powerlines/plugin-openapi";
+
+export default defineConfig({
+  plugins: [openapi({ schema: "./openapi.yml", outputPath: "src/generated" })],
+  openapi: { schema: "./openapi.yml", outputPath: "src/generated" }
+});
+```
+
+Then run the Powerlines build for your project.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

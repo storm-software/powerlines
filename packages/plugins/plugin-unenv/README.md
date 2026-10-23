@@ -74,6 +74,40 @@ A package containing the Powerlines plugin to transform source code to be platfo
 
 <!-- END doctoc -->
 
+## Features
+
+- Makes code platform-agnostic with [unenv](https://unjs.io/packages/unenv) shims
+- Supplies default unenv environment configuration through the `config` hook
+- Resolves the platform-agnostic environment through the `configResolved` hook
+- Accepts `Partial<CreateEnvOptions>` from `unenv` (for example `presets`)
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-unenv
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as unenv } from "@powerlines/plugin-unenv";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [unenv()]
+});
+```
+
+Source code then uses platform-agnostic shims from `unenv`. To pass options:
+
+```ts
+export default defineConfig({
+  plugins: [unenv({ presets: [] })]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

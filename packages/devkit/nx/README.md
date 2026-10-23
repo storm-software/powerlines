@@ -47,6 +47,12 @@ This package is part of the 🔌 <b>Powerlines</b> monorepo. Powerlines packages
 A package containing tools for managing a Storm workspace. It includes various
 [Nx](https://nx.dev) generators and executors for common development tasks.
 
+## Quick Features
+
+- Five executors that run the matching Powerlines command on a project: `clean`, `prepare`, `lint`, `build`, and `docs`.
+- A `typescript-sync` generator (alias `sync`) that synchronizes Powerlines projects from the project graph.
+- Nx `>=23.0.0` peer requirement, with `executors.json` and `generators.json` registering the plugin with Nx.
+
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -226,11 +232,11 @@ Synchronize Powerlines projects based on the project graph
 
 ## Building
 
-Run `nx build devkit-nx` to build the library.
+Run `nx build nx` to build the library.
 
 ## Running unit tests
 
-Run `nx test devkit-nx` to execute the unit tests via [Jest](https://jestjs.io).
+Run `nx test nx` to execute the unit tests via [Vitest](https://vitest.dev).
 
 <!-- START footer -->
 <!-- prettier-ignore-start -->

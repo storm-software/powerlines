@@ -74,6 +74,35 @@ A Powerlines plugin to use [satori](https://github.com/vercel/satori) to generat
 
 <!-- END doctoc -->
 
+## Features
+
+- Generates SVG images from JSX/TSX components with [Satori](https://github.com/vercel/satori)
+- Resolves component files from a `path` glob through the `configResolved` hook
+- Writes output next to each component file by default, or to a shared `outputPath`
+- Supports shared `defaultOptions` (such as width and height) with per-component overrides
+- Runs during the `prepare` command
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-satori
+```
+
+Register it in `powerlines.config.ts`, pointing `path` at files with a Satori component default export:
+
+```ts
+import { plugin as satori } from "@powerlines/plugin-satori";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [satori({ path: "src/og/**/*.tsx" })]
+});
+```
+
+Run the `prepare` command to generate the output images.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

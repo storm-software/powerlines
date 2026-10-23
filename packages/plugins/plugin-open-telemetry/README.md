@@ -76,6 +76,35 @@ A package containing a Powerlines plugin for integrating Open Telemetry into Pow
 
 <!-- END doctoc -->
 
+## Features
+
+- Registers OpenTelemetry integration for the project at runtime.
+- Initializes telemetry with a `serviceName`.
+- Exports spans and metrics through the configured exporter.
+- Ships shared components for observed projects.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-open-telemetry
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as openTelemetry } from "@powerlines/plugin-open-telemetry";
+
+export default defineConfig({
+  plugins: [openTelemetry({ serviceName: "my-service" })],
+  openTelemetry: { serviceName: "my-service" }
+});
+```
+
+Then run the Powerlines build for your project.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

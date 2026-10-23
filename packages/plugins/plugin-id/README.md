@@ -74,6 +74,37 @@ A Powerlines plugin that provides unique identifier generation capabilities at r
 
 <!-- END doctoc -->
 
+## Features
+
+- Adds the `id` builtin module for runtime unique-identifier generation
+- Emits the selected ID module (e.g. `nanoid` component) as the `id` builtin during `prepare`
+- Resolved config requires `type`; typed options via `./types/plugin`
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-id
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as id } from "@powerlines/plugin-id";
+
+export default defineConfig({
+  plugins: [
+    id({
+    type: "nanoid"
+  })
+  ]
+});
+```
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

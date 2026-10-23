@@ -74,6 +74,34 @@ A Powerlines plugin to generate project code with [Marked](https://marked.js.org
 
 <!-- END doctoc -->
 
+## Features
+
+- Renders Markdown to HTML through a shared [Marked](https://marked.js.org) instance.
+- Exposes `this.marked.parse(src)` for use inside other hooks.
+- Supports Marked options such as `gfm` and `breaks`.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-marked
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as marked } from "@powerlines/plugin-marked";
+
+export default defineConfig({
+  plugins: [marked({ gfm: true })],
+  marked: { gfm: true, breaks: false }
+});
+```
+
+Then run the Powerlines build for your project.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

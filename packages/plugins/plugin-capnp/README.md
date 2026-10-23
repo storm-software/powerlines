@@ -74,6 +74,39 @@ A Powerlines plugin to generate project code with [Cap'n Proto](https://capnprot
 
 <!-- END doctoc -->
 
+## Features
+
+- Generates project code from Cap'n Proto schemas (glob supported, `{builtinPath}` tokens expanded)
+- Compiles schemas with `capnpc` during `prepare`; builtin-path output is emitted via `emitBuiltin`
+- Warns and skips cleanly when no schemas resolve
+- Typed options via `./types/plugin` (`CapnpPluginOptions`, user/resolved config, context)
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-capnp
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as capnp } from "@powerlines/plugin-capnp";
+
+export default defineConfig({
+  plugins: [
+    capnp({
+    schema: "./schemas/*.capnp",
+    ts: true
+  })
+  ]
+});
+```
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

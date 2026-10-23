@@ -74,6 +74,40 @@ A package containing a Powerlines plugin to build projects using Unbuild.
 
 <!-- END doctoc -->
 
+## Features
+
+- Runs [unbuild](https://unjs.io/packages/unbuild) builds on Powerlines projects
+- Supplies default unbuild configuration through the `config` hook
+- Runs the build through the `build` hook
+- Accepts `Partial<UnbuildOptions>` (for example `clean: true`)
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-unbuild
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as unbuild } from "@powerlines/plugin-unbuild";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [unbuild()]
+});
+```
+
+Run the build with the Powerlines CLI. To pass options inline:
+
+```ts
+export default defineConfig({
+  plugins: [unbuild({ clean: true })]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

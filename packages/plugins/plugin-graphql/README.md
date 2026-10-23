@@ -74,6 +74,39 @@ A Powerlines plugin to generate project code with [GraphQL Codegen](https://grap
 
 <!-- END doctoc -->
 
+## Features
+
+- Generates project code from GraphQL schemas with GraphQL Codegen
+- Loads SDL from file or URL into a `GraphQLSchema` document and expands `filename` tokens
+- Delegates generation to the Power Plant plugin via `config.powerplant`
+- Typed options via `./types/plugin` (`GraphQLPluginOptions`, user/resolved config, context)
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-graphql
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as graphql } from "@powerlines/plugin-graphql";
+
+export default defineConfig({
+  plugins: [
+    graphql({
+    schema: "./schema.graphql",
+    filename: "{builtinPath}/graphql/schema.ts"
+  })
+  ]
+});
+```
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

@@ -74,6 +74,41 @@ A package containing a Powerlines plugin to assist in running TSDown builds on P
 
 <!-- END doctoc -->
 
+## Features
+
+- Runs [TSDown](https://tsdown.dev/) builds on Powerlines projects
+- Supplies default TSDown build configuration through the `config` hook
+- Resolves entry points and output settings through the `configResolved` hook
+- Runs the build through the `build` hook
+- Accepts `Partial<TsdownOptions>` (for example `dts: true`)
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-tsdown
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as tsdown } from "@powerlines/plugin-tsdown";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [tsdown()]
+});
+```
+
+Run the build with the Powerlines CLI. To pass options inline:
+
+```ts
+export default defineConfig({
+  plugins: [tsdown({ dts: true })]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

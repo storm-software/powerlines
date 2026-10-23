@@ -49,9 +49,9 @@ This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "
 
 <!-- END header -->
 
-# Powerlines - AsyncAPI Plugin
+# Powerlines - Power Plant Plugin
 
-A Powerlines plugin to generate project code with [AsyncAPI](https://www.asyncapi.com/).
+A Powerlines plugin to generate project code using Power Plant.
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -74,19 +74,49 @@ A Powerlines plugin to generate project code with [AsyncAPI](https://www.asyncap
 
 <!-- END doctoc -->
 
+## Features
+
+- Generates project code using Power Plant.
+- Runs the configured generator and writes its output files.
+- Ships helpers for generator-based plugin development.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-power-plant
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as powerplant } from "@powerlines/plugin-power-plant";
+
+export default defineConfig({
+  plugins: [powerplant()],
+  powerplant: {
+    // generator config; see @power-plant/core
+  }
+});
+```
+
+Then run the Powerlines build for your project and check the output directory for fresh files.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):
 
 ```bash
-pnpm add @powerlines/plugin-asyncapi
+pnpm add @powerlines/plugin-power-plant
 ```
 
 <details>
   <summary>Using npm</summary>
 
 ```bash
-npm install @powerlines/plugin-asyncapi
+npm install @powerlines/plugin-power-plant
 ```
 
 </details>
@@ -95,7 +125,7 @@ npm install @powerlines/plugin-asyncapi
   <summary>Using yarn</summary>
 
 ```bash
-yarn add @powerlines/plugin-asyncapi
+yarn add @powerlines/plugin-power-plant
 ```
 
 </details>

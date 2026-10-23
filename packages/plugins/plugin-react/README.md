@@ -74,6 +74,36 @@ A package containing a Powerlines plugin for building a React application.
 
 <!-- END doctoc -->
 
+## Features
+
+- Builds a React application through the Powerlines plugin pipeline.
+- Supports the `automatic` JSX runtime plus compiler options.
+- Loads environment settings via `env` (e.g. `mode`).
+- Ships shared components for React projects.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-react
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as react } from "@powerlines/plugin-react";
+
+export default defineConfig({
+  plugins: [react({ jsxRuntime: "automatic" })],
+  react: { jsxRuntime: "automatic", compiler: {} },
+  env: { mode: "development" }
+});
+```
+
+Then run the Powerlines build for your project and open the dev server to view the app.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

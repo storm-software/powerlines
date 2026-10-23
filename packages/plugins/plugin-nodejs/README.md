@@ -51,7 +51,7 @@ This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "
 
 # Powerlines - Node.js Plugin
 
-A package containing a Powerlines plugin for building a React application.
+A package containing a Powerlines plugin for building a Node.js application.
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -73,6 +73,35 @@ A package containing a Powerlines plugin for building a React application.
 - [Contributors](#contributors)
 
 <!-- END doctoc -->
+
+## Features
+
+- Builds a Node.js application through the Powerlines plugin pipeline.
+- Loads environment files into the build via `env` settings.
+- Applies Babel transforms via `babel` settings.
+- Ships shared components for Node.js projects.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-nodejs
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as nodejs } from "@powerlines/plugin-nodejs";
+
+export default defineConfig({
+  plugins: [nodejs()],
+  env: { mode: "production" }
+});
+```
+
+Then run the Powerlines build for your project.
 
 ## Installing
 

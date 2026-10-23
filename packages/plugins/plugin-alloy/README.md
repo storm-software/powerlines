@@ -74,6 +74,38 @@ A package containing various Alloy framework components and helper utilities.
 
 <!-- END doctoc -->
 
+## Features
+
+- Generates project code with Alloy JS through Power Plant codegen
+- Bundles the Babel plugin and forces Alloy JSX presets, marking Alloy packages external
+- Sets `compilerOptions.jsx` to `preserve` in the project tsconfig
+- Exposes reusable rendering pieces via `./core`, `./helpers`, `./render`, and `./typescript` subpaths
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-alloy
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as alloy } from "@powerlines/plugin-alloy";
+
+export default defineConfig({
+  plugins: [
+    alloy()
+  ]
+});
+```
+
+Requires peer `@alloy-js/babel-preset >= 0.3.0`, installed by the consumer.
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

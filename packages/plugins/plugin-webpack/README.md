@@ -74,6 +74,40 @@ A package containing a Powerlines plugin to build projects using [Webpack](https
 
 <!-- END doctoc -->
 
+## Features
+
+- Builds Powerlines projects with [Webpack](https://webpack.js.org/)
+- Supplies default Webpack build configuration through the `config` hook
+- Runs the Webpack build through the `build` hook
+- Accepts `Partial<WebpackOptions>` (for example `mode: "production"`)
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-webpack
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as webpack } from "@powerlines/plugin-webpack";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [webpack()]
+});
+```
+
+Run the build with the Powerlines CLI. To pass options inline:
+
+```ts
+export default defineConfig({
+  plugins: [webpack({ mode: "production" })]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

@@ -55,6 +55,54 @@
       "skillPath": "skills/skill-creator/SKILL.md",
       "computedHash": "5ea13a6d9f0d4bb694405d79acd00cadec0d21bb138c4dd10fcf3c500cb835c2"
     },
+    "sourcebook": {
+      "source": "storm-software/sourcebook",
+      "sourceType": "github",
+      "skillPath": "skills/sourcebook/SKILL.md",
+      "computedHash": "22da568392e6eac6f13698c728f1a2d8b9d4a459882cd6192b50102ef51a2535"
+    },
+    "sourcebook-adr": {
+      "source": "storm-software/sourcebook",
+      "sourceType": "github",
+      "skillPath": "skills/sourcebook-adr/SKILL.md",
+      "computedHash": "d8a819a1b49726cbd1d801cc5e21eef33b59938713994679fd1739f12b57d133"
+    },
+    "sourcebook-blog": {
+      "source": "storm-software/sourcebook",
+      "sourceType": "github",
+      "skillPath": "skills/sourcebook-blog/SKILL.md",
+      "computedHash": "18d08a6856a7292357ce02c32515ff867796c3fa83e01c188009354c3b5de65d"
+    },
+    "sourcebook-docs": {
+      "source": "storm-software/sourcebook",
+      "sourceType": "github",
+      "skillPath": "skills/sourcebook-docs/SKILL.md",
+      "computedHash": "fd92e56bc6cfb837cc4a5cdb5b2afaa5e2f0e433ad79edd127ca0d7c2d646e9a"
+    },
+    "sourcebook-editor": {
+      "source": "storm-software/sourcebook",
+      "sourceType": "github",
+      "skillPath": "skills/sourcebook-editor/SKILL.md",
+      "computedHash": "4a97d4e839d761b98b02fdd9860c1e85f1b82b5d9f2329fab536c0441e0cb346"
+    },
+    "sourcebook-guide": {
+      "source": "storm-software/sourcebook",
+      "sourceType": "github",
+      "skillPath": "skills/sourcebook-guide/SKILL.md",
+      "computedHash": "2bb5a16a5cf0a8e4ccb2ccae23e3116c25674f619012e507ab359a1b29e7c7c2"
+    },
+    "sourcebook-openapi": {
+      "source": "storm-software/sourcebook",
+      "sourceType": "github",
+      "skillPath": "skills/sourcebook-openapi/SKILL.md",
+      "computedHash": "b78c6952529b22b15ab7606b8cbf964b673afa0f3d59777d92917c06e4791be5"
+    },
+    "sourcebook-readme": {
+      "source": "storm-software/sourcebook",
+      "sourceType": "github",
+      "skillPath": "skills/sourcebook-readme/SKILL.md",
+      "computedHash": "354b0c33dc35efb92f89bfc16975ca238be16ee89362efa66f921df05158dece"
+    },
     "tsdoc-comments": {
       "source": "marius-townhouse/effective-typescript-skills",
       "sourceType": "github",

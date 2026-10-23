@@ -74,6 +74,40 @@ A Powerlines plugin to use [Sharp](https://sharp.pixelplumbing.com) to optimize 
 
 <!-- END doctoc -->
 
+## Features
+
+- Optimizes project images through [Sharp](https://sharp.pixelplumbing.com).
+- Re-encodes matching files and writes them to a configured `outputPath`.
+- Emits WebP and AVIF variants via the `webp` and `avif` options.
+- Selects inputs with `filter` globs; no matches means no output and no error.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-image-compression
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as imageCompression } from "@powerlines/plugin-image-compression";
+
+export default defineConfig({
+  plugins: [imageCompression()],
+  imageCompression: {
+    filter: ["assets/**/*"],
+    outputPath: "dist/assets",
+    webp: {},
+    avif: {}
+  }
+});
+```
+
+Then run the Powerlines build for your project.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

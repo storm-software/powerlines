@@ -74,6 +74,36 @@ A Powerlines plugin to generate project code with [i18next](https://www.i18next.
 
 <!-- END doctoc -->
 
+## Features
+
+- Internationalization with i18next for Powerlines projects
+- Generates i18next TypeScript resources (`Resources` interface and `CustomTypeOptions` declaration) from parsed locale files during the build
+- Supports namespace merging with a warning when top-level keys are not namespaces
+- Resource types under `./types/i18n` and options via `./types/plugin` (`I18NextPluginOptions`)
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-i18next
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as i18next } from "@powerlines/plugin-i18next";
+
+export default defineConfig({
+  plugins: [
+    i18next()
+  ]
+});
+```
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

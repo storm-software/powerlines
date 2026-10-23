@@ -68,6 +68,23 @@
 
 <br />
 
+# Packages
+
+This workspace publishes one public facade plus its supporting packages:
+
+- `powerlines` (`packages/devkit/powerlines`) — the public package. Install this in application projects.
+- `@powerlines/core` (`packages/base/core`) and `@powerlines/engine` (`packages/base/engine`) — internal shared types/config/storage and the command-orchestration engine. Most users get them transitively through `powerlines`.
+- `@powerlines/cli` (`packages/devkit/cli`) — the `powerlines` command-line binary (`build`, `clean`, `create`, `deploy`, `docs`, `gc`, `lint`, `prepare`, `types`, and more).
+- `@powerlines/nx` (`packages/devkit/nx`) — Nx executors and generators for running Powerlines commands in Nx workspaces.
+- `@powerlines/unplugin` (`packages/devkit/unplugin`) — bundler adapters (Vite, Rollup, esbuild, Webpack, and more) built on `createUnpluginFactory`.
+- `@powerlines/tsconfig` (`packages/devkit/tsconfig`) and `@powerlines/tsdoc` (`packages/devkit/tsdoc`) — shared TypeScript and TSDoc configurations.
+- `@powerlines/plugin-*` (`packages/plugins/`) — tool plugins (Biome, TypeScript, ESLint, Vitest, Prisma, Terraform, and more) consumed through the engine's plugin hooks.
+
+Each package documents its own install, usage, and development steps in its `README.md`. Start with the [powerlines package](packages/devkit/powerlines/README.md).
+
+<div align="right">[ <a href="#table-of-contents">Back to top ▲</a> ]</div>
+<br />
+
 # Getting Started
 
 Once the code is pulled locally, open a command prompt and run `pnpm install` in

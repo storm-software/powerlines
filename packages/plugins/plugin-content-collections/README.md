@@ -74,6 +74,41 @@ A Powerlines plugin to generate project code using [content-collections](https:/
 
 <!-- END doctoc -->
 
+## Features
+
+- Generates project code with Content Collections, built during `prepare`
+- Reads the collections config, checksums it, and builds with a Powerlines-backed writer
+- Build-event subscription via context (`contentCollections.context`, `.build()`, `.on`)
+- Emitter and writer factories under `./helpers/create-emitter` and `./helpers/create-writer`
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-content-collections
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as contentCollections } from "@powerlines/plugin-content-collections";
+
+export default defineConfig({
+  plugins: [
+    contentCollections({
+    configFile: "{root}/content-collections.ts",
+    collections: []
+  })
+  ]
+});
+```
+
+Requires peer `@content-collections/core >= 0.12.3`, installed by the consumer.
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

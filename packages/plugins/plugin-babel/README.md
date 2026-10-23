@@ -74,6 +74,39 @@ A package containing the Babel plugin for Powerlines, various helper utilities, 
 
 <!-- END doctoc -->
 
+## Features
+
+- Babel transform pipeline wired through `config`, `configResolved` (`pre`), and `transform` hooks
+- Skips files marked `/* @powerlines-ignore */` or `/* @powerlines-disable */`; adds the JSON-modules transform automatically
+- Ships AST, filter, module-resolution, and option helpers (`./helpers/*`) plus `create-plugin` scaffolding
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-babel
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as babel } from "@powerlines/plugin-babel";
+
+export default defineConfig({
+  plugins: [
+    babel({
+    presets: ["@babel/preset-typescript"]
+  })
+  ]
+});
+```
+
+Requires peers `@babel/plugin-syntax-jsx`, `@babel/plugin-syntax-typescript`, and `@babel/plugin-transform-json-modules`, installed by the consumer.
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

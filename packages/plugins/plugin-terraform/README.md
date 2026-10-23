@@ -76,6 +76,46 @@ A package containing a Powerlines plugin to configure infrastructure and deploy 
 
 <!-- END doctoc -->
 
+## Features
+
+- Deploys infrastructure and configures projects with [Terraform IaC](https://www.terraform.io)
+- Generates the stack name from the organization, workspace, project, and mode when `stackName` is omitted
+- Supports `autoApproval` for non-interactive applies
+- Supports `destroy: true` to run `terraform destroy` instead of `terraform apply`
+- Runs through the `deploy` hook via the deploy command
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-terraform
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as terraform } from "@powerlines/plugin-terraform";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [terraform()]
+});
+```
+
+Run the deploy command. To set the stack and approval behavior:
+
+```ts
+export default defineConfig({
+  plugins: [
+    terraform({
+      stackName: "my-org-my-project-production",
+      autoApproval: true
+    })
+  ]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

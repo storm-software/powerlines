@@ -74,6 +74,40 @@ A package containing the Jest testing plugin for Powerlines, various helper util
 
 <!-- END doctoc -->
 
+## Features
+
+- Runs Jest testing through the Powerlines plugin pipeline.
+- Passes `test.jest` config fields through to the Jest CLI.
+- Ships shared Jest configurations and helper utilities.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-jest
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as jest } from "@powerlines/plugin-jest";
+
+export default defineConfig({
+  plugins: [jest({ testFile: "src/index.test.ts" })],
+  test: {
+    jest: { runInBand: true }
+  }
+});
+```
+
+Then run the tests:
+
+```bash
+powerlines test
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

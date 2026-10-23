@@ -28,7 +28,11 @@
     "node": ">=24.16.0",
     "pnpm": ">=11.9.0"
   },
-  "keywords": ["storm-software", "powerlines", "sullivanpj"],
+  "keywords": [
+    "storm-software",
+    "powerlines",
+    "sullivanpj"
+  ],
   "scripts": {
     "adr": "pnpm log4brains adr new",
     "adr-preview": "pnpm log4brains preview",
@@ -64,6 +68,7 @@
     "@nx/vitest": "catalog:",
     "@nx/workspace": "catalog:",
     "@shell-shock/nx": "catalog:",
+    "@sourcebook/config": "catalog:",
     "@storm-software/config": "catalog:",
     "@storm-software/config-tools": "catalog:",
     "@storm-software/cspell": "catalog:",
@@ -77,8 +82,8 @@
     "@storm-software/prettier": "catalog:",
     "@storm-software/tsconfig": "catalog:",
     "@storm-software/untyped": "catalog:",
-    "@stryke/capnp": "catalog:",
     "@storm-software/workspace-tools": "catalog:",
+    "@stryke/capnp": "catalog:",
     "@swc-node/register": "catalog:",
     "@swc/core": "catalog:",
     "@swc/helpers": "catalog:",

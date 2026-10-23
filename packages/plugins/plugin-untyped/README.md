@@ -74,6 +74,45 @@ A Powerlines plugin to use [untyped](https://github.com/unjs/untyped) for code g
 
 <!-- END doctoc -->
 
+## Features
+
+- Generates code from [Untyped](https://unjs.io/packages/untyped) schemas
+- Finds schemas matching `{root}/**/{untyped.ts,*.untyped.ts}` by default
+- Writes output files next to each schema file unless `outputPath` is set
+- Runs generation during the `prepare` command through the `prepare` hook
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-untyped
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as untyped } from "@powerlines/plugin-untyped";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [untyped()]
+});
+```
+
+Run the `prepare` command to generate from schemas. To set schema paths:
+
+```ts
+export default defineConfig({
+  plugins: [
+    untyped({
+      schema: "src/config/*.untyped.ts",
+      outputPath: "dist/generated"
+    })
+  ]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

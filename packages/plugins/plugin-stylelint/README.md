@@ -74,6 +74,40 @@ A package containing a Powerlines plugin that integrates [Stylelint](https://sty
 
 <!-- END doctoc -->
 
+## Features
+
+- Lints CSS and other style files with [Stylelint](https://stylelint.io/)
+- Runs through the `lint` hook in the Powerlines linting process
+- Fixes problems by default (`fix` is `true`)
+- Accepts a `configFile` path pointing at a Stylelint config
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-stylelint
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as stylelint } from "@powerlines/plugin-stylelint";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [stylelint()]
+});
+```
+
+Run the lint command. To point at a config file:
+
+```ts
+export default defineConfig({
+  plugins: [stylelint({ configFile: "stylelint.config.mjs" })]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

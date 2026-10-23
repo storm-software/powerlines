@@ -53,6 +53,24 @@ This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "
 
 A shared TypeScript configuration containing various tsconfig.json files used in Powerlines projects.
 
+## Quick Features
+
+- Five shipped configs: `base.json` (minimal base), `recommended.json` (most projects), `strict.json` (stricter checks), `monorepo.json` (workspace packages), and `deepkit.json` (Deepkit reflection).
+- Every shipped config extends a `@storm-software/tsconfig` file (required peer `@storm-software/tsconfig >=0.48.2`).
+- JSON files only — no runtime code; resolved through the `exports` map (for example `@powerlines/tsconfig/strict.json`).
+
+## Usage
+
+Point the `extends` field in your `tsconfig.json` at one shipped file:
+
+```json
+{
+  "extends": "@powerlines/tsconfig/recommended.json"
+}
+```
+
+TypeScript applies the shared compiler options; your local `compilerOptions` override the shared values. Only set the fields you need to change.
+
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -100,12 +118,10 @@ yarn add -D @powerlines/tsconfig
 
 </details>
 
-## Reduced Package Size
+## Package Contents
 
-This project uses [tsup](https://tsup.egoist.dev/) to package the source code
-due to its ability to remove unused code and ship smaller javascript files
-thanks to code splitting. This helps to greatly reduce the size of the package
-and to make it easier to use in other projects.
+This package ships JSON files only — it has no runtime code and no bundled
+output. The build copies `src/*.json` to the package root.
 
 ## Development
 
@@ -115,14 +131,6 @@ commands are available to assist in development.
 ### Building
 
 Run `nx build tsconfig` to build the library.
-
-### Running unit tests
-
-Run `nx test tsconfig` to execute the unit tests via [Jest](https://jestjs.io).
-
-### Linting
-
-Run `nx lint tsconfig` to run [ESLint](https://eslint.org/) on the package.
 
 <!-- START footer -->
 <!-- prettier-ignore-start -->

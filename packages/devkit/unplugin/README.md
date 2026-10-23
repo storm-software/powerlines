@@ -51,7 +51,28 @@ This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "
 
 # Powerlines - Unplugin
 
-A package containing the Deepkit plugin for Powerlines, various helper utilities, and shared configurations.
+A package containing a Powerlines plugin to assist in developing other Powerlines plugins.
+
+## Quick Features
+
+- `createUnpluginFactory({ variant })` builds a plugin instance for one builder variant; it loads the Powerlines configuration, resolves the plugin configuration, and runs the build hooks (`buildStart`, `resolveId`, `load`, `transform`, `writeBundle`).
+- One adapter subpath per builder: `vite`, `rollup`, `rolldown`, `esbuild`, `webpack`, `rspack`, `farm`, `tsup`, `tsdown`, `astro`, `nuxt`, `next`, and `unloader`, plus the raw factory adapter under `@powerlines/unplugin/unplugin`.
+- ESM (`.mjs`) and CJS (`.cjs`) builds under `dist`.
+
+## Usage
+
+Pick the adapter subpath for your builder. This example uses Vite:
+
+```ts
+import { createUnpluginFactory } from "@powerlines/unplugin/unplugin";
+import vite from "@powerlines/unplugin/vite";
+
+const factory = createUnpluginFactory({ variant: "vite" });
+
+export default vite(factory);
+```
+
+The plugin runs the Powerlines pipeline inside the host build: it prepares environments, resolves entry files, calls plugin hooks in `pre` / `normal` / `post` order, and finalizes output in `writeBundle`. An invalid `variant` throws an error listing the valid builder variants. Install the peer package for each builder you use (for example `vite >=8.1.0`).
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -121,7 +142,7 @@ Run `nx build unplugin` to build the library.
 ### Running unit tests
 
 Run `nx test unplugin` to execute the unit tests via
-[Jest](https://jestjs.io).
+[Vitest](https://vitest.dev).
 
 ### Linting
 

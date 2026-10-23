@@ -74,6 +74,45 @@ A package containing the [Tamagui](https://tamagui.dev/) plugin for Powerlines.
 
 <!-- END doctoc -->
 
+## Features
+
+- Compiles [Tamagui](https://tamagui.dev/) components for Powerlines projects
+- Supplies default Tamagui configuration through the `config` hook
+- Targets the `web` platform by default, with `native` available
+- Resolves platform and component paths through the `configResolved` hook
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-tamagui
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as tamagui } from "@powerlines/plugin-tamagui";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [tamagui()]
+});
+```
+
+To target native with explicit component paths:
+
+```ts
+export default defineConfig({
+  plugins: [
+    tamagui({
+      platform: "native",
+      components: ["{root}/src/components"]
+    })
+  ]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

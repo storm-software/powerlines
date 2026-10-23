@@ -74,6 +74,44 @@ A package containing the TypeScript compiler plugin for Powerlines, various help
 
 <!-- END doctoc -->
 
+## Features
+
+- Transpiles TypeScript through the `config` hook and type-checks through the `lint` hook
+- Requires `typeCheck` to be enabled
+- Supports limiting processed files with a `filter` (for example `/\.ts$/`)
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-tsc
+```
+
+Register it in `powerlines.config.ts` (`typeCheck` is required):
+
+```ts
+import { plugin as tsc } from "@powerlines/plugin-tsc";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [tsc({ typeCheck: true })]
+});
+```
+
+Run the lint command to type-check the codebase. To limit processed files:
+
+```ts
+export default defineConfig({
+  plugins: [
+    tsc({
+      typeCheck: true,
+      filter: { id: /\.ts$/ }
+    })
+  ]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

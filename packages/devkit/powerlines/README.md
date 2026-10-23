@@ -53,6 +53,39 @@ This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "
 
 A build toolkit and runtime used by Storm Software in TypeScript applications
 
+## Quick Features
+
+- Type-safe project configuration with `defineConfig` (`powerlines/config`).
+- Engine facade (`powerlines/engine`) exposing `createPowerlines` and per-command methods (`prepare`, `build`, `lint`, `test`, `docs`, `deploy`, and more).
+- Bundler adapters re-exporting `@powerlines/unplugin`: `powerlines/vite`, `powerlines/rollup`, `powerlines/rolldown`, `powerlines/esbuild`, `powerlines/webpack`, `powerlines/rspack`, `powerlines/farm`, `powerlines/tsup`, `powerlines/tsdown`, `powerlines/astro`, `powerlines/nuxt`, `powerlines/next`, and `powerlines/unplugin`.
+- ESM (`dist/index.mjs`) and CJS (`dist/index.cjs`) builds through the `exports` map.
+
+## Usage
+
+Create a `powerlines.config.ts` in the project root:
+
+```ts
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  input: "src/index.ts",
+  output: {
+    path: "dist"
+  }
+});
+```
+
+Run a command through the engine:
+
+```ts
+import { createPowerlines } from "powerlines/engine";
+
+const engine = await createPowerlines({ cwd: process.cwd() });
+await engine.prepare({ command: "prepare", root: process.cwd() });
+await engine.build({ command: "build", root: process.cwd() });
+await engine.finalize();
+```
+
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -116,7 +149,7 @@ commands are available to assist in development.
 
 ### Building
 
-Run `nx build core` to build the library.
+Run `nx build powerlines` to build the library.
 
 ### Running unit tests
 
@@ -124,7 +157,7 @@ Run `nx test powerlines` to execute the unit tests via [Vitest](https://vitest.d
 
 ### Linting
 
-Run `nx lint core` to run [ESLint](https://eslint.org/) on the package.
+Run `nx lint powerlines` to run [ESLint](https://eslint.org/) on the package.
 
 <!-- START footer -->
 <!-- prettier-ignore-start -->

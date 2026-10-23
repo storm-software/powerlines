@@ -74,6 +74,43 @@ A Powerlines plugin to transform project code with [SWC](https://swc.rs/).
 
 <!-- END doctoc -->
 
+## Features
+
+- Transforms project code with [SWC](https://swc.rs/)
+- Supplies default SWC transform configuration through the `config` hook
+- Accepts SWC options such as `jsc.target`
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-swc
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as swc } from "@powerlines/plugin-swc";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [swc()]
+});
+```
+
+The plugin transforms code with SWC once registered. To pass transform options:
+
+```ts
+export default defineConfig({
+  plugins: [
+    swc({
+      jsc: { target: "es2022" }
+    })
+  ]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

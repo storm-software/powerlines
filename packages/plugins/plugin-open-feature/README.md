@@ -74,6 +74,36 @@ A package containing a Powerlines plugin for managing Open Feature feature flags
 
 <!-- END doctoc -->
 
+## Features
+
+- Registers an OpenFeature provider map for the project at runtime.
+- Evaluates feature flags through the OpenFeature SDK.
+- Ships shared components for feature-flagged projects.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-open-feature
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as openFeature } from "@powerlines/plugin-open-feature";
+
+export default defineConfig({
+  plugins: [openFeature()],
+  openFeature: {
+    providers: new Map()
+  }
+});
+```
+
+Then run the Powerlines build for your project.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

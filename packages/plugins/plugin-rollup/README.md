@@ -74,6 +74,34 @@ A Powerlines plugin to assist in building projects with [Rollup](https://rollupj
 
 <!-- END doctoc -->
 
+## Features
+
+- Bundles projects with [Rollup](https://rollupjs.org/).
+- Defines bundle behavior fully through the underlying Rollup options.
+- Ships helpers (e.g. option resolution) for plugin development.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-rollup
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as rollup } from "@powerlines/plugin-rollup";
+
+export default defineConfig({
+  plugins: [rollup()],
+  rollup: {}
+});
+```
+
+Then run the Powerlines build for your project and check the output directory for the bundle.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

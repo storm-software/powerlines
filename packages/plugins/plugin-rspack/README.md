@@ -74,6 +74,40 @@ A package containing a Powerlines plugin to build projects using [Rspack](https:
 
 <!-- END doctoc -->
 
+## Features
+
+- Builds Powerlines projects with [Rspack](https://rspack.rs)
+- Supplies default Rspack build configuration through the `config` hook
+- Runs the Rspack build through the `build` hook
+- Accepts `Partial<RspackOptions>`, which wraps the Rspack `Configuration` type
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-rspack
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as rspack } from "@powerlines/plugin-rspack";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [rspack()]
+});
+```
+
+Run the build with the Powerlines CLI. To pass options inline:
+
+```ts
+export default defineConfig({
+  plugins: [rspack({ mode: "production" })]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

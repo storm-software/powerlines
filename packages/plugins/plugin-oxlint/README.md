@@ -74,6 +74,38 @@ A package containing a Powerlines plugin that integrates Oxlint into the Powerli
 
 <!-- END doctoc -->
 
+## Features
+
+- Runs Oxlint on the codebase through the Powerlines linting process.
+- Supports `deny` and `warn` rule lists; denied rules fail the lint run.
+- Lints TypeScript source automatically once registered.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-oxlint
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as oxlint } from "@powerlines/plugin-oxlint";
+
+export default defineConfig({
+  plugins: [oxlint({ deny: ["no-debugger"] })],
+  oxlint: { deny: ["no-debugger"], warn: ["no-console"] }
+});
+```
+
+Then run the linter:
+
+```bash
+powerlines lint
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

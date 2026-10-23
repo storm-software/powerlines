@@ -81,6 +81,38 @@ The noble packages used can be found below:
 
 <!-- END doctoc -->
 
+## Features
+
+- Adds the `crypto` builtin module for runtime cryptography (audited `@noble/ciphers` + `@noble/hashes`)
+- Composes the `env` plugin; resolved config requires both `salt` and `encryptionKey`
+- Pins the noble packages as dependencies and renders the `CryptoBuiltin` module during `prepare`
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-crypto
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as crypto } from "@powerlines/plugin-crypto";
+
+export default defineConfig({
+  plugins: [
+    crypto({
+    salt: process.env.SALT,
+    encryptionKey: process.env.ENCRYPTION_KEY
+  })
+  ]
+});
+```
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

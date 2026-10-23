@@ -49,9 +49,9 @@ This package is part of the <b>🔌 Powerlines</b> monorepo. Powerlines is the "
 
 <!-- END header -->
 
-# Powerlines - Plugin Plugin
+# Powerlines - Vite Plugin
 
-A package containing a Powerlines plugin to assist in developing other Powerlines plugins.
+A package containing a Powerlines plugin to build projects using [Vite](https://vite.dev/).
 
 <!-- START doctoc -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -74,19 +74,53 @@ A package containing a Powerlines plugin to assist in developing other Powerline
 
 <!-- END doctoc -->
 
+## Features
+
+- Runs [Vite](https://vite.dev/) builds on Powerlines projects
+- Supplies default Vite build configuration through the `config` hook
+- Runs the Vite build through the `build` hook
+- Accepts `Partial<ViteOptions>` (for example `singleBuild: true`)
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-vite
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as vite } from "@powerlines/plugin-vite";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [vite()]
+});
+```
+
+Run the build with the Powerlines CLI. To pass options inline:
+
+```ts
+export default defineConfig({
+  plugins: [vite({ singleBuild: true })]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):
 
 ```bash
-pnpm add @powerlines/plugin-plugin
+pnpm add @powerlines/plugin-vite
 ```
 
 <details>
   <summary>Using npm</summary>
 
 ```bash
-npm install @powerlines/plugin-plugin
+npm install @powerlines/plugin-vite
 ```
 
 </details>
@@ -95,7 +129,7 @@ npm install @powerlines/plugin-plugin
   <summary>Using yarn</summary>
 
 ```bash
-yarn add @powerlines/plugin-plugin
+yarn add @powerlines/plugin-vite
 ```
 
 </details>
@@ -114,16 +148,16 @@ commands are available to assist in development.
 
 ### Building
 
-Run `nx build plugin-plugin` to build the library.
+Run `nx build plugin-vite` to build the library.
 
 ### Running unit tests
 
-Run `nx test plugin-plugin` to execute the unit tests via
+Run `nx test plugin-vite` to execute the unit tests via
 [Jest](https://jestjs.io).
 
 ### Linting
 
-Run `nx lint plugin-plugin` to run
+Run `nx lint plugin-vite` to run
 [ESLint](https://eslint.org/) on the package.
 
 <!-- START footer -->

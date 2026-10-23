@@ -74,6 +74,40 @@ A Powerlines plugin to generate project code with [AsyncAPI](https://www.asyncap
 
 <!-- END doctoc -->
 
+## Features
+
+- Generates project code from AsyncAPI specifications (schema file or URL)
+- Renders output with a configurable AsyncAPI template into a token-expanded output path
+- Loads the schema document at `configResolved` and delegates generation to the Power Plant plugin
+- Typed options via `./types/plugin` (`AsyncAPIPluginOptions`, user/resolved config, context)
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-asyncapi
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as asyncapi } from "@powerlines/plugin-asyncapi";
+
+export default defineConfig({
+  plugins: [
+    asyncapi({
+    schema: "./schema.yaml",
+    templateName: "@asyncapi/html-template",
+    outputPath: "{builtinPath}/asyncapi"
+  })
+  ]
+});
+```
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

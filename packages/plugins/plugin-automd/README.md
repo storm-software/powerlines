@@ -74,6 +74,37 @@ A Powerlines plugin to generate project code with [AutoMD](https://automd.unjs.i
 
 <!-- END doctoc -->
 
+## Features
+
+- Maintains project Markdown files with AutoMD generators during the prepare task
+- Supports `configFile`, issue handling, and TOC generation (`./types/toc` `TOCOptions`)
+- Appends the framework name to `prefix` and merges config-file settings at `configResolved`
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-automd
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as automd } from "@powerlines/plugin-automd";
+
+export default defineConfig({
+  plugins: [
+    automd({
+    input: "README.md"
+  })
+  ]
+});
+```
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

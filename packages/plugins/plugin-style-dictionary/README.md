@@ -74,6 +74,44 @@ A Powerlines plugin to generate project code with [Style Dictionary](https://amz
 
 <!-- END doctoc -->
 
+## Features
+
+- Generates project code and design tokens with [Style Dictionary](https://amzn.github.io/style-dictionary/#/)
+- Uses token sources from the Style Dictionary `source` / `include` paths with no options needed
+- Accepts tokens passed directly via the `tokens` option
+- Runs during the `prepare` command, or manually with `skipBuild: true`
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-style-dictionary
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as styleDictionary } from "@powerlines/plugin-style-dictionary";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [styleDictionary()]
+});
+```
+
+Run the `prepare` command to build the tokens. To pass tokens directly:
+
+```ts
+export default defineConfig({
+  plugins: [
+    styleDictionary({
+      tokens: { color: { brand: { value: "#1fb2a6" } } }
+    })
+  ]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

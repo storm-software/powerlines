@@ -76,6 +76,35 @@ A package containing a Powerlines plugin for integrating with [N-API Rust](https
 
 <!-- END doctoc -->
 
+## Features
+
+- Builds the project's Rust crate through the N-API CLI.
+- Writes the generated bindings to the configured output directory.
+- Supports options such as `binaryName` and `release`.
+- Ships helper utilities (e.g. path formatting) for native modules.
+
+## Usage
+
+Install the package:
+
+```bash
+pnpm add @powerlines/plugin-napi-rs
+```
+
+Register the plugin in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines/config";
+import { plugin as napi } from "@powerlines/plugin-napi-rs";
+
+export default defineConfig({
+  plugins: [napi({ binaryName: "my-addon", release: true })],
+  napi: { binaryName: "my-addon", release: true }
+});
+```
+
+Then run the Powerlines build for your project.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

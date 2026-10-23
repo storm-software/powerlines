@@ -74,6 +74,45 @@ A package containing a Powerlines plugin that integrates TypeDoc into the Powerl
 
 <!-- END doctoc -->
 
+## Features
+
+- Generates API documentation with [TypeDoc](https://typedoc.org/)
+- Writes output to `docs/generated/api-reference` by default
+- Supports a custom `outputPath` and `basePath`
+- Resolves output settings through the `configResolved` hook
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-typedoc
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { plugin as typedoc } from "@powerlines/plugin-typedoc";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [typedoc()]
+});
+```
+
+Generate documentation with the docs command. To change the output path:
+
+```ts
+export default defineConfig({
+  plugins: [
+    typedoc({
+      outputPath: "docs/api",
+      basePath: "/docs/"
+    })
+  ]
+});
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

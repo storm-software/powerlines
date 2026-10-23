@@ -74,6 +74,38 @@ A Powerlines plugin to add imports to source code automatically via [unimport](h
 
 <!-- END doctoc -->
 
+## Features
+
+- Adds missing imports to source code automatically with [unimport](https://unjs.io/packages/unimport)
+- Requires `presets` to define the auto-import sources
+- Resolves presets and import scanning through the `config` and `configResolved` hooks
+- Supports opting a file out with the `// @unimport-disable` magic comment
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-unimport
+```
+
+Register it in `powerlines.config.ts` (`presets` is required):
+
+```ts
+import { plugin as unimport } from "@powerlines/plugin-unimport";
+import { defineConfig } from "powerlines/config";
+
+export default defineConfig({
+  plugins: [unimport({ presets: [] })]
+});
+```
+
+The plugin adds missing imports to source code once registered. To skip a file, add:
+
+```ts
+// @unimport-disable
+```
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

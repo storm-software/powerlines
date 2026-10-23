@@ -74,6 +74,41 @@ A Powerlines plugin that assists in deployments to Cloudflare and provides runti
 
 <!-- END doctoc -->
 
+## Features
+
+- Deploys to Cloudflare and adds the `cloudflare` builtin module at runtime
+- Composes the `unenv` and Pulumi plugins; resolves entries to Worker modules at `build` (`pre`)
+- Exposes `cloudflare.wrangler` and `cloudflare.workers` context plus worker/entry/env-builtin components
+- Wrangler helpers under `./helpers/wrangler` and worker-module types under `./types/*`
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-cloudflare
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as cloudflare } from "@powerlines/plugin-cloudflare";
+
+export default defineConfig({
+  plugins: [
+    cloudflare({
+    accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
+    configPath: "./wrangler.toml"
+  })
+  ]
+});
+```
+
+Requires peers `wrangler`, `@cloudflare/unenv-preset`, `@cloudflare/workers-types`, and `zod`, installed by the consumer.
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

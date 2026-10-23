@@ -74,6 +74,35 @@ A package containing the Deepkit plugin for Powerlines, various helper utilities
 
 <!-- END doctoc -->
 
+## Features
+
+- Deepkit runtime-type transform wired through `config` and `configResolved` (`post`) hooks
+- Composes the `tsc` plugin, pushing the Deepkit `transformer` to `before` and the declaration transformer to `after`
+- Marks `@power-plant/schema/deepkit` external; resolved config exposes both `deepkit` and `tsc` sections
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-deepkit
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as deepkit } from "@powerlines/plugin-deepkit";
+
+export default defineConfig({
+  plugins: [
+    deepkit()
+  ]
+});
+```
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):

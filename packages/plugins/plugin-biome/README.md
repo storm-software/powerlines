@@ -74,6 +74,40 @@ A package containing a Powerlines plugin that integrates Biome into the Powerlin
 
 <!-- END doctoc -->
 
+## Features
+
+- Runs Biome linting on TypeScript source through the `lint` hook
+- Supports a custom config file and autofix; log level follows the Powerlines log level
+- Fails fast at `config` time when no Biome config file exists and none is given
+
+## Usage
+
+Install the plugin:
+
+```bash
+pnpm add @powerlines/plugin-biome
+```
+
+Register it in `powerlines.config.ts`:
+
+```ts
+import { defineConfig } from "powerlines";
+import { plugin as biome } from "@powerlines/plugin-biome";
+
+export default defineConfig({
+  plugins: [
+    biome({
+    configFile: "./biome.json",
+    fix: true
+  })
+  ]
+});
+```
+
+Requires peer `@biomejs/biome >= 2.0.0`, installed by the consumer.
+
+Run the Powerlines build for your project to activate the plugin.
+
 ## Installing
 
 Using [pnpm](http://pnpm.io):
