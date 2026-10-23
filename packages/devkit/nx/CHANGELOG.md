@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.257](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.257) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.217**
+
 ## [0.13.256](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.256) (10/23/2026)
 
 ### Updated Dependencies

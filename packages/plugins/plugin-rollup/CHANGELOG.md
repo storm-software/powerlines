@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rollup
 
+## [0.7.672](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.672) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.136**
+- Updated **powerlines** to **v0.47.217**
+- Updated **unplugin** to **v0.0.184**
+
 ## [0.7.671](https://github.com/storm-software/powerlines/releases/tag/plugin-rollup%400.7.671) (10/23/2026)
 
 ### Updated Dependencies

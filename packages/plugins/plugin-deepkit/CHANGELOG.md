@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.561](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.561) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.630**
+- Updated **plugin-tsc** to **v0.3.215**
+- Updated **powerlines** to **v0.47.217**
+
 ## [0.11.560](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.560) (10/23/2026)
 
 ### Updated Dependencies

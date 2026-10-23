@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.260](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.260) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
 ## [0.4.257](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.257) (09/17/2026)
 
 ### Miscellaneous

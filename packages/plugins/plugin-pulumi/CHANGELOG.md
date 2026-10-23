@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Pulumi
 
+## [0.6.320](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.320) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.630**
+- Updated **powerlines** to **v0.47.217**
+
 ## [0.6.319](https://github.com/storm-software/powerlines/releases/tag/plugin-pulumi%400.6.319) (10/23/2026)
 
 ### Updated Dependencies

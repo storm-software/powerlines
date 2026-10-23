@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.208](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.208) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
 ## [0.2.205](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.205) (09/17/2026)
 
 ### Miscellaneous

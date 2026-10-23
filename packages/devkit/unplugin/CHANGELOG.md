@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.184](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.184) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.136**
+
 ## [0.0.183](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.183) (10/23/2026)
 
 ### Bug Fixes

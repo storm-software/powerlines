@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Openapi
 
+## [0.2.684](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.684) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.630**
+- Updated **plugin-power-plant** to **v0.1.74**
+- Updated **powerlines** to **v0.47.217**
+
 ## [0.2.683](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.683) (10/23/2026)
 
 ### Updated Dependencies

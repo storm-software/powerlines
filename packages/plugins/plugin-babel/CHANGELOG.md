@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.214](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.214) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.136**
+- Updated **powerlines** to **v0.47.217**
+
 ## [0.13.213](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.213) (10/23/2026)
 
 ### Updated Dependencies

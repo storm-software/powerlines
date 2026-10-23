@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Power Plant
 
+## [0.1.74](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.74) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.136**
+- Updated **plugin-babel** to **v0.13.214**
+- Updated **plugin-plugin** to **v0.12.630**
+- Updated **powerlines** to **v0.47.217**
+- Updated **unplugin** to **v0.0.184**
+
 ## [0.1.73](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.73) (10/23/2026)
 
 ### Updated Dependencies

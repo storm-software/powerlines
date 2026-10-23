@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Capnp
 
+## [0.1.682](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.682) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.630**
+- Updated **powerlines** to **v0.47.217**
+
 ## [0.1.681](https://github.com/storm-software/powerlines/releases/tag/plugin-capnp%400.1.681) (10/23/2026)
 
 ### Updated Dependencies

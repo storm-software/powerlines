@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Rspack
 
+## [0.5.669](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.669) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.136**
+- Updated **powerlines** to **v0.47.217**
+- Updated **unplugin** to **v0.0.184**
+
 ## [0.5.668](https://github.com/storm-software/powerlines/releases/tag/plugin-rspack%400.5.668) (10/23/2026)
 
 ### Updated Dependencies

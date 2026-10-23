@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Open Feature
 
+## [0.1.320](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.320) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.315**
+- Updated **plugin-automd** to **v0.1.679**
+- Updated **plugin-babel** to **v0.13.214**
+- Updated **plugin-plugin** to **v0.12.630**
+- Updated **powerlines** to **v0.47.217**
+
 ## [0.1.319](https://github.com/storm-software/powerlines/releases/tag/plugin-open-feature%400.1.319) (10/23/2026)
 
 ### Updated Dependencies

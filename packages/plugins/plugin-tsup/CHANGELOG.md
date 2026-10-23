@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.674](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.674) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.136**
+- Updated **powerlines** to **v0.47.217**
+- Updated **unplugin** to **v0.0.184**
+
 ## [0.12.673](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.673) (10/23/2026)
 
 ### Updated Dependencies

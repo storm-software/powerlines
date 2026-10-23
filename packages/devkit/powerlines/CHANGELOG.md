@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Powerlines
 
+## [0.47.217](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.217) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.136**
+- Updated **engine** to **v0.49.138**
+- Updated **unplugin** to **v0.0.184**
+
 ## [0.47.216](https://github.com/storm-software/powerlines/releases/tag/powerlines%400.47.216) (10/23/2026)
 
 ### Updated Dependencies

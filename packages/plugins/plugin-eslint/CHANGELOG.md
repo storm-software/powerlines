@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin ESLint
 
+## [0.8.683](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.683) (10/23/2026)
+
+### Miscellaneous
+
+- **monorepo:** Added `sourcebook` devenv modules and generated documentation ([60dd75f53](https://github.com/storm-software/powerlines/commit/60dd75f53))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.630**
+- Updated **powerlines** to **v0.47.217**
+
 ## [0.8.682](https://github.com/storm-software/powerlines/releases/tag/plugin-eslint%400.8.682) (10/23/2026)
 
 ### Updated Dependencies
