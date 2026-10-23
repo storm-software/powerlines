@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Unplugin
 
+## [0.0.182](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.182) (10/23/2026)
+
+### Bug Fixes
+
+- **unplugin:** Resolve issue passing bundle options to `tsdown` build ([46160fd5b](https://github.com/storm-software/powerlines/commit/46160fd5b))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.134**
+
 ## [0.0.181](https://github.com/storm-software/powerlines/releases/tag/unplugin%400.0.181) (10/05/2026)
 
 ### Updated Dependencies
