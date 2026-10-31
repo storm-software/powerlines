@@ -170,21 +170,25 @@ export const envSchema = z
     MINIMAL: z.boolean().meta({
       description:
         "An indicator that specifies the current runtime is a minimal environment.",
+      runtime: true,
       category: "node"
     }),
     NO_COLOR: z.boolean().meta({
       description:
         "An indicator that specifies the current runtime is a no color environment.",
+      runtime: true,
       category: "node"
     }),
     FORCE_COLOR: BooleanOrNumberSchema.meta({
       description:
         "An indicator that specifies the current runtime is a force color environment.",
+      runtime: true,
       category: "node"
     }),
     FORCE_HYPERLINK: BooleanOrNumberSchema.meta({
       description:
         "An indicator that specifies the current runtime should force hyperlinks in terminal output. This variable is used to force hyperlinks in terminal output, even if the terminal does not support them. This is useful for debugging and development purposes.",
+      runtime: true,
       category: "node"
     }),
     AGENT_NAME: z.string().optional().meta({
@@ -310,6 +314,7 @@ export const envSchema = z
       description:
         "An indicator that specifies the current runtime is a continuous integration environment.",
       alias: ["CONTINUOUS_INTEGRATION"],
+      runtime: true,
       category: "neutral"
     }),
     RUN_ID: z.string().optional().meta({
