@@ -447,6 +447,8 @@ export async function emitBuiltinTypes<TContext extends Context>(
       emitDeclarationOnly: true,
       sourceMap: false,
       outDir: replacePath(context.builtinsPath, context.config.cwd),
+      // Pin to the builtins dir: a project `rootDir` (e.g. ".") would nest emitted files under `outDir/.powerlines/builtins/`, so no emitted file maps back to a builtin
+      rootDir: context.builtinsPath,
       composite: false,
       incremental: false,
       tsBuildInfoFile: undefined
