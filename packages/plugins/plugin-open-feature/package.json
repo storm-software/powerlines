@@ -149,7 +149,9 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "dependencies": {
     "@alloy-js/core": "catalog:",
     "@alloy-js/json": "catalog:",
@@ -159,8 +161,8 @@
     "@openfeature/server-sdk": "catalog:",
     "@power-plant/alloy-js": "catalog:",
     "@powerlines/plugin-alloy": "workspace:*",
-    "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/plugin-automd": "workspace:*",
+    "@powerlines/plugin-babel": "workspace:*",
     "@storm-software/config-tools": "catalog:",
     "@stryke/convert": "catalog:",
     "@stryke/env": "catalog:",

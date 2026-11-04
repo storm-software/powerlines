@@ -124,7 +124,9 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@powerlines/core": "workspace:*",
     "@storm-software/config": "catalog:",

@@ -86,8 +86,14 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist"],
-  "keywords": ["untyped", "powerlines", "powerlines-plugin"],
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "untyped",
+    "powerlines",
+    "powerlines-plugin"
+  ],
   "dependencies": {
     "@storm-software/untyped": "catalog:",
     "@stryke/convert": "catalog:",

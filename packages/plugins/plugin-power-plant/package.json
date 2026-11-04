@@ -128,7 +128,9 @@
     }
   },
   "typings": "dist/index.d.mts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "keywords": [
     "power-plant",
     "powerlines",
@@ -136,11 +138,11 @@
     "powerlines-plugin"
   ],
   "dependencies": {
+    "@power-plant/core": "catalog:",
+    "@power-plant/schema": "catalog:",
     "@powerlines/core": "workspace:*",
     "@powerlines/plugin-babel": "workspace:*",
     "@powerlines/unplugin": "workspace:*",
-    "@power-plant/core": "catalog:",
-    "@power-plant/schema": "catalog:",
     "@stryke/string-format": "catalog:",
     "@stryke/type-checks": "catalog:",
     "powerlines": "workspace:*",
