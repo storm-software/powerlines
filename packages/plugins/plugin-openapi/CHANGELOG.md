@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Openapi
 
+## [0.2.686](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.686) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.632**
+- Updated **plugin-power-plant** to **v0.1.76**
+- Updated **powerlines** to **v0.47.219**
+
 ## [0.2.685](https://github.com/storm-software/powerlines/releases/tag/plugin-openapi%400.2.685) (10/31/2026)
 
 ### Updated Dependencies

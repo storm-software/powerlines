@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Engine
 
+## [0.49.140](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.140) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.138**
+
 ## [0.49.139](https://github.com/storm-software/powerlines/releases/tag/engine%400.49.139) (10/31/2026)
 
 ### Updated Dependencies

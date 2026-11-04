@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Untyped
 
+## [0.2.635](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.635) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.632**
+- Updated **powerlines** to **v0.47.219**
+
 ## [0.2.634](https://github.com/storm-software/powerlines/releases/tag/plugin-untyped%400.2.634) (10/31/2026)
 
 ### Updated Dependencies

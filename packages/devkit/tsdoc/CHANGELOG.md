@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsdoc
 
+## [0.2.210](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.210) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
 ## [0.2.208](https://github.com/storm-software/powerlines/releases/tag/tsdoc%400.2.208) (10/23/2026)
 
 ### Miscellaneous

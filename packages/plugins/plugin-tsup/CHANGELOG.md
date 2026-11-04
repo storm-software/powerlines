@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsup
 
+## [0.12.676](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.676) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.138**
+- Updated **powerlines** to **v0.47.219**
+- Updated **unplugin** to **v0.0.186**
+
 ## [0.12.675](https://github.com/storm-software/powerlines/releases/tag/plugin-tsup%400.12.675) (10/31/2026)
 
 ### Updated Dependencies

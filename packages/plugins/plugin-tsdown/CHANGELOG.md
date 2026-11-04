@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Tsdown
 
+## [0.1.620](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.620) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.138**
+- Updated **powerlines** to **v0.47.219**
+- Updated **unplugin** to **v0.0.186**
+
 ## [0.1.619](https://github.com/storm-software/powerlines/releases/tag/plugin-tsdown%400.1.619) (10/31/2026)
 
 ### Updated Dependencies

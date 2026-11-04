@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Typedoc
 
+## [0.10.689](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.689) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.632**
+- Updated **powerlines** to **v0.47.219**
+
 ## [0.10.688](https://github.com/storm-software/powerlines/releases/tag/plugin-typedoc%400.10.688) (10/31/2026)
 
 ### Updated Dependencies

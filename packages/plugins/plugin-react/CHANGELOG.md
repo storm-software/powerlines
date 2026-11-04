@@ -2,6 +2,22 @@
 
 # Changelog for Powerlines - Plugin React
 
+## [0.1.763](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.763) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.138**
+- Updated **plugin-alloy** to **v0.26.317**
+- Updated **plugin-babel** to **v0.13.216**
+- Updated **plugin-env** to **v0.16.428**
+- Updated **plugin-plugin** to **v0.12.632**
+- Updated **plugin-vite** to **v0.14.673**
+- Updated **powerlines** to **v0.47.219**
+
 ## [0.1.762](https://github.com/storm-software/powerlines/releases/tag/plugin-react%400.1.762) (10/31/2026)
 
 ### Updated Dependencies

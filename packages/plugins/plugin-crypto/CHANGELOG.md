@@ -2,6 +2,19 @@
 
 # Changelog for Powerlines - Plugin Crypto
 
+## [0.10.737](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.737) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.317**
+- Updated **plugin-env** to **v0.16.428**
+- Updated **plugin-plugin** to **v0.12.632**
+- Updated **powerlines** to **v0.47.219**
+
 ## [0.10.736](https://github.com/storm-software/powerlines/releases/tag/plugin-crypto%400.10.736) (10/31/2026)
 
 ### Updated Dependencies

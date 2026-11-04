@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Marked
 
+## [0.1.646](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.646) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.632**
+- Updated **powerlines** to **v0.47.219**
+
 ## [0.1.645](https://github.com/storm-software/powerlines/releases/tag/plugin-marked%400.1.645) (10/31/2026)
 
 ### Updated Dependencies

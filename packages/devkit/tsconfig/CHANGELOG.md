@@ -2,6 +2,12 @@
 
 # Changelog for Powerlines - Tsconfig
 
+## [0.4.262](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.262) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
 ## [0.4.260](https://github.com/storm-software/powerlines/releases/tag/tsconfig%400.4.260) (10/23/2026)
 
 ### Miscellaneous

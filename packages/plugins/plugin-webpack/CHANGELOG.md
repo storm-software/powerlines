@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Webpack
 
+## [0.5.671](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.671) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.138**
+- Updated **powerlines** to **v0.47.219**
+- Updated **unplugin** to **v0.0.186**
+
 ## [0.5.670](https://github.com/storm-software/powerlines/releases/tag/plugin-webpack%400.5.670) (10/31/2026)
 
 ### Updated Dependencies

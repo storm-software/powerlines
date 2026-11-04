@@ -2,6 +2,21 @@
 
 # Changelog for Powerlines - Plugin Cloudflare
 
+## [0.6.327](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.327) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **plugin-alloy** to **v0.26.317**
+- Updated **plugin-env** to **v0.16.428**
+- Updated **plugin-plugin** to **v0.12.632**
+- Updated **plugin-pulumi** to **v0.6.322**
+- Updated **plugin-unenv** to **v0.1.670**
+- Updated **powerlines** to **v0.47.219**
+
 ## [0.6.326](https://github.com/storm-software/powerlines/releases/tag/plugin-cloudflare%400.6.326) (10/31/2026)
 
 ### Updated Dependencies

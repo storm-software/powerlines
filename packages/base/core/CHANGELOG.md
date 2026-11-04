@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Core
 
+## [0.48.138](https://github.com/storm-software/powerlines/releases/tag/core%400.48.138) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Bug Fixes
+
+- **core:** Resolve issue generating types for child workspace folders ([61b262f52](https://github.com/storm-software/powerlines/commit/61b262f52))
+
 ## [0.48.136](https://github.com/storm-software/powerlines/releases/tag/core%400.48.136) (10/23/2026)
 
 ### Miscellaneous

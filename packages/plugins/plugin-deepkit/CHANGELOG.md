@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Deepkit
 
+## [0.11.563](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.563) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.632**
+- Updated **plugin-tsc** to **v0.3.217**
+- Updated **powerlines** to **v0.47.219**
+
 ## [0.11.562](https://github.com/storm-software/powerlines/releases/tag/plugin-deepkit%400.11.562) (10/31/2026)
 
 ### Updated Dependencies

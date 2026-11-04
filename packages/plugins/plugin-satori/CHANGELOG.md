@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Satori
 
+## [0.1.680](https://github.com/storm-software/powerlines/releases/tag/plugin-satori%400.1.680) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.632**
+- Updated **powerlines** to **v0.47.219**
+
 ## [0.1.679](https://github.com/storm-software/powerlines/releases/tag/plugin-satori%400.1.679) (10/31/2026)
 
 ### Updated Dependencies

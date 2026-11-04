@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Oxc Transform
 
+## [0.5.690](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.690) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.632**
+- Updated **powerlines** to **v0.47.219**
+
 ## [0.5.689](https://github.com/storm-software/powerlines/releases/tag/plugin-oxc-transform%400.5.689) (10/31/2026)
 
 ### Updated Dependencies

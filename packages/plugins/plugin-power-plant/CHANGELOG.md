@@ -2,6 +2,20 @@
 
 # Changelog for Powerlines - Plugin Power Plant
 
+## [0.1.76](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.76) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.138**
+- Updated **plugin-babel** to **v0.13.216**
+- Updated **plugin-plugin** to **v0.12.632**
+- Updated **powerlines** to **v0.47.219**
+- Updated **unplugin** to **v0.0.186**
+
 ## [0.1.75](https://github.com/storm-software/powerlines/releases/tag/plugin-power-plant%400.1.75) (10/31/2026)
 
 ### Updated Dependencies

@@ -2,6 +2,16 @@
 
 # Changelog for Powerlines - Nx
 
+## [0.13.259](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.259) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **powerlines** to **v0.47.219**
+
 ## [0.13.258](https://github.com/storm-software/powerlines/releases/tag/nx%400.13.258) (10/31/2026)
 
 ### Updated Dependencies

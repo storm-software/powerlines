@@ -2,6 +2,18 @@
 
 # Changelog for Powerlines - Plugin Graphql
 
+## [0.1.682](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.682) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **plugin-plugin** to **v0.12.632**
+- Updated **plugin-power-plant** to **v0.1.76**
+- Updated **powerlines** to **v0.47.219**
+
 ## [0.1.681](https://github.com/storm-software/powerlines/releases/tag/plugin-graphql%400.1.681) (10/31/2026)
 
 ### Updated Dependencies

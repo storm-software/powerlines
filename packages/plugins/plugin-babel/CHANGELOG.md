@@ -2,6 +2,17 @@
 
 # Changelog for Powerlines - Plugin Babel
 
+## [0.13.216](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.216) (11/03/2026)
+
+### Miscellaneous
+
+- **monorepo:** Run `lefthook` linting on workspace ([fb06543ed](https://github.com/storm-software/powerlines/commit/fb06543ed))
+
+### Updated Dependencies
+
+- Updated **core** to **v0.48.138**
+- Updated **powerlines** to **v0.47.219**
+
 ## [0.13.215](https://github.com/storm-software/powerlines/releases/tag/plugin-babel%400.13.215) (10/31/2026)
 
 ### Updated Dependencies
